@@ -168,19 +168,22 @@
   {
    "modulo": "gfx_peak",
    "archivo": "script_engine/gfx_peak.py",
-   "sticker": "El pico del capítulo: busca su frase y la palabra de más peso para el sello del pico; trae las piezas de oraciones y palabras que usan los demás.",
+   "sticker": "El pico del capítulo: busca su frase y la palabra de más peso para el sello del pico; trae las piezas de oraciones y palabras que usan los demás (desde F36 la palabra del momento vive en `clima`).",
    "recibe": "palabras con tiempos + léxico de moods",
    "entrega": "frase y palabra del pico, sello",
    "lo_llama": [
     "fase2b.py",
     "gfx_lab_server.py",
+    "script_engine/clima.py",
     "script_engine/gfx_critic.py",
     "script_engine/gfx_director.py",
     "script_engine/gfx_layer.py",
     "script_engine/gfx_pool.py",
-    "script_engine/gfx_rotulista.py"
+    "script_engine/rotulista_colocar.py",
+    "script_engine/voz_datos.py",
+    "script_engine/voz_utils.py"
    ],
-   "tests": 8,
+   "tests": 9,
    "lab": 3,
    "tanda": "F3",
    "nacio": "9d36be7 2026-10-20 feat(gfx-f3-lab): pico del cap — nivel de agua, reloj, zoom con latido, corte a negro",
@@ -198,9 +201,11 @@
     "script_engine/gfx_layer.py",
     "script_engine/gfx_peak.py",
     "script_engine/gfx_realizador.py",
-    "script_engine/gfx_rotulista.py",
     "script_engine/m01a_escaleta.py",
-    "script_engine/m01a_skeleton.py"
+    "script_engine/m01a_skeleton.py",
+    "script_engine/rotulista_colocar.py",
+    "script_engine/rotulista_filtros.py",
+    "script_engine/voz_datos.py"
    ],
    "tests": 4,
    "lab": 2,
@@ -217,13 +222,15 @@
    "entrega": "proyecto HyperFrames (index.html, CSS)",
    "lo_llama": [
     "gfx_lab_server.py",
+    "script_engine/clima.py",
     "script_engine/gfx_director.py",
     "script_engine/gfx_icons/demo.py",
     "script_engine/gfx_icons/strip.py",
     "script_engine/gfx_layer.py",
     "script_engine/gfx_pool.py",
-    "script_engine/gfx_rotulista.py",
-    "script_engine/gfx_sparse.py"
+    "script_engine/gfx_sparse.py",
+    "script_engine/rotulista_colocar.py",
+    "script_engine/rotulista_filtros.py"
    ],
    "tests": 27,
    "lab": 9,
@@ -258,10 +265,12 @@
    "lo_llama": [
     "script_engine/gfx_layer.py",
     "script_engine/gfx_pool.py",
-    "script_engine/gfx_rotulista.py"
+    "script_engine/gfx_rotulista.py",
+    "script_engine/rotulista_llm.py",
+    "script_engine/voz_datos.py"
    ],
    "tests": 3,
-   "lab": 0,
+   "lab": 1,
    "tanda": "F29",
    "nacio": "2fcd603 2026-10-25 feat(f29a): el gfx obedece a la escaleta — script_engine/gfx_realizador (ventanas por beat en la voz → gfx_beats_chNN.jso",
    "estado": "vivo",
@@ -287,16 +296,16 @@
   {
    "modulo": "gfx_rotulista",
    "archivo": "script_engine/gfx_rotulista.py",
-   "sticker": "El que escribe los textos de pantalla (Claude Sonnet): por beat, anclados a una palabra, con candado de lo literal, tiempo de lectura, spoiler y contradicción; los coloca como ficha, recorte, cita, lupa, agua o contador. Desde F34 reparte por oración en caps de una sola escena (información gana al clima), pone los sellos de CLIMA (Gemini elige del vocabulario del perfil, nunca la palabra de la voz), el reloj cuando la voz dice una fecha completa, el nivel de agua cuando dice una altura y la tarjeta fecha-hora del inicio.",
-   "recibe": "oraciones de la voz con tiempos, beats, datos del pool (en el gancho, todo el pool)",
-   "entrega": "bloques de texto y animaciones en el plan, filas de lo cortado y por qué",
+   "sticker": "La fachada del rotulista (desde F36 partido en cinco): prepara la entrada de cada cap y corre el rotulista de los 7 caps en paralelo antes del render; el resto lo re-exporta de sus módulos para que nadie cambie de import.",
+   "recibe": "plan de cada cap + topic",
+   "entrega": "rotulista en caché por cap (`rotulista_chNN.raw.json`)",
    "lo_llama": [
     "fase2b.py",
     "script_engine/gfx_guion.py",
     "script_engine/gfx_layer.py"
    ],
-   "tests": 5,
-   "lab": 5,
+   "tests": 6,
+   "lab": 6,
    "tanda": "F29b",
    "nacio": "5ae6177 2026-10-25 feat(f29b-a): el rotulista — el texto de pantalla lo escribe Claude, anclado a la oración (sin render; gfx_rules.rotulist",
    "estado": "vivo",
@@ -435,7 +444,7 @@
    "lo_llama": [
     "fase2b.py",
     "script_engine/gfx_realizador.py",
-    "script_engine/gfx_rotulista.py"
+    "script_engine/voz_datos.py"
    ],
    "tests": 2,
    "lab": 0,
@@ -461,6 +470,113 @@
    "doc": "modules/transition_applier.py — Aplicador FFmpeg de transiciones entre segmentos."
   },
   {
+   "modulo": "rotulista_llm",
+   "archivo": "script_engine/rotulista_llm.py",
+   "sticker": "El pedido al modelo que escribe los textos de pantalla (Claude Sonnet): arma la entrada del cap (oraciones con tiempos y palabra numerada, beats, datos del pool; en el gancho todo el pool), el prompt literal, la llamada con caché, el tope de US$ y un reintento.",
+   "recibe": "oraciones de la voz, beats, pool, escaleta",
+   "entrega": "respuesta cruda y validada por cap, ledger de costos",
+   "lo_llama": [
+    "script_engine/gfx_rotulista.py"
+   ],
+   "tests": 1,
+   "lab": 0,
+   "tanda": "F36 (código de F29b)",
+   "nacio": "(sin commit)",
+   "estado": "vivo",
+   "doc": "script_engine/rotulista_llm.py — F36 §A: el pedido al modelo del rotulista (movido de gfx_rotulista sin cambios): el prompt literal (`ROTULISTA_SYSTEM`/`ROTULISTA_USER`, `PROMPT_VERSION`, los de F29c/F32 para la historia), la entrada de un cap (`entrada`: oraciones, beats, ítems del cap y del gancho, lo ya mostrado, el pico), el texto del pedido (`prompt_user`) y la llamada (`llamar`: caché por pedido, ledger de costos, tope con las llamadas en vuelo, reintento)."
+  },
+  {
+   "modulo": "rotulista_filtros",
+   "archivo": "script_engine/rotulista_filtros.py",
+   "sticker": "Los filtros que deciden si un texto propuesto sale, en un orden que se lee en una línea (`ORDEN`): anclaje, forma, candado de lo literal, no dicho, spoiler, lectura, coherencia de cifras y uno por beat.",
+   "recibe": "respuesta del modelo + entrada del cap",
+   "entrega": "bloques que pasan, cortados con su regla y motivo",
+   "lo_llama": [
+    "script_engine/gfx_rotulista.py",
+    "script_engine/rotulista_colocar.py",
+    "script_engine/rotulista_llm.py"
+   ],
+   "tests": 1,
+   "lab": 0,
+   "tanda": "F36 (código de F29b)",
+   "nacio": "(sin commit)",
+   "estado": "vivo",
+   "doc": "script_engine/rotulista_filtros.py — F36 §A: todo lo que corta un bloque del rotulista (movido de gfx_rotulista). `validar` corre por bloque los filtros de `ORDEN`, en ese orden, y el primero que devuelve un motivo lo saca con su regla; al final `cantidad` (= `finalizar`) deja uno por beat. Además `contradicciones` (§A.4), `pide_documento` y `lo_que_pide`."
+  },
+  {
+   "modulo": "rotulista_colocar",
+   "archivo": "script_engine/rotulista_colocar.py",
+   "sticker": "Pone cada texto que pasó en su lugar: cuánto dura (lectura, nunca después del corte), qué forma toma (ficha, recorte, cita, lupa, agua, contador), las ediciones a mano y «una cosa por escena» (por oración en caps de una sola escena).",
+   "recibe": "bloques validados + escenas",
+   "entrega": "bloques en el plan, filas de lo movido o cortado",
+   "lo_llama": [
+    "script_engine/clima.py",
+    "script_engine/gfx_rotulista.py",
+    "script_engine/rotulista_filtros.py"
+   ],
+   "tests": 1,
+   "lab": 0,
+   "tanda": "F36 (código de F29b)",
+   "nacio": "(sin commit)",
+   "estado": "vivo",
+   "doc": "script_engine/rotulista_colocar.py — F36 §A: dónde y cuánto va cada bloque del rotulista (movido de gfx_rotulista sin cambios). `tiempos` y `despues_del_corte` (§A.2: fin de la oración ancla, lectura caracteres ÷ 15, nunca después del corte), `colocar` (cifra/hecho/persona → ficha, documento → recorte, cita, lupa; la cifra como agua o contador con `animacion_de_cifra`), las ediciones a mano (`fase2b --plan-edit`: `aplicar_ediciones`, `guardar_ediciones`, `mover_a_escena`), la caja de la lupa y la escena (`unidades`, `escena_final`: una cosa por escena u oración)."
+  },
+  {
+   "modulo": "clima",
+   "archivo": "script_engine/clima.py",
+   "sticker": "Los sellos de clima: en cada oración busca el momento de más peso y le pone una palabra del vocabulario del perfil (hoy la elige Gemini Flash), nunca la que dice la voz; uno por beat, nunca sobre un texto.",
+   "recibe": "oraciones + léxico de moods + vocabulario `sellos_clima`",
+   "entrega": "sellos en el plan, filas de lo cortado",
+   "lo_llama": [
+    "script_engine/gfx_peak.py",
+    "script_engine/gfx_rotulista.py"
+   ],
+   "tests": 2,
+   "lab": 0,
+   "tanda": "F36 (código de F32/F34)",
+   "nacio": "(sin commit)",
+   "estado": "vivo",
+   "doc": "script_engine/clima.py — F36 §A: los sellos de clima (movido de gfx_rotulista sin cambios; `peak_word` viene de gfx_peak). Los momentos candidatos (la palabra de más peso de un mood en cada oración y la del pico), la palabra de clima del vocabulario `sellos_clima` del perfil (hoy la elige Gemini Flash con `SELLO_CLIMA_PROMPT`) y el reparto (`sellos_por_tema`: un sello por beat, nunca sobre un texto ni cruzando el corte)."
+  },
+  {
+   "modulo": "voz_datos",
+   "archivo": "script_engine/voz_datos.py",
+   "sticker": "Lo que sale de la voz y la escaleta sin modelo: el pico del cap, el reloj cuando la voz dice una fecha completa, el nivel de agua cuando dice una altura y la tarjeta fecha-hora del inicio.",
+   "recibe": "oraciones de la voz, escaleta, pool",
+   "entrega": "pico, reloj, agua, tarjeta",
+   "lo_llama": [
+    "script_engine/gfx_rotulista.py",
+    "script_engine/rotulista_llm.py"
+   ],
+   "tests": 1,
+   "lab": 0,
+   "tanda": "F36 (código de F34)",
+   "nacio": "(sin commit)",
+   "estado": "vivo",
+   "doc": "script_engine/voz_datos.py — F36 §A: lo que sale de la voz y de la escaleta sin pasar por el modelo (movido de gfx_rotulista sin cambios): el pico del cap (`pico_cap`, `pico_plan`), las fechas completas que dice la voz y su reloj (`fechas_completas`, `reloj_de_voz`), el nivel de agua desde la voz (`agua_de_voz`) y la tarjeta fecha-hora del inicio (`tarjeta_inicial`)."
+  },
+  {
+   "modulo": "voz_utils",
+   "archivo": "script_engine/voz_utils.py",
+   "sticker": "La utilería de la voz: lee cifras en dígitos y en letras, nombres propios, cifras con su unidad, y parte la voz en oraciones con cada palabra numerada.",
+   "recibe": "texto / palabras con tiempos",
+   "entrega": "cifras, nombres, oraciones",
+   "lo_llama": [
+    "script_engine/clima.py",
+    "script_engine/gfx_rotulista.py",
+    "script_engine/rotulista_colocar.py",
+    "script_engine/rotulista_filtros.py",
+    "script_engine/rotulista_llm.py",
+    "script_engine/voz_datos.py"
+   ],
+   "tests": 1,
+   "lab": 0,
+   "tanda": "F36 (código de F29b)",
+   "nacio": "(sin commit)",
+   "estado": "vivo",
+   "doc": "script_engine/voz_utils.py — F36 §A: la utilería de la voz que usan varios módulos de la capa de texto (movida de gfx_rotulista sin cambios): cifras en dígitos y en letras (`numeros`, `numero_en`), nombres propios (`nombres`, `nombre_inicial`), muñones, palabras de contenido, el analizador de cifras con unidad y magnitud (`_analiza`, lo usan la coherencia, el contador y el agua) y las oraciones de la voz con cada palabra numerada (`oraciones`, `beat_de_oracion`). Va aparte porque la usan rotulista_llm, rotulista_filtros, rotulista_colocar, clima y voz_datos (decisión de F36 A)."
+  },
+  {
    "modulo": "gfx_config",
    "archivo": "gfx_config.py",
    "sticker": "El tablero de perillas de la capa gráfica: duraciones, tamaños, colores y qué reglas están prendidas; el perfil del canal (identidad F3) pisa los valores; el perfil trae también el vocabulario de sellos de clima (`sellos_clima`).",
@@ -469,6 +585,7 @@
    "lo_llama": [
     "fase2b.py",
     "gfx_lab_server.py",
+    "script_engine/clima.py",
     "script_engine/gfx_bug.py",
     "script_engine/gfx_critic.py",
     "script_engine/gfx_director.py",
@@ -484,10 +601,11 @@
     "script_engine/gfx_project.py",
     "script_engine/gfx_question.py",
     "script_engine/gfx_review.py",
-    "script_engine/gfx_rotulista.py",
     "script_engine/gfx_safe_bake.py",
     "script_engine/gfx_sparse.py",
-    "script_engine/gfx_style.py"
+    "script_engine/gfx_style.py",
+    "script_engine/rotulista_colocar.py",
+    "script_engine/voz_datos.py"
    ],
    "tests": 17,
    "lab": 5,
@@ -909,6 +1027,14 @@
    ]
   },
   {
+   "de": "clima",
+   "a": "gfx_peak",
+   "donde": [
+    "en sellos_por_tema",
+    "en peak_word"
+   ]
+  },
+  {
    "de": "gfx_critic",
    "a": "gfx_peak",
    "donde": [
@@ -942,16 +1068,27 @@
    ]
   },
   {
-   "de": "gfx_rotulista",
+   "de": "rotulista_colocar",
    "a": "gfx_peak",
    "donde": [
-    "en oraciones",
-    "en animacion_de_cifra",
-    "en sellos_por_tema",
+    "en animacion_de_cifra"
+   ]
+  },
+  {
+   "de": "voz_datos",
+   "a": "gfx_peak",
+   "donde": [
     "en reloj_de_voz",
     "en agua_de_voz",
     "en tarjeta_inicial",
     "en pico_plan"
+   ]
+  },
+  {
+   "de": "voz_utils",
+   "a": "gfx_peak",
+   "donde": [
+    "en oraciones"
    ]
   },
   {
@@ -984,16 +1121,6 @@
    ]
   },
   {
-   "de": "gfx_rotulista",
-   "a": "gfx_pool",
-   "donde": [
-    "en validar",
-    "en colocar",
-    "en escena_final",
-    "en reloj_de_voz"
-   ]
-  },
-  {
    "de": "m01a_escaleta",
    "a": "gfx_pool",
    "donde": [
@@ -1008,6 +1135,28 @@
    ]
   },
   {
+   "de": "rotulista_colocar",
+   "a": "gfx_pool",
+   "donde": [
+    "en colocar",
+    "en escena_final"
+   ]
+  },
+  {
+   "de": "rotulista_filtros",
+   "a": "gfx_pool",
+   "donde": [
+    "en forma"
+   ]
+  },
+  {
+   "de": "voz_datos",
+   "a": "gfx_pool",
+   "donde": [
+    "en reloj_de_voz"
+   ]
+  },
+  {
    "de": "gfx_lab_server",
    "a": "gfx_project",
    "donde": [
@@ -1017,6 +1166,13 @@
     "en LabSession.preview",
     "en rules_override.__enter__",
     "en rules_override.__exit__"
+   ]
+  },
+  {
+   "de": "clima",
+   "a": "gfx_project",
+   "donde": [
+    "en sellos_por_tema"
    ]
   },
   {
@@ -1047,22 +1203,27 @@
    ]
   },
   {
-   "de": "gfx_rotulista",
-   "a": "gfx_project",
-   "donde": [
-    "en validar",
-    "en animacion_de_cifra",
-    "en colocar",
-    "en _cubre",
-    "en escena_final",
-    "en sellos_por_tema"
-   ]
-  },
-  {
    "de": "gfx_sparse",
    "a": "gfx_project",
    "donde": [
     "arriba"
+   ]
+  },
+  {
+   "de": "rotulista_colocar",
+   "a": "gfx_project",
+   "donde": [
+    "en animacion_de_cifra",
+    "en colocar",
+    "en _cubre",
+    "en escena_final"
+   ]
+  },
+  {
+   "de": "rotulista_filtros",
+   "a": "gfx_project",
+   "donde": [
+    "en forma"
    ]
   },
   {
@@ -1114,10 +1275,21 @@
    "de": "gfx_rotulista",
    "a": "gfx_realizador",
    "donde": [
-    "en items_cap",
-    "en _raices",
-    "en items_gancho",
     "en preparar_cap"
+   ]
+  },
+  {
+   "de": "rotulista_llm",
+   "a": "gfx_realizador",
+   "donde": [
+    "en items_cap"
+   ]
+  },
+  {
+   "de": "voz_datos",
+   "a": "gfx_realizador",
+   "donde": [
+    "en _raices"
    ]
   },
   {
@@ -1310,7 +1482,7 @@
    ]
   },
   {
-   "de": "gfx_rotulista",
+   "de": "voz_datos",
    "a": "music_intensity",
    "donde": [
     "en pico_cap"
@@ -1322,6 +1494,125 @@
    "donde": [
     "arriba",
     "en _concat_segments"
+   ]
+  },
+  {
+   "de": "gfx_rotulista",
+   "a": "rotulista_llm",
+   "donde": [
+    "arriba"
+   ]
+  },
+  {
+   "de": "gfx_rotulista",
+   "a": "rotulista_filtros",
+   "donde": [
+    "arriba"
+   ]
+  },
+  {
+   "de": "rotulista_colocar",
+   "a": "rotulista_filtros",
+   "donde": [
+    "en colocar"
+   ]
+  },
+  {
+   "de": "rotulista_llm",
+   "a": "rotulista_filtros",
+   "donde": [
+    "arriba"
+   ]
+  },
+  {
+   "de": "clima",
+   "a": "rotulista_colocar",
+   "donde": [
+    "arriba"
+   ]
+  },
+  {
+   "de": "gfx_rotulista",
+   "a": "rotulista_colocar",
+   "donde": [
+    "arriba"
+   ]
+  },
+  {
+   "de": "rotulista_filtros",
+   "a": "rotulista_colocar",
+   "donde": [
+    "arriba"
+   ]
+  },
+  {
+   "de": "gfx_peak",
+   "a": "clima",
+   "donde": [
+    "arriba"
+   ]
+  },
+  {
+   "de": "gfx_rotulista",
+   "a": "clima",
+   "donde": [
+    "arriba"
+   ]
+  },
+  {
+   "de": "gfx_rotulista",
+   "a": "voz_datos",
+   "donde": [
+    "arriba"
+   ]
+  },
+  {
+   "de": "rotulista_llm",
+   "a": "voz_datos",
+   "donde": [
+    "arriba"
+   ]
+  },
+  {
+   "de": "clima",
+   "a": "voz_utils",
+   "donde": [
+    "arriba"
+   ]
+  },
+  {
+   "de": "gfx_rotulista",
+   "a": "voz_utils",
+   "donde": [
+    "arriba"
+   ]
+  },
+  {
+   "de": "rotulista_colocar",
+   "a": "voz_utils",
+   "donde": [
+    "arriba"
+   ]
+  },
+  {
+   "de": "rotulista_filtros",
+   "a": "voz_utils",
+   "donde": [
+    "arriba"
+   ]
+  },
+  {
+   "de": "rotulista_llm",
+   "a": "voz_utils",
+   "donde": [
+    "arriba"
+   ]
+  },
+  {
+   "de": "voz_datos",
+   "a": "voz_utils",
+   "donde": [
+    "arriba"
    ]
   },
   {
@@ -1349,6 +1640,14 @@
     "en _rule_fields",
     "en rules_override.__enter__",
     "en LabHandler.do_GET"
+   ]
+  },
+  {
+   "de": "clima",
+   "a": "gfx_config",
+   "donde": [
+    "en vocabulario_clima",
+    "en sellos_por_tema"
    ]
   },
   {
@@ -1456,17 +1755,6 @@
    ]
   },
   {
-   "de": "gfx_rotulista",
-   "a": "gfx_config",
-   "donde": [
-    "en animacion_de_cifra",
-    "en escena_final",
-    "en vocabulario_clima",
-    "en sellos_por_tema",
-    "en pico_plan"
-   ]
-  },
-  {
    "de": "gfx_safe_bake",
    "a": "gfx_config",
    "donde": [
@@ -1486,6 +1774,21 @@
    "donde": [
     "arriba",
     "en golden_fewshot"
+   ]
+  },
+  {
+   "de": "rotulista_colocar",
+   "a": "gfx_config",
+   "donde": [
+    "en animacion_de_cifra",
+    "en escena_final"
+   ]
+  },
+  {
+   "de": "voz_datos",
+   "a": "gfx_config",
+   "donde": [
+    "en pico_plan"
    ]
   },
   {
@@ -1605,7 +1908,7 @@
  "muertos": [
   {
    "que": "gfx_peak.plan_peak (y water_level, zoom_latido, time_ticker, reserved_water_level, clear_around)",
-   "por_que": "con el rotulista el pico es el de la escaleta (`gfx_rotulista.pico_plan`)",
+   "por_que": "con el rotulista el pico es el de la escaleta (`voz_datos.pico_plan`)",
    "desde": "5ae6177 2026-10-25 feat(f29b-a): el rotulista — el texto de pantalla lo escribe Claude, "
   },
   {

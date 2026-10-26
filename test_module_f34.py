@@ -208,7 +208,8 @@ def test_a4_un_sello_por_beat_sin_repetir_palabra_y_sin_vocabulario_no_hay(monke
     assert [e["word"] for e in plan["emphasis"]] == ["SILENCIO"] and len(llamadas) == 3
     mot = [f["motivo"] for f in plan["sellos_tema"]]
     assert any("ya salió en el cap" in m for m in mot) or any("un sello por beat" in m for m in mot)
-    monkeypatch.setattr(gro, "vocabulario_clima", lambda: [])
+    from script_engine import clima                  # F36 §A: sellos_por_tema vive en clima (gro lo re-exporta)
+    monkeypatch.setattr(clima, "vocabulario_clima", lambda: [])
     plan2: dict = {"emphasis": []}
     gro.sellos_por_tema(plan2, scenes, ent, words, 0.0, moods, [], call=lambda p: "SILENCIO")
     assert plan2["emphasis"] == [] and all("sin vocabulario" in f["motivo"] for f in plan2["sellos_tema"])

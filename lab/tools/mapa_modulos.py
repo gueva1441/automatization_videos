@@ -57,14 +57,33 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                        "mostrar cada uno, la pregunta de cierre del último beat y los topes.",
                        "escaleta + narración por beat + pool", "`gfx_beats_chNN.json`, candidatos, filas de lo quitado",
                        "F29", "vivo"),
-    "gfx_rotulista": ("El que escribe los textos de pantalla (Claude Sonnet): por beat, anclados a una palabra, con "
-                      "candado de lo literal, tiempo de lectura, spoiler y contradicción; los coloca como ficha, recorte, "
-                      "cita, lupa, agua o contador. Desde F34 reparte por oración en caps de una sola escena (información gana al "
-                      "clima), pone los sellos de CLIMA (Gemini elige del vocabulario del perfil, nunca la palabra de la "
-                      "voz), el reloj cuando la voz dice una fecha completa, el nivel de agua cuando dice una altura y la "
-                      "tarjeta fecha-hora del inicio.", "oraciones de la voz con tiempos, beats, datos del pool (en el "
-                      "gancho, todo el pool)", "bloques de texto y animaciones en el plan, filas de lo cortado y por qué",
-                      "F29b", "vivo"),
+    "gfx_rotulista": ("La fachada del rotulista (desde F36 partido en cinco): prepara la entrada de cada cap y corre "
+                      "el rotulista de los 7 caps en paralelo antes del render; el resto lo re-exporta de sus módulos "
+                      "para que nadie cambie de import.", "plan de cada cap + topic", "rotulista en caché por cap "
+                      "(`rotulista_chNN.raw.json`)", "F29b", "vivo"),
+    "rotulista_llm": ("El pedido al modelo que escribe los textos de pantalla (Claude Sonnet): arma la entrada del cap "
+                      "(oraciones con tiempos y palabra numerada, beats, datos del pool; en el gancho todo el pool), el "
+                      "prompt literal, la llamada con caché, el tope de US$ y un reintento.", "oraciones de la voz, beats, "
+                      "pool, escaleta", "respuesta cruda y validada por cap, ledger de costos", "F36 (código de F29b)",
+                      "vivo"),
+    "rotulista_filtros": ("Los filtros que deciden si un texto propuesto sale, en un orden que se lee en una línea "
+                          "(`ORDEN`): anclaje, forma, candado de lo literal, no dicho, spoiler, lectura, coherencia de "
+                          "cifras y uno por beat.", "respuesta del modelo + entrada del cap", "bloques que pasan, "
+                          "cortados con su regla y motivo", "F36 (código de F29b)", "vivo"),
+    "rotulista_colocar": ("Pone cada texto que pasó en su lugar: cuánto dura (lectura, nunca después del corte), qué "
+                          "forma toma (ficha, recorte, cita, lupa, agua, contador), las ediciones a mano y «una cosa por "
+                          "escena» (por oración en caps de una sola escena).", "bloques validados + escenas",
+                          "bloques en el plan, filas de lo movido o cortado", "F36 (código de F29b)", "vivo"),
+    "clima": ("Los sellos de clima: en cada oración busca el momento de más peso y le pone una palabra del vocabulario "
+              "del perfil (hoy la elige Gemini Flash), nunca la que dice la voz; uno por beat, nunca sobre un texto.",
+              "oraciones + léxico de moods + vocabulario `sellos_clima`", "sellos en el plan, filas de lo cortado",
+              "F36 (código de F32/F34)", "vivo"),
+    "voz_datos": ("Lo que sale de la voz y la escaleta sin modelo: el pico del cap, el reloj cuando la voz dice una "
+                  "fecha completa, el nivel de agua cuando dice una altura y la tarjeta fecha-hora del inicio.",
+                  "oraciones de la voz, escaleta, pool", "pico, reloj, agua, tarjeta", "F36 (código de F34)", "vivo"),
+    "voz_utils": ("La utilería de la voz: lee cifras en dígitos y en letras, nombres propios, cifras con su unidad, y "
+                  "parte la voz en oraciones con cada palabra numerada.", "texto / palabras con tiempos",
+                  "cifras, nombres, oraciones", "F36 (código de F29b)", "vivo"),
     "gfx_critic": ("El editor de último momento: Gemini mira la foto (y en el render el bloque dibujado) y saca lo que "
                    "repite la voz, no aporta o tapa algo (al sello de clima y al agua de la voz solo los saca si tapan).", "plan + "
                    "cuadros del video + voz", "plan sin lo que no pasa + "
@@ -81,7 +100,7 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                   "corte según el relato (corte, golpe de zoom en el pico, fundido, dip al cierre).",
                   "escenas + plan + beats", "movimientos y transiciones", "F4", "vivo"),
     "gfx_peak": ("El pico del capítulo: busca su frase y la palabra de más peso para el sello del pico; trae las "
-                 "piezas de oraciones y palabras que usan los demás.", "palabras con tiempos + léxico de moods",
+                 "piezas de oraciones y palabras que usan los demás (desde F36 la palabra del momento vive en `clima`).", "palabras con tiempos + léxico de moods",
                  "frase y palabra del pico, sello", "F3", "vivo (el pico de la escaleta; `plan_peak` ya no corre)"),
     "gfx_pool": ("La pantalla alimentada por el pool de evidencia: fuentes literales para el candado, lo ya mostrado "
                  "en caps anteriores y el reloj de fechas.", "pool de evidencia + palabras", "fuentes, ids ya usados, "
@@ -144,7 +163,7 @@ M: dict[str, tuple[str, str, str, str, str]] = {
 # funciones (o archivos) que el camino de producción ya no llama: (qué, por qué, commit desde el que no corre)
 MUERTOS = [
     ("gfx_peak.plan_peak (y water_level, zoom_latido, time_ticker, reserved_water_level, clear_around)",
-     "con el rotulista el pico es el de la escaleta (`gfx_rotulista.pico_plan`)", "5ae6177"),
+     "con el rotulista el pico es el de la escaleta (`voz_datos.pico_plan`)", "5ae6177"),
     ("gfx_realizador.garantizar_pico", "`--rotulista` apaga `garantizar_pico`", "7e704de"),
     ("gfx_pool.plan_pool_documents, plan_pool_quote, pool_count_up, enforce_reserved",
      "con el rotulista los textos los escribe él (`rot_on` en apply_gfx)", "5ae6177"),

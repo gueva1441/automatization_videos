@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-26 (F34 hecha, **PARADA**: guion de Vajont regenerado sin render ni aprobación; revisor CUMPLE CON OBSERVACIONES) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-26 (F36 en curso: A hecha, diff vacío; sigue B) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -12,6 +12,11 @@
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F36 — Estructura de la capa de texto (pedido de Omar, 2026-10-26) — EN CURSO
+- Handoff `lab/hyperframes/f36/HANDOFF_F36_estructura.md`. Base `1973ba1`. Un commit por parte (A→B→C→D), PARADA corta en cada una; A y D exigen diff vacío del guion. Contrato: tabla DEBERÍA de `lab/hyperframes/f34/REVISION_GUION.md`. Reporte `lab/hyperframes/f36/F36_REPORT.md`; verificador `lab/hyperframes/f36/verificar.sh <parte>`; comparador `lab/hyperframes/f36/diff_guion.py`.
+- **Paso 0 HECHO:** `DECISIONES.md` tal cual (`74a309f`).
+- **A HECHO** (commit A): `gfx_rotulista` partido en `rotulista_llm`, `rotulista_filtros` (`ORDEN` de filtros, el de F34: lectura antes que coherencia), `rotulista_colocar`, `clima` (+ `peak_word` de gfx_peak), `voz_datos`, `voz_utils` (parsers de español y oraciones); `gfx_rotulista` = fachada. Guion de Vajont regenerado (caché, US$ 0): **diff vacío** contra F34. md5 ch02 `38e5ba14…`, rápida 58, amplia 1025 + 5 previas. Simulador: 0/15 líneas (esperado). Mapa 43 módulos, 14 muertos.
 
 ## F34 — Reglas de pantalla corregidas (pedido de Omar, 2026-10-26) — HECHA, **PARADA** (sin render, sin aprobar)
 - Handoff `lab/hyperframes/f34/HANDOFF_F34_reglas_de_pantalla.md`. Base `fc889c9`. Un commit por parte.

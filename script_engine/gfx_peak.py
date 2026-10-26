@@ -270,17 +270,6 @@ def clear_around(plan: dict[str, Any], t: float, keep: str) -> list[str]:
 BLOCK_CATEGORY = {"water_level": "agua"}            # categoría que el bloque grande ya muestra
 
 
-def peak_word(peak: dict[str, Any], words: list[dict], moods: dict[str, dict], *, block_category: str | None = None,
-              freq: dict[str, int] | None = None) -> dict[str, Any] | None:
-    """F4c R3: la palabra de mayor peso (≥ 2) de la frase pico. Empate: la de una categoría que el bloque grande no
-    muestra ya (nivel de agua → no otra de agua), después la más rara del video, después la primera."""
-    f = freq or {}
-    hits = [h for h in prefer_icon_nouns(lexicon_hits(words, moods, peak["idx"]), moods) if h["weight"] >= 2]
-    if not hits:
-        return None
-    return max(hits, key=lambda h: (h["weight"], h["category"] != block_category, -f.get(h["word"], 0), -h["i"]))
-
-
 def add_peak_word(plan: dict[str, Any], peak: dict[str, Any], *, words: list[dict], scenes: list[Any],
                   moods: dict[str, dict], block: str | None, time_offset: float = 0.0,
                   freq: dict[str, int] | None = None, log: list[str] | None = None) -> dict[str, Any] | None:
@@ -471,3 +460,6 @@ def plan_peak(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict], s
         plan["time_ticker"] = tk
         log.append(f"reloj: {tk['day']} {tk['month']} · {tk['tail']} @ {tk['start']:.1f}–{tk['start'] + tk['duration']:.1f}s")
     return plan
+
+
+from script_engine.clima import peak_word  # noqa: E402,F401 — F36 §A: vive en clima; add_peak_word y el lab la leen de aquí
