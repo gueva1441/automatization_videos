@@ -285,3 +285,11 @@ def test_numeros_por_valor():
     assert gro.numero_en("39", "son las diez y treinta y nueve")
     assert not gro.numero_en("1", "una fisura en la ladera")              # «una» es artículo
     assert gro.numeros("3 millones de metros") == ["3"]
+
+
+def test_rotulista_modelo_por_cli():
+    """--rotulista-modelo cambia gfx_rules.rotulista_modelo (GfxRules es frozen: va por object.__setattr__)."""
+    import ast
+    src = (ROOT / "fase2b.py").read_text(encoding="utf-8")
+    assert '"--rotulista-modelo"' in src and 'object.__setattr__(_gr, "rotulista_modelo"' in src
+    ast.parse(src)

@@ -2983,7 +2983,7 @@ def main() -> int:
     _LEGACY_CONCAT = bool(args.legacy_concat)   # F2b §4
     if args.rotulista_modelo:                   # F29b §A.2
         from gfx_config import gfx_rules as _gr
-        _gr.rotulista_modelo = args.rotulista_modelo
+        object.__setattr__(_gr, "rotulista_modelo", args.rotulista_modelo)   # GfxRules es frozen
 
     if FFMPEG is None or FFPROBE is None:
         print(f"❌ No se encontró ffmpeg/ffprobe (winget Gyan.FFmpeg).")
