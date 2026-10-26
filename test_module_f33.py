@@ -118,3 +118,26 @@ def test_simular_regla_cuenta_por_cap_y_da_ejemplos():
     assert sr.simular(guion, regla, tipos={"sello"}, sobre="todos")["por_cap"]["ch01"] == [3, 2, 1]
     t = sr.tabla("sello repite", r, "quedan")
     assert "**2 propuestos → 1 cortados por esta regla → 1 quedan**" in t and "sello «fuerza»" in t
+
+
+# ═══════════════ §D.3: el aviso del mapa ═══════════════
+
+def test_guard_mapa_avisa_si_tocan_gfx_sin_el_mapa():
+    gm = _hook("guard_mapa")
+    assert "guard_mapa" in gm.aviso(["script_engine/gfx_rotulista.py", "test_module_f33.py"])
+    assert "fase2b.py" in gm.aviso(["fase2b.py"])
+    assert gm.aviso(["script_engine/gfx_rotulista.py", "lab/MAPA_MODULOS.md"]) is None
+    assert gm.aviso(["script_engine/aprobacion.py", "lab/ESTADO_SESION.md"]) is None
+    s = json.loads((ROOT / ".claude" / "settings.json").read_text(encoding="utf-8"))
+    assert any("guard_mapa.py" in h["command"] for x in s["hooks"]["PreToolUse"] for h in x["hooks"])
+
+
+def test_el_mapa_cubre_los_modulos_y_trae_aristas():
+    m = json.loads((ROOT / "lab" / "MAPA_MODULOS.json").read_text(encoding="utf-8"))
+    nombres = {f["modulo"] for f in m["modulos"]}
+    hay = {p.stem for p in (ROOT / "script_engine").glob("gfx_*.py")}
+    assert hay <= nombres and {"fase2b", "gfx_config", "transition_config", "transition_applier", "m01a_escaleta",
+                               "m01d_particion", "music_intensity", "title_card.html.tmpl"} <= nombres
+    assert all(f["sticker"] and f["estado"] for f in m["modulos"])
+    assert {"de": "gfx_layer", "a": "gfx_rotulista"} in [{k: a[k] for k in ("de", "a")} for a in m["aristas"]]
+    assert any("garantizar_pico" in x["que"] for x in m["muertos"])

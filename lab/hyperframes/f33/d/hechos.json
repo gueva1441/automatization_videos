@@ -1,0 +1,2317 @@
+{
+ "gfx_bug": {
+  "archivo": "script_engine/gfx_bug.py",
+  "doc": "gfx_bug.py — Marca del canal (`channel_bug`, F4b §0.3): el encapuchado con farol en la esquina superior izquierda.",
+  "funciones": [
+   "config",
+   "pngs",
+   "hide_windows",
+   "visibility_expr",
+   "overlay_graph",
+   "outro_graph",
+   "burn_on_clip"
+  ],
+  "importa": {
+   "gfx_config": [
+    "arriba"
+   ]
+  },
+  "nacio": "93064c8 2026-10-20 feat(gfx-f4b): zoom foto-primero, iconos gratis y marca del canal (§3, §4, §0.3 apagada)",
+  "lo_importan": {
+   "script_engine/gfx_layer.py": [
+    "en _render_sparse",
+    "en apply_gfx"
+   ],
+   "script_engine/gfx_sparse.py": [
+    "en stitch"
+   ]
+  },
+  "tests": [
+   "test_module_gfx_bug.py",
+   "test_module_gfx_critic.py",
+   "test_module_gfx_f4d.py"
+  ],
+  "lab": [
+   "lab/hyperframes/f4c/recorte_marca.py",
+   "lab/hyperframes/f4d/recorte_marca.py"
+  ]
+ },
+ "gfx_critic": {
+  "archivo": "script_engine/gfx_critic.py",
+  "doc": "gfx_critic.py — Crítico visual (F4e, paso 6b, pedido de Omar 2026-10-20). Último filtro ANTES del render.",
+  "funciones": [
+   "_side",
+   "describe",
+   "blocks",
+   "frame_at",
+   "voice_at",
+   "load_fewshot",
+   "build_prompt",
+   "_gemini",
+   "clave_identidad",
+   "judge",
+   "snapshots",
+   "criticize",
+   "frame_t",
+   "build_prompt_rot",
+   "_gemini_rot",
+   "voice_around",
+   "voice_vecinas",
+   "pasa_rot",
+   "criticize_rotulista",
+   "_fmt_t",
+   "contact_sheet"
+  ],
+  "importa": {
+   "gfx_peak": [
+    "en voice_at",
+    "en voice_vecinas"
+   ],
+   "gfx_config": [
+    "en load_fewshot"
+   ],
+   "config": [
+    "en _gemini",
+    "en _gemini_rot"
+   ],
+   "cost_tracker": [
+    "en _gemini",
+    "en _gemini_rot"
+   ],
+   "gfx_layer": [
+    "en snapshots"
+   ]
+  },
+  "nacio": "39e37ac 2026-10-20 feat(gfx-f4e): crítico visual antes del render (suma/repite/estorba), hoja de contactos por cap y marca de esquina apagad",
+  "lo_importan": {
+   "script_engine/gfx_layer.py": [
+    "en _contact_sheet",
+    "en apply_gfx"
+   ]
+  },
+  "tests": [
+   "test_module_f29a.py",
+   "test_module_f29c_rotulista.py",
+   "test_module_f30b.py",
+   "test_module_f5_prod.py",
+   "test_module_gfx_critic.py"
+  ],
+  "lab": [
+   "lab/hyperframes/f30b/f30b_vajont.py",
+   "lab/hyperframes/f4e/armar_fewshot_critico.py"
+  ]
+ },
+ "gfx_director": {
+  "archivo": "script_engine/gfx_director.py",
+  "doc": "gfx_director.py — Director de gráficos por capítulo (Gemini Flash, 1 call por cap).",
+  "funciones": [
+   "load_chapter_context",
+   "fact_sources",
+   "fact_year",
+   "entities",
+   "_hard_ids",
+   "eligible_facts",
+   "system_prompt",
+   "_build_user_prompt",
+   "archive_body",
+   "trim_body",
+   "_is_figure",
+   "build_headline",
+   "build_kicker",
+   "zoom_anchor",
+   "_literal_in",
+   "_shown_in_image",
+   "validate_plan",
+   "_era_decade",
+   "callout_duration",
+   "resolve_plan",
+   "content_words",
+   "question_ok",
+   "question_keyword",
+   "sfx_events",
+   "headline_vs_body",
+   "find_gaps",
+   "_norm_tok",
+   "_fragments",
+   "_find_spoken",
+   "_tok",
+   "word_freq",
+   "emphasis_candidates",
+   "_sentence_ids",
+   "place_emphasis",
+   "is_count_quantity",
+   "emphasis_icon",
+   "emphasis_without_icon",
+   "figure_digits",
+   "headline_digits",
+   "counted_figures_before",
+   "convert_callout_to_archive",
+   "mark_icon_callouts",
+   "array_candidates",
+   "place_icon_array",
+   "fill_gaps",
+   "judge_zoom_box",
+   "apply_zoom_vision",
+   "select_gfx_plan"
+  ],
+  "importa": {
+   "config": [
+    "arriba",
+    "en judge_zoom_box"
+   ],
+   "cost_tracker": [
+    "arriba"
+   ],
+   "error_handler": [
+    "arriba"
+   ],
+   "gemini_helpers": [
+    "arriba"
+   ],
+   "gfx_config": [
+    "arriba",
+    "en sfx_events",
+    "en emphasis_icon"
+   ],
+   "gfx_literal_lock": [
+    "arriba"
+   ],
+   "gfx_pool": [
+    "en load_chapter_context"
+   ],
+   "gfx_style": [
+    "en system_prompt"
+   ],
+   "gfx_project": [
+    "en resolve_plan",
+    "en place_emphasis",
+    "en convert_callout_to_archive",
+    "en place_icon_array",
+    "en fill_gaps"
+   ],
+   "gfx_peak": [
+    "en place_emphasis"
+   ],
+   "gfx_fragments": [
+    "en emphasis_icon"
+   ],
+   "m05_narrative": [
+    "en emphasis_icon"
+   ]
+  },
+  "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
+  "lo_importan": {
+   "fase2b.py": [
+    "en _solo_plan"
+   ],
+   "gfx_lab_server.py": [
+    "en LabSession._scenes",
+    "en LabSession.with_defaults",
+    "en LabSession.context"
+   ],
+   "script_engine/gfx_fragments.py": [
+    "en doc_kicker"
+   ],
+   "script_engine/gfx_layer.py": [
+    "en closing_question",
+    "en prefetch_plans",
+    "en apply_gfx"
+   ],
+   "script_engine/gfx_literal_lock.py": [
+    "en lock"
+   ],
+   "script_engine/gfx_peak.py": [
+    "en add_peak_word"
+   ],
+   "script_engine/gfx_rotulista.py": [
+    "en preparar_cap"
+   ],
+   "script_engine/gfx_icons/make_bug.py": [
+    "en flame_box"
+   ]
+  },
+  "tests": [
+   "test_module_f5d.py",
+   "test_module_gfx_0d.py",
+   "test_module_gfx_director.py",
+   "test_module_gfx_emphasis.py",
+   "test_module_gfx_icons.py",
+   "test_module_gfx_layer_fallback.py",
+   "test_module_gfx_peak.py",
+   "test_module_gfx_style.py"
+  ],
+  "lab": [
+   "lab/hyperframes/f1/grade_variants.py",
+   "lab/hyperframes/f5/correr_f5_orleans.py"
+  ]
+ },
+ "gfx_fragments": {
+  "archivo": "script_engine/gfx_fragments.py",
+  "doc": "gfx_fragments.py — Fragmento literal más impactante (F4b §2). El LLM ELIGE UN NÚMERO, nunca escribe.",
+  "funciones": [
+   "_verb_edge",
+   "_splits_date",
+   "_tok",
+   "_clauses",
+   "_trim",
+   "fragments",
+   "_content",
+   "literal_in",
+   "core_token",
+   "narration_span",
+   "_root",
+   "novelty",
+   "adds_something",
+   "_doc_rank",
+   "_start_ok",
+   "_has_subject",
+   "clause_options",
+   "lock_ok",
+   "doc_kicker",
+   "enforce_documents",
+   "drop_repeated_callouts",
+   "build_items",
+   "_dedupe",
+   "build_prompt",
+   "category_of",
+   "category_icon",
+   "used_headlines_before",
+   "choose_fragments"
+  ],
+  "importa": {
+   "gfx_literal_lock": [
+    "en lock_ok"
+   ],
+   "gfx_director": [
+    "en doc_kicker"
+   ],
+   "gfx_config": [
+    "en category_icon",
+    "en choose_fragments"
+   ],
+   "gemini_helpers": [
+    "en choose_fragments"
+   ]
+  },
+  "nacio": "f1af5de 2026-10-20 feat(gfx-f4b): fragmento literal mas impactante para recorte y dato (§2)",
+  "lo_importan": {
+   "script_engine/gfx_director.py": [
+    "en emphasis_icon"
+   ],
+   "script_engine/gfx_layer.py": [
+    "en apply_gfx"
+   ],
+   "script_engine/gfx_pool.py": [
+    "en _is_verb",
+    "en _verbs",
+    "en _bare_figure",
+    "en _cut_ok",
+    "en pool_clause_options",
+    "en close_quotes",
+    "en _kicker",
+    "en plan_pool_documents",
+    "en _spoken_at"
+   ]
+  },
+  "tests": [
+   "test_module_gfx_f4d.py",
+   "test_module_gfx_fragments.py"
+  ],
+  "lab": []
+ },
+ "gfx_guion": {
+  "archivo": "script_engine/gfx_guion.py",
+  "doc": "script_engine/gfx_guion.py — F32 §A: el guion de pantalla. Todo lo que se va a ver, en texto, antes de renderizar.",
+  "funciones": [
+   "mmss",
+   "_scene_at",
+   "_beat_at",
+   "_oracion_en",
+   "_voz",
+   "_pcm",
+   "niveles_db",
+   "db_de",
+   "_cruce_db",
+   "inicio_de_voz",
+   "linea_inicio",
+   "pausa_max_guion",
+   "silencios",
+   "_crit_rot",
+   "_lectura",
+   "eventos_cap",
+   "cortes_cap",
+   "resumen_beats",
+   "_ocupa",
+   "chequeos",
+   "armar",
+   "_linea",
+   "a_markdown",
+   "escribir"
+  ],
+  "importa": {
+   "gfx_rotulista": [
+    "en chequeos"
+   ]
+  },
+  "nacio": "308032a 2026-10-26 feat(f32-a): el guion de pantalla — fase2b --plan-only (director, rotulista, reglas y crítico sin navegador ni render; -g",
+  "lo_importan": {
+   "fase2b.py": [
+    "en _solo_plan"
+   ]
+  },
+  "tests": [
+   "test_module_f32.py"
+  ],
+  "lab": []
+ },
+ "gfx_identity": {
+  "archivo": "script_engine/gfx_identity.py",
+  "doc": "gfx_identity.py — Identidad del canal que sale del laboratorio (F3 §C; HANDOFF_F3 §1.1 paso 6 y §4).",
+  "funciones": [
+   "elem_of",
+   "_fmt",
+   "_label",
+   "chosen_variant",
+   "count_in_plan",
+   "open_questions",
+   "summary_md",
+   "apply_identity",
+   "save_identity"
+  ],
+  "importa": {
+   "gfx_config": [
+    "en apply_identity",
+    "en save_identity"
+   ]
+  },
+  "nacio": "04a6025 2026-10-19 feat(gfx-f3-lab): §C casillas, deshacer, resumen en vivo y Guardar identidad",
+  "lo_importan": {
+   "gfx_lab_server.py": [
+    "en LabSession.summary",
+    "en LabSession.save_identity"
+   ]
+  },
+  "tests": [
+   "test_module_gfx_identity.py"
+  ],
+  "lab": []
+ },
+ "gfx_intensity": {
+  "archivo": "script_engine/gfx_intensity.py",
+  "doc": "gfx_intensity.py — Director de intensidad (F4b §1): un LLM LEE el cap y marca dónde pega, sin escribir texto.",
+  "funciones": [
+   "_plain",
+   "tok",
+   "build_prompt",
+   "validate",
+   "narration_hash",
+   "word_freq",
+   "intensity_for",
+   "is_verb_form",
+   "_stamp_rule",
+   "is_theme_word",
+   "stamp_lexicon",
+   "augmented_moods",
+   "peak_sentence",
+   "new_words",
+   "record_proposals"
+  ],
+  "importa": {
+   "gemini_helpers": [
+    "en intensity_for"
+   ],
+   "gfx_config": [
+    "en _stamp_rule",
+    "en is_theme_word"
+   ]
+  },
+  "nacio": "1762916 2026-10-20 feat(gfx-f4b): director de intensidad — pico garantizado por cap (§1)",
+  "lo_importan": {
+   "script_engine/gfx_layer.py": [
+    "en apply_gfx"
+   ],
+   "script_engine/gfx_peak.py": [
+    "en peak_from_intensity",
+    "en plan_peak"
+   ]
+  },
+  "tests": [
+   "test_module_f29b_rotulista.py",
+   "test_module_f5e.py",
+   "test_module_f5f.py",
+   "test_module_gfx_f4d.py",
+   "test_module_gfx_intensity.py"
+  ],
+  "lab": [
+   "lab/hyperframes/f29b/b/f29b_vajont.py",
+   "lab/hyperframes/f29c/b/f29c_vajont.py",
+   "lab/hyperframes/f5/correr_f5_orleans.py"
+  ]
+ },
+ "gfx_layer": {
+  "archivo": "script_engine/gfx_layer.py",
+  "doc": "gfx_layer.py — Orquestador de la capa gráfica HyperFrames por capítulo (fase2b --gfx).",
+  "funciones": [
+   "GfxError",
+   "_run",
+   "_hf",
+   "_ffprobe_duration",
+   "_doctor_once",
+   "_reencode",
+   "_lint",
+   "_render",
+   "build_scenes",
+   "_gray_frames",
+   "snap_cuts",
+   "assign_quiet_sides",
+   "icon_sources",
+   "extend_base",
+   "_realizador",
+   "lectura_pregunta",
+   "closing_question",
+   "_render_sparse",
+   "_zoom_frame",
+   "_text_in_image",
+   "_contact_sheet",
+   "_moods_activos",
+   "escenas_a_disco",
+   "remapped_words",
+   "prefetch_plans",
+   "apply_gfx"
+  ],
+  "importa": {
+   "error_handler": [
+    "arriba"
+   ],
+   "gfx_config": [
+    "arriba",
+    "en _moods_activos",
+    "en apply_gfx"
+   ],
+   "anchor_timing": [
+    "arriba"
+   ],
+   "subs_remap": [
+    "arriba"
+   ],
+   "gfx_project": [
+    "arriba",
+    "en _render_sparse",
+    "en apply_gfx"
+   ],
+   "config": [
+    "en _realizador"
+   ],
+   "gfx_realizador": [
+    "en _realizador",
+    "en closing_question",
+    "en apply_gfx"
+   ],
+   "gfx_pool": [
+    "en _realizador",
+    "en apply_gfx"
+   ],
+   "gfx_rotulista": [
+    "en lectura_pregunta",
+    "en apply_gfx"
+   ],
+   "gfx_director": [
+    "en closing_question",
+    "en prefetch_plans",
+    "en apply_gfx"
+   ],
+   "gfx_question": [
+    "en closing_question",
+    "en apply_gfx"
+   ],
+   "evidence": [
+    "en closing_question"
+   ],
+   "gfx_sparse": [
+    "en _render_sparse"
+   ],
+   "gfx_bug": [
+    "en _render_sparse",
+    "en apply_gfx"
+   ],
+   "gfx_safe_bake": [
+    "en _render_sparse"
+   ],
+   "gfx_critic": [
+    "en _contact_sheet",
+    "en apply_gfx"
+   ],
+   "gfx_review": [
+    "en apply_gfx"
+   ],
+   "gfx_vision": [
+    "en apply_gfx"
+   ],
+   "gfx_intensity": [
+    "en apply_gfx"
+   ],
+   "gfx_peak": [
+    "en apply_gfx"
+   ],
+   "gfx_literal_lock": [
+    "en apply_gfx"
+   ],
+   "gfx_style": [
+    "en apply_gfx"
+   ],
+   "gfx_fragments": [
+    "en apply_gfx"
+   ]
+  },
+  "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
+  "lo_importan": {
+   "fase2b.py": [
+    "en _build_chapter_segment",
+    "en _solo_plan",
+    "en _assemble_one_video"
+   ],
+   "gfx_lab_server.py": [
+    "en LabSession.__init__",
+    "en LabSession._prepare_base",
+    "en LabSession._scenes",
+    "en LabSession.locked"
+   ],
+   "script_engine/gfx_critic.py": [
+    "en snapshots"
+   ],
+   "script_engine/gfx_rotulista.py": [
+    "en preparar_cap"
+   ],
+   "script_engine/gfx_icons/demo.py": [
+    "arriba"
+   ],
+   "script_engine/gfx_icons/strip.py": [
+    "en cmd_strip"
+   ]
+  },
+  "tests": [
+   "test_module_f29a.py",
+   "test_module_f32.py",
+   "test_module_gfx_layer_fallback.py",
+   "test_module_gfx_question.py"
+  ],
+  "lab": [
+   "lab/hyperframes/f1/grade_variants.py",
+   "lab/hyperframes/f29b/b/f29b_tabla.py",
+   "lab/hyperframes/f29b/b/f29b_vajont.py",
+   "lab/hyperframes/f29b/b/hoja_bloques.py",
+   "lab/hyperframes/f29c/b/hoja_bloques.py",
+   "lab/hyperframes/f31/f31_variantes.py",
+   "lab/hyperframes/f4/s3/probe_vscale.py",
+   "lab/hyperframes/f4/s3/probe_vscale2.py",
+   "lab/hyperframes/f4/s3/probe_vscale3.py",
+   "lab/hyperframes/f4/s3/probe_vscale4.py",
+   "lab/hyperframes/f4/s3/probe_vscale5.py",
+   "lab/hyperframes/f5/correr_f5_orleans.py",
+   "lab/hyperframes/f5/simular_gfx_v2.py"
+  ]
+ },
+ "gfx_literal_lock": {
+  "archivo": "script_engine/gfx_literal_lock.py",
+  "doc": "gfx_literal_lock.py — Candado literal de la capa gráfica (D7).",
+  "funciones": [
+   "normalize",
+   "find_source",
+   "is_literal",
+   "lock",
+   "plan_strings"
+  ],
+  "importa": {
+   "gfx_config": [
+    "arriba"
+   ],
+   "gfx_director": [
+    "en lock"
+   ]
+  },
+  "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
+  "lo_importan": {
+   "gfx_lab_server.py": [
+    "en LabSession.locked"
+   ],
+   "script_engine/gfx_director.py": [
+    "arriba"
+   ],
+   "script_engine/gfx_fragments.py": [
+    "en lock_ok"
+   ],
+   "script_engine/gfx_layer.py": [
+    "en apply_gfx"
+   ]
+  },
+  "tests": [
+   "test_module_f29b_rotulista.py",
+   "test_module_f5f.py",
+   "test_module_gfx_0d.py",
+   "test_module_gfx_emphasis.py",
+   "test_module_gfx_icons.py",
+   "test_module_gfx_lock.py",
+   "test_module_gfx_peak.py",
+   "test_module_gfx_question.py"
+  ],
+  "lab": []
+ },
+ "gfx_peak": {
+  "archivo": "script_engine/gfx_peak.py",
+  "doc": "gfx_peak.py — El pico del capítulo y sus bloques grandes (F3, pedido de Omar 2026-10-20). Determinista, sin LLM.",
+  "funciones": [
+   "_plain",
+   "_clean",
+   "sentences",
+   "lexicon_hits",
+   "prefer_icon_nouns",
+   "find_peak",
+   "peak_from_intensity",
+   "_to_m",
+   "water_level",
+   "zoom_latido",
+   "time_ticker",
+   "ticker_corner",
+   "_starts_near",
+   "clear_around",
+   "peak_word",
+   "add_peak_word",
+   "reserved_water_level",
+   "water_used_before",
+   "box_from_cache",
+   "plan_peak"
+  ],
+  "importa": {
+   "gfx_config": [
+    "arriba"
+   ],
+   "m05_narrative": [
+    "en prefer_icon_nouns"
+   ],
+   "gfx_intensity": [
+    "en peak_from_intensity",
+    "en plan_peak"
+   ],
+   "gfx_director": [
+    "en add_peak_word"
+   ],
+   "evidence": [
+    "en reserved_water_level"
+   ],
+   "gfx_pool": [
+    "en reserved_water_level"
+   ]
+  },
+  "nacio": "9d36be7 2026-10-20 feat(gfx-f3-lab): pico del cap — nivel de agua, reloj, zoom con latido, corte a negro",
+  "lo_importan": {
+   "fase2b.py": [
+    "en _solo_plan"
+   ],
+   "gfx_lab_server.py": [
+    "en LabSession.with_defaults"
+   ],
+   "script_engine/gfx_critic.py": [
+    "en voice_at",
+    "en voice_vecinas"
+   ],
+   "script_engine/gfx_director.py": [
+    "en place_emphasis"
+   ],
+   "script_engine/gfx_layer.py": [
+    "en apply_gfx"
+   ],
+   "script_engine/gfx_pool.py": [
+    "en plan_pool_documents",
+    "en _water_used",
+    "en _is_water_height",
+    "en plan_pool_quote",
+    "en pool_ticker"
+   ],
+   "script_engine/gfx_rotulista.py": [
+    "en oraciones",
+    "en animacion_de_cifra",
+    "en sellos_por_tema",
+    "en pico_plan"
+   ]
+  },
+  "tests": [
+   "test_module_f29b_rotulista.py",
+   "test_module_f32.py",
+   "test_module_f5b.py",
+   "test_module_f5f.py",
+   "test_module_gfx_f4d.py",
+   "test_module_gfx_intensity.py",
+   "test_module_gfx_peak.py",
+   "test_module_gfx_vision.py"
+  ],
+  "lab": [
+   "lab/hyperframes/f29c/b/hoja_bloques.py",
+   "lab/hyperframes/f31/f31_variantes.py",
+   "lab/hyperframes/f5/analizar_sims.py"
+  ]
+ },
+ "gfx_pool": {
+  "archivo": "script_engine/gfx_pool.py",
+  "doc": "gfx_pool.py — La pantalla se alimenta del evidence_pool (F5 §2). Todo detrás de `if pool`: un guion sin pool sigue con verified_facts exactamente como antes.",
+  "funciones": [
+   "short_source",
+   "pool_sources",
+   "literal_icon_map",
+   "content_icon",
+   "_is_verb",
+   "_verbs",
+   "_has_verb",
+   "_bare_figure",
+   "_cut_ok",
+   "_unprotect",
+   "pool_clause_options",
+   "_open_quote",
+   "close_quotes",
+   "_default_year",
+   "narrated_dates",
+   "used_ids_before",
+   "cap_candidates",
+   "_sentence_for",
+   "_free_slot",
+   "_busy_blocks",
+   "_hits",
+   "displace",
+   "reserved_slot",
+   "figure_echo",
+   "_kicker",
+   "plan_pool_documents",
+   "_water_used",
+   "_is_water_height",
+   "_spoken_at",
+   "plan_pool_quote",
+   "enforce_reserved",
+   "pool_ticker",
+   "count_groups",
+   "pool_count_up"
+  ],
+  "importa": {
+   "evidence": [
+    "arriba"
+   ],
+   "gfx_config": [
+    "en literal_icon_map",
+    "en _busy_blocks",
+    "en plan_pool_documents",
+    "en plan_pool_quote",
+    "en pool_count_up"
+   ],
+   "m05_narrative": [
+    "en content_icon"
+   ],
+   "gfx_fragments": [
+    "en _is_verb",
+    "en _verbs",
+    "en _bare_figure",
+    "en _cut_ok",
+    "en pool_clause_options",
+    "en close_quotes",
+    "en _kicker",
+    "en plan_pool_documents",
+    "en _spoken_at"
+   ],
+   "gfx_peak": [
+    "en plan_pool_documents",
+    "en _water_used",
+    "en _is_water_height",
+    "en plan_pool_quote",
+    "en pool_ticker"
+   ],
+   "gfx_project": [
+    "en plan_pool_documents"
+   ],
+   "gfx_realizador": [
+    "en plan_pool_documents"
+   ],
+   "gemini_helpers": [
+    "en plan_pool_documents"
+   ]
+  },
+  "nacio": "e18e656 2026-10-20 feat(f5-gfx): la pantalla se alimenta del evidence_pool — candado, recortes con fuente, ícono por contenido, reloj y preg",
+  "lo_importan": {
+   "script_engine/gfx_director.py": [
+    "en load_chapter_context"
+   ],
+   "script_engine/gfx_layer.py": [
+    "en _realizador",
+    "en apply_gfx"
+   ],
+   "script_engine/gfx_peak.py": [
+    "en reserved_water_level"
+   ],
+   "script_engine/gfx_realizador.py": [
+    "en garantizar_pico"
+   ],
+   "script_engine/gfx_rotulista.py": [
+    "en validar",
+    "en colocar",
+    "en escena_final"
+   ],
+   "script_engine/m01a_escaleta.py": [
+    "en count_variants"
+   ],
+   "script_engine/m01a_skeleton.py": [
+    "en assign_screen_ids"
+   ]
+  },
+  "tests": [
+   "test_module_f5b.py",
+   "test_module_f5e.py",
+   "test_module_f5f.py",
+   "test_module_gfx_pool.py"
+  ],
+  "lab": [
+   "lab/hyperframes/f29/d/f29d_sonnet.py",
+   "lab/hyperframes/f5/analizar_sims.py"
+  ]
+ },
+ "gfx_project": {
+  "archivo": "script_engine/gfx_project.py",
+  "doc": "gfx_project.py — Templater determinista de la capa gráfica HyperFrames (sin LLM).",
+  "funciones": [
+   "GfxScene",
+   "_tpl",
+   "_esc",
+   "chars_html",
+   "callout_anim",
+   "_anim_in_js",
+   "_source_html",
+   "mood_layer",
+   "_grain_filter",
+   "icon_callout_html",
+   "card_icon_html",
+   "icon_array_html",
+   "water_level_html",
+   "quote_card_html",
+   "forma",
+   "_forma_v_js",
+   "ficha_html",
+   "time_ticker_html",
+   "load_grade_preset",
+   "parse_count_literal",
+   "format_count",
+   "scene_at",
+   "_extract_freeze",
+   "transitions_of",
+   "plan_transitions",
+   "_freeze_img",
+   "_scene_html",
+   "archive_list",
+   "cue_events",
+   "_debug_overlay",
+   "tc_metrics",
+   "_wrap_lines",
+   "ficha_medida",
+   "render_css",
+   "archive_head_px",
+   "write_project"
+  ],
+  "importa": {
+   "gfx_config": [
+    "arriba",
+    "en archive_head_px"
+   ],
+   "gfx_style": [
+    "en _scene_html"
+   ]
+  },
+  "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
+  "lo_importan": {
+   "gfx_lab_server.py": [
+    "en LabSession._scenes",
+    "en LabSession.cues_for",
+    "en LabSession._transitions_for",
+    "en LabSession.preview",
+    "en rules_override.__enter__",
+    "en rules_override.__exit__"
+   ],
+   "script_engine/gfx_director.py": [
+    "en resolve_plan",
+    "en place_emphasis",
+    "en convert_callout_to_archive",
+    "en place_icon_array",
+    "en fill_gaps"
+   ],
+   "script_engine/gfx_layer.py": [
+    "arriba",
+    "en _render_sparse",
+    "en apply_gfx"
+   ],
+   "script_engine/gfx_pool.py": [
+    "en plan_pool_documents"
+   ],
+   "script_engine/gfx_rotulista.py": [
+    "en validar",
+    "en animacion_de_cifra",
+    "en colocar",
+    "en escena_final",
+    "en sellos_por_tema"
+   ],
+   "script_engine/gfx_sparse.py": [
+    "arriba"
+   ],
+   "script_engine/gfx_icons/demo.py": [
+    "en build"
+   ],
+   "script_engine/gfx_icons/strip.py": [
+    "en build"
+   ]
+  },
+  "tests": [
+   "test_module_f29c_rotulista.py",
+   "test_module_f30.py",
+   "test_module_f30b.py",
+   "test_module_f31.py",
+   "test_module_f32.py",
+   "test_module_f5b.py",
+   "test_module_f5e.py",
+   "test_module_f5f.py",
+   "test_module_f5_prod.py",
+   "test_module_gfx_0d.py",
+   "test_module_gfx_anim.py",
+   "test_module_gfx_config.py",
+   "test_module_gfx_cues.py",
+   "test_module_gfx_director.py",
+   "test_module_gfx_emphasis.py",
+   "test_module_gfx_f4d.py",
+   "test_module_gfx_fragments.py",
+   "test_module_gfx_icons.py",
+   "test_module_gfx_lab.py",
+   "test_module_gfx_peak.py",
+   "test_module_gfx_pool.py",
+   "test_module_gfx_profiles.py",
+   "test_module_gfx_question.py",
+   "test_module_gfx_router.py",
+   "test_module_gfx_sparse.py",
+   "test_module_gfx_style.py",
+   "test_module_gfx_vision.py"
+  ],
+  "lab": [
+   "lab/hyperframes/f1/grade_variants.py",
+   "lab/hyperframes/f29c/b/f29c_vajont.py",
+   "lab/hyperframes/f30/f30_stitch_enc.py",
+   "lab/hyperframes/f31/f31_variantes.py",
+   "lab/hyperframes/f4/s3/probe_vscale.py",
+   "lab/hyperframes/f4/s3/probe_vscale2.py",
+   "lab/hyperframes/f4/s3/probe_vscale3.py",
+   "lab/hyperframes/f4/s3/probe_vscale4.py",
+   "lab/hyperframes/f4/s3/probe_vscale5.py"
+  ]
+ },
+ "gfx_question": {
+  "archivo": "script_engine/gfx_question.py",
+  "doc": "gfx_question.py — Pregunta de cierre automática por capítulo (F3, pedido de Omar 2026-10-20).",
+  "funciones": [
+   "_strip_accents",
+   "sentences",
+   "nouns",
+   "figures",
+   "clean",
+   "max_words",
+   "abstract_words",
+   "validate",
+   "build_prompt",
+   "generate",
+   "proper_names",
+   "validate_rubric",
+   "build_rubric_prompt",
+   "generate_rubric",
+   "_rubric_on",
+   "question_for",
+   "save_edited"
+  ],
+  "importa": {
+   "gfx_config": [
+    "en max_words",
+    "en _rubric_on"
+   ],
+   "gemini_helpers": [
+    "en generate",
+    "en generate_rubric"
+   ]
+  },
+  "nacio": "beb2b8f 2026-10-20 feat(gfx-f3-lab): íconos en bloque + pregunta de cierre automática con pausa",
+  "lo_importan": {
+   "gfx_lab_server.py": [
+    "en LabSession.question"
+   ],
+   "script_engine/gfx_layer.py": [
+    "en closing_question",
+    "en apply_gfx"
+   ]
+  },
+  "tests": [
+   "test_module_gfx_lab.py",
+   "test_module_gfx_pool.py",
+   "test_module_gfx_question.py"
+  ],
+  "lab": []
+ },
+ "gfx_realizador": {
+  "archivo": "script_engine/gfx_realizador.py",
+  "doc": "script_engine/gfx_realizador.py — F29 §A: el gfx obedece a la escaleta. «El bloque aporta lo que la voz no dice, sobre lo que la voz está contando ahora. Nunca repite el subtítulo; nunca adelanta un beat posterior.»",
+  "funciones": [
+   "cargar",
+   "_palabras",
+   "ventanas",
+   "_raices",
+   "beat_de_pantalla",
+   "ya_dicho",
+   "_voz_en",
+   "candidatos",
+   "preparar",
+   "para_pool",
+   "pregunta_cierre",
+   "duracion_texto",
+   "_beat_en",
+   "_lista",
+   "finalizar",
+   "_hay_grande_en_pico",
+   "garantizar_pico",
+   "cerrar"
+  ],
+  "importa": {
+   "evidence": [
+    "arriba"
+   ],
+   "music_intensity": [
+    "en ventanas"
+   ],
+   "gfx_pool": [
+    "en garantizar_pico"
+   ]
+  },
+  "nacio": "2fcd603 2026-10-25 feat(f29a): el gfx obedece a la escaleta — script_engine/gfx_realizador (ventanas por beat en la voz → gfx_beats_chNN.jso",
+  "lo_importan": {
+   "script_engine/gfx_layer.py": [
+    "en _realizador",
+    "en closing_question",
+    "en apply_gfx"
+   ],
+   "script_engine/gfx_pool.py": [
+    "en plan_pool_documents"
+   ],
+   "script_engine/gfx_rotulista.py": [
+    "en items_cap",
+    "en _raices",
+    "en preparar_cap"
+   ]
+  },
+  "tests": [
+   "test_module_f29a.py",
+   "test_module_f29b_rotulista.py",
+   "test_module_f32.py"
+  ],
+  "lab": []
+ },
+ "gfx_review": {
+  "archivo": "script_engine/gfx_review.py",
+  "doc": "gfx_review.py — Hoja de cues y página de revisión local de la capa gráfica (F1b).",
+  "funciones": [
+   "fmt_t",
+   "write_cues",
+   "write_review"
+  ],
+  "importa": {
+   "gfx_config": [
+    "en write_cues"
+   ]
+  },
+  "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
+  "lo_importan": {
+   "fase2b.py": [
+    "en _segmentos_en_paralelo",
+    "en _assemble_one_video"
+   ],
+   "script_engine/gfx_layer.py": [
+    "en apply_gfx"
+   ]
+  },
+  "tests": [
+   "test_module_f28c.py",
+   "test_module_gfx_cues.py"
+  ],
+  "lab": []
+ },
+ "gfx_rotulista": {
+  "archivo": "script_engine/gfx_rotulista.py",
+  "doc": "script_engine/gfx_rotulista.py — F29b §A: el rotulista. El texto de pantalla lo escribe alguien, anclado a la oración. F29c: por beat, anclado a la palabra, y la ficha es el title card.",
+  "funciones": [
+   "prompt_md5",
+   "_w2n",
+   "numeros",
+   "nombres",
+   "_raiz_en",
+   "_palabra_en",
+   "_valor",
+   "numero_en",
+   "palabras",
+   "munon",
+   "nombre_inicial",
+   "palabras_de_contenido",
+   "_toks",
+   "_num_tok",
+   "_num_en",
+   "_analiza",
+   "_fmt",
+   "contradicciones",
+   "oraciones",
+   "beat_de_oracion",
+   "_tipo_id",
+   "items_cap",
+   "ya_mostrado",
+   "_raices",
+   "pico_cap",
+   "voz_del_video",
+   "entrada",
+   "prompt_user",
+   "_escena_de",
+   "tiempos",
+   "despues_del_corte",
+   "pide_documento",
+   "caracteres",
+   "validar",
+   "finalizar",
+   "lo_que_pide",
+   "_ledger",
+   "gastado",
+   "primer_json",
+   "_solo_el_json",
+   "_post_con_registro",
+   "TopeRotulista",
+   "_reintento",
+   "llamar",
+   "animacion_de_cifra",
+   "colocar",
+   "ediciones_de",
+   "guardar_ediciones",
+   "aplicar_ediciones",
+   "mover_a_escena",
+   "lupa_de_detalles",
+   "_sello_queda",
+   "escena_final",
+   "sellos_por_tema",
+   "pico_plan",
+   "preparar_cap",
+   "prefetch"
+  ],
+  "importa": {
+   "evidence": [
+    "arriba"
+   ],
+   "num_es": [
+    "en _w2n",
+    "en _valor",
+    "en _num_tok"
+   ],
+   "gfx_peak": [
+    "en oraciones",
+    "en animacion_de_cifra",
+    "en sellos_por_tema",
+    "en pico_plan"
+   ],
+   "gfx_realizador": [
+    "en items_cap",
+    "en _raices",
+    "en preparar_cap"
+   ],
+   "music_intensity": [
+    "en pico_cap"
+   ],
+   "gfx_pool": [
+    "en validar",
+    "en colocar",
+    "en escena_final"
+   ],
+   "gfx_project": [
+    "en validar",
+    "en animacion_de_cifra",
+    "en colocar",
+    "en escena_final",
+    "en sellos_por_tema"
+   ],
+   "claude_helpers": [
+    "en _post_con_registro",
+    "en llamar"
+   ],
+   "gfx_config": [
+    "en animacion_de_cifra",
+    "en escena_final",
+    "en sellos_por_tema",
+    "en pico_plan"
+   ],
+   "config": [
+    "en preparar_cap"
+   ],
+   "gfx_director": [
+    "en preparar_cap"
+   ],
+   "gfx_layer": [
+    "en preparar_cap"
+   ]
+  },
+  "nacio": "5ae6177 2026-10-25 feat(f29b-a): el rotulista — el texto de pantalla lo escribe Claude, anclado a la oración (sin render; gfx_rules.rotulist",
+  "lo_importan": {
+   "fase2b.py": [
+    "en _solo_plan",
+    "en _assemble_one_video",
+    "en main"
+   ],
+   "script_engine/gfx_guion.py": [
+    "en chequeos"
+   ],
+   "script_engine/gfx_layer.py": [
+    "en lectura_pregunta",
+    "en apply_gfx"
+   ]
+  },
+  "tests": [
+   "test_module_f29b_rotulista.py",
+   "test_module_f29c_rotulista.py",
+   "test_module_f30b.py",
+   "test_module_f32.py"
+  ],
+  "lab": [
+   "lab/hyperframes/f29b/a/f29b_crudas.py",
+   "lab/hyperframes/f29b/b/f29b_tabla.py",
+   "lab/hyperframes/f29b/b/f29b_vajont.py",
+   "lab/hyperframes/f29c/b/f29c_vajont.py",
+   "lab/hyperframes/f30b/f30b_vajont.py"
+  ]
+ },
+ "gfx_safe_bake": {
+  "archivo": "script_engine/gfx_safe_bake.py",
+  "doc": "script_engine/gfx_safe_bake.py — F30 §A: el movimiento seguro («safe») lo hace ffmpeg, no el navegador.",
+  "funciones": [
+   "frames_of",
+   "expresiones",
+   "bake_scene",
+   "n_frames",
+   "plan_bake",
+   "concat_graph",
+   "bake"
+  ],
+  "importa": {
+   "gfx_config": [
+    "arriba"
+   ]
+  },
+  "nacio": "94d9496 2026-10-25 feat(f30a): el push «safe» lo hace ffmpeg — script_engine/gfx_safe_bake cuece cada escena safe desde su PNG (push/pull si",
+  "lo_importan": {
+   "script_engine/gfx_layer.py": [
+    "en _render_sparse"
+   ]
+  },
+  "tests": [
+   "test_module_f30.py"
+  ],
+  "lab": []
+ },
+ "gfx_sparse": {
+  "archivo": "script_engine/gfx_sparse.py",
+  "doc": "gfx_sparse.py — Render DISPERSO de la capa gráfica (F2 §3.1, flag --gfx-sparse).",
+  "funciones": [
+   "_frame",
+   "transition_span",
+   "event_windows",
+   "stitch_transitions",
+   "compose_sparse",
+   "cut_base",
+   "vignette_png",
+   "grain_png",
+   "stitch_segments",
+   "_flash_alphas",
+   "stitch_graph",
+   "stitch"
+  ],
+  "importa": {
+   "gfx_config": [
+    "arriba"
+   ],
+   "gfx_project": [
+    "arriba"
+   ],
+   "gfx_style": [
+    "en stitch_graph"
+   ],
+   "gfx_bug": [
+    "en stitch"
+   ]
+  },
+  "nacio": "f3d42ed 2026-10-19 feat(gfx-f2): §3.1 render disperso (--gfx-sparse)",
+  "lo_importan": {
+   "script_engine/gfx_layer.py": [
+    "en _render_sparse"
+   ]
+  },
+  "tests": [
+   "test_module_f10.py",
+   "test_module_f30.py",
+   "test_module_f30b.py",
+   "test_module_gfx_bug.py",
+   "test_module_gfx_emphasis.py",
+   "test_module_gfx_router.py",
+   "test_module_gfx_sparse.py",
+   "test_module_gfx_style.py"
+  ],
+  "lab": [
+   "lab/hyperframes/f30/f30_stitch_enc.py"
+  ]
+ },
+ "gfx_style": {
+  "archivo": "script_engine/gfx_style.py",
+  "doc": "gfx_style.py — El director aplica la IDENTIDAD del canal (F4 §2, HANDOFF_F4 §1.1–§1.2).",
+  "funciones": [
+   "suggest_movement",
+   "movement_for",
+   "prompt_for_asset",
+   "plan_movements",
+   "_setting_tokens",
+   "same_place",
+   "identity_transitions",
+   "transiciones_por_relato",
+   "_word_weight",
+   "_sentence_of",
+   "select_punches",
+   "golden_fewshot",
+   "identity_violations"
+  ],
+  "importa": {
+   "gfx_config": [
+    "arriba",
+    "en golden_fewshot"
+   ]
+  },
+  "nacio": "f5c54bd 2026-10-20 feat(gfx-f4): el director aplica la identidad del lab (§2) + ch05 de prueba",
+  "lo_importan": {
+   "gfx_lab_server.py": [
+    "arriba"
+   ],
+   "script_engine/gfx_director.py": [
+    "en system_prompt"
+   ],
+   "script_engine/gfx_layer.py": [
+    "en apply_gfx"
+   ],
+   "script_engine/gfx_project.py": [
+    "en _scene_html"
+   ],
+   "script_engine/gfx_sparse.py": [
+    "en stitch_graph"
+   ]
+  },
+  "tests": [
+   "test_module_f30b.py",
+   "test_module_gfx_style.py"
+  ],
+  "lab": []
+ },
+ "gfx_vision": {
+  "archivo": "script_engine/gfx_vision.py",
+  "doc": "gfx_vision.py — Zoom foto-primero (F4b §3): visión MIRA la foto antes de que el director elija el zoom.",
+  "funciones": [
+   "_guardar",
+   "_plain",
+   "_tok",
+   "clamp_box",
+   "image_hash",
+   "validate",
+   "_vision_call",
+   "photo_details",
+   "_named_word",
+   "pick_zoom",
+   "verify_crop",
+   "human_box"
+  ],
+  "importa": {
+   "config": [
+    "en _vision_call",
+    "en verify_crop"
+   ],
+   "cost_tracker": [
+    "en _vision_call",
+    "en verify_crop"
+   ]
+  },
+  "nacio": "93064c8 2026-10-20 feat(gfx-f4b): zoom foto-primero, iconos gratis y marca del canal (§3, §4, §0.3 apagada)",
+  "lo_importan": {
+   "script_engine/gfx_layer.py": [
+    "en apply_gfx"
+   ]
+  },
+  "tests": [
+   "test_module_gfx_vision.py"
+  ],
+  "lab": []
+ },
+ "aprobacion": {
+  "archivo": "script_engine/aprobacion.py",
+  "doc": "script_engine/aprobacion.py — F33 §B: la compuerta del render. Sin guion de pantalla aprobado no hay `fase2b --gfx`.",
+  "funciones": [
+   "planes",
+   "md5_planes",
+   "aprobar",
+   "estado"
+  ],
+  "importa": {},
+  "nacio": "f97c6f1 2026-10-26 feat(f33-b): compuerta del render — fase2b --aprobar-guion \"<quién> <fecha>\" escribe aprobado {por, fecha, md5_planes} en",
+  "lo_importan": {
+   "fase2b.py": [
+    "en main"
+   ]
+  },
+  "tests": [
+   "test_module_f33.py"
+  ],
+  "lab": []
+ },
+ "m01a_escaleta": {
+  "archivo": "script_engine/m01a_escaleta.py",
+  "doc": "script_engine/m01a_escaleta.py — Módulo 01a v3 (F6b, HANDOFF_F6 §2.2): el LLM DECIDE LA HISTORIA antes de escribirla.",
+  "funciones": [
+   "_vl",
+   "_cap_words",
+   "has_figure",
+   "EscaletaValidationError",
+   "rules_text",
+   "own_ids",
+   "_fmt_people",
+   "_verif",
+   "_fmt_quotes",
+   "_fmt_canonical",
+   "count_variants",
+   "_fmt_counts",
+   "ficha_section",
+   "pool_section",
+   "_profile",
+   "build_prompt",
+   "_plain",
+   "question_problems",
+   "_beat_known",
+   "validate",
+   "intent_de_cap",
+   "caps_view",
+   "apply_pool_plan",
+   "_cap_spans",
+   "_screen_by_date",
+   "writer_instructions",
+   "_persist",
+   "pool_gate_profile",
+   "ficha_notes",
+   "is_v3",
+   "call_escaleta",
+   "generate_escaleta",
+   "bloqueante_de",
+   "institucion_de_la_ficha",
+   "bloqueantes",
+   "ids_v2",
+   "_ids_of",
+   "metricas_escaleta",
+   "antagonista_metricas",
+   "ficha_section_v2",
+   "build_prompt_v2",
+   "_personas_beat",
+   "metricas_columna",
+   "generate_escaleta_v2",
+   "_frozen_is_escaleta",
+   "frozen_escaleta",
+   "to_markdown"
+  ],
+  "importa": {
+   "evidence": [
+    "arriba"
+   ],
+   "m01a_skeleton": [
+    "arriba",
+    "en _screen_by_date"
+   ],
+   "video_length": [
+    "en _vl",
+    "en _cap_words"
+   ],
+   "nombres": [
+    "en own_ids",
+    "en validate",
+    "en metricas_escaleta",
+    "en antagonista_metricas"
+   ],
+   "gfx_pool": [
+    "en count_variants"
+   ],
+   "guion_v4": [
+    "en call_escaleta"
+   ],
+   "claude_helpers": [
+    "en call_escaleta"
+   ],
+   "gemini_helpers": [
+    "en generate_escaleta"
+   ],
+   "m01a_columna": [
+    "en generate_escaleta",
+    "en institucion_de_la_ficha",
+    "en build_prompt_v2",
+    "en _personas_beat",
+    "en metricas_columna",
+    "en generate_escaleta_v2"
+   ],
+   "guion_v3_reglas": [
+    "en antagonista_metricas"
+   ]
+  },
+  "nacio": "4b41280 2026-10-21 wip(f6b): m01a_escaleta (schema, prompt con few-shot, validador, pool plan heredado, frozen) + tests",
+  "lo_importan": {
+   "fase1_5.py": [
+    "en run_escaleta_v3"
+   ],
+   "script_engine/guion_v4.py": [
+    "en official_ids"
+   ],
+   "script_engine/m01a_columna.py": [
+    "en build_prompt"
+   ],
+   "script_engine/m01b_guionista.py": [
+    "en extra_material",
+    "en review"
+   ],
+   "script_engine/m01c_editor.py": [
+    "en _numbers"
+   ],
+   "script_engine/m01d_particion.py": [
+    "en build_contract"
+   ],
+   "script_engine/tts_tags.py": [
+    "en caps_tts"
+   ]
+  },
+  "tests": [
+   "test_module_f14.py",
+   "test_module_f15.py",
+   "test_module_f15b.py",
+   "test_module_f16.py",
+   "test_module_f17.py",
+   "test_module_f19.py",
+   "test_module_f21.py",
+   "test_module_f22.py",
+   "test_module_f22d.py",
+   "test_module_f23.py",
+   "test_module_f24.py",
+   "test_module_f25c.py",
+   "test_module_f26.py",
+   "test_module_f6b.py",
+   "test_module_f6c.py",
+   "test_module_f7.py",
+   "test_module_f7d.py",
+   "test_module_f8.py"
+  ],
+  "lab": [
+   "lab/hyperframes/f10/f10_ajuste_ycua.py",
+   "lab/hyperframes/f10/f10_quirurgico_ycua.py",
+   "lab/hyperframes/f10/f10_seco_orleans.py",
+   "lab/hyperframes/f10/f10_ycua_docs.py",
+   "lab/hyperframes/f14/f14_orleans.py",
+   "lab/hyperframes/f15/f15_corridas.py",
+   "lab/hyperframes/f15b/f15b_corridas.py",
+   "lab/hyperframes/f16/f16_compara.py",
+   "lab/hyperframes/f16/f16_corridas.py",
+   "lab/hyperframes/f17/f17_corridas.py",
+   "lab/hyperframes/f18/f18_corridas.py",
+   "lab/hyperframes/f19/f19_corridas.py",
+   "lab/hyperframes/f21/recheck.py",
+   "lab/hyperframes/f22/f22_corridas.py",
+   "lab/hyperframes/f22/f22_diffs.py",
+   "lab/hyperframes/f22c/f22c_corridas.py",
+   "lab/hyperframes/f22d/f22d_corridas.py",
+   "lab/hyperframes/f23/f23_compara.py",
+   "lab/hyperframes/f23/f23_corridas.py",
+   "lab/hyperframes/f23/f23_diffs.py",
+   "lab/hyperframes/f24/f24_compara.py",
+   "lab/hyperframes/f24/f24_corridas.py",
+   "lab/hyperframes/f25a/f25a_corridas.py",
+   "lab/hyperframes/f25c/f25c_corridas.py",
+   "lab/hyperframes/f26/f26a_corridas.py",
+   "lab/hyperframes/f6/f6b_escaleta_orleans.py",
+   "lab/hyperframes/f7/build_compara_v3r.py",
+   "lab/hyperframes/f7/f7c_orleans.py"
+  ]
+ },
+ "m01d_particion": {
+  "archivo": "script_engine/m01d_particion.py",
+  "doc": "script_engine/m01d_particion.py — F10 §2: de los párrafos v3 (escaleta → guionista → editor) al CONTRATO de 7 caps que lee todo lo de río abajo (m02_5, audio, m07, m03, assemble, fase2a/2b, gfx).",
+  "funciones": [
+   "len_range",
+   "_caps_of",
+   "_cap_len",
+   "rebalance",
+   "editor_shorten",
+   "_title_fallback",
+   "titles",
+   "build_contract",
+   "particionar",
+   "ParticionError",
+   "_item_line",
+   "regenerate_cap_v3",
+   "cut_phrases",
+   "regenerate_cap"
+  ],
+  "importa": {
+   "m01b_guionista": [
+    "arriba"
+   ],
+   "m01a_skeleton": [
+    "arriba"
+   ],
+   "m01b_narrator": [
+    "en len_range"
+   ],
+   "m01c_editor": [
+    "en editor_shorten",
+    "en build_contract",
+    "en regenerate_cap_v3",
+    "en cut_phrases",
+    "en regenerate_cap"
+   ],
+   "gemini_helpers": [
+    "en editor_shorten",
+    "en titles",
+    "en regenerate_cap_v3",
+    "en cut_phrases"
+   ],
+   "m01a_escaleta": [
+    "en build_contract"
+   ],
+   "nombres": [
+    "en build_contract"
+   ],
+   "guion_v3_reglas": [
+    "en build_contract"
+   ],
+   "evidence": [
+    "en _item_line",
+    "en regenerate_cap_v3"
+   ]
+  },
+  "nacio": "317c5f1 2026-10-22 wip(f10-4.1): fase1_5 --v3 (escaleta → guionista → editor → m01d_particion → juez) con el contrato de 7 caps; --from; cor",
+  "lo_importan": {
+   "fase1_5.py": [
+    "en run_guion_v3",
+    "en run_guion_v4"
+   ],
+   "script_engine/guion_v4.py": [
+    "en reparar"
+   ]
+  },
+  "tests": [
+   "test_module_f10.py",
+   "test_module_f11.py",
+   "test_module_f11b.py",
+   "test_module_f22.py",
+   "test_module_f23.py"
+  ],
+  "lab": [
+   "lab/hyperframes/f10/f10_quirurgico_ycua.py",
+   "lab/hyperframes/f11/f11_convergencia.py",
+   "lab/hyperframes/f11b/f11b_corridas.py",
+   "lab/hyperframes/f11c/f11c_corridas.py",
+   "lab/hyperframes/f24/f24_corridas.py",
+   "lab/hyperframes/f26/b/f26b_produccion.py"
+  ]
+ },
+ "music_intensity": {
+  "archivo": "script_engine/music_intensity.py",
+  "doc": "script_engine/music_intensity.py — F28 §B.2: mapa de intensidad de la música por cap.",
+  "funciones": [
+   "_palabras",
+   "tiempos_por_palabra",
+   "beat_pico_de_cap",
+   "tramos_de_cap",
+   "ganancias",
+   "aplicar_a_wav",
+   "mapa_del_topic"
+  ],
+  "importa": {},
+  "nacio": "e3fd23a 2026-10-25 feat(f28b): paleta F28 a producción + mapa de intensidad + re-mezcla de Vajont · 12 pistas (elección del analista) recort",
+  "lo_importan": {
+   "fase2b.py": [
+    "en _mapa_intensidad",
+    "en _build_music_piece_for_chapter"
+   ],
+   "script_engine/gfx_realizador.py": [
+    "en ventanas"
+   ],
+   "script_engine/gfx_rotulista.py": [
+    "en pico_cap"
+   ]
+  },
+  "tests": [
+   "test_module_f28b.py",
+   "test_module_f29b_rotulista.py"
+  ],
+  "lab": []
+ },
+ "transition_applier": {
+  "archivo": "script_engine/transition_applier.py",
+  "doc": "modules/transition_applier.py — Aplicador FFmpeg de transiciones entre segmentos.",
+  "funciones": [
+   "TransitionPlan",
+   "resolve_position",
+   "build_transition_plan",
+   "_xfade_transition_for",
+   "_build_filter_complex",
+   "_run_cmd",
+   "_scaled_timeout",
+   "_concat_timeout",
+   "_get_duration",
+   "_concat_demuxer_fallback",
+   "SegmentInfo",
+   "probe_segment",
+   "plan_windows",
+   "_split_copy",
+   "concat_windowed",
+   "concat_with_transitions"
+  ],
+  "importa": {
+   "transition_config": [
+    "arriba"
+   ],
+   "transition_profiles": [
+    "arriba"
+   ]
+  },
+  "nacio": "e33f84a 2026-05-28 Initial commit: automatization_videos pipeline (post chat 32)",
+  "lo_importan": {
+   "fase2b.py": [
+    "arriba",
+    "en _concat_segments"
+   ]
+  },
+  "tests": [
+   "test_module_concat_windowed.py",
+   "test_module_f30b.py",
+   "test_module_transition_timeout.py"
+  ],
+  "lab": [
+   "lab/hyperframes/f29c/b/hoja_bloques.py",
+   "lab/hyperframes/f2b/measure_concat_f2segs.py"
+  ]
+ },
+ "gfx_config": {
+  "archivo": "gfx_config.py",
+  "doc": "gfx_config.py — MOTOR de la capa gráfica HyperFrames (inmutable) + carga del PERFIL DE CANAL.",
+  "funciones": [
+   "GfxRenderSettings",
+   "resolve_node",
+   "hyperframes_cli",
+   "gsap_js",
+   "browser_env",
+   "GfxBlock",
+   "GfxRules",
+   "profile_path",
+   "active_profile_name",
+   "load_profile",
+   "rules_from_profile",
+   "inventory_from_profile",
+   "grade_variants",
+   "active_moods",
+   "max_per_cap",
+   "block_enabled",
+   "sfx_for",
+   "chrome_strings",
+   "render_inventory_for_prompt",
+   "clamp_count",
+   "clamp_callout_duration",
+   "clamp_box",
+   "clamp_quality"
+  ],
+  "importa": {
+   "config": [
+    "arriba"
+   ],
+   "nicho_config": [
+    "en active_profile_name"
+   ]
+  },
+  "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
+  "lo_importan": {
+   "fase2b.py": [
+    "en _pre_roll_de",
+    "en _segment_hash",
+    "en _resolve_gfx_quality",
+    "en _solo_plan",
+    "en _assemble_one_video",
+    "en main"
+   ],
+   "gfx_lab_server.py": [
+    "en LabSession._prepare_base",
+    "en LabSession.with_defaults",
+    "en LabSession.context",
+    "en LabSession._icon_context",
+    "en LabSession.summary",
+    "en LabSession.save_identity",
+    "en _rule_fields",
+    "en rules_override.__enter__",
+    "en LabHandler.do_GET"
+   ],
+   "script_engine/gfx_bug.py": [
+    "arriba"
+   ],
+   "script_engine/gfx_critic.py": [
+    "en load_fewshot"
+   ],
+   "script_engine/gfx_director.py": [
+    "arriba",
+    "en sfx_events",
+    "en emphasis_icon"
+   ],
+   "script_engine/gfx_fragments.py": [
+    "en category_icon",
+    "en choose_fragments"
+   ],
+   "script_engine/gfx_identity.py": [
+    "en apply_identity",
+    "en save_identity"
+   ],
+   "script_engine/gfx_intensity.py": [
+    "en _stamp_rule",
+    "en is_theme_word"
+   ],
+   "script_engine/gfx_layer.py": [
+    "arriba",
+    "en _moods_activos",
+    "en apply_gfx"
+   ],
+   "script_engine/gfx_literal_lock.py": [
+    "arriba"
+   ],
+   "script_engine/gfx_peak.py": [
+    "arriba"
+   ],
+   "script_engine/gfx_pool.py": [
+    "en literal_icon_map",
+    "en _busy_blocks",
+    "en plan_pool_documents",
+    "en plan_pool_quote",
+    "en pool_count_up"
+   ],
+   "script_engine/gfx_project.py": [
+    "arriba",
+    "en archive_head_px"
+   ],
+   "script_engine/gfx_question.py": [
+    "en max_words",
+    "en _rubric_on"
+   ],
+   "script_engine/gfx_review.py": [
+    "en write_cues"
+   ],
+   "script_engine/gfx_rotulista.py": [
+    "en animacion_de_cifra",
+    "en escena_final",
+    "en sellos_por_tema",
+    "en pico_plan"
+   ],
+   "script_engine/gfx_safe_bake.py": [
+    "arriba"
+   ],
+   "script_engine/gfx_sparse.py": [
+    "arriba"
+   ],
+   "script_engine/gfx_style.py": [
+    "arriba",
+    "en golden_fewshot"
+   ],
+   "script_engine/gfx_icons/demo.py": [
+    "arriba"
+   ],
+   "script_engine/gfx_icons/strip.py": [
+    "arriba",
+    "en build"
+   ]
+  },
+  "tests": [
+   "test_module_f30.py",
+   "test_module_f30b.py",
+   "test_module_f31.py",
+   "test_module_f32.py",
+   "test_module_gfx_0d.py",
+   "test_module_gfx_config.py",
+   "test_module_gfx_critic.py",
+   "test_module_gfx_emphasis.py",
+   "test_module_gfx_f4d.py",
+   "test_module_gfx_fragments.py",
+   "test_module_gfx_icons.py",
+   "test_module_gfx_identity.py",
+   "test_module_gfx_lab.py",
+   "test_module_gfx_peak.py",
+   "test_module_gfx_pool.py",
+   "test_module_gfx_profiles.py",
+   "test_module_gfx_question.py"
+  ],
+  "lab": [
+   "lab/hyperframes/f1/build_text_sampler.py",
+   "lab/hyperframes/f29b/b/f29b_vajont.py",
+   "lab/hyperframes/f30/f30_stitch_enc.py",
+   "lab/hyperframes/f31/f31_variantes.py",
+   "script_engine/gfx_icons/__init__.py"
+  ]
+ },
+ "fase2b": {
+  "archivo": "fase2b.py",
+  "doc": "fase2b.py — Ensamblaje final del video SIN regenerar imágenes/clips/audio.",
+  "funciones": [
+   "_find_ffmpeg_binary",
+   "_run_cmd",
+   "_get_duration",
+   "_escape_ass_path_for_ffmpeg",
+   "_format_ass_time",
+   "_merge_punctuation_words",
+   "_chunk_words_adaptive",
+   "_calc_hook_layout",
+   "_build_ass_from_words",
+   "_chars_to_syllables",
+   "_build_ass_from_syllables",
+   "ChapterPlan",
+   "_compute_durations_from_anchors",
+   "_build_flux_visual",
+   "_concat_visual_clips",
+   "_visual_base",
+   "_visual_con_pre_roll",
+   "_pre_roll_de",
+   "_build_chapter_segment",
+   "_resolve_chapter_paths",
+   "_load_script_lookup",
+   "_load_music_map",
+   "_resolve_music_track_path",
+   "_track_meta",
+   "_mapa_intensidad",
+   "_gfx_pauses",
+   "_build_music_piece_for_chapter",
+   "_correr_tramos",
+   "_build_continuous_music_track",
+   "_resolve_music_volumes",
+   "_classify_uncalibrated_tracks",
+   "_mix_music_into_video",
+   "_grafo_musica",
+   "_mix_music_audio_only",
+   "_load_image_prompts",
+   "_dispatch_flow_specs",
+   "_flow_specs_cache_path",
+   "_caps_needing_spec",
+   "_write_flow_specs_cache",
+   "_resolve_flow_specs",
+   "_animated_images_for_cap",
+   "_apply_zoom_gate",
+   "_build_plans",
+   "_safe_scenes_for",
+   "_route_safe",
+   "_venc",
+   "_segment_hash",
+   "_concat_segments",
+   "_list_pending_for_assembly",
+   "_resolve_topic_id_for_video",
+   "_has_assets_on_disk",
+   "_resolve_gfx_quality",
+   "_segmentos_en_paralelo",
+   "_visual_base_existente",
+   "_segmento_de_cap",
+   "_mezcla_preview",
+   "_solo_plan",
+   "_assemble_one_video",
+   "main"
+  ],
+  "importa": {
+   "config": [
+    "arriba",
+    "en _mapa_intensidad",
+    "en _route_safe",
+    "en _solo_plan"
+   ],
+   "cost_tracker": [
+    "arriba"
+   ],
+   "error_handler": [
+    "arriba"
+   ],
+   "flow_director": [
+    "arriba"
+   ],
+   "parallax_animator_v2": [
+    "arriba",
+    "en _route_safe"
+   ],
+   "depth_probe": [
+    "arriba",
+    "en _apply_zoom_gate",
+    "en _route_safe"
+   ],
+   "zoom_judge": [
+    "arriba",
+    "en _route_safe"
+   ],
+   "topics_db": [
+    "arriba"
+   ],
+   "flow_profiles": [
+    "arriba"
+   ],
+   "transition_applier": [
+    "arriba",
+    "en _concat_segments"
+   ],
+   "subs_remap": [
+    "arriba"
+   ],
+   "anchor_timing": [
+    "arriba"
+   ],
+   "gfx_config": [
+    "en _pre_roll_de",
+    "en _segment_hash",
+    "en _resolve_gfx_quality",
+    "en _solo_plan",
+    "en _assemble_one_video",
+    "en main"
+   ],
+   "gfx_layer": [
+    "en _build_chapter_segment",
+    "en _solo_plan",
+    "en _assemble_one_video"
+   ],
+   "music_intensity": [
+    "en _mapa_intensidad",
+    "en _build_music_piece_for_chapter"
+   ],
+   "gfx_review": [
+    "en _segmentos_en_paralelo",
+    "en _assemble_one_video"
+   ],
+   "gfx_guion": [
+    "en _solo_plan"
+   ],
+   "gfx_director": [
+    "en _solo_plan"
+   ],
+   "gfx_peak": [
+    "en _solo_plan"
+   ],
+   "gfx_rotulista": [
+    "en _solo_plan",
+    "en _assemble_one_video",
+    "en main"
+   ],
+   "evidence": [
+    "en _solo_plan"
+   ],
+   "aprobacion": [
+    "en main"
+   ]
+  },
+  "nacio": "e33f84a 2026-05-28 Initial commit: automatization_videos pipeline (post chat 32)",
+  "lo_importan": {
+   "diag_234_cap4.py": [
+    "arriba"
+   ],
+   "diag_235_matcher_ba6c.py": [
+    "arriba"
+   ],
+   "diag_236_pacing_ba6c.py": [
+    "arriba"
+   ],
+   "gfx_lab_server.py": [
+    "en LabSession.__init__"
+   ]
+  },
+  "tests": [
+   "test_chat55_flow_zoom.py",
+   "test_fase2b_anchor_durations.py",
+   "test_module_38d_forcealign_integration.py",
+   "test_module_40_detector_sin_calibrar.py",
+   "test_module_40_volumen_por_track.py",
+   "test_module_audio_mixer_floor.py",
+   "test_module_build_continuous_music.py",
+   "test_module_concat_windowed.py",
+   "test_module_f28b.py",
+   "test_module_f28c.py",
+   "test_module_f30b.py",
+   "test_module_f32.py",
+   "test_module_fase2b_hwencode.py",
+   "test_module_fase2b_hybrid_segment.py",
+   "test_module_fase2b_reassemble.py",
+   "test_module_gfx_config.py",
+   "test_module_gfx_question.py",
+   "test_module_gfx_router.py",
+   "test_module_m03_merge_timing.py",
+   "test_module_mix_music_into_video.py",
+   "test_module_porcap_chat39.py"
+  ],
+  "lab": [
+   "_regen_alignments_chat38.py",
+   "_smoke_chat38_ch01.py",
+   "lab/diag_237_pausa_ab.py",
+   "lab/hyperframes/f1/grade_variants.py",
+   "lab/hyperframes/f28/b/f28b_remezcla.py",
+   "lab/hyperframes/f29/d/f29d_sonnet.py",
+   "lab/hyperframes/f29b/a/f29b_crudas.py",
+   "lab/hyperframes/f29b/b/f29b_tabla.py",
+   "lab/hyperframes/f29b/b/f29b_vajont.py",
+   "lab/hyperframes/f29b/b/hoja_bloques.py",
+   "lab/hyperframes/f29c/b/f29c_vajont.py",
+   "lab/hyperframes/f29c/b/hoja_bloques.py",
+   "lab/hyperframes/f31/f31_variantes.py",
+   "lab/hyperframes/f5/correr_f5_orleans.py",
+   "lab/hyperframes/f5/simular_gfx_v2.py",
+   "_lab_out/render_140b_ch03.py"
+  ]
+ },
+ "transition_config": {
+  "archivo": "transition_config.py",
+  "doc": "transition_config.py — Settings técnicos de transiciones FFmpeg + inventario inmutable.",
+  "funciones": [
+   "TransitionRenderSettings",
+   "TransitionEffect",
+   "TransitionParamRanges",
+   "get_effect",
+   "is_valid",
+   "clamp_duration_ms",
+   "render_inventory_for_prompt"
+  ],
+  "importa": {},
+  "nacio": "e33f84a 2026-05-28 Initial commit: automatization_videos pipeline (post chat 32)",
+  "lo_importan": {
+   "transition_profiles.py": [
+    "arriba"
+   ],
+   "script_engine/transition_applier.py": [
+    "arriba"
+   ]
+  },
+  "tests": [],
+  "lab": []
+ },
+ "archive_clipping.html.tmpl": {
+  "archivo": "script_engine/gfx_templates/archive_clipping.html.tmpl",
+  "doc": "",
+  "funciones": [],
+  "importa": {},
+  "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
+  "lo_importan": {
+   "script_engine/gfx_project.py": [
+    "usa la plantilla"
+   ]
+  },
+  "tests": [],
+  "lab": []
+ },
+ "chapter_question.html.tmpl": {
+  "archivo": "script_engine/gfx_templates/chapter_question.html.tmpl",
+  "doc": "",
+  "funciones": [],
+  "importa": {},
+  "nacio": "b7b86fd 2026-10-19 feat(gfx-f2): §0d sfx, chapter_question y source_tag",
+  "lo_importan": {
+   "script_engine/gfx_project.py": [
+    "usa la plantilla"
+   ]
+  },
+  "tests": [],
+  "lab": []
+ },
+ "count_up.html.tmpl": {
+  "archivo": "script_engine/gfx_templates/count_up.html.tmpl",
+  "doc": "",
+  "funciones": [],
+  "importa": {},
+  "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
+  "lo_importan": {
+   "script_engine/gfx_project.py": [
+    "usa la plantilla"
+   ]
+  },
+  "tests": [],
+  "lab": []
+ },
+ "data_callout.html.tmpl": {
+  "archivo": "script_engine/gfx_templates/data_callout.html.tmpl",
+  "doc": "",
+  "funciones": [],
+  "importa": {},
+  "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
+  "lo_importan": {
+   "script_engine/gfx_project.py": [
+    "usa la plantilla"
+   ]
+  },
+  "tests": [],
+  "lab": []
+ },
+ "evidence_zoom.html.tmpl": {
+  "archivo": "script_engine/gfx_templates/evidence_zoom.html.tmpl",
+  "doc": "",
+  "funciones": [],
+  "importa": {},
+  "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
+  "lo_importan": {
+   "script_engine/gfx_project.py": [
+    "usa la plantilla"
+   ]
+  },
+  "tests": [],
+  "lab": []
+ },
+ "grade_css.html.tmpl": {
+  "archivo": "script_engine/gfx_templates/grade_css.html.tmpl",
+  "doc": "",
+  "funciones": [],
+  "importa": {},
+  "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
+  "lo_importan": {},
+  "tests": [],
+  "lab": []
+ },
+ "index.html.tmpl": {
+  "archivo": "script_engine/gfx_templates/index.html.tmpl",
+  "doc": "",
+  "funciones": [],
+  "importa": {},
+  "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
+  "lo_importan": {
+   "script_engine/gfx_project.py": [
+    "usa la plantilla"
+   ]
+  },
+  "tests": [],
+  "lab": []
+ },
+ "scene.html.tmpl": {
+  "archivo": "script_engine/gfx_templates/scene.html.tmpl",
+  "doc": "",
+  "funciones": [],
+  "importa": {},
+  "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
+  "lo_importan": {
+   "script_engine/gfx_project.py": [
+    "usa la plantilla"
+   ]
+  },
+  "tests": [],
+  "lab": []
+ },
+ "title_card.html.tmpl": {
+  "archivo": "script_engine/gfx_templates/title_card.html.tmpl",
+  "doc": "",
+  "funciones": [],
+  "importa": {},
+  "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
+  "lo_importan": {
+   "script_engine/gfx_project.py": [
+    "usa la plantilla"
+   ]
+  },
+  "tests": [],
+  "lab": []
+ }
+}
