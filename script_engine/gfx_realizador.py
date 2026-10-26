@@ -311,7 +311,8 @@ def finalizar(plan: dict[str, Any], real: dict[str, Any], log: list[str]) -> lis
     if rot:
         for p in plan.get("punch_in") or []:
             t = float(p) if isinstance(p, (int, float)) else float((p or {}).get("t", (p or {}).get("start", -1)))
-            filas.append({"bloque": "punch_in", "t": t, "accion": "fuera", "regla": "duplica",
+            filas.append({"bloque": "punch_in", "texto": "acercamiento del director", "t": t, "accion": "fuera",
+                          "regla": "duplica",
                           "motivo": "punch_in del director: lo reemplaza el zoom_punch del pico (F30b)"})
         plan["punch_in"] = []
     iv = [(float(b["start"]), float(b["start"]) + float(b.get("duration", 2.5)))

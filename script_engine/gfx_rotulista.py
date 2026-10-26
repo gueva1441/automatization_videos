@@ -1404,6 +1404,8 @@ def sellos_por_tema(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any]
         b = beat_en(t)
         if b is None:
             continue
+        if any(abs(float(e["start"]) - t) < 0.05 for e in del_pico):   # es el sello del pico: ya está
+            continue
         cands.append({"h": h, "t": t, "beat": b["n"], "word": re.sub(r"^[¿¡\"'«“(]+|[.,;:!?…\"'»”)]+$", "",
                                                                      str(words[h["i"]]["word"]).strip())})
     vistos = {(c["word"].lower(), round(c["t"], 1)) for c in cands}
