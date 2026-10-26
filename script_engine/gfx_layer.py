@@ -353,7 +353,20 @@ def _render_sparse(resolved: dict[str, Any], scenes: list[GfxScene], project: Pa
 
     ts = time.time()
     base = project / "public" / "base.mp4"
-    windows = sp.event_windows(resolved, scenes, fps, clip_dur)
+    baked = None
+    if gfx_rules.safe_bake and any(s.safe for s in scenes):     # F30 §A: el movimiento seguro lo cuece ffmpeg
+        from dataclasses import replace as _replace
+        from script_engine.gfx_safe_bake import bake
+        cocido = project / "public" / "base_cocido.mp4"
+        baked = bake(base, scenes, cocido, width=width, height=height, fps=fps, log=log)
+        if baked:
+            (project.parent / f"gfx_safe_bake_{cap}.json").write_text(json.dumps(baked, ensure_ascii=False, indent=1),
+                                                                    encoding="utf-8")
+            base = cocido
+            scenes = [_replace(s, safe=None) for s in scenes]      # cocida = escena normal (solo <video>)
+        _step("4b safe bake (ffmpeg)", ts)
+        ts = time.time()
+    windows = sp.event_windows(resolved, scenes, fps, clip_dur, safe_windows=not baked)
     cov = sum(b - a for a, b in windows)
     log.append(f"  sparse: {len(windows)} ventanas, {cov:.1f}s de {clip_dur:.1f}s ({100 * cov / clip_dur:.0f} %)")
     plan_s, scenes_s, tr_s, offsets = sp.compose_sparse(resolved, scenes, windows, fps)

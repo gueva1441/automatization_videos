@@ -1,0 +1,163 @@
+{
+ "escenas": [
+  {
+   "idx": 0,
+   "movement": "push",
+   "origin": [
+    0.45,
+    0.45
+   ],
+   "n": 464,
+   "risk": "rostro"
+  },
+  {
+   "idx": 1,
+   "movement": "pan",
+   "origin": null,
+   "n": 131,
+   "risk": "identity"
+  },
+  {
+   "idx": 2,
+   "movement": "push",
+   "origin": null,
+   "n": 189,
+   "risk": "identity"
+  },
+  {
+   "idx": 3,
+   "movement": "push",
+   "origin": null,
+   "n": 331,
+   "risk": "identity"
+  },
+  {
+   "idx": 4,
+   "movement": "push",
+   "origin": [
+    0.465,
+    0.29
+   ],
+   "n": 267,
+   "risk": "rostro"
+  },
+  {
+   "idx": 5,
+   "movement": "static",
+   "origin": null,
+   "n": 269,
+   "risk": "identity"
+  },
+  {
+   "idx": 6,
+   "movement": "push",
+   "origin": [
+    0.16,
+    0.25
+   ],
+   "n": 380,
+   "risk": "rostro"
+  },
+  {
+   "idx": 7,
+   "movement": "push",
+   "origin": null,
+   "n": 242,
+   "risk": "identity"
+  },
+  {
+   "idx": 8,
+   "movement": "pan",
+   "origin": null,
+   "n": 163,
+   "risk": "identity"
+  },
+  {
+   "idx": 9,
+   "movement": "push",
+   "origin": null,
+   "n": 322,
+   "risk": "identity"
+  },
+  {
+   "idx": 10,
+   "movement": "push",
+   "origin": [
+    0.175,
+    0.575
+   ],
+   "n": 391,
+   "risk": "rostro"
+  },
+  {
+   "idx": 11,
+   "movement": "push",
+   "origin": null,
+   "n": 156,
+   "risk": "identity"
+  },
+  {
+   "idx": 12,
+   "movement": "push",
+   "origin": [
+    0.52,
+    0.31
+   ],
+   "n": 411,
+   "risk": "rostro"
+  },
+  {
+   "idx": 13,
+   "movement": "push",
+   "origin": [
+    0.27,
+    0.48
+   ],
+   "n": 321,
+   "risk": "rostro"
+  },
+  {
+   "idx": 14,
+   "movement": "push",
+   "origin": [
+    0.48,
+    0.67
+   ],
+   "n": 452,
+   "risk": "rostro"
+  },
+  {
+   "idx": 15,
+   "movement": "push",
+   "origin": [
+    0.15,
+    0.35
+   ],
+   "n": 575,
+   "risk": "rostro"
+  }
+ ],
+ "cuadros_cocidos": 5064,
+ "cuadros_total": 5064,
+ "filtro": "perspective",
+ "segundos_escenas": 109.4,
+ "segundos_por_escena": [
+  39.1,
+  9.0,
+  14.3,
+  18.9,
+  13.3,
+  5.2,
+  25.8,
+  11.1,
+  5.2,
+  13.1,
+  16.2,
+  7.6,
+  31.5,
+  27.6,
+  34.8,
+  21.4
+ ],
+ "segundos_total": 147.9
+}

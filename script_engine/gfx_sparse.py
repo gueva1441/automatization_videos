@@ -36,7 +36,7 @@ def _frame(t: float, fps: int) -> float:
 
 
 def event_windows(plan: dict[str, Any], scenes: list[GfxScene], fps: int, dur: float, *,
-                  margin: float = 0.5, merge_gap: float = 2.0) -> list[tuple[float, float]]:
+                  margin: float = 0.5, merge_gap: float = 2.0, safe_windows: bool = False) -> list[tuple[float, float]]:
     """Intervalos [a, b) del cap que necesitan HyperFrames, alineados a frame."""
     iv: list[tuple[float, float]] = []
     if plan.get("title_card"):
@@ -67,7 +67,9 @@ def event_windows(plan: dict[str, Any], scenes: list[GfxScene], fps: int, dur: f
     if ez and 0 <= ez["scene_idx"] < len(scenes):
         sc = scenes[ez["scene_idx"]]
         iv.append((ez.get("start", sc.end - gfx_rules.zoom_dur), sc.end))
-    for s in scenes:                                           # F2 §4: movimiento seguro = escena entera en HF
+    # F30 §A: la escena safe ya está cocida en el base (gfx_safe_bake) → no abre ventana. Solo sin bake
+    # (gfx_rules.safe_bake apagado) vuelve el camino de F2 §4: la escena entera en HF
+    for s in scenes if safe_windows else ():
         if s.safe:
             iv.append((s.start, s.end))
     for t in plan.get("punch_in", []):                        # el punch se sostiene hasta el corte

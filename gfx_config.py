@@ -300,6 +300,8 @@ class GfxRules:
     # router anti-deformación (F2 §4): movimiento seguro HyperFrames en vez de DepthFlow
     safe_push_scale: float = 1.08            # push-in 1.00 → 1.08 con easing
     safe_pan_frac: float = 0.03              # paneo 3 % del ancho
+    safe_bake: bool = True                   # F30 §A: con --gfx-sparse, las escenas safe las cuece ffmpeg en el base
+    safe_bake_workers: int = 3               # F30 §A: escenas cocidas a la vez (perspective ya usa hilos por franjas)
     # chapter_question / source_tag / sfx (F2 §0d)
     question_dur: float = 2.3                # 2.0–2.5 s al cierre del cap
     question_dim: float = 0.5

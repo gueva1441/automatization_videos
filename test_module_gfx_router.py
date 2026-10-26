@@ -67,7 +67,7 @@ def test_disperso_incluye_la_escena_segura_entera():
           GfxScene(2, 20.0, 40.0)]
     plan = {"title_card": None, "callouts": [], "count_up": None, "archive_clippings": [], "evidence_zoom": None,
             "punch_in": [], "chapter_question": None}
-    w = sp.event_windows(plan, sc, 30, 40.0)
+    w = sp.event_windows(plan, sc, 30, 40.0, safe_windows=True)    # F30 §A: el camino sin bake (con bake, test_module_f30)
     assert any(a <= 10.0 and b >= 20.0 for a, b in w)
     _, scenes_s, _, _ = sp.compose_sparse(plan, sc, w, 30)
     assert sum(1 for s in scenes_s if s.safe) == 1
