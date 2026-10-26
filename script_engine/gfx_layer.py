@@ -366,9 +366,20 @@ def _render_sparse(resolved: dict[str, Any], scenes: list[GfxScene], project: Pa
             scenes = [_replace(s, safe=None) for s in scenes]      # cocida = escena normal (solo <video>)
         _step("4b safe bake (ffmpeg)", ts)
         ts = time.time()
-    windows = sp.event_windows(resolved, scenes, fps, clip_dur, safe_windows=not baked)
+    st_tr = gfx_rules.stitch_transitions                       # F30 §B: las transiciones las hace el stitch
+    windows = sp.event_windows(resolved, scenes, fps, clip_dur, safe_windows=not baked, transition_windows=not st_tr)
+    if not windows:                                             # sin bloques: HF igual necesita un tramo
+        windows = [(round(round((clip_dur - 0.5) * fps) / fps, 6), round(clip_dur, 6))]
+    tr_stitch = sp.stitch_transitions(resolved, scenes, windows) if st_tr else []
     cov = sum(b - a for a, b in windows)
-    log.append(f"  sparse: {len(windows)} ventanas, {cov:.1f}s de {clip_dur:.1f}s ({100 * cov / clip_dur:.0f} %)")
+    log.append(f"  sparse: {len(windows)} ventanas, {cov:.1f}s de {clip_dur:.1f}s ({100 * cov / clip_dur:.0f} %)"
+               + (f" · transiciones en el stitch {[(round(c, 2), t['kind']) for c, t in tr_stitch]}" if st_tr else ""))
+    from script_engine.gfx_project import transitions_of as _tro
+    (project.parent / f"gfx_sparse_{cap}.json").write_text(json.dumps(
+        {"duracion": clip_dur, "ventanas": windows, "cobertura_s": round(cov, 3),
+         "transiciones": [{"scene_idx": i, "t": scenes[i].start, **t} for i, t in sorted(_tro(resolved, scenes).items())],
+         "en_stitch": [{"t": c, **t} for c, t in tr_stitch], "safe_bake": bool(baked)}, ensure_ascii=False, indent=1),
+        encoding="utf-8")
     plan_s, scenes_s, tr_s, offsets = sp.compose_sparse(resolved, scenes, windows, fps)
     sproj = project.parent / f"{project.name}_sparse"
     (sproj / "public").mkdir(parents=True, exist_ok=True)
@@ -407,7 +418,7 @@ def _render_sparse(resolved: dict[str, Any], scenes: list[GfxScene], project: Pa
                                                          else "esquina apagada")
                    + (f" · cierre @ {outro['start']:.1f}s" if outro else ""))
     sp.stitch(base, hf, windows, offsets, clip_dur, tmp, width=width, height=height, fps=fps,
-              vignette=vig, grain=gr, grain_opacity=gfx_rules.grain_opacity, bug=bug)
+              vignette=vig, grain=gr, grain_opacity=gfx_rules.grain_opacity, bug=bug, transitions=tr_stitch)
     tmp.replace(out)
     _step("7 stitch + grade FFmpeg", ts)
     return render_sec

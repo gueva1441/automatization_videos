@@ -16,7 +16,7 @@ PLAN = {"title_card": {"kicker": "CAPÍTULO 2", "title": "x"}, "callouts": [{"te
 
 
 def test_ventanas_cubren_eventos_cortes_y_punch_hasta_el_corte():
-    w = sp.event_windows(PLAN, SCENES, 30, 40.0)
+    w = sp.event_windows(PLAN, SCENES, 30, 40.0, transition_windows=True)   # F30 §B: el camino de antes (con el stitch, test_module_f30)
     inside = lambda t: any(a <= t < b for a, b in w)              # noqa: E731
     assert inside(0.0) and inside(2.9)                           # title card
     assert inside(9.95) and inside(10.5)                         # corte R2 (freeze del saliente + 20 f)
@@ -27,7 +27,7 @@ def test_ventanas_cubren_eventos_cortes_y_punch_hasta_el_corte():
 
 
 def test_timeline_concatenado_y_cortes_en_las_uniones():
-    w = sp.event_windows(PLAN, SCENES, 30, 40.0)
+    w = sp.event_windows(PLAN, SCENES, 30, 40.0, transition_windows=True)   # F30 §B: el camino de antes (con el stitch, test_module_f30)
     p, sc, tr, offs = sp.compose_sparse(PLAN, SCENES, w, 30)
     a, b, o = next(x for x in offs if x[0] <= 25.0 < x[1])
     assert p["callouts"][0]["start"] == pytest.approx(o + 25.0 - a, abs=1e-3)

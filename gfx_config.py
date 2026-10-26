@@ -302,6 +302,7 @@ class GfxRules:
     safe_pan_frac: float = 0.03              # paneo 3 % del ancho
     safe_bake: bool = True                   # F30 §A: con --gfx-sparse, las escenas safe las cuece ffmpeg en el base
     safe_bake_workers: int = 3               # F30 §A: escenas cocidas a la vez (perspective ya usa hilos por franjas)
+    stitch_transitions: bool = True          # F30 §B: dissolve/dip/flash/cut_punch fuera de ventanas los hace el stitch
     # chapter_question / source_tag / sfx (F2 §0d)
     question_dur: float = 2.3                # 2.0–2.5 s al cierre del cap
     question_dim: float = 0.5

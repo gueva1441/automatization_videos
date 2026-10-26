@@ -1,0 +1,251 @@
+{
+ "duracion": 168.8,
+ "ventanas": [
+  [
+   0.0,
+   3.7
+  ],
+  [
+   28.633333,
+   34.633333
+  ],
+  [
+   104.433333,
+   117.666667
+  ],
+  [
+   164.3,
+   168.8
+  ]
+ ],
+ "cobertura_s": 27.433,
+ "transiciones": [
+  {
+   "scene_idx": 1,
+   "t": 15.467,
+   "kind": "dip",
+   "frames": 10,
+   "why": "fundido a negro (1 por cap)",
+   "rank": "R3"
+  },
+  {
+   "scene_idx": 2,
+   "t": 19.833,
+   "kind": "dissolve",
+   "frames": 20,
+   "why": "default",
+   "rank": "R2"
+  },
+  {
+   "scene_idx": 3,
+   "t": 26.133,
+   "kind": "cut",
+   "frames": 0,
+   "why": "≥ 1 corte cada 3",
+   "rank": "R3"
+  },
+  {
+   "scene_idx": 4,
+   "t": 37.167,
+   "kind": "dissolve",
+   "frames": 20,
+   "why": "default",
+   "rank": "R3"
+  },
+  {
+   "scene_idx": 5,
+   "t": 46.067,
+   "kind": "dissolve",
+   "frames": 20,
+   "why": "default",
+   "rank": "R3"
+  },
+  {
+   "scene_idx": 6,
+   "t": 55.033,
+   "kind": "cut",
+   "frames": 0,
+   "why": "≥ 1 corte cada 3",
+   "rank": "R3"
+  },
+  {
+   "scene_idx": 7,
+   "t": 67.7,
+   "kind": "dissolve",
+   "frames": 20,
+   "why": "default",
+   "rank": "R2"
+  },
+  {
+   "scene_idx": 8,
+   "t": 75.767,
+   "kind": "dissolve",
+   "frames": 20,
+   "why": "default",
+   "rank": "R3"
+  },
+  {
+   "scene_idx": 9,
+   "t": 81.2,
+   "kind": "cut",
+   "frames": 0,
+   "why": "≥ 1 corte cada 3",
+   "rank": "R3"
+  },
+  {
+   "scene_idx": 10,
+   "t": 91.933,
+   "kind": "dissolve",
+   "frames": 20,
+   "why": "default",
+   "rank": "R3"
+  },
+  {
+   "scene_idx": 11,
+   "t": 104.967,
+   "kind": "flash",
+   "frames": 3,
+   "why": "impacto",
+   "rank": "R1"
+  },
+  {
+   "scene_idx": 12,
+   "t": 110.167,
+   "kind": "dissolve",
+   "frames": 20,
+   "why": "default",
+   "rank": "R2"
+  },
+  {
+   "scene_idx": 13,
+   "t": 123.867,
+   "kind": "dissolve",
+   "frames": 20,
+   "why": "default",
+   "rank": "R3"
+  },
+  {
+   "scene_idx": 14,
+   "t": 134.567,
+   "kind": "cut",
+   "frames": 0,
+   "why": "≥ 1 corte cada 3",
+   "rank": "R3"
+  },
+  {
+   "scene_idx": 15,
+   "t": 149.633,
+   "kind": "dissolve",
+   "frames": 20,
+   "why": "default",
+   "rank": "R3"
+  }
+ ],
+ "en_stitch": [
+  {
+   "t": 15.467,
+   "kind": "dip",
+   "frames": 10,
+   "why": "fundido a negro (1 por cap)",
+   "rank": "R3",
+   "scene_idx": 1
+  },
+  {
+   "t": 19.833,
+   "kind": "dissolve",
+   "frames": 20,
+   "why": "default",
+   "rank": "R2",
+   "scene_idx": 2
+  },
+  {
+   "t": 26.133,
+   "kind": "cut",
+   "frames": 0,
+   "why": "≥ 1 corte cada 3",
+   "rank": "R3",
+   "scene_idx": 3
+  },
+  {
+   "t": 37.167,
+   "kind": "dissolve",
+   "frames": 20,
+   "why": "default",
+   "rank": "R3",
+   "scene_idx": 4
+  },
+  {
+   "t": 46.067,
+   "kind": "dissolve",
+   "frames": 20,
+   "why": "default",
+   "rank": "R3",
+   "scene_idx": 5
+  },
+  {
+   "t": 55.033,
+   "kind": "cut",
+   "frames": 0,
+   "why": "≥ 1 corte cada 3",
+   "rank": "R3",
+   "scene_idx": 6
+  },
+  {
+   "t": 67.7,
+   "kind": "dissolve",
+   "frames": 20,
+   "why": "default",
+   "rank": "R2",
+   "scene_idx": 7
+  },
+  {
+   "t": 75.767,
+   "kind": "dissolve",
+   "frames": 20,
+   "why": "default",
+   "rank": "R3",
+   "scene_idx": 8
+  },
+  {
+   "t": 81.2,
+   "kind": "cut",
+   "frames": 0,
+   "why": "≥ 1 corte cada 3",
+   "rank": "R3",
+   "scene_idx": 9
+  },
+  {
+   "t": 91.933,
+   "kind": "dissolve",
+   "frames": 20,
+   "why": "default",
+   "rank": "R3",
+   "scene_idx": 10
+  },
+  {
+   "t": 123.867,
+   "kind": "dissolve",
+   "frames": 20,
+   "why": "default",
+   "rank": "R3",
+   "scene_idx": 13
+  },
+  {
+   "t": 134.567,
+   "kind": "cut",
+   "frames": 0,
+   "why": "≥ 1 corte cada 3",
+   "rank": "R3",
+   "scene_idx": 14
+  },
+  {
+   "t": 149.633,
+   "kind": "dissolve",
+   "frames": 20,
+   "why": "default",
+   "rank": "R3",
+   "scene_idx": 15
+  }
+ ],
+ "safe_bake": true
+}

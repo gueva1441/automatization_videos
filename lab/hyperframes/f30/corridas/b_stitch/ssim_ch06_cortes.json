@@ -1,0 +1,44 @@
+{
+ "cap": "ch06",
+ "etiqueta": "b_stitch",
+ "cuadros": 5064,
+ "ssim_media_cap": 0.9698,
+ "ssim_min_cap": 0.4931,
+ "cortes": {
+  "1": {
+   "t0": 14.467,
+   "t1": 16.467,
+   "cuadros": 60,
+   "ssim_media": 0.9655,
+   "ssim_min": 0.8674
+  },
+  "2": {
+   "t0": 18.833,
+   "t1": 20.833,
+   "cuadros": 60,
+   "ssim_media": 0.9565,
+   "ssim_min": 0.9303
+  },
+  "3": {
+   "t0": 25.133,
+   "t1": 27.133,
+   "cuadros": 60,
+   "ssim_media": 0.9788,
+   "ssim_min": 0.9737
+  },
+  "4": {
+   "t0": 36.167,
+   "t1": 38.167,
+   "cuadros": 60,
+   "ssim_media": 0.9753,
+   "ssim_min": 0.9614
+  },
+  "11": {
+   "t0": 103.967,
+   "t1": 105.967,
+   "cuadros": 60,
+   "ssim_media": 0.9777,
+   "ssim_min": 0.9688
+  }
+ }
+}

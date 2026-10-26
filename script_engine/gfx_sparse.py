@@ -21,6 +21,7 @@ Nunca lanza hacia fase2b: gfx_layer envuelve todo en el fallback de siempre.
 from __future__ import annotations
 
 import copy
+import math
 import subprocess
 from pathlib import Path
 from typing import Any
@@ -35,9 +36,19 @@ def _frame(t: float, fps: int) -> float:
     return round(round(t * fps) / fps, 6)
 
 
+def transition_span(c: float, tr: dict[str, Any], fps: int) -> tuple[float, float]:
+    """Lo que ocupa una transición alrededor de su corte c (incluye el último cuadro del saliente)."""
+    return c - 1.5 / fps, c + max(tr["frames"] / fps, 0.35)          # cut_punch dura .35 s
+
+
 def event_windows(plan: dict[str, Any], scenes: list[GfxScene], fps: int, dur: float, *,
-                  margin: float = 0.5, merge_gap: float = 2.0, safe_windows: bool = False) -> list[tuple[float, float]]:
-    """Intervalos [a, b) del cap que necesitan HyperFrames, alineados a frame."""
+                  margin: float = 0.5, merge_gap: float = 2.0, safe_windows: bool = False,
+                  transition_windows: bool = False) -> list[tuple[float, float]]:
+    """Intervalos [a, b) del cap que necesitan HyperFrames, alineados a frame.
+
+    F30 §B: las transiciones ya no abren ventana (las hace `stitch` con ffmpeg), salvo la que toca una ventana de
+    bloque (o queda sin aire para su fundido): esa entra a la ventana y la sigue dibujando HyperFrames, como siempre.
+    `transition_windows=True` vuelve al camino de antes (una ventana por transición)."""
     iv: list[tuple[float, float]] = []
     if plan.get("title_card"):
         iv.append((0.0, gfx_rules.title_dur + 0.2))
@@ -74,27 +85,57 @@ def event_windows(plan: dict[str, Any], scenes: list[GfxScene], fps: int, dur: f
             iv.append((s.start, s.end))
     for t in plan.get("punch_in", []):                        # el punch se sostiene hasta el corte
         iv.append((t, _scene_end(t)))
-    for idx, tr in transitions_of(plan, scenes).items():
-        st = scenes[idx].start
-        d = max(tr["frames"] / fps, 0.35)                       # cut_punch dura .35 s
-        iv.append((st - 1.5 / fps, st + d))                     # incluye el freeze del saliente
-    iv = sorted((max(0.0, a - margin), min(dur, b + margin)) for a, b in iv if b > a)
+    trs = sorted((scenes[idx].start, idx, tr) for idx, tr in transitions_of(plan, scenes).items())
+    dentro = {idx for _, idx, _ in trs} if transition_windows else set()
 
-    def _merge(gap: float) -> list[list[float]]:
-        out: list[list[float]] = []
-        for a, b in iv:
-            if out and a - out[-1][1] <= gap:
-                out[-1][1] = max(out[-1][1], b)
-            else:
-                out.append([a, b])
-        return out
-    merged = _merge(merge_gap)
-    # F10 B1: si la fusión deja (casi) todo el cap en UNA ventana, el cap entero pasa por HyperFrames y el clip de
-    # base se congela (ch05 de Orleans, 100 %). Se vuelve a cortar fusionando solo lo que se pisa: los tramos sin
-    # eventos salen del base, con su movimiento.
-    if dur > 0 and sum(b - a for a, b in merged) >= FULL_COVER_FRAC * dur and len(merged) <= 1 and merge_gap > 0:
-        merged = _merge(0.0)
-    return [(_frame(a, fps), _frame(b, fps)) for a, b in merged if b - a >= 2 / fps]
+    def _windows() -> list[tuple[float, float]]:
+        ivs = iv + [transition_span(c, tr, fps) for c, idx, tr in trs if idx in dentro]
+        ivs = sorted((max(0.0, a - margin), min(dur, b + margin)) for a, b in ivs if b > a)
+
+        def _merge(gap: float) -> list[list[float]]:
+            out: list[list[float]] = []
+            for a, b in ivs:
+                if out and a - out[-1][1] <= gap:
+                    out[-1][1] = max(out[-1][1], b)
+                else:
+                    out.append([a, b])
+            return out
+        merged = _merge(merge_gap)
+        # F10 B1: si la fusión deja (casi) todo el cap en UNA ventana, el cap entero pasa por HyperFrames y el clip de
+        # base se congela (ch05 de Orleans, 100 %). Se vuelve a cortar fusionando solo lo que se pisa: los tramos sin
+        # eventos salen del base, con su movimiento.
+        if dur > 0 and sum(b - a for a, b in merged) >= FULL_COVER_FRAC * dur and len(merged) <= 1 and merge_gap > 0:
+            merged = _merge(0.0)
+        return [(_frame(a, fps), _frame(b, fps)) for a, b in merged if b - a >= 2 / fps]
+    # F30 §B: una transición que toca una ventana (con su margen) o que no tiene aire para su fundido (otro corte, el
+    # final del cap) entra a la ventana; se repite hasta que no cambia nada (una ventana que crece toca otras)
+    while True:
+        win = _windows()
+        fuera = [(c, idx, tr) for c, idx, tr in trs if idx not in dentro]
+        nuevos = set()
+        for k, (c, idx, tr) in enumerate(fuera):
+            lo, hi = transition_span(c, tr, fps)
+            lo, hi = lo - margin, hi + margin
+            sig = fuera[k + 1][0] if k + 1 < len(fuera) else dur
+            ant = fuera[k - 1][0] if k > 0 else 0.0
+            sin_aire = sig - c < max(tr["frames"] / fps, 0.35) + 2 / fps or c - ant < 2 / fps
+            if sin_aire or any(lo < b and hi > a for a, b in win):
+                nuevos.add(idx)
+        if not nuevos:
+            return win
+        dentro |= nuevos
+
+
+def stitch_transitions(plan: dict[str, Any], scenes: list[GfxScene], windows: list[tuple[float, float]]
+                       ) -> list[tuple[float, dict[str, Any]]]:
+    """F30 §B.3: las transiciones que aplica `stitch` = las de corte fuera de toda ventana [a, b) (las de adentro las
+    dibuja HyperFrames: nunca dos veces). Los cortes `cut` también van (concat seco)."""
+    out = []
+    for idx, tr in sorted(transitions_of(plan, scenes).items()):
+        c = scenes[idx].start
+        if not any(a - 1e-6 <= c < b + 1e-6 for a, b in windows):
+            out.append((round(c, 6), {**tr, "scene_idx": idx}))
+    return out
 
 
 FULL_COVER_FRAC = 0.95
@@ -220,33 +261,126 @@ def grain_png(width: int, height: int, out: Path, seed: int = 1441) -> Path:
     return out
 
 
+def stitch_segments(windows_offsets: list[tuple[float, float, float]], dur: float, fps: int,
+                    transitions: list[tuple[float, dict[str, Any]]] | None = None) -> list[dict[str, Any]]:
+    """El cap cuadro a cuadro, en segmentos que no se pisan (todo en cuadros enteros, [k0, k1)):
+        base       el base tal cual                       hf        el render HF tal cual (cuadros [h0, h1))
+        xf_in      unión base → HF: fundido de XF cuadros (nocturno §3; el mismo xfade de antes, en su tramo)
+        xf_out     unión HF → base
+        dissolve   el último cuadro del saliente congelado se funde sobre el entrante (el freeze del templater)
+        dip_out    el último cuadro del saliente congelado baja a negro en d/2 · dip_in: el entrante sube desde negro
+        flash      el entrante con el blanco por cuadro · punch: el entrante de r1_cut_punch_scale a 1 en .35 s
+    F30 §B: antes los tramos se unían con una cadena de xfade (uno por unión: con 15 ventanas el stitch de ch06 pasó de
+    50 a 135 s); ahora cada fundido es un segmento corto y todo va a UN concat."""
+    D = round(dur * fps)
+    wins = [(round(a * fps), round(b * fps), round(o * fps)) for a, b, o in windows_offsets]
+    cuts = sorted((round(c * fps), tr) for c, tr in transitions or [])
+    segs: list[dict[str, Any]] = []
+
+    def base_tramo(k0: int, k1: int) -> None:
+        k = k0
+        for c, tr in cuts:
+            if not (k0 < c < k1):
+                continue
+            if c > k:
+                segs.append({"kind": "base", "k0": k, "k1": c})
+            n = {"dissolve": tr["frames"], "dip": tr["frames"], "flash": tr["frames"],
+                 "cut_punch": math.ceil(0.35 * fps)}.get(tr["kind"], 0)
+            n = min(n, k1 - c)
+            if tr["kind"] == "dip":
+                h = n // 2
+                segs.append({"kind": "dip_out", "k0": c, "k1": c + h, "freeze": c - 1})
+                segs.append({"kind": "dip_in", "k0": c + h, "k1": c + n})
+            elif n:
+                segs.append({"kind": {"cut_punch": "punch"}.get(tr["kind"], tr["kind"]), "k0": c, "k1": c + n,
+                             "freeze": c - 1, "frames": tr["frames"]})
+            k = c + n
+        if k1 > k:
+            segs.append({"kind": "base", "k0": k, "k1": k1})
+
+    k = 0
+    for a, b, o in wins:
+        if a > k:
+            base_tramo(k, a)
+        x_in = XFADE_FRAMES if a > 0 else 0
+        x_out = XFADE_FRAMES if b < D else 0
+        if x_in:
+            segs.append({"kind": "xf_in", "k0": a, "k1": a + x_in, "h0": o})
+        if b - x_out > a + x_in:
+            segs.append({"kind": "hf", "k0": a + x_in, "k1": b - x_out, "h0": o + x_in})
+        if x_out:
+            segs.append({"kind": "xf_out", "k0": b - x_out, "k1": b, "h0": o + (b - a) - x_out})
+        k = b
+    if D > k:
+        base_tramo(k, D)
+    return segs
+
+
+def _flash_alphas(frames: int, fps: int) -> list[float]:
+    """Opacidad del blanco por cuadro, igual que el templater: 0 → flash_peak en d/3 (lineal) y → 0 en 2d/3
+    (power1.in)."""
+    d, pk = frames / fps, gfx_rules.flash_peak
+    out = []
+    for k in range(frames):
+        t = k / fps
+        out.append(pk * t / (d / 3) if t < d / 3 else pk * (1 - ((t - d / 3) / (2 * d / 3)) ** 2))
+    return out
+
+
+def stitch_graph(segs: list[dict[str, Any]], fps: int, width: int, height: int) -> tuple[list[str], str]:
+    """(filtros, etiqueta final): un trim por cuadros por segmento, los fundidos dentro de su segmento y UN concat."""
+    pre = "setpts=PTS-STARTPTS,fps={fps},format=yuv420p,settb=AVTB".format(fps=fps)
+
+    def b(k0: int, k1: int, lab: str, extra: str = "") -> str:
+        return f"[0:v]trim=start_frame={k0}:end_frame={k1},{pre}{extra}[{lab}]"
+
+    def h(k0: int, k1: int, lab: str) -> str:
+        return f"[1:v]trim=start_frame={k0}:end_frame={k1},{pre}[{lab}]"
+
+    def congelado(k: int, n: int, lab: str, extra: str = "") -> str:
+        return f"[0:v]trim=start_frame={k}:end_frame={k + 1},{pre},tpad=stop_mode=clone:stop={n - 1}{extra}[{lab}]"
+    g: list[str] = []
+    labs: list[str] = []
+    for i, s in enumerate(segs):
+        n, lab = s["k1"] - s["k0"], f"s{i}"
+        kd = s["kind"]
+        if kd == "base":
+            g.append(b(s["k0"], s["k1"], lab))
+        elif kd == "hf":
+            g.append(h(s["h0"], s["h0"] + n, lab))
+        elif kd in ("xf_in", "xf_out"):
+            first, second = (b(s["k0"], s["k1"], f"{lab}a"), h(s["h0"], s["h0"] + n, f"{lab}b")) if kd == "xf_in" else \
+                (h(s["h0"], s["h0"] + n, f"{lab}a"), b(s["k0"], s["k1"], f"{lab}b"))
+            g += [first, second, f"[{lab}a][{lab}b]xfade=transition=fade:duration={n / fps:.6f}:offset=0[{lab}]"]
+        elif kd == "dissolve":
+            g += [congelado(s["freeze"], n, f"{lab}a"), b(s["k0"], s["k1"], f"{lab}b"),
+                  f"[{lab}a][{lab}b]xfade=transition=fade:duration={n / fps:.6f}:offset=0[{lab}]"]
+        elif kd == "dip_out":
+            g.append(congelado(s["freeze"], n, lab, f",fade=t=out:st=0:d={n / fps:.6f}"))
+        elif kd == "dip_in":
+            g.append(b(s["k0"], s["k1"], lab, f",fade=t=in:st=0:d={n / fps:.6f}"))
+        elif kd == "flash":
+            boxes = "".join(f",drawbox=x=0:y=0:w=iw:h=ih:color=white@{a:.4f}:t=fill:enable='eq(n\\,{k})'"
+                            for k, a in enumerate(_flash_alphas(n, fps)) if a > 0)
+            g.append(b(s["k0"], s["k1"], lab, boxes))
+        elif kd == "punch":
+            S = gfx_rules.r1_cut_punch_scale
+            z = f"{S}-{S - 1:.6f}*(1-pow(1-min(in/{0.35 * fps:.6f}\\,1)\\,2))"
+            g.append(b(s["k0"], s["k1"], lab, f",zoompan=z='{z}':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=1:"
+                                             f"s={width}x{height}:fps={fps},setsar=1,setpts=PTS-STARTPTS,settb=AVTB"))
+        labs.append(f"[{lab}]")
+    g.append("".join(labs) + f"concat=n={len(labs)}:v=1:a=0[cat]")
+    return g, "cat"
+
+
 def stitch(base: Path, hf: Path, windows: list[tuple[float, float]], offsets: list[tuple[float, float, float]],
            dur: float, out: Path, *, width: int, height: int, fps: int, vignette: Path | None,
-           grain: Path | None, grain_opacity: float, crf: int = 16, bug: dict[str, Any] | None = None) -> None:
-    """Cap final = tramos del base fuera de ventanas + tramos del render HF, y grade FFmpeg uniforme encima."""
-    # Tramos en orden del cap. Nocturno §3: en cada unión base↔HF, fundido de XF cuadros; para eso los
-    # tramos de BASE se extienden XF cuadros dentro de la ventana vecina (el HF queda exacto).
-    xf = XFADE_FRAMES / fps
-    pieces: list[tuple[str, float, float, float]] = []          # (fuente, start, end, inicio en el cap)
-    t = 0.0
-    for (a, b, o) in offsets:
-        if a - t >= 1 / fps:
-            pieces.append(("base", max(0.0, t - (xf if pieces else 0.0)), a + xf, max(0.0, t - (xf if pieces else 0.0))))
-        pieces.append(("hf", o, o + (b - a), a))
-        t = b
-    if dur - t >= 1 / fps:
-        pieces.append(("base", t - xf, dur, t - xf))
-    graph = []
-    for i, (src, s, e, _) in enumerate(pieces):
-        inp = "0:v" if src == "base" else "1:v"
-        graph.append(f"[{inp}]trim=start={s:.6f}:end={e:.6f},setpts=PTS-STARTPTS,fps={fps},format=yuv420p,settb=AVTB[p{i}]")
-    last = "p0"
-    for i in range(1, len(pieces)):
-        src, s, e, at = pieces[i]
-        # offset = instante del cap donde arranca el fundido (= inicio de la ventana, o b − XF al volver al base)
-        off = at if src == "hf" else at
-        graph.append(f"[{last}][p{i}]xfade=transition=fade:duration={xf:.6f}:offset={off:.6f}[x{i}]")
-        last = f"x{i}"
+           grain: Path | None, grain_opacity: float, crf: int = 16, bug: dict[str, Any] | None = None,
+           transitions: list[tuple[float, dict[str, Any]]] | None = None, encoder: list[str] | None = None) -> None:
+    """Cap final = tramos del base fuera de ventanas + tramos del render HF, y grade FFmpeg uniforme encima. F30 §B:
+    `transitions` = las transiciones de corte que caen fuera de las ventanas (stitch_transitions): el base se corta en
+    sus cortes y cada unión lleva la suya. F30 §C.2: `encoder` (p. ej. NVENC) en vez de libx264 ultrafast."""
+    graph, last = stitch_graph(stitch_segments(offsets, dur, fps, transitions), fps, width, height)
     if vignette is not None:
         graph.append(f"[2:v]format=rgba[vg];[{last}][vg]overlay=0:0:format=auto[g1]")
         last = "g1"
@@ -289,8 +423,9 @@ def stitch(base: Path, hf: Path, windows: list[tuple[float, float]], offsets: li
                                           last=last)
             graph.extend(g)
     graph.append(f"[{last}]format=yuv420p[o]")
-    cmd += ["-filter_complex", ";".join(graph), "-map", "[o]", "-t", f"{dur:.6f}", "-c:v", "libx264",
-            "-preset", "ultrafast", "-crf", str(crf), "-r", str(fps), "-pix_fmt", "yuv420p", "-an", str(out)]   # intermedio: fase2b re-encodea
+    enc = encoder or ["-c:v", "libx264", "-preset", "ultrafast", "-crf", str(crf)]   # intermedio: fase2b re-encodea
+    cmd += ["-filter_complex", ";".join(graph), "-map", "[o]", "-t", f"{dur:.6f}", *enc, "-r", str(fps),
+            "-pix_fmt", "yuv420p", "-an", str(out)]
     r = subprocess.run(cmd, capture_output=True, text=True, timeout=1800)
     if r.returncode != 0:
         raise RuntimeError(f"stitch falló: {r.stderr[-400:]}")
