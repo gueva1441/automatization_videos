@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-25 (F28 B y C cerradas: paleta en producción, v2 de Vajont con música nueva, NVENC y 6 workers por defecto, gfx en paralelo descartado; PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-25 (F29 A–D cerradas: el gfx obedece a la escaleta, sfx ElevenLabs, Vajont v3, Sonnet = Flash en caps 5–6; PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -10,7 +10,16 @@
 - Candados vigentes:
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
+  - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F29 — El gfx obedece a la escaleta (realizador) · sfx ElevenLabs · Sonnet vs Flash — HECHO, **PARADA** (Omar mira la v3 y la hoja de bloques)
+- Sobre `e971a8f`. Handoff `lab/hyperframes/f29/HANDOFF_F29_gfx_realizador.md`. Reporte `lab/hyperframes/f29/F29_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES).
+- **B** (`6eb6fda`): 15 sfx con ElevenLabs (−20 LUFS, techo −1 dBFS; los cortos quedan en −22…−26), `make_sfx.py` con caché `_prompts.json`; los de F2 en `script_engine/sfx/_f2_sintetizados/`. US$ 0.037. En mezcla +0.0–0.2 LU: casi no se oyen; ganancias sin recalibrar (Omar escucha).
+- **A** (`2fcd603`): `script_engine/gfx_realizador.py` — ventanas por beat (`gfx_beats_chNN.json`), candidatos = a_pantalla en su beat + datos no dichos, topes por función y 5 por cap, sello solo el del pico (filtro; el diccionario palabra→ícono NO se tocó), pregunta = `cierre`, duración por texto, crítico parejo, `gap_fill` off (`gfx_rules.gap_fill`), `gfx_rules.realizador` on. Sin escaleta, camino viejo.
+- **C** (`115d999`): **timeout render gfx 1500 s, NVENC cq 23** (Vajont 1.21 GB vs 1.6 GB con cq 19). Pico desde la escaleta si gfx_peak no da; rótulo del pico sin ids repetidos. **Vajont v3: `output/f8s3-vajont-f29/f8s3-vajont_final_gfx_v3.mp4`** (copia del topic `f8s3-vajont-f29`), `lab/hyperframes/f29/BLOQUES_v3.jpg`. F27 → F29: bloques 35 → 22, sellos 15 → 4, spoilers 2 → 0, pico con bloque 1/7 → 7/7. Reensamble 63.9 min; gfx por cap ≤ 781 s. Gemini US$ 0.012. Intento 1 apartado (`_v3_intento1.mp4`, `_bak_c_intento1/`).
+- **D** (`1711e88`): `gfx_pool.FORMA_CALL`; Sonnet 5.5 eligió igual que Flash en los 4 recortes de ch05/ch06 → mp4 idénticos byte a byte. Claude US$ 0.0028. El modelo solo decide la cláusula del recorte; tipo/lado/duración son deterministas. Hoja `lab/hyperframes/f29/D_flash_vs_sonnet.jpg`. Copia `output/f8s3-vajont-f29d/`.
+- Suite amplia 921 verdes + 5 previas. **Abierto:** rótulos del pico que repiten la voz (ch02 Q53, ch03 T18, ch07 Q13: el respaldo de `garantizar_pico` no filtra «ya dicho» y el crítico corre antes); sello de ch04 en la palabra del pico pero 49 s antes; rótulo + sello juntos en el pico de ch01/02/07; rótulo largo del pico de ch06 se sale del cuadro; los `chNN_gfx.mp4` intermedios pesan ~1.2 GB cada uno.
 
 ## F28 — Paleta musical (A, B, C) — HECHO, **PARADA** (Omar escucha la v2 de Vajont)
 - Sobre `4e18e8a`. Handoff `lab/hyperframes/f28/HANDOFF_F28_paleta_musical.md`. Reportes `F28A_REPORT.md` (parte A) y `F28_REPORT.md` (B y C; revisor íntegro: CUMPLE CON OBSERVACIONES). Elección del analista: `ELECCION_F28_12_pistas.md`.
