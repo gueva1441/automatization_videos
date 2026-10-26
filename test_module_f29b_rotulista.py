@@ -293,3 +293,51 @@ def test_rotulista_modelo_por_cli():
     src = (ROOT / "fase2b.py").read_text(encoding="utf-8")
     assert '"--rotulista-modelo"' in src and 'object.__setattr__(_gr, "rotulista_modelo"' in src
     ast.parse(src)
+
+
+# ═══════════════ F29b, antes de B: candado de persona y tope en paralelo ═══════════════
+
+def test_persona_nombre_y_cargo_tienen_que_estar_en_la_fuente():
+    ent, words = _ent([(0, "Alguien mira la ladera."), (10, "Nadie más la mira.")],
+                      [{"id": "T27", "texto": "El geólogo Giorgio Dal Piaz revisó la ladera."}])
+    ok = gro.validar({"bloques": [_b(0, "persona", "Giorgio Dal Piaz, geólogo", "T27")]}, ent, words)
+    assert [b["pool_id"] for b in ok["bloques"]] == ["T27"]
+    for txt, falta in (("Mario Bianchi, geólogo", "Mario"), ("Pedro, geólogo", "Pedro"),
+                       ("Giorgio Dal Piaz, ingeniero", "ingeniero")):
+        v = gro.validar({"bloques": [_b(0, "persona", txt, "T27")]}, ent, words)
+        assert not v["bloques"] and v["rechazos"][0]["regla"] == "A.4.3" and falta in v["rechazos"][0]["motivo"]
+
+
+def test_tope_cuenta_las_llamadas_en_vuelo(tmp_path, monkeypatch):
+    import threading
+    import time as _t
+    import claude_helpers as hx
+    entrar = threading.Barrier(3, timeout=5)
+    soltar = threading.Event()
+
+    def fake_post(body):
+        soltar.wait(5)
+        return {"content": [{"type": "text", "text": "{}"}], "usage": {"input_tokens": 10, "output_tokens": 10},
+                "stop_reason": "end_turn", "model": "claude-sonnet-5-5"}
+    monkeypatch.setattr(hx, "_post", fake_post)
+    body = {"messages": [{"role": "user", "content": "x" * 100}]}
+    peor = len(__import__("json").dumps(body)) / 2.5 / 1e6 * 2.0 + gro.OUT_TOKENS_PEOR / 1e6 * 10.0
+    res = []
+
+    def una(k):
+        post = gro._post_con_registro(tmp_path, f"ch0{k}", "claude-sonnet-5-5", 2.5 * peor, [])
+        entrar.wait()
+        try:
+            post(body)
+            res.append("ok")
+        except gro.TopeRotulista:
+            res.append("tope")
+    hs = [threading.Thread(target=una, args=(k,)) for k in range(3)]
+    for h in hs:
+        h.start()
+    _t.sleep(0.5)
+    soltar.set()
+    for h in hs:
+        h.join(5)
+    assert sorted(res) == ["ok", "ok", "tope"]           # el ledger arranca en 0 para las 3: la 3.ª no entra
+    assert gro._EN_VUELO.get(str(tmp_path.resolve())) == 0.0

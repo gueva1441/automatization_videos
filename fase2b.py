@@ -2972,6 +2972,11 @@ def main() -> int:
                              "sin música, sin _final.mp4, sin topics_db. Solo en modo single.")
     parser.add_argument("--gfx-workers", type=int, default=None, metavar="N",
                         help="F30 §C.1: workers del render HyperFrames (default gfx_render.workers).")
+    parser.add_argument("--rotulista", action="store_true",
+                        help="F29b: con --gfx, el texto de pantalla lo escribe el rotulista (gfx_rules.rotulista = True, "
+                             "garantizar_pico = False).")
+    parser.add_argument("--rotulista-tope", type=float, default=None, metavar="USD",
+                        help="F29b: tope Claude del rotulista para esta corrida (default gfx_rules.rotulista_tope_usd).")
     parser.add_argument("--rotulista-modelo", type=str, default=None, metavar="MODELO",
                         help="F29b: modelo del rotulista (default gfx_rules.rotulista_modelo = claude-sonnet-5-5; "
                              "p. ej. claude-fable-5-1). Solo cuenta con gfx_rules.rotulista prendido.")
@@ -2986,6 +2991,13 @@ def main() -> int:
     if args.gfx_workers:                        # F30 §C.1 (GfxRenderSettings es frozen)
         from gfx_config import gfx_render as _grs
         object.__setattr__(_grs, "workers", int(args.gfx_workers))
+    if args.rotulista:                          # F29b §B
+        from gfx_config import gfx_rules as _gr
+        object.__setattr__(_gr, "rotulista", True)
+        object.__setattr__(_gr, "garantizar_pico", False)
+    if args.rotulista_tope is not None:         # F29b §B: el tope que le queda a la tanda
+        from gfx_config import gfx_rules as _gr
+        object.__setattr__(_gr, "rotulista_tope_usd", float(args.rotulista_tope))
     if args.rotulista_modelo:                   # F29b §A.2
         from gfx_config import gfx_rules as _gr
         object.__setattr__(_gr, "rotulista_modelo", args.rotulista_modelo)   # GfxRules es frozen

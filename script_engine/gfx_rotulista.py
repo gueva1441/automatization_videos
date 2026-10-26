@@ -166,6 +166,24 @@ def nombres(texto: str) -> list[str]:
     return list(dict.fromkeys(out))
 
 
+def cargo_de(texto: str) -> list[str]:
+    """Las palabras de contenido del cargo de un bloque «persona» (lo que sigue al nombre: «Giorgio Dal Piaz,
+    geólogo» → [geólogo]); sin artículos ni preposiciones."""
+    nom = nombre_inicial(texto)
+    ws = palabras(texto)
+    k = 0
+    while k < len(ws) and re.sub(r"^[«\"“(]+|[.,;:!?»\"”)·]+$", "", ws[k]) in nom:
+        k += 1
+    resto = [re.sub(r"[^\wáéíóúñü'’-]", "", w) for w in ws[k:]]
+    return [w for w in resto if len(w) >= 4 and ev.norm(w) not in _ARTPREP and ev.norm(w) not in ev._FUNC]
+
+
+def _raiz_en(w: str, texto: str) -> bool:
+    """¿La palabra está en el texto por su raíz de 5 letras («ingeniero» = «ingeniera», «geólogo» = «geólogos»)?"""
+    r = ev.norm(w)[:5]
+    return bool(r) and any(t.startswith(r) for t in re.findall(r"[^\W\d_]+", ev.norm(texto)))
+
+
 def _palabra_en(tok: str, texto: str) -> bool:
     return bool(re.search(rf"(?<![\w]){re.escape(ev.norm(tok))}(?![\w])", ev.norm(texto)))
 
@@ -424,6 +442,9 @@ def validar(resp: Any, ent: dict[str, Any], words: list[dict], time_offset: floa
         else:
             malos = [n for n in numeros(pant) if not numero_en(n, fuente)]
             malos += [n for n in nombres(pant) if not _palabra_en(n, fuente)]
+            if tipo == "persona":              # A.4.3: el nombre (abre el texto: nombres() no lo mira) y el cargo
+                malos += [n for n in nombre_inicial(txt) if n.lower() not in _PARTICULAS and not _palabra_en(n, fuente)]
+                malos += [w for w in cargo_de(txt) if not _raiz_en(w, fuente)]
             if et and tipo == "recorte":       # el kicker sale del texto o de la fuente del dato
                 malos += [n for n in numeros(et) + nombres(et)
                           if not (numero_en(n, fuente + " " + x["fuente"]) or _palabra_en(n, fuente + " " + x["fuente"]))]
@@ -496,6 +517,7 @@ def lo_que_pide(por_que: str, fuente: str, pantalla: str) -> str | None:
 # ═══════════════════════ llamada ═══════════════════════
 
 _LOCK = threading.Lock()
+_EN_VUELO: dict[str, float] = {}      # peor caso (US$) de las llamadas en curso, por carpeta de trabajo
 
 
 def _ledger(work_dir: Path) -> Path:
@@ -516,11 +538,19 @@ def _post_con_registro(work_dir: Path, cap_id: str, modelo: str, tope: float, cr
     def post(body: dict) -> dict:
         pin, pout = hx.PRICES.get(hx._base(modelo), (0.0, 0.0))
         peor = len(json.dumps(body, ensure_ascii=False)) / 2.5 / 1e6 * pin + OUT_TOKENS_PEOR / 1e6 * pout
-        with _LOCK:
-            if gastado(work_dir) + peor > tope:
-                raise TopeRotulista(f"tope Claude del rotulista US$ {tope:.2f} (gastado {gastado(work_dir):.4f})")
+        clave = str(Path(work_dir).resolve())
+        with _LOCK:                      # lo gastado + el peor caso de las llamadas que están en vuelo (prefetch en
+            vuelo = _EN_VUELO.get(clave, 0.0)   # paralelo: las 7 ven el mismo gasto inicial si solo se mira el ledger)
+            if gastado(work_dir) + vuelo + peor > tope:
+                raise TopeRotulista(f"tope Claude del rotulista US$ {tope:.2f} (gastado {gastado(work_dir):.4f}, "
+                                    f"en vuelo {vuelo:.4f}, esta llamada hasta {peor:.4f})")
+            _EN_VUELO[clave] = vuelo + peor
         t0 = time.time()
-        r = hx._post(body)
+        try:
+            r = hx._post(body)
+        finally:
+            with _LOCK:
+                _EN_VUELO[clave] = max(0.0, _EN_VUELO.get(clave, 0.0) - peor)
         u = r.get("usage") or {}
         usd = round(hx.cost_of(modelo, u), 5)
         crudos.append({"respuesta": r, "segundos": round(time.time() - t0, 1), "usd": usd})
