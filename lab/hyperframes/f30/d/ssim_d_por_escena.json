@@ -1,0 +1,688 @@
+{
+ "ch01": [
+  {
+   "escena": 0,
+   "t0": 0.0,
+   "t1": 98.9,
+   "forma": null,
+   "ssim_media_sin_bordes_1s": 0.983,
+   "ssim_min": 0.9691
+  }
+ ],
+ "ch02": [
+  {
+   "escena": 0,
+   "t0": 0.0,
+   "t1": 16.13,
+   "forma": "3D",
+   "ssim_media_sin_bordes_1s": 0.9814,
+   "ssim_min": 0.9724
+  },
+  {
+   "escena": 1,
+   "t0": 16.13,
+   "t1": 21.6,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.9737,
+   "ssim_min": 0.9699
+  },
+  {
+   "escena": 2,
+   "t0": 21.6,
+   "t1": 28.93,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.9713,
+   "ssim_min": 0.9647
+  },
+  {
+   "escena": 3,
+   "t0": 28.93,
+   "t1": 35.2,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.9663,
+   "ssim_min": 0.958
+  },
+  {
+   "escena": 4,
+   "t0": 35.2,
+   "t1": 44.77,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.9759,
+   "ssim_min": 0.9716
+  },
+  {
+   "escena": 5,
+   "t0": 44.77,
+   "t1": 53.17,
+   "forma": "3D",
+   "ssim_media_sin_bordes_1s": 0.9816,
+   "ssim_min": 0.9733
+  },
+  {
+   "escena": 6,
+   "t0": 53.17,
+   "t1": 62.63,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.9651,
+   "ssim_min": 0.9526
+  },
+  {
+   "escena": 7,
+   "t0": 62.63,
+   "t1": 76.57,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.9756,
+   "ssim_min": 0.9701
+  },
+  {
+   "escena": 8,
+   "t0": 76.57,
+   "t1": 83.6,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.9625,
+   "ssim_min": 0.9492
+  },
+  {
+   "escena": 9,
+   "t0": 83.6,
+   "t1": 96.37,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.9782,
+   "ssim_min": 0.9734
+  },
+  {
+   "escena": 10,
+   "t0": 96.37,
+   "t1": 108.73,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.979,
+   "ssim_min": 0.9745
+  },
+  {
+   "escena": 11,
+   "t0": 108.73,
+   "t1": 120.8,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.9776,
+   "ssim_min": 0.974
+  },
+  {
+   "escena": 12,
+   "t0": 120.8,
+   "t1": 134.2,
+   "forma": "alejar",
+   "ssim_media_sin_bordes_1s": 0.7513,
+   "ssim_min": 0.6602
+  }
+ ],
+ "ch03": [
+  {
+   "escena": 0,
+   "t0": 0.0,
+   "t1": 3.03,
+   "forma": "3D",
+   "ssim_media_sin_bordes_1s": 0.9838,
+   "ssim_min": 0.9833
+  },
+  {
+   "escena": 1,
+   "t0": 3.03,
+   "t1": 10.7,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.97,
+   "ssim_min": 0.9605
+  },
+  {
+   "escena": 2,
+   "t0": 10.7,
+   "t1": 25.0,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.9791,
+   "ssim_min": 0.9763
+  },
+  {
+   "escena": 3,
+   "t0": 25.0,
+   "t1": 31.07,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.9709,
+   "ssim_min": 0.9655
+  },
+  {
+   "escena": 4,
+   "t0": 31.07,
+   "t1": 42.47,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.977,
+   "ssim_min": 0.973
+  },
+  {
+   "escena": 5,
+   "t0": 42.47,
+   "t1": 55.33,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.9782,
+   "ssim_min": 0.976
+  },
+  {
+   "escena": 6,
+   "t0": 55.33,
+   "t1": 61.9,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.9673,
+   "ssim_min": 0.96
+  },
+  {
+   "escena": 7,
+   "t0": 61.9,
+   "t1": 74.6,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.9743,
+   "ssim_min": 0.9699
+  },
+  {
+   "escena": 8,
+   "t0": 74.6,
+   "t1": 82.92,
+   "forma": "quieta",
+   "ssim_media_sin_bordes_1s": 0.976,
+   "ssim_min": 0.9726
+  },
+  {
+   "escena": 9,
+   "t0": 82.92,
+   "t1": 93.78,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.979,
+   "ssim_min": 0.9762
+  },
+  {
+   "escena": 10,
+   "t0": 93.78,
+   "t1": 101.22,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.9697,
+   "ssim_min": 0.959
+  },
+  {
+   "escena": 11,
+   "t0": 101.22,
+   "t1": 112.74,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.9764,
+   "ssim_min": 0.9712
+  },
+  {
+   "escena": 12,
+   "t0": 112.74,
+   "t1": 130.0,
+   "forma": "alejar",
+   "ssim_media_sin_bordes_1s": 0.9794,
+   "ssim_min": 0.9744
+  }
+ ],
+ "ch04": [
+  {
+   "escena": 0,
+   "t0": 0.0,
+   "t1": 7.63,
+   "forma": "3D",
+   "ssim_media_sin_bordes_1s": 0.9813,
+   "ssim_min": 0.9773
+  },
+  {
+   "escena": 1,
+   "t0": 7.63,
+   "t1": 16.03,
+   "forma": "3D",
+   "ssim_media_sin_bordes_1s": 0.9743,
+   "ssim_min": 0.9539
+  },
+  {
+   "escena": 2,
+   "t0": 16.03,
+   "t1": 25.0,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.9676,
+   "ssim_min": 0.9562
+  },
+  {
+   "escena": 3,
+   "t0": 25.0,
+   "t1": 34.57,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.9745,
+   "ssim_min": 0.9695
+  },
+  {
+   "escena": 4,
+   "t0": 34.57,
+   "t1": 48.03,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.9767,
+   "ssim_min": 0.9723
+  },
+  {
+   "escena": 5,
+   "t0": 48.03,
+   "t1": 62.3,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.9734,
+   "ssim_min": 0.9648
+  },
+  {
+   "escena": 6,
+   "t0": 62.3,
+   "t1": 75.27,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.9708,
+   "ssim_min": 0.966
+  },
+  {
+   "escena": 7,
+   "t0": 75.27,
+   "t1": 85.03,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.9764,
+   "ssim_min": 0.9701
+  },
+  {
+   "escena": 8,
+   "t0": 85.03,
+   "t1": 92.4,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.9727,
+   "ssim_min": 0.9676
+  },
+  {
+   "escena": 9,
+   "t0": 92.4,
+   "t1": 103.27,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.974,
+   "ssim_min": 0.968
+  },
+  {
+   "escena": 10,
+   "t0": 103.27,
+   "t1": 122.8,
+   "forma": "alejar",
+   "ssim_media_sin_bordes_1s": 0.9794,
+   "ssim_min": 0.9706
+  }
+ ],
+ "ch05": [
+  {
+   "escena": 0,
+   "t0": 0.0,
+   "t1": 9.3,
+   "forma": "alejar",
+   "ssim_media_sin_bordes_1s": 0.9638,
+   "ssim_min": 0.9464
+  },
+  {
+   "escena": 1,
+   "t0": 9.3,
+   "t1": 15.17,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.9721,
+   "ssim_min": 0.968
+  },
+  {
+   "escena": 2,
+   "t0": 15.17,
+   "t1": 27.83,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.9777,
+   "ssim_min": 0.9757
+  },
+  {
+   "escena": 3,
+   "t0": 27.83,
+   "t1": 34.43,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.9682,
+   "ssim_min": 0.9618
+  },
+  {
+   "escena": 4,
+   "t0": 34.43,
+   "t1": 39.73,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.9401,
+   "ssim_min": 0.9257
+  },
+  {
+   "escena": 5,
+   "t0": 39.73,
+   "t1": 49.8,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.9797,
+   "ssim_min": 0.9781
+  },
+  {
+   "escena": 6,
+   "t0": 49.8,
+   "t1": 59.13,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.9757,
+   "ssim_min": 0.9718
+  },
+  {
+   "escena": 7,
+   "t0": 59.13,
+   "t1": 71.13,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.9774,
+   "ssim_min": 0.972
+  },
+  {
+   "escena": 8,
+   "t0": 71.13,
+   "t1": 78.9,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.9734,
+   "ssim_min": 0.9679
+  },
+  {
+   "escena": 9,
+   "t0": 78.9,
+   "t1": 86.43,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.9723,
+   "ssim_min": 0.9661
+  },
+  {
+   "escena": 10,
+   "t0": 86.43,
+   "t1": 106.6,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.9763,
+   "ssim_min": 0.9714
+  },
+  {
+   "escena": 11,
+   "t0": 106.6,
+   "t1": 110.27,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.9614,
+   "ssim_min": 0.9582
+  },
+  {
+   "escena": 12,
+   "t0": 110.27,
+   "t1": 125.2,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.9779,
+   "ssim_min": 0.9758
+  },
+  {
+   "escena": 13,
+   "t0": 125.2,
+   "t1": 140.07,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.9782,
+   "ssim_min": 0.9723
+  },
+  {
+   "escena": 14,
+   "t0": 140.07,
+   "t1": 170.07,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.8101,
+   "ssim_min": 0.7741
+  }
+ ],
+ "ch06": [
+  {
+   "escena": 0,
+   "t0": 0.0,
+   "t1": 15.47,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.9774,
+   "ssim_min": 0.9712
+  },
+  {
+   "escena": 1,
+   "t0": 15.47,
+   "t1": 19.83,
+   "forma": "paneo",
+   "ssim_media_sin_bordes_1s": 0.9527,
+   "ssim_min": 0.9381
+  },
+  {
+   "escena": 2,
+   "t0": 19.83,
+   "t1": 26.13,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.9669,
+   "ssim_min": 0.9576
+  },
+  {
+   "escena": 3,
+   "t0": 26.13,
+   "t1": 37.17,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.9716,
+   "ssim_min": 0.9644
+  },
+  {
+   "escena": 4,
+   "t0": 37.17,
+   "t1": 46.07,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.9766,
+   "ssim_min": 0.9702
+  },
+  {
+   "escena": 5,
+   "t0": 46.07,
+   "t1": 55.03,
+   "forma": "quieta",
+   "ssim_media_sin_bordes_1s": 0.9825,
+   "ssim_min": 0.9723
+  },
+  {
+   "escena": 6,
+   "t0": 55.03,
+   "t1": 67.7,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.978,
+   "ssim_min": 0.9761
+  },
+  {
+   "escena": 7,
+   "t0": 67.7,
+   "t1": 75.77,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.9711,
+   "ssim_min": 0.9639
+  },
+  {
+   "escena": 8,
+   "t0": 75.77,
+   "t1": 81.2,
+   "forma": "paneo",
+   "ssim_media_sin_bordes_1s": 0.9548,
+   "ssim_min": 0.9419
+  },
+  {
+   "escena": 9,
+   "t0": 81.2,
+   "t1": 91.93,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.9768,
+   "ssim_min": 0.9695
+  },
+  {
+   "escena": 10,
+   "t0": 91.93,
+   "t1": 104.97,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.9795,
+   "ssim_min": 0.9738
+  },
+  {
+   "escena": 11,
+   "t0": 104.97,
+   "t1": 110.17,
+   "forma": "acercar",
+   "ssim_media_sin_bordes_1s": 0.977,
+   "ssim_min": 0.9754
+  },
+  {
+   "escena": 12,
+   "t0": 110.17,
+   "t1": 123.87,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.9732,
+   "ssim_min": 0.9682
+  },
+  {
+   "escena": 13,
+   "t0": 123.87,
+   "t1": 134.57,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.9804,
+   "ssim_min": 0.9743
+  },
+  {
+   "escena": 14,
+   "t0": 134.57,
+   "t1": 149.63,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.9787,
+   "ssim_min": 0.9741
+  },
+  {
+   "escena": 15,
+   "t0": 149.63,
+   "t1": 168.8,
+   "forma": "router",
+   "ssim_media_sin_bordes_1s": 0.98,
+   "ssim_min": 0.9757
+  }
+ ],
+ "ch07": [
+  {
+   "escena": 0,
+   "t0": 0.0,
+   "t1": 15.2,
+   "forma": null,
+   "ssim_media_sin_bordes_1s": 0.9816,
+   "ssim_min": 0.9788
+  },
+  {
+   "escena": 1,
+   "t0": 15.2,
+   "t1": 20.46,
+   "forma": null,
+   "ssim_media_sin_bordes_1s": 0.9806,
+   "ssim_min": 0.9775
+  },
+  {
+   "escena": 2,
+   "t0": 20.46,
+   "t1": 31.16,
+   "forma": null,
+   "ssim_media_sin_bordes_1s": 0.986,
+   "ssim_min": 0.9779
+  },
+  {
+   "escena": 3,
+   "t0": 31.16,
+   "t1": 42.84,
+   "forma": null,
+   "ssim_media_sin_bordes_1s": 0.9822,
+   "ssim_min": 0.9739
+  },
+  {
+   "escena": 4,
+   "t0": 42.84,
+   "t1": 58.33,
+   "forma": null,
+   "ssim_media_sin_bordes_1s": 0.9821,
+   "ssim_min": 0.9719
+  },
+  {
+   "escena": 5,
+   "t0": 58.33,
+   "t1": 69.73,
+   "forma": null,
+   "ssim_media_sin_bordes_1s": 0.9846,
+   "ssim_min": 0.9815
+  },
+  {
+   "escena": 6,
+   "t0": 69.73,
+   "t1": 81.47,
+   "forma": null,
+   "ssim_media_sin_bordes_1s": 0.9837,
+   "ssim_min": 0.9813
+  },
+  {
+   "escena": 7,
+   "t0": 81.47,
+   "t1": 90.77,
+   "forma": null,
+   "ssim_media_sin_bordes_1s": 0.9471,
+   "ssim_min": 0.9097
+  },
+  {
+   "escena": 8,
+   "t0": 90.77,
+   "t1": 98.37,
+   "forma": null,
+   "ssim_media_sin_bordes_1s": 0.9826,
+   "ssim_min": 0.9767
+  },
+  {
+   "escena": 9,
+   "t0": 98.37,
+   "t1": 103.33,
+   "forma": null,
+   "ssim_media_sin_bordes_1s": 0.9838,
+   "ssim_min": 0.9811
+  },
+  {
+   "escena": 10,
+   "t0": 103.33,
+   "t1": 110.8,
+   "forma": null,
+   "ssim_media_sin_bordes_1s": 0.9818,
+   "ssim_min": 0.975
+  },
+  {
+   "escena": 11,
+   "t0": 110.8,
+   "t1": 121.5,
+   "forma": null,
+   "ssim_media_sin_bordes_1s": 0.982,
+   "ssim_min": 0.9763
+  },
+  {
+   "escena": 12,
+   "t0": 121.5,
+   "t1": 132.3,
+   "forma": null,
+   "ssim_media_sin_bordes_1s": 0.9819,
+   "ssim_min": 0.9787
+  },
+  {
+   "escena": 13,
+   "t0": 132.3,
+   "t1": 172.0,
+   "forma": null,
+   "ssim_media_sin_bordes_1s": 0.984,
+   "ssim_min": 0.9785
+  },
+  {
+   "escena": 14,
+   "t0": 172.0,
+   "t1": 184.0,
+   "forma": null,
+   "ssim_media_sin_bordes_1s": 0.9815,
+   "ssim_min": 0.8946
+  }
+ ]
+}

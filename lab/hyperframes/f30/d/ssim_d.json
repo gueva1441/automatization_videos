@@ -1,0 +1,136 @@
+{
+ "ch01": {
+  "cap": {
+   "cuadros": 2968,
+   "media": 0.9833,
+   "min": 0.9691
+  },
+  "safe_sin_cortes": null,
+  "resto_sin_cortes": {
+   "cuadros": 2967,
+   "media": 0.9833,
+   "min": 0.9691
+  },
+  "cortes_±1s": null
+ },
+ "ch02": {
+  "cap": {
+   "cuadros": 4026,
+   "media": 0.9529,
+   "min": 0.5264
+  },
+  "safe_sin_cortes": {
+   "cuadros": 2649,
+   "media": 0.9456,
+   "min": 0.6602
+  },
+  "resto_sin_cortes": {
+   "cuadros": 645,
+   "media": 0.9814,
+   "min": 0.9724
+  },
+  "cortes_±1s": {
+   "cuadros": 732,
+   "media": 0.9542,
+   "min": 0.5264
+  }
+ },
+ "ch03": {
+  "cap": {
+   "cuadros": 3900,
+   "media": 0.9734,
+   "min": 0.549
+  },
+  "safe_sin_cortes": {
+   "cuadros": 3107,
+   "media": 0.9763,
+   "min": 0.8759
+  },
+  "resto_sin_cortes": {
+   "cuadros": 61,
+   "media": 0.9835,
+   "min": 0.9821
+  },
+  "cortes_±1s": {
+   "cuadros": 732,
+   "media": 0.9607,
+   "min": 0.549
+  }
+ },
+ "ch04": {
+  "cap": {
+   "cuadros": 3685,
+   "media": 0.974,
+   "min": 0.5463
+  },
+  "safe_sin_cortes": {
+   "cuadros": 2684,
+   "media": 0.9749,
+   "min": 0.9562
+  },
+  "resto_sin_cortes": {
+   "cuadros": 390,
+   "media": 0.978,
+   "min": 0.9539
+  },
+  "cortes_±1s": {
+   "cuadros": 610,
+   "media": 0.9673,
+   "min": 0.5463
+  }
+ },
+ "ch05": {
+  "cap": {
+   "cuadros": 5103,
+   "media": 0.9448,
+   "min": 0.5299
+  },
+  "safe_sin_cortes": {
+   "cuadros": 4248,
+   "media": 0.942,
+   "min": 0.7741
+  },
+  "resto_sin_cortes": null,
+  "cortes_±1s": {
+   "cuadros": 854,
+   "media": 0.9589,
+   "min": 0.5299
+  }
+ },
+ "ch06": {
+  "cap": {
+   "cuadros": 5064,
+   "media": 0.974,
+   "min": 0.491
+  },
+  "safe_sin_cortes": {
+   "cuadros": 4149,
+   "media": 0.9762,
+   "min": 0.9381
+  },
+  "resto_sin_cortes": null,
+  "cortes_±1s": {
+   "cuadros": 915,
+   "media": 0.9639,
+   "min": 0.491
+  }
+ },
+ "ch07": {
+  "cap": {
+   "cuadros": 5520,
+   "media": 0.9798,
+   "min": 0.5013
+  },
+  "safe_sin_cortes": null,
+  "resto_sin_cortes": {
+   "cuadros": 4666,
+   "media": 0.9815,
+   "min": 0.9097
+  },
+  "cortes_±1s": {
+   "cuadros": 854,
+   "media": 0.9704,
+   "min": 0.5013
+  }
+ }
+}

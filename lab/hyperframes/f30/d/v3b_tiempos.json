@@ -1,0 +1,58 @@
+{
+ "ch01": {
+  "cobertura": "17.2s de 98.9s (17 %)",
+  "hf_s": "56.0",
+  "bake_s": null,
+  "stitch_s": "29.5",
+  "total_s": "125.5",
+  "fallback": false
+ },
+ "ch02": {
+  "cobertura": "15.2s de 134.2s (11 %)",
+  "hf_s": "57.8",
+  "bake_s": "74.3",
+  "stitch_s": "42.0",
+  "total_s": "244.2",
+  "fallback": false
+ },
+ "ch03": {
+  "cobertura": "33.2s de 130.0s (26 %)",
+  "hf_s": "109.1",
+  "bake_s": "79.3",
+  "stitch_s": "41.0",
+  "total_s": "303.4",
+  "fallback": false
+ },
+ "ch04": {
+  "cobertura": "45.6s de 122.8s (37 %)",
+  "hf_s": "159.2",
+  "bake_s": "70.0",
+  "stitch_s": "40.4",
+  "total_s": "341.3",
+  "fallback": false
+ },
+ "ch05": {
+  "cobertura": "34.9s de 170.1s (21 %)",
+  "hf_s": "118.0",
+  "bake_s": "109.5",
+  "stitch_s": "53.0",
+  "total_s": "364.3",
+  "fallback": false
+ },
+ "ch06": {
+  "cobertura": "27.4s de 168.8s (16 %)",
+  "hf_s": "89.9",
+  "bake_s": "101.2",
+  "stitch_s": "52.5",
+  "total_s": "330.7",
+  "fallback": false
+ },
+ "ch07": {
+  "cobertura": "30.4s de 184.0s (17 %)",
+  "hf_s": "95.3",
+  "bake_s": null,
+  "stitch_s": "55.1",
+  "total_s": "237.4",
+  "fallback": false
+ }
+}
