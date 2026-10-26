@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-26 (F34 A y B hechas, cortada por límite de uso: falta comparación del simulador y revisor; ver lab/hyperframes/f34/F34_REPORT.md) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-26 (F34 hecha, **PARADA**: guion de Vajont regenerado sin render ni aprobación; revisor CUMPLE CON OBSERVACIONES) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,11 +13,14 @@
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
 
-## F34 — Reglas de pantalla corregidas (pedido de Omar, 2026-10-26) — EN CURSO (A → B sin parar; **sin render, sin aprobar**)
+## F34 — Reglas de pantalla corregidas (pedido de Omar, 2026-10-26) — HECHA, **PARADA** (sin render, sin aprobar)
 - Handoff `lab/hyperframes/f34/HANDOFF_F34_reglas_de_pantalla.md`. Base `fc889c9`. Un commit por parte.
 - **Simulación previa** (agente `simulador`, antes del código): `lab/hyperframes/f34/a/simulacion_previa.md`.
 - **A HECHO** (commit A): prompt del rotulista con los 3 reemplazos de A.1 (md5 `d90ae69a…`, versión `f34-1`; el de F32 queda como `ROTULISTA_SYSTEM_F32`/`ROTULISTA_USER_F32`); gancho con todo el pool del video marcado «la narración lo dice: sí/no» (sin los `a_pantalla` de otros caps); candado con lo que dice la oración ancla, no dicho/spoiler antes que la lectura, spoiler con la voz de caps anteriores; reparto por oración en caps de una sola escena (`unidades`), el sello deja de ser fijo y no frena al reloj; reloj desde la voz si la cronología no da reloj; sellos de CLIMA (Gemini Flash, prompt literal de A.4, vocabulario `sellos_clima` del perfil, en disco: `gfx_profiles/misterio.json` fuera de git); agua desde la voz (una por cap); tarjeta fecha-hora (`9 OCT 1963 · 22:39`, T57 + T66); plan congelado (`gfx_layer.plan_congelado`: con guion aprobado el render dibuja el plan tal cual y no lo reescribe); música alineada con `--gfx` (pieza = segmento + crossfade, después de la intro) y medida en la mezcla; crítico de forma para sello de clima y agua de la voz; `.claude/settings.json` modelo `claude-opus-5-5`; `/tanda` paso 12 (cerrar tareas en segundo plano). Tests `test_module_f34.py` (18). Suite amplia 1021 + 5 previas, rápida 58, md5 ch02 sin gfx `38e5ba14…` (`lab/hyperframes/f34/a/`). Salida en texto: `lab/hyperframes/f34/a/salida_a.txt`.
-- **B HECHO** (commit B): guion regenerado `lab/hyperframes/f34/GUION_PANTALLA.*` (Claude 0.4633, Gemini 0.2392). 6 textos de 9, relojes/aguas/punches = §1, música alineada 7/7. **PENDIENTE: simulador contra §1, revisor-handoff, bugs de B (ver F34_REPORT «abierto»). PARADA.**
+- **B HECHO** (commit B `2f04030`): guion regenerado `lab/hyperframes/f34/GUION_PANTALLA.*` (Claude US$ 0.4633, Gemini 0.2392). Contra §1 (agente simulador, `b/comparacion_simulador.md`): relojes 4 + tarjeta, 2 aguas, 6 punches = §1; **5 textos de 9** (D117, T39, D192, D245 y D71 en vez de D49; faltan D118, D128 —bug del realizador que borra todo count_up—, T85 —pico solo a_pantalla—, Q50 —lectura—); **7 sellos de 8** (AMENAZA ×4). Música alineada con el title card 7/7, desvío 0 cuadros medido.
+- **Cierre** (commit de cierre): `lab/hyperframes/f34/F34_REPORT.md` con la tabla del simulador y el veredicto íntegro del revisor (CUMPLE CON OBSERVACIONES). Abierto (F34_REPORT): textos 5/9 y sus causas, AMENAZA repetido y orden sello→crítico, agua de ch04 cruza el corte, tarjeta sin dibujar (intro 2.5 s vs `title_dur` 3 s), `sellos_clima` fuera de git, procesos viejos de otras tandas (grep 23064/31616/21988, bash 29824/500) sin cerrar: el permiso lo bloqueó, cerrarlos a mano.
+
+## 👀 Para Omar (F34): leer `lab/hyperframes/f34/GUION_PANTALLA.md` y el resumen de `F34_REPORT.md`; decir «aprobado» o qué cambiar. Nada se renderizó.
 
 ## F33 — Infraestructura: procedimiento, compuertas y mapa (pedido de Omar, 2026-10-26) — HECHA, **PARADA** (sin render, sin cambios del pipeline)
 - Handoff `lab/hyperframes/f33/HANDOFF_F33_infraestructura.md`. Base `cd60c74`. Un commit por parte.
