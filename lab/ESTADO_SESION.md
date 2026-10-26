@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-26 (F32 A → B → C hecha, **PARADA** antes del render) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-26 (F33 en curso: A hecho; F32 en PARADA antes del render) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -12,6 +12,10 @@
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F33 — Infraestructura: procedimiento, compuertas y mapa (pedido de Omar, 2026-10-26) — EN CURSO (A → E; sin render, sin cambios del pipeline)
+- Handoff `lab/hyperframes/f33/HANDOFF_F33_infraestructura.md`. Base `cd60c74`. Un commit por parte.
+- **A HECHO** (commit A): `DECISIONES.md` y `lab/hyperframes/f32/ENTRADA_ANALISTA_2026-10-26.md` al repo tal cual; `CLAUDE.md` con la línea de DECISIONES; `test_constantes_con_origen.py` en modo inventario (101 constantes numéricas en GfxRules/GfxRenderSettings/TransitionRenderSettings; 35 con origen: 33 «identidad F3» = igual al token del perfil, `crossfade_frames` y `workers` por DECISIONES; **66 sin origen** → `lab/hyperframes/f33/a/inventario_constantes.md`; solo comentarios, ningún valor). `CONSTANTES_ESTRICTO=1` lo vuelve estricto.
 
 ## F32 — El guion de pantalla (pedido de Omar, 2026-10-26) — HECHA, **PARADA** (sin render: el render se pide aparte cuando el guion esté aprobado)
 - Handoff `lab/hyperframes/f32/HANDOFF_F32_guion_de_pantalla.md`. Base `0253672`. Tres commits (A, B, C), uno por parte (Omar; el handoff pedía uno por arreglo en B). **Esta tanda no renderiza.**

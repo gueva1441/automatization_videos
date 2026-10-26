@@ -44,7 +44,7 @@ class GfxRenderSettings:
     enable_gfx: bool = False                 # default OFF: solo con fase2b --gfx
     quality: str = "looks"                   # draft | looks. F2 §0b: draft (JPEG q80 + CRF 28) ablanda la imagen
     debug_quality: str = "draft"             # solo con --gfx-debug (iteración rápida)
-    workers: int = 5                         # sin shaders (D5) → 5 workers (lab v1)
+    workers: int = 5                         # DECISIONES: 2026-10-25 (8 workers no mejoran; se queda en 5) · sin shaders (D5) → 5 workers (lab v1)
     timeout_sec: int = 1500                  # por cap; excedido → fallback a base_clip (F29: 900 → 1500; con caps de
                                              # ~3 min el render en fila ya tardaba 956–983 s y caía a base_clip)
     player_ready_timeout_ms: int = 240_000   # lab v2: 45 s default no alcanza a 1440p
@@ -226,66 +226,66 @@ class GfxRules:
     interrupt_max_sec: float = 35.0
     accent_hex: str = "#c8102e"              # F2 §0b.9: acento ÚNICO del canal (subrayado, sello, línea, kicker)
     # title_card (F2 §0b.2: 30 % más chica, 3.0 s, fade de salida 0.4 s)
-    title_dur: float = 3.0
-    title_fade_out: float = 0.4
-    title_scale: float = 0.7
-    title_dim: float = 0.4
+    title_dur: float = 3.0  # identidad F3
+    title_fade_out: float = 0.4  # identidad F3
+    title_scale: float = 0.7  # identidad F3
+    title_dim: float = 0.4  # identidad F3
     forma_variante: str = ""                 # F31: variantes de forma a comparar (V1-V3, S1-S3[P], R1-R2); "" = como hoy
     title_pre_roll: bool = True              # F30b B.3: con --gfx, el cap arranca con title_dur de title card sin voz
     # data_callout (D14) + tipografía (D13 / F2 §0b.8)
-    callout_dur_min: float = 2.5
-    callout_dur_max: float = 6.0
-    callout_dur: float = 2.5                 # default si el plan no trae duración
-    callout_sec_per_word: float = 0.4        # 0.4 s × palabras + 1.0 s, mín 2.5 s,
-    callout_base_sec: float = 1.0            # y nunca antes del fin de la frase hablada
+    callout_dur_min: float = 2.5  # identidad F3
+    callout_dur_max: float = 6.0  # identidad F3
+    callout_dur: float = 2.5                 # identidad F3 · default si el plan no trae duración
+    callout_sec_per_word: float = 0.4        # identidad F3 · 0.4 s × palabras + 1.0 s, mín 2.5 s,
+    callout_base_sec: float = 1.0            # identidad F3 · y nunca antes del fin de la frase hablada
     callout_until_phrase_end: bool = True
     callout_font: str = "Playfair Display SC"   # name/place/year (D13); figure → figure_font
     figure_font: str = "Anton"                 # F2 §0c: fuentes como tokens del perfil (fonts.*)
     title_font: str = "Anton"
     clipping_font: str = "Playfair Display SC"
-    callout_font_weight: int = 900             # Black (§0b.8: Bold/Black)
-    callout_font_px: int = 158                 # +20 % sobre la muestra del sampler (132 px)
-    callout_anton_px: int = 168
+    callout_font_weight: int = 900             # identidad F3 · Black (§0b.8: Bold/Black)
+    callout_font_px: int = 158                 # identidad F3 · +20 % sobre la muestra del sampler (132 px)
+    callout_anton_px: int = 168  # identidad F3
     callout_shadow: str = "0 2px 8px rgba(0,0,0,.6)"
     # evidence_zoom (F2 §0b.5: termina en el corte, sostiene ≥ 1 s, nunca vuelve)
     zoom_rect_sec: float = 0.65
     zoom_approach_sec: float = 1.2
-    zoom_hold_min_sec: float = 1.0
-    zoom_scale: float = 2.2
+    zoom_hold_min_sec: float = 1.0  # identidad F3
+    zoom_scale: float = 2.2  # identidad F3
     zoom_freeze_frame: bool = False          # F4 §3: el render SÍ escala el <video> (C64 era del preview); True = cuadro congelado (lab)
     zoom_box_min: float = 0.06               # lado mínimo del box normalizado
     zoom_box_max: float = 0.25
     zoom_label_margin_px: int = 40           # "DETALLE" a ≥ 40 px del borde
-    zoom_conf_min: float = 0.7               # F2b §1.2: confianza mínima de visión para el box de la frase ancla
+    zoom_conf_min: float = 0.7               # identidad F3 · F2b §1.2: confianza mínima de visión para el box de la frase ancla
     # archive_clipping (F2 §0b.6: 15 % más chico, 6 s, hasta 2 por cap, lado opuesto al sujeto)
-    archive_dur: float = 6.0
+    archive_dur: float = 6.0  # identidad F3
     archive_max_per_cap: int = 2
-    archive_scale: float = 0.68              # F2 §0b: 0.85 × 0.8 (otro 20 % más chico)
-    archive_max_w_frac: float = 0.30         # ancho máximo del recorte = 30 % del cuadro
-    archive_head_max_words: int = 8          # titular ≤ 8 palabras (si no, se descarta: nunca se reescribe)
+    archive_scale: float = 0.68              # identidad F3 · F2 §0b: 0.85 × 0.8 (otro 20 % más chico)
+    archive_max_w_frac: float = 0.30         # identidad F3 · ancho máximo del recorte = 30 % del cuadro
+    archive_head_max_words: int = 8          # identidad F3 · titular ≤ 8 palabras (si no, se descarta: nunca se reescribe)
     archive_body_default: bool = False       # F2 §0b: recorte = kicker + titular; SIN cuerpo por default
-    archive_body_head_max_words: int = 4     # el cuerpo solo aparece si el titular tiene ≤ 4 palabras
-    archive_body_max_words: int = 12         # ≈ 2 líneas a 40 px en el papel de 748 px (frase completa)
-    archive_body_lines: int = 2              # tope duro de líneas visibles (CSS)
+    archive_body_head_max_words: int = 4     # identidad F3 · el cuerpo solo aparece si el titular tiene ≤ 4 palabras
+    archive_body_max_words: int = 12         # identidad F3 · ≈ 2 líneas a 40 px en el papel de 748 px (frase completa)
+    archive_body_lines: int = 2              # identidad F3 · tope duro de líneas visibles (CSS)
     archive_min_scene: float = 4.0           # la escena de inicio debe dar aire al recorte
     archive_min_sec: float = 4.0
-    archive_body_px: int = 40                # Omar F2 §0b: 40 px, máx 2 líneas (reemplaza el ≥ 52 de D3 para el recorte)
+    archive_body_px: int = 40                # identidad F3 · Omar F2 §0b: 40 px, máx 2 líneas (reemplaza el ≥ 52 de D3 para el recorte)
     # count_up
-    count_dur: float = 1.2                   # rampa 0 → valor (F2 §0b: restaurada)
-    count_hold_sec: float = 2.5              # quieto en el valor DESPUÉS de la rampa
+    count_dur: float = 1.2                   # identidad F3 · rampa 0 → valor (F2 §0b: restaurada)
+    count_hold_sec: float = 2.5              # identidad F3 · quieto en el valor DESPUÉS de la rampa
     # punch_in (F2 §0b.3: 1.025 en 400 ms ease-out, SIN regreso: se sostiene hasta el corte)
     punch_scale: float = 1.025
-    punch_in_sec: float = 0.4
+    punch_in_sec: float = 0.4  # identidad F3
     punch_hold: bool = True
     punch_out_sec: float = 0.4               # solo si punch_hold=False
     # shot_transition (F2 §0b.4: R2 20 f, R3 30 f; R3 alternativa dip-to-black 10 f)
-    transition_frames: dict = field(default_factory=lambda: {"R1": 3, "R2": 20, "R3": 30})
+    transition_frames: dict = field(default_factory=lambda: {"R1": 3, "R2": 20, "R3": 30})  # identidad F3
     r3_style: str = "dissolve"               # dissolve | dip
-    dip_frames: int = 10
+    dip_frames: int = 10  # identidad F3
     cut_snap_window_sec: float = 0.3         # el corte se ancla al cambio REAL de imagen (±0.3 s del anchor)
-    flash_peak: float = 0.3
-    flash_max_per_cap: int = 2
-    flash_min_gap_sec: float = 20.0
+    flash_peak: float = 0.3  # identidad F3
+    flash_max_per_cap: int = 2  # identidad F3
+    flash_min_gap_sec: float = 20.0  # identidad F3
     r1_cut_punch_scale: float = 1.02
     # grade (F2 §0b.1: OFF por default → solo grano 0.15 + viñeta 0.20; recetas A/B/C inactivas)
     # animaciones firma (F2 §2; portadas de lab/hyperframes/f1/text_sampler)
@@ -313,13 +313,13 @@ class GfxRules:
     question_max_words: int = 9
     question_font_px: int = 96
     question_auto: bool = False              # F3: pregunta de cierre generada por Flash (gfx_question) — el perfil la prende
-    question_pause_sec: float = 3.0          # F3: silencio real al final del cap mientras se ve la pregunta (alarga el cap)
+    question_pause_sec: float = 3.0          # identidad F3 · F3: silencio real al final del cap mientras se ve la pregunta (alarga el cap)
     question_max_words_auto: int = 12        # F3: tope de la pregunta generada
     black_hold_sec: float = 0.0              # F3: corte a negro después de la pregunta de cierre (se suma a la pausa)
     peak_blocks: bool = False                # F3: pico del cap (gfx_peak): bloque grande + ±5 s libres, zoom con latido, reloj
     # F4 §2: el director aplica la identidad del lab (gfx_style). OFF en el motor = F3 tal cual; misterio lo prende
     identity_rules: bool = False
-    crossfade_frames: int = 20               # fundido cruzado default de la identidad (20 f)
+    crossfade_frames: int = 20               # DECISIONES: 2026-10-25 21:48 (fundido 20 f, identidad F3) · fundido cruzado default de la identidad (20 f)
     fast_cut_sec: float = 3.5                # plano de < 3.5 s (entrante o saliente) → corte (ritmo rápido)
     dip_max_per_cap: int = 1                 # fundido a negro: 1 por cap
     dip_min_t: float = 10.0                  # …no antes de los 10 s (el título abre el cap)
@@ -359,7 +359,7 @@ class GfxRules:
     # keyword_emphasis + moods (F2b §2)
     emphasis_base_per_cap: int = 3          # selección inicial (las más raras); el relleno de huecos sube hasta max_per_cap
     emphasis_same_cat_gap_sec: float = 20.0  # mínimo entre moods de la misma categoría
-    mood_dur: float = 2.5                    # duración de la capa de mood (1–3 s)
+    mood_dur: float = 2.5                    # identidad F3 · duración de la capa de mood (1–3 s)
     emphasis_stamp: bool = True              # sello rojo con la palabra (opcional por perfil)
     emphasis_stamp_sec: float = 1.6          # el sello se ve 1.6 s dentro del mood
     emphasis_stamp_px: int = 112
