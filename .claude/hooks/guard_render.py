@@ -2,11 +2,14 @@
 no existe, no tiene `aprobado` o su `md5_planes` no coincide con los planes de hoy (script_engine/aprobacion.py).
 No pasan por el hook: `--plan-only`, `--plan-edit`, `--aprobar-guion`, `--only-cap … --gfx-debug` y todo fase2b sin
 `--gfx` (el candado md5 de ch02 es `--only-cap ch02` sin `--gfx`). `--dry-run` no es salida: también se bloquea.
+Los cuerpos de heredoc y los comandos de texto (echo, grep, git…) no cuentan; los prefijos (timeout, nohup, cmd /c…) y
+`bash -c "…"` no salvan al comando.
 Límite: ve el comando escrito en la herramienta, no lo que un runner de lab lanza por dentro (runpy/subprocess).
 """
 from __future__ import annotations
 
 import importlib.util
+import re
 import sys
 from pathlib import Path
 
@@ -25,8 +28,30 @@ def _aprobacion():
     return mod
 
 
+# comandos cuyos argumentos son texto (lo que mencionan no corre); cualquier otro prefijo (timeout, nohup, time, env,
+# cmd /c, start…) no salva al comando: se mira igual si adentro corre fase2b
+TEXTO = {"echo", "printf", "grep", "rg", "git", "sed", "awk", "cat", "head", "tail", "write-output", "write-host",
+         "select-string", "findstr"}
+_HEREDOC = re.compile(r"<<-?\s*(['\"]?)([A-Za-z_][A-Za-z0-9_]*)\1[^\n]*\n.*?\n\s*\2\s*(?=\n|$)", re.S)
+
+
+def sin_heredocs(cmd: str) -> str:
+    """El comando sin el cuerpo de sus heredocs (`<<'X' … X`): lo que se escribe a un archivo no corre."""
+    return _HEREDOC.sub(" ", cmd)
+
+
 def llamada_fase2b(w: list[str]) -> list[str] | None:
-    """Los argumentos de fase2b si el comando simple lo corre (`python fase2b.py …`, `python -m fase2b …`)."""
+    """Los argumentos de fase2b si el comando simple lo corre (`python fase2b.py …`, `python -m fase2b …`, también detrás
+    de `timeout`, `nohup`, `cmd /c`…). Un comando de texto (echo, grep, git…) que solo lo menciona no cuenta; lo que va
+    entre comillas como un comando entero (`bash -c "python fase2b.py …"`) se mira por dentro."""
+    if not w or Path(w[0].strip("\"'")).name.lower() in TEXTO:
+        return None
+    for x in w:
+        if " " in x and "fase2b" in x:                          # bash -c "…", powershell -Command "…"
+            for w2 in segmentos(x):
+                r = llamada_fase2b(w2)
+                if r is not None:
+                    return r
     for i, x in enumerate(w):
         n = Path(x.strip("\"'")).name.lower()
         if n in ("fase2b.py", "fase2b"):
@@ -51,7 +76,7 @@ def topic_de(args: list[str]) -> str | None:
 
 def revisar(cmd: str, salidas: Path = ROOT / "output") -> str | None:
     """El motivo del bloqueo, o None. `salidas` = la carpeta de los topics (output/ del repo; otra en los tests)."""
-    for w in segmentos(cmd):
+    for w in segmentos(sin_heredocs(cmd)):
         args = llamada_fase2b(w)
         if args is None or "--gfx" not in args or SIN_HOOK & set(args):
             continue

@@ -1,0 +1,16 @@
+Prueba en seco del hook de render, en vivo en la sesión de CC (2026-10-26, después del commit D ba7e958).
+
+1) Comando real (dos veces: con el hook del commit B y con el afinado de E):
+$ PYTHONIOENCODING=utf-8 python fase2b.py f8s3-vajont-f30 --gfx --dry-run
+PreToolUse:Bash hook error: [python -I "$CLAUDE_PROJECT_DIR/.claude/hooks/guard_render.py"]: guard_render: sin guion aprobado no hay render — el guion de f8s3-vajont-f30 no está aprobado (Omar lo aprueba; CC corre `fase2b f8s3-vajont-f30 --aprobar-guion "Omar <fecha>"` solo si su prompt dice «aprobado»)
+→ el comando no corrió (Claude Code frenó la herramienta).
+
+2) Falso positivo encontrado en E y arreglado: el hook del commit B también frenaba un comando que solo MENCIONABA el
+render (un heredoc que escribía este archivo con la línea de arriba adentro, y un parche de Python con ese texto). En E
+el hook cuenta un comando simple solo si empieza con el intérprete (`python`, `py`) o con `fase2b.py`; tests nuevos con
+un heredoc y un echo que lo mencionan (no se bloquean) en test_module_f33.py.
+
+3) Después del veredicto del revisor (hueco del primer arreglo: un prefijo como `timeout` salvaba al comando), arreglo
+final y prueba en vivo:
+$ timeout 600 python fase2b.py f8s3-vajont-f30 --gfx --dry-run
+PreToolUse:Bash hook error: [python -I "$CLAUDE_PROJECT_DIR/.claude/hooks/guard_render.py"]: guard_render: sin guion aprobado no hay render — el guion de f8s3-vajont-f30 no está aprobado (Omar lo aprueba; CC corre `fase2b f8s3-vajont-f30 --aprobar-guion "Omar <fecha>"` solo si su prompt dice «aprobado»)

@@ -69,7 +69,9 @@ def test_plan_only_y_lo_que_no_es_render_nunca_se_bloquea(tmp_path):
                 "python fase2b.py vajont --aprobar-guion \"Omar 2026-10-27\"",
                 "python fase2b.py ba6c3cac --only-cap ch02 --reuse-visuals --sw-encode",      # el candado md5 de ch02
                 "python fase2b.py vajont --only-cap ch06 --gfx --gfx-debug",
-                "git commit -m 'fase2b --gfx'", "python otro.py vajont --gfx"):
+                "git commit -m 'fase2b --gfx'", "python otro.py vajont --gfx",
+                "cat > f.txt <<'X'\n$ python fase2b.py vajont --gfx --dry-run\nX",        # un texto que lo menciona
+                "echo python fase2b.py vajont --gfx"):
         assert GR.revisar(cmd, tmp_path / "output") is None, cmd
 
 
@@ -78,6 +80,11 @@ def test_dry_run_y_batch_con_gfx_se_bloquean(tmp_path):
     assert GR.revisar("python fase2b.py vajont --gfx --dry-run", tmp_path / "output")
     assert "modo batch" in GR.revisar("python fase2b.py --gfx --gfx-sparse", tmp_path / "output")
     assert GR.revisar("cd x && python -m fase2b vajont --only-cap ch06 --gfx", tmp_path / "output")
+    # los prefijos no salvan al comando (el hueco que encontró el revisor de F33 en el primer arreglo de E)
+    for pre in ("timeout 600 ", "nohup ", "time ", "cmd /c ", "env A=1 ", "start /b "):
+        assert GR.revisar(f"{pre}python fase2b.py vajont --gfx", tmp_path / "output"), pre
+    assert GR.revisar('bash -c "PYTHONIOENCODING=utf-8 python fase2b.py vajont --gfx"', tmp_path / "output")
+    assert GR.revisar("cat > a.sh <<'X'\necho hola\nX\npython fase2b.py vajont --gfx", tmp_path / "output")
     assert GR.topic_de(["--hook", "Hola", "vajont", "--gfx"]) == "vajont"
 
 

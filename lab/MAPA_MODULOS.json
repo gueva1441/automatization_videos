@@ -592,7 +592,7 @@
    "lab": 0,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
-   "estado": "solo sin rotulista (con rotulista todo texto es ficha)",
+   "estado": "muerto en el camino con rotulista (todo texto es ficha); vive sin rotulista",
    "doc": ""
   },
   {
@@ -1629,17 +1629,17 @@
   },
   {
    "que": "gfx_style.identity_transitions",
-   "por_que": "con escaleta la pisa `transiciones_por_relato`",
+   "por_que": "**se llama y se descarta**: con escaleta la pisa `transiciones_por_relato`",
    "desde": "7d0d0e5 2026-10-26 feat(f30b-a): transiciones por relato — por corte, la primera que apl"
   },
   {
    "que": "gfx_style.select_punches",
-   "por_que": "se calcula y el realizador saca todos los `punch_in` (los reemplaza el zoom_punch del pico)",
+   "por_que": "**se llama y se descarta**: el realizador saca todos los `punch_in` (los reemplaza el zoom_punch del pico)",
    "desde": "2fde994 2026-10-26 feat(f32-b): arreglos del guion de pantalla — B.1 ch01 sin pre-roll y"
   },
   {
    "que": "gfx_director.place_emphasis (sellos por léxico)",
-   "por_que": "se calculan y `sellos_por_tema` los reemplaza",
+   "por_que": "**se llama y se descarta**: `sellos_por_tema` los reemplaza",
    "desde": "2fde994 2026-10-26 feat(f32-b): arreglos del guion de pantalla — B.1 ch01 sin pre-roll y"
   },
   {

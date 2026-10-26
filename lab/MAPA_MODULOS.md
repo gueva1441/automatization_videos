@@ -35,7 +35,7 @@ Generado por `lab/tools/mapa_modulos.py` (F33 §D) leyendo el código: quién ll
 | `archive_clipping.html.tmpl` | La forma del recorte de diario (papel, kicker, titular). | un recorte del plan | HTML | gfx_project.py | F1 (`39e301f`) | vivo (documentos del rotulista) |
 | `chapter_question.html.tmpl` | La forma de la pregunta de cierre sobre la foto oscurecida. | la pregunta | HTML | gfx_project.py | F2 (`b7b86fd`) | vivo |
 | `count_up.html.tmpl` | La forma del contador que sube hasta la cifra. | cifra + unidad + etiqueta | HTML | gfx_project.py | F1 (`39e301f`) | vivo (F32 B.7; en Vajont no salió ninguno) |
-| `data_callout.html.tmpl` | La forma vieja del dato en letras grandes sueltas. | un rótulo del plan | HTML | gfx_project.py | F1 (`39e301f`) | solo sin rotulista (con rotulista todo texto es ficha) |
+| `data_callout.html.tmpl` | La forma vieja del dato en letras grandes sueltas. | un rótulo del plan | HTML | gfx_project.py | F1 (`39e301f`) | muerto en el camino con rotulista (todo texto es ficha); vive sin rotulista |
 | `evidence_zoom.html.tmpl` | La forma de la lupa: recuadro, «DETALLE» y acercamiento. | caja del detalle | HTML | gfx_project.py | F1 (`39e301f`) | vivo (lupa del rotulista) |
 | `grade_css.html.tmpl` | Un grade de color por CSS de la primera versión. | — | — | — | F1 (`39e301f`) | muerto (nadie la carga; el grade lo hace el CSS común y ffmpeg) |
 | `index.html.tmpl` | La página base de cada proyecto HyperFrames (escenas, overlays, timeline). | escenas + overlays | index.html | gfx_project.py | F1 (`39e301f`) | vivo |
@@ -54,11 +54,11 @@ Generado por `lab/tools/mapa_modulos.py` (F33 §D) leyendo el código: quién ll
 | `gfx_vision.pick_zoom` | con el rotulista la lupa la propone él | 5ae6177 2026-10-25 feat(f29b-a): el rotulista — el texto de pantalla lo escribe Claude,  |
 | `gfx_director.fill_gaps` | `gap_fill` apagado | 2fcd603 2026-10-25 feat(f29a): el gfx obedece a la escaleta — script_engine/gfx_realizad |
 | `gfx_question.question_for` | con escaleta la pregunta es el `cierre` del último beat (queda de respaldo) | 2fcd603 2026-10-25 feat(f29a): el gfx obedece a la escaleta — script_engine/gfx_realizad |
-| `gfx_style.identity_transitions` | con escaleta la pisa `transiciones_por_relato` | 7d0d0e5 2026-10-26 feat(f30b-a): transiciones por relato — por corte, la primera que apl |
-| `gfx_style.select_punches` | se calcula y el realizador saca todos los `punch_in` (los reemplaza el zoom_punch del pico) | 2fde994 2026-10-26 feat(f32-b): arreglos del guion de pantalla — B.1 ch01 sin pre-roll y |
-| `gfx_director.place_emphasis (sellos por léxico)` | se calculan y `sellos_por_tema` los reemplaza | 2fde994 2026-10-26 feat(f32-b): arreglos del guion de pantalla — B.1 ch01 sin pre-roll y |
+| `gfx_style.identity_transitions` | **se llama y se descarta**: con escaleta la pisa `transiciones_por_relato` | 7d0d0e5 2026-10-26 feat(f30b-a): transiciones por relato — por corte, la primera que apl |
+| `gfx_style.select_punches` | **se llama y se descarta**: el realizador saca todos los `punch_in` (los reemplaza el zoom_punch del pico) | 2fde994 2026-10-26 feat(f32-b): arreglos del guion de pantalla — B.1 ch01 sin pre-roll y |
+| `gfx_director.place_emphasis (sellos por léxico)` | **se llama y se descarta**: `sellos_por_tema` los reemplaza | 2fde994 2026-10-26 feat(f32-b): arreglos del guion de pantalla — B.1 ch01 sin pre-roll y |
 | `data_callout.html.tmpl` | con el rotulista todo texto sale como ficha | cc3f079 2026-10-26 feat(f29c-a): rotulista por beat y la ficha es el title card — prompt |
 | `grade_css.html.tmpl` | nadie la carga | a878836 2026-10-19 feat(gfx): F2 §0b calibración en ch02 (grade off, cortes reales, zoom |
 | `gfx_identity (todo el módulo)` | solo lo usa el lab de identidad (gfx_lab_server) | nunca en fase2b |
 
-Muerto = nadie lo llama en el camino con escaleta y rotulista; el código sigue ahí (los topics sin escaleta lo usan, o el lab). No se borra nada sin decisión de Omar.
+Muerto = en el camino con escaleta y rotulista no aporta nada al video: o nadie lo llama, o **se llama y su resultado se descarta** (`select_punches`, `identity_transitions`, `place_emphasis`: lo dice la columna «por qué»). El código sigue ahí (los topics sin escaleta o sin rotulista lo usan, o el lab). No se borra nada sin decisión de Omar.

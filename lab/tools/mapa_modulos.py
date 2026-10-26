@@ -118,7 +118,7 @@ M: dict[str, tuple[str, str, str, str, str]] = {
     "count_up.html.tmpl": ("La forma del contador que sube hasta la cifra.", "cifra + unidad + etiqueta", "HTML", "F1",
                            "vivo (F32 B.7; en Vajont no salió ninguno)"),
     "data_callout.html.tmpl": ("La forma vieja del dato en letras grandes sueltas.", "un rótulo del plan", "HTML", "F1",
-                               "solo sin rotulista (con rotulista todo texto es ficha)"),
+                               "muerto en el camino con rotulista (todo texto es ficha); vive sin rotulista"),
     "evidence_zoom.html.tmpl": ("La forma de la lupa: recuadro, «DETALLE» y acercamiento.", "caja del detalle", "HTML",
                                 "F1", "vivo (lupa del rotulista)"),
     "grade_css.html.tmpl": ("Un grade de color por CSS de la primera versión.", "—", "—", "F1",
@@ -145,10 +145,12 @@ MUERTOS = [
     ("gfx_director.fill_gaps", "`gap_fill` apagado", "2fcd603"),
     ("gfx_question.question_for", "con escaleta la pregunta es el `cierre` del último beat (queda de respaldo)",
      "2fcd603"),
-    ("gfx_style.identity_transitions", "con escaleta la pisa `transiciones_por_relato`", "7d0d0e5"),
-    ("gfx_style.select_punches", "se calcula y el realizador saca todos los `punch_in` (los reemplaza el zoom_punch "
-     "del pico)", "2fde994"),
-    ("gfx_director.place_emphasis (sellos por léxico)", "se calculan y `sellos_por_tema` los reemplaza", "2fde994"),
+    ("gfx_style.identity_transitions", "**se llama y se descarta**: con escaleta la pisa `transiciones_por_relato`",
+     "7d0d0e5"),
+    ("gfx_style.select_punches", "**se llama y se descarta**: el realizador saca todos los `punch_in` (los reemplaza el "
+     "zoom_punch del pico)", "2fde994"),
+    ("gfx_director.place_emphasis (sellos por léxico)", "**se llama y se descarta**: `sellos_por_tema` los reemplaza",
+     "2fde994"),
     ("data_callout.html.tmpl", "con el rotulista todo texto sale como ficha", "cc3f079"),
     ("grade_css.html.tmpl", "nadie la carga", "a878836"),
     ("gfx_identity (todo el módulo)", "solo lo usa el lab de identidad (gfx_lab_server)", "—"),
@@ -198,8 +200,10 @@ def main() -> None:
     L += ["", "## Lo que el camino de producción ya no llama (muertos)", "",
           "| qué | por qué | desde |", "|---|---|---|"]
     L += [f"| `{m['que']}` | {m['por_que']} | {m['desde']} |" for m in muertos]
-    L += ["", "Muerto = nadie lo llama en el camino con escaleta y rotulista; el código sigue ahí (los topics sin escaleta "
-          "lo usan, o el lab). No se borra nada sin decisión de Omar."]
+    L += ["", "Muerto = en el camino con escaleta y rotulista no aporta nada al video: o nadie lo llama, o **se llama y su "
+          "resultado se descarta** (`select_punches`, `identity_transitions`, `place_emphasis`: lo dice la columna «por "
+          "qué»). El código sigue ahí (los topics sin escaleta o sin rotulista lo usan, o el lab). No se borra nada sin "
+          "decisión de Omar."]
     (ROOT / "lab" / "MAPA_MODULOS.md").write_text("\n".join(L) + "\n", encoding="utf-8")
     print(f"{len(filas)} módulos · {len(aristas)} aristas · {len(muertos)} muertos")
 
