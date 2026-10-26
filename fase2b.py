@@ -2970,6 +2970,8 @@ def main() -> int:
     parser.add_argument("--only-cap", type=str, default=None, metavar="chNN",
                         help="Construye solo ese segmento (_fase2b_work/chNN_segment_only.mp4): sin concat, "
                              "sin música, sin _final.mp4, sin topics_db. Solo en modo single.")
+    parser.add_argument("--gfx-workers", type=int, default=None, metavar="N",
+                        help="F30 §C.1: workers del render HyperFrames (default gfx_render.workers).")
     parser.add_argument("--rotulista-modelo", type=str, default=None, metavar="MODELO",
                         help="F29b: modelo del rotulista (default gfx_rules.rotulista_modelo = claude-sonnet-5-5; "
                              "p. ej. claude-fable-5-1). Solo cuenta con gfx_rules.rotulista prendido.")
@@ -2981,6 +2983,9 @@ def main() -> int:
     global _HW_ENCODE, _LEGACY_CONCAT
     _HW_ENCODE = not args.sw_encode      # F28 §C.1: NVENC por defecto (--hw-encode queda aceptado, no cambia nada)
     _LEGACY_CONCAT = bool(args.legacy_concat)   # F2b §4
+    if args.gfx_workers:                        # F30 §C.1 (GfxRenderSettings es frozen)
+        from gfx_config import gfx_render as _grs
+        object.__setattr__(_grs, "workers", int(args.gfx_workers))
     if args.rotulista_modelo:                   # F29b §A.2
         from gfx_config import gfx_rules as _gr
         object.__setattr__(_gr, "rotulista_modelo", args.rotulista_modelo)   # GfxRules es frozen

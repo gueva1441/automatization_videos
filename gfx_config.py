@@ -56,6 +56,8 @@ class GfxRenderSettings:
     reencode_gop: int = 30
     reencode_crf: int = 14
     reencode_preset: str = "ultrafast"         # F1b palanca: re-encode -g30 (antes veryfast)
+    stitch_encoder: str = "nvenc"            # F30 §C.2 (medido: 86 → 52 s, 1.25 GB → 0.19 GB): el intermedio chNN_gfx.mp4 del stitch: nvenc (cq 23) | x264
+    stitch_nvenc: tuple = ("-c:v", "h264_nvenc", "-preset", "p5", "-cq", "23")   # = fase2b.NVENC_ARGS
 
 
 gfx_render = GfxRenderSettings()

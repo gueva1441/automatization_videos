@@ -158,3 +158,22 @@ def test_stitch_duracion_exacta(tmp_path):
               transitions=trs)
     n, r = _probe(out)
     assert abs(n - 16 * FPS) <= 1 and r == f"{FPS}/1"
+
+
+# ═══════════════ C ═══════════════
+
+def test_stitch_con_encoder_que_falla_vuelve_a_libx264(tmp_path):
+    base = _base(tmp_path / "base.mp4", 4.0)
+    hf = _base(tmp_path / "hf.mp4", 1.0)
+    out = tmp_path / "cap.mp4"
+    sp.stitch(base, hf, [(3.0, 4.0)], [(3.0, 4.0, 0.0)], 4.0, out, width=W, height=H, fps=FPS, vignette=None,
+              grain=None, grain_opacity=0.0, encoder=["-c:v", "codec_que_no_existe"])
+    assert _probe(out)[0] == 4 * FPS
+
+
+def test_gfx_workers_y_encoder_del_stitch():
+    from gfx_config import gfx_render
+    assert gfx_render.workers == 5                                   # C.1: 8 no bajó (HF 127 → 157 s en ch06)
+    assert gfx_render.stitch_encoder == "nvenc" and "h264_nvenc" in gfx_render.stitch_nvenc
+    src = (Path(__file__).resolve().parent / "fase2b.py").read_text(encoding="utf-8")
+    assert '"--gfx-workers"' in src and 'object.__setattr__(_grs, "workers"' in src

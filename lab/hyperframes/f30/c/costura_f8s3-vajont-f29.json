@@ -1,0 +1,189 @@
+{
+ "topic": "f8s3-vajont-f29",
+ "archivos": {
+  "ch01_gfx.mp4": {
+   "cuadros": 2968,
+   "planos": [],
+   "en_los_6_del_borde": []
+  },
+  "ch02_gfx.mp4": {
+   "cuadros": 4025,
+   "planos": [],
+   "en_los_6_del_borde": []
+  },
+  "ch03_gfx.mp4": {
+   "cuadros": 3900,
+   "planos": [],
+   "en_los_6_del_borde": []
+  },
+  "ch04_gfx.mp4": {
+   "cuadros": 3685,
+   "planos": [],
+   "en_los_6_del_borde": []
+  },
+  "ch05_gfx.mp4": {
+   "cuadros": 5102,
+   "planos": [],
+   "en_los_6_del_borde": []
+  },
+  "ch06_gfx.mp4": {
+   "cuadros": 5064,
+   "planos": [],
+   "en_los_6_del_borde": []
+  },
+  "ch07_gfx.mp4": {
+   "cuadros": 5520,
+   "planos": [],
+   "en_los_6_del_borde": []
+  },
+  "seg_01_ch01.mp4": {
+   "cuadros": 2968,
+   "planos": [],
+   "en_los_6_del_borde": []
+  },
+  "seg_02_ch02.mp4": {
+   "cuadros": 4025,
+   "planos": [],
+   "en_los_6_del_borde": []
+  },
+  "seg_03_ch03.mp4": {
+   "cuadros": 3900,
+   "planos": [],
+   "en_los_6_del_borde": []
+  },
+  "seg_04_ch04.mp4": {
+   "cuadros": 3685,
+   "planos": [],
+   "en_los_6_del_borde": []
+  },
+  "seg_05_ch05.mp4": {
+   "cuadros": 5102,
+   "planos": [],
+   "en_los_6_del_borde": []
+  },
+  "seg_06_ch06.mp4": {
+   "cuadros": 5064,
+   "planos": [],
+   "en_los_6_del_borde": []
+  },
+  "seg_07_ch07.mp4": {
+   "cuadros": 5520,
+   "planos": [],
+   "en_los_6_del_borde": []
+  },
+  "_concat_video.ts": {
+   "cuadros": 30213,
+   "planos": [
+    {
+     "cuadro": 2959,
+     "t": 98.633,
+     "tipo": "gris",
+     "luma": 139.7,
+     "desvio": 2.36
+    },
+    {
+     "cuadro": 2960,
+     "t": 98.667,
+     "tipo": "blanco",
+     "luma": 253.4,
+     "desvio": 0.72
+    },
+    {
+     "cuadro": 2961,
+     "t": 98.7,
+     "tipo": "blanco",
+     "luma": 243.5,
+     "desvio": 3.07
+    },
+    {
+     "cuadro": 2962,
+     "t": 98.733,
+     "tipo": "blanco",
+     "luma": 220.6,
+     "desvio": 5.23
+    },
+    {
+     "cuadro": 10868,
+     "t": 362.267,
+     "tipo": "gris",
+     "luma": 139.7,
+     "desvio": 2.36
+    },
+    {
+     "cuadro": 10869,
+     "t": 362.3,
+     "tipo": "blanco",
+     "luma": 253.2,
+     "desvio": 0.88
+    },
+    {
+     "cuadro": 10870,
+     "t": 362.333,
+     "tipo": "blanco",
+     "luma": 242.9,
+     "desvio": 4.19
+    }
+   ],
+   "en_los_6_del_borde": []
+  },
+  "f8s3-vajont_final_gfx_v3.mp4": {
+   "cuadros": 30288,
+   "planos": [
+    {
+     "cuadro": 3034,
+     "t": 101.133,
+     "tipo": "gris",
+     "luma": 139.7,
+     "desvio": 2.36
+    },
+    {
+     "cuadro": 3035,
+     "t": 101.167,
+     "tipo": "blanco",
+     "luma": 253.4,
+     "desvio": 0.72
+    },
+    {
+     "cuadro": 3036,
+     "t": 101.2,
+     "tipo": "blanco",
+     "luma": 243.5,
+     "desvio": 3.07
+    },
+    {
+     "cuadro": 3037,
+     "t": 101.233,
+     "tipo": "blanco",
+     "luma": 220.6,
+     "desvio": 5.23
+    },
+    {
+     "cuadro": 10943,
+     "t": 364.767,
+     "tipo": "gris",
+     "luma": 139.7,
+     "desvio": 2.36
+    },
+    {
+     "cuadro": 10944,
+     "t": 364.8,
+     "tipo": "blanco",
+     "luma": 253.2,
+     "desvio": 0.88
+    },
+    {
+     "cuadro": 10945,
+     "t": 364.833,
+     "tipo": "blanco",
+     "luma": 242.9,
+     "desvio": 4.19
+    }
+   ],
+   "en_los_6_del_borde": []
+  }
+ },
+ "primera_aparicion": {
+  "gris": "_concat_video.ts",
+  "blanco": "_concat_video.ts"
+ }
+}

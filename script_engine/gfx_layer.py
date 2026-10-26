@@ -418,7 +418,8 @@ def _render_sparse(resolved: dict[str, Any], scenes: list[GfxScene], project: Pa
                                                          else "esquina apagada")
                    + (f" · cierre @ {outro['start']:.1f}s" if outro else ""))
     sp.stitch(base, hf, windows, offsets, clip_dur, tmp, width=width, height=height, fps=fps,
-              vignette=vig, grain=gr, grain_opacity=gfx_rules.grain_opacity, bug=bug, transitions=tr_stitch)
+              vignette=vig, grain=gr, grain_opacity=gfx_rules.grain_opacity, bug=bug, transitions=tr_stitch,
+              encoder=list(gfx_render.stitch_nvenc) if gfx_render.stitch_encoder == "nvenc" else None)   # F30 §C.2
     tmp.replace(out)
     _step("7 stitch + grade FFmpeg", ts)
     return render_sec

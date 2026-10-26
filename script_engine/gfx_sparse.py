@@ -427,5 +427,9 @@ def stitch(base: Path, hf: Path, windows: list[tuple[float, float]], offsets: li
     cmd += ["-filter_complex", ";".join(graph), "-map", "[o]", "-t", f"{dur:.6f}", *enc, "-r", str(fps),
             "-pix_fmt", "yuv420p", "-an", str(out)]
     r = subprocess.run(cmd, capture_output=True, text=True, timeout=1800)
+    if r.returncode != 0 and encoder:                           # F30 §C.2: sin NVENC (otra máquina) → libx264
+        i = cmd.index(enc[0])
+        cmd[i:i + len(enc)] = ["-c:v", "libx264", "-preset", "ultrafast", "-crf", str(crf)]
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=1800)
     if r.returncode != 0:
         raise RuntimeError(f"stitch falló: {r.stderr[-400:]}")

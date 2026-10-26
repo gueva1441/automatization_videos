@@ -1,0 +1,377 @@
+{
+ "plan": {
+  "chapter_number": 6,
+  "title_card": {
+   "kicker": "CAPÍTULO 6",
+   "title": "El gran rugido"
+  },
+  "callouts": [
+   {
+    "text": "Una sección masiva del Monte Toc se desprendió y se estrelló contra el embalse de Vajont.",
+    "start": 105.24,
+    "kind": "figure",
+    "duration": 6.33,
+    "side": "left",
+    "fact_idx": null,
+    "pool_id": "T57",
+    "pico": true,
+    "beat": 10
+   }
+  ],
+  "count_up": null,
+  "archive_clippings": [
+   {
+    "kicker": "Il disastro del Vajont non fu una calamità naturale, 2023",
+    "headline": "En el desastre murieron 1.910 personas",
+    "body": "",
+    "scene_idx": 12,
+    "fact_idx": null,
+    "pool_id": "D128",
+    "fuente": "Il disastro del Vajont non fu una calamità naturale, 2023",
+    "era_decade": 2000,
+    "start": 114.18,
+    "duration": 3.0,
+    "side": "left",
+    "reserved": true,
+    "beat": 11
+   },
+   {
+    "kicker": "Vajont: A DISASTER FORETOLD: The Landslide, the Wave, and the Human Decisions Behind Italy's 1963",
+    "headline": "Una ola enorme pasó por encima de la presa y devastó Longarone",
+    "body": "",
+    "scene_idx": 3,
+    "fact_idx": null,
+    "pool_id": "T58",
+    "fuente": "Vajont: A DISASTER FORETOLD: The Landslide, the Wave, and the Human Decisions Behind Italy's 1963 Tragedy, 2026",
+    "era_decade": 2000,
+    "start": 29.14,
+    "duration": 5.0,
+    "side": "left",
+    "beat": 10
+   }
+  ],
+  "evidence_zoom": null,
+  "punch_in": [],
+  "chapter_question": {
+   "text": "Tres días después llegó el presidente del Consejo. La gente ya sabía qué pedirle.",
+   "start": 164.8,
+   "duration": 3.0,
+   "keyword": "presidente",
+   "generated": true,
+   "pause": 3.0,
+   "fuente": "escaleta (cierre del último beat)"
+  },
+  "icon_array": null,
+  "emphasis": [],
+  "gap_warnings": [
+   [
+    23.4,
+    78.3
+   ],
+   [
+    111.4,
+    139.7
+   ],
+   [
+    139.7,
+    164.8
+   ]
+  ],
+  "quote_card": null,
+  "fragmentos": [
+   {
+    "id": "D192",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 12 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "T57",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 12 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D128",
+    "bloque": "recorte",
+    "ahora": "En el desastre murieron 1.910 personas",
+    "kicker": "Il disastro del Vajont non fu una calamità naturale, 2023",
+    "fuente": "Il disastro del Vajont non fu una calamità naturale, 2023",
+    "icono": null,
+    "icono_faltante": null,
+    "opciones": [
+     "En el desastre murieron 1.910 personas"
+    ],
+    "reservado": true,
+    "desplaza": []
+   },
+   {
+    "id": "T58",
+    "bloque": "recorte",
+    "ahora": "Una ola enorme pasó por encima de la presa y devastó Longarone",
+    "kicker": "Vajont: A DISASTER FORETOLD: The Landslide, the Wave, and the Human Decisions Behind Italy's 1963",
+    "fuente": "Vajont: A DISASTER FORETOLD: The Landslide, the Wave, and the Human Decisions Behind Italy's 1963 Tragedy, 2026",
+    "icono": null,
+    "icono_faltante": null,
+    "opciones": [
+     "Una ola enorme pasó por encima de la presa y devastó Longarone",
+     "Una ola enorme pasó por encima de la presa",
+     "Una ola enorme pasó por encima"
+    ]
+   }
+  ],
+  "pico": {
+   "t": 105.24,
+   "block": "callouts",
+   "word": "amaneció",
+   "sentence": "Cuando amaneció, la presa seguía ahí.",
+   "block_realizador": "T57"
+  },
+  "time_ticker": null,
+  "transitions": {
+   "1": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "fundido a negro (1 por cap)",
+    "rank": "R3"
+   },
+   "2": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "5": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "7": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "8": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "9": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "10": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "11": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   },
+   "12": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "13": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "14": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "15": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   }
+  },
+  "identity": {
+   "movimientos": [
+    {
+     "scene": 0,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 1,
+     "forma": "paneo",
+     "motivo": "foto ancha con gente"
+    },
+    {
+     "scene": 2,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 3,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 4,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 5,
+     "forma": "quieta",
+     "motivo": "documento: tiene texto"
+    },
+    {
+     "scene": 6,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 7,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 8,
+     "forma": "paneo",
+     "motivo": "foto ancha con gente"
+    },
+    {
+     "scene": 9,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 10,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 11,
+     "forma": "acercar",
+     "motivo": "hay una persona"
+    },
+    {
+     "scene": 12,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 13,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 14,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 15,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    }
+   ],
+   "violaciones": []
+  },
+  "black_hold": {
+   "start": 167.8,
+   "duration": 1.0
+  },
+  "realizador": {
+   "filas": [
+    {
+     "bloque": "emphasis",
+     "texto": "avalancha",
+     "t": 6.02,
+     "pool_id": null,
+     "accion": "fuera",
+     "motivo": "sello por léxico (solo queda el de la palabra del pico)"
+    },
+    {
+     "bloque": "emphasis",
+     "texto": "fisura",
+     "t": 22.42,
+     "pool_id": null,
+     "accion": "fuera",
+     "motivo": "sello por léxico (solo queda el de la palabra del pico)"
+    },
+    {
+     "bloque": "emphasis",
+     "texto": "fango",
+     "t": 111.36,
+     "pool_id": null,
+     "accion": "fuera",
+     "motivo": "sello por léxico (solo queda el de la palabra del pico)"
+    },
+    {
+     "bloque": "punch_in",
+     "accion": "4 fuera (sin bloque que acompañar)"
+    }
+   ],
+   "por_beat": {
+    "11": 1,
+    "10": 1
+   }
+  },
+  "critico": [
+   {
+    "t": 29.14,
+    "t_frame": 30.14,
+    "dur": 5.0,
+    "bloque": "recorte",
+    "texto": "Una ola enorme pasó por encima de la presa y devastó Longarone",
+    "veredicto": "suma",
+    "motivo": "El bloque aporta el nombre del desastre (Vajont), el año (1963) y la localidad afectada (Longarone), información crucial que ni la imagen ni la voz dan en este ",
+    "pasa": true,
+    "voz": "Se levanta, pasa por encima de la presa, por encima de la pared que no se rompe, y cae en la garganta hacia el Piave.",
+    "mira": "bloque dibujado"
+   },
+   {
+    "t": 114.18,
+    "t_frame": 115.18,
+    "dur": 3.0,
+    "bloque": "recorte",
+    "texto": "En el desastre murieron 1.910 personas",
+    "veredicto": "suma",
+    "motivo": "Aporta datos específicos sobre el número de víctimas y la naturaleza del desastre (Vajont), información que no se deduce de la imagen ni de la voz en off.",
+    "pasa": true,
+    "voz": "Un hombre está parado en el medio y no sabe hacia dónde mirar.",
+    "reservado": true,
+    "mira": "bloque dibujado"
+   }
+  ]
+ },
+ "rejected": []
+}
