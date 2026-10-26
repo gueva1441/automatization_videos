@@ -62,16 +62,19 @@ def test_prompt_literal_del_handoff_f29c():
     md = HANDOFF.read_text(encoding="utf-8")
     sys_ = re.search(r"\*\*SYSTEM:\*\*\s*```\n(.*?)\n```", md, re.S).group(1)
     usr = re.search(r"\*\*USER:\*\*\s*```\n(.*?)\n```", md, re.S).group(1)
-    # F32 §B.7: el de F29c queda como ROTULISTA_SYSTEM_F29C; el de hoy suma una línea (test_module_f32)
-    assert gro.ROTULISTA_SYSTEM_F29C == sys_ and gro.ROTULISTA_USER == usr
-    assert gro.prompt_md5() == "c9231e24afbc785d5870b33088ce076e"
+    # F32 §B.7: el de F29c queda como ROTULISTA_SYSTEM_F29C; F32 sumó una línea (test_module_f32) y F34 §A.1 hizo tres
+    # reemplazos (test_module_f34): el de F32 queda como ROTULISTA_SYSTEM_F32 / ROTULISTA_USER_F32
+    import hashlib
+    assert gro.ROTULISTA_SYSTEM_F29C == sys_ and gro.ROTULISTA_USER_F32 == usr
+    assert hashlib.md5((gro.ROTULISTA_SYSTEM_F32 + "\n\n" + gro.ROTULISTA_USER_F32).encode("utf-8")).hexdigest() == \
+        "c9231e24afbc785d5870b33088ce076e"
     ent, words = _ch06()
     ent = {**ent, "oraciones": gro.oraciones(words)}
     for s in ent["oraciones"]:
         s["beat"] = gro.beat_de_oracion(s, ent["beats"])
     u = gro.prompt_user(ent)
     assert "{" not in u.split("Devolvé:")[0]                        # todos los huecos llenos
-    assert u.split("Devolvé:")[1] == usr.split("Devolvé:")[1]       # el formato de salida, intacto
+    assert u.split("Devolvé:")[1] == gro.ROTULISTA_USER.split("Devolvé:")[1]   # el formato de salida (F34 §A.1.3: + unidad/valor)
     assert "el pico es el beat 10:" in u and "[21] 110.2–112.4 · beat 11 · 0:Donde 1:había" in u
 
 

@@ -27,9 +27,9 @@ Formato: `fecha · decisión · motivo/contexto · estado (vigente / aplicada en
 - 2026-10-26 02:54 · Arranque del bloque en la **palabra clave** del dato · aplicada F29c.
 - 2026-10-26 02:54 · **El data_callout (letras grandes sueltas) desaparece; todo texto adopta la forma del title card (ficha)**; recortes de prensa y citas se quedan como están · «solo me gusta el title card» · aplicada F29c.
 - 2026-10-26 · Ficha un escalón más chica que el title card (dato al tamaño de la pregunta de cierre, etiqueta al del kicker con placa) · «los rótulos siguen grandes»; etiqueta roja medida 1.2:1 · aplicada F32 (pendiente de ver en render).
-- 2026-10-26 (voto del analista aplicado en F32, **pendiente de confirmar por Omar**): 2 `a_pantalla` en el mismo beat si van en escenas distintas; en el beat pico solo `a_pantalla`; ch01 sin pre-roll; la música del cap arranca con su title card.
-- 2026-10-26 12:42 · Sellos: palabra de clima distinta de la palabra de la voz (p. ej. PÁNICO, CALMA, AMENAZA, AVISO, ALARMA, INMINENTE, COLAPSO, SILENCIO, RABIA, MEMORIA) · propuesta del analista para Vajont · **pendiente de aprobar vocabulario**.
-- 2026-10-26 12:42 · Reloj gana siempre al sello (información > clima) · propuesta del analista · pendiente de confirmar.
+- 2026-10-26 14:22 · **Confirmado por Omar:** 2 `a_pantalla` en el mismo beat si van en escenas distintas; en el beat pico solo `a_pantalla`; ch01 sin pre-roll; la música del cap arranca con su title card · aplicado en F32 · vigente.
+- 2026-10-26 14:22 · **Sellos se quedan, pocos, como clima.** Palabra de clima distinta de la palabra de la voz; vocabulario aprobado para Vajont: PÁNICO, CALMA, AMENAZA, AVISO, ALARMA, INMINENTE, COLAPSO, SILENCIO, RABIA, MEMORIA · Omar · vigente.
+- 2026-10-26 14:22 · Reloj gana siempre al sello (información > clima) · Omar · vigente. **Forma del reloj:** a Omar no le gusta cómo se ven las fechas arriba («se ven pobres») → pendiente de forma (F31b).
 - 2026-10-26 · Los `punch_in` (acercamientos) del director sobran: el único golpe es el `zoom_punch` del pico · aplicada F32.
 - 2026-10-26 · En caps de una sola escena (Veo), la unidad es la oración, no la escena · propuesta del analista · pendiente de confirmar.
 

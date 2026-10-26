@@ -345,8 +345,11 @@ def test_b6_sellos_por_tema_uno_por_beat_nunca_con_un_texto():
     scenes = [Sc(0, 0.0, 4.0), Sc(1, 4.0, 10.0), Sc(2, 10.0, 16.0), Sc(3, 16.0, 30.0)]
     plan = {"emphasis": [{"word": "lago", "start": 1.0, "duration": 2.5}],                       # del director, por léxico
             "callouts": [{"text": "20 técnicos", "start": 10.2, "duration": 3.0, "ficha": True}]}
-    filas = gro.sellos_por_tema(plan, scenes, ent, words, 0.0, moods, [])
-    assert [(e["word"], e["tema"]) for e in plan["emphasis"]] == [("cadáveres", "muerte"), ("Murieron", "muerte")]
+    # F34 §A.4: los mismos momentos, pero el sello dice una palabra de clima (Gemini, acá un falso)
+    filas = gro.sellos_por_tema(plan, scenes, ent, words, 0.0, moods, [],
+                                call=lambda p: "PÁNICO" if "cadáveres" in p.split("oración: ")[-1] else "CALMA")
+    assert [(e["word"], e["tema"], e["palabra_voz"]) for e in plan["emphasis"]] == [
+        ("PÁNICO", "muerte", "cadáveres"), ("CALMA", "muerte", "Murieron")]
     mot = {f["texto"]: f["motivo"] for f in filas}
     assert "por léxico" in mot["lago"] and "agua" not in mot                 # peso 1: no llega a sello (como el pico)
     assert "ya tiene ficha" in mot["avalancha"] and "fango" not in mot         # un candidato por oración
@@ -354,7 +357,7 @@ def test_b6_sellos_por_tema_uno_por_beat_nunca_con_un_texto():
     gr.finalizar({**plan, "rotulista": {"filas": []}}, {"candidatos": [], "beats": beats}, [])
     p2 = {**plan, "rotulista": {"filas": []}}
     gr.finalizar(p2, {"candidatos": [], "beats": beats}, [])
-    assert [e["word"] for e in p2["emphasis"]] == ["cadáveres", "Murieron"] and p2["punch_in"] == []
+    assert [e["word"] for e in p2["emphasis"]] == ["PÁNICO", "CALMA"] and p2["punch_in"] == []
     assert any(f["bloque"] == "punch_in" and f["accion"] == "fuera" for f in p2["realizador"]["filas"])
 
 
@@ -364,8 +367,8 @@ def test_b7_el_prompt_cambia_solo_por_una_linea_y_la_cifra_se_anima():
     md = (ROOT / "lab" / "hyperframes" / "f29c" / "HANDOFF_F29c_rotulista_por_beat.md").read_text(encoding="utf-8")
     sys_f29c = _re.search(r"\*\*SYSTEM:\*\*\s*```\n(.*?)\n```", md, _re.S).group(1)
     assert gro.ROTULISTA_SYSTEM_F29C == sys_f29c
-    assert hashlib.md5((sys_f29c + "\n\n" + gro.ROTULISTA_USER).encode("utf-8")).hexdigest() == "7dafbb964d7ff71daafc65c028834017"
-    nuevo, viejo = gro.ROTULISTA_SYSTEM.splitlines(), sys_f29c.splitlines()
+    assert hashlib.md5((sys_f29c + "\n\n" + gro.ROTULISTA_USER_F32).encode("utf-8")).hexdigest() == "7dafbb964d7ff71daafc65c028834017"
+    nuevo, viejo = gro.ROTULISTA_SYSTEM_F32.splitlines(), sys_f29c.splitlines()     # F34: el de F32 queda como historia
     assert len(nuevo) == len(viejo) + 1 and [x for x in nuevo if x not in viejo] == [gro.LINEA_B7]
     assert nuevo[nuevo.index(gro.LINEA_B7) - 1].startswith("- cifra:")
     assert gro.LINEA_B7.strip() == "devolvé `unidad` (metros, personas, m³, liras u otra) y `valor` numérico"

@@ -20,4 +20,8 @@ Seguí este orden. No te saltees pasos; si uno no se puede cumplir, frená y dec
 8. **En cada commit**: suite rápida (`test_module_f25c.py test_module_f24.py test_module_f21.py`) y amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat_windowed, transition_timeout, `test_constantes_con_origen.py`; 5 fallas previas conocidas: 01b_pauses ×3, m03_merge_timing ×2) y el md5 de `fase2b ba6c3cac-a091-41c0-8dad-afd2f4364747 --only-cap ch02 --reuse-visuals --sw-encode` = `38e5ba14…`. Un commit por parte; `.env`, `config.py`, `lab/_gpt_probe_analista/`, `gfx_profiles/*` fuera de git; sin merge, sin publicar, sin borrar.
 9. Si el commit toca `script_engine/gfx_*.py` o `fase2b.py`, actualizar `lab/MAPA_MODULOS.md`/`.json` (el hook `guard_mapa` avisa) o decir en el reporte por qué el mapa no cambió.
 10. **Reporte** `lab/hyperframes/fNN/FNN_REPORT.md`: lo hecho por parte con su salida pegada, lecturas declaradas, la sección **«lo que queda abierto» entera** (nada resumido), y el **veredicto íntegro del subagente `revisor-handoff`** (se lo invoca antes de cerrar, con el handoff y el pedido literal de Omar).
-11. `lab/ESTADO_SESION.md` actualizado al final (y en cada commit). **PARADA.**
+11. `lab/ESTADO_SESION.md` actualizado al final (y en cada commit).
+12. **Antes de la PARADA, cerrar toda tarea en segundo plano propia**: subagentes y shells lanzados con
+    `run_in_background` (que ninguno quede corriendo) y los procesos que la tanda haya dejado vivos (`Get-Process` —
+    python, ffmpeg, node, chrome de HyperFrames, `find`/`grep` de un revisor—; cerrar solo los de la tanda, nunca los de
+    Omar como su qa_studio o Firefox). Decir en el reporte qué se cerró. **PARADA.**

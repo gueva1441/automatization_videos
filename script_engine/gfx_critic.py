@@ -93,7 +93,8 @@ def blocks(plan: dict[str, Any]) -> list[dict[str, Any]]:
     for i, e in enumerate(plan.get("emphasis") or []):
         kind = "icono" if e.get("icon_callout") else "sello"
         out.append({"key": ("emphasis", i), "kind": kind, "t": float(e["start"]), "dur": float(e.get("duration", 2.5)),
-                    "desc": describe(kind, e), "text": e.get("word", "")})
+                    "desc": describe(kind, e), "text": e.get("word", ""),
+                    "solo_forma": bool(e.get("clima"))})          # F34 §A.4: el sello de clima, solo forma
     for i, a in enumerate(plan.get("archive_clippings") or []):
         out.append({"key": ("archive_clippings", i), "kind": "recorte", "t": float(a["start"]),
                     "dur": float(a.get("duration", 6.0)), "desc": describe("recorte", a), "text": a.get("headline", ""),
@@ -112,7 +113,8 @@ def blocks(plan: dict[str, Any]) -> list[dict[str, Any]]:
         if b and "start" in b:
             out.append({"key": (field, None), "kind": kind, "t": float(b["start"]), "dur": float(b.get("duration", dur)),
                         "desc": describe(kind, b), "text": b.get("value_text") or b.get("anchor") or "",
-                        "rotulista": bool(b.get("rotulista"))})
+                        "rotulista": bool(b.get("rotulista")),
+                        "solo_forma": bool(b.get("de_voz"))})     # F34 §A.5: el agua de la voz repite la cifra a propósito
     return sorted(out, key=lambda x: x["t"])
 
 
@@ -271,6 +273,8 @@ def criticize(plan: dict[str, Any], *, base: Path, words: list[dict], time_offse
         # F5f: un reservado no cede ante el crítico. F29 §A.8: «repite» corta siempre y la cita pierde la reserva
         keep = v["veredicto"] in ("suma", "error") or (bool(b.get("reserved")) and v["veredicto"] != "repite"
                                                           and b["kind"] != "cita")
+        if b.get("solo_forma"):            # F34 §A.4/§A.5: el crítico mira la forma (que no tape), no el contenido
+            keep = v["veredicto"] != "estorba"
         rows.append({"t": round(b["t"], 3), "t_frame": tf, "dur": b["dur"], "bloque": b["kind"], "texto": b["text"],
                      "veredicto": v["veredicto"], "motivo": v["motivo"], "pasa": keep, "voz": voz,
                      **({"reservado": True} if b.get("reserved") else {}),

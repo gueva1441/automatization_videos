@@ -25,11 +25,14 @@ CAMINO = ("topic con escaleta + `fase2b <topic> --gfx --rotulista` (perfil miste
 # módulo: (sticker, recibe, entrega, tanda, estado)
 M: dict[str, tuple[str, str, str, str, str]] = {
     "fase2b": ("El armador final: junta imagen, voz, subtítulos y música de cada capítulo en un segmento y los pega en "
-               "el video. Con `--gfx` le pone encima la capa gráfica; con `--plan-only` solo escribe el guion de pantalla.",
+               "el video. Con `--gfx` le pone encima la capa gráfica; con `--plan-only` solo escribe el guion de pantalla. "
+               "Desde F34, con `--gfx` la música de cada cap arranca con su title card (pieza = segmento, después de "
+               "la intro) y la mezcla de previsualización mide dónde arranca.",
                "assets del topic (imágenes/clips), voz por cap + tiempos, sync map, música", "`*_final(_gfx).mp4`; o "
                "GUION_PANTALLA + mezcla", "previo a F1 (inicial)", "vivo"),
     "gfx_config": ("El tablero de perillas de la capa gráfica: duraciones, tamaños, colores y qué reglas están "
-                   "prendidas; el perfil del canal (identidad F3) pisa los valores.", "gfx_profiles/<perfil>.json",
+                   "prendidas; el perfil del canal (identidad F3) pisa los valores; el perfil trae también el vocabulario de "
+                   "sellos de clima (`sellos_clima`).", "gfx_profiles/<perfil>.json",
                    "`gfx_rules`, `gfx_render`, moods, sfx por bloque", "F1", "vivo"),
     "transition_config": ("Las perillas del pegado entre capítulos (calidad del video, fps) y el inventario de "
                           "transiciones de los perfiles de arte.", "—", "`transition_render` y el inventario", "previo a F1",
@@ -42,7 +45,8 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                    "algo cambió después, no hay render.", "GUION_PANTALLA.json + planes resueltos",
                    "`aprobado` en el guion; sí/no para el hook", "F33", "vivo"),
     "gfx_layer": ("El director de orquesta de la capa gráfica de un capítulo: llama a todos los demás en orden "
-                  "(plan, textos, sellos, crítico, transiciones) y hace el render en HyperFrames.",
+                  "(plan, textos, sellos, crítico, transiciones) y hace el render en HyperFrames. Desde F34, con el "
+                  "guion aprobado dibuja el plan aprobado tal cual (plan congelado) y no lo reescribe.",
                   "visual base del cap + palabras con tiempos + contexto", "`chNN_gfx.mp4`, plan resuelto, sfx, "
                   "escenas", "F1", "vivo"),
     "gfx_director": ("El primer borrador de la pantalla: Gemini Flash propone bloques mirando la narración; acá también "
@@ -55,10 +59,15 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                        "F29", "vivo"),
     "gfx_rotulista": ("El que escribe los textos de pantalla (Claude Sonnet): por beat, anclados a una palabra, con "
                       "candado de lo literal, tiempo de lectura, spoiler y contradicción; los coloca como ficha, recorte, "
-                      "cita, lupa, agua o contador, y pone los sellos por tema.", "oraciones de la voz con tiempos, beats, "
-                      "datos del pool", "bloques de texto en el plan, filas de lo cortado y por qué", "F29b", "vivo"),
+                      "cita, lupa, agua o contador. Desde F34 reparte por oración en caps de una sola escena (información gana al "
+                      "clima), pone los sellos de CLIMA (Gemini elige del vocabulario del perfil, nunca la palabra de la "
+                      "voz), el reloj cuando la voz dice una fecha completa, el nivel de agua cuando dice una altura y la "
+                      "tarjeta fecha-hora del inicio.", "oraciones de la voz con tiempos, beats, datos del pool (en el "
+                      "gancho, todo el pool)", "bloques de texto y animaciones en el plan, filas de lo cortado y por qué",
+                      "F29b", "vivo"),
     "gfx_critic": ("El editor de último momento: Gemini mira la foto (y en el render el bloque dibujado) y saca lo que "
-                   "repite la voz, no aporta o tapa algo.", "plan + cuadros del video + voz", "plan sin lo que no pasa + "
+                   "repite la voz, no aporta o tapa algo (al sello de clima y al agua de la voz solo los saca si tapan).", "plan + "
+                   "cuadros del video + voz", "plan sin lo que no pasa + "
                    "veredictos", "F4e", "vivo"),
     "gfx_project": ("El dibujante: convierte el plan en la página HTML que HyperFrames renderiza (title card, ficha, "
                     "recorte, cita, sello, reloj, agua, contador, zoom).", "plan resuelto + escenas", "proyecto "
@@ -100,7 +109,8 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                      "estado del lab", "`identity` en gfx_profiles/<perfil>.json", "F3",
                      "muerto en el pipeline (lo usa solo el lab, gfx_lab_server)"),
     "gfx_guion": ("Escribe el guion de pantalla: todo lo que se va a ver, en texto, con lo cortado y por quién, y los "
-                  "chequeos (lectura, costuras, inicio de voz) sobre la mezcla de audio.", "planes, escenas, beats, "
+                  "chequeos (lectura, costuras, inicio de voz, inicio de música, gancho no vacío, tarjeta fecha-hora) sobre la "
+                  "mezcla de audio.", "planes, escenas, beats, "
                   "mezcla", "GUION_PANTALLA.md/.json", "F32", "vivo"),
     "music_intensity": ("Decide cuándo la música calla, acompaña o sube en cada cap según la escaleta; también da el "
                         "beat pico de cada cap.", "escaleta + narración por beat + tiempos de la voz",

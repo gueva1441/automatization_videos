@@ -22,13 +22,13 @@
   {
    "modulo": "gfx_critic",
    "archivo": "script_engine/gfx_critic.py",
-   "sticker": "El editor de último momento: Gemini mira la foto (y en el render el bloque dibujado) y saca lo que repite la voz, no aporta o tapa algo.",
+   "sticker": "El editor de último momento: Gemini mira la foto (y en el render el bloque dibujado) y saca lo que repite la voz, no aporta o tapa algo (al sello de clima y al agua de la voz solo los saca si tapan).",
    "recibe": "plan + cuadros del video + voz",
    "entrega": "plan sin lo que no pasa + veredictos",
    "lo_llama": [
     "script_engine/gfx_layer.py"
    ],
-   "tests": 5,
+   "tests": 6,
    "lab": 2,
    "tanda": "F4e",
    "nacio": "39e37ac 2026-10-20 feat(gfx-f4e): crítico visual antes del render (suma/repite/estorba), hoja de contactos por cap y marca de esquina apagad",
@@ -51,7 +51,7 @@
     "script_engine/gfx_peak.py",
     "script_engine/gfx_rotulista.py"
    ],
-   "tests": 8,
+   "tests": 9,
    "lab": 2,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
@@ -79,7 +79,7 @@
   {
    "modulo": "gfx_guion",
    "archivo": "script_engine/gfx_guion.py",
-   "sticker": "Escribe el guion de pantalla: todo lo que se va a ver, en texto, con lo cortado y por quién, y los chequeos (lectura, costuras, inicio de voz) sobre la mezcla de audio.",
+   "sticker": "Escribe el guion de pantalla: todo lo que se va a ver, en texto, con lo cortado y por quién, y los chequeos (lectura, costuras, inicio de voz, inicio de música, gancho no vacío, tarjeta fecha-hora) sobre la mezcla de audio.",
    "recibe": "planes, escenas, beats, mezcla",
    "entrega": "GUION_PANTALLA.md/.json",
    "lo_llama": [
@@ -128,7 +128,7 @@
   {
    "modulo": "gfx_layer",
    "archivo": "script_engine/gfx_layer.py",
-   "sticker": "El director de orquesta de la capa gráfica de un capítulo: llama a todos los demás en orden (plan, textos, sellos, crítico, transiciones) y hace el render en HyperFrames.",
+   "sticker": "El director de orquesta de la capa gráfica de un capítulo: llama a todos los demás en orden (plan, textos, sellos, crítico, transiciones) y hace el render en HyperFrames. Desde F34, con el guion aprobado dibuja el plan aprobado tal cual (plan congelado) y no lo reescribe.",
    "recibe": "visual base del cap + palabras con tiempos + contexto",
    "entrega": "`chNN_gfx.mp4`, plan resuelto, sfx, escenas",
    "lo_llama": [
@@ -139,7 +139,7 @@
     "script_engine/gfx_icons/strip.py",
     "script_engine/gfx_rotulista.py"
    ],
-   "tests": 4,
+   "tests": 5,
    "lab": 13,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
@@ -287,15 +287,15 @@
   {
    "modulo": "gfx_rotulista",
    "archivo": "script_engine/gfx_rotulista.py",
-   "sticker": "El que escribe los textos de pantalla (Claude Sonnet): por beat, anclados a una palabra, con candado de lo literal, tiempo de lectura, spoiler y contradicción; los coloca como ficha, recorte, cita, lupa, agua o contador, y pone los sellos por tema.",
-   "recibe": "oraciones de la voz con tiempos, beats, datos del pool",
-   "entrega": "bloques de texto en el plan, filas de lo cortado y por qué",
+   "sticker": "El que escribe los textos de pantalla (Claude Sonnet): por beat, anclados a una palabra, con candado de lo literal, tiempo de lectura, spoiler y contradicción; los coloca como ficha, recorte, cita, lupa, agua o contador. Desde F34 reparte por oración en caps de una sola escena (información gana al clima), pone los sellos de CLIMA (Gemini elige del vocabulario del perfil, nunca la palabra de la voz), el reloj cuando la voz dice una fecha completa, el nivel de agua cuando dice una altura y la tarjeta fecha-hora del inicio.",
+   "recibe": "oraciones de la voz con tiempos, beats, datos del pool (en el gancho, todo el pool)",
+   "entrega": "bloques de texto y animaciones en el plan, filas de lo cortado y por qué",
    "lo_llama": [
     "fase2b.py",
     "script_engine/gfx_guion.py",
     "script_engine/gfx_layer.py"
    ],
-   "tests": 4,
+   "tests": 5,
    "lab": 5,
    "tanda": "F29b",
    "nacio": "5ae6177 2026-10-25 feat(f29b-a): el rotulista — el texto de pantalla lo escribe Claude, anclado a la oración (sin render; gfx_rules.rotulist",
@@ -377,9 +377,10 @@
    "recibe": "GUION_PANTALLA.json + planes resueltos",
    "entrega": "`aprobado` en el guion; sí/no para el hook",
    "lo_llama": [
-    "fase2b.py"
+    "fase2b.py",
+    "script_engine/gfx_layer.py"
    ],
-   "tests": 1,
+   "tests": 2,
    "lab": 0,
    "tanda": "F33",
    "nacio": "f97c6f1 2026-10-26 feat(f33-b): compuerta del render — fase2b --aprobar-guion \"<quién> <fecha>\" escribe aprobado {por, fecha, md5_planes} en",
@@ -462,7 +463,7 @@
   {
    "modulo": "gfx_config",
    "archivo": "gfx_config.py",
-   "sticker": "El tablero de perillas de la capa gráfica: duraciones, tamaños, colores y qué reglas están prendidas; el perfil del canal (identidad F3) pisa los valores.",
+   "sticker": "El tablero de perillas de la capa gráfica: duraciones, tamaños, colores y qué reglas están prendidas; el perfil del canal (identidad F3) pisa los valores; el perfil trae también el vocabulario de sellos de clima (`sellos_clima`).",
    "recibe": "gfx_profiles/<perfil>.json",
    "entrega": "`gfx_rules`, `gfx_render`, moods, sfx por bloque",
    "lo_llama": [
@@ -498,7 +499,7 @@
   {
    "modulo": "fase2b",
    "archivo": "fase2b.py",
-   "sticker": "El armador final: junta imagen, voz, subtítulos y música de cada capítulo en un segmento y los pega en el video. Con `--gfx` le pone encima la capa gráfica; con `--plan-only` solo escribe el guion de pantalla.",
+   "sticker": "El armador final: junta imagen, voz, subtítulos y música de cada capítulo en un segmento y los pega en el video. Con `--gfx` le pone encima la capa gráfica; con `--plan-only` solo escribe el guion de pantalla. Desde F34, con `--gfx` la música de cada cap arranca con su title card (pieza = segmento, después de la intro) y la mezcla de previsualización mide dónde arranca.",
    "recibe": "assets del topic (imágenes/clips), voz por cap + tiempos, sync map, música",
    "entrega": "`*_final(_gfx).mp4`; o GUION_PANTALLA + mezcla",
    "lo_llama": [
@@ -507,7 +508,7 @@
     "diag_236_pacing_ba6c.py",
     "gfx_lab_server.py"
    ],
-   "tests": 21,
+   "tests": 22,
    "lab": 16,
    "tanda": "previo a F1 (inicial)",
    "nacio": "e33f84a 2026-05-28 Initial commit: automatization_videos pipeline (post chat 32)",
@@ -791,6 +792,7 @@
    "de": "fase2b",
    "a": "gfx_guion",
    "donde": [
+    "en _medir_inicio_musica",
     "en _solo_plan"
    ]
   },
@@ -946,6 +948,9 @@
     "en oraciones",
     "en animacion_de_cifra",
     "en sellos_por_tema",
+    "en reloj_de_voz",
+    "en agua_de_voz",
+    "en tarjeta_inicial",
     "en pico_plan"
    ]
   },
@@ -984,7 +989,8 @@
    "donde": [
     "en validar",
     "en colocar",
-    "en escena_final"
+    "en escena_final",
+    "en reloj_de_voz"
    ]
   },
   {
@@ -1047,6 +1053,7 @@
     "en validar",
     "en animacion_de_cifra",
     "en colocar",
+    "en _cubre",
     "en escena_final",
     "en sellos_por_tema"
    ]
@@ -1109,6 +1116,7 @@
    "donde": [
     "en items_cap",
     "en _raices",
+    "en items_gancho",
     "en preparar_cap"
    ]
   },
@@ -1212,6 +1220,13 @@
    "a": "aprobacion",
    "donde": [
     "en main"
+   ]
+  },
+  {
+   "de": "gfx_layer",
+   "a": "aprobacion",
+   "donde": [
+    "en plan_congelado"
    ]
   },
   {
@@ -1446,6 +1461,7 @@
    "donde": [
     "en animacion_de_cifra",
     "en escena_final",
+    "en vocabulario_clima",
     "en sellos_por_tema",
     "en pico_plan"
    ]

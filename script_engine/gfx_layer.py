@@ -532,6 +532,20 @@ def prefetch_plans(plans: list[Any], video_id: str, work_dir: Path, *, max_worke
 #  Entry point
 # ═══════════════════════════════════════════════════════════════
 
+def plan_congelado(work_dir: Path, cap: str) -> dict[str, Any] | None:
+    """F34 §A.7.1: el plan resuelto del cap (una copia) si el guion de pantalla del topic (`work_dir/..`) está aprobado y
+    vigente (aprobacion.estado: los planes de hoy dan el md5 aprobado); si no, None. Con él, el render dibuja exactamente
+    lo aprobado: ningún paso vuelve a decidir bloques, tiempos ni transiciones (el veredicto del crítico ya está en el
+    plan)."""
+    import copy
+    from script_engine import aprobacion
+    f = Path(work_dir) / f"gfx_plan_{cap}.resolved.json"
+    ok, _ = aprobacion.estado(Path(work_dir).parent)
+    if not ok or not f.exists():
+        return None
+    return copy.deepcopy(json.loads(f.read_text(encoding="utf-8"))["plan"])
+
+
 def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
               width: int, height: int, fps: int, quality: str | None = None,
               reuse: bool = False, time_offset: float = 0.0,
@@ -573,6 +587,13 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         return out
 
     project = work_dir / f"gfx_{cap}"
+    congelado = False
+    if gfx_plan_override is None and not plan_only:                  # F34 §A.7.1: el plan aprobado, tal cual
+        fijo = plan_congelado(work_dir, cap)
+        if fijo is not None:
+            gfx_plan_override, congelado = fijo, True
+            log.append("  plan congelado: guion aprobado y vigente → se dibuja el plan aprobado (sin director, sin "
+                       "crítico, sin realizador; el resolved.json no se reescribe)")
     try:
         q = clamp_quality(quality or gfx_render.quality)
         if not plan_only:                                     # F32 §A: el guion de pantalla no usa el navegador
@@ -599,7 +620,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         if rot_on:
             from script_engine import gfx_rotulista as gro
             ent_rot = gro.entrada(ctx["chapter_number"], real, ctx["escaleta"], ctx.get("pool"), words, time_offset,
-                                  voz_video=gro.voz_del_video(ctx), pre_roll=pre_roll)
+                                  voz_video=gro.voz_del_video(ctx), pre_roll=pre_roll, voz_antes=gro.voz_previa(ctx))
             rot = gro.llamar(ent_rot, words, time_offset, work_dir, cap, modelo=gfx_rules.rotulista_modelo,
                              effort=gfx_rules.rotulista_effort, tope=gfx_rules.rotulista_tope_usd, log=log)
             edits = gro.ediciones_de(work_dir, cap)                     # F32 §A.5: cambios a mano (fase2b --plan-edit)
@@ -756,6 +777,10 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                 from script_engine.gfx_peak import ticker_corner
                 from script_engine.gfx_pool import pool_ticker
                 ptk = pool_ticker(ctx, words, clip_dur, time_offset)
+                if ptk is None and rot_on:                           # F34 §A.3.3: la voz dice una fecha completa
+                    ptk = gro.reloj_de_voz(ent_rot, clip_dur)
+                    if ptk:
+                        log.append(f"  reloj (voz): {ptk['day']} {ptk['month']} {ptk['tail']} @ {ptk['start']:.1f}s")
                 resolved["time_ticker"] = ticker_corner(ptk, resolved) if ptk else None
                 log.append(f"  reloj (cronología): {ptk['day']} {ptk['month']} · {ptk['tail']} "
                            f"@ {ptk['start']:.1f}s ({ptk['pool_id']})" if ptk else "  reloj (cronología): no (el cap no avanza de fecha)")
@@ -763,6 +788,11 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             resolved, rej2 = _lock2(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
                                     question_sources=ctx.get("next_sources"))
             rejected += rej2
+        if gfx_plan_override is None and rot_on:                     # F34 §A.5 y §A.6
+            gro.agua_de_voz(resolved, ent_rot, log)
+            if plan.is_first:
+                resolved["tarjeta_inicial"] = gro.tarjeta_inicial(ctx["escaleta"], ctx.get("pool"))
+                log.append(f"  tarjeta fecha-hora: {resolved['tarjeta_inicial']}")
         if details and not resolved.get("evidence_zoom") and not rot_on:   # F4b §3: zoom nombrado o «de editor»
             from script_engine import gfx_vision as gv
             from script_engine.gfx_peak import sentences as _sents2
@@ -819,7 +849,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             resolved["iconos_auto"] = [{"palabra": w, "icono": k} for w, k in got]
             if got:
                 log.append(f"  íconos automáticos (game-icons): {got}")
-        n_src = icon_sources(resolved, ctx)                  # F3: fuente debajo del bloque de ícono (si hay)
+        n_src = 0 if congelado else icon_sources(resolved, ctx)   # F3: fuente debajo del bloque de ícono (si hay)
         if n_src:
             log.append(f"  íconos con fuente: {n_src}")
         # F3: pregunta de cierre generada + pausa real (alarga el base; fase2b rellena el audio con silencio)
@@ -890,7 +920,8 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         cerrar(resolved, real, ctx.get("pool"), log, criticar=_criticar, rotulista=rot_on,
                escena=(lambda: (gro.escena_final(resolved, scenes, ent_rot, log),
                                 gro.sellos_por_tema(resolved, scenes, ent_rot, words, time_offset,
-                                                    ctx.get("moods") or _moods_activos(), log))) if rot_on else None,
+                                                    ctx.get("moods") or _moods_activos(), log, work_dir=work_dir,
+                                                    cap=cap))) if rot_on else None,
                garantizar=gfx_rules.garantizar_pico and not rot_on,
                side=getattr(scenes[-1], "quiet_side", "right") if scenes else "right")
         if real and gfx_plan_override is None and gfx_rules.identity_rules:   # F30b §A: transiciones por relato
@@ -901,8 +932,9 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             log.append(f"  transiciones (relato): {[(k, tr[k]['kind'], tr[k]['why']) for k in sorted(tr)]}")
         log.append(f"  plan: {json.dumps(resolved, ensure_ascii=False)}")
         log.append(f"  lock rechazados: {len(rejected)} {json.dumps(rejected, ensure_ascii=False)}")
-        (work_dir / f"gfx_plan_{cap}.resolved.json").write_text(
-            json.dumps({"plan": resolved, "rejected": rejected}, ensure_ascii=False, indent=1), encoding="utf-8")
+        if not congelado:                                  # F34 §A.7.1: el aprobado no se toca (md5 de la aprobación)
+            (work_dir / f"gfx_plan_{cap}.resolved.json").write_text(
+                json.dumps({"plan": resolved, "rejected": rejected}, ensure_ascii=False, indent=1), encoding="utf-8")
         # F2 §0d: SFX por bloque visible → fase2b los mezcla en el pase de audio (si --sfx)
         from gfx_config import sfx_for
         from script_engine.gfx_director import sfx_events

@@ -1,0 +1,54 @@
+# F34 §A — salida en texto (datos reales de Vajont, sin API)
+
+## A.1 prompt del rotulista
+- versión f34-1 · md5 nuevo (SYSTEM + USER) `d90ae69a2dc8c7928bd410ead421dc6b`
+- deshechos los tres reemplazos da el de F32 byte a byte: `c9231e24afbc785d5870b33088ce076e` (F32: c9231e24…)
+- reemplazo 1 (SYSTEM):
+  - antes: «En cada beat puede ir como máximo UN texto; en el beat marcado como pico no va ninguno; en el gancho, a lo sumo uno.»
+  - ahora: «En cada beat puede ir como máximo UN texto (dos si son dos datos marcados a_pantalla y van en oraciones distintas); en el beat marcado como pico solo van los datos a_pantalla; en el gancho va a lo sumo uno, y para el gancho podés usar cualquier dato de la lista que la narración no diga en todo el video, aunque no sea de su beat: el gancho tiene que prometer algo.»
+- reemplazo 2 (SYSTEM):
+  - antes: «Escritura: una línea de etiqueta y una o dos líneas de dato; oración completa o etiqueta + valor; nunca un fragmento sin sujeto o sin el valor.»
+  - ahora: «Escritura: la etiqueta es una línea corta que dice qué es («ANCHO DE LA FISURA», «ACTA DEL CONSEJO SUPERIOR»); el dato es UNA línea corta con el valor o el hecho en pocas palabras («Más de 1 metro», «13 de 34 representantes presentes»). Nunca una oración larga: se tiene que leer en dos segundos. Nunca un fragmento sin sujeto o sin el valor. No pongas el nombre de la fuente ni el año de publicación en el dato.»
+- reemplazo 3 (SYSTEM):
+  - antes: «`pool_id` y una línea `aporta`»
+  - ahora: «`pool_id`, y si es cifra también unidad y valor y una línea `aporta`»
+- reemplazo 3 (formato de salida del USER):
+  - antes: «"pool_id": str, "aporta": str}»
+  - ahora: «"pool_id": str, "unidad": str|null, "valor": number|null, "aporta": str}»
+- gancho (ch01): el pedido trae 520 ítems del pool del video; la voz dice 174 → quedan 346 candidatos («la narración lo dice en el video: no»)
+  - D118 «El proyecto de la presa se amplió, convirtiéndola en la más alta del mundo con 266 metros de altura y una capacidad de 115 millones de metros cúbicos de agua.» → la voz lo dice: no
+  - D128 «En el desastre murieron 1.910 personas.» → la voz lo dice: no
+  - D117 «El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes.» → la voz lo dice: no
+  - D49 «En 1960, un pequeño desmoronamiento provocó una fisura de más de 1 metro de ancho y casi 2 kilómetros de largo en la montaña.» → la voz lo dice: sí
+
+## A.2 filtros (los casos reales; tests en test_module_f34.py)
+- candado: el número/año/nombre que dice la oración ancla cuenta (D117 «1943»: test_a2_1)
+- no dicho: corre antes que la lectura; «cuatrocientos» = 400 por valor (D237: test_a2_2; el conversor ya estaba, la falla era el orden)
+- spoiler: un nombre dicho antes en el cap o en un cap anterior no es spoiler (T85 «Vajont»: test_a2_3)
+  - «Vajont» en la voz de ch01–ch06: sí
+
+## A.3.3 fechas completas que dice la voz (reloj desde la voz si la cronología no da reloj)
+- ch01: 9 octubre 1963 · «Longarone, Italia, nueve de octubre de mil novecientos sesenta y tres.»
+- ch04: 4 noviembre 1960 · «El cuatro de noviembre de mil novecientos sesenta el embalse estaba a seiscientos cincuent»
+- ch07: 20 febrero 1968 · «Pasaron más de cuatro años hasta que, el veinte de febrero de mil novecientos sesenta y oc»
+- ch07: 29 noviembre 1968 · «El juicio empezó el veintinueve de noviembre de mil novecientos sesenta y ocho.»
+
+## A.4 sellos de clima: el prompt literal (con {lista} del perfil)
+```
+Elegí UNA palabra de esta lista que nombre el clima de este momento del relato, no lo que se dice: PÁNICO, CALMA, AMENAZA, AVISO, ALARMA, INMINENTE, COLAPSO, SILENCIO, RABIA, MEMORIA.
+No puede ser una palabra que aparezca en estas oraciones: «{voz_-1}» «{voz_ancla}» «{voz_+1}».
+Momento: función del beat «{funcion}»; oración: «{voz_ancla}».
+Respondé solo la palabra en mayúsculas, o NINGUNA si ninguna calza.
+```
+
+## A.5 agua desde la voz: oraciones candidatas por cap (y la elegida, una por cap)
+- ch03 oración [1]: OLA · 20 m · «Ese marzo, una masa de roca entró al agua y levantó una ola de veinte metros.»
+- ch03 oración [7]: OLA · 20 m · «Una ola de veinte metros.»
+  → ch03 elige [1] OLA · 20 m (antes de la regla de una animación por beat)
+- ch04 oración [0]: NIVEL DEL EMBALSE · 650 m · «El cuatro de noviembre de mil novecientos sesenta el embalse estaba a seiscientos cincuent»
+- ch04 oración [12]: NIVEL · 700 m · «La recomendación que salió de ahí fue no pasar de los setecientos metros sobre el nivel de»
+- ch04 oración [13]: COTA AUTORIZADA · 715 m · «La cota autorizada fue de setecientos quince.»
+  → ch04 elige [13] COTA AUTORIZADA · 715 m (antes de la regla de una animación por beat)
+
+## A.6 tarjeta fecha-hora
+- {"texto": "9 OCT 1963 · 22:39", "fecha": "1963-10-09", "hora": "22:39", "pool_id": "T57", "hora_de": "T66", "fuente": "escaleta.pico T57 (fecha) + T66 (hora)"}

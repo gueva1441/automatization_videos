@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-26 (F33 hecha, **PARADA**; F32 sigue en PARADA antes del render: sin guion aprobado, `guard_render` frena `--gfx`) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-26 (F34 en curso: A hecha; B = guion de Vajont con `--plan-only`, sin render ni aprobación) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -12,6 +12,11 @@
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F34 — Reglas de pantalla corregidas (pedido de Omar, 2026-10-26) — EN CURSO (A → B sin parar; **sin render, sin aprobar**)
+- Handoff `lab/hyperframes/f34/HANDOFF_F34_reglas_de_pantalla.md`. Base `fc889c9`. Un commit por parte.
+- **Simulación previa** (agente `simulador`, antes del código): `lab/hyperframes/f34/a/simulacion_previa.md`.
+- **A HECHO** (commit A): prompt del rotulista con los 3 reemplazos de A.1 (md5 `d90ae69a…`, versión `f34-1`; el de F32 queda como `ROTULISTA_SYSTEM_F32`/`ROTULISTA_USER_F32`); gancho con todo el pool del video marcado «la narración lo dice: sí/no» (sin los `a_pantalla` de otros caps); candado con lo que dice la oración ancla, no dicho/spoiler antes que la lectura, spoiler con la voz de caps anteriores; reparto por oración en caps de una sola escena (`unidades`), el sello deja de ser fijo y no frena al reloj; reloj desde la voz si la cronología no da reloj; sellos de CLIMA (Gemini Flash, prompt literal de A.4, vocabulario `sellos_clima` del perfil, en disco: `gfx_profiles/misterio.json` fuera de git); agua desde la voz (una por cap); tarjeta fecha-hora (`9 OCT 1963 · 22:39`, T57 + T66); plan congelado (`gfx_layer.plan_congelado`: con guion aprobado el render dibuja el plan tal cual y no lo reescribe); música alineada con `--gfx` (pieza = segmento + crossfade, después de la intro) y medida en la mezcla; crítico de forma para sello de clima y agua de la voz; `.claude/settings.json` modelo `claude-opus-5-5`; `/tanda` paso 12 (cerrar tareas en segundo plano). Tests `test_module_f34.py` (18). Suite amplia 1021 + 5 previas, rápida 58, md5 ch02 sin gfx `38e5ba14…` (`lab/hyperframes/f34/a/`). Salida en texto: `lab/hyperframes/f34/a/salida_a.txt`.
 
 ## F33 — Infraestructura: procedimiento, compuertas y mapa (pedido de Omar, 2026-10-26) — HECHA, **PARADA** (sin render, sin cambios del pipeline)
 - Handoff `lab/hyperframes/f33/HANDOFF_F33_infraestructura.md`. Base `cd60c74`. Un commit por parte.

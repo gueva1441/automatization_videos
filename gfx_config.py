@@ -409,7 +409,8 @@ _GRADE_B = {"gr-halation": 0.35, "gr-haze": 0.0, "gr-palette": 0.0, "gr-shadowte
 _RULE_FIELDS: frozenset[str] = frozenset(f.name for f in fields(GfxRules))
 _PROFILE_KEYS: frozenset[str] = frozenset({"name", "description", "nichos", "fonts", "tokens", "blocks", "sfx", "moods",
                                           "identity",    # F3: lo escribe el lab; el motor lo ignora
-                                          "channel_bug"})   # F4b §0.3: marca del canal (gfx_bug)
+                                          "channel_bug",    # F4b §0.3: marca del canal (gfx_bug)
+                                          "sellos_clima"})  # F34 §A.4: vocabulario de sellos (DECISIONES 14:22)
 # F2b §2: capas de mood que el templater sabe dibujar (CSS, nunca toca píxeles)
 VALID_MOOD_LAYERS: frozenset[str] = frozenset({"veneno", "agua", "muerte", "oscuridad", "minima"})
 # F4c R5: capa mínima (viñeta + desaturación leve) para las categorías de reserva hasta que el lab les dé forma; no
@@ -477,6 +478,9 @@ def load_profile(name: str | None = None) -> dict[str, Any]:
         # PARADA 1 F2b: triggers = {palabra: peso 1–3}
         if not isinstance(m.get("triggers"), dict) or any(w not in (1, 2, 3) for w in m["triggers"].values()):
             bad.add(f"moods.{cat}.triggers (dict palabra → peso 1–3)")
+    sc = prof.get("sellos_clima")
+    if sc is not None and (not isinstance(sc, list) or not all(isinstance(w, str) and w.strip() for w in sc)):
+        bad.add("sellos_clima (lista de palabras)")
     if bad:
         raise ValueError(f"perfil gfx '{name}': claves desconocidas {sorted(bad)}")
     return prof

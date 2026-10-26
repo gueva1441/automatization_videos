@@ -27,7 +27,7 @@ import time
 from pathlib import Path
 from typing import Any
 
-VERSION = "f32-1"
+VERSION = "f34-1"
 LECTURA_CPS = 15.0              # §0 (ya en F29c): caracteres ÷ 15 cps
 PICO_DB = -18.0                 # §A.3: el ataque de la voz no salta de silencio a −18 dB …
 RAMPA_S = 0.10                  # … en los 100 ms previos
@@ -259,6 +259,12 @@ def eventos_cap(c: dict[str, Any], *, title_dur: float, dip_frames: int, fps: in
                                                          "sube_desde_negro_s": 0.0 if c["is_first"] else round(dip_frames / fps, 3),
                                                          "title_card_s": title_dur, "voz_s": round(v0, 3),
                                                          "intro_s": intro if c["is_first"] else 0.0}})
+    tj = plan.get("tarjeta_inicial") if c["is_first"] else None
+    if tj is not None:                                    # F34 §A.6: antes de la primera imagen, sobre negro
+        e = add(0.0, "tarjeta fecha-hora", texto=tj.get("texto") or "⚠ falta fecha-hora", dur=title_dur, k=None,
+                fuente=tj.get("fuente"), filtro="pasó" if tj.get("texto") else f"⚠ falta fecha-hora: {tj.get('motivo')} "
+                "(agregar con --plan-edit; nunca se inventa)", extra={"sobre_negro": True})
+        e.update({"t": round(-intro, 3), "t_mp4": round(off - intro, 3), "escena": None, "beat": None, "funcion": ""})
     tc = plan.get("title_card")
     if tc:
         add(0.0, "title card", etiqueta=tc.get("kicker"), texto=tc.get("title", ""), dur=title_dur, k=None)
@@ -295,7 +301,8 @@ def eventos_cap(c: dict[str, Any], *, title_dur: float, dip_frames: int, fps: in
         add(float(wl["start"]), "nivel de agua", etiqueta=wl.get("etiqueta"),
             texto=f"{wl.get('value_text')} {wl.get('unit', '')}".strip(), dur=float(wl.get("duration") or 0),
             k=wl.get("sentence_idx"), aporta=wl.get("aporta"), fuente=fuente_de(wl.get("pool_id")),
-            filtro="pasó" + _crit_rot(wl.get("critico")), extra={"pool_id": wl.get("pool_id"), "altura": wl.get("height")})
+            filtro="pasó" + _crit_rot(wl.get("critico")), extra={"pool_id": wl.get("pool_id"), "altura": wl.get("height"),
+                                                                  "de_voz": bool(wl.get("de_voz"))})
     cu = plan.get("count_up")
     if cu:
         txt = f"{cu.get('value_text')} {cu.get('unit', '')}".strip()
@@ -308,12 +315,14 @@ def eventos_cap(c: dict[str, Any], *, title_dur: float, dip_frames: int, fps: in
         r = crit_sello.get(round(float(e["start"]), 2))
         add(float(e["start"]), "sello", texto=str(e.get("word", "")), dur=float(e.get("duration", 0)),
             filtro="pasó" + (f" (crítico: {r['veredicto']})" if r else ""),
-            extra={"tema": e.get("tema") or e.get("category"), "pico": bool(e.get("peak_word")), "lado": e.get("side")})
+            extra={"tema": e.get("tema") or e.get("category"), "pico": bool(e.get("peak_word")), "lado": e.get("side"),
+                   "clima": bool(e.get("clima")), "palabra_voz": e.get("palabra_voz")})
     tk = plan.get("time_ticker")
     if tk:
         add(float(tk["start"]), "reloj", texto=f"{tk.get('day')} {tk.get('month')} · {tk.get('tail', '')}".strip(" ·"),
             dur=float(tk.get("duration", 0)), fuente=tk.get("pool_id"),
-            extra={"cambios": [f"{ch.get('day')} {ch.get('month')} @ {float(ch['t']):.1f}" for ch in tk.get("changes") or []]})
+            extra={"cambios": [f"{ch.get('day')} {ch.get('month')} @ {float(ch['t']):.1f}" for ch in tk.get("changes") or []],
+                   "de_voz": bool(tk.get("de_voz"))})
     q = plan.get("chapter_question")
     if q:
         add(float(q["start"]), "pregunta de cierre", texto=q.get("text", ""), dur=float(q.get("duration", 0)),
@@ -451,16 +460,27 @@ def chequeos(caps: list[dict[str, Any]], *, title_dur: float, fps: int, mezcla: 
     # 1. dos bloques en la misma escena
     lineas, ok = [], True
     for c in caps:
+        bl = [e for e in c["eventos"] if e["queda"] and e["tipo"] in TEXTOS + ANIMACIONES + ("title card",)]
+        if len(c["escenas"]) == 1:                        # F34 §A.3.2: un cap de una sola escena se mira por oración
+            for i, a in enumerate(bl):
+                for b in bl[i + 1:]:
+                    a1, b1 = a["t"] + float(a["dur"] or 0), b["t"] + float(b["dur"] or 0)
+                    if a["t"] < b1 and b["t"] < a1:
+                        ok = False
+                        lineas.append(f"✗ {c['cap']} (una escena, por oración) {a['tipo']} «{(a['texto'] or '')[:30]}» "
+                                      f"{a['t']:.1f}–{a1:.1f} s se solapa con {b['tipo']} «{(b['texto'] or '')[:30]}» "
+                                      f"{b['t']:.1f}–{b1:.1f} s")
+            continue
         occ: dict[int, list[str]] = {}
-        for e in c["eventos"]:
-            if e["queda"] and e["tipo"] in TEXTOS + ANIMACIONES + ("title card",):
-                for k in _ocupa(e, c["escenas"], title_dur):
-                    occ.setdefault(k, []).append(f"{e['tipo']} «{(e['texto'] or '')[:30]}»")
+        for e in bl:
+            for k in _ocupa(e, c["escenas"], title_dur):
+                occ.setdefault(k, []).append(f"{e['tipo']} «{(e['texto'] or '')[:30]}»")
         malas = {k: v for k, v in occ.items() if len(v) > 1}
         ok &= not malas
         lineas += [f"✗ {c['cap']} escena {k}: {' + '.join(v)}" for k, v in sorted(malas.items())]
     out.append({"nombre": "dos bloques en la misma escena", "ok": ok,
-                "lineas": lineas or ["✓ ninguna escena con dos bloques (title card, textos y animaciones)"]})
+                "lineas": lineas or ["✓ ninguna escena con dos bloques (title card, textos y animaciones; en un cap de "
+                                     "una sola escena, ninguna oración: nada solapado)"]})
     # 2. bloque que cruza corte
     lineas, ok = [], True
     for c in caps:
@@ -545,6 +565,33 @@ def chequeos(caps: list[dict[str, Any]], *, title_dur: float, fps: int, mezcla: 
         ok &= r["ok"]
         lineas.append(linea_inicio(c["cap"], r))
     out.append({"nombre": "inicio de voz por cap", "ok": ok, "lineas": lineas or ["(sin mezcla: no medido)"]})
+    # 9. F34: el gancho nunca vacío de todo (0–1 texto, 1 reloj, 1 sello; DECISIONES 2026-10-26 02:52 y §0b de F34)
+    lineas, ok = [], True
+    for c in caps:
+        for b in c["resumen"]:
+            if b["funcion"] != "gancho":
+                continue
+            hay = [f"{e['tipo']} «{(e['texto'] or '')[:30]}»" for e in c["eventos"] if e["queda"] and e["beat"] == b["n"]
+                   and e["tipo"] in TEXTOS + ANIMACIONES]
+            ok &= bool(hay)
+            lineas.append(f"{'✓' if hay else '✗'} {c['cap']} beat {b['n']} (gancho): {'; '.join(hay) or 'vacío de todo'}")
+    out.append({"nombre": "gancho no vacío", "ok": ok, "lineas": lineas or ["(sin beat gancho)"]})
+    # 10. F34 §A.7.2: la música de cada cap arranca con su title card (medido en la pista, ±1 cuadro)
+    lineas, ok = [], True
+    for r in (mezcla or {}).get("musica") or []:
+        if r.get("ok") is None:
+            lineas.append(f"· {r['cap']}: title card {mmss(r['title_card_s'])} — {r.get('motivo')}")
+            continue
+        ok &= bool(r["ok"])
+        lineas.append(f"{'✓' if r['ok'] else '✗'} {r['cap']}: title card {r['title_card_s']:.3f} s · música medida "
+                      f"{r['medido_s']:.3f} s · desvío {r['desvio_s']:+.3f} s ({r['desvio_cuadros']:+.2f} cuadros)")
+    out.append({"nombre": "inicio de música por cap", "ok": ok and bool(lineas),
+                "lineas": lineas or ["(sin música o sin mezcla: no medido)"]})
+    # 11. F34 §A.6: la tarjeta fecha-hora
+    tj = [e for c in caps for e in c["eventos"] if e["tipo"] == "tarjeta fecha-hora"]
+    out.append({"nombre": "tarjeta fecha-hora", "ok": bool(tj) and all("falta" not in e["filtro"] for e in tj),
+                "lineas": [f"{'✓' if 'falta' not in e['filtro'] else '✗'} {mmss(e['t_mp4'])} «{e['texto']}» · "
+                           f"{e.get('fuente') or ''} · {e['filtro']}" for e in tj] or ["✗ sin tarjeta (ch01 sin plan)"]})
     return out
 
 
