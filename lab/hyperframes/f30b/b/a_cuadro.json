@@ -1,0 +1,29 @@
+[
+ {
+  "cap": "ch06",
+  "bloque": "ficha D128",
+  "t_plan_v4": 124.3,
+  "t_plan_v5": 127.3,
+  "aparece_v4": 124.233,
+  "aparece_v5": 127.333,
+  "delta_cuadros": 93
+ },
+ {
+  "cap": "ch07",
+  "bloque": "ficha D32",
+  "t_plan_v4": 112.5,
+  "t_plan_v5": 115.5,
+  "aparece_v4": 112.633,
+  "aparece_v5": 115.633,
+  "delta_cuadros": 90
+ },
+ {
+  "cap": "ch06",
+  "bloque": "sello «fisura»",
+  "t_plan_v4": 22.42,
+  "t_plan_v5": 25.42,
+  "aparece_v4": 22.453,
+  "aparece_v5": 25.453,
+  "delta_cuadros": 90
+ }
+]

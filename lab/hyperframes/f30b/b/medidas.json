@@ -1,0 +1,799 @@
+{
+ "md5_voz": {
+  "output/audio/f8s3-vajont-f30/ch01.mp3": {
+   "antes": "0b8bee9b3d8acf93a260745b34ce99c5",
+   "despues": "0b8bee9b3d8acf93a260745b34ce99c5",
+   "igual": true
+  },
+  "output/audio/f8s3-vajont-f30/ch02.mp3": {
+   "antes": "ed244bad6606cf8af3edaea7e47b48d1",
+   "despues": "ed244bad6606cf8af3edaea7e47b48d1",
+   "igual": true
+  },
+  "output/audio/f8s3-vajont-f30/ch03.mp3": {
+   "antes": "98b85e05ba9763377e74f4fbb5243f51",
+   "despues": "98b85e05ba9763377e74f4fbb5243f51",
+   "igual": true
+  },
+  "output/audio/f8s3-vajont-f30/ch04.mp3": {
+   "antes": "d25949ac0aad5090af8a8cd94d6d6bac",
+   "despues": "d25949ac0aad5090af8a8cd94d6d6bac",
+   "igual": true
+  },
+  "output/audio/f8s3-vajont-f30/ch05.mp3": {
+   "antes": "e43d8965998a7226b1d304d87e13b4c0",
+   "despues": "e43d8965998a7226b1d304d87e13b4c0",
+   "igual": true
+  },
+  "output/audio/f8s3-vajont-f30/ch06.mp3": {
+   "antes": "fe328dae74c688be0b663c63a2081c84",
+   "despues": "fe328dae74c688be0b663c63a2081c84",
+   "igual": true
+  },
+  "output/audio/f8s3-vajont-f30/ch07.mp3": {
+   "antes": "7eed217b9290b2c7c0a11838225c9c8e",
+   "despues": "7eed217b9290b2c7c0a11838225c9c8e",
+   "igual": true
+  }
+ },
+ "duracion": {
+  "v4": 1009.667,
+  "v5": 1032.367,
+  "v4_mas_7_title_dur": 1030.667,
+  "diferencia_v5_menos_v4": 22.7,
+  "segmentos_v4": {
+   "ch01": 98.933,
+   "ch02": 134.2,
+   "ch03": 130.0,
+   "ch04": 122.833,
+   "ch05": 170.1,
+   "ch06": 168.8,
+   "ch07": 184.0
+  },
+  "segmentos_v5": {
+   "ch01": 101.933,
+   "ch02": 137.2,
+   "ch03": 133.0,
+   "ch04": 125.833,
+   "ch05": 173.1,
+   "ch06": 171.8,
+   "ch07": 187.0
+  },
+  "segmentos_v5_menos_v4": {
+   "ch01": 3.0,
+   "ch02": 3.0,
+   "ch03": 3.0,
+   "ch04": 3.0,
+   "ch05": 3.0,
+   "ch06": 3.0,
+   "ch07": 3.0
+  }
+ },
+ "fronteras": [
+  {
+   "frontera": "ch01→ch02",
+   "t_mp4": 104.433,
+   "lumas": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.2,
+    1.2,
+    4.2,
+    8.3
+   ],
+   "planos_no_negros": []
+  },
+  {
+   "frontera": "ch02→ch03",
+   "t_mp4": 241.633,
+   "lumas": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.3,
+    2.4,
+    5.9,
+    9.9
+   ],
+   "planos_no_negros": []
+  },
+  {
+   "frontera": "ch03→ch04",
+   "t_mp4": 374.633,
+   "lumas": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.3,
+    2.1,
+    5.1,
+    8.8
+   ],
+   "planos_no_negros": []
+  },
+  {
+   "frontera": "ch04→ch05",
+   "t_mp4": 500.466,
+   "lumas": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    8.2,
+    17.8,
+    27.4
+   ],
+   "planos_no_negros": []
+  },
+  {
+   "frontera": "ch05→ch06",
+   "t_mp4": 673.566,
+   "lumas": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.2,
+    1.5,
+    3.7,
+    6.6
+   ],
+   "planos_no_negros": []
+  },
+  {
+   "frontera": "ch06→ch07",
+   "t_mp4": 845.366,
+   "lumas": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.3,
+    2.9,
+    6.6,
+    10.8
+   ],
+   "planos_no_negros": []
+  }
+ ],
+ "desplazamiento_plan": [
+  {
+   "cap": "ch01",
+   "bloque": "chapter_question",
+   "t_v4": 94.933,
+   "t_v5": 97.933,
+   "delta_plan": 3.0,
+   "dur_v4": 3.0,
+   "dur_v5": 3.0
+  },
+  {
+   "cap": "ch01",
+   "bloque": "black_hold",
+   "t_v4": 97.933,
+   "t_v5": 100.933,
+   "delta_plan": 3.0,
+   "dur_v4": 1.0,
+   "dur_v5": 1.0
+  },
+  {
+   "cap": "ch01",
+   "bloque": "sello",
+   "t_v4": 37.44,
+   "t_v5": 40.44,
+   "delta_plan": 3.0
+  },
+  {
+   "cap": "ch02",
+   "bloque": "chapter_question",
+   "t_v4": 130.167,
+   "t_v5": 133.167,
+   "delta_plan": 3.0,
+   "dur_v4": 3.0,
+   "dur_v5": 3.0
+  },
+  {
+   "cap": "ch02",
+   "bloque": "black_hold",
+   "t_v4": 133.167,
+   "t_v5": 136.167,
+   "delta_plan": 3.0,
+   "dur_v4": 1.0,
+   "dur_v5": 1.0
+  },
+  {
+   "cap": "ch02",
+   "bloque": "sello",
+   "t_v4": 68.74,
+   "t_v5": 71.74,
+   "delta_plan": 3.0
+  },
+  {
+   "cap": "ch03",
+   "bloque": "chapter_question",
+   "t_v4": 126.0,
+   "t_v5": 129.0,
+   "delta_plan": 3.0,
+   "dur_v4": 3.0,
+   "dur_v5": 3.0
+  },
+  {
+   "cap": "ch03",
+   "bloque": "black_hold",
+   "t_v4": 129.0,
+   "t_v5": 132.0,
+   "delta_plan": 3.0,
+   "dur_v4": 1.0,
+   "dur_v5": 1.0
+  },
+  {
+   "cap": "ch04",
+   "bloque": "time_ticker",
+   "t_v4": 7.633,
+   "t_v5": 10.633,
+   "delta_plan": 3.0,
+   "dur_v4": 4.427,
+   "dur_v5": 4.427
+  },
+  {
+   "cap": "ch04",
+   "bloque": "chapter_question",
+   "t_v4": 118.833,
+   "t_v5": 121.833,
+   "delta_plan": 3.0,
+   "dur_v4": 3.0,
+   "dur_v5": 3.0
+  },
+  {
+   "cap": "ch04",
+   "bloque": "black_hold",
+   "t_v4": 121.833,
+   "t_v5": 124.833,
+   "delta_plan": 3.0,
+   "dur_v4": 1.0,
+   "dur_v5": 1.0
+  },
+  {
+   "cap": "ch05",
+   "bloque": "chapter_question",
+   "t_v4": 166.067,
+   "t_v5": 169.067,
+   "delta_plan": 3.0,
+   "dur_v4": 3.0,
+   "dur_v5": 3.0
+  },
+  {
+   "cap": "ch05",
+   "bloque": "black_hold",
+   "t_v4": 169.067,
+   "t_v5": 172.067,
+   "delta_plan": 3.0,
+   "dur_v4": 1.0,
+   "dur_v5": 1.0
+  },
+  {
+   "cap": "ch05",
+   "bloque": "sello",
+   "t_v4": 19.98,
+   "t_v5": 22.98,
+   "delta_plan": 3.0
+  },
+  {
+   "cap": "ch06",
+   "bloque": "callouts",
+   "pool_id": "D128",
+   "t_v4": 124.3,
+   "t_v5": 127.3,
+   "delta_plan": 3.0
+  },
+  {
+   "cap": "ch06",
+   "bloque": "chapter_question",
+   "t_v4": 164.8,
+   "t_v5": 167.8,
+   "delta_plan": 3.0,
+   "dur_v4": 3.0,
+   "dur_v5": 3.0
+  },
+  {
+   "cap": "ch06",
+   "bloque": "black_hold",
+   "t_v4": 167.8,
+   "t_v5": 170.8,
+   "delta_plan": 3.0,
+   "dur_v4": 1.0,
+   "dur_v5": 1.0
+  },
+  {
+   "cap": "ch06",
+   "bloque": "sello",
+   "t_v4": 22.42,
+   "t_v5": 25.42,
+   "delta_plan": 3.0
+  },
+  {
+   "cap": "ch07",
+   "bloque": "callouts",
+   "pool_id": "D32",
+   "t_v4": 112.5,
+   "t_v5": 115.5,
+   "delta_plan": 3.0
+  },
+  {
+   "cap": "ch07",
+   "bloque": "chapter_question",
+   "t_v4": 180.0,
+   "t_v5": 183.0,
+   "delta_plan": 3.0,
+   "dur_v4": 3.0,
+   "dur_v5": 3.0
+  },
+  {
+   "cap": "ch07",
+   "bloque": "black_hold",
+   "t_v4": 183.0,
+   "t_v5": 186.0,
+   "delta_plan": 3.0,
+   "dur_v4": 1.0,
+   "dur_v5": 1.0
+  }
+ ],
+ "desplazamiento_a_cuadro": [
+  {
+   "cap": "ch06",
+   "bloque": "callouts",
+   "pool_id": "D128",
+   "t_v4": 124.3,
+   "t_v5": 127.3,
+   "delta_plan": 3.0,
+   "aparece_seg_v4": 123.967,
+   "aparece_seg_v5": 126.9,
+   "delta_cuadros": 88
+  },
+  {
+   "cap": "ch07",
+   "bloque": "callouts",
+   "pool_id": "D32",
+   "t_v4": 112.5,
+   "t_v5": 115.5,
+   "delta_plan": 3.0,
+   "aparece_seg_v4": 112.633,
+   "aparece_seg_v5": 115.633,
+   "delta_cuadros": 90
+  }
+ ],
+ "transiciones": {
+  "ch01": [],
+  "ch02": [
+   {
+    "escena": 1,
+    "v4": "dip (fundido a negro (1 por cap))",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 2,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 3,
+    "v4": "cut (≥ 1 corte cada 3)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 4,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 5,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 6,
+    "v4": "cut (≥ 1 corte cada 3)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 7,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 8,
+    "v4": "dissolve (default)",
+    "v5": "zoom_punch (pico)"
+   },
+   {
+    "escena": 9,
+    "v4": "cut (≥ 1 corte cada 3)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 10,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 11,
+    "v4": "flash (impacto)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 12,
+    "v4": "cut_punch (impacto sin flash disponible)",
+    "v5": "dip (cierre)"
+   }
+  ],
+  "ch03": [
+   {
+    "escena": 1,
+    "v4": "cut (ritmo rápido)",
+    "v5": "zoom_punch (pico)"
+   },
+   {
+    "escena": 2,
+    "v4": "dip (fundido a negro (1 por cap))",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 3,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 4,
+    "v4": "cut (≥ 1 corte cada 3)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 5,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 6,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 7,
+    "v4": "cut (≥ 1 corte cada 3)",
+    "v5": "dissolve (cambio de beat)"
+   },
+   {
+    "escena": 8,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 9,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 10,
+    "v4": "cut (≥ 1 corte cada 3)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 11,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 12,
+    "v4": "flash (impacto)",
+    "v5": "dip (cierre)"
+   }
+  ],
+  "ch04": [
+   {
+    "escena": 1,
+    "v4": "dissolve (default)",
+    "v5": "dissolve (salto de tiempo)"
+   },
+   {
+    "escena": 2,
+    "v4": "dip (fundido a negro (1 por cap))",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 3,
+    "v4": "cut (≥ 1 corte cada 3)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 4,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 5,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 6,
+    "v4": "cut (≥ 1 corte cada 3)",
+    "v5": "dissolve (cambio de beat)"
+   },
+   {
+    "escena": 7,
+    "v4": "dissolve (default)",
+    "v5": "zoom_punch (pico)"
+   },
+   {
+    "escena": 8,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 9,
+    "v4": "cut (≥ 1 corte cada 3)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 10,
+    "v4": "flash (impacto)",
+    "v5": "dip (cierre)"
+   }
+  ],
+  "ch05": [
+   {
+    "escena": 1,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 2,
+    "v4": "dip (fundido a negro (1 por cap))",
+    "v5": "zoom_punch (pico)"
+   },
+   {
+    "escena": 3,
+    "v4": "cut (≥ 1 corte cada 3)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 4,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 5,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 6,
+    "v4": "cut (≥ 1 corte cada 3)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 7,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 8,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 9,
+    "v4": "cut (≥ 1 corte cada 3)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 10,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 11,
+    "v4": "dissolve (default)",
+    "v5": "dissolve (cambio de beat)"
+   },
+   {
+    "escena": 12,
+    "v4": "cut (≥ 1 corte cada 3)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 13,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 14,
+    "v4": "flash (impacto)",
+    "v5": "dip (cierre)"
+   }
+  ],
+  "ch06": [
+   {
+    "escena": 1,
+    "v4": "dip (fundido a negro (1 por cap))",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 2,
+    "v4": "dissolve (default)",
+    "v5": "zoom_punch (pico)"
+   },
+   {
+    "escena": 3,
+    "v4": "cut (≥ 1 corte cada 3)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 4,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 5,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 6,
+    "v4": "cut (≥ 1 corte cada 3)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 7,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 8,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 9,
+    "v4": "cut (≥ 1 corte cada 3)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 10,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 11,
+    "v4": "flash (impacto)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 12,
+    "v4": "dissolve (default)",
+    "v5": "dissolve (cambio de beat)"
+   },
+   {
+    "escena": 13,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 14,
+    "v4": "cut (≥ 1 corte cada 3)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 15,
+    "v4": "dissolve (default)",
+    "v5": "dip (cierre)"
+   }
+  ],
+  "ch07": [
+   {
+    "escena": 1,
+    "v4": "dip (fundido a negro (1 por cap))",
+    "v5": "zoom_punch (pico)"
+   },
+   {
+    "escena": 2,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 3,
+    "v4": "cut (≥ 1 corte cada 3)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 4,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 5,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 6,
+    "v4": "cut (≥ 1 corte cada 3)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 7,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 8,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 9,
+    "v4": "cut (≥ 1 corte cada 3)",
+    "v5": "dissolve (cambio de beat)"
+   },
+   {
+    "escena": 10,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 11,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 12,
+    "v4": "cut (≥ 1 corte cada 3)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 13,
+    "v4": "dissolve (default)",
+    "v5": "cut (corte)"
+   },
+   {
+    "escena": 14,
+    "v4": "dissolve (default)",
+    "v5": "dip (cierre)"
+   }
+  ]
+ },
+ "gfx_s_v4": {
+  "ch01": 107.1,
+  "ch02": 236.6,
+  "ch03": 195.3,
+  "ch04": 200.1,
+  "ch05": 301.7,
+  "ch06": 324.1,
+  "ch07": 211.8
+ },
+ "gfx_s_v5": {
+  "ch01": 114.8,
+  "ch02": 237.3,
+  "ch03": 190.1,
+  "ch04": 199.7,
+  "ch05": 285.0,
+  "ch06": 323.8,
+  "ch07": 309.5
+ }
+}

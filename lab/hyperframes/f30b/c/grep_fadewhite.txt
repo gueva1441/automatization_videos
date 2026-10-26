@@ -1,0 +1,6 @@
+script_engine/transition_applier.py:134:# whip_pan_flash usa fadewhite (flash blanco) como aproximación pragmática:
+script_engine/transition_applier.py:138:    "whip_pan_flash":  "fadewhite",   # flash blanco (parte clave del efecto)
+script_engine/transition_applier.py:143:    "fade_to_white":   "fadewhite",
+script_engine/transition_applier.py:357:    acrossfade. Nunca pasa por el xfade de los perfiles de arte (ni fadewhite).
+fase2b.py:2427:    if negro_frames:                                            # F30b §B.1: sin fadewhite ni xfade de arte
+transition_config.py:113:        ffmpeg_filter="xfade=transition=fadewhite",

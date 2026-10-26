@@ -236,10 +236,13 @@ def _build_ass_from_words(
     hook_text: str | None = None,
     hook_duration: float = HOOK_DURATION,
     pre_pad: float = 0.0,
+    sin_comillas: bool = False,
 ) -> Path:
     """
     Variante de generate_viral_subtitles_ass() que NO transcribe — usa words pre-existentes.
     `words` es una lista de dicts {word, start, end} (formato Whisper).
+    F30b §C.3 (`sin_comillas`, solo con --gfx): el texto del .ass sale sin «, » ni … (Anton dibuja » como >>); los
+    tiempos, los cortes de renglón y el texto que fue a ElevenLabs no cambian.
     """
     # Normalizar (los timestamps guardados ya están sin merge, aplicamos por seguridad)
     words = _merge_punctuation_words([dict(w) for w in words])
@@ -309,6 +312,8 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         parts: list[str] = []
         for i, w in enumerate(chunk):
             txt = w["word"].upper().replace("{", "").replace("}", "").replace("\\", "")
+            if sin_comillas:                                    # F30b §C.3: la chascada de Anton
+                txt = txt.replace("«", "").replace("»", "").replace("…", "")
             if i == pos_in_chunk:
                 parts.append(
                     r"{\c&H0000FFFF&\fscx115\fscy115"
@@ -1037,6 +1042,7 @@ def _build_chapter_segment(
             hook_text=hook_text if apply_hook else None,
             hook_duration=HOOK_DURATION,
             pre_pad=pre_pad,
+            sin_comillas=gfx_enabled,
         )
     elif apply_hook and not no_subs:
         # Hook sin timestamps: igual generamos un ASS solo con hook
