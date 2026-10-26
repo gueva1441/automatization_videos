@@ -1,0 +1,2006 @@
+{
+ "clave": "b9737a1d429fb2d2c99d",
+ "modelo": "claude-sonnet-5-5",
+ "effort": "medium",
+ "prompt_version": "f29c-1",
+ "prompt_md5": "7dafbb964d7ff71daafc65c028834017",
+ "entrada": {
+  "cap": 1,
+  "titulo": "gancho",
+  "oraciones": [
+   {
+    "idx": 0,
+    "t0": 0.12,
+    "t1": 6.34,
+    "texto": "Hay una casa a oscuras y, dentro de la casa, una cama que ya no está quieta.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Hay",
+      "t0": 0.12,
+      "t1": 0.28
+     },
+     {
+      "k": 1,
+      "w": "una",
+      "t0": 0.34,
+      "t1": 0.52
+     },
+     {
+      "k": 2,
+      "w": "casa",
+      "t0": 0.56,
+      "t1": 0.9
+     },
+     {
+      "k": 3,
+      "w": "a",
+      "t0": 0.901,
+      "t1": 0.98
+     },
+     {
+      "k": 4,
+      "w": "oscuras",
+      "t0": 1.02,
+      "t1": 1.74
+     },
+     {
+      "k": 5,
+      "w": "y,",
+      "t0": 2.32,
+      "t1": 2.5
+     },
+     {
+      "k": 6,
+      "w": "dentro",
+      "t0": 3.08,
+      "t1": 3.42
+     },
+     {
+      "k": 7,
+      "w": "de",
+      "t0": 3.46,
+      "t1": 3.5
+     },
+     {
+      "k": 8,
+      "w": "la",
+      "t0": 3.54,
+      "t1": 3.6
+     },
+     {
+      "k": 9,
+      "w": "casa,",
+      "t0": 3.7,
+      "t1": 4.04
+     },
+     {
+      "k": 10,
+      "w": "una",
+      "t0": 4.68,
+      "t1": 4.86
+     },
+     {
+      "k": 11,
+      "w": "cama",
+      "t0": 4.9,
+      "t1": 5.12
+     },
+     {
+      "k": 12,
+      "w": "que",
+      "t0": 5.24,
+      "t1": 5.34
+     },
+     {
+      "k": 13,
+      "w": "ya",
+      "t0": 5.44,
+      "t1": 5.56
+     },
+     {
+      "k": 14,
+      "w": "no",
+      "t0": 5.62,
+      "t1": 5.68
+     },
+     {
+      "k": 15,
+      "w": "está",
+      "t0": 5.72,
+      "t1": 5.96
+     },
+     {
+      "k": 16,
+      "w": "quieta.",
+      "t0": 6.0,
+      "t1": 6.34
+     }
+    ],
+    "beat": 1
+   },
+   {
+    "idx": 1,
+    "t0": 7.26,
+    "t1": 15.32,
+    "texto": "Una niña siente que su cama empieza a correr en la oscuridad; a dos kilómetros de ahí, la presa que todos creyeron caída sigue en pie.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Una",
+      "t0": 7.26,
+      "t1": 7.38
+     },
+     {
+      "k": 1,
+      "w": "niña",
+      "t0": 7.44,
+      "t1": 7.74
+     },
+     {
+      "k": 2,
+      "w": "siente",
+      "t0": 7.78,
+      "t1": 8.08
+     },
+     {
+      "k": 3,
+      "w": "que",
+      "t0": 8.14,
+      "t1": 8.22
+     },
+     {
+      "k": 4,
+      "w": "su",
+      "t0": 8.24,
+      "t1": 8.32
+     },
+     {
+      "k": 5,
+      "w": "cama",
+      "t0": 8.42,
+      "t1": 8.62
+     },
+     {
+      "k": 6,
+      "w": "empieza",
+      "t0": 8.66,
+      "t1": 9.1
+     },
+     {
+      "k": 7,
+      "w": "a",
+      "t0": 9.12,
+      "t1": 9.14
+     },
+     {
+      "k": 8,
+      "w": "correr",
+      "t0": 9.24,
+      "t1": 9.58
+     },
+     {
+      "k": 9,
+      "w": "en",
+      "t0": 9.62,
+      "t1": 9.7
+     },
+     {
+      "k": 10,
+      "w": "la",
+      "t0": 9.74,
+      "t1": 9.78
+     },
+     {
+      "k": 11,
+      "w": "oscuridad;",
+      "t0": 9.82,
+      "t1": 10.38
+     },
+     {
+      "k": 12,
+      "w": "a",
+      "t0": 11.06,
+      "t1": 11.08
+     },
+     {
+      "k": 13,
+      "w": "dos",
+      "t0": 11.14,
+      "t1": 11.26
+     },
+     {
+      "k": 14,
+      "w": "kilómetros",
+      "t0": 11.34,
+      "t1": 11.82
+     },
+     {
+      "k": 15,
+      "w": "de",
+      "t0": 11.84,
+      "t1": 11.9
+     },
+     {
+      "k": 16,
+      "w": "ahí,",
+      "t0": 11.94,
+      "t1": 12.1
+     },
+     {
+      "k": 17,
+      "w": "la",
+      "t0": 12.58,
+      "t1": 12.64
+     },
+     {
+      "k": 18,
+      "w": "presa",
+      "t0": 12.72,
+      "t1": 12.98
+     },
+     {
+      "k": 19,
+      "w": "que",
+      "t0": 13.06,
+      "t1": 13.14
+     },
+     {
+      "k": 20,
+      "w": "todos",
+      "t0": 13.3,
+      "t1": 13.62
+     },
+     {
+      "k": 21,
+      "w": "creyeron",
+      "t0": 13.64,
+      "t1": 14.1
+     },
+     {
+      "k": 22,
+      "w": "caída",
+      "t0": 14.12,
+      "t1": 14.46
+     },
+     {
+      "k": 23,
+      "w": "sigue",
+      "t0": 14.64,
+      "t1": 14.9
+     },
+     {
+      "k": 24,
+      "w": "en",
+      "t0": 14.94,
+      "t1": 15.02
+     },
+     {
+      "k": 25,
+      "w": "pie.",
+      "t0": 15.12,
+      "t1": 15.32
+     }
+    ],
+    "beat": 1
+   },
+   {
+    "idx": 2,
+    "t0": 16.32,
+    "t1": 21.64,
+    "texto": "La niña se llama Micaela Coletti y es una niña de Longarone, un pueblo de fondo de valle.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "La",
+      "t0": 16.32,
+      "t1": 16.379
+     },
+     {
+      "k": 1,
+      "w": "niña",
+      "t0": 16.42,
+      "t1": 16.64
+     },
+     {
+      "k": 2,
+      "w": "se",
+      "t0": 16.72,
+      "t1": 16.78
+     },
+     {
+      "k": 3,
+      "w": "llama",
+      "t0": 16.82,
+      "t1": 17.06
+     },
+     {
+      "k": 4,
+      "w": "Micaela",
+      "t0": 17.16,
+      "t1": 17.62
+     },
+     {
+      "k": 5,
+      "w": "Coletti",
+      "t0": 17.7,
+      "t1": 18.14
+     },
+     {
+      "k": 6,
+      "w": "y",
+      "t0": 18.56,
+      "t1": 18.58
+     },
+     {
+      "k": 7,
+      "w": "es",
+      "t0": 18.62,
+      "t1": 18.72
+     },
+     {
+      "k": 8,
+      "w": "una",
+      "t0": 18.76,
+      "t1": 18.88
+     },
+     {
+      "k": 9,
+      "w": "niña",
+      "t0": 18.94,
+      "t1": 19.14
+     },
+     {
+      "k": 10,
+      "w": "de",
+      "t0": 19.2,
+      "t1": 19.26
+     },
+     {
+      "k": 11,
+      "w": "Longarone,",
+      "t0": 19.3,
+      "t1": 19.82
+     },
+     {
+      "k": 12,
+      "w": "un",
+      "t0": 20.24,
+      "t1": 20.38
+     },
+     {
+      "k": 13,
+      "w": "pueblo",
+      "t0": 20.42,
+      "t1": 20.7
+     },
+     {
+      "k": 14,
+      "w": "de",
+      "t0": 20.74,
+      "t1": 20.86
+     },
+     {
+      "k": 15,
+      "w": "fondo",
+      "t0": 20.92,
+      "t1": 21.2
+     },
+     {
+      "k": 16,
+      "w": "de",
+      "t0": 21.22,
+      "t1": 21.3
+     },
+     {
+      "k": 17,
+      "w": "valle.",
+      "t0": 21.34,
+      "t1": 21.64
+     }
+    ],
+    "beat": 1
+   },
+   {
+    "idx": 3,
+    "t0": 22.28,
+    "t1": 23.44,
+    "texto": "Hace un minuto dormía.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Hace",
+      "t0": 22.28,
+      "t1": 22.5
+     },
+     {
+      "k": 1,
+      "w": "un",
+      "t0": 22.52,
+      "t1": 22.58
+     },
+     {
+      "k": 2,
+      "w": "minuto",
+      "t0": 22.62,
+      "t1": 22.98
+     },
+     {
+      "k": 3,
+      "w": "dormía.",
+      "t0": 23.02,
+      "t1": 23.44
+     }
+    ],
+    "beat": 1
+   },
+   {
+    "idx": 4,
+    "t0": 24.14,
+    "t1": 29.46,
+    "texto": "Ahora algo la empuja desde atrás, y la cama ya no es una cama: es algo que la lleva.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Ahora",
+      "t0": 24.14,
+      "t1": 24.4
+     },
+     {
+      "k": 1,
+      "w": "algo",
+      "t0": 24.48,
+      "t1": 24.68
+     },
+     {
+      "k": 2,
+      "w": "la",
+      "t0": 24.7,
+      "t1": 24.76
+     },
+     {
+      "k": 3,
+      "w": "empuja",
+      "t0": 24.8,
+      "t1": 25.26
+     },
+     {
+      "k": 4,
+      "w": "desde",
+      "t0": 25.3,
+      "t1": 25.5
+     },
+     {
+      "k": 5,
+      "w": "atrás,",
+      "t0": 25.52,
+      "t1": 25.88
+     },
+     {
+      "k": 6,
+      "w": "y",
+      "t0": 26.32,
+      "t1": 26.36
+     },
+     {
+      "k": 7,
+      "w": "la",
+      "t0": 26.4,
+      "t1": 26.44
+     },
+     {
+      "k": 8,
+      "w": "cama",
+      "t0": 26.52,
+      "t1": 26.74
+     },
+     {
+      "k": 9,
+      "w": "ya",
+      "t0": 26.9,
+      "t1": 27.0
+     },
+     {
+      "k": 10,
+      "w": "no",
+      "t0": 27.06,
+      "t1": 27.18
+     },
+     {
+      "k": 11,
+      "w": "es",
+      "t0": 27.22,
+      "t1": 27.34
+     },
+     {
+      "k": 12,
+      "w": "una",
+      "t0": 27.4,
+      "t1": 27.56
+     },
+     {
+      "k": 13,
+      "w": "cama:",
+      "t0": 27.6,
+      "t1": 27.86
+     },
+     {
+      "k": 14,
+      "w": "es",
+      "t0": 28.38,
+      "t1": 28.5
+     },
+     {
+      "k": 15,
+      "w": "algo",
+      "t0": 28.58,
+      "t1": 28.86
+     },
+     {
+      "k": 16,
+      "w": "que",
+      "t0": 28.9,
+      "t1": 28.98
+     },
+     {
+      "k": 17,
+      "w": "la",
+      "t0": 29.02,
+      "t1": 29.08
+     },
+     {
+      "k": 18,
+      "w": "lleva.",
+      "t0": 29.14,
+      "t1": 29.46
+     }
+    ],
+    "beat": 1
+   },
+   {
+    "idx": 5,
+    "t0": 30.52,
+    "t1": 33.74,
+    "texto": "Años después, Coletti lo contó con las palabras que le quedaron.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Años",
+      "t0": 30.52,
+      "t1": 30.72
+     },
+     {
+      "k": 1,
+      "w": "después,",
+      "t0": 30.76,
+      "t1": 31.18
+     },
+     {
+      "k": 2,
+      "w": "Coletti",
+      "t0": 31.52,
+      "t1": 31.84
+     },
+     {
+      "k": 3,
+      "w": "lo",
+      "t0": 31.86,
+      "t1": 31.96
+     },
+     {
+      "k": 4,
+      "w": "contó",
+      "t0": 32.0,
+      "t1": 32.32
+     },
+     {
+      "k": 5,
+      "w": "con",
+      "t0": 32.34,
+      "t1": 32.439
+     },
+     {
+      "k": 6,
+      "w": "las",
+      "t0": 32.479,
+      "t1": 32.58
+     },
+     {
+      "k": 7,
+      "w": "palabras",
+      "t0": 32.68,
+      "t1": 33.06
+     },
+     {
+      "k": 8,
+      "w": "que",
+      "t0": 33.12,
+      "t1": 33.2
+     },
+     {
+      "k": 9,
+      "w": "le",
+      "t0": 33.22,
+      "t1": 33.28
+     },
+     {
+      "k": 10,
+      "w": "quedaron.",
+      "t0": 33.32,
+      "t1": 33.74
+     }
+    ],
+    "beat": 1
+   },
+   {
+    "idx": 6,
+    "t0": 34.42,
+    "t1": 43.34,
+    "texto": "«La sensación de que la cama tomaba velocidad, una fuerza espantosa que me agarraba por la espalda, me doblaba en dos, me aplastaba», dijo Coletti.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "«La",
+      "t0": 34.42,
+      "t1": 34.48
+     },
+     {
+      "k": 1,
+      "w": "sensación",
+      "t0": 34.54,
+      "t1": 35.06
+     },
+     {
+      "k": 2,
+      "w": "de",
+      "t0": 35.1,
+      "t1": 35.14
+     },
+     {
+      "k": 3,
+      "w": "que",
+      "t0": 35.22,
+      "t1": 35.28
+     },
+     {
+      "k": 4,
+      "w": "la",
+      "t0": 35.32,
+      "t1": 35.36
+     },
+     {
+      "k": 5,
+      "w": "cama",
+      "t0": 35.46,
+      "t1": 35.68
+     },
+     {
+      "k": 6,
+      "w": "tomaba",
+      "t0": 35.78,
+      "t1": 36.14
+     },
+     {
+      "k": 7,
+      "w": "velocidad,",
+      "t0": 36.16,
+      "t1": 36.74
+     },
+     {
+      "k": 8,
+      "w": "una",
+      "t0": 37.2,
+      "t1": 37.4
+     },
+     {
+      "k": 9,
+      "w": "fuerza",
+      "t0": 37.44,
+      "t1": 37.7
+     },
+     {
+      "k": 10,
+      "w": "espantosa",
+      "t0": 37.72,
+      "t1": 38.46
+     },
+     {
+      "k": 11,
+      "w": "que",
+      "t0": 38.54,
+      "t1": 38.6
+     },
+     {
+      "k": 12,
+      "w": "me",
+      "t0": 38.62,
+      "t1": 38.68
+     },
+     {
+      "k": 13,
+      "w": "agarraba",
+      "t0": 38.72,
+      "t1": 39.12
+     },
+     {
+      "k": 14,
+      "w": "por",
+      "t0": 39.16,
+      "t1": 39.26
+     },
+     {
+      "k": 15,
+      "w": "la",
+      "t0": 39.3,
+      "t1": 39.34
+     },
+     {
+      "k": 16,
+      "w": "espalda,",
+      "t0": 39.38,
+      "t1": 39.84
+     },
+     {
+      "k": 17,
+      "w": "me",
+      "t0": 40.22,
+      "t1": 40.28
+     },
+     {
+      "k": 18,
+      "w": "doblaba",
+      "t0": 40.32,
+      "t1": 40.66
+     },
+     {
+      "k": 19,
+      "w": "en",
+      "t0": 40.68,
+      "t1": 40.8
+     },
+     {
+      "k": 20,
+      "w": "dos,",
+      "t0": 40.88,
+      "t1": 41.16
+     },
+     {
+      "k": 21,
+      "w": "me",
+      "t0": 41.5,
+      "t1": 41.54
+     },
+     {
+      "k": 22,
+      "w": "aplastaba»,",
+      "t0": 41.58,
+      "t1": 42.2
+     },
+     {
+      "k": 23,
+      "w": "dijo",
+      "t0": 42.68,
+      "t1": 42.92
+     },
+     {
+      "k": 24,
+      "w": "Coletti.",
+      "t0": 42.96,
+      "t1": 43.34
+     }
+    ],
+    "beat": 1
+   },
+   {
+    "idx": 7,
+    "t0": 44.88,
+    "t1": 45.96,
+    "texto": "Se sintió de goma.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Se",
+      "t0": 44.88,
+      "t1": 44.94
+     },
+     {
+      "k": 1,
+      "w": "sintió",
+      "t0": 45.02,
+      "t1": 45.46
+     },
+     {
+      "k": 2,
+      "w": "de",
+      "t0": 45.5,
+      "t1": 45.56
+     },
+     {
+      "k": 3,
+      "w": "goma.",
+      "t0": 45.64,
+      "t1": 45.96
+     }
+    ],
+    "beat": 1
+   },
+   {
+    "idx": 8,
+    "t0": 46.58,
+    "t1": 48.88,
+    "texto": "Se ensanchaba y después se encogía.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Se",
+      "t0": 46.58,
+      "t1": 46.64
+     },
+     {
+      "k": 1,
+      "w": "ensanchaba",
+      "t0": 46.68,
+      "t1": 47.36
+     },
+     {
+      "k": 2,
+      "w": "y",
+      "t0": 47.72,
+      "t1": 47.76
+     },
+     {
+      "k": 3,
+      "w": "después",
+      "t0": 47.82,
+      "t1": 48.22
+     },
+     {
+      "k": 4,
+      "w": "se",
+      "t0": 48.26,
+      "t1": 48.32
+     },
+     {
+      "k": 5,
+      "w": "encogía.",
+      "t0": 48.34,
+      "t1": 48.88
+     }
+    ],
+    "beat": 1
+   },
+   {
+    "idx": 9,
+    "t0": 49.84,
+    "t1": 51.78,
+    "texto": "Los ojos, dos estrellas.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Los",
+      "t0": 49.84,
+      "t1": 50.0
+     },
+     {
+      "k": 1,
+      "w": "ojos,",
+      "t0": 50.08,
+      "t1": 50.46
+     },
+     {
+      "k": 2,
+      "w": "dos",
+      "t0": 50.98,
+      "t1": 51.12
+     },
+     {
+      "k": 3,
+      "w": "estrellas.",
+      "t0": 51.18,
+      "t1": 51.78
+     }
+    ],
+    "beat": 1
+   },
+   {
+    "idx": 10,
+    "t0": 52.8,
+    "t1": 64.86,
+    "texto": "Esa misma noche, Gianfranco Trevisano ve cómo «se abrió de improviso, de par en par, el portoncito de la entrada, a causa de una corriente de aire», y con el portón entra el ruido del aire que irrumpe.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Esa",
+      "t0": 52.8,
+      "t1": 52.94
+     },
+     {
+      "k": 1,
+      "w": "misma",
+      "t0": 53.0,
+      "t1": 53.22
+     },
+     {
+      "k": 2,
+      "w": "noche,",
+      "t0": 53.28,
+      "t1": 53.56
+     },
+     {
+      "k": 3,
+      "w": "Gianfranco",
+      "t0": 53.94,
+      "t1": 54.42
+     },
+     {
+      "k": 4,
+      "w": "Trevisano",
+      "t0": 54.5,
+      "t1": 55.0
+     },
+     {
+      "k": 5,
+      "w": "ve",
+      "t0": 55.14,
+      "t1": 55.2
+     },
+     {
+      "k": 6,
+      "w": "cómo",
+      "t0": 55.38,
+      "t1": 55.58
+     },
+     {
+      "k": 7,
+      "w": "«se",
+      "t0": 55.68,
+      "t1": 55.76
+     },
+     {
+      "k": 8,
+      "w": "abrió",
+      "t0": 55.82,
+      "t1": 56.06
+     },
+     {
+      "k": 9,
+      "w": "de",
+      "t0": 56.1,
+      "t1": 56.16
+     },
+     {
+      "k": 10,
+      "w": "improviso,",
+      "t0": 56.2,
+      "t1": 56.82
+     },
+     {
+      "k": 11,
+      "w": "de",
+      "t0": 57.12,
+      "t1": 57.18
+     },
+     {
+      "k": 12,
+      "w": "par",
+      "t0": 57.28,
+      "t1": 57.4
+     },
+     {
+      "k": 13,
+      "w": "en",
+      "t0": 57.42,
+      "t1": 57.52
+     },
+     {
+      "k": 14,
+      "w": "par,",
+      "t0": 57.62,
+      "t1": 57.78
+     },
+     {
+      "k": 15,
+      "w": "el",
+      "t0": 58.14,
+      "t1": 58.28
+     },
+     {
+      "k": 16,
+      "w": "portoncito",
+      "t0": 58.3,
+      "t1": 58.9
+     },
+     {
+      "k": 17,
+      "w": "de",
+      "t0": 58.94,
+      "t1": 58.98
+     },
+     {
+      "k": 18,
+      "w": "la",
+      "t0": 59.02,
+      "t1": 59.08
+     },
+     {
+      "k": 19,
+      "w": "entrada,",
+      "t0": 59.1,
+      "t1": 59.54
+     },
+     {
+      "k": 20,
+      "w": "a",
+      "t0": 59.86,
+      "t1": 59.88
+     },
+     {
+      "k": 21,
+      "w": "causa",
+      "t0": 59.94,
+      "t1": 60.22
+     },
+     {
+      "k": 22,
+      "w": "de",
+      "t0": 60.26,
+      "t1": 60.32
+     },
+     {
+      "k": 23,
+      "w": "una",
+      "t0": 60.38,
+      "t1": 60.54
+     },
+     {
+      "k": 24,
+      "w": "corriente",
+      "t0": 60.56,
+      "t1": 61.04
+     },
+     {
+      "k": 25,
+      "w": "de",
+      "t0": 61.08,
+      "t1": 61.16
+     },
+     {
+      "k": 26,
+      "w": "aire»,",
+      "t0": 61.22,
+      "t1": 61.5
+     },
+     {
+      "k": 27,
+      "w": "y",
+      "t0": 61.92,
+      "t1": 61.98
+     },
+     {
+      "k": 28,
+      "w": "con",
+      "t0": 62.0,
+      "t1": 62.1
+     },
+     {
+      "k": 29,
+      "w": "el",
+      "t0": 62.14,
+      "t1": 62.26
+     },
+     {
+      "k": 30,
+      "w": "portón",
+      "t0": 62.28,
+      "t1": 62.68
+     },
+     {
+      "k": 31,
+      "w": "entra",
+      "t0": 62.96,
+      "t1": 63.24
+     },
+     {
+      "k": 32,
+      "w": "el",
+      "t0": 63.28,
+      "t1": 63.34
+     },
+     {
+      "k": 33,
+      "w": "ruido",
+      "t0": 63.48,
+      "t1": 63.76
+     },
+     {
+      "k": 34,
+      "w": "del",
+      "t0": 63.8,
+      "t1": 63.92
+     },
+     {
+      "k": 35,
+      "w": "aire",
+      "t0": 63.98,
+      "t1": 64.2
+     },
+     {
+      "k": 36,
+      "w": "que",
+      "t0": 64.28,
+      "t1": 64.36
+     },
+     {
+      "k": 37,
+      "w": "irrumpe.",
+      "t0": 64.379,
+      "t1": 64.86
+     }
+    ],
+    "beat": 1
+   },
+   {
+    "idx": 11,
+    "t0": 66.32,
+    "t1": 67.64,
+    "texto": "Enseguida se va la luz.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Enseguida",
+      "t0": 66.32,
+      "t1": 66.94
+     },
+     {
+      "k": 1,
+      "w": "se",
+      "t0": 66.98,
+      "t1": 67.08
+     },
+     {
+      "k": 2,
+      "w": "va",
+      "t0": 67.12,
+      "t1": 67.18
+     },
+     {
+      "k": 3,
+      "w": "la",
+      "t0": 67.24,
+      "t1": 67.3
+     },
+     {
+      "k": 4,
+      "w": "luz.",
+      "t0": 67.36,
+      "t1": 67.64
+     }
+    ],
+    "beat": 1
+   },
+   {
+    "idx": 12,
+    "t0": 68.38,
+    "t1": 72.48,
+    "texto": "Trevisano piensa lo que va a pensar medio valle: que el dique cedió.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Trevisano",
+      "t0": 68.38,
+      "t1": 68.88
+     },
+     {
+      "k": 1,
+      "w": "piensa",
+      "t0": 68.92,
+      "t1": 69.22
+     },
+     {
+      "k": 2,
+      "w": "lo",
+      "t0": 69.26,
+      "t1": 69.3
+     },
+     {
+      "k": 3,
+      "w": "que",
+      "t0": 69.36,
+      "t1": 69.46
+     },
+     {
+      "k": 4,
+      "w": "va",
+      "t0": 69.48,
+      "t1": 69.56
+     },
+     {
+      "k": 5,
+      "w": "a",
+      "t0": 69.58,
+      "t1": 69.62
+     },
+     {
+      "k": 6,
+      "w": "pensar",
+      "t0": 69.7,
+      "t1": 70.08
+     },
+     {
+      "k": 7,
+      "w": "medio",
+      "t0": 70.18,
+      "t1": 70.46
+     },
+     {
+      "k": 8,
+      "w": "valle:",
+      "t0": 70.48,
+      "t1": 70.78
+     },
+     {
+      "k": 9,
+      "w": "que",
+      "t0": 71.36,
+      "t1": 71.44
+     },
+     {
+      "k": 10,
+      "w": "el",
+      "t0": 71.5,
+      "t1": 71.68
+     },
+     {
+      "k": 11,
+      "w": "dique",
+      "t0": 71.72,
+      "t1": 72.04
+     },
+     {
+      "k": 12,
+      "w": "cedió.",
+      "t0": 72.1,
+      "t1": 72.48
+     }
+    ],
+    "beat": 1
+   },
+   {
+    "idx": 13,
+    "t0": 73.54,
+    "t1": 77.86,
+    "texto": "Longarone, Italia, nueve de octubre de mil novecientos sesenta y tres.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Longarone,",
+      "t0": 73.54,
+      "t1": 74.1
+     },
+     {
+      "k": 1,
+      "w": "Italia,",
+      "t0": 74.4,
+      "t1": 74.84
+     },
+     {
+      "k": 2,
+      "w": "nueve",
+      "t0": 75.28,
+      "t1": 75.5
+     },
+     {
+      "k": 3,
+      "w": "de",
+      "t0": 75.54,
+      "t1": 75.6
+     },
+     {
+      "k": 4,
+      "w": "octubre",
+      "t0": 75.64,
+      "t1": 76.06
+     },
+     {
+      "k": 5,
+      "w": "de",
+      "t0": 76.1,
+      "t1": 76.2
+     },
+     {
+      "k": 6,
+      "w": "mil",
+      "t0": 76.26,
+      "t1": 76.4
+     },
+     {
+      "k": 7,
+      "w": "novecientos",
+      "t0": 76.46,
+      "t1": 77.06
+     },
+     {
+      "k": 8,
+      "w": "sesenta",
+      "t0": 77.08,
+      "t1": 77.44
+     },
+     {
+      "k": 9,
+      "w": "y",
+      "t0": 77.48,
+      "t1": 77.5
+     },
+     {
+      "k": 10,
+      "w": "tres.",
+      "t0": 77.58,
+      "t1": 77.86
+     }
+    ],
+    "beat": 1
+   },
+   {
+    "idx": 14,
+    "t0": 78.86,
+    "t1": 80.66,
+    "texto": "Pero el dique no cedió esa noche.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Pero",
+      "t0": 78.86,
+      "t1": 79.0
+     },
+     {
+      "k": 1,
+      "w": "el",
+      "t0": 79.04,
+      "t1": 79.1
+     },
+     {
+      "k": 2,
+      "w": "dique",
+      "t0": 79.18,
+      "t1": 79.4
+     },
+     {
+      "k": 3,
+      "w": "no",
+      "t0": 79.56,
+      "t1": 79.64
+     },
+     {
+      "k": 4,
+      "w": "cedió",
+      "t0": 79.72,
+      "t1": 80.08
+     },
+     {
+      "k": 5,
+      "w": "esa",
+      "t0": 80.12,
+      "t1": 80.28
+     },
+     {
+      "k": 6,
+      "w": "noche.",
+      "t0": 80.34,
+      "t1": 80.66
+     }
+    ],
+    "beat": 1
+   },
+   {
+    "idx": 15,
+    "t0": 81.2,
+    "t1": 84.04,
+    "texto": "Lo que llegó a la cama de Micaela vino por encima de él.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Lo",
+      "t0": 81.2,
+      "t1": 81.24
+     },
+     {
+      "k": 1,
+      "w": "que",
+      "t0": 81.3,
+      "t1": 81.38
+     },
+     {
+      "k": 2,
+      "w": "llegó",
+      "t0": 81.42,
+      "t1": 81.62
+     },
+     {
+      "k": 3,
+      "w": "a",
+      "t0": 81.66,
+      "t1": 81.7
+     },
+     {
+      "k": 4,
+      "w": "la",
+      "t0": 81.74,
+      "t1": 81.78
+     },
+     {
+      "k": 5,
+      "w": "cama",
+      "t0": 81.86,
+      "t1": 82.06
+     },
+     {
+      "k": 6,
+      "w": "de",
+      "t0": 82.1,
+      "t1": 82.16
+     },
+     {
+      "k": 7,
+      "w": "Micaela",
+      "t0": 82.2,
+      "t1": 82.66
+     },
+     {
+      "k": 8,
+      "w": "vino",
+      "t0": 82.82,
+      "t1": 83.08
+     },
+     {
+      "k": 9,
+      "w": "por",
+      "t0": 83.12,
+      "t1": 83.2
+     },
+     {
+      "k": 10,
+      "w": "encima",
+      "t0": 83.24,
+      "t1": 83.68
+     },
+     {
+      "k": 11,
+      "w": "de",
+      "t0": 83.72,
+      "t1": 83.82
+     },
+     {
+      "k": 12,
+      "w": "él.",
+      "t0": 83.9,
+      "t1": 84.04
+     }
+    ],
+    "beat": 1
+   },
+   {
+    "idx": 16,
+    "t0": 84.6,
+    "t1": 94.48,
+    "texto": "Y para entender cómo una ola pasa por encima de una pared que no se rompe, hay que volver veinte años atrás, a un papel firmado cuando esa cama todavía no existía.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Y",
+      "t0": 84.6,
+      "t1": 84.68
+     },
+     {
+      "k": 1,
+      "w": "para",
+      "t0": 84.7,
+      "t1": 84.82
+     },
+     {
+      "k": 2,
+      "w": "entender",
+      "t0": 84.84,
+      "t1": 85.34
+     },
+     {
+      "k": 3,
+      "w": "cómo",
+      "t0": 85.4,
+      "t1": 85.64
+     },
+     {
+      "k": 4,
+      "w": "una",
+      "t0": 85.7,
+      "t1": 85.9
+     },
+     {
+      "k": 5,
+      "w": "ola",
+      "t0": 85.96,
+      "t1": 86.12
+     },
+     {
+      "k": 6,
+      "w": "pasa",
+      "t0": 86.24,
+      "t1": 86.52
+     },
+     {
+      "k": 7,
+      "w": "por",
+      "t0": 86.54,
+      "t1": 86.62
+     },
+     {
+      "k": 8,
+      "w": "encima",
+      "t0": 86.66,
+      "t1": 87.06
+     },
+     {
+      "k": 9,
+      "w": "de",
+      "t0": 87.1,
+      "t1": 87.18
+     },
+     {
+      "k": 10,
+      "w": "una",
+      "t0": 87.24,
+      "t1": 87.34
+     },
+     {
+      "k": 11,
+      "w": "pared",
+      "t0": 87.42,
+      "t1": 87.68
+     },
+     {
+      "k": 12,
+      "w": "que",
+      "t0": 87.76,
+      "t1": 87.84
+     },
+     {
+      "k": 13,
+      "w": "no",
+      "t0": 87.88,
+      "t1": 87.94
+     },
+     {
+      "k": 14,
+      "w": "se",
+      "t0": 88.02,
+      "t1": 88.14
+     },
+     {
+      "k": 15,
+      "w": "rompe,",
+      "t0": 88.18,
+      "t1": 88.5
+     },
+     {
+      "k": 16,
+      "w": "hay",
+      "t0": 88.94,
+      "t1": 89.06
+     },
+     {
+      "k": 17,
+      "w": "que",
+      "t0": 89.1,
+      "t1": 89.18
+     },
+     {
+      "k": 18,
+      "w": "volver",
+      "t0": 89.22,
+      "t1": 89.64
+     },
+     {
+      "k": 19,
+      "w": "veinte",
+      "t0": 89.68,
+      "t1": 90.04
+     },
+     {
+      "k": 20,
+      "w": "años",
+      "t0": 90.14,
+      "t1": 90.38
+     },
+     {
+      "k": 21,
+      "w": "atrás,",
+      "t0": 90.42,
+      "t1": 90.8
+     },
+     {
+      "k": 22,
+      "w": "a",
+      "t0": 91.18,
+      "t1": 91.24
+     },
+     {
+      "k": 23,
+      "w": "un",
+      "t0": 91.28,
+      "t1": 91.38
+     },
+     {
+      "k": 24,
+      "w": "papel",
+      "t0": 91.42,
+      "t1": 91.66
+     },
+     {
+      "k": 25,
+      "w": "firmado",
+      "t0": 91.74,
+      "t1": 92.22
+     },
+     {
+      "k": 26,
+      "w": "cuando",
+      "t0": 92.26,
+      "t1": 92.52
+     },
+     {
+      "k": 27,
+      "w": "esa",
+      "t0": 92.56,
+      "t1": 92.78
+     },
+     {
+      "k": 28,
+      "w": "cama",
+      "t0": 92.82,
+      "t1": 93.04
+     },
+     {
+      "k": 29,
+      "w": "todavía",
+      "t0": 93.2,
+      "t1": 93.66
+     },
+     {
+      "k": 30,
+      "w": "no",
+      "t0": 93.74,
+      "t1": 93.84
+     },
+     {
+      "k": 31,
+      "w": "existía.",
+      "t0": 93.88,
+      "t1": 94.48
+     }
+    ],
+    "beat": 1
+   }
+  ],
+  "beats": [
+   {
+    "n": 1,
+    "funcion": "gancho",
+    "t0": 0.12,
+    "t1": 94.48,
+    "cierre": "El dique no cedió esa noche. Lo que llegó a la cama de Micaela vino por encima de él.",
+    "dato_central": "Q49",
+    "datos_apoyo": [
+     "Q19",
+     "D131"
+    ]
+   }
+  ],
+  "items": [
+   {
+    "id": "Q49",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     1
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "La sensación de que la cama cogía velocidad, una fuerza espantosa que me cogía por la espalda, me doblaba en dos, me aplastaba; la sensación de ser de goma, de ensancharme y luego encogerme, los ojos convertidos en dos estrellas;",
+    "fuente": "Il disastro del Vajont non fu una calamità naturale, 2023",
+    "autor": "Micaela Coletti"
+   },
+   {
+    "id": "Q19",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     1
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "Antes de que se fuera la luz, se abrió de improviso, de par en par, el portoncito de la entrada, a causa de una corriente de aire, acompañada del ruido del aire que irrumpía [...] Inmediatamente pensé que había cedido el dique.",
+    "fuente": "La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005",
+    "autor": "Gianfranco Trevisano"
+   },
+   {
+    "id": "D131",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     1
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "La masa de agua cayó al valle tras un salto de más de 260 metros.",
+    "fuente": "Il disastro del Vajont non fu una calamità naturale, 2023",
+    "autor": ""
+   }
+  ],
+  "ya_mostrado": [],
+  "pico": {
+   "beat": 1,
+   "funcion": "gancho",
+   "sentence_idx": 6,
+   "frase": "«La sensación de que la cama tomaba velocidad, una fuerza espantosa que me agarraba por la espalda, me doblaba en dos, me aplastaba», dijo Coletti.",
+   "t": 34.42,
+   "dato": "Q49",
+   "fuente": "escaleta (beat más intenso del cap)"
+  },
+  "voz_video": [
+   "Hay una casa a oscuras y, dentro de la casa, una cama que ya no está quieta.",
+   "Una niña siente que su cama empieza a correr en la oscuridad; a dos kilómetros de ahí, la presa que todos creyeron caída sigue en pie.",
+   "La niña se llama Micaela Coletti y es una niña de Longarone, un pueblo de fondo de valle.",
+   "Hace un minuto dormía.",
+   "Ahora algo la empuja desde atrás, y la cama ya no es una cama: es algo que la lleva.",
+   "Años después, Coletti lo contó con las palabras que le quedaron.",
+   "«La sensación de que la cama tomaba velocidad, una fuerza espantosa que me agarraba por la espalda, me doblaba en dos, me aplastaba», dijo Coletti.",
+   "Se sintió de goma.",
+   "Se ensanchaba y después se encogía.",
+   "Los ojos, dos estrellas.",
+   "Esa misma noche, Gianfranco Trevisano ve cómo «se abrió de improviso, de par en par, el portoncito de la entrada, a causa de una corriente de aire», y con el portón entra el ruido del aire que irrumpe.",
+   "Enseguida se va la luz.",
+   "Trevisano piensa lo que va a pensar medio valle: que el dique cedió.",
+   "Longarone, Italia, nueve de octubre de mil novecientos sesenta y tres.",
+   "Pero el dique no cedió esa noche.",
+   "Lo que llegó a la cama de Micaela vino por encima de él.",
+   "Y para entender cómo una ola pasa por encima de una pared que no se rompe, hay que volver veinte años atrás, a un papel firmado cuando esa cama todavía no existía.",
+   "Longarone está en el fondo del valle del Piave.",
+   "El río pasa por delante del pueblo y, enfrente, desde una garganta lateral, baja un torrente que se llama Vajont y que desemboca en el Piave justo frente a Longarone y Castellavazzo.",
+   "En mil novecientos cuarenta y tres se aprobó el proyecto de cerrar esa garganta con una presa, y empezó la compra de terrenos en Erto y Casso, los pueblos de arriba, los que iban a quedar al borde del lago.",
+   "La empresa era SADE.",
+   "El ingeniero que dibujó la obra se llamaba Carlo Semenza, y la pensó como un arco delgado de doble curvatura: una pared curva, fina para su tamaño, apoyada en las dos laderas de la garganta.",
+   "Cuando empezaron las obras, unos cuatrocientos hombres colgados de andamios la fueron levantando hasta tapar el cielo de la garganta.",
+   "Abajo, en Longarone, la vida siguió con el Piave delante.",
+   "Longarone no estaba sobre el embalse.",
+   "Estaba delante de él.",
+   "Y la montaña que cerraba el lago tenía un apodo.",
+   "La gente de la zona llamaba al monte Toc «la montaña que camina», y lo decían los residentes desde antes de que nadie fuera a medirla.",
+   "En la década del cincuenta, el geólogo Leopold Müller detectó en el Toc un gran desmoronamiento.",
+   "Y hubo otro hombre que caminó esa ladera con un martillo en la mano y otra idea en la cabeza: Edoardo Semenza, geólogo, hijo de Carlo Semenza, el que había dibujado la presa.",
+   "Edoardo buscaba la cicatriz de un deslizamiento antiguo.",
+   "Según una reconstrucción geológica posterior, planteó que ese deslizamiento viejo podía reactivarse cuando el embalse se llenara.",
+   "Müller no lo creía: no creía en el deslizamiento antiguo ni en una capa de arcilla capaz de causarlo.",
+   "El hijo del proyectista decía que la montaña ya se había movido una vez.",
+   "El experto decía que no.",
+   "En marzo de mil novecientos cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero.",
+   "El embalse se llamaba Pontesei.",
+   "Ese marzo, una masa de roca entró al agua y levantó una ola de veinte metros.",
+   "Un trabajador murió.",
+   "Después de Pontesei, SADE encargó nuevas pericias sobre el Toc, y esas pericias identificaron una paleofrana: un deslizamiento antiguo, la cicatriz que Edoardo Semenza había estado buscando.",
+   "El informe sobre esos riesgos lo escribió Giorgio Dal Piaz en mil novecientos sesenta.",
+   "Dal Piaz había dicho alguna vez sobre la obra: «Si el proyecto original me parecía osado, ahora lo considero una completa locura».",
+   "Su informe, en cambio, le restó peso a lo que señalaba Edoardo Semenza.",
+   "Una ola de veinte metros.",
+   "Un hombre muerto.",
+   "Una paleofrana con nombre en un papel.",
+   "El informe oficial dijo que no era grave.",
+   "Una periodista de provincia escribió lo contrario.",
+   "Se llamaba Tina Merlin y escribía en L'Unità.",
+   "Hacia mil novecientos cincuenta y nueve publicó su primera denuncia: el Toc podía desprenderse sobre el lago.",
+   "L'Unità fue el único diario nacional que siguió lo que pasaba en el Vajont antes del desastre, y lo siguió a través de ella.",
+   "El diario que se leía en la zona era Il Gazzettino, y una parte de Il Gazzettino pertenecía a SADE, a FIAT, a Volpi y a Cini.",
+   "En febrero de mil novecientos sesenta empezó el llenado, y el agua fue subiendo día a día por la garganta.",
+   "Ese año hubo un pequeño desmoronamiento en el Toc, y después del desmoronamiento los habitantes vieron algo nuevo en la ladera: una fisura de casi dos kilómetros de largo, corriendo por la montaña como una costura abierta.",
+   "Abajo, el lago seguía subiendo.",
+   "El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta.",
+   "El cuatro de noviembre de mil novecientos sesenta el embalse estaba a seiscientos cincuenta metros sobre el nivel del mar.",
+   "Ese día, durante las pruebas, una masa de roca se desprendió del Toc y cayó al lago nuevo, y el agua se levantó.",
+   "Unos setecientos mil metros cúbicos de roca; otras fuentes hablan de más, y nadie coincide en la altura de la ola que levantó.",
+   "Ese mismo mes, Tina Merlin y L'Unità fueron a juicio.",
+   "La audiencia duró seis horas.",
+   "Salieron absueltos los dos.",
+   "En febrero de mil novecientos sesenta y uno, Merlin volvió a su máquina de escribir y publicó otra advertencia: la amenaza sobre Erto seguía ahí.",
+   "Absuelta en seis horas.",
+   "La empresa, mientras tanto, mandó construir una maqueta.",
+   "En un galpón de la Universidad de Padua se armó el valle en pequeño: la garganta, el lago, la ladera del Toc, una presa de juguete.",
+   "Para representar la roca compacta de la montaña usaron grava.",
+   "En el laboratorio lo explicaron con una frase: «Nos han dicho que lo hagamos así».",
+   "La recomendación que salió de ahí fue no pasar de los setecientos metros sobre el nivel del mar.",
+   "La cota autorizada fue de setecientos quince.",
+   "En noviembre de mil novecientos sesenta y dos, la ladera ya se desplazaba más de un centímetro y medio por día.",
+   "En mayo de mil novecientos sesenta y tres, SADE subió el nivel del agua: tenía que entregar la presa como una obra que funcionaba para cerrar la operación con ENEL.",
+   "En julio se completó el cambio de propiedad, con la prueba de llenado todavía en marcha.",
+   "La presa cambió de dueño con el agua todavía subiendo.",
+   "La montaña no se enteró del contrato.",
+   "En junio de mil novecientos sesenta y tres el agua llegó a los setecientos metros, y la ladera se movía medio centímetro por día.",
+   "Un informe dice que el veintiséis de septiembre el embalse volvió al nivel de seguridad.",
+   "Desde el dos de octubre, los avisos se multiplicaron: sacudidas, estruendos que bajaban de la ladera de noche, grietas nuevas en la tierra de Erto, movimientos en la superficie.",
+   "Las autoridades cerraron algunos caminos con barreras y desalojaron algunas casas de Erto y Casso.",
+   "Abajo, en Longarone, las ventanas se encendían como cualquier noche.",
+   "En Erto y en Longarone la gente se repetía una frase que servía para dormir: «Si no avisan, será que no es grave».",
+   "Los que la decían miraban la pared curva.",
+   "De la montaña que caminaba hablaban los de arriba, los que tenían las grietas en el patio.",
+   "«Estábamos esperando que la presa se cayera...», contó después un sobreviviente.",
+   "Lo que temían era la pared.",
+   "De la ola no hablaba nadie.",
+   "La respuesta que llegó desde un ministerio fue: «No se preocupe, todo está bajo control».",
+   "Mientras tanto, en la ladera, los topógrafos de la empresa seguían midiendo.",
+   "El nueve de octubre a la mañana, el director técnico de la empresa se sentó a escribir una carta.",
+   "El director técnico se llamaba Alberico Biadene.",
+   "La carta iba dirigida a Pancini, que estaba de vacaciones: Biadene le pedía que volviera y le contaba lo que el topógrafo Rossi había medido, que la ladera se movía más.",
+   "La carta ya estaba firmada cuando sonó el teléfono.",
+   "Biadene volvió al papel y agregó una posdata: Rossi lo llamaba en ese momento, y «las mediciones de esta mañana resultan todavía mayores que las de ayer, ¡alcanzando un aumento del 50%!!».",
+   "De veinte a treinta centímetros.",
+   "Y algo más: pequeñas piedras caían en el borde oeste del deslizamiento, hacia la presa.",
+   "Dos signos de exclamación, de puño y letra del director técnico.",
+   "A las seis de la tarde se cerró la jornada.",
+   "En la central quedaron un aparejador y su equipo.",
+   "Esa noche nadie dio la alarma que habría puesto en marcha la evacuación masiva de los pueblos expuestos.",
+   "Las barreras seguían en los caminos de Erto.",
+   "En Longarone, abajo, era una noche como cualquiera.",
+   "A las diez y media de la noche, el párroco de Casso escuchó algo y abrió la ventana.",
+   "Carlo Onorini, el párroco de Casso, lo contó así: «escucho el ruido de la avalancha, abro la ventana y este ruido aumentaba en forma extraordinaria, al mismo tiempo vi un resplandor».",
+   "Son las diez y treinta y nueve.",
+   "El Toc entra al lago.",
+   "La ladera entera, la que caminaba, la de la fisura, se desploma de una vez dentro del embalse.",
+   "El agua no tiene a dónde ir, salvo hacia arriba.",
+   "Se levanta, pasa por encima de la presa, por encima de la pared que no se rompe, y cae en la garganta hacia el Piave.",
+   "Benito Castellano oye un ruido «como de un trueno de verano multiplicado cien veces, muy lóbrego, que duró tres o cuatro minutos».",
+   "Después, un estruendo con un resplandor, y enseguida un ruido como el que hace una formación de reactores al pasar.",
+   "En el bar Faè, Germano Accamillesi mira televisión cuando «se interrumpió la iluminación del televisor y casi al mismo tiempo (treinta-cincuenta segundos) se empezaron a sentir fuertes sacudidas telúricas».",
+   "Después de las sacudidas se apaga también la luz del bar.",
+   "Nadie en ese bar sabe todavía qué viene bajando por la garganta.",
+   "La ola baja hacia el Piave.",
+   "Longarone sigue con las luces encendidas.",
+   "Cuatro minutos después del desprendimiento, el agua llega al pueblo, a las calles, a las casas, a la cama donde duerme Micaela Coletti.",
+   "Nadie avisó.",
+   "Micaela siente que la cama toma velocidad y que una fuerza la agarra por la espalda.",
+   "La ola la arrastra al menos cuatrocientos metros desde su casa.",
+   "Ahí la encuentran.",
+   "Y está viva.",
+   "Cuando amaneció, la presa seguía ahí.",
+   "Longarone ya no.",
+   "Donde había calles hay fango y piedras.",
+   "Un hombre está parado en el medio y no sabe hacia dónde mirar.",
+   "«Conocía Longarone en cada rincón, ahora no sé dónde estoy», dijo uno de los sobrevivientes.",
+   "Entre los muertos está Guglielmo Celso, el alcalde socialista de Longarone.",
+   "Nadie creó un organismo central que informara oficialmente cómo avanzaba el rescate.",
+   "Desde el aire llegó el ruido de los rotores.",
+   "La fuerza estadounidense despachó seis helicópteros.",
+   "Un hombre de una aldea de la zona lo recuerda: «El primer rescatista que vi llegó en un helicóptero del ejército de Estados Unidos».",
+   "Tres de esos helicópteros, cuenta, evacuaron a toda la gente de su pueblo, y por eso un día trágico le quedó también con algo de alegría.",
+   "Tres días después llegó el presidente del Consejo.",
+   "La gente ya sabía qué pedirle.",
+   "El presidente del Consejo caminó entre los escombros con un abrigo oscuro.",
+   "De entre lo que quedaba de Longarone le salió al paso un grito, el de los pobladores: «Presidente, queremos justicia».",
+   "En los kioscos, esos días, había dos verdades sobre la misma noche.",
+   "Dino Buzzati escribió: «Una piedra ha caído en un vaso lleno de agua, y el agua se ha derramado sobre el mantel.",
+   "Eso es todo».",
+   "Solo que el vaso tenía cientos de metros de alto, la piedra era grande como una montaña y abajo, en el mantel, había miles de seres humanos que no podían defenderse.",
+   "Giorgio Bocca escribió que una desgracia tan limpia, tan ineluctable, tan absoluta, llevaba más a la melancolía que al dolor: «No había nada que hacer, no hay remordimientos, no hay culpables».",
+   "Aniello Coppola leyó en eso el intento de absolver antes de indagar, de anular cualquier investigación de antemano, y respondió: «Hay que hacer un proceso.",
+   "Hay que encontrar a los responsables.",
+   "Y deben pagar».",
+   "Una primera comisión de expertos trabajó dieciocho meses y concluyó que el desastre era imprevisible.",
+   "Pasaron más de cuatro años hasta que, el veinte de febrero de mil novecientos sesenta y ocho, se depositó la resolución de remisión a juicio.",
+   "El juez no aceptó la palabra imprevisible.",
+   "Pidió otra pericia, y después, nombres.",
+   "El juicio empezó el veintinueve de noviembre de mil novecientos sesenta y ocho.",
+   "El día anterior, Pancini, el ingeniero al que Biadene le había pedido volver de vacaciones, se quitó la vida.",
+   "En el banquillo se sentaron ocho acusados.",
+   "En marzo de mil novecientos setenta y uno, la Casación reconoció la culpabilidad de Biadene y de Sensidoni.",
+   "ENEL ofreció diez mil millones de liras de la época como indemnización.",
+   "Casi todos aceptaron; la última transacción se firmó en el año dos mil.",
+   "Alguien que siguió aquel proceso lo resumió sin levantar la voz: Vajont no fue la excepción al sistema, sino su confirmación; «había un riesgo, previsible y previsto».",
+   "Micaela Coletti preside el comité de sobrevivientes del Vajont.",
+   "La niña a la que la ola arrastró sobre una cama se sienta ahora frente a una mesa con el cartel del comité, y lo que tiene delante es una sentencia.",
+   "La sentencia dice inundación agravada por la previsión del evento.",
+   "Nombra el delito.",
+   "No dice quién, entre la posdata de la mañana y las diez y treinta y nueve de la noche, decidió que Longarone no debía saber.",
+   "¿Quién decidió que Micaela siguiera durmiendo?"
+  ]
+ },
+ "intentos": [
+  {
+   "pedido": "CAPÍTULO 1 — gancho\n\nNARRACIÓN (oración por oración; cada palabra con su índice):\n[0] 0.1–6.3 · beat 1 · 0:Hay 1:una 2:casa 3:a 4:oscuras 5:y, 6:dentro 7:de 8:la 9:casa, 10:una 11:cama 12:que 13:ya 14:no 15:está 16:quieta.\n[1] 7.3–15.3 · beat 1 · 0:Una 1:niña 2:siente 3:que 4:su 5:cama 6:empieza 7:a 8:correr 9:en 10:la 11:oscuridad; 12:a 13:dos 14:kilómetros 15:de 16:ahí, 17:la 18:presa 19:que 20:todos 21:creyeron 22:caída 23:sigue 24:en 25:pie.\n[2] 16.3–21.6 · beat 1 · 0:La 1:niña 2:se 3:llama 4:Micaela 5:Coletti 6:y 7:es 8:una 9:niña 10:de 11:Longarone, 12:un 13:pueblo 14:de 15:fondo 16:de 17:valle.\n[3] 22.3–23.4 · beat 1 · 0:Hace 1:un 2:minuto 3:dormía.\n[4] 24.1–29.5 · beat 1 · 0:Ahora 1:algo 2:la 3:empuja 4:desde 5:atrás, 6:y 7:la 8:cama 9:ya 10:no 11:es 12:una 13:cama: 14:es 15:algo 16:que 17:la 18:lleva.\n[5] 30.5–33.7 · beat 1 · 0:Años 1:después, 2:Coletti 3:lo 4:contó 5:con 6:las 7:palabras 8:que 9:le 10:quedaron.\n[6] 34.4–43.3 · beat 1 · 0:«La 1:sensación 2:de 3:que 4:la 5:cama 6:tomaba 7:velocidad, 8:una 9:fuerza 10:espantosa 11:que 12:me 13:agarraba 14:por 15:la 16:espalda, 17:me 18:doblaba 19:en 20:dos, 21:me 22:aplastaba», 23:dijo 24:Coletti.\n[7] 44.9–46.0 · beat 1 · 0:Se 1:sintió 2:de 3:goma.\n[8] 46.6–48.9 · beat 1 · 0:Se 1:ensanchaba 2:y 3:después 4:se 5:encogía.\n[9] 49.8–51.8 · beat 1 · 0:Los 1:ojos, 2:dos 3:estrellas.\n[10] 52.8–64.9 · beat 1 · 0:Esa 1:misma 2:noche, 3:Gianfranco 4:Trevisano 5:ve 6:cómo 7:«se 8:abrió 9:de 10:improviso, 11:de 12:par 13:en 14:par, 15:el 16:portoncito 17:de 18:la 19:entrada, 20:a 21:causa 22:de 23:una 24:corriente 25:de 26:aire», 27:y 28:con 29:el 30:portón 31:entra 32:el 33:ruido 34:del 35:aire 36:que 37:irrumpe.\n[11] 66.3–67.6 · beat 1 · 0:Enseguida 1:se 2:va 3:la 4:luz.\n[12] 68.4–72.5 · beat 1 · 0:Trevisano 1:piensa 2:lo 3:que 4:va 5:a 6:pensar 7:medio 8:valle: 9:que 10:el 11:dique 12:cedió.\n[13] 73.5–77.9 · beat 1 · 0:Longarone, 1:Italia, 2:nueve 3:de 4:octubre 5:de 6:mil 7:novecientos 8:sesenta 9:y 10:tres.\n[14] 78.9–80.7 · beat 1 · 0:Pero 1:el 2:dique 3:no 4:cedió 5:esa 6:noche.\n[15] 81.2–84.0 · beat 1 · 0:Lo 1:que 2:llegó 3:a 4:la 5:cama 6:de 7:Micaela 8:vino 9:por 10:encima 11:de 12:él.\n[16] 84.6–94.5 · beat 1 · 0:Y 1:para 2:entender 3:cómo 4:una 5:ola 6:pasa 7:por 8:encima 9:de 10:una 11:pared 12:que 13:no 14:se 15:rompe, 16:hay 17:que 18:volver 19:veinte 20:años 21:atrás, 22:a 23:un 24:papel 25:firmado 26:cuando 27:esa 28:cama 29:todavía 30:no 31:existía.\n\nBEATS DEL CAPÍTULO (n, función, ventana en segundos, cierre); el pico es el beat 1:\n- 1 · gancho · 0.1–94.5 s · cierre: «El dique no cedió esa noche. Lo que llegó a la cama de Micaela vino por encima de él.»\n\nDATOS DISPONIBLES (solo estos; cada uno con su texto fuente):\n- Q49 · tipo Q · a_pantalla: no · por_que: — · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 (autor: Micaela Coletti) · texto fuente: «La sensación de que la cama cogía velocidad, una fuerza espantosa que me cogía por la espalda, me doblaba en dos, me aplastaba; la sensación de ser de goma, de ensancharme y luego encogerme, los ojos convertidos en dos estrellas;»\n- Q19 · tipo Q · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 (autor: Gianfranco Trevisano) · texto fuente: «Antes de que se fuera la luz, se abrió de improviso, de par en par, el portoncito de la entrada, a causa de una corriente de aire, acompañada del ruido del aire que irrumpía [...] Inmediatamente pensé que había cedido el dique.»\n- D131 · tipo D · a_pantalla: no · por_que: — · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 · texto fuente: «La masa de agua cayó al valle tras un salto de más de 260 metros.»\n\nYA MOSTRADO EN CAPÍTULOS ANTERIORES (no repetir):\n(nada)\n\nDevolvé:\n{\"bloques\": [{\"sentence_idx\": int, \"word_idx\": int, \"beat\": int, \"rank\": int, \"tipo\": \"cifra|hecho|documento|cita|persona|lupa\", \"etiqueta\": str, \"texto\": str, \"pool_id\": str, \"aporta\": str}], \"descartados\": [{\"pool_id\": str, \"motivo\": str}]}",
+   "respuesta": {
+    "bloques": [],
+    "descartados": [
+     {
+      "pool_id": "Q49",
+      "motivo": "La narración ya lee esta cita casi completa en las oraciones 6-9. Mostrarla en pantalla repetiría lo que dice la narración; lo único que agrega es el fragmento «los ojos convertidos en dos estrellas», que la narración también dice."
+     },
+     {
+      "pool_id": "Q19",
+      "motivo": "La narración ya cuenta esa escena en las oraciones 10-12 con las mismas palabras de Trevisano. Lo único nuevo sería «Inmediatamente pensé que había cedido el dique», y eso lo dice la oración 12, así que no cumple (a)."
+     },
+     {
+      "pool_id": "D131",
+      "motivo": "Los más de 260 metros de salto del agua adelantan cómo pasó la ola por encima del dique, y eso la narración lo explica después del gancho. En la oración 15 (la ola que pasa por encima) no cumple (c). Además, en el beat 1 solo se permite un texto como máximo, y en el gancho no hay ningún dato que cumpla las tres condiciones."
+     }
+    ]
+   },
+   "crudas": [
+    {
+     "respuesta": {
+      "content": [
+       {
+        "type": "text",
+        "text": "{\"bloques\": [], \"descartados\": [{\"pool_id\": \"Q49\", \"motivo\": \"La narración ya lee esta cita casi completa en las oraciones 6-9. Mostrarla en pantalla repetiría lo que dice la narración; lo único que agrega es el fragmento «los ojos convertidos en dos estrellas», que la narración también dice.\"}, {\"pool_id\": \"Q19\", \"motivo\": \"La narración ya cuenta esa escena en las oraciones 10-12 con las mismas palabras de Trevisano. Lo único nuevo sería «Inmediatamente pensé que había cedido el dique», y eso lo dice la oración 12, así que no cumple (a).\"}, {\"pool_id\": \"D131\", \"motivo\": \"Los más de 260 metros de salto del agua adelantan cómo pasó la ola por encima del dique, y eso la narración lo explica después del gancho. En la oración 15 (la ola que pasa por encima) no cumple (c). Además, en el beat 1 solo se permite un texto como máximo, y en el gancho no hay ningún dato que cumpla las tres condiciones.\"}]}"
+       }
+      ],
+      "usage": {
+       "input_tokens": 3678,
+       "cache_creation_input_tokens": 0,
+       "cache_read_input_tokens": 0,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+       },
+       "output_tokens": 383,
+       "service_tier": "standard",
+       "inference_geo": "global",
+       "speed": "standard",
+       "output_tokens_details": {
+        "thinking_tokens": 0
+       }
+      },
+      "model": "claude-sonnet-5-5",
+      "id": "msg_011CgQT4LwbDDo2eJac62eSJ",
+      "type": "message",
+      "role": "assistant",
+      "container": null,
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "stop_details": null,
+      "diagnostics": null
+     },
+     "segundos": 4.8,
+     "usd": 0.01119
+    }
+   ],
+   "error": null,
+   "validacion": {
+    "bloques": [],
+    "rechazos": [],
+    "faltan": [],
+    "motivo_faltan": {},
+    "incompletos": {}
+   },
+   "segundos": 4.9
+  }
+ ],
+ "final": {
+  "bloques": [],
+  "descartados": [
+   {
+    "pool_id": "Q49",
+    "motivo": "La narración ya lee esta cita casi completa en las oraciones 6-9. Mostrarla en pantalla repetiría lo que dice la narración; lo único que agrega es el fragmento «los ojos convertidos en dos estrellas», que la narración también dice."
+   },
+   {
+    "pool_id": "Q19",
+    "motivo": "La narración ya cuenta esa escena en las oraciones 10-12 con las mismas palabras de Trevisano. Lo único nuevo sería «Inmediatamente pensé que había cedido el dique», y eso lo dice la oración 12, así que no cumple (a)."
+   },
+   {
+    "pool_id": "D131",
+    "motivo": "Los más de 260 metros de salto del agua adelantan cómo pasó la ola por encima del dique, y eso la narración lo explica después del gancho. En la oración 15 (la ola que pasa por encima) no cumple (c). Además, en el beat 1 solo se permite un texto como máximo, y en el gancho no hay ningún dato que cumpla las tres condiciones."
+   }
+  ]
+ },
+ "validacion": {
+  "bloques": [],
+  "rechazos": [],
+  "faltan": [],
+  "motivo_faltan": {},
+  "incompletos": {}
+ }
+}

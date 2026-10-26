@@ -1,0 +1,176 @@
+{
+ "cap": 7,
+ "beats": [
+  {
+   "n": 12,
+   "funcion": "revelacion",
+   "intensidad": 3,
+   "t0": 0.08,
+   "t1": 97.58,
+   "dato_central": "Q13",
+   "datos_apoyo": [
+    "Q20",
+    "Q22",
+    "Q23",
+    "D136",
+    "T85"
+   ],
+   "cierre": "El juez no aceptó la palabra imprevisible. Pidió otra pericia, y después, nombres.",
+   "texto": "El presidente del Consejo caminó entre los escombros con un abrigo oscuro. De entre lo que quedaba de Longarone le salió al paso un grito, el de los pobladores: «Presidente, queremos justicia». En los kioscos, esos días, había dos verdades sobre la misma noche. Dino Buzzati escribió: «Una piedra ha caído en un vaso lleno de agua, y el agua se ha derramado sobre el mantel. Eso es todo». Solo que el vaso tenía cientos de metros de alto, la piedra era grande como una montaña y abajo, en el mantel, había miles de seres humanos que no podían defenderse. Giorgio Bocca escribió que una desgracia tan limpia, tan ineluctable, tan absoluta, llevaba más a la melancolía que al dolor: «No había nada que hacer, no hay remordimientos, no hay culpables». Aniello Coppola leyó en eso el intento de absolver antes de indagar, de anular cualquier investigación de antemano, y respondió: «Hay que hacer un proceso. Hay que encontrar a los responsables. Y deben pagar». Una primera comisión de expertos trabajó dieciocho meses y concluyó que el desastre era imprevisible. Pasaron más de cuatro años hasta que, el veinte de febrero de mil novecientos sesenta y ocho, se depositó la resolución de remisión a juicio. El juez no aceptó la palabra imprevisible. Pidió otra pericia, y después, nombres.",
+   "campos": "rabia contra fatalidad Un presidente con abrigo oscuro entre escombros y un grito que le sale de la gente; en los kioscos, dos diarios con dos verdades distintas sobre la misma noche. ¿Se puede llamar fatalidad a algo que tenía fisura, maqueta y carta? El juez no aceptó la palabra imprevisible. Pidió otra pericia, y después, nombres."
+  },
+  {
+   "n": 13,
+   "funcion": "cierre",
+   "intensidad": 3,
+   "t0": 98.6,
+   "t1": 177.62,
+   "dato_central": "T102",
+   "datos_apoyo": [
+    "D32",
+    "T89",
+    "T92",
+    "D139",
+    "D140",
+    "Q56"
+   ],
+   "cierre": "La sentencia dice inundación agravada por la previsión del evento. No dice quién, entre la posdata de la mañana y las diez y treinta y nueve de la noche, decidió que Micaela siguiera durmiendo.",
+   "texto": "El juicio empezó el veintinueve de noviembre de mil novecientos sesenta y ocho. El día anterior, Pancini, el ingeniero al que Biadene le había pedido volver de vacaciones, se quitó la vida. En el banquillo se sentaron ocho acusados. En marzo de mil novecientos setenta y uno, la Casación reconoció la culpabilidad de Biadene y de Sensidoni. ENEL ofreció diez mil millones de liras de la época como indemnización. Casi todos aceptaron; la última transacción se firmó en el año dos mil. Alguien que siguió aquel proceso lo resumió sin levantar la voz: Vajont no fue la excepción al sistema, sino su confirmación; «había un riesgo, previsible y previsto». Micaela Coletti preside el comité de sobrevivientes del Vajont. La niña a la que la ola arrastró sobre una cama se sienta ahora frente a una mesa con el cartel del comité, y lo que tiene delante es una sentencia. La sentencia dice inundación agravada por la previsión del evento. Nombra el delito. No dice quién, entre la posdata de la mañana y las diez y treinta y nueve de la noche, decidió que Longarone no debía saber. ¿Quién decidió que Micaela siguiera durmiendo?",
+   "campos": "justicia incompleta Cajas de un archivo trasladado de un tribunal a otro; una mujer que de niña viajó cuatrocientos metros sobre una cama, sentada ahora frente a una mesa con un cartel de comité. ¿Quién tomó —o dejó sin tomar— la decisión de avisar a Longarone aquella noche, y por qué la preocupación escrita a la mañana no se convirtió en una evacuación? La sentencia dice inundación agravada por la previsión del evento. No dice quién, entre la posdata de la mañana y las diez y treinta y nueve de la noche, decidió que Micaela siguiera durmiendo."
+  }
+ ],
+ "candidatos": [
+  {
+   "id": "D245",
+   "beat": 13,
+   "funcion": "cierre",
+   "t0": 98.6,
+   "t1": 177.62,
+   "obligatorio": true,
+   "como": "por_que (1 raíces en común)",
+   "ya_dicho": false,
+   "por_que": "Condena a Montedison de 1997: cifra de liras en fallo, ilegible en voz."
+  },
+  {
+   "id": "Q20",
+   "beat": 12,
+   "funcion": "revelacion",
+   "t0": 0.08,
+   "t1": 97.58,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "Q22",
+   "beat": 12,
+   "funcion": "revelacion",
+   "t0": 0.08,
+   "t1": 97.58,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "Q23",
+   "beat": 12,
+   "funcion": "revelacion",
+   "t0": 0.08,
+   "t1": 97.58,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "D136",
+   "beat": 12,
+   "funcion": "revelacion",
+   "t0": 0.08,
+   "t1": 97.58,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "T85",
+   "beat": 12,
+   "funcion": "revelacion",
+   "t0": 0.08,
+   "t1": 97.58,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "Q13",
+   "beat": 12,
+   "funcion": "revelacion",
+   "t0": 0.08,
+   "t1": 97.58,
+   "obligatorio": false,
+   "como": "dato_central",
+   "ya_dicho": true
+  },
+  {
+   "id": "D32",
+   "beat": 13,
+   "funcion": "cierre",
+   "t0": 98.6,
+   "t1": 177.62,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "T89",
+   "beat": 13,
+   "funcion": "cierre",
+   "t0": 98.6,
+   "t1": 177.62,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": false
+  },
+  {
+   "id": "T92",
+   "beat": 13,
+   "funcion": "cierre",
+   "t0": 98.6,
+   "t1": 177.62,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": false
+  },
+  {
+   "id": "D139",
+   "beat": 13,
+   "funcion": "cierre",
+   "t0": 98.6,
+   "t1": 177.62,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "Q56",
+   "beat": 13,
+   "funcion": "cierre",
+   "t0": 98.6,
+   "t1": 177.62,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": false
+  },
+  {
+   "id": "T102",
+   "beat": 13,
+   "funcion": "cierre",
+   "t0": 98.6,
+   "t1": 177.62,
+   "obligatorio": false,
+   "como": "dato_central",
+   "ya_dicho": true
+  }
+ ],
+ "pico_escaleta": 10
+}

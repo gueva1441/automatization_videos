@@ -1,0 +1,175 @@
+{
+ "cap": 4,
+ "beats": [
+  {
+   "n": 6,
+   "funcion": "giro",
+   "intensidad": 3,
+   "t0": 0.06,
+   "t1": 51.4,
+   "dato_central": "T36",
+   "datos_apoyo": [
+    "D223",
+    "D156",
+    "T33",
+    "T37",
+    "T39"
+   ],
+   "cierre": "Absuelta en seis horas. La empresa, mientras tanto, mandó construir una maqueta.",
+   "texto": "El cuatro de noviembre de mil novecientos sesenta el embalse estaba a seiscientos cincuenta metros sobre el nivel del mar. Ese día, durante las pruebas, una masa de roca se desprendió del Toc y cayó al lago nuevo, y el agua se levantó. Unos setecientos mil metros cúbicos de roca; otras fuentes hablan de más, y nadie coincide en la altura de la ola que levantó. Ese mismo mes, Tina Merlin y L'Unità fueron a juicio. La audiencia duró seis horas. Salieron absueltos los dos. En febrero de mil novecientos sesenta y uno, Merlin volvió a su máquina de escribir y publicó otra advertencia: la amenaza sobre Erto seguía ahí. Absuelta en seis horas. La empresa, mientras tanto, mandó construir una maqueta.",
+   "campos": "castigo al mensajero Roca cayendo al lago nuevo y el agua levantándose; cuatro días después, una máquina de escribir; semanas después, una sala de tribunal y una periodista en el banquillo. ¿Por qué el proceso es contra la que avisa y no contra la montaña que ya cayó una vez? Absuelta en seis horas. La empresa, mientras tanto, mandó construir una maqueta."
+  },
+  {
+   "n": 7,
+   "funcion": "giro",
+   "intensidad": 4,
+   "t0": 52.26,
+   "t1": 115.58,
+   "dato_central": "D106",
+   "datos_apoyo": [
+    "D104",
+    "D103",
+    "Q44",
+    "T50",
+    "T52",
+    "D68"
+   ],
+   "cierre": "La presa cambió de dueño con el agua todavía subiendo. La montaña no se enteró del contrato.",
+   "texto": "En un galpón de la Universidad de Padua se armó el valle en pequeño: la garganta, el lago, la ladera del Toc, una presa de juguete. Para representar la roca compacta de la montaña usaron grava. En el laboratorio lo explicaron con una frase: «Nos han dicho que lo hagamos así». La recomendación que salió de ahí fue no pasar de los setecientos metros sobre el nivel del mar. La cota autorizada fue de setecientos quince. En noviembre de mil novecientos sesenta y dos, la ladera ya se desplazaba más de un centímetro y medio por día. En mayo de mil novecientos sesenta y tres, SADE subió el nivel del agua: tenía que entregar la presa como una obra que funcionaba para cerrar la operación con ENEL. En julio se completó el cambio de propiedad, con la prueba de llenado todavía en marcha. La presa cambió de dueño con el agua todavía subiendo. La montaña no se enteró del contrato.",
+   "campos": "frialdad contractual Una maqueta del valle en un galpón de Padua, con grava donde debía ir roca, y una ola de laboratorio pasando por encima de una presa de juguete. ¿Para qué se pide un modelo si la cota se decide antes del resultado? La presa cambió de dueño con el agua todavía subiendo. La montaña no se enteró del contrato."
+  }
+ ],
+ "candidatos": [
+  {
+   "id": "T36",
+   "beat": 6,
+   "funcion": "giro",
+   "t0": 0.06,
+   "t1": 51.4,
+   "obligatorio": false,
+   "como": "dato_central",
+   "ya_dicho": true
+  },
+  {
+   "id": "D223",
+   "beat": 6,
+   "funcion": "giro",
+   "t0": 0.06,
+   "t1": 51.4,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "D156",
+   "beat": 6,
+   "funcion": "giro",
+   "t0": 0.06,
+   "t1": 51.4,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "T33",
+   "beat": 6,
+   "funcion": "giro",
+   "t0": 0.06,
+   "t1": 51.4,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": false
+  },
+  {
+   "id": "T37",
+   "beat": 6,
+   "funcion": "giro",
+   "t0": 0.06,
+   "t1": 51.4,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": false
+  },
+  {
+   "id": "T39",
+   "beat": 6,
+   "funcion": "giro",
+   "t0": 0.06,
+   "t1": 51.4,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "D106",
+   "beat": 7,
+   "funcion": "giro",
+   "t0": 52.26,
+   "t1": 115.58,
+   "obligatorio": false,
+   "como": "dato_central",
+   "ya_dicho": false
+  },
+  {
+   "id": "D104",
+   "beat": 7,
+   "funcion": "giro",
+   "t0": 52.26,
+   "t1": 115.58,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "D103",
+   "beat": 7,
+   "funcion": "giro",
+   "t0": 52.26,
+   "t1": 115.58,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "Q44",
+   "beat": 7,
+   "funcion": "giro",
+   "t0": 52.26,
+   "t1": 115.58,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "T50",
+   "beat": 7,
+   "funcion": "giro",
+   "t0": 52.26,
+   "t1": 115.58,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "T52",
+   "beat": 7,
+   "funcion": "giro",
+   "t0": 52.26,
+   "t1": 115.58,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": false
+  },
+  {
+   "id": "D68",
+   "beat": 7,
+   "funcion": "giro",
+   "t0": 52.26,
+   "t1": 115.58,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": false
+  }
+ ],
+ "pico_escaleta": 10
+}

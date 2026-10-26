@@ -245,6 +245,7 @@ _UNIDAD_1 = {"m": "m", "metro": "m", "metros": "m", "m³": "m3", "m3": "m3", "km
 _UNIDAD_2 = {("metros", "cubicos"): "m3", ("metro", "cubico"): "m3", ("por", "ciento"): "%"}
 # §A.4: «la misma magnitud nombrada en la oración (nivel, cota, altura, muertos)»; nivel y cota son la misma
 _MAGNITUD = {"nivel": ("nivel", "cota"), "altura": ("altura",), "muertos": ("muert", "muri")}
+_DIFERENCIA = {("por", "encima"), ("por", "debajo"), ("mas", "que"), ("menos", "que")}
 
 
 def _toks(texto: str) -> list[str]:
@@ -298,7 +299,11 @@ def _analiza(texto: str) -> tuple[list[tuple[float, str | None, int]], list[tupl
             i = j
             continue
         k = j + (1 if j < len(toks) and toks[j] == "de" else 0)
-        u = _UNIDAD_2.get(tuple(toks[k:k + 2])) or _UNIDAD_1.get(toks[k] if k < len(toks) else "")
+        u2 = _UNIDAD_2.get(tuple(toks[k:k + 2]))
+        u = u2 or _UNIDAD_1.get(toks[k] if k < len(toks) else "")
+        e = k + (2 if u2 else 1 if u else 0)
+        if tuple(toks[e:e + 2]) in _DIFERENCIA:          # «15 metros por encima de la cota»: una diferencia, no la cota
+            u = "diferencia"
         nums.append((v, u, i))
         i = j
     mags = [(m, p) for p, t in enumerate(toks) for m, raices in _MAGNITUD.items() if any(t.startswith(r) for r in raices)]
@@ -312,21 +317,22 @@ def _fmt(v: float) -> str:
 def contradicciones(bloque: str, voz: list[str]) -> list[str]:
     """§A.4: cada cifra del bloque con unidad contra las cifras de la voz de todo el video. Lectura declarada de «misma
     unidad o misma magnitud nombrada en la oración»: la cifra de la voz se compara si (1) tiene la misma unidad y la
-    oración nombra la misma magnitud que el bloque; o (2) la misma unidad, la oración no nombra ninguna magnitud y es
-    del mismo orden (mismos dígitos enteros: «20 m» de una ola no es la cota de 720); o (3) no tiene unidad pero viene
-    después de la magnitud del bloque en su oración («la cota autorizada fue de setecientos quince»)."""
+    oración nombra la misma magnitud que el bloque («setecientos metros sobre el nivel del mar» contra «Nivel del
+    embalse: 720 m»); o (2) no tiene unidad pero viene después de la magnitud del bloque en su oración («la cota
+    autorizada fue de setecientos quince»). La misma unidad sola no alcanza («ola de veinte metros» no es la cota; la
+    oferta de ENEL en liras no es la condena a Montedison), y una diferencia («15 metros por encima de la cota») no se
+    compara con la cota."""
     nb, mb = _analiza(bloque)
     mags_b = {m for m, _ in mb}
     out = []
     for v, u, _ in nb:
-        if u is None:
+        if u is None or u == "diferencia":
             continue
         for s in voz:
             ns, ms = _analiza(s)
             mags_s = {m for m, _ in ms}
             for w, uw, p in ns:
                 misma = (uw == u and bool(mags_b & mags_s)) or \
-                        (uw == u and not mags_s and len(_fmt(abs(int(w)))) == len(_fmt(abs(int(v))))) or \
                         (uw is None and any(m in mags_b and q < p for m, q in ms))
                 if misma and abs(w - v) > 1e-9:
                     out.append(f"{_fmt(v)} {u} vs {_fmt(w)}{' ' + uw if uw else ''} («{s.strip()[:70]}»)")
@@ -641,7 +647,7 @@ def validar(resp: Any, ent: dict[str, Any], words: list[dict], time_offset: floa
         try:
             rank = int(b.get("rank"))
         except (TypeError, ValueError):
-            rank = 99
+            rank = len(bl) + 1                     # sin rank: después de todos los que lo traen
         ok.append({**b, "sentence_idx": si, "word_idx": wi, "palabra": s["palabras"][wi]["w"], "t0": t0, "t1": t1,
                    "dur": round(t1 - t0, 3), "beat": s["beat"], "funcion": funcion.get(s["beat"], ""), "rank": rank,
                    "pantalla": txt, "etiqueta": et, "a_pantalla": x["a_pantalla"], "por_que": x["por_que"],
@@ -998,7 +1004,7 @@ def escena_final(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any], l
         return [s for s in scenes if s.start > sc.start and b is not None and b["t0"] - 0.3 <= s.start <= b["t1"]]
 
     def oracion_en(t: float) -> int:
-        k = next((s["idx"] for s in sents if s["t0"] - 0.05 <= t <= s["t1"]), None)
+        k = next((s["idx"] for s in sents if s["t0"] <= t <= s["t1"]), None)
         return k if k is not None else next((s["idx"] for s in sents if s["t0"] >= t), len(sents) - 1)
 
     ocupa: dict[int, list[str]] = {}
@@ -1007,7 +1013,9 @@ def escena_final(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any], l
         ocupa.setdefault(si, []).append(que)
 
     if plan.get("title_card"):
-        marca(scene_at(scenes, 0.0).idx, "title card")
+        for s in scenes:                       # todas las escenas que pisa el title card (dura title_dur)
+            if s.start < gfx_rules.title_dur:
+                marca(s.idx, "title card")
     for e in plan.get("emphasis") or []:
         if _sello_queda(e, plan):
             marca(scene_at(scenes, float(e["start"])).idx, "sello")

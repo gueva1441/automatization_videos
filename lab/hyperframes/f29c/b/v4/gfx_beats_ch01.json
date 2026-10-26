@@ -1,0 +1,53 @@
+{
+ "cap": 1,
+ "beats": [
+  {
+   "n": 1,
+   "funcion": "gancho",
+   "intensidad": 4,
+   "t0": 0.12,
+   "t1": 94.48,
+   "dato_central": "Q49",
+   "datos_apoyo": [
+    "Q19",
+    "D131"
+   ],
+   "cierre": "El dique no cedió esa noche. Lo que llegó a la cama de Micaela vino por encima de él.",
+   "texto": "Hay una casa a oscuras y, dentro de la casa, una cama que ya no está quieta. Una niña siente que su cama empieza a correr en la oscuridad; a dos kilómetros de ahí, la presa que todos creyeron caída sigue en pie. La niña se llama Micaela Coletti y es una niña de Longarone, un pueblo de fondo de valle. Hace un minuto dormía. Ahora algo la empuja desde atrás, y la cama ya no es una cama: es algo que la lleva. Años después, Coletti lo contó con las palabras que le quedaron. «La sensación de que la cama tomaba velocidad, una fuerza espantosa que me agarraba por la espalda, me doblaba en dos, me aplastaba», dijo Coletti. Se sintió de goma. Se ensanchaba y después se encogía. Los ojos, dos estrellas. Esa misma noche, Gianfranco Trevisano ve cómo «se abrió de improviso, de par en par, el portoncito de la entrada, a causa de una corriente de aire», y con el portón entra el ruido del aire que irrumpe. Enseguida se va la luz. Trevisano piensa lo que va a pensar medio valle: que el dique cedió. Longarone, Italia, nueve de octubre de mil novecientos sesenta y tres. Pero el dique no cedió esa noche. Lo que llegó a la cama de Micaela vino por encima de él. Y para entender cómo una ola pasa por encima de una pared que no se rompe, hay que volver veinte años atrás, a un papel firmado cuando esa cama todavía no existía.",
+   "campos": "terror sin nombre Una cama que acelera en la oscuridad; una fuerza que dobla una espalda de niña; un portoncito que se abre solo con un ruido de aire antes de que se vaya la luz. ¿Qué puede mover una cama con una niña adentro si la presa no cayó? El dique no cedió esa noche. Lo que llegó a la cama de Micaela vino por encima de él."
+  }
+ ],
+ "candidatos": [
+  {
+   "id": "Q19",
+   "beat": 1,
+   "funcion": "gancho",
+   "t0": 0.12,
+   "t1": 94.48,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": false
+  },
+  {
+   "id": "D131",
+   "beat": 1,
+   "funcion": "gancho",
+   "t0": 0.12,
+   "t1": 94.48,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": false
+  },
+  {
+   "id": "Q49",
+   "beat": 1,
+   "funcion": "gancho",
+   "t0": 0.12,
+   "t1": 94.48,
+   "obligatorio": false,
+   "como": "dato_central",
+   "ya_dicho": true
+  }
+ ],
+ "pico_escaleta": 10
+}

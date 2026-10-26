@@ -1,0 +1,299 @@
+{
+ "plan": {
+  "chapter_number": 2,
+  "title_card": {
+   "kicker": "CAPÍTULO 2",
+   "title": "El muro que tapa"
+  },
+  "callouts": [],
+  "count_up": null,
+  "archive_clippings": [],
+  "evidence_zoom": null,
+  "punch_in": [],
+  "chapter_question": {
+   "text": "En marzo del cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero.",
+   "start": 130.167,
+   "duration": 3.0,
+   "keyword": "cincuenta",
+   "generated": true,
+   "pause": 3.0,
+   "fuente": "escaleta (cierre del último beat)"
+  },
+  "icon_array": null,
+  "emphasis": [
+   {
+    "word": "montaña",
+    "category": "agua",
+    "layer": "agua",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 68.74,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "weight": 3,
+    "peak_word": true
+   }
+  ],
+  "gap_warnings": [
+   [
+    104.0,
+    130.2
+   ]
+  ],
+  "quote_card": null,
+  "water_level": null,
+  "rotulista": {
+   "modelo": "claude-sonnet-5-5",
+   "faltan_a_pantalla": [
+    "D117"
+   ],
+   "motivo_faltan": {
+    "D117": "lectura: sin tiempo de lectura: 82 caracteres piden 5.5 s y hay 3.4 s hasta el corte de escena (21.6 s)"
+   },
+   "a_pantalla_incompletos": {},
+   "filas": [
+    {
+     "pool_id": "D117",
+     "tipo": "hecho",
+     "etiqueta": "Aprobación del proyecto, 2018",
+     "texto": "Se aprobó con solo 13 de 34 representantes presentes.",
+     "sentence_idx": 2,
+     "regla": "lectura",
+     "motivo": "sin tiempo de lectura: 82 caracteres piden 5.5 s y hay 3.4 s hasta el corte de escena (21.6 s)",
+     "accion": "fuera"
+    }
+   ],
+   "error": null,
+   "director_antes": {
+    "archive_clippings": 2,
+    "callouts": 2,
+    "quote_card": false,
+    "count_up": false,
+    "water_level": false,
+    "evidence_zoom": true
+   },
+   "escena": []
+  },
+  "fragmentos": [
+   {
+    "pool_id": "D117",
+    "tipo": "hecho",
+    "etiqueta": "Aprobación del proyecto, 2018",
+    "texto": "Se aprobó con solo 13 de 34 representantes presentes.",
+    "sentence_idx": 2,
+    "regla": "lectura",
+    "motivo": "sin tiempo de lectura: 82 caracteres piden 5.5 s y hay 3.4 s hasta el corte de escena (21.6 s)",
+    "accion": "fuera"
+   }
+  ],
+  "pico": {
+   "t": 65.94,
+   "block": null,
+   "word": "montaña",
+   "sentence": "La gente de la zona llamaba al monte Toc «la montaña que camina», y lo decían los residentes desde antes de que nadie fuera a medirla.",
+   "sentence_idx": 10,
+   "beat": 3,
+   "fuente": "escaleta (beat más intenso del cap)",
+   "palabra": "montaña"
+  },
+  "time_ticker": null,
+  "transitions": {
+   "1": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "fundido a negro (1 por cap)",
+    "rank": "R3"
+   },
+   "2": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "5": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "6": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "7": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "8": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "9": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "10": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "11": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   },
+   "12": {
+    "kind": "cut_punch",
+    "frames": 0,
+    "why": "impacto sin flash disponible",
+    "rank": "R1"
+   }
+  },
+  "identity": {
+   "movimientos": [
+    {
+     "scene": 0,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 1,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 2,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 3,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 4,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 5,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 6,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 7,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 8,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 9,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 10,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 11,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 12,
+     "forma": "alejar",
+     "motivo": "cierre del cap"
+    }
+   ],
+   "violaciones": []
+  },
+  "black_hold": {
+   "start": 133.167,
+   "duration": 1.0
+  },
+  "realizador": {
+   "filas": [
+    {
+     "bloque": "emphasis",
+     "texto": "desmoronamiento",
+     "t": 81.7,
+     "pool_id": null,
+     "accion": "fuera",
+     "motivo": "sello por léxico (solo queda el de la palabra del pico)"
+    },
+    {
+     "bloque": "emphasis",
+     "texto": "cicatriz",
+     "t": 97.26,
+     "pool_id": null,
+     "accion": "fuera",
+     "motivo": "sello por léxico (solo queda el de la palabra del pico)"
+    },
+    {
+     "bloque": "emphasis",
+     "texto": "deslizamiento",
+     "t": 103.96,
+     "pool_id": null,
+     "accion": "fuera",
+     "motivo": "sello por léxico (solo queda el de la palabra del pico)"
+    },
+    {
+     "bloque": "punch_in",
+     "accion": "4 fuera (sin bloque que acompañar)"
+    }
+   ],
+   "por_beat": {}
+  },
+  "critico": [
+   {
+    "t": 68.74,
+    "t_frame": 69.74,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "montaña",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza visualmente la palabra clave 'montaña' que la voz menciona, reforzando el concepto central sin repetir una frase completa.",
+    "pasa": true,
+    "voz": "La gente de la zona llamaba al monte Toc «la montaña que camina», y lo decían los residentes desde antes de que nadie fuera a medirla.",
+    "mira": "bloque dibujado"
+   }
+  ],
+  "critico_rotulista": []
+ },
+ "rejected": []
+}

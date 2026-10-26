@@ -1,0 +1,441 @@
+{
+ "plan": {
+  "chapter_number": 6,
+  "title_card": {
+   "kicker": "CAPÍTULO 6",
+   "title": "El gran rugido"
+  },
+  "callouts": [
+   {
+    "text": "1.910 personas",
+    "kicker": "Muertos en el desastre del Vajont (recuento oficial)",
+    "ficha": true,
+    "start": 124.3,
+    "kind": "figure",
+    "duration": 9.46,
+    "side": "left",
+    "fact_idx": null,
+    "pool_id": "D128",
+    "rotulista": true,
+    "beat": 11,
+    "sentence_idx": 24,
+    "word_idx": 2,
+    "aporta": "Da el recuento oficial total de muertos, que la narración no menciona.",
+    "tipo_rotulista": "cifra",
+    "a_pantalla": true,
+    "por_que": "Recuento oficial de mil novecientas diez muertes: va escrito, con sus versiones alternativas, no en la voz.",
+    "t1": 133.76,
+    "lectura_s": 4.4,
+    "movido": null,
+    "critico": {
+     "habla_de_eso": true,
+     "motivo_1": "La narración menciona 'muertos' y el desastre en Longarone, que es el contexto del recuento.",
+     "dice_algo_nuevo": true,
+     "motivo_2": "La narración no especifica el número total de muertos, solo que hubo.",
+     "estorba": false,
+     "motivo_3": "El bloque está en una esquina superior y no tapa rostros ni elementos clave de la imagen.",
+     "error": null
+    }
+   }
+  ],
+  "count_up": null,
+  "archive_clippings": [],
+  "evidence_zoom": null,
+  "punch_in": [
+   124.3
+  ],
+  "chapter_question": {
+   "text": "Tres días después llegó el presidente del Consejo. La gente ya sabía qué pedirle.",
+   "start": 164.8,
+   "duration": 3.0,
+   "keyword": "presidente",
+   "generated": true,
+   "pause": 3.0,
+   "fuente": "escaleta (cierre del último beat)"
+  },
+  "icon_array": null,
+  "emphasis": [
+   {
+    "word": "fisura",
+    "category": "caos_gritos",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 22.42,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "weight": 3,
+    "peak_word": true,
+    "sfx": {
+     "file": "rumor.wav",
+     "gain_db": -20
+    }
+   }
+  ],
+  "gap_warnings": [
+   [
+    23.4,
+    78.3
+   ],
+   [
+    111.4,
+    139.7
+   ],
+   [
+    139.7,
+    164.8
+   ]
+  ],
+  "quote_card": null,
+  "water_level": null,
+  "rotulista": {
+   "modelo": "claude-sonnet-5-5",
+   "faltan_a_pantalla": [
+    "D192"
+   ],
+   "motivo_faltan": {
+    "D192": "cantidad: un texto por beat: el beat 11 ya tiene D128"
+   },
+   "a_pantalla_incompletos": {},
+   "filas": [
+    {
+     "pool_id": "D50",
+     "tipo": "hecho",
+     "etiqueta": "Fuente: La inundación del Vajont, 2005",
+     "texto": "Guglielmo Celso, alcalde socialista de Longarone, murió en el desastre.",
+     "sentence_idx": 24,
+     "regla": "lectura",
+     "motivo": "sin tiempo de lectura: 109 caracteres piden 7.3 s y hay 6.7 s",
+     "accion": "fuera"
+    },
+    {
+     "pool_id": "D192",
+     "tipo": "cifra",
+     "etiqueta": "Técnicos muertos en el centro de control del estribo izquierdo",
+     "texto": "20 técnicos",
+     "sentence_idx": 24,
+     "regla": "cantidad",
+     "motivo": "un texto por beat: el beat 11 ya tiene D128",
+     "accion": "fuera"
+    },
+    {
+     "pool_id": "D128",
+     "tipo": "cifra",
+     "etiqueta": "Muertos en el desastre del Vajont (recuento oficial)",
+     "texto": "1.910 personas",
+     "sentence_idx": 24,
+     "word_idx": 2,
+     "palabra": "muertos",
+     "t0": 124.3,
+     "t1": 133.76,
+     "aporta": "Da el recuento oficial total de muertos, que la narración no menciona.",
+     "beat": 11,
+     "a_pantalla": true,
+     "movido": null,
+     "accion": "colocado"
+    }
+   ],
+   "error": null,
+   "director_antes": {
+    "archive_clippings": 1,
+    "callouts": 1,
+    "quote_card": false,
+    "count_up": false,
+    "water_level": false,
+    "evidence_zoom": true
+   },
+   "escena": []
+  },
+  "fragmentos": [
+   {
+    "pool_id": "D50",
+    "tipo": "hecho",
+    "etiqueta": "Fuente: La inundación del Vajont, 2005",
+    "texto": "Guglielmo Celso, alcalde socialista de Longarone, murió en el desastre.",
+    "sentence_idx": 24,
+    "regla": "lectura",
+    "motivo": "sin tiempo de lectura: 109 caracteres piden 7.3 s y hay 6.7 s",
+    "accion": "fuera"
+   },
+   {
+    "pool_id": "D192",
+    "tipo": "cifra",
+    "etiqueta": "Técnicos muertos en el centro de control del estribo izquierdo",
+    "texto": "20 técnicos",
+    "sentence_idx": 24,
+    "regla": "cantidad",
+    "motivo": "un texto por beat: el beat 11 ya tiene D128",
+    "accion": "fuera"
+   },
+   {
+    "pool_id": "D128",
+    "tipo": "cifra",
+    "etiqueta": "Muertos en el desastre del Vajont (recuento oficial)",
+    "texto": "1.910 personas",
+    "sentence_idx": 24,
+    "word_idx": 2,
+    "palabra": "muertos",
+    "t0": 124.3,
+    "t1": 133.76,
+    "aporta": "Da el recuento oficial total de muertos, que la narración no menciona.",
+    "beat": 11,
+    "a_pantalla": true,
+    "movido": null,
+    "accion": "colocado"
+   }
+  ],
+  "pico": {
+   "t": 19.94,
+   "block": null,
+   "word": "fisura",
+   "sentence": "La ladera entera, la que caminaba, la de la fisura, se desploma de una vez dentro del embalse.",
+   "sentence_idx": 3,
+   "beat": 10,
+   "fuente": "escaleta.pico",
+   "palabra": "fisura"
+  },
+  "time_ticker": null,
+  "transitions": {
+   "1": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "fundido a negro (1 por cap)",
+    "rank": "R3"
+   },
+   "2": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "5": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "7": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "8": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "9": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "10": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "11": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   },
+   "12": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "13": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "14": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "15": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   }
+  },
+  "identity": {
+   "movimientos": [
+    {
+     "scene": 0,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 1,
+     "forma": "paneo",
+     "motivo": "foto ancha con gente"
+    },
+    {
+     "scene": 2,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 3,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 4,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 5,
+     "forma": "quieta",
+     "motivo": "documento: tiene texto"
+    },
+    {
+     "scene": 6,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 7,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 8,
+     "forma": "paneo",
+     "motivo": "foto ancha con gente"
+    },
+    {
+     "scene": 9,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 10,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 11,
+     "forma": "acercar",
+     "motivo": "hay una persona"
+    },
+    {
+     "scene": 12,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 13,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 14,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 15,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    }
+   ],
+   "violaciones": []
+  },
+  "black_hold": {
+   "start": 167.8,
+   "duration": 1.0
+  },
+  "realizador": {
+   "filas": [
+    {
+     "bloque": "emphasis",
+     "texto": "avalancha",
+     "t": 6.02,
+     "pool_id": null,
+     "accion": "fuera",
+     "motivo": "sello por léxico (solo queda el de la palabra del pico)"
+    },
+    {
+     "bloque": "emphasis",
+     "texto": "fango",
+     "t": 111.36,
+     "pool_id": null,
+     "accion": "fuera",
+     "motivo": "sello por léxico (solo queda el de la palabra del pico)"
+    },
+    {
+     "bloque": "punch_in",
+     "accion": "3 fuera (sin bloque que acompañar)"
+    }
+   ],
+   "por_beat": {}
+  },
+  "critico": [
+   {
+    "t": 22.42,
+    "t_frame": 23.42,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "fisura",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz sin repetir una frase completa, y el tinte de mood refuerza la atmósfera de caos sin tapar la acción principal de ",
+    "pasa": true,
+    "voz": "La ladera entera, la que caminaba, la de la fisura, se desploma de una vez dentro del embalse.",
+    "mira": "bloque dibujado"
+   }
+  ],
+  "critico_rotulista": [
+   {
+    "t": 124.3,
+    "t_frame": 125.3,
+    "bloque": "ficha",
+    "texto": "1.910 personas",
+    "pool_id": "D128",
+    "aporta": "Da el recuento oficial total de muertos, que la narración no menciona.",
+    "a_pantalla": true,
+    "habla_de_eso": true,
+    "motivo_1": "La narración menciona 'muertos' y el desastre en Longarone, que es el contexto del recuento.",
+    "dice_algo_nuevo": true,
+    "motivo_2": "La narración no especifica el número total de muertos, solo que hubo.",
+    "estorba": false,
+    "motivo_3": "El bloque está en una esquina superior y no tapa rostros ni elementos clave de la imagen.",
+    "error": null,
+    "pasa": true,
+    "mira": "bloque dibujado"
+   }
+  ]
+ },
+ "rejected": []
+}

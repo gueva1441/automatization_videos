@@ -1,0 +1,154 @@
+{
+ "cap": 5,
+ "beats": [
+  {
+   "n": 8,
+   "funcion": "escalada",
+   "intensidad": 4,
+   "t0": 0.08,
+   "t1": 89.7,
+   "dato_central": "D226",
+   "datos_apoyo": [
+    "D162",
+    "D160",
+    "D227",
+    "Q46",
+    "Q28",
+    "Q45"
+   ],
+   "cierre": "El nueve de octubre a la mañana, el director técnico de la empresa se sentó a escribir una carta.",
+   "texto": "En junio de mil novecientos sesenta y tres el agua llegó a los setecientos metros, y la ladera se movía medio centímetro por día. Un informe dice que el veintiséis de septiembre el embalse volvió al nivel de seguridad. Desde el dos de octubre, los avisos se multiplicaron: sacudidas, estruendos que bajaban de la ladera de noche, grietas nuevas en la tierra de Erto, movimientos en la superficie. Las autoridades cerraron algunos caminos con barreras y desalojaron algunas casas de Erto y Casso. Abajo, en Longarone, las ventanas se encendían como cualquier noche. En Erto y en Longarone la gente se repetía una frase que servía para dormir: «Si no avisan, será que no es grave». Los que la decían miraban la pared curva. De la montaña que caminaba hablaban los de arriba, los que tenían las grietas en el patio. «Estábamos esperando que la presa se cayera...», contó después un sobreviviente. Lo que temían era la pared. De la ola no hablaba nadie. La respuesta que llegó desde un ministerio fue: «No se preocupe, todo está bajo control». Mientras tanto, en la ladera, los topógrafos de la empresa seguían midiendo. El nueve de octubre a la mañana, el director técnico de la empresa se sentó a escribir una carta.",
+   "campos": "espera con miedo Estruendos que bajan de la ladera de noche; grietas nuevas en la tierra de Erto; caminos cerrados con barreras; en Longarone, abajo, las ventanas encendidas como cualquier noche. Si evacúan casas en Erto, ¿por qué nadie evacúa el pueblo que está delante de la presa? El nueve de octubre a la mañana, el director técnico de la empresa se sentó a escribir una carta."
+  },
+  {
+   "n": 9,
+   "funcion": "giro",
+   "intensidad": 4,
+   "t0": 90.66,
+   "t1": 165.68,
+   "dato_central": "T61",
+   "datos_apoyo": [
+    "Q51",
+    "T64",
+    "D111"
+   ],
+   "cierre": "A las diez y media de la noche, el párroco de Casso escuchó algo y abrió la ventana.",
+   "texto": "El director técnico se llamaba Alberico Biadene. La carta iba dirigida a Pancini, que estaba de vacaciones: Biadene le pedía que volviera y le contaba lo que el topógrafo Rossi había medido, que la ladera se movía más. La carta ya estaba firmada cuando sonó el teléfono. Biadene volvió al papel y agregó una posdata: Rossi lo llamaba en ese momento, y «las mediciones de esta mañana resultan todavía mayores que las de ayer, ¡alcanzando un aumento del 50%!!». De veinte a treinta centímetros. Y algo más: pequeñas piedras caían en el borde oeste del deslizamiento, hacia la presa. Dos signos de exclamación, de puño y letra del director técnico. A las seis de la tarde se cerró la jornada. En la central quedaron un aparejador y su equipo. Esa noche nadie dio la alarma que habría puesto en marcha la evacuación masiva de los pueblos expuestos. Las barreras seguían en los caminos de Erto. En Longarone, abajo, era una noche como cualquiera. A las diez y media de la noche, el párroco de Casso escuchó algo y abrió la ventana.",
+   "campos": "preocupación escrita, decisión ausente Una carta ya firmada a la que se agrega una posdata con dos signos de exclamación; un teléfono colgado; piedras chicas rodando hacia el lado de la presa. ¿Qué hace un hombre después de escribir dos signos de exclamación en una carta? A las diez y media de la noche, el párroco de Casso escuchó algo y abrió la ventana."
+  }
+ ],
+ "candidatos": [
+  {
+   "id": "Q50",
+   "beat": 8,
+   "funcion": "escalada",
+   "t0": 0.08,
+   "t1": 89.7,
+   "obligatorio": true,
+   "como": "por_que (4 raíces en común)",
+   "ya_dicho": false,
+   "por_que": "Carta del municipio de Erto y Casso a SADE: documento que se lee en pantalla sobre la escena de los avisos de octubre."
+  },
+  {
+   "id": "D162",
+   "beat": 8,
+   "funcion": "escalada",
+   "t0": 0.08,
+   "t1": 89.7,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "D160",
+   "beat": 8,
+   "funcion": "escalada",
+   "t0": 0.08,
+   "t1": 89.7,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "Q46",
+   "beat": 8,
+   "funcion": "escalada",
+   "t0": 0.08,
+   "t1": 89.7,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "Q28",
+   "beat": 8,
+   "funcion": "escalada",
+   "t0": 0.08,
+   "t1": 89.7,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "Q45",
+   "beat": 8,
+   "funcion": "escalada",
+   "t0": 0.08,
+   "t1": 89.7,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "D226",
+   "beat": 8,
+   "funcion": "escalada",
+   "t0": 0.08,
+   "t1": 89.7,
+   "obligatorio": false,
+   "como": "dato_central",
+   "ya_dicho": true
+  },
+  {
+   "id": "T61",
+   "beat": 9,
+   "funcion": "giro",
+   "t0": 90.66,
+   "t1": 165.68,
+   "obligatorio": false,
+   "como": "dato_central",
+   "ya_dicho": false
+  },
+  {
+   "id": "Q51",
+   "beat": 9,
+   "funcion": "giro",
+   "t0": 90.66,
+   "t1": 165.68,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "T64",
+   "beat": 9,
+   "funcion": "giro",
+   "t0": 90.66,
+   "t1": 165.68,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": false
+  },
+  {
+   "id": "D111",
+   "beat": 9,
+   "funcion": "giro",
+   "t0": 90.66,
+   "t1": 165.68,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": false
+  }
+ ],
+ "pico_escaleta": 10
+}

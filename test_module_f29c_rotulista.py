@@ -180,6 +180,9 @@ def test_coherencia_720_contra_700_y_715_de_la_voz_del_video():
     assert not any("vs 20 m" in c for c in gro.contradicciones("Nivel del embalse 720 m", voz))   # otra magnitud
     assert gro.contradicciones("Nivel del embalse 700 m", voz[:1]) == []
     assert gro.contradicciones("Altura de la presa: 261 m", voz[:2]) == []          # otra magnitud nombrada
+    assert gro.contradicciones("15 metros por encima de la cota de seguridad", voz) == []   # una diferencia
+    assert gro.contradicciones("Pagar a Longarone 55.645.758.500 liras",
+                               ["ENEL ofreció diez mil millones de liras de la época como indemnización."]) == []
     ent, words = _ent([(0, "El agua seguía subiendo en el embalse."), (10, "Nadie miraba.")],
                       [{"id": "T50", "texto": "El embalse llegó a 720 metros, cinco por encima de la cota autorizada."}],
                       voz_video=voz)

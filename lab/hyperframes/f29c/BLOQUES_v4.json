@@ -1,0 +1,70 @@
+{
+ "offsets_concat": {
+  "ch01": 0.0,
+  "ch02": 98.6,
+  "ch03": 232.6,
+  "ch04": 362.266,
+  "ch05": 484.899,
+  "ch06": 654.799,
+  "ch07": 823.199
+ },
+ "bloques": [
+  {
+   "cap": "ch05",
+   "estado": "CORTADO por el crítico",
+   "tipo": "ficha",
+   "texto": "Alberico Biadene",
+   "pool_id": "T61",
+   "beat": null,
+   "oracion": null,
+   "palabra": null,
+   "t0_cap": 92.5,
+   "t_mp4": 579.9,
+   "aporta": "Identifica con su nombre y cargo a quien escribe la carta.",
+   "critico": "(1) sí: La narración menciona el nombre y cargo de Alberico Biadene. · (2) NO: La narración ya identifica a Alberico Biadene como el director técnico. · (3) estorba no: El bloque no tapa ningún rostro ni texto relevante en la imagen.",
+   "a_pantalla": null,
+   "voz_anterior": "—",
+   "voz_ancla": "—",
+   "voz_siguiente": "—",
+   "cuadro_2560": "ch05_0092.50_2560.jpg"
+  },
+  {
+   "cap": "ch06",
+   "estado": "en pantalla",
+   "tipo": "cifra",
+   "texto": "MUERTOS EN EL DESASTRE DEL VAJONT (RECUENTO OFICIAL) | 1.910 personas",
+   "pool_id": "D128",
+   "beat": 11,
+   "oracion": 24,
+   "palabra": 2,
+   "t0_cap": 124.3,
+   "t_mp4": 781.6,
+   "aporta": "Da el recuento oficial total de muertos, que la narración no menciona.",
+   "critico": "(1) sí: La narración menciona 'muertos' y el desastre en Longarone, que es el contexto del recuento. · (2) sí: La narración no especifica el número total de muertos, solo que hubo. · (3) estorba no: El bloque está en una esquina superior y no tapa rostros ni elementos clave de la imagen.",
+   "a_pantalla": true,
+   "voz_anterior": "«Conocía Longarone en cada rincón, ahora no sé dónde estoy», dijo uno de los sobrevivientes.",
+   "voz_ancla": "Entre los muertos está Guglielmo Celso, el alcalde socialista de Longarone.",
+   "voz_siguiente": "Nadie creó un organismo central que informara oficialmente cómo avanzaba el rescate.",
+   "cuadro_2560": "ch06_0124.30_2560.jpg"
+  },
+  {
+   "cap": "ch07",
+   "estado": "en pantalla",
+   "tipo": "hecho",
+   "texto": "ACUSADOS | Dos habían muerto y uno se suicidó.",
+   "pool_id": "D32",
+   "beat": 13,
+   "oracion": 16,
+   "palabra": 5,
+   "t0_cap": 112.5,
+   "t_mp4": 938.2,
+   "aporta": "Por qué solo ocho de los acusados llegaron al banquillo.",
+   "critico": "(1) sí: La narración menciona un suicidio y el número de acusados en el banquillo, temas relacionados con el bloque. · (2) sí: La narración solo menciona un suicidio, no las dos muertes adicionales que explica el bloque. · (3) estorba no: El bloque no tapa rostros ni texto relevante en la imagen.",
+   "a_pantalla": false,
+   "voz_anterior": "El día anterior, Pancini, el ingeniero al que Biadene le había pedido volver de vacaciones, se quitó la vida.",
+   "voz_ancla": "En el banquillo se sentaron ocho acusados.",
+   "voz_siguiente": "En marzo de mil novecientos setenta y uno, la Casación reconoció la culpabilidad de Biadene y de Sensidoni.",
+   "cuadro_2560": "ch07_0112.50_2560.jpg"
+  }
+ ]
+}

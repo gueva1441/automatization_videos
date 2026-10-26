@@ -1,0 +1,134 @@
+{
+ "plan": {
+  "chapter_number": 1,
+  "title_card": {
+   "kicker": "CAPÍTULO 1",
+   "title": "Cama en la oscuridad"
+  },
+  "callouts": [],
+  "count_up": null,
+  "archive_clippings": [],
+  "evidence_zoom": null,
+  "punch_in": [],
+  "chapter_question": {
+   "text": "El dique no cedió esa noche. Lo que llegó a la cama de Micaela vino por encima de él.",
+   "start": 94.933,
+   "duration": 3.0,
+   "keyword": "Micaela",
+   "generated": true,
+   "pause": 3.0,
+   "fuente": "escaleta (cierre del último beat)"
+  },
+  "icon_array": null,
+  "emphasis": [
+   {
+    "word": "fuerza",
+    "category": "caos_gritos",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 37.44,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "weight": 3,
+    "peak_word": true,
+    "sfx": {
+     "file": "rumor.wav",
+     "gain_db": -20
+    }
+   }
+  ],
+  "gap_warnings": [
+   [
+    19.3,
+    37.4
+   ],
+   [
+    58.3,
+    86.0
+   ]
+  ],
+  "quote_card": null,
+  "water_level": null,
+  "rotulista": {
+   "modelo": "claude-sonnet-5-5",
+   "faltan_a_pantalla": [],
+   "motivo_faltan": {},
+   "a_pantalla_incompletos": {},
+   "filas": [],
+   "error": null,
+   "director_antes": {
+    "archive_clippings": 1,
+    "callouts": 0,
+    "quote_card": false,
+    "count_up": false,
+    "water_level": false,
+    "evidence_zoom": false
+   },
+   "escena": []
+  },
+  "fragmentos": [],
+  "pico": {
+   "t": 34.42,
+   "block": null,
+   "word": "fuerza",
+   "sentence": "«La sensación de que la cama tomaba velocidad, una fuerza espantosa que me agarraba por la espalda, me doblaba en dos, me aplastaba», dijo Coletti.",
+   "sentence_idx": 6,
+   "beat": 1,
+   "fuente": "escaleta (beat más intenso del cap)",
+   "palabra": "fuerza"
+  },
+  "time_ticker": null,
+  "transitions": {},
+  "identity": {
+   "movimientos": [],
+   "violaciones": []
+  },
+  "black_hold": {
+   "start": 97.933,
+   "duration": 1.0
+  },
+  "realizador": {
+   "filas": [
+    {
+     "bloque": "emphasis",
+     "texto": "oscuridad",
+     "t": 9.82,
+     "pool_id": null,
+     "accion": "fuera",
+     "motivo": "sello por léxico (solo queda el de la palabra del pico)"
+    },
+    {
+     "bloque": "emphasis",
+     "texto": "ola",
+     "t": 85.96,
+     "pool_id": null,
+     "accion": "fuera",
+     "motivo": "sello por léxico (solo queda el de la palabra del pico)"
+    },
+    {
+     "bloque": "punch_in",
+     "accion": "4 fuera (sin bloque que acompañar)"
+    }
+   ],
+   "por_beat": {}
+  },
+  "critico": [
+   {
+    "t": 37.44,
+    "t_frame": 38.44,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "fuerza",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz sin repetirla, y el tinte de mood refuerza la sensación de caos y opresión descrita, complementando la imagen y el",
+    "pasa": true,
+    "voz": "«La sensación de que la cama tomaba velocidad, una fuerza espantosa que me agarraba por la espalda, me doblaba en dos, me aplastaba», dijo Coletti.",
+    "mira": "bloque dibujado"
+   }
+  ],
+  "critico_rotulista": []
+ },
+ "rejected": []
+}

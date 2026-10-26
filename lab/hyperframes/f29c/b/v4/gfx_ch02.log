@@ -1,0 +1,45 @@
+[2026-10-26 03:30:13] ch02 base=ch02_flux_visual.mp4
+  1 reencode -g30: 17.3s
+  2 grade: CSS intensidad 1.0
+  realizador: beats [(2, 'planteo', 0.08, 65.16), (3, 'escalada', 65.94, 129.66)] · candidatos [('D117', 2, 'OBL'), ('T04', 2, 'dicho'), ('T03', 2, 'dicho'), ('T12', 2, 'nuevo'), ('D237', 2, 'dicho'), ('T05', 3, 'dicho'), ('Q53', 3, 'dicho')]
+  rotulista ch02: caché (2 intento(s), 1 bloques)
+  escenas: 13 (0.00R3, 16.13R3, 21.60R2, 28.93R3, 35.20R3, 44.77R2, 53.17R3, 62.63R3, 76.57R3, 83.60R3, 96.37R3, 108.73R1, 120.80R1)
+  visión: 39 detalles en 13/13 escenas · rostro/manos en [1, 2, 3, 6, 8, 9, 10, 11]
+  intensidad: pico frase 18 · cargas [('desmoronamiento', 'caos_gritos', 3), ('colgados', 'frio_abandono', 2), ('cicatriz', 'caos_gritos', 2), ('deslizamiento', 'caos_gritos', 2), ('deslizamiento', 'caos_gritos', 2)]
+zoom box por visión escena 9 'martillo en la': [0.39, 0.52, 0.11, 0.07] conf 0.95 (martillo)
+callout omitido (solape/fuera de rango @ 0.1s): 'Longarone'
+archive: titular ⊂ cuerpo → sin cuerpo (kicker + año no es literal del fact)
+archive: titular ⊂ cuerpo → sin cuerpo (kicker + año no es literal del fact)
+emphasis: 'cicatriz' (veneno_enfermedad, peso 3, frec 2) @ 97.3s
+emphasis: 'desmoronamiento' (caos_gritos, peso 3, frec 3) @ 81.7s
+emphasis: 'deslizamiento' (caos_gritos, peso 3, frec 5) @ 104.0s
+gap_warning: 26.2s sin bloque (104.0–130.2s)
+  rotulista: colocados [] · fuera [('D117', 'lectura', 'sin tiempo de lectura: 82 caracteres piden 5.5 s y hay 3.4 s hasta el corte de escena (21.6 s)')]
+pico: palabra «montaña» (agua, peso 3) @ 68.7s → sello + mood
+  pico (escaleta, beat 3): oración [10] @ 65.9s «La gente de la zona llamaba al monte Toc «la montaña que camina», y lo» · palabra 'montaña'
+  reloj (cronología): no (el cap no avanza de fecha)
+  identidad: movimiento 0:3D, 1:router, 2:router, 3:router, 4:acercar, 5:3D, 6:router, 7:acercar, 8:router, 9:router, 10:router, 11:router, 12:alejar
+  identidad: golpes de zoom 4 (de 14 candidatos) @ [55.18, 81.7, 98.08, 103.96]
+  identidad: transiciones ['dip', 'dissolve', 'cut', 'dissolve', 'dissolve', 'cut', 'dissolve', 'dissolve', 'cut', 'dissolve', 'flash', 'cut_punch'] · violaciones []
+  pregunta de cierre (cierre del beat 3): 'En marzo del cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero.'
+  rotulista escena: [] · title card 3.0 s
+  realizador: 4 ajuste(s) · quedan 0 bloque(s) · por beat {}
+  crítico:   68.7s sello         «montaña» → SUMA — El sello enfatiza visualmente la palabra clave 'montaña' que la voz menciona, reforzando el concepto central sin repetir una frase completa.
+  crítico: 1/1 juzgados sobre el bloque dibujado (snapshot)
+  crítico: 1/1 bloques pasan
+  crítico rotulista: 0/0 bloques pasan
+  plan: {"chapter_number": 2, "title_card": {"kicker": "CAPÍTULO 2", "title": "El muro que tapa"}, "callouts": [], "count_up": null, "archive_clippings": [], "evidence_zoom": null, "punch_in": [], "chapter_question": {"text": "En marzo del cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero.", "start": 130.167, "duration": 3.0, "keyword": "cincuenta", "generated": true, "pause": 3.0, "fuente": "escaleta (cierre del último beat)"}, "icon_array": null, "emphasis": [{"word": "montaña", "category": "agua", "layer": "agua", "icon": null, "icon_anim": "press_wipe", "start": 68.74, "duration": 2.5, "side": "right", "stamp": true, "weight": 3, "peak_word": true}], "gap_warnings": [[104.0, 130.2]], "quote_card": null, "water_level": null, "rotulista": {"modelo": "claude-sonnet-5-5", "faltan_a_pantalla": ["D117"], "motivo_faltan": {"D117": "lectura: sin tiempo de lectura: 82 caracteres piden 5.5 s y hay 3.4 s hasta el corte de escena (21.6 s)"}, "a_pantalla_incompletos": {}, "filas": [{"pool_id": "D117", "tipo": "hecho", "etiqueta": "Aprobación del proyecto, 2018", "texto": "Se aprobó con solo 13 de 34 representantes presentes.", "sentence_idx": 2, "regla": "lectura", "motivo": "sin tiempo de lectura: 82 caracteres piden 5.5 s y hay 3.4 s hasta el corte de escena (21.6 s)", "accion": "fuera"}], "error": null, "director_antes": {"archive_clippings": 2, "callouts": 2, "quote_card": false, "count_up": false, "water_level": false, "evidence_zoom": true}, "escena": []}, "fragmentos": [{"pool_id": "D117", "tipo": "hecho", "etiqueta": "Aprobación del proyecto, 2018", "texto": "Se aprobó con solo 13 de 34 representantes presentes.", "sentence_idx": 2, "regla": "lectura", "motivo": "sin tiempo de lectura: 82 caracteres piden 5.5 s y hay 3.4 s hasta el corte de escena (21.6 s)", "accion": "fuera"}], "pico": {"t": 65.94, "block": null, "word": "montaña", "sentence": "La gente de la zona llamaba al monte Toc «la montaña que camina», y lo decían los residentes desde antes de que nadie fuera a medirla.", "sentence_idx": 10, "beat": 3, "fuente": "escaleta (beat más intenso del cap)", "palabra": "montaña"}, "time_ticker": null, "transitions": {"1": {"kind": "dip", "frames": 10, "why": "fundido a negro (1 por cap)", "rank": "R3"}, "2": {"kind": "dissolve", "frames": 20, "why": "default", "rank": "R2"}, "3": {"kind": "cut", "frames": 0, "why": "≥ 1 corte cada 3", "rank": "R3"}, "4": {"kind": "dissolve", "frames": 20, "why": "default", "rank": "R3"}, "5": {"kind": "dissolve", "frames": 20, "why": "default", "rank": "R2"}, "6": {"kind": "cut", "frames": 0, "why": "≥ 1 corte cada 3", "rank": "R3"}, "7": {"kind": "dissolve", "frames": 20, "why": "default", "rank": "R3"}, "8": {"kind": "dissolve", "frames": 20, "why": "default", "rank": "R3"}, "9": {"kind": "cut", "frames": 0, "why": "≥ 1 corte cada 3", "rank": "R3"}, "10": {"kind": "dissolve", "frames": 20, "why": "default", "rank": "R3"}, "11": {"kind": "flash", "frames": 3, "why": "impacto", "rank": "R1"}, "12": {"kind": "cut_punch", "frames": 0, "why": "impacto sin flash disponible", "rank": "R1"}}, "identity": {"movimientos": [{"scene": 0, "forma": "3D", "motivo": "paisaje con profundidad"}, {"scene": 1, "forma": "router", "motivo": "riesgo rostro: push"}, {"scene": 2, "forma": "router", "motivo": "riesgo rostro: push"}, {"scene": 3, "forma": "router", "motivo": "riesgo rostro: push"}, {"scene": 4, "forma": "acercar", "motivo": "es un detalle"}, {"scene": 5, "forma": "3D", "motivo": "paisaje con profundidad"}, {"scene": 6, "forma": "router", "motivo": "riesgo rostro: push"}, {"scene": 7, "forma": "acercar", "motivo": "base del documental"}, {"scene": 8, "forma": "router", "motivo": "riesgo rostro: push"}, {"scene": 9, "forma": "router", "motivo": "riesgo rostro: push"}, {"scene": 10, "forma": "router", "motivo": "riesgo rostro: push"}, {"scene": 11, "forma": "router", "motivo": "riesgo rostro: push"}, {"scene": 12, "forma": "alejar", "motivo": "cierre del cap"}], "violaciones": []}, "black_hold": {"start": 133.167, "duration": 1.0}, "realizador": {"filas": [{"bloque": "emphasis", "texto": "desmoronamiento", "t": 81.7, "pool_id": null, "accion": "fuera", "motivo": "sello por léxico (solo queda el de la palabra del pico)"}, {"bloque": "emphasis", "texto": "cicatriz", "t": 97.26, "pool_id": null, "accion": "fuera", "motivo": "sello por léxico (solo queda el de la palabra del pico)"}, {"bloque": "emphasis", "texto": "deslizamiento", "t": 103.96, "pool_id": null, "accion": "fuera", "motivo": "sello por léxico (solo queda el de la palabra del pico)"}, {"bloque": "punch_in", "accion": "4 fuera (sin bloque que acompañar)"}], "por_beat": {}}, "critico": [{"t": 68.74, "t_frame": 69.74, "dur": 2.5, "bloque": "sello", "texto": "montaña", "veredicto": "suma", "motivo": "El sello enfatiza visualmente la palabra clave 'montaña' que la voz menciona, reforzando el concepto central sin repetir una frase completa.", "pasa": true, "voz": "La gente de la zona llamaba al monte Toc «la montaña que camina», y lo decían los residentes desde antes de que nadie fuera a medirla.", "mira": "bloque dibujado"}], "critico_rotulista": []}
+  lock rechazados: 0 []
+sfx descartado: title_card @ 0.05s cae sobre 'Longarone' sin hueco ≤ 120 ms
+  sfx: 2 eventos (keyword_emphasis, chapter_question)
+  3-4 plan + lock: 51.0s
+  safe bake: 11 escena(s) [(1, 'push'), (2, 'push'), (3, 'push'), (4, 'push'), (6, 'push'), (7, 'push'), (8, 'push'), (9, 'push'), (10, 'push'), (11, 'push'), (12, 'pull')] · 3289/4025 cuadros · 71.6s
+  4b safe bake (ffmpeg): 71.6s
+  sparse: 3 ventanas, 11.7s de 134.2s (9 %) · transiciones en el stitch [(16.13, 'dip'), (21.6, 'dissolve'), (28.93, 'cut'), (35.2, 'dissolve'), (44.77, 'dissolve'), (53.17, 'cut'), (62.63, 'dissolve'), (76.57, 'dissolve'), (83.6, 'cut'), (96.37, 'dissolve'), (108.73, 'flash'), (120.8, 'cut_punch')]
+  5 templater (sparse): 9.4s
+  lint: 0 errores, 6 warnings
+  6 lint + render looks (sparse): 45.0s
+  marca: channel_bug.svg · esquina apagada
+  7 stitch + grade FFmpeg: 41.6s
+  hoja de contactos: hoja_contactos_ch02.jpg (1 cuadros)
+  OK total 236.6s → ch02_gfx.mp4 (disperso)

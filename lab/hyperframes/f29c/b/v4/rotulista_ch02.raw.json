@@ -1,0 +1,2862 @@
+{
+ "clave": "92db71b6688f41976414",
+ "modelo": "claude-sonnet-5-5",
+ "effort": "medium",
+ "prompt_version": "f29c-1",
+ "prompt_md5": "7dafbb964d7ff71daafc65c028834017",
+ "entrada": {
+  "cap": 2,
+  "titulo": "planteo · escalada",
+  "oraciones": [
+   {
+    "idx": 0,
+    "t0": 0.08,
+    "t1": 2.58,
+    "texto": "Longarone está en el fondo del valle del Piave.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Longarone",
+      "t0": 0.08,
+      "t1": 0.6
+     },
+     {
+      "k": 1,
+      "w": "está",
+      "t0": 0.64,
+      "t1": 0.86
+     },
+     {
+      "k": 2,
+      "w": "en",
+      "t0": 0.9,
+      "t1": 0.96
+     },
+     {
+      "k": 3,
+      "w": "el",
+      "t0": 1.0,
+      "t1": 1.08
+     },
+     {
+      "k": 4,
+      "w": "fondo",
+      "t0": 1.22,
+      "t1": 1.52
+     },
+     {
+      "k": 5,
+      "w": "del",
+      "t0": 1.56,
+      "t1": 1.66
+     },
+     {
+      "k": 6,
+      "w": "valle",
+      "t0": 1.74,
+      "t1": 1.98
+     },
+     {
+      "k": 7,
+      "w": "del",
+      "t0": 2.02,
+      "t1": 2.12
+     },
+     {
+      "k": 8,
+      "w": "Piave.",
+      "t0": 2.22,
+      "t1": 2.58
+     }
+    ],
+    "beat": 2
+   },
+   {
+    "idx": 1,
+    "t0": 3.3,
+    "t1": 15.1,
+    "texto": "El río pasa por delante del pueblo y, enfrente, desde una garganta lateral, baja un torrente que se llama Vajont y que desemboca en el Piave justo frente a Longarone y Castellavazzo.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "El",
+      "t0": 3.3,
+      "t1": 3.38
+     },
+     {
+      "k": 1,
+      "w": "río",
+      "t0": 3.44,
+      "t1": 3.7
+     },
+     {
+      "k": 2,
+      "w": "pasa",
+      "t0": 3.74,
+      "t1": 4.0
+     },
+     {
+      "k": 3,
+      "w": "por",
+      "t0": 4.019,
+      "t1": 4.14
+     },
+     {
+      "k": 4,
+      "w": "delante",
+      "t0": 4.16,
+      "t1": 4.52
+     },
+     {
+      "k": 5,
+      "w": "del",
+      "t0": 4.56,
+      "t1": 4.66
+     },
+     {
+      "k": 6,
+      "w": "pueblo",
+      "t0": 4.78,
+      "t1": 5.14
+     },
+     {
+      "k": 7,
+      "w": "y,",
+      "t0": 5.5,
+      "t1": 5.62
+     },
+     {
+      "k": 8,
+      "w": "enfrente,",
+      "t0": 5.78,
+      "t1": 6.32
+     },
+     {
+      "k": 9,
+      "w": "desde",
+      "t0": 6.72,
+      "t1": 6.94
+     },
+     {
+      "k": 10,
+      "w": "una",
+      "t0": 6.98,
+      "t1": 7.1
+     },
+     {
+      "k": 11,
+      "w": "garganta",
+      "t0": 7.16,
+      "t1": 7.56
+     },
+     {
+      "k": 12,
+      "w": "lateral,",
+      "t0": 7.62,
+      "t1": 8.02
+     },
+     {
+      "k": 13,
+      "w": "baja",
+      "t0": 8.58,
+      "t1": 8.8
+     },
+     {
+      "k": 14,
+      "w": "un",
+      "t0": 8.84,
+      "t1": 8.96
+     },
+     {
+      "k": 15,
+      "w": "torrente",
+      "t0": 9.0,
+      "t1": 9.42
+     },
+     {
+      "k": 16,
+      "w": "que",
+      "t0": 9.5,
+      "t1": 9.58
+     },
+     {
+      "k": 17,
+      "w": "se",
+      "t0": 9.62,
+      "t1": 9.7
+     },
+     {
+      "k": 18,
+      "w": "llama",
+      "t0": 9.74,
+      "t1": 10.02
+     },
+     {
+      "k": 19,
+      "w": "Vajont",
+      "t0": 10.22,
+      "t1": 10.76
+     },
+     {
+      "k": 20,
+      "w": "y",
+      "t0": 11.2,
+      "t1": 11.22
+     },
+     {
+      "k": 21,
+      "w": "que",
+      "t0": 11.28,
+      "t1": 11.36
+     },
+     {
+      "k": 22,
+      "w": "desemboca",
+      "t0": 11.38,
+      "t1": 11.92
+     },
+     {
+      "k": 23,
+      "w": "en",
+      "t0": 11.94,
+      "t1": 12.0
+     },
+     {
+      "k": 24,
+      "w": "el",
+      "t0": 12.04,
+      "t1": 12.12
+     },
+     {
+      "k": 25,
+      "w": "Piave",
+      "t0": 12.22,
+      "t1": 12.5
+     },
+     {
+      "k": 26,
+      "w": "justo",
+      "t0": 12.66,
+      "t1": 13.06
+     },
+     {
+      "k": 27,
+      "w": "frente",
+      "t0": 13.1,
+      "t1": 13.36
+     },
+     {
+      "k": 28,
+      "w": "a",
+      "t0": 13.38,
+      "t1": 13.42
+     },
+     {
+      "k": 29,
+      "w": "Longarone",
+      "t0": 13.46,
+      "t1": 14.02
+     },
+     {
+      "k": 30,
+      "w": "y",
+      "t0": 14.2,
+      "t1": 14.24
+     },
+     {
+      "k": 31,
+      "w": "Castellavazzo.",
+      "t0": 14.3,
+      "t1": 15.1
+     }
+    ],
+    "beat": 2
+   },
+   {
+    "idx": 2,
+    "t0": 16.2,
+    "t1": 28.12,
+    "texto": "En mil novecientos cuarenta y tres se aprobó el proyecto de cerrar esa garganta con una presa, y empezó la compra de terrenos en Erto y Casso, los pueblos de arriba, los que iban a quedar al borde del lago.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "En",
+      "t0": 16.2,
+      "t1": 16.3
+     },
+     {
+      "k": 1,
+      "w": "mil",
+      "t0": 16.34,
+      "t1": 16.46
+     },
+     {
+      "k": 2,
+      "w": "novecientos",
+      "t0": 16.5,
+      "t1": 17.06
+     },
+     {
+      "k": 3,
+      "w": "cuarenta",
+      "t0": 17.08,
+      "t1": 17.42
+     },
+     {
+      "k": 4,
+      "w": "y",
+      "t0": 17.44,
+      "t1": 17.46
+     },
+     {
+      "k": 5,
+      "w": "tres",
+      "t0": 17.56,
+      "t1": 17.8
+     },
+     {
+      "k": 6,
+      "w": "se",
+      "t0": 18.14,
+      "t1": 18.2
+     },
+     {
+      "k": 7,
+      "w": "aprobó",
+      "t0": 18.24,
+      "t1": 18.52
+     },
+     {
+      "k": 8,
+      "w": "el",
+      "t0": 18.56,
+      "t1": 18.66
+     },
+     {
+      "k": 9,
+      "w": "proyecto",
+      "t0": 18.68,
+      "t1": 19.14
+     },
+     {
+      "k": 10,
+      "w": "de",
+      "t0": 19.18,
+      "t1": 19.22
+     },
+     {
+      "k": 11,
+      "w": "cerrar",
+      "t0": 19.3,
+      "t1": 19.6
+     },
+     {
+      "k": 12,
+      "w": "esa",
+      "t0": 19.64,
+      "t1": 19.82
+     },
+     {
+      "k": 13,
+      "w": "garganta",
+      "t0": 19.86,
+      "t1": 20.38
+     },
+     {
+      "k": 14,
+      "w": "con",
+      "t0": 20.4,
+      "t1": 20.5
+     },
+     {
+      "k": 15,
+      "w": "una",
+      "t0": 20.56,
+      "t1": 20.68
+     },
+     {
+      "k": 16,
+      "w": "presa,",
+      "t0": 20.76,
+      "t1": 21.1
+     },
+     {
+      "k": 17,
+      "w": "y",
+      "t0": 21.64,
+      "t1": 21.66
+     },
+     {
+      "k": 18,
+      "w": "empezó",
+      "t0": 21.7,
+      "t1": 22.02
+     },
+     {
+      "k": 19,
+      "w": "la",
+      "t0": 22.04,
+      "t1": 22.1
+     },
+     {
+      "k": 20,
+      "w": "compra",
+      "t0": 22.18,
+      "t1": 22.48
+     },
+     {
+      "k": 21,
+      "w": "de",
+      "t0": 22.5,
+      "t1": 22.56
+     },
+     {
+      "k": 22,
+      "w": "terrenos",
+      "t0": 22.64,
+      "t1": 23.08
+     },
+     {
+      "k": 23,
+      "w": "en",
+      "t0": 23.24,
+      "t1": 23.34
+     },
+     {
+      "k": 24,
+      "w": "Erto",
+      "t0": 23.4,
+      "t1": 23.72
+     },
+     {
+      "k": 25,
+      "w": "y",
+      "t0": 23.88,
+      "t1": 23.92
+     },
+     {
+      "k": 26,
+      "w": "Casso,",
+      "t0": 24.02,
+      "t1": 24.36
+     },
+     {
+      "k": 27,
+      "w": "los",
+      "t0": 24.84,
+      "t1": 24.96
+     },
+     {
+      "k": 28,
+      "w": "pueblos",
+      "t0": 25.06,
+      "t1": 25.36
+     },
+     {
+      "k": 29,
+      "w": "de",
+      "t0": 25.38,
+      "t1": 25.44
+     },
+     {
+      "k": 30,
+      "w": "arriba,",
+      "t0": 25.46,
+      "t1": 25.82
+     },
+     {
+      "k": 31,
+      "w": "los",
+      "t0": 26.26,
+      "t1": 26.36
+     },
+     {
+      "k": 32,
+      "w": "que",
+      "t0": 26.42,
+      "t1": 26.52
+     },
+     {
+      "k": 33,
+      "w": "iban",
+      "t0": 26.54,
+      "t1": 26.72
+     },
+     {
+      "k": 34,
+      "w": "a",
+      "t0": 26.76,
+      "t1": 26.78
+     },
+     {
+      "k": 35,
+      "w": "quedar",
+      "t0": 26.84,
+      "t1": 27.1
+     },
+     {
+      "k": 36,
+      "w": "al",
+      "t0": 27.12,
+      "t1": 27.22
+     },
+     {
+      "k": 37,
+      "w": "borde",
+      "t0": 27.3,
+      "t1": 27.58
+     },
+     {
+      "k": 38,
+      "w": "del",
+      "t0": 27.62,
+      "t1": 27.74
+     },
+     {
+      "k": 39,
+      "w": "lago.",
+      "t0": 27.8,
+      "t1": 28.12
+     }
+    ],
+    "beat": 2
+   },
+   {
+    "idx": 3,
+    "t0": 28.96,
+    "t1": 30.5,
+    "texto": "La empresa era SADE.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "La",
+      "t0": 28.96,
+      "t1": 29.02
+     },
+     {
+      "k": 1,
+      "w": "empresa",
+      "t0": 29.06,
+      "t1": 29.52
+     },
+     {
+      "k": 2,
+      "w": "era",
+      "t0": 29.72,
+      "t1": 29.88
+     },
+     {
+      "k": 3,
+      "w": "SADE.",
+      "t0": 30.12,
+      "t1": 30.5
+     }
+    ],
+    "beat": 2
+   },
+   {
+    "idx": 4,
+    "t0": 31.46,
+    "t1": 43.72,
+    "texto": "El ingeniero que dibujó la obra se llamaba Carlo Semenza, y la pensó como un arco delgado de doble curvatura: una pared curva, fina para su tamaño, apoyada en las dos laderas de la garganta.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "El",
+      "t0": 31.46,
+      "t1": 31.52
+     },
+     {
+      "k": 1,
+      "w": "ingeniero",
+      "t0": 31.58,
+      "t1": 32.06
+     },
+     {
+      "k": 2,
+      "w": "que",
+      "t0": 32.08,
+      "t1": 32.159
+     },
+     {
+      "k": 3,
+      "w": "dibujó",
+      "t0": 32.2,
+      "t1": 32.54
+     },
+     {
+      "k": 4,
+      "w": "la",
+      "t0": 32.58,
+      "t1": 32.68
+     },
+     {
+      "k": 5,
+      "w": "obra",
+      "t0": 32.74,
+      "t1": 32.94
+     },
+     {
+      "k": 6,
+      "w": "se",
+      "t0": 33.02,
+      "t1": 33.1
+     },
+     {
+      "k": 7,
+      "w": "llamaba",
+      "t0": 33.14,
+      "t1": 33.52
+     },
+     {
+      "k": 8,
+      "w": "Carlo",
+      "t0": 33.74,
+      "t1": 34.04
+     },
+     {
+      "k": 9,
+      "w": "Semenza,",
+      "t0": 34.14,
+      "t1": 34.66
+     },
+     {
+      "k": 10,
+      "w": "y",
+      "t0": 35.22,
+      "t1": 35.26
+     },
+     {
+      "k": 11,
+      "w": "la",
+      "t0": 35.3,
+      "t1": 35.36
+     },
+     {
+      "k": 12,
+      "w": "pensó",
+      "t0": 35.42,
+      "t1": 35.76
+     },
+     {
+      "k": 13,
+      "w": "como",
+      "t0": 35.78,
+      "t1": 35.98
+     },
+     {
+      "k": 14,
+      "w": "un",
+      "t0": 36.02,
+      "t1": 36.1
+     },
+     {
+      "k": 15,
+      "w": "arco",
+      "t0": 36.16,
+      "t1": 36.4
+     },
+     {
+      "k": 16,
+      "w": "delgado",
+      "t0": 36.44,
+      "t1": 36.92
+     },
+     {
+      "k": 17,
+      "w": "de",
+      "t0": 36.96,
+      "t1": 37.02
+     },
+     {
+      "k": 18,
+      "w": "doble",
+      "t0": 37.1,
+      "t1": 37.36
+     },
+     {
+      "k": 19,
+      "w": "curvatura:",
+      "t0": 37.44,
+      "t1": 38.02
+     },
+     {
+      "k": 20,
+      "w": "una",
+      "t0": 38.7,
+      "t1": 38.82
+     },
+     {
+      "k": 21,
+      "w": "pared",
+      "t0": 38.9,
+      "t1": 39.12
+     },
+     {
+      "k": 22,
+      "w": "curva,",
+      "t0": 39.24,
+      "t1": 39.56
+     },
+     {
+      "k": 23,
+      "w": "fina",
+      "t0": 40.04,
+      "t1": 40.26
+     },
+     {
+      "k": 24,
+      "w": "para",
+      "t0": 40.34,
+      "t1": 40.46
+     },
+     {
+      "k": 25,
+      "w": "su",
+      "t0": 40.52,
+      "t1": 40.6
+     },
+     {
+      "k": 26,
+      "w": "tamaño,",
+      "t0": 40.66,
+      "t1": 41.08
+     },
+     {
+      "k": 27,
+      "w": "apoyada",
+      "t0": 41.56,
+      "t1": 42.0
+     },
+     {
+      "k": 28,
+      "w": "en",
+      "t0": 42.04,
+      "t1": 42.1
+     },
+     {
+      "k": 29,
+      "w": "las",
+      "t0": 42.14,
+      "t1": 42.28
+     },
+     {
+      "k": 30,
+      "w": "dos",
+      "t0": 42.36,
+      "t1": 42.5
+     },
+     {
+      "k": 31,
+      "w": "laderas",
+      "t0": 42.6,
+      "t1": 42.98
+     },
+     {
+      "k": 32,
+      "w": "de",
+      "t0": 43.0,
+      "t1": 43.06
+     },
+     {
+      "k": 33,
+      "w": "la",
+      "t0": 43.1,
+      "t1": 43.14
+     },
+     {
+      "k": 34,
+      "w": "garganta.",
+      "t0": 43.2,
+      "t1": 43.72
+     }
+    ],
+    "beat": 2
+   },
+   {
+    "idx": 5,
+    "t0": 44.76,
+    "t1": 52.16,
+    "texto": "Cuando empezaron las obras, unos cuatrocientos hombres colgados de andamios la fueron levantando hasta tapar el cielo de la garganta.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Cuando",
+      "t0": 44.76,
+      "t1": 44.94
+     },
+     {
+      "k": 1,
+      "w": "empezaron",
+      "t0": 44.98,
+      "t1": 45.42
+     },
+     {
+      "k": 2,
+      "w": "las",
+      "t0": 45.46,
+      "t1": 45.6
+     },
+     {
+      "k": 3,
+      "w": "obras,",
+      "t0": 45.66,
+      "t1": 46.0
+     },
+     {
+      "k": 4,
+      "w": "unos",
+      "t0": 46.4,
+      "t1": 46.62
+     },
+     {
+      "k": 5,
+      "w": "cuatrocientos",
+      "t0": 46.66,
+      "t1": 47.36
+     },
+     {
+      "k": 6,
+      "w": "hombres",
+      "t0": 47.4,
+      "t1": 47.78
+     },
+     {
+      "k": 7,
+      "w": "colgados",
+      "t0": 47.82,
+      "t1": 48.26
+     },
+     {
+      "k": 8,
+      "w": "de",
+      "t0": 48.3,
+      "t1": 48.34
+     },
+     {
+      "k": 9,
+      "w": "andamios",
+      "t0": 48.38,
+      "t1": 48.86
+     },
+     {
+      "k": 10,
+      "w": "la",
+      "t0": 49.22,
+      "t1": 49.28
+     },
+     {
+      "k": 11,
+      "w": "fueron",
+      "t0": 49.36,
+      "t1": 49.58
+     },
+     {
+      "k": 12,
+      "w": "levantando",
+      "t0": 49.62,
+      "t1": 50.24
+     },
+     {
+      "k": 13,
+      "w": "hasta",
+      "t0": 50.26,
+      "t1": 50.48
+     },
+     {
+      "k": 14,
+      "w": "tapar",
+      "t0": 50.54,
+      "t1": 50.84
+     },
+     {
+      "k": 15,
+      "w": "el",
+      "t0": 50.88,
+      "t1": 50.96
+     },
+     {
+      "k": 16,
+      "w": "cielo",
+      "t0": 51.12,
+      "t1": 51.4
+     },
+     {
+      "k": 17,
+      "w": "de",
+      "t0": 51.44,
+      "t1": 51.5
+     },
+     {
+      "k": 18,
+      "w": "la",
+      "t0": 51.52,
+      "t1": 51.58
+     },
+     {
+      "k": 19,
+      "w": "garganta.",
+      "t0": 51.64,
+      "t1": 52.16
+     }
+    ],
+    "beat": 2
+   },
+   {
+    "idx": 6,
+    "t0": 53.14,
+    "t1": 57.06,
+    "texto": "Abajo, en Longarone, la vida siguió con el Piave delante.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Abajo,",
+      "t0": 53.14,
+      "t1": 53.52
+     },
+     {
+      "k": 1,
+      "w": "en",
+      "t0": 53.84,
+      "t1": 53.94
+     },
+     {
+      "k": 2,
+      "w": "Longarone,",
+      "t0": 53.98,
+      "t1": 54.54
+     },
+     {
+      "k": 3,
+      "w": "la",
+      "t0": 55.06,
+      "t1": 55.12
+     },
+     {
+      "k": 4,
+      "w": "vida",
+      "t0": 55.18,
+      "t1": 55.36
+     },
+     {
+      "k": 5,
+      "w": "siguió",
+      "t0": 55.46,
+      "t1": 55.82
+     },
+     {
+      "k": 6,
+      "w": "con",
+      "t0": 55.84,
+      "t1": 55.96
+     },
+     {
+      "k": 7,
+      "w": "el",
+      "t0": 55.98,
+      "t1": 56.06
+     },
+     {
+      "k": 8,
+      "w": "Piave",
+      "t0": 56.18,
+      "t1": 56.52
+     },
+     {
+      "k": 9,
+      "w": "delante.",
+      "t0": 56.58,
+      "t1": 57.06
+     }
+    ],
+    "beat": 2
+   },
+   {
+    "idx": 7,
+    "t0": 58.08,
+    "t1": 60.0,
+    "texto": "Longarone no estaba sobre el embalse.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Longarone",
+      "t0": 58.08,
+      "t1": 58.52
+     },
+     {
+      "k": 1,
+      "w": "no",
+      "t0": 58.6,
+      "t1": 58.68
+     },
+     {
+      "k": 2,
+      "w": "estaba",
+      "t0": 58.72,
+      "t1": 59.08
+     },
+     {
+      "k": 3,
+      "w": "sobre",
+      "t0": 59.16,
+      "t1": 59.38
+     },
+     {
+      "k": 4,
+      "w": "el",
+      "t0": 59.4,
+      "t1": 59.48
+     },
+     {
+      "k": 5,
+      "w": "embalse.",
+      "t0": 59.52,
+      "t1": 60.0
+     }
+    ],
+    "beat": 2
+   },
+   {
+    "idx": 8,
+    "t0": 60.58,
+    "t1": 61.76,
+    "texto": "Estaba delante de él.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Estaba",
+      "t0": 60.58,
+      "t1": 60.92
+     },
+     {
+      "k": 1,
+      "w": "delante",
+      "t0": 60.98,
+      "t1": 61.42
+     },
+     {
+      "k": 2,
+      "w": "de",
+      "t0": 61.46,
+      "t1": 61.56
+     },
+     {
+      "k": 3,
+      "w": "él.",
+      "t0": 61.64,
+      "t1": 61.76
+     }
+    ],
+    "beat": 2
+   },
+   {
+    "idx": 9,
+    "t0": 62.58,
+    "t1": 65.16,
+    "texto": "Y la montaña que cerraba el lago tenía un apodo.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Y",
+      "t0": 62.58,
+      "t1": 62.62
+     },
+     {
+      "k": 1,
+      "w": "la",
+      "t0": 62.66,
+      "t1": 62.7
+     },
+     {
+      "k": 2,
+      "w": "montaña",
+      "t0": 62.78,
+      "t1": 63.24
+     },
+     {
+      "k": 3,
+      "w": "que",
+      "t0": 63.26,
+      "t1": 63.36
+     },
+     {
+      "k": 4,
+      "w": "cerraba",
+      "t0": 63.38,
+      "t1": 63.74
+     },
+     {
+      "k": 5,
+      "w": "el",
+      "t0": 63.78,
+      "t1": 63.86
+     },
+     {
+      "k": 6,
+      "w": "lago",
+      "t0": 63.9,
+      "t1": 64.239
+     },
+     {
+      "k": 7,
+      "w": "tenía",
+      "t0": 64.28,
+      "t1": 64.599
+     },
+     {
+      "k": 8,
+      "w": "un",
+      "t0": 64.66,
+      "t1": 64.72
+     },
+     {
+      "k": 9,
+      "w": "apodo.",
+      "t0": 64.76,
+      "t1": 65.16
+     }
+    ],
+    "beat": 2
+   },
+   {
+    "idx": 10,
+    "t0": 65.94,
+    "t1": 74.0,
+    "texto": "La gente de la zona llamaba al monte Toc «la montaña que camina», y lo decían los residentes desde antes de que nadie fuera a medirla.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "La",
+      "t0": 65.94,
+      "t1": 66.0
+     },
+     {
+      "k": 1,
+      "w": "gente",
+      "t0": 66.06,
+      "t1": 66.3
+     },
+     {
+      "k": 2,
+      "w": "de",
+      "t0": 66.34,
+      "t1": 66.4
+     },
+     {
+      "k": 3,
+      "w": "la",
+      "t0": 66.44,
+      "t1": 66.48
+     },
+     {
+      "k": 4,
+      "w": "zona",
+      "t0": 66.58,
+      "t1": 66.78
+     },
+     {
+      "k": 5,
+      "w": "llamaba",
+      "t0": 66.84,
+      "t1": 67.2
+     },
+     {
+      "k": 6,
+      "w": "al",
+      "t0": 67.22,
+      "t1": 67.32
+     },
+     {
+      "k": 7,
+      "w": "monte",
+      "t0": 67.4,
+      "t1": 67.72
+     },
+     {
+      "k": 8,
+      "w": "Toc",
+      "t0": 67.96,
+      "t1": 68.22
+     },
+     {
+      "k": 9,
+      "w": "«la",
+      "t0": 68.6,
+      "t1": 68.66
+     },
+     {
+      "k": 10,
+      "w": "montaña",
+      "t0": 68.74,
+      "t1": 69.24
+     },
+     {
+      "k": 11,
+      "w": "que",
+      "t0": 69.32,
+      "t1": 69.42
+     },
+     {
+      "k": 12,
+      "w": "camina»,",
+      "t0": 69.46,
+      "t1": 69.84
+     },
+     {
+      "k": 13,
+      "w": "y",
+      "t0": 70.4,
+      "t1": 70.46
+     },
+     {
+      "k": 14,
+      "w": "lo",
+      "t0": 70.48,
+      "t1": 70.56
+     },
+     {
+      "k": 15,
+      "w": "decían",
+      "t0": 70.6,
+      "t1": 70.94
+     },
+     {
+      "k": 16,
+      "w": "los",
+      "t0": 70.98,
+      "t1": 71.08
+     },
+     {
+      "k": 17,
+      "w": "residentes",
+      "t0": 71.12,
+      "t1": 71.76
+     },
+     {
+      "k": 18,
+      "w": "desde",
+      "t0": 71.78,
+      "t1": 72.04
+     },
+     {
+      "k": 19,
+      "w": "antes",
+      "t0": 72.1,
+      "t1": 72.38
+     },
+     {
+      "k": 20,
+      "w": "de",
+      "t0": 72.42,
+      "t1": 72.52
+     },
+     {
+      "k": 21,
+      "w": "que",
+      "t0": 72.54,
+      "t1": 72.66
+     },
+     {
+      "k": 22,
+      "w": "nadie",
+      "t0": 72.7,
+      "t1": 73.08
+     },
+     {
+      "k": 23,
+      "w": "fuera",
+      "t0": 73.14,
+      "t1": 73.4
+     },
+     {
+      "k": 24,
+      "w": "a",
+      "t0": 73.401,
+      "t1": 73.46
+     },
+     {
+      "k": 25,
+      "w": "medirla.",
+      "t0": 73.52,
+      "t1": 74.0
+     }
+    ],
+    "beat": 3
+   },
+   {
+    "idx": 11,
+    "t0": 76.5,
+    "t1": 82.6,
+    "texto": "En la década del cincuenta, el geólogo Leopold Müller detectó en el Toc un gran desmoronamiento.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "En",
+      "t0": 76.5,
+      "t1": 76.58
+     },
+     {
+      "k": 1,
+      "w": "la",
+      "t0": 76.62,
+      "t1": 76.66
+     },
+     {
+      "k": 2,
+      "w": "década",
+      "t0": 76.72,
+      "t1": 77.02
+     },
+     {
+      "k": 3,
+      "w": "del",
+      "t0": 77.06,
+      "t1": 77.16
+     },
+     {
+      "k": 4,
+      "w": "cincuenta,",
+      "t0": 77.22,
+      "t1": 77.82
+     },
+     {
+      "k": 5,
+      "w": "el",
+      "t0": 78.26,
+      "t1": 78.32
+     },
+     {
+      "k": 6,
+      "w": "geólogo",
+      "t0": 78.4,
+      "t1": 78.82
+     },
+     {
+      "k": 7,
+      "w": "Leopold",
+      "t0": 78.96,
+      "t1": 79.38
+     },
+     {
+      "k": 8,
+      "w": "Müller",
+      "t0": 79.46,
+      "t1": 79.8
+     },
+     {
+      "k": 9,
+      "w": "detectó",
+      "t0": 80.16,
+      "t1": 80.54
+     },
+     {
+      "k": 10,
+      "w": "en",
+      "t0": 80.58,
+      "t1": 80.64
+     },
+     {
+      "k": 11,
+      "w": "el",
+      "t0": 80.68,
+      "t1": 80.76
+     },
+     {
+      "k": 12,
+      "w": "Toc",
+      "t0": 80.88,
+      "t1": 81.06
+     },
+     {
+      "k": 13,
+      "w": "un",
+      "t0": 81.26,
+      "t1": 81.4
+     },
+     {
+      "k": 14,
+      "w": "gran",
+      "t0": 81.44,
+      "t1": 81.64
+     },
+     {
+      "k": 15,
+      "w": "desmoronamiento.",
+      "t0": 81.7,
+      "t1": 82.6
+     }
+    ],
+    "beat": 3
+   },
+   {
+    "idx": 12,
+    "t0": 83.52,
+    "t1": 95.2,
+    "texto": "Y hubo otro hombre que caminó esa ladera con un martillo en la mano y otra idea en la cabeza: Edoardo Semenza, geólogo, hijo de Carlo Semenza, el que había dibujado la presa.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Y",
+      "t0": 83.52,
+      "t1": 83.58
+     },
+     {
+      "k": 1,
+      "w": "hubo",
+      "t0": 83.6,
+      "t1": 83.8
+     },
+     {
+      "k": 2,
+      "w": "otro",
+      "t0": 83.86,
+      "t1": 84.08
+     },
+     {
+      "k": 3,
+      "w": "hombre",
+      "t0": 84.1,
+      "t1": 84.38
+     },
+     {
+      "k": 4,
+      "w": "que",
+      "t0": 84.46,
+      "t1": 84.56
+     },
+     {
+      "k": 5,
+      "w": "caminó",
+      "t0": 84.58,
+      "t1": 84.92
+     },
+     {
+      "k": 6,
+      "w": "esa",
+      "t0": 84.96,
+      "t1": 85.12
+     },
+     {
+      "k": 7,
+      "w": "ladera",
+      "t0": 85.16,
+      "t1": 85.56
+     },
+     {
+      "k": 8,
+      "w": "con",
+      "t0": 85.58,
+      "t1": 85.7
+     },
+     {
+      "k": 9,
+      "w": "un",
+      "t0": 85.74,
+      "t1": 85.84
+     },
+     {
+      "k": 10,
+      "w": "martillo",
+      "t0": 85.88,
+      "t1": 86.32
+     },
+     {
+      "k": 11,
+      "w": "en",
+      "t0": 86.36,
+      "t1": 86.42
+     },
+     {
+      "k": 12,
+      "w": "la",
+      "t0": 86.48,
+      "t1": 86.52
+     },
+     {
+      "k": 13,
+      "w": "mano",
+      "t0": 86.6,
+      "t1": 86.84
+     },
+     {
+      "k": 14,
+      "w": "y",
+      "t0": 87.2,
+      "t1": 87.26
+     },
+     {
+      "k": 15,
+      "w": "otra",
+      "t0": 87.34,
+      "t1": 87.58
+     },
+     {
+      "k": 16,
+      "w": "idea",
+      "t0": 87.62,
+      "t1": 87.9
+     },
+     {
+      "k": 17,
+      "w": "en",
+      "t0": 87.94,
+      "t1": 88.0
+     },
+     {
+      "k": 18,
+      "w": "la",
+      "t0": 88.04,
+      "t1": 88.1
+     },
+     {
+      "k": 19,
+      "w": "cabeza:",
+      "t0": 88.16,
+      "t1": 88.58
+     },
+     {
+      "k": 20,
+      "w": "Edoardo",
+      "t0": 89.42,
+      "t1": 89.88
+     },
+     {
+      "k": 21,
+      "w": "Semenza,",
+      "t0": 89.98,
+      "t1": 90.5
+     },
+     {
+      "k": 22,
+      "w": "geólogo,",
+      "t0": 91.0,
+      "t1": 91.5
+     },
+     {
+      "k": 23,
+      "w": "hijo",
+      "t0": 91.96,
+      "t1": 92.22
+     },
+     {
+      "k": 24,
+      "w": "de",
+      "t0": 92.24,
+      "t1": 92.38
+     },
+     {
+      "k": 25,
+      "w": "Carlo",
+      "t0": 92.42,
+      "t1": 92.7
+     },
+     {
+      "k": 26,
+      "w": "Semenza,",
+      "t0": 92.78,
+      "t1": 93.26
+     },
+     {
+      "k": 27,
+      "w": "el",
+      "t0": 93.7,
+      "t1": 93.76
+     },
+     {
+      "k": 28,
+      "w": "que",
+      "t0": 93.84,
+      "t1": 93.9
+     },
+     {
+      "k": 29,
+      "w": "había",
+      "t0": 93.92,
+      "t1": 94.18
+     },
+     {
+      "k": 30,
+      "w": "dibujado",
+      "t0": 94.22,
+      "t1": 94.68
+     },
+     {
+      "k": 31,
+      "w": "la",
+      "t0": 94.72,
+      "t1": 94.76
+     },
+     {
+      "k": 32,
+      "w": "presa.",
+      "t0": 94.84,
+      "t1": 95.2
+     }
+    ],
+    "beat": 3
+   },
+   {
+    "idx": 13,
+    "t0": 96.26,
+    "t1": 99.34,
+    "texto": "Edoardo buscaba la cicatriz de un deslizamiento antiguo.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Edoardo",
+      "t0": 96.26,
+      "t1": 96.7
+     },
+     {
+      "k": 1,
+      "w": "buscaba",
+      "t0": 96.72,
+      "t1": 97.1
+     },
+     {
+      "k": 2,
+      "w": "la",
+      "t0": 97.14,
+      "t1": 97.18
+     },
+     {
+      "k": 3,
+      "w": "cicatriz",
+      "t0": 97.26,
+      "t1": 97.78
+     },
+     {
+      "k": 4,
+      "w": "de",
+      "t0": 97.82,
+      "t1": 97.9
+     },
+     {
+      "k": 5,
+      "w": "un",
+      "t0": 97.94,
+      "t1": 98.02
+     },
+     {
+      "k": 6,
+      "w": "deslizamiento",
+      "t0": 98.08,
+      "t1": 98.8
+     },
+     {
+      "k": 7,
+      "w": "antiguo.",
+      "t0": 98.84,
+      "t1": 99.34
+     }
+    ],
+    "beat": 3
+   },
+   {
+    "idx": 14,
+    "t0": 100.22,
+    "t1": 107.62,
+    "texto": "Según una reconstrucción geológica posterior, planteó que ese deslizamiento viejo podía reactivarse cuando el embalse se llenara.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Según",
+      "t0": 100.22,
+      "t1": 100.48
+     },
+     {
+      "k": 1,
+      "w": "una",
+      "t0": 100.52,
+      "t1": 100.68
+     },
+     {
+      "k": 2,
+      "w": "reconstrucción",
+      "t0": 100.72,
+      "t1": 101.46
+     },
+     {
+      "k": 3,
+      "w": "geológica",
+      "t0": 101.52,
+      "t1": 102.02
+     },
+     {
+      "k": 4,
+      "w": "posterior,",
+      "t0": 102.12,
+      "t1": 102.62
+     },
+     {
+      "k": 5,
+      "w": "planteó",
+      "t0": 103.12,
+      "t1": 103.58
+     },
+     {
+      "k": 6,
+      "w": "que",
+      "t0": 103.62,
+      "t1": 103.7
+     },
+     {
+      "k": 7,
+      "w": "ese",
+      "t0": 103.72,
+      "t1": 103.92
+     },
+     {
+      "k": 8,
+      "w": "deslizamiento",
+      "t0": 103.96,
+      "t1": 104.68
+     },
+     {
+      "k": 9,
+      "w": "viejo",
+      "t0": 104.76,
+      "t1": 105.04
+     },
+     {
+      "k": 10,
+      "w": "podía",
+      "t0": 105.18,
+      "t1": 105.48
+     },
+     {
+      "k": 11,
+      "w": "reactivarse",
+      "t0": 105.52,
+      "t1": 106.24
+     },
+     {
+      "k": 12,
+      "w": "cuando",
+      "t0": 106.28,
+      "t1": 106.5
+     },
+     {
+      "k": 13,
+      "w": "el",
+      "t0": 106.52,
+      "t1": 106.58
+     },
+     {
+      "k": 14,
+      "w": "embalse",
+      "t0": 106.62,
+      "t1": 107.04
+     },
+     {
+      "k": 15,
+      "w": "se",
+      "t0": 107.12,
+      "t1": 107.2
+     },
+     {
+      "k": 16,
+      "w": "llenara.",
+      "t0": 107.24,
+      "t1": 107.62
+     }
+    ],
+    "beat": 3
+   },
+   {
+    "idx": 15,
+    "t0": 108.6,
+    "t1": 115.1,
+    "texto": "Müller no lo creía: no creía en el deslizamiento antiguo ni en una capa de arcilla capaz de causarlo.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Müller",
+      "t0": 108.6,
+      "t1": 108.94
+     },
+     {
+      "k": 1,
+      "w": "no",
+      "t0": 109.06,
+      "t1": 109.14
+     },
+     {
+      "k": 2,
+      "w": "lo",
+      "t0": 109.18,
+      "t1": 109.3
+     },
+     {
+      "k": 3,
+      "w": "creía:",
+      "t0": 109.32,
+      "t1": 109.72
+     },
+     {
+      "k": 4,
+      "w": "no",
+      "t0": 110.48,
+      "t1": 110.56
+     },
+     {
+      "k": 5,
+      "w": "creía",
+      "t0": 110.64,
+      "t1": 110.96
+     },
+     {
+      "k": 6,
+      "w": "en",
+      "t0": 110.98,
+      "t1": 111.06
+     },
+     {
+      "k": 7,
+      "w": "el",
+      "t0": 111.1,
+      "t1": 111.16
+     },
+     {
+      "k": 8,
+      "w": "deslizamiento",
+      "t0": 111.22,
+      "t1": 111.9
+     },
+     {
+      "k": 9,
+      "w": "antiguo",
+      "t0": 111.94,
+      "t1": 112.4
+     },
+     {
+      "k": 10,
+      "w": "ni",
+      "t0": 112.74,
+      "t1": 112.8
+     },
+     {
+      "k": 11,
+      "w": "en",
+      "t0": 112.84,
+      "t1": 112.9
+     },
+     {
+      "k": 12,
+      "w": "una",
+      "t0": 112.94,
+      "t1": 113.06
+     },
+     {
+      "k": 13,
+      "w": "capa",
+      "t0": 113.16,
+      "t1": 113.36
+     },
+     {
+      "k": 14,
+      "w": "de",
+      "t0": 113.42,
+      "t1": 113.48
+     },
+     {
+      "k": 15,
+      "w": "arcilla",
+      "t0": 113.52,
+      "t1": 114.0
+     },
+     {
+      "k": 16,
+      "w": "capaz",
+      "t0": 114.04,
+      "t1": 114.38
+     },
+     {
+      "k": 17,
+      "w": "de",
+      "t0": 114.42,
+      "t1": 114.48
+     },
+     {
+      "k": 18,
+      "w": "causarlo.",
+      "t0": 114.54,
+      "t1": 115.1
+     }
+    ],
+    "beat": 3
+   },
+   {
+    "idx": 16,
+    "t0": 116.04,
+    "t1": 119.9,
+    "texto": "El hijo del proyectista decía que la montaña ya se había movido una vez.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "El",
+      "t0": 116.04,
+      "t1": 116.1
+     },
+     {
+      "k": 1,
+      "w": "hijo",
+      "t0": 116.14,
+      "t1": 116.32
+     },
+     {
+      "k": 2,
+      "w": "del",
+      "t0": 116.36,
+      "t1": 116.46
+     },
+     {
+      "k": 3,
+      "w": "proyectista",
+      "t0": 116.52,
+      "t1": 117.18
+     },
+     {
+      "k": 4,
+      "w": "decía",
+      "t0": 117.2,
+      "t1": 117.5
+     },
+     {
+      "k": 5,
+      "w": "que",
+      "t0": 117.58,
+      "t1": 117.64
+     },
+     {
+      "k": 6,
+      "w": "la",
+      "t0": 117.68,
+      "t1": 117.72
+     },
+     {
+      "k": 7,
+      "w": "montaña",
+      "t0": 117.78,
+      "t1": 118.4
+     },
+     {
+      "k": 8,
+      "w": "ya",
+      "t0": 118.46,
+      "t1": 118.54
+     },
+     {
+      "k": 9,
+      "w": "se",
+      "t0": 118.64,
+      "t1": 118.72
+     },
+     {
+      "k": 10,
+      "w": "había",
+      "t0": 118.74,
+      "t1": 119.02
+     },
+     {
+      "k": 11,
+      "w": "movido",
+      "t0": 119.04,
+      "t1": 119.42
+     },
+     {
+      "k": 12,
+      "w": "una",
+      "t0": 119.46,
+      "t1": 119.62
+     },
+     {
+      "k": 13,
+      "w": "vez.",
+      "t0": 119.64,
+      "t1": 119.9
+     }
+    ],
+    "beat": 3
+   },
+   {
+    "idx": 17,
+    "t0": 120.64,
+    "t1": 121.98,
+    "texto": "El experto decía que no.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "El",
+      "t0": 120.64,
+      "t1": 120.7
+     },
+     {
+      "k": 1,
+      "w": "experto",
+      "t0": 120.74,
+      "t1": 121.22
+     },
+     {
+      "k": 2,
+      "w": "decía",
+      "t0": 121.3,
+      "t1": 121.62
+     },
+     {
+      "k": 3,
+      "w": "que",
+      "t0": 121.7,
+      "t1": 121.78
+     },
+     {
+      "k": 4,
+      "w": "no.",
+      "t0": 121.82,
+      "t1": 121.98
+     }
+    ],
+    "beat": 3
+   },
+   {
+    "idx": 18,
+    "t0": 122.98,
+    "t1": 129.66,
+    "texto": "En marzo de mil novecientos cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "En",
+      "t0": 122.98,
+      "t1": 123.08
+     },
+     {
+      "k": 1,
+      "w": "marzo",
+      "t0": 123.14,
+      "t1": 123.44
+     },
+     {
+      "k": 2,
+      "w": "de",
+      "t0": 123.48,
+      "t1": 123.54
+     },
+     {
+      "k": 3,
+      "w": "mil",
+      "t0": 123.62,
+      "t1": 123.74
+     },
+     {
+      "k": 4,
+      "w": "novecientos",
+      "t0": 123.8,
+      "t1": 124.4
+     },
+     {
+      "k": 5,
+      "w": "cincuenta",
+      "t0": 124.44,
+      "t1": 124.84
+     },
+     {
+      "k": 6,
+      "w": "y",
+      "t0": 124.88,
+      "t1": 124.92
+     },
+     {
+      "k": 7,
+      "w": "nueve,",
+      "t0": 124.98,
+      "t1": 125.28
+     },
+     {
+      "k": 8,
+      "w": "en",
+      "t0": 125.7,
+      "t1": 125.78
+     },
+     {
+      "k": 9,
+      "w": "otro",
+      "t0": 125.82,
+      "t1": 126.0
+     },
+     {
+      "k": 10,
+      "w": "embalse",
+      "t0": 126.02,
+      "t1": 126.46
+     },
+     {
+      "k": 11,
+      "w": "de",
+      "t0": 126.5,
+      "t1": 126.56
+     },
+     {
+      "k": 12,
+      "w": "la",
+      "t0": 126.6,
+      "t1": 126.64
+     },
+     {
+      "k": 13,
+      "w": "misma",
+      "t0": 126.7,
+      "t1": 126.96
+     },
+     {
+      "k": 14,
+      "w": "empresa,",
+      "t0": 127.0,
+      "t1": 127.44
+     },
+     {
+      "k": 15,
+      "w": "una",
+      "t0": 127.98,
+      "t1": 128.1
+     },
+     {
+      "k": 16,
+      "w": "montaña",
+      "t0": 128.16,
+      "t1": 128.68
+     },
+     {
+      "k": 17,
+      "w": "caminó",
+      "t0": 128.8,
+      "t1": 129.199
+     },
+     {
+      "k": 18,
+      "w": "primero.",
+      "t0": 129.22,
+      "t1": 129.66
+     }
+    ],
+    "beat": 3
+   }
+  ],
+  "beats": [
+   {
+    "n": 2,
+    "funcion": "planteo",
+    "t0": 0.08,
+    "t1": 65.16,
+    "cierre": "Longarone no estaba sobre el embalse. Estaba delante de él. Y la montaña que lo cerraba tenía un apodo.",
+    "dato_central": "D24",
+    "datos_apoyo": [
+     "T04",
+     "T03",
+     "D147",
+     "T12",
+     "D237",
+     "D164"
+    ]
+   },
+   {
+    "n": 3,
+    "funcion": "escalada",
+    "t0": 65.94,
+    "t1": 129.66,
+    "cierre": "En marzo del cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero.",
+    "dato_central": "Q53",
+    "datos_apoyo": [
+     "T05",
+     "D154",
+     "D157"
+    ]
+   }
+  ],
+  "items": [
+   {
+    "id": "D117",
+    "a_pantalla": true,
+    "por_que": "Trece de treinta y cuatro representantes en la sesión de aprobación de 1943: dato de acta, va como rótulo.",
+    "beats": [
+     2
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes.",
+    "fuente": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018",
+    "autor": ""
+   },
+   {
+    "id": "D24",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     2
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "El torrente Vajont fluye en el valle de Erto y Casso para desembocar en el Piave, frente a Longarone y Castellavazzo, en la provincia de Belluno, Italia.",
+    "fuente": "Vajont: fu disastro colposo con previsione dell'evento (Cassazione 1971), 2003",
+    "autor": ""
+   },
+   {
+    "id": "T04",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     2
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "El Consejo Superior de Obras Públicas aprobó el proyecto de la presa del Vajont.",
+    "fuente": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018",
+    "autor": ""
+   },
+   {
+    "id": "T03",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     2
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Comienza la adquisición de terrenos en los municipios de Erto y Casso.",
+    "fuente": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018",
+    "autor": ""
+   },
+   {
+    "id": "D147",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     2
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "La presa de Vajont fue construida entre 1956 y 1960.",
+    "fuente": "Tragedia del Vajont: analisi geologica di una frana annunciata, 2021",
+    "autor": ""
+   },
+   {
+    "id": "T12",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     2
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Comienzan las obras de construcción de la presa con unos 400 obreros.",
+    "fuente": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018",
+    "autor": ""
+   },
+   {
+    "id": "D237",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     2
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "En la construcción de la represa trabajaron cerca de 400 operarios.",
+    "fuente": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018",
+    "autor": ""
+   },
+   {
+    "id": "D164",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     2
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "La represa de Vajont es del tipo de arco delgado de doble curvatura.",
+    "fuente": "Dam Failure Case Study: Vajont Dam (Italy, 1963), 2019",
+    "autor": ""
+   },
+   {
+    "id": "Q53",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     3
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "la montaña que camina",
+    "fuente": "A Tragedy in the Italian Alps (50th Anniversary) Vajont Dam, 2013",
+    "autor": "residentes"
+   },
+   {
+    "id": "T05",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     3
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Durante la década de 1950, el geólogo Leopold Müller detectó un desmoronamiento en el cerro Toc.",
+    "fuente": "La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005",
+    "autor": ""
+   },
+   {
+    "id": "D154",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     3
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "Edoardo Semenza planteó la hipótesis de la presencia de un antiguo deslizamiento (paleofrana) que podría reactivarse al llenar el embalse.",
+    "fuente": "Tragedia del Vajont: analisi geologica di una frana annunciata, 2021",
+    "autor": ""
+   },
+   {
+    "id": "D157",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     3
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "Leopold Muller no creía en la hipótesis de un antiguo deslizamiento ni en la existencia de una capa de arcilla que pudiera causarlo.",
+    "fuente": "Tragedia del Vajont: analisi geologica di una frana annunciata, 2021",
+    "autor": ""
+   }
+  ],
+  "ya_mostrado": [],
+  "pico": {
+   "beat": 3,
+   "funcion": "escalada",
+   "sentence_idx": 10,
+   "frase": "La gente de la zona llamaba al monte Toc «la montaña que camina», y lo decían los residentes desde antes de que nadie fuera a medirla.",
+   "t": 65.94,
+   "dato": "Q53",
+   "fuente": "escaleta (beat más intenso del cap)"
+  },
+  "voz_video": [
+   "Hay una casa a oscuras y, dentro de la casa, una cama que ya no está quieta.",
+   "Una niña siente que su cama empieza a correr en la oscuridad; a dos kilómetros de ahí, la presa que todos creyeron caída sigue en pie.",
+   "La niña se llama Micaela Coletti y es una niña de Longarone, un pueblo de fondo de valle.",
+   "Hace un minuto dormía.",
+   "Ahora algo la empuja desde atrás, y la cama ya no es una cama: es algo que la lleva.",
+   "Años después, Coletti lo contó con las palabras que le quedaron.",
+   "«La sensación de que la cama tomaba velocidad, una fuerza espantosa que me agarraba por la espalda, me doblaba en dos, me aplastaba», dijo Coletti.",
+   "Se sintió de goma.",
+   "Se ensanchaba y después se encogía.",
+   "Los ojos, dos estrellas.",
+   "Esa misma noche, Gianfranco Trevisano ve cómo «se abrió de improviso, de par en par, el portoncito de la entrada, a causa de una corriente de aire», y con el portón entra el ruido del aire que irrumpe.",
+   "Enseguida se va la luz.",
+   "Trevisano piensa lo que va a pensar medio valle: que el dique cedió.",
+   "Longarone, Italia, nueve de octubre de mil novecientos sesenta y tres.",
+   "Pero el dique no cedió esa noche.",
+   "Lo que llegó a la cama de Micaela vino por encima de él.",
+   "Y para entender cómo una ola pasa por encima de una pared que no se rompe, hay que volver veinte años atrás, a un papel firmado cuando esa cama todavía no existía.",
+   "Longarone está en el fondo del valle del Piave.",
+   "El río pasa por delante del pueblo y, enfrente, desde una garganta lateral, baja un torrente que se llama Vajont y que desemboca en el Piave justo frente a Longarone y Castellavazzo.",
+   "En mil novecientos cuarenta y tres se aprobó el proyecto de cerrar esa garganta con una presa, y empezó la compra de terrenos en Erto y Casso, los pueblos de arriba, los que iban a quedar al borde del lago.",
+   "La empresa era SADE.",
+   "El ingeniero que dibujó la obra se llamaba Carlo Semenza, y la pensó como un arco delgado de doble curvatura: una pared curva, fina para su tamaño, apoyada en las dos laderas de la garganta.",
+   "Cuando empezaron las obras, unos cuatrocientos hombres colgados de andamios la fueron levantando hasta tapar el cielo de la garganta.",
+   "Abajo, en Longarone, la vida siguió con el Piave delante.",
+   "Longarone no estaba sobre el embalse.",
+   "Estaba delante de él.",
+   "Y la montaña que cerraba el lago tenía un apodo.",
+   "La gente de la zona llamaba al monte Toc «la montaña que camina», y lo decían los residentes desde antes de que nadie fuera a medirla.",
+   "En la década del cincuenta, el geólogo Leopold Müller detectó en el Toc un gran desmoronamiento.",
+   "Y hubo otro hombre que caminó esa ladera con un martillo en la mano y otra idea en la cabeza: Edoardo Semenza, geólogo, hijo de Carlo Semenza, el que había dibujado la presa.",
+   "Edoardo buscaba la cicatriz de un deslizamiento antiguo.",
+   "Según una reconstrucción geológica posterior, planteó que ese deslizamiento viejo podía reactivarse cuando el embalse se llenara.",
+   "Müller no lo creía: no creía en el deslizamiento antiguo ni en una capa de arcilla capaz de causarlo.",
+   "El hijo del proyectista decía que la montaña ya se había movido una vez.",
+   "El experto decía que no.",
+   "En marzo de mil novecientos cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero.",
+   "El embalse se llamaba Pontesei.",
+   "Ese marzo, una masa de roca entró al agua y levantó una ola de veinte metros.",
+   "Un trabajador murió.",
+   "Después de Pontesei, SADE encargó nuevas pericias sobre el Toc, y esas pericias identificaron una paleofrana: un deslizamiento antiguo, la cicatriz que Edoardo Semenza había estado buscando.",
+   "El informe sobre esos riesgos lo escribió Giorgio Dal Piaz en mil novecientos sesenta.",
+   "Dal Piaz había dicho alguna vez sobre la obra: «Si el proyecto original me parecía osado, ahora lo considero una completa locura».",
+   "Su informe, en cambio, le restó peso a lo que señalaba Edoardo Semenza.",
+   "Una ola de veinte metros.",
+   "Un hombre muerto.",
+   "Una paleofrana con nombre en un papel.",
+   "El informe oficial dijo que no era grave.",
+   "Una periodista de provincia escribió lo contrario.",
+   "Se llamaba Tina Merlin y escribía en L'Unità.",
+   "Hacia mil novecientos cincuenta y nueve publicó su primera denuncia: el Toc podía desprenderse sobre el lago.",
+   "L'Unità fue el único diario nacional que siguió lo que pasaba en el Vajont antes del desastre, y lo siguió a través de ella.",
+   "El diario que se leía en la zona era Il Gazzettino, y una parte de Il Gazzettino pertenecía a SADE, a FIAT, a Volpi y a Cini.",
+   "En febrero de mil novecientos sesenta empezó el llenado, y el agua fue subiendo día a día por la garganta.",
+   "Ese año hubo un pequeño desmoronamiento en el Toc, y después del desmoronamiento los habitantes vieron algo nuevo en la ladera: una fisura de casi dos kilómetros de largo, corriendo por la montaña como una costura abierta.",
+   "Abajo, el lago seguía subiendo.",
+   "El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta.",
+   "El cuatro de noviembre de mil novecientos sesenta el embalse estaba a seiscientos cincuenta metros sobre el nivel del mar.",
+   "Ese día, durante las pruebas, una masa de roca se desprendió del Toc y cayó al lago nuevo, y el agua se levantó.",
+   "Unos setecientos mil metros cúbicos de roca; otras fuentes hablan de más, y nadie coincide en la altura de la ola que levantó.",
+   "Ese mismo mes, Tina Merlin y L'Unità fueron a juicio.",
+   "La audiencia duró seis horas.",
+   "Salieron absueltos los dos.",
+   "En febrero de mil novecientos sesenta y uno, Merlin volvió a su máquina de escribir y publicó otra advertencia: la amenaza sobre Erto seguía ahí.",
+   "Absuelta en seis horas.",
+   "La empresa, mientras tanto, mandó construir una maqueta.",
+   "En un galpón de la Universidad de Padua se armó el valle en pequeño: la garganta, el lago, la ladera del Toc, una presa de juguete.",
+   "Para representar la roca compacta de la montaña usaron grava.",
+   "En el laboratorio lo explicaron con una frase: «Nos han dicho que lo hagamos así».",
+   "La recomendación que salió de ahí fue no pasar de los setecientos metros sobre el nivel del mar.",
+   "La cota autorizada fue de setecientos quince.",
+   "En noviembre de mil novecientos sesenta y dos, la ladera ya se desplazaba más de un centímetro y medio por día.",
+   "En mayo de mil novecientos sesenta y tres, SADE subió el nivel del agua: tenía que entregar la presa como una obra que funcionaba para cerrar la operación con ENEL.",
+   "En julio se completó el cambio de propiedad, con la prueba de llenado todavía en marcha.",
+   "La presa cambió de dueño con el agua todavía subiendo.",
+   "La montaña no se enteró del contrato.",
+   "En junio de mil novecientos sesenta y tres el agua llegó a los setecientos metros, y la ladera se movía medio centímetro por día.",
+   "Un informe dice que el veintiséis de septiembre el embalse volvió al nivel de seguridad.",
+   "Desde el dos de octubre, los avisos se multiplicaron: sacudidas, estruendos que bajaban de la ladera de noche, grietas nuevas en la tierra de Erto, movimientos en la superficie.",
+   "Las autoridades cerraron algunos caminos con barreras y desalojaron algunas casas de Erto y Casso.",
+   "Abajo, en Longarone, las ventanas se encendían como cualquier noche.",
+   "En Erto y en Longarone la gente se repetía una frase que servía para dormir: «Si no avisan, será que no es grave».",
+   "Los que la decían miraban la pared curva.",
+   "De la montaña que caminaba hablaban los de arriba, los que tenían las grietas en el patio.",
+   "«Estábamos esperando que la presa se cayera...», contó después un sobreviviente.",
+   "Lo que temían era la pared.",
+   "De la ola no hablaba nadie.",
+   "La respuesta que llegó desde un ministerio fue: «No se preocupe, todo está bajo control».",
+   "Mientras tanto, en la ladera, los topógrafos de la empresa seguían midiendo.",
+   "El nueve de octubre a la mañana, el director técnico de la empresa se sentó a escribir una carta.",
+   "El director técnico se llamaba Alberico Biadene.",
+   "La carta iba dirigida a Pancini, que estaba de vacaciones: Biadene le pedía que volviera y le contaba lo que el topógrafo Rossi había medido, que la ladera se movía más.",
+   "La carta ya estaba firmada cuando sonó el teléfono.",
+   "Biadene volvió al papel y agregó una posdata: Rossi lo llamaba en ese momento, y «las mediciones de esta mañana resultan todavía mayores que las de ayer, ¡alcanzando un aumento del 50%!!».",
+   "De veinte a treinta centímetros.",
+   "Y algo más: pequeñas piedras caían en el borde oeste del deslizamiento, hacia la presa.",
+   "Dos signos de exclamación, de puño y letra del director técnico.",
+   "A las seis de la tarde se cerró la jornada.",
+   "En la central quedaron un aparejador y su equipo.",
+   "Esa noche nadie dio la alarma que habría puesto en marcha la evacuación masiva de los pueblos expuestos.",
+   "Las barreras seguían en los caminos de Erto.",
+   "En Longarone, abajo, era una noche como cualquiera.",
+   "A las diez y media de la noche, el párroco de Casso escuchó algo y abrió la ventana.",
+   "Carlo Onorini, el párroco de Casso, lo contó así: «escucho el ruido de la avalancha, abro la ventana y este ruido aumentaba en forma extraordinaria, al mismo tiempo vi un resplandor».",
+   "Son las diez y treinta y nueve.",
+   "El Toc entra al lago.",
+   "La ladera entera, la que caminaba, la de la fisura, se desploma de una vez dentro del embalse.",
+   "El agua no tiene a dónde ir, salvo hacia arriba.",
+   "Se levanta, pasa por encima de la presa, por encima de la pared que no se rompe, y cae en la garganta hacia el Piave.",
+   "Benito Castellano oye un ruido «como de un trueno de verano multiplicado cien veces, muy lóbrego, que duró tres o cuatro minutos».",
+   "Después, un estruendo con un resplandor, y enseguida un ruido como el que hace una formación de reactores al pasar.",
+   "En el bar Faè, Germano Accamillesi mira televisión cuando «se interrumpió la iluminación del televisor y casi al mismo tiempo (treinta-cincuenta segundos) se empezaron a sentir fuertes sacudidas telúricas».",
+   "Después de las sacudidas se apaga también la luz del bar.",
+   "Nadie en ese bar sabe todavía qué viene bajando por la garganta.",
+   "La ola baja hacia el Piave.",
+   "Longarone sigue con las luces encendidas.",
+   "Cuatro minutos después del desprendimiento, el agua llega al pueblo, a las calles, a las casas, a la cama donde duerme Micaela Coletti.",
+   "Nadie avisó.",
+   "Micaela siente que la cama toma velocidad y que una fuerza la agarra por la espalda.",
+   "La ola la arrastra al menos cuatrocientos metros desde su casa.",
+   "Ahí la encuentran.",
+   "Y está viva.",
+   "Cuando amaneció, la presa seguía ahí.",
+   "Longarone ya no.",
+   "Donde había calles hay fango y piedras.",
+   "Un hombre está parado en el medio y no sabe hacia dónde mirar.",
+   "«Conocía Longarone en cada rincón, ahora no sé dónde estoy», dijo uno de los sobrevivientes.",
+   "Entre los muertos está Guglielmo Celso, el alcalde socialista de Longarone.",
+   "Nadie creó un organismo central que informara oficialmente cómo avanzaba el rescate.",
+   "Desde el aire llegó el ruido de los rotores.",
+   "La fuerza estadounidense despachó seis helicópteros.",
+   "Un hombre de una aldea de la zona lo recuerda: «El primer rescatista que vi llegó en un helicóptero del ejército de Estados Unidos».",
+   "Tres de esos helicópteros, cuenta, evacuaron a toda la gente de su pueblo, y por eso un día trágico le quedó también con algo de alegría.",
+   "Tres días después llegó el presidente del Consejo.",
+   "La gente ya sabía qué pedirle.",
+   "El presidente del Consejo caminó entre los escombros con un abrigo oscuro.",
+   "De entre lo que quedaba de Longarone le salió al paso un grito, el de los pobladores: «Presidente, queremos justicia».",
+   "En los kioscos, esos días, había dos verdades sobre la misma noche.",
+   "Dino Buzzati escribió: «Una piedra ha caído en un vaso lleno de agua, y el agua se ha derramado sobre el mantel.",
+   "Eso es todo».",
+   "Solo que el vaso tenía cientos de metros de alto, la piedra era grande como una montaña y abajo, en el mantel, había miles de seres humanos que no podían defenderse.",
+   "Giorgio Bocca escribió que una desgracia tan limpia, tan ineluctable, tan absoluta, llevaba más a la melancolía que al dolor: «No había nada que hacer, no hay remordimientos, no hay culpables».",
+   "Aniello Coppola leyó en eso el intento de absolver antes de indagar, de anular cualquier investigación de antemano, y respondió: «Hay que hacer un proceso.",
+   "Hay que encontrar a los responsables.",
+   "Y deben pagar».",
+   "Una primera comisión de expertos trabajó dieciocho meses y concluyó que el desastre era imprevisible.",
+   "Pasaron más de cuatro años hasta que, el veinte de febrero de mil novecientos sesenta y ocho, se depositó la resolución de remisión a juicio.",
+   "El juez no aceptó la palabra imprevisible.",
+   "Pidió otra pericia, y después, nombres.",
+   "El juicio empezó el veintinueve de noviembre de mil novecientos sesenta y ocho.",
+   "El día anterior, Pancini, el ingeniero al que Biadene le había pedido volver de vacaciones, se quitó la vida.",
+   "En el banquillo se sentaron ocho acusados.",
+   "En marzo de mil novecientos setenta y uno, la Casación reconoció la culpabilidad de Biadene y de Sensidoni.",
+   "ENEL ofreció diez mil millones de liras de la época como indemnización.",
+   "Casi todos aceptaron; la última transacción se firmó en el año dos mil.",
+   "Alguien que siguió aquel proceso lo resumió sin levantar la voz: Vajont no fue la excepción al sistema, sino su confirmación; «había un riesgo, previsible y previsto».",
+   "Micaela Coletti preside el comité de sobrevivientes del Vajont.",
+   "La niña a la que la ola arrastró sobre una cama se sienta ahora frente a una mesa con el cartel del comité, y lo que tiene delante es una sentencia.",
+   "La sentencia dice inundación agravada por la previsión del evento.",
+   "Nombra el delito.",
+   "No dice quién, entre la posdata de la mañana y las diez y treinta y nueve de la noche, decidió que Longarone no debía saber.",
+   "¿Quién decidió que Micaela siguiera durmiendo?"
+  ]
+ },
+ "intentos": [
+  {
+   "pedido": "CAPÍTULO 2 — planteo · escalada\n\nNARRACIÓN (oración por oración; cada palabra con su índice):\n[0] 0.1–2.6 · beat 2 · 0:Longarone 1:está 2:en 3:el 4:fondo 5:del 6:valle 7:del 8:Piave.\n[1] 3.3–15.1 · beat 2 · 0:El 1:río 2:pasa 3:por 4:delante 5:del 6:pueblo 7:y, 8:enfrente, 9:desde 10:una 11:garganta 12:lateral, 13:baja 14:un 15:torrente 16:que 17:se 18:llama 19:Vajont 20:y 21:que 22:desemboca 23:en 24:el 25:Piave 26:justo 27:frente 28:a 29:Longarone 30:y 31:Castellavazzo.\n[2] 16.2–28.1 · beat 2 · 0:En 1:mil 2:novecientos 3:cuarenta 4:y 5:tres 6:se 7:aprobó 8:el 9:proyecto 10:de 11:cerrar 12:esa 13:garganta 14:con 15:una 16:presa, 17:y 18:empezó 19:la 20:compra 21:de 22:terrenos 23:en 24:Erto 25:y 26:Casso, 27:los 28:pueblos 29:de 30:arriba, 31:los 32:que 33:iban 34:a 35:quedar 36:al 37:borde 38:del 39:lago.\n[3] 29.0–30.5 · beat 2 · 0:La 1:empresa 2:era 3:SADE.\n[4] 31.5–43.7 · beat 2 · 0:El 1:ingeniero 2:que 3:dibujó 4:la 5:obra 6:se 7:llamaba 8:Carlo 9:Semenza, 10:y 11:la 12:pensó 13:como 14:un 15:arco 16:delgado 17:de 18:doble 19:curvatura: 20:una 21:pared 22:curva, 23:fina 24:para 25:su 26:tamaño, 27:apoyada 28:en 29:las 30:dos 31:laderas 32:de 33:la 34:garganta.\n[5] 44.8–52.2 · beat 2 · 0:Cuando 1:empezaron 2:las 3:obras, 4:unos 5:cuatrocientos 6:hombres 7:colgados 8:de 9:andamios 10:la 11:fueron 12:levantando 13:hasta 14:tapar 15:el 16:cielo 17:de 18:la 19:garganta.\n[6] 53.1–57.1 · beat 2 · 0:Abajo, 1:en 2:Longarone, 3:la 4:vida 5:siguió 6:con 7:el 8:Piave 9:delante.\n[7] 58.1–60.0 · beat 2 · 0:Longarone 1:no 2:estaba 3:sobre 4:el 5:embalse.\n[8] 60.6–61.8 · beat 2 · 0:Estaba 1:delante 2:de 3:él.\n[9] 62.6–65.2 · beat 2 · 0:Y 1:la 2:montaña 3:que 4:cerraba 5:el 6:lago 7:tenía 8:un 9:apodo.\n[10] 65.9–74.0 · beat 3 · 0:La 1:gente 2:de 3:la 4:zona 5:llamaba 6:al 7:monte 8:Toc 9:«la 10:montaña 11:que 12:camina», 13:y 14:lo 15:decían 16:los 17:residentes 18:desde 19:antes 20:de 21:que 22:nadie 23:fuera 24:a 25:medirla.\n[11] 76.5–82.6 · beat 3 · 0:En 1:la 2:década 3:del 4:cincuenta, 5:el 6:geólogo 7:Leopold 8:Müller 9:detectó 10:en 11:el 12:Toc 13:un 14:gran 15:desmoronamiento.\n[12] 83.5–95.2 · beat 3 · 0:Y 1:hubo 2:otro 3:hombre 4:que 5:caminó 6:esa 7:ladera 8:con 9:un 10:martillo 11:en 12:la 13:mano 14:y 15:otra 16:idea 17:en 18:la 19:cabeza: 20:Edoardo 21:Semenza, 22:geólogo, 23:hijo 24:de 25:Carlo 26:Semenza, 27:el 28:que 29:había 30:dibujado 31:la 32:presa.\n[13] 96.3–99.3 · beat 3 · 0:Edoardo 1:buscaba 2:la 3:cicatriz 4:de 5:un 6:deslizamiento 7:antiguo.\n[14] 100.2–107.6 · beat 3 · 0:Según 1:una 2:reconstrucción 3:geológica 4:posterior, 5:planteó 6:que 7:ese 8:deslizamiento 9:viejo 10:podía 11:reactivarse 12:cuando 13:el 14:embalse 15:se 16:llenara.\n[15] 108.6–115.1 · beat 3 · 0:Müller 1:no 2:lo 3:creía: 4:no 5:creía 6:en 7:el 8:deslizamiento 9:antiguo 10:ni 11:en 12:una 13:capa 14:de 15:arcilla 16:capaz 17:de 18:causarlo.\n[16] 116.0–119.9 · beat 3 · 0:El 1:hijo 2:del 3:proyectista 4:decía 5:que 6:la 7:montaña 8:ya 9:se 10:había 11:movido 12:una 13:vez.\n[17] 120.6–122.0 · beat 3 · 0:El 1:experto 2:decía 3:que 4:no.\n[18] 123.0–129.7 · beat 3 · 0:En 1:marzo 2:de 3:mil 4:novecientos 5:cincuenta 6:y 7:nueve, 8:en 9:otro 10:embalse 11:de 12:la 13:misma 14:empresa, 15:una 16:montaña 17:caminó 18:primero.\n\nBEATS DEL CAPÍTULO (n, función, ventana en segundos, cierre); el pico es el beat 3:\n- 2 · planteo · 0.1–65.2 s · cierre: «Longarone no estaba sobre el embalse. Estaba delante de él. Y la montaña que lo cerraba tenía un apodo.»\n- 3 · escalada · 65.9–129.7 s · cierre: «En marzo del cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero.»\n\nDATOS DISPONIBLES (solo estos; cada uno con su texto fuente):\n- D117 · tipo D · a_pantalla: sí · por_que: Trece de treinta y cuatro representantes en la sesión de aprobación de 1943: dato de acta, va como rótulo. · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes.»\n- D24 · tipo D · a_pantalla: no · por_que: — · fuente: Vajont: fu disastro colposo con previsione dell'evento (Cassazione 1971), 2003 · texto fuente: «El torrente Vajont fluye en el valle de Erto y Casso para desembocar en el Piave, frente a Longarone y Castellavazzo, en la provincia de Belluno, Italia.»\n- T04 · tipo T · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «El Consejo Superior de Obras Públicas aprobó el proyecto de la presa del Vajont.»\n- T03 · tipo T · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «Comienza la adquisición de terrenos en los municipios de Erto y Casso.»\n- D147 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia del Vajont: analisi geologica di una frana annunciata, 2021 · texto fuente: «La presa de Vajont fue construida entre 1956 y 1960.»\n- T12 · tipo T · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «Comienzan las obras de construcción de la presa con unos 400 obreros.»\n- D237 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «En la construcción de la represa trabajaron cerca de 400 operarios.»\n- D164 · tipo D · a_pantalla: no · por_que: — · fuente: Dam Failure Case Study: Vajont Dam (Italy, 1963), 2019 · texto fuente: «La represa de Vajont es del tipo de arco delgado de doble curvatura.»\n- Q53 · tipo Q · a_pantalla: no · por_que: — · fuente: A Tragedy in the Italian Alps (50th Anniversary) Vajont Dam, 2013 (autor: residentes) · texto fuente: «la montaña que camina»\n- T05 · tipo T · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 · texto fuente: «Durante la década de 1950, el geólogo Leopold Müller detectó un desmoronamiento en el cerro Toc.»\n- D154 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia del Vajont: analisi geologica di una frana annunciata, 2021 · texto fuente: «Edoardo Semenza planteó la hipótesis de la presencia de un antiguo deslizamiento (paleofrana) que podría reactivarse al llenar el embalse.»\n- D157 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia del Vajont: analisi geologica di una frana annunciata, 2021 · texto fuente: «Leopold Muller no creía en la hipótesis de un antiguo deslizamiento ni en la existencia de una capa de arcilla que pudiera causarlo.»\n\nYA MOSTRADO EN CAPÍTULOS ANTERIORES (no repetir):\n(nada)\n\nDevolvé:\n{\"bloques\": [{\"sentence_idx\": int, \"word_idx\": int, \"beat\": int, \"rank\": int, \"tipo\": \"cifra|hecho|documento|cita|persona|lupa\", \"etiqueta\": str, \"texto\": str, \"pool_id\": str, \"aporta\": str}], \"descartados\": [{\"pool_id\": str, \"motivo\": str}]}",
+   "respuesta": {
+    "bloques": [
+     {
+      "sentence_idx": 2,
+      "word_idx": 7,
+      "beat": 2,
+      "rank": 1,
+      "tipo": "hecho",
+      "etiqueta": "Tragedia della diga del Vajont, 2018",
+      "texto": "El Consejo Superior de Obras Públicas aprobó el proyecto con solo 13 de 34 representantes presentes, en un procedimiento irregular.",
+      "pool_id": "D117",
+      "aporta": "Que la aprobación se hizo con solo 13 de 34 representantes presentes y por un procedimiento irregular, algo que la narración no dice."
+     }
+    ],
+    "descartados": [
+     {
+      "pool_id": "D24",
+      "motivo": "Repite lo que la narración ya dice sobre el Vajont, el Piave, Longarone y Castellavazzo."
+     },
+     {
+      "pool_id": "T04",
+      "motivo": "Es menos informativo que D117, que ya cubre la aprobación; sería redundante."
+     },
+     {
+      "pool_id": "T03",
+      "motivo": "Repite la compra de terrenos en Erto y Casso que la narración ya cuenta."
+     },
+     {
+      "pool_id": "D147",
+      "motivo": "Entre 1956 y 1960 adelanta cronología que no corresponde a esta oración y no aparece en la narración."
+     },
+     {
+      "pool_id": "T12",
+      "motivo": "La narración ya dice unos cuatrocientos hombres; repetiría la cifra."
+     },
+     {
+      "pool_id": "D237",
+      "motivo": "Repite la cifra de unos 400 operarios que la narración ya dice."
+     },
+     {
+      "pool_id": "D164",
+      "motivo": "Repite el arco delgado de doble curvatura que la narración ya describe."
+     },
+     {
+      "pool_id": "Q53",
+      "motivo": "La narración ya cita el apodo con las mismas palabras; no aporta nada nuevo."
+     },
+     {
+      "pool_id": "T05",
+      "motivo": "Repite que Müller detectó el desmoronamiento en el Toc, que la narración ya dice."
+     },
+     {
+      "pool_id": "D154",
+      "motivo": "Repite la hipótesis de Edoardo Semenza que la narración ya cuenta."
+     },
+     {
+      "pool_id": "D157",
+      "motivo": "Repite la postura de Müller que la narración ya dice."
+     }
+    ]
+   },
+   "crudas": [
+    {
+     "respuesta": {
+      "content": [
+       {
+        "type": "text",
+        "text": "{\"bloques\":[{\"sentence_idx\":2,\"word_idx\":7,\"beat\":2,\"rank\":1,\"tipo\":\"hecho\",\"etiqueta\":\"Tragedia della diga del Vajont, 2018\",\"texto\":\"El Consejo Superior de Obras Públicas aprobó el proyecto con solo 13 de 34 representantes presentes, en un procedimiento irregular.\",\"pool_id\":\"D117\",\"aporta\":\"Que la aprobación se hizo con solo 13 de 34 representantes presentes y por un procedimiento irregular, algo que la narración no dice.\"}],\"descartados\":[{\"pool_id\":\"D24\",\"motivo\":\"Repite lo que la narración ya dice sobre el Vajont, el Piave, Longarone y Castellavazzo.\"},{\"pool_id\":\"T04\",\"motivo\":\"Es menos informativo que D117, que ya cubre la aprobación; sería redundante.\"},{\"pool_id\":\"T03\",\"motivo\":\"Repite la compra de terrenos en Erto y Casso que la narración ya cuenta.\"},{\"pool_id\":\"D147\",\"motivo\":\"Entre 1956 y 1960 adelanta cronología que no corresponde a esta oración y no aparece en la narración.\"},{\"pool_id\":\"T12\",\"motivo\":\"La narración ya dice unos cuatrocientos hombres; repetiría la cifra.\"},{\"pool_id\":\"D237\",\"motivo\":\"Repite la cifra de unos 400 operarios que la narración ya dice.\"},{\"pool_id\":\"D164\",\"motivo\":\"Repite el arco delgado de doble curvatura que la narración ya describe.\"},{\"pool_id\":\"Q53\",\"motivo\":\"La narración ya cita el apodo con las mismas palabras; no aporta nada nuevo.\"},{\"pool_id\":\"T05\",\"motivo\":\"Repite que Müller detectó el desmoronamiento en el Toc, que la narración ya dice.\"},{\"pool_id\":\"D154\",\"motivo\":\"Repite la hipótesis de Edoardo Semenza que la narración ya cuenta.\"},{\"pool_id\":\"D157\",\"motivo\":\"Repite la postura de Müller que la narración ya dice.\"}]}"
+       }
+      ],
+      "usage": {
+       "input_tokens": 5130,
+       "cache_creation_input_tokens": 0,
+       "cache_read_input_tokens": 0,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+       },
+       "output_tokens": 725,
+       "service_tier": "standard",
+       "inference_geo": "global",
+       "speed": "standard",
+       "output_tokens_details": {
+        "thinking_tokens": 0
+       }
+      },
+      "model": "claude-sonnet-5-5",
+      "id": "msg_011CgQT4LkCFgV1S1A7v6tQ2",
+      "type": "message",
+      "role": "assistant",
+      "container": null,
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "stop_details": null,
+      "diagnostics": null
+     },
+     "segundos": 5.1,
+     "usd": 0.01751
+    }
+   ],
+   "error": null,
+   "validacion": {
+    "bloques": [],
+    "rechazos": [
+     {
+      "pool_id": "D117",
+      "tipo": "hecho",
+      "etiqueta": "Tragedia della diga del Vajont, 2018",
+      "texto": "El Consejo Superior de Obras Públicas aprobó el proyecto con solo 13 de 34 representantes presentes, en un procedimiento irregular.",
+      "sentence_idx": 2,
+      "regla": "forma",
+      "motivo": "no cabe en la ficha: etiqueta en 1 línea(s), dato en 4 (1 y 2)"
+     }
+    ],
+    "faltan": [
+     "D117"
+    ],
+    "motivo_faltan": {
+     "D117": "forma: no cabe en la ficha: etiqueta en 1 línea(s), dato en 4 (1 y 2)"
+    },
+    "incompletos": {}
+   },
+   "segundos": 5.1
+  },
+  {
+   "pedido": "CAPÍTULO 2 — planteo · escalada\n\nNARRACIÓN (oración por oración; cada palabra con su índice):\n[0] 0.1–2.6 · beat 2 · 0:Longarone 1:está 2:en 3:el 4:fondo 5:del 6:valle 7:del 8:Piave.\n[1] 3.3–15.1 · beat 2 · 0:El 1:río 2:pasa 3:por 4:delante 5:del 6:pueblo 7:y, 8:enfrente, 9:desde 10:una 11:garganta 12:lateral, 13:baja 14:un 15:torrente 16:que 17:se 18:llama 19:Vajont 20:y 21:que 22:desemboca 23:en 24:el 25:Piave 26:justo 27:frente 28:a 29:Longarone 30:y 31:Castellavazzo.\n[2] 16.2–28.1 · beat 2 · 0:En 1:mil 2:novecientos 3:cuarenta 4:y 5:tres 6:se 7:aprobó 8:el 9:proyecto 10:de 11:cerrar 12:esa 13:garganta 14:con 15:una 16:presa, 17:y 18:empezó 19:la 20:compra 21:de 22:terrenos 23:en 24:Erto 25:y 26:Casso, 27:los 28:pueblos 29:de 30:arriba, 31:los 32:que 33:iban 34:a 35:quedar 36:al 37:borde 38:del 39:lago.\n[3] 29.0–30.5 · beat 2 · 0:La 1:empresa 2:era 3:SADE.\n[4] 31.5–43.7 · beat 2 · 0:El 1:ingeniero 2:que 3:dibujó 4:la 5:obra 6:se 7:llamaba 8:Carlo 9:Semenza, 10:y 11:la 12:pensó 13:como 14:un 15:arco 16:delgado 17:de 18:doble 19:curvatura: 20:una 21:pared 22:curva, 23:fina 24:para 25:su 26:tamaño, 27:apoyada 28:en 29:las 30:dos 31:laderas 32:de 33:la 34:garganta.\n[5] 44.8–52.2 · beat 2 · 0:Cuando 1:empezaron 2:las 3:obras, 4:unos 5:cuatrocientos 6:hombres 7:colgados 8:de 9:andamios 10:la 11:fueron 12:levantando 13:hasta 14:tapar 15:el 16:cielo 17:de 18:la 19:garganta.\n[6] 53.1–57.1 · beat 2 · 0:Abajo, 1:en 2:Longarone, 3:la 4:vida 5:siguió 6:con 7:el 8:Piave 9:delante.\n[7] 58.1–60.0 · beat 2 · 0:Longarone 1:no 2:estaba 3:sobre 4:el 5:embalse.\n[8] 60.6–61.8 · beat 2 · 0:Estaba 1:delante 2:de 3:él.\n[9] 62.6–65.2 · beat 2 · 0:Y 1:la 2:montaña 3:que 4:cerraba 5:el 6:lago 7:tenía 8:un 9:apodo.\n[10] 65.9–74.0 · beat 3 · 0:La 1:gente 2:de 3:la 4:zona 5:llamaba 6:al 7:monte 8:Toc 9:«la 10:montaña 11:que 12:camina», 13:y 14:lo 15:decían 16:los 17:residentes 18:desde 19:antes 20:de 21:que 22:nadie 23:fuera 24:a 25:medirla.\n[11] 76.5–82.6 · beat 3 · 0:En 1:la 2:década 3:del 4:cincuenta, 5:el 6:geólogo 7:Leopold 8:Müller 9:detectó 10:en 11:el 12:Toc 13:un 14:gran 15:desmoronamiento.\n[12] 83.5–95.2 · beat 3 · 0:Y 1:hubo 2:otro 3:hombre 4:que 5:caminó 6:esa 7:ladera 8:con 9:un 10:martillo 11:en 12:la 13:mano 14:y 15:otra 16:idea 17:en 18:la 19:cabeza: 20:Edoardo 21:Semenza, 22:geólogo, 23:hijo 24:de 25:Carlo 26:Semenza, 27:el 28:que 29:había 30:dibujado 31:la 32:presa.\n[13] 96.3–99.3 · beat 3 · 0:Edoardo 1:buscaba 2:la 3:cicatriz 4:de 5:un 6:deslizamiento 7:antiguo.\n[14] 100.2–107.6 · beat 3 · 0:Según 1:una 2:reconstrucción 3:geológica 4:posterior, 5:planteó 6:que 7:ese 8:deslizamiento 9:viejo 10:podía 11:reactivarse 12:cuando 13:el 14:embalse 15:se 16:llenara.\n[15] 108.6–115.1 · beat 3 · 0:Müller 1:no 2:lo 3:creía: 4:no 5:creía 6:en 7:el 8:deslizamiento 9:antiguo 10:ni 11:en 12:una 13:capa 14:de 15:arcilla 16:capaz 17:de 18:causarlo.\n[16] 116.0–119.9 · beat 3 · 0:El 1:hijo 2:del 3:proyectista 4:decía 5:que 6:la 7:montaña 8:ya 9:se 10:había 11:movido 12:una 13:vez.\n[17] 120.6–122.0 · beat 3 · 0:El 1:experto 2:decía 3:que 4:no.\n[18] 123.0–129.7 · beat 3 · 0:En 1:marzo 2:de 3:mil 4:novecientos 5:cincuenta 6:y 7:nueve, 8:en 9:otro 10:embalse 11:de 12:la 13:misma 14:empresa, 15:una 16:montaña 17:caminó 18:primero.\n\nBEATS DEL CAPÍTULO (n, función, ventana en segundos, cierre); el pico es el beat 3:\n- 2 · planteo · 0.1–65.2 s · cierre: «Longarone no estaba sobre el embalse. Estaba delante de él. Y la montaña que lo cerraba tenía un apodo.»\n- 3 · escalada · 65.9–129.7 s · cierre: «En marzo del cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero.»\n\nDATOS DISPONIBLES (solo estos; cada uno con su texto fuente):\n- D117 · tipo D · a_pantalla: sí · por_que: Trece de treinta y cuatro representantes en la sesión de aprobación de 1943: dato de acta, va como rótulo. · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes.»\n- D24 · tipo D · a_pantalla: no · por_que: — · fuente: Vajont: fu disastro colposo con previsione dell'evento (Cassazione 1971), 2003 · texto fuente: «El torrente Vajont fluye en el valle de Erto y Casso para desembocar en el Piave, frente a Longarone y Castellavazzo, en la provincia de Belluno, Italia.»\n- T04 · tipo T · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «El Consejo Superior de Obras Públicas aprobó el proyecto de la presa del Vajont.»\n- T03 · tipo T · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «Comienza la adquisición de terrenos en los municipios de Erto y Casso.»\n- D147 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia del Vajont: analisi geologica di una frana annunciata, 2021 · texto fuente: «La presa de Vajont fue construida entre 1956 y 1960.»\n- T12 · tipo T · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «Comienzan las obras de construcción de la presa con unos 400 obreros.»\n- D237 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «En la construcción de la represa trabajaron cerca de 400 operarios.»\n- D164 · tipo D · a_pantalla: no · por_que: — · fuente: Dam Failure Case Study: Vajont Dam (Italy, 1963), 2019 · texto fuente: «La represa de Vajont es del tipo de arco delgado de doble curvatura.»\n- Q53 · tipo Q · a_pantalla: no · por_que: — · fuente: A Tragedy in the Italian Alps (50th Anniversary) Vajont Dam, 2013 (autor: residentes) · texto fuente: «la montaña que camina»\n- T05 · tipo T · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 · texto fuente: «Durante la década de 1950, el geólogo Leopold Müller detectó un desmoronamiento en el cerro Toc.»\n- D154 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia del Vajont: analisi geologica di una frana annunciata, 2021 · texto fuente: «Edoardo Semenza planteó la hipótesis de la presencia de un antiguo deslizamiento (paleofrana) que podría reactivarse al llenar el embalse.»\n- D157 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia del Vajont: analisi geologica di una frana annunciata, 2021 · texto fuente: «Leopold Muller no creía en la hipótesis de un antiguo deslizamiento ni en la existencia de una capa de arcilla que pudiera causarlo.»\n\nYA MOSTRADO EN CAPÍTULOS ANTERIORES (no repetir):\n(nada)\n\nDevolvé:\n{\"bloques\": [{\"sentence_idx\": int, \"word_idx\": int, \"beat\": int, \"rank\": int, \"tipo\": \"cifra|hecho|documento|cita|persona|lupa\", \"etiqueta\": str, \"texto\": str, \"pool_id\": str, \"aporta\": str}], \"descartados\": [{\"pool_id\": str, \"motivo\": str}]}\n\nTU RESPUESTA ANTERIOR TUVO ESTOS PROBLEMAS (corregilos y devolvé el JSON completo otra vez):\n- D117 en la oración [2] «El Consejo Superior de Obras Públicas aprobó el proyecto con solo 13 de 34 representantes presentes, en un procedimiento irregular.»: no cabe en la ficha: etiqueta en 1 línea(s), dato en 4 (1 y 2)\n- falta el dato a_pantalla D117 (por_que: Trece de treinta y cuatro representantes en la sesión de aprobación de 1943: dato de acta, va como rótulo.)",
+   "respuesta": {
+    "bloques": [
+     {
+      "sentence_idx": 2,
+      "word_idx": 7,
+      "beat": 2,
+      "rank": 1,
+      "tipo": "hecho",
+      "etiqueta": "Aprobación del proyecto, 2018",
+      "texto": "Se aprobó con solo 13 de 34 representantes presentes.",
+      "pool_id": "D117",
+      "aporta": "Dice que la sesión de aprobación tuvo solo 13 de 34 representantes presentes, dato que la narración no menciona."
+     }
+    ],
+    "descartados": [
+     {
+      "pool_id": "D24",
+      "motivo": "La narración ya dice que el Vajont desemboca en el Piave frente a Longarone y Castellavazzo; no aporta nada nuevo."
+     },
+     {
+      "pool_id": "T04",
+      "motivo": "Repite la aprobación del proyecto que la narración ya cuenta; D117 la cubre con más información."
+     },
+     {
+      "pool_id": "T03",
+      "motivo": "Repite la compra de terrenos en Erto y Casso que la narración ya dice."
+     },
+     {
+      "pool_id": "D147",
+      "motivo": "Las fechas de construcción 1956-1960 no son de lo que cuenta ninguna oración ancla; adelantan el resto de la historia."
+     },
+     {
+      "pool_id": "T12",
+      "motivo": "Repite los cuatrocientos obreros que la narración ya dice."
+     },
+     {
+      "pool_id": "D237",
+      "motivo": "Repite la cifra de unos 400 operarios que ya está en la narración."
+     },
+     {
+      "pool_id": "D164",
+      "motivo": "Repite el arco delgado de doble curvatura que la narración ya describe."
+     },
+     {
+      "pool_id": "Q53",
+      "motivo": "La narración ya dice el apodo de la montaña; la cita sería redundante."
+     },
+     {
+      "pool_id": "T05",
+      "motivo": "Repite lo que dice la oración sobre Müller y el desmoronamiento en el Toc."
+     },
+     {
+      "pool_id": "D154",
+      "motivo": "Repite la hipótesis de Edoardo Semenza que la narración ya cuenta."
+     },
+     {
+      "pool_id": "D157",
+      "motivo": "Repite que Müller no creía en el deslizamiento antiguo ni en la arcilla."
+     }
+    ]
+   },
+   "crudas": [
+    {
+     "respuesta": {
+      "content": [
+       {
+        "type": "text",
+        "text": "{\"bloques\": [{\"sentence_idx\": 2, \"word_idx\": 7, \"beat\": 2, \"rank\": 1, \"tipo\": \"hecho\", \"etiqueta\": \"Aprobación del proyecto, 2018\", \"texto\": \"Se aprobó con solo 13 de 34 representantes presentes.\", \"pool_id\": \"D117\", \"aporta\": \"Dice que la sesión de aprobación tuvo solo 13 de 34 representantes presentes, dato que la narración no menciona.\"}], \"descartados\": [{\"pool_id\": \"D24\", \"motivo\": \"La narración ya dice que el Vajont desemboca en el Piave frente a Longarone y Castellavazzo; no aporta nada nuevo.\"}, {\"pool_id\": \"T04\", \"motivo\": \"Repite la aprobación del proyecto que la narración ya cuenta; D117 la cubre con más información.\"}, {\"pool_id\": \"T03\", \"motivo\": \"Repite la compra de terrenos en Erto y Casso que la narración ya dice.\"}, {\"pool_id\": \"D147\", \"motivo\": \"Las fechas de construcción 1956-1960 no son de lo que cuenta ninguna oración ancla; adelantan el resto de la historia.\"}, {\"pool_id\": \"T12\", \"motivo\": \"Repite los cuatrocientos obreros que la narración ya dice.\"}, {\"pool_id\": \"D237\", \"motivo\": \"Repite la cifra de unos 400 operarios que ya está en la narración.\"}, {\"pool_id\": \"D164\", \"motivo\": \"Repite el arco delgado de doble curvatura que la narración ya describe.\"}, {\"pool_id\": \"Q53\", \"motivo\": \"La narración ya dice el apodo de la montaña; la cita sería redundante.\"}, {\"pool_id\": \"T05\", \"motivo\": \"Repite lo que dice la oración sobre Müller y el desmoronamiento en el Toc.\"}, {\"pool_id\": \"D154\", \"motivo\": \"Repite la hipótesis de Edoardo Semenza que la narración ya cuenta.\"}, {\"pool_id\": \"D157\", \"motivo\": \"Repite que Müller no creía en el deslizamiento antiguo ni en la arcilla.\"}]}"
+       }
+      ],
+      "usage": {
+       "input_tokens": 5355,
+       "cache_creation_input_tokens": 0,
+       "cache_read_input_tokens": 0,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+       },
+       "output_tokens": 737,
+       "service_tier": "standard",
+       "inference_geo": "global",
+       "speed": "standard",
+       "output_tokens_details": {
+        "thinking_tokens": 0
+       }
+      },
+      "model": "claude-sonnet-5-5",
+      "id": "msg_011CgQT4hoxk3VbE7QGe9tqE",
+      "type": "message",
+      "role": "assistant",
+      "container": null,
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "stop_details": null,
+      "diagnostics": null
+     },
+     "segundos": 6.0,
+     "usd": 0.01808
+    }
+   ],
+   "error": null,
+   "validacion": {
+    "bloques": [
+     {
+      "sentence_idx": 2,
+      "word_idx": 7,
+      "beat": 2,
+      "rank": 1,
+      "tipo": "hecho",
+      "etiqueta": "Aprobación del proyecto, 2018",
+      "texto": "Se aprobó con solo 13 de 34 representantes presentes.",
+      "pool_id": "D117",
+      "aporta": "Dice que la sesión de aprobación tuvo solo 13 de 34 representantes presentes, dato que la narración no menciona.",
+      "palabra": "aprobó",
+      "t0": 18.24,
+      "t1": 28.12,
+      "dur": 9.88,
+      "funcion": "planteo",
+      "pantalla": "Se aprobó con solo 13 de 34 representantes presentes.",
+      "a_pantalla": true,
+      "por_que": "Trece de treinta y cuatro representantes en la sesión de aprobación de 1943: dato de acta, va como rótulo.",
+      "caracteres": 82,
+      "lectura_s": 5.47,
+      "movido": null
+     }
+    ],
+    "rechazos": [],
+    "faltan": [],
+    "motivo_faltan": {},
+    "incompletos": {}
+   },
+   "segundos": 6.0
+  }
+ ],
+ "final": {
+  "bloques": [
+   {
+    "sentence_idx": 2,
+    "word_idx": 7,
+    "beat": 2,
+    "rank": 1,
+    "tipo": "hecho",
+    "etiqueta": "Aprobación del proyecto, 2018",
+    "texto": "Se aprobó con solo 13 de 34 representantes presentes.",
+    "pool_id": "D117",
+    "aporta": "Dice que la sesión de aprobación tuvo solo 13 de 34 representantes presentes, dato que la narración no menciona."
+   }
+  ],
+  "descartados": [
+   {
+    "pool_id": "D24",
+    "motivo": "La narración ya dice que el Vajont desemboca en el Piave frente a Longarone y Castellavazzo; no aporta nada nuevo."
+   },
+   {
+    "pool_id": "T04",
+    "motivo": "Repite la aprobación del proyecto que la narración ya cuenta; D117 la cubre con más información."
+   },
+   {
+    "pool_id": "T03",
+    "motivo": "Repite la compra de terrenos en Erto y Casso que la narración ya dice."
+   },
+   {
+    "pool_id": "D147",
+    "motivo": "Las fechas de construcción 1956-1960 no son de lo que cuenta ninguna oración ancla; adelantan el resto de la historia."
+   },
+   {
+    "pool_id": "T12",
+    "motivo": "Repite los cuatrocientos obreros que la narración ya dice."
+   },
+   {
+    "pool_id": "D237",
+    "motivo": "Repite la cifra de unos 400 operarios que ya está en la narración."
+   },
+   {
+    "pool_id": "D164",
+    "motivo": "Repite el arco delgado de doble curvatura que la narración ya describe."
+   },
+   {
+    "pool_id": "Q53",
+    "motivo": "La narración ya dice el apodo de la montaña; la cita sería redundante."
+   },
+   {
+    "pool_id": "T05",
+    "motivo": "Repite lo que dice la oración sobre Müller y el desmoronamiento en el Toc."
+   },
+   {
+    "pool_id": "D154",
+    "motivo": "Repite la hipótesis de Edoardo Semenza que la narración ya cuenta."
+   },
+   {
+    "pool_id": "D157",
+    "motivo": "Repite que Müller no creía en el deslizamiento antiguo ni en la arcilla."
+   }
+  ]
+ },
+ "validacion": {
+  "bloques": [
+   {
+    "sentence_idx": 2,
+    "word_idx": 7,
+    "beat": 2,
+    "rank": 1,
+    "tipo": "hecho",
+    "etiqueta": "Aprobación del proyecto, 2018",
+    "texto": "Se aprobó con solo 13 de 34 representantes presentes.",
+    "pool_id": "D117",
+    "aporta": "Dice que la sesión de aprobación tuvo solo 13 de 34 representantes presentes, dato que la narración no menciona.",
+    "palabra": "aprobó",
+    "t0": 18.24,
+    "t1": 28.12,
+    "dur": 9.88,
+    "funcion": "planteo",
+    "pantalla": "Se aprobó con solo 13 de 34 representantes presentes.",
+    "a_pantalla": true,
+    "por_que": "Trece de treinta y cuatro representantes en la sesión de aprobación de 1943: dato de acta, va como rótulo.",
+    "caracteres": 82,
+    "lectura_s": 5.47,
+    "movido": null
+   }
+  ],
+  "rechazos": [],
+  "faltan": [],
+  "motivo_faltan": {},
+  "incompletos": {}
+ }
+}

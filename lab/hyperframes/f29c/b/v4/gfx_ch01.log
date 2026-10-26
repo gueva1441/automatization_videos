@@ -1,0 +1,43 @@
+[2026-10-26 03:28:08] ch01 base=ch01_hybrid_visual.mp4
+doctor: ✗ Version          0.8.172 → 0.8.198 available | ✓ FFmpeg           ffmpeg 8.1-full_build-www.gyan.dev at C:\Users\Canada\AppData\Local\Microsoft\WinGet\Links\ffmpeg.exe | ✓ Chrome           cache: C:\Users\Canada\.cache\hyperframes\chrome\chrome-headless-shell\win64-152.0.7977.30\chrome-headless-shell-win64\chrome-headless-shell.exe
+  1 reencode -g30: 9.1s
+  2 grade: CSS intensidad 1.0
+  realizador: beats [(1, 'gancho', 0.12, 94.48)] · candidatos [('Q19', 1, 'nuevo'), ('D131', 1, 'nuevo'), ('Q49', 1, 'dicho')]
+  rotulista ch01: caché (1 intento(s), 0 bloques)
+  escenas: 1 (0.00R3)
+  visión: 3 detalles en 1/1 escenas · rostro/manos en []
+  intensidad: pico frase 6 · cargas [('oscuras', 'oscuridad_encierro', 2), ('ruido', 'caos_gritos', 2)]
+zoom omitido (visión: 'portoncito' no encontrado en escena 0 — conf 0.00 < 0.7 o sin box; portoncito)
+archive omitido (solape con otro bloque)
+emphasis: 'fuerza' (caos_gritos, peso 3, frec 3) @ 37.4s
+emphasis: 'ola' (agua, peso 3, frec 8) @ 86.0s
+emphasis: 'oscuridad' (oscuridad_encierro, peso 2, frec 1) @ 9.8s
+archive: titular ⊂ cuerpo → sin cuerpo (kicker + año no es literal del fact)
+archive: callout 'Longarone' convertido en recorte (fact 6, cap sin recortes)
+gap_warning: 18.1s sin bloque (19.3–37.4s)
+gap_warning: 27.7s sin bloque (58.3–86.0s)
+  rotulista: colocados [] · fuera []
+pico: palabra «fuerza» (caos_gritos, peso 3) @ 37.4s → sello + mood
+  pico (escaleta, beat 1): oración [6] @ 34.4s ««La sensación de que la cama tomaba velocidad, una fuerza espantosa qu» · palabra 'fuerza'
+  reloj (cronología): no (el cap no avanza de fecha)
+  identidad: golpes de zoom 4 (de 7 candidatos) @ [9.24, 41.58, 63.48, 85.96]
+  identidad: transiciones [] · violaciones []
+  pregunta de cierre (cierre del beat 1): 'El dique no cedió esa noche. Lo que llegó a la cama de Micaela vino por encima de él.'
+  rotulista escena: [] · title card 3.0 s
+  realizador: 3 ajuste(s) · quedan 0 bloque(s) · por beat {}
+  crítico:   37.4s sello         «fuerza» → SUMA — El sello enfatiza una palabra clave de la voz sin repetirla, y el tinte de mood refuerza la sensación de caos y opresión descrita, complementando la imagen y el (caché)
+  crítico: 1/1 juzgados sobre el bloque dibujado (snapshot)
+  crítico: 1/1 bloques pasan
+  crítico rotulista: 0/0 bloques pasan
+  plan: {"chapter_number": 1, "title_card": {"kicker": "CAPÍTULO 1", "title": "Cama en la oscuridad"}, "callouts": [], "count_up": null, "archive_clippings": [], "evidence_zoom": null, "punch_in": [], "chapter_question": {"text": "El dique no cedió esa noche. Lo que llegó a la cama de Micaela vino por encima de él.", "start": 94.933, "duration": 3.0, "keyword": "Micaela", "generated": true, "pause": 3.0, "fuente": "escaleta (cierre del último beat)"}, "icon_array": null, "emphasis": [{"word": "fuerza", "category": "caos_gritos", "layer": "minima", "icon": null, "icon_anim": "stamp", "start": 37.44, "duration": 2.5, "side": "left", "stamp": true, "weight": 3, "peak_word": true, "sfx": {"file": "rumor.wav", "gain_db": -20}}], "gap_warnings": [[19.3, 37.4], [58.3, 86.0]], "quote_card": null, "water_level": null, "rotulista": {"modelo": "claude-sonnet-5-5", "faltan_a_pantalla": [], "motivo_faltan": {}, "a_pantalla_incompletos": {}, "filas": [], "error": null, "director_antes": {"archive_clippings": 1, "callouts": 0, "quote_card": false, "count_up": false, "water_level": false, "evidence_zoom": false}, "escena": []}, "fragmentos": [], "pico": {"t": 34.42, "block": null, "word": "fuerza", "sentence": "«La sensación de que la cama tomaba velocidad, una fuerza espantosa que me agarraba por la espalda, me doblaba en dos, me aplastaba», dijo Coletti.", "sentence_idx": 6, "beat": 1, "fuente": "escaleta (beat más intenso del cap)", "palabra": "fuerza"}, "time_ticker": null, "transitions": {}, "identity": {"movimientos": [], "violaciones": []}, "black_hold": {"start": 97.933, "duration": 1.0}, "realizador": {"filas": [{"bloque": "emphasis", "texto": "oscuridad", "t": 9.82, "pool_id": null, "accion": "fuera", "motivo": "sello por léxico (solo queda el de la palabra del pico)"}, {"bloque": "emphasis", "texto": "ola", "t": 85.96, "pool_id": null, "accion": "fuera", "motivo": "sello por léxico (solo queda el de la palabra del pico)"}, {"bloque": "punch_in", "accion": "4 fuera (sin bloque que acompañar)"}], "por_beat": {}}, "critico": [{"t": 37.44, "t_frame": 38.44, "dur": 2.5, "bloque": "sello", "texto": "fuerza", "veredicto": "suma", "motivo": "El sello enfatiza una palabra clave de la voz sin repetirla, y el tinte de mood refuerza la sensación de caos y opresión descrita, complementando la imagen y el", "pasa": true, "voz": "«La sensación de que la cama tomaba velocidad, una fuerza espantosa que me agarraba por la espalda, me doblaba en dos, me aplastaba», dijo Coletti.", "mira": "bloque dibujado"}], "critico_rotulista": []}
+  lock rechazados: 0 []
+  sfx: 3 eventos (title_card, keyword_emphasis, chapter_question)
+  3-4 plan + lock: 19.8s
+  sparse: 3 ventanas, 11.7s de 98.9s (12 %) · transiciones en el stitch []
+  5 templater (sparse): 5.6s
+  lint: 0 errores, 5 warnings
+  6 lint + render looks (sparse): 38.9s
+  marca: channel_bug.svg · esquina apagada
+  7 stitch + grade FFmpeg: 29.6s
+  hoja de contactos: hoja_contactos_ch01.jpg (1 cuadros)
+  OK total 107.1s → ch01_gfx.mp4 (disperso)

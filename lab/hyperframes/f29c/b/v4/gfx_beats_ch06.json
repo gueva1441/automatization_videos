@@ -1,0 +1,166 @@
+{
+ "cap": 6,
+ "beats": [
+  {
+   "n": 10,
+   "funcion": "pico",
+   "intensidad": 5,
+   "t0": 0.14,
+   "t1": 109.16,
+   "dato_central": "T57",
+   "datos_apoyo": [
+    "Q15",
+    "Q16",
+    "Q17",
+    "T58",
+    "D124",
+    "D132"
+   ],
+   "cierre": "Cuando amaneció, la presa seguía ahí. Longarone, no.",
+   "texto": "Carlo Onorini, el párroco de Casso, lo contó así: «escucho el ruido de la avalancha, abro la ventana y este ruido aumentaba en forma extraordinaria, al mismo tiempo vi un resplandor». Son las diez y treinta y nueve. El Toc entra al lago. La ladera entera, la que caminaba, la de la fisura, se desploma de una vez dentro del embalse. El agua no tiene a dónde ir, salvo hacia arriba. Se levanta, pasa por encima de la presa, por encima de la pared que no se rompe, y cae en la garganta hacia el Piave. Benito Castellano oye un ruido «como de un trueno de verano multiplicado cien veces, muy lóbrego, que duró tres o cuatro minutos». Después, un estruendo con un resplandor, y enseguida un ruido como el que hace una formación de reactores al pasar. En el bar Faè, Germano Accamillesi mira televisión cuando «se interrumpió la iluminación del televisor y casi al mismo tiempo (treinta-cincuenta segundos) se empezaron a sentir fuertes sacudidas telúricas». Después de las sacudidas se apaga también la luz del bar. Nadie en ese bar sabe todavía qué viene bajando por la garganta. La ola baja hacia el Piave. Longarone sigue con las luces encendidas. Cuatro minutos después del desprendimiento, el agua llega al pueblo, a las calles, a las casas, a la cama donde duerme Micaela Coletti. Nadie avisó. Micaela siente que la cama toma velocidad y que una fuerza la agarra por la espalda. La ola la arrastra al menos cuatrocientos metros desde su casa. Ahí la encuentran. Y está viva. Cuando amaneció, la presa seguía ahí. Longarone ya no.",
+   "campos": "la ola Una ventana que se abre a un rugido que crece y un resplandor; una pantalla de televisor que se apaga en un bar; cuatro minutos; una niña que aparece a cuatrocientos metros de donde estaba su cama. ¿Cuánto duran cuatro minutos cuando nadie te dijo que corrieras? Cuando amaneció, la presa seguía ahí. Longarone, no."
+  },
+  {
+   "n": 11,
+   "funcion": "respiro",
+   "intensidad": 2,
+   "t0": 110.16,
+   "t1": 163.58,
+   "dato_central": "Q25",
+   "datos_apoyo": [
+    "Q06",
+    "D18",
+    "D229",
+    "D50"
+   ],
+   "cierre": "Tres días después llegó el presidente del Consejo. La gente ya sabía qué pedirle.",
+   "texto": "Donde había calles hay fango y piedras. Un hombre está parado en el medio y no sabe hacia dónde mirar. «Conocía Longarone en cada rincón, ahora no sé dónde estoy», dijo uno de los sobrevivientes. Entre los muertos está Guglielmo Celso, el alcalde socialista de Longarone. Nadie creó un organismo central que informara oficialmente cómo avanzaba el rescate. Desde el aire llegó el ruido de los rotores. La fuerza estadounidense despachó seis helicópteros. Un hombre de una aldea de la zona lo recuerda: «El primer rescatista que vi llegó en un helicóptero del ejército de Estados Unidos». Tres de esos helicópteros, cuenta, evacuaron a toda la gente de su pueblo, y por eso un día trágico le quedó también con algo de alegría. Tres días después llegó el presidente del Consejo. La gente ya sabía qué pedirle.",
+   "campos": "vacío Fango y piedras donde había calles; un hombre parado en el medio sin saber hacia dónde mirar; el ruido de rotores bajando sobre una aldea. ¿Cómo se cuenta a los muertos de un pueblo que ya no tiene esquinas? Tres días después llegó el presidente del Consejo. La gente ya sabía qué pedirle."
+  }
+ ],
+ "candidatos": [
+  {
+   "id": "D128",
+   "beat": 11,
+   "funcion": "respiro",
+   "t0": 110.16,
+   "t1": 163.58,
+   "obligatorio": true,
+   "como": "por_que (3 raíces en común)",
+   "ya_dicho": false,
+   "por_que": "Recuento oficial de mil novecientas diez muertes: va escrito, con sus versiones alternativas, no en la voz."
+  },
+  {
+   "id": "D192",
+   "beat": 11,
+   "funcion": "respiro",
+   "t0": 110.16,
+   "t1": 163.58,
+   "obligatorio": true,
+   "como": "por_que (3 raíces en común)",
+   "ya_dicho": false,
+   "por_que": "Veinte técnicos muertos en el centro de control del estribo izquierdo: subconjunto del total, se muestra junto al recuento."
+  },
+  {
+   "id": "Q15",
+   "beat": 10,
+   "funcion": "pico",
+   "t0": 0.14,
+   "t1": 109.16,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "Q16",
+   "beat": 10,
+   "funcion": "pico",
+   "t0": 0.14,
+   "t1": 109.16,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "Q17",
+   "beat": 10,
+   "funcion": "pico",
+   "t0": 0.14,
+   "t1": 109.16,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "T58",
+   "beat": 10,
+   "funcion": "pico",
+   "t0": 0.14,
+   "t1": 109.16,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": false
+  },
+  {
+   "id": "D124",
+   "beat": 10,
+   "funcion": "pico",
+   "t0": 0.14,
+   "t1": 109.16,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "D132",
+   "beat": 10,
+   "funcion": "pico",
+   "t0": 0.14,
+   "t1": 109.16,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "T57",
+   "beat": 10,
+   "funcion": "pico",
+   "t0": 0.14,
+   "t1": 109.16,
+   "obligatorio": false,
+   "como": "dato_central",
+   "ya_dicho": false
+  },
+  {
+   "id": "Q06",
+   "beat": 11,
+   "funcion": "respiro",
+   "t0": 110.16,
+   "t1": 163.58,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "D18",
+   "beat": 11,
+   "funcion": "respiro",
+   "t0": 110.16,
+   "t1": 163.58,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "Q25",
+   "beat": 11,
+   "funcion": "respiro",
+   "t0": 110.16,
+   "t1": 163.58,
+   "obligatorio": false,
+   "como": "dato_central",
+   "ya_dicho": true
+  }
+ ],
+ "pico_escaleta": 10
+}

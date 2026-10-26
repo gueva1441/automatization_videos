@@ -1,0 +1,114 @@
+{
+ "cap": 2,
+ "beats": [
+  {
+   "n": 2,
+   "funcion": "planteo",
+   "intensidad": 1,
+   "t0": 0.08,
+   "t1": 65.16,
+   "dato_central": "D24",
+   "datos_apoyo": [
+    "T04",
+    "T03",
+    "D147",
+    "T12",
+    "D237",
+    "D164"
+   ],
+   "cierre": "Longarone no estaba sobre el embalse. Estaba delante de él. Y la montaña que lo cerraba tenía un apodo.",
+   "texto": "Longarone está en el fondo del valle del Piave. El río pasa por delante del pueblo y, enfrente, desde una garganta lateral, baja un torrente que se llama Vajont y que desemboca en el Piave justo frente a Longarone y Castellavazzo. En mil novecientos cuarenta y tres se aprobó el proyecto de cerrar esa garganta con una presa, y empezó la compra de terrenos en Erto y Casso, los pueblos de arriba, los que iban a quedar al borde del lago. La empresa era SADE. El ingeniero que dibujó la obra se llamaba Carlo Semenza, y la pensó como un arco delgado de doble curvatura: una pared curva, fina para su tamaño, apoyada en las dos laderas de la garganta. Cuando empezaron las obras, unos cuatrocientos hombres colgados de andamios la fueron levantando hasta tapar el cielo de la garganta. Abajo, en Longarone, la vida siguió con el Piave delante. Longarone no estaba sobre el embalse. Estaba delante de él. Y la montaña que cerraba el lago tenía un apodo.",
+   "campos": "calma de valle Un pueblo de fondo de valle con el Piave pasando por delante; arriba, en una garganta lateral, hombres colgados de andamios levantan una pared curva que tapa el cielo. ¿Qué significa vivir debajo de una obra que se aprobó cuando vos ni habías nacido? Longarone no estaba sobre el embalse. Estaba delante de él. Y la montaña que lo cerraba tenía un apodo."
+  },
+  {
+   "n": 3,
+   "funcion": "escalada",
+   "intensidad": 2,
+   "t0": 65.94,
+   "t1": 129.66,
+   "dato_central": "Q53",
+   "datos_apoyo": [
+    "T05",
+    "D154",
+    "D157"
+   ],
+   "cierre": "En marzo del cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero.",
+   "texto": "La gente de la zona llamaba al monte Toc «la montaña que camina», y lo decían los residentes desde antes de que nadie fuera a medirla. En la década del cincuenta, el geólogo Leopold Müller detectó en el Toc un gran desmoronamiento. Y hubo otro hombre que caminó esa ladera con un martillo en la mano y otra idea en la cabeza: Edoardo Semenza, geólogo, hijo de Carlo Semenza, el que había dibujado la presa. Edoardo buscaba la cicatriz de un deslizamiento antiguo. Según una reconstrucción geológica posterior, planteó que ese deslizamiento viejo podía reactivarse cuando el embalse se llenara. Müller no lo creía: no creía en el deslizamiento antiguo ni en una capa de arcilla capaz de causarlo. El hijo del proyectista decía que la montaña ya se había movido una vez. El experto decía que no. En marzo de mil novecientos cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero.",
+   "campos": "inquietud antigua Un geólogo joven, hijo del hombre que diseñó la presa, caminando la ladera del Toc con un martillo en la mano, buscando la cicatriz de un deslizamiento viejo. ¿Qué pasa cuando el que encuentra el peligro es el hijo del que hizo la obra? En marzo del cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero."
+  }
+ ],
+ "candidatos": [
+  {
+   "id": "D117",
+   "beat": 2,
+   "funcion": "planteo",
+   "t0": 0.08,
+   "t1": 65.16,
+   "obligatorio": true,
+   "como": "por_que (1 raíces en común)",
+   "ya_dicho": false,
+   "por_que": "Trece de treinta y cuatro representantes en la sesión de aprobación de 1943: dato de acta, va como rótulo."
+  },
+  {
+   "id": "T04",
+   "beat": 2,
+   "funcion": "planteo",
+   "t0": 0.08,
+   "t1": 65.16,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "T03",
+   "beat": 2,
+   "funcion": "planteo",
+   "t0": 0.08,
+   "t1": 65.16,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "T12",
+   "beat": 2,
+   "funcion": "planteo",
+   "t0": 0.08,
+   "t1": 65.16,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": false
+  },
+  {
+   "id": "D237",
+   "beat": 2,
+   "funcion": "planteo",
+   "t0": 0.08,
+   "t1": 65.16,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "T05",
+   "beat": 3,
+   "funcion": "escalada",
+   "t0": 65.94,
+   "t1": 129.66,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "Q53",
+   "beat": 3,
+   "funcion": "escalada",
+   "t0": 65.94,
+   "t1": 129.66,
+   "obligatorio": false,
+   "como": "dato_central",
+   "ya_dicho": true
+  }
+ ],
+ "pico_escaleta": 10
+}
