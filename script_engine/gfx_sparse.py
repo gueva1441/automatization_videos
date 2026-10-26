@@ -37,7 +37,11 @@ def _frame(t: float, fps: int) -> float:
 
 
 def transition_span(c: float, tr: dict[str, Any], fps: int) -> tuple[float, float]:
-    """Lo que ocupa una transición alrededor de su corte c (incluye el último cuadro del saliente)."""
+    """Lo que ocupa una transición alrededor de su corte c (incluye el último cuadro del saliente). F30b: el zoom_punch
+    ocupa la mitad antes del corte (el saliente se acerca) y la mitad después (el entrante se aleja)."""
+    if tr["kind"] == "zoom_punch":
+        h = (tr["frames"] // 2) / fps
+        return c - h - 1.5 / fps, c + h
     return c - 1.5 / fps, c + max(tr["frames"] / fps, 0.35)          # cut_punch dura .35 s
 
 
@@ -270,6 +274,8 @@ def stitch_segments(windows_offsets: list[tuple[float, float, float]], dur: floa
         dissolve   el último cuadro del saliente congelado se funde sobre el entrante (el freeze del templater)
         dip_out    el último cuadro del saliente congelado baja a negro en d/2 · dip_in: el entrante sube desde negro
         flash      el entrante con el blanco por cuadro · punch: el entrante de r1_cut_punch_scale a 1 en .35 s
+        zp_out     (F30b, zoom_punch) el saliente se acerca 1 → 1.4 en la mitad antes del corte · zp_in: el entrante
+                   se aleja 1.4 → 1 en la mitad después
     F30 §B: antes los tramos se unían con una cadena de xfade (uno por unión: con 15 ventanas el stitch de ch06 pasó de
     50 a 135 s); ahora cada fundido es un segmento corto y todo va a UN concat."""
     D = round(dur * fps)
@@ -281,6 +287,17 @@ def stitch_segments(windows_offsets: list[tuple[float, float, float]], dur: floa
         k = k0
         for c, tr in cuts:
             if not (k0 < c < k1):
+                continue
+            if tr["kind"] == "zoom_punch":                       # F30b §A: mitad antes del corte, mitad después
+                h = tr["frames"] // 2
+                a = max(k, c - h)
+                if a > k:
+                    segs.append({"kind": "base", "k0": k, "k1": a})
+                if c > a:
+                    segs.append({"kind": "zp_out", "k0": a, "k1": c})
+                e = min(c + h, k1)
+                segs.append({"kind": "zp_in", "k0": c, "k1": e})
+                k = e
                 continue
             if c > k:
                 segs.append({"kind": "base", "k0": k, "k1": c})
@@ -366,6 +383,13 @@ def stitch_graph(segs: list[dict[str, Any]], fps: int, width: int, height: int) 
         elif kd == "punch":
             S = gfx_rules.r1_cut_punch_scale
             z = f"{S}-{S - 1:.6f}*(1-pow(1-min(in/{0.35 * fps:.6f}\\,1)\\,2))"
+            g.append(b(s["k0"], s["k1"], lab, f",zoompan=z='{z}':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=1:"
+                                             f"s={width}x{height}:fps={fps},setsar=1,setpts=PTS-STARTPTS,settb=AVTB"))
+        elif kd in ("zp_out", "zp_in"):                        # F30b §A: zoom_punch (transition_config)
+            from script_engine.gfx_style import ZOOM_PUNCH_SCALE as S
+            x = f"min((in+1)/{n}\\,1)"
+            z = (f"1+{S - 1:.6f}*pow({x}\\,2)" if kd == "zp_out" else
+                 f"{S}-{S - 1:.6f}*(1-pow(1-min(in/{n}\\,1)\\,2))")
             g.append(b(s["k0"], s["k1"], lab, f",zoompan=z='{z}':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=1:"
                                              f"s={width}x{height}:fps={fps},setsar=1,setpts=PTS-STARTPTS,settb=AVTB"))
         labs.append(f"[{lab}]")

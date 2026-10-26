@@ -847,6 +847,12 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                escena=(lambda: gro.escena_final(resolved, scenes, ent_rot, log)) if rot_on else None,
                garantizar=gfx_rules.garantizar_pico and not rot_on,
                side=getattr(scenes[-1], "quiet_side", "right") if scenes else "right")
+        if real and gfx_plan_override is None and gfx_rules.identity_rules:   # F30b §A: transiciones por relato
+            from script_engine.gfx_style import identity_violations, transiciones_por_relato
+            tr = transiciones_por_relato(scenes, resolved, real["beats"], fps)
+            resolved["transitions"] = {str(k): v for k, v in tr.items()}
+            resolved.setdefault("identity", {})["violaciones"] = identity_violations(resolved, tr)
+            log.append(f"  transiciones (relato): {[(k, tr[k]['kind'], tr[k]['why']) for k in sorted(tr)]}")
         log.append(f"  plan: {json.dumps(resolved, ensure_ascii=False)}")
         log.append(f"  lock rechazados: {len(rejected)} {json.dumps(rejected, ensure_ascii=False)}")
         (work_dir / f"gfx_plan_{cap}.resolved.json").write_text(

@@ -152,6 +152,60 @@ def identity_transitions(scenes: list[Any], prompts_by_scene: list[dict[str, Any
     return out
 
 
+ZOOM_PUNCH_SCALE = 1.4        # transition_config «zoom_punch»: 1.0→1.4 saliente / 1.4→1.0 entrante
+ZOOM_PUNCH_MS = 400           # ídem, duration_ms
+
+
+def transiciones_por_relato(scenes: list[Any], plan: dict[str, Any], beats: list[dict[str, Any]],
+                            fps: int = 30) -> dict[int, dict[str, Any]]:
+    """F30b §A: la transición de ENTRADA de cada escena por el relato (clave = idx de la escena entrante); el
+    emotional_rank no decide nada. Por cada corte, la primera que aplica:
+        1. la escena saliente tuvo lupa (evidence_zoom en ella)              → cut       «después de la lupa»
+        2. el corte más cercano a pico.t dentro del beat pico (uno por cap)   → zoom_punch «pico»
+        3. la escena entrante es de otro beat que la saliente                → dissolve  «cambio de beat»
+        4. arranca el reloj (time_ticker) en la escena entrante               → dissolve  «salto de tiempo»
+        5. la última escena del cap (la de la pregunta de cierre)             → dip       «cierre»
+        6. todo lo demás                                                      → cut       «corte»
+    Corre sobre el plan final (después del crítico): una lupa que el crítico sacó no deja su corte."""
+    r = gfx_rules
+    out: dict[int, dict[str, Any]] = {}
+    if len(scenes) < 2:
+        return out
+    lupa = (plan.get("evidence_zoom") or {}).get("scene_idx")
+    pk = plan.get("pico") or {}
+    bpk = next((b for b in beats if b["n"] == pk.get("beat")), None)
+    punch = None
+    if bpk is not None and pk.get("t") is not None:
+        en_pico = [s for s in scenes[1:] if bpk["t0"] - 0.3 <= s.start <= bpk["t1"]]
+        if en_pico:
+            punch = min(en_pico, key=lambda s: (abs(s.start - float(pk["t"])), s.idx)).idx
+
+    def beat_de(t: float) -> int | None:
+        for b in beats:
+            if b["t0"] - 0.3 <= t <= b["t1"]:
+                return b["n"]
+        prev = [b for b in beats if b["t0"] <= t]
+        return (prev[-1] if prev else beats[0])["n"] if beats else None
+    tk = plan.get("time_ticker")
+    tk_t = float(tk["start"]) if tk else None
+    for s in scenes[1:]:
+        prev = scenes[s.idx - 1]
+        if lupa is not None and s.idx == lupa + 1:
+            tr = {"kind": "cut", "frames": 0, "why": "después de la lupa"}
+        elif s.idx == punch:
+            tr = {"kind": "zoom_punch", "frames": round(ZOOM_PUNCH_MS / 1000 * fps), "why": "pico"}
+        elif beats and beat_de(s.start) != beat_de(prev.start):
+            tr = {"kind": "dissolve", "frames": int(r.crossfade_frames), "why": "cambio de beat"}
+        elif tk_t is not None and s.start - 1e-6 <= tk_t < s.end:
+            tr = {"kind": "dissolve", "frames": int(r.crossfade_frames), "why": "salto de tiempo"}
+        elif s.idx == scenes[-1].idx:
+            tr = {"kind": "dip", "frames": int(r.dip_frames), "why": "cierre"}
+        else:
+            tr = {"kind": "cut", "frames": 0, "why": "corte"}
+        out[s.idx] = {**tr, "rank": s.rank}
+    return out
+
+
 def _word_weight(word: str, moods: dict[str, dict[str, Any]]) -> int:
     w = re.sub(r"[^\wáéíóúñü]", "", str(word).lower())
     return max((int((m.get("triggers") or {}).get(w, 0)) for m in moods.values()), default=0)

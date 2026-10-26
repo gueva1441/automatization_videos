@@ -559,6 +559,17 @@ def _scene_html(s: GfxScene, n: int, plan: dict[str, Any], project: Path,
         d = frames / fps
         if tr["kind"] == "cut_punch":
             js.append(f'        tl.fromTo("#vw{tag}", {{ scale: {gfx_rules.r1_cut_punch_scale} }}, {{ scale: 1, duration: .35, ease: "power2.out", immediateRender: false }}, 0);')
+        elif tr["kind"] == "zoom_punch":
+            # F30b §A: el entrante se aleja 1.4 → 1 en la mitad después del corte (HyperFrames no escala <video>: va
+            # el primer cuadro fijo encima, como el freeze de la disolvencia)
+            from script_engine.gfx_style import ZOOM_PUNCH_SCALE
+            h = (frames // 2) / fps
+            fi = project / "public" / "cuts" / f"zpin_{tag}.jpg"
+            if _extract_freeze(base, s.start + 0.5 / fps, fi):
+                outer.append(f'    <img id="zpi{tag}" class="media clip" src="public/cuts/{fi.name}" data-start="0" '
+                             f'data-duration="{h:.3f}" alt="" />')
+                init.append(f'        gsap.set("#zpi{tag}", {{ scale: {ZOOM_PUNCH_SCALE} }});')
+                js.append(f'        tl.to("#zpi{tag}", {{ scale: 1, duration: {h:.3f}, ease: "power2.out" }}, 0);')
         elif tr["kind"] == "flash":
             outer.append(f'    <div id="fl{tag}" class="flash clip" data-start="0" data-duration="{d:.3f}"></div>')
             init.append(f'        gsap.set("#fl{tag}", {{ opacity: 0 }});')
@@ -584,6 +595,18 @@ def _scene_html(s: GfxScene, n: int, plan: dict[str, Any], project: Path,
                              f'data-duration="{d:.3f}" alt="" style="{fz[1]}" />')
                 init.append(f'        gsap.set("#fz{tag}", {{ opacity: 1 }});')
                 js.append(f'        tl.to("#fz{tag}", {{ opacity: 0, duration: {d:.3f}, ease: "sine.inOut" }}, 0);')
+
+    # ── F30b §A: zoom_punch de SALIDA (la escena siguiente entra con zoom_punch): el último cuadro se acerca 1 → 1.4
+    nxt = (transitions or {}).get(s.idx + 1)
+    if nxt and nxt["kind"] == "zoom_punch":
+        from script_engine.gfx_style import ZOOM_PUNCH_SCALE
+        h = (nxt["frames"] // 2) / fps
+        fo = project / "public" / "cuts" / f"zpout_{tag}.jpg"
+        if _extract_freeze(base, s.end - 1.5 / fps, fo):
+            outer.append(f'    <img id="zpo{tag}" class="media clip" src="public/cuts/{fo.name}" '
+                         f'data-start="{max(0.0, s.duration - h):.3f}" data-duration="{h:.3f}" alt="" />')
+            js.append(f'        tl.fromTo("#zpo{tag}", {{ scale: 1 }}, {{ scale: {ZOOM_PUNCH_SCALE}, duration: {h:.3f}, '
+                      f'ease: "power2.in", immediateRender: false }}, {max(0.0, s.duration - h):.3f});')
 
     # ── F2 §4: movimiento seguro (riesgo de deformación alto): la imagen FIJA tapa el clip DepthFlow
     # y se anima con un push-in o un paneo leve (nunca se deforma: solo escala/traslada)
