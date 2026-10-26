@@ -130,7 +130,7 @@ def _render(project: Path, out: Path, quality: str) -> None:
 # ═══════════════════════════════════════════════════════════════
 
 def build_scenes(chplan: Any, script_chapter: dict[str, Any], raw_words: list[dict],
-                 clip_duration: float, time_offset: float = 0.0) -> list[GfxScene]:
+                 clip_duration: float, time_offset: float = 0.0, pre_roll: float = 0.0) -> list[GfxScene]:
     """Cortes intra-cap desde compute_anchor_starts (importado). Un solo plano si algo no cuadra.
 
     El adelanto de ~45 ms del corte real vs anchor NO se corrige en F1 (anotado en DOC_MAESTRO §6).
@@ -152,7 +152,7 @@ def build_scenes(chplan: Any, script_chapter: dict[str, Any], raw_words: list[di
                 return single
             supp = [s + time_offset for s in supp]
             if chplan.veo_position == "start":
-                starts = [0.0, veo_dur] + supp[1:]
+                starts = [0.0, veo_dur + pre_roll] + supp[1:]          # F30b: el Veo arranca después del pre-roll
             else:
                 starts = [0.0] + supp[1:] + [clip_duration - veo_dur]
             # Veo: 1 plano R3 (sin emotional_rank en supplementals); supps R3
@@ -511,7 +511,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
               reuse: bool = False, time_offset: float = 0.0,
               gfx_plan_override: dict[str, Any] | None = None, debug: bool = False,
               sparse: bool = False, safe_scenes: dict[int, dict[str, Any]] | None = None,
-              plan_only: bool = False) -> Path:
+              plan_only: bool = False, pre_roll: float = 0.0) -> Path:
     """Aplica la capa gráfica al base_clip de un cap. Devuelve chXX_gfx.mp4 o base_clip (fallback).
 
     Args:
@@ -522,6 +522,8 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         time_offset: pre-pad del hook (ch01) — las palabras se corren igual que los subs.
         gfx_plan_override: plan RESUELTO fijo (paso 1 del handoff, sin LLM). None → director + lock.
         debug: overlay de depuración quemado (timecode, bloque activo, escena, rank). Solo con --gfx-debug.
+        pre_roll: F30b §B.3, los segundos de title card sin voz que fase2b le agregó adelante al base (ya incluidos
+            en time_offset): corren el corte del Veo de arranque y el pedido del rotulista los imprime sin ellos.
         plan_only: F5 §3 — director + candado + crítico + cues, SIN HyperFrames ni render (simulación). Devuelve
             base_clip; deja gfx_plan_<cap>.resolved.json, gfx_sfx y gfx_cues en work_dir.
     """
@@ -564,10 +566,10 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         if rot_on:
             from script_engine import gfx_rotulista as gro
             ent_rot = gro.entrada(ctx["chapter_number"], real, ctx["escaleta"], ctx.get("pool"), words, time_offset,
-                                  voz_video=gro.voz_del_video(ctx))
+                                  voz_video=gro.voz_del_video(ctx), pre_roll=pre_roll)
             rot = gro.llamar(ent_rot, words, time_offset, work_dir, cap, modelo=gfx_rules.rotulista_modelo,
                              effort=gfx_rules.rotulista_effort, tope=gfx_rules.rotulista_tope_usd, log=log)
-        scenes = build_scenes(plan, ctx["script_chapter"], raw_words, clip_dur, time_offset)
+        scenes = build_scenes(plan, ctx["script_chapter"], raw_words, clip_dur, time_offset, pre_roll=pre_roll)
         scenes = assign_quiet_sides(snap_cuts(scenes, project / "public" / "base.mp4", fps), project / "public" / "base.mp4")
         log.append(f"  escenas: {len(scenes)} ({', '.join(f'{s.start:.2f}{s.rank}' for s in scenes)})")
         # F2 §4: router anti-deformación → imágenes de riesgo alto (o caídas a Ken Burns) con movimiento seguro

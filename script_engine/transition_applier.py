@@ -346,19 +346,27 @@ def concat_windowed(
     ffprobe: str,
     venc: list[str],
     window_sec: float = WINDOW_SEC,
+    negro_frames: int | None = None,
 ) -> Path:
     """Mismo resultado temporal que concat_with_transitions, re-encodeando solo ventanas de frontera.
 
     venc: args del encoder de video de los segmentos (fase2b._venc()): las ventanas DEBEN salir con el
     mismo encoder para que el concat por copia sea válido. Lanza si algo falla (el caller cae al clásico).
+    negro_frames (F30b §B.1, con --gfx): toda unión cap → cap es un corte sin solapar (el cap saliente ya termina en
+    su black_hold) y el entrante sube desde negro en `negro_frames` cuadros (`fade=in`); el audio se pega sin
+    acrossfade. Nunca pasa por el xfade de los perfiles de arte (ni fadewhite).
     """
     if len(segments) < 2 or not transition_render.enable_transitions:
         raise ValueError("concat por ventanas: necesita ≥ 2 segmentos y transiciones activas")
     plans = build_transition_plan(len(segments), art_profiles)
     infos = [probe_segment(s, ffprobe) for s in segments]
     fps = infos[0].fps
-    trans = [max(p.duration_seconds, 1.0 / fps) for p in plans]
-    trans = [round(t * fps) / fps for t in trans]       # transición en frames enteros
+    if negro_frames:                                    # F30b §B.1: corte a negro, sin solapar
+        plans = [TransitionPlan(i, "corte_negro", 0.0) for i in range(len(segments) - 1)]
+        trans = [0.0] * (len(segments) - 1)
+    else:
+        trans = [max(p.duration_seconds, 1.0 / fps) for p in plans]
+        trans = [round(t * fps) / fps for t in trans]   # transición en frames enteros
     bodies = plan_windows(infos, trans, window_sec)
     if bodies is None:
         raise ValueError("concat por ventanas: un segmento no deja cuerpo entre fronteras")
@@ -378,9 +386,13 @@ def concat_windowed(
             nxt_a = bodies[i + 1][0]
             tail = s.duration - b
             win = tmp / f"_cw_w{i:02d}.ts"
-            fc = (f"[0:v]setpts=PTS-STARTPTS[a];[1:v]trim=end={nxt_a:.6f},setpts=PTS-STARTPTS[b];"
-                  f"[a][b]xfade=transition={_xfade_transition_for(plans[i].transition_name)}:"
-                  f"duration={trans[i]:.6f}:offset={tail - trans[i]:.6f},format=yuv420p[v]")
+            if negro_frames:                            # F30b §B.1: el entrante sube desde negro
+                fc = (f"[0:v]setpts=PTS-STARTPTS[a];[1:v]trim=end={nxt_a:.6f},setpts=PTS-STARTPTS,"
+                      f"fade=t=in:st=0:d={negro_frames / fps:.6f}[b];[a][b]concat=n=2:v=1:a=0,format=yuv420p[v]")
+            else:
+                fc = (f"[0:v]setpts=PTS-STARTPTS[a];[1:v]trim=end={nxt_a:.6f},setpts=PTS-STARTPTS[b];"
+                      f"[a][b]xfade=transition={_xfade_transition_for(plans[i].transition_name)}:"
+                      f"duration={trans[i]:.6f}:offset={tail - trans[i]:.6f},format=yuv420p[v]")
             r = _run_cmd([ffmpeg, "-v", "error", "-y", "-ss", f"{b:.6f}", "-i", str(s.path), "-i", str(segments[i + 1]),
                           "-filter_complex", fc, "-map", "[v]", *venc, "-pix_fmt", "yuv420p", "-r", f"{fps:g}",
                           "-an", "-f", "mpegts", str(win)], timeout=_scaled_timeout(tail + nxt_a, 300))
@@ -399,7 +411,10 @@ def concat_windowed(
 
     # audio: acrossfade encadenado (solo audio)
     parts_a = []
-    for i in range(len(segments) - 1):
+    if negro_frames:                                    # F30b §B.1: sin solapar, el audio se pega tal cual
+        parts_a.append("".join(f"[{i}:a]" for i in range(len(segments)))
+                       + f"concat=n={len(segments)}:v=0:a=1[a{len(segments) - 1}]")
+    for i in range(len(segments) - 1) if not negro_frames else ():
         src = "0:a" if i == 0 else f"a{i}"
         parts_a.append(f"[{src}][{i + 1}:a]acrossfade=d={trans[i]:.6f}:c1=tri:c2=tri[a{i + 1}]")
     audio_wav = work_dir / "_concat_audio.wav"

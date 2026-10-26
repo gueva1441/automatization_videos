@@ -922,6 +922,20 @@ def _visual_base(plan: Any, work_dir: Path, video_width: int, video_height: int,
     return base_clip
 
 
+def _visual_con_pre_roll(base_clip: Path, pre_roll: float, out: Path, fps: int) -> Path:
+    """F30b §B.3: el visual base con `pre_roll` segundos adelante (su primer cuadro clonado: la imagen del title
+    card). Se reusa si ya está y es más nuevo que el base."""
+    assert FFMPEG is not None
+    if out.exists() and out.stat().st_mtime >= Path(base_clip).stat().st_mtime:
+        return out
+    r = _run_cmd([FFMPEG, "-v", "error", "-y", "-i", str(base_clip), "-vf",
+                  f"tpad=start_duration={pre_roll:.3f}:start_mode=clone", "-an", *_venc(), "-r", str(fps),
+                  "-pix_fmt", "yuv420p", str(out)], timeout=900)
+    if r.returncode != 0:
+        raise RuntimeError(f"pre-roll del visual falló: {r.stderr[-300:]}")
+    return out
+
+
 def _build_chapter_segment(
     plan: ChapterPlan, segment_path: Path, work_dir: Path,
     *, hook_text: str | None, no_subs: bool, video_width: int,
@@ -952,7 +966,13 @@ def _build_chapter_segment(
     assert FFMPEG is not None
     is_first = plan.is_first
     apply_hook = is_first and bool(hook_text)
-    pre_pad = HOOK_DURATION if apply_hook else 0.0
+    # F30b §B.3: con --gfx el cap arranca con su title card sin voz durante title_dur (pre-roll): voz, subtítulos,
+    # sfx y plan gfx se corren title_dur completos; el visual base gana title_dur adelante (su primer cuadro).
+    pre_roll = 0.0
+    if gfx_enabled:
+        from gfx_config import gfx_rules as _gr_pre
+        pre_roll = float(_gr_pre.title_dur) if _gr_pre.title_pre_roll else 0.0
+    pre_pad = (HOOK_DURATION if apply_hook else 0.0) + pre_roll
 
     # ─── Visual base (clip MP4 sin audio) ───
     # F28 §C.2: con caps en paralelo, el visual base (DepthFlow, ya paralelo por dentro) va de a uno
@@ -966,12 +986,15 @@ def _build_chapter_segment(
     # ─── F1: capa gráfica HyperFrames (--gfx). Fallback interno a base_clip ───
     if gfx_enabled:
         from script_engine.gfx_layer import apply_gfx   # lazy: sin --gfx no se importa nada
+        safe = _safe_scenes_for(plan, base_clip, safe_scenes)
+        if pre_roll > 0:
+            base_clip = _visual_con_pre_roll(base_clip, pre_roll, work_dir / f"{plan.chapter_id}_visual_preroll.mp4", fps)
         base_clip = apply_gfx(
             base_clip, plan, video_id, work_dir,
             width=video_width, height=video_height, fps=fps,
             quality=gfx_quality, reuse=reuse_visuals, time_offset=pre_pad,
             debug=gfx_debug, sparse=gfx_sparse,
-            safe_scenes=_safe_scenes_for(plan, base_clip, safe_scenes),
+            safe_scenes=safe, pre_roll=pre_roll,
         )
 
     clip_duration = _get_duration(base_clip)
@@ -1327,6 +1350,7 @@ def _build_music_piece_for_chapter(
     piece_volume: float = 1.0,
     loop_crossfade_sec: float | None = None,
     envolvente: list[dict[str, Any]] | None = None,
+    pre_sec: float = 0.0,
 ) -> Path:
     """
     Genera 1 piece WAV del largo exacto del cap.
@@ -1403,6 +1427,14 @@ def _build_music_piece_for_chapter(
     if envolvente and track_path is not None:                 # F28 §B.2
         from script_engine.music_intensity import aplicar_a_wav
         aplicar_a_wav(output_path, envolvente)
+    if pre_sec > 0:                                           # F30b §B.3: la música del cap se corre el pre-roll
+        tmp = output_path.with_name(output_path.stem + "_pre.wav")
+        ms = int(round(pre_sec * 1000))
+        r = _run_cmd([FFMPEG, "-y", "-i", str(output_path), "-af", f"adelay={ms}:all=1", "-c:a", "pcm_s16le",
+                      str(tmp)], timeout=120)
+        if r.returncode != 0:
+            raise RuntimeError(f"FFmpeg pre-roll de la pieza {output_path.name} falló: {r.stderr[-300:]}")
+        tmp.replace(output_path)
 
     return output_path
 
@@ -1416,6 +1448,7 @@ def _build_continuous_music_track(
     output_filename: str | None = None,
     extra_sec: dict[str, float] | None = None,
     intensidad: dict[str, Any] | None = None,
+    pre_sec: dict[str, float] | None = None,
 ) -> Path:
     """
     Construye un único WAV continuo del largo total del video, con
@@ -1477,6 +1510,7 @@ def _build_continuous_music_track(
             piece_volume=piece_volumes.get(ch_id, 1.0),  # chat 39: volumen por-cap
             loop_crossfade_sec=_track_meta(track_path).get("loop_crossfade_s"),   # F28 §B.1
             envolvente=(intensidad or {}).get(ch_id),                            # F28 §B.2
+            pre_sec=(pre_sec or {}).get(ch_id, 0.0),                             # F30b §B.3
         )
         piece_paths.append(piece_path)
 
@@ -2362,9 +2396,12 @@ def _concat_segments(
     final_path: Path,
     work_dir: Path,
     art_profiles: list[str | None],
+    negro_frames: int | None = None,
 ) -> Path:
     """Concatena segmentos con transiciones. F2b §4: por ventanas (deja _concat_video.ts y _concat_audio.wav
-    para la mezcla de música); si falla o con --legacy-concat → xfade encadenado de siempre."""
+    para la mezcla de música); si falla o con --legacy-concat → xfade encadenado de siempre. F30b §B.1
+    (`negro_frames`, solo con --gfx): cap → cap = corte a negro (el entrante sube desde negro); si las ventanas
+    fallan, concat seco (nunca el xfade de los perfiles de arte)."""
     assert FFMPEG is not None
     assert FFPROBE is not None
     for stale in ("_concat_video.ts", "_concat_audio.wav"):     # insumos de una corrida anterior: nunca se reusan
@@ -2373,13 +2410,17 @@ def _concat_segments(
         from script_engine.transition_applier import concat_windowed
         t0 = time.time()
         try:
-            out = concat_windowed(segments, final_path, work_dir, art_profiles, FFMPEG, FFPROBE, _venc())
+            out = concat_windowed(segments, final_path, work_dir, art_profiles, FFMPEG, FFPROBE, _venc(),
+                                  negro_frames=negro_frames)
             print(f"     ⚡ concat por ventanas: {time.time() - t0:.0f}s (solo fronteras re-encodeadas)")
             return out
         except Exception as e:  # noqa: BLE001 — el camino clásico sigue disponible
             print(f"     ⚠ concat por ventanas falló ({type(e).__name__}: {str(e)[:200]}) → xfade encadenado")
             for stale in ("_concat_video.ts", "_concat_audio.wav"):
                 (work_dir / stale).unlink(missing_ok=True)
+    if negro_frames:                                            # F30b §B.1: sin fadewhite ni xfade de arte
+        from script_engine.transition_applier import _concat_demuxer_fallback
+        return _concat_demuxer_fallback(segments, final_path, work_dir, FFMPEG, FFPROBE)
     return concat_with_transitions(
         segments=segments,
         final_path=final_path,
@@ -2789,7 +2830,9 @@ def _assemble_one_video(
         print(f"\n  ♻  re-ensamble: {len(reused_caps)} reusados, {len(segments) - len(reused_caps)} re-hechos")
     print(f"\n  🔗 Concatenando {len(segments)} segmentos...")
     art_profiles_list = [p.art_profile for p in plans]
-    _concat_segments(segments, final_path, work_dir, art_profiles_list)
+    from gfx_config import gfx_rules as _gr_cat                   # F30b §B.1: con --gfx, cap → cap a negro
+    _concat_segments(segments, final_path, work_dir, art_profiles_list,
+                     negro_frames=int(_gr_cat.dip_frames) if gfx else None)
 
     # ─── Mixer música + ducking (PR 2.C chat 28) ───
     # Si existe music_map.json del topic, montar música con sidechain ducking
@@ -2846,6 +2889,9 @@ def _assemble_one_video(
         if pauses:
             print(f"     pausas de cierre (gfx): {pauses}")
         intensidad = _mapa_intensidad(video_id, plans, pauses)            # F28 §B.2
+        from gfx_config import gfx_rules as _gr_pr                         # F30b §B.3: pre-roll del title card
+        prerolls = ({p.chapter_id: float(_gr_pr.title_dur) for p in plans}
+                    if gfx and _gr_pr.title_pre_roll else None)
         if intensidad:
             print(f"     mapa de intensidad: " + " · ".join(
                 f"{c} " + ",".join(t['nivel'] for t in v if t['nivel'] != 'fondo') for c, v in intensidad.items()))
@@ -2858,6 +2904,7 @@ def _assemble_one_video(
             output_filename="_music_continuous_ducked.wav",
             extra_sec=pauses,
             intensidad=intensidad,
+            pre_sec=prerolls,
         )
         music_floor_path = _build_continuous_music_track(
             plans=plans,
@@ -2868,6 +2915,7 @@ def _assemble_one_video(
             output_filename="_music_continuous_floor.wav",
             extra_sec=pauses,
             intensidad=intensidad,
+            pre_sec=prerolls,
         )
 
         # Mezclar con sidechain (paso B). Output: filename canónico final_path.

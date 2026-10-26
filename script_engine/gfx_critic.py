@@ -175,6 +175,13 @@ def _gemini(img: Path, prompt: str, img2: Path | None = None) -> dict[str, Any]:
     return json.loads(resp.text)
 
 
+def clave_identidad(*partes: Any) -> str:
+    """F30b §C: la clave del veredicto por lo que el bloque ES (texto, voz, versión), sin los bytes de los cuadros: el
+    pre-roll del title card corre el cap 3 s y vuelve a codificar el base, así que la misma foto con el mismo bloque
+    ya no da los mismos bytes. Un bloque igual con la misma voz reusa su veredicto (API 0, mismos bloques)."""
+    return "id:" + hashlib.sha1("|".join(str(p) for p in partes).encode("utf-8")).hexdigest()[:20]
+
+
 def judge(img: Path, desc: str, voz: str, *, cache: Path, fewshot: list[dict[str, Any]],
           call: Callable[..., dict] | None = None, drawn: Path | None = None) -> dict[str, Any]:
     """{veredicto, motivo, cache: bool}. Caché por (cuadro(s), bloque, voz, versión). `drawn` = el cuadro con el
@@ -182,12 +189,13 @@ def judge(img: Path, desc: str, voz: str, *, cache: Path, fewshot: list[dict[str
     ver = PROMPT_VERSION_SNAP if drawn else PROMPT_VERSION
     extra = Path(drawn).read_bytes() if drawn else b""
     key = hashlib.sha1(Path(img).read_bytes() + extra + f"|{desc}|{voz}|{ver}".encode("utf-8")).hexdigest()[:20]
+    ident = clave_identidad(desc, voz, ver)
     try:
         data = json.loads(cache.read_text(encoding="utf-8")) if cache.exists() else {}
     except (OSError, ValueError):
         data = {}
-    if key in data:
-        return {**data[key], "cache": True}
+    if key in data or ident in data:
+        return {**data.get(key, data.get(ident)), "cache": True}
     try:
         args = (Path(img), build_prompt(desc, voz, fewshot, drawn=bool(drawn))) + ((Path(drawn),) if drawn else ())
         raw = (call or _gemini)(*args)
@@ -199,7 +207,7 @@ def judge(img: Path, desc: str, voz: str, *, cache: Path, fewshot: list[dict[str
     except Exception as e:  # noqa: BLE001 — sin veredicto el bloque queda; no se cachea (se reintenta la próxima)
         return {"veredicto": "error", "motivo": f"{type(e).__name__}: {str(e)[:100]}", "cache": False}
     if res["veredicto"] != "error":
-        data[key] = res
+        data[key] = data[ident] = res
         cache.parent.mkdir(parents=True, exist_ok=True)
         cache.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
     return {**res, "cache": False}
@@ -396,8 +404,9 @@ def criticize_rotulista(plan: dict[str, Any], *, base: Path, words: list[dict], 
                                   str(obj.get("por_que") or "") if ap else "")
         key = hashlib.sha1((Path(img).read_bytes() if img else b"") + (Path(drawn).read_bytes() if drawn else b"")
                            + f"|{prompt}|{PROMPT_VERSION_ROT}".encode("utf-8")).hexdigest()[:20]
-        if key in data:
-            v = {**data[key], "cache": True}
+        ident = clave_identidad(cap, obj.get("pool_id"), b["text"], obj.get("aporta"), PROMPT_VERSION_ROT)
+        if key in data or ident in data:
+            v = {**data.get(key, data.get(ident)), "cache": True}
         else:
             try:
                 raw = (call or _gemini_rot)(Path(img), prompt, *((Path(drawn),) if drawn else ()))
@@ -405,7 +414,7 @@ def criticize_rotulista(plan: dict[str, Any], *, base: Path, words: list[dict], 
                      "dice_algo_nuevo": raw.get("dice_algo_nuevo"), "motivo_2": str(raw.get("motivo_2") or "")[:160],
                      "estorba": raw.get("estorba"), "motivo_3": str(raw.get("motivo_3") or "")[:160]}
                 if all(isinstance(v[k], bool) for k in ("habla_de_eso", "dice_algo_nuevo", "estorba")):
-                    data[key] = v
+                    data[key] = data[ident] = v
                     cache.parent.mkdir(parents=True, exist_ok=True)
                     cache.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
                 else:

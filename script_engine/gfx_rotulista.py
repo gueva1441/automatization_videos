@@ -439,7 +439,10 @@ def voz_del_video(ctx: dict[str, Any]) -> list[str]:
 
 
 def entrada(cap: int, real: dict, escaleta: dict, pool: dict | None, words: list[dict], time_offset: float,
-            titulo: str | None = None, voz_video: list[str] | None = None) -> dict[str, Any]:
+            titulo: str | None = None, voz_video: list[str] | None = None, pre_roll: float = 0.0) -> dict[str, Any]:
+    """La entrada del rotulista de un cap. `pre_roll` (F30b §B.3): los segundos de title card sin voz que el cap tiene
+    adelante; los tiempos quedan en el tiempo del plan (con el pre-roll) y el pedido los imprime sin él, así el prompt
+    (y su caché) es el mismo con o sin pre-roll."""
     sents = oraciones(words, time_offset)
     beats = real["beats"]
     for s in sents:
@@ -451,7 +454,7 @@ def entrada(cap: int, real: dict, escaleta: dict, pool: dict | None, words: list
             "beats": [{k: b[k] for k in ("n", "funcion", "t0", "t1", "cierre", "dato_central", "datos_apoyo")}
                       for b in beats],
             "items": its, "ya_mostrado": ya_mostrado(cap, escaleta, pool), "pico": pk,
-            "voz_video": list(voz_video or [])}
+            "voz_video": list(voz_video or []), "pre_roll": round(float(pre_roll), 3)}
 
 
 def prompt_user(ent: dict[str, Any]) -> str:
@@ -464,13 +467,14 @@ def prompt_user(ent: dict[str, Any]) -> str:
 
     def or_line(s: dict) -> str:
         pal = s.get("palabras") or [{"k": j, "w": w} for j, w in enumerate(palabras(s["texto"]))]
-        return (f"[{s['idx']}] {s['t0']:.1f}–{s['t1']:.1f} · beat {s.get('beat', '—')} · "
+        return (f"[{s['idx']}] {round(s['t0'] - pr, 3):.1f}–{round(s['t1'] - pr, 3):.1f} · beat {s.get('beat', '—')} · "
                 + " ".join(f"{p['k']}:{p['w']}" for p in pal))
+    pr = float(ent.get("pre_roll") or 0.0)
     pk = ent["pico"] or {"beat": "—"}
     vals = (str(ent["cap"]), ent["titulo"],
             "\n".join(or_line(s) for s in ent["oraciones"]),
             str(pk["beat"]),
-            "\n".join(f"- {b['n']} · {b['funcion']} · {b['t0']:.1f}–{b['t1']:.1f} s · cierre: «{b['cierre'] or '—'}»"
+            "\n".join(f"- {b['n']} · {b['funcion']} · {round(b['t0'] - pr, 3):.1f}–{round(b['t1'] - pr, 3):.1f} s · cierre: «{b['cierre'] or '—'}»"
                       for b in ent["beats"]),
             "\n".join(item_line(x) for x in ent["items"]) or "(ninguno)",
             "\n".join(f"- {x['id']} «{x['texto']}»" for x in ent["ya_mostrado"]) or "(nada)")
