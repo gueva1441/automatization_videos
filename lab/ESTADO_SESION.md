@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-26 (F33 en curso: A y B hechos; F32 en PARADA antes del render) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-26 (F33 en curso: A, B y C hechos; F32 en PARADA antes del render) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -17,6 +17,7 @@
 - Handoff `lab/hyperframes/f33/HANDOFF_F33_infraestructura.md`. Base `cd60c74`. Un commit por parte.
 - **A HECHO** (commit A): `DECISIONES.md` y `lab/hyperframes/f32/ENTRADA_ANALISTA_2026-10-26.md` al repo tal cual; `CLAUDE.md` con la línea de DECISIONES; `test_constantes_con_origen.py` en modo inventario (101 constantes numéricas en GfxRules/GfxRenderSettings/TransitionRenderSettings; 35 con origen: 33 «identidad F3» = igual al token del perfil, `crossfade_frames` y `workers` por DECISIONES; **66 sin origen** → `lab/hyperframes/f33/a/inventario_constantes.md`; solo comentarios, ningún valor). `CONSTANTES_ESTRICTO=1` lo vuelve estricto.
 - **B HECHO** (commit B): compuerta del render. `fase2b <topic> --aprobar-guion "Omar <fecha>"` (CC solo si el prompt de Omar dice «aprobado») escribe `aprobado: {por, fecha, md5_planes, planes}` en `GUION_PANTALLA.json` (`script_engine/aprobacion.py`, solo stdlib); hook `.claude/hooks/guard_render.py` (en `settings.json`) bloquea `fase2b … --gfx` sin guion, sin `aprobado` o con planes cambiados; `--plan-only`/`--plan-edit`/`--aprobar-guion`/`--only-cap --gfx-debug`/sin `--gfx` pasan; `--dry-run` y batch con `--gfx` se bloquean. Vajont hoy: bloquea (`lab/hyperframes/f33/b/prueba_guard_render.txt`). Límite: no ve los runners de lab que llaman a fase2b por dentro.
+- **C HECHO** (commit C): `/tanda` (`.claude/commands/tanda.md`, copia en `~/.claude/commands/`), skills `guion-de-pantalla` y `simular-reglas` (solo en el repo), agente `simulador` (`.claude/agents/`), `lab/tools/simular_regla.py` (predicado sobre los eventos del guion → propuestos → cortados → quedan + 3 ejemplos). Ejemplo: «el sello no repite la voz» corta 10 de 10 sellos de Vajont (`lab/hyperframes/f33/c/simulacion_sello_repite_voz.md`). `revisor-handoff` ya era de usuario (`~/.claude/agents/`).
 
 ## F32 — El guion de pantalla (pedido de Omar, 2026-10-26) — HECHA, **PARADA** (sin render: el render se pide aparte cuando el guion esté aprobado)
 - Handoff `lab/hyperframes/f32/HANDOFF_F32_guion_de_pantalla.md`. Base `0253672`. Tres commits (A, B, C), uno por parte (Omar; el handoff pedía uno por arreglo en B). **Esta tanda no renderiza.**

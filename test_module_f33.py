@@ -97,3 +97,24 @@ def test_el_hook_esta_en_settings():
     s = json.loads((ROOT / ".claude" / "settings.json").read_text(encoding="utf-8"))
     cmds = [h["command"] for x in s["hooks"]["PreToolUse"] for h in x["hooks"]]
     assert any("guard_render.py" in c for c in cmds)
+
+
+# ═══════════════ §C.3: simular una regla en seco ═══════════════
+
+def test_simular_regla_cuenta_por_cap_y_da_ejemplos():
+    spec = importlib.util.spec_from_file_location("simular_regla", ROOT / "lab" / "tools" / "simular_regla.py")
+    sr = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(sr)
+    ev = lambda cap, tipo, texto, voz, queda=True: {"cap": cap, "beat": 1, "tipo": tipo, "texto": texto, "voz_ancla": voz,
+                                                   "queda": queda, "t_mp4": 10.0}
+    guion = {"caps": [{"cap": "ch01", "eventos": [ev("ch01", "sello", "fuerza", "una fuerza espantosa"),
+                                                 ev("ch01", "sello", "pánico", "la gente corrió"),
+                                                 ev("ch01", "transición", "cut", ""),
+                                                 ev("ch01", "sello", "ola", "la ola", queda=False)]},
+                      {"cap": "ch02", "eventos": [ev("ch02", "ficha", "1.910", "murieron")]}]}
+    regla = sr.cargar_regla("e['texto'].lower() in e['voz_ancla'].lower() and 'repite la voz'", None)
+    r = sr.simular(guion, regla, tipos={"sello"})
+    assert r["por_cap"] == {"ch01": [2, 1, 1], "ch02": [0, 0, 0]} and r["cortados"][0]["motivo_simulado"] == "repite la voz"
+    assert sr.simular(guion, regla, tipos={"sello"}, sobre="todos")["por_cap"]["ch01"] == [3, 2, 1]
+    t = sr.tabla("sello repite", r, "quedan")
+    assert "**2 propuestos → 1 cortados por esta regla → 1 quedan**" in t and "sello «fuerza»" in t
