@@ -1,0 +1,133 @@
+{
+ "hash": "61f67709fa53",
+ "raw": {
+  "pico_sentence_idx": 20,
+  "intensidad": [
+   0.7,
+   0.2,
+   0.3,
+   0.7,
+   0.6,
+   0.7,
+   0.6,
+   0.7,
+   0.5,
+   0.5,
+   0.7,
+   0.6,
+   0.7,
+   0.8,
+   0.8,
+   0.9,
+   0.8,
+   0.7,
+   0.9,
+   1.0,
+   0.9,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.6,
+   0.6,
+   0.5,
+   0.4,
+   0.3,
+   0.3,
+   0.3
+  ],
+  "cargas": [
+   {
+    "word": "ruido",
+    "sentence_idx": 0,
+    "categoria": "caos_gritos",
+    "peso": 2,
+    "concreta": false,
+    "clase": "sustantivo",
+    "neutra": true
+   },
+   {
+    "word": "avalancha",
+    "sentence_idx": 0,
+    "categoria": "agua",
+    "peso": 3,
+    "concreta": true,
+    "clase": "sustantivo",
+    "neutra": false
+   },
+   {
+    "word": "desploma",
+    "sentence_idx": 3,
+    "categoria": "agua",
+    "peso": 3,
+    "concreta": false,
+    "clase": "verbo",
+    "neutra": false
+   },
+   {
+    "word": "estruendo",
+    "sentence_idx": 7,
+    "categoria": "caos_gritos",
+    "peso": 3,
+    "concreta": false,
+    "clase": "sustantivo",
+    "neutra": true
+   },
+   {
+    "word": "sacudidas",
+    "sentence_idx": 8,
+    "categoria": "caos_gritos",
+    "peso": 3,
+    "concreta": false,
+    "clase": "sustantivo",
+    "neutra": false
+   },
+   {
+    "word": "baja",
+    "sentence_idx": 11,
+    "categoria": "agua",
+    "peso": 2,
+    "concreta": false,
+    "clase": "verbo",
+    "neutra": false
+   },
+   {
+    "word": "fuerza",
+    "sentence_idx": 15,
+    "categoria": "caos_gritos",
+    "peso": 3,
+    "concreta": false,
+    "clase": "sustantivo",
+    "neutra": false
+   },
+   {
+    "word": "arrastra",
+    "sentence_idx": 16,
+    "categoria": "agua",
+    "peso": 3,
+    "concreta": false,
+    "clase": "verbo",
+    "neutra": false
+   },
+   {
+    "word": "fango",
+    "sentence_idx": 21,
+    "categoria": "agua",
+    "peso": 3,
+    "concreta": true,
+    "clase": "sustantivo",
+    "neutra": false
+   },
+   {
+    "word": "muertos",
+    "sentence_idx": 24,
+    "categoria": "muerte",
+    "peso": 3,
+    "concreta": true,
+    "clase": "sustantivo",
+    "neutra": false
+   }
+  ]
+ },
+ "generado_en": "2026-10-25 13:08:51"
+}

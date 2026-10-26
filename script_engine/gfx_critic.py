@@ -94,19 +94,21 @@ def blocks(plan: dict[str, Any]) -> list[dict[str, Any]]:
     for i, a in enumerate(plan.get("archive_clippings") or []):
         out.append({"key": ("archive_clippings", i), "kind": "recorte", "t": float(a["start"]),
                     "dur": float(a.get("duration", 6.0)), "desc": describe("recorte", a), "text": a.get("headline", ""),
-                    "reserved": bool(a.get("reserved"))})
+                    "reserved": bool(a.get("reserved")), "rotulista": bool(a.get("rotulista"))})
     qc = plan.get("quote_card")
     if qc:
         out.append({"key": ("quote_card", None), "kind": "cita", "t": float(qc["start"]), "dur": float(qc["duration"]),
-                    "desc": describe("cita", qc), "text": qc.get("text", ""), "reserved": True})
+                    "desc": describe("cita", qc), "text": qc.get("text", ""), "reserved": not qc.get("rotulista"),
+                    "rotulista": bool(qc.get("rotulista"))})
     for i, c in enumerate(plan.get("callouts") or []):
         out.append({"key": ("callouts", i), "kind": "dato", "t": float(c["start"]), "dur": float(c.get("duration", 2.5)),
-                    "desc": describe("dato", c), "text": c.get("text", "")})
+                    "desc": describe("dato", c), "text": c.get("text", ""), "rotulista": bool(c.get("rotulista"))})
     for field, kind, dur in (("count_up", "contador", 3.7), ("water_level", "nivel_agua", 4.5), ("evidence_zoom", "zoom", 2.85)):
         b = plan.get(field)
         if b and "start" in b:
             out.append({"key": (field, None), "kind": kind, "t": float(b["start"]), "dur": float(b.get("duration", dur)),
-                        "desc": describe(kind, b), "text": b.get("value_text") or b.get("anchor") or ""})
+                        "desc": describe(kind, b), "text": b.get("value_text") or b.get("anchor") or "",
+                        "rotulista": bool(b.get("rotulista"))})
     return sorted(out, key=lambda x: x["t"])
 
 
@@ -233,15 +235,15 @@ def snapshots(project: Path, times: list[float], out_dir: Path, log: list[str] |
 def criticize(plan: dict[str, Any], *, base: Path, words: list[dict], time_offset: float, work_dir: Path, cap: str,
               log: list[str], call: Callable[[Path, str], dict] | None = None,
               fewshot: list[dict[str, Any]] | None = None, project: Path | None = None,
-              snaps: dict[float, Path] | None = None) -> list[dict[str, Any]]:
+              snaps: dict[float, Path] | None = None, excluir_rotulista: bool = False) -> list[dict[str, Any]]:
     """Juzga cada bloque y saca del plan (in place) los que no «suman». Devuelve una fila por bloque.
     G1: con `project` (proyecto HyperFrames del cap ya escrito con este plan), el cuadro es el snapshot del bloque
     dibujado en t + 1 s; `snaps` permite pasarlos ya sacados (tests)."""
     fs = load_fewshot() if fewshot is None else fewshot
     cache = Path(work_dir) / f"gfx_critic_{cap}.json"
     rows, gone = [], []
-    bl = blocks(plan)
-    t_of = {id(b): round(b["t"] + (1.0 if b["dur"] >= 2.0 else b["dur"] / 2), 2) for b in bl}
+    bl = [b for b in blocks(plan) if not (excluir_rotulista and b.get("rotulista"))]   # F29b: esos, criticize_rotulista
+    t_of = {id(b): frame_t(b) for b in bl}
     if snaps is None and project is not None:
         snaps = snapshots(project, list(t_of.values()), Path(work_dir) / f"gfx_critic_{cap}_snap", log)
     snaps = snaps or {}
@@ -281,6 +283,120 @@ def criticize(plan: dict[str, Any], *, base: Path, words: list[dict], time_offse
     log.append(f"  crítico: {n_ok}/{len(rows)} bloques pasan"
                + (f" · {sum(r['veredicto'] == 'error' for r in rows)} sin veredicto (quedan)" if any(
                    r["veredicto"] == "error" for r in rows) else ""))
+    return rows
+
+
+def frame_t(b: dict[str, Any]) -> float:
+    """El instante que se mira de un bloque: 1 s después de que entra (a mitad si dura menos de 2 s)."""
+    return round(b["t"] + (1.0 if b["dur"] >= 2.0 else b["dur"] / 2), 2)
+
+
+# ═══════════════════════ F29b §A.6: crítico del rotulista ═══════════════════════
+
+PROMPT_VERSION_ROT = "f29b-1"
+SYSTEM_ROT = ("Sos el editor final de un documental de historia oscura. Ves la foto sola, el mismo instante con un bloque "
+              "de texto ya dibujado, lo que dice la narración en los 20 segundos alrededor del bloque y lo que el "
+              "rotulista dice que el bloque aporta. Respondés SOLO JSON.")
+PREGUNTA_ROT_1 = "¿La narración en los 20 s alrededor habla de lo que este bloque muestra?"
+PREGUNTA_ROT_2 = "¿El bloque dice algo que la narración no dice en ese tramo?"
+SCHEMA_ROT: dict[str, Any] = {"type": "OBJECT", "properties": {
+    "habla_de_eso": {"type": "BOOLEAN"}, "motivo_1": {"type": "STRING"},
+    "dice_algo_nuevo": {"type": "BOOLEAN"}, "motivo_2": {"type": "STRING"}},
+    "required": ["habla_de_eso", "motivo_1", "dice_algo_nuevo", "motivo_2"]}
+
+
+def build_prompt_rot(desc: str, voz: str, aporta: str) -> str:
+    return "\n".join([
+        f"LA NARRACIÓN EN LOS 20 s ALREDEDOR DEL BLOQUE: «{voz}»",
+        f"BLOQUE: {desc}",
+        f"EL ROTULISTA DICE QUE APORTA: «{aporta}»",
+        "",
+        "IMAGEN 1: la foto sola. IMAGEN 2: el mismo instante con el bloque ya dibujado.",
+        "La fuente o el kicker del bloque (el nombre del documento, el diario, el año de la fuente) NO cuentan como "
+        "aporte: juzgá el texto principal.",
+        f"(1) {PREGUNTA_ROT_1}",
+        f"(2) {PREGUNTA_ROT_2}",
+        "Motivo de cada respuesta en UNA línea corta.",
+        '{"habla_de_eso": true|false, "motivo_1": "…", "dice_algo_nuevo": true|false, "motivo_2": "…"}'])
+
+
+def _gemini_rot(img: Path, prompt: str, img2: Path | None = None) -> dict[str, Any]:
+    from google.genai import types as genai_types
+    from config import api, gemini_client
+    from cost_tracker import cost_tracker
+    parts = [genai_types.Part.from_bytes(data=img.read_bytes(), mime_type="image/jpeg")]
+    if img2 is not None:
+        parts.append(genai_types.Part.from_bytes(data=Path(img2).read_bytes(), mime_type="image/jpeg"))
+    resp = gemini_client.models.generate_content(
+        model=api.gemini_model, contents=[*parts, prompt],
+        config=genai_types.GenerateContentConfig(system_instruction=SYSTEM_ROT, temperature=0.0,
+                                                 response_mime_type="application/json", response_schema=SCHEMA_ROT))
+    cost_tracker.track_gemini_vision(description=f"gfx_critic_rot:{img.stem}", calls=1)
+    return json.loads(resp.text)
+
+
+def voice_around(words: list[dict], t: float, time_offset: float = 0.0, sec: float = 20.0) -> str:
+    return " ".join(str(w["word"]) for w in words if t - sec <= float(w["start"]) + time_offset <= t + sec)
+
+
+def criticize_rotulista(plan: dict[str, Any], *, base: Path, words: list[dict], time_offset: float, work_dir: Path,
+                        cap: str, log: list[str], call: Callable[..., dict] | None = None,
+                        snaps: dict[float, Path] | None = None) -> list[dict[str, Any]]:
+    """F29b §A.6: cada bloque del rotulista, ya dibujado (snapshot en t + 1 s), con la voz ±20 s y su `aporta`: dos
+    sí/no. Cualquier «no» lo saca del plan (in place). Sin veredicto (Gemini caído) el bloque queda y se anota. El
+    veredicto queda en el bloque (`critico`). Caché en gfx_critic_rot_<cap>.json."""
+    cache = Path(work_dir) / f"gfx_critic_rot_{cap}.json"
+    try:
+        data = json.loads(cache.read_text(encoding="utf-8")) if cache.exists() else {}
+    except (OSError, ValueError):
+        data = {}
+    bl = [b for b in blocks(plan) if b.get("rotulista")]
+    snaps = snaps or {}
+    rows, gone = [], []
+    for b in bl:
+        tf = frame_t(b)
+        obj = plan[b["key"][0]] if b["key"][1] is None else plan[b["key"][0]][b["key"][1]]
+        img = frame_at(base, tf, Path(work_dir) / f"gfx_critic_{cap}" / f"rot_{b['kind']}_{tf:07.2f}.jpg") \
+            if Path(base).exists() else snaps.get(tf)
+        drawn = snaps.get(tf)
+        voz = voice_around(words, b["t"], time_offset)
+        prompt = build_prompt_rot(b["desc"], voz, str(obj.get("aporta") or ""))
+        key = hashlib.sha1((Path(img).read_bytes() if img else b"") + (Path(drawn).read_bytes() if drawn else b"")
+                           + f"|{prompt}|{PROMPT_VERSION_ROT}".encode("utf-8")).hexdigest()[:20]
+        if key in data:
+            v = {**data[key], "cache": True}
+        else:
+            try:
+                raw = (call or _gemini_rot)(Path(img), prompt, *((Path(drawn),) if drawn else ()))
+                v = {"habla_de_eso": raw.get("habla_de_eso"), "motivo_1": str(raw.get("motivo_1") or "")[:160],
+                     "dice_algo_nuevo": raw.get("dice_algo_nuevo"), "motivo_2": str(raw.get("motivo_2") or "")[:160]}
+                if isinstance(v["habla_de_eso"], bool) and isinstance(v["dice_algo_nuevo"], bool):
+                    data[key] = v
+                    cache.parent.mkdir(parents=True, exist_ok=True)
+                    cache.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
+                else:
+                    v = {**v, "error": f"respuesta inválida: {json.dumps(raw, ensure_ascii=False)[:80]}"}
+            except Exception as e:  # noqa: BLE001 — sin veredicto el bloque queda (como el crítico de siempre)
+                v = {"error": f"{type(e).__name__}: {str(e)[:100]}"}
+            v["cache"] = False
+        ok = v.get("error") is not None or (v.get("habla_de_eso") is True and v.get("dice_algo_nuevo") is True)
+        obj["critico"] = {k: v.get(k) for k in ("habla_de_eso", "motivo_1", "dice_algo_nuevo", "motivo_2", "error")}
+        rows.append({"t": round(b["t"], 3), "t_frame": tf, "bloque": b["kind"], "texto": b["text"],
+                     "pool_id": obj.get("pool_id"), "aporta": obj.get("aporta"), **obj["critico"], "pasa": ok,
+                     "mira": "bloque dibujado" if drawn else "foto sola"})
+        log.append(f"  crítico rotulista: {b['t']:6.1f}s {KIND_LABEL[b['kind']]:<10} «{b['text']}» → "
+                   + (f"sin veredicto ({v['error']}) → queda" if v.get("error") else
+                      f"(1) {'sí' if v['habla_de_eso'] else 'NO'} — {v['motivo_1']} · (2) "
+                      f"{'sí' if v['dice_algo_nuevo'] else 'NO'} — {v['motivo_2']}")
+                   + (" (caché)" if v.get("cache") else ""))
+        if not ok:
+            gone.append(b["key"])
+    for field, idx in sorted(gone, key=lambda k: (k[0], -(k[1] if k[1] is not None else 0))):
+        if idx is None:
+            plan[field] = None
+        else:
+            del plan[field][idx]
+    log.append(f"  crítico rotulista: {sum(r['pasa'] for r in rows)}/{len(rows)} bloques pasan")
     return rows
 
 

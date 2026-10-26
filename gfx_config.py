@@ -215,6 +215,11 @@ VALID_CALLOUT_KINDS: frozenset[str] = frozenset({"year", "figure", "name", "plac
 class GfxRules:
     realizador: bool = True                  # F29 §A: con escaleta, el gfx obedece a los beats (gfx_realizador)
     gap_fill: bool = False                   # F29 §A.4: rellenar huecos con bloques (por hueco, no por relato) → apagado
+    rotulista: bool = False                  # F29b §A: el texto de pantalla lo escribe el rotulista (Claude), anclado a la oración
+    rotulista_modelo: str = "claude-sonnet-5-5"   # F29b §A.2 (`fase2b --rotulista-modelo claude-fable-5-1` para probar)
+    rotulista_effort: str = "medium"
+    rotulista_tope_usd: float = 2.0          # F29b: tope Claude de la tanda, chequeado antes de cada llamada
+    garantizar_pico: bool = True             # F29 §A.4: rótulo de respaldo en el pico; con el rotulista no corre (F29b §A.5)
     interrupt_min_sec: float = 25.0          # pattern interrupt: un bloque cada 25–35 s
     interrupt_max_sec: float = 35.0
     accent_hex: str = "#c8102e"              # F2 §0b.9: acento ÚNICO del canal (subrayado, sello, línea, kicker)

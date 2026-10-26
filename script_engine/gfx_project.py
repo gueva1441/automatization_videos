@@ -914,8 +914,8 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
     for i, c in enumerate(plan.get("callouts", [])):
         dur = c.get("duration", gfx_rules.callout_dur)
         st = min(c["start"], max(0.0, duration - dur))
-        face = "anton" if c.get("kind") == "figure" else "serif"
-        anim = callout_anim(c.get("kind", ""))
+        face = c.get("face") or ("anton" if c.get("kind") == "figure" else "serif")   # F29b: el rotulista fija cara
+        anim = c.get("anim") or callout_anim(c.get("kind", ""))                        # y entrada (nunca sello)
         text_html = chars_html(c["text"]) if anim == "cascade" else _esc(c["text"])
         face_cls = f"{face} stamp" if anim == "stamp" else face
         ico = card_icon_html(f"coi{i}", c.get("icon"), round(gfx_rules.callout_anton_px * .95))

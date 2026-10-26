@@ -1,0 +1,145 @@
+{
+ "cap": 3,
+ "beats": [
+  {
+   "n": 4,
+   "funcion": "giro",
+   "intensidad": 3,
+   "t0": 0.08,
+   "t1": 61.1,
+   "dato_central": "T16",
+   "datos_apoyo": [
+    "D94",
+    "T15",
+    "T21",
+    "D119",
+    "T27",
+    "Q37"
+   ],
+   "cierre": "El informe oficial dijo que no era grave. Una periodista de provincia escribió lo contrario.",
+   "texto": "El embalse se llamaba Pontesei. Ese marzo, una masa de roca entró al agua y levantó una ola de veinte metros. Un trabajador murió. Después de Pontesei, SADE encargó nuevas pericias sobre el Toc, y esas pericias identificaron una paleofrana: un deslizamiento antiguo, la cicatriz que Edoardo Semenza había estado buscando. El informe sobre esos riesgos lo escribió Giorgio Dal Piaz en mil novecientos sesenta. Dal Piaz había dicho alguna vez sobre la obra: «Si el proyecto original me parecía osado, ahora lo considero una completa locura». Su informe, en cambio, le restó peso a lo que señalaba Edoardo Semenza. Una ola de veinte metros. Un hombre muerto. Una paleofrana con nombre en un papel. El informe oficial dijo que no era grave. Una periodista de provincia escribió lo contrario.",
+   "campos": "advertencia con muerto Rocas entrando al agua de Pontesei y una pared de agua de veinte metros levantándose sobre el hombre cuyo trabajo era vigilar la montaña. Si ya hubo un muerto por una ola en un embalse, ¿qué más hacía falta ver? El informe oficial dijo que no era grave. Una periodista de provincia escribió lo contrario."
+  },
+  {
+   "n": 5,
+   "funcion": "escalada",
+   "intensidad": 3,
+   "t0": 61.88,
+   "t1": 124.48,
+   "dato_central": "T18",
+   "datos_apoyo": [
+    "D71",
+    "D72",
+    "T29",
+    "D49",
+    "T23"
+   ],
+   "cierre": "El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta.",
+   "texto": "Se llamaba Tina Merlin y escribía en L'Unità. Hacia mil novecientos cincuenta y nueve publicó su primera denuncia: el Toc podía desprenderse sobre el lago. L'Unità fue el único diario nacional que siguió lo que pasaba en el Vajont antes del desastre, y lo siguió a través de ella. El diario que se leía en la zona era Il Gazzettino, y una parte de Il Gazzettino pertenecía a SADE, a FIAT, a Volpi y a Cini. En febrero de mil novecientos sesenta empezó el llenado, y el agua fue subiendo día a día por la garganta. Ese año hubo un pequeño desmoronamiento en el Toc, y después del desmoronamiento los habitantes vieron algo nuevo en la ladera: una fisura de casi dos kilómetros de largo, corriendo por la montaña como una costura abierta. Abajo, el lago seguía subiendo. El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta.",
+   "campos": "grieta Una abertura de más de un metro de ancho corriendo casi dos kilómetros por la ladera, como una costura abierta; abajo, el agua sube día a día. ¿Quién lee a una periodista de L'Unità cuando el diario local es de la empresa? El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta."
+  }
+ ],
+ "candidatos": [
+  {
+   "id": "T16",
+   "beat": 4,
+   "funcion": "giro",
+   "t0": 0.08,
+   "t1": 61.1,
+   "obligatorio": false,
+   "como": "dato_central",
+   "ya_dicho": false
+  },
+  {
+   "id": "D94",
+   "beat": 4,
+   "funcion": "giro",
+   "t0": 0.08,
+   "t1": 61.1,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "T15",
+   "beat": 4,
+   "funcion": "giro",
+   "t0": 0.08,
+   "t1": 61.1,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": false
+  },
+  {
+   "id": "T21",
+   "beat": 4,
+   "funcion": "giro",
+   "t0": 0.08,
+   "t1": 61.1,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": false
+  },
+  {
+   "id": "T27",
+   "beat": 4,
+   "funcion": "giro",
+   "t0": 0.08,
+   "t1": 61.1,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "Q37",
+   "beat": 4,
+   "funcion": "giro",
+   "t0": 0.08,
+   "t1": 61.1,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "T29",
+   "beat": 5,
+   "funcion": "escalada",
+   "t0": 61.88,
+   "t1": 124.48,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "D49",
+   "beat": 5,
+   "funcion": "escalada",
+   "t0": 61.88,
+   "t1": 124.48,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": true
+  },
+  {
+   "id": "T23",
+   "beat": 5,
+   "funcion": "escalada",
+   "t0": 61.88,
+   "t1": 124.48,
+   "obligatorio": false,
+   "como": "datos_apoyo",
+   "ya_dicho": false
+  },
+  {
+   "id": "T18",
+   "beat": 5,
+   "funcion": "escalada",
+   "t0": 61.88,
+   "t1": 124.48,
+   "obligatorio": false,
+   "como": "dato_central",
+   "ya_dicho": true
+  }
+ ],
+ "pico_escaleta": 10
+}

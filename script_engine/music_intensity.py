@@ -10,7 +10,8 @@ Reglas fijas (HANDOFF_F28 §B.2):
     fondo     todo el cap, ganancia 0 dB (= music_volume del track).
     sube      los beats del cap con intensidad ≥ 4 que no son el pico del video: +3 dB (rampas de 1 s).
     golpe     solo el beat de pico del video (funcion «pico»): +5 dB al empezar y vuelta a fondo en 4 s.
-    silencio  solo (a) en los 1.5 s antes del beat más intenso del cap y (b) durante una cita de testigo (« … » en un
+    silencio  solo (a) en los 1.5 s antes del beat pico del cap (F29b: `beat_pico_de_cap`, el de escaleta.pico o el más
+              intenso) y (b) durante una cita de testigo (« … » en un
               beat que trae una cita del pool con testigo=True). Fade de 1.5 s a −∞ y de vuelta. Nunca más de 2 por
               cap; (a) va primero.
 """
@@ -53,8 +54,17 @@ def tiempos_por_palabra(parrafos_cap: list[dict], timestamps: list[dict]) -> lis
     return out
 
 
+def beat_pico_de_cap(beats_cap: list[dict], pico_beat: Any = None) -> int | None:
+    """F29b §A.1.5: el beat pico del cap, una sola fuente (la leen music_intensity, el realizador y el rotulista): el de
+    `escaleta.pico` si es de este cap; si no, el más intenso del cap (empate: el primero)."""
+    intens = {int(b["n"]): int(b.get("intensidad") or 0) for b in beats_cap}
+    if pico_beat is not None and int(pico_beat) in intens:
+        return int(pico_beat)
+    return max(sorted(intens), key=lambda n: intens[n]) if intens else None
+
+
 def tramos_de_cap(cap: int, beats: list[dict], parrafos: list[dict], timestamps: list[dict],
-                  testigos: set[str], duracion: float) -> list[dict[str, Any]]:
+                  testigos: set[str], duracion: float, pico_beat: Any = None) -> list[dict[str, Any]]:
     """Los tramos de un cap (ordenados por inicio). `beats` = todos los de la escaleta; `parrafos` = los del cap
     (cap, beat, texto, en orden); `testigos` = ids de citas del pool con testigo=True."""
     bc = [b for b in beats if int(b.get("cap") or 0) == cap]
@@ -92,7 +102,7 @@ def tramos_de_cap(cap: int, beats: list[dict], parrafos: list[dict], timestamps:
     # silencios: (a) antes del beat más intenso del cap, (b) citas de testigo
     sil: list[dict[str, Any]] = []
     if intens:
-        top = max(sorted(intens), key=lambda n: intens[n])
+        top = beat_pico_de_cap(bc, pico_beat)
         if top in t_beat and t_beat[top][0] >= SILENCIO_PREVIO_S + FADE_SILENCIO_S:
             t0 = t_beat[top][0]
             sil.append({"nivel": "silencio", "t0": round(t0 - SILENCIO_PREVIO_S, 3), "t1": round(t0, 3),
@@ -172,5 +182,6 @@ def mapa_del_topic(topic_id: str, steps_dir: Path, audio_dir: Path, duraciones: 
         cap = int(str(ch).lstrip("ch"))
         tsf = audio_dir / f"{ch}_timestamps.json"
         ts = json.loads(tsf.read_text(encoding="utf-8")) if tsf.exists() else []
-        out[ch] = tramos_de_cap(cap, esc.get("beats") or [], nar.get("parrafos") or [], ts, testigos, dur)
+        out[ch] = tramos_de_cap(cap, esc.get("beats") or [], nar.get("parrafos") or [], ts, testigos, dur,
+                                pico_beat=(esc.get("pico") or {}).get("beat"))
     return out

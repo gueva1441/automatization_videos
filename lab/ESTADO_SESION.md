@@ -13,6 +13,10 @@
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
 
+## Tanda F29b A → F30 A–D → F29b B (pedido de Omar, una sola PARADA al final) — EN CURSO
+- Prompt `lab/hyperframes/f30/PROMPT_CC_tanda_F29b_F30.md`; handoffs `lab/hyperframes/f29b/HANDOFF_F29b_rotulista.md` y `lab/hyperframes/f30/HANDOFF_F30_render_rapido.md`. Sobre `3b47cd5`.
+- **F29b A (rotulista, sin render):** `script_engine/gfx_rotulista.py` (prompt literal md5 `50e6ae74…`, Sonnet 5.5 medium, cruda en `_fase2b_work/rotulista_chNN.raw.json`, A.4 determinista, colocación, prefetch de los 7 caps en paralelo), pico único (`music_intensity.beat_pico_de_cap`), crítico del rotulista (`gfx_critic.criticize_rotulista`, después del respaldo: `gfx_realizador.cerrar`), excepción del candado literal para `rotulista: true`. **`gfx_rules.rotulista = False`** por defecto (se prende en la etapa 3). Crudas de ejemplo ch03/ch06 en `lab/hyperframes/f29b/a/` (Claude US$ 0.114). Tests `test_module_f29b_rotulista.py` (19); suite amplia 940 verdes + 5 previas; md5 ch02 sin gfx (`--sw-encode`) = `38e5ba14…`. Ojo: `fase2b.py` no corre con `python -I fase2b.py` (sin el dir en sys.path): usar runpy o sin `-I`.
+
 ## F29 — El gfx obedece a la escaleta (realizador) · sfx ElevenLabs · Sonnet vs Flash — HECHO, **PARADA** (Omar mira la v3 y la hoja de bloques)
 - Sobre `e971a8f`. Handoff `lab/hyperframes/f29/HANDOFF_F29_gfx_realizador.md`. Reporte `lab/hyperframes/f29/F29_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES).
 - **B** (`6eb6fda`): 15 sfx con ElevenLabs (−20 LUFS, techo −1 dBFS; los cortos quedan en −22…−26), `make_sfx.py` con caché `_prompts.json`; los de F2 en `script_engine/sfx/_f2_sintetizados/`. US$ 0.037. En mezcla +0.0–0.2 LU: casi no se oyen; ganancias sin recalibrar (Omar escucha).

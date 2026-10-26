@@ -1,0 +1,37 @@
+{
+ "llamadas": [
+  {
+   "cap": "ch03",
+   "in": 4251,
+   "out": 982,
+   "stop": "end_turn",
+   "usd": 0.01832,
+   "segundos": 7.1
+  },
+  {
+   "cap": "ch06",
+   "in": 5275,
+   "out": 1859,
+   "stop": "end_turn",
+   "usd": 0.02914,
+   "segundos": 14.6
+  },
+  {
+   "cap": "ch06",
+   "in": 5572,
+   "out": 1780,
+   "stop": "end_turn",
+   "usd": 0.02894,
+   "segundos": 13.9
+  },
+  {
+   "cap": "ch03",
+   "in": 4502,
+   "out": 2881,
+   "stop": "end_turn",
+   "usd": 0.03781,
+   "segundos": 21.7
+  }
+ ],
+ "usd": 0.11421
+}

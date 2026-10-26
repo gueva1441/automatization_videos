@@ -1,0 +1,114 @@
+{
+ "modelo": "claude-sonnet-5-5",
+ "respuesta": {
+  "bloques": [
+   {
+    "sentence_idx": 1,
+    "tipo": "cifra",
+    "texto": "Roca desprendida: 3 millones de m³",
+    "etiqueta_o_kicker": "Volumen del deslizamiento",
+    "pool_id": "T21",
+    "aporta": "la cifra: 3 millones de metros cúbicos de roca, que la narración no dice"
+   },
+   {
+    "sentence_idx": 5,
+    "tipo": "cita",
+    "texto": "«Si el proyecto original me parecía osado, ahora lo considero una completa locura»",
+    "etiqueta_o_kicker": "Giorgio Dal Piaz, 2022",
+    "pool_id": "Q37",
+    "aporta": "la cita literal de Dal Piaz sobre la obra"
+   },
+   {
+    "sentence_idx": 12,
+    "tipo": "persona",
+    "texto": "Tina Merlin, periodista de L'Unità",
+    "etiqueta_o_kicker": null,
+    "pool_id": "T18",
+    "aporta": "presenta a Tina Merlin con su oficio y el diario"
+   },
+   {
+    "sentence_idx": 14,
+    "tipo": "recorte",
+    "texto": "L'Unità era el periódico del Partido Comunista Italiano.",
+    "etiqueta_o_kicker": "Domination of or adaptation to nature?, 2013",
+    "pool_id": "D71",
+    "aporta": "el quién: L'Unità era el diario del Partido Comunista Italiano (PCI)"
+   },
+   {
+    "sentence_idx": 17,
+    "tipo": "cifra",
+    "texto": "Ancho de la fisura: más de 1 m",
+    "etiqueta_o_kicker": "Ancho de la fisura",
+    "pool_id": "D49",
+    "aporta": "la cifra: más de 1 metro de ancho, que la narración no dice"
+   }
+  ],
+  "descartados": [
+   {
+    "pool_id": "T16",
+    "motivo": "Nombre de la víctima (Arcangelo Tiziani) es válido, pero la oración [2] no nombra a la persona; sumaría un bloque extra sin necesidad y el tope de 5 está cubierto con datos más fuertes."
+   },
+   {
+    "pool_id": "D94",
+    "motivo": "Repite la ola de 20 metros que la narración ya dice."
+   },
+   {
+    "pool_id": "T15",
+    "motivo": "Redundante con T21; la cifra de 3 millones ya sale con T21, y menciona al hombre muerto que la narración ya dice."
+   },
+   {
+    "pool_id": "D119",
+    "motivo": "Repite la paleofrana que la narración ya dice en [3]."
+   },
+   {
+    "pool_id": "T27",
+    "motivo": "Parafrasea lo que la narración dice en [6]."
+   },
+   {
+    "pool_id": "T29",
+    "motivo": "Repite el inicio del llenado dicho en [16]."
+   },
+   {
+    "pool_id": "T23",
+    "motivo": "Repite la fisura de casi 2 km que la narración ya dice."
+   },
+   {
+    "pool_id": "D72",
+    "motivo": "Repite la propiedad parcial de Il Gazzettino que la narración ya dice en [15]; además no hay cupo."
+   }
+  ]
+ },
+ "cruda": {
+  "content": [
+   {
+    "type": "text",
+    "text": "{\"bloques\":[{\"sentence_idx\":1,\"tipo\":\"cifra\",\"texto\":\"Roca desprendida: 3 millones de m³\",\"etiqueta_o_kicker\":\"Volumen del deslizamiento\",\"pool_id\":\"T21\",\"aporta\":\"la cifra: 3 millones de metros cúbicos de roca, que la narración no dice\"},{\"sentence_idx\":5,\"tipo\":\"cita\",\"texto\":\"«Si el proyecto original me parecía osado, ahora lo considero una completa locura»\",\"etiqueta_o_kicker\":\"Giorgio Dal Piaz, 2022\",\"pool_id\":\"Q37\",\"aporta\":\"la cita literal de Dal Piaz sobre la obra\"},{\"sentence_idx\":12,\"tipo\":\"persona\",\"texto\":\"Tina Merlin, periodista de L'Unità\",\"etiqueta_o_kicker\":null,\"pool_id\":\"T18\",\"aporta\":\"presenta a Tina Merlin con su oficio y el diario\"},{\"sentence_idx\":14,\"tipo\":\"recorte\",\"texto\":\"L'Unità era el periódico del Partido Comunista Italiano.\",\"etiqueta_o_kicker\":\"Domination of or adaptation to nature?, 2013\",\"pool_id\":\"D71\",\"aporta\":\"el quién: L'Unità era el diario del Partido Comunista Italiano (PCI)\"},{\"sentence_idx\":17,\"tipo\":\"cifra\",\"texto\":\"Ancho de la fisura: más de 1 m\",\"etiqueta_o_kicker\":\"Ancho de la fisura\",\"pool_id\":\"D49\",\"aporta\":\"la cifra: más de 1 metro de ancho, que la narración no dice\"}],\"descartados\":[{\"pool_id\":\"T16\",\"motivo\":\"Nombre de la víctima (Arcangelo Tiziani) es válido, pero la oración [2] no nombra a la persona; sumaría un bloque extra sin necesidad y el tope de 5 está cubierto con datos más fuertes.\"},{\"pool_id\":\"D94\",\"motivo\":\"Repite la ola de 20 metros que la narración ya dice.\"},{\"pool_id\":\"T15\",\"motivo\":\"Redundante con T21; la cifra de 3 millones ya sale con T21, y menciona al hombre muerto que la narración ya dice.\"},{\"pool_id\":\"D119\",\"motivo\":\"Repite la paleofrana que la narración ya dice en [3].\"},{\"pool_id\":\"T27\",\"motivo\":\"Parafrasea lo que la narración dice en [6].\"},{\"pool_id\":\"T29\",\"motivo\":\"Repite el inicio del llenado dicho en [16].\"},{\"pool_id\":\"T23\",\"motivo\":\"Repite la fisura de casi 2 km que la narración ya dice.\"},{\"pool_id\":\"D72\",\"motivo\":\"Repite la propiedad parcial de Il Gazzettino que la narración ya dice en [15]; además no hay cupo.\"}]}"
+   }
+  ],
+  "usage": {
+   "input_tokens": 4251,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 982,
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard",
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   }
+  },
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011CgQ4c1aEmNroF9mL5zgN4",
+  "type": "message",
+  "role": "assistant",
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "diagnostics": null
+ }
+}

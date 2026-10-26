@@ -2693,6 +2693,14 @@ def _assemble_one_video(
         from script_engine.gfx_layer import prefetch_plans
         _pre = prefetch_plans([p for p in plans if not only_cap or p.chapter_id == only_cap], video_id, work_dir)
         print(f"  🎨 gfx_director prefetch: " + ", ".join(f"{c} {t:.0f}s" for c, t in _pre.items()))
+        from gfx_config import gfx_rules as _gr
+        if _gr.rotulista:                                   # F29b §A.2: el rotulista de todos los caps en paralelo
+            from script_engine.gfx_rotulista import prefetch as _rot_prefetch
+            _ps = [p for p in plans if not only_cap or p.chapter_id == only_cap]
+            _rot = _rot_prefetch(_ps, video_id, work_dir,
+                                 {p.chapter_id: (HOOK_DURATION if (p.is_first and hook) else 0.0) for p in _ps},
+                                 modelo=_gr.rotulista_modelo, effort=_gr.rotulista_effort, tope=_gr.rotulista_tope_usd)
+            print(f"  ✍  rotulista prefetch ({_gr.rotulista_modelo}): {_rot}")
     paralelo = gfx and not only_cap and GFX_PARALELO > 1                # F28 §C.2 (apagado: GFX_PARALELO = 1)
     if paralelo:
         segments, reused_caps, rc = _segmentos_en_paralelo(
@@ -2962,6 +2970,9 @@ def main() -> int:
     parser.add_argument("--only-cap", type=str, default=None, metavar="chNN",
                         help="Construye solo ese segmento (_fase2b_work/chNN_segment_only.mp4): sin concat, "
                              "sin música, sin _final.mp4, sin topics_db. Solo en modo single.")
+    parser.add_argument("--rotulista-modelo", type=str, default=None, metavar="MODELO",
+                        help="F29b: modelo del rotulista (default gfx_rules.rotulista_modelo = claude-sonnet-5-5; "
+                             "p. ej. claude-fable-5-1). Solo cuenta con gfx_rules.rotulista prendido.")
     parser.add_argument("--limit", type=int, default=None,
                         help="Solo en modo batch: tope de videos a procesar en esta corrida.")
     parser.add_argument("--force", action="store_true",
@@ -2970,6 +2981,9 @@ def main() -> int:
     global _HW_ENCODE, _LEGACY_CONCAT
     _HW_ENCODE = not args.sw_encode      # F28 §C.1: NVENC por defecto (--hw-encode queda aceptado, no cambia nada)
     _LEGACY_CONCAT = bool(args.legacy_concat)   # F2b §4
+    if args.rotulista_modelo:                   # F29b §A.2
+        from gfx_config import gfx_rules as _gr
+        _gr.rotulista_modelo = args.rotulista_modelo
 
     if FFMPEG is None or FFPROBE is None:
         print(f"❌ No se encontró ffmpeg/ffprobe (winget Gyan.FFmpeg).")

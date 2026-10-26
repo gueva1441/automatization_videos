@@ -285,6 +285,7 @@ def _realizador(ctx: dict[str, Any], words: list[dict], time_offset: float, work
         usados = used_ids_before(work_dir, ctx["chapter_number"])
     real = gr.preparar(ctx["chapter_number"], carga, ctx.get("pool"), words, time_offset, work_dir, cap, usados)
     ctx["realizador"] = real
+    ctx["escaleta"] = carga["escaleta"]
     log.append(f"  realizador: beats {[(b['n'], b['funcion'], b['t0'], b['t1']) for b in real['beats']]} · candidatos "
                f"{[(c['id'], c['beat'], 'OBL' if c['obligatorio'] else ('dicho' if c['ya_dicho'] else 'nuevo')) for c in real['candidatos']]}")
     return real
@@ -533,6 +534,13 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         from script_engine.gfx_director import load_chapter_context, resolve_plan, select_gfx_plan
         ctx = load_chapter_context(video_id, plan)
         real = _realizador(ctx, words, time_offset, work_dir, cap, log) if gfx_plan_override is None else None
+        rot_on = bool(real) and gfx_rules.rotulista and bool(ctx.get("pool"))   # F29b §A: el rotulista escribe el texto
+        rot = ent_rot = None
+        if rot_on:
+            from script_engine import gfx_rotulista as gro
+            ent_rot = gro.entrada(ctx["chapter_number"], real, ctx["escaleta"], ctx.get("pool"), words, time_offset)
+            rot = gro.llamar(ent_rot, words, time_offset, work_dir, cap, modelo=gfx_rules.rotulista_modelo,
+                             effort=gfx_rules.rotulista_effort, tope=gfx_rules.rotulista_tope_usd, log=log)
         scenes = build_scenes(plan, ctx["script_chapter"], raw_words, clip_dur, time_offset)
         scenes = assign_quiet_sides(snap_cuts(scenes, project / "public" / "base.mp4", fps), project / "public" / "base.mp4")
         log.append(f"  escenas: {len(scenes)} ({', '.join(f'{s.start:.2f}{s.rank}' for s in scenes)})")
@@ -603,7 +611,19 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             resolved = resolve_plan(raw_plan, ctx=ctx, words=words, scenes=scenes, time_offset=time_offset, log=log)
             resolved, rejected = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
                                       question_sources=ctx.get("next_sources"))
-            if ctx.get("pool"):                                      # F5 §2: recortes y datos salen del pool
+            if rot_on:                                               # F29b §A.4–A.5: el texto lo escribe el rotulista
+                from script_engine import gfx_vision as _gvr
+                from script_engine.gfx_pool import used_ids_before as _used
+                _vcr = Path(work_dir).parent / "assets" / "zoom_verify.json"
+                resolved["fragmentos"] = gro.colocar(
+                    resolved, rot, ent_rot, scenes=scenes, pool=ctx.get("pool"),
+                    used_before=_used(work_dir, ctx["chapter_number"]),
+                    lupa_box=gro.lupa_de_detalles(details, lambda si, d: _gvr.verify_crop(scene_img[si], d, _vcr))
+                    if details else None, zoom_dur=gfx_rules.zoom_dur, log=log)
+                resolved, rej_r = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
+                                       question_sources=ctx.get("next_sources"))
+                rejected += rej_r
+            elif ctx.get("pool"):                                    # F5 §2: recortes y datos salen del pool
                 from script_engine.gfx_pool import plan_pool_documents
                 resolved["fragmentos"] = plan_pool_documents(resolved, ctx=ctx, words=words, scenes=scenes,
                                                              time_offset=time_offset, work_dir=work_dir, cap=cap,
@@ -622,11 +642,11 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                 resolved, rej_f = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
                                        question_sources=ctx.get("next_sources"))
                 rejected += rej_f
-            if gfx_rules.callout_no_repeat:                          # F4c R7: el dato no repite la voz
+            if gfx_rules.callout_no_repeat and not rot_on:           # F4c R7 (F29b: con el rotulista, A.4.4)
                 from script_engine.gfx_fragments import drop_repeated_callouts
                 resolved["fragmentos"] = (resolved.get("fragmentos") or []) + drop_repeated_callouts(
                     resolved, words=words, time_offset=time_offset, log=log)
-        if details:                                  # F4b §3: el zoom lo decide la foto (el del LLM/zoom_judge se descarta)
+        if details and not rot_on:                   # F4b §3: el zoom lo decide la foto (el del LLM/zoom_judge se descarta)
             if resolved.get("evidence_zoom"):
                 log.append(f"  zoom del director descartado (foto-primero): {resolved['evidence_zoom'].get('anchor')}")
             resolved["evidence_zoom"] = None
@@ -655,10 +675,16 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                 vc = Path(work_dir).parent / "assets" / "zoom_verify.json"
                 return next((d["box"] for d in sorted(details.get(si) or [], key=lambda d: _gv.PRIORITY[d["tipo"]])
                              if d["tipo"] in _gv.HUMAN and _gv.verify_crop(scene_img[si], d, vc)), None)
-            plan_peak(resolved, ctx=ctx, words=words, scenes=scenes, moods=ctx.get("moods") or active_moods(), clip_dur=clip_dur,
-                      box_for=_box, water_used=water_used_before(work_dir, ctx["chapter_number"]), time_offset=time_offset,
-                      log=log, intensity=intensity, off_peak_zoom=not details,
-                      human_box_for=_human_box if details else None)
+            if rot_on:                                # F29b §A.1.5/A.5: el pico es el de la escaleta, sin bloque propio
+                from script_engine.gfx_intensity import word_freq
+                gro.pico_plan(resolved, ent_rot, words=words, scenes=scenes, moods=ctx.get("moods") or active_moods(),
+                              intensity=intensity, time_offset=time_offset,
+                              freq=word_freq(ctx.get("narration_all") or ""), log=log)
+            else:
+                plan_peak(resolved, ctx=ctx, words=words, scenes=scenes, moods=ctx.get("moods") or active_moods(),
+                          clip_dur=clip_dur, box_for=_box, water_used=water_used_before(work_dir, ctx["chapter_number"]),
+                          time_offset=time_offset, log=log, intensity=intensity, off_peak_zoom=not details,
+                          human_box_for=_human_box if details else None)
             if ctx.get("pool"):                                      # F5 §2: el reloj sale de la cronología
                 from script_engine.gfx_peak import ticker_corner
                 from script_engine.gfx_pool import pool_ticker
@@ -670,7 +696,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             resolved, rej2 = _lock2(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
                                     question_sources=ctx.get("next_sources"))
             rejected += rej2
-        if details and not resolved.get("evidence_zoom"):            # F4b §3: zoom nombrado o «de editor»
+        if details and not resolved.get("evidence_zoom") and not rot_on:   # F4b §3: zoom nombrado o «de editor»
             from script_engine import gfx_vision as gv
             from script_engine.gfx_peak import sentences as _sents2
             z = gv.pick_zoom(details, scenes, words, intensity=intensity, sentences=_sents2(words, time_offset),
@@ -764,26 +790,36 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                 if pk.get("block") == "evidence_zoom":
                     pk["block_quitado_por_verify"] = True
             log.append(f"  zoom final: verify_crop «{label}» caja {z['box']} → {'se ve' if ok else 'NO se ve: zoom fuera'}")
-        if gfx_plan_override is None and ctx.get("pool"):           # F5f: el reservado desplaza; cede ante pocos
+        if gfx_plan_override is None and ctx.get("pool") and not rot_on:   # F5f: el reservado desplaza; cede ante pocos
             from script_engine.gfx_pool import enforce_reserved
             enforce_reserved(resolved, log)
-        if real:                                                      # F29 §A: lo que no obedece a los beats, fuera
-            from script_engine.gfx_realizador import finalizar
-            finalizar(resolved, real, log)
-        if gfx_plan_override is None and gfx_rules.visual_critic:     # F4e 6b: crítico visual antes del render
-            from script_engine.gfx_critic import criticize
+
+        def _criticar() -> None:
+            if not (gfx_plan_override is None and gfx_rules.visual_critic):   # F4e 6b: crítico visual antes del render
+                return
+            from script_engine.gfx_critic import blocks as _cblocks, criticize, criticize_rotulista, frame_t, snapshots
             snap_proj = None
             if gfx_rules.critic_snapshot and not plan_only:           # G1: el crítico mira el bloque dibujado
                 write_project(resolved, scenes, project, duration=clip_dur, width=width, height=height, fps=fps,
                               debug=debug)
                 snap_proj = project
+            if not rot_on:
+                resolved["critico"] = criticize(resolved, base=project / "public" / "base.mp4", words=words,
+                                                time_offset=time_offset, work_dir=work_dir, cap=cap, log=log,
+                                                project=snap_proj)
+                return
+            snaps = snapshots(snap_proj, [frame_t(b) for b in _cblocks(resolved)], Path(work_dir) / f"gfx_critic_{cap}_snap",
+                              log) if snap_proj else {}
             resolved["critico"] = criticize(resolved, base=project / "public" / "base.mp4", words=words,
                                             time_offset=time_offset, work_dir=work_dir, cap=cap, log=log,
-                                            project=snap_proj)
-        if real:                                                      # F29 §A.4: el pico tiene su bloque grande
-            from script_engine.gfx_realizador import garantizar_pico
-            garantizar_pico(resolved, real, ctx.get("pool"), log,
-                            side=getattr(scenes[-1], "quiet_side", "right") if scenes else "right")
+                                            snaps=snaps, excluir_rotulista=True)
+            resolved["critico_rotulista"] = criticize_rotulista(resolved, base=project / "public" / "base.mp4",
+                                                                words=words, time_offset=time_offset, work_dir=work_dir,
+                                                                cap=cap, log=log, snaps=snaps)
+        from script_engine.gfx_realizador import cerrar        # F29: finalizar → crítico → pico · F29b: … → pico → crítico
+        cerrar(resolved, real, ctx.get("pool"), log, criticar=_criticar, rotulista=rot_on,
+               garantizar=gfx_rules.garantizar_pico and not rot_on,
+               side=getattr(scenes[-1], "quiet_side", "right") if scenes else "right")
         log.append(f"  plan: {json.dumps(resolved, ensure_ascii=False)}")
         log.append(f"  lock rechazados: {len(rejected)} {json.dumps(rejected, ensure_ascii=False)}")
         (work_dir / f"gfx_plan_{cap}.resolved.json").write_text(

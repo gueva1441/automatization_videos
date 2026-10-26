@@ -1,0 +1,864 @@
+{
+ "clave": "8548e019e5aba8be18a9",
+ "modelo": "claude-sonnet-5-5",
+ "effort": "medium",
+ "prompt_version": "f29b-1",
+ "prompt_md5": "50e6ae74fd588861e81fb5d2191ab644",
+ "entrada": {
+  "cap": 3,
+  "titulo": "giro · escalada",
+  "oraciones": [
+   {
+    "idx": 0,
+    "t0": 0.08,
+    "t1": 2.1,
+    "texto": "El embalse se llamaba Pontesei."
+   },
+   {
+    "idx": 1,
+    "t0": 2.86,
+    "t1": 7.84,
+    "texto": "Ese marzo, una masa de roca entró al agua y levantó una ola de veinte metros."
+   },
+   {
+    "idx": 2,
+    "t0": 8.62,
+    "t1": 9.72,
+    "texto": "Un trabajador murió."
+   },
+   {
+    "idx": 3,
+    "t0": 10.76,
+    "t1": 23.94,
+    "texto": "Después de Pontesei, SADE encargó nuevas pericias sobre el Toc, y esas pericias identificaron una paleofrana: un deslizamiento antiguo, la cicatriz que Edoardo Semenza había estado buscando."
+   },
+   {
+    "idx": 4,
+    "t0": 25.06,
+    "t1": 30.22,
+    "texto": "El informe sobre esos riesgos lo escribió Giorgio Dal Piaz en mil novecientos sesenta."
+   },
+   {
+    "idx": 5,
+    "t0": 31.12,
+    "t1": 39.52,
+    "texto": "Dal Piaz había dicho alguna vez sobre la obra: «Si el proyecto original me parecía osado, ahora lo considero una completa locura»."
+   },
+   {
+    "idx": 6,
+    "t0": 42.5,
+    "t1": 46.88,
+    "texto": "Su informe, en cambio, le restó peso a lo que señalaba Edoardo Semenza."
+   },
+   {
+    "idx": 7,
+    "t0": 47.9,
+    "t1": 49.56,
+    "texto": "Una ola de veinte metros."
+   },
+   {
+    "idx": 8,
+    "t0": 50.3,
+    "t1": 51.22,
+    "texto": "Un hombre muerto."
+   },
+   {
+    "idx": 9,
+    "t0": 52.06,
+    "t1": 54.26,
+    "texto": "Una paleofrana con nombre en un papel."
+   },
+   {
+    "idx": 10,
+    "t0": 55.34,
+    "t1": 57.6,
+    "texto": "El informe oficial dijo que no era grave."
+   },
+   {
+    "idx": 11,
+    "t0": 58.42,
+    "t1": 61.1,
+    "texto": "Una periodista de provincia escribió lo contrario."
+   },
+   {
+    "idx": 12,
+    "t0": 61.88,
+    "t1": 65.28,
+    "texto": "Se llamaba Tina Merlin y escribía en L'Unità."
+   },
+   {
+    "idx": 13,
+    "t0": 66.26,
+    "t1": 73.44,
+    "texto": "Hacia mil novecientos cincuenta y nueve publicó su primera denuncia: el Toc podía desprenderse sobre el lago."
+   },
+   {
+    "idx": 14,
+    "t0": 74.58,
+    "t1": 81.9,
+    "texto": "L'Unità fue el único diario nacional que siguió lo que pasaba en el Vajont antes del desastre, y lo siguió a través de ella."
+   },
+   {
+    "idx": 15,
+    "t0": 82.92,
+    "t1": 92.74,
+    "texto": "El diario que se leía en la zona era Il Gazzettino, y una parte de Il Gazzettino pertenecía a SADE, a FIAT, a Volpi y a Cini."
+   },
+   {
+    "idx": 16,
+    "t0": 93.78,
+    "t1": 100.22,
+    "texto": "En febrero de mil novecientos sesenta empezó el llenado, y el agua fue subiendo día a día por la garganta."
+   },
+   {
+    "idx": 17,
+    "t0": 101.22,
+    "t1": 115.62,
+    "texto": "Ese año hubo un pequeño desmoronamiento en el Toc, y después del desmoronamiento los habitantes vieron algo nuevo en la ladera: una fisura de casi dos kilómetros de largo, corriendo por la montaña como una costura abierta."
+   },
+   {
+    "idx": 18,
+    "t0": 116.64,
+    "t1": 118.92,
+    "texto": "Abajo, el lago seguía subiendo."
+   },
+   {
+    "idx": 19,
+    "t0": 119.88,
+    "t1": 124.48,
+    "texto": "El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta."
+   }
+  ],
+  "beats": [
+   {
+    "n": 4,
+    "funcion": "giro",
+    "t0": 0.08,
+    "t1": 61.1,
+    "cierre": "El informe oficial dijo que no era grave. Una periodista de provincia escribió lo contrario.",
+    "dato_central": "T16",
+    "datos_apoyo": [
+     "D94",
+     "T15",
+     "T21",
+     "D119",
+     "T27",
+     "Q37"
+    ]
+   },
+   {
+    "n": 5,
+    "funcion": "escalada",
+    "t0": 61.88,
+    "t1": 124.48,
+    "cierre": "El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta.",
+    "dato_central": "T18",
+    "datos_apoyo": [
+     "D71",
+     "D72",
+     "T29",
+     "D49",
+     "T23"
+    ]
+   }
+  ],
+  "items": [
+   {
+    "id": "T16",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     4
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Se produce un desprendimiento en el embalse de Pontesei que genera una ola de 20 metros y mata a Arcangelo Tiziani.",
+    "fuente": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+    "autor": ""
+   },
+   {
+    "id": "D94",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     4
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "En el desprendimiento del embalse de Pontesei se generó una ola de 20 metros.",
+    "fuente": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+    "autor": ""
+   },
+   {
+    "id": "T15",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     4
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Un deslizamiento de 3 millones de metros cúbicos cayó en el lago de la cercana represa de Pontesei, matando a un hombre.",
+    "fuente": "DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013",
+    "autor": ""
+   },
+   {
+    "id": "T21",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     4
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Un deslizamiento de 3 millones de m³ de roca ocurre en el embalse de Pontesei, generando una primera alarma.",
+    "fuente": "Tragedia del Vajont: analisi geologica di una frana annunciata, 2021",
+    "autor": ""
+   },
+   {
+    "id": "D119",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     4
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "La empresa SADE descubrió la presencia de un paleodeslizamiento en el monte Toc.",
+    "fuente": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018",
+    "autor": ""
+   },
+   {
+    "id": "T27",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     4
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "El geólogo Giorgio Dal Piaz minimiza en su informe los riesgos identificados por Edoardo Semenza.",
+    "fuente": "Il disastro del Vajont non fu una calamità naturale, 2023",
+    "autor": ""
+   },
+   {
+    "id": "Q37",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     4
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "Si el proyecto original me parecía osado, ahora lo considero una completa locura",
+    "fuente": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+    "autor": "Giorgio Dal Piaz"
+   },
+   {
+    "id": "T18",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     5
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "La periodista Tina Merlin denuncia el peligro del desprendimiento en el periódico l'Unità.",
+    "fuente": "Il disastro del Vajont non fu una calamità naturale, 2023",
+    "autor": ""
+   },
+   {
+    "id": "D71",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     5
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "L'Unità, el periódico del Partido Comunista Italiano (PCI), fue el único medio nacional que siguió los eventos antes del desastre a través de su periodista Tina Merlin.",
+    "fuente": "DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013",
+    "autor": ""
+   },
+   {
+    "id": "D72",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     5
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "Il Gazzettino, uno de los principales periódicos del noreste de Italia, era propiedad en parte de SADE y de sus dos directores, el Sr. Volpi y el Sr. Cini.",
+    "fuente": "DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013",
+    "autor": ""
+   },
+   {
+    "id": "T29",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     5
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Comienza el llenado del embalse de Vajont.",
+    "fuente": "A Tragedy in the Italian Alps (50th Anniversary) Vajont Dam, 2013",
+    "autor": ""
+   },
+   {
+    "id": "D49",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     5
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "En 1960, un pequeño desmoronamiento provocó una fisura de más de 1 metro de ancho y casi 2 kilómetros de largo en la montaña.",
+    "fuente": "La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005",
+    "autor": ""
+   },
+   {
+    "id": "T23",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     5
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Ocurrió un pequeño desmoronamiento en el monte Toc que abrió una fisura de casi 2 km de largo.",
+    "fuente": "La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005",
+    "autor": ""
+   }
+  ],
+  "ya_mostrado": [
+   {
+    "id": "D117",
+    "texto": "El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes."
+   }
+  ],
+  "pico": {
+   "beat": 4,
+   "funcion": "giro",
+   "sentence_idx": 0,
+   "frase": "El embalse se llamaba Pontesei.",
+   "t": 0.08,
+   "dato": "T16",
+   "fuente": "escaleta (beat más intenso del cap)"
+  }
+ },
+ "intentos": [
+  {
+   "pedido": "CAPÍTULO 3 — giro · escalada\n\nNARRACIÓN (oración por oración, con segundos):\n[0] 0.1–2.1 · El embalse se llamaba Pontesei.\n[1] 2.9–7.8 · Ese marzo, una masa de roca entró al agua y levantó una ola de veinte metros.\n[2] 8.6–9.7 · Un trabajador murió.\n[3] 10.8–23.9 · Después de Pontesei, SADE encargó nuevas pericias sobre el Toc, y esas pericias identificaron una paleofrana: un deslizamiento antiguo, la cicatriz que Edoardo Semenza había estado buscando.\n[4] 25.1–30.2 · El informe sobre esos riesgos lo escribió Giorgio Dal Piaz en mil novecientos sesenta.\n[5] 31.1–39.5 · Dal Piaz había dicho alguna vez sobre la obra: «Si el proyecto original me parecía osado, ahora lo considero una completa locura».\n[6] 42.5–46.9 · Su informe, en cambio, le restó peso a lo que señalaba Edoardo Semenza.\n[7] 47.9–49.6 · Una ola de veinte metros.\n[8] 50.3–51.2 · Un hombre muerto.\n[9] 52.1–54.3 · Una paleofrana con nombre en un papel.\n[10] 55.3–57.6 · El informe oficial dijo que no era grave.\n[11] 58.4–61.1 · Una periodista de provincia escribió lo contrario.\n[12] 61.9–65.3 · Se llamaba Tina Merlin y escribía en L'Unità.\n[13] 66.3–73.4 · Hacia mil novecientos cincuenta y nueve publicó su primera denuncia: el Toc podía desprenderse sobre el lago.\n[14] 74.6–81.9 · L'Unità fue el único diario nacional que siguió lo que pasaba en el Vajont antes del desastre, y lo siguió a través de ella.\n[15] 82.9–92.7 · El diario que se leía en la zona era Il Gazzettino, y una parte de Il Gazzettino pertenecía a SADE, a FIAT, a Volpi y a Cini.\n[16] 93.8–100.2 · En febrero de mil novecientos sesenta empezó el llenado, y el agua fue subiendo día a día por la garganta.\n[17] 101.2–115.6 · Ese año hubo un pequeño desmoronamiento en el Toc, y después del desmoronamiento los habitantes vieron algo nuevo en la ladera: una fisura de casi dos kilómetros de largo, corriendo por la montaña como una costura abierta.\n[18] 116.6–118.9 · Abajo, el lago seguía subiendo.\n[19] 119.9–124.5 · El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta.\n\nBEATS DEL CAPÍTULO (función, ventana en segundos, cierre):\n- beat 4 · giro · 0.1–61.1 s · cierre: «El informe oficial dijo que no era grave. Una periodista de provincia escribió lo contrario.»\n- beat 5 · escalada · 61.9–124.5 s · cierre: «El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta.»\n\nPICO DEL CAPÍTULO: oración [0] «El embalse se llamaba Pontesei.»\n\nDATOS DISPONIBLES (solo estos; cada uno con su texto fuente):\n- T16 · tipo T · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 · texto fuente: «Se produce un desprendimiento en el embalse de Pontesei que genera una ola de 20 metros y mata a Arcangelo Tiziani.»\n- D94 · tipo D · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 · texto fuente: «En el desprendimiento del embalse de Pontesei se generó una ola de 20 metros.»\n- T15 · tipo T · a_pantalla: no · por_que: — · fuente: DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013 · texto fuente: «Un deslizamiento de 3 millones de metros cúbicos cayó en el lago de la cercana represa de Pontesei, matando a un hombre.»\n- T21 · tipo T · a_pantalla: no · por_que: — · fuente: Tragedia del Vajont: analisi geologica di una frana annunciata, 2021 · texto fuente: «Un deslizamiento de 3 millones de m³ de roca ocurre en el embalse de Pontesei, generando una primera alarma.»\n- D119 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «La empresa SADE descubrió la presencia de un paleodeslizamiento en el monte Toc.»\n- T27 · tipo T · a_pantalla: no · por_que: — · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 · texto fuente: «El geólogo Giorgio Dal Piaz minimiza en su informe los riesgos identificados por Edoardo Semenza.»\n- Q37 · tipo Q · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 (autor: Giorgio Dal Piaz) · texto fuente: «Si el proyecto original me parecía osado, ahora lo considero una completa locura»\n- T18 · tipo T · a_pantalla: no · por_que: — · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 · texto fuente: «La periodista Tina Merlin denuncia el peligro del desprendimiento en el periódico l'Unità.»\n- D71 · tipo D · a_pantalla: no · por_que: — · fuente: DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013 · texto fuente: «L'Unità, el periódico del Partido Comunista Italiano (PCI), fue el único medio nacional que siguió los eventos antes del desastre a través de su periodista Tina Merlin.»\n- D72 · tipo D · a_pantalla: no · por_que: — · fuente: DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013 · texto fuente: «Il Gazzettino, uno de los principales periódicos del noreste de Italia, era propiedad en parte de SADE y de sus dos directores, el Sr. Volpi y el Sr. Cini.»\n- T29 · tipo T · a_pantalla: no · por_que: — · fuente: A Tragedy in the Italian Alps (50th Anniversary) Vajont Dam, 2013 · texto fuente: «Comienza el llenado del embalse de Vajont.»\n- D49 · tipo D · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 · texto fuente: «En 1960, un pequeño desmoronamiento provocó una fisura de más de 1 metro de ancho y casi 2 kilómetros de largo en la montaña.»\n- T23 · tipo T · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 · texto fuente: «Ocurrió un pequeño desmoronamiento en el monte Toc que abrió una fisura de casi 2 km de largo.»\n\nYA MOSTRADO EN CAPÍTULOS ANTERIORES (no repetir):\n- D117 «El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes.»\n\nDevolvé:\n{\"bloques\": [{\"sentence_idx\": int, \"tipo\": \"cifra|recorte|cita|persona|lupa\", \"texto\": str, \"etiqueta_o_kicker\": str|null, \"pool_id\": str, \"aporta\": str}], \"descartados\": [{\"pool_id\": str, \"motivo\": str}]}",
+   "respuesta": {
+    "bloques": [
+     {
+      "sentence_idx": 1,
+      "tipo": "cifra",
+      "texto": "Roca desprendida: 3 millones de m³",
+      "etiqueta_o_kicker": "Volumen del deslizamiento",
+      "pool_id": "T21",
+      "aporta": "la cifra: 3 millones de metros cúbicos de roca, que la narración no dice"
+     },
+     {
+      "sentence_idx": 5,
+      "tipo": "cita",
+      "texto": "«Si el proyecto original me parecía osado, ahora lo considero una completa locura»",
+      "etiqueta_o_kicker": "Giorgio Dal Piaz, 2022",
+      "pool_id": "Q37",
+      "aporta": "la cita literal de Dal Piaz sobre la obra"
+     },
+     {
+      "sentence_idx": 12,
+      "tipo": "persona",
+      "texto": "Tina Merlin, periodista de L'Unità",
+      "etiqueta_o_kicker": null,
+      "pool_id": "T18",
+      "aporta": "presenta a Tina Merlin con su oficio y el diario"
+     },
+     {
+      "sentence_idx": 14,
+      "tipo": "recorte",
+      "texto": "L'Unità era el periódico del Partido Comunista Italiano.",
+      "etiqueta_o_kicker": "Domination of or adaptation to nature?, 2013",
+      "pool_id": "D71",
+      "aporta": "el quién: L'Unità era el diario del Partido Comunista Italiano (PCI)"
+     },
+     {
+      "sentence_idx": 17,
+      "tipo": "cifra",
+      "texto": "Ancho de la fisura: más de 1 m",
+      "etiqueta_o_kicker": "Ancho de la fisura",
+      "pool_id": "D49",
+      "aporta": "la cifra: más de 1 metro de ancho, que la narración no dice"
+     }
+    ],
+    "descartados": [
+     {
+      "pool_id": "T16",
+      "motivo": "Nombre de la víctima (Arcangelo Tiziani) es válido, pero la oración [2] no nombra a la persona; sumaría un bloque extra sin necesidad y el tope de 5 está cubierto con datos más fuertes."
+     },
+     {
+      "pool_id": "D94",
+      "motivo": "Repite la ola de 20 metros que la narración ya dice."
+     },
+     {
+      "pool_id": "T15",
+      "motivo": "Redundante con T21; la cifra de 3 millones ya sale con T21, y menciona al hombre muerto que la narración ya dice."
+     },
+     {
+      "pool_id": "D119",
+      "motivo": "Repite la paleofrana que la narración ya dice en [3]."
+     },
+     {
+      "pool_id": "T27",
+      "motivo": "Parafrasea lo que la narración dice en [6]."
+     },
+     {
+      "pool_id": "T29",
+      "motivo": "Repite el inicio del llenado dicho en [16]."
+     },
+     {
+      "pool_id": "T23",
+      "motivo": "Repite la fisura de casi 2 km que la narración ya dice."
+     },
+     {
+      "pool_id": "D72",
+      "motivo": "Repite la propiedad parcial de Il Gazzettino que la narración ya dice en [15]; además no hay cupo."
+     }
+    ]
+   },
+   "crudas": [
+    {
+     "respuesta": {
+      "content": [
+       {
+        "type": "text",
+        "text": "{\"bloques\":[{\"sentence_idx\":1,\"tipo\":\"cifra\",\"texto\":\"Roca desprendida: 3 millones de m³\",\"etiqueta_o_kicker\":\"Volumen del deslizamiento\",\"pool_id\":\"T21\",\"aporta\":\"la cifra: 3 millones de metros cúbicos de roca, que la narración no dice\"},{\"sentence_idx\":5,\"tipo\":\"cita\",\"texto\":\"«Si el proyecto original me parecía osado, ahora lo considero una completa locura»\",\"etiqueta_o_kicker\":\"Giorgio Dal Piaz, 2022\",\"pool_id\":\"Q37\",\"aporta\":\"la cita literal de Dal Piaz sobre la obra\"},{\"sentence_idx\":12,\"tipo\":\"persona\",\"texto\":\"Tina Merlin, periodista de L'Unità\",\"etiqueta_o_kicker\":null,\"pool_id\":\"T18\",\"aporta\":\"presenta a Tina Merlin con su oficio y el diario\"},{\"sentence_idx\":14,\"tipo\":\"recorte\",\"texto\":\"L'Unità era el periódico del Partido Comunista Italiano.\",\"etiqueta_o_kicker\":\"Domination of or adaptation to nature?, 2013\",\"pool_id\":\"D71\",\"aporta\":\"el quién: L'Unità era el diario del Partido Comunista Italiano (PCI)\"},{\"sentence_idx\":17,\"tipo\":\"cifra\",\"texto\":\"Ancho de la fisura: más de 1 m\",\"etiqueta_o_kicker\":\"Ancho de la fisura\",\"pool_id\":\"D49\",\"aporta\":\"la cifra: más de 1 metro de ancho, que la narración no dice\"}],\"descartados\":[{\"pool_id\":\"T16\",\"motivo\":\"Nombre de la víctima (Arcangelo Tiziani) es válido, pero la oración [2] no nombra a la persona; sumaría un bloque extra sin necesidad y el tope de 5 está cubierto con datos más fuertes.\"},{\"pool_id\":\"D94\",\"motivo\":\"Repite la ola de 20 metros que la narración ya dice.\"},{\"pool_id\":\"T15\",\"motivo\":\"Redundante con T21; la cifra de 3 millones ya sale con T21, y menciona al hombre muerto que la narración ya dice.\"},{\"pool_id\":\"D119\",\"motivo\":\"Repite la paleofrana que la narración ya dice en [3].\"},{\"pool_id\":\"T27\",\"motivo\":\"Parafrasea lo que la narración dice en [6].\"},{\"pool_id\":\"T29\",\"motivo\":\"Repite el inicio del llenado dicho en [16].\"},{\"pool_id\":\"T23\",\"motivo\":\"Repite la fisura de casi 2 km que la narración ya dice.\"},{\"pool_id\":\"D72\",\"motivo\":\"Repite la propiedad parcial de Il Gazzettino que la narración ya dice en [15]; además no hay cupo.\"}]}"
+       }
+      ],
+      "usage": {
+       "input_tokens": 4251,
+       "cache_creation_input_tokens": 0,
+       "cache_read_input_tokens": 0,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+       },
+       "output_tokens": 982,
+       "service_tier": "standard",
+       "inference_geo": "global",
+       "speed": "standard",
+       "output_tokens_details": {
+        "thinking_tokens": 0
+       }
+      },
+      "model": "claude-sonnet-5-5",
+      "id": "msg_011CgQ4c1aEmNroF9mL5zgN4",
+      "type": "message",
+      "role": "assistant",
+      "container": null,
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "stop_details": null,
+      "diagnostics": null
+     },
+     "segundos": 7.1,
+     "usd": 0.01832
+    }
+   ],
+   "error": null,
+   "validacion": {
+    "bloques": [
+     {
+      "sentence_idx": 14,
+      "tipo": "recorte",
+      "texto": "L'Unità era el periódico del Partido Comunista Italiano.",
+      "etiqueta_o_kicker": "Domination of or adaptation to nature?, 2013",
+      "pool_id": "D71",
+      "aporta": "el quién: L'Unità era el diario del Partido Comunista Italiano (PCI)",
+      "t0": 82.2,
+      "dur": 3.67,
+      "beat": 5,
+      "funcion": "escalada",
+      "pantalla": "L'Unità era el periódico del Partido Comunista Italiano.",
+      "a_pantalla": false
+     }
+    ],
+    "rechazos": [
+     {
+      "pool_id": "T21",
+      "texto": "Roca desprendida: 3 millones de m³",
+      "sentence_idx": 1,
+      "regla": "A.4.2",
+      "motivo": "9 palabras (tope 6)"
+     },
+     {
+      "pool_id": "Q37",
+      "texto": "«Si el proyecto original me parecía osado, ahora lo considero una completa locura»",
+      "sentence_idx": 5,
+      "regla": "A.4.2",
+      "motivo": "13 palabras (tope 9)"
+     },
+     {
+      "pool_id": "T18",
+      "texto": "Tina Merlin, periodista de L'Unità",
+      "sentence_idx": 12,
+      "regla": "A.4.4",
+      "motivo": "la voz lo dice a ±20 s: ['Merlin']"
+     },
+     {
+      "pool_id": "D49",
+      "texto": "Ancho de la fisura: más de 1 m",
+      "sentence_idx": 17,
+      "regla": "A.4.2",
+      "motivo": "8 palabras (tope 6)"
+     }
+    ],
+    "faltan": []
+   },
+   "segundos": 8.7
+  },
+  {
+   "pedido": "CAPÍTULO 3 — giro · escalada\n\nNARRACIÓN (oración por oración, con segundos):\n[0] 0.1–2.1 · El embalse se llamaba Pontesei.\n[1] 2.9–7.8 · Ese marzo, una masa de roca entró al agua y levantó una ola de veinte metros.\n[2] 8.6–9.7 · Un trabajador murió.\n[3] 10.8–23.9 · Después de Pontesei, SADE encargó nuevas pericias sobre el Toc, y esas pericias identificaron una paleofrana: un deslizamiento antiguo, la cicatriz que Edoardo Semenza había estado buscando.\n[4] 25.1–30.2 · El informe sobre esos riesgos lo escribió Giorgio Dal Piaz en mil novecientos sesenta.\n[5] 31.1–39.5 · Dal Piaz había dicho alguna vez sobre la obra: «Si el proyecto original me parecía osado, ahora lo considero una completa locura».\n[6] 42.5–46.9 · Su informe, en cambio, le restó peso a lo que señalaba Edoardo Semenza.\n[7] 47.9–49.6 · Una ola de veinte metros.\n[8] 50.3–51.2 · Un hombre muerto.\n[9] 52.1–54.3 · Una paleofrana con nombre en un papel.\n[10] 55.3–57.6 · El informe oficial dijo que no era grave.\n[11] 58.4–61.1 · Una periodista de provincia escribió lo contrario.\n[12] 61.9–65.3 · Se llamaba Tina Merlin y escribía en L'Unità.\n[13] 66.3–73.4 · Hacia mil novecientos cincuenta y nueve publicó su primera denuncia: el Toc podía desprenderse sobre el lago.\n[14] 74.6–81.9 · L'Unità fue el único diario nacional que siguió lo que pasaba en el Vajont antes del desastre, y lo siguió a través de ella.\n[15] 82.9–92.7 · El diario que se leía en la zona era Il Gazzettino, y una parte de Il Gazzettino pertenecía a SADE, a FIAT, a Volpi y a Cini.\n[16] 93.8–100.2 · En febrero de mil novecientos sesenta empezó el llenado, y el agua fue subiendo día a día por la garganta.\n[17] 101.2–115.6 · Ese año hubo un pequeño desmoronamiento en el Toc, y después del desmoronamiento los habitantes vieron algo nuevo en la ladera: una fisura de casi dos kilómetros de largo, corriendo por la montaña como una costura abierta.\n[18] 116.6–118.9 · Abajo, el lago seguía subiendo.\n[19] 119.9–124.5 · El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta.\n\nBEATS DEL CAPÍTULO (función, ventana en segundos, cierre):\n- beat 4 · giro · 0.1–61.1 s · cierre: «El informe oficial dijo que no era grave. Una periodista de provincia escribió lo contrario.»\n- beat 5 · escalada · 61.9–124.5 s · cierre: «El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta.»\n\nPICO DEL CAPÍTULO: oración [0] «El embalse se llamaba Pontesei.»\n\nDATOS DISPONIBLES (solo estos; cada uno con su texto fuente):\n- T16 · tipo T · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 · texto fuente: «Se produce un desprendimiento en el embalse de Pontesei que genera una ola de 20 metros y mata a Arcangelo Tiziani.»\n- D94 · tipo D · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 · texto fuente: «En el desprendimiento del embalse de Pontesei se generó una ola de 20 metros.»\n- T15 · tipo T · a_pantalla: no · por_que: — · fuente: DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013 · texto fuente: «Un deslizamiento de 3 millones de metros cúbicos cayó en el lago de la cercana represa de Pontesei, matando a un hombre.»\n- T21 · tipo T · a_pantalla: no · por_que: — · fuente: Tragedia del Vajont: analisi geologica di una frana annunciata, 2021 · texto fuente: «Un deslizamiento de 3 millones de m³ de roca ocurre en el embalse de Pontesei, generando una primera alarma.»\n- D119 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «La empresa SADE descubrió la presencia de un paleodeslizamiento en el monte Toc.»\n- T27 · tipo T · a_pantalla: no · por_que: — · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 · texto fuente: «El geólogo Giorgio Dal Piaz minimiza en su informe los riesgos identificados por Edoardo Semenza.»\n- Q37 · tipo Q · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 (autor: Giorgio Dal Piaz) · texto fuente: «Si el proyecto original me parecía osado, ahora lo considero una completa locura»\n- T18 · tipo T · a_pantalla: no · por_que: — · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 · texto fuente: «La periodista Tina Merlin denuncia el peligro del desprendimiento en el periódico l'Unità.»\n- D71 · tipo D · a_pantalla: no · por_que: — · fuente: DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013 · texto fuente: «L'Unità, el periódico del Partido Comunista Italiano (PCI), fue el único medio nacional que siguió los eventos antes del desastre a través de su periodista Tina Merlin.»\n- D72 · tipo D · a_pantalla: no · por_que: — · fuente: DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013 · texto fuente: «Il Gazzettino, uno de los principales periódicos del noreste de Italia, era propiedad en parte de SADE y de sus dos directores, el Sr. Volpi y el Sr. Cini.»\n- T29 · tipo T · a_pantalla: no · por_que: — · fuente: A Tragedy in the Italian Alps (50th Anniversary) Vajont Dam, 2013 · texto fuente: «Comienza el llenado del embalse de Vajont.»\n- D49 · tipo D · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 · texto fuente: «En 1960, un pequeño desmoronamiento provocó una fisura de más de 1 metro de ancho y casi 2 kilómetros de largo en la montaña.»\n- T23 · tipo T · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 · texto fuente: «Ocurrió un pequeño desmoronamiento en el monte Toc que abrió una fisura de casi 2 km de largo.»\n\nYA MOSTRADO EN CAPÍTULOS ANTERIORES (no repetir):\n- D117 «El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes.»\n\nDevolvé:\n{\"bloques\": [{\"sentence_idx\": int, \"tipo\": \"cifra|recorte|cita|persona|lupa\", \"texto\": str, \"etiqueta_o_kicker\": str|null, \"pool_id\": str, \"aporta\": str}], \"descartados\": [{\"pool_id\": str, \"motivo\": str}]}\n\nTU RESPUESTA ANTERIOR TUVO ESTOS PROBLEMAS (corregilos y devolvé el JSON completo otra vez):\n- T21 en la oración [1] «Roca desprendida: 3 millones de m³»: 9 palabras (tope 6)\n- Q37 en la oración [5] ««Si el proyecto original me parecía osado, ahora lo considero una completa locura»»: 13 palabras (tope 9)\n- T18 en la oración [12] «Tina Merlin, periodista de L'Unità»: la voz lo dice a ±20 s: ['Merlin']\n- D49 en la oración [17] «Ancho de la fisura: más de 1 m»: 8 palabras (tope 6)",
+   "respuesta": {
+    "bloques": [
+     {
+      "sentence_idx": 1,
+      "tipo": "cifra",
+      "texto": "3 millones de m³",
+      "etiqueta_o_kicker": "Roca caída",
+      "pool_id": "T21",
+      "aporta": "la cifra: 3 millones de m³ de roca desprendida"
+     },
+     {
+      "sentence_idx": 2,
+      "tipo": "recorte",
+      "texto": "La víctima fue Arcangelo Tiziani.",
+      "etiqueta_o_kicker": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+      "pool_id": "T16",
+      "aporta": "el quién: el trabajador muerto se llamaba Arcangelo Tiziani"
+     },
+     {
+      "sentence_idx": 4,
+      "tipo": "persona",
+      "texto": "Giorgio Dal Piaz, geólogo",
+      "etiqueta_o_kicker": null,
+      "pool_id": "T27",
+      "aporta": "el cargo: Dal Piaz era geólogo"
+     },
+     {
+      "sentence_idx": 14,
+      "tipo": "recorte",
+      "texto": "L'Unità era el periódico del Partido Comunista Italiano.",
+      "etiqueta_o_kicker": "DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013",
+      "pool_id": "D71",
+      "aporta": "el quién: L'Unità pertenecía al Partido Comunista Italiano (PCI)"
+     },
+     {
+      "sentence_idx": 17,
+      "tipo": "cifra",
+      "texto": "Más de 1 m",
+      "etiqueta_o_kicker": "Ancho fisura",
+      "pool_id": "D49",
+      "aporta": "la cifra: ancho de la fisura, más de 1 metro"
+     }
+    ],
+    "descartados": [
+     {
+      "pool_id": "D94",
+      "motivo": "La ola de 20 metros ya la dice la narración."
+     },
+     {
+      "pool_id": "T15",
+      "motivo": "Repite lo que dice la narración; el volumen ya sale con T21."
+     },
+     {
+      "pool_id": "D119",
+      "motivo": "La narración ya dice que las pericias identificaron la paleofrana."
+     },
+     {
+      "pool_id": "Q37",
+      "motivo": "La narración ya lee la cita completa. Además tiene 13 palabras y la cita literal no se puede recortar al tope de 9."
+     },
+     {
+      "pool_id": "T18",
+      "motivo": "La narración ya dice quién es Tina Merlin y en qué diario escribía; la persona repetiría la voz."
+     },
+     {
+      "pool_id": "D72",
+      "motivo": "La narración ya lo dice. El dato nuevo, que Volpi y Cini eran directores de SADE, queda fuera por el tope de 5 bloques."
+     },
+     {
+      "pool_id": "T27",
+      "motivo": "Parafrasea la narración [6]; solo se usa para la persona en [4]."
+     },
+     {
+      "pool_id": "T29",
+      "motivo": "La narración ya dice que empezó el llenado."
+     },
+     {
+      "pool_id": "T23",
+      "motivo": "Repite la fisura de casi 2 km que ya dice la narración; D49 aporta el ancho."
+     }
+    ]
+   },
+   "crudas": [
+    {
+     "respuesta": {
+      "content": [
+       {
+        "type": "thinking",
+        "thinking": "",
+        "signature": ""
+       },
+       {
+        "type": "text",
+        "text": "{\"bloques\":[{\"sentence_idx\":1,\"tipo\":\"cifra\",\"texto\":\"3 millones de m³\",\"etiqueta_o_kicker\":\"Roca caída\",\"pool_id\":\"T21\",\"aporta\":\"la cifra: 3 millones de m³ de roca desprendida\"},{\"sentence_idx\":2,\"tipo\":\"recorte\",\"texto\":\"La víctima fue Arcangelo Tiziani.\",\"etiqueta_o_kicker\":\"Vajont, la construcción de una catástrofe a la italiana, 2022\",\"pool_id\":\"T16\",\"aporta\":\"el quién: el trabajador muerto se llamaba Arcangelo Tiziani\"},{\"sentence_idx\":4,\"tipo\":\"persona\",\"texto\":\"Giorgio Dal Piaz, geólogo\",\"etiqueta_o_kicker\":null,\"pool_id\":\"T27\",\"aporta\":\"el cargo: Dal Piaz era geólogo\"},{\"sentence_idx\":14,\"tipo\":\"recorte\",\"texto\":\"L'Unità era el periódico del Partido Comunista Italiano.\",\"etiqueta_o_kicker\":\"DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013\",\"pool_id\":\"D71\",\"aporta\":\"el quién: L'Unità pertenecía al Partido Comunista Italiano (PCI)\"},{\"sentence_idx\":17,\"tipo\":\"cifra\",\"texto\":\"Más de 1 m\",\"etiqueta_o_kicker\":\"Ancho fisura\",\"pool_id\":\"D49\",\"aporta\":\"la cifra: ancho de la fisura, más de 1 metro\"}],\"descartados\":[{\"pool_id\":\"D94\",\"motivo\":\"La ola de 20 metros ya la dice la narración.\"},{\"pool_id\":\"T15\",\"motivo\":\"Repite lo que dice la narración; el volumen ya sale con T21.\"},{\"pool_id\":\"D119\",\"motivo\":\"La narración ya dice que las pericias identificaron la paleofrana.\"},{\"pool_id\":\"Q37\",\"motivo\":\"La narración ya lee la cita completa. Además tiene 13 palabras y la cita literal no se puede recortar al tope de 9.\"},{\"pool_id\":\"T18\",\"motivo\":\"La narración ya dice quién es Tina Merlin y en qué diario escribía; la persona repetiría la voz.\"},{\"pool_id\":\"D72\",\"motivo\":\"La narración ya lo dice. El dato nuevo, que Volpi y Cini eran directores de SADE, queda fuera por el tope de 5 bloques.\"},{\"pool_id\":\"T27\",\"motivo\":\"Parafrasea la narración [6]; solo se usa para la persona en [4].\"},{\"pool_id\":\"T29\",\"motivo\":\"La narración ya dice que empezó el llenado.\"},{\"pool_id\":\"T23\",\"motivo\":\"Repite la fisura de casi 2 km que ya dice la narración; D49 aporta el ancho.\"}]}"
+       }
+      ],
+      "usage": {
+       "input_tokens": 4502,
+       "cache_creation_input_tokens": 0,
+       "cache_read_input_tokens": 0,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+       },
+       "output_tokens": 2881,
+       "service_tier": "standard",
+       "inference_geo": "global",
+       "speed": "standard",
+       "output_tokens_details": {
+        "thinking_tokens": 1870
+       }
+      },
+      "model": "claude-sonnet-5-5",
+      "id": "msg_011CgQ4cdhsCj5Z9DqJUVy91",
+      "type": "message",
+      "role": "assistant",
+      "container": null,
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "stop_details": null,
+      "diagnostics": null
+     },
+     "segundos": 21.7,
+     "usd": 0.03781
+    }
+   ],
+   "error": null,
+   "validacion": {
+    "bloques": [
+     {
+      "sentence_idx": 1,
+      "tipo": "cifra",
+      "texto": "3 millones de m³",
+      "etiqueta_o_kicker": "Roca caída",
+      "pool_id": "T21",
+      "aporta": "la cifra: 3 millones de m³ de roca desprendida",
+      "t0": 8.14,
+      "dur": 3.0,
+      "beat": 4,
+      "funcion": "giro",
+      "pantalla": "Roca caída: 3 millones de m³",
+      "a_pantalla": false
+     },
+     {
+      "sentence_idx": 2,
+      "tipo": "recorte",
+      "texto": "La víctima fue Arcangelo Tiziani.",
+      "etiqueta_o_kicker": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+      "pool_id": "T16",
+      "aporta": "el quién: el trabajador muerto se llamaba Arcangelo Tiziani",
+      "t0": 10.02,
+      "dur": 2.67,
+      "beat": 4,
+      "funcion": "giro",
+      "pantalla": "La víctima fue Arcangelo Tiziani.",
+      "a_pantalla": false
+     },
+     {
+      "sentence_idx": 14,
+      "tipo": "recorte",
+      "texto": "L'Unità era el periódico del Partido Comunista Italiano.",
+      "etiqueta_o_kicker": "DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013",
+      "pool_id": "D71",
+      "aporta": "el quién: L'Unità pertenecía al Partido Comunista Italiano (PCI)",
+      "t0": 82.2,
+      "dur": 3.67,
+      "beat": 5,
+      "funcion": "escalada",
+      "pantalla": "L'Unità era el periódico del Partido Comunista Italiano.",
+      "a_pantalla": false
+     }
+    ],
+    "rechazos": [
+     {
+      "pool_id": "T27",
+      "texto": "Giorgio Dal Piaz, geólogo",
+      "sentence_idx": 4,
+      "regla": "A.4.4",
+      "motivo": "la voz lo dice a ±20 s: ['Piaz']"
+     },
+     {
+      "pool_id": "D49",
+      "texto": "Más de 1 m",
+      "sentence_idx": 17,
+      "regla": "A.4.4",
+      "motivo": "la voz lo dice a ±20 s: ['1']"
+     }
+    ],
+    "faltan": []
+   },
+   "segundos": 21.7
+  }
+ ],
+ "final": {
+  "bloques": [
+   {
+    "sentence_idx": 1,
+    "tipo": "cifra",
+    "texto": "3 millones de m³",
+    "etiqueta_o_kicker": "Roca caída",
+    "pool_id": "T21",
+    "aporta": "la cifra: 3 millones de m³ de roca desprendida"
+   },
+   {
+    "sentence_idx": 2,
+    "tipo": "recorte",
+    "texto": "La víctima fue Arcangelo Tiziani.",
+    "etiqueta_o_kicker": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+    "pool_id": "T16",
+    "aporta": "el quién: el trabajador muerto se llamaba Arcangelo Tiziani"
+   },
+   {
+    "sentence_idx": 4,
+    "tipo": "persona",
+    "texto": "Giorgio Dal Piaz, geólogo",
+    "etiqueta_o_kicker": null,
+    "pool_id": "T27",
+    "aporta": "el cargo: Dal Piaz era geólogo"
+   },
+   {
+    "sentence_idx": 14,
+    "tipo": "recorte",
+    "texto": "L'Unità era el periódico del Partido Comunista Italiano.",
+    "etiqueta_o_kicker": "DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013",
+    "pool_id": "D71",
+    "aporta": "el quién: L'Unità pertenecía al Partido Comunista Italiano (PCI)"
+   },
+   {
+    "sentence_idx": 17,
+    "tipo": "cifra",
+    "texto": "Más de 1 m",
+    "etiqueta_o_kicker": "Ancho fisura",
+    "pool_id": "D49",
+    "aporta": "la cifra: ancho de la fisura, más de 1 metro"
+   }
+  ],
+  "descartados": [
+   {
+    "pool_id": "D94",
+    "motivo": "La ola de 20 metros ya la dice la narración."
+   },
+   {
+    "pool_id": "T15",
+    "motivo": "Repite lo que dice la narración; el volumen ya sale con T21."
+   },
+   {
+    "pool_id": "D119",
+    "motivo": "La narración ya dice que las pericias identificaron la paleofrana."
+   },
+   {
+    "pool_id": "Q37",
+    "motivo": "La narración ya lee la cita completa. Además tiene 13 palabras y la cita literal no se puede recortar al tope de 9."
+   },
+   {
+    "pool_id": "T18",
+    "motivo": "La narración ya dice quién es Tina Merlin y en qué diario escribía; la persona repetiría la voz."
+   },
+   {
+    "pool_id": "D72",
+    "motivo": "La narración ya lo dice. El dato nuevo, que Volpi y Cini eran directores de SADE, queda fuera por el tope de 5 bloques."
+   },
+   {
+    "pool_id": "T27",
+    "motivo": "Parafrasea la narración [6]; solo se usa para la persona en [4]."
+   },
+   {
+    "pool_id": "T29",
+    "motivo": "La narración ya dice que empezó el llenado."
+   },
+   {
+    "pool_id": "T23",
+    "motivo": "Repite la fisura de casi 2 km que ya dice la narración; D49 aporta el ancho."
+   }
+  ]
+ },
+ "validacion": {
+  "bloques": [
+   {
+    "sentence_idx": 1,
+    "tipo": "cifra",
+    "texto": "3 millones de m³",
+    "etiqueta_o_kicker": "Roca caída",
+    "pool_id": "T21",
+    "aporta": "la cifra: 3 millones de m³ de roca desprendida",
+    "t0": 8.14,
+    "dur": 3.0,
+    "beat": 4,
+    "funcion": "giro",
+    "pantalla": "Roca caída: 3 millones de m³",
+    "a_pantalla": false
+   },
+   {
+    "sentence_idx": 2,
+    "tipo": "recorte",
+    "texto": "La víctima fue Arcangelo Tiziani.",
+    "etiqueta_o_kicker": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+    "pool_id": "T16",
+    "aporta": "el quién: el trabajador muerto se llamaba Arcangelo Tiziani",
+    "t0": 10.02,
+    "dur": 2.67,
+    "beat": 4,
+    "funcion": "giro",
+    "pantalla": "La víctima fue Arcangelo Tiziani.",
+    "a_pantalla": false
+   },
+   {
+    "sentence_idx": 14,
+    "tipo": "recorte",
+    "texto": "L'Unità era el periódico del Partido Comunista Italiano.",
+    "etiqueta_o_kicker": "DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013",
+    "pool_id": "D71",
+    "aporta": "el quién: L'Unità pertenecía al Partido Comunista Italiano (PCI)",
+    "t0": 82.2,
+    "dur": 3.67,
+    "beat": 5,
+    "funcion": "escalada",
+    "pantalla": "L'Unità era el periódico del Partido Comunista Italiano.",
+    "a_pantalla": false
+   }
+  ],
+  "rechazos": [
+   {
+    "pool_id": "T27",
+    "texto": "Giorgio Dal Piaz, geólogo",
+    "sentence_idx": 4,
+    "regla": "A.4.4",
+    "motivo": "la voz lo dice a ±20 s: ['Piaz']"
+   },
+   {
+    "pool_id": "D49",
+    "texto": "Más de 1 m",
+    "sentence_idx": 17,
+    "regla": "A.4.4",
+    "motivo": "la voz lo dice a ±20 s: ['1']"
+   }
+  ],
+  "faltan": []
+ }
+}

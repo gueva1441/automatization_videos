@@ -64,8 +64,10 @@ def lock(plan: dict[str, Any], sources: dict[str, str], *, chapter_number: int,
         ok["title_card"] = None
 
     kept = []
+    # F29b §A.4.3: los bloques del rotulista (`rotulista: true`) traen su propio candado (cita = subcadena del dato;
+    # cifra/recorte/persona/lupa = cada número, nombre propio y año en el texto fuente del dato) → excepción explícita
     for c in ok.get("callouts", []) or []:
-        if _check("data_callout", {"text": c.get("text", "")}):
+        if c.get("rotulista") or _check("data_callout", {"text": c.get("text", "")}):
             kept.append(c)
     ok["callouts"] = kept
 
@@ -74,7 +76,7 @@ def lock(plan: dict[str, Any], sources: dict[str, str], *, chapter_number: int,
         ok["archive_clipping"] = None
     if ok.get("archive_clippings"):          # F2: hasta 2 recortes; cada uno sale entero si falla
         ok["archive_clippings"] = [r for r in ok["archive_clippings"]
-                                   if _check("archive_clipping", {k: r.get(k, "") for k in ("kicker", "headline", "body")})]
+                                   if r.get("rotulista") or _check("archive_clipping", {k: r.get(k, "") for k in ("kicker", "headline", "body")})]
 
     cu = ok.get("count_up")
     if cu and not _check("count_up", {"value_text": cu.get("value_text", ""), "unit": cu.get("unit", "")}):
@@ -95,7 +97,7 @@ def lock(plan: dict[str, Any], sources: dict[str, str], *, chapter_number: int,
     if wl and not _check("water_level", {"value": f"{wl.get('value_text', '')} {wl.get('unit', '')}".strip()}):
         ok["water_level"] = None
     qc = ok.get("quote_card")                # F5f: la cita entera y su autor, literales del pool
-    if qc and not _check("quote_card", {"text": qc.get("text", ""), "author": qc.get("author", "")}):
+    if qc and not qc.get("rotulista") and not _check("quote_card", {"text": qc.get("text", ""), "author": qc.get("author", "")}):
         ok["quote_card"] = None
     tk = ok.get("time_ticker")
     if tk and not _check("time_ticker", {"source_text": tk.get("source_text", "")}):

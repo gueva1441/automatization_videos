@@ -1,0 +1,838 @@
+{
+ "clave": "6b6d200126614e4f6f9e",
+ "modelo": "claude-sonnet-5-5",
+ "effort": "medium",
+ "prompt_version": "f29b-1",
+ "prompt_md5": "50e6ae74fd588861e81fb5d2191ab644",
+ "entrada": {
+  "cap": 6,
+  "titulo": "pico · respiro",
+  "oraciones": [
+   {
+    "idx": 0,
+    "t0": 0.14,
+    "t1": 13.72,
+    "texto": "Carlo Onorini, el párroco de Casso, lo contó así: «escucho el ruido de la avalancha, abro la ventana y este ruido aumentaba en forma extraordinaria, al mismo tiempo vi un resplandor»."
+   },
+   {
+    "idx": 1,
+    "t0": 15.58,
+    "t1": 17.18,
+    "texto": "Son las diez y treinta y nueve."
+   },
+   {
+    "idx": 2,
+    "t0": 17.82,
+    "t1": 19.26,
+    "texto": "El Toc entra al lago."
+   },
+   {
+    "idx": 3,
+    "t0": 19.94,
+    "t1": 25.5,
+    "texto": "La ladera entera, la que caminaba, la de la fisura, se desploma de una vez dentro del embalse."
+   },
+   {
+    "idx": 4,
+    "t0": 26.24,
+    "t1": 28.72,
+    "texto": "El agua no tiene a dónde ir, salvo hacia arriba."
+   },
+   {
+    "idx": 5,
+    "t0": 29.44,
+    "t1": 36.28,
+    "texto": "Se levanta, pasa por encima de la presa, por encima de la pared que no se rompe, y cae en la garganta hacia el Piave."
+   },
+   {
+    "idx": 6,
+    "t0": 37.26,
+    "t1": 45.08,
+    "texto": "Benito Castellano oye un ruido «como de un trueno de verano multiplicado cien veces, muy lóbrego, que duró tres o cuatro minutos»."
+   },
+   {
+    "idx": 7,
+    "t0": 46.14,
+    "t1": 52.94,
+    "texto": "Después, un estruendo con un resplandor, y enseguida un ruido como el que hace una formación de reactores al pasar."
+   },
+   {
+    "idx": 8,
+    "t0": 53.92,
+    "t1": 66.62,
+    "texto": "En el bar Faè, Germano Accamillesi mira televisión cuando «se interrumpió la iluminación del televisor y casi al mismo tiempo (treinta-cincuenta segundos) se empezaron a sentir fuertes sacudidas telúricas»."
+   },
+   {
+    "idx": 9,
+    "t0": 67.74,
+    "t1": 70.74,
+    "texto": "Después de las sacudidas se apaga también la luz del bar."
+   },
+   {
+    "idx": 10,
+    "t0": 71.52,
+    "t1": 75.02,
+    "texto": "Nadie en ese bar sabe todavía qué viene bajando por la garganta."
+   },
+   {
+    "idx": 11,
+    "t0": 75.8,
+    "t1": 77.36,
+    "texto": "La ola baja hacia el Piave."
+   },
+   {
+    "idx": 12,
+    "t0": 78.28,
+    "t1": 80.5,
+    "texto": "Longarone sigue con las luces encendidas."
+   },
+   {
+    "idx": 13,
+    "t0": 81.22,
+    "t1": 89.48,
+    "texto": "Cuatro minutos después del desprendimiento, el agua llega al pueblo, a las calles, a las casas, a la cama donde duerme Micaela Coletti."
+   },
+   {
+    "idx": 14,
+    "t0": 90.46,
+    "t1": 91.16,
+    "texto": "Nadie avisó."
+   },
+   {
+    "idx": 15,
+    "t0": 91.94,
+    "t1": 96.46,
+    "texto": "Micaela siente que la cama toma velocidad y que una fuerza la agarra por la espalda."
+   },
+   {
+    "idx": 16,
+    "t0": 97.22,
+    "t1": 100.74,
+    "texto": "La ola la arrastra al menos cuatrocientos metros desde su casa."
+   },
+   {
+    "idx": 17,
+    "t0": 101.58,
+    "t1": 102.52,
+    "texto": "Ahí la encuentran."
+   },
+   {
+    "idx": 18,
+    "t0": 103.22,
+    "t1": 103.98,
+    "texto": "Y está viva."
+   },
+   {
+    "idx": 19,
+    "t0": 104.96,
+    "t1": 107.4,
+    "texto": "Cuando amaneció, la presa seguía ahí."
+   },
+   {
+    "idx": 20,
+    "t0": 108.16,
+    "t1": 109.16,
+    "texto": "Longarone ya no."
+   },
+   {
+    "idx": 21,
+    "t0": 110.16,
+    "t1": 112.36,
+    "texto": "Donde había calles hay fango y piedras."
+   },
+   {
+    "idx": 22,
+    "t0": 112.98,
+    "t1": 116.2,
+    "texto": "Un hombre está parado en el medio y no sabe hacia dónde mirar."
+   },
+   {
+    "idx": 23,
+    "t0": 117.06,
+    "t1": 122.66,
+    "texto": "«Conocía Longarone en cada rincón, ahora no sé dónde estoy», dijo uno de los sobrevivientes."
+   },
+   {
+    "idx": 24,
+    "t0": 123.84,
+    "t1": 128.259,
+    "texto": "Entre los muertos está Guglielmo Celso, el alcalde socialista de Longarone."
+   },
+   {
+    "idx": 25,
+    "t0": 129.039,
+    "t1": 133.76,
+    "texto": "Nadie creó un organismo central que informara oficialmente cómo avanzaba el rescate."
+   },
+   {
+    "idx": 26,
+    "t0": 134.52,
+    "t1": 136.92,
+    "texto": "Desde el aire llegó el ruido de los rotores."
+   },
+   {
+    "idx": 27,
+    "t0": 137.52,
+    "t1": 140.44,
+    "texto": "La fuerza estadounidense despachó seis helicópteros."
+   },
+   {
+    "idx": 28,
+    "t0": 141.18,
+    "t1": 148.38,
+    "texto": "Un hombre de una aldea de la zona lo recuerda: «El primer rescatista que vi llegó en un helicóptero del ejército de Estados Unidos»."
+   },
+   {
+    "idx": 29,
+    "t0": 149.56,
+    "t1": 157.66,
+    "texto": "Tres de esos helicópteros, cuenta, evacuaron a toda la gente de su pueblo, y por eso un día trágico le quedó también con algo de alegría."
+   },
+   {
+    "idx": 30,
+    "t0": 158.44,
+    "t1": 161.24,
+    "texto": "Tres días después llegó el presidente del Consejo."
+   },
+   {
+    "idx": 31,
+    "t0": 161.84,
+    "t1": 163.58,
+    "texto": "La gente ya sabía qué pedirle."
+   }
+  ],
+  "beats": [
+   {
+    "n": 10,
+    "funcion": "pico",
+    "t0": 0.14,
+    "t1": 109.16,
+    "cierre": "Cuando amaneció, la presa seguía ahí. Longarone, no.",
+    "dato_central": "T57",
+    "datos_apoyo": [
+     "Q15",
+     "Q16",
+     "Q17",
+     "T58",
+     "D124",
+     "D132"
+    ]
+   },
+   {
+    "n": 11,
+    "funcion": "respiro",
+    "t0": 110.16,
+    "t1": 163.58,
+    "cierre": "Tres días después llegó el presidente del Consejo. La gente ya sabía qué pedirle.",
+    "dato_central": "Q25",
+    "datos_apoyo": [
+     "Q06",
+     "D18",
+     "D229",
+     "D50"
+    ]
+   }
+  ],
+  "items": [
+   {
+    "id": "D128",
+    "a_pantalla": true,
+    "por_que": "Recuento oficial de mil novecientas diez muertes: va escrito, con sus versiones alternativas, no en la voz.",
+    "beats": [
+     11
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "En el desastre murieron 1.910 personas.",
+    "fuente": "Il disastro del Vajont non fu una calamità naturale, 2023",
+    "autor": ""
+   },
+   {
+    "id": "D192",
+    "a_pantalla": true,
+    "por_que": "Veinte técnicos muertos en el centro de control del estribo izquierdo: subconjunto del total, se muestra junto al recuento.",
+    "beats": [
+     11
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "En el centro de control en el estribo izquierdo de la presa había 20 técnicos que perecieron.",
+    "fuente": "A Tragedy in the Italian Alps (50th Anniversary) Vajont Dam, 2013",
+    "autor": ""
+   },
+   {
+    "id": "T57",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     10
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Una sección masiva del Monte Toc se desprendió y se estrelló contra el embalse de Vajont.",
+    "fuente": "Vajont: A DISASTER FORETOLD: The Landslide, the Wave, and the Human Decisions Behind Italy's 1963 Tragedy, 2026",
+    "autor": ""
+   },
+   {
+    "id": "Q15",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     10
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "Yo, aquella noche, a eso de las diez y media, escucho el ruido de la avalancha, abro la ventana y este ruido aumentaba en forma extraordinaria, al mismo tiempo vi un resplandor.",
+    "fuente": "La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005",
+    "autor": "Don Carlo Onorini"
+   },
+   {
+    "id": "Q16",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     10
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "Oí un ruido indefinible muy fuerte, como de un trueno de verano multiplicado cien veces, muy lóbrego, que duró tres o cuatro minutos [...] Un estruendo acompañado por un resplandor, e inmediatamente después un ruido similar al que se oye cuando pasa una formación de reactores",
+    "fuente": "La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005",
+    "autor": "Benito Castellano"
+   },
+   {
+    "id": "Q17",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     10
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "Mientras estábamos en el bar Faè nos dimos cuenta que de repente se interrumpió la iluminación del televisor y casi al mismo tiempo (treinta-cincuenta segundos) se empezaron a sentir fuertes sacudidas telúricas y luego se apagaba también la iluminación",
+    "fuente": "La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005",
+    "autor": "Germano Accamillesi"
+   },
+   {
+    "id": "T58",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     10
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Una ola enorme pasó por encima de la presa y devastó Longarone y las comunidades cercanas en minutos.",
+    "fuente": "Vajont: A DISASTER FORETOLD: The Landslide, the Wave, and the Human Decisions Behind Italy's 1963 Tragedy, 2026",
+    "autor": ""
+   },
+   {
+    "id": "D124",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     10
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "La segunda ola, tras superar la presa, golpeó la ciudad de Longarone después de 4 minutos.",
+    "fuente": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018",
+    "autor": ""
+   },
+   {
+    "id": "D132",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     10
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "Micaela Coletti, sobreviviente, fue arrastrada por al menos 400 metros lejos de su casa.",
+    "fuente": "Il disastro del Vajont non fu una calamità naturale, 2023",
+    "autor": ""
+   },
+   {
+    "id": "Q25",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     11
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "Conocía Longarone en cada rincón, ahora no sé dónde estoy",
+    "fuente": "DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013",
+    "autor": "Un superviviente"
+   },
+   {
+    "id": "Q06",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     11
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "El primer rescatista que vi llegó en un helicóptero del Ejército de Estados Unidos. Esos tres helicópteros evacuaron a las 486 personas de mi pueblo. Aunque fue un día trágico, lo recuerdo con alegría porque esos helicópteros estadounidenses nos salvaron.",
+    "fuente": "Remembering Vajont Dam Disaster 60th Anniversary Observance, 2023",
+    "autor": "Giovanni De Lorenzi"
+   },
+   {
+    "id": "D18",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     11
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "SETAF-AF, entonces Southern European Task Force, despachó 6 helicópteros de la 110.ª Compañía de Aviación del Ejército de EE.UU.",
+    "fuente": "Remembering Vajont Dam Disaster 60th Anniversary Observance, 2023",
+    "autor": ""
+   },
+   {
+    "id": "D229",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     11
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "No se creó ningún organismo central para proporcionar información oficial sobre el progreso de las operaciones de rescate.",
+    "fuente": "Una lezione dai disastri: il Vajont e l'alluvione di Firenze, 2014",
+    "autor": ""
+   },
+   {
+    "id": "D50",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     11
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "Guglielmo Celso era el alcalde socialista de Longarone y murió en el desastre.",
+    "fuente": "La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005",
+    "autor": ""
+   }
+  ],
+  "ya_mostrado": [
+   {
+    "id": "D117",
+    "texto": "El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes."
+   },
+   {
+    "id": "Q50",
+    "texto": "Las poblaciones de Erto y Casso están viviendo en continua aprensión y en continua alarma; considerando también el hecho de que otros minimizan estas cosas, pero que también para la gente de Erto implican la seguridad de la vida y de los bienes, esta administración vuelve a manifestar sus preocupaciones por la seguridad de la población y del país."
+   }
+  ],
+  "pico": {
+   "beat": 10,
+   "funcion": "pico",
+   "sentence_idx": 3,
+   "frase": "La ladera entera, la que caminaba, la de la fisura, se desploma de una vez dentro del embalse.",
+   "t": 19.94,
+   "dato": "T57",
+   "fuente": "escaleta.pico"
+  }
+ },
+ "intentos": [
+  {
+   "pedido": "CAPÍTULO 6 — pico · respiro\n\nNARRACIÓN (oración por oración, con segundos):\n[0] 0.1–13.7 · Carlo Onorini, el párroco de Casso, lo contó así: «escucho el ruido de la avalancha, abro la ventana y este ruido aumentaba en forma extraordinaria, al mismo tiempo vi un resplandor».\n[1] 15.6–17.2 · Son las diez y treinta y nueve.\n[2] 17.8–19.3 · El Toc entra al lago.\n[3] 19.9–25.5 · La ladera entera, la que caminaba, la de la fisura, se desploma de una vez dentro del embalse.\n[4] 26.2–28.7 · El agua no tiene a dónde ir, salvo hacia arriba.\n[5] 29.4–36.3 · Se levanta, pasa por encima de la presa, por encima de la pared que no se rompe, y cae en la garganta hacia el Piave.\n[6] 37.3–45.1 · Benito Castellano oye un ruido «como de un trueno de verano multiplicado cien veces, muy lóbrego, que duró tres o cuatro minutos».\n[7] 46.1–52.9 · Después, un estruendo con un resplandor, y enseguida un ruido como el que hace una formación de reactores al pasar.\n[8] 53.9–66.6 · En el bar Faè, Germano Accamillesi mira televisión cuando «se interrumpió la iluminación del televisor y casi al mismo tiempo (treinta-cincuenta segundos) se empezaron a sentir fuertes sacudidas telúricas».\n[9] 67.7–70.7 · Después de las sacudidas se apaga también la luz del bar.\n[10] 71.5–75.0 · Nadie en ese bar sabe todavía qué viene bajando por la garganta.\n[11] 75.8–77.4 · La ola baja hacia el Piave.\n[12] 78.3–80.5 · Longarone sigue con las luces encendidas.\n[13] 81.2–89.5 · Cuatro minutos después del desprendimiento, el agua llega al pueblo, a las calles, a las casas, a la cama donde duerme Micaela Coletti.\n[14] 90.5–91.2 · Nadie avisó.\n[15] 91.9–96.5 · Micaela siente que la cama toma velocidad y que una fuerza la agarra por la espalda.\n[16] 97.2–100.7 · La ola la arrastra al menos cuatrocientos metros desde su casa.\n[17] 101.6–102.5 · Ahí la encuentran.\n[18] 103.2–104.0 · Y está viva.\n[19] 105.0–107.4 · Cuando amaneció, la presa seguía ahí.\n[20] 108.2–109.2 · Longarone ya no.\n[21] 110.2–112.4 · Donde había calles hay fango y piedras.\n[22] 113.0–116.2 · Un hombre está parado en el medio y no sabe hacia dónde mirar.\n[23] 117.1–122.7 · «Conocía Longarone en cada rincón, ahora no sé dónde estoy», dijo uno de los sobrevivientes.\n[24] 123.8–128.3 · Entre los muertos está Guglielmo Celso, el alcalde socialista de Longarone.\n[25] 129.0–133.8 · Nadie creó un organismo central que informara oficialmente cómo avanzaba el rescate.\n[26] 134.5–136.9 · Desde el aire llegó el ruido de los rotores.\n[27] 137.5–140.4 · La fuerza estadounidense despachó seis helicópteros.\n[28] 141.2–148.4 · Un hombre de una aldea de la zona lo recuerda: «El primer rescatista que vi llegó en un helicóptero del ejército de Estados Unidos».\n[29] 149.6–157.7 · Tres de esos helicópteros, cuenta, evacuaron a toda la gente de su pueblo, y por eso un día trágico le quedó también con algo de alegría.\n[30] 158.4–161.2 · Tres días después llegó el presidente del Consejo.\n[31] 161.8–163.6 · La gente ya sabía qué pedirle.\n\nBEATS DEL CAPÍTULO (función, ventana en segundos, cierre):\n- beat 10 · pico · 0.1–109.2 s · cierre: «Cuando amaneció, la presa seguía ahí. Longarone, no.»\n- beat 11 · respiro · 110.2–163.6 s · cierre: «Tres días después llegó el presidente del Consejo. La gente ya sabía qué pedirle.»\n\nPICO DEL CAPÍTULO: oración [3] «La ladera entera, la que caminaba, la de la fisura, se desploma de una vez dentro del embalse.»\n\nDATOS DISPONIBLES (solo estos; cada uno con su texto fuente):\n- D128 · tipo D · a_pantalla: sí · por_que: Recuento oficial de mil novecientas diez muertes: va escrito, con sus versiones alternativas, no en la voz. · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 · texto fuente: «En el desastre murieron 1.910 personas.»\n- D192 · tipo D · a_pantalla: sí · por_que: Veinte técnicos muertos en el centro de control del estribo izquierdo: subconjunto del total, se muestra junto al recuento. · fuente: A Tragedy in the Italian Alps (50th Anniversary) Vajont Dam, 2013 · texto fuente: «En el centro de control en el estribo izquierdo de la presa había 20 técnicos que perecieron.»\n- T57 · tipo T · a_pantalla: no · por_que: — · fuente: Vajont: A DISASTER FORETOLD: The Landslide, the Wave, and the Human Decisions Behind Italy's 1963 Tragedy, 2026 · texto fuente: «Una sección masiva del Monte Toc se desprendió y se estrelló contra el embalse de Vajont.»\n- Q15 · tipo Q · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 (autor: Don Carlo Onorini) · texto fuente: «Yo, aquella noche, a eso de las diez y media, escucho el ruido de la avalancha, abro la ventana y este ruido aumentaba en forma extraordinaria, al mismo tiempo vi un resplandor.»\n- Q16 · tipo Q · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 (autor: Benito Castellano) · texto fuente: «Oí un ruido indefinible muy fuerte, como de un trueno de verano multiplicado cien veces, muy lóbrego, que duró tres o cuatro minutos [...] Un estruendo acompañado por un resplandor, e inmediatamente después un ruido similar al que se oye cuando pasa una formación de reactores»\n- Q17 · tipo Q · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 (autor: Germano Accamillesi) · texto fuente: «Mientras estábamos en el bar Faè nos dimos cuenta que de repente se interrumpió la iluminación del televisor y casi al mismo tiempo (treinta-cincuenta segundos) se empezaron a sentir fuertes sacudidas telúricas y luego se apagaba también la iluminación»\n- T58 · tipo T · a_pantalla: no · por_que: — · fuente: Vajont: A DISASTER FORETOLD: The Landslide, the Wave, and the Human Decisions Behind Italy's 1963 Tragedy, 2026 · texto fuente: «Una ola enorme pasó por encima de la presa y devastó Longarone y las comunidades cercanas en minutos.»\n- D124 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «La segunda ola, tras superar la presa, golpeó la ciudad de Longarone después de 4 minutos.»\n- D132 · tipo D · a_pantalla: no · por_que: — · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 · texto fuente: «Micaela Coletti, sobreviviente, fue arrastrada por al menos 400 metros lejos de su casa.»\n- Q25 · tipo Q · a_pantalla: no · por_que: — · fuente: DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013 (autor: Un superviviente) · texto fuente: «Conocía Longarone en cada rincón, ahora no sé dónde estoy»\n- Q06 · tipo Q · a_pantalla: no · por_que: — · fuente: Remembering Vajont Dam Disaster 60th Anniversary Observance, 2023 (autor: Giovanni De Lorenzi) · texto fuente: «El primer rescatista que vi llegó en un helicóptero del Ejército de Estados Unidos. Esos tres helicópteros evacuaron a las 486 personas de mi pueblo. Aunque fue un día trágico, lo recuerdo con alegría porque esos helicópteros estadounidenses nos salvaron.»\n- D18 · tipo D · a_pantalla: no · por_que: — · fuente: Remembering Vajont Dam Disaster 60th Anniversary Observance, 2023 · texto fuente: «SETAF-AF, entonces Southern European Task Force, despachó 6 helicópteros de la 110.ª Compañía de Aviación del Ejército de EE.UU.»\n- D229 · tipo D · a_pantalla: no · por_que: — · fuente: Una lezione dai disastri: il Vajont e l'alluvione di Firenze, 2014 · texto fuente: «No se creó ningún organismo central para proporcionar información oficial sobre el progreso de las operaciones de rescate.»\n- D50 · tipo D · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 · texto fuente: «Guglielmo Celso era el alcalde socialista de Longarone y murió en el desastre.»\n\nYA MOSTRADO EN CAPÍTULOS ANTERIORES (no repetir):\n- D117 «El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes.»\n- Q50 «Las poblaciones de Erto y Casso están viviendo en continua aprensión y en continua alarma; considerando también el hecho de que otros minimizan estas cosas, pero que también para la gente de Erto implican la seguridad de la vida y de los bienes, esta administración vuelve a manifestar sus preocupaciones por la seguridad de la población y del país.»\n\nDevolvé:\n{\"bloques\": [{\"sentence_idx\": int, \"tipo\": \"cifra|recorte|cita|persona|lupa\", \"texto\": str, \"etiqueta_o_kicker\": str|null, \"pool_id\": str, \"aporta\": str}], \"descartados\": [{\"pool_id\": str, \"motivo\": str}]}",
+   "respuesta": {
+    "bloques": [
+     {
+      "sentence_idx": 19,
+      "tipo": "cifra",
+      "texto": "Técnicos muertos en el estribo: 20",
+      "etiqueta_o_kicker": "Técnicos muertos en el estribo",
+      "pool_id": "D192",
+      "aporta": "la cifra: 20 técnicos murieron en el centro de control del estribo izquierdo de la presa"
+     },
+     {
+      "sentence_idx": 24,
+      "tipo": "cifra",
+      "texto": "Muertos en el desastre: 1.910",
+      "etiqueta_o_kicker": "Muertos en el desastre",
+      "pool_id": "D128",
+      "aporta": "la cifra: recuento oficial de 1.910 muertos"
+     },
+     {
+      "sentence_idx": 29,
+      "tipo": "cifra",
+      "texto": "Evacuados de su aldea: 486",
+      "etiqueta_o_kicker": "Evacuados de su aldea",
+      "pool_id": "Q06",
+      "aporta": "la cifra: 486 personas evacuadas de la aldea por los helicópteros"
+     }
+    ],
+    "descartados": [
+     {
+      "pool_id": "T57",
+      "motivo": "Repite lo que dice la narración sobre el desplome del Toc (oraciones 2-3)."
+     },
+     {
+      "pool_id": "Q15",
+      "motivo": "La narración ya lee la cita completa; el bloque sería redundante."
+     },
+     {
+      "pool_id": "Q16",
+      "motivo": "La narración ya lee la cita; no aporta nada nuevo."
+     },
+     {
+      "pool_id": "Q17",
+      "motivo": "La narración ya lee la cita; no aporta nada nuevo."
+     },
+     {
+      "pool_id": "T58",
+      "motivo": "Repite la ola sobre la presa y Longarone, que ya dice la voz."
+     },
+     {
+      "pool_id": "D124",
+      "motivo": "Los 4 minutos ya están en la narración (oración 13)."
+     },
+     {
+      "pool_id": "D132",
+      "motivo": "Los 400 metros ya están en la narración (oración 16)."
+     },
+     {
+      "pool_id": "Q25",
+      "motivo": "La narración ya lee la cita literal (oración 23)."
+     },
+     {
+      "pool_id": "D18",
+      "motivo": "Los seis helicópteros ya los dice la voz (oración 27)."
+     },
+     {
+      "pool_id": "D229",
+      "motivo": "La narración ya dice lo mismo (oración 25)."
+     },
+     {
+      "pool_id": "D50",
+      "motivo": "La narración ya nombra a Celso con su cargo; no aporta nada nuevo y ocupa la oración del recuento."
+     }
+    ]
+   },
+   "crudas": [
+    {
+     "respuesta": {
+      "content": [
+       {
+        "type": "thinking",
+        "thinking": "",
+        "signature": ""
+       },
+       {
+        "type": "text",
+        "text": "{\"bloques\":[{\"sentence_idx\":19,\"tipo\":\"cifra\",\"texto\":\"Técnicos muertos en el estribo: 20\",\"etiqueta_o_kicker\":\"Técnicos muertos en el estribo\",\"pool_id\":\"D192\",\"aporta\":\"la cifra: 20 técnicos murieron en el centro de control del estribo izquierdo de la presa\"},{\"sentence_idx\":24,\"tipo\":\"cifra\",\"texto\":\"Muertos en el desastre: 1.910\",\"etiqueta_o_kicker\":\"Muertos en el desastre\",\"pool_id\":\"D128\",\"aporta\":\"la cifra: recuento oficial de 1.910 muertos\"},{\"sentence_idx\":29,\"tipo\":\"cifra\",\"texto\":\"Evacuados de su aldea: 486\",\"etiqueta_o_kicker\":\"Evacuados de su aldea\",\"pool_id\":\"Q06\",\"aporta\":\"la cifra: 486 personas evacuadas de la aldea por los helicópteros\"}],\"descartados\":[{\"pool_id\":\"T57\",\"motivo\":\"Repite lo que dice la narración sobre el desplome del Toc (oraciones 2-3).\"},{\"pool_id\":\"Q15\",\"motivo\":\"La narración ya lee la cita completa; el bloque sería redundante.\"},{\"pool_id\":\"Q16\",\"motivo\":\"La narración ya lee la cita; no aporta nada nuevo.\"},{\"pool_id\":\"Q17\",\"motivo\":\"La narración ya lee la cita; no aporta nada nuevo.\"},{\"pool_id\":\"T58\",\"motivo\":\"Repite la ola sobre la presa y Longarone, que ya dice la voz.\"},{\"pool_id\":\"D124\",\"motivo\":\"Los 4 minutos ya están en la narración (oración 13).\"},{\"pool_id\":\"D132\",\"motivo\":\"Los 400 metros ya están en la narración (oración 16).\"},{\"pool_id\":\"Q25\",\"motivo\":\"La narración ya lee la cita literal (oración 23).\"},{\"pool_id\":\"D18\",\"motivo\":\"Los seis helicópteros ya los dice la voz (oración 27).\"},{\"pool_id\":\"D229\",\"motivo\":\"La narración ya dice lo mismo (oración 25).\"},{\"pool_id\":\"D50\",\"motivo\":\"La narración ya nombra a Celso con su cargo; no aporta nada nuevo y ocupa la oración del recuento.\"}]}"
+       }
+      ],
+      "usage": {
+       "input_tokens": 5275,
+       "cache_creation_input_tokens": 0,
+       "cache_read_input_tokens": 0,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+       },
+       "output_tokens": 1859,
+       "service_tier": "standard",
+       "inference_geo": "global",
+       "speed": "standard",
+       "output_tokens_details": {
+        "thinking_tokens": 1052
+       }
+      },
+      "model": "claude-sonnet-5-5",
+      "id": "msg_011CgQ4c1WmFxVLoYXfHVFXo",
+      "type": "message",
+      "role": "assistant",
+      "container": null,
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "stop_details": null,
+      "diagnostics": null
+     },
+     "segundos": 14.6,
+     "usd": 0.02914
+    }
+   ],
+   "error": null,
+   "validacion": {
+    "bloques": [
+     {
+      "sentence_idx": 29,
+      "tipo": "cifra",
+      "texto": "Evacuados de su aldea: 486",
+      "etiqueta_o_kicker": "Evacuados de su aldea",
+      "pool_id": "Q06",
+      "aporta": "la cifra: 486 personas evacuadas de la aldea por los helicópteros",
+      "t0": 157.96,
+      "dur": 2.67,
+      "beat": 11,
+      "funcion": "respiro",
+      "pantalla": "Evacuados de su aldea: 486",
+      "a_pantalla": false
+     }
+    ],
+    "rechazos": [
+     {
+      "pool_id": "D192",
+      "texto": "Técnicos muertos en el estribo: 20",
+      "sentence_idx": 19,
+      "regla": "A.4.1",
+      "motivo": "t0 107.7s fuera de la ventana del beat de D192 (110.2–163.6)"
+     },
+     {
+      "pool_id": "D128",
+      "texto": "Muertos en el desastre: 1.910",
+      "sentence_idx": 24,
+      "regla": "A.4.3",
+      "motivo": "no están en el texto fuente de D128: ['1.910']"
+     }
+    ],
+    "faltan": [
+     "D128",
+     "D192"
+    ]
+   },
+   "segundos": 14.6
+  },
+  {
+   "pedido": "CAPÍTULO 6 — pico · respiro\n\nNARRACIÓN (oración por oración, con segundos):\n[0] 0.1–13.7 · Carlo Onorini, el párroco de Casso, lo contó así: «escucho el ruido de la avalancha, abro la ventana y este ruido aumentaba en forma extraordinaria, al mismo tiempo vi un resplandor».\n[1] 15.6–17.2 · Son las diez y treinta y nueve.\n[2] 17.8–19.3 · El Toc entra al lago.\n[3] 19.9–25.5 · La ladera entera, la que caminaba, la de la fisura, se desploma de una vez dentro del embalse.\n[4] 26.2–28.7 · El agua no tiene a dónde ir, salvo hacia arriba.\n[5] 29.4–36.3 · Se levanta, pasa por encima de la presa, por encima de la pared que no se rompe, y cae en la garganta hacia el Piave.\n[6] 37.3–45.1 · Benito Castellano oye un ruido «como de un trueno de verano multiplicado cien veces, muy lóbrego, que duró tres o cuatro minutos».\n[7] 46.1–52.9 · Después, un estruendo con un resplandor, y enseguida un ruido como el que hace una formación de reactores al pasar.\n[8] 53.9–66.6 · En el bar Faè, Germano Accamillesi mira televisión cuando «se interrumpió la iluminación del televisor y casi al mismo tiempo (treinta-cincuenta segundos) se empezaron a sentir fuertes sacudidas telúricas».\n[9] 67.7–70.7 · Después de las sacudidas se apaga también la luz del bar.\n[10] 71.5–75.0 · Nadie en ese bar sabe todavía qué viene bajando por la garganta.\n[11] 75.8–77.4 · La ola baja hacia el Piave.\n[12] 78.3–80.5 · Longarone sigue con las luces encendidas.\n[13] 81.2–89.5 · Cuatro minutos después del desprendimiento, el agua llega al pueblo, a las calles, a las casas, a la cama donde duerme Micaela Coletti.\n[14] 90.5–91.2 · Nadie avisó.\n[15] 91.9–96.5 · Micaela siente que la cama toma velocidad y que una fuerza la agarra por la espalda.\n[16] 97.2–100.7 · La ola la arrastra al menos cuatrocientos metros desde su casa.\n[17] 101.6–102.5 · Ahí la encuentran.\n[18] 103.2–104.0 · Y está viva.\n[19] 105.0–107.4 · Cuando amaneció, la presa seguía ahí.\n[20] 108.2–109.2 · Longarone ya no.\n[21] 110.2–112.4 · Donde había calles hay fango y piedras.\n[22] 113.0–116.2 · Un hombre está parado en el medio y no sabe hacia dónde mirar.\n[23] 117.1–122.7 · «Conocía Longarone en cada rincón, ahora no sé dónde estoy», dijo uno de los sobrevivientes.\n[24] 123.8–128.3 · Entre los muertos está Guglielmo Celso, el alcalde socialista de Longarone.\n[25] 129.0–133.8 · Nadie creó un organismo central que informara oficialmente cómo avanzaba el rescate.\n[26] 134.5–136.9 · Desde el aire llegó el ruido de los rotores.\n[27] 137.5–140.4 · La fuerza estadounidense despachó seis helicópteros.\n[28] 141.2–148.4 · Un hombre de una aldea de la zona lo recuerda: «El primer rescatista que vi llegó en un helicóptero del ejército de Estados Unidos».\n[29] 149.6–157.7 · Tres de esos helicópteros, cuenta, evacuaron a toda la gente de su pueblo, y por eso un día trágico le quedó también con algo de alegría.\n[30] 158.4–161.2 · Tres días después llegó el presidente del Consejo.\n[31] 161.8–163.6 · La gente ya sabía qué pedirle.\n\nBEATS DEL CAPÍTULO (función, ventana en segundos, cierre):\n- beat 10 · pico · 0.1–109.2 s · cierre: «Cuando amaneció, la presa seguía ahí. Longarone, no.»\n- beat 11 · respiro · 110.2–163.6 s · cierre: «Tres días después llegó el presidente del Consejo. La gente ya sabía qué pedirle.»\n\nPICO DEL CAPÍTULO: oración [3] «La ladera entera, la que caminaba, la de la fisura, se desploma de una vez dentro del embalse.»\n\nDATOS DISPONIBLES (solo estos; cada uno con su texto fuente):\n- D128 · tipo D · a_pantalla: sí · por_que: Recuento oficial de mil novecientas diez muertes: va escrito, con sus versiones alternativas, no en la voz. · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 · texto fuente: «En el desastre murieron 1.910 personas.»\n- D192 · tipo D · a_pantalla: sí · por_que: Veinte técnicos muertos en el centro de control del estribo izquierdo: subconjunto del total, se muestra junto al recuento. · fuente: A Tragedy in the Italian Alps (50th Anniversary) Vajont Dam, 2013 · texto fuente: «En el centro de control en el estribo izquierdo de la presa había 20 técnicos que perecieron.»\n- T57 · tipo T · a_pantalla: no · por_que: — · fuente: Vajont: A DISASTER FORETOLD: The Landslide, the Wave, and the Human Decisions Behind Italy's 1963 Tragedy, 2026 · texto fuente: «Una sección masiva del Monte Toc se desprendió y se estrelló contra el embalse de Vajont.»\n- Q15 · tipo Q · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 (autor: Don Carlo Onorini) · texto fuente: «Yo, aquella noche, a eso de las diez y media, escucho el ruido de la avalancha, abro la ventana y este ruido aumentaba en forma extraordinaria, al mismo tiempo vi un resplandor.»\n- Q16 · tipo Q · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 (autor: Benito Castellano) · texto fuente: «Oí un ruido indefinible muy fuerte, como de un trueno de verano multiplicado cien veces, muy lóbrego, que duró tres o cuatro minutos [...] Un estruendo acompañado por un resplandor, e inmediatamente después un ruido similar al que se oye cuando pasa una formación de reactores»\n- Q17 · tipo Q · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 (autor: Germano Accamillesi) · texto fuente: «Mientras estábamos en el bar Faè nos dimos cuenta que de repente se interrumpió la iluminación del televisor y casi al mismo tiempo (treinta-cincuenta segundos) se empezaron a sentir fuertes sacudidas telúricas y luego se apagaba también la iluminación»\n- T58 · tipo T · a_pantalla: no · por_que: — · fuente: Vajont: A DISASTER FORETOLD: The Landslide, the Wave, and the Human Decisions Behind Italy's 1963 Tragedy, 2026 · texto fuente: «Una ola enorme pasó por encima de la presa y devastó Longarone y las comunidades cercanas en minutos.»\n- D124 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «La segunda ola, tras superar la presa, golpeó la ciudad de Longarone después de 4 minutos.»\n- D132 · tipo D · a_pantalla: no · por_que: — · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 · texto fuente: «Micaela Coletti, sobreviviente, fue arrastrada por al menos 400 metros lejos de su casa.»\n- Q25 · tipo Q · a_pantalla: no · por_que: — · fuente: DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013 (autor: Un superviviente) · texto fuente: «Conocía Longarone en cada rincón, ahora no sé dónde estoy»\n- Q06 · tipo Q · a_pantalla: no · por_que: — · fuente: Remembering Vajont Dam Disaster 60th Anniversary Observance, 2023 (autor: Giovanni De Lorenzi) · texto fuente: «El primer rescatista que vi llegó en un helicóptero del Ejército de Estados Unidos. Esos tres helicópteros evacuaron a las 486 personas de mi pueblo. Aunque fue un día trágico, lo recuerdo con alegría porque esos helicópteros estadounidenses nos salvaron.»\n- D18 · tipo D · a_pantalla: no · por_que: — · fuente: Remembering Vajont Dam Disaster 60th Anniversary Observance, 2023 · texto fuente: «SETAF-AF, entonces Southern European Task Force, despachó 6 helicópteros de la 110.ª Compañía de Aviación del Ejército de EE.UU.»\n- D229 · tipo D · a_pantalla: no · por_que: — · fuente: Una lezione dai disastri: il Vajont e l'alluvione di Firenze, 2014 · texto fuente: «No se creó ningún organismo central para proporcionar información oficial sobre el progreso de las operaciones de rescate.»\n- D50 · tipo D · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 · texto fuente: «Guglielmo Celso era el alcalde socialista de Longarone y murió en el desastre.»\n\nYA MOSTRADO EN CAPÍTULOS ANTERIORES (no repetir):\n- D117 «El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes.»\n- Q50 «Las poblaciones de Erto y Casso están viviendo en continua aprensión y en continua alarma; considerando también el hecho de que otros minimizan estas cosas, pero que también para la gente de Erto implican la seguridad de la vida y de los bienes, esta administración vuelve a manifestar sus preocupaciones por la seguridad de la población y del país.»\n\nDevolvé:\n{\"bloques\": [{\"sentence_idx\": int, \"tipo\": \"cifra|recorte|cita|persona|lupa\", \"texto\": str, \"etiqueta_o_kicker\": str|null, \"pool_id\": str, \"aporta\": str}], \"descartados\": [{\"pool_id\": str, \"motivo\": str}]}\n\nTU RESPUESTA ANTERIOR TUVO ESTOS PROBLEMAS (corregilos y devolvé el JSON completo otra vez):\n- D192 en la oración [19] «Técnicos muertos en el estribo: 20»: t0 107.7s fuera de la ventana del beat de D192 (110.2–163.6)\n- D128 en la oración [24] «Muertos en el desastre: 1.910»: no están en el texto fuente de D128: ['1.910']\n- falta el dato a_pantalla D128 (por_que: Recuento oficial de mil novecientas diez muertes: va escrito, con sus versiones alternativas, no en la voz.)\n- falta el dato a_pantalla D192 (por_que: Veinte técnicos muertos en el centro de control del estribo izquierdo: subconjunto del total, se muestra junto al recuento.)",
+   "respuesta": {
+    "bloques": [
+     {
+      "sentence_idx": 21,
+      "tipo": "cifra",
+      "texto": "Murieron 1.910 personas en el desastre",
+      "etiqueta_o_kicker": "Muertos en el desastre",
+      "pool_id": "D128",
+      "aporta": "la cifra: 1.910 muertos, recuento oficial"
+     },
+     {
+      "sentence_idx": 24,
+      "tipo": "cifra",
+      "texto": "Técnicos muertos en el estribo: 20",
+      "etiqueta_o_kicker": "Técnicos muertos, estribo izquierdo",
+      "pool_id": "D192",
+      "aporta": "la cifra: 20 técnicos muertos en el centro de control del estribo izquierdo, parte del total"
+     }
+    ],
+    "descartados": [
+     {
+      "pool_id": "T57",
+      "motivo": "repite lo que dice la narración sobre el derrumbe del Toc"
+     },
+     {
+      "pool_id": "Q15",
+      "motivo": "la narración ya lee esa cita"
+     },
+     {
+      "pool_id": "Q16",
+      "motivo": "la narración ya lee esa cita"
+     },
+     {
+      "pool_id": "Q17",
+      "motivo": "la narración ya lee esa cita"
+     },
+     {
+      "pool_id": "T58",
+      "motivo": "repite la narración"
+     },
+     {
+      "pool_id": "D124",
+      "motivo": "la narración ya dice los cuatro minutos"
+     },
+     {
+      "pool_id": "D132",
+      "motivo": "la narración ya dice los cuatrocientos metros"
+     },
+     {
+      "pool_id": "Q25",
+      "motivo": "la narración ya lee esa cita"
+     },
+     {
+      "pool_id": "Q06",
+      "motivo": "la narración ya lee esa cita; la cifra de 486 evacuados no corresponde a la oración"
+     },
+     {
+      "pool_id": "D18",
+      "motivo": "la narración ya dice los seis helicópteros"
+     },
+     {
+      "pool_id": "D229",
+      "motivo": "la narración ya lo dice"
+     },
+     {
+      "pool_id": "D50",
+      "motivo": "la narración ya dice quién era; la oración [24] la ocupa D192, que es obligatorio"
+     }
+    ]
+   },
+   "crudas": [
+    {
+     "respuesta": {
+      "content": [
+       {
+        "type": "thinking",
+        "thinking": "",
+        "signature": ""
+       },
+       {
+        "type": "text",
+        "text": "{\"bloques\":[{\"sentence_idx\":21,\"tipo\":\"cifra\",\"texto\":\"Murieron 1.910 personas en el desastre\",\"etiqueta_o_kicker\":\"Muertos en el desastre\",\"pool_id\":\"D128\",\"aporta\":\"la cifra: 1.910 muertos, recuento oficial\"},{\"sentence_idx\":24,\"tipo\":\"cifra\",\"texto\":\"Técnicos muertos en el estribo: 20\",\"etiqueta_o_kicker\":\"Técnicos muertos, estribo izquierdo\",\"pool_id\":\"D192\",\"aporta\":\"la cifra: 20 técnicos muertos en el centro de control del estribo izquierdo, parte del total\"}],\"descartados\":[{\"pool_id\":\"T57\",\"motivo\":\"repite lo que dice la narración sobre el derrumbe del Toc\"},{\"pool_id\":\"Q15\",\"motivo\":\"la narración ya lee esa cita\"},{\"pool_id\":\"Q16\",\"motivo\":\"la narración ya lee esa cita\"},{\"pool_id\":\"Q17\",\"motivo\":\"la narración ya lee esa cita\"},{\"pool_id\":\"T58\",\"motivo\":\"repite la narración\"},{\"pool_id\":\"D124\",\"motivo\":\"la narración ya dice los cuatro minutos\"},{\"pool_id\":\"D132\",\"motivo\":\"la narración ya dice los cuatrocientos metros\"},{\"pool_id\":\"Q25\",\"motivo\":\"la narración ya lee esa cita\"},{\"pool_id\":\"Q06\",\"motivo\":\"la narración ya lee esa cita; la cifra de 486 evacuados no corresponde a la oración\"},{\"pool_id\":\"D18\",\"motivo\":\"la narración ya dice los seis helicópteros\"},{\"pool_id\":\"D229\",\"motivo\":\"la narración ya lo dice\"},{\"pool_id\":\"D50\",\"motivo\":\"la narración ya dice quién era; la oración [24] la ocupa D192, que es obligatorio\"}]}"
+       }
+      ],
+      "usage": {
+       "input_tokens": 5572,
+       "cache_creation_input_tokens": 0,
+       "cache_read_input_tokens": 0,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+       },
+       "output_tokens": 1780,
+       "service_tier": "standard",
+       "inference_geo": "global",
+       "speed": "standard",
+       "output_tokens_details": {
+        "thinking_tokens": 1123
+       }
+      },
+      "model": "claude-sonnet-5-5",
+      "id": "msg_011CgQ4d595YLpxdx3szFwSf",
+      "type": "message",
+      "role": "assistant",
+      "container": null,
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "stop_details": null,
+      "diagnostics": null
+     },
+     "segundos": 13.9,
+     "usd": 0.02894
+    }
+   ],
+   "error": null,
+   "validacion": {
+    "bloques": [],
+    "rechazos": [
+     {
+      "pool_id": "D128",
+      "texto": "Murieron 1.910 personas en el desastre",
+      "sentence_idx": 21,
+      "regla": "A.4.2",
+      "motivo": "10 palabras (tope 6)"
+     },
+     {
+      "pool_id": "D192",
+      "texto": "Técnicos muertos en el estribo: 20",
+      "sentence_idx": 24,
+      "regla": "A.4.2",
+      "motivo": "10 palabras (tope 6)"
+     }
+    ],
+    "faltan": [
+     "D128",
+     "D192"
+    ]
+   },
+   "segundos": 13.9
+  }
+ ],
+ "final": {
+  "bloques": [
+   {
+    "sentence_idx": 21,
+    "tipo": "cifra",
+    "texto": "Murieron 1.910 personas en el desastre",
+    "etiqueta_o_kicker": "Muertos en el desastre",
+    "pool_id": "D128",
+    "aporta": "la cifra: 1.910 muertos, recuento oficial"
+   },
+   {
+    "sentence_idx": 24,
+    "tipo": "cifra",
+    "texto": "Técnicos muertos en el estribo: 20",
+    "etiqueta_o_kicker": "Técnicos muertos, estribo izquierdo",
+    "pool_id": "D192",
+    "aporta": "la cifra: 20 técnicos muertos en el centro de control del estribo izquierdo, parte del total"
+   }
+  ],
+  "descartados": [
+   {
+    "pool_id": "T57",
+    "motivo": "repite lo que dice la narración sobre el derrumbe del Toc"
+   },
+   {
+    "pool_id": "Q15",
+    "motivo": "la narración ya lee esa cita"
+   },
+   {
+    "pool_id": "Q16",
+    "motivo": "la narración ya lee esa cita"
+   },
+   {
+    "pool_id": "Q17",
+    "motivo": "la narración ya lee esa cita"
+   },
+   {
+    "pool_id": "T58",
+    "motivo": "repite la narración"
+   },
+   {
+    "pool_id": "D124",
+    "motivo": "la narración ya dice los cuatro minutos"
+   },
+   {
+    "pool_id": "D132",
+    "motivo": "la narración ya dice los cuatrocientos metros"
+   },
+   {
+    "pool_id": "Q25",
+    "motivo": "la narración ya lee esa cita"
+   },
+   {
+    "pool_id": "Q06",
+    "motivo": "la narración ya lee esa cita; la cifra de 486 evacuados no corresponde a la oración"
+   },
+   {
+    "pool_id": "D18",
+    "motivo": "la narración ya dice los seis helicópteros"
+   },
+   {
+    "pool_id": "D229",
+    "motivo": "la narración ya lo dice"
+   },
+   {
+    "pool_id": "D50",
+    "motivo": "la narración ya dice quién era; la oración [24] la ocupa D192, que es obligatorio"
+   }
+  ]
+ },
+ "validacion": {
+  "bloques": [],
+  "rechazos": [
+   {
+    "pool_id": "D128",
+    "texto": "Murieron 1.910 personas en el desastre",
+    "sentence_idx": 21,
+    "regla": "A.4.2",
+    "motivo": "10 palabras (tope 6)"
+   },
+   {
+    "pool_id": "D192",
+    "texto": "Técnicos muertos en el estribo: 20",
+    "sentence_idx": 24,
+    "regla": "A.4.2",
+    "motivo": "10 palabras (tope 6)"
+   }
+  ],
+  "faltan": [
+   "D128",
+   "D192"
+  ]
+ }
+}

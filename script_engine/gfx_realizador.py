@@ -221,8 +221,11 @@ def finalizar(plan: dict[str, Any], real: dict[str, Any], log: list[str]) -> lis
         filas.append({"bloque": k, "texto": b.get("headline") or b.get("text") or b.get("word") or b.get("value_text"),
                       "t": b.get("start"), "pool_id": b.get("pool_id"), "accion": "fuera", "motivo": motivo})
 
+    # F29b: con el rotulista, los bloques de texto ya pasaron su anclaje, sus ventanas, su duración y sus topes (A.4):
+    # acá quedan los sellos, el contador y el punch_in
+    rot = bool(plan.get("rotulista"))
     # 1. solo candidatos, y dentro de la ventana de su beat
-    for k in ("archive_clippings", "callouts"):
+    for k in (() if rot else ("archive_clippings", "callouts")):
         keep = []
         for b in _lista(plan, k):
             c = cand.get(b.get("pool_id") or "")
@@ -237,7 +240,7 @@ def finalizar(plan: dict[str, Any], real: dict[str, Any], log: list[str]) -> lis
                 keep.append(b)
         plan[k] = keep
     q = plan.get("quote_card")
-    if q:
+    if q and not rot:
         c = cand.get(q.get("pool_id") or "")
         if c is None or (c["ya_dicho"] and not c["obligatorio"]) or not (c["t0"] - 0.3 <= float(q["start"]) <= c["t1"]):
             fuera("quote_card", q, "cita fuera de los candidatos o de la ventana de su beat")
@@ -265,15 +268,16 @@ def finalizar(plan: dict[str, Any], real: dict[str, Any], log: list[str]) -> lis
     # 3. duración por texto
     for k, campo in (("archive_clippings", "headline"), ("callouts", "text")):
         for b in plan.get(k) or []:
-            b["duration"] = duracion_texto(str(b.get(campo) or ""))
-    if plan.get("quote_card"):
+            if not b.get("rotulista"):
+                b["duration"] = duracion_texto(str(b.get(campo) or ""))
+    if plan.get("quote_card") and not plan["quote_card"].get("rotulista"):
         plan["quote_card"]["duration"] = duracion_texto(plan["quote_card"].get("text", ""))
     # 4. tope por función del beat y por cap (lo obligatorio y lo del pico primero; después por orden)
     vivos: list[tuple[str, int | None, dict]] = []
-    for k in ("archive_clippings", "callouts", "emphasis", "icon_array"):
+    for k in (() if rot else ("archive_clippings", "callouts", "emphasis", "icon_array")):
         for idx, b in enumerate(plan.get(k) or []):
             vivos.append((k, idx, b))
-    for k in ("quote_card", "evidence_zoom", "water_level"):
+    for k in (() if rot else ("quote_card", "evidence_zoom", "water_level")):
         if plan.get(k) and "start" in plan[k]:
             vivos.append((k, None, plan[k]))
 
@@ -379,3 +383,20 @@ def garantizar_pico(plan: dict[str, Any], real: dict[str, Any], pool: dict | Non
         return "callouts"
     log.append("  realizador: pico sin bloque grande y sin candidato en su beat")
     return None
+
+
+def cerrar(plan: dict[str, Any], real: dict[str, Any] | None, pool: dict | None, log: list[str], *,
+           criticar: Any, rotulista: bool, garantizar: bool, side: str = "right") -> None:
+    """El final del plan, en orden. F29 (sin rotulista, como v3): finalizar → crítico → garantizar_pico. F29b (con
+    rotulista, §A.6): finalizar → garantizar_pico (respaldo; apagado por defecto) → crítico, así todo bloque que entre
+    por respaldo también se juzga. `criticar()` corre el crítico sobre el plan (in place)."""
+    if real:
+        finalizar(plan, real, log)
+    if not rotulista:
+        criticar()
+        if real and garantizar:
+            garantizar_pico(plan, real, pool, log, side=side)
+        return
+    if real and garantizar:
+        garantizar_pico(plan, real, pool, log, side=side)
+    criticar()
