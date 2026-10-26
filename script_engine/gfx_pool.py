@@ -875,7 +875,7 @@ def pool_ticker(ctx: dict[str, Any], words: list[dict], clip_dur: float, time_of
     end = min(clip_dur, (changes[-1]["t"] + TICKER_HOLD) if changes else start + 12.0)
     month = MESES[ev.MESES[int(m) - 1]]
     tail = first.get("hora") or y
-    if end - start < 2.0:
+    if end - start < TICKER_MIN:
         return None
     return {"day": str(int(d)), "month": month, "tail": tail, "times": [first["hora"]] if first.get("hora") else [],
             "advance": False, "source_text": ev.text_of(first), "pool_id": first["id"],
@@ -883,6 +883,7 @@ def pool_ticker(ctx: dict[str, Any], words: list[dict], clip_dur: float, time_of
 
 
 TICKER_HOLD = 4.0                    # F5f: la fecha nueva queda en pantalla 4 s después del cambio
+TICKER_MIN = 2.0                     # el reloj no sale si queda menos de 2 s en pantalla (F29c: también al moverlo)
 
 
 # ═══════════════════════════════════════════════════════════════

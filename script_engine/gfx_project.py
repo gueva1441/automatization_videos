@@ -357,6 +357,26 @@ def quote_card_html(qc: dict[str, Any], width: int, height: int, duration: float
     return html_, init, js
 
 
+def ficha_html(fid: str, c: dict[str, Any], st: float, dur: float, width: int) -> tuple[str, list[str], list[str]]:
+    """F29c §A.5: la ficha del rotulista con el componente del title card: kicker = etiqueta, título = dato. Misma
+    posición, tamaño, raya, wipe de entrada y fundido de salida (gfx_rules.title_fade_out); sin #tc-dim (no oscurece
+    la imagen). Con el dato en dos líneas, la raya baja una línea (misma cuenta que la del CSS)."""
+    m = tc_metrics()
+    lines = max(1, ficha_medida(c.get("kicker", ""), c["text"], width)["title"])
+    line_style = "" if lines == 1 else f' style="top:{round(m["title_top"] + 190 * m["scale"] * 1.05 * lines + 20)}px"'
+    html_ = _tpl("title_card.html.tmpl").substitute(
+        dim_html="", tid=fid, start=f"{st:.3f}", duration=f"{dur:.3f}", line_style=line_style,
+        kicker=_esc(str(c.get("kicker", "")).upper()), title=_esc(c["text"]))
+    fo = gfx_rules.title_fade_out
+    init = [f'      gsap.set("#{fid}-title span", {{ yPercent: 110 }}); gsap.set("#{fid}-line", {{ scaleX: 0 }});'
+            f' gsap.set("#{fid}-kicker", {{ opacity: 0 }});']
+    js = [f'      tl.to("#{fid}-kicker", {{ opacity: 1, duration: .3 }}, {st + .05:.3f})'
+          f'.to("#{fid}-title span", {{ yPercent: 0, duration: .55, ease: "power4.out" }}, {st + .1:.3f})'
+          f'.to("#{fid}-line", {{ scaleX: 1, duration: .7, ease: "power3.inOut" }}, {st + .25:.3f})'
+          f'.to("#{fid}", {{ opacity: 0, duration: {fo}, ease: "power2.in" }}, {st + dur - fo:.3f});']
+    return html_, init, js
+
+
 def time_ticker_html(tk: dict[str, Any], duration: float) -> tuple[str, list[str], list[str]]:
     """Reloj de esquina (arriba a la izquierda, Anton S): "29 AGO · 23:40". Avanza entre las dos horas de los datos
     si las hay; si no, la fecha quieta."""
@@ -690,6 +710,9 @@ def cue_events(plan: dict[str, Any], scenes: list[GfxScene], fps: int) -> list[d
         if c.get("source"):
             add(c["start"], c.get("duration", gfx_rules.callout_dur), "source_tag", c["source"])
     for c in plan.get("callouts", []):
+        if c.get("ficha"):                                      # F29c §A.5
+            add(c["start"], c.get("duration", gfx_rules.callout_dur), "ficha", f"{c.get('kicker', '')} · {c['text']}")
+            continue
         add(c["start"], c.get("duration", gfx_rules.callout_dur), "data_callout", c["text"])
     cu = plan.get("count_up")
     if cu:
@@ -759,16 +782,54 @@ def _debug_overlay(events: list[dict[str, Any]], duration: float, fps: int) -> t
 #  Proyecto completo
 # ═══════════════════════════════════════════════════════════════
 
-def render_css(width: int, height: int) -> str:
-    """CSS común con los tokens de gfx_config (acento único, escalas de title y recorte, tipografía)."""
-    r, ts, ars = gfx_rules, gfx_rules.title_scale, gfx_rules.archive_scale
+TC_LEFT, TC_RIGHT, TC_KICKER_TRACK = 180, 180, 0.12   # los del CSS del title card (left/right, letter-spacing .12em)
+
+
+def tc_metrics() -> dict[str, Any]:
+    """Medidas del title card (las de siempre, F2 §0b.2), en un solo lugar: el CSS y la ficha (F29c §A.5) las leen."""
+    ts = gfx_rules.title_scale
     kick_top = 380
     title_top = round(kick_top + 64 * ts + 24)
+    return {"scale": ts, "kicker_px": round(64 * ts), "kicker_top": kick_top, "title_px": round(190 * ts),
+            "title_top": title_top, "line_top": round(title_top + 190 * ts * 1.05 + 20), "line_w": round(900 * ts),
+            "line_h": 6}
+
+
+def _wrap_lines(text: str, px: int, avail: float, track_em: float = 0.0) -> int:
+    """Líneas que ocupa `text` en Anton a `px`, cortando por palabra en `avail` px (medido con la fuente real)."""
+    from PIL import ImageFont
+    f = ImageFont.truetype(str(GFX_FONTS_DIR / "Anton-Regular.ttf"), px)
+
+    def w(s: str) -> float:
+        return f.getlength(s) + track_em * px * len(s)
+    lines, cur = 1, ""
+    for word in text.split():
+        nxt = f"{cur} {word}" if cur else word
+        if cur and w(nxt) > avail:
+            lines, cur = lines + 1, word
+        else:
+            cur = nxt
+    return lines if text.strip() else 0
+
+
+def ficha_medida(kicker: str, title: str, width: int = 2560) -> dict[str, int]:
+    """F29c §A.5: líneas del kicker y del dato en la ficha (= title card): el kicker en una línea, el dato en
+    mayúsculas al ancho del title card (left/right 180 px)."""
+    m = tc_metrics()
+    avail = width - TC_LEFT - TC_RIGHT
+    return {"kicker": _wrap_lines(kicker.upper(), m["kicker_px"], avail, TC_KICKER_TRACK),
+            "title": _wrap_lines(title.upper(), m["title_px"], avail)}
+
+
+def render_css(width: int, height: int) -> str:
+    """CSS común con los tokens de gfx_config (acento único, escalas de title y recorte, tipografía)."""
+    r, ars = gfx_rules, gfx_rules.archive_scale
+    tc = tc_metrics()
     return Template((GFX_TEMPLATES_DIR / "gfx_common.css").read_text(encoding="utf-8")).substitute(
         width=width, height=height, accent=r.accent_hex, archive_body_px=r.archive_body_px,
         archive_body_lines=r.archive_body_lines,
-        tc_scale=ts, tc_kicker_px=round(64 * ts), tc_kicker_top=kick_top, tc_title_px=round(190 * ts),
-        tc_title_top=title_top, tc_line_top=round(title_top + 190 * ts * 1.05 + 20), tc_line_w=round(900 * ts),
+        tc_scale=tc["scale"], tc_kicker_px=tc["kicker_px"], tc_kicker_top=tc["kicker_top"], tc_title_px=tc["title_px"],
+        tc_title_top=tc["title_top"], tc_line_top=tc["line_top"], tc_line_w=tc["line_w"],
         callout_font=r.callout_font, callout_font_weight=r.callout_font_weight, callout_font_px=r.callout_font_px,
         callout_anton_px=r.callout_anton_px, callout_shadow=r.callout_shadow,
         title_font=r.title_font, figure_font=r.figure_font, clipping_font=r.clipping_font,
@@ -902,6 +963,8 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
     if tc:
         dur, fo = gfx_rules.title_dur, gfx_rules.title_fade_out
         overlays.append(_tpl("title_card.html.tmpl").substitute(
+            dim_html=f'      <div id="tc-dim" class="clip" data-start="0" data-duration="{dur:.3f}"></div>\n',
+            tid="tc", start="0", line_style="",
             duration=f"{dur:.3f}", kicker=_esc(tc["kicker"]), title=_esc(tc["title"])))
         init.append(f'      gsap.set("#tc-dim", {{ opacity: {gfx_rules.title_dim} }}); gsap.set("#tc-title span", {{ yPercent: 110 }});'
                     ' gsap.set("#tc-line", { scaleX: 0 }); gsap.set("#tc-kicker", { opacity: 0 });')
@@ -914,6 +977,12 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
     for i, c in enumerate(plan.get("callouts", [])):
         dur = c.get("duration", gfx_rules.callout_dur)
         st = min(c["start"], max(0.0, duration - dur))
+        if c.get("ficha"):                     # F29c §A.5: la ficha = el title card (sin #tc-dim), con su id
+            f_html, f_init, f_js = ficha_html(f"fc{i}", c, st, dur, width)
+            overlays.append(f_html)
+            init += f_init
+            js += f_js
+            continue
         face = c.get("face") or ("anton" if c.get("kind") == "figure" else "serif")   # F29b: el rotulista fija cara
         anim = c.get("anim") or callout_anim(c.get("kind", ""))                        # y entrada (nunca sello)
         text_html = chars_html(c["text"]) if anim == "cascade" else _esc(c["text"])

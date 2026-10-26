@@ -386,10 +386,13 @@ def garantizar_pico(plan: dict[str, Any], real: dict[str, Any], pool: dict | Non
 
 
 def cerrar(plan: dict[str, Any], real: dict[str, Any] | None, pool: dict | None, log: list[str], *,
-           criticar: Any, rotulista: bool, garantizar: bool, side: str = "right") -> None:
+           criticar: Any, rotulista: bool, garantizar: bool, side: str = "right", escena: Any = None) -> None:
     """El final del plan, en orden. F29 (sin rotulista, como v3): finalizar → crítico → garantizar_pico. F29b (con
     rotulista, §A.6): finalizar → garantizar_pico (respaldo; apagado por defecto) → crítico, así todo bloque que entre
-    por respaldo también se juzga. `criticar()` corre el crítico sobre el plan (in place)."""
+    por respaldo también se juzga. `criticar()` corre el crítico sobre el plan (in place). F29c: con rotulista,
+    `escena()` (una cosa por escena: gfx_rotulista.escena_final) corre antes de todo."""
+    if rotulista and escena is not None:
+        escena()
     if real:
         finalizar(plan, real, log)
     if not rotulista:

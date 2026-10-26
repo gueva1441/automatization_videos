@@ -5,13 +5,13 @@
       .scene { position: absolute; inset: 0; background-color: #000; }
       @font-face { font-family: "Playfair Display SC"; font-weight: 700; src: url("public/fonts/PlayfairDisplaySC-Bold.ttf") format("truetype"); }
       @font-face { font-family: "Playfair Display SC"; font-weight: 900; src: url("public/fonts/PlayfairDisplaySC-Black.ttf") format("truetype"); }
-      /* title_card (F2 §0b.2: escala ${tc_scale}) */
+      /* title_card (F2 §0b.2: escala ${tc_scale}); F29c: la ficha usa las mismas clases, sin #tc-dim */
       #tc-dim { position: absolute; inset: 0; z-index: 20; background: #000; }
-      #tc { position: absolute; inset: 0; z-index: 21; }
-      #tc-kicker { position: absolute; left: 180px; top: ${tc_kicker_top}px; color: ${accent}; font: 400 ${tc_kicker_px}px/1 "${title_font}", sans-serif; letter-spacing: .12em; }
-      #tc-title { position: absolute; left: 180px; top: ${tc_title_top}px; right: 180px; overflow: hidden; }
-      #tc-title span { display: inline-block; color: #f4f1ea; font: 400 ${tc_title_px}px/1.05 "${title_font}", sans-serif; text-transform: uppercase; letter-spacing: .01em; }
-      #tc-line { position: absolute; left: 184px; top: ${tc_line_top}px; width: ${tc_line_w}px; height: 6px; background: ${accent}; transform-origin: left center; }
+      .tc-box { position: absolute; inset: 0; z-index: 21; }
+      .tc-kicker { position: absolute; left: 180px; top: ${tc_kicker_top}px; color: ${accent}; font: 400 ${tc_kicker_px}px/1 "${title_font}", sans-serif; letter-spacing: .12em; }
+      .tc-title { position: absolute; left: 180px; top: ${tc_title_top}px; right: 180px; overflow: hidden; }
+      .tc-title span { display: inline-block; color: #f4f1ea; font: 400 ${tc_title_px}px/1.05 "${title_font}", sans-serif; text-transform: uppercase; letter-spacing: .01em; }
+      .tc-line { position: absolute; left: 184px; top: ${tc_line_top}px; width: ${tc_line_w}px; height: 6px; background: ${accent}; transform-origin: left center; }
       /* data_callout (tercio superior, lado según el sujeto) */
       .callout { position: absolute; top: 120px; z-index: 22; max-width: 1500px; }
       .callout.left { left: 160px; text-align: left; }

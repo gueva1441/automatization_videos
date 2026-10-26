@@ -563,7 +563,8 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         rot = ent_rot = None
         if rot_on:
             from script_engine import gfx_rotulista as gro
-            ent_rot = gro.entrada(ctx["chapter_number"], real, ctx["escaleta"], ctx.get("pool"), words, time_offset)
+            ent_rot = gro.entrada(ctx["chapter_number"], real, ctx["escaleta"], ctx.get("pool"), words, time_offset,
+                                  voz_video=gro.voz_del_video(ctx))
             rot = gro.llamar(ent_rot, words, time_offset, work_dir, cap, modelo=gfx_rules.rotulista_modelo,
                              effort=gfx_rules.rotulista_effort, tope=gfx_rules.rotulista_tope_usd, log=log)
         scenes = build_scenes(plan, ctx["script_chapter"], raw_words, clip_dur, time_offset)
@@ -644,7 +645,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                     resolved, rot, ent_rot, scenes=scenes, pool=ctx.get("pool"),
                     used_before=_used(work_dir, ctx["chapter_number"]),
                     lupa_box=gro.lupa_de_detalles(details, lambda si, d: _gvr.verify_crop(scene_img[si], d, _vcr))
-                    if details else None, zoom_dur=gfx_rules.zoom_dur, log=log)
+                    if details else None, zoom_dur=gfx_rules.zoom_dur, log=log, words=words, time_offset=time_offset)
                 resolved, rej_r = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
                                        question_sources=ctx.get("next_sources"))
                 rejected += rej_r
@@ -843,6 +844,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                                                                 cap=cap, log=log, snaps=snaps)
         from script_engine.gfx_realizador import cerrar        # F29: finalizar → crítico → pico · F29b: … → pico → crítico
         cerrar(resolved, real, ctx.get("pool"), log, criticar=_criticar, rotulista=rot_on,
+               escena=(lambda: gro.escena_final(resolved, scenes, ent_rot, log)) if rot_on else None,
                garantizar=gfx_rules.garantizar_pico and not rot_on,
                side=getattr(scenes[-1], "quiet_side", "right") if scenes else "right")
         log.append(f"  plan: {json.dumps(resolved, ensure_ascii=False)}")
