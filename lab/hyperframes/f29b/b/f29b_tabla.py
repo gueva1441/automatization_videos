@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(ROOT))
 LAB = Path(__file__).resolve().parent
-DST = "f8s3-vajont-f29b"
+DST = "f8s3-vajont-f30"
 WD = ROOT / "output" / DST / "_fase2b_work"
 
 

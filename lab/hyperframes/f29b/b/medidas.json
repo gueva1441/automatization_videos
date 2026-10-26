@@ -1,0 +1,178 @@
+{
+ "munones": [],
+ "cifras_sin_etiqueta": [],
+ "numeros_voz_20s": [],
+ "numeros_despues": [],
+ "a_pantalla": {
+  "D128": {
+   "cap_escaleta": 6,
+   "por_que": "Recuento oficial de mil novecientas diez muertes: va escrito, con sus versiones alternativas, no en la voz.",
+   "salio": true,
+   "cap": "ch06",
+   "texto": "Murieron 1.910 personas en el desastre",
+   "kicker": null,
+   "falta_lo_que_pide": null
+  },
+  "D192": {
+   "cap_escaleta": 6,
+   "por_que": "Veinte técnicos muertos en el centro de control del estribo izquierdo: subconjunto del total, se muestra junto al recuento.",
+   "salio": true,
+   "cap": "ch06",
+   "texto": "Técnicos muertos en el estribo: 20",
+   "kicker": null,
+   "falta_lo_que_pide": null
+  },
+  "Q50": {
+   "cap_escaleta": 5,
+   "por_que": "Carta del municipio de Erto y Casso a SADE: documento que se lee en pantalla sobre la escena de los avisos de octubre.",
+   "salio": false,
+   "falta_lo_que_pide": null
+  },
+  "D117": {
+   "cap_escaleta": 2,
+   "por_que": "Trece de treinta y cuatro representantes en la sesión de aprobación de 1943: dato de acta, va como rótulo.",
+   "salio": true,
+   "cap": "ch02",
+   "texto": "Aprobada con solo 13 de 34 representantes presentes",
+   "kicker": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018",
+   "falta_lo_que_pide": null
+  },
+  "D245": {
+   "cap_escaleta": 7,
+   "por_que": "Condena a Montedison de 1997: cifra de liras en fallo, ilegible en voz.",
+   "salio": false,
+   "falta_lo_que_pide": null
+  }
+ },
+ "por_cap": {
+  "ch01": {
+   "intentos": 2,
+   "propuestos": 0,
+   "fuera_A4": {},
+   "fuera_A4_detalle": [],
+   "colocados": 0,
+   "cortados_critico": 0,
+   "en_pantalla": 0,
+   "tokens_in": 14673,
+   "tokens_out": 3197,
+   "usd": 0.0613,
+   "segundos": 26.3,
+   "a_pantalla_faltan": [],
+   "a_pantalla_incompletos": {}
+  },
+  "ch02": {
+   "intentos": 2,
+   "propuestos": 1,
+   "fuera_A4": {},
+   "fuera_A4_detalle": [],
+   "colocados": 1,
+   "cortados_critico": 0,
+   "en_pantalla": 1,
+   "tokens_in": 8472,
+   "tokens_out": 1466,
+   "usd": 0.0316,
+   "segundos": 10.2,
+   "a_pantalla_faltan": [],
+   "a_pantalla_incompletos": {}
+  },
+  "ch03": {
+   "intentos": 2,
+   "propuestos": 5,
+   "fuera_A4": {},
+   "fuera_A4_detalle": [],
+   "colocados": 5,
+   "cortados_critico": 1,
+   "en_pantalla": 4,
+   "tokens_in": 8753,
+   "tokens_out": 3863,
+   "usd": 0.0561,
+   "segundos": 28.8,
+   "a_pantalla_faltan": [],
+   "a_pantalla_incompletos": {}
+  },
+  "ch04": {
+   "intentos": 2,
+   "propuestos": 4,
+   "fuera_A4": {
+    "A.4.2": 1,
+    "A.4.4": 1
+   },
+   "fuera_A4_detalle": [
+    [
+     "T39",
+     "A.4.2",
+     "10 palabras (tope 9)"
+    ],
+    [
+     "D103",
+     "A.4.4",
+     "la voz lo dice a ±20 s: ['Padua']"
+    ]
+   ],
+   "colocados": 2,
+   "cortados_critico": 1,
+   "en_pantalla": 1,
+   "tokens_in": 8551,
+   "tokens_out": 1656,
+   "usd": 0.0337,
+   "segundos": 11.7,
+   "a_pantalla_faltan": [],
+   "a_pantalla_incompletos": {}
+  },
+  "ch05": {
+   "intentos": 2,
+   "propuestos": 1,
+   "fuera_A4": {
+    "A.4.2": 1
+   },
+   "fuera_A4_detalle": [
+    [
+     "Q50",
+     "A.4.2",
+     "15 palabras (tope 9)"
+    ]
+   ],
+   "colocados": 0,
+   "cortados_critico": 0,
+   "en_pantalla": 0,
+   "tokens_in": 9559,
+   "tokens_out": 1284,
+   "usd": 0.0319,
+   "segundos": 9.6,
+   "a_pantalla_faltan": [
+    "Q50"
+   ],
+   "a_pantalla_incompletos": {}
+  },
+  "ch06": {
+   "intentos": 2,
+   "propuestos": 2,
+   "fuera_A4": {},
+   "fuera_A4_detalle": [],
+   "colocados": 2,
+   "cortados_critico": 0,
+   "en_pantalla": 2,
+   "tokens_in": 10847,
+   "tokens_out": 3639,
+   "usd": 0.0581,
+   "segundos": 28.5,
+   "a_pantalla_faltan": [],
+   "a_pantalla_incompletos": {}
+  },
+  "ch07": {
+   "intentos": 1,
+   "propuestos": 1,
+   "fuera_A4": {},
+   "fuera_A4_detalle": [],
+   "colocados": 1,
+   "cortados_critico": 1,
+   "en_pantalla": 0,
+   "tokens_in": 5160,
+   "tokens_out": 824,
+   "usd": 0.0186,
+   "segundos": 6.6,
+   "a_pantalla_faltan": [],
+   "a_pantalla_incompletos": {}
+  }
+ }
+}

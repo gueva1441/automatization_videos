@@ -1,8 +1,8 @@
 # F29b — Rotulista: el texto de pantalla lo escribe alguien, anclado a la oración · REPORTE
 
 CC · 2026-10-26 · rama `f11-guion-v4`. Handoff `HANDOFF_F29b_rotulista.md`; tanda `../f30/PROMPT_CC_tanda_F29b_F30.md` (etapa 1 = parte A; etapa 3 = parte B).
-Commits: **A `5ae6177`** + fix `f6527a1`. **Parte B: NO CORRIÓ** — la tanda frenó al final de F30 porque el SSIM, leído estricto, no dio lo que pide su handoff (ver `../f30/F30_REPORT.md`, «PARADA antes de la etapa 3»).
-Costos de la tanda en F29b: Claude **US$ 0.114** de 2 (4 llamadas de Sonnet 5.5 en las crudas de ejemplo) · Gemini ≈ US$ 0.001 de 1 (el humo de integración en el scratchpad: el crítico de siempre sobre el sello y el crítico nuevo sobre 2 bloques) · ElevenLabs 0.
+Commits: **A `5ae6177`** + fix `f6527a1` · arreglos antes de B **`7e704de`** · **B** = el commit de este reporte. La tanda había frenado al final de F30 (SSIM leído estricto); el 2026-10-26 Omar aceptó F30 como está y pidió correr B.
+Costos de F29b: Claude **US$ 0.291** de 2 (A 0.114 + B 0.177) · Gemini ≈ US$ 0.0034 de 1 (B 0.0024 + ≈ 0.001 del humo de integración de A en el scratchpad: el crítico de siempre sobre el sello y el crítico nuevo sobre 2 bloques) · ElevenLabs 0.
 
 ## A — El rotulista (`5ae6177`, fix `f6527a1`)
 **`gfx_rules.rotulista = False` por defecto** (como pidió la tanda: se prendía recién en la etapa 3). Con el flag apagado, el camino es el de F29: F30 D lo confirma (los 7 planes resueltos idénticos a v3).
@@ -59,14 +59,76 @@ Sin render: la entrada se armó con el mismo código que apply_gfx, sobre el top
 | ch06 | 2 | 5572/1780 | 0.029 | 13.9 | D128 «Murieron 1.910 personas en el desastre» (oración 21), D192 «Técnicos muertos en el estribo: 20» (oración 24): los dos `a_pantalla` del cap |
 Humo de integración (scratchpad, `apply_gfx(plan_only=True)` de ch06 con el rotulista prendido y la cruda en caché): D128 y D192 quedaron colocados como `data_callout` anton. El pico salió de la escaleta (beat 10, oración 3, palabra «fisura»: un solo sello). El crítico nuevo pasó los dos, con sí/sí.
 
-## B — Vajont v4 con el rotulista: NO CORRIÓ
-La etapa 3 dependía de que F30 diera lo que pide su handoff. No dio: SSIM leído estricto. Quedó preparado, sin correr ni commitear el flag:
-- `b/hoja_bloques.py`: la hoja de B.3. Por cada bloque, el cuadro en t0 + 1 s (1280 en la hoja y el jpg de 2560 al lado), la miniatura de 360 px, la voz −6 s / durante / +6 s, el `aporta`, el crítico, pool_id, tipo, oración y t0. Es reusable.
-- `b/f29b_vajont.py`: copia del topic `f8s3-vajont-f29b`; el rotulista de los 7 caps en paralelo con un tope de 2 − 0.114; los planes en orden con `plan_only`; después el render `--only-cap ch03/ch06` en fila.
-- `b/f29b_tabla.py`: la tabla por cap y lo medible de B.5 (muñones, cifras sin etiqueta, números a ±20 s y después, `a_pantalla` 5/5).
-- La bandera `fase2b --rotulista` (prende el rotulista y apaga `garantizar_pico`) está guardada como `b/fase2b_rotulista_flag.patch`, no en el código.
+## B — Vajont v4 con el rotulista (pedido de Omar del 2026-10-26)
+Omar aceptó F30 como está (los desvíos de SSIM son cuadros de corte, dos escenas donde v3 estaba mal y el encoder) y dejó las metas de tiempo para después. Antes de B, un commit con dos arreglos de las observaciones del revisor de la parte A: **`7e704de`**.
+- **(1) Candado de «persona».** A.4.3 cubre también el nombre (los tokens del arranque, sin partículas) y el cargo (palabras de contenido, por raíz de 5 letras). Los dos tienen que estar en el texto fuente del ítem. «Mario Bianchi, geólogo», «Pedro, geólogo» y «Giorgio Dal Piaz, ingeniero» ahora quedan fuera.
+- **(2) Tope de Claude con las llamadas en vuelo.** Antes de cada llamada se suma lo gastado, el peor caso de las llamadas en curso y el de esta (`_EN_VUELO`). Antes, las 7 del prefetch veían el mismo gasto inicial.
+- Además: `fase2b --rotulista` (era el patch de `b/`) y `--rotulista-tope USD`, para pasarle al render en otro proceso el tope que le queda a la tanda.
+- Tests f29b_rotulista: 22 (+2). Suite amplia 953 verdes + 5 previas. md5 ch02 sin gfx (`--sw-encode`) `38e5ba14…` (`b/onlycap_ch02_nogfx.log`).
 
-## Veredicto del revisor-handoff (íntegro)
+**Corrida.** Sobre la copia **`f8s3-vajont-f30`** ya cocida, como pidió Omar (no la `f8s3-vajont-f29b` del handoff).
+- Los planes resueltos de v3b quedaron apartados como `gfx_plan_chNN.resolved.v3b.json`.
+- `b/f29b_vajont.py planes`: el rotulista de los 7 caps en paralelo (**26.8 s** de pared), con un tope de 2 − 0.114 = US$ 1.886. Después, el plan de cada cap en orden (`plan_only`, así lo ya mostrado sale del cap anterior). Las crudas de ch03 y ch06 son las de la parte A: misma entrada, caché, sin volver a pagarlas.
+- `render ch03` y `render ch06` en fila: `fase2b --only-cap … --reuse-visuals --gfx --gfx-sparse --rotulista --rotulista-tope 1.709`.
+- Firefox cerrado (0 procesos) y RAM libre 15.7–16.9 GB antes de cada render.
+
+### Tabla por cap (`b/tabla.md`, `b/medidas.json`, `b/planes.json`)
+| cap | intentos | propuestos | fuera por A.4 | colocados | cortó el crítico | en pantalla | tokens in/out | US$ | s |
+|---|---|---|---|---|---|---|---|---|---|
+| ch01 | 2 | 0 | 0 | 0 | 0 | 0 | 14 673 / 3 197 | 0.061 | 26.3 |
+| ch02 | 2 | 1 | 0 | 1 | 0 | 1 | 8 472 / 1 466 | 0.032 | 10.2 |
+| ch03 | 2 | 5 | 0 | 5 | 1 | 4 | 8 753 / 3 863 | 0.056 | 28.8 |
+| ch04 | 2 | 4 | 2 (A.4.2 largo, A.4.4 «Padua» dicho a ±20 s) | 2 | 1 | 1 | 8 551 / 1 656 | 0.034 | 11.7 |
+| ch05 | 2 | 1 | 1 (A.4.2: Q50, cita de 15 palabras) | 0 | 0 | 0 | 9 559 / 1 284 | 0.032 | 9.6 |
+| ch06 | 2 | 2 | 0 | 2 | 0 | 2 | 10 847 / 3 639 | 0.058 | 28.5 |
+| ch07 | 1 | 1 | 0 | 1 | 1 | 0 | 5 160 / 824 | 0.019 | 6.6 |
+| **total** | | **14** | **3** | **11** | **3** | **8 en los planes** (6 dibujados: ch03 y ch06) | | **0.291** (A+B) | |
+(Tokens, US$ y s del rotulista: los de ch03 y ch06 son de la parte A; en B esos dos caps salieron de caché.) **ch01:** 4 respuestas no parsearon («Extra data»: texto después del JSON): 3 en el primer intento y 1 en el reintento, que después devolvió JSON válido con `bloques: []`: el modelo descartó los 3 datos del gancho por repetir la voz o adelantar. Se pagaron todas.
+
+| cap | tipo | texto en pantalla | kicker | oración | t0 cap (s) | pool_id | aporta | crítico |
+|---|---|---|---|---|---|---|---|---|
+| ch02 | recorte | Aprobada con solo 13 de 34 representantes presentes | Tragedia della diga del Vajont: 9 ottobre 1963, 2018 | 2 | 28.4 | D117 | el dato del acta: solo 13 de 34 representantes presentes, procedimiento irregular | sí · sí |
+| ch03 | cifra | Roca caída: 3 millones de m³ | — | 1 | 8.1 | T21 | la cifra: 3 millones de m³ de roca desprendida | sí · sí |
+| ch03 | recorte | La víctima fue Arcangelo Tiziani. | Vajont, la construcción de una catástrofe a la italiana, 2022 | 2 | 10.0 | T16 | el quién: el trabajador muerto se llamaba Arcangelo Tiziani | sí · sí |
+| ch03 | persona | Giorgio Dal Piaz, geólogo | — | 4 | 30.5 | T27 | el cargo: Dal Piaz era geólogo | sí · sí |
+| ch03 | cifra | Ancho fisura: Más de 1 m | — | 17 | 115.9 | D49 | la cifra: ancho de la fisura, más de 1 metro | sí · sí |
+| ch04 | cifra | Nivel del embalse: 720 m | — | 15 | 102.4 | T50 | la cifra: 720 metros, cinco por encima de la cota autorizada | sí · sí |
+| ch06 | cifra | Murieron 1.910 personas en el desastre | — | 21 | 112.7 | D128 | la cifra: 1.910 muertos, recuento oficial | sí · sí |
+| ch06 | cifra | Técnicos muertos en el estribo: 20 | — | 24 | 128.6 | D192 | la cifra: 20 técnicos muertos en el centro de control del estribo izquierdo | sí · sí |
+
+**Cortó el crítico:**
+- ch03 D71 «L'Unità era el periódico del Partido Comunista Italiano.» (1) **no**: la narración nombra el diario, no su afiliación.
+- ch04 Q44 «Nos han dicho que lo hagamos así» (2) **no**: la voz lee la misma frase.
+- ch07 D245 «Condena a Montedison (1997): 55.645.758.500 liras» (1) **no**: «la narración menciona una indemnización de ENEL… no la condena a Montedison».
+
+En ch03 y ch06, renderizados, el crítico miró el bloque dibujado (snapshot). En los otros 5 caps (`plan_only`) miró solo la foto.
+
+### Lo medible (B.5; el «cumplen (a)(b)(c)» lo cuenta el analista con la hoja)
+- Muñones: **0**. Cifras sin etiqueta: **0**. Números del bloque dichos por la voz a ±20 s: **0**. Números del bloque dichos después en el cap: **0** (los 8 bloques de los planes).
+- **`a_pantalla`: 3 de 5 en los planes** (D128 y D192 dibujados en ch06; D117 en el plan de ch02, sin render).
+  - D117 sale con «13 de 34».
+  - D128 y D192 salen en ch06: «1.910» y «20 técnicos».
+  - **D245** salió con la cifra en liras («55.645.758.500 liras»), pero lo **cortó el crítico** (ver arriba).
+  - **Q50**, la carta del municipio, **no salió**: el modelo la propuso como cita de 15 palabras y A.4.2 la sacó por el tope de 9. No se inventa y no hay reintento por eso: el reintento por `a_pantalla` ya se había usado.
+
+### Render y hoja
+| cap | gfx total s | bake s | HF s | stitch s | cobertura | pared `--only-cap` s | RAM libre mín. |
+|---|---|---|---|---|---|---|---|
+| ch03 | 293.7 | 78.9 | 74.3 | 43.2 | 21.4 s de 130.0 s (16 %) | 321.2 | 13.2 GB |
+| ch06 | 340.3 | 99.5 | 71.0 | 54.0 | 19.7 s de 168.8 s (12 %) | 374.7 | 12.8 GB |
+Segmentos en `output/f8s3-vajont-f30/_fase2b_work/ch03_segment_only.mp4` y `ch06_segment_only.mp4` (con subs y audio). **No hay `_v4.mp4` del video entero**: el pedido de esta tanda fue `--only-cap ch03` y `ch06`.
+**Hoja `BLOQUES_v4.jpg`** (+ `BLOQUES_v4.json`; los cuadros a 2560 en `_BLOQUES_v4/`): un renglón por bloque en pantalla, con el cuadro en t0 + 1 s, la miniatura de 360 px, la voz −6 s / durante / +6 s, el `aporta`, el crítico, pool_id, tipo, oración y t0. El cuadro sale del segmento con subtítulos. El «t0 en el mp4» de B.3 no va: no hay mp4 del video entero.
+**Forma que se ve en la hoja (no es de esta corrida, va en la de forma):**
+- en ch03 D49 la cifra parte la línea y deja «1 M» solo;
+- en ch03 el recorte T16 (10.0 s) entra mientras todavía se desvanece la cifra T21 (8.1 s + 3 s);
+- «persona» sale como la escribe el modelo («Giorgio Dal Piaz, geólogo»), no «Nombre · cargo».
+
+### Costos de B
+- Claude US$ **0.177**: 12 llamadas según `rotulista_costos.json`, 5 de ellas de ch01 (las respuestas que no parsean se vuelven a pedir dentro de `claude_helpers`, y cada una se paga). Con la parte A, **US$ 0.291 de 2**.
+- Gemini US$ **0.0024** (planes 0.0016 + renders 0.0008) de 1.
+- ElevenLabs 0.
+
+## Veredicto del revisor-handoff de la parte A (íntegro)
 
 VEREDICTO: CUMPLE CON OBSERVACIONES
 
@@ -107,3 +169,44 @@ Riesgos que el contrato no cubre:
 - El tope de costo del prefetch se mide por directorio de trabajo, y 7 llamadas en paralelo ven todas el mismo gasto inicial. El tope de la tanda (US$ 2 menos US$ 0.114) solo se aplica si el script `b/f29b_vajont.py` lo fija. Con el flag de `fase2b` solo, valdría 2.0.
 
 **Después del veredicto (CC):** no toqué código: la tanda está en PARADA. Obs. 1 (el primer token de «persona» no pasa por el candado de nombres, y la persona queda exenta de spoiler), obs. 2 (tolerancia de la ventana de −0.3/+0.35 s y duración sin recortar) y obs. 3 (sin test de integración de `apply_gfx` con el rotulista; la lupa sin probar con visión real) quedan **abiertas para antes de correr B**, junto con los dos riesgos (el tope del prefetch en paralelo ve el mismo gasto inicial; con `fase2b --rotulista` solo, el tope sería 2.0). A.4.6: «persona» sale como la escribe el modelo y el lado es el `quiet_side` de la escena. Las dos lecturas no estaban declaradas y quedan declaradas acá. Obs. 5: la suite amplia de A fue con 19 tests del rotulista (940 + 5); el fix `f6527a1` agregó el 20.º y su commit pasó la suite rápida del hook. El campo `validacion` de las `.raw.json` es de antes de los últimos ajustes del validador; la tabla de este reporte es la del código final, y la caché se revalida al leerse. Obs. 6: la línea «Co-Authored-By: Claude Opus 5.5» es la que pide la configuración de esta sesión. No la cambio.
+
+## Veredicto del revisor-handoff de la parte B (íntegro)
+
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+Corrí `python -I -m pytest test_module_f29b_rotulista.py -q -p no:cacheprovider`: 22 pasan. No corrí renders ni APIs. Leí código, diff de 7e704de, planes resueltos, logs, .out/.json, la hoja (imagen) y el reporte.
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | Arreglo 1: A.4.3 cubre nombre y cargo de «persona», con test | OK | `gfx_rotulista.py` en `validar`: nombre inicial sin partículas más `cargo_de`/`_raiz_en` (raíz de 5 letras). Test `test_persona_nombre_y_cargo...`: «Mario Bianchi, geólogo», «Pedro, geólogo» y «Giorgio Dal Piaz, ingeniero» fallan con regla A.4.3 |
+| 2 | Arreglo 2: tope Claude antes de cada llamada, contando las que están en vuelo, con test | OK | `_post_con_registro`: gastado + `_EN_VUELO` + peor caso de esta llamada ≤ tope, bajo lock, se libera en `finally`. Test con 3 hilos: ok, ok, tope; `_EN_VUELO` queda en 0.0 |
+| 3 | Un solo commit de arreglos | OK, con extra declarado | 7e704de. Sumó `fase2b --rotulista` y `--rotulista-tope` (en el mensaje del commit y en el reporte). Suite 953 + 5 previas (`suite_amplia_fix.log`: las 5 son las de siempre); md5 ch02 `38e5ba14…` |
+| 4 | B sobre `f8s3-vajont-f30` con rotulista en los 7 caps | OK | Los 7 `gfx_plan_chNN.resolved.json` traen `plan.rotulista` y `critico_rotulista`. Los planes de v3b quedaron como `*.resolved.v3b.json`. Rotulista en paralelo de 26.8 s (`planes.json`) |
+| 5 | Render de ch03 y ch06 en fila, `--only-cap`, `--rotulista` | OK | `render_ch03.out`: 01:54:43 a 02:00:03. `render_ch06.out`: 02:00:23 a 02:06:36. rc=0 los dos. Gfx 293.7 s y 340.3 s, coinciden con `gfx_ch03.log`/`gfx_ch06.log` (bake, HF, stitch, cobertura) |
+| 6 | Firefox cerrado y RAM antes de cada render | PARCIAL / NO VERIFICABLE en cifras | `render()` llama a `f._guardia()`, que aborta con SystemExit si Firefox está abierto o RAM ≤ 14 GB; rc=0 implica que pasó. Las cifras «RAM 15.7–16.9 GB» y «0 procesos» del reporte no están en ningún artefacto: lo que se imprimió al arrancar no se guardó. `ram_libre_min_gb` de 13.17 y 12.83 es el mínimo durante el render |
+| 7 | Tabla por cap, costos y tiempos coinciden con los archivos | PARCIAL | Coinciden la tabla, `medidas.json`, `tabla.md`, tokens, US$ por cap, los 8 bloques con su t0 y el crítico. Claude 0.177 (B) + 0.114 (A) = 0.291; Gemini 0.0016 + 0.0008 = 0.0024. Dos errores: ver obs. 1 y 2 |
+| 8 | B.3 hoja | PARCIAL | `BLOQUES_v4.jpg` tiene cuadro, miniatura de 360 px, voz −6 s / durante / +6 s, `aporta`, crítico, pool_id, tipo, oración y t0. Faltan: «t0 en el mp4» (declarado) y el cuadro a 2560 en la hoja (va a 1280; los 2560 están aparte en `_BLOQUES_v4/`). Solo 6 renglones (ch03 ×4, ch06 ×2); ch02 D117 y ch04 T50 no están. Hay texto cortado al borde derecho en el renglón 2 |
+| 9 | B.5 medidas | OK | Muñones, cifras sin etiqueta y números a ±20 s y después: 0. Contrasté el texto de los capítulos: no aparecen «tres millones», «novecientos», «veinte», «720» ni «Tiziani». `a_pantalla` 3 de 5 informado con la causa de cada faltante (D245 cortado por el crítico, Q50 fuera por 15 palabras) |
+| 10 | Costos bajo tope | OK | Claude 0.291 de 2. Gemini 0.0034 de 1 (el 0.001 de A no es verificable) |
+
+Observaciones:
+1. El reporte dice «12 llamadas, 6 de ellas de ch01». `rotulista_costos.json` tiene 5 de ch01. Además el `.out` muestra 4 respuestas inválidas de ch01 (3 en el primer intento y 1 en el reintento), no 3 como dice el reporte.
+2. «En pantalla 8» (reporte, ESTADO) está inflado. Solo ch03 y ch06 se renderizaron (6 bloques). ch02 D117, ch04 T50 y los cortes de ch04 y ch07 son de plan, no de render. Un lector toma «8 en pantalla» por 8 dibujados.
+3. En los 5 caps sin render, el crítico juzgó la foto sola, no el bloque dibujado como pide A.6. Está declarado, pero dos cortes dependen de eso: Q44 (ch04) y D245 (ch07). El «a_pantalla 3/5» se apoya en el segundo. Esos dos cortes no son comparables con los de ch03 y ch06.
+4. Desvíos del handoff, todos declarados: sin `_v4.mp4` del video entero; sin «t0 en el mp4»; copia `f8s3-vajont-f30` en vez de `f29b`; «persona» sale como lo escribe el modelo, no «Nombre · cargo»; sin ensamble. Sobre los tiempos: solo hay tiempo de gfx de 2 caps, y el rotulista de ch03/ch06 sale de la caché de A (esas cifras son de A). El reporte lo avisa.
+5. Forma visible en la hoja, declarada solo en parte. Ya está dicho el solape T21/T16 y el «persona» sin «·». No está dicho que «Ancho fisura: MÁS DE / 1 M» corta la línea y deja «1 M» solo (ch03 D49). Es de la corrida de forma, no de esta.
+6. El reporte dice «Commits… B (este reporte)» y la parte B sigue sin commitear (`b/`, hoja, reporte, ESTADO). La sección «Veredicto de la parte B» dice «(pendiente)»: hay que pegar este texto íntegro. El commit de arreglos lleva «Co-Authored-By: Claude Opus 5.5» (cosmético, ya marcado en A).
+
+Fuera de alcance: ninguno atribuible a B. Los archivos modificados `gfx_profiles/*` (mtime 00:57, anterior a la corrida de B de 01:47 en adelante), `diag_234_cap4.py` y `f28a.log` ya estaban modificados antes de B. `lab/ESTADO_SESION.md` y `F29b_REPORT.md` modificados es lo pedido.
+
+Riesgos que el contrato no cubre:
+- Los veredictos de 5 de los 7 caps salen de un crítico que no ve el bloque dibujado. Un render completo puede cambiar qué sale (Q44, D245).
+- El reintento de ch01 se pagó 4 veces por JSON con «Extra data»: el rotulista falla con frecuencia en el gancho y eso no tiene tope propio.
+- La «persona» sigue exenta de «no dicho» y de spoiler (declarado en A); el candado nuevo solo mira que nombre y cargo estén en la fuente.
+
+**Después del veredicto (CC):**
+- Obs. 1 y 2: corregidas en el texto y en ESTADO. Son 12 llamadas y 5 de ellas de ch01. Los 8 bloques quedan «en los planes»: 6 dibujados en ch03 y ch06, más D117 (ch02) y T50 (ch04) solo en plan.
+- Obs. 3: queda como riesgo. El corte de D245 y el de Q44 salen del crítico que mira solo la foto.
+- Obs. 5: anotada como forma (el «1 M» queda solo en una línea).
+- Obs. 6: B commiteado con este reporte.
+- Las cifras de Firefox y RAM salen de las corridas del PowerShell que cerró Firefox antes de cada render; no quedaron en un archivo.
