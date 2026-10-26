@@ -138,7 +138,8 @@ def test_visual_con_pre_roll_agrega_title_dur_de_primer_cuadro(tmp_path):
     assert n == 150
 
 
-def test_pieza_de_musica_se_corre_el_pre_roll(tmp_path):
+def test_pieza_de_musica_cubre_el_pre_roll(tmp_path):
+    """F32 §B.1: la música del cap arranca con el title card (antes la pieza se corría con silencio adelante)."""
     import fase2b
     fase2b.FFMPEG = fase2b.FFMPEG or "ffmpeg"
     tone = tmp_path / "t.wav"
@@ -148,7 +149,7 @@ def test_pieza_de_musica_se_corre_el_pre_roll(tmp_path):
     r = subprocess.run(["ffmpeg", "-v", "error", "-i", str(p), "-f", "s16le", "-ac", "1", "-ar", "1000", "-"],
                        capture_output=True, check=True)
     x = np.abs(np.frombuffer(r.stdout, np.int16).astype(float))
-    assert abs(len(x) / 1000 - 7.0) < 0.02 and x[:2900].max() < 50 and x[3200:].mean() > 1000
+    assert abs(len(x) / 1000 - 7.0) < 0.02 and x[100:2900].mean() > 1000 and x[3200:].mean() > 1000
 
 
 def test_rotulista_mismo_pedido_con_y_sin_pre_roll():

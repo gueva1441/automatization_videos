@@ -1,0 +1,205 @@
+{
+ "llamadas": [
+  {
+   "cap": "ch01",
+   "in": 3678,
+   "out": 383,
+   "stop": "end_turn",
+   "usd": 0.01119,
+   "segundos": 4.8
+  },
+  {
+   "cap": "ch02",
+   "in": 5130,
+   "out": 725,
+   "stop": "end_turn",
+   "usd": 0.01751,
+   "segundos": 5.1
+  },
+  {
+   "cap": "ch06",
+   "in": 6646,
+   "out": 949,
+   "stop": "end_turn",
+   "usd": 0.02278,
+   "segundos": 6.6
+  },
+  {
+   "cap": "ch03",
+   "in": 5197,
+   "out": 962,
+   "stop": "end_turn",
+   "usd": 0.02001,
+   "segundos": 6.8
+  },
+  {
+   "cap": "ch04",
+   "in": 5095,
+   "out": 868,
+   "stop": "end_turn",
+   "usd": 0.01887,
+   "segundos": 7.2
+  },
+  {
+   "cap": "ch07",
+   "in": 6506,
+   "out": 1144,
+   "stop": "end_turn",
+   "usd": 0.02445,
+   "segundos": 7.6
+  },
+  {
+   "cap": "ch05",
+   "in": 5919,
+   "out": 955,
+   "stop": "end_turn",
+   "usd": 0.02139,
+   "segundos": 8.1
+  },
+  {
+   "cap": "ch02",
+   "in": 5355,
+   "out": 737,
+   "stop": "end_turn",
+   "usd": 0.01808,
+   "segundos": 6.0
+  },
+  {
+   "cap": "ch05",
+   "in": 6251,
+   "out": 676,
+   "stop": "end_turn",
+   "usd": 0.01926,
+   "segundos": 4.5
+  },
+  {
+   "cap": "ch07",
+   "in": 6878,
+   "out": 737,
+   "stop": "end_turn",
+   "usd": 0.02113,
+   "segundos": 6.3
+  },
+  {
+   "cap": "ch03",
+   "in": 5345,
+   "out": 825,
+   "stop": "end_turn",
+   "usd": 0.01894,
+   "segundos": 5.8
+  },
+  {
+   "cap": "ch04",
+   "in": 5330,
+   "out": 933,
+   "stop": "end_turn",
+   "usd": 0.01999,
+   "segundos": 6.4
+  },
+  {
+   "cap": "ch01",
+   "in": 3713,
+   "out": 369,
+   "stop": "end_turn",
+   "usd": 0.01112,
+   "segundos": 4.0
+  },
+  {
+   "cap": "ch03",
+   "in": 5232,
+   "out": 884,
+   "stop": "end_turn",
+   "usd": 0.0193,
+   "segundos": 6.0
+  },
+  {
+   "cap": "ch06",
+   "in": 6681,
+   "out": 814,
+   "stop": "end_turn",
+   "usd": 0.0215,
+   "segundos": 6.3
+  },
+  {
+   "cap": "ch04",
+   "in": 5130,
+   "out": 855,
+   "stop": "end_turn",
+   "usd": 0.01881,
+   "segundos": 6.4
+  },
+  {
+   "cap": "ch04",
+   "in": 5230,
+   "out": 831,
+   "stop": "end_turn",
+   "usd": 0.01877,
+   "segundos": 5.6
+  },
+  {
+   "cap": "ch03",
+   "in": 5421,
+   "out": 1708,
+   "stop": "end_turn",
+   "usd": 0.02792,
+   "segundos": 12.1
+  },
+  {
+   "cap": "ch06",
+   "in": 6804,
+   "out": 1598,
+   "stop": "end_turn",
+   "usd": 0.02959,
+   "segundos": 13.0
+  },
+  {
+   "cap": "ch02",
+   "in": 5165,
+   "out": 688,
+   "stop": "end_turn",
+   "usd": 0.01721,
+   "segundos": 5.1
+  },
+  {
+   "cap": "ch02",
+   "in": 5379,
+   "out": 810,
+   "stop": "end_turn",
+   "usd": 0.01886,
+   "segundos": 5.8
+  },
+  {
+   "cap": "ch05",
+   "in": 5954,
+   "out": 757,
+   "stop": "end_turn",
+   "usd": 0.01948,
+   "segundos": 5.0
+  },
+  {
+   "cap": "ch05",
+   "in": 6221,
+   "out": 711,
+   "stop": "end_turn",
+   "usd": 0.01955,
+   "segundos": 4.9
+  },
+  {
+   "cap": "ch07",
+   "in": 6541,
+   "out": 1070,
+   "stop": "end_turn",
+   "usd": 0.02378,
+   "segundos": 8.2
+  },
+  {
+   "cap": "ch07",
+   "in": 6823,
+   "out": 729,
+   "stop": "end_turn",
+   "usd": 0.02094,
+   "segundos": 5.0
+  }
+ ],
+ "usd": 0.50043
+}

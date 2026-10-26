@@ -1,0 +1,757 @@
+{
+ "clave": "6176e5bc04711253c1eb",
+ "modelo": "claude-sonnet-5-5",
+ "effort": "medium",
+ "prompt_version": "f29b-1",
+ "prompt_md5": "50e6ae74fd588861e81fb5d2191ab644",
+ "entrada": {
+  "cap": 5,
+  "titulo": "escalada · giro",
+  "oraciones": [
+   {
+    "idx": 0,
+    "t0": 0.08,
+    "t1": 8.4,
+    "texto": "En junio de mil novecientos sesenta y tres el agua llegó a los setecientos metros, y la ladera se movía medio centímetro por día."
+   },
+   {
+    "idx": 1,
+    "t0": 9.38,
+    "t1": 14.18,
+    "texto": "Un informe dice que el veintiséis de septiembre el embalse volvió al nivel de seguridad."
+   },
+   {
+    "idx": 2,
+    "t0": 15.24,
+    "t1": 26.84,
+    "texto": "Desde el dos de octubre, los avisos se multiplicaron: sacudidas, estruendos que bajaban de la ladera de noche, grietas nuevas en la tierra de Erto, movimientos en la superficie."
+   },
+   {
+    "idx": 3,
+    "t0": 27.9,
+    "t1": 33.5,
+    "texto": "Las autoridades cerraron algunos caminos con barreras y desalojaron algunas casas de Erto y Casso."
+   },
+   {
+    "idx": 4,
+    "t0": 34.48,
+    "t1": 38.76,
+    "texto": "Abajo, en Longarone, las ventanas se encendían como cualquier noche."
+   },
+   {
+    "idx": 5,
+    "t0": 39.78,
+    "t1": 47.36,
+    "texto": "En Erto y en Longarone la gente se repetía una frase que servía para dormir: «Si no avisan, será que no es grave»."
+   },
+   {
+    "idx": 6,
+    "t0": 49.82,
+    "t1": 51.98,
+    "texto": "Los que la decían miraban la pared curva."
+   },
+   {
+    "idx": 7,
+    "t0": 52.92,
+    "t1": 58.12,
+    "texto": "De la montaña que caminaba hablaban los de arriba, los que tenían las grietas en el patio."
+   },
+   {
+    "idx": 8,
+    "t0": 59.14,
+    "t1": 63.86,
+    "texto": "«Estábamos esperando que la presa se cayera...», contó después un sobreviviente."
+   },
+   {
+    "idx": 9,
+    "t0": 65.86,
+    "t1": 67.48,
+    "texto": "Lo que temían era la pared."
+   },
+   {
+    "idx": 10,
+    "t0": 68.66,
+    "t1": 70.08,
+    "texto": "De la ola no hablaba nadie."
+   },
+   {
+    "idx": 11,
+    "t0": 71.14,
+    "t1": 76.7,
+    "texto": "La respuesta que llegó desde un ministerio fue: «No se preocupe, todo está bajo control»."
+   },
+   {
+    "idx": 12,
+    "t0": 78.9,
+    "t1": 83.52,
+    "texto": "Mientras tanto, en la ladera, los topógrafos de la empresa seguían midiendo."
+   },
+   {
+    "idx": 13,
+    "t0": 84.52,
+    "t1": 89.7,
+    "texto": "El nueve de octubre a la mañana, el director técnico de la empresa se sentó a escribir una carta."
+   },
+   {
+    "idx": 14,
+    "t0": 90.66,
+    "t1": 93.62,
+    "texto": "El director técnico se llamaba Alberico Biadene."
+   },
+   {
+    "idx": 15,
+    "t0": 94.58,
+    "t1": 105.58,
+    "texto": "La carta iba dirigida a Pancini, que estaba de vacaciones: Biadene le pedía que volviera y le contaba lo que el topógrafo Rossi había medido, que la ladera se movía más."
+   },
+   {
+    "idx": 16,
+    "t0": 106.58,
+    "t1": 109.28,
+    "texto": "La carta ya estaba firmada cuando sonó el teléfono."
+   },
+   {
+    "idx": 17,
+    "t0": 110.24,
+    "t1": 123.22,
+    "texto": "Biadene volvió al papel y agregó una posdata: Rossi lo llamaba en ese momento, y «las mediciones de esta mañana resultan todavía mayores que las de ayer, ¡alcanzando un aumento del 50%!!»."
+   },
+   {
+    "idx": 18,
+    "t0": 125.16,
+    "t1": 127.12,
+    "texto": "De veinte a treinta centímetros."
+   },
+   {
+    "idx": 19,
+    "t0": 128.0,
+    "t1": 133.78,
+    "texto": "Y algo más: pequeñas piedras caían en el borde oeste del deslizamiento, hacia la presa."
+   },
+   {
+    "idx": 20,
+    "t0": 134.86,
+    "t1": 138.88,
+    "texto": "Dos signos de exclamación, de puño y letra del director técnico."
+   },
+   {
+    "idx": 21,
+    "t0": 140.0,
+    "t1": 142.12,
+    "texto": "A las seis de la tarde se cerró la jornada."
+   },
+   {
+    "idx": 22,
+    "t0": 142.82,
+    "t1": 145.6,
+    "texto": "En la central quedaron un aparejador y su equipo."
+   },
+   {
+    "idx": 23,
+    "t0": 146.52,
+    "t1": 152.32,
+    "texto": "Esa noche nadie dio la alarma que habría puesto en marcha la evacuación masiva de los pueblos expuestos."
+   },
+   {
+    "idx": 24,
+    "t0": 153.22,
+    "t1": 155.52,
+    "texto": "Las barreras seguían en los caminos de Erto."
+   },
+   {
+    "idx": 25,
+    "t0": 156.4,
+    "t1": 159.8,
+    "texto": "En Longarone, abajo, era una noche como cualquiera."
+   },
+   {
+    "idx": 26,
+    "t0": 160.74,
+    "t1": 165.68,
+    "texto": "A las diez y media de la noche, el párroco de Casso escuchó algo y abrió la ventana."
+   }
+  ],
+  "beats": [
+   {
+    "n": 8,
+    "funcion": "escalada",
+    "t0": 0.08,
+    "t1": 89.7,
+    "cierre": "El nueve de octubre a la mañana, el director técnico de la empresa se sentó a escribir una carta.",
+    "dato_central": "D226",
+    "datos_apoyo": [
+     "D162",
+     "D160",
+     "D227",
+     "Q46",
+     "Q28",
+     "Q45"
+    ]
+   },
+   {
+    "n": 9,
+    "funcion": "giro",
+    "t0": 90.66,
+    "t1": 165.68,
+    "cierre": "A las diez y media de la noche, el párroco de Casso escuchó algo y abrió la ventana.",
+    "dato_central": "T61",
+    "datos_apoyo": [
+     "Q51",
+     "T64",
+     "D111"
+    ]
+   }
+  ],
+  "items": [
+   {
+    "id": "Q50",
+    "a_pantalla": true,
+    "por_que": "Carta del municipio de Erto y Casso a SADE: documento que se lee en pantalla sobre la escena de los avisos de octubre.",
+    "beats": [
+     8
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "Las poblaciones de Erto y Casso están viviendo en continua aprensión y en continua alarma; considerando también el hecho de que otros minimizan estas cosas, pero que también para la gente de Erto implican la seguridad de la vida y de los bienes, esta administración vuelve a manifestar sus preocupaciones por la seguridad de la población y del país.",
+    "fuente": "Il disastro del Vajont non fu una calamità naturale, 2023",
+    "autor": "Administración del comune di Erto e Casso"
+   },
+   {
+    "id": "D226",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     8
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "A partir del 2 de octubre de 1963 se multiplicaron las señales de peligro como temblores, estruendos y grietas en la montaña.",
+    "fuente": "Una lezione dai disastri: il Vajont e l'alluvione di Firenze, 2014",
+    "autor": ""
+   },
+   {
+    "id": "D162",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     8
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "El 26 de septiembre de 1963, el embalse fue llevado al nivel de seguridad, pero ya era demasiado tarde.",
+    "fuente": "Tragedia del Vajont: analisi geologica di una frana annunciata, 2021",
+    "autor": ""
+   },
+   {
+    "id": "D160",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     8
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "En junio de 1963, el nivel del embalse alcanzó los 700 m de altura, y el deslizamiento se aceleró a 0,5 cm por día.",
+    "fuente": "Tragedia del Vajont: analisi geologica di una frana annunciata, 2021",
+    "autor": ""
+   },
+   {
+    "id": "D227",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     8
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "Como respuesta a las señales de peligro, se decidió cerrar algunas carreteras y desalojar algunas viviendas en Erto y Casso.",
+    "fuente": "Una lezione dai disastri: il Vajont e l'alluvione di Firenze, 2014",
+    "autor": ""
+   },
+   {
+    "id": "Q46",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     8
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "Si no avisan, será que no es grave",
+    "fuente": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+    "autor": "Habitantes de Erto y Longarone"
+   },
+   {
+    "id": "Q28",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     8
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "Estábamos esperando que la presa se cayera...",
+    "fuente": "DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013",
+    "autor": "Un superviviente"
+   },
+   {
+    "id": "Q45",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     8
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "No se preocupe, todo está bajo control",
+    "fuente": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+    "autor": "Ministerio"
+   },
+   {
+    "id": "T61",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     9
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "El director Alberico Biadene envía una carta al jefe de obras Mario Pancini expresando su preocupación por los movimientos en el Monte Toc.",
+    "fuente": "Il disastro del Vajont non fu una calamità naturale, 2023",
+    "autor": ""
+   },
+   {
+    "id": "Q51",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     9
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "P.D. Me llama ahora el topógrafo Rossi que las mediciones de esta mañana muestran ser aún mayores que las de ayer, ¡alcanzando un aumento del 50%!! (es decir, de 20 a 30 centímetros). Se nota también alguna pequeña caída de piedras en el borde oeste (hacia la presa) del derrumbe. Que Dios nos ayude.",
+    "fuente": "Il disastro del Vajont non fu una calamità naturale, 2023",
+    "autor": "Alberico Biadene"
+   },
+   {
+    "id": "T64",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     9
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "El jefe de obras cierra la jornada laboral, dejando en la central a un aparejador y su equipo.",
+    "fuente": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+    "autor": ""
+   },
+   {
+    "id": "D111",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     9
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "Un error humano que condujo a la masacre fue no haber dado la alarma la noche del 9 de octubre para evacuar a las poblaciones en riesgo.",
+    "fuente": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018",
+    "autor": ""
+   }
+  ],
+  "ya_mostrado": [
+   {
+    "id": "D117",
+    "texto": "El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes."
+   }
+  ],
+  "pico": {
+   "beat": 8,
+   "funcion": "escalada",
+   "sentence_idx": 2,
+   "frase": "Desde el dos de octubre, los avisos se multiplicaron: sacudidas, estruendos que bajaban de la ladera de noche, grietas nuevas en la tierra de Erto, movimientos en la superficie.",
+   "t": 15.24,
+   "dato": "D226",
+   "fuente": "escaleta (beat más intenso del cap)"
+  }
+ },
+ "intentos": [
+  {
+   "pedido": "CAPÍTULO 5 — escalada · giro\n\nNARRACIÓN (oración por oración, con segundos):\n[0] 0.1–8.4 · En junio de mil novecientos sesenta y tres el agua llegó a los setecientos metros, y la ladera se movía medio centímetro por día.\n[1] 9.4–14.2 · Un informe dice que el veintiséis de septiembre el embalse volvió al nivel de seguridad.\n[2] 15.2–26.8 · Desde el dos de octubre, los avisos se multiplicaron: sacudidas, estruendos que bajaban de la ladera de noche, grietas nuevas en la tierra de Erto, movimientos en la superficie.\n[3] 27.9–33.5 · Las autoridades cerraron algunos caminos con barreras y desalojaron algunas casas de Erto y Casso.\n[4] 34.5–38.8 · Abajo, en Longarone, las ventanas se encendían como cualquier noche.\n[5] 39.8–47.4 · En Erto y en Longarone la gente se repetía una frase que servía para dormir: «Si no avisan, será que no es grave».\n[6] 49.8–52.0 · Los que la decían miraban la pared curva.\n[7] 52.9–58.1 · De la montaña que caminaba hablaban los de arriba, los que tenían las grietas en el patio.\n[8] 59.1–63.9 · «Estábamos esperando que la presa se cayera...», contó después un sobreviviente.\n[9] 65.9–67.5 · Lo que temían era la pared.\n[10] 68.7–70.1 · De la ola no hablaba nadie.\n[11] 71.1–76.7 · La respuesta que llegó desde un ministerio fue: «No se preocupe, todo está bajo control».\n[12] 78.9–83.5 · Mientras tanto, en la ladera, los topógrafos de la empresa seguían midiendo.\n[13] 84.5–89.7 · El nueve de octubre a la mañana, el director técnico de la empresa se sentó a escribir una carta.\n[14] 90.7–93.6 · El director técnico se llamaba Alberico Biadene.\n[15] 94.6–105.6 · La carta iba dirigida a Pancini, que estaba de vacaciones: Biadene le pedía que volviera y le contaba lo que el topógrafo Rossi había medido, que la ladera se movía más.\n[16] 106.6–109.3 · La carta ya estaba firmada cuando sonó el teléfono.\n[17] 110.2–123.2 · Biadene volvió al papel y agregó una posdata: Rossi lo llamaba en ese momento, y «las mediciones de esta mañana resultan todavía mayores que las de ayer, ¡alcanzando un aumento del 50%!!».\n[18] 125.2–127.1 · De veinte a treinta centímetros.\n[19] 128.0–133.8 · Y algo más: pequeñas piedras caían en el borde oeste del deslizamiento, hacia la presa.\n[20] 134.9–138.9 · Dos signos de exclamación, de puño y letra del director técnico.\n[21] 140.0–142.1 · A las seis de la tarde se cerró la jornada.\n[22] 142.8–145.6 · En la central quedaron un aparejador y su equipo.\n[23] 146.5–152.3 · Esa noche nadie dio la alarma que habría puesto en marcha la evacuación masiva de los pueblos expuestos.\n[24] 153.2–155.5 · Las barreras seguían en los caminos de Erto.\n[25] 156.4–159.8 · En Longarone, abajo, era una noche como cualquiera.\n[26] 160.7–165.7 · A las diez y media de la noche, el párroco de Casso escuchó algo y abrió la ventana.\n\nBEATS DEL CAPÍTULO (función, ventana en segundos, cierre):\n- beat 8 · escalada · 0.1–89.7 s · cierre: «El nueve de octubre a la mañana, el director técnico de la empresa se sentó a escribir una carta.»\n- beat 9 · giro · 90.7–165.7 s · cierre: «A las diez y media de la noche, el párroco de Casso escuchó algo y abrió la ventana.»\n\nPICO DEL CAPÍTULO: oración [2] «Desde el dos de octubre, los avisos se multiplicaron: sacudidas, estruendos que bajaban de la ladera de noche, grietas nuevas en la tierra de Erto, movimientos en la superficie.»\n\nDATOS DISPONIBLES (solo estos; cada uno con su texto fuente):\n- Q50 · tipo Q · a_pantalla: sí · por_que: Carta del municipio de Erto y Casso a SADE: documento que se lee en pantalla sobre la escena de los avisos de octubre. · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 (autor: Administración del comune di Erto e Casso) · texto fuente: «Las poblaciones de Erto y Casso están viviendo en continua aprensión y en continua alarma; considerando también el hecho de que otros minimizan estas cosas, pero que también para la gente de Erto implican la seguridad de la vida y de los bienes, esta administración vuelve a manifestar sus preocupaciones por la seguridad de la población y del país.»\n- D226 · tipo D · a_pantalla: no · por_que: — · fuente: Una lezione dai disastri: il Vajont e l'alluvione di Firenze, 2014 · texto fuente: «A partir del 2 de octubre de 1963 se multiplicaron las señales de peligro como temblores, estruendos y grietas en la montaña.»\n- D162 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia del Vajont: analisi geologica di una frana annunciata, 2021 · texto fuente: «El 26 de septiembre de 1963, el embalse fue llevado al nivel de seguridad, pero ya era demasiado tarde.»\n- D160 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia del Vajont: analisi geologica di una frana annunciata, 2021 · texto fuente: «En junio de 1963, el nivel del embalse alcanzó los 700 m de altura, y el deslizamiento se aceleró a 0,5 cm por día.»\n- D227 · tipo D · a_pantalla: no · por_que: — · fuente: Una lezione dai disastri: il Vajont e l'alluvione di Firenze, 2014 · texto fuente: «Como respuesta a las señales de peligro, se decidió cerrar algunas carreteras y desalojar algunas viviendas en Erto y Casso.»\n- Q46 · tipo Q · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 (autor: Habitantes de Erto y Longarone) · texto fuente: «Si no avisan, será que no es grave»\n- Q28 · tipo Q · a_pantalla: no · por_que: — · fuente: DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013 (autor: Un superviviente) · texto fuente: «Estábamos esperando que la presa se cayera...»\n- Q45 · tipo Q · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 (autor: Ministerio) · texto fuente: «No se preocupe, todo está bajo control»\n- T61 · tipo T · a_pantalla: no · por_que: — · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 · texto fuente: «El director Alberico Biadene envía una carta al jefe de obras Mario Pancini expresando su preocupación por los movimientos en el Monte Toc.»\n- Q51 · tipo Q · a_pantalla: no · por_que: — · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 (autor: Alberico Biadene) · texto fuente: «P.D. Me llama ahora el topógrafo Rossi que las mediciones de esta mañana muestran ser aún mayores que las de ayer, ¡alcanzando un aumento del 50%!! (es decir, de 20 a 30 centímetros). Se nota también alguna pequeña caída de piedras en el borde oeste (hacia la presa) del derrumbe. Que Dios nos ayude.»\n- T64 · tipo T · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 · texto fuente: «El jefe de obras cierra la jornada laboral, dejando en la central a un aparejador y su equipo.»\n- D111 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «Un error humano que condujo a la masacre fue no haber dado la alarma la noche del 9 de octubre para evacuar a las poblaciones en riesgo.»\n\nYA MOSTRADO EN CAPÍTULOS ANTERIORES (no repetir):\n- D117 «El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes.»\n\nDevolvé:\n{\"bloques\": [{\"sentence_idx\": int, \"tipo\": \"cifra|recorte|cita|persona|lupa\", \"texto\": str, \"etiqueta_o_kicker\": str|null, \"pool_id\": str, \"aporta\": str}], \"descartados\": [{\"pool_id\": str, \"motivo\": str}]}",
+   "respuesta": {
+    "bloques": [
+     {
+      "sentence_idx": 2,
+      "tipo": "recorte",
+      "texto": "Erto y Casso viven en continua aprensión y en continua alarma.",
+      "etiqueta_o_kicker": "Carta del municipio de Erto y Casso a SADE, 2023",
+      "pool_id": "Q50",
+      "aporta": "el quién y el documento: la administración de Erto y Casso escribe a SADE que vive en continua alarma"
+     },
+     {
+      "sentence_idx": 8,
+      "tipo": "cita",
+      "texto": "«Estábamos esperando que la presa se cayera...»",
+      "etiqueta_o_kicker": "Un superviviente, 2013",
+      "pool_id": "Q28",
+      "aporta": "la cita literal con su autor y año"
+     },
+     {
+      "sentence_idx": 11,
+      "tipo": "cita",
+      "texto": "«No se preocupe, todo está bajo control»",
+      "etiqueta_o_kicker": "Ministerio, 2022",
+      "pool_id": "Q45",
+      "aporta": "la cita literal con su autor"
+     },
+     {
+      "sentence_idx": 14,
+      "tipo": "persona",
+      "texto": "Alberico Biadene, director técnico de la empresa",
+      "etiqueta_o_kicker": null,
+      "pool_id": "T61",
+      "aporta": "el cargo y nombre de Biadene como figura presentada por primera vez"
+     },
+     {
+      "sentence_idx": 20,
+      "tipo": "cita",
+      "texto": "«Que Dios nos ayude.»",
+      "etiqueta_o_kicker": "Alberico Biadene, 2023",
+      "pool_id": "Q51",
+      "aporta": "la frase final de la posdata, que la narración no lee"
+     }
+    ],
+    "descartados": [
+     {
+      "pool_id": "D226",
+      "motivo": "repite lo que dice la narración en la oración 2"
+     },
+     {
+      "pool_id": "D162",
+      "motivo": "repite la oración 1"
+     },
+     {
+      "pool_id": "D160",
+      "motivo": "repite la oración 0"
+     },
+     {
+      "pool_id": "D227",
+      "motivo": "repite la oración 3"
+     },
+     {
+      "pool_id": "Q46",
+      "motivo": "la narración ya lee la frase completa en la oración 5"
+     },
+     {
+      "pool_id": "T64",
+      "motivo": "repite las oraciones 21 y 22"
+     },
+     {
+      "pool_id": "D111",
+      "motivo": "repite la oración 23"
+     }
+    ]
+   },
+   "crudas": [
+    {
+     "respuesta": {
+      "content": [
+       {
+        "type": "text",
+        "text": "{\"bloques\":[{\"sentence_idx\":2,\"tipo\":\"recorte\",\"texto\":\"Erto y Casso viven en continua aprensión y en continua alarma.\",\"etiqueta_o_kicker\":\"Carta del municipio de Erto y Casso a SADE, 2023\",\"pool_id\":\"Q50\",\"aporta\":\"el quién y el documento: la administración de Erto y Casso escribe a SADE que vive en continua alarma\"},{\"sentence_idx\":8,\"tipo\":\"cita\",\"texto\":\"«Estábamos esperando que la presa se cayera...»\",\"etiqueta_o_kicker\":\"Un superviviente, 2013\",\"pool_id\":\"Q28\",\"aporta\":\"la cita literal con su autor y año\"},{\"sentence_idx\":11,\"tipo\":\"cita\",\"texto\":\"«No se preocupe, todo está bajo control»\",\"etiqueta_o_kicker\":\"Ministerio, 2022\",\"pool_id\":\"Q45\",\"aporta\":\"la cita literal con su autor\"},{\"sentence_idx\":14,\"tipo\":\"persona\",\"texto\":\"Alberico Biadene, director técnico de la empresa\",\"etiqueta_o_kicker\":null,\"pool_id\":\"T61\",\"aporta\":\"el cargo y nombre de Biadene como figura presentada por primera vez\"},{\"sentence_idx\":20,\"tipo\":\"cita\",\"texto\":\"«Que Dios nos ayude.»\",\"etiqueta_o_kicker\":\"Alberico Biadene, 2023\",\"pool_id\":\"Q51\",\"aporta\":\"la frase final de la posdata, que la narración no lee\"}],\"descartados\":[{\"pool_id\":\"D226\",\"motivo\":\"repite lo que dice la narración en la oración 2\"},{\"pool_id\":\"D162\",\"motivo\":\"repite la oración 1\"},{\"pool_id\":\"D160\",\"motivo\":\"repite la oración 0\"},{\"pool_id\":\"D227\",\"motivo\":\"repite la oración 3\"},{\"pool_id\":\"Q46\",\"motivo\":\"la narración ya lee la frase completa en la oración 5\"},{\"pool_id\":\"T64\",\"motivo\":\"repite las oraciones 21 y 22\"},{\"pool_id\":\"D111\",\"motivo\":\"repite la oración 23\"}]}"
+       }
+      ],
+      "usage": {
+       "input_tokens": 4662,
+       "cache_creation_input_tokens": 0,
+       "cache_read_input_tokens": 0,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+       },
+       "output_tokens": 741,
+       "service_tier": "standard",
+       "inference_geo": "global",
+       "speed": "standard",
+       "output_tokens_details": {
+        "thinking_tokens": 0
+       }
+      },
+      "model": "claude-sonnet-5-5",
+      "id": "msg_011CgQKd13kmQSmyseNE9iLa",
+      "type": "message",
+      "role": "assistant",
+      "container": null,
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "stop_details": null,
+      "diagnostics": null
+     },
+     "segundos": 5.5,
+     "usd": 0.01673
+    }
+   ],
+   "error": null,
+   "validacion": {
+    "bloques": [
+     {
+      "sentence_idx": 8,
+      "tipo": "cita",
+      "texto": "«Estábamos esperando que la presa se cayera...»",
+      "etiqueta_o_kicker": "Un superviviente, 2013",
+      "pool_id": "Q28",
+      "aporta": "la cita literal con su autor y año",
+      "t0": 64.16,
+      "dur": 3.33,
+      "beat": 8,
+      "funcion": "escalada",
+      "pantalla": "«Estábamos esperando que la presa se cayera...»",
+      "a_pantalla": false
+     },
+     {
+      "sentence_idx": 11,
+      "tipo": "cita",
+      "texto": "«No se preocupe, todo está bajo control»",
+      "etiqueta_o_kicker": "Ministerio, 2022",
+      "pool_id": "Q45",
+      "aporta": "la cita literal con su autor",
+      "t0": 77.0,
+      "dur": 3.33,
+      "beat": 8,
+      "funcion": "escalada",
+      "pantalla": "«No se preocupe, todo está bajo control»",
+      "a_pantalla": false
+     },
+     {
+      "sentence_idx": 20,
+      "tipo": "cita",
+      "texto": "«Que Dios nos ayude.»",
+      "etiqueta_o_kicker": "Alberico Biadene, 2023",
+      "pool_id": "Q51",
+      "aporta": "la frase final de la posdata, que la narración no lee",
+      "t0": 139.18,
+      "dur": 2.5,
+      "beat": 9,
+      "funcion": "giro",
+      "pantalla": "«Que Dios nos ayude.»",
+      "a_pantalla": false
+     }
+    ],
+    "rechazos": [
+     {
+      "pool_id": "Q50",
+      "texto": "Erto y Casso viven en continua aprensión y en continua alarma.",
+      "sentence_idx": 2,
+      "regla": "A.4.2",
+      "motivo": "11 palabras (tope 9)"
+     },
+     {
+      "pool_id": "T61",
+      "texto": "Alberico Biadene, director técnico de la empresa",
+      "sentence_idx": 14,
+      "regla": "A.4.3",
+      "motivo": "no están en el texto fuente de T61: ['empresa', 'técnico']"
+     }
+    ],
+    "faltan": [
+     "Q50"
+    ],
+    "incompletos": {}
+   },
+   "segundos": 5.6
+  },
+  {
+   "pedido": "CAPÍTULO 5 — escalada · giro\n\nNARRACIÓN (oración por oración, con segundos):\n[0] 0.1–8.4 · En junio de mil novecientos sesenta y tres el agua llegó a los setecientos metros, y la ladera se movía medio centímetro por día.\n[1] 9.4–14.2 · Un informe dice que el veintiséis de septiembre el embalse volvió al nivel de seguridad.\n[2] 15.2–26.8 · Desde el dos de octubre, los avisos se multiplicaron: sacudidas, estruendos que bajaban de la ladera de noche, grietas nuevas en la tierra de Erto, movimientos en la superficie.\n[3] 27.9–33.5 · Las autoridades cerraron algunos caminos con barreras y desalojaron algunas casas de Erto y Casso.\n[4] 34.5–38.8 · Abajo, en Longarone, las ventanas se encendían como cualquier noche.\n[5] 39.8–47.4 · En Erto y en Longarone la gente se repetía una frase que servía para dormir: «Si no avisan, será que no es grave».\n[6] 49.8–52.0 · Los que la decían miraban la pared curva.\n[7] 52.9–58.1 · De la montaña que caminaba hablaban los de arriba, los que tenían las grietas en el patio.\n[8] 59.1–63.9 · «Estábamos esperando que la presa se cayera...», contó después un sobreviviente.\n[9] 65.9–67.5 · Lo que temían era la pared.\n[10] 68.7–70.1 · De la ola no hablaba nadie.\n[11] 71.1–76.7 · La respuesta que llegó desde un ministerio fue: «No se preocupe, todo está bajo control».\n[12] 78.9–83.5 · Mientras tanto, en la ladera, los topógrafos de la empresa seguían midiendo.\n[13] 84.5–89.7 · El nueve de octubre a la mañana, el director técnico de la empresa se sentó a escribir una carta.\n[14] 90.7–93.6 · El director técnico se llamaba Alberico Biadene.\n[15] 94.6–105.6 · La carta iba dirigida a Pancini, que estaba de vacaciones: Biadene le pedía que volviera y le contaba lo que el topógrafo Rossi había medido, que la ladera se movía más.\n[16] 106.6–109.3 · La carta ya estaba firmada cuando sonó el teléfono.\n[17] 110.2–123.2 · Biadene volvió al papel y agregó una posdata: Rossi lo llamaba en ese momento, y «las mediciones de esta mañana resultan todavía mayores que las de ayer, ¡alcanzando un aumento del 50%!!».\n[18] 125.2–127.1 · De veinte a treinta centímetros.\n[19] 128.0–133.8 · Y algo más: pequeñas piedras caían en el borde oeste del deslizamiento, hacia la presa.\n[20] 134.9–138.9 · Dos signos de exclamación, de puño y letra del director técnico.\n[21] 140.0–142.1 · A las seis de la tarde se cerró la jornada.\n[22] 142.8–145.6 · En la central quedaron un aparejador y su equipo.\n[23] 146.5–152.3 · Esa noche nadie dio la alarma que habría puesto en marcha la evacuación masiva de los pueblos expuestos.\n[24] 153.2–155.5 · Las barreras seguían en los caminos de Erto.\n[25] 156.4–159.8 · En Longarone, abajo, era una noche como cualquiera.\n[26] 160.7–165.7 · A las diez y media de la noche, el párroco de Casso escuchó algo y abrió la ventana.\n\nBEATS DEL CAPÍTULO (función, ventana en segundos, cierre):\n- beat 8 · escalada · 0.1–89.7 s · cierre: «El nueve de octubre a la mañana, el director técnico de la empresa se sentó a escribir una carta.»\n- beat 9 · giro · 90.7–165.7 s · cierre: «A las diez y media de la noche, el párroco de Casso escuchó algo y abrió la ventana.»\n\nPICO DEL CAPÍTULO: oración [2] «Desde el dos de octubre, los avisos se multiplicaron: sacudidas, estruendos que bajaban de la ladera de noche, grietas nuevas en la tierra de Erto, movimientos en la superficie.»\n\nDATOS DISPONIBLES (solo estos; cada uno con su texto fuente):\n- Q50 · tipo Q · a_pantalla: sí · por_que: Carta del municipio de Erto y Casso a SADE: documento que se lee en pantalla sobre la escena de los avisos de octubre. · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 (autor: Administración del comune di Erto e Casso) · texto fuente: «Las poblaciones de Erto y Casso están viviendo en continua aprensión y en continua alarma; considerando también el hecho de que otros minimizan estas cosas, pero que también para la gente de Erto implican la seguridad de la vida y de los bienes, esta administración vuelve a manifestar sus preocupaciones por la seguridad de la población y del país.»\n- D226 · tipo D · a_pantalla: no · por_que: — · fuente: Una lezione dai disastri: il Vajont e l'alluvione di Firenze, 2014 · texto fuente: «A partir del 2 de octubre de 1963 se multiplicaron las señales de peligro como temblores, estruendos y grietas en la montaña.»\n- D162 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia del Vajont: analisi geologica di una frana annunciata, 2021 · texto fuente: «El 26 de septiembre de 1963, el embalse fue llevado al nivel de seguridad, pero ya era demasiado tarde.»\n- D160 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia del Vajont: analisi geologica di una frana annunciata, 2021 · texto fuente: «En junio de 1963, el nivel del embalse alcanzó los 700 m de altura, y el deslizamiento se aceleró a 0,5 cm por día.»\n- D227 · tipo D · a_pantalla: no · por_que: — · fuente: Una lezione dai disastri: il Vajont e l'alluvione di Firenze, 2014 · texto fuente: «Como respuesta a las señales de peligro, se decidió cerrar algunas carreteras y desalojar algunas viviendas en Erto y Casso.»\n- Q46 · tipo Q · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 (autor: Habitantes de Erto y Longarone) · texto fuente: «Si no avisan, será que no es grave»\n- Q28 · tipo Q · a_pantalla: no · por_que: — · fuente: DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013 (autor: Un superviviente) · texto fuente: «Estábamos esperando que la presa se cayera...»\n- Q45 · tipo Q · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 (autor: Ministerio) · texto fuente: «No se preocupe, todo está bajo control»\n- T61 · tipo T · a_pantalla: no · por_que: — · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 · texto fuente: «El director Alberico Biadene envía una carta al jefe de obras Mario Pancini expresando su preocupación por los movimientos en el Monte Toc.»\n- Q51 · tipo Q · a_pantalla: no · por_que: — · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 (autor: Alberico Biadene) · texto fuente: «P.D. Me llama ahora el topógrafo Rossi que las mediciones de esta mañana muestran ser aún mayores que las de ayer, ¡alcanzando un aumento del 50%!! (es decir, de 20 a 30 centímetros). Se nota también alguna pequeña caída de piedras en el borde oeste (hacia la presa) del derrumbe. Que Dios nos ayude.»\n- T64 · tipo T · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 · texto fuente: «El jefe de obras cierra la jornada laboral, dejando en la central a un aparejador y su equipo.»\n- D111 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «Un error humano que condujo a la masacre fue no haber dado la alarma la noche del 9 de octubre para evacuar a las poblaciones en riesgo.»\n\nYA MOSTRADO EN CAPÍTULOS ANTERIORES (no repetir):\n- D117 «El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes.»\n\nDevolvé:\n{\"bloques\": [{\"sentence_idx\": int, \"tipo\": \"cifra|recorte|cita|persona|lupa\", \"texto\": str, \"etiqueta_o_kicker\": str|null, \"pool_id\": str, \"aporta\": str}], \"descartados\": [{\"pool_id\": str, \"motivo\": str}]}\n\nTU RESPUESTA ANTERIOR TUVO ESTOS PROBLEMAS (corregilos y devolvé el JSON completo otra vez):\n- Q50 en la oración [2] «Erto y Casso viven en continua aprensión y en continua alarma.»: 11 palabras (tope 9)\n- T61 en la oración [14] «Alberico Biadene, director técnico de la empresa»: no están en el texto fuente de T61: ['empresa', 'técnico']\n- falta el dato a_pantalla Q50 (por_que: Carta del municipio de Erto y Casso a SADE: documento que se lee en pantalla sobre la escena de los avisos de octubre.)",
+   "respuesta": {
+    "bloques": [
+     {
+      "sentence_idx": 2,
+      "tipo": "cita",
+      "texto": "«Las poblaciones de Erto y Casso están viviendo en continua aprensión y en continua alarma»",
+      "etiqueta_o_kicker": "Carta del comune de Erto e Casso a SADE, 2023",
+      "pool_id": "Q50",
+      "aporta": "el documento: carta del municipio de Erto y Casso a SADE sobre la alarma"
+     }
+    ],
+    "descartados": [
+     {
+      "pool_id": "D226",
+      "motivo": "repite lo que dice la narración en la oración [2]"
+     },
+     {
+      "pool_id": "D162",
+      "motivo": "repite la narración de la oración [1]"
+     },
+     {
+      "pool_id": "D160",
+      "motivo": "repite la narración de la oración [0]"
+     },
+     {
+      "pool_id": "D227",
+      "motivo": "repite la narración de la oración [3]"
+     },
+     {
+      "pool_id": "Q46",
+      "motivo": "la narración ya lee la frase completa"
+     },
+     {
+      "pool_id": "Q28",
+      "motivo": "la narración ya lee la cita"
+     },
+     {
+      "pool_id": "Q45",
+      "motivo": "la narración ya lee la frase"
+     },
+     {
+      "pool_id": "T61",
+      "motivo": "el texto fuente no trae el cargo 'técnico'; la narración ya dice quién escribe y a quién"
+     },
+     {
+      "pool_id": "Q51",
+      "motivo": "la narración ya lee la posdata y las cifras en las oraciones [17]-[19]"
+     },
+     {
+      "pool_id": "T64",
+      "motivo": "repite la narración de las oraciones [21]-[22]"
+     },
+     {
+      "pool_id": "D111",
+      "motivo": "repite la narración de la oración [23]"
+     }
+    ]
+   },
+   "crudas": [
+    {
+     "respuesta": {
+      "content": [
+       {
+        "type": "text",
+        "text": "{\"bloques\":[{\"sentence_idx\":2,\"tipo\":\"cita\",\"texto\":\"«Las poblaciones de Erto y Casso están viviendo en continua aprensión y en continua alarma»\",\"etiqueta_o_kicker\":\"Carta del comune de Erto e Casso a SADE, 2023\",\"pool_id\":\"Q50\",\"aporta\":\"el documento: carta del municipio de Erto y Casso a SADE sobre la alarma\"}],\"descartados\":[{\"pool_id\":\"D226\",\"motivo\":\"repite lo que dice la narración en la oración [2]\"},{\"pool_id\":\"D162\",\"motivo\":\"repite la narración de la oración [1]\"},{\"pool_id\":\"D160\",\"motivo\":\"repite la narración de la oración [0]\"},{\"pool_id\":\"D227\",\"motivo\":\"repite la narración de la oración [3]\"},{\"pool_id\":\"Q46\",\"motivo\":\"la narración ya lee la frase completa\"},{\"pool_id\":\"Q28\",\"motivo\":\"la narración ya lee la cita\"},{\"pool_id\":\"Q45\",\"motivo\":\"la narración ya lee la frase\"},{\"pool_id\":\"T61\",\"motivo\":\"el texto fuente no trae el cargo 'técnico'; la narración ya dice quién escribe y a quién\"},{\"pool_id\":\"Q51\",\"motivo\":\"la narración ya lee la posdata y las cifras en las oraciones [17]-[19]\"},{\"pool_id\":\"T64\",\"motivo\":\"repite la narración de las oraciones [21]-[22]\"},{\"pool_id\":\"D111\",\"motivo\":\"repite la narración de la oración [23]\"}]}"
+       }
+      ],
+      "usage": {
+       "input_tokens": 4897,
+       "cache_creation_input_tokens": 0,
+       "cache_read_input_tokens": 0,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+       },
+       "output_tokens": 543,
+       "service_tier": "standard",
+       "inference_geo": "global",
+       "speed": "standard",
+       "output_tokens_details": {
+        "thinking_tokens": 0
+       }
+      },
+      "model": "claude-sonnet-5-5",
+      "id": "msg_011CgQKdNoTJULTUFmFKYN54",
+      "type": "message",
+      "role": "assistant",
+      "container": null,
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "stop_details": null,
+      "diagnostics": null
+     },
+     "segundos": 4.1,
+     "usd": 0.01522
+    }
+   ],
+   "error": null,
+   "validacion": {
+    "bloques": [],
+    "rechazos": [
+     {
+      "pool_id": "Q50",
+      "texto": "«Las poblaciones de Erto y Casso están viviendo en continua aprensión y en continua alarma»",
+      "sentence_idx": 2,
+      "regla": "A.4.2",
+      "motivo": "15 palabras (tope 9)"
+     }
+    ],
+    "faltan": [
+     "Q50"
+    ],
+    "incompletos": {}
+   },
+   "segundos": 4.1
+  }
+ ],
+ "final": {
+  "bloques": [
+   {
+    "sentence_idx": 2,
+    "tipo": "cita",
+    "texto": "«Las poblaciones de Erto y Casso están viviendo en continua aprensión y en continua alarma»",
+    "etiqueta_o_kicker": "Carta del comune de Erto e Casso a SADE, 2023",
+    "pool_id": "Q50",
+    "aporta": "el documento: carta del municipio de Erto y Casso a SADE sobre la alarma"
+   }
+  ],
+  "descartados": [
+   {
+    "pool_id": "D226",
+    "motivo": "repite lo que dice la narración en la oración [2]"
+   },
+   {
+    "pool_id": "D162",
+    "motivo": "repite la narración de la oración [1]"
+   },
+   {
+    "pool_id": "D160",
+    "motivo": "repite la narración de la oración [0]"
+   },
+   {
+    "pool_id": "D227",
+    "motivo": "repite la narración de la oración [3]"
+   },
+   {
+    "pool_id": "Q46",
+    "motivo": "la narración ya lee la frase completa"
+   },
+   {
+    "pool_id": "Q28",
+    "motivo": "la narración ya lee la cita"
+   },
+   {
+    "pool_id": "Q45",
+    "motivo": "la narración ya lee la frase"
+   },
+   {
+    "pool_id": "T61",
+    "motivo": "el texto fuente no trae el cargo 'técnico'; la narración ya dice quién escribe y a quién"
+   },
+   {
+    "pool_id": "Q51",
+    "motivo": "la narración ya lee la posdata y las cifras en las oraciones [17]-[19]"
+   },
+   {
+    "pool_id": "T64",
+    "motivo": "repite la narración de las oraciones [21]-[22]"
+   },
+   {
+    "pool_id": "D111",
+    "motivo": "repite la narración de la oración [23]"
+   }
+  ]
+ },
+ "validacion": {
+  "bloques": [],
+  "rechazos": [
+   {
+    "pool_id": "Q50",
+    "texto": "«Las poblaciones de Erto y Casso están viviendo en continua aprensión y en continua alarma»",
+    "sentence_idx": 2,
+    "regla": "A.4.2",
+    "motivo": "15 palabras (tope 9)"
+   }
+  ],
+  "faltan": [
+   "Q50"
+  ],
+  "incompletos": {}
+ }
+}

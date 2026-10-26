@@ -1,0 +1,641 @@
+{
+ "clave": "3d2e7c00497b326c6914",
+ "modelo": "claude-sonnet-5-5",
+ "effort": "medium",
+ "prompt_version": "f29b-1",
+ "prompt_md5": "50e6ae74fd588861e81fb5d2191ab644",
+ "entrada": {
+  "cap": 7,
+  "titulo": "revelacion · cierre",
+  "oraciones": [
+   {
+    "idx": 0,
+    "t0": 0.08,
+    "t1": 4.0,
+    "texto": "El presidente del Consejo caminó entre los escombros con un abrigo oscuro."
+   },
+   {
+    "idx": 1,
+    "t0": 4.92,
+    "t1": 12.48,
+    "texto": "De entre lo que quedaba de Longarone le salió al paso un grito, el de los pobladores: «Presidente, queremos justicia»."
+   },
+   {
+    "idx": 2,
+    "t0": 15.28,
+    "t1": 19.44,
+    "texto": "En los kioscos, esos días, había dos verdades sobre la misma noche."
+   },
+   {
+    "idx": 3,
+    "t0": 20.46,
+    "t1": 27.8,
+    "texto": "Dino Buzzati escribió: «Una piedra ha caído en un vaso lleno de agua, y el agua se ha derramado sobre el mantel."
+   },
+   {
+    "idx": 4,
+    "t0": 29.62,
+    "t1": 30.18,
+    "texto": "Eso es todo»."
+   },
+   {
+    "idx": 5,
+    "t0": 31.16,
+    "t1": 41.76,
+    "texto": "Solo que el vaso tenía cientos de metros de alto, la piedra era grande como una montaña y abajo, en el mantel, había miles de seres humanos que no podían defenderse."
+   },
+   {
+    "idx": 6,
+    "t0": 42.84,
+    "t1": 56.74,
+    "texto": "Giorgio Bocca escribió que una desgracia tan limpia, tan ineluctable, tan absoluta, llevaba más a la melancolía que al dolor: «No había nada que hacer, no hay remordimientos, no hay culpables»."
+   },
+   {
+    "idx": 7,
+    "t0": 58.58,
+    "t1": 68.26,
+    "texto": "Aniello Coppola leyó en eso el intento de absolver antes de indagar, de anular cualquier investigación de antemano, y respondió: «Hay que hacer un proceso."
+   },
+   {
+    "idx": 8,
+    "t0": 69.98,
+    "t1": 71.84,
+    "texto": "Hay que encontrar a los responsables."
+   },
+   {
+    "idx": 9,
+    "t0": 72.42,
+    "t1": 73.24,
+    "texto": "Y deben pagar»."
+   },
+   {
+    "idx": 10,
+    "t0": 74.84,
+    "t1": 80.74,
+    "texto": "Una primera comisión de expertos trabajó dieciocho meses y concluyó que el desastre era imprevisible."
+   },
+   {
+    "idx": 11,
+    "t0": 81.7,
+    "t1": 90.04,
+    "texto": "Pasaron más de cuatro años hasta que, el veinte de febrero de mil novecientos sesenta y ocho, se depositó la resolución de remisión a juicio."
+   },
+   {
+    "idx": 12,
+    "t0": 91.0,
+    "t1": 93.7,
+    "texto": "El juez no aceptó la palabra imprevisible."
+   },
+   {
+    "idx": 13,
+    "t0": 94.4,
+    "t1": 97.58,
+    "texto": "Pidió otra pericia, y después, nombres."
+   },
+   {
+    "idx": 14,
+    "t0": 98.6,
+    "t1": 102.6,
+    "texto": "El juicio empezó el veintinueve de noviembre de mil novecientos sesenta y ocho."
+   },
+   {
+    "idx": 15,
+    "t0": 103.54,
+    "t1": 109.96,
+    "texto": "El día anterior, Pancini, el ingeniero al que Biadene le había pedido volver de vacaciones, se quitó la vida."
+   },
+   {
+    "idx": 16,
+    "t0": 110.98,
+    "t1": 113.38,
+    "texto": "En el banquillo se sentaron ocho acusados."
+   },
+   {
+    "idx": 17,
+    "t0": 114.3,
+    "t1": 120.62,
+    "texto": "En marzo de mil novecientos setenta y uno, la Casación reconoció la culpabilidad de Biadene y de Sensidoni."
+   },
+   {
+    "idx": 18,
+    "t0": 121.68,
+    "t1": 125.92,
+    "texto": "ENEL ofreció diez mil millones de liras de la época como indemnización."
+   },
+   {
+    "idx": 19,
+    "t0": 126.82,
+    "t1": 131.32,
+    "texto": "Casi todos aceptaron; la última transacción se firmó en el año dos mil."
+   },
+   {
+    "idx": 20,
+    "t0": 132.48,
+    "t1": 144.06,
+    "texto": "Alguien que siguió aquel proceso lo resumió sin levantar la voz: Vajont no fue la excepción al sistema, sino su confirmación; «había un riesgo, previsible y previsto»."
+   },
+   {
+    "idx": 21,
+    "t0": 145.92,
+    "t1": 149.56,
+    "texto": "Micaela Coletti preside el comité de sobrevivientes del Vajont."
+   },
+   {
+    "idx": 22,
+    "t0": 150.34,
+    "t1": 158.94,
+    "texto": "La niña a la que la ola arrastró sobre una cama se sienta ahora frente a una mesa con el cartel del comité, y lo que tiene delante es una sentencia."
+   },
+   {
+    "idx": 23,
+    "t0": 159.9,
+    "t1": 164.12,
+    "texto": "La sentencia dice inundación agravada por la previsión del evento."
+   },
+   {
+    "idx": 24,
+    "t0": 165.04,
+    "t1": 165.94,
+    "texto": "Nombra el delito."
+   },
+   {
+    "idx": 25,
+    "t0": 166.8,
+    "t1": 174.32,
+    "texto": "No dice quién, entre la posdata de la mañana y las diez y treinta y nueve de la noche, decidió que Longarone no debía saber."
+   },
+   {
+    "idx": 26,
+    "t0": 174.321,
+    "t1": 177.62,
+    "texto": "¿Quién decidió que Micaela siguiera durmiendo?"
+   }
+  ],
+  "beats": [
+   {
+    "n": 12,
+    "funcion": "revelacion",
+    "t0": 0.08,
+    "t1": 97.58,
+    "cierre": "El juez no aceptó la palabra imprevisible. Pidió otra pericia, y después, nombres.",
+    "dato_central": "Q13",
+    "datos_apoyo": [
+     "Q20",
+     "Q22",
+     "Q23",
+     "D136",
+     "T85"
+    ]
+   },
+   {
+    "n": 13,
+    "funcion": "cierre",
+    "t0": 98.6,
+    "t1": 177.62,
+    "cierre": "La sentencia dice inundación agravada por la previsión del evento. No dice quién, entre la posdata de la mañana y las diez y treinta y nueve de la noche, decidió que Micaela siguiera durmiendo.",
+    "dato_central": "T102",
+    "datos_apoyo": [
+     "D32",
+     "T89",
+     "T92",
+     "D139",
+     "D140",
+     "Q56"
+    ]
+   }
+  ],
+  "items": [
+   {
+    "id": "D245",
+    "a_pantalla": true,
+    "por_que": "Condena a Montedison de 1997: cifra de liras en fallo, ilegible en voz.",
+    "beats": [
+     13
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "En 1997, el Tribunal de Belluno condenó a Montedison a pagar al municipio de Longarone 55.645.758.500 liras por daños y perjuicios.",
+    "fuente": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018",
+    "autor": ""
+   },
+   {
+    "id": "Q13",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     12
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "Presidente, queremos justicia",
+    "fuente": "Vajont: fu disastro colposo con previsione dell'evento (Cassazione 1971), 2003",
+    "autor": "La gente"
+   },
+   {
+    "id": "Q20",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     12
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "Una piedra ha caído en un vaso lleno de agua, y el agua se ha derramado sobre el mantel. Eso es todo. Sólo que el vaso tenía una altura de cientos de metros y la piedra era grande como una montaña y abajo, en el mantel, había miles de seres humanos que no podían defenderse.",
+    "fuente": "La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005",
+    "autor": "Dino Buzzati"
+   },
+   {
+    "id": "Q22",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     12
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "Podrá tal vez parecer cruel lo que voy a decir, pero esta desgracia tan \"limpia\", tan ineluctable, tan absoluta, lleva más a la melancolía que al dolor. No había nada que hacer, no hay remordimientos, no hay culpables.",
+    "fuente": "La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005",
+    "autor": "Giorgio Bocca"
+   },
+   {
+    "id": "Q23",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     12
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "es el intento de anular a priori cualquier investigación, de absolver, aun antes de indagar, cualquier responsabilidad. Frente a este intento, decimos: NO. Hay que hacer un proceso. Hay que encontrar a los responsables. Y deben pagar.",
+    "fuente": "La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005",
+    "autor": "Aniello Coppola"
+   },
+   {
+    "id": "D136",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     12
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "La primera comisión de expertos trabajó durante 18 meses para concluir que el desastre era imprevisible.",
+    "fuente": "Il disastro del Vajont non fu una calamità naturale, 2023",
+    "autor": ""
+   },
+   {
+    "id": "T85",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     12
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Se presenta la sentencia de remisión a juicio contra 11 personas por el desastre del Vajont.",
+    "fuente": "Vajont: fu disastro colposo con previsione dell'evento (Cassazione 1971), 2003",
+    "autor": ""
+   },
+   {
+    "id": "T102",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     13
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Se celebra el juicio de casación en Roma, donde Biadene y Sensidoni son reconocidos culpables de inundación agravada.",
+    "fuente": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018",
+    "autor": ""
+   },
+   {
+    "id": "D32",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     13
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "Solo 8 de los acusados se sentaron en el banquillo, ya que dos habían muerto y uno se suicidó.",
+    "fuente": "Vajont: fu disastro colposo con previsione dell'evento (Cassazione 1971), 2003",
+    "autor": ""
+   },
+   {
+    "id": "T89",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     13
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Mario Pancini, uno de los acusados por el desastre, se suicida.",
+    "fuente": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018",
+    "autor": ""
+   },
+   {
+    "id": "T92",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     13
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "El tribunal de primera instancia pronuncia la sentencia, condenando a Biadene, Batini y Violin a 6 años por homicidio culposo.",
+    "fuente": "Vajont: fu disastro colposo con previsione dell'evento (Cassazione 1971), 2003",
+    "autor": ""
+   },
+   {
+    "id": "D139",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     13
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "ENEL ofreció 10.000 millones de liras de la época para indemnizaciones.",
+    "fuente": "Il disastro del Vajont non fu una calamità naturale, 2023",
+    "autor": ""
+   },
+   {
+    "id": "D140",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     13
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "La última transacción de indemnización se realizó en el año 2000.",
+    "fuente": "Il disastro del Vajont non fu una calamità naturale, 2023",
+    "autor": ""
+   },
+   {
+    "id": "Q56",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     13
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "Vajont no es la trágica excepción al sistema, sino su confirmación: en este suceso realmente no ha ocurrido nada excepcional. Solo, como a menudo sucede, había un riesgo, previsible y previsto",
+    "fuente": "Una lezione dai disastri: il Vajont e l'alluvione di Firenze, 2014",
+    "autor": "Sandro Canestrini"
+   }
+  ],
+  "ya_mostrado": [
+   {
+    "id": "D117",
+    "texto": "El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes."
+   },
+   {
+    "id": "D128",
+    "texto": "En el desastre murieron 1.910 personas."
+   },
+   {
+    "id": "D192",
+    "texto": "En el centro de control en el estribo izquierdo de la presa había 20 técnicos que perecieron."
+   },
+   {
+    "id": "Q50",
+    "texto": "Las poblaciones de Erto y Casso están viviendo en continua aprensión y en continua alarma; considerando también el hecho de que otros minimizan estas cosas, pero que también para la gente de Erto implican la seguridad de la vida y de los bienes, esta administración vuelve a manifestar sus preocupaciones por la seguridad de la población y del país."
+   }
+  ],
+  "pico": {
+   "beat": 12,
+   "funcion": "revelacion",
+   "sentence_idx": 1,
+   "frase": "De entre lo que quedaba de Longarone le salió al paso un grito, el de los pobladores: «Presidente, queremos justicia».",
+   "t": 4.92,
+   "dato": "Q13",
+   "fuente": "escaleta (beat más intenso del cap)"
+  }
+ },
+ "intentos": [
+  {
+   "pedido": "CAPÍTULO 7 — revelacion · cierre\n\nNARRACIÓN (oración por oración, con segundos):\n[0] 0.1–4.0 · El presidente del Consejo caminó entre los escombros con un abrigo oscuro.\n[1] 4.9–12.5 · De entre lo que quedaba de Longarone le salió al paso un grito, el de los pobladores: «Presidente, queremos justicia».\n[2] 15.3–19.4 · En los kioscos, esos días, había dos verdades sobre la misma noche.\n[3] 20.5–27.8 · Dino Buzzati escribió: «Una piedra ha caído en un vaso lleno de agua, y el agua se ha derramado sobre el mantel.\n[4] 29.6–30.2 · Eso es todo».\n[5] 31.2–41.8 · Solo que el vaso tenía cientos de metros de alto, la piedra era grande como una montaña y abajo, en el mantel, había miles de seres humanos que no podían defenderse.\n[6] 42.8–56.7 · Giorgio Bocca escribió que una desgracia tan limpia, tan ineluctable, tan absoluta, llevaba más a la melancolía que al dolor: «No había nada que hacer, no hay remordimientos, no hay culpables».\n[7] 58.6–68.3 · Aniello Coppola leyó en eso el intento de absolver antes de indagar, de anular cualquier investigación de antemano, y respondió: «Hay que hacer un proceso.\n[8] 70.0–71.8 · Hay que encontrar a los responsables.\n[9] 72.4–73.2 · Y deben pagar».\n[10] 74.8–80.7 · Una primera comisión de expertos trabajó dieciocho meses y concluyó que el desastre era imprevisible.\n[11] 81.7–90.0 · Pasaron más de cuatro años hasta que, el veinte de febrero de mil novecientos sesenta y ocho, se depositó la resolución de remisión a juicio.\n[12] 91.0–93.7 · El juez no aceptó la palabra imprevisible.\n[13] 94.4–97.6 · Pidió otra pericia, y después, nombres.\n[14] 98.6–102.6 · El juicio empezó el veintinueve de noviembre de mil novecientos sesenta y ocho.\n[15] 103.5–110.0 · El día anterior, Pancini, el ingeniero al que Biadene le había pedido volver de vacaciones, se quitó la vida.\n[16] 111.0–113.4 · En el banquillo se sentaron ocho acusados.\n[17] 114.3–120.6 · En marzo de mil novecientos setenta y uno, la Casación reconoció la culpabilidad de Biadene y de Sensidoni.\n[18] 121.7–125.9 · ENEL ofreció diez mil millones de liras de la época como indemnización.\n[19] 126.8–131.3 · Casi todos aceptaron; la última transacción se firmó en el año dos mil.\n[20] 132.5–144.1 · Alguien que siguió aquel proceso lo resumió sin levantar la voz: Vajont no fue la excepción al sistema, sino su confirmación; «había un riesgo, previsible y previsto».\n[21] 145.9–149.6 · Micaela Coletti preside el comité de sobrevivientes del Vajont.\n[22] 150.3–158.9 · La niña a la que la ola arrastró sobre una cama se sienta ahora frente a una mesa con el cartel del comité, y lo que tiene delante es una sentencia.\n[23] 159.9–164.1 · La sentencia dice inundación agravada por la previsión del evento.\n[24] 165.0–165.9 · Nombra el delito.\n[25] 166.8–174.3 · No dice quién, entre la posdata de la mañana y las diez y treinta y nueve de la noche, decidió que Longarone no debía saber.\n[26] 174.3–177.6 · ¿Quién decidió que Micaela siguiera durmiendo?\n\nBEATS DEL CAPÍTULO (función, ventana en segundos, cierre):\n- beat 12 · revelacion · 0.1–97.6 s · cierre: «El juez no aceptó la palabra imprevisible. Pidió otra pericia, y después, nombres.»\n- beat 13 · cierre · 98.6–177.6 s · cierre: «La sentencia dice inundación agravada por la previsión del evento. No dice quién, entre la posdata de la mañana y las diez y treinta y nueve de la noche, decidió que Micaela siguiera durmiendo.»\n\nPICO DEL CAPÍTULO: oración [1] «De entre lo que quedaba de Longarone le salió al paso un grito, el de los pobladores: «Presidente, queremos justicia».»\n\nDATOS DISPONIBLES (solo estos; cada uno con su texto fuente):\n- D245 · tipo D · a_pantalla: sí · por_que: Condena a Montedison de 1997: cifra de liras en fallo, ilegible en voz. · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «En 1997, el Tribunal de Belluno condenó a Montedison a pagar al municipio de Longarone 55.645.758.500 liras por daños y perjuicios.»\n- Q13 · tipo Q · a_pantalla: no · por_que: — · fuente: Vajont: fu disastro colposo con previsione dell'evento (Cassazione 1971), 2003 (autor: La gente) · texto fuente: «Presidente, queremos justicia»\n- Q20 · tipo Q · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 (autor: Dino Buzzati) · texto fuente: «Una piedra ha caído en un vaso lleno de agua, y el agua se ha derramado sobre el mantel. Eso es todo. Sólo que el vaso tenía una altura de cientos de metros y la piedra era grande como una montaña y abajo, en el mantel, había miles de seres humanos que no podían defenderse.»\n- Q22 · tipo Q · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 (autor: Giorgio Bocca) · texto fuente: «Podrá tal vez parecer cruel lo que voy a decir, pero esta desgracia tan \"limpia\", tan ineluctable, tan absoluta, lleva más a la melancolía que al dolor. No había nada que hacer, no hay remordimientos, no hay culpables.»\n- Q23 · tipo Q · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 (autor: Aniello Coppola) · texto fuente: «es el intento de anular a priori cualquier investigación, de absolver, aun antes de indagar, cualquier responsabilidad. Frente a este intento, decimos: NO. Hay que hacer un proceso. Hay que encontrar a los responsables. Y deben pagar.»\n- D136 · tipo D · a_pantalla: no · por_que: — · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 · texto fuente: «La primera comisión de expertos trabajó durante 18 meses para concluir que el desastre era imprevisible.»\n- T85 · tipo T · a_pantalla: no · por_que: — · fuente: Vajont: fu disastro colposo con previsione dell'evento (Cassazione 1971), 2003 · texto fuente: «Se presenta la sentencia de remisión a juicio contra 11 personas por el desastre del Vajont.»\n- T102 · tipo T · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «Se celebra el juicio de casación en Roma, donde Biadene y Sensidoni son reconocidos culpables de inundación agravada.»\n- D32 · tipo D · a_pantalla: no · por_que: — · fuente: Vajont: fu disastro colposo con previsione dell'evento (Cassazione 1971), 2003 · texto fuente: «Solo 8 de los acusados se sentaron en el banquillo, ya que dos habían muerto y uno se suicidó.»\n- T89 · tipo T · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «Mario Pancini, uno de los acusados por el desastre, se suicida.»\n- T92 · tipo T · a_pantalla: no · por_que: — · fuente: Vajont: fu disastro colposo con previsione dell'evento (Cassazione 1971), 2003 · texto fuente: «El tribunal de primera instancia pronuncia la sentencia, condenando a Biadene, Batini y Violin a 6 años por homicidio culposo.»\n- D139 · tipo D · a_pantalla: no · por_que: — · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 · texto fuente: «ENEL ofreció 10.000 millones de liras de la época para indemnizaciones.»\n- D140 · tipo D · a_pantalla: no · por_que: — · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 · texto fuente: «La última transacción de indemnización se realizó en el año 2000.»\n- Q56 · tipo Q · a_pantalla: no · por_que: — · fuente: Una lezione dai disastri: il Vajont e l'alluvione di Firenze, 2014 (autor: Sandro Canestrini) · texto fuente: «Vajont no es la trágica excepción al sistema, sino su confirmación: en este suceso realmente no ha ocurrido nada excepcional. Solo, como a menudo sucede, había un riesgo, previsible y previsto»\n\nYA MOSTRADO EN CAPÍTULOS ANTERIORES (no repetir):\n- D117 «El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes.»\n- D128 «En el desastre murieron 1.910 personas.»\n- D192 «En el centro de control en el estribo izquierdo de la presa había 20 técnicos que perecieron.»\n- Q50 «Las poblaciones de Erto y Casso están viviendo en continua aprensión y en continua alarma; considerando también el hecho de que otros minimizan estas cosas, pero que también para la gente de Erto implican la seguridad de la vida y de los bienes, esta administración vuelve a manifestar sus preocupaciones por la seguridad de la población y del país.»\n\nDevolvé:\n{\"bloques\": [{\"sentence_idx\": int, \"tipo\": \"cifra|recorte|cita|persona|lupa\", \"texto\": str, \"etiqueta_o_kicker\": str|null, \"pool_id\": str, \"aporta\": str}], \"descartados\": [{\"pool_id\": str, \"motivo\": str}]}",
+   "respuesta": {
+    "bloques": [
+     {
+      "sentence_idx": 18,
+      "tipo": "cifra",
+      "texto": "Condena a Montedison (1997): 55.645.758.500 liras",
+      "etiqueta_o_kicker": "Condena a Montedison, 1997",
+      "pool_id": "D245",
+      "aporta": "la cifra en liras del fallo de 1997 contra Montedison, que la voz no dice"
+     }
+    ],
+    "descartados": [
+     {
+      "pool_id": "Q13",
+      "motivo": "La narración ya dice la frase literal en la oración [1]; repetiría la voz."
+     },
+     {
+      "pool_id": "Q20",
+      "motivo": "La narración lee la cita completa; no aporta nada nuevo."
+     },
+     {
+      "pool_id": "Q22",
+      "motivo": "La narración ya la lee casi literal; repetiría la voz."
+     },
+     {
+      "pool_id": "Q23",
+      "motivo": "La narración ya la lee en voz; repetiría la voz."
+     },
+     {
+      "pool_id": "D136",
+      "motivo": "La oración [10] ya dice los dieciocho meses y la conclusión de imprevisibilidad."
+     },
+     {
+      "pool_id": "T85",
+      "momento": "[11]",
+      "motivo": "Aporta '11 personas', pero la fecha y la resolución ya están en la voz; el dato de la cantidad de imputados choca con los 8 acusados de [16] y no suma claridad. Se descarta."
+     },
+     {
+      "pool_id": "T102",
+      "motivo": "La oración [17] ya dice Casación, Biadene y Sensidoni y el año; solo aporta 'Roma', insuficiente."
+     },
+     {
+      "pool_id": "D32",
+      "motivo": "La oración [16] ya dice los ocho acusados; el dato de muertos y suicida adelanta/duplica contenido y no aporta suficiente."
+     },
+     {
+      "pool_id": "T89",
+      "motivo": "La oración [15] ya cuenta el suicidio de Pancini; solo agregaría el nombre de pila, sin valor."
+     },
+     {
+      "pool_id": "T92",
+      "motivo": "No hay oración sobre la sentencia de primera instancia en la narración; el dato no corresponde a ninguna oración."
+     },
+     {
+      "pool_id": "D139",
+      "motivo": "La oración [18] ya dice los diez mil millones de liras; repetiría."
+     },
+     {
+      "pool_id": "D140",
+      "motivo": "La oración [19] ya dice la última transacción en el año dos mil; repetiría."
+     },
+     {
+      "pool_id": "Q56",
+      "motivo": "La narración ya la lee en la oración [20]; repetiría la voz."
+     }
+    ]
+   },
+   "crudas": [
+    {
+     "respuesta": {
+      "content": [
+       {
+        "type": "text",
+        "text": "{\"bloques\":[{\"sentence_idx\":18,\"tipo\":\"cifra\",\"texto\":\"Condena a Montedison (1997): 55.645.758.500 liras\",\"etiqueta_o_kicker\":\"Condena a Montedison, 1997\",\"pool_id\":\"D245\",\"aporta\":\"la cifra en liras del fallo de 1997 contra Montedison, que la voz no dice\"}],\"descartados\":[{\"pool_id\":\"Q13\",\"motivo\":\"La narración ya dice la frase literal en la oración [1]; repetiría la voz.\"},{\"pool_id\":\"Q20\",\"motivo\":\"La narración lee la cita completa; no aporta nada nuevo.\"},{\"pool_id\":\"Q22\",\"motivo\":\"La narración ya la lee casi literal; repetiría la voz.\"},{\"pool_id\":\"Q23\",\"motivo\":\"La narración ya la lee en voz; repetiría la voz.\"},{\"pool_id\":\"D136\",\"motivo\":\"La oración [10] ya dice los dieciocho meses y la conclusión de imprevisibilidad.\"},{\"pool_id\":\"T85\",\"momento\":\"[11]\",\"motivo\":\"Aporta '11 personas', pero la fecha y la resolución ya están en la voz; el dato de la cantidad de imputados choca con los 8 acusados de [16] y no suma claridad. Se descarta.\"},{\"pool_id\":\"T102\",\"motivo\":\"La oración [17] ya dice Casación, Biadene y Sensidoni y el año; solo aporta 'Roma', insuficiente.\"},{\"pool_id\":\"D32\",\"motivo\":\"La oración [16] ya dice los ocho acusados; el dato de muertos y suicida adelanta/duplica contenido y no aporta suficiente.\"},{\"pool_id\":\"T89\",\"motivo\":\"La oración [15] ya cuenta el suicidio de Pancini; solo agregaría el nombre de pila, sin valor.\"},{\"pool_id\":\"T92\",\"motivo\":\"No hay oración sobre la sentencia de primera instancia en la narración; el dato no corresponde a ninguna oración.\"},{\"pool_id\":\"D139\",\"motivo\":\"La oración [18] ya dice los diez mil millones de liras; repetiría.\"},{\"pool_id\":\"D140\",\"motivo\":\"La oración [19] ya dice la última transacción en el año dos mil; repetiría.\"},{\"pool_id\":\"Q56\",\"motivo\":\"La narración ya la lee en la oración [20]; repetiría la voz.\"}]}"
+       }
+      ],
+      "usage": {
+       "input_tokens": 5160,
+       "cache_creation_input_tokens": 0,
+       "cache_read_input_tokens": 0,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+       },
+       "output_tokens": 824,
+       "service_tier": "standard",
+       "inference_geo": "global",
+       "speed": "standard",
+       "output_tokens_details": {
+        "thinking_tokens": 0
+       }
+      },
+      "model": "claude-sonnet-5-5",
+      "id": "msg_011CgQKd1Bgq1T3ufHgoDGX6",
+      "type": "message",
+      "role": "assistant",
+      "container": null,
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "stop_details": null,
+      "diagnostics": null
+     },
+     "segundos": 6.6,
+     "usd": 0.01856
+    }
+   ],
+   "error": null,
+   "validacion": {
+    "bloques": [
+     {
+      "sentence_idx": 18,
+      "tipo": "cifra",
+      "texto": "Condena a Montedison (1997): 55.645.758.500 liras",
+      "etiqueta_o_kicker": "Condena a Montedison, 1997",
+      "pool_id": "D245",
+      "aporta": "la cifra en liras del fallo de 1997 contra Montedison, que la voz no dice",
+      "t0": 126.22,
+      "dur": 3.0,
+      "beat": 13,
+      "funcion": "cierre",
+      "pantalla": "Condena a Montedison (1997): 55.645.758.500 liras",
+      "a_pantalla": true
+     }
+    ],
+    "rechazos": [],
+    "faltan": [],
+    "incompletos": {}
+   },
+   "segundos": 6.8
+  }
+ ],
+ "final": {
+  "bloques": [
+   {
+    "sentence_idx": 18,
+    "tipo": "cifra",
+    "texto": "Condena a Montedison (1997): 55.645.758.500 liras",
+    "etiqueta_o_kicker": "Condena a Montedison, 1997",
+    "pool_id": "D245",
+    "aporta": "la cifra en liras del fallo de 1997 contra Montedison, que la voz no dice"
+   }
+  ],
+  "descartados": [
+   {
+    "pool_id": "Q13",
+    "motivo": "La narración ya dice la frase literal en la oración [1]; repetiría la voz."
+   },
+   {
+    "pool_id": "Q20",
+    "motivo": "La narración lee la cita completa; no aporta nada nuevo."
+   },
+   {
+    "pool_id": "Q22",
+    "motivo": "La narración ya la lee casi literal; repetiría la voz."
+   },
+   {
+    "pool_id": "Q23",
+    "motivo": "La narración ya la lee en voz; repetiría la voz."
+   },
+   {
+    "pool_id": "D136",
+    "motivo": "La oración [10] ya dice los dieciocho meses y la conclusión de imprevisibilidad."
+   },
+   {
+    "pool_id": "T85",
+    "momento": "[11]",
+    "motivo": "Aporta '11 personas', pero la fecha y la resolución ya están en la voz; el dato de la cantidad de imputados choca con los 8 acusados de [16] y no suma claridad. Se descarta."
+   },
+   {
+    "pool_id": "T102",
+    "motivo": "La oración [17] ya dice Casación, Biadene y Sensidoni y el año; solo aporta 'Roma', insuficiente."
+   },
+   {
+    "pool_id": "D32",
+    "motivo": "La oración [16] ya dice los ocho acusados; el dato de muertos y suicida adelanta/duplica contenido y no aporta suficiente."
+   },
+   {
+    "pool_id": "T89",
+    "motivo": "La oración [15] ya cuenta el suicidio de Pancini; solo agregaría el nombre de pila, sin valor."
+   },
+   {
+    "pool_id": "T92",
+    "motivo": "No hay oración sobre la sentencia de primera instancia en la narración; el dato no corresponde a ninguna oración."
+   },
+   {
+    "pool_id": "D139",
+    "motivo": "La oración [18] ya dice los diez mil millones de liras; repetiría."
+   },
+   {
+    "pool_id": "D140",
+    "motivo": "La oración [19] ya dice la última transacción en el año dos mil; repetiría."
+   },
+   {
+    "pool_id": "Q56",
+    "motivo": "La narración ya la lee en la oración [20]; repetiría la voz."
+   }
+  ]
+ },
+ "validacion": {
+  "bloques": [
+   {
+    "sentence_idx": 18,
+    "tipo": "cifra",
+    "texto": "Condena a Montedison (1997): 55.645.758.500 liras",
+    "etiqueta_o_kicker": "Condena a Montedison, 1997",
+    "pool_id": "D245",
+    "aporta": "la cifra en liras del fallo de 1997 contra Montedison, que la voz no dice",
+    "t0": 126.22,
+    "dur": 3.0,
+    "beat": 13,
+    "funcion": "cierre",
+    "pantalla": "Condena a Montedison (1997): 55.645.758.500 liras",
+    "a_pantalla": true
+   }
+  ],
+  "rechazos": [],
+  "faltan": [],
+  "incompletos": {}
+ }
+}

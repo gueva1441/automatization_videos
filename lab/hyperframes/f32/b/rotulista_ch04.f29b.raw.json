@@ -1,0 +1,801 @@
+{
+ "clave": "b0280e7fae76f4429e8d",
+ "modelo": "claude-sonnet-5-5",
+ "effort": "medium",
+ "prompt_version": "f29b-1",
+ "prompt_md5": "50e6ae74fd588861e81fb5d2191ab644",
+ "entrada": {
+  "cap": 4,
+  "titulo": "giro",
+  "oraciones": [
+   {
+    "idx": 0,
+    "t0": 0.06,
+    "t1": 6.7,
+    "texto": "El cuatro de noviembre de mil novecientos sesenta el embalse estaba a seiscientos cincuenta metros sobre el nivel del mar."
+   },
+   {
+    "idx": 1,
+    "t0": 7.68,
+    "t1": 15.02,
+    "texto": "Ese día, durante las pruebas, una masa de roca se desprendió del Toc y cayó al lago nuevo, y el agua se levantó."
+   },
+   {
+    "idx": 2,
+    "t0": 16.059,
+    "t1": 23.9,
+    "texto": "Unos setecientos mil metros cúbicos de roca; otras fuentes hablan de más, y nadie coincide en la altura de la ola que levantó."
+   },
+   {
+    "idx": 3,
+    "t0": 25.02,
+    "t1": 28.66,
+    "texto": "Ese mismo mes, Tina Merlin y L'Unità fueron a juicio."
+   },
+   {
+    "idx": 4,
+    "t0": 29.5,
+    "t1": 31.18,
+    "texto": "La audiencia duró seis horas."
+   },
+   {
+    "idx": 5,
+    "t0": 31.88,
+    "t1": 33.38,
+    "texto": "Salieron absueltos los dos."
+   },
+   {
+    "idx": 6,
+    "t0": 34.56,
+    "t1": 44.3,
+    "texto": "En febrero de mil novecientos sesenta y uno, Merlin volvió a su máquina de escribir y publicó otra advertencia: la amenaza sobre Erto seguía ahí."
+   },
+   {
+    "idx": 7,
+    "t0": 45.28,
+    "t1": 46.9,
+    "texto": "Absuelta en seis horas."
+   },
+   {
+    "idx": 8,
+    "t0": 48.0,
+    "t1": 51.4,
+    "texto": "La empresa, mientras tanto, mandó construir una maqueta."
+   },
+   {
+    "idx": 9,
+    "t0": 52.26,
+    "t1": 61.3,
+    "texto": "En un galpón de la Universidad de Padua se armó el valle en pequeño: la garganta, el lago, la ladera del Toc, una presa de juguete."
+   },
+   {
+    "idx": 10,
+    "t0": 62.26,
+    "t1": 65.78,
+    "texto": "Para representar la roca compacta de la montaña usaron grava."
+   },
+   {
+    "idx": 11,
+    "t0": 66.66,
+    "t1": 71.92,
+    "texto": "En el laboratorio lo explicaron con una frase: «Nos han dicho que lo hagamos así»."
+   },
+   {
+    "idx": 12,
+    "t0": 75.22,
+    "t1": 80.22,
+    "texto": "La recomendación que salió de ahí fue no pasar de los setecientos metros sobre el nivel del mar."
+   },
+   {
+    "idx": 13,
+    "t0": 81.06,
+    "t1": 83.94,
+    "texto": "La cota autorizada fue de setecientos quince."
+   },
+   {
+    "idx": 14,
+    "t0": 84.98,
+    "t1": 91.32,
+    "texto": "En noviembre de mil novecientos sesenta y dos, la ladera ya se desplazaba más de un centímetro y medio por día."
+   },
+   {
+    "idx": 15,
+    "t0": 92.32,
+    "t1": 102.14,
+    "texto": "En mayo de mil novecientos sesenta y tres, SADE subió el nivel del agua: tenía que entregar la presa como una obra que funcionaba para cerrar la operación con ENEL."
+   },
+   {
+    "idx": 16,
+    "t0": 103.16,
+    "t1": 108.34,
+    "texto": "En julio se completó el cambio de propiedad, con la prueba de llenado todavía en marcha."
+   },
+   {
+    "idx": 17,
+    "t0": 109.26,
+    "t1": 112.32,
+    "texto": "La presa cambió de dueño con el agua todavía subiendo."
+   },
+   {
+    "idx": 18,
+    "t0": 113.14,
+    "t1": 115.58,
+    "texto": "La montaña no se enteró del contrato."
+   }
+  ],
+  "beats": [
+   {
+    "n": 6,
+    "funcion": "giro",
+    "t0": 0.06,
+    "t1": 51.4,
+    "cierre": "Absuelta en seis horas. La empresa, mientras tanto, mandó construir una maqueta.",
+    "dato_central": "T36",
+    "datos_apoyo": [
+     "D223",
+     "D156",
+     "T33",
+     "T37",
+     "T39"
+    ]
+   },
+   {
+    "n": 7,
+    "funcion": "giro",
+    "t0": 52.26,
+    "t1": 115.58,
+    "cierre": "La presa cambió de dueño con el agua todavía subiendo. La montaña no se enteró del contrato.",
+    "dato_central": "D106",
+    "datos_apoyo": [
+     "D104",
+     "D103",
+     "Q44",
+     "T50",
+     "T52",
+     "D68"
+    ]
+   }
+  ],
+  "items": [
+   {
+    "id": "T36",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     6
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Una primera frana de 700.000 metros cúbicos se vierte en el lago artificial durante las pruebas.",
+    "fuente": "Una lezione dai disastri: il Vajont e l'alluvione di Firenze, 2014",
+    "autor": ""
+   },
+   {
+    "id": "D223",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     6
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "Un primer derrumbe de 700.000 metros cúbicos ocurrió el 4 de noviembre de 1960 durante unas pruebas.",
+    "fuente": "Una lezione dai disastri: il Vajont e l'alluvione di Firenze, 2014",
+    "autor": ""
+   },
+   {
+    "id": "D156",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     6
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "Durante el deslizamiento de 1960, el embalse estaba lleno hasta una cota de 650 m sobre el nivel del mar.",
+    "fuente": "Tragedia del Vajont: analisi geologica di una frana annunciata, 2021",
+    "autor": ""
+   },
+   {
+    "id": "T33",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     6
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Comienza el juicio contra la periodista Tina Merlin y el periódico l'Unità por difundir supuestas noticias falsas sobre la presa.",
+    "fuente": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+    "autor": ""
+   },
+   {
+    "id": "T37",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     6
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "La periodista Tina Merlin publica en \"l'Unità\" el primer artículo denunciando la situación de la presa del Vajont.",
+    "fuente": "Una lezione dai disastri: il Vajont e l'alluvione di Firenze, 2014",
+    "autor": ""
+   },
+   {
+    "id": "T39",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     6
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Tina Merlin publica un nuevo artículo alertando de un derrumbamiento de 50 millones de metros cúbicos de roca que amenaza Erto.",
+    "fuente": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+    "autor": ""
+   },
+   {
+    "id": "D106",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     7
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "La SADE obtuvo autorización para llenar el embalse hasta 715 metros, 15 metros por encima de la cota de seguridad recomendada.",
+    "fuente": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+    "autor": ""
+   },
+   {
+    "id": "D104",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     7
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "El informe de la Universidad de Padua advertía de daños si se superaba el nivel de 700 metros sobre el nivel del mar.",
+    "fuente": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+    "autor": ""
+   },
+   {
+    "id": "D103",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     7
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "Un modelo hidráulico del laboratorio de la Universidad de Padua subestimó los daños al usar grava para simular las rocas compactas.",
+    "fuente": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+    "autor": ""
+   },
+   {
+    "id": "Q44",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     7
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "Nos han dicho que lo hagamos así",
+    "fuente": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+    "autor": "Laboratorio de la Universidad de Padua"
+   },
+   {
+    "id": "T50",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     7
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "La empresa SADE aumentó el nivel del agua del embalse a 720 metros para cerrar la venta de la presa a ENEL.",
+    "fuente": "DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013",
+    "autor": ""
+   },
+   {
+    "id": "T52",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     7
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Se completa el cambio de propiedad de la central hidroeléctrica del Vajont a la ENEL.",
+    "fuente": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+    "autor": ""
+   },
+   {
+    "id": "D68",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     7
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "En noviembre de 1962, el desplazamiento de la ladera superó el umbral de 1,5 cm por día.",
+    "fuente": "DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013",
+    "autor": ""
+   }
+  ],
+  "ya_mostrado": [
+   {
+    "id": "D117",
+    "texto": "El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes."
+   }
+  ],
+  "pico": {
+   "beat": 7,
+   "funcion": "giro",
+   "sentence_idx": 12,
+   "frase": "La recomendación que salió de ahí fue no pasar de los setecientos metros sobre el nivel del mar.",
+   "t": 75.22,
+   "dato": "D106",
+   "fuente": "escaleta (beat más intenso del cap)"
+  }
+ },
+ "intentos": [
+  {
+   "pedido": "CAPÍTULO 4 — giro\n\nNARRACIÓN (oración por oración, con segundos):\n[0] 0.1–6.7 · El cuatro de noviembre de mil novecientos sesenta el embalse estaba a seiscientos cincuenta metros sobre el nivel del mar.\n[1] 7.7–15.0 · Ese día, durante las pruebas, una masa de roca se desprendió del Toc y cayó al lago nuevo, y el agua se levantó.\n[2] 16.1–23.9 · Unos setecientos mil metros cúbicos de roca; otras fuentes hablan de más, y nadie coincide en la altura de la ola que levantó.\n[3] 25.0–28.7 · Ese mismo mes, Tina Merlin y L'Unità fueron a juicio.\n[4] 29.5–31.2 · La audiencia duró seis horas.\n[5] 31.9–33.4 · Salieron absueltos los dos.\n[6] 34.6–44.3 · En febrero de mil novecientos sesenta y uno, Merlin volvió a su máquina de escribir y publicó otra advertencia: la amenaza sobre Erto seguía ahí.\n[7] 45.3–46.9 · Absuelta en seis horas.\n[8] 48.0–51.4 · La empresa, mientras tanto, mandó construir una maqueta.\n[9] 52.3–61.3 · En un galpón de la Universidad de Padua se armó el valle en pequeño: la garganta, el lago, la ladera del Toc, una presa de juguete.\n[10] 62.3–65.8 · Para representar la roca compacta de la montaña usaron grava.\n[11] 66.7–71.9 · En el laboratorio lo explicaron con una frase: «Nos han dicho que lo hagamos así».\n[12] 75.2–80.2 · La recomendación que salió de ahí fue no pasar de los setecientos metros sobre el nivel del mar.\n[13] 81.1–83.9 · La cota autorizada fue de setecientos quince.\n[14] 85.0–91.3 · En noviembre de mil novecientos sesenta y dos, la ladera ya se desplazaba más de un centímetro y medio por día.\n[15] 92.3–102.1 · En mayo de mil novecientos sesenta y tres, SADE subió el nivel del agua: tenía que entregar la presa como una obra que funcionaba para cerrar la operación con ENEL.\n[16] 103.2–108.3 · En julio se completó el cambio de propiedad, con la prueba de llenado todavía en marcha.\n[17] 109.3–112.3 · La presa cambió de dueño con el agua todavía subiendo.\n[18] 113.1–115.6 · La montaña no se enteró del contrato.\n\nBEATS DEL CAPÍTULO (función, ventana en segundos, cierre):\n- beat 6 · giro · 0.1–51.4 s · cierre: «Absuelta en seis horas. La empresa, mientras tanto, mandó construir una maqueta.»\n- beat 7 · giro · 52.3–115.6 s · cierre: «La presa cambió de dueño con el agua todavía subiendo. La montaña no se enteró del contrato.»\n\nPICO DEL CAPÍTULO: oración [12] «La recomendación que salió de ahí fue no pasar de los setecientos metros sobre el nivel del mar.»\n\nDATOS DISPONIBLES (solo estos; cada uno con su texto fuente):\n- T36 · tipo T · a_pantalla: no · por_que: — · fuente: Una lezione dai disastri: il Vajont e l'alluvione di Firenze, 2014 · texto fuente: «Una primera frana de 700.000 metros cúbicos se vierte en el lago artificial durante las pruebas.»\n- D223 · tipo D · a_pantalla: no · por_que: — · fuente: Una lezione dai disastri: il Vajont e l'alluvione di Firenze, 2014 · texto fuente: «Un primer derrumbe de 700.000 metros cúbicos ocurrió el 4 de noviembre de 1960 durante unas pruebas.»\n- D156 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia del Vajont: analisi geologica di una frana annunciata, 2021 · texto fuente: «Durante el deslizamiento de 1960, el embalse estaba lleno hasta una cota de 650 m sobre el nivel del mar.»\n- T33 · tipo T · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 · texto fuente: «Comienza el juicio contra la periodista Tina Merlin y el periódico l'Unità por difundir supuestas noticias falsas sobre la presa.»\n- T37 · tipo T · a_pantalla: no · por_que: — · fuente: Una lezione dai disastri: il Vajont e l'alluvione di Firenze, 2014 · texto fuente: «La periodista Tina Merlin publica en \"l'Unità\" el primer artículo denunciando la situación de la presa del Vajont.»\n- T39 · tipo T · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 · texto fuente: «Tina Merlin publica un nuevo artículo alertando de un derrumbamiento de 50 millones de metros cúbicos de roca que amenaza Erto.»\n- D106 · tipo D · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 · texto fuente: «La SADE obtuvo autorización para llenar el embalse hasta 715 metros, 15 metros por encima de la cota de seguridad recomendada.»\n- D104 · tipo D · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 · texto fuente: «El informe de la Universidad de Padua advertía de daños si se superaba el nivel de 700 metros sobre el nivel del mar.»\n- D103 · tipo D · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 · texto fuente: «Un modelo hidráulico del laboratorio de la Universidad de Padua subestimó los daños al usar grava para simular las rocas compactas.»\n- Q44 · tipo Q · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 (autor: Laboratorio de la Universidad de Padua) · texto fuente: «Nos han dicho que lo hagamos así»\n- T50 · tipo T · a_pantalla: no · por_que: — · fuente: DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013 · texto fuente: «La empresa SADE aumentó el nivel del agua del embalse a 720 metros para cerrar la venta de la presa a ENEL.»\n- T52 · tipo T · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 · texto fuente: «Se completa el cambio de propiedad de la central hidroeléctrica del Vajont a la ENEL.»\n- D68 · tipo D · a_pantalla: no · por_que: — · fuente: DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013 · texto fuente: «En noviembre de 1962, el desplazamiento de la ladera superó el umbral de 1,5 cm por día.»\n\nYA MOSTRADO EN CAPÍTULOS ANTERIORES (no repetir):\n- D117 «El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes.»\n\nDevolvé:\n{\"bloques\": [{\"sentence_idx\": int, \"tipo\": \"cifra|recorte|cita|persona|lupa\", \"texto\": str, \"etiqueta_o_kicker\": str|null, \"pool_id\": str, \"aporta\": str}], \"descartados\": [{\"pool_id\": str, \"motivo\": str}]}",
+   "respuesta": {
+    "bloques": [
+     {
+      "sentence_idx": 11,
+      "tipo": "cita",
+      "texto": "Nos han dicho que lo hagamos así",
+      "etiqueta_o_kicker": "Laboratorio de la Universidad de Padua, en Vajont, la construcción de una catástrofe a la italiana, 2022",
+      "pool_id": "Q44",
+      "aporta": "el autor de la frase: el laboratorio de la Universidad de Padua"
+     },
+     {
+      "sentence_idx": 15,
+      "tipo": "cifra",
+      "texto": "Nivel subido por SADE: 720 m",
+      "etiqueta_o_kicker": "Nivel subido por SADE",
+      "pool_id": "T50",
+      "aporta": "la cifra: 720 metros, por encima de la cota autorizada"
+     },
+     {
+      "sentence_idx": 10,
+      "tipo": "recorte",
+      "texto": "El modelo de Padua subestimó los daños al usar grava",
+      "etiqueta_o_kicker": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+      "pool_id": "D103",
+      "aporta": "el efecto: el modelo subestimó los daños"
+     },
+     {
+      "sentence_idx": 6,
+      "tipo": "recorte",
+      "texto": "Merlin alertó de 50 millones de metros cúbicos de roca",
+      "etiqueta_o_kicker": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+      "pool_id": "T39",
+      "aporta": "la cifra: 50 millones de metros cúbicos que amenazaban Erto"
+     }
+    ],
+    "descartados": [
+     {
+      "pool_id": "T36",
+      "motivo": "repite los 700.000 m³ que la narración ya dice en [2]"
+     },
+     {
+      "pool_id": "D223",
+      "motivo": "repite fecha y volumen ya dichos en [0] a [2]"
+     },
+     {
+      "pool_id": "D156",
+      "motivo": "repite los 650 m ya dichos en [0]"
+     },
+     {
+      "pool_id": "T33",
+      "motivo": "repite el juicio a Merlin y L'Unità que dice [3]"
+     },
+     {
+      "pool_id": "T37",
+      "motivo": "es el primer artículo de Merlin, anterior y ajeno al giro de este capítulo"
+     },
+     {
+      "pool_id": "D106",
+      "motivo": "repite la cota de 715 m de [13] y adelanta o duplica la narración"
+     },
+     {
+      "pool_id": "D104",
+      "motivo": "repite la recomendación de 700 m que dice [12]"
+     },
+     {
+      "pool_id": "T52",
+      "motivo": "repite el cambio de propiedad de [16]"
+     },
+     {
+      "pool_id": "D68",
+      "motivo": "repite el desplazamiento de 1,5 cm por día de [14]"
+     }
+    ]
+   },
+   "crudas": [
+    {
+     "respuesta": {
+      "content": [
+       {
+        "type": "text",
+        "text": "{\"bloques\":[{\"sentence_idx\":11,\"tipo\":\"cita\",\"texto\":\"Nos han dicho que lo hagamos así\",\"etiqueta_o_kicker\":\"Laboratorio de la Universidad de Padua, en Vajont, la construcción de una catástrofe a la italiana, 2022\",\"pool_id\":\"Q44\",\"aporta\":\"el autor de la frase: el laboratorio de la Universidad de Padua\"},{\"sentence_idx\":15,\"tipo\":\"cifra\",\"texto\":\"Nivel subido por SADE: 720 m\",\"etiqueta_o_kicker\":\"Nivel subido por SADE\",\"pool_id\":\"T50\",\"aporta\":\"la cifra: 720 metros, por encima de la cota autorizada\"},{\"sentence_idx\":10,\"tipo\":\"recorte\",\"texto\":\"El modelo de Padua subestimó los daños al usar grava\",\"etiqueta_o_kicker\":\"Vajont, la construcción de una catástrofe a la italiana, 2022\",\"pool_id\":\"D103\",\"aporta\":\"el efecto: el modelo subestimó los daños\"},{\"sentence_idx\":6,\"tipo\":\"recorte\",\"texto\":\"Merlin alertó de 50 millones de metros cúbicos de roca\",\"etiqueta_o_kicker\":\"Vajont, la construcción de una catástrofe a la italiana, 2022\",\"pool_id\":\"T39\",\"aporta\":\"la cifra: 50 millones de metros cúbicos que amenazaban Erto\"}],\"descartados\":[{\"pool_id\":\"T36\",\"motivo\":\"repite los 700.000 m³ que la narración ya dice en [2]\"},{\"pool_id\":\"D223\",\"motivo\":\"repite fecha y volumen ya dichos en [0] a [2]\"},{\"pool_id\":\"D156\",\"motivo\":\"repite los 650 m ya dichos en [0]\"},{\"pool_id\":\"T33\",\"motivo\":\"repite el juicio a Merlin y L'Unità que dice [3]\"},{\"pool_id\":\"T37\",\"motivo\":\"es el primer artículo de Merlin, anterior y ajeno al giro de este capítulo\"},{\"pool_id\":\"D106\",\"motivo\":\"repite la cota de 715 m de [13] y adelanta o duplica la narración\"},{\"pool_id\":\"D104\",\"motivo\":\"repite la recomendación de 700 m que dice [12]\"},{\"pool_id\":\"T52\",\"motivo\":\"repite el cambio de propiedad de [16]\"},{\"pool_id\":\"D68\",\"motivo\":\"repite el desplazamiento de 1,5 cm por día de [14]\"}]}"
+       }
+      ],
+      "usage": {
+       "input_tokens": 4174,
+       "cache_creation_input_tokens": 0,
+       "cache_read_input_tokens": 0,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+       },
+       "output_tokens": 866,
+       "service_tier": "standard",
+       "inference_geo": "global",
+       "speed": "standard",
+       "output_tokens_details": {
+        "thinking_tokens": 0
+       }
+      },
+      "model": "claude-sonnet-5-5",
+      "id": "msg_011CgQKd14kcsp4HypN3UmHZ",
+      "type": "message",
+      "role": "assistant",
+      "container": null,
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "stop_details": null,
+      "diagnostics": null
+     },
+     "segundos": 6.5,
+     "usd": 0.01701
+    }
+   ],
+   "error": null,
+   "validacion": {
+    "bloques": [
+     {
+      "sentence_idx": 11,
+      "tipo": "cita",
+      "texto": "Nos han dicho que lo hagamos así",
+      "etiqueta_o_kicker": "Laboratorio de la Universidad de Padua, en Vajont, la construcción de una catástrofe a la italiana, 2022",
+      "pool_id": "Q44",
+      "aporta": "el autor de la frase: el laboratorio de la Universidad de Padua",
+      "t0": 72.22,
+      "dur": 3.33,
+      "beat": 7,
+      "funcion": "giro",
+      "pantalla": "Nos han dicho que lo hagamos así",
+      "a_pantalla": false
+     }
+    ],
+    "rechazos": [
+     {
+      "pool_id": "T50",
+      "texto": "Nivel subido por SADE: 720 m",
+      "sentence_idx": 15,
+      "regla": "A.4.4",
+      "motivo": "la voz lo dice a ±20 s: ['SADE']"
+     },
+     {
+      "pool_id": "D103",
+      "texto": "El modelo de Padua subestimó los daños al usar grava",
+      "sentence_idx": 10,
+      "regla": "A.4.2",
+      "motivo": "10 palabras (tope 9)"
+     },
+     {
+      "pool_id": "T39",
+      "texto": "Merlin alertó de 50 millones de metros cúbicos de roca",
+      "sentence_idx": 6,
+      "regla": "A.4.2",
+      "motivo": "10 palabras (tope 9)"
+     }
+    ],
+    "faltan": [],
+    "incompletos": {}
+   },
+   "segundos": 6.6
+  },
+  {
+   "pedido": "CAPÍTULO 4 — giro\n\nNARRACIÓN (oración por oración, con segundos):\n[0] 0.1–6.7 · El cuatro de noviembre de mil novecientos sesenta el embalse estaba a seiscientos cincuenta metros sobre el nivel del mar.\n[1] 7.7–15.0 · Ese día, durante las pruebas, una masa de roca se desprendió del Toc y cayó al lago nuevo, y el agua se levantó.\n[2] 16.1–23.9 · Unos setecientos mil metros cúbicos de roca; otras fuentes hablan de más, y nadie coincide en la altura de la ola que levantó.\n[3] 25.0–28.7 · Ese mismo mes, Tina Merlin y L'Unità fueron a juicio.\n[4] 29.5–31.2 · La audiencia duró seis horas.\n[5] 31.9–33.4 · Salieron absueltos los dos.\n[6] 34.6–44.3 · En febrero de mil novecientos sesenta y uno, Merlin volvió a su máquina de escribir y publicó otra advertencia: la amenaza sobre Erto seguía ahí.\n[7] 45.3–46.9 · Absuelta en seis horas.\n[8] 48.0–51.4 · La empresa, mientras tanto, mandó construir una maqueta.\n[9] 52.3–61.3 · En un galpón de la Universidad de Padua se armó el valle en pequeño: la garganta, el lago, la ladera del Toc, una presa de juguete.\n[10] 62.3–65.8 · Para representar la roca compacta de la montaña usaron grava.\n[11] 66.7–71.9 · En el laboratorio lo explicaron con una frase: «Nos han dicho que lo hagamos así».\n[12] 75.2–80.2 · La recomendación que salió de ahí fue no pasar de los setecientos metros sobre el nivel del mar.\n[13] 81.1–83.9 · La cota autorizada fue de setecientos quince.\n[14] 85.0–91.3 · En noviembre de mil novecientos sesenta y dos, la ladera ya se desplazaba más de un centímetro y medio por día.\n[15] 92.3–102.1 · En mayo de mil novecientos sesenta y tres, SADE subió el nivel del agua: tenía que entregar la presa como una obra que funcionaba para cerrar la operación con ENEL.\n[16] 103.2–108.3 · En julio se completó el cambio de propiedad, con la prueba de llenado todavía en marcha.\n[17] 109.3–112.3 · La presa cambió de dueño con el agua todavía subiendo.\n[18] 113.1–115.6 · La montaña no se enteró del contrato.\n\nBEATS DEL CAPÍTULO (función, ventana en segundos, cierre):\n- beat 6 · giro · 0.1–51.4 s · cierre: «Absuelta en seis horas. La empresa, mientras tanto, mandó construir una maqueta.»\n- beat 7 · giro · 52.3–115.6 s · cierre: «La presa cambió de dueño con el agua todavía subiendo. La montaña no se enteró del contrato.»\n\nPICO DEL CAPÍTULO: oración [12] «La recomendación que salió de ahí fue no pasar de los setecientos metros sobre el nivel del mar.»\n\nDATOS DISPONIBLES (solo estos; cada uno con su texto fuente):\n- T36 · tipo T · a_pantalla: no · por_que: — · fuente: Una lezione dai disastri: il Vajont e l'alluvione di Firenze, 2014 · texto fuente: «Una primera frana de 700.000 metros cúbicos se vierte en el lago artificial durante las pruebas.»\n- D223 · tipo D · a_pantalla: no · por_que: — · fuente: Una lezione dai disastri: il Vajont e l'alluvione di Firenze, 2014 · texto fuente: «Un primer derrumbe de 700.000 metros cúbicos ocurrió el 4 de noviembre de 1960 durante unas pruebas.»\n- D156 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia del Vajont: analisi geologica di una frana annunciata, 2021 · texto fuente: «Durante el deslizamiento de 1960, el embalse estaba lleno hasta una cota de 650 m sobre el nivel del mar.»\n- T33 · tipo T · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 · texto fuente: «Comienza el juicio contra la periodista Tina Merlin y el periódico l'Unità por difundir supuestas noticias falsas sobre la presa.»\n- T37 · tipo T · a_pantalla: no · por_que: — · fuente: Una lezione dai disastri: il Vajont e l'alluvione di Firenze, 2014 · texto fuente: «La periodista Tina Merlin publica en \"l'Unità\" el primer artículo denunciando la situación de la presa del Vajont.»\n- T39 · tipo T · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 · texto fuente: «Tina Merlin publica un nuevo artículo alertando de un derrumbamiento de 50 millones de metros cúbicos de roca que amenaza Erto.»\n- D106 · tipo D · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 · texto fuente: «La SADE obtuvo autorización para llenar el embalse hasta 715 metros, 15 metros por encima de la cota de seguridad recomendada.»\n- D104 · tipo D · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 · texto fuente: «El informe de la Universidad de Padua advertía de daños si se superaba el nivel de 700 metros sobre el nivel del mar.»\n- D103 · tipo D · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 · texto fuente: «Un modelo hidráulico del laboratorio de la Universidad de Padua subestimó los daños al usar grava para simular las rocas compactas.»\n- Q44 · tipo Q · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 (autor: Laboratorio de la Universidad de Padua) · texto fuente: «Nos han dicho que lo hagamos así»\n- T50 · tipo T · a_pantalla: no · por_que: — · fuente: DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013 · texto fuente: «La empresa SADE aumentó el nivel del agua del embalse a 720 metros para cerrar la venta de la presa a ENEL.»\n- T52 · tipo T · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 · texto fuente: «Se completa el cambio de propiedad de la central hidroeléctrica del Vajont a la ENEL.»\n- D68 · tipo D · a_pantalla: no · por_que: — · fuente: DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013 · texto fuente: «En noviembre de 1962, el desplazamiento de la ladera superó el umbral de 1,5 cm por día.»\n\nYA MOSTRADO EN CAPÍTULOS ANTERIORES (no repetir):\n- D117 «El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes.»\n\nDevolvé:\n{\"bloques\": [{\"sentence_idx\": int, \"tipo\": \"cifra|recorte|cita|persona|lupa\", \"texto\": str, \"etiqueta_o_kicker\": str|null, \"pool_id\": str, \"aporta\": str}], \"descartados\": [{\"pool_id\": str, \"motivo\": str}]}\n\nTU RESPUESTA ANTERIOR TUVO ESTOS PROBLEMAS (corregilos y devolvé el JSON completo otra vez):\n- T50 en la oración [15] «Nivel subido por SADE: 720 m»: la voz lo dice a ±20 s: ['SADE']\n- D103 en la oración [10] «El modelo de Padua subestimó los daños al usar grava»: 10 palabras (tope 9)\n- T39 en la oración [6] «Merlin alertó de 50 millones de metros cúbicos de roca»: 10 palabras (tope 9)",
+   "respuesta": {
+    "bloques": [
+     {
+      "sentence_idx": 6,
+      "tipo": "recorte",
+      "texto": "Alerta de Merlin: 50 millones de metros cúbicos de roca",
+      "etiqueta_o_kicker": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+      "pool_id": "T39",
+      "aporta": "la cifra del derrumbe que Merlin advertía: 50 millones de m³"
+     },
+     {
+      "sentence_idx": 10,
+      "tipo": "recorte",
+      "texto": "El modelo de Padua subestimó los daños con grava",
+      "etiqueta_o_kicker": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+      "pool_id": "D103",
+      "aporta": "el efecto: el modelo subestimó los daños"
+     },
+     {
+      "sentence_idx": 11,
+      "tipo": "cita",
+      "texto": "Nos han dicho que lo hagamos así",
+      "etiqueta_o_kicker": "Laboratorio de la Universidad de Padua, 2022",
+      "pool_id": "Q44",
+      "aporta": "la frase literal del laboratorio, atribuida a Padua"
+     },
+     {
+      "sentence_idx": 15,
+      "tipo": "cifra",
+      "texto": "Nivel del embalse: 720 m",
+      "etiqueta_o_kicker": "Nivel del embalse",
+      "pool_id": "T50",
+      "aporta": "la cifra: 720 metros, cinco por encima de la cota autorizada"
+     }
+    ],
+    "descartados": [
+     {
+      "pool_id": "T36",
+      "motivo": "repite la narración sobre los 700.000 m³"
+     },
+     {
+      "pool_id": "D223",
+      "motivo": "repite la narración"
+     },
+     {
+      "pool_id": "D156",
+      "motivo": "repite la narración, la cota de 650 m"
+     },
+     {
+      "pool_id": "T33",
+      "motivo": "repite la narración sobre el juicio"
+     },
+     {
+      "pool_id": "T37",
+      "motivo": "primer artículo, no corresponde a esta oración"
+     },
+     {
+      "pool_id": "D106",
+      "motivo": "repite la narración, la cota de 715 m"
+     },
+     {
+      "pool_id": "D104",
+      "motivo": "repite la recomendación de 700 m, que la voz ya dice"
+     },
+     {
+      "pool_id": "T52",
+      "motivo": "repite la narración"
+     },
+     {
+      "pool_id": "D68",
+      "motivo": "repite la narración"
+     }
+    ]
+   },
+   "crudas": [
+    {
+     "respuesta": {
+      "content": [
+       {
+        "type": "text",
+        "text": "{\"bloques\": [{\"sentence_idx\": 6, \"tipo\": \"recorte\", \"texto\": \"Alerta de Merlin: 50 millones de metros cúbicos de roca\", \"etiqueta_o_kicker\": \"Vajont, la construcción de una catástrofe a la italiana, 2022\", \"pool_id\": \"T39\", \"aporta\": \"la cifra del derrumbe que Merlin advertía: 50 millones de m³\"}, {\"sentence_idx\": 10, \"tipo\": \"recorte\", \"texto\": \"El modelo de Padua subestimó los daños con grava\", \"etiqueta_o_kicker\": \"Vajont, la construcción de una catástrofe a la italiana, 2022\", \"pool_id\": \"D103\", \"aporta\": \"el efecto: el modelo subestimó los daños\"}, {\"sentence_idx\": 11, \"tipo\": \"cita\", \"texto\": \"Nos han dicho que lo hagamos así\", \"etiqueta_o_kicker\": \"Laboratorio de la Universidad de Padua, 2022\", \"pool_id\": \"Q44\", \"aporta\": \"la frase literal del laboratorio, atribuida a Padua\"}, {\"sentence_idx\": 15, \"tipo\": \"cifra\", \"texto\": \"Nivel del embalse: 720 m\", \"etiqueta_o_kicker\": \"Nivel del embalse\", \"pool_id\": \"T50\", \"aporta\": \"la cifra: 720 metros, cinco por encima de la cota autorizada\"}], \"descartados\": [{\"pool_id\": \"T36\", \"motivo\": \"repite la narración sobre los 700.000 m³\"}, {\"pool_id\": \"D223\", \"motivo\": \"repite la narración\"}, {\"pool_id\": \"D156\", \"motivo\": \"repite la narración, la cota de 650 m\"}, {\"pool_id\": \"T33\", \"motivo\": \"repite la narración sobre el juicio\"}, {\"pool_id\": \"T37\", \"motivo\": \"primer artículo, no corresponde a esta oración\"}, {\"pool_id\": \"D106\", \"motivo\": \"repite la narración, la cota de 715 m\"}, {\"pool_id\": \"D104\", \"motivo\": \"repite la recomendación de 700 m, que la voz ya dice\"}, {\"pool_id\": \"T52\", \"motivo\": \"repite la narración\"}, {\"pool_id\": \"D68\", \"motivo\": \"repite la narración\"}]}"
+       }
+      ],
+      "usage": {
+       "input_tokens": 4377,
+       "cache_creation_input_tokens": 0,
+       "cache_read_input_tokens": 0,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+       },
+       "output_tokens": 790,
+       "service_tier": "standard",
+       "inference_geo": "global",
+       "speed": "standard",
+       "output_tokens_details": {
+        "thinking_tokens": 0
+       }
+      },
+      "model": "claude-sonnet-5-5",
+      "id": "msg_011CgQKdT5Ri9GHYEGhZ3pS2",
+      "type": "message",
+      "role": "assistant",
+      "container": null,
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "stop_details": null,
+      "diagnostics": null
+     },
+     "segundos": 5.2,
+     "usd": 0.01665
+    }
+   ],
+   "error": null,
+   "validacion": {
+    "bloques": [
+     {
+      "sentence_idx": 11,
+      "tipo": "cita",
+      "texto": "Nos han dicho que lo hagamos así",
+      "etiqueta_o_kicker": "Laboratorio de la Universidad de Padua, 2022",
+      "pool_id": "Q44",
+      "aporta": "la frase literal del laboratorio, atribuida a Padua",
+      "t0": 72.22,
+      "dur": 3.33,
+      "beat": 7,
+      "funcion": "giro",
+      "pantalla": "Nos han dicho que lo hagamos así",
+      "a_pantalla": false
+     },
+     {
+      "sentence_idx": 15,
+      "tipo": "cifra",
+      "texto": "Nivel del embalse: 720 m",
+      "etiqueta_o_kicker": "Nivel del embalse",
+      "pool_id": "T50",
+      "aporta": "la cifra: 720 metros, cinco por encima de la cota autorizada",
+      "t0": 102.44,
+      "dur": 2.67,
+      "beat": 7,
+      "funcion": "giro",
+      "pantalla": "Nivel del embalse: 720 m",
+      "a_pantalla": false
+     }
+    ],
+    "rechazos": [
+     {
+      "pool_id": "T39",
+      "texto": "Alerta de Merlin: 50 millones de metros cúbicos de roca",
+      "sentence_idx": 6,
+      "regla": "A.4.2",
+      "motivo": "10 palabras (tope 9)"
+     },
+     {
+      "pool_id": "D103",
+      "texto": "El modelo de Padua subestimó los daños con grava",
+      "sentence_idx": 10,
+      "regla": "A.4.4",
+      "motivo": "la voz lo dice a ±20 s: ['Padua']"
+     }
+    ],
+    "faltan": [],
+    "incompletos": {}
+   },
+   "segundos": 5.2
+  }
+ ],
+ "final": {
+  "bloques": [
+   {
+    "sentence_idx": 6,
+    "tipo": "recorte",
+    "texto": "Alerta de Merlin: 50 millones de metros cúbicos de roca",
+    "etiqueta_o_kicker": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+    "pool_id": "T39",
+    "aporta": "la cifra del derrumbe que Merlin advertía: 50 millones de m³"
+   },
+   {
+    "sentence_idx": 10,
+    "tipo": "recorte",
+    "texto": "El modelo de Padua subestimó los daños con grava",
+    "etiqueta_o_kicker": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+    "pool_id": "D103",
+    "aporta": "el efecto: el modelo subestimó los daños"
+   },
+   {
+    "sentence_idx": 11,
+    "tipo": "cita",
+    "texto": "Nos han dicho que lo hagamos así",
+    "etiqueta_o_kicker": "Laboratorio de la Universidad de Padua, 2022",
+    "pool_id": "Q44",
+    "aporta": "la frase literal del laboratorio, atribuida a Padua"
+   },
+   {
+    "sentence_idx": 15,
+    "tipo": "cifra",
+    "texto": "Nivel del embalse: 720 m",
+    "etiqueta_o_kicker": "Nivel del embalse",
+    "pool_id": "T50",
+    "aporta": "la cifra: 720 metros, cinco por encima de la cota autorizada"
+   }
+  ],
+  "descartados": [
+   {
+    "pool_id": "T36",
+    "motivo": "repite la narración sobre los 700.000 m³"
+   },
+   {
+    "pool_id": "D223",
+    "motivo": "repite la narración"
+   },
+   {
+    "pool_id": "D156",
+    "motivo": "repite la narración, la cota de 650 m"
+   },
+   {
+    "pool_id": "T33",
+    "motivo": "repite la narración sobre el juicio"
+   },
+   {
+    "pool_id": "T37",
+    "motivo": "primer artículo, no corresponde a esta oración"
+   },
+   {
+    "pool_id": "D106",
+    "motivo": "repite la narración, la cota de 715 m"
+   },
+   {
+    "pool_id": "D104",
+    "motivo": "repite la recomendación de 700 m, que la voz ya dice"
+   },
+   {
+    "pool_id": "T52",
+    "motivo": "repite la narración"
+   },
+   {
+    "pool_id": "D68",
+    "motivo": "repite la narración"
+   }
+  ]
+ },
+ "validacion": {
+  "bloques": [
+   {
+    "sentence_idx": 11,
+    "tipo": "cita",
+    "texto": "Nos han dicho que lo hagamos así",
+    "etiqueta_o_kicker": "Laboratorio de la Universidad de Padua, 2022",
+    "pool_id": "Q44",
+    "aporta": "la frase literal del laboratorio, atribuida a Padua",
+    "t0": 72.22,
+    "dur": 3.33,
+    "beat": 7,
+    "funcion": "giro",
+    "pantalla": "Nos han dicho que lo hagamos así",
+    "a_pantalla": false
+   },
+   {
+    "sentence_idx": 15,
+    "tipo": "cifra",
+    "texto": "Nivel del embalse: 720 m",
+    "etiqueta_o_kicker": "Nivel del embalse",
+    "pool_id": "T50",
+    "aporta": "la cifra: 720 metros, cinco por encima de la cota autorizada",
+    "t0": 102.44,
+    "dur": 2.67,
+    "beat": 7,
+    "funcion": "giro",
+    "pantalla": "Nivel del embalse: 720 m",
+    "a_pantalla": false
+   }
+  ],
+  "rechazos": [
+   {
+    "pool_id": "T39",
+    "texto": "Alerta de Merlin: 50 millones de metros cúbicos de roca",
+    "sentence_idx": 6,
+    "regla": "A.4.2",
+    "motivo": "10 palabras (tope 9)"
+   },
+   {
+    "pool_id": "D103",
+    "texto": "El modelo de Padua subestimó los daños con grava",
+    "sentence_idx": 10,
+    "regla": "A.4.4",
+    "motivo": "la voz lo dice a ±20 s: ['Padua']"
+   }
+  ],
+  "faltan": [],
+  "incompletos": {}
+ }
+}

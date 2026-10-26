@@ -1,0 +1,434 @@
+{
+ "clave": "91d0c6cebe483747167b",
+ "modelo": "claude-sonnet-5-5",
+ "effort": "medium",
+ "prompt_version": "f29b-1",
+ "prompt_md5": "50e6ae74fd588861e81fb5d2191ab644",
+ "entrada": {
+  "cap": 1,
+  "titulo": "gancho",
+  "oraciones": [
+   {
+    "idx": 0,
+    "t0": 0.12,
+    "t1": 6.34,
+    "texto": "Hay una casa a oscuras y, dentro de la casa, una cama que ya no está quieta."
+   },
+   {
+    "idx": 1,
+    "t0": 7.26,
+    "t1": 15.32,
+    "texto": "Una niña siente que su cama empieza a correr en la oscuridad; a dos kilómetros de ahí, la presa que todos creyeron caída sigue en pie."
+   },
+   {
+    "idx": 2,
+    "t0": 16.32,
+    "t1": 21.64,
+    "texto": "La niña se llama Micaela Coletti y es una niña de Longarone, un pueblo de fondo de valle."
+   },
+   {
+    "idx": 3,
+    "t0": 22.28,
+    "t1": 23.44,
+    "texto": "Hace un minuto dormía."
+   },
+   {
+    "idx": 4,
+    "t0": 24.14,
+    "t1": 29.46,
+    "texto": "Ahora algo la empuja desde atrás, y la cama ya no es una cama: es algo que la lleva."
+   },
+   {
+    "idx": 5,
+    "t0": 30.52,
+    "t1": 33.74,
+    "texto": "Años después, Coletti lo contó con las palabras que le quedaron."
+   },
+   {
+    "idx": 6,
+    "t0": 34.42,
+    "t1": 43.34,
+    "texto": "«La sensación de que la cama tomaba velocidad, una fuerza espantosa que me agarraba por la espalda, me doblaba en dos, me aplastaba», dijo Coletti."
+   },
+   {
+    "idx": 7,
+    "t0": 44.88,
+    "t1": 45.96,
+    "texto": "Se sintió de goma."
+   },
+   {
+    "idx": 8,
+    "t0": 46.58,
+    "t1": 48.88,
+    "texto": "Se ensanchaba y después se encogía."
+   },
+   {
+    "idx": 9,
+    "t0": 49.84,
+    "t1": 51.78,
+    "texto": "Los ojos, dos estrellas."
+   },
+   {
+    "idx": 10,
+    "t0": 52.8,
+    "t1": 64.86,
+    "texto": "Esa misma noche, Gianfranco Trevisano ve cómo «se abrió de improviso, de par en par, el portoncito de la entrada, a causa de una corriente de aire», y con el portón entra el ruido del aire que irrumpe."
+   },
+   {
+    "idx": 11,
+    "t0": 66.32,
+    "t1": 67.64,
+    "texto": "Enseguida se va la luz."
+   },
+   {
+    "idx": 12,
+    "t0": 68.38,
+    "t1": 72.48,
+    "texto": "Trevisano piensa lo que va a pensar medio valle: que el dique cedió."
+   },
+   {
+    "idx": 13,
+    "t0": 73.54,
+    "t1": 77.86,
+    "texto": "Longarone, Italia, nueve de octubre de mil novecientos sesenta y tres."
+   },
+   {
+    "idx": 14,
+    "t0": 78.86,
+    "t1": 80.66,
+    "texto": "Pero el dique no cedió esa noche."
+   },
+   {
+    "idx": 15,
+    "t0": 81.2,
+    "t1": 84.04,
+    "texto": "Lo que llegó a la cama de Micaela vino por encima de él."
+   },
+   {
+    "idx": 16,
+    "t0": 84.6,
+    "t1": 94.48,
+    "texto": "Y para entender cómo una ola pasa por encima de una pared que no se rompe, hay que volver veinte años atrás, a un papel firmado cuando esa cama todavía no existía."
+   }
+  ],
+  "beats": [
+   {
+    "n": 1,
+    "funcion": "gancho",
+    "t0": 0.12,
+    "t1": 94.48,
+    "cierre": "El dique no cedió esa noche. Lo que llegó a la cama de Micaela vino por encima de él.",
+    "dato_central": "Q49",
+    "datos_apoyo": [
+     "Q19",
+     "D131"
+    ]
+   }
+  ],
+  "items": [
+   {
+    "id": "Q49",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     1
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "La sensación de que la cama cogía velocidad, una fuerza espantosa que me cogía por la espalda, me doblaba en dos, me aplastaba; la sensación de ser de goma, de ensancharme y luego encogerme, los ojos convertidos en dos estrellas;",
+    "fuente": "Il disastro del Vajont non fu una calamità naturale, 2023",
+    "autor": "Micaela Coletti"
+   },
+   {
+    "id": "Q19",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     1
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "Antes de que se fuera la luz, se abrió de improviso, de par en par, el portoncito de la entrada, a causa de una corriente de aire, acompañada del ruido del aire que irrumpía [...] Inmediatamente pensé que había cedido el dique.",
+    "fuente": "La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005",
+    "autor": "Gianfranco Trevisano"
+   },
+   {
+    "id": "D131",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     1
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "La masa de agua cayó al valle tras un salto de más de 260 metros.",
+    "fuente": "Il disastro del Vajont non fu una calamità naturale, 2023",
+    "autor": ""
+   }
+  ],
+  "ya_mostrado": [],
+  "pico": {
+   "beat": 1,
+   "funcion": "gancho",
+   "sentence_idx": 6,
+   "frase": "«La sensación de que la cama tomaba velocidad, una fuerza espantosa que me agarraba por la espalda, me doblaba en dos, me aplastaba», dijo Coletti.",
+   "t": 34.42,
+   "dato": "Q49",
+   "fuente": "escaleta (beat más intenso del cap)"
+  }
+ },
+ "intentos": [
+  {
+   "pedido": "CAPÍTULO 1 — gancho\n\nNARRACIÓN (oración por oración, con segundos):\n[0] 0.1–6.3 · Hay una casa a oscuras y, dentro de la casa, una cama que ya no está quieta.\n[1] 7.3–15.3 · Una niña siente que su cama empieza a correr en la oscuridad; a dos kilómetros de ahí, la presa que todos creyeron caída sigue en pie.\n[2] 16.3–21.6 · La niña se llama Micaela Coletti y es una niña de Longarone, un pueblo de fondo de valle.\n[3] 22.3–23.4 · Hace un minuto dormía.\n[4] 24.1–29.5 · Ahora algo la empuja desde atrás, y la cama ya no es una cama: es algo que la lleva.\n[5] 30.5–33.7 · Años después, Coletti lo contó con las palabras que le quedaron.\n[6] 34.4–43.3 · «La sensación de que la cama tomaba velocidad, una fuerza espantosa que me agarraba por la espalda, me doblaba en dos, me aplastaba», dijo Coletti.\n[7] 44.9–46.0 · Se sintió de goma.\n[8] 46.6–48.9 · Se ensanchaba y después se encogía.\n[9] 49.8–51.8 · Los ojos, dos estrellas.\n[10] 52.8–64.9 · Esa misma noche, Gianfranco Trevisano ve cómo «se abrió de improviso, de par en par, el portoncito de la entrada, a causa de una corriente de aire», y con el portón entra el ruido del aire que irrumpe.\n[11] 66.3–67.6 · Enseguida se va la luz.\n[12] 68.4–72.5 · Trevisano piensa lo que va a pensar medio valle: que el dique cedió.\n[13] 73.5–77.9 · Longarone, Italia, nueve de octubre de mil novecientos sesenta y tres.\n[14] 78.9–80.7 · Pero el dique no cedió esa noche.\n[15] 81.2–84.0 · Lo que llegó a la cama de Micaela vino por encima de él.\n[16] 84.6–94.5 · Y para entender cómo una ola pasa por encima de una pared que no se rompe, hay que volver veinte años atrás, a un papel firmado cuando esa cama todavía no existía.\n\nBEATS DEL CAPÍTULO (función, ventana en segundos, cierre):\n- beat 1 · gancho · 0.1–94.5 s · cierre: «El dique no cedió esa noche. Lo que llegó a la cama de Micaela vino por encima de él.»\n\nPICO DEL CAPÍTULO: oración [6] ««La sensación de que la cama tomaba velocidad, una fuerza espantosa que me agarraba por la espalda, me doblaba en dos, me aplastaba», dijo Coletti.»\n\nDATOS DISPONIBLES (solo estos; cada uno con su texto fuente):\n- Q49 · tipo Q · a_pantalla: no · por_que: — · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 (autor: Micaela Coletti) · texto fuente: «La sensación de que la cama cogía velocidad, una fuerza espantosa que me cogía por la espalda, me doblaba en dos, me aplastaba; la sensación de ser de goma, de ensancharme y luego encogerme, los ojos convertidos en dos estrellas;»\n- Q19 · tipo Q · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 (autor: Gianfranco Trevisano) · texto fuente: «Antes de que se fuera la luz, se abrió de improviso, de par en par, el portoncito de la entrada, a causa de una corriente de aire, acompañada del ruido del aire que irrumpía [...] Inmediatamente pensé que había cedido el dique.»\n- D131 · tipo D · a_pantalla: no · por_que: — · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 · texto fuente: «La masa de agua cayó al valle tras un salto de más de 260 metros.»\n\nYA MOSTRADO EN CAPÍTULOS ANTERIORES (no repetir):\n(nada)\n\nDevolvé:\n{\"bloques\": [{\"sentence_idx\": int, \"tipo\": \"cifra|recorte|cita|persona|lupa\", \"texto\": str, \"etiqueta_o_kicker\": str|null, \"pool_id\": str, \"aporta\": str}], \"descartados\": [{\"pool_id\": str, \"motivo\": str}]}",
+   "respuesta": null,
+   "crudas": [
+    {
+     "respuesta": {
+      "content": [
+       {
+        "type": "text",
+        "text": "{\"bloques\": [{\"sentence_idx\": 2, \"tipo\": \"persona\", \"texto\": \"Micaela Coletti, sobreviviente de Longarone\", \"etiqueta_o_kicker\": null, \"pool_id\": \"Q49\", \"aporta\": \"no se puede sostener: el dato no trae cargo ni condición de sobreviviente\"}], \"descartados\": []}\n\nCorrijo: esa respuesta tiene un error. Respuesta final:\n\n{\"bloques\": [], \"descartados\": [{\"pool_id\": \"Q49\", \"motivo\": \"La narración ya lee la cita de Coletti en [6]-[9], casi completa; ponerla en pantalla repetiría la narración. Además, el texto de la narración difiere del dato fuente y la cita literal exigida no coincide con lo que dice la voz.\"}, {\"pool_id\": \"Q19\", \"motivo\": \"La narración ya cita a Trevisano en [10] y [12] con las mismas palabras; la cita en pantalla no aportaría nada nuevo (falla a).\"}, {\"pool_id\": \"D131\", \"motivo\": \"La cifra de más de 260 metros de salto del agua es información nueva, pero la narración en el gancho no habla de la altura del salto en ninguna oración; en [15] solo dice que la ola vino por encima del dique. Ponerla adelantaría el mecanismo que el capítulo promete explicar después (falla c). Además no es a_pantalla.\"}]}"
+       }
+      ],
+      "usage": {
+       "input_tokens": 2881,
+       "cache_creation_input_tokens": 0,
+       "cache_read_input_tokens": 0,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+       },
+       "output_tokens": 486,
+       "service_tier": "standard",
+       "inference_geo": "global",
+       "speed": "standard",
+       "output_tokens_details": {
+        "thinking_tokens": 0
+       }
+      },
+      "model": "claude-sonnet-5-5",
+      "id": "msg_011CgQKd17jXF3cAsSUDraB8",
+      "type": "message",
+      "role": "assistant",
+      "container": null,
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "stop_details": null,
+      "diagnostics": null
+     },
+     "segundos": 4.3,
+     "usd": 0.01062
+    },
+    {
+     "respuesta": {
+      "content": [
+       {
+        "type": "text",
+        "text": "{\"bloques\": [{\"sentence_idx\": 2, \"tipo\": \"persona\", \"texto\": \"Micaela Coletti, sobreviviente de Longarone\", \"etiqueta_o_kicker\": null, \"pool_id\": \"Q49\", \"aporta\": \"el nombre completo y la condición de sobreviviente\"}], \"descartados\": [{\"pool_id\": \"Q49\", \"motivo\": \"La cita ya está leída por la narración en [6] y [7]-[9]. Mostrarla repetiría la voz y no aporta nada nuevo. Además la narración la parafrasea y cambia palabras, así que no se puede usar como cita literal sin duplicar.\"}, {\"pool_id\": \"Q19\", \"motivo\": \"La narración ya cita a Trevisano en [10] y [12]. Poner la cita en pantalla repetiría lo que la voz dice. No hay nada nuevo.\"}, {\"pool_id\": \"D131\", \"motivo\": \"El salto de más de 260 metros pertenece al mecanismo de la ola sobre el dique, que el capítulo explica más adelante. Mostrarlo en [15] adelantaría esa explicación. Además no hay ninguna oración que hable de esa magnitud.\"}]}\n\nNota: el bloque de persona sobre Coletti tiene un problema. El dato Q49 no trae el cargo ni la condición de «sobreviviente». Solo trae su nombre en el campo autor. Eso rompe la regla de que cada dato escrito debe estar en la fuente. Corrijo: el bloque no debe salir.\n\n```json\n{\"bloques\": [], \"descartados\": [{\"pool_id\": \"Q49\", \"motivo\": \"La narración ya lee la cita en [6]-[9]; repetirla no aporta nada. Y el dato no trae cargo ni condición de Coletti, solo el nombre, que la voz ya dice en [2].\"}, {\"pool_id\": \"Q19\", \"motivo\": \"La narración ya cita a Trevisano en [10] y [12]; la pantalla repetiría la voz.\"}, {\"pool_id\": \"D131\", \"motivo\": \"El salto de más de 260 metros pertenece al mecanismo de la ola sobre el dique, que se explica después; en el gancho adelantaría la narración y ninguna oración habla de esa magnitud.\"}]}\n```"
+       }
+      ],
+      "usage": {
+       "input_tokens": 2881,
+       "cache_creation_input_tokens": 0,
+       "cache_read_input_tokens": 0,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+       },
+       "output_tokens": 776,
+       "service_tier": "standard",
+       "inference_geo": "global",
+       "speed": "standard",
+       "output_tokens_details": {
+        "thinking_tokens": 0
+       }
+      },
+      "model": "claude-sonnet-5-5",
+      "id": "msg_011CgQKdHvGUTbfGDbqvBbLt",
+      "type": "message",
+      "role": "assistant",
+      "container": null,
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "stop_details": null,
+      "diagnostics": null
+     },
+     "segundos": 5.8,
+     "usd": 0.01352
+    },
+    {
+     "respuesta": {
+      "content": [
+       {
+        "type": "text",
+        "text": "{\"bloques\": [{\"sentence_idx\": 2, \"tipo\": \"persona\", \"texto\": \"Micaela Coletti, niña de Longarone\", \"etiqueta_o_kicker\": null, \"pool_id\": \"Q49\", \"aporta\": \"el nombre completo asociado a la autora del testimonio; pero el dato no trae cargo\"}], \"descartados\": []}\n\nCorrijo: ese bloque no cumple las reglas. La narración ya dice «Micaela Coletti» y «niña de Longarone» en esa oración, así que repetiría lo dicho. El dato Q49 tampoco trae cargo alguno. Esta es la respuesta válida:\n\n{\"bloques\": [], \"descartados\": [{\"pool_id\": \"Q49\", \"motivo\": \"La narración ya lee la cita en la oración [6], casi palabra por palabra, y sigue con 'de goma' y 'dos estrellas' en [7]-[9]. Ponerla en pantalla repetiría la narración. El texto literal además difiere de lo que dice la voz ('cogía' en vez de 'tomaba'), y una cita en pantalla no puede cambiar el texto del dato. Tampoco hay persona que mostrar: el dato no trae cargo.\"}, {\"pool_id\": \"Q19\", \"motivo\": \"La narración ya cita a Trevisano en [10] y [12] con las mismas palabras ('se abrió de improviso, de par en par...', 'el dique cedió'). El texto en pantalla no aportaría nada nuevo. Tampoco sirve como persona: el dato no trae cargo.\"}, {\"pool_id\": \"D131\", \"motivo\": \"La cifra de más de 260 metros de salto es un dato útil, pero la narración todavía no habla de la caída del agua ni de la altura. En [15] dice solo que la ola 'vino por encima' del dique. Mostrarla ahí adelantaría el desarrollo de capítulos posteriores y rompería la condición (c). Además, el dato describe el salto del agua al valle, no la altura de la presa.\"}]}"
+       }
+      ],
+      "usage": {
+       "input_tokens": 2881,
+       "cache_creation_input_tokens": 0,
+       "cache_read_input_tokens": 0,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+       },
+       "output_tokens": 691,
+       "service_tier": "standard",
+       "inference_geo": "global",
+       "speed": "standard",
+       "output_tokens_details": {
+        "thinking_tokens": 0
+       }
+      },
+      "model": "claude-sonnet-5-5",
+      "id": "msg_011CgQKdiuBpkvdLJGsB8JHF",
+      "type": "message",
+      "role": "assistant",
+      "container": null,
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "stop_details": null,
+      "diagnostics": null
+     },
+     "segundos": 5.6,
+     "usd": 0.01267
+    }
+   ],
+   "error": "ClaudeError: claude-sonnet-5-5: gfx_rotulista ch01 falló después de 3 intentos: JSON inválido (Extra data; stop_reason end_turn)",
+   "validacion": null,
+   "segundos": 15.8
+  },
+  {
+   "pedido": "CAPÍTULO 1 — gancho\n\nNARRACIÓN (oración por oración, con segundos):\n[0] 0.1–6.3 · Hay una casa a oscuras y, dentro de la casa, una cama que ya no está quieta.\n[1] 7.3–15.3 · Una niña siente que su cama empieza a correr en la oscuridad; a dos kilómetros de ahí, la presa que todos creyeron caída sigue en pie.\n[2] 16.3–21.6 · La niña se llama Micaela Coletti y es una niña de Longarone, un pueblo de fondo de valle.\n[3] 22.3–23.4 · Hace un minuto dormía.\n[4] 24.1–29.5 · Ahora algo la empuja desde atrás, y la cama ya no es una cama: es algo que la lleva.\n[5] 30.5–33.7 · Años después, Coletti lo contó con las palabras que le quedaron.\n[6] 34.4–43.3 · «La sensación de que la cama tomaba velocidad, una fuerza espantosa que me agarraba por la espalda, me doblaba en dos, me aplastaba», dijo Coletti.\n[7] 44.9–46.0 · Se sintió de goma.\n[8] 46.6–48.9 · Se ensanchaba y después se encogía.\n[9] 49.8–51.8 · Los ojos, dos estrellas.\n[10] 52.8–64.9 · Esa misma noche, Gianfranco Trevisano ve cómo «se abrió de improviso, de par en par, el portoncito de la entrada, a causa de una corriente de aire», y con el portón entra el ruido del aire que irrumpe.\n[11] 66.3–67.6 · Enseguida se va la luz.\n[12] 68.4–72.5 · Trevisano piensa lo que va a pensar medio valle: que el dique cedió.\n[13] 73.5–77.9 · Longarone, Italia, nueve de octubre de mil novecientos sesenta y tres.\n[14] 78.9–80.7 · Pero el dique no cedió esa noche.\n[15] 81.2–84.0 · Lo que llegó a la cama de Micaela vino por encima de él.\n[16] 84.6–94.5 · Y para entender cómo una ola pasa por encima de una pared que no se rompe, hay que volver veinte años atrás, a un papel firmado cuando esa cama todavía no existía.\n\nBEATS DEL CAPÍTULO (función, ventana en segundos, cierre):\n- beat 1 · gancho · 0.1–94.5 s · cierre: «El dique no cedió esa noche. Lo que llegó a la cama de Micaela vino por encima de él.»\n\nPICO DEL CAPÍTULO: oración [6] ««La sensación de que la cama tomaba velocidad, una fuerza espantosa que me agarraba por la espalda, me doblaba en dos, me aplastaba», dijo Coletti.»\n\nDATOS DISPONIBLES (solo estos; cada uno con su texto fuente):\n- Q49 · tipo Q · a_pantalla: no · por_que: — · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 (autor: Micaela Coletti) · texto fuente: «La sensación de que la cama cogía velocidad, una fuerza espantosa que me cogía por la espalda, me doblaba en dos, me aplastaba; la sensación de ser de goma, de ensancharme y luego encogerme, los ojos convertidos en dos estrellas;»\n- Q19 · tipo Q · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 (autor: Gianfranco Trevisano) · texto fuente: «Antes de que se fuera la luz, se abrió de improviso, de par en par, el portoncito de la entrada, a causa de una corriente de aire, acompañada del ruido del aire que irrumpía [...] Inmediatamente pensé que había cedido el dique.»\n- D131 · tipo D · a_pantalla: no · por_que: — · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 · texto fuente: «La masa de agua cayó al valle tras un salto de más de 260 metros.»\n\nYA MOSTRADO EN CAPÍTULOS ANTERIORES (no repetir):\n(nada)\n\nDevolvé:\n{\"bloques\": [{\"sentence_idx\": int, \"tipo\": \"cifra|recorte|cita|persona|lupa\", \"texto\": str, \"etiqueta_o_kicker\": str|null, \"pool_id\": str, \"aporta\": str}], \"descartados\": [{\"pool_id\": str, \"motivo\": str}]}\n\nTU RESPUESTA ANTERIOR TUVO ESTOS PROBLEMAS (corregilos y devolvé el JSON completo otra vez):\n- la respuesta no es JSON válido (ClaudeError: claude-sonnet-5-5: gfx_rotulista ch01 falló después de 3 intentos: JSON inválido (Extra data; stop_reason end_turn))",
+   "respuesta": {
+    "bloques": [],
+    "descartados": [
+     {
+      "pool_id": "Q49",
+      "motivo": "La narración ya lee esta cita casi completa en [6] y retoma 'de goma' y 'dos estrellas' en [7]-[9]. Ponerla en pantalla repetiría la voz y no cumple (a)."
+     },
+     {
+      "pool_id": "Q19",
+      "motivo": "La narración cita el portoncito y el aire en [10] y parafrasea 'pensé que había cedido el dique' en [12]. No aporta nada nuevo. El dato tampoco trae cargo de Trevisano, así que no hay bloque persona posible."
+     },
+     {
+      "pool_id": "D131",
+      "motivo": "El salto de más de 260 metros no coincide con lo que se cuenta en ninguna oración del gancho. [15] solo dice que la ola vino por encima del dique y no habla de la altura de caída. Mostrarlo adelantaría una cifra que corresponde a capítulos posteriores y no cumple (b) ni (c)."
+     }
+    ]
+   },
+   "crudas": [
+    {
+     "respuesta": {
+      "content": [
+       {
+        "type": "text",
+        "text": "{\"bloques\": [{\"sentence_idx\": 2, \"tipo\": \"persona\", \"texto\": \"Micaela Coletti, sobreviviente de Longarone\", \"etiqueta_o_kicker\": null, \"pool_id\": \"Q49\", \"aporta\": \"el nombre de la autora de la cita; pero el cargo «sobreviviente» no está en el dato\"}], \"descartados\": []}\n\nCorrección: la respuesta anterior no es válida; devuelvo el JSON correcto.\n\n```json\n{\"bloques\": [], \"descartados\": [{\"pool_id\": \"Q49\", \"motivo\": \"La narración ya lee la cita casi completa en la oración [6] y parafrasea el resto en [7]-[9]; cualquier bloque repetiría la voz. Además no hay cargo de Coletti en el dato para un bloque persona.\"}, {\"pool_id\": \"Q19\", \"motivo\": \"La narración ya cita y parafrasea a Trevisano en [10]-[12]; el texto en pantalla repetiría lo dicho. No hay cargo en el dato para un bloque persona.\"}, {\"pool_id\": \"D131\", \"motivo\": \"Es la cifra de 260 metros de salto del agua; adelanta el mecanismo de la ola sobre el dique que la narración desarrollará en capítulos posteriores, y ninguna oración del gancho habla de esa magnitud.\"}]}\n```"
+       }
+      ],
+      "usage": {
+       "input_tokens": 3015,
+       "cache_creation_input_tokens": 0,
+       "cache_read_input_tokens": 0,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+       },
+       "output_tokens": 465,
+       "service_tier": "standard",
+       "inference_geo": "global",
+       "speed": "standard",
+       "output_tokens_details": {
+        "thinking_tokens": 0
+       }
+      },
+      "model": "claude-sonnet-5-5",
+      "id": "msg_011CgQKe8ew6YFkPy99BhZpC",
+      "type": "message",
+      "role": "assistant",
+      "container": null,
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "stop_details": null,
+      "diagnostics": null
+     },
+     "segundos": 4.1,
+     "usd": 0.01068
+    },
+    {
+     "respuesta": {
+      "content": [
+       {
+        "type": "thinking",
+        "thinking": "",
+        "signature": ""
+       },
+       {
+        "type": "text",
+        "text": "{\"bloques\": [], \"descartados\": [{\"pool_id\": \"Q49\", \"motivo\": \"La narración ya lee esta cita casi completa en [6] y retoma 'de goma' y 'dos estrellas' en [7]-[9]. Ponerla en pantalla repetiría la voz y no cumple (a).\"}, {\"pool_id\": \"Q19\", \"motivo\": \"La narración cita el portoncito y el aire en [10] y parafrasea 'pensé que había cedido el dique' en [12]. No aporta nada nuevo. El dato tampoco trae cargo de Trevisano, así que no hay bloque persona posible.\"}, {\"pool_id\": \"D131\", \"motivo\": \"El salto de más de 260 metros no coincide con lo que se cuenta en ninguna oración del gancho. [15] solo dice que la ola vino por encima del dique y no habla de la altura de caída. Mostrarlo adelantaría una cifra que corresponde a capítulos posteriores y no cumple (b) ni (c).\"}]}"
+       }
+      ],
+      "usage": {
+       "input_tokens": 3015,
+       "cache_creation_input_tokens": 0,
+       "cache_read_input_tokens": 0,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+       },
+       "output_tokens": 779,
+       "service_tier": "standard",
+       "inference_geo": "global",
+       "speed": "standard",
+       "output_tokens_details": {
+        "thinking_tokens": 432
+       }
+      },
+      "model": "claude-sonnet-5-5",
+      "id": "msg_011CgQKeSZhybHRdrqY71XJi",
+      "type": "message",
+      "role": "assistant",
+      "container": null,
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "stop_details": null,
+      "diagnostics": null
+     },
+     "segundos": 6.5,
+     "usd": 0.01382
+    }
+   ],
+   "error": null,
+   "validacion": {
+    "bloques": [],
+    "rechazos": [],
+    "faltan": [],
+    "incompletos": {}
+   },
+   "segundos": 10.7
+  }
+ ],
+ "final": {
+  "bloques": [],
+  "descartados": [
+   {
+    "pool_id": "Q49",
+    "motivo": "La narración ya lee esta cita casi completa en [6] y retoma 'de goma' y 'dos estrellas' en [7]-[9]. Ponerla en pantalla repetiría la voz y no cumple (a)."
+   },
+   {
+    "pool_id": "Q19",
+    "motivo": "La narración cita el portoncito y el aire en [10] y parafrasea 'pensé que había cedido el dique' en [12]. No aporta nada nuevo. El dato tampoco trae cargo de Trevisano, así que no hay bloque persona posible."
+   },
+   {
+    "pool_id": "D131",
+    "motivo": "El salto de más de 260 metros no coincide con lo que se cuenta en ninguna oración del gancho. [15] solo dice que la ola vino por encima del dique y no habla de la altura de caída. Mostrarlo adelantaría una cifra que corresponde a capítulos posteriores y no cumple (b) ni (c)."
+   }
+  ]
+ },
+ "validacion": {
+  "bloques": [],
+  "rechazos": [],
+  "faltan": [],
+  "incompletos": {}
+ }
+}

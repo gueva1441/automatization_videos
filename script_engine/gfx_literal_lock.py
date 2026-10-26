@@ -84,6 +84,8 @@ def lock(plan: dict[str, Any], sources: dict[str, str], *, chapter_number: int,
 
     # F2 §0d: source_tag literal de sources[]; si falla, se quita SOLO la etiqueta
     for blk in ([c for c in ok.get("callouts", [])] + ([ok["count_up"]] if ok.get("count_up") else [])):
+        if blk.get("rotulista"):           # F32 §B.7: la etiqueta del contador del rotulista ya pasó su candado
+            continue
         if blk.get("source") and not _check("source_tag", {"source": blk["source"]}):
             blk["source"] = ""
 

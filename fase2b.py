@@ -942,8 +942,9 @@ def _visual_con_pre_roll(base_clip: Path, pre_roll: float, out: Path, fps: int) 
 
 
 def _pre_roll_de(plan: Any, gfx_enabled: bool) -> float:
-    """F30b §B.3: los segundos de title card sin voz con que arranca el cap (solo con --gfx)."""
-    if not gfx_enabled:
+    """F30b §B.3: los segundos de title card sin voz con que arranca el cap (solo con --gfx). F32 §B.1: ch01 no (ya
+    abre con la intro de INITIAL_SILENCE_SEC)."""
+    if not gfx_enabled or plan.is_first:
         return 0.0
     from gfx_config import gfx_rules as _gr_pre
     return float(_gr_pre.title_dur) if _gr_pre.title_pre_roll else 0.0
@@ -1373,6 +1374,9 @@ def _build_music_piece_for_chapter(
     Si track_path is None → silencio puro del largo del cap.
     Si track_path existe → loop+trim del mp3 al largo del cap.
 
+    F32 §B.1 (`pre_sec`, con --gfx): la música del cap arranca con su title card: la pieza dura `pre_sec` más y la
+    envolvente de intensidad (en el tiempo de la voz) se corre `pre_sec` (antes la pieza se corría con silencio adelante).
+
     chat 39 (piece_volume): pre-atenúa la música del cap a su nivel por-intent
     ANTES de entrar al mix (volumen POR CAP horneado en la pieza). Default 1.0 =
     sin atenuar → ruta byte-idéntica a pre-chat39 (compat). No aplica a silencio.
@@ -1381,6 +1385,9 @@ def _build_music_piece_for_chapter(
     """
     assert FFMPEG is not None
     cmd: list[str]
+    if pre_sec > 0:                                           # F32 §B.1: la música suena durante el title card
+        cap_duration_sec += pre_sec
+        envolvente = _correr_tramos(envolvente, pre_sec)
 
     if track_path is None:
         # Silencio del largo del cap (piece_volume es moot: silencio × k = silencio)
@@ -1438,16 +1445,17 @@ def _build_music_piece_for_chapter(
     if envolvente and track_path is not None:                 # F28 §B.2
         from script_engine.music_intensity import aplicar_a_wav
         aplicar_a_wav(output_path, envolvente)
-    if pre_sec > 0:                                           # F30b §B.3: la música del cap se corre el pre-roll
-        tmp = output_path.with_name(output_path.stem + "_pre.wav")
-        ms = int(round(pre_sec * 1000))
-        r = _run_cmd([FFMPEG, "-y", "-i", str(output_path), "-af", f"adelay={ms}:all=1", "-c:a", "pcm_s16le",
-                      str(tmp)], timeout=120)
-        if r.returncode != 0:
-            raise RuntimeError(f"FFmpeg pre-roll de la pieza {output_path.name} falló: {r.stderr[-300:]}")
-        tmp.replace(output_path)
 
     return output_path
+
+
+def _correr_tramos(tramos: list[dict[str, Any]] | None, pre: float) -> list[dict[str, Any]] | None:
+    """F32 §B.1: la envolvente del cap con `pre` segundos de title card adelante: cada tramo se corre `pre`; el que
+    arranca en 0 (el fondo) sigue arrancando en 0 (cubre el title card)."""
+    if not tramos:
+        return tramos
+    return [{**t, "t0": 0.0 if float(t["t0"]) <= 0 else round(float(t["t0"]) + pre, 3),
+             "t1": round(float(t["t1"]) + pre, 3)} for t in tramos]
 
 
 def _build_continuous_music_track(

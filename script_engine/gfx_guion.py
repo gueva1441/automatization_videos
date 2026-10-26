@@ -371,7 +371,7 @@ def cortes_cap(plan: dict[str, Any], rejected: list[dict], sents: list[dict]) ->
         out.append({"tipo": tipo, "texto": f.get("texto"), "pool_id": f.get("pool_id"), "t": f.get("t0"),
                     "regla": "zona", "quien": "zona (una cosa por escena)", "motivo": f.get("motivo")})
     real = plan.get("realizador") or {}
-    for f in real.get("filas") or []:
+    for f in list(plan.get("sellos_tema") or []) + list(real.get("filas") or []):   # F32 §B.6: el catálogo de sellos
         if f.get("accion") != "fuera":
             continue
         b = f.get("bloque")

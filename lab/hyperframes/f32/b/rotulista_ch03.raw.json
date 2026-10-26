@@ -1,0 +1,2739 @@
+{
+ "clave": "5a0d188b6a614d3f642e",
+ "modelo": "claude-sonnet-5-5",
+ "effort": "medium",
+ "prompt_version": "f32-1",
+ "prompt_md5": "c9231e24afbc785d5870b33088ce076e",
+ "entrada": {
+  "cap": 3,
+  "titulo": "giro · escalada",
+  "oraciones": [
+   {
+    "idx": 0,
+    "t0": 0.08,
+    "t1": 2.1,
+    "texto": "El embalse se llamaba Pontesei.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "El",
+      "t0": 0.08,
+      "t1": 0.16
+     },
+     {
+      "k": 1,
+      "w": "embalse",
+      "t0": 0.2,
+      "t1": 0.64
+     },
+     {
+      "k": 2,
+      "w": "se",
+      "t0": 0.72,
+      "t1": 0.82
+     },
+     {
+      "k": 3,
+      "w": "llamaba",
+      "t0": 0.84,
+      "t1": 1.22
+     },
+     {
+      "k": 4,
+      "w": "Pontesei.",
+      "t0": 1.4,
+      "t1": 2.1
+     }
+    ],
+    "beat": 4
+   },
+   {
+    "idx": 1,
+    "t0": 2.86,
+    "t1": 7.84,
+    "texto": "Ese marzo, una masa de roca entró al agua y levantó una ola de veinte metros.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Ese",
+      "t0": 2.86,
+      "t1": 3.02
+     },
+     {
+      "k": 1,
+      "w": "marzo,",
+      "t0": 3.1,
+      "t1": 3.42
+     },
+     {
+      "k": 2,
+      "w": "una",
+      "t0": 3.84,
+      "t1": 3.94
+     },
+     {
+      "k": 3,
+      "w": "masa",
+      "t0": 4.019,
+      "t1": 4.24
+     },
+     {
+      "k": 4,
+      "w": "de",
+      "t0": 4.28,
+      "t1": 4.36
+     },
+     {
+      "k": 5,
+      "w": "roca",
+      "t0": 4.44,
+      "t1": 4.7
+     },
+     {
+      "k": 6,
+      "w": "entró",
+      "t0": 4.74,
+      "t1": 5.06
+     },
+     {
+      "k": 7,
+      "w": "al",
+      "t0": 5.1,
+      "t1": 5.18
+     },
+     {
+      "k": 8,
+      "w": "agua",
+      "t0": 5.26,
+      "t1": 5.5
+     },
+     {
+      "k": 9,
+      "w": "y",
+      "t0": 5.72,
+      "t1": 5.76
+     },
+     {
+      "k": 10,
+      "w": "levantó",
+      "t0": 5.8,
+      "t1": 6.24
+     },
+     {
+      "k": 11,
+      "w": "una",
+      "t0": 6.3,
+      "t1": 6.5
+     },
+     {
+      "k": 12,
+      "w": "ola",
+      "t0": 6.56,
+      "t1": 6.72
+     },
+     {
+      "k": 13,
+      "w": "de",
+      "t0": 6.78,
+      "t1": 6.86
+     },
+     {
+      "k": 14,
+      "w": "veinte",
+      "t0": 6.96,
+      "t1": 7.32
+     },
+     {
+      "k": 15,
+      "w": "metros.",
+      "t0": 7.4,
+      "t1": 7.84
+     }
+    ],
+    "beat": 4
+   },
+   {
+    "idx": 2,
+    "t0": 8.62,
+    "t1": 9.72,
+    "texto": "Un trabajador murió.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Un",
+      "t0": 8.62,
+      "t1": 8.72
+     },
+     {
+      "k": 1,
+      "w": "trabajador",
+      "t0": 8.76,
+      "t1": 9.28
+     },
+     {
+      "k": 2,
+      "w": "murió.",
+      "t0": 9.38,
+      "t1": 9.72
+     }
+    ],
+    "beat": 4
+   },
+   {
+    "idx": 3,
+    "t0": 10.76,
+    "t1": 23.94,
+    "texto": "Después de Pontesei, SADE encargó nuevas pericias sobre el Toc, y esas pericias identificaron una paleofrana: un deslizamiento antiguo, la cicatriz que Edoardo Semenza había estado buscando.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Después",
+      "t0": 10.76,
+      "t1": 11.06
+     },
+     {
+      "k": 1,
+      "w": "de",
+      "t0": 11.08,
+      "t1": 11.14
+     },
+     {
+      "k": 2,
+      "w": "Pontesei,",
+      "t0": 11.2,
+      "t1": 11.78
+     },
+     {
+      "k": 3,
+      "w": "SADE",
+      "t0": 12.26,
+      "t1": 12.5
+     },
+     {
+      "k": 4,
+      "w": "encargó",
+      "t0": 12.52,
+      "t1": 12.92
+     },
+     {
+      "k": 5,
+      "w": "nuevas",
+      "t0": 13.02,
+      "t1": 13.38
+     },
+     {
+      "k": 6,
+      "w": "pericias",
+      "t0": 13.42,
+      "t1": 13.86
+     },
+     {
+      "k": 7,
+      "w": "sobre",
+      "t0": 13.9,
+      "t1": 14.1
+     },
+     {
+      "k": 8,
+      "w": "el",
+      "t0": 14.14,
+      "t1": 14.2
+     },
+     {
+      "k": 9,
+      "w": "Toc,",
+      "t0": 14.3,
+      "t1": 14.54
+     },
+     {
+      "k": 10,
+      "w": "y",
+      "t0": 15.12,
+      "t1": 15.16
+     },
+     {
+      "k": 11,
+      "w": "esas",
+      "t0": 15.22,
+      "t1": 15.48
+     },
+     {
+      "k": 12,
+      "w": "pericias",
+      "t0": 15.52,
+      "t1": 15.98
+     },
+     {
+      "k": 13,
+      "w": "identificaron",
+      "t0": 16.16,
+      "t1": 16.9
+     },
+     {
+      "k": 14,
+      "w": "una",
+      "t0": 17.12,
+      "t1": 17.26
+     },
+     {
+      "k": 15,
+      "w": "paleofrana:",
+      "t0": 17.36,
+      "t1": 18.02
+     },
+     {
+      "k": 16,
+      "w": "un",
+      "t0": 18.82,
+      "t1": 18.9
+     },
+     {
+      "k": 17,
+      "w": "deslizamiento",
+      "t0": 18.96,
+      "t1": 19.68
+     },
+     {
+      "k": 18,
+      "w": "antiguo,",
+      "t0": 19.72,
+      "t1": 20.22
+     },
+     {
+      "k": 19,
+      "w": "la",
+      "t0": 20.78,
+      "t1": 20.84
+     },
+     {
+      "k": 20,
+      "w": "cicatriz",
+      "t0": 20.9,
+      "t1": 21.38
+     },
+     {
+      "k": 21,
+      "w": "que",
+      "t0": 21.46,
+      "t1": 21.54
+     },
+     {
+      "k": 22,
+      "w": "Edoardo",
+      "t0": 21.58,
+      "t1": 21.98
+     },
+     {
+      "k": 23,
+      "w": "Semenza",
+      "t0": 22.08,
+      "t1": 22.66
+     },
+     {
+      "k": 24,
+      "w": "había",
+      "t0": 22.68,
+      "t1": 22.98
+     },
+     {
+      "k": 25,
+      "w": "estado",
+      "t0": 23.02,
+      "t1": 23.38
+     },
+     {
+      "k": 26,
+      "w": "buscando.",
+      "t0": 23.4,
+      "t1": 23.94
+     }
+    ],
+    "beat": 4
+   },
+   {
+    "idx": 4,
+    "t0": 25.06,
+    "t1": 30.22,
+    "texto": "El informe sobre esos riesgos lo escribió Giorgio Dal Piaz en mil novecientos sesenta.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "El",
+      "t0": 25.06,
+      "t1": 25.12
+     },
+     {
+      "k": 1,
+      "w": "informe",
+      "t0": 25.16,
+      "t1": 25.52
+     },
+     {
+      "k": 2,
+      "w": "sobre",
+      "t0": 25.6,
+      "t1": 25.84
+     },
+     {
+      "k": 3,
+      "w": "esos",
+      "t0": 25.86,
+      "t1": 26.12
+     },
+     {
+      "k": 4,
+      "w": "riesgos",
+      "t0": 26.18,
+      "t1": 26.62
+     },
+     {
+      "k": 5,
+      "w": "lo",
+      "t0": 26.92,
+      "t1": 26.98
+     },
+     {
+      "k": 6,
+      "w": "escribió",
+      "t0": 27.02,
+      "t1": 27.44
+     },
+     {
+      "k": 7,
+      "w": "Giorgio",
+      "t0": 27.6,
+      "t1": 27.92
+     },
+     {
+      "k": 8,
+      "w": "Dal",
+      "t0": 27.98,
+      "t1": 28.1
+     },
+     {
+      "k": 9,
+      "w": "Piaz",
+      "t0": 28.2,
+      "t1": 28.48
+     },
+     {
+      "k": 10,
+      "w": "en",
+      "t0": 28.64,
+      "t1": 28.74
+     },
+     {
+      "k": 11,
+      "w": "mil",
+      "t0": 28.84,
+      "t1": 28.98
+     },
+     {
+      "k": 12,
+      "w": "novecientos",
+      "t0": 29.04,
+      "t1": 29.66
+     },
+     {
+      "k": 13,
+      "w": "sesenta.",
+      "t0": 29.7,
+      "t1": 30.22
+     }
+    ],
+    "beat": 4
+   },
+   {
+    "idx": 5,
+    "t0": 31.12,
+    "t1": 39.52,
+    "texto": "Dal Piaz había dicho alguna vez sobre la obra: «Si el proyecto original me parecía osado, ahora lo considero una completa locura».",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Dal",
+      "t0": 31.12,
+      "t1": 31.22
+     },
+     {
+      "k": 1,
+      "w": "Piaz",
+      "t0": 31.32,
+      "t1": 31.64
+     },
+     {
+      "k": 2,
+      "w": "había",
+      "t0": 31.78,
+      "t1": 32.02
+     },
+     {
+      "k": 3,
+      "w": "dicho",
+      "t0": 32.06,
+      "t1": 32.28
+     },
+     {
+      "k": 4,
+      "w": "alguna",
+      "t0": 32.32,
+      "t1": 32.6
+     },
+     {
+      "k": 5,
+      "w": "vez",
+      "t0": 32.64,
+      "t1": 32.8
+     },
+     {
+      "k": 6,
+      "w": "sobre",
+      "t0": 32.9,
+      "t1": 33.1
+     },
+     {
+      "k": 7,
+      "w": "la",
+      "t0": 33.16,
+      "t1": 33.26
+     },
+     {
+      "k": 8,
+      "w": "obra:",
+      "t0": 33.32,
+      "t1": 33.58
+     },
+     {
+      "k": 9,
+      "w": "«Si",
+      "t0": 34.6,
+      "t1": 34.66
+     },
+     {
+      "k": 10,
+      "w": "el",
+      "t0": 34.7,
+      "t1": 34.8
+     },
+     {
+      "k": 11,
+      "w": "proyecto",
+      "t0": 34.82,
+      "t1": 35.2
+     },
+     {
+      "k": 12,
+      "w": "original",
+      "t0": 35.26,
+      "t1": 35.7
+     },
+     {
+      "k": 13,
+      "w": "me",
+      "t0": 35.78,
+      "t1": 35.88
+     },
+     {
+      "k": 14,
+      "w": "parecía",
+      "t0": 35.92,
+      "t1": 36.34
+     },
+     {
+      "k": 15,
+      "w": "osado,",
+      "t0": 36.38,
+      "t1": 36.76
+     },
+     {
+      "k": 16,
+      "w": "ahora",
+      "t0": 37.3,
+      "t1": 37.52
+     },
+     {
+      "k": 17,
+      "w": "lo",
+      "t0": 37.56,
+      "t1": 37.64
+     },
+     {
+      "k": 18,
+      "w": "considero",
+      "t0": 37.68,
+      "t1": 38.18
+     },
+     {
+      "k": 19,
+      "w": "una",
+      "t0": 38.24,
+      "t1": 38.36
+     },
+     {
+      "k": 20,
+      "w": "completa",
+      "t0": 38.46,
+      "t1": 39.02
+     },
+     {
+      "k": 21,
+      "w": "locura».",
+      "t0": 39.08,
+      "t1": 39.52
+     }
+    ],
+    "beat": 4
+   },
+   {
+    "idx": 6,
+    "t0": 42.5,
+    "t1": 46.88,
+    "texto": "Su informe, en cambio, le restó peso a lo que señalaba Edoardo Semenza.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Su",
+      "t0": 42.5,
+      "t1": 42.58
+     },
+     {
+      "k": 1,
+      "w": "informe,",
+      "t0": 42.62,
+      "t1": 43.12
+     },
+     {
+      "k": 2,
+      "w": "en",
+      "t0": 43.32,
+      "t1": 43.44
+     },
+     {
+      "k": 3,
+      "w": "cambio,",
+      "t0": 43.48,
+      "t1": 43.84
+     },
+     {
+      "k": 4,
+      "w": "le",
+      "t0": 44.26,
+      "t1": 44.34
+     },
+     {
+      "k": 5,
+      "w": "restó",
+      "t0": 44.38,
+      "t1": 44.72
+     },
+     {
+      "k": 6,
+      "w": "peso",
+      "t0": 44.74,
+      "t1": 45.0
+     },
+     {
+      "k": 7,
+      "w": "a",
+      "t0": 45.04,
+      "t1": 45.08
+     },
+     {
+      "k": 8,
+      "w": "lo",
+      "t0": 45.12,
+      "t1": 45.16
+     },
+     {
+      "k": 9,
+      "w": "que",
+      "t0": 45.24,
+      "t1": 45.32
+     },
+     {
+      "k": 10,
+      "w": "señalaba",
+      "t0": 45.36,
+      "t1": 45.86
+     },
+     {
+      "k": 11,
+      "w": "Edoardo",
+      "t0": 45.9,
+      "t1": 46.32
+     },
+     {
+      "k": 12,
+      "w": "Semenza.",
+      "t0": 46.4,
+      "t1": 46.88
+     }
+    ],
+    "beat": 4
+   },
+   {
+    "idx": 7,
+    "t0": 47.9,
+    "t1": 49.56,
+    "texto": "Una ola de veinte metros.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Una",
+      "t0": 47.9,
+      "t1": 48.12
+     },
+     {
+      "k": 1,
+      "w": "ola",
+      "t0": 48.2,
+      "t1": 48.36
+     },
+     {
+      "k": 2,
+      "w": "de",
+      "t0": 48.44,
+      "t1": 48.5
+     },
+     {
+      "k": 3,
+      "w": "veinte",
+      "t0": 48.6,
+      "t1": 49.0
+     },
+     {
+      "k": 4,
+      "w": "metros.",
+      "t0": 49.06,
+      "t1": 49.56
+     }
+    ],
+    "beat": 4
+   },
+   {
+    "idx": 8,
+    "t0": 50.3,
+    "t1": 51.22,
+    "texto": "Un hombre muerto.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Un",
+      "t0": 50.3,
+      "t1": 50.4
+     },
+     {
+      "k": 1,
+      "w": "hombre",
+      "t0": 50.42,
+      "t1": 50.7
+     },
+     {
+      "k": 2,
+      "w": "muerto.",
+      "t0": 50.8,
+      "t1": 51.22
+     }
+    ],
+    "beat": 4
+   },
+   {
+    "idx": 9,
+    "t0": 52.06,
+    "t1": 54.26,
+    "texto": "Una paleofrana con nombre en un papel.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Una",
+      "t0": 52.06,
+      "t1": 52.18
+     },
+     {
+      "k": 1,
+      "w": "paleofrana",
+      "t0": 52.26,
+      "t1": 52.86
+     },
+     {
+      "k": 2,
+      "w": "con",
+      "t0": 52.96,
+      "t1": 53.1
+     },
+     {
+      "k": 3,
+      "w": "nombre",
+      "t0": 53.2,
+      "t1": 53.54
+     },
+     {
+      "k": 4,
+      "w": "en",
+      "t0": 53.6,
+      "t1": 53.68
+     },
+     {
+      "k": 5,
+      "w": "un",
+      "t0": 53.74,
+      "t1": 53.86
+     },
+     {
+      "k": 6,
+      "w": "papel.",
+      "t0": 53.9,
+      "t1": 54.26
+     }
+    ],
+    "beat": 4
+   },
+   {
+    "idx": 10,
+    "t0": 55.34,
+    "t1": 57.6,
+    "texto": "El informe oficial dijo que no era grave.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "El",
+      "t0": 55.34,
+      "t1": 55.4
+     },
+     {
+      "k": 1,
+      "w": "informe",
+      "t0": 55.44,
+      "t1": 55.8
+     },
+     {
+      "k": 2,
+      "w": "oficial",
+      "t0": 55.84,
+      "t1": 56.3
+     },
+     {
+      "k": 3,
+      "w": "dijo",
+      "t0": 56.4,
+      "t1": 56.7
+     },
+     {
+      "k": 4,
+      "w": "que",
+      "t0": 56.72,
+      "t1": 56.84
+     },
+     {
+      "k": 5,
+      "w": "no",
+      "t0": 56.9,
+      "t1": 57.02
+     },
+     {
+      "k": 6,
+      "w": "era",
+      "t0": 57.08,
+      "t1": 57.24
+     },
+     {
+      "k": 7,
+      "w": "grave.",
+      "t0": 57.28,
+      "t1": 57.6
+     }
+    ],
+    "beat": 4
+   },
+   {
+    "idx": 11,
+    "t0": 58.42,
+    "t1": 61.1,
+    "texto": "Una periodista de provincia escribió lo contrario.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Una",
+      "t0": 58.42,
+      "t1": 58.58
+     },
+     {
+      "k": 1,
+      "w": "periodista",
+      "t0": 58.6,
+      "t1": 59.1
+     },
+     {
+      "k": 2,
+      "w": "de",
+      "t0": 59.14,
+      "t1": 59.18
+     },
+     {
+      "k": 3,
+      "w": "provincia",
+      "t0": 59.24,
+      "t1": 59.76
+     },
+     {
+      "k": 4,
+      "w": "escribió",
+      "t0": 59.96,
+      "t1": 60.42
+     },
+     {
+      "k": 5,
+      "w": "lo",
+      "t0": 60.44,
+      "t1": 60.54
+     },
+     {
+      "k": 6,
+      "w": "contrario.",
+      "t0": 60.56,
+      "t1": 61.1
+     }
+    ],
+    "beat": 4
+   },
+   {
+    "idx": 12,
+    "t0": 61.88,
+    "t1": 65.28,
+    "texto": "Se llamaba Tina Merlin y escribía en L'Unità.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Se",
+      "t0": 61.88,
+      "t1": 61.96
+     },
+     {
+      "k": 1,
+      "w": "llamaba",
+      "t0": 61.98,
+      "t1": 62.36
+     },
+     {
+      "k": 2,
+      "w": "Tina",
+      "t0": 62.58,
+      "t1": 62.8
+     },
+     {
+      "k": 3,
+      "w": "Merlin",
+      "t0": 62.88,
+      "t1": 63.32
+     },
+     {
+      "k": 4,
+      "w": "y",
+      "t0": 63.68,
+      "t1": 63.7
+     },
+     {
+      "k": 5,
+      "w": "escribía",
+      "t0": 63.76,
+      "t1": 64.319
+     },
+     {
+      "k": 6,
+      "w": "en",
+      "t0": 64.36,
+      "t1": 64.48
+     },
+     {
+      "k": 7,
+      "w": "L'Unità.",
+      "t0": 64.76,
+      "t1": 65.28
+     }
+    ],
+    "beat": 5
+   },
+   {
+    "idx": 13,
+    "t0": 66.26,
+    "t1": 73.44,
+    "texto": "Hacia mil novecientos cincuenta y nueve publicó su primera denuncia: el Toc podía desprenderse sobre el lago.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Hacia",
+      "t0": 66.26,
+      "t1": 66.5
+     },
+     {
+      "k": 1,
+      "w": "mil",
+      "t0": 66.56,
+      "t1": 66.68
+     },
+     {
+      "k": 2,
+      "w": "novecientos",
+      "t0": 66.74,
+      "t1": 67.3
+     },
+     {
+      "k": 3,
+      "w": "cincuenta",
+      "t0": 67.34,
+      "t1": 67.74
+     },
+     {
+      "k": 4,
+      "w": "y",
+      "t0": 67.78,
+      "t1": 67.8
+     },
+     {
+      "k": 5,
+      "w": "nueve",
+      "t0": 67.86,
+      "t1": 68.12
+     },
+     {
+      "k": 6,
+      "w": "publicó",
+      "t0": 68.5,
+      "t1": 68.84
+     },
+     {
+      "k": 7,
+      "w": "su",
+      "t0": 68.96,
+      "t1": 69.02
+     },
+     {
+      "k": 8,
+      "w": "primera",
+      "t0": 69.1,
+      "t1": 69.44
+     },
+     {
+      "k": 9,
+      "w": "denuncia:",
+      "t0": 69.5,
+      "t1": 70.0
+     },
+     {
+      "k": 10,
+      "w": "el",
+      "t0": 70.76,
+      "t1": 70.86
+     },
+     {
+      "k": 11,
+      "w": "Toc",
+      "t0": 70.98,
+      "t1": 71.22
+     },
+     {
+      "k": 12,
+      "w": "podía",
+      "t0": 71.54,
+      "t1": 71.86
+     },
+     {
+      "k": 13,
+      "w": "desprenderse",
+      "t0": 71.9,
+      "t1": 72.64
+     },
+     {
+      "k": 14,
+      "w": "sobre",
+      "t0": 72.72,
+      "t1": 72.94
+     },
+     {
+      "k": 15,
+      "w": "el",
+      "t0": 72.98,
+      "t1": 73.06
+     },
+     {
+      "k": 16,
+      "w": "lago.",
+      "t0": 73.12,
+      "t1": 73.44
+     }
+    ],
+    "beat": 5
+   },
+   {
+    "idx": 14,
+    "t0": 74.58,
+    "t1": 81.9,
+    "texto": "L'Unità fue el único diario nacional que siguió lo que pasaba en el Vajont antes del desastre, y lo siguió a través de ella.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "L'Unità",
+      "t0": 74.58,
+      "t1": 75.08
+     },
+     {
+      "k": 1,
+      "w": "fue",
+      "t0": 75.4,
+      "t1": 75.52
+     },
+     {
+      "k": 2,
+      "w": "el",
+      "t0": 75.56,
+      "t1": 75.64
+     },
+     {
+      "k": 3,
+      "w": "único",
+      "t0": 75.7,
+      "t1": 75.96
+     },
+     {
+      "k": 4,
+      "w": "diario",
+      "t0": 76.02,
+      "t1": 76.32
+     },
+     {
+      "k": 5,
+      "w": "nacional",
+      "t0": 76.38,
+      "t1": 76.84
+     },
+     {
+      "k": 6,
+      "w": "que",
+      "t0": 76.94,
+      "t1": 77.06
+     },
+     {
+      "k": 7,
+      "w": "siguió",
+      "t0": 77.1,
+      "t1": 77.36
+     },
+     {
+      "k": 8,
+      "w": "lo",
+      "t0": 77.4,
+      "t1": 77.44
+     },
+     {
+      "k": 9,
+      "w": "que",
+      "t0": 77.5,
+      "t1": 77.62
+     },
+     {
+      "k": 10,
+      "w": "pasaba",
+      "t0": 77.64,
+      "t1": 78.02
+     },
+     {
+      "k": 11,
+      "w": "en",
+      "t0": 78.04,
+      "t1": 78.12
+     },
+     {
+      "k": 12,
+      "w": "el",
+      "t0": 78.14,
+      "t1": 78.24
+     },
+     {
+      "k": 13,
+      "w": "Vajont",
+      "t0": 78.28,
+      "t1": 78.68
+     },
+     {
+      "k": 14,
+      "w": "antes",
+      "t0": 78.9,
+      "t1": 79.18
+     },
+     {
+      "k": 15,
+      "w": "del",
+      "t0": 79.22,
+      "t1": 79.32
+     },
+     {
+      "k": 16,
+      "w": "desastre,",
+      "t0": 79.36,
+      "t1": 79.88
+     },
+     {
+      "k": 17,
+      "w": "y",
+      "t0": 80.4,
+      "t1": 80.44
+     },
+     {
+      "k": 18,
+      "w": "lo",
+      "t0": 80.48,
+      "t1": 80.54
+     },
+     {
+      "k": 19,
+      "w": "siguió",
+      "t0": 80.64,
+      "t1": 80.96
+     },
+     {
+      "k": 20,
+      "w": "a",
+      "t0": 81.02,
+      "t1": 81.04
+     },
+     {
+      "k": 21,
+      "w": "través",
+      "t0": 81.12,
+      "t1": 81.44
+     },
+     {
+      "k": 22,
+      "w": "de",
+      "t0": 81.48,
+      "t1": 81.56
+     },
+     {
+      "k": 23,
+      "w": "ella.",
+      "t0": 81.64,
+      "t1": 81.9
+     }
+    ],
+    "beat": 5
+   },
+   {
+    "idx": 15,
+    "t0": 82.92,
+    "t1": 92.74,
+    "texto": "El diario que se leía en la zona era Il Gazzettino, y una parte de Il Gazzettino pertenecía a SADE, a FIAT, a Volpi y a Cini.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "El",
+      "t0": 82.92,
+      "t1": 82.98
+     },
+     {
+      "k": 1,
+      "w": "diario",
+      "t0": 83.04,
+      "t1": 83.34
+     },
+     {
+      "k": 2,
+      "w": "que",
+      "t0": 83.4,
+      "t1": 83.5
+     },
+     {
+      "k": 3,
+      "w": "se",
+      "t0": 83.52,
+      "t1": 83.6
+     },
+     {
+      "k": 4,
+      "w": "leía",
+      "t0": 83.64,
+      "t1": 83.92
+     },
+     {
+      "k": 5,
+      "w": "en",
+      "t0": 83.94,
+      "t1": 84.02
+     },
+     {
+      "k": 6,
+      "w": "la",
+      "t0": 84.06,
+      "t1": 84.1
+     },
+     {
+      "k": 7,
+      "w": "zona",
+      "t0": 84.2,
+      "t1": 84.48
+     },
+     {
+      "k": 8,
+      "w": "era",
+      "t0": 84.82,
+      "t1": 85.02
+     },
+     {
+      "k": 9,
+      "w": "Il",
+      "t0": 85.28,
+      "t1": 85.38
+     },
+     {
+      "k": 10,
+      "w": "Gazzettino,",
+      "t0": 85.46,
+      "t1": 86.18
+     },
+     {
+      "k": 11,
+      "w": "y",
+      "t0": 86.8,
+      "t1": 86.82
+     },
+     {
+      "k": 12,
+      "w": "una",
+      "t0": 86.88,
+      "t1": 86.98
+     },
+     {
+      "k": 13,
+      "w": "parte",
+      "t0": 87.08,
+      "t1": 87.36
+     },
+     {
+      "k": 14,
+      "w": "de",
+      "t0": 87.42,
+      "t1": 87.52
+     },
+     {
+      "k": 15,
+      "w": "Il",
+      "t0": 87.7,
+      "t1": 87.78
+     },
+     {
+      "k": 16,
+      "w": "Gazzettino",
+      "t0": 87.86,
+      "t1": 88.54
+     },
+     {
+      "k": 17,
+      "w": "pertenecía",
+      "t0": 88.9,
+      "t1": 89.52
+     },
+     {
+      "k": 18,
+      "w": "a",
+      "t0": 89.54,
+      "t1": 89.6
+     },
+     {
+      "k": 19,
+      "w": "SADE,",
+      "t0": 89.72,
+      "t1": 90.06
+     },
+     {
+      "k": 20,
+      "w": "a",
+      "t0": 90.46,
+      "t1": 90.52
+     },
+     {
+      "k": 21,
+      "w": "FIAT,",
+      "t0": 90.64,
+      "t1": 91.02
+     },
+     {
+      "k": 22,
+      "w": "a",
+      "t0": 91.36,
+      "t1": 91.42
+     },
+     {
+      "k": 23,
+      "w": "Volpi",
+      "t0": 91.48,
+      "t1": 91.88
+     },
+     {
+      "k": 24,
+      "w": "y",
+      "t0": 92.16,
+      "t1": 92.2
+     },
+     {
+      "k": 25,
+      "w": "a",
+      "t0": 92.24,
+      "t1": 92.28
+     },
+     {
+      "k": 26,
+      "w": "Cini.",
+      "t0": 92.38,
+      "t1": 92.74
+     }
+    ],
+    "beat": 5
+   },
+   {
+    "idx": 16,
+    "t0": 93.78,
+    "t1": 100.22,
+    "texto": "En febrero de mil novecientos sesenta empezó el llenado, y el agua fue subiendo día a día por la garganta.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "En",
+      "t0": 93.78,
+      "t1": 93.88
+     },
+     {
+      "k": 1,
+      "w": "febrero",
+      "t0": 93.92,
+      "t1": 94.26
+     },
+     {
+      "k": 2,
+      "w": "de",
+      "t0": 94.3,
+      "t1": 94.36
+     },
+     {
+      "k": 3,
+      "w": "mil",
+      "t0": 94.44,
+      "t1": 94.58
+     },
+     {
+      "k": 4,
+      "w": "novecientos",
+      "t0": 94.62,
+      "t1": 95.22
+     },
+     {
+      "k": 5,
+      "w": "sesenta",
+      "t0": 95.26,
+      "t1": 95.74
+     },
+     {
+      "k": 6,
+      "w": "empezó",
+      "t0": 95.94,
+      "t1": 96.36
+     },
+     {
+      "k": 7,
+      "w": "el",
+      "t0": 96.4,
+      "t1": 96.46
+     },
+     {
+      "k": 8,
+      "w": "llenado,",
+      "t0": 96.5,
+      "t1": 96.9
+     },
+     {
+      "k": 9,
+      "w": "y",
+      "t0": 97.44,
+      "t1": 97.48
+     },
+     {
+      "k": 10,
+      "w": "el",
+      "t0": 97.52,
+      "t1": 97.6
+     },
+     {
+      "k": 11,
+      "w": "agua",
+      "t0": 97.66,
+      "t1": 97.94
+     },
+     {
+      "k": 12,
+      "w": "fue",
+      "t0": 97.98,
+      "t1": 98.08
+     },
+     {
+      "k": 13,
+      "w": "subiendo",
+      "t0": 98.16,
+      "t1": 98.6
+     },
+     {
+      "k": 14,
+      "w": "día",
+      "t0": 98.72,
+      "t1": 98.96
+     },
+     {
+      "k": 15,
+      "w": "a",
+      "t0": 98.961,
+      "t1": 99.04
+     },
+     {
+      "k": 16,
+      "w": "día",
+      "t0": 99.1,
+      "t1": 99.38
+     },
+     {
+      "k": 17,
+      "w": "por",
+      "t0": 99.42,
+      "t1": 99.54
+     },
+     {
+      "k": 18,
+      "w": "la",
+      "t0": 99.58,
+      "t1": 99.62
+     },
+     {
+      "k": 19,
+      "w": "garganta.",
+      "t0": 99.68,
+      "t1": 100.22
+     }
+    ],
+    "beat": 5
+   },
+   {
+    "idx": 17,
+    "t0": 101.22,
+    "t1": 115.62,
+    "texto": "Ese año hubo un pequeño desmoronamiento en el Toc, y después del desmoronamiento los habitantes vieron algo nuevo en la ladera: una fisura de casi dos kilómetros de largo, corriendo por la montaña como una costura abierta.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Ese",
+      "t0": 101.22,
+      "t1": 101.42
+     },
+     {
+      "k": 1,
+      "w": "año",
+      "t0": 101.48,
+      "t1": 101.74
+     },
+     {
+      "k": 2,
+      "w": "hubo",
+      "t0": 102.06,
+      "t1": 102.24
+     },
+     {
+      "k": 3,
+      "w": "un",
+      "t0": 102.28,
+      "t1": 102.38
+     },
+     {
+      "k": 4,
+      "w": "pequeño",
+      "t0": 102.42,
+      "t1": 102.82
+     },
+     {
+      "k": 5,
+      "w": "desmoronamiento",
+      "t0": 102.84,
+      "t1": 103.68
+     },
+     {
+      "k": 6,
+      "w": "en",
+      "t0": 103.7,
+      "t1": 103.76
+     },
+     {
+      "k": 7,
+      "w": "el",
+      "t0": 103.8,
+      "t1": 103.88
+     },
+     {
+      "k": 8,
+      "w": "Toc,",
+      "t0": 103.98,
+      "t1": 104.22
+     },
+     {
+      "k": 9,
+      "w": "y",
+      "t0": 104.82,
+      "t1": 104.84
+     },
+     {
+      "k": 10,
+      "w": "después",
+      "t0": 104.9,
+      "t1": 105.28
+     },
+     {
+      "k": 11,
+      "w": "del",
+      "t0": 105.3,
+      "t1": 105.42
+     },
+     {
+      "k": 12,
+      "w": "desmoronamiento",
+      "t0": 105.46,
+      "t1": 106.32
+     },
+     {
+      "k": 13,
+      "w": "los",
+      "t0": 106.74,
+      "t1": 106.84
+     },
+     {
+      "k": 14,
+      "w": "habitantes",
+      "t0": 106.88,
+      "t1": 107.46
+     },
+     {
+      "k": 15,
+      "w": "vieron",
+      "t0": 107.48,
+      "t1": 107.74
+     },
+     {
+      "k": 16,
+      "w": "algo",
+      "t0": 107.8,
+      "t1": 107.98
+     },
+     {
+      "k": 17,
+      "w": "nuevo",
+      "t0": 108.08,
+      "t1": 108.4
+     },
+     {
+      "k": 18,
+      "w": "en",
+      "t0": 108.44,
+      "t1": 108.52
+     },
+     {
+      "k": 19,
+      "w": "la",
+      "t0": 108.56,
+      "t1": 108.6
+     },
+     {
+      "k": 20,
+      "w": "ladera:",
+      "t0": 108.66,
+      "t1": 109.04
+     },
+     {
+      "k": 21,
+      "w": "una",
+      "t0": 109.88,
+      "t1": 110.0
+     },
+     {
+      "k": 22,
+      "w": "fisura",
+      "t0": 110.1,
+      "t1": 110.5
+     },
+     {
+      "k": 23,
+      "w": "de",
+      "t0": 110.54,
+      "t1": 110.64
+     },
+     {
+      "k": 24,
+      "w": "casi",
+      "t0": 110.68,
+      "t1": 110.94
+     },
+     {
+      "k": 25,
+      "w": "dos",
+      "t0": 111.04,
+      "t1": 111.22
+     },
+     {
+      "k": 26,
+      "w": "kilómetros",
+      "t0": 111.32,
+      "t1": 111.86
+     },
+     {
+      "k": 27,
+      "w": "de",
+      "t0": 111.9,
+      "t1": 111.94
+     },
+     {
+      "k": 28,
+      "w": "largo,",
+      "t0": 112.0,
+      "t1": 112.32
+     },
+     {
+      "k": 29,
+      "w": "corriendo",
+      "t0": 112.74,
+      "t1": 113.22
+     },
+     {
+      "k": 30,
+      "w": "por",
+      "t0": 113.24,
+      "t1": 113.36
+     },
+     {
+      "k": 31,
+      "w": "la",
+      "t0": 113.38,
+      "t1": 113.44
+     },
+     {
+      "k": 32,
+      "w": "montaña",
+      "t0": 113.5,
+      "t1": 114.08
+     },
+     {
+      "k": 33,
+      "w": "como",
+      "t0": 114.12,
+      "t1": 114.32
+     },
+     {
+      "k": 34,
+      "w": "una",
+      "t0": 114.38,
+      "t1": 114.52
+     },
+     {
+      "k": 35,
+      "w": "costura",
+      "t0": 114.6,
+      "t1": 115.08
+     },
+     {
+      "k": 36,
+      "w": "abierta.",
+      "t0": 115.14,
+      "t1": 115.62
+     }
+    ],
+    "beat": 5
+   },
+   {
+    "idx": 18,
+    "t0": 116.64,
+    "t1": 118.92,
+    "texto": "Abajo, el lago seguía subiendo.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "Abajo,",
+      "t0": 116.64,
+      "t1": 117.02
+     },
+     {
+      "k": 1,
+      "w": "el",
+      "t0": 117.48,
+      "t1": 117.56
+     },
+     {
+      "k": 2,
+      "w": "lago",
+      "t0": 117.64,
+      "t1": 117.88
+     },
+     {
+      "k": 3,
+      "w": "seguía",
+      "t0": 118.0,
+      "t1": 118.32
+     },
+     {
+      "k": 4,
+      "w": "subiendo.",
+      "t0": 118.42,
+      "t1": 118.92
+     }
+    ],
+    "beat": 5
+   },
+   {
+    "idx": 19,
+    "t0": 119.88,
+    "t1": 124.48,
+    "texto": "El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta.",
+    "palabras": [
+     {
+      "k": 0,
+      "w": "El",
+      "t0": 119.88,
+      "t1": 120.0
+     },
+     {
+      "k": 1,
+      "w": "cuatro",
+      "t0": 120.02,
+      "t1": 120.28
+     },
+     {
+      "k": 2,
+      "w": "de",
+      "t0": 120.34,
+      "t1": 120.38
+     },
+     {
+      "k": 3,
+      "w": "noviembre,",
+      "t0": 120.42,
+      "t1": 120.92
+     },
+     {
+      "k": 4,
+      "w": "durante",
+      "t0": 121.14,
+      "t1": 121.46
+     },
+     {
+      "k": 5,
+      "w": "las",
+      "t0": 121.5,
+      "t1": 121.6
+     },
+     {
+      "k": 6,
+      "w": "pruebas,",
+      "t0": 121.7,
+      "t1": 122.08
+     },
+     {
+      "k": 7,
+      "w": "el",
+      "t0": 122.52,
+      "t1": 122.6
+     },
+     {
+      "k": 8,
+      "w": "agua",
+      "t0": 122.66,
+      "t1": 122.88
+     },
+     {
+      "k": 9,
+      "w": "tuvo",
+      "t0": 123.0,
+      "t1": 123.2
+     },
+     {
+      "k": 10,
+      "w": "su",
+      "t0": 123.3,
+      "t1": 123.36
+     },
+     {
+      "k": 11,
+      "w": "primera",
+      "t0": 123.46,
+      "t1": 123.84
+     },
+     {
+      "k": 12,
+      "w": "respuesta.",
+      "t0": 123.88,
+      "t1": 124.48
+     }
+    ],
+    "beat": 5
+   }
+  ],
+  "beats": [
+   {
+    "n": 4,
+    "funcion": "giro",
+    "t0": 0.08,
+    "t1": 61.1,
+    "cierre": "El informe oficial dijo que no era grave. Una periodista de provincia escribió lo contrario.",
+    "dato_central": "T16",
+    "datos_apoyo": [
+     "D94",
+     "T15",
+     "T21",
+     "D119",
+     "T27",
+     "Q37"
+    ]
+   },
+   {
+    "n": 5,
+    "funcion": "escalada",
+    "t0": 61.88,
+    "t1": 124.48,
+    "cierre": "El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta.",
+    "dato_central": "T18",
+    "datos_apoyo": [
+     "D71",
+     "D72",
+     "T29",
+     "D49",
+     "T23"
+    ]
+   }
+  ],
+  "items": [
+   {
+    "id": "T16",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     4
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Se produce un desprendimiento en el embalse de Pontesei que genera una ola de 20 metros y mata a Arcangelo Tiziani.",
+    "fuente": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+    "autor": ""
+   },
+   {
+    "id": "D94",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     4
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "En el desprendimiento del embalse de Pontesei se generó una ola de 20 metros.",
+    "fuente": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+    "autor": ""
+   },
+   {
+    "id": "T15",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     4
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Un deslizamiento de 3 millones de metros cúbicos cayó en el lago de la cercana represa de Pontesei, matando a un hombre.",
+    "fuente": "DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013",
+    "autor": ""
+   },
+   {
+    "id": "T21",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     4
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Un deslizamiento de 3 millones de m³ de roca ocurre en el embalse de Pontesei, generando una primera alarma.",
+    "fuente": "Tragedia del Vajont: analisi geologica di una frana annunciata, 2021",
+    "autor": ""
+   },
+   {
+    "id": "D119",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     4
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "La empresa SADE descubrió la presencia de un paleodeslizamiento en el monte Toc.",
+    "fuente": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018",
+    "autor": ""
+   },
+   {
+    "id": "T27",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     4
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "El geólogo Giorgio Dal Piaz minimiza en su informe los riesgos identificados por Edoardo Semenza.",
+    "fuente": "Il disastro del Vajont non fu una calamità naturale, 2023",
+    "autor": ""
+   },
+   {
+    "id": "Q37",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     4
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "Si el proyecto original me parecía osado, ahora lo considero una completa locura",
+    "fuente": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+    "autor": "Giorgio Dal Piaz"
+   },
+   {
+    "id": "T18",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     5
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "La periodista Tina Merlin denuncia el peligro del desprendimiento en el periódico l'Unità.",
+    "fuente": "Il disastro del Vajont non fu una calamità naturale, 2023",
+    "autor": ""
+   },
+   {
+    "id": "D71",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     5
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "L'Unità, el periódico del Partido Comunista Italiano (PCI), fue el único medio nacional que siguió los eventos antes del desastre a través de su periodista Tina Merlin.",
+    "fuente": "DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013",
+    "autor": ""
+   },
+   {
+    "id": "D72",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     5
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "Il Gazzettino, uno de los principales periódicos del noreste de Italia, era propiedad en parte de SADE y de sus dos directores, el Sr. Volpi y el Sr. Cini.",
+    "fuente": "DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013",
+    "autor": ""
+   },
+   {
+    "id": "T29",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     5
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Comienza el llenado del embalse de Vajont.",
+    "fuente": "A Tragedy in the Italian Alps (50th Anniversary) Vajont Dam, 2013",
+    "autor": ""
+   },
+   {
+    "id": "D49",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     5
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "En 1960, un pequeño desmoronamiento provocó una fisura de más de 1 metro de ancho y casi 2 kilómetros de largo en la montaña.",
+    "fuente": "La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005",
+    "autor": ""
+   },
+   {
+    "id": "T23",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     5
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Ocurrió un pequeño desmoronamiento en el monte Toc que abrió una fisura de casi 2 km de largo.",
+    "fuente": "La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005",
+    "autor": ""
+   }
+  ],
+  "ya_mostrado": [
+   {
+    "id": "D117",
+    "texto": "El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes."
+   }
+  ],
+  "pico": {
+   "beat": 4,
+   "funcion": "giro",
+   "sentence_idx": 0,
+   "frase": "El embalse se llamaba Pontesei.",
+   "t": 0.08,
+   "dato": "T16",
+   "fuente": "escaleta (beat más intenso del cap)"
+  },
+  "voz_video": [
+   "Hay una casa a oscuras y, dentro de la casa, una cama que ya no está quieta.",
+   "Una niña siente que su cama empieza a correr en la oscuridad; a dos kilómetros de ahí, la presa que todos creyeron caída sigue en pie.",
+   "La niña se llama Micaela Coletti y es una niña de Longarone, un pueblo de fondo de valle.",
+   "Hace un minuto dormía.",
+   "Ahora algo la empuja desde atrás, y la cama ya no es una cama: es algo que la lleva.",
+   "Años después, Coletti lo contó con las palabras que le quedaron.",
+   "«La sensación de que la cama tomaba velocidad, una fuerza espantosa que me agarraba por la espalda, me doblaba en dos, me aplastaba», dijo Coletti.",
+   "Se sintió de goma.",
+   "Se ensanchaba y después se encogía.",
+   "Los ojos, dos estrellas.",
+   "Esa misma noche, Gianfranco Trevisano ve cómo «se abrió de improviso, de par en par, el portoncito de la entrada, a causa de una corriente de aire», y con el portón entra el ruido del aire que irrumpe.",
+   "Enseguida se va la luz.",
+   "Trevisano piensa lo que va a pensar medio valle: que el dique cedió.",
+   "Longarone, Italia, nueve de octubre de mil novecientos sesenta y tres.",
+   "Pero el dique no cedió esa noche.",
+   "Lo que llegó a la cama de Micaela vino por encima de él.",
+   "Y para entender cómo una ola pasa por encima de una pared que no se rompe, hay que volver veinte años atrás, a un papel firmado cuando esa cama todavía no existía.",
+   "Longarone está en el fondo del valle del Piave.",
+   "El río pasa por delante del pueblo y, enfrente, desde una garganta lateral, baja un torrente que se llama Vajont y que desemboca en el Piave justo frente a Longarone y Castellavazzo.",
+   "En mil novecientos cuarenta y tres se aprobó el proyecto de cerrar esa garganta con una presa, y empezó la compra de terrenos en Erto y Casso, los pueblos de arriba, los que iban a quedar al borde del lago.",
+   "La empresa era SADE.",
+   "El ingeniero que dibujó la obra se llamaba Carlo Semenza, y la pensó como un arco delgado de doble curvatura: una pared curva, fina para su tamaño, apoyada en las dos laderas de la garganta.",
+   "Cuando empezaron las obras, unos cuatrocientos hombres colgados de andamios la fueron levantando hasta tapar el cielo de la garganta.",
+   "Abajo, en Longarone, la vida siguió con el Piave delante.",
+   "Longarone no estaba sobre el embalse.",
+   "Estaba delante de él.",
+   "Y la montaña que cerraba el lago tenía un apodo.",
+   "La gente de la zona llamaba al monte Toc «la montaña que camina», y lo decían los residentes desde antes de que nadie fuera a medirla.",
+   "En la década del cincuenta, el geólogo Leopold Müller detectó en el Toc un gran desmoronamiento.",
+   "Y hubo otro hombre que caminó esa ladera con un martillo en la mano y otra idea en la cabeza: Edoardo Semenza, geólogo, hijo de Carlo Semenza, el que había dibujado la presa.",
+   "Edoardo buscaba la cicatriz de un deslizamiento antiguo.",
+   "Según una reconstrucción geológica posterior, planteó que ese deslizamiento viejo podía reactivarse cuando el embalse se llenara.",
+   "Müller no lo creía: no creía en el deslizamiento antiguo ni en una capa de arcilla capaz de causarlo.",
+   "El hijo del proyectista decía que la montaña ya se había movido una vez.",
+   "El experto decía que no.",
+   "En marzo de mil novecientos cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero.",
+   "El embalse se llamaba Pontesei.",
+   "Ese marzo, una masa de roca entró al agua y levantó una ola de veinte metros.",
+   "Un trabajador murió.",
+   "Después de Pontesei, SADE encargó nuevas pericias sobre el Toc, y esas pericias identificaron una paleofrana: un deslizamiento antiguo, la cicatriz que Edoardo Semenza había estado buscando.",
+   "El informe sobre esos riesgos lo escribió Giorgio Dal Piaz en mil novecientos sesenta.",
+   "Dal Piaz había dicho alguna vez sobre la obra: «Si el proyecto original me parecía osado, ahora lo considero una completa locura».",
+   "Su informe, en cambio, le restó peso a lo que señalaba Edoardo Semenza.",
+   "Una ola de veinte metros.",
+   "Un hombre muerto.",
+   "Una paleofrana con nombre en un papel.",
+   "El informe oficial dijo que no era grave.",
+   "Una periodista de provincia escribió lo contrario.",
+   "Se llamaba Tina Merlin y escribía en L'Unità.",
+   "Hacia mil novecientos cincuenta y nueve publicó su primera denuncia: el Toc podía desprenderse sobre el lago.",
+   "L'Unità fue el único diario nacional que siguió lo que pasaba en el Vajont antes del desastre, y lo siguió a través de ella.",
+   "El diario que se leía en la zona era Il Gazzettino, y una parte de Il Gazzettino pertenecía a SADE, a FIAT, a Volpi y a Cini.",
+   "En febrero de mil novecientos sesenta empezó el llenado, y el agua fue subiendo día a día por la garganta.",
+   "Ese año hubo un pequeño desmoronamiento en el Toc, y después del desmoronamiento los habitantes vieron algo nuevo en la ladera: una fisura de casi dos kilómetros de largo, corriendo por la montaña como una costura abierta.",
+   "Abajo, el lago seguía subiendo.",
+   "El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta.",
+   "El cuatro de noviembre de mil novecientos sesenta el embalse estaba a seiscientos cincuenta metros sobre el nivel del mar.",
+   "Ese día, durante las pruebas, una masa de roca se desprendió del Toc y cayó al lago nuevo, y el agua se levantó.",
+   "Unos setecientos mil metros cúbicos de roca; otras fuentes hablan de más, y nadie coincide en la altura de la ola que levantó.",
+   "Ese mismo mes, Tina Merlin y L'Unità fueron a juicio.",
+   "La audiencia duró seis horas.",
+   "Salieron absueltos los dos.",
+   "En febrero de mil novecientos sesenta y uno, Merlin volvió a su máquina de escribir y publicó otra advertencia: la amenaza sobre Erto seguía ahí.",
+   "Absuelta en seis horas.",
+   "La empresa, mientras tanto, mandó construir una maqueta.",
+   "En un galpón de la Universidad de Padua se armó el valle en pequeño: la garganta, el lago, la ladera del Toc, una presa de juguete.",
+   "Para representar la roca compacta de la montaña usaron grava.",
+   "En el laboratorio lo explicaron con una frase: «Nos han dicho que lo hagamos así».",
+   "La recomendación que salió de ahí fue no pasar de los setecientos metros sobre el nivel del mar.",
+   "La cota autorizada fue de setecientos quince.",
+   "En noviembre de mil novecientos sesenta y dos, la ladera ya se desplazaba más de un centímetro y medio por día.",
+   "En mayo de mil novecientos sesenta y tres, SADE subió el nivel del agua: tenía que entregar la presa como una obra que funcionaba para cerrar la operación con ENEL.",
+   "En julio se completó el cambio de propiedad, con la prueba de llenado todavía en marcha.",
+   "La presa cambió de dueño con el agua todavía subiendo.",
+   "La montaña no se enteró del contrato.",
+   "En junio de mil novecientos sesenta y tres el agua llegó a los setecientos metros, y la ladera se movía medio centímetro por día.",
+   "Un informe dice que el veintiséis de septiembre el embalse volvió al nivel de seguridad.",
+   "Desde el dos de octubre, los avisos se multiplicaron: sacudidas, estruendos que bajaban de la ladera de noche, grietas nuevas en la tierra de Erto, movimientos en la superficie.",
+   "Las autoridades cerraron algunos caminos con barreras y desalojaron algunas casas de Erto y Casso.",
+   "Abajo, en Longarone, las ventanas se encendían como cualquier noche.",
+   "En Erto y en Longarone la gente se repetía una frase que servía para dormir: «Si no avisan, será que no es grave».",
+   "Los que la decían miraban la pared curva.",
+   "De la montaña que caminaba hablaban los de arriba, los que tenían las grietas en el patio.",
+   "«Estábamos esperando que la presa se cayera...», contó después un sobreviviente.",
+   "Lo que temían era la pared.",
+   "De la ola no hablaba nadie.",
+   "La respuesta que llegó desde un ministerio fue: «No se preocupe, todo está bajo control».",
+   "Mientras tanto, en la ladera, los topógrafos de la empresa seguían midiendo.",
+   "El nueve de octubre a la mañana, el director técnico de la empresa se sentó a escribir una carta.",
+   "El director técnico se llamaba Alberico Biadene.",
+   "La carta iba dirigida a Pancini, que estaba de vacaciones: Biadene le pedía que volviera y le contaba lo que el topógrafo Rossi había medido, que la ladera se movía más.",
+   "La carta ya estaba firmada cuando sonó el teléfono.",
+   "Biadene volvió al papel y agregó una posdata: Rossi lo llamaba en ese momento, y «las mediciones de esta mañana resultan todavía mayores que las de ayer, ¡alcanzando un aumento del 50%!!».",
+   "De veinte a treinta centímetros.",
+   "Y algo más: pequeñas piedras caían en el borde oeste del deslizamiento, hacia la presa.",
+   "Dos signos de exclamación, de puño y letra del director técnico.",
+   "A las seis de la tarde se cerró la jornada.",
+   "En la central quedaron un aparejador y su equipo.",
+   "Esa noche nadie dio la alarma que habría puesto en marcha la evacuación masiva de los pueblos expuestos.",
+   "Las barreras seguían en los caminos de Erto.",
+   "En Longarone, abajo, era una noche como cualquiera.",
+   "A las diez y media de la noche, el párroco de Casso escuchó algo y abrió la ventana.",
+   "Carlo Onorini, el párroco de Casso, lo contó así: «escucho el ruido de la avalancha, abro la ventana y este ruido aumentaba en forma extraordinaria, al mismo tiempo vi un resplandor».",
+   "Son las diez y treinta y nueve.",
+   "El Toc entra al lago.",
+   "La ladera entera, la que caminaba, la de la fisura, se desploma de una vez dentro del embalse.",
+   "El agua no tiene a dónde ir, salvo hacia arriba.",
+   "Se levanta, pasa por encima de la presa, por encima de la pared que no se rompe, y cae en la garganta hacia el Piave.",
+   "Benito Castellano oye un ruido «como de un trueno de verano multiplicado cien veces, muy lóbrego, que duró tres o cuatro minutos».",
+   "Después, un estruendo con un resplandor, y enseguida un ruido como el que hace una formación de reactores al pasar.",
+   "En el bar Faè, Germano Accamillesi mira televisión cuando «se interrumpió la iluminación del televisor y casi al mismo tiempo (treinta-cincuenta segundos) se empezaron a sentir fuertes sacudidas telúricas».",
+   "Después de las sacudidas se apaga también la luz del bar.",
+   "Nadie en ese bar sabe todavía qué viene bajando por la garganta.",
+   "La ola baja hacia el Piave.",
+   "Longarone sigue con las luces encendidas.",
+   "Cuatro minutos después del desprendimiento, el agua llega al pueblo, a las calles, a las casas, a la cama donde duerme Micaela Coletti.",
+   "Nadie avisó.",
+   "Micaela siente que la cama toma velocidad y que una fuerza la agarra por la espalda.",
+   "La ola la arrastra al menos cuatrocientos metros desde su casa.",
+   "Ahí la encuentran.",
+   "Y está viva.",
+   "Cuando amaneció, la presa seguía ahí.",
+   "Longarone ya no.",
+   "Donde había calles hay fango y piedras.",
+   "Un hombre está parado en el medio y no sabe hacia dónde mirar.",
+   "«Conocía Longarone en cada rincón, ahora no sé dónde estoy», dijo uno de los sobrevivientes.",
+   "Entre los muertos está Guglielmo Celso, el alcalde socialista de Longarone.",
+   "Nadie creó un organismo central que informara oficialmente cómo avanzaba el rescate.",
+   "Desde el aire llegó el ruido de los rotores.",
+   "La fuerza estadounidense despachó seis helicópteros.",
+   "Un hombre de una aldea de la zona lo recuerda: «El primer rescatista que vi llegó en un helicóptero del ejército de Estados Unidos».",
+   "Tres de esos helicópteros, cuenta, evacuaron a toda la gente de su pueblo, y por eso un día trágico le quedó también con algo de alegría.",
+   "Tres días después llegó el presidente del Consejo.",
+   "La gente ya sabía qué pedirle.",
+   "El presidente del Consejo caminó entre los escombros con un abrigo oscuro.",
+   "De entre lo que quedaba de Longarone le salió al paso un grito, el de los pobladores: «Presidente, queremos justicia».",
+   "En los kioscos, esos días, había dos verdades sobre la misma noche.",
+   "Dino Buzzati escribió: «Una piedra ha caído en un vaso lleno de agua, y el agua se ha derramado sobre el mantel.",
+   "Eso es todo».",
+   "Solo que el vaso tenía cientos de metros de alto, la piedra era grande como una montaña y abajo, en el mantel, había miles de seres humanos que no podían defenderse.",
+   "Giorgio Bocca escribió que una desgracia tan limpia, tan ineluctable, tan absoluta, llevaba más a la melancolía que al dolor: «No había nada que hacer, no hay remordimientos, no hay culpables».",
+   "Aniello Coppola leyó en eso el intento de absolver antes de indagar, de anular cualquier investigación de antemano, y respondió: «Hay que hacer un proceso.",
+   "Hay que encontrar a los responsables.",
+   "Y deben pagar».",
+   "Una primera comisión de expertos trabajó dieciocho meses y concluyó que el desastre era imprevisible.",
+   "Pasaron más de cuatro años hasta que, el veinte de febrero de mil novecientos sesenta y ocho, se depositó la resolución de remisión a juicio.",
+   "El juez no aceptó la palabra imprevisible.",
+   "Pidió otra pericia, y después, nombres.",
+   "El juicio empezó el veintinueve de noviembre de mil novecientos sesenta y ocho.",
+   "El día anterior, Pancini, el ingeniero al que Biadene le había pedido volver de vacaciones, se quitó la vida.",
+   "En el banquillo se sentaron ocho acusados.",
+   "En marzo de mil novecientos setenta y uno, la Casación reconoció la culpabilidad de Biadene y de Sensidoni.",
+   "ENEL ofreció diez mil millones de liras de la época como indemnización.",
+   "Casi todos aceptaron; la última transacción se firmó en el año dos mil.",
+   "Alguien que siguió aquel proceso lo resumió sin levantar la voz: Vajont no fue la excepción al sistema, sino su confirmación; «había un riesgo, previsible y previsto».",
+   "Micaela Coletti preside el comité de sobrevivientes del Vajont.",
+   "La niña a la que la ola arrastró sobre una cama se sienta ahora frente a una mesa con el cartel del comité, y lo que tiene delante es una sentencia.",
+   "La sentencia dice inundación agravada por la previsión del evento.",
+   "Nombra el delito.",
+   "No dice quién, entre la posdata de la mañana y las diez y treinta y nueve de la noche, decidió que Longarone no debía saber.",
+   "¿Quién decidió que Micaela siguiera durmiendo?"
+  ],
+  "pre_roll": 0.0
+ },
+ "intentos": [
+  {
+   "pedido": "CAPÍTULO 3 — giro · escalada\n\nNARRACIÓN (oración por oración; cada palabra con su índice):\n[0] 0.1–2.1 · beat 4 · 0:El 1:embalse 2:se 3:llamaba 4:Pontesei.\n[1] 2.9–7.8 · beat 4 · 0:Ese 1:marzo, 2:una 3:masa 4:de 5:roca 6:entró 7:al 8:agua 9:y 10:levantó 11:una 12:ola 13:de 14:veinte 15:metros.\n[2] 8.6–9.7 · beat 4 · 0:Un 1:trabajador 2:murió.\n[3] 10.8–23.9 · beat 4 · 0:Después 1:de 2:Pontesei, 3:SADE 4:encargó 5:nuevas 6:pericias 7:sobre 8:el 9:Toc, 10:y 11:esas 12:pericias 13:identificaron 14:una 15:paleofrana: 16:un 17:deslizamiento 18:antiguo, 19:la 20:cicatriz 21:que 22:Edoardo 23:Semenza 24:había 25:estado 26:buscando.\n[4] 25.1–30.2 · beat 4 · 0:El 1:informe 2:sobre 3:esos 4:riesgos 5:lo 6:escribió 7:Giorgio 8:Dal 9:Piaz 10:en 11:mil 12:novecientos 13:sesenta.\n[5] 31.1–39.5 · beat 4 · 0:Dal 1:Piaz 2:había 3:dicho 4:alguna 5:vez 6:sobre 7:la 8:obra: 9:«Si 10:el 11:proyecto 12:original 13:me 14:parecía 15:osado, 16:ahora 17:lo 18:considero 19:una 20:completa 21:locura».\n[6] 42.5–46.9 · beat 4 · 0:Su 1:informe, 2:en 3:cambio, 4:le 5:restó 6:peso 7:a 8:lo 9:que 10:señalaba 11:Edoardo 12:Semenza.\n[7] 47.9–49.6 · beat 4 · 0:Una 1:ola 2:de 3:veinte 4:metros.\n[8] 50.3–51.2 · beat 4 · 0:Un 1:hombre 2:muerto.\n[9] 52.1–54.3 · beat 4 · 0:Una 1:paleofrana 2:con 3:nombre 4:en 5:un 6:papel.\n[10] 55.3–57.6 · beat 4 · 0:El 1:informe 2:oficial 3:dijo 4:que 5:no 6:era 7:grave.\n[11] 58.4–61.1 · beat 4 · 0:Una 1:periodista 2:de 3:provincia 4:escribió 5:lo 6:contrario.\n[12] 61.9–65.3 · beat 5 · 0:Se 1:llamaba 2:Tina 3:Merlin 4:y 5:escribía 6:en 7:L'Unità.\n[13] 66.3–73.4 · beat 5 · 0:Hacia 1:mil 2:novecientos 3:cincuenta 4:y 5:nueve 6:publicó 7:su 8:primera 9:denuncia: 10:el 11:Toc 12:podía 13:desprenderse 14:sobre 15:el 16:lago.\n[14] 74.6–81.9 · beat 5 · 0:L'Unità 1:fue 2:el 3:único 4:diario 5:nacional 6:que 7:siguió 8:lo 9:que 10:pasaba 11:en 12:el 13:Vajont 14:antes 15:del 16:desastre, 17:y 18:lo 19:siguió 20:a 21:través 22:de 23:ella.\n[15] 82.9–92.7 · beat 5 · 0:El 1:diario 2:que 3:se 4:leía 5:en 6:la 7:zona 8:era 9:Il 10:Gazzettino, 11:y 12:una 13:parte 14:de 15:Il 16:Gazzettino 17:pertenecía 18:a 19:SADE, 20:a 21:FIAT, 22:a 23:Volpi 24:y 25:a 26:Cini.\n[16] 93.8–100.2 · beat 5 · 0:En 1:febrero 2:de 3:mil 4:novecientos 5:sesenta 6:empezó 7:el 8:llenado, 9:y 10:el 11:agua 12:fue 13:subiendo 14:día 15:a 16:día 17:por 18:la 19:garganta.\n[17] 101.2–115.6 · beat 5 · 0:Ese 1:año 2:hubo 3:un 4:pequeño 5:desmoronamiento 6:en 7:el 8:Toc, 9:y 10:después 11:del 12:desmoronamiento 13:los 14:habitantes 15:vieron 16:algo 17:nuevo 18:en 19:la 20:ladera: 21:una 22:fisura 23:de 24:casi 25:dos 26:kilómetros 27:de 28:largo, 29:corriendo 30:por 31:la 32:montaña 33:como 34:una 35:costura 36:abierta.\n[18] 116.6–118.9 · beat 5 · 0:Abajo, 1:el 2:lago 3:seguía 4:subiendo.\n[19] 119.9–124.5 · beat 5 · 0:El 1:cuatro 2:de 3:noviembre, 4:durante 5:las 6:pruebas, 7:el 8:agua 9:tuvo 10:su 11:primera 12:respuesta.\n\nBEATS DEL CAPÍTULO (n, función, ventana en segundos, cierre); el pico es el beat 4:\n- 4 · giro · 0.1–61.1 s · cierre: «El informe oficial dijo que no era grave. Una periodista de provincia escribió lo contrario.»\n- 5 · escalada · 61.9–124.5 s · cierre: «El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta.»\n\nDATOS DISPONIBLES (solo estos; cada uno con su texto fuente):\n- T16 · tipo T · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 · texto fuente: «Se produce un desprendimiento en el embalse de Pontesei que genera una ola de 20 metros y mata a Arcangelo Tiziani.»\n- D94 · tipo D · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 · texto fuente: «En el desprendimiento del embalse de Pontesei se generó una ola de 20 metros.»\n- T15 · tipo T · a_pantalla: no · por_que: — · fuente: DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013 · texto fuente: «Un deslizamiento de 3 millones de metros cúbicos cayó en el lago de la cercana represa de Pontesei, matando a un hombre.»\n- T21 · tipo T · a_pantalla: no · por_que: — · fuente: Tragedia del Vajont: analisi geologica di una frana annunciata, 2021 · texto fuente: «Un deslizamiento de 3 millones de m³ de roca ocurre en el embalse de Pontesei, generando una primera alarma.»\n- D119 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «La empresa SADE descubrió la presencia de un paleodeslizamiento en el monte Toc.»\n- T27 · tipo T · a_pantalla: no · por_que: — · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 · texto fuente: «El geólogo Giorgio Dal Piaz minimiza en su informe los riesgos identificados por Edoardo Semenza.»\n- Q37 · tipo Q · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 (autor: Giorgio Dal Piaz) · texto fuente: «Si el proyecto original me parecía osado, ahora lo considero una completa locura»\n- T18 · tipo T · a_pantalla: no · por_que: — · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 · texto fuente: «La periodista Tina Merlin denuncia el peligro del desprendimiento en el periódico l'Unità.»\n- D71 · tipo D · a_pantalla: no · por_que: — · fuente: DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013 · texto fuente: «L'Unità, el periódico del Partido Comunista Italiano (PCI), fue el único medio nacional que siguió los eventos antes del desastre a través de su periodista Tina Merlin.»\n- D72 · tipo D · a_pantalla: no · por_que: — · fuente: DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013 · texto fuente: «Il Gazzettino, uno de los principales periódicos del noreste de Italia, era propiedad en parte de SADE y de sus dos directores, el Sr. Volpi y el Sr. Cini.»\n- T29 · tipo T · a_pantalla: no · por_que: — · fuente: A Tragedy in the Italian Alps (50th Anniversary) Vajont Dam, 2013 · texto fuente: «Comienza el llenado del embalse de Vajont.»\n- D49 · tipo D · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 · texto fuente: «En 1960, un pequeño desmoronamiento provocó una fisura de más de 1 metro de ancho y casi 2 kilómetros de largo en la montaña.»\n- T23 · tipo T · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 · texto fuente: «Ocurrió un pequeño desmoronamiento en el monte Toc que abrió una fisura de casi 2 km de largo.»\n\nYA MOSTRADO EN CAPÍTULOS ANTERIORES (no repetir):\n- D117 «El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes.»\n\nDevolvé:\n{\"bloques\": [{\"sentence_idx\": int, \"word_idx\": int, \"beat\": int, \"rank\": int, \"tipo\": \"cifra|hecho|documento|cita|persona|lupa\", \"etiqueta\": str, \"texto\": str, \"pool_id\": str, \"aporta\": str}], \"descartados\": [{\"pool_id\": str, \"motivo\": str}]}",
+   "respuesta": {
+    "bloques": [
+     {
+      "sentence_idx": 2,
+      "word_idx": 1,
+      "beat": 4,
+      "rank": 1,
+      "tipo": "persona",
+      "etiqueta": "Trabajador muerto en Pontesei",
+      "texto": "Arcangelo Tiziani",
+      "pool_id": "T16",
+      "aporta": "Da el nombre del trabajador que murió, que la narración no menciona."
+     },
+     {
+      "sentence_idx": 1,
+      "word_idx": 9,
+      "beat": 4,
+      "rank": 2,
+      "tipo": "cifra",
+      "etiqueta": "Volumen del deslizamiento en Pontesei",
+      "texto": "3 millones de m³ de roca cayeron al embalse.",
+      "pool_id": "T21",
+      "aporta": "Agrega el volumen de roca desprendida, que la narración no da."
+     },
+     {
+      "sentence_idx": 12,
+      "word_idx": 3,
+      "beat": 5,
+      "rank": 1,
+      "tipo": "hecho",
+      "etiqueta": "Il Disastro del Vajont non fu una calamità naturale, 2023",
+      "texto": "Tina Merlin denunció el peligro del desprendimiento en el periódico l'Unità.",
+      "pool_id": "T18",
+      "aporta": "Precisa que su denuncia fue sobre el peligro del desprendimiento."
+     },
+     {
+      "sentence_idx": 14,
+      "word_idx": 0,
+      "beat": 5,
+      "rank": 1,
+      "tipo": "hecho",
+      "etiqueta": "Nature adaptation study, 2013",
+      "texto": "L'Unità era el periódico del Partido Comunista Italiano (PCI).",
+      "pool_id": "D71",
+      "aporta": "Indica la filiación política del diario, no dicha en la narración."
+     }
+    ],
+    "descartados": [
+     {
+      "pool_id": "D94",
+      "motivo": "Repite la ola de 20 metros que la narración ya dice."
+     },
+     {
+      "pool_id": "T15",
+      "motivo": "Redundante con T21 y T16; se elige un solo dato por beat."
+     },
+     {
+      "pool_id": "D119",
+      "motivo": "Repite lo que dice la oración 3 sobre la paleofrana."
+     },
+     {
+      "pool_id": "T27",
+      "motivo": "Repite lo que cuenta la oración 6 y adelanta el informe."
+     },
+     {
+      "pool_id": "Q37",
+      "motivo": "La narración ya lee la cita en la oración 5."
+     },
+     {
+      "pool_id": "D72",
+      "motivo": "Repite casi todo lo que dice la oración 15."
+     },
+     {
+      "pool_id": "T29",
+      "motivo": "No aporta nada nuevo respecto a la oración 16."
+     },
+     {
+      "pool_id": "D49",
+      "motivo": "Adelanta detalles de la fisura que la narración dice en la oración 17."
+     },
+     {
+      "pool_id": "T23",
+      "motivo": "Repite la oración 17."
+     }
+    ]
+   },
+   "crudas": [
+    {
+     "respuesta": {
+      "content": [
+       {
+        "type": "text",
+        "text": "{\"bloques\":[{\"sentence_idx\":2,\"word_idx\":1,\"beat\":4,\"rank\":1,\"tipo\":\"persona\",\"etiqueta\":\"Trabajador muerto en Pontesei\",\"texto\":\"Arcangelo Tiziani\",\"pool_id\":\"T16\",\"aporta\":\"Da el nombre del trabajador que murió, que la narración no menciona.\"},{\"sentence_idx\":1,\"word_idx\":9,\"beat\":4,\"rank\":2,\"tipo\":\"cifra\",\"etiqueta\":\"Volumen del deslizamiento en Pontesei\",\"texto\":\"3 millones de m³ de roca cayeron al embalse.\",\"pool_id\":\"T21\",\"aporta\":\"Agrega el volumen de roca desprendida, que la narración no da.\"},{\"sentence_idx\":12,\"word_idx\":3,\"beat\":5,\"rank\":1,\"tipo\":\"hecho\",\"etiqueta\":\"Il Disastro del Vajont non fu una calamità naturale, 2023\",\"texto\":\"Tina Merlin denunció el peligro del desprendimiento en el periódico l'Unità.\",\"pool_id\":\"T18\",\"aporta\":\"Precisa que su denuncia fue sobre el peligro del desprendimiento.\"},{\"sentence_idx\":14,\"word_idx\":0,\"beat\":5,\"rank\":1,\"tipo\":\"hecho\",\"etiqueta\":\"Nature adaptation study, 2013\",\"texto\":\"L'Unità era el periódico del Partido Comunista Italiano (PCI).\",\"pool_id\":\"D71\",\"aporta\":\"Indica la filiación política del diario, no dicha en la narración.\"}],\"descartados\":[{\"pool_id\":\"D94\",\"motivo\":\"Repite la ola de 20 metros que la narración ya dice.\"},{\"pool_id\":\"T15\",\"motivo\":\"Redundante con T21 y T16; se elige un solo dato por beat.\"},{\"pool_id\":\"D119\",\"motivo\":\"Repite lo que dice la oración 3 sobre la paleofrana.\"},{\"pool_id\":\"T27\",\"motivo\":\"Repite lo que cuenta la oración 6 y adelanta el informe.\"},{\"pool_id\":\"Q37\",\"motivo\":\"La narración ya lee la cita en la oración 5.\"},{\"pool_id\":\"D72\",\"motivo\":\"Repite casi todo lo que dice la oración 15.\"},{\"pool_id\":\"T29\",\"motivo\":\"No aporta nada nuevo respecto a la oración 16.\"},{\"pool_id\":\"D49\",\"motivo\":\"Adelanta detalles de la fisura que la narración dice en la oración 17.\"},{\"pool_id\":\"T23\",\"motivo\":\"Repite la oración 17.\"}]}"
+       }
+      ],
+      "usage": {
+       "input_tokens": 5232,
+       "cache_creation_input_tokens": 0,
+       "cache_read_input_tokens": 0,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+       },
+       "output_tokens": 884,
+       "service_tier": "standard",
+       "inference_geo": "global",
+       "speed": "standard",
+       "output_tokens_details": {
+        "thinking_tokens": 0
+       }
+      },
+      "model": "claude-sonnet-5-5",
+      "id": "msg_011CgR8dkEXAQY3HVPubnBD2",
+      "type": "message",
+      "role": "assistant",
+      "container": null,
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "stop_details": null,
+      "diagnostics": null
+     },
+     "segundos": 6.0,
+     "usd": 0.0193
+    }
+   ],
+   "error": null,
+   "validacion": {
+    "bloques": [
+     {
+      "sentence_idx": 14,
+      "word_idx": 0,
+      "beat": 5,
+      "rank": 1,
+      "tipo": "hecho",
+      "etiqueta": "Nature adaptation study, 2013",
+      "texto": "L'Unità era el periódico del Partido Comunista Italiano (PCI).",
+      "pool_id": "D71",
+      "aporta": "Indica la filiación política del diario, no dicha en la narración.",
+      "palabra": "L'Unità",
+      "t0": 74.58,
+      "t1": 81.9,
+      "dur": 7.32,
+      "funcion": "escalada",
+      "pantalla": "L'Unità era el periódico del Partido Comunista Italiano (PCI).",
+      "a_pantalla": false,
+      "por_que": "",
+      "caracteres": 91,
+      "lectura_s": 6.07,
+      "movido": null,
+      "movido_corte": null,
+      "forzado": null
+     }
+    ],
+    "rechazos": [
+     {
+      "pool_id": "T16",
+      "tipo": "persona",
+      "etiqueta": "Trabajador muerto en Pontesei",
+      "texto": "Arcangelo Tiziani",
+      "sentence_idx": 2,
+      "regla": "candado",
+      "motivo": "no están en el texto fuente de T16: ['Trabajador', 'muerto']"
+     },
+     {
+      "pool_id": "T21",
+      "tipo": "cifra",
+      "etiqueta": "Volumen del deslizamiento en Pontesei",
+      "texto": "3 millones de m³ de roca cayeron al embalse.",
+      "sentence_idx": 1,
+      "regla": "lectura",
+      "motivo": "sin tiempo de lectura: 81 caracteres piden 5.4 s y hay 4.0 s"
+     },
+     {
+      "pool_id": "T18",
+      "tipo": "hecho",
+      "etiqueta": "Il Disastro del Vajont non fu una calamità naturale, 2023",
+      "texto": "Tina Merlin denunció el peligro del desprendimiento en el periódico l'Unità.",
+      "sentence_idx": 12,
+      "regla": "no_dicho",
+      "motivo": "la voz lo dice en la oración ancla o en una vecina: ['Merlin', 'Unità']"
+     }
+    ],
+    "faltan": [],
+    "motivo_faltan": {},
+    "incompletos": {}
+   },
+   "segundos": 7.7
+  },
+  {
+   "pedido": "CAPÍTULO 3 — giro · escalada\n\nNARRACIÓN (oración por oración; cada palabra con su índice):\n[0] 0.1–2.1 · beat 4 · 0:El 1:embalse 2:se 3:llamaba 4:Pontesei.\n[1] 2.9–7.8 · beat 4 · 0:Ese 1:marzo, 2:una 3:masa 4:de 5:roca 6:entró 7:al 8:agua 9:y 10:levantó 11:una 12:ola 13:de 14:veinte 15:metros.\n[2] 8.6–9.7 · beat 4 · 0:Un 1:trabajador 2:murió.\n[3] 10.8–23.9 · beat 4 · 0:Después 1:de 2:Pontesei, 3:SADE 4:encargó 5:nuevas 6:pericias 7:sobre 8:el 9:Toc, 10:y 11:esas 12:pericias 13:identificaron 14:una 15:paleofrana: 16:un 17:deslizamiento 18:antiguo, 19:la 20:cicatriz 21:que 22:Edoardo 23:Semenza 24:había 25:estado 26:buscando.\n[4] 25.1–30.2 · beat 4 · 0:El 1:informe 2:sobre 3:esos 4:riesgos 5:lo 6:escribió 7:Giorgio 8:Dal 9:Piaz 10:en 11:mil 12:novecientos 13:sesenta.\n[5] 31.1–39.5 · beat 4 · 0:Dal 1:Piaz 2:había 3:dicho 4:alguna 5:vez 6:sobre 7:la 8:obra: 9:«Si 10:el 11:proyecto 12:original 13:me 14:parecía 15:osado, 16:ahora 17:lo 18:considero 19:una 20:completa 21:locura».\n[6] 42.5–46.9 · beat 4 · 0:Su 1:informe, 2:en 3:cambio, 4:le 5:restó 6:peso 7:a 8:lo 9:que 10:señalaba 11:Edoardo 12:Semenza.\n[7] 47.9–49.6 · beat 4 · 0:Una 1:ola 2:de 3:veinte 4:metros.\n[8] 50.3–51.2 · beat 4 · 0:Un 1:hombre 2:muerto.\n[9] 52.1–54.3 · beat 4 · 0:Una 1:paleofrana 2:con 3:nombre 4:en 5:un 6:papel.\n[10] 55.3–57.6 · beat 4 · 0:El 1:informe 2:oficial 3:dijo 4:que 5:no 6:era 7:grave.\n[11] 58.4–61.1 · beat 4 · 0:Una 1:periodista 2:de 3:provincia 4:escribió 5:lo 6:contrario.\n[12] 61.9–65.3 · beat 5 · 0:Se 1:llamaba 2:Tina 3:Merlin 4:y 5:escribía 6:en 7:L'Unità.\n[13] 66.3–73.4 · beat 5 · 0:Hacia 1:mil 2:novecientos 3:cincuenta 4:y 5:nueve 6:publicó 7:su 8:primera 9:denuncia: 10:el 11:Toc 12:podía 13:desprenderse 14:sobre 15:el 16:lago.\n[14] 74.6–81.9 · beat 5 · 0:L'Unità 1:fue 2:el 3:único 4:diario 5:nacional 6:que 7:siguió 8:lo 9:que 10:pasaba 11:en 12:el 13:Vajont 14:antes 15:del 16:desastre, 17:y 18:lo 19:siguió 20:a 21:través 22:de 23:ella.\n[15] 82.9–92.7 · beat 5 · 0:El 1:diario 2:que 3:se 4:leía 5:en 6:la 7:zona 8:era 9:Il 10:Gazzettino, 11:y 12:una 13:parte 14:de 15:Il 16:Gazzettino 17:pertenecía 18:a 19:SADE, 20:a 21:FIAT, 22:a 23:Volpi 24:y 25:a 26:Cini.\n[16] 93.8–100.2 · beat 5 · 0:En 1:febrero 2:de 3:mil 4:novecientos 5:sesenta 6:empezó 7:el 8:llenado, 9:y 10:el 11:agua 12:fue 13:subiendo 14:día 15:a 16:día 17:por 18:la 19:garganta.\n[17] 101.2–115.6 · beat 5 · 0:Ese 1:año 2:hubo 3:un 4:pequeño 5:desmoronamiento 6:en 7:el 8:Toc, 9:y 10:después 11:del 12:desmoronamiento 13:los 14:habitantes 15:vieron 16:algo 17:nuevo 18:en 19:la 20:ladera: 21:una 22:fisura 23:de 24:casi 25:dos 26:kilómetros 27:de 28:largo, 29:corriendo 30:por 31:la 32:montaña 33:como 34:una 35:costura 36:abierta.\n[18] 116.6–118.9 · beat 5 · 0:Abajo, 1:el 2:lago 3:seguía 4:subiendo.\n[19] 119.9–124.5 · beat 5 · 0:El 1:cuatro 2:de 3:noviembre, 4:durante 5:las 6:pruebas, 7:el 8:agua 9:tuvo 10:su 11:primera 12:respuesta.\n\nBEATS DEL CAPÍTULO (n, función, ventana en segundos, cierre); el pico es el beat 4:\n- 4 · giro · 0.1–61.1 s · cierre: «El informe oficial dijo que no era grave. Una periodista de provincia escribió lo contrario.»\n- 5 · escalada · 61.9–124.5 s · cierre: «El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta.»\n\nDATOS DISPONIBLES (solo estos; cada uno con su texto fuente):\n- T16 · tipo T · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 · texto fuente: «Se produce un desprendimiento en el embalse de Pontesei que genera una ola de 20 metros y mata a Arcangelo Tiziani.»\n- D94 · tipo D · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 · texto fuente: «En el desprendimiento del embalse de Pontesei se generó una ola de 20 metros.»\n- T15 · tipo T · a_pantalla: no · por_que: — · fuente: DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013 · texto fuente: «Un deslizamiento de 3 millones de metros cúbicos cayó en el lago de la cercana represa de Pontesei, matando a un hombre.»\n- T21 · tipo T · a_pantalla: no · por_que: — · fuente: Tragedia del Vajont: analisi geologica di una frana annunciata, 2021 · texto fuente: «Un deslizamiento de 3 millones de m³ de roca ocurre en el embalse de Pontesei, generando una primera alarma.»\n- D119 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «La empresa SADE descubrió la presencia de un paleodeslizamiento en el monte Toc.»\n- T27 · tipo T · a_pantalla: no · por_que: — · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 · texto fuente: «El geólogo Giorgio Dal Piaz minimiza en su informe los riesgos identificados por Edoardo Semenza.»\n- Q37 · tipo Q · a_pantalla: no · por_que: — · fuente: Vajont, la construcción de una catástrofe a la italiana, 2022 (autor: Giorgio Dal Piaz) · texto fuente: «Si el proyecto original me parecía osado, ahora lo considero una completa locura»\n- T18 · tipo T · a_pantalla: no · por_que: — · fuente: Il disastro del Vajont non fu una calamità naturale, 2023 · texto fuente: «La periodista Tina Merlin denuncia el peligro del desprendimiento en el periódico l'Unità.»\n- D71 · tipo D · a_pantalla: no · por_que: — · fuente: DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013 · texto fuente: «L'Unità, el periódico del Partido Comunista Italiano (PCI), fue el único medio nacional que siguió los eventos antes del desastre a través de su periodista Tina Merlin.»\n- D72 · tipo D · a_pantalla: no · por_que: — · fuente: DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013 · texto fuente: «Il Gazzettino, uno de los principales periódicos del noreste de Italia, era propiedad en parte de SADE y de sus dos directores, el Sr. Volpi y el Sr. Cini.»\n- T29 · tipo T · a_pantalla: no · por_que: — · fuente: A Tragedy in the Italian Alps (50th Anniversary) Vajont Dam, 2013 · texto fuente: «Comienza el llenado del embalse de Vajont.»\n- D49 · tipo D · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 · texto fuente: «En 1960, un pequeño desmoronamiento provocó una fisura de más de 1 metro de ancho y casi 2 kilómetros de largo en la montaña.»\n- T23 · tipo T · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 · texto fuente: «Ocurrió un pequeño desmoronamiento en el monte Toc que abrió una fisura de casi 2 km de largo.»\n\nYA MOSTRADO EN CAPÍTULOS ANTERIORES (no repetir):\n- D117 «El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes.»\n\nDevolvé:\n{\"bloques\": [{\"sentence_idx\": int, \"word_idx\": int, \"beat\": int, \"rank\": int, \"tipo\": \"cifra|hecho|documento|cita|persona|lupa\", \"etiqueta\": str, \"texto\": str, \"pool_id\": str, \"aporta\": str}], \"descartados\": [{\"pool_id\": str, \"motivo\": str}]}\n\nTU RESPUESTA ANTERIOR TUVO ESTOS PROBLEMAS (corregilos y devolvé el JSON completo otra vez):\n- T16 en la oración [2] «Arcangelo Tiziani»: no están en el texto fuente de T16: ['Trabajador', 'muerto']\n- T18 en la oración [12] «Tina Merlin denunció el peligro del desprendimiento en el periódico l'Unità.»: la voz lo dice en la oración ancla o en una vecina: ['Merlin', 'Unità']",
+   "respuesta": {
+    "bloques": [
+     {
+      "sentence_idx": 14,
+      "word_idx": 0,
+      "beat": 5,
+      "rank": 1,
+      "tipo": "hecho",
+      "etiqueta": "Domination or adaptation to nature?, 2013",
+      "texto": "L'Unità era el periódico del Partido Comunista Italiano (PCI).",
+      "pool_id": "D71",
+      "aporta": "Indica a qué partido pertenecía el diario, dato que la narración no menciona."
+     },
+     {
+      "sentence_idx": 17,
+      "word_idx": 22,
+      "beat": 5,
+      "rank": 1,
+      "tipo": "cifra",
+      "etiqueta": "Ancho de la fisura, 1960",
+      "texto": "Más de 1 metro de ancho, según La inundación del Vajont (2005).",
+      "pool_id": "D49",
+      "aporta": "Da el ancho de la fisura; la narración solo dice que medía casi dos kilómetros de largo."
+     }
+    ],
+    "descartados": [
+     {
+      "pool_id": "T16",
+      "motivo": "Beat 4 es el pico y no lleva texto en pantalla."
+     },
+     {
+      "pool_id": "D94",
+      "motivo": "Beat 4 es el pico y no lleva texto en pantalla."
+     },
+     {
+      "pool_id": "T15",
+      "motivo": "Beat 4 es el pico; además repite la ola y el muerto que la narración ya dice."
+     },
+     {
+      "pool_id": "T21",
+      "motivo": "Beat 4 es el pico y no lleva texto en pantalla."
+     },
+     {
+      "pool_id": "D119",
+      "motivo": "Beat 4 es el pico y no lleva texto en pantalla."
+     },
+     {
+      "pool_id": "T27",
+      "motivo": "Beat 4 es el pico y no lleva texto en pantalla."
+     },
+     {
+      "pool_id": "Q37",
+      "motivo": "Beat 4 es el pico y no lleva texto en pantalla."
+     },
+     {
+      "pool_id": "T18",
+      "motivo": "Solo repite lo que la narración dice en las oraciones 11 y 12; no aporta nada nuevo."
+     },
+     {
+      "pool_id": "D72",
+      "motivo": "La narración ya dice todo lo que trae el dato."
+     },
+     {
+      "pool_id": "T29",
+      "motivo": "Repite el inicio del llenado que la narración ya cuenta."
+     },
+     {
+      "pool_id": "T23",
+      "motivo": "Repite la fisura de casi 2 km que la narración ya dice; D49 aporta más."
+     },
+     {
+      "pool_id": "D117",
+      "motivo": "Ya se mostró en un capítulo anterior."
+     }
+    ]
+   },
+   "crudas": [
+    {
+     "respuesta": {
+      "content": [
+       {
+        "type": "thinking",
+        "thinking": "",
+        "signature": ""
+       },
+       {
+        "type": "text",
+        "text": "{\"bloques\":[{\"sentence_idx\":14,\"word_idx\":0,\"beat\":5,\"rank\":1,\"tipo\":\"hecho\",\"etiqueta\":\"Domination or adaptation to nature?, 2013\",\"texto\":\"L'Unità era el periódico del Partido Comunista Italiano (PCI).\",\"pool_id\":\"D71\",\"aporta\":\"Indica a qué partido pertenecía el diario, dato que la narración no menciona.\"},{\"sentence_idx\":17,\"word_idx\":22,\"beat\":5,\"rank\":1,\"tipo\":\"cifra\",\"etiqueta\":\"Ancho de la fisura, 1960\",\"texto\":\"Más de 1 metro de ancho, según La inundación del Vajont (2005).\",\"pool_id\":\"D49\",\"aporta\":\"Da el ancho de la fisura; la narración solo dice que medía casi dos kilómetros de largo.\"}],\"descartados\":[{\"pool_id\":\"T16\",\"motivo\":\"Beat 4 es el pico y no lleva texto en pantalla.\"},{\"pool_id\":\"D94\",\"motivo\":\"Beat 4 es el pico y no lleva texto en pantalla.\"},{\"pool_id\":\"T15\",\"motivo\":\"Beat 4 es el pico; además repite la ola y el muerto que la narración ya dice.\"},{\"pool_id\":\"T21\",\"motivo\":\"Beat 4 es el pico y no lleva texto en pantalla.\"},{\"pool_id\":\"D119\",\"motivo\":\"Beat 4 es el pico y no lleva texto en pantalla.\"},{\"pool_id\":\"T27\",\"motivo\":\"Beat 4 es el pico y no lleva texto en pantalla.\"},{\"pool_id\":\"Q37\",\"motivo\":\"Beat 4 es el pico y no lleva texto en pantalla.\"},{\"pool_id\":\"T18\",\"motivo\":\"Solo repite lo que la narración dice en las oraciones 11 y 12; no aporta nada nuevo.\"},{\"pool_id\":\"D72\",\"motivo\":\"La narración ya dice todo lo que trae el dato.\"},{\"pool_id\":\"T29\",\"motivo\":\"Repite el inicio del llenado que la narración ya cuenta.\"},{\"pool_id\":\"T23\",\"motivo\":\"Repite la fisura de casi 2 km que la narración ya dice; D49 aporta más.\"},{\"pool_id\":\"D117\",\"motivo\":\"Ya se mostró en un capítulo anterior.\"}]}"
+       }
+      ],
+      "usage": {
+       "input_tokens": 5421,
+       "cache_creation_input_tokens": 0,
+       "cache_read_input_tokens": 0,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+       },
+       "output_tokens": 1708,
+       "service_tier": "standard",
+       "inference_geo": "global",
+       "speed": "standard",
+       "output_tokens_details": {
+        "thinking_tokens": 907
+       }
+      },
+      "model": "claude-sonnet-5-5",
+      "id": "msg_011CgR8eJ8v8vkAiKBa6bT8E",
+      "type": "message",
+      "role": "assistant",
+      "container": null,
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "stop_details": null,
+      "diagnostics": null
+     },
+     "segundos": 12.1,
+     "usd": 0.02792
+    }
+   ],
+   "error": null,
+   "validacion": {
+    "bloques": [
+     {
+      "sentence_idx": 14,
+      "word_idx": 0,
+      "beat": 5,
+      "rank": 1,
+      "tipo": "hecho",
+      "etiqueta": "Domination or adaptation to nature?, 2013",
+      "texto": "L'Unità era el periódico del Partido Comunista Italiano (PCI).",
+      "pool_id": "D71",
+      "aporta": "Indica a qué partido pertenecía el diario, dato que la narración no menciona.",
+      "palabra": "L'Unità",
+      "t0": 74.58,
+      "t1": 81.9,
+      "dur": 7.32,
+      "funcion": "escalada",
+      "pantalla": "L'Unità era el periódico del Partido Comunista Italiano (PCI).",
+      "a_pantalla": false,
+      "por_que": "",
+      "caracteres": 103,
+      "lectura_s": 6.87,
+      "movido": null,
+      "movido_corte": null,
+      "forzado": null
+     }
+    ],
+    "rechazos": [
+     {
+      "pool_id": "D49",
+      "tipo": "cifra",
+      "etiqueta": "Ancho de la fisura, 1960",
+      "texto": "Más de 1 metro de ancho, según La inundación del Vajont (2005).",
+      "sentence_idx": 17,
+      "regla": "candado",
+      "motivo": "no están en el texto fuente de D49: ['2005', 'Vajont']"
+     }
+    ],
+    "faltan": [],
+    "motivo_faltan": {},
+    "incompletos": {}
+   },
+   "segundos": 12.1
+  }
+ ],
+ "final": {
+  "bloques": [
+   {
+    "sentence_idx": 14,
+    "word_idx": 0,
+    "beat": 5,
+    "rank": 1,
+    "tipo": "hecho",
+    "etiqueta": "Domination or adaptation to nature?, 2013",
+    "texto": "L'Unità era el periódico del Partido Comunista Italiano (PCI).",
+    "pool_id": "D71",
+    "aporta": "Indica a qué partido pertenecía el diario, dato que la narración no menciona."
+   },
+   {
+    "sentence_idx": 17,
+    "word_idx": 22,
+    "beat": 5,
+    "rank": 1,
+    "tipo": "cifra",
+    "etiqueta": "Ancho de la fisura, 1960",
+    "texto": "Más de 1 metro de ancho, según La inundación del Vajont (2005).",
+    "pool_id": "D49",
+    "aporta": "Da el ancho de la fisura; la narración solo dice que medía casi dos kilómetros de largo."
+   }
+  ],
+  "descartados": [
+   {
+    "pool_id": "T16",
+    "motivo": "Beat 4 es el pico y no lleva texto en pantalla."
+   },
+   {
+    "pool_id": "D94",
+    "motivo": "Beat 4 es el pico y no lleva texto en pantalla."
+   },
+   {
+    "pool_id": "T15",
+    "motivo": "Beat 4 es el pico; además repite la ola y el muerto que la narración ya dice."
+   },
+   {
+    "pool_id": "T21",
+    "motivo": "Beat 4 es el pico y no lleva texto en pantalla."
+   },
+   {
+    "pool_id": "D119",
+    "motivo": "Beat 4 es el pico y no lleva texto en pantalla."
+   },
+   {
+    "pool_id": "T27",
+    "motivo": "Beat 4 es el pico y no lleva texto en pantalla."
+   },
+   {
+    "pool_id": "Q37",
+    "motivo": "Beat 4 es el pico y no lleva texto en pantalla."
+   },
+   {
+    "pool_id": "T18",
+    "motivo": "Solo repite lo que la narración dice en las oraciones 11 y 12; no aporta nada nuevo."
+   },
+   {
+    "pool_id": "D72",
+    "motivo": "La narración ya dice todo lo que trae el dato."
+   },
+   {
+    "pool_id": "T29",
+    "motivo": "Repite el inicio del llenado que la narración ya cuenta."
+   },
+   {
+    "pool_id": "T23",
+    "motivo": "Repite la fisura de casi 2 km que la narración ya dice; D49 aporta más."
+   },
+   {
+    "pool_id": "D117",
+    "motivo": "Ya se mostró en un capítulo anterior."
+   }
+  ]
+ },
+ "validacion": {
+  "bloques": [
+   {
+    "sentence_idx": 14,
+    "word_idx": 0,
+    "beat": 5,
+    "rank": 1,
+    "tipo": "hecho",
+    "etiqueta": "Domination or adaptation to nature?, 2013",
+    "texto": "L'Unità era el periódico del Partido Comunista Italiano (PCI).",
+    "pool_id": "D71",
+    "aporta": "Indica a qué partido pertenecía el diario, dato que la narración no menciona.",
+    "palabra": "L'Unità",
+    "t0": 74.58,
+    "t1": 81.9,
+    "dur": 7.32,
+    "funcion": "escalada",
+    "pantalla": "L'Unità era el periódico del Partido Comunista Italiano (PCI).",
+    "a_pantalla": false,
+    "por_que": "",
+    "caracteres": 103,
+    "lectura_s": 6.87,
+    "movido": null,
+    "movido_corte": null,
+    "forzado": null
+   }
+  ],
+  "rechazos": [
+   {
+    "pool_id": "D49",
+    "tipo": "cifra",
+    "etiqueta": "Ancho de la fisura, 1960",
+    "texto": "Más de 1 metro de ancho, según La inundación del Vajont (2005).",
+    "sentence_idx": 17,
+    "regla": "candado",
+    "motivo": "no están en el texto fuente de D49: ['2005', 'Vajont']"
+   }
+  ],
+  "faltan": [],
+  "motivo_faltan": {},
+  "incompletos": {}
+ }
+}

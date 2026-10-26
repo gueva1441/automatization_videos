@@ -41,7 +41,7 @@ from typing import Any, Callable
 
 from script_engine import evidence as ev
 
-PROMPT_VERSION = "f29c-1"
+PROMPT_VERSION = "f32-1"
 MODELO_DEFAULT = "claude-sonnet-5-5"
 EFFORT_DEFAULT = "medium"
 TIPOS = ("cifra", "hecho", "documento", "cita", "persona", "lupa")
@@ -65,6 +65,7 @@ Cada capítulo está dividido en beats. En cada beat puede ir como máximo UN te
 
 Tipos y su compuerta (solo cuando la narración, en esa oración, habla de eso):
 - cifra: la narración habla de esa magnitud. Lleva etiqueta obligatoria (qué es la cifra) y el valor. No uses una cifra que contradiga otra cifra que la narración diga en cualquier parte del video.
+  devolvé `unidad` (metros, personas, m³, liras u otra) y `valor` numérico
 - hecho: la narración cuenta ese hecho; aportás el quién, el cargo, la fecha, lo que dice el acta. Lleva etiqueta corta (la fuente o el documento, con año).
 - documento: una carta, un acta, un informe que la narración menciona o cuyo momento está contando. Sale como recorte: kicker = nombre real del documento con año; titular = lo esencial en una línea, redactado (no es cita literal).
 - cita: la narración nombra a esa persona o lee de ella; texto literal del dato, con el autor.
@@ -101,6 +102,8 @@ _HUECOS = ("{cap}", "{titulo}",
            "{ya_mostrado}")
 
 PROMPT_VERSION_F29B = "f29b-1"     # el de F29b queda para la historia (md5 50e6ae74…): F29b_REPORT
+LINEA_B7 = "  devolvé `unidad` (metros, personas, m³, liras u otra) y `valor` numérico"   # F32 §B.7: lo único nuevo
+ROTULISTA_SYSTEM_F29C = ROTULISTA_SYSTEM.replace("\n" + LINEA_B7, "")      # el de F29c (md5 7dafbb96…): F29c_REPORT
 
 
 def prompt_md5() -> str:
@@ -513,6 +516,33 @@ def tiempos(sents: list[dict], si: int, t0: float, chars: int, escenas: list[Any
     return t1, None
 
 
+def despues_del_corte(sents: list[dict], si: int, t0: float, chars: int, escenas: list[Any]
+                      ) -> tuple[float, float, str] | None:
+    """F32 §B.3: el bloque que no cabe antes del corte de su escena arranca en el primer cuadro de la escena siguiente,
+    anclado a la misma oración o a la siguiente (del mismo beat); (t0, t1, motivo) si ahí cabe, None si tampoco."""
+    sc = _escena_de(escenas, t0)
+    nxt = next((e for e in escenas if e.start >= sc.end - 1e-6 and e is not sc), None) if sc is not None else None
+    if nxt is None:
+        return None
+    t0b = round(nxt.start, 3)
+    si2 = next((ss["idx"] for ss in sents if ss["t0"] <= t0b <= ss["t1"]),
+               next((ss["idx"] for ss in sents if ss["t0"] >= t0b), None))
+    if si2 is None or si2 not in (si, si + 1) or sents[si2].get("beat") != sents[si].get("beat"):
+        return None
+    t1b, sin_b = tiempos(sents, si2, t0b, chars, escenas)
+    if sin_b:
+        return None
+    return t0b, t1b, f"{t0:.2f} → {t0b:.2f} s: no cabía antes del corte de {sc.end:.2f} s, arranca en la escena {nxt.idx}"
+
+
+_DOC = re.compile(r"\b(carta|acta|informe|documento)s?\b")
+
+
+def pide_documento(por_que: str) -> bool:
+    """F32 §B.4: el `por_que` de un `a_pantalla` dice carta, acta, informe o documento → sale como recorte."""
+    return bool(_DOC.search(ev.norm(por_que or "")))
+
+
 def caracteres(tipo: str, etiqueta: str | None, texto: str, autor: str = "") -> int:
     """Lo que se lee del bloque: etiqueta + dato (la cita, con su autor)."""
     return len(etiqueta or "") + len(texto) + (len(autor) if tipo == "cita" else 0)
@@ -554,13 +584,7 @@ def validar(resp: Any, ent: dict[str, Any], words: list[dict], time_offset: floa
             fuera(b, "anclaje", f"sentence_idx {b.get('sentence_idx')!r} no existe")
             continue
         s = sents[si]
-        movido = None
-        if pk_beat is not None and s["beat"] == pk_beat and x["a_pantalla"]:     # §A.1: al beat siguiente si se puede
-            nxt = next((bb["n"] for bb in beats if bb["n"] > pk_beat), None)
-            s2 = next((ss for ss in sents if ss["beat"] == nxt), None) if nxt in x["beats"] else None
-            if s2 is not None:
-                movido = f"del beat pico {pk_beat} (oración [{si}]) al beat {nxt} (oración [{s2['idx']}], palabra 0)"
-                si, s, b["word_idx"] = s2["idx"], s2, 0
+        movido = None                      # F32 §B.5: un `a_pantalla` puede ir en el beat pico (ya no se mueve)
         try:
             wi = int(b.get("word_idx"))
         except (TypeError, ValueError):
@@ -575,17 +599,24 @@ def validar(resp: Any, ent: dict[str, Any], words: list[dict], time_offset: floa
         if tipo not in TIPOS:
             fuera(b, "forma", f"tipo {tipo!r} no válido")
             continue
+        forzado = None
+        if x["a_pantalla"] and tipo != "documento" and pide_documento(x["por_que"]):   # F32 §B.4
+            forzado = f"{tipo} → documento (el por_que de {pid} pide un documento)"
+            tipo = "documento"
         b["tipo"] = tipo
         txt = re.sub(r"\s+", " ", str(b.get("texto") or "")).strip()
-        if tipo == "cita":
+        if tipo == "cita" or forzado:
             txt = re.sub(r"^[«\"“]+|[»\"”]+$", "", txt).strip()
         et = re.sub(r"\s+", " ", str(b.get("etiqueta") or "")).strip() or None
+        if forzado and not et:             # el recorte lleva el nombre real de su fuente (literal: pasa el candado)
+            from script_engine.gfx_pool import short_source
+            et = short_source(x["fuente"]) or None
         b["texto"], b["etiqueta"] = txt, et
         if not txt:
             fuera(b, "forma", "texto vacío")
             continue
         if tipo in CON_ETIQUETA and not et:
-            fuera(b, "forma", f"{tipo} sin etiqueta")
+            fuera(b, "forma", f"{tipo} sin etiqueta" + (" (y su fuente no da nombre)" if forzado else ""))
             continue
         if tipo == "cifra" and not numeros(txt):
             fuera(b, "forma", "cifra sin el valor")
@@ -624,6 +655,12 @@ def validar(resp: Any, ent: dict[str, Any], words: list[dict], time_offset: floa
         t0 = s["palabras"][wi]["t0"]
         chars = caracteres(tipo, et, txt, x["autor"])
         t1, sin_t = tiempos(sents, si, t0, chars, escenas)
+        movido_corte = None
+        if sin_t and escenas:              # F32 §B.3: si no cabe antes del corte, arranca en la escena siguiente
+            otro = despues_del_corte(sents, si, t0, chars, escenas)
+            if otro is not None:
+                t0, t1, movido_corte = otro
+                sin_t = None
         if sin_t:
             fuera(b, "lectura", sin_t)
             continue
@@ -655,7 +692,8 @@ def validar(resp: Any, ent: dict[str, Any], words: list[dict], time_offset: floa
         ok.append({**b, "sentence_idx": si, "word_idx": wi, "palabra": s["palabras"][wi]["w"], "t0": t0, "t1": t1,
                    "dur": round(t1 - t0, 3), "beat": s["beat"], "funcion": funcion.get(s["beat"], ""), "rank": rank,
                    "pantalla": txt, "etiqueta": et, "a_pantalla": x["a_pantalla"], "por_que": x["por_que"],
-                   "caracteres": chars, "lectura_s": round(chars / LECTURA_CPS, 2), "movido": movido})
+                   "caracteres": chars, "lectura_s": round(chars / LECTURA_CPS, 2), "movido": movido,
+                   "movido_corte": movido_corte, "forzado": forzado})
     keep, rech_c = finalizar(ok, pk_beat)
     rech += rech_c
     salen = {b["pool_id"]: b for b in keep}
@@ -675,14 +713,22 @@ def validar(resp: Any, ent: dict[str, Any], words: list[dict], time_offset: floa
             "incompletos": incompletos}
 
 
+A_PANTALLA_POR_BEAT = 2       # §0 (voto del analista, aplicado): 2 `a_pantalla` en un beat si van en escenas distintas
+
+
 def finalizar(validos: list[dict[str, Any]], pico_beat: Any) -> tuple[list[dict], list[dict]]:
-    """§A.1: por beat queda 1 (`a_pantalla` primero, después `rank`, después la oración); el beat pico, 0; el mismo dato
-    una sola vez. Devuelve (los que quedan, en orden de t0; los que salen por cantidad)."""
+    """§A.1: por beat queda 1 (`a_pantalla` primero, después `rank`, después la oración); el mismo dato una sola vez.
+    F32 §B.5 (§0): un beat puede tener 2 si los dos son `a_pantalla` (las escenas distintas las pone escena_final: la
+    segunda ficha espera a otra escena del beat o no va); en el beat pico solo `a_pantalla`. Devuelve (los que quedan,
+    en orden de t0; los que salen por cantidad)."""
     keep, rech, vistos, por_beat = [], [], set(), {}
     for b in sorted(validos, key=lambda b: (not b["a_pantalla"], b["rank"], b["sentence_idx"])):
+        ya = por_beat.get(b["beat"]) or []
+        dos = b["a_pantalla"] and len(ya) < A_PANTALLA_POR_BEAT and all(k["a_pantalla"] for k in ya)
         motivo = ("el mismo dato dos veces" if b["pool_id"] in vistos else
-                  f"beat pico ({b['beat']}): 0 textos" if pico_beat is not None and b["beat"] == pico_beat else
-                  f"un texto por beat: el beat {b['beat']} ya tiene {por_beat[b['beat']]}" if b["beat"] in por_beat
+                  f"beat pico ({b['beat']}): solo `a_pantalla`" if pico_beat is not None and b["beat"] == pico_beat
+                  and not b["a_pantalla"] else
+                  f"un texto por beat: el beat {b['beat']} ya tiene {', '.join(k['pool_id'] for k in ya)}" if ya and not dos
                   else None)
         if motivo:
             rech.append({"pool_id": b["pool_id"], "tipo": b["tipo"], "etiqueta": b["etiqueta"], "texto": b["pantalla"],
@@ -690,7 +736,7 @@ def finalizar(validos: list[dict[str, Any]], pico_beat: Any) -> tuple[list[dict]
             continue
         keep.append(b)
         vistos.add(b["pool_id"])
-        por_beat[b["beat"]] = b["pool_id"]
+        por_beat.setdefault(b["beat"], []).append(b)
     return sorted(keep, key=lambda b: b["t0"]), rech
 
 
@@ -873,6 +919,47 @@ def llamar(ent: dict[str, Any], words: list[dict], time_offset: float, work_dir:
 # ═══════════════════════ colocar ═══════════════════════
 
 KIND_FICHA = {"cifra": "figure", "persona": "name", "hecho": "fact"}
+UNIDAD_CONTADOR = ("personas", "liras")      # §B.7: cantidad de personas o dinero → contador
+
+
+def animacion_de_cifra(b: dict[str, Any], fuente: str) -> tuple[str, dict[str, Any]] | None:
+    """F32 §B.7: la cifra del rotulista (con su `unidad` y `valor`) como animación. Metros de un nivel (el texto o su
+    dato nombran el nivel o la cota) → water_level; personas o dinero → count_up. Lo que se muestra es la cifra tal
+    como está en el texto (para el candado literal); si no se puede, None (queda la ficha). Sin `unidad`/`valor` en la
+    respuesta (el formato de salida del USER no los nombra y el prompt no se toca más que por la línea de §B.7), se
+    leen del texto del bloque: la primera cifra seguida de una unidad conocida (lectura declarada, F32_REPORT)."""
+    from gfx_config import gfx_rules
+    from script_engine.gfx_peak import WATER_DUR, WATER_FULL_M
+    from script_engine.gfx_project import format_count, parse_count_literal
+    u = _UNIDAD_1.get(ev.norm(str(b.get("unidad") or "")).replace("³", "3"), None)
+    txt = str(b.get("pantalla") or b.get("texto") or "")
+    try:
+        val = float(str(b.get("valor")).replace(",", "."))
+    except (TypeError, ValueError):
+        val = None
+    if u is None and val is None:                    # respaldo: la cifra y su unidad, del texto del bloque
+        for v, uu, _ in _analiza(txt)[0]:
+            if uu and uu != "diferencia":
+                u, val = uu, v
+                break
+    if u is None or val is None:
+        return None
+    for m in re.finditer(r"(\d[\d.,]*\d|\d)\s*([^\W\d_]+|m³)?", txt):
+        num, unit_w = m.group(1), m.group(2) or ""
+        if not numero_en(num, str(b.get("valor"))) and abs((_num_tok(num) or -1) - val) > 1e-9:
+            continue
+        if u == "m" and unit_w and _UNIDAD_1.get(ev.norm(unit_w)) == "m" and any(
+                any(t.startswith(r) for r in _MAGNITUD["nivel"]) for t in _toks(f"{txt} {b.get('etiqueta') or ''} {fuente}")):
+            meters = val
+            return "water_level", {"value_text": num, "unit": unit_w, "meters": round(meters, 2),
+                                   "height": round(min(0.85, max(0.15, meters / WATER_FULL_M)), 3), "rise": WATER_DUR[0]}
+        if u in UNIDAD_CONTADOR and unit_w and _UNIDAD_1.get(ev.norm(unit_w)) == u:
+            spec = parse_count_literal(num)
+            dur_cu = gfx_rules.count_dur + gfx_rules.count_hold_sec          # el contador dura lo que dura (plantilla)
+            if spec is not None and format_count(spec["value"], spec) == num and float(b.get("lectura_s") or 0) <= dur_cu:
+                return "count_up", {"value_text": num, "unit": unit_w, "source": b.get("etiqueta") or "",
+                                    "duration": round(dur_cu, 3)}
+    return None
 
 
 def colocar(plan: dict[str, Any], res: dict[str, Any], ent: dict[str, Any], *, scenes: list[Any], pool: dict | None,
@@ -905,13 +992,21 @@ def colocar(plan: dict[str, Any], res: dict[str, Any], ent: dict[str, Any], *, s
         meta = {"pool_id": pid, "rotulista": True, "beat": b["beat"], "sentence_idx": b["sentence_idx"],
                 "word_idx": b["word_idx"], "aporta": b.get("aporta"), "tipo_rotulista": b["tipo"],
                 "a_pantalla": b["a_pantalla"], "por_que": b.get("por_que") or "", "t1": b["t1"],
-                "lectura_s": b["lectura_s"], "movido": b.get("movido"), **({"editado": True} if b.get("editado") else {})}
+                "lectura_s": b["lectura_s"], "movido": b.get("movido"), "movido_corte": b.get("movido_corte"),
+                "forzado": b.get("forzado"), **({"editado": True} if b.get("editado") else {})}
         fila = {"pool_id": pid, "tipo": b["tipo"], "etiqueta": b["etiqueta"], "texto": b["pantalla"],
                 "sentence_idx": b["sentence_idx"], "word_idx": b["word_idx"], "palabra": b.get("palabra"), "t0": t0,
                 "t1": b["t1"], "aporta": b.get("aporta"), "beat": b["beat"], "a_pantalla": b["a_pantalla"],
                 "movido": b.get("movido")}
         if pid in used_before:
             filas.append({**fila, "accion": "fuera", "regla": "ya_mostrado", "motivo": "ya se mostró en un cap anterior"})
+            continue
+        anim = animacion_de_cifra(b, str(it and ev.text_of(it) or "")) if b["tipo"] == "cifra" else None   # F32 §B.7
+        if anim and plan.get(anim[0]) is None:
+            campo, extra = anim
+            plan[campo] = {"start": t0, "duration": dur, **extra, "etiqueta": b["etiqueta"], "word": b.get("palabra"),
+                           **meta}
+            filas.append({**fila, "accion": "colocado", "como": campo})
             continue
         if b["tipo"] in FICHA:
             plan["callouts"].append({"text": b["pantalla"], "kicker": b["etiqueta"] or "", "ficha": True, "start": t0,
@@ -1131,8 +1226,8 @@ def escena_final(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any], l
             if not libre(s2):
                 continue
             si = oracion_en(s2.start)
-            chars = caracteres(b.get("tipo_rotulista", ""), b.get("kicker"), str(b.get("text") or b.get("headline") or ""),
-                               str(b.get("author") or ""))
+            chars = caracteres(b.get("tipo_rotulista", ""), b.get("kicker") or b.get("etiqueta"),
+                               str(b.get("text") or b.get("headline") or b.get("value_text") or ""), str(b.get("author") or ""))
             t1, sin_t = tiempos(sents, si, round(s2.start, 3), chars, scenes)
             if sin_t:
                 continue
@@ -1154,7 +1249,7 @@ def escena_final(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any], l
     # 1. textos que no son ficha
     otros: list[tuple[str, dict]] = [("archive_clippings", a) for a in plan.get("archive_clippings") or []
                                      if a.get("rotulista")]
-    for k in ("quote_card", "evidence_zoom"):
+    for k in ("quote_card", "evidence_zoom", "water_level", "count_up"):      # F32 §B.7: agua y contador también
         if plan.get(k) and plan[k].get("rotulista"):
             otros.append((k, plan[k]))
     for campo, b in sorted(otros, key=lambda x: prio(x[1])):
@@ -1167,6 +1262,7 @@ def escena_final(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any], l
         no = motivo if campo == "evidence_zoom" else mover(b, sc, lambda s2: not ocupa.get(s2.idx))
         if no:
             fuera(campo, b, motivo if no == motivo else f"{motivo}; {no}")
+            filas[-1]["texto"] = filas[-1]["texto"] or b.get("value_text")
             if campo == "archive_clippings":
                 plan[campo] = [a for a in plan[campo] if a is not b]
             else:
@@ -1185,6 +1281,8 @@ def escena_final(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any], l
                 anim_beat.append("sello")
         if plan.get("evidence_zoom") and beat_en(float(plan["evidence_zoom"]["start"])) is bt:
             anim_beat.append("lupa")
+        if plan.get("water_level") and beat_en(float(plan["water_level"]["start"])) is bt:   # F32 §B.7
+            anim_beat.append("nivel de agua")
 
         def choca(st: float) -> list[str]:
             return [f"escena {s.idx}: {', '.join(ocupa[s.idx])}" for s in scenes
@@ -1235,6 +1333,108 @@ def escena_final(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any], l
     rot["escena"] = filas
     log.append(f"  rotulista escena: {[(f.get('pool_id') or f.get('bloque'), f['accion'], f['motivo']) for f in filas]}"
                f" · title card {gfx_rules.title_dur:.1f} s")
+    return filas
+
+
+# ═══════════════════════ sellos por tema (F32 §B.6) ═══════════════════════
+
+# el catálogo de Omar (25-10: muerte, agua, veneno…) = los moods del perfil; la tabla da el nombre del tema de cada uno
+TEMA_DE_MOOD = {"muerte": "muerte", "agua": "agua", "veneno_enfermedad": "veneno", "fuego": "fuego",
+                "oscuridad_encierro": "oscuridad", "radiacion_quimico": "radiación", "frio_abandono": "abandono",
+                "silencio": "silencio", "caos_gritos": "caos"}
+
+
+def sellos_por_tema(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any], words: list[dict],
+                    time_offset: float, moods: dict[str, dict], log: list[str]) -> list[dict[str, Any]]:
+    """F32 §B.6: el sello se propone por el tema de la oración, no por léxico: en cada oración, la palabra de mayor peso
+    de un mood del catálogo (la misma regla que la palabra del pico, gfx_peak.peak_word) es el sello de ese tema. El
+    filtro es el catálogo: una animación por beat (sello, reloj, agua, lupa; el del pico ya cuenta), nunca sobre un
+    texto (ni en la escena de un texto o del title card) y nunca dos en la misma escena; el sello no cruza su corte.
+    Los sellos del director (por léxico) salen. Corre después de escena_final (los textos ya tienen su escena)."""
+    from gfx_config import gfx_rules
+    from script_engine.gfx_peak import peak_word, sentences
+    from script_engine.gfx_project import scene_at
+    filas: list[dict[str, Any]] = []
+    if not scenes:
+        return filas
+    beats = ent["beats"]
+    del_pico = [e for e in plan.get("emphasis") or [] if _sello_queda(e, plan)][:1]
+    director = [e for e in plan.get("emphasis") or [] if e not in del_pico]
+    plan["emphasis"] = list(del_pico)
+
+    def beat_en(t: float) -> dict | None:
+        for b in beats:
+            if b["t0"] - 0.3 <= t <= b["t1"]:
+                return b
+        prev = [b for b in beats if b["t0"] <= t]
+        return prev[-1] if prev else None
+    ocupa: dict[int, list[str]] = {}
+    for s in scenes:
+        if plan.get("title_card") and s.start < gfx_rules.title_dur:
+            ocupa.setdefault(s.idx, []).append("title card")
+    for campo, que in (("callouts", "ficha"), ("archive_clippings", "recorte")):
+        for b in plan.get(campo) or []:
+            ocupa.setdefault(scene_at(scenes, float(b["start"])).idx, []).append(que)
+    for campo, que in (("quote_card", "cita"), ("count_up", "contador"), ("evidence_zoom", "lupa"),
+                       ("water_level", "nivel de agua")):
+        if plan.get(campo) and "start" in plan[campo]:
+            ocupa.setdefault(scene_at(scenes, float(plan[campo]["start"])).idx, []).append(que)
+    tk = plan.get("time_ticker")
+    if tk:
+        for s in scenes:
+            if s.start < float(tk["start"]) + float(tk["duration"]) and s.end > float(tk["start"]):
+                ocupa.setdefault(s.idx, []).append("reloj")
+    anim: dict[int, str] = {}
+    for campo, que in (("evidence_zoom", "lupa"), ("water_level", "nivel de agua"), ("time_ticker", "reloj")):
+        if plan.get(campo) and "start" in plan[campo]:
+            b = beat_en(float(plan[campo]["start"]))
+            if b is not None:
+                anim.setdefault(b["n"], que)
+    for e in del_pico:
+        b = beat_en(float(e["start"]))
+        if b is not None:
+            anim.setdefault(b["n"], f"el sello del pico «{e.get('word')}»")
+            ocupa.setdefault(scene_at(scenes, float(e["start"])).idx, []).append("sello")
+    cands: list[dict[str, Any]] = []
+    for s in sentences(words, time_offset):
+        h = peak_word(s, words, moods)
+        if h is None:
+            continue
+        t = round(float(words[h["i"]]["start"]) + time_offset, 3)
+        b = beat_en(t)
+        if b is None:
+            continue
+        cands.append({"h": h, "t": t, "beat": b["n"], "word": re.sub(r"^[¿¡\"'«“(]+|[.,;:!?…\"'»”)]+$", "",
+                                                                     str(words[h["i"]]["word"]).strip())})
+    vistos = {(c["word"].lower(), round(c["t"], 1)) for c in cands}
+    for e in director:                     # los del director que no son candidatos del tema (los que sí, se ven abajo)
+        if (str(e.get("word", "")).lower(), round(float(e.get("start", 0)), 1)) not in vistos:
+            filas.append({"bloque": "emphasis", "texto": e.get("word"), "t": e.get("start"), "accion": "fuera",
+                          "regla": "tema", "quien": "catálogo", "motivo": "sello del director por léxico: el sello va "
+                          "por el tema de su oración"})
+    dur = round(float(gfx_rules.mood_dur), 3)
+    for c in sorted(cands, key=lambda c: (c["beat"], -c["h"]["weight"], c["t"])):
+        sc = scene_at(scenes, c["t"])
+        tema = TEMA_DE_MOOD.get(c["h"]["category"], c["h"]["category"])
+        motivo = (f"una animación por beat: el beat {c['beat']} ya tiene {anim[c['beat']]}" if c["beat"] in anim else
+                  f"la escena {sc.idx} ya tiene {', '.join(ocupa[sc.idx])}" if ocupa.get(sc.idx) else
+                  f"cruza el corte de la escena {sc.idx} ({sc.end:.2f} s)" if c["t"] + dur > sc.end + 1e-6 else None)
+        if motivo:
+            filas.append({"bloque": "emphasis", "texto": c["word"], "t": c["t"], "accion": "fuera", "regla": "tema",
+                          "quien": "catálogo", "motivo": f"sello de {tema}: {motivo}"})
+            continue
+        m = moods[c["h"]["category"]]
+        em = {"word": c["word"], "category": c["h"]["category"], "layer": m.get("layer"), "icon": None,
+              "icon_anim": m.get("icon_anim") or "stamp", "start": c["t"], "duration": dur,
+              "side": getattr(sc, "quiet_side", "right") or "right", "stamp": gfx_rules.emphasis_stamp,
+              "weight": c["h"]["weight"], "por_tema": True, "tema": tema, **({"sfx": m["sfx"]} if m.get("sfx") else {})}
+        plan["emphasis"].append(em)
+        anim[c["beat"]] = f"el sello «{c['word']}»"
+        ocupa.setdefault(sc.idx, []).append("sello")
+    plan["emphasis"].sort(key=lambda e: e["start"])
+    plan["sellos_tema"] = filas
+    log.append(f"  sellos por tema: {[(e['word'], e.get('tema') or e.get('category')) for e in plan['emphasis']]} · "
+               f"fuera {[(f['texto'], f['motivo']) for f in filas]}")
     return filas
 
 

@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-26 (F32 en curso: A hecho) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-26 (F32 en curso: A y B hechos) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -16,6 +16,7 @@
 ## F32 — El guion de pantalla (pedido de Omar, 2026-10-26) — EN CURSO (A → B → C, sin render)
 - Handoff `lab/hyperframes/f32/HANDOFF_F32_guion_de_pantalla.md`. Base `0253672`. Tres commits (A, B, C), uno por parte (Omar; el handoff pedía uno por arreglo en B). **Esta tanda no renderiza.**
 - **A HECHO** (commit A): `fase2b --plan-only` (director + rotulista + reglas + crítico, sin navegador ni render; implica `--gfx --reuse-visuals`; el -g30 de los 7 caps en paralelo, el plan en fila) → `output/<id>/GUION_PANTALLA.md/.json` (`script_engine/gfx_guion.py`: eventos en el tiempo del mp4, ✂ lo cortado con quién y por qué, resumen por beat, 8 chequeos) + `_fase2b_work/mezcla_preview.wav` (voz + música + sfx con el grafo del render). `fase2b --plan-edit archivo.json` (ediciones en `_fase2b_work/plan_edits.json`; el rotulista sale de caché). Vajont en estado v5: 161 s de pared, US$ 0 Claude, línea de base en `lab/hyperframes/f32/a/GUION_PANTALLA_A.*`. **Hallazgo B.1:** la voz de v5 no pierde el ataque (es el mp3 corrido 3.000 s exactos); la «rampa» de v3b era el golpe del title card (sfx a 0.05 s) encima de la voz.
+- **B HECHO** (commit B, un commit para los 8 arreglos): ch01 sin pre-roll y la música del cap suena desde su title card (B.1); pregunta = caracteres ÷ 15 cps (B.2); si no cabe antes del corte, arranca en la escena siguiente (B.3); `a_pantalla` con carta/acta/informe/documento → recorte (B.4); 2 `a_pantalla` por beat y `a_pantalla` en el pico (B.5); sellos por tema de la oración con el filtro del catálogo y sin `punch_in` del director (B.6); prompt del rotulista + 1 línea (md5 `c9231e24…`; el de F29c queda como `ROTULISTA_SYSTEM_F29C`), cifra → agua/contador (B.7: el modelo no devuelve `unidad`/`valor` porque el formato de salida del USER no los nombra → respaldo: se leen del texto); ficha con el dato a `question_px` y la etiqueta con placa (B.8). Vajont: Claude US$ 0.2668, `a_pantalla` 2/5 (D128, D245), inicio de voz ✓ 6/7 (ch07 sin rampa), preguntas ✓ 7/7. Suite amplia 992 + 5 previas, rápida 58, md5 ch02 `38e5ba14…`. Evidencia `lab/hyperframes/f32/b/`.
 
 ## 👀 Para Omar al despertar (tanda nocturna F29c → F30b → F31) — mirar en este orden
 1. **`output/f8s3-vajont-f30/f8s3-vajont_final_gfx_v4.mp4`** — Vajont con el rotulista por beat (F29c): solo 2 textos en todo el video (ch06 13:01 «1.910 personas», ch07 15:38 «Dos habían muerto y uno se suicidó.»).

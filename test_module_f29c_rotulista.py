@@ -62,8 +62,9 @@ def test_prompt_literal_del_handoff_f29c():
     md = HANDOFF.read_text(encoding="utf-8")
     sys_ = re.search(r"\*\*SYSTEM:\*\*\s*```\n(.*?)\n```", md, re.S).group(1)
     usr = re.search(r"\*\*USER:\*\*\s*```\n(.*?)\n```", md, re.S).group(1)
-    assert gro.ROTULISTA_SYSTEM == sys_ and gro.ROTULISTA_USER == usr
-    assert gro.prompt_md5() == "7dafbb964d7ff71daafc65c028834017"
+    # F32 §B.7: el de F29c queda como ROTULISTA_SYSTEM_F29C; el de hoy suma una línea (test_module_f32)
+    assert gro.ROTULISTA_SYSTEM_F29C == sys_ and gro.ROTULISTA_USER == usr
+    assert gro.prompt_md5() == "c9231e24afbc785d5870b33088ce076e"
     ent, words = _ch06()
     ent = {**ent, "oraciones": gro.oraciones(words)}
     for s in ent["oraciones"]:
@@ -85,18 +86,17 @@ def test_ch06_d128_y_d192_en_respiro_uno_por_beat_y_el_del_pico_sale():
     v = gro.validar(resp, ent, words)
     fuera = {r["pool_id"]: r for r in v["rechazos"]}
     assert fuera["D124"]["regla"] == "cantidad" and "beat pico" in fuera["D124"]["motivo"]
-    # D128 y D192 caen en respiro (no los saca el pico); queda uno por beat: el primero en rango y oración
-    assert [b["pool_id"] for b in v["bloques"]] == ["D128"] and v["bloques"][0]["beat"] == 11
-    assert fuera["D192"]["regla"] == "cantidad" and "un texto por beat" in fuera["D192"]["motivo"]
-    assert v["motivo_faltan"]["D192"].startswith("cantidad")
+    # F32 §B.5: D128 y D192 (los dos `a_pantalla`) quedan en respiro; las escenas distintas las pone escena_final
+    assert [b["pool_id"] for b in v["bloques"]] == ["D128", "D192"] and {b["beat"] for b in v["bloques"]} == {11}
+    assert "D192" not in fuera and not v["faltan"]
 
 
-def test_a_pantalla_del_beat_pico_pasa_al_beat_siguiente_si_su_item_es_de_ese_beat():
+def test_a_pantalla_del_beat_pico_queda_en_el_pico_f32():
+    """F32 §B.5 (§0): un `a_pantalla` puede ir en el beat pico, así que ya no se mueve al beat siguiente; D192 es del
+    beat 11, y anclado en el 10 sale por anclaje como cualquier dato fuera de su beat (el caso del pico, en f32)."""
     ent, words = _ch06()
     v = gro.validar({"bloques": [_b(19, "cifra", "20 técnicos", "D192", "Muertos en el estribo", wi=3)]}, ent, words)
-    assert [b["pool_id"] for b in v["bloques"]] == ["D192"]
-    b = v["bloques"][0]
-    assert b["sentence_idx"] == 21 and b["word_idx"] == 0 and b["beat"] == 11 and "beat pico 10" in b["movido"]
+    assert not v["bloques"] and v["rechazos"][0]["regla"] == "anclaje" and "beat 10" in v["rechazos"][0]["motivo"]
 
 
 def test_gancho_a_lo_sumo_uno():
@@ -138,7 +138,8 @@ def test_sin_tiempo_de_lectura_no_va_y_no_se_acorta():
     ent, words = _ent([(0, "La comisión aprobó el proyecto."), (10, "Nadie protestó.")],
                       [{"id": "T10", "texto": "El acta fue aprobada con 13 de 34 presentes."}])
     b = _b(0, "hecho", "Aprobada con 13 de 34 presentes", "T10", "Acta del consejo", wi=2)
-    v = gro.validar({"bloques": [b]}, ent, words, escenas=[Sc(0, 0.0, 1.5), Sc(1, 1.5, 40.0)])
+    # F32 §B.3: tampoco cabe en la escena siguiente (0.5 s) → sin tiempo de lectura
+    v = gro.validar({"bloques": [b]}, ent, words, escenas=[Sc(0, 0.0, 1.5), Sc(1, 1.5, 2.0), Sc(2, 2.0, 40.0)])
     assert not v["bloques"] and v["rechazos"][0]["regla"] == "lectura"
     assert "sin tiempo de lectura" in v["rechazos"][0]["motivo"] and "corte de escena" in v["rechazos"][0]["motivo"]
 
@@ -197,7 +198,7 @@ def test_ficha_es_el_title_card_con_kicker_y_titulo_y_sin_tc_dim(tmp_path):
     from script_engine.gfx_project import ficha_html, ficha_medida, write_project
     html_, init, js = ficha_html("fc0", {"text": "Giorgio Dal Piaz", "kicker": "geólogo"}, 12.0, 3.0, 2560)
     assert 'id="fc0-kicker" class="tc-kicker">GEÓLOGO<' in html_ and "Giorgio Dal Piaz" in html_
-    assert "tc-dim" not in html_ and 'class="clip tc-box" data-start="12.000" data-duration="3.000"' in html_
+    assert "tc-dim" not in html_ and 'class="clip tc-box ficha" data-start="12.000" data-duration="3.000"' in html_
     assert "#fc0-title span" in init[0] and '"#fc0", { opacity: 0, duration: 0.4' in js[0]
     assert ficha_medida("ANCHO DE LA FISURA", "Más de 1 metro") == {"kicker": 1, "title": 1}
     assert ficha_medida("x", "Aprobada con solo 13 de 34 representantes presentes en la sala")["title"] == 2

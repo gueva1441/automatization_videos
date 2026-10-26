@@ -250,11 +250,13 @@ def finalizar(plan: dict[str, Any], real: dict[str, Any], log: list[str]) -> lis
     if plan.get("count_up"):
         fuera("count_up", plan["count_up"], "contador de una cifra que dice la voz (repite el subtítulo)")
         plan["count_up"] = None
-    # 2. sellos: solo el del pico, sin ícono figurativo
+    # 2. sellos: solo el del pico, sin ícono figurativo. F32 §B.6: con el rotulista, también los del tema de su oración
+    # (gfx_rotulista.sellos_por_tema ya les aplicó el catálogo: 1 por beat, nunca sobre un texto ni dos en una escena)
     pk = plan.get("pico") or {}
     sellos = _lista(plan, "emphasis")
-    keep_s = [e for e in sellos if e.get("peak_word") or (pk.get("word") and str(e.get("word", "")).lower().strip(".,;:")
-                                                           == str(pk.get("word")).lower().strip(".,;:"))][:1]
+    del_pico = [e for e in sellos if e.get("peak_word") or (pk.get("word") and str(e.get("word", "")).lower().strip(".,;:")
+                                                             == str(pk.get("word")).lower().strip(".,;:"))][:1]
+    keep_s = del_pico + ([e for e in sellos if e.get("por_tema") and e not in del_pico] if rot else [])
     for e in sellos:
         if e not in keep_s:
             fuera("emphasis", e, "sello por léxico (solo queda el de la palabra del pico)")
@@ -305,7 +307,13 @@ def finalizar(plan: dict[str, Any], real: dict[str, Any], log: list[str]) -> lis
             plan[k] = None
         else:
             plan[k] = [x for x in plan[k] if x is not b]
-    # 5. punch_in solo acompañando un bloque
+    # 5. punch_in solo acompañando un bloque. F32 §B.6: con el rotulista, ninguno (el zoom_punch del pico ya está, F30b)
+    if rot:
+        for p in plan.get("punch_in") or []:
+            t = float(p) if isinstance(p, (int, float)) else float((p or {}).get("t", (p or {}).get("start", -1)))
+            filas.append({"bloque": "punch_in", "t": t, "accion": "fuera", "regla": "duplica",
+                          "motivo": "punch_in del director: lo reemplaza el zoom_punch del pico (F30b)"})
+        plan["punch_in"] = []
     iv = [(float(b["start"]), float(b["start"]) + float(b.get("duration", 2.5)))
           for k in ("archive_clippings", "callouts", "emphasis") for b in plan.get(k) or []]
     iv += [(float(plan[k]["start"]), float(plan[k]["start"]) + float(plan[k].get("duration", 3)))

@@ -1,0 +1,674 @@
+{
+ "clave": "c07892b541b1e2f761da",
+ "modelo": "claude-sonnet-5-5",
+ "effort": "medium",
+ "prompt_version": "f29b-1",
+ "prompt_md5": "50e6ae74fd588861e81fb5d2191ab644",
+ "entrada": {
+  "cap": 2,
+  "titulo": "planteo · escalada",
+  "oraciones": [
+   {
+    "idx": 0,
+    "t0": 0.08,
+    "t1": 2.58,
+    "texto": "Longarone está en el fondo del valle del Piave."
+   },
+   {
+    "idx": 1,
+    "t0": 3.3,
+    "t1": 15.1,
+    "texto": "El río pasa por delante del pueblo y, enfrente, desde una garganta lateral, baja un torrente que se llama Vajont y que desemboca en el Piave justo frente a Longarone y Castellavazzo."
+   },
+   {
+    "idx": 2,
+    "t0": 16.2,
+    "t1": 28.12,
+    "texto": "En mil novecientos cuarenta y tres se aprobó el proyecto de cerrar esa garganta con una presa, y empezó la compra de terrenos en Erto y Casso, los pueblos de arriba, los que iban a quedar al borde del lago."
+   },
+   {
+    "idx": 3,
+    "t0": 28.96,
+    "t1": 30.5,
+    "texto": "La empresa era SADE."
+   },
+   {
+    "idx": 4,
+    "t0": 31.46,
+    "t1": 43.72,
+    "texto": "El ingeniero que dibujó la obra se llamaba Carlo Semenza, y la pensó como un arco delgado de doble curvatura: una pared curva, fina para su tamaño, apoyada en las dos laderas de la garganta."
+   },
+   {
+    "idx": 5,
+    "t0": 44.76,
+    "t1": 52.16,
+    "texto": "Cuando empezaron las obras, unos cuatrocientos hombres colgados de andamios la fueron levantando hasta tapar el cielo de la garganta."
+   },
+   {
+    "idx": 6,
+    "t0": 53.14,
+    "t1": 57.06,
+    "texto": "Abajo, en Longarone, la vida siguió con el Piave delante."
+   },
+   {
+    "idx": 7,
+    "t0": 58.08,
+    "t1": 60.0,
+    "texto": "Longarone no estaba sobre el embalse."
+   },
+   {
+    "idx": 8,
+    "t0": 60.58,
+    "t1": 61.76,
+    "texto": "Estaba delante de él."
+   },
+   {
+    "idx": 9,
+    "t0": 62.58,
+    "t1": 65.16,
+    "texto": "Y la montaña que cerraba el lago tenía un apodo."
+   },
+   {
+    "idx": 10,
+    "t0": 65.94,
+    "t1": 74.0,
+    "texto": "La gente de la zona llamaba al monte Toc «la montaña que camina», y lo decían los residentes desde antes de que nadie fuera a medirla."
+   },
+   {
+    "idx": 11,
+    "t0": 76.5,
+    "t1": 82.6,
+    "texto": "En la década del cincuenta, el geólogo Leopold Müller detectó en el Toc un gran desmoronamiento."
+   },
+   {
+    "idx": 12,
+    "t0": 83.52,
+    "t1": 95.2,
+    "texto": "Y hubo otro hombre que caminó esa ladera con un martillo en la mano y otra idea en la cabeza: Edoardo Semenza, geólogo, hijo de Carlo Semenza, el que había dibujado la presa."
+   },
+   {
+    "idx": 13,
+    "t0": 96.26,
+    "t1": 99.34,
+    "texto": "Edoardo buscaba la cicatriz de un deslizamiento antiguo."
+   },
+   {
+    "idx": 14,
+    "t0": 100.22,
+    "t1": 107.62,
+    "texto": "Según una reconstrucción geológica posterior, planteó que ese deslizamiento viejo podía reactivarse cuando el embalse se llenara."
+   },
+   {
+    "idx": 15,
+    "t0": 108.6,
+    "t1": 115.1,
+    "texto": "Müller no lo creía: no creía en el deslizamiento antiguo ni en una capa de arcilla capaz de causarlo."
+   },
+   {
+    "idx": 16,
+    "t0": 116.04,
+    "t1": 119.9,
+    "texto": "El hijo del proyectista decía que la montaña ya se había movido una vez."
+   },
+   {
+    "idx": 17,
+    "t0": 120.64,
+    "t1": 121.98,
+    "texto": "El experto decía que no."
+   },
+   {
+    "idx": 18,
+    "t0": 122.98,
+    "t1": 129.66,
+    "texto": "En marzo de mil novecientos cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero."
+   }
+  ],
+  "beats": [
+   {
+    "n": 2,
+    "funcion": "planteo",
+    "t0": 0.08,
+    "t1": 65.16,
+    "cierre": "Longarone no estaba sobre el embalse. Estaba delante de él. Y la montaña que lo cerraba tenía un apodo.",
+    "dato_central": "D24",
+    "datos_apoyo": [
+     "T04",
+     "T03",
+     "D147",
+     "T12",
+     "D237",
+     "D164"
+    ]
+   },
+   {
+    "n": 3,
+    "funcion": "escalada",
+    "t0": 65.94,
+    "t1": 129.66,
+    "cierre": "En marzo del cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero.",
+    "dato_central": "Q53",
+    "datos_apoyo": [
+     "T05",
+     "D154",
+     "D157"
+    ]
+   }
+  ],
+  "items": [
+   {
+    "id": "D117",
+    "a_pantalla": true,
+    "por_que": "Trece de treinta y cuatro representantes en la sesión de aprobación de 1943: dato de acta, va como rótulo.",
+    "beats": [
+     2
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes.",
+    "fuente": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018",
+    "autor": ""
+   },
+   {
+    "id": "D24",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     2
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "El torrente Vajont fluye en el valle de Erto y Casso para desembocar en el Piave, frente a Longarone y Castellavazzo, en la provincia de Belluno, Italia.",
+    "fuente": "Vajont: fu disastro colposo con previsione dell'evento (Cassazione 1971), 2003",
+    "autor": ""
+   },
+   {
+    "id": "T04",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     2
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "El Consejo Superior de Obras Públicas aprobó el proyecto de la presa del Vajont.",
+    "fuente": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018",
+    "autor": ""
+   },
+   {
+    "id": "T03",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     2
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Comienza la adquisición de terrenos en los municipios de Erto y Casso.",
+    "fuente": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018",
+    "autor": ""
+   },
+   {
+    "id": "D147",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     2
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "La presa de Vajont fue construida entre 1956 y 1960.",
+    "fuente": "Tragedia del Vajont: analisi geologica di una frana annunciata, 2021",
+    "autor": ""
+   },
+   {
+    "id": "T12",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     2
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Comienzan las obras de construcción de la presa con unos 400 obreros.",
+    "fuente": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018",
+    "autor": ""
+   },
+   {
+    "id": "D237",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     2
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "En la construcción de la represa trabajaron cerca de 400 operarios.",
+    "fuente": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018",
+    "autor": ""
+   },
+   {
+    "id": "D164",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     2
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "La represa de Vajont es del tipo de arco delgado de doble curvatura.",
+    "fuente": "Dam Failure Case Study: Vajont Dam (Italy, 1963), 2019",
+    "autor": ""
+   },
+   {
+    "id": "Q53",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     3
+    ],
+    "tipo": "Q",
+    "kind": "citas",
+    "texto": "la montaña que camina",
+    "fuente": "A Tragedy in the Italian Alps (50th Anniversary) Vajont Dam, 2013",
+    "autor": "residentes"
+   },
+   {
+    "id": "T05",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     3
+    ],
+    "tipo": "T",
+    "kind": "cronologia",
+    "texto": "Durante la década de 1950, el geólogo Leopold Müller detectó un desmoronamiento en el cerro Toc.",
+    "fuente": "La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005",
+    "autor": ""
+   },
+   {
+    "id": "D154",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     3
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "Edoardo Semenza planteó la hipótesis de la presencia de un antiguo deslizamiento (paleofrana) que podría reactivarse al llenar el embalse.",
+    "fuente": "Tragedia del Vajont: analisi geologica di una frana annunciata, 2021",
+    "autor": ""
+   },
+   {
+    "id": "D157",
+    "a_pantalla": false,
+    "por_que": "",
+    "beats": [
+     3
+    ],
+    "tipo": "D",
+    "kind": "datos",
+    "texto": "Leopold Muller no creía en la hipótesis de un antiguo deslizamiento ni en la existencia de una capa de arcilla que pudiera causarlo.",
+    "fuente": "Tragedia del Vajont: analisi geologica di una frana annunciata, 2021",
+    "autor": ""
+   }
+  ],
+  "ya_mostrado": [],
+  "pico": {
+   "beat": 3,
+   "funcion": "escalada",
+   "sentence_idx": 10,
+   "frase": "La gente de la zona llamaba al monte Toc «la montaña que camina», y lo decían los residentes desde antes de que nadie fuera a medirla.",
+   "t": 65.94,
+   "dato": "Q53",
+   "fuente": "escaleta (beat más intenso del cap)"
+  }
+ },
+ "intentos": [
+  {
+   "pedido": "CAPÍTULO 2 — planteo · escalada\n\nNARRACIÓN (oración por oración, con segundos):\n[0] 0.1–2.6 · Longarone está en el fondo del valle del Piave.\n[1] 3.3–15.1 · El río pasa por delante del pueblo y, enfrente, desde una garganta lateral, baja un torrente que se llama Vajont y que desemboca en el Piave justo frente a Longarone y Castellavazzo.\n[2] 16.2–28.1 · En mil novecientos cuarenta y tres se aprobó el proyecto de cerrar esa garganta con una presa, y empezó la compra de terrenos en Erto y Casso, los pueblos de arriba, los que iban a quedar al borde del lago.\n[3] 29.0–30.5 · La empresa era SADE.\n[4] 31.5–43.7 · El ingeniero que dibujó la obra se llamaba Carlo Semenza, y la pensó como un arco delgado de doble curvatura: una pared curva, fina para su tamaño, apoyada en las dos laderas de la garganta.\n[5] 44.8–52.2 · Cuando empezaron las obras, unos cuatrocientos hombres colgados de andamios la fueron levantando hasta tapar el cielo de la garganta.\n[6] 53.1–57.1 · Abajo, en Longarone, la vida siguió con el Piave delante.\n[7] 58.1–60.0 · Longarone no estaba sobre el embalse.\n[8] 60.6–61.8 · Estaba delante de él.\n[9] 62.6–65.2 · Y la montaña que cerraba el lago tenía un apodo.\n[10] 65.9–74.0 · La gente de la zona llamaba al monte Toc «la montaña que camina», y lo decían los residentes desde antes de que nadie fuera a medirla.\n[11] 76.5–82.6 · En la década del cincuenta, el geólogo Leopold Müller detectó en el Toc un gran desmoronamiento.\n[12] 83.5–95.2 · Y hubo otro hombre que caminó esa ladera con un martillo en la mano y otra idea en la cabeza: Edoardo Semenza, geólogo, hijo de Carlo Semenza, el que había dibujado la presa.\n[13] 96.3–99.3 · Edoardo buscaba la cicatriz de un deslizamiento antiguo.\n[14] 100.2–107.6 · Según una reconstrucción geológica posterior, planteó que ese deslizamiento viejo podía reactivarse cuando el embalse se llenara.\n[15] 108.6–115.1 · Müller no lo creía: no creía en el deslizamiento antiguo ni en una capa de arcilla capaz de causarlo.\n[16] 116.0–119.9 · El hijo del proyectista decía que la montaña ya se había movido una vez.\n[17] 120.6–122.0 · El experto decía que no.\n[18] 123.0–129.7 · En marzo de mil novecientos cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero.\n\nBEATS DEL CAPÍTULO (función, ventana en segundos, cierre):\n- beat 2 · planteo · 0.1–65.2 s · cierre: «Longarone no estaba sobre el embalse. Estaba delante de él. Y la montaña que lo cerraba tenía un apodo.»\n- beat 3 · escalada · 65.9–129.7 s · cierre: «En marzo del cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero.»\n\nPICO DEL CAPÍTULO: oración [10] «La gente de la zona llamaba al monte Toc «la montaña que camina», y lo decían los residentes desde antes de que nadie fuera a medirla.»\n\nDATOS DISPONIBLES (solo estos; cada uno con su texto fuente):\n- D117 · tipo D · a_pantalla: sí · por_que: Trece de treinta y cuatro representantes en la sesión de aprobación de 1943: dato de acta, va como rótulo. · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes.»\n- D24 · tipo D · a_pantalla: no · por_que: — · fuente: Vajont: fu disastro colposo con previsione dell'evento (Cassazione 1971), 2003 · texto fuente: «El torrente Vajont fluye en el valle de Erto y Casso para desembocar en el Piave, frente a Longarone y Castellavazzo, en la provincia de Belluno, Italia.»\n- T04 · tipo T · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «El Consejo Superior de Obras Públicas aprobó el proyecto de la presa del Vajont.»\n- T03 · tipo T · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «Comienza la adquisición de terrenos en los municipios de Erto y Casso.»\n- D147 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia del Vajont: analisi geologica di una frana annunciata, 2021 · texto fuente: «La presa de Vajont fue construida entre 1956 y 1960.»\n- T12 · tipo T · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «Comienzan las obras de construcción de la presa con unos 400 obreros.»\n- D237 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «En la construcción de la represa trabajaron cerca de 400 operarios.»\n- D164 · tipo D · a_pantalla: no · por_que: — · fuente: Dam Failure Case Study: Vajont Dam (Italy, 1963), 2019 · texto fuente: «La represa de Vajont es del tipo de arco delgado de doble curvatura.»\n- Q53 · tipo Q · a_pantalla: no · por_que: — · fuente: A Tragedy in the Italian Alps (50th Anniversary) Vajont Dam, 2013 (autor: residentes) · texto fuente: «la montaña que camina»\n- T05 · tipo T · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 · texto fuente: «Durante la década de 1950, el geólogo Leopold Müller detectó un desmoronamiento en el cerro Toc.»\n- D154 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia del Vajont: analisi geologica di una frana annunciata, 2021 · texto fuente: «Edoardo Semenza planteó la hipótesis de la presencia de un antiguo deslizamiento (paleofrana) que podría reactivarse al llenar el embalse.»\n- D157 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia del Vajont: analisi geologica di una frana annunciata, 2021 · texto fuente: «Leopold Muller no creía en la hipótesis de un antiguo deslizamiento ni en la existencia de una capa de arcilla que pudiera causarlo.»\n\nYA MOSTRADO EN CAPÍTULOS ANTERIORES (no repetir):\n(nada)\n\nDevolvé:\n{\"bloques\": [{\"sentence_idx\": int, \"tipo\": \"cifra|recorte|cita|persona|lupa\", \"texto\": str, \"etiqueta_o_kicker\": str|null, \"pool_id\": str, \"aporta\": str}], \"descartados\": [{\"pool_id\": str, \"motivo\": str}]}",
+   "respuesta": {
+    "bloques": [
+     {
+      "sentence_idx": 2,
+      "tipo": "recorte",
+      "texto": "El Consejo Superior de Obras Públicas aprobó con 13 de 34 representantes.",
+      "etiqueta_o_kicker": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018",
+      "pool_id": "D117",
+      "aporta": "el quién y el dato de acta: Consejo Superior de Obras Públicas, 13 de 34 representantes presentes"
+     },
+     {
+      "sentence_idx": 4,
+      "tipo": "persona",
+      "texto": "Carlo Semenza, ingeniero",
+      "etiqueta_o_kicker": null,
+      "pool_id": "D164",
+      "aporta": "nombre y cargo de quien dibujó la obra"
+     },
+     {
+      "sentence_idx": 10,
+      "tipo": "cita",
+      "texto": "la montaña que camina",
+      "etiqueta_o_kicker": "Residentes, 2013",
+      "pool_id": "Q53",
+      "aporta": "la frase literal de los residentes con su autor"
+     }
+    ],
+    "descartados": [
+     {
+      "pool_id": "D24",
+      "motivo": "Repite lo que la narración dice en la oración 1: el Vajont desemboca en el Piave frente a Longarone y Castellavazzo."
+     },
+     {
+      "pool_id": "T04",
+      "motivo": "Lo cubre D117, que además es obligatorio y trae el dato de acta."
+     },
+     {
+      "pool_id": "T03",
+      "motivo": "Repite la narración (compra de terrenos en Erto y Casso) sin aportar nada nuevo."
+     },
+     {
+      "pool_id": "D147",
+      "motivo": "Las fechas 1956–1960 no corresponden a ninguna oración y adelantan la construcción."
+     },
+     {
+      "pool_id": "T12",
+      "motivo": "Los 400 obreros ya los dice la narración en la oración 5."
+     },
+     {
+      "pool_id": "D237",
+      "motivo": "Los 400 operarios ya los dice la narración."
+     },
+     {
+      "pool_id": "D164",
+      "motivo": "Usado para la persona solo en parte: el tipo de arco ya lo dice la narración. Como bloque propio sería repetición."
+     },
+     {
+      "pool_id": "T05",
+      "motivo": "Repite la narración (Müller detectó un desmoronamiento en el Toc en los años cincuenta)."
+     },
+     {
+      "pool_id": "D154",
+      "motivo": "Repite lo que la narración dice en las oraciones 12 a 14."
+     },
+     {
+      "pool_id": "D157",
+      "motivo": "Repite lo que la narración dice en la oración 15."
+     }
+    ]
+   },
+   "crudas": [
+    {
+     "respuesta": {
+      "content": [
+       {
+        "type": "text",
+        "text": "{\"bloques\":[{\"sentence_idx\":2,\"tipo\":\"recorte\",\"texto\":\"El Consejo Superior de Obras Públicas aprobó con 13 de 34 representantes.\",\"etiqueta_o_kicker\":\"Tragedia della diga del Vajont: 9 ottobre 1963, 2018\",\"pool_id\":\"D117\",\"aporta\":\"el quién y el dato de acta: Consejo Superior de Obras Públicas, 13 de 34 representantes presentes\"},{\"sentence_idx\":4,\"tipo\":\"persona\",\"texto\":\"Carlo Semenza, ingeniero\",\"etiqueta_o_kicker\":null,\"pool_id\":\"D164\",\"aporta\":\"nombre y cargo de quien dibujó la obra\"},{\"sentence_idx\":10,\"tipo\":\"cita\",\"texto\":\"la montaña que camina\",\"etiqueta_o_kicker\":\"Residentes, 2013\",\"pool_id\":\"Q53\",\"aporta\":\"la frase literal de los residentes con su autor\"}],\"descartados\":[{\"pool_id\":\"D24\",\"motivo\":\"Repite lo que la narración dice en la oración 1: el Vajont desemboca en el Piave frente a Longarone y Castellavazzo.\"},{\"pool_id\":\"T04\",\"motivo\":\"Lo cubre D117, que además es obligatorio y trae el dato de acta.\"},{\"pool_id\":\"T03\",\"motivo\":\"Repite la narración (compra de terrenos en Erto y Casso) sin aportar nada nuevo.\"},{\"pool_id\":\"D147\",\"motivo\":\"Las fechas 1956–1960 no corresponden a ninguna oración y adelantan la construcción.\"},{\"pool_id\":\"T12\",\"motivo\":\"Los 400 obreros ya los dice la narración en la oración 5.\"},{\"pool_id\":\"D237\",\"motivo\":\"Los 400 operarios ya los dice la narración.\"},{\"pool_id\":\"D164\",\"motivo\":\"Usado para la persona solo en parte: el tipo de arco ya lo dice la narración. Como bloque propio sería repetición.\"},{\"pool_id\":\"T05\",\"motivo\":\"Repite la narración (Müller detectó un desmoronamiento en el Toc en los años cincuenta).\"},{\"pool_id\":\"D154\",\"motivo\":\"Repite lo que la narración dice en las oraciones 12 a 14.\"},{\"pool_id\":\"D157\",\"motivo\":\"Repite lo que la narración dice en la oración 15.\"}]}"
+       }
+      ],
+      "usage": {
+       "input_tokens": 4089,
+       "cache_creation_input_tokens": 0,
+       "cache_read_input_tokens": 0,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+       },
+       "output_tokens": 821,
+       "service_tier": "standard",
+       "inference_geo": "global",
+       "speed": "standard",
+       "output_tokens_details": {
+        "thinking_tokens": 0
+       }
+      },
+      "model": "claude-sonnet-5-5",
+      "id": "msg_011CgQKd19hyv8dWPMEmfYpm",
+      "type": "message",
+      "role": "assistant",
+      "container": null,
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "stop_details": null,
+      "diagnostics": null
+     },
+     "segundos": 5.7,
+     "usd": 0.01639
+    }
+   ],
+   "error": null,
+   "validacion": {
+    "bloques": [],
+    "rechazos": [
+     {
+      "pool_id": "D117",
+      "texto": "El Consejo Superior de Obras Públicas aprobó con 13 de 34 representantes.",
+      "sentence_idx": 2,
+      "regla": "A.4.2",
+      "motivo": "12 palabras (tope 9)"
+     },
+     {
+      "pool_id": "D164",
+      "texto": "Carlo Semenza, ingeniero",
+      "sentence_idx": 4,
+      "regla": "A.4.3",
+      "motivo": "no están en el texto fuente de D164: ['Carlo', 'Semenza', 'ingeniero']"
+     },
+     {
+      "pool_id": "Q53",
+      "texto": "la montaña que camina",
+      "sentence_idx": 10,
+      "regla": "A.4.2",
+      "motivo": "fragmento cortado (empieza en minúscula o termina en preposición/artículo)"
+     }
+    ],
+    "faltan": [
+     "D117"
+    ],
+    "incompletos": {}
+   },
+   "segundos": 5.8
+  },
+  {
+   "pedido": "CAPÍTULO 2 — planteo · escalada\n\nNARRACIÓN (oración por oración, con segundos):\n[0] 0.1–2.6 · Longarone está en el fondo del valle del Piave.\n[1] 3.3–15.1 · El río pasa por delante del pueblo y, enfrente, desde una garganta lateral, baja un torrente que se llama Vajont y que desemboca en el Piave justo frente a Longarone y Castellavazzo.\n[2] 16.2–28.1 · En mil novecientos cuarenta y tres se aprobó el proyecto de cerrar esa garganta con una presa, y empezó la compra de terrenos en Erto y Casso, los pueblos de arriba, los que iban a quedar al borde del lago.\n[3] 29.0–30.5 · La empresa era SADE.\n[4] 31.5–43.7 · El ingeniero que dibujó la obra se llamaba Carlo Semenza, y la pensó como un arco delgado de doble curvatura: una pared curva, fina para su tamaño, apoyada en las dos laderas de la garganta.\n[5] 44.8–52.2 · Cuando empezaron las obras, unos cuatrocientos hombres colgados de andamios la fueron levantando hasta tapar el cielo de la garganta.\n[6] 53.1–57.1 · Abajo, en Longarone, la vida siguió con el Piave delante.\n[7] 58.1–60.0 · Longarone no estaba sobre el embalse.\n[8] 60.6–61.8 · Estaba delante de él.\n[9] 62.6–65.2 · Y la montaña que cerraba el lago tenía un apodo.\n[10] 65.9–74.0 · La gente de la zona llamaba al monte Toc «la montaña que camina», y lo decían los residentes desde antes de que nadie fuera a medirla.\n[11] 76.5–82.6 · En la década del cincuenta, el geólogo Leopold Müller detectó en el Toc un gran desmoronamiento.\n[12] 83.5–95.2 · Y hubo otro hombre que caminó esa ladera con un martillo en la mano y otra idea en la cabeza: Edoardo Semenza, geólogo, hijo de Carlo Semenza, el que había dibujado la presa.\n[13] 96.3–99.3 · Edoardo buscaba la cicatriz de un deslizamiento antiguo.\n[14] 100.2–107.6 · Según una reconstrucción geológica posterior, planteó que ese deslizamiento viejo podía reactivarse cuando el embalse se llenara.\n[15] 108.6–115.1 · Müller no lo creía: no creía en el deslizamiento antiguo ni en una capa de arcilla capaz de causarlo.\n[16] 116.0–119.9 · El hijo del proyectista decía que la montaña ya se había movido una vez.\n[17] 120.6–122.0 · El experto decía que no.\n[18] 123.0–129.7 · En marzo de mil novecientos cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero.\n\nBEATS DEL CAPÍTULO (función, ventana en segundos, cierre):\n- beat 2 · planteo · 0.1–65.2 s · cierre: «Longarone no estaba sobre el embalse. Estaba delante de él. Y la montaña que lo cerraba tenía un apodo.»\n- beat 3 · escalada · 65.9–129.7 s · cierre: «En marzo del cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero.»\n\nPICO DEL CAPÍTULO: oración [10] «La gente de la zona llamaba al monte Toc «la montaña que camina», y lo decían los residentes desde antes de que nadie fuera a medirla.»\n\nDATOS DISPONIBLES (solo estos; cada uno con su texto fuente):\n- D117 · tipo D · a_pantalla: sí · por_que: Trece de treinta y cuatro representantes en la sesión de aprobación de 1943: dato de acta, va como rótulo. · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes.»\n- D24 · tipo D · a_pantalla: no · por_que: — · fuente: Vajont: fu disastro colposo con previsione dell'evento (Cassazione 1971), 2003 · texto fuente: «El torrente Vajont fluye en el valle de Erto y Casso para desembocar en el Piave, frente a Longarone y Castellavazzo, en la provincia de Belluno, Italia.»\n- T04 · tipo T · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «El Consejo Superior de Obras Públicas aprobó el proyecto de la presa del Vajont.»\n- T03 · tipo T · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «Comienza la adquisición de terrenos en los municipios de Erto y Casso.»\n- D147 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia del Vajont: analisi geologica di una frana annunciata, 2021 · texto fuente: «La presa de Vajont fue construida entre 1956 y 1960.»\n- T12 · tipo T · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «Comienzan las obras de construcción de la presa con unos 400 obreros.»\n- D237 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia della diga del Vajont: 9 ottobre 1963, 2018 · texto fuente: «En la construcción de la represa trabajaron cerca de 400 operarios.»\n- D164 · tipo D · a_pantalla: no · por_que: — · fuente: Dam Failure Case Study: Vajont Dam (Italy, 1963), 2019 · texto fuente: «La represa de Vajont es del tipo de arco delgado de doble curvatura.»\n- Q53 · tipo Q · a_pantalla: no · por_que: — · fuente: A Tragedy in the Italian Alps (50th Anniversary) Vajont Dam, 2013 (autor: residentes) · texto fuente: «la montaña que camina»\n- T05 · tipo T · a_pantalla: no · por_que: — · fuente: La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005 · texto fuente: «Durante la década de 1950, el geólogo Leopold Müller detectó un desmoronamiento en el cerro Toc.»\n- D154 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia del Vajont: analisi geologica di una frana annunciata, 2021 · texto fuente: «Edoardo Semenza planteó la hipótesis de la presencia de un antiguo deslizamiento (paleofrana) que podría reactivarse al llenar el embalse.»\n- D157 · tipo D · a_pantalla: no · por_que: — · fuente: Tragedia del Vajont: analisi geologica di una frana annunciata, 2021 · texto fuente: «Leopold Muller no creía en la hipótesis de un antiguo deslizamiento ni en la existencia de una capa de arcilla que pudiera causarlo.»\n\nYA MOSTRADO EN CAPÍTULOS ANTERIORES (no repetir):\n(nada)\n\nDevolvé:\n{\"bloques\": [{\"sentence_idx\": int, \"tipo\": \"cifra|recorte|cita|persona|lupa\", \"texto\": str, \"etiqueta_o_kicker\": str|null, \"pool_id\": str, \"aporta\": str}], \"descartados\": [{\"pool_id\": str, \"motivo\": str}]}\n\nTU RESPUESTA ANTERIOR TUVO ESTOS PROBLEMAS (corregilos y devolvé el JSON completo otra vez):\n- D117 en la oración [2] «El Consejo Superior de Obras Públicas aprobó con 13 de 34 representantes.»: 12 palabras (tope 9)\n- D164 en la oración [4] «Carlo Semenza, ingeniero»: no están en el texto fuente de D164: ['Carlo', 'Semenza', 'ingeniero']\n- Q53 en la oración [10] «la montaña que camina»: fragmento cortado (empieza en minúscula o termina en preposición/artículo)\n- falta el dato a_pantalla D117 (por_que: Trece de treinta y cuatro representantes en la sesión de aprobación de 1943: dato de acta, va como rótulo.)",
+   "respuesta": {
+    "bloques": [
+     {
+      "sentence_idx": 2,
+      "tipo": "recorte",
+      "texto": "Aprobada con solo 13 de 34 representantes presentes",
+      "etiqueta_o_kicker": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018",
+      "pool_id": "D117",
+      "aporta": "el dato del acta: solo 13 de 34 representantes presentes, procedimiento irregular"
+     }
+    ],
+    "descartados": [
+     {
+      "pool_id": "D24",
+      "motivo": "repite lo que la narración dice en [1]"
+     },
+     {
+      "pool_id": "T04",
+      "motivo": "repite la aprobación que dice la narración; D117 ya cubre la oración con más información"
+     },
+     {
+      "pool_id": "T03",
+      "motivo": "repite la compra de terrenos en Erto y Casso que dice la narración"
+     },
+     {
+      "pool_id": "D147",
+      "motivo": "adelanta fechas de construcción que la narración no cubre en esa oración; no calza en ninguna oración"
+     },
+     {
+      "pool_id": "T12",
+      "motivo": "repite los 400 obreros que ya dice la narración en [5]"
+     },
+     {
+      "pool_id": "D237",
+      "motivo": "repite los 400 operarios que ya dice la narración"
+     },
+     {
+      "pool_id": "D164",
+      "motivo": "repite el arco delgado de doble curvatura que ya dice la narración en [4]"
+     },
+     {
+      "pool_id": "Q53",
+      "motivo": "la narración ya dice la frase textual en [10]; en pantalla sería repetición, y la cita literal queda en minúscula como fragmento"
+     },
+     {
+      "pool_id": "T05",
+      "motivo": "repite lo que dice la narración en [11]"
+     },
+     {
+      "pool_id": "D154",
+      "motivo": "repite la hipótesis de Edoardo que la narración cuenta en [14]"
+     },
+     {
+      "pool_id": "D157",
+      "motivo": "repite lo que la narración dice en [15]"
+     }
+    ]
+   },
+   "crudas": [
+    {
+     "respuesta": {
+      "content": [
+       {
+        "type": "text",
+        "text": "{\"bloques\": [{\"sentence_idx\": 2, \"tipo\": \"recorte\", \"texto\": \"Aprobada con solo 13 de 34 representantes presentes\", \"etiqueta_o_kicker\": \"Tragedia della diga del Vajont: 9 ottobre 1963, 2018\", \"pool_id\": \"D117\", \"aporta\": \"el dato del acta: solo 13 de 34 representantes presentes, procedimiento irregular\"}], \"descartados\": [{\"pool_id\": \"D24\", \"motivo\": \"repite lo que la narración dice en [1]\"}, {\"pool_id\": \"T04\", \"motivo\": \"repite la aprobación que dice la narración; D117 ya cubre la oración con más información\"}, {\"pool_id\": \"T03\", \"motivo\": \"repite la compra de terrenos en Erto y Casso que dice la narración\"}, {\"pool_id\": \"D147\", \"motivo\": \"adelanta fechas de construcción que la narración no cubre en esa oración; no calza en ninguna oración\"}, {\"pool_id\": \"T12\", \"motivo\": \"repite los 400 obreros que ya dice la narración en [5]\"}, {\"pool_id\": \"D237\", \"motivo\": \"repite los 400 operarios que ya dice la narración\"}, {\"pool_id\": \"D164\", \"motivo\": \"repite el arco delgado de doble curvatura que ya dice la narración en [4]\"}, {\"pool_id\": \"Q53\", \"motivo\": \"la narración ya dice la frase textual en [10]; en pantalla sería repetición, y la cita literal queda en minúscula como fragmento\"}, {\"pool_id\": \"T05\", \"motivo\": \"repite lo que dice la narración en [11]\"}, {\"pool_id\": \"D154\", \"motivo\": \"repite la hipótesis de Edoardo que la narración cuenta en [14]\"}, {\"pool_id\": \"D157\", \"motivo\": \"repite lo que la narración dice en [15]\"}]}"
+       }
+      ],
+      "usage": {
+       "input_tokens": 4383,
+       "cache_creation_input_tokens": 0,
+       "cache_read_input_tokens": 0,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+       },
+       "output_tokens": 645,
+       "service_tier": "standard",
+       "inference_geo": "global",
+       "speed": "standard",
+       "output_tokens_details": {
+        "thinking_tokens": 0
+       }
+      },
+      "model": "claude-sonnet-5-5",
+      "id": "msg_011CgQKdQ2d1CHh6vsy3tJt9",
+      "type": "message",
+      "role": "assistant",
+      "container": null,
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "stop_details": null,
+      "diagnostics": null
+     },
+     "segundos": 4.5,
+     "usd": 0.01522
+    }
+   ],
+   "error": null,
+   "validacion": {
+    "bloques": [
+     {
+      "sentence_idx": 2,
+      "tipo": "recorte",
+      "texto": "Aprobada con solo 13 de 34 representantes presentes",
+      "etiqueta_o_kicker": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018",
+      "pool_id": "D117",
+      "aporta": "el dato del acta: solo 13 de 34 representantes presentes, procedimiento irregular",
+      "t0": 28.42,
+      "dur": 3.67,
+      "beat": 2,
+      "funcion": "planteo",
+      "pantalla": "Aprobada con solo 13 de 34 representantes presentes",
+      "a_pantalla": true
+     }
+    ],
+    "rechazos": [],
+    "faltan": [],
+    "incompletos": {}
+   },
+   "segundos": 4.5
+  }
+ ],
+ "final": {
+  "bloques": [
+   {
+    "sentence_idx": 2,
+    "tipo": "recorte",
+    "texto": "Aprobada con solo 13 de 34 representantes presentes",
+    "etiqueta_o_kicker": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018",
+    "pool_id": "D117",
+    "aporta": "el dato del acta: solo 13 de 34 representantes presentes, procedimiento irregular"
+   }
+  ],
+  "descartados": [
+   {
+    "pool_id": "D24",
+    "motivo": "repite lo que la narración dice en [1]"
+   },
+   {
+    "pool_id": "T04",
+    "motivo": "repite la aprobación que dice la narración; D117 ya cubre la oración con más información"
+   },
+   {
+    "pool_id": "T03",
+    "motivo": "repite la compra de terrenos en Erto y Casso que dice la narración"
+   },
+   {
+    "pool_id": "D147",
+    "motivo": "adelanta fechas de construcción que la narración no cubre en esa oración; no calza en ninguna oración"
+   },
+   {
+    "pool_id": "T12",
+    "motivo": "repite los 400 obreros que ya dice la narración en [5]"
+   },
+   {
+    "pool_id": "D237",
+    "motivo": "repite los 400 operarios que ya dice la narración"
+   },
+   {
+    "pool_id": "D164",
+    "motivo": "repite el arco delgado de doble curvatura que ya dice la narración en [4]"
+   },
+   {
+    "pool_id": "Q53",
+    "motivo": "la narración ya dice la frase textual en [10]; en pantalla sería repetición, y la cita literal queda en minúscula como fragmento"
+   },
+   {
+    "pool_id": "T05",
+    "motivo": "repite lo que dice la narración en [11]"
+   },
+   {
+    "pool_id": "D154",
+    "motivo": "repite la hipótesis de Edoardo que la narración cuenta en [14]"
+   },
+   {
+    "pool_id": "D157",
+    "motivo": "repite lo que la narración dice en [15]"
+   }
+  ]
+ },
+ "validacion": {
+  "bloques": [
+   {
+    "sentence_idx": 2,
+    "tipo": "recorte",
+    "texto": "Aprobada con solo 13 de 34 representantes presentes",
+    "etiqueta_o_kicker": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018",
+    "pool_id": "D117",
+    "aporta": "el dato del acta: solo 13 de 34 representantes presentes, procedimiento irregular",
+    "t0": 28.42,
+    "dur": 3.67,
+    "beat": 2,
+    "funcion": "planteo",
+    "pantalla": "Aprobada con solo 13 de 34 representantes presentes",
+    "a_pantalla": true
+   }
+  ],
+  "rechazos": [],
+  "faltan": [],
+  "incompletos": {}
+ }
+}

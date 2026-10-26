@@ -381,13 +381,15 @@ def _forma_v_js(sel: str, st: float, dur: float, v: str) -> tuple[list[str], lis
 
 def ficha_html(fid: str, c: dict[str, Any], st: float, dur: float, width: int) -> tuple[str, list[str], list[str]]:
     """F29c §A.5: la ficha del rotulista con el componente del title card: kicker = etiqueta, título = dato. Misma
-    posición, tamaño, raya, wipe de entrada y fundido de salida (gfx_rules.title_fade_out); sin #tc-dim (no oscurece
-    la imagen). Con el dato en dos líneas, la raya baja una línea (misma cuenta que la del CSS)."""
+    posición, raya, wipe de entrada y fundido de salida (gfx_rules.title_fade_out); sin #tc-dim (no oscurece la imagen).
+    F32 §B.8: un escalón más chica que el title card: el dato al tamaño de la pregunta de cierre (question_font_px) y la
+    etiqueta (tc_kicker_px) sobre la placa de `.co-text.stamp` (clase `.tc-box.ficha` del CSS); la raya va debajo de la
+    última línea del dato (misma cuenta que la del CSS, con el tamaño del dato)."""
     m = tc_metrics()
     lines = max(1, ficha_medida(c.get("kicker", ""), c["text"], width)["title"])
-    line_style = "" if lines == 1 else f' style="top:{round(m["title_top"] + 190 * m["scale"] * 1.05 * lines + 20)}px"'
+    line_style = f' style="top:{round(m["title_top"] + gfx_rules.question_font_px * 1.05 * lines + 20)}px"'
     html_ = _tpl("title_card.html.tmpl").substitute(
-        dim_html="", tid=fid, start=f"{st:.3f}", duration=f"{dur:.3f}", line_style=line_style,
+        dim_html="", tid=fid, start=f"{st:.3f}", duration=f"{dur:.3f}", line_style=line_style, box_class=" ficha",
         kicker=_esc(str(c.get("kicker", "")).upper()), title=_esc(c["text"]))
     fo = gfx_rules.title_fade_out
     v = forma("V")
@@ -862,13 +864,16 @@ def _wrap_lines(text: str, px: int, avail: float, track_em: float = 0.0) -> int:
     return lines if text.strip() else 0
 
 
+FICHA_PLACA_PAD_H = 26          # F32 §B.8: el aire lateral de la placa de `.co-text.stamp` (padding 6px 26px)
+
+
 def ficha_medida(kicker: str, title: str, width: int = 2560) -> dict[str, int]:
-    """F29c §A.5: líneas del kicker y del dato en la ficha (= title card): el kicker en una línea, el dato en
-    mayúsculas al ancho del title card (left/right 180 px)."""
+    """F29c §A.5: líneas del kicker y del dato en la ficha: el kicker en una línea, el dato en mayúsculas al ancho del
+    title card (left/right 180 px). F32 §B.8: el dato al tamaño de la pregunta de cierre y el kicker con su placa."""
     m = tc_metrics()
     avail = width - TC_LEFT - TC_RIGHT
-    return {"kicker": _wrap_lines(kicker.upper(), m["kicker_px"], avail, TC_KICKER_TRACK),
-            "title": _wrap_lines(title.upper(), m["title_px"], avail)}
+    return {"kicker": _wrap_lines(kicker.upper(), m["kicker_px"], avail - 2 * FICHA_PLACA_PAD_H, TC_KICKER_TRACK),
+            "title": _wrap_lines(title.upper(), gfx_rules.question_font_px, avail)}
 
 
 def render_css(width: int, height: int) -> str:
@@ -1019,7 +1024,7 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
         dur, fo = gfx_rules.title_dur, gfx_rules.title_fade_out
         overlays.append(_tpl("title_card.html.tmpl").substitute(
             dim_html=f'      <div id="tc-dim" class="clip" data-start="0" data-duration="{dur:.3f}"></div>\n',
-            tid="tc", start="0", line_style="",
+            tid="tc", start="0", line_style="", box_class="",
             duration=f"{dur:.3f}", kicker=_esc(tc["kicker"]), title=_esc(tc["title"])))
         init.append(f'      gsap.set("#tc-dim", {{ opacity: {gfx_rules.title_dim} }}); gsap.set("#tc-title span", {{ yPercent: 110 }});'
                     ' gsap.set("#tc-line", { scaleX: 0 }); gsap.set("#tc-kicker", { opacity: 0 });')

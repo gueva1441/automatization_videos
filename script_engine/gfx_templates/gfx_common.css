@@ -12,6 +12,9 @@
       .tc-title { position: absolute; left: 180px; top: ${tc_title_top}px; right: 180px; overflow: hidden; }
       .tc-title span { display: inline-block; color: #f4f1ea; font: 400 ${tc_title_px}px/1.05 "${title_font}", sans-serif; text-transform: uppercase; letter-spacing: .01em; }
       .tc-line { position: absolute; left: 184px; top: ${tc_line_top}px; width: ${tc_line_w}px; height: 6px; background: ${accent}; transform-origin: left center; }
+      /* F32 §B.8: la ficha del rotulista, un escalón más chica: el dato al tamaño de la pregunta, la etiqueta con la placa del sello */
+      .tc-box.ficha .tc-title span { font-size: ${question_px}px; }
+      .tc-box.ficha .tc-kicker { background: rgba(10,10,10,.35); padding: 6px 26px; }
       /* data_callout (tercio superior, lado según el sujeto) */
       .callout { position: absolute; top: 120px; z-index: 22; max-width: 1500px; }
       .callout.left { left: 160px; text-align: left; }

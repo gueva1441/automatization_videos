@@ -291,10 +291,18 @@ def _realizador(ctx: dict[str, Any], words: list[dict], time_offset: float, work
     return real
 
 
+def lectura_pregunta(txt: str) -> float:
+    """F32 §B.2: lo que dura la pregunta de cierre = su lectura a 15 cps (§0)."""
+    from script_engine.gfx_rotulista import LECTURA_CPS
+    return round(len(txt or "") / LECTURA_CPS, 3)
+
+
 def closing_question(resolved: dict[str, Any], ctx: dict[str, Any], work_dir: Path, cap: str, clip_dur: float,
                      log: list[str]) -> float:
-    """F3: pregunta de cierre generada (gfx_question, Flash + validador) al FINAL del cap, durante una pausa de
-    question_pause_sec con la voz en silencio. Devuelve la pausa a agregar al base (0 si no hay pregunta)."""
+    """F3: pregunta de cierre generada (gfx_question, Flash + validador) al FINAL del cap, durante una pausa con la voz
+    en silencio. Devuelve la pausa a agregar al base (0 si no hay pregunta). F32 §B.2: la pregunta dura su lectura
+    (caracteres ÷ 15 cps, gfx_rotulista.LECTURA_CPS); el negro que sigue (black_hold) como siempre; question_pause_sec
+    queda solo como interruptor (0 = sin pregunta)."""
     if not gfx_rules.question_auto or gfx_rules.question_pause_sec <= 0:
         return 0.0
     from script_engine.gfx_director import question_keyword
@@ -304,7 +312,7 @@ def closing_question(resolved: dict[str, Any], ctx: dict[str, Any], work_dir: Pa
         from script_engine.gfx_realizador import pregunta_cierre
         txt = pregunta_cierre(real)
         if txt:
-            pause = float(gfx_rules.question_pause_sec)
+            pause = lectura_pregunta(txt)
             resolved["chapter_question"] = {"text": txt, "start": round(clip_dur, 3), "duration": round(pause, 3),
                                             "keyword": question_keyword(txt), "generated": True, "pause": pause,
                                             "fuente": "escaleta (cierre del último beat)"}
@@ -330,7 +338,7 @@ def closing_question(resolved: dict[str, Any], ctx: dict[str, Any], work_dir: Pa
         resolved["chapter_question"] = None
         pause_file.unlink(missing_ok=True)
         return 0.0
-    pause = float(gfx_rules.question_pause_sec)
+    pause = lectura_pregunta(q["text"])
     resolved["chapter_question"] = {"text": q["text"], "start": round(clip_dur, 3), "duration": round(pause, 3),
                                     "keyword": question_keyword(q["text"]), "generated": True, "pause": pause,
                                     **({"manual": True} if q.get("manual") else {})}
@@ -451,6 +459,11 @@ def _contact_sheet(resolved: dict[str, Any], out: Path, work_dir: Path, cap: str
         contact_sheet(out, resolved["critico"], Path(work_dir) / f"hoja_contactos_{cap}.jpg", log=log)
     except Exception as e:  # noqa: BLE001
         log.append(f"  hoja de contactos: falló ({type(e).__name__}: {str(e)[:100]})")
+
+
+def _moods_activos() -> dict[str, dict]:
+    from gfx_config import active_moods
+    return active_moods()
 
 
 def escenas_a_disco(work_dir: Path, cap: str, scenes: list[GfxScene], *, clip_dur: float, time_offset: float,
@@ -875,7 +888,9 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                                                                 cap=cap, log=log, snaps=snaps)
         from script_engine.gfx_realizador import cerrar        # F29: finalizar → crítico → pico · F29b: … → pico → crítico
         cerrar(resolved, real, ctx.get("pool"), log, criticar=_criticar, rotulista=rot_on,
-               escena=(lambda: gro.escena_final(resolved, scenes, ent_rot, log)) if rot_on else None,
+               escena=(lambda: (gro.escena_final(resolved, scenes, ent_rot, log),
+                                gro.sellos_por_tema(resolved, scenes, ent_rot, words, time_offset,
+                                                    ctx.get("moods") or _moods_activos(), log))) if rot_on else None,
                garantizar=gfx_rules.garantizar_pico and not rot_on,
                side=getattr(scenes[-1], "quiet_side", "right") if scenes else "right")
         if real and gfx_plan_override is None and gfx_rules.identity_rules:   # F30b §A: transiciones por relato
