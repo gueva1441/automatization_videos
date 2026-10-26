@@ -16,6 +16,7 @@ Formato: `fecha · decisión · motivo/contexto · estado (vigente / aplicada en
 - 2026-10-26 13:20 · Comunicación: Omar avisa «CC terminó»; el analista lee ESTADO, reporte, diff y hojas del disco; los prompts para CC van en bloque de código · vigente.
 - 2026-10-26 · Omar entiende mejor con flujogramas · vigente.
 - 2026-10-26 · Sesión nueva de CC solo cuando Omar lo pide; la orden va primera y explícita («como en F25c») · vigente.
+- 2026-10-26 16:49 · **Antes de cada handoff, volver a derivar el orden:** ¿construye sobre código que ya decidimos reemplazar? ¿alguna decisión de hoy cambia el orden? Si sí, se reordena y el handoff viejo se archiva con la razón. La prisa es por un sistema que funcione, no por un render · «¿tiene lógica?» de Omar · vigente.
 - 2026-10 · Todo reporte de CC pasa por el subagente `revisor-handoff` y su veredicto va íntegro; el analista además lee el diff, no solo el reporte · vigente.
 - 2026-10 · Fase 1 (semilla → guion) se califica con una sola nota 1–10 y cada falla etiquetada «se queda / se arregla a mano / frena»; de ahí se decide si se pasa a imágenes/voz · vigente.
 
@@ -33,6 +34,34 @@ Formato: `fecha · decisión · motivo/contexto · estado (vigente / aplicada en
 - 2026-10-26 · Los `punch_in` (acercamientos) del director sobran: el único golpe es el `zoom_punch` del pico · aplicada F32.
 - 2026-10-26 · En caps de una sola escena (Veo), la unidad es la oración, no la escena · propuesta del analista · pendiente de confirmar.
 
+- 2026-10-26 14:28 · **El gancho (ch01) nunca queda vacío.** El gancho no es pico a efectos del texto: 0–1 texto, 1 reloj, 1 sello; para el gancho los candidatos son todo el pool (lo que la voz no dice en el video), no solo los ítems de su beat · Omar · aplicada F34 (el modelo eligió D195 y el candado lo cortó por el año; ver revisión F34).
+- 2026-10-26 14:36 · Vajont ch03: la ficha es la **fisura** (D49), no L'Unità · Omar · vigente.
+- 2026-10-26 14:36 · **Nivel de agua sí**, con etiqueta: Pontesei «OLA | 20 m» (ch03) y «COTA AUTORIZADA | 715 m» (ch04) · Omar · aplicada F34.
+- 2026-10-26 14:36 · **Fecha-hora sobre negro en el segundo 0** del video: «9 OCT 1963 · 22:39» antes de la primera imagen (promesa del cold open) · Omar · aplicada F34 en el plan; falta decidir qué pasa con la intro de 2.5 s (ver revisión F34).
+- 2026-10-26 14:32 · Criterio rector: el video en papel se construye para **retener**; el analista siempre critica y propone algo mejor, nunca acepta un resultado vacío o débil como «así queda» · Omar · vigente.
+
+- 2026-10-26 16:30 · **Sellos de clima los elige Sonnet en la misma llamada del rotulista** (ya tiene el relato del cap); Gemini Flash sale de los sellos (inclina a AMENAZA, nunca devuelve MEMORIA) · Omar · pendiente de tanda.
+- 2026-10-26 16:30 · **Partir `gfx_rotulista.py` (1.911 líneas) en 5 módulos:** `rotulista_llm` (prompt + llamada), `rotulista_filtros` (candado, no dicho, spoiler, lectura, cantidad, en orden visible), `rotulista_colocar` (escenas, tiempos, ediciones), `clima` (sellos), `voz_datos` (reloj, agua, tarjeta); con los tests de F34 como red · «hay que corregir estructuras o vamos a estar en la misma cosa» · Omar · después de v6 y de los bugs 1–8.
+- 2026-10-26 16:30 · **Fuera las listas de Vajont del código:** `UNIDAD_CONTADOR` («personas», «liras») y `AGUA_ETIQUETAS` (COTA AUTORIZADA, OLA…; la puso el analista en F34 A.5) → la unidad y la etiqueta vienen del modelo / de la oración, no de una lista · Omar · con la partición.
+- 2026-10-26 16:30 · Números sin origen en el rotulista: altura del agua 15–85 % de la pantalla, reloj de 12 s (y sin mirar el corte) → se clasifican con los 66 de `gfx_config` · Omar.
+
+- 2026-10-26 16:33 · **El rotulista recibe todo el pool con cifra/fecha/cita del video** (no solo los ítems que la escaleta asignó al beat), con la marca «este beat lo cuenta»; él elige y los filtros cuidan spoiler y repetición. `a_pantalla` de la escaleta deja de ser la única llave · Omar · tanda de estructura.
+- 2026-10-26 16:33 · **El rotulista sabe cuánto cabe:** la entrada trae por oración los segundos hasta el próximo corte de escena y el prompt dice «en esta oración caben N caracteres» (N = segundos × 15 cps) · Omar · tanda de estructura. Menor: pasarle los detalles de `gfx_vision` para la lupa; `voz_antes`/`voz_video` van duplicados.
+
+- 2026-10-26 16:35 · **El crítico va antes del reparto:** mira todos los candidatos (sellos y textos) y después corre «uno por beat / una por escena»; un sello que el crítico tira no ocupa lugar. A los sellos de clima solo les pregunta «¿estorba?» (tapa algo), no «repite» · Omar · tanda de bugs (bug 2).
+
+- 2026-10-26 16:38 · **Borrar el código muerto en la tanda de estructura**, con sus tests: lo muerto de `gfx_peak` (plan_peak, water_level, time_ticker, zoom_latido, clear_around; `sentences`/`lexicon_hits` pasan a utilería de voz, `peak_word` a `clima`), `gfx_fragments`, `gfx_question`, `gfx_identity` del pipeline, `data_callout.html.tmpl`, `grade_css.html.tmpl`, y los «se llama y se descarta» del mapa. Dos lógicas para lo mismo no conviven · Omar · tanda de estructura.
+
+- 2026-10-26 16:41 · **Vajont v6, confirmado por Omar (5 de 5):** gancho = D195 «LONGARONE · 1.269 de 1.328 habitantes murieron» (0:18, sin año en la etiqueta); sellos PÁNICO · CALMA + AMENAZA · AVISO · AMENAZA · INMINENTE · COLAPSO + SILENCIO · MEMORIA (fuera los AMENAZA de ch03, ch05, ch07); ch03 fisura en vez de L'Unità; ch06 1.910 muertos como ficha (812.7); la tarjeta fecha-hora reemplaza la intro congelada (3 s de negro, luego la primera imagen). Detalle línea por línea en `lab/hyperframes/f34/REVISION_GUION.md` · Omar · F35.
+
+## Orden de tandas (acordado 2026-10-26 16:41)
+~~1. F35: 15 ediciones a mano + render v6~~ · **descartado 16:45** («¿tiene lógica corregir v6 sobre módulos rotos?» — no: parchar la salida en vez de arreglar lo que la produce). El handoff queda en `lab/hyperframes/f35/` como archivado.
+1. **F36 — estructura + bugs, en 4 partes con PARADA** (A partir el rotulista sin cambiar comportamiento · B los 8 bugs + tarjeta que se dibuje · C entradas nuevas y Sonnet elige sellos · D borrar zombis); cada parte se mide regenerando el guion de Vajont contra la tabla DEBERÍA de la revisión F34 (el contrato). Al final: guion → revisión → «aprobado» → render v6. `--plan-edit` solo para lo excepcional que quede.
+2. **Bugs (ahora dentro de F36 B):** contador borrado por el realizador; crítico antes del reparto; AMENAZA repetido / MEMORIA nunca; agua y reloj contra el corte; `contradicciones` falso positivo; desempate por valor; candado del gancho; tope de caracteres.
+3. **Estructura (ahora F36 A, C, D):** partir el rotulista en 5; Sonnet elige sellos; pool completo + «cuánto cabe»; fuera listas de Vajont; borrar zombis. Forma (F31b) se prueba en paralelo con clips de ch06, sin esperar el render.
+4. **Sesión Omar + analista:** clasificar los 66 números sin origen → `gfx_config` lee DECISIONES.
+5. Forma (F31b), subtítulos, sfx, Kyshtym en seco.
+
 ## Transiciones y costura
 - 2026-10-25 21:48 · **Cada transición con razón nombrable; si no hay razón, corte.** Lupa → corte; pico → `zoom_punch` (reemplaza al flash); cambio de beat o salto de fecha → fundido 20 f (identidad F3); cierre de cap → dip 10 f (identidad); entre caps negro → title card → voz; `whip_pan_flash` fuera · aplicada F30b.
 - 2026-10-26 11:02 · A Omar le gustó el zoom-punch (4:05 de v5) · las demás se notan poco (esperado) · vigente.
@@ -47,7 +76,7 @@ Formato: `fecha · decisión · motivo/contexto · estado (vigente / aplicada en
 - Registro: karaoke (retención) vs documental (subs en la familia del title card, sin amarillo) · voto del analista: documental · **pendiente**.
 - `«»…` fuera del `.ass` (Anton dibuja `»` como `>>`) · aplicada F30b C.
 - Variante de forma de F31 (entradas/salidas V1–V3, sello S1–S3 con/sin placa, reloj R1–R2) · voto del analista: V2 + S2 con placa · **pendiente**.
-- Sellos: ¿se quedan como clima o se van? · **pendiente**.
+- Sellos: se quedan como clima (14:22) · resuelto.
 
 ## Pendientes de infraestructura (acordados 2026-10-26 12:52–13:16)
 - Mapa de módulos con flujograma y «stickers» de descripción por módulo; cada handoff declara módulos tocados.
