@@ -1,0 +1,7 @@
+[02:59:44] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s3-vajont
+[03:02:16] INFO     | viral_pipeline | [cost_tracker] Video f8s3-vajont — Costo total: $0.4751
+  m01e intento 1: in 66196 · out 17239 · US$ 0.3048 · JSON
+  m01e intento 1 validado: fichas fuera 3 · preguntas 5 · vuelven 0 · picos vacíos 2
+  m01e intento 2: in 71189 · out 2793 · US$ 0.1703 · JSON
+  m01e vuelta 1 validada: fichas fuera 0 · preguntas nuevas 0 · picos vacíos 0
+  m01e: 13 fichas · 9 sellos · 4 relojes · tarjeta True → C:\CLAUDE_PROJECTS\automatization_videos\data\scripts\_steps\f8s3-vajont\01e_pantalla.md

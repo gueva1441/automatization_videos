@@ -542,3 +542,211 @@ VEREDICTO: CUMPLE CON OBSERVACIONES
 - Fila 3b: tenía razón. El `rm` del borrador iba en el mismo comando que `guard_git` frenó, así que nunca corrió. Volví a comprobar que su texto entero está en `ARCHIVADO_HANDOFF_F38c_borrador.md` y lo borré después del veredicto. Ya no está en disco.
 - Fila 19: el ESTADO se actualizó mientras el revisor leía (cabecera y sección F38c) y entra en el commit B.
 - Fila 18: el veredicto quedó pegado acá.
+
+
+---
+
+# F38d — Lo nuevo se pregunta en otra vuelta · el prompt mide «caben» como el código (sección corta)
+
+Handoff `lab/hyperframes/f38/HANDOFF_F38d_vueltas_y_caben.md` (md5 `7af6d606…`, comprobado). Base `cc7058d`.
+Commits: paso 0 `25c2f6c` (DECISIONES 02:36 y el handoff, tal cual) · A `beb8118` · B (esta sección). **PARADA.**
+- Paralelo (DECISIONES 01:23): el subagente 1 hizo A.1 + A.2, en un solo archivo; el subagente 2 escribió los tests en un
+  archivo aparte mientras tanto. Al cerrar A, `revisor-handoff` revisó A **mientras corría B**.
+- Módulo: solo `m01e_pantalla`; el sticker está actualizado y el mapa sigue en 35 módulos, 0 muertos.
+- Ningún número nuevo: las vueltas las limita el tope del perfil (respaldo 1,00).
+- Nada de `lab/_gpt_probe_analista/` en git (`git ls-files` vacío).
+- Lo que reporto como hecho lo comprobé con `ls`: `f38/a4/` y `f38/b4/` tienen los archivos que nombro.
+
+## A (`beb8118`)
+- **A.1:** vueltas de reintento parcial mientras se cumplan tres condiciones:
+  - hay motivos;
+  - los motivos son distintos de los de la vuelta anterior;
+  - la vuelta entra en el tope.
+- **Cómo funciona una vuelta:**
+  - la validación corre con `final=False` y los `confirmados` acumulados (`_acumular`, que nunca pisa);
+  - una coincidencia nueva (`no_dicho`, `spoiler`, `contradice`) es pregunta de la vuelta siguiente, no corte.
+- **Al cerrar:**
+  - corre la validación final de hoy, y lo que corta sin pregunta queda en `reintento.cortados_al_cierre`;
+  - `reintento.vueltas` y `reintento.cierre` («sin motivos», «sin progreso», «tope», «sin JSON», «sin beat») se guardan en
+    el raw, en el papel y en el `.md`;
+  - `beats`, `aplicados` e `ignorados` son la unión de las vueltas;
+  - el reintento de JSON completo quedó igual.
+- **A.2:** cambió una sola oración del prompt (`m01e-5`). Reponiendo la vieja, el md5 vuelve a `163e1fd1…`. El motivo de
+  `caben` ahora da el desglose y el máximo del beat.
+- **Tests:**
+  - nuevos: `test_module_f38d_vueltas.py` (6, desde `lab/`);
+  - ajustados sin aflojar asserts: f37a, f38a y f38c (versión y md5). `test_a1` de F38 pasa de 2 a 3 llamadas: hay una
+    vuelta 2 sobre ch05 b8 que cierra «sin progreso».
+- **Verificación, una vez** (`f38/a4/`): md5 ch02 `38e5ba14e3d24fd20f9297c9e1dfee24`, rápida 58, amplia **856 + 5 previas**.
+
+### Salida de A en texto (literal)
+Prompt, la línea que cambia (md5 del prompt **`163e1fd195238696d9e66871983d5ac5` → `76f1de7ac124b27b0670a5d5234e2f78`**):
+- antes: `Etiqueta + dato no pueden pasar de los caracteres que caben en la oración ancla (`caben`); si no caben, elegí otra oración o un dato más corto.`
+- después: `Etiqueta + dato —y en una cita, también el autor tal como viene en el archivo y 5 caracteres de comillas y raya— no pueden pasar de los caracteres que caben en la oración ancla (`caben`); si no caben, elegí otra oración o un dato más corto.`
+
+Motivo de Q50 sobre la entrada de F38c, con la Q50 de la vuelta 1 de F38c:
+- `etiqueta 21 + dato 42 + autor 41 (con comillas y raya) = 109 caracteres y en la oración [3] caben 77; en este beat caben como máximo 90 (oración [0])`
+
+Raw de la prueba 1 con 2 vueltas (`f38/a4/raw_prueba1_dos_vueltas.json`; POST simulado, así que los US$ no son reales):
+- **Vuelta 1:** beats ch02 b3, ch04 b6, ch04 b7, ch05 b8. Aplicó ch02 b3, ch04 b7 (D105 → D241) y ch05 b8.
+  - Motivos: Q50 caben (30 + 42 + 41 = 118), D47 «2», T39 «50», D105 «1962», el pico vacío de ch05 b8, el `a_pantalla`
+    de ch05 b8.
+- **Vuelta 2:** beats ch04 b7, ch05 b8.
+  - Motivos: Q50 caben (21 + 42 + 41 = 109), **D241: `la voz dice «715» para lo mismo, en la oración ancla o en una vecina
+    en ch04 [13] («La cota autorizada fue de setecientos quince.»); ¿es el mismo hecho? si no, mantenelo`**, el pico vacío y
+    el `a_pantalla` de ch05 b8.
+  - El autor mantiene D241 y recorta Q50.
+- **Cierre:** «sin motivos». Cortado sin pregunta: nada. D241 queda con `juicio_autor["contradice"] == ["715"]`.
+- `confirmados` acumulados: D47, T39, D105, D241.
+
+## B (`f38/b4/`: papel, raw, log, `GUION_PANTALLA.*`)
+- **m01e suelto:** **US$ 0.4751** (tope 1.00, respaldo).
+
+| | tokens in · out | US$ | qué cambió |
+|---|---|---|---|
+| intento 1 | 66 196 · 17 239 | 0.3048 | 13 fichas. 3 caen por el candado (Q50, Q51 y Q14 traían «» y el autor dentro del dato). 5 preguntas sobre 4 fichas. 2 picos vacíos (ch05 b8, ch07 b12). 1 `a_pantalla` (ch05 b8) |
+| vuelta 1 | 71 189 · 2 793 | 0.1703 | Podía cambiar 7 beats y cambió 3 (ch05 b8, ch05 b9, ch07 b12): las tres citas, sin comillas ni autor en el dato. D84, D47, T15 y T39: «otro hecho». Validada: 0 fuera, 0 preguntas nuevas, 0 picos vacíos |
+| cierre | | | **sin motivos**, después de 1 vuelta. Cortado sin pregunta: nada |
+
+- **Papel:** 13 fichas · 9 sellos · 4 relojes · tarjeta 9 OCT 1963 · 22:39 · nada cayó.
+
+| cap · beat | ficha (oración) | sello |
+|---|---|---|
+| ch01 b1 gancho·pico | D84 «PRESIÓN DE LA OLA DE AIRE · dos bombas de Hiroshima» [10] | INMINENTE |
+| ch02 b2 | D117 recorte «solo 13 de 34 representantes presentes» [2] | CALMA |
+| ch02 b3 pico | D47 «2 km de frente y 600 m de desarrollo vertical» [11] | AMENAZA |
+| ch03 b4 pico | T15 «3 millones de metros cúbicos» [1] | AVISO |
+| ch03 b5 | D49 «Más de 1 metro» [17] | SILENCIO |
+| ch04 b6 | T39 «50 millones de metros cúbicos» [6] | — |
+| ch04 b7 pico | **T50 «COTA ALCANZADA · 720 metros»** [15] | ALARMA |
+| ch05 b8 pico | **Q50 cita «en continua aprensión» — Administración del comune di Erto e Casso** [2] (84/90) | — |
+| ch05 b9 | Q51 cita «Que Dios nos ayude» — Alberico Biadene [17] | — |
+| ch06 b10 pico | D86 «70 metros» [13] | PÁNICO |
+| ch06 b11 | **D128 «RECUENTO OFICIAL · 1.910 personas»** [24] | — |
+| ch07 b12 pico | Q14 cita «Y justicia tendréis» — Giovanni Leone [1] | RABIA |
+| ch07 b13 | **D245 «55.645.758.500 liras»** [18] | MEMORIA |
+
+**Pantalla** (`--plan-only` corrió en 312 s; Gemini US$ 0.0020):
+- tarjeta en 00:00;
+- **13 de 13 fichas en pantalla, 7 de 7 picos con ficha**: Q50 a 8:51, D128 a 13:32, D245 a 16:27;
+- 8 sellos: INMINENTE, AMENAZA, AVISO, SILENCIO, ALARMA, PÁNICO, RABIA, MEMORIA. Sin colocar: CALMA (el crítico);
+- 3 relojes: el de voz de ch05 se corta porque quedaría menos de 2 s, y ch07 «29 NOV 1968» difiere del de la voz.
+
+Chequeos:
+- **cifra que contradice la voz: ✓**;
+- ✓ también: al mismo tiempo, corte, lectura, pregunta, costuras, gancho, música, tarjeta, sin alinear;
+- ✗ a_pantalla **4/5** (falta D192, que el autor descartó: una ficha por beat);
+- ✗ inicio de voz (previo, F32);
+- ✗ papel sin colocar (CALMA).
+
+**Esperado del handoff:**
+- 7/7 picos: **cumple**;
+- `a_pantalla` ≥ 4/5: **cumple** (Q50 entró recortada; D192 fuera);
+- D128 y D245 se quedan: **cumple**;
+- chequeo 5 ✓: **cumple**;
+- 1 a 3 vueltas y papel ≤ US$ 1,00: **cumple** (1 vuelta, US$ 0.4751);
+- tarjeta igual: **cumple**;
+- ningún beat cambiado sin motivo: **cumple**.
+
+Ningún pico quedó vacío.
+
+**Para la compuerta de Omar (gusto, no se forzó):**
+- gancho: D84 a 1:04, o D131;
+- T50 «720 metros» en ch04 b7 (cota alcanzada, por encima de la autorizada que dice la voz);
+- D192 junto a D128;
+- Q51 en ch05 b9 (antes vacío);
+- CALMA sin colocar;
+- el sello del gancho ahora es INMINENTE, no PÁNICO.
+
+Todo por `--plan-edit`.
+
+Procesos: no queda nada de la tanda corriendo. Los dos subagentes y el revisor de A terminaron. No se cerró ningún
+programa de Omar.
+
+## Lo que queda abierto F38d (entero)
+- d1. **Las tres citas del intento 1 traían «» y el autor dentro del dato** y cayeron por el candado. La vuelta 1 lo
+  arregló. Es posible que lo haya inducido la línea nueva del prompt («5 caracteres de comillas y raya»): el autor creyó
+  que tenía que escribirlas. No se puede saber con una corrida. Si se repite, la causa está en el prompt, no en el
+  código.
+- d2. **Vueltas que cierran por «tope» o «sin JSON»:** las preguntas de esa vuelta no quedan confirmadas y cortan sin que
+  el autor las haya contestado (queda en `cortados_al_cierre`). Es el comportamiento de antes con el reintento único.
+- d3. **El tope es el único freno** si el autor sigue cambiando sin repetir motivos (hasta unos US$ 0,81 y 3 vueltas con
+  el respaldo 1,00).
+- d4. **`beats`/`aplicados`/`ignorados` son la unión de las vueltas** (decisión del subagente, declarada).
+  `reintento.cierre` queda `None` en el camino del reintento de JSON completo.
+- d5. **El raw de la prueba 1 viene de un POST simulado:** sirve para la mecánica, no para el costo.
+- d6. **ESTADO no entró en el commit A** (observación del revisor de A). Va en el commit B.
+- d7. **El papel de `data/…/f8s3-vajont/01e_pantalla.*` y `GUION_PANTALLA.*` son ahora los de F38d** (copias en
+  `f38/b4/`).
+- d8. **De F38c, siguen:**
+  - c1 (`sim_f38c.py` sin commitear);
+  - c4/c5 (sin reintento, o al revalidar un raw viejo, `contradice` corta);
+  - c6 («1.234,5»), c7 y c8 (dos tests viejos leen `data/`), c9 (formato de cifras, al research);
+  - c11.
+  - Cerrados por F38d: **c2** (lo nuevo se pregunta) y **c3** (Q50 entra).
+
+## Veredicto del revisor (`revisor-handoff`, íntegro) — F38d, parte A (sobre `beb8118`, mientras corría B)
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | Requisito | Estado | Evidencia |
+|---|---|---|---|
+| 1 | Único cambio de prompt = oración de §A.2.1, literal | OK | Corrí el prompt con la oración vieja repuesta y `prompt_md5` da `163e1fd195238696d9e66871983d5ac5`. El nuevo da `76f1de7ac124b27b0670a5d5234e2f78`. La oración nueva aparece 1 vez. `test_5` compara contra el texto del handoff y exige una sola línea de diferencia (`test_module_f38d_vueltas.py:303`). |
+| 2 | `PROMPT_VERSION = "m01e-5"` | OK | `m01e_pantalla.py:62` |
+| 3 | Ningún número nuevo / sin hardcode de Vajont | OK | Un grep del diff buscando ids de Vajont (D/Q + dígitos, `ch0N`, "vajont") no devuelve nada. Las vueltas las limita el tope existente (`tope_usd`). No hay constantes nuevas. |
+| 4 | Motivo de caben (§A.2.2): normal y cita, con `{m}` y `{sm}` | OK | `m01e_pantalla.py:625-631`. `test_4` verifica que el texto sea idéntico a `MOTIVO_Q50` y que `caben` máximo sea 90 en la oración [0]. Empate: gana la primera. |
+| 5 | A.1.1 Coincidencia nueva = pregunta, no corte | OK | `validar(..., final=False)` dentro del bucle; `final` solo se usa al cerrar. `test_1` cubre D241. |
+| 6 | A.1.2 Vueltas mientras haya motivos, no sean iguales a los de la anterior y entre en el tope | OK | Bucle de `llamar`: salidas "sin motivos", "sin progreso", "tope", "sin beat". `test_2` y `test_3` las cubren. |
+| 7 | A.1.3 Cierre con validación final, `cortados_al_cierre` y `.md` con el motivo del cierre | OK | `cierre_final` y la sección "Cierre del reintento" en `a_markdown`. |
+| 8 | A.1.4 `confirmados` acumulados, nunca pisados | OK | `_acumular` (une por ítem y regla, sin repetir). El raw tiene D47, T39, D105 y D241 acumulados. |
+| 9 | A.1.5 Raw con `reintento.vueltas` y `armar`/`a_markdown` por vuelta | OK | `armar` agrega `vueltas`, `cierre` y `cortados_al_cierre`. El raw de la prueba muestra 2 vueltas (usd 0,004 cada una, POST falso), cierre "sin motivos". |
+| 10 | A.1.6 Reintento de JSON completo intacto | OK | Rama `resp is None` conservada. Pasa a `cierre_final(...,None)` y el `SinJSON` sigue igual. |
+| 11 | Tests ajustados sin aflojar asserts | OK | Los cambios en f37a, f38a y f38c son: versión de prompt, md5 `163e…`→`76f1…`, y el cambio de 2 a 3 llamadas con la vuelta 2 sobre ch05 b8. El de 3 llamadas es más estricto, no más laxo. Corrí los 4 archivos: 33 passed. |
+| 12 | Tests nuevos leen de `lab/`, no de `data/` | OK | `FASE1`, `RAW_F38C` y `HANDOFF` apuntan a rutas bajo `lab/hyperframes/f38`. |
+| 13 | `verificar.sh a4`: md5 ch02, rápida 58, amplia, sticker | OK | `verificar.out` da md5 `38e5ba14e3d24fd20f9297c9e1dfee24`, rápida 58 passed, amplia 5 failed / 856 passed. Los 5 son los previos conocidos (01b_pauses ×3, m03_merge_timing ×2). El sticker de `m01e_pantalla` en `MAPA_MODULOS.md`/`.json` y `mapa_modulos.py` está actualizado. |
+| 14 | Nada de `lab/_gpt_probe_analista/` en git | OK | `git ls-files` vacío y ningún archivo del diff está ahí. Sigue sin trackear (`??`). |
+| 15 | Salida de A en texto en el reporte (línea del prompt con md5 antes y después, motivo Q50, raw) | NO VERIFICABLE | El reporte todavía no existe. Los artefactos sí: `a4/raw_prueba1_dos_vueltas.json` y los md5 de arriba. |
+
+Fuera de alcance: ninguno. Los 13 archivos del diff son `m01e_pantalla.py`, 4 archivos de test, el mapa (md, json, py) y `a4/`. Los `M` sueltos del árbol (`diag_234_cap4.py`, `gfx_profiles/*`, `f28a.log`) son previos al commit y no están en el diff.
+
+Observaciones:
+- `lab/ESTADO_SESION.md` no está en el commit A. El procedimiento pide actualizarlo en cada commit. Falta o va con el reporte.
+- El raw de la prueba 1 es de POST falso (usd 0,004 por vuelta), no de Sonnet real. Sirve para mostrar la mecánica, no para estimar costo.
+
+Riesgos que el contrato no cubre:
+- Con el tope en 1,00 el papel puede llegar a unos 0,81 USD y 3 vueltas. Si el autor sigue cambiando sin repetir motivos, no hay otro freno que el tope.
+- Si una vuelta cierra por "tope" o "sin JSON", las preguntas de esa vuelta no quedan confirmadas y cortan sin que el autor las haya contestado. Queda registrado en `cortados_al_cierre`.
+
+## Veredicto del revisor (`revisor-handoff`, íntegro) — F38d, final
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | Requisito | Estado | Evidencia |
+|---|---|---|---|
+| 1 | Paso 0: DECISIONES (02:36) y handoff tal cual | OK | `25c2f6c`. El md5 del handoff es `7af6d606…`, igual al del pedido. |
+| 2 | A en un commit, con el único cambio de prompt de §A.2.1 y `m01e-5` | OK | `beb8118`. Mi veredicto de A sigue en pie (md5 `163e…` a `76f1…`). El `.md` de b4 declara `m01e-5` y md5 `76f1de7a…`. |
+| 3 | `verificar.sh a4`: md5 ch02 `38e5ba14…` | OK | `a4/verificar.out`: md5 `38e5ba14e3d24fd20f9297c9e1dfee24`, rápida 58, amplia 856 + 5 previas (01b ×3, m03 ×2). |
+| 4 | Salida de A en texto en el reporte: línea del prompt con md5 antes y después, motivo Q50, raw con 2 vueltas | OK | F38_REPORT.md:582-600. Contrasté con `a4/raw_prueba1_dos_vueltas.json`: los motivos de la vuelta 1 y la vuelta 2 coinciden (Q50 118 y 109 caracteres, D241 «715»), el cierre es «sin motivos», `cortados_al_cierre` está vacío y los confirmados son D47, T39, D105 y D241. |
+| 5 | B: m01e suelto, costos por vuelta | OK | `b4/m01e_vajont.log`: intento 1 con 66196 de entrada, 17239 de salida y US$ 0.3048; vuelta 1 con 71189, 2793 y US$ 0.1703; total 0.4751. El `.json` da `usd` 0.47509 y 2 intentos. Coincide con la tabla del reporte (:605-609). |
+| 6 | B: fichas, picos, sellos, a_pantalla, chequeos | OK | `01e_pantalla.md` tiene 13 fichas, 9 sellos, 4 relojes, la tarjeta «9 OCT 1963 · 22:39» y «Lo que cayó: nada». `picos_vacios` y `a_pantalla_vacios` están vacíos. Las 13 filas de la tabla (:613-627) coinciden con el papel. En el reporte: «vuelta 1 cambió 3 de 7» (el json trae 7 beats, 3 aplicados), 3 fichas caídas por candado, 5 preguntas, 2 picos vacíos y 1 a_pantalla; todo bate con el log y el json. |
+| 7 | `--plan-only` y chequeos | OK | `plan_only.log`: 312 s, Gemini US$ 0.0020. `GUION_PANTALLA.md`: Q50 a 08:51, D128 a 13:32, D245 a 16:27. «Cifra que contradice la voz» ✓. a_pantalla ✗ 4/5, y falta D192 («el rotulista no lo propuso»). Inicio de voz ✗ en ch07 (previo). Papel sin colocar ✗ en CALMA. Los relojes también coinciden: 29 NOV difiere de la voz, y el «9 OCT» de ch05 queda sin colocar por menos de 2 s (`GUION_PANTALLA.md:128,271`). |
+| 8 | Esperado del handoff en la sección F38d | OK | Las 7 filas de «Esperado» (:642-649) tienen respaldo en los números de arriba. |
+| 9 | Sección F38d con «lo que queda abierto» entero | OK | :666-686 (d1 a d8, con c2 y c3 cerrados). |
+| 10 | Dos veredictos de revisor-handoff íntegros (A y final) | PARCIAL | El veredicto de A está pegado (:688-717). La sección del final dice «(se pega abajo)» en :720 y está vacía. Es el veredicto que estoy dando ahora; hay que pegarlo antes de cerrar. |
+| 11 | ESTADO actualizado | OK | `lab/ESTADO_SESION.md` (diff): fecha, bloque «Para Omar (F38d)» y sección F38d con A, B y la parada. Sigue sin commitear, como era esperable. |
+| 12 | Lo reportado como hecho existe en disco | OK | `ls`: `a4/` tiene 5 archivos y `b4/` tiene 8 (papel .json/.md/.raw.json, `GUION_PANTALLA.*`, `m01e_vajont.log`, `plan_only.log`). Copia del papel en `data/scripts/_steps/f8s3-vajont/` presente. `git ls-files lab/_gpt_probe_analista` = 0. |
+| 13 | Sin render, sin `--aprobar-guion`, sin merge | OK | `git log cc7058d..HEAD` solo tiene los 2 commits. `plan_only.log` es solo plan-only (el único costo es Gemini). El reporte dice «Nada se renderizó». No hay evidencia de lo contrario. |
+| 14 | Ningún número nuevo, nada hardcode de Vajont, PARADA al terminar B | OK | El tope sale del perfil (`tope 1.0 (respaldo)`). El reporte termina en parada. |
+
+Observaciones:
+- El hueco del #10 se cierra solo al pegar este veredicto.
+- El commit B todavía no existe. En el árbol están sin commitear `b4/`, `F38_REPORT.md`, `ESTADO_SESION.md` y `ENTRADA_ANALISTA_2026-10-27.md`. El último es un archivo extra que el pedido no menciona; que Omar decida si entra al commit B.
+- La afirmación d1 del reporte (la línea nueva del prompt pudo inducir las «» en el dato) está declarada como no comprobable. Es honesta, pero es una hipótesis.
+
+Fuera de alcance: ninguno en lo ya commiteado. Los `M` sueltos del árbol (`diag_234_cap4.py`, `gfx_profiles/*`, `f28a.log`) son previos y ajenos a la tanda. Hay que cuidar que no entren al commit B.
+
+Riesgos que el contrato no cubre:
+- Si el prompt nuevo induce citas con «» y autor dentro del dato (d1), costó una vuelta de US$ 0.17 en Vajont y puede repetirse en otros temas.
+- Si una vuelta cierra por «tope» o «sin JSON», las preguntas de esa vuelta quedan sin contestar (d2), y el tope del perfil es el único freno (d3).
+
+### Adenda de CC (después del veredicto; el texto de arriba queda tal cual)
+- Fila 10: este veredicto quedó pegado acá.
+- `ENTRADA_ANALISTA_2026-10-27.md` no entra al commit B: no es de la tanda y el pedido no lo nombra. Queda sin trackear para que decida Omar. Los `M` ajenos (`diag_234_cap4.py`, `gfx_profiles/*`, `f28a.log`) tampoco entran.

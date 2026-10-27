@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-27 (F38c hecha —A, B—, PARADA: D128 y D245 en pantalla, chequeo de cifra ✓, 2 picos vacíos) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-27 (F38d hecha —A, B—, PARADA: 13/13 fichas, 7/7 picos, a_pantalla 4/5, 1 vuelta) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -12,6 +12,14 @@
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F38d): leer `lab/hyperframes/f38/b4/01e_pantalla.md` (13 fichas, 7/7 picos, D128 «1.910 personas», Q50 y D245 adentro, tarjeta 9 OCT 1963 · 22:39) y la lista «para la compuerta de Omar» de la sección F38d de `F38_REPORT.md` (gancho D84 o D131, T50 «720 m», D192, Q51, CALMA, sello del gancho). Si está bien: «aprobado» → `--aprobar-guion` → render v6. Nada se renderizó.
+
+## F38d — Vueltas de reintento y caben medido igual (pedido de Omar, 2026-10-27) — HECHA, **PARADA**
+- Handoff `lab/hyperframes/f38/HANDOFF_F38d_vueltas_y_caben.md` (md5 `7af6d606…`). Base `cc7058d`. Paso 0 `25c2f6c` (DECISIONES 02:36 + handoff).
+- **A HECHO** (`beb8118`; código y tests en paralelo; revisor de A en paralelo con B: CUMPLE CON OBSERVACIONES): vueltas de reintento parcial (motivos, progreso, tope del perfil; lo nuevo se pregunta; `confirmados` acumulados; `cortados_al_cierre`; `reintento.vueltas/cierre`); prompt `m01e-5`, solo la oración de caben (md5 `163e1fd1…` → `76f1de7a…`); motivo de caben con desglose y máximo del beat. md5 `38e5ba14…`, rápida 58, amplia 856 + 5 previas.
+- **B HECHO** (commit B): m01e US$ 0.4751 (intento 1 + 1 vuelta, cierre «sin motivos», nada cortado sin pregunta); papel 13 fichas, 9 sellos, tarjeta ✓. `--plan-only`: 13/13 fichas, 7/7 picos, 8 sellos (CALMA sin colocar), a_pantalla 4/5, cifra ✓. Archivos en `lab/hyperframes/f38/b4/`.
+- **PARADA final F38d** (sección F38d de `F38_REPORT.md`, los dos veredictos íntegros, abierto d1–d8).
 
 ## 👀 Para Omar (F38c): leer `lab/hyperframes/f38/b3/01e_pantalla.md` (10 fichas: D128 «1.910 personas» y D245 entraron; D131 de vuelta en [15]) y la lista «para la compuerta de Omar» de la sección F38c de `F38_REPORT.md` (picos vacíos ch04 b7 y ch05 b8, D192, CALMA/RABIA). Decidir: `sim_f38c.py` frenado por `guard_git` (abierto c1). Nada se renderizó.
 
