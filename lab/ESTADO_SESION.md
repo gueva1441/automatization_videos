@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-27 (F38b hecha —A, B—, PARADA: sin juez, gancho de m01e-1, 12 fichas en pantalla) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-27 (F38c hecha —A, B—, PARADA: D128 y D245 en pantalla, chequeo de cifra ✓, 2 picos vacíos) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -12,6 +12,14 @@
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F38c): leer `lab/hyperframes/f38/b3/01e_pantalla.md` (10 fichas: D128 «1.910 personas» y D245 entraron; D131 de vuelta en [15]) y la lista «para la compuerta de Omar» de la sección F38c de `F38_REPORT.md` (picos vacíos ch04 b7 y ch05 b8, D192, CALMA/RABIA). Decidir: `sim_f38c.py` frenado por `guard_git` (abierto c1). Nada se renderizó.
+
+## F38c — Marcas a_pantalla, contradicción como pregunta, decimales (pedido de Omar, 2026-10-27) — HECHA, **PARADA**
+- Handoff `lab/hyperframes/f38/HANDOFF_F38c_marcas_contradice_decimales.md` (md5 `3221f784…`). Base `1f365cb`. Paso 0 `7aeae89` (DECISIONES 01:56, handoff, archivado del borrador; borrador borrado; `sim_f38c.py` NO: lo frena `guard_git`).
+- **A HECHO** (`95f2e49`, dos subagentes en paralelo): `a_pantalla` en campo propio y motivo del reintento; `contradicciones_de` + pregunta `contradice` al autor + `juicio_autor` hasta el chequeo 5 (vía `pantalla_colocar`, 5.º módulo); `_num_tok` decimales. Prompt `163e1fd1…` sin cambios. md5 `38e5ba14…`, rápida 58, amplia 850 + 5 previas. Entradas de Fase 1 congeladas para tests en `f38/b2/fase1/`.
+- **B HECHO** (commit B): m01e US$ 0.4720; papel 10 fichas (D128 b11, D245 b13, D131 [15]), 10 sellos, tarjeta ✓; el reintento cambió D105 → D241 «723 m» y cayó por `contradice` sin pregunta (abierto c2); Q50 cayó por caben dos veces. `--plan-only`: 10/10 fichas, 5/7 picos, 8 sellos, chequeo de cifra ✓, a_pantalla 3/5. Archivos en `lab/hyperframes/f38/b3/`.
+- **PARADA final F38c** (sección F38c de `F38_REPORT.md`, revisor íntegro, abierto c1–c11).
 
 ## 👀 Para Omar (F38b): leer `lab/hyperframes/f38/b2/01e_pantalla.md` (papel sin editar: 12 fichas, 9 sellos, tarjeta 9 OCT 1963 · 22:39) y la lista «para la compuerta de Omar» de la sección F38b de `F38_REPORT.md` (gancho D84 a 1:04 u otro, D40 «722.50», D86/D01, D228/D128, D37/D245, ch05 b9 vacío, CALMA y SILENCIO sin colocar). Nada se renderizó.
 
