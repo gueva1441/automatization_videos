@@ -1,0 +1,288 @@
+bringing up nodes...
+bringing up nodes...
+
+........................................................................ [  7%]
+........................................................................ [ 15%]
+........................................................................ [ 23%]
+........................................................................ [ 31%]
+........................................................................ [ 39%]
+F.FF...F................................................................ [ 47%]
+........................................................................ [ 55%]
+........................................................................ [ 63%]
+........................................................................ [ 71%]
+........................................................................ [ 79%]
+.............................................................F.....FF... [ 87%]
+...............................FF......................................F [ 95%]
+F.....................................                                   [100%]
+================================== FAILURES ===================================
+______________________ test_reensamble_reusa_sin_rehacer ______________________
+[gw9] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000029E286B5890>
+tmp_path = WindowsPath('C:/Users/Canada/AppData/Local/Temp/pytest-of-guevara41/pytest-956/popen-gw9/test_reensamble_reusa_sin_reha0')
+
+    def test_reensamble_reusa_sin_rehacer(monkeypatch, tmp_path):
+        estado = _mocks(monkeypatch)
+        kw = _kw(tmp_path)
+        kw.update(reassemble=True, manifest={"ch01": "h-ch01"})
+        (tmp_path / "seg_01_ch01.mp4").write_bytes(b"x")
+        segs, reused, rc = fase2b._segmentos_en_paralelo(_plans(2), **kw)
+>       assert rc == 0 and reused == ["ch01"] and estado["llamadas"] == ["ch02"] and len(segs) == 2
+E       assert (2 == 0)
+
+test_module_f28c.py:96: AssertionError
+---------------------------- Captured stdout call -----------------------------
+     ♻  ch01: segmento sin cambios (h-ch01) → reuso seg_01_ch01.mp4
+
+  🔧 [2/2] ch02 (flux) — en paralelo
+     ✓ seg_02_ch02.mp4 — 1.0s (0s)
+     ❌ ch02: AttributeError: 'types.SimpleNamespace' object has no attribute 'is_first'
+_____________________ test_paralelo_respeta_orden_y_tope ______________________
+[gw19] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002164E8F0190>
+tmp_path = WindowsPath('C:/Users/Canada/AppData/Local/Temp/pytest-of-guevara41/pytest-956/popen-gw19/test_paralelo_respeta_orden_y_0')
+
+    def test_paralelo_respeta_orden_y_tope(monkeypatch, tmp_path):
+        estado = _mocks(monkeypatch)
+        segs, reused, rc = fase2b._segmentos_en_paralelo(_plans(7), **_kw(tmp_path))
+>       assert rc == 0 and reused == []
+E       assert (2 == 0)
+
+test_module_f28c.py:64: AssertionError
+---------------------------- Captured stdout call -----------------------------
+
+  🔧 [1/7] ch01 (flux) — en paralelo
+
+  🔧 [2/7] ch02 (flux) — en paralelo
+     ✓ seg_01_ch01.mp4 — 1.0s (0s)
+     ❌ ch01: AttributeError: 'types.SimpleNamespace' object has no attribute 'is_first'
+
+  🔧 [3/7] ch03 (flux) — en paralelo
+     ✓ seg_02_ch02.mp4 — 1.0s (0s)
+     ❌ ch02: AttributeError: 'types.SimpleNamespace' object has no attribute 'is_first'
+
+  🔧 [4/7] ch04 (flux) — en paralelo
+     ✓ seg_03_ch03.mp4 — 1.0s (0s)
+     ❌ ch03: AttributeError: 'types.SimpleNamespace' object has no attribute 'is_first'
+
+  🔧 [5/7] ch05 (flux) — en paralelo
+     ✓ seg_04_ch04.mp4 — 1.0s (0s)
+     ❌ ch04: AttributeError: 'types.SimpleNamespace' object has no attribute 'is_first'
+
+  🔧 [6/7] ch06 (flux) — en paralelo
+     ✓ seg_05_ch05.mp4 — 1.0s (0s)
+     ❌ ch05: AttributeError: 'types.SimpleNamespace' object has no attribute 'is_first'
+
+  🔧 [7/7] ch07 (flux) — en paralelo
+     ✓ seg_06_ch06.mp4 — 1.0s (0s)
+     ❌ ch06: AttributeError: 'types.SimpleNamespace' object has no attribute 'is_first'
+     ✓ seg_07_ch07.mp4 — 1.0s (0s)
+     ❌ ch07: AttributeError: 'types.SimpleNamespace' object has no attribute 'is_first'
+_______________ test_cap_sin_gfx_en_paralelo_se_rehace_en_fila ________________
+[gw9] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000029E285BB910>
+tmp_path = WindowsPath('C:/Users/Canada/AppData/Local/Temp/pytest-of-guevara41/pytest-956/popen-gw9/test_cap_sin_gfx_en_paralelo_s0')
+
+    def test_cap_sin_gfx_en_paralelo_se_rehace_en_fila(monkeypatch, tmp_path):
+        estado = _mocks(monkeypatch)
+        import script_engine.gfx_review as gr  # noqa: F401
+        original = fase2b._build_chapter_segment
+        vistos = {}
+    
+        def build(plan, segment_path, **kw):
+            vistos[plan.chapter_id] = vistos.get(plan.chapter_id, 0) + 1
+            original(plan, segment_path, **kw)
+            if plan.chapter_id == "ch02" and vistos["ch02"] == 1:          # la 1.ª vez el gfx cayó a base_clip
+                (Path(segment_path).parent / "ch02_gfx.mp4").unlink()
+        monkeypatch.setattr(fase2b, "_build_chapter_segment", build)
+        segs, _, rc = fase2b._segmentos_en_paralelo(_plans(3), **_kw(tmp_path))
+>       assert rc == 0 and vistos == {"ch01": 1, "ch02": 2, "ch03": 1} and len(segs) == 3
+E       assert (2 == 0)
+
+test_module_f28c.py:119: AssertionError
+---------------------------- Captured stdout call -----------------------------
+
+  🔧 [1/3] ch01 (flux) — en paralelo
+
+  🔧 [2/3] ch02 (flux) — en paralelo
+     ✓ seg_01_ch01.mp4 — 1.0s (0s)
+     ❌ ch01: AttributeError: 'types.SimpleNamespace' object has no attribute 'is_first'
+
+  🔧 [3/3] ch03 (flux) — en paralelo
+     ✓ seg_02_ch02.mp4 — 1.0s (0s)
+     ❌ ch02: AttributeError: 'types.SimpleNamespace' object has no attribute 'is_first'
+     ✓ seg_03_ch03.mp4 — 1.0s (0s)
+     ❌ ch03: AttributeError: 'types.SimpleNamespace' object has no attribute 'is_first'
+_____________________ test_memoria_se_reintenta_de_a_dos ______________________
+[gw19] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000021623DC96D0>
+tmp_path = WindowsPath('C:/Users/Canada/AppData/Local/Temp/pytest-of-guevara41/pytest-956/popen-gw19/test_memoria_se_reintenta_de_a0')
+
+    def test_memoria_se_reintenta_de_a_dos(monkeypatch, tmp_path):
+        vistos = {}
+    
+        def falla(plan):
+            vistos[plan.chapter_id] = vistos.get(plan.chapter_id, 0) + 1
+            if plan.chapter_id == "ch02" and vistos["ch02"] == 1:
+                raise RuntimeError("CUDA out of memory")
+        _mocks(monkeypatch, falla)
+        segs, _, rc = fase2b._segmentos_en_paralelo(_plans(4), **_kw(tmp_path))
+>       assert rc == 0 and vistos["ch02"] == 2 and len(segs) == 4
+E       assert (2 == 0)
+
+test_module_f28c.py:78: AssertionError
+---------------------------- Captured stdout call -----------------------------
+
+  🔧 [1/4] ch01 (flux) — en paralelo
+
+  🔧 [2/4] ch02 (flux) — en paralelo
+     ❌ ch02: RuntimeError: CUDA out of memory
+
+  🔧 [3/4] ch03 (flux) — en paralelo
+     ✓ seg_01_ch01.mp4 — 1.0s (0s)
+     ❌ ch01: AttributeError: 'types.SimpleNamespace' object has no attribute 'is_first'
+
+  🔧 [4/4] ch04 (flux) — en paralelo
+     ✓ seg_03_ch03.mp4 — 1.0s (0s)
+     ❌ ch03: AttributeError: 'types.SimpleNamespace' object has no attribute 'is_first'
+     ✓ seg_04_ch04.mp4 — 1.0s (0s)
+     ❌ ch04: AttributeError: 'types.SimpleNamespace' object has no attribute 'is_first'
+  ⚠ 1 cap(s) cayeron por memoria → reintento de a 1
+
+  🔧 [2/4] ch02 (flux) — en paralelo
+     ✓ seg_02_ch02.mp4 — 1.0s (0s)
+     ❌ ch02: AttributeError: 'types.SimpleNamespace' object has no attribute 'is_first'
+________________________ test_prose_rules_regla_pausas ________________________
+[gw19] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+    def test_prose_rules_regla_pausas():
+>       assert "PAUSAS" in PROSE_RULES and "..." in PROSE_RULES
+E       assert ('PAUSAS' in 'REGLAS DE PROSA (todas inviolables):\n1. IDIOMA: español neutro. Sin anglicismos sin traducir.\n   ✗ MAL: "telescoped...interno. La narración final va directo a TTS y los tags se\n   leen literal como "F cero ocho" — destruyendo el audio.')
+
+test_module_01b_pauses.py:28: AssertionError
+___________________________ test_c_guarda_de_minimo ___________________________
+[gw19] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+    def test_c_guarda_de_minimo():
+        """Aunque haya gaps apretados, NO baja del mínimo."""
+        # 4 items, todos apretados; min_count=4 → no debe fusionar ninguno.
+        words = _words(("a", 0.0), ("b", 0.3), ("c", 0.6), ("d", 0.9))
+        plan = _flux_plan("a", "b", "c", "d")
+        out, dropped = m._reconcile_anchor_timing(plan, "flux", words, min_count=4, cap_number=1)
+        assert dropped == 0
+        assert len(out["anchors"]) == 4
+        # min_count=3 → fusiona hasta quedar exactamente en 3, no menos.
+        plan2 = _flux_plan("a", "b", "c", "d")
+        out2, dropped2 = m._reconcile_anchor_timing(plan2, "flux", words, min_count=3, cap_number=1)
+>       assert len(out2["anchors"]) == 3
+E       AssertionError: assert 4 == 3
+E        +  where 4 = len([{'anchor': 'a', 'pos': 0, 'end': 1}, {'anchor': 'b', 'pos': 1, 'end': 2}, {'anchor': 'c', 'pos': 2, 'end': 3}, {'anchor': 'd', 'pos': 3, 'end': 4}])
+
+test_module_m03_merge_timing.py:88: AssertionError
+---------------------------- Captured stdout call -----------------------------
+  [03][audit] cap 1: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
+  [03][audit] cap 1: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
+____________________ test_c_veo_path_y_veo_anchor_intacto _____________________
+[gw19] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+    def test_c_veo_path_y_veo_anchor_intacto():
+        """La fusión corre también para veo (supplementals); el veo_anchor NO se toca."""
+        words = _words(("uno", 0.0), ("dos", 0.4), ("tres", 5.0), ("cuatro", 10.0),
+                       ("cinco", 15.0))
+        plan = _veo_plan("uno", "dos", "tres", "cuatro", "cinco")
+        out, dropped = m._reconcile_anchor_timing(plan, "veo", words, min_count=4, cap_number=7)
+>       assert dropped == 1                                  # 'dos' (gap 0.4) fuera
+        ^^^^^^^^^^^^^^^^^^^
+E       assert 0 == 1
+
+test_module_m03_merge_timing.py:98: AssertionError
+---------------------------- Captured stdout call -----------------------------
+  [03][audit] cap 7: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
+_______________________ test_tone_blocks_tienen_pausas ________________________
+[gw10] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+    def test_tone_blocks_tienen_pausas():
+        for intent, txt in TONE_INSTRUCTIONS_BY_INTENT.items():
+>           assert "PAUSAS" in txt, f"{intent}: falta guia de PAUSAS"
+E           AssertionError: hook: falta guia de PAUSAS
+E           assert 'PAUSAS' in 'Frases cortas y tensas. Promesa explícita. NO contexto largo. Densidad alta.'
+
+test_module_01b_pauses.py:18: AssertionError
+__________________________ test_hook_abre_con_pausa ___________________________
+[gw10] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+    def test_hook_abre_con_pausa():
+        h = TONE_INSTRUCTIONS_BY_INTENT["hook"]
+>       assert "..." in h and "ANTES" in h, "hook no instruye abrir con '...' ANTES"
+E       AssertionError: hook no instruye abrir con '...' ANTES
+E       assert ('...' in 'Frases cortas y tensas. Promesa explícita. NO contexto largo. Densidad alta.')
+
+test_module_01b_pauses.py:24: AssertionError
+___________________ test_preview_usa_las_plantillas_reales ____________________
+[gw15] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+server = (<gfx_lab_server.LabSession object at 0x000001467FDEF010>, 'http://127.0.0.1:51855')
+
+    @needs_data
+    def test_preview_usa_las_plantillas_reales(server):
+        """El preview es write_project (mismo templater que el render) + el runtime inyectado."""
+        session, url = server
+        plan = session.director_plan()
+        r = _post(url + "/preview", {"plan": plan})
+        assert r["src"].startswith("/composition/index.html?v=")
+        assert any(c["block"] == "title_card" for c in r["cues"])
+        html = _get(url + "/composition/index.html")[2].decode("utf-8")
+        assert html.count(lab.RUNTIME_TAG) == 1
+>       assert 'data-composition-src="compositions/scene_01.html"' in html
+E       assert 'data-composition-src="compositions/scene_01.html"' in '<script src="/runtime.js"></script>'
+
+test_module_gfx_lab.py:151: AssertionError
+_________________________ test_candado_en_el_preview __________________________
+[gw11] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+server = (<gfx_lab_server.LabSession object at 0x0000023E2611EC10>, 'http://127.0.0.1:51861')
+
+    @needs_data
+    def test_candado_en_el_preview(server):
+        session, url = server
+        plan = session.director_plan()
+        plan["callouts"] = plan["callouts"] + [{"text": "TEXTO INVENTADO 999", "start": 20.0, "kind": "figure",
+                                               "duration": 2.5, "side": "left", "source": ""}]
+        plan["chapter_question"] = {"text": "¿Quién apagó la luz?", "start": 94.0, "duration": 3.0, "keyword": "", "manual": True}
+        r = _post(url + "/preview", {"plan": plan, "tokens": {"accent_hex": "#123456"}})
+        assert any(x["text"] == "TEXTO INVENTADO 999" for x in r["rejected"])
+        assert not any(c["text"] == "TEXTO INVENTADO 999" for c in r["cues"])
+        assert any(c["block"] == "chapter_question" for c in r["cues"])        # manual: fuera del candado
+        html = (session.project / "index.html").read_text(encoding="utf-8")
+>       assert "#123456" in html and "Quién apagó la luz" in html
+E       assert ('#123456' in '<!doctype html>\n<html lang="es" data-resolution="landscape">\n  <head>\n    <meta charset="UTF-8" />\n    <meta name...ower4.out" }, 97.833);\n      window.__timelines["main"] = tl;\n      tl.seek(0);\n    </script>\n  </body>\n</html>\n')
+
+test_module_gfx_lab.py:248: AssertionError
+============================== warnings summary ===============================
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+  C:\CLAUDE_PROJECTS\automatization_videos\script_engine\image_grade.py:83: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+    luma = list(im.convert("L").getdata())
+
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+  C:\CLAUDE_PROJECTS\automatization_videos\script_engine\image_grade.py:85: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+    s = [sv for sv, lv in zip(hsv.getdata(band=1), luma) if lv > 24] or [0]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED test_module_f28c.py::test_reensamble_reusa_sin_rehacer - assert (2 == 0)
+FAILED test_module_f28c.py::test_paralelo_respeta_orden_y_tope - assert (2 == 0)
+FAILED test_module_f28c.py::test_cap_sin_gfx_en_paralelo_se_rehace_en_fila - ...
+FAILED test_module_f28c.py::test_memoria_se_reintenta_de_a_dos - assert (2 == 0)
+FAILED test_module_01b_pauses.py::test_prose_rules_regla_pausas - assert ('PA...
+FAILED test_module_m03_merge_timing.py::test_c_guarda_de_minimo - AssertionEr...
+FAILED test_module_m03_merge_timing.py::test_c_veo_path_y_veo_anchor_intacto
+FAILED test_module_01b_pauses.py::test_tone_blocks_tienen_pausas - AssertionE...
+FAILED test_module_01b_pauses.py::test_hook_abre_con_pausa - AssertionError: ...
+FAILED test_module_gfx_lab.py::test_preview_usa_las_plantillas_reales - asser...
+FAILED test_module_gfx_lab.py::test_candado_en_el_preview - assert ('#123456'...
+11 failed, 891 passed, 4 warnings in 185.01s (0:03:05)
