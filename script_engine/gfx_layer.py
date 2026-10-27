@@ -289,9 +289,9 @@ def closing_question(resolved: dict[str, Any], ctx: dict[str, Any], work_dir: Pa
     if not gfx_rules.question_auto or gfx_rules.question_pause_sec <= 0:
         return 0.0
     from script_engine.gfx_director import question_keyword
-    from script_engine.gfx_realizador import pregunta_cierre
+    from script_engine.gfx_realizador import pregunta_cierre_fuente
     real = ctx.get("realizador")
-    txt = pregunta_cierre(real) if real else None
+    txt, fuente = pregunta_cierre_fuente(real) if real else (None, None)   # F38e §B4: desde la voz, con su fuente
     if not txt:
         log.append("  pregunta de cierre: no (sin escaleta o el último beat no trae `cierre`)")
         resolved["chapter_question"] = None
@@ -300,10 +300,10 @@ def closing_question(resolved: dict[str, Any], ctx: dict[str, Any], work_dir: Pa
     pause = lectura_pregunta(txt)
     resolved["chapter_question"] = {"text": txt, "start": round(clip_dur, 3), "duration": round(pause, 3),
                                     "keyword": question_keyword(txt), "generated": True, "pause": pause,
-                                    "fuente": "escaleta (cierre del último beat)"}
+                                    "fuente": fuente}                       # voz-pregunta · voz-alineada · escaleta
     bh = float(gfx_rules.black_hold_sec)
     resolved["black_hold"] = {"start": round(clip_dur + pause, 3), "duration": round(bh, 3)} if bh > 0 else None
-    log.append(f"  pregunta de cierre (cierre del beat {real['beats'][-1]['n']}): {txt!r}")
+    log.append(f"  pregunta de cierre (beat {real['beats'][-1]['n']}, {fuente}): {txt!r}")
     return pausa_a_disco(work_dir, cap, resolved)        # F38e §A R8: una sola cuenta (pregunta + negro) y un archivo
 
 

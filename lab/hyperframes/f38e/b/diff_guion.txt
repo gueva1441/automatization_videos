@@ -1,0 +1,467 @@
+## Top
+- aprobado: {'por': 'Omar', 'fecha': '2026-10-27', 'md5_planes': '35576ed62cafe69ededc85371834fef6', 'planes': ['gfx_plan_ch01.resolved.json', 'gfx_plan_ch02.resolved.json', 'gfx_plan_ch03.resolved.json', 'gfx_plan_ch04.resolved.json', 'gfx_plan_ch05.resolved.json', 'gfx_plan_ch06.resolved.json', 'gfx_plan_ch07.resolved.json']} → None
+- duracion_s: 1056.267 → 1047.8
+- mezcla: {'mezcla': 'C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\f8s3-vajont-f30\\_fase2b_work\\mezcla_preview.wav', 'narracion': 'C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\f8s3-vajont-f30\\_fase2b_work\\_preview_narracion.wav', 'intro': 3.0, 'umbral_db': -30.46, 'umbral_de': 'duck_threshold 0.03 del sync map', 'segundos': 10.9, 'duracion_s': 1056.267, 'musica': [{'cap': 'ch01', 'title_card_s': 3.0, 'medido_s': 3.0, 'desvio_s': 0.0, 'desvio_cuadros': 0.0, 'ok': True}, {'cap': 'ch02', 'title_card_s': 104.6, 'medido_s': 104.6, 'desvio_s': 0.0, 'desvio_cuadros': 0.0, 'ok': True}, {'cap': 'ch03', 'title_card_s': 245.2, 'medido_s': 245.2, 'desvio_s': -0.0, 'desvio_cuadros': -0.0, 'ok': True}, {'cap': 'ch04', 'title_card_s': 380.5, 'medido_s': 380.5, 'desvio_s': 0.0, 'desvio_cuadros': 0.0, 'ok': True}, {'cap': 'ch05', 'title_card_s': 509.467, 'medido_s': 509.467, 'desvio_s': 0.0, 'desvio_cuadros': 0.0, 'ok': True}, {'cap': 'ch06', 'title_card_s': 685.167, 'medido_s': 685.167, 'desvio_s': 0.0, 'desvio_cuadros': 0.0, 'ok': True}, {'cap': 'ch07', 'title_card_s': 859.367, 'medido_s': 859.367, 'desvio_s': 0.0, 'desvio_cuadros': 0.0, 'ok': True}]} → {'mezcla': 'C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\f8s3-vajont-f30\\_fase2b_work\\mezcla_preview.wav', 'narracion': 'C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\f8s3-vajont-f30\\_fase2b_work\\_preview_narracion.wav', 'intro': 3.0, 'umbral_db': -30.46, 'umbral_de': 'duck_threshold 0.03 del sync map', 'segundos': 12.2, 'duracion_s': 1047.8, 'musica': [{'cap': 'ch01', 'title_card_s': 3.0, 'medido_s': 3.0, 'desvio_s': 0.0, 'desvio_cuadros': 0.0, 'ok': True}, {'cap': 'ch02', 'title_card_s': 104.933, 'medido_s': 104.933, 'desvio_s': 0.0, 'desvio_cuadros': 0.0, 'ok': True}, {'cap': 'ch03', 'title_card_s': 246.533, 'medido_s': 246.533, 'desvio_s': 0.0, 'desvio_cuadros': 0.0, 'ok': True}, {'cap': 'ch04', 'title_card_s': 381.833, 'medido_s': 381.833, 'desvio_s': 0.0, 'desvio_cuadros': 0.0, 'ok': True}, {'cap': 'ch05', 'title_card_s': 510.8, 'medido_s': 510.8, 'desvio_s': 0.0, 'desvio_cuadros': 0.0, 'ok': True}, {'cap': 'ch06', 'title_card_s': 686.5, 'medido_s': 686.5, 'desvio_s': 0.0, 'desvio_cuadros': 0.0, 'ok': True}, {'cap': 'ch07', 'title_card_s': 860.7, 'medido_s': 860.7, 'desvio_s': 0.0, 'desvio_cuadros': 0.0, 'ok': True}]}
+- costos: {'gemini_usd': 0.002} → {'gemini_usd': 0.0004}
+
+## Caps (escalares)
+- ch01 seg_dur: 101.6 → 101.933
+- ch02 inicio_voz: {'esperado': 107.68, 'medido': 107.68, 't_18db': 107.679, 'rampa': True, 'a_tiempo': True, 'ok': True, 'previo_db': -28.1, 'umbral_db': -30.5} → {'esperado': 108.013, 'medido': 108.013, 't_18db': 108.012, 'rampa': True, 'a_tiempo': True, 'ok': True, 'previo_db': -28.1, 'umbral_db': -30.5}
+- ch02 offset: 104.6 → 104.933
+- ch02 seg_dur: 140.6 → 141.6
+- ch03 inicio_voz: {'esperado': 248.28, 'medido': 248.28, 't_18db': 248.279, 'rampa': True, 'a_tiempo': True, 'ok': True, 'previo_db': -28.4, 'umbral_db': -30.5} → {'esperado': 249.613, 'medido': 249.613, 't_18db': 249.612, 'rampa': True, 'a_tiempo': True, 'ok': True, 'previo_db': -28.4, 'umbral_db': -30.5}
+- ch03 offset: 245.2 → 246.533
+- ch04 inicio_voz: {'esperado': 383.56, 'medido': 383.56, 't_18db': 384.055, 'rampa': True, 'a_tiempo': True, 'ok': True, 'previo_db': -21.6, 'umbral_db': -30.5} → {'esperado': 384.893, 'medido': 384.893, 't_18db': 385.388, 'rampa': True, 'a_tiempo': True, 'ok': True, 'previo_db': -21.6, 'umbral_db': -30.5}
+- ch04 offset: 380.5 → 381.833
+- ch05 inicio_voz: {'esperado': 512.547, 'medido': 512.547, 't_18db': 512.565, 'rampa': True, 'a_tiempo': True, 'ok': True, 'previo_db': -24.5, 'umbral_db': -30.5} → {'esperado': 513.88, 'medido': 513.88, 't_18db': 513.898, 'rampa': True, 'a_tiempo': True, 'ok': True, 'previo_db': -24.5, 'umbral_db': -30.5}
+- ch05 offset: 509.467 → 510.8
+- ch06 inicio_voz: {'esperado': 688.307, 'medido': 688.307, 't_18db': 688.325, 'rampa': True, 'a_tiempo': True, 'ok': True, 'previo_db': -29.5, 'umbral_db': -30.5} → {'esperado': 689.64, 'medido': 689.64, 't_18db': 689.658, 'rampa': True, 'a_tiempo': True, 'ok': True, 'previo_db': -29.5, 'umbral_db': -30.5}
+- ch06 offset: 685.167 → 686.5
+- ch07 inicio_voz: {'esperado': 862.447, 'medido': 862.447, 't_18db': 862.438, 'rampa': False, 'a_tiempo': True, 'ok': False, 'previo_db': -32.6, 'umbral_db': -30.5} → {'esperado': 863.78, 'medido': 863.78, 't_18db': 863.771, 'rampa': False, 'a_tiempo': True, 'ok': False, 'previo_db': -32.6, 'umbral_db': -30.5}
+- ch07 offset: 859.367 → 860.7
+- ch07 seg_dur: 196.9 → 187.1
+
+## Eventos
+- ch01 QUITADO: pregunta de cierre «El dique no cedió esa noche. Lo que llegó a la cama de Micae» @ 94.933 (queda=True)
+- ch01 NUEVO: pregunta de cierre «Pero el dique no cedió esa noche. Lo que llegó a la cama de » @ 94.933 (queda=True) movido=None filtro='pasó'
+- ch01 tarjeta fecha-hora «9 OCT 1963 · 22:39» @ -3.0:
+    · escena_t1: '101.6' → '101.933'
+- ch01 title card «Cama en la oscuridad» @ 0.0:
+    · escena_t1: '101.6' → '101.933'
+- ch01 costura «intro 3.0 s (tarjeta «9 OCT 1963 · 22:39» sobre ne» @ 0.0:
+    · escena_t1: '101.6' → '101.933'
+- ch01 ficha «dos bombas de Hiroshima» @ 61.22:
+    · escena_t1: '101.6' → '101.933'
+- ch01 sello «INMINENTE» @ 66.32:
+    · escena_t1: '101.6' → '101.933'
+- ch01 reloj «9 OCT · 1963» @ 73.54:
+    · escena_t1: '101.6' → '101.933'
+- ch01 costura «negro 1.0 s al cierre del cap (black hold)» @ 100.6:
+    · escena_t1: '101.6' → '101.933'
+    · t: '100.6' → '100.933'
+- ch02 QUITADO: pregunta de cierre «En marzo del cincuenta y nueve, en otro embalse de la misma » @ 133.167 (queda=True)
+- ch02 NUEVO: pregunta de cierre «En marzo de mil novecientos cincuenta y nueve, en otro embal» @ 133.167 (queda=True) movido=None filtro='pasó'
+- ch02 sello «CALMA» @ 0.0:
+    · filtro: 'cortó colocar (intentos): sello del papel «CALMA»: no entra en ningún intento: 1 · palabra de más peso (58.18 s) · lado right: estorba — El sello grande a media altura a la derecha tapa rostros de las personas sentadas e' → 'cortó colocar (intentos): sello del papel «CALMA»: no entra en ningún intento: 1 · palabra de más peso (58.18 s) · lado right: estorba — El sello grande a media altura a la derecha tapa rostros de las personas sentadas e'
+- ch02 ficha «2 km de frente y 600 m de desarrollo vertical» @ 86.6:
+    · escena: '9' → '8'
+    · escena_t0: '86.6' → '79.567'
+    · escena_t1: '99.367' → '86.6'
+    · movido: '84.70 → 86.60 s (3 · oración siguiente [12], inicio de la escena 9): 1 · palabra ancla (84.70 s): sin tiempo de lectura: 71 caracteres piden 4.7 s y hay 1.9 s hasta el corte de escena (86.6 s) · 1 · inicio de la oración ' → '84.70 → 79.57 s (2 · inicio de la escena 8): 1 · palabra ancla (84.70 s): sin tiempo de lectura: 71 caracteres piden 4.7 s y hay 1.9 s hasta el corte de escena (86.6 s) · 1 · inicio de la oración (79.50 s): sin tiempo de'
+    · t: '86.6' → '79.567'
+    · voz_ancla: 'Y hubo otro hombre que caminó esa ladera con un martillo en la mano y otra idea en la cabeza: Edoardo Semenza, geólogo, hijo de Carlo Semenza, el que había dibujado la presa.' → 'En la década del cincuenta, el geólogo Leopold Müller detectó en el Toc un gran desmoronamiento.'
+    · voz_next: 'Edoardo buscaba la cicatriz de un deslizamiento antiguo.' → 'Y hubo otro hombre que caminó esa ladera con un martillo en la mano y otra idea en la cabeza: Edoardo Semenza, geólogo, hijo de Carlo Semenza, el que había dibujado la presa.'
+    · voz_prev: 'En la década del cincuenta, el geólogo Leopold Müller detectó en el Toc un gran desmoronamiento.' → 'La gente de la zona llamaba al monte Toc «la montaña que camina», y lo decían los residentes desde antes de que nadie fuera a medirla.'
+- ch02 transición «dip 10 cuadros» @ 123.8:
+    · escena_t1: '140.567' → '141.567'
+- ch02 costura «negro 1.0 s al cierre del cap (black hold)» @ 139.567:
+    · escena_t1: '140.567' → '141.567'
+    · t: '139.567' → '140.567'
+- ch03 pregunta de cierre «El cuatro de noviembre, durante las pruebas, el ag» @ 129.0:
+    · fuente: 'escaleta (cierre del último beat)' → 'voz-alineada'
+- ch04 pregunta de cierre «La presa cambió de dueño con el agua todavía subie» @ 121.833:
+    · fuente: 'escaleta (cierre del último beat)' → 'voz-alineada'
+- ch05 QUITADO: reloj «9 OCT» @ 87.52 (queda=False)
+- ch05 NUEVO: transición «dissolve 20 cuadros» @ 89.433 (queda=True) movido=None filtro='pasó'
+- ch05 NUEVO: reloj «9 OCT · 1963» @ 89.433 (queda=True) movido=None filtro='pasó'
+- ch05 transición «cut» @ 89.433:
+    · entrante: '10' → '9'
+    · escena: '10' → '9'
+    · escena_t0: '89.433' → '81.9'
+    · escena_t1: '109.6' → '89.433'
+    · saliente: '9' → '8'
+    · t: '89.433' → '81.9'
+    · voz_ancla: 'El nueve de octubre a la mañana, el director técnico de la empresa se sentó a escribir una carta.' → 'Mientras tanto, en la ladera, los topógrafos de la empresa seguían midiendo.'
+    · voz_next: 'El director técnico se llamaba Alberico Biadene.' → 'El nueve de octubre a la mañana, el director técnico de la empresa se sentó a escribir una carta.'
+    · voz_prev: 'Mientras tanto, en la ladera, los topógrafos de la empresa seguían midiendo.' → 'La respuesta que llegó desde un ministerio fue: «No se preocupe, todo está bajo control».'
+- ch05 cita ««Que Dios nos ayude» — Alberico Biadene» @ 128.2:
+    · movido: '115.46 → 128.20 s (3 · oración siguiente [18], inicio de la escena 13)' → '115.46 → 128.20 s (3 · oración siguiente [18], inicio de la escena 13) · antes: 1 · inicio de la oración (113.24 s): sin tiempo de lectura: 65 caracteres piden 4.3 s y hay 0.0 s hasta el corte de escena (113.3 s) · 2 · i'
+- ch05 pregunta de cierre «A las diez y media de la noche, el párroco de Cass» @ 169.067:
+    · fuente: 'escaleta (cierre del último beat)' → 'voz-alineada'
+- ch06 pregunta de cierre «Tres días después llegó el presidente del Consejo.» @ 167.8:
+    · fuente: 'escaleta (cierre del último beat)' → 'voz-alineada'
+- ch07 QUITADO: pregunta de cierre «La sentencia dice inundación agravada por la previsión del e» @ 183.0 (queda=True)
+- ch07 NUEVO: pregunta de cierre «¿Quién decidió que Micaela siguiera durmiendo?» @ 183.0 (queda=True) movido=None filtro='pasó'
+- ch07 transición «dip 10 cuadros» @ 175.0:
+    · escena_t1: '196.867' → '187.067'
+- ch07 costura «negro 1.0 s al cierre del cap (black hold)» @ 195.867:
+    · escena_t1: '196.867' → '187.067'
+    · t: '195.867' → '186.067'
+
+## Chequeos
+- costuras con cuadro no negro:
+    antes:   {"nombre": "costuras con cuadro no negro", "ok": true, "lineas": ["✓ ch01→ch02 (01:44.6): negro 100.60–101.60 s hasta el corte · voz callada (máx -120.0 dB) · el entrante sube desde negro (corte a negro, sin fadewhite)", "✓ ch02→ch03 (04:05.2): negro 139.57–140.57 s hasta el corte · voz callada (máx -120.0 dB) · el entrante sube desde negro (corte a negro, sin fadewhite)", "✓ ch03→ch04 (06:20.5): negro 134.27–135.27 s hasta el corte · voz callada (máx -120.0 dB) · el entrante sube desde negro (corte a negro, sin fadewhite)", "✓ ch04→ch05 (08:29.5): negro 127.97–128.97 s hasta el corte · voz ca
+    después: {"nombre": "costuras con cuadro no negro", "ok": true, "lineas": ["✓ ch01→ch02 (01:44.9): negro 100.93–101.93 s hasta el corte · voz callada (máx -120.0 dB) · el entrante sube desde negro (corte a negro, sin fadewhite)", "✓ ch02→ch03 (04:06.5): negro 140.57–141.57 s hasta el corte · voz callada (máx -120.0 dB) · el entrante sube desde negro (corte a negro, sin fadewhite)", "✓ ch03→ch04 (06:21.8): negro 134.27–135.27 s hasta el corte · voz callada (máx -120.0 dB) · el entrante sube desde negro (corte a negro, sin fadewhite)", "✓ ch04→ch05 (08:30.8): negro 127.97–128.97 s hasta el corte · voz ca
+- inicio de música por cap:
+    antes:   {"nombre": "inicio de música por cap", "ok": true, "lineas": ["✓ ch01: title card 3.000 s · música medida 3.000 s · desvío +0.000 s (+0.00 cuadros)", "✓ ch02: title card 104.600 s · música medida 104.600 s · desvío +0.000 s (+0.00 cuadros)", "✓ ch03: title card 245.200 s · música medida 245.200 s · desvío -0.000 s (-0.00 cuadros)", "✓ ch04: title card 380.500 s · música medida 380.500 s · desvío +0.000 s (+0.00 cuadros)", "✓ ch05: title card 509.467 s · música medida 509.467 s · desvío +0.000 s (+0.00 cuadros)", "✓ ch06: title card 685.167 s · música medida 685.167 s · desvío +0.000 s (+0.00 c
+    después: {"nombre": "inicio de música por cap", "ok": true, "lineas": ["✓ ch01: title card 3.000 s · música medida 3.000 s · desvío +0.000 s (+0.00 cuadros)", "✓ ch02: title card 104.933 s · música medida 104.933 s · desvío +0.000 s (+0.00 cuadros)", "✓ ch03: title card 246.533 s · música medida 246.533 s · desvío +0.000 s (+0.00 cuadros)", "✓ ch04: title card 381.833 s · música medida 381.833 s · desvío +0.000 s (+0.00 cuadros)", "✓ ch05: title card 510.800 s · música medida 510.800 s · desvío +0.000 s (+0.00 cuadros)", "✓ ch06: title card 686.500 s · música medida 686.500 s · desvío +0.000 s (+0.00 c
+- inicio de voz por cap:
+    antes:   {"nombre": "inicio de voz por cap", "ok": false, "lineas": ["✓ ch01 · voz esperada 3.12 s · medida 3.12 s · llega a −18 dB en 3.15 s con rampa (100 ms previos: -26.0 dB)", "✓ ch02 · voz esperada 107.68 s · medida 107.68 s · llega a −18 dB en 107.68 s con rampa (100 ms previos: -28.1 dB)", "✓ ch03 · voz esperada 248.28 s · medida 248.28 s · llega a −18 dB en 248.28 s con rampa (100 ms previos: -28.4 dB)", "✓ ch04 · voz esperada 383.56 s · medida 383.56 s · llega a −18 dB en 384.06 s con rampa (100 ms previos: -21.6 dB)", "✓ ch05 · voz esperada 512.55 s · medida 512.55 s · llega a −18 dB en 512.
+    después: {"nombre": "inicio de voz por cap", "ok": false, "lineas": ["✓ ch01 · voz esperada 3.12 s · medida 3.12 s · llega a −18 dB en 3.15 s con rampa (100 ms previos: -26.0 dB)", "✓ ch02 · voz esperada 108.01 s · medida 108.01 s · llega a −18 dB en 108.01 s con rampa (100 ms previos: -28.1 dB)", "✓ ch03 · voz esperada 249.61 s · medida 249.61 s · llega a −18 dB en 249.61 s con rampa (100 ms previos: -28.4 dB)", "✓ ch04 · voz esperada 384.89 s · medida 384.89 s · llega a −18 dB en 385.39 s con rampa (100 ms previos: -21.6 dB)", "✓ ch05 · voz esperada 513.88 s · medida 513.88 s · llega a −18 dB en 513.
+- relojes del papel (informativo):
+    antes:   {"nombre": "relojes del papel (informativo)", "ok": true, "lineas": ["✓ ch01 papel «9 OCT 1963» en [13] · reloj de la voz «9 OCT 1963»", "✓ ch04 papel «4 NOV 1960» en [0] · reloj de la voz «4 NOV 1960»", "✓ ch07 papel «20 FEB 1968» en [11] · reloj de la voz «20 FEB 1968»", "· ch07 papel «29 NOV 1968» en [14] · reloj de la voz «20 FEB 1968» → difiere (anotado)"]}
+    después: {"nombre": "relojes del papel (informativo)", "ok": true, "lineas": ["✓ ch01 papel «9 OCT 1963» en [13] · reloj de la voz «9 OCT 1963»", "✓ ch04 papel «4 NOV 1960» en [0] · reloj de la voz «4 NOV 1960»", "· ch05 el papel no trae reloj · reloj de la voz «9 OCT 1963» → difiere (anotado)", "✓ ch07 papel «20 FEB 1968» en [11] · reloj de la voz «20 FEB 1968»", "· ch07 papel «29 NOV 1968» en [14] · reloj de la voz «20 FEB 1968» → difiere (anotado)"]}
+- papel sin colocar:
+    antes:   {"nombre": "papel sin colocar", "ok": false, "lineas": ["✗ ch02 sello CALMA: sello del papel «CALMA»: no entra en ningún intento: 1 · palabra de más peso (58.18 s) · lado right: estorba — El sello grande a media altura a la derecha tapa rostros de las personas sentadas en la cafetería y elementos clave de la escena, como la Vespa. · 1 · palabra de más peso (58.18 s) · lado left: estorba — El sello tapa parte de la actividad del mercado y rostros de personas a la izquierda de la imagen. · 1 · inicio de la oración (56.14 s): cruza el corte de la escena 5 (56.17 s) · 3 · oración siguiente [7] (61
+    después: {"nombre": "papel sin colocar", "ok": false, "lineas": ["✗ ch02 sello CALMA: sello del papel «CALMA»: no entra en ningún intento: 1 · palabra de más peso (58.18 s) · lado right: estorba — El sello grande a media altura a la derecha tapa rostros de las personas sentadas en la cafetería y elementos clave de la escena, como la Vespa. · 1 · palabra de más peso (58.18 s) · lado left: estorba — El sello tapa parte de la actividad del mercado y rostros de personas a la izquierda de la imagen. · 1 · inicio de la oración (56.14 s): cruza el corte de la escena 5 (56.17 s) · 2 · inicio de la escena 6 (56
+
+## MD línea a línea
+-Generado 2026-10-27 03:07:30 por `fase2b --plan-only` (f36-c). Duración del mp4: 17:36.3 (1056.3 s; intro 3.0 s, title card 3.0 s). Tiempos = segundo del mp4 final. `✂` = propuesto y cortado (quién y por qué).
++Generado 2026-10-27 13:13:25 por `fase2b --plan-only` (f36-c). Duración del mp4: 17:27.8 (1047.8 s; intro 3.0 s, title card 3.0 s). Tiempos = segundo del mp4 final. `✂` = propuesto y cortado (quién y por qué).
+-## ch01 — Cama en la oscuridad (00:03.0–01:44.6)
+-
+-Segmento 101.60 s · pre-roll 0.0 s · primera palabra a 0.12 s del cap · pausa más larga del guion 1.54 s (marca de pausa del guion, en «Coletti.») · textos en pantalla 1
++## ch01 — Cama en la oscuridad (00:03.0–01:44.9)
++
++Segmento 101.93 s · pre-roll 0.0 s · primera palabra a 0.12 s del cap · pausa más larga del guion 1.54 s (marca de pausa del guion, en «Coletti.») · textos en pantalla 1
+-- 00:03.0 · ch01 · beat 1 (gancho) · costura · «intro 3.0 s (tarjeta «9 OCT 1963 · 22:39» sobre negro, sin voz) → title card 3.0 s desde 0.0 s → voz a 0.12 s del cap (+3.12 s del mp4)» · escena 0 (0.0 a 101.6 s)
+-- 00:03.0 · ch01 · beat 1 (gancho) · title card · «CAPÍTULO 1 | Cama en la oscuridad» · dura 3.0 s · escena 0 (0.0 a 101.6 s) · filtro: pasó · papel: no
+-- 01:04.2 · ch01 · beat 1 (gancho) · ficha · «PRESIÓN DE LA OLA DE AIRE | dos bombas de Hiroshima» · dura 3.2 s (lectura mínima 3.2 s) · escena 0 (0.0 a 101.6 s) · voz −1: Los ojos, dos estrellas. · voz ancla: Esa misma noche, Gianfranco Trevisano ve cómo «se abrió de improviso, de par en par, el p
+-- 01:09.3 · ch01 · beat 1 (gancho) · sello · «INMINENTE» · dura 2.5 s · escena 0 (0.0 a 101.6 s) · voz −1: Esa misma noche, Gianfranco Trevisano ve cómo «se abrió de improviso, de par en par, el portoncito de la entrada, a causa de una corriente de aire», y con el portón entra el ruido del aire que
+-- 01:16.5 · ch01 · beat 1 (gancho) · reloj · «9 OCT · 1963» · dura 8.3 s · escena 0 (0.0 a 101.6 s) · voz −1: Trevisano piensa lo que va a pensar medio valle: que el dique cedió. · voz ancla: Longarone, Italia, nueve de octubre de mil novecientos sesenta y tres. · voz +1: Pero el dique no cedió esa
+-- 01:37.9 · ch01 · beat 1 (gancho) · pregunta de cierre · «El dique no cedió esa noche. Lo que llegó a la cama de Micaela vino por encima de él.» · dura 5.7 s (lectura mínima 5.7 s) · escena 0 (0.0 a 101.6 s) · voz −1: Lo que llegó a la cama de Micaela vino por encima de él. · voz ancla: Y para ent
+-- 01:43.6 · ch01 · beat 1 (gancho) · costura · «negro 1.0 s al cierre del cap (black hold)» · dura 1.0 s · escena 0 (0.0 a 101.6 s)
+-
+-| beat | función | ventana | escenas | propuestos (director · rotulista) | cortados por regla | quedan |
+-|---|---|---|---|---|---|---|
+-| 1 | gancho | 0.1–94.5 s | 0 | 2 · 1 | — | ficha «dos bombas de Hiroshima»; sello «INMINENTE»; reloj «9 OCT · 1963»; pregunta de cierre «El dique no cedió esa noche. Lo que lleg» |
+-
+-## ch02 — El muro que tapa (01:44.6–04:05.2)
+-
+-Segmento 140.60 s · pre-roll 3.0 s · primera palabra a 3.08 s del cap · pausa más larga del guion 2.50 s (marca de pausa del guion, en «medirla.») · textos en pantalla 2
+-
+-- 01:44.6 · ch02 · beat 2 (planteo) · costura · «negro 1.0 s (black hold de ch01) → corte → sube desde negro en 10 cuadros (0.33 s) sobre el title card → title card 3.0 s sin voz (pre-roll 3.0 s) → voz a 3.08 s del cap» · escena 0 (0.0 a 19.1 s)
+-- 01:44.6 · ch02 · beat 2 (planteo) · title card · «CAPÍTULO 2 | El muro que tapa» · dura 3.0 s · escena 0 (0.0 a 19.1 s) · filtro: pasó · papel: no
+-- ✂ 01:44.6 · ch02 · beat 2 (planteo) · sello · «CALMA» · escena 0 (0.0 a 19.1 s) · voz −1: — · voz ancla: Longarone está en el fondo del valle del Piave. · voz +1: El río pasa por delante del pueblo y, enfrente, desde una garganta lateral, baja un torrente que se llama Vajont y que desemboca en el
+-- 02:03.7 · ch02 · beat 2 (planteo) · transición · «cut» · escena 1 (19.1 a 24.6 s) · razón: corte · escena 0 → 1
+-- 02:03.8 · ch02 · beat 2 (planteo) · recorte · «ACTA DEL CONSEJO SUPERIOR | solo 13 de 34 representantes presentes» · dura 4.2 s (lectura mínima 4.2 s) · escena 1 (19.1 a 24.6 s) · voz −1: El río pasa por delante del pueblo y, enfrente, desde una garganta lateral, baja un torrente que se llama Vaj
+-- 02:09.2 · ch02 · beat 2 (planteo) · transición · «cut» · escena 2 (24.6 a 31.9 s) · razón: corte · escena 1 → 2
+-- 02:16.5 · ch02 · beat 2 (planteo) · transición · «cut» · escena 3 (31.9 a 38.2 s) · razón: corte · escena 2 → 3
+-- 02:22.8 · ch02 · beat 2 (planteo) · transición · «cut» · escena 4 (38.2 a 47.8 s) · razón: corte · escena 3 → 4
+-- 02:32.4 · ch02 · beat 2 (planteo) · transición · «cut» · escena 5 (47.8 a 56.2 s) · razón: corte · escena 4 → 5
+-- 02:40.8 · ch02 · beat 2 (planteo) · transición · «cut» · escena 6 (56.2 a 65.6 s) · razón: corte · escena 5 → 6
+-- 02:50.2 · ch02 · beat 2 (planteo) · transición · «cut» · escena 7 (65.6 a 79.6 s) · razón: corte · escena 6 → 7
+-- 03:04.2 · ch02 · beat 3 (escalada) · punch · «zoom_punch 12 cuadros» · escena 8 (79.6 a 86.6 s) · razón: pico · escena 7 → 8
+-- 03:11.2 · ch02 · beat 3 (escalada) · ficha · «FRENTE DEL DESMORONAMIENTO | 2 km de frente y 600 m de desarrollo vertical» · dura 4.7 s (lectura mínima 4.7 s) · escena 9 (86.6 a 99.4 s) · voz −1: En la década del cincuenta, el geólogo Leopold Müller detectó en el Toc un gran desmoronamiento. · voz
+-- 03:11.2 · ch02 · beat 3 (escalada) · transición · «cut» · escena 9 (86.6 a 99.4 s) · razón: corte · escena 8 → 9
+-- 03:24.0 · ch02 · beat 3 (escalada) · transición · «cut» · escena 10 (99.4 a 111.7 s) · razón: corte · escena 9 → 10
+-- 03:36.3 · ch02 · beat 3 (escalada) · transición · «cut» · escena 11 (111.7 a 123.8 s) · razón: corte · escena 10 → 11
+-- 03:45.4 · ch02 · beat 3 (escalada) · sello · «AMENAZA» · dura 2.5 s · escena 11 (111.7 a 123.8 s) · voz −1: Müller no lo creía: no creía en el deslizamiento antiguo ni en una capa de arcilla capaz de causarlo. · voz ancla: El hijo del proyectista decía que la montaña ya se había movido una vez. ·
+-- 03:48.4 · ch02 · beat 3 (escalada) · transición · «dip 10 cuadros» · escena 12 (123.8 a 140.6 s) · razón: cierre · escena 11 → 12
+-- 03:57.8 · ch02 · beat 3 (escalada) · pregunta de cierre · «En marzo del cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero.» · dura 6.4 s (lectura mínima 6.4 s) · escena 12 (123.8 a 140.6 s) · voz −1: El experto decía que no. · voz ancla: En marzo de mil noveciento
+-- 04:04.2 · ch02 · beat 3 (escalada) · costura · «negro 1.0 s al cierre del cap (black hold)» · dura 1.0 s · escena 12 (123.8 a 140.6 s)
++- 00:03.0 · ch01 · beat 1 (gancho) · costura · «intro 3.0 s (tarjeta «9 OCT 1963 · 22:39» sobre negro, sin voz) → title card 3.0 s desde 0.0 s → voz a 0.12 s del cap (+3.12 s del mp4)» · escena 0 (0.0 a 101.9 s)
++- 00:03.0 · ch01 · beat 1 (gancho) · title card · «CAPÍTULO 1 | Cama en la oscuridad» · dura 3.0 s · escena 0 (0.0 a 101.9 s) · filtro: pasó · papel: no
++- 01:04.2 · ch01 · beat 1 (gancho) · ficha · «PRESIÓN DE LA OLA DE AIRE | dos bombas de Hiroshima» · dura 3.2 s (lectura mínima 3.2 s) · escena 0 (0.0 a 101.9 s) · voz −1: Los ojos, dos estrellas. · voz ancla: Esa misma noche, Gianfranco Trevisano ve cómo «se abrió de improviso, de par en par, el p
++- 01:09.3 · ch01 · beat 1 (gancho) · sello · «INMINENTE» · dura 2.5 s · escena 0 (0.0 a 101.9 s) · voz −1: Esa misma noche, Gianfranco Trevisano ve cómo «se abrió de improviso, de par en par, el portoncito de la entrada, a causa de una corriente de aire», y con el portón entra el ruido del aire que
++- 01:16.5 · ch01 · beat 1 (gancho) · reloj · «9 OCT · 1963» · dura 8.3 s · escena 0 (0.0 a 101.9 s) · voz −1: Trevisano piensa lo que va a pensar medio valle: que el dique cedió. · voz ancla: Longarone, Italia, nueve de octubre de mil novecientos sesenta y tres. · voz +1: Pero el dique no cedió esa
++- 01:37.9 · ch01 · beat 1 (gancho) · pregunta de cierre · «Pero el dique no cedió esa noche. Lo que llegó a la cama de Micaela vino por encima de él.» · dura 6.0 s (lectura mínima 6.0 s) · escena 0 (0.0 a 101.9 s) · voz −1: Lo que llegó a la cama de Micaela vino por encima de él. · voz ancla: Y par
++- 01:43.9 · ch01 · beat 1 (gancho) · costura · «negro 1.0 s al cierre del cap (black hold)» · dura 1.0 s · escena 0 (0.0 a 101.9 s)
++
++| beat | función | ventana | escenas | propuestos (director · rotulista) | cortados por regla | quedan |
++|---|---|---|---|---|---|---|
++| 1 | gancho | 0.1–94.5 s | 0 | 2 · 1 | — | ficha «dos bombas de Hiroshima»; sello «INMINENTE»; reloj «9 OCT · 1963»; pregunta de cierre «Pero el dique no cedió esa noche. Lo que» |
++
++## ch02 — El muro que tapa (01:44.9–04:06.5)
++
++Segmento 141.60 s · pre-roll 3.0 s · primera palabra a 3.08 s del cap · pausa más larga del guion 2.50 s (marca de pausa del guion, en «medirla.») · textos en pantalla 2
++
++- 01:44.9 · ch02 · beat 2 (planteo) · costura · «negro 1.0 s (black hold de ch01) → corte → sube desde negro en 10 cuadros (0.33 s) sobre el title card → title card 3.0 s sin voz (pre-roll 3.0 s) → voz a 3.08 s del cap» · escena 0 (0.0 a 19.1 s)
++- 01:44.9 · ch02 · beat 2 (planteo) · title card · «CAPÍTULO 2 | El muro que tapa» · dura 3.0 s · escena 0 (0.0 a 19.1 s) · filtro: pasó · papel: no
++- ✂ 01:44.9 · ch02 · beat 2 (planteo) · sello · «CALMA» · escena 0 (0.0 a 19.1 s) · voz −1: — · voz ancla: Longarone está en el fondo del valle del Piave. · voz +1: El río pasa por delante del pueblo y, enfrente, desde una garganta lateral, baja un torrente que se llama Vajont y que desemboca en el
++- 02:04.1 · ch02 · beat 2 (planteo) · transición · «cut» · escena 1 (19.1 a 24.6 s) · razón: corte · escena 0 → 1
++- 02:04.1 · ch02 · beat 2 (planteo) · recorte · «ACTA DEL CONSEJO SUPERIOR | solo 13 de 34 representantes presentes» · dura 4.2 s (lectura mínima 4.2 s) · escena 1 (19.1 a 24.6 s) · voz −1: El río pasa por delante del pueblo y, enfrente, desde una garganta lateral, baja un torrente que se llama Vaj
++- 02:09.5 · ch02 · beat 2 (planteo) · transición · «cut» · escena 2 (24.6 a 31.9 s) · razón: corte · escena 1 → 2
++- 02:16.9 · ch02 · beat 2 (planteo) · transición · «cut» · escena 3 (31.9 a 38.2 s) · razón: corte · escena 2 → 3
++- 02:23.1 · ch02 · beat 2 (planteo) · transición · «cut» · escena 4 (38.2 a 47.8 s) · razón: corte · escena 3 → 4
++- 02:32.7 · ch02 · beat 2 (planteo) · transición · «cut» · escena 5 (47.8 a 56.2 s) · razón: corte · escena 4 → 5
++- 02:41.1 · ch02 · beat 2 (planteo) · transición · «cut» · escena 6 (56.2 a 65.6 s) · razón: corte · escena 5 → 6
++- 02:50.6 · ch02 · beat 2 (planteo) · transición · «cut» · escena 7 (65.6 a 79.6 s) · razón: corte · escena 6 → 7
++- 03:04.5 · ch02 · beat 3 (escalada) · ficha · «FRENTE DEL DESMORONAMIENTO | 2 km de frente y 600 m de desarrollo vertical» · dura 4.7 s (lectura mínima 4.7 s) · escena 8 (79.6 a 86.6 s) · voz −1: La gente de la zona llamaba al monte Toc «la montaña que camina», y lo decían los residentes desde ant
++- 03:04.5 · ch02 · beat 3 (escalada) · punch · «zoom_punch 12 cuadros» · escena 8 (79.6 a 86.6 s) · razón: pico · escena 7 → 8
++- 03:11.5 · ch02 · beat 3 (escalada) · transición · «cut» · escena 9 (86.6 a 99.4 s) · razón: corte · escena 8 → 9
++- 03:24.3 · ch02 · beat 3 (escalada) · transición · «cut» · escena 10 (99.4 a 111.7 s) · razón: corte · escena 9 → 10
++- 03:36.7 · ch02 · beat 3 (escalada) · transición · «cut» · escena 11 (111.7 a 123.8 s) · razón: corte · escena 10 → 11
++- 03:45.7 · ch02 · beat 3 (escalada) · sello · «AMENAZA» · dura 2.5 s · escena 11 (111.7 a 123.8 s) · voz −1: Müller no lo creía: no creía en el deslizamiento antiguo ni en una capa de arcilla capaz de causarlo. · voz ancla: El hijo del proyectista decía que la montaña ya se había movido una vez. ·
++- 03:48.7 · ch02 · beat 3 (escalada) · transición · «dip 10 cuadros» · escena 12 (123.8 a 141.6 s) · razón: cierre · escena 11 → 12
++- 03:58.1 · ch02 · beat 3 (escalada) · pregunta de cierre · «En marzo de mil novecientos cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero.» · dura 7.4 s (lectura mínima 7.4 s) · escena 12 (123.8 a 141.6 s) · voz −1: El experto decía que no. · voz ancla: En marzo de
++- 04:05.5 · ch02 · beat 3 (escalada) · costura · «negro 1.0 s al cierre del cap (black hold)» · dura 1.0 s · escena 12 (123.8 a 141.6 s)
+-| 3 | escalada | 68.9–132.7 s | 7, 8, 9, 10, 11, 12 | 2 · 1 | — | ficha «2 km de frente y 600 m de desarrollo ver»; sello «AMENAZA»; pregunta de cierre «En marzo del cincuenta y nueve, en otro »; punch ×1 |
+-
+-## ch03 — La costura abierta (04:05.2–06:20.5)
++| 3 | escalada | 68.9–132.7 s | 7, 8, 9, 10, 11, 12 | 2 · 1 | — | ficha «2 km de frente y 600 m de desarrollo ver»; sello «AMENAZA»; pregunta de cierre «En marzo de mil novecientos cincuenta y »; punch ×1 |
++
++## ch03 — La costura abierta (04:06.5–06:21.8)
+-- 04:05.2 · ch03 · beat 4 (giro) · costura · «negro 1.0 s (black hold de ch02) → corte → sube desde negro en 10 cuadros (0.33 s) sobre el title card → title card 3.0 s sin voz (pre-roll 3.0 s) → voz a 3.08 s del cap» · escena 0 (0.0 a 6.0 s)
+-- 04:05.2 · ch03 · beat 4 (giro) · title card · «CAPÍTULO 3 | La costura abierta» · dura 3.0 s · escena 0 (0.0 a 6.0 s) · filtro: pasó · papel: no
+-- 04:11.2 · ch03 · beat 4 (giro) · punch · «zoom_punch 12 cuadros» · escena 1 (6.0 a 13.7 s) · razón: pico · escena 0 → 1
+-- 04:12.6 · ch03 · beat 4 (giro) · ficha · «VOLUMEN DE LA ROCA | 3 millones de metros cúbicos» · dura 3.1 s (lectura mínima 3.1 s) · escena 1 (6.0 a 13.7 s) · voz −1: El embalse se llamaba Pontesei. · voz ancla: Ese marzo, una masa de roca entró al agua y levantó una ola de veinte metros. · voz +1:
+-- 04:18.9 · ch03 · beat 4 (giro) · transición · «cut» · escena 2 (13.7 a 28.0 s) · razón: corte · escena 1 → 2
+-- 04:33.2 · ch03 · beat 4 (giro) · transición · «cut» · escena 3 (28.0 a 34.1 s) · razón: corte · escena 2 → 3
+-- 04:39.3 · ch03 · beat 4 (giro) · transición · «cut» · escena 4 (34.1 a 45.5 s) · razón: corte · escena 3 → 4
+-- 04:50.7 · ch03 · beat 4 (giro) · transición · «cut» · escena 5 (45.5 a 58.3 s) · razón: corte · escena 4 → 5
+-- 05:00.3 · ch03 · beat 4 (giro) · sello · «AVISO» · dura 2.5 s · escena 5 (45.5 a 58.3 s) · voz −1: Un hombre muerto. · voz ancla: Una paleofrana con nombre en un papel. · voz +1: El informe oficial dijo que no era grave. · filtro: pasó (crítico: no estorba) · papel: sí
+-- 05:03.5 · ch03 · beat 4 (giro) · transición · «cut» · escena 6 (58.3 a 64.9 s) · razón: corte · escena 5 → 6
+-- 05:10.1 · ch03 · beat 5 (escalada) · transición · «dissolve 20 cuadros» · escena 7 (64.9 a 77.6 s) · razón: cambio de beat · escena 6 → 7
+-- 05:22.8 · ch03 · beat 5 (escalada) · transición · «cut» · escena 8 (77.6 a 85.9 s) · razón: corte · escena 7 → 8
+-- 05:31.1 · ch03 · beat 5 (escalada) · sello · «SILENCIO» · dura 2.5 s · escena 9 (85.9 a 96.8 s) · voz −1: L'Unità fue el único diario nacional que siguió lo que pasaba en el Vajont antes del desastre, y lo siguió a través de ella. · voz ancla: El diario que se leía en la zona era Il Gazzettino, y
+-- 05:31.1 · ch03 · beat 5 (escalada) · transición · «cut» · escena 9 (85.9 a 96.8 s) · razón: corte · escena 8 → 9
+-- 05:42.0 · ch03 · beat 5 (escalada) · transición · «cut» · escena 10 (96.8 a 104.2 s) · razón: corte · escena 9 → 10
+-- 05:49.4 · ch03 · beat 5 (escalada) · transición · «cut» · escena 11 (104.2 a 115.7 s) · razón: corte · escena 10 → 11
+-- 05:58.3 · ch03 · beat 5 (escalada) · ficha · «ANCHO DE LA FISURA | Más de 1 metro» · dura 2.5 s (lectura mínima 2.1 s) · escena 11 (104.2 a 115.7 s) · voz −1: En febrero de mil novecientos sesenta empezó el llenado, y el agua fue subiendo día a día por la garganta. · voz ancla: Ese año hubo un pe
+-- 06:00.9 · ch03 · beat 5 (escalada) · transición · «dip 10 cuadros» · escena 12 (115.7 a 135.3 s) · razón: cierre · escena 11 → 12
+-- 06:14.2 · ch03 · beat 5 (escalada) · pregunta de cierre · «El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta.» · dura 5.3 s (lectura mínima 5.3 s) · escena 12 (115.7 a 135.3 s) · voz −1: Abajo, el lago seguía subiendo. · voz ancla: El cuatro de noviembre, durante las 
+-- 06:19.5 · ch03 · beat 5 (escalada) · costura · «negro 1.0 s al cierre del cap (black hold)» · dura 1.0 s · escena 12 (115.7 a 135.3 s)
++- 04:06.5 · ch03 · beat 4 (giro) · costura · «negro 1.0 s (black hold de ch02) → corte → sube desde negro en 10 cuadros (0.33 s) sobre el title card → title card 3.0 s sin voz (pre-roll 3.0 s) → voz a 3.08 s del cap» · escena 0 (0.0 a 6.0 s)
++- 04:06.5 · ch03 · beat 4 (giro) · title card · «CAPÍTULO 3 | La costura abierta» · dura 3.0 s · escena 0 (0.0 a 6.0 s) · filtro: pasó · papel: no
++- 04:12.6 · ch03 · beat 4 (giro) · punch · «zoom_punch 12 cuadros» · escena 1 (6.0 a 13.7 s) · razón: pico · escena 0 → 1
++- 04:14.0 · ch03 · beat 4 (giro) · ficha · «VOLUMEN DE LA ROCA | 3 millones de metros cúbicos» · dura 3.1 s (lectura mínima 3.1 s) · escena 1 (6.0 a 13.7 s) · voz −1: El embalse se llamaba Pontesei. · voz ancla: Ese marzo, una masa de roca entró al agua y levantó una ola de veinte metros. · voz +1:
++- 04:20.2 · ch03 · beat 4 (giro) · transición · «cut» · escena 2 (13.7 a 28.0 s) · razón: corte · escena 1 → 2
++- 04:34.5 · ch03 · beat 4 (giro) · transición · «cut» · escena 3 (28.0 a 34.1 s) · razón: corte · escena 2 → 3
++- 04:40.6 · ch03 · beat 4 (giro) · transición · «cut» · escena 4 (34.1 a 45.5 s) · razón: corte · escena 3 → 4
++- 04:52.0 · ch03 · beat 4 (giro) · transición · «cut» · escena 5 (45.5 a 58.3 s) · razón: corte · escena 4 → 5
++- 05:01.6 · ch03 · beat 4 (giro) · sello · «AVISO» · dura 2.5 s · escena 5 (45.5 a 58.3 s) · voz −1: Un hombre muerto. · voz ancla: Una paleofrana con nombre en un papel. · voz +1: El informe oficial dijo que no era grave. · filtro: pasó (crítico: no estorba) · papel: sí
++- 05:04.9 · ch03 · beat 4 (giro) · transición · «cut» · escena 6 (58.3 a 64.9 s) · razón: corte · escena 5 → 6
++- 05:11.4 · ch03 · beat 5 (escalada) · transición · «dissolve 20 cuadros» · escena 7 (64.9 a 77.6 s) · razón: cambio de beat · escena 6 → 7
++- 05:24.1 · ch03 · beat 5 (escalada) · transición · «cut» · escena 8 (77.6 a 85.9 s) · razón: corte · escena 7 → 8
++- 05:32.5 · ch03 · beat 5 (escalada) · sello · «SILENCIO» · dura 2.5 s · escena 9 (85.9 a 96.8 s) · voz −1: L'Unità fue el único diario nacional que siguió lo que pasaba en el Vajont antes del desastre, y lo siguió a través de ella. · voz ancla: El diario que se leía en la zona era Il Gazzettino, y
++- 05:32.5 · ch03 · beat 5 (escalada) · transición · «cut» · escena 9 (85.9 a 96.8 s) · razón: corte · escena 8 → 9
++- 05:43.3 · ch03 · beat 5 (escalada) · transición · «cut» · escena 10 (96.8 a 104.2 s) · razón: corte · escena 9 → 10
++- 05:50.8 · ch03 · beat 5 (escalada) · transición · «cut» · escena 11 (104.2 a 115.7 s) · razón: corte · escena 10 → 11
++- 05:59.6 · ch03 · beat 5 (escalada) · ficha · «ANCHO DE LA FISURA | Más de 1 metro» · dura 2.5 s (lectura mínima 2.1 s) · escena 11 (104.2 a 115.7 s) · voz −1: En febrero de mil novecientos sesenta empezó el llenado, y el agua fue subiendo día a día por la garganta. · voz ancla: Ese año hubo un pe
++- 06:02.3 · ch03 · beat 5 (escalada) · transición · «dip 10 cuadros» · escena 12 (115.7 a 135.3 s) · razón: cierre · escena 11 → 12
++- 06:15.5 · ch03 · beat 5 (escalada) · pregunta de cierre · «El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta.» · dura 5.3 s (lectura mínima 5.3 s) · escena 12 (115.7 a 135.3 s) · voz −1: Abajo, el lago seguía subiendo. · voz ancla: El cuatro de noviembre, durante las 
++- 06:20.8 · ch03 · beat 5 (escalada) · costura · «negro 1.0 s al cierre del cap (black hold)» · dura 1.0 s · escena 12 (115.7 a 135.3 s)
+-## ch04 — La ola de juguete (06:20.5–08:29.5)
++## ch04 — La ola de juguete (06:21.8–08:30.8)
+-- 06:20.5 · ch04 · beat 6 (giro) · costura · «negro 1.0 s (black hold de ch03) → corte → sube desde negro en 10 cuadros (0.33 s) sobre el title card → title card 3.0 s sin voz (pre-roll 3.0 s) → voz a 3.06 s del cap» · escena 0 (0.0 a 10.6 s)
+-- 06:20.5 · ch04 · beat 6 (giro) · title card · «CAPÍTULO 4 | La ola de juguete» · dura 3.0 s · escena 0 (0.0 a 10.6 s) · filtro: pasó · papel: no
+-- 06:23.6 · ch04 · beat 6 (giro) · reloj · «4 NOV · 1960» · dura 7.5 s · escena 0 (0.0 a 10.6 s) · voz −1: — · voz ancla: El cuatro de noviembre de mil novecientos sesenta el embalse estaba a seiscientos cincuenta metros sobre el nivel del mar. · voz +1: Ese día, durante las pruebas, una masa de ro
+-- 06:31.1 · ch04 · beat 6 (giro) · transición · «cut» · escena 1 (10.6 a 19.0 s) · razón: corte · escena 0 → 1
+-- 06:39.5 · ch04 · beat 6 (giro) · transición · «cut» · escena 2 (19.0 a 28.0 s) · razón: corte · escena 1 → 2
+-- 06:48.5 · ch04 · beat 6 (giro) · transición · «cut» · escena 3 (28.0 a 37.6 s) · razón: corte · escena 2 → 3
+-- 06:58.1 · ch04 · beat 6 (giro) · transición · «cut» · escena 4 (37.6 a 51.0 s) · razón: corte · escena 3 → 4
+-- 07:04.0 · ch04 · beat 6 (giro) · ficha · «ROCA QUE AMENAZABA ERTO | 50 millones de metros cúbicos» · dura 3.5 s (lectura mínima 3.5 s) · escena 4 (37.6 a 51.0 s) · voz −1: Salieron absueltos los dos. · voz ancla: En febrero de mil novecientos sesenta y uno, Merlin volvió a su máquina de escribir 
+-- 07:11.5 · ch04 · beat 6 (giro) · transición · «cut» · escena 5 (51.0 a 65.3 s) · razón: corte · escena 4 → 5
+-- 07:25.8 · ch04 · beat 7 (giro) · transición · «dissolve 20 cuadros» · escena 6 (65.3 a 78.3 s) · razón: cambio de beat · escena 5 → 6
+-- 07:38.8 · ch04 · beat 7 (giro) · punch · «zoom_punch 12 cuadros» · escena 7 (78.3 a 88.0 s) · razón: pico · escena 6 → 7
+-- 07:48.5 · ch04 · beat 7 (giro) · sello · «ALARMA» · dura 2.5 s · escena 8 (88.0 a 95.4 s) · voz −1: La cota autorizada fue de setecientos quince. · voz ancla: En noviembre de mil novecientos sesenta y dos, la ladera ya se desplazaba más de un centímetro y medio por día. · voz +1: En mayo de mil n
+-- 07:48.5 · ch04 · beat 7 (giro) · transición · «cut» · escena 8 (88.0 a 95.4 s) · razón: corte · escena 7 → 8
+-- 07:55.9 · ch04 · beat 7 (giro) · transición · «cut» · escena 9 (95.4 a 106.3 s) · razón: corte · escena 8 → 9
+-- 07:59.4 · ch04 · beat 7 (giro) · ficha · «COTA ALCANZADA | 720 metros» · dura 2.5 s (lectura mínima 1.6 s) · escena 9 (95.4 a 106.3 s) · voz −1: En noviembre de mil novecientos sesenta y dos, la ladera ya se desplazaba más de un centímetro y medio por día. · voz ancla: En mayo de mil novecientos 
+-- 08:06.8 · ch04 · beat 7 (giro) · transición · «dip 10 cuadros» · escena 10 (106.3 a 129.0 s) · razón: cierre · escena 9 → 10
+-- 08:22.3 · ch04 · beat 7 (giro) · pregunta de cierre · «La presa cambió de dueño con el agua todavía subiendo. La montaña no se enteró del contrato.» · dura 6.1 s (lectura mínima 6.1 s) · escena 10 (106.3 a 129.0 s) · voz −1: La presa cambió de dueño con el agua todavía subiendo. · voz ancla: La m
+-- 08:28.5 · ch04 · beat 7 (giro) · costura · «negro 1.0 s al cierre del cap (black hold)» · dura 1.0 s · escena 10 (106.3 a 129.0 s)
++- 06:21.8 · ch04 · beat 6 (giro) · costura · «negro 1.0 s (black hold de ch03) → corte → sube desde negro en 10 cuadros (0.33 s) sobre el title card → title card 3.0 s sin voz (pre-roll 3.0 s) → voz a 3.06 s del cap» · escena 0 (0.0 a 10.6 s)
++- 06:21.8 · ch04 · beat 6 (giro) · title card · «CAPÍTULO 4 | La ola de juguete» · dura 3.0 s · escena 0 (0.0 a 10.6 s) · filtro: pasó · papel: no
++- 06:24.9 · ch04 · beat 6 (giro) · reloj · «4 NOV · 1960» · dura 7.5 s · escena 0 (0.0 a 10.6 s) · voz −1: — · voz ancla: El cuatro de noviembre de mil novecientos sesenta el embalse estaba a seiscientos cincuenta metros sobre el nivel del mar. · voz +1: Ese día, durante las pruebas, una masa de ro
++- 06:32.5 · ch04 · beat 6 (giro) · transición · «cut» · escena 1 (10.6 a 19.0 s) · razón: corte · escena 0 → 1
++- 06:40.9 · ch04 · beat 6 (giro) · transición · «cut» · escena 2 (19.0 a 28.0 s) · razón: corte · escena 1 → 2
++- 06:49.8 · ch04 · beat 6 (giro) · transición · «cut» · escena 3 (28.0 a 37.6 s) · razón: corte · escena 2 → 3
++- 06:59.4 · ch04 · beat 6 (giro) · transición · «cut» · escena 4 (37.6 a 51.0 s) · razón: corte · escena 3 → 4
++- 07:05.4 · ch04 · beat 6 (giro) · ficha · «ROCA QUE AMENAZABA ERTO | 50 millones de metros cúbicos» · dura 3.5 s (lectura mínima 3.5 s) · escena 4 (37.6 a 51.0 s) · voz −1: Salieron absueltos los dos. · voz ancla: En febrero de mil novecientos sesenta y uno, Merlin volvió a su máquina de escribir 
++- 07:12.9 · ch04 · beat 6 (giro) · transición · «cut» · escena 5 (51.0 a 65.3 s) · razón: corte · escena 4 → 5
++- 07:27.1 · ch04 · beat 7 (giro) · transición · «dissolve 20 cuadros» · escena 6 (65.3 a 78.3 s) · razón: cambio de beat · escena 5 → 6
++- 07:40.1 · ch04 · beat 7 (giro) · punch · «zoom_punch 12 cuadros» · escena 7 (78.3 a 88.0 s) · razón: pico · escena 6 → 7
++- 07:49.9 · ch04 · beat 7 (giro) · sello · «ALARMA» · dura 2.5 s · escena 8 (88.0 a 95.4 s) · voz −1: La cota autorizada fue de setecientos quince. · voz ancla: En noviembre de mil novecientos sesenta y dos, la ladera ya se desplazaba más de un centímetro y medio por día. · voz +1: En mayo de mil n
++- 07:49.9 · ch04 · beat 7 (giro) · transición · «cut» · escena 8 (88.0 a 95.4 s) · razón: corte · escena 7 → 8
++- 07:57.2 · ch04 · beat 7 (giro) · transición · «cut» · escena 9 (95.4 a 106.3 s) · razón: corte · escena 8 → 9
++- 08:00.8 · ch04 · beat 7 (giro) · ficha · «COTA ALCANZADA | 720 metros» · dura 2.5 s (lectura mínima 1.6 s) · escena 9 (95.4 a 106.3 s) · voz −1: En noviembre de mil novecientos sesenta y dos, la ladera ya se desplazaba más de un centímetro y medio por día. · voz ancla: En mayo de mil novecientos 
++- 08:08.1 · ch04 · beat 7 (giro) · transición · «dip 10 cuadros» · escena 10 (106.3 a 129.0 s) · razón: cierre · escena 9 → 10
++- 08:23.7 · ch04 · beat 7 (giro) · pregunta de cierre · «La presa cambió de dueño con el agua todavía subiendo. La montaña no se enteró del contrato.» · dura 6.1 s (lectura mínima 6.1 s) · escena 10 (106.3 a 129.0 s) · voz −1: La presa cambió de dueño con el agua todavía subiendo. · voz ancla: La m
++- 08:29.8 · ch04 · beat 7 (giro) · costura · «negro 1.0 s al cierre del cap (black hold)» · dura 1.0 s · escena 10 (106.3 a 129.0 s)
+-## ch05 — Piedras rodando (08:29.5–11:25.2)
++## ch05 — Piedras rodando (08:30.8–11:26.5)
+-- 08:29.5 · ch05 · beat 8 (escalada) · costura · «negro 1.0 s (black hold de ch04) → corte → sube desde negro en 10 cuadros (0.33 s) sobre el title card → title card 3.0 s sin voz (pre-roll 3.0 s) → voz a 3.08 s del cap» · escena 0 (0.0 a 12.3 s)
+-- 08:29.5 · ch05 · beat 8 (escalada) · title card · «CAPÍTULO 5 | Piedras rodando» · dura 3.0 s · escena 0 (0.0 a 12.3 s) · filtro: pasó · papel: no
+-- 08:41.8 · ch05 · beat 8 (escalada) · transición · «cut» · escena 1 (12.3 a 18.2 s) · razón: corte · escena 0 → 1
+-- 08:47.6 · ch05 · beat 8 (escalada) · punch · «zoom_punch 12 cuadros» · escena 2 (18.2 a 30.8 s) · razón: pico · escena 1 → 2
+-- 08:51.3 · ch05 · beat 8 (escalada) · cita · «DOCUMENTO OFICIAL | «en continua aprensión» — Administración del comune di Erto e Casso» · dura 5.6 s (lectura mínima 5.6 s) · escena 2 (18.2 a 30.8 s) · voz −1: Un informe dice que el veintiséis de septiembre el embalse volvió al nivel de seguridad. ·
+-- 09:00.3 · ch05 · beat 8 (escalada) · transición · «cut» · escena 3 (30.8 a 37.4 s) · razón: corte · escena 2 → 3
+-- 09:06.9 · ch05 · beat 8 (escalada) · transición · «cut» · escena 4 (37.4 a 42.7 s) · razón: corte · escena 3 → 4
+-- 09:12.2 · ch05 · beat 8 (escalada) · transición · «cut» · escena 5 (42.7 a 52.8 s) · razón: corte · escena 4 → 5
+-- 09:22.3 · ch05 · beat 8 (escalada) · transición · «cut» · escena 6 (52.8 a 62.1 s) · razón: corte · escena 5 → 6
+-- 09:31.6 · ch05 · beat 8 (escalada) · transición · «cut» · escena 7 (62.1 a 74.1 s) · razón: corte · escena 6 → 7
+-- 09:43.6 · ch05 · beat 8 (escalada) · transición · «cut» · escena 8 (74.1 a 81.9 s) · razón: corte · escena 7 → 8
+-- 09:51.4 · ch05 · beat 8 (escalada) · transición · «cut» · escena 9 (81.9 a 89.4 s) · razón: corte · escena 8 → 9
+-- ✂ 09:57.0 · ch05 · beat 8 (escalada) · reloj · «9 OCT» · escena 9 (81.9 a 89.4 s) · voz −1: Mientras tanto, en la ladera, los topógrafos de la empresa seguían midiendo. · voz ancla: El nueve de octubre a la mañana, el director técnico de la empresa se sentó a escribir una carta. · voz +1: El dire
+-- 09:58.9 · ch05 · beat 8 (escalada) · transición · «cut» · escena 10 (89.4 a 109.6 s) · razón: corte · escena 9 → 10
+-- 10:19.1 · ch05 · beat 9 (giro) · transición · «dissolve 20 cuadros» · escena 11 (109.6 a 113.3 s) · razón: cambio de beat · escena 10 → 11
+-- 10:22.7 · ch05 · beat 9 (giro) · transición · «cut» · escena 12 (113.3 a 128.2 s) · razón: corte · escena 11 → 12
+-- 10:37.7 · ch05 · beat 9 (giro) · cita · «ÚLTIMA LÍNEA DE LA POSDATA | «Que Dios nos ayude» — Alberico Biadene» · dura 4.3 s (lectura mínima 4.3 s) · escena 13 (128.2 a 143.1 s) · voz −1: Biadene volvió al papel y agregó una posdata: Rossi lo llamaba en ese momento, y «las mediciones de esta mañan
+-- 10:37.7 · ch05 · beat 9 (giro) · transición · «cut» · escena 13 (128.2 a 143.1 s) · razón: corte · escena 12 → 13
+-- 10:52.5 · ch05 · beat 9 (giro) · transición · «dip 10 cuadros» · escena 14 (143.1 a 175.7 s) · razón: cierre · escena 13 → 14
+-- 11:18.5 · ch05 · beat 9 (giro) · pregunta de cierre · «A las diez y media de la noche, el párroco de Casso escuchó algo y abrió la ventana.» · dura 5.6 s (lectura mínima 5.6 s) · escena 14 (143.1 a 175.7 s) · voz −1: En Longarone, abajo, era una noche como cualquiera. · voz ancla: A las diez y me
+-- 11:24.1 · ch05 · beat 9 (giro) · costura · «negro 1.0 s al cierre del cap (black hold)» · dura 1.0 s · escena 14 (143.1 a 175.7 s)
+-
+-| beat | función | ventana | escenas | propuestos (director · rotulista) | cortados por regla | quedan |
+-|---|---|---|---|---|---|---|
+-| 8 | escalada | 3.1–92.7 s | 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 | 2 · 1 | **colocar** (1): reloj «9 OCT»: no entra en ningún intento: 1 · palabra ancla (87.52 s): quedaría menos de 2.0 s · 2 · inicio de la escena 10  | cita ««en continua aprensión» — Administración»; punch ×1 |
++- 08:30.8 · ch05 · beat 8 (escalada) · costura · «negro 1.0 s (black hold de ch04) → corte → sube desde negro en 10 cuadros (0.33 s) sobre el title card → title card 3.0 s sin voz (pre-roll 3.0 s) → voz a 3.08 s del cap» · escena 0 (0.0 a 12.3 s)
++- 08:30.8 · ch05 · beat 8 (escalada) · title card · «CAPÍTULO 5 | Piedras rodando» · dura 3.0 s · escena 0 (0.0 a 12.3 s) · filtro: pasó · papel: no
++- 08:43.1 · ch05 · beat 8 (escalada) · transición · «cut» · escena 1 (12.3 a 18.2 s) · razón: corte · escena 0 → 1
++- 08:49.0 · ch05 · beat 8 (escalada) · punch · «zoom_punch 12 cuadros» · escena 2 (18.2 a 30.8 s) · razón: pico · escena 1 → 2
++- 08:52.6 · ch05 · beat 8 (escalada) · cita · «DOCUMENTO OFICIAL | «en continua aprensión» — Administración del comune di Erto e Casso» · dura 5.6 s (lectura mínima 5.6 s) · escena 2 (18.2 a 30.8 s) · voz −1: Un informe dice que el veintiséis de septiembre el embalse volvió al nivel de seguridad. ·
++- 09:01.6 · ch05 · beat 8 (escalada) · transición · «cut» · escena 3 (30.8 a 37.4 s) · razón: corte · escena 2 → 3
++- 09:08.2 · ch05 · beat 8 (escalada) · transición · «cut» · escena 4 (37.4 a 42.7 s) · razón: corte · escena 3 → 4
++- 09:13.5 · ch05 · beat 8 (escalada) · transición · «cut» · escena 5 (42.7 a 52.8 s) · razón: corte · escena 4 → 5
++- 09:23.6 · ch05 · beat 8 (escalada) · transición · «cut» · escena 6 (52.8 a 62.1 s) · razón: corte · escena 5 → 6
++- 09:32.9 · ch05 · beat 8 (escalada) · transición · «cut» · escena 7 (62.1 a 74.1 s) · razón: corte · escena 6 → 7
++- 09:44.9 · ch05 · beat 8 (escalada) · transición · «cut» · escena 8 (74.1 a 81.9 s) · razón: corte · escena 7 → 8
++- 09:52.7 · ch05 · beat 8 (escalada) · transición · «cut» · escena 9 (81.9 a 89.4 s) · razón: corte · escena 8 → 9
++- 10:00.2 · ch05 · beat 8 (escalada) · reloj · «9 OCT · 1963» · dura 12.0 s · escena 10 (89.4 a 109.6 s) · voz −1: Mientras tanto, en la ladera, los topógrafos de la empresa seguían midiendo. · voz ancla: El nueve de octubre a la mañana, el director técnico de la empresa se sentó a escribir una car
++- 10:00.2 · ch05 · beat 8 (escalada) · transición · «dissolve 20 cuadros» · escena 10 (89.4 a 109.6 s) · razón: salto de tiempo · escena 9 → 10
++- 10:20.4 · ch05 · beat 9 (giro) · transición · «dissolve 20 cuadros» · escena 11 (109.6 a 113.3 s) · razón: cambio de beat · escena 10 → 11
++- 10:24.1 · ch05 · beat 9 (giro) · transición · «cut» · escena 12 (113.3 a 128.2 s) · razón: corte · escena 11 → 12
++- 10:39.0 · ch05 · beat 9 (giro) · cita · «ÚLTIMA LÍNEA DE LA POSDATA | «Que Dios nos ayude» — Alberico Biadene» · dura 4.3 s (lectura mínima 4.3 s) · escena 13 (128.2 a 143.1 s) · voz −1: Biadene volvió al papel y agregó una posdata: Rossi lo llamaba en ese momento, y «las mediciones de esta mañan
++- 10:39.0 · ch05 · beat 9 (giro) · transición · «cut» · escena 13 (128.2 a 143.1 s) · razón: corte · escena 12 → 13
++- 10:53.9 · ch05 · beat 9 (giro) · transición · «dip 10 cuadros» · escena 14 (143.1 a 175.7 s) · razón: cierre · escena 13 → 14
++- 11:19.9 · ch05 · beat 9 (giro) · pregunta de cierre · «A las diez y media de la noche, el párroco de Casso escuchó algo y abrió la ventana.» · dura 5.6 s (lectura mínima 5.6 s) · escena 14 (143.1 a 175.7 s) · voz −1: En Longarone, abajo, era una noche como cualquiera. · voz ancla: A las diez y me
++- 11:25.5 · ch05 · beat 9 (giro) · costura · «negro 1.0 s al cierre del cap (black hold)» · dura 1.0 s · escena 14 (143.1 a 175.7 s)
++
++| beat | función | ventana | escenas | propuestos (director · rotulista) | cortados por regla | quedan |
++|---|---|---|---|---|---|---|
++| 8 | escalada | 3.1–92.7 s | 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 | 2 · 1 | — | cita ««en continua aprensión» — Administración»; reloj «9 OCT · 1963»; punch ×1 |
+-## ch06 — El gran rugido (11:25.2–14:19.4)
++## ch06 — El gran rugido (11:26.5–14:20.7)
+-- 11:25.2 · ch06 · beat 10 (pico) · costura · «negro 1.0 s (black hold de ch05) → corte → sube desde negro en 10 cuadros (0.33 s) sobre el title card → title card 3.0 s sin voz (pre-roll 3.0 s) → voz a 3.14 s del cap» · escena 0 (0.0 a 18.5 s)
+-- 11:25.2 · ch06 · beat 10 (pico) · title card · «CAPÍTULO 6 | El gran rugido» · dura 3.0 s · escena 0 (0.0 a 18.5 s) · filtro: pasó · papel: no
+-- 11:43.6 · ch06 · beat 10 (pico) · transición · «cut» · escena 1 (18.5 a 22.8 s) · razón: corte · escena 0 → 1
+-- 11:48.0 · ch06 · beat 10 (pico) · punch · «zoom_punch 12 cuadros» · escena 2 (22.8 a 29.1 s) · razón: pico · escena 1 → 2
+-- 11:54.3 · ch06 · beat 10 (pico) · transición · «cut» · escena 3 (29.1 a 40.2 s) · razón: corte · escena 2 → 3
+-- 12:05.3 · ch06 · beat 10 (pico) · transición · «cut» · escena 4 (40.2 a 49.1 s) · razón: corte · escena 3 → 4
+-- 12:14.2 · ch06 · beat 10 (pico) · transición · «cut» · escena 5 (49.1 a 58.0 s) · razón: corte · escena 4 → 5
+-- 12:23.2 · ch06 · beat 10 (pico) · transición · «cut» · escena 6 (58.0 a 70.7 s) · razón: corte · escena 5 → 6
+-- 12:35.9 · ch06 · beat 10 (pico) · transición · «cut» · escena 7 (70.7 a 78.8 s) · razón: corte · escena 6 → 7
+-- 12:43.9 · ch06 · beat 10 (pico) · transición · «cut» · escena 8 (78.8 a 84.2 s) · razón: corte · escena 7 → 8
+-- 12:49.4 · ch06 · beat 10 (pico) · transición · «cut» · escena 9 (84.2 a 94.9 s) · razón: corte · escena 8 → 9
+-- 12:52.7 · ch06 · beat 10 (pico) · ficha · «ALTURA DEL MURO DE AGUA | 70 metros» · dura 2.5 s (lectura mínima 2.1 s) · escena 9 (84.2 a 94.9 s) · voz −1: Longarone sigue con las luces encendidas. · voz ancla: Cuatro minutos después del desprendimiento, el agua llega al pueblo, a las calles, a las 
+-- 13:00.1 · ch06 · beat 10 (pico) · transición · «cut» · escena 10 (94.9 a 108.0 s) · razón: corte · escena 9 → 10
+-- 13:03.0 · ch06 · beat 10 (pico) · sello · «PÁNICO» · dura 2.5 s · escena 10 (94.9 a 108.0 s) · voz −1: Nadie avisó. · voz ancla: Micaela siente que la cama toma velocidad y que una fuerza la agarra por la espalda. · voz +1: La ola la arrastra al menos cuatrocientos metros desde su casa. · filtro:
+-- 13:13.1 · ch06 · beat 10 (pico) · transición · «cut» · escena 11 (108.0 a 113.2 s) · razón: corte · escena 10 → 11
+-- 13:18.3 · ch06 · beat 11 (respiro) · transición · «dissolve 20 cuadros» · escena 12 (113.2 a 126.9 s) · razón: cambio de beat · escena 11 → 12
+-- 13:32.0 · ch06 · beat 11 (respiro) · transición · «cut» · escena 13 (126.9 a 137.6 s) · razón: corte · escena 12 → 13
+-- 13:32.5 · ch06 · beat 11 (respiro) · ficha · «RECUENTO OFICIAL | 1.910 personas» · dura 2.5 s (lectura mínima 2.0 s) · escena 13 (126.9 a 137.6 s) · voz −1: «Conocía Longarone en cada rincón, ahora no sé dónde estoy», dijo uno de los sobrevivientes. · voz ancla: Entre los muertos está Guglielmo C
+-- 13:42.7 · ch06 · beat 11 (respiro) · transición · «cut» · escena 14 (137.6 a 152.6 s) · razón: corte · escena 13 → 14
+-- 13:57.8 · ch06 · beat 11 (respiro) · transición · «dip 10 cuadros» · escena 15 (152.6 a 174.2 s) · razón: cierre · escena 14 → 15
+-- 14:13.0 · ch06 · beat 11 (respiro) · pregunta de cierre · «Tres días después llegó el presidente del Consejo. La gente ya sabía qué pedirle.» · dura 5.4 s (lectura mínima 5.4 s) · escena 15 (152.6 a 174.2 s) · voz −1: Tres días después llegó el presidente del Consejo. · voz ancla: La gente ya sab
+-- 14:18.4 · ch06 · beat 11 (respiro) · costura · «negro 1.0 s al cierre del cap (black hold)» · dura 1.0 s · escena 15 (152.6 a 174.2 s)
++- 11:26.5 · ch06 · beat 10 (pico) · costura · «negro 1.0 s (black hold de ch05) → corte → sube desde negro en 10 cuadros (0.33 s) sobre el title card → title card 3.0 s sin voz (pre-roll 3.0 s) → voz a 3.14 s del cap» · escena 0 (0.0 a 18.5 s)
++- 11:26.5 · ch06 · beat 10 (pico) · title card · «CAPÍTULO 6 | El gran rugido» · dura 3.0 s · escena 0 (0.0 a 18.5 s) · filtro: pasó · papel: no
++- 11:45.0 · ch06 · beat 10 (pico) · transición · «cut» · escena 1 (18.5 a 22.8 s) · razón: corte · escena 0 → 1
++- 11:49.3 · ch06 · beat 10 (pico) · punch · «zoom_punch 12 cuadros» · escena 2 (22.8 a 29.1 s) · razón: pico · escena 1 → 2
++- 11:55.6 · ch06 · beat 10 (pico) · transición · «cut» · escena 3 (29.1 a 40.2 s) · razón: corte · escena 2 → 3
++- 12:06.7 · ch06 · beat 10 (pico) · transición · «cut» · escena 4 (40.2 a 49.1 s) · razón: corte · escena 3 → 4
++- 12:15.6 · ch06 · beat 10 (pico) · transición · «cut» · escena 5 (49.1 a 58.0 s) · razón: corte · escena 4 → 5
++- 12:24.5 · ch06 · beat 10 (pico) · transición · «cut» · escena 6 (58.0 a 70.7 s) · razón: corte · escena 5 → 6
++- 12:37.2 · ch06 · beat 10 (pico) · transición · «cut» · escena 7 (70.7 a 78.8 s) · razón: corte · escena 6 → 7
++- 12:45.3 · ch06 · beat 10 (pico) · transición · «cut» · escena 8 (78.8 a 84.2 s) · razón: corte · escena 7 → 8
++- 12:50.7 · ch06 · beat 10 (pico) · transición · «cut» · escena 9 (84.2 a 94.9 s) · razón: corte · escena 8 → 9
++- 12:54.1 · ch06 · beat 10 (pico) · ficha · «ALTURA DEL MURO DE AGUA | 70 metros» · dura 2.5 s (lectura mínima 2.1 s) · escena 9 (84.2 a 94.9 s) · voz −1: Longarone sigue con las luces encendidas. · voz ancla: Cuatro minutos después del desprendimiento, el agua llega al pueblo, a las calles, a las 
++- 13:01.4 · ch06 · beat 10 (pico) · transición · «cut» · escena 10 (94.9 a 108.0 s) · razón: corte · escena 9 → 10
++- 13:04.3 · ch06 · beat 10 (pico) · sello · «PÁNICO» · dura 2.5 s · escena 10 (94.9 a 108.0 s) · voz −1: Nadie avisó. · voz ancla: Micaela siente que la cama toma velocidad y que una fuerza la agarra por la espalda. · voz +1: La ola la arrastra al menos cuatrocientos metros desde su casa. · filtro:
++- 13:14.5 · ch06 · beat 10 (pico) · transición · «cut» · escena 11 (108.0 a 113.2 s) · razón: corte · escena 10 → 11
++- 13:19.7 · ch06 · beat 11 (respiro) · transición · «dissolve 20 cuadros» · escena 12 (113.2 a 126.9 s) · razón: cambio de beat · escena 11 → 12
++- 13:33.4 · ch06 · beat 11 (respiro) · transición · «cut» · escena 13 (126.9 a 137.6 s) · razón: corte · escena 12 → 13
++- 13:33.8 · ch06 · beat 11 (respiro) · ficha · «RECUENTO OFICIAL | 1.910 personas» · dura 2.5 s (lectura mínima 2.0 s) · escena 13 (126.9 a 137.6 s) · voz −1: «Conocía Longarone en cada rincón, ahora no sé dónde estoy», dijo uno de los sobrevivientes. · voz ancla: Entre los muertos está Guglielmo C
++- 13:44.1 · ch06 · beat 11 (respiro) · transición · «cut» · escena 14 (137.6 a 152.6 s) · razón: corte · escena 13 → 14
++- 13:59.1 · ch06 · beat 11 (respiro) · transición · «dip 10 cuadros» · escena 15 (152.6 a 174.2 s) · razón: cierre · escena 14 → 15
++- 14:14.3 · ch06 · beat 11 (respiro) · pregunta de cierre · «Tres días después llegó el presidente del Consejo. La gente ya sabía qué pedirle.» · dura 5.4 s (lectura mínima 5.4 s) · escena 15 (152.6 a 174.2 s) · voz −1: Tres días después llegó el presidente del Consejo. · voz ancla: La gente ya sab
++- 14:19.7 · ch06 · beat 11 (respiro) · costura · «negro 1.0 s al cierre del cap (black hold)» · dura 1.0 s · escena 15 (152.6 a 174.2 s)
+-## ch07 — Diarios y verdades (14:19.4–17:36.3)
+-
+-Segmento 196.90 s · pre-roll 3.0 s · primera palabra a 3.08 s del cap · pausa más larga del guion 2.80 s (marca de pausa del guion, en «justicia.») · textos en pantalla 2
+-
+-- 14:19.4 · ch07 · beat 12 (revelacion) · costura · «negro 1.0 s (black hold de ch06) → corte → sube desde negro en 10 cuadros (0.33 s) sobre el title card → title card 3.0 s sin voz (pre-roll 3.0 s) → voz a 3.08 s del cap» · escena 0 (0.0 a 18.2 s)
+-- 14:19.4 · ch07 · beat 12 (revelacion) · title card · «CAPÍTULO 7 | Diarios y verdades» · dura 3.0 s · escena 0 (0.0 a 18.2 s) · filtro: pasó · papel: no
+-- 14:34.2 · ch07 · beat 12 (revelacion) · cita · «RESPUESTA | «Y justicia tendréis» — Giovanni Leone» · dura 3.1 s (lectura mínima 3.1 s) · escena 0 (0.0 a 18.2 s) · voz −1: El presidente del Consejo caminó entre los escombros con un abrigo oscuro. · voz ancla: De entre lo que quedaba de Longarone 
+-- 14:37.6 · ch07 · beat 12 (revelacion) · punch · «zoom_punch 12 cuadros» · escena 1 (18.2 a 23.5 s) · razón: pico · escena 0 → 1
+-- 14:42.8 · ch07 · beat 12 (revelacion) · transición · «cut» · escena 2 (23.5 a 34.2 s) · razón: corte · escena 1 → 2
+-- 14:53.5 · ch07 · beat 12 (revelacion) · transición · «cut» · escena 3 (34.2 a 45.8 s) · razón: corte · escena 2 → 3
+-- 15:05.2 · ch07 · beat 12 (revelacion) · transición · «cut» · escena 4 (45.8 a 61.3 s) · razón: corte · escena 3 → 4
+-- 15:20.7 · ch07 · beat 12 (revelacion) · transición · «cut» · escena 5 (61.3 a 72.7 s) · razón: corte · escena 4 → 5
+-- 15:20.9 · ch07 · beat 12 (revelacion) · sello · «RABIA» · dura 2.5 s · escena 5 (61.3 a 72.7 s) · voz −1: Giorgio Bocca escribió que una desgracia tan limpia, tan ineluctable, tan absoluta, llevaba más a la melancolía que al dolor: «No había nada que hacer, no hay remordimientos, no hay culpables
+-- 15:32.1 · ch07 · beat 12 (revelacion) · transición · «cut» · escena 6 (72.7 a 84.5 s) · razón: corte · escena 5 → 6
+-- 15:43.8 · ch07 · beat 12 (revelacion) · transición · «dissolve 20 cuadros» · escena 7 (84.5 a 93.8 s) · razón: salto de tiempo · escena 6 → 7
+-- 15:44.1 · ch07 · beat 12 (revelacion) · reloj · «20 FEB · 1968» · dura 9.0 s · escena 7 (84.5 a 93.8 s) · voz −1: Una primera comisión de expertos trabajó dieciocho meses y concluyó que el desastre era imprevisible. · voz ancla: Pasaron más de cuatro años hasta que, el veinte de febrero de mil no
+-- 15:53.1 · ch07 · beat 12 (revelacion) · transición · «cut» · escena 8 (93.8 a 101.4 s) · razón: corte · escena 7 → 8
+-- 16:00.7 · ch07 · beat 13 (cierre) · transición · «dissolve 20 cuadros» · escena 9 (101.4 a 106.3 s) · razón: cambio de beat · escena 8 → 9
+-- 16:05.7 · ch07 · beat 13 (cierre) · transición · «cut» · escena 10 (106.3 a 113.8 s) · razón: corte · escena 9 → 10
+-- 16:13.2 · ch07 · beat 13 (cierre) · transición · «cut» · escena 11 (113.8 a 124.5 s) · razón: corte · escena 10 → 11
+-- 16:23.9 · ch07 · beat 13 (cierre) · transición · «cut» · escena 12 (124.5 a 135.3 s) · razón: corte · escena 11 → 12
+-- 16:27.5 · ch07 · beat 13 (cierre) · ficha · «CONDENA A MONTEDISON | 55.645.758.500 liras» · dura 2.7 s (lectura mínima 2.7 s) · escena 12 (124.5 a 135.3 s) · voz −1: En marzo de mil novecientos setenta y uno, la Casación reconoció la culpabilidad de Biadene y de Sensidoni. · voz ancla: ENEL ofrec
+-- 16:34.7 · ch07 · beat 13 (cierre) · transición · «cut» · escena 13 (135.3 a 175.0 s) · razón: corte · escena 12 → 13
+-- 16:48.3 · ch07 · beat 13 (cierre) · sello · «MEMORIA» · dura 2.5 s · escena 13 (135.3 a 175.0 s) · voz −1: Alguien que siguió aquel proceso lo resumió sin levantar la voz: Vajont no fue la excepción al sistema, sino su confirmación; «había un riesgo, previsible y previsto». · voz ancla: Micaela C
+-- 17:14.4 · ch07 · beat 13 (cierre) · transición · «dip 10 cuadros» · escena 14 (175.0 a 196.9 s) · razón: cierre · escena 13 → 14
+-- 17:22.4 · ch07 · beat 13 (cierre) · pregunta de cierre · «La sentencia dice inundación agravada por la previsión del evento. No dice quién, entre la posdata de la mañana y las diez y treinta y nueve de la noche, decidió que Micaela siguiera durmiendo.» · dura 12.9 s (lectura mínima 12.9 s) · esce
+-- 17:35.2 · ch07 · beat 13 (cierre) · costura · «negro 1.0 s al cierre del cap (black hold)» · dura 1.0 s · escena 14 (175.0 a 196.9 s)
++## ch07 — Diarios y verdades (14:20.7–17:27.8)
++
++Segmento 187.10 s · pre-roll 3.0 s · primera palabra a 3.08 s del cap · pausa más larga del guion 2.80 s (marca de pausa del guion, en «justicia.») · textos en pantalla 2
++
++- 14:20.7 · ch07 · beat 12 (revelacion) · costura · «negro 1.0 s (black hold de ch06) → corte → sube desde negro en 10 cuadros (0.33 s) sobre el title card → title card 3.0 s sin voz (pre-roll 3.0 s) → voz a 3.08 s del cap» · escena 0 (0.0 a 18.2 s)
++- 14:20.7 · ch07 · beat 12 (revelacion) · title card · «CAPÍTULO 7 | Diarios y verdades» · dura 3.0 s · escena 0 (0.0 a 18.2 s) · filtro: pasó · papel: no
++- 14:35.6 · ch07 · beat 12 (revelacion) · cita · «RESPUESTA | «Y justicia tendréis» — Giovanni Leone» · dura 3.1 s (lectura mínima 3.1 s) · escena 0 (0.0 a 18.2 s) · voz −1: El presidente del Consejo caminó entre los escombros con un abrigo oscuro. · voz ancla: De entre lo que quedaba de Longarone 
++- 14:38.9 · ch07 · beat 12 (revelacion) · punch · «zoom_punch 12 cuadros» · escena 1 (18.2 a 23.5 s) · razón: pico · escena 0 → 1
++- 14:44.2 · ch07 · beat 12 (revelacion) · transición · «cut» · escena 2 (23.5 a 34.2 s) · razón: corte · escena 1 → 2
++- 14:54.9 · ch07 · beat 12 (revelacion) · transición · «cut» · escena 3 (34.2 a 45.8 s) · razón: corte · escena 2 → 3
++- 15:06.5 · ch07 · beat 12 (revelacion) · transición · «cut» · escena 4 (45.8 a 61.3 s) · razón: corte · escena 3 → 4
++- 15:22.0 · ch07 · beat 12 (revelacion) · transición · «cut» · escena 5 (61.3 a 72.7 s) · razón: corte · escena 4 → 5
++- 15:22.3 · ch07 · beat 12 (revelacion) · sello · «RABIA» · dura 2.5 s · escena 5 (61.3 a 72.7 s) · voz −1: Giorgio Bocca escribió que una desgracia tan limpia, tan ineluctable, tan absoluta, llevaba más a la melancolía que al dolor: «No había nada que hacer, no hay remordimientos, no hay culpables
++- 15:33.4 · ch07 · beat 12 (revelacion) · transición · «cut» · escena 6 (72.7 a 84.5 s) · razón: corte · escena 5 → 6
++- 15:45.2 · ch07 · beat 12 (revelacion) · transición · «dissolve 20 cuadros» · escena 7 (84.5 a 93.8 s) · razón: salto de tiempo · escena 6 → 7
++- 15:45.4 · ch07 · beat 12 (revelacion) · reloj · «20 FEB · 1968» · dura 9.0 s · escena 7 (84.5 a 93.8 s) · voz −1: Una primera comisión de expertos trabajó dieciocho meses y concluyó que el desastre era imprevisible. · voz ancla: Pasaron más de cuatro años hasta que, el veinte de febrero de mil no
++- 15:54.5 · ch07 · beat 12 (revelacion) · transición · «cut» · escena 8 (93.8 a 101.4 s) · razón: corte · escena 7 → 8
++- 16:02.1 · ch07 · beat 13 (cierre) · transición · «dissolve 20 cuadros» · escena 9 (101.4 a 106.3 s) · razón: cambio de beat · escena 8 → 9
++- 16:07.0 · ch07 · beat 13 (cierre) · transición · «cut» · escena 10 (106.3 a 113.8 s) · razón: corte · escena 9 → 10
++- 16:14.5 · ch07 · beat 13 (cierre) · transición · «cut» · escena 11 (113.8 a 124.5 s) · razón: corte · escena 10 → 11
++- 16:25.2 · ch07 · beat 13 (cierre) · transición · «cut» · escena 12 (124.5 a 135.3 s) · razón: corte · escena 11 → 12
++- 16:28.8 · ch07 · beat 13 (cierre) · ficha · «CONDENA A MONTEDISON | 55.645.758.500 liras» · dura 2.7 s (lectura mínima 2.7 s) · escena 12 (124.5 a 135.3 s) · voz −1: En marzo de mil novecientos setenta y uno, la Casación reconoció la culpabilidad de Biadene y de Sensidoni. · voz ancla: ENEL ofrec
++- 16:36.0 · ch07 · beat 13 (cierre) · transición · «cut» · escena 13 (135.3 a 175.0 s) · razón: corte · escena 12 → 13
++- 16:49.6 · ch07 · beat 13 (cierre) · sello · «MEMORIA» · dura 2.5 s · escena 13 (135.3 a 175.0 s) · voz −1: Alguien que siguió aquel proceso lo resumió sin levantar la voz: Vajont no fue la excepción al sistema, sino su confirmación; «había un riesgo, previsible y previsto». · voz ancla: Micaela C
++- 17:15.7 · ch07 · beat 13 (cierre) · transición · «dip 10 cuadros» · escena 14 (175.0 a 187.1 s) · razón: cierre · escena 13 → 14
++- 17:23.7 · ch07 · beat 13 (cierre) · pregunta de cierre · «¿Quién decidió que Micaela siguiera durmiendo?» · dura 3.1 s (lectura mínima 3.1 s) · escena 14 (175.0 a 187.1 s) · voz −1: No dice quién, entre la posdata de la mañana y las diez y treinta y nueve de la noche, decidió que Longarone no deb
++- 17:26.8 · ch07 · beat 13 (cierre) · costura · «negro 1.0 s al cierre del cap (black hold)» · dura 1.0 s · escena 14 (175.0 a 187.1 s)
+-| 13 | cierre | 101.6–180.6 s | 8, 9, 10, 11, 12, 13, 14 | 1 · 1 | — | ficha «55.645.758.500 liras»; sello «MEMORIA»; pregunta de cierre «La sentencia dice inundación agravada po» |
++| 13 | cierre | 101.6–180.6 s | 8, 9, 10, 11, 12, 13, 14 | 1 · 1 | — | ficha «55.645.758.500 liras»; sello «MEMORIA»; pregunta de cierre «¿Quién decidió que Micaela siguiera durm» |
+-- ✓ ch01→ch02 (01:44.6): negro 100.60–101.60 s hasta el corte · voz callada (máx -120.0 dB) · el entrante sube desde negro (corte a negro, sin fadewhite)
+-- ✓ ch02→ch03 (04:05.2): negro 139.57–140.57 s hasta el corte · voz callada (máx -120.0 dB) · el entrante sube desde negro (corte a negro, sin fadewhite)
+-- ✓ ch03→ch04 (06:20.5): negro 134.27–135.27 s hasta el corte · voz callada (máx -120.0 dB) · el entrante sube desde negro (corte a negro, sin fadewhite)
+-- ✓ ch04→ch05 (08:29.5): negro 127.97–128.97 s hasta el corte · voz callada (máx -120.0 dB) · el entrante sube desde negro (corte a negro, sin fadewhite)
+-- ✓ ch05→ch06 (11:25.2): negro 174.67–175.67 s hasta el corte · voz callada (máx -120.0 dB) · el entrante sube desde negro (corte a negro, sin fadewhite)
+-- ✓ ch06→ch07 (14:19.4): negro 173.20–174.20 s hasta el corte · voz callada (máx -120.0 dB) · el entrante sube desde negro (corte a negro, sin fadewhite)
++- ✓ ch01→ch02 (01:44.9): negro 100.93–101.93 s hasta el corte · voz callada (máx -120.0 dB) · el entrante sube desde negro (corte a negro, sin fadewhite)
++- ✓ ch02→ch03 (04:06.5): negro 140.57–141.57 s hasta el corte · voz callada (máx -120.0 dB) · el entrante sube desde negro (corte a negro, sin fadewhite)
++- ✓ ch03→ch04 (06:21.8): negro 134.27–135.27 s hasta el corte · voz callada (máx -120.0 dB) · el entrante sube desde negro (corte a negro, sin fadewhite)
++- ✓ ch04→ch05 (08:30.8): negro 127.97–128.97 s hasta el corte · voz callada (máx -120.0 dB) · el entrante sube desde negro (corte a negro, sin fadewhite)
++- ✓ ch05→ch06 (11:26.5): negro 174.67–175.67 s hasta el corte · voz callada (máx -120.0 dB) · el entrante sube desde negro (corte a negro, sin fadewhite)
++- ✓ ch06→ch07 (14:20.7): negro 173.20–174.20 s hasta el corte · voz callada (máx -120.0 dB) · el entrante sube desde negro (corte a negro, sin fadewhite)
+-- ✓ ch02 · voz esperada 107.68 s · medida 107.68 s · llega a −18 dB en 107.68 s con rampa (100 ms previos: -28.1 dB)
+-- ✓ ch03 · voz esperada 248.28 s · medida 248.28 s · llega a −18 dB en 248.28 s con rampa (100 ms previos: -28.4 dB)
+-- ✓ ch04 · voz esperada 383.56 s · medida 383.56 s · llega a −18 dB en 384.06 s con rampa (100 ms previos: -21.6 dB)
+-- ✓ ch05 · voz esperada 512.55 s · medida 512.55 s · llega a −18 dB en 512.57 s con rampa (100 ms previos: -24.5 dB)
+-- ✓ ch06 · voz esperada 688.31 s · medida 688.31 s · llega a −18 dB en 688.33 s con rampa (100 ms previos: -29.5 dB)
+-- ✗ ch07 · voz esperada 862.45 s · medida 862.45 s · llega a −18 dB en 862.44 s sin rampa (100 ms previos: -32.6 dB, bajo la voz presente -30.5 dB)
++- ✓ ch02 · voz esperada 108.01 s · medida 108.01 s · llega a −18 dB en 108.01 s con rampa (100 ms previos: -28.1 dB)
++- ✓ ch03 · voz esperada 249.61 s · medida 249.61 s · llega a −18 dB en 249.61 s con rampa (100 ms previos: -28.4 dB)
++- ✓ ch04 · voz esperada 384.89 s · medida 384.89 s · llega a −18 dB en 385.39 s con rampa (100 ms previos: -21.6 dB)
++- ✓ ch05 · voz esperada 513.88 s · medida 513.88 s · llega a −18 dB en 513.90 s con rampa (100 ms previos: -24.5 dB)
++- ✓ ch06 · voz esperada 689.64 s · medida 689.64 s · llega a −18 dB en 689.66 s con rampa (100 ms previos: -29.5 dB)
++- ✗ ch07 · voz esperada 863.78 s · medida 863.78 s · llega a −18 dB en 863.77 s sin rampa (100 ms previos: -32.6 dB, bajo la voz presente -30.5 dB)
+-- ✓ ch02: title card 104.600 s · música medida 104.600 s · desvío +0.000 s (+0.00 cuadros)
+-- ✓ ch03: title card 245.200 s · música medida 245.200 s · desvío -0.000 s (-0.00 cuadros)
+-- ✓ ch04: title card 380.500 s · música medida 380.500 s · desvío +0.000 s (+0.00 cuadros)
+-- ✓ ch05: title card 509.467 s · música medida 509.467 s · desvío +0.000 s (+0.00 cuadros)
+-- ✓ ch06: title card 685.167 s · música medida 685.167 s · desvío +0.000 s (+0.00 cuadros)
+-- ✓ ch07: title card 859.367 s · música medida 859.367 s · desvío +0.000 s (+0.00 cuadros)
++- ✓ ch02: title card 104.933 s · música medida 104.933 s · desvío +0.000 s (+0.00 cuadros)
++- ✓ ch03: title card 246.533 s · música medida 246.533 s · desvío +0.000 s (+0.00 cuadros)
++- ✓ ch04: title card 381.833 s · música medida 381.833 s · desvío +0.000 s (+0.00 cuadros)
++- ✓ ch05: title card 510.800 s · música medida 510.800 s · desvío +0.000 s (+0.00 cuadros)
++- ✓ ch06: title card 686.500 s · música medida 686.500 s · desvío +0.000 s (+0.00 cuadros)
++- ✓ ch07: title card 860.700 s · música medida 860.700 s · desvío +0.000 s (+0.00 cuadros)
+-- ✗ ch02 sello CALMA: sello del papel «CALMA»: no entra en ningún intento: 1 · palabra de más peso (58.18 s) · lado right: estorba — El sello grande a media altura a la derecha tapa rostros de las personas sentadas en la cafetería y elementos clave de la escena, como la Vespa. · 1 · palabra de más 
++- ✗ ch02 sello CALMA: sello del papel «CALMA»: no entra en ningún intento: 1 · palabra de más peso (58.18 s) · lado right: estorba — El sello grande a media altura a la derecha tapa rostros de las personas sentadas en la cafetería y elementos clave de la escena, como la Vespa. · 1 · palabra de más 
++- · ch05 el papel no trae reloj · reloj de la voz «9 OCT 1963» → difiere (anotado)
+
+(357 líneas distintas en el .md; 271 → 272 líneas)
