@@ -813,3 +813,109 @@ Riesgos que el contrato no cubre:
 - RAM medida otra vez: **10.9 GB libres de 31.7** (antes 9.6); Firefox abierto (15 procesos). **< 14 GB → PARADA otra vez**; no se cerró nada; el render no corrió. Medida en `f38/v6/ram_retomar.txt`.
 - Segunda retomada: **13.3 GB libres de 31.7** (Firefox cerrado: 0 procesos). **< 14 GB → PARADA**; el render no corrió (`f38/v6/ram_retomar2.txt`).
 - Tercera retomada: **13.7 GB libres** (Firefox 0, `vmmem` sigue). **< 14 GB → PARADA** (`f38/v6/ram_retomar3.txt`).
+
+
+### Render v6 — HECHO (Omar: «no le pares bola, arrancá»)
+**Excepción declarada a DECISIONES 00:30:** a las 03:48 la RAM libre era 13.6 GB (< 14). Omar ordenó arrancar igual
+(«300 MB no hará la diferencia»). Vale solo para este render; la regla sigue vigente.
+
+**Paso 4 — dos corridas del mismo comando** (sin `--gfx-workers`: van los valores por defecto; todos los flags existen):
+`python fase2b.py f8s3-vajont-f30 --keep-segments --reuse-visuals --gfx --gfx-sparse --gfx-quality looks`
+
+1. **03:48 → 03:53 (4 min 45 s), exit 0, pero la capa gfx NO se dibujó.**
+   - **Qué pasó:** con `--reuse-visuals`, `gfx_layer.apply_gfx` reusa un `chXX_gfx.mp4` que ya existe y no lo re-renderiza
+     (`if reuse and out.exists()`), aunque el plan haya cambiado. En `_fase2b_work/` estaban las 7 capas del render v5
+     (26-10, 04:02–04:33). El segmento se rearmó encima de ellas: el mp4 salía con la pantalla de v5, no con la del plan
+     aprobado.
+   - **Cómo lo detecté:** el log no traía ninguna línea de gfx; los renders gfx anteriores tardaron entre 41 y 128 min, y
+     las capas tenían fecha de v5.
+   - **Ese mp4 no se usó como v6.** Log: `f38/v6/render_1_capas_viejas.log`.
+2. **Arreglo sin tocar código, como en F5** («capas y planes a `_bak_…`»): moví, sin borrar, las 7 capas de v5 y el mp4
+   de la corrida 1 a `output/f8s3-vajont-f30/_fase2b_work/_bak_v6_capas_v5/` (`chNN_gfx.mp4` ×7,
+   `final_gfx_con_capas_v5[_no_music].mp4`). Después volví a correr el mismo comando.
+3. **03:54 → 04:19 (25 min 11 s), exit 0** (`f38/v6/render.log`).
+
+**Tiempo por etapa, corrida 2:**
+
+| etapa | tiempo |
+|---|---|
+| gfx ch01 · ch02 · ch03 · ch04 · ch05 · ch06 · ch07 | 156 · 166 · 161 · 174 · 166 · 169 · 234 s (todos «OK, disperso»), 20 min 26 s en total |
+| segmentos | se arman a medida que sale cada capa: seg_01…seg_07 = 100.6 · 139.6 · 134.3 · 128.0 · 174.7 · 173.2 · 195.9 s |
+| concat por ventanas | 54 s |
+| música (ducking por cap, sidechain) | 33 s |
+| **total** | **25 min 11 s** (más los 4 min 45 s de la corrida 1) |
+
+**RAM:**
+- libre al empezar: 13.6 GB en la corrida 1 y 13.8 GB en la corrida 2;
+- **mínima durante el render: 10.58 GB** (03:56, corrida 2; en la corrida 1 fue 12.73);
+- al terminar: 15.05 GB.
+- Muestras cada 30 s en `f38/v6/ram_durante_render.txt`.
+
+**mp4:**
+
+| archivo | duración | resolución | fps | tamaño | md5 |
+|---|---|---|---|---|---|
+| `output/f8s3-vajont-f30/f8s3-vajont_final_gfx_v6.mp4` | 1049.30 s (17:29) | 2560×1440 | 30 | 920 430 969 B (877.8 MB) | `b0640b60b698cf03ec540142a8a02be5` |
+| `output/f8s3-vajont-f30/f8s3-vajont_final_gfx_v6_no_music.mp4` | 1046.38 s | 2560×1440 | 30 | 919 054 583 B | `87ccc465cc15d2c8ab13da10872c1f3b` |
+
+Son copias de `f8s3-vajont-f30_final_gfx[_no_music].mp4`. v4 y v5 no se tocaron.
+
+**Errores, `base_clip` y timeouts:** ninguno. Los 7 caps salieron «✓ [gfx] OK (disperso)». El único aviso es `topics_db:
+no se encontró topic 'f8s3-vajont-f30' para marcar`, que es de siempre.
+
+**Plan aprobado:**
+- el hook `guard_render` no frenó ninguna de las dos corridas;
+- `aprobacion.md5_planes` da hoy `35576ed62cafe69ededc85371834fef6`, igual al aprobado; `estado` = «guion aprobado por Omar
+  (2026-10-27)»;
+- los `gfx_plan_chNN.resolved.json` son los de las 03:04–03:07 (el `--plan-only` de F38d);
+- `GUION_PANTALLA.md` = `0af5b1dc…`;
+- en el mp4 se ven la tarjeta «9 OCT 1963 · 22:39» en el segundo 1,5 y D128 «RECUENTO OFICIAL · 1.910 PERSONAS» sobre
+  «Entre los muertos está Guglielmo Celso».
+
+### Lo que queda abierto (render v6, entero)
+- r1. **El caché de capas gfx ignora la aprobación (bug del sistema).** Con `--reuse-visuals`, `apply_gfx` reusa un
+  `chXX_gfx.mp4` viejo aunque los planes hayan cambiado. El hook valida `md5_planes`, pero no que la capa sea de esos
+  planes, así que un render «aprobado» puede salir con la pantalla de antes sin ningún aviso. Esta vez lo salvó mirar la
+  fecha de las capas. Arreglo general para el analista: la capa guarda el md5 de su plan y se rehace si no coincide.
+- r2. **Tiempos del guion contra el mp4:** D128 está a 13:32.5 en `GUION_PANTALLA.md` y se ve hacia 13:28–13:29 del mp4
+  final, unos 4 s antes. La duración del mp4 (1049.3 s) difiere de la que usa el guion. No lo investigué (sin tocar
+  código); afecta a quien revise el video con los tiempos del guion.
+- r3. **Los subtítulos siguen en karaoke amarillo:** DECISIONES 03:34 pide «documental», pendiente de tanda. Vajont v6
+  sale como está.
+- r4. **El render corrió con 13.6–13.8 GB libres**, por orden de Omar, debajo del umbral de 14. La mínima fue 10.58 GB y no
+  pasó nada.
+- r5. **Quedan ~3,1 GB de respaldo** en `_fase2b_work/_bak_v6_capas_v5/` (capas v5 + mp4 de la corrida 1). No se borraron.
+- r6. **Siguen los abiertos de F38d** (d1–d8) y B1–B5 + d1 de `REVISION_GUION_F38d.md` (antes de Kyshtym, DECISIONES
+  03:29).
+- r7. Sin fase3, sin publicar, sin merge.
+
+## Veredicto del revisor (`revisor-handoff`, íntegro) — Render v6 hecho
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | Paso 3 RAM medida; <14 GB = parada, sin cerrar programas; excepción de Omar declarada | OK | `ram_paso3.txt`, `ram_retomar*.txt`, `ram_inicio_render.txt` (13.6 y 13.8 GB). F38_REPORT.md:818-821 declara la excepción («300 MB no hará la diferencia») y que vale solo para este render. |
+| 2 | Comando exacto, sin `--gfx-workers`, todos los flags existen | OK | F38_REPORT.md:823-824. `render.log` encabezado: gfx ON looks, subs ON. No hubo flag sustituido. |
+| 3 | Sin tocar código | OK | `git diff -- '*.py'` muestra solo `diag_234_cap4.py` (1 línea). Ese archivo ya figuraba modificado en el git status inicial, antes de esta tanda, así que no es de la tanda. Mover capas de caché a `_bak_v6_capas_v5/` no es código. |
+| 4 | Corrida 1 con capas viejas, declarada | OK | El reporte la declara (líneas 826-843). `render_1_capas_viejas.log` no tiene líneas gfx. Las 7 capas v5 (fecha 26-10) y los `final_gfx_con_capas_v5*.mp4` están movidos, no borrados, en `_bak_v6_capas_v5/`. Las capas actuales en `_fase2b_work/` tienen fecha 27-10 03:57–04:17. Esa corrida no se usó como v6. |
+| 5 | Tiempo por etapa y total | OK | `render.log`: gfx 156/166/161/174/166/169/234 s (suma 1226 s = 20:26), seg_01…07 coinciden, concat 54 s, música 33 s. `render_fin.txt`: 25 min 11 s. Las marcas 03:54:35→04:19:53 dan 25:18 de pared; la diferencia es arranque y cierre. |
+| 6 | RAM inicial y mínima | OK | Inicial 13.6 / 13.8 GB. Mínima 10.58 GB a las 03:56:16 en `ram_durante_render.txt`, igual a lo reportado. Final 15.05 GB. |
+| 7 | mp4: duración, resolución, tamaño, md5, nombres | OK | ffprobe: v6 = 1049.30 s, 2560×1440, 920 430 969 B. v6_no_music = 1046.38 s, 2560×1440, 919 054 583 B. md5sum: `b0640b60…` y `87ccc465…`, iguales al reporte. Ambos archivos existen con el nombre pedido. No verifiqué los 30 fps. |
+| 8 | v4 y v5 intactos | OK | Fechas 2026-10-26 (v4 03:58, v5 04:34/04:35). Los tamaños no cambiaron. |
+| 9 | Errores, base_clip, timeouts | OK | `grep -ciE "base_clip\|timeout\|traceback\|error"` da 0 en los dos logs. Los 7 caps salieron «OK (disperso)». |
+| 10 | Plan aprobado, hook no frenó, md5_planes | OK | `md5_planes` recalculado hoy da `35576ed62cafe69ededc85371834fef6`. `aprobar.log` confirma la aprobación con ese md5. Ambas corridas terminaron con exit 0. Las capas se rehicieron con el plan (fechas nuevas). No verifiqué en el mp4 que se vean la tarjeta del segundo 1,5 ni D128; es afirmación del reporte. |
+| 11 | Sin fase3, sin publicar, sin merge | OK | No hay artefactos de fase3 ni de publicación en `output/f8s3-vajont-f30`. `render.log` solo sugiere fase3 como siguiente paso. Rama sin cambios; últimos commits son docs de parada. |
+| 12 | Lo abierto, entero | OK | r1–r7 (líneas ~870-890) incluyen el bug de caché (r1), el desfase de D128 (r2), los subs karaoke (r3), la RAM bajo el umbral (r4) y el respaldo de 3,1 GB (r5). |
+| 13 | Veredicto íntegro pegado, ESTADO actualizado y commit | PARCIAL | La sección «Veredicto … Render v6 hecho» dice «(se pega abajo)»: queda por pegar este veredicto. `lab/ESTADO_SESION.md` y `F38_REPORT.md` figuran modificados sin commitear. No pude confirmar el contenido del ESTADO ni el commit. |
+
+Fuera de alcance: ninguno atribuible a la tanda. `diag_234_cap4.py`, los `gfx_profiles/*.json` y `f28a.log` aparecen modificados, pero ya estaban así en el git status inicial. `lab/hyperframes/f38/v6/` es nuevo y está dentro del alcance.
+
+Observaciones:
+- r1 es un defecto real del sistema. Con `--reuse-visuals` se reusan capas viejas sin avisar, y el hook no lo detecta. La corrida 1 salió mal por eso. El reporte lo declara y lo corrigió moviendo las capas sin tocar código. Es una desviación del pedido literal (dos corridas), pero está bien documentada.
+- r2: D128 sale ~4 s antes que en `GUION_PANTALLA.md` y la duración del mp4 difiere de la del guion. No se investigó y no lo verifiqué.
+
+Riesgos que el contrato no cubre: el mp4 v6 mantiene subs karaoke amarillos, contra DECISIONES 03:34. El tiempo del guion y el del mp4 no coinciden. Quedan 3,1 GB de respaldo sin política de borrado.
+
+### Adenda de CC (después del veredicto; el texto de arriba queda tal cual)
+- Fila 13: el veredicto quedó pegado acá. El reporte, ESTADO y los logs de `f38/v6/` entran en el mismo commit.
+- Fila 10: la tarjeta y D128 los comprobé sacando cuadros con ffmpeg (segundo 1,5 y la tira 806–821 s). Los jpg quedaron en el scratchpad de la sesión, no en el repo.
