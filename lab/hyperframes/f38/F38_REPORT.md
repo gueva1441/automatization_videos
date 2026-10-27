@@ -750,3 +750,61 @@ Riesgos que el contrato no cubre:
 ### Adenda de CC (después del veredicto; el texto de arriba queda tal cual)
 - Fila 10: este veredicto quedó pegado acá.
 - `ENTRADA_ANALISTA_2026-10-27.md` no entra al commit B: no es de la tanda y el pedido no lo nombra. Queda sin trackear para que decida Omar. Los `M` ajenos (`diag_234_cap4.py`, `gfx_profiles/*`, `f28a.log`) tampoco entran.
+
+
+---
+
+# Render v6 de Vajont — PARADA en el paso 3 (RAM)
+
+Pedido de Omar (render v6 con el papel de F38d tal cual, DECISIONES 03:29). Rama `f11-guion-v4`. **No se renderizó.**
+
+| paso | resultado |
+|---|---|
+| 0 · docs | md5 `DECISIONES.md` = `47bbe25d…` y `REVISION_GUION_F38d.md` = `199a3604…`, los dos coinciden → commit `fbe517a` (solo esos 2 archivos) |
+| 1 · plan | `output/f8s3-vajont-f30/GUION_PANTALLA.md` = `0af5b1dca3ab8cac1cb00f534e4b24c9` = `f38/b4/`. No se corrió `--plan-only` ni `--plan-edit` |
+| 2 · aprobar | `python fase2b.py f8s3-vajont-f30 --aprobar-guion "Omar 2026-10-27"` → «aprobado por Omar (2026-10-27) · md5 de los planes `35576ed62cafe69ededc85371834fef6`» (`f38/v6/aprobar.log`). El plan quedó igual (`0af5b1dc…`) |
+| 3 · RAM | **9.6 GB libres de 31.7** (9.9 al empezar el paso 0) **< 14 GB → avisar y PARADA** (DECISIONES 00:30). No se cerró ningún programa de Omar |
+| 4 · render | **no corrió** |
+| 5 · reporte | esta sección |
+
+Qué ocupa la RAM al medir (`f38/v6/ram_paso3.txt`), sin tocar nada:
+- `vmmem`: 3.46 GB (WSL o Docker);
+- Memory Compression: 2.21 GB;
+- Firefox: ~2.6 GB, sumando sus procesos;
+- `claude`: 1.02 GB;
+- Excel: 0.60 GB.
+
+Para seguir: Omar libera RAM a mano y dice «seguí». Entonces se vuelve a medir y, con ≥ 14 GB, va el paso 4 con el comando del pedido. La aprobación ya está hecha y el md5 de los planes queda registrado, así que no hace falta repetirla mientras el plan no cambie.
+
+## Lo que queda abierto (entero)
+- v1. **El render v6 no se hizo:** RAM libre 9.6 GB < 14 GB. Lo libera Omar.
+- v2. **Del pedido, sin ejercitar:** tiempo por etapa, RAM mínima durante el render, mp4 (duración, resolución, tamaño, md5), caps que caigan a `base_clip` o timeouts, y la verificación del hook con `md5_planes` en el render.
+- v3. **Los abiertos de F38d siguen** (d1–d8), más B1–B5 y d1 de `REVISION_GUION_F38d.md`, que se arreglan antes de Kyshtym (DECISIONES 03:29).
+
+## Veredicto del revisor (`revisor-handoff`, íntegro) — Render v6
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+El trabajo es fiel al pedido hasta la PARADA del paso 3. Las observaciones son dos: la sección del reporte está sin cerrar y el paso 5 queda sin commitear.
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 0 | Paso 0: md5 de DECISIONES y REVISION_GUION_F38d, y un commit con solo esos 2 archivos | OK | `md5sum` da 47bbe25d… y 199a3604…, iguales a los pedidos. `git show --stat fbe517a` lista solo esos 2 archivos. |
+| 1 | Plan igual al revisado, sin `--plan-only` ni `--plan-edit` | OK | `output/f8s3-vajont-f30/GUION_PANTALLA.md` y `f38/b4/GUION_PANTALLA.md` dan 0af5b1dc…. No hay evidencia de re-planificación: el .md tiene fecha de las 03:07, antes de la aprobación. |
+| 2 | Aprobar con `--aprobar-guion "Omar 2026-10-27"` | OK | `lab/hyperframes/f38/v6/aprobar.log`: "aprobado por Omar (2026-10-27) · md5 35576ed6…". `GUION_PANTALLA.json:4241-4244` tiene el bloque `aprobado` con ese `md5_planes`. |
+| 3 | RAM < 14 GB: avisar y PARADA, sin cerrar programas | OK | `ram_paso3.txt` dice 9.6 GB libres de 31.7. Yo medí 9.7 GB. Firefox sigue corriendo (18 procesos), así que no se cerró nada. |
+| 4 | Render no corrido | OK | En `output` no hay ningún `*final_gfx_v6*`. Solo existen v4 y v5. |
+| 5 | Sin tocar código | OK | `git diff fbe517a -- '*.py'` solo muestra `diag_234_cap4.py`. Ese archivo ya figuraba como M en el git status inicial y su último commit es de 2026-05-31, o sea ajeno a este trabajo. No hay otros .py cambiados. |
+| 6 | Sin fase3, publicar ni merge | OK | No hay commits nuevos después de fbe517a. HEAD es fbe517a. |
+| 7 | Sección «Render v6» fiel | PARCIAL | `F38_REPORT.md:757-787` coincide con los logs. Lo que cubre del paso 5 está completo: comandos, RAM, lo abierto entero y la confirmación de que no se re-planificó. Termina en «(se pega abajo)», porque este veredicto todavía no está pegado. |
+| 8 | ESTADO_SESION actualizado | OK | Nota de "Para Omar" y sección propia en `lab/ESTADO_SESION.md`. Coincide con los hechos. |
+| 9 | Commit del reporte + ESTADO | NO VERIFICABLE | `F38_REPORT.md` y `ESTADO_SESION.md` siguen como M sin commitear. Falta pegar este veredicto y commitear. |
+
+Fuera de alcance: ninguno. Los M ajenos (`diag_234_cap4.py`, `gfx_profiles/*`, `f28a.log`) preexistían y no entraron al commit.
+
+Riesgos que el contrato no cubre:
+- La aprobación quedó escrita en el JSON con md5 de planes 35576ed6… sin render que la consuma. Si el plan cambia antes de renderizar, hay que reaprobar.
+- Con 9.6 GB libres, vmmem/WSL (3.5 GB) y Firefox (~2.6 GB) son los candidatos a liberar. Solo Omar puede hacerlo.
+- Cuando se retome, falta medir la RAM mínima durante el render y confirmar que el hook verifica `md5_planes`. El reporte lo deja como abierto v2.
+
+### Adenda de CC (después del veredicto; el texto de arriba queda tal cual)
+- Filas 7 y 9: el veredicto quedó pegado acá, y el reporte, ESTADO y los dos logs de `f38/v6/` entran en el mismo commit.
