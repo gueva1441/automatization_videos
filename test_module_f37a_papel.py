@@ -137,7 +137,7 @@ def test_a3a_reemplazo_literal_del_prompt_y_tipo_del_descarte():
              "ficha.")
     # F38b: la línea de A.3a se revirtió a la de m01e-1 (movía el dato del gancho a una oración que no le corresponde)
     assert nuevo not in mp.PANTALLA_SYSTEM and mp.PANTALLA_SYSTEM.count(viejo) == 1
-    assert mp.PROMPT_VERSION == "m01e-4"          # F38b: m01e-3 con el gancho de m01e-1
+    assert mp.PROMPT_VERSION == "m01e-5"          # F38b: m01e-3 con el gancho de m01e-1 · F38d §A.2
     assert '"tipo": "voz_lo_dice" | "spoiler" | "repetido" | "otro"' in mp.FORMATO_SALIDA
 
 

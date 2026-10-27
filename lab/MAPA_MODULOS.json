@@ -45,7 +45,7 @@
    "lo_llama": [
     "fase2b.py"
    ],
-   "tests": 2,
+   "tests": 3,
    "lab": 0,
    "tanda": "F32",
    "nacio": "308032a 2026-10-26 feat(f32-a): el guion de pantalla — fase2b --plan-only (director, rotulista, reglas y crítico sin navegador ni render; -g",
@@ -333,7 +333,7 @@
   {
    "modulo": "m01e_pantalla",
    "archivo": "script_engine/m01e_pantalla.py",
-   "sticker": "Fase 1 (F36 C): el guion de pantalla EN PAPEL. Una llamada a Sonnet por video con la narración de los 7 caps (oraciones numeradas y cuánto cabe), la escaleta, el archivo del caso y el vocabulario de clima → por beat ficha o nada, sello o nada; relojes (F38: la tarjeta sale de la voz, voz_datos). Lo valida en papel (candado, no dicho, spoiler, una vez, cabe, formato; F37: fecha del relato, cita sin fecha, descartes «la voz lo dice» verificados, picos sin ficha; una coincidencia de número se le pregunta al autor); F38: un reintento PARCIAL con todos los motivos cambia solo los beats con motivo (lo demás queda congelado; F38b: sin juez de anclaje). F38c: lo que la escaleta dejó para la pantalla le llega aparte de «la voz lo cuenta», y un beat sin él es motivo del reintento; una cifra que contradice la voz se le pregunta al autor. Lo deja para que Omar lo revise antes de la voz; Fase 2 lo consume.",
+   "sticker": "Fase 1 (F36 C): el guion de pantalla EN PAPEL. Una llamada a Sonnet por video con la narración de los 7 caps (oraciones numeradas y cuánto cabe), la escaleta, el archivo del caso y el vocabulario de clima → por beat ficha o nada, sello o nada; relojes (F38: la tarjeta sale de la voz, voz_datos). Lo valida en papel (candado, no dicho, spoiler, una vez, cabe, formato; F37: fecha del relato, cita sin fecha, descartes «la voz lo dice» verificados, picos sin ficha; una coincidencia de número se le pregunta al autor); F38: un reintento PARCIAL con todos los motivos cambia solo los beats con motivo (lo demás queda congelado; F38b: sin juez de anclaje). F38c: lo que la escaleta dejó para la pantalla le llega aparte de «la voz lo cuenta», y un beat sin él es motivo del reintento; una cifra que contradice la voz se le pregunta al autor. F38d: el reintento da vueltas mientras haya motivos nuevos y entre en el tope del perfil (lo nuevo de una vuelta se pregunta en la siguiente en vez de cortarse), y «caben» se mide igual en el prompt, en el motivo y en el código (en una cita cuenta el autor). Lo deja para que Omar lo revise antes de la voz; Fase 2 lo consume.",
    "recibe": "escaleta, narración por cap y beat, títulos, pool, `sellos_clima`",
    "entrega": "`01e_pantalla.json/.md` en el topic de Fase 1",
    "lo_llama": [
@@ -341,7 +341,7 @@
     "fase2b.py",
     "script_engine/pantalla_entrada.py"
    ],
-   "tests": 5,
+   "tests": 6,
    "lab": 0,
    "tanda": "F36",
    "nacio": "9e9d844 2026-10-26 feat(f36-c): m01e_pantalla — el guion de pantalla en papel va a Fase 1 (DECISIONES 19:54) · una llamada a Sonnet por vide",

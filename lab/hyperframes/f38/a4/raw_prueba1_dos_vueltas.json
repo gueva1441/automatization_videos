@@ -1,0 +1,182 @@
+{
+ "prueba": "test_module_f38d_vueltas.py::test_1 (POST simulado; F38c intento 1 → vuelta 1 = reintento de F38c → vuelta 2 = el autor mantiene D241 y recorta Q50)",
+ "reintento": {
+  "tipo": "parcial",
+  "vueltas": [
+   {
+    "vuelta": 1,
+    "beats": [
+     [
+      "ch02",
+      3
+     ],
+     [
+      "ch04",
+      6
+     ],
+     [
+      "ch04",
+      7
+     ],
+     [
+      "ch05",
+      8
+     ]
+    ],
+    "motivos": [
+     "Q50 (ch05 beat 8) «ADMINISTRACIÓN DE ERTO Y CASSO · en continua aprensión y en continua alarma»: caben: etiqueta 30 + dato 42 + autor 41 (con comillas y raya) = 118 caracteres y en la oración [3] caben 77; en este beat caben como máximo 90 (oración [0])",
+     "D47 (ch02 beat 3, oración [11]) «DESMORONAMIENTO DEL TOC · 2 km de frente y 600 m de desarrollo vertical»: la voz dice «2» en una oración posterior en ch03 [17] («Ese año hubo un pequeño desmoronamiento en el Toc, y después del desmoronamiento los habitantes vieron algo nuevo en la ladera: una fisura de casi dos kilómetros de largo, corriendo por la montaña como una costura abierta.»); ¿es el mismo hecho? si no, mantenelo",
+     "T39 (ch04 beat 6, oración [6]) «LA ADVERTENCIA DE MERLIN · 50 millones de metros cúbicos de roca»: la voz dice «50» en una oración posterior en ch05 [17] («Biadene volvió al papel y agregó una posdata: Rossi lo llamaba en ese momento, y «las mediciones de esta mañana resultan todavía mayores que las de ayer, ¡alcanzando un aumento del 50%!!».»); ¿es el mismo hecho? si no, mantenelo",
+     "D105 (ch04 beat 7, oración [15]) «ENEL, CREADO POR LEY · diciembre de 1962»: la voz dice «1962» en la oración ancla o en una vecina en ch04 [14] («En noviembre de mil novecientos sesenta y dos, la ladera ya se desplazaba más de un centímetro y medio por día.»); ¿es el mismo hecho? si no, mantenelo",
+     "el beat 8 de ch05 es pico y quedó sin ficha",
+     "el beat 8 de ch05 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: Q50 («Carta del municipio de Erto y Casso a SADE: documento que se lee en pantalla sobre la escena de los avisos de octubre.»)"
+    ],
+    "aplicados": [
+     {
+      "cap": "ch02",
+      "beat": 3,
+      "partes": [
+       "ficha"
+      ]
+     },
+     {
+      "cap": "ch04",
+      "beat": 7,
+      "partes": [
+       "ficha"
+      ]
+     },
+     {
+      "cap": "ch05",
+      "beat": 8,
+      "partes": [
+       "ficha",
+       "sello"
+      ]
+     }
+    ],
+    "ignorados": [],
+    "usd": 0.004
+   },
+   {
+    "vuelta": 2,
+    "beats": [
+     [
+      "ch04",
+      7
+     ],
+     [
+      "ch05",
+      8
+     ]
+    ],
+    "motivos": [
+     "Q50 (ch05 beat 8) «CARTA DE ERTO Y CASSO · en continua aprensión y en continua alarma»: caben: etiqueta 21 + dato 42 + autor 41 (con comillas y raya) = 109 caracteres y en la oración [3] caben 77; en este beat caben como máximo 90 (oración [0])",
+     "D241 (ch04 beat 7, oración [13]) «COTA DEL PROYECTO · 723 metros»: la voz dice «715» para lo mismo, en la oración ancla o en una vecina en ch04 [13] («La cota autorizada fue de setecientos quince.»); ¿es el mismo hecho? si no, mantenelo",
+     "el beat 8 de ch05 es pico y quedó sin ficha",
+     "el beat 8 de ch05 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: Q50 («Carta del municipio de Erto y Casso a SADE: documento que se lee en pantalla sobre la escena de los avisos de octubre.»)"
+    ],
+    "aplicados": [
+     {
+      "cap": "ch04",
+      "beat": 7,
+      "partes": [
+       "ficha"
+      ]
+     },
+     {
+      "cap": "ch05",
+      "beat": 8,
+      "partes": [
+       "ficha"
+      ]
+     }
+    ],
+    "ignorados": [],
+    "usd": 0.004
+   }
+  ],
+  "cierre": "sin motivos",
+  "cortados_al_cierre": [],
+  "beats": [
+   [
+    "ch02",
+    3
+   ],
+   [
+    "ch04",
+    6
+   ],
+   [
+    "ch04",
+    7
+   ],
+   [
+    "ch05",
+    8
+   ]
+  ],
+  "aplicados": [
+   {
+    "cap": "ch02",
+    "beat": 3,
+    "partes": [
+     "ficha"
+    ]
+   },
+   {
+    "cap": "ch04",
+    "beat": 7,
+    "partes": [
+     "ficha"
+    ]
+   },
+   {
+    "cap": "ch05",
+    "beat": 8,
+    "partes": [
+     "ficha",
+     "sello"
+    ]
+   },
+   {
+    "cap": "ch04",
+    "beat": 7,
+    "partes": [
+     "ficha"
+    ]
+   },
+   {
+    "cap": "ch05",
+    "beat": 8,
+    "partes": [
+     "ficha"
+    ]
+   }
+  ],
+  "ignorados": [],
+  "sin_beat": []
+ },
+ "confirmados": {
+  "D47": {
+   "spoiler": [
+    "2"
+   ]
+  },
+  "T39": {
+   "spoiler": [
+    "50"
+   ]
+  },
+  "D105": {
+   "no_dicho": [
+    "1962"
+   ]
+  },
+  "D241": {
+   "contradice": [
+    "715"
+   ]
+  }
+ }
+}

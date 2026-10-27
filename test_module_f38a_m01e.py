@@ -93,14 +93,20 @@ def test_a1_lo_del_intento_1_sobrevive_al_reintento_parcial(vajont, raw37, tmp_p
     pedidos: list[dict] = []
     res = mp.llamar(vajont, tmp_path, tope=100.0,
                     post=_post_seq([r1, _cambios_desde_f37(raw37, beats_m)], pedidos))
-    assert len(pedidos) == 2
+    # F38d §A.1: la vuelta 1 deja motivos nuevos (Q15 vuelve y ch05 b8 sigue sin Q50) → vuelta 2 con solo ch05 b8; el
+    # POST repite la misma respuesta, los motivos quedan iguales → cierra «sin progreso» (3 llamadas)
+    assert len(pedidos) == 3
     p2 = pedidos[1]["messages"][0]["content"]
     assert "TU RESPUESTA ANTERIOR (el papel completo, como contexto)" in p2 and mp.FORMATO_REINTENTO in p2
     assert "ch02 beat 3, ch03 beat 4, ch04 beat 6, ch04 beat 7, ch05 beat 8, ch07 beat 13" in p2
     rt = res["reintento"]
     assert rt["tipo"] == "parcial"
-    assert {(i["cap"], i["beat"]) for i in rt["ignorados"]} == {("ch06", 11)}
+    # F38d: el reintento único de F38 es la vuelta 1 (lo de `rt` es la unión de las vueltas)
+    v1r = rt["vueltas"][0]
+    assert {(i["cap"], i["beat"]) for i in v1r["ignorados"]} == {("ch06", 11)}
     assert all(i["motivo"] == "el beat no tiene motivo" for i in rt["ignorados"])
+    assert [v["vuelta"] for v in rt["vueltas"]] == [1, 2] and rt["vueltas"][1]["beats"] == [("ch05", 8)]
+    assert "ch05 beat 8." in pedidos[2]["messages"][0]["content"] and rt["cierre"] == "sin progreso"
     fin = res["validacion"]
     assert _fila(fin, "ch06", 11)["ficha"]["pool_id"] == "D128" and _fila(fin, "ch06", 11)["sello"]["palabra"] == "MEMORIA"
     assert _fila(fin, "ch03", 4)["sello"]["palabra"] == "AVISO"
@@ -141,7 +147,7 @@ def test_a1_motivos_sin_beat_no_abren_beats():
 def test_a1_formatos_literales():
     assert "TARJETA" not in mp.PANTALLA_SYSTEM and '"tarjeta"' not in mp.FORMATO_SALIDA
     assert mp.FORMATO_REINTENTO.startswith('{"cambios": [{"cap": "ch03", "beat": 5, "ficha":')
-    assert mp.PROMPT_VERSION == "m01e-4"          # F38b: + el gancho de m01e-1
+    assert mp.PROMPT_VERSION == "m01e-5"          # F38b: + el gancho de m01e-1 · F38d §A.2: «caben» con el autor
 
 
 # ═══════════════════════ §A.2 tarjeta desde la voz ═══════════════════════
@@ -187,7 +193,7 @@ def test_f38b_gancho_literal_de_m01e_1_sin_las_primeras_oraciones():
              "nunca queda sin ficha.")
     assert linea in h and linea in mp.PANTALLA_SYSTEM
     assert "primeras oraciones" not in mp.PANTALLA_SYSTEM
-    assert mp.PROMPT_VERSION == "m01e-4"
+    assert mp.PROMPT_VERSION == "m01e-5"                      # F38d §A.2 (la línea del gancho sigue igual)
 
 
 def test_f38b_nada_llama_a_un_juez():

@@ -160,7 +160,10 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                       "al autor); F38: un reintento PARCIAL con todos los motivos cambia solo los beats con motivo (lo "
                       "demás queda congelado; F38b: sin juez de anclaje). F38c: lo que la escaleta dejó para la "
                       "pantalla le llega aparte de «la voz lo cuenta», y un beat sin él es motivo del reintento; una "
-                      "cifra que contradice la voz se le pregunta al autor. "
+                      "cifra que contradice la voz se le pregunta al autor. F38d: el reintento da vueltas mientras haya "
+                      "motivos nuevos y entre en el tope del perfil (lo nuevo de una vuelta se pregunta en la siguiente "
+                      "en vez de cortarse), y «caben» se mide igual en el prompt, en el motivo y en el código (en una "
+                      "cita cuenta el autor). "
                       "Lo deja para que Omar lo revise antes de la voz; Fase 2 lo consume.", "escaleta, narración por cap y beat, títulos, pool, `sellos_clima`",
                       "`01e_pantalla.json/.md` en el topic de Fase 1", "F36", "vivo (fase 1)"),
     "archive_clipping.html.tmpl": ("La forma del recorte de diario (papel, kicker, titular).", "un recorte del plan",

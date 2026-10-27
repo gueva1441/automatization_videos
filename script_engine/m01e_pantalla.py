@@ -22,6 +22,9 @@ costo en 01_v3_costos.json como los demás pasos) o suelto: `python -m script_en
                respuestas sin JSON → PARADA (la cruda queda en 01e_pantalla.raw.json).
                F38 §A.1: el reintento es PARCIAL: ve el papel completo del intento 1 como contexto, pero devuelve solo
                `cambios` de los beats con motivo; el código los fusiona por (cap, beat) y lo demás queda congelado.
+               F38d §A.1: el reintento parcial da VUELTAS mientras haya motivos, no sean los mismos de la vuelta
+               anterior y entre en el tope; lo nuevo que aparece en una vuelta se pregunta en la siguiente y solo al
+               cerrar corta lo que siga sin preguntar (`reintento.vueltas`, `cierre`, `cortados_al_cierre`).
     tarjeta    F38 §A.2: la tarjeta fecha-hora ya no la elige el autor: sale de la voz (voz_datos.tarjeta_de_voz).
     validar    (§C.3, sin tiempos ni fotos, con los filtros de pantalla_filtros) por ficha: anclaje (cap, beat, ítem y
                oración que existen; la oración es del beat), formato (etiqueta en 1 línea y dato en 2, gfx_project.
@@ -56,7 +59,7 @@ from script_engine.voz_utils import (_analiza, _PARTICULAS, _palabra_en, _raiz_e
                                      anios_dichos, dice_anio, misma_cifra, nombre_inicial, nombres, numero_en, numeros,
                                      oraciones_de_texto, palabras, palabras_de_contenido, seg_por_palabra)
 
-PROMPT_VERSION = "m01e-4"       # F38b §A.1: la línea del gancho vuelve a la de m01e-1 · F38 §A.2: sin TARJETA · §A.1: el formato del reintento parcial
+PROMPT_VERSION = "m01e-5"       # F38d §A.2: «caben» cuenta el autor de la cita y 5 de comillas y raya · F38b §A.1: la línea del gancho vuelve a la de m01e-1 · F38 §A.2: sin TARJETA · §A.1: el formato del reintento parcial
 MODELO = "claude-sonnet-5-5"
 EFFORT = "medium"
 TOPE_USD_RESPALDO = 1.00        # DECISIONES: pedido de Omar F37 («TOPE_USD sale al perfil con valor 1.00»); el valor vive en el perfil (costos.m01e_tope_usd)
@@ -95,7 +98,7 @@ Reglas de todo texto en pantalla:
 (c) no adelanta nada que la narración cuente después, en ese capítulo o en los siguientes.
 
 Qué podés poner:
-- FICHA: como máximo una por beat, y puede no haber. Etiqueta: una línea corta que diga qué es («ANCHO DE LA FISURA», «ACTA DEL CONSEJO SUPERIOR»), sin el año de publicación de la fuente. Dato: UNA línea corta con la cifra, la fecha o el hecho, tal como está en el archivo: cada número, nombre y año tiene que estar literal en el texto del dato que elegiste, no en otro lado. Etiqueta + dato no pueden pasar de los caracteres que caben en la oración ancla (`caben`); si no caben, elegí otra oración o un dato más corto. Para una cita (Q), el dato es la frase literal del archivo, recortada pero sin cambiar palabras, y lleva autor.
+- FICHA: como máximo una por beat, y puede no haber. Etiqueta: una línea corta que diga qué es («ANCHO DE LA FISURA», «ACTA DEL CONSEJO SUPERIOR»), sin el año de publicación de la fuente. Dato: UNA línea corta con la cifra, la fecha o el hecho, tal como está en el archivo: cada número, nombre y año tiene que estar literal en el texto del dato que elegiste, no en otro lado. Etiqueta + dato —y en una cita, también el autor tal como viene en el archivo y 5 caracteres de comillas y raya— no pueden pasar de los caracteres que caben en la oración ancla (`caben`); si no caben, elegí otra oración o un dato más corto. Para una cita (Q), el dato es la frase literal del archivo, recortada pero sin cambiar palabras, y lleva autor.
 - SELLO DE CLIMA: como máximo uno por beat, y puede no haber. Una palabra de la lista que nombre lo que se siente en ese momento del relato. Nunca una palabra que la voz diga en ese capítulo, y nunca la misma palabra dos veces en el video. Elegí la oración donde cae.
 - RELOJ: por capítulo, las fechas completas (día, mes y año) que la voz dice, con la oración donde las dice.
 
@@ -341,8 +344,8 @@ def _donde(tok: str, sents: list[tuple[str, int, str]]) -> tuple[str, int, str] 
     return None
 
 
-def validar(resp: Any, ent: dict[str, Any], confirmados: dict[str, dict[str, list[str]]] | None = None
-            ) -> dict[str, Any]:
+def validar(resp: Any, ent: dict[str, Any], confirmados: dict[str, dict[str, list[str]]] | None = None,
+            final: bool | None = None) -> dict[str, Any]:
     """§C.3 sobre la respuesta: {beats (lo que queda, por cap y beat), relojes, descartados (del modelo y de la
     validación, con regla y motivo), fichas_fuera, preguntas, vuelven, picos_vacios, motivos, motivos_beat}. F38 §A.2: la
     tarjeta ya no es del autor (no se lee de la respuesta); §A.1: `motivos_beat` = por motivo, los (cap, beat) que el
@@ -352,11 +355,15 @@ def validar(resp: Any, ent: dict[str, Any], confirmados: dict[str, dict[str, lis
       reintento (`preguntas`; la ficha queda marcada `pregunta`). Con `confirmados` (las preguntas que se hicieron, en la
       validación del reintento) lo que el autor mantuvo queda juzgado «otro hecho» (`juicio_autor`); una coincidencia
       nueva ahí ya no se pregunta: corta;
+    - F38d §A.1: `final` dice si una coincidencia nueva corta (la validación al cerrar) o es una pregunta de la vuelta
+      siguiente (False: las vueltas, con los `confirmados` acumulados). Sin `final`, como siempre: corta si hay
+      `confirmados`;
     - §A.2 los descartes «voz_lo_dice» cuya voz no dice las cifras o los nombres del ítem (`vuelven`);
     - §A.3b los beats pico sin ficha (`picos_vacios`).
     F38c §A.1: los beats con `a_pantalla` cuya ficha no es ninguno de ellos (`a_pantalla_vacios`); §A.2: la cifra que
     contradice la voz (oración ancla ± 1) es una pregunta al autor más (regla `contradice`), como no_dicho y spoiler.
     `motivos` = todo lo que va al reintento, en una lista."""
+    final = (confirmados is not None) if final is None else bool(final)
     from script_engine.gfx_project import ficha_medida
     from script_engine.pantalla_colocar import caracteres
     caps = {c["cap"]: c for c in ent["caps"]}
@@ -388,7 +395,8 @@ def validar(resp: Any, ent: dict[str, Any], confirmados: dict[str, dict[str, lis
         fi = f.get("ficha") if isinstance(f.get("ficha"), dict) else None
         if fi:
             motivo, regla, ficha = _validar_ficha(fi, cap, nb, b, slot, caps, orden_caps, arch, pool, voz_video, voz_txt,
-                                                  usados_ids, ent, ficha_medida, caracteres, mom, confirmados)
+                                                  usados_ids, ent, ficha_medida, caracteres, mom, confirmados,
+                                                  final)
             if motivo:
                 fichas_fuera += 1
                 desc.append({"pool_id": fi.get("pool_id"), "cap": cap, "beat": nb, "que": "ficha",
@@ -516,9 +524,10 @@ def _int(v: Any) -> int | None:
 
 def _validar_ficha(fi: dict, cap: str, nb: int | None, b: dict | None, slot: dict, caps: dict, orden_caps: list[str],
                    arch: dict, pool: dict, voz_video: list[str], voz_txt: str, usados_ids: set[str], ent: dict,
-                   ficha_medida: Callable, caracteres: Callable, mom: dict, confirmados: dict | None
-                   ) -> tuple[str | None, str | None, dict | None]:
-    """(motivo, regla, ficha validada) de una ficha del papel, en el orden de §C.3 (+ F37 §A.1b/c y §A.4)."""
+                   ficha_medida: Callable, caracteres: Callable, mom: dict, confirmados: dict | None,
+                   final: bool = False) -> tuple[str | None, str | None, dict | None]:
+    """(motivo, regla, ficha validada) de una ficha del papel, en el orden de §C.3 (+ F37 §A.1b/c y §A.4). F38d §A.1:
+    con `final` la coincidencia que queda (no juzgada en `confirmados`) corta; sin él, es una pregunta."""
     from script_engine.pantalla_filtros import (candado, contradicciones_de, frase_contradiccion, gancho_dicho, no_dicho,
                                                 spoiler)
     pid = str(fi.get("pool_id") or "")
@@ -586,14 +595,14 @@ def _validar_ficha(fi: dict, cap: str, nb: int | None, b: dict | None, slot: dic
     todo = [(cc, ss["idx"], ss["texto"]) for cc in orden_caps for ss in caps[cc]["oraciones"]]
     mot = no_dicho({}, fil_ent, ctx)
     if mot:
-        if confirmados is not None:
+        if final:
             return mot, "no_dicho", None
         preguntas += [{"regla": "no_dicho", "token": t, "donde": _donde(t, vec) or _donde(t, todo)} for t in ctx["dichos"]]
     despues = c["oraciones"][si + 1:] + [ss for cc in orden_caps[k + 1:] for ss in caps[cc]["oraciones"]]
     sp_ctx = {**ctx, "sents": c["oraciones"][:si + 1] + despues}               # (c): en ese cap o en los siguientes
     mot = spoiler({}, fil_ent, sp_ctx)
     if mot:
-        if confirmados is not None:
+        if final:
             return mot.replace("del cap", "del cap o de un cap siguiente"), "spoiler", None
         tras = [(cap, ss["idx"], ss["texto"]) for ss in c["oraciones"][si + 1:]] + \
                [(cc, ss["idx"], ss["texto"]) for cc in orden_caps[k + 1:] for ss in caps[cc]["oraciones"]]
@@ -603,7 +612,7 @@ def _validar_ficha(fi: dict, cap: str, nb: int | None, b: dict | None, slot: dic
     # de la voz y lo que el autor mantuvo (juicio «contradice») no vuelve a contar
     cons = contradicciones_de(f"{et} {txt}", voz_video, cerca=[t for _, _, t in vec], juicio=juicio)
     if cons:
-        if confirmados is not None:
+        if final:
             return f"la cifra contradice la voz: {'; '.join(frase_contradiccion(q) for q in cons)}", "contradice", None
         for t in dict.fromkeys(q["token"] for q in cons):
             o = next(q["oracion"] for q in cons if q["token"] == t)
@@ -613,7 +622,13 @@ def _validar_ficha(fi: dict, cap: str, nb: int | None, b: dict | None, slot: dic
         return f"{pid} ya va en otro beat del video", "una_vez", None
     n = caracteres(tipo, et, txt, autor)
     if n > s["caben"]:
-        return f"etiqueta + dato = {n} caracteres y en la oración [{si}] caben {s['caben']}", "caben", None
+        # F38d §A.2.2: el desglose que mide el código (en una cita, el autor + 5 de comillas y raya) y el mayor `caben`
+        # de las oraciones del beat con su oración (empate: la primera): data de la entrada, no regla
+        m, sm = max(((ss["caben"], -ss["idx"]) for ss in c["oraciones"] if ss["beat"] == nb), default=(s["caben"], -si))
+        cuenta = (f"etiqueta {len(et)} + dato {len(txt)} + autor {len(autor)} (con comillas y raya)" if tipo == "cita"
+                  else f"etiqueta {len(et)} + dato {len(txt)}")
+        return (f"{cuenta} = {n} caracteres y en la oración [{si}] caben {s['caben']}; en este beat caben como máximo "
+                f"{m} (oración [{-sm}])"), "caben", None
     pal = str(fi.get("palabra") or "").strip()
     en = any(ev.norm(pal) == ev.norm(re.sub(r"[^\w]", "", w)) for w in palabras(s["texto"])) if pal else False
     usado = {r: [str(t) for t in v] for r, v in juicio.items() if v}
@@ -729,16 +744,21 @@ def fusionar(base: dict[str, Any], resp: Any, permitidos: list[tuple[str, int]]
 
 def llamar(ent: dict[str, Any], out_dir: Path, *, post: Callable[[dict], dict] | None = None,
            tope: float | None = None, log: list[str] | None = None) -> dict[str, Any]:
-    """La llamada con caché, tope y un reintento. Devuelve {clave, intentos, final, validacion, usd, tokens_in,
-    tope, motivos, motivos_beat, confirmados, reintento}. `post` (tests) reemplaza al POST de la API: recibe el
-    body y devuelve el mensaje {content, usage, stop_reason}. F37 §A.5: UN reintento, con todos los motivos juntos (fichas caídas, preguntas al autor,
-    descartes «la voz lo dice» falsos, picos sin ficha), dentro del tope del perfil (`tope_usd`); la respuesta del
-    reintento es final (sus preguntas confirmadas). Sin lugar en el tope para el reintento (o si el reintento no
-    devuelve JSON) queda el intento 1, validado como final (las coincidencias cortan, como en F36), y se anota.
-    F38 §A.1 el reintento es parcial (`fusionar`): solo los beats con motivo (`beats_con_motivo`); si los únicos motivos
-      no tienen beat, no se manda (`reintento.sin_beat`). El JSON que no parsea sigue con el reintento de JSON completo
-      de siempre (no es parcial) y esa respuesta es final. F38b: la segunda capa de F38 se borró (la causa era la línea
-      del gancho de m01e-2, no el anclaje): los motivos son solo los de la validación en papel."""
+    """La llamada con caché, tope y las vueltas de reintento. Devuelve {clave, intentos, final, validacion, usd,
+    tokens_in, tope, motivos, motivos_beat, confirmados, reintento}. `post` (tests) reemplaza al POST de la API: recibe
+    el body y devuelve el mensaje {content, usage, stop_reason}; cada llamada al POST es un intento, en orden.
+    F37 §A.5: los motivos van juntos (fichas caídas, preguntas al autor, descartes «la voz lo dice» falsos, picos sin
+      ficha), dentro del tope del perfil (`tope_usd`). F38 §A.1: el reintento es parcial (`fusionar`): solo los beats
+      con motivo (`beats_con_motivo`). El JSON que no parsea sigue con el reintento de JSON completo de siempre (no es
+      parcial) y esa respuesta es final (F38d §A.1.6). F38b: los motivos son solo los de la validación en papel.
+    F38d §A.1: VUELTAS. Después de cada vuelta, el papel fusionado se valida con los `confirmados` acumulados
+      (`_acumular`, nunca se pisan) y sin cortar: una coincidencia nueva (no_dicho, spoiler, contradice) es una pregunta
+      de la vuelta siguiente. Hay otra vuelta mientras haya motivos, no sean iguales a los de la vuelta anterior y la
+      vuelta entre en el tope. Al cerrar (`reintento.cierre`: «sin motivos», «sin progreso», «tope», «sin JSON», «sin
+      beat») la validación final de siempre: lo que sigue sin preguntar corta (`reintento.cortados_al_cierre`). Las
+      preguntas de una vuelta que no volvió (tope, sin JSON) no quedan confirmadas: el autor no las contestó.
+      `reintento.vueltas`: por vuelta {vuelta, beats, motivos, aplicados, ignorados, usd}; `beats`, `aplicados` e
+      `ignorados` de `reintento` son la unión de todas las vueltas (para los lectores de antes)."""
     import claude_helpers as hx
     log = log if log is not None else []
     tope_v, tope_de = (float(tope), "argumento") if tope is not None else tope_usd()
@@ -757,7 +777,8 @@ def llamar(ent: dict[str, Any], out_dir: Path, *, post: Callable[[dict], dict] |
                            "prompt_md5": prompt_md5(), "entrada_md5": entrada_md5(ent), "intentos": [], "final": None,
                            "validacion": None, "usd": 0.0, "tope": {"usd": tope_v, "de": tope_de}, "motivos": [],
                            "motivos_beat": [], "confirmados": {},
-                           "reintento": {"tipo": None, "beats": [], "aplicados": [], "ignorados": [], "sin_beat": []}}
+                           "reintento": {"tipo": None, "beats": [], "aplicados": [], "ignorados": [], "sin_beat": [],
+                                         "vueltas": [], "cierre": None, "cortados_al_cierre": []}}
     pin, pout = hx.PRICES.get(hx._base(MODELO), (0.0, 0.0))
     salida_peor = [OUT_TOKENS_PEOR]
 
@@ -799,6 +820,22 @@ def llamar(ent: dict[str, Any], out_dir: Path, *, post: Callable[[dict], dict] |
                          encoding="utf-8")
         return out
 
+    def cierre_final(papel: dict[str, Any], antes: dict[str, Any], por: str | None) -> dict[str, Any]:
+        """F38d §A.1.3: la validación final de siempre (lo que sigue sin preguntar corta) y lo que cortó sin pregunta
+        (lo que no estaba caído en la última validación de las vueltas)."""
+        fin = validar(papel, ent, out["confirmados"], final=True)
+        ya = {_clave_desc(d) for d in antes["descartados"] if d.get("quien") == "validación"}
+        rt = out["reintento"]
+        rt["cierre"] = por
+        rt["cortados_al_cierre"] = [{k: d.get(k) for k in ("que", "pool_id", "cap", "beat", "etiqueta", "texto",
+                                                         "sentence_idx", "regla", "motivo")}
+                                    for d in fin["descartados"]
+                                    if d.get("quien") == "validación" and _clave_desc(d) not in ya]
+        if rt["cortados_al_cierre"]:
+            log.append(f"  m01e: al cerrar ({por}) {len(rt['cortados_al_cierre'])} corte(s) sin pregunta")
+        out["final"] = papel
+        return cerrar(fin)
+
     _, resp = autor(user, 0)
     if resp is None:                                  # JSON inválido: el reintento de JSON completo de siempre
         out["reintento"]["tipo"] = "json"
@@ -809,42 +846,75 @@ def llamar(ent: dict[str, Any], out_dir: Path, *, post: Callable[[dict], dict] |
             raw_f.write_text(json.dumps({**out, "entrada": _para_modelo(ent)}, ensure_ascii=False, indent=1),
                              encoding="utf-8")
             raise SinJSON(f"dos respuestas sin JSON válido; la cruda en {raw_f}")
-        val = validar(resp, ent, {})                  # final: no queda reintento (lo que preguntaba, corta)
-        out["final"] = resp
-        return cerrar(val)
-    val1 = validar(resp, ent)
-    out["final"], out["validacion"] = resp, val1
-    log.append(f"  m01e intento 1 validado: fichas fuera {val1['fichas_fuera']} · preguntas {len(val1['preguntas'])} · "
-               f"vuelven {len(val1['vuelven'])} · picos vacíos {len(val1['picos_vacios'])}")
-    motivos = val1["motivos"]
-    mb = [list(map(tuple, bs)) for bs in val1["motivos_beat"]]
-    out["motivos"], out["motivos_beat"] = motivos, mb
-    if not motivos:
-        return cerrar(val1)
-    beats_m = beats_con_motivo(mb)
-    out["reintento"]["beats"] = beats_m
-    if not beats_m:                                   # solo motivos sin beat: no hay dónde proponer nada
-        out["reintento"]["sin_beat"] = motivos
-        log.append(f"  m01e: {len(motivos)} motivo(s) sin beat → sin reintento (anotados)")
-        return cerrar(val1)
-    confirmados = _confirmar(val1["preguntas"])
-    out["confirmados"] = confirmados
-    out["reintento"]["tipo"] = "parcial"
-    hubo, resp2 = autor(_reintento_parcial(user, resp, motivos, beats_m), 1)
-    if resp2 is None:                                 # sin lugar en el tope o sin JSON: queda el intento 1, final
-        if hubo:
-            out["error"] = "el reintento no devolvió JSON: queda el intento 1"
-        out["confirmados"] = {}
-        return cerrar(validar(resp, ent, {}))
-    fus, aplicados, ignorados = fusionar(resp, resp2, beats_m)
-    out["reintento"]["aplicados"], out["reintento"]["ignorados"] = aplicados, ignorados
-    if ignorados:
-        log.append(f"  m01e reintento: {len(aplicados)} cambio(s) aplicados · {len(ignorados)} ignorado(s)")
-    val2 = validar(fus, ent, confirmados)
-    out["final"] = fus
-    log.append(f"  m01e reintento validado: fichas fuera {val2['fichas_fuera']} · picos vacíos "
-               f"{len(val2['picos_vacios'])}")
-    return cerrar(val2)
+        return cierre_final(resp, validar(resp, ent), None)   # final: sin vueltas (A.1.6), `cierre` None
+    val = validar(resp, ent)
+    out["final"], out["validacion"] = resp, val
+    log.append(f"  m01e intento 1 validado: fichas fuera {val['fichas_fuera']} · preguntas {len(val['preguntas'])} · "
+               f"vuelven {len(val['vuelven'])} · picos vacíos {len(val['picos_vacios'])}")
+    out["motivos"] = val["motivos"]
+    out["motivos_beat"] = [list(map(tuple, bs)) for bs in val["motivos_beat"]]
+    rt = out["reintento"]
+    papel, anteriores, k = resp, None, 0
+    while True:
+        motivos = val["motivos"]
+        mb = [list(map(tuple, bs)) for bs in val["motivos_beat"]]
+        if not motivos:
+            return cierre_final(papel, val, "sin motivos")
+        if motivos == anteriores:                     # derivado: otra vuelta no tiene nada nuevo que decirle al autor
+            log.append(f"  m01e: los motivos después de la vuelta {k} son los que se le mandaron → cierra (sin progreso)")
+            return cierre_final(papel, val, "sin progreso")
+        beats_m = beats_con_motivo(mb)
+        if not beats_m:                               # solo motivos sin beat: no hay dónde proponer nada
+            rt["sin_beat"] = motivos
+            log.append(f"  m01e: {len(motivos)} motivo(s) sin beat → sin {'otra vuelta' if k else 'reintento'} "
+                       f"(anotados)")
+            return cierre_final(papel, val, "sin beat")
+        k += 1
+        rt["tipo"] = "parcial"
+        hubo, r = autor(_reintento_parcial(user, papel, motivos, beats_m), k)
+        if r is None:                                 # sin lugar en el tope o sin JSON: queda la vuelta anterior
+            if not hubo:
+                return cierre_final(papel, val, "tope")
+            rt["vueltas"].append({"vuelta": k, "beats": beats_m, "motivos": motivos, "aplicados": [], "ignorados": [],
+                                  "usd": out["intentos"][-1]["usd"], "sin_json": True})
+            rt["beats"] = _union_beats(rt["beats"], beats_m)
+            out["error"] = (f"la vuelta {k} no devolvió JSON: queda "
+                            + ("el intento 1" if k == 1 else f"la vuelta {k - 1}"))
+            return cierre_final(papel, val, "sin JSON")
+        out["confirmados"] = _acumular(out["confirmados"], _confirmar(val["preguntas"]))   # contestadas en esta vuelta
+        fus, aplicados, ignorados = fusionar(papel, r, beats_m)
+        rt["vueltas"].append({"vuelta": k, "beats": beats_m, "motivos": motivos, "aplicados": aplicados,
+                              "ignorados": ignorados, "usd": out["intentos"][-1]["usd"]})
+        rt["beats"] = _union_beats(rt["beats"], beats_m)
+        rt["aplicados"] = rt["aplicados"] + aplicados
+        rt["ignorados"] = rt["ignorados"] + ignorados
+        if ignorados:
+            log.append(f"  m01e vuelta {k}: {len(aplicados)} cambio(s) aplicados · {len(ignorados)} ignorado(s)")
+        papel, anteriores = fus, motivos
+        val = validar(papel, ent, out["confirmados"], final=False)
+        log.append(f"  m01e vuelta {k} validada: fichas fuera {val['fichas_fuera']} · preguntas nuevas "
+                   f"{len(val['preguntas'])} · picos vacíos {len(val['picos_vacios'])}")
+
+
+def _clave_desc(d: dict[str, Any]) -> tuple:
+    """Un descarte de la validación, por lo que cayó y dónde (para ver qué cortó el cierre que no estaba caído)."""
+    return (d.get("que"), d.get("pool_id"), d.get("cap"), d.get("beat"),
+            d.get("texto") if d.get("que") == "sello" else None)
+
+
+def _union_beats(a: list[tuple[str, int]], b: list[tuple[str, int]]) -> list[tuple[str, int]]:
+    return sorted({(str(c), int(n)) for c, n in list(a) + list(b)}, key=lambda x: (x[0], x[1]))
+
+
+def _acumular(conf: dict[str, dict[str, list[str]]], nuevos: dict[str, dict[str, list[str]]]
+              ) -> dict[str, dict[str, list[str]]]:
+    """F38d §A.1.4: los `confirmados` de vuelta en vuelta: se suman (por ítem y regla, sin repetir), nunca se pisan."""
+    out = {pid: {r: list(ts) for r, ts in reglas.items()} for pid, reglas in (conf or {}).items()}
+    for pid, reglas in (nuevos or {}).items():
+        for r, ts in reglas.items():
+            lst = out.setdefault(pid, {}).setdefault(r, [])
+            lst += [t for t in ts if t not in lst]
+    return out
 
 
 # ═══════════════════════ salida ═══════════════════════
@@ -881,8 +951,10 @@ def armar(ent: dict[str, Any], res: dict[str, Any]) -> dict[str, Any]:
                              "segundos": i.get("segundos")} for i in res.get("intentos") or []],
             "reintento": {"motivos": res.get("motivos") or [], "preguntas": _respuestas(res, v),
                           # F38 §A.1: parcial (los beats que podía cambiar, lo aplicado y lo ignorado)
+                          # F38d §A.1.5: + por vuelta, por qué cerró y lo que el cierre cortó sin preguntar
                           **{k: (res.get("reintento") or {}).get(k) for k in ("tipo", "beats", "aplicados",
-                                                                               "ignorados", "sin_beat")}},
+                                                                               "ignorados", "sin_beat", "vueltas",
+                                                                               "cierre", "cortados_al_cierre")}},
             "picos_vacios": v.get("picos_vacios") or [],
             "a_pantalla_vacios": v.get("a_pantalla_vacios") or []}         # F38c §A.1: después del reintento
 
@@ -967,14 +1039,35 @@ def a_markdown(p: dict[str, Any]) -> str:
         lines += ["", "### Preguntas y respuesta del autor", ""]
         lines += [f"- {q['pool_id']} {q['coincidencias']}: {q['respuesta']}" for q in rt.get("preguntas") or []] \
             or ["- (ninguna)"]
-        if rt.get("tipo"):                            # F38 §A.1
+        if rt.get("tipo") and not rt.get("vueltas"):  # F38 §A.1 (un papel de antes de F38d, sin vueltas)
             bm = ", ".join(f"{c} beat {b}" for c, b in rt.get("beats") or []) or "—"
             ap = ", ".join(f"{a['cap']} beat {a['beat']} ({'/'.join(a['partes'])})" for a in rt.get("aplicados") or [])
             lines += ["", f"### Reintento {rt['tipo']}", "", f"- beats que podía cambiar: {bm}",
                       f"- aplicados: {ap or '—'}"]
             lines += [f"- ignorado: {i.get('cap')} beat {i.get('beat')} — {i['motivo']}" for i in rt.get("ignorados") or []]
+        elif rt.get("tipo"):
+            lines += ["", f"### Reintento {rt['tipo']}: {len(rt['vueltas'])} vuelta(s)"]
+        for vu in rt.get("vueltas") or []:            # F38d §A.1.5: por vuelta
+            bm = ", ".join(f"{c} beat {b}" for c, b in vu.get("beats") or []) or "—"
+            ap = ", ".join(f"{a['cap']} beat {a['beat']} ({'/'.join(a['partes'])})" for a in vu.get("aplicados") or [])
+            lines += ["", f"#### Vuelta {vu['vuelta']} · US$ {vu.get('usd') or 0:.4f}"
+                      + (" · **no devolvió JSON**" if vu.get("sin_json") else ""), "",
+                      f"- beats que podía cambiar: {bm}", "- motivos:"]
+            lines += [f"  - {m}" for m in vu.get("motivos") or []]
+            lines += [f"- aplicados: {ap or '—'}"]
+            lines += [f"- ignorado: {i.get('cap')} beat {i.get('beat')} — {i['motivo']}" for i in vu.get("ignorados") or []]
         if rt.get("sin_beat"):
             lines += ["", "### Motivos sin beat (no hubo reintento)", ""] + [f"- {m}" for m in rt["sin_beat"]]
+    if rt.get("cierre") or rt.get("cortados_al_cierre"):   # F38d §A.1.3: por qué cerró y qué cortó sin pregunta
+        nv = len(rt.get("vueltas") or [])
+        lines += ["", "## Cierre del reintento", "",
+                  f"- cerró por: **{rt.get('cierre') or '—'}** (después de {nv} vuelta{'s' if nv != 1 else ''})"]
+        lines += ["- cortado al cerrar, sin preguntarle al autor:"] + \
+            [f"  - {d.get('cap')} beat {d.get('beat')} · {d.get('que')} {d.get('pool_id') or ''} «"
+             f"{(str(d.get('etiqueta')) + ' · ') if d.get('etiqueta') else ''}{d.get('texto')}» en "
+             f"[{d.get('sentence_idx')}] → **{d.get('regla')}**: {d.get('motivo')}"
+             for d in rt.get("cortados_al_cierre") or []] \
+            if rt.get("cortados_al_cierre") else ["- cortado al cerrar, sin preguntarle al autor: (nada)"]
     lines += ["", "## Descartados por el modelo", ""]
     lines += [f"- {d.get('pool_id')}" + (f" [{d['tipo']}]" if d.get("tipo") else "") + f": {d.get('motivo')}"
               + (f" — **{d['verificado']}**" if d.get("verificado") else "")

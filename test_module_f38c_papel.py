@@ -64,7 +64,8 @@ def _a_pantalla_motivos(v: dict) -> list[tuple[str, list]]:
 
 
 def test_prompt_no_cambia():
-    assert mp.prompt_md5() == "163e1fd195238696d9e66871983d5ac5"
+    # F38c no cambió el prompt (163e1fd1…); F38d §A.2.1 cambia solo la línea de «caben» (m01e-5)
+    assert mp.prompt_md5() == "76f1de7ac124b27b0670a5d5234e2f78"
 
 
 # ═══════════════════════ §A.1 ═══════════════════════
