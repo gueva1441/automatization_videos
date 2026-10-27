@@ -86,14 +86,17 @@ M: dict[str, tuple[str, str, str, str, str]] = {
               "(«¿estorba?») en cada intento.", "sellos del papel + oraciones + léxico de moods",
               "sellos en el plan, filas de lo movido o sin colocar", "F36 (código de F32/F34)", "vivo"),
     "voz_datos": ("Lo que sale de la voz y la escaleta sin modelo: el pico del cap, el reloj cuando la voz dice una "
-                  "fecha completa (y su esquina libre), y la tarjeta fecha-hora derivada (solo para comparar con la del "
-                  "papel).", "oraciones de la voz, escaleta, pool", "pico, reloj, tarjeta derivada", "F36 (código de F34)",
+                  "fecha completa (y su esquina libre), y la tarjeta fecha-hora del papel: desde F38 sale de la voz "
+                  "(la primera fecha completa del gancho y la hora que dice la voz en el beat pico, con la del ítem del "
+                  "pool que coincide; nunca se inventa) y la derivada de la escaleta queda solo para comparar.",
+                  "oraciones de la voz, escaleta, pool", "pico, reloj, tarjeta de la voz", "F36 (código de F34)",
                   "vivo"),
     "voz_utils": ("La utilería de la voz: lee cifras en dígitos y en letras, nombres propios, cifras con su unidad, y "
                   "parte la voz en oraciones con cada palabra numerada; desde F36 C parte igual el texto de Fase 1 "
                   "(`oraciones_de_texto`) y normaliza oraciones para alinear papel y voz; desde F37 dice qué años nombra "
                   "la voz (el momento del relato) y cuántos segundos por palabra habla el narrador (mediana de sus voces "
-                  "ya generadas).", "texto / palabras con tiempos / voces del narrador",
+                  "ya generadas); desde F38 lee fracciones en letras («un centímetro y medio», «medio», «y cuarto», "
+                  "«un tercio») y compara cifras a la precisión del archivo.", "texto / palabras con tiempos / voces del narrador",
                   "cifras, años, nombres, oraciones, segundos por palabra", "F36 (código de F29b)", "vivo"),
     "gfx_critic": ("El editor: Gemini mira la foto en el instante de un bloque del papel y dice si estorba (tapa un "
                    "rostro o lo que la imagen muestra). F37: corre en cada intento del reparto (instante y lado), y lo "
@@ -145,11 +148,14 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                        "narración por cap y por beat", "F10", "vivo (fase 1)"),
     "m01e_pantalla": ("Fase 1 (F36 C): el guion de pantalla EN PAPEL. Una llamada a Sonnet por video con la narración "
                       "de los 7 caps (oraciones numeradas y cuánto cabe), la escaleta, el archivo del caso y el "
-                      "vocabulario de clima → por beat ficha o nada, sello o nada; relojes; tarjeta. Lo valida en papel "
+                      "vocabulario de clima → por beat ficha o nada, sello o nada; relojes (F38: la tarjeta sale de la "
+                      "voz, voz_datos). Lo valida en papel "
                       "(candado, no dicho, spoiler, una vez, cabe, formato; F37: fecha del relato, cita sin fecha, "
                       "descartes «la voz lo dice» verificados, picos sin ficha; una coincidencia de número se le pregunta "
-                      "al autor) con un reintento que lleva todos los motivos, y lo deja para que Omar lo revise antes "
-                      "de la voz; Fase 2 lo consume.", "escaleta, narración por cap y beat, títulos, pool, `sellos_clima`",
+                      "al autor); F38: un juez (Gemini, el modelo chico de config) mira si cada ficha habla del mismo "
+                      "asunto que su oración y si adelanta algo. Un reintento PARCIAL con todos los motivos cambia solo "
+                      "los beats con motivo (lo demás queda congelado); lo que el juez sigue marcando sale del papel. "
+                      "Lo deja para que Omar lo revise antes de la voz; Fase 2 lo consume.", "escaleta, narración por cap y beat, títulos, pool, `sellos_clima`",
                       "`01e_pantalla.json/.md` en el topic de Fase 1", "F36", "vivo (fase 1)"),
     "archive_clipping.html.tmpl": ("La forma del recorte de diario (papel, kicker, titular).", "un recorte del plan",
                                    "HTML", "F1", "vivo (la ficha de estilo papel)"),

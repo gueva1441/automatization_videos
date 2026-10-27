@@ -37,7 +37,8 @@ def _w2n() -> dict[str, int]:
 
 def numeros(texto: str) -> list[str]:
     """Cifras de un texto: en dígitos (tal cual) y en letras (como entero en dígitos). «un/una/uno» sueltos no cuentan
-    (son artículos casi siempre)."""
+    (son artículos casi siempre). F38 §A.4: además, el valor de cada fracción en letras («un centímetro y medio» →
+    «1.5», «dos horas y media» → «2» y «2.5»: el entero se sigue listando como antes)."""
     out = [m.group(0).rstrip(".,") for m in _DIG.finditer(texto or "")]
     toks = re.findall(r"[^\W\d_]+", ev.norm(texto))
     i = 0
@@ -62,6 +63,7 @@ def numeros(texto: str) -> list[str]:
             else:
                 k += 1
         i = j
+    out += [_fmt(v) for v, _, _, frac in _analiza_x(texto)[0] if frac]   # F38 §A.4: «un centímetro y medio» = 1.5
     return list(dict.fromkeys(x for x in out if x))
 
 
@@ -99,8 +101,12 @@ def _valor(tok: str) -> Any:
 
 def numero_en(num: str, texto: str) -> bool:
     """¿La cifra está en el texto, en dígitos o en letras, por VALOR? «1.910» = «1910» = «mil novecientas diez»; los
-    decimales, tal cual («4,6» = «4.6»)."""
-    return _valor(num) in {_valor(x) for x in numeros(texto)}
+    decimales, tal cual («4,6» = «4.6»). F38 §A.4: o una fracción en letras redondeada a los decimales del archivo
+    («0,33» = «un tercio», `misma_cifra`)."""
+    vals = {_valor(x) for x in numeros(texto)}
+    if _valor(num) in vals:
+        return True
+    return any(misma_cifra(num, float(x)) for x in vals if re.fullmatch(r"\d+(?:\.\d+)?", str(x)))
 
 
 def palabras(t: str) -> list[str]:
@@ -156,7 +162,70 @@ _DIFERENCIA = {("por", "encima"), ("por", "debajo"), ("mas", "que"), ("menos", "
 
 
 def _toks(texto: str) -> list[str]:
-    return re.findall(r"\d[\d.,]*\d|\d|%|[^\W\d_]+", ev.norm(texto or ""))
+    """Tokens del analizador: cifras, %, palabras y (F38 §A.4) la puntuación que corta una frase (`.`, `,`, `;`, …),
+    para saber dónde termina «un centímetro y medio.» (las posiciones solo se comparan entre sí)."""
+    return re.findall(r"\d[\d.,]*\d|\d|%|[^\W\d_]+|[.,;:!?…]", ev.norm(texto or ""))
+
+
+# F38 §A.4: fracciones en letras (la aritmética de la lengua, no un tema)
+_MEDIO = {"medio": 0.5, "media": 0.5}                    # estándar: aritmética de la lengua («medio» = 1/2)
+_Y_FRAC = {"medio": 0.5, "media": 0.5, "cuarto": 0.25}   # estándar: aritmética de la lengua («y medio» = +1/2, «y cuarto» = +1/4)
+_PARTES = {"tercio": 3, "tercios": 3}                    # estándar: aritmética de la lengua («un tercio» = 1/3)
+_UNO = ("un", "una", "uno")
+
+
+def _unidad_en(toks: list[str], k: int) -> tuple[str | None, int]:
+    """La unidad que arranca en toks[k] (una o dos palabras) y cuántos tokens ocupa."""
+    u2 = _UNIDAD_2.get(tuple(toks[k:k + 2]))
+    if u2:
+        return u2, 2
+    u = _UNIDAD_1.get(toks[k] if k < len(toks) else "")
+    return (u, 1) if u else (None, 0)
+
+
+def _cierra(toks: list[str], q: int) -> bool:
+    """¿La frase de la cifra termina en toks[q]? Fin del texto, puntuación, artículo/preposición o una cifra: «un
+    centímetro y medio por día» sí; «dos casas y media docena» no («media» va con «docena»)."""
+    if q >= len(toks):
+        return True
+    t = toks[q]
+    return bool(re.fullmatch(r"[.,;:!?…]", t)) or t in _ARTPREP or t in ev._FUNC or bool(_DIG.fullmatch(t))
+
+
+def _y_frac(toks: list[str], p: int) -> float | None:
+    """F38 §A.4: «y medio/media/cuarto» en toks[p] cerrando la frase → lo que suma (0,5 / 0,25)."""
+    if p + 1 < len(toks) and toks[p] == "y" and toks[p + 1] in _Y_FRAC and _cierra(toks, p + 2):
+        return _Y_FRAC[toks[p + 1]]
+    return None
+
+
+def _cola(toks: list[str], j: int) -> tuple[str | None, int, float | None]:
+    """Lo que sigue a una cifra que termina en toks[j]: su unidad (con «de» opcional), dónde termina la unidad y la
+    fracción «y medio/media/cuarto» que cierra la frase (F38 §A.4), detrás de la unidad o de un sustantivo cualquiera
+    («dos horas y media» = 2,5) o pegada a la cifra («las diez y media» = 10,5)."""
+    k = j + (1 if j < len(toks) and toks[j] == "de" else 0)
+    u, largo = _unidad_en(toks, k)
+    e = k + largo if u else j
+    p = e
+    if not u and j + 1 < len(toks) and re.fullmatch(r"[^\W\d_]+", toks[j]) and toks[j] != "y" \
+            and toks[j] not in _ARTPREP and not _NUMW.match(toks[j]):
+        p = j + 1                                         # derivado: un solo sustantivo entre la cifra y «y media»
+    return u, e, _y_frac(toks, p)
+
+
+def _fraccion_sola(toks: list[str], i: int) -> tuple[float | None, int]:
+    """F38 §A.4: la cifra que es solo fracción o arranca con el artículo: «medio centímetro» (= 0,5; «medio» solo antes
+    de una unidad), «un tercio» (= 1/3), «un centímetro y medio» / «un año y medio» / «una y media» (= 1, la fracción
+    la suma `_analiza`). «un/una» sin fracción detrás siguen siendo artículos."""
+    t = toks[i]
+    if t in _MEDIO and _unidad_en(toks, i + 1)[0]:
+        return _MEDIO[t], i + 1
+    if t in _UNO and i + 1 < len(toks):
+        if toks[i + 1] in _PARTES:
+            return 1.0 / _PARTES[toks[i + 1]], i + 2         # estándar: aritmética de la lengua («un» = 1)
+        if _cola(toks, i + 1)[2] is not None:
+            return 1.0, i + 1                                # estándar: aritmética de la lengua («un» = 1)
+    return None, i + 1
 
 
 def _num_tok(tok: str) -> float | None:
@@ -195,26 +264,52 @@ def _num_en(toks: list[str], i: int) -> tuple[float | None, int]:
     return v, j
 
 
-def _analiza(texto: str) -> tuple[list[tuple[float, str | None, int]], list[tuple[str, int]]]:
-    """(cifras [(valor, unidad, posición)], magnitudes [(magnitud, posición)]) de un texto."""
+def _analiza_x(texto: str) -> tuple[list[tuple[float, str | None, int, bool]], list[tuple[str, int]]]:
+    """`_analiza` con una marca más por cifra: True si su valor sale de una fracción en letras (F38 §A.4)."""
     toks = _toks(texto)
-    nums: list[tuple[float, str | None, int]] = []
+    nums: list[tuple[float, str | None, int, bool]] = []
     i = 0
     while i < len(toks):
         v, j = _num_en(toks, i)
+        frac = False
+        if v is None:
+            v, j = _fraccion_sola(toks, i)
+            frac = v is not None
         if v is None:
             i = j
             continue
-        k = j + (1 if j < len(toks) and toks[j] == "de" else 0)
-        u2 = _UNIDAD_2.get(tuple(toks[k:k + 2]))
-        u = u2 or _UNIDAD_1.get(toks[k] if k < len(toks) else "")
-        e = k + (2 if u2 else 1 if u else 0)
+        if j < len(toks) and toks[j] in _PARTES:           # «dos tercios» = 2/3
+            v, j, frac = v / _PARTES[toks[j]], j + 1, True
+        u, e, mas = _cola(toks, j)
+        if mas is not None:                                # «un centímetro y medio» = 1,5; «dos horas y media» = 2,5
+            v, frac = v + mas, True
         if tuple(toks[e:e + 2]) in _DIFERENCIA:          # «15 metros por encima de la cota»: una diferencia, no la cota
             u = "diferencia"
-        nums.append((v, u, i))
+        nums.append((v, u, i, frac))
         i = j
     mags = [(m, p) for p, t in enumerate(toks) for m, raices in _MAGNITUD.items() if any(t.startswith(r) for r in raices)]
     return nums, mags
+
+
+def _analiza(texto: str) -> tuple[list[tuple[float, str | None, int]], list[tuple[str, int]]]:
+    """(cifras [(valor, unidad, posición)], magnitudes [(magnitud, posición)]) de un texto. F38 §A.4: lee las
+    fracciones en letras («un centímetro y medio» = 1,5; «medio centímetro» = 0,5; «dos horas y media» = 2,5; «las
+    diez y cuarto» = 10,25; «un tercio» = 1/3)."""
+    nums, mags = _analiza_x(texto)
+    return [(v, u, p) for v, u, p, _ in nums], mags
+
+
+def misma_cifra(num: str, v: float) -> bool:
+    """F38 §A.4: ¿el valor `v` (de la voz) es la cifra `num` del archivo? Igual, o igual al redondearlo a los decimales
+    que trae el archivo («un tercio» = «0,33»; «1,5» = «uno y medio»): la tolerancia es la precisión del archivo
+    (derivado), no un número del código. Una cifra entera del archivo no admite redondeo («2» no es «dos y medio»)."""
+    a = _valor(num)
+    if not isinstance(a, str):
+        return float(a) == float(v)
+    m = re.fullmatch(r"\d+\.(\d+)", a)
+    if not m:
+        return False
+    return round(float(v), len(m.group(1))) == float(a)
 
 
 def _fmt(v: float) -> str:

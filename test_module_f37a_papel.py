@@ -136,7 +136,7 @@ def test_a3a_reemplazo_literal_del_prompt_y_tipo_del_descarte():
              "quedarse a quien mira y que pueda ir en las primeras oraciones del capítulo: el gancho nunca queda sin "
              "ficha.")
     assert viejo not in mp.PANTALLA_SYSTEM and mp.PANTALLA_SYSTEM.count(nuevo) == 1
-    assert mp.PROMPT_VERSION == "m01e-2"
+    assert mp.PROMPT_VERSION == "m01e-3"          # F38: m01e-2 + sin TARJETA (§A.2) y el reintento parcial (§A.1)
     assert '"tipo": "voz_lo_dice" | "spoiler" | "repetido" | "otro"' in mp.FORMATO_SALIDA
 
 

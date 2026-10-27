@@ -333,7 +333,7 @@
   {
    "modulo": "m01e_pantalla",
    "archivo": "script_engine/m01e_pantalla.py",
-   "sticker": "Fase 1 (F36 C): el guion de pantalla EN PAPEL. Una llamada a Sonnet por video con la narración de los 7 caps (oraciones numeradas y cuánto cabe), la escaleta, el archivo del caso y el vocabulario de clima → por beat ficha o nada, sello o nada; relojes; tarjeta. Lo valida en papel (candado, no dicho, spoiler, una vez, cabe, formato; F37: fecha del relato, cita sin fecha, descartes «la voz lo dice» verificados, picos sin ficha; una coincidencia de número se le pregunta al autor) con un reintento que lleva todos los motivos, y lo deja para que Omar lo revise antes de la voz; Fase 2 lo consume.",
+   "sticker": "Fase 1 (F36 C): el guion de pantalla EN PAPEL. Una llamada a Sonnet por video con la narración de los 7 caps (oraciones numeradas y cuánto cabe), la escaleta, el archivo del caso y el vocabulario de clima → por beat ficha o nada, sello o nada; relojes (F38: la tarjeta sale de la voz, voz_datos). Lo valida en papel (candado, no dicho, spoiler, una vez, cabe, formato; F37: fecha del relato, cita sin fecha, descartes «la voz lo dice» verificados, picos sin ficha; una coincidencia de número se le pregunta al autor); F38: un juez (Gemini, el modelo chico de config) mira si cada ficha habla del mismo asunto que su oración y si adelanta algo. Un reintento PARCIAL con todos los motivos cambia solo los beats con motivo (lo demás queda congelado); lo que el juez sigue marcando sale del papel. Lo deja para que Omar lo revise antes de la voz; Fase 2 lo consume.",
    "recibe": "escaleta, narración por cap y beat, títulos, pool, `sellos_clima`",
    "entrega": "`01e_pantalla.json/.md` en el topic de Fase 1",
    "lo_llama": [
@@ -341,7 +341,7 @@
     "fase2b.py",
     "script_engine/pantalla_entrada.py"
    ],
-   "tests": 2,
+   "tests": 4,
    "lab": 0,
    "tanda": "F36",
    "nacio": "9e9d844 2026-10-26 feat(f36-c): m01e_pantalla — el guion de pantalla en papel va a Fase 1 (DECISIONES 19:54) · una llamada a Sonnet por vide",
@@ -458,25 +458,26 @@
   {
    "modulo": "voz_datos",
    "archivo": "script_engine/voz_datos.py",
-   "sticker": "Lo que sale de la voz y la escaleta sin modelo: el pico del cap, el reloj cuando la voz dice una fecha completa (y su esquina libre), y la tarjeta fecha-hora derivada (solo para comparar con la del papel).",
+   "sticker": "Lo que sale de la voz y la escaleta sin modelo: el pico del cap, el reloj cuando la voz dice una fecha completa (y su esquina libre), y la tarjeta fecha-hora del papel: desde F38 sale de la voz (la primera fecha completa del gancho y la hora que dice la voz en el beat pico, con la del ítem del pool que coincide; nunca se inventa) y la derivada de la escaleta queda solo para comparar.",
    "recibe": "oraciones de la voz, escaleta, pool",
-   "entrega": "pico, reloj, tarjeta derivada",
+   "entrega": "pico, reloj, tarjeta de la voz",
    "lo_llama": [
     "script_engine/gfx_layer.py",
     "script_engine/gfx_pool.py",
+    "script_engine/m01e_pantalla.py",
     "script_engine/pantalla_entrada.py"
    ],
-   "tests": 4,
+   "tests": 6,
    "lab": 0,
    "tanda": "F36 (código de F34)",
    "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
    "estado": "vivo",
-   "doc": "script_engine/voz_datos.py — F36 §A: lo que sale de la voz y de la escaleta sin pasar por el modelo (movido de pantalla_entrada sin cambios): el pico del cap (`pico_cap`, `pico_plan`), las fechas completas que dice la voz y su reloj (`fechas_completas`, `reloj_de_voz`) y la tarjeta fecha-hora derivada de la escaleta (`tarjeta_inicial`; desde F36 C solo para comparar con la del guion en papel). F36 §D: se borró el nivel de agua desde la voz."
+   "doc": "script_engine/voz_datos.py — F36 §A: lo que sale de la voz y de la escaleta sin pasar por el modelo (movido de pantalla_entrada sin cambios): el pico del cap (`pico_cap`, `pico_plan`), las fechas completas que dice la voz y su reloj (`fechas_completas`, `reloj_de_voz`) y la tarjeta fecha-hora derivada de la escaleta (`tarjeta_inicial`; desde F36 C solo para comparar con la del guion en papel). F36 §D: se borró el nivel de agua desde la voz. F38 §A.2: la tarjeta del papel sale de la voz (`tarjeta_de_voz`: la fecha que dice el gancho y la hora que dice el beat pico, buscada en el pool; `horas_di"
   },
   {
    "modulo": "voz_utils",
    "archivo": "script_engine/voz_utils.py",
-   "sticker": "La utilería de la voz: lee cifras en dígitos y en letras, nombres propios, cifras con su unidad, y parte la voz en oraciones con cada palabra numerada; desde F36 C parte igual el texto de Fase 1 (`oraciones_de_texto`) y normaliza oraciones para alinear papel y voz; desde F37 dice qué años nombra la voz (el momento del relato) y cuántos segundos por palabra habla el narrador (mediana de sus voces ya generadas).",
+   "sticker": "La utilería de la voz: lee cifras en dígitos y en letras, nombres propios, cifras con su unidad, y parte la voz en oraciones con cada palabra numerada; desde F36 C parte igual el texto de Fase 1 (`oraciones_de_texto`) y normaliza oraciones para alinear papel y voz; desde F37 dice qué años nombra la voz (el momento del relato) y cuántos segundos por palabra habla el narrador (mediana de sus voces ya generadas); desde F38 lee fracciones en letras («un centímetro y medio», «medio», «y cuarto», «un tercio») y compara cifras a la precisión del archivo.",
    "recibe": "texto / palabras con tiempos / voces del narrador",
    "entrega": "cifras, años, nombres, oraciones, segundos por palabra",
    "lo_llama": [
@@ -486,7 +487,7 @@
     "script_engine/pantalla_filtros.py",
     "script_engine/voz_datos.py"
    ],
-   "tests": 8,
+   "tests": 9,
    "lab": 0,
    "tanda": "F36 (código de F29b)",
    "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
@@ -1236,6 +1237,13 @@
    "a": "voz_datos",
    "donde": [
     "en pool_ticker"
+   ]
+  },
+  {
+   "de": "m01e_pantalla",
+   "a": "voz_datos",
+   "donde": [
+    "en tarjeta"
    ]
   },
   {

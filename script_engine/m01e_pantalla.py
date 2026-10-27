@@ -18,6 +18,13 @@ costo en 01_v3_costos.json como los demás pasos) o suelto: `python -m script_en
                y la versión del prompt. F37 §A.5: un reintento si el JSON no parsea o si la validación deja algún motivo
                (ficha caída, pregunta al autor, descarte «la voz lo dice» falso, pico sin ficha), con todos juntos. Dos
                respuestas sin JSON → PARADA (la cruda queda en 01e_pantalla.raw.json).
+               F38 §A.1: el reintento es PARCIAL: ve el papel completo del intento 1 como contexto, pero devuelve solo
+               `cambios` de los beats con motivo; el código los fusiona por (cap, beat) y lo demás queda congelado.
+    juez       F38 §A.3: después de la validación del intento 1, UNA llamada al modelo chico (config.api.gemini_model)
+               con todas las fichas: ¿la oración habla del mismo asunto que el dato? ¿el dato adelanta algo? Lo que marca
+               va al reintento como motivo de su beat; lo que siga mal después del reintento sale del papel (regla
+               `juez`). Caché en 01e_juez.raw.json.
+    tarjeta    F38 §A.2: la tarjeta fecha-hora ya no la elige el autor: sale de la voz (voz_datos.tarjeta_de_voz).
     validar    (§C.3, sin tiempos ni fotos, con los filtros de pantalla_filtros) por ficha: anclaje (cap, beat, ítem y
                oración que existen; la oración es del beat), formato (etiqueta en 1 línea y dato en 2, gfx_project.
                ficha_medida), F37 §A.1b fecha del relato (el año del ítem contra el último año que dijo la voz) y §A.1c
@@ -48,10 +55,11 @@ if __name__ == "__main__" and __package__ in (None, ""):          # suelto: pyth
 
 from script_engine import evidence as ev                           # noqa: E402
 from script_engine.voz_utils import (_analiza, _PARTICULAS, _palabra_en, _raiz_en, anio_de, anios_de,   # noqa: E402
-                                     anios_dichos, dice_anio, nombre_inicial, nombres, numero_en, numeros,
+                                     anios_dichos, dice_anio, misma_cifra, nombre_inicial, nombres, numero_en, numeros,
                                      oraciones_de_texto, palabras, palabras_de_contenido, seg_por_palabra)
 
-PROMPT_VERSION = "m01e-2"       # F37 §A.3a: el gancho en las primeras oraciones (+ `tipo` del descarte, §A.2)
+PROMPT_VERSION = "m01e-3"       # F38 §A.2: sin TARJETA (sale de la voz) · §A.1: el formato del reintento parcial
+JUEZ_VERSION = "juez-1"         # F38 §A.3: el prompt literal del juez de anclaje (JUEZ_SYSTEM)
 MODELO = "claude-sonnet-5-5"
 EFFORT = "medium"
 TOPE_USD_RESPALDO = 1.00        # DECISIONES: pedido de Omar F37 («TOPE_USD sale al perfil con valor 1.00»); el valor vive en el perfil (costos.m01e_tope_usd)
@@ -93,25 +101,47 @@ Qué podés poner:
 - FICHA: como máximo una por beat, y puede no haber. Etiqueta: una línea corta que diga qué es («ANCHO DE LA FISURA», «ACTA DEL CONSEJO SUPERIOR»), sin el año de publicación de la fuente. Dato: UNA línea corta con la cifra, la fecha o el hecho, tal como está en el archivo: cada número, nombre y año tiene que estar literal en el texto del dato que elegiste, no en otro lado. Etiqueta + dato no pueden pasar de los caracteres que caben en la oración ancla (`caben`); si no caben, elegí otra oración o un dato más corto. Para una cita (Q), el dato es la frase literal del archivo, recortada pero sin cambiar palabras, y lleva autor.
 - SELLO DE CLIMA: como máximo uno por beat, y puede no haber. Una palabra de la lista que nombre lo que se siente en ese momento del relato. Nunca una palabra que la voz diga en ese capítulo, y nunca la misma palabra dos veces en el video. Elegí la oración donde cae.
 - RELOJ: por capítulo, las fechas completas (día, mes y año) que la voz dice, con la oración donde las dice.
-- TARJETA: solo si el video abre con un momento con fecha y hora en el archivo: «9 OCT 1963 · 22:39».
 
 Prioridades: en el beat pico del capítulo, el dato marcado como central por la escaleta; en el gancho (capítulo 1), cualquier dato del archivo que la voz no diga en todo el video, que haga quedarse a quien mira y que pueda ir en las primeras oraciones del capítulo: el gancho nunca queda sin ficha. Los datos marcados con tu beat son los que la escaleta cuenta ahí; los demás son el resto del archivo: usalos si suman más y no adelantan nada. Un mismo dato una sola vez en el video. Si dudás entre dos, el que tiene cifra o fecha.
 
 Devolvé solo JSON con el formato pedido, con `aporta` (una línea: qué suma que la voz no dice) por ficha y `descartados` con motivo."""
 
-# §C.1: el esquema de salida (por cap y beat; relojes por cap; tarjeta; descartados). Sin `estilo`: lo pone el código.
+# §C.1: el esquema de salida (por cap y beat; relojes por cap; descartados). Sin `estilo`: lo pone el código.
 # F37 §A.2: cada descarte dice de qué tipo es (cambio de formato, no de estilo): el código verifica «voz_lo_dice».
+# F38 §A.2: sin `tarjeta` (sale de la voz, voz_datos.tarjeta_de_voz).
 FORMATO_SALIDA = ('{"beats": [{"cap": "ch03", "beat": 5, "ficha": {"pool_id": "D49", "sentence_idx": 17, '
                   '"palabra": "fisura", "etiqueta": "ANCHO DE LA FISURA", "texto": "Más de 1 metro", "aporta": "…"} | '
                   'null, "sello": {"palabra": "AVISO", "sentence_idx": 3} | null}], "relojes": [{"cap": "ch03", '
-                  '"sentence_idx": 4, "fecha": "9 OCT 1963"}], "tarjeta": {"texto": "9 OCT 1963 · 22:39"} | null, '
+                  '"sentence_idx": 4, "fecha": "9 OCT 1963"}], '
                   '"descartados": [{"pool_id": "…", "tipo": "voz_lo_dice" | "spoiler" | "repetido" | "otro", '
                   '"motivo": "…"}]}')
 
+# F38 §A.1: el formato del reintento parcial (solo los beats con motivo; la clave que no se cambia no va; null la borra).
+FORMATO_REINTENTO = ('{"cambios": [{"cap": "ch03", "beat": 5, "ficha": {"pool_id": "D49", "sentence_idx": 17, '
+                     '"palabra": "fisura", "etiqueta": "ANCHO DE LA FISURA", "texto": "Más de 1 metro", "aporta": "…"} '
+                     '| null, "sello": {"palabra": "AVISO", "sentence_idx": 3} | null}]}')
+REINTENTO_PARCIAL = ("Devolvé solo JSON con `cambios` para los beats de esta lista: {beats}. Cada cambio nombra su cap y "
+                     "su beat; `ficha` o `sello` con valor la reemplazan, con null la borran, y si no la cambiás no la "
+                     "pongas. Todo lo demás de tu respuesta anterior queda como está: un cambio en otro beat se ignora.")
+
 
 def prompt_md5() -> str:
-    """md5 del prompt literal (SYSTEM + la línea del formato), para el reporte."""
-    return hashlib.md5((PANTALLA_SYSTEM + "\n\n" + FORMATO_SALIDA).encode("utf-8")).hexdigest()
+    """md5 del prompt literal (SYSTEM + la línea del formato), para el reporte. F38: + el formato del reintento."""
+    return hashlib.md5((PANTALLA_SYSTEM + "\n\n" + FORMATO_SALIDA + "\n\n" + FORMATO_REINTENTO + "\n\n"
+                        + REINTENTO_PARCIAL).encode("utf-8")).hexdigest()
+
+
+# ═══════════════════════ juez de anclaje (HANDOFF_F38 §A.3, literal) ═══════════════════════
+
+JUEZ_SYSTEM = """Sos el editor de un documental. Te doy, por cada texto que va en pantalla: la oración de la voz donde aparece, la anterior y la siguiente, el dato completo del archivo del que sale, y todo lo que la voz dice después en el video. Respondé, por cada uno, solo JSON:
+{"id": …, "mismo_asunto": true|false, "adelanta": true|false, "motivo": "una línea"}
+mismo_asunto: la oración donde aparece, o su vecina, habla del mismo hecho que el dato.
+adelanta: el dato le cuenta a quien mira algo que la voz recién cuenta más adelante."""
+
+
+def juez_md5() -> str:
+    """md5 del prompt literal del juez, para el reporte."""
+    return hashlib.md5(JUEZ_SYSTEM.encode("utf-8")).hexdigest()
 
 
 def pedido(ent: dict[str, Any]) -> str:
@@ -222,7 +252,8 @@ def entrada(carga: dict[str, Any], vocabulario: list[str], seg: dict[str, Any] |
     return {"topic_id": carga["topic_id"], "caps": caps, "beats": beats, "archivo": archivo,
             "clima": list(vocabulario), "a_pantalla": {str(a.get("id")): str(a.get("por_que") or "")
                                                        for a in esc.get("a_pantalla") or []},
-            "seg_por_palabra": vel, "anios": anios_de([x.get("fecha") for x in todos.values()])}
+            "seg_por_palabra": vel, "anios": anios_de([x.get("fecha") for x in todos.values()]),
+            "_escaleta": esc}                         # F38 §A.2: para la tarjeta de la voz (no va al modelo)
 
 
 def _para_modelo(ent: dict[str, Any]) -> dict[str, Any]:
@@ -301,7 +332,8 @@ def voz_no_lo_dice(it: dict[str, Any], voz: str, rango: tuple[int, int] | None) 
     cif = _cifras(txt, rango)
     if cif:
         dichas = set(_cifras(voz, None))
-        if any(v in dichas for v in cif):
+        if any(misma_cifra(str(int(v)) if float(v).is_integer() else repr(float(v)), d)   # F38 §A.4: a la precisión
+               for v in cif for d in dichas):                                              # del archivo («1,5» = «uno y medio»)
             return None
         return [n for n in numeros(txt) if not (rango and n.isdigit() and rango[0] <= int(n) <= rango[1])] or \
             [str(v) for v in cif]
@@ -323,8 +355,10 @@ def _donde(tok: str, sents: list[tuple[str, int, str]]) -> tuple[str, int, str] 
 
 def validar(resp: Any, ent: dict[str, Any], confirmados: dict[str, dict[str, list[str]]] | None = None
             ) -> dict[str, Any]:
-    """§C.3 sobre la respuesta: {beats (lo que queda, por cap y beat), relojes, tarjeta, descartados (del modelo y de la
-    validación, con regla y motivo), fichas_fuera, preguntas, vuelven, picos_vacios, motivos}. F37:
+    """§C.3 sobre la respuesta: {beats (lo que queda, por cap y beat), relojes, descartados (del modelo y de la
+    validación, con regla y motivo), fichas_fuera, preguntas, vuelven, picos_vacios, motivos, motivos_beat}. F38 §A.2: la
+    tarjeta ya no es del autor (no se lee de la respuesta); §A.1: `motivos_beat` = por motivo, los (cap, beat) que el
+    reintento parcial puede cambiar. F37:
     - §A.1b fecha del relato y §A.1c cita sin fecha (reglas `fecha_relato`, `cita_sin_fecha`);
     - §A.4 una coincidencia de número o nombre en `no_dicho`/`spoiler` no corta: es una pregunta al autor para el
       reintento (`preguntas`; la ficha queda marcada `pregunta`). Con `confirmados` (las preguntas que se hicieron, en la
@@ -408,7 +442,6 @@ def validar(resp: Any, ent: dict[str, Any], confirmados: dict[str, dict[str, lis
         ok = c is not None and si is not None and 0 <= si < len(c["oraciones"])
         relojes.append({"cap": r.get("cap"), "sentence_idx": si, "fecha": str(r.get("fecha") or ""),
                         "oracion": c["oraciones"][si]["texto"] if ok else None, **({} if ok else {"error": "la oración no existe"})})
-    tj = resp.get("tarjeta") if isinstance(resp.get("tarjeta"), dict) and resp["tarjeta"].get("texto") else None
     out_beats = sorted(quedan.values(), key=lambda s: (orden_caps.index(s["cap"]) if s["cap"] in orden_caps else 99,
                                                        s["beat"] if s["beat"] is not None else -1))
     # §A.2: el descarte «la voz lo dice» se verifica (las cifras o los nombres del ítem en la voz de sus caps)
@@ -427,16 +460,34 @@ def validar(resp: Any, ent: dict[str, Any], confirmados: dict[str, dict[str, lis
             vuelven.append({"pool_id": d["pool_id"], "motivo": d.get("motivo"), "falta": falta,
                             "caps": sorted(caps_it) or ["todo el video"], "texto": x["texto"]})
     picos_vacios = [{"cap": s["cap"], "beat": s["beat"]} for s in out_beats if s["pico"] and not s["ficha"]]
-    motivos = [f"{d.get('pool_id')} ({d.get('cap')} beat {d.get('beat')}) «{d.get('etiqueta')} · {d.get('texto')}»: "
-               f"{d['regla']}: {d['motivo']}" for d in desc if d.get("que") == "ficha"]
-    motivos += [_pregunta_txt(q) for q in preguntas]
-    motivos += [f"{v['pool_id']}: dijiste que la voz lo dice («{v['motivo']}»); la voz de {', '.join(v['caps'])} no dice "
-                f"{' ni '.join('«' + str(t) + '»' for t in v['falta'])} («{v['texto']}»): vuelve a ser candidato"
-                for v in vuelven]
-    motivos += [f"el beat {p['beat']} de {p['cap']} es pico y quedó sin ficha" for p in picos_vacios]
-    return {"beats": out_beats, "relojes": relojes, "tarjeta": {"texto": str(tj["texto"])} if tj else None,
+    # F38 §A.1: cada motivo con los beats que puede cambiar el reintento (`motivos_beat`, lista paralela a `motivos`):
+    # la ficha caída → su beat (y, si la oración existe y es de otro beat, también ese: ahí puede ir); la pregunta y el
+    # pico vacío → su beat; el descarte que vuelve → [] (no tiene beat: va en cualquier beat con motivo).
+    motivos, motivos_beat = [], []
+    for d in desc:
+        if d.get("que") != "ficha":
+            continue
+        motivos.append(f"{d.get('pool_id')} ({d.get('cap')} beat {d.get('beat')}) «{d.get('etiqueta')} · "
+                       f"{d.get('texto')}»: {d['regla']}: {d['motivo']}")
+        bs = [(str(d.get("cap")), d.get("beat"))] if d.get("beat") is not None else []
+        c, si = caps.get(str(d.get("cap"))), _int(d.get("sentence_idx"))
+        if c is not None and si is not None and 0 <= si < len(c["oraciones"]):
+            bs.append((c["cap"], c["oraciones"][si]["beat"]))
+        motivos_beat.append(sorted(set(bs), key=lambda x: (x[0], x[1])))
+    for q in preguntas:
+        motivos.append(_pregunta_txt(q))
+        motivos_beat.append([(q["cap"], q["beat"])])
+    for v in vuelven:
+        motivos.append(f"{v['pool_id']}: dijiste que la voz lo dice («{v['motivo']}»); la voz de {', '.join(v['caps'])} "
+                       f"no dice {' ni '.join('«' + str(t) + '»' for t in v['falta'])} («{v['texto']}»): vuelve a ser "
+                       f"candidato")
+        motivos_beat.append([])
+    for p in picos_vacios:
+        motivos.append(f"el beat {p['beat']} de {p['cap']} es pico y quedó sin ficha")
+        motivos_beat.append([(p["cap"], p["beat"])])
+    return {"beats": out_beats, "relojes": relojes,
             "descartados": desc, "fichas_fuera": fichas_fuera, "preguntas": preguntas, "vuelven": vuelven,
-            "picos_vacios": picos_vacios, "motivos": motivos}
+            "picos_vacios": picos_vacios, "motivos": motivos, "motivos_beat": motivos_beat}
 
 
 def _pregunta_txt(q: dict[str, Any]) -> str:
@@ -576,9 +627,47 @@ def primer_json(txt: str) -> dict | None:
     return None
 
 
+def primer_json_lista(txt: str) -> list | None:
+    """F38 §A.3: la respuesta del juez: la primera lista JSON válida del texto, o la lista que traiga el primer objeto
+    (o el objeto solo, si es un veredicto); None si no hay."""
+    dec = json.JSONDecoder()
+    for m in re.finditer(r"[\[{]", txt or ""):
+        try:
+            obj, _ = dec.raw_decode(txt, m.start())
+        except json.JSONDecodeError:
+            continue
+        if isinstance(obj, list):
+            return obj
+        if isinstance(obj, dict):
+            if "id" in obj:
+                return [obj]
+            listas = [v for v in obj.values() if isinstance(v, list)]
+            if listas:
+                return listas[0]
+    return None
+
+
+def _peor_usd(chars: int, salida_tokens: int, pin: float, pout: float) -> float:
+    """La estimación del peor caso de una llamada (la de siempre de §C.2: los caracteres del pedido a tokens, y la
+    salida peor), en US$ con las tarifas por millón."""
+    return chars / 2.5 / 1e6 * pin + salida_tokens / 1e6 * pout
+
+
 def _reintento(user: str, errores: list[str]) -> str:
+    """El reintento de JSON completo (la respuesta no parseó): no es parcial."""
     return user + "\n\nTU RESPUESTA ANTERIOR TUVO ESTOS PROBLEMAS (corregilos y devolvé el JSON completo otra vez):\n" + \
         "\n".join(f"- {e}" for e in errores)
+
+
+def _reintento_parcial(user: str, anterior: dict[str, Any], motivos: list[str],
+                       beats_m: list[tuple[str, int]]) -> str:
+    """F38 §A.1: el USER original + la respuesta anterior (el papel completo, como contexto) + los motivos + el formato
+    del reintento (solo `cambios` de los beats con motivo)."""
+    return (user + "\n\nTU RESPUESTA ANTERIOR (el papel completo, como contexto):\n"
+            + json.dumps(anterior, ensure_ascii=False)
+            + "\n\nTUVO ESTOS PROBLEMAS:\n" + "\n".join(f"- {m}" for m in motivos)
+            + "\n\n" + REINTENTO_PARCIAL.format(beats=", ".join(f"{c} beat {b}" for c, b in beats_m))
+            + "\n\nFormato de salida: " + FORMATO_REINTENTO)
 
 
 def _confirmar(preguntas: list[dict[str, Any]]) -> dict[str, dict[str, list[str]]]:
@@ -589,14 +678,252 @@ def _confirmar(preguntas: list[dict[str, Any]]) -> dict[str, dict[str, list[str]
     return out
 
 
+def beats_con_motivo(motivos_beat: list[list[Any]]) -> list[tuple[str, int]]:
+    """F38 §A.1: los (cap, beat) que el reintento parcial puede cambiar = la unión de los beats de cada motivo. Un motivo
+    sin beat (el descarte que vuelve a ser candidato) no agrega ninguno: el autor lo puede proponer en cualquiera de
+    estos; si no hay ninguno, no hay dónde y el reintento no se manda (se anota)."""
+    out = {(str(c), int(b)) for bs in motivos_beat for c, b in bs if b is not None}
+    return sorted(out, key=lambda x: (x[0], x[1]))
+
+
+def fusionar(base: dict[str, Any], resp: Any, permitidos: list[tuple[str, int]]
+             ) -> tuple[dict[str, Any], list[dict[str, Any]], list[dict[str, Any]]]:
+    """F38 §A.1: los `cambios` del reintento sobre la respuesta del intento 1, por (cap, beat); lo demás queda congelado
+    (relojes, descartados, los otros beats). Por cambio: `ficha`/`sello` con un objeto lo reemplazan, con null lo borran,
+    y la clave ausente = esa parte sin cambio. Un cambio sobre un beat sin motivo (o que no es un objeto, o sin ficha ni
+    sello) se ignora y se anota. Devuelve (respuesta fusionada, aplicados, ignorados)."""
+    out = json.loads(json.dumps(base if isinstance(base, dict) else {}, ensure_ascii=False))
+    filas = [b for b in out.get("beats") or [] if isinstance(b, dict)]
+    out["beats"] = filas
+    ok = {(str(c), int(b)) for c, b in permitidos}
+    aplicados: list[dict[str, Any]] = []
+    ignorados: list[dict[str, Any]] = []
+    cambios = resp.get("cambios") if isinstance(resp, dict) else None
+    if not isinstance(cambios, list):
+        if resp:
+            ignorados.append({"cambio": None, "motivo": "la respuesta no trae `cambios`: sin cambios"})
+        cambios = []
+    for ch in cambios:
+        if not isinstance(ch, dict):
+            ignorados.append({"cambio": ch, "motivo": "el cambio no es un objeto"})
+            continue
+        cap, nb = str(ch.get("cap") or ""), _int(ch.get("beat"))
+        partes = [p for p in ("ficha", "sello") if p in ch and (ch[p] is None or isinstance(ch[p], dict))]
+        if (cap, nb) not in ok:
+            ignorados.append({"cap": cap, "beat": nb, "cambio": ch, "motivo": "el beat no tiene motivo"})
+            continue
+        if not partes:
+            ignorados.append({"cap": cap, "beat": nb, "cambio": ch, "motivo": "sin ficha ni sello"})
+            continue
+        mismas = [f for f in filas if str(f.get("cap")) == cap and _int(f.get("beat")) == nb]
+        if not mismas:
+            mismas = [{"cap": cap, "beat": nb, "ficha": None, "sello": None}]
+            filas.append(mismas[0])
+        for p in partes:
+            mismas[0][p] = ch[p]
+            for otra in mismas[1:]:                       # una por beat: la fila repetida pierde esa parte
+                otra[p] = None
+        aplicados.append({"cap": cap, "beat": nb, "partes": partes})
+    return out, aplicados, ignorados
+
+
+# ═══════════════════════ juez de anclaje (F38 §A.3) ═══════════════════════
+
+def _oracion_txt(cap: str, s: dict[str, Any]) -> str:
+    return f"{cap} [{s['idx']}] {s['texto']}"
+
+
+def juez_entrada(beats: list[dict[str, Any]], ent: dict[str, Any]) -> list[dict[str, Any]]:
+    """Por cada ficha del papel: id (pool_id), lo que va en pantalla, la oración ancla, la anterior y la siguiente
+    (dentro del cap), el dato completo del archivo (texto, fuente, fecha; la cita con su autor) y todo lo que la voz
+    dice después en el video (las oraciones posteriores del cap y todos los caps siguientes). Cada fila lleva aparte
+    (`_donde`) su cap, beat y oración, que no van al modelo."""
+    caps = {c["cap"]: c for c in ent["caps"]}
+    orden = [c["cap"] for c in ent["caps"]]
+    arch = {x["id"]: x for x in ent["archivo"]}
+    out = []
+    for b in beats:
+        f = b.get("ficha")
+        c = caps.get(b.get("cap"))
+        if not f or c is None:
+            continue
+        si = int(f["sentence_idx"])
+        ors = c["oraciones"]
+        x = arch.get(f["pool_id"]) or {}
+        dato = {"texto": x.get("texto") or "", "fuente": x.get("fuente") or "", "fecha": x.get("fecha") or "desconocida"}
+        if x.get("autor"):
+            dato["autor"] = x["autor"]
+        k = orden.index(c["cap"])
+        despues = [_oracion_txt(c["cap"], s) for s in ors[si + 1:]] + \
+                  [_oracion_txt(cc, s) for cc in orden[k + 1:] for s in caps[cc]["oraciones"]]
+        out.append({"id": f["pool_id"],
+                    "en_pantalla": f"{f.get('etiqueta')} · {f.get('texto')}" + (f" — {f['autor']}" if f.get("autor") else ""),
+                    "oracion": _oracion_txt(c["cap"], ors[si]),
+                    "anterior": _oracion_txt(c["cap"], ors[si - 1]) if si > 0 else "",
+                    "siguiente": _oracion_txt(c["cap"], ors[si + 1]) if si + 1 < len(ors) else "",
+                    "dato": dato, "voz_despues": despues,
+                    "_donde": {"cap": c["cap"], "beat": b.get("beat"), "sentence_idx": si,
+                               "etiqueta": f.get("etiqueta"), "texto": f.get("texto")}})
+    return out
+
+
+def juez_pedido(filas: list[dict[str, Any]]) -> str:
+    """El USER del juez: los textos en pantalla, sin lo que es del código (`_donde`)."""
+    return json.dumps({"textos": [{k: v for k, v in r.items() if k != "_donde"} for r in filas]}, ensure_ascii=False)
+
+
+def _gemini_juez(system: str, user: str, modelo: str) -> dict[str, Any]:
+    """La llamada de texto al modelo chico, con el cliente del proyecto (como gfx_critic._gemini_rot) y su costo al
+    cost_tracker por tokens (track_gemini_response). Devuelve {texto, usage}."""
+    from google.genai import types as genai_types
+    from config import gemini_client
+    from cost_tracker import cost_tracker
+    r = gemini_client.models.generate_content(
+        model=modelo, contents=[user],
+        config=genai_types.GenerateContentConfig(system_instruction=system,
+                                                 temperature=0.0,  # derivado: como el crítico (gfx_critic._gemini_rot)
+                                                 response_mime_type="application/json",
+                                                 max_output_tokens=OUT_TOKENS_PEOR))
+    cost_tracker.track_gemini_response(r, modelo, "m01e_juez")
+    um = getattr(r, "usage_metadata", None)
+    return {"texto": r.text or "", "usage": {"input_tokens": getattr(um, "prompt_token_count", 0) or 0,
+                                             "output_tokens": getattr(um, "candidates_token_count", 0) or 0,
+                                             "thinking_tokens": getattr(um, "thoughts_token_count", 0) or 0}}
+
+
+def _juez_modelo() -> str:
+    """El modelo chico del proyecto, leído en el momento de la llamada (config.api.gemini_model; nunca en el código)."""
+    from config import api
+    return str(api.gemini_model)
+
+
+def juzgar(beats: list[dict[str, Any]], ent: dict[str, Any], out_dir: Path, *, ronda: int,
+           call: Callable[[str, str, str], dict] | None = None, libre_usd: float | None = None,
+           log: list[str] | None = None) -> dict[str, Any]:
+    """UNA llamada del juez sobre las fichas de `beats`. Caché en <topic>/01e_juez.raw.json por md5 de (JUEZ_VERSION,
+    modelo, prompt, entrada): repetida cuesta 0. Peor caso (los caracteres del pedido y OUT_TOKENS_PEOR de salida, con
+    las tarifas de cost_tracker) contra `libre_usd` (lo que queda del tope): si no entra, no corre (`error`). Si la API
+    falla o no devuelve JSON, `error` y sin veredictos (la corrida sigue). Devuelve {ronda, modelo, usd, cache,
+    veredictos (uno por ficha, con cap/beat/oración y `marcada`), error}."""
+    from cost_tracker import _gemini_rates_for
+    log = log if log is not None else []
+    filas = juez_entrada(beats, ent)
+    res: dict[str, Any] = {"ronda": ronda, "modelo": None, "usd": 0.0, "cache": False, "fichas": len(filas),
+                           "veredictos": [], "error": None}
+    if not filas:
+        return res
+    modelo = _juez_modelo()
+    res["modelo"] = modelo
+    user = juez_pedido(filas)
+    clave = hashlib.md5(f"{JUEZ_VERSION}|{modelo}|{JUEZ_SYSTEM}|{user}".encode("utf-8")).hexdigest()
+    res["clave"] = clave
+    cache_f = Path(out_dir) / "01e_juez.raw.json"
+    try:
+        data = json.loads(cache_f.read_text(encoding="utf-8")) if cache_f.exists() else {}
+    except (OSError, ValueError):
+        data = {}
+    if clave in data and isinstance(data[clave].get("veredictos"), list):
+        crudos, res["cache"] = data[clave]["veredictos"], True
+        log.append(f"  m01e juez ronda {ronda}: caché ({len(filas)} fichas, US$ 0)")
+    else:
+        rate = _gemini_rates_for(modelo)
+        peor = _peor_usd(len(JUEZ_SYSTEM) + len(user), OUT_TOKENS_PEOR, rate["input"], rate["output"])
+        if libre_usd is not None and peor > libre_usd:
+            res["error"] = f"tope: quedan US$ {libre_usd:.4f} y el juez puede costar hasta {peor:.4f}: no corre"
+            log.append(f"  m01e juez ronda {ronda}: {res['error']}")
+            return res
+        try:
+            r = (call or _gemini_juez)(JUEZ_SYSTEM, user, modelo)
+        except Exception as e:  # noqa: BLE001 — sin juez la corrida sigue (F38 §A.3), anotado
+            res["error"] = f"{type(e).__name__}: {str(e)[:200]}"
+            log.append(f"  m01e juez ronda {ronda}: ERROR {res['error']} → sin juez")
+            return res
+        u = r.get("usage") or {}
+        res["usd"] = round(int(u.get("input_tokens") or 0) / 1e6 * rate["input"]
+                           + (int(u.get("output_tokens") or 0) + int(u.get("thinking_tokens") or 0)) / 1e6
+                           * rate["output"], 6)
+        res["usage"] = u
+        crudos = primer_json_lista(r.get("texto") or "")
+        if crudos is None:
+            res["error"] = f"sin JSON: {str(r.get('texto') or '')[:200]}"
+            log.append(f"  m01e juez ronda {ronda}: {res['error']} → sin juez")
+            return res
+        data[clave] = {"version": JUEZ_VERSION, "md5": juez_md5(), "modelo": modelo, "ronda": ronda,
+                       "pedido": user, "texto": r.get("texto"), "veredictos": crudos, "usage": u, "usd": res["usd"]}
+        cache_f.parent.mkdir(parents=True, exist_ok=True)
+        cache_f.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
+        log.append(f"  m01e juez ronda {ronda}: {len(filas)} fichas · in {u.get('input_tokens')} · out "
+                   f"{u.get('output_tokens')} · US$ {res['usd']:.4f}")
+    por_id = {str(v.get("id")): v for v in crudos if isinstance(v, dict)}
+    for fl in filas:
+        v = por_id.get(str(fl["id"]))
+        ms = v.get("mismo_asunto") if v else None
+        ad = v.get("adelanta") if v else None
+        res["veredictos"].append({"id": fl["id"], **fl["_donde"], "mismo_asunto": ms, "adelanta": ad,
+                                  "motivo": str((v or {}).get("motivo") or ("sin veredicto" if v is None else "")),
+                                  "marcada": ms is False or ad is True})
+    return res
+
+
+def motivo_juez(v: dict[str, Any]) -> str:
+    """El motivo del juez para el reintento, con el `motivo` del juez (no se inventa): «D131 (ch01 beat 1, oración [1])
+    «…»: juez de anclaje (la oración no habla del mismo hecho · adelanta): <motivo>: elegí otra oración u otro dato»."""
+    que = " · ".join(([] if v.get("mismo_asunto") is not False else ["la oración no habla del mismo hecho"])
+                     + ([] if v.get("adelanta") is not True else ["adelanta"]))
+    return (f"{v['id']} ({v['cap']} beat {v['beat']}, oración [{v['sentence_idx']}]) «{v.get('etiqueta')} · "
+            f"{v.get('texto')}»: juez de anclaje ({que}): {v.get('motivo')}: elegí otra oración u otro dato")
+
+
+def _clave_ficha(cap: Any, f: dict[str, Any]) -> tuple[str, str, int]:
+    return str(cap), str(f.get("pool_id")), int(f.get("sentence_idx"))
+
+
+def sacar_juzgadas(val: dict[str, Any], marcadas: list[dict[str, Any]]) -> dict[str, Any]:
+    """F38 §A.3: las fichas del papel final que el juez marcó (mismo pool_id en la misma oración) salen, a `descartados`
+    con regla `juez` y su motivo; un pico que queda sin ficha pasa a `picos_vacios`. Devuelve la validación nueva
+    (+ `salieron_juez`)."""
+    por = {(str(m["cap"]), str(m["id"]), int(m["sentence_idx"])): m for m in marcadas}
+    beats, desc, salieron = [], list(val["descartados"]), []
+    picos = list(val.get("picos_vacios") or [])
+    for b in val["beats"]:
+        f = b.get("ficha")
+        m = por.get(_clave_ficha(b["cap"], f)) if f else None
+        if m is None:
+            beats.append(b)
+            continue
+        beats.append({**b, "ficha": None})
+        d = {"pool_id": f["pool_id"], "cap": b["cap"], "beat": b["beat"], "que": "ficha", "etiqueta": f.get("etiqueta"),
+             "texto": f.get("texto"), "sentence_idx": f.get("sentence_idx"), "regla": "juez",
+             "motivo": f"{m.get('motivo')} (mismo_asunto {m.get('mismo_asunto')} · adelanta {m.get('adelanta')}; "
+                       f"ronda {m.get('ronda')})", "quien": "juez"}
+        desc.append(d)
+        salieron.append(d)
+        if b.get("pico") and {"cap": b["cap"], "beat": b["beat"]} not in picos:
+            picos.append({"cap": b["cap"], "beat": b["beat"]})
+    return {**val, "beats": beats, "descartados": desc, "fichas_fuera": val["fichas_fuera"] + len(salieron),
+            "picos_vacios": picos, "salieron_juez": salieron}
+
+
 def llamar(ent: dict[str, Any], out_dir: Path, *, post: Callable[[dict], dict] | None = None,
-           tope: float | None = None, log: list[str] | None = None) -> dict[str, Any]:
-    """La llamada con caché, tope y un reintento. Devuelve {clave, intentos, final, validacion, usd, tokens_in, tope,
-    motivos, confirmados}. `post` (tests) reemplaza al POST de la API: recibe el body y devuelve el mensaje {content,
-    usage, stop_reason}. F37 §A.5: UN reintento, con todos los motivos juntos (fichas caídas —§A.1b/c y las de siempre—,
-    preguntas al autor —§A.4—, descartes «la voz lo dice» falsos —§A.2— y picos sin ficha —§A.3b—), dentro del tope
-    del perfil (`tope_usd`); la respuesta del reintento es final (sus preguntas confirmadas). Sin lugar en el tope para
-    el reintento, la primera respuesta se valida como final (las coincidencias cortan, como en F36) y se anota."""
+           tope: float | None = None, log: list[str] | None = None,
+           juez_post: Callable[[str, str, str], dict] | None = None) -> dict[str, Any]:
+    """La llamada con caché, tope, juez y un reintento. Devuelve {clave, intentos, final, validacion, usd, tokens_in,
+    tope, motivos, motivos_beat, confirmados, reintento, juez}. `post` (tests) reemplaza al POST de la API: recibe el
+    body y devuelve el mensaje {content, usage, stop_reason}; `juez_post` (tests) reemplaza a la llamada del juez
+    (system, user, modelo) → {texto, usage}; con `post` y sin `juez_post` el juez no corre (se anota: un test del autor
+    no llama a la API). F37 §A.5: UN reintento, con todos los motivos juntos (fichas caídas, preguntas al autor,
+    descartes «la voz lo dice» falsos, picos sin ficha), dentro del tope del perfil (`tope_usd`); la respuesta del
+    reintento es final (sus preguntas confirmadas). Sin lugar en el tope para el reintento (o si el reintento no
+    devuelve JSON) queda el intento 1, validado como final (las coincidencias cortan, como en F36), y se anota.
+    F38:
+    - §A.3 el juez corre después de validar el intento 1, sobre todas las fichas que quedan; las que marca
+      (`mismo_asunto: false` o `adelanta: true`) son motivos de su beat. «Lo que siga mal después del reintento»: la
+      misma ficha (pool_id en la misma oración) que sigue en el papel sale con el motivo del juez; las fichas nuevas o
+      cambiadas del reintento se juzgan en una segunda llamada (solo ellas) y la que salga marcada sale. Sin reintento
+      (tope, o no hubo beat con motivo) lo marcado sale igual. El costo del juez suma al `usd` y cuenta para el tope.
+    - §A.1 el reintento es parcial (`fusionar`): solo los beats con motivo (`beats_con_motivo`); si los únicos motivos
+      no tienen beat, no se manda (`reintento.sin_beat`). El JSON que no parsea sigue con el reintento de JSON completo
+      de siempre (no es parcial) y esa respuesta es final; el juez corre sobre ella y lo marcado sale."""
     import claude_helpers as hx
     log = log if log is not None else []
     tope_v, tope_de = (float(tope), "argumento") if tope is not None else tope_usd()
@@ -608,30 +935,35 @@ def llamar(ent: dict[str, Any], out_dir: Path, *, post: Callable[[dict], dict] |
     except (OSError, ValueError):
         prev = None
     if prev and prev.get("clave") == clave and prev.get("final") is not None:
-        prev["validacion"] = validar(prev["final"], ent, prev.get("confirmados") or {})   # determinista: el código de hoy
+        val = validar(prev["final"], ent, prev.get("confirmados") or {})        # determinista: el código de hoy
+        prev["validacion"] = sacar_juzgadas(val, (prev.get("juez") or {}).get("marcadas") or [])
         log.append(f"  m01e: caché ({len(prev.get('intentos') or [])} intento(s), US$ 0)")
         return {**prev, "cache": True}
     out: dict[str, Any] = {"clave": clave, "modelo": MODELO, "effort": EFFORT, "prompt_version": PROMPT_VERSION,
                            "prompt_md5": prompt_md5(), "entrada_md5": entrada_md5(ent), "intentos": [], "final": None,
                            "validacion": None, "usd": 0.0, "tope": {"usd": tope_v, "de": tope_de}, "motivos": [],
-                           "confirmados": {}}
+                           "motivos_beat": [], "confirmados": {},
+                           "reintento": {"tipo": None, "beats": [], "aplicados": [], "ignorados": [], "sin_beat": []},
+                           "juez": {"version": JUEZ_VERSION, "md5": juez_md5(), "modelo": None, "usd": 0.0,
+                                    "rondas": [], "veredictos": [], "motivos": [], "marcadas": [], "salieron": [],
+                                    "error": None}}
     pin, pout = hx.PRICES.get(hx._base(MODELO), (0.0, 0.0))
-    pedido_k = user
-    salida_peor = OUT_TOKENS_PEOR
-    confirmados: dict[str, dict[str, list[str]]] | None = None
-    for k in range(2):
+    salida_peor = [OUT_TOKENS_PEOR]
+    juez_on = not (post is not None and juez_post is None)
+    jz = out["juez"]
+
+    def autor(pedido_k: str, k: int) -> tuple[bool, dict | None]:
+        """Una llamada del autor: (hubo llamada, respuesta JSON o None). Sin lugar en el tope: (False, None)."""
         body = {"model": MODELO, "max_tokens": hx.MAX_TOKENS, "system": PANTALLA_SYSTEM,
                 "messages": [{"role": "user", "content": pedido_k}], "output_config": {"effort": EFFORT}}
-        peor = len(json.dumps(body, ensure_ascii=False)) / 2.5 / 1e6 * pin + salida_peor / 1e6 * pout
+        peor = _peor_usd(len(json.dumps(body, ensure_ascii=False)), salida_peor[0], pin, pout)
         if out["usd"] + peor > tope_v:
             msg = (f"tope US$ {tope_v:.2f} ({tope_de}): gastado {out['usd']:.4f} + esta llamada hasta {peor:.4f}")
             out["error"] = msg
             log.append(f"  m01e: {msg} → sin {'reintento' if k else 'llamada'}")
             if k == 0:
                 raise TopePantalla(msg)
-            if out["final"] is not None:              # la primera queda como final: lo que preguntaba, corta
-                out["validacion"], out["confirmados"] = validar(out["final"], ent, {}), {}
-            break
+            return False, None
         t0 = time.time()
         r = (post or hx._post)(body)
         u = r.get("usage") or {}
@@ -640,55 +972,148 @@ def llamar(ent: dict[str, Any], out_dir: Path, *, post: Callable[[dict], dict] |
             hx._track(r.get("model") or MODELO, u, "m01e_pantalla")    # al cost_tracker (el ledger del paso)
         out["usd"] = round(out["usd"] + usd, 5)
         out["tokens_in"] = out.get("tokens_in") or u.get("input_tokens")
-        salida_peor = max(salida_peor, int(u.get("output_tokens") or 0))
+        salida_peor[0] = max(salida_peor[0], int(u.get("output_tokens") or 0))
         txt = "".join(c.get("text") or "" for c in r.get("content") or [] if c.get("type") == "text")
         resp = primer_json(txt)
-        val = (validar(resp, ent) if k == 0 else validar(resp, ent, confirmados or {})) if resp is not None else None
         out["intentos"].append({"pedido": pedido_k if k else "(el USER de entrada)", "texto": txt, "respuesta": resp,
                                 "usage": u, "stop": r.get("stop_reason"), "usd": usd,
                                 "segundos": round(time.time() - t0, 1)})
-        log.append(f"  m01e intento {k + 1}: in {u.get('input_tokens')} · out {u.get('output_tokens')} · US$ {usd:.4f} · "
-                   f"{'JSON' if resp is not None else 'SIN JSON'}"
-                   + (f" · fichas fuera {val['fichas_fuera']} · preguntas {len(val['preguntas'])} · vuelven "
-                      f"{len(val['vuelven'])} · picos vacíos {len(val['picos_vacios'])}" if val else ""))
+        log.append(f"  m01e intento {k + 1}: in {u.get('input_tokens')} · out {u.get('output_tokens')} · "
+                   f"US$ {usd:.4f} · {'JSON' if resp is not None else 'SIN JSON'}")
+        return True, resp
+
+    def juez(beats: list[dict[str, Any]], ronda: int) -> list[dict[str, Any]]:
+        """Una ronda del juez (si está prendido): suma su costo y devuelve las marcadas (con su ronda)."""
+        if not juez_on:
+            jz["error"] = jz["error"] or "sin juez: `post` de prueba sin `juez_post`"
+            return []
+        r = juzgar(beats, ent, out_dir, ronda=ronda, call=juez_post, libre_usd=tope_v - out["usd"], log=log)
+        if not r["fichas"]:
+            return []
+        jz["rondas"].append({k: r.get(k) for k in ("ronda", "fichas", "usd", "cache", "error", "clave")})
+        jz["modelo"] = r.get("modelo") or jz["modelo"]
+        jz["usd"] = round(jz["usd"] + r["usd"], 6)
+        out["usd"] = round(out["usd"] + r["usd"], 5)
+        if r.get("error"):
+            jz["error"] = (jz["error"] + " · " if jz["error"] else "") + f"ronda {ronda}: {r['error']}"
+        vs = [{**v, "ronda": ronda} for v in r["veredictos"]]
+        jz["veredictos"] += vs
+        return [v for v in vs if v["marcada"]]
+
+    def cerrar(val: dict[str, Any]) -> dict[str, Any]:
+        """La validación final menos lo que el juez marcó y sigue (escribe el raw)."""
+        fin = sacar_juzgadas(val, jz["marcadas"])
+        jz["salieron"] = fin["salieron_juez"]
+        out["validacion"] = fin
+        raw_f.parent.mkdir(parents=True, exist_ok=True)
+        raw_f.write_text(json.dumps({**out, "entrada": _para_modelo(ent)}, ensure_ascii=False, indent=1),
+                         encoding="utf-8")
+        return out
+
+    _, resp = autor(user, 0)
+    if resp is None:                                  # JSON inválido: el reintento de JSON completo de siempre
+        out["reintento"]["tipo"] = "json"
+        stop = out["intentos"][-1].get("stop")
+        _, resp = autor(_reintento(user, [f"la respuesta no es JSON válido (stop_reason {stop})"]), 1)
         if resp is None:
-            if k == 0:
-                confirmados = {}
-                pedido_k = _reintento(user, [f"la respuesta no es JSON válido (stop_reason {r.get('stop_reason')})"])
-                continue
-            break
-        out["final"], out["validacion"] = resp, val
-        if k == 0 and val["motivos"]:
-            confirmados = _confirmar(val["preguntas"])
-            out["motivos"], out["confirmados"] = val["motivos"], confirmados
-            pedido_k = _reintento(user, val["motivos"])
-            continue
-        break
-    raw_f.parent.mkdir(parents=True, exist_ok=True)
-    raw_f.write_text(json.dumps({**out, "entrada": _para_modelo(ent)}, ensure_ascii=False, indent=1), encoding="utf-8")
-    if out["final"] is None:
-        raise SinJSON(f"dos respuestas sin JSON válido; la cruda en {raw_f}")
-    return out
+            raw_f.parent.mkdir(parents=True, exist_ok=True)
+            raw_f.write_text(json.dumps({**out, "entrada": _para_modelo(ent)}, ensure_ascii=False, indent=1),
+                             encoding="utf-8")
+            raise SinJSON(f"dos respuestas sin JSON válido; la cruda en {raw_f}")
+        val = validar(resp, ent, {})                  # final: no queda reintento (lo que preguntaba, corta)
+        out["final"] = resp
+        marc = juez(val["beats"], 1)
+        jz["marcadas"] = marc
+        jz["motivos"] = [motivo_juez(v) for v in marc]
+        return cerrar(val)
+    val1 = validar(resp, ent)
+    out["final"], out["validacion"] = resp, val1
+    log.append(f"  m01e intento 1 validado: fichas fuera {val1['fichas_fuera']} · preguntas {len(val1['preguntas'])} · "
+               f"vuelven {len(val1['vuelven'])} · picos vacíos {len(val1['picos_vacios'])}")
+    marc1 = juez(val1["beats"], 1)
+    jz["motivos"] = [motivo_juez(v) for v in marc1]
+    motivos = val1["motivos"] + jz["motivos"]
+    mb = [list(map(tuple, bs)) for bs in val1["motivos_beat"]] + [[(v["cap"], v["beat"])] for v in marc1]
+    out["motivos"], out["motivos_beat"] = motivos, mb
+    if not motivos:
+        jz["marcadas"] = marc1
+        return cerrar(val1)
+    beats_m = beats_con_motivo(mb)
+    out["reintento"]["beats"] = beats_m
+    if not beats_m:                                   # solo motivos sin beat: no hay dónde proponer nada
+        out["reintento"]["sin_beat"] = motivos
+        log.append(f"  m01e: {len(motivos)} motivo(s) sin beat → sin reintento (anotados)")
+        jz["marcadas"] = marc1
+        return cerrar(val1)
+    confirmados = _confirmar(val1["preguntas"])
+    out["confirmados"] = confirmados
+    out["reintento"]["tipo"] = "parcial"
+    hubo, resp2 = autor(_reintento_parcial(user, resp, motivos, beats_m), 1)
+    if resp2 is None:                                 # sin lugar en el tope o sin JSON: queda el intento 1, final
+        if hubo:
+            out["error"] = "el reintento no devolvió JSON: queda el intento 1"
+        out["confirmados"] = {}
+        jz["marcadas"] = marc1
+        return cerrar(validar(resp, ent, {}))
+    fus, aplicados, ignorados = fusionar(resp, resp2, beats_m)
+    out["reintento"]["aplicados"], out["reintento"]["ignorados"] = aplicados, ignorados
+    if ignorados:
+        log.append(f"  m01e reintento: {len(aplicados)} cambio(s) aplicados · {len(ignorados)} ignorado(s)")
+    val2 = validar(fus, ent, confirmados)
+    out["final"] = fus
+    log.append(f"  m01e reintento validado: fichas fuera {val2['fichas_fuera']} · picos vacíos "
+               f"{len(val2['picos_vacios'])}")
+    # «lo que siga mal después del reintento»: la ficha marcada que sigue sale; las nuevas o cambiadas se juzgan
+    def nucleo(f: dict[str, Any]) -> tuple:
+        return tuple(f.get(k) for k in ("pool_id", "sentence_idx", "etiqueta", "texto"))
+    antes = {(b["cap"], b["beat"]): nucleo(b["ficha"]) for b in val1["beats"] if b.get("ficha")}
+    ya = {(str(m["cap"]), str(m["id"]), int(m["sentence_idx"])) for m in marc1}
+    nuevas = [b for b in val2["beats"] if b.get("ficha") and nucleo(b["ficha"]) != antes.get((b["cap"], b["beat"]))
+              and _clave_ficha(b["cap"], b["ficha"]) not in ya]
+    marc2 = juez(nuevas, 2) if nuevas else []
+    jz["marcadas"] = marc1 + marc2
+    jz["motivos"] += [motivo_juez(v) for v in marc2]
+    return cerrar(val2)
 
 
 # ═══════════════════════ salida ═══════════════════════
 
+def tarjeta(ent: dict[str, Any]) -> tuple[dict[str, Any] | None, str | None]:
+    """F38 §A.2: la tarjeta del papel sale de la voz (voz_datos.tarjeta_de_voz, sin modelo), no del autor: (tarjeta
+    {texto, fuente, fecha, hora, fecha_de, hora_de} o None, motivo si falta). Un error de la función se anota como
+    motivo (sin tarjeta: nunca se inventa)."""
+    from script_engine import voz_datos as vd
+    try:
+        t = vd.tarjeta_de_voz(ent, ent.get("_escaleta") or {}, ent.get("_pool"))
+    except Exception as e:  # noqa: BLE001 — sin tarjeta, con el motivo
+        return None, f"error en voz_datos.tarjeta_de_voz: {type(e).__name__}: {str(e)[:120]}"
+    if isinstance(t, dict) and t.get("texto") and not t.get("falta"):
+        return {"texto": str(t["texto"]), **{k: v for k, v in t.items() if k != "texto"}}, None
+    return None, str((t or {}).get("motivo") or "la voz no da fecha para la tarjeta")
+
+
 def armar(ent: dict[str, Any], res: dict[str, Any]) -> dict[str, Any]:
     v = res["validacion"]
+    tj, tj_motivo = tarjeta(ent)
     return {"topic_id": ent["topic_id"], "prompt_version": PROMPT_VERSION, "prompt_md5": prompt_md5(),
             "modelo": res["modelo"], "effort": res["effort"], "entrada_md5": res.get("entrada_md5"),
             "intentos": len(res.get("intentos") or []), "usd": res.get("usd", 0.0) if not res.get("cache") else 0.0,
             "tokens_in": res.get("tokens_in"), "caps": [{"cap": c["cap"], "titulo": c["titulo"],
                                                          "oraciones": [s["texto"] for s in c["oraciones"]]}
                                                         for c in ent["caps"]],
-            "beats": v["beats"], "relojes": v["relojes"], "tarjeta": v["tarjeta"], "descartados": v["descartados"],
+            "beats": v["beats"], "relojes": v["relojes"], "tarjeta": tj, "tarjeta_motivo": tj_motivo,
+            "descartados": v["descartados"],
             # F37: de dónde salen las medidas y qué pasó en el reintento (motivos enviados, preguntas y su respuesta)
             "seg_por_palabra": ent.get("seg_por_palabra"), "tope": res.get("tope"), "error": res.get("error"),
             "por_intento": [{"tokens_in": (i.get("usage") or {}).get("input_tokens"),
                              "tokens_out": (i.get("usage") or {}).get("output_tokens"), "usd": i.get("usd"),
                              "segundos": i.get("segundos")} for i in res.get("intentos") or []],
-            "reintento": {"motivos": res.get("motivos") or [], "preguntas": _respuestas(res, v)},
-            "picos_vacios": v.get("picos_vacios") or []}
+            "reintento": {"motivos": res.get("motivos") or [], "preguntas": _respuestas(res, v),
+                          # F38 §A.1: parcial (los beats que podía cambiar, lo aplicado y lo ignorado)
+                          **{k: (res.get("reintento") or {}).get(k) for k in ("tipo", "beats", "aplicados",
+                                                                               "ignorados", "sin_beat")}},
+            "picos_vacios": v.get("picos_vacios") or [],
+            "juez": res.get("juez")}                  # F38 §A.3: {version, md5, modelo, usd, veredictos, motivos, salieron}
 
 
 def _respuestas(res: dict[str, Any], v: dict[str, Any]) -> list[dict[str, Any]]:
@@ -715,7 +1140,10 @@ def a_markdown(p: dict[str, Any]) -> str:
     if sp or tp or pi:
         lines += [f"Segundos por palabra {sp.get('valor')} ({sp.get('origen')}) · tope US$ {tp.get('usd')} "
                   f"({tp.get('de')}){' · ' + pi if pi else ''}" + (f" · **{p['error']}**" if p.get("error") else ""), ""]
-    lines += [f"**Tarjeta:** {p['tarjeta']['texto'] if p.get('tarjeta') else '—'}", ""]
+    tj = p.get("tarjeta")                             # F38 §A.2: de la voz, con su fuente (o por qué falta)
+    lines += [f"**Tarjeta:** {tj['texto']}" + (f" (fuente: {tj['fuente']})" if tj.get("fuente") else "")
+              + (" (editada)" if tj.get("editado") else "") if tj else
+              f"**Tarjeta:** — ({p.get('tarjeta_motivo') or 'sin motivo anotado'})", ""]
     fichas = sum(1 for b in p["beats"] if b["ficha"])
     sellos = sum(1 for b in p["beats"] if b["sello"])
     lines += [f"Totales: {fichas} fichas · {sellos} sellos · {len(p['relojes'])} relojes · "
@@ -738,7 +1166,7 @@ def a_markdown(p: dict[str, Any]) -> str:
         lines.append(f"- relojes: {rel_txt}")
         lines.append("")
     lines += ["## Lo que cayó", ""]
-    val = [d for d in p["descartados"] if d.get("quien") == "validación"]
+    val = [d for d in p["descartados"] if d.get("quien") in ("validación", "juez")]
     lines += [f"- {d.get('cap')} beat {d.get('beat')} · {d['que']} {d.get('pool_id') or ''} «"
               f"{(str(d.get('etiqueta')) + ' · ') if d.get('etiqueta') else ''}{d.get('texto')}» en "
               f"[{d.get('sentence_idx')}] → **{d['regla']}**: {d['motivo']}" for d in val] or ["- (nada)"]
@@ -749,6 +1177,24 @@ def a_markdown(p: dict[str, Any]) -> str:
         lines += ["", "### Preguntas y respuesta del autor", ""]
         lines += [f"- {q['pool_id']} {q['coincidencias']}: {q['respuesta']}" for q in rt.get("preguntas") or []] \
             or ["- (ninguna)"]
+        if rt.get("tipo"):                            # F38 §A.1
+            bm = ", ".join(f"{c} beat {b}" for c, b in rt.get("beats") or []) or "—"
+            ap = ", ".join(f"{a['cap']} beat {a['beat']} ({'/'.join(a['partes'])})" for a in rt.get("aplicados") or [])
+            lines += ["", f"### Reintento {rt['tipo']}", "", f"- beats que podía cambiar: {bm}",
+                      f"- aplicados: {ap or '—'}"]
+            lines += [f"- ignorado: {i.get('cap')} beat {i.get('beat')} — {i['motivo']}" for i in rt.get("ignorados") or []]
+        if rt.get("sin_beat"):
+            lines += ["", "### Motivos sin beat (no hubo reintento)", ""] + [f"- {m}" for m in rt["sin_beat"]]
+    jz = p.get("juez") or {}
+    if jz:                                            # F38 §A.3
+        lines += ["", f"## Juez de anclaje ({jz.get('version')}, md5 `{jz.get('md5')}`, {jz.get('modelo') or '—'}, "
+                      f"US$ {float(jz.get('usd') or 0):.4f})", ""]
+        if jz.get("error"):
+            lines.append(f"- **{jz['error']}**")
+        lines += [f"- ronda {v.get('ronda')} · {v['id']} {v['cap']} [{v['sentence_idx']}] · mismo_asunto "
+                  f"{v.get('mismo_asunto')} · adelanta {v.get('adelanta')}{' · **MARCADA**' if v.get('marcada') else ''}"
+                  f" — {v.get('motivo')}" for v in jz.get("veredictos") or []] or ["- (sin veredictos)"]
+        lines += [f"- salió: {d['pool_id']} ({d['cap']} beat {d['beat']}) — {d['motivo']}" for d in jz.get("salieron") or []]
     lines += ["", "## Descartados por el modelo", ""]
     lines += [f"- {d.get('pool_id')}" + (f" [{d['tipo']}]" if d.get("tipo") else "") + f": {d.get('motivo')}"
               + (f" — **{d['verificado']}**" if d.get("verificado") else "")
