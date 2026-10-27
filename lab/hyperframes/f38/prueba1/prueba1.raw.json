@@ -1,0 +1,2256 @@
+{
+ "handoff": "F38e-0 §A",
+ "modelo": "claude-sonnet-5-5",
+ "effort": "medium",
+ "max_tokens": 100000,
+ "system_md5": "7d2ccdd28055d6e621d1d251a0fe8bb7",
+ "system": "Sos el rotulista de un documental de historia oscura en español. Recibís la narración completa de un video (7 capítulos, oraciones numeradas), la escaleta (qué cuenta cada beat y cuál es el pico de cada capítulo), el archivo del caso (datos con cifra, fecha, cita o persona, con su fuente) y una lista de palabras de clima. Escribís lo que va en pantalla para todo el video, de una vez.\n\nReglas de todo texto en pantalla:\n(a) suma o aclara lo que la voz cuenta en esa oración: un hecho del archivo que la voz no dice, o lo que la voz cuenta puesto en una cifra, una persona o una consecuencia; nunca repite la frase de la voz;\n(b) va sobre la oración que habla de ese asunto: elegí la oración ancla y la palabra de la oración donde debe aparecer;\n(c) no adelanta nada que la narración cuente después, en ese capítulo o en los siguientes;\n(d) se entiende solo, en 3 segundos, sin escuchar la voz, y le importa a quien mira: si necesita la voz para entenderse o suena a informe técnico, no sirve.\n\nQué podés poner:\n- FICHA: como máximo una por beat, y puede no haber. La escribís con tus palabras, para quien mira. Etiqueta: una línea corta que diga qué es o por qué importa, en palabras de todos los días, sin el año de publicación de la fuente. Dato: UNA línea corta con el hecho. Las palabras son libres; los hechos no: cada cifra, nombre propio y año de la etiqueta y del dato tiene que estar en el `respaldo`, que es un fragmento copiado letra por letra del texto del dato del archivo que elegiste. No conviertas unidades ni hagas cuentas; una cifra larga podés redondearla con «más de» (hacia abajo) o «casi» (hacia arriba). Una comparación, solo si está en el archivo. Etiqueta + dato —y en una cita, también el autor y 5 caracteres de comillas y raya— no pueden pasar de los caracteres que caben en la oración ancla (`caben`); si no caben, elegí otra oración o un dato más corto. Para una cita (Q), el dato es la frase literal del archivo, recortada pero sin cambiar palabras; el autor va en español, como lo entiende quien mira (nombre, o cargo o institución).\n- SELLO DE CLIMA: como máximo uno por beat, y puede no haber. Una palabra de la lista que nombre lo que se siente en ese momento del relato. Nunca una palabra que la voz diga en ese capítulo, y nunca la misma palabra dos veces en el video. Elegí la oración donde cae.\n- RELOJ: por capítulo, las fechas completas (día, mes y año) que la voz dice, con la oración donde las dice.\n\nPrioridades: en el beat pico del capítulo, el dato marcado como central por la escaleta; en el gancho (capítulo 1), cualquier dato del archivo que la voz no diga en todo el video y que haga quedarse a quien mira: el gancho nunca queda sin ficha. Los datos marcados con tu beat son los que la escaleta cuenta ahí; los demás son el resto del archivo: usalos si suman más y no adelantan nada. Un mismo dato una sola vez en el video. Si dudás entre dos, el que se entiende solo y más le importa a quien mira.\n\nDevolvé solo JSON con el formato pedido, con `aporta` (una línea: qué suma que la voz no dice) y `respaldo` por ficha, y `descartados` con motivo.",
+ "formato": "{\"beats\": [{\"cap\": \"ch03\", \"beat\": 5, \"ficha\": {\"pool_id\": \"D49\", \"sentence_idx\": 17, \"palabra\": \"fisura\", \"etiqueta\": \"ANCHO DE LA FISURA\", \"texto\": \"Más de 1 metro\", \"respaldo\": \"…\", \"aporta\": \"…\"} | null, \"sello\": {\"palabra\": \"AVISO\", \"sentence_idx\": 3} | null}], \"relojes\": [{\"cap\": \"ch03\", \"sentence_idx\": 4, \"fecha\": \"9 OCT 1963\"}], \"descartados\": [{\"pool_id\": \"…\", \"tipo\": \"voz_lo_dice\" | \"spoiler\" | \"repetido\" | \"otro\", \"motivo\": \"…\"}]}",
+ "user_md5": "ac4c013b2e46855d38a1ccd2440f9c8e",
+ "entrada_igual_b4": true,
+ "entrada_md5_b4": "40f255f09f899c1aa5ce843031cb3f0c",
+ "peor_usd": 0.28035,
+ "llamadas": [
+  {
+   "texto": "```json\n{\n  \"beats\": [\n    {\n      \"cap\": \"ch01\",\n      \"beat\": 1,\n      \"ficha\": {\n        \"pool_id\": \"D195\",\n        \"sentence_idx\": 2,\n        \"palabra\": \"Longarone\",\n        \"etiqueta\": \"LOS QUE VIVÍAN EN LONGARONE\",\n        \"texto\": \"Murieron 1.269 de 1.328\",\n        \"respaldo\": \"1.269 de 1.328 habitantes fallecidos\",\n        \"aporta\": \"La voz no dice cuántos murieron en el pueblo de Micaela: casi todos sus habitantes.\"\n      },\n      \"sello\": {\"palabra\": \"PÁNICO\", \"sentence_idx\": 4}\n    },\n    {\n      \"cap\": \"ch02\",\n      \"beat\": 2,\n      \"ficha\": {\n        \"pool_id\": \"D240\",\n        \"sentence_idx\": 2,\n        \"palabra\": \"aprobó\",\n        \"etiqueta\": \"SESIÓN DE APROBACIÓN\",\n        \"texto\": \"Asistieron solo 13 de los 34 representantes\",\n        \"respaldo\": \"asistieron solo 13 de los 34 representantes del Consejo Superior de Obras Públicas\",\n        \"aporta\": \"La voz dice que se aprobó el proyecto, pero no que lo aprobó una sesión casi vacía.\"\n      },\n      \"sello\": {\"palabra\": \"CALMA\", \"sentence_idx\": 6}\n    },\n    {\n      \"cap\": \"ch02\",\n      \"beat\": 3,\n      \"ficha\": {\n        \"pool_id\": \"D47\",\n        \"sentence_idx\": 11,\n        \"palabra\": \"desmoronamiento\",\n        \"etiqueta\": \"TAMAÑO DEL DESMORONAMIENTO\",\n        \"texto\": \"2 km de frente y 600 m de desarrollo vertical\",\n        \"respaldo\": \"de 2 km de frente y 600 m de desarrollo vertical\",\n        \"aporta\": \"La voz dice que Müller detectó un gran desmoronamiento, pero no sus medidas.\"\n      },\n      \"sello\": {\"palabra\": \"AMENAZA\", \"sentence_idx\": 16}\n    },\n    {\n      \"cap\": \"ch03\",\n      \"beat\": 4,\n      \"ficha\": {\n        \"pool_id\": \"T16\",\n        \"sentence_idx\": 1,\n        \"palabra\": \"ola\",\n        \"etiqueta\": \"EL TRABAJADOR MUERTO\",\n        \"texto\": \"Arcangelo Tiziani\",\n        \"respaldo\": \"mata a Arcangelo Tiziani\",\n        \"aporta\": \"La voz dice que murió un trabajador, pero no su nombre.\"\n      },\n      \"sello\": null\n    },\n    {\n      \"cap\": \"ch03\",\n      \"beat\": 5,\n      \"ficha\": {\n        \"pool_id\": \"D49\",\n        \"sentence_idx\": 17,\n        \"palabra\": \"fisura\",\n        \"etiqueta\": \"ANCHO DE LA FISURA\",\n        \"texto\": \"Más de 1 metro\",\n        \"respaldo\": \"fisura de más de 1 metro de ancho\",\n        \"aporta\": \"La voz da el largo de la fisura, pero no lo ancha que era.\"\n      },\n      \"sello\": {\"palabra\": \"AVISO\", \"sentence_idx\": 13}\n    },\n    {\n      \"cap\": \"ch04\",\n      \"beat\": 6,\n      \"ficha\": null,\n      \"sello\": null\n    },\n    {\n      \"cap\": \"ch04\",\n      \"beat\": 7,\n      \"ficha\": {\n        \"pool_id\": \"D106\",\n        \"sentence_idx\": 13,\n        \"palabra\": \"quince\",\n        \"etiqueta\": \"SOBRE LA COTA SEGURA\",\n        \"texto\": \"15 metros de más\",\n        \"respaldo\": \"15 metros por encima de la cota de seguridad recomendada\",\n        \"aporta\": \"Pone en una sola cifra la diferencia entre lo recomendado y lo autorizado.\"\n      },\n      \"sello\": null\n    },\n    {\n      \"cap\": \"ch05\",\n      \"beat\": 8,\n      \"ficha\": {\n        \"pool_id\": \"Q50\",\n        \"sentence_idx\": 2,\n        \"palabra\": \"Erto\",\n        \"etiqueta\": \"LO QUE DECÍAN\",\n        \"texto\": \"«en continua aprensión y en continua alarma» — Municipio de Erto y Casso\",\n        \"respaldo\": \"en continua aprensión y en continua alarma\",\n        \"aporta\": \"Muestra que la propia autoridad local escribió que la gente de arriba vivía en alarma permanente.\"\n      },\n      \"sello\": {\"palabra\": \"INMINENTE\", \"sentence_idx\": 12}\n    },\n    {\n      \"cap\": \"ch05\",\n      \"beat\": 9,\n      \"ficha\": {\n        \"pool_id\": \"Q51\",\n        \"sentence_idx\": 17,\n        \"palabra\": \"posdata\",\n        \"etiqueta\": \"LA ÚLTIMA LÍNEA\",\n        \"texto\": \"«Que Dios nos ayude» — Alberico Biadene\",\n        \"respaldo\": \"Que Dios nos ayude.\",\n        \"aporta\": \"La voz cita la posdata pero omite cómo la cierra el director técnico.\"\n      },\n      \"sello\": {\"palabra\": \"SILENCIO\", \"sentence_idx\": 25}\n    },\n    {\n      \"cap\": \"ch06\",\n      \"beat\": 10,\n      \"ficha\": {\n        \"pool_id\": \"D86\",\n        \"sentence_idx\": 13,\n        \"palabra\": \"agua\",\n        \"etiqueta\": \"EL MURO DE AGUA EN LONGARONE\",\n        \"texto\": \"70 metros de altura\",\n        \"respaldo\": \"tenía una altura de 70 metros\",\n        \"aporta\": \"La voz dice cuándo llegó el agua, pero no cuán alta era al entrar al pueblo.\"\n      },\n      \"sello\": {\"palabra\": \"COLAPSO\", \"sentence_idx\": 3}\n    },\n    {\n      \"cap\": \"ch06\",\n      \"beat\": 11,\n      \"ficha\": {\n        \"pool_id\": \"D128\",\n        \"sentence_idx\": 24,\n        \"palabra\": \"muertos\",\n        \"etiqueta\": \"TOTAL DE MUERTOS\",\n        \"texto\": \"1.910 personas\",\n        \"respaldo\": \"murieron 1.910 personas\",\n        \"aporta\": \"La voz nombra a un muerto, el alcalde, pero no da el total de víctimas.\"\n      },\n      \"sello\": null\n    },\n    {\n      \"cap\": \"ch07\",\n      \"beat\": 12,\n      \"ficha\": {\n        \"pool_id\": \"Q14\",\n        \"sentence_idx\": 1,\n        \"palabra\": \"justicia\",\n        \"etiqueta\": \"LA RESPUESTA\",\n        \"texto\": \"«Y justicia tendréis» — Giovanni Leone, presidente del Consejo\",\n        \"respaldo\": \"Y justicia tendréis\",\n        \"aporta\": \"La voz cuenta el grito de los pobladores, pero no lo que el presidente respondió.\"\n      },\n      \"sello\": {\"palabra\": \"RABIA\", \"sentence_idx\": 7}\n    },\n    {\n      \"cap\": \"ch07\",\n      \"beat\": 13,\n      \"ficha\": {\n        \"pool_id\": \"D245\",\n        \"sentence_idx\": 18,\n        \"palabra\": \"indemnización\",\n        \"etiqueta\": \"CONDENA A MONTEDISON, 1997\",\n        \"texto\": \"55.645.758.500 liras\",\n        \"respaldo\": \"En 1997, el Tribunal de Belluno condenó a Montedison a pagar al municipio de Longarone 55.645.758.500 liras\",\n        \"aporta\": \"La voz habla de la oferta de ENEL, pero no de la condena posterior a la empresa sucesora de SADE.\"\n      },\n      \"sello\": {\"palabra\": \"MEMORIA\", \"sentence_idx\": 21}\n    }\n  ],\n  \"relojes\": [\n    {\"cap\": \"ch01\", \"sentence_idx\": 13, \"fecha\": \"9 OCT 1963\"},\n    {\"cap\": \"ch04\", \"sentence_idx\": 0, \"fecha\": \"4 NOV 1960\"},\n    {\"cap\": \"ch07\", \"sentence_idx\": 11, \"fecha\": \"20 FEB 1968\"},\n    {\"cap\": \"ch07\", \"sentence_idx\": 14, \"fecha\": \"29 NOV 1968\"}\n  ],\n  \"descartados\": [\n    {\"pool_id\": \"Q49\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz cita a Coletti casi palabra por palabra en las oraciones 6 a 9.\"},\n    {\"pool_id\": \"Q19\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz cuenta lo de Trevisano y el portón en las oraciones 10 a 12.\"},\n    {\"pool_id\": \"D131\", \"tipo\": \"otro\", \"motivo\": \"El salto de más de 260 metros es menos claro para quien mira que la mortalidad de Longarone.\"},\n    {\"pool_id\": \"D24\", \"tipo\": \"otro\", \"motivo\": \"No existe en el archivo.\"},\n    {\"pool_id\": \"D164\", \"tipo\": \"otro\", \"motivo\": \"No existe en el archivo.\"},\n    {\"pool_id\": \"D157\", \"tipo\": \"otro\", \"motivo\": \"No existe en el archivo.\"},\n    {\"pool_id\": \"D154\", \"tipo\": \"otro\", \"motivo\": \"No existe en el archivo.\"},\n    {\"pool_id\": \"T04\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cuenta la aprobación de 1943.\"},\n    {\"pool_id\": \"T03\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cuenta la compra de terrenos en Erto y Casso.\"},\n    {\"pool_id\": \"T12\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya dice que eran unos cuatrocientos hombres.\"},\n    {\"pool_id\": \"D237\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya dice que eran unos cuatrocientos hombres.\"},\n    {\"pool_id\": \"D147\", \"tipo\": \"otro\", \"motivo\": \"Las fechas de construcción chocan con otras fuentes y no aportan al beat.\"},\n    {\"pool_id\": \"D117\", \"tipo\": \"repetido\", \"motivo\": \"Es el mismo hecho que D240, que ya se usó en el beat 2.\"},\n    {\"pool_id\": \"Q53\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz dice «la montaña que camina».\"},\n    {\"pool_id\": \"T05\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cuenta que Müller detectó un desmoronamiento.\"},\n    {\"pool_id\": \"D94\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya dice que la ola de Pontesei fue de veinte metros.\"},\n    {\"pool_id\": \"T15\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"Sus datos se solapan con lo que la voz ya cuenta de Pontesei.\"},\n    {\"pool_id\": \"T21\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"Sus datos se solapan con lo que la voz ya cuenta de Pontesei.\"},\n    {\"pool_id\": \"T27\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya dice que Dal Piaz le restó peso a Semenza.\"},\n    {\"pool_id\": \"Q37\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cita la frase de Dal Piaz.\"},\n    {\"pool_id\": \"T18\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cuenta la primera denuncia de Merlin en 1959.\"},\n    {\"pool_id\": \"D72\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cuenta quiénes eran dueños de Il Gazzettino.\"},\n    {\"pool_id\": \"T29\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya dice que el llenado empezó en febrero de 1960.\"},\n    {\"pool_id\": \"T23\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya dice que la fisura medía casi dos kilómetros de largo.\"},\n    {\"pool_id\": \"D71\", \"tipo\": \"otro\", \"motivo\": \"No existe en el archivo.\"},\n    {\"pool_id\": \"T36\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya dice setecientos mil metros cúbicos.\"},\n    {\"pool_id\": \"D223\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya dice setecientos mil metros cúbicos.\"},\n    {\"pool_id\": \"D156\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya dice que el embalse estaba a 650 metros.\"},\n    {\"pool_id\": \"D134\", \"tipo\": \"otro\", \"motivo\": \"Su altura de ola contradice a otras fuentes, y la voz ya dice que nadie coincide en ese dato.\"},\n    {\"pool_id\": \"D155\", \"tipo\": \"otro\", \"motivo\": \"Su altura de ola contradice a otras fuentes, y la voz ya dice que nadie coincide en ese dato.\"},\n    {\"pool_id\": \"T37\", \"tipo\": \"otro\", \"motivo\": \"Choca con la fecha de la primera denuncia de Merlin que dice la voz.\"},\n    {\"pool_id\": \"D224\", \"tipo\": \"otro\", \"motivo\": \"Choca con la fecha de la primera denuncia de Merlin que dice la voz.\"},\n    {\"pool_id\": \"T33\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya dice que Merlin y L'Unità fueron a juicio.\"},\n    {\"pool_id\": \"T39\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cuenta la advertencia de Merlin de febrero de 1961.\"},\n    {\"pool_id\": \"D158\", \"tipo\": \"spoiler\", \"motivo\": \"Adelanta la relación entre el nivel del agua y el movimiento de la ladera, que se cuenta en el capítulo 5.\"},\n    {\"pool_id\": \"D197\", \"tipo\": \"spoiler\", \"motivo\": \"Revela la escala del desastre antes del capítulo 6.\"},\n    {\"pool_id\": \"D52\", \"tipo\": \"otro\", \"motivo\": \"Su cronología choca con lo que cuenta la voz del juicio.\"},\n    {\"pool_id\": \"D104\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya dice que la recomendación era no pasar de setecientos metros.\"},\n    {\"pool_id\": \"Q44\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cita la frase del laboratorio.\"},\n    {\"pool_id\": \"T50\", \"tipo\": \"otro\", \"motivo\": \"Los 720 metros contradicen la cota autorizada de 715 y el nivel de junio que dice la voz.\"},\n    {\"pool_id\": \"T52\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cuenta el cambio de propiedad en julio.\"},\n    {\"pool_id\": \"D68\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya dice que la ladera se desplazaba más de un centímetro y medio por día.\"},\n    {\"pool_id\": \"D105\", \"tipo\": \"repetido\", \"motivo\": \"Se evaluó para el beat 7, pero el dato central D106 tiene prioridad en el pico.\"},\n    {\"pool_id\": \"D226\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya dice que desde el 2 de octubre se multiplicaron los avisos.\"},\n    {\"pool_id\": \"D162\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cuenta el 26 de septiembre.\"},\n    {\"pool_id\": \"D160\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cuenta junio de 1963 y los setecientos metros.\"},\n    {\"pool_id\": \"D227\", \"tipo\": \"otro\", \"motivo\": \"No existe en el archivo.\"},\n    {\"pool_id\": \"Q46\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cita esa frase.\"},\n    {\"pool_id\": \"Q28\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cita esa frase.\"},\n    {\"pool_id\": \"Q45\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cita esa frase.\"},\n    {\"pool_id\": \"T61\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cuenta la carta de Biadene a Pancini.\"},\n    {\"pool_id\": \"T64\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya dice que a las seis de la tarde se cerró la jornada.\"},\n    {\"pool_id\": \"D111\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya dice que nadie dio la alarma.\"},\n    {\"pool_id\": \"D135\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cita el aumento del 50%.\"},\n    {\"pool_id\": \"T57\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cuenta que el Toc entró al lago.\"},\n    {\"pool_id\": \"T58\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cuenta que la ola pasó por encima de la presa.\"},\n    {\"pool_id\": \"Q15\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cita al párroco.\"},\n    {\"pool_id\": \"Q16\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cita a Castellano.\"},\n    {\"pool_id\": \"Q17\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cita a Accamillesi.\"},\n    {\"pool_id\": \"D124\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya dice que el agua llegó cuatro minutos después.\"},\n    {\"pool_id\": \"D132\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya dice que la ola arrastró a Micaela al menos cuatrocientos metros.\"},\n    {\"pool_id\": \"D01\", \"tipo\": \"otro\", \"motivo\": \"Las fuentes discrepan en el volumen de roca (260, 270, 300 millones); se prefirió un dato sin conflicto.\"},\n    {\"pool_id\": \"D87\", \"tipo\": \"otro\", \"motivo\": \"Un solo dato por beat; D86 se entiende mejor a primera vista.\"},\n    {\"pool_id\": \"D84\", \"tipo\": \"otro\", \"motivo\": \"Un solo dato por beat; D86 se entiende mejor a primera vista.\"},\n    {\"pool_id\": \"Q48\", \"tipo\": \"otro\", \"motivo\": \"Con autor y comillas no cabe en ninguna oración del beat.\"},\n    {\"pool_id\": \"Q25\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cita la frase del sobreviviente.\"},\n    {\"pool_id\": \"Q06\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cuenta el recuerdo del hombre de la aldea.\"},\n    {\"pool_id\": \"D18\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya dice que fueron seis helicópteros.\"},\n    {\"pool_id\": \"D192\", \"tipo\": \"otro\", \"motivo\": \"Un solo dato por beat; se eligió el total de muertos.\"},\n    {\"pool_id\": \"Q13\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cita el grito.\"},\n    {\"pool_id\": \"Q20\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cita a Buzzati.\"},\n    {\"pool_id\": \"Q22\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cita a Bocca.\"},\n    {\"pool_id\": \"Q23\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cita a Coppola.\"},\n    {\"pool_id\": \"D136\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya dice que la comisión trabajó dieciocho meses.\"},\n    {\"pool_id\": \"T85\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cuenta la remisión a juicio del 20 de febrero de 1968.\"},\n    {\"pool_id\": \"D31\", \"tipo\": \"otro\", \"motivo\": \"Se prefirió la respuesta de Leone, que se entiende mejor y la voz no cuenta.\"},\n    {\"pool_id\": \"T102\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cuenta la Casación de 1971.\"},\n    {\"pool_id\": \"D32\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya dice que se sentaron ocho acusados y cuenta el suicidio de Pancini.\"},\n    {\"pool_id\": \"T89\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cuenta el suicidio de Pancini.\"},\n    {\"pool_id\": \"T92\", \"tipo\": \"otro\", \"motivo\": \"Un solo dato por beat; se eligió la condena a Montedison.\"},\n    {\"pool_id\": \"D139\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya dice que ENEL ofreció diez mil millones de liras.\"},\n    {\"pool_id\": \"D140\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya dice que la última transacción fue en el año 2000.\"},\n    {\"pool_id\": \"Q56\", \"tipo\": \"voz_lo_dice\", \"motivo\": \"La voz ya cita a Canestrini.\"},\n    {\"pool_id\": \"D29\", \"tipo\": \"spoiler\", \"motivo\": \"Resume los tres errores que la narración recién cierra al final del capítulo 7.\"},\n    {\"pool_id\": \"D36\", \"tipo\": \"spoiler\", \"motivo\": \"Habla de la prescripción de la Casación, que la narración no cuenta.\"},\n    {\"pool_id\": \"D37\", \"tipo\": \"spoiler\", \"motivo\": \"Habla de la prescripción de la Casación, que la narración no cuenta.\"}\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 66440,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 20623,
+    "service_tier": "standard",
+    "inference_geo": "global",
+    "speed": "standard",
+    "output_tokens_details": {
+     "thinking_tokens": 12916
+    }
+   },
+   "stop": "end_turn",
+   "model": "claude-sonnet-5-5",
+   "usd": 0.33911,
+   "segundos": 134.9,
+   "json": true
+  }
+ ],
+ "usd": 0.33911,
+ "tokens": {
+  "in": 66440,
+  "out": 20623
+ },
+ "respuesta": {
+  "beats": [
+   {
+    "cap": "ch01",
+    "beat": 1,
+    "ficha": {
+     "pool_id": "D195",
+     "sentence_idx": 2,
+     "palabra": "Longarone",
+     "etiqueta": "LOS QUE VIVÍAN EN LONGARONE",
+     "texto": "Murieron 1.269 de 1.328",
+     "respaldo": "1.269 de 1.328 habitantes fallecidos",
+     "aporta": "La voz no dice cuántos murieron en el pueblo de Micaela: casi todos sus habitantes."
+    },
+    "sello": {
+     "palabra": "PÁNICO",
+     "sentence_idx": 4
+    }
+   },
+   {
+    "cap": "ch02",
+    "beat": 2,
+    "ficha": {
+     "pool_id": "D240",
+     "sentence_idx": 2,
+     "palabra": "aprobó",
+     "etiqueta": "SESIÓN DE APROBACIÓN",
+     "texto": "Asistieron solo 13 de los 34 representantes",
+     "respaldo": "asistieron solo 13 de los 34 representantes del Consejo Superior de Obras Públicas",
+     "aporta": "La voz dice que se aprobó el proyecto, pero no que lo aprobó una sesión casi vacía."
+    },
+    "sello": {
+     "palabra": "CALMA",
+     "sentence_idx": 6
+    }
+   },
+   {
+    "cap": "ch02",
+    "beat": 3,
+    "ficha": {
+     "pool_id": "D47",
+     "sentence_idx": 11,
+     "palabra": "desmoronamiento",
+     "etiqueta": "TAMAÑO DEL DESMORONAMIENTO",
+     "texto": "2 km de frente y 600 m de desarrollo vertical",
+     "respaldo": "de 2 km de frente y 600 m de desarrollo vertical",
+     "aporta": "La voz dice que Müller detectó un gran desmoronamiento, pero no sus medidas."
+    },
+    "sello": {
+     "palabra": "AMENAZA",
+     "sentence_idx": 16
+    }
+   },
+   {
+    "cap": "ch03",
+    "beat": 4,
+    "ficha": {
+     "pool_id": "T16",
+     "sentence_idx": 1,
+     "palabra": "ola",
+     "etiqueta": "EL TRABAJADOR MUERTO",
+     "texto": "Arcangelo Tiziani",
+     "respaldo": "mata a Arcangelo Tiziani",
+     "aporta": "La voz dice que murió un trabajador, pero no su nombre."
+    },
+    "sello": null
+   },
+   {
+    "cap": "ch03",
+    "beat": 5,
+    "ficha": {
+     "pool_id": "D49",
+     "sentence_idx": 17,
+     "palabra": "fisura",
+     "etiqueta": "ANCHO DE LA FISURA",
+     "texto": "Más de 1 metro",
+     "respaldo": "fisura de más de 1 metro de ancho",
+     "aporta": "La voz da el largo de la fisura, pero no lo ancha que era."
+    },
+    "sello": {
+     "palabra": "AVISO",
+     "sentence_idx": 13
+    }
+   },
+   {
+    "cap": "ch04",
+    "beat": 6,
+    "ficha": null,
+    "sello": null
+   },
+   {
+    "cap": "ch04",
+    "beat": 7,
+    "ficha": {
+     "pool_id": "D106",
+     "sentence_idx": 13,
+     "palabra": "quince",
+     "etiqueta": "SOBRE LA COTA SEGURA",
+     "texto": "15 metros de más",
+     "respaldo": "15 metros por encima de la cota de seguridad recomendada",
+     "aporta": "Pone en una sola cifra la diferencia entre lo recomendado y lo autorizado."
+    },
+    "sello": null
+   },
+   {
+    "cap": "ch05",
+    "beat": 8,
+    "ficha": {
+     "pool_id": "Q50",
+     "sentence_idx": 2,
+     "palabra": "Erto",
+     "etiqueta": "LO QUE DECÍAN",
+     "texto": "«en continua aprensión y en continua alarma» — Municipio de Erto y Casso",
+     "respaldo": "en continua aprensión y en continua alarma",
+     "aporta": "Muestra que la propia autoridad local escribió que la gente de arriba vivía en alarma permanente."
+    },
+    "sello": {
+     "palabra": "INMINENTE",
+     "sentence_idx": 12
+    }
+   },
+   {
+    "cap": "ch05",
+    "beat": 9,
+    "ficha": {
+     "pool_id": "Q51",
+     "sentence_idx": 17,
+     "palabra": "posdata",
+     "etiqueta": "LA ÚLTIMA LÍNEA",
+     "texto": "«Que Dios nos ayude» — Alberico Biadene",
+     "respaldo": "Que Dios nos ayude.",
+     "aporta": "La voz cita la posdata pero omite cómo la cierra el director técnico."
+    },
+    "sello": {
+     "palabra": "SILENCIO",
+     "sentence_idx": 25
+    }
+   },
+   {
+    "cap": "ch06",
+    "beat": 10,
+    "ficha": {
+     "pool_id": "D86",
+     "sentence_idx": 13,
+     "palabra": "agua",
+     "etiqueta": "EL MURO DE AGUA EN LONGARONE",
+     "texto": "70 metros de altura",
+     "respaldo": "tenía una altura de 70 metros",
+     "aporta": "La voz dice cuándo llegó el agua, pero no cuán alta era al entrar al pueblo."
+    },
+    "sello": {
+     "palabra": "COLAPSO",
+     "sentence_idx": 3
+    }
+   },
+   {
+    "cap": "ch06",
+    "beat": 11,
+    "ficha": {
+     "pool_id": "D128",
+     "sentence_idx": 24,
+     "palabra": "muertos",
+     "etiqueta": "TOTAL DE MUERTOS",
+     "texto": "1.910 personas",
+     "respaldo": "murieron 1.910 personas",
+     "aporta": "La voz nombra a un muerto, el alcalde, pero no da el total de víctimas."
+    },
+    "sello": null
+   },
+   {
+    "cap": "ch07",
+    "beat": 12,
+    "ficha": {
+     "pool_id": "Q14",
+     "sentence_idx": 1,
+     "palabra": "justicia",
+     "etiqueta": "LA RESPUESTA",
+     "texto": "«Y justicia tendréis» — Giovanni Leone, presidente del Consejo",
+     "respaldo": "Y justicia tendréis",
+     "aporta": "La voz cuenta el grito de los pobladores, pero no lo que el presidente respondió."
+    },
+    "sello": {
+     "palabra": "RABIA",
+     "sentence_idx": 7
+    }
+   },
+   {
+    "cap": "ch07",
+    "beat": 13,
+    "ficha": {
+     "pool_id": "D245",
+     "sentence_idx": 18,
+     "palabra": "indemnización",
+     "etiqueta": "CONDENA A MONTEDISON, 1997",
+     "texto": "55.645.758.500 liras",
+     "respaldo": "En 1997, el Tribunal de Belluno condenó a Montedison a pagar al municipio de Longarone 55.645.758.500 liras",
+     "aporta": "La voz habla de la oferta de ENEL, pero no de la condena posterior a la empresa sucesora de SADE."
+    },
+    "sello": {
+     "palabra": "MEMORIA",
+     "sentence_idx": 21
+    }
+   }
+  ],
+  "relojes": [
+   {
+    "cap": "ch01",
+    "sentence_idx": 13,
+    "fecha": "9 OCT 1963"
+   },
+   {
+    "cap": "ch04",
+    "sentence_idx": 0,
+    "fecha": "4 NOV 1960"
+   },
+   {
+    "cap": "ch07",
+    "sentence_idx": 11,
+    "fecha": "20 FEB 1968"
+   },
+   {
+    "cap": "ch07",
+    "sentence_idx": 14,
+    "fecha": "29 NOV 1968"
+   }
+  ],
+  "descartados": [
+   {
+    "pool_id": "Q49",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz cita a Coletti casi palabra por palabra en las oraciones 6 a 9."
+   },
+   {
+    "pool_id": "Q19",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz cuenta lo de Trevisano y el portón en las oraciones 10 a 12."
+   },
+   {
+    "pool_id": "D131",
+    "tipo": "otro",
+    "motivo": "El salto de más de 260 metros es menos claro para quien mira que la mortalidad de Longarone."
+   },
+   {
+    "pool_id": "D24",
+    "tipo": "otro",
+    "motivo": "No existe en el archivo."
+   },
+   {
+    "pool_id": "D164",
+    "tipo": "otro",
+    "motivo": "No existe en el archivo."
+   },
+   {
+    "pool_id": "D157",
+    "tipo": "otro",
+    "motivo": "No existe en el archivo."
+   },
+   {
+    "pool_id": "D154",
+    "tipo": "otro",
+    "motivo": "No existe en el archivo."
+   },
+   {
+    "pool_id": "T04",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta la aprobación de 1943."
+   },
+   {
+    "pool_id": "T03",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta la compra de terrenos en Erto y Casso."
+   },
+   {
+    "pool_id": "T12",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que eran unos cuatrocientos hombres."
+   },
+   {
+    "pool_id": "D237",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que eran unos cuatrocientos hombres."
+   },
+   {
+    "pool_id": "D147",
+    "tipo": "otro",
+    "motivo": "Las fechas de construcción chocan con otras fuentes y no aportan al beat."
+   },
+   {
+    "pool_id": "D117",
+    "tipo": "repetido",
+    "motivo": "Es el mismo hecho que D240, que ya se usó en el beat 2."
+   },
+   {
+    "pool_id": "Q53",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz dice «la montaña que camina»."
+   },
+   {
+    "pool_id": "T05",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta que Müller detectó un desmoronamiento."
+   },
+   {
+    "pool_id": "D94",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que la ola de Pontesei fue de veinte metros."
+   },
+   {
+    "pool_id": "T15",
+    "tipo": "voz_lo_dice",
+    "motivo": "Sus datos se solapan con lo que la voz ya cuenta de Pontesei."
+   },
+   {
+    "pool_id": "T21",
+    "tipo": "voz_lo_dice",
+    "motivo": "Sus datos se solapan con lo que la voz ya cuenta de Pontesei."
+   },
+   {
+    "pool_id": "T27",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que Dal Piaz le restó peso a Semenza."
+   },
+   {
+    "pool_id": "Q37",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita la frase de Dal Piaz."
+   },
+   {
+    "pool_id": "T18",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta la primera denuncia de Merlin en 1959."
+   },
+   {
+    "pool_id": "D72",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta quiénes eran dueños de Il Gazzettino."
+   },
+   {
+    "pool_id": "T29",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que el llenado empezó en febrero de 1960."
+   },
+   {
+    "pool_id": "T23",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que la fisura medía casi dos kilómetros de largo."
+   },
+   {
+    "pool_id": "D71",
+    "tipo": "otro",
+    "motivo": "No existe en el archivo."
+   },
+   {
+    "pool_id": "T36",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice setecientos mil metros cúbicos."
+   },
+   {
+    "pool_id": "D223",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice setecientos mil metros cúbicos."
+   },
+   {
+    "pool_id": "D156",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que el embalse estaba a 650 metros."
+   },
+   {
+    "pool_id": "D134",
+    "tipo": "otro",
+    "motivo": "Su altura de ola contradice a otras fuentes, y la voz ya dice que nadie coincide en ese dato."
+   },
+   {
+    "pool_id": "D155",
+    "tipo": "otro",
+    "motivo": "Su altura de ola contradice a otras fuentes, y la voz ya dice que nadie coincide en ese dato."
+   },
+   {
+    "pool_id": "T37",
+    "tipo": "otro",
+    "motivo": "Choca con la fecha de la primera denuncia de Merlin que dice la voz."
+   },
+   {
+    "pool_id": "D224",
+    "tipo": "otro",
+    "motivo": "Choca con la fecha de la primera denuncia de Merlin que dice la voz."
+   },
+   {
+    "pool_id": "T33",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que Merlin y L'Unità fueron a juicio."
+   },
+   {
+    "pool_id": "T39",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta la advertencia de Merlin de febrero de 1961."
+   },
+   {
+    "pool_id": "D158",
+    "tipo": "spoiler",
+    "motivo": "Adelanta la relación entre el nivel del agua y el movimiento de la ladera, que se cuenta en el capítulo 5."
+   },
+   {
+    "pool_id": "D197",
+    "tipo": "spoiler",
+    "motivo": "Revela la escala del desastre antes del capítulo 6."
+   },
+   {
+    "pool_id": "D52",
+    "tipo": "otro",
+    "motivo": "Su cronología choca con lo que cuenta la voz del juicio."
+   },
+   {
+    "pool_id": "D104",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que la recomendación era no pasar de setecientos metros."
+   },
+   {
+    "pool_id": "Q44",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita la frase del laboratorio."
+   },
+   {
+    "pool_id": "T50",
+    "tipo": "otro",
+    "motivo": "Los 720 metros contradicen la cota autorizada de 715 y el nivel de junio que dice la voz."
+   },
+   {
+    "pool_id": "T52",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta el cambio de propiedad en julio."
+   },
+   {
+    "pool_id": "D68",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que la ladera se desplazaba más de un centímetro y medio por día."
+   },
+   {
+    "pool_id": "D105",
+    "tipo": "repetido",
+    "motivo": "Se evaluó para el beat 7, pero el dato central D106 tiene prioridad en el pico."
+   },
+   {
+    "pool_id": "D226",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que desde el 2 de octubre se multiplicaron los avisos."
+   },
+   {
+    "pool_id": "D162",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta el 26 de septiembre."
+   },
+   {
+    "pool_id": "D160",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta junio de 1963 y los setecientos metros."
+   },
+   {
+    "pool_id": "D227",
+    "tipo": "otro",
+    "motivo": "No existe en el archivo."
+   },
+   {
+    "pool_id": "Q46",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita esa frase."
+   },
+   {
+    "pool_id": "Q28",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita esa frase."
+   },
+   {
+    "pool_id": "Q45",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita esa frase."
+   },
+   {
+    "pool_id": "T61",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta la carta de Biadene a Pancini."
+   },
+   {
+    "pool_id": "T64",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que a las seis de la tarde se cerró la jornada."
+   },
+   {
+    "pool_id": "D111",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que nadie dio la alarma."
+   },
+   {
+    "pool_id": "D135",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita el aumento del 50%."
+   },
+   {
+    "pool_id": "T57",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta que el Toc entró al lago."
+   },
+   {
+    "pool_id": "T58",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta que la ola pasó por encima de la presa."
+   },
+   {
+    "pool_id": "Q15",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita al párroco."
+   },
+   {
+    "pool_id": "Q16",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita a Castellano."
+   },
+   {
+    "pool_id": "Q17",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita a Accamillesi."
+   },
+   {
+    "pool_id": "D124",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que el agua llegó cuatro minutos después."
+   },
+   {
+    "pool_id": "D132",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que la ola arrastró a Micaela al menos cuatrocientos metros."
+   },
+   {
+    "pool_id": "D01",
+    "tipo": "otro",
+    "motivo": "Las fuentes discrepan en el volumen de roca (260, 270, 300 millones); se prefirió un dato sin conflicto."
+   },
+   {
+    "pool_id": "D87",
+    "tipo": "otro",
+    "motivo": "Un solo dato por beat; D86 se entiende mejor a primera vista."
+   },
+   {
+    "pool_id": "D84",
+    "tipo": "otro",
+    "motivo": "Un solo dato por beat; D86 se entiende mejor a primera vista."
+   },
+   {
+    "pool_id": "Q48",
+    "tipo": "otro",
+    "motivo": "Con autor y comillas no cabe en ninguna oración del beat."
+   },
+   {
+    "pool_id": "Q25",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita la frase del sobreviviente."
+   },
+   {
+    "pool_id": "Q06",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta el recuerdo del hombre de la aldea."
+   },
+   {
+    "pool_id": "D18",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que fueron seis helicópteros."
+   },
+   {
+    "pool_id": "D192",
+    "tipo": "otro",
+    "motivo": "Un solo dato por beat; se eligió el total de muertos."
+   },
+   {
+    "pool_id": "Q13",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita el grito."
+   },
+   {
+    "pool_id": "Q20",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita a Buzzati."
+   },
+   {
+    "pool_id": "Q22",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita a Bocca."
+   },
+   {
+    "pool_id": "Q23",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita a Coppola."
+   },
+   {
+    "pool_id": "D136",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que la comisión trabajó dieciocho meses."
+   },
+   {
+    "pool_id": "T85",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta la remisión a juicio del 20 de febrero de 1968."
+   },
+   {
+    "pool_id": "D31",
+    "tipo": "otro",
+    "motivo": "Se prefirió la respuesta de Leone, que se entiende mejor y la voz no cuenta."
+   },
+   {
+    "pool_id": "T102",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta la Casación de 1971."
+   },
+   {
+    "pool_id": "D32",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que se sentaron ocho acusados y cuenta el suicidio de Pancini."
+   },
+   {
+    "pool_id": "T89",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta el suicidio de Pancini."
+   },
+   {
+    "pool_id": "T92",
+    "tipo": "otro",
+    "motivo": "Un solo dato por beat; se eligió la condena a Montedison."
+   },
+   {
+    "pool_id": "D139",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que ENEL ofreció diez mil millones de liras."
+   },
+   {
+    "pool_id": "D140",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que la última transacción fue en el año 2000."
+   },
+   {
+    "pool_id": "Q56",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita a Canestrini."
+   },
+   {
+    "pool_id": "D29",
+    "tipo": "spoiler",
+    "motivo": "Resume los tres errores que la narración recién cierra al final del capítulo 7."
+   },
+   {
+    "pool_id": "D36",
+    "tipo": "spoiler",
+    "motivo": "Habla de la prescripción de la Casación, que la narración no cuenta."
+   },
+   {
+    "pool_id": "D37",
+    "tipo": "spoiler",
+    "motivo": "Habla de la prescripción de la Casación, que la narración no cuenta."
+   }
+  ]
+ },
+ "por_ficha": {
+  "ch01·1": {
+   "pool_id": "D195",
+   "estilo": "normal",
+   "validar": {
+    "es": "queda",
+    "preguntas": []
+   },
+   "verif": {
+    "respaldo_ok": true,
+    "respaldo_por": "",
+    "cita_literal": null,
+    "cita_sin_autor": null,
+    "cifras": [
+     {
+      "cifra": "1.269",
+      "campo": "dato",
+      "es": "literal"
+     },
+     {
+      "cifra": "1.328",
+      "campo": "dato",
+      "es": "literal"
+     }
+    ],
+    "nombres": []
+   },
+   "caracteres": 50,
+   "caben": 90
+  },
+  "ch02·2": {
+   "pool_id": "D240",
+   "estilo": "normal",
+   "validar": {
+    "es": "queda",
+    "preguntas": []
+   },
+   "verif": {
+    "respaldo_ok": true,
+    "respaldo_por": "",
+    "cita_literal": null,
+    "cita_sin_autor": null,
+    "cifras": [
+     {
+      "cifra": "13",
+      "campo": "dato",
+      "es": "literal"
+     },
+     {
+      "cifra": "34",
+      "campo": "dato",
+      "es": "literal"
+     }
+    ],
+    "nombres": []
+   },
+   "caracteres": 63,
+   "caben": 90
+  },
+  "ch02·3": {
+   "pool_id": "D47",
+   "estilo": "normal",
+   "validar": {
+    "es": "pregunta",
+    "preguntas": [
+     {
+      "regla": "spoiler",
+      "token": "2"
+     }
+    ]
+   },
+   "verif": {
+    "respaldo_ok": true,
+    "respaldo_por": "",
+    "cita_literal": null,
+    "cita_sin_autor": null,
+    "cifras": [
+     {
+      "cifra": "2",
+      "campo": "dato",
+      "es": "literal"
+     },
+     {
+      "cifra": "600",
+      "campo": "dato",
+      "es": "literal"
+     }
+    ],
+    "nombres": []
+   },
+   "caracteres": 71,
+   "caben": 83
+  },
+  "ch03·4": {
+   "pool_id": "T16",
+   "estilo": "normal",
+   "validar": {
+    "es": "queda",
+    "preguntas": []
+   },
+   "verif": {
+    "respaldo_ok": true,
+    "respaldo_por": "",
+    "cita_literal": null,
+    "cita_sin_autor": null,
+    "cifras": [],
+    "nombres": [
+     {
+      "nombre": "Tiziani",
+      "ok": true
+     }
+    ]
+   },
+   "caracteres": 37,
+   "caben": 83
+  },
+  "ch03·5": {
+   "pool_id": "D49",
+   "estilo": "normal",
+   "validar": {
+    "es": "queda",
+    "preguntas": []
+   },
+   "verif": {
+    "respaldo_ok": true,
+    "respaldo_por": "",
+    "cita_literal": null,
+    "cita_sin_autor": null,
+    "cifras": [
+     {
+      "cifra": "1",
+      "campo": "dato",
+      "es": "literal"
+     }
+    ],
+    "nombres": []
+   },
+   "caracteres": 32,
+   "caben": 90
+  },
+  "ch04·7": {
+   "pool_id": "D106",
+   "estilo": "normal",
+   "validar": {
+    "es": "pregunta",
+    "preguntas": [
+     {
+      "regla": "contradice",
+      "token": "715"
+     }
+    ]
+   },
+   "verif": {
+    "respaldo_ok": true,
+    "respaldo_por": "",
+    "cita_literal": null,
+    "cita_sin_autor": null,
+    "cifras": [
+     {
+      "cifra": "15",
+      "campo": "dato",
+      "es": "literal"
+     }
+    ],
+    "nombres": []
+   },
+   "caracteres": 36,
+   "caben": 36
+  },
+  "ch05·8": {
+   "pool_id": "Q50",
+   "estilo": "cita",
+   "validar": {
+    "es": "corta",
+    "regla": "candado",
+    "motivo": "la cita no es literal del texto fuente"
+   },
+   "verif": {
+    "respaldo_ok": true,
+    "respaldo_por": "",
+    "cita_literal": false,
+    "cita_sin_autor": true,
+    "cifras": [],
+    "nombres": [
+     {
+      "nombre": "Municipio",
+      "ok": false
+     },
+     {
+      "nombre": "Erto",
+      "ok": false
+     },
+     {
+      "nombre": "Casso",
+      "ok": false
+     }
+    ]
+   },
+   "caracteres": 130,
+   "caben": 90
+  },
+  "ch05·9": {
+   "pool_id": "Q51",
+   "estilo": "cita",
+   "validar": {
+    "es": "corta",
+    "regla": "candado",
+    "motivo": "la cita no es literal del texto fuente"
+   },
+   "verif": {
+    "respaldo_ok": true,
+    "respaldo_por": "",
+    "cita_literal": false,
+    "cita_sin_autor": true,
+    "cifras": [],
+    "nombres": [
+     {
+      "nombre": "Dios",
+      "ok": true
+     },
+     {
+      "nombre": "Alberico",
+      "ok": false
+     },
+     {
+      "nombre": "Biadene",
+      "ok": false
+     }
+    ]
+   },
+   "caracteres": 74,
+   "caben": 90
+  },
+  "ch06·10": {
+   "pool_id": "D86",
+   "estilo": "normal",
+   "validar": {
+    "es": "queda",
+    "preguntas": []
+   },
+   "verif": {
+    "respaldo_ok": true,
+    "respaldo_por": "",
+    "cita_literal": null,
+    "cita_sin_autor": null,
+    "cifras": [
+     {
+      "cifra": "70",
+      "campo": "dato",
+      "es": "literal"
+     }
+    ],
+    "nombres": []
+   },
+   "caracteres": 47,
+   "caben": 90
+  },
+  "ch06·11": {
+   "pool_id": "D128",
+   "estilo": "normal",
+   "validar": {
+    "es": "queda",
+    "preguntas": []
+   },
+   "verif": {
+    "respaldo_ok": true,
+    "respaldo_por": "",
+    "cita_literal": null,
+    "cita_sin_autor": null,
+    "cifras": [
+     {
+      "cifra": "1.910",
+      "campo": "dato",
+      "es": "literal"
+     }
+    ],
+    "nombres": []
+   },
+   "caracteres": 30,
+   "caben": 57
+  },
+  "ch07·12": {
+   "pool_id": "Q14",
+   "estilo": "cita",
+   "validar": {
+    "es": "corta",
+    "regla": "candado",
+    "motivo": "la cita no es literal del texto fuente"
+   },
+   "verif": {
+    "respaldo_ok": true,
+    "respaldo_por": "",
+    "cita_literal": false,
+    "cita_sin_autor": true,
+    "cifras": [],
+    "nombres": [
+     {
+      "nombre": "Giovanni",
+      "ok": false
+     },
+     {
+      "nombre": "Leone",
+      "ok": false
+     },
+     {
+      "nombre": "Consejo",
+      "ok": false
+     }
+    ]
+   },
+   "caracteres": 92,
+   "caben": 90
+  },
+  "ch07·13": {
+   "pool_id": "D245",
+   "estilo": "normal",
+   "validar": {
+    "es": "queda",
+    "preguntas": []
+   },
+   "verif": {
+    "respaldo_ok": true,
+    "respaldo_por": "",
+    "cita_literal": null,
+    "cita_sin_autor": null,
+    "cifras": [
+     {
+      "cifra": "1997",
+      "campo": "etiqueta",
+      "es": "literal"
+     },
+     {
+      "cifra": "55.645.758.500",
+      "campo": "dato",
+      "es": "literal"
+     }
+    ],
+    "nombres": []
+   },
+   "caracteres": 46,
+   "caben": 62
+  }
+ },
+ "validacion_resumen": {
+  "fichas_quedan": 9,
+  "sellos_quedan": 9,
+  "relojes_ok": 4,
+  "fichas_fuera": 3,
+  "preguntas": 2,
+  "picos_vacios": [
+   {
+    "cap": "ch05",
+    "beat": 8
+   },
+   {
+    "cap": "ch07",
+    "beat": 12
+   }
+  ],
+  "a_pantalla_vacios": [
+   {
+    "cap": "ch02",
+    "beat": 2,
+    "ids": [
+     {
+      "id": "D117",
+      "por_que": "Trece de treinta y cuatro representantes en la sesión de aprobación de 1943: dato de acta, va como rótulo."
+     }
+    ]
+   },
+   {
+    "cap": "ch05",
+    "beat": 8,
+    "ids": [
+     {
+      "id": "Q50",
+      "por_que": "Carta del municipio de Erto y Casso a SADE: documento que se lee en pantalla sobre la escena de los avisos de octubre."
+     }
+    ]
+   }
+  ],
+  "vuelven": [
+   "T15",
+   "T21",
+   "T39",
+   "Q15",
+   "T85"
+  ],
+  "sellos_cortados": []
+ },
+ "validacion": {
+  "beats": [
+   {
+    "cap": "ch01",
+    "beat": 1,
+    "funcion": "gancho",
+    "pico": true,
+    "ficha": {
+     "pool_id": "D195",
+     "sentence_idx": 2,
+     "palabra": "Longarone",
+     "palabra_en_oracion": true,
+     "etiqueta": "LOS QUE VIVÍAN EN LONGARONE",
+     "texto": "Murieron 1.269 de 1.328",
+     "estilo": "normal",
+     "aporta": "La voz no dice cuántos murieron en el pueblo de Micaela: casi todos sus habitantes.",
+     "oracion": "La niña se llama Micaela Coletti y es una niña de Longarone, un pueblo de fondo de valle.",
+     "caracteres": 50,
+     "caben": 90,
+     "anio": null,
+     "relato": null
+    },
+    "sello": {
+     "palabra": "PÁNICO",
+     "sentence_idx": 4,
+     "oracion": "Ahora algo la empuja desde atrás, y la cama ya no es una cama: es algo que la lleva."
+    }
+   },
+   {
+    "cap": "ch02",
+    "beat": 2,
+    "funcion": "planteo",
+    "pico": false,
+    "ficha": {
+     "pool_id": "D240",
+     "sentence_idx": 2,
+     "palabra": "aprobó",
+     "palabra_en_oracion": true,
+     "etiqueta": "SESIÓN DE APROBACIÓN",
+     "texto": "Asistieron solo 13 de los 34 representantes",
+     "estilo": "normal",
+     "aporta": "La voz dice que se aprobó el proyecto, pero no que lo aprobó una sesión casi vacía.",
+     "oracion": "En mil novecientos cuarenta y tres se aprobó el proyecto de cerrar esa garganta con una presa, y empezó la compra de terrenos en Erto y Casso, los pueblos de arriba, los que iban a quedar al borde del lago.",
+     "caracteres": 63,
+     "caben": 90,
+     "anio": null,
+     "relato": 1943
+    },
+    "sello": {
+     "palabra": "CALMA",
+     "sentence_idx": 6,
+     "oracion": "Abajo, en Longarone, la vida siguió con el Piave delante."
+    }
+   },
+   {
+    "cap": "ch02",
+    "beat": 3,
+    "funcion": "escalada",
+    "pico": true,
+    "ficha": {
+     "pool_id": "D47",
+     "sentence_idx": 11,
+     "palabra": "desmoronamiento",
+     "palabra_en_oracion": true,
+     "etiqueta": "TAMAÑO DEL DESMORONAMIENTO",
+     "texto": "2 km de frente y 600 m de desarrollo vertical",
+     "estilo": "normal",
+     "aporta": "La voz dice que Müller detectó un gran desmoronamiento, pero no sus medidas.",
+     "oracion": "En la década del cincuenta, el geólogo Leopold Müller detectó en el Toc un gran desmoronamiento.",
+     "caracteres": 71,
+     "caben": 83,
+     "anio": 1950,
+     "relato": 1943,
+     "pregunta": [
+      {
+       "regla": "spoiler",
+       "token": "2",
+       "donde": [
+        "ch03",
+        17,
+        "Ese año hubo un pequeño desmoronamiento en el Toc, y después del desmoronamiento los habitantes vieron algo nuevo en la ladera: una fisura de casi dos kilómetros de largo, corriendo por la montaña como una costura abierta."
+       ]
+      }
+     ]
+    },
+    "sello": {
+     "palabra": "AMENAZA",
+     "sentence_idx": 16,
+     "oracion": "El hijo del proyectista decía que la montaña ya se había movido una vez."
+    }
+   },
+   {
+    "cap": "ch03",
+    "beat": 4,
+    "funcion": "giro",
+    "pico": true,
+    "ficha": {
+     "pool_id": "T16",
+     "sentence_idx": 1,
+     "palabra": "ola",
+     "palabra_en_oracion": true,
+     "etiqueta": "EL TRABAJADOR MUERTO",
+     "texto": "Arcangelo Tiziani",
+     "estilo": "normal",
+     "aporta": "La voz dice que murió un trabajador, pero no su nombre.",
+     "oracion": "Ese marzo, una masa de roca entró al agua y levantó una ola de veinte metros.",
+     "caracteres": 37,
+     "caben": 83,
+     "anio": 1959,
+     "relato": 1959
+    },
+    "sello": null
+   },
+   {
+    "cap": "ch03",
+    "beat": 5,
+    "funcion": "escalada",
+    "pico": false,
+    "ficha": {
+     "pool_id": "D49",
+     "sentence_idx": 17,
+     "palabra": "fisura",
+     "palabra_en_oracion": true,
+     "etiqueta": "ANCHO DE LA FISURA",
+     "texto": "Más de 1 metro",
+     "estilo": "normal",
+     "aporta": "La voz da el largo de la fisura, pero no lo ancha que era.",
+     "oracion": "Ese año hubo un pequeño desmoronamiento en el Toc, y después del desmoronamiento los habitantes vieron algo nuevo en la ladera: una fisura de casi dos kilómetros de largo, corriendo por la montaña como una costura abierta.",
+     "caracteres": 32,
+     "caben": 90,
+     "anio": 1960,
+     "relato": 1960
+    },
+    "sello": {
+     "palabra": "AVISO",
+     "sentence_idx": 13,
+     "oracion": "Hacia mil novecientos cincuenta y nueve publicó su primera denuncia: el Toc podía desprenderse sobre el lago."
+    }
+   },
+   {
+    "cap": "ch04",
+    "beat": 6,
+    "funcion": "giro",
+    "pico": false,
+    "ficha": null,
+    "sello": null
+   },
+   {
+    "cap": "ch04",
+    "beat": 7,
+    "funcion": "giro",
+    "pico": true,
+    "ficha": {
+     "pool_id": "D106",
+     "sentence_idx": 13,
+     "palabra": "quince",
+     "palabra_en_oracion": true,
+     "etiqueta": "SOBRE LA COTA SEGURA",
+     "texto": "15 metros de más",
+     "estilo": "normal",
+     "aporta": "Pone en una sola cifra la diferencia entre lo recomendado y lo autorizado.",
+     "oracion": "La cota autorizada fue de setecientos quince.",
+     "caracteres": 36,
+     "caben": 36,
+     "anio": null,
+     "relato": 1961,
+     "pregunta": [
+      {
+       "regla": "contradice",
+       "token": "715",
+       "donde": [
+        "ch04",
+        13,
+        "La cota autorizada fue de setecientos quince."
+       ]
+      }
+     ]
+    },
+    "sello": null
+   },
+   {
+    "cap": "ch05",
+    "beat": 8,
+    "funcion": "escalada",
+    "pico": true,
+    "ficha": null,
+    "sello": {
+     "palabra": "INMINENTE",
+     "sentence_idx": 12,
+     "oracion": "Mientras tanto, en la ladera, los topógrafos de la empresa seguían midiendo."
+    }
+   },
+   {
+    "cap": "ch05",
+    "beat": 9,
+    "funcion": "giro",
+    "pico": false,
+    "ficha": null,
+    "sello": {
+     "palabra": "SILENCIO",
+     "sentence_idx": 25,
+     "oracion": "En Longarone, abajo, era una noche como cualquiera."
+    }
+   },
+   {
+    "cap": "ch06",
+    "beat": 10,
+    "funcion": "pico",
+    "pico": true,
+    "ficha": {
+     "pool_id": "D86",
+     "sentence_idx": 13,
+     "palabra": "agua",
+     "palabra_en_oracion": true,
+     "etiqueta": "EL MURO DE AGUA EN LONGARONE",
+     "texto": "70 metros de altura",
+     "estilo": "normal",
+     "aporta": "La voz dice cuándo llegó el agua, pero no cuán alta era al entrar al pueblo.",
+     "oracion": "Cuatro minutos después del desprendimiento, el agua llega al pueblo, a las calles, a las casas, a la cama donde duerme Micaela Coletti.",
+     "caracteres": 47,
+     "caben": 90,
+     "anio": null,
+     "relato": 1963
+    },
+    "sello": {
+     "palabra": "COLAPSO",
+     "sentence_idx": 3,
+     "oracion": "La ladera entera, la que caminaba, la de la fisura, se desploma de una vez dentro del embalse."
+    }
+   },
+   {
+    "cap": "ch06",
+    "beat": 11,
+    "funcion": "respiro",
+    "pico": false,
+    "ficha": {
+     "pool_id": "D128",
+     "sentence_idx": 24,
+     "palabra": "muertos",
+     "palabra_en_oracion": true,
+     "etiqueta": "TOTAL DE MUERTOS",
+     "texto": "1.910 personas",
+     "estilo": "normal",
+     "aporta": "La voz nombra a un muerto, el alcalde, pero no da el total de víctimas.",
+     "oracion": "Entre los muertos está Guglielmo Celso, el alcalde socialista de Longarone.",
+     "caracteres": 30,
+     "caben": 57,
+     "anio": null,
+     "relato": 1963
+    },
+    "sello": null
+   },
+   {
+    "cap": "ch07",
+    "beat": 12,
+    "funcion": "revelacion",
+    "pico": true,
+    "ficha": null,
+    "sello": {
+     "palabra": "RABIA",
+     "sentence_idx": 7,
+     "oracion": "Aniello Coppola leyó en eso el intento de absolver antes de indagar, de anular cualquier investigación de antemano, y respondió: «Hay que hacer un proceso."
+    }
+   },
+   {
+    "cap": "ch07",
+    "beat": 13,
+    "funcion": "cierre",
+    "pico": false,
+    "ficha": {
+     "pool_id": "D245",
+     "sentence_idx": 18,
+     "palabra": "indemnización",
+     "palabra_en_oracion": true,
+     "etiqueta": "CONDENA A MONTEDISON, 1997",
+     "texto": "55.645.758.500 liras",
+     "estilo": "normal",
+     "aporta": "La voz habla de la oferta de ENEL, pero no de la condena posterior a la empresa sucesora de SADE.",
+     "oracion": "ENEL ofreció diez mil millones de liras de la época como indemnización.",
+     "caracteres": 46,
+     "caben": 62,
+     "anio": 1997,
+     "relato": 1971
+    },
+    "sello": {
+     "palabra": "MEMORIA",
+     "sentence_idx": 21,
+     "oracion": "Micaela Coletti preside el comité de sobrevivientes del Vajont."
+    }
+   }
+  ],
+  "relojes": [
+   {
+    "cap": "ch01",
+    "sentence_idx": 13,
+    "fecha": "9 OCT 1963",
+    "oracion": "Longarone, Italia, nueve de octubre de mil novecientos sesenta y tres."
+   },
+   {
+    "cap": "ch04",
+    "sentence_idx": 0,
+    "fecha": "4 NOV 1960",
+    "oracion": "El cuatro de noviembre de mil novecientos sesenta el embalse estaba a seiscientos cincuenta metros sobre el nivel del mar."
+   },
+   {
+    "cap": "ch07",
+    "sentence_idx": 11,
+    "fecha": "20 FEB 1968",
+    "oracion": "Pasaron más de cuatro años hasta que, el veinte de febrero de mil novecientos sesenta y ocho, se depositó la resolución de remisión a juicio."
+   },
+   {
+    "cap": "ch07",
+    "sentence_idx": 14,
+    "fecha": "29 NOV 1968",
+    "oracion": "El juicio empezó el veintinueve de noviembre de mil novecientos sesenta y ocho."
+   }
+  ],
+  "descartados": [
+   {
+    "pool_id": "Q49",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz cita a Coletti casi palabra por palabra en las oraciones 6 a 9.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "Q19",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz cuenta lo de Trevisano y el portón en las oraciones 10 a 12.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D131",
+    "regla": "modelo",
+    "tipo": "otro",
+    "motivo": "El salto de más de 260 metros es menos claro para quien mira que la mortalidad de Longarone.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D24",
+    "regla": "modelo",
+    "tipo": "otro",
+    "motivo": "No existe en el archivo.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D164",
+    "regla": "modelo",
+    "tipo": "otro",
+    "motivo": "No existe en el archivo.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D157",
+    "regla": "modelo",
+    "tipo": "otro",
+    "motivo": "No existe en el archivo.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D154",
+    "regla": "modelo",
+    "tipo": "otro",
+    "motivo": "No existe en el archivo.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "T04",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta la aprobación de 1943.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "T03",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta la compra de terrenos en Erto y Casso.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "T12",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que eran unos cuatrocientos hombres.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D237",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que eran unos cuatrocientos hombres.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D147",
+    "regla": "modelo",
+    "tipo": "otro",
+    "motivo": "Las fechas de construcción chocan con otras fuentes y no aportan al beat.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D117",
+    "regla": "modelo",
+    "tipo": "repetido",
+    "motivo": "Es el mismo hecho que D240, que ya se usó en el beat 2.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "Q53",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz dice «la montaña que camina».",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "T05",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta que Müller detectó un desmoronamiento.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D94",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que la ola de Pontesei fue de veinte metros.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "T15",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "Sus datos se solapan con lo que la voz ya cuenta de Pontesei.",
+    "quien": "modelo",
+    "verificado": "falso: la voz no dice ['3']"
+   },
+   {
+    "pool_id": "T21",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "Sus datos se solapan con lo que la voz ya cuenta de Pontesei.",
+    "quien": "modelo",
+    "verificado": "falso: la voz no dice ['3']"
+   },
+   {
+    "pool_id": "T27",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que Dal Piaz le restó peso a Semenza.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "Q37",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita la frase de Dal Piaz.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "T18",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta la primera denuncia de Merlin en 1959.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D72",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta quiénes eran dueños de Il Gazzettino.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "T29",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que el llenado empezó en febrero de 1960.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "T23",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que la fisura medía casi dos kilómetros de largo.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D71",
+    "regla": "modelo",
+    "tipo": "otro",
+    "motivo": "No existe en el archivo.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "T36",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice setecientos mil metros cúbicos.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D223",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice setecientos mil metros cúbicos.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D156",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que el embalse estaba a 650 metros.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D134",
+    "regla": "modelo",
+    "tipo": "otro",
+    "motivo": "Su altura de ola contradice a otras fuentes, y la voz ya dice que nadie coincide en ese dato.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D155",
+    "regla": "modelo",
+    "tipo": "otro",
+    "motivo": "Su altura de ola contradice a otras fuentes, y la voz ya dice que nadie coincide en ese dato.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "T37",
+    "regla": "modelo",
+    "tipo": "otro",
+    "motivo": "Choca con la fecha de la primera denuncia de Merlin que dice la voz.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D224",
+    "regla": "modelo",
+    "tipo": "otro",
+    "motivo": "Choca con la fecha de la primera denuncia de Merlin que dice la voz.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "T33",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que Merlin y L'Unità fueron a juicio.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "T39",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta la advertencia de Merlin de febrero de 1961.",
+    "quien": "modelo",
+    "verificado": "falso: la voz no dice ['50']"
+   },
+   {
+    "pool_id": "D158",
+    "regla": "modelo",
+    "tipo": "spoiler",
+    "motivo": "Adelanta la relación entre el nivel del agua y el movimiento de la ladera, que se cuenta en el capítulo 5.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D197",
+    "regla": "modelo",
+    "tipo": "spoiler",
+    "motivo": "Revela la escala del desastre antes del capítulo 6.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D52",
+    "regla": "modelo",
+    "tipo": "otro",
+    "motivo": "Su cronología choca con lo que cuenta la voz del juicio.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D104",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que la recomendación era no pasar de setecientos metros.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "Q44",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita la frase del laboratorio.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "T50",
+    "regla": "modelo",
+    "tipo": "otro",
+    "motivo": "Los 720 metros contradicen la cota autorizada de 715 y el nivel de junio que dice la voz.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "T52",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta el cambio de propiedad en julio.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D68",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que la ladera se desplazaba más de un centímetro y medio por día.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D105",
+    "regla": "modelo",
+    "tipo": "repetido",
+    "motivo": "Se evaluó para el beat 7, pero el dato central D106 tiene prioridad en el pico.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D226",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que desde el 2 de octubre se multiplicaron los avisos.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D162",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta el 26 de septiembre.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D160",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta junio de 1963 y los setecientos metros.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D227",
+    "regla": "modelo",
+    "tipo": "otro",
+    "motivo": "No existe en el archivo.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "Q46",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita esa frase.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "Q28",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita esa frase.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "Q45",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita esa frase.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "T61",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta la carta de Biadene a Pancini.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "T64",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que a las seis de la tarde se cerró la jornada.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D111",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que nadie dio la alarma.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D135",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita el aumento del 50%.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "T57",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta que el Toc entró al lago.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "T58",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta que la ola pasó por encima de la presa.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "Q15",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita al párroco.",
+    "quien": "modelo",
+    "verificado": "falso: la voz no dice ['10', '10.5']"
+   },
+   {
+    "pool_id": "Q16",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita a Castellano.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "Q17",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita a Accamillesi.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D124",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que el agua llegó cuatro minutos después.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D132",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que la ola arrastró a Micaela al menos cuatrocientos metros.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D01",
+    "regla": "modelo",
+    "tipo": "otro",
+    "motivo": "Las fuentes discrepan en el volumen de roca (260, 270, 300 millones); se prefirió un dato sin conflicto.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D87",
+    "regla": "modelo",
+    "tipo": "otro",
+    "motivo": "Un solo dato por beat; D86 se entiende mejor a primera vista.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D84",
+    "regla": "modelo",
+    "tipo": "otro",
+    "motivo": "Un solo dato por beat; D86 se entiende mejor a primera vista.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "Q48",
+    "regla": "modelo",
+    "tipo": "otro",
+    "motivo": "Con autor y comillas no cabe en ninguna oración del beat.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "Q25",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita la frase del sobreviviente.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "Q06",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta el recuerdo del hombre de la aldea.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D18",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que fueron seis helicópteros.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D192",
+    "regla": "modelo",
+    "tipo": "otro",
+    "motivo": "Un solo dato por beat; se eligió el total de muertos.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "Q13",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita el grito.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "Q20",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita a Buzzati.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "Q22",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita a Bocca.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "Q23",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita a Coppola.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D136",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que la comisión trabajó dieciocho meses.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "T85",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta la remisión a juicio del 20 de febrero de 1968.",
+    "quien": "modelo",
+    "verificado": "falso: la voz no dice ['11']"
+   },
+   {
+    "pool_id": "D31",
+    "regla": "modelo",
+    "tipo": "otro",
+    "motivo": "Se prefirió la respuesta de Leone, que se entiende mejor y la voz no cuenta.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "T102",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta la Casación de 1971.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D32",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que se sentaron ocho acusados y cuenta el suicidio de Pancini.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "T89",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cuenta el suicidio de Pancini.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "T92",
+    "regla": "modelo",
+    "tipo": "otro",
+    "motivo": "Un solo dato por beat; se eligió la condena a Montedison.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D139",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que ENEL ofreció diez mil millones de liras.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D140",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya dice que la última transacción fue en el año 2000.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "Q56",
+    "regla": "modelo",
+    "tipo": "voz_lo_dice",
+    "motivo": "La voz ya cita a Canestrini.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D29",
+    "regla": "modelo",
+    "tipo": "spoiler",
+    "motivo": "Resume los tres errores que la narración recién cierra al final del capítulo 7.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D36",
+    "regla": "modelo",
+    "tipo": "spoiler",
+    "motivo": "Habla de la prescripción de la Casación, que la narración no cuenta.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "D37",
+    "regla": "modelo",
+    "tipo": "spoiler",
+    "motivo": "Habla de la prescripción de la Casación, que la narración no cuenta.",
+    "quien": "modelo"
+   },
+   {
+    "pool_id": "Q50",
+    "cap": "ch05",
+    "beat": 8,
+    "que": "ficha",
+    "etiqueta": "LO QUE DECÍAN",
+    "texto": "«en continua aprensión y en continua alarma» — Municipio de Erto y Casso",
+    "sentence_idx": 2,
+    "regla": "candado",
+    "motivo": "la cita no es literal del texto fuente",
+    "quien": "validación"
+   },
+   {
+    "pool_id": "Q51",
+    "cap": "ch05",
+    "beat": 9,
+    "que": "ficha",
+    "etiqueta": "LA ÚLTIMA LÍNEA",
+    "texto": "«Que Dios nos ayude» — Alberico Biadene",
+    "sentence_idx": 17,
+    "regla": "candado",
+    "motivo": "la cita no es literal del texto fuente",
+    "quien": "validación"
+   },
+   {
+    "pool_id": "Q14",
+    "cap": "ch07",
+    "beat": 12,
+    "que": "ficha",
+    "etiqueta": "LA RESPUESTA",
+    "texto": "«Y justicia tendréis» — Giovanni Leone, presidente del Consejo",
+    "sentence_idx": 1,
+    "regla": "candado",
+    "motivo": "la cita no es literal del texto fuente",
+    "quien": "validación"
+   }
+  ],
+  "fichas_fuera": 3,
+  "preguntas": [
+   {
+    "regla": "spoiler",
+    "token": "2",
+    "donde": [
+     "ch03",
+     17,
+     "Ese año hubo un pequeño desmoronamiento en el Toc, y después del desmoronamiento los habitantes vieron algo nuevo en la ladera: una fisura de casi dos kilómetros de largo, corriendo por la montaña como una costura abierta."
+    ],
+    "pool_id": "D47",
+    "cap": "ch02",
+    "beat": 3,
+    "sentence_idx": 11,
+    "etiqueta": "TAMAÑO DEL DESMORONAMIENTO",
+    "texto": "2 km de frente y 600 m de desarrollo vertical"
+   },
+   {
+    "regla": "contradice",
+    "token": "715",
+    "donde": [
+     "ch04",
+     13,
+     "La cota autorizada fue de setecientos quince."
+    ],
+    "pool_id": "D106",
+    "cap": "ch04",
+    "beat": 7,
+    "sentence_idx": 13,
+    "etiqueta": "SOBRE LA COTA SEGURA",
+    "texto": "15 metros de más"
+   }
+  ],
+  "vuelven": [
+   {
+    "pool_id": "T15",
+    "motivo": "Sus datos se solapan con lo que la voz ya cuenta de Pontesei.",
+    "falta": [
+     "3"
+    ],
+    "caps": [
+     "ch03"
+    ],
+    "texto": "Un deslizamiento de 3 millones de metros cúbicos cayó en el lago de la cercana represa de Pontesei, matando a un hombre. (fecha 1959)"
+   },
+   {
+    "pool_id": "T21",
+    "motivo": "Sus datos se solapan con lo que la voz ya cuenta de Pontesei.",
+    "falta": [
+     "3"
+    ],
+    "caps": [
+     "ch03"
+    ],
+    "texto": "Un deslizamiento de 3 millones de m³ de roca ocurre en el embalse de Pontesei, generando una primera alarma. (fecha 1959-03)"
+   },
+   {
+    "pool_id": "T39",
+    "motivo": "La voz ya cuenta la advertencia de Merlin de febrero de 1961.",
+    "falta": [
+     "50"
+    ],
+    "caps": [
+     "ch04"
+    ],
+    "texto": "Tina Merlin publica un nuevo artículo alertando de un derrumbamiento de 50 millones de metros cúbicos de roca que amenaza Erto. (fecha 1961-02)"
+   },
+   {
+    "pool_id": "Q15",
+    "motivo": "La voz ya cita al párroco.",
+    "falta": [
+     "10",
+     "10.5"
+    ],
+    "caps": [
+     "ch06"
+    ],
+    "texto": "Yo, aquella noche, a eso de las diez y media, escucho el ruido de la avalancha, abro la ventana y este ruido aumentaba en forma extraordinaria, al mismo tiempo vi un resplandor."
+   },
+   {
+    "pool_id": "T85",
+    "motivo": "La voz ya cuenta la remisión a juicio del 20 de febrero de 1968.",
+    "falta": [
+     "11"
+    ],
+    "caps": [
+     "ch07"
+    ],
+    "texto": "Se presenta la sentencia de remisión a juicio contra 11 personas por el desastre del Vajont. (fecha 1968-02-20)"
+   }
+  ],
+  "picos_vacios": [
+   {
+    "cap": "ch05",
+    "beat": 8
+   },
+   {
+    "cap": "ch07",
+    "beat": 12
+   }
+  ],
+  "a_pantalla_vacios": [
+   {
+    "cap": "ch02",
+    "beat": 2,
+    "ids": [
+     {
+      "id": "D117",
+      "por_que": "Trece de treinta y cuatro representantes en la sesión de aprobación de 1943: dato de acta, va como rótulo."
+     }
+    ]
+   },
+   {
+    "cap": "ch05",
+    "beat": 8,
+    "ids": [
+     {
+      "id": "Q50",
+      "por_que": "Carta del municipio de Erto y Casso a SADE: documento que se lee en pantalla sobre la escena de los avisos de octubre."
+     }
+    ]
+   }
+  ],
+  "motivos": [
+   "Q50 (ch05 beat 8) «LO QUE DECÍAN · «en continua aprensión y en continua alarma» — Municipio de Erto y Casso»: candado: la cita no es literal del texto fuente",
+   "Q51 (ch05 beat 9) «LA ÚLTIMA LÍNEA · «Que Dios nos ayude» — Alberico Biadene»: candado: la cita no es literal del texto fuente",
+   "Q14 (ch07 beat 12) «LA RESPUESTA · «Y justicia tendréis» — Giovanni Leone, presidente del Consejo»: candado: la cita no es literal del texto fuente",
+   "D47 (ch02 beat 3, oración [11]) «TAMAÑO DEL DESMORONAMIENTO · 2 km de frente y 600 m de desarrollo vertical»: la voz dice «2» en una oración posterior en ch03 [17] («Ese año hubo un pequeño desmoronamiento en el Toc, y después del desmoronamiento los habitantes vieron algo nuevo en la ladera: una fisura de casi dos kilómetros de largo, corriendo por la montaña como una costura abierta.»); ¿es el mismo hecho? si no, mantenelo",
+   "D106 (ch04 beat 7, oración [13]) «SOBRE LA COTA SEGURA · 15 metros de más»: la voz dice «715» para lo mismo, en la oración ancla o en una vecina en ch04 [13] («La cota autorizada fue de setecientos quince.»); ¿es el mismo hecho? si no, mantenelo",
+   "T15: dijiste que la voz lo dice («Sus datos se solapan con lo que la voz ya cuenta de Pontesei.»); la voz de ch03 no dice «3» («Un deslizamiento de 3 millones de metros cúbicos cayó en el lago de la cercana represa de Pontesei, matando a un hombre. (fecha 1959)»): vuelve a ser candidato",
+   "T21: dijiste que la voz lo dice («Sus datos se solapan con lo que la voz ya cuenta de Pontesei.»); la voz de ch03 no dice «3» («Un deslizamiento de 3 millones de m³ de roca ocurre en el embalse de Pontesei, generando una primera alarma. (fecha 1959-03)»): vuelve a ser candidato",
+   "T39: dijiste que la voz lo dice («La voz ya cuenta la advertencia de Merlin de febrero de 1961.»); la voz de ch04 no dice «50» («Tina Merlin publica un nuevo artículo alertando de un derrumbamiento de 50 millones de metros cúbicos de roca que amenaza Erto. (fecha 1961-02)»): vuelve a ser candidato",
+   "Q15: dijiste que la voz lo dice («La voz ya cita al párroco.»); la voz de ch06 no dice «10» ni «10.5» («Yo, aquella noche, a eso de las diez y media, escucho el ruido de la avalancha, abro la ventana y este ruido aumentaba en forma extraordinaria, al mismo tiempo vi un resplandor.»): vuelve a ser candidato",
+   "T85: dijiste que la voz lo dice («La voz ya cuenta la remisión a juicio del 20 de febrero de 1968.»); la voz de ch07 no dice «11» («Se presenta la sentencia de remisión a juicio contra 11 personas por el desastre del Vajont. (fecha 1968-02-20)»): vuelve a ser candidato",
+   "el beat 8 de ch05 es pico y quedó sin ficha",
+   "el beat 12 de ch07 es pico y quedó sin ficha",
+   "el beat 2 de ch02 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D117 («Trece de treinta y cuatro representantes en la sesión de aprobación de 1943: dato de acta, va como rótulo.»)",
+   "el beat 8 de ch05 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: Q50 («Carta del municipio de Erto y Casso a SADE: documento que se lee en pantalla sobre la escena de los avisos de octubre.»)"
+  ],
+  "motivos_beat": [
+   [
+    [
+     "ch05",
+     8
+    ]
+   ],
+   [
+    [
+     "ch05",
+     9
+    ]
+   ],
+   [
+    [
+     "ch07",
+     12
+    ]
+   ],
+   [
+    [
+     "ch02",
+     3
+    ]
+   ],
+   [
+    [
+     "ch04",
+     7
+    ]
+   ],
+   [],
+   [],
+   [],
+   [],
+   [],
+   [
+    [
+     "ch05",
+     8
+    ]
+   ],
+   [
+    [
+     "ch07",
+     12
+    ]
+   ],
+   [
+    [
+     "ch02",
+     2
+    ]
+   ],
+   [
+    [
+     "ch05",
+     8
+    ]
+   ]
+  ]
+ }
+}

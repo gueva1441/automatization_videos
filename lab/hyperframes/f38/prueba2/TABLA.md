@@ -1,0 +1,49 @@
+# F38e-0 · Prueba 2 — títulos de cap (Flash, en seco)
+
+Escaleta: `data/scripts/_steps/f8s3-vajont/01a_escaleta.json` (solo lectura). Modelo: `gemini-2.5-flash` vía
+`call_flash_json(pedido, response_schema=m01d_particion.TITLES_SCHEMA, description="prueba2: títulos")`, 3 llamadas con el mismo pedido.
+Validación = la de `m01d_particion.titles()` (≤ 5 palabras, sin dígito, sin «?», tras `strip().strip('".«»')`), por llamada (1/2/3).
+Cantidad de títulos por llamada (titles() exige 7): llamada 1: 7 títulos · llamada 2: 7 títulos · llamada 3: 7 títulos. US$ total: 0.015247.
+
+| cap | hoy (de 01a_skeleton.json) | nuevo 1 | nuevo 2 | nuevo 3 | validación | ¿promete sin contar el final? |
+|---|---|---|---|---|---|---|
+| ch01 | Cama en la oscuridad | La Fuerza Oculta | La cama se mueve | La cama se mueve | 1✓ · 2✓ · 3✓ |  |
+| ch02 | El muro que tapa | La Montaña Advierte | La montaña se mueve | Vivir bajo la obra | 1✓ · 2✓ · 3✓ |  |
+| ch03 | La costura abierta | Grietas Y Verdades | El agua responde | La montaña habla | 1✓ · 2✓ · 3✓ |  |
+| ch04 | La ola de juguete | La Verdad Incomoda | Contra quien avisa | Culpar al mensajero | 1✓ · 2✓ · 3✓ |  |
+| ch05 | Piedras rodando | La Última Advertencia | El último aviso | El riesgo inminente | 1✓ · 2✓ · 3✓ |  |
+| ch06 | El gran rugido | La Noche Eterna | La noche del desastre | Cuatro minutos eternos | 1✓ · 2✓ · 3✓ |  |
+| ch07 | Diarios y verdades | La Verdad Olvidada | Buscando la verdad | Buscar responsables | 1✓ · 2✓ · 3✓ |  |
+
+## Pedido entero, tal como se mandó (md5 `85e8b649fcac2ba25d9fbf987e282025`)
+
+```
+Títulos de capítulo para un documental en español. Cada título se lee solo en pantalla, 3 segundos sin voz, justo antes de que empiece su capítulo: es la promesa de lo que ese capítulo le va a contar a quien mira, sin contar cómo termina. Uno por cap, en orden, de 2 a 5 palabras, concretos, sin cifras, sin fechas, sin nombres propios de personas y sin signos de pregunta. De cada cap tenés sus beats (qué función cumplen, qué se ve, qué pregunta abren) y cómo termina:
+CAP 1:
+  beat 1 gancho: se ve: Una cama que acelera en la oscuridad; una fuerza que dobla una espalda de niña; un portoncito que se abre solo con un ruido de aire antes de que se vaya la luz. · pregunta que abre: ¿Qué puede mover una cama con una niña adentro si la presa no cayó?
+  termina (no lo cuentes): El dique no cedió esa noche. Lo que llegó a la cama de Micaela vino por encima de él.
+CAP 2:
+  beat 2 planteo: se ve: Un pueblo de fondo de valle con el Piave pasando por delante; arriba, en una garganta lateral, hombres colgados de andamios levantan una pared curva que tapa el cielo. · pregunta que abre: ¿Qué significa vivir debajo de una obra que se aprobó cuando vos ni habías nacido?
+  beat 3 escalada: se ve: Un geólogo joven, hijo del hombre que diseñó la presa, caminando la ladera del Toc con un martillo en la mano, buscando la cicatriz de un deslizamiento viejo. · pregunta que abre: ¿Qué pasa cuando el que encuentra el peligro es el hijo del que hizo la obra?
+  termina (no lo cuentes): En marzo del cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero.
+CAP 3:
+  beat 4 giro: se ve: Rocas entrando al agua de Pontesei y una pared de agua de veinte metros levantándose sobre el hombre cuyo trabajo era vigilar la montaña. · pregunta que abre: Si ya hubo un muerto por una ola en un embalse, ¿qué más hacía falta ver?
+  beat 5 escalada: se ve: Una abertura de más de un metro de ancho corriendo casi dos kilómetros por la ladera, como una costura abierta; abajo, el agua sube día a día. · pregunta que abre: ¿Quién lee a una periodista de L'Unità cuando el diario local es de la empresa?
+  termina (no lo cuentes): El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta.
+CAP 4:
+  beat 6 giro: se ve: Roca cayendo al lago nuevo y el agua levantándose; cuatro días después, una máquina de escribir; semanas después, una sala de tribunal y una periodista en el banquillo. · pregunta que abre: ¿Por qué el proceso es contra la que avisa y no contra la montaña que ya cayó una vez?
+  beat 7 giro: se ve: Una maqueta del valle en un galpón de Padua, con grava donde debía ir roca, y una ola de laboratorio pasando por encima de una presa de juguete. · pregunta que abre: ¿Para qué se pide un modelo si la cota se decide antes del resultado?
+  termina (no lo cuentes): La presa cambió de dueño con el agua todavía subiendo. La montaña no se enteró del contrato.
+CAP 5:
+  beat 8 escalada: se ve: Estruendos que bajan de la ladera de noche; grietas nuevas en la tierra de Erto; caminos cerrados con barreras; en Longarone, abajo, las ventanas encendidas como cualquier noche. · pregunta que abre: Si evacúan casas en Erto, ¿por qué nadie evacúa el pueblo que está delante de la presa?
+  beat 9 giro: se ve: Una carta ya firmada a la que se agrega una posdata con dos signos de exclamación; un teléfono colgado; piedras chicas rodando hacia el lado de la presa. · pregunta que abre: ¿Qué hace un hombre después de escribir dos signos de exclamación en una carta?
+  termina (no lo cuentes): A las diez y media de la noche, el párroco de Casso escuchó algo y abrió la ventana.
+CAP 6:
+  beat 10 pico: se ve: Una ventana que se abre a un rugido que crece y un resplandor; una pantalla de televisor que se apaga en un bar; cuatro minutos; una niña que aparece a cuatrocientos metros de donde estaba su cama. · pregunta que abre: ¿Cuánto duran cuatro minutos cuando nadie te dijo que corrieras?
+  beat 11 respiro: se ve: Fango y piedras donde había calles; un hombre parado en el medio sin saber hacia dónde mirar; el ruido de rotores bajando sobre una aldea. · pregunta que abre: ¿Cómo se cuenta a los muertos de un pueblo que ya no tiene esquinas?
+  termina (no lo cuentes): Tres días después llegó el presidente del Consejo. La gente ya sabía qué pedirle.
+CAP 7:
+  beat 12 revelacion: se ve: Un presidente con abrigo oscuro entre escombros y un grito que le sale de la gente; en los kioscos, dos diarios con dos verdades distintas sobre la misma noche. · pregunta que abre: ¿Se puede llamar fatalidad a algo que tenía fisura, maqueta y carta?
+  beat 13 cierre: se ve: Cajas de un archivo trasladado de un tribunal a otro; una mujer que de niña viajó cuatrocientos metros sobre una cama, sentada ahora frente a una mesa con un cartel de comité. · pregunta que abre: ¿Quién tomó —o dejó sin tomar— la decisión de avisar a Longarone aquella noche, y por qué la preocupación escrita a la mañana no se convirtió en una evacuación?
+  termina (no lo cuentes): La sentencia dice inundación agravada por la previsión del evento. No dice quién, entre la posdata de la mañana y las diez y treinta y nueve de la noche, decidió que Micaela siguiera durmiendo.
+```

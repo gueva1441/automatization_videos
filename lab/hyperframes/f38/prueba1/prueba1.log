@@ -1,0 +1,41 @@
+# prueba1_rotulos · 2026-10-27 11:53:33 · SECO
+PRUEBA1_prompt_rotulos.md md5 240e3e7bf13656cb62f68b598393f41f
+SYSTEM: 3098 caracteres · md5 7d2ccdd28055d6e621d1d251a0fe8bb7 · empieza «Sos el rotulista de un documental de his» · termina «no dice) y `respaldo` por ficha, y `descartados` con motivo.»
+FORMATO con respaldo (resultado de la sustitución):
+{"beats": [{"cap": "ch03", "beat": 5, "ficha": {"pool_id": "D49", "sentence_idx": 17, "palabra": "fisura", "etiqueta": "ANCHO DE LA FISURA", "texto": "Más de 1 metro", "respaldo": "…", "aporta": "…"} | null, "sello": {"palabra": "AVISO", "sentence_idx": 3} | null}], "relojes": [{"cap": "ch03", "sentence_idx": 4, "fecha": "9 OCT 1963"}], "descartados": [{"pool_id": "…", "tipo": "voz_lo_dice" | "spoiler" | "repetido" | "otro", "motivo": "…"}]}
+_para_modelo(entrada reconstruida) == raw b4 `entrada`: dict True · json True
+body: model claude-sonnet-5-5 · max_tokens 100000 · effort medium · USER 137014 car. · peor caso US$ 0.2803 (m01e._peor_usd, salida 16000, tarifas 2.0/10.0) · tope de la prueba 0.6
+data/ y logs/: 4038 archivos antes, 4038 después · cambiados/nuevos: ninguno · data/cost_history.json md5 1f5e5ded03a8637e780d6de237cb1550 → 1f5e5ded03a8637e780d6de237cb1550
+
+# prueba1_rotulos · 2026-10-27 11:53:53 · LLAMADA
+PRUEBA1_prompt_rotulos.md md5 240e3e7bf13656cb62f68b598393f41f
+SYSTEM: 3098 caracteres · md5 7d2ccdd28055d6e621d1d251a0fe8bb7 · empieza «Sos el rotulista de un documental de his» · termina «no dice) y `respaldo` por ficha, y `descartados` con motivo.»
+FORMATO con respaldo (resultado de la sustitución):
+{"beats": [{"cap": "ch03", "beat": 5, "ficha": {"pool_id": "D49", "sentence_idx": 17, "palabra": "fisura", "etiqueta": "ANCHO DE LA FISURA", "texto": "Más de 1 metro", "respaldo": "…", "aporta": "…"} | null, "sello": {"palabra": "AVISO", "sentence_idx": 3} | null}], "relojes": [{"cap": "ch03", "sentence_idx": 4, "fecha": "9 OCT 1963"}], "descartados": [{"pool_id": "…", "tipo": "voz_lo_dice" | "spoiler" | "repetido" | "otro", "motivo": "…"}]}
+_para_modelo(entrada reconstruida) == raw b4 `entrada`: dict True · json True
+body: model claude-sonnet-5-5 · max_tokens 100000 · effort medium · USER 137014 car. · peor caso US$ 0.2803 (m01e._peor_usd, salida 16000, tarifas 2.0/10.0) · tope de la prueba 0.6
+llamada 1: in 66440 · out 20623 · US$ 0.3391 · 134.9 s · stop end_turn · JSON
+US$ 0.3391 · tokens in 66440 out 20623
+validar: {"fichas_quedan": 9, "sellos_quedan": 9, "relojes_ok": 4, "fichas_fuera": 3, "preguntas": 2, "picos_vacios": [{"cap": "ch05", "beat": 8}, {"cap": "ch07", "beat": 12}], "a_pantalla_vacios": [{"cap": "ch02", "beat": 2, "ids": [{"id": "D117", "por_que": "Trece de treinta y cuatro representantes en la sesión de aprobación de 1943: dato de acta, va como rótulo."}]}, {"cap": "ch05", "beat": 8, "ids": [{"id": "Q50", "por_que": "Carta del municipio de Erto y Casso a SADE: documento que se lee en pantalla sobre la escena de los avisos de octubre."}]}], "vuelven": ["T15", "T21", "T39", "Q15", "T85"]}
+data/ y logs/: 4038 archivos antes, 4038 después · cambiados/nuevos: ninguno · data/cost_history.json md5 1f5e5ded03a8637e780d6de237cb1550 → 1f5e5ded03a8637e780d6de237cb1550
+
+# prueba1_rotulos · 2026-10-27 11:56:42 · TABLA
+PRUEBA1_prompt_rotulos.md md5 240e3e7bf13656cb62f68b598393f41f
+SYSTEM: 3098 caracteres · md5 7d2ccdd28055d6e621d1d251a0fe8bb7 · empieza «Sos el rotulista de un documental de his» · termina «no dice) y `respaldo` por ficha, y `descartados` con motivo.»
+FORMATO con respaldo (resultado de la sustitución):
+{"beats": [{"cap": "ch03", "beat": 5, "ficha": {"pool_id": "D49", "sentence_idx": 17, "palabra": "fisura", "etiqueta": "ANCHO DE LA FISURA", "texto": "Más de 1 metro", "respaldo": "…", "aporta": "…"} | null, "sello": {"palabra": "AVISO", "sentence_idx": 3} | null}], "relojes": [{"cap": "ch03", "sentence_idx": 4, "fecha": "9 OCT 1963"}], "descartados": [{"pool_id": "…", "tipo": "voz_lo_dice" | "spoiler" | "repetido" | "otro", "motivo": "…"}]}
+_para_modelo(entrada reconstruida) == raw b4 `entrada`: dict True · json True
+body: model claude-sonnet-5-5 · max_tokens 100000 · effort medium · USER 137014 car. · peor caso US$ 0.2803 (m01e._peor_usd, salida 16000, tarifas 2.0/10.0) · tope de la prueba 0.6
+tabla → C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f38\prueba1\TABLA.md
+data/ y logs/: 4038 archivos antes, 4038 después · cambiados/nuevos: ninguno · data/cost_history.json md5 1f5e5ded03a8637e780d6de237cb1550 → 1f5e5ded03a8637e780d6de237cb1550
+
+# prueba1_rotulos · 2026-10-27 11:56:58 · TABLA
+PRUEBA1_prompt_rotulos.md md5 240e3e7bf13656cb62f68b598393f41f
+SYSTEM: 3098 caracteres · md5 7d2ccdd28055d6e621d1d251a0fe8bb7 · empieza «Sos el rotulista de un documental de his» · termina «no dice) y `respaldo` por ficha, y `descartados` con motivo.»
+FORMATO con respaldo (resultado de la sustitución):
+{"beats": [{"cap": "ch03", "beat": 5, "ficha": {"pool_id": "D49", "sentence_idx": 17, "palabra": "fisura", "etiqueta": "ANCHO DE LA FISURA", "texto": "Más de 1 metro", "respaldo": "…", "aporta": "…"} | null, "sello": {"palabra": "AVISO", "sentence_idx": 3} | null}], "relojes": [{"cap": "ch03", "sentence_idx": 4, "fecha": "9 OCT 1963"}], "descartados": [{"pool_id": "…", "tipo": "voz_lo_dice" | "spoiler" | "repetido" | "otro", "motivo": "…"}]}
+_para_modelo(entrada reconstruida) == raw b4 `entrada`: dict True · json True
+body: model claude-sonnet-5-5 · max_tokens 100000 · effort medium · USER 137014 car. · peor caso US$ 0.2803 (m01e._peor_usd, salida 16000, tarifas 2.0/10.0) · tope de la prueba 0.6
+tabla → C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f38\prueba1\TABLA.md
+data/ y logs/: 4038 archivos antes, 4038 después · cambiados/nuevos: ninguno · data/cost_history.json md5 1f5e5ded03a8637e780d6de237cb1550 → 1f5e5ded03a8637e780d6de237cb1550
+

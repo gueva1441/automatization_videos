@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-27 (render v6 de Vajont HECHO: f8s3-vajont_final_gfx_v6.mp4, 17:29, PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-27 (F38e-0: dos pruebas en seco hechas, PARADA; comparan Omar y el analista) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -12,6 +12,13 @@
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar y el analista (F38e-0): llenar las columnas vacías de `lab/hyperframes/f38/prueba1/TABLA.md` («¿se entiende solo?») y `prueba2/TABLA.md` («¿promete sin contar el final?»); las dos tablas están también en `lab/hyperframes/f38/F38e0_REPORT.md`. No se decidió nada.
+
+## F38e-0 — Dos pruebas en seco: rótulos y títulos (pedido de Omar, 2026-10-27) — HECHA, **PARADA**
+- Handoff `lab/hyperframes/f38/HANDOFF_F38e0_pruebas_en_seco.md` (md5 `ef89918b…`). Paso 0 `2819c09` (DECISIONES 11:21/11:44, los dos prompts de prueba y el handoff, md5 comprobados).
+- A (Sonnet, una llamada, US$ 0,3391): prompt m01e-6-prueba letra por letra; 12 fichas, todas con respaldo literal y cifras literales; las 3 citas cortan por el candado («— autor» dentro del dato). B (Flash ×3, US$ 0,0152): 21 títulos, todos pasan la validación de hoy. Total US$ 0,3543. Sin tocar el pipeline, nada escrito en data/ ni output/.
+- Abierto e1–e11 en el reporte; revisor íntegro (CUMPLE CON OBSERVACIONES).
 
 ## 👀 Para Omar (render v6): **mirar `output/f8s3-vajont-f30/f8s3-vajont_final_gfx_v6.mp4`** (17:29, 2560×1440, md5 `b0640b60…`; sin música: `_v6_no_music.mp4`). Ojo: la primera corrida reusó las capas gfx de v5 sin avisar (bug del caché, abierto r1); se movieron a `_fase2b_work/_bak_v6_capas_v5/` y se re-renderizó.
 
