@@ -13,7 +13,7 @@
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
 
-## 👀 Para Omar (render v6): el guion de Vajont quedó **aprobado** («Omar 2026-10-27», md5 de los planes `35576ed6…`), pero el render **no corrió**: RAM libre 9.6 GB < 14 GB (DECISIONES 00:30); medida otra vez después de que Omar liberó RAM: 10.9 GB, sigue < 14. Liberá RAM (vmmem/WSL 3.5 GB, Firefox ~2.6 GB, Excel) y decí «seguí»: se mide de nuevo y va `python fase2b.py f8s3-vajont-f30 --keep-segments --reuse-visuals --gfx --gfx-sparse --gfx-quality looks` → `f8s3-vajont_final_gfx_v6.mp4`.
+## 👀 Para Omar (render v6): el guion de Vajont quedó **aprobado** («Omar 2026-10-27», md5 de los planes `35576ed6…`), pero el render **no corrió**: RAM libre 9.6 GB < 14 GB (DECISIONES 00:30); medida otra vez después de que Omar liberó RAM: 10.9 GB y después 13.3 GB (Firefox cerrado), sigue < 14. Liberá RAM (vmmem/WSL 3.5 GB, Firefox ~2.6 GB, Excel) y decí «seguí»: se mide de nuevo y va `python fase2b.py f8s3-vajont-f30 --keep-segments --reuse-visuals --gfx --gfx-sparse --gfx-quality looks` → `f8s3-vajont_final_gfx_v6.mp4`.
 
 ## Render v6 de Vajont (pedido de Omar, 2026-10-27) — **PARADA en el paso 3 (RAM)**
 - Paso 0 `fbe517a` (DECISIONES 03:29/03:34/03:37 + `REVISION_GUION_F38d.md`, md5 comprobados). Paso 1: plan `0af5b1dc…` = `f38/b4/`. Paso 2: `--aprobar-guion "Omar 2026-10-27"` hecho. Paso 3: 9.6 GB libres → PARADA; nada cerrado. Sección «Render v6» en `lab/hyperframes/f38/F38_REPORT.md`; logs en `lab/hyperframes/f38/v6/`.
