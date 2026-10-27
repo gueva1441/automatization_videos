@@ -1,0 +1,39 @@
+{
+ "_corridas": [
+  {
+   "paso": "research",
+   "usd": 1.4829,
+   "segundos": 1358.7
+  },
+  {
+   "paso": "ficha",
+   "usd": 0.3956,
+   "segundos": 428.1
+  },
+  {
+   "paso": "escaleta",
+   "usd": 0.8105,
+   "segundos": 157.6
+  },
+  {
+   "paso": "guionista_v4",
+   "usd": 1.068,
+   "segundos": 201.8
+  },
+  {
+   "paso": "reparacion_v4",
+   "usd": 0.1048,
+   "segundos": 33.3
+  },
+  {
+   "paso": "particion",
+   "usd": 0.131,
+   "segundos": 120.5
+  },
+  {
+   "paso": "pantalla",
+   "usd": 0.7699,
+   "segundos": 172.6
+  }
+ ]
+}

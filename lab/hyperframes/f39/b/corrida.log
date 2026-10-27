@@ -1,0 +1,98 @@
+[16:04:18] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f39-kyshtym
+[16:26:57] INFO     | viral_pipeline | [topic_researcher] ✓ ✓ [DEEP] Kyshtym Mayak: La Explosión Nivel 6 Que Rusia Ocultó · research_summary=3829 chars · sources=5 · facts=12
+[16:26:57] INFO     | viral_pipeline | [cost_tracker] Video f39-kyshtym — Costo total: $1.4829
+[16:26:57] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f39-kyshtym
+[16:34:05] INFO     | viral_pipeline | [cost_tracker] Video f39-kyshtym — Costo total: $0.3956
+[16:34:05] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f39-kyshtym
+[16:36:43] INFO     | viral_pipeline | [cost_tracker] Video f39-kyshtym — Costo total: $0.8105
+[16:36:43] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f39-kyshtym
+[16:40:04] INFO     | viral_pipeline | [cost_tracker] Video f39-kyshtym — Costo total: $1.0680
+[16:40:04] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f39-kyshtym
+[16:40:38] INFO     | viral_pipeline | [cost_tracker] Video f39-kyshtym — Costo total: $0.1048
+[16:40:46] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f39-kyshtym
+[16:42:47] INFO     | viral_pipeline | [cost_tracker] Video f39-kyshtym — Costo total: $0.1310
+[16:42:47] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f39-kyshtym
+[16:45:39] INFO     | viral_pipeline | [cost_tracker] Video f39-kyshtym — Costo total: $0.7699
+
+  Modo: 1 topic específico → f39-kyshtym
+  [semilla] «Desastre nuclear Kyshtym Mayak» (b6b84f96-03b7-40cd-8173-414d60514c76) → topic f39-kyshtym
+
+  🔬 Investigando la semilla «Desastre nuclear Kyshtym Mayak» en el topic f39-kyshtym (LONG)...
+       → 4a: extrayendo facts + sources...
+       → 4b: extrayendo canonical...
+       → 4c: extrayendo meta narrativa...
+       → 4d: extrayendo research_summary...
+       → 4e: extrayendo visual canon...
+     ✓ f39-kyshtym registrado · título: Kyshtym Mayak: La Explosión Nivel 6 Que Rusia Ocultó · fuentes: 5 · datos: 12
+  [semilla] topic registrado: 'Kyshtym Mayak: La Explosión Nivel 6 Que Rusia Ocultó'
+
+════════════════════════════════════════════════════════════
+  📜 Procesando topic f39-kyshtym desde m01a
+════════════════════════════════════════════════════════════
+  [v3] guion v3 (escaleta → guionista → editor → partición)
+  [01a v3] Compuerta del pool + escaleta...
+  [escaleta] compuerta del pool: verde {'datos': 203, 'citas_verificadas': 22, 'elegibles_humano': 11, 'eventos_con_fecha': 42, 'personas_con_nombre': 40}
+  [ficha] sin ficha v2 → ficha_caso.run (gpt-6.1-sol high, prompt f23-1) · título «Desastre nuclear Kyshtym Mayak»
+  [ficha] {'humanos_candidatos': 4, 'giros': 6, 'pico': 1, 'pregunta_final': 1, 'escenas': 9, 'contradicciones': 7, 'decisiones': 11, 'versiones': 4, 'personas': 54, 'personas_descartadas': 1, 'cifras': 30, 'cronologia': 62, 'hechos': 70, 'citas': 16, 'descartados': 33} · sacados 10
+  [escaleta] compuerta del pool: verde {'datos': 203, 'citas_verificadas': 22, 'elegibles_humano': 11, 'eventos_con_fecha': 42, 'personas_con_nombre': 40}
+  [escaleta v2] intento 1: 0 bloqueante(s) [] · 9 reparación(es) · 13 a métricas
+  [01b v4] Guionista v4 → reparación (una ronda) → partición → juez...
+  m01e intento 1: in 48038 · out 20545 · US$ 0.3015 · JSON
+  m01e intento 1 validado: fichas fuera 1 · preguntas 4 · vuelven 3 · picos vacíos 1
+  m01e intento 2: in 55105 · out 1312 · US$ 0.1233 · JSON
+  m01e vuelta 1 validada: fichas fuera 1 · preguntas nuevas 0 · picos vacíos 1
+  m01e intento 3: in 54524 · out 218 · US$ 0.1112 · JSON
+  m01e vuelta 2 validada: fichas fuera 1 · preguntas nuevas 0 · picos vacíos 1
+  m01e intento 4: in 54538 · out 1354 · US$ 0.1226 · JSON
+  m01e vuelta 3 validada: fichas fuera 1 · preguntas nuevas 0 · picos vacíos 1
+  m01e intento 5: in 54561 · out 209 · US$ 0.1112 · JSON
+  m01e vuelta 4 validada: fichas fuera 1 · preguntas nuevas 0 · picos vacíos 1
+  m01e: tope US$ 1.00 (respaldo (el perfil no trae costos.m01e_tope_usd)): gastado 0.7699 + esta llamada hasta 0.3032 → sin reintento
+  m01e: 11 fichas · 8 sellos · 6 relojes → C:\CLAUDE_PROJECTS\automatization_videos\data\scripts\_steps\f39-kyshtym\01e_pantalla.md
+  [v4] quedan 2 bloqueante(s) después de la ronda única: PARADA
+
+  ⏸  PARADA del papel: el papel no está aprobado.
+     Leer: C:\CLAUDE_PROJECTS\automatization_videos\data\scripts\_steps\f39-kyshtym\01e_pantalla.md
+     Aprobar: python fase1_5.py --topic f39-kyshtym --aprobar-papel "Omar <fecha>"
+
+════════════════════════════════════════════════════════════
+  📊 RESUMEN FASE 1.5
+════════════════════════════════════════════════════════════
+  Total: 1  |  PASS: 0  |  PARADA: 1  |  FAIL: 0
+
+  ⏸  f39-kyshtym  (PARADA en papel: el papel no está aprobado)
+
+
+──────────────────────────────────────────────────
+  🧠 GEMINI (por tokens — thinking incluido)
+──────────────────────────────────────────────────
+    Anthropic claude-fable-5-1    4 calls  in   38,684  out   31,930  think        0  $1.9833
+    Anthropic claude-sonnet-5-5    5 calls  in  266,766  out   23,638  think        0  $0.7699
+    Gemini 2.5 Flash         14 calls  in   60,881  out   16,729  think   55,700  $0.1993
+    Gemini 2.5 Pro           26 calls  in  102,500  out   92,036  think   36,603  $1.4145
+    OpenAI gpt-6.1-sol        1 calls  in   38,285  out   26,263  think    5,638  $0.3956
+  · por módulo:
+    guion_v4 guionista      1 calls  in   13,868  out   18,586  think        0  $1.0680  (0% think)
+    m01a_escaleta v2 intento 1    1 calls  in   23,469  out   11,517  think        0  $0.8105  (0% think)
+    m01e_pantalla           5 calls  in  266,766  out   23,638  think        0  $0.7699  (0% think)
+    R1 descubrimiento      16 calls  in    5,884  out   34,662  think   11,827  $0.4722  (25% think)
+    ficha_caso              1 calls  in   38,285  out   26,263  think    5,638  $0.3956  (18% think)
+    R3 F07 2/4              1 calls  in   18,111  out   10,298  think    1,808  $0.1437  (15% think)
+    R3 F07 1/4              1 calls  in   17,429  out    9,869  think    1,436  $0.1348  (13% think)
+    m01d_particion          3 calls  in    2,245  out      251  think   14,534  $0.1310  (98% think)
+    R3 F01 1/1              1 calls  in   19,921  out    8,776  think    1,753  $0.1302  (17% think)
+    R3 F07 3/4              1 calls  in   17,369  out    8,578  think    1,517  $0.1227  (15% think)
+    R3 F07 4/4              1 calls  in    8,398  out    8,749  think    1,631  $0.1143  (16% think)
+    R3 F03 1/1              1 calls  in    7,367  out    9,001  think    1,409  $0.1133  (14% think)
+    guion_v4 editar frase    2 calls  in    1,347  out    1,827  think        0  $0.1048  (0% think)
+    motor (sin tag)         5 calls  in   50,151  out    4,459  think   22,757  $0.0831  (84% think)
+    R1 descubrimiento (Flash)    4 calls  in      840  out   10,971  think   21,753  $0.0821  (66% think)
+    R3 F05 1/1              1 calls  in    4,534  out    1,298  think    1,694  $0.0356  (57% think)
+    R3 F06 1/1              1 calls  in    3,055  out      593  think    1,346  $0.0232  (69% think)
+    R2 fichas desde el texto    1 calls  in    4,337  out      349  think    4,096  $0.0124  (92% think)
+    research v3 vocabulario del caso    1 calls  in      666  out      628  think    2,799  $0.0088  (82% think)
+    R1 fichas del grounding    1 calls  in    2,836  out      118  think      983  $0.0036  (89% think)
+    research v3 perfil del seed    1 calls  in      238  out      165  think      960  $0.0029  (85% think)
+──────────────────────────────────────────────────
+    TOTAL Gemini: 50 calls · in 507,116 · out 190,596 · think 97,941 · $4.7626 USD
+exit=0

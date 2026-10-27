@@ -1,0 +1,18 @@
+ficha       gpt-6.1-sol high · prompt_version f23-1 · system md5 070b75dff58aecfa407fac3d62020ce4
+escaleta    prompt_version f26-1 · SYSTEM_V2 md5 2e67791cedbfa7492f8b6de1268b7b30 · TAREA_V2 md5 5808b41eb57a0949f009213d52076521
+guion_v4    PROMPT_VERSION = f25-1
+guion_v4    PROMPT_VERSION_ABIERTO = f13-1
+guion_v4    PROMPT_VERSION_F11C = f11c-1
+guion_v4    PROMPT_VERSION_V5 = f15-1
+guion_v4    PROMPT_VERSION_V5_1 = f15b-1
+guion_v4    PROMPT_VERSION_V5_2 = f22-1
+guion_v4    PROMPT_VERSION_V5_3 = f23-1
+guion_v4    SYSTEM_V5 = md5 2ff2a5cd7bc63a2fa9fc0faa2117ac65
+guion_v4    SYSTEM_V5_1 = md5 cdce609abea95ee36d0eb4f44d74dda8
+guion_v4    SYSTEM_V5_2 = md5 743e4f0a7ff9e58d86762bbd43679952
+guion_v4    SYSTEM_V5_3 = md5 8ca9aa494e3a0b9b4a99f60e6006c5f8
+guion_v4    SYSTEM_V5_4 = md5 2f66c1e07e4d6c31178091371821c0c9
+guion_v4    VERSIONES_V5 = ('f25-1', 'f23-1', 'f22-1', 'f15b-1', 'f15-1')
+guion_v4    DEFAULT_MODELO_GUION = claude-fable-5-1
+títulos     PEDIDO_TITULOS md5 0c3fe5599f500ce523c77aac0e328597
+papel       claude-sonnet-5-5 medium · m01e-6 · SYSTEM md5 7d2ccdd28055d6e621d1d251a0fe8bb7 · prompt_md5 3b98aef1d8595124967ac7a85b75bab7 · tope (1.0, 'respaldo (el perfil no trae costos.m01e_tope_usd)')
