@@ -28,7 +28,8 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                "el video. Con `--gfx` le pone encima la capa gráfica; con `--plan-only` solo escribe el guion de pantalla. "
                "Desde F34, con `--gfx` la música de cada cap arranca con su title card (pieza = segmento, después de "
                "la intro) y la mezcla de previsualización mide dónde arranca. Desde F36, si el plan de ch01 trae la "
-               "tarjeta fecha-hora, el mp4 arranca con 3 s de negro con la tarjeta en lugar de la intro congelada.",
+               "tarjeta fecha-hora, el mp4 arranca con 3 s de negro con la tarjeta en lugar de la intro congelada; "
+               "`--plan-edit` edita el guion en papel.",
                "assets del topic (imágenes/clips), voz por cap + tiempos, sync map, música", "`*_final(_gfx).mp4`; o "
                "GUION_PANTALLA + mezcla", "previo a F1 (inicial)", "vivo"),
     "gfx_config": ("El tablero de perillas de la capa gráfica: duraciones, tamaños, colores y qué reglas están "
@@ -59,38 +60,40 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                        "contador del rotulista).",
                        "escaleta + narración por beat + pool", "`gfx_beats_chNN.json`, candidatos, filas de lo quitado",
                        "F29", "vivo"),
-    "gfx_rotulista": ("La fachada del rotulista (desde F36 partido en cinco): prepara la entrada de cada cap y corre "
-                      "el rotulista de los 7 caps en paralelo antes del render; el resto lo re-exporta de sus módulos "
-                      "para que nadie cambie de import.", "plan de cada cap + topic", "rotulista en caché por cap "
-                      "(`rotulista_chNN.raw.json`)", "F29b", "vivo"),
-    "rotulista_llm": ("El pedido al modelo que escribe los textos de pantalla (Claude Sonnet): arma la entrada del cap "
-                      "(oraciones con tiempos y palabra numerada, beats, datos del pool; en el gancho todo el pool), el "
-                      "prompt literal, la llamada con caché, el tope de US$ y un reintento.", "oraciones de la voz, beats, "
-                      "pool, escaleta", "respuesta cruda y validada por cap, ledger de costos", "F36 (código de F29b)",
-                      "vivo"),
-    "rotulista_filtros": ("Los filtros que deciden si un texto propuesto sale, en un orden que se lee en una línea "
-                          "(`ORDEN`): anclaje, forma, candado de lo literal, no dicho, spoiler, lectura, coherencia de "
-                          "cifras y uno por beat.", "respuesta del modelo + entrada del cap", "bloques que pasan, "
-                          "cortados con su regla y motivo", "F36 (código de F29b)", "vivo"),
+    "gfx_rotulista": ("La fachada del rotulista: desde F36 C ya no llama a ningún modelo; `preparar_cap` lee el guion "
+                      "en papel de Fase 1 (`01e_pantalla.json`), alinea sus oraciones con las de la voz por texto y ancla "
+                      "cada ficha a su palabra; el resto lo re-exporta de sus módulos para que nadie cambie de import.",
+                      "papel del topic + oraciones de la voz + beats", "entrada del cap + bloques, sellos, relojes y "
+                      "tarjeta del papel", "F29b", "vivo"),
+    "rotulista_llm": ("El pedido al modelo que escribía los textos de pantalla en Fase 2 (Claude Sonnet, uno por cap). "
+                      "Desde F36 C el texto lo escribe m01e_pantalla en Fase 1 y nadie del camino lo llama (D lo borra).",
+                      "oraciones de la voz, beats, pool, escaleta", "respuesta cruda y validada por cap, ledger de costos",
+                      "F36 (código de F29b)", "muerto (F36 C: el texto viene del papel)"),
+    "rotulista_filtros": ("Los filtros que deciden si un texto del papel sale, en un orden que se lee en una línea "
+                          "(`ORDEN`, F36 C): anclar el papel a la voz, no dicho del gancho, candado de lo literal, no "
+                          "dicho, spoiler y lectura hasta el corte. El orden viejo del modelo (`ORDEN_MODELO`) queda solo "
+                          "para rotulista_llm.", "bloques del papel + entrada del cap", "bloques que pasan, cortados con "
+                          "su regla y motivo", "F36 (código de F29b)", "vivo"),
     "rotulista_colocar": ("Pone cada texto que pasó en su lugar: cuánto dura (lectura, nunca después del corte), qué "
-                          "forma toma (ficha, recorte, cita, lupa, agua, contador), las ediciones a mano y «una cosa por "
-                          "escena» (por oración en caps de una sola escena).", "bloques validados + escenas",
-                          "bloques en el plan, filas de lo movido o cortado", "F36 (código de F29b)", "vivo"),
-    "clima": ("Los sellos de clima: en cada oración busca el momento de más peso y le pone una palabra del vocabulario "
-              "del perfil (hoy la elige Gemini Flash), nunca la que dice la voz ni una que ya salió en el video; el "
-              "crítico lo mira antes del reparto; uno por beat, nunca sobre un texto.",
-              "oraciones + léxico de moods + vocabulario `sellos_clima`", "sellos en el plan, filas de lo cortado",
+                          "forma toma (ficha normal, nombre o cita con autor; papel = recorte) y «nunca al mismo tiempo» "
+                          "(DECISIONES 17:58: dos bloques no se solapan ni se tocan; si chocan, esperan al momento "
+                          "siguiente de su beat).", "bloques validados + escenas", "bloques en el plan, filas de lo movido "
+                          "o cortado", "F36 (código de F29b)", "vivo"),
+    "clima": ("Los sellos de clima: desde F36 C la palabra y la oración vienen del guion en papel; acá se pone el "
+              "instante (la palabra de más peso de la oración o su inicio), se mira que no cruce el corte, el crítico "
+              "(«¿estorba?») antes del reparto y que nunca esté al mismo tiempo que otro bloque.",
+              "sellos del papel + oraciones + léxico de moods", "sellos en el plan, filas de lo cortado",
               "F36 (código de F32/F34)", "vivo"),
     "voz_datos": ("Lo que sale de la voz y la escaleta sin modelo: el pico del cap, el reloj cuando la voz dice una "
-                  "fecha completa, el nivel de agua cuando dice una altura y la tarjeta fecha-hora del inicio.",
-                  "oraciones de la voz, escaleta, pool", "pico, reloj, agua, tarjeta", "F36 (código de F34)", "vivo"),
+                  "fecha completa y la tarjeta fecha-hora derivada (desde F36 C solo para comparar con la del papel).",
+                  "oraciones de la voz, escaleta, pool", "pico, reloj, tarjeta derivada", "F36 (código de F34)", "vivo"),
     "voz_utils": ("La utilería de la voz: lee cifras en dígitos y en letras, nombres propios, cifras con su unidad, y "
-                  "parte la voz en oraciones con cada palabra numerada.", "texto / palabras con tiempos",
+                  "parte la voz en oraciones con cada palabra numerada; desde F36 C parte igual el texto de Fase 1 "
+                  "(`oraciones_de_texto`) y normaliza oraciones para alinear papel y voz.", "texto / palabras con tiempos",
                   "cifras, nombres, oraciones", "F36 (código de F29b)", "vivo"),
     "gfx_critic": ("El editor: Gemini mira la foto y saca lo que repite la voz, no aporta o tapa algo. Desde F36 juzga "
-                   "los candidatos ANTES del reparto (lo que saca no ocupa lugar) y al sello de clima y al agua de la "
-                   "voz solo les pregunta si estorban.", "plan + "
-                   "cuadros del video + voz", "plan sin lo que no pasa + "
+                   "los candidatos ANTES del reparto (lo que saca no ocupa lugar); a las fichas del papel y a los sellos "
+                   "solo les pregunta si estorban.", "plan + cuadros del video + voz", "plan sin lo que no pasa + "
                    "veredictos", "F4e", "vivo"),
     "gfx_project": ("El dibujante: convierte el plan en la página HTML que HyperFrames renderiza (title card, ficha, "
                     "recorte, cita, sello, reloj, agua, contador, zoom).", "plan resuelto + escenas", "proyecto "
@@ -132,9 +135,9 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                      "estado del lab", "`identity` en gfx_profiles/<perfil>.json", "F3",
                      "muerto en el pipeline (lo usa solo el lab, gfx_lab_server)"),
     "gfx_guion": ("Escribe el guion de pantalla: todo lo que se va a ver, en texto, con lo cortado y por quién, y los "
-                  "chequeos (lectura, costuras, inicio de voz, inicio de música, gancho no vacío, tarjeta fecha-hora) sobre la "
-                  "mezcla de audio.", "planes, escenas, beats, "
-                  "mezcla", "GUION_PANTALLA.md/.json", "F32", "vivo"),
+                  "chequeos (lectura, nunca al mismo tiempo, costuras, inicio de voz, inicio de música, gancho no vacío, "
+                  "tarjeta fecha-hora; desde F36 C la columna `papel` y «papel sin colocar / sin alinear»).",
+                  "planes, escenas, beats, mezcla", "GUION_PANTALLA.md/.json", "F32", "vivo"),
     "music_intensity": ("Decide cuándo la música calla, acompaña o sube en cada cap según la escaleta; también da el "
                         "beat pico de cada cap.", "escaleta + narración por beat + tiempos de la voz",
                         "tramos de volumen por cap, beat pico", "F28", "vivo"),
@@ -142,8 +145,14 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                       "ficha del caso; es lo que el gfx lee para saber qué va dónde.", "ficha del caso + pool",
                       "`01a_escaleta.json`", "F6", "vivo (fase 1; el gfx lee su salida)"),
     "m01d_particion": ("Fase 1: parte el guion en los 7 capítulos con su texto para la voz; de ahí salen la "
-                       "narración por cap y por beat que leen el realizador y el rotulista.", "guion + escaleta",
+                       "narración por cap y por beat que leen el realizador y el guion en papel.", "guion + escaleta",
                        "narración por cap y por beat", "F10", "vivo (fase 1)"),
+    "m01e_pantalla": ("Fase 1 (F36 C): el guion de pantalla EN PAPEL. Una llamada a Sonnet por video con la narración "
+                      "de los 7 caps (oraciones numeradas y cuánto cabe), la escaleta, el archivo del caso y el "
+                      "vocabulario de clima → por beat ficha o nada, sello o nada; relojes; tarjeta. Lo valida en papel "
+                      "(candado, no dicho, spoiler, una vez, cabe, formato) y lo deja para que Omar lo revise antes de la "
+                      "voz; Fase 2 lo consume.", "escaleta, narración por cap y beat, títulos, pool, `sellos_clima`",
+                      "`01e_pantalla.json/.md` en el topic de Fase 1", "F36", "vivo (fase 1)"),
     "archive_clipping.html.tmpl": ("La forma del recorte de diario (papel, kicker, titular).", "un recorte del plan",
                                    "HTML", "F1", "vivo (documentos del rotulista)"),
     "chapter_question.html.tmpl": ("La forma de la pregunta de cierre sobre la foto oscurecida.", "la pregunta",
@@ -187,12 +196,22 @@ MUERTOS = [
     ("data_callout.html.tmpl", "con el rotulista todo texto sale como ficha", "cc3f079"),
     ("grade_css.html.tmpl", "nadie la carga", "a878836"),
     ("gfx_identity (todo el módulo)", "solo lo usa el lab de identidad (gfx_lab_server)", "—"),
+    ("rotulista_llm (todo el módulo) y rotulista_filtros.ORDEN_MODELO (anclaje, forma, coherencia, cantidad)",
+     "F36 C: el texto lo escribe el guion en papel (m01e_pantalla); Fase 2 no llama a ningún modelo de texto", "C"),
+    ("clima.sellos_por_tema, elegir_clima, _gemini_clima, palabra_clima, prompt_clima (Gemini de clima)",
+     "F36 C: los sellos vienen del papel (`sellos_del_papel`)", "C"),
+    ("voz_datos.agua_de_voz y rotulista_colocar.animacion_de_cifra (agua y contador)",
+     "F36 C / catálogo 18:17: no hay agua ni contador", "C"),
+    ("rotulista_colocar.aplicar_ediciones, ediciones_de, guardar_ediciones, mover_a_escena (plan_edits.json)",
+     "F36 C: `--plan-edit` edita el papel (m01e_pantalla.editar)", "C"),
 ]
 
 
 def fecha(h: str) -> str:
     if h == "—":
         return "nunca en fase2b"
+    if h == "C":
+        return "F36 C (commit de esta parte)"
     r = subprocess.run(["git", "log", "-1", "--format=%ad %s", "--date=short", h], cwd=ROOT, capture_output=True,
                        text=True, encoding="utf-8", errors="replace")
     return f"{h} {r.stdout.strip()[:80]}"

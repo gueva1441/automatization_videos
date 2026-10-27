@@ -216,6 +216,18 @@ def _step_cost(topic_id: str, label: str, fn):
         f.write_text(json.dumps(costs, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
+def run_pantalla(topic_id: str, pool: dict | None, log: list[str]) -> dict | None:
+    """F36 §C (DECISIONES 2026-10-26 19:54): m01e_pantalla, el guion de pantalla en papel, después de la partición y
+    antes de la voz (una llamada a Sonnet por video, con su costo en 01_v3_costos.json como paso «pantalla»). Si no da
+    JSON en dos intentos o el tope no alcanza, avisa y Fase 1 sigue: el papel se revisa a mano antes de la voz."""
+    from script_engine import m01e_pantalla as mp
+    try:
+        return _step_cost(topic_id, "pantalla", lambda: mp.generar(topic_id, STEPS_DIR, pool=pool, log=log))
+    except (mp.SinJSON, mp.TopePantalla) as e:
+        print(f"  [m01e] PARADA del guion en papel: {e}")
+        return None
+
+
 def run_escaleta_v3(topic_id: str, columna: bool = False, modelo: str | None = None) -> dict:
     """m01a v3: compuerta del pool (rojo → PoolGateRed, sin gastar) + escaleta (Pro, con reintentos).
     F17: con ficha v2, m01a era columna → escaleta. F22d (decisión del analista): la columna ya no alimenta a la
@@ -258,9 +270,10 @@ def run_guion_v3(topic_id: str) -> dict:
     (d / "01b_editor_v3.json").write_text(json.dumps(e, ensure_ascii=False, indent=2), encoding="utf-8")
     part = _step_cost(topic_id, "particion", lambda: md.particionar(topic, esc, e["parrafos"], pool, log=log,
                                                                      shorten=md.editor_shorten()))
+    pantalla = run_pantalla(topic_id, pool, log)                 # F36 §C: después de la partición, antes de la voz
     judge = judge_narration(topic_id, pool=pool, narration=part["narration"], skeleton=part["skeleton"])
     print("\n".join(log[-12:]))
-    return {"guionista": g, "editor": e, "particion": part, "juez": judge}
+    return {"guionista": g, "editor": e, "particion": part, "pantalla": pantalla, "juez": judge}
 
 
 def run_guion_v4(topic_id: str, modelo: str | None = None, editor: bool = False) -> dict:
@@ -289,13 +302,14 @@ def run_guion_v4(topic_id: str, modelo: str | None = None, editor: bool = False)
     (d / "01b_guionista_v4.json").write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
     part = _step_cost(topic_id, "particion", lambda: md.particionar(topic, esc, r["parrafos"], pool, log=log,
                                                                      shorten=md.editor_shorten()))
+    pantalla = run_pantalla(topic_id, pool, log)                 # F36 §C: después de la partición, antes de la voz
     judge = judge_narration(topic_id, pool=pool, narration=part["narration"], skeleton=part["skeleton"])
     print("\n".join(log[-12:]))
     if out["nota_b"]:
         print(f"  [v4] {out['nota_b']}")
     if r["parada"]:
         print(f"  [v4] quedan {len(r['bloqueantes_despues'])} bloqueante(s) después de la ronda única: PARADA")
-    return {"guionista": g, "reparacion": r, "particion": part, "juez": judge}
+    return {"guionista": g, "reparacion": r, "particion": part, "pantalla": pantalla, "juez": judge}
 
 
 # ═══════════════════════════════════════════════════════════════

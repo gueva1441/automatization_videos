@@ -235,8 +235,14 @@ def test_ficha_no_convive_con_reloj_ni_con_title_card():
                           "t1": 7.5, "pool_id": "T10", "tipo_rotulista": "hecho", "rotulista": True}]}
     filas = gro.escena_final(plan, scenes, ent, [])
     c = plan["callouts"][0]
-    assert c["start"] == 9.0 and c["start"] + c["duration"] <= 18.0                 # espera a la escena siguiente
-    assert any(f["accion"] == "movido" and "title card" in f["motivo"] for f in filas)
+    # DECISIONES 17:58 (F36 C): nunca al mismo tiempo; la ficha (5.5–7.5 s) no toca el title card (0–3 s): se queda
+    assert c["start"] == 5.5 and not [f for f in filas if f.get("accion") == "movido"]
+    plan1 = {"title_card": {"kicker": "CAPÍTULO 3", "title": "t"},
+             "callouts": [{"text": "Aprobada con 13", "kicker": "Acta", "ficha": True, "start": 2.0, "duration": 2.0,
+                           "t1": 4.0, "pool_id": "T10", "tipo_rotulista": "hecho", "rotulista": True}]}
+    filas1 = gro.escena_final(plan1, scenes, ent, [])
+    c1 = plan1["callouts"][0]                                                       # se solapa con el title card
+    assert c1["start"] == 9.0 and any(f["accion"] == "movido" and "title card" in f["motivo"] for f in filas1)
     plan2 = {"time_ticker": {"day": "9", "month": "OCT", "start": 9.5, "duration": 12.0, "changes": []},
              "callouts": [{"text": "Aprobada con 13", "kicker": "Acta", "ficha": True, "start": 12.0, "duration": 2.0,
                            "pool_id": "T10", "tipo_rotulista": "hecho", "rotulista": True}]}

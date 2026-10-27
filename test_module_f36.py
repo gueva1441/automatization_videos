@@ -43,8 +43,8 @@ def test_a_orden_de_filtros_es_el_de_f34():
     assert '"regla": "cantidad"' in _cuerpo(src, "finalizar")
     f34.append("cantidad")
     assert f34 == ["anclaje", "no_dicho", "forma", "candado", "no_dicho", "spoiler", "lectura", "coherencia", "cantidad"]
-    assert [rf.regla(f) for f in rf.ORDEN] == f34
-    assert [f.__name__ for f in rf.ORDEN][:2] == ["anclaje", "gancho_dicho"]     # el no_dicho del gancho, antes de la forma
+    assert [rf.regla(f) for f in rf.ORDEN_MODELO] == f34          # F36 §C.4: el de F34 queda para rotulista_llm
+    assert [f.__name__ for f in rf.ORDEN_MODELO][:2] == ["anclaje", "gancho_dicho"]   # el no_dicho del gancho, antes de la forma
 
 
 def test_a_la_fachada_da_todos_los_nombres_de_antes():
@@ -59,7 +59,7 @@ def test_a_la_fachada_da_todos_los_nombres_de_antes():
         elif isinstance(n, ast.AnnAssign) and isinstance(n.target, ast.Name):
             antes.add(n.target.id)
     faltan = sorted(x for x in antes if not hasattr(gro, x))
-    assert not faltan, faltan
+    assert faltan == ["prefetch"], faltan                        # F36 §C.4: sin modelo en Fase 2 no hay prefetch
 
 
 def test_a_cada_modulo_tiene_lo_suyo():

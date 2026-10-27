@@ -27,7 +27,7 @@ import time
 from pathlib import Path
 from typing import Any
 
-VERSION = "f34-1"
+VERSION = "f36-c"
 LECTURA_CPS = 15.0              # §0 (ya en F29c): caracteres ÷ 15 cps
 PICO_DB = -18.0                 # §A.3: el ataque de la voz no salta de silencio a −18 dB …
 RAMPA_S = 0.10                  # … en los 100 ms previos
@@ -234,7 +234,8 @@ def eventos_cap(c: dict[str, Any], *, title_dur: float, dip_frames: int, fps: in
              "dur": round(dur, 2) if dur is not None else None, "lectura_min": lectura,
              "escena": sc["idx"] if sc else None, "escena_t0": sc["start"] if sc else None,
              "escena_t1": sc["end"] if sc else None, "voz_prev": vp, "voz_ancla": va, "voz_next": vn,
-             "aporta": aporta, "fuente": fuente, "filtro": filtro, "queda": queda, **(extra or {})}
+             "aporta": aporta, "fuente": fuente, "filtro": filtro, "queda": queda, "papel": False, **(extra or {})}
+        e["papel"] = bool(e["papel"])                  # F36 §C.4: vino del guion en papel (m01e_pantalla)
         ev.append(e)
         return e
 
@@ -265,8 +266,9 @@ def eventos_cap(c: dict[str, Any], *, title_dur: float, dip_frames: int, fps: in
     tj = plan.get("tarjeta_inicial") if c["is_first"] else None
     if tj is not None:                                    # F34 §A.6: antes de la primera imagen, sobre negro
         e = add(0.0, "tarjeta fecha-hora", texto=tj.get("texto") or "⚠ falta fecha-hora", dur=title_dur, k=None,
-                fuente=tj.get("fuente"), filtro="pasó" if tj.get("texto") else f"⚠ falta fecha-hora: {tj.get('motivo')} "
-                "(agregar con --plan-edit; nunca se inventa)", extra={"sobre_negro": True})
+                fuente=tj.get("fuente"), filtro=("pasó" if tj.get("texto") else f"⚠ falta fecha-hora: {tj.get('motivo')} "
+                "(agregar con --plan-edit; nunca se inventa)") + (f" · {tj['difiere']}" if tj.get("difiere") else ""),
+                extra={"sobre_negro": True, "papel": bool(tj.get("papel"))})
         e.update({"t": round(-intro, 3), "t_mp4": round(off - intro, 3), "escena": None, "beat": None, "funcion": ""})
     tc = plan.get("title_card")
     if tc:
@@ -278,14 +280,15 @@ def eventos_cap(c: dict[str, Any], *, title_dur: float, dip_frames: int, fps: in
             k=cb.get("sentence_idx"), aporta=cb.get("aporta"), fuente=fuente_de(cb.get("pool_id")),
             filtro="pasó" + _crit_rot(cb.get("critico")) + (" · editado a mano" if cb.get("editado") else ""),
             extra={"pool_id": cb.get("pool_id"), "a_pantalla": cb.get("a_pantalla"), "tipo_rotulista": tr,
+                   "papel": cb.get("papel"), "estilo": cb.get("estilo"),
                    "word_idx": cb.get("word_idx"), "movido": cb.get("movido") or cb.get("movido_escena") or cb.get("movido_corte")})
     for a in plan.get("archive_clippings") or []:
         add(float(a["start"]), "recorte", etiqueta=a.get("kicker"), texto=a.get("headline", ""),
             dur=float(a.get("duration", 0)), lectura=_lectura("documento", a.get("kicker"), a.get("headline", "")),
             k=a.get("sentence_idx"), aporta=a.get("aporta"), fuente=fuente_de(a.get("pool_id")) or a.get("fuente"),
             filtro="pasó" + _crit_rot(a.get("critico")) + (" · editado a mano" if a.get("editado") else ""),
-            extra={"pool_id": a.get("pool_id"), "a_pantalla": a.get("a_pantalla"),
-                   "movido": a.get("movido") or a.get("movido_escena") or a.get("movido_corte"),
+            extra={"pool_id": a.get("pool_id"), "a_pantalla": a.get("a_pantalla"), "papel": a.get("papel"),
+                   "estilo": a.get("estilo"), "movido": a.get("movido") or a.get("movido_escena") or a.get("movido_corte"),
                    "forzado": a.get("forzado")})
     qc = plan.get("quote_card")
     if qc:
@@ -319,7 +322,7 @@ def eventos_cap(c: dict[str, Any], *, title_dur: float, dip_frames: int, fps: in
         add(float(e["start"]), "sello", texto=str(e.get("word", "")), dur=float(e.get("duration", 0)),
             filtro="pasó" + (f" (crítico: {r['veredicto']})" if r else ""),
             extra={"tema": e.get("tema") or e.get("category"), "pico": bool(e.get("peak_word")), "lado": e.get("side"),
-                   "clima": bool(e.get("clima")), "palabra_voz": e.get("palabra_voz")})
+                   "clima": bool(e.get("clima")), "palabra_voz": e.get("palabra_voz"), "papel": e.get("papel")})
     tk = plan.get("time_ticker")
     if tk:
         add(float(tk["start"]), "reloj", texto=f"{tk.get('day')} {tk.get('month')} · {tk.get('tail', '')}".strip(" ·"),
@@ -357,7 +360,8 @@ def eventos_cap(c: dict[str, Any], *, title_dur: float, dip_frames: int, fps: in
             t = sents[int(k)]["t0"] if isinstance(k, int) and 0 <= k < len(sents) else 0.0
         add(float(t), r["tipo"], etiqueta=r.get("etiqueta"), texto=str(r.get("texto") or ""), k=r.get("sentence_idx"),
             aporta=r.get("aporta"), fuente=fuente_de(r.get("pool_id")), filtro=f"cortó {r['quien']}: {r['motivo']}",
-            queda=False, lectura=r.get("lectura"), extra={"pool_id": r.get("pool_id"), "regla": r["regla"]})
+            queda=False, lectura=r.get("lectura"), extra={"pool_id": r.get("pool_id"), "regla": r["regla"],
+                                                          "papel": r.get("papel")})
     ev.sort(key=lambda e: (e["t_mp4"], not e["queda"], e["tipo"] != "costura"))
     return ev
 
@@ -366,6 +370,7 @@ def cortes_cap(plan: dict[str, Any], rejected: list[dict], sents: list[dict]) ->
     """Lo que cada filtro sacó, en filas parejas {tipo, texto, etiqueta, pool_id, sentence_idx, t, regla, quien, motivo}."""
     out: list[dict[str, Any]] = []
     rot = plan.get("rotulista") or {}
+    papel = plan.get("papel") is not None                 # F36 §C.4: con papel, los textos del rotulista son del papel
     for f in rot.get("filas") or []:
         if f.get("accion") != "fuera":
             continue
@@ -373,7 +378,7 @@ def cortes_cap(plan: dict[str, Any], rejected: list[dict], sents: list[dict]) ->
         out.append({"tipo": TIPO_ROT.get(tr, tr or "texto"), "texto": f.get("texto"), "etiqueta": f.get("etiqueta"),
                     "pool_id": f.get("pool_id"), "sentence_idx": f.get("sentence_idx"), "t": f.get("t0"),
                     "regla": REGLA_NOMBRE.get(f.get("regla"), f.get("regla")), "quien": f"rotulista ({REGLA_NOMBRE.get(f.get('regla'), f.get('regla'))})",
-                    "motivo": f.get("motivo"), "aporta": f.get("aporta"),
+                    "motivo": f.get("motivo"), "aporta": f.get("aporta"), "papel": papel,
                     "lectura": _lectura(tr, f.get("etiqueta"), str(f.get("texto") or ""))})
     for f in rot.get("escena") or []:
         if f.get("accion") != "fuera":
@@ -381,7 +386,8 @@ def cortes_cap(plan: dict[str, Any], rejected: list[dict], sents: list[dict]) ->
         tr = str(f.get("tipo") or "")
         tipo = "reloj" if f.get("bloque") == "time_ticker" else TIPO_ROT.get(tr, tr or "texto")
         out.append({"tipo": tipo, "texto": f.get("texto"), "pool_id": f.get("pool_id"), "t": f.get("t0"),
-                    "regla": "zona", "quien": "zona (una cosa por escena)", "motivo": f.get("motivo")})
+                    "regla": "zona", "quien": "zona (nunca al mismo tiempo)", "motivo": f.get("motivo"),
+                    "papel": papel and f.get("bloque") != "time_ticker"})
     real = plan.get("realizador") or {}
     for f in list(plan.get("sellos_tema") or []) + list(real.get("filas") or []):   # F32 §B.6: el catálogo de sellos
         if f.get("accion") != "fuera":
@@ -391,7 +397,7 @@ def cortes_cap(plan: dict[str, Any], rejected: list[dict], sents: list[dict]) ->
                 "archive_clippings": "recorte", "quote_card": "cita"}.get(b, b or "bloque")
         out.append({"tipo": tipo, "texto": f.get("texto"), "pool_id": f.get("pool_id"), "t": f.get("t"),
                     "regla": f.get("regla") or "realizador",
-                    "quien": f.get("quien") or "realizador", "motivo": f.get("motivo")})
+                    "quien": f.get("quien") or "realizador", "motivo": f.get("motivo"), "papel": f.get("papel")})
     for r in plan.get("critico") or []:
         if r.get("pasa"):
             continue
@@ -409,8 +415,9 @@ def cortes_cap(plan: dict[str, Any], rejected: list[dict], sents: list[dict]) ->
             f"(2) {r.get('motivo_2')}" if r.get("dice_algo_nuevo") is False else "",
             f"(3) {r.get('motivo_3')}" if r.get("estorba") is True else "") if x)
         out.append({"tipo": tipo, "texto": r.get("texto"), "pool_id": r.get("pool_id"), "t": r.get("t"),
-                    "regla": "crítico", "quien": f"crítico (mira {r.get('mira')})", "motivo": mot or "no pasa",
-                    "aporta": r.get("aporta")})
+                    "regla": "crítico", "quien": f"crítico (mira {r.get('mira')}" + (", ¿estorba?)" if r.get("pregunta")
+                                                                                     else ")"),
+                    "motivo": mot or "no pasa", "aporta": r.get("aporta"), "papel": papel})
     for r in rejected or []:
         out.append({"tipo": {"data_callout": "ficha", "archive_clipping": "recorte", "keyword_emphasis": "sello",
                              "water_level": "nivel de agua", "count_up": "contador", "time_ticker": "reloj",
@@ -460,30 +467,21 @@ def chequeos(caps: list[dict[str, Any]], *, title_dur: float, fps: int, mezcla: 
              voz_video: list[str]) -> list[dict[str, Any]]:
     from script_engine.gfx_rotulista import contradicciones
     out = []
-    # 1. dos bloques en la misma escena
+    # 1. dos bloques al mismo tiempo (DECISIONES 2026-10-26 17:58: «nunca al mismo tiempo» reemplaza a «una por
+    # escena»: no se solapan ni se tocan; la escena deja de ser la unidad)
     lineas, ok = [], True
     for c in caps:
-        bl = [e for e in c["eventos"] if e["queda"] and e["tipo"] in TEXTOS + ANIMACIONES + ("title card",)]
-        if len(c["escenas"]) == 1:                        # F34 §A.3.2: un cap de una sola escena se mira por oración
-            for i, a in enumerate(bl):
-                for b in bl[i + 1:]:
-                    a1, b1 = a["t"] + float(a["dur"] or 0), b["t"] + float(b["dur"] or 0)
-                    if a["t"] < b1 and b["t"] < a1:
-                        ok = False
-                        lineas.append(f"✗ {c['cap']} (una escena, por oración) {a['tipo']} «{(a['texto'] or '')[:30]}» "
-                                      f"{a['t']:.1f}–{a1:.1f} s se solapa con {b['tipo']} «{(b['texto'] or '')[:30]}» "
-                                      f"{b['t']:.1f}–{b1:.1f} s")
-            continue
-        occ: dict[int, list[str]] = {}
-        for e in bl:
-            for k in _ocupa(e, c["escenas"], title_dur):
-                occ.setdefault(k, []).append(f"{e['tipo']} «{(e['texto'] or '')[:30]}»")
-        malas = {k: v for k, v in occ.items() if len(v) > 1}
-        ok &= not malas
-        lineas += [f"✗ {c['cap']} escena {k}: {' + '.join(v)}" for k, v in sorted(malas.items())]
-    out.append({"nombre": "dos bloques en la misma escena", "ok": ok,
-                "lineas": lineas or ["✓ ninguna escena con dos bloques (title card, textos y animaciones; en un cap de "
-                                     "una sola escena, ninguna oración: nada solapado)"]})
+        bl = sorted([e for e in c["eventos"] if e["queda"] and e["tipo"] in TEXTOS + ANIMACIONES + ("title card",)],
+                    key=lambda e: e["t"])
+        for i, a in enumerate(bl):
+            for b in bl[i + 1:]:
+                a1, b1 = a["t"] + float(a["dur"] or 0), b["t"] + float(b["dur"] or 0)
+                if a["t"] <= b1 + 1e-6 and b["t"] <= a1 + 1e-6:
+                    ok = False
+                    lineas.append(f"✗ {c['cap']} {a['tipo']} «{(a['texto'] or '')[:30]}» {a['t']:.1f}–{a1:.1f} s y "
+                                  f"{b['tipo']} «{(b['texto'] or '')[:30]}» {b['t']:.1f}–{b1:.1f} s se solapan o se tocan")
+    out.append({"nombre": "dos bloques al mismo tiempo", "ok": ok,
+                "lineas": lineas or ["✓ ningún par de bloques (title card, textos y animaciones) se solapa ni se toca"]})
     # 2. bloque que cruza corte
     lineas, ok = [], True
     for c in caps:
@@ -596,7 +594,56 @@ def chequeos(caps: list[dict[str, Any]], *, title_dur: float, fps: int, mezcla: 
     out.append({"nombre": "tarjeta fecha-hora", "ok": bool(tj) and all("falta" not in e["filtro"] for e in tj),
                 "lineas": [f"{'✓' if 'falta' not in e['filtro'] else '✗'} {mmss(e['t_mp4'])} «{e['texto']}» · "
                            f"{e.get('fuente') or ''} · {e['filtro']}" for e in tj] or ["✗ sin tarjeta (ch01 sin plan)"]})
+    # 12–14. F36 §C.4: el guion en papel (m01e_pantalla) contra lo que Fase 2 colocó
+    out += chequeos_papel(caps)
     return out
+
+
+def chequeos_papel(caps: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """«papel sin colocar» (fichas y sellos del papel que Fase 2 cortó, con el motivo), «papel sin alinear» (oraciones
+    del papel que no son iguales a ninguna de la voz: se anclaron a la más parecida) y «relojes del papel» (aclaración
+    4: el reloj es el de la voz; si el del papel difiere, se anota)."""
+    con = [c for c in caps if c["plan"].get("papel") is not None]
+    if not con:
+        return [{"nombre": "papel sin colocar", "ok": False, "lineas": ["✗ ningún cap trae guion en papel"]}]
+    sin_col, sin_al, rel = [], [], []
+    for c in con:
+        pp = c["plan"]["papel"]
+        if pp.get("error"):
+            sin_col.append(f"✗ {c['cap']}: {pp['error']}")
+        quedan = {e.get("pool_id") for e in c["eventos"] if e["queda"] and e.get("pool_id")}
+        for f in (c["plan"].get("rotulista") or {}).get("filas") or []:
+            pid = f.get("pool_id")
+            if pid in quedan:
+                continue
+            mot = next((e["filtro"] for e in c["eventos"] if not e["queda"] and e.get("pool_id") == pid), None)
+            sin_col.append(f"✗ {c['cap']} ficha {pid} «{f.get('etiqueta') or ''} · {f.get('texto')}»: "
+                           f"{mot or f.get('motivo') or 'sin motivo anotado'}")
+        for f in pp.get("sin_colocar") or []:
+            sin_col.append(f"✗ {c['cap']} ficha {f.get('pool_id')}: {f.get('motivo')}")
+        for f in c["plan"].get("sellos_tema") or []:
+            if f.get("papel") and f.get("accion") == "fuera":
+                sin_col.append(f"✗ {c['cap']} sello {f.get('texto')}: {f.get('motivo')}")
+        for a in pp.get("sin_alinear") or []:
+            sin_al.append(f"✗ {c['cap']} [{a['papel']}] «{a['texto'][:70]}» → voz [{a['voz']}] «"
+                          f"{str(a.get('voz_texto') or '')[:70]}» (parecido {a['parecido']})")
+        tk = c["plan"].get("time_ticker")
+        voz = f"{tk.get('day')} {tk.get('month')} {tk.get('tail')}".strip() if tk else None
+        for r in pp.get("relojes") or []:
+            igual = voz is not None and _norm_fecha(r.get("fecha")) == _norm_fecha(voz)
+            rel.append(f"{'✓' if igual else '·'} {c['cap']} papel «{r.get('fecha')}» en [{r.get('sentence_idx')}] · "
+                       f"reloj de la voz {('«' + voz + '»') if voz else '—'}" + ("" if igual else " → difiere (anotado)"))
+        if voz and not pp.get("relojes"):
+            rel.append(f"· {c['cap']} el papel no trae reloj · reloj de la voz «{voz}» → difiere (anotado)")
+    return [{"nombre": "papel sin colocar", "ok": not sin_col, "lineas": sin_col or ["✓ todo lo del papel quedó en pantalla"]},
+            {"nombre": "papel sin alinear", "ok": not sin_al,
+             "lineas": sin_al or [f"✓ las oraciones del papel de {len(con)} caps alinean con la voz"]},
+            {"nombre": "relojes del papel (informativo)", "ok": True, "lineas": rel or ["· sin relojes en el papel"]}]
+
+
+def _norm_fecha(s: Any) -> str:
+    from script_engine import evidence as ev
+    return " ".join(re.findall(r"[^\W_]+", ev.norm(str(s or ""))))
 
 
 # ═══════════════════════ armado y salida ═══════════════════════
@@ -653,6 +700,7 @@ def _linea(e: dict) -> str:
         partes.append(f"movido: {e['movido']}")
     if e["tipo"] not in ("costura", "transición", "punch", "silencio de voz"):
         partes.append(f"filtro: {e['filtro']}")
+        partes.append(f"papel: {'sí' if e.get('papel') else 'no'}")
     return ("✂ " if not e["queda"] else "") + " · ".join(str(p) for p in partes)
 
 

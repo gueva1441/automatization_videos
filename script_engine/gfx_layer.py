@@ -617,15 +617,12 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         rot_on = bool(real) and gfx_rules.rotulista and bool(ctx.get("pool"))   # F29b §A: el rotulista escribe el texto
         rot = ent_rot = None
         edits: list[dict] = []
-        if rot_on:
+        if rot_on:                          # F36 §C.4: el texto viene del guion en papel (m01e_pantalla), sin modelo
             from script_engine import gfx_rotulista as gro
-            ent_rot = gro.entrada(ctx["chapter_number"], real, ctx["escaleta"], ctx.get("pool"), words, time_offset,
-                                  voz_video=gro.voz_del_video(ctx), pre_roll=pre_roll, voz_antes=gro.voz_previa(ctx))
-            rot = gro.llamar(ent_rot, words, time_offset, work_dir, cap, modelo=gfx_rules.rotulista_modelo,
-                             effort=gfx_rules.rotulista_effort, tope=gfx_rules.rotulista_tope_usd, log=log)
-            edits = gro.ediciones_de(work_dir, cap)                     # F32 §A.5: cambios a mano (fase2b --plan-edit)
-            if edits:
-                rot = gro.aplicar_ediciones(rot, edits, ent_rot, log)
+            ent_rot, rot = gro.preparar_cap(ctx["chapter_number"], cap, real, ctx, words, time_offset, pre_roll=pre_roll)
+            log.append(f"  guion en papel: {rot.get('modelo') or rot.get('error')} · {len(rot['final']['bloques'])} "
+                       f"ficha(s) · {len(rot['sellos'])} sello(s) · {len(rot['relojes'])} reloj(es) · oraciones sin "
+                       f"alinear {[(a['papel'], a['parecido']) for a in rot['sin_alinear']]}")
         scenes = build_scenes(plan, ctx["script_chapter"], raw_words, clip_dur, time_offset, pre_roll=pre_roll)
         scenes = assign_quiet_sides(snap_cuts(scenes, project / "public" / "base.mp4", fps), project / "public" / "base.mp4")
         log.append(f"  escenas: {len(scenes)} ({', '.join(f'{s.start:.2f}{s.rank}' for s in scenes)})")
@@ -788,11 +785,20 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             resolved, rej2 = _lock2(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
                                     question_sources=ctx.get("next_sources"))
             rejected += rej2
-        if gfx_plan_override is None and rot_on:                     # F34 §A.5 y §A.6
-            gro.agua_de_voz(resolved, ent_rot, log)
+        if gfx_plan_override is None and rot_on:                     # F36 §C.4: tarjeta y relojes del papel
             if plan.is_first:
-                resolved["tarjeta_inicial"] = gro.tarjeta_inicial(ctx["escaleta"], ctx.get("pool"))
+                tp, deriv = rot.get("tarjeta"), gro.tarjeta_inicial(ctx["escaleta"], ctx.get("pool"))
+                resolved["tarjeta_inicial"] = (
+                    {"texto": tp["texto"], "fuente": "guion en papel (m01e_pantalla)", "papel": True,
+                     **({"difiere": f"la derivada de la escaleta dice «{deriv['texto']}»"}
+                        if deriv.get("texto") and deriv["texto"] != tp["texto"] else {})}
+                    if tp else {"falta": True, "motivo": "el guion en papel no trae tarjeta", "papel": True})
                 log.append(f"  tarjeta fecha-hora: {resolved['tarjeta_inicial']}")
+            tk_v = resolved.get("time_ticker")                       # aclaración 4: el reloj es el de la voz
+            resolved["papel"] = {"relojes": rot.get("relojes") or [], "sin_alinear": rot.get("sin_alinear") or [],
+                                 "sin_colocar": rot.get("sin_colocar") or [], "error": rot.get("error"),
+                                 "reloj_voz": ({"fecha": f"{tk_v.get('day')} {tk_v.get('month')} {tk_v.get('tail')}",
+                                                "sentence_idx": tk_v.get("sentence_idx")} if tk_v else None)}
         if details and not resolved.get("evidence_zoom") and not rot_on:   # F4b §3: zoom nombrado o «de editor»
             from script_engine import gfx_vision as gv
             from script_engine.gfx_peak import sentences as _sents2
@@ -926,7 +932,8 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             from script_engine.gfx_critic import criticize_rotulista, estorba
             resolved["critico_rotulista"] = criticize_rotulista(resolved, base=project / "public" / "base.mp4",
                                                                 words=words, time_offset=time_offset, work_dir=work_dir,
-                                                                cap=cap, log=log)
+                                                                cap=cap, log=log,
+                                                                solo_estorba=bool(rot and rot.get("papel")))   # F36 §C.4
             wl = resolved.get("water_level")
             if wl and wl.get("de_voz"):
                 row = estorba("nivel_agua", wl, base=project / "public" / "base.mp4", words=words,
@@ -948,9 +955,9 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             gro.escena_final(resolved, scenes, ent_rot, log)
             gro.hasta_el_corte(resolved, scenes, fps, log)
             critico = gfx_plan_override is None and gfx_rules.visual_critic
-            gro.sellos_por_tema(resolved, scenes, ent_rot, words, time_offset, ctx.get("moods") or _moods_activos(),
-                                log, work_dir=work_dir, cap=cap, juez=_juez_sello if critico else None,
-                                usadas_video=usadas_antes(work_dir, ctx["chapter_number"]))
+            gro.sellos_del_papel(resolved, scenes, ent_rot, words, time_offset, ctx.get("moods") or _moods_activos(),
+                                 log, rot.get("sellos") or [], juez=_juez_sello if critico else None,
+                                 usadas_video=usadas_antes(work_dir, ctx["chapter_number"]))   # F36 §C.4
             resolved["critico_previo"] += [r for r in resolved.pop("critico_sellos", None) or [] if r["pasa"]]
         from script_engine.gfx_realizador import cerrar        # F29: finalizar → crítico → pico · F29b: … → pico → crítico
         cerrar(resolved, real, ctx.get("pool"), log, criticar=_criticar, rotulista=rot_on,

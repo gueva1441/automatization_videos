@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 def modulos() -> list[Path]:
     se = ROOT / "script_engine"
-    fs = sorted(se.glob("gfx_*.py")) + [se / n for n in ("aprobacion.py", "m01a_escaleta.py", "m01d_particion.py",
+    fs = sorted(se.glob("gfx_*.py")) + [se / n for n in ("aprobacion.py", "m01a_escaleta.py", "m01d_particion.py", "m01e_pantalla.py",
                                                           "music_intensity.py", "transition_applier.py")]
     fs += [se / n for n in ("rotulista_llm.py", "rotulista_filtros.py", "rotulista_colocar.py", "clima.py",   # F36 §A
                             "voz_datos.py", "voz_utils.py")]

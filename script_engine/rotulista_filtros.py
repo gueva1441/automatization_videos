@@ -275,7 +275,35 @@ cantidad = finalizar                     # sobre el lote de los que pasaron, no 
 cantidad.regla = "cantidad"              # type: ignore[attr-defined]
 cantidad.lote = True                     # type: ignore[attr-defined]
 
-ORDEN = [anclaje, gancho_dicho, forma, candado, no_dicho, spoiler, lectura, coherencia, cantidad]
+def ancla_papel(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> str | None:
+    """F36 §C.4: el bloque viene del guion en papel (m01e_pantalla), ya anclado a la oración de la voz por texto
+    (gfx_rotulista.del_papel) y a su palabra; acá solo se arma lo que leen los filtros que siguen (ítem, oración,
+    palabra, tipo por estilo, texto, etiqueta). El anclaje y la forma del modelo quedan en papel (§C.3); sale solo si
+    el ítem no está en el pool."""
+    pid = str(b.get("pool_id") or "")
+    x = ctx["its"].get(pid)
+    if x is None:
+        return f"pool_id {pid!r} no está en el pool del video"
+    si, wi = int(b["sentence_idx"]), int(b["word_idx"])
+    tipo = str(b.get("tipo") or "hecho")
+    txt = re.sub(r"\s+", " ", str(b.get("texto") or "")).strip()
+    if tipo == "cita":
+        txt = re.sub(r"^[«\"“]+|[»\"”]+$", "", txt).strip()
+    et = re.sub(r"\s+", " ", str(b.get("etiqueta") or "")).strip() or None
+    b["texto"], b["etiqueta"] = txt, et
+    ctx.update(pid=pid, x=x, si=si, s=ctx["sents"][si], wi=wi, tipo=tipo, txt=txt, et=et, forzado=None)
+    return None
+
+
+ancla_papel.regla = "anclaje"            # type: ignore[attr-defined]
+
+# F36 §C.4 (aclaración 3): Fase 2 re-chequea lo mecánico con los datos reales (candado, no dicho, spoiler, lectura
+# hasta el corte); «nunca al mismo tiempo», el crítico de foto y «ya mostrado» corren después (colocar, escena_final).
+# No se re-aplican: cantidad (uno por beat), «pico solo a_pantalla» ni el desempate (los decidió el papel), ni la
+# forma y el anclaje del modelo (quedan en papel, §C.3), ni la coherencia (no está en la lista de la aclaración 3).
+ORDEN = [ancla_papel, gancho_dicho, candado, no_dicho, spoiler, lectura]
+# el orden del rotulista de gfx (F34), solo para rotulista_llm mientras exista (D lo borra)
+ORDEN_MODELO = [anclaje, gancho_dicho, forma, candado, no_dicho, spoiler, lectura, coherencia, cantidad]
 
 
 def regla(f: Any) -> str:
@@ -283,11 +311,19 @@ def regla(f: Any) -> str:
     return getattr(f, "regla", f.__name__)
 
 
+def validar_papel(bloques: list[dict[str, Any]], ent: dict[str, Any], words: list[dict], time_offset: float = 0.0,
+                  escenas: list[Any] | None = None) -> dict[str, Any]:
+    """F36 §C.4: los bloques del guion en papel (gfx_rotulista.del_papel) por los filtros de `ORDEN`."""
+    return validar({"bloques": bloques}, ent, words, time_offset, escenas, orden=ORDEN)
+
+
 def validar(resp: Any, ent: dict[str, Any], words: list[dict], time_offset: float = 0.0,
-            escenas: list[Any] | None = None) -> dict[str, Any]:
-    """{bloques, rechazos, faltan, motivo_faltan, incompletos}: los bloques que pasan los filtros de `ORDEN` y la
-    cantidad por beat (con t0, t1, dur, beat, pantalla), cada uno que sale con su regla y su motivo, y los `a_pantalla`
-    que no salieron. Sin `escenas` (prefetch) el fin no se corta en la escena: eso lo hace `colocar`."""
+            escenas: list[Any] | None = None, orden: list[Any] | None = None) -> dict[str, Any]:
+    """{bloques, rechazos, faltan, motivo_faltan, incompletos}: los bloques que pasan los filtros de `orden` (por
+    defecto `ORDEN_MODELO`, el del rotulista de gfx) y los de lote (la cantidad por beat, si está en el orden), con t0,
+    t1, dur, beat, pantalla; cada uno que sale con su regla y su motivo, y los `a_pantalla` que no salieron. Sin
+    `escenas` (prefetch) el fin no se corta en la escena: eso lo hace `colocar`."""
+    orden = ORDEN_MODELO if orden is None else orden
     its = {x["id"]: x for x in ent["items"]}
     sents = oraciones(words, time_offset)
     beats = ent["beats"]
@@ -301,7 +337,8 @@ def validar(resp: Any, ent: dict[str, Any], words: list[dict], time_offset: floa
     def fuera(b: dict, regla: str, motivo: str) -> None:
         rech.append({"pool_id": b.get("pool_id"), "tipo": b.get("tipo"), "etiqueta": b.get("etiqueta"),
                      "texto": b.get("texto"), "sentence_idx": b.get("sentence_idx"), "regla": regla, "motivo": motivo})
-    por_bloque = [f for f in ORDEN if not getattr(f, "lote", False)]
+    por_bloque = [f for f in orden if not getattr(f, "lote", False)]
+    por_lote = [f for f in orden if getattr(f, "lote", False)]
     bl = (resp or {}).get("bloques") if isinstance(resp, dict) else None
     for b in bl if isinstance(bl, list) else []:
         if not isinstance(b, dict):
@@ -326,8 +363,10 @@ def validar(resp: Any, ent: dict[str, Any], words: list[dict], time_offset: floa
                        "caracteres": chars, "lectura_s": round(chars / LECTURA_CPS, 2),
                        "movido": None,                 # F32 §B.5: un `a_pantalla` puede ir en el beat pico (ya no se mueve)
                        "movido_corte": ctx["movido_corte"], "forzado": ctx["forzado"], "max_chars": ctx["max_chars"]})
-    keep, rech_c = cantidad(ok, pk_beat)
-    rech += rech_c
+    keep = sorted(ok, key=lambda b: b["t0"])
+    for f in por_lote:
+        keep, rech_c = f(keep, pk_beat)
+        rech += rech_c
     salen = {b["pool_id"]: b for b in keep}
     faltan = [x["id"] for x in ent["items"] if x["a_pantalla"] and x["id"] not in salen]
     motivo_faltan = {}

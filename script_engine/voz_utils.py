@@ -234,6 +234,20 @@ def oraciones(words: list[dict], time_offset: float = 0.0) -> list[dict[str, Any
     return out
 
 
+def oraciones_de_texto(texto: str) -> list[str]:
+    """F36 §C.1: el mismo corte de `oraciones` (gfx_peak.sentences: la palabra que termina en . ! ? …) aplicado a un texto
+    sin tiempos (la narración de Fase 1): el guion en papel y la voz se parten igual y Fase 2 los alinea por texto."""
+    from script_engine.gfx_peak import sentences
+    return [s["text"] for s in sentences([{"word": w, "start": 0.0, "end": 0.0} for w in palabras(texto)])]
+
+
+def norm_oracion(texto: str) -> str:
+    """F36 §C.4 (aclaración 2): una oración para alinear papel ↔ voz: sin tildes, puntuación, mayúsculas, etiquetas de
+    TTS (`[pausa]`, `<break …/>`) ni pausas."""
+    t = re.sub(r"\[[^\]]*\]|<[^>]*>", " ", str(texto or ""))
+    return " ".join(re.findall(r"[^\W_]+", ev.norm(t)))
+
+
 def beat_de_oracion(s: dict, beats: list[dict]) -> int | None:
     """El beat de una oración: el que contiene su inicio (con la tolerancia de pico_cap); si cae entre beats, el último
     que ya empezó."""

@@ -3116,14 +3116,8 @@ def _assemble_one_video(
         from script_engine.gfx_layer import prefetch_plans
         _pre = prefetch_plans([p for p in plans if not only_cap or p.chapter_id == only_cap], video_id, work_dir)
         print(f"  🎨 gfx_director prefetch: " + ", ".join(f"{c} {t:.0f}s" for c, t in _pre.items()))
-        from gfx_config import gfx_rules as _gr
-        if _gr.rotulista:                                   # F29b §A.2: el rotulista de todos los caps en paralelo
-            from script_engine.gfx_rotulista import prefetch as _rot_prefetch
-            _ps = [p for p in plans if not only_cap or p.chapter_id == only_cap]
-            _rot = _rot_prefetch(_ps, video_id, work_dir,
-                                 {p.chapter_id: (HOOK_DURATION if (p.is_first and hook) else 0.0) for p in _ps},
-                                 modelo=_gr.rotulista_modelo, effort=_gr.rotulista_effort, tope=_gr.rotulista_tope_usd)
-            print(f"  ✍  rotulista prefetch ({_gr.rotulista_modelo}): {_rot}")
+        # F36 §C.4: el texto de pantalla sale del guion en papel (m01e_pantalla, Fase 1): ya no hay rotulista que
+        # llamar en paralelo antes del plan
     if plan_only:                                                       # F32 §A: el guion de pantalla, sin render
         try:
             rc = _solo_plan([p for p in plans if not only_cap or p.chapter_id == only_cap], video_id, work_dir,
@@ -3445,9 +3439,9 @@ def main() -> int:
                              "→ output/<id>/GUION_PANTALLA.md/.json + _fase2b_work/mezcla_preview.wav. Implica --gfx y "
                              "--reuse-visuals (los visuales base tienen que estar cocidos).")
     parser.add_argument("--plan-edit", type=str, default=None, metavar="ARCHIVO.json",
-                        help="F32 §A.5: suma las ediciones del archivo ({\"ediciones\": [{cap, pool_id, texto|etiqueta|"
-                             "word_idx|sentence_idx|escena|borrar|agregar}]}) a _fase2b_work/plan_edits.json y regenera el "
-                             "guion (implica --plan-only; el rotulista sale de caché).")
+                        help="F36 §C.4: aplica las ediciones del archivo ({\"ediciones\": [{cap, beat, ficha|sello: {…}|null}"
+                             " o {tarjeta: {texto}|null}]}) al guion en papel del topic (_steps/<topic>/01e_pantalla.json; "
+                             "copia antes_de_edicion la primera vez) y regenera el guion (implica --plan-only).")
     parser.add_argument("--aprobar-guion", type=str, default=None, metavar='"QUIÉN FECHA"',
                         help="F33 §B: escribe `aprobado: {por, fecha, md5_planes}` en output/<id>/GUION_PANTALLA.json (la "
                              "compuerta del render: el hook guard_render no deja pasar `--gfx` sin eso). CC lo corre solo "
@@ -3498,9 +3492,11 @@ def main() -> int:
         if not args.video_id:
             print("❌ --plan-edit necesita el video_id")
             return 1
-        from script_engine.gfx_rotulista import guardar_ediciones
+        from config import DATA_DIR
+        from script_engine.m01e_pantalla import editar               # F36 §C.4: se edita el papel, no el plan
         nuevas = json.loads(Path(args.plan_edit).read_text(encoding="utf-8")).get("ediciones") or []
-        f = guardar_ediciones(OUTPUT_DIR / args.video_id / "_fase2b_work", nuevas)
+        _sc = json.loads((DATA_DIR / "scripts" / f"{args.video_id}.json").read_text(encoding="utf-8"))
+        f = editar(str(_sc.get("topic_id") or args.video_id), nuevas)
         print(f"  ✎ {len(nuevas)} edición(es) → {f}")
         args.plan_only = True
     if args.plan_only:                          # F32 §A: el guion de pantalla usa los visuales ya cocidos

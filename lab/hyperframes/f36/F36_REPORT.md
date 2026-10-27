@@ -291,3 +291,625 @@ usadas)», así que el prefetch de los 7 caps tiene que pasar de paralelo a fila
 modelo eligió en los anteriores); y C.2 necesita los cortes de escena en la entrada, que hoy se arma antes de tener
 escenas (se toman de `build_scenes` sin el ajuste fino de `snap_cuts`, iguales en el prefetch y en el plan, para que la
 caché del modelo no se rompa).
+
+---
+
+# F36 C y D nuevos — handoff `lab/hyperframes/f36/HANDOFF_F36_C_D_pantalla.md` (reemplaza C y D de `HANDOFF_F36_estructura.md`)
+
+CC · 2026-10-26 (sesión nueva, procedimiento `/tanda` 1–12). Base `bce140e`. Decisiones de Omar 18:17 («catálogo definitivo») y
+19:54 («el autor de la pantalla va a Fase 1»). Pedido literal de Omar: C (paso suelto para Vajont, tope US$ 0.50, `--plan-only`,
+simulador contra el contrato de 13 líneas, `01e_pantalla.md` entero, los 6 tests de la aclaración 8, PARADA) y D (borrar,
+diff vacío contra C, mapa con 0 muertos, claves huérfanas del perfil, PARADA final). El prompt de Omar autoriza C y D en
+la misma tanda; las paradas condicionales (JSON inválido dos veces, narración que no alinea, D sin diff vacío) no se
+dieron (ver cada parte).
+
+## Lecturas declaradas (paso 1)
+`CLAUDE.md`, `DECISIONES.md` entero (con 18:17 y 19:54), `lab/ESTADO_SESION.md` (cabecera, F36, F34), el handoff nuevo
+entero con sus 9 aclaraciones, `.claude/commands/tanda.md`, la nota de traspaso de la sesión de A y B,
+`lab/hyperframes/f34/REVISION_GUION.md` (contrato), `lab/hyperframes/f36/RESPUESTA_C.md`, este reporte (A y B),
+`rotulista_llm/filtros/colocar`, `clima`, `voz_datos`, `voz_utils`, `gfx_rotulista`, `gfx_layer.apply_gfx` (tramo del
+plan), `gfx_guion` (eventos, cortes, chequeos), `gfx_critic.estorba/criticize_rotulista`, `gfx_realizador.cargar/ventanas/
+finalizar/cerrar`, `fase1_5.run_guion_v3/v4/_step_cost`, `m01d_particion` (cabecera), `fase2b._solo_plan` y `--plan-edit`,
+`claude_helpers.call_json/_post/cost_of`, `lab/tools/mapa_*.py`.
+
+## Paso 0 (commit `52c7d48`)
+- La C vieja sin commitear fue a **`stash@{0}: f36-c-vieja-descartada`** con `git stash push -u -m f36-c-vieja-descartada --
+  <archivos>` (solo esos archivos; el `-u` con pathspec solo se lleva los untracked de la ruta nombrada). Qué había (776
+  líneas +, 563 −): `clima.py` (449: sellos con Sonnet en la llamada del rotulista), `gfx_guion.py` (62: «dos bloques al
+  mismo tiempo»), `gfx_layer.py` (26), `gfx_pool.py` (2), `gfx_rotulista.py` (38), `rotulista_colocar.py` (217: «nunca al
+  mismo tiempo», `caben_hasta`, `agua_de_bloque`), `rotulista_filtros.py` (37), `rotulista_llm.py` (90: pool completo,
+  `caben`), `voz_datos.py` (85), tests `f29c_rotulista`, `f32`, `f34`, `f36` (242) y el untracked `lab/hyperframes/f36/c/`
+  (`prompt_antes.txt`, `prompt_despues.txt`). No se borró nada.
+- Lo ajeno a F36 quedó en el árbol sin tocar: `diag_234_cap4.py`, `gfx_profiles/lexico_propuestas.json`,
+  `gfx_profiles/misterio.json`, `lab/hyperframes/f28/a/f28a.log` y los `??` viejos. `git status` después: el árbol de F36
+  en `bce140e`.
+- Commit `52c7d48`: `DECISIONES.md` tal cual (18:17 y 19:54) + el handoff nuevo, `RESPUESTA_C.md` y `REVISION_GUION.md`
+  del analista, tal cual.
+- Reuso declarado: la función «nunca al mismo tiempo» de `rotulista_colocar.escena_final` y el chequeo «dos bloques al
+  mismo tiempo» del guion se tomaron del stash (son la misma regla de DECISIONES 17:58 que la aclaración 3 deja en Fase 2);
+  nada más del stash.
+
+## Módulos que toca la tanda (paso 2; sticker de `lab/MAPA_MODULOS.md` → después)
+| módulo | hoy (sticker) | después de C | después de D |
+|---|---|---|---|
+| `m01e_pantalla` (nuevo) | — | Fase 1: el guion de pantalla en papel (una llamada a Sonnet, validación en papel, `.json`/`.md`) | igual |
+| `fase1_5` | corre escaleta → guion → partición → juez | `run_pantalla` después de la partición, antes de la voz (paso «pantalla» en `01_v3_costos.json`) | igual |
+| `gfx_rotulista` | fachada + prefetch del rotulista | `preparar_cap` lee el papel, `alinear`, `palabra_idx`; sin `prefetch` | solo `preparar_cap` y lo que usa |
+| `rotulista_llm` | el pedido al modelo | nadie del camino lo llama | **borrado** |
+| `rotulista_filtros` | `ORDEN` de 9 filtros | `ORDEN` = anclar el papel, no dicho del gancho, candado, no dicho, spoiler, lectura; el viejo como `ORDEN_MODELO` | sin `ORDEN_MODELO` ni sus filtros |
+| `rotulista_colocar` | tiempos, colocar, ediciones, «una por escena» | colocar del papel (cita = ficha con autor), «nunca al mismo tiempo» | sin agua, contador, lupa ni ediciones del plan |
+| `clima` | sellos con Gemini Flash | `sellos_del_papel` | sin Gemini |
+| `voz_datos` | pico, reloj, agua, tarjeta | sin agua en el camino; tarjeta derivada solo para comparar | sin agua |
+| `gfx_layer` | director de orquesta | lee el papel, tarjeta y relojes del papel, crítico «¿estorba?» | sin los caminos borrados |
+| `gfx_critic` | crítico F4e + rotulista | `solo_estorba` para el papel | solo el del rotulista con «¿estorba?» |
+| `gfx_guion` | guion + chequeos | columna `papel`, «dos bloques al mismo tiempo», «papel sin colocar / sin alinear», relojes del papel | igual |
+| `fase2b` | prefetch del rotulista, `--plan-edit` al plan | sin prefetch; `--plan-edit` edita el papel | sin sfx por bloque |
+| `lab/MAPA_MODULOS.*` | 43 módulos, 14 muertos | 44 módulos, 18 muertos (los 4 nuevos los deja C para D) | 0 muertos |
+
+---
+
+## Parte C — `m01e_pantalla`: el guion de pantalla en papel (commit C)
+
+### Simulación previa (paso 5, antes del código de Fase 2)
+Agente `simulador` sobre el guion de B: `lab/hyperframes/f36/c/simulacion_previa.md` (íntegro ahí). Las tres tablas:
+
+| regla | propuestos | cortados | quedan / vuelven |
+|---|---|---|---|
+| R1 «nunca al mismo tiempo» sobre lo colocado hoy | 18 | 0 | 18 quedan |
+| R1 sobre lo cortado por «la escena ya tiene» | 2 | 1 | 1 vuelve (MEMORIA ch07 1013.65) |
+| R2 sin `cantidad`/pico/desempate, sin agua | 8 | 3 | 5 vuelven (T21, D71, D104, D68, D32) |
+| R3 catálogo 18:17 (agua, contador, lupa) | 3 | 3 | 0 |
+
+Lectura: R1 no corta nada colocado y deja salir MEMORIA; R2 muestra que sin el modelo en Fase 2 el número de fichas depende
+entero del papel («un sello por beat» queda en el papel); R3 saca las 2 aguas y el contador.
+
+### C.1 Dónde corre y qué recibe
+- `script_engine/m01e_pantalla.py` (nuevo). Fase 1: `fase1_5.run_pantalla` se llama en `run_guion_v3` y `run_guion_v4`
+  justo después de `m01d_particion` (antes del juez m05 y de la voz), con `_step_cost(topic, "pantalla", …)`; si no hay JSON
+  en dos intentos o no alcanza el tope, avisa y Fase 1 sigue. Suelto: `python -m script_engine.m01e_pantalla <topic>`
+  (también `python script_engine/m01e_pantalla.py <topic>`), con su costo en `01_v3_costos.json` como paso «pantalla».
+- Lee (aclaración 1) del directorio del topic de Fase 1: `01a_escaleta.json`, `01b_narracion_v3.json` (párrafos por cap y
+  beat), `01a_skeleton.json` (títulos de la partición) y `00_pool_v3.json` (o el `evidence_pool` del topic, desde
+  fase1_5). **Desvío declarado:** la aclaración dice «el de `ba6c3cac…` para Vajont», pero el topic de Fase 1 de Vajont es
+  `data/scripts/_steps/f8s3-vajont` (`topic_id` del script `f8s3-vajont-f30.json`; `ba6c3cac` es Orleans): es el directorio
+  que leen `gfx_realizador.cargar` y el rotulista, que es lo que pide la aclaración. Ahí se escribe y de ahí lee Fase 2.
+- Oraciones: `voz_utils.oraciones_de_texto` (el corte de `gfx_peak.sentences` aplicado al texto) sobre cada párrafo; cada
+  oración con su beat (el del párrafo) y `caben` = int(palabras × `SEG_POR_PALABRA` 0.35 `# medido: Vajont ch04` × 15 cps).
+- Archivo: el pool con D con cifra (`numeros` del texto), T, Q y P: **400 ítems** en Vajont (D 171, T 120, Q 57, P 52); T con
+  «(fecha …, hora …)» en su texto, P «nombre — rol», Q con `autor`. `beats_que_lo_cuentan` = beats donde es `dato_central`
+  o apoyo + el beat de su `a_pantalla` (`gfx_realizador.beat_de_pantalla`). Beats: n, cap, función, pico (sí/no,
+  `music_intensity.beat_pico_de_cap`), dato central, apoyo, cierre. Clima: `sellos_clima` del perfil (10 palabras).
+- **Tokens de entrada de Vajont: 59 976** (USER 124 313 caracteres). El USER real recortado a ch03:
+  `lab/hyperframes/f36/c/user_vajont_recortado_ch03.txt` (pegado abajo).
+- Salida: `01e_pantalla.json` (por cap y beat `ficha|null` y `sello|null`, `relojes`, `tarjeta`, `descartados` con regla y
+  motivo) y `01e_pantalla.md`; la cruda y la caché en `01e_pantalla.raw.json`. **Desvío declarado:** el «Formato de salida»
+  que ve el modelo es el esquema de C.1 **sin `estilo`**: C.1 dice que el estilo no lo elige el modelo; lo pone
+  `estilo_de` (Q → cita, P → nombre, D/T cuya etiqueta o el `por_que` de su `a_pantalla` nombran carta/acta/informe/documento
+  → papel —`rotulista_filtros.pide_documento`, lectura declarada de «D/T que pide_documento»—, resto → normal).
+
+### C.2 El prompt (literal) y la llamada
+- `PANTALLA_SYSTEM` = el SYSTEM de C.2 copiado tal cual; `PROMPT_VERSION = "m01e-1"`. **md5 del prompt (SYSTEM + línea del
+  formato) `aa1ebc33f964a9908ca486dfb12d0a0c`**; md5 del SYSTEM solo `0354c7641ab01bd9b7d2e1992bfecb8d`. USER = el JSON de
+  entrada + «Formato de salida: …». md5 de la entrada de Vajont `e0e9d72ee684b05ef873d1314f4d9f53`.
+- `claude-sonnet-5-5`, `medium`, POST propio (una llamada por intento; sin los reintentos de JSON de `call_json`, para que
+  «dos intentos» sean dos), costo al `cost_tracker`, caché por md5 (versión + modelo + effort + SYSTEM + USER).
+- **Vajont: 1 llamada, JSON válido, 59 976 tokens de entrada, 18 911 de salida (12 733 de razonamiento), US$ 0.3091,
+  140.5 s.** La validación sacó 3 fichas → tocaba el reintento, pero **el tope no alcanzó**: gastado 0.3091 + el peor caso de
+  la segunda llamada 0.2685 > 0.50 → sin reintento (anotado en la cruda y en el log). No se pasó el tope.
+
+### C.3 Validación en papel
+Por ficha, en orden: anclaje (cap, beat del cap, ítem del archivo, oración que existe y es de ese beat, una por beat) →
+formato (etiqueta y dato no vacíos, cita con autor, `ficha_medida`: etiqueta 1 línea, dato ≤ 2) → `gancho_dicho`, `candado`
+y `no_dicho` de `rotulista_filtros` (con el texto del ítem del archivo como fuente; en el gancho, la voz de todo el video) →
+`spoiler` de `rotulista_filtros` sobre la narración posterior del cap **y de los caps siguientes** → el mismo dato una vez en
+el video → `caben`. Por sello: de la lista, no es palabra de la voz del cap (raíz de 5), no repetido en el video, uno por
+beat. Vajont: **3 fichas cayeron** (D47 spoiler «2»; D105 no dicho «1962»; Q43 caben 108 > 94); 0 sellos cayeron.
+
+### C.4 Fase 2 consume el papel
+- `gfx_layer.apply_gfx` → `gfx_rotulista.preparar_cap` (sin modelo): lee `01e_pantalla.json`, alinea cada oración del papel
+  con las de la voz por texto normalizado (`voz_utils.norm_oracion`; la que no es igual se ancla a la más parecida y se
+  anota «papel sin alinear»), ancla la ficha a la palabra (`palabra_idx`: igual, por raíz, o la primera palabra de
+  contenido) y arma los bloques. **Vajont: 161/161 oraciones alineadas** (7/7 narraciones).
+- `ORDEN` de `rotulista_filtros` recortado (aclaración 3): **`[ancla_papel, gancho_dicho, candado, no_dicho, spoiler,
+  lectura]`** (reglas: anclaje, no_dicho, candado, no_dicho, spoiler, lectura). Fuera: `forma` y el anclaje del modelo
+  (quedan en papel), `coherencia` (no está en la lista de la aclaración 3; su chequeo del guion sigue), `cantidad` (uno por
+  beat, pico solo `a_pantalla`, desempate). El orden viejo queda como `ORDEN_MODELO` solo para `rotulista_llm` hasta D.
+  Después de los filtros: ya mostrado (`colocar`), «nunca al mismo tiempo» (`escena_final`), crítico de foto «¿estorba?»
+  (`criticize_rotulista(solo_estorba=True)`: mismo pedido sin `aporta` ni `por_que`, cuenta la (3)).
+- Estilo → forma (aclaración 6): normal/nombre → ficha (title card); cita → ficha con «dato» — autor (title card, no
+  `quote_card`); papel → recorte. La lectura de la cita cuenta las comillas y la raya que se dibujan (+5 caracteres,
+  derivado), para que la duración y el chequeo «texto sin lectura» midan lo mismo.
+- Sellos (aclaración 5): `clima.sellos_del_papel` — palabra y oración del papel; el instante = la palabra de más peso de la
+  oración o, si cruza el corte, el inicio de la oración (lectura declarada de «palabra de más peso o inicio de la
+  oración»); vocabulario, no salió antes en el video, no cruza el corte; crítico antes del reparto; «nunca al mismo tiempo».
+  «Uno por beat» lo decidió el papel. Los sellos del director y el del pico salen (anotados).
+- Relojes (aclaración 4): `reloj_de_voz`/cronología como antes; los del papel van al guion como informativos. Tarjeta: la
+  del papel (si difiere de la derivada de la escaleta, se anota; en Vajont no difiere).
+- Agua, contador y lupa no corren (catálogo 18:17; el código se borra en D).
+- `fase2b`: sin el prefetch del rotulista; `--plan-edit` edita el papel (`m01e_pantalla.editar`: reemplaza ficha/sello de un
+  beat o la tarjeta, copia `01e_pantalla.antes_de_edicion.json` la primera vez, reescribe el `.md`).
+- `gfx_guion`: columna `papel: sí/no` en cada evento (y en lo cortado), chequeo «dos bloques al mismo tiempo» (reemplaza «dos
+  bloques en la misma escena»), «papel sin colocar», «papel sin alinear», «relojes del papel (informativo)».
+
+### Verificación
+- `python -m script_engine.m01e_pantalla f8s3-vajont` → US$ 0.3091 (`01_v3_costos.json`: paso «pantalla»).
+- `fase2b f8s3-vajont-f30 --plan-only --rotulista` (RAM 16.5 GB, Firefox cerrado): 161.5 s, **Claude US$ 0** (no hay
+  llamada de texto: el papel sale de disco), Gemini 0 en la segunda corrida (la primera, 227 s, US$ 0.0012: el crítico
+  «¿estorba?» de las fichas y sellos del papel). Log `c/plan_only.log`; guion `c/GUION_PANTALLA.md/.json`.
+- Tests de la aclaración 8: `test_module_f36c_pantalla.py` (6, verdes): (a) esquema (con el papel de Vajont en disco);
+  (b) candado: D195 con «1963» en la etiqueta fuera del gancho → candado (y en el gancho pasa por B.7: la voz dice el año);
+  (c) 7 narraciones de Vajont 100 % alineadas, en orden; (d) un dato una vez en el video; (e) sello que no repite palabra
+  (y no es palabra de la voz); (f) Fase 2 lee el papel de los 7 caps con `claude_helpers._post`, `call_json` y
+  `rotulista_llm.llamar` reemplazados por un error, y el `ORDEN` recortado.
+- Tests viejos adaptados a lo que cambió por decisión (no por comodidad): `test_module_f29c_rotulista.py::
+  test_ficha_no_convive_con_reloj_ni_con_title_card` (DECISIONES 17:58: la ficha que no toca el title card se queda; la que
+  se solapa espera), `test_module_f36.py::test_a_orden_de_filtros_es_el_de_f34` (el de F34 es `ORDEN_MODELO`) y
+  `::test_a_la_fachada_da_todos_los_nombres_de_antes` (falta solo `prefetch`).
+- Suites y md5: md5 de ch02 sin `--gfx` `38e5ba14e3d24fd20f9297c9e1dfee24` (igual; RAM 16.5 GB, Firefox 0), rápida **58**, amplia **1042 + las 5 previas** (01b_pauses ×3, m03_merge_timing ×2) — en B eran 1036 + 5: +6 de `f36c_pantalla`. `lab/hyperframes/f36/c/` (`onlycap_ch02_nogfx.log`, `suite_rapida.log`, `suite_amplia.log`, `ram_antes_md5.txt`). Mapa regenerado: 44 módulos, 156 aristas, 18 muertos (los 14 de antes + 4 que deja C para que D los borre: `rotulista_llm` y el `ORDEN_MODELO`, el Gemini de clima, agua y contador, las ediciones del plan).
+
+### Salida de C (1): `01e_pantalla.md` entero (Vajont)
+````markdown
+# Guion de pantalla en papel — f8s3-vajont
+
+`m01e_pantalla` m01e-1 (md5 del prompt `aa1ebc33f964a9908ca486dfb12d0a0c`) · claude-sonnet-5-5 medium · 1 intento(s) · US$ 0.3091 · tokens de entrada 59976
+
+**Tarjeta:** 9 OCT 1963 · 22:39
+
+Totales: 9 fichas · 9 sellos · 4 relojes · 1 tarjeta · 85 descartados
+
+## ch01 — Cama en la oscuridad
+
+- beat 1 · gancho · PICO · ficha **D131** [normal] «SALTO DE LA MASA DE AGUA · Más de 260 metros» en [15] sobre «encima» (41/68 car.) · aporta: La voz dice que la ola pasó por encima del dique, pero no dice de qué altura cayó el agua al valle. · sello **PÁNICO** en [4]
+- relojes: 9 OCT 1963 en [13]
+
+## ch02 — El muro que tapa
+
+- beat 2 · planteo · ficha **D117** [papel] «SESIÓN DEL CONSEJO SUPERIOR · 13 de 34 representantes presentes» en [2] sobre «aprobó» (60/210 car.) · aporta: La voz dice que el proyecto se aprobó en 1943, pero no que lo aprobó una sesión con solo 13 de 34 representantes presentes. · sello **CALMA** en [6]
+- beat 3 · escalada · PICO · ficha — · sello **AMENAZA** en [10]
+- relojes: —
+
+## ch03 — La costura abierta
+
+- beat 4 · giro · PICO · ficha **T16** [normal] «LA VÍCTIMA DE PONTESEI · Arcangelo Tiziani» en [3] sobre «Pontesei» (39/141 car.) · aporta: La voz dice que murió un trabajador, pero no dice cómo se llamaba. · sello —
+- beat 5 · escalada · ficha **D49** [normal] «ANCHO DE LA FISURA · Más de 1 metro» en [17] sobre «fisura» (32/194 car.) · aporta: La voz da el largo de la fisura, casi dos kilómetros, pero no su ancho. · sello **INMINENTE** en [18]
+- relojes: —
+
+## ch04 — La ola de juguete
+
+- beat 6 · giro · ficha — · sello —
+- beat 7 · giro · PICO · ficha — · sello **AVISO** en [14]
+- relojes: 4 NOV 1960 en [0]
+
+## ch05 — Piedras rodando
+
+- beat 8 · escalada · PICO · ficha **Q50** [cita] «ADMINISTRACIÓN DE ERTO Y CASSO · viviendo en continua aprensión y en continua alarma» — Administración del comune di Erto e Casso en [2] sobre «Erto» (122/152 car.) · aporta: La voz cuenta los avisos y las grietas, pero no que el propio municipio de Erto y Casso lo declaró por escrito. · sello **SILENCIO** en [10]
+- beat 9 · giro · ficha — · sello —
+- relojes: —
+
+## ch06 — El gran rugido
+
+- beat 10 · pico · PICO · ficha **D01** [normal] «ROCA DESPRENDIDA · 270 millones de metros cúbicos de roca» en [3] sobre «ladera» (54/94 car.) · aporta: La voz dice que la ladera entera cae al lago, pero no el volumen de roca. · sello **COLAPSO** en [20]
+- beat 11 · respiro · ficha **D17** [normal] «EVACUADOS DE SU ALDEA · 486 personas» en [29] sobre «evacuaron» (33/136 car.) · aporta: La voz dice que evacuaron a toda la gente del pueblo, pero no cuántas personas eran. · sello **RABIA** en [31]
+- relojes: —
+
+## ch07 — Diarios y verdades
+
+- beat 12 · revelacion · PICO · ficha **Q14** [cita] «RESPUESTA DE GIOVANNI LEONE · Y justicia tendréis» — Giovanni Leone en [1] sobre «justicia» (60/105 car.) · aporta: La voz cuenta el reclamo de la gente, pero no la respuesta que le dio el presidente del Consejo. · sello —
+- beat 13 · cierre · ficha **D245** [normal] «CONDENA A MONTEDISON · 55.645.758.500 liras» en [18] sobre «liras» (40/62 car.) · aporta: La voz da la oferta de ENEL, pero no que en 1997 un tribunal condenó a Montedison a pagar a Longarone esta suma. · sello **MEMORIA** en [22]
+- relojes: 20 FEB 1968 en [11], 29 NOV 1968 en [14]
+
+## Lo que cayó
+
+- ch02 beat 3 · ficha D47 «EL DESMORONAMIENTO DEL TOC · 2 km de frente y 600 m de desarrollo vertical» en [11] → **spoiler**: la voz lo dice en una oración posterior del cap o de un cap siguiente: ['2']
+- ch04 beat 7 · ficha D105 «NACIMIENTO DE ENEL · Creado por ley en diciembre de 1962» en [15] → **no_dicho**: la voz lo dice en la oración ancla o en una vecina: ['1962']
+- ch05 beat 9 · ficha Q43 «INGENIERO JEFE · Son sacudidas menores, no hace falta informar al ministerio» en [23] → **caben**: etiqueta + dato = 108 caracteres y en la oración [23] caben 94
+
+## Descartados por el modelo
+
+- Q49: Dato central del gancho, pero la voz ya lo dice en la oración 6 del capítulo 1.
+- Q19: La voz ya cita a Trevisano y la puerta que se abre.
+- D24: Dato central del beat 2, pero no existe en el archivo.
+- D164: No existe en el archivo.
+- D154: No existe en el archivo.
+- D157: No existe en el archivo.
+- D71: No existe en el archivo.
+- D103: No existe en el archivo.
+- D227: No existe en el archivo.
+- D229: No existe en el archivo.
+- D50: No existe en el archivo.
+- Q53: La voz ya dice «la montaña que camina».
+- T05: La voz ya cuenta que Müller detectó el desmoronamiento en los cincuenta.
+- T04: La voz ya dice que el proyecto se aprobó en 1943.
+- T03: La voz ya cuenta la compra de terrenos en Erto y Casso.
+- D147: Construida entre 1956 y 1960: dato sin gancho frente a D117, que tiene cifra y no está en la voz.
+- T12: La voz ya dice los 400 obreros.
+- D237: La voz ya dice los cerca de 400 operarios.
+- T18: La voz ya dice que Merlin denunció hacia 1959.
+- D72: La voz ya nombra a SADE, FIAT, Volpi y Cini como dueños de parte de Il Gazzettino.
+- T29: La voz ya dice que el llenado empezó en febrero de 1960.
+- T23: La voz ya dice la fisura de casi dos kilómetros.
+- D94: La voz ya dice la ola de veinte metros.
+- T15: El deslizamiento de Pontesei es de 3 millones de m³ y no suma frente al nombre de la víctima.
+- T21: Mismo dato de Pontesei en marzo de 1959, que la voz ya cuenta.
+- T27: La voz ya dice que el informe de Dal Piaz le restó peso a Semenza.
+- D119: No existe en el archivo.
+- Q37: La voz ya cita a Dal Piaz.
+- T36: Dato central del beat 6, pero la voz ya dice los setecientos mil metros cúbicos.
+- D223: Duplica lo que la voz ya dice del 4 de noviembre y los 700.000 metros cúbicos.
+- D156: La voz ya dice los 650 metros sobre el nivel del mar.
+- T33: La voz ya cuenta el juicio a Merlin.
+- T37: Fecha del primer artículo de Merlin (8 nov 1960) que contradice el 1959 que la voz dijo en ch03.
+- T39: La voz ya cuenta la advertencia de febrero de 1961.
+- D134: Da una altura de ola de 10 metros y la voz dice que nadie coincide en la altura; las fuentes se contradicen.
+- D155: Da una altura de ola de 2 metros; contradice D134 y a la voz.
+- D243: Da 800.000 metros cúbicos, que contradice la cifra que la voz dice.
+- T34: Mismo dato de 800.000 metros cúbicos que contradice a la voz.
+- D158: La fecha del movimiento de 3 cm a 1 mm por día es ambigua y roza lo que el cap 5 cuenta sobre el nivel de seguridad.
+- D197: Compara con el deslizamiento final y adelanta el desastre.
+- D106: Dato central del beat 7, pero la voz ya dice los 715 metros.
+- D104: La voz ya dice los setecientos metros.
+- Q44: La voz ya cita la frase del laboratorio.
+- T50: Da 720 metros en mayo de 1963, que choca con los 700 metros de junio que la voz dice en ch05.
+- T52: La voz ya dice el cambio de propiedad en julio.
+- D68: La voz ya dice el centímetro y medio por día.
+- D226: Dato central del beat 8, pero la voz ya dice el 2 de octubre y los avisos.
+- D162: La voz ya dice el 26 de septiembre y el nivel de seguridad.
+- D160: La voz ya dice junio, los setecientos metros y el medio centímetro.
+- Q46: La voz ya cita la frase.
+- Q28: La voz ya cita la frase.
+- Q45: La voz ya cita la frase.
+- T61: La voz ya cuenta la carta de Biadene a Pancini.
+- Q51: La voz ya cita la posdata.
+- T64: La voz ya dice las seis de la tarde y el aparejador.
+- D111: La voz ya dice que nadie dio la alarma.
+- D192: Revelaría la muerte de los técnicos en la central antes del capítulo 6.
+- T57: Dato central del beat 10, pero la voz ya cuenta el desprendimiento.
+- Q15: La voz ya cita al párroco.
+- Q16: La voz ya cita a Castellano.
+- Q17: La voz ya cita a Accamillesi.
+- T58: La voz ya cuenta que la ola pasó por encima de la presa.
+- D124: La voz ya dice los cuatro minutos.
+- D132: La voz ya dice los 400 metros que arrastró a Micaela.
+- D86: Los 70 metros de la ola son buen dato, pero el beat 10 admite una sola ficha y se eligió D01.
+- Q25: Dato central del beat 11, pero la voz ya cita la frase.
+- Q06: La voz ya cita al hombre de la aldea y los helicópteros.
+- D18: La voz ya dice los seis helicópteros.
+- Q13: Dato central del beat 12, pero la voz ya cita el grito de la gente.
+- Q20: La voz ya cita a Buzzati.
+- Q22: La voz ya cita a Bocca.
+- Q23: La voz ya cita a Coppola.
+- D136: La voz ya dice los dieciocho meses de la primera comisión.
+- T85: La voz ya dice el 20 de febrero de 1968 de la remisión a juicio.
+- T102: Dato central del beat 13, pero la voz ya dice la Casación de marzo de 1971.
+- D32: La voz ya dice los ocho acusados y el suicidio de Pancini.
+- T89: La voz ya dice la muerte de Pancini el día anterior al juicio.
+- T92: Condena de primera instancia en 1969, valiosa pero el beat 13 admite una sola ficha y se eligió D245.
+- D139: La voz ya dice los diez mil millones de liras de ENEL.
+- D140: La voz ya dice la última transacción en el año 2000.
+- Q56: La voz ya cita a Canestrini.
+- D195: Cifra de muertos en Longarone que revelaría la magnitud del desastre en el gancho, antes de que la voz lo cuente.
+````
+
+### Salida de C (2): el USER real de Vajont recortado a ch03
+````
+{
+ "caps": [
+  {
+   "cap": "ch03",
+   "titulo": "La costura abierta",
+   "oraciones": [
+    {
+     "idx": 0,
+     "beat": 4,
+     "texto": "El embalse se llamaba Pontesei.",
+     "caben": 26
+    },
+    {
+     "idx": 1,
+     "beat": 4,
+     "texto": "Ese marzo, una masa de roca entró al agua y levantó una ola de veinte metros.",
+     "caben": 84
+    },
+    {
+     "idx": 2,
+     "beat": 4,
+     "texto": "Un trabajador murió.",
+     "caben": 15
+    },
+    {
+     "idx": 3,
+     "beat": 4,
+     "texto": "Después de Pontesei, SADE encargó nuevas pericias sobre el Toc, y esas pericias identificaron una paleofrana: un deslizamiento antiguo, la cicatriz que Edoardo Semenza había estado buscando.",
+     "caben": 141
+    },
+    {
+     "idx": 4,
+     "beat": 4,
+     "texto": "El informe sobre esos riesgos lo escribió Giorgio Dal Piaz en mil novecientos sesenta.",
+     "caben": 73
+    },
+    {
+     "idx": 5,
+     "beat": 4,
+     "texto": "Dal Piaz había dicho alguna vez sobre la obra: «Si el proyecto original me parecía osado, ahora lo considero una completa locura».",
+     "caben": 115
+    },
+    {
+     "idx": 6,
+     "beat": 4,
+     "texto": "Su informe, en cambio, le restó peso a lo que señalaba Edoardo Semenza.",
+     "caben": 68
+    },
+    {
+     "idx": 7,
+     "beat": 4,
+     "texto": "Una ola de veinte metros.",
+     "caben": 26
+    },
+    {
+     "idx": 8,
+     "beat": 4,
+     "texto": "Un hombre muerto.",
+     "caben": 15
+    },
+    {
+     "idx": 9,
+     "beat": 4,
+     "texto": "Una paleofrana con nombre en un papel.",
+     "caben": 36
+    },
+    {
+     "idx": 10,
+     "beat": 4,
+     "texto": "El informe oficial dijo que no era grave.",
+     "caben": 42
+    },
+    {
+     "idx": 11,
+     "beat": 4,
+     "texto": "Una periodista de provincia escribió lo contrario.",
+     "caben": 36
+    },
+    {
+     "idx": 12,
+     "beat": 5,
+     "texto": "Se llamaba Tina Merlin y escribía en L'Unità.",
+     "caben": 42
+    },
+    {
+     "idx": 13,
+     "beat": 5,
+     "texto": "Hacia mil novecientos cincuenta y nueve publicó su primera denuncia: el Toc podía desprenderse sobre el lago.",
+     "caben": 89
+    },
+    {
+     "idx": 14,
+     "beat": 5,
+     "texto": "L'Unità fue el único diario nacional que siguió lo que pasaba en el Vajont antes del desastre, y lo siguió a través de ella.",
+     "caben": 125
+    },
+    {
+     "idx": 15,
+     "beat": 5,
+     "texto": "El diario que se leía en la zona era Il Gazzettino, y una parte de Il Gazzettino pertenecía a SADE, a FIAT, a Volpi y a Cini.",
+     "caben": 141
+    },
+    {
+     "idx": 16,
+     "beat": 5,
+     "texto": "En febrero de mil novecientos sesenta empezó el llenado, y el agua fue subiendo día a día por la garganta.",
+     "caben": 105
+    },
+    {
+     "idx": 17,
+     "beat": 5,
+     "texto": "Ese año hubo un pequeño desmoronamiento en el Toc, y después del desmoronamiento los habitantes vieron algo nuevo en la ladera: una fisura de casi dos kilómetros de largo, corriendo por la montaña como una costura abierta.",
+     "caben": 194
+    },
+    {
+     "idx": 18,
+     "beat": 5,
+     "texto": "Abajo, el lago seguía subiendo.",
+     "caben": 26
+    },
+    {
+     "idx": 19,
+     "beat": 5,
+     "texto": "El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta.",
+     "caben": 68
+    }
+   ]
+  }
+ ],
+ "beats": [
+  {
+   "n": 4,
+   "cap": "ch03",
+   "funcion": "giro",
+   "pico": true,
+   "dato_central": "T16",
+   "apoyo": [
+    "D94",
+    "T15",
+    "T21",
+    "D119",
+    "T27",
+    "Q37"
+   ],
+   "cierre": "El informe oficial dijo que no era grave. Una periodista de provincia escribió lo contrario."
+  },
+  {
+   "n": 5,
+   "cap": "ch03",
+   "funcion": "escalada",
+   "pico": false,
+   "dato_central": "T18",
+   "apoyo": [
+    "D71",
+    "D72",
+    "T29",
+    "D49",
+    "T23"
+   ],
+   "cierre": "El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta."
+  }
+ ],
+ "archivo": [
+  {
+   "id": "D49",
+   "texto": "En 1960, un pequeño desmoronamiento provocó una fisura de más de 1 metro de ancho y casi 2 kilómetros de largo en la montaña.",
+   "fuente": "La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005",
+   "beats_que_lo_cuentan": [
+    5
+   ]
+  },
+  {
+   "id": "D72",
+   "texto": "Il Gazzettino, uno de los principales periódicos del noreste de Italia, era propiedad en parte de SADE y de sus dos directores, el Sr. Volpi y el Sr. Cini.",
+   "fuente": "DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013",
+   "beats_que_lo_cuentan": [
+    5
+   ]
+  },
+  {
+   "id": "D94",
+   "texto": "En el desprendimiento del embalse de Pontesei se generó una ola de 20 metros.",
+   "fuente": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+   "beats_que_lo_cuentan": [
+    4
+   ]
+  },
+  {
+   "id": "T15",
+   "texto": "Un deslizamiento de 3 millones de metros cúbicos cayó en el lago de la cercana represa de Pontesei, matando a un hombre. (fecha 1959)",
+   "fuente": "DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013",
+   "beats_que_lo_cuentan": [
+    4
+   ]
+  },
+  {
+   "id": "T16",
+   "texto": "Se produce un desprendimiento en el embalse de Pontesei que genera una ola de 20 metros y mata a Arcangelo Tiziani. (fecha 1959)",
+   "fuente": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+   "beats_que_lo_cuentan": [
+    4
+   ]
+  },
+  {
+   "id": "T18",
+   "texto": "La periodista Tina Merlin denuncia el peligro del desprendimiento en el periódico l'Unità. (fecha 1959)",
+   "fuente": "Il disastro del Vajont non fu una calamità naturale, 2023",
+   "beats_que_lo_cuentan": [
+    5
+   ]
+  },
+  "… (394 ítems más del archivo)"
+ ],
+ "clima": [
+  "PÁNICO",
+  "CALMA",
+  "AMENAZA",
+  "AVISO",
+  "ALARMA",
+  "INMINENTE",
+  "COLAPSO",
+  "SILENCIO",
+  "RABIA",
+  "MEMORIA"
+ ]
+}
+
+Formato de salida: {"beats": [{"cap": "ch03", "beat": 5, "ficha": {"pool_id": "D49", "sentence_idx": 17, "palabra": "fisura", "etiqueta": "ANCHO DE LA FISURA", "texto": "Más de 1 metro", "aporta": "…"} | null, "sello": {"palabra": "AVISO", "sentence_idx": 3} | null}], "relojes": [{"cap": "ch03", "sentence_idx": 4, "fecha": "9 OCT 1963"}], "tarjeta": {"texto": "9 OCT 1963 · 22:39"} | null, "descartados": [{"pool_id": "…", "motivo": "…"}]}
+````
+
+### Salida de C (3): lo que queda en pantalla (guion, t_mp4)
+| cap | t_mp4 | qué | texto | dur | papel |
+|---|---|---|---|---|---|
+| ch01 | 0.0 | tarjeta | 9 OCT 1963 · 22:39 | 3.0 | sí |
+| ch01 | 27.1 | sello | PÁNICO | 2.5 | sí |
+| ch01 | 76.5 | reloj | 9 OCT · 1963 | 8.32 | no |
+| ch01 | 86.2 | ficha D131 | SALTO DE LA MASA DE AGUA · Más de 260 metros | 11.24 | sí |
+| ch02 | 176.3 | sello | AMENAZA | 2.5 | sí |
+| ch02 | 184.2 | punch | zoom_punch | — | no |
+| ch03 | 251.2 | punch | zoom_punch | — | no |
+| ch03 | 259.4 | ficha T16 | LA VÍCTIMA DE PONTESEI · Arcangelo Tiziani | 12.74 | sí |
+| ch03 | 358.3 | ficha D49 | ANCHO DE LA FISURA · Más de 1 metro | 2.64 | sí |
+| ch04 | 383.6 | reloj | 4 NOV · 1960 | 7.54 | no |
+| ch04 | 458.8 | punch | zoom_punch | — | no |
+| ch05 | 527.6 | punch | zoom_punch | — | no |
+| ch05 | 597.0 | reloj | 9 OCT · 1963 | 1.88 | no |
+| ch06 | 708.0 | punch | zoom_punch | — | no |
+| ch06 | 708.2 | ficha D01 | ROCA DESPRENDIDA · 270 millones de metros cúbicos de roca | 5.44 | sí |
+| ch06 | 840.1 | ficha D17 | EVACUADOS DE SU ALDEA · 486 personas | 5.72 | sí |
+| ch07 | 877.6 | ficha (cita) Q14 | RESPUESTA DE GIOVANNI LEONE · «Y justicia tendréis» — Giovanni Leone | 5.26 | sí |
+| ch07 | 877.6 | punch | zoom_punch | — | no |
+| ch07 | 944.1 | reloj | 20 FEB · 1968 | 9.03 | no |
+| ch07 | 986.3 | ficha D245 | CONDENA A MONTEDISON · 55.645.758.500 liras | 7.38 | sí |
+| ch07 | 1013.6 | sello | MEMORIA | 2.5 | sí |
+
+Totales: 7 textos (6 fichas + 1 cita), 3 sellos, 4 relojes, tarjeta, 6 punches, 0 agua. Chequeos: ✓ dos bloques al mismo
+tiempo, ✓ bloque que cruza un corte, ✓ texto sin lectura, ✓ pregunta sin lectura, ✓ cifra que contradice la voz, ✗
+a_pantalla (1/5), ✓ costuras, ✗ inicio de voz (ch07 sin rampa: previo, F32), ✓ gancho no vacío, ✓ inicio de música, ✓
+tarjeta, ✗ papel sin colocar (8), ✓ papel sin alinear, ✓ relojes del papel (informativo).
+
+### C — simulador contra el contrato (íntegro en `c/comparacion_simulador.md`)
+**Lectura del contrato (13 líneas):** de las 15 de `REVISION_GUION.md`, fuera la 7 (agua, aclaración 9) y la 9 (AMENAZA ch05: RESPUESTA_C la deja condicionada a Q50, «se mide después de C»; si contara, cumple en lo literal: AMENAZA no sale en ch05). Quedan 1, 2, 3, 4, 5, 6, 8, 10, 11, 12, 13, 14, 15. Los t_mp4 del contrato son de F34 (intro 2.5 s); hoy la intro es 3.0 s (+0.5). Línea 2 aceptada cortada si tapa rostros; 3 en 155.4 o 211.1; 4 = ch03 AVISO y ch04 ALARMA; 6 ficha normal; 11 ficha normal D128; 13 depende del papel; 14 MEMORIA con «nunca al mismo tiempo» (referencia 1013.65).
+
+#### (1) Las 13 líneas
+
+| # | DEBERÍA | hoy (t_mp4, texto) | cumple | causa |
+|---|---|---|---|---|
+| 1 | ficha D195 «LONGARONE · 1.269 de 1.328» en el gancho (o D118 en 0:10) | gancho = D131 «SALTO DE LA MASA DE AGUA · Más de 260 metros» 86.2 s, dura 11.2 s | no | papel: descartó D195 («revelaría la magnitud del desastre en el gancho, antes de que la voz lo cuente»); D118 ni elegida ni descartada |
+| 2 | CALMA ch02 162.3, aceptada cortada si tapa rostros | CALMA cortada en 162.78 (escena 6) | cumple (aceptada cortada) | papel la eligió en [6]; Fase 2: crítico «¿estorba?» — «tapa rostros de las personas sentadas en la cafetería y la Vespa» |
+| 3 | AMENAZA ch02 en 155.4 o 211.1 | AMENAZA 176.34 (beat 3, escena 7, «la montaña que camina»), único AMENAZA del video | en parte | papel: la eligió en [10] (176.3), no en «colgados» ni en «deslizamiento» (211.56 hoy) |
+| 4 | ch03 AVISO (≈ 267.2) y ch04 ALARMA | ch03 y ch04 sin sello | no | ch03: papel eligió INMINENTE [18] (364.84), el crítico la cortó («tapa la fisura»); AVISO el papel la puso en ch04 [14] (468.48) y Fase 2 la cortó por cruzar el corte de la escena 7 (88.03 s); ALARMA no la eligió el papel |
+| 5 | ficha D71 fuera | no hay D71; ch03 beat 4 = T16 «LA VÍCTIMA DE PONTESEI · Arcangelo Tiziani» (259.4) | cumple | papel: D71 «no existe en el archivo» (D sin cifra no entra) |
+| 6 | ficha «ANCHO DE LA FISURA · Más de 1 metro» en la escena 11 | D49 358.3 s, dura 2.64 s (lectura 2.1), escena 11 (349.4–360.9) | cumple | papel la eligió en [17]; Fase 2 la dejó (crítico: no estorba) |
+| 8 | recorte Q50 de ~75 caracteres en 527.2 | cita Q50 cortada en 527.7 | no | papel la eligió con 127 caracteres; Fase 2 la cortó por lectura (127 car. piden 8.5 s, hay 3.4 s hasta el corte) |
+| 10 | sello COLAPSO en 710.1 (escena 2) | COLAPSO cortado; el papel lo ancló en 796.3 | no | papel lo eligió en [20], 85 s después del lugar del contrato; Fase 2 lo cortó por cruzar el corte de la escena 11 (113.17 s) |
+| 11 | ficha D128 «MUERTOS, RECUENTO OFICIAL · 1.910 personas» ≈ 813 | no hay D128; ch06 = D01 «ROCA DESPRENDIDA · 270 millones…» (708.2) y D17 «EVACUADOS · 486 personas» (840.1) | no | papel: D128 ni elegida ni descartada (hueco sin motivo) |
+| 12 | AMENAZA fuera de ch07 | ch07 solo MEMORIA | cumple | papel |
+| 13 | ficha T85 «11 imputados» ≈ 950, reloj antes | no hay T85; reloj 20 FEB 1968 en 944.07, dura 9.03 s | no (se anota; decide Omar) | papel: T85 «la voz ya dice el 20 de febrero de 1968 de la remisión a juicio» |
+| 14 | MEMORIA ch07, sin chocar con D245 | MEMORIA 1013.647, 2.5 s; D245 986.3–993.7 | cumple | papel en [22]; «nunca al mismo tiempo» la dejó |
+| 15 | tarjeta fecha-hora reemplaza la intro | «9 OCT 1963 · 22:39» 0:00, 3.0 s; title card ch01 a 3.0 s | cumple | papel la trae, Fase 2 la coloca |
+
+**6 cumplen (2, 5, 6, 12, 14, 15), 1 en parte (3), 6 no (1, 4, 8, 10, 11, 13).**
+
+#### (2) Totales
+
+| | contrato | hoy | detalle |
+|---|---|---|---|
+| textos | 9 | **7** (6 fichas + 1 cita) | D131, T16, D49, D01, D17, D245; cita Q14 (877.6). Coinciden con el contrato solo D49 y D245 |
+| sellos | 9 | **3** | PÁNICO 27.14, AMENAZA 176.34, MEMORIA 1013.65 |
+| relojes | 4 | **4** | 9 OCT 1963 (ch01, 76.5, 8.3 s), 4 NOV 1960 (ch04), 9 OCT 1963 (ch05, 597, 1.88 s), 20 FEB 1968 (ch07) |
+| tarjeta | 1 | **1** | |
+| punches | 6 | **6** | ch02–ch07 |
+| agua | fuera | 0 | |
+
+El papel propuso 9 fichas y 9 sellos (la cuenta del contrato). Fase 2 dejó 7 fichas (cortó D117 crítico, Q50 lectura) y 3 sellos (cortó 3 por el crítico: CALMA, INMINENTE, RABIA; 3 por cruzar el corte: AVISO, SILENCIO, COLAPSO).
+
+#### (3) Papel sin colocar (el chequeo del guion, tal cual: 8)
+
+- ch02 ficha D117 «SESIÓN DEL CONSEJO SUPERIOR · 13 de 34 representantes presentes»: cortó crítico (mira foto sola, ¿estorba?): (3) El bloque tapa parte del documento que el hombre mayor sostiene, el cual contiene texto y sellos.
+- ch02 sello CALMA: «CALMA» estorba: El sello grande a media altura a la derecha tapa rostros de las personas sentadas en la cafetería y elementos clave de la escena, como la Vespa. (mira foto sola)
+- ch03 sello INMINENTE: «INMINENTE» estorba: El sello tapa parte de la fisura o el paisaje que ilustra la narración. (mira foto sola)
+- ch04 sello AVISO: cruza el corte de la escena 7 (88.03 s) en la palabra de más peso y en el inicio de la oración
+- ch05 ficha Q50 «ADMINISTRACIÓN DE ERTO Y CASSO · viviendo en continua aprensión y en continua alarma»: cortó rotulista (lectura): sin tiempo de lectura: 127 caracteres piden 8.5 s y hay 3.4 s hasta el corte de escena (30.8 s)
+- ch05 sello SILENCIO: cruza el corte de la escena 7 (74.13 s) en la palabra de más peso y en el inicio de la oración
+- ch06 sello COLAPSO: cruza el corte de la escena 11 (113.17 s) en la palabra de más peso y en el inicio de la oración
+- ch06 sello RABIA: «RABIA» estorba: El sello se superpone al rostro de una persona en el lado izquierdo de la imagen. (mira foto sola)
+
+Otros chequeos: `a_pantalla` ✗ 1/5 (faltan D117, Q50, D128, D192); `inicio de voz` ✗ ch07 (previo: sin rampa, conocido desde F32); `papel sin alinear`, `dos bloques al mismo tiempo`, `bloque que cruza un corte`, `tarjeta fecha-hora`, `relojes del papel` ✓. Relojes del papel que difieren (anotados): ch05 (la voz dice 9 OCT 1963, el papel no trae reloj) y ch07 (el papel trae además 29 NOV 1968).
+
+#### (4) Lectura del agente
+- El papel no eligió 3 líneas (1, 11, 13), no siempre por una razón que el contrato comparta: D195 por «spoiler del gancho», T85 porque «la voz ya dice» la fecha, D128 (y D118) sin motivo escrito.
+- Fase 2 sacó lo que el papel eligió en 5 casos de línea: AVISO, SILENCIO y COLAPSO caen por cruzar el corte (no por contenido; ninguno se recolocó); CALMA, INMINENTE y RABIA por el crítico; Q50 por lectura (127 car. en 3.4 s).
+- La línea 10 falla doble: el papel ancla COLAPSO lejos de donde lo pide el contrato y Fase 2 lo corta por el corte. ch03 y ch04 quedan sin sello.
+
+## PARADA C (dicha y seguida)
+El pedido de Omar autoriza C y D en la misma tanda; las tres paradas condicionales no se dieron: el papel dio JSON válido en
+el primer intento, las 7 narraciones alinean (161/161), y el reintento por ≥ 3 fichas no se hizo por el tope (no es una
+parada: se anota). El contrato da 6/13 + 1 en parte: el papel eligió otras fichas que las del contrato (D131, T16, D01, D17,
+Q14) y descartó D195 y T85 con motivo; Fase 2 cortó 2 fichas y 6 sellos del papel (crítico, lectura, corte). Eso lo mira
+Omar con el papel a la vista (aclaración 9: la 13 depende del papel); CC no cambió ni el prompt ni el papel para acercarse
+al contrato.

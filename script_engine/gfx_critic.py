@@ -385,11 +385,13 @@ def pasa_rot(v: dict[str, Any], a_pantalla: bool) -> bool:
 
 def criticize_rotulista(plan: dict[str, Any], *, base: Path, words: list[dict], time_offset: float, work_dir: Path,
                         cap: str, log: list[str], call: Callable[..., dict] | None = None,
-                        snaps: dict[float, Path] | None = None) -> list[dict[str, Any]]:
+                        snaps: dict[float, Path] | None = None, solo_estorba: bool = False) -> list[dict[str, Any]]:
     """F29b §A.6 (F29c §A.6.2): cada bloque del rotulista, ya dibujado (snapshot en t + 1 s), con la voz de su oración y
     las vecinas, su `aporta` y (si es `a_pantalla`) su `por_que`: tres sí/no. Sale según `pasa_rot` (in place). Sin
     veredicto (Gemini caído) el bloque queda y se anota. El veredicto queda en el bloque (`critico`). Caché en
-    gfx_critic_rot_<cap>.json."""
+    gfx_critic_rot_<cap>.json. F36 §C.4 (`solo_estorba`): a las fichas del guion en papel solo se les pregunta si
+    estorban (el mismo pedido sin `aporta` ni `por_que`, como `estorba`; de las tres respuestas cuenta la (3)): «habla
+    de eso» y «dice algo nuevo» ya los decidió el papel."""
     cache = Path(work_dir) / f"gfx_critic_rot_{cap}.json"
     try:
         data = json.loads(cache.read_text(encoding="utf-8")) if cache.exists() else {}
@@ -406,8 +408,8 @@ def criticize_rotulista(plan: dict[str, Any], *, base: Path, words: list[dict], 
         drawn = snaps.get(tf)
         voz = voice_vecinas(words, obj.get("sentence_idx"), b["t"], time_offset)
         ap = bool(obj.get("a_pantalla"))
-        prompt = build_prompt_rot(b["desc"], voz, str(obj.get("aporta") or ""),
-                                  str(obj.get("por_que") or "") if ap else "")
+        prompt = (build_prompt_rot(b["desc"], voz, "", "") if solo_estorba else
+                  build_prompt_rot(b["desc"], voz, str(obj.get("aporta") or ""), str(obj.get("por_que") or "") if ap else ""))
         key = hashlib.sha1((Path(img).read_bytes() if img else b"") + (Path(drawn).read_bytes() if drawn else b"")
                            + f"|{prompt}|{PROMPT_VERSION_ROT}".encode("utf-8")).hexdigest()[:20]
         ident = clave_identidad(cap, obj.get("pool_id"), b["text"], obj.get("aporta"), PROMPT_VERSION_ROT)
@@ -428,12 +430,13 @@ def criticize_rotulista(plan: dict[str, Any], *, base: Path, words: list[dict], 
             except Exception as e:  # noqa: BLE001 — sin veredicto el bloque queda (como el crítico de siempre)
                 v = {"error": f"{type(e).__name__}: {str(e)[:100]}"}
             v["cache"] = False
-        ok = pasa_rot(v, ap)
+        ok = (v.get("error") is not None or v.get("estorba") is not True) if solo_estorba else pasa_rot(v, ap)
         obj["critico"] = {k: v.get(k) for k in ("habla_de_eso", "motivo_1", "dice_algo_nuevo", "motivo_2", "estorba",
                                                 "motivo_3", "error")}
         rows.append({"t": round(b["t"], 3), "t_frame": tf, "bloque": b["kind"], "texto": b["text"],
                      "pool_id": obj.get("pool_id"), "aporta": obj.get("aporta"), "a_pantalla": ap, **obj["critico"],
-                     "pasa": ok, "mira": "bloque dibujado" if drawn else "foto sola"})
+                     "pasa": ok, "mira": "bloque dibujado" if drawn else "foto sola",
+                     **({"pregunta": "¿estorba?"} if solo_estorba else {})})
         log.append(f"  crítico rotulista: {b['t']:6.1f}s {KIND_LABEL[b['kind']]:<10} «{b['text']}» → "
                    + (f"sin veredicto ({v['error']}) → queda" if v.get("error") else
                       f"(1) {'sí' if v['habla_de_eso'] else 'NO'} — {v['motivo_1']} · (2) "

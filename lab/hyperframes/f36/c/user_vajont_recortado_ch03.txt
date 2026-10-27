@@ -1,0 +1,228 @@
+{
+ "caps": [
+  {
+   "cap": "ch03",
+   "titulo": "La costura abierta",
+   "oraciones": [
+    {
+     "idx": 0,
+     "beat": 4,
+     "texto": "El embalse se llamaba Pontesei.",
+     "caben": 26
+    },
+    {
+     "idx": 1,
+     "beat": 4,
+     "texto": "Ese marzo, una masa de roca entró al agua y levantó una ola de veinte metros.",
+     "caben": 84
+    },
+    {
+     "idx": 2,
+     "beat": 4,
+     "texto": "Un trabajador murió.",
+     "caben": 15
+    },
+    {
+     "idx": 3,
+     "beat": 4,
+     "texto": "Después de Pontesei, SADE encargó nuevas pericias sobre el Toc, y esas pericias identificaron una paleofrana: un deslizamiento antiguo, la cicatriz que Edoardo Semenza había estado buscando.",
+     "caben": 141
+    },
+    {
+     "idx": 4,
+     "beat": 4,
+     "texto": "El informe sobre esos riesgos lo escribió Giorgio Dal Piaz en mil novecientos sesenta.",
+     "caben": 73
+    },
+    {
+     "idx": 5,
+     "beat": 4,
+     "texto": "Dal Piaz había dicho alguna vez sobre la obra: «Si el proyecto original me parecía osado, ahora lo considero una completa locura».",
+     "caben": 115
+    },
+    {
+     "idx": 6,
+     "beat": 4,
+     "texto": "Su informe, en cambio, le restó peso a lo que señalaba Edoardo Semenza.",
+     "caben": 68
+    },
+    {
+     "idx": 7,
+     "beat": 4,
+     "texto": "Una ola de veinte metros.",
+     "caben": 26
+    },
+    {
+     "idx": 8,
+     "beat": 4,
+     "texto": "Un hombre muerto.",
+     "caben": 15
+    },
+    {
+     "idx": 9,
+     "beat": 4,
+     "texto": "Una paleofrana con nombre en un papel.",
+     "caben": 36
+    },
+    {
+     "idx": 10,
+     "beat": 4,
+     "texto": "El informe oficial dijo que no era grave.",
+     "caben": 42
+    },
+    {
+     "idx": 11,
+     "beat": 4,
+     "texto": "Una periodista de provincia escribió lo contrario.",
+     "caben": 36
+    },
+    {
+     "idx": 12,
+     "beat": 5,
+     "texto": "Se llamaba Tina Merlin y escribía en L'Unità.",
+     "caben": 42
+    },
+    {
+     "idx": 13,
+     "beat": 5,
+     "texto": "Hacia mil novecientos cincuenta y nueve publicó su primera denuncia: el Toc podía desprenderse sobre el lago.",
+     "caben": 89
+    },
+    {
+     "idx": 14,
+     "beat": 5,
+     "texto": "L'Unità fue el único diario nacional que siguió lo que pasaba en el Vajont antes del desastre, y lo siguió a través de ella.",
+     "caben": 125
+    },
+    {
+     "idx": 15,
+     "beat": 5,
+     "texto": "El diario que se leía en la zona era Il Gazzettino, y una parte de Il Gazzettino pertenecía a SADE, a FIAT, a Volpi y a Cini.",
+     "caben": 141
+    },
+    {
+     "idx": 16,
+     "beat": 5,
+     "texto": "En febrero de mil novecientos sesenta empezó el llenado, y el agua fue subiendo día a día por la garganta.",
+     "caben": 105
+    },
+    {
+     "idx": 17,
+     "beat": 5,
+     "texto": "Ese año hubo un pequeño desmoronamiento en el Toc, y después del desmoronamiento los habitantes vieron algo nuevo en la ladera: una fisura de casi dos kilómetros de largo, corriendo por la montaña como una costura abierta.",
+     "caben": 194
+    },
+    {
+     "idx": 18,
+     "beat": 5,
+     "texto": "Abajo, el lago seguía subiendo.",
+     "caben": 26
+    },
+    {
+     "idx": 19,
+     "beat": 5,
+     "texto": "El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta.",
+     "caben": 68
+    }
+   ]
+  }
+ ],
+ "beats": [
+  {
+   "n": 4,
+   "cap": "ch03",
+   "funcion": "giro",
+   "pico": true,
+   "dato_central": "T16",
+   "apoyo": [
+    "D94",
+    "T15",
+    "T21",
+    "D119",
+    "T27",
+    "Q37"
+   ],
+   "cierre": "El informe oficial dijo que no era grave. Una periodista de provincia escribió lo contrario."
+  },
+  {
+   "n": 5,
+   "cap": "ch03",
+   "funcion": "escalada",
+   "pico": false,
+   "dato_central": "T18",
+   "apoyo": [
+    "D71",
+    "D72",
+    "T29",
+    "D49",
+    "T23"
+   ],
+   "cierre": "El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta."
+  }
+ ],
+ "archivo": [
+  {
+   "id": "D49",
+   "texto": "En 1960, un pequeño desmoronamiento provocó una fisura de más de 1 metro de ancho y casi 2 kilómetros de largo en la montaña.",
+   "fuente": "La inundación del Vajont. Representaciones periodísticas de un desastre italiano, 2005",
+   "beats_que_lo_cuentan": [
+    5
+   ]
+  },
+  {
+   "id": "D72",
+   "texto": "Il Gazzettino, uno de los principales periódicos del noreste de Italia, era propiedad en parte de SADE y de sus dos directores, el Sr. Volpi y el Sr. Cini.",
+   "fuente": "DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013",
+   "beats_que_lo_cuentan": [
+    5
+   ]
+  },
+  {
+   "id": "D94",
+   "texto": "En el desprendimiento del embalse de Pontesei se generó una ola de 20 metros.",
+   "fuente": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+   "beats_que_lo_cuentan": [
+    4
+   ]
+  },
+  {
+   "id": "T15",
+   "texto": "Un deslizamiento de 3 millones de metros cúbicos cayó en el lago de la cercana represa de Pontesei, matando a un hombre. (fecha 1959)",
+   "fuente": "DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT, 2013",
+   "beats_que_lo_cuentan": [
+    4
+   ]
+  },
+  {
+   "id": "T16",
+   "texto": "Se produce un desprendimiento en el embalse de Pontesei que genera una ola de 20 metros y mata a Arcangelo Tiziani. (fecha 1959)",
+   "fuente": "Vajont, la construcción de una catástrofe a la italiana, 2022",
+   "beats_que_lo_cuentan": [
+    4
+   ]
+  },
+  {
+   "id": "T18",
+   "texto": "La periodista Tina Merlin denuncia el peligro del desprendimiento en el periódico l'Unità. (fecha 1959)",
+   "fuente": "Il disastro del Vajont non fu una calamità naturale, 2023",
+   "beats_que_lo_cuentan": [
+    5
+   ]
+  },
+  "… (394 ítems más del archivo)"
+ ],
+ "clima": [
+  "PÁNICO",
+  "CALMA",
+  "AMENAZA",
+  "AVISO",
+  "ALARMA",
+  "INMINENTE",
+  "COLAPSO",
+  "SILENCIO",
+  "RABIA",
+  "MEMORIA"
+ ]
+}
+
+Formato de salida: {"beats": [{"cap": "ch03", "beat": 5, "ficha": {"pool_id": "D49", "sentence_idx": 17, "palabra": "fisura", "etiqueta": "ANCHO DE LA FISURA", "texto": "Más de 1 metro", "aporta": "…"} | null, "sello": {"palabra": "AVISO", "sentence_idx": 3} | null}], "relojes": [{"cap": "ch03", "sentence_idx": 4, "fecha": "9 OCT 1963"}], "tarjeta": {"texto": "9 OCT 1963 · 22:39"} | null, "descartados": [{"pool_id": "…", "motivo": "…"}]}

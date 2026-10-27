@@ -65,8 +65,9 @@ def despues_del_corte(sents: list[dict], si: int, t0: float, chars: int, escenas
 
 
 def caracteres(tipo: str, etiqueta: str | None, texto: str, autor: str = "") -> int:
-    """Lo que se lee del bloque: etiqueta + dato (la cita, con su autor)."""
-    return len(etiqueta or "") + len(texto) + (len(autor) if tipo == "cita" else 0)
+    """Lo que se lee del bloque: etiqueta + dato (la cita, con su autor). F36 §C.4: la cita se dibuja «dato» — autor,
+    y se cuentan también las comillas y la raya (5 caracteres, derivado: lo que se dibuja)."""
+    return len(etiqueta or "") + len(texto) + ((len(autor) + 5 if autor else 0) if tipo == "cita" else 0)
 
 
 def caben(sents: list[dict], si: int, escenas: list[Any] | None) -> int | None:
@@ -162,7 +163,7 @@ def colocar(plan: dict[str, Any], res: dict[str, Any], ent: dict[str, Any], *, s
     por bloque (colocado o fuera, con la regla y el motivo)."""
     from script_engine.gfx_pool import short_source
     from script_engine.gfx_project import scene_at
-    from script_engine.rotulista_filtros import FICHA, validar      # F36 §A: filtros importa este módulo arriba
+    from script_engine.rotulista_filtros import FICHA, validar, validar_papel   # F36 §A: filtros importa este módulo
     its = ev.items(pool) if pool else {}
     viejos = {k: plan.get(k) for k in ("archive_clippings", "callouts", "quote_card", "count_up", "water_level",
                                        "evidence_zoom")}
@@ -170,8 +171,10 @@ def colocar(plan: dict[str, Any], res: dict[str, Any], ent: dict[str, Any], *, s
     for k in ("quote_card", "count_up", "water_level", "evidence_zoom"):
         plan[k] = None
     filas: list[dict[str, Any]] = []
+    papel = bool(res.get("papel"))                    # F36 §C.4: los bloques vienen del guion en papel
     if words is not None and res.get("final") is not None:
-        v = validar(res["final"], ent, words, time_offset, escenas=scenes)
+        v = (validar_papel(res["final"].get("bloques") or [], ent, words, time_offset, escenas=scenes) if papel
+             else validar(res["final"], ent, words, time_offset, escenas=scenes))
     else:
         v = res.get("validacion") or {"bloques": [], "rechazos": [], "faltan": []}
     for r in v["rechazos"]:
@@ -185,7 +188,9 @@ def colocar(plan: dict[str, Any], res: dict[str, Any], ent: dict[str, Any], *, s
                 "word_idx": b["word_idx"], "aporta": b.get("aporta"), "tipo_rotulista": b["tipo"],
                 "a_pantalla": b["a_pantalla"], "por_que": b.get("por_que") or "", "t1": b["t1"],
                 "lectura_s": b["lectura_s"], "movido": b.get("movido"), "movido_corte": b.get("movido_corte"),
-                "forzado": b.get("forzado"), **({"editado": True} if b.get("editado") else {})}
+                "forzado": b.get("forzado"), **({"editado": True} if b.get("editado") else {}),
+                **({"papel": True, "estilo": b.get("estilo"), "ancla_palabra": b.get("ancla_palabra"),
+                    "sin_alinear": b.get("sin_alinear")} if papel else {})}
         fila = {"pool_id": pid, "tipo": b["tipo"], "etiqueta": b["etiqueta"], "texto": b["pantalla"],
                 "sentence_idx": b["sentence_idx"], "word_idx": b["word_idx"], "palabra": b.get("palabra"), "t0": t0,
                 "t1": b["t1"], "aporta": b.get("aporta"), "beat": b["beat"], "a_pantalla": b["a_pantalla"],
@@ -193,7 +198,16 @@ def colocar(plan: dict[str, Any], res: dict[str, Any], ent: dict[str, Any], *, s
         if pid in used_before:
             filas.append({**fila, "accion": "fuera", "regla": "ya_mostrado", "motivo": "ya se mostró en un cap anterior"})
             continue
-        anim = animacion_de_cifra(b, str(it and ev.text_of(it) or "")) if b["tipo"] == "cifra" else None   # F32 §B.7
+        anim = animacion_de_cifra(b, str(it and ev.text_of(it) or "")) if b["tipo"] == "cifra" and not papel else None
+        if papel and b["tipo"] == "cita":              # F36 aclaración 6: la cita es una ficha (title card) con autor
+            if not it.get("autor"):
+                filas.append({**fila, "accion": "fuera", "regla": "zona", "motivo": "la cita no tiene autor"})
+                continue
+            plan["callouts"].append({"text": f"«{b['pantalla']}» — {it['autor']}", "kicker": b["etiqueta"] or "",
+                                     "author": it["autor"], "ficha": True, "start": t0, "kind": "quote",
+                                     "duration": dur, "side": "left", "fact_idx": None, **meta})
+            filas.append({**fila, "accion": "colocado", "como": "ficha (cita)"})
+            continue
         if anim and plan.get(anim[0]) is None:
             campo, extra = anim
             plan[campo] = {"start": t0, "duration": dur, **extra, "etiqueta": b["etiqueta"], "word": b.get("palabra"),
@@ -355,7 +369,7 @@ def lupa_de_detalles(details: dict[int, list[dict]], verify: Callable[[int, dict
     return box
 
 
-# ═══════════════════════ escena (§0 animaciones, §A.5 zona de la ficha) ═══════════════════════
+# ═══════════════════════ nunca al mismo tiempo (DECISIONES 17:58; §0 animaciones, §A.5 zona de la ficha) ═══════════════════════
 
 def unidades(scenes: list[Any], ent: dict[str, Any]) -> list[Any]:
     """F34 §A.3.2: la unidad de «una cosa por …». Con más de una escena, las escenas. En un cap de UNA sola escena (Veo),
@@ -382,22 +396,26 @@ def _cubre(us: list[Any], a: float, b: float) -> list[Any]:
     return out or [scene_at(us, a)]
 
 
+def choca(iv: list[tuple[float, float, str]], a: float, b: float) -> list[str]:
+    """DECISIONES 2026-10-26 17:58 («nunca al mismo tiempo»): lo que ya está en pantalla y se solapa o se toca con
+    [a, b] (intervalos cerrados: terminar justo cuando el otro empieza también choca)."""
+    return [q for x, y, q in iv if a <= y + 1e-6 and x <= b + 1e-6]
+
+
 def escena_final(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any], log: list[str]) -> list[dict[str, Any]]:
-    """Una cosa por escena (después del reloj y del sello, antes del realizador y del crítico):
-    - F34 §A.3.2: en un cap de una sola escena la unidad es la oración (`unidades`): dos bloques nunca en la misma
-      oración ni solapados en el tiempo (cada bloque ocupa todas las oraciones que toca);
-    - F34 §A.3.1: información > clima: el sello (también el del pico) no es fijo ni frena al reloj, al agua ni a los
-      textos; lo coloca después sellos_por_tema en lo que queda libre;
-    - fijo: el title card (sus escenas);
-    - los textos que no son ficha (documento, cita, lupa), por prioridad (`a_pantalla`, después t0): si su escena ya
-      tiene otra cosa, el documento y la cita esperan a la escena siguiente del beat (la lupa no: su detalle está en esa
-      foto) o no van;
-    - el reloj (animación): nunca encima de un texto que no sea ficha ni en la escena del sello; uno por beat (si su
-      beat tiene sello o lupa, no va); si choca, arranca en la escena siguiente de su beat (sin pasar un cambio de fecha
-      y con ≥ TICKER_MIN en pantalla) o no va;
-    - las fichas (§A.5): si en su escena hay title card, reloj, sello u otro bloque, esperan a la escena siguiente del
-      beat o no van.
-    Al moverse, un bloque arranca en el corte de la escena nueva y su fin se recalcula con §A.2. Devuelve las filas."""
+    """Nunca al mismo tiempo (DECISIONES 17:58; antes «una cosa por escena», F29c–F34): dos bloques —title card, texto,
+    reloj, agua, contador— no se solapan ni se tocan; la escena deja de ser la unidad (las de Veo duran 40–100 s). Corre
+    después del crítico de los candidatos y antes del agua y el reloj contra el corte y de los sellos:
+    - fijo: el title card (0 → title_dur);
+    - los textos que no son ficha (documento, cita, lupa) y las animaciones del rotulista y de la voz (agua, contador),
+      por prioridad (`a_pantalla`, después t0): si chocan con algo, esperan al inicio de la escena siguiente de su beat
+      (en un cap de una sola escena, la oración siguiente: `unidades`) donde no choquen; la lupa no se mueve (su detalle
+      está en esa foto); si no hay lugar, no van;
+    - el reloj: uno por beat (si su beat tiene lupa o agua, no va); si choca, arranca en la escena siguiente de su beat
+      (sin pasar un cambio de fecha y con ≥ TICKER_MIN en pantalla) o no va;
+    - las fichas (§A.5): si chocan, esperan a la escena siguiente del beat o no van.
+    Información > clima (F34 §A.3.1): los sellos los pone después sellos_por_tema en lo que queda libre. Al moverse, un
+    bloque arranca en el corte nuevo y su fin se recalcula con §A.2. Devuelve las filas."""
     from gfx_config import gfx_rules
     from script_engine.gfx_pool import TICKER_MIN
     from script_engine.gfx_project import scene_at
@@ -408,6 +426,7 @@ def escena_final(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any], l
     beats = ent["beats"]
     us = unidades(scenes, ent)
     por_oracion = len(us) != len(scenes) or (us and getattr(us[0], "oracion", False))
+    nombre = "oración" if por_oracion else "escena"
 
     def beat_en(t: float) -> dict | None:
         for b in beats:
@@ -416,57 +435,39 @@ def escena_final(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any], l
         prev = [b for b in beats if b["t0"] <= t]
         return prev[-1] if prev else (beats[0] if beats else None)
 
-    def escenas_del_beat_desde(sc: Any, b: dict | None) -> list[Any]:
-        return [s for s in us if s.start > sc.start and b is not None and b["t0"] - 0.3 <= s.start <= b["t1"]]
+    def momentos_del_beat_desde(t: float, b: dict | None) -> list[Any]:
+        return [s for s in us if s.start > t + 1e-6 and b is not None and b["t0"] - 0.3 <= s.start <= b["t1"]]
 
     def oracion_en(t: float) -> int:
         k = next((s["idx"] for s in sents if s["t0"] <= t <= s["t1"]), None)
         return k if k is not None else next((s["idx"] for s in sents if s["t0"] >= t), len(sents) - 1)
 
-    ocupa: dict[int, list[str]] = {}
+    iv: list[tuple[float, float, str]] = []
 
-    def marca(si: int, que: str) -> None:
-        ocupa.setdefault(si, []).append(que)
+    def tramo(b: dict) -> tuple[float, float]:
+        return float(b["start"]), float(b["start"]) + float(b.get("duration") or 0.0)
 
-    def marca_bloque(b: dict, que: str) -> None:
-        """Por escena: la del inicio (como siempre). Por oración: todas las que el bloque toca."""
-        a = float(b["start"])
-        if not por_oracion:
-            marca(scene_at(us, a).idx, que)
-            return
-        for u in _cubre(us, a, a + float(b.get("duration") or 0.0)):
-            marca(u.idx, que)
-
-    def libre_iv(u: Any, b: dict, a: float | None = None) -> bool:
-        """Por oración: el bloque, arrancando en `a` (por defecto el inicio de `u`), no toca ninguna oración ocupada."""
-        if not por_oracion:
-            return not ocupa.get(u.idx)
-        a = float(u.start) if a is None else a
-        return not any(ocupa.get(x.idx) for x in _cubre(us, a, a + float(b.get("duration") or 0.0)))
-
+    def ocupa(b: dict, que: str) -> None:
+        iv.append((*tramo(b), que))
     if plan.get("title_card"):
-        for s in us:                           # todas las escenas (u oraciones) que pisa el title card (title_dur)
-            if s.start < gfx_rules.title_dur:
-                marca(s.idx, "title card")
+        iv.append((0.0, float(gfx_rules.title_dur), "title card"))
 
-    def mover(b: dict, desde: Any, libre: Callable[[Any], bool]) -> str | None:
-        """Mueve el bloque a la primera escena libre de su beat; devuelve el motivo si no puede."""
-        bt = beat_en(float(b["start"]))
-        for s2 in escenas_del_beat_desde(desde, bt):
-            if not libre(s2):
-                continue
+    def mover(b: dict) -> str | None:
+        """Mueve el bloque al primer momento de su beat (inicio de escena u oración) donde no choca; el motivo si no."""
+        a0 = float(b["start"])
+        for s2 in momentos_del_beat_desde(a0, beat_en(a0)):
             si = oracion_en(s2.start)
             chars = caracteres(b.get("tipo_rotulista", ""), b.get("kicker") or b.get("etiqueta"),
                                str(b.get("text") or b.get("headline") or b.get("value_text") or ""), str(b.get("author") or ""))
             t1, sin_t = tiempos(sents, si, round(s2.start, 3), chars, scenes)
-            if sin_t:
+            if sin_t or choca(iv, s2.start, t1):
                 continue
-            b["movido_escena"] = f"{float(b['start']):.2f} → {s2.start:.2f} s (escena {desde.idx} → {s2.idx})"
+            b["movido_escena"] = (f"{a0:.2f} → {s2.start:.2f} s ({nombre} {scene_at(us, a0).idx} → {s2.idx})")
             b["start"], b["t1"], b["duration"] = round(s2.start, 3), t1, round(t1 - s2.start, 3)
             if "scene_idx" in b:
                 b["scene_idx"] = s2.idx
             return None
-        return "no hay otra escena libre en su beat (con tiempo de lectura)"
+        return "no hay otro momento libre en su beat (con tiempo de lectura)"
 
     def fuera(campo: str, b: dict, motivo: str) -> None:
         filas.append({"pool_id": b.get("pool_id"), "tipo": b.get("tipo_rotulista"),
@@ -476,23 +477,20 @@ def escena_final(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any], l
     def prio(b: dict) -> tuple:
         return (not b.get("a_pantalla"), float(b["start"]))
 
-    nombre = "la oración" if por_oracion else "la escena"
-    # 1. textos que no son ficha (y las animaciones del rotulista y el agua de la voz, F34 §A.5)
+    # 1. textos que no son ficha y las animaciones del rotulista y de la voz (F34 §A.5)
     otros: list[tuple[str, dict]] = [("archive_clippings", a) for a in plan.get("archive_clippings") or []
                                      if a.get("rotulista")]
     for k in ("quote_card", "evidence_zoom", "water_level", "count_up"):      # F32 §B.7: agua y contador también
         if plan.get(k) and (plan[k].get("rotulista") or plan[k].get("de_voz")):
             otros.append((k, plan[k]))
     for campo, b in sorted(otros, key=lambda x: prio(x[1])):
-        sc = scene_at(us, float(b["start"]))
-        if libre_iv(sc, b, float(b["start"])):
-            marca_bloque(b, campo)
+        hay = choca(iv, *tramo(b))
+        if not hay:
+            ocupa(b, campo)
             continue
-        hay = sorted({q for x in (_cubre(us, sc.start, sc.start + float(b.get("duration") or 0.0)) if por_oracion
-                                  else [sc]) for q in ocupa.get(x.idx) or []})
-        motivo = (f"{nombre} {sc.idx} ya tiene {', '.join(hay)}" +
+        motivo = (f"se solapa con {', '.join(sorted(set(hay)))}" +
                   ("; la lupa no se mueve (su detalle está en esa foto)" if campo == "evidence_zoom" else ""))
-        no = motivo if campo == "evidence_zoom" else mover(b, sc, lambda s2, b=b: libre_iv(s2, b))
+        no = motivo if campo == "evidence_zoom" else mover(b)
         if no:
             fuera(campo, b, motivo if no == motivo else f"{motivo}; {no}")
             filas[-1]["texto"] = filas[-1]["texto"] or b.get("value_text")
@@ -501,10 +499,9 @@ def escena_final(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any], l
             else:
                 plan[campo] = None
         else:
-            marca_bloque(b, campo)
-    # 2. el reloj (F34 §A.3.1: el sello ya no lo frena; lo frenan la lupa y el agua de su beat)
+            ocupa(b, campo)
+    # 2. el reloj (F34 §A.3.1: el sello no lo frena; lo frenan la lupa y el agua de su beat)
     tk = plan.get("time_ticker")
-    reloj: tuple[float, float] | None = None
     if tk:
         end = float(tk["start"]) + float(tk["duration"])
         bt = beat_en(float(tk["start"]))
@@ -513,65 +510,46 @@ def escena_final(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any], l
             anim_beat.append("lupa")
         if plan.get("water_level") and beat_en(float(plan["water_level"]["start"])) is bt:   # F32 §B.7
             anim_beat.append("nivel de agua")
-
-        def choca(st: float) -> list[str]:
-            return [f"{'oración' if por_oracion else 'escena'} {s.idx}: {', '.join(ocupa[s.idx])}" for s in us
-                    if s.start < end and s.end > st and ocupa.get(s.idx)]
         motivo = None
+        c0 = choca(iv, float(tk["start"]), end)
         if anim_beat:
             motivo = f"una animación por beat: el beat {bt['n'] if bt else '?'} ya tiene {', '.join(anim_beat)}"
-        elif choca(float(tk["start"])):
-            c0 = choca(float(tk["start"]))
+        elif c0:
             cambios = [float(c["t"]) for c in tk.get("changes") or []]
-            nuevo = next((s.start for s in escenas_del_beat_desde(scene_at(us, float(tk["start"])), bt)
-                          if not choca(s.start) and end - s.start >= TICKER_MIN
+            nuevo = next((s.start for s in momentos_del_beat_desde(float(tk["start"]), bt)
+                          if not choca(iv, s.start, end) and end - s.start >= TICKER_MIN
                           and not any(float(tk["start"]) < c <= s.start for c in cambios)), None)
             if nuevo is None:
-                motivo = f"encima de otra cosa ({'; '.join(c0)}) y sin otra {'oración' if por_oracion else 'escena'} libre en su beat"
+                motivo = f"se solapa con {', '.join(sorted(set(c0)))} y no hay otro momento libre en su beat"
             else:
                 filas.append({"bloque": "time_ticker", "regla": "zona", "accion": "movido",
-                              "motivo": f"{float(tk['start']):.2f} → {nuevo:.2f} s ({'; '.join(c0)})"})
+                              "motivo": f"{float(tk['start']):.2f} → {nuevo:.2f} s (se solapaba con "
+                                        f"{', '.join(sorted(set(c0)))})"})
                 tk["start"], tk["duration"] = round(nuevo, 3), round(end - nuevo, 3)
         if motivo:
             filas.append({"bloque": "time_ticker", "texto": f"{tk.get('day')} {tk.get('month')}", "t0": tk["start"],
                           "regla": "zona", "accion": "fuera", "motivo": motivo})
             plan["time_ticker"] = None
         else:
-            reloj = (float(tk["start"]), float(tk["start"]) + float(tk["duration"]))
-            for u in _cubre(us, reloj[0], reloj[1]):
-                if por_oracion:
-                    marca(u.idx, "reloj")
+            ocupa(tk, "reloj")
     # 3. las fichas
-    fichas = [c for c in plan.get("callouts") or [] if c.get("ficha")]
-
-    def libre_ficha(s2: Any, c: dict, a: float | None = None) -> bool:
-        """La escena (u oración) s2 está libre para la ficha que arranca en `a` (por defecto, el inicio de s2)."""
-        a = float(s2.start) if a is None else a
-        if not por_oracion:
-            return not ocupa.get(s2.idx) and not (reloj and s2.start < reloj[1] and s2.end > reloj[0])
-        b = a + float(c.get("duration") or 0.0)
-        return (not any(ocupa.get(x.idx) for x in _cubre(us, a, b))
-                and not (reloj and a < reloj[1] and b > reloj[0]))
-    for c in sorted(fichas, key=prio):
-        sc = scene_at(us, float(c["start"]))
-        if libre_ficha(sc, c, float(c["start"])):
-            marca_bloque(c, "ficha")
+    for c in sorted([c for c in plan.get("callouts") or [] if c.get("ficha")], key=prio):
+        hay = choca(iv, *tramo(c))
+        if not hay:
+            ocupa(c, "ficha")
             continue
-        hay = sorted({q for x in (_cubre(us, float(c["start"]), float(c["start"]) + float(c.get("duration") or 0.0))
-                                  if por_oracion else [sc]) for q in ocupa.get(x.idx) or []})
-        hay += ["reloj"] if reloj and "reloj" not in hay and sc.start < reloj[1] and sc.end > reloj[0] else []
-        motivo = f"{nombre} {sc.idx} ya tiene {', '.join(hay)}"
-        no = mover(c, sc, lambda s2, c=c: libre_ficha(s2, c))
+        motivo = f"se solapa con {', '.join(sorted(set(hay)))}"
+        no = mover(c)
         if no:
             fuera("callouts", c, f"{motivo}; {no}")
             plan["callouts"] = [x for x in plan["callouts"] if x is not c]
         else:
             filas.append({"pool_id": c.get("pool_id"), "tipo": c.get("tipo_rotulista"), "texto": c["text"],
                           "regla": "zona", "accion": "movido", "motivo": f"{motivo} → {c['movido_escena']}"})
-            marca_bloque(c, "ficha")
+            ocupa(c, "ficha")
     plan["callouts"] = sorted(plan.get("callouts") or [], key=lambda c: c["start"])
     rot = plan.setdefault("rotulista", {})
     rot["escena"] = filas
-    log.append(f"  rotulista escena: {[(f.get('pool_id') or f.get('bloque'), f['accion'], f['motivo']) for f in filas]}"
+    log.append(f"  rotulista (nunca al mismo tiempo): {[(f.get('pool_id') or f.get('bloque'), f['accion'], f['motivo']) for f in filas]}"
                f" · title card {gfx_rules.title_dur:.1f} s")
     return filas
