@@ -33,8 +33,9 @@ costo en 01_v3_costos.json como los demás pasos) o suelto: `python -m script_en
                oración que existen; la oración es del beat), formato (etiqueta en 1 línea y dato en 2, gfx_project.
                ficha_medida), F37 §A.1b fecha del relato (el año del ítem contra el último año que dijo la voz) y §A.1c
                cita sin fecha (su autor en la oración o una vecina), candado (números, nombres y años literales en el
-               texto del ítem; en el gancho vale la voz de todo el video), no dicho (oración ancla ± 1; en el gancho, el
-               dato que la voz dice en el video) y spoiler (la narración posterior del cap y de los caps siguientes)
+               texto del ítem; en el gancho vale la voz de todo el video), no dicho (oración ancla ± 1; en el gancho,
+               una cifra del dato que la voz dice en cualquier oración del video: F40 §A, ya no corta en seco) y
+               spoiler (la narración posterior del cap y de los caps siguientes)
                —F37 §A.4: su coincidencia se le pregunta al autor en el reintento, que decide—, el mismo dato una sola
                vez en el video, `caben`. Los descartes «voz_lo_dice» se verifican (§A.2) y los picos sin ficha se
                nombran (§A.3b). Por sello: palabra de la lista, no es palabra de la voz del cap, no repetida en el video, uno por
@@ -411,7 +412,6 @@ def validar(resp: Any, ent: dict[str, Any], confirmados: dict[str, dict[str, lis
     pool = ev.items(ent.get("_pool")) if ent.get("_pool") else {}
     lista = {ev.norm(w): w for w in ent["clima"]}
     voz_video = _voz_video(ent)
-    voz_txt = " ".join(voz_video)
     mom = momentos(ent)
     resp = resp if isinstance(resp, dict) else {}
     filas = sorted([b for b in resp.get("beats") or [] if isinstance(b, dict)],
@@ -432,7 +432,7 @@ def validar(resp: Any, ent: dict[str, Any], confirmados: dict[str, dict[str, lis
                                      "pico": bool((b or {}).get("pico")), "ficha": None, "sello": None})
         fi = f.get("ficha") if isinstance(f.get("ficha"), dict) else None
         if fi:
-            motivo, regla, ficha = _validar_ficha(fi, cap, nb, b, slot, caps, orden_caps, arch, pool, voz_video, voz_txt,
+            motivo, regla, ficha = _validar_ficha(fi, cap, nb, b, slot, caps, orden_caps, arch, pool, voz_video,
                                                   usados_ids, ent, ficha_medida, caracteres, mom, confirmados,
                                                   final)
             if motivo:
@@ -544,13 +544,14 @@ def validar(resp: Any, ent: dict[str, Any], confirmados: dict[str, dict[str, lis
 
 def _pregunta_txt(q: dict[str, Any]) -> str:
     """F37 §A.4, con las palabras del handoff: «D47: la voz dice “dos kilómetros” en ch03 [17] (“…”); ¿es el mismo
-    hecho? si no, mantenelo». F38c §A.2: la cifra que contradice la voz dice «para lo mismo»."""
+    hecho? si no, mantenelo». F38c §A.2: la cifra que contradice la voz dice «para lo mismo». F40 §A: la cifra del
+    gancho que la voz dice fuera de la oración ancla y sus vecinas (`video`) dice solo dónde («en ch05 [12] (…)»)."""
     donde = f"en {q['donde'][0]} [{q['donde'][1]}] («{q['donde'][2]}»)" if q.get("donde") else "en la voz"
-    que = ("en una oración posterior" if q["regla"] == "spoiler" else
-           "para lo mismo, en la oración ancla o en una vecina" if q["regla"] == "contradice" else
-           "en la oración ancla o en una vecina")
+    que = ("en una oración posterior " if q["regla"] == "spoiler" else
+           "para lo mismo, en la oración ancla o en una vecina " if q["regla"] == "contradice" else
+           "" if q.get("video") else "en la oración ancla o en una vecina ")
     return (f"{q['pool_id']} ({q['cap']} beat {q['beat']}, oración [{q['sentence_idx']}]) «{q['etiqueta']} · "
-            f"{q['texto']}»: la voz dice «{q['token']}» {que} {donde}; ¿es el mismo hecho? si no, mantenelo")
+            f"{q['texto']}»: la voz dice «{q['token']}» {que}{donde}; ¿es el mismo hecho? si no, mantenelo")
 
 
 def _int(v: Any) -> int | None:
@@ -561,13 +562,12 @@ def _int(v: Any) -> int | None:
 
 
 def _validar_ficha(fi: dict, cap: str, nb: int | None, b: dict | None, slot: dict, caps: dict, orden_caps: list[str],
-                   arch: dict, pool: dict, voz_video: list[str], voz_txt: str, usados_ids: set[str], ent: dict,
+                   arch: dict, pool: dict, voz_video: list[str], usados_ids: set[str], ent: dict,
                    ficha_medida: Callable, caracteres: Callable, mom: dict, confirmados: dict | None,
                    final: bool = False) -> tuple[str | None, str | None, dict | None]:
     """(motivo, regla, ficha validada) de una ficha del papel, en el orden de §C.3 (+ F37 §A.1b/c y §A.4). F38d §A.1:
     con `final` la coincidencia que queda (no juzgada en `confirmados`) corta; sin él, es una pregunta."""
-    from script_engine.pantalla_filtros import (candado, contradicciones_de, frase_contradiccion, gancho_dicho, no_dicho,
-                                                spoiler)
+    from script_engine.pantalla_filtros import candado, contradicciones_de, frase_contradiccion, no_dicho, spoiler
     pid = str(fi.get("pool_id") or "")
     c = caps.get(cap)
     si = _int(fi.get("sentence_idx"))
@@ -623,11 +623,8 @@ def _validar_ficha(fi: dict, cap: str, nb: int | None, b: dict | None, slot: dic
                 f"[{si}] ni en sus vecinas", "cita_sin_fecha", None)
     # candado, no dicho, spoiler (los de pantalla_filtros, con el ítem del archivo como texto fuente)
     gancho = (b.get("funcion") == "gancho")
-    dice_voz = bool(it) and gancho and (ev.used_in(voz_txt, it) or any(numero_en(n, voz_txt)
-                                                                       for n in ev._figures(ev.text_of(it))))
     xi = {"id": pid, "texto": x["texto"], "fuente": x["fuente"], "autor": autor_arch,
-          "a_pantalla": pid in ent["a_pantalla"], "por_que": ent["a_pantalla"].get(pid, ""), "gancho": gancho,
-          "dice_voz": dice_voz}
+          "a_pantalla": pid in ent["a_pantalla"], "por_que": ent["a_pantalla"].get(pid, ""), "gancho": gancho}
     # F38e §C.3b: con un respaldo válido, el candado mira cifras, nombres y años contra el respaldo, no contra todo el
     # texto del ítem (la excepción de la oración ancla sigue dentro de `candado`); §C.3c: la cita sigue contra el texto
     # entero (frase literal, recortada)
@@ -638,11 +635,11 @@ def _validar_ficha(fi: dict, cap: str, nb: int | None, b: dict | None, slot: dic
     ctx: dict[str, Any] = {"its": {pid: xi}, "x": xi, "pid": pid, "sents": c["oraciones"], "si": si, "s": s,
                            "voz_video": voz_video, "tipo": tipo, "txt": txt, "et": et, "juicio": juicio}
     fil_ent = {"voz_antes": antes}
-    for f, regla, xx in ((gancho_dicho, "no_dicho", xi), (candado, "candado", xi_c)):
-        mot = f({}, fil_ent, {**ctx, "x": xx, "its": {pid: xx}})
-        if mot:
-            return mot, regla, None
-    # F37 §A.4: no_dicho y spoiler encuentran la coincidencia; la juzga el autor (pregunta en el reintento)
+    mot = candado({}, fil_ent, {**ctx, "x": xi_c, "its": {pid: xi_c}})
+    if mot:
+        return mot, "candado", None
+    # F37 §A.4: no_dicho y spoiler encuentran la coincidencia; la juzga el autor (pregunta en el reintento). F40 §A: la
+    # cifra del gancho que la voz dice en otra oración del video también (`video`: la pregunta dice solo dónde)
     preguntas: list[dict[str, Any]] = []
     vec = [(cap, ss["idx"], ss["texto"]) for ss in c["oraciones"][max(0, si - 1):si + 2]]
     todo = [(cc, ss["idx"], ss["texto"]) for cc in orden_caps for ss in caps[cc]["oraciones"]]
@@ -650,7 +647,10 @@ def _validar_ficha(fi: dict, cap: str, nb: int | None, b: dict | None, slot: dic
     if mot:
         if final:
             return mot, "no_dicho", None
-        preguntas += [{"regla": "no_dicho", "token": t, "donde": _donde(t, vec) or _donde(t, todo)} for t in ctx["dichos"]]
+        for t in ctx["dichos"]:
+            cerca = _donde(t, vec)
+            preguntas.append({"regla": "no_dicho", "token": t, "donde": cerca or _donde(t, todo),
+                              **({} if cerca else {"video": True})})
     despues = c["oraciones"][si + 1:] + [ss for cc in orden_caps[k + 1:] for ss in caps[cc]["oraciones"]]
     sp_ctx = {**ctx, "sents": c["oraciones"][:si + 1] + despues}               # (c): en ese cap o en los siguientes
     mot = spoiler({}, fil_ent, sp_ctx)

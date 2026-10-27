@@ -1,0 +1,724 @@
+{
+  "humano": {
+    "id": "P43",
+    "nombre": "Anatoly Ivanovich Valevich",
+    "rol": "Trabajador del combinado llegado como estudiante, liquidador y, décadas después, reclamante de derechos sociales.",
+    "por_que": "Es el único candidato con tres citas verificadas y un arco completo que la ficha documenta de punta a punta: entra entre los cincuenta estudiantes trasladados a la ciudad cerrada (D153), ve morir compañeros de dieciocho y veinte años de un día para otro (Q18), se va de la empresa en 1959 cuando los dejan irse (T50), pierde un riñón en 1998 (D156) y termina litigando por sus derechos y ayudando a otros ocho (D152). Entra, sufre, sale. Alekseeva tiene una sola cita verificada y es sobre la guerra, no sobre el accidente; Belenkov y Solntseva no tienen ninguna.",
+    "colectivo": false,
+    "fuente": "F07"
+  },
+  "antagonista": {
+    "tipo": "institucion",
+    "id": "D01",
+    "nombre": "Complejo químico Mayak",
+    "por_que": "Es quien decide en cada punto donde la historia cambia: opera los depósitos cuyas tuberías de refrigeración se desconectan en 1956 (T20), llena el tanque catorce (T23), al día siguiente de la explosión lleva en autobuses al personal diurno al territorio contaminado y ordena recoger vidrios sin informar el nivel de radiación (T34, T35), un director suyo responde a la primera medición en una aldea con «se han equivocado» (Q14), y la ciudad de los trabajadores no se evacúa porque la empresa de defensa debía funcionar sin parar (D93). Los ministerios y el periódico llegan después; la decisión que expone a la gente sale del combinado.Nadie firma; por eso es la institución y no una persona.",
+    "variantes": [
+      "Mayak Chemical Combine",
+      "ПО «Маяк»",
+      "ПО “Маяк”",
+      "химкомбинат «Маяк»",
+      "Combinado N.º 817",
+      "Комбинат № 817"
+    ]
+  },
+  "promesa_gancho": "La víspera cenás con él; a la mañana se siente mal; a la noche ya no está, y sobre los tejados una columna de humo brilla de un rojo anaranjado que nadie en la ciudad sabe nombrar.",
+  "pico": {
+    "beat": 5,
+    "id": "T28",
+    "por_que": "Coincide con la ficha: la explosión del tanque catorce a las 16:22 del 29 de septiembre de 1957 es la ruptura irreversible. Hasta ahí los fallos del almacenamiento son un problema de ingeniería; desde ahí son más de 5000 personas con una exposición única de hasta 1 sievert en las primeras horas (D91). La imagen del estadio (E2), un golpe seco en un domingo soleado que nadie considera extraordinario, es la más fuerte porque el espectador sabe lo que los que miran el partido todavía no."
+  },
+  "cierre_humano": "Volvemos a Valevich, viejo, con un riñón menos, un juicio ganado y otro perdido, ayudando a ocho personas más a reclamar. Y a la pregunta que la ficha deja sin responder: si una autoridad sanitaria dijo que no hubo ni una forma de enfermedad por radiación, ¿de qué murieron los muchachos con los que cenaba la víspera? Nadie le dio un número. Cerramos con eso: no con una moraleja, con la cuenta que nadie hizo.",
+  "beats": [
+    {
+      "n": 1,
+      "cap": 1,
+      "funcion": "gancho",
+      "emocion": "desconcierto, pérdida sin explicación",
+      "intensidad": 4,
+      "dato_central": "Q18",
+      "datos_apoyo": [],
+      "humano_en_escena": true,
+      "imagen_sensorial": "Dos muchachos de diecinueve años cenan en una mesa de comedor; a la mañana siguiente uno no se levanta; a la noche la cama está vacía. Afuera, sobre los tejados, una columna de humo y polvo brilla con una luz rojo-anaranjada, y una cubierta de hormigón yace tirada de costado junto a un cráter.",
+      "pregunta_abierta": "¿Qué mata a un muchacho sano en veinticuatro horas, y qué es esa columna que arde sin fuego?",
+      "pregunta_pantalla": "",
+      "cierre": "Para entender esa luz hay que volver a cuando ese muchacho tenía dieciocho años y vivía en una ciudad que no figuraba en ningún mapa.",
+      "palabras_objetivo": 110,
+      "flash_forward": true,
+      "contador": false,
+      "escena_idx": 3,
+      "pregunta_valida": false
+    },
+    {
+      "n": 2,
+      "cap": 2,
+      "funcion": "planteo",
+      "emocion": "orgullo joven, pertenencia",
+      "intensidad": 1,
+      "dato_central": "D153",
+      "datos_apoyo": [
+        "Q19",
+        "D04",
+        "D57",
+        "Q24"
+      ],
+      "humano_en_escena": true,
+      "imagen_sensorial": "Cincuenta estudiantes bajan de un tren en una ciudad sin nombre en los mapas; en el instituto técnico, un hombre de mirada ardiente al que todos obedecen; en las calles de las aldeas vecinas, la gente llama «chocolateros» a los que trabajan en la fábrica.",
+      "pregunta_abierta": "¿Qué sabían estos muchachos del lugar al que los mandaron, y qué sabía la gente de afuera que ellos no?",
+      "pregunta_pantalla": "",
+      "cierre": "Lo que salía de esas plantas era plutonio para bombas. Lo que sobraba, había que guardarlo en alguna parte.",
+      "palabras_objetivo": 130,
+      "flash_forward": false,
+      "contador": false
+    },
+    {
+      "n": 3,
+      "cap": 2,
+      "funcion": "planteo",
+      "emocion": "confianza, casi broma de ingenieros",
+      "intensidad": 2,
+      "dato_central": "Q01",
+      "datos_apoyo": [
+        "Q05",
+        "Q06",
+        "D07",
+        "D122",
+        "D30"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Acero inoxidable dentro de un cañón de hormigón de ocho metros de profundidad; una losa de ciento sesenta toneladas encima; y sobre la losa, una capa de tierra y césped verde recién puesto, como si ahí no hubiera nada.",
+      "pregunta_abierta": "¿Quién sabe qué fuerza se necesita para destruir esto? Es la pregunta que hacen ellos mismos, y nadie la responde.",
+      "pregunta_pantalla": "",
+      "cierre": "Uno de esos tanques, el número catorce, iba a responder la pregunta. Pero antes, en 1956, una de las tuberías que lo enfriaban empezó a perder.",
+      "palabras_objetivo": 120,
+      "flash_forward": false,
+      "contador": false,
+      "escena_idx": 1,
+      "pregunta_valida": false
+    },
+    {
+      "n": 4,
+      "cap": 3,
+      "funcion": "escalada",
+      "emocion": "inquietud técnica, cuenta regresiva muda",
+      "intensidad": 3,
+      "dato_central": "T20",
+      "datos_apoyo": [
+        "D89",
+        "T23",
+        "D101",
+        "D46",
+        "Q16"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Una tubería que gotea y una válvula que alguien cierra; después, entre el 9 de marzo y el 10 de abril de 1957, doscientos cincuenta y seis metros cúbicos de residuo entrando en el tanque; adentro, setenta u ochenta toneladas que se calientan solas hasta trescientos grados y empiezan a secarse en sal.",
+      "pregunta_abierta": "Si desconectaron la refrigeración y siguieron llenando, ¿quién estaba mirando la temperatura?",
+      "pregunta_pantalla": "",
+      "cierre": "El tanque catorce quedó lleno en abril. Lo que pasó adentro durante el verano lo oyó una ciudad entera un domingo a la tarde.",
+      "palabras_objetivo": 260,
+      "flash_forward": false,
+      "contador": false,
+      "pregunta_valida": false
+    },
+    {
+      "n": 5,
+      "cap": 4,
+      "funcion": "pico",
+      "emocion": "estallido, incredulidad, exposición",
+      "intensidad": 5,
+      "dato_central": "T28",
+      "datos_apoyo": [
+        "D09",
+        "D10",
+        "D35",
+        "D11",
+        "D12",
+        "D91"
+      ],
+      "humano_en_escena": true,
+      "imagen_sensorial": "Un estadio bajo el sol; dos equipos de la ciudad en la cancha; a las cuatro y pico de la tarde un golpe seco, como los de las obras, y nadie deja de mirar el partido. A dos kilómetros, la cubierta de hormigón ha volado de costado y donde estaba el tanque hay un cráter de diez metros de hondo y veinte de ancho.",
+      "pregunta_abierta": "Si la cubierta voló y el cráter está abierto, ¿qué están respirando los que siguen en la cancha y los que están de turno en el sitio industrial?",
+      "pregunta_pantalla": "",
+      "cierre": "Noventa de cada cien partes cayeron ahí mismo, sobre el combinado. Las otras diez se fueron con el viento. A las siete y veinte de la tarde, el viento ya había decidido hacia dónde.",
+      "palabras_objetivo": 144,
+      "flash_forward": false,
+      "contador": false,
+      "escena_idx": 2
+    },
+    {
+      "n": 6,
+      "cap": 4,
+      "funcion": "respiro",
+      "emocion": "silencio, belleza equivocada",
+      "intensidad": 2,
+      "dato_central": "T32",
+      "datos_apoyo": [
+        "T27",
+        "T30",
+        "T31",
+        "T36",
+        "D37"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Noche del domingo: sobre aldeas dormidas, el cielo se tiñe de rosado y azul claro cerca de las once; la nube avanza en silencio hacia el noreste, pasa Bagaryak, Kamensk-Uralsky, llega a Tiumén cerca de la medianoche, y a las tres de la mañana ya dejó una franja de trescientos kilómetros sobre la tierra.",
+      "pregunta_abierta": "¿Cuánta gente miró ese cielo y lo encontró hermoso?",
+      "pregunta_pantalla": "",
+      "cierre": "A la mañana siguiente, como todos los lunes, los autobuses pasaron a buscar al turno de día.",
+      "palabras_objetivo": 106,
+      "flash_forward": false,
+      "contador": false,
+      "escena_idx": 4,
+      "pregunta_valida": false
+    },
+    {
+      "n": 7,
+      "cap": 5,
+      "funcion": "giro",
+      "emocion": "rabia contenida, obediencia",
+      "intensidad": 4,
+      "dato_central": "T35",
+      "datos_apoyo": [
+        "T34",
+        "T37",
+        "T33",
+        "Q14",
+        "D93"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "El taller de la planta 25 con todas las ventanas reventadas; vidrio en el suelo; un turno entero agachado recogiendo astillas con las manos mientras se preguntan en voz baja qué fue el golpe de ayer. A las cuatro de la mañana alguien ya había medido el sitio industrial; a ellos nadie les dijo el número.",
+      "pregunta_abierta": "Ya sabían. ¿Por qué los mandaron igual?",
+      "pregunta_pantalla": "",
+      "cierre": "Cuando la primera medición llegó desde una aldea, el director del combinado contestó que eso no podía ser, que se habían equivocado. Una semana después, el periódico de Cheliábinsk tuvo otra explicación.",
+      "palabras_objetivo": 123,
+      "flash_forward": false,
+      "contador": false,
+      "escena_idx": 5
+    },
+    {
+      "n": 8,
+      "cap": 5,
+      "funcion": "escalada",
+      "emocion": "cinismo, miedo doméstico",
+      "intensidad": 4,
+      "dato_central": "Q02",
+      "datos_apoyo": [
+        "T40",
+        "Q07",
+        "T38",
+        "T39",
+        "D104",
+        "D136"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "La hoja del 6 de octubre: «un resplandor especial en el cielo estrellado… todas las características de una aurora polar». Mientras tanto, mujeres con escobas y baldes lavan con agua los caminos y las plazas de la ciudad desde el primer día; un dosímetro apoyado en la panza de un chico que juega en la calle marca cuarenta, cincuenta.",
+      "pregunta_abierta": "Si la ciudad se lava a mano y los chicos marcan en el dosímetro, ¿qué pasa con las aldeas que nadie está lavando?",
+      "pregunta_pantalla": "",
+      "cierre": "A los seiscientos de los primeros días siguieron mil cien más de tres aldeas. Les dijeron que se llevaran poco. No iban a volver a buscar nada.",
+      "palabras_objetivo": 127,
+      "flash_forward": false,
+      "contador": false,
+      "escena_idx": 6,
+      "pregunta_valida": false
+    },
+    {
+      "n": 9,
+      "cap": 6,
+      "funcion": "consecuencia",
+      "emocion": "despojo, duelo por las cosas",
+      "intensidad": 3,
+      "dato_central": "T43",
+      "datos_apoyo": [
+        "D137",
+        "D19",
+        "D21",
+        "D159",
+        "D158"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Fosas abiertas en el campo; abrigos, ollas, fotos rociados con queroseno y empujados adentro; a los evacuados les dan ropa y zapatos nuevos después del paso sanitario. Un año después, máquinas tumban casas, graneros, forraje, y todo desaparece bajo tierra.",
+      "pregunta_abierta": "¿Qué queda de un pueblo cuando lo entierran con todo lo que tenía?",
+      "pregunta_pantalla": "",
+      "cierre": "Veintitrés pueblos bajo tierra y setecientos kilómetros cuadrados cerrados con alambre. Faltaba decidir de quién había sido la culpa. Y qué les había pasado a los que limpiaron.",
+      "palabras_objetivo": 116,
+      "flash_forward": false,
+      "contador": false,
+      "escena_idx": 9
+    },
+    {
+      "n": 10,
+      "cap": 6,
+      "funcion": "revelacion",
+      "emocion": "contradicción, sospecha",
+      "intensidad": 4,
+      "dato_central": "D192",
+      "datos_apoyo": [
+        "D16",
+        "Q11",
+        "D151",
+        "D145",
+        "Q21",
+        "T50"
+      ],
+      "humano_en_escena": true,
+      "imagen_sensorial": "Tres versiones sobre la misma mesa: una orden de ahorrar electricidad y apagar el burbujeo, un error de laboratorio, sales que se secaron solas. Y tres recuerdos: una mujer que sintió que la dirección cuidaba de ellos; otra que dice que nadie controlaba las dosis; un ingeniero que vio agonizar a su jefe. En 1959, cuando por fin los dejan irse, Valevich se va.",
+      "pregunta_abierta": "Si los que estuvieron ahí no se ponen de acuerdo en si los cuidaron, ¿quién puede decir hoy cuánto costó?",
+      "pregunta_pantalla": "",
+      "cierre": "Valevich salió por la puerta en 1959. La noticia tardó mucho más en salir.",
+      "palabras_objetivo": 134,
+      "flash_forward": false,
+      "contador": false,
+      "pregunta_valida": false
+    },
+    {
+      "n": 11,
+      "cap": 7,
+      "funcion": "revelacion",
+      "emocion": "secreto que se agrieta",
+      "intensidad": 3,
+      "dato_central": "Q03",
+      "datos_apoyo": [
+        "D23",
+        "D44",
+        "T57",
+        "T61",
+        "T62"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Un diario de Copenhague en 1958; una página de New Scientist en 1976 firmada por un biólogo exiliado; el 16 de junio de 1989 una conferencia de prensa en el mismo periódico que habló de la aurora; en julio, un hombre de pie en el Sóviet Supremo diciendo que en tres años de seguimiento no se registró ninguna forma de enfermedad por radiación.",
+      "pregunta_abierta": "Ninguna forma de enfermedad. ¿Y los muchachos que cenaban la víspera?",
+      "pregunta_pantalla": "",
+      "cierre": "La declaración quedó en el acta. Valevich, en cambio, tenía otra cuenta.",
+      "palabras_objetivo": 73,
+      "flash_forward": false,
+      "contador": false
+    },
+    {
+      "n": 12,
+      "cap": 7,
+      "funcion": "cierre",
+      "emocion": "terquedad, pregunta sin dueño",
+      "intensidad": 3,
+      "dato_central": "D152",
+      "datos_apoyo": [
+        "D156",
+        "T64"
+      ],
+      "humano_en_escena": true,
+      "imagen_sensorial": "Un hombre viejo con carpetas de juicio: uno perdido contra el Fondo de Seguro Social, uno ganado contra la Dirección de Protección Social; un riñón menos desde 1998; ocho personas a las que ayudó a presentar sus papeles; un carnet de liquidador que llegó en 1993, treinta y seis años después del golpe seco.",
+      "pregunta_abierta": "Nadie respondió cuántos fueron. Él tampoco lo sabe; a los dieciocho no sabían muchas cosas, y a los setenta tampoco nadie se lo dijo.",
+      "pregunta_pantalla": "",
+      "cierre": "La víspera cenás con él. A la mañana se siente mal. A la noche ya murió. Nadie le dijo nunca de qué.",
+      "palabras_objetivo": 67,
+      "flash_forward": false,
+      "contador": false,
+      "pregunta_valida": false
+    }
+  ],
+  "a_pantalla": [
+    {
+      "id": "D03",
+      "cap": 1,
+      "por_que": "La clasificación nivel 6 de 7 es un rótulo oficial; se muestra bajo el gancho sin que la voz lo lea."
+    },
+    {
+      "id": "D17",
+      "cap": 4,
+      "por_que": "270.000 habitantes y 217 localidades es la cifra oficial de la zona contaminada; mejor como cartel sobre el mapa de la traza que leída."
+    },
+    {
+      "id": "D20",
+      "cap": 6,
+      "por_que": "El total de reasentados no está unificado (12.763 / 10.000-12.000 / unas 10.000); la voz no puede decir tres números, la pantalla sí puede mostrar las tres fuentes."
+    },
+    {
+      "id": "D90",
+      "cap": 6,
+      "por_que": "Unos 30.000 trabajadores y militares con más de 0,25 Sv entre 1957 y 1959: cifra de informe, va como texto en pantalla bajo las versiones en disputa."
+    },
+    {
+      "id": "D83",
+      "cap": 7,
+      "por_que": "Más de 2000 diagnósticos de enfermedad profesional por radiación en la etapa de establecimiento de la producción, sin fecha delimitada: contrasta en silencio con la declaración de Buldakov sin que la voz lo convierta en acusación."
+    }
+  ],
+  "justificacion_humano": "La ficha misma marca a Valevich como persona que la historia necesita recuperar, y el pool lo sostiene: cita literal verificada sobre compañeros que mueren de un día para otro (Q18), llegada documentada entre los estudiantes (D153), salida en 1959 (T50), daño de salud (D156) y litigios (D152). Está en el gancho con su cita, en el pico como trabajador del combinado ese domingo, en el cap 6 cuando se va, y en el cierre con sus carpetas. Alekseeva queda como contrapunto en el cap 5 (la ciudad lavada a escoba) y en las versiones en disputa; Belenkov aporta la agonía del jefe en el cap 6; Valia Dronova no entra porque la ficha advierte que su muerte no tiene vinculación documental con la explosión del depósito. El giro 6 se reparte entre los beats 11 y 12; ningún giro quedó afuera.",
+  "topic_id": "f39-kyshtym",
+  "prompt_version": "f26-1",
+  "_reparaciones": [
+    "beat 9: apoyo L09 no existe en el pool → fuera",
+    "a_pantalla D18: cap 6 inválido o lleno → fuera",
+    "a_pantalla D43: cap 6 inválido o lleno → fuera",
+    "cap 1: palabras 220 → 110 (objetivo 110)",
+    "cap 2: palabras 500 → 250 (objetivo 250)",
+    "cap 4: palabras 520 → 250 (objetivo 250)",
+    "cap 5: palabras 550 → 250 (objetivo 250)",
+    "cap 6: palabras 560 → 250 (objetivo 250)",
+    "cap 7: palabras 500 → 140 (objetivo 140)"
+  ],
+  "_avisos": [],
+  "_intentos": [
+    {
+      "intento": 1,
+      "bloqueantes": [],
+      "reparaciones": [
+        "beat 9: apoyo L09 no existe en el pool → fuera",
+        "a_pantalla D18: cap 6 inválido o lleno → fuera",
+        "a_pantalla D43: cap 6 inválido o lleno → fuera",
+        "cap 1: palabras 220 → 110 (objetivo 110)",
+        "cap 2: palabras 500 → 250 (objetivo 250)",
+        "cap 4: palabras 520 → 250 (objetivo 250)",
+        "cap 5: palabras 550 → 250 (objetivo 250)",
+        "cap 6: palabras 560 → 250 (objetivo 250)",
+        "cap 7: palabras 500 → 140 (objetivo 140)"
+      ],
+      "no_bloqueantes": [
+        "caps de desarrollo con menos de 2 beats: [3] (beats por cap: [1, 2, 1, 2, 2, 2, 2])",
+        "falta un beat de intensidad 1 (respiro) después del pico",
+        "beat 5: Anatoly Ivanovich Valevich en escena sin un dato suyo verificado (ninguna cita ni mención en ['T28', 'D09', 'D10', 'D35', 'D11', 'D12', 'D91']); datos suyos que valen: ['D152', 'D153', 'D156', 'T50', 'Q18', 'Q19', 'Q20']",
+        "la imagen sensorial del gancho no lleva cifras",
+        "la última frase del video (cierre del beat 12) no nombra al humano ni a un testigo verificado (Arkady Alexandrovich Kazutov, V. A. Saprykin, L. A. Buldakov, Igor Vasilyevich Kurchatov, Evgenia Aleksandrovna Alekseeva, Iósif Stalin, Ivanov N.I., Sergey Andreevich Gutnikov, Valia Dronova, Periódico 'Chelyabinsky Rabochy', V. I. Shevchenko, Anatoly Ivanovich Valevich): «La víspera cenás con él. A la mañana se siente mal. A la noche ya murió. Nadie le dijo nunca de qué.»",
+        "pregunta de pantalla del cap 7 «»: falta la pregunta de pantalla",
+        "la última frase repite textual la cita Q18: decila con otras palabras",
+        "pregunta de pantalla del cap 1 «»: falta la pregunta de pantalla",
+        "pregunta de pantalla del cap 2 «»: falta la pregunta de pantalla",
+        "pregunta de pantalla del cap 3 «»: falta la pregunta de pantalla",
+        "pregunta de pantalla del cap 4 «»: falta la pregunta de pantalla",
+        "pregunta de pantalla del cap 5 «»: falta la pregunta de pantalla",
+        "pregunta de pantalla del cap 6 «»: falta la pregunta de pantalla"
+      ]
+    }
+  ],
+  "ficha": {
+    "prompt_version": "f23-1",
+    "pool_md5": "b846eeb1529bb861877fb128c89d7f78"
+  },
+  "pool_gate": {
+    "color": "verde",
+    "metricas": {
+      "datos": 203,
+      "citas_verificadas": 22,
+      "elegibles_humano": 11,
+      "eventos_con_fecha": 42,
+      "personas_con_nombre": 40
+    },
+    "motivos": [],
+    "target_words": 1500
+  },
+  "_pantalla_por_fecha": [
+    "T01 (1945-04-09) del cap 2 al cap 4 (por fecha)",
+    "D15 (1957-09-30) del cap 4 al cap 5 (por fecha)",
+    "D129 (1948-06-08) → cap 4 lleno: fuera",
+    "D199 (None) → cap 5 lleno: fuera",
+    "D201 (None) → cap 6 lleno: fuera",
+    "D74 (None) → cap 6 lleno: fuera",
+    "T60 cuenta lo mismo que D25, ya en pantalla: fuera"
+  ],
+  "caps": [
+    {
+      "chapter_number": 1,
+      "role": "hook",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "hook",
+      "evidence_ids": [
+        "Q18"
+      ],
+      "cliffhanger": "D153",
+      "pantalla_ids": [
+        "D03"
+      ],
+      "palabras_objetivo": 110
+    },
+    {
+      "chapter_number": 2,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "setup",
+      "evidence_ids": [
+        "D153",
+        "Q19",
+        "D04",
+        "D57",
+        "Q24",
+        "Q01",
+        "Q05",
+        "Q06",
+        "D07",
+        "D122",
+        "D30"
+      ],
+      "cliffhanger": "T20",
+      "pantalla_ids": [
+        "D123"
+      ],
+      "palabras_objetivo": 250
+    },
+    {
+      "chapter_number": 3,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "rising_tension",
+      "evidence_ids": [
+        "T20",
+        "D89",
+        "T23",
+        "D101",
+        "D46",
+        "Q16"
+      ],
+      "cliffhanger": "T28",
+      "pantalla_ids": [
+        "T10",
+        "D146"
+      ],
+      "palabras_objetivo": 260
+    },
+    {
+      "chapter_number": 4,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "shock",
+      "evidence_ids": [
+        "T28",
+        "D09",
+        "D10",
+        "D35",
+        "D11",
+        "D12",
+        "D91",
+        "T32",
+        "T27",
+        "T30",
+        "T31",
+        "T36",
+        "D37"
+      ],
+      "cliffhanger": "T35",
+      "pantalla_ids": [
+        "D17",
+        "T01"
+      ],
+      "palabras_objetivo": 250
+    },
+    {
+      "chapter_number": 5,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "rising_tension",
+      "evidence_ids": [
+        "T35",
+        "T34",
+        "T37",
+        "T33",
+        "Q14",
+        "D93",
+        "Q02",
+        "T40",
+        "Q07",
+        "T38",
+        "T39",
+        "D104",
+        "D136"
+      ],
+      "cliffhanger": "T43",
+      "pantalla_ids": [
+        "D15",
+        "D75"
+      ],
+      "palabras_objetivo": 250
+    },
+    {
+      "chapter_number": 6,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "resolution",
+      "evidence_ids": [
+        "T43",
+        "D137",
+        "D19",
+        "D21",
+        "D159",
+        "D158",
+        "D192",
+        "D16",
+        "Q11",
+        "D151",
+        "D145",
+        "Q21",
+        "T50"
+      ],
+      "cliffhanger": "Q03",
+      "pantalla_ids": [
+        "D20",
+        "D90"
+      ],
+      "palabras_objetivo": 250
+    },
+    {
+      "chapter_number": 7,
+      "role": "reveal_outro",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "outro",
+      "evidence_ids": [
+        "Q03",
+        "D23",
+        "D44",
+        "T57",
+        "T61",
+        "T62",
+        "D152",
+        "D156",
+        "T64"
+      ],
+      "cliffhanger": "",
+      "pantalla_ids": [
+        "D83",
+        "D25"
+      ],
+      "palabras_objetivo": 140
+    }
+  ],
+  "_pool_plan": {
+    "cifras_canonicas": [],
+    "pantalla": [
+      "cap 2: pantalla ['D123', 'T01']",
+      "cap 3: pantalla ['T10', 'D146']",
+      "cap 4: pantalla ['D15', 'D129']",
+      "cap 5: pantalla ['D75', 'D199']",
+      "cap 6: pantalla ['D201', 'D74']",
+      "cap 7: pantalla ['D25', 'T60']"
+    ]
+  },
+  "_metricas": {
+    "curva_intensidad": [
+      4,
+      1,
+      2,
+      3,
+      5,
+      2,
+      4,
+      4,
+      3,
+      4,
+      3,
+      3
+    ],
+    "flash_forward_beat1": true,
+    "curva_problemas": [
+      "falta un beat de intensidad 1 (respiro) después del pico"
+    ],
+    "humano_en_escena_caps": [
+      1,
+      2,
+      4,
+      6,
+      7
+    ],
+    "humano_entra_cap": 1,
+    "humano_con_cita_sin_verificar_en_escena": [],
+    "humano_en_escena_problemas": [
+      "beat 5: Anatoly Ivanovich Valevich en escena sin un dato suyo verificado (ninguna cita ni mención en ['T28', 'D09', 'D10', 'D35', 'D11', 'D12', 'D91']); datos suyos que valen: ['D152', 'D153', 'D156', 'T50', 'Q18', 'Q19', 'Q20']"
+    ],
+    "promesa_con_cifras": false,
+    "imagen_gancho_con_cifras": true,
+    "imagenes_abstractas": [],
+    "escenas_usadas": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      9
+    ],
+    "escena_gancho": 3,
+    "escena_pico": 2,
+    "giros": [
+      {
+        "orden": 1,
+        "que_cambia": "Las tuberías de refrigeración de un contenedor empiezan a perder y se desconectan: el almacenamiento queda asociado a una falla de extracción de calor.",
+        "beat": 4
+      },
+      {
+        "orden": 2,
+        "que_cambia": "El tanque explota y los residuos dejan de ser un problema confinado para convertirse en contaminación del sitio industrial y de una extensa franja exterior.",
+        "beat": 5
+      },
+      {
+        "orden": 3,
+        "que_cambia": "El personal vuelve al área contaminada y un turno recibe la orden de limpiar vidrios sin conocer el nivel de radiación.",
+        "beat": 7
+      },
+      {
+        "orden": 4,
+        "que_cambia": "Mientras se deciden evacuaciones, una nota de prensa explica el resplandor como una aurora polar.",
+        "beat": 8
+      },
+      {
+        "orden": 5,
+        "que_cambia": "La evacuación se transforma en pérdida material permanente: se eliminan y entierran construcciones y pertenencias de las localidades contaminadas.",
+        "beat": 9
+      },
+      {
+        "orden": 6,
+        "que_cambia": "La explosión pasa del secreto a la confirmación pública, pero la declaración sanitaria tranquilizadora y los recuerdos de los trabajadores no producen un balance único de sus consecuencias.",
+        "beat": 10
+      }
+    ],
+    "giros_con_beat": 6,
+    "giros_total": 6,
+    "humano_en_candidatos": true,
+    "pico_es_el_de_la_ficha": true,
+    "palabras_objetivo_por_cap": {
+      "1": 110,
+      "2": 250,
+      "3": 260,
+      "4": 250,
+      "5": 250,
+      "6": 250,
+      "7": 140
+    },
+    "antagonista_tipo": "institucion",
+    "antagonista_caps": [],
+    "cifra_en_pantalla_repetida": [],
+    "ultima_frase_repite_cita": [
+      "la última frase repite textual la cita Q18: decila con otras palabras"
+    ],
+    "ultima_frase_sin_humano": [
+      "la última frase del video (cierre del beat 12) no nombra al humano ni a un testigo verificado (Arkady Alexandrovich Kazutov, V. A. Saprykin, L. A. Buldakov, Igor Vasilyevich Kurchatov, Evgenia Aleksandrovna Alekseeva, Iósif Stalin, Ivanov N.I., Sergey Andreevich Gutnikov, Valia Dronova, Periódico 'Chelyabinsky Rabochy', V. I. Shevchenko, Anatoly Ivanovich Valevich): «La víspera cenás con él. A la mañana se siente mal. A la noche ya murió. Nadie le dijo nunca de qué.»"
+    ],
+    "preguntas_pantalla": [
+      "pregunta de pantalla del cap 7 «»: falta la pregunta de pantalla",
+      "pregunta de pantalla del cap 1 «»: falta la pregunta de pantalla",
+      "pregunta de pantalla del cap 2 «»: falta la pregunta de pantalla",
+      "pregunta de pantalla del cap 3 «»: falta la pregunta de pantalla",
+      "pregunta de pantalla del cap 4 «»: falta la pregunta de pantalla",
+      "pregunta de pantalla del cap 5 «»: falta la pregunta de pantalla",
+      "pregunta de pantalla del cap 6 «»: falta la pregunta de pantalla"
+    ],
+    "preguntas_abiertas": [
+      "¿Qué mata a un muchacho sano en veinticuatro horas, y qué es esa columna que arde sin fuego?",
+      "¿Qué sabían estos muchachos del lugar al que los mandaron, y qué sabía la gente de afuera que ellos no?",
+      "¿Quién sabe qué fuerza se necesita para destruir esto? Es la pregunta que hacen ellos mismos, y nadie la responde.",
+      "Si desconectaron la refrigeración y siguieron llenando, ¿quién estaba mirando la temperatura?",
+      "Si la cubierta voló y el cráter está abierto, ¿qué están respirando los que siguen en la cancha y los que están de turno en el sitio industrial?",
+      "¿Cuánta gente miró ese cielo y lo encontró hermoso?",
+      "Ya sabían. ¿Por qué los mandaron igual?",
+      "Si la ciudad se lava a mano y los chicos marcan en el dosímetro, ¿qué pasa con las aldeas que nadie está lavando?",
+      "¿Qué queda de un pueblo cuando lo entierran con todo lo que tenía?",
+      "Si los que estuvieron ahí no se ponen de acuerdo en si los cuidaron, ¿quién puede decir hoy cuánto costó?",
+      "Ninguna forma de enfermedad. ¿Y los muchachos que cenaban la víspera?",
+      "Nadie respondió cuántos fueron. Él tampoco lo sabe; a los dieciocho no sabían muchas cosas, y a los setenta tampoco nadie se lo dijo."
+    ],
+    "otros": [
+      "caps de desarrollo con menos de 2 beats: [3] (beats por cap: [1, 2, 1, 2, 2, 2, 2])",
+      "la imagen sensorial del gancho no lleva cifras"
+    ]
+  }
+}

@@ -83,7 +83,7 @@ def test_b1_la_ficha_que_no_entra_en_su_ancla_entra_en_el_corte_anterior_de_su_o
     ent = _ent(words, [(3, 70.0, 120.0)])
     ent["items"] = [{"id": "D47", "a_pantalla": False, "por_que": "", "beats": [3], "tipo": "D", "kind": "datos",
                      "texto": "Müller estimó un deslizamiento de 200 millones de metros cúbicos", "fuente": "x",
-                     "autor": "", "gancho": False, "dice_voz": False}]
+                     "autor": "", "gancho": False}]
     scenes = [Sc(idx=8, start=70.0, end=79.6, quiet_side="right"), Sc(idx=9, start=79.6, end=86.6, quiet_side="right"),
               Sc(idx=10, start=86.6, end=110.0, quiet_side="right")]
     b = {"pool_id": "D47", "sentence_idx": 0, "word_idx": 12, "tipo": "cifra", "etiqueta": "LO QUE MÜLLER ESTIMÓ",

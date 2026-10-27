@@ -100,20 +100,11 @@ def pide_documento(por_que: str) -> bool:
 
 # ═══════════════════════ validar: los filtros, en orden ═══════════════════════
 # F36 §A: cada filtro de bloque recibe (bloque, ent, ctx) y devuelve el motivo si el bloque sale (None si pasa); sale
-# con la regla del filtro (`regla`: el nombre de la función; `gancho_dicho` sale como no_dicho, que es lo que era). ctx
+# con la regla del filtro (`regla`: el nombre de la función). ctx
 # es del bloque: lo que un filtro deja (ítem, oración, tipo, texto, tiempos) lo leen los que siguen; `forma` normaliza
-# el bloque (tipo, texto, etiqueta). El orden es el de F34: el primero que corta se queda con el bloque.
-
-
-def gancho_dicho(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> str | None:
-    """F34 §A.1: del pool del video, pero la voz lo dice."""
-    x = ctx["x"]
-    if x.get("gancho") and x.get("dice_voz"):
-        return f"{ctx['pid']} es del pool del video y la narración lo dice en algún cap (gancho)"
-    return None
-
-
-gancho_dicho.regla = "no_dicho"          # type: ignore[attr-defined]
+# el bloque (tipo, texto, etiqueta). El orden es el de F34: el primero que corta se queda con el bloque. F40 §A: se
+# borró `gancho_dicho` (el corte del dato del gancho por cualquier cifra suya en la voz): la coincidencia es de
+# `no_dicho` (las cifras de todo el video para el gancho) y se le pregunta al autor (F37 §A.4).
 
 
 def candado(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> str | None:
@@ -156,7 +147,8 @@ def no_dicho(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> str
     """§A.3 no dicho (oración ancla ± 1), sobre el dato. F34 §A.2.2: antes que la lectura (D237 «cuatrocientos» caía
     por lectura y no por repetir la voz); los números en letras de la voz se comparan por valor (numeros/numero_en, con
     el conversor de num_es). F37 §A.4: las coincidencias quedan en ctx["dichos"] (el papel se las pregunta al autor) y
-    las que el autor juzgó otro hecho no cuentan."""
+    las que el autor juzgó otro hecho no cuentan. F40 §A: en el gancho, una cifra del dato que la voz dice en cualquier
+    oración del video es una coincidencia más (la pregunta al autor; ya no la corta `gancho_dicho`)."""
     sents, si, x, txt = ctx["sents"], ctx["si"], ctx["x"], ctx["txt"]
     vecinas = " ".join(ss["texto"] for ss in sents[max(0, si - 1):si + 2])
     nums = numeros(txt)
@@ -164,12 +156,14 @@ def no_dicho(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> str
     nms = [n for n in nombres(txt) if n not in exento]
     ctx.update(nums=nums, nms=nms)
     dichos = [n for n in nums if numero_en(n, vecinas)] + [n for n in nms if _palabra_en(n, vecinas)]
+    lejos = []
     if x.get("gancho"):                    # §A.1: el dato del gancho no lo dice la voz en todo el video
-        dichos += [n for n in nums if n not in dichos and numero_en(n, " ".join(ctx["voz_video"]))]
-    dichos = _sin_juicio(ctx, "no_dicho", dichos)
+        lejos = [n for n in nums if n not in dichos and numero_en(n, " ".join(ctx["voz_video"]))]
+    dichos = _sin_juicio(ctx, "no_dicho", dichos + lejos)
     ctx["dichos"] = dichos
-    if dichos:
-        return f"la voz lo dice en la oración ancla o en una vecina: {dichos}"
+    if dichos:                             # F40 §A: la del gancho la dice la voz en otro cap u oración del video
+        donde = "en otra oración del video (gancho)" if set(dichos) & set(lejos) else "en la oración ancla o en una vecina"
+        return f"la voz lo dice {donde}: {dichos}"
     return None
 
 
@@ -255,7 +249,7 @@ ancla_papel.regla = "anclaje"            # type: ignore[attr-defined]
 # hasta el corte); «nunca al mismo tiempo», el crítico de foto y «ya mostrado» corren después (colocar, escena_final).
 # No se re-aplican: cantidad (uno por beat), «pico solo a_pantalla» ni el desempate (los decidió el papel), ni la
 # forma y el anclaje del modelo (quedan en papel, §C.3), ni la coherencia (no está en la lista de la aclaración 3).
-ORDEN = [ancla_papel, gancho_dicho, candado, no_dicho, spoiler, lectura]
+ORDEN = [ancla_papel, candado, no_dicho, spoiler, lectura]
 
 
 def regla(f: Any) -> str:

@@ -134,7 +134,7 @@ def test_b1_q50_corta_se_mueve_a_la_oracion_siguiente_si_no_cabe():
     ent = _ent(words, [(8, 10.0, 40.0)])
     ent["items"] = [{"id": "Q50", "a_pantalla": False, "por_que": "", "beats": [8], "tipo": "Q", "kind": "citas",
                      "texto": "en continua aprensión y en continua alarma", "fuente": "x",
-                     "autor": "Administración de Erto y Casso", "gancho": False, "dice_voz": False}]
+                     "autor": "Administración de Erto y Casso", "gancho": False}]
     scenes = [Sc(idx=6, start=10.0, end=19.5, quiet_side="right"), Sc(idx=7, start=19.5, end=27.1, quiet_side="right"),
               Sc(idx=8, start=27.1, end=40.0, quiet_side="right")]      # la escena 8 arranca después de la oración
     b = {"pool_id": "Q50", "sentence_idx": 0, "word_idx": 4, "tipo": "cita", "etiqueta": "CARTA DE ERTO",

@@ -74,11 +74,14 @@ M: dict[str, tuple[str, str, str, str, str]] = {
     "pantalla_entrada": ("La entrada de Fase 2 para el texto de pantalla (F37: antes gfx_rotulista; no escribe nada): "
                          "`preparar_cap` lee el guion en papel de Fase 1 (`01e_pantalla.json`), alinea sus oraciones con "
                          "las de la voz por texto y ancla cada ficha a su palabra (con el juicio del autor, si lo hay). "
-                         "F38e §C: el autor que el papel muestra en una cita es el que ve Fase 2.",
+                         "F38e §C: el autor que el papel muestra en una cita es el que ve Fase 2. F40: el ítem ya no "
+                         "trae `dice_voz` (solo la marca de gancho).",
                          "papel del topic + oraciones de la voz + beats", "entrada del cap + bloques, sellos y relojes "
                          "del papel", "F29b", "vivo"),
     "pantalla_filtros": ("Los filtros que deciden si un texto del papel sale, en un orden que se lee en una línea "
-                         "(`ORDEN`): anclar el papel a la voz, no dicho del gancho, candado de lo literal, no dicho, "
+                         "(`ORDEN`): F40: sin el corte del gancho (`gancho_dicho`): su coincidencia con la voz de todo "
+                         "el video es de no dicho y se le pregunta al autor. Orden: anclar el papel a la voz, candado de "
+                         "lo literal, no dicho (en el gancho, con la voz de todo el video), "
                          "spoiler (lo que el autor juzgó «otro hecho» no corta) y lectura: desde F37 la lectura prueba la "
                          "escalera de intentos (otro instante de la oración, la escena siguiente, la oración siguiente) y "
                          "corta solo si no entra en ninguno. F37: antes rotulista_filtros. F38c: «cifra que contradice la "
@@ -185,7 +188,9 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                       "cita cuenta el autor). F38e: prompt m01e-6 (el de la prueba 1, letra por letra): el dato con las "
                       "palabras del autor y los hechos en un `respaldo` literal del ítem (regla `respaldo`; el candado "
                       "mira cifras, nombres y años contra él); en una cita el autor viene en español y se muestra si sus "
-                      "nombres están en el archivo (`autor_origen`). "
+                      "nombres están en el archivo (`autor_origen`). F40: el dato del gancho ya no cae en seco si una "
+                      "cifra suya está en la voz de cualquier cap: se le pregunta al autor con el cap, el número de "
+                      "oración y la oración. "
                       "Lo deja para que Omar lo revise antes de la voz; Fase 2 lo consume.", "escaleta, narración por cap y beat, títulos, pool, `sellos_clima`",
                       "`01e_pantalla.json/.md` en el topic de Fase 1", "F36", "vivo (fase 1)"),
     "archive_clipping.html.tmpl": ("La forma del recorte de diario (papel, kicker, titular).", "un recorte del plan",

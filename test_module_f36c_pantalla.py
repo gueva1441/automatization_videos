@@ -210,7 +210,7 @@ def test_f_fase2_lee_el_papel_sin_llamar_a_ningun_modelo_de_texto(monkeypatch, t
     src = (ROOT / "fase2b.py").read_text(encoding="utf-8") + (ROOT / "script_engine" / "gfx_layer.py").read_text(encoding="utf-8")
     assert "_rot_prefetch(" not in src and "gro.llamar(" not in src
     from script_engine import pantalla_filtros as rf                # aclaración 3: el ORDEN recortado
-    assert [rf.regla(f) for f in rf.ORDEN] == ["anclaje", "no_dicho", "candado", "no_dicho", "spoiler", "lectura"]
+    assert [rf.regla(f) for f in rf.ORDEN] == ["anclaje", "candado", "no_dicho", "spoiler", "lectura"]   # F40 §A: sin gancho_dicho
 
 
 # F36 §C.4 / §D: lo que Fase 2 hace con el papel (sin modelo)
@@ -224,8 +224,7 @@ def test_g_cita_ficha_con_autor_y_sellos_del_papel_nunca_al_mismo_tiempo(monkeyp
     ent = {"oraciones": sents, "beats": [{"n": 1, "funcion": "revelacion", "t0": 0.0, "t1": 20.0, "cierre": "",
                                           "dato_central": "", "datos_apoyo": []}],
            "items": [{"id": "Q14", "a_pantalla": False, "por_que": "", "beats": [1], "tipo": "Q", "kind": "citas",
-                      "texto": "Y justicia tendréis", "fuente": "x", "autor": "Giovanni Leone", "gancho": False,
-                      "dice_voz": False}], "voz_video": [s["texto"] for s in sents], "voz_antes": ""}
+                      "texto": "Y justicia tendréis", "fuente": "x", "autor": "Giovanni Leone", "gancho": False}], "voz_video": [s["texto"] for s in sents], "voz_antes": ""}
     pool = {"citas": [{"id": "Q14", "texto": "Y justicia tendréis", "autor": "Giovanni Leone", "fuente": "x"}]}
     res = {"papel": True, "final": {"bloques": [{"pool_id": "Q14", "sentence_idx": 0, "word_idx": 1, "beat": 1, "rank": 1,
                                                  "tipo": "cita", "estilo": "cita", "etiqueta": "RESPUESTA DE LEONE",

@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Any
 
 from script_engine.voz_datos import pico_cap
-from script_engine.voz_utils import _ARTPREP, beat_de_oracion, norm_oracion, numero_en, oraciones
+from script_engine.voz_utils import _ARTPREP, beat_de_oracion, norm_oracion, oraciones
 
 
 def voz_del_video(ctx: dict[str, Any]) -> list[str]:
@@ -78,26 +78,23 @@ def palabra_idx(palabra: str, s: dict[str, Any]) -> tuple[int, str]:
     return k, f"«{palabra}» no está en la oración: primera palabra de contenido"
 
 
-def _item(pid: str, pool: dict | None, escaleta: dict, beat: int | None, gancho: bool, voz_video: list[str]
-          ) -> dict[str, Any] | None:
+def _item(pid: str, pool: dict | None, escaleta: dict, beat: int | None, gancho: bool) -> dict[str, Any] | None:
     from script_engine import evidence as ev
     from script_engine.m01e_pantalla import _texto_item
     it = ev.items(pool).get(pid) if pool else None
     if it is None:
         return None
     ap = {str(a.get("id")): str(a.get("por_que") or "") for a in escaleta.get("a_pantalla") or []}
-    voz = " ".join(voz_video)
     return {"id": pid, "a_pantalla": pid in ap, "por_que": ap.get(pid, ""), "beats": [beat] if beat else [],
             "tipo": pid[:1].upper(), "kind": it["_kind"], "texto": _texto_item(it), "fuente": str(it.get("fuente") or ""),
-            "autor": str(it.get("autor") or ""), "gancho": gancho,
-            "dice_voz": gancho and (ev.used_in(voz, it) or any(numero_en(n, voz) for n in ev._figures(ev.text_of(it))))}
+            "autor": str(it.get("autor") or ""), "gancho": gancho}
 
 
 def preparar_cap(cap: int, cap_id: str, real: dict, ctx: dict[str, Any], words: list[dict], time_offset: float,
                  pre_roll: float = 0.0, steps_dir: Path | None = None) -> tuple[dict[str, Any], dict[str, Any]]:
     """F36 §C.4 (sin modelo): (entrada, papel del cap) desde `01e_pantalla.json` del topic de Fase 1. La entrada trae
     las oraciones de la voz con tiempos, los beats con sus ventanas, los ítems del pool que el papel usa en este cap
-    (en el gancho, con «la voz lo dice en el video»), el pico, la voz del video y la de los caps anteriores. El papel
+    (marcados si son del gancho), el pico, la voz del video y la de los caps anteriores. El papel
     del cap: los bloques (fichas ancladas a la oración de la voz y a su palabra), los sellos, los relojes y la
     alineación (oraciones del papel que no alinean, anotadas)."""
     from script_engine.m01e_pantalla import TIPO_DE_ESTILO, cargar_papel
@@ -126,8 +123,7 @@ def preparar_cap(cap: int, cap_id: str, real: dict, ctx: dict[str, Any], words: 
             f, se = b.get("ficha"), b.get("sello")
             if f:
                 a = voz_de.get(int(f["sentence_idx"]))
-                x = _item(f["pool_id"], ctx.get("pool"), escaleta, b["beat"], funcion.get(b["beat"]) == "gancho",
-                          voz_video)
+                x = _item(f["pool_id"], ctx.get("pool"), escaleta, b["beat"], funcion.get(b["beat"]) == "gancho")
                 if a is None or a["voz"] is None or x is None:
                     rot.setdefault("sin_colocar", []).append({**f, "beat": b["beat"], "motivo":
                                                              "sin oración de la voz" if x else "no está en el pool"})

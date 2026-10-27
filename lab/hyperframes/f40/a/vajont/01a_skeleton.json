@@ -1,0 +1,267 @@
+{
+  "topic_id": "f8s3-vajont",
+  "chapters": [
+    {
+      "chapter_number": 1,
+      "title": "Cama en la oscuridad",
+      "role": "hook",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "hook",
+      "bullets": [
+        "Una cama que acelera en la oscuridad; una fuerza que dobla una espalda de niña; un portoncito que se abre solo con un ruido de aire antes de que se vaya la luz. · La sensación de que la cama cogía velocidad, una fuerza espantosa que me cogía por la espalda, me doblaba en dos, me aplastaba; la sensación de ser de goma, de ensancharme y luego encogerme, los ojos convertidos en dos estrellas;"
+      ],
+      "evidence_ids": [
+        "Q49",
+        "Q19",
+        "D131"
+      ],
+      "cliffhanger": "D24",
+      "pantalla_ids": []
+    },
+    {
+      "chapter_number": 2,
+      "title": "El muro que tapa",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "rising_tension",
+      "bullets": [
+        "Un pueblo de fondo de valle con el Piave pasando por delante; arriba, en una garganta lateral, hombres colgados de andamios levantan una pared curva que tapa el cielo. · El torrente Vajont fluye en el valle de Erto y Casso para desembocar en el Piave, frente a Longarone y Castellavazzo, en la provincia de Belluno, Italia.",
+        "Un geólogo joven, hijo del hombre que diseñó la presa, caminando la ladera del Toc con un martillo en la mano, buscando la cicatriz de un deslizamiento viejo. · la montaña que camina"
+      ],
+      "evidence_ids": [
+        "D24",
+        "T04",
+        "T03",
+        "D147",
+        "T12",
+        "D237",
+        "D164",
+        "Q53",
+        "T05",
+        "D154",
+        "D157"
+      ],
+      "cliffhanger": "T16",
+      "pantalla_ids": [
+        "D117",
+        "T10"
+      ]
+    },
+    {
+      "chapter_number": 3,
+      "title": "La costura abierta",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "rising_tension",
+      "bullets": [
+        "Rocas entrando al agua de Pontesei y una pared de agua de veinte metros levantándose sobre el hombre cuyo trabajo era vigilar la montaña. · Se produce un desprendimiento en el embalse de Pontesei que genera una ola de 20 metros y mata a Arcangelo Tiziani.",
+        "Una abertura de más de un metro de ancho corriendo casi dos kilómetros por la ladera, como una costura abierta; abajo, el agua sube día a día. · La periodista Tina Merlin denuncia el peligro del desprendimiento en el periódico l'Unità."
+      ],
+      "evidence_ids": [
+        "T16",
+        "D94",
+        "T15",
+        "T21",
+        "D119",
+        "T27",
+        "Q37",
+        "T18",
+        "D71",
+        "D72",
+        "T29",
+        "D49",
+        "T23"
+      ],
+      "cliffhanger": "T36",
+      "pantalla_ids": [
+        "T30",
+        "D118"
+      ]
+    },
+    {
+      "chapter_number": 4,
+      "title": "La ola de juguete",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "rising_tension",
+      "bullets": [
+        "Roca cayendo al lago nuevo y el agua levantándose; cuatro días después, una máquina de escribir; semanas después, una sala de tribunal y una periodista en el banquillo. · Una primera frana de 700.000 metros cúbicos se vierte en el lago artificial durante las pruebas.",
+        "Una maqueta del valle en un galpón de Padua, con grava donde debía ir roca, y una ola de laboratorio pasando por encima de una presa de juguete. · La SADE obtuvo autorización para llenar el embalse hasta 715 metros, 15 metros por encima de la cota de seguridad recomendada."
+      ],
+      "evidence_ids": [
+        "T36",
+        "D223",
+        "D156",
+        "T33",
+        "T37",
+        "T39",
+        "D106",
+        "D104",
+        "D103",
+        "Q44",
+        "T50",
+        "T52",
+        "D68"
+      ],
+      "cliffhanger": "D226",
+      "pantalla_ids": [
+        "T28"
+      ]
+    },
+    {
+      "chapter_number": 5,
+      "title": "Piedras rodando",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "rising_tension",
+      "bullets": [
+        "Estruendos que bajan de la ladera de noche; grietas nuevas en la tierra de Erto; caminos cerrados con barreras; en Longarone, abajo, las ventanas encendidas como cualquier noche. · A partir del 2 de octubre de 1963 se multiplicaron las señales de peligro como temblores, estruendos y grietas en la montaña.",
+        "Una carta ya firmada a la que se agrega una posdata con dos signos de exclamación; un teléfono colgado; piedras chicas rodando hacia el lado de la presa. · El director Alberico Biadene envía una carta al jefe de obras Mario Pancini expresando su preocupación por los movimientos en el Monte Toc."
+      ],
+      "evidence_ids": [
+        "D226",
+        "D162",
+        "D160",
+        "D227",
+        "Q46",
+        "Q28",
+        "Q45",
+        "T61",
+        "Q51",
+        "T64",
+        "D111"
+      ],
+      "cliffhanger": "T57",
+      "pantalla_ids": [
+        "Q50"
+      ]
+    },
+    {
+      "chapter_number": 6,
+      "title": "El gran rugido",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "shock",
+      "bullets": [
+        "Una ventana que se abre a un rugido que crece y un resplandor; una pantalla de televisor que se apaga en un bar; cuatro minutos; una niña que aparece a cuatrocientos metros de donde estaba su cama. · Una sección masiva del Monte Toc se desprendió y se estrelló contra el embalse de Vajont.",
+        "Fango y piedras donde había calles; un hombre parado en el medio sin saber hacia dónde mirar; el ruido de rotores bajando sobre una aldea. · Conocía Longarone en cada rincón, ahora no sé dónde estoy"
+      ],
+      "evidence_ids": [
+        "T57",
+        "Q15",
+        "Q16",
+        "Q17",
+        "T58",
+        "D124",
+        "D132",
+        "Q25",
+        "Q06",
+        "D18",
+        "D229",
+        "D50"
+      ],
+      "cliffhanger": "Q13",
+      "pantalla_ids": [
+        "D128",
+        "D192"
+      ]
+    },
+    {
+      "chapter_number": 7,
+      "title": "Diarios y verdades",
+      "role": "reveal_outro",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "outro",
+      "bullets": [
+        "Un presidente con abrigo oscuro entre escombros y un grito que le sale de la gente; en los kioscos, dos diarios con dos verdades distintas sobre la misma noche. · Presidente, queremos justicia",
+        "Cajas de un archivo trasladado de un tribunal a otro; una mujer que de niña viajó cuatrocientos metros sobre una cama, sentada ahora frente a una mesa con un cartel de comité. · Se celebra el juicio de casación en Roma, donde Biadene y Sensidoni son reconocidos culpables de inundación agravada."
+      ],
+      "evidence_ids": [
+        "Q13",
+        "Q20",
+        "Q22",
+        "Q23",
+        "D136",
+        "T85",
+        "T102",
+        "D32",
+        "T89",
+        "T92",
+        "D139",
+        "D140",
+        "Q56"
+      ],
+      "cliffhanger": "",
+      "pantalla_ids": [
+        "D245",
+        "D114"
+      ]
+    }
+  ],
+  "personajes": [
+    {
+      "id": "P49",
+      "nombre": "Micaela Coletti",
+      "rol": "presidente del comitato sopravvissuti del Vajont",
+      "antagonista": false,
+      "entra_en_cap": 1
+    },
+    {
+      "id": "P16",
+      "nombre": "Alberico Biadene",
+      "rol": "Acusado y condenado",
+      "antagonista": true,
+      "entra_en_cap": 1
+    }
+  ],
+  "_pool_plan": {
+    "cifras_canonicas": [],
+    "pantalla": [
+      "cap 2: pantalla ['D117', 'T10']",
+      "cap 3: pantalla ['T30', 'D118']",
+      "cap 4: pantalla ['D221', 'T28']",
+      "cap 5: pantalla ['D122', 'D144']",
+      "cap 6: pantalla ['D45', 'D56']",
+      "cap 7: pantalla ['D114', 'D36']"
+    ]
+  },
+  "_v3": {
+    "escaleta": "01a_escaleta.json",
+    "prompt_version": "f25-1",
+    "humano": {
+      "id": "P49",
+      "nombre": "Micaela Coletti",
+      "rol": "Niña de Longarone arrastrada desde su cama por la ola; después, presidenta del comité de sobrevivientes del Vajont.",
+      "por_que": "Es la única del pool que entra, sufre y sale con momentos concretos: la cama que toma velocidad (Q49), los cuatrocientos metros (D132) y el comité que preside (P49). Tiene una cita verificada y una escena propia (E10) que sirve de gancho y de pico. En los caps del medio es la habitante de Longarone que duerme bajo una montaña que otros miden.",
+      "colectivo": false,
+      "fuente": "F02"
+    },
+    "antagonista": {
+      "tipo": "persona",
+      "id": "P16",
+      "nombre": "Alberico Biadene",
+      "por_que": "Director del Servicio de Construcciones Hidráulicas de SADE: las mediciones del nueve de octubre llegan a su escritorio y él las escribe en una carta a Pancini (T61, Q51), pero esa preocupación no se convierte en una alarma general para Longarone (D111). La casación lo condena por inundación agravada por la previsión del evento (T102, D35). Es quien sabía y quien firmó."
+    },
+    "pico": {
+      "beat": 10,
+      "id": "T57",
+      "por_que": "Es el que marca la ficha: el Toc entra al embalse a las 22:39, la ola rebasa la presa y cuatro minutos después borra Longarone con la estructura intacta. Todo lo anterior —Pontesei, Padua, la carta de la mañana— desemboca en la cama de Micaela."
+    },
+    "particion": {
+      "notas": [
+        "cap 1: 1325 caracteres > 986 y no se pudo mover ni acortar (aviso)",
+        "cap 5: 2246 caracteres > 2242 y no se pudo mover ni acortar (aviso)",
+        "cap 6: 2345 caracteres > 2242 y no se pudo mover ni acortar (aviso)",
+        "cap 7: 2414 caracteres > 1255 y no se pudo mover ni acortar (aviso)"
+      ],
+      "titulos": "flash"
+    }
+  }
+}

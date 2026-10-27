@@ -332,7 +332,7 @@
   {
    "modulo": "m01e_pantalla",
    "archivo": "script_engine/m01e_pantalla.py",
-   "sticker": "Fase 1 (F36 C): el guion de pantalla EN PAPEL. Una llamada a Sonnet por video con la narración de los 7 caps (oraciones numeradas y cuánto cabe), la escaleta, el archivo del caso y el vocabulario de clima → por beat ficha o nada, sello o nada; relojes (F38e §D: sin fecha-hora del segundo 0). Lo valida en papel (candado, no dicho, spoiler, una vez, cabe, formato; F37: fecha del relato, cita sin fecha, descartes «la voz lo dice» verificados, picos sin ficha; una coincidencia de número se le pregunta al autor); F38: un reintento PARCIAL con todos los motivos cambia solo los beats con motivo (lo demás queda congelado; F38b: sin juez de anclaje). F38c: lo que la escaleta dejó para la pantalla le llega aparte de «la voz lo cuenta», y un beat sin él es motivo del reintento; una cifra que contradice la voz se le pregunta al autor. F38d: el reintento da vueltas mientras haya motivos nuevos y entre en el tope del perfil (lo nuevo de una vuelta se pregunta en la siguiente en vez de cortarse), y «caben» se mide igual en el prompt, en el motivo y en el código (en una cita cuenta el autor). F38e: prompt m01e-6 (el de la prueba 1, letra por letra): el dato con las palabras del autor y los hechos en un `respaldo` literal del ítem (regla `respaldo`; el candado mira cifras, nombres y años contra él); en una cita el autor viene en español y se muestra si sus nombres están en el archivo (`autor_origen`). Lo deja para que Omar lo revise antes de la voz; Fase 2 lo consume.",
+   "sticker": "Fase 1 (F36 C): el guion de pantalla EN PAPEL. Una llamada a Sonnet por video con la narración de los 7 caps (oraciones numeradas y cuánto cabe), la escaleta, el archivo del caso y el vocabulario de clima → por beat ficha o nada, sello o nada; relojes (F38e §D: sin fecha-hora del segundo 0). Lo valida en papel (candado, no dicho, spoiler, una vez, cabe, formato; F37: fecha del relato, cita sin fecha, descartes «la voz lo dice» verificados, picos sin ficha; una coincidencia de número se le pregunta al autor); F38: un reintento PARCIAL con todos los motivos cambia solo los beats con motivo (lo demás queda congelado; F38b: sin juez de anclaje). F38c: lo que la escaleta dejó para la pantalla le llega aparte de «la voz lo cuenta», y un beat sin él es motivo del reintento; una cifra que contradice la voz se le pregunta al autor. F38d: el reintento da vueltas mientras haya motivos nuevos y entre en el tope del perfil (lo nuevo de una vuelta se pregunta en la siguiente en vez de cortarse), y «caben» se mide igual en el prompt, en el motivo y en el código (en una cita cuenta el autor). F38e: prompt m01e-6 (el de la prueba 1, letra por letra): el dato con las palabras del autor y los hechos en un `respaldo` literal del ítem (regla `respaldo`; el candado mira cifras, nombres y años contra él); en una cita el autor viene en español y se muestra si sus nombres están en el archivo (`autor_origen`). F40: el dato del gancho ya no cae en seco si una cifra suya está en la voz de cualquier cap: se le pregunta al autor con el cap, el número de oración y la oración. Lo deja para que Omar lo revise antes de la voz; Fase 2 lo consume.",
    "recibe": "escaleta, narración por cap y beat, títulos, pool, `sellos_clima`",
    "entrega": "`01e_pantalla.json/.md` en el topic de Fase 1",
    "lo_llama": [
@@ -340,8 +340,8 @@
     "fase2b.py",
     "script_engine/pantalla_entrada.py"
    ],
-   "tests": 8,
-   "lab": 3,
+   "tests": 9,
+   "lab": 4,
    "tanda": "F36",
    "nacio": "9e9d844 2026-10-26 feat(f36-c): m01e_pantalla — el guion de pantalla en papel va a Fase 1 (DECISIONES 19:54) · una llamada a Sonnet por vide",
    "estado": "vivo (fase 1)",
@@ -385,14 +385,14 @@
   {
    "modulo": "pantalla_entrada",
    "archivo": "script_engine/pantalla_entrada.py",
-   "sticker": "La entrada de Fase 2 para el texto de pantalla (F37: antes gfx_rotulista; no escribe nada): `preparar_cap` lee el guion en papel de Fase 1 (`01e_pantalla.json`), alinea sus oraciones con las de la voz por texto y ancla cada ficha a su palabra (con el juicio del autor, si lo hay). F38e §C: el autor que el papel muestra en una cita es el que ve Fase 2.",
+   "sticker": "La entrada de Fase 2 para el texto de pantalla (F37: antes gfx_rotulista; no escribe nada): `preparar_cap` lee el guion en papel de Fase 1 (`01e_pantalla.json`), alinea sus oraciones con las de la voz por texto y ancla cada ficha a su palabra (con el juicio del autor, si lo hay). F38e §C: el autor que el papel muestra en una cita es el que ve Fase 2. F40: el ítem ya no trae `dice_voz` (solo la marca de gancho).",
    "recibe": "papel del topic + oraciones de la voz + beats",
    "entrega": "entrada del cap + bloques, sellos y relojes del papel",
    "lo_llama": [
     "fase2b.py",
     "script_engine/gfx_layer.py"
    ],
-   "tests": 4,
+   "tests": 5,
    "lab": 0,
    "tanda": "F29b",
    "nacio": "838a104 2026-10-26 feat(f37-b): Fase 2 mueve en vez de cortar; el papel es el único camino — simulador antes del código (f37/b/simulacion_pr",
@@ -402,7 +402,7 @@
   {
    "modulo": "pantalla_filtros",
    "archivo": "script_engine/pantalla_filtros.py",
-   "sticker": "Los filtros que deciden si un texto del papel sale, en un orden que se lee en una línea (`ORDEN`): anclar el papel a la voz, no dicho del gancho, candado de lo literal, no dicho, spoiler (lo que el autor juzgó «otro hecho» no corta) y lectura: desde F37 la lectura prueba la escalera de intentos (otro instante de la oración, la escena siguiente, la oración siguiente) y corta solo si no entra en ninguno. F37: antes rotulista_filtros. F38c: «cifra que contradice la voz» da también dónde y qué cifra (el papel se la pregunta al autor) y respeta lo que el autor juzgó «otro hecho».",
+   "sticker": "Los filtros que deciden si un texto del papel sale, en un orden que se lee en una línea (`ORDEN`): F40: sin el corte del gancho (`gancho_dicho`): su coincidencia con la voz de todo el video es de no dicho y se le pregunta al autor. Orden: anclar el papel a la voz, candado de lo literal, no dicho (en el gancho, con la voz de todo el video), spoiler (lo que el autor juzgó «otro hecho» no corta) y lectura: desde F37 la lectura prueba la escalera de intentos (otro instante de la oración, la escena siguiente, la oración siguiente) y corta solo si no entra en ninguno. F37: antes rotulista_filtros. F38c: «cifra que contradice la voz» da también dónde y qué cifra (el papel se la pregunta al autor) y respeta lo que el autor juzgó «otro hecho».",
    "recibe": "bloques del papel + entrada del cap",
    "entrega": "bloques que pasan con sus intentos, cortados con su regla y motivo",
    "lo_llama": [
@@ -410,7 +410,7 @@
     "script_engine/m01e_pantalla.py",
     "script_engine/pantalla_colocar.py"
    ],
-   "tests": 7,
+   "tests": 8,
    "lab": 1,
    "tanda": "F36 (código de F29b)",
    "nacio": "838a104 2026-10-26 feat(f37-b): Fase 2 mueve en vez de cortar; el papel es el único camino — simulador antes del código (f37/b/simulacion_pr",
@@ -487,7 +487,7 @@
     "script_engine/voz_datos.py"
    ],
    "tests": 11,
-   "lab": 3,
+   "lab": 4,
    "tanda": "F36 (código de F29b)",
    "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
    "estado": "vivo",
@@ -519,8 +519,8 @@
     "script_engine/m01e_pantalla.py",
     "script_engine/pantalla_colocar.py"
    ],
-   "tests": 13,
-   "lab": 4,
+   "tests": 14,
+   "lab": 5,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
    "estado": "vivo",
@@ -538,8 +538,8 @@
     "diag_236_pacing_ba6c.py",
     "gfx_lab_server.py"
    ],
-   "tests": 24,
-   "lab": 13,
+   "tests": 25,
+   "lab": 14,
    "tanda": "previo a F1 (inicial)",
    "nacio": "e33f84a 2026-05-28 Initial commit: automatization_videos pipeline (post chat 32)",
    "estado": "vivo",
@@ -1284,6 +1284,7 @@
    "de": "fase2b",
    "a": "gfx_config",
    "donde": [
+    "en _fuente_subs",
     "en _pre_roll_de",
     "en _segment_hash",
     "en _resolve_gfx_quality",

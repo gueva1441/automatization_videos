@@ -1,0 +1,274 @@
+{
+  "topic_id": "f39-kyshtym",
+  "chapters": [
+    {
+      "chapter_number": 1,
+      "title": "La luz que no era fuego",
+      "role": "hook",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "hook",
+      "bullets": [
+        "Dos muchachos de diecinueve años cenan en una mesa de comedor; a la mañana siguiente uno no se levanta; a la noche la cama está vacía. Afuera, sobre los tejados, una columna de humo y polvo brilla con una luz rojo-anaranjada, y una cubierta de hormigón yace tirada de costado junto a un cráter. · La víspera cenas con él, por la mañana se siente mal y por la noche ya ha muerto. Y solo teníamos dieciocho, diecinueve, veinte años. No sabíamos muchas cosas entonces."
+      ],
+      "evidence_ids": [
+        "Q18"
+      ],
+      "cliffhanger": "D153",
+      "pantalla_ids": [
+        "D03"
+      ]
+    },
+    {
+      "chapter_number": 2,
+      "title": "La ciudad sin mapa",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "setup",
+      "bullets": [
+        "Cincuenta estudiantes bajan de un tren en una ciudad sin nombre en los mapas; en el instituto técnico, un hombre de mirada ardiente al que todos obedecen; en las calles de las aldeas vecinas, la gente llama «chocolateros» a los que trabajan en la fábrica. · 50 estudiantes del Instituto Técnico de Maquinaria de Kalyazin, incluido Anatoly Valevich, fueron trasladados a un instituto técnico en Cheliábinsk-40.",
+        "Acero inoxidable dentro de un cañón de hormigón de ocho metros de profundidad; una losa de ciento sesenta toneladas encima; y sobre la losa, una capa de tierra y césped verde recién puesto, como si ahí no hubiera nada. · ¿Quién sabe qué fuerza se necesita para destruir esto?"
+      ],
+      "evidence_ids": [
+        "D153",
+        "Q19",
+        "D04",
+        "D57",
+        "Q24",
+        "Q01",
+        "Q05",
+        "Q06",
+        "D07",
+        "D122",
+        "D30"
+      ],
+      "cliffhanger": "T20",
+      "pantalla_ids": [
+        "D123"
+      ]
+    },
+    {
+      "chapter_number": 3,
+      "title": "El tanque catorce",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "rising_tension",
+      "bullets": [
+        "Una tubería que gotea y una válvula que alguien cierra; después, entre el 9 de marzo y el 10 de abril de 1957, doscientos cincuenta y seis metros cúbicos de residuo entrando en el tanque; adentro, setenta u ochenta toneladas que se calientan solas hasta trescientos grados y empiezan a secarse en sal. · En uno de los contenedores de residuos, las tuberías de refrigeración comenzaron a gotear y fueron desconectadas."
+      ],
+      "evidence_ids": [
+        "T20",
+        "D89",
+        "T23",
+        "D101",
+        "D46",
+        "Q16"
+      ],
+      "cliffhanger": "T28",
+      "pantalla_ids": [
+        "T10",
+        "D146"
+      ]
+    },
+    {
+      "chapter_number": 4,
+      "title": "Un domingo de fútbol",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "shock",
+      "bullets": [
+        "Un estadio bajo el sol; dos equipos de la ciudad en la cancha; a las cuatro y pico de la tarde un golpe seco, como los de las obras, y nadie deja de mirar el partido. A dos kilómetros, la cubierta de hormigón ha volado de costado y donde estaba el tanque hay un cráter de diez metros de hondo y veinte de ancho. · Ocurrió una explosión en el tanque N.º 14 del complejo \"S-3\" en la planta Mayak.",
+        "Noche del domingo: sobre aldeas dormidas, el cielo se tiñe de rosado y azul claro cerca de las once; la nube avanza en silencio hacia el noreste, pasa Bagaryak, Kamensk-Uralsky, llega a Tiumén cerca de la medianoche, y a las tres de la mañana ya dejó una franja de trescientos kilómetros sobre la tierra. · Se observó un extraño resplandor rosado y azul claro en el cielo, en dirección suroeste, noreste y noroeste."
+      ],
+      "evidence_ids": [
+        "T28",
+        "D09",
+        "D10",
+        "D35",
+        "D11",
+        "D12",
+        "D91",
+        "T32",
+        "T27",
+        "T30",
+        "T31",
+        "T36",
+        "D37"
+      ],
+      "cliffhanger": "T35",
+      "pantalla_ids": [
+        "D17",
+        "T01"
+      ]
+    },
+    {
+      "chapter_number": 5,
+      "title": "La aurora de Cheliábinsk",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "rising_tension",
+      "bullets": [
+        "El taller de la planta 25 con todas las ventanas reventadas; vidrio en el suelo; un turno entero agachado recogiendo astillas con las manos mientras se preguntan en voz baja qué fue el golpe de ayer. A las cuatro de la mañana alguien ya había medido el sitio industrial; a ellos nadie les dijo el número. · Los trabajadores de la planta 25, al llegar a su turno matutino, encontraron los vidrios rotos por la explosión del día anterior y se les ordenó limpiar los escombros sin informarles del nivel de radiación.",
+        "La hoja del 6 de octubre: «un resplandor especial en el cielo estrellado… todas las características de una aurora polar». Mientras tanto, mujeres con escobas y baldes lavan con agua los caminos y las plazas de la ciudad desde el primer día; un dosímetro apoyado en la panza de un chico que juega en la calle marca cuarenta, cincuenta. · El domingo pasado por la noche... muchos habitantes de Cheliábinsk observaron un resplandor especial en el cielo estrellado. Este resplandor, bastante raro en nuestras latitudes, tenía todas las características de una aurora polar."
+      ],
+      "evidence_ids": [
+        "T35",
+        "T34",
+        "T37",
+        "T33",
+        "Q14",
+        "D93",
+        "Q02",
+        "T40",
+        "Q07",
+        "T38",
+        "T39",
+        "D104",
+        "D136"
+      ],
+      "cliffhanger": "T43",
+      "pantalla_ids": [
+        "D15",
+        "D75"
+      ]
+    },
+    {
+      "chapter_number": 6,
+      "title": "Los pueblos enterrados",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "resolution",
+      "bullets": [
+        "Fosas abiertas en el campo; abrigos, ollas, fotos rociados con queroseno y empujados adentro; a los evacuados les dan ropa y zapatos nuevos después del paso sanitario. Un año después, máquinas tumban casas, graneros, forraje, y todo desaparece bajo tierra. · En 1958-1959, escuadrones especiales mecanizados liquidaron y enterraron edificios, alimentos, forraje y propiedades de los residentes en los asentamientos contaminados.",
+        "Tres versiones sobre la misma mesa: una orden de ahorrar electricidad y apagar el burbujeo, un error de laboratorio, sales que se secaron solas. Y tres recuerdos: una mujer que sintió que la dirección cuidaba de ellos; otra que dice que nadie controlaba las dosis; un ingeniero que vio agonizar a su jefe. En 1959, cuando por fin los dejan irse, Valevich se va. · El director de la planta, Demianóvich, fue despedido inmediatamente después de la explosión por haber ordenado ahorrar electricidad y detener la agitación de la solución radiactiva, lo que provocó el accidente."
+      ],
+      "evidence_ids": [
+        "T43",
+        "D137",
+        "D19",
+        "D21",
+        "D159",
+        "D158",
+        "D192",
+        "D16",
+        "Q11",
+        "D151",
+        "D145",
+        "Q21",
+        "T50"
+      ],
+      "cliffhanger": "Q03",
+      "pantalla_ids": [
+        "D20",
+        "D90"
+      ]
+    },
+    {
+      "chapter_number": 7,
+      "title": "Lo que calló el acta",
+      "role": "reveal_outro",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "outro",
+      "bullets": [
+        "Un diario de Copenhague en 1958; una página de New Scientist en 1976 firmada por un biólogo exiliado; el 16 de junio de 1989 una conferencia de prensa en el mismo periódico que habló de la aurora; en julio, un hombre de pie en el Sóviet Supremo diciendo que en tres años de seguimiento no se registró ninguna forma de enfermedad por radiación. · Durante tres años, de forma constante y sistemática, seguimos la salud de las personas. Afortunadamente, no se registró ni un solo caso de enfermedad por radiación.",
+        "Un hombre viejo con carpetas de juicio: uno perdido contra el Fondo de Seguro Social, uno ganado contra la Dirección de Protección Social; un riñón menos desde 1998; ocho personas a las que ayudó a presentar sus papeles; un carnet de liquidador que llegó en 1993, treinta y seis años después del golpe seco. · A Anatoly Valevich le llevó dos procesos judiciales, primero contra el Fondo de Seguro Social y luego contra la Dirección de Protección Social, para que se le reconocieran sus derechos."
+      ],
+      "evidence_ids": [
+        "Q03",
+        "D23",
+        "D44",
+        "T57",
+        "T61",
+        "T62",
+        "D152",
+        "D156",
+        "T64"
+      ],
+      "cliffhanger": "",
+      "pantalla_ids": [
+        "D83",
+        "D25"
+      ]
+    }
+  ],
+  "personajes": [
+    {
+      "id": "P43",
+      "nombre": "Anatoly Ivanovich Valevich",
+      "rol": "Trabajador de la planta y liquidador",
+      "antagonista": false,
+      "entra_en_cap": 6
+    },
+    {
+      "id": "",
+      "nombre": "Complejo químico Mayak",
+      "rol": "institución",
+      "tipo": "institucion",
+      "variantes": [
+        "Mayak Chemical Combine",
+        "ПО «Маяк»",
+        "ПО “Маяк”",
+        "химкомбинат «Маяк»",
+        "Combinado N.º 817",
+        "Комбинат № 817"
+      ],
+      "antagonista": true,
+      "entra_en_cap": 1
+    }
+  ],
+  "_pool_plan": {
+    "cifras_canonicas": [],
+    "pantalla": [
+      "cap 2: pantalla ['D123', 'T01']",
+      "cap 3: pantalla ['T10', 'D146']",
+      "cap 4: pantalla ['D15', 'D129']",
+      "cap 5: pantalla ['D75', 'D199']",
+      "cap 6: pantalla ['D201', 'D74']",
+      "cap 7: pantalla ['D25', 'T60']"
+    ]
+  },
+  "_v3": {
+    "escaleta": "01a_escaleta.json",
+    "prompt_version": "f26-1",
+    "humano": {
+      "id": "P43",
+      "nombre": "Anatoly Ivanovich Valevich",
+      "rol": "Trabajador del combinado llegado como estudiante, liquidador y, décadas después, reclamante de derechos sociales.",
+      "por_que": "Es el único candidato con tres citas verificadas y un arco completo que la ficha documenta de punta a punta: entra entre los cincuenta estudiantes trasladados a la ciudad cerrada (D153), ve morir compañeros de dieciocho y veinte años de un día para otro (Q18), se va de la empresa en 1959 cuando los dejan irse (T50), pierde un riñón en 1998 (D156) y termina litigando por sus derechos y ayudando a otros ocho (D152). Entra, sufre, sale. Alekseeva tiene una sola cita verificada y es sobre la guerra, no sobre el accidente; Belenkov y Solntseva no tienen ninguna.",
+      "colectivo": false,
+      "fuente": "F07"
+    },
+    "antagonista": {
+      "tipo": "institucion",
+      "id": "D01",
+      "nombre": "Complejo químico Mayak",
+      "por_que": "Es quien decide en cada punto donde la historia cambia: opera los depósitos cuyas tuberías de refrigeración se desconectan en 1956 (T20), llena el tanque catorce (T23), al día siguiente de la explosión lleva en autobuses al personal diurno al territorio contaminado y ordena recoger vidrios sin informar el nivel de radiación (T34, T35), un director suyo responde a la primera medición en una aldea con «se han equivocado» (Q14), y la ciudad de los trabajadores no se evacúa porque la empresa de defensa debía funcionar sin parar (D93). Los ministerios y el periódico llegan después; la decisión que expone a la gente sale del combinado.Nadie firma; por eso es la institución y no una persona.",
+      "variantes": [
+        "Mayak Chemical Combine",
+        "ПО «Маяк»",
+        "ПО “Маяк”",
+        "химкомбинат «Маяк»",
+        "Combinado N.º 817",
+        "Комбинат № 817"
+      ]
+    },
+    "pico": {
+      "beat": 5,
+      "id": "T28",
+      "por_que": "Coincide con la ficha: la explosión del tanque catorce a las 16:22 del 29 de septiembre de 1957 es la ruptura irreversible. Hasta ahí los fallos del almacenamiento son un problema de ingeniería; desde ahí son más de 5000 personas con una exposición única de hasta 1 sievert en las primeras horas (D91). La imagen del estadio (E2), un golpe seco en un domingo soleado que nadie considera extraordinario, es la más fuerte porque el espectador sabe lo que los que miran el partido todavía no."
+    },
+    "particion": {
+      "notas": [
+        "cap 6: 2254 caracteres > 2242 → el editor acortó el último párrafo (306 → 252)",
+        "cap 7: 1529 caracteres > 1255 → el editor acortó el último párrafo (739 → 502)"
+      ],
+      "titulos": "flash"
+    }
+  }
+}
