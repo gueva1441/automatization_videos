@@ -70,14 +70,17 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                          "(`ORDEN`): anclar el papel a la voz, no dicho del gancho, candado de lo literal, no dicho, "
                          "spoiler (lo que el autor juzgó «otro hecho» no corta) y lectura: desde F37 la lectura prueba la "
                          "escalera de intentos (otro instante de la oración, la escena siguiente, la oración siguiente) y "
-                         "corta solo si no entra en ninguno. F37: antes rotulista_filtros.", "bloques del papel + entrada "
+                         "corta solo si no entra en ninguno. F37: antes rotulista_filtros. F38c: «cifra que contradice la "
+                         "voz» da también dónde y qué cifra (el papel se la pregunta al autor) y respeta lo que el autor "
+                         "juzgó «otro hecho».", "bloques del papel + entrada "
                          "del cap", "bloques que pasan con sus intentos, cortados con su regla y motivo",
                          "F36 (código de F29b)", "vivo"),
     "pantalla_colocar": ("Pone cada texto del papel en su lugar (F37: antes rotulista_colocar): la ficha dura su "
                          "lectura entre callout_dur_min y callout_dur_max sin pasar el corte, qué forma toma (ficha normal, "
                          "nombre o cita con autor; papel = recorte) y el reparto: nunca al mismo tiempo (DECISIONES 17:58) y "
                          "el crítico en cada intento, moviendo en vez de cortar (otro instante, otra escena, la oración "
-                         "siguiente, el otro lado); lo que no entra queda «sin colocar» con sus intentos.",
+                         "siguiente, el otro lado); lo que no entra queda «sin colocar» con sus intentos. F38c: cada "
+                         "ficha lleva el juicio del autor hasta el guion de pantalla.",
                          "bloques validados + escenas", "bloques en el plan, filas de lo movido o sin colocar",
                          "F36 (código de F29b)", "vivo"),
     "clima": ("Los sellos de clima: la palabra y la oración vienen del guion en papel; acá se prueba la misma "
@@ -96,7 +99,8 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                   "(`oraciones_de_texto`) y normaliza oraciones para alinear papel y voz; desde F37 dice qué años nombra "
                   "la voz (el momento del relato) y cuántos segundos por palabra habla el narrador (mediana de sus voces "
                   "ya generadas); desde F38 lee fracciones en letras («un centímetro y medio», «medio», «y cuarto», "
-                  "«un tercio») y compara cifras a la precisión del archivo.", "texto / palabras con tiempos / voces del narrador",
+                  "«un tercio») y compara cifras a la precisión del archivo; desde F38c lee bien los decimales con "
+                  "punto («722.50» = 722,5, no 72 250).", "texto / palabras con tiempos / voces del narrador",
                   "cifras, años, nombres, oraciones, segundos por palabra", "F36 (código de F29b)", "vivo"),
     "gfx_critic": ("El editor: Gemini mira la foto en el instante de un bloque del papel y dice si estorba (tapa un "
                    "rostro o lo que la imagen muestra). F37: corre en cada intento del reparto (instante y lado), y lo "
@@ -135,7 +139,8 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                    "eventos del plan", "`gfx_cues_chNN.md/.json`, página de revisión", "F1", "vivo"),
     "gfx_guion": ("Escribe el guion de pantalla: todo lo que se va a ver, en texto, con lo cortado y por quién, y los "
                   "chequeos (lectura, nunca al mismo tiempo, costuras, inicio de voz, inicio de música, gancho no vacío, "
-                  "tarjeta fecha-hora; desde F36 C la columna `papel` y «papel sin colocar / sin alinear»).",
+                  "tarjeta fecha-hora; desde F36 C la columna `papel` y «papel sin colocar / sin alinear»; desde F38c "
+                  "«cifra que contradice la voz» no marca lo que el autor juzgó otro hecho).",
                   "planes, escenas, beats, mezcla", "GUION_PANTALLA.md/.json", "F32", "vivo"),
     "music_intensity": ("Decide cuándo la música calla, acompaña o sube en cada cap según la escaleta; también da el "
                         "beat pico de cada cap.", "escaleta + narración por beat + tiempos de la voz",
@@ -153,7 +158,9 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                       "(candado, no dicho, spoiler, una vez, cabe, formato; F37: fecha del relato, cita sin fecha, "
                       "descartes «la voz lo dice» verificados, picos sin ficha; una coincidencia de número se le pregunta "
                       "al autor); F38: un reintento PARCIAL con todos los motivos cambia solo los beats con motivo (lo "
-                      "demás queda congelado; F38b: sin juez de anclaje). "
+                      "demás queda congelado; F38b: sin juez de anclaje). F38c: lo que la escaleta dejó para la "
+                      "pantalla le llega aparte de «la voz lo cuenta», y un beat sin él es motivo del reintento; una "
+                      "cifra que contradice la voz se le pregunta al autor. "
                       "Lo deja para que Omar lo revise antes de la voz; Fase 2 lo consume.", "escaleta, narración por cap y beat, títulos, pool, `sellos_clima`",
                       "`01e_pantalla.json/.md` en el topic de Fase 1", "F36", "vivo (fase 1)"),
     "archive_clipping.html.tmpl": ("La forma del recorte de diario (papel, kicker, titular).", "un recorte del plan",

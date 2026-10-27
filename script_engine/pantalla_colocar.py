@@ -184,7 +184,8 @@ def colocar(plan: dict[str, Any], res: dict[str, Any], ent: dict[str, Any], *, s
                 "forzado": b.get("forzado"), **({"editado": True} if b.get("editado") else {}),
                 "papel": True, "estilo": b.get("estilo"), "ancla_palabra": b.get("ancla_palabra"),
                 "sin_alinear": b.get("sin_alinear"), "intentos": b.get("intentos") or [],
-                "intentos_fallidos": b.get("intentos_fallidos") or []}
+                "intentos_fallidos": b.get("intentos_fallidos") or [],
+                **({"juicio_autor": b["juicio_autor"]} if b.get("juicio_autor") else {})}   # F38c §A.2: al chequeo 5
         fila = {"pool_id": pid, "tipo": b["tipo"], "etiqueta": b["etiqueta"], "texto": b["pantalla"],
                 "sentence_idx": b["sentence_idx"], "word_idx": b["word_idx"], "palabra": b.get("palabra"), "t0": t0,
                 "t1": b["t1"], "aporta": b.get("aporta"), "beat": b["beat"], "a_pantalla": b["a_pantalla"],

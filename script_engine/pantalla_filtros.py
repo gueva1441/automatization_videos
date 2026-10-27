@@ -30,7 +30,8 @@ def _palabras_mag(texto: str) -> set[str]:
     return {w for t in re.findall(r"[^\W\d_]+", ev.norm(texto or "")) for w in PALABRAS_LOCALES if t.startswith(w)}
 
 
-def contradicciones(bloque: str, voz: list[str], cerca: list[str] | None = None) -> list[str]:
+def contradicciones_de(bloque: str, voz: list[str], cerca: list[str] | None = None,
+                       juicio: dict[str, list[str]] | None = None) -> list[dict[str, Any]]:
     """§A.4: cada cifra del bloque con unidad contra las cifras de la voz de todo el video. Lectura declarada de «misma
     unidad o misma magnitud nombrada en la oración»: la cifra de la voz se compara si (1) tiene la misma unidad y la
     oración nombra la misma magnitud que el bloque («setecientos metros sobre el nivel del mar» contra «Nivel del
@@ -41,7 +42,11 @@ def contradicciones(bloque: str, voz: list[str], cerca: list[str] | None = None)
     o altura) solo contradice a OTRA de la misma palabra (cota con cota, nivel con nivel, altura con altura) en esas
     oraciones: los niveles anteriores del relato no cuentan («COTA AUTORIZADA 715 m» contra «el embalse estaba a 650 m»
     de 1960 o «no pasar de los setecientos metros sobre el nivel del mar», la vecina). Lectura declarada (F36_REPORT).
-    Los muertos se siguen comparando con todo el video."""
+    Los muertos se siguen comparando con todo el video.
+    F38c §A.2: devuelve la estructura, una por coincidencia: {bloque (la cifra del bloque), unidad, voz (la cifra de la
+    voz), unidad_voz, token (la cifra de la voz como texto: lo que juzga el autor), oracion}; con `juicio` (el
+    `juicio_autor` de la ficha) las que el autor mantuvo como otro hecho (`contradice`, por la cifra de la voz, no por
+    la oración: vale aunque Fase 2 mueva la ficha) no cuentan (`_sin_juicio`, como no_dicho y spoiler)."""
     nb, mb = _analiza(bloque)
     mags_b = {m for m, _ in mb}
     out = []
@@ -60,8 +65,29 @@ def contradicciones(bloque: str, voz: list[str], cerca: list[str] | None = None)
                 if local and not (_palabras_mag(bloque) & _palabras_mag(s)):
                     continue
                 if comunes and abs(w - v) > 1e-9:
-                    out.append(f"{_fmt(v)} {u} vs {_fmt(w)}{' ' + uw if uw else ''} («{s.strip()[:70]}»)")
-    return list(dict.fromkeys(out))
+                    out.append({"bloque": v, "unidad": u, "voz": w, "unidad_voz": uw, "token": _fmt(w),
+                                "oracion": s.strip()})
+    ok = set(_sin_juicio({"juicio": juicio}, "contradice", [c["token"] for c in out]))
+    vistas: set[str] = set()
+    res = []
+    for c in out:                                  # una por frase (la misma oración en la voz y en la vecindad)
+        f = frase_contradiccion(c)
+        if c["token"] in ok and f not in vistas:
+            vistas.add(f)
+            res.append(c)
+    return res
+
+
+def frase_contradiccion(c: dict[str, Any]) -> str:
+    """La frase de una contradicción («722,5 m vs 715 («La cota autorizada…»)»), la de §A.4."""
+    return f"{_fmt(c['bloque'])} {c['unidad']} vs {_fmt(c['voz'])}{' ' + c['unidad_voz'] if c['unidad_voz'] else ''} "         f"(«{c['oracion'][:70]}»)"
+
+
+def contradicciones(bloque: str, voz: list[str], cerca: list[str] | None = None,
+                    juicio: dict[str, list[str]] | None = None) -> list[str]:
+    """§A.4: las frases de `contradicciones_de` (F38c §A.2: una sola lógica; el chequeo 5 de gfx_guion las lee, con el
+    `juicio_autor` del bloque)."""
+    return [frase_contradiccion(c) for c in contradicciones_de(bloque, voz, cerca, juicio)]
 
 
 _DOC = re.compile(r"\b(carta|acta|informe|documento)s?\b")

@@ -10,7 +10,9 @@ costo en 01_v3_costos.json como los demás pasos) o suelto: `python -m script_en
                de Fase 2);
                los beats de la escaleta (n, función, pico sí/no, dato central, apoyo, cierre); el archivo = el pool
                completo con cifra, fecha o cita (D con número, T, Q) y las personas (P), cada ítem con id, texto, fuente,
-               fecha (F37 §A.1a; «desconocida» si no tiene), las citas autor, rol y testimonio, y `beats_que_lo_cuentan`;
+               fecha (F37 §A.1a; «desconocida» si no tiene), las citas autor, rol y testimonio, y `beats_que_lo_cuentan`
+               (los beats cuyo dato central o de apoyo es el ítem); F38c §A.1: el que la escaleta dejó para la pantalla
+               lleva además `a_pantalla` {beat, por_que} (campo propio, no entra en `beats_que_lo_cuentan`);
                el vocabulario `sellos_clima` del perfil.
     llamada    UNA a Sonnet 5.5 (medium) con el prompt literal de §C.2 (PANTALLA_SYSTEM; F37: el gancho en las primeras
                oraciones, m01e-2; el USER = el JSON de entrada + «Formato de salida: …», con el `tipo` de cada descarte),
@@ -209,6 +211,9 @@ def entrada(carga: dict[str, Any], vocabulario: list[str], seg: dict[str, Any] |
         for i in [b["dato_central"]] + b["apoyo"]:
             if i:
                 cuentan.setdefault(i, []).append(b["n"])
+    # F38c §A.1: el `a_pantalla` de la escaleta va en un campo propio del ítem ({beat, por_que}), no en `cuentan` (esa
+    # marca es «la voz lo cuenta ahí»: dato_central/datos_apoyo); si además es dato de un beat, queda en los dos
+    a_pant: dict[str, dict[str, Any]] = {}
     for a in esc.get("a_pantalla") or []:                 # el `a_pantalla` de la escaleta, en su beat
         bc = [{"n": int(b["n"]), "dato_central": str(b.get("dato_central") or ""),
                "datos_apoyo": [str(x) for x in b.get("datos_apoyo") or []],
@@ -216,8 +221,7 @@ def entrada(carga: dict[str, Any], vocabulario: list[str], seg: dict[str, Any] |
                "campos": " ".join(str(b.get(c) or "") for c in ("emocion", "imagen_sensorial", "pregunta_abierta", "cierre"))}
               for b in beats_esc if int(b["cap"]) == int(a.get("cap") or 0)]
         nb, _ = beat_de_pantalla(a, bc)
-        if nb is not None and nb not in cuentan.setdefault(str(a.get("id")), []):
-            cuentan[str(a["id"])].append(nb)
+        a_pant.setdefault(str(a.get("id")), {"beat": nb, "por_que": str(a.get("por_que") or "")})
     archivo = []
     todos = ev.items(carga["pool"])
     for i, it in todos.items():
@@ -230,6 +234,8 @@ def entrada(carga: dict[str, Any], vocabulario: list[str], seg: dict[str, Any] |
             x["autor"] = str(it.get("autor") or "")
             x["rol"] = str(it.get("rol") or "")
             x["testimonio"] = "sí" if it.get("testimonio") else "no"
+        if i in a_pant:                                   # F38c §A.1: data del ítem, no regla (el prompt no cambia)
+            x["a_pantalla"] = dict(a_pant[i])
         archivo.append(x)
     return {"topic_id": carga["topic_id"], "caps": caps, "beats": beats, "archivo": archivo,
             "clima": list(vocabulario), "a_pantalla": {str(a.get("id")): str(a.get("por_que") or "")
@@ -348,6 +354,8 @@ def validar(resp: Any, ent: dict[str, Any], confirmados: dict[str, dict[str, lis
       nueva ahí ya no se pregunta: corta;
     - §A.2 los descartes «voz_lo_dice» cuya voz no dice las cifras o los nombres del ítem (`vuelven`);
     - §A.3b los beats pico sin ficha (`picos_vacios`).
+    F38c §A.1: los beats con `a_pantalla` cuya ficha no es ninguno de ellos (`a_pantalla_vacios`); §A.2: la cifra que
+    contradice la voz (oración ancla ± 1) es una pregunta al autor más (regla `contradice`), como no_dicho y spoiler.
     `motivos` = todo lo que va al reintento, en una lista."""
     from script_engine.gfx_project import ficha_medida
     from script_engine.pantalla_colocar import caracteres
@@ -426,7 +434,8 @@ def validar(resp: Any, ent: dict[str, Any], confirmados: dict[str, dict[str, lis
                         "oracion": c["oraciones"][si]["texto"] if ok else None, **({} if ok else {"error": "la oración no existe"})})
     out_beats = sorted(quedan.values(), key=lambda s: (orden_caps.index(s["cap"]) if s["cap"] in orden_caps else 99,
                                                        s["beat"] if s["beat"] is not None else -1))
-    # §A.2: el descarte «la voz lo dice» se verifica (las cifras o los nombres del ítem en la voz de sus caps)
+    # §A.2: el descarte «la voz lo dice» se verifica (las cifras o los nombres del ítem en la voz de sus caps). F38c
+    # §A.1: un `a_pantalla` ya no lleva `beats_que_lo_cuentan` (salvo que sea dato de un beat) → todo el video
     vuelven = []
     for d in desc:
         if d.get("quien") != "modelo" or d.get("tipo") != "voz_lo_dice" or d.get("pool_id") in usados_ids:
@@ -442,6 +451,15 @@ def validar(resp: Any, ent: dict[str, Any], confirmados: dict[str, dict[str, lis
             vuelven.append({"pool_id": d["pool_id"], "motivo": d.get("motivo"), "falta": falta,
                             "caps": sorted(caps_it) or ["todo el video"], "texto": x["texto"]})
     picos_vacios = [{"cap": s["cap"], "beat": s["beat"]} for s in out_beats if s["pico"] and not s["ficha"]]
+    # F38c §A.1: el beat que tiene `a_pantalla` y cuya ficha no es ninguno de ellos (vacía u otro id); si lleva uno, los
+    # demás de ese beat no cuentan («como máximo una ficha por beat» del prompt)
+    a_pantalla_vacios = []
+    for s in out_beats:
+        ids = [x for x in ent["archivo"] if (x.get("a_pantalla") or {}).get("beat") == s["beat"]
+               and beats.get(s["beat"], {}).get("cap") == s["cap"]]
+        if ids and (s["ficha"] or {}).get("pool_id") not in {x["id"] for x in ids}:
+            a_pantalla_vacios.append({"cap": s["cap"], "beat": s["beat"],
+                                      "ids": [{"id": x["id"], "por_que": x["a_pantalla"]["por_que"]} for x in ids]})
     # F38 §A.1: cada motivo con los beats que puede cambiar el reintento (`motivos_beat`, lista paralela a `motivos`):
     # la ficha caída → su beat (y, si la oración existe y es de otro beat, también ese: ahí puede ir); la pregunta y el
     # pico vacío → su beat; el descarte que vuelve → [] (no tiene beat: va en cualquier beat con motivo).
@@ -467,16 +485,24 @@ def validar(resp: Any, ent: dict[str, Any], confirmados: dict[str, dict[str, lis
     for p in picos_vacios:
         motivos.append(f"el beat {p['beat']} de {p['cap']} es pico y quedó sin ficha")
         motivos_beat.append([(p["cap"], p["beat"])])
+    for a in a_pantalla_vacios:                             # F38c §A.1
+        motivos.append(f"el beat {a['beat']} de {a['cap']} quedó sin ninguno de los datos que la escaleta dejó para la "
+                       f"pantalla porque la voz no los dice: "
+                       + ", ".join(f"{x['id']} («{x['por_que']}»)" for x in a["ids"]))
+        motivos_beat.append([(a["cap"], a["beat"])])
     return {"beats": out_beats, "relojes": relojes,
             "descartados": desc, "fichas_fuera": fichas_fuera, "preguntas": preguntas, "vuelven": vuelven,
-            "picos_vacios": picos_vacios, "motivos": motivos, "motivos_beat": motivos_beat}
+            "picos_vacios": picos_vacios, "a_pantalla_vacios": a_pantalla_vacios, "motivos": motivos,
+            "motivos_beat": motivos_beat}
 
 
 def _pregunta_txt(q: dict[str, Any]) -> str:
     """F37 §A.4, con las palabras del handoff: «D47: la voz dice “dos kilómetros” en ch03 [17] (“…”); ¿es el mismo
-    hecho? si no, mantenelo»."""
+    hecho? si no, mantenelo». F38c §A.2: la cifra que contradice la voz dice «para lo mismo»."""
     donde = f"en {q['donde'][0]} [{q['donde'][1]}] («{q['donde'][2]}»)" if q.get("donde") else "en la voz"
-    que = ("en una oración posterior" if q["regla"] == "spoiler" else "en la oración ancla o en una vecina")
+    que = ("en una oración posterior" if q["regla"] == "spoiler" else
+           "para lo mismo, en la oración ancla o en una vecina" if q["regla"] == "contradice" else
+           "en la oración ancla o en una vecina")
     return (f"{q['pool_id']} ({q['cap']} beat {q['beat']}, oración [{q['sentence_idx']}]) «{q['etiqueta']} · "
             f"{q['texto']}»: la voz dice «{q['token']}» {que} {donde}; ¿es el mismo hecho? si no, mantenelo")
 
@@ -493,7 +519,8 @@ def _validar_ficha(fi: dict, cap: str, nb: int | None, b: dict | None, slot: dic
                    ficha_medida: Callable, caracteres: Callable, mom: dict, confirmados: dict | None
                    ) -> tuple[str | None, str | None, dict | None]:
     """(motivo, regla, ficha validada) de una ficha del papel, en el orden de §C.3 (+ F37 §A.1b/c y §A.4)."""
-    from script_engine.pantalla_filtros import candado, gancho_dicho, no_dicho, spoiler
+    from script_engine.pantalla_filtros import (candado, contradicciones_de, frase_contradiccion, gancho_dicho, no_dicho,
+                                                spoiler)
     pid = str(fi.get("pool_id") or "")
     c = caps.get(cap)
     si = _int(fi.get("sentence_idx"))
@@ -571,6 +598,17 @@ def _validar_ficha(fi: dict, cap: str, nb: int | None, b: dict | None, slot: dic
         tras = [(cap, ss["idx"], ss["texto"]) for ss in c["oraciones"][si + 1:]] + \
                [(cc, ss["idx"], ss["texto"]) for cc in orden_caps[k + 1:] for ss in caps[cc]["oraciones"]]
         preguntas += [{"regla": "spoiler", "token": t, "donde": _donde(t, tras)} for t in sp_ctx["spoil"]]
+    # F38c §A.2: la cifra que contradice la voz (pantalla_filtros.contradicciones, la del chequeo 5 de Fase 2, con la
+    # oración ancla ± 1 como vecindad) también es una pregunta al autor: «¿es el mismo hecho?»; el token es la cifra
+    # de la voz y lo que el autor mantuvo (juicio «contradice») no vuelve a contar
+    cons = contradicciones_de(f"{et} {txt}", voz_video, cerca=[t for _, _, t in vec], juicio=juicio)
+    if cons:
+        if confirmados is not None:
+            return f"la cifra contradice la voz: {'; '.join(frase_contradiccion(q) for q in cons)}", "contradice", None
+        for t in dict.fromkeys(q["token"] for q in cons):
+            o = next(q["oracion"] for q in cons if q["token"] == t)
+            donde = next(((cc, i, tt) for cc, i, tt in vec + todo if tt.strip() == o), None)
+            preguntas.append({"regla": "contradice", "token": t, "donde": donde})
     if pid in usados_ids:
         return f"{pid} ya va en otro beat del video", "una_vez", None
     n = caracteres(tipo, et, txt, autor)
@@ -845,7 +883,8 @@ def armar(ent: dict[str, Any], res: dict[str, Any]) -> dict[str, Any]:
                           # F38 §A.1: parcial (los beats que podía cambiar, lo aplicado y lo ignorado)
                           **{k: (res.get("reintento") or {}).get(k) for k in ("tipo", "beats", "aplicados",
                                                                                "ignorados", "sin_beat")}},
-            "picos_vacios": v.get("picos_vacios") or []}
+            "picos_vacios": v.get("picos_vacios") or [],
+            "a_pantalla_vacios": v.get("a_pantalla_vacios") or []}         # F38c §A.1: después del reintento
 
 
 def _respuestas(res: dict[str, Any], v: dict[str, Any]) -> list[dict[str, Any]]:
@@ -860,9 +899,24 @@ def _respuestas(res: dict[str, Any], v: dict[str, Any]) -> list[dict[str, Any]]:
     return out
 
 
+def _por_que_falta(p: dict[str, Any], pid: str) -> str:
+    """F38c §A.1: por qué un `a_pantalla` no está en su beat: el descarte del autor, o lo que lo sacó en la validación
+    (lo puso y cayó), o «el autor no lo puso»."""
+    d = next((d for d in p.get("descartados") or [] if d.get("pool_id") == pid and d.get("quien") == "modelo"), None)
+    if d:
+        return f"el autor lo descartó{' [' + str(d['tipo']) + ']' if d.get('tipo') else ''}: {d.get('motivo')}"
+    d = next((d for d in p.get("descartados") or [] if d.get("pool_id") == pid and d.get("quien") == "validación"),
+             None)
+    if d:
+        return f"lo puso y cayó: {d['regla']}: {d['motivo']}"
+    return "el autor no lo puso"
+
+
 def a_markdown(p: dict[str, Any]) -> str:
     """Una línea por beat (ficha · sello), los relojes y la tarjeta; después lo que cayó, con motivo. F37: el año de cada
-    ficha y el momento del relato, los picos sin ficha (⚠), el reintento (motivos enviados y respuestas del autor)."""
+    ficha y el momento del relato, los picos sin ficha (⚠), el reintento (motivos enviados y respuestas del autor).
+    F38c §A.1: el beat que después del reintento sigue sin ninguno de sus `a_pantalla` lleva ⚠, con el descarte del
+    autor si lo hay (o lo que lo sacó en la validación) o «el autor no lo puso»: no se fuerza ni se corta nada."""
     sp, tp = p.get("seg_por_palabra") or {}, p.get("tope") or {}
     pi = " · ".join(f"intento {k + 1}: in {i.get('tokens_in')} · out {i.get('tokens_out')} · US$ {i.get('usd') or 0:.4f}"
                     for k, i in enumerate(p.get("por_intento") or []))
@@ -892,7 +946,11 @@ def a_markdown(p: dict[str, Any]) -> str:
                   + (f" · juzgado por el autor: otro hecho {f['juicio_autor']}" if f.get("juicio_autor") else "")
                   + f" · aporta: {f['aporta']}") if f else ("ficha — ⚠ pico sin ficha" if b["pico"] else "ficha —")
             se = f"sello **{s['palabra']}** en [{s['sentence_idx']}]" if s else "sello —"
-            lines.append(f"- beat {b['beat']} · {b['funcion']}{' · PICO' if b['pico'] else ''} · {fi} · {se}")
+            ap = next((a for a in p.get("a_pantalla_vacios") or [] if a["cap"] == b["cap"] and a["beat"] == b["beat"]),
+                      None)
+            ap_txt = (" · ⚠ sin su a_pantalla: " + "; ".join(f"{x['id']} ({_por_que_falta(p, x['id'])})"
+                                                            for x in ap["ids"])) if ap else ""
+            lines.append(f"- beat {b['beat']} · {b['funcion']}{' · PICO' if b['pico'] else ''} · {fi} · {se}{ap_txt}")
         rel = [r for r in p["relojes"] if r.get("cap") == c["cap"]]
         rel_txt = ", ".join(f"{r['fecha']} en [{r['sentence_idx']}]" for r in rel) or "—"
         lines.append(f"- relojes: {rel_txt}")

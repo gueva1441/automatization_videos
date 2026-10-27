@@ -23,7 +23,7 @@ from script_engine import m01e_pantalla as mp  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent
 VAJONT = "f8s3-vajont"
-STEPS = ROOT / "data" / "scripts" / "_steps"
+STEPS = ROOT / "lab" / "hyperframes" / "f38" / "b2" / "fase1"   # F38c: las entradas de Fase 1 congeladas (nunca data/)
 RAW_F37 = ROOT / "lab" / "hyperframes" / "f37" / "c" / "01e_pantalla.raw.json"   # la copia congelada de F37 (la corrida B pisa la de data/)
 PAPEL_F37 = ROOT / "lab" / "hyperframes" / "f37" / "c" / "01e_pantalla.json"
 CLIMA = ["PÁNICO", "CALMA", "AMENAZA", "AVISO", "ALARMA", "INMINENTE", "COLAPSO", "SILENCIO", "RABIA", "MEMORIA"]
@@ -59,8 +59,9 @@ def _post_seq(resps: list[dict], pedidos: list[dict]):
 
 def _cambios_desde_f37(raw37: dict, beats_m: list[tuple[str, int]]) -> dict:
     """El reintento de F37 en formato `cambios`: para cada beat con motivo, la ficha que puso el intento 2 (los motivos
-    de F37 eran todos de fichas: el sello no se toca, la clave no va); más dos cambios en beats SIN motivo que hizo el
-    intento 2 de F37 (ch06 b11 D228 en lugar de D128, y ch07 b13 D245 + MEMORIA en lugar de T92 + ALARMA)."""
+    de F37 eran todos de fichas: el sello no se toca, la clave no va); más dos cambios que hizo el intento 2 de F37
+    (ch06 b11 D228 en lugar de D128, SIN motivo, y ch07 b13 D245 + MEMORIA en lugar de T92 + ALARMA: F38c §A.1, ese
+    beat ahora tiene motivo porque quedó sin su `a_pantalla` D245)."""
     r2 = raw37["intentos"][1]["respuesta"]
     cambios = [{"cap": c, "beat": b, "ficha": _fila(r2, c, b)["ficha"]} for c, b in beats_m]
     cambios += [{"cap": "ch06", "beat": 11, "ficha": _fila(r2, "ch06", 11)["ficha"], "sello": None},
@@ -84,7 +85,8 @@ def test_a1_lo_del_intento_1_sobrevive_al_reintento_parcial(vajont, raw37, tmp_p
     v1 = mp.validar(r1, vajont)
     beats_m = mp.beats_con_motivo(v1["motivos_beat"])
     assert len(v1["motivos_beat"]) == len(v1["motivos"])
-    assert beats_m == [("ch02", 3), ("ch03", 4), ("ch04", 6), ("ch04", 7), ("ch05", 8)]
+    # F38c §A.1: ch07 b13 (T92, sin su `a_pantalla` D245) tiene motivo; ch05 b8 ya lo tenía (y además le falta Q50)
+    assert beats_m == [("ch02", 3), ("ch03", 4), ("ch04", 6), ("ch04", 7), ("ch05", 8), ("ch07", 13)]
     vuelve = [mb for m, mb in zip(v1["motivos"], v1["motivos_beat"]) if "vuelve a ser candidato" in m]
     assert vuelve and all(mb == [] for mb in vuelve)                      # D68: sin beat
     # por llamar: el reintento ve el papel entero como contexto y pide solo los cambios de esos beats
@@ -94,15 +96,18 @@ def test_a1_lo_del_intento_1_sobrevive_al_reintento_parcial(vajont, raw37, tmp_p
     assert len(pedidos) == 2
     p2 = pedidos[1]["messages"][0]["content"]
     assert "TU RESPUESTA ANTERIOR (el papel completo, como contexto)" in p2 and mp.FORMATO_REINTENTO in p2
-    assert "ch02 beat 3, ch03 beat 4, ch04 beat 6, ch04 beat 7, ch05 beat 8" in p2
+    assert "ch02 beat 3, ch03 beat 4, ch04 beat 6, ch04 beat 7, ch05 beat 8, ch07 beat 13" in p2
     rt = res["reintento"]
     assert rt["tipo"] == "parcial"
-    assert {(i["cap"], i["beat"]) for i in rt["ignorados"]} == {("ch06", 11), ("ch07", 13)}
+    assert {(i["cap"], i["beat"]) for i in rt["ignorados"]} == {("ch06", 11)}
     assert all(i["motivo"] == "el beat no tiene motivo" for i in rt["ignorados"])
     fin = res["validacion"]
     assert _fila(fin, "ch06", 11)["ficha"]["pool_id"] == "D128" and _fila(fin, "ch06", 11)["sello"]["palabra"] == "MEMORIA"
     assert _fila(fin, "ch03", 4)["sello"]["palabra"] == "AVISO"
-    assert _fila(fin, "ch07", 13)["ficha"]["pool_id"] == "T92" and _fila(fin, "ch07", 13)["sello"]["palabra"] == "ALARMA"
+    # F38c §A.1: el cambio de ch07 b13 se aplica (tiene motivo): entra D245; su sello MEMORIA cae (ya salió en ch06 b11)
+    assert _fila(fin, "ch07", 13)["ficha"]["pool_id"] == "D245" and _fila(fin, "ch07", 13)["sello"] is None
+    assert any(d.get("cap") == "ch07" and d.get("beat") == 13 and d["que"] == "sello" and d["texto"] == "MEMORIA"
+               for d in fin["descartados"] if d.get("quien") == "validación")
     # lo cambiado con motivo sí entra (D131 de ch01 no tenía motivo: queda en [15], como el intento 1)
     assert _fila(res["final"], "ch01", 1)["ficha"]["sentence_idx"] == 15
     papel = mp.armar(vajont, res)

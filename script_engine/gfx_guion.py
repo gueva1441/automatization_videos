@@ -282,7 +282,7 @@ def eventos_cap(c: dict[str, Any], *, title_dur: float, dip_frames: int, fps: in
             k=cb.get("sentence_idx"), aporta=cb.get("aporta"), fuente=fuente_de(cb.get("pool_id")),
             filtro="pasó" + _crit_rot(cb.get("critico")) + (" · editado a mano" if cb.get("editado") else ""),
             extra={"pool_id": cb.get("pool_id"), "a_pantalla": cb.get("a_pantalla"), "tipo_rotulista": tr,
-                   "papel": cb.get("papel"), "estilo": cb.get("estilo"),
+                   "papel": cb.get("papel"), "estilo": cb.get("estilo"), "juicio_autor": cb.get("juicio_autor"),  # F38c §A.2
                    "word_idx": cb.get("word_idx"), "movido": cb.get("movido") or cb.get("movido_escena") or cb.get("movido_corte")})
     for a in plan.get("archive_clippings") or []:
         add(float(a["start"]), "recorte", etiqueta=a.get("kicker"), texto=a.get("headline", ""),
@@ -290,7 +290,8 @@ def eventos_cap(c: dict[str, Any], *, title_dur: float, dip_frames: int, fps: in
             k=a.get("sentence_idx"), aporta=a.get("aporta"), fuente=fuente_de(a.get("pool_id")) or a.get("fuente"),
             filtro="pasó" + _crit_rot(a.get("critico")) + (" · editado a mano" if a.get("editado") else ""),
             extra={"pool_id": a.get("pool_id"), "a_pantalla": a.get("a_pantalla"), "papel": a.get("papel"),
-                   "estilo": a.get("estilo"), "movido": a.get("movido") or a.get("movido_escena") or a.get("movido_corte"),
+                   "estilo": a.get("estilo"), "juicio_autor": a.get("juicio_autor"),                  # F38c §A.2
+                   "movido": a.get("movido") or a.get("movido_escena") or a.get("movido_corte"),
                    "forzado": a.get("forzado")})
     qc = plan.get("quote_card")
     if qc:
@@ -498,7 +499,8 @@ def chequeos(caps: list[dict[str, Any]], *, title_dur: float, fps: int, mezcla: 
             if e["queda"] and e["tipo"] in TEXTOS + ("nivel de agua",):
                 n += 1
                 con = contradicciones(f"{e.get('etiqueta') or ''} {e.get('texto') or ''}", voz_video,   # F36 §B.5
-                                      cerca=[x for x in (e.get("voz_prev"), e.get("voz_ancla"), e.get("voz_next")) if x])
+                                      cerca=[x for x in (e.get("voz_prev"), e.get("voz_ancla"), e.get("voz_next")) if x],
+                                      juicio=e.get("juicio_autor"))       # F38c §A.2: lo que el autor juzgó otro hecho
                 if con:
                     ok = False
                     lineas.append(f"✗ {c['cap']} {mmss(e['t_mp4'])} «{e['texto']}»: " + "; ".join(con[:2]))

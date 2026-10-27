@@ -235,10 +235,11 @@ def _num_tok(tok: str) -> float | None:
     n = parse_int(tok)
     if n is not None:
         return float(n)
-    try:
-        return float(tok.replace(".", "").replace(",", "."))
-    except ValueError:
-        return None
+    # F38c §A.3: `parse_int` ya dijo que no son miles; derivado: con un solo separador es decimal («722.50» = 722,5;
+    # «0,5» = 0,5); con más de uno no es una cifra («25.10.2005»).
+    if len(re.findall(r"[.,]", tok)) == 1:
+        return float(tok.replace(",", "."))
+    return None
 
 
 def _num_en(toks: list[str], i: int) -> tuple[float | None, int]:
