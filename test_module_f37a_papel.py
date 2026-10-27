@@ -135,8 +135,9 @@ def test_a3a_reemplazo_literal_del_prompt_y_tipo_del_descarte():
     nuevo = ("en el gancho (capítulo 1), cualquier dato del archivo que la voz no diga en todo el video, que haga "
              "quedarse a quien mira y que pueda ir en las primeras oraciones del capítulo: el gancho nunca queda sin "
              "ficha.")
-    assert viejo not in mp.PANTALLA_SYSTEM and mp.PANTALLA_SYSTEM.count(nuevo) == 1
-    assert mp.PROMPT_VERSION == "m01e-3"          # F38: m01e-2 + sin TARJETA (§A.2) y el reintento parcial (§A.1)
+    # F38b: la línea de A.3a se revirtió a la de m01e-1 (movía el dato del gancho a una oración que no le corresponde)
+    assert nuevo not in mp.PANTALLA_SYSTEM and mp.PANTALLA_SYSTEM.count(viejo) == 1
+    assert mp.PROMPT_VERSION == "m01e-4"          # F38b: m01e-3 con el gancho de m01e-1
     assert '"tipo": "voz_lo_dice" | "spoiler" | "repetido" | "otro"' in mp.FORMATO_SALIDA
 
 

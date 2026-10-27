@@ -5,15 +5,13 @@ test_module_f38a_m01e.py — F38 §A (HANDOFF_F38_reintento_tarjeta_juez), la pa
           (y T92) sobreviven, y los cambios en beats sin motivo se ignoran y se anotan. Q14 NO estaba en el intento 1
           (el autor lo descartó ahí: «una sola ficha, se eligió T85»): no hay nada que sobreviva;
     §A.2  cableado: la tarjeta sale de voz_datos.tarjeta_de_voz (no del autor); `validar` no la lee;
-    §A.3  juez de anclaje: la entrada (oración, vecinas, dato, voz posterior), la respuesta grabada sobre el papel de F37
-          (lab/hyperframes/f38/a/juez_cache_f37.json, una llamada real a Gemini Flash), el motivo de su beat, lo que sigue
-          marcado sale, la segunda ronda solo sobre lo nuevo, el error y el tope no frenan.
-Sin API: el autor y el juez van con POST falsos o la caché grabada. Los de Vajont se saltean sin data/ en disco.
+    F38b  (HANDOFF_F38b_quitar_juez) el juez de §A.3 se borró con sus tests y su grabación; la línea del gancho vuelve
+          a la de m01e-1 (m01e-4) y nada en script_engine llama a un juez.
+Sin API: el autor va con POST falsos. El papel de F37 se lee de su copia congelada (lab/hyperframes/f37/c).
 """
 from __future__ import annotations
 
 import json
-import shutil
 import sys
 from pathlib import Path
 
@@ -28,7 +26,6 @@ VAJONT = "f8s3-vajont"
 STEPS = ROOT / "data" / "scripts" / "_steps"
 RAW_F37 = ROOT / "lab" / "hyperframes" / "f37" / "c" / "01e_pantalla.raw.json"   # la copia congelada de F37 (la corrida B pisa la de data/)
 PAPEL_F37 = ROOT / "lab" / "hyperframes" / "f37" / "c" / "01e_pantalla.json"
-CACHE_JUEZ = ROOT / "lab" / "hyperframes" / "f38" / "a" / "juez_cache_f37.json"
 CLIMA = ["PÁNICO", "CALMA", "AMENAZA", "AVISO", "ALARMA", "INMINENTE", "COLAPSO", "SILENCIO", "RABIA", "MEMORIA"]
 SEG = {"valor": 0.3459, "oraciones": 200, "caps": 9, "voz": "prueba"}
 hay_vajont = pytest.mark.skipif(not RAW_F37.exists() or not PAPEL_F37.exists(), reason="sin Vajont (F37) en disco")
@@ -139,7 +136,7 @@ def test_a1_motivos_sin_beat_no_abren_beats():
 def test_a1_formatos_literales():
     assert "TARJETA" not in mp.PANTALLA_SYSTEM and '"tarjeta"' not in mp.FORMATO_SALIDA
     assert mp.FORMATO_REINTENTO.startswith('{"cambios": [{"cap": "ch03", "beat": 5, "ficha":')
-    assert mp.PROMPT_VERSION == "m01e-3"
+    assert mp.PROMPT_VERSION == "m01e-4"          # F38b: + el gancho de m01e-1
 
 
 # ═══════════════════════ §A.2 tarjeta desde la voz ═══════════════════════
@@ -177,134 +174,23 @@ def test_a2_vajont_tarjeta_real(vajont):
     assert motivo is None and tj["texto"] == "9 OCT 1963 · 22:39"
 
 
-# ═══════════════════════ §A.3 juez de anclaje ═══════════════════════
+# ═══════════════════════ F38b: la línea del gancho de m01e-1, sin juez ═══════════════════════
 
-def test_a3_prompt_literal_del_juez():
-    h = (ROOT / "lab" / "hyperframes" / "f38" / "HANDOFF_F38_reintento_tarjeta_juez.md").read_text(encoding="utf-8")
-    assert mp.JUEZ_SYSTEM in h and mp.JUEZ_VERSION == "juez-1"
-    assert "gemini" not in mp.JUEZ_SYSTEM.lower()
-
-
-@hay_vajont
-def test_a3_entrada_del_juez_d131_con_su_oracion_vecinas_y_voz_posterior(vajont):
-    papel = json.loads(PAPEL_F37.read_text(encoding="utf-8"))
-    assert [c["oraciones"] for c in papel["caps"]] == [[s["texto"] for s in c["oraciones"]] for c in vajont["caps"]]
-    filas = mp.juez_entrada(papel["beats"], vajont)
-    d = next(f for f in filas if f["id"] == "D131")
-    ors = vajont["caps"][0]["oraciones"]
-    assert d["_donde"]["cap"] == "ch01" and d["_donde"]["sentence_idx"] == 1 and d["_donde"]["beat"] == 1
-    assert d["oracion"] == f"ch01 [1] {ors[1]['texto']}"
-    assert d["anterior"] == f"ch01 [0] {ors[0]['texto']}" and d["siguiente"] == f"ch01 [2] {ors[2]['texto']}"
-    x = next(x for x in vajont["archivo"] if x["id"] == "D131")
-    assert d["dato"]["texto"] == x["texto"] and d["dato"]["fuente"] == x["fuente"]
-    total = sum(len(c["oraciones"]) for c in vajont["caps"])
-    assert len(d["voz_despues"]) == total - 2 and d["voz_despues"][0].startswith("ch01 [2] ")
-    ult = vajont["caps"][-1]
-    assert d["voz_despues"][-1] == f"{ult['cap']} [{len(ult['oraciones']) - 1}] {ult['oraciones'][-1]['texto']}"
-    assert "_donde" not in mp.juez_pedido(filas)
+def test_f38b_gancho_literal_de_m01e_1_sin_las_primeras_oraciones():
+    h = (ROOT / "lab" / "hyperframes" / "f38" / "HANDOFF_F38b_quitar_juez.md").read_text(encoding="utf-8")
+    linea = ("cualquier dato del archivo que la voz no diga en todo el video y que haga quedarse a quien mira: el gancho "
+             "nunca queda sin ficha.")
+    assert linea in h and linea in mp.PANTALLA_SYSTEM
+    assert "primeras oraciones" not in mp.PANTALLA_SYSTEM
+    assert mp.PROMPT_VERSION == "m01e-4"
 
 
-@hay_vajont
-@pytest.mark.skipif(not CACHE_JUEZ.exists(), reason="sin la respuesta grabada del juez")
-def test_a3_d131_marcado_por_la_respuesta_grabada_y_motivo_de_su_beat(vajont, tmp_path, monkeypatch):
-    papel = json.loads(PAPEL_F37.read_text(encoding="utf-8"))
-    grab = json.loads(CACHE_JUEZ.read_text(encoding="utf-8"))
-    monkeypatch.setattr(mp, "_juez_modelo", lambda: next(iter(grab.values()))["modelo"])   # el de la grabación
-    shutil.copy(CACHE_JUEZ, tmp_path / "01e_juez.raw.json")
-
-    def sin_api(*_a):
-        raise AssertionError("el test no llama a la API")
-    r = mp.juzgar(papel["beats"], vajont, tmp_path, ronda=1, call=sin_api)
-    assert r["cache"] and r["error"] is None and r["usd"] == 0.0
-    v = next(v for v in r["veredictos"] if v["id"] == "D131")
-    assert v["mismo_asunto"] is False or v["adelanta"] is True
-    assert v["marcada"] and (v["cap"], v["beat"], v["sentence_idx"]) == ("ch01", 1, 1)
-    m = mp.motivo_juez(v)
-    assert m.startswith("D131 (ch01 beat 1, oración [1])") and v["motivo"] in m and "elegí otra oración u otro dato" in m
-
-
-def _chico() -> dict:
-    pool = {"datos": [{"id": "D1", "texto": "La presa mide 266 metros de alto.", "fuente": "F", "fecha": "1960"},
-                      {"id": "D2", "texto": "El lago tenía 115 millones de metros cúbicos.", "fuente": "F",
-                       "fecha": "1960"}],
-            "cronologia": [], "personajes": [], "citas": []}
-    carga = {"topic_id": "t", "dir": Path("."), "titulos": {1: "Uno"}, "pool": pool,
-             "escaleta": {"pico": {"beat": 1}, "a_pantalla": [],
-                          "beats": [{"n": 1, "cap": 1, "funcion": "gancho", "dato_central": "", "datos_apoyo": []}]},
-             "parrafos": [{"cap": 1, "beat": 1, "texto": "Era el año mil novecientos sesenta. La presa del valle se "
-                                                        "levanta enorme sobre el pueblo entero. El agua del lago "
-                                                        "llena el valle de punta a punta y sube."}]}
-    ent = mp.entrada(carga, CLIMA, SEG)
-    ent["_pool"] = pool
-    return ent
-
-
-def _ficha(pid: str, si: int, et: str, txt: str) -> dict:
-    return {"cap": "ch01", "beat": 1, "ficha": {"pool_id": pid, "sentence_idx": si, "palabra": "", "etiqueta": et,
-                                                "texto": txt, "aporta": "x"}, "sello": None}
-
-
-def _juez_seq(resps: list[list[dict]], llamadas: list[str]):
-    def call(system: str, user: str, modelo: str) -> dict:
-        llamadas.append(user)
-        return {"texto": json.dumps(resps[min(len(llamadas) - 1, len(resps) - 1)]),
-                "usage": {"input_tokens": 100, "output_tokens": 10, "thinking_tokens": 0}}
-    return call
-
-
-def test_a3_lo_marcado_va_al_reintento_y_si_sigue_sale(tmp_path, monkeypatch):
-    monkeypatch.setattr(mp, "_juez_modelo", lambda: "gemini-2.5-flash")
-    ent = _chico()
-    r1 = {"beats": [_ficha("D1", 1, "ALTURA", "266 metros")], "relojes": [], "descartados": []}
-    assert mp.validar(r1, ent)["beats"][0]["ficha"]["pool_id"] == "D1"
-    pedidos, llamadas = [], []
-    res = mp.llamar(ent, tmp_path, tope=100.0, post=_post_seq([r1, {"cambios": []}], pedidos),
-                    juez_post=_juez_seq([[{"id": "D1", "mismo_asunto": False, "adelanta": False,
-                                           "motivo": "la oración habla del año, no de la presa"}]], llamadas))
-    assert len(pedidos) == 2 and len(llamadas) == 1                         # sin fichas nuevas: sin segunda ronda
-    assert "D1 (ch01 beat 1, oración [1])" in pedidos[1]["messages"][0]["content"]
-    assert "la oración habla del año, no de la presa" in pedidos[1]["messages"][0]["content"]
-    fin = res["validacion"]
-    assert fin["beats"][0]["ficha"] is None
-    d = next(d for d in fin["descartados"] if d.get("regla") == "juez")
-    assert d["pool_id"] == "D1" and "la oración habla del año" in d["motivo"]
-    assert res["juez"]["usd"] > 0 and res["usd"] >= res["juez"]["usd"]
-    papel = mp.armar(ent, res)
-    assert papel["juez"]["salieron"] and "**juez**" in mp.a_markdown(papel)
-    # repetida: caché del autor y del juez → la misma salida, US$ 0
-    res2 = mp.llamar(ent, tmp_path, tope=100.0, post=_post_seq([{}], []), juez_post=_juez_seq([[]], []))
-    assert res2.get("cache") and res2["validacion"]["beats"][0]["ficha"] is None
-
-
-def test_a3_la_ficha_nueva_del_reintento_se_juzga_en_una_segunda_ronda(tmp_path, monkeypatch):
-    monkeypatch.setattr(mp, "_juez_modelo", lambda: "gemini-2.5-flash")
-    ent = _chico()
-    r1 = {"beats": [_ficha("D1", 1, "ALTURA", "266 metros")], "relojes": [], "descartados": []}
-    nueva = _ficha("D2", 2, "AGUA DEL LAGO", "115 millones de m³")["ficha"]
-    llamadas: list[str] = []
-    res = mp.llamar(ent, tmp_path, tope=100.0,
-                    post=_post_seq([r1, {"cambios": [{"cap": "ch01", "beat": 1, "ficha": nueva}]}], []),
-                    juez_post=_juez_seq([[{"id": "D1", "mismo_asunto": False, "adelanta": False, "motivo": "otro"}],
-                                         [{"id": "D2", "mismo_asunto": True, "adelanta": True,
-                                           "motivo": "la voz lo cuenta después"}]], llamadas))
-    assert len(llamadas) == 2
-    assert '"id": "D2"' in llamadas[1] and '"id": "D1"' not in llamadas[1]     # solo la nueva
-    assert res["validacion"]["beats"][0]["ficha"] is None
-    assert [d["pool_id"] for d in res["juez"]["salieron"]] == ["D2"]
-
-
-def test_a3_si_el_juez_falla_o_no_entra_en_el_tope_la_corrida_sigue(tmp_path, monkeypatch):
-    monkeypatch.setattr(mp, "_juez_modelo", lambda: "gemini-2.5-flash")
-    ent = _chico()
-    r1 = {"beats": [_ficha("D1", 1, "ALTURA", "266 metros")], "relojes": [], "descartados": []}
-
-    def rota(*_a):
-        raise RuntimeError("503")
-    res = mp.llamar(ent, tmp_path, tope=100.0, post=_post_seq([r1], []), juez_post=rota)
-    assert "503" in res["juez"]["error"] and res["validacion"]["beats"][0]["ficha"]["pool_id"] == "D1"
-    assert len(res["intentos"]) == 1                                           # sin motivos: sin reintento
-    r = mp.juzgar(mp.validar(r1, ent)["beats"], ent, tmp_path / "x", ronda=1, call=rota, libre_usd=0.0)
-    assert r["error"].startswith("tope:")
-    r = mp.juzgar(mp.validar(r1, ent)["beats"], ent, tmp_path / "y", ronda=1,
-                  call=lambda *_a: {"texto": "no sé", "usage": {}})
-    assert r["error"].startswith("sin JSON") and not r["veredictos"]
+def test_f38b_nada_llama_a_un_juez():
+    # el juez de anclaje de F38 §A.3 (el parámetro `juez` del crítico «¿estorba?» de pantalla_colocar/clima es otro)
+    assert "juez" not in (ROOT / "script_engine" / "m01e_pantalla.py").read_text(encoding="utf-8").lower()
+    for f in (ROOT / "script_engine").glob("*.py"):
+        txt = f.read_text(encoding="utf-8", errors="replace")
+        assert not any(n in txt for n in ("JUEZ_SYSTEM", "JUEZ_VERSION", "juzgar(", "01e_juez", "juez_post",
+                                          "motivo_juez", "sacar_juzgadas")), f
+    assert not hasattr(mp, "juzgar") and not hasattr(mp, "JUEZ_SYSTEM")
+    assert "juez_post" not in mp.llamar.__code__.co_varnames

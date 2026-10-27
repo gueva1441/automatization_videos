@@ -152,9 +152,8 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                       "voz, voz_datos). Lo valida en papel "
                       "(candado, no dicho, spoiler, una vez, cabe, formato; F37: fecha del relato, cita sin fecha, "
                       "descartes «la voz lo dice» verificados, picos sin ficha; una coincidencia de número se le pregunta "
-                      "al autor); F38: un juez (Gemini, el modelo chico de config) mira si cada ficha habla del mismo "
-                      "asunto que su oración y si adelanta algo. Un reintento PARCIAL con todos los motivos cambia solo "
-                      "los beats con motivo (lo demás queda congelado); lo que el juez sigue marcando sale del papel. "
+                      "al autor); F38: un reintento PARCIAL con todos los motivos cambia solo los beats con motivo (lo "
+                      "demás queda congelado; F38b: sin juez de anclaje). "
                       "Lo deja para que Omar lo revise antes de la voz; Fase 2 lo consume.", "escaleta, narración por cap y beat, títulos, pool, `sellos_clima`",
                       "`01e_pantalla.json/.md` en el topic de Fase 1", "F36", "vivo (fase 1)"),
     "archive_clipping.html.tmpl": ("La forma del recorte de diario (papel, kicker, titular).", "un recorte del plan",
