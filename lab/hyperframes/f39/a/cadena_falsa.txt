@@ -1,0 +1,16 @@
+── pasos: research → compuerta → ficha «Un desastre de prueba» → escaleta → guion → caps → papel 
+  [semilla] «Un desastre de prueba» (s-1) → topic t-f39
+  [semilla] topic registrado: 'VT'
+════════════════════════════════════════════════════════════
+  📜 Procesando topic t-f39 desde m01a
+════════════════════════════════════════════════════════════
+  [v3] guion v3 (escaleta → guionista → editor → partición)
+  [01a v3] Compuerta del pool + escaleta...
+  [ficha] sin ficha v2 → ficha_caso.run (gpt-6.1-sol high, prompt f23-1) · título «Un desastre de prueba»
+  [ficha] {} · sacados 0
+  [01b v4] Guionista v4 → reparación (una ronda) → partición → juez...
+  ⏸  PARADA del papel: el papel no está aprobado.
+     Leer: C:\Users\Canada\AppData\Local\Temp\pytest-of-guevara41\pytest-978\test_a3_de_la_semilla_al_papel0\steps\t-f39\01e_pantalla.md
+     Aprobar: python fase1_5.py --topic t-f39 --aprobar-papel "Omar <fecha>"
+.
+1 passed in 1.79s

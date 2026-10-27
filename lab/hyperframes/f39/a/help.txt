@@ -1,0 +1,69 @@
+usage: fase1_5.py [-h] [--topic TOPIC]
+                  [--only {m01a,m01b,normalizer_gate,audio,m07,m03}]
+                  [--from {m01a,m01b,normalizer_gate,audio,m07,m03}]
+                  [--csv CSV] [--no-gate] [--no-music-gate] [--v3]
+                  [--guion {v3,v4}]
+                  [--modelo {gemini-pro,gpt-6.1-sol,gpt-6-astra,gemini-4-argon,claude-opus-5-5,claude-fable-5-1}]
+                  [--modelo-escaleta {claude-fable-5-1,claude-opus-5-5,gpt-6.1-sol}]
+                  [--sin-columna] [--columna] [--batch] [--editor]
+                  [--temas TEMAS] [--semilla ARCHIVO.json]
+                  [--aprobar-papel "QUIÉN FECHA"]
+
+fase1.5 — orchestrator m01a→m03→assemble
+
+options:
+  -h, --help            show this help message and exit
+  --topic TOPIC         Procesar solo este topic_id (default: todos los
+                        aprobados del CSV)
+  --only {m01a,m01b,normalizer_gate,audio,m07,m03}
+                        Correr SOLO este módulo (equivale a --from <step> +
+                        cortar después). Útil para validar 1 módulo aislado
+                        sin arrastrar la cadena.
+  --from {m01a,m01b,normalizer_gate,audio,m07,m03}
+                        F10: reanudar desde este módulo y seguir la cadena
+                        hasta assemble
+  --csv CSV             Path al CSV editado (default: data/fase1_review.csv)
+  --no-gate             Skipear el gate interactivo del normalizer (modo batch
+                        nocturno; sospechosos solo se loguean)
+  --no-music-gate       Skipear el gate interactivo de m07 music_director
+                        (modo batch nocturno; todos los tracks generados se
+                        aprueban automáticamente)
+  --v3                  F10: guion v3 (compuerta → escaleta → guionista →
+                        editor → partición → juez); también corre solo si el
+                        topic tiene guion_version == 3
+  --guion {v3,v4}       F11: con --v3, el guionista v4 (una llamada →
+                        reparación de una ronda); también corre si el topic
+                        tiene guion_version == 4
+  --modelo {gemini-pro,gpt-6.1-sol,gpt-6-astra,gemini-4-argon,claude-opus-5-5,claude-fable-5-1}
+                        F11b: con --guion v4, el modelo de toda la cadena v4
+                        (guionista + reparación); el juez es el de siempre
+  --modelo-escaleta {claude-fable-5-1,claude-opus-5-5,gpt-6.1-sol}
+                        F25c: el modelo de la escaleta v2 (con ficha); por
+                        defecto claude-fable-5-1
+  --sin-columna         F17; F22d: es el camino por defecto (la escaleta va
+                        siempre sin columna); se acepta y no cambia nada
+  --columna             F22d: además de la escaleta (sin columna), genera la
+                        columna vertebral como página de lectura
+                        COLUMNA_<id>.md; no se le pasa a la escaleta
+  --batch               Modo batch desatendido: desactiva los gates del medio
+                        (normalizer_gate + music_gate). Equivale a --no-gate
+                        --no-music-gate.
+  --editor              F27: con --guion v4, la pasada del editor m01c en la
+                        reparación (fuera del camino desde F27; solo para
+                        leer)
+  --temas TEMAS         F26 §C: varios topic_id separados por coma; cada uno
+                        corre en su propio proceso (el perfil del caso es un
+                        global de proceso) con los mismos argumentos y --batch
+  --semilla ARCHIVO.json
+                        F39 §A.3: con --topic <id> nuevo, investiga primero
+                        esa semilla en ese topic (research v3 + 4a–4e,
+                        registro en topics_db con respaldo
+                        topics_db.pre_<id>.json) y sigue la cadena: compuerta
+                        → ficha si falta → escaleta → guion → caps y títulos →
+                        papel → PARADA del papel. Si _steps/<id>/ o el id ya
+                        existen, PARADA (no pisa nada)
+  --aprobar-papel "QUIÉN FECHA"
+                        F39 §A.4: escribe `aprobado: {por, fecha, md5}` en
+                        _steps/<id>/01e_pantalla.json (la compuerta antes de
+                        la voz: sin eso, nada corre después de m01b) y no
+                        corre nada más

@@ -17,6 +17,11 @@ Uso:
   python fase1_5.py --topic <id>                 corre solo 1 topic específico
   python fase1_5.py --topic <id> --only m03      corre SOLO m03 y corta (sin arrastrar la cadena)
   python fase1_5.py --topic <id> --only m01b     corre SOLO m01b y corta
+  python fase1_5.py --semilla <s.json> --topic <id_nuevo> --v3 --guion v4 --batch
+                                                 F39: de la semilla al papel (research → ficha → escaleta → guion →
+                                                 caps → papel) y PARADA del papel
+  python fase1_5.py --topic <id> --aprobar-papel "Omar <fecha>"
+                                                 F39: aprueba el papel (md5); recién ahí sigue a la voz
 
 Flags:
   --topic <id>      Procesar solo el topic con este UUID (default: todos los aprobados del CSV).
@@ -228,15 +233,156 @@ def run_pantalla(topic_id: str, pool: dict | None, log: list[str]) -> dict | Non
         return None
 
 
+class Parada(RuntimeError):
+    """F39: la cadena para a propósito (topic ya existente, compuerta roja, escaleta sin ficha, papel sin aprobar): no
+    es una falla del código; el mensaje dice por qué y qué hacer."""
+
+
+# ═══════════════════════ F39 §A.1: la ficha, entre la compuerta y la escaleta ═══════════════════════
+
+def _titulo_de_semilla(topic: dict) -> str | None:
+    """El título de la ficha = el `seed_title` de la semilla (el que usaron F23/F24): el que el topic guardó al
+    registrarse (A.3) o, para un topic viejo, el del archivo de semillas por `seed_id`. Nunca se inventa."""
+    if topic.get("seed_title"):
+        return str(topic["seed_title"])
+    f = DATA_DIR / "seeds_archive.json"
+    if topic.get("seed_id") and f.exists():
+        data = json.loads(f.read_text(encoding="utf-8"))
+        for s in (data.get("seeds") if isinstance(data, dict) else data) or []:
+            if isinstance(s, dict) and s.get("seed_id") == topic["seed_id"] and s.get("seed_title"):
+                return str(s["seed_title"])
+    return None
+
+
+def asegurar_ficha(topic_id: str, topic: dict, log: list[str]) -> dict:
+    """F39 §A.1: si no hay `ficha_caso.json` con `historia` (ficha v2), se genera con `ficha_caso.run` (modelo y prompt
+    vigentes), con su costo como paso «ficha» en 01_v3_costos.json; si ya hay, se usa y no se regenera. Se llama después
+    de la compuerta del pool (rojo = no se paga la ficha)."""
+    from researcher_steps import ficha_caso as fc
+    ficha = fc.load(topic_id, STEPS_DIR)
+    if ficha and "historia" in ficha:
+        log.append(f"  [ficha] ya hay ficha v2 ({ficha.get('prompt_version')}): se usa")
+        return ficha
+    titulo = _titulo_de_semilla(topic)
+    if not titulo:
+        raise Parada(f"{topic_id}: sin ficha v2 y sin seed_title (ni en el topic ni en seeds_archive): no se inventa")
+    log.append(f"  [ficha] sin ficha v2 → ficha_caso.run ({fc.MODELO} {fc.ESFUERZO}, prompt {fc.PROMPT_VERSION}) · "
+               f"título «{titulo}»")
+    res = _step_cost(topic_id, "ficha", lambda: fc.run(topic_id, steps_dir=STEPS_DIR, title=titulo, tag=topic_id))
+    log.append(f"  [ficha] {res.get('meta', {}).get('conteos')} · sacados {res.get('meta', {}).get('sacados')}")
+    return fc.load(topic_id, STEPS_DIR)
+
+
+# ═══════════════════════ F39 §A.4: la compuerta del papel (como --aprobar-guion de F33) ═══════════════════════
+
+def _papel_path(topic_id: str) -> Path:
+    return STEPS_DIR / topic_id / "01e_pantalla.json"
+
+
+def md5_papel(papel: dict) -> str:
+    """El md5 del contenido del papel sin el campo `aprobado` (JSON con claves ordenadas): un papel regenerado o editado
+    cambia su md5 y queda sin aprobar."""
+    import hashlib
+    sin = {k: v for k, v in papel.items() if k != "aprobado"}
+    return hashlib.md5(json.dumps(sin, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()
+
+
+def estado_papel(topic_id: str) -> tuple[bool, str]:
+    """(aprobado y vigente, por qué). Sin papel no hay nada que aprobar: no pasa."""
+    f = _papel_path(topic_id)
+    if not f.exists():
+        return False, f"no hay papel ({f}): m01e no dejó guion de pantalla, no hay nada que aprobar"
+    papel = json.loads(f.read_text(encoding="utf-8"))
+    ap = papel.get("aprobado")
+    if not ap:
+        return False, "el papel no está aprobado"
+    if ap.get("md5") != md5_papel(papel):
+        return False, (f"el papel cambió después de la aprobación de {ap.get('por')} ({ap.get('fecha')}): md5 "
+                       f"{str(ap.get('md5'))[:8]}… → {md5_papel(papel)[:8]}…")
+    return True, f"papel aprobado por {ap.get('por')} ({ap.get('fecha')}), md5 {str(ap.get('md5'))[:8]}…"
+
+
+def aprobar_papel(topic_id: str, quien_fecha: str) -> dict:
+    """`--aprobar-papel "QUIÉN FECHA"`: escribe `aprobado: {por, fecha, md5}` en 01e_pantalla.json; no corre nada más."""
+    f = _papel_path(topic_id)
+    if not f.exists():
+        raise Parada(f"{topic_id}: no hay papel que aprobar ({f})")
+    papel = json.loads(f.read_text(encoding="utf-8"))
+    partes = quien_fecha.split()
+    por, fecha = (" ".join(partes[:-1]), partes[-1]) if len(partes) > 1 else (quien_fecha, None)
+    import time as _time
+    papel["aprobado"] = {"por": por, "fecha": fecha or _time.strftime("%Y-%m-%d %H:%M"), "md5": md5_papel(papel)}
+    f.write_text(json.dumps(papel, ensure_ascii=False, indent=1), encoding="utf-8")
+    return papel["aprobado"]
+
+
+def parada_del_papel(topic_id: str) -> str:
+    """El mensaje de la PARADA del papel: por qué, dónde leerlo y el comando para aprobarlo."""
+    _, motivo = estado_papel(topic_id)
+    md = STEPS_DIR / topic_id / "01e_pantalla.md"
+    return (f"PARADA del papel: {motivo}.\n"
+            + (f"     Leer: {md}\n" if md.exists() else "")
+            + f"     Aprobar: python fase1_5.py --topic {topic_id} --aprobar-papel \"Omar <fecha>\"")
+
+
+# ═══════════════════════ F39 §A.3: arrancar desde una semilla ═══════════════════════
+
+def leer_semilla(path: Path) -> dict:
+    """La semilla de un archivo: el dict de la semilla (con `seed_id` y `seed_title`)."""
+    data = json.loads(Path(path).read_text(encoding="utf-8"))
+    if isinstance(data, dict) and "seed" in data and isinstance(data["seed"], dict):
+        data = data["seed"]
+    if not isinstance(data, dict) or not data.get("seed_id") or not data.get("seed_title"):
+        raise Parada(f"{path}: no es una semilla (falta seed_id o seed_title)")
+    return data
+
+
+def research_de_semilla(semilla: Path, topic_id: str) -> dict:
+    """F39 §A.3: investiga UNA semilla en un topic dado (topic_researcher.investigar_semilla) y la registra en
+    topics_db con ese id. No pisa nada: si `_steps/<id>/` ya existe o el id ya está en topics_db, PARADA. Antes,
+    respaldo de topics_db como topics_db.pre_<id>.json. La compuerta roja del pool es PARADA con sus motivos."""
+    import shutil
+    seed = leer_semilla(semilla)
+    if (STEPS_DIR / topic_id).exists():
+        raise Parada(f"{topic_id}: ya existe {STEPS_DIR / topic_id} (no se pisa)")
+    if TOPICS_DB.exists() and any(t.get("id") == topic_id for t in
+                                  json.loads(TOPICS_DB.read_text(encoding="utf-8")).get("topics") or []):
+        raise Parada(f"{topic_id}: ya está en topics_db (no se pisa)")
+    if TOPICS_DB.exists():
+        shutil.copy2(TOPICS_DB, TOPICS_DB.with_name(f"topics_db.pre_{topic_id}.json"))
+    print(f"  [semilla] «{seed['seed_title']}» ({seed['seed_id']}) → topic {topic_id}")
+    import topic_researcher as tr
+    from researcher_steps.pool_gate import PoolGateRed
+    try:
+        topic = _step_cost(topic_id, "research", lambda: tr.investigar_semilla(seed, topic_id))
+    except PoolGateRed as e:
+        raise Parada(f"{topic_id}: compuerta del pool ROJA: {'; '.join(e.gate.get('motivos') or [])}") from e
+    print(f"  [semilla] topic registrado: {topic.get('video_title')!r}")
+    return topic
+
+
 def run_escaleta_v3(topic_id: str, columna: bool = False, modelo: str | None = None) -> dict:
     """m01a v3: compuerta del pool (rojo → PoolGateRed, sin gastar) + escaleta (Pro, con reintentos).
     F17: con ficha v2, m01a era columna → escaleta. F22d (decisión del analista): la columna ya no alimenta a la
     escaleta (la escaleta va siempre sin columna); con `columna=True` (`--columna`) se genera además la columna como
     página de lectura (`_steps/<id>/COLUMNA_<id>.md` + `01a_columna.json`), después de la escaleta y sin pasarla."""
     from script_engine import m01a_escaleta as me
+    from researcher_steps.pool_gate import PoolGateRed
     topic = _topic_v3(topic_id)
     log: list[str] = []
-    esc = _step_cost(topic_id, "escaleta", lambda: me.generate_escaleta(topic, log=log, columna=None, modelo=modelo))
+    if not (topic.get("escaleta_frozen") or me._frozen_is_escaleta(topic)):   # F39 §A.1: compuerta → ficha → escaleta
+        try:
+            me.pool_gate_profile(topic, topic.get("evidence_pool") or {}, log=log)   # rojo = no se paga la ficha
+        except PoolGateRed as e:
+            raise Parada(f"{topic_id}: compuerta del pool ROJA: {'; '.join(e.gate.get('motivos') or [])}") from e
+        asegurar_ficha(topic_id, topic, log)
+        print("\n".join(log))
+        log.clear()
+    try:
+        esc = _step_cost(topic_id, "escaleta", lambda: me.generate_escaleta(topic, log=log, columna=None,
+                                                                            modelo=modelo))
+    except me.EscaletaSinFicha as e:                         # F39 §A.2: sin ficha v2 la escaleta no corre
+        raise Parada(f"escaleta sin ficha: {e}") from e
     if columna:
         from researcher_steps.ficha_caso import load as load_ficha
         from script_engine import m01a_columna as mc
@@ -424,6 +570,16 @@ def process_topic(
         else:
             narration = None
 
+        # F39 §A.4 (DECISIONES 2026-10-26 19:54): nada después de m01b (la voz se paga) sin el papel aprobado y vigente;
+        # vale también al reanudar (--from normalizer_gate / audio / m07 / m03). Solo en la cadena v3, la que hace papel.
+        if use_v3:
+            ok, motivo = estado_papel(topic_id)
+            if not ok:
+                print(f"\n  ⏸  {parada_del_papel(topic_id)}")
+                result.update(status="PARADA", parada="papel", motivo=motivo)
+                return result
+            print(f"  [papel] {motivo}")
+
         # normalizer_gate — gate humano del tts_normalizer (PR 2.0 chat 24).
         # Detecta sospechosos en la narración (siglas/abreviaturas/unidades sin
         # cubrir), pide al LLM una propuesta y abre CLI para aprobar/editar.
@@ -558,6 +714,10 @@ def process_topic(
         result["status"] = "PASS"
         print(f"\n  ✅ Topic {topic_id} OK — pasos: {result['steps_completed']}")
 
+    except Parada as e:                                      # F39: la cadena para a propósito, con el motivo
+        result.update(status="PARADA", parada=_derive_failed_step(from_step, result.get("steps_completed")),
+                      motivo=str(e))
+        print(f"\n  ⏸  PARADA del topic {topic_id}: {e}")
     except Exception as e:
         result["status"] = "FAIL"
         result["error"] = f"{type(e).__name__}: {e}"
@@ -764,7 +924,29 @@ def main():
     parser.add_argument("--temas", type=str, default=None,
                         help="F26 §C: varios topic_id separados por coma; cada uno corre en su propio proceso (el "
                              "perfil del caso es un global de proceso) con los mismos argumentos y --batch")
+    parser.add_argument("--semilla", type=str, default=None, metavar="ARCHIVO.json",
+                        help="F39 §A.3: con --topic <id> nuevo, investiga primero esa semilla en ese topic (research v3 + "
+                             "4a–4e, registro en topics_db con respaldo topics_db.pre_<id>.json) y sigue la cadena: "
+                             "compuerta → ficha si falta → escaleta → guion → caps y títulos → papel → PARADA del papel. "
+                             "Si _steps/<id>/ o el id ya existen, PARADA (no pisa nada)")
+    parser.add_argument("--aprobar-papel", dest="aprobar_papel", type=str, default=None, metavar='"QUIÉN FECHA"',
+                        help="F39 §A.4: escribe `aprobado: {por, fecha, md5}` en _steps/<id>/01e_pantalla.json (la "
+                             "compuerta antes de la voz: sin eso, nada corre después de m01b) y no corre nada más")
     args = parser.parse_args()
+    if args.aprobar_papel is not None:                      # F39 §A.4: solo aprueba
+        if not args.topic:
+            parser.error("--aprobar-papel necesita --topic")
+        try:
+            ap = aprobar_papel(args.topic, args.aprobar_papel)
+        except Parada as e:
+            print(f"  ⏸  {e}")
+            sys.exit(2)
+        print(f"  ✓ papel de {args.topic} aprobado por {ap['por']} ({ap['fecha']}) · md5 {ap['md5']}")
+        sys.exit(0)
+    if args.semilla is not None and not args.topic:
+        parser.error("--semilla necesita --topic <id> (un topic nuevo)")
+    if args.semilla is not None and (args.from_arg or args.only_step):
+        parser.error("--semilla arranca desde el research: no va con --from ni --only")
     if args.temas:
         sys.exit(run_temas([t.strip() for t in args.temas.split(",") if t.strip()], sys.argv[1:]))
 
@@ -800,6 +982,14 @@ def main():
             csv_path=Path(args.csv) if args.csv else None,
         ))
 
+    if args.semilla is not None:                            # F39 §A.3: research de la semilla en el topic dado
+        try:
+            research_de_semilla(Path(args.semilla), args.topic)
+        except Exception as e:                              # F39 §B.3: una falla del research es PARADA con su error
+            print(f"\n  ⏸  PARADA en research: {e if isinstance(e, Parada) else f'{type(e).__name__}: {e}'}")
+            _print_gemini_cost()
+            sys.exit(2)
+
     # Procesar cada topic
     results = []
     for tid in topic_ids:
@@ -823,17 +1013,22 @@ def main():
     print(f"{'═' * 60}")
     n_pass = sum(1 for r in results if r["status"] == "PASS")
     n_fail = sum(1 for r in results if r["status"] == "FAIL")
-    print(f"  Total: {len(results)}  |  PASS: {n_pass}  |  FAIL: {n_fail}\n")
+    n_par = sum(1 for r in results if r["status"] == "PARADA")
+    print(f"  Total: {len(results)}  |  PASS: {n_pass}  |  PARADA: {n_par}  |  FAIL: {n_fail}\n")
 
     for r in results:
         if r["status"] == "PASS":
             print(f"  ✅ {r['topic_id']}")
+        elif r["status"] == "PARADA":                       # F39: para a propósito (papel sin aprobar, compuerta…)
+            print(f"  ⏸  {r['topic_id']}  (PARADA en {r.get('parada')}: {r.get('motivo')})")
         else:
             print(f"  ❌ {r['topic_id']}  ({r.get('error', '?')})")
 
     print()
     _print_gemini_cost()
-    sys.exit(0 if n_fail == 0 else 1)
+    # F39: la PARADA del papel es el final esperado de Fase 1 (0); otra PARADA, 2; una falla, 1
+    otra_parada = any(r["status"] == "PARADA" and r.get("parada") != "papel" for r in results)
+    sys.exit(1 if n_fail else 2 if otra_parada else 0)
 
 
 if __name__ == "__main__":
