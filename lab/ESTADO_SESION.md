@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-27 (F39: Fase 1 de la semilla al papel en producción + Kyshtym en limpio; HECHA, PARADA en el papel de `f39-kyshtym`; el analista da la nota 1–10 de Fase 1) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-27 (F40: gancho que pregunta, subtítulos documentales y papel de Kyshtym listo para aprobar; HECHA, PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -8,10 +8,20 @@
 - `main` = `43f528a`. NO se toca sin OK explícito de Omar.
 - Video de prueba: Orleans `ba6c3cac-a091-41c0-8dad-afd2f4364747` (7 caps; ch02 es el cap de calibración, ch05 el segundo). Copia del research para F5: **`ba6c3cac-f5v2`**.
 - Candados vigentes:
-  - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
+  - md5 de ch02 `--only-cap` sin `--gfx` (`--reuse-visuals --sw-encode`) = **`f792f3d483a1fa42daed5f7f0e054f46`** desde F40 (subtítulos documentales; con `--no-subs` = `98386f86…`); hasta F39 era `38e5ba14…` (karaoke; `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`). `lab/hyperframes/f40/verificar.sh` lo imprime;
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F40): mirar las 3 fotos de los subtítulos (`lab/hyperframes/f40/b/foto1_dos_renglones_t41.0.png`, `foto2_ficha_y_subtitulo_t90.0.png`, `foto3_solo_subtitulo_t29.7.png`; el tamaño quedó 80 px en 1440p = 60 px a 1080p) y el papel de Kyshtym (`data/scripts/_steps/f39-kyshtym/01e_pantalla.md`, entero también en `lab/hyperframes/f40/F40_REPORT.md`): el gancho ya tiene ficha (D03 «Nivel 6 de 7»), 12 fichas, sin picos vacíos, voz sin voseo y los 7 títulos nuevos. Si está bien: `python fase1_5.py --topic f39-kyshtym --aprobar-papel "Omar <fecha>"`. Para mirar en la compuerta: ch04 beat 5 tiene D47 «Entre 70 y 100 toneladas de TNT» (otra estimación; D09 no volvió, así que no se cambió a D50). **Ojo:** un subagente cerró Firefox durante B (contra DECISIONES 00:30); está declarado y la causa (una memoria vieja) corregida.
+
+## F40 — Gancho, subtítulos documentales y Kyshtym listo para aprobar (handoff del analista, 2026-10-27) — HECHA, **PARADA**
+- Handoff `lab/hyperframes/f40/HANDOFF_F40_gancho_subs_kyshtym.md` (md5 `d769bb2a…`). Paso 0 `8669045` (DECISIONES 18:30 `0f5bcfb4…` + handoff).
+- A `7ecc26a`: `gancho_dicho` y `dice_voz` borrados; la cifra del gancho dicha en cualquier cap se le pregunta al autor con cap, oración y texto. Tabla §3 por código.
+- B `598c65b`: long-form con subtítulos documentales (Anton, 60 px a 1080p → 80 en 1440p, blanco, borde, ≤ 42 × 2, 0,833–7 s, sin resaltar palabra); karaoke solo short; Hook intacto. Vajont ch02: 35 eventos, 0 ✗. El `--gfx` de las fotos lo frenó `guard_render` (guion de Vajont sin aprobar): foto 2 es un sustituto sobre la capa de F38e.
+- C: Kyshtym sin voseo y con los 7 títulos (respaldo `_pre_f40`); papel regenerado con `fase1_5.run_pantalla` (US$ 0,44, 1 vuelta, gancho con ficha); «2000» → «2.000» en D83 con `m01e_pantalla.editar`; D09 no se repitió. Papel sin aprobar (lo aprueba Omar).
+- **Candado nuevo de ch02 (con subtítulos documentales): `f792f3d483a1fa42daed5f7f0e054f46`** (antes `38e5ba14…`); sin subtítulos `98386f86…` igual antes y después. Rápida 58, amplia 939 + las 5 previas. Gasto US$ 0,4405 (tope 1,50).
+- Abierto o1–o20 en el reporte. Reglas aprendidas: en los briefs de renders, «no cierres ningún programa de Omar»; nunca un `cat` suelto antes de un heredoc (se cuelga esperando entrada).
 
 ## 👀 Para Omar (F39): Fase 1 ya corre sola de la semilla al papel con un comando de producción, y paró donde debe: en el papel. Kyshtym (topic limpio `f39-kyshtym`) corrió sin manos en 41 min por US$ 4,76 (tope 5,00). Para leer: el papel entero en `data/scripts/_steps/f39-kyshtym/01e_pantalla.md` (copia en `lab/hyperframes/f39/b/salida/`), y el reporte `lab/hyperframes/f39/F39_REPORT.md` (B.4 por paso, lado a lado con F23, «lo que queda abierto» f1–f22, veredicto del revisor). Hallazgos que frenan o hay que decidir: el gancho de ch01 quedó **sin ficha** (las 4 vueltas del papel se gastaron ahí: f1); el guion quedó con 2 bloqueantes que la reparación no arregló (f6); el tope del papel es el de respaldo porque el perfil no trae `costos.m01e_tope_usd` (f2). Para seguir a la voz: `python fase1_5.py --topic f39-kyshtym --aprobar-papel "Omar <fecha>"` (solo si Omar aprueba). La rama está en GitHub (`origin/f11-guion-v4`); `main` no se tocó.
 

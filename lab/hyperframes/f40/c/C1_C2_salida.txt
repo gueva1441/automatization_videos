@@ -1,0 +1,12 @@
+C.1 voz sin voseo · C.2 títulos (DECISIONES 18:30) · f39-kyshtym
+- 01b_narracion_v3.json: cenás→cenas ×6 · acá→aquí ×3 · md5 e52926dc… → 58a232f0… · respaldo 01b_narracion_v3_pre_f40.json
+- 01b_narration.json: cenás→cenas ×4 · acá→aquí ×2 · md5 e81d9ac0… → 1d2fc553… · respaldo 01b_narration_pre_f40.json
+- 01b_guionista_v4.json: cenás→cenas ×4 · acá→aquí ×2 · md5 27b10f7d… → a9c66678… · respaldo 01b_guionista_v4_pre_f40.json
+- 01a_skeleton.json: «Un misterio ardiente»→«La luz que no era fuego» ×1 · «Un proyecto oculto»→«La ciudad sin mapa» ×1 · «Temperatura descontrolada»→«El tanque catorce» ×1 · «El golpe seco»→«Un domingo de fútbol» ×1 · «La verdad oculta»→«La aurora de Cheliábinsk» ×1 · «Verdades contradictorias»→«Los pueblos enterrados» ×1 · «El largo silencio»→«Lo que calló el acta» ×1 · md5 7c0d64bc… → a99ab0b4… · respaldo 01a_skeleton_pre_f40.json
+grep final:
+  01b_narracion_v3.json: cenás 0 · acá 0 · títulos viejos 0
+  01b_narration.json: cenás 0 · acá 0 · títulos viejos 0
+  01b_guionista_v4.json: cenás 0 · acá 0 · títulos viejos 0
+  01a_skeleton.json: cenás 0 · acá 0 · títulos viejos 0
+títulos: ['La luz que no era fuego', 'La ciudad sin mapa', 'El tanque catorce', 'Un domingo de fútbol', 'La aurora de Cheliábinsk', 'Los pueblos enterrados', 'Lo que calló el acta']
+otros archivos del topic que todavía los tienen (no llevan la narración ni los títulos, o se regeneran): ['01a_escaleta.json', '01e_pantalla.json', '01e_pantalla.md', '01e_pantalla.raw.json']

@@ -1,0 +1,864 @@
+{
+ "topic_id": "f39-kyshtym",
+ "prompt_version": "m01e-6",
+ "prompt_md5": "3b98aef1d8595124967ac7a85b75bab7",
+ "modelo": "claude-sonnet-5-5",
+ "effort": "medium",
+ "entrada_md5": "e9a327320cdccbf1b684644c83d688b4",
+ "intentos": 2,
+ "usd": 0.44052,
+ "tokens_in": 48051,
+ "caps": [
+  {
+   "cap": "ch01",
+   "titulo": "La luz que no era fuego",
+   "oraciones": [
+    "Dos muchachos cenan en una mesa de comedor, uno frente al otro.",
+    "La víspera cenas con él; a la mañana se siente mal; a la noche ya no está, y sobre los tejados una columna de humo brilla de un rojo anaranjado que nadie en la ciudad sabe nombrar.",
+    "Uno de los dos es Anatoly Ivanovich Valevich, trabajador del combinado, llegado a esta ciudad como estudiante.",
+    "Del otro no quedó el nombre.",
+    "Quedó que a la mañana siguiente no se levanta, y que esa noche la cama está vacía.",
+    "Afuera, detrás de los tejados, una cubierta de hormigón yace tirada de costado junto a un cráter, y la columna sigue subiendo con esa luz que no es de fuego.",
+    "«La víspera cenas con él, por la mañana se siente mal y por la noche ya ha muerto», dice Valevich.",
+    "Tenían dieciocho, diecinueve, veinte años.",
+    "Cheliábinsk-40, mil novecientos cincuenta y siete.",
+    "Para entender esa luz hay que volver a cuando ese muchacho tenía dieciocho años y vivía en una ciudad que no figuraba en ningún mapa."
+   ]
+  },
+  {
+   "cap": "ch02",
+   "titulo": "La ciudad sin mapa",
+   "oraciones": [
+    "Un tren se detiene en una ciudad sin nombre.",
+    "Bajan cincuenta estudiantes trasladados a un instituto técnico de Cheliábinsk-40, y Valevich es uno de ellos.",
+    "En los mapas públicos la ciudad, Oziorsk, no existe; existe Kyshtym, el pueblo de al lado, y por eso lo que pasó aquí iba a llevar para siempre el nombre de Kyshtym.",
+    "Al mando de todo está Kurchatov, un hombre al que todos obedecen y que Valevich recuerda como extraordinario.",
+    "«En mi vida solo he visto a dos personas con una mirada tan ardiente: Kurchatov y Tal», dice.",
+    "En las aldeas vecinas la gente sí tiene un nombre para los que trabajan adentro.",
+    "Lo que se decía en esas calles quedó anotado tal cual: «La fábrica es nociva, a los trabajadores los llaman 'chocolateros', mueren como moscas.",
+    "La planta 25 es especialmente peligrosa para la vida».",
+    "Los muchachos del instituto no estaban en esas calles.",
+    "Estaban en Mayak, que producía plutonio de grado militar y otros isótopos para el programa nuclear militar soviético.",
+    "Lo que salía de esas plantas era plutonio para bombas.",
+    "Lo que sobraba, había que guardarlo en alguna parte.",
+    "Se guardaba así.",
+    "Un tanque de acero inoxidable, con capacidad para trescientos metros cúbicos, metido en un cañón de hormigón de ocho metros y veinte de profundidad.",
+    "Encima, una cubierta de hormigón de unas ciento sesenta toneladas.",
+    "Sobre la cubierta, una capa de tierra y césped verde recién puesto, como si ahí abajo no hubiera nada.",
+    "V.",
+    "A.",
+    "Saprykin preguntó si todo eso no se iba a derrumbar bajo su propio peso.",
+    "«Puede cargarle encima, además, una locomotora con el ténder cargado», le contestó Arkady Alexandrovich Kazutov.",
+    "Vasili Andréyevich lo dijo de otra manera: «¿Quién sabe qué fuerza se necesita para destruir esto?».",
+    "Nadie le contestó.",
+    "Uno de esos tanques, el número catorce, iba a responder la pregunta.",
+    "Pero antes, en mil novecientos cincuenta y seis, una de las tuberías que lo enfriaban empezó a perder."
+   ]
+  },
+  {
+   "cap": "ch03",
+   "titulo": "El tanque catorce",
+   "oraciones": [
+    "Las tuberías de refrigeración de uno de los contenedores tenían fugas.",
+    "Y las desconectaron.",
+    "Era mil novecientos cincuenta y seis y la planta no podía esperar; N.",
+    "I.",
+    "Ivanov lo había dicho así: «No se puede esperar a que todo sea como uno quiere.",
+    "Hay que hacer lo necesario para que el trabajo avance», en las condiciones que existían, sin perder un solo día.",
+    "Entre el nueve de marzo y el diez de abril de mil novecientos cincuenta y siete, al tanque número catorce le entraron doscientos cincuenta y seis metros cúbicos de residuos de producción.",
+    "Adentro quedaron setenta u ochenta toneladas, sin el agua que las tuberías rotas ya no traían.",
+    "La investigación que vino después consideró probable lo que ocurrió ahí dentro durante esos meses: los residuos se calentaron solos, hasta trescientos treinta, trescientos cincuenta grados; el líquido se fue y quedaron sales secas de nitrato y acetato de sodio, cocinándose dentro del hormigón, bajo el césped.",
+    "¿Quién miraba la temperatura?",
+    "El tanque catorce quedó lleno en abril.",
+    "Lo que pasó adentro durante el verano lo oyó una ciudad entera un domingo a la tarde."
+   ]
+  },
+  {
+   "cap": "ch04",
+   "titulo": "Un domingo de fútbol",
+   "oraciones": [
+    "Domingo veintinueve de septiembre de mil novecientos cincuenta y siete.",
+    "Sol sobre el estadio.",
+    "Dos equipos de la ciudad en la cancha, y en las gradas muchachos de la edad de Valevich y de los del comedor.",
+    "Son las cuatro y veintidós.",
+    "Hay un partido.",
+    "Un golpe seco, como los de las obras.",
+    "Siguen mirando.",
+    "A dos kilómetros, la cubierta de ciento sesenta toneladas ha volado de costado.",
+    "Donde estaba el tanque catorce hay un cráter de diez metros de hondo y veinte de ancho.",
+    "La fuerza se calculó después en veinticinco a veintinueve toneladas de TNT; otras fuentes hablan de mucho más.",
+    "Por ese agujero salieron unos veinte millones de curios.",
+    "Más de cinco mil personas estaban en el sitio industrial en esas primeras horas, respirando lo que subía.",
+    "Noventa de cada cien partes cayeron ahí mismo, sobre el combinado.",
+    "Las otras diez se fueron con el viento.",
+    "A las siete y veinte de la tarde, el viento ya había decidido hacia dónde.",
+    "Hacia el noreste.",
+    "A las siete y veinte las masas de aire del complejo van hacia Bagaryak y Kamensk-Uralsky, por encima de aldeas que ya cenaron.",
+    "Cerca de las once de la noche el cielo se tiñe de rosado y azul claro; nadie anotó desde dónde lo vio, solo que se vio.",
+    "Hacia la medianoche la nube llega a Tiumén.",
+    "A las tres de la mañana del lunes treinta de septiembre, la franja ya está sobre la tierra: trescientos kilómetros de largo, hasta trescientos cincuenta según otras mediciones.",
+    "Todo en silencio.",
+    "A la mañana siguiente, como todos los lunes, los autobuses pasaron a buscar al turno de día."
+   ]
+  },
+  {
+   "cap": "ch05",
+   "titulo": "La aurora de Cheliábinsk",
+   "oraciones": [
+    "Lunes treinta de septiembre.",
+    "A las cuatro de la mañana alguien ya ha hecho una primera medición, aproximada, del sitio industrial.",
+    "Ese mismo día empieza el estudio radiológico fuera del complejo y fuera de la ciudad.",
+    "Al personal diurno lo llevan igual al área contaminada.",
+    "En la planta 25 el taller tiene todas las ventanas reventadas y el vidrio sobre el piso; un turno entero recibe la orden de retirar los vidrios rotos, y los retira, agachado, con las manos, preguntándose en voz baja qué fue el golpe de ayer.",
+    "Nadie les dice el nivel de radiación.",
+    "Ya había un número.",
+    "A ellos no les llegó.",
+    "La ciudad no se evacúa.",
+    "Según una versión recogida cincuenta años después, esa opción se descartó porque una empresa de defensa tiene que funcionar sin parar.",
+    "Cuando la primera medición llegó desde una aldea, el director del combinado contestó: «Eso no puede ser, se han equivocado».",
+    "Una semana después, el periódico de Cheliábinsk tuvo otra explicación.",
+    "Seis de octubre de mil novecientos cincuenta y siete.",
+    "El Chelyabinsky Rabochy publica que el domingo pasado por la noche «muchos habitantes de Cheliábinsk observaron un resplandor especial en el cielo estrellado…",
+    "tenía todas las características de una aurora polar».",
+    "La nota agregaba que esas auroras podrían verse también en el futuro en las latitudes de los Urales del Sur.",
+    "En la ciudad cerrada, mientras tanto, mujeres con escobas y baldes lavan con agua las calles y las plazas, y lo hacen desde el primer día.",
+    "Un dosímetro apoyado en la panza de un chico que juega en la calle marca cuarenta, cincuenta microroentgens por segundo.",
+    "Lo contó alguien que sostuvo el aparato.",
+    "El dos de octubre había llegado desde Moscú la comisión encabezada por Slavsky.",
+    "En los primeros siete a diez días sacaron a seiscientas personas.",
+    "Entre el seis y el trece de octubre se decidió evacuar a mil cien habitantes más, de Berdyanish, Satlykovo y Galikaevo.",
+    "Les dijeron que se llevaran poco.",
+    "No iban a volver a buscar nada."
+   ]
+  },
+  {
+   "cap": "ch06",
+   "titulo": "Los pueblos enterrados",
+   "oraciones": [
+    "Lo que dejaron se trató así.",
+    "Fosas abiertas en el campo; abrigos, ollas, fotos, rociados con queroseno, empujados adentro y la tierra encima.",
+    "A los evacuados, después del paso sanitario, les dieron ropa y zapatos nuevos.",
+    "En mil novecientos cincuenta y ocho y cincuenta y nueve, destacamentos mecanizados tumbaron las casas, los graneros, el forraje, los alimentos, y lo enterraron todo.",
+    "De los vehículos que trabajaron ahí, veinte o treinta de cada cien no pudieron limpiarse nunca, cuenta uno de los que estuvo.",
+    "Unos doscientos presos terminaron en el hospital por comer lo que había quedado en esos campos, cuenta otro.",
+    "Entre mil novecientos cincuenta y siete y mil novecientos sesenta se vaciaron veintitrés localidades, y en cincuenta y nueve unos setecientos kilómetros cuadrados quedaron cerrados como zona de protección sanitaria.",
+    "Veintitrés pueblos bajo tierra y setecientos kilómetros cuadrados detrás del alambre.",
+    "Faltaba decidir de quién había sido la culpa.",
+    "Y qué les había pasado a los que limpiaron.",
+    "La culpa tuvo tres versiones.",
+    "Un testimonio dice que Demianóvich dio la orden de ahorrar electricidad y detener el burbujeo de la solución, y que después de la explosión lo apartaron.",
+    "Otra versión habla de un error de laboratorio: oxalato de plutonio agregado por accidente a una solución caliente de nitrato de plutonio.",
+    "La tercera es la de las sales que se secaron solas bajo el césped.",
+    "Las tres siguen sobre la mesa.",
+    "Sobre los que limpiaron también hay versiones.",
+    "Una de las mujeres que trabajaba ahí lo recuerda así: «Todos sentíamos que la dirección se preocupaba por nosotros; no dejaban entrar a la gente donde había una contaminación intensa», y habla de un control médico reforzado todo el tiempo.",
+    "Belenkova dice que a los constructores prácticamente nadie les controlaba las dosis.",
+    "Belenkov recuerda a su jefe, que había trabajado en el epicentro de la liquidación y recibido una dosis muy alta, y recuerda cómo agonizó.",
+    "Hubo trabajadores que fueron a plantarle una pregunta a Gutnikov: «¿Por qué nuestras normas siguen siendo las mismas si las condiciones de trabajo son nuevas?».",
+    "En mil novecientos cincuenta y nueve, Valevich se fue.",
+    "La noticia tardó mucho más en salir."
+   ]
+  },
+  {
+   "cap": "ch07",
+   "titulo": "Lo que calló el acta",
+   "oraciones": [
+    "El trece de abril de mil novecientos cincuenta y ocho, un diario de Copenhague, el Berlingske Tidende, publica una noticia sobre el accidente.",
+    "Adentro del país, nadie.",
+    "En mil novecientos setenta y seis, Medvedev, un biólogo exiliado, firma un informe breve en New Scientist.",
+    "Adentro del país, todavía nadie.",
+    "El dieciséis de junio de mil novecientos ochenta y nueve, el Chelyabinsky Rabochy, el mismo periódico de la aurora, publica el reportaje de una conferencia de prensa.",
+    "En julio, en una sesión del Sóviet Supremo de la URSS, se habla por fin del tanque catorce, y el dieciocho de julio L.",
+    "A.",
+    "Buldakov afirma ahí, de pie, que en tres años de seguimiento no se registró ninguna forma de enfermedad por radiación.",
+    "La declaración quedó en el acta.",
+    "Valevich, en cambio, tenía otra cuenta.",
+    "En mil novecientos noventa y tres le llegó el estatus de liquidador.",
+    "En mil novecientos noventa y ocho perdió un riñón, y lo une a sus años en Cheliábinsk-40.",
+    "Litigó contra el Fondo de Seguro Social y perdió.",
+    "Litigó contra la Dirección de Protección Social y ganó.",
+    "Ayudó a otras ocho personas.",
+    "«Entonces no sabíamos muchas cosas», dice Valevich.",
+    "La víspera cenas con él.",
+    "A la mañana se siente mal.",
+    "A la noche ya no está.",
+    "En el acta, ni una forma de enfermedad por radiación.",
+    "Entonces, ¿de qué murieron?"
+   ]
+  }
+ ],
+ "beats": [
+  {
+   "cap": "ch01",
+   "beat": 1,
+   "funcion": "gancho",
+   "pico": true,
+   "ficha": {
+    "pool_id": "D03",
+    "sentence_idx": 5,
+    "palabra": "columna",
+    "palabra_en_oracion": true,
+    "etiqueta": "GRAVEDAD EN LA ESCALA NUCLEAR",
+    "texto": "Nivel 6 de 7",
+    "respaldo": "nivel 6 de 7 en la escala internacional de eventos radiológicos del OIEA",
+    "estilo": "normal",
+    "aporta": "La voz nunca dice qué tan grave fue el accidente; la pantalla lo pone en una escala.",
+    "oracion": "Afuera, detrás de los tejados, una cubierta de hormigón yace tirada de costado junto a un cráter, y la columna sigue subiendo con esa luz que no es de fuego.",
+    "caracteres": 41,
+    "caben": 90,
+    "anio": null,
+    "relato": null,
+    "juicio_autor": {
+     "no_dicho": [
+      "6",
+      "7"
+     ],
+     "spoiler": [
+      "6",
+      "7"
+     ]
+    }
+   },
+   "sello": {
+    "palabra": "MEMORIA",
+    "sentence_idx": 3,
+    "oracion": "Del otro no quedó el nombre."
+   }
+  },
+  {
+   "cap": "ch02",
+   "beat": 2,
+   "funcion": "planteo",
+   "pico": false,
+   "ficha": {
+    "pool_id": "D194",
+    "sentence_idx": 6,
+    "palabra": "moscas",
+    "palabra_en_oracion": true,
+    "etiqueta": "LAS DOS PRIMERAS PROMOCIONES",
+    "texto": "Murieron casi todos",
+    "respaldo": "Las dos primeras promociones de trabajadores de la planta murieron casi por completo.",
+    "estilo": "normal",
+    "aporta": "Confirma con un hecho el rumor de que los obreros morían como moscas; la voz no lo cuenta.",
+    "oracion": "Lo que se decía en esas calles quedó anotado tal cual: «La fábrica es nociva, a los trabajadores los llaman 'chocolateros', mueren como moscas.",
+    "caracteres": 47,
+    "caben": 90,
+    "anio": null,
+    "relato": 1957
+   },
+   "sello": {
+    "palabra": "CALMA",
+    "sentence_idx": 0,
+    "oracion": "Un tren se detiene en una ciudad sin nombre."
+   }
+  },
+  {
+   "cap": "ch02",
+   "beat": 3,
+   "funcion": "planteo",
+   "pico": true,
+   "ficha": {
+    "pool_id": "D31",
+    "sentence_idx": 15,
+    "palabra": "césped",
+    "palabra_en_oracion": true,
+    "etiqueta": "EL CÉSPED ERA CAMUFLAJE",
+    "texto": "Encima, 2 metros de tierra",
+    "respaldo": "capa de tierra de 2 metros de espesor y césped para camuflaje",
+    "estilo": "normal",
+    "aporta": "La voz dice que había tierra y césped; la pantalla da el espesor y para qué estaban.",
+    "oracion": "Sobre la cubierta, una capa de tierra y césped verde recién puesto, como si ahí abajo no hubiera nada.",
+    "caracteres": 49,
+    "caben": 90,
+    "anio": null,
+    "relato": 1957,
+    "juicio_autor": {
+     "spoiler": [
+      "2"
+     ]
+    }
+   },
+   "sello": {
+    "palabra": "AMENAZA",
+    "sentence_idx": 22,
+    "oracion": "Uno de esos tanques, el número catorce, iba a responder la pregunta."
+   }
+  },
+  {
+   "cap": "ch03",
+   "beat": 4,
+   "funcion": "escalada",
+   "pico": true,
+   "ficha": {
+    "pool_id": "T21",
+    "sentence_idx": 2,
+    "palabra": "esperar",
+    "palabra_en_oracion": true,
+    "etiqueta": "ESE MISMO AÑO",
+    "texto": "Se decide dejar de verter residuos en el río Techa",
+    "respaldo": "Se toma la decisión de detener el vertido de residuos radiactivos en masas de agua abiertas como el río Techa y el lago Karachai. (fecha 1956)",
+    "estilo": "normal",
+    "aporta": "Muestra que en 1956 ya no se podían tirar los residuos al río, un hecho que la voz no cuenta.",
+    "oracion": "Era mil novecientos cincuenta y seis y la planta no podía esperar; N.",
+    "caracteres": 63,
+    "caben": 67,
+    "anio": 1956,
+    "relato": 1956
+   },
+   "sello": {
+    "palabra": "INMINENTE",
+    "sentence_idx": 11,
+    "oracion": "Lo que pasó adentro durante el verano lo oyó una ciudad entera un domingo a la tarde."
+   }
+  },
+  {
+   "cap": "ch04",
+   "beat": 5,
+   "funcion": "pico",
+   "pico": true,
+   "ficha": {
+    "pool_id": "D47",
+    "sentence_idx": 9,
+    "palabra": "mucho",
+    "palabra_en_oracion": true,
+    "etiqueta": "ESTIMACIÓN POSTERIOR",
+    "texto": "Entre 70 y 100 toneladas de TNT",
+    "respaldo": "Una estimación posterior calculó la potencia de la explosión entre 70 y 100 toneladas de trinitrotolueno.",
+    "estilo": "normal",
+    "aporta": "La voz dice solo «mucho más»; la pantalla pone la cifra de esa otra estimación.",
+    "oracion": "La fuerza se calculó después en veinticinco a veintinueve toneladas de TNT; otras fuentes hablan de mucho más.",
+    "caracteres": 51,
+    "caben": 90,
+    "anio": null,
+    "relato": 1957,
+    "juicio_autor": {
+     "no_dicho": [
+      "TNT"
+     ],
+     "spoiler": [
+      "100"
+     ]
+    }
+   },
+   "sello": {
+    "palabra": "COLAPSO",
+    "sentence_idx": 8,
+    "oracion": "Donde estaba el tanque catorce hay un cráter de diez metros de hondo y veinte de ancho."
+   }
+  },
+  {
+   "cap": "ch04",
+   "beat": 6,
+   "funcion": "respiro",
+   "pico": false,
+   "ficha": {
+    "pool_id": "D17",
+    "sentence_idx": 19,
+    "palabra": "franja",
+    "palabra_en_oracion": true,
+    "etiqueta": "GENTE EN LA ZONA CONTAMINADA",
+    "texto": "270.000 habitantes en 217 localidades",
+    "respaldo": "270.000 habitantes en 217 localidades",
+    "estilo": "normal",
+    "aporta": "La voz dice el largo de la franja; la pantalla dice a cuánta gente alcanzó.",
+    "oracion": "A las tres de la mañana del lunes treinta de septiembre, la franja ya está sobre la tierra: trescientos kilómetros de largo, hasta trescientos cincuenta según otras mediciones.",
+    "caracteres": 65,
+    "caben": 90,
+    "anio": null,
+    "relato": 1957
+   },
+   "sello": null
+  },
+  {
+   "cap": "ch05",
+   "beat": 7,
+   "funcion": "giro",
+   "pico": true,
+   "ficha": {
+    "pool_id": "D93",
+    "sentence_idx": 9,
+    "palabra": "opción",
+    "palabra_en_oracion": true,
+    "etiqueta": "VECINOS SIN EVACUAR",
+    "texto": "86.000 habitantes",
+    "respaldo": "La ciudad de Ozerk, con 86.000 habitantes, no fue evacuada",
+    "estilo": "normal",
+    "aporta": "La voz dice que la ciudad no se evacuó; la pantalla dice cuánta gente se quedó.",
+    "oracion": "Según una versión recogida cincuenta años después, esa opción se descartó porque una empresa de defensa tiene que funcionar sin parar.",
+    "caracteres": 36,
+    "caben": 90,
+    "anio": null,
+    "relato": 1957
+   },
+   "sello": {
+    "palabra": "RABIA",
+    "sentence_idx": 5,
+    "oracion": "Nadie les dice el nivel de radiación."
+   }
+  },
+  {
+   "cap": "ch05",
+   "beat": 8,
+   "funcion": "escalada",
+   "pico": false,
+   "ficha": {
+    "pool_id": "P04",
+    "sentence_idx": 19,
+    "palabra": "Slavsky",
+    "palabra_en_oracion": true,
+    "etiqueta": "SLAVSKY, MINISTRO",
+    "texto": "De Construcción de Maquinaria Mediana",
+    "respaldo": "E. P. Slavsky — Ministro de Construcción de Maquinaria Mediana",
+    "estilo": "nombre",
+    "aporta": "La voz solo nombra a Slavsky; la pantalla dice que era un ministro y de qué ministerio.",
+    "oracion": "El dos de octubre había llegado desde Moscú la comisión encabezada por Slavsky.",
+    "caracteres": 54,
+    "caben": 67,
+    "anio": null,
+    "relato": 1957
+   },
+   "sello": null
+  },
+  {
+   "cap": "ch06",
+   "beat": 9,
+   "funcion": "consecuencia",
+   "pico": false,
+   "ficha": {
+    "pool_id": "D20",
+    "sentence_idx": 6,
+    "palabra": "localidades",
+    "palabra_en_oracion": true,
+    "etiqueta": "TOTAL DE REUBICADOS",
+    "texto": "12.763 personas",
+    "respaldo": "12.763 personas de 23 asentamientos fueron reubicadas por etapas",
+    "estilo": "normal",
+    "aporta": "La voz cuenta las localidades vaciadas; la pantalla dice cuántas personas fueron.",
+    "oracion": "Entre mil novecientos cincuenta y siete y mil novecientos sesenta se vaciaron veintitrés localidades, y en cincuenta y nueve unos setecientos kilómetros cuadrados quedaron cerrados como zona de protección sanitaria.",
+    "caracteres": 34,
+    "caben": 90,
+    "anio": null,
+    "relato": 1960
+   },
+   "sello": {
+    "palabra": "SILENCIO",
+    "sentence_idx": 7,
+    "oracion": "Veintitrés pueblos bajo tierra y setecientos kilómetros cuadrados detrás del alambre."
+   }
+  },
+  {
+   "cap": "ch06",
+   "beat": 10,
+   "funcion": "revelacion",
+   "pico": true,
+   "ficha": {
+    "pool_id": "D90",
+    "sentence_idx": 18,
+    "palabra": "liquidación",
+    "palabra_en_oracion": true,
+    "etiqueta": "DOSIS ENTRE 1957 Y 1959",
+    "texto": "Unos 30.000 trabajadores y militares con más de 0,25 Sv",
+    "respaldo": "Entre 1957 y 1959, unos 30.000 trabajadores del combinado y militares recibieron dosis de radiación superiores a 0,25 Sv",
+    "estilo": "papel",
+    "aporta": "La voz cuenta el caso de un jefe; la pantalla dice a cuánta gente alcanzó la dosis durante la liquidación.",
+    "oracion": "Belenkov recuerda a su jefe, que había trabajado en el epicentro de la liquidación y recibido una dosis muy alta, y recuerda cómo agonizó.",
+    "caracteres": 78,
+    "caben": 90,
+    "anio": null,
+    "relato": 1960
+   },
+   "sello": null
+  },
+  {
+   "cap": "ch07",
+   "beat": 11,
+   "funcion": "revelacion",
+   "pico": true,
+   "ficha": {
+    "aporta": "Contrasta en silencio con la declaración de Buldakov con una cifra de diagnósticos que la voz no menciona.",
+    "pool_id": "D83",
+    "sentence_idx": 7,
+    "palabra": "radiación",
+    "etiqueta": "ENFERMOS ENTRE 1948 Y 1958",
+    "texto": "Más de 2.000 obreros con enfermedad por radiación",
+    "respaldo": "Entre 1948 y 1958, más de 2000 trabajadores fueron diagnosticados con enfermedad profesional por radiación.",
+    "estilo": "normal",
+    "oracion": "Buldakov afirma ahí, de pie, que en tres años de seguimiento no se registró ninguna forma de enfermedad por radiación.",
+    "editado": true,
+    "palabra_en_oracion": true,
+    "caracteres": 75,
+    "caben": 90
+   },
+   "sello": null
+  },
+  {
+   "cap": "ch07",
+   "beat": 12,
+   "funcion": "cierre",
+   "pico": false,
+   "ficha": {
+    "pool_id": "D201",
+    "sentence_idx": 19,
+    "palabra": "radiación",
+    "palabra_en_oracion": true,
+    "etiqueta": "OTRA MUERTE",
+    "texto": "Valia, 38 años: pulmones de piedra",
+    "respaldo": "Valia Dronova, que trabajaba con plutonio metálico, murió a los 38 años porque sus pulmones se habían convertido en piedra",
+    "estilo": "normal",
+    "aporta": "Un caso concreto de una obrera muerta joven, que la voz no cuenta, frente a lo que dice el acta.",
+    "oracion": "En el acta, ni una forma de enfermedad por radiación.",
+    "caracteres": 45,
+    "caben": 51,
+    "anio": null,
+    "relato": 1998
+   },
+   "sello": null
+  }
+ ],
+ "relojes": [
+  {
+   "cap": "ch03",
+   "sentence_idx": 6,
+   "fecha": "9 MAR 1957",
+   "oracion": "Entre el nueve de marzo y el diez de abril de mil novecientos cincuenta y siete, al tanque número catorce le entraron doscientos cincuenta y seis metros cúbicos de residuos de producción."
+  },
+  {
+   "cap": "ch03",
+   "sentence_idx": 6,
+   "fecha": "10 ABR 1957",
+   "oracion": "Entre el nueve de marzo y el diez de abril de mil novecientos cincuenta y siete, al tanque número catorce le entraron doscientos cincuenta y seis metros cúbicos de residuos de producción."
+  },
+  {
+   "cap": "ch04",
+   "sentence_idx": 0,
+   "fecha": "29 SEP 1957",
+   "oracion": "Domingo veintinueve de septiembre de mil novecientos cincuenta y siete."
+  },
+  {
+   "cap": "ch05",
+   "sentence_idx": 12,
+   "fecha": "6 OCT 1957",
+   "oracion": "Seis de octubre de mil novecientos cincuenta y siete."
+  },
+  {
+   "cap": "ch07",
+   "sentence_idx": 0,
+   "fecha": "13 ABR 1958",
+   "oracion": "El trece de abril de mil novecientos cincuenta y ocho, un diario de Copenhague, el Berlingske Tidende, publica una noticia sobre el accidente."
+  },
+  {
+   "cap": "ch07",
+   "sentence_idx": 4,
+   "fecha": "16 JUN 1989",
+   "oracion": "El dieciséis de junio de mil novecientos ochenta y nueve, el Chelyabinsky Rabochy, el mismo periódico de la aurora, publica el reportaje de una conferencia de prensa."
+  }
+ ],
+ "descartados": [
+  {
+   "pool_id": "Q18",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita a Valevich textualmente en la oración 6; sería repetir.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D153",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz ya dice los cincuenta estudiantes y que Valevich era uno; usé D194, que suma más.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q01",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice la frase completa en la oración 20.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T20",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta las tuberías con fugas desconectadas en 1956.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T28",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice la explosión y la hora (cuatro y veintidós).",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T35",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta los vidrios rotos y la orden de limpiar sin avisar el nivel.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q02",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita la nota de la aurora casi literal.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T43",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta las casas tumbadas y enterradas en 1958-59.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q03",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz parafrasea la declaración de Buldakov.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D152",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta los dos juicios de Valevich.",
+   "quien": "modelo",
+   "verificado": "falso: la voz no dice ['2']"
+  },
+  {
+   "pool_id": "D54",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Para el gancho elegí D03; un beat admite una sola ficha.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D50",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "La comparación con Chernóbil choca con otras cifras del archivo (D113) y confunde.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D163",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "No se sabe si ese sovkhoz fue una de las aldeas evacuadas, y contradice lo que cuenta ch06.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D199",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "No cabe en la oración ancla y podría confundirse con el amigo sin nombre del gancho.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D90",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Cifra de informe; D164 se entiende mejor y cabe en la oración.",
+   "quien": "modelo"
+  }
+ ],
+ "seg_por_palabra": {
+  "valor": 0.3459,
+  "oraciones": 200,
+  "caps": 9,
+  "voz": "N9Z5MLTIaHFLflaLtbDi",
+  "origen": "mediana de 200 oraciones de 9 caps del narrador N9Z5MLTIaHFLflaLtbDi"
+ },
+ "tope": {
+  "usd": 1.0,
+  "de": "respaldo (el perfil no trae costos.m01e_tope_usd)"
+ },
+ "error": null,
+ "por_intento": [
+  {
+   "tokens_in": 48051,
+   "tokens_out": 21432,
+   "usd": 0.31042,
+   "segundos": 148.2
+  },
+  {
+   "tokens_in": 53518,
+   "tokens_out": 2306,
+   "usd": 0.1301,
+   "segundos": 17.8
+  }
+ ],
+ "reintento": {
+  "motivos": [
+   "P04 (ch05 beat 8) «QUIÉN ERA SLAVSKY · Ministro de Construcción de Maquinaria Mediana»: candado: no están en el texto fuente de P04: ['QUIÉN']",
+   "D03 (ch01 beat 1, oración [5]) «GRAVEDAD EN LA ESCALA NUCLEAR · Nivel 6 de 7»: la voz dice «6» en ch05 [12] («Seis de octubre de mil novecientos cincuenta y siete.»); ¿es el mismo hecho? si no, mantenelo",
+   "D03 (ch01 beat 1, oración [5]) «GRAVEDAD EN LA ESCALA NUCLEAR · Nivel 6 de 7»: la voz dice «7» en ch04 [14] («A las siete y veinte de la tarde, el viento ya había decidido hacia dónde.»); ¿es el mismo hecho? si no, mantenelo",
+   "D03 (ch01 beat 1, oración [5]) «GRAVEDAD EN LA ESCALA NUCLEAR · Nivel 6 de 7»: la voz dice «6» en una oración posterior en ch05 [12] («Seis de octubre de mil novecientos cincuenta y siete.»); ¿es el mismo hecho? si no, mantenelo",
+   "D03 (ch01 beat 1, oración [5]) «GRAVEDAD EN LA ESCALA NUCLEAR · Nivel 6 de 7»: la voz dice «7» en una oración posterior en ch04 [14] («A las siete y veinte de la tarde, el viento ya había decidido hacia dónde.»); ¿es el mismo hecho? si no, mantenelo",
+   "D31 (ch02 beat 3, oración [15]) «EL CÉSPED ERA CAMUFLAJE · Encima, 2 metros de tierra»: la voz dice «2» en una oración posterior en ch04 [2] («Dos equipos de la ciudad en la cancha, y en las gradas muchachos de la edad de Valevich y de los del comedor.»); ¿es el mismo hecho? si no, mantenelo",
+   "D47 (ch04 beat 5, oración [9]) «ESTIMACIÓN POSTERIOR · Entre 70 y 100 toneladas de TNT»: la voz dice «TNT» en la oración ancla o en una vecina en ch04 [9] («La fuerza se calculó después en veinticinco a veintinueve toneladas de TNT; otras fuentes hablan de mucho más.»); ¿es el mismo hecho? si no, mantenelo",
+   "D47 (ch04 beat 5, oración [9]) «ESTIMACIÓN POSTERIOR · Entre 70 y 100 toneladas de TNT»: la voz dice «100» en una oración posterior en ch04 [12] («Noventa de cada cien partes cayeron ahí mismo, sobre el combinado.»); ¿es el mismo hecho? si no, mantenelo",
+   "D152: dijiste que la voz lo dice («La voz cuenta los dos juicios de Valevich.»); la voz de ch07 no dice «2» («A Anatoly Valevich le llevó dos procesos judiciales, primero contra el Fondo de Seguro Social y luego contra la Dirección de Protección Social, para que se le reconocieran sus derechos.»): vuelve a ser candidato",
+   "el beat 10 de ch06 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D20 («El total de reasentados no está unificado (12.763 / 10.000-12.000 / unas 10.000); la voz no puede decir tres números, la pantalla sí puede mostrar las tres fuentes.»), D90 («Unos 30.000 trabajadores y militares con más de 0,25 Sv entre 1957 y 1959: cifra de informe, va como texto en pantalla bajo las versiones en disputa.»)"
+  ],
+  "preguntas": [
+   {
+    "pool_id": "D03",
+    "coincidencias": {
+     "no_dicho": [
+      "6",
+      "7"
+     ],
+     "spoiler": [
+      "6",
+      "7"
+     ]
+    },
+    "respuesta": "la mantuvo en ch01 beat 1 [5]: otro hecho"
+   },
+   {
+    "pool_id": "D31",
+    "coincidencias": {
+     "spoiler": [
+      "2"
+     ]
+    },
+    "respuesta": "la mantuvo en ch02 beat 3 [15]: otro hecho"
+   },
+   {
+    "pool_id": "D47",
+    "coincidencias": {
+     "no_dicho": [
+      "TNT"
+     ],
+     "spoiler": [
+      "100"
+     ]
+    },
+    "respuesta": "la mantuvo en ch04 beat 5 [9]: otro hecho"
+   }
+  ],
+  "tipo": "parcial",
+  "beats": [
+   [
+    "ch01",
+    1
+   ],
+   [
+    "ch02",
+    3
+   ],
+   [
+    "ch04",
+    5
+   ],
+   [
+    "ch05",
+    8
+   ],
+   [
+    "ch06",
+    10
+   ]
+  ],
+  "aplicados": [
+   {
+    "cap": "ch05",
+    "beat": 8,
+    "partes": [
+     "ficha",
+     "sello"
+    ]
+   },
+   {
+    "cap": "ch06",
+    "beat": 10,
+    "partes": [
+     "ficha",
+     "sello"
+    ]
+   }
+  ],
+  "ignorados": [],
+  "sin_beat": [
+   "D152: dijiste que la voz lo dice («La voz cuenta los dos juicios de Valevich.»); la voz de ch07 no dice «2» («A Anatoly Valevich le llevó dos procesos judiciales, primero contra el Fondo de Seguro Social y luego contra la Dirección de Protección Social, para que se le reconocieran sus derechos.»): vuelve a ser candidato"
+  ],
+  "vueltas": [
+   {
+    "vuelta": 1,
+    "beats": [
+     [
+      "ch01",
+      1
+     ],
+     [
+      "ch02",
+      3
+     ],
+     [
+      "ch04",
+      5
+     ],
+     [
+      "ch05",
+      8
+     ],
+     [
+      "ch06",
+      10
+     ]
+    ],
+    "motivos": [
+     "P04 (ch05 beat 8) «QUIÉN ERA SLAVSKY · Ministro de Construcción de Maquinaria Mediana»: candado: no están en el texto fuente de P04: ['QUIÉN']",
+     "D03 (ch01 beat 1, oración [5]) «GRAVEDAD EN LA ESCALA NUCLEAR · Nivel 6 de 7»: la voz dice «6» en ch05 [12] («Seis de octubre de mil novecientos cincuenta y siete.»); ¿es el mismo hecho? si no, mantenelo",
+     "D03 (ch01 beat 1, oración [5]) «GRAVEDAD EN LA ESCALA NUCLEAR · Nivel 6 de 7»: la voz dice «7» en ch04 [14] («A las siete y veinte de la tarde, el viento ya había decidido hacia dónde.»); ¿es el mismo hecho? si no, mantenelo",
+     "D03 (ch01 beat 1, oración [5]) «GRAVEDAD EN LA ESCALA NUCLEAR · Nivel 6 de 7»: la voz dice «6» en una oración posterior en ch05 [12] («Seis de octubre de mil novecientos cincuenta y siete.»); ¿es el mismo hecho? si no, mantenelo",
+     "D03 (ch01 beat 1, oración [5]) «GRAVEDAD EN LA ESCALA NUCLEAR · Nivel 6 de 7»: la voz dice «7» en una oración posterior en ch04 [14] («A las siete y veinte de la tarde, el viento ya había decidido hacia dónde.»); ¿es el mismo hecho? si no, mantenelo",
+     "D31 (ch02 beat 3, oración [15]) «EL CÉSPED ERA CAMUFLAJE · Encima, 2 metros de tierra»: la voz dice «2» en una oración posterior en ch04 [2] («Dos equipos de la ciudad en la cancha, y en las gradas muchachos de la edad de Valevich y de los del comedor.»); ¿es el mismo hecho? si no, mantenelo",
+     "D47 (ch04 beat 5, oración [9]) «ESTIMACIÓN POSTERIOR · Entre 70 y 100 toneladas de TNT»: la voz dice «TNT» en la oración ancla o en una vecina en ch04 [9] («La fuerza se calculó después en veinticinco a veintinueve toneladas de TNT; otras fuentes hablan de mucho más.»); ¿es el mismo hecho? si no, mantenelo",
+     "D47 (ch04 beat 5, oración [9]) «ESTIMACIÓN POSTERIOR · Entre 70 y 100 toneladas de TNT»: la voz dice «100» en una oración posterior en ch04 [12] («Noventa de cada cien partes cayeron ahí mismo, sobre el combinado.»); ¿es el mismo hecho? si no, mantenelo",
+     "D152: dijiste que la voz lo dice («La voz cuenta los dos juicios de Valevich.»); la voz de ch07 no dice «2» («A Anatoly Valevich le llevó dos procesos judiciales, primero contra el Fondo de Seguro Social y luego contra la Dirección de Protección Social, para que se le reconocieran sus derechos.»): vuelve a ser candidato",
+     "el beat 10 de ch06 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D20 («El total de reasentados no está unificado (12.763 / 10.000-12.000 / unas 10.000); la voz no puede decir tres números, la pantalla sí puede mostrar las tres fuentes.»), D90 («Unos 30.000 trabajadores y militares con más de 0,25 Sv entre 1957 y 1959: cifra de informe, va como texto en pantalla bajo las versiones en disputa.»)"
+    ],
+    "aplicados": [
+     {
+      "cap": "ch05",
+      "beat": 8,
+      "partes": [
+       "ficha",
+       "sello"
+      ]
+     },
+     {
+      "cap": "ch06",
+      "beat": 10,
+      "partes": [
+       "ficha",
+       "sello"
+      ]
+     }
+    ],
+    "ignorados": [],
+    "usd": 0.1301
+   }
+  ],
+  "cierre": "sin beat",
+  "cortados_al_cierre": []
+ },
+ "picos_vacios": [],
+ "a_pantalla_vacios": [],
+ "ediciones": [
+  {
+   "cap": "ch07",
+   "beat": 11,
+   "ficha": {
+    "pool_id": "D83",
+    "sentence_idx": 7,
+    "palabra": "radiación",
+    "etiqueta": "ENFERMOS ENTRE 1948 Y 1958",
+    "texto": "Más de 2.000 obreros con enfermedad por radiación",
+    "aporta": "Contrasta en silencio con la declaración de Buldakov con una cifra de diagnósticos que la voz no menciona.",
+    "respaldo": "Entre 1948 y 1958, más de 2000 trabajadores fueron diagnosticados con enfermedad profesional por radiación."
+   }
+  }
+ ]
+}
