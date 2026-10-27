@@ -528,12 +528,12 @@ def _save_step_output(topic_id: str, step_name: str, data: dict) -> None:
 #  ORQUESTADOR DEEP (LONG) — los 4 sub-pasos en secuencia
 # ═══════════════════════════════════════════════════════════════
 
-def _research_seed_deep(seed: dict, existing_titles: list[str]) -> dict:
+def _research_seed_deep(seed: dict, existing_titles: list[str], topic_id: str | None = None) -> dict:
     """
     Deep Research para LONG: 4 angle queries Pro (incl. visual/material) + sub-pasos Flash.
 
     Flujo:
-      1. Pre-genera topic_id (para persistencia incremental)
+      1. Pre-genera topic_id (para persistencia incremental); F39: si viene `topic_id`, se usa ese (investigar_semilla)
       2. Corre las 4 angle queries EN PARALELO → angle_blocks
       3. Sub-paso 4a → verified_facts + sources
       4. Sub-paso 4b → canonical
@@ -543,7 +543,7 @@ def _research_seed_deep(seed: dict, existing_titles: list[str]) -> dict:
 
     Cada sub-paso recibe los anteriores cerrados como input fijo.
     """
-    topic_id = str(uuid.uuid4())
+    topic_id = topic_id or str(uuid.uuid4())
 
     # ─── F7d: research v3 por defecto (documentos bajados y leídos; RESEARCH_V3=0 → el camino de abajo) ───
     # La compuerta del pool corre adentro: rojo → PoolGateRed (research_topics deja el seed en el inbox con el motivo).
@@ -937,6 +937,45 @@ def _enrich_with_seed_metadata(topic_data: dict, seed: dict) -> dict:
         "competition_data": None,
         "created_at": datetime.now().isoformat(),
     }
+
+
+# ═══════════════════════════════════════════════════════════════
+#  FUNCIÓN PÚBLICA — investigar_semilla (F39 §A.3: una semilla en un topic dado)
+# ═══════════════════════════════════════════════════════════════
+
+def _topic_registrado(db: dict, topic_id: str) -> bool:
+    return any(t.get("id") == topic_id for t in db.get("topics", []))
+
+
+def investigar_semilla(seed: dict, topic_id: str) -> dict:
+    """F39 §A.3: investiga UNA semilla en el topic `topic_id` y la registra en topics_db.
+
+    La misma cadena que `research_topics(video_type="long")`: `_research_seed_deep` (research v3 `run_seed` en
+    `STEPS_DIR / topic_id` + sub-pasos 4a–4e) + `_enrich_with_seed_metadata`, pero:
+      - el topic queda con `id == topic_id` (no uuid4) y guarda `seed_title` (el título de la ficha, como F23/F24);
+      - sin el filtro de semillas ya investigadas;
+      - no toca el inbox (`selected_seeds.json`) ni el archivo de semillas (`seeds_archive.json`).
+    `topic_id` ya en topics_db → ValueError antes de gastar (y de nuevo al registrar: no pisa).
+    Compuerta del pool en rojo → `PoolGateRed` se propaga (no se registra nada).
+    Devuelve el topic tal como quedó guardado."""
+    if not topic_id:
+        raise ValueError("investigar_semilla necesita un topic_id")
+    faltan = [k for k in ("seed_id", "seed_title", "discovery_mode") if k not in seed]   # los pide _enrich_…, al final
+    if faltan:
+        raise ValueError(f"la semilla no tiene {', '.join(faltan)}: no se investiga")
+    if _topic_registrado(_load_topics_db(), topic_id):
+        raise ValueError(f"{topic_id} ya está en topics_db: no se pisa")
+    print(f"\n  🔬 Investigando la semilla «{seed['seed_title']}» en el topic {topic_id} (LONG)...")
+    topic_data = _research_seed_deep(seed, _get_existing_titles(_load_topics_db()), topic_id=topic_id)
+    topic = {**_enrich_with_seed_metadata(topic_data, seed), "seed_title": seed["seed_title"]}
+    db = _load_topics_db()                      # releído: el research tarda minutos
+    if _topic_registrado(db, topic_id):
+        raise ValueError(f"{topic_id} apareció en topics_db durante el research: no se pisa")
+    db["topics"].append(topic)
+    _save_topics_db(db)
+    print(f"     ✓ {topic_id} registrado · título: {topic['video_title']} · "
+          f"fuentes: {len(topic.get('sources', []))} · datos: {len(topic.get('verified_facts', []))}")
+    return topic
 
 
 # ═══════════════════════════════════════════════════════════════
