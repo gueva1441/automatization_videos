@@ -76,7 +76,7 @@ def _post(resp: dict):
 def _esquema(p: dict) -> list[str]:
     """Los errores de forma del papel (vacío = válido)."""
     err = []
-    for k in ("topic_id", "prompt_version", "prompt_md5", "caps", "beats", "relojes", "tarjeta", "descartados"):
+    for k in ("topic_id", "prompt_version", "prompt_md5", "caps", "beats", "relojes", "descartados"):
         if k not in p:
             err.append(f"falta {k}")
     for b in p.get("beats") or []:
@@ -98,8 +98,6 @@ def _esquema(p: dict) -> list[str]:
     for r in p.get("relojes") or []:
         if not (isinstance(r.get("fecha"), str) and isinstance(r.get("sentence_idx"), int)):
             err.append(f"reloj mal formado {r}")
-    if p.get("tarjeta") is not None and not isinstance(p["tarjeta"].get("texto"), str):
-        err.append("tarjeta mal formada")
     return err
 
 
@@ -107,7 +105,7 @@ def _esquema(p: dict) -> list[str]:
 def test_a_salida_valida_el_esquema(tmp_path):
     ent = _ent()
     resp = {"beats": [_ficha("ch02", 2, "D49", 1, "ANCHO DE LA FISURA", "Más de 1 metro", "fisura")],
-            "relojes": [], "tarjeta": None, "descartados": [{"pool_id": "D195", "motivo": "x"}]}
+            "relojes": [], "descartados": [{"pool_id": "D195", "motivo": "x"}]}
     res = mp.llamar(ent, tmp_path, post=_post(_con_respaldo(resp, ent)))
     p = mp.armar(ent, res)
     assert _esquema(p) == []
@@ -258,17 +256,17 @@ def test_h_plan_edit_edita_el_papel(tmp_path):
     d = tmp_path / "t"
     d.mkdir()
     p = {"topic_id": "t", "prompt_version": "m01e-1", "prompt_md5": "x", "modelo": "m", "effort": "medium",
-         "intentos": 1, "usd": 0.0, "tokens_in": 1, "tarjeta": None, "relojes": [], "descartados": [],
+         "intentos": 1, "usd": 0.0, "tokens_in": 1, "relojes": [], "descartados": [],
          "caps": [{"cap": "ch01", "titulo": "T", "oraciones": ["La niña es de Longarone.", "Era de noche."]}],
          "beats": [{"cap": "ch01", "beat": 1, "funcion": "gancho", "pico": True, "ficha": None, "sello": None}]}
     (d / "01e_pantalla.json").write_text(json.dumps(p, ensure_ascii=False), encoding="utf-8")
     f = mp.editar("t", [{"cap": "ch01", "beat": 1, "ficha": {"pool_id": "D195", "sentence_idx": 0, "palabra": "Longarone",
-                                                            "etiqueta": "LONGARONE", "texto": "1.269 de 1.328 habitantes"}},
-                        {"tarjeta": {"texto": "9 OCT 1963 · 22:39"}}], tmp_path)
+                                                            "etiqueta": "LONGARONE", "texto": "1.269 de 1.328 habitantes"}}],
+                  tmp_path)
     q = json.loads(f.read_text(encoding="utf-8"))
     fi = q["beats"][0]["ficha"]
     assert fi["editado"] and fi["estilo"] == "normal" and fi["palabra_en_oracion"]
-    assert q["tarjeta"]["texto"] == "9 OCT 1963 · 22:39" and (d / "01e_pantalla.antes_de_edicion.json").exists()
+    assert (d / "01e_pantalla.antes_de_edicion.json").exists()
     assert "LONGARONE · 1.269 de 1.328 habitantes" in (d / "01e_pantalla.md").read_text(encoding="utf-8")
 
 

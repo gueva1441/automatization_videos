@@ -7,7 +7,7 @@ resolver base_clip y ANTES de quemar subs + pegar audio. Pasos:
   2. grade: capas CSS de identidad en la composición (desvío de D4: la pasada media-treatment
      sobre el footage costó 6.29× tiempo real en F1 paso 1; el preset nativo queda versionado)
   3. plan = el title card (título de la partición) + lo del guion en papel (F37 §B.4: el papel es el único camino;
-     el borrador del director se borró): fichas, sellos, relojes y tarjeta, colocados moviendo en vez de cortar
+     el borrador del director se borró): fichas, sellos y relojes, colocados moviendo en vez de cortar
      (pantalla_colocar.repartir, clima.sellos_del_papel) con el crítico «¿estorba?» (gfx_critic) en cada intento
   4. gfx_literal_lock(plan) → bloques rechazados se QUITAN, nunca se reescriben (D7)
   5. templater (gfx_project) → proyecto HyperFrames en work_dir/gfx_chXX/
@@ -724,15 +724,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             resolved, rej2 = _lock2(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
                                     question_sources=ctx.get("next_sources"))
             rejected += rej2
-        if gfx_plan_override is None and rot_on:                     # F36 §C.4: tarjeta y relojes del papel
-            if plan.is_first:
-                tp, deriv = rot.get("tarjeta"), vd.tarjeta_inicial(ctx["escaleta"], ctx.get("pool"))
-                resolved["tarjeta_inicial"] = (
-                    {"texto": tp["texto"], "fuente": "guion en papel (m01e_pantalla)", "papel": True,
-                     **({"difiere": f"la derivada de la escaleta dice «{deriv['texto']}»"}
-                        if deriv.get("texto") and deriv["texto"] != tp["texto"] else {})}
-                    if tp else {"falta": True, "motivo": "el guion en papel no trae tarjeta", "papel": True})
-                log.append(f"  tarjeta fecha-hora: {resolved['tarjeta_inicial']}")
+        if gfx_plan_override is None and rot_on:                     # F36 §C.4: relojes del papel
             tk_v = resolved.get("time_ticker")                       # aclaración 4: el reloj es el de la voz
             resolved["papel"] = {"relojes": rot.get("relojes") or [], "sin_alinear": rot.get("sin_alinear") or [],
                                  "sin_colocar": rot.get("sin_colocar") or [], "error": rot.get("error"),

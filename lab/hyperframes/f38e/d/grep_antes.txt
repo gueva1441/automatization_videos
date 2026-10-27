@@ -1,0 +1,88 @@
+script_engine/gfx_guion.py:252:    tj0 = plan.get("tarjeta_inicial") if c["is_first"] else None
+script_engine/gfx_guion.py:254:        cuadro = (f"tarjeta «{tj0['texto']}» sobre negro, sin voz" if tj0 and tj0.get("texto") and not tj0.get("falta")
+script_engine/gfx_guion.py:255:                  else "primer cuadro congelado, sin voz")         # F36 §B.9: la tarjeta reemplaza la intro
+script_engine/gfx_guion.py:268:    tj = plan.get("tarjeta_inicial") if c["is_first"] else None
+script_engine/gfx_guion.py:270:        e = add(0.0, "tarjeta fecha-hora", texto=tj.get("texto") or "⚠ falta fecha-hora", dur=title_dur, k=None,
+script_engine/gfx_guion.py:577:    # 11. F34 §A.6: la tarjeta fecha-hora
+script_engine/gfx_guion.py:578:    tj = [e for c in caps for e in c["eventos"] if e["tipo"] == "tarjeta fecha-hora"]
+script_engine/gfx_guion.py:579:    out.append({"nombre": "tarjeta fecha-hora", "ok": bool(tj) and all("falta" not in e["filtro"] for e in tj),
+script_engine/gfx_guion.py:581:                           f"{e.get('fuente') or ''} · {e['filtro']}" for e in tj] or ["✗ sin tarjeta (ch01 sin plan)"]})
+script_engine/gfx_layer.py:10:     el borrador del director se borró): fichas, sellos, relojes y tarjeta, colocados moviendo en vez de cortar
+script_engine/gfx_layer.py:727:        if gfx_plan_override is None and rot_on:                     # F36 §C.4: tarjeta y relojes del papel
+script_engine/gfx_layer.py:729:                tp, deriv = rot.get("tarjeta"), vd.tarjeta_inicial(ctx["escaleta"], ctx.get("pool"))
+script_engine/gfx_layer.py:730:                resolved["tarjeta_inicial"] = (
+script_engine/gfx_layer.py:734:                    if tp else {"falta": True, "motivo": "el guion en papel no trae tarjeta", "papel": True})
+script_engine/gfx_layer.py:735:                log.append(f"  tarjeta fecha-hora: {resolved['tarjeta_inicial']}")
+script_engine/gfx_project.py:643:    """(cuerpo en px, escalón) del titular del recorte para que la tarjeta entre en el cuadro sin cortar texto.
+script_engine/gfx_project.py:644:    Estima líneas por ancho de la tarjeta y alto total (kicker + regla + titular + márgenes) contra el alto útil
+script_engine/m01e_pantalla.py:28:    tarjeta    F38 §A.2: la tarjeta fecha-hora ya no la elige el autor: sale de la voz (voz_datos.tarjeta_de_voz).
+script_engine/m01e_pantalla.py:116:# F38 §A.2: sin `tarjeta` (sale de la voz, voz_datos.tarjeta_de_voz).
+script_engine/m01e_pantalla.py:256:            "_escaleta": esc}                         # F38 §A.2: para la tarjeta de la voz (no va al modelo)
+script_engine/m01e_pantalla.py:389:    tarjeta ya no es del autor (no se lee de la respuesta); §A.1: `motivos_beat` = por motivo, los (cap, beat) que el
+script_engine/m01e_pantalla.py:979:def tarjeta(ent: dict[str, Any]) -> tuple[dict[str, Any] | None, str | None]:
+script_engine/m01e_pantalla.py:980:    """F38 §A.2: la tarjeta del papel sale de la voz (voz_datos.tarjeta_de_voz, sin modelo), no del autor: (tarjeta
+script_engine/m01e_pantalla.py:982:    motivo (sin tarjeta: nunca se inventa)."""
+script_engine/m01e_pantalla.py:985:        t = vd.tarjeta_de_voz(ent, ent.get("_escaleta") or {}, ent.get("_pool"))
+script_engine/m01e_pantalla.py:986:    except Exception as e:  # noqa: BLE001 — sin tarjeta, con el motivo
+script_engine/m01e_pantalla.py:987:        return None, f"error en voz_datos.tarjeta_de_voz: {type(e).__name__}: {str(e)[:120]}"
+script_engine/m01e_pantalla.py:990:    return None, str((t or {}).get("motivo") or "la voz no da fecha para la tarjeta")
+script_engine/m01e_pantalla.py:995:    tj, tj_motivo = tarjeta(ent)
+script_engine/m01e_pantalla.py:1002:            "beats": v["beats"], "relojes": v["relojes"], "tarjeta": tj, "tarjeta_motivo": tj_motivo,
+script_engine/m01e_pantalla.py:1045:    """Una línea por beat (ficha · sello), los relojes y la tarjeta; después lo que cayó, con motivo. F37: el año de cada
+script_engine/m01e_pantalla.py:1058:    tj = p.get("tarjeta")                             # F38 §A.2: de la voz, con su fuente (o por qué falta)
+script_engine/m01e_pantalla.py:1061:              f"**Tarjeta:** — ({p.get('tarjeta_motivo') or 'sin motivo anotado'})", ""]
+script_engine/m01e_pantalla.py:1065:              f"{'1 tarjeta' if p.get('tarjeta') else 'sin tarjeta'} · {len(p['descartados'])} descartados", ""]
+script_engine/m01e_pantalla.py:1153:               f"tarjeta {bool(papel['tarjeta'])} → {carga['dir'] / (ARCHIVO + '.md')}")
+script_engine/m01e_pantalla.py:1174:    {tarjeta: {texto} | null}; reemplazan lo del beat (null lo borra) y quedan marcadas `editado`. El estilo lo vuelve a
+script_engine/m01e_pantalla.py:1186:        if "tarjeta" in e:
+script_engine/m01e_pantalla.py:1187:            p["tarjeta"] = ({"texto": str(e["tarjeta"]["texto"]), "editado": True} if e["tarjeta"] else None)
+script_engine/pantalla_entrada.py:12:    voz_datos         pico del cap, reloj desde la voz, tarjeta fecha-hora derivada
+script_engine/pantalla_entrada.py:101:    del cap: los bloques (fichas ancladas a la oración de la voz y a su palabra), los sellos, los relojes, la tarjeta y
+script_engine/pantalla_entrada.py:113:                           "tarjeta": None, "alineacion": [], "sin_alinear": []}
+script_engine/pantalla_entrada.py:119:        rot["tarjeta"] = papel.get("tarjeta")
+script_engine/voz_datos.py:4:(`fechas_completas`, `reloj_de_voz`) y la tarjeta fecha-hora derivada de la escaleta (`tarjeta_inicial`; desde F36 C
+script_engine/voz_datos.py:5:solo para comparar con la del guion en papel). F36 §D: se borró el nivel de agua desde la voz. F38 §A.2: la tarjeta
+script_engine/voz_datos.py:6:del papel sale de la voz (`tarjeta_de_voz`: la fecha que dice el gancho y la hora que dice el beat pico, buscada en el
+script_engine/voz_datos.py:7:pool; `horas_dichas` lee las horas en letras y dígitos), no del autor; `tarjeta_inicial` queda para comparar.
+script_engine/voz_datos.py:49:# ═══════════════════════ reloj y agua desde la voz, tarjeta fecha-hora (F34 §A.3.3, §A.5, §A.6) ═══════════════════════
+script_engine/voz_datos.py:108:def tarjeta_inicial(escaleta: dict, pool: dict | None) -> dict[str, Any]:
+script_engine/voz_datos.py:109:    """F34 §A.6: la tarjeta fecha-hora del suceso central (antes de la primera imagen, sobre negro, title_dur). Fecha =
+script_engine/voz_datos.py:135:# ═══════════════════════ tarjeta desde la voz (F38 §A.2) ═══════════════════════
+script_engine/voz_datos.py:201:def tarjeta_de_voz(ent: dict[str, Any], escaleta: dict, pool: dict | None) -> dict[str, Any]:
+script_engine/voz_datos.py:202:    """F38 §A.2: la tarjeta fecha-hora desde lo que dice la voz, sin modelo (el autor del papel ya no la elige).
+script_engine/voz_datos.py:207:    primera; se busca entre los ítems del pool con `hora` y la misma `fecha` que la tarjeta: primero los del beat pico
+script_engine/voz_datos.py:210:    22). La hora de la tarjeta es la del ítem (24 h). Lectura declarada: el handoff dice «la hora de los ítems del pool
+script_engine/voz_datos.py:213:    cuando los del beat no coinciden. Sin hora dicha en el beat pico, o sin ítem que coincida: la tarjeta va solo con la
+fase2b.py:1718:    """F36 §B.9: (segundos de intro del mp4, tarjeta). Con --gfx y `tarjeta_inicial` completa en el plan resuelto del
+fase2b.py:1719:    primer cap, la tarjeta fecha-hora REEMPLAZA la intro: title_dur (identidad F3) de negro con la tarjeta y después la
+fase2b.py:1720:    primera imagen. Sin tarjeta (o sin --gfx), INITIAL_SILENCE_SEC con el primer cuadro congelado, como siempre."""
+fase2b.py:1726:        tj = (json.loads(f.read_text(encoding="utf-8")).get("plan") or {}).get("tarjeta_inicial") \
+fase2b.py:1741:def _filtro_tarjeta(tj: dict, work_dir: Path) -> str:
+fase2b.py:1742:    """F36 §B.9: la tarjeta como el title card sin kicker (identidad F3, `gfx_project.tc_metrics` y el CSS común): el
+fase2b.py:1748:    txt = work_dir / "_tarjeta.txt"
+fase2b.py:1756:def _pad_tarjeta(tj: dict, work_dir: Path, out: Path, seconds: float, fps: int, width: int, height: int) -> Path:
+fase2b.py:1757:    """F36 §B.9: el clip de la intro con la tarjeta (negro + tarjeta, `seconds`), con el encoder de los segmentos (se
+fase2b.py:1761:                  "-vf", _filtro_tarjeta(tj, work_dir), "-frames:v", str(n), *_venc(), "-pix_fmt", "yuv420p",
+fase2b.py:1764:        raise RuntimeError(f"tarjeta de la intro falló: {r.stderr[-300:]}")
+fase2b.py:1775:    tarjeta: dict | None = None,
+fase2b.py:1820:    pad_sec = intro_sec   # CHAT 32 · F36 §B.9: con tarjeta, title_dur (_intro_de)
+fase2b.py:1821:    v_pad = (f"[0:v]tpad=start_duration={pad_sec}:start_mode=clone[v_pad];" if not tarjeta else
+fase2b.py:1823:             f"{_filtro_tarjeta(tarjeta, Path(output_path).parent)}:enable='lt(t,{pad_sec})'[v_pad];")
+fase2b.py:1933:    pad_ms = int(intro_sec * 1000)                     # F36 §B.9: la intro (2.5 s, o title_dur con la tarjeta)
+fase2b.py:1959:    tarjeta: dict | None = None,
+fase2b.py:1986:    if tarjeta:                                        # F36 §B.9: negro con la tarjeta fecha-hora
+fase2b.py:1987:        _pad_tarjeta(tarjeta, work_dir, pad_ts, pad_sec, fps, pipeline.video_width, pipeline.video_height)
+fase2b.py:1991:                  "-f", "mpegts", str(pad_ts)], timeout=300) if not tarjeta else None
+fase2b.py:2803:    Solo audio: segundos de ffmpeg. F36 §B.9: la intro es la del render (con la tarjeta, title_dur)."""
+fase2b.py:2981:    caps_in, off, voz_video = [], mezcla["intro"], []          # F36 §B.9: la intro (con tarjeta, title_dur)
+fase2b.py:3360:        intro_s, tarjeta = _intro_de(plans, work_dir, gfx)                 # F36 §B.9: la tarjeta reemplaza la intro
+fase2b.py:3408:                                      intro_sec=intro_s, tarjeta=tarjeta)
+fase2b.py:3420:                tarjeta=tarjeta,
+fase2b.py:3513:                             " o {tarjeta: {texto}|null}]}) al guion en papel del topic (_steps/<topic>/01e_pantalla.json; "
+--- tests ---
+test_module_f34.py
+test_module_f36.py
+test_module_f36c_pantalla.py
+test_module_f38a_m01e.py
+test_module_f38a_voz.py
+test_module_f38e_c2.py

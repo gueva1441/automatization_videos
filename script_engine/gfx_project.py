@@ -640,8 +640,8 @@ HEAD_STEPS = (1.0, 0.85, 0.72)       # G2: cuerpo del titular; si no entra, baja
 
 
 def archive_head_px(headline: str, width: int, height: int) -> tuple[int, int]:
-    """(cuerpo en px, escalón) del titular del recorte para que la tarjeta entre en el cuadro sin cortar texto.
-    Estima líneas por ancho de la tarjeta y alto total (kicker + regla + titular + márgenes) contra el alto útil
+    """(cuerpo en px, escalón) del titular del recorte para que el recorte entre en el cuadro sin cortar texto.
+    Estima líneas por ancho del recorte y alto total (kicker + regla + titular + márgenes) contra el alto útil
     (de top 120 px a 120 px del borde de abajo). Escalón 0 = el cuerpo normal."""
     from gfx_config import gfx_rules as r
     ars = r.archive_scale

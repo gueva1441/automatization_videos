@@ -140,28 +140,12 @@ def test_b5_cota_715_no_contradice_niveles_de_otro_momento():
                                cerca=[]) != []                               # los muertos, contra todo el video
 
 
-def test_b9_la_tarjeta_reemplaza_la_intro(tmp_path):
-    """La tarjeta «9 OCT 1963 · 22:39» estaba en el plan pero el mp4 arrancaba con 2.5 s de primer cuadro congelado.
-    Con tarjeta: title_dur (3 s) de negro con la tarjeta; sin tarjeta, los 2.5 s de siempre."""
+def test_b9_la_intro_de_la_musica_es_initial_silence():
+    """F38e §D: la fecha-hora del segundo 0 se borró (DECISIONES 2026-10-27 11:21); la intro vuelve a ser
+    INITIAL_SILENCE_SEC con el primer cuadro congelado, y la música se corre esa intro en el grafo."""
     import fase2b
-    from gfx_config import gfx_rules
-    p1 = NS(chapter_id="ch01", is_first=True)
-    tj = {"texto": "9 OCT 1963 · 22:39", "fecha": "1963-10-09", "hora": "22:39", "pool_id": "T57"}
-    assert fase2b._intro_de([p1], tmp_path, True) == (fase2b.INITIAL_SILENCE_SEC, None)        # sin plan
-    (tmp_path / "gfx_plan_ch01.resolved.json").write_text(json.dumps({"plan": {"tarjeta_inicial": tj}}),
-                                                          encoding="utf-8")
-    assert fase2b._intro_de([p1], tmp_path, True) == (gfx_rules.title_dur, tj) and gfx_rules.title_dur == 3.0
-    assert fase2b._intro_de([p1], tmp_path, False) == (2.5, None)                             # sin --gfx
-    (tmp_path / "gfx_plan_ch01.resolved.json").write_text(json.dumps({"plan": {"tarjeta_inicial": {
-        "falta": True, "motivo": "x"}}}), encoding="utf-8")
-    assert fase2b._intro_de([p1], tmp_path, True) == (2.5, None)                              # tarjeta incompleta
-    g, _ = fase2b._grafo_musica(Path("v.wav"), Path("m.wav"), {}, None, 3.0)
-    assert "adelay=3000|3000" in g
-    out = fase2b._pad_tarjeta(tj, tmp_path, tmp_path / "pad.ts", 3.0, 30, 2560, 1440)
-    r = subprocess.run(["ffprobe", "-v", "error", "-count_frames", "-select_streams", "v:0", "-show_entries",
-                        "stream=width,height,nb_read_frames", "-of", "csv=p=0", str(out)], capture_output=True,
-                       text=True)
-    assert r.stdout.split()[0] == "2560,1440,90"                         # mpegts: también la línea del programa
-    assert (tmp_path / "_tarjeta.txt").read_text(encoding="utf-8") == "9 OCT 1963 · 22:39"
+    assert fase2b.INITIAL_SILENCE_SEC == 2.5
+    g, _ = fase2b._grafo_musica(Path("v.wav"), Path("m.wav"), {}, None, fase2b.INITIAL_SILENCE_SEC)
+    assert "adelay=2500|2500" in g
 
 

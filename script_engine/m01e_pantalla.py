@@ -25,7 +25,6 @@ costo en 01_v3_costos.json como los demás pasos) o suelto: `python -m script_en
                F38d §A.1: el reintento parcial da VUELTAS mientras haya motivos, no sean los mismos de la vuelta
                anterior y entre en el tope; lo nuevo que aparece en una vuelta se pregunta en la siguiente y solo al
                cerrar corta lo que siga sin preguntar (`reintento.vueltas`, `cierre`, `cortados_al_cierre`).
-    tarjeta    F38 §A.2: la tarjeta fecha-hora ya no la elige el autor: sale de la voz (voz_datos.tarjeta_de_voz).
     respaldo   F38e §C: prompt m01e-6 (el de la prueba 1, letra por letra: el dato con las palabras del autor; los hechos
                en un `respaldo` literal del ítem); el respaldo tiene que ser fragmento del texto del ítem (regla
                `respaldo`) y el candado mira cifras, nombres y años contra él; en una cita, el `autor` del modelo se
@@ -113,7 +112,6 @@ Devolvé solo JSON con el formato pedido, con `aporta` (una línea: qué suma qu
 
 # §C.1: el esquema de salida (por cap y beat; relojes por cap; descartados). Sin `estilo`: lo pone el código.
 # F37 §A.2: cada descarte dice de qué tipo es (cambio de formato, no de estilo): el código verifica «voz_lo_dice».
-# F38 §A.2: sin `tarjeta` (sale de la voz, voz_datos.tarjeta_de_voz).
 # F38e §C.2: `respaldo` (el fragmento literal del texto del ítem, como en la prueba 1) después de `texto`, y `autor`
 # (solo en una cita: en español, como lo entiende quien mira; null en las demás) después de `respaldo`.
 FORMATO_SALIDA = ('{"beats": [{"cap": "ch03", "beat": 5, "ficha": {"pool_id": "D49", "sentence_idx": 17, '
@@ -252,8 +250,7 @@ def entrada(carga: dict[str, Any], vocabulario: list[str], seg: dict[str, Any] |
     return {"topic_id": carga["topic_id"], "caps": caps, "beats": beats, "archivo": archivo,
             "clima": list(vocabulario), "a_pantalla": {str(a.get("id")): str(a.get("por_que") or "")
                                                        for a in esc.get("a_pantalla") or []},
-            "seg_por_palabra": vel, "anios": anios_de([x.get("fecha") for x in todos.values()]),
-            "_escaleta": esc}                         # F38 §A.2: para la tarjeta de la voz (no va al modelo)
+            "seg_por_palabra": vel, "anios": anios_de([x.get("fecha") for x in todos.values()])}
 
 
 def _para_modelo(ent: dict[str, Any]) -> dict[str, Any]:
@@ -385,8 +382,8 @@ def _donde(tok: str, sents: list[tuple[str, int, str]]) -> tuple[str, int, str] 
 def validar(resp: Any, ent: dict[str, Any], confirmados: dict[str, dict[str, list[str]]] | None = None,
             final: bool | None = None) -> dict[str, Any]:
     """§C.3 sobre la respuesta: {beats (lo que queda, por cap y beat), relojes, descartados (del modelo y de la
-    validación, con regla y motivo), fichas_fuera, preguntas, vuelven, picos_vacios, motivos, motivos_beat}. F38 §A.2: la
-    tarjeta ya no es del autor (no se lee de la respuesta); §A.1: `motivos_beat` = por motivo, los (cap, beat) que el
+    validación, con regla y motivo), fichas_fuera, preguntas, vuelven, picos_vacios, motivos, motivos_beat}. F38
+    §A.1: `motivos_beat` = por motivo, los (cap, beat) que el
     reintento parcial puede cambiar. F37:
     - §A.1b fecha del relato y §A.1c cita sin fecha (reglas `fecha_relato`, `cita_sin_fecha`);
     - §A.4 una coincidencia de número o nombre en `no_dicho`/`spoiler` no corta: es una pregunta al autor para el
@@ -976,30 +973,15 @@ def _acumular(conf: dict[str, dict[str, list[str]]], nuevos: dict[str, dict[str,
 
 # ═══════════════════════ salida ═══════════════════════
 
-def tarjeta(ent: dict[str, Any]) -> tuple[dict[str, Any] | None, str | None]:
-    """F38 §A.2: la tarjeta del papel sale de la voz (voz_datos.tarjeta_de_voz, sin modelo), no del autor: (tarjeta
-    {texto, fuente, fecha, hora, fecha_de, hora_de} o None, motivo si falta). Un error de la función se anota como
-    motivo (sin tarjeta: nunca se inventa)."""
-    from script_engine import voz_datos as vd
-    try:
-        t = vd.tarjeta_de_voz(ent, ent.get("_escaleta") or {}, ent.get("_pool"))
-    except Exception as e:  # noqa: BLE001 — sin tarjeta, con el motivo
-        return None, f"error en voz_datos.tarjeta_de_voz: {type(e).__name__}: {str(e)[:120]}"
-    if isinstance(t, dict) and t.get("texto") and not t.get("falta"):
-        return {"texto": str(t["texto"]), **{k: v for k, v in t.items() if k != "texto"}}, None
-    return None, str((t or {}).get("motivo") or "la voz no da fecha para la tarjeta")
-
-
 def armar(ent: dict[str, Any], res: dict[str, Any]) -> dict[str, Any]:
     v = res["validacion"]
-    tj, tj_motivo = tarjeta(ent)
     return {"topic_id": ent["topic_id"], "prompt_version": PROMPT_VERSION, "prompt_md5": prompt_md5(),
             "modelo": res["modelo"], "effort": res["effort"], "entrada_md5": res.get("entrada_md5"),
             "intentos": len(res.get("intentos") or []), "usd": res.get("usd", 0.0) if not res.get("cache") else 0.0,
             "tokens_in": res.get("tokens_in"), "caps": [{"cap": c["cap"], "titulo": c["titulo"],
                                                          "oraciones": [s["texto"] for s in c["oraciones"]]}
                                                         for c in ent["caps"]],
-            "beats": v["beats"], "relojes": v["relojes"], "tarjeta": tj, "tarjeta_motivo": tj_motivo,
+            "beats": v["beats"], "relojes": v["relojes"],
             "descartados": v["descartados"],
             # F37: de dónde salen las medidas y qué pasó en el reintento (motivos enviados, preguntas y su respuesta)
             "seg_por_palabra": ent.get("seg_por_palabra"), "tope": res.get("tope"), "error": res.get("error"),
@@ -1042,7 +1024,7 @@ def _por_que_falta(p: dict[str, Any], pid: str) -> str:
 
 
 def a_markdown(p: dict[str, Any]) -> str:
-    """Una línea por beat (ficha · sello), los relojes y la tarjeta; después lo que cayó, con motivo. F37: el año de cada
+    """Una línea por beat (ficha · sello) y los relojes; después lo que cayó, con motivo. F37: el año de cada
     ficha y el momento del relato, los picos sin ficha (⚠), el reintento (motivos enviados y respuestas del autor).
     F38c §A.1: el beat que después del reintento sigue sin ninguno de sus `a_pantalla` lleva ⚠, con el descarte del
     autor si lo hay (o lo que lo sacó en la validación) o «el autor no lo puso»: no se fuerza ni se corta nada."""
@@ -1055,14 +1037,10 @@ def a_markdown(p: dict[str, Any]) -> str:
     if sp or tp or pi:
         lines += [f"Segundos por palabra {sp.get('valor')} ({sp.get('origen')}) · tope US$ {tp.get('usd')} "
                   f"({tp.get('de')}){' · ' + pi if pi else ''}" + (f" · **{p['error']}**" if p.get("error") else ""), ""]
-    tj = p.get("tarjeta")                             # F38 §A.2: de la voz, con su fuente (o por qué falta)
-    lines += [f"**Tarjeta:** {tj['texto']}" + (f" (fuente: {tj['fuente']})" if tj.get("fuente") else "")
-              + (" (editada)" if tj.get("editado") else "") if tj else
-              f"**Tarjeta:** — ({p.get('tarjeta_motivo') or 'sin motivo anotado'})", ""]
     fichas = sum(1 for b in p["beats"] if b["ficha"])
     sellos = sum(1 for b in p["beats"] if b["sello"])
     lines += [f"Totales: {fichas} fichas · {sellos} sellos · {len(p['relojes'])} relojes · "
-              f"{'1 tarjeta' if p.get('tarjeta') else 'sin tarjeta'} · {len(p['descartados'])} descartados", ""]
+              f"{len(p['descartados'])} descartados", ""]
     for c in p["caps"]:
         lines += [f"## {c['cap']} — {c['titulo']}", ""]
         for b in [b for b in p["beats"] if b["cap"] == c["cap"]]:
@@ -1149,8 +1127,8 @@ def generar(topic_id: str, steps_dir: Path | None = None, *, pool: dict | None =
     (carga["dir"] / f"{ARCHIVO}.json").write_text(json.dumps(papel, ensure_ascii=False, indent=1), encoding="utf-8")
     (carga["dir"] / f"{ARCHIVO}.md").write_text(a_markdown(papel), encoding="utf-8")
     log.append(f"  m01e: {sum(1 for b in papel['beats'] if b['ficha'])} fichas · "
-               f"{sum(1 for b in papel['beats'] if b['sello'])} sellos · {len(papel['relojes'])} relojes · "
-               f"tarjeta {bool(papel['tarjeta'])} → {carga['dir'] / (ARCHIVO + '.md')}")
+               f"{sum(1 for b in papel['beats'] if b['sello'])} sellos · {len(papel['relojes'])} relojes → "
+               f"{carga['dir'] / (ARCHIVO + '.md')}")
     return papel
 
 
@@ -1170,10 +1148,11 @@ def cargar_papel(topic_id: str, steps_dir: Path | None = None) -> dict[str, Any]
 
 def editar(topic_id: str, ediciones: list[dict[str, Any]], steps_dir: Path | None = None) -> Path:
     """`fase2b --plan-edit` (§C.4): las ediciones a mano van al papel, no al plan. Cada una: {cap, beat, ficha: {pool_id,
-    sentence_idx, palabra, etiqueta, texto, aporta} | null} y/o {cap, beat, sello: {palabra, sentence_idx} | null}, o
-    {tarjeta: {texto} | null}; reemplazan lo del beat (null lo borra) y quedan marcadas `editado`. El estilo lo vuelve a
-    poner el código. La primera vez se guarda una copia (01e_pantalla.antes_de_edicion.json); el .md se reescribe.
-    Fase 2 vuelve a pasar lo editado por sus filtros como a todo."""
+    sentence_idx, palabra, etiqueta, texto, aporta} | null} y/o {cap, beat, sello: {palabra, sentence_idx} | null};
+    reemplazan lo del beat (null lo borra) y quedan marcadas `editado`. Una edición sin `ficha` ni `sello` se rechaza
+    (ValueError). El estilo lo vuelve a poner el código. La primera vez se guarda una copia
+    (01e_pantalla.antes_de_edicion.json); el .md se reescribe. Fase 2 vuelve a pasar lo editado por sus filtros como a
+    todo."""
     from script_engine.pantalla_colocar import caracteres
     f = ruta(topic_id, steps_dir)
     p = json.loads(f.read_text(encoding="utf-8"))
@@ -1183,9 +1162,8 @@ def editar(topic_id: str, ediciones: list[dict[str, Any]], steps_dir: Path | Non
         bak.write_text(json.dumps(p, ensure_ascii=False, indent=1), encoding="utf-8")
     oraciones = {c["cap"]: c["oraciones"] for c in p.get("caps") or []}
     for e in ediciones:
-        if "tarjeta" in e:
-            p["tarjeta"] = ({"texto": str(e["tarjeta"]["texto"]), "editado": True} if e["tarjeta"] else None)
-            continue
+        if "ficha" not in e and "sello" not in e:
+            raise ValueError(f"edición sin ficha ni sello (claves {sorted(e)}): solo se edita ficha o sello de un beat")
         b = next((x for x in p["beats"] if x["cap"] == e.get("cap") and x["beat"] == _int(e.get("beat"))), None)
         if b is None:
             raise ValueError(f"edición: no hay beat {e.get('beat')} en {e.get('cap')}")

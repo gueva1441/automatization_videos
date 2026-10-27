@@ -29,7 +29,7 @@
     "gfx_lab_server.py",
     "script_engine/gfx_layer.py"
    ],
-   "tests": 4,
+   "tests": 5,
    "lab": 2,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
@@ -39,13 +39,13 @@
   {
    "modulo": "gfx_guion",
    "archivo": "script_engine/gfx_guion.py",
-   "sticker": "Escribe el guion de pantalla: todo lo que se va a ver, en texto, con lo cortado y por quién, y los chequeos (lectura, nunca al mismo tiempo, costuras, inicio de voz, inicio de música, gancho no vacío, tarjeta fecha-hora; desde F36 C la columna `papel` y «papel sin colocar / sin alinear»; desde F38c «cifra que contradice la voz» no marca lo que el autor juzgó otro hecho).",
+   "sticker": "Escribe el guion de pantalla: todo lo que se va a ver, en texto, con lo cortado y por quién, y los chequeos (lectura, nunca al mismo tiempo, costuras, inicio de voz, inicio de música, gancho no vacío; desde F36 C la columna `papel` y «papel sin colocar / sin alinear»; desde F38c «cifra que contradice la voz» no marca lo que el autor juzgó otro hecho). F38e §D: sin evento ni chequeo de fecha-hora del segundo 0; la costura de ch01 dice «primer cuadro congelado».",
    "recibe": "planes, escenas, beats, mezcla",
    "entrega": "GUION_PANTALLA.md/.json",
    "lo_llama": [
     "fase2b.py"
    ],
-   "tests": 3,
+   "tests": 4,
    "lab": 0,
    "tanda": "F32",
    "nacio": "308032a 2026-10-26 feat(f32-a): el guion de pantalla — fase2b --plan-only (director, rotulista, reglas y crítico sin navegador ni render; -g",
@@ -71,7 +71,7 @@
   {
    "modulo": "gfx_layer",
    "archivo": "script_engine/gfx_layer.py",
-   "sticker": "El director de orquesta de la capa gráfica de un capítulo: llama a todos los demás en orden (plan base con el title card de la partición —F37: sin borrador del director—, textos del papel, reparto con crítico, sellos, transiciones) y hace el render en HyperFrames. Desde F34, con el guion aprobado dibuja el plan aprobado tal cual (plan congelado) y no lo reescribe.",
+   "sticker": "El director de orquesta de la capa gráfica de un capítulo: llama a todos los demás en orden (plan base con el title card de la partición —F37: sin borrador del director—, textos del papel, reparto con crítico, sellos, relojes del papel, transiciones) y hace el render en HyperFrames. Desde F34, con el guion aprobado dibuja el plan aprobado tal cual (plan congelado) y no lo reescribe. F38e: la pausa de cierre es pregunta + negro en los dos caminos (`pausa_de_cierre`), así el negro queda dentro del clip; la capa deja junto a `chNN_gfx.mp4` el md5 de su plan (`chNN_gfx.plan.md5`) y con `--reuse-visuals` se reusa solo si es el del plan de hoy (si no, «capa de otro plan / sin md5 de plan: se rehace»); la pregunta de cierre lleva su fuente (voz-pregunta · voz-alineada · escaleta).",
    "recibe": "visual base del cap + palabras con tiempos + contexto",
    "entrega": "`chNN_gfx.mp4`, plan resuelto, sfx, escenas",
    "lo_llama": [
@@ -80,7 +80,7 @@
     "script_engine/gfx_icons/demo.py",
     "script_engine/gfx_icons/strip.py"
    ],
-   "tests": 5,
+   "tests": 6,
    "lab": 11,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
@@ -141,7 +141,7 @@
     "script_engine/pantalla_colocar.py",
     "script_engine/voz_datos.py"
    ],
-   "tests": 4,
+   "tests": 5,
    "lab": 2,
    "tanda": "F5",
    "nacio": "e18e656 2026-10-20 feat(f5-gfx): la pantalla se alimenta del evidence_pool — candado, recortes con fuente, ícono por contenido, reloj y preg",
@@ -155,7 +155,6 @@
    "recibe": "plan resuelto + escenas",
    "entrega": "proyecto HyperFrames (index.html, CSS)",
    "lo_llama": [
-    "fase2b.py",
     "gfx_lab_server.py",
     "script_engine/clima.py",
     "script_engine/gfx_icons/demo.py",
@@ -175,7 +174,7 @@
   {
    "modulo": "gfx_realizador",
    "archivo": "script_engine/gfx_realizador.py",
-   "sticker": "Hace que la pantalla obedezca a la escaleta: ventanas de tiempo de cada beat, qué datos puede mostrar cada uno y la pregunta de cierre del último beat. F37: el cierre del plan solo deja los sellos del papel y ningún punch_in (sin las ramas del camino sin papel, del contador ni de los íconos).",
+   "sticker": "Hace que la pantalla obedezca a la escaleta: ventanas de tiempo de cada beat, qué datos puede mostrar cada uno y la pregunta de cierre, que desde F38e B4 sale de la voz (la última oración del cap si es pregunta; si no, las oraciones de la voz del último beat que alinean con su `cierre`; si ninguna, el `cierre` literal) y dice de dónde salió. F37: el cierre del plan solo deja los sellos del papel y ningún punch_in (sin las ramas del camino sin papel, del contador ni de los íconos).",
    "recibe": "escaleta + narración por beat + pool",
    "entrega": "`gfx_beats_chNN.json`, filas de lo quitado",
    "lo_llama": [
@@ -183,8 +182,8 @@
     "script_engine/m01e_pantalla.py",
     "script_engine/voz_datos.py"
    ],
-   "tests": 2,
-   "lab": 0,
+   "tests": 3,
+   "lab": 1,
    "tanda": "F29",
    "nacio": "2fcd603 2026-10-25 feat(f29a): el gfx obedece a la escaleta — script_engine/gfx_realizador (ventanas por beat en la voz → gfx_beats_chNN.jso",
    "estado": "vivo",
@@ -316,15 +315,15 @@
   {
    "modulo": "m01d_particion",
    "archivo": "script_engine/m01d_particion.py",
-   "sticker": "Fase 1: parte el guion en los 7 capítulos con su texto para la voz; de ahí salen la narración por cap y por beat que leen el realizador y el guion en papel.",
+   "sticker": "Fase 1: parte el guion en los 7 capítulos con su texto para la voz; de ahí salen la narración por cap y por beat que leen el realizador y el guion en papel. F38e: los títulos de cap son la promesa del cap: Flash ve de cada beat su función, qué se ve y qué pregunta abre, cuál es el pico (esc.pico.beat) y cómo termina cada cap (marcado «no lo cuentes»); el pedido es el bloque de PRUEBA2_prompt_titulos.md letra por letra (`PEDIDO_TITULOS`), con la misma validación (≤ 5 palabras, sin cifra, sin «?») y el mismo respaldo.",
    "recibe": "guion + escaleta",
-   "entrega": "narración por cap y por beat",
+   "entrega": "narración por cap y por beat, títulos de cap",
    "lo_llama": [
     "fase1_5.py",
     "script_engine/guion_v4.py"
    ],
-   "tests": 5,
-   "lab": 6,
+   "tests": 6,
+   "lab": 8,
    "tanda": "F10",
    "nacio": "317c5f1 2026-10-22 wip(f10-4.1): fase1_5 --v3 (escaleta → guionista → editor → m01d_particion → juez) con el contrato de 7 caps; --from; cor",
    "estado": "vivo (fase 1)",
@@ -333,7 +332,7 @@
   {
    "modulo": "m01e_pantalla",
    "archivo": "script_engine/m01e_pantalla.py",
-   "sticker": "Fase 1 (F36 C): el guion de pantalla EN PAPEL. Una llamada a Sonnet por video con la narración de los 7 caps (oraciones numeradas y cuánto cabe), la escaleta, el archivo del caso y el vocabulario de clima → por beat ficha o nada, sello o nada; relojes (F38: la tarjeta sale de la voz, voz_datos). Lo valida en papel (candado, no dicho, spoiler, una vez, cabe, formato; F37: fecha del relato, cita sin fecha, descartes «la voz lo dice» verificados, picos sin ficha; una coincidencia de número se le pregunta al autor); F38: un reintento PARCIAL con todos los motivos cambia solo los beats con motivo (lo demás queda congelado; F38b: sin juez de anclaje). F38c: lo que la escaleta dejó para la pantalla le llega aparte de «la voz lo cuenta», y un beat sin él es motivo del reintento; una cifra que contradice la voz se le pregunta al autor. F38d: el reintento da vueltas mientras haya motivos nuevos y entre en el tope del perfil (lo nuevo de una vuelta se pregunta en la siguiente en vez de cortarse), y «caben» se mide igual en el prompt, en el motivo y en el código (en una cita cuenta el autor). Lo deja para que Omar lo revise antes de la voz; Fase 2 lo consume.",
+   "sticker": "Fase 1 (F36 C): el guion de pantalla EN PAPEL. Una llamada a Sonnet por video con la narración de los 7 caps (oraciones numeradas y cuánto cabe), la escaleta, el archivo del caso y el vocabulario de clima → por beat ficha o nada, sello o nada; relojes (F38e §D: sin fecha-hora del segundo 0). Lo valida en papel (candado, no dicho, spoiler, una vez, cabe, formato; F37: fecha del relato, cita sin fecha, descartes «la voz lo dice» verificados, picos sin ficha; una coincidencia de número se le pregunta al autor); F38: un reintento PARCIAL con todos los motivos cambia solo los beats con motivo (lo demás queda congelado; F38b: sin juez de anclaje). F38c: lo que la escaleta dejó para la pantalla le llega aparte de «la voz lo cuenta», y un beat sin él es motivo del reintento; una cifra que contradice la voz se le pregunta al autor. F38d: el reintento da vueltas mientras haya motivos nuevos y entre en el tope del perfil (lo nuevo de una vuelta se pregunta en la siguiente en vez de cortarse), y «caben» se mide igual en el prompt, en el motivo y en el código (en una cita cuenta el autor). F38e: prompt m01e-6 (el de la prueba 1, letra por letra): el dato con las palabras del autor y los hechos en un `respaldo` literal del ítem (regla `respaldo`; el candado mira cifras, nombres y años contra él); en una cita el autor viene en español y se muestra si sus nombres están en el archivo (`autor_origen`). Lo deja para que Omar lo revise antes de la voz; Fase 2 lo consume.",
    "recibe": "escaleta, narración por cap y beat, títulos, pool, `sellos_clima`",
    "entrega": "`01e_pantalla.json/.md` en el topic de Fase 1",
    "lo_llama": [
@@ -341,8 +340,8 @@
     "fase2b.py",
     "script_engine/pantalla_entrada.py"
    ],
-   "tests": 6,
-   "lab": 0,
+   "tests": 8,
+   "lab": 3,
    "tanda": "F36",
    "nacio": "9e9d844 2026-10-26 feat(f36-c): m01e_pantalla — el guion de pantalla en papel va a Fase 1 (DECISIONES 19:54) · una llamada a Sonnet por vide",
    "estado": "vivo (fase 1)",
@@ -386,14 +385,14 @@
   {
    "modulo": "pantalla_entrada",
    "archivo": "script_engine/pantalla_entrada.py",
-   "sticker": "La entrada de Fase 2 para el texto de pantalla (F37: antes gfx_rotulista; no escribe nada): `preparar_cap` lee el guion en papel de Fase 1 (`01e_pantalla.json`), alinea sus oraciones con las de la voz por texto y ancla cada ficha a su palabra (con el juicio del autor, si lo hay).",
+   "sticker": "La entrada de Fase 2 para el texto de pantalla (F37: antes gfx_rotulista; no escribe nada): `preparar_cap` lee el guion en papel de Fase 1 (`01e_pantalla.json`), alinea sus oraciones con las de la voz por texto y ancla cada ficha a su palabra (con el juicio del autor, si lo hay). F38e §C: el autor que el papel muestra en una cita es el que ve Fase 2.",
    "recibe": "papel del topic + oraciones de la voz + beats",
-   "entrega": "entrada del cap + bloques, sellos, relojes y tarjeta del papel",
+   "entrega": "entrada del cap + bloques, sellos y relojes del papel",
    "lo_llama": [
     "fase2b.py",
     "script_engine/gfx_layer.py"
    ],
-   "tests": 3,
+   "tests": 4,
    "lab": 0,
    "tanda": "F29b",
    "nacio": "838a104 2026-10-26 feat(f37-b): Fase 2 mueve en vez de cortar; el papel es el único camino — simulador antes del código (f37/b/simulacion_pr",
@@ -411,7 +410,7 @@
     "script_engine/m01e_pantalla.py",
     "script_engine/pantalla_colocar.py"
    ],
-   "tests": 6,
+   "tests": 7,
    "lab": 1,
    "tanda": "F36 (código de F29b)",
    "nacio": "838a104 2026-10-26 feat(f37-b): Fase 2 mueve en vez de cortar; el papel es el único camino — simulador antes del código (f37/b/simulacion_pr",
@@ -421,7 +420,7 @@
   {
    "modulo": "pantalla_colocar",
    "archivo": "script_engine/pantalla_colocar.py",
-   "sticker": "Pone cada texto del papel en su lugar (F37: antes rotulista_colocar): la ficha dura su lectura entre callout_dur_min y callout_dur_max sin pasar el corte, qué forma toma (ficha normal, nombre o cita con autor; papel = recorte) y el reparto: nunca al mismo tiempo (DECISIONES 17:58) y el crítico en cada intento, moviendo en vez de cortar (otro instante, otra escena, la oración siguiente, el otro lado); lo que no entra queda «sin colocar» con sus intentos. F38c: cada ficha lleva el juicio del autor hasta el guion de pantalla.",
+   "sticker": "Pone cada texto del papel en su lugar (F37: antes rotulista_colocar): la ficha dura su lectura entre callout_dur_min y callout_dur_max sin pasar el corte, qué forma toma (ficha normal, nombre o cita con autor; papel = recorte) y el reparto: nunca al mismo tiempo (DECISIONES 17:58) y el crítico en cada intento, moviendo en vez de cortar (otro instante, todo inicio de escena dentro de la oración —F38e B1—, la oración siguiente, el otro lado); el reloj mueve su fin con el intento y se recorta en su nuevo corte (F38e B2); lo que no entra queda «sin colocar» y todo lo movido declara qué falló en cada intento anterior, también en los filtros (F38e B3). F38c: cada ficha lleva el juicio del autor hasta el guion de pantalla.",
    "recibe": "bloques validados + escenas",
    "entrega": "bloques en el plan, filas de lo movido o sin colocar",
    "lo_llama": [
@@ -430,8 +429,8 @@
     "script_engine/m01e_pantalla.py",
     "script_engine/pantalla_filtros.py"
    ],
-   "tests": 5,
-   "lab": 1,
+   "tests": 7,
+   "lab": 4,
    "tanda": "F36 (código de F29b)",
    "nacio": "838a104 2026-10-26 feat(f37-b): Fase 2 mueve en vez de cortar; el papel es el único camino — simulador antes del código (f37/b/simulacion_pr",
    "estado": "vivo",
@@ -449,7 +448,7 @@
     "script_engine/pantalla_colocar.py"
    ],
    "tests": 4,
-   "lab": 0,
+   "lab": 1,
    "tanda": "F36 (código de F32/F34)",
    "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
    "estado": "vivo",
@@ -458,21 +457,20 @@
   {
    "modulo": "voz_datos",
    "archivo": "script_engine/voz_datos.py",
-   "sticker": "Lo que sale de la voz y la escaleta sin modelo: el pico del cap, el reloj cuando la voz dice una fecha completa (y su esquina libre), y la tarjeta fecha-hora del papel: desde F38 sale de la voz (la primera fecha completa del gancho y la hora que dice la voz en el beat pico, con la del ítem del pool que coincide; nunca se inventa) y la derivada de la escaleta queda solo para comparar.",
+   "sticker": "Lo que sale de la voz y la escaleta sin modelo: el pico del cap, el reloj cuando la voz dice una fecha completa (y su esquina libre). F38e §D: la fecha-hora del segundo 0 (la derivada de la escaleta y la de la voz, con su lector de horas) se borró.",
    "recibe": "oraciones de la voz, escaleta, pool",
-   "entrega": "pico, reloj, tarjeta de la voz",
+   "entrega": "pico, reloj",
    "lo_llama": [
     "script_engine/gfx_layer.py",
     "script_engine/gfx_pool.py",
-    "script_engine/m01e_pantalla.py",
     "script_engine/pantalla_entrada.py"
    ],
-   "tests": 6,
+   "tests": 4,
    "lab": 0,
    "tanda": "F36 (código de F34)",
    "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
    "estado": "vivo",
-   "doc": "script_engine/voz_datos.py — F36 §A: lo que sale de la voz y de la escaleta sin pasar por el modelo (movido de pantalla_entrada sin cambios): el pico del cap (`pico_cap`, `pico_plan`), las fechas completas que dice la voz y su reloj (`fechas_completas`, `reloj_de_voz`) y la tarjeta fecha-hora derivada de la escaleta (`tarjeta_inicial`; desde F36 C solo para comparar con la del guion en papel). F36 §D: se borró el nivel de agua desde la voz. F38 §A.2: la tarjeta del papel sale de la voz (`tarjeta_de_voz`: la fecha que dice el gancho y la hora que dice el beat pico, buscada en el pool; `horas_di"
+   "doc": "script_engine/voz_datos.py — F36 §A: lo que sale de la voz y de la escaleta sin pasar por el modelo (movido de pantalla_entrada sin cambios): el pico del cap (`pico_cap`, `pico_plan`) y las fechas completas que dice la voz y su reloj (`fechas_completas`, `reloj_de_voz`). F36 §D: se borró el nivel de agua desde la voz."
   },
   {
    "modulo": "voz_utils",
@@ -482,13 +480,14 @@
    "entrega": "cifras, años, nombres, oraciones, segundos por palabra",
    "lo_llama": [
     "script_engine/gfx_layer.py",
+    "script_engine/gfx_realizador.py",
     "script_engine/m01e_pantalla.py",
     "script_engine/pantalla_entrada.py",
     "script_engine/pantalla_filtros.py",
     "script_engine/voz_datos.py"
    ],
-   "tests": 10,
-   "lab": 1,
+   "tests": 11,
+   "lab": 3,
    "tanda": "F36 (código de F29b)",
    "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
    "estado": "vivo",
@@ -520,7 +519,7 @@
     "script_engine/m01e_pantalla.py",
     "script_engine/pantalla_colocar.py"
    ],
-   "tests": 14,
+   "tests": 13,
    "lab": 4,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
@@ -530,7 +529,7 @@
   {
    "modulo": "fase2b",
    "archivo": "fase2b.py",
-   "sticker": "El armador final: junta imagen, voz, subtítulos y música de cada capítulo en un segmento y los pega en el video. Con `--gfx` le pone encima la capa gráfica; con `--plan-only` solo escribe el guion de pantalla. Desde F34, con `--gfx` la música de cada cap arranca con su title card (pieza = segmento, después de la intro) y la mezcla de previsualización mide dónde arranca. Desde F36, si el plan de ch01 trae la tarjeta fecha-hora, el mp4 arranca con 3 s de negro con la tarjeta en lugar de la intro congelada; `--plan-edit` edita el guion en papel.",
+   "sticker": "El armador final: junta imagen, voz, subtítulos y música de cada capítulo en un segmento y los pega en el video. Con `--gfx` le pone encima la capa gráfica; con `--plan-only` solo escribe el guion de pantalla. Desde F34, con `--gfx` la música de cada cap arranca con su title card (pieza = segmento, después de la intro) y la mezcla de previsualización mide dónde arranca. La intro es siempre INITIAL_SILENCE_SEC con el primer cuadro congelado (F38e §D: la fecha-hora del segundo 0 se borró; el video arranca con la primera imagen); `--plan-edit` edita el guion en papel (ficha o sello de un beat; otra cosa se rechaza). F38e §A: después de armar cada segmento con `--gfx`, chequeo «costuras» medido en el mp4 (`_medir_cierre`): duración con ffprobe contra el `seg_dur` del guion aprobado (±1 cuadro) y `blackdetect` del negro de cierre, ✓/✗ en el log del render; la huella del re-ensamble (`_segment_hash`) ve el plan resuelto.",
    "recibe": "assets del topic (imágenes/clips), voz por cap + tiempos, sync map, música",
    "entrega": "`*_final(_gfx).mp4`; o GUION_PANTALLA + mezcla",
    "lo_llama": [
@@ -539,8 +538,8 @@
     "diag_236_pacing_ba6c.py",
     "gfx_lab_server.py"
    ],
-   "tests": 22,
-   "lab": 12,
+   "tests": 24,
+   "lab": 13,
    "tanda": "previo a F1 (inicial)",
    "nacio": "e33f84a 2026-05-28 Initial commit: automatization_videos pipeline (post chat 32)",
    "estado": "vivo",
@@ -839,13 +838,6 @@
    "a": "gfx_pool",
    "donde": [
     "en reloj_de_voz"
-   ]
-  },
-  {
-   "de": "fase2b",
-   "a": "gfx_project",
-   "donde": [
-    "en _filtro_tarjeta"
    ]
   },
   {
@@ -1240,13 +1232,6 @@
    ]
   },
   {
-   "de": "m01e_pantalla",
-   "a": "voz_datos",
-   "donde": [
-    "en tarjeta"
-   ]
-  },
-  {
    "de": "pantalla_entrada",
    "a": "voz_datos",
    "donde": [
@@ -1258,6 +1243,13 @@
    "a": "voz_utils",
    "donde": [
     "en apply_gfx"
+   ]
+  },
+  {
+   "de": "gfx_realizador",
+   "a": "voz_utils",
+   "donde": [
+    "en pregunta_cierre_fuente"
    ]
   },
   {
@@ -1293,8 +1285,6 @@
    "a": "gfx_config",
    "donde": [
     "en _pre_roll_de",
-    "en _intro_de",
-    "en _filtro_tarjeta",
     "en _segment_hash",
     "en _resolve_gfx_quality",
     "en _solo_plan",

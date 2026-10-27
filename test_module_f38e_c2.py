@@ -24,7 +24,7 @@ def _papel(tmp_path: Path, autor: str | None) -> Path:
     papel = {"topic_id": "t", "prompt_version": "m01e-6", "modelo": "x",
              "caps": [{"cap": "ch01", "oraciones": [TXT]}],
              "beats": [{"cap": "ch01", "beat": 1, "funcion": "revelacion", "ficha": ficha, "sello": None}],
-             "relojes": [], "tarjeta": None, "descartados": []}
+             "relojes": [], "descartados": []}
     d = tmp_path / "steps" / "t"
     d.mkdir(parents=True)
     (d / "01e_pantalla.json").write_text(json.dumps(papel, ensure_ascii=False), encoding="utf-8")

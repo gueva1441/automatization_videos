@@ -27,9 +27,13 @@ M: dict[str, tuple[str, str, str, str, str]] = {
     "fase2b": ("El armador final: junta imagen, voz, subtítulos y música de cada capítulo en un segmento y los pega en "
                "el video. Con `--gfx` le pone encima la capa gráfica; con `--plan-only` solo escribe el guion de pantalla. "
                "Desde F34, con `--gfx` la música de cada cap arranca con su title card (pieza = segmento, después de "
-               "la intro) y la mezcla de previsualización mide dónde arranca. Desde F36, si el plan de ch01 trae la "
-               "tarjeta fecha-hora, el mp4 arranca con 3 s de negro con la tarjeta en lugar de la intro congelada; "
-               "`--plan-edit` edita el guion en papel.",
+               "la intro) y la mezcla de previsualización mide dónde arranca. La intro es siempre INITIAL_SILENCE_SEC "
+               "con el primer cuadro congelado (F38e §D: la fecha-hora del segundo 0 se borró; el video arranca con la "
+               "primera imagen); `--plan-edit` edita el guion en papel (ficha o sello de un beat; otra cosa se rechaza). "
+               "F38e §A: después de armar cada segmento con `--gfx`, chequeo «costuras» medido en el mp4 "
+               "(`_medir_cierre`): duración con ffprobe contra el `seg_dur` del guion aprobado (±1 cuadro) y "
+               "`blackdetect` del negro de cierre, ✓/✗ en el log del render; la huella del re-ensamble "
+               "(`_segment_hash`) ve el plan resuelto.",
                "assets del topic (imágenes/clips), voz por cap + tiempos, sync map, música", "`*_final(_gfx).mp4`; o "
                "GUION_PANTALLA + mezcla", "previo a F1 (inicial)", "vivo"),
     "gfx_config": ("El tablero de perillas de la capa gráfica: duraciones, tamaños, colores y qué reglas están "
@@ -48,8 +52,12 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                    "`aprobado` en el guion; sí/no para el hook", "F33", "vivo"),
     "gfx_layer": ("El director de orquesta de la capa gráfica de un capítulo: llama a todos los demás en orden "
                   "(plan base con el title card de la partición —F37: sin borrador del director—, textos del papel, "
-                  "reparto con crítico, sellos, transiciones) y hace el render en HyperFrames. Desde F34, "
-                  "con el guion aprobado dibuja el plan aprobado tal cual (plan congelado) y no lo reescribe.",
+                  "reparto con crítico, sellos, relojes del papel, transiciones) y hace el render en HyperFrames. Desde "
+                  "F34, con el guion aprobado dibuja el plan aprobado tal cual (plan congelado) y no lo reescribe. F38e: "
+                  "la pausa de cierre es pregunta + negro en los dos caminos (`pausa_de_cierre`), así el negro queda "
+                  "dentro del clip; la capa deja junto a `chNN_gfx.mp4` el md5 de su plan (`chNN_gfx.plan.md5`) y con "
+                  "`--reuse-visuals` se reusa solo si es el del plan de hoy (si no, «capa de otro plan / sin md5 de "
+                  "plan: se rehace»); la pregunta de cierre lleva su fuente (voz-pregunta · voz-alineada · escaleta).",
                   "visual base del cap + palabras con tiempos + contexto", "`chNN_gfx.mp4`, plan resuelto, sfx, "
                   "escenas", "F1", "vivo"),
     "gfx_director": ("El contexto de un capítulo (sin modelo): script, skeleton, fuentes del candado literal, narración del "
@@ -57,15 +65,18 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                      "esquema y su caché) se borró: el papel es el único camino y el title card sale de la partición.",
                      "script + skeleton + canonical + pool", "contexto del cap, palabra clave", "F1", "vivo"),
     "gfx_realizador": ("Hace que la pantalla obedezca a la escaleta: ventanas de tiempo de cada beat, qué datos puede "
-                       "mostrar cada uno y la pregunta de cierre del último beat. F37: el cierre del plan solo deja los "
-                       "sellos del papel y ningún punch_in (sin las ramas del camino sin papel, del contador ni de los "
-                       "íconos).", "escaleta + narración por beat + pool", "`gfx_beats_chNN.json`, filas de lo quitado",
+                       "mostrar cada uno y la pregunta de cierre, que desde F38e B4 sale de la voz (la última oración "
+                       "del cap si es pregunta; si no, las oraciones de la voz del último beat que alinean con su "
+                       "`cierre`; si ninguna, el `cierre` literal) y dice de dónde salió. F37: el cierre del plan solo "
+                       "deja los sellos del papel y ningún punch_in (sin las ramas del camino sin papel, del contador "
+                       "ni de los íconos).", "escaleta + narración por beat + pool", "`gfx_beats_chNN.json`, filas de lo quitado",
                        "F29", "vivo"),
     "pantalla_entrada": ("La entrada de Fase 2 para el texto de pantalla (F37: antes gfx_rotulista; no escribe nada): "
                          "`preparar_cap` lee el guion en papel de Fase 1 (`01e_pantalla.json`), alinea sus oraciones con "
-                         "las de la voz por texto y ancla cada ficha a su palabra (con el juicio del autor, si lo hay).",
-                         "papel del topic + oraciones de la voz + beats", "entrada del cap + bloques, sellos, relojes y "
-                         "tarjeta del papel", "F29b", "vivo"),
+                         "las de la voz por texto y ancla cada ficha a su palabra (con el juicio del autor, si lo hay). "
+                         "F38e §C: el autor que el papel muestra en una cita es el que ve Fase 2.",
+                         "papel del topic + oraciones de la voz + beats", "entrada del cap + bloques, sellos y relojes "
+                         "del papel", "F29b", "vivo"),
     "pantalla_filtros": ("Los filtros que deciden si un texto del papel sale, en un orden que se lee en una línea "
                          "(`ORDEN`): anclar el papel a la voz, no dicho del gancho, candado de lo literal, no dicho, "
                          "spoiler (lo que el autor juzgó «otro hecho» no corta) y lectura: desde F37 la lectura prueba la "
@@ -78,9 +89,11 @@ M: dict[str, tuple[str, str, str, str, str]] = {
     "pantalla_colocar": ("Pone cada texto del papel en su lugar (F37: antes rotulista_colocar): la ficha dura su "
                          "lectura entre callout_dur_min y callout_dur_max sin pasar el corte, qué forma toma (ficha normal, "
                          "nombre o cita con autor; papel = recorte) y el reparto: nunca al mismo tiempo (DECISIONES 17:58) y "
-                         "el crítico en cada intento, moviendo en vez de cortar (otro instante, otra escena, la oración "
-                         "siguiente, el otro lado); lo que no entra queda «sin colocar» con sus intentos. F38c: cada "
-                         "ficha lleva el juicio del autor hasta el guion de pantalla.",
+                         "el crítico en cada intento, moviendo en vez de cortar (otro instante, todo inicio de escena "
+                         "dentro de la oración —F38e B1—, la oración siguiente, el otro lado); el reloj mueve su fin con "
+                         "el intento y se recorta en su nuevo corte (F38e B2); lo que no entra queda «sin colocar» y "
+                         "todo lo movido declara qué falló en cada intento anterior, también en los filtros (F38e B3). "
+                         "F38c: cada ficha lleva el juicio del autor hasta el guion de pantalla.",
                          "bloques validados + escenas", "bloques en el plan, filas de lo movido o sin colocar",
                          "F36 (código de F29b)", "vivo"),
     "clima": ("Los sellos de clima: la palabra y la oración vienen del guion en papel; acá se prueba la misma "
@@ -89,10 +102,9 @@ M: dict[str, tuple[str, str, str, str, str]] = {
               "(«¿estorba?») en cada intento.", "sellos del papel + oraciones + léxico de moods",
               "sellos en el plan, filas de lo movido o sin colocar", "F36 (código de F32/F34)", "vivo"),
     "voz_datos": ("Lo que sale de la voz y la escaleta sin modelo: el pico del cap, el reloj cuando la voz dice una "
-                  "fecha completa (y su esquina libre), y la tarjeta fecha-hora del papel: desde F38 sale de la voz "
-                  "(la primera fecha completa del gancho y la hora que dice la voz en el beat pico, con la del ítem del "
-                  "pool que coincide; nunca se inventa) y la derivada de la escaleta queda solo para comparar.",
-                  "oraciones de la voz, escaleta, pool", "pico, reloj, tarjeta de la voz", "F36 (código de F34)",
+                  "fecha completa (y su esquina libre). F38e §D: la fecha-hora del segundo 0 (la derivada de la escaleta "
+                  "y la de la voz, con su lector de horas) se borró.",
+                  "oraciones de la voz, escaleta, pool", "pico, reloj", "F36 (código de F34)",
                   "vivo"),
     "voz_utils": ("La utilería de la voz: lee cifras en dígitos y en letras, nombres propios, cifras con su unidad, y "
                   "parte la voz en oraciones con cada palabra numerada; desde F36 C parte igual el texto de Fase 1 "
@@ -138,9 +150,10 @@ M: dict[str, tuple[str, str, str, str, str]] = {
     "gfx_review": ("La hoja de cues: un renglón por bloque visible con su segundo, para revisar el render.",
                    "eventos del plan", "`gfx_cues_chNN.md/.json`, página de revisión", "F1", "vivo"),
     "gfx_guion": ("Escribe el guion de pantalla: todo lo que se va a ver, en texto, con lo cortado y por quién, y los "
-                  "chequeos (lectura, nunca al mismo tiempo, costuras, inicio de voz, inicio de música, gancho no vacío, "
-                  "tarjeta fecha-hora; desde F36 C la columna `papel` y «papel sin colocar / sin alinear»; desde F38c "
-                  "«cifra que contradice la voz» no marca lo que el autor juzgó otro hecho).",
+                  "chequeos (lectura, nunca al mismo tiempo, costuras, inicio de voz, inicio de música, gancho no vacío; "
+                  "desde F36 C la columna `papel` y «papel sin colocar / sin alinear»; desde F38c "
+                  "«cifra que contradice la voz» no marca lo que el autor juzgó otro hecho). F38e §D: sin evento ni "
+                  "chequeo de fecha-hora del segundo 0; la costura de ch01 dice «primer cuadro congelado».",
                   "planes, escenas, beats, mezcla", "GUION_PANTALLA.md/.json", "F32", "vivo"),
     "music_intensity": ("Decide cuándo la música calla, acompaña o sube en cada cap según la escaleta; también da el "
                         "beat pico de cada cap.", "escaleta + narración por beat + tiempos de la voz",
@@ -149,12 +162,16 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                       "ficha del caso; es lo que el gfx lee para saber qué va dónde.", "ficha del caso + pool",
                       "`01a_escaleta.json`", "F6", "vivo (fase 1; el gfx lee su salida)"),
     "m01d_particion": ("Fase 1: parte el guion en los 7 capítulos con su texto para la voz; de ahí salen la "
-                       "narración por cap y por beat que leen el realizador y el guion en papel.", "guion + escaleta",
-                       "narración por cap y por beat", "F10", "vivo (fase 1)"),
+                       "narración por cap y por beat que leen el realizador y el guion en papel. F38e: los títulos de "
+                       "cap son la promesa del cap: Flash ve de cada beat su función, qué se ve y qué pregunta abre, cuál "
+                       "es el pico (esc.pico.beat) y cómo termina cada cap (marcado «no lo cuentes»); el pedido es el "
+                       "bloque de PRUEBA2_prompt_titulos.md letra por letra (`PEDIDO_TITULOS`), con la misma validación "
+                       "(≤ 5 palabras, sin cifra, sin «?») y el mismo respaldo.", "guion + escaleta",
+                       "narración por cap y por beat, títulos de cap", "F10", "vivo (fase 1)"),
     "m01e_pantalla": ("Fase 1 (F36 C): el guion de pantalla EN PAPEL. Una llamada a Sonnet por video con la narración "
                       "de los 7 caps (oraciones numeradas y cuánto cabe), la escaleta, el archivo del caso y el "
-                      "vocabulario de clima → por beat ficha o nada, sello o nada; relojes (F38: la tarjeta sale de la "
-                      "voz, voz_datos). Lo valida en papel "
+                      "vocabulario de clima → por beat ficha o nada, sello o nada; relojes (F38e §D: sin fecha-hora del "
+                      "segundo 0). Lo valida en papel "
                       "(candado, no dicho, spoiler, una vez, cabe, formato; F37: fecha del relato, cita sin fecha, "
                       "descartes «la voz lo dice» verificados, picos sin ficha; una coincidencia de número se le pregunta "
                       "al autor); F38: un reintento PARCIAL con todos los motivos cambia solo los beats con motivo (lo "
@@ -163,7 +180,10 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                       "cifra que contradice la voz se le pregunta al autor. F38d: el reintento da vueltas mientras haya "
                       "motivos nuevos y entre en el tope del perfil (lo nuevo de una vuelta se pregunta en la siguiente "
                       "en vez de cortarse), y «caben» se mide igual en el prompt, en el motivo y en el código (en una "
-                      "cita cuenta el autor). "
+                      "cita cuenta el autor). F38e: prompt m01e-6 (el de la prueba 1, letra por letra): el dato con las "
+                      "palabras del autor y los hechos en un `respaldo` literal del ítem (regla `respaldo`; el candado "
+                      "mira cifras, nombres y años contra él); en una cita el autor viene en español y se muestra si sus "
+                      "nombres están en el archivo (`autor_origen`). "
                       "Lo deja para que Omar lo revise antes de la voz; Fase 2 lo consume.", "escaleta, narración por cap y beat, títulos, pool, `sellos_clima`",
                       "`01e_pantalla.json/.md` en el topic de Fase 1", "F36", "vivo (fase 1)"),
     "archive_clipping.html.tmpl": ("La forma del recorte de diario (papel, kicker, titular).", "un recorte del plan",

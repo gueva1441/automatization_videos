@@ -4,7 +4,7 @@ test_module_f38a_m01e.py — F38 §A (HANDOFF_F38_reintento_tarjeta_juez), la pa
           (cap, beat); con la respuesta del intento 1 de F37 y un reintento armado desde el de F37, D128, AVISO, ALARMA
           (y T92) sobreviven, y los cambios en beats sin motivo se ignoran y se anotan. Q14 NO estaba en el intento 1
           (el autor lo descartó ahí: «una sola ficha, se eligió T85»): no hay nada que sobreviva;
-    §A.2  cableado: la tarjeta sale de voz_datos.tarjeta_de_voz (no del autor); `validar` no la lee;
+    §A.2  (F38e §D: la fecha-hora del segundo 0 se borró del código; sus dos tests también);
     F38b  (HANDOFF_F38b_quitar_juez) el juez de §A.3 se borró con sus tests y su grabación; la línea del gancho vuelve
           a la de m01e-1 (m01e-4) y nada en script_engine llama a un juez.
 Sin API: el autor va con POST falsos. El papel de F37 se lee de su copia congelada (lab/hyperframes/f37/c).
@@ -154,44 +154,8 @@ def test_a1_motivos_sin_beat_no_abren_beats():
 
 
 def test_a1_formatos_literales():
-    assert "TARJETA" not in mp.PANTALLA_SYSTEM and '"tarjeta"' not in mp.FORMATO_SALIDA
     assert mp.FORMATO_REINTENTO.startswith('{"cambios": [{"cap": "ch03", "beat": 5, "ficha":')
     assert mp.PROMPT_VERSION == "m01e-6"          # F38b: + el gancho de m01e-1 · F38d §A.2 · F38e §C.1: el de la prueba 1
-
-
-# ═══════════════════════ §A.2 tarjeta desde la voz ═══════════════════════
-
-def test_a2_la_tarjeta_sale_de_voz_datos_y_no_del_autor(monkeypatch):
-    from script_engine import voz_datos as vd
-    ent = {"topic_id": "t", "caps": [{"cap": "ch01", "n": 1, "titulo": "", "oraciones": []}], "beats": [],
-           "archivo": [], "clima": [], "a_pantalla": {}, "_escaleta": {"pico": {"beat": 1}}, "_pool": {"datos": []}}
-    vista = []
-
-    def falsa(e, esc, pool):
-        vista.append((e is ent, esc, pool))
-        return {"texto": "9 OCT 1963 · 22:39", "fecha": "1963-10-09", "hora": "22:39", "fecha_de": "ch01 [13]",
-                "hora_de": "T66", "fuente": "voz ch01 [13] + T66"}
-    monkeypatch.setattr(vd, "tarjeta_de_voz", falsa)
-    v = mp.validar({"beats": [], "tarjeta": {"texto": "1 ENE 2000 · 00:00"}}, ent)
-    assert "tarjeta" not in v                                                # validar ya no la lee
-    res = {"validacion": v, "modelo": mp.MODELO, "effort": mp.EFFORT, "intentos": [], "usd": 0.0}
-    p = mp.armar(ent, res)
-    assert vista == [(True, {"pico": {"beat": 1}}, {"datos": []})]
-    assert p["tarjeta"]["texto"] == "9 OCT 1963 · 22:39" and p["tarjeta"]["fuente"] == "voz ch01 [13] + T66"
-    assert p["tarjeta_motivo"] is None and "(fuente: voz ch01 [13] + T66)" in mp.a_markdown(p)
-    monkeypatch.setattr(vd, "tarjeta_de_voz", lambda e, esc, pool: {"falta": True, "motivo": "la voz no dice fecha"})
-    p2 = mp.armar(ent, res)
-    assert p2["tarjeta"] is None and p2["tarjeta_motivo"] == "la voz no dice fecha"
-    assert "**Tarjeta:** — (la voz no dice fecha)" in mp.a_markdown(p2)
-
-
-@hay_vajont
-def test_a2_vajont_tarjeta_real(vajont):
-    from script_engine import voz_datos as vd
-    if not hasattr(vd, "tarjeta_de_voz"):
-        pytest.skip("voz_datos.tarjeta_de_voz todavía no está")
-    tj, motivo = mp.tarjeta(vajont)
-    assert motivo is None and tj["texto"] == "9 OCT 1963 · 22:39"
 
 
 # ═══════════════════════ F38b: la línea del gancho de m01e-1, sin juez ═══════════════════════

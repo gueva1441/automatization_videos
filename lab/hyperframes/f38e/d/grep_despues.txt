@@ -1,0 +1,8 @@
+# grep -rn tarjeta script_engine/ fase2b.py  (literal, después de D; sin gfx_runtime/node_modules: zod «número de tarjeta de crédito», ajeno)
+(vacío)
+# grep -rln tarjeta test_module_*.py (solo el nombre del handoff HANDOFF_F38_reintento_tarjeta_juez en 2 docstrings, y el test nuevo que busca la palabra)
+test_module_f38a_m01e.py
+test_module_f38a_voz.py
+test_module_f38e_d.py
+test_module_f38a_m01e.py:2:test_module_f38a_m01e.py — F38 §A (HANDOFF_F38_reintento_tarjeta_juez), la parte de script_engine/m01e_pantalla:
+test_module_f38a_voz.py:2:test_module_f38a_voz.py — F38 §A.2 y §A.4 (HANDOFF_F38_reintento_tarjeta_juez): lo que sale de la voz sin modelo.

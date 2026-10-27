@@ -2,8 +2,9 @@
 test_module_f34.py — F34: reglas de pantalla corregidas, sin red (Gemini y Claude con falsos). Un test por regla, con el
 caso real de Vajont cuando lo hay: prompt (§A.1, tres reemplazos exactos), gancho con el pool del video, candado D117
 «1943», no dicho D237 «cuatrocientos», spoiler T85 «Vajont» (§A.2), reloj gana al sello, una cosa por oración en un cap
-de una sola escena, reloj desde la voz (§A.3), sellos de clima (§A.4), agua desde la voz (§A.5), tarjeta fecha-hora
-(§A.6), plan congelado y música alineada (§A.7), crítico de forma para el sello de clima y el agua de la voz.
+de una sola escena, reloj desde la voz (§A.3), sellos de clima (§A.4), agua desde la voz (§A.5), plan congelado y
+música alineada (§A.7), crítico de forma para el sello de clima y el agua de la voz. F38e §D: la fecha-hora del
+segundo 0 (§A.6) se borró del código con su test.
 """
 from __future__ import annotations
 
@@ -98,23 +99,6 @@ def test_a3_3_reloj_desde_la_voz_fecha_completa_en_letras():
 
 
 # ═══════════════ §A.5 agua desde la voz ═══════════════
-
-
-# ═══════════════ §A.6 tarjeta fecha-hora ═══════════════
-
-def test_a6_tarjeta_vajont_y_falta_si_no_hay_certeza():
-    esc = json.loads((Path(__file__).resolve().parent / "data" / "scripts" / "_steps" / "f8s3-vajont" /
-                      "01a_escaleta.json").read_text(encoding="utf-8")) if (ROOT / "data" / "scripts" / "_steps" /
-                                                                             "f8s3-vajont" / "01a_escaleta.json").exists() else None
-    pool = {"cronologia": [{"id": "T57", "fecha": "1963-10-09", "hora": None, "evento": "El Toc cae."},
-                           {"id": "T65", "fecha": "1963-10-09", "hora": "22:30", "evento": "Ola."},
-                           {"id": "T66", "fecha": "1963-10-09", "hora": "22:39", "evento": "Roca."}]}
-    pico = {"pico": {"beat": 10, "id": "T57", "por_que": "el Toc entra al embalse a las 22:39"}}
-    tj = vd.tarjeta_inicial(pico, pool)
-    assert (tj["texto"], tj["hora_de"]) == ("9 OCT 1963 · 22:39", "T66")
-    assert vd.tarjeta_inicial({"pico": {"id": "T57", "por_que": "sin hora"}}, pool)["falta"] is True
-    if esc is not None:
-        assert esc["pico"]["id"] == "T57"
 
 
 # ═══════════════ §A.7 plan congelado y música ═══════════════

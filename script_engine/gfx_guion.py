@@ -249,11 +249,8 @@ def eventos_cap(c: dict[str, Any], *, title_dur: float, dip_frames: int, fps: in
 
     # costura (negro → title → voz)
     v0 = c["primera_palabra"] + c["pre_pad"]
-    tj0 = plan.get("tarjeta_inicial") if c["is_first"] else None
     if c["is_first"]:
-        cuadro = (f"tarjeta «{tj0['texto']}» sobre negro, sin voz" if tj0 and tj0.get("texto") and not tj0.get("falta")
-                  else "primer cuadro congelado, sin voz")         # F36 §B.9: la tarjeta reemplaza la intro
-        txt = (f"intro {intro:.1f} s ({cuadro}) → title card {title_dur:.1f} s desde 0.0 s → "
+        txt = (f"intro {intro:.1f} s (primer cuadro congelado, sin voz) → title card {title_dur:.1f} s desde 0.0 s → "
                f"voz a {v0:.2f} s del cap (+{intro + v0:.2f} s del mp4)")
     else:
         bh = c.get("black_hold_prev") or {}
@@ -265,13 +262,6 @@ def eventos_cap(c: dict[str, Any], *, title_dur: float, dip_frames: int, fps: in
                                                          "sube_desde_negro_s": 0.0 if c["is_first"] else round(dip_frames / fps, 3),
                                                          "title_card_s": title_dur, "voz_s": round(v0, 3),
                                                          "intro_s": intro if c["is_first"] else 0.0}})
-    tj = plan.get("tarjeta_inicial") if c["is_first"] else None
-    if tj is not None:                                    # F34 §A.6: antes de la primera imagen, sobre negro
-        e = add(0.0, "tarjeta fecha-hora", texto=tj.get("texto") or "⚠ falta fecha-hora", dur=title_dur, k=None,
-                fuente=tj.get("fuente"), filtro=("pasó" if tj.get("texto") else f"⚠ falta fecha-hora: {tj.get('motivo')} "
-                "(agregar con --plan-edit; nunca se inventa)") + (f" · {tj['difiere']}" if tj.get("difiere") else ""),
-                extra={"sobre_negro": True, "papel": bool(tj.get("papel"))})
-        e.update({"t": round(-intro, 3), "t_mp4": round(off - intro, 3), "escena": None, "beat": None, "funcion": ""})
     tc = plan.get("title_card")
     if tc:
         add(0.0, "title card", etiqueta=tc.get("kicker"), texto=tc.get("title", ""), dur=title_dur, k=None)
@@ -574,12 +564,7 @@ def chequeos(caps: list[dict[str, Any]], *, title_dur: float, fps: int, mezcla: 
                       f"{r['medido_s']:.3f} s · desvío {r['desvio_s']:+.3f} s ({r['desvio_cuadros']:+.2f} cuadros)")
     out.append({"nombre": "inicio de música por cap", "ok": ok and bool(lineas),
                 "lineas": lineas or ["(sin música o sin mezcla: no medido)"]})
-    # 11. F34 §A.6: la tarjeta fecha-hora
-    tj = [e for c in caps for e in c["eventos"] if e["tipo"] == "tarjeta fecha-hora"]
-    out.append({"nombre": "tarjeta fecha-hora", "ok": bool(tj) and all("falta" not in e["filtro"] for e in tj),
-                "lineas": [f"{'✓' if 'falta' not in e['filtro'] else '✗'} {mmss(e['t_mp4'])} «{e['texto']}» · "
-                           f"{e.get('fuente') or ''} · {e['filtro']}" for e in tj] or ["✗ sin tarjeta (ch01 sin plan)"]})
-    # 12–14. F36 §C.4: el guion en papel (m01e_pantalla) contra lo que Fase 2 colocó
+    # 11–13. F36 §C.4: el guion en papel (m01e_pantalla) contra lo que Fase 2 colocó
     out += chequeos_papel(caps)
     return out
 

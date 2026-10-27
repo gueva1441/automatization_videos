@@ -9,7 +9,7 @@ fachada (cada módulo se importa por su nombre):
     pantalla_filtros  validar_papel (los filtros de ORDEN, en orden), contradicciones
     pantalla_colocar  duración, escalera de intentos, colocar, repartir (nunca al mismo tiempo + crítico), reloj
     clima             sellos del papel
-    voz_datos         pico del cap, reloj desde la voz, tarjeta fecha-hora derivada
+    voz_datos         pico del cap, reloj desde la voz
     voz_utils         números, años, nombres, oraciones y velocidad de la voz
 """
 from __future__ import annotations
@@ -98,8 +98,8 @@ def preparar_cap(cap: int, cap_id: str, real: dict, ctx: dict[str, Any], words: 
     """F36 §C.4 (sin modelo): (entrada, papel del cap) desde `01e_pantalla.json` del topic de Fase 1. La entrada trae
     las oraciones de la voz con tiempos, los beats con sus ventanas, los ítems del pool que el papel usa en este cap
     (en el gancho, con «la voz lo dice en el video»), el pico, la voz del video y la de los caps anteriores. El papel
-    del cap: los bloques (fichas ancladas a la oración de la voz y a su palabra), los sellos, los relojes, la tarjeta y
-    la alineación (oraciones del papel que no alinean, anotadas)."""
+    del cap: los bloques (fichas ancladas a la oración de la voz y a su palabra), los sellos, los relojes y la
+    alineación (oraciones del papel que no alinean, anotadas)."""
     from script_engine.m01e_pantalla import TIPO_DE_ESTILO, cargar_papel
     escaleta = ctx.get("escaleta") or {}
     sents = oraciones(words, time_offset)
@@ -110,13 +110,12 @@ def preparar_cap(cap: int, cap_id: str, real: dict, ctx: dict[str, Any], words: 
     pk = pico_cap(cap, escaleta, beats, sents, ctx.get("pool"))
     papel = cargar_papel(str(ctx.get("topic_id") or ctx.get("video_id")), steps_dir)
     rot: dict[str, Any] = {"papel": True, "modelo": None, "final": {"bloques": []}, "sellos": [], "relojes": [],
-                           "tarjeta": None, "alineacion": [], "sin_alinear": []}
+                           "alineacion": [], "sin_alinear": []}
     its: list[dict[str, Any]] = []
     if papel is None:
         rot["error"] = "sin guion en papel (01e_pantalla.json): el cap sale sin fichas ni sellos"
     else:
         rot["modelo"] = f"papel {papel.get('prompt_version')} ({papel.get('modelo')})"
-        rot["tarjeta"] = papel.get("tarjeta")
         pc = next((c for c in papel.get("caps") or [] if c["cap"] == cap_id), None)
         al = alinear(pc["oraciones"], sents) if pc else []
         rot["alineacion"] = al
