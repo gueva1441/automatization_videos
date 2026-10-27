@@ -808,3 +808,6 @@ Riesgos que el contrato no cubre:
 
 ### Adenda de CC (después del veredicto; el texto de arriba queda tal cual)
 - Filas 7 y 9: el veredicto quedó pegado acá, y el reporte, ESTADO y los dos logs de `f38/v6/` entran en el mismo commit.
+
+### Retomada (Omar: «liberé RAM, seguí»)
+- RAM medida otra vez: **10.9 GB libres de 31.7** (antes 9.6); Firefox abierto (15 procesos). **< 14 GB → PARADA otra vez**; no se cerró nada; el render no corrió. Medida en `f38/v6/ram_retomar.txt`.
