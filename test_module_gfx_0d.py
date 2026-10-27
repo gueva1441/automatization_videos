@@ -25,21 +25,6 @@ def test_libreria_sfx_existe_y_perfil_la_referencia():
     assert all(v["gain_db"] <= -18 for v in prof["sfx"].values())          # bajo la voz
 
 
-def test_sfx_se_corre_al_hueco_y_nunca_sobre_palabra_acentuada():
-    out = {"title_card": None, "callouts": [{"start": 2.1, "text": "Katrina"}], "archive_clippings": [],
-           "count_up": None, "evidence_zoom": None, "chapter_question": None}
-    sf = lambda b: (gc.SFX_DIR / "tic.wav", -18.0)                           # noqa: E731
-    ev = gd.sfx_events(out, WORDS, 0.0, sf)
-    # 2.1 cae sobre "Katrina" (2.0–2.4); el hueco 2.4–2.5 está a 0.3 s > 120 ms → acentuada → sin SFX
-    assert ev == []
-    out["callouts"][0]["start"] = 2.45                                      # dentro del hueco 2.4–2.5
-    ev = gd.sfx_events(out, WORDS, 0.0, sf)
-    assert len(ev) == 1 and ev[0]["shift_ms"] == 0
-    out["callouts"][0]["start"] = 0.55                                      # sobre "día" (corta), hueco a 50 ms
-    ev = gd.sfx_events(out, WORDS, 0.0, sf)
-    assert len(ev) == 1 and abs(ev[0]["shift_ms"]) <= gc.gfx_rules.sfx_shift_max_ms
-
-
 def test_chapter_question_candado_por_palabras_de_contenido():
     assert gd.question_ok("¿Por qué fallan los generadores de respaldo?", NEXT)
     assert not gd.question_ok("¿Quién apagó la prisión entera?", NEXT)      # "apagó", "entera" no están

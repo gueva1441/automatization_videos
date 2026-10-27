@@ -35,15 +35,6 @@ def test_candado_nivel_de_agua_y_reloj():
     assert ok["water_level"] is None and ok["time_ticker"] is None and len(rej) == 2
 
 
-def test_latido_en_los_sfx():
-    from gfx_config import sfx_for
-    from script_engine.gfx_director import sfx_events
-    out = {"evidence_zoom": {"start": 5.0, "latido_t": 6.0, "scene_idx": 0}}
-    ev = sfx_events(out, [], 0.0, sfx_for, [])
-    lat = [e for e in ev if e["block"] == "latido"]
-    assert lat and lat[0]["t"] == 6.0 and lat[0]["file"].endswith("latido.wav")
-
-
 def test_reloj_elige_la_esquina_libre():
     from script_engine.voz_datos import ticker_corner                         # F36 §D: el reloj vive en voz_datos
     tk = {"start": 6.0, "duration": 20.0}

@@ -253,3 +253,16 @@ def test_h_plan_edit_edita_el_papel(tmp_path):
     assert fi["editado"] and fi["estilo"] == "normal" and fi["palabra_en_oracion"]
     assert q["tarjeta"]["texto"] == "9 OCT 1963 · 22:39" and (d / "01e_pantalla.antes_de_edicion.json").exists()
     assert "LONGARONE · 1.269 de 1.328 habitantes" in (d / "01e_pantalla.md").read_text(encoding="utf-8")
+
+
+def test_i_el_unico_sfx_es_el_golpe_del_title_card():
+    """F36 §D (catálogo 18:17, componente 9): sfx solo del title card, corrido al hueco si cae sobre una palabra."""
+    from script_engine.gfx_layer import sfx_title_card
+    sfx_for = lambda b: (Path("golpe.wav"), -18.0) if b == "title_card" else (Path("otro.wav"), -18.0)
+    plan = {"title_card": {"kicker": "CAPÍTULO 1", "title": "t"}, "emphasis": [{"start": 5.0}], "callouts": [{"start": 9.0}],
+            "chapter_question": {"start": 20.0}}
+    ev = sfx_title_card(plan, [{"word": "hola", "start": 0.0, "end": 0.04}, {"word": "y", "start": 0.12, "end": 0.2}],
+                        0.0, sfx_for)
+    assert [e["block"] for e in ev] == ["title_card"] and ev[0]["t"] == 0.05 + ev[0]["shift_ms"] / 1000
+    assert sfx_title_card({"emphasis": [{"start": 5.0}]}, [], 0.0, sfx_for) == []
+

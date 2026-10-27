@@ -31,9 +31,8 @@ def test_misterio_reproduce_la_calibracion_0b():
                      "black_hold_sec", "peak_blocks",                      # F3: corte a negro 1 s + pico del cap
                      "accent_hex", "punch_scale", "emphasis_stamp_px", "identity_rules",
                      "intensity_director", "photo_first_zoom", "auto_icons",
-                     "peak_word",                                          # F4c: doctrina (F36 §D: sin las borradas)
-                     "visual_critic",                                                         # F4e: crítico visual
-                     "icon_literal_only", "critic_snapshot", "stamp_nouns_only"}, diffs       # F5b S4 · G1 · F5e
+                     "visual_critic",                                      # F4e: crítico visual
+                     "stamp_nouns_only"}, diffs                            # F5e (F36 §D: sin las perillas borradas)
     assert (rm.interrupt_max_sec, rm.grain_opacity, rm.vignette_opacity) == (18.0, 0.0, 0.15)
     assert (rm.question_auto, rm.question_dim, rm.question_pause_sec) == (True, 0.7, 3.0)
 

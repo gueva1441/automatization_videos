@@ -292,12 +292,9 @@ class GfxRules:
     intensity_director: bool = False         # F4b §1: Flash marca pico, intensidad por frase y cargas (gfx_intensity)
     photo_first_zoom: bool = False           # F4b §3: visión mira cada foto antes del zoom (gfx_vision)
     auto_icons: bool = False                 # F4b §4: palabra de carga concreta sin ícono propio → game-icons
-    icon_literal_only: bool = False          # F5b S4: ícono SOLO si la palabra está en icon_words del perfil (nunca la
                                              # categoría, nunca un adjetivo, sin game-icons automáticos)
     # F4c: doctrina del director (ANALISIS_director_trace_2026-10-20 §3). OFF en el motor; misterio las prende
-    peak_word: bool = False                  # R3: el pico lleva su palabra de mayor peso (sello + mood + ícono)
     visual_critic: bool = False              # F4e 6b: Gemini juzga cada bloque contra el cuadro real (suma/repite/estorba)
-    critic_snapshot: bool = False            # G1: el crítico mira el bloque DIBUJADO (snapshot de HyperFrames en t+1 s)
     stamp_nouns_only: bool = False           # F5e: sellos solo en sustantivos/adjetivos de carga (nunca verbos ni neutras)
     # F5f (pool): entre recortes y contra la voz
     quote_dim: float = 0.6
@@ -308,8 +305,6 @@ class GfxRules:
     sfx_gain_db: float = -18.0               # bajo la voz
     sfx_shift_max_ms: int = 120              # se corre al hueco entre palabras más cercano
     # keyword_emphasis + moods (F2b §2)
-    emphasis_base_per_cap: int = 3          # selección inicial (las más raras); el relleno de huecos sube hasta max_per_cap
-    emphasis_same_cat_gap_sec: float = 20.0  # mínimo entre moods de la misma categoría
     mood_dur: float = 2.5                    # identidad F3 · duración de la capa de mood (1–3 s)
     emphasis_stamp: bool = True              # sello rojo con la palabra (opcional por perfil)
     emphasis_stamp_sec: float = 1.6          # el sello se ve 1.6 s dentro del mood
@@ -396,8 +391,11 @@ def active_profile_name() -> str:
 
 # F36 §D: claves que el borrado de D dejó sin código (catálogo de Omar 18:17). El perfil vive fuera de git y lo
 # limpia Omar; mientras estén, se sacan al cargar (no rompen) y quedan en PERFIL_HUERFANAS (la lista va al reporte).
-HUERFANAS_TOKENS: frozenset[str] = frozenset({"anim_detail_label", "anim_figure", "anim_name_place", "anim_year", "archive_figure_echo_sec", "archive_head_max_words_pool", "archive_min_gap_sec", "callout_no_repeat", "dip_min_t", "doc_clippings", "fast_cut_sec", "fragment_director", "gap_fill", "garantizar_pico", "icon_array_dur", "icon_array_max", "icon_array_px", "icon_fallback_lucide", "icon_px", "icon_stamp_px", "question_max_words_auto", "question_rubric", "quote_dur", "quote_max_words", "quote_min_sec", "quote_min_words", "rotulista_effort", "rotulista_modelo", "rotulista_tope_usd", "source_tag_scale", "ticker_min_times", "zoom_label_margin_px", "zoom_scale"})
+HUERFANAS_TOKENS: frozenset[str] = frozenset({"peak_word", "icon_literal_only", "critic_snapshot", "emphasis_base_per_cap", "emphasis_same_cat_gap_sec", "anim_detail_label", "anim_figure", "anim_name_place", "anim_year", "archive_figure_echo_sec", "archive_head_max_words_pool", "archive_min_gap_sec", "callout_no_repeat", "dip_min_t", "doc_clippings", "fast_cut_sec", "fragment_director", "gap_fill", "garantizar_pico", "icon_array_dur", "icon_array_max", "icon_array_px", "icon_fallback_lucide", "icon_px", "icon_stamp_px", "question_max_words_auto", "question_rubric", "quote_dur", "quote_max_words", "quote_min_sec", "quote_min_words", "rotulista_effort", "rotulista_modelo", "rotulista_tope_usd", "source_tag_scale", "ticker_min_times", "zoom_label_margin_px", "zoom_scale"})
 HUERFANAS_BLOQUES: frozenset[str] = frozenset({"icon_callout", "icon_array", "source_tag"})
+# F36 §D: sfx por bloque salvo el golpe del title card (catálogo 18:17, componente 9)
+HUERFANAS_SFX: frozenset[str] = frozenset({"data_callout", "count_up", "archive_clipping", "evidence_zoom",
+                                           "chapter_question", "keyword_emphasis"})
 HUERFANAS_CLAVES: frozenset[str] = frozenset({"channel_bug"})
 PERFIL_HUERFANAS: list[str] = []
 
@@ -407,11 +405,16 @@ def _sin_huerfanas(prof: dict[str, Any]) -> list[str]:
     out = [k for k in prof if k in HUERFANAS_CLAVES]
     for k in out:
         prof.pop(k)
-    for campo, quitar in (("tokens", HUERFANAS_TOKENS), ("blocks", HUERFANAS_BLOQUES), ("sfx", HUERFANAS_BLOQUES)):
+    for campo, quitar in (("tokens", HUERFANAS_TOKENS), ("blocks", HUERFANAS_BLOQUES),
+                          ("sfx", HUERFANAS_BLOQUES | HUERFANAS_SFX)):
         d = prof.get(campo) or {}
         for k in sorted(set(d) & quitar):
             d.pop(k)
             out.append(f"{campo}.{k}")
+    for cat, m in (prof.get("moods") or {}).items():          # el sfx propio de cada mood (era del sello)
+        if isinstance(m, dict) and "sfx" in m:
+            m.pop("sfx")
+            out.append(f"moods.{cat}.sfx")
     return out
 
 

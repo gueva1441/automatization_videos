@@ -1,0 +1,21 @@
+EN PANTALLA: C 120 · D2 120 · iguales: True
+CORTADOS: C 59 · D2 8
+  solo en C: 51 {('punch_in', 'cortó realizador: punch_in del director: lo reemplaza el zoo'): 28, ('sello', 'cortó catálogo: sello del director por léxico: los sellos vi'): 18, ('sello', 'cortó catálogo: sello del pico: los sellos vienen del guion '): 5}
+  solo en D2: 0 {}
+CHEQUEOS distintos:
+RESUMEN por beat distinto:
+   ch01 beat 1 {'propuestos_director': (9, 2)} · cortados {'duplica': 4, 'tema': 3} → {}
+   ch02 beat 2 {'propuestos_director': (2, 1)} · cortados {'crítico': 2, 'duplica': 1} → {'crítico': 2}
+   ch02 beat 3 {'propuestos_director': (9, 2)} · cortados {'tema': 4, 'duplica': 3} → {}
+   ch03 beat 4 {'propuestos_director': (6, 1)} · cortados {'duplica': 3, 'tema': 2} → {}
+   ch03 beat 5 {'propuestos_director': (3, 1)} · cortados {'tema': 1, 'duplica': 1, 'crítico': 1} → {'crítico': 1}
+   ch04 beat 6 {'propuestos_director': (5, 1)} · cortados {'tema': 2, 'duplica': 2} → {}
+   ch04 beat 7 {'propuestos_director': (5, 2)} · cortados {'tema': 2, 'duplica': 2} → {'tema': 1}
+   ch05 beat 8 {'propuestos_director': (8, 3)} · cortados {'lectura': 1, 'tema': 3, 'duplica': 3} → {'lectura': 1, 'tema': 1}
+   ch05 beat 9 {'propuestos_director': (2, 0)} · cortados {'duplica': 1, 'tema': 1} → {}
+   ch06 beat 10 {'propuestos_director': (8, 2)} · cortados {'duplica': 4, 'tema': 3} → {'tema': 1}
+   ch06 beat 11 {'propuestos_director': (2, 1)} · cortados {'tema': 1, 'crítico': 1} → {'crítico': 1}
+   ch07 beat 12 {'propuestos_director': (6, 2)} · cortados {'tema': 2, 'duplica': 2} → {}
+   ch07 beat 13 {'propuestos_director': (5, 1)} · cortados {'tema': 2, 'duplica': 2} → {}
+OTRAS CLAVES distintas: ['mezcla']
+   mezcla {'mezcla': 'C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\f8s3-vajont-f30\\_fase2b_work\\mezcla_preview.wav', 'narracion': 'C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\f8s3-vajont-f30\\_fase2b_work\\_preview_narracion.wav', 'intro': 3.0, 'umbral_db': -30.46, 'umbral_de': 'duck_threshol → {'mezcla': 'C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\f8s3-vajont-f30\\_fase2b_work\\mezcla_preview.wav', 'narracion': 'C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\f8s3-vajont-f30\\_fase2b_work\\_preview_narracion.wav', 'intro': 3.0, 'umbral_db': -30.46, 'umbral_de': 'duck_threshol

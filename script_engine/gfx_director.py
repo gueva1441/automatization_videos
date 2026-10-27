@@ -42,7 +42,6 @@ from gemini_helpers import call_flash_json
 
 from gfx_config import (
     VALID_CALLOUT_KINDS,
-    active_moods,
     clamp_box,
     gfx_rules,
     max_per_cap,
@@ -763,11 +762,7 @@ def resolve_plan(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict]
 
     out["punch_in"] = [round(t_of(wi), 3) for wi in plan.get("punch_in_word_idx", [])]
 
-    # F2b §2: keyword_emphasis (regex sobre la narración, sin LLM): las palabras de carga más raras del cap
-    out["emphasis"] = []
-    if max_per_cap("keyword_emphasis") > 0 and active_moods() and words:
-        n0 = min(gfx_rules.emphasis_base_per_cap, max_per_cap("keyword_emphasis"))
-        place_emphasis(out, busy, words=words, scenes=scenes, ctx=ctx, time_offset=time_offset, limit=n0, log=log)
+    out["emphasis"] = []                 # F36 §D: los sellos vienen del guion en papel (clima.sellos_del_papel)
 
     if not out["archive_clippings"] and gfx_rules.archive_max_per_cap > 0:
         convert_callout_to_archive(out, busy, _place_archive, ctx=ctx, scenes=scenes, log=log, skip=_shares_counter)
@@ -810,57 +805,6 @@ def question_keyword(text: str) -> str:
     return max(cands, key=len) if cands else ""
 
 
-def sfx_events(out: dict[str, Any], words: list[dict], time_offset: float, sfx_for: Any,
-               log: list[str] | None = None) -> list[dict[str, Any]]:
-    """SFX del cap: (t, archivo, gain) por bloque visible según el perfil. Nunca sobre el ataque de una palabra:
-    se corre ≤ sfx_shift_max_ms al hueco entre palabras más cercano; si no hay hueco y cae sobre una palabra
-    acentuada (cifra, nombre propio o ≥ 7 letras), el SFX se descarta (menos frecuencia)."""
-    marks: list[tuple[float, str]] = []
-    if out.get("title_card"):
-        marks.append((0.05, "title_card"))
-    marks += [(c["start"], "data_callout") for c in out.get("callouts", [])]
-    if out.get("count_up"):
-        marks.append((out["count_up"]["start"], "count_up"))
-    marks += [(a["start"], "archive_clipping") for a in out.get("archive_clippings", [])]
-    ez = out.get("evidence_zoom")
-    if ez and "start" in ez:
-        marks.append((ez["start"] + gfx_rules.zoom_rect_sec, "evidence_zoom"))
-    if out.get("chapter_question"):
-        marks.append((out["chapter_question"]["start"], "chapter_question"))
-    marks += [(e["start"], "keyword_emphasis") for e in out.get("emphasis", []) or []]     # F2b §2: tic sordo
-    if out.get("icon_array"):
-        marks.append((out["icon_array"]["start"], "icon_array"))
-    if ez and ez.get("latido_t") is not None:                  # F3: latido del zoom de evidencia (lub-dub)
-        marks.append((float(ez["latido_t"]), "latido"))
-    spans = [(float(w["start"]) + time_offset, float(w["end"]) + time_offset, str(w.get("word", ""))) for w in words]
-    gaps = [(spans[i][1], spans[i + 1][0]) for i in range(len(spans) - 1) if spans[i + 1][0] > spans[i][1]]
-    win = gfx_rules.sfx_shift_max_ms / 1000.0
-    ev: list[dict[str, Any]] = []
-    from gfx_config import SFX_DIR
-    own = {round(float(e["start"]), 3): e["sfx"] for e in out.get("emphasis", []) or [] if e.get("sfx")}
-    for t, block in sorted(marks):
-        sf = (SFX_DIR / "latido.wav", -16.0) if block == "latido" else sfx_for(block)
-        if block == "keyword_emphasis" and round(float(t), 3) in own:      # F4c R5: SFX propio de la categoría
-            o = own[round(float(t), 3)]
-            sf = (SFX_DIR / o["file"], float(o.get("gain_db", -20)))
-        if sf is None:
-            continue
-        on = next((sp for sp in spans if sp[0] - 0.03 <= t < sp[1]), None)
-        tt = t
-        if on is not None:                                   # cae sobre una palabra → buscar hueco cercano
-            # punto del hueco más cercano, sin tocar el ataque de la palabra siguiente (30 ms de margen)
-            near = [x for x in (min(max(t, g0), max(g0, g1 - 0.03)) for g0, g1 in gaps) if abs(x - t) <= win]
-            if near:
-                tt = min(near, key=lambda x: abs(x - t))
-            elif re.search(r"\d", on[2]) or len(on[2].strip(".,;:!?¿¡")) >= 7 or on[2][:1].isupper():
-                if log is not None:                          # palabra acentuada sin hueco: sin SFX
-                    log.append(f"sfx descartado: {block} @ {t:.2f}s cae sobre {on[2]!r} sin hueco ≤ {gfx_rules.sfx_shift_max_ms} ms")
-                continue
-        ev.append({"t": round(max(0.0, tt), 3), "file": str(sf[0]), "gain_db": sf[1], "block": block,
-                   "shift_ms": round((tt - t) * 1000)})
-    return ev
-
-
 def headline_vs_body(head: str, body: str, kicker: str, fact: str, log: list[str]) -> tuple[str, str]:
     """Prohibido que el titular sea substring del cuerpo o viceversa. Si pasa: titular = kicker + año
     (solo si esa forma es LITERAL del fact, si no el candado lo mataría); si no, se quita el cuerpo."""
@@ -900,93 +844,6 @@ def word_freq(text: str) -> dict[str, int]:
     return freq
 
 
-def emphasis_candidates(words: list[dict], moods: dict[str, dict[str, Any]]) -> list[tuple[int, int, str, int, str]]:
-    """(índice, cantidad de palabras, categoría, peso 1–3, disparador) por cada palabra del léxico dicha por la voz.
-    Match exacto de tokens (las flexiones están listadas en el léxico); frases ("sin luz") antes que palabras."""
-    toks = [_tok(w.get("word", "")) for w in words]
-    trig = sorted(((cat, tuple(_tok(x) for x in t.split()), int(wt), t) for cat, m in moods.items()
-                   for t, wt in (m.get("triggers") or {}).items()), key=lambda ct: -len(ct[1]))
-    out: list[tuple[int, int, str, int, str]] = []
-    i = 0
-    while i < len(toks):
-        hit = next(((cat, tt, wt, t) for cat, tt, wt, t in trig if tt and tuple(toks[i:i + len(tt)]) == tt), None)
-        if hit:
-            out.append((i, len(hit[1]), hit[0], hit[2], hit[3]))
-            i += len(hit[1])
-        else:
-            i += 1
-    return out
-
-
-def _sentence_ids(words: list[dict]) -> list[int]:
-    """Id de frase por palabra (una frase termina en . ! ? …)."""
-    sid, out = 0, []
-    for w in words:
-        out.append(sid)
-        if re.search(r"[.!?…]['\"»”)]*$", str(w.get("word", "")).strip()):
-            sid += 1
-    return out
-
-
-def place_emphasis(out: dict[str, Any], busy: list[tuple[float, float]], *, words: list[dict], scenes: list[Any],
-                   ctx: dict[str, Any], time_offset: float, limit: int, window: tuple[float, float] | None = None,
-                   log: list[str] | None = None) -> int:
-    """Agrega hasta `limit` énfasis a out["emphasis"] (y a busy). Reglas: máx 1 por frase, ≥ emphasis_same_cat_gap_sec
-    entre moods de la misma categoría, intervalo del mood libre, tope max_per_cap; prioridad = peso del léxico (3 → 1)
-    y después la palabra más rara en la narración completa. El texto del sello es la palabra LITERAL de la voz. Devuelve cuántos agregó."""
-    from script_engine.gfx_project import scene_at
-    moods = ctx.get("moods") or active_moods()          # F4b §1: léxico del cap (fijo + cargas del director de intensidad)
-    dur = scenes[-1].end
-    freq = word_freq(ctx.get("narration_all") or " ".join(str(w.get("word", "")) for w in words))
-    sids = _sentence_ids(words)
-    cands = []
-    for i, n, cat, wt, trig in emphasis_candidates(words, moods):
-        if wt < 2:                                       # F4c R1/R4: peso 1 nunca dispara sello ni mood
-            continue
-        rarity = min(freq.get(_tok(w.get("word", "")), 1) for w in words[i:i + n])
-        cands.append((-wt, rarity, float(words[i]["start"]) + time_offset, i, n, cat, trig))
-    # F5f: en una frase, el sustantivo con ícono literal gana sobre el adjetivo de su misma categoría
-    from script_engine.gfx_peak import prefer_icon_nouns
-    by_sid: dict[int, list[dict[str, Any]]] = {}
-    for c in cands:
-        by_sid.setdefault(sids[c[3]], []).append({"word": c[6], "category": c[5], "weight": -c[0], "c": c})
-    cands = [h["c"] for hs in by_sid.values() for h in prefer_icon_nouns(hs, moods)]
-    used_sids = {e["sid"] for e in out["emphasis"]}
-    added = 0
-    for neg_wt, rarity, t, i, n, cat, trig in sorted(cands):
-        if added >= limit or len(out["emphasis"]) >= max_per_cap("keyword_emphasis"):
-            break
-        if window and not (window[0] + 1.0 < t < window[1] - 1.0):
-            continue
-        a, b = t, t + gfx_rules.mood_dur
-        if sids[i] in used_sids or b > dur or not all(b <= s or a >= e for s, e in busy):
-            continue
-        if any(e["category"] == cat and abs(e["start"] - t) < gfx_rules.emphasis_same_cat_gap_sec for e in out["emphasis"]):
-            continue
-        word = " ".join(str(w.get("word", "")).strip() for w in words[i:i + n])
-        word = re.sub(r"^[¿¡\"'«“(]+|[.,;:!?…\"'»”)]+$", "", word)
-        sc = scene_at(scenes, t)
-        out["emphasis"].append({"word": word, "category": cat, "layer": moods[cat]["layer"],
-                                # F4c R4: ícono por categoría + peso ≥ 2 (el de la palabra si lo hay; si no, el de la
-                                # categoría). Antes: solo si la palabra era lo que el ícono dibuja
-                                "icon": emphasis_icon(cat, trig, -neg_wt, moods),
-                                "icon_anim": moods[cat].get("icon_anim") or "stamp",
-                                "start": round(t, 3),
-                                "duration": round(gfx_rules.mood_dur, 3), "side": getattr(sc, "quiet_side", "right"),
-                                "stamp": gfx_rules.emphasis_stamp, "sid": sids[i], "rarity": rarity,
-                                "weight": -neg_wt, **({"sfx": moods[cat]["sfx"]} if moods[cat].get("sfx") else {})})
-        out["emphasis"].sort(key=lambda e: e["start"])
-        busy.append((a, b))
-        used_sids.add(sids[i])
-        added += 1
-        if log is not None:
-            log.append(f"emphasis: {word!r} ({cat}, peso {-neg_wt}, frec {rarity}) @ {t:.1f}s" + (" [relleno de hueco]" if window else ""))
-    return added
-
-
-NEVER_ICON_ALONE = {"agua", "aguas"}             # F4c R4: «agua» sola nunca lleva gota (es la palabra de todo el relato)
-
-
 _QTY_PEOPLE = r"(?:personas|reclusos|reclusas|presos|presas|prisioneros|prisioneras|internos|evacuados|muertos|" \
               r"víctimas|victimas|niños|ninos|hombres|mujeres|almas|turistas|testimonios|desaparecidos|fugitivos)"
 _QTY_MONEY = r"(?:dólares|dolares|millones|mil millones|USD)"
@@ -1012,33 +869,6 @@ def is_count_quantity(val: str, unit: str, fact: str) -> bool:
         if "$" in before or re.match(rf"\s*(?:\w+\s+)?(?:{_QTY_PEOPLE}|{_QTY_MONEY}|{_QTY_METRIC})\b", after):
             return True
     return False
-
-
-def emphasis_icon(cat: str, trig: str, weight: int, moods: dict[str, dict[str, Any]]) -> str | None:
-    """F4c R4: ícono solo con peso ≥ 2 y si la categoría tiene ícono; el de la palabra es preferencia, no condición."""
-    if weight < 2 or _tok(trig) in NEVER_ICON_ALONE:
-        return None
-    from gfx_config import gfx_rules
-    if gfx_rules.icon_literal_only:                 # F5b S4: un adjetivo nunca lleva ícono
-        from script_engine.m05_narrative import adjectives
-        if adjectives(trig):
-            return None
-    return category_icon(cat, _tok(trig), moods)
-
-
-def category_icon(cat: str, word: str | None, moods: dict[str, dict[str, Any]]) -> str | None:
-    """Ícono de la palabra si el léxico lo mapea; si no, el ícono más común de la categoría (veneno → calavera).
-    F5b S4 (token icon_literal_only): SOLO el mapa literal palabra→ícono; la categoría decide el mood, no el ícono.
-    Movida de gfx_fragments sin cambios (F36 §D: gfx_fragments se borró)."""
-    from collections import Counter
-    from gfx_config import gfx_rules
-    iw = (moods.get(cat) or {}).get("icon_words") or {}
-    if word and word in iw:
-        return iw[word]
-    if gfx_rules.icon_literal_only:
-        return None
-    common = Counter(iw.values()).most_common(1)
-    return common[0][0] if common else None
 
 
 def figure_digits(value: str) -> str:

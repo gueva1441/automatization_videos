@@ -19,9 +19,9 @@ from pathlib import Path
 from typing import Any
 
 # F36 §A: re-exports (nadie cambia de import); F36 §D: los de lo borrado se fueron con su código
-from script_engine.voz_utils import (_analiza, _ARTPREP, beat_de_oracion, _DIFERENCIA, _DIG, _fmt, _MAGNITUD, munon,
-                                     nombre_inicial, nombres, norm_oracion, _num_en, _num_tok, numero_en, numeros,
-                                     _NUMW, oraciones, oraciones_de_texto, _palabra_en, palabras,
+from script_engine.voz_utils import (_analiza, _ARTPREP, beat_de_oracion, _DIFERENCIA, _DIG, _fmt, frases, _MAGNITUD,
+                                     munon, nombre_inicial, nombres, norm_oracion, _num_en, _num_tok, numero_en,
+                                     numeros, _NUMW, oraciones, oraciones_de_texto, _palabra_en, palabras,
                                      palabras_de_contenido, _PARTICULAS, _raiz_en, _toks, _UNIDAD_1, _UNIDAD_2,
                                      _valor, _w2n, _W2N_LOCK)
 from script_engine.rotulista_filtros import (ancla_papel, candado, contradicciones, _DOC, FICHA, gancho_dicho,
@@ -29,10 +29,9 @@ from script_engine.rotulista_filtros import (ancla_papel, candado, contradiccion
                                              pide_documento, regla, spoiler, validar_papel)
 from script_engine.rotulista_colocar import (caben, caracteres, choca, colocar, _cubre, despues_del_corte, _escena_de,
                                              escena_final, hasta_el_corte, KIND_FICHA, LECTURA_CPS, tiempos, unidades)
-from script_engine.clima import (peak_word, _sello_queda, sellos_del_papel, TEMA_DE_MOOD, usadas_antes,
-                                 vocabulario_clima)
-from script_engine.voz_datos import (_entero, fechas_completas, _MES_RE, pico_cap, pico_plan, _raices, reloj_de_voz,
-                                     tarjeta_inicial)
+from script_engine.clima import (peak_word, sellos_del_papel, TEMA_DE_MOOD, usadas_antes, vocabulario_clima)
+from script_engine.voz_datos import (_entero, fechas_completas, _MES_RE, MESES, pico_cap, pico_plan, _raices,
+                                     reloj_de_voz, tarjeta_inicial, ticker_corner)
 
 
 def voz_del_video(ctx: dict[str, Any]) -> list[str]:

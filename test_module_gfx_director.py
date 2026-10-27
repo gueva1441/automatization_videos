@@ -330,8 +330,7 @@ def test_cache_de_version_anterior_se_re_llama(monkeypatch, tmp_path):
 
 
 def _res(monkeypatch, plan, fsrc=None):
-    monkeypatch.setattr(gd, "active_moods", lambda: {})
-    log: list[str] = []
+    log: list[str] = []                               # F36 §D: ya no hay sellos por léxico que apagar
     ctx = {**CTX, "fact_source": fsrc or {}, "eligible": None}
     return gd.resolve_plan(plan, ctx=ctx, words=WORDS, scenes=SCENES, log=log), log
 
@@ -357,8 +356,7 @@ def test_cap_sin_recortes_convierte_el_mejor_callout(monkeypatch):
 
 
 def _res2(monkeypatch, plan, *, facts=None, elig=None, counted=None, scenes=None):
-    monkeypatch.setattr(gd, "active_moods", lambda: {})
-    log: list[str] = []
+    log: list[str] = []                               # F36 §D: ya no hay sellos por léxico que apagar
     ctx = {**CTX, "facts": facts or FACTS, "fact_source": {}, "eligible": elig, "video_counted": counted or set()}
     return gd.resolve_plan(plan, ctx=ctx, words=WORDS, scenes=scenes or SCENES, log=log), log
 

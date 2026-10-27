@@ -9,7 +9,6 @@ from __future__ import annotations
 import re
 from typing import Any
 
-from gfx_config import gfx_rules
 from script_engine import evidence as ev
 from script_engine.voz_utils import _DIG, _w2n
 
@@ -134,24 +133,14 @@ def tarjeta_inicial(escaleta: dict, pool: dict | None) -> dict[str, Any]:
 
 def pico_plan(plan: dict[str, Any], ent: dict[str, Any], *, words: list[dict], scenes: list[Any], moods: dict,
               intensity: dict | None, time_offset: float, freq: dict | None, log: list[str]) -> dict[str, Any] | None:
-    """El pico del plan = el de la escaleta (pico_cap), sin privilegio de bloque: solo la palabra del pico (el sello de
-    siempre, ≤ 1). gfx_peak no decide el pico cuando hay escaleta."""
-    from script_engine.gfx_peak import sentences
+    """El pico del plan = el de la escaleta (pico_cap), sin privilegio de bloque. F36 §D: sin sello propio de la palabra
+    del pico (los sellos vienen del guion en papel); el pico marca dónde va el zoom_punch."""
     pk = ent.get("pico")
     if not pk:
         return None
-    s = sentences(words, time_offset)[pk["sentence_idx"]]
-    peak = {**s, "t": pk["t"]}
     plan["pico"] = {"t": pk["t"], "block": None, "word": None, "sentence": pk["frase"], "sentence_idx": pk["sentence_idx"],
                     "beat": pk["beat"], "fuente": pk["fuente"]}
-    from gfx_config import gfx_rules
-    if gfx_rules.peak_word:
-        em = add_peak_word(plan, peak, words=words, scenes=scenes, moods=moods, block=None, time_offset=time_offset,
-                           freq=freq, log=log)
-        if em is not None:
-            plan["pico"]["word"] = plan["pico"]["palabra"] = em["word"]
-    log.append(f"  pico (escaleta, beat {pk['beat']}): oración [{pk['sentence_idx']}] @ {pk['t']:.1f}s «{pk['frase'][:70]}»"
-               f" · palabra {plan['pico'].get('word')!r}")
+    log.append(f"  pico (escaleta, beat {pk['beat']}): oración [{pk['sentence_idx']}] @ {pk['t']:.1f}s «{pk['frase'][:70]}»")
     return plan["pico"]
 
 
@@ -173,39 +162,3 @@ def ticker_corner(tk: dict[str, Any], plan: dict[str, Any]) -> dict[str, Any]:
     return tk
 
 
-BLOCK_CATEGORY = {"water_level": "agua"}            # categoría que el bloque grande ya muestra
-
-
-def add_peak_word(plan: dict[str, Any], peak: dict[str, Any], *, words: list[dict], scenes: list[Any],
-                  moods: dict[str, dict], block: str | None, time_offset: float = 0.0,
-                  freq: dict[str, int] | None = None, log: list[str] | None = None) -> dict[str, Any] | None:
-    """Sello + mood + ícono de categoría de la palabra del pico (reemplaza el énfasis que hubiera en esa frase)."""
-    from script_engine.clima import peak_word
-    from script_engine.gfx_director import emphasis_icon
-    big = None
-    if block == "archive_clippings":
-        big = next((a for a in plan.get("archive_clippings") or [] if a.get("peak")), None)
-    bcat = BLOCK_CATEGORY.get(block or "") or (big or {}).get("category")
-    h = peak_word(peak, words, moods, block_category=bcat, freq=freq)
-    if h is None:
-        return None
-    m = moods[h["category"]]
-    t = round(float(words[h["i"]]["start"]) + time_offset, 3)
-    lit = re.sub(r"^[¿¡\"'«“(]+|[.,;:!?…\"'»”)]+$", "", str(words[h["i"]]["word"]).strip())
-    sc = next((s for s in scenes if s.start <= t < s.end), None)
-    side = getattr(sc, "quiet_side", "right") if sc is not None else "right"
-    if big is not None and big.get("side") == side:              # nunca encima del recorte del pico
-        side = "left" if side == "right" else "right"
-    plan["emphasis"] = [e for e in plan.get("emphasis") or [] if not (peak["t0"] - 0.05 <= e["start"] <= peak["t1"])]
-    em = {"word": lit, "category": h["category"], "layer": m.get("layer"), "icon": emphasis_icon(h["category"], h["word"],
-          h["weight"], moods), "icon_anim": m.get("icon_anim") or "stamp", "start": t,
-          "duration": round(gfx_rules.mood_dur, 3), "side": side, "stamp": gfx_rules.emphasis_stamp,
-          "weight": h["weight"], "peak_word": True, **({"sfx": m["sfx"]} if m.get("sfx") else {})}
-    if block == "emphasis":
-        em["peak"] = True
-    plan["emphasis"].append(em)
-    plan["emphasis"].sort(key=lambda e: e["start"])
-    if log is not None:
-        log.append(f"pico: palabra «{lit}» ({h['category']}, peso {h['weight']}) @ {t:.1f}s → sello + mood"
-                   + (f" + ícono {em['icon']}" if em["icon"] else ""))
-    return em

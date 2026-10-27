@@ -59,19 +59,6 @@ def _scenes(durs, ranks=None):
     return out
 
 
-def test_golpes_de_zoom_max_4_uno_por_frase_lejos_del_pico():
-    words = W("El agua subió. Estaban sumergidos bajo la inundación. Las celdas se cerraron. El encierro siguió días. "
-              "Nadie los ayudó. La inundación volvió. Las celdas quedaron cerradas. Todo terminó en encierro.")
-    t_sum = next(w["start"] for w in words if w["word"] == "sumergidos")
-    plan = {"punch_in": [t_sum, 3.5], "callouts": [], "emphasis": [], "pico": {"t": t_sum}}
-    got = st.select_punches(plan, words, moods=MOODS)
-    assert len(got) <= 4 and all(abs(t - t_sum) > 5.0 for t in got)
-    sents = [st._sentence_of(t, words, 0.0) for t in got]
-    assert len(sents) == len(set(sents))                                            # nunca dos en la misma frase
-    assert not st.identity_violations({"punch_in": got, "pico": {"t": t_sum}})
-    assert st.identity_violations({"punch_in": [1, 2, 3, 4, 5]})                    # > 4
-
-
 def test_few_shot_del_plan_dorado():
     shot = st.golden_fewshot()
     assert shot.startswith("ASÍ SE ARMA UN CAPÍTULO") and "recorte" in shot and "nivel de agua" in shot

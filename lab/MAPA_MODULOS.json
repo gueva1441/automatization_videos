@@ -21,22 +21,21 @@
   {
    "modulo": "gfx_director",
    "archivo": "script_engine/gfx_director.py",
-   "sticker": "El primer borrador de la pantalla: Gemini Flash propone bloques mirando la narración; acá también se carga el contexto del cap y se arman los sfx de cada bloque.",
+   "sticker": "El primer borrador de la pantalla: Gemini Flash propone bloques mirando la narración (de eso queda el title card); acá también se carga el contexto del cap.",
    "recibe": "narración, hechos, escenas",
-   "entrega": "plan crudo y resuelto, contexto, eventos de sfx",
+   "entrega": "plan crudo y resuelto, contexto",
    "lo_llama": [
     "fase2b.py",
     "gfx_lab_server.py",
     "script_engine/gfx_icons/make_bug.py",
     "script_engine/gfx_layer.py",
-    "script_engine/gfx_literal_lock.py",
-    "script_engine/voz_datos.py"
+    "script_engine/gfx_literal_lock.py"
    ],
    "tests": 9,
    "lab": 2,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
-   "estado": "vivo (sus textos los reemplaza el rotulista; sus sellos, el catálogo)",
+   "estado": "vivo (del borrador queda el title card; F36 D: sin sellos por léxico ni sfx por bloque)",
    "doc": "gfx_director.py — Director de gráficos por capítulo (Gemini Flash, 1 call por cap)."
   },
   {
@@ -118,10 +117,8 @@
     "fase2b.py",
     "script_engine/clima.py",
     "script_engine/gfx_critic.py",
-    "script_engine/gfx_director.py",
     "script_engine/gfx_layer.py",
     "script_engine/gfx_pool.py",
-    "script_engine/voz_datos.py",
     "script_engine/voz_utils.py"
    ],
    "tests": 7,
@@ -453,8 +450,7 @@
    "lo_llama": [
     "script_engine/gfx_layer.py",
     "script_engine/gfx_rotulista.py",
-    "script_engine/m01e_pantalla.py",
-    "script_engine/voz_datos.py"
+    "script_engine/m01e_pantalla.py"
    ],
    "tests": 3,
    "lab": 0,
@@ -506,7 +502,7 @@
    "archivo": "gfx_config.py",
    "sticker": "El tablero de perillas de la capa gráfica: duraciones, tamaños, colores y qué reglas están prendidas; el perfil del canal (identidad F3) pisa los valores; el perfil trae también el vocabulario de sellos de clima (`sellos_clima`).",
    "recibe": "gfx_profiles/<perfil>.json",
-   "entrega": "`gfx_rules`, `gfx_render`, moods, sfx por bloque",
+   "entrega": "`gfx_rules`, `gfx_render`, moods, sfx del title card, claves huérfanas del perfil",
    "lo_llama": [
     "fase2b.py",
     "gfx_lab_server.py",
@@ -524,8 +520,7 @@
     "script_engine/gfx_safe_bake.py",
     "script_engine/gfx_sparse.py",
     "script_engine/gfx_style.py",
-    "script_engine/rotulista_colocar.py",
-    "script_engine/voz_datos.py"
+    "script_engine/rotulista_colocar.py"
    ],
    "tests": 13,
    "lab": 5,
@@ -693,13 +688,6 @@
    ]
   },
   {
-   "de": "voz_datos",
-   "a": "gfx_director",
-   "donde": [
-    "en add_peak_word"
-   ]
-  },
-  {
    "de": "make_bug",
    "a": "gfx_director",
    "donde": [
@@ -798,13 +786,6 @@
    ]
   },
   {
-   "de": "gfx_director",
-   "a": "gfx_peak",
-   "donde": [
-    "en place_emphasis"
-   ]
-  },
-  {
    "de": "gfx_layer",
    "a": "gfx_peak",
    "donde": [
@@ -816,13 +797,6 @@
    "a": "gfx_peak",
    "donde": [
     "en pool_ticker"
-   ]
-  },
-  {
-   "de": "voz_datos",
-   "a": "gfx_peak",
-   "donde": [
-    "en pico_plan"
    ]
   },
   {
@@ -908,7 +882,6 @@
    "a": "gfx_project",
    "donde": [
     "en resolve_plan",
-    "en place_emphasis",
     "en convert_callout_to_archive"
    ]
   },
@@ -1287,13 +1260,6 @@
    ]
   },
   {
-   "de": "voz_datos",
-   "a": "clima",
-   "donde": [
-    "en add_peak_word"
-   ]
-  },
-  {
    "de": "gfx_layer",
    "a": "voz_datos",
    "donde": [
@@ -1389,10 +1355,7 @@
    "de": "gfx_director",
    "a": "gfx_config",
    "donde": [
-    "arriba",
-    "en sfx_events",
-    "en emphasis_icon",
-    "en category_icon"
+    "arriba"
    ]
   },
   {
@@ -1475,14 +1438,6 @@
    "a": "gfx_config",
    "donde": [
     "en escena_final"
-   ]
-  },
-  {
-   "de": "voz_datos",
-   "a": "gfx_config",
-   "donde": [
-    "arriba",
-    "en pico_plan"
    ]
   },
   {
@@ -1580,23 +1535,8 @@
  ],
  "muertos": [
   {
-   "que": "gfx_style.select_punches",
-   "por_que": "**se llama y se descarta**: el realizador saca todos los `punch_in` (los reemplaza el zoom_punch del pico)",
-   "desde": "2fde994 2026-10-26 feat(f32-b): arreglos del guion de pantalla — B.1 ch01 sin pre-roll y"
-  },
-  {
-   "que": "gfx_director.place_emphasis (sellos por léxico)",
-   "por_que": "**se llama y se descarta**: los sellos vienen del papel (`sellos_del_papel`)",
-   "desde": "9e9d844 2026-10-26 feat(f36-c): m01e_pantalla — el guion de pantalla en papel va a Fase "
-  },
-  {
-   "que": "voz_datos.add_peak_word (el sello de la palabra del pico)",
-   "por_que": "**se llama y se descarta**: los sellos vienen del papel",
-   "desde": "9e9d844 2026-10-26 feat(f36-c): m01e_pantalla — el guion de pantalla en papel va a Fase "
-  },
-  {
-   "que": "gfx_director (el borrador de Gemini: datos, recortes, cita, contador, lupa)",
-   "por_que": "**se llama y se descarta**: `colocar` lo reemplaza por el papel; del borrador queda el title card",
+   "que": "gfx_director (el borrador de Gemini: datos, recortes, cita, contador, lupa, punch_in)",
+   "por_que": "**se llama y se descarta**: `colocar` lo reemplaza por el papel y el único golpe es el zoom_punch del pico; del borrador queda el title card. Borrarlo cambia el prompt del director (fuera de F36: abierto)",
    "desde": "9e9d844 2026-10-26 feat(f36-c): m01e_pantalla — el guion de pantalla en papel va a Fase "
   }
  ]

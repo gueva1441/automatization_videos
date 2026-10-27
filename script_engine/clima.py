@@ -12,12 +12,6 @@ from pathlib import Path
 from typing import Any, Callable
 
 
-def _sello_queda(e: dict, plan: dict) -> bool:
-    """El sello que sobrevive al realizador (solo el de la palabra del pico)."""
-    pw = str((plan.get("pico") or {}).get("word") or "").lower().strip(".,;:")
-    return bool(e.get("peak_word")) or (bool(pw) and str(e.get("word", "")).lower().strip(".,;:") == pw)
-
-
 # ═══════════════════════ sellos de clima (F32 §B.6 → F34 §A.4) ═══════════════════════
 
 # el catálogo de Omar (25-10: muerte, agua, veneno…) = los moods del perfil; la tabla da el nombre del tema de cada uno
@@ -41,17 +35,13 @@ def sellos_del_papel(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any
     un mood (peak_word) o, si no hay, el inicio de la oración. Después lo mecánico: la palabra es del vocabulario, no
     salió antes en el video, no cruza el corte de su escena; el crítico («¿estorba?», B.2) antes del reparto; y el
     reparto: nunca al mismo tiempo que otro bloque (title card, texto, reloj, otro sello: no se solapan ni se tocan,
-    DECISIONES 17:58). «Uno por beat» ya lo decidió el papel. Los sellos del director y el del pico salen (el pico no
-    trae sello propio: el papel decide). Corre después de escena_final."""
+    DECISIONES 17:58). «Uno por beat» ya lo decidió el papel. F36 §D: no hay otros sellos (ni del director ni de la
+    palabra del pico) ni sfx propio del sello. Corre después de escena_final."""
     from gfx_config import gfx_rules
     from script_engine.gfx_peak import sentences
     from script_engine.gfx_project import scene_at
     from script_engine.rotulista_colocar import choca
     filas: list[dict[str, Any]] = []
-    for e in plan.get("emphasis") or []:
-        filas.append({"bloque": "emphasis", "texto": e.get("word"), "t": e.get("start"), "accion": "fuera",
-                      "regla": "tema", "quien": "catálogo", "motivo": "sello " + ("del pico" if _sello_queda(e, plan)
-                      else "del director por léxico") + ": los sellos vienen del guion en papel"})
     plan["emphasis"] = []
     if not scenes:
         return filas
@@ -94,7 +84,7 @@ def sellos_del_papel(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any
         m = (moods.get(str(h["category"])) or {}) if h else {}
         base = {"category": h["category"] if h else None, "layer": m.get("layer"), "icon_anim": m.get("icon_anim") or "stamp",
                 "side": getattr(sc, "quiet_side", "right") or "right", "stamp": gfx_rules.emphasis_stamp,
-                "weight": h["weight"] if h else 0, **({"sfx": m["sfx"]} if m.get("sfx") else {}),
+                "weight": h["weight"] if h else 0,
                 "word": palabra, "start": t, "duration": dur, "por_tema": True, "clima": True, "papel": True,
                 "tema": TEMA_DE_MOOD.get(str(h["category"]), h["category"]) if h else None,
                 "palabra_voz": re.sub(r"^[¿¡\"'«“(]+|[.,;:!?…\"'»”)]+$", "", str(words[h["i"]]["word"]).strip()) if h else None,

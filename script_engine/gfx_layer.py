@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import json
 import math
+import re
 import subprocess
 import time
 from pathlib import Path
@@ -403,6 +404,32 @@ def _contact_sheet(resolved: dict[str, Any], out: Path, work_dir: Path, cap: str
         log.append(f"  hoja de contactos: falló ({type(e).__name__}: {str(e)[:100]})")
 
 
+def sfx_title_card(out: dict[str, Any], words: list[dict], time_offset: float, sfx_for: Any,
+                   log: list[str] | None = None) -> list[dict[str, Any]]:
+    """F36 §D (catálogo 18:17: «sfx: solo el golpe del title card»): el sfx del title card a 0.05 s, con la regla de
+    siempre (de gfx_director.sfx_events, que se borró): nunca sobre el ataque de una palabra; se corre ≤ sfx_shift_max_ms
+    al hueco más cercano; si no hay hueco y cae sobre una palabra acentuada (cifra, nombre propio o ≥ 7 letras), no va."""
+    sf = sfx_for("title_card") if out.get("title_card") else None
+    if sf is None:
+        return []
+    t = 0.05
+    spans = [(float(w["start"]) + time_offset, float(w["end"]) + time_offset, str(w.get("word", ""))) for w in words]
+    gaps = [(spans[i][1], spans[i + 1][0]) for i in range(len(spans) - 1) if spans[i + 1][0] > spans[i][1]]
+    win = gfx_rules.sfx_shift_max_ms / 1000.0
+    on = next((sp for sp in spans if sp[0] - 0.03 <= t < sp[1]), None)
+    tt = t
+    if on is not None:
+        near = [x for x in (min(max(t, g0), max(g0, g1 - 0.03)) for g0, g1 in gaps) if abs(x - t) <= win]
+        if near:
+            tt = min(near, key=lambda x: abs(x - t))
+        elif re.search(r"\d", on[2]) or len(on[2].strip(".,;:!?¿¡")) >= 7 or on[2][:1].isupper():
+            if log is not None:
+                log.append(f"sfx descartado: title_card @ {t:.2f}s cae sobre {on[2]!r} sin hueco ≤ {gfx_rules.sfx_shift_max_ms} ms")
+            return []
+    return [{"t": round(max(0.0, tt), 3), "file": str(sf[0]), "gain_db": sf[1], "block": "title_card",
+             "shift_ms": round((tt - t) * 1000)}]
+
+
 def _moods_activos() -> dict[str, dict]:
     from gfx_config import active_moods
     return active_moods()
@@ -680,10 +707,10 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                                  "reloj_voz": ({"fecha": f"{tk_v.get('day')} {tk_v.get('month')} {tk_v.get('tail')}",
                                                 "sentence_idx": tk_v.get("sentence_idx")} if tk_v else None)}
         if gfx_plan_override is None and gfx_rules.identity_rules:   # F4 §2: formas de la identidad del canal
-            from script_engine.gfx_style import plan_movements, select_punches
+            from script_engine.gfx_style import plan_movements
             prompts = ctx["script_chapter"].get("image_prompts") or []
             movs = plan_movements(scenes, plan, prompts, log)
-            resolved["punch_in"] = select_punches(resolved, words, time_offset=time_offset, moods=ctx.get("moods"), log=log)
+            resolved["punch_in"] = []          # DECISIONES (F32): el único golpe es el zoom_punch del pico (F36 §D)
             resolved["identity"] = {"movimientos": movs}
         # F3: pregunta de cierre generada + pausa real (alarga el base; fase2b rellena el audio con silencio)
         if gfx_plan_override is None:
@@ -746,10 +773,9 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         if not congelado:                                  # F34 §A.7.1: el aprobado no se toca (md5 de la aprobación)
             (work_dir / f"gfx_plan_{cap}.resolved.json").write_text(
                 json.dumps({"plan": resolved, "rejected": rejected}, ensure_ascii=False, indent=1), encoding="utf-8")
-        # F2 §0d: SFX por bloque visible → fase2b los mezcla en el pase de audio (si --sfx)
+        # F2 §0d → F36 §D (catálogo 18:17, componente 9): el único sfx es el golpe del title card
         from gfx_config import sfx_for
-        from script_engine.gfx_director import sfx_events
-        sfx = sfx_events(resolved, words, time_offset, sfx_for, log)
+        sfx = sfx_title_card(resolved, words, time_offset, sfx_for, log)
         (work_dir / f"gfx_sfx_{cap}.json").write_text(json.dumps(sfx, ensure_ascii=False, indent=1), encoding="utf-8")
         log.append(f"  sfx: {len(sfx)} eventos ({', '.join(e['block'] for e in sfx)})")
         escenas_a_disco(work_dir, cap, scenes, clip_dur=clip_dur, time_offset=time_offset, pre_roll=pre_roll, pause=pause)

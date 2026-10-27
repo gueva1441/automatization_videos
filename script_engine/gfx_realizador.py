@@ -245,8 +245,8 @@ def finalizar(plan: dict[str, Any], real: dict[str, Any], log: list[str]) -> lis
     if plan.get("count_up") and not plan["count_up"].get("rotulista"):   # F36 §B.1: el del rotulista (no dicho) queda
         fuera("count_up", plan["count_up"], "contador de una cifra que dice la voz (repite el subtítulo)")
         plan["count_up"] = None
-    # 2. sellos: solo el del pico, sin ícono figurativo. F32 §B.6: con el rotulista, también los del tema de su oración
-    # (gfx_rotulista.sellos_por_tema ya les aplicó el catálogo: 1 por beat, nunca sobre un texto ni dos en una escena)
+    # 2. sellos: solo el del pico, sin ícono figurativo. Con el rotulista, los del guion en papel (clima.sellos_del_papel,
+    # F36 §C.4: ya pasaron el crítico y «nunca al mismo tiempo»)
     pk = plan.get("pico") or {}
     sellos = _lista(plan, "emphasis")
     del_pico = [e for e in sellos if e.get("peak_word") or (pk.get("word") and str(e.get("word", "")).lower().strip(".,;:")

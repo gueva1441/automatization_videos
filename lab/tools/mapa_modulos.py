@@ -35,7 +35,7 @@ M: dict[str, tuple[str, str, str, str, str]] = {
     "gfx_config": ("El tablero de perillas de la capa gráfica: duraciones, tamaños, colores y qué reglas están "
                    "prendidas; el perfil del canal (identidad F3) pisa los valores; el perfil trae también el vocabulario de "
                    "sellos de clima (`sellos_clima`).", "gfx_profiles/<perfil>.json",
-                   "`gfx_rules`, `gfx_render`, moods, sfx por bloque", "F1", "vivo"),
+                   "`gfx_rules`, `gfx_render`, moods, sfx del title card, claves huérfanas del perfil", "F1", "vivo"),
     "transition_config": ("Las perillas del pegado entre capítulos (calidad del video, fps) y el inventario de "
                           "transiciones de los perfiles de arte.", "—", "`transition_render` y el inventario", "previo a F1",
                           "vivo (con --gfx solo calidad y fps; el inventario es del camino sin gfx)"),
@@ -51,10 +51,10 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                   "con el guion aprobado dibuja el plan aprobado tal cual (plan congelado) y no lo reescribe.",
                   "visual base del cap + palabras con tiempos + contexto", "`chNN_gfx.mp4`, plan resuelto, sfx, "
                   "escenas", "F1", "vivo"),
-    "gfx_director": ("El primer borrador de la pantalla: Gemini Flash propone bloques mirando la narración; acá también "
-                     "se carga el contexto del cap y se arman los sfx de cada bloque.", "narración, hechos, escenas",
-                     "plan crudo y resuelto, contexto, eventos de sfx", "F1",
-                     "vivo (sus textos los reemplaza el rotulista; sus sellos, el catálogo)"),
+    "gfx_director": ("El primer borrador de la pantalla: Gemini Flash propone bloques mirando la narración (de eso queda "
+                     "el title card); acá también se carga el contexto del cap.", "narración, hechos, escenas",
+                     "plan crudo y resuelto, contexto", "F1",
+                     "vivo (del borrador queda el title card; F36 D: sin sellos por léxico ni sfx por bloque)"),
     "gfx_realizador": ("Hace que la pantalla obedezca a la escaleta: ventanas de tiempo de cada beat, qué datos puede "
                        "mostrar cada uno, la pregunta de cierre del último beat y el cierre del plan (F36 D: sin el "
                        "rótulo de respaldo del pico).", "escaleta + narración por beat + pool", "`gfx_beats_chNN.json`, "
@@ -153,14 +153,9 @@ M: dict[str, tuple[str, str, str, str, str]] = {
 
 # funciones (o archivos) que el camino de producción ya no llama: (qué, por qué, commit desde el que no corre)
 MUERTOS = [
-    ("gfx_style.select_punches", "**se llama y se descarta**: el realizador saca todos los `punch_in` (los reemplaza el "
-     "zoom_punch del pico)", "2fde994"),
-    ("gfx_director.place_emphasis (sellos por léxico)", "**se llama y se descarta**: los sellos vienen del papel "
-     "(`sellos_del_papel`)", "9e9d844"),
-    ("voz_datos.add_peak_word (el sello de la palabra del pico)", "**se llama y se descarta**: los sellos vienen del papel",
-     "9e9d844"),
-    ("gfx_director (el borrador de Gemini: datos, recortes, cita, contador, lupa)", "**se llama y se descarta**: "
-     "`colocar` lo reemplaza por el papel; del borrador queda el title card", "9e9d844"),
+    ("gfx_director (el borrador de Gemini: datos, recortes, cita, contador, lupa, punch_in)", "**se llama y se descarta**: "
+     "`colocar` lo reemplaza por el papel y el único golpe es el zoom_punch del pico; del borrador queda el title card. "
+     "Borrarlo cambia el prompt del director (fuera de F36: abierto)", "9e9d844"),
 ]
 
 

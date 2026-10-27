@@ -23,7 +23,7 @@ import re
 from pathlib import Path
 from typing import Any
 
-from gfx_config import GFX_PROFILES_DIR, active_moods, gfx_rules
+from gfx_config import GFX_PROFILES_DIR, gfx_rules
 
 PEAK_CLEAR_SEC = 5.0
 
@@ -150,69 +150,6 @@ def transiciones_por_relato(scenes: list[Any], plan: dict[str, Any], beats: list
             tr = {"kind": "cut", "frames": 0, "why": "corte"}
         out[s.idx] = {**tr, "rank": s.rank}
     return out
-
-
-def _word_weight(word: str, moods: dict[str, dict[str, Any]]) -> int:
-    w = re.sub(r"[^\wáéíóúñü]", "", str(word).lower())
-    return max((int((m.get("triggers") or {}).get(w, 0)) for m in moods.values()), default=0)
-
-
-def _sentence_of(t: float, words: list[dict], time_offset: float) -> int:
-    sid, best = 0, 0
-    for w in words:
-        if float(w["start"]) + time_offset <= t + 1e-6:
-            best = sid
-        if re.search(r"[.!?…]['\"»”)]*$", str(w.get("word", "")).strip()):
-            sid += 1
-    return best
-
-
-def select_punches(plan: dict[str, Any], words: list[dict], *, time_offset: float = 0.0,
-                   moods: dict[str, dict[str, Any]] | None = None, log: list[str] | None = None) -> list[float]:
-    """Golpes de zoom de la identidad (§1.2.1): candidatos = los del plan (LLM + relleno) + palabras del léxico de
-    peso ≥ 2 + disparadores de datos; puntaje = peso de la palabra (+2 dato, +1 propuesto por el director);
-    máx punch_max_identity, uno por frase, nunca a ±5 s del pico. Devuelve los instantes elegidos (ordenados)."""
-    moods = moods if moods is not None else active_moods()
-    peak_t = (plan.get("pico") or {}).get("t")
-    cands: dict[float, float] = {}
-
-    def add(t: float, score: float) -> None:
-        t = round(float(t), 3)
-        cands[t] = max(cands.get(t, 0.0), score)
-
-    def weight_at(t: float) -> int:
-        w = min(words, key=lambda x: abs(float(x["start"]) + time_offset - t), default=None)
-        return _word_weight(w["word"], moods) if w else 0
-
-    for t in plan.get("punch_in", []) or []:
-        add(t, weight_at(t) + 1)
-    for w in words:
-        wt = _word_weight(w["word"], moods)
-        if wt >= 2:
-            add(float(w["start"]) + time_offset, wt)
-    for c in plan.get("callouts", []) or []:
-        add(c["start"], weight_at(c["start"]) + 2)
-    chosen: list[float] = []
-    used_sent: set[int] = set()
-    busy = [(e["start"], e["start"] + 1.0) for e in plan.get("emphasis") or []]  # el sello rojo ya golpea
-    for t, sc in sorted(cands.items(), key=lambda kv: (-kv[1], kv[0])):
-        if len(chosen) >= gfx_rules.punch_max_identity:
-            break
-        if peak_t is not None and abs(t - float(peak_t)) <= PEAK_CLEAR_SEC:
-            continue
-        if t < gfx_rules.title_dur:                      # el título ya abre el cap
-            continue
-        sid = _sentence_of(t, words, time_offset)
-        if sid in used_sent:
-            continue
-        if any(a - 0.05 <= t < b for a, b in busy) and sc < 3:
-            continue
-        used_sent.add(sid)
-        chosen.append(t)
-    chosen.sort()
-    if log is not None:
-        log.append(f"  identidad: golpes de zoom {len(chosen)} (de {len(cands)} candidatos) @ {chosen}")
-    return chosen
 
 
 _ELEM = {"title_card": "título", "callouts": "dato", "archive_clippings": "recorte", "evidence_zoom": "zoom de detalle",
