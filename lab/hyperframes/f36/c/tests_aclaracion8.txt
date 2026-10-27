@@ -1,0 +1,10 @@
+test_module_f36c_pantalla.py::test_a_salida_valida_el_esquema PASSED     [ 11%]
+test_module_f36c_pantalla.py::test_b_candado_en_papel_rechaza_el_anio_que_no_esta_en_el_dato PASSED [ 22%]
+test_module_f36c_pantalla.py::test_c_las_siete_narraciones_de_vajont_alinean PASSED [ 33%]
+test_module_f36c_pantalla.py::test_d_un_dato_no_sale_dos_veces_en_el_video PASSED [ 44%]
+test_module_f36c_pantalla.py::test_e_el_sello_no_repite_palabra_en_el_video PASSED [ 55%]
+test_module_f36c_pantalla.py::test_f_fase2_lee_el_papel_sin_llamar_a_ningun_modelo_de_texto PASSED [ 66%]
+test_module_f36c_pantalla.py::test_g_cita_ficha_con_autor_y_sellos_del_papel_nunca_al_mismo_tiempo PASSED [ 77%]
+test_module_f36c_pantalla.py::test_h_plan_edit_edita_el_papel PASSED     [ 88%]
+test_module_f36c_pantalla.py::test_i_el_unico_sfx_es_el_golpe_del_title_card PASSED [100%]
+============================== 9 passed in 3.62s ==============================

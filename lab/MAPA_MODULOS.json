@@ -31,7 +31,7 @@
     "script_engine/gfx_layer.py",
     "script_engine/gfx_literal_lock.py"
    ],
-   "tests": 9,
+   "tests": 8,
    "lab": 2,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
@@ -522,7 +522,7 @@
     "script_engine/gfx_style.py",
     "script_engine/rotulista_colocar.py"
    ],
-   "tests": 13,
+   "tests": 12,
    "lab": 5,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",

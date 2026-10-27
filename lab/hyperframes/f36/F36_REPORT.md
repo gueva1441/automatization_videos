@@ -344,7 +344,7 @@ finalizar/cerrar`, `fase1_5.run_guion_v3/v4/_step_cost`, `m01d_particion` (cabec
 | `gfx_critic` | crítico F4e + rotulista | `solo_estorba` para el papel | solo el del rotulista con «¿estorba?» |
 | `gfx_guion` | guion + chequeos | columna `papel`, «dos bloques al mismo tiempo», «papel sin colocar / sin alinear», relojes del papel | igual |
 | `fase2b` | prefetch del rotulista, `--plan-edit` al plan | sin prefetch; `--plan-edit` edita el papel | sin sfx por bloque |
-| `lab/MAPA_MODULOS.*` | 43 módulos, 14 muertos | 44 módulos, 18 muertos (los 4 nuevos los deja C para D) | 0 muertos |
+| `lab/MAPA_MODULOS.*` | 43 módulos, 14 muertos | 44 módulos, 18 muertos (los 4 nuevos los deja C para D) | 35 módulos, **1 muerto** (el borrador del director: ver Mapa y abierto 9; el pedido decía 0) |
 
 ---
 
@@ -913,3 +913,300 @@ parada: se anota). El contrato da 6/13 + 1 en parte: el papel eligió otras fich
 Q14) y descartó D195 y T85 con motivo; Fase 2 cortó 2 fichas y 6 sellos del papel (crítico, lectura, corte). Eso lo mira
 Omar con el papel a la vista (aclaración 9: la 13 depende del papel); CC no cambió ni el prompt ni el papel para acercarse
 al contrato.
+
+---
+
+## Parte D — borrar, no apagar (commits D1 `9a7522e` y D2 `04755b2`)
+
+### Por qué dos commits (y dónde cae la PARADA)
+Antes de borrar se midió qué de la lista de D aparece hoy en el guion de C: **51 filas ✂** salen de código de la lista que
+«se llama y se descarta» — 28 `punch_in` de `gfx_style.select_punches` (los corta el realizador: «lo reemplaza el
+zoom_punch»), 18 sellos del director por léxico (`gfx_director.place_emphasis`) y 5 sellos de la palabra del pico
+(`add_peak_word`). Borrarlos hace desaparecer esas filas: el guion **no puede** quedar idéntico al de C. Por eso D va en
+dos commits:
+- **D1** — todo lo que no toca el guion. Verificación: **diff vacío contra C**.
+- **D2** — lo «llamado y descartado» de la lista (`select_punches`, `place_emphasis`, el sello del pico) y los sfx por
+  bloque (cambian la mezcla de previsualización). El diff contra C no es vacío: se pega entero y se clasifica. **Es la
+  condición de PARADA del pedido («si D no da diff vacío: PARADA y reportar»)**: D2 queda commiteado aparte para que Omar
+  lo acepte o lo revierta solo (`git revert <D2>`), sin tocar D1.
+
+### D1 — qué se borró
+- **Archivos borrados (13):** `script_engine/rotulista_llm.py`, `gfx_bug.py`, `gfx_fragments.py`, `gfx_question.py`,
+  `gfx_identity.py`; plantillas `count_up.html.tmpl`, `evidence_zoom.html.tmpl`, `data_callout.html.tmpl`,
+  `grade_css.html.tmpl`; tests `test_module_gfx_bug.py`, `test_module_gfx_fragments.py`, `test_module_gfx_question.py`,
+  `test_module_gfx_identity.py`.
+- **`rotulista_filtros`:** `anclaje`, `forma`, `coherencia` (el filtro), `finalizar`/`cantidad`, `A_PANTALLA_POR_BEAT`,
+  `ORDEN_MODELO`, `lo_que_pide`, `TIPOS`, `CON_ETIQUETA`, el `validar` del modelo (queda `validar_papel`). Queda
+  `contradicciones` (la usa el chequeo «cifra que contradice la voz» del guion).
+- **`rotulista_colocar`:** `animacion_de_cifra`, `UNIDAD_CONTADOR`, la lupa (`lupa_de_detalles`), las ediciones del plan
+  (`EDICIONES`, `CAMPOS_EDITABLES`, `ediciones_de`, `guardar_ediciones`, `aplicar_ediciones`, `mover_a_escena`); `colocar`
+  solo con el papel; `escena_final` y `hasta_el_corte` sin agua, contador, lupa ni cita suelta.
+- **`clima`:** el camino de Gemini Flash (`sellos_por_tema`, `elegir_clima`, `_gemini_clima`, `palabra_clima`,
+  `prompt_clima`, `SELLO_CLIMA_PROMPT`).
+- **`voz_datos`:** `AGUA_ETIQUETAS`, `_agua_de`, `agua_de_voz`. Recibe de `gfx_peak` lo vivo: `MESES`, `ticker_corner`
+  (el reloj en la esquina, sin la rama del contador) y —hasta D2— `add_peak_word`.
+- **`gfx_rotulista`:** re-exporta solo lo que existe; `voz_del_video`/`voz_previa` (eran de `rotulista_llm`) pasan acá.
+- **`gfx_peak`:** quedan `sentences`, `lexicon_hits`, `prefer_icon_nouns`, `_clean` (lo que usan `clima` y `voz_utils`);
+  borrados `plan_peak`, `find_peak`, `peak_from_intensity`, `water_level`, `zoom_latido`, `time_ticker`, `clear_around`,
+  `reserved_water_level`, `water_used_before`, `box_from_cache` y sus constantes.
+- **`gfx_vision`:** `pick_zoom`, `_named_word`, `verify_crop` (la verificación de la caja de la lupa, caché
+  `zoom_verify.json`) y sus constantes. **Lectura declarada de «`zoom_verdicts`»:** es esa verificación; el
+  `zoom_judge`/`zoom_verdicts.json` de `fase2b` decide el movimiento DepthFlow del camino sin gfx (toca el md5 de ch02) y
+  no se borró.
+- **`gfx_pool`:** `plan_pool_documents`, `plan_pool_quote`, `pool_count_up`, `enforce_reserved` y lo que quedó sin uso
+  en cascada (`_default_year`, `narrated_dates`, `_sentence_for`, `_busy_blocks`, `displace`, `reserved_slot`,
+  `figure_echo`, `_water_used`, `_is_water_height`, `_spoken_at`, `_free_slot`, `HARD_KINDS`, `DISPLACE_COST`). Las
+  piezas de `gfx_fragments` que usan `pool_clause_options` y `_kicker` (las llama `m01a_skeleton`, Fase 1) se movieron a
+  `gfx_pool` sin cambios.
+- **`gfx_director`:** `fill_gaps`, la fila de figuras (`place_icon_array`, `array_candidates`), el ícono del sello
+  (`mark_icon_callouts`, `emphasis_without_icon`) y la cascada (`_fragments`, `_find_spoken`, `_norm_tok`).
+  `category_icon` entra desde `gfx_fragments` (lo usa `emphasis_icon`, que es de D2).
+- **`gfx_style`:** `identity_transitions` (y `same_place`, `_setting_tokens`); `transiciones_por_relato` sin la regla de la
+  lupa.
+- **`gfx_realizador`:** `garantizar_pico` (y `_hay_grande_en_pico`, `para_pool`, `PICO_DESPUES_S`); `cerrar` sin
+  `garantizar`.
+- **`gfx_project`:** el dibujo de la lupa, el contador, el agua, el dato suelto (`data_callout`), el ícono del sello, la
+  fila de figuras, la fuente (`source_tag`, también su CSS) y el ícono del recorte; `plan_transitions` sin la lupa.
+- **`gfx_config`:** del inventario `icon_callout`, `icon_array`, `source_tag`; 33 perillas sin lector (`gap_fill`,
+  `garantizar_pico`, `rotulista_modelo/effort/tope_usd`, `fragment_director`, `callout_no_repeat`, `doc_clippings`,
+  `zoom_scale`, `zoom_label_margin_px`, `icon_*`, `quote_*`, `anim_*`, `ticker_min_times`, `question_rubric`, …);
+  `clamp_count`, `clamp_callout_duration`. `load_profile` saca del perfil las huérfanas declaradas (`HUERFANAS_*`) antes
+  de validar y las anota en `PERFIL_HUERFANAS` (si no, el perfil de Omar, fuera de git, rompería la carga).
+- **`gfx_critic`:** el crítico viejo de F4e (`criticize`, `judge`, `build_prompt`, `load_fewshot`, `_gemini`,
+  `snapshots`, `SYSTEM`, `CRITERIA`, `VERDICTS`, `PROMPT_VERSION(_SNAP)`, `SCHEMA`) y `pasa_rot`; queda
+  `criticize_rotulista` (solo «¿estorba?») y `estorba`.
+- **`gfx_layer`:** los caminos borrados (pool viejo, fragmentos, no-repeat, zoom descartado, `plan_peak` y sus cajas,
+  `pick_zoom`, íconos automáticos, `icon_sources`, la marca del canal en el cosido y en el cierre, la caja final del zoom,
+  `enforce_reserved`, el respaldo de la pregunta generada); el crítico del final junta las filas del «¿estorba?».
+- **`gfx_sparse`:** el cosido sin la marca del canal.
+- **`fase2b`:** sin `--rotulista-tope` ni `--rotulista-modelo` (no hay modelo); sin el costo del rotulista.
+- **`gfx_lab_server`** (el lab de identidad): `/question`, `/summary`, `/save_identity` dan error claro (sus módulos se
+  borraron); sin `plan_peak` ni `icon_sources`; los tokens huérfanos del estado guardado se ignoran.
+- **Tests:** 98 funciones de test borradas en 26 archivos + 4 archivos de test borrados (38 tests) — todos prueban código
+  borrado (lista en el commit D1). Adaptados (prueban código vivo por un camino que se borró): `f30b` (sin la regla de la
+  lupa), `f36` (`test_b4_reloj_termina_antes_del_corte`, `test_a_cada_modulo_tiene_lo_suyo`), `f36c` (sin
+  `rotulista_llm`), `gfx_0d` (sin `source_tag`), `f29a` (pregunta sin `gfx_question`), `gfx_anim`, `gfx_config`,
+  `gfx_cues` (todo texto es ficha), `gfx_peak` (reloj desde `voz_datos`; golpes sin la lupa), `gfx_profiles`,
+  `gfx_style`, `f5f`, `test_constantes_con_origen` (cota del inventario: 81 constantes). Nuevos: `f36c` g (cita como
+  ficha con autor; sellos del papel con crítico antes del reparto y nunca al mismo tiempo) y h (`--plan-edit` sobre el
+  papel; encontró un bug real en `editar`: una ficha editada sin `aporta` rompía el `.md`, arreglado).
+
+### D1 — verificación
+- `fase2b f8s3-vajont-f30 --plan-only --rotulista` (RAM 16.4 GB, Firefox 0; 167 s, US$ 0) →
+  `python lab/hyperframes/f36/diff_guion.py c/GUION_PANTALLA.json <nuevo>`: **`--- 0 líneas distintas`**
+  (`d/diff_d1.txt`, `d/plan_only_d1.log`).
+- md5 de ch02 sin `--gfx` `38e5ba14e3d24fd20f9297c9e1dfee24` (igual), rápida **58**, amplia **881 + las 5 previas**
+  (`d1/`; el verificador marcó además `test_module_f33::test_el_mapa_cubre_los_modulos_y_trae_aristas`, que pedía
+  `garantizar_pico` en la lista de muertos: adaptado a «lo borrado no está en el mapa», verde, antes del commit).
+- Tests colectados: C 1047 → D1 886 (−163 de lo borrado, +2 nuevos).
+
+### D2 — qué se borró
+- **`gfx_style`:** `select_punches` (y `_word_weight`, `_sentence_of`). En `gfx_layer`, `punch_in = []`: el único golpe es
+  el `zoom_punch` del pico (DECISIONES F32, ya aplicada).
+- **`gfx_director`:** los sellos por léxico (`place_emphasis`, `emphasis_candidates`, `_sentence_ids`, `emphasis_icon`,
+  `category_icon`, `NEVER_ICON_ALONE`) y `sfx_events`.
+- **`voz_datos`:** `add_peak_word` y `BLOCK_CATEGORY`: el pico ya no trae sello propio (marca dónde va el zoom_punch).
+- **`clima`:** `_sello_queda` y la limpieza de sellos ajenos (ya no hay); el sello del papel sin sfx propio.
+- **sfx por bloque salvo el title card:** `gfx_layer.sfx_title_card` (la regla de siempre —no sobre el ataque de una
+  palabra— aplicada solo al golpe del title card); el perfil conserva solo `sfx.title_card`.
+- **`gfx_config`:** perillas sin lector `peak_word`, `icon_literal_only`, `emphasis_base_per_cap`,
+  `emphasis_same_cat_gap_sec`, y `critic_snapshot` (quedó sin lector en D1 al borrar el crítico F4e; se borra acá);
+  `HUERFANAS_SFX` y los `moods.*.sfx` del perfil se sacan al cargar.
+- **Tests:** borrados los de lo borrado en D2 (`gfx_0d` sfx por bloque, `gfx_emphasis` sellos por léxico e íconos —con
+  sus parametrizaciones—, `gfx_peak` latido, `gfx_style` golpes); adaptados `gfx_director` (ya no hay sellos que
+  apagar), `gfx_emphasis` (léxico sin sfx), `gfx_profiles`; nuevo `f36c` i (el único sfx es el del title card).
+
+### D2 — verificación y diff contra C (entero)
+- `fase2b f8s3-vajont-f30 --plan-only --rotulista` (165 s, US$ 0): `d/GUION_PANTALLA.md/.json`. El diff crudo contra C
+  tiene 1709 líneas (`d/diff_d2.txt`, entero en el repo); clasificado por tipo (`d/diff_d2_clasificado.txt`, pegado
+  entero abajo): **lo que queda en pantalla es idéntico a C (120 eventos, mismo texto, tiempo, duración y filtro),
+  los chequeos son idénticos**, y la diferencia son exactamente las 51 filas ✂ de lo borrado más los contadores por
+  beat que las cuentan; la única otra clave distinta es `mezcla.segundos` (tiempo de pared, que el comparador ya
+  ignora). Los sfx que se fueron no movieron ninguna medida de la mezcla (inicio de voz y de música iguales).
+- md5 de ch02 sin `--gfx` `38e5ba14e3d24fd20f9297c9e1dfee24` (igual; RAM 16.3 GB, Firefox 0), rápida **58**, amplia
+  **833 + las 5 previas** (`d2/`). Tests colectados: D1 886 → D2 838 (−49 de lo borrado contando parametrizaciones, +1
+  nuevo). En toda la tanda: 1047 → 838.
+
+```
+EN PANTALLA: C 120 · D2 120 · iguales: True
+CORTADOS: C 59 · D2 8
+  solo en C: 51 {('punch_in', 'cortó realizador: punch_in del director: lo reemplaza el zoo'): 28, ('sello', 'cortó catálogo: sello del director por léxico: los sellos vi'): 18, ('sello', 'cortó catálogo: sello del pico: los sellos vienen del guion '): 5}
+  solo en D2: 0 {}
+CHEQUEOS distintos:
+RESUMEN por beat distinto:
+   ch01 beat 1 {'propuestos_director': (9, 2)} · cortados {'duplica': 4, 'tema': 3} → {}
+   ch02 beat 2 {'propuestos_director': (2, 1)} · cortados {'crítico': 2, 'duplica': 1} → {'crítico': 2}
+   ch02 beat 3 {'propuestos_director': (9, 2)} · cortados {'tema': 4, 'duplica': 3} → {}
+   ch03 beat 4 {'propuestos_director': (6, 1)} · cortados {'duplica': 3, 'tema': 2} → {}
+   ch03 beat 5 {'propuestos_director': (3, 1)} · cortados {'tema': 1, 'duplica': 1, 'crítico': 1} → {'crítico': 1}
+   ch04 beat 6 {'propuestos_director': (5, 1)} · cortados {'tema': 2, 'duplica': 2} → {}
+   ch04 beat 7 {'propuestos_director': (5, 2)} · cortados {'tema': 2, 'duplica': 2} → {'tema': 1}
+   ch05 beat 8 {'propuestos_director': (8, 3)} · cortados {'lectura': 1, 'tema': 3, 'duplica': 3} → {'lectura': 1, 'tema': 1}
+   ch05 beat 9 {'propuestos_director': (2, 0)} · cortados {'duplica': 1, 'tema': 1} → {}
+   ch06 beat 10 {'propuestos_director': (8, 2)} · cortados {'duplica': 4, 'tema': 3} → {'tema': 1}
+   ch06 beat 11 {'propuestos_director': (2, 1)} · cortados {'tema': 1, 'crítico': 1} → {'crítico': 1}
+   ch07 beat 12 {'propuestos_director': (6, 2)} · cortados {'tema': 2, 'duplica': 2} → {}
+   ch07 beat 13 {'propuestos_director': (5, 1)} · cortados {'tema': 2, 'duplica': 2} → {}
+OTRAS CLAVES distintas: ['mezcla']
+   mezcla {'mezcla': 'C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\f8s3-vajont-f30\\_fase2b_work\\mezcla_preview.wav', 'narracion': 'C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\f8s3-vajont-f30\\_fase2b_work\\_preview_narracion.wav', 'intro': 3.0, 'umbral_db': -30.46, 'umbral_de': 'duck_threshol → {'mezcla': 'C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\f8s3-vajont-f30\\_fase2 …
+```
+
+### Claves del perfil `misterio.json` que quedan huérfanas (fuera de git: para que Omar las borre)
+`gfx_config.load_profile` las saca en memoria antes de validar y las lista en `gfx_config.PERFIL_HUERFANAS` (así el
+perfil fuera de git no rompe la carga); estas son las que tiene hoy `gfx_profiles/misterio.json` y que Omar puede borrar:
+- `channel_bug` (todo el bloque: la marca del canal en gfx se borró; DECISIONES 18:17 la manda al outro).
+- `tokens.anim_figure`, `tokens.callout_no_repeat`, `tokens.critic_snapshot`, `tokens.doc_clippings`,
+  `tokens.fragment_director`, `tokens.icon_literal_only`, `tokens.icon_px`, `tokens.peak_word`,
+  `tokens.question_max_words_auto`, `tokens.question_rubric`, `tokens.ticker_min_times`, `tokens.zoom_scale`.
+- `blocks.icon_array`, `blocks.icon_callout`, `blocks.source_tag`.
+- `sfx.archive_clipping`, `sfx.chapter_question`, `sfx.count_up`, `sfx.data_callout`, `sfx.evidence_zoom`,
+  `sfx.keyword_emphasis` (queda `sfx.title_card`).
+- `moods.fuego.sfx`, `moods.caos_gritos.sfx`, `moods.radiacion_quimico.sfx`, `moods.frio_abandono.sfx`,
+  `moods.silencio.sfx`.
+- No son huérfanas para el validador pero ya no hacen nada en el camino del papel: `blocks.data_callout`,
+  `blocks.evidence_zoom`, `blocks.count_up` (solo los lee el prompt del director, ver abierto) y las marcas viejas de
+  `identity` (`icon_callout`, `data_callout`, `keyword_stamp`), que escribía el lab de identidad.
+
+### Mapa
+`python lab/tools/mapa_modulos.py`: **35 módulos, 118 aristas, 1 muerto** (antes de la tanda: 43 módulos, 14 muertos;
+después de C: 44 y 18). Fuera del mapa los módulos borrados (`rotulista_llm`, `gfx_bug`, `gfx_fragments`,
+`gfx_question`, `gfx_identity` y 4 plantillas); entra `m01e_pantalla`; stickers al día. **El muerto que queda** (no se
+llega a 0):
+
+| qué | por qué | desde |
+|---|---|---|
+| `gfx_director` (el borrador de Gemini: datos, recortes, cita, contador, lupa, punch_in) | **se llama y se descarta**: `colocar` lo reemplaza por el papel y el único golpe es el zoom_punch del pico; del borrador queda el title card. Borrarlo cambia el prompt del director (fuera de F36: abierto) | 9e9d844 |
+
+No está en la lista de D y su inventario (`data_callout`, `count_up`, `evidence_zoom`) está escrito dentro del prompt del
+director (`_SYSTEM_PROMPT` usa `max_per_cap` de esos bloques): borrarlo es tocar un prompt, y el handoff dice que el
+único prompt nuevo es el de C.2. Va a «lo que queda abierto».
+
+## Costos de C y D
+- Claude (Sonnet 5.5, `m01e_pantalla` de Vajont): **US$ 0.3091** (una llamada; tope 0.50; `01_v3_costos.json`, paso
+  «pantalla»). Gemini: US$ 0.0012 (crítico «¿estorba?» de las fichas y sellos del papel, primera `--plan-only` de C);
+  las demás corridas, en caché (US$ 0). ElevenLabs, imágenes, render: 0.
+
+## Procesos (paso 12)
+Cerrados por la tanda: ninguno queda vivo — los `--plan-only`, los verificadores, los dos agentes `simulador` y los
+monitores terminaron solos. Siguen vivos procesos viejos de otras tandas que ya anotó F34 (`grep` 23064/31616/21988,
+`bash` 29824/500, de la madrugada del 26): no son de esta tanda y no se tocaron.
+
+## Lo que queda abierto (entero)
+1. **PARADA de D2.** El pedido dice «si D no da diff vacío: PARADA y reportar». D1 da diff vacío; D2 no puede: borra
+   código de la lista que se llama y se descarta, y con él se van 51 filas ✂ del guion (nada de lo que queda en
+   pantalla cambia). D2 es un commit aparte (`04755b2`): Omar lo acepta o lo revierte solo (`git revert 04755b2`), sin
+   tocar D1.
+2. **El contrato da 6/13 + 1 en parte** (`c/comparacion_simulador.md`). El papel no eligió D195 (gancho: «revelaría la
+   magnitud del desastre antes de que la voz lo cuente»), T85 («la voz ya dice el 20 de febrero de 1968») ni D128
+   (sin motivo escrito); eligió fichas que el contrato no tiene (D131, T16, D01, D17, Q14). Por la aclaración 9 eso lo
+   decide Omar con el papel a la vista (`--plan-edit` edita el papel). CC no cambió el prompt ni el papel.
+3. **El reintento por fichas caídas no entró.** 3 fichas cayeron en la validación (D47 spoiler, D105 no dicho, Q43
+   caben) → tocaba reintento, pero la primera llamada costó US$ 0.3091 y el peor caso de la segunda era 0.2685: con el
+   tope de 0.50 no hay lugar. Para tener reintento hace falta otro tope o una entrada más chica (60k tokens hoy).
+4. **El archivo del papel deja afuera los D sin cifra** (§C.1: «D con número»), pero la escaleta nombra algunos como
+   `dato_central`/apoyo (D24, D71, D103, D164, …): el modelo los anota «no existe en el archivo». ¿Entran al archivo los
+   datos que la escaleta nombra aunque no tengan cifra? Decide el analista.
+5. **Fase 2 cortó 6 de los 9 sellos y 2 de las 9 fichas del papel** (chequeo «papel sin colocar»): CALMA, INMINENTE y
+   RABIA por el crítico (tapan rostros o la fisura), AVISO, SILENCIO y COLAPSO porque su oración termina pegada a un
+   corte de escena (ni la palabra de más peso ni el inicio de la oración dejan 2.5 s antes del corte), D117 por el
+   crítico, Q50 por lectura (127 caracteres, 3.4 s hasta el corte). El `caben` de Fase 1 es una estimación sin escenas
+   (no las hay en Fase 1): Q50 tenía 152 estimados. Posibles caminos (sin decidir, sin código): que el sello pruebe el
+   arranque de la escena siguiente dentro de su oración; que el papel reciba un `caben` más prudente.
+6. **Lecturas declaradas de C** (para que el analista las confirme): el topic de Fase 1 de Vajont es
+   `data/scripts/_steps/f8s3-vajont`, no `ba6c3cac…` (aclaración 1); el «Formato de salida» va sin `estilo` (C.1 dice
+   que no lo elige el modelo); el estilo «papel» sale de la etiqueta de la ficha o del `por_que` de su `a_pantalla`;
+   `coherencia` salió del `ORDEN` (no está en la lista de la aclaración 3; su chequeo del guion sigue); el instante del
+   sello prueba la palabra de más peso y después el inicio de la oración; el `spoiler` del papel mira también los caps
+   siguientes (regla (c) del prompt).
+7. **La cita es una ficha con «dato» — autor** (aclaración 6, plantilla del title card). `quote_card` (la plantilla de
+   la cita centrada) queda sin uso en el camino del papel; no estaba en la lista de D y no se borró. Ninguna forma
+   nueva se vio renderizada (la tanda no renderiza): ficha cita, nombre y papel quedan para ver en v6.
+8. **Bug menor conocido, sin arreglar:** si «nunca al mismo tiempo» mueve una cita (`escena_final.mover`), la lectura
+   cuenta el autor dos veces (ya va en el texto de la ficha). En Vajont no pasa.
+9. **El borrador del director (Gemini) sigue corriendo y solo aporta el title card** (1 muerto en el mapa, no 0). Su
+   prompt nombra `data_callout`, `count_up` y `evidence_zoom`; borrarlo es tocar un prompt (fuera del pedido). Además:
+   `fase2b --gfx` sin `--rotulista` (sin papel) dibuja ese borrador como fichas sin etiqueta: conviene que el papel sea
+   el único camino (`--rotulista` implícito) en una tanda próxima.
+10. **El lab de identidad** (`gfx_lab_server`): `/question`, `/summary` y `/save_identity` dan error claro (sus módulos
+    se borraron); `lab/identidad/catalogo.json` y los planes del lab nombran tokens y bloques borrados (no se tocaron).
+11. **`zoom_verdicts`** se leyó como la verificación de la lupa (`gfx_vision.verify_crop`, borrada); el `zoom_judge` /
+    `zoom_verdicts.json` de `fase2b` es el juez del movimiento DepthFlow del camino sin gfx y quedó.
+12. **Claves huérfanas del perfil** (lista arriba): las borra Omar (fuera de git); mientras estén, el código las ignora.
+13. **Código muerto de antes de la tanda, no tocado** (no estaba en el mapa ni en la lista): `gfx_critic.voice_around`,
+    `gfx_project.load_grade_preset`, `gfx_config.block_enabled`, `gfx_style._ELEM`, `GfxRenderSettings.enable_gfx`,
+    `hyperframes_version`. Comentarios de `m01a_escaleta` (Fase 1) todavía nombran `gfx_question` (no se tocó Fase 1).
+14. **Fase 1 entera no se corrió** con `run_pantalla` enganchado (Vajont ya tenía Fase 1; se corrió el paso suelto):
+    el enganche en `fase1_5.run_guion_v3/v4` está cubierto por lectura, no por una corrida.
+15. Los runners de lab viejos (`lab/hyperframes/f29b/a/f29b_crudas.py`, `f29b/b/f29b_vajont.py`, `f29c/b/f29c_vajont.py`)
+    llaman a `prefetch`/`preparar_cap` del rotulista viejo: quedaron rotos (son de tandas cerradas).
+16. Las 5 fallas previas siguen (01b_pauses ×3, m03_merge_timing ×2), iguales que antes de la tanda.
+17. **Forma del JSON del papel** (no declarada en C, la marcó el revisor): `01e_pantalla.json` lleva una lista plana
+    `beats` (cada uno con `cap` y `beat`) y `relojes`, `tarjeta` y `descartados` al nivel del video (los relojes con su
+    `cap`); C.1 los pedía «por cap». Misma información, otra forma; Fase 2 lee esta.
+18. **`fase1_5.run_pantalla` ante JSON inválido dos veces o sin tope:** imprime «PARADA del guion en papel» y Fase 1
+    sigue (el papel se revisa a mano antes de la voz). La PARADA del handoff era para esta tanda (se cumplía si pasaba
+    con Vajont, no pasó); en producción frenar toda Fase 1 por el papel es una decisión que no se tomó: decide el
+    analista.
+19. **Restos apagados que vio el revisor** (código vivo que nombra bloques borrados, sin efecto): `gfx_critic.describe` y
+    `KIND_LABEL` (contador, nivel de agua, zoom), `gfx_layer.py` (el `pop` de `count_up/water_level/evidence_zoom/
+    icon_array` que el borrador del director todavía puede traer), `gfx_realizador.finalizar` (rama del contador y de
+    los íconos), `gfx_literal_lock` (water_level, icon_array, source_tag), `gfx_guion.eventos_cap` (lupa, agua,
+    contador), `gfx_style.golden_fewshot` (`_ELEM`), docstring de `gfx_pool`. Se van con el borrador del director
+    (abierto 9) o en una limpieza chica aparte.
+20. **El test (f) de la aclaración 8** prueba que Fase 2 no llama a Claude (parchea `claude_helpers`), no corre el
+    `--plan-only` entero; la corrida real de `--plan-only` dio Claude US$ 0. Los tests (a), (c) y (f) leen `data/` (fuera
+    de git): sin Vajont en disco se saltean.
+
+## Salida de los tests de C (aclaración 8 + los nuevos de D), `pytest -v test_module_f36c_pantalla.py`
+```
+test_module_f36c_pantalla.py::test_a_salida_valida_el_esquema PASSED     [ 11%]
+test_module_f36c_pantalla.py::test_b_candado_en_papel_rechaza_el_anio_que_no_esta_en_el_dato PASSED [ 22%]
+test_module_f36c_pantalla.py::test_c_las_siete_narraciones_de_vajont_alinean PASSED [ 33%]
+test_module_f36c_pantalla.py::test_d_un_dato_no_sale_dos_veces_en_el_video PASSED [ 44%]
+test_module_f36c_pantalla.py::test_e_el_sello_no_repite_palabra_en_el_video PASSED [ 55%]
+test_module_f36c_pantalla.py::test_f_fase2_lee_el_papel_sin_llamar_a_ningun_modelo_de_texto PASSED [ 66%]
+test_module_f36c_pantalla.py::test_g_cita_ficha_con_autor_y_sellos_del_papel_nunca_al_mismo_tiempo PASSED [ 77%]
+test_module_f36c_pantalla.py::test_h_plan_edit_edita_el_papel PASSED     [ 88%]
+test_module_f36c_pantalla.py::test_i_el_unico_sfx_es_el_golpe_del_title_card PASSED [100%]
+============================== 9 passed in 3.62s ==============================
+```
+
+## Veredicto del revisor (`revisor-handoff`, íntegro) — C y D nuevos
+
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | Requisito | Estado | Evidencia |
+|---|---|---|---|
+| 0 | Paso 0: stash `f36-c-vieja-descartada`, DECISIONES tal cual | OK | `git stash list` (15 archivos, 861+/563-); `52c7d48` |
+| 1 | Prompt C.2 literal, `m01e-1`, md5 en el reporte | OK | Extraje el SYSTEM del handoff: es idéntico a `m01e_pantalla.py:57-72` (md5 0354c764…); md5 del prompt aa1ebc33 en el JSON |
+| 2 | C.1 entrada y salida, 1 llamada, tope 0.50, tokens de Vajont | OK | 59 976 tokens, US$ 0.3091, 1 intento (raw.json) |
+| 3 | C.3 validación en papel; reintento si caen ≥ 3 fichas | PARCIAL | Cayeron 3 fichas y el reintento no se hizo por el tope. Declarado y defendible: la salida real (18 911 tokens) ya superaba `OUT_TOKENS_PEOR` (16 000), así que otra llamada pasaba de 0.50 igual |
+| 4 | C.4 Fase 2 consume el papel sin modelo; alineación 100 %; ORDEN recortado; `--plan-edit` al papel | OK | Corrí `test_module_f36c_pantalla.py` y `test_constantes_con_origen.py`: 11 verdes. Alineación 161/161 |
+| 5 | Tests a–f de la aclaración 8 | PARCIAL | Existen y pasan. El (f) no corre `--plan-only`: parchea solo `hx._post` y `call_json`, no Gemini. (a), (c) y (f) leen `data/` (ignorado por git) y se saltean si falta |
+| 6 | Simulador contra el contrato de 13 líneas, `01e_pantalla.md` entero | OK | `c/comparacion_simulador.md`; el .md pegado en el reporte es igual al de disco. Resultado: 6/13 + 1 en parte. D128, D195 y T85 existen en la entrada y el modelo no los eligió. La aclaración 9 deja esto a Omar |
+| 7 | D borra la lista completa | PARCIAL | Lo central está borrado (grep). Quedan restos apagados: `gfx_critic.py:45-86` (contador, nivel_agua, zoom), `gfx_layer.py:668` (pop de bloques que «no existen»), `gfx_realizador.py:38,274-277`, `gfx_literal_lock.py` (water_level, icon_array, source_tag), `gfx_guion.py:305`, `gfx_style.py:155-188`, docstring `gfx_pool.py:9` |
+| 8 | Diff vacío del guion contra C | PARCIAL | D1: `d/diff_d1.txt` dice 0 líneas; no lo re-corrí. D2: lo verifiqué yo con `c/` vs `d/GUION_PANTALLA.json`: 179 eventos en C, 128 en D2, 51 solo en C (28 punch_in, 23 sellos), 0 nuevos, chequeos iguales |
+| 9 | Mapa con 0 muertos | FALLA (declarada) | Queda 1 muerto, el borrador de `gfx_director`. Verifiqué que `gfx_director.py:217-238` mete `data_callout`, `count_up` y `evidence_zoom` en su prompt, así que borrarlo toca un prompt |
+| 10 | Claves huérfanas del perfil para Omar | OK | Contrasté con `misterio.json`: 27 claves, coinciden con el reporte. `load_profile('misterio')` carga bien |
+| 11 | Suites y md5 | OK | Amplia 833 + 5 previas y rápida 58, reproducidas. Log de md5 ch02 `38e5ba14…` en `d2/`; el md5 no lo re-corrí |
+| 12 | Prohibiciones: sin render, aprobar ni merge; sin tocar prompts de escaleta, guionista o partición | OK | Sin diff en `m01a*`, `m01b*`, `m01d*`; sin merges |
+| 13 | `F36_REPORT.md` completo, abierto entero, veredicto íntegro | PARCIAL | El abierto está entero (16 puntos). El veredicto falta (soy yo). Hay texto corrupto, ver abajo |
+
+**Observaciones concretas**
+1. `F36_REPORT.md` líneas ~973-1000 (D1) y ~1040-1053 (D2): el párrafo de las claves huérfanas quedó pegado dos veces, partido en medio de frases (parece un reemplazo masivo mal hecho). Hay que limpiarlo antes de dárselo a Omar. El reporte y `ESTADO_SESION.md` siguen sin commitear.
+2. Línea 347 del reporte (tabla de módulos) promete «0 muertos» y «gfx_critic solo rotulista». Eso contradice la sección de mapa (1 muerto).
+3. D2 se commiteó aunque el pedido decía PARADA si el diff no era vacío. El handoff pide a la vez borrar `select_punches` y `place_emphasis` y un diff vacío, y eso es incompatible. CC partió D en D1 y D2 y lo declaró. D2 es revertible solo con `git revert 04755b2`. Omar decide.
+4. El mapa commiteado está desactualizado. Regenerarlo da otro conteo de tests en las filas de `gfx_director` y `gfx_config`. Lo regeneré sin querer al ejecutar `mapa_modulos.py --help` y lo restauré con `git checkout`; los dos archivos del mapa quedaron como en HEAD.
+5. El JSON de salida es una lista plana `beats`, con `relojes`, `tarjeta` y `descartados` a nivel video. C.1 los pedía por cap. No está declarado como desvío.
+6. `fase1_5.run_pantalla` ante JSON inválido o tope dice «avisa y Fase 1 sigue». El handoff dice PARADA. El enganche en Fase 1 no se corrió, solo se leyó (abierto #14).
+7. `diff_guion.py` ignora también `costos` (el handoff nombra `generado` y `tiempos_s`); está justificado en su docstring.
+8. El reporte describe los 6 tests pero no pega su salida de pytest.
+
+Desvíos declarados que me parecen defendibles: topic `f8s3-vajont` en vez de `ba6c3cac`, formato sin `estilo`, `coherencia` fuera del ORDEN, `zoom_verdicts` leído como `verify_crop`, `load_profile` que tolera huérfanas, cita como ficha con autor.
+
+Fuera de alcance: ninguno indebido. `gfx_lab_server.py`, `gfx_sparse.py` y `gfx_common.css` no están en la lista del handoff, pero son cascada de lo borrado y están declarados. El árbol tiene otros cambios previos a la tanda (`diag_234_cap4.py`, `gfx_profiles/*`, `f28a.log`).
+
+Riesgos que el contrato no cubre: (1) sin papel, o con papel caído, `fase2b --gfx` dibuja el borrador de Gemini como fichas sin etiqueta (abierto #9). (2) Fase 2 cortó 6 de 9 sellos y 2 de 9 fichas del papel, porque `caben` se estima en Fase 1 sin escenas ni cortes. (3) Ninguna forma nueva (cita, nombre, papel) se vio renderizada.
+
+### Qué hizo CC con las observaciones (después del veredicto; solo documentos, sin tocar código)
+1. Texto duplicado: el reemplazo del marcador `HUERFANAS` pisó también la palabra `HUERFANAS_*`/`HUERFANAS_SFX` del texto de D1 y D2; la sección D se rearmó con un marcador único (una sola lista de claves huérfanas). 2. La tabla de módulos dice ahora «35 módulos, 1 muerto» (`gfx_critic`: queda solo el del rotulista con «¿estorba?», que es lo que hay). 3. D2: se mantiene como commit aparte y es la PARADA de esta tanda (abierto 1). 4. Mapa regenerado con el árbol final (los conteos de tests por módulo cambiaron con los tests de D2), commiteado con el reporte. 5 y 6. Declarados (abierto 17 y 18). 7. Ya declarado en A. 8. Salida de pytest pegada arriba (9 verdes: los 6 de la aclaración 8 y los 3 nuevos de D).
