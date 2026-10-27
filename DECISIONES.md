@@ -17,6 +17,8 @@ Formato: `fecha · decisión · motivo/contexto · estado (vigente / aplicada en
 - 2026-10-26 · Omar entiende mejor con flujogramas · vigente.
 - 2026-10-26 · Sesión nueva de CC solo cuando Omar lo pide; la orden va primera y explícita («como en F25c») · vigente.
 - 2026-10-26 16:49 · **Antes de cada handoff, volver a derivar el orden:** ¿construye sobre código que ya decidimos reemplazar? ¿alguna decisión de hoy cambia el orden? Si sí, se reordena y el handoff viejo se archiva con la razón. La prisa es por un sistema que funcione, no por un render · «¿tiene lógica?» de Omar · vigente.
+- 2026-10-26 22:26 · **Regla vital: casi nada hardcode.** Ningún número, lista de palabras ni valor de un tema metido en el código; todo arreglo es una **solución general** que sirve para cualquier tema y no se rompe con poco, nunca un parche para un video. Lo que no se puede derivar del material va al perfil del canal o del narrador con su origen; lo de un video solo se toca como edición de contenido sobre el papel (`--plan-edit`), nunca en código · Omar · vigente.
+- 2026-10-26 22:32 · **Regla de trabajo: ante cada falla, primero «¿por qué pasa?» y el arreglo es una regla automática y general en el sistema.** Las cosas chicas las resuelve el analista con una regla general; a Omar le llega solo el papel en la compuerta y corrige solo lo que es gusto. Un error que se repite se arregla en la causa, nunca pidiéndole una edición a mano. El pipeline es casi full automático · Omar · vigente.
 - 2026-10 · Todo reporte de CC pasa por el subagente `revisor-handoff` y su veredicto va íntegro; el analista además lee el diff, no solo el reporte · vigente.
 - 2026-10 · Fase 1 (semilla → guion) se califica con una sola nota 1–10 y cada falla etiquetada «se queda / se arregla a mano / frena»; de ahí se decide si se pasa a imágenes/voz · vigente.
 
@@ -59,6 +61,7 @@ Formato: `fecha · decisión · motivo/contexto · estado (vigente / aplicada en
 1. **F36 — estructura + bugs, en 4 partes con PARADA** (A partir el rotulista sin cambiar comportamiento · B los 8 bugs + tarjeta que se dibuje · C entradas nuevas y Sonnet elige sellos · D borrar zombis); cada parte se mide regenerando el guion de Vajont contra la tabla DEBERÍA de la revisión F34 (el contrato). Al final: guion → revisión → «aprobado» → render v6. `--plan-edit` solo para lo excepcional que quede.
 2. **Bugs (ahora dentro de F36 B):** contador borrado por el realizador; crítico antes del reparto; AMENAZA repetido / MEMORIA nunca; agua y reloj contra el corte; `contradicciones` falso positivo; desempate por valor; candado del gancho; tope de caracteres.
 3. **Estructura (ahora F36 A, C, D):** partir el rotulista en 5; Sonnet elige sellos; pool completo + «cuánto cabe»; fuera listas de Vajont; borrar zombis. Forma (F31b) se prueba en paralelo con clips de ch06, sin esperar el render.
+3b. **F37 — el papel elige más y mejor, Fase 2 mueve en vez de cortar** (handoff `lab/hyperframes/f37/HANDOFF_F37_papel_y_colocar.md`); después: papel → compuerta de Omar → `--plan-only` → «aprobado» → render v6.
 4. **Sesión Omar + analista:** clasificar los 66 números sin origen → `gfx_config` lee DECISIONES.
 5. Forma (F31b), subtítulos, sfx, Kyshtym en seco.
 
