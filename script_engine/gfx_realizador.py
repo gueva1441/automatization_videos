@@ -12,7 +12,8 @@ Con `01a_escaleta.json` en `_steps/<topic>/` (y la narración por beat, `01b_nar
                opcionales: `dato_central` (primero, en un giro) y `datos_apoyo` de cada beat que la voz NO dijo en esa
                ventana (mismo número, mismo nombre o la misma cláusula → fuera). Datos duros y citas, como el pool.
     finalizar  F37 §B.4 (el papel es el único camino): solo los sellos del papel y ningún punch_in (ver la función).
-    pregunta   = `cierre` del último beat del cap, literal.
+    pregunta   F38e B4: desde la voz (la última oración si termina en «?»; si no, las oraciones de la voz del último
+               beat que alinean con su `cierre`; si ninguna, el `cierre` literal), con su fuente (`pregunta_cierre_fuente`).
 Sin escaleta (topics viejos, v3) nada de esto corre: gfx_layer sigue por el camino de siempre, con aviso.
 """
 from __future__ import annotations
@@ -171,9 +172,53 @@ def preparar(cap: int, carga: dict, pool: dict | None, words: list[dict], time_o
     return real
 
 
+FUENTES_CIERRE = ("voz-pregunta", "voz-alineada", "escaleta")   # F38e B4: de dónde salió la pregunta de cierre
+
+
+def _termina_en_pregunta(oracion: str) -> bool:
+    """¿La oración termina en «?» (antes de una comilla o paréntesis de cierre, si lo hay)?"""
+    return re.sub(r"[\"»”')\]]+$", "", str(oracion or "").strip()).endswith("?")
+
+
+def pregunta_cierre_fuente(real: dict) -> tuple[str | None, str | None]:
+    """F38e B4 (REVISION_GUION_F38d §3 B4: si la voz y la escaleta difieren, gana la voz): (texto, fuente) de la pregunta
+    de cierre del cap, con la voz del cap = la narración por beat que trae `real["beats"][i]["texto"]`, partida con el
+    mismo corte que la voz (voz_utils.oraciones_de_texto):
+      (i)   si la última oración de la voz del cap termina en «?», esa pregunta es el texto → «voz-pregunta»;
+      (ii)  si no, por cada oración del `cierre` del último beat, la oración de la voz de ese beat con más palabras de
+            contenido en común (evidence._content, las mismas de ya_dicho; empate: la más tardía; sin coincidencia:
+            ninguna); el texto son esas oraciones, en orden de la voz y sin repetir → «voz-alineada»;
+      (iii) si no queda ninguna, el `cierre` literal, como hasta F38d → «escaleta».
+    Sin números (sin umbral: el máximo). (None, None) sin beats o sin `cierre` ni voz."""
+    from script_engine.voz_utils import oraciones_de_texto
+    beats = real.get("beats") or []
+    if not beats:
+        return None, None
+    ultimo = beats[-1]
+    cierre = str(ultimo.get("cierre") or "").strip()
+    voz_cap = oraciones_de_texto(" ".join(str(b.get("texto") or "") for b in beats))
+    if voz_cap and _termina_en_pregunta(voz_cap[-1]):
+        return voz_cap[-1].strip(), "voz-pregunta"
+    voz_beat = oraciones_de_texto(str(ultimo.get("texto") or ""))
+    elegidas: list[int] = []
+    for oc in oraciones_de_texto(cierre):
+        c = ev._content(oc)
+        mejor, n = None, 0
+        for k, o in enumerate(voz_beat):
+            s = len(c & ev._content(o))
+            if s > 0 and s >= n:                      # empate: la más tardía
+                mejor, n = k, s
+        if mejor is not None and mejor not in elegidas:
+            elegidas.append(mejor)
+    if elegidas:
+        return " ".join(voz_beat[k].strip() for k in sorted(elegidas)), "voz-alineada"
+    return (cierre or None), ("escaleta" if cierre else None)
+
+
 def pregunta_cierre(real: dict) -> str | None:
-    """La pregunta del cap = `cierre` del último beat, literal."""
-    return (real["beats"][-1]["cierre"] or None) if real.get("beats") else None
+    """La pregunta del cap (F38e B4: desde la voz; ver pregunta_cierre_fuente). Solo el texto, para quien no necesita
+    la fuente (gfx_layer.closing_question)."""
+    return pregunta_cierre_fuente(real)[0]
 
 
 # ═══════════════════════ finalizar ═══════════════════════

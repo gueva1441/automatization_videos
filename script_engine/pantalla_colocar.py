@@ -5,9 +5,13 @@ callout_dur_min y callout_dur_max, nunca después del corte), `instantes` y `pes
 de un bloque que no entra), `colocar` (los bloques del papel en el plan; ficha, cita como ficha con autor, papel =
 recorte), `repartir` (nunca al mismo tiempo, DECISIONES 17:58, + el crítico en cada intento: mover en vez de cortar;
 reemplaza a escena_final) y `hasta_el_corte` (el reloj). F36 §D: sin agua, contador, lupa ni ediciones del plan.
+F38e B (REVISION_GUION_F38d §3): B1 la escalera prueba todo inicio de escena dentro de la oración ancla, antes o después
+de la palabra; B2 el reloj mueve su fin con el intento (misma duración, recortada en su nuevo corte); B3 todo bloque
+movido declara qué falló en cada intento anterior (también lo que falló en los filtros).
 """
 from __future__ import annotations
 
+import re
 from typing import Any, Callable
 
 from script_engine import evidence as ev
@@ -57,7 +61,9 @@ def instantes(sents: list[dict], si: int, escenas: list[Any] | None, *, ancla: f
     """F37 §B.1: los instantes que se prueban, en orden, para un bloque anclado a la oración `si` (sin números nuevos):
     1) dentro de la misma oración: el instante original (la palabra ancla de la ficha, la palabra de más peso del
        sello), después la palabra de más peso, el inicio de la oración y la palabra ancla;
-    2) el inicio de la escena siguiente, si cae dentro de la misma oración;
+    2) F38e B1: todo inicio de escena que cae dentro de la misma oración, antes o después de la palabra ancla, en orden
+       de tiempo (hasta F38d solo el primero después del instante original: D47 de Vajont ch02 nunca probaba la escena
+       que arrancaba 0,1 s después del inicio de su oración y saltaba a la oración siguiente, que cuenta otra cosa);
     3) la oración siguiente, si es del mismo beat: su inicio y, si una escena arranca dentro de ella, el inicio de esa
        escena (lo que hacía despues_del_corte de F32 §B.3 con la oración siguiente).
     [(t, oración, cómo)], sin repetidos. El 4 (otra posición de pantalla) es del crítico: lo prueba quien reparte."""
@@ -72,11 +78,9 @@ def instantes(sents: list[dict], si: int, escenas: list[Any] | None, *, ancla: f
     add(peso, si, "1 · palabra de más peso")
     add(s["t0"], si, "1 · inicio de la oración")
     add(ancla, si, "1 · palabra ancla")
-    base = out[0][0] if out else float(s["t0"])
-    for e in escenas or []:
-        if base + 1e-6 < float(e.start) <= float(s["t1"]):
+    for e in sorted(escenas or [], key=lambda e: float(e.start)):
+        if float(s["t0"]) <= float(e.start) <= float(s["t1"]):
             add(float(e.start), si, f"2 · inicio de la escena {e.idx}")
-            break
     if si + 1 < len(sents) and sents[si + 1].get("beat") == s.get("beat"):
         s2 = sents[si + 1]
         add(s2["t0"], si + 1, f"3 · oración siguiente [{si + 1}]")
@@ -126,7 +130,9 @@ def hasta_el_corte(plan: dict[str, Any], scenes: list[Any], fps: float, log: lis
     """F36 §B.4: el reloj no cruza el corte de la escena donde arranca: duración = min(la que trae, corte − inicio − 1
     cuadro) (derivado). F37 C: corre antes del reparto (para que «nunca al mismo tiempo» vea el tramo que el reloj
     ocupa de verdad: T85 de Vajont chocaba con un reloj que ya no estaba) y después (el reparto puede moverlo); las filas
-    se acumulan. F36 §D: sin agua."""
+    se acumulan. F38e B2: deja en el reloj la duración que trae (`duracion_plena`, la primera vez) y el margen del corte
+    (`margen_corte` = 1 cuadro), para que el reparto mueva el fin con el intento y lo recorte igual que acá. F36 §D: sin
+    agua."""
     from script_engine.gfx_project import scene_at
     filas: list[dict[str, Any]] = []
     if not scenes:
@@ -136,6 +142,8 @@ def hasta_el_corte(plan: dict[str, Any], scenes: list[Any], fps: float, log: lis
         if not b or "start" not in b:
             continue
         a = float(b["start"])
+        b.setdefault("duracion_plena", float(b.get("duration") or 0.0))   # F38e B2: la que trae, antes de cualquier corte
+        b["margen_corte"] = round(1.0 / float(fps), 6)                     # 1 cuadro (derivado): el mismo margen de abajo
         sc = scene_at(scenes, a)
         tope = round(float(sc.end) - a - 1.0 / float(fps), 3)
         if float(b.get("duration") or 0.0) > tope:
@@ -239,6 +247,19 @@ def lados(b: dict[str, Any], kind: str) -> list[str]:
     return [lado] if kind == "ficha" else [lado, OTRO_LADO.get(lado, "left")]
 
 
+_T_FALLA = re.compile(r"\((\d+(?:\.\d+)?) s\)")
+
+
+def en_orden(fallas: list[str]) -> list[str]:
+    """F38e B3: las fallas de un bloque en el orden de la escalera (por el instante «(t s)» que cada una trae: así las
+    escriben `lectura` de los filtros, `probar` y el reloj), sin repetidas; la que no trae instante queda al final."""
+    vistas: list[str] = []
+    for f in fallas:
+        if f not in vistas:
+            vistas.append(f)
+    return sorted(vistas, key=lambda f: (float(m.group(1)) if (m := _T_FALLA.search(f)) else float("inf")))
+
+
 def probar(b: dict[str, Any], kind: str, intentos: list[dict[str, Any]], iv: list[tuple[float, float, str]],
            juez: Callable[..., dict] | None) -> tuple[dict[str, Any] | None, list[str], dict | None]:
     """Prueba los intentos de un bloque en orden: el primero que no choca con lo ya puesto y que el crítico no tira
@@ -268,12 +289,13 @@ def repartir(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any], log: 
              juez: Callable[..., dict] | None = None) -> list[dict[str, Any]]:
     """F37 §B.1 (reemplaza a escena_final): nunca al mismo tiempo (DECISIONES 17:58) y el crítico «¿estorba?» (B.2),
     moviendo en vez de cortar. Lo que el autor eligió no se corta por una razón mecánica: cada bloque prueba sus
-    intentos (`instantes`: 1 otro instante de su oración, 2 el inicio de la escena siguiente dentro de ella, 3 la oración
+    intentos (`instantes`: 1 otro instante de su oración, 2 todo inicio de escena dentro de ella —F38e B1—, 3 la oración
     siguiente del beat; las fichas y recortes ya traen de los filtros los que entran en su lectura) y, contra el
     crítico, 4 las otras posiciones que la plantilla soporta (`lados`). Orden de reparto: el title card (fijo), los
-    recortes y el reloj (información), las fichas (por prioridad: `a_pantalla`, después t0); los sellos los pone
-    después clima.sellos_del_papel con la misma escalera. `juez(kind, bloque)` → fila del crítico
-    (gfx_critic.estorba); sin juez, sin crítico. Si nada entra: «papel sin colocar» con cada intento y por qué falló."""
+    recortes y el reloj (información; F38e B2: su fin se mueve con el intento), las fichas (por prioridad:
+    `a_pantalla`, después t0); los sellos los pone después clima.sellos_del_papel con la misma escalera.
+    `juez(kind, bloque)` → fila del crítico (gfx_critic.estorba); sin juez, sin crítico. Si nada entra: «papel sin
+    colocar» con cada intento y por qué falló; F38e B3: todo movido declara también cada intento anterior y su falla."""
     from gfx_config import gfx_rules
     from script_engine.gfx_pool import TICKER_MIN
     filas: list[dict[str, Any]] = []
@@ -298,12 +320,14 @@ def repartir(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any], log: 
         intentos = b.get("intentos") or [{"t0": float(b["start"]), "t1": float(b["start"]) + float(b.get("duration") or 0),
                                           "si": b.get("sentence_idx"), "como": "1 · donde estaba"}]
         t_antes = float(b["start"])
+        previas = [str(x) for x in b.get("intentos_fallidos") or []]   # F38e B3: lo que ya falló en los filtros (lectura)
         at, fallas, row = probar(b, kind, intentos, iv, juez)
         if at is None:
+            todas = en_orden(previas + fallas)
             filas.append({"pool_id": b.get("pool_id"), "tipo": b.get("tipo_rotulista"), "campo": campo,
                           "texto": b.get("text") or b.get("headline"), "t0": t_antes, "accion": "fuera",
                           "regla": "colocar", "quien": "colocar (intentos)",
-                          "motivo": "no entra en ningún intento: " + " · ".join(fallas), "intentos": fallas})
+                          "motivo": "no entra en ningún intento: " + " · ".join(todas), "intentos": todas})
             return False
         b["start"], b["t1"], b["duration"] = round(at["t0"], 3), round(at["t1"], 3), round(at["t1"] - at["t0"], 3)
         b["side"] = at["lado"]
@@ -314,13 +338,19 @@ def repartir(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any], log: 
                             "motivo_3": row["motivo"], **({"error": row["motivo"]} if row["veredicto"] == "error" else {})}
             plan["critico_rotulista"].append({**row, "pool_id": b.get("pool_id"), "a_pantalla": b.get("a_pantalla")})
         if fallas or abs(at["t0"] - t_antes) > 1e-6 or at.get("lado_cambio"):
+            # F38e B3: todo movido declara qué falló en cada intento anterior, también lo que falló en los filtros
+            # (hasta F38d `movido_escena` —lo que lee el guion de pantalla— traía solo el destino, y las fallas quedaban
+            # en esta fila, que el guion no muestra: Q51 de Vajont ch05 «movida sin motivo» cuando el crítico la había
+            # tirado dos veces por tapar la carta).
+            todas = en_orden(previas + fallas) or [f"sin falla registrada: el instante original ({t_antes:.2f} s) no "
+                                                   f"estaba entre los intentos"]
             b["movido_escena"] = (f"{t_antes:.2f} → {at['t0']:.2f} s ({at['como']}"
-                                  + (f", lado {at['lado']}" if at.get("lado_cambio") else "") + ")")
+                                  + (f", lado {at['lado']}" if at.get("lado_cambio") else "") + ") · antes: "
+                                  + " · ".join(todas))
+            b["intentos_fallidos"] = todas
             filas.append({"pool_id": b.get("pool_id"), "tipo": b.get("tipo_rotulista"), "campo": campo,
                           "texto": b.get("text") or b.get("headline"), "t0": at["t0"], "accion": "movido",
-                          "regla": "colocar", "motivo": b["movido_escena"] + (f" · antes: {' · '.join(fallas)}"
-                                                                                if fallas else ""),
-                          "intentos": fallas})
+                          "regla": "colocar", "motivo": b["movido_escena"], "intentos": todas})
         iv.append((at["t0"], at["t1"], "recorte" if campo == "archive_clippings" else "ficha"))
         return True
 
@@ -332,20 +362,32 @@ def repartir(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any], log: 
     # arranca después de un cambio de fecha; hasta_el_corte (después) lo corta en el corte de su escena
     tk = plan.get("time_ticker")
     if tk:
-        a0, end = float(tk["start"]), float(tk["start"]) + float(tk["duration"])
+        a0 = float(tk["start"])
+        # F38e B2: el fin se mueve con el intento: misma duración (la que trae: `duracion_plena`, que hasta_el_corte
+        # guarda antes de recortarla; hasta F38d `end` salía del instante original y todo intento más tarde «quedaría
+        # menos de TICKER_MIN»: 9 OCT de Vajont ch05 con 20 s de escena libres), recortada en su nuevo corte con el
+        # mismo margen de hasta_el_corte (1 cuadro, `margen_corte`), que después vuelve a mirarlo.
+        dur = float(tk.setdefault("duracion_plena", float(tk.get("duration") or 0.0)))
+        margen = float(tk.get("margen_corte") or 0.0)
+
+        def fin_en(t: float) -> float:
+            sc = _escena_de(scenes, t)
+            return round(min(t + dur, float(sc.end) - margen) if sc is not None else t + dur, 3)
         cambios = [float(c["t"]) for c in tk.get("changes") or []]
         k = oracion_en(a0)
         fallas = []
         elegido = None
         for t, _, como in instantes(sents, k, scenes, ancla=a0, peso=(ent.get("peso") or {}).get(k)):
+            end = fin_en(t)
             if end - t < TICKER_MIN:
-                fallas.append(f"{como} ({t:.2f} s): quedaría menos de {TICKER_MIN} s")
+                fallas.append(f"{como} ({t:.2f} s): quedaría menos de {TICKER_MIN} s"
+                              + (f" (corta en {end:.2f} s)" if end < round(t + dur, 3) else ""))
             elif any(min(a0, t) < c <= max(a0, t) for c in cambios):
                 fallas.append(f"{como} ({t:.2f} s): pasa un cambio de fecha")
             elif choca(iv, t, end):
                 fallas.append(f"{como} ({t:.2f} s): se solapa con {', '.join(sorted(set(choca(iv, t, end))))}")
             else:
-                elegido = (t, como)
+                elegido = (t, end, como)
                 break
         if elegido is None:
             filas.append({"bloque": "time_ticker", "texto": f"{tk.get('day')} {tk.get('month')}", "t0": a0,
@@ -353,11 +395,14 @@ def repartir(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any], log: 
                           "motivo": "no entra en ningún intento: " + " · ".join(fallas), "intentos": fallas})
             plan["time_ticker"] = None
         else:
-            t, como = elegido
+            t, end, como = elegido
             if abs(t - a0) > 1e-6:
-                filas.append({"bloque": "time_ticker", "regla": "colocar", "accion": "movido",
-                              "motivo": f"{a0:.2f} → {t:.2f} s ({como})" + (f" · antes: {' · '.join(fallas)}"
-                                                                            if fallas else ""), "intentos": fallas})
+                rot["corte"] = [f for f in rot.get("corte") or []            # el recorte del instante viejo ya no aplica
+                                if not (f.get("bloque") == "time_ticker" and abs(float(f.get("t0", -1)) - a0) < 1e-6)]
+                filas.append({"bloque": "time_ticker", "regla": "colocar", "accion": "movido", "t0": t,
+                              "motivo": f"{a0:.2f} → {t:.2f} s ({como}), dura {end - t:.2f} s"
+                                        + (f" (corta en {end:.2f} s)" if end < round(t + dur, 3) else "")
+                                        + " · antes: " + " · ".join(fallas), "intentos": fallas})
             tk["start"], tk["duration"] = round(t, 3), round(end - t, 3)
             iv.append((t, end, "reloj"))
     # 3. las fichas (la cita es una ficha con autor)

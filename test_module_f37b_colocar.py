@@ -142,9 +142,13 @@ def test_b1_q50_corta_se_mueve_a_la_oracion_siguiente_si_no_cabe():
     v = validar_papel([b], ent, words, 0.0, escenas=scenes)
     assert v["bloques"], v["rechazos"]
     q = v["bloques"][0]
-    # en su oración ningún instante deja la lectura antes del corte (la escena 7 corta en 27.1); la siguiente sí
-    assert q["sentence_idx"] == 1 and q["t0"] == 27.48 and q["movido_corte"]
-    assert q["intentos_fallidos"] and q["intentos"][0]["como"].startswith("3 · oración siguiente")
+    # F38e B1 (test editado): la palabra ancla (21.4) y el inicio de la oración (18.24) no dejan la lectura (6.0 s) antes
+    # del corte de 27.1; hasta F38d la escalera saltaba a la oración siguiente (27.48). Ahora prueba también el inicio de
+    # la escena 7 (19.5), que cae dentro de la oración ANTES del ancla: 19.5 + 6.0 = 25.5 < 27.1 → la cita se queda en
+    # su oración, movida al corte; la oración siguiente queda como intento posterior.
+    assert q["sentence_idx"] == 0 and q["t0"] == 19.5 and q["movido_corte"]
+    assert q["intentos_fallidos"] and q["intentos"][0]["como"] == "2 · inicio de la escena 7"
+    assert any(i["como"].startswith("3 · oración siguiente") and i["t0"] == 27.48 for i in q["intentos"][1:])
 
 
 # ═══════════════════════ §B.2 duración de la ficha y §B.3 lectura de la cita ═══════════════════════
@@ -203,7 +207,12 @@ def test_c_el_reparto_ve_el_reloj_recortado_al_corte():
                           "intentos": [{"t0": 88.5, "t1": 91.0, "si": 0, "como": "1 · palabra ancla"}]}]}
     sin = json.loads(json.dumps(plan))
     pc.repartir(sin, scenes, ent, [])
-    assert sin["callouts"] == []                                             # contra el reloj sin recortar: choca
+    # F38e B2 (test editado): el reparto recorta el reloj en su corte por sí mismo (el fin se mueve con el intento y se
+    # corta en la escena): aun sin hasta_el_corte antes, el tramo del reloj termina en 88.0 y la ficha de 88.5 no choca
+    # (hasta F38d chocaba con un tramo de reloj que ya no se veía).
+    assert sin["callouts"] and sin["callouts"][0]["start"] == 88.5
+    assert round(sin["time_ticker"]["start"] + sin["time_ticker"]["duration"], 3) == 88.0
     pc.hasta_el_corte(plan, scenes, 30.0, [])
     pc.repartir(plan, scenes, ent, [])
     assert plan["callouts"][0]["start"] == 88.5 and plan["rotulista"]["corte"]
+    assert plan["time_ticker"]["duracion_plena"] == 9.0 and plan["time_ticker"]["start"] == 82.0   # no se movió

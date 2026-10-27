@@ -129,8 +129,10 @@ def test_reloj_no_va_encima_de_un_recorte_y_arranca_en_la_escena_siguiente_del_b
     plan = {"archive_clippings": [{"headline": "h", "start": 2.0, "duration": 3.0, "rotulista": True, "pool_id": "D1"}],
             "time_ticker": {"day": "9", "month": "OCT", "start": 3.0, "duration": 12.0, "changes": []}}
     pc.repartir(plan, scenes, ent, [])
-    tk = plan["time_ticker"]                         # F37 §B.1: sale del recorte por la escalera y termina donde terminaba
-    assert tk["start"] >= 5.0 and round(tk["start"] + tk["duration"], 3) == 15.0
+    tk = plan["time_ticker"]
+    # F38e B2 (test editado): sale del recorte por la escalera y su fin se mueve con el intento (misma duración, 12 s,
+    # recortada en el corte de su nueva escena, la 1: 18.0). Hasta F38d terminaba donde terminaba (15.0).
+    assert tk["start"] >= 5.0 and round(tk["start"] + tk["duration"], 3) == 18.0 and tk["duracion_plena"] == 12.0
 
 
 # ═══════════════ A.6.1: el primer JSON válido ═══════════════
