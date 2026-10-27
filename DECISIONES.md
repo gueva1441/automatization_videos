@@ -65,6 +65,23 @@ Formato: `fecha · decisión · motivo/contexto · estado (vigente / aplicada en
 - 2026-10-26 17:58 · **«Una por escena» pasa a «nunca al mismo tiempo»:** dos bloques (texto, sello, reloj, agua) no se solapan ni se tocan; la escena deja de ser la unidad (nació con escenas de ~10 s; Veo trae escenas de 40–100 s). Sin número nuevo. Reemplaza a «nunca dos en la misma escena» (02:52) · Omar · F36 C.
 - 2026-10-26 17:58 · **Pico: solo `a_pantalla`, salvo que el beat pico no tenga ningún `a_pantalla`**; entonces el rotulista puede poner un texto no marcado (el pico sin texto es peor). Precisa la decisión 14:22 · Omar · F36 C.
 
+
+## Catálogo definitivo de la capa gfx (Omar, 2026-10-26 18:17) — «compactar el rompecabezas»
+Se quedan **9 componentes**; todo lo demás se **borra del código** (no se apaga), con sus plantillas, reglas, tests y entradas del perfil:
+1. Title card con el título del cap (Fase 1 lo escribe; gfx lo dibuja; 3 s sin voz).
+2. **Ficha** = el único bloque de texto; tres estilos que salen del tipo de dato sin modelo: *normal* (D/T), *papel* (documento/carta: ex recorte), *cita* (Q, con autor), *nombre* (P). El rotulista decide «ficha o nada», no el tipo.
+3. Sello de clima (pocos; palabra del vocabulario del perfil; nunca la de la voz).
+4. Reloj (fecha que dice la voz; forma pendiente F31b).
+5. Pregunta de cierre del último beat.
+6. Tarjeta fecha-hora en el segundo 0 (medir en v6).
+7. Transiciones con razón: corte, zoom punch en el pico, fundido por beat/fecha, dip al cierre, negro entre caps.
+8. Movimiento de foto (bake ffmpeg) + grano y viñeta.
+9. Sfx: solo el golpe del title card.
+**Se borran:** contador (`count_up` y plantilla), nivel de agua (`water_level` y plantilla; queda como idea opcional por tema, sin código), lupa (`evidence_zoom`, `gfx_vision.pick_zoom`; vuelve cuando haya imágenes reales), ícono por tema (`category_icon`, `icon_callout`, `icon_array`, `gfx_fragments`), marca del canal en gfx (`gfx_bug`; la llama va al outro), sfx por bloque (todos menos title card), `data_callout`, `grade_css`, `source_tag`, y en `rotulista` los tipos `lupa`/`agua`/contador y `animacion_de_cifra`.
+Motivo: retención + costo de sostener; 19 componentes con 7 tipos de texto producían bugs que nadie veía (el contador estuvo borrado 3 tandas). Efecto en F36: C.4 (agua desde el modelo) **se cancela**; D crece con esta lista. Las líneas 7 (agua ch04) y 11 (contador D128) del contrato pasan: 7 fuera, 11 como ficha.
+
+- 2026-10-26 19:54 · **El autor de la pantalla va a Fase 1:** paso nuevo `m01e_pantalla` después de la partición y antes de la voz; una llamada a Sonnet por video (narración de los 7 caps + escaleta + pool completo + títulos + vocabulario de clima) → guion de pantalla **en papel** (por beat: ficha o nada, sello o nada, relojes, tarjeta; ancla por oración, sin tiempos). Omar lo revisa antes de pagar voz e imágenes. La capa gfx deja de tener autor: ancla, mide si cabe, filtra, crítico de foto, coloca, dibuja. `rotulista_llm` de gfx se borra. Motivo: el contenido se decide donde está toda la información; el 80 % del problema era elegir, no colocar · Omar · F36 C/D reescritos.
+
 ## Transiciones y costura
 - 2026-10-25 21:48 · **Cada transición con razón nombrable; si no hay razón, corte.** Lupa → corte; pico → `zoom_punch` (reemplaza al flash); cambio de beat o salto de fecha → fundido 20 f (identidad F3); cierre de cap → dip 10 f (identidad); entre caps negro → title card → voz; `whip_pan_flash` fuera · aplicada F30b.
 - 2026-10-26 11:02 · A Omar le gustó el zoom-punch (4:05 de v5) · las demás se notan poco (esperado) · vigente.
