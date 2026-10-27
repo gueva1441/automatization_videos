@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-27 (F38 hecha —A, B—, PARADA: el juez marca todo y el papel quedó sin fichas) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-27 (F38b hecha —A, B—, PARADA: sin juez, gancho de m01e-1, 12 fichas en pantalla) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,7 +13,15 @@
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
 
-## 👀 Para el analista (F38): el juez de anclaje con el prompt literal marcó «adelanta» en 18 de 18 fichas → el papel de Vajont (`data/scripts/_steps/f8s3-vajont/01e_pantalla.*`) quedó con **0 fichas**; decidir la redacción del juez (abierto 1 de `lab/hyperframes/f38/F38_REPORT.md`). El papel de F37 está en `lab/hyperframes/f37/c/`. Tarjeta 9 OCT 1963 · 22:39 sale sola. Nada se renderizó.
+## 👀 Para Omar (F38b): leer `lab/hyperframes/f38/b2/01e_pantalla.md` (papel sin editar: 12 fichas, 9 sellos, tarjeta 9 OCT 1963 · 22:39) y la lista «para la compuerta de Omar» de la sección F38b de `F38_REPORT.md` (gancho D84 a 1:04 u otro, D40 «722.50», D86/D01, D228/D128, D37/D245, ch05 b9 vacío, CALMA y SILENCIO sin colocar). Nada se renderizó.
+
+## F38b — Quitar la causa, no agregar un juez (pedido de Omar, 2026-10-27) — HECHA, **PARADA**
+- Handoff `lab/hyperframes/f38/HANDOFF_F38b_quitar_juez.md` (el del juez-2, archivado, no se usó). Base `cde0de6`. Paso 0 `d79cd9d`.
+- **A HECHO** (`ab1b2c5`): la línea del gancho vuelve, literal, a la de m01e-1 (`m01e-4`, md5 `f8babc02…` → `163e1fd1…`); el juez de anclaje borrado entero (código, 6 tests, grabación, caché); se quedan reintento parcial, tarjeta desde la voz y fracciones. md5 `38e5ba14…`, rápida 58, amplia 828 + 5 previas. Mapa 35 módulos, 0 muertos.
+- **B HECHO** (commit B): m01e US$ 0.5228; papel 12 fichas (gancho D84 en [10], Q14 de vuelta), 9 sellos, 4 relojes, tarjeta ✓; reintento parcial cambió 2 de 5 beats con motivo. `--plan-only`: 12/12 fichas, 7/7 picos, 7 sellos (CALMA, SILENCIO sin colocar), 3 relojes, tarjeta ✓; ✗ cifra «722.50» leída 72 250 (previo, abierto b2). Archivos en `lab/hyperframes/f38/b2/`.
+- **PARADA final F38b** (sección F38b de `F38_REPORT.md`, revisor íntegro, abierto b1–b7).
+
+## 👀 Para el analista (F38, superado por F38b): el juez de anclaje con el prompt literal marcó «adelanta» en 18 de 18 fichas → el papel de Vajont (`data/scripts/_steps/f8s3-vajont/01e_pantalla.*`) quedó con **0 fichas**; decidir la redacción del juez (abierto 1 de `lab/hyperframes/f38/F38_REPORT.md`). El papel de F37 está en `lab/hyperframes/f37/c/`. Tarjeta 9 OCT 1963 · 22:39 sale sola. Nada se renderizó.
 
 ## F38 — Reintento parcial, tarjeta desde la voz, juez de anclaje, fracciones (pedido de Omar, 2026-10-27) — HECHA, **PARADA**
 - Handoff `lab/hyperframes/f38/HANDOFF_F38_reintento_tarjeta_juez.md`. Base `f39c28f`. Paso 0 `ebcf2ba` (DECISIONES 00:30 «RAM, no Firefox» + handoff, tal cual). Verificador `lab/hyperframes/f38/verificar.sh <parte>` (sin chequeo de RAM/Firefox por DECISIONES 00:30; amplia con `-n auto`, `pytest-xdist` 3.8.0 instalado).

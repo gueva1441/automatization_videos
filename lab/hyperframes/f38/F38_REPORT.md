@@ -183,3 +183,158 @@ Fila 12 arreglada en el commit B: `test_module_f38a_m01e.py` lee `RAW_F37` y `PA
 `lab/hyperframes/f37/c/` y ya no de `data/`. El código del pipeline no cambió. Suite amplia otra vez (`f38/b/suite_amplia.log`):
 **832 + 5 previas**; rápida 58. El md5 de ch02 no se volvió a correr (ningún archivo del pipeline cambió después de A).
 Fila 11: el veredicto quedó pegado arriba.
+
+---
+
+# F38b — Quitar la causa, no agregar un juez (sección corta)
+
+Handoff `lab/hyperframes/f38/HANDOFF_F38b_quitar_juez.md` (el del juez-2 quedó archivado, sin leer como orden).
+Base `cde0de6`. Commits: paso 0 `d79cd9d` (los dos handoffs, tal cual) · A `ab1b2c5` · B (esta sección). **PARADA.**
+Módulos: solo `m01e_pantalla` (sticker sin el juez). Constantes nuevas: ninguna. El único prompt que cambió es la línea
+del gancho.
+
+## A (`ab1b2c5`)
+- **Línea del gancho**, literal de m01e-1 (comprobada contra `9e9d844`): «…cualquier dato del archivo que la voz no
+  diga en todo el video y que haga quedarse a quien mira: el gancho nunca queda sin ficha.» Pasa a `m01e-4`. md5 del
+  prompt **`f8babc027808652bd09113dcf5f87248` → `163e1fd195238696d9e66871983d5ac5`**.
+- **Juez borrado, no apagado:**
+  - código: `JUEZ_SYSTEM`/`JUEZ_VERSION`, `juzgar` con sus dos rondas, `juez_entrada`/`juez_pedido`, `motivo_juez`,
+    `sacar_juzgadas`, `primer_json_lista`, la regla `juez` y su sección en el `.md`;
+  - tests: los 6 del juez;
+  - archivos: la grabación `f38/a/juez_cache_f37.json` (`git rm`) y la caché `data/…/f8s3-vajont/01e_juez.raw.json`.
+  - −295 líneas en `m01e_pantalla.py`.
+  - Se quedan reintento parcial, tarjeta desde la voz y fracciones.
+  - Queda como registro de lo que pasó en F38 B: `f38/b/01e_juez.raw.json`.
+- **Tests:**
+  - el gancho de m01e-4 no tiene «primeras oraciones»;
+  - nada llama al juez de anclaje (grep de `m01e_pantalla` y de sus nombres en `script_engine/`). El parámetro `juez`
+    del crítico «¿estorba?» de `pantalla_colocar`/`clima` es otro y es de antes;
+  - `test_a3a` de F37 se invirtió (la línea de A.3a se revirtió);
+  - el reintento parcial sigue verde.
+- Verificación, una vez: md5 ch02 `38e5ba14e3d24fd20f9297c9e1dfee24`, rápida 58, amplia **828 + 5 previas** (832 − 6 del
+  juez + 2 nuevos), en `f38/a2/`. Mapa 35 módulos, 0 muertos.
+
+## B (`f38/b2/`: papel, raw, log, `GUION_PANTALLA.*`)
+- **m01e suelto:** **US$ 0.5228** (tope 1.00, respaldo).
+  - Intento 1: 65 839 in · 21 898 out · US$ 0.3507.
+  - Reintento parcial: 72 026 in · 2 805 out · US$ 0.1721.
+- **Intento 1:**
+  - 12 fichas;
+  - 2 caen: D95 por fecha del relato, Q50 por caben;
+  - 4 preguntas al autor sobre 3 fichas (D84 con dos números, T21, T39);
+  - 2 picos vacíos.
+- **Reintento parcial:**
+  - podía cambiar 5 beats y cambió 2: ch02 b3 D95 → D47, y Q50 recortada a 86 caracteres;
+  - ningún cambio ignorado;
+  - las 3 preguntas recibieron «otro hecho».
+- **Papel:** 12 fichas · 9 sellos · 4 relojes · tarjeta **9 OCT 1963 · 22:39** (T66) · nada cayó.
+
+| cap · beat | ficha (oración) | sello |
+|---|---|---|
+| ch01 b1 gancho·pico | **D84** «PRESIÓN DE LA OLA DE AIRE · dos bombas de Hiroshima» [10] | PÁNICO |
+| ch02 b2 | D117 recorte «13 de 34 representantes» [2] | CALMA |
+| ch02 b3 pico | D47 «600 m de desarrollo vertical» [11] | AMENAZA |
+| ch03 b4 pico | T21 «3 millones de m³ de roca» [1] | — |
+| ch03 b5 | D49 «Más de 1 metro» [17] | AVISO |
+| ch04 b6 | T39 «50 millones de metros cúbicos» [6] | RABIA |
+| ch04 b7 pico | D40 «COTA MÁXIMA · 722.50 metros» [13] | — |
+| ch05 b8 pico | Q50 cita «continua aprensión» [2] | SILENCIO |
+| ch05 b9 | — | INMINENTE |
+| ch06 b10 pico | D86 «ALTURA DEL MURO DE AGUA · 70 metros» [13] | COLAPSO |
+| ch06 b11 | D228 «1000 camas para refugiados» [25] | MEMORIA |
+| ch07 b12 pico | **Q14** «Y justicia tendréis» [1] | — |
+| ch07 b13 | D37 «15 días antes del vencimiento del plazo de prescripción» [17] | — |
+
+**Pantalla** (`--plan-only` corrió en 347 s; Gemini US$ 0.0017):
+- tarjeta en 00:00;
+- **12 de 12 fichas en pantalla, 7 de 7 picos con ficha**; gancho D84 a 1:04;
+- 7 sellos: PÁNICO, AMENAZA, AVISO, RABIA, INMINENTE, COLAPSO, MEMORIA. Sin colocar: **CALMA** y **SILENCIO** (el
+  crítico dice que estorban, o cruzan el corte);
+- 3 relojes. El de ch07 «29 NOV 1968» del papel no sale: el reloj de esa escena es el de la voz, «20 FEB 1968»,
+  y la diferencia queda anotada. El reloj de voz de ch05, «9 OCT», se corta porque quedaría menos de 2 s.
+
+Chequeos: ✓ al mismo tiempo, corte, lectura, pregunta, costuras, gancho, música, tarjeta, sin alinear. ✗ los cuatro
+siguientes:
+- **cifra que contradice la voz:** «722.50 metros» se lee como 72 250 (abierto b2);
+- a_pantalla: 2/5 (D128, D192 y D245 no los propuso el autor);
+- inicio de voz por cap: previo, F32;
+- papel sin colocar: CALMA y SILENCIO.
+
+**Esperado del handoff:**
+- ~12 fichas: **cumple** (12);
+- tarjeta: **cumple**;
+- ningún beat cambiado sin motivo: **cumple** (solo 2 de 5 beats con motivo);
+- D131 en ch01 [15]: **no**. Con m01e-4 el autor ya no elige D131: elige D84 en [10] (la oración del portón que se abre «a causa de una
+  corriente de aire»: el aire es el mismo hecho y está en su momento). Es gusto: va a la compuerta.
+
+**Para la compuerta de Omar (gusto, no se forzó):**
+- gancho: D84 a 1:04, o D131/D118/D195 (en los primeros 30 s ya están la tarjeta y PÁNICO);
+- D40 «722.50 metros» (punto decimal, y la cota máxima frente a la autorizada de la voz) o nada en ch04 b7;
+- ch06 b10: D86 «70 metros», o D01/D121 (270 millones de m³);
+- D128 en ch06 b11 frente a D228;
+- ch07 b13: D37 o D245;
+- ch05 b9 vacío (INMINENTE solo);
+- CALMA y SILENCIO sin colocar;
+- Q14 volvió (el contrato lo pedía).
+
+Todo por `--plan-edit`.
+
+Procesos: no queda nada de la tanda corriendo y no se cerró ningún programa de Omar.
+
+## Lo que queda abierto F38b (entero)
+- b1. **Gancho D84 en vez de D131.** Lo eligió el modelo con la línea de m01e-1. No sabemos si es efecto de la línea o
+  variación entre corridas: con una sola corrida, la línea revertida no prueba que D131 vuelva.
+- b2. **«722.50» se lee 72 250** en `pantalla_filtros._analiza` (el punto como separador de miles; previo a F38: da lo
+  mismo con el `voz_utils` de `f39c28f`). Hace saltar ✗ en «cifra que contradice la voz». Además, el dato del archivo
+  viene con punto decimal en inglés y en pantalla diría «722.50». Lo decide el analista: punto con dos decimales =
+  decimal, o normalizar la cifra del archivo.
+- b3. **`a_pantalla` 2/5:** D128, D192 y D245 no los propuso el autor. No se fuerza (DECISIONES 16:33: `a_pantalla` dejó
+  de ser llave).
+- b4. **Sellos sin colocar: CALMA, SILENCIO** (el crítico). Sigue el abierto 4 de F37.
+- b5. **El papel de `data/…/f8s3-vajont/01e_pantalla.*` y `output/f8s3-vajont-f30/GUION_PANTALLA.*` son ahora los de
+  F38b** (copias en `f38/b2/`). El de F37 está en `f37/c/` y el de F38 en `f38/b/`.
+- b6. **El abierto de F38 de arriba que el juez dejaba:**
+  - quedan cerrados 1–3, 6 y 8 (la grabación del juez se borró);
+  - el 4 sigue: la frase `REINTENTO_PARCIAL` no es literal y está en el md5;
+  - siguen 5 (lectura de la hora), 7, 9, 11, 12 y 14;
+  - el 10 se actualiza con b5;
+  - el 13 se repite: fecha del relato y caben se ejercitaron otra vez (D95, Q50).
+- b7. **DECISIONES 01:23** («CC usa todos los subagentes en paralelo que la tanda permita») estaba en el árbol sin
+  commitear y CC no la leyó antes de A. A era un solo módulo sin partes independientes; B dependía de A y el revisor de
+  B: no había paralelo posible. Se commitea tal cual con B.
+
+## Veredicto del revisor (`revisor-handoff`, íntegro) — F38b
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | Gancho literal de m01e-1 (md5 antes/después) | OK | `script_engine/m01e_pantalla.py:100` es idéntica a `git show 9e9d844:script_engine/m01e_pantalla.py` línea 70. Recomputé el md5 del prompt: cde0de6 = f8babc02…, ab1b2c5 = 163e1fd1…. Coincide con el reporte. |
+| 2 | PROMPT_VERSION = m01e-4 | OK | m01e_pantalla.py:57 |
+| 3 | Juez borrado entero (no apagado) | OK | El diff cde0de6..ab1b2c5 elimina JUEZ_SYSTEM, JUEZ_VERSION, juzgar, juez_entrada, juez_pedido, _gemini_juez, primer_json_lista, la regla `juez` y el md5 del juez. `grep -i juez` sobre m01e_pantalla.py da 0. El resto de `script_engine/*.py` no tiene `01e_juez`, `JUEZ_SYSTEM`, `juez_post` ni `motivo_juez`. Solo `data/cost_history.json` conserva «m01e_juez», que es histórico. |
+| 4 | Tests y caché del juez fuera | OK | `f38/a/juez_cache_f37.json` borrado (−84 líneas). Quedaron 17 passed en `test_module_f38a_m01e.py` + `test_module_f37a_papel.py` (corrí yo). Los tests nuevos (`test_f38b_*`, líneas 177-196) comprueban el gancho y que nada llama al juez. El `test_a3a` de F37 quedó invertido. |
+| 5 | Se quedan reintento parcial, tarjeta desde la voz y fracciones | OK | Los tests de reintento parcial y de `tarjeta` siguen verdes. El diff solo borra código del juez, no esas partes. |
+| 6 | Ningún otro prompt cambió | OK | En el diff de m01e_pantalla.py, la única línea de prompt cambiada es la del gancho. FORMATO_SALIDA y REINTENTO_PARCIAL no aparecen. Fuera de ese módulo, los demás archivos son sticker/mapa (mapa_modulos.py, MAPA_MODULOS.*), tests, logs y handoffs. |
+| 7 | Tests leen de `lab/…/c/`, no de `data/` | OK, con una observación | El papel de F37 sale de `lab/hyperframes/f37/c/` (test_module_f38a_m01e.py:27-28). `STEPS = data/scripts/_steps` (línea 26, y test_f37a:28) solo se usa para la entrada de `mp.cargar` (escaleta y narración), no para el papel. Esa dependencia ya existía. |
+| 8 | B: m01e suelto + `--plan-only` | OK | `b2/m01e_vajont.log`: US$ 0.5228, 2 intentos. `b2/plan_only.log`: Gemini US$ 0.0017. Existen `01e_pantalla.json/.md/.raw.json` y `GUION_PANTALLA.json/.md`, todos con contenido. |
+| 9 | Sección B fiel a `01e_pantalla.md` y `GUION_PANTALLA.md` | OK con matices | Coinciden: 12 fichas, 9 sellos, 4 relojes en el papel, tarjeta 9 OCT 1963 · 22:39 (T66), la tabla de fichas, D95→D47 y Q50 a 86 caracteres, y los 5 beats que podía cambiar con 2 aplicados. En pantalla: 12 de 12 fichas, gancho D84 a 01:04.2, CALMA y SILENCIO cortados, y los ✗ de «cifra» (722.50 → 72250), a_pantalla, inicio de voz y papel sin colocar. Matices en las observaciones. |
+| 10 | Sección corta, abierto entero, ESTADO, PARADA | PARCIAL | `F38_REPORT.md` tiene la sección F38b (desde la línea 189) con «Lo que queda abierto F38b (entero)» b1 a b6. El encabezado del veredicto (línea 302) dice «(se pega abajo)», así que falta pegar este veredicto. No verifiqué la actualización de `lab/ESTADO_SESION.md` (no figura en el estado de git, y su estado depende de si ya se hizo). |
+| 11 | Prohibido: render, --aprobar-guion, merge | OK | El log de `--plan-only` no muestra render ni aprobación. No hay evidencia de merge: la rama sigue en f11-guion-v4, con ab1b2c5 y d79cd9d encima. |
+| 12 | Nada hardcode | OK | El tope sale del perfil, con respaldo declarado en el reporte. No hay constantes nuevas. |
+
+Observaciones (no tumban el veredicto):
+- El reporte dice «3 preguntas al autor». El log dice «preguntas 4», y el `.md` lista 4 preguntas sobre 3 fichas (D84 con dos números, T21, T39). Las 3 fichas recibieron «otro hecho».
+- El reporte atribuye el reloj faltante al «reloj de voz de ch05, fuera por `TICKER_MIN`». El `.md` muestra ese reloj «9 OCT» de ch05 como cortado por «quedaría menos de 2.0 s», sin papel. El reloj del papel que no aparece en pantalla es ch07 «29 NOV 1968» (`GUION_PANTALLA.md:273`, «difiere (anotado)»). El reporte no lo dice. Las cifras (4 en el papel, 3 en pantalla) están bien.
+- «Pantalla (`--plan-only`, 347 s…)» presenta como dato de la pantalla el tiempo de ejecución del comando.
+- «D131 en ch01 [15]» figura como «no cumple» y está explicado (b1). El reporte reconoce que una sola corrida no prueba que la línea revertida devuelva D131.
+
+Fuera de alcance: ninguno atribuible a la tanda. En el árbol hay modificados sin commitear `DECISIONES.md`, `diag_234_cap4.py`, `gfx_profiles/*.json` y `lab/hyperframes/f28/a/f28a.log`, más muchos `??`. Ya figuraban en el git status inicial y no los toca el diff de A (los commits d79cd9d y ab1b2c5). `F38_REPORT.md` y `f38/b2/` son de B, sin commitear, como se esperaba.
+
+Riesgos que el contrato no cubre:
+- `data/…/f8s3-vajont/01e_pantalla.*` y `output/f8s3-vajont-f30/GUION_PANTALLA.*` quedaron pisados por la corrida de B (b5). Los tests de papel dependen de las copias congeladas en `lab/`, que se pueden desactualizar.
+- Una sola corrida de B sin repetición. El cambio de D131 a D84 no distingue efecto de la línea de variación entre corridas (b1).
+- «722.50» → 72250 (b2) sigue abierto y genera un ✗ sin dueño de decisión.
+
+### Adenda de CC (después del veredicto; el texto de arriba queda tal cual)
+- Observaciones 1–3 corregidas en la sección B: 4 preguntas sobre 3 fichas; el reloj del papel que no sale es ch07 «29 NOV 1968» (la escena muestra el de la voz, 20 FEB 1968) y el de voz de ch05 se corta por menos de 2 s; los 347 s son lo que tardó `--plan-only`.
+- `DECISIONES.md` modificado: es la línea nueva de Omar 2026-10-27 01:23 («CC usa todos los subagentes en paralelo que la tanda permita»), que CC no leyó antes de A (el pedido decía «reglas de velocidad de F38»). A era un solo módulo sin partes independientes, así que lo hizo CC directo; B y el revisor, uno detrás del otro por dependencia. Se commitea tal cual con B. Declarado como abierto b7.
+- ESTADO actualizado en el mismo commit B.
