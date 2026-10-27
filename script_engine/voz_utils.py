@@ -255,6 +255,93 @@ def norm_oracion(texto: str) -> str:
     return " ".join(re.findall(r"[^\W_]+", ev.norm(t)))
 
 
+# ═══════════════════════ años del relato (F37 §A.1b) ═══════════════════════
+
+def anios_de(fechas: list[Any]) -> tuple[int, int] | None:
+    """El rango de años del material (el primero y el último año de las `fecha` del pool): un número de la voz es un año
+    solo si cae ahí (derivado: el caso dice en qué años pasa; «setecientos quince» no es un año, «mil novecientos
+    sesenta y tres» sí). None si el material no trae fechas."""
+    ys = [int(m.group(1)) for f in fechas for m in [re.match(r"\s*(\d{4})", str(f or ""))] if m]
+    return (min(ys), max(ys)) if ys else None
+
+
+def anio_de(fecha: Any) -> int | None:
+    m = re.match(r"\s*(\d{4})", str(fecha or ""))
+    return int(m.group(1)) if m else None
+
+
+def anios_dichos(texto: str, rango: tuple[int, int] | None) -> list[int]:
+    """Los años que dice un texto, en dígitos o en letras («mil novecientos sesenta y tres», «dos mil»): las cifras de
+    `numeros` que caen en el rango de años del material (`anios_de`)."""
+    if not rango:
+        return []
+    out = []
+    for n in numeros(texto):
+        v = _valor(n)
+        if isinstance(v, int) and rango[0] <= v <= rango[1]:
+            out.append(v)
+    return out
+
+
+def dice_anio(anio: int, texto: str, rango: tuple[int, int] | None) -> bool:
+    """¿El texto dice ese año o uno posterior? En cifras completas, o el año dicho en sus dos últimas cifras («en la
+    década del cincuenta» = 1950: así se dicen los años en castellano; derivado, sin lista de palabras)."""
+    if any(y >= anio for y in anios_dichos(texto, rango)):
+        return True
+    return any(_valor(n) == anio % 100 for n in numeros(texto)) if anio % 100 else False
+
+
+# ═══════════════════════ velocidad del narrador (F37 §0: SEG_POR_PALABRA derivado) ═══════════════════════
+
+def narrador() -> str | None:
+    """La voz con que se va a narrar el video: la del perfil de audio activo para guiones v3 (ElevenLabs v4,
+    audio_manager: `voice_id_v4`, si no `voice_id`)."""
+    try:
+        from audio_config import AUDIO_STYLE
+    except Exception:  # noqa: BLE001 — sin perfil de audio no hay narrador conocido
+        return None
+    return AUDIO_STYLE.get("voice_id_v4") or AUDIO_STYLE.get("voice_id")
+
+
+def seg_por_palabra(voz: str | None = None, audio_dir: Any = None) -> dict[str, Any] | None:
+    """F37 §0: segundos por palabra del narrador = la mediana, oración por oración, de todas las voces ya generadas con
+    él (`output/audio/<topic>/chNN.meta.json` con su `voice_id` y los tiempos de palabra de ElevenLabs en
+    `chNN_timestamps.json`; el mismo audio copiado en varios topics cuenta una vez, por su `tts_hash`). None si no hay
+    ninguna (el que llama usa su respaldo y lo anota). {valor, oraciones, caps, voz}."""
+    import json
+    import statistics
+    from pathlib import Path
+    from script_engine.gfx_peak import sentences
+    voz = voz or narrador()
+    if audio_dir is None:
+        from config import OUTPUT_DIR
+        audio_dir = Path(OUTPUT_DIR) / "audio"
+    vistos: set[str] = set()
+    por_oracion: list[float] = []
+    caps = 0
+    for meta in sorted(Path(audio_dir).glob("*/ch*.meta.json")):
+        try:
+            m = json.loads(meta.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        clave = str(m.get("tts_hash") or meta)
+        if not voz or m.get("voice_id") != voz or clave in vistos:
+            continue
+        ts = meta.with_name(meta.name.replace(".meta.json", "_timestamps.json"))
+        try:
+            words = json.loads(ts.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        vistos.add(clave)
+        caps += 1
+        for s in sentences(words):
+            if len(s["idx"]) and s["t1"] > s["t0"]:
+                por_oracion.append((s["t1"] - s["t0"]) / len(s["idx"]))
+    if not por_oracion:
+        return None
+    return {"valor": round(statistics.median(por_oracion), 4), "oraciones": len(por_oracion), "caps": caps, "voz": voz}
+
+
 def beat_de_oracion(s: dict, beats: list[dict]) -> int | None:
     """El beat de una oración: el que contiene su inicio (con la tolerancia de pico_cap); si cae entre beats, el último
     que ya empezó."""

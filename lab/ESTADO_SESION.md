@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-26 (F36 C y D hechas —guion en papel en Fase 1; D1 diff vacío; D2 PARADA—) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-26 (F37 en curso: paso 0 y A hechos) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -12,6 +12,11 @@
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F37 — El papel elige más y mejor; Fase 2 mueve en vez de cortar (pedido de Omar, 2026-10-26) — EN CURSO
+- Handoff `lab/hyperframes/f37/HANDOFF_F37_papel_y_colocar.md`. Base `2067c77`. Tres partes A → B → C, un commit cada una, sin PARADA entre ellas salvo §Frenos. Contrato: `lab/hyperframes/f36/REVISION_PAPEL.md`. Verificador `lab/hyperframes/f37/verificar.sh <parte>` (copia del de F36).
+- **Paso 0 HECHO** (`6631703`): `DECISIONES.md` tal cual (22:26, 22:32, orden 3b) + `REVISION_PAPEL.md` y el handoff F37, tal cual.
+- **A HECHO** (commit A): `m01e_pantalla` m01e-2 (reemplazo literal de A.3a; md5 del prompt `ababbc8b…`, del SYSTEM `e7b3e0a3…`; `tipo` en los descartes): archivo con `fecha`/`rol`/`testimonio`; validación en papel «fecha del relato» (año del ítem contra el último año que dijo la voz; el año en dos cifras lo sitúa: D47 «la década del cincuenta») y «cita sin fecha» (autor por nombre o rol en la oración o una vecina); coincidencias de `no_dicho`/`spoiler` = preguntas al autor (su respuesta del reintento es final; Fase 2 respeta `juicio_autor`); descartes «voz_lo_dice» verificados (cifras o nombres); picos sin ficha; UN reintento con todos los motivos. `SEG_POR_PALABRA` derivado (`voz_utils.seg_por_palabra`: mediana de 200 oraciones de 9 caps del narrador = 0.3459; respaldo 0.35); `caben` sin pasar de `callout_dur_max` × 15; `TOPE_USD` = `costos.m01e_tope_usd` del perfil (respaldo 1.00; la clave la agrega Omar, `gfx_profiles` fuera de git; `gfx_config` acepta `costos`). En seco sobre la respuesta de F36 (`f37/a/seco_validacion_sobre_f36.txt`): Q43 cae por cita sin fecha, D47 y D105 van como pregunta, T39/T21/D68/T85 vuelven, Q50 cae por caben (127 > 90), pico ch05 b8 vacío. Tests `test_module_f37a_papel.py` (9). md5 `38e5ba14…`, rápida 58, amplia 842 + 5 previas. API US$ 0.
 
 ## 👀 Para Omar (F36): leer `data/scripts/_steps/f8s3-vajont/01e_pantalla.md` (= `lab/hyperframes/f36/c/01e_pantalla.md`), el resumen de `F36_REPORT.md` (C, D, abierto) y decidir: aceptar o revertir D2 (`04755b2`); qué hacer con D195/T85/D128 en el papel (`--plan-edit`); borrar las claves huérfanas de `misterio.json`. Nada se renderizó.
 

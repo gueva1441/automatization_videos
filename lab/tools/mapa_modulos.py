@@ -66,8 +66,8 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                       "tarjeta del papel", "F29b", "vivo"),
     "rotulista_filtros": ("Los filtros que deciden si un texto del papel sale, en un orden que se lee en una línea "
                           "(`ORDEN`, F36 C): anclar el papel a la voz, no dicho del gancho, candado de lo literal, no "
-                          "dicho, spoiler y lectura hasta el corte; además la comparación de cifras con la voz que usa el "
-                          "chequeo del guion.", "bloques del papel + entrada del cap", "bloques que pasan, cortados con "
+                          "dicho, spoiler y lectura hasta el corte (F37: lo que el autor del papel ya juzgó «otro hecho» "
+                          "no vuelve a cortar); además la comparación de cifras con la voz que usa el chequeo del guion.", "bloques del papel + entrada del cap", "bloques que pasan, cortados con "
                           "su regla y motivo", "F36 (código de F29b)", "vivo"),
     "rotulista_colocar": ("Pone cada texto que pasó en su lugar: cuánto dura (lectura, nunca después del corte), qué "
                           "forma toma (ficha normal, nombre o cita con autor; papel = recorte), el reloj contra el corte y "
@@ -85,8 +85,10 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                   "vivo"),
     "voz_utils": ("La utilería de la voz: lee cifras en dígitos y en letras, nombres propios, cifras con su unidad, y "
                   "parte la voz en oraciones con cada palabra numerada; desde F36 C parte igual el texto de Fase 1 "
-                  "(`oraciones_de_texto`) y normaliza oraciones para alinear papel y voz.", "texto / palabras con tiempos",
-                  "cifras, nombres, oraciones", "F36 (código de F29b)", "vivo"),
+                  "(`oraciones_de_texto`) y normaliza oraciones para alinear papel y voz; desde F37 dice qué años nombra "
+                  "la voz (el momento del relato) y cuántos segundos por palabra habla el narrador (mediana de sus voces "
+                  "ya generadas).", "texto / palabras con tiempos / voces del narrador",
+                  "cifras, años, nombres, oraciones, segundos por palabra", "F36 (código de F29b)", "vivo"),
     "gfx_critic": ("El editor: Gemini mira la foto y saca lo que repite la voz, no aporta o tapa algo. Desde F36 juzga "
                    "los candidatos ANTES del reparto (lo que saca no ocupa lugar); a las fichas del papel y a los sellos "
                    "solo les pregunta si estorban.", "plan + cuadros del video + voz", "plan sin lo que no pasa + "
@@ -136,8 +138,10 @@ M: dict[str, tuple[str, str, str, str, str]] = {
     "m01e_pantalla": ("Fase 1 (F36 C): el guion de pantalla EN PAPEL. Una llamada a Sonnet por video con la narración "
                       "de los 7 caps (oraciones numeradas y cuánto cabe), la escaleta, el archivo del caso y el "
                       "vocabulario de clima → por beat ficha o nada, sello o nada; relojes; tarjeta. Lo valida en papel "
-                      "(candado, no dicho, spoiler, una vez, cabe, formato) y lo deja para que Omar lo revise antes de la "
-                      "voz; Fase 2 lo consume.", "escaleta, narración por cap y beat, títulos, pool, `sellos_clima`",
+                      "(candado, no dicho, spoiler, una vez, cabe, formato; F37: fecha del relato, cita sin fecha, "
+                      "descartes «la voz lo dice» verificados, picos sin ficha; una coincidencia de número se le pregunta "
+                      "al autor) con un reintento que lleva todos los motivos, y lo deja para que Omar lo revise antes "
+                      "de la voz; Fase 2 lo consume.", "escaleta, narración por cap y beat, títulos, pool, `sellos_clima`",
                       "`01e_pantalla.json/.md` en el topic de Fase 1", "F36", "vivo (fase 1)"),
     "archive_clipping.html.tmpl": ("La forma del recorte de diario (papel, kicker, titular).", "un recorte del plan",
                                    "HTML", "F1", "vivo (la ficha de estilo papel)"),

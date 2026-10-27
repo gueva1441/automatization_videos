@@ -118,10 +118,18 @@ def candado(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> str 
     return None
 
 
+def _sin_juicio(ctx: dict[str, Any], regla_: str, toks: list[str]) -> list[str]:
+    """F37 §A.4: las coincidencias que el autor ya juzgó «otro hecho» en el reintento del papel (`juicio_autor` de la
+    ficha) no vuelven a cortar, ni en papel ni en Fase 2."""
+    ya = {str(t) for t in ((ctx.get("juicio") or {}).get(regla_) or [])}
+    return [t for t in toks if str(t) not in ya]
+
+
 def no_dicho(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> str | None:
     """§A.3 no dicho (oración ancla ± 1), sobre el dato. F34 §A.2.2: antes que la lectura (D237 «cuatrocientos» caía
     por lectura y no por repetir la voz); los números en letras de la voz se comparan por valor (numeros/numero_en, con
-    el conversor de num_es)."""
+    el conversor de num_es). F37 §A.4: las coincidencias quedan en ctx["dichos"] (el papel se las pregunta al autor) y
+    las que el autor juzgó otro hecho no cuentan."""
     sents, si, x, txt = ctx["sents"], ctx["si"], ctx["x"], ctx["txt"]
     vecinas = " ".join(ss["texto"] for ss in sents[max(0, si - 1):si + 2])
     nums = numeros(txt)
@@ -131,6 +139,8 @@ def no_dicho(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> str
     dichos = [n for n in nums if numero_en(n, vecinas)] + [n for n in nms if _palabra_en(n, vecinas)]
     if x.get("gancho"):                    # §A.1: el dato del gancho no lo dice la voz en todo el video
         dichos += [n for n in nums if n not in dichos and numero_en(n, " ".join(ctx["voz_video"]))]
+    dichos = _sin_juicio(ctx, "no_dicho", dichos)
+    ctx["dichos"] = dichos
     if dichos:
         return f"la voz lo dice en la oración ancla o en una vecina: {dichos}"
     return None
@@ -138,12 +148,15 @@ def no_dicho(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> str
 
 def spoiler(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> str | None:
     """§A.3 spoiler (oraciones posteriores del cap). §A.2.3: un nombre que la voz ya dijo antes en el cap o en un cap
-    anterior no es spoiler."""
+    anterior no es spoiler. F37 §A.4: las coincidencias quedan en ctx["spoil"] y las que el autor juzgó otro hecho no
+    cuentan."""
     sents, si = ctx["sents"], ctx["si"]
     despues = " ".join(ss["texto"] for ss in sents[si + 1:])
     antes = " ".join(ss["texto"] for ss in sents[:si + 1]) + " " + str(ent.get("voz_antes") or "")
     spoil = [n for n in ctx["nums"] if numero_en(n, despues)] + \
             [n for n in ctx["nms"] if _palabra_en(n, despues) and not _palabra_en(n, antes)]
+    spoil = _sin_juicio(ctx, "spoiler", spoil)
+    ctx["spoil"] = spoil
     if spoil:
         return f"la voz lo dice en una oración posterior del cap: {spoil}"
     return None
@@ -184,7 +197,8 @@ def ancla_papel(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> 
         txt = re.sub(r"^[«\"“]+|[»\"”]+$", "", txt).strip()
     et = re.sub(r"\s+", " ", str(b.get("etiqueta") or "")).strip() or None
     b["texto"], b["etiqueta"] = txt, et
-    ctx.update(pid=pid, x=x, si=si, s=ctx["sents"][si], wi=wi, tipo=tipo, txt=txt, et=et, forzado=None)
+    ctx.update(pid=pid, x=x, si=si, s=ctx["sents"][si], wi=wi, tipo=tipo, txt=txt, et=et, forzado=None,
+               juicio=b.get("juicio_autor") or {})                    # F37 §A.4: lo que el autor ya juzgó
     return None
 
 

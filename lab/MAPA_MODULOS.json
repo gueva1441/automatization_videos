@@ -354,7 +354,7 @@
   {
    "modulo": "m01e_pantalla",
    "archivo": "script_engine/m01e_pantalla.py",
-   "sticker": "Fase 1 (F36 C): el guion de pantalla EN PAPEL. Una llamada a Sonnet por video con la narración de los 7 caps (oraciones numeradas y cuánto cabe), la escaleta, el archivo del caso y el vocabulario de clima → por beat ficha o nada, sello o nada; relojes; tarjeta. Lo valida en papel (candado, no dicho, spoiler, una vez, cabe, formato) y lo deja para que Omar lo revise antes de la voz; Fase 2 lo consume.",
+   "sticker": "Fase 1 (F36 C): el guion de pantalla EN PAPEL. Una llamada a Sonnet por video con la narración de los 7 caps (oraciones numeradas y cuánto cabe), la escaleta, el archivo del caso y el vocabulario de clima → por beat ficha o nada, sello o nada; relojes; tarjeta. Lo valida en papel (candado, no dicho, spoiler, una vez, cabe, formato; F37: fecha del relato, cita sin fecha, descartes «la voz lo dice» verificados, picos sin ficha; una coincidencia de número se le pregunta al autor) con un reintento que lleva todos los motivos, y lo deja para que Omar lo revise antes de la voz; Fase 2 lo consume.",
    "recibe": "escaleta, narración por cap y beat, títulos, pool, `sellos_clima`",
    "entrega": "`01e_pantalla.json/.md` en el topic de Fase 1",
    "lo_llama": [
@@ -362,7 +362,7 @@
     "fase2b.py",
     "script_engine/gfx_rotulista.py"
    ],
-   "tests": 1,
+   "tests": 2,
    "lab": 0,
    "tanda": "F36",
    "nacio": "9e9d844 2026-10-26 feat(f36-c): m01e_pantalla — el guion de pantalla en papel va a Fase 1 (DECISIONES 19:54) · una llamada a Sonnet por vide",
@@ -407,7 +407,7 @@
   {
    "modulo": "rotulista_filtros",
    "archivo": "script_engine/rotulista_filtros.py",
-   "sticker": "Los filtros que deciden si un texto del papel sale, en un orden que se lee en una línea (`ORDEN`, F36 C): anclar el papel a la voz, no dicho del gancho, candado de lo literal, no dicho, spoiler y lectura hasta el corte; además la comparación de cifras con la voz que usa el chequeo del guion.",
+   "sticker": "Los filtros que deciden si un texto del papel sale, en un orden que se lee en una línea (`ORDEN`, F36 C): anclar el papel a la voz, no dicho del gancho, candado de lo literal, no dicho, spoiler y lectura hasta el corte (F37: lo que el autor del papel ya juzgó «otro hecho» no vuelve a cortar); además la comparación de cifras con la voz que usa el chequeo del guion.",
    "recibe": "bloques del papel + entrada del cap",
    "entrega": "bloques que pasan, cortados con su regla y motivo",
    "lo_llama": [
@@ -415,7 +415,7 @@
     "script_engine/m01e_pantalla.py",
     "script_engine/rotulista_colocar.py"
    ],
-   "tests": 2,
+   "tests": 3,
    "lab": 0,
    "tanda": "F36 (código de F29b)",
    "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
@@ -480,9 +480,9 @@
   {
    "modulo": "voz_utils",
    "archivo": "script_engine/voz_utils.py",
-   "sticker": "La utilería de la voz: lee cifras en dígitos y en letras, nombres propios, cifras con su unidad, y parte la voz en oraciones con cada palabra numerada; desde F36 C parte igual el texto de Fase 1 (`oraciones_de_texto`) y normaliza oraciones para alinear papel y voz.",
-   "recibe": "texto / palabras con tiempos",
-   "entrega": "cifras, nombres, oraciones",
+   "sticker": "La utilería de la voz: lee cifras en dígitos y en letras, nombres propios, cifras con su unidad, y parte la voz en oraciones con cada palabra numerada; desde F36 C parte igual el texto de Fase 1 (`oraciones_de_texto`) y normaliza oraciones para alinear papel y voz; desde F37 dice qué años nombra la voz (el momento del relato) y cuántos segundos por palabra habla el narrador (mediana de sus voces ya generadas).",
+   "recibe": "texto / palabras con tiempos / voces del narrador",
+   "entrega": "cifras, años, nombres, oraciones, segundos por palabra",
    "lo_llama": [
     "script_engine/gfx_layer.py",
     "script_engine/gfx_rotulista.py",
@@ -490,7 +490,7 @@
     "script_engine/rotulista_filtros.py",
     "script_engine/voz_datos.py"
    ],
-   "tests": 2,
+   "tests": 3,
    "lab": 0,
    "tanda": "F36 (código de F29b)",
    "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
@@ -520,9 +520,10 @@
     "script_engine/gfx_safe_bake.py",
     "script_engine/gfx_sparse.py",
     "script_engine/gfx_style.py",
+    "script_engine/m01e_pantalla.py",
     "script_engine/rotulista_colocar.py"
    ],
-   "tests": 12,
+   "tests": 13,
    "lab": 5,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
@@ -804,7 +805,8 @@
    "a": "gfx_peak",
    "donde": [
     "en oraciones",
-    "en oraciones_de_texto"
+    "en oraciones_de_texto",
+    "en seg_por_palabra"
    ]
   },
   {
@@ -1198,7 +1200,7 @@
    "a": "rotulista_filtros",
    "donde": [
     "en estilo_de",
-    "en validar"
+    "en _validar_ficha"
    ]
   },
   {
@@ -1226,7 +1228,7 @@
    "de": "m01e_pantalla",
    "a": "rotulista_colocar",
    "donde": [
-    "en entrada",
+    "en caben_en",
     "en validar",
     "en editar"
    ]
@@ -1431,6 +1433,14 @@
    "donde": [
     "arriba",
     "en golden_fewshot"
+   ]
+  },
+  {
+   "de": "m01e_pantalla",
+   "a": "gfx_config",
+   "donde": [
+    "en tope_usd",
+    "en caben_en"
    ]
   },
   {

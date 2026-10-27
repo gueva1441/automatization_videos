@@ -1,0 +1,22 @@
+seg {'valor': 0.3459, 'oraciones': 200, 'caps': 9, 'voz': 'N9Z5MLTIaHFLflaLtbDi', 'origen': 'mediana de 200 oraciones de 9 caps del narrador N9Z5MLTIaHFLflaLtbDi'} anios (1943, 2023) tope (1.0, 'respaldo (el perfil no trae costos.m01e_tope_usd)')
+fichas fuera 2
+ch01 1 D131 año None relato 1963 41 / 67 preg None
+ch02 2 D117 año None relato 1943 60 / 90 preg None
+ch02 3 D47 año 1950 relato 1943 71 / 83 preg [{'regla': 'spoiler', 'token': '2', 'donde': ('ch03', 17, 'Ese año hubo un pequeño desmoronamiento en el Toc, y después del desmoronamiento los habitantes vieron algo nuevo en la ladera: una fisura de casi dos kilómetros de largo, corriendo por la montaña como una costura abierta.')}]
+ch03 4 T16 año 1959 relato 1959 39 / 90 preg None
+ch03 5 D49 año 1960 relato 1960 32 / 90 preg None
+ch04 7 D105 año 1962 relato 1963 53 / 90 preg [{'regla': 'no_dicho', 'token': '1962', 'donde': ('ch04', 14, 'En noviembre de mil novecientos sesenta y dos, la ladera ya se desplazaba más de un centímetro y medio por día.')}]
+ch06 10 D01 año 1963 relato 1963 54 / 90 preg None
+ch06 11 D17 año None relato 1963 33 / 90 preg None
+ch07 12 Q14 año 1963 relato 1963 65 / 90 preg None
+ch07 13 D245 año 1997 relato 1971 40 / 62 preg None
+--- motivos
+- Q50 (ch05 beat 8) «ADMINISTRACIÓN DE ERTO Y CASSO · viviendo en continua aprensión y en continua alarma»: caben: etiqueta + dato = 127 caracteres y en la oración [2] caben 90
+- Q43 (ch05 beat 9) «INGENIERO JEFE · Son sacudidas menores, no hace falta informar al ministerio»: cita_sin_fecha: cita sin fecha: su autor («Ingeniero jefe (sucesor de Semenza)», Supervisor de obras) no aparece en la oración [23] ni en sus vecinas
+- D47 (ch02 beat 3, oración [11]) «EL DESMORONAMIENTO DEL TOC · 2 km de frente y 600 m de desarrollo vertical»: la voz dice «2» en una oración posterior en ch03 [17] («Ese año hubo un pequeño desmoronamiento en el Toc, y después del desmoronamiento los habitantes vieron algo nuevo en la ladera: una fisura de casi dos kilómetros de largo, corriendo por la montaña como una costura abierta.»); ¿es el mismo hecho? si no, mantenelo
+- D105 (ch04 beat 7, oración [15]) «NACIMIENTO DE ENEL · Creado por ley en diciembre de 1962»: la voz dice «1962» en la oración ancla o en una vecina en ch04 [14] («En noviembre de mil novecientos sesenta y dos, la ladera ya se desplazaba más de un centímetro y medio por día.»); ¿es el mismo hecho? si no, mantenelo
+- T21: dijiste que la voz lo dice («Mismo dato de Pontesei en marzo de 1959, que la voz ya cuenta.»); la voz de ch03 no dice «3» («Un deslizamiento de 3 millones de m³ de roca ocurre en el embalse de Pontesei, generando una primera alarma. (fecha 1959-03)»): vuelve a ser candidato
+- T39: dijiste que la voz lo dice («La voz ya cuenta la advertencia de febrero de 1961.»); la voz de ch04 no dice «50» («Tina Merlin publica un nuevo artículo alertando de un derrumbamiento de 50 millones de metros cúbicos de roca que amenaza Erto. (fecha 1961-02)»): vuelve a ser candidato
+- D68: dijiste que la voz lo dice («La voz ya dice el centímetro y medio por día.»); la voz de ch04 no dice «1,5» («En noviembre de 1962, el desplazamiento de la ladera superó el umbral de 1,5 cm por día.»): vuelve a ser candidato
+- T85: dijiste que la voz lo dice («La voz ya dice el 20 de febrero de 1968 de la remisión a juicio.»); la voz de ch07 no dice «11» («Se presenta la sentencia de remisión a juicio contra 11 personas por el desastre del Vajont. (fecha 1968-02-20)»): vuelve a ser candidato
+- el beat 8 de ch05 es pico y quedó sin ficha
