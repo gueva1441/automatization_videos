@@ -326,7 +326,12 @@ Totales: 12 fichas · 7 sellos · 6 relojes · 15 descartados
 - Suite amplia (`-n auto`): **939 passed, 5 failed** = exactamente las 5 previas (`01b_pauses` ×3, `m03_merge_timing` ×2). Cuenta: 913 (F39) + 9 (A) + 17 (B) = 939 ✓.
 
 ## Push de la rama
-(se pega abajo, después del commit final)
+`git push origin f11-guion-v4` después del commit del reporte (`main` no se tocó):
+```
+To https://github.com/gueva1441/automatization_videos.git
+   a67ed45..5b0fa5f  f11-guion-v4 -> f11-guion-v4
+```
+Sube los commits de F39 (A y reporte) y de F40 (paso 0, A, B y reporte). Este commit, que solo agrega esta salida, se subió con un segundo push.
 
 ## Lo que queda abierto (entero)
 - o1. **El subagente B cerró Firefox** antes de un `--only-cap` sin gfx, siguiendo una memoria vieja de CC que DECISIONES 00:30 había reemplazado («CC nunca cierra programas de Omar»). La memoria quedó corregida; en los briefs de renders hay que escribir «no cierres ningún programa de Omar».
