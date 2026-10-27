@@ -113,6 +113,11 @@ PÁRRAFO:
 TITLES_SCHEMA = {"type": "OBJECT", "properties": {"titulos": {"type": "ARRAY", "items": {"type": "STRING"}}},
                  "required": ["titulos"]}
 
+# F38e §E.1: bloque «Pedido nuevo, entero» de lab/hyperframes/f38/PRUEBA2_prompt_titulos.md, letra por letra
+# (únicos placeholders: {TITLE_MAX_WORDS} y {lines}; se rellenan con .replace, como en f38/prueba2/prueba2_titulos.py).
+PEDIDO_TITULOS = """Títulos de capítulo para un documental en español. Cada título se lee solo en pantalla, 3 segundos sin voz, justo antes de que empiece su capítulo: es la promesa de lo que ese capítulo le va a contar a quien mira, sin contar cómo termina. Uno por cap, en orden, de 2 a {TITLE_MAX_WORDS} palabras, concretos, sin cifras, sin fechas, sin nombres propios de personas y sin signos de pregunta. De cada cap tenés sus beats (qué función cumplen, qué se ve, qué pregunta abren) y cómo termina:
+{lines}"""
+
 
 def _title_fallback(beats: list[dict]) -> str:
     img = re.sub(r"[.,;:]+$", "", str((beats[0] if beats else {}).get("imagen_sensorial") or "").strip())
@@ -121,18 +126,24 @@ def _title_fallback(beats: list[dict]) -> str:
 
 
 def titles(esc: dict, *, call: Callable[..., dict] | None = None) -> tuple[list[str], str]:
-    """7 títulos de cap (≤ 5 palabras, sin cifras, sin nombres que no estén en la escaleta). Se ven en el title card."""
+    """7 títulos de cap (≤ 5 palabras, sin cifras, sin «?»): la promesa del cap. F38e §E: Flash ve de cada beat su función, qué se ve y qué pregunta abre, cuál es el pico (esc["pico"]["beat"]) y cómo termina el cap («termina (no lo cuentes)»)."""
     by_cap = {n: [b for b in esc["beats"] if b["cap"] == n] for n in range(1, 8)}
     fb = [_title_fallback(by_cap[n]) for n in range(1, 8)]
-    lines = "\n".join(f"CAP {n}: " + " / ".join(f"{b.get('funcion')}: {b.get('imagen_sensorial')}" for b in by_cap[n])
-                      for n in range(1, 8))
+    pico = int((esc.get("pico") or {}).get("beat") or 0)
+    out_lines: list[str] = []
+    for n in range(1, 8):
+        out_lines.append(f"CAP {n}:")
+        for b in by_cap[n]:
+            marca = " · pico" if pico and int(b.get("n") or 0) == pico else ""
+            out_lines.append(f"  beat {b.get('n')} {b.get('funcion')}{marca}: se ve: {b.get('imagen_sensorial')} · "
+                             f"pregunta que abre: {b.get('pregunta_abierta')}")
+        out_lines.append(f"  termina (no lo cuentes): {(by_cap[n][-1] if by_cap[n] else {}).get('cierre')}")
+    lines = "\n".join(out_lines)
     try:
         if call is None:
             from gemini_helpers import call_flash_json as call
-        raw = call(f"""Títulos de capítulo para un documental en español (se leen en pantalla al abrir cada cap).
-Uno por cap, en orden, de 2 a {TITLE_MAX_WORDS} palabras, concretos (un objeto, un lugar, un momento), sin cifras, sin
-fechas, sin nombres propios de personas y sin signos de pregunta. Basate en lo que se ve en cada cap:
-{lines}""", response_schema=TITLES_SCHEMA, description="m01d_particion: títulos") or {}
+        raw = call(PEDIDO_TITULOS.replace("{TITLE_MAX_WORDS}", str(TITLE_MAX_WORDS)).replace("{lines}", lines),
+                   response_schema=TITLES_SCHEMA, description="m01d_particion: títulos") or {}
         ts = [str(t).strip().strip('".«»') for t in raw.get("titulos") or []]
     except Exception:  # noqa: BLE001 — sin títulos del LLM: los de respaldo
         return fb, "respaldo"
