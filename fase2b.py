@@ -2696,6 +2696,16 @@ def _medir_cierre(seg_path: Path, esperado_s: float, negro_s: float, fps: int) -
 
 
 def _costura_del_segmento(plan: Any, seg_path: Path, work_dir: Path, *, hook: str | None) -> list[str]:
+    """F38e §A.3: el chequeo «costuras» medido en el mp4, que nunca tira el render: cualquier error al medir es una
+    línea «✗ costura …: no se pudo medir», no una excepción (en `_segmentos_en_paralelo` una excepción hacía caer el
+    cap entero)."""
+    try:
+        return _costura_medida(plan, seg_path, work_dir, hook=hook)
+    except Exception as e:  # noqa: BLE001 — el chequeo nunca tira el render
+        return [f"✗ costura {getattr(plan, 'chapter_id', '?')}: no se pudo medir ({type(e).__name__}: {e})"]
+
+
+def _costura_medida(plan: Any, seg_path: Path, work_dir: Path, *, hook: str | None) -> list[str]:
     """F38e §A.3: líneas «✓ costura …» / «✗ costura …» para el log del render después de armar un segmento con --gfx.
     La duración esperada es la del cap en el guion de pantalla (`GUION_PANTALLA.json`, `seg_dur`, lo aprobado) y, si
     no hay guion para ese cap, la misma cuenta del guion sobre `gfx_escenas_<cap>.json` (_segmento_de_cap: voz +

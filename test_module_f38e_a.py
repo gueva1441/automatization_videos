@@ -263,5 +263,13 @@ def test_a3_lineas_de_costura_contra_el_guion(tmp_path, monkeypatch):
     assert "sin negro que medir" in fase2b._costura_del_segmento(plan, con, work, hook=None)[1]
 
 
+def test_a3_el_chequeo_nunca_tira_el_render(tmp_path):
+    """F38e §A.3: un plan incompleto (como los falsos de test_module_f28c, sin `is_first`) o un segmento inexistente dan
+    una línea «✗ costura …: no se pudo medir», nunca una excepción (en paralelo una excepción hacía caer el cap)."""
+    plan = SimpleNamespace(chapter_id="ch09")
+    lineas = fase2b._costura_del_segmento(plan, tmp_path / "no_existe.mp4", tmp_path / "w", hook=None)
+    assert len(lineas) == 1 and lineas[0].startswith("✗ costura ch09: no se pudo medir (")
+
+
 if __name__ == "__main__":
     sys.exit(pytest.main([__file__, "-q"]))
