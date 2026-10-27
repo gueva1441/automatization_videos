@@ -26,6 +26,10 @@ costo en 01_v3_costos.json como los demás pasos) o suelto: `python -m script_en
                anterior y entre en el tope; lo nuevo que aparece en una vuelta se pregunta en la siguiente y solo al
                cerrar corta lo que siga sin preguntar (`reintento.vueltas`, `cierre`, `cortados_al_cierre`).
     tarjeta    F38 §A.2: la tarjeta fecha-hora ya no la elige el autor: sale de la voz (voz_datos.tarjeta_de_voz).
+    respaldo   F38e §C: prompt m01e-6 (el de la prueba 1, letra por letra: el dato con las palabras del autor; los hechos
+               en un `respaldo` literal del ítem); el respaldo tiene que ser fragmento del texto del ítem (regla
+               `respaldo`) y el candado mira cifras, nombres y años contra él; en una cita, el `autor` del modelo se
+               muestra si sus nombres propios están en el archivo (`autor_mostrado`, `autor_origen`), si no el del archivo.
     validar    (§C.3, sin tiempos ni fotos, con los filtros de pantalla_filtros) por ficha: anclaje (cap, beat, ítem y
                oración que existen; la oración es del beat), formato (etiqueta en 1 línea y dato en 2, gfx_project.
                ficha_medida), F37 §A.1b fecha del relato (el año del ítem contra el último año que dijo la voz) y §A.1c
@@ -59,7 +63,7 @@ from script_engine.voz_utils import (_analiza, _PARTICULAS, _palabra_en, _raiz_e
                                      anios_dichos, dice_anio, misma_cifra, nombre_inicial, nombres, numero_en, numeros,
                                      oraciones_de_texto, palabras, palabras_de_contenido, seg_por_palabra)
 
-PROMPT_VERSION = "m01e-5"       # F38d §A.2: «caben» cuenta el autor de la cita y 5 de comillas y raya · F38b §A.1: la línea del gancho vuelve a la de m01e-1 · F38 §A.2: sin TARJETA · §A.1: el formato del reintento parcial
+PROMPT_VERSION = "m01e-6"       # F38e §C.1: el SYSTEM es el bloque «Prompt nuevo (m01e-6-prueba), entero» de lab/hyperframes/f38/PRUEBA1_prompt_rotulos.md, letra por letra (md5 7d2ccdd28055d6e621d1d251a0fe8bb7, medido en F38e-0; lo escribió lab/hyperframes/f38e/c/c1_prompt_del_md.py); §C.2: `respaldo` y `autor` en el formato · antes m01e-5 (F38d §A.2: «caben» con el autor de la cita)
 MODELO = "claude-sonnet-5-5"
 EFFORT = "medium"
 TOPE_USD_RESPALDO = 1.00        # DECISIONES: pedido de Omar F37 («TOPE_USD sale al perfil con valor 1.00»); el valor vive en el perfil (costos.m01e_tope_usd)
@@ -88,29 +92,33 @@ def velocidad(seg: dict[str, Any] | None = None) -> dict[str, Any]:
     return {"valor": SEG_POR_PALABRA_RESPALDO, "origen": "respaldo (no hay voces generadas del narrador)"}
 
 
-# ═══════════════════════ prompt (HANDOFF_F36_C_D §C.2, literal) ═══════════════════════
+# ═══════════════════════ prompt (F38e §C.1: PRUEBA1_prompt_rotulos.md, literal; antes HANDOFF_F36_C_D §C.2) ═══════════════════════
 
 PANTALLA_SYSTEM = """Sos el rotulista de un documental de historia oscura en español. Recibís la narración completa de un video (7 capítulos, oraciones numeradas), la escaleta (qué cuenta cada beat y cuál es el pico de cada capítulo), el archivo del caso (datos con cifra, fecha, cita o persona, con su fuente) y una lista de palabras de clima. Escribís lo que va en pantalla para todo el video, de una vez.
 
 Reglas de todo texto en pantalla:
-(a) dice lo que la voz NO dice en ese capítulo: un dato del archivo que la narración no menciona;
+(a) suma o aclara lo que la voz cuenta en esa oración: un hecho del archivo que la voz no dice, o lo que la voz cuenta puesto en una cifra, una persona o una consecuencia; nunca repite la frase de la voz;
 (b) va sobre la oración que habla de ese asunto: elegí la oración ancla y la palabra de la oración donde debe aparecer;
-(c) no adelanta nada que la narración cuente después, en ese capítulo o en los siguientes.
+(c) no adelanta nada que la narración cuente después, en ese capítulo o en los siguientes;
+(d) se entiende solo, en 3 segundos, sin escuchar la voz, y le importa a quien mira: si necesita la voz para entenderse o suena a informe técnico, no sirve.
 
 Qué podés poner:
-- FICHA: como máximo una por beat, y puede no haber. Etiqueta: una línea corta que diga qué es («ANCHO DE LA FISURA», «ACTA DEL CONSEJO SUPERIOR»), sin el año de publicación de la fuente. Dato: UNA línea corta con la cifra, la fecha o el hecho, tal como está en el archivo: cada número, nombre y año tiene que estar literal en el texto del dato que elegiste, no en otro lado. Etiqueta + dato —y en una cita, también el autor tal como viene en el archivo y 5 caracteres de comillas y raya— no pueden pasar de los caracteres que caben en la oración ancla (`caben`); si no caben, elegí otra oración o un dato más corto. Para una cita (Q), el dato es la frase literal del archivo, recortada pero sin cambiar palabras, y lleva autor.
+- FICHA: como máximo una por beat, y puede no haber. La escribís con tus palabras, para quien mira. Etiqueta: una línea corta que diga qué es o por qué importa, en palabras de todos los días, sin el año de publicación de la fuente. Dato: UNA línea corta con el hecho. Las palabras son libres; los hechos no: cada cifra, nombre propio y año de la etiqueta y del dato tiene que estar en el `respaldo`, que es un fragmento copiado letra por letra del texto del dato del archivo que elegiste. No conviertas unidades ni hagas cuentas; una cifra larga podés redondearla con «más de» (hacia abajo) o «casi» (hacia arriba). Una comparación, solo si está en el archivo. Etiqueta + dato —y en una cita, también el autor y 5 caracteres de comillas y raya— no pueden pasar de los caracteres que caben en la oración ancla (`caben`); si no caben, elegí otra oración o un dato más corto. Para una cita (Q), el dato es la frase literal del archivo, recortada pero sin cambiar palabras; el autor va en español, como lo entiende quien mira (nombre, o cargo o institución).
 - SELLO DE CLIMA: como máximo uno por beat, y puede no haber. Una palabra de la lista que nombre lo que se siente en ese momento del relato. Nunca una palabra que la voz diga en ese capítulo, y nunca la misma palabra dos veces en el video. Elegí la oración donde cae.
 - RELOJ: por capítulo, las fechas completas (día, mes y año) que la voz dice, con la oración donde las dice.
 
-Prioridades: en el beat pico del capítulo, el dato marcado como central por la escaleta; en el gancho (capítulo 1), cualquier dato del archivo que la voz no diga en todo el video y que haga quedarse a quien mira: el gancho nunca queda sin ficha. Los datos marcados con tu beat son los que la escaleta cuenta ahí; los demás son el resto del archivo: usalos si suman más y no adelantan nada. Un mismo dato una sola vez en el video. Si dudás entre dos, el que tiene cifra o fecha.
+Prioridades: en el beat pico del capítulo, el dato marcado como central por la escaleta; en el gancho (capítulo 1), cualquier dato del archivo que la voz no diga en todo el video y que haga quedarse a quien mira: el gancho nunca queda sin ficha. Los datos marcados con tu beat son los que la escaleta cuenta ahí; los demás son el resto del archivo: usalos si suman más y no adelantan nada. Un mismo dato una sola vez en el video. Si dudás entre dos, el que se entiende solo y más le importa a quien mira.
 
-Devolvé solo JSON con el formato pedido, con `aporta` (una línea: qué suma que la voz no dice) por ficha y `descartados` con motivo."""
+Devolvé solo JSON con el formato pedido, con `aporta` (una línea: qué suma que la voz no dice) y `respaldo` por ficha, y `descartados` con motivo."""
 
 # §C.1: el esquema de salida (por cap y beat; relojes por cap; descartados). Sin `estilo`: lo pone el código.
 # F37 §A.2: cada descarte dice de qué tipo es (cambio de formato, no de estilo): el código verifica «voz_lo_dice».
 # F38 §A.2: sin `tarjeta` (sale de la voz, voz_datos.tarjeta_de_voz).
+# F38e §C.2: `respaldo` (el fragmento literal del texto del ítem, como en la prueba 1) después de `texto`, y `autor`
+# (solo en una cita: en español, como lo entiende quien mira; null en las demás) después de `respaldo`.
 FORMATO_SALIDA = ('{"beats": [{"cap": "ch03", "beat": 5, "ficha": {"pool_id": "D49", "sentence_idx": 17, '
-                  '"palabra": "fisura", "etiqueta": "ANCHO DE LA FISURA", "texto": "Más de 1 metro", "aporta": "…"} | '
+                  '"palabra": "fisura", "etiqueta": "ANCHO DE LA FISURA", "texto": "Más de 1 metro", "respaldo": "…", '
+                  '"autor": "…" | null, "aporta": "…"} | '
                   'null, "sello": {"palabra": "AVISO", "sentence_idx": 3} | null}], "relojes": [{"cap": "ch03", '
                   '"sentence_idx": 4, "fecha": "9 OCT 1963"}], '
                   '"descartados": [{"pool_id": "…", "tipo": "voz_lo_dice" | "spoiler" | "repetido" | "otro", '
@@ -118,7 +126,8 @@ FORMATO_SALIDA = ('{"beats": [{"cap": "ch03", "beat": 5, "ficha": {"pool_id": "D
 
 # F38 §A.1: el formato del reintento parcial (solo los beats con motivo; la clave que no se cambia no va; null la borra).
 FORMATO_REINTENTO = ('{"cambios": [{"cap": "ch03", "beat": 5, "ficha": {"pool_id": "D49", "sentence_idx": 17, '
-                     '"palabra": "fisura", "etiqueta": "ANCHO DE LA FISURA", "texto": "Más de 1 metro", "aporta": "…"} '
+                     '"palabra": "fisura", "etiqueta": "ANCHO DE LA FISURA", "texto": "Más de 1 metro", "respaldo": "…", '
+                     '"autor": "…" | null, "aporta": "…"} '
                      '| null, "sello": {"palabra": "AVISO", "sentence_idx": 3} | null}]}')
 REINTENTO_PARCIAL = ("Devolvé solo JSON con `cambios` para los beats de esta lista: {beats}. Cada cambio nombra su cap y "
                      "su beat; `ficha` o `sello` con valor la reemplazan, con null la borran, y si no la cambiás no la "
@@ -307,6 +316,35 @@ def autor_en(autor: str, rol: str, texto: str) -> bool:
     return bool(pr) and all(_raiz_en(w, texto) for w in pr)
 
 
+def _nombres_del_autor(autor: str) -> list[str]:
+    """F38e §C.4: los nombres propios del `autor` que escribe el modelo: los que no abren la frase (voz_utils.nombres,
+    que no ve el que abre: «Municipio de Erto y Casso» → Erto, Casso) y, si la frase abre con un nombre seguido de otro
+    nombre propio (nombre y apellido: «Pietro Leone»), también el que abre; el que abre seguido de una palabra común
+    («Municipio de…», «Presidente del…») dice qué es, no es un nombre."""
+    toks = nombres(autor)
+    ws = [re.sub(r"^[«\"“(]+|[.,;:!?»\"”)·]+$", "", w) for w in palabras(autor)]
+    if len(ws) >= 2 and ws[0] and ws[1] and ws[0][0].isupper() and ws[1][0].isupper() and len(ws[0]) >= 2 \
+            and ws[0].lower() not in _PARTICULAS and ws[0] not in toks:
+        toks = [ws[0]] + toks
+    return toks
+
+
+def autor_mostrado(autor_modelo: str, x: dict[str, Any]) -> tuple[str, str]:
+    """F38e §C.4: (el autor que se muestra en una cita, de dónde salió). El del modelo (en español, como lo entiende
+    quien mira) si cada uno de sus nombres propios (`_nombres_del_autor`) está en el `autor`, el `rol` o el `texto` del
+    ítem del archivo; si no (o si el modelo no dio ninguno), el del archivo, sin cortar. Origen: «modelo» o
+    «archivo: <motivo>»."""
+    arch = str(x.get("autor") or "")
+    a = re.sub(r"\s+", " ", str(autor_modelo or "")).strip()
+    if not a:
+        return arch, "archivo: el autor no escribió `autor`"
+    donde = " ".join(str(x.get(k) or "") for k in ("autor", "rol", "texto"))
+    faltan = [n for n in _nombres_del_autor(a) if not _palabra_en(n, donde)]
+    if faltan:
+        return arch, f"archivo: en «{a}», {faltan} no está en el autor, el rol ni el texto del archivo"
+    return a, "modelo"
+
+
 def _cifras(texto: str, rango: tuple[int, int] | None) -> list[float]:
     """Los valores de las cifras de un texto (voz_utils._analiza: «50 millones» = 5e7, «setecientos mil» = 7e5), sin
     los años del material (el año es la fecha, §A.1b)."""
@@ -362,6 +400,9 @@ def validar(resp: Any, ent: dict[str, Any], confirmados: dict[str, dict[str, lis
     - §A.3b los beats pico sin ficha (`picos_vacios`).
     F38c §A.1: los beats con `a_pantalla` cuya ficha no es ninguno de ellos (`a_pantalla_vacios`); §A.2: la cifra que
     contradice la voz (oración ancla ± 1) es una pregunta al autor más (regla `contradice`), como no_dicho y spoiler.
+    F38e §C.3: el `respaldo` de la ficha tiene que ser fragmento literal del texto del ítem (regla `respaldo`, un
+    motivo más del reintento) y el candado mira las cifras, los nombres y los años contra él; §C.4: en una cita se
+    guarda el `autor` que se muestra y `autor_origen`.
     `motivos` = todo lo que va al reintento, en una lista."""
     final = (confirmados is not None) if final is None else bool(final)
     from script_engine.gfx_project import ficha_medida
@@ -550,17 +591,27 @@ def _validar_ficha(fi: dict, cap: str, nb: int | None, b: dict | None, slot: dic
         return f"una ficha por beat: el beat {nb} ya tiene {slot['ficha']['pool_id']}", "anclaje", None
     estilo = estilo_de(pid, et, ent["a_pantalla"].get(pid, ""))
     tipo = TIPO_DE_ESTILO[estilo]
-    autor = str(x.get("autor") or "")
+    autor_arch = str(x.get("autor") or "")
+    autor, autor_origen = autor_arch, None
     if tipo == "cita":
         txt = re.sub(r"^[«\"“]+|[»\"”]+$", "", txt).strip()
     # formato
     if not txt or not et:
         return "etiqueta o dato vacío", "formato", None
-    if tipo == "cita" and not autor:
+    if tipo == "cita" and not autor_arch:
         return "la cita no tiene autor en el archivo", "formato", None
     m = ficha_medida(et, txt)
     if m["kicker"] > 1 or m["title"] > 2:
         return f"etiqueta en {m['kicker']} línea(s) y dato en {m['title']} (1 y 2)", "formato", None
+    # F38e §C.3a: el respaldo (el fragmento del texto del ítem que el autor copió letra por letra) tiene que ser
+    # subcadena de ese texto con la normalización del candado (ev.norm); si falta o no lo es, cae con regla `respaldo`
+    resp = re.sub(r"\s+", " ", str(fi.get("respaldo") or "")).strip()
+    if not resp:
+        return f"la ficha no trae `respaldo` (el fragmento literal del texto de {pid})", "respaldo", None
+    if ev.norm(resp) not in ev.norm(x["texto"]):
+        return f"el respaldo «{resp}» no es un fragmento literal del texto de {pid}", "respaldo", None
+    if tipo == "cita":                 # F38e §C.4: el autor que se muestra (el del modelo si sus nombres están en el archivo)
+        autor, autor_origen = autor_mostrado(str(fi.get("autor") or ""), x)
     it = pool.get(pid)
     vecinas = " ".join(ss["texto"] for ss in c["oraciones"][max(0, si - 1):si + 2])
     # F37 §A.1b: fecha del relato (por año; un testimonio se cuenta después; la oración o su vecina lo sitúan después)
@@ -570,23 +621,28 @@ def _validar_ficha(fi: dict, cap: str, nb: int | None, b: dict | None, slot: dic
         return (f"{pid} es de {anio} y en la oración [{si}] el relato va por {ahora} (el último año que dijo la voz); "
                 f"ni la oración ni sus vecinas lo sitúan después", "fecha_relato", None)
     # F37 §A.1c: una cita sin fecha (y que no es testimonio) vale solo si su autor está en la oración o en una vecina
-    if x["id"][:1] == "Q" and not anio and not testimonio and not autor_en(autor, x.get("rol") or "", vecinas):
-        return (f"cita sin fecha: su autor («{autor}», {x.get('rol') or 'sin rol'}) no aparece en la oración [{si}] ni "
-                f"en sus vecinas", "cita_sin_fecha", None)
+    if x["id"][:1] == "Q" and not anio and not testimonio and not autor_en(autor_arch, x.get("rol") or "", vecinas):
+        return (f"cita sin fecha: su autor («{autor_arch}», {x.get('rol') or 'sin rol'}) no aparece en la oración "
+                f"[{si}] ni en sus vecinas", "cita_sin_fecha", None)
     # candado, no dicho, spoiler (los de pantalla_filtros, con el ítem del archivo como texto fuente)
     gancho = (b.get("funcion") == "gancho")
     dice_voz = bool(it) and gancho and (ev.used_in(voz_txt, it) or any(numero_en(n, voz_txt)
                                                                        for n in ev._figures(ev.text_of(it))))
-    xi = {"id": pid, "texto": x["texto"], "fuente": x["fuente"], "autor": autor, "a_pantalla": pid in ent["a_pantalla"],
-          "por_que": ent["a_pantalla"].get(pid, ""), "gancho": gancho, "dice_voz": dice_voz}
+    xi = {"id": pid, "texto": x["texto"], "fuente": x["fuente"], "autor": autor_arch,
+          "a_pantalla": pid in ent["a_pantalla"], "por_que": ent["a_pantalla"].get(pid, ""), "gancho": gancho,
+          "dice_voz": dice_voz}
+    # F38e §C.3b: con un respaldo válido, el candado mira cifras, nombres y años contra el respaldo, no contra todo el
+    # texto del ítem (la excepción de la oración ancla sigue dentro de `candado`); §C.3c: la cita sigue contra el texto
+    # entero (frase literal, recortada)
+    xi_c = xi if tipo == "cita" else {**xi, "texto": resp}
     k = orden_caps.index(cap)
     antes = " ".join(ss["texto"] for cc in orden_caps[:k] for ss in caps[cc]["oraciones"])
     juicio = (confirmados or {}).get(pid) or {}
     ctx: dict[str, Any] = {"its": {pid: xi}, "x": xi, "pid": pid, "sents": c["oraciones"], "si": si, "s": s,
                            "voz_video": voz_video, "tipo": tipo, "txt": txt, "et": et, "juicio": juicio}
     fil_ent = {"voz_antes": antes}
-    for f, regla in ((gancho_dicho, "no_dicho"), (candado, "candado")):
-        mot = f({}, fil_ent, ctx)
+    for f, regla, xx in ((gancho_dicho, "no_dicho", xi), (candado, "candado", xi_c)):
+        mot = f({}, fil_ent, {**ctx, "x": xx, "its": {pid: xx}})
         if mot:
             return mot, regla, None
     # F37 §A.4: no_dicho y spoiler encuentran la coincidencia; la juzga el autor (pregunta en el reintento)
@@ -633,7 +689,8 @@ def _validar_ficha(fi: dict, cap: str, nb: int | None, b: dict | None, slot: dic
     en = any(ev.norm(pal) == ev.norm(re.sub(r"[^\w]", "", w)) for w in palabras(s["texto"])) if pal else False
     usado = {r: [str(t) for t in v] for r, v in juicio.items() if v}
     return None, None, {"pool_id": pid, "sentence_idx": si, "palabra": pal, "palabra_en_oracion": en,
-                        "etiqueta": et, "texto": txt, "estilo": estilo, **({"autor": autor} if tipo == "cita" else {}),
+                        "etiqueta": et, "texto": txt, "respaldo": resp, "estilo": estilo,
+                        **({"autor": autor, "autor_origen": autor_origen} if tipo == "cita" else {}),
                         "aporta": str(fi.get("aporta") or ""), "oracion": s["texto"], "caracteres": n,
                         "caben": s["caben"], "anio": anio, "relato": ahora,
                         **({"pregunta": preguntas} if preguntas else {}), **({"juicio_autor": usado} if usado else {})}
@@ -1011,9 +1068,11 @@ def a_markdown(p: dict[str, Any]) -> str:
         for b in [b for b in p["beats"] if b["cap"] == c["cap"]]:
             f, s = b["ficha"], b["sello"]
             fi = (f"ficha **{f['pool_id']}** [{f['estilo']}] «{f['etiqueta']} · {f['texto']}»"
-                  + (f" — {f['autor']}" if f.get("autor") else "")
+                  + (f" — {f['autor']}" + (f" (autor: {f['autor_origen']})" if f.get("autor_origen") else "")
+                     if f.get("autor") else "")
                   + f" en [{f['sentence_idx']}] sobre «{f['palabra']}»{'' if f['palabra_en_oracion'] else ' (no está en la oración)'}"
                   f" ({f['caracteres']}/{f['caben']} car.)"
+                  + (f" · respaldo: «{f['respaldo']}»" if f.get("respaldo") else "")
                   + (f" · año {f.get('anio') or '—'} / relato {f.get('relato') or '—'}" if "anio" in f else "")
                   + (f" · juzgado por el autor: otro hecho {f['juicio_autor']}" if f.get("juicio_autor") else "")
                   + f" · aporta: {f['aporta']}") if f else ("ficha — ⚠ pico sin ficha" if b["pico"] else "ficha —")

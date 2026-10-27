@@ -54,6 +54,18 @@ def _ficha(cap: str, beat: int, pid: str, si: int, et: str, txt: str, palabra: s
                                                 "texto": txt, "aporta": "lo que la voz no dice"}, "sello": None}
 
 
+def _con_respaldo(resp: dict, ent: dict) -> dict:
+    """F38e §C.3: el formato pide `respaldo` por ficha y las fichas de estos tests no lo traen: se completa con el texto
+    entero del ítem (fragmento literal trivial), con lo que el candado contra el respaldo es el de antes."""
+    arch = {x["id"]: x["texto"] for x in ent["archivo"]}
+    out = json.loads(json.dumps(resp, ensure_ascii=False))
+    for fila in list(out.get("beats") or []) + list(out.get("cambios") or []):
+        fi = fila.get("ficha") if isinstance(fila, dict) else None
+        if isinstance(fi, dict) and not fi.get("respaldo") and fi.get("pool_id") in arch:
+            fi["respaldo"] = arch[fi["pool_id"]]
+    return out
+
+
 def _post(resp: dict):
     def post(body: dict) -> dict:
         return {"content": [{"type": "text", "text": json.dumps(resp, ensure_ascii=False)}],
@@ -96,7 +108,7 @@ def test_a_salida_valida_el_esquema(tmp_path):
     ent = _ent()
     resp = {"beats": [_ficha("ch02", 2, "D49", 1, "ANCHO DE LA FISURA", "Más de 1 metro", "fisura")],
             "relojes": [], "tarjeta": None, "descartados": [{"pool_id": "D195", "motivo": "x"}]}
-    res = mp.llamar(ent, tmp_path, post=_post(resp))
+    res = mp.llamar(ent, tmp_path, post=_post(_con_respaldo(resp, ent)))
     p = mp.armar(ent, res)
     assert _esquema(p) == []
     f = next(b["ficha"] for b in p["beats"] if b["ficha"])
@@ -112,16 +124,16 @@ def test_b_candado_en_papel_rechaza_el_anio_que_no_esta_en_el_dato():
     ent = _ent()
     # fuera del gancho: «1963» no está en D195 ni en la oración ancla → candado
     resp = {"beats": [_ficha("ch02", 2, "D195", 1, "LONGARONE 1963", "1.269 de 1.328 habitantes murieron")]}
-    v = mp.validar(resp, ent)
+    v = mp.validar(_con_respaldo(resp, ent), ent)
     d = [x for x in v["descartados"] if x.get("que") == "ficha"]
     assert d and d[0]["regla"] == "candado" and "1963" in d[0]["motivo"]
     # sin el año (lo que pidió Omar, DECISIONES 16:41) pasa el candado
     resp2 = {"beats": [_ficha("ch02", 2, "D195", 1, "LONGARONE", "1.269 de 1.328 habitantes murieron")]}
-    v2 = mp.validar(resp2, ent)
+    v2 = mp.validar(_con_respaldo(resp2, ent), ent)
     assert not [x for x in v2["descartados"] if x.get("regla") == "candado"]
     # en el gancho vale lo que la voz dice en todo el video (F36 §B.7): la voz dice «mil novecientos sesenta y tres»
     resp3 = {"beats": [_ficha("ch01", 1, "D195", 1, "LONGARONE 1963", "1.269 de 1.328 habitantes murieron")]}
-    assert not [x for x in mp.validar(resp3, ent)["descartados"] if x.get("regla") == "candado"]
+    assert not [x for x in mp.validar(_con_respaldo(resp3, ent), ent)["descartados"] if x.get("regla") == "candado"]
 
 
 # (c)
@@ -149,7 +161,7 @@ def test_d_un_dato_no_sale_dos_veces_en_el_video():
     ent = _ent()
     resp = {"beats": [_ficha("ch01", 1, "D49", 0, "ANCHO DE LA FISURA", "Más de 1 metro"),
                       _ficha("ch02", 2, "D49", 2, "ANCHO DE LA FISURA", "Más de 1 metro")]}
-    v = mp.validar(resp, ent)
+    v = mp.validar(_con_respaldo(resp, ent), ent)
     assert sum(1 for b in v["beats"] if b["ficha"]) == 1
     assert any(d["regla"] == "una_vez" for d in v["descartados"])
 

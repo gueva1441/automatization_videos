@@ -40,8 +40,17 @@ def vajont() -> dict:
 
 
 @pytest.fixture(scope="module")
-def raw37() -> dict:
-    return json.loads(RAW_F37.read_text(encoding="utf-8"))
+def raw37(vajont) -> dict:
+    """F38e §C.3: el formato pide `respaldo` por ficha y las respuestas de F37 no lo traen: se completa con el texto
+    entero del ítem (fragmento literal trivial), con lo que el candado contra el respaldo es el de antes."""
+    raw = json.loads(RAW_F37.read_text(encoding="utf-8"))
+    arch = {x["id"]: x["texto"] for x in vajont["archivo"]}
+    for it in raw["intentos"]:
+        for fila in (it.get("respuesta") or {}).get("beats") or []:
+            fi = fila.get("ficha") if isinstance(fila, dict) else None
+            if isinstance(fi, dict) and not fi.get("respaldo") and fi.get("pool_id") in arch:
+                fi["respaldo"] = arch[fi["pool_id"]]
+    return raw
 
 
 def _fila(resp: dict, cap: str, beat: int) -> dict:
@@ -147,7 +156,7 @@ def test_a1_motivos_sin_beat_no_abren_beats():
 def test_a1_formatos_literales():
     assert "TARJETA" not in mp.PANTALLA_SYSTEM and '"tarjeta"' not in mp.FORMATO_SALIDA
     assert mp.FORMATO_REINTENTO.startswith('{"cambios": [{"cap": "ch03", "beat": 5, "ficha":')
-    assert mp.PROMPT_VERSION == "m01e-5"          # F38b: + el gancho de m01e-1 · F38d §A.2: «caben» con el autor
+    assert mp.PROMPT_VERSION == "m01e-6"          # F38b: + el gancho de m01e-1 · F38d §A.2 · F38e §C.1: el de la prueba 1
 
 
 # ═══════════════════════ §A.2 tarjeta desde la voz ═══════════════════════
@@ -193,7 +202,7 @@ def test_f38b_gancho_literal_de_m01e_1_sin_las_primeras_oraciones():
              "nunca queda sin ficha.")
     assert linea in h and linea in mp.PANTALLA_SYSTEM
     assert "primeras oraciones" not in mp.PANTALLA_SYSTEM
-    assert mp.PROMPT_VERSION == "m01e-5"                      # F38d §A.2 (la línea del gancho sigue igual)
+    assert mp.PROMPT_VERSION == "m01e-6"                      # F38d §A.2 · F38e §C.1 (la línea del gancho sigue igual)
 
 
 def test_f38b_nada_llama_a_un_juez():

@@ -1,0 +1,1043 @@
+{
+ "topic_id": "f8s3-vajont",
+ "prompt_version": "m01e-6",
+ "prompt_md5": "3b98aef1d8595124967ac7a85b75bab7",
+ "modelo": "claude-sonnet-5-5",
+ "effort": "medium",
+ "entrada_md5": "820b632aa1ecbb5da9b2063247cea06e",
+ "intentos": 4,
+ "usd": 0.80957,
+ "tokens_in": 66450,
+ "caps": [
+  {
+   "cap": "ch01",
+   "titulo": "Cama en la oscuridad",
+   "oraciones": [
+    "Hay una casa a oscuras y, dentro de la casa, una cama que ya no está quieta.",
+    "Una niña siente que su cama empieza a correr en la oscuridad; a dos kilómetros de ahí, la presa que todos creyeron caída sigue en pie.",
+    "La niña se llama Micaela Coletti y es una niña de Longarone, un pueblo de fondo de valle.",
+    "Hace un minuto dormía.",
+    "Ahora algo la empuja desde atrás, y la cama ya no es una cama: es algo que la lleva.",
+    "Años después, Coletti lo contó con las palabras que le quedaron.",
+    "«La sensación de que la cama tomaba velocidad, una fuerza espantosa que me agarraba por la espalda, me doblaba en dos, me aplastaba», dijo Coletti.",
+    "Se sintió de goma.",
+    "Se ensanchaba y después se encogía.",
+    "Los ojos, dos estrellas.",
+    "Esa misma noche, Gianfranco Trevisano ve cómo «se abrió de improviso, de par en par, el portoncito de la entrada, a causa de una corriente de aire», y con el portón entra el ruido del aire que irrumpe.",
+    "Enseguida se va la luz.",
+    "Trevisano piensa lo que va a pensar medio valle: que el dique cedió.",
+    "Longarone, Italia, nueve de octubre de mil novecientos sesenta y tres.",
+    "Pero el dique no cedió esa noche.",
+    "Lo que llegó a la cama de Micaela vino por encima de él.",
+    "Y para entender cómo una ola pasa por encima de una pared que no se rompe, hay que volver veinte años atrás, a un papel firmado cuando esa cama todavía no existía."
+   ]
+  },
+  {
+   "cap": "ch02",
+   "titulo": "El muro que tapa",
+   "oraciones": [
+    "Longarone está en el fondo del valle del Piave.",
+    "El río pasa por delante del pueblo y, enfrente, desde una garganta lateral, baja un torrente que se llama Vajont y que desemboca en el Piave justo frente a Longarone y Castellavazzo.",
+    "En mil novecientos cuarenta y tres se aprobó el proyecto de cerrar esa garganta con una presa, y empezó la compra de terrenos en Erto y Casso, los pueblos de arriba, los que iban a quedar al borde del lago.",
+    "La empresa era SADE.",
+    "El ingeniero que dibujó la obra se llamaba Carlo Semenza, y la pensó como un arco delgado de doble curvatura: una pared curva, fina para su tamaño, apoyada en las dos laderas de la garganta.",
+    "Cuando empezaron las obras, unos cuatrocientos hombres colgados de andamios la fueron levantando hasta tapar el cielo de la garganta.",
+    "Abajo, en Longarone, la vida siguió con el Piave delante.",
+    "Longarone no estaba sobre el embalse.",
+    "Estaba delante de él.",
+    "Y la montaña que cerraba el lago tenía un apodo.",
+    "La gente de la zona llamaba al monte Toc «la montaña que camina», y lo decían los residentes desde antes de que nadie fuera a medirla.",
+    "En la década del cincuenta, el geólogo Leopold Müller detectó en el Toc un gran desmoronamiento.",
+    "Y hubo otro hombre que caminó esa ladera con un martillo en la mano y otra idea en la cabeza: Edoardo Semenza, geólogo, hijo de Carlo Semenza, el que había dibujado la presa.",
+    "Edoardo buscaba la cicatriz de un deslizamiento antiguo.",
+    "Según una reconstrucción geológica posterior, planteó que ese deslizamiento viejo podía reactivarse cuando el embalse se llenara.",
+    "Müller no lo creía: no creía en el deslizamiento antiguo ni en una capa de arcilla capaz de causarlo.",
+    "El hijo del proyectista decía que la montaña ya se había movido una vez.",
+    "El experto decía que no.",
+    "En marzo de mil novecientos cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero."
+   ]
+  },
+  {
+   "cap": "ch03",
+   "titulo": "La costura abierta",
+   "oraciones": [
+    "El embalse se llamaba Pontesei.",
+    "Ese marzo, una masa de roca entró al agua y levantó una ola de veinte metros.",
+    "Un trabajador murió.",
+    "Después de Pontesei, SADE encargó nuevas pericias sobre el Toc, y esas pericias identificaron una paleofrana: un deslizamiento antiguo, la cicatriz que Edoardo Semenza había estado buscando.",
+    "El informe sobre esos riesgos lo escribió Giorgio Dal Piaz en mil novecientos sesenta.",
+    "Dal Piaz había dicho alguna vez sobre la obra: «Si el proyecto original me parecía osado, ahora lo considero una completa locura».",
+    "Su informe, en cambio, le restó peso a lo que señalaba Edoardo Semenza.",
+    "Una ola de veinte metros.",
+    "Un hombre muerto.",
+    "Una paleofrana con nombre en un papel.",
+    "El informe oficial dijo que no era grave.",
+    "Una periodista de provincia escribió lo contrario.",
+    "Se llamaba Tina Merlin y escribía en L'Unità.",
+    "Hacia mil novecientos cincuenta y nueve publicó su primera denuncia: el Toc podía desprenderse sobre el lago.",
+    "L'Unità fue el único diario nacional que siguió lo que pasaba en el Vajont antes del desastre, y lo siguió a través de ella.",
+    "El diario que se leía en la zona era Il Gazzettino, y una parte de Il Gazzettino pertenecía a SADE, a FIAT, a Volpi y a Cini.",
+    "En febrero de mil novecientos sesenta empezó el llenado, y el agua fue subiendo día a día por la garganta.",
+    "Ese año hubo un pequeño desmoronamiento en el Toc, y después del desmoronamiento los habitantes vieron algo nuevo en la ladera: una fisura de casi dos kilómetros de largo, corriendo por la montaña como una costura abierta.",
+    "Abajo, el lago seguía subiendo.",
+    "El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta."
+   ]
+  },
+  {
+   "cap": "ch04",
+   "titulo": "La ola de juguete",
+   "oraciones": [
+    "El cuatro de noviembre de mil novecientos sesenta el embalse estaba a seiscientos cincuenta metros sobre el nivel del mar.",
+    "Ese día, durante las pruebas, una masa de roca se desprendió del Toc y cayó al lago nuevo, y el agua se levantó.",
+    "Unos setecientos mil metros cúbicos de roca; otras fuentes hablan de más, y nadie coincide en la altura de la ola que levantó.",
+    "Ese mismo mes, Tina Merlin y L'Unità fueron a juicio.",
+    "La audiencia duró seis horas.",
+    "Salieron absueltos los dos.",
+    "En febrero de mil novecientos sesenta y uno, Merlin volvió a su máquina de escribir y publicó otra advertencia: la amenaza sobre Erto seguía ahí.",
+    "Absuelta en seis horas.",
+    "La empresa, mientras tanto, mandó construir una maqueta.",
+    "En un galpón de la Universidad de Padua se armó el valle en pequeño: la garganta, el lago, la ladera del Toc, una presa de juguete.",
+    "Para representar la roca compacta de la montaña usaron grava.",
+    "En el laboratorio lo explicaron con una frase: «Nos han dicho que lo hagamos así».",
+    "La recomendación que salió de ahí fue no pasar de los setecientos metros sobre el nivel del mar.",
+    "La cota autorizada fue de setecientos quince.",
+    "En noviembre de mil novecientos sesenta y dos, la ladera ya se desplazaba más de un centímetro y medio por día.",
+    "En mayo de mil novecientos sesenta y tres, SADE subió el nivel del agua: tenía que entregar la presa como una obra que funcionaba para cerrar la operación con ENEL.",
+    "En julio se completó el cambio de propiedad, con la prueba de llenado todavía en marcha.",
+    "La presa cambió de dueño con el agua todavía subiendo.",
+    "La montaña no se enteró del contrato."
+   ]
+  },
+  {
+   "cap": "ch05",
+   "titulo": "Piedras rodando",
+   "oraciones": [
+    "En junio de mil novecientos sesenta y tres el agua llegó a los setecientos metros, y la ladera se movía medio centímetro por día.",
+    "Un informe dice que el veintiséis de septiembre el embalse volvió al nivel de seguridad.",
+    "Desde el dos de octubre, los avisos se multiplicaron: sacudidas, estruendos que bajaban de la ladera de noche, grietas nuevas en la tierra de Erto, movimientos en la superficie.",
+    "Las autoridades cerraron algunos caminos con barreras y desalojaron algunas casas de Erto y Casso.",
+    "Abajo, en Longarone, las ventanas se encendían como cualquier noche.",
+    "En Erto y en Longarone la gente se repetía una frase que servía para dormir: «Si no avisan, será que no es grave».",
+    "Los que la decían miraban la pared curva.",
+    "De la montaña que caminaba hablaban los de arriba, los que tenían las grietas en el patio.",
+    "«Estábamos esperando que la presa se cayera...», contó después un sobreviviente.",
+    "Lo que temían era la pared.",
+    "De la ola no hablaba nadie.",
+    "La respuesta que llegó desde un ministerio fue: «No se preocupe, todo está bajo control».",
+    "Mientras tanto, en la ladera, los topógrafos de la empresa seguían midiendo.",
+    "El nueve de octubre a la mañana, el director técnico de la empresa se sentó a escribir una carta.",
+    "El director técnico se llamaba Alberico Biadene.",
+    "La carta iba dirigida a Pancini, que estaba de vacaciones: Biadene le pedía que volviera y le contaba lo que el topógrafo Rossi había medido, que la ladera se movía más.",
+    "La carta ya estaba firmada cuando sonó el teléfono.",
+    "Biadene volvió al papel y agregó una posdata: Rossi lo llamaba en ese momento, y «las mediciones de esta mañana resultan todavía mayores que las de ayer, ¡alcanzando un aumento del 50%!!».",
+    "De veinte a treinta centímetros.",
+    "Y algo más: pequeñas piedras caían en el borde oeste del deslizamiento, hacia la presa.",
+    "Dos signos de exclamación, de puño y letra del director técnico.",
+    "A las seis de la tarde se cerró la jornada.",
+    "En la central quedaron un aparejador y su equipo.",
+    "Esa noche nadie dio la alarma que habría puesto en marcha la evacuación masiva de los pueblos expuestos.",
+    "Las barreras seguían en los caminos de Erto.",
+    "En Longarone, abajo, era una noche como cualquiera.",
+    "A las diez y media de la noche, el párroco de Casso escuchó algo y abrió la ventana."
+   ]
+  },
+  {
+   "cap": "ch06",
+   "titulo": "El gran rugido",
+   "oraciones": [
+    "Carlo Onorini, el párroco de Casso, lo contó así: «escucho el ruido de la avalancha, abro la ventana y este ruido aumentaba en forma extraordinaria, al mismo tiempo vi un resplandor».",
+    "Son las diez y treinta y nueve.",
+    "El Toc entra al lago.",
+    "La ladera entera, la que caminaba, la de la fisura, se desploma de una vez dentro del embalse.",
+    "El agua no tiene a dónde ir, salvo hacia arriba.",
+    "Se levanta, pasa por encima de la presa, por encima de la pared que no se rompe, y cae en la garganta hacia el Piave.",
+    "Benito Castellano oye un ruido «como de un trueno de verano multiplicado cien veces, muy lóbrego, que duró tres o cuatro minutos».",
+    "Después, un estruendo con un resplandor, y enseguida un ruido como el que hace una formación de reactores al pasar.",
+    "En el bar Faè, Germano Accamillesi mira televisión cuando «se interrumpió la iluminación del televisor y casi al mismo tiempo (treinta-cincuenta segundos) se empezaron a sentir fuertes sacudidas telúricas».",
+    "Después de las sacudidas se apaga también la luz del bar.",
+    "Nadie en ese bar sabe todavía qué viene bajando por la garganta.",
+    "La ola baja hacia el Piave.",
+    "Longarone sigue con las luces encendidas.",
+    "Cuatro minutos después del desprendimiento, el agua llega al pueblo, a las calles, a las casas, a la cama donde duerme Micaela Coletti.",
+    "Nadie avisó.",
+    "Micaela siente que la cama toma velocidad y que una fuerza la agarra por la espalda.",
+    "La ola la arrastra al menos cuatrocientos metros desde su casa.",
+    "Ahí la encuentran.",
+    "Y está viva.",
+    "Cuando amaneció, la presa seguía ahí.",
+    "Longarone ya no.",
+    "Donde había calles hay fango y piedras.",
+    "Un hombre está parado en el medio y no sabe hacia dónde mirar.",
+    "«Conocía Longarone en cada rincón, ahora no sé dónde estoy», dijo uno de los sobrevivientes.",
+    "Entre los muertos está Guglielmo Celso, el alcalde socialista de Longarone.",
+    "Nadie creó un organismo central que informara oficialmente cómo avanzaba el rescate.",
+    "Desde el aire llegó el ruido de los rotores.",
+    "La fuerza estadounidense despachó seis helicópteros.",
+    "Un hombre de una aldea de la zona lo recuerda: «El primer rescatista que vi llegó en un helicóptero del ejército de Estados Unidos».",
+    "Tres de esos helicópteros, cuenta, evacuaron a toda la gente de su pueblo, y por eso un día trágico le quedó también con algo de alegría.",
+    "Tres días después llegó el presidente del Consejo.",
+    "La gente ya sabía qué pedirle."
+   ]
+  },
+  {
+   "cap": "ch07",
+   "titulo": "Diarios y verdades",
+   "oraciones": [
+    "El presidente del Consejo caminó entre los escombros con un abrigo oscuro.",
+    "De entre lo que quedaba de Longarone le salió al paso un grito, el de los pobladores: «Presidente, queremos justicia».",
+    "En los kioscos, esos días, había dos verdades sobre la misma noche.",
+    "Dino Buzzati escribió: «Una piedra ha caído en un vaso lleno de agua, y el agua se ha derramado sobre el mantel.",
+    "Eso es todo».",
+    "Solo que el vaso tenía cientos de metros de alto, la piedra era grande como una montaña y abajo, en el mantel, había miles de seres humanos que no podían defenderse.",
+    "Giorgio Bocca escribió que una desgracia tan limpia, tan ineluctable, tan absoluta, llevaba más a la melancolía que al dolor: «No había nada que hacer, no hay remordimientos, no hay culpables».",
+    "Aniello Coppola leyó en eso el intento de absolver antes de indagar, de anular cualquier investigación de antemano, y respondió: «Hay que hacer un proceso.",
+    "Hay que encontrar a los responsables.",
+    "Y deben pagar».",
+    "Una primera comisión de expertos trabajó dieciocho meses y concluyó que el desastre era imprevisible.",
+    "Pasaron más de cuatro años hasta que, el veinte de febrero de mil novecientos sesenta y ocho, se depositó la resolución de remisión a juicio.",
+    "El juez no aceptó la palabra imprevisible.",
+    "Pidió otra pericia, y después, nombres.",
+    "El juicio empezó el veintinueve de noviembre de mil novecientos sesenta y ocho.",
+    "El día anterior, Pancini, el ingeniero al que Biadene le había pedido volver de vacaciones, se quitó la vida.",
+    "En el banquillo se sentaron ocho acusados.",
+    "En marzo de mil novecientos setenta y uno, la Casación reconoció la culpabilidad de Biadene y de Sensidoni.",
+    "ENEL ofreció diez mil millones de liras de la época como indemnización.",
+    "Casi todos aceptaron; la última transacción se firmó en el año dos mil.",
+    "Alguien que siguió aquel proceso lo resumió sin levantar la voz: Vajont no fue la excepción al sistema, sino su confirmación; «había un riesgo, previsible y previsto».",
+    "Micaela Coletti preside el comité de sobrevivientes del Vajont.",
+    "La niña a la que la ola arrastró sobre una cama se sienta ahora frente a una mesa con el cartel del comité, y lo que tiene delante es una sentencia.",
+    "La sentencia dice inundación agravada por la previsión del evento.",
+    "Nombra el delito.",
+    "No dice quién, entre la posdata de la mañana y las diez y treinta y nueve de la noche, decidió que Longarone no debía saber.",
+    "¿Quién decidió que Micaela siguiera durmiendo?"
+   ]
+  }
+ ],
+ "beats": [
+  {
+   "cap": "ch01",
+   "beat": 1,
+   "funcion": "gancho",
+   "pico": true,
+   "ficha": {
+    "pool_id": "D195",
+    "sentence_idx": 2,
+    "palabra": "Longarone",
+    "palabra_en_oracion": true,
+    "etiqueta": "EL PUEBLO DE MICAELA",
+    "texto": "1.269 de 1.328 habitantes murieron",
+    "respaldo": "con 1.269 de 1.328 habitantes fallecidos",
+    "estilo": "normal",
+    "aporta": "La voz nunca dice cuánta gente de Longarone murió; la cifra muestra que casi todo el pueblo desapareció.",
+    "oracion": "La niña se llama Micaela Coletti y es una niña de Longarone, un pueblo de fondo de valle.",
+    "caracteres": 54,
+    "caben": 90,
+    "anio": null,
+    "relato": null
+   },
+   "sello": {
+    "palabra": "PÁNICO",
+    "sentence_idx": 4,
+    "oracion": "Ahora algo la empuja desde atrás, y la cama ya no es una cama: es algo que la lleva."
+   }
+  },
+  {
+   "cap": "ch02",
+   "beat": 2,
+   "funcion": "planteo",
+   "pico": false,
+   "ficha": {
+    "pool_id": "D117",
+    "sentence_idx": 2,
+    "palabra": "aprobó",
+    "palabra_en_oracion": true,
+    "etiqueta": "SESIÓN QUE LA APROBÓ",
+    "texto": "Solo 13 de 34 representantes presentes",
+    "respaldo": "con solo 13 de 34 representantes presentes",
+    "estilo": "papel",
+    "aporta": "La voz dice que se aprobó el proyecto, pero no que la sesión casi no tuvo quórum.",
+    "oracion": "En mil novecientos cuarenta y tres se aprobó el proyecto de cerrar esa garganta con una presa, y empezó la compra de terrenos en Erto y Casso, los pueblos de arriba, los que iban a quedar al borde del lago.",
+    "caracteres": 58,
+    "caben": 90,
+    "anio": null,
+    "relato": 1943
+   },
+   "sello": {
+    "palabra": "CALMA",
+    "sentence_idx": 6,
+    "oracion": "Abajo, en Longarone, la vida siguió con el Piave delante."
+   }
+  },
+  {
+   "cap": "ch02",
+   "beat": 3,
+   "funcion": "escalada",
+   "pico": true,
+   "ficha": {
+    "pool_id": "D47",
+    "sentence_idx": 11,
+    "palabra": "desmoronamiento",
+    "palabra_en_oracion": true,
+    "etiqueta": "ALTURA DEL DESMORONAMIENTO",
+    "texto": "600 m de desarrollo vertical",
+    "respaldo": "600 m de desarrollo vertical",
+    "estilo": "normal",
+    "aporta": "La voz dice que Müller detectó un gran desmoronamiento; la ficha le pone una medida de altura.",
+    "oracion": "En la década del cincuenta, el geólogo Leopold Müller detectó en el Toc un gran desmoronamiento.",
+    "caracteres": 54,
+    "caben": 83,
+    "anio": 1950,
+    "relato": 1943,
+    "juicio_autor": {
+     "spoiler": [
+      "2"
+     ]
+    }
+   },
+   "sello": {
+    "palabra": "AMENAZA",
+    "sentence_idx": 16,
+    "oracion": "El hijo del proyectista decía que la montaña ya se había movido una vez."
+   }
+  },
+  {
+   "cap": "ch03",
+   "beat": 4,
+   "funcion": "giro",
+   "pico": true,
+   "ficha": {
+    "pool_id": "T16",
+    "sentence_idx": 1,
+    "palabra": "ola",
+    "palabra_en_oracion": true,
+    "etiqueta": "LA VÍCTIMA DE LA OLA",
+    "texto": "Arcangelo Tiziani",
+    "respaldo": "mata a Arcangelo Tiziani",
+    "estilo": "normal",
+    "aporta": "La voz dice solo que murió un trabajador; la ficha le da nombre.",
+    "oracion": "Ese marzo, una masa de roca entró al agua y levantó una ola de veinte metros.",
+    "caracteres": 37,
+    "caben": 83,
+    "anio": 1959,
+    "relato": 1959
+   },
+   "sello": {
+    "palabra": "AVISO",
+    "sentence_idx": 9,
+    "oracion": "Una paleofrana con nombre en un papel."
+   }
+  },
+  {
+   "cap": "ch03",
+   "beat": 5,
+   "funcion": "escalada",
+   "pico": false,
+   "ficha": {
+    "pool_id": "D49",
+    "sentence_idx": 17,
+    "palabra": "fisura",
+    "palabra_en_oracion": true,
+    "etiqueta": "ANCHO DE LA FISURA",
+    "texto": "Más de 1 metro",
+    "respaldo": "una fisura de más de 1 metro de ancho",
+    "estilo": "normal",
+    "aporta": "La voz da el largo de la fisura pero no el ancho.",
+    "oracion": "Ese año hubo un pequeño desmoronamiento en el Toc, y después del desmoronamiento los habitantes vieron algo nuevo en la ladera: una fisura de casi dos kilómetros de largo, corriendo por la montaña como una costura abierta.",
+    "caracteres": 32,
+    "caben": 90,
+    "anio": 1960,
+    "relato": 1960
+   },
+   "sello": {
+    "palabra": "INMINENTE",
+    "sentence_idx": 18,
+    "oracion": "Abajo, el lago seguía subiendo."
+   }
+  },
+  {
+   "cap": "ch04",
+   "beat": 6,
+   "funcion": "giro",
+   "pico": false,
+   "ficha": {
+    "pool_id": "T39",
+    "sentence_idx": 6,
+    "palabra": "advertencia",
+    "palabra_en_oracion": true,
+    "etiqueta": "LA ADVERTENCIA DE MERLIN",
+    "texto": "50 millones de metros cúbicos de roca",
+    "respaldo": "un derrumbamiento de 50 millones de metros cúbicos de roca que amenaza Erto",
+    "estilo": "normal",
+    "aporta": "La voz dice que Merlin volvió a advertir; no dice qué volumen de roca anunciaba.",
+    "oracion": "En febrero de mil novecientos sesenta y uno, Merlin volvió a su máquina de escribir y publicó otra advertencia: la amenaza sobre Erto seguía ahí.",
+    "caracteres": 61,
+    "caben": 90,
+    "anio": 1961,
+    "relato": 1961,
+    "juicio_autor": {
+     "spoiler": [
+      "50"
+     ]
+    }
+   },
+   "sello": null
+  },
+  {
+   "cap": "ch04",
+   "beat": 7,
+   "funcion": "giro",
+   "pico": true,
+   "ficha": {
+    "pool_id": "D106",
+    "sentence_idx": 13,
+    "palabra": "quince",
+    "palabra_en_oracion": true,
+    "etiqueta": "SOBRE LA COTA SEGURA",
+    "texto": "15 metros",
+    "respaldo": "15 metros por encima de la cota de seguridad recomendada",
+    "estilo": "normal",
+    "aporta": "Pone en una sola cifra la distancia entre lo autorizado y lo que se había recomendado.",
+    "oracion": "La cota autorizada fue de setecientos quince.",
+    "caracteres": 29,
+    "caben": 36,
+    "anio": null,
+    "relato": 1961,
+    "juicio_autor": {
+     "contradice": [
+      "715"
+     ]
+    }
+   },
+   "sello": null
+  },
+  {
+   "cap": "ch05",
+   "beat": 8,
+   "funcion": "escalada",
+   "pico": true,
+   "ficha": {
+    "pool_id": "Q50",
+    "sentence_idx": 2,
+    "palabra": "grietas",
+    "palabra_en_oracion": true,
+    "etiqueta": "MIEDO POR ESCRITO",
+    "texto": "continua aprensión y en continua alarma",
+    "respaldo": "están viviendo en continua aprensión y en continua alarma",
+    "estilo": "cita",
+    "autor": "Municipio de Erto y Casso",
+    "autor_origen": "modelo",
+    "aporta": "Muestra lo que el propio municipio dejó por escrito sobre el miedo de la gente, algo que la voz no cuenta.",
+    "oracion": "Desde el dos de octubre, los avisos se multiplicaron: sacudidas, estruendos que bajaban de la ladera de noche, grietas nuevas en la tierra de Erto, movimientos en la superficie.",
+    "caracteres": 86,
+    "caben": 90,
+    "anio": null,
+    "relato": 1963
+   },
+   "sello": {
+    "palabra": "SILENCIO",
+    "sentence_idx": 10,
+    "oracion": "De la ola no hablaba nadie."
+   }
+  },
+  {
+   "cap": "ch05",
+   "beat": 9,
+   "funcion": "giro",
+   "pico": false,
+   "ficha": {
+    "pool_id": "Q51",
+    "sentence_idx": 17,
+    "palabra": "posdata",
+    "palabra_en_oracion": true,
+    "etiqueta": "CIERRE DE LA POSDATA",
+    "texto": "Que Dios nos ayude.",
+    "respaldo": "Que Dios nos ayude.",
+    "estilo": "cita",
+    "autor": "Alberico Biadene",
+    "autor_origen": "modelo",
+    "aporta": "La voz lee la medición de la posdata pero no su última línea.",
+    "oracion": "Biadene volvió al papel y agregó una posdata: Rossi lo llamaba en ese momento, y «las mediciones de esta mañana resultan todavía mayores que las de ayer, ¡alcanzando un aumento del 50%!!».",
+    "caracteres": 60,
+    "caben": 90,
+    "anio": 1963,
+    "relato": 1963
+   },
+   "sello": null
+  },
+  {
+   "cap": "ch06",
+   "beat": 10,
+   "funcion": "pico",
+   "pico": true,
+   "ficha": {
+    "pool_id": "D01",
+    "sentence_idx": 3,
+    "palabra": "ladera",
+    "palabra_en_oracion": true,
+    "etiqueta": "LA ROCA QUE CAYÓ",
+    "texto": "270 millones de metros cúbicos",
+    "respaldo": "270 millones de metros cúbicos de roca",
+    "estilo": "normal",
+    "aporta": "La voz dice que la ladera entera se desploma pero no cuánta roca era.",
+    "oracion": "La ladera entera, la que caminaba, la de la fisura, se desploma de una vez dentro del embalse.",
+    "caracteres": 46,
+    "caben": 90,
+    "anio": 1963,
+    "relato": 1963
+   },
+   "sello": {
+    "palabra": "COLAPSO",
+    "sentence_idx": 3,
+    "oracion": "La ladera entera, la que caminaba, la de la fisura, se desploma de una vez dentro del embalse."
+   }
+  },
+  {
+   "cap": "ch06",
+   "beat": 11,
+   "funcion": "respiro",
+   "pico": false,
+   "ficha": {
+    "pool_id": "D128",
+    "sentence_idx": 24,
+    "palabra": "muertos",
+    "palabra_en_oracion": true,
+    "etiqueta": "VÍCTIMAS",
+    "texto": "1.910 personas murieron",
+    "respaldo": "En el desastre murieron 1.910 personas.",
+    "estilo": "normal",
+    "aporta": "La voz nunca da el total de muertos.",
+    "oracion": "Entre los muertos está Guglielmo Celso, el alcalde socialista de Longarone.",
+    "caracteres": 31,
+    "caben": 57,
+    "anio": null,
+    "relato": 1963
+   },
+   "sello": null
+  },
+  {
+   "cap": "ch07",
+   "beat": 12,
+   "funcion": "revelacion",
+   "pico": true,
+   "ficha": {
+    "pool_id": "Q14",
+    "sentence_idx": 1,
+    "palabra": "justicia",
+    "palabra_en_oracion": true,
+    "etiqueta": "LA RESPUESTA",
+    "texto": "Y justicia tendréis",
+    "respaldo": "Y justicia tendréis",
+    "estilo": "cita",
+    "autor": "Giovanni Leone",
+    "autor_origen": "modelo",
+    "aporta": "La voz cuenta el grito de los pobladores pero no lo que el presidente del Consejo respondió.",
+    "oracion": "De entre lo que quedaba de Longarone le salió al paso un grito, el de los pobladores: «Presidente, queremos justicia».",
+    "caracteres": 50,
+    "caben": 90,
+    "anio": 1963,
+    "relato": 1963
+   },
+   "sello": {
+    "palabra": "RABIA",
+    "sentence_idx": 7,
+    "oracion": "Aniello Coppola leyó en eso el intento de absolver antes de indagar, de anular cualquier investigación de antemano, y respondió: «Hay que hacer un proceso."
+   }
+  },
+  {
+   "cap": "ch07",
+   "beat": 13,
+   "funcion": "cierre",
+   "pico": false,
+   "ficha": {
+    "pool_id": "D32",
+    "sentence_idx": 15,
+    "palabra": "Pancini",
+    "palabra_en_oracion": true,
+    "etiqueta": "ACUSADOS QUE FALTARON",
+    "texto": "Otros dos ya habían muerto",
+    "respaldo": "dos habían muerto",
+    "estilo": "normal",
+    "aporta": "La voz cuenta el suicidio de Pancini; la ficha suma que otros dos acusados tampoco llegaron vivos al juicio.",
+    "oracion": "El día anterior, Pancini, el ingeniero al que Biadene le había pedido volver de vacaciones, se quitó la vida.",
+    "caracteres": 47,
+    "caben": 90,
+    "anio": null,
+    "relato": 1968
+   },
+   "sello": {
+    "palabra": "MEMORIA",
+    "sentence_idx": 21,
+    "oracion": "Micaela Coletti preside el comité de sobrevivientes del Vajont."
+   }
+  }
+ ],
+ "relojes": [
+  {
+   "cap": "ch01",
+   "sentence_idx": 13,
+   "fecha": "9 OCT 1963",
+   "oracion": "Longarone, Italia, nueve de octubre de mil novecientos sesenta y tres."
+  },
+  {
+   "cap": "ch04",
+   "sentence_idx": 0,
+   "fecha": "4 NOV 1960",
+   "oracion": "El cuatro de noviembre de mil novecientos sesenta el embalse estaba a seiscientos cincuenta metros sobre el nivel del mar."
+  },
+  {
+   "cap": "ch07",
+   "sentence_idx": 11,
+   "fecha": "20 FEB 1968",
+   "oracion": "Pasaron más de cuatro años hasta que, el veinte de febrero de mil novecientos sesenta y ocho, se depositó la resolución de remisión a juicio."
+  },
+  {
+   "cap": "ch07",
+   "sentence_idx": 14,
+   "fecha": "29 NOV 1968",
+   "oracion": "El juicio empezó el veintinueve de noviembre de mil novecientos sesenta y ocho."
+  }
+ ],
+ "tarjeta": {
+  "texto": "9 OCT 1963 · 22:39",
+  "fecha": "1963-10-09",
+  "hora": "22:39",
+  "fecha_de": "ch01 [13]",
+  "hora_de": "T66",
+  "fuente": "fecha: la voz en ch01 [13] «Longarone, Italia, nueve de octubre de mil novecientos sesenta y tres.»; hora: la voz en ch06 [1] dice 10:39 = T66 22:39 (ítem de esa fecha (ninguno del beat pico coincide), beat pico 10)"
+ },
+ "tarjeta_motivo": null,
+ "descartados": [
+  {
+   "pool_id": "Q49",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita a Coletti casi palabra por palabra en el gancho.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q19",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita a Trevisano en la oración 10.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D131",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "El gancho ya lleva una ficha (D195); solo se permite una por beat.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q53",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice 'la montaña que camina'.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T18",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta la primera denuncia de Merlin en 1959.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D72",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz nombra a SADE, FIAT, Volpi y Cini como dueños de Il Gazzettino.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T36",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice setecientos mil metros cúbicos.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D223",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "Mismo dato que T36.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T57",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "El pico del capítulo ya lo cuenta la voz: el Toc entra al lago.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T61",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta la carta de Biadene a Pancini.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T102",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta la sentencia de Casación de 1971.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q25",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita a ese sobreviviente.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q13",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita el grito 'queremos justicia'.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D226",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta los avisos desde el 2 de octubre.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D32",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "El beat 13 admite una sola ficha; se eligió D37.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D245",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Montedison no se nombra en la voz, así que el dato no se entiende solo; la cifra de liras además se confunde con la de ENEL.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D192",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "El beat 11 admite una sola ficha; se eligió el total de víctimas.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T50",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "El nivel de 720 metros choca con los 700 metros que la voz dice para junio de 1963.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D29",
+   "regla": "modelo",
+   "tipo": "spoiler",
+   "motivo": "Adelanta la conclusión sobre los errores humanos que el cierre deja abierta.",
+   "quien": "modelo"
+  }
+ ],
+ "seg_por_palabra": {
+  "valor": 0.3459,
+  "oraciones": 200,
+  "caps": 9,
+  "voz": "N9Z5MLTIaHFLflaLtbDi",
+  "origen": "mediana de 200 oraciones de 9 caps del narrador N9Z5MLTIaHFLflaLtbDi"
+ },
+ "tope": {
+  "usd": 1.0,
+  "de": "respaldo (el perfil no trae costos.m01e_tope_usd)"
+ },
+ "error": "tope US$ 1.00 (respaldo (el perfil no trae costos.m01e_tope_usd)): gastado 0.8096 + esta llamada hasta 0.3308",
+ "por_intento": [
+  {
+   "tokens_in": 66450,
+   "tokens_out": 20318,
+   "usd": 0.33608,
+   "segundos": 139.8
+  },
+  {
+   "tokens_in": 71417,
+   "tokens_out": 2433,
+   "usd": 0.16716,
+   "segundos": 20.8
+  },
+  {
+   "tokens_in": 70936,
+   "tokens_out": 421,
+   "usd": 0.14608,
+   "segundos": 8.3
+  },
+  {
+   "tokens_in": 71053,
+   "tokens_out": 1814,
+   "usd": 0.16025,
+   "segundos": 20.6
+  }
+ ],
+ "reintento": {
+  "motivos": [
+   "Q50 (ch05 beat 8) «POR ESCRITO · en continua aprensión y en continua alarma»: cita_sin_fecha: cita sin fecha: su autor («Administración del comune di Erto e Casso», autoridad local) no aparece en la oración [7] ni en sus vecinas",
+   "D47 (ch02 beat 3, oración [11]) «TAMAÑO DEL DESMORONAMIENTO · 2 km de frente y 600 m de desarrollo vertical»: la voz dice «2» en una oración posterior en ch03 [17] («Ese año hubo un pequeño desmoronamiento en el Toc, y después del desmoronamiento los habitantes vieron algo nuevo en la ladera: una fisura de casi dos kilómetros de largo, corriendo por la montaña como una costura abierta.»); ¿es el mismo hecho? si no, mantenelo",
+   "T39 (ch04 beat 6, oración [6]) «LA ADVERTENCIA DE MERLIN · 50 millones de metros cúbicos de roca»: la voz dice «50» en una oración posterior en ch05 [17] («Biadene volvió al papel y agregó una posdata: Rossi lo llamaba en ese momento, y «las mediciones de esta mañana resultan todavía mayores que las de ayer, ¡alcanzando un aumento del 50%!!».»); ¿es el mismo hecho? si no, mantenelo",
+   "D106 (ch04 beat 7, oración [13]) «SOBRE LA COTA SEGURA · 15 metros»: la voz dice «715» para lo mismo, en la oración ancla o en una vecina en ch04 [13] («La cota autorizada fue de setecientos quince.»); ¿es el mismo hecho? si no, mantenelo",
+   "el beat 8 de ch05 es pico y quedó sin ficha",
+   "el beat 8 de ch05 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: Q50 («Carta del municipio de Erto y Casso a SADE: documento que se lee en pantalla sobre la escena de los avisos de octubre.»)",
+   "el beat 13 de ch07 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D245 («Condena a Montedison de 1997: cifra de liras en fallo, ilegible en voz.»)"
+  ],
+  "preguntas": [
+   {
+    "pool_id": "D47",
+    "coincidencias": {
+     "spoiler": [
+      "2"
+     ]
+    },
+    "respuesta": "la mantuvo en ch02 beat 3 [11]: otro hecho"
+   },
+   {
+    "pool_id": "T39",
+    "coincidencias": {
+     "spoiler": [
+      "50"
+     ]
+    },
+    "respuesta": "la mantuvo en ch04 beat 6 [6]: otro hecho"
+   },
+   {
+    "pool_id": "D106",
+    "coincidencias": {
+     "contradice": [
+      "715"
+     ]
+    },
+    "respuesta": "la mantuvo en ch04 beat 7 [13]: otro hecho"
+   },
+   {
+    "pool_id": "T54",
+    "coincidencias": {
+     "no_dicho": [
+      "Erto"
+     ]
+    },
+    "respuesta": "la sacó o la cambió (el mismo hecho, o eligió otra)"
+   }
+  ],
+  "tipo": "parcial",
+  "beats": [
+   [
+    "ch02",
+    3
+   ],
+   [
+    "ch04",
+    6
+   ],
+   [
+    "ch04",
+    7
+   ],
+   [
+    "ch05",
+    8
+   ],
+   [
+    "ch07",
+    13
+   ]
+  ],
+  "aplicados": [
+   {
+    "cap": "ch02",
+    "beat": 3,
+    "partes": [
+     "ficha"
+    ]
+   },
+   {
+    "cap": "ch05",
+    "beat": 8,
+    "partes": [
+     "ficha"
+    ]
+   },
+   {
+    "cap": "ch05",
+    "beat": 8,
+    "partes": [
+     "ficha"
+    ]
+   },
+   {
+    "cap": "ch07",
+    "beat": 13,
+    "partes": [
+     "ficha"
+    ]
+   },
+   {
+    "cap": "ch05",
+    "beat": 8,
+    "partes": [
+     "ficha"
+    ]
+   },
+   {
+    "cap": "ch07",
+    "beat": 13,
+    "partes": [
+     "ficha"
+    ]
+   }
+  ],
+  "ignorados": [],
+  "sin_beat": [],
+  "vueltas": [
+   {
+    "vuelta": 1,
+    "beats": [
+     [
+      "ch02",
+      3
+     ],
+     [
+      "ch04",
+      6
+     ],
+     [
+      "ch04",
+      7
+     ],
+     [
+      "ch05",
+      8
+     ],
+     [
+      "ch07",
+      13
+     ]
+    ],
+    "motivos": [
+     "Q50 (ch05 beat 8) «POR ESCRITO · en continua aprensión y en continua alarma»: cita_sin_fecha: cita sin fecha: su autor («Administración del comune di Erto e Casso», autoridad local) no aparece en la oración [7] ni en sus vecinas",
+     "D47 (ch02 beat 3, oración [11]) «TAMAÑO DEL DESMORONAMIENTO · 2 km de frente y 600 m de desarrollo vertical»: la voz dice «2» en una oración posterior en ch03 [17] («Ese año hubo un pequeño desmoronamiento en el Toc, y después del desmoronamiento los habitantes vieron algo nuevo en la ladera: una fisura de casi dos kilómetros de largo, corriendo por la montaña como una costura abierta.»); ¿es el mismo hecho? si no, mantenelo",
+     "T39 (ch04 beat 6, oración [6]) «LA ADVERTENCIA DE MERLIN · 50 millones de metros cúbicos de roca»: la voz dice «50» en una oración posterior en ch05 [17] («Biadene volvió al papel y agregó una posdata: Rossi lo llamaba en ese momento, y «las mediciones de esta mañana resultan todavía mayores que las de ayer, ¡alcanzando un aumento del 50%!!».»); ¿es el mismo hecho? si no, mantenelo",
+     "D106 (ch04 beat 7, oración [13]) «SOBRE LA COTA SEGURA · 15 metros»: la voz dice «715» para lo mismo, en la oración ancla o en una vecina en ch04 [13] («La cota autorizada fue de setecientos quince.»); ¿es el mismo hecho? si no, mantenelo",
+     "el beat 8 de ch05 es pico y quedó sin ficha",
+     "el beat 8 de ch05 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: Q50 («Carta del municipio de Erto y Casso a SADE: documento que se lee en pantalla sobre la escena de los avisos de octubre.»)",
+     "el beat 13 de ch07 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D245 («Condena a Montedison de 1997: cifra de liras en fallo, ilegible en voz.»)"
+    ],
+    "aplicados": [
+     {
+      "cap": "ch02",
+      "beat": 3,
+      "partes": [
+       "ficha"
+      ]
+     },
+     {
+      "cap": "ch05",
+      "beat": 8,
+      "partes": [
+       "ficha"
+      ]
+     }
+    ],
+    "ignorados": [],
+    "usd": 0.16716
+   },
+   {
+    "vuelta": 2,
+    "beats": [
+     [
+      "ch05",
+      8
+     ],
+     [
+      "ch07",
+      13
+     ]
+    ],
+    "motivos": [
+     "T54 (ch05 beat 8, oración [3]) «LA ORDEN DEL ALCALDE · El alcalde de Erto prohibió acercarse al embalse»: la voz dice «Erto» en la oración ancla o en una vecina en ch05 [2] («Desde el dos de octubre, los avisos se multiplicaron: sacudidas, estruendos que bajaban de la ladera de noche, grietas nuevas en la tierra de Erto, movimientos en la superficie.»); ¿es el mismo hecho? si no, mantenelo",
+     "el beat 8 de ch05 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: Q50 («Carta del municipio de Erto y Casso a SADE: documento que se lee en pantalla sobre la escena de los avisos de octubre.»)",
+     "el beat 13 de ch07 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D245 («Condena a Montedison de 1997: cifra de liras en fallo, ilegible en voz.»)"
+    ],
+    "aplicados": [
+     {
+      "cap": "ch05",
+      "beat": 8,
+      "partes": [
+       "ficha"
+      ]
+     },
+     {
+      "cap": "ch07",
+      "beat": 13,
+      "partes": [
+       "ficha"
+      ]
+     }
+    ],
+    "ignorados": [],
+    "usd": 0.14608
+   },
+   {
+    "vuelta": 3,
+    "beats": [
+     [
+      "ch05",
+      8
+     ],
+     [
+      "ch07",
+      13
+     ]
+    ],
+    "motivos": [
+     "Q50 (ch05 beat 8) «CARTA DEL MUNICIPIO A SADE · «Viviendo en continua aprensión y en continua alarma»»: caben: etiqueta 26 + dato 51 + autor 30 (con comillas y raya) = 112 caracteres y en la oración [3] caben 77; en este beat caben como máximo 90 (oración [0])",
+     "D32 (ch07 beat 13) «LOS QUE NO LLEGARON AL JUICIO · Dos acusados habían muerto y uno se suicidó»: caben: etiqueta 29 + dato 43 = 72 caracteres y en la oración [16] caben 36; en este beat caben como máximo 90 (oración [15])",
+     "el beat 8 de ch05 es pico y quedó sin ficha",
+     "el beat 8 de ch05 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: Q50 («Carta del municipio de Erto y Casso a SADE: documento que se lee en pantalla sobre la escena de los avisos de octubre.»)",
+     "el beat 13 de ch07 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D245 («Condena a Montedison de 1997: cifra de liras en fallo, ilegible en voz.»)"
+    ],
+    "aplicados": [
+     {
+      "cap": "ch05",
+      "beat": 8,
+      "partes": [
+       "ficha"
+      ]
+     },
+     {
+      "cap": "ch07",
+      "beat": 13,
+      "partes": [
+       "ficha"
+      ]
+     }
+    ],
+    "ignorados": [],
+    "usd": 0.16025
+   }
+  ],
+  "cierre": "tope",
+  "cortados_al_cierre": []
+ },
+ "picos_vacios": [],
+ "a_pantalla_vacios": [
+  {
+   "cap": "ch07",
+   "beat": 13,
+   "ids": [
+    {
+     "id": "D245",
+     "por_que": "Condena a Montedison de 1997: cifra de liras en fallo, ilegible en voz."
+    }
+   ]
+  }
+ ]
+}

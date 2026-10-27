@@ -1,0 +1,27 @@
+# c_corrida · 2026-10-27 12:57:57 · CORRIDA
+m01e m01e-6 · md5 SYSTEM 7d2ccdd28055d6e621d1d251a0fe8bb7 (OK) · prompt_md5 3b98aef1d8595124967ac7a85b75bab7 · modelo claude-sonnet-5-5 medium
+lab\hyperframes\f38e\c\vajont_steps\f8s3-vajont ya existe: no se vuelve a copiar
+entrada: 7 caps · 13 beats · archivo 400 ítems · clima ['PÁNICO', 'CALMA', 'AMENAZA', 'AVISO', 'ALARMA', 'INMINENTE', 'COLAPSO', 'SILENCIO', 'RABIA', 'MEMORIA'] · seg {'valor': 0.3459, 'oraciones': 200, 'caps': 9, 'voz': 'N9Z5MLTIaHFLflaLtbDi', 'origen': 'mediana de 200 oraciones de 9 caps del narrador N9Z5MLTIaHFLflaLtbDi'} · entrada_md5 820b632aa1ecbb5da9b2063247cea06e
+USER 137035 car. · body 150460 car. · tarifas 2.0/10.0 · tope (1.0, 'respaldo (el perfil no trae costos.m01e_tope_usd)')
+peor caso intento 1: US$ 0.2804 (salida 16000) / US$ 0.3266 (salida 20623, e4)
+peor caso una vuelta (USER + papel anterior como el de la prueba 1): US$ 0.2960 / US$ 0.3422
+con el tope 1,00 y la lógica de `llamar` (gastado + peor ≤ tope): entra el intento 1; la vuelta 1 entra si gastó ≤ 0.7040; la vuelta 2 entra si gastó ≤ 0.7040 tras dos llamadas (~0.68 real → no)
+  m01e intento 1: in 66450 · out 20318 · US$ 0.3361 · JSON
+  m01e intento 1 validado: fichas fuera 1 · preguntas 3 · vuelven 0 · picos vacíos 1
+  m01e intento 2: in 71417 · out 2433 · US$ 0.1672 · JSON
+  m01e vuelta 1 validada: fichas fuera 0 · preguntas nuevas 1 · picos vacíos 0
+  m01e intento 3: in 70936 · out 421 · US$ 0.1461 · JSON
+  m01e vuelta 2 validada: fichas fuera 2 · preguntas nuevas 0 · picos vacíos 1
+  m01e intento 4: in 71053 · out 1814 · US$ 0.1603 · JSON
+  m01e vuelta 3 validada: fichas fuera 0 · preguntas nuevas 0 · picos vacíos 0
+  m01e: tope US$ 1.00 (respaldo (el perfil no trae costos.m01e_tope_usd)): gastado 0.8096 + esta llamada hasta 0.3308 → sin reintento
+  m01e: 13 fichas · 9 sellos · 4 relojes · tarjeta True → C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f38e\c\vajont_steps\f8s3-vajont\01e_pantalla.md
+generar: 194.4 s
+intento 1: in 66450 · out 20318 · US$ 0.3361 · 139.8 s · stop end_turn · JSON
+vuelta 1: in 71417 · out 2433 · US$ 0.1672 · 20.8 s · stop end_turn · JSON
+vuelta 2: in 70936 · out 421 · US$ 0.1461 · 8.3 s · stop end_turn · JSON
+vuelta 3: in 71053 · out 1814 · US$ 0.1603 · 20.6 s · stop end_turn · JSON
+US$ total 0.8096 (llamar) · ledger en memoria US$ 0.8096 (4 entradas) · cierre tope · vueltas 3
+tabla → C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f38e\c\TABLA.md
+data/: 1320 archivos antes, 1320 después (mtime + md5) · cambiados/nuevos: ninguno · cost_history.json md5 1f5e5ded03a8637e780d6de237cb1550 → 1f5e5ded03a8637e780d6de237cb1550 · logs/ nuevos: ['pipeline_20261027_125756.log', 'pipeline_20261027_125803.log', 'pipeline_20261027_125813.log', 'pipeline_20261027_125919.log', 'pipeline_20261027_125946.log', 'pipeline_20261027_130007.log', 'pipeline_20261027_130032.log']
+rc=0

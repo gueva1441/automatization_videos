@@ -43,10 +43,22 @@ def ent() -> dict:
     return e
 
 
+def _con_respaldo(resp: dict, ent: dict) -> dict:
+    """F38e §C.3: el formato pide `respaldo` por ficha y las respuestas de F38b no lo traen: se completa con el texto
+    entero del ítem (fragmento literal trivial), con lo que el candado contra el respaldo es el de antes."""
+    arch = {x["id"]: x["texto"] for x in ent["archivo"]}
+    out = json.loads(json.dumps(resp, ensure_ascii=False))
+    for fila in list(out.get("beats") or []) + list(out.get("cambios") or []):
+        fi = fila.get("ficha") if isinstance(fila, dict) else None
+        if isinstance(fi, dict) and not fi.get("respaldo") and fi.get("pool_id") in arch:
+            fi["respaldo"] = arch[fi["pool_id"]]
+    return out
+
+
 @pytest.fixture(scope="module")
-def papel() -> dict:
-    """La respuesta final del autor en F38b (12 fichas)."""
-    return json.loads(RAW_F38B.read_text(encoding="utf-8"))["final"]
+def papel(ent) -> dict:
+    """La respuesta final del autor en F38b (12 fichas), con `respaldo` (F38e)."""
+    return _con_respaldo(json.loads(RAW_F38B.read_text(encoding="utf-8"))["final"], ent)
 
 
 @pytest.fixture(scope="module")
@@ -64,8 +76,9 @@ def _a_pantalla_motivos(v: dict) -> list[tuple[str, list]]:
 
 
 def test_prompt_no_cambia():
-    # F38c no cambió el prompt (163e1fd1…); F38d §A.2.1 cambia solo la línea de «caben» (m01e-5)
-    assert mp.prompt_md5() == "76f1de7ac124b27b0670a5d5234e2f78"
+    # F38c no cambió el prompt (163e1fd1…); F38d §A.2.1 cambió solo la línea de «caben» (m01e-5, 76f1de7a…); F38e §C.1
+    # lo reemplazó por el de la prueba 1 (m01e-6) y sumó `respaldo` y `autor` a los formatos: este es el de hoy
+    assert mp.prompt_md5() == "3b98aef1d8595124967ac7a85b75bab7"
 
 
 # ═══════════════════════ §A.1 ═══════════════════════
@@ -115,7 +128,8 @@ def test_a1_d128_en_b11_no_da_motivo_por_d192(ent, papel):
     resp = json.loads(json.dumps(papel, ensure_ascii=False))
     fila = next(b for b in resp["beats"] if b["cap"] == "ch06" and b["beat"] == 11)
     fila["ficha"] = {"pool_id": "D128", "sentence_idx": fila["ficha"]["sentence_idx"], "palabra": "",
-                     "etiqueta": "MUERTOS", "texto": "1.910 personas", "aporta": "el recuento"}
+                     "etiqueta": "MUERTOS", "texto": "1.910 personas", "aporta": "el recuento",
+                     "respaldo": _x(ent, "D128")["texto"]}
     v = mp.validar(resp, ent)
     s11 = next(b for b in v["beats"] if b["cap"] == "ch06" and b["beat"] == 11)
     assert s11["ficha"] and s11["ficha"]["pool_id"] == "D128"

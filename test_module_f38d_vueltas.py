@@ -61,16 +61,28 @@ def raw38c() -> dict:
     return json.loads(RAW_F38C.read_text(encoding="utf-8"))
 
 
-@pytest.fixture(scope="module")
-def r1(raw38c) -> dict:
-    """El intento 1 de F38c: D105 en ch04 b7, Q50 de 118 car. en ch05 b8."""
-    return raw38c["intentos"][0]["respuesta"]
+def _con_respaldo(resp: dict, ent: dict) -> dict:
+    """F38e §C.3: el formato pide `respaldo` por ficha y las respuestas de F38c no lo traen: se completa con el texto
+    entero del ítem (fragmento literal trivial), con lo que el candado contra el respaldo es el de antes."""
+    arch = {x["id"]: x["texto"] for x in ent["archivo"]}
+    out = json.loads(json.dumps(resp, ensure_ascii=False))
+    for fila in list(out.get("beats") or []) + list(out.get("cambios") or []):
+        fi = fila.get("ficha") if isinstance(fila, dict) else None
+        if isinstance(fi, dict) and not fi.get("respaldo") and fi.get("pool_id") in arch:
+            fi["respaldo"] = arch[fi["pool_id"]]
+    return out
 
 
 @pytest.fixture(scope="module")
-def r2(raw38c) -> dict:
-    """El reintento de F38c (`cambios`): D241 en ch04 b7, Q50 de 109 car."""
-    return raw38c["intentos"][1]["respuesta"]
+def r1(raw38c, ent) -> dict:
+    """El intento 1 de F38c: D105 en ch04 b7, Q50 de 118 car. en ch05 b8 (con `respaldo`, F38e)."""
+    return _con_respaldo(raw38c["intentos"][0]["respuesta"], ent)
+
+
+@pytest.fixture(scope="module")
+def r2(raw38c, ent) -> dict:
+    """El reintento de F38c (`cambios`): D241 en ch04 b7, Q50 de 109 car. (con `respaldo`, F38e)."""
+    return _con_respaldo(raw38c["intentos"][1]["respuesta"], ent)
 
 
 def _fila(resp: dict, cap: str, beat: int) -> dict:
@@ -300,19 +312,17 @@ def test_4_motivo_de_caben_de_q50(ent, r1, r2):
     assert next(s for s in b8 if s["idx"] == 3)["caben"] == 77
 
 
-def test_5_prompt_cambia_solo_por_la_linea_de_a21(monkeypatch):
+def test_5_el_prompt_dice_lo_que_mide_el_codigo_para_caben():
+    """F38d §A.2.1 (m01e-5) cambió solo la línea de «caben» sobre m01e-4 (md5 163e1fd1…); F38e §C.1 reemplazó el SYSTEM
+    entero por el de la prueba 1 (m01e-6), que conserva lo que §A.2.1 pedía: el autor de la cita y los 5 caracteres de
+    comillas y raya cuentan en «caben». Lo que ya no se puede medir (el diff de una línea contra m01e-4) se saca."""
     h = HANDOFF.read_text(encoding="utf-8")
-    assert VIEJA in h and NUEVA in h                          # literal del handoff
-    assert mp.PROMPT_VERSION == "m01e-5"
+    assert VIEJA in h and NUEVA in h                          # literal del handoff de F38d
+    assert mp.PROMPT_VERSION == "m01e-6"
     hoy = mp.PANTALLA_SYSTEM
-    assert hoy.count(NUEVA) == 1 and VIEJA not in hoy
-    m01e_4 = hoy.replace(NUEVA, VIEJA)
-    # la diferencia entre m01e-4 y m01e-5 es exactamente esa oración (una línea)
-    d = [ln for ln in difflib.ndiff(m01e_4.splitlines(), hoy.splitlines()) if ln[:1] in "+-"]
-    assert len(d) == 2 and d[0][2:].replace(VIEJA, NUEVA) == d[1][2:]
-    # md5 con la misma fórmula que mp.prompt_md5
-    md5_hoy = mp.prompt_md5()
-    monkeypatch.setattr(mp, "PANTALLA_SYSTEM", m01e_4)
-    assert mp.prompt_md5() == MD5_M01E_4
-    monkeypatch.undo()
-    assert mp.prompt_md5() == md5_hoy != MD5_M01E_4
+    assert VIEJA not in hoy and NUEVA not in hoy              # m01e-6 lo dice con sus palabras (las de la prueba 1)
+    assert ("Etiqueta + dato —y en una cita, también el autor y 5 caracteres de comillas y raya— no pueden pasar de los "
+            "caracteres que caben en la oración ancla (`caben`); si no caben, elegí otra oración o un dato más corto.") in hoy
+    assert hoy.count("`caben`") == 1
+    assert mp.prompt_md5() != MD5_M01E_4
+    assert difflib is not None

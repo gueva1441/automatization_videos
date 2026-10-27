@@ -44,6 +44,18 @@ def _ficha(cap: str, beat: int, pid: str, si: int, et: str, txt: str, palabra: s
                                                 "texto": txt, "aporta": "lo que la voz no dice"}, "sello": None}
 
 
+def _con_respaldo(resp: dict, ent: dict) -> dict:
+    """F38e §C.3: el formato pide `respaldo` por ficha y las fichas de estos tests no lo traen: se completa con el texto
+    entero del ítem (fragmento literal trivial), con lo que el candado contra el respaldo es el de antes."""
+    arch = {x["id"]: x["texto"] for x in ent["archivo"]}
+    out = json.loads(json.dumps(resp, ensure_ascii=False))
+    for fila in list(out.get("beats") or []) + list(out.get("cambios") or []):
+        fi = fila.get("ficha") if isinstance(fila, dict) else None
+        if isinstance(fi, dict) and not fi.get("respaldo") and fi.get("pool_id") in arch:
+            fi["respaldo"] = arch[fi["pool_id"]]
+    return out
+
+
 def _post_seq(resps: list[dict], pedidos: list[dict]):
     """POST falso: devuelve las respuestas en orden y guarda cada body pedido."""
     def post(body: dict) -> dict:
@@ -82,7 +94,7 @@ def test_a1c_q43_cita_sin_fecha_cae_porque_su_autor_no_esta_en_la_voz(vajont):
     q43 = next(x for x in vajont["archivo"] if x["id"] == "Q43")
     assert q43["fecha"] == "desconocida" and q43["testimonio"] == "no" and q43["rol"]          # §A.1a: como en el pool
     resp = {"beats": [_ficha("ch05", 9, "Q43", 23, "INGENIERO JEFE", "Son sacudidas menores")]}
-    v = mp.validar(resp, vajont)
+    v = mp.validar(_con_respaldo(resp, vajont), vajont)
     d = next(d for d in v["descartados"] if d.get("pool_id") == "Q43")
     assert d["regla"] == "cita_sin_fecha", d
     assert any("Q43" in m and "cita_sin_fecha" in m for m in v["motivos"])
@@ -90,15 +102,16 @@ def test_a1c_q43_cita_sin_fecha_cae_porque_su_autor_no_esta_en_la_voz(vajont):
 
 def test_a1b_item_posterior_al_relato_cae_y_un_testimonio_no():
     ent = _chico()
-    v = mp.validar({"beats": [_ficha("ch02", 2, "D2", 1, "CONDENAS DEL JUICIO", "11 condenas")]}, ent)
+    v = mp.validar(_con_respaldo({"beats": [_ficha("ch02", 2, "D2", 1, "CONDENAS DEL JUICIO", "11 condenas")]}, ent), ent)
     d = next(d for d in v["descartados"] if d.get("pool_id") == "D2")
     assert d["regla"] == "fecha_relato" and "1970" in d["motivo"] and "1963" in d["motivo"]
     # la cita de 1990 es testimonio: se cuenta después, pasa la fecha del relato
     ent_t = _chico(testimonio=True)
-    v2 = mp.validar({"beats": [_ficha("ch02", 2, "Q1", 1, "UN SOBREVIVIENTE", "Nadie nos avisó nunca")]}, ent_t)
+    q1 = {"beats": [_ficha("ch02", 2, "Q1", 1, "UN SOBREVIVIENTE", "Nadie nos avisó nunca")]}
+    v2 = mp.validar(_con_respaldo(q1, ent_t), ent_t)
     assert not [d for d in v2["descartados"] if d.get("regla") == "fecha_relato"]
     ent_n = _chico(testimonio=False)
-    v3 = mp.validar({"beats": [_ficha("ch02", 2, "Q1", 1, "UN SOBREVIVIENTE", "Nadie nos avisó nunca")]}, ent_n)
+    v3 = mp.validar(_con_respaldo(q1, ent_n), ent_n)
     assert [d for d in v3["descartados"] if d.get("regla") == "fecha_relato"]
 
 
@@ -107,7 +120,7 @@ def test_a1b_d47_el_anio_dicho_en_dos_cifras_lo_situa(vajont):
     """D47 es de 1950; en ch02 [11] el relato va por 1943, pero la oración dice «la década del cincuenta»."""
     resp = {"beats": [_ficha("ch02", 3, "D47", 11, "DESMORONAMIENTO DEL TOC", "2 km de frente y 600 m de desarrollo "
                                                                               "vertical")]}
-    v = mp.validar(resp, vajont)
+    v = mp.validar(_con_respaldo(resp, vajont), vajont)
     assert not [d for d in v["descartados"] if d.get("pool_id") == "D47" and d.get("regla") == "fecha_relato"]
 
 
@@ -137,7 +150,7 @@ def test_a3a_reemplazo_literal_del_prompt_y_tipo_del_descarte():
              "ficha.")
     # F38b: la línea de A.3a se revirtió a la de m01e-1 (movía el dato del gancho a una oración que no le corresponde)
     assert nuevo not in mp.PANTALLA_SYSTEM and mp.PANTALLA_SYSTEM.count(viejo) == 1
-    assert mp.PROMPT_VERSION == "m01e-5"          # F38b: m01e-3 con el gancho de m01e-1 · F38d §A.2
+    assert mp.PROMPT_VERSION == "m01e-6"          # F38b: m01e-3 con el gancho de m01e-1 · F38d §A.2 · F38e §C.1: el de la prueba 1
     assert '"tipo": "voz_lo_dice" | "spoiler" | "repetido" | "otro"' in mp.FORMATO_SALIDA
 
 
@@ -155,7 +168,8 @@ def test_a3b_pico_sin_ficha_dispara_el_reintento(tmp_path):
 
 @hay_vajont
 def test_a4_d47_llega_como_pregunta_y_el_juicio_del_autor_es_final(vajont, tmp_path):
-    f47 = _ficha("ch02", 3, "D47", 11, "DESMORONAMIENTO DEL TOC", "2 km de frente y 600 m de desarrollo vertical")
+    f47 = _con_respaldo({"beats": [_ficha("ch02", 3, "D47", 11, "DESMORONAMIENTO DEL TOC",
+                                          "2 km de frente y 600 m de desarrollo vertical")]}, vajont)["beats"][0]
     v = mp.validar({"beats": [f47]}, vajont)
     assert not [d for d in v["descartados"] if d.get("pool_id") == "D47"]                 # no corta
     q = next(q for q in v["preguntas"] if q["pool_id"] == "D47")
