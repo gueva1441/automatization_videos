@@ -108,3 +108,7 @@ Motivo: retención + costo de sostener; 19 componentes con 7 tipos de texto prod
 - Hook que bloquea `fase2b --gfx` sin `GUION_PANTALLA.json` aprobado por Omar.
 - `/tanda` en CC con PARADA corta por módulo; subagente simulador (reglas en seco contra los planes antes de programar).
 - Este archivo leído por el código (`gfx_config` carga constantes desde aquí).
+
+## 2026-10-27
+- 2026-10-27 01:56 · **F38c aprobado** (handoff `lab/hyperframes/f38/HANDOFF_F38c_marcas_contradice_decimales.md`): (1) `a_pantalla` le llega al autor del papel en un campo propio, separado de «la voz lo cuenta» (`beats_que_lo_cuentan`); un beat sin su `a_pantalla` es motivo del reintento; (2) «cifra que contradice la voz» deja de ser solo chequeo de Fase 2: en el papel es una pregunta al autor («¿es el mismo hecho?», mecanismo F37 §A.4) y Fase 2 respeta su juicio; (3) `_num_tok` lee decimales con la regla de miles que ya existe (`num_es.parse_int`). Sin cambios de prompt ni constantes nuevas. Motivo: 1.910 muertos ausentes de voz y pantalla en Vajont F38b; «¿revisaste los periféricos? ¿raíz o parche?» de Omar · Omar · F38c.
+- 2026-10-27 01:56 · **El formato de las cifras del pool** (punto o coma decimal según la fuente; horas escritas «22.39»/«8.30») se arregla en la raíz, el research de Fase 1, no al dibujar la pantalla (convertir en pantalla rompía las horas). Medido: los pools de los 7 temas mezclan formatos · analista, aprobado con F38c · pendiente (orden de tandas, punto 4 del research).
