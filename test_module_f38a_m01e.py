@@ -26,8 +26,8 @@ from script_engine import m01e_pantalla as mp  # noqa: E402
 ROOT = Path(__file__).resolve().parent
 VAJONT = "f8s3-vajont"
 STEPS = ROOT / "data" / "scripts" / "_steps"
-RAW_F37 = STEPS / VAJONT / "01e_pantalla.raw.json"
-PAPEL_F37 = STEPS / VAJONT / "01e_pantalla.json"
+RAW_F37 = ROOT / "lab" / "hyperframes" / "f37" / "c" / "01e_pantalla.raw.json"   # la copia congelada de F37 (la corrida B pisa la de data/)
+PAPEL_F37 = ROOT / "lab" / "hyperframes" / "f37" / "c" / "01e_pantalla.json"
 CACHE_JUEZ = ROOT / "lab" / "hyperframes" / "f38" / "a" / "juez_cache_f37.json"
 CLIMA = ["PÁNICO", "CALMA", "AMENAZA", "AVISO", "ALARMA", "INMINENTE", "COLAPSO", "SILENCIO", "RABIA", "MEMORIA"]
 SEG = {"valor": 0.3459, "oraciones": 200, "caps": 9, "voz": "prueba"}

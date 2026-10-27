@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-27 (F37 hecha —A, B, C—, PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-27 (F38 hecha —A, B—, PARADA: el juez marca todo y el papel quedó sin fichas) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -12,6 +12,14 @@
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para el analista (F38): el juez de anclaje con el prompt literal marcó «adelanta» en 18 de 18 fichas → el papel de Vajont (`data/scripts/_steps/f8s3-vajont/01e_pantalla.*`) quedó con **0 fichas**; decidir la redacción del juez (abierto 1 de `lab/hyperframes/f38/F38_REPORT.md`). El papel de F37 está en `lab/hyperframes/f37/c/`. Tarjeta 9 OCT 1963 · 22:39 sale sola. Nada se renderizó.
+
+## F38 — Reintento parcial, tarjeta desde la voz, juez de anclaje, fracciones (pedido de Omar, 2026-10-27) — HECHA, **PARADA**
+- Handoff `lab/hyperframes/f38/HANDOFF_F38_reintento_tarjeta_juez.md`. Base `f39c28f`. Paso 0 `ebcf2ba` (DECISIONES 00:30 «RAM, no Firefox» + handoff, tal cual). Verificador `lab/hyperframes/f38/verificar.sh <parte>` (sin chequeo de RAM/Firefox por DECISIONES 00:30; amplia con `-n auto`, `pytest-xdist` 3.8.0 instalado).
+- **A HECHO** (`ebe788e`, dos subagentes en paralelo): `m01e-3` (md5 `f8babc02…`): reintento parcial `{"cambios"}` fusionado por (cap, beat), lo demás congelado, `motivos_beat`, `reintento.ignorados`; juez `juez-1` (md5 `4264a968…`, `config.api.gemini_model`, caché `01e_juez.raw.json`, segunda ronda solo sobre lo nuevo del reintento, lo que sigue marcado sale con regla `juez`); TARJETA fuera del prompt del autor; `voz_datos.tarjeta_de_voz` + `horas_dichas` (Vajont 9 OCT 1963 · 22:39, T66); `voz_utils` fracciones en letras + `misma_cifra` (D68 ya no vuelve). Tests f38a 12 + 14. md5 `38e5ba14…`, rápida 58, amplia 832 + 5 previas. Mapa 35 módulos, 116 aristas, 0 muertos.
+- **B HECHO** (commit B): m01e suelto US$ 0.6147 (Claude 0.5634 + juez 0.0514); intento 1 con 12 fichas (D131 gancho, Q14, D195…) → juez 10/10 marcadas → reintento cambió 12 beats → juez 8/8 marcadas → **papel 0 fichas**, 10 sellos, 4 relojes, tarjeta ✓. `--plan-only`: tarjeta ✓ en 00:00, 0 fichas, 8 sellos (SILENCIO y RABIA sin colocar), 3 relojes. Archivos en `lab/hyperframes/f38/b/`.
+- **PARADA final F38** (`F38_REPORT.md`, revisor íntegro, abierto entero: 14; el revisor encontró tests de A que leían el papel vivo de data/ — arreglado en B, amplia 832 + 5 previas).
 
 ## 👀 Para Omar (F37): leer `lab/hyperframes/f37/c/01e_pantalla.md` (el papel nuevo, sin editar), la lista «para la compuerta de Omar» de `F37_REPORT.md` §C.3 / abierto 3 (gancho, D195, D128/D228, Q14/T85, T16/T15, Q50/D161, Q43, sellos) y decidir la tarjeta fecha-hora (el papel no la trae). Agregar `costos.m01e_tope_usd` (1.00) a `gfx_profiles/misterio.json`. Nada se renderizó.
 

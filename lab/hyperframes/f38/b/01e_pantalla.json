@@ -1,0 +1,1860 @@
+{
+ "topic_id": "f8s3-vajont",
+ "prompt_version": "m01e-3",
+ "prompt_md5": "f8babc027808652bd09113dcf5f87248",
+ "modelo": "claude-sonnet-5-5",
+ "effort": "medium",
+ "entrada_md5": "d13678c9e061d950cbdeaac9e0e74676",
+ "intentos": 2,
+ "usd": 0.61472,
+ "tokens_in": 65860,
+ "caps": [
+  {
+   "cap": "ch01",
+   "titulo": "Cama en la oscuridad",
+   "oraciones": [
+    "Hay una casa a oscuras y, dentro de la casa, una cama que ya no está quieta.",
+    "Una niña siente que su cama empieza a correr en la oscuridad; a dos kilómetros de ahí, la presa que todos creyeron caída sigue en pie.",
+    "La niña se llama Micaela Coletti y es una niña de Longarone, un pueblo de fondo de valle.",
+    "Hace un minuto dormía.",
+    "Ahora algo la empuja desde atrás, y la cama ya no es una cama: es algo que la lleva.",
+    "Años después, Coletti lo contó con las palabras que le quedaron.",
+    "«La sensación de que la cama tomaba velocidad, una fuerza espantosa que me agarraba por la espalda, me doblaba en dos, me aplastaba», dijo Coletti.",
+    "Se sintió de goma.",
+    "Se ensanchaba y después se encogía.",
+    "Los ojos, dos estrellas.",
+    "Esa misma noche, Gianfranco Trevisano ve cómo «se abrió de improviso, de par en par, el portoncito de la entrada, a causa de una corriente de aire», y con el portón entra el ruido del aire que irrumpe.",
+    "Enseguida se va la luz.",
+    "Trevisano piensa lo que va a pensar medio valle: que el dique cedió.",
+    "Longarone, Italia, nueve de octubre de mil novecientos sesenta y tres.",
+    "Pero el dique no cedió esa noche.",
+    "Lo que llegó a la cama de Micaela vino por encima de él.",
+    "Y para entender cómo una ola pasa por encima de una pared que no se rompe, hay que volver veinte años atrás, a un papel firmado cuando esa cama todavía no existía."
+   ]
+  },
+  {
+   "cap": "ch02",
+   "titulo": "El muro que tapa",
+   "oraciones": [
+    "Longarone está en el fondo del valle del Piave.",
+    "El río pasa por delante del pueblo y, enfrente, desde una garganta lateral, baja un torrente que se llama Vajont y que desemboca en el Piave justo frente a Longarone y Castellavazzo.",
+    "En mil novecientos cuarenta y tres se aprobó el proyecto de cerrar esa garganta con una presa, y empezó la compra de terrenos en Erto y Casso, los pueblos de arriba, los que iban a quedar al borde del lago.",
+    "La empresa era SADE.",
+    "El ingeniero que dibujó la obra se llamaba Carlo Semenza, y la pensó como un arco delgado de doble curvatura: una pared curva, fina para su tamaño, apoyada en las dos laderas de la garganta.",
+    "Cuando empezaron las obras, unos cuatrocientos hombres colgados de andamios la fueron levantando hasta tapar el cielo de la garganta.",
+    "Abajo, en Longarone, la vida siguió con el Piave delante.",
+    "Longarone no estaba sobre el embalse.",
+    "Estaba delante de él.",
+    "Y la montaña que cerraba el lago tenía un apodo.",
+    "La gente de la zona llamaba al monte Toc «la montaña que camina», y lo decían los residentes desde antes de que nadie fuera a medirla.",
+    "En la década del cincuenta, el geólogo Leopold Müller detectó en el Toc un gran desmoronamiento.",
+    "Y hubo otro hombre que caminó esa ladera con un martillo en la mano y otra idea en la cabeza: Edoardo Semenza, geólogo, hijo de Carlo Semenza, el que había dibujado la presa.",
+    "Edoardo buscaba la cicatriz de un deslizamiento antiguo.",
+    "Según una reconstrucción geológica posterior, planteó que ese deslizamiento viejo podía reactivarse cuando el embalse se llenara.",
+    "Müller no lo creía: no creía en el deslizamiento antiguo ni en una capa de arcilla capaz de causarlo.",
+    "El hijo del proyectista decía que la montaña ya se había movido una vez.",
+    "El experto decía que no.",
+    "En marzo de mil novecientos cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero."
+   ]
+  },
+  {
+   "cap": "ch03",
+   "titulo": "La costura abierta",
+   "oraciones": [
+    "El embalse se llamaba Pontesei.",
+    "Ese marzo, una masa de roca entró al agua y levantó una ola de veinte metros.",
+    "Un trabajador murió.",
+    "Después de Pontesei, SADE encargó nuevas pericias sobre el Toc, y esas pericias identificaron una paleofrana: un deslizamiento antiguo, la cicatriz que Edoardo Semenza había estado buscando.",
+    "El informe sobre esos riesgos lo escribió Giorgio Dal Piaz en mil novecientos sesenta.",
+    "Dal Piaz había dicho alguna vez sobre la obra: «Si el proyecto original me parecía osado, ahora lo considero una completa locura».",
+    "Su informe, en cambio, le restó peso a lo que señalaba Edoardo Semenza.",
+    "Una ola de veinte metros.",
+    "Un hombre muerto.",
+    "Una paleofrana con nombre en un papel.",
+    "El informe oficial dijo que no era grave.",
+    "Una periodista de provincia escribió lo contrario.",
+    "Se llamaba Tina Merlin y escribía en L'Unità.",
+    "Hacia mil novecientos cincuenta y nueve publicó su primera denuncia: el Toc podía desprenderse sobre el lago.",
+    "L'Unità fue el único diario nacional que siguió lo que pasaba en el Vajont antes del desastre, y lo siguió a través de ella.",
+    "El diario que se leía en la zona era Il Gazzettino, y una parte de Il Gazzettino pertenecía a SADE, a FIAT, a Volpi y a Cini.",
+    "En febrero de mil novecientos sesenta empezó el llenado, y el agua fue subiendo día a día por la garganta.",
+    "Ese año hubo un pequeño desmoronamiento en el Toc, y después del desmoronamiento los habitantes vieron algo nuevo en la ladera: una fisura de casi dos kilómetros de largo, corriendo por la montaña como una costura abierta.",
+    "Abajo, el lago seguía subiendo.",
+    "El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta."
+   ]
+  },
+  {
+   "cap": "ch04",
+   "titulo": "La ola de juguete",
+   "oraciones": [
+    "El cuatro de noviembre de mil novecientos sesenta el embalse estaba a seiscientos cincuenta metros sobre el nivel del mar.",
+    "Ese día, durante las pruebas, una masa de roca se desprendió del Toc y cayó al lago nuevo, y el agua se levantó.",
+    "Unos setecientos mil metros cúbicos de roca; otras fuentes hablan de más, y nadie coincide en la altura de la ola que levantó.",
+    "Ese mismo mes, Tina Merlin y L'Unità fueron a juicio.",
+    "La audiencia duró seis horas.",
+    "Salieron absueltos los dos.",
+    "En febrero de mil novecientos sesenta y uno, Merlin volvió a su máquina de escribir y publicó otra advertencia: la amenaza sobre Erto seguía ahí.",
+    "Absuelta en seis horas.",
+    "La empresa, mientras tanto, mandó construir una maqueta.",
+    "En un galpón de la Universidad de Padua se armó el valle en pequeño: la garganta, el lago, la ladera del Toc, una presa de juguete.",
+    "Para representar la roca compacta de la montaña usaron grava.",
+    "En el laboratorio lo explicaron con una frase: «Nos han dicho que lo hagamos así».",
+    "La recomendación que salió de ahí fue no pasar de los setecientos metros sobre el nivel del mar.",
+    "La cota autorizada fue de setecientos quince.",
+    "En noviembre de mil novecientos sesenta y dos, la ladera ya se desplazaba más de un centímetro y medio por día.",
+    "En mayo de mil novecientos sesenta y tres, SADE subió el nivel del agua: tenía que entregar la presa como una obra que funcionaba para cerrar la operación con ENEL.",
+    "En julio se completó el cambio de propiedad, con la prueba de llenado todavía en marcha.",
+    "La presa cambió de dueño con el agua todavía subiendo.",
+    "La montaña no se enteró del contrato."
+   ]
+  },
+  {
+   "cap": "ch05",
+   "titulo": "Piedras rodando",
+   "oraciones": [
+    "En junio de mil novecientos sesenta y tres el agua llegó a los setecientos metros, y la ladera se movía medio centímetro por día.",
+    "Un informe dice que el veintiséis de septiembre el embalse volvió al nivel de seguridad.",
+    "Desde el dos de octubre, los avisos se multiplicaron: sacudidas, estruendos que bajaban de la ladera de noche, grietas nuevas en la tierra de Erto, movimientos en la superficie.",
+    "Las autoridades cerraron algunos caminos con barreras y desalojaron algunas casas de Erto y Casso.",
+    "Abajo, en Longarone, las ventanas se encendían como cualquier noche.",
+    "En Erto y en Longarone la gente se repetía una frase que servía para dormir: «Si no avisan, será que no es grave».",
+    "Los que la decían miraban la pared curva.",
+    "De la montaña que caminaba hablaban los de arriba, los que tenían las grietas en el patio.",
+    "«Estábamos esperando que la presa se cayera...», contó después un sobreviviente.",
+    "Lo que temían era la pared.",
+    "De la ola no hablaba nadie.",
+    "La respuesta que llegó desde un ministerio fue: «No se preocupe, todo está bajo control».",
+    "Mientras tanto, en la ladera, los topógrafos de la empresa seguían midiendo.",
+    "El nueve de octubre a la mañana, el director técnico de la empresa se sentó a escribir una carta.",
+    "El director técnico se llamaba Alberico Biadene.",
+    "La carta iba dirigida a Pancini, que estaba de vacaciones: Biadene le pedía que volviera y le contaba lo que el topógrafo Rossi había medido, que la ladera se movía más.",
+    "La carta ya estaba firmada cuando sonó el teléfono.",
+    "Biadene volvió al papel y agregó una posdata: Rossi lo llamaba en ese momento, y «las mediciones de esta mañana resultan todavía mayores que las de ayer, ¡alcanzando un aumento del 50%!!».",
+    "De veinte a treinta centímetros.",
+    "Y algo más: pequeñas piedras caían en el borde oeste del deslizamiento, hacia la presa.",
+    "Dos signos de exclamación, de puño y letra del director técnico.",
+    "A las seis de la tarde se cerró la jornada.",
+    "En la central quedaron un aparejador y su equipo.",
+    "Esa noche nadie dio la alarma que habría puesto en marcha la evacuación masiva de los pueblos expuestos.",
+    "Las barreras seguían en los caminos de Erto.",
+    "En Longarone, abajo, era una noche como cualquiera.",
+    "A las diez y media de la noche, el párroco de Casso escuchó algo y abrió la ventana."
+   ]
+  },
+  {
+   "cap": "ch06",
+   "titulo": "El gran rugido",
+   "oraciones": [
+    "Carlo Onorini, el párroco de Casso, lo contó así: «escucho el ruido de la avalancha, abro la ventana y este ruido aumentaba en forma extraordinaria, al mismo tiempo vi un resplandor».",
+    "Son las diez y treinta y nueve.",
+    "El Toc entra al lago.",
+    "La ladera entera, la que caminaba, la de la fisura, se desploma de una vez dentro del embalse.",
+    "El agua no tiene a dónde ir, salvo hacia arriba.",
+    "Se levanta, pasa por encima de la presa, por encima de la pared que no se rompe, y cae en la garganta hacia el Piave.",
+    "Benito Castellano oye un ruido «como de un trueno de verano multiplicado cien veces, muy lóbrego, que duró tres o cuatro minutos».",
+    "Después, un estruendo con un resplandor, y enseguida un ruido como el que hace una formación de reactores al pasar.",
+    "En el bar Faè, Germano Accamillesi mira televisión cuando «se interrumpió la iluminación del televisor y casi al mismo tiempo (treinta-cincuenta segundos) se empezaron a sentir fuertes sacudidas telúricas».",
+    "Después de las sacudidas se apaga también la luz del bar.",
+    "Nadie en ese bar sabe todavía qué viene bajando por la garganta.",
+    "La ola baja hacia el Piave.",
+    "Longarone sigue con las luces encendidas.",
+    "Cuatro minutos después del desprendimiento, el agua llega al pueblo, a las calles, a las casas, a la cama donde duerme Micaela Coletti.",
+    "Nadie avisó.",
+    "Micaela siente que la cama toma velocidad y que una fuerza la agarra por la espalda.",
+    "La ola la arrastra al menos cuatrocientos metros desde su casa.",
+    "Ahí la encuentran.",
+    "Y está viva.",
+    "Cuando amaneció, la presa seguía ahí.",
+    "Longarone ya no.",
+    "Donde había calles hay fango y piedras.",
+    "Un hombre está parado en el medio y no sabe hacia dónde mirar.",
+    "«Conocía Longarone en cada rincón, ahora no sé dónde estoy», dijo uno de los sobrevivientes.",
+    "Entre los muertos está Guglielmo Celso, el alcalde socialista de Longarone.",
+    "Nadie creó un organismo central que informara oficialmente cómo avanzaba el rescate.",
+    "Desde el aire llegó el ruido de los rotores.",
+    "La fuerza estadounidense despachó seis helicópteros.",
+    "Un hombre de una aldea de la zona lo recuerda: «El primer rescatista que vi llegó en un helicóptero del ejército de Estados Unidos».",
+    "Tres de esos helicópteros, cuenta, evacuaron a toda la gente de su pueblo, y por eso un día trágico le quedó también con algo de alegría.",
+    "Tres días después llegó el presidente del Consejo.",
+    "La gente ya sabía qué pedirle."
+   ]
+  },
+  {
+   "cap": "ch07",
+   "titulo": "Diarios y verdades",
+   "oraciones": [
+    "El presidente del Consejo caminó entre los escombros con un abrigo oscuro.",
+    "De entre lo que quedaba de Longarone le salió al paso un grito, el de los pobladores: «Presidente, queremos justicia».",
+    "En los kioscos, esos días, había dos verdades sobre la misma noche.",
+    "Dino Buzzati escribió: «Una piedra ha caído en un vaso lleno de agua, y el agua se ha derramado sobre el mantel.",
+    "Eso es todo».",
+    "Solo que el vaso tenía cientos de metros de alto, la piedra era grande como una montaña y abajo, en el mantel, había miles de seres humanos que no podían defenderse.",
+    "Giorgio Bocca escribió que una desgracia tan limpia, tan ineluctable, tan absoluta, llevaba más a la melancolía que al dolor: «No había nada que hacer, no hay remordimientos, no hay culpables».",
+    "Aniello Coppola leyó en eso el intento de absolver antes de indagar, de anular cualquier investigación de antemano, y respondió: «Hay que hacer un proceso.",
+    "Hay que encontrar a los responsables.",
+    "Y deben pagar».",
+    "Una primera comisión de expertos trabajó dieciocho meses y concluyó que el desastre era imprevisible.",
+    "Pasaron más de cuatro años hasta que, el veinte de febrero de mil novecientos sesenta y ocho, se depositó la resolución de remisión a juicio.",
+    "El juez no aceptó la palabra imprevisible.",
+    "Pidió otra pericia, y después, nombres.",
+    "El juicio empezó el veintinueve de noviembre de mil novecientos sesenta y ocho.",
+    "El día anterior, Pancini, el ingeniero al que Biadene le había pedido volver de vacaciones, se quitó la vida.",
+    "En el banquillo se sentaron ocho acusados.",
+    "En marzo de mil novecientos setenta y uno, la Casación reconoció la culpabilidad de Biadene y de Sensidoni.",
+    "ENEL ofreció diez mil millones de liras de la época como indemnización.",
+    "Casi todos aceptaron; la última transacción se firmó en el año dos mil.",
+    "Alguien que siguió aquel proceso lo resumió sin levantar la voz: Vajont no fue la excepción al sistema, sino su confirmación; «había un riesgo, previsible y previsto».",
+    "Micaela Coletti preside el comité de sobrevivientes del Vajont.",
+    "La niña a la que la ola arrastró sobre una cama se sienta ahora frente a una mesa con el cartel del comité, y lo que tiene delante es una sentencia.",
+    "La sentencia dice inundación agravada por la previsión del evento.",
+    "Nombra el delito.",
+    "No dice quién, entre la posdata de la mañana y las diez y treinta y nueve de la noche, decidió que Longarone no debía saber.",
+    "¿Quién decidió que Micaela siguiera durmiendo?"
+   ]
+  }
+ ],
+ "beats": [
+  {
+   "cap": "ch01",
+   "beat": 1,
+   "funcion": "gancho",
+   "pico": true,
+   "ficha": null,
+   "sello": {
+    "palabra": "CALMA",
+    "sentence_idx": 3,
+    "oracion": "Hace un minuto dormía."
+   }
+  },
+  {
+   "cap": "ch02",
+   "beat": 2,
+   "funcion": "planteo",
+   "pico": false,
+   "ficha": null,
+   "sello": null
+  },
+  {
+   "cap": "ch02",
+   "beat": 3,
+   "funcion": "escalada",
+   "pico": true,
+   "ficha": null,
+   "sello": {
+    "palabra": "AMENAZA",
+    "sentence_idx": 10,
+    "oracion": "La gente de la zona llamaba al monte Toc «la montaña que camina», y lo decían los residentes desde antes de que nadie fuera a medirla."
+   }
+  },
+  {
+   "cap": "ch03",
+   "beat": 4,
+   "funcion": "giro",
+   "pico": true,
+   "ficha": null,
+   "sello": null
+  },
+  {
+   "cap": "ch03",
+   "beat": 5,
+   "funcion": "escalada",
+   "pico": false,
+   "ficha": null,
+   "sello": {
+    "palabra": "AVISO",
+    "sentence_idx": 18,
+    "oracion": "Abajo, el lago seguía subiendo."
+   }
+  },
+  {
+   "cap": "ch04",
+   "beat": 6,
+   "funcion": "giro",
+   "pico": false,
+   "ficha": null,
+   "sello": null
+  },
+  {
+   "cap": "ch04",
+   "beat": 7,
+   "funcion": "giro",
+   "pico": true,
+   "ficha": null,
+   "sello": {
+    "palabra": "ALARMA",
+    "sentence_idx": 14,
+    "oracion": "En noviembre de mil novecientos sesenta y dos, la ladera ya se desplazaba más de un centímetro y medio por día."
+   }
+  },
+  {
+   "cap": "ch05",
+   "beat": 8,
+   "funcion": "escalada",
+   "pico": true,
+   "ficha": null,
+   "sello": {
+    "palabra": "SILENCIO",
+    "sentence_idx": 10,
+    "oracion": "De la ola no hablaba nadie."
+   }
+  },
+  {
+   "cap": "ch05",
+   "beat": 9,
+   "funcion": "giro",
+   "pico": false,
+   "ficha": null,
+   "sello": {
+    "palabra": "INMINENTE",
+    "sentence_idx": 24,
+    "oracion": "Las barreras seguían en los caminos de Erto."
+   }
+  },
+  {
+   "cap": "ch06",
+   "beat": 10,
+   "funcion": "pico",
+   "pico": true,
+   "ficha": null,
+   "sello": {
+    "palabra": "COLAPSO",
+    "sentence_idx": 3,
+    "oracion": "La ladera entera, la que caminaba, la de la fisura, se desploma de una vez dentro del embalse."
+   }
+  },
+  {
+   "cap": "ch06",
+   "beat": 11,
+   "funcion": "respiro",
+   "pico": false,
+   "ficha": null,
+   "sello": {
+    "palabra": "PÁNICO",
+    "sentence_idx": 22,
+    "oracion": "Un hombre está parado en el medio y no sabe hacia dónde mirar."
+   }
+  },
+  {
+   "cap": "ch07",
+   "beat": 12,
+   "funcion": "revelacion",
+   "pico": true,
+   "ficha": null,
+   "sello": {
+    "palabra": "RABIA",
+    "sentence_idx": 1,
+    "oracion": "De entre lo que quedaba de Longarone le salió al paso un grito, el de los pobladores: «Presidente, queremos justicia»."
+   }
+  },
+  {
+   "cap": "ch07",
+   "beat": 13,
+   "funcion": "cierre",
+   "pico": false,
+   "ficha": null,
+   "sello": {
+    "palabra": "MEMORIA",
+    "sentence_idx": 21,
+    "oracion": "Micaela Coletti preside el comité de sobrevivientes del Vajont."
+   }
+  }
+ ],
+ "relojes": [
+  {
+   "cap": "ch01",
+   "sentence_idx": 13,
+   "fecha": "9 OCT 1963",
+   "oracion": "Longarone, Italia, nueve de octubre de mil novecientos sesenta y tres."
+  },
+  {
+   "cap": "ch04",
+   "sentence_idx": 0,
+   "fecha": "4 NOV 1960",
+   "oracion": "El cuatro de noviembre de mil novecientos sesenta el embalse estaba a seiscientos cincuenta metros sobre el nivel del mar."
+  },
+  {
+   "cap": "ch07",
+   "sentence_idx": 11,
+   "fecha": "20 FEB 1968",
+   "oracion": "Pasaron más de cuatro años hasta que, el veinte de febrero de mil novecientos sesenta y ocho, se depositó la resolución de remisión a juicio."
+  },
+  {
+   "cap": "ch07",
+   "sentence_idx": 14,
+   "fecha": "29 NOV 1968",
+   "oracion": "El juicio empezó el veintinueve de noviembre de mil novecientos sesenta y ocho."
+  }
+ ],
+ "tarjeta": {
+  "texto": "9 OCT 1963 · 22:39",
+  "fecha": "1963-10-09",
+  "hora": "22:39",
+  "fecha_de": "ch01 [13]",
+  "hora_de": "T66",
+  "fuente": "fecha: la voz en ch01 [13] «Longarone, Italia, nueve de octubre de mil novecientos sesenta y tres.»; hora: la voz en ch06 [1] dice 10:39 = T66 22:39 (ítem de esa fecha (ninguno del beat pico coincide), beat pico 10)"
+ },
+ "tarjeta_motivo": null,
+ "descartados": [
+  {
+   "pool_id": "Q49",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita la frase de Coletti en el capítulo 1 (oraciones 6 a 9).",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D24",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Central del beat 2 según la escaleta, pero no existe en el archivo.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T12",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que unos 400 hombres levantaron la presa.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D237",
+   "regla": "modelo",
+   "tipo": "repetido",
+   "motivo": "Dice lo mismo que T12 y la voz ya lo cuenta.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T03",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta la compra de terrenos en Erto y Casso.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T04",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Sin cifra nueva; D117 aporta más sobre esa misma aprobación.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D147",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Construcción 1956-1960 choca con 'cuando empezaron las obras'; no suma sobre D117.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q53",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice 'la montaña que camina' en la oración 10 del capítulo 2.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T05",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que Müller detectó el desmoronamiento en los cincuenta.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T18",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta la denuncia de Merlin en L'Unità de 1959.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D72",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que Il Gazzettino pertenecía en parte a SADE, Volpi y Cini.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T29",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que el llenado empezó en febrero de 1960.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T23",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que la fisura medía casi dos kilómetros.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D94",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que la ola de Pontesei fue de veinte metros.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T15",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Tres millones de m³; sin aporte nuevo frente a T16, que es el central.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T21",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Beat 4 ya usa T16; un solo dato por beat.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q37",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita la frase de Dal Piaz sobre la locura.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T27",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que su informe restó peso a lo señalado por Edoardo Semenza.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D119",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "No existe en el archivo.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T36",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice setecientos mil metros cúbicos.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D223",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "Es la misma cifra y fecha que cuenta la voz.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D156",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que el embalse estaba a seiscientos cincuenta metros.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T33",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta el juicio a Merlin y L'Unità en noviembre.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T37",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Dice que el primer artículo de Merlin salió el 8 de noviembre de 1960, y la voz de ch03 lo ubica en 1959; contradice la narración.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D224",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Mismo conflicto que T37 con la fecha del primer artículo; además no cabe en la oración ancla.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T39",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta la advertencia de febrero de 1961 sobre Erto.",
+   "quien": "modelo",
+   "verificado": "falso: la voz no dice ['50']"
+  },
+  {
+   "pool_id": "D155",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "La voz dice que nadie coincide en la altura de la ola; sumar otra altura aumenta el conflicto de fuentes.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D106",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz da la cota recomendada de 700 y la autorizada de 715.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D104",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que se recomendó no pasar de 700 metros.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q44",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita 'Nos han dicho que lo hagamos así'.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T50",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "720 metros en mayo choca con 700 metros en junio, que cuenta el capítulo 5.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T52",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que en julio se completó el cambio de propiedad.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D68",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que en noviembre de 1962 la ladera se movía más de 1,5 cm por día.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D226",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice 'desde el dos de octubre, los avisos se multiplicaron'.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D162",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta el 26 de septiembre.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D160",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta junio de 1963, 700 metros y medio centímetro por día.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q46",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita 'Si no avisan, será que no es grave'.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q28",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita 'Estábamos esperando que la presa se cayera'.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q45",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita 'No se preocupe, todo está bajo control'.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T61",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta la carta de Biadene a Pancini.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q51",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz recita la posdata, el 50% y la caída de piedras.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T64",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que a las seis de la tarde se cerró la jornada y quedó un aparejador.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D111",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que esa noche nadie dio la alarma.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T57",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta que el Toc entra al lago.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q15",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita el testimonio del párroco de Casso.",
+   "quien": "modelo",
+   "verificado": "falso: la voz no dice ['10', '10.5']"
+  },
+  {
+   "pool_id": "Q16",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita el testimonio de Castellano.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q17",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita el testimonio de Accamillesi.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T58",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta que la ola pasa por encima de la presa.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D124",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que el agua llega a los cuatro minutos.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D132",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que la arrastró al menos cuatrocientos metros.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q25",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita 'Conocía Longarone en cada rincón'.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q06",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta el testimonio del helicóptero estadounidense.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D18",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que se despacharon seis helicópteros.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D128",
+   "regla": "modelo",
+   "tipo": "repetido",
+   "motivo": "Cifra total de muertos; D195 da el dato de Longarone, más específico, para este beat.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q13",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita 'Presidente, queremos justicia'.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q20",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita a Buzzati.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q22",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita a Bocca.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q23",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita a Coppola.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D136",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que la comisión trabajó dieciocho meses.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T85",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Las 11 personas son un aporte válido, pero el beat usa Q14, que es más fuerte; la fecha ya la dice la voz.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T102",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta la Casación y la inundación agravada.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D32",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que se sentaron ocho acusados y que Pancini se quitó la vida.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T89",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta el suicidio de Pancini.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T92",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Un solo dato por beat; D245 trae una cifra más fuerte.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D139",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que ENEL ofreció diez mil millones.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D140",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que la última transacción fue en el año 2000.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q56",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita a Canestrini sin nombrarlo.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q19",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita a Trevisano en el capítulo 1.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D159",
+   "cap": "ch02",
+   "beat": 3,
+   "que": "ficha",
+   "etiqueta": "MUERTE DE CARLO SEMENZA",
+   "texto": "murió en 1961",
+   "sentence_idx": 12,
+   "regla": "fecha_relato",
+   "motivo": "D159 es de 1961 y en la oración [12] el relato va por 1943 (el último año que dijo la voz); ni la oración ni sus vecinas lo sitúan después",
+   "quien": "validación"
+  },
+  {
+   "pool_id": "D152",
+   "cap": "ch03",
+   "beat": 4,
+   "que": "ficha",
+   "etiqueta": "ROCA CAÍDA EN PONTESEI",
+   "texto": "3 millones de m³ de roca",
+   "sentence_idx": 1,
+   "regla": "spoiler",
+   "motivo": "la voz lo dice en una oración posterior del cap o de un cap siguiente: ['3']",
+   "quien": "validación"
+  },
+  {
+   "pool_id": "D161",
+   "cap": "ch05",
+   "beat": 8,
+   "que": "ficha",
+   "etiqueta": "RITMO CON EL AGUA A 710 M",
+   "texto": "2 cm por día",
+   "sentence_idx": 0,
+   "regla": "spoiler",
+   "motivo": "la voz lo dice en una oración posterior del cap o de un cap siguiente: ['2']",
+   "quien": "validación"
+  },
+  {
+   "pool_id": "D87",
+   "cap": "ch01",
+   "beat": 1,
+   "que": "ficha",
+   "etiqueta": "VELOCIDAD DE LA OLA",
+   "texto": "70 kilómetros por hora",
+   "sentence_idx": 4,
+   "regla": "juez",
+   "motivo": "La oración describe el impacto de la ola en Micaela, y el dato da la velocidad de esa misma ola al llegar a Longarone. La voz en off no menciona la velocidad de la ola más adelante. (mismo_asunto True · adelanta True; ronda 2)",
+   "quien": "juez"
+  },
+  {
+   "pool_id": "D239",
+   "cap": "ch02",
+   "beat": 2,
+   "que": "ficha",
+   "etiqueta": "ESPESOR DEL MURO",
+   "texto": "3,40 metros en la cima",
+   "sentence_idx": 4,
+   "regla": "juez",
+   "motivo": "La oración describe el diseño de la presa como una 'pared curva, fina para su tamaño', y el dato especifica el espesor de esa misma presa. La voz en off no detalla estas medidas más adelante. (mismo_asunto True · adelanta True; ronda 2)",
+   "quien": "juez"
+  },
+  {
+   "pool_id": "D100",
+   "cap": "ch03",
+   "beat": 5,
+   "que": "ficha",
+   "etiqueta": "PRIMER LÍMITE DE LLENADO",
+   "texto": "660 metros sobre el nivel del mar",
+   "sentence_idx": 16,
+   "regla": "juez",
+   "motivo": "La oración habla del inicio del llenado del embalse, y el dato proporciona el primer límite autorizado para ese llenado. La voz en off menciona otros niveles de llenado y recomendaciones, pero no este primer límite específico. (mismo_asunto True · adelanta True; ronda 2)",
+   "quien": "juez"
+  },
+  {
+   "pool_id": "D101",
+   "cap": "ch04",
+   "beat": 7,
+   "que": "ficha",
+   "etiqueta": "PLAN DE SADE",
+   "texto": "galería subacuática que funcionara como bypass",
+   "sentence_idx": 15,
+   "regla": "juez",
+   "motivo": "La oración trata sobre SADE subiendo el nivel del agua para entregar la presa, mientras que el dato describe un plan de SADE para una galería de bypass tras un deslizamiento, un asunto diferente. La voz en off no menciona este plan de bypass más adelante. (mismo_asunto False · adelanta True; ronda 2)",
+   "quien": "juez"
+  },
+  {
+   "pool_id": "D186",
+   "cap": "ch06",
+   "beat": 10,
+   "que": "ficha",
+   "etiqueta": "TIEMPO DE LA CAÍDA",
+   "texto": "menos de 45 segundos",
+   "sentence_idx": 3,
+   "regla": "juez",
+   "motivo": "La oración y la anterior describen el deslizamiento de la ladera en el embalse, y el dato proporciona el tiempo que tardó ese mismo evento. La voz en off no menciona la duración de la caída más adelante. (mismo_asunto True · adelanta True; ronda 2)",
+   "quien": "juez"
+  },
+  {
+   "pool_id": "D228",
+   "cap": "ch06",
+   "beat": 11,
+   "que": "ficha",
+   "etiqueta": "BELLUNO ESPERABA REFUGIADOS",
+   "texto": "1000 camas para refugiados",
+   "sentence_idx": 25,
+   "regla": "juez",
+   "motivo": "La oración se refiere a la falta de un organismo central de información para el rescate, mientras que el dato detalla las preparaciones en Belluno para refugiados y donantes de sangre, y la ausencia de supervivientes, un asunto relacionado pero distinto. La voz en off no menciona estas preparaciones específicas en Belluno más adelante. (mismo_asunto False · adelanta True; ronda 2)",
+   "quien": "juez"
+  },
+  {
+   "pool_id": "T85",
+   "cap": "ch07",
+   "beat": 12,
+   "que": "ficha",
+   "etiqueta": "ACUSADOS EN LA REMISIÓN",
+   "texto": "11 personas",
+   "sentence_idx": 11,
+   "regla": "juez",
+   "motivo": "La oración menciona la resolución de remisión a juicio, y el dato especifica el número de personas acusadas en esa misma remisión. La voz en off menciona el inicio del juicio y el número de acusados en el banquillo (que es diferente), pero no el número de acusados en la remisión inicial. (mismo_asunto True · adelanta True; ronda 2)",
+   "quien": "juez"
+  },
+  {
+   "pool_id": "D37",
+   "cap": "ch07",
+   "beat": 13,
+   "que": "ficha",
+   "etiqueta": "ANTES DE PRESCRIBIR",
+   "texto": "15 días antes del vencimiento",
+   "sentence_idx": 17,
+   "regla": "juez",
+   "motivo": "La oración habla de la Casación reconociendo la culpabilidad, y el dato añade un detalle crucial sobre el momento de esa sentencia en relación con la prescripción. La voz en off no menciona este detalle sobre la prescripción más adelante. (mismo_asunto True · adelanta True; ronda 2)",
+   "quien": "juez"
+  }
+ ],
+ "seg_por_palabra": {
+  "valor": 0.3459,
+  "oraciones": 200,
+  "caps": 9,
+  "voz": "N9Z5MLTIaHFLflaLtbDi",
+  "origen": "mediana de 200 oraciones de 9 caps del narrador N9Z5MLTIaHFLflaLtbDi"
+ },
+ "tope": {
+  "usd": 1.0,
+  "de": "respaldo (el perfil no trae costos.m01e_tope_usd)"
+ },
+ "error": null,
+ "por_intento": [
+  {
+   "tokens_in": 65860,
+   "tokens_out": 20294,
+   "usd": 0.33466,
+   "segundos": 134.2
+  },
+  {
+   "tokens_in": 75008,
+   "tokens_out": 7866,
+   "usd": 0.22868,
+   "segundos": 57.1
+  }
+ ],
+ "reintento": {
+  "motivos": [
+   "Q50 (ch05 beat 8) «ADMINISTRACIÓN DE ERTO Y CASSO · continua aprensión y en continua alarma»: caben: etiqueta + dato = 115 caracteres y en la oración [3] caben 77",
+   "Q43 (ch05 beat 9) «INGENIERO JEFE · Son sacudidas menores, no hace falta informar al ministerio»: cita_sin_fecha: cita sin fecha: su autor («Ingeniero jefe (sucesor de Semenza)», Supervisor de obras) no aparece en la oración [23] ni en sus vecinas",
+   "D47 (ch02 beat 3, oración [11]) «DESMORONAMIENTO DEL TOC · 2 km de frente y 600 m de desarrollo vertical»: la voz dice «2» en una oración posterior en ch03 [17] («Ese año hubo un pequeño desmoronamiento en el Toc, y después del desmoronamiento los habitantes vieron algo nuevo en la ladera: una fisura de casi dos kilómetros de largo, corriendo por la montaña como una costura abierta.»); ¿es el mismo hecho? si no, mantenelo",
+   "D105 (ch04 beat 7, oración [15]) «NACE ENEL · Diciembre de 1962»: la voz dice «1962» en la oración ancla o en una vecina en ch04 [14] («En noviembre de mil novecientos sesenta y dos, la ladera ya se desplazaba más de un centímetro y medio por día.»); ¿es el mismo hecho? si no, mantenelo",
+   "T39: dijiste que la voz lo dice («La voz cuenta la advertencia de febrero de 1961 sobre Erto.»); la voz de ch04 no dice «50» («Tina Merlin publica un nuevo artículo alertando de un derrumbamiento de 50 millones de metros cúbicos de roca que amenaza Erto. (fecha 1961-02)»): vuelve a ser candidato",
+   "Q15: dijiste que la voz lo dice («La voz cita el testimonio del párroco de Casso.»); la voz de ch06 no dice «10» ni «10.5» («Yo, aquella noche, a eso de las diez y media, escucho el ruido de la avalancha, abro la ventana y este ruido aumentaba en forma extraordinaria, al mismo tiempo vi un resplandor.»): vuelve a ser candidato",
+   "el beat 8 de ch05 es pico y quedó sin ficha",
+   "D131 (ch01 beat 1, oración [1]) «SALTO DEL AGUA · Más de 260 metros»: juez de anclaje (adelanta): La oración describe el efecto del evento que el dato cuantifica (el salto del agua). El dato especifica la altura del salto del agua (260 metros), un detalle que la voz en off no menciona explícitamente más adelante, aunque sí describe el evento del agua cayendo.: elegí otra oración u otro dato",
+   "D117 (ch02 beat 2, oración [2]) «SESIÓN DE APROBACIÓN · Solo 13 de 34 representantes»: juez de anclaje (adelanta): La oración menciona la aprobación del proyecto, y el dato añade detalles sobre la irregularidad de esa aprobación. El dato revela la irregularidad del procedimiento de aprobación y el número específico de representantes, información que no se menciona en la voz en off posterior.: elegí otra oración u otro dato",
+   "D47 (ch02 beat 3, oración [11]) «DESMORONAMIENTO DEL TOC · 2 km de frente y 600 m de desarrollo vertical»: juez de anclaje (adelanta): La oración menciona que Müller detectó un desmoronamiento, y el dato especifica las dimensiones de ese desmoronamiento. El dato especifica las dimensiones del desmoronamiento detectado por Müller (2 km de frente y 600 m de desarrollo vertical), un detalle que no se menciona en la voz en off posterior.: elegí otra oración u otro dato",
+   "T16 (ch03 beat 4, oración [2]) «VÍCTIMA · Tiziani»: juez de anclaje (adelanta): La oración y la anterior describen la muerte de un trabajador en Pontesei, y el dato identifica a esa víctima por su nombre. El dato nombra a la víctima (Arcangelo Tiziani), un detalle que no se menciona en la voz en off posterior.: elegí otra oración u otro dato",
+   "D49 (ch03 beat 5, oración [17]) «ANCHO DE LA FISURA · Más de 1 metro»: juez de anclaje (adelanta): La oración describe la fisura de casi dos kilómetros de largo, y el dato añade la información sobre su ancho (más de 1 metro). El dato especifica el ancho de la fisura (más de 1 metro), un detalle que no se menciona en la voz en off posterior.: elegí otra oración u otro dato",
+   "D105 (ch04 beat 7, oración [15]) «NACE ENEL · Diciembre de 1962»: juez de anclaje (adelanta): La oración menciona a ENEL en el contexto de la operación de la presa, y el dato proporciona información sobre la creación de ENEL. El dato informa sobre la creación de ENEL y su fecha (diciembre de 1962), detalles que no se explican en la voz en off posterior.: elegí otra oración u otro dato",
+   "D01 (ch06 beat 10, oración [3]) «ROCA DESPRENDIDA · 270 millones de metros cúbicos»: juez de anclaje (adelanta): La oración describe el desprendimiento de la ladera, y el dato cuantifica el volumen de roca desprendida en ese mismo evento. El dato especifica el volumen de roca desprendida (270 millones de metros cúbicos), un detalle que no se menciona en la voz en off posterior.: elegí otra oración u otro dato",
+   "D195 (ch06 beat 11, oración [24]) «MUERTOS EN LONGARONE · 1.269 de 1.328 habitantes»: juez de anclaje (adelanta): La oración menciona a uno de los muertos en Longarone, y el dato proporciona estadísticas detalladas sobre la mortalidad en el pueblo. El dato especifica la tasa de mortalidad y el número exacto de fallecidos en Longarone, información que no se detalla en la voz en off posterior.: elegí otra oración u otro dato",
+   "Q14 (ch07 beat 12, oración [1]) «GIOVANNI LEONE RESPONDIÓ · Y justicia tendréis»: juez de anclaje (adelanta): La oración describe la demanda de justicia de los pobladores al presidente, y el dato es la respuesta directa del presidente a esa demanda. El dato es una cita directa de la respuesta del presidente Giovanni Leone, la cual no se reproduce en la voz en off posterior.: elegí otra oración u otro dato",
+   "D245 (ch07 beat 13, oración [18]) «CONDENA A MONTEDISON · 55.645.758.500 liras»: juez de anclaje (adelanta): La oración habla de una oferta de indemnización, y el dato detalla una condena posterior a otra empresa por daños y perjuicios relacionados con el mismo desastre. El dato menciona la condena a Montedison y la cantidad específica de liras en 1997, información que no se detalla en la voz en off posterior.: elegí otra oración u otro dato"
+  ],
+  "preguntas": [
+   {
+    "pool_id": "D47",
+    "coincidencias": {
+     "spoiler": [
+      "2"
+     ]
+    },
+    "respuesta": "la sacó o la cambió (el mismo hecho, o eligió otra)"
+   },
+   {
+    "pool_id": "D105",
+    "coincidencias": {
+     "no_dicho": [
+      "1962"
+     ]
+    },
+    "respuesta": "la sacó o la cambió (el mismo hecho, o eligió otra)"
+   }
+  ],
+  "tipo": "parcial",
+  "beats": [
+   [
+    "ch01",
+    1
+   ],
+   [
+    "ch02",
+    2
+   ],
+   [
+    "ch02",
+    3
+   ],
+   [
+    "ch03",
+    4
+   ],
+   [
+    "ch03",
+    5
+   ],
+   [
+    "ch04",
+    7
+   ],
+   [
+    "ch05",
+    8
+   ],
+   [
+    "ch05",
+    9
+   ],
+   [
+    "ch06",
+    10
+   ],
+   [
+    "ch06",
+    11
+   ],
+   [
+    "ch07",
+    12
+   ],
+   [
+    "ch07",
+    13
+   ]
+  ],
+  "aplicados": [
+   {
+    "cap": "ch01",
+    "beat": 1,
+    "partes": [
+     "ficha"
+    ]
+   },
+   {
+    "cap": "ch02",
+    "beat": 2,
+    "partes": [
+     "ficha"
+    ]
+   },
+   {
+    "cap": "ch02",
+    "beat": 3,
+    "partes": [
+     "ficha"
+    ]
+   },
+   {
+    "cap": "ch03",
+    "beat": 4,
+    "partes": [
+     "ficha"
+    ]
+   },
+   {
+    "cap": "ch03",
+    "beat": 5,
+    "partes": [
+     "ficha"
+    ]
+   },
+   {
+    "cap": "ch04",
+    "beat": 7,
+    "partes": [
+     "ficha"
+    ]
+   },
+   {
+    "cap": "ch05",
+    "beat": 8,
+    "partes": [
+     "ficha"
+    ]
+   },
+   {
+    "cap": "ch05",
+    "beat": 9,
+    "partes": [
+     "ficha"
+    ]
+   },
+   {
+    "cap": "ch06",
+    "beat": 10,
+    "partes": [
+     "ficha"
+    ]
+   },
+   {
+    "cap": "ch06",
+    "beat": 11,
+    "partes": [
+     "ficha"
+    ]
+   },
+   {
+    "cap": "ch07",
+    "beat": 12,
+    "partes": [
+     "ficha"
+    ]
+   },
+   {
+    "cap": "ch07",
+    "beat": 13,
+    "partes": [
+     "ficha"
+    ]
+   }
+  ],
+  "ignorados": [],
+  "sin_beat": []
+ },
+ "picos_vacios": [
+  {
+   "cap": "ch02",
+   "beat": 3
+  },
+  {
+   "cap": "ch03",
+   "beat": 4
+  },
+  {
+   "cap": "ch05",
+   "beat": 8
+  },
+  {
+   "cap": "ch01",
+   "beat": 1
+  },
+  {
+   "cap": "ch04",
+   "beat": 7
+  },
+  {
+   "cap": "ch06",
+   "beat": 10
+  },
+  {
+   "cap": "ch07",
+   "beat": 12
+  }
+ ],
+ "juez": {
+  "version": "juez-1",
+  "md5": "4264a968d39aa9f61c39eea729c92ee5",
+  "modelo": "gemini-2.5-flash",
+  "usd": 0.051378,
+  "rondas": [
+   {
+    "ronda": 1,
+    "fichas": 10,
+    "usd": 0.030173,
+    "cache": false,
+    "error": null,
+    "clave": "4bf9895f946cfc6d43241e7d4f5718a4"
+   },
+   {
+    "ronda": 2,
+    "fichas": 8,
+    "usd": 0.021205,
+    "cache": false,
+    "error": null,
+    "clave": "16184ac7c73924413784c385d955f154"
+   }
+  ],
+  "veredictos": [
+   {
+    "id": "D131",
+    "cap": "ch01",
+    "beat": 1,
+    "sentence_idx": 1,
+    "etiqueta": "SALTO DEL AGUA",
+    "texto": "Más de 260 metros",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración describe el efecto del evento que el dato cuantifica (el salto del agua). El dato especifica la altura del salto del agua (260 metros), un detalle que la voz en off no menciona explícitamente más adelante, aunque sí describe el evento del agua cayendo.",
+    "marcada": true,
+    "ronda": 1
+   },
+   {
+    "id": "D117",
+    "cap": "ch02",
+    "beat": 2,
+    "sentence_idx": 2,
+    "etiqueta": "SESIÓN DE APROBACIÓN",
+    "texto": "Solo 13 de 34 representantes",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración menciona la aprobación del proyecto, y el dato añade detalles sobre la irregularidad de esa aprobación. El dato revela la irregularidad del procedimiento de aprobación y el número específico de representantes, información que no se menciona en la voz en off posterior.",
+    "marcada": true,
+    "ronda": 1
+   },
+   {
+    "id": "D47",
+    "cap": "ch02",
+    "beat": 3,
+    "sentence_idx": 11,
+    "etiqueta": "DESMORONAMIENTO DEL TOC",
+    "texto": "2 km de frente y 600 m de desarrollo vertical",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración menciona que Müller detectó un desmoronamiento, y el dato especifica las dimensiones de ese desmoronamiento. El dato especifica las dimensiones del desmoronamiento detectado por Müller (2 km de frente y 600 m de desarrollo vertical), un detalle que no se menciona en la voz en off posterior.",
+    "marcada": true,
+    "ronda": 1
+   },
+   {
+    "id": "T16",
+    "cap": "ch03",
+    "beat": 4,
+    "sentence_idx": 2,
+    "etiqueta": "VÍCTIMA",
+    "texto": "Tiziani",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración y la anterior describen la muerte de un trabajador en Pontesei, y el dato identifica a esa víctima por su nombre. El dato nombra a la víctima (Arcangelo Tiziani), un detalle que no se menciona en la voz en off posterior.",
+    "marcada": true,
+    "ronda": 1
+   },
+   {
+    "id": "D49",
+    "cap": "ch03",
+    "beat": 5,
+    "sentence_idx": 17,
+    "etiqueta": "ANCHO DE LA FISURA",
+    "texto": "Más de 1 metro",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración describe la fisura de casi dos kilómetros de largo, y el dato añade la información sobre su ancho (más de 1 metro). El dato especifica el ancho de la fisura (más de 1 metro), un detalle que no se menciona en la voz en off posterior.",
+    "marcada": true,
+    "ronda": 1
+   },
+   {
+    "id": "D105",
+    "cap": "ch04",
+    "beat": 7,
+    "sentence_idx": 15,
+    "etiqueta": "NACE ENEL",
+    "texto": "Diciembre de 1962",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración menciona a ENEL en el contexto de la operación de la presa, y el dato proporciona información sobre la creación de ENEL. El dato informa sobre la creación de ENEL y su fecha (diciembre de 1962), detalles que no se explican en la voz en off posterior.",
+    "marcada": true,
+    "ronda": 1
+   },
+   {
+    "id": "D01",
+    "cap": "ch06",
+    "beat": 10,
+    "sentence_idx": 3,
+    "etiqueta": "ROCA DESPRENDIDA",
+    "texto": "270 millones de metros cúbicos",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración describe el desprendimiento de la ladera, y el dato cuantifica el volumen de roca desprendida en ese mismo evento. El dato especifica el volumen de roca desprendida (270 millones de metros cúbicos), un detalle que no se menciona en la voz en off posterior.",
+    "marcada": true,
+    "ronda": 1
+   },
+   {
+    "id": "D195",
+    "cap": "ch06",
+    "beat": 11,
+    "sentence_idx": 24,
+    "etiqueta": "MUERTOS EN LONGARONE",
+    "texto": "1.269 de 1.328 habitantes",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración menciona a uno de los muertos en Longarone, y el dato proporciona estadísticas detalladas sobre la mortalidad en el pueblo. El dato especifica la tasa de mortalidad y el número exacto de fallecidos en Longarone, información que no se detalla en la voz en off posterior.",
+    "marcada": true,
+    "ronda": 1
+   },
+   {
+    "id": "Q14",
+    "cap": "ch07",
+    "beat": 12,
+    "sentence_idx": 1,
+    "etiqueta": "GIOVANNI LEONE RESPONDIÓ",
+    "texto": "Y justicia tendréis",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración describe la demanda de justicia de los pobladores al presidente, y el dato es la respuesta directa del presidente a esa demanda. El dato es una cita directa de la respuesta del presidente Giovanni Leone, la cual no se reproduce en la voz en off posterior.",
+    "marcada": true,
+    "ronda": 1
+   },
+   {
+    "id": "D245",
+    "cap": "ch07",
+    "beat": 13,
+    "sentence_idx": 18,
+    "etiqueta": "CONDENA A MONTEDISON",
+    "texto": "55.645.758.500 liras",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración habla de una oferta de indemnización, y el dato detalla una condena posterior a otra empresa por daños y perjuicios relacionados con el mismo desastre. El dato menciona la condena a Montedison y la cantidad específica de liras en 1997, información que no se detalla en la voz en off posterior.",
+    "marcada": true,
+    "ronda": 1
+   },
+   {
+    "id": "D87",
+    "cap": "ch01",
+    "beat": 1,
+    "sentence_idx": 4,
+    "etiqueta": "VELOCIDAD DE LA OLA",
+    "texto": "70 kilómetros por hora",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración describe el impacto de la ola en Micaela, y el dato da la velocidad de esa misma ola al llegar a Longarone. La voz en off no menciona la velocidad de la ola más adelante.",
+    "marcada": true,
+    "ronda": 2
+   },
+   {
+    "id": "D239",
+    "cap": "ch02",
+    "beat": 2,
+    "sentence_idx": 4,
+    "etiqueta": "ESPESOR DEL MURO",
+    "texto": "3,40 metros en la cima",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración describe el diseño de la presa como una 'pared curva, fina para su tamaño', y el dato especifica el espesor de esa misma presa. La voz en off no detalla estas medidas más adelante.",
+    "marcada": true,
+    "ronda": 2
+   },
+   {
+    "id": "D100",
+    "cap": "ch03",
+    "beat": 5,
+    "sentence_idx": 16,
+    "etiqueta": "PRIMER LÍMITE DE LLENADO",
+    "texto": "660 metros sobre el nivel del mar",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración habla del inicio del llenado del embalse, y el dato proporciona el primer límite autorizado para ese llenado. La voz en off menciona otros niveles de llenado y recomendaciones, pero no este primer límite específico.",
+    "marcada": true,
+    "ronda": 2
+   },
+   {
+    "id": "D101",
+    "cap": "ch04",
+    "beat": 7,
+    "sentence_idx": 15,
+    "etiqueta": "PLAN DE SADE",
+    "texto": "galería subacuática que funcionara como bypass",
+    "mismo_asunto": false,
+    "adelanta": true,
+    "motivo": "La oración trata sobre SADE subiendo el nivel del agua para entregar la presa, mientras que el dato describe un plan de SADE para una galería de bypass tras un deslizamiento, un asunto diferente. La voz en off no menciona este plan de bypass más adelante.",
+    "marcada": true,
+    "ronda": 2
+   },
+   {
+    "id": "D186",
+    "cap": "ch06",
+    "beat": 10,
+    "sentence_idx": 3,
+    "etiqueta": "TIEMPO DE LA CAÍDA",
+    "texto": "menos de 45 segundos",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración y la anterior describen el deslizamiento de la ladera en el embalse, y el dato proporciona el tiempo que tardó ese mismo evento. La voz en off no menciona la duración de la caída más adelante.",
+    "marcada": true,
+    "ronda": 2
+   },
+   {
+    "id": "D228",
+    "cap": "ch06",
+    "beat": 11,
+    "sentence_idx": 25,
+    "etiqueta": "BELLUNO ESPERABA REFUGIADOS",
+    "texto": "1000 camas para refugiados",
+    "mismo_asunto": false,
+    "adelanta": true,
+    "motivo": "La oración se refiere a la falta de un organismo central de información para el rescate, mientras que el dato detalla las preparaciones en Belluno para refugiados y donantes de sangre, y la ausencia de supervivientes, un asunto relacionado pero distinto. La voz en off no menciona estas preparaciones específicas en Belluno más adelante.",
+    "marcada": true,
+    "ronda": 2
+   },
+   {
+    "id": "T85",
+    "cap": "ch07",
+    "beat": 12,
+    "sentence_idx": 11,
+    "etiqueta": "ACUSADOS EN LA REMISIÓN",
+    "texto": "11 personas",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración menciona la resolución de remisión a juicio, y el dato especifica el número de personas acusadas en esa misma remisión. La voz en off menciona el inicio del juicio y el número de acusados en el banquillo (que es diferente), pero no el número de acusados en la remisión inicial.",
+    "marcada": true,
+    "ronda": 2
+   },
+   {
+    "id": "D37",
+    "cap": "ch07",
+    "beat": 13,
+    "sentence_idx": 17,
+    "etiqueta": "ANTES DE PRESCRIBIR",
+    "texto": "15 días antes del vencimiento",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración habla de la Casación reconociendo la culpabilidad, y el dato añade un detalle crucial sobre el momento de esa sentencia en relación con la prescripción. La voz en off no menciona este detalle sobre la prescripción más adelante.",
+    "marcada": true,
+    "ronda": 2
+   }
+  ],
+  "motivos": [
+   "D131 (ch01 beat 1, oración [1]) «SALTO DEL AGUA · Más de 260 metros»: juez de anclaje (adelanta): La oración describe el efecto del evento que el dato cuantifica (el salto del agua). El dato especifica la altura del salto del agua (260 metros), un detalle que la voz en off no menciona explícitamente más adelante, aunque sí describe el evento del agua cayendo.: elegí otra oración u otro dato",
+   "D117 (ch02 beat 2, oración [2]) «SESIÓN DE APROBACIÓN · Solo 13 de 34 representantes»: juez de anclaje (adelanta): La oración menciona la aprobación del proyecto, y el dato añade detalles sobre la irregularidad de esa aprobación. El dato revela la irregularidad del procedimiento de aprobación y el número específico de representantes, información que no se menciona en la voz en off posterior.: elegí otra oración u otro dato",
+   "D47 (ch02 beat 3, oración [11]) «DESMORONAMIENTO DEL TOC · 2 km de frente y 600 m de desarrollo vertical»: juez de anclaje (adelanta): La oración menciona que Müller detectó un desmoronamiento, y el dato especifica las dimensiones de ese desmoronamiento. El dato especifica las dimensiones del desmoronamiento detectado por Müller (2 km de frente y 600 m de desarrollo vertical), un detalle que no se menciona en la voz en off posterior.: elegí otra oración u otro dato",
+   "T16 (ch03 beat 4, oración [2]) «VÍCTIMA · Tiziani»: juez de anclaje (adelanta): La oración y la anterior describen la muerte de un trabajador en Pontesei, y el dato identifica a esa víctima por su nombre. El dato nombra a la víctima (Arcangelo Tiziani), un detalle que no se menciona en la voz en off posterior.: elegí otra oración u otro dato",
+   "D49 (ch03 beat 5, oración [17]) «ANCHO DE LA FISURA · Más de 1 metro»: juez de anclaje (adelanta): La oración describe la fisura de casi dos kilómetros de largo, y el dato añade la información sobre su ancho (más de 1 metro). El dato especifica el ancho de la fisura (más de 1 metro), un detalle que no se menciona en la voz en off posterior.: elegí otra oración u otro dato",
+   "D105 (ch04 beat 7, oración [15]) «NACE ENEL · Diciembre de 1962»: juez de anclaje (adelanta): La oración menciona a ENEL en el contexto de la operación de la presa, y el dato proporciona información sobre la creación de ENEL. El dato informa sobre la creación de ENEL y su fecha (diciembre de 1962), detalles que no se explican en la voz en off posterior.: elegí otra oración u otro dato",
+   "D01 (ch06 beat 10, oración [3]) «ROCA DESPRENDIDA · 270 millones de metros cúbicos»: juez de anclaje (adelanta): La oración describe el desprendimiento de la ladera, y el dato cuantifica el volumen de roca desprendida en ese mismo evento. El dato especifica el volumen de roca desprendida (270 millones de metros cúbicos), un detalle que no se menciona en la voz en off posterior.: elegí otra oración u otro dato",
+   "D195 (ch06 beat 11, oración [24]) «MUERTOS EN LONGARONE · 1.269 de 1.328 habitantes»: juez de anclaje (adelanta): La oración menciona a uno de los muertos en Longarone, y el dato proporciona estadísticas detalladas sobre la mortalidad en el pueblo. El dato especifica la tasa de mortalidad y el número exacto de fallecidos en Longarone, información que no se detalla en la voz en off posterior.: elegí otra oración u otro dato",
+   "Q14 (ch07 beat 12, oración [1]) «GIOVANNI LEONE RESPONDIÓ · Y justicia tendréis»: juez de anclaje (adelanta): La oración describe la demanda de justicia de los pobladores al presidente, y el dato es la respuesta directa del presidente a esa demanda. El dato es una cita directa de la respuesta del presidente Giovanni Leone, la cual no se reproduce en la voz en off posterior.: elegí otra oración u otro dato",
+   "D245 (ch07 beat 13, oración [18]) «CONDENA A MONTEDISON · 55.645.758.500 liras»: juez de anclaje (adelanta): La oración habla de una oferta de indemnización, y el dato detalla una condena posterior a otra empresa por daños y perjuicios relacionados con el mismo desastre. El dato menciona la condena a Montedison y la cantidad específica de liras en 1997, información que no se detalla en la voz en off posterior.: elegí otra oración u otro dato",
+   "D87 (ch01 beat 1, oración [4]) «VELOCIDAD DE LA OLA · 70 kilómetros por hora»: juez de anclaje (adelanta): La oración describe el impacto de la ola en Micaela, y el dato da la velocidad de esa misma ola al llegar a Longarone. La voz en off no menciona la velocidad de la ola más adelante.: elegí otra oración u otro dato",
+   "D239 (ch02 beat 2, oración [4]) «ESPESOR DEL MURO · 3,40 metros en la cima»: juez de anclaje (adelanta): La oración describe el diseño de la presa como una 'pared curva, fina para su tamaño', y el dato especifica el espesor de esa misma presa. La voz en off no detalla estas medidas más adelante.: elegí otra oración u otro dato",
+   "D100 (ch03 beat 5, oración [16]) «PRIMER LÍMITE DE LLENADO · 660 metros sobre el nivel del mar»: juez de anclaje (adelanta): La oración habla del inicio del llenado del embalse, y el dato proporciona el primer límite autorizado para ese llenado. La voz en off menciona otros niveles de llenado y recomendaciones, pero no este primer límite específico.: elegí otra oración u otro dato",
+   "D101 (ch04 beat 7, oración [15]) «PLAN DE SADE · galería subacuática que funcionara como bypass»: juez de anclaje (la oración no habla del mismo hecho · adelanta): La oración trata sobre SADE subiendo el nivel del agua para entregar la presa, mientras que el dato describe un plan de SADE para una galería de bypass tras un deslizamiento, un asunto diferente. La voz en off no menciona este plan de bypass más adelante.: elegí otra oración u otro dato",
+   "D186 (ch06 beat 10, oración [3]) «TIEMPO DE LA CAÍDA · menos de 45 segundos»: juez de anclaje (adelanta): La oración y la anterior describen el deslizamiento de la ladera en el embalse, y el dato proporciona el tiempo que tardó ese mismo evento. La voz en off no menciona la duración de la caída más adelante.: elegí otra oración u otro dato",
+   "D228 (ch06 beat 11, oración [25]) «BELLUNO ESPERABA REFUGIADOS · 1000 camas para refugiados»: juez de anclaje (la oración no habla del mismo hecho · adelanta): La oración se refiere a la falta de un organismo central de información para el rescate, mientras que el dato detalla las preparaciones en Belluno para refugiados y donantes de sangre, y la ausencia de supervivientes, un asunto relacionado pero distinto. La voz en off no menciona estas preparaciones específicas en Belluno más adelante.: elegí otra oración u otro dato",
+   "T85 (ch07 beat 12, oración [11]) «ACUSADOS EN LA REMISIÓN · 11 personas»: juez de anclaje (adelanta): La oración menciona la resolución de remisión a juicio, y el dato especifica el número de personas acusadas en esa misma remisión. La voz en off menciona el inicio del juicio y el número de acusados en el banquillo (que es diferente), pero no el número de acusados en la remisión inicial.: elegí otra oración u otro dato",
+   "D37 (ch07 beat 13, oración [17]) «ANTES DE PRESCRIBIR · 15 días antes del vencimiento»: juez de anclaje (adelanta): La oración habla de la Casación reconociendo la culpabilidad, y el dato añade un detalle crucial sobre el momento de esa sentencia en relación con la prescripción. La voz en off no menciona este detalle sobre la prescripción más adelante.: elegí otra oración u otro dato"
+  ],
+  "marcadas": [
+   {
+    "id": "D131",
+    "cap": "ch01",
+    "beat": 1,
+    "sentence_idx": 1,
+    "etiqueta": "SALTO DEL AGUA",
+    "texto": "Más de 260 metros",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración describe el efecto del evento que el dato cuantifica (el salto del agua). El dato especifica la altura del salto del agua (260 metros), un detalle que la voz en off no menciona explícitamente más adelante, aunque sí describe el evento del agua cayendo.",
+    "marcada": true,
+    "ronda": 1
+   },
+   {
+    "id": "D117",
+    "cap": "ch02",
+    "beat": 2,
+    "sentence_idx": 2,
+    "etiqueta": "SESIÓN DE APROBACIÓN",
+    "texto": "Solo 13 de 34 representantes",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración menciona la aprobación del proyecto, y el dato añade detalles sobre la irregularidad de esa aprobación. El dato revela la irregularidad del procedimiento de aprobación y el número específico de representantes, información que no se menciona en la voz en off posterior.",
+    "marcada": true,
+    "ronda": 1
+   },
+   {
+    "id": "D47",
+    "cap": "ch02",
+    "beat": 3,
+    "sentence_idx": 11,
+    "etiqueta": "DESMORONAMIENTO DEL TOC",
+    "texto": "2 km de frente y 600 m de desarrollo vertical",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración menciona que Müller detectó un desmoronamiento, y el dato especifica las dimensiones de ese desmoronamiento. El dato especifica las dimensiones del desmoronamiento detectado por Müller (2 km de frente y 600 m de desarrollo vertical), un detalle que no se menciona en la voz en off posterior.",
+    "marcada": true,
+    "ronda": 1
+   },
+   {
+    "id": "T16",
+    "cap": "ch03",
+    "beat": 4,
+    "sentence_idx": 2,
+    "etiqueta": "VÍCTIMA",
+    "texto": "Tiziani",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración y la anterior describen la muerte de un trabajador en Pontesei, y el dato identifica a esa víctima por su nombre. El dato nombra a la víctima (Arcangelo Tiziani), un detalle que no se menciona en la voz en off posterior.",
+    "marcada": true,
+    "ronda": 1
+   },
+   {
+    "id": "D49",
+    "cap": "ch03",
+    "beat": 5,
+    "sentence_idx": 17,
+    "etiqueta": "ANCHO DE LA FISURA",
+    "texto": "Más de 1 metro",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración describe la fisura de casi dos kilómetros de largo, y el dato añade la información sobre su ancho (más de 1 metro). El dato especifica el ancho de la fisura (más de 1 metro), un detalle que no se menciona en la voz en off posterior.",
+    "marcada": true,
+    "ronda": 1
+   },
+   {
+    "id": "D105",
+    "cap": "ch04",
+    "beat": 7,
+    "sentence_idx": 15,
+    "etiqueta": "NACE ENEL",
+    "texto": "Diciembre de 1962",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración menciona a ENEL en el contexto de la operación de la presa, y el dato proporciona información sobre la creación de ENEL. El dato informa sobre la creación de ENEL y su fecha (diciembre de 1962), detalles que no se explican en la voz en off posterior.",
+    "marcada": true,
+    "ronda": 1
+   },
+   {
+    "id": "D01",
+    "cap": "ch06",
+    "beat": 10,
+    "sentence_idx": 3,
+    "etiqueta": "ROCA DESPRENDIDA",
+    "texto": "270 millones de metros cúbicos",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración describe el desprendimiento de la ladera, y el dato cuantifica el volumen de roca desprendida en ese mismo evento. El dato especifica el volumen de roca desprendida (270 millones de metros cúbicos), un detalle que no se menciona en la voz en off posterior.",
+    "marcada": true,
+    "ronda": 1
+   },
+   {
+    "id": "D195",
+    "cap": "ch06",
+    "beat": 11,
+    "sentence_idx": 24,
+    "etiqueta": "MUERTOS EN LONGARONE",
+    "texto": "1.269 de 1.328 habitantes",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración menciona a uno de los muertos en Longarone, y el dato proporciona estadísticas detalladas sobre la mortalidad en el pueblo. El dato especifica la tasa de mortalidad y el número exacto de fallecidos en Longarone, información que no se detalla en la voz en off posterior.",
+    "marcada": true,
+    "ronda": 1
+   },
+   {
+    "id": "Q14",
+    "cap": "ch07",
+    "beat": 12,
+    "sentence_idx": 1,
+    "etiqueta": "GIOVANNI LEONE RESPONDIÓ",
+    "texto": "Y justicia tendréis",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración describe la demanda de justicia de los pobladores al presidente, y el dato es la respuesta directa del presidente a esa demanda. El dato es una cita directa de la respuesta del presidente Giovanni Leone, la cual no se reproduce en la voz en off posterior.",
+    "marcada": true,
+    "ronda": 1
+   },
+   {
+    "id": "D245",
+    "cap": "ch07",
+    "beat": 13,
+    "sentence_idx": 18,
+    "etiqueta": "CONDENA A MONTEDISON",
+    "texto": "55.645.758.500 liras",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración habla de una oferta de indemnización, y el dato detalla una condena posterior a otra empresa por daños y perjuicios relacionados con el mismo desastre. El dato menciona la condena a Montedison y la cantidad específica de liras en 1997, información que no se detalla en la voz en off posterior.",
+    "marcada": true,
+    "ronda": 1
+   },
+   {
+    "id": "D87",
+    "cap": "ch01",
+    "beat": 1,
+    "sentence_idx": 4,
+    "etiqueta": "VELOCIDAD DE LA OLA",
+    "texto": "70 kilómetros por hora",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración describe el impacto de la ola en Micaela, y el dato da la velocidad de esa misma ola al llegar a Longarone. La voz en off no menciona la velocidad de la ola más adelante.",
+    "marcada": true,
+    "ronda": 2
+   },
+   {
+    "id": "D239",
+    "cap": "ch02",
+    "beat": 2,
+    "sentence_idx": 4,
+    "etiqueta": "ESPESOR DEL MURO",
+    "texto": "3,40 metros en la cima",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración describe el diseño de la presa como una 'pared curva, fina para su tamaño', y el dato especifica el espesor de esa misma presa. La voz en off no detalla estas medidas más adelante.",
+    "marcada": true,
+    "ronda": 2
+   },
+   {
+    "id": "D100",
+    "cap": "ch03",
+    "beat": 5,
+    "sentence_idx": 16,
+    "etiqueta": "PRIMER LÍMITE DE LLENADO",
+    "texto": "660 metros sobre el nivel del mar",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración habla del inicio del llenado del embalse, y el dato proporciona el primer límite autorizado para ese llenado. La voz en off menciona otros niveles de llenado y recomendaciones, pero no este primer límite específico.",
+    "marcada": true,
+    "ronda": 2
+   },
+   {
+    "id": "D101",
+    "cap": "ch04",
+    "beat": 7,
+    "sentence_idx": 15,
+    "etiqueta": "PLAN DE SADE",
+    "texto": "galería subacuática que funcionara como bypass",
+    "mismo_asunto": false,
+    "adelanta": true,
+    "motivo": "La oración trata sobre SADE subiendo el nivel del agua para entregar la presa, mientras que el dato describe un plan de SADE para una galería de bypass tras un deslizamiento, un asunto diferente. La voz en off no menciona este plan de bypass más adelante.",
+    "marcada": true,
+    "ronda": 2
+   },
+   {
+    "id": "D186",
+    "cap": "ch06",
+    "beat": 10,
+    "sentence_idx": 3,
+    "etiqueta": "TIEMPO DE LA CAÍDA",
+    "texto": "menos de 45 segundos",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración y la anterior describen el deslizamiento de la ladera en el embalse, y el dato proporciona el tiempo que tardó ese mismo evento. La voz en off no menciona la duración de la caída más adelante.",
+    "marcada": true,
+    "ronda": 2
+   },
+   {
+    "id": "D228",
+    "cap": "ch06",
+    "beat": 11,
+    "sentence_idx": 25,
+    "etiqueta": "BELLUNO ESPERABA REFUGIADOS",
+    "texto": "1000 camas para refugiados",
+    "mismo_asunto": false,
+    "adelanta": true,
+    "motivo": "La oración se refiere a la falta de un organismo central de información para el rescate, mientras que el dato detalla las preparaciones en Belluno para refugiados y donantes de sangre, y la ausencia de supervivientes, un asunto relacionado pero distinto. La voz en off no menciona estas preparaciones específicas en Belluno más adelante.",
+    "marcada": true,
+    "ronda": 2
+   },
+   {
+    "id": "T85",
+    "cap": "ch07",
+    "beat": 12,
+    "sentence_idx": 11,
+    "etiqueta": "ACUSADOS EN LA REMISIÓN",
+    "texto": "11 personas",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración menciona la resolución de remisión a juicio, y el dato especifica el número de personas acusadas en esa misma remisión. La voz en off menciona el inicio del juicio y el número de acusados en el banquillo (que es diferente), pero no el número de acusados en la remisión inicial.",
+    "marcada": true,
+    "ronda": 2
+   },
+   {
+    "id": "D37",
+    "cap": "ch07",
+    "beat": 13,
+    "sentence_idx": 17,
+    "etiqueta": "ANTES DE PRESCRIBIR",
+    "texto": "15 días antes del vencimiento",
+    "mismo_asunto": true,
+    "adelanta": true,
+    "motivo": "La oración habla de la Casación reconociendo la culpabilidad, y el dato añade un detalle crucial sobre el momento de esa sentencia en relación con la prescripción. La voz en off no menciona este detalle sobre la prescripción más adelante.",
+    "marcada": true,
+    "ronda": 2
+   }
+  ],
+  "salieron": [
+   {
+    "pool_id": "D87",
+    "cap": "ch01",
+    "beat": 1,
+    "que": "ficha",
+    "etiqueta": "VELOCIDAD DE LA OLA",
+    "texto": "70 kilómetros por hora",
+    "sentence_idx": 4,
+    "regla": "juez",
+    "motivo": "La oración describe el impacto de la ola en Micaela, y el dato da la velocidad de esa misma ola al llegar a Longarone. La voz en off no menciona la velocidad de la ola más adelante. (mismo_asunto True · adelanta True; ronda 2)",
+    "quien": "juez"
+   },
+   {
+    "pool_id": "D239",
+    "cap": "ch02",
+    "beat": 2,
+    "que": "ficha",
+    "etiqueta": "ESPESOR DEL MURO",
+    "texto": "3,40 metros en la cima",
+    "sentence_idx": 4,
+    "regla": "juez",
+    "motivo": "La oración describe el diseño de la presa como una 'pared curva, fina para su tamaño', y el dato especifica el espesor de esa misma presa. La voz en off no detalla estas medidas más adelante. (mismo_asunto True · adelanta True; ronda 2)",
+    "quien": "juez"
+   },
+   {
+    "pool_id": "D100",
+    "cap": "ch03",
+    "beat": 5,
+    "que": "ficha",
+    "etiqueta": "PRIMER LÍMITE DE LLENADO",
+    "texto": "660 metros sobre el nivel del mar",
+    "sentence_idx": 16,
+    "regla": "juez",
+    "motivo": "La oración habla del inicio del llenado del embalse, y el dato proporciona el primer límite autorizado para ese llenado. La voz en off menciona otros niveles de llenado y recomendaciones, pero no este primer límite específico. (mismo_asunto True · adelanta True; ronda 2)",
+    "quien": "juez"
+   },
+   {
+    "pool_id": "D101",
+    "cap": "ch04",
+    "beat": 7,
+    "que": "ficha",
+    "etiqueta": "PLAN DE SADE",
+    "texto": "galería subacuática que funcionara como bypass",
+    "sentence_idx": 15,
+    "regla": "juez",
+    "motivo": "La oración trata sobre SADE subiendo el nivel del agua para entregar la presa, mientras que el dato describe un plan de SADE para una galería de bypass tras un deslizamiento, un asunto diferente. La voz en off no menciona este plan de bypass más adelante. (mismo_asunto False · adelanta True; ronda 2)",
+    "quien": "juez"
+   },
+   {
+    "pool_id": "D186",
+    "cap": "ch06",
+    "beat": 10,
+    "que": "ficha",
+    "etiqueta": "TIEMPO DE LA CAÍDA",
+    "texto": "menos de 45 segundos",
+    "sentence_idx": 3,
+    "regla": "juez",
+    "motivo": "La oración y la anterior describen el deslizamiento de la ladera en el embalse, y el dato proporciona el tiempo que tardó ese mismo evento. La voz en off no menciona la duración de la caída más adelante. (mismo_asunto True · adelanta True; ronda 2)",
+    "quien": "juez"
+   },
+   {
+    "pool_id": "D228",
+    "cap": "ch06",
+    "beat": 11,
+    "que": "ficha",
+    "etiqueta": "BELLUNO ESPERABA REFUGIADOS",
+    "texto": "1000 camas para refugiados",
+    "sentence_idx": 25,
+    "regla": "juez",
+    "motivo": "La oración se refiere a la falta de un organismo central de información para el rescate, mientras que el dato detalla las preparaciones en Belluno para refugiados y donantes de sangre, y la ausencia de supervivientes, un asunto relacionado pero distinto. La voz en off no menciona estas preparaciones específicas en Belluno más adelante. (mismo_asunto False · adelanta True; ronda 2)",
+    "quien": "juez"
+   },
+   {
+    "pool_id": "T85",
+    "cap": "ch07",
+    "beat": 12,
+    "que": "ficha",
+    "etiqueta": "ACUSADOS EN LA REMISIÓN",
+    "texto": "11 personas",
+    "sentence_idx": 11,
+    "regla": "juez",
+    "motivo": "La oración menciona la resolución de remisión a juicio, y el dato especifica el número de personas acusadas en esa misma remisión. La voz en off menciona el inicio del juicio y el número de acusados en el banquillo (que es diferente), pero no el número de acusados en la remisión inicial. (mismo_asunto True · adelanta True; ronda 2)",
+    "quien": "juez"
+   },
+   {
+    "pool_id": "D37",
+    "cap": "ch07",
+    "beat": 13,
+    "que": "ficha",
+    "etiqueta": "ANTES DE PRESCRIBIR",
+    "texto": "15 días antes del vencimiento",
+    "sentence_idx": 17,
+    "regla": "juez",
+    "motivo": "La oración habla de la Casación reconociendo la culpabilidad, y el dato añade un detalle crucial sobre el momento de esa sentencia en relación con la prescripción. La voz en off no menciona este detalle sobre la prescripción más adelante. (mismo_asunto True · adelanta True; ronda 2)",
+    "quien": "juez"
+   }
+  ],
+  "error": null
+ }
+}
