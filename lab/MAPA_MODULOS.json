@@ -12,7 +12,7 @@
     "script_engine/gfx_layer.py"
    ],
    "tests": 4,
-   "lab": 2,
+   "lab": 1,
    "tanda": "F4e",
    "nacio": "39e37ac 2026-10-20 feat(gfx-f4e): crítico visual antes del render (suma/repite/estorba), hoja de contactos por cap y marca de esquina apagad",
    "estado": "vivo",
@@ -62,7 +62,7 @@
     "script_engine/gfx_layer.py"
    ],
    "tests": 5,
-   "lab": 3,
+   "lab": 1,
    "tanda": "F4b",
    "nacio": "1762916 2026-10-20 feat(gfx-f4b): director de intensidad — pico garantizado por cap (§1)",
    "estado": "vivo",
@@ -81,7 +81,7 @@
     "script_engine/gfx_icons/strip.py"
    ],
    "tests": 5,
-   "lab": 13,
+   "lab": 11,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
    "estado": "vivo",
@@ -166,7 +166,7 @@
     "script_engine/pantalla_colocar.py"
    ],
    "tests": 24,
-   "lab": 9,
+   "lab": 8,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
    "estado": "vivo",
@@ -184,7 +184,7 @@
     "script_engine/voz_datos.py"
    ],
    "tests": 2,
-   "lab": 1,
+   "lab": 0,
    "tanda": "F29",
    "nacio": "2fcd603 2026-10-25 feat(f29a): el gfx obedece a la escaleta — script_engine/gfx_realizador (ventanas por beat en la voz → gfx_beats_chNN.jso",
    "estado": "vivo",
@@ -396,7 +396,7 @@
    "tests": 3,
    "lab": 0,
    "tanda": "F29b",
-   "nacio": "(sin commit)",
+   "nacio": "838a104 2026-10-26 feat(f37-b): Fase 2 mueve en vez de cortar; el papel es el único camino — simulador antes del código (f37/b/simulacion_pr",
    "estado": "vivo",
    "doc": "script_engine/pantalla_entrada.py — la entrada de Fase 2 para el texto de pantalla (F37 §B.5: antes gfx_rotulista; el nombre dice lo que hace: no escribe nada). El texto lo escribe m01e_pantalla en Fase 1 (el guion en papel, DECISIONES 19:54); acá `preparar_cap` lee `01e_pantalla.json`, alinea sus oraciones con las de la voz por texto (`alinear`, aclaración 2) y ancla cada ficha a su palabra (`palabra_idx`); `voz_del_video` y `voz_previa` dan la voz del video y la de los caps anteriores. Regla (Omar): un texto vale si (a) dice algo que la voz no dice, (b) sobre lo que la voz cuenta en ese mome"
   },
@@ -414,7 +414,7 @@
    "tests": 4,
    "lab": 0,
    "tanda": "F36 (código de F29b)",
-   "nacio": "(sin commit)",
+   "nacio": "838a104 2026-10-26 feat(f37-b): Fase 2 mueve en vez de cortar; el papel es el único camino — simulador antes del código (f37/b/simulacion_pr",
    "estado": "vivo",
    "doc": "script_engine/pantalla_filtros.py — F36 §A: todo lo que corta un texto de pantalla (movido de pantalla_entrada; F37 §B.5: antes pantalla_filtros). F36 §C: los textos vienen del guion en papel (m01e_pantalla); `validar_papel` corre por bloque los filtros de `ORDEN`, en ese orden, y el primero que devuelve un motivo lo saca con su regla. F36 §D: se borraron el anclaje y la forma del modelo, la coherencia (filtro) y la cantidad por beat. Además `contradicciones` (§A.4: la usa el chequeo del guion) y `pide_documento` (el estilo «papel» del guion en papel)."
   },
@@ -433,7 +433,7 @@
    "tests": 5,
    "lab": 0,
    "tanda": "F36 (código de F29b)",
-   "nacio": "(sin commit)",
+   "nacio": "838a104 2026-10-26 feat(f37-b): Fase 2 mueve en vez de cortar; el papel es el único camino — simulador antes del código (f37/b/simulacion_pr",
    "estado": "vivo",
    "doc": "script_engine/pantalla_colocar.py — dónde y cuánto va cada texto del guion en papel (F36 §A: movido de pantalla_entrada; F37 §B.5: antes pantalla_colocar). `duracion`/`tiempos` (F37 §B.2: la lectura —caracteres ÷ 15— acotada entre callout_dur_min y callout_dur_max, nunca después del corte), `instantes` y `pesos` (F37 §B.1: la escalera de intentos de un bloque que no entra), `colocar` (los bloques del papel en el plan; ficha, cita como ficha con autor, papel = recorte), `repartir` (nunca al mismo tiempo, DECISIONES 17:58, + el crítico en cada intento: mover en vez de cortar; reemplaza a escena_"
   },
@@ -520,7 +520,7 @@
     "script_engine/pantalla_colocar.py"
    ],
    "tests": 14,
-   "lab": 5,
+   "lab": 4,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
    "estado": "vivo",
@@ -539,7 +539,7 @@
     "gfx_lab_server.py"
    ],
    "tests": 22,
-   "lab": 16,
+   "lab": 12,
    "tanda": "previo a F1 (inicial)",
    "nacio": "e33f84a 2026-05-28 Initial commit: automatization_videos pipeline (post chat 32)",
    "estado": "vivo",

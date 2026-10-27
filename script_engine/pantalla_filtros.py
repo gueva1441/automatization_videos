@@ -176,16 +176,19 @@ def lectura(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> str 
     ancla = ctx["s"]["palabras"][ctx["wi"]]["t0"]
     entran: list[dict[str, Any]] = []
     fallas: list[str] = []
+    antes = 0                          # cuántos intentos fallaron antes del primero que entra
     for t, k, como in instantes(sents, si, escenas, ancla=ancla, peso=(ent.get("peso") or {}).get(si)):
         t1, sin_t = tiempos(t, chars, escenas)
         if sin_t:
             fallas.append(f"{como} ({t:.2f} s): {sin_t}")
+            antes += 0 if entran else 1
             continue
         if k != si:                    # otra oración: los filtros de contenido con esa oración
             c2 = {**ctx, "si": k, "s": sents[k]}
             mot = next((f"{regla(f)}: {m}" for f in (candado, no_dicho, spoiler) for m in [f(b, ent, c2)] if m), None)
             if mot:
                 fallas.append(f"{como} ({t:.2f} s): {mot}")
+                antes += 0 if entran else 1
                 continue
         entran.append({"t0": round(t, 3), "t1": t1, "si": k, "como": como})
     cab = sents[si].get("caben")
@@ -194,8 +197,8 @@ def lectura(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> str 
     if not entran:
         return "no entra en ningún intento: " + " · ".join(fallas)
     ctx.update(t0=entran[0]["t0"], t1=entran[0]["t1"], si_final=entran[0]["si"],
-               movido_corte=(f"{ancla:.2f} → {entran[0]['t0']:.2f} s ({entran[0]['como']}): " + " · ".join(fallas))
-               if fallas else None)
+               movido_corte=(f"{ancla:.2f} → {entran[0]['t0']:.2f} s ({entran[0]['como']}): " + " · ".join(fallas[:antes]))
+               if antes else None)
     return None
 
 

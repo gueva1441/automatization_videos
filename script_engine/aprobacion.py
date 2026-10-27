@@ -40,7 +40,7 @@ def aprobar(topic_dir: Path, por: str, fecha: str | None = None) -> dict:
     topic_dir = Path(topic_dir)
     g = topic_dir / GUION
     if not g.exists():
-        raise RuntimeError(f"no existe {g}: generar el guion con `fase2b {topic_dir.name} --plan-only --rotulista`")
+        raise RuntimeError(f"no existe {g}: generar el guion con `fase2b {topic_dir.name} --plan-only`")
     fs = planes(topic_dir)
     if not fs:
         raise RuntimeError(f"no hay planes resueltos en {topic_dir / '_fase2b_work'}")
@@ -59,7 +59,7 @@ def estado(topic_dir: Path) -> tuple[bool, str]:
     topic_dir = Path(topic_dir)
     g = topic_dir / GUION
     if not g.exists():
-        return False, f"no existe {g.as_posix()} (generarlo con `fase2b {topic_dir.name} --plan-only --rotulista`)"
+        return False, f"no existe {g.as_posix()} (generarlo con `fase2b {topic_dir.name} --plan-only`)"
     try:
         ap = json.loads(g.read_text(encoding="utf-8")).get("aprobado")
     except (OSError, ValueError) as e:

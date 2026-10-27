@@ -697,8 +697,9 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             from script_engine.clima import usadas_antes
             critico = gfx_plan_override is None and gfx_rules.visual_critic
             resolved["critico_previo"] = []
+            pc.hasta_el_corte(resolved, scenes, fps, log)    # F37 C: el reparto ve el tramo del reloj que se ve
             pc.repartir(resolved, scenes, ent_rot, log, juez=_juez if critico else None)
-            pc.hasta_el_corte(resolved, scenes, fps, log)
+            pc.hasta_el_corte(resolved, scenes, fps, log)    # y otra vez, por si el reparto lo movió
             clima.sellos_del_papel(resolved, scenes, ent_rot, words, time_offset, ctx.get("moods") or _moods_activos(),
                                  log, rot.get("sellos") or [], juez=(lambda em: _juez("sello", em)) if critico else None,
                                  usadas_video=usadas_antes(work_dir, ctx["chapter_number"]))   # F36 §C.4

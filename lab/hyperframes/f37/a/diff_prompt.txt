@@ -1,0 +1,12 @@
+md5 SYSTEM antes 0354c7641ab01bd9b7d2e1992bfecb8d · después e7b3e0a3cb9ec292077cf677d30c5c42
+--- 
++++ 
+@@ -14 +14 @@
+-Prioridades: en el beat pico del capítulo, el dato marcado como central por la escaleta; en el gancho (capítulo 1), cualquier dato del archivo que la voz no diga en todo el video y que haga quedarse a quien mira: el gancho nunca queda sin ficha. Los datos marcados con tu beat son los que la escaleta cuenta ahí; los demás son el resto del archivo: usalos si suman más y no adelantan nada. Un mismo dato una sola vez en el video. Si dudás entre dos, el que tiene cifra o fecha.
++Prioridades: en el beat pico del capítulo, el dato marcado como central por la escaleta; en el gancho (capítulo 1), cualquier dato del archivo que la voz no diga en todo el video, que haga quedarse a quien mira y que pueda ir en las primeras oraciones del capítulo: el gancho nunca queda sin ficha. Los datos marcados con tu beat son los que la escaleta cuenta ahí; los demás son el resto del archivo: usalos si suman más y no adelantan nada. Un mismo dato una sola vez en el video. Si dudás entre dos, el que tiene cifra o fecha.
+--- 
++++ 
+@@ -5 +5,2 @@
+-                  '"descartados": [{"pool_id": "…", "motivo": "…"}]}')
++                  '"descartados": [{"pool_id": "…", "tipo": "voz_lo_dice" | "spoiler" | "repetido" | "otro", '
++                  '"motivo": "…"}]}')

@@ -1,0 +1,60 @@
+| cap | t_mp4 | qué | id | texto | dur | filtro / movido |
+|---|---|---|---|---|---|---|
+| ch01 | 0.0 | tarjeta fecha-hora |  | ⚠ falta fecha-hora | 3.0 | ⚠ falta fecha-hora: el guion en papel no trae tarjeta (agregar con --plan-edit; nunca se inventa) |
+| ch01 | 15.22 | ficha | D131 | SALTO DEL AGUA · Más de 260 metros | 2.5 | pasó (crítico ¿estorba?: no estorba) |
+| ch01 | 26.64 | sello |  | PÁNICO | 2.5 | pasó (crítico: no estorba) |
+| ch01 | 76.04 | reloj |  | 9 OCT · 1963 | 8.32 | pasó |
+| ch02 | 123.3 | recorte | D117 | ACTA DEL CONSEJO SUPERIOR · Solo 13 de 34 representantes presentes | 4.2 | pasó (crítico ¿estorba?: no estorba) · movido: 21.24 → 19.20 s (1 · inicio de la oración): 1 · palabra ancla (21.24 s): sin tiempo de lectura: 63 caracteres piden 4.2 s y hay 3.4 s hasta el corte de escena (24.6 s) |
+| ch02 | 183.667 | punch |  | zoom_punch 12 cuadros | None | pasó |
+| ch02 | 190.7 | ficha | D47 | FRENTE DEL DESMORONAMIENTO · 2 km de frente y 600 m de desarrollo vertical | 4.73 | pasó (crítico ¿estorba?: no estorba) · movido: 84.70 → 86.60 s (3 · oración siguiente [12], inicio de la escena 9): 1 · palabra ancla (84.70 s): sin tiempo de lectura: 71 caracteres piden 4.7 s y hay 1.9 s hasta el corte de escena (86.6 s) · 1 · inicio de la oración (79.50 s): sin tiempo de lectura: 71 caracteres piden 4.7 s y hay 0.1 s hasta el corte de escena (79.6 s) · 3 · oración siguiente [12] (86.52 s): sin tiempo de lectura: 71 caracteres piden 4.7 s y hay 0.1 s hasta el corte de escena (86.6 s) |
+| ch02 | 224.88 | sello |  | AMENAZA | 2.5 | pasó (crítico: no estorba) |
+| ch03 | 250.733 | punch |  | zoom_punch 12 cuadros | None | pasó |
+| ch03 | 252.14 | ficha | T15 | ROCA CAÍDA AL LAGO · 3 millones de metros cúbicos | 3.07 | pasó (crítico ¿estorba?: no estorba) |
+| ch03 | 350.54 | ficha | D49 | ANCHO DE LA FISURA · Más de 1 metro de ancho | 2.73 | pasó (crítico ¿estorba?: no estorba) · movido: 113.10 → 105.84 s (1 · palabra de más peso): 1 · palabra ancla (113.10 s): sin tiempo de lectura: 41 caracteres piden 2.7 s y hay 2.6 s hasta el corte de escena (115.7 s) |
+| ch04 | 383.06 | reloj |  | 4 NOV · 1960 | 7.54 | pasó |
+| ch04 | 423.52 | ficha | T39 | DERRUMBE QUE ADVERTÍA MERLIN · 50 millones de metros cúbicos de roca | 4.33 | pasó (crítico ¿estorba?: no estorba) |
+| ch04 | 458.267 | punch |  | zoom_punch 12 cuadros | None | pasó |
+| ch04 | 486.267 | ficha | D105 | CREACIÓN DE ENEL POR LEY · diciembre de 1962 | 2.73 | pasó (crítico ¿estorba?: no estorba) · movido: 104.80 → 106.27 s (3 · oración siguiente [16], inicio de la escena 10): 1 · palabra ancla (104.80 s): sin tiempo de lectura: 41 caracteres piden 2.7 s y hay 1.5 s hasta el corte de escena (106.3 s) · 1 · inicio de la oración (95.32 s): sin tiempo de lectura: 41 caracteres piden 2.7 s y hay 0.1 s hasta el corte de escena (95.4 s) · 3 · oración siguiente [16] (106.16 s): sin tiempo de lectura: 41 caracteres piden 2.7 s y hay 0.1 s hasta el corte de escena (106.3 s) |
+| ch05 | 512.047 | ficha | D161 | LADERA CON EL AGUA A 710 M · 2 cm por día | 2.53 | pasó (crítico ¿estorba?: no estorba) · movido: 10.26 → 3.08 s (1 · inicio de la oración): 1 · palabra ancla (10.26 s): sin tiempo de lectura: 38 caracteres piden 2.5 s y hay 2.0 s hasta el corte de escena (12.3 s) |
+| ch05 | 527.134 | punch |  | zoom_punch 12 cuadros | None | pasó |
+| ch05 | 672.707 | sello |  | INMINENTE | 2.5 | pasó (crítico: no estorba) |
+| ch06 | 707.5 | punch |  | zoom_punch 12 cuadros | None | pasó |
+| ch06 | 710.087 | ficha | D121 | ROCA QUE CAYÓ · 270 millones de metros cúbicos de roca | 3.4 | pasó (crítico ¿estorba?: no estorba) · movido: 26.42 → 25.42 s (1 · palabra de más peso): 1 · palabra ancla (26.42 s): sin tiempo de lectura: 51 caracteres piden 3.4 s y hay 2.7 s hasta el corte de escena (29.1 s) |
+| ch06 | 713.907 | sello |  | COLAPSO | 2.5 | pasó (crítico: no estorba) |
+| ch06 | 816.706 | ficha | D228 | PREPARATIVOS EN BELLUNO · 1000 camas para refugiados | 3.27 | pasó (crítico ¿estorba?: no estorba) · movido: 136.24 → 132.04 s (1 · inicio de la oración): 1 · palabra ancla (136.24 s): sin tiempo de lectura: 49 caracteres piden 3.3 s y hay 1.3 s hasta el corte de escena (137.6 s) |
+| ch07 | 877.067 | punch |  | zoom_punch 12 cuadros | None | pasó |
+| ch07 | 943.567 | reloj |  | 20 FEB · 1968 | 9.03 | pasó |
+| ch07 | 952.867 | ficha | T85 | REMISIÓN A JUICIO · contra 11 personas | 2.5 | pasó (crítico ¿estorba?: no estorba) · movido: 91.26 → 94.00 s (3 · oración siguiente [12]) |
+| ch07 | 986.967 | ficha | D245 | MONTEDISON A LONGARONE · 55.645.758.500 liras | 2.8 | pasó (crítico ¿estorba?: no estorba) |
+| ch07 | 1007.787 | sello |  | MEMORIA | 2.5 | pasó (crítico: no estorba) |
+
+Totales: {'tarjeta fecha-hora': 1, 'title card': 7, 'ficha': 11, 'sello': 5, 'reloj': 3, 'pregunta de cierre': 7, 'recorte': 1, 'punch': 6}
+✓ dos bloques al mismo tiempo
+✓ bloque que cruza un corte
+✓ texto sin lectura
+✓ pregunta de cierre sin lectura
+✓ cifra que contradice la voz
+✗ a_pantalla
+   ✗ 2/5 en pantalla
+   ✗ ch05 Q50: el rotulista no lo propuso
+   ✗ ch06 D128: el rotulista no lo propuso
+   ✗ ch06 D192: el rotulista no lo propuso
+✓ costuras con cuadro no negro
+✗ inicio de voz por cap
+   ✓ ch01 · voz esperada 2.62 s · medida 2.62 s · llega a −18 dB en 2.65 s con rampa (100 ms previos: -26.0 dB)
+   ✓ ch02 · voz esperada 107.18 s · medida 107.18 s · llega a −18 dB en 107.18 s con rampa (100 ms previos: -28.1 dB)
+   ✓ ch03 · voz esperada 247.78 s · medida 247.78 s · llega a −18 dB en 247.78 s con rampa (100 ms previos: -28.4 dB)
+   ✓ ch04 · voz esperada 383.06 s · medida 383.06 s · llega a −18 dB en 383.56 s con rampa (100 ms previos: -21.6 dB)
+   ✓ ch05 · voz esperada 512.05 s · medida 512.05 s · llega a −18 dB en 512.07 s con rampa (100 ms previos: -24.5 dB)
+   ✓ ch06 · voz esperada 687.81 s · medida 687.81 s · llega a −18 dB en 687.83 s con rampa (100 ms previos: -29.5 dB)
+   ✗ ch07 · voz esperada 861.95 s · medida 861.95 s · llega a −18 dB en 861.94 s sin rampa (100 ms previos: -32.6 dB, bajo la voz presente -30.5 dB)
+✓ gancho no vacío
+✓ inicio de música por cap
+✗ tarjeta fecha-hora
+   ✗ 00:00.0 «⚠ falta fecha-hora» ·  · ⚠ falta fecha-hora: el guion en papel no trae tarjeta (agregar con --plan-edit; nunca se inventa)
+✗ papel sin colocar
+   ✗ ch02 sello CALMA: sello del papel «CALMA»: no entra en ningún intento: 1 · palabra de más peso (58.18 s) · lado right: estorba — El sello grande a media altura a la derecha tapa rostros de las personas sentadas en la cafetería y elementos clave de la escena, como la Vespa. · 1 · palabra de más peso (58.18 s) · lado left: estorba — El sello tapa parte de la actividad del mercado y rostros de personas a la izquierda de la imagen. · 1 · inicio de la oración (56.14 s): cruza el corte de la escena 5 (56.17 s) · 3 · oración siguiente [7] (61.08 s) · lado right: estorba — El sello 'CALMA' se superpone a personas sentadas en la terraza y parte de los edificios, obstruyendo la vista de la escena. · 3 · oración siguiente [7] (61.08 s) · lado left: estorba — El sello es grande y se ubica a media altura en el lado izquierdo, tapando detalles de los puestos del mercado y algunas personas.
+   ✗ ch05 sello SILENCIO: sello del papel «SILENCIO»: no entra en ningún intento: 1 · palabra de más peso (71.94 s): cruza el corte de la escena 7 (74.13 s) · 1 · inicio de la oración (71.66 s): cruza el corte de la escena 7 (74.13 s) · 3 · oración siguiente [11] (74.14 s) · lado left: estorba — El bloque se superpone al cartel "STRADA CHIUSA" que ya está en la imagen. · 3 · oración siguiente [11] (74.14 s) · lado right: estorba — El bloque, al estar 'a media altura, a la derecha', taparía los rostros o cuerpos de los hombres que están mirando hacia arriba, elementos clave de la composici
+   ✗ ch07 sello RABIA: sello del papel «RABIA»: no entra en ningún intento: 1 · palabra de más peso (10.90 s) · lado right: estorba — El sello "RABIA" a media altura a la derecha probablemente tapa rostros de los pobladores que gritan. · 1 · palabra de más peso (10.90 s) · lado left: estorba — El sello 'RABIA' se superpone a los rostros y cuerpos de los pobladores que gritan, elementos clave de la imagen. · 1 · inicio de la oración (7.92 s) · lado right: estorba — El sello a la derecha a media altura taparía los rostros de los pobladores gritando. · 1 · inicio de la oración (7.92 s) · lado left: estorba — El sello se ubica a media altura a la izquierda, donde hay rostros de los pobladores que serían tapados. · 3 · oración siguiente [2] (18.28 s) · lado left: estorba — El sello 'RABIA' tapa parte del titular 'TRAGEDIA NATURALE' del periódico, que es central para la narración de las 'dos verdades'. · 3 · oración siguiente [2] (18.28 s) · lado right: estorba — El sello se ubica a la derecha, a media altura, y podría tapar parte del titular "ERRORE UMANO" o el texto del periódico.
+✓ papel sin alinear
+✓ relojes del papel (informativo)

@@ -1,0 +1,165 @@
+--- lab/hyperframes/f37/c/GUION_PANTALLA_3_antes_del_reloj.json
++++ lab/hyperframes/f37/c/GUION_PANTALLA.json
+@@ -2270,9 +2270,9 @@
+      "papel": false,
+      "queda": true,
+-     "razon": "salto de tiempo",
++     "razon": "corte",
+      "saliente": 8,
+      "t": 81.9,
+      "t_mp4": 590.867,
+-     "texto": "dissolve 20 cuadros",
++     "texto": "cut",
+      "tipo": "transición",
+      "voz_ancla": "Mientras tanto, en la ladera, los topógrafos de la empresa seguían midiendo.",
+@@ -2283,21 +2283,21 @@
+      "aporta": null,
+      "beat": 8,
+-     "cambios": [],
+      "cap": "ch05",
+-     "de_voz": false,
+-     "dur": 1.88,
++     "dur": null,
+      "escena": 9,
+      "escena_t0": 81.9,
+      "escena_t1": 89.433,
+      "etiqueta": null,
+-     "filtro": "pasó",
+-     "fuente": "T61",
++     "filtro": "cortó colocar (intentos): no entra en ningún intento: 1 · palabra ancla (87.52 s): quedaría menos de 2.0 s · 2 · inicio de la escena 10 (89.43 s): quedaría menos de 2.0 s",
++     "fuente": null,
+      "funcion": "escalada",
+      "lectura_min": null,
+      "papel": false,
+-     "queda": true,
++     "pool_id": null,
++     "queda": false,
++     "regla": "colocar",
+      "t": 87.52,
+      "t_mp4": 596.487,
+-     "texto": "9 OCT · 1963",
++     "texto": "9 OCT",
+      "tipo": "reloj",
+      "voz_ancla": "El nueve de octubre a la mañana, el director técnico de la empresa se sentó a escribir una carta.",
+@@ -2535,5 +2535,6 @@
+      "cortados": {
+       "colocar": [
+-       "sello «SILENCIO»: sello del papel «SILENCIO»: no entra en ningún intento: 1 · palabra de más peso (71.94 s): cruza el corte de l"
++       "sello «SILENCIO»: sello del papel «SILENCIO»: no entra en ningún intento: 1 · palabra de más peso (71.94 s): cruza el corte de l",
++       "reloj «9 OCT»: no entra en ningún intento: 1 · palabra ancla (87.52 s): quedaría menos de 2.0 s · 2 · inicio de la escena 10 "
+       ]
+      },
+@@ -2557,6 +2558,5 @@
+      "punch": 1,
+      "quedan": [
+-      "ficha «2 cm por día»",
+-      "reloj «9 OCT · 1963»"
++      "ficha «2 cm por día»"
+      ],
+      "t0": 3.08,
+@@ -3548,29 +3548,4 @@
+      "cap": "ch07",
+      "dur": null,
+-     "escena": 7,
+-     "escena_t0": 84.467,
+-     "escena_t1": 93.767,
+-     "etiqueta": null,
+-     "filtro": "cortó colocar (intentos): no entra en ningún intento: 1 · palabra ancla (91.26 s): se solapa con reloj · 1 · inicio de la oración (84.70 s): se solapa con reloj · 3 · oración siguiente [12] (94.00 s): se solapa con reloj",
+-     "fuente": "T85 · Vajont: fu disastro colposo con previsione dell'evento (Cassazione 1971), 2003",
+-     "funcion": "revelacion",
+-     "lectura_min": null,
+-     "papel": true,
+-     "pool_id": "T85",
+-     "queda": false,
+-     "regla": "colocar",
+-     "t": 91.26,
+-     "t_mp4": 950.127,
+-     "texto": "contra 11 personas",
+-     "tipo": "ficha",
+-     "voz_ancla": "Pasaron más de cuatro años hasta que, el veinte de febrero de mil novecientos sesenta y ocho, se depositó la resolución de remisión a juicio.",
+-     "voz_next": "El juez no aceptó la palabra imprevisible.",
+-     "voz_prev": "Una primera comisión de expertos trabajó dieciocho meses y concluyó que el desastre era imprevisible."
+-    },
+-    {
+-     "aporta": null,
+-     "beat": 12,
+-     "cap": "ch07",
+-     "dur": null,
+      "entrante": 8,
+      "escena": 8,
+@@ -3593,4 +3568,33 @@
+      "voz_next": "Pidió otra pericia, y después, nombres.",
+      "voz_prev": "Pasaron más de cuatro años hasta que, el veinte de febrero de mil novecientos sesenta y ocho, se depositó la resolución de remisión a juicio."
++    },
++    {
++     "a_pantalla": false,
++     "aporta": "La voz da la fecha de la resolución, pero no a cuántas personas alcanzaba.",
++     "beat": 12,
++     "cap": "ch07",
++     "dur": 2.5,
++     "escena": 8,
++     "escena_t0": 93.767,
++     "escena_t1": 101.367,
++     "estilo": "normal",
++     "etiqueta": "REMISIÓN A JUICIO",
++     "filtro": "pasó (crítico ¿estorba?: no estorba)",
++     "fuente": "T85 · Vajont: fu disastro colposo con previsione dell'evento (Cassazione 1971), 2003",
++     "funcion": "revelacion",
++     "lectura_min": 2.33,
++     "movido": "91.26 → 94.00 s (3 · oración siguiente [12])",
++     "papel": true,
++     "pool_id": "T85",
++     "queda": true,
++     "t": 94.0,
++     "t_mp4": 952.867,
++     "texto": "contra 11 personas",
++     "tipo": "ficha",
++     "tipo_rotulista": "hecho",
++     "voz_ancla": "El juez no aceptó la palabra imprevisible.",
++     "voz_next": "Pidió otra pericia, y después, nombres.",
++     "voz_prev": "Pasaron más de cuatro años hasta que, el veinte de febrero de mil novecientos sesenta y ocho, se depositó la resolución de remisión a juicio.",
++     "word_idx": 20
+     },
+     {
+@@ -3879,6 +3883,5 @@
+      "cortados": {
+       "colocar": [
+-       "sello «RABIA»: sello del papel «RABIA»: no entra en ningún intento: 1 · palabra de más peso (10.90 s) · lado right: estorba —",
+-       "T85 «contra 11 personas»: no entra en ningún intento: 1 · palabra ancla (91.26 s): se solapa con reloj · 1 · inicio de la oración (84.70"
++       "sello «RABIA»: sello del papel «RABIA»: no entra en ningún intento: 1 · palabra de más peso (10.90 s) · lado right: estorba —"
+       ]
+      },
+@@ -3900,5 +3903,6 @@
+      "punch": 1,
+      "quedan": [
+-      "reloj «20 FEB · 1968»"
++      "reloj «20 FEB · 1968»",
++      "ficha «contra 11 personas»"
+      ],
+      "t0": 3.08,
+@@ -3954,5 +3958,5 @@
+   {
+    "lineas": [
+-    "✓ 11 con su lectura a 15 cps"
++    "✓ 12 con su lectura a 15 cps"
+    ],
+    "nombre": "texto sin lectura",
+@@ -3968,5 +3972,5 @@
+   {
+    "lineas": [
+-    "✓ 11 textos sin contradicción"
++    "✓ 12 textos sin contradicción"
+    ],
+    "nombre": "cifra que contradice la voz",
+@@ -4039,5 +4043,4 @@
+     "✗ ch02 sello CALMA: sello del papel «CALMA»: no entra en ningún intento: 1 · palabra de más peso (58.18 s) · lado right: estorba — El sello grande a media altura a la derecha tapa rostros de las personas sentadas en la cafetería y elementos clave de la escena, como la Vespa. · 1 · palabra de más peso (58.18 s) · lado left: estorba — El sello tapa parte de la actividad del mercado y rostros de personas a la izquierda de la imagen. · 1 · inicio de la oración (56.14 s): cruza el corte de la escena 5 (56.17 s) · 3 · oración siguiente [7] (61.08 s) · lado right: estorba — El sello 'CALMA' se superpone a personas sentadas en la terraza y parte de los edificios, obstruyendo la vista de la escena. · 3 · oración siguiente [7] (61.08 s) · lado left: estorba — El sello es grande y se ubica a media altura en el lado izquierdo, tapando detalles de los puestos del mercado y algunas personas.",
+     "✗ ch05 sello SILENCIO: sello del papel «SILENCIO»: no entra en ningún intento: 1 · palabra de más peso (71.94 s): cruza el corte de la escena 7 (74.13 s) · 1 · inicio de la oración (71.66 s): cruza el corte de la escena 7 (74.13 s) · 3 · oración siguiente [11] (74.14 s) · lado left: estorba — El bloque se superpone al cartel \"STRADA CHIUSA\" que ya está en la imagen. · 3 · oración siguiente [11] (74.14 s) · lado right: estorba — El bloque, al estar 'a media altura, a la derecha', taparía los rostros o cuerpos de los hombres que están mirando hacia arriba, elementos clave de la composici",
+-    "✗ ch07 ficha T85 «REMISIÓN A JUICIO · contra 11 personas»: cortó colocar (intentos): no entra en ningún intento: 1 · palabra ancla (91.26 s): se solapa con reloj · 1 · inicio de la oración (84.70 s): se solapa con reloj · 3 · oración siguiente [12] (94.00 s): se solapa con reloj",
+     "✗ ch07 sello RABIA: sello del papel «RABIA»: no entra en ningún intento: 1 · palabra de más peso (10.90 s) · lado right: estorba — El sello \"RABIA\" a media altura a la derecha probablemente tapa rostros de los pobladores que gritan. · 1 · palabra de más peso (10.90 s) · lado left: estorba — El sello 'RABIA' se superpone a los rostros y cuerpos de los pobladores que gritan, elementos clave de la imagen. · 1 · inicio de la oración (7.92 s) · lado right: estorba — El sello a la derecha a media altura taparía los rostros de los pobladores gritando. · 1 · inicio de la oración (7.92 s) · lado left: estorba — El sello se ubica a media altura a la izquierda, donde hay rostros de los pobladores que serían tapados. · 3 · oración siguiente [2] (18.28 s) · lado left: estorba — El sello 'RABIA' tapa parte del titular 'TRAGEDIA NATURALE' del periódico, que es central para la narración de las 'dos verdades'. · 3 · oración siguiente [2] (18.28 s) · lado right: estorba — El sello se ubica a la derecha, a media altura, y podría tapar parte del titular \"ERRORE UMANO\" o el texto del periódico."
+    ],
+@@ -4056,5 +4059,4 @@
+     "✓ ch01 papel «9 OCT 1963» en [13] · reloj de la voz «9 OCT 1963»",
+     "✓ ch04 papel «4 NOV 1960» en [0] · reloj de la voz «4 NOV 1960»",
+-    "· ch05 el papel no trae reloj · reloj de la voz «9 OCT 1963» → difiere (anotado)",
+     "✓ ch07 papel «20 FEB 1968» en [11] · reloj de la voz «20 FEB 1968»",
+     "· ch07 papel «29 NOV 1968» en [14] · reloj de la voz «20 FEB 1968» → difiere (anotado)"

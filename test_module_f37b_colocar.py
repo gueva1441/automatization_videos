@@ -12,6 +12,7 @@ las mismas oraciones, cortes y beats.
 """
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 from types import SimpleNamespace as Sc
@@ -174,3 +175,35 @@ def test_b3_la_lectura_de_la_cita_cuenta_el_autor_una_vez():
     words = _voz([(4.0, 12.0, "El presidente respondió algo esa noche en la plaza.")])
     pc.repartir(plan, [Sc(idx=0, start=0.0, end=30.0, quiet_side="right")], _ent(words, [(1, 0.0, 30.0)]), [])
     assert plan["callouts"][0]["duration"] == round(n / pc.LECTURA_CPS, 3)
+
+
+def test_b1_d47_la_oracion_siguiente_arranca_en_la_escena_que_empieza_dentro_de_ella():
+    """F37 C (Vajont ch02 D47): la ancla deja 1.9 s antes del corte de 86.6; la oración siguiente arranca 0.1 s antes de
+    ese corte: el intento 3 prueba también el inicio de la escena que arranca dentro de ella (como F32 §B.3)."""
+    words = _voz([(79.5, 86.3, "En la década del cincuenta el geólogo Leopold Müller detectó en el Toc un gran desmoronamiento."),
+                  (86.52, 95.0, "Y hubo otro hombre que caminó esa ladera con un martillo en la mano.")])
+    ent = _ent(words, [(3, 70.0, 120.0)])
+    scenes = [Sc(idx=8, start=70.0, end=79.6), Sc(idx=9, start=79.6, end=86.6), Sc(idx=10, start=86.6, end=110.0)]
+    its = pc.instantes(ent["oraciones"], 0, scenes, ancla=84.7)
+    assert [c for _, _, c in its][-1] == "3 · oración siguiente [1], inicio de la escena 10"
+    t1, sin = pc.tiempos(86.6, 71, scenes)
+    assert sin is None and round(t1 - 86.6, 2) == round(71 / pc.LECTURA_CPS, 2)
+
+
+def test_c_el_reparto_ve_el_reloj_recortado_al_corte():
+    """F37 C (Vajont ch07 T85): el reloj de 9 s cruzaba el corte de su escena; sin recortarlo antes del reparto, la ficha
+    del pico chocaba con un tramo de reloj que ya no se ve."""
+    words = _voz([(80.0, 90.0, "Pasaron más de cuatro años hasta que se depositó la resolución de remisión a juicio."),
+                  (91.0, 96.0, "El juez no aceptó la palabra imprevisible.")])
+    ent = _ent(words, [(12, 70.0, 110.0)])
+    scenes = [Sc(idx=3, start=70.0, end=88.0, quiet_side="right"), Sc(idx=4, start=88.0, end=110.0, quiet_side="right")]
+    plan = {"title_card": None, "time_ticker": {"day": "20", "month": "FEB", "start": 82.0, "duration": 9.0, "changes": []},
+            "callouts": [{"text": "contra 11 personas", "kicker": "REMISIÓN A JUICIO", "ficha": True, "start": 88.5,
+                          "duration": 2.5, "side": "left", "pool_id": "T85", "rotulista": True, "tipo_rotulista": "hecho",
+                          "intentos": [{"t0": 88.5, "t1": 91.0, "si": 0, "como": "1 · palabra ancla"}]}]}
+    sin = json.loads(json.dumps(plan))
+    pc.repartir(sin, scenes, ent, [])
+    assert sin["callouts"] == []                                             # contra el reloj sin recortar: choca
+    pc.hasta_el_corte(plan, scenes, 30.0, [])
+    pc.repartir(plan, scenes, ent, [])
+    assert plan["callouts"][0]["start"] == 88.5 and plan["rotulista"]["corte"]

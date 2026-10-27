@@ -58,7 +58,8 @@ def instantes(sents: list[dict], si: int, escenas: list[Any] | None, *, ancla: f
     1) dentro de la misma oración: el instante original (la palabra ancla de la ficha, la palabra de más peso del
        sello), después la palabra de más peso, el inicio de la oración y la palabra ancla;
     2) el inicio de la escena siguiente, si cae dentro de la misma oración;
-    3) el inicio de la oración siguiente, si es del mismo beat.
+    3) la oración siguiente, si es del mismo beat: su inicio y, si una escena arranca dentro de ella, el inicio de esa
+       escena (lo que hacía despues_del_corte de F32 §B.3 con la oración siguiente).
     [(t, oración, cómo)], sin repetidos. El 4 (otra posición de pantalla) es del crítico: lo prueba quien reparte."""
     s = sents[si]
     out: list[tuple[float, int, str]] = []
@@ -77,7 +78,12 @@ def instantes(sents: list[dict], si: int, escenas: list[Any] | None, *, ancla: f
             add(float(e.start), si, f"2 · inicio de la escena {e.idx}")
             break
     if si + 1 < len(sents) and sents[si + 1].get("beat") == s.get("beat"):
-        add(sents[si + 1]["t0"], si + 1, f"3 · oración siguiente [{si + 1}]")
+        s2 = sents[si + 1]
+        add(s2["t0"], si + 1, f"3 · oración siguiente [{si + 1}]")
+        for e in escenas or []:
+            if float(s2["t0"]) + 1e-6 < float(e.start) <= float(s2["t1"]):
+                add(float(e.start), si + 1, f"3 · oración siguiente [{si + 1}], inicio de la escena {e.idx}")
+                break
     return out
 
 
@@ -118,7 +124,9 @@ def caben(sents: list[dict], si: int, escenas: list[Any] | None) -> int | None:
 
 def hasta_el_corte(plan: dict[str, Any], scenes: list[Any], fps: float, log: list[str]) -> list[dict[str, Any]]:
     """F36 §B.4: el reloj no cruza el corte de la escena donde arranca: duración = min(la que trae, corte − inicio − 1
-    cuadro) (derivado). Corre después de escena_final (que puede mover el reloj). F36 §D: sin agua."""
+    cuadro) (derivado). F37 C: corre antes del reparto (para que «nunca al mismo tiempo» vea el tramo que el reloj
+    ocupa de verdad: T85 de Vajont chocaba con un reloj que ya no estaba) y después (el reparto puede moverlo); las filas
+    se acumulan. F36 §D: sin agua."""
     from script_engine.gfx_project import scene_at
     filas: list[dict[str, Any]] = []
     if not scenes:
@@ -135,7 +143,7 @@ def hasta_el_corte(plan: dict[str, Any], scenes: list[Any], fps: float, log: lis
                           "motivo": f"{float(b['duration']):.2f} → {tope:.2f} s: la escena {sc.idx} corta en "
                                     f"{float(sc.end):.2f} s"})
             b["duration"] = tope
-    plan.setdefault("rotulista", {})["corte"] = filas
+    plan.setdefault("rotulista", {}).setdefault("corte", []).extend(filas)
     log.append(f"  reloj contra el corte: {[(f['bloque'], f['motivo']) for f in filas] or 'nada que acortar'}")
     return filas
 
