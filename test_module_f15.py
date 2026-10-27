@@ -1,13 +1,12 @@
 """
 test_module_f15.py — F15 (prompt del guionista v5 + ficha v2): el sistema y la tarea del v5 byte-idénticos al archivo
 del analista (se leen del .md); el bloque de la ficha v2 literal en su prompt; esquema y chequeo de historia y escenas
-(sentidos que no están en sus ids → descartados); la escaleta sin ficha byte-idéntica y con ficha v2 con historia y
-escenas primero; el bloqueante (d) mira las `personas_descartadas` de la ficha. Sin red.
+(sentidos que no están en sus ids → descartados); `ficha_notes` de la escaleta con ficha v2 (F39 §A.2: el prompt de la
+escaleta sin ficha v2 se borró, con sus tests); el bloqueante (d) mira las `personas_descartadas` de la ficha. Sin red.
 """
 from __future__ import annotations
 
 import copy
-import hashlib
 from pathlib import Path
 
 from researcher_steps import ficha_caso as fc
@@ -16,7 +15,7 @@ from script_engine import m01a_escaleta as ma
 from test_module_f11 import POOL as POOL11
 from test_module_f11 import TOPIC as TOPIC11
 from test_module_f11 import _esc_ok, _parrafos
-from test_module_f14 import ESC_MD5, POOL
+from test_module_f14 import POOL
 
 F15 = Path(__file__).resolve().parent / "lab" / "hyperframes" / "f15"
 
@@ -140,11 +139,6 @@ def test_markdown_historia_y_escenas_arriba():
 #  Escaleta (§1.3)
 # ═══════════════════════════════════════════════════════════════
 
-def test_escaleta_sin_ficha_sigue_byte_identica():
-    assert hashlib.md5(ma.build_prompt(TOPIC11, POOL11).encode()).hexdigest() == ESC_MD5["sin_fb"]
-    assert "escena_idx" not in str(ma.SCHEMA) and "escena_idx" in str(ma.SCHEMA_FICHA)
-
-
 FICHA_V2 = {"prompt_version": "f15-1",
             "historia": {"humanos_candidatos": [{"nombre": "Liz Torres", "rol": "sobreviviente", "arco": "a",
                                                  "ids": ["P1"], "citas_verificadas": 1}],
@@ -154,12 +148,6 @@ FICHA_V2 = {"prompt_version": "f15-1",
             "escenas": [{"donde": "patio", "quien": "gente", "que_pasa": "corren", "sentidos": "humo negro", "ids": ["D4"]}],
             "hechos": [{"texto": "El portón 4 estaba cerrado.", "nivel": 1, "sirve_para": "giro", "ids": ["D4"]}],
             "personas": [{"nombre": "Liz Torres", "rol": "sobreviviente", "variantes": [], "ids": ["P1"]}]}
-
-
-def test_escaleta_con_ficha_v2_historia_y_escenas_primero():
-    p = ma.build_prompt(TOPIC11, POOL11, None, FICHA_V2)
-    assert p.index("HISTORIA:") < p.index("ESCENAS") < p.index("PERSONAS:") < p.index("HECHOS:")
-    assert "HUMANOS CANDIDATOS" in p and "E1. patio" in p and "(nivel 1 · giro)" in p and "escena_idx" in p
 
 
 def test_ficha_notes_humano_fuera_de_candidatos_y_escena_idx():

@@ -22,8 +22,7 @@ def test_minimo_dos_beats_por_cap_de_desarrollo():
     assert DEFAULTS["min_beats_dev_cap"] == 2 and DEFAULTS["max_beats"] == 14
     assert me.MIN_BEATS_DEV_CAP == 2
     _, hard, _, _ = me.validate(good(), POOL)              # 8 beats: caps 2, 3, 4 y 6 con uno solo
-    assert _dev_msgs(hard) and "[2, 3, 4, 6]" in _dev_msgs(hard)[0]
-    assert "al menos 2 beats cada uno" in me.RULES
+    assert _dev_msgs(hard) and "[2, 3, 4, 6]" in _dev_msgs(hard)[0]      # F39 §A.2: RULES (sin ficha) se borró
 
 
 def test_doce_beats_dos_por_cap_pasan_la_regla():
@@ -43,8 +42,7 @@ def test_doce_beats_dos_por_cap_pasan_la_regla():
 def test_amarillo_baja_el_minimo_a_uno():
     largo = {"cap_words": me.CAP_WORDS, "max_beats": 8, "min_beats_dev_cap": DEFAULTS["gate_yellow_min_beats_dev_cap"]}
     _, hard, _, _ = me.validate(good(), POOL, largo=largo)
-    assert not _dev_msgs(hard)
-    assert "al menos" not in me.rules_text(me.CAP_WORDS, 7, 8, 1).split("\n")[1]
+    assert not _dev_msgs(hard)                             # F39 §A.2: rules_text (sin ficha) se borró
 
 
 def test_cierre_resumen_es_blanda_al_editor():

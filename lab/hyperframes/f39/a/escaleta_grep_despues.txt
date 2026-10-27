@@ -1,0 +1,12 @@
+# grep -nE '\bPROMPT_VERSION\b|\bMAX_ATTEMPTS\b|\bSYSTEM\b|\bFEWSHOT\b|\brules_text\b|\bRULES\b|\bown_ids\b|\b_fmt_people\b|\b_verif\b|\b_fmt_quotes\b|\b_fmt_canonical\b|\b_fmt_counts\b|\bficha_section\b|\bpool_section\b|\bbuild_prompt\b|\battempts\b|ESCALETA_DIGEST|call_pro_json|\bMAX_APOYOS\b|\bSCHEMA\b|EscaletaSinFicha' script_engine/m01a_escaleta.py   (DESPUÉS de A.2, 2026-10-27 15:47:22, md5 7a84f8c67a832ecdb6e93bb86734058d)
+8:ficha v2, `EscaletaSinFicha` (para, sin gastar); el camino viejo (Pro con el pool, sin ficha) se borró. La salida
+11:    generate_escaleta(topic)   → escaleta (persistida en _steps/<id>/01a_escaleta.json); sin ficha v2, EscaletaSinFicha
+112:class EscaletaSinFicha(Exception):
+121:SCHEMA: dict[str, Any] = {
+144:# F39 §A.2: SCHEMA ya no se manda solo (era el de la escaleta sin ficha, borrada); queda como base de SCHEMA_FICHA.
+148:SCHEMA_FICHA: dict[str, Any] = copy.deepcopy(SCHEMA)
+157:MAX_APOYOS = 3                      # datos_apoyo por beat sin ficha: hoy solo el default de `validate` (escaleta_frozen)
+239:             solo_apoyo: list[str] | tuple[str, ...] = (), largo: dict | None = None, max_apoyos: int = MAX_APOYOS,
+781:    F39 §A.2: sin ficha v2 (no hay ficha, o no tiene `historia`), EscaletaSinFicha: para sin llamar a ningún modelo. El
+799:        raise EscaletaSinFicha(f"{topic_id}: sin ficha_caso.json con historia")
+1457:    """F16 §1.1: <caso> (título, ángulo, misterio, revelación) · <ficha> · <tarea> literal. Sin notas, sin FEWSHOT,

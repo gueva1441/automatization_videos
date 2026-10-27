@@ -1,7 +1,8 @@
 """
 test_module_f22.py — F22 (familias C + E de la auditoría y el nombre como lo escribe el documento): los cuatro bloques
 SISTEMA byte-idénticos a los archivos del handoff (extraídos anclando en «## SISTEMA», hasta el «---»), la tarea de la
-columna literal, los prompts viejos intactos con su versión y la escaleta v1 byte-idéntica; el antagonista persona /
+columna literal, los prompts viejos intactos con su versión (F39 §A.2: la escaleta v1, sin ficha, se borró con su
+test); el antagonista persona /
 institución / ninguno en columna, escaleta, partición y guion; `verify_pool` con `autor_en_documento` (documento ruso
 de Kyshtym ya bajado); los mensajes al modelo sin nombres de Orleans; «cero Cardal»; el dorado v3 con solo los mensajes
 cambiados. Sin red.
@@ -64,7 +65,7 @@ def _ficha_inst() -> dict:
 
 
 # ═══════════════════════════════════════════════════════════════
-#  §3 md5: archivos del handoff, cuatro SISTEMA, tarea de la columna, viejos intactos, v1 byte-idéntica
+#  §3 md5: archivos del handoff, cuatro SISTEMA, tarea de la columna, viejos intactos
 # ═══════════════════════════════════════════════════════════════
 
 @pytest.mark.parametrize("name, md5", sorted(HANDOFF_MD5.items()))
@@ -109,17 +110,6 @@ def test_los_viejos_quedan_con_su_version():
     assert _md5(me.SYSTEM_V2_F16_1) == "49ed74d941def064cdda077212629ff1"
     assert _md5(g4.system("f15b-1")) == "cdce609abea95ee36d0eb4f44d74dda8"
     assert g4.system("f15-1") == g4.SYSTEM_V5 and g4.VERSIONES_V5 == ("f25-1", "f23-1", "f22-1", "f15b-1", "f15-1")
-
-
-def test_escaleta_v1_byte_identica():
-    # md5 calculados con el m01a_escaleta de 8be0ea9 (mismo fixture): sin ficha nada cambia
-    assert {k: _md5(getattr(me, k)) for k in ("SYSTEM", "FEWSHOT", "RULES")} == {
-        "SYSTEM": "694bd28816d6c57682b98146db53fd0d", "FEWSHOT": "bc1a619bc95ab9c255b66a4f981ae970",
-        "RULES": "a01dd2f0ac0965af174ce6e516ef845c"}
-    assert _md5(me.build_prompt(TOPIC, POOL)) == "9f038e0c0c7a16c4890748cc7d0dc9db"
-    assert _md5(me.build_prompt(TOPIC, POOL, ["x"])) == "10e069461d2687e339260cf9f84c06f2"
-    assert _md5(json.dumps(me.SCHEMA, sort_keys=True, ensure_ascii=False)) == "20f96a275f2259c1119709220df5165e"
-    assert me.PROMPT_VERSION == "f6b-4"
 
 
 def test_prompts_sin_ejemplos_de_orleans_ni_ycua():

@@ -1,13 +1,14 @@
 """
 test_module_f14.py — F14 (la ficha en el camino): los 5 criterios de la ficha (un caso por criterio) y
-`personas_descartadas`; la escaleta sin ficha byte-idéntica (md5 tomados del m01a_escaleta.py de 2e13616) y con ficha
-leyendo la ficha (no el digest) con apoyos 0–6; `guion_v4.data_line` con y sin ficha. Sin red.
+`personas_descartadas`; los apoyos 0–6 con ficha en `validate`; `generate_escaleta` lee la ficha del disco (F39 §A.2:
+la escaleta sin ficha v2 se borró, sin ficha v2 para); `guion_v4.data_line` con y sin ficha. Sin red.
 """
 from __future__ import annotations
 
 import copy
-import hashlib
 import json
+
+import pytest
 
 from researcher_steps import ficha_caso as fc
 from script_engine import guion_v4 as g4
@@ -15,9 +16,6 @@ from script_engine import m01a_escaleta as ma
 from test_module_f11 import POOL as POOL11
 from test_module_f11 import TOPIC as TOPIC11
 from test_module_f11 import _esc_ok
-
-# md5 del prompt de la escaleta de 2e13616 sobre el fixture de test_module_f11 (sin y con feedback)
-ESC_MD5 = {"sin_fb": "37a87c23f619c408e87af31f8b25f1c8", "fb": "729dd168c7277ec7d724d1a5c3bb77bd"}
 
 POOL = {
     "datos": [
@@ -144,34 +142,15 @@ def test_id_texts_cita_corregida_cifra_con_unidad_y_hecho():
 #  Escaleta (§1.2)
 # ═══════════════════════════════════════════════════════════════
 
-def _md5(s: str) -> str:
-    return hashlib.md5(s.encode("utf-8")).hexdigest()
-
-
-def test_escaleta_sin_ficha_byte_identica():
-    assert _md5(ma.build_prompt(TOPIC11, POOL11)) == ESC_MD5["sin_fb"]
-    assert _md5(ma.build_prompt(TOPIC11, POOL11, ["a"])) == ESC_MD5["fb"]
-    assert _md5(ma.build_prompt(TOPIC11, POOL11, None, None)) == ESC_MD5["sin_fb"]
-    assert "0–3 `datos_apoyo`" in ma.RULES
-
-
 FICHA_ESC = _ficha(personas=[{"nombre": "Liz Torres", "rol": "sobreviviente", "variantes": [], "ids": ["P1"]}],
                    hechos=[{"texto": "El portón 4 estaba cerrado.", "ids": ["D4"]}],
                    citas=[{"texto": "nadie nos abrió", "autor": "Liz Torres", "rol": "sobreviviente", "ids": ["Q1"]}],
                    versiones=[{"tema": "quién cerró", "versiones": [_v("los guardias", "F09", 1, ["D5"])]}],
                    personas_descartadas=[{"nombre": "C. Ray Nagin", "rol": "alcalde", "motivo": "evacuación",
                                           "ids": ["D6"]}])
-
-
-def test_escaleta_con_ficha_lee_la_ficha_y_apoyos_0_6():
-    pool = copy.deepcopy(POOL11)
-    pool["digest"] = {"texto": "DIGEST-QUE-NO-VA"}
-    p = ma.build_prompt(TOPIC11, pool, None, FICHA_ESC)
-    assert "DIGEST-QUE-NO-VA" not in p and "FICHA DEL CASO" in p
-    assert "[D4] El portón 4 estaba cerrado." in p and "[Q1] CITA: \"nadie nos abrió\"" in p
-    assert "VERSIONES (hechos disputados" in p and "C. Ray Nagin" in p
-    assert "0–6 `datos_apoyo`" in p and "0–3 `datos_apoyo`" not in p
-    assert "DIGEST-QUE-NO-VA" in ma.build_prompt(TOPIC11, pool)                       # sin ficha: el digest, como siempre
+# F39 §A.2: la misma ficha, v2 (con `historia`): la única que la escaleta lee
+FICHA_ESC_V2 = {**FICHA_ESC, "historia": {"humanos_candidatos": [{"nombre": "Liz Torres", "rol": "sobreviviente",
+                                                                   "ids": ["P1"]}]}}
 
 
 def test_validate_apoyos_hasta_6_solo_con_ficha():
@@ -198,15 +177,13 @@ def test_generate_escaleta_auto_lee_la_ficha_del_disco(tmp_path, monkeypatch):
         seen.append(prompt)
         raise RuntimeError("corte")
     topic = {**TOPIC11, "id": "t-f14"}
-    for con_ficha in (False, True):
-        if con_ficha:
-            (tmp_path / "t-f14").mkdir()
-            (tmp_path / "t-f14" / "ficha_caso.json").write_text(json.dumps(FICHA_ESC), encoding="utf-8")
-        try:
-            ma.generate_escaleta(topic, call=call, persist=False)
-        except RuntimeError:
-            pass
-    assert "FICHA DEL CASO" not in seen[0] and "FICHA DEL CASO" in seen[1]
+    with pytest.raises(ma.EscaletaSinFicha):                     # F39 §A.2: sin ficha en disco, para sin llamar
+        ma.generate_escaleta(topic, call=call, persist=False)
+    (tmp_path / "t-f14").mkdir()
+    (tmp_path / "t-f14" / "ficha_caso.json").write_text(json.dumps(FICHA_ESC_V2), encoding="utf-8")
+    with pytest.raises(RuntimeError):
+        ma.generate_escaleta(topic, call=call, persist=False)
+    assert len(seen) == 1 and "<ficha>" in seen[0] and "El portón 4 estaba cerrado." in seen[0]
 
 
 # ═══════════════════════════════════════════════════════════════

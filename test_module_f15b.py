@@ -1,21 +1,18 @@
 """
 test_module_f15b.py — F15b (v5.1: la escena merece un párrafo): el sistema v5.1 byte-idéntico al archivo del analista
-(el v5 sigue reproducible); la escaleta sin ficha intacta y con ficha v2 pidiendo gancho y pico desde las escenas (aviso
-«gancho sin escena de la ficha», no rechaza); los dos aflojes del chequeo de la ficha (las 12 cifras de Ycuá: en letras
-y en millones; una escena con un solo sentido respaldado). Sin red.
+(el v5 sigue reproducible); el aviso de la escaleta con ficha v2 «gancho sin escena de la ficha» (no rechaza; F39 §A.2:
+el prompt de la escaleta sin ficha v2 se borró, con su test); los dos aflojes del chequeo de la ficha (las 12 cifras de
+Ycuá: en letras y en millones; una escena con un solo sentido respaldado). Sin red.
 """
 from __future__ import annotations
 
-import hashlib
 from pathlib import Path
 
 from researcher_steps import ficha_caso as fc
 from script_engine import guion_v4 as g4
 from script_engine import m01a_escaleta as ma
-from test_module_f11 import POOL as POOL11
 from test_module_f11 import TOPIC as TOPIC11
 from test_module_f11 import _esc_ok
-from test_module_f14 import ESC_MD5
 from test_module_f15 import FICHA_V2
 
 F15 = Path(__file__).resolve().parent / "lab" / "hyperframes" / "f15"
@@ -59,13 +56,6 @@ def test_usuario_igual_al_v5_y_version_f15b():
 # ═══════════════════════════════════════════════════════════════
 #  Escaleta (§1.2)
 # ═══════════════════════════════════════════════════════════════
-
-def test_escaleta_sin_ficha_intacta_y_con_ficha_pide_gancho_y_pico_desde_escenas():
-    assert hashlib.md5(ma.build_prompt(TOPIC11, POOL11).encode()).hexdigest() == ESC_MD5["sin_fb"]
-    p = ma.build_prompt(TOPIC11, POOL11, None, FICHA_V2)
-    assert ("El beat 1 (gancho) y el beat del pico toman su `imagen_sensorial` de una escena de la ficha cuando hay una "
-            "para ese momento; los demás beats, cuando sirva.") in p
-
 
 def test_aviso_gancho_sin_escena():
     sin = {"humano": {"id": "P1", "nombre": "Liz Torres"}, "beats": [{"n": 1}, {"n": 2, "escena_idx": 1}]}

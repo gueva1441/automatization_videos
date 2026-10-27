@@ -1,0 +1,49 @@
+# grep -nE '\bPROMPT_VERSION\b|\bMAX_ATTEMPTS\b|\bSYSTEM\b|\bFEWSHOT\b|\brules_text\b|\bRULES\b|\bown_ids\b|\b_fmt_people\b|\b_verif\b|\b_fmt_quotes\b|\b_fmt_canonical\b|\b_fmt_counts\b|\bficha_section\b|\bpool_section\b|\bbuild_prompt\b|\battempts\b|ESCALETA_DIGEST|call_pro_json|\bMAX_APOYOS\b|\bSCHEMA\b|EscaletaSinFicha' script_engine/m01a_escaleta.py   (ANTES de A.2, 2026-10-27 15:44:57, md5 9a6afd1bdd700e8f1cec96d89e8a2a7a)
+7:humano. Una llamada a Gemini Pro (`call_pro_json`) con el pool completo; hasta MAX_ATTEMPTS con las correcciones del
+62:PROMPT_VERSION = "f6b-4"            # f6b-4: contador, una cifra en pantalla una vez, pregunta del cap 7, cierre sin eco
+63:MAX_ATTEMPTS = 3
+119:SCHEMA: dict[str, Any] = {
+148:SYSTEM = ("Sos el guionista jefe de un canal de documentales de misterio en YouTube. Antes de que nadie escriba una "
+153:FEWSHOT = """EJEMPLO 1 (OTRO TEMA, solo para la FORMA — no uses nada de su contenido):
+180:# un humano que no está entre los candidatos (`justificacion_humano`). Esquema aparte: sin ficha se manda SCHEMA.
+181:SCHEMA_FICHA: dict[str, Any] = copy.deepcopy(SCHEMA)
+190:MAX_APOYOS = 3                      # datos_apoyo por beat (sin ficha, como siempre)
+194:def rules_text(cap_words: dict[int, int], min_beats: int, max_beats: int, min_dev: int = 1,
+195:               max_apoyos: int = MAX_APOYOS) -> str:
+257:RULES = rules_text(CAP_WORDS, MIN_BEATS, MAX_BEATS, MIN_BEATS_DEV_CAP)
+260:def own_ids(pool: dict, persona: dict) -> list[str]:
+279:def _fmt_people(pool: dict) -> str:
+285:        own = own_ids(pool, p) if p.get("testigo") else []
+292:def _verif(q: dict) -> str:
+299:def _fmt_quotes(pool: dict) -> str:
+302:        tag = (" · TESTIMONIO (estuvo ahí)" if q.get("testimonio") else "") + _verif(q)
+309:def _fmt_canonical(pool: dict) -> str:
+333:def _fmt_counts(pool: dict) -> str:
+339:def ficha_section(ficha: dict, pool: dict) -> str:
+377:                own = [j for j in own_ids(pool, p) if j in in_ficha] if p.get("testigo") else []
+399:        tag = ((" · TESTIMONIO (estuvo ahí)" if q.get("testimonio") else "") + _verif(q)) if q else ""
+423:def pool_section(pool: dict, ficha: dict | None = None) -> str:
+426:        return ficha_section(ficha, pool)
+428:    # del pool entero (≈ 63 k → ≤ 20 k tokens). ESCALETA_DIGEST=0 lo apaga. Sin digest, todo igual que antes.
+429:    if (pool.get("digest") or {}).get("texto") and os.environ.get("ESCALETA_DIGEST", "1") != "0":
+432:    return (f"DATOS, CRONOLOGÍA Y LUGARES:\n{ev.format_pool(pool, ids)}\n\nCITAS:\n{_fmt_quotes(pool)}\n\n"
+433:            f"PERSONAS:\n{_fmt_people(pool)}\n\nCIFRAS CANÓNICAS:\n{_fmt_canonical(pool)}\n\n"
+434:            f"UN HECHO, UNA CIFRA:\n{_fmt_counts(pool)}")
+445:def build_prompt(topic: dict, pool: dict, feedback: list[str] | None = None, ficha: dict | None = None) -> str:
+464:{pool_section(pool, ficha)}
+467:{FEWSHOT}
+468:═══ {rules_text(*_profile(topic), max_apoyos=MAX_APOYOS_FICHA if ficha else MAX_APOYOS)}
+529:             solo_apoyo: list[str] | tuple[str, ...] = (), largo: dict | None = None, max_apoyos: int = MAX_APOYOS,
+1063:def generate_escaleta(topic: dict, *, call: Callable[..., dict] | None = None, attempts: int = MAX_ATTEMPTS,
+1066:    """Escaleta del topic (Pro, hasta `attempts` con feedback). EscaletaValidationError si ninguna pasa.
+1071:    regeneración (`attempts` no aplica).
+1093:    max_ap = MAX_APOYOS_FICHA if ficha else MAX_APOYOS
+1095:        from gemini_helpers import call_pro_json as call
+1098:    for k in range(1, attempts + 1):
+1099:        raw = call(build_prompt(topic, pool, feedback, ficha), system_instruction=SYSTEM,
+1100:                   response_schema=SCHEMA_FICHA if ficha and "historia" in ficha else SCHEMA,
+1102:        esc, hard, rep, warn = validate(raw, pool, final=k == attempts, context=str(topic.get("video_title") or ""),
+1108:            esc.update({"topic_id": topic_id, "prompt_version": PROMPT_VERSION, "_reparaciones": rep, "_avisos": warn,
+1120:    fail = {"topic_id": topic_id, "prompt_version": PROMPT_VERSION, "_intentos": intentos, "ultima": raw}
+1125:    raise EscaletaValidationError(f"escaleta rechazada después de {attempts} intentos: {intentos[-1]['problemas']}")
+1778:    """F16 §1.1: <caso> (título, ángulo, misterio, revelación) · <ficha> · <tarea> literal. Sin notas, sin FEWSHOT,

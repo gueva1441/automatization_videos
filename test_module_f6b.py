@@ -131,17 +131,21 @@ def test_colectivo_sin_nombre_inventado():
 
 
 def test_generate_con_reintento_pool_plan_y_frozen(tmp_path, monkeypatch):
+    # F39 §A.2: la escaleta sin ficha v2 se borró: va con una ficha v2 mínima (sintética) y el reintento es la
+    # regeneración de la v2, con un bloqueante (un dato central que no existe)
     monkeypatch.setattr(me, "STEPS_DIR", tmp_path)
+    ficha = {"prompt_version": "test", "historia": {"humanos_candidatos": [{"nombre": "Edward Burton", "ids": ["P08"]}]},
+             "personas": [{"nombre": "Edward Burton", "rol": "preso", "ids": ["P08"]}]}
     bad = good()
-    bad["beats"][3]["intensidad"] = 1
+    bad["beats"][3]["dato_central"] = "D99"
     calls = []
 
     def fake(prompt, **kw):
         calls.append(prompt)
         return bad if len(calls) == 1 else good()
     topic = {"id": "t1", "evidence_pool": copy.deepcopy(POOL), "video_title": "X"}
-    esc = me.generate_escaleta(topic, call=fake)
-    assert len(calls) == 2 and "CORREGÍ" in calls[1] and "baja antes del pico" in calls[1]
+    esc = me.generate_escaleta(topic, call=fake, ficha=ficha)
+    assert len(calls) == 2 and "<rechazo>" in calls[1] and "D99" in calls[1] and "no existe en el pool" in calls[1]
     assert [c["chapter_number"] for c in esc["caps"]] == list(range(1, 8))
     assert esc["caps"][0]["evidence_ids"] == ["Q01"] and esc["caps"][0]["cliffhanger"] == "T01"
     assert all("pantalla_ids" in c for c in esc["caps"]) and esc["_pool_plan"] is not None

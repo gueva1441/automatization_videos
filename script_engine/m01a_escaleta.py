@@ -4,10 +4,11 @@ script_engine/m01a_escaleta.py — Módulo 01a v3 (F6b, HANDOFF_F6 §2.2): el LL
 Reemplaza el reparto de `m01a_skeleton` (bullets de hechos por cap) por una ESCALETA: 7–12 beats con función,
 emoción, intensidad, un dato central, una imagen sensorial, la pregunta que abre, la pregunta de pantalla y el
 cierre; un humano con nombre que seguimos todo el video, el antagonista, la promesa del gancho, el pico y el cierre
-humano. Una llamada a Gemini Pro (`call_pro_json`) con el pool completo; hasta MAX_ATTEMPTS con las correcciones del
-validador. La salida sigue siendo 7 caps (`EXPECTED_CHAPTER_COUNT`): cada beat va a un cap.
+humano. F39 §A.2: la escaleta lee SOLO la ficha v2 (`ficha_caso.json` con `historia`): `generate_escaleta_v2`. Sin
+ficha v2, `EscaletaSinFicha` (para, sin gastar); el camino viejo (Pro con el pool, sin ficha) se borró. La salida
+sigue siendo 7 caps (`EXPECTED_CHAPTER_COUNT`): cada beat va a un cap.
 
-    generate_escaleta(topic)   → escaleta (persistida en _steps/<id>/01a_escaleta.json)
+    generate_escaleta(topic)   → escaleta (persistida en _steps/<id>/01a_escaleta.json); sin ficha v2, EscaletaSinFicha
     frozen_escaleta(topic)     token `escaleta_frozen` (o `skeleton_frozen` apuntando a una escaleta): usa una ya
                                hecha, traduce sus ids al pool actual por texto, como frozen_skeleton
     is_v3(topic)               GUION_V3=1 o topic["guion_version"] == 3, y el topic tiene evidence_pool
@@ -37,7 +38,6 @@ F6b-3 (validación del analista sobre f6b-2):
                    el nombre de quien la dijo; `humano_en_escena` solo con un dato VERIFICADO suyo.
     un conteo      517 y «más de 500» son un hecho (gfx_pool.count_groups): la aproximada no va en ningún beat.
     guionista      `instrucciones_guionista`: reglas deterministas para m01b (cifra única, quién no se nombra).
-    notas          topic["escaleta_notas"]: indicaciones del editor para ESE tema (van al prompt tal cual).
 
 F6b-4 (validación del analista sobre f6b-3):
     contador       `contador: true` en el beat cuya cifra sale como CONTADOR en pantalla
@@ -59,8 +59,6 @@ from typing import Any, Callable
 from script_engine import evidence as ev
 from script_engine.m01a_skeleton import CHAPTER_SCHEMA, DEFAULT_INTENT_BY_CAP, STEPS_DIR, finalize_pool_plan
 
-PROMPT_VERSION = "f6b-4"            # f6b-4: contador, una cifra en pantalla una vez, pregunta del cap 7, cierre sin eco
-MAX_ATTEMPTS = 3
 def _vl(name: str) -> int:
     from script_engine.video_length import get
     return get(name)
@@ -108,7 +106,11 @@ def has_figure(text: str) -> bool:
 
 
 class EscaletaValidationError(ValueError):
-    """La escaleta que devolvió Pro no cumple el contrato (después de los reintentos)."""
+    """La escaleta que devolvió el modelo no cumple el contrato (después de la regeneración)."""
+
+
+class EscaletaSinFicha(Exception):
+    """F39 §A.2: el topic no tiene `ficha_caso.json` con `historia` (ficha v2); la escaleta no corre (PARADA)."""
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -139,45 +141,10 @@ SCHEMA: dict[str, Any] = {
     },
     "required": ["humano", "antagonista", "promesa_gancho", "pico", "cierre_humano", "beats", "a_pantalla"],
 }
-
-
-# ═══════════════════════════════════════════════════════════════
-#  Prompt
-# ═══════════════════════════════════════════════════════════════
-
-SYSTEM = ("Sos el guionista jefe de un canal de documentales de misterio en YouTube. Antes de que nadie escriba una "
-          "línea, decidís la HISTORIA: a quién seguimos, qué sabe el espectador en cada momento, dónde golpea y por qué "
-          "se queda al segundo siguiente. Trabajás SOLO con la investigación que te dan: no inventás nombres, cifras, "
-          "fechas ni citas. Respondés SOLO JSON.")
-
-FEWSHOT = """EJEMPLO 1 (OTRO TEMA, solo para la FORMA — no uses nada de su contenido):
-Tema: la mina de Sago, 2006. Humano: Randal McCloy, el único minero que salió vivo. Antagonista: la empresa.
-promesa_gancho: "Esa noche le dijeron a doce familias que sus hombres estaban vivos. Esta es la historia de las tres horas que siguieron."
-beats:
- 1 cap1 gancho · miedo 3 · imagen: "un casco con la lámpara todavía encendida, tirado en el barro negro del túnel" · pregunta: "¿qué pasó allá abajo?" · cierre: anticipa la explosión de las 6:26
- 2 cap2 planteo · inquietud 2 · imagen: "trece hombres bajando en el carro, termos de café entre las rodillas" · humano en escena
- 3 cap3 escalada · angustia 3 · imagen: "golpes con un martillo contra el techo de roca, cada quince minutos"
- 4 cap4 escalada · esperanza falsa 4 · imagen: "la iglesia llena, las campanas sonando a medianoche" · pregunta pantalla: "¿Quién dijo que estaban vivos?"
- 5 cap5 pico · horror 5 · imagen: "la misma iglesia, tres horas después, alguien grita desde el fondo" · pregunta pantalla: "¿Por qué nadie corrigió la noticia?"
- 6 cap5 respiro · duelo 1 · imagen: "una nota escrita a lápiz en el reverso de un seguro de vida"
- 7 cap6 consecuencia · rabia 3 · imagen: "un sobre de multas de la mina, sin abrir, sobre un escritorio" · humano en escena
- 8 cap7 cierre · tristeza 2 · imagen: "McCloy aprendiendo a caminar otra vez en un pasillo de hospital" · humano en escena · pregunta pantalla: "¿Cuántas minas siguen así?"
-
-EJEMPLO 2 (OTRO TEMA, solo para la FORMA):
-Tema: el incendio de la fábrica Triangle, Nueva York, 1911. Humano: una obrera de 16 años que sobrevivió.
-promesa_gancho: "Las puertas del noveno piso estaban cerradas con llave. Alguien tenía esa llave."
-beats:
- 1 cap1 gancho · terror 3 · imagen: "humo saliendo por las ventanas del noveno piso y gente mirando desde la vereda" · cierre: anticipa la puerta cerrada
- 2 cap2 planteo · rutina 2 · imagen: "doscientas máquinas de coser, pelusa de algodón flotando en la luz de la tarde" · humano en escena
- 3 cap3 escalada · pánico 4 · imagen: "una manija de bronce que no gira" · humano en escena · pregunta pantalla: "¿Quién cerró esa puerta?"
- 4 cap4 pico · horror 5 · imagen: "la escalera de los bomberos llega hasta el sexto piso; ellas están en el noveno"
- 5 cap5 respiro · silencio 1 · imagen: "zapatos de mujer alineados en el muelle, esperando que alguien los reconozca"
- 6 cap6 consecuencia · indignación 3 · imagen: "los dueños saliendo del tribunal entre fotógrafos" · pregunta pantalla: "¿Por qué los dueños salieron libres?"
- 7 cap7 cierre · memoria 2 · imagen: "una anciana mirando la misma ventana, setenta años después" · humano en escena · pregunta pantalla: "¿Cuántas puertas siguen cerradas?"
-"""
+# F39 §A.2: SCHEMA ya no se manda solo (era el de la escaleta sin ficha, borrada); queda como base de SCHEMA_FICHA.
 
 # F15 §1.3: con ficha v2, cada beat puede citar la escena de la ficha que usa (`escena_idx`) y la escaleta justifica
-# un humano que no está entre los candidatos (`justificacion_humano`). Esquema aparte: sin ficha se manda SCHEMA.
+# un humano que no está entre los candidatos (`justificacion_humano`).
 SCHEMA_FICHA: dict[str, Any] = copy.deepcopy(SCHEMA)
 SCHEMA_FICHA["properties"]["beats"]["items"]["properties"]["escena_idx"] = _I
 SCHEMA_FICHA["properties"]["justificacion_humano"] = _S
@@ -187,132 +154,8 @@ SCHEMA_FICHA["properties"]["antagonista"] = {"type": "OBJECT", "properties": {
     "tipo": {"type": "STRING", "enum": ["persona", "institucion", "ninguno"]}, "id": _S, "nombre": _S, "por_que": _S},
     "required": ["tipo", "id", "nombre", "por_que"]}
 
-MAX_APOYOS = 3                      # datos_apoyo por beat (sin ficha, como siempre)
+MAX_APOYOS = 3                      # datos_apoyo por beat sin ficha: hoy solo el default de `validate` (escaleta_frozen)
 MAX_APOYOS_FICHA = 6                # F14 §1.2: con la ficha, 0–6 (deja pasar material; no es una regla nueva)
-
-
-def rules_text(cap_words: dict[int, int], min_beats: int, max_beats: int, min_dev: int = 1,
-               max_apoyos: int = MAX_APOYOS) -> str:
-    """Las reglas con el perfil de largo (F7d: el amarillo de la compuerta acorta el video)."""
-    dev = (f" Los caps de desarrollo (2–6) tienen al menos {min_dev} beats cada uno." if min_dev > 1 else "")
-    return f"""REGLAS DE LA ESCALETA (duras: si no se cumplen, se rechaza):
-1. Entre {min_beats} y {max_beats} beats, numerados 1..N en orden, cada uno con su `cap` (1–7, no decreciente). Los 7
-   caps tienen al menos un beat.{dev} El beat 1 es la `funcion` "gancho" del cap 1.
-2. `palabras_objetivo`: los beats de un cap suman su largo: cap 1 ≈ {cap_words[1]}, caps 2–6 ≈ {cap_words[2]} cada uno,
-   cap 7 ≈ {cap_words[7]}.
-3. `intensidad` de {INTENSITY[0]} a {INTENSITY[1]}: NO BAJA hasta el pico (cada cap peor que el anterior). El pico no es
-   el último beat, y después del pico hay al menos un beat de intensidad 1 (respiro: el espectador respira antes del
-   cierre). FLASH-FORWARD: el beat 1 puede contar primero un momento POSTERIOR y más intenso (`flash_forward: true`);
-   el cap 2 vuelve atrás («cómo se llegó ahí») y la curva se mide desde el beat 2. Solo el beat 1 puede serlo.
-4. Cada beat tiene UN `dato_central` (un id D##, T## o Q## del pool) y 0–{max_apoyos} `datos_apoyo`. Un id aparece en UN solo beat
-   en todo el video (después se puede parafrasear sin la cifra). `pico.id` = el dato central del beat del pico.
-5. `humano`: UNA persona del pool que estuvo ahí (preferí un TESTIGO, con testimonio: es a quien seguimos). Va con su
-   `id` P## y su `nombre` EXACTO del pool. Si el pool no tiene testigos con nombre: un personaje colectivo con rostro
-   («un preso de Templeman III, 19 años, según la ACLU») con `colectivo: true`, `nombre` = esa descripción, `id` = el
-   Q## o D## que lo documenta y `fuente` = el mismo id. NUNCA un nombre inventado.
-   `humano_en_escena: true` SOLO en los beats que tienen un dato SUYO VERIFICADO (su cita, o un dato que lo nombra) como
-   dato central o de apoyo: el guionista no puede ponerlo en una escena que el research no documenta. Tiene que
-   estar así en al menos {MIN_HUMAN_CAPS} caps distintos (el primero, antes del cap 3); si el pool tiene menos datos
-   suyos, en tantos caps como datos tenga. En los demás beats se lo puede nombrar, no poner en escena.
-6. `antagonista`: el P## del pool al que el research le atribuye la decisión que causó el daño.
-7. `imagen_sensorial`: algo que se VE, se OYE, se HUELE o se TOCA en ese momento («agua negra subiendo por la escalera
-   de la celda»); nunca una idea abstracta («la desesperación»). Sale del pool: no inventes objetos que contradigan el
-   research. Es el ancla de la imagen del cap.
-8. Gancho: `promesa_gancho` = UNA frase con lo que el espectador va a descubrir; sin cifras ni años (tampoco en
-   letras: «seis mil» es una cifra; «miles» no). La
-   `imagen_sensorial` del beat 1 tampoco lleva cifras. La narración va a abrir con esa imagen y esa promesa.
-9. `pregunta_pantalla` en el ÚLTIMO beat de cada cap (en los otros, ""): ≤ {Q_MAX_WORDS} palabras, empieza con «¿» y
-   termina con «?»; nombra algo que el espectador YA conoce (persona, grupo, lugar u objeto de este cap o de antes);
-   implica culpa, consecuencia o un destino no resuelto; sin nombres propios nuevos y sin términos administrativos
-   (indemnización, generadores, registros, demanda, informe, autoridades, evacuación). Modelos: «¿Quién apagó las
-   luces?», «¿Por qué nadie abrió las celdas?», «¿Dónde están los 517?». Cap 7: no es gancho; es la pregunta humana
-   que se queda («¿Cuántos siguen sin nombre?»).
-10. `cierre` de cada beat que termina un cap 1–6: anticipa algo CONCRETO del cap siguiente (su dato central o su
-    imagen). `pregunta_abierta`: lo que el espectador se pregunta al terminar el beat.
-11. Las cifras de conteo van con su id OFICIAL (ver CIFRAS CANÓNICAS); la variante de medios solo en el beat que cuenta
-    la contradicción. Un conteo con dos cifras (ver UN HECHO, UNA CIFRA) se cuenta UNA vez, con la precisa: los ids de la
-    aproximada no van en ningún beat.
-12. CIERRE: el último beat (cap 7) tiene como dato central una CONSECUENCIA (lo que falta, lo que se negó, lo que nunca
-    se contó), no una victoria ajena. Su `cierre` es la última frase del video y nombra al humano o a otro testigo
-    VERIFICADO. Nunca termina en la cita de alguien que no estuvo ahí: esa va a `a_pantalla`.
-13. `a_pantalla`: [{{"id", "cap", "por_que"}}] — ids que preferís que se VEAN y no se digan (la cita de un abogado, una
-    fuente, un dato que la imagen cuenta mejor). Un id de `a_pantalla` no está en ningún beat. Máximo 2 por cap.
-14. CITAS SIN VERIFICAR (marcadas en el pool): se pueden usar, pero la narración no dice el nombre de quien la dijo
-    («un preso», «una guardia»). Solo las VERIFICADAS se dicen con nombre.
-15. `contador: true` en el beat cuya cifra conviene ver subir en pantalla (una cantidad: personas, días). UNA CIFRA SE
-    VE EN PANTALLA UNA SOLA VEZ en todo el video: si un beat lleva contador, ninguna pregunta de pantalla repite esa
-    cifra; y dos preguntas de pantalla no repiten la misma cifra.
-16. La pregunta de pantalla del cap 7 es OBLIGATORIA: humana, la que se queda («¿Cuántos siguen sin nombre?»).
-17. El `cierre` del último beat describe la última frase del video sin copiar ninguna cita: esa frase va a ser una cita
-    (del humano o de un testigo verificado, por su id) o una pregunta; nunca un resumen (F8 §2).
-
-LO QUE RETIENE (cada decisión responde a por qué alguien se iría):
-- Los primeros 30 s: una imagen concreta y una promesa, no contexto.
-- Un humano con nombre al que seguimos todo el video.
-- Curva: cada cap peor que el anterior. Ritmo: respiros.
-- Cierres que obligan: culpa o consecuencia, nunca trivia administrativa.
-- Final humano: lo que produce el like y el comentario."""
-
-
-RULES = rules_text(CAP_WORDS, MIN_BEATS, MAX_BEATS, MIN_BEATS_DEV_CAP)
-
-
-def own_ids(pool: dict, persona: dict) -> list[str]:
-    """Datos que valen para poner a la persona EN ESCENA: los que la nombran (o son su cita); con verificación en el
-    pool, sus citas cuentan solo si están verificadas."""
-    from script_engine import nombres
-    its = ev.items(pool)
-    sur = nombres.apellido(persona["nombre"])                          # F21: nombres.py
-    vp = any(q.get("verificacion") for q in pool.get("citas") or [])
-    out = []
-    for i, it in its.items():
-        if it["_kind"] not in ("datos", "cronologia", "citas"):
-            continue
-        if not nombres.menciona(ev.text_of(it) + " " + str(it.get("autor") or ""), sur):
-            continue
-        if vp and it["_kind"] == "citas" and (it.get("verificacion") or {}).get("estado") != "verificada":
-            continue
-        out.append(i)
-    return out
-
-
-def _fmt_people(pool: dict) -> str:
-    out = []
-    for p in pool.get("personajes") or []:
-        tags = [t for t, on in (("TESTIGO", p.get("testigo")), ("VERIFICADO", p.get("testigo_verificado")),
-                                ("ANTAGONISTA", p.get("antagonista"))) if on]
-        pres = f" · estuvo en {', '.join(p['presente_en'])}" if p.get("presente_en") else ""
-        own = own_ids(pool, p) if p.get("testigo") else []
-        out.append(f"  [{p['id']}] PERSONA: {p['nombre']} — {p.get('rol') or ''}"
-                   + (f" · {' · '.join(tags)}" if tags else "") + pres
-                   + (f" · datos que lo ponen en escena: {', '.join(own)} (repartilos en caps distintos)" if own else ""))
-    return "\n".join(out) or "  (ninguna)"
-
-
-def _verif(q: dict) -> str:
-    v = q.get("verificacion")
-    if not v:
-        return ""
-    return " · VERIFICADA" if v.get("estado") == "verificada" else " · SIN VERIFICAR (se usa sin el nombre)"
-
-
-def _fmt_quotes(pool: dict) -> str:
-    out = []
-    for q in pool.get("citas") or []:
-        tag = (" · TESTIMONIO (estuvo ahí)" if q.get("testimonio") else "") + _verif(q)
-        rol = f" ({q['rol']})" if q.get("rol") else ""
-        src = f" · fuente: {q['fuente']}" if q.get("fuente") else ""
-        out.append(f'  [{q["id"]}] CITA: "{q["texto"]}" — {q.get("autor")}{rol}{tag}{src}')
-    return "\n".join(out) or "  (ninguna)"
-
-
-def _fmt_canonical(pool: dict) -> str:
-    out = []
-    for g in pool.get("cifras_canonicas") or []:
-        var = ", ".join(f"{v['id']} ({v['valor']}, {v['estatus']})" for v in g["variantes"])
-        out.append(f"  {g['valor']}: la OFICIAL es [{g['oficial']}]; variantes {var}. Usá la oficial; la de medios solo "
-                   "en el beat de la contradicción, junto a la oficial.")
-    return "\n".join(out) or "  (ninguna)"
 
 
 def count_variants(pool: dict) -> list[dict]:
@@ -330,145 +173,12 @@ def count_variants(pool: dict) -> list[dict]:
     return out
 
 
-def _fmt_counts(pool: dict) -> str:
-    return "\n".join(f"  {g['num']} {g['unit']} = [{g['canon']}]. Las otras cifras del MISMO conteo "
-                     f"({', '.join(g['otras'])}: ids {', '.join(g['variantes']) or '—'}) no van en ningún beat."
-                     for g in count_variants(pool)) or "  (ninguno)"
-
-
-def ficha_section(ficha: dict, pool: dict) -> str:
-    """F14 §1.2: la ficha del caso completa (personas, cronología, hechos, cifras con unidad, citas, versiones,
-    decisiones, contradicciones abiertas) con sus ids, que son los del pool. Las marcas (TESTIGO, VERIFICADA…) salen
-    del pool por id."""
-    its = ev.items(pool)
-    in_ficha = {i for sec in ficha.values() if isinstance(sec, list) for x in sec if isinstance(x, dict)
-                for i in list(x.get("ids") or []) + [j for v in (x.get("versiones") or x.get("otras_versiones") or [])
-                                                      for j in v.get("ids") or []]}
-
-    def ids(x: dict) -> str:
-        return "[" + ", ".join(x.get("ids") or []) + "]"
-    # F15 §1.3: la historia y las escenas de la ficha v2 van primero
-    hist = ficha.get("historia") or {}
-    historia: list[str] = []
-    if hist:
-        historia.append("  HUMANOS CANDIDATOS (el humano se elige entre estos; si elegís otro, explicá por qué en "
-                        "`justificacion_humano`):")
-        historia += [f"    {ids(x)} {x.get('nombre')} — {x.get('rol')} · {x.get('arco')} · citas verificadas: "
-                     f"{x.get('citas_verificadas')}" for x in hist.get("humanos_candidatos") or []]
-        historia.append("  GIROS:")
-        historia += [f"    {x.get('orden')}. {x.get('que_cambia')} {ids(x)}"
-                     for x in sorted(hist.get("giros") or [], key=lambda g: g.get("orden") or 0)]
-        if hist.get("pico"):
-            historia.append(f"  PICO: {hist['pico'].get('que')} — {hist['pico'].get('por_que')} {ids(hist['pico'])}")
-        if hist.get("pregunta_final"):
-            historia.append(f"  PREGUNTA FINAL: {hist['pregunta_final'].get('pregunta')} {ids(hist['pregunta_final'])}")
-    escenas = [f"  E{k}. {x.get('donde')} · {x.get('quien')} — {x.get('que_pasa')} · se ve, se oye, se huele: "
-               f"{x.get('sentidos')} {ids(x)}" for k, x in enumerate(ficha.get("escenas") or [], 1)]
-    people = []
-    for x in ficha.get("personas") or []:
-        tags = []
-        for i in x.get("ids") or []:
-            p = its.get(i)
-            if p and p["_kind"] == "personajes":
-                tags += [t for t, on in (("TESTIGO", p.get("testigo")), ("VERIFICADO", p.get("testigo_verificado")),
-                                         ("ANTAGONISTA", p.get("antagonista"))) if on and t not in tags]
-                if p["nombre"] != x.get("nombre"):
-                    tags.append(f"nombre en el pool: {p['nombre']}")
-                own = [j for j in own_ids(pool, p) if j in in_ficha] if p.get("testigo") else []
-                if own:
-                    tags.append(f"datos que lo ponen en escena: {', '.join(own)} (repartilos en caps distintos)")
-        people.append(f"  {ids(x)} PERSONA: {x.get('nombre')} — {x.get('rol')}" + (f" · {' · '.join(tags)}" if tags else ""))
-    gone = [f"  {ids(x)} {x.get('nombre')} — {x.get('rol')} · por qué hace falta: {x.get('motivo')}"
-            for x in ficha.get("personas_descartadas") or []]
-    crono = []
-    for x in ficha.get("cronologia") or []:
-        h = x.get("hora") if x.get("hora") and str(x.get("hora")).lower() not in ("null", "none") else ""
-        crono.append(f"  {ids(x)} {x.get('fecha')}{' ' + h if h else ''}{' (aproximada)' if x.get('aproximada') else ''}"
-                     f" — {x.get('evento')}")
-    hechos = [f"  {ids(x)}" + (f" (nivel {x['nivel']} · {x.get('sirve_para')})" if x.get("nivel") else "")
-              + f" {x.get('texto')}" for x in ficha.get("hechos") or []]
-    cifras = []
-    for x in ficha.get("cifras") or []:
-        otras = "; ".join(f"{v.get('valor')} {v.get('unidad')} [{', '.join(v.get('ids') or [])}]"
-                          for v in x.get("otras_versiones") or [])
-        cifras.append(f"  {ids(x)} {x.get('que')}: {x.get('valor')} {x.get('unidad')} · {x.get('fuente')}"
-                      + (f" · otras fuentes: {otras}" if otras else ""))
-    citas = []
-    for x in ficha.get("citas") or []:
-        q = next((its[i] for i in x.get("ids") or [] if i in its and its[i]["_kind"] == "citas"), None)
-        tag = ((" · TESTIMONIO (estuvo ahí)" if q.get("testimonio") else "") + _verif(q)) if q else ""
-        citas.append(f'  {ids(x)} CITA: "{x.get("texto")}" — {x.get("autor")} ({x.get("rol")}){tag}')
-
-    def vers(xs: list[dict], key: str = "versiones") -> list[str]:
-        out = []
-        for x in xs:
-            out.append(f"  {x.get('tema')}" + (f" · {x['decision']} {ids(x)}" if x.get("decision") else ""))
-            out += [f"    - {v.get('dice')} [{', '.join(v.get('ids') or [])}]" for v in x.get(key) or []]
-        return out
-    blocks = ([("HISTORIA", historia),
-               ("ESCENAS (El beat 1 (gancho) y el beat del pico toman su `imagen_sensorial` de una escena de la ficha "
-                "cuando hay una para ese momento; los demás beats, cuando sirva. El beat que usa una escena lleva su "
-                "número en `escena_idx`.)", escenas)] if "historia" in ficha else [])
-    blocks += [("PERSONAS", people), ("PERSONAS QUE EL RESEARCH DESCARTÓ Y LA HISTORIA NECESITA", gone),
-              ("CRONOLOGÍA", crono), ("HECHOS", hechos), ("CIFRAS (con unidad; la principal y las otras versiones)", cifras),
-              ("CITAS", citas),
-              ("VERSIONES (hechos disputados: se cuentan como versiones, no se resuelven)", vers(ficha.get("versiones") or [])),
-              ("DECISIONES DE LA FICHA (la versión que quedó y las otras)",
-               vers(ficha.get("decisiones") or [], "otras_versiones")),
-              ("CONTRADICCIONES SIN RESOLVER", vers(ficha.get("contradicciones") or []))]
-    return ("FICHA DEL CASO (el research depurado: la única fuente; los ids son los del pool)\n\n"
-            + "\n\n".join(f"{t}:\n" + ("\n".join(b) or "  (ninguno)") for t, b in blocks))
-
-
-def pool_section(pool: dict, ficha: dict | None = None) -> str:
-    # F14: si hay ficha del caso, la escaleta lee la ficha (no el digest ni el pool). Sin ficha, como siempre.
-    if ficha:
-        return ficha_section(ficha, pool)
-    # F7c: un pool de research v3 (cientos de datos) trae `digest`, su resumen con ids reales; la escaleta lo lee en vez
-    # del pool entero (≈ 63 k → ≤ 20 k tokens). ESCALETA_DIGEST=0 lo apaga. Sin digest, todo igual que antes.
-    if (pool.get("digest") or {}).get("texto") and os.environ.get("ESCALETA_DIGEST", "1") != "0":
-        return pool["digest"]["texto"]
-    ids = [i for i, it in ev.items(pool).items() if it["_kind"] in ("datos", "cronologia", "lugares")]
-    return (f"DATOS, CRONOLOGÍA Y LUGARES:\n{ev.format_pool(pool, ids)}\n\nCITAS:\n{_fmt_quotes(pool)}\n\n"
-            f"PERSONAS:\n{_fmt_people(pool)}\n\nCIFRAS CANÓNICAS:\n{_fmt_canonical(pool)}\n\n"
-            f"UN HECHO, UNA CIFRA:\n{_fmt_counts(pool)}")
-
-
 def _profile(topic: dict) -> tuple[dict[int, int], int, int, int]:
     """(palabras por cap, mínimo y máximo de beats, mínimo de beats por cap de desarrollo): los de siempre, o los del
     amarillo de la compuerta del pool (`topic["_largo"]`, F7d)."""
     lg = topic.get("_largo") or {}
     return (lg.get("cap_words") or CAP_WORDS, MIN_BEATS, lg.get("max_beats") or MAX_BEATS,
             lg.get("min_beats_dev_cap") or MIN_BEATS_DEV_CAP)
-
-
-def build_prompt(topic: dict, pool: dict, feedback: list[str] | None = None, ficha: dict | None = None) -> str:
-    fb = ""
-    if feedback:
-        fb = ("\n═══ TU ESCALETA ANTERIOR SE RECHAZÓ. CORREGÍ ESTO (sin romper lo demás) ═══\n"
-              + "\n".join(f"- {x}" for x in feedback) + "\n")
-    notes = str(topic.get("escaleta_notas") or "").strip()
-    if topic.get("escaleta_solo_apoyo"):
-        notes += ("\n" if notes else "") + ("Estos ids van SOLO como datos de apoyo, nunca como dato central: "
-                                             + ", ".join(topic["escaleta_solo_apoyo"]) + ".")
-    if notes:
-        fb = ("\n═══ INDICACIONES DEL EDITOR PARA ESTE TEMA (mandan sobre tu criterio, nunca sobre las reglas) ═══\n"
-              + notes + "\n") + fb
-    return f"""TEMA DEL VIDEO: {topic.get("video_title") or "(sin título)"}
-Ángulo: {topic.get("angle") or "-"}
-Hook del research: {topic.get("hook") or "-"}
-Misterio: {topic.get("mystery") or "-"}
-Revelación: {topic.get("reveal") or "-"}
-
-═══ INVESTIGACIÓN (EVIDENCE POOL): la ÚNICA fuente de nombres, cifras, fechas y citas ═══
-{pool_section(pool, ficha)}
-
-═══ CÓMO SE VE UNA BUENA ESCALETA ═══
-{FEWSHOT}
-═══ {rules_text(*_profile(topic), max_apoyos=MAX_APOYOS_FICHA if ficha else MAX_APOYOS)}
-{fb}
-Devolvé la escaleta de ESTE tema en el JSON pedido. Pensá primero a quién seguimos y dónde está el pico; después
-repartí los beats en los 7 caps."""
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -1060,15 +770,16 @@ def call_escaleta(modelo: str | None = None) -> Callable[..., dict]:
     return call_for(modelo)
 
 
-def generate_escaleta(topic: dict, *, call: Callable[..., dict] | None = None, attempts: int = MAX_ATTEMPTS,
+def generate_escaleta(topic: dict, *, call: Callable[..., dict] | None = None,
                       log: list[str] | None = None, persist: bool = True, ficha: dict | None | str = "auto",
                       columna: dict | None | str = None, modelo: str | None = None) -> dict:
-    """Escaleta del topic (Pro, hasta `attempts` con feedback). EscaletaValidationError si ninguna pasa.
-    F25c: con ficha (v2), sin `call` va `call_escaleta(modelo)` (Fable 5.1 por defecto; Sol con modelo="gpt-6.1-sol").
-    F14: `ficha="auto"` lee `_steps/<topic>/ficha_caso.json` si existe (la escaleta lee la ficha, no el digest, y los
-    apoyos van de 0 a 6); sin ficha, todo como siempre.
-    F16: con ficha v2 (con `historia`), `generate_escaleta_v2`: prompt del analista, Sol high, 13 bloqueantes y una sola
-    regeneración (`attempts` no aplica).
+    """Escaleta del topic. EscaletaValidationError si no pasa los bloqueantes después de la regeneración.
+    F25c: sin `call` va `call_escaleta(modelo)` (Fable 5.1 por defecto; Sol con modelo="gpt-6.1-sol").
+    F14: `ficha="auto"` lee `_steps/<topic>/ficha_caso.json` si existe.
+    F16: con ficha v2 (con `historia`), `generate_escaleta_v2`: prompt del analista, 13 bloqueantes y una sola
+    regeneración.
+    F39 §A.2: sin ficha v2 (no hay ficha, o no tiene `historia`), EscaletaSinFicha: para sin llamar a ningún modelo. El
+    camino viejo (Pro con el pool o la ficha v1) se borró.
     F17: `columna` (solo con ficha v2): None → F16 tal cual; un dict → la escaleta lee esa columna; "generar" → después
     de la compuerta del pool, `m01a_columna.generate_columna` (Sol high, mismo `call`) y la escaleta la lee."""
     log = log if log is not None else []
@@ -1084,45 +795,13 @@ def generate_escaleta(topic: dict, *, call: Callable[..., dict] | None = None, a
     if ficha == "auto":
         from researcher_steps.ficha_caso import load as _load_ficha
         ficha = _load_ficha(topic_id, STEPS_DIR)
-    if ficha and "historia" in ficha:                # F16: con ficha v2, la escaleta v2 (Sol, 13 bloqueantes)
-        if columna == "generar":                     # F17: ficha → columna → escaleta
-            from script_engine.m01a_columna import generate_columna
-            columna = generate_columna(topic, pool, ficha, call=call, log=log, persist=persist)
-        return generate_escaleta_v2(topic, pool, ficha, call=call, log=log, persist=persist, gate=gate,
-                                    topic_id=topic_id, columna=columna or None, modelo=modelo)
-    max_ap = MAX_APOYOS_FICHA if ficha else MAX_APOYOS
-    if call is None:
-        from gemini_helpers import call_pro_json as call
-    feedback: list[str] = []
-    intentos = []
-    for k in range(1, attempts + 1):
-        raw = call(build_prompt(topic, pool, feedback, ficha), system_instruction=SYSTEM,
-                   response_schema=SCHEMA_FICHA if ficha and "historia" in ficha else SCHEMA,
-                   description=f"m01a_escaleta intento {k}")
-        esc, hard, rep, warn = validate(raw, pool, final=k == attempts, context=str(topic.get("video_title") or ""),
-                                        solo_apoyo=tuple(topic.get("escaleta_solo_apoyo") or ()),
-                                        largo=topic.get("_largo"), max_apoyos=max_ap)
-        intentos.append({"intento": k, "problemas": hard, "reparaciones": rep, "avisos": warn})
-        log.append(f"  [escaleta] intento {k}: {len(hard)} problema(s) {hard[:4]} · {len(rep)} reparación(es)")
-        if not hard:
-            esc.update({"topic_id": topic_id, "prompt_version": PROMPT_VERSION, "_reparaciones": rep, "_avisos": warn,
-                        "_intentos": intentos})
-            if ficha:
-                esc["ficha"] = {"prompt_version": ficha.get("prompt_version"), "pool_md5": ficha.get("pool_md5")}
-                ficha_notes(esc, ficha)
-            if gate:
-                esc["pool_gate"] = {k: gate[k] for k in ("color", "metricas", "motivos", "target_words")}
-            apply_pool_plan(esc, pool)
-            if persist:
-                _persist(topic_id, esc)
-            return esc
-        feedback = hard
-    fail = {"topic_id": topic_id, "prompt_version": PROMPT_VERSION, "_intentos": intentos, "ultima": raw}
-    if persist:
-        (STEPS_DIR / topic_id).mkdir(parents=True, exist_ok=True)
-        (STEPS_DIR / topic_id / "01a_escaleta_rechazada.json").write_text(json.dumps(fail, ensure_ascii=False, indent=2),
-                                                                          encoding="utf-8")
-    raise EscaletaValidationError(f"escaleta rechazada después de {attempts} intentos: {intentos[-1]['problemas']}")
+    if not (ficha and "historia" in ficha):          # F39 §A.2: sin ficha v2 no hay escaleta (ni camino viejo)
+        raise EscaletaSinFicha(f"{topic_id}: sin ficha_caso.json con historia")
+    if columna == "generar":                         # F17: ficha → columna → escaleta
+        from script_engine.m01a_columna import generate_columna
+        columna = generate_columna(topic, pool, ficha, call=call, log=log, persist=persist)
+    return generate_escaleta_v2(topic, pool, ficha, call=call, log=log, persist=persist, gate=gate,
+                                topic_id=topic_id, columna=columna or None, modelo=modelo)
 
 
 # ═══════════════════════════════════════════════════════════════

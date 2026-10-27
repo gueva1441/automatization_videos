@@ -293,8 +293,8 @@
   {
    "modulo": "m01a_escaleta",
    "archivo": "script_engine/m01a_escaleta.py",
-   "sticker": "Fase 1: arma la escaleta (los beats del video con función, intensidad, datos y cierre) desde la ficha del caso; es lo que el gfx lee para saber qué va dónde.",
-   "recibe": "ficha del caso + pool",
+   "sticker": "Fase 1: arma la escaleta (los beats del video con función, intensidad, datos y cierre) desde la ficha del caso v2; es lo que el gfx lee para saber qué va dónde. F39 §A.2: sin ficha v2 (`ficha_caso.json` con `historia`) lanza `EscaletaSinFicha` y para sin gastar; el camino viejo sin ficha (prompt, reglas y ejemplos de Pro) se borró.",
+   "recibe": "ficha del caso v2 + pool",
    "entrega": "`01a_escaleta.json`",
    "lo_llama": [
     "fase1_5.py",
@@ -305,7 +305,7 @@
     "script_engine/m01d_particion.py",
     "script_engine/tts_tags.py"
    ],
-   "tests": 18,
+   "tests": 20,
    "lab": 28,
    "tanda": "F6",
    "nacio": "4b41280 2026-10-21 wip(f6b): m01a_escaleta (schema, prompt con few-shot, validador, pool plan heredado, frozen) + tests",

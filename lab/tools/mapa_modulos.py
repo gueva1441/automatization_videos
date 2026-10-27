@@ -159,7 +159,9 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                         "beat pico de cada cap.", "escaleta + narración por beat + tiempos de la voz",
                         "tramos de volumen por cap, beat pico", "F28", "vivo"),
     "m01a_escaleta": ("Fase 1: arma la escaleta (los beats del video con función, intensidad, datos y cierre) desde la "
-                      "ficha del caso; es lo que el gfx lee para saber qué va dónde.", "ficha del caso + pool",
+                      "ficha del caso v2; es lo que el gfx lee para saber qué va dónde. F39 §A.2: sin ficha v2 "
+                      "(`ficha_caso.json` con `historia`) lanza `EscaletaSinFicha` y para sin gastar; el camino viejo "
+                      "sin ficha (prompt, reglas y ejemplos de Pro) se borró.", "ficha del caso v2 + pool",
                       "`01a_escaleta.json`", "F6", "vivo (fase 1; el gfx lee su salida)"),
     "m01d_particion": ("Fase 1: parte el guion en los 7 capítulos con su texto para la voz; de ahí salen la "
                        "narración por cap y por beat que leen el realizador y el guion en papel. F38e: los títulos de "

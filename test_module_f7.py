@@ -351,14 +351,6 @@ def test_verification_states():
     assert c == {"verificada": 1, "verificada_parcial": 2, "sin_verificar": 1}
 
 
-def test_escaleta_reads_v3_pool():
-    """Integración sin LLM: el prompt de la escaleta (m01a) se arma con el pool v3."""
-    from script_engine import m01a_escaleta as me
-    pool = r3.build_pool(_per_doc(), DOCS, _texts(), event_year=2005)
-    prompt = me.build_prompt({"id": "t", "video_title": "OPP", "evidence_pool": pool, "verified_facts": []}, pool)
-    assert "Dan Bright" in prompt and "VERIFICADA" in prompt
-
-
 def test_flag_on_by_default(monkeypatch):
     """F7d (§9.2): research v3 es el default para seeds nuevos; RESEARCH_V3=0 vuelve al camino viejo."""
     monkeypatch.delenv("RESEARCH_V3", raising=False)
@@ -480,20 +472,12 @@ def test_population_canon_lists_all_variants_with_source(voc_orleans):
     assert all(v["estatus"].startswith("según ") for v in g2["variantes"])
 
 
-def test_digest_has_real_ids_and_escaleta_uses_it(monkeypatch):
-    from script_engine import m01a_escaleta as me
+def test_digest_has_real_ids():
+    # F39 §A.2: la escaleta sin ficha (la que leía el digest) se borró; queda el digest del research con ids reales
     pool = r3.build_pool(_per_doc(), DOCS, _texts(), event_year=2005)
     dg = pool["digest"]
     its = {it["id"] for k in r3.KINDS for it in pool[k]}
     assert dg["ids"] and set(dg["ids"]) <= its and "DATOS POR DOCUMENTO" in dg["texto"]
-    topic = {"id": "t", "video_title": "OPP", "evidence_pool": pool, "verified_facts": []}
-    assert dg["texto"] in me.build_prompt(topic, pool)
-    monkeypatch.setenv("ESCALETA_DIGEST", "0")
-    assert dg["texto"] not in me.build_prompt(topic, pool)
-    old = {k: v for k, v in pool.items() if k != "digest"}
-    monkeypatch.delenv("ESCALETA_DIGEST")
-    assert me.pool_section(old) == me.pool_section({**old})                 # sin digest: el camino de siempre
-    assert "DATOS, CRONOLOGÍA Y LUGARES" in me.pool_section(old)
 
 
 def test_one_word_quote_is_not_a_quote():

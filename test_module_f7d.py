@@ -76,10 +76,12 @@ def test_escaleta_gate_red_spends_nothing_yellow_shortens(tmp_path, monkeypatch)
     g = me.pool_gate_profile(t, YELLOW)
     assert g["color"] == pg.YELLOW
     assert "_largo" not in t                                       # F23 §1.2: el amarillo ya no acorta
-    assert f"Entre 7 y {me.MAX_BEATS} beats" in me.build_prompt(t, YELLOW)
+    # F39 §A.2: el prompt sin ficha (que decía «Entre 7 y N beats») se borró; el rango sale de `_profile`, el mismo
+    # que la escaleta v2 dice en el usuario («Esta escaleta lleva entre … beats»)
+    assert me._profile(t)[1:3] == (7, me.MAX_BEATS)
     old = {k: v for k, v in GREEN.items() if k != "_research_v3"}      # pool viejo: sin compuerta
     assert me.pool_gate_profile({"id": "t-old"}, old) is None
-    assert f"Entre 7 y {me.MAX_BEATS} beats" in me.build_prompt({"id": "t-old"}, old)       # F8b: tope 14
+    assert me._profile({"id": "t-old"})[1:3] == (7, me.MAX_BEATS)                            # F8b: tope 14
 
 
 # ── RESEARCH_V3 por defecto en topic_researcher ───────────────────────────────

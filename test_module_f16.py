@@ -1,23 +1,19 @@
 """
 test_module_f16.py — F16 (escaleta v2): el sistema v2 byte-idéntico al archivo del analista; el usuario con la forma
 del archivo (caso, ficha con historia y escenas primero, tarea literal al final; sin reglas, sin FEWSHOT, sin notas);
-sin ficha, todo byte-idéntico; los 13 bloqueantes (un caso cada uno, sobre los fixtures de test_module_f6b); una sola
+(F39 §A.2: el camino sin ficha se borró, con sus tests; ver test_module_f39_escaleta); los 13 bloqueantes (un caso cada uno, sobre los fixtures de test_module_f6b); una sola
 regeneración y después PARADA; las métricas no rechazan; sin `instrucciones_guionista` con ficha; Sol high por
 defecto. Sin red.
 """
 from __future__ import annotations
 
 import copy
-import hashlib
 from pathlib import Path
 
 import pytest
 
 from script_engine import m01a_escaleta as me
 from test_module_f6b import POOL, _pool3, good
-from test_module_f11 import POOL as POOL11
-from test_module_f11 import TOPIC as TOPIC11
-from test_module_f14 import ESC_MD5
 
 F16 = Path(__file__).resolve().parent / "lab" / "hyperframes" / "f16"
 
@@ -69,28 +65,6 @@ def test_usuario_v2_con_la_forma_del_archivo():
         assert viejo not in p
     assert "E1. celda" in p and "· — ·" in p                                     # Q01 sin verificación en POOL
     assert "VERIFICADA" in me.build_prompt_v2(TOPIC, _pool3(), FICHA)           # en _pool3, Q01 está verificada
-
-
-# ═══════════════════════════════════════════════════════════════
-#  Sin ficha: byte-idéntico (§1.1)
-# ═══════════════════════════════════════════════════════════════
-
-def test_sin_ficha_byte_identico():
-    assert hashlib.md5(me.build_prompt(TOPIC11, POOL11).encode()).hexdigest() == ESC_MD5["sin_fb"]
-    assert hashlib.md5(me.build_prompt(TOPIC11, POOL11, ["a"]).encode()).hexdigest() == ESC_MD5["fb"]
-
-
-def test_sin_ficha_sigue_por_el_camino_viejo(tmp_path, monkeypatch):
-    monkeypatch.setattr(me, "STEPS_DIR", tmp_path)
-    monkeypatch.setattr(me, "pool_gate_profile", lambda *a, **k: None)
-    seen = {}
-
-    def call(prompt, **kw):
-        seen.update(s=kw.get("system_instruction"), schema=kw.get("response_schema"))
-        raise RuntimeError("corte")
-    with pytest.raises(RuntimeError):
-        me.generate_escaleta(TOPIC, call=call, persist=False)
-    assert seen["s"] == me.SYSTEM and seen["schema"] is me.SCHEMA
 
 
 # ═══════════════════════════════════════════════════════════════
