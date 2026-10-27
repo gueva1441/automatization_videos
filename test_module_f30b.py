@@ -111,19 +111,20 @@ def test_concat_segments_con_gfx_no_cae_al_xfade_de_arte():
 # ═══════════════ B.3: pre-roll del title card ═══════════════
 
 def test_pre_roll_corre_los_subtitulos_y_la_chascada_saca_las_comillas(tmp_path):
+    # F40 §B: el long-form (único con pre-roll) quema subtítulos documentales; la chascada de comillas va siempre
     import fase2b
     words = [{"word": "Dijo", "start": 1.0, "end": 1.3}, {"word": "«basta»", "start": 1.4, "end": 1.9},
              {"word": "y…", "start": 2.0, "end": 2.2}, {"word": "calló.", "start": 2.3, "end": 2.8}]
-    a = fase2b._build_ass_from_words(words=words, output_path=tmp_path / "a.ass", audio_duration=4.0,
+    a = fase2b._build_ass_documental(words=words, output_path=tmp_path / "a.ass", audio_duration=4.0,
                                      video_width=2560, video_height=1440)
-    b = fase2b._build_ass_from_words(words=words, output_path=tmp_path / "b.ass", audio_duration=7.0,
-                                     video_width=2560, video_height=1440, pre_pad=3.0, sin_comillas=True)
+    b = fase2b._build_ass_documental(words=words, output_path=tmp_path / "b.ass", audio_duration=7.0,
+                                     video_width=2560, video_height=1440, pre_pad=3.0)
     la = [x for x in a.read_text(encoding="utf-8").splitlines() if x.startswith("Dialogue")]
     lb = [x for x in b.read_text(encoding="utf-8").splitlines() if x.startswith("Dialogue")]
-    assert "«BASTA»" in la[1] and "BASTA" in lb[1] and "«" not in "".join(lb) and "»" not in "".join(lb)
-    assert "…" not in "".join(lb)
-    ta = [fase2b._format_ass_time(1.4), fase2b._format_ass_time(4.4)]
-    assert ta[0] in la[1] and ta[1] in lb[1]                                # mismos tiempos + title_dur
+    assert la[0].endswith("Dijo basta y calló.") and lb[0].endswith("Dijo basta y calló.")
+    assert "«" not in "".join(la + lb) and "»" not in "".join(la + lb) and "…" not in "".join(la + lb)
+    ta = [fase2b._format_ass_time(1.0), fase2b._format_ass_time(4.0)]
+    assert ta[0] in la[0] and ta[1] in lb[0]                                # mismos tiempos + title_dur
 
 
 def test_visual_con_pre_roll_agrega_title_dur_de_primer_cuadro(tmp_path):

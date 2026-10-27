@@ -18,7 +18,8 @@ import tokenize
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-CLASES = {"gfx_config.py": ("GfxRules", "GfxRenderSettings"), "transition_config.py": ("TransitionRenderSettings",)}
+CLASES = {"gfx_config.py": ("GfxRules", "GfxRenderSettings"), "transition_config.py": ("TransitionRenderSettings",),
+          "fase2b.py": ("SubsDocumentales",)}                    # F40 §B: subtítulos documentales
 ORIGEN = re.compile(r"(DECISIONES:\s*\S|identidad F3|estándar:\s*\S|derivado:\s*\S|medido:\s*\S)")
 
 
@@ -77,7 +78,8 @@ def perfil_tokens() -> dict:
 def test_inventario_de_constantes():
     filas = constantes()
     assert len(filas) > 60                                    # el parser encontró las clases (F36 §D: 81 tras borrar perillas)
-    assert {f["clase"] for f in filas} == {"GfxRules", "GfxRenderSettings", "TransitionRenderSettings"}
+    assert {f["clase"] for f in filas} == {"GfxRules", "GfxRenderSettings", "TransitionRenderSettings",
+                                           "SubsDocumentales"}
     sin = [f for f in filas if not f["origen"]]
     if os.environ.get("CONSTANTES_ESTRICTO") == "1":
         assert not sin, f"{len(sin)} constantes sin origen: {[f['nombre'] for f in sin]}"

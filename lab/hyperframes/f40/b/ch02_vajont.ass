@@ -1,0 +1,49 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 2560
+PlayResY: 1440
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Documental,Anton,80,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,5.33333,2.66667,2,40,40,108,1
+Style: Hook,Anton,128,&H0000FFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,8,5,5,40,40,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:03.08,0:00:05.58,Documental,,0,0,0,,Longarone está en el fondo\Ndel valle del Piave.
+Dialogue: 0,0:00:06.30,0:00:11.02,Documental,,0,0,0,,El río pasa por delante del pueblo y,\Nenfrente, desde una garganta lateral,
+Dialogue: 0,0:00:11.58,0:00:14.92,Documental,,0,0,0,,baja un torrente que se\Nllama Vajont y que desemboca
+Dialogue: 0,0:00:14.94,0:00:18.10,Documental,,0,0,0,,en el Piave justo frente a\NLongarone y Castellavazzo.
+Dialogue: 0,0:00:19.20,0:00:21.66,Documental,,0,0,0,,En mil novecientos cuarenta\Ny tres se aprobó el
+Dialogue: 0,0:00:21.68,0:00:24.10,Documental,,0,0,0,,proyecto de cerrar esa\Ngarganta con una presa,
+Dialogue: 0,0:00:24.64,0:00:27.36,Documental,,0,0,0,,y empezó la compra de\Nterrenos en Erto y Casso,
+Dialogue: 0,0:00:27.84,0:00:31.12,Documental,,0,0,0,,los pueblos de arriba,\Nlos que iban a quedar al borde del lago.
+Dialogue: 0,0:00:31.96,0:00:33.50,Documental,,0,0,0,,La empresa era SADE.
+Dialogue: 0,0:00:34.46,0:00:37.66,Documental,,0,0,0,,El ingeniero que dibujó la\Nobra se llamaba Carlo Semenza,
+Dialogue: 0,0:00:38.22,0:00:41.02,Documental,,0,0,0,,y la pensó como un arco\Ndelgado de doble curvatura:
+Dialogue: 0,0:00:41.70,0:00:46.72,Documental,,0,0,0,,una pared curva, fina para su tamaño,\Napoyada en las dos laderas de la garganta.
+Dialogue: 0,0:00:47.76,0:00:49.00,Documental,,0,0,0,,Cuando empezaron las obras,
+Dialogue: 0,0:00:49.40,0:00:52.28,Documental,,0,0,0,,unos cuatrocientos hombres\Ncolgados de andamios la
+Dialogue: 0,0:00:52.36,0:00:55.16,Documental,,0,0,0,,fueron levantando hasta tapar\Nel cielo de la garganta.
+Dialogue: 0,0:00:56.14,0:01:00.06,Documental,,0,0,0,,Abajo, en Longarone,\Nla vida siguió con el Piave delante.
+Dialogue: 0,0:01:01.08,0:01:03.00,Documental,,0,0,0,,Longarone no estaba sobre el embalse.
+Dialogue: 0,0:01:03.58,0:01:04.76,Documental,,0,0,0,,Estaba delante de él.
+Dialogue: 0,0:01:05.58,0:01:08.16,Documental,,0,0,0,,Y la montaña que cerraba\Nel lago tenía un apodo.
+Dialogue: 0,0:01:08.94,0:01:12.84,Documental,,0,0,0,,La gente de la zona llamaba al\Nmonte Toc la montaña que camina,
+Dialogue: 0,0:01:13.40,0:01:17.00,Documental,,0,0,0,,y lo decían los residentes desde\Nantes de que nadie fuera a medirla.
+Dialogue: 0,0:01:19.50,0:01:20.82,Documental,,0,0,0,,En la década del cincuenta,
+Dialogue: 0,0:01:21.26,0:01:25.60,Documental,,0,0,0,,el geólogo Leopold Müller detectó\Nen el Toc un gran desmoronamiento.
+Dialogue: 0,0:01:26.52,0:01:28.84,Documental,,0,0,0,,Y hubo otro hombre que\Ncaminó esa ladera con un
+Dialogue: 0,0:01:28.88,0:01:31.58,Documental,,0,0,0,,martillo en la mano y\Notra idea en la cabeza:
+Dialogue: 0,0:01:32.42,0:01:38.20,Documental,,0,0,0,,Edoardo Semenza, geólogo, hijo de Carlo\NSemenza, el que había dibujado la presa.
+Dialogue: 0,0:01:39.26,0:01:42.34,Documental,,0,0,0,,Edoardo buscaba la cicatriz\Nde un deslizamiento antiguo.
+Dialogue: 0,0:01:43.22,0:01:45.62,Documental,,0,0,0,,Según una reconstrucción\Ngeológica posterior,
+Dialogue: 0,0:01:46.12,0:01:50.62,Documental,,0,0,0,,planteó que ese deslizamiento viejo podía\Nreactivarse cuando el embalse se llenara.
+Dialogue: 0,0:01:51.60,0:01:52.72,Documental,,0,0,0,,Müller no lo creía:
+Dialogue: 0,0:01:53.48,0:01:58.10,Documental,,0,0,0,,no creía en el deslizamiento antiguo ni\Nen una capa de arcilla capaz de causarlo.
+Dialogue: 0,0:01:59.04,0:02:02.90,Documental,,0,0,0,,El hijo del proyectista decía que la\Nmontaña ya se había movido una vez.
+Dialogue: 0,0:02:03.64,0:02:04.98,Documental,,0,0,0,,El experto decía que no.
+Dialogue: 0,0:02:05.98,0:02:08.28,Documental,,0,0,0,,En marzo de mil novecientos\Ncincuenta y nueve,
+Dialogue: 0,0:02:08.70,0:02:12.66,Documental,,0,0,0,,en otro embalse de la misma empresa,\Nuna montaña caminó primero.

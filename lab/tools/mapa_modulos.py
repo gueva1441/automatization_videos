@@ -33,7 +33,10 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                "F38e §A: después de armar cada segmento con `--gfx`, chequeo «costuras» medido en el mp4 "
                "(`_medir_cierre`): duración con ffprobe contra el `seg_dur` del guion aprobado (±1 cuadro) y "
                "`blackdetect` del negro de cierre, ✓/✗ en el log del render; la huella del re-ensamble "
-               "(`_segment_hash`) ve el plan resuelto.",
+               "(`_segment_hash`) ve el plan resuelto. F40: el long-form quema subtítulos documentales (Anton del "
+               "perfil, blanco con borde negro, sin resaltar palabra, una oración o frase por evento con ≤ 42 "
+               "caracteres por renglón, ≤ 2 renglones y 0,833–7 s, Netflix); el karaoke amarillo por palabra queda "
+               "solo para Shorts.",
                "assets del topic (imágenes/clips), voz por cap + tiempos, sync map, música", "`*_final(_gfx).mp4`; o "
                "GUION_PANTALLA + mezcla", "previo a F1 (inicial)", "vivo"),
     "gfx_config": ("El tablero de perillas de la capa gráfica: duraciones, tamaños, colores y qué reglas están "

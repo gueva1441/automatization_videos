@@ -107,6 +107,26 @@ FFPROBE: str | None = _find_ffmpeg_binary("ffprobe")
 HOOK_DURATION: float = 1.8           # seg de pre-padding/overlay en ch01
 
 
+@dataclass(frozen=True)
+class SubsDocumentales:
+    """F40 §B (DECISIONES 2026-10-27 03:34): subtítulos del long-form en registro documental, en la familia del title
+    card (fuente = `fonts.subs` del perfil), blanco con borde negro, sin amarillo y sin resaltar palabra por palabra.
+    El karaoke (`_build_ass_from_words`) queda solo para Shorts. Los px están dados para 1080p (`alto_ref`) y se
+    escalan por el alto del video (2560×1440 → ×4/3); `margin_v` va en px del video, como en el estilo Viral."""
+    alto_ref: int = 1080                 # derivado: F40 §1 da el alto de letra «para 1080p»
+    letra_px: float = 60.0               # DECISIONES: Omar, prompt de F40 («Anton 60 px»; voto del analista en F40 §1): alto de letra a 1080p
+    borde_px: float = 4.0                # derivado: borde 10 del estilo Viral (150 px) escalado a 60 px
+    sombra_px: float = 2.0               # derivado: sombra 5 del estilo Viral (150 px) escalada a 60 px
+    margin_v: int = 108                  # derivado: MarginV existente del estilo Viral (px del video, sin escalar)
+    max_chars_renglon: int = 42          # estándar: Netflix Timed Text Style Guide
+    max_renglones: int = 2               # estándar: Netflix Timed Text Style Guide
+    min_dur: float = 0.833               # estándar: Netflix Timed Text Style Guide (mínimo por evento)
+    max_dur: float = 7.0                 # estándar: Netflix Timed Text Style Guide (máximo por evento)
+
+
+subs_doc = SubsDocumentales()
+
+
 # ═══════════════════════════════════════════════════════════════
 #  Mixer música/ducking (PR 2.C chat 28)
 # ═══════════════════════════════════════════════════════════════
@@ -226,6 +246,50 @@ def _calc_hook_layout(text: str, max_width: int = 1800) -> tuple[str, int]:   # 
     return "\\N".join(lines), fontsize
 
 
+_ASS_STYLE_VIRAL = ("Style: Viral,Anton,150,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,10,5,2,"
+                    "40,40,108,1")
+_ASS_STYLE_HOOK = ("Style: Hook,Anton,128,&H0000FFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,8,5,5,"
+                   "40,40,0,1")
+
+
+def _ass_header(video_width: int, video_height: int, style_line: str) -> str:
+    """Cabecera del .ass: el estilo de los subtítulos (Viral o Documental) + el Hook de siempre."""
+    return f"""[Script Info]
+ScriptType: v4.00+
+PlayResX: {video_width}
+PlayResY: {video_height}
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+{style_line}
+{_ASS_STYLE_HOOK}
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+"""
+
+
+def _ass_hook_event(hook_text: str, hook_duration: float) -> str:
+    """El Hook (amarillo, `--hook`, solo ch01) tal como lo arma el karaoke desde siempre."""
+    hook_txt_clean = hook_text.replace("{", "").replace("}", "").replace("\\", "")
+    hook_formatted, hook_fontsize = _calc_hook_layout(hook_txt_clean)
+    hook_effect = (
+        r"{\an5"
+        f"\\fs{hook_fontsize}"
+        r"\fscx0\fscy0"
+        r"\t(0,120,\fscx115\fscy115)"
+        r"\t(120,220,\fscx100\fscy100)"
+        r"\fad(0,150)}"
+    )
+    return (
+        f"Dialogue: 0,{_format_ass_time(0.0)},"
+        f"{_format_ass_time(hook_duration)},Hook,,0,0,0,,"
+        f"{hook_effect}{hook_formatted}"
+    )
+
+
 def _build_ass_from_words(
     words: list[dict],
     output_path: Path,
@@ -241,6 +305,8 @@ def _build_ass_from_words(
     """
     Variante de generate_viral_subtitles_ass() que NO transcribe — usa words pre-existentes.
     `words` es una lista de dicts {word, start, end} (formato Whisper).
+    F40 §B: karaoke (Anton 150, 3 palabras, palabra resaltada) SOLO para Shorts; el long-form usa
+    `_build_ass_documental`.
     F30b §C.3 (`sin_comillas`, solo con --gfx): el texto del .ass sale sin «, » ni … (Anton dibuja » como >>); los
     tiempos, los cortes de renglón y el texto que fue a ElevenLabs no cambian.
     """
@@ -265,40 +331,12 @@ def _build_ass_from_words(
             word_map[gidx] = (ch_idx, pos)
             gidx += 1
 
-    header = f"""[Script Info]
-ScriptType: v4.00+
-PlayResX: {video_width}
-PlayResY: {video_height}
-WrapStyle: 2
-ScaledBorderAndShadow: yes
-
-[V4+ Styles]
-Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Viral,Anton,150,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,10,5,2,40,40,108,1
-Style: Hook,Anton,128,&H0000FFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,8,5,5,40,40,0,1
-
-[Events]
-Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-"""
+    header = _ass_header(video_width, video_height, _ASS_STYLE_VIRAL)
     events: list[str] = []
 
     # ─── Hook overlay ───
     if hook_text:
-        hook_txt_clean = hook_text.replace("{", "").replace("}", "").replace("\\", "")
-        hook_formatted, hook_fontsize = _calc_hook_layout(hook_txt_clean)
-        hook_effect = (
-            r"{\an5"
-            f"\\fs{hook_fontsize}"
-            r"\fscx0\fscy0"
-            r"\t(0,120,\fscx115\fscy115)"
-            r"\t(120,220,\fscx100\fscy100)"
-            r"\fad(0,150)}"
-        )
-        events.append(
-            f"Dialogue: 0,{_format_ass_time(0.0)},"
-            f"{_format_ass_time(hook_duration)},Hook,,0,0,0,,"
-            f"{hook_effect}{hook_formatted}"
-        )
+        events.append(_ass_hook_event(hook_text, hook_duration))
 
     # ─── Subs karaoke word-level ───
     for word_idx, word in enumerate(words):
@@ -327,6 +365,179 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         events.append(
             f"Dialogue: 0,{_format_ass_time(start)},{_format_ass_time(end)},Viral,,0,0,0,,{text}"
         )
+
+    output_path.write_text(header + "\n".join(events) + "\n", encoding="utf-8")
+    return output_path
+
+
+# ═══════════════════════════════════════════════════════════════
+#  F40 §B — Subtítulos documentales (long-form)
+# ═══════════════════════════════════════════════════════════════
+
+_DOC_FIN_ORACION = (".", "?", "!")
+_DOC_PAUSA = (",", ";", ":", "…", "—", "–")     # … = pausa (suspensivos), no fin de oración
+
+
+def _fuente_subs() -> str:
+    """`fonts.subs` del perfil gfx activo (la familia del title card). Sin ella no hay subtítulo documental."""
+    from gfx_config import ACTIVE_PROFILE
+    fuente = (ACTIVE_PROFILE.get("fonts") or {}).get("subs")
+    if not fuente:
+        raise ValueError("el perfil gfx activo no tiene fonts.subs: el subtítulo documental no tiene fuente")
+    return str(fuente)
+
+
+def _estilo_documental(video_height: int, fuente: str) -> str:
+    """Estilo `Documental`: las constantes de `SubsDocumentales`; el resto de los campos, los del estilo Viral tal
+    cual (colores blanco/borde negro, Bold, BorderStyle, Alignment abajo al centro, MarginL/R, Encoding)."""
+    k = video_height / subs_doc.alto_ref
+    return (f"Style: Documental,{fuente},{subs_doc.letra_px * k:g},&H00FFFFFF,&H000000FF,&H00000000,&H80000000,"
+            f"1,0,0,0,100,100,0,0,1,{subs_doc.borde_px * k:g},{subs_doc.sombra_px * k:g},2,40,40,"
+            f"{subs_doc.margin_v},1")
+
+
+def _doc_limpio(word: str) -> str:
+    """Texto como lo escribe la voz (sin mayúsculas), sin llaves ni barras del .ass y sin «, », … (F30b §C.3: Anton
+    dibuja » como >>)."""
+    t = word.replace("{", "").replace("}", "").replace("\\", "")
+    return t.replace("«", "").replace("»", "").replace("…", "").strip()
+
+
+def _doc_cierre(word: str) -> str:
+    return word.rstrip("»\"')”’")
+
+
+def _doc_es_fin(word: str) -> bool:
+    return _doc_cierre(word).endswith(_DOC_FIN_ORACION)
+
+
+def _doc_es_pausa(word: str) -> bool:
+    w = _doc_cierre(word)
+    return w.endswith(_DOC_PAUSA) or w.endswith(_DOC_FIN_ORACION) or w in _DOC_PAUSA
+
+
+def _doc_corte(raws: list[str], textos: list[str], k_validos: list[int]) -> int:
+    """Entre los cortes válidos, el de la pausa/puntuación más cercana al medio (en caracteres); si no hay pausa,
+    la palabra más cercana al medio."""
+    total = len(" ".join(textos))
+    pos = {k: len(" ".join(textos[:k])) for k in k_validos}
+    pausas = [k for k in k_validos if _doc_es_pausa(raws[k - 1])]
+    return min(pausas or k_validos, key=lambda k: (abs(pos[k] - total / 2), k))
+
+
+def _doc_renglones(raws: list[str], textos: list[str]) -> list[str] | None:
+    """≤ max_renglones renglones de ≤ max_chars_renglon caracteres, o None si el texto no entra."""
+    mx = subs_doc.max_chars_renglon
+    txt = " ".join(textos)
+    if len(txt) <= mx:
+        return [txt]
+    if subs_doc.max_renglones < 2:
+        return None
+    validos = [k for k in range(1, len(textos))
+               if len(" ".join(textos[:k])) <= mx and len(" ".join(textos[k:])) <= mx]
+    if not validos:
+        return None
+    k = _doc_corte(raws, textos, validos)
+    return [" ".join(textos[:k]), " ".join(textos[k:])]
+
+
+def _doc_cabe(ws: list[dict]) -> bool:
+    return (_doc_renglones([w["raw"] for w in ws], [w["txt"] for w in ws]) is not None
+            and float(ws[-1]["end"]) - float(ws[0]["start"]) <= subs_doc.max_dur)
+
+
+def _doc_partir(ws: list[dict]) -> list[list[dict]]:
+    """Parte una oración en eventos que entran (renglones y duración), siempre en la pausa más cercana al medio."""
+    if len(ws) <= 1 or _doc_cabe(ws):
+        return [ws]
+    k = _doc_corte([w["raw"] for w in ws], [w["txt"] for w in ws], list(range(1, len(ws))))
+    return _doc_partir(ws[:k]) + _doc_partir(ws[k:])
+
+
+def _doc_eventos(words: list[dict], audio_duration: float) -> list[tuple[int, int, list[str]]]:
+    """Eventos documentales (inicio y fin en centésimas —la unidad del .ass—, renglones): una oración por evento,
+    partida en frases si no entra; tiempos de las palabras; un evento corto se estira hasta min_dur dentro del
+    silencio que le sigue y, si no alcanza, se junta con el vecino cuando el resultado entra."""
+    import math
+    ws = [{"raw": str(w["word"]), "txt": _doc_limpio(str(w["word"])), "start": float(w["start"]),
+           "end": float(w["end"])} for w in words]
+    ws = [w for w in ws if w["txt"]]
+    oraciones: list[list[dict]] = []
+    cur: list[dict] = []
+    for w in ws:
+        cur.append(w)
+        if _doc_es_fin(w["raw"]):
+            oraciones.append(cur)
+            cur = []
+    if cur:
+        oraciones.append(cur)
+    grupos = [g for o in oraciones for g in _doc_partir(o)]
+
+    min_cs = math.ceil(subs_doc.min_dur * 100)                 # en centesimas: 0,833 s -> 84 (nunca menos)
+    max_cs = math.floor(subs_doc.max_dur * 100)
+    fin_audio = round(audio_duration * 100)
+
+    def tiempos(gs: list[list[dict]]) -> list[tuple[int, int]]:
+        base = [(round(g[0]["start"] * 100), round(g[-1]["end"] * 100)) for g in gs]
+        out = []
+        for i, (a, b) in enumerate(base):
+            tope = base[i + 1][0] if i + 1 < len(base) else max(fin_audio, b)
+            if b - a < min_cs:
+                b = max(b, min(a + min_cs, tope))
+            out.append((a, min(b, a + max_cs) if b - a > max_cs else b))
+        return out
+
+    while True:
+        ts = tiempos(grupos)
+        cambio = False
+        for i, (a, b) in enumerate(ts):
+            if b - a >= min_cs:
+                continue
+            for j in (i + 1, i - 1):
+                if 0 <= j < len(grupos):
+                    junto = grupos[min(i, j)] + grupos[max(i, j)]
+                    if _doc_cabe(junto):
+                        grupos[min(i, j):max(i, j) + 1] = [junto]
+                        cambio = True
+                        break
+            if cambio:
+                break
+        if not cambio:
+            break
+    return [(a, b, _doc_renglones([w["raw"] for w in g], [w["txt"] for w in g]) or [" ".join(w["txt"] for w in g)])
+            for g, (a, b) in zip(grupos, tiempos(grupos))]
+
+
+def _build_ass_documental(
+    words: list[dict],
+    output_path: Path,
+    audio_duration: float,
+    video_width: int,
+    video_height: int,
+    hook_text: str | None = None,
+    hook_duration: float = HOOK_DURATION,
+    pre_pad: float = 0.0,
+) -> Path:
+    """F40 §B: subtítulos del long-form en registro documental (DECISIONES 2026-10-27 03:34). Estilo `Documental`
+    (`SubsDocumentales`), un evento por oración o frase (≤ 42 caracteres por renglón, ≤ 2 renglones, 0,833–7 s),
+    sin efecto por palabra, sin mayúsculas forzadas y sin «, », …. El Hook (`--hook`, ch01) va igual que siempre."""
+    words = _merge_punctuation_words([dict(w) for w in words])
+    if pre_pad > 0:
+        for w in words:
+            w["start"] = float(w["start"]) + pre_pad
+            w["end"] = float(w["end"]) + pre_pad
+
+    if not words and not hook_text:
+        output_path.write_text("", encoding="utf-8")
+        return output_path
+
+    header = _ass_header(video_width, video_height, _estilo_documental(video_height, _fuente_subs()))
+    events: list[str] = []
+    if hook_text:
+        events.append(_ass_hook_event(hook_text, hook_duration))
+    for a, b, renglones in _doc_eventos(words, audio_duration):
+        events.append(f"Dialogue: 0,{_format_ass_time(a / 100)},{_format_ass_time(b / 100)},Documental,,0,0,0,,"
+                      + "\\N".join(renglones))
 
     output_path.write_text(header + "\n".join(events) + "\n", encoding="utf-8")
     return output_path
@@ -529,6 +740,9 @@ class ChapterPlan:
     # de música para modular el volumen por intent (music_by_intent). "" si el cap
     # no tiene intent → usa el volumen base del perfil.
     narrative_intent: str = ""
+    # F40 §B: `video_type` del script ("long" → subtítulos documentales; "short" → karaoke). Mismo default que
+    # _load_script_lookup.
+    video_type: str = "short"
 
 
 def _compute_durations_from_anchors(
@@ -1022,6 +1236,8 @@ def _build_chapter_segment(
     # el .ass con karaoke por PALABRA (_build_ass_from_words). El switch desde la
     # rama por sílaba (_build_ass_from_syllables) es INTENCIONAL — Omar prefiere
     # el karaoke por palabra (sin el efecto de la sílaba agrandándose).
+    # F40 §B: el long-form ya no lleva karaoke: subtítulos documentales (_build_ass_documental); el karaoke queda
+    # solo para Shorts.
     subs_path: Path | None = None
     if not no_subs and plan.timestamps_path and plan.timestamps_path.exists():
         subs_path = work_dir / f"{plan.chapter_id}_subs.ass"
@@ -1039,17 +1255,29 @@ def _build_chapter_segment(
             # fallback al texto normalizado tal cual.
             words = norm_words
 
-        _build_ass_from_words(
-            words=words,
-            output_path=subs_path,
-            audio_duration=plan.audio_duration + pre_pad,
-            video_width=video_width,
-            video_height=video_height,
-            hook_text=hook_text if apply_hook else None,
-            hook_duration=HOOK_DURATION,
-            pre_pad=pre_pad,
-            sin_comillas=gfx_enabled,
-        )
+        if plan.video_type == "long":                     # F40 §B: long-form → documental (DECISIONES 03:34)
+            _build_ass_documental(
+                words=words,
+                output_path=subs_path,
+                audio_duration=plan.audio_duration + pre_pad,
+                video_width=video_width,
+                video_height=video_height,
+                hook_text=hook_text if apply_hook else None,
+                hook_duration=HOOK_DURATION,
+                pre_pad=pre_pad,
+            )
+        else:                                             # Shorts: el karaoke de siempre
+            _build_ass_from_words(
+                words=words,
+                output_path=subs_path,
+                audio_duration=plan.audio_duration + pre_pad,
+                video_width=video_width,
+                video_height=video_height,
+                hook_text=hook_text if apply_hook else None,
+                hook_duration=HOOK_DURATION,
+                pre_pad=pre_pad,
+                sin_comillas=gfx_enabled,
+            )
     elif apply_hook and not no_subs:
         # Hook sin timestamps: igual generamos un ASS solo con hook
         subs_path = work_dir / f"{plan.chapter_id}_hook_only.ass"
@@ -1254,6 +1482,7 @@ def _load_script_lookup(video_id: str) -> dict[str, dict[str, Any]]:
             "render_engine": str(item.get("render_engine", "")).lower(),
             "label": str(item.get("label", "")),
             "narration_anchors": anchors,
+            "video_type": video_type,                    # F40 §B: long → subtítulos documentales
         }
     return lookup
 
@@ -2324,6 +2553,7 @@ def _build_plans(
             supplemental_anchors=supp_anchors if supp_anchors else None,
             veo_position=veo_position,
             narrative_intent=sm.get("narrative_intent", "") or "",  # chat 39
+            video_type=scr.get("video_type", "short"),             # F40 §B
         ))
     return plans
 
@@ -3022,7 +3252,8 @@ def _assemble_one_video(
     print(f"  🎬 FASE 2B — {video_id}")
     print(f"{'═' * 60}")
     print(f"  🪝 hook:     {hook or '(ninguno)'}")
-    print(f"  📝 subs:     {'OFF' if no_subs else 'ON (karaoke)'}")
+    _registro = "documental" if plans[0].video_type == "long" else "karaoke"     # F40 §B
+    print(f"  📝 subs:     {'OFF' if no_subs else f'ON ({_registro})'}")
     if gfx:
         print(f"  🎨 gfx:      ON (HyperFrames, {gfx_quality})")
     print(f"  📊 capítulos: {len(plans)}")
@@ -3411,7 +3642,7 @@ def main() -> int:
     parser.add_argument("--hook", type=str, default=None,
                         help="Texto gigante en ch01 los primeros 1.8s. Solo aplica en modo single.")
     parser.add_argument("--no-subs", action="store_true",
-                        help="No quemar subtítulos karaoke.")
+                        help="No quemar subtítulos (documentales en long-form, karaoke en Shorts).")
     parser.add_argument("--dry-run", action="store_true",
                         help="Mostrar plan sin ejecutar FFmpeg.")
     parser.add_argument("--keep-segments", action="store_true",
