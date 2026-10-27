@@ -133,6 +133,8 @@ def preparar_cap(cap: int, cap_id: str, real: dict, ctx: dict[str, Any], words: 
                     rot.setdefault("sin_colocar", []).append({**f, "beat": b["beat"], "motivo":
                                                              "sin oración de la voz" if x else "no está en el pool"})
                     continue
+                if f.get("autor"):                    # F38e §C.4: el autor que el papel muestra (del modelo, en español,
+                    x["autor"] = str(f["autor"])      # verificado contra el archivo; o el del archivo) es el que ve Fase 2
                 if x["id"] not in {y["id"] for y in its}:
                     its.append(x)
                 s = sents[a["voz"]]
