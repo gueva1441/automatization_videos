@@ -2842,7 +2842,7 @@ def _medir_inicio_musica(plans: list[Any], pista: Path, work_dir: Path, seg_dur:
 
 
 def _solo_plan(plans: list[Any], video_id: str, work_dir: Path, *, hook: str | None, sync_map: dict,
-               safe_by_cap: dict[str, dict[int, dict[str, Any]]], t_inicio: float, rot_usd_antes: float) -> int:
+               safe_by_cap: dict[str, dict[int, dict[str, Any]]], t_inicio: float) -> int:
     """F32 §A: director + rotulista + reglas + crítico de los caps (sin navegador ni render) → GUION_PANTALLA.md/.json
     en output/<id>/ + mezcla_preview.wav en _fase2b_work. El -g30 de los caps va en paralelo; el plan, en fila (cada
     cap mira lo que ya mostraron los anteriores)."""
@@ -2920,8 +2920,7 @@ def _solo_plan(plans: list[Any], video_id: str, work_dir: Path, *, hook: str | N
                         "audio": str(plan.audio_path), "pool_items": _ev.items(ctx["pool"]) if ctx.get("pool") else {},
                         "a_pantalla": [str(a.get("id")) for a in esc_full.get("a_pantalla") or [] if int(a.get("cap") or 0) == n]})
         off += sg["seg_dur"]
-    from script_engine.gfx_rotulista import gastado
-    costos = {"claude_rotulista_usd": round(gastado(work_dir) - rot_usd_antes, 4)}
+    costos: dict[str, float] = {}                                  # F36 C: el texto sale del papel (sin Claude)
     if cost_tracker.current_video is not None:                      # Gemini (crítico, visión) y Claude, por servicio
         por: dict[str, float] = {}
         for e in cost_tracker.current_video.entries:
@@ -2935,7 +2934,7 @@ def _solo_plan(plans: list[Any], video_id: str, work_dir: Path, *, hook: str | N
     print(f"\n  📝 guion de pantalla: {md}\n                       {js}")
     for ch in g["chequeos"]:
         print(f"     {'✓' if ch['ok'] else '✗'} {ch['nombre']}")
-    print(f"  ⏱  --plan-only {time.time() - t_inicio:.0f}s · rotulista US$ {costos['claude_rotulista_usd']:.4f}")
+    print(f"  ⏱  --plan-only {time.time() - t_inicio:.0f}s · costos {costos}")
     return 0
 
 
@@ -3108,10 +3107,7 @@ def _assemble_one_video(
         safe_by_cap, risk_counts = _route_safe(plans, video_id, per_image_by_cap)
         print(f"  🛡  safe-router: riesgo low={risk_counts['low']} mid={risk_counts['mid']} high={risk_counts['high']} "
               f"→ movimiento seguro en {sum(len(v) for v in safe_by_cap.values())} imagen(es)")
-    rot_usd_antes = 0.0
     if gfx:
-        from script_engine.gfx_rotulista import gastado as _gastado
-        rot_usd_antes = _gastado(work_dir)
         # F1b: director de gráficos de los caps en paralelo antes del loop (cache por cap)
         from script_engine.gfx_layer import prefetch_plans
         _pre = prefetch_plans([p for p in plans if not only_cap or p.chapter_id == only_cap], video_id, work_dir)
@@ -3121,8 +3117,7 @@ def _assemble_one_video(
     if plan_only:                                                       # F32 §A: el guion de pantalla, sin render
         try:
             rc = _solo_plan([p for p in plans if not only_cap or p.chapter_id == only_cap], video_id, work_dir,
-                            hook=hook, sync_map=sync_map, safe_by_cap=safe_by_cap, t_inicio=t_inicio,
-                            rot_usd_antes=rot_usd_antes)
+                            hook=hook, sync_map=sync_map, safe_by_cap=safe_by_cap, t_inicio=t_inicio)
         except Exception as e:  # noqa: BLE001
             print(f"     ❌ --plan-only: {type(e).__name__}: {e}")
             rc = 2
@@ -3424,13 +3419,8 @@ def main() -> int:
     parser.add_argument("--gfx-workers", type=int, default=None, metavar="N",
                         help="F30 §C.1: workers del render HyperFrames (default gfx_render.workers).")
     parser.add_argument("--rotulista", action="store_true",
-                        help="F29b: con --gfx, el texto de pantalla lo escribe el rotulista (gfx_rules.rotulista = True, "
-                             "garantizar_pico = False).")
-    parser.add_argument("--rotulista-tope", type=float, default=None, metavar="USD",
-                        help="F29b: tope Claude del rotulista para esta corrida (default gfx_rules.rotulista_tope_usd).")
-    parser.add_argument("--rotulista-modelo", type=str, default=None, metavar="MODELO",
-                        help="F29b: modelo del rotulista (default gfx_rules.rotulista_modelo = claude-sonnet-5-5; "
-                             "p. ej. claude-fable-5-1). Solo cuenta con gfx_rules.rotulista prendido.")
+                        help="F29b: con --gfx, el texto de pantalla sale del rotulista (gfx_rules.rotulista = True); desde "
+                             "F36 C, del guion en papel de Fase 1 (_steps/<topic>/01e_pantalla.json), sin modelo.")
     parser.add_argument("--forma-variante", type=str, default=None, metavar="V,S,R",
                         help="F31: variantes de forma para comparar (no son default): V1|V2|V3 entrada/salida de ficha y "
                              "recorte, S1|S2|S3 tamaño del sello (+P = con placa), R1|R2 tamaño del reloj; p. ej. V2,S2P,R2.")
@@ -3460,13 +3450,6 @@ def main() -> int:
     if args.rotulista:                          # F29b §B
         from gfx_config import gfx_rules as _gr
         object.__setattr__(_gr, "rotulista", True)
-        object.__setattr__(_gr, "garantizar_pico", False)
-    if args.rotulista_tope is not None:         # F29b §B: el tope que le queda a la tanda
-        from gfx_config import gfx_rules as _gr
-        object.__setattr__(_gr, "rotulista_tope_usd", float(args.rotulista_tope))
-    if args.rotulista_modelo:                   # F29b §A.2
-        from gfx_config import gfx_rules as _gr
-        object.__setattr__(_gr, "rotulista_modelo", args.rotulista_modelo)   # GfxRules es frozen
     if args.forma_variante:                     # F31: solo para comparar; sin el flag, todo como hoy
         from gfx_config import gfx_rules as _gr
         object.__setattr__(_gr, "forma_variante", args.forma_variante)

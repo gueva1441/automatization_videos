@@ -248,32 +248,6 @@ def test_basura_no_lanza(monkeypatch, tmp_path):
         assert isinstance(plan, dict)
 
 
-def test_hueco_lo_rellena_el_validador_con_texto_literal(monkeypatch):
-    """F2 §1: hueco > 35 s → callout con un fragmento LITERAL de un fact que la voz dice en el tramo;
-    lo que no se puede tapar (sin palabras) queda como gap_warning (métrica). Sin moods (F2b §2 va primero).
-    F29 §A.4: gap_fill apagado por defecto; acá se prende."""
-    monkeypatch.setattr(gd, "gfx_rules", dataclasses.replace(gd.gfx_rules, gap_fill=True))
-    monkeypatch.setattr(gd, "active_moods", lambda: {})
-    long_scenes = [GfxScene(0, 0.0, 90.0, "R3", "")]
-    log = []
-    res = gd.resolve_plan({"title_card": {"use": True}}, ctx=CTX, words=WORDS, scenes=long_scenes, log=log)
-    assert res["callouts"] and any("gap_fill: callout" in l for l in log)
-    assert all(any(c["text"] in f for f in FACTS) for c in res["callouts"])   # nunca texto inventado
-    assert all(c.get("gap_fill") for c in res["callouts"])
-    assert res["gap_warnings"]                                  # 20–90 s sin palabras: no se puede tapar
-
-
-def test_hueco_sin_fact_dicho_pone_punch_in(monkeypatch):
-    monkeypatch.setattr(gd, "gfx_rules", dataclasses.replace(gd.gfx_rules, gap_fill=True))          # F29 §A.4: apagado por defecto
-    words = [{"word": w, "start": float(i), "end": float(i) + .9} for i, w in enumerate(
-        ("Las paredes guardaban silencio mientras el agua subía " * 8).split())]
-    scenes = [GfxScene(0, 0.0, 60.0, "R3", "")]
-    log = []
-    res = gd.resolve_plan({}, ctx={**CTX, "eligible": {}}, words=words, scenes=scenes, log=log)
-    assert res["callouts"] == [] and res["punch_in"] and any("gap_fill: punch_in" in l for l in log)
-    assert res["gap_warnings"] == []
-
-
 def _orleans():
     import json
     from pathlib import Path
@@ -437,10 +411,3 @@ if __name__ == "__main__":
     sys.exit(pytest.main([__file__, "-q"]))
 
 
-def test_gap_fill_apagado_por_defecto():
-    """F29 §A.4: sin el flag, el hueco no se rellena (queda como gap_warning)."""
-    words = [{"word": w, "start": float(i), "end": float(i) + .9} for i, w in enumerate(
-        ("Las paredes guardaban silencio mientras el agua subía " * 8).split())]
-    log = []
-    res = gd.resolve_plan({}, ctx={**CTX, "eligible": {}}, words=words, scenes=[GfxScene(0, 0.0, 60.0, "R3", "")], log=log)
-    assert gd.gfx_rules.gap_fill is False and not any("gap_fill:" in l for l in log) and res["punch_in"] == []

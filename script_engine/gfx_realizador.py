@@ -183,12 +183,6 @@ def preparar(cap: int, carga: dict, pool: dict | None, words: list[dict], time_o
     return real
 
 
-def para_pool(real: dict) -> tuple[list[str], set[str], dict[str, tuple[float, float]]]:
-    """(ids en orden, obligatorios, ventana por id) para gfx_pool: solo lo que la voz no dijo."""
-    cs = [c for c in real["candidatos"] if c["obligatorio"] or not c["ya_dicho"]]
-    return [c["id"] for c in cs], {c["id"] for c in cs if c["obligatorio"]}, {c["id"]: (c["t0"], c["t1"]) for c in cs}
-
-
 def pregunta_cierre(real: dict) -> str | None:
     """La pregunta del cap = `cierre` del último beat, literal."""
     return (real["beats"][-1]["cierre"] or None) if real.get("beats") else None
@@ -332,84 +326,13 @@ def finalizar(plan: dict[str, Any], real: dict[str, Any], log: list[str]) -> lis
     return filas
 
 
-PICO_DESPUES_S = 5.0          # un bloque grande que arranca hasta 5 s después de la frase del pico es el bloque del pico
-
-
-def _hay_grande_en_pico(plan: dict, t: float) -> str | None:
-    def cerca(b: dict) -> bool:
-        a = float(b["start"])
-        return a - 2.0 <= t <= a + float(b.get("duration", 3)) + 0.5 or t <= a <= t + PICO_DESPUES_S
-    for k in ("water_level", "evidence_zoom", "quote_card"):
-        b = plan.get(k)
-        if b and "start" in b and cerca(b):
-            return k
-    for k in ("archive_clippings", "callouts"):
-        for b in plan.get(k) or []:
-            if cerca(b):
-                return k
-    return None
-
-
-def garantizar_pico(plan: dict[str, Any], real: dict[str, Any], pool: dict | None, log: list[str],
-                    side: str = "right") -> str | None:
-    """1 bloque grande en la frase del pico. Si no hay, un rótulo con el candidato del beat del pico (obligatorio
-    primero, después uno que la voz no dijo; si no hay, el dato central del beat). Devuelve el bloque del pico."""
-    pk = plan.get("pico")
-    if not pk or pk.get("t") is None:
-        # gfx_peak no encontró pico (sin cifra de agua ni palabra de carga): el pico es el beat más intenso del cap
-        top = max(real["beats"], key=lambda b: (b["intensidad"], b["n"])) if real.get("beats") else None
-        if top is None:
-            return None
-        pk = plan["pico"] = {**(pk or {}), "t": round(top["t0"] + 0.5, 3), "word": None, "block": None,
-                             "fuente": f"escaleta (beat {top['n']}, intensidad {top['intensidad']})"}
-        log.append(f"  realizador: sin pico de gfx_peak → beat {top['n']} de la escaleta @ {pk['t']:.1f}s")
-    t = float(pk["t"])
-    ya = _hay_grande_en_pico(plan, t)
-    if ya:
-        pk["block"] = pk.get("block") if pk.get("block") in GRANDES else ya
-        return ya
-    bt = _beat_en(real, t)
-    its = ev.items(pool) if pool else {}
-    puestos = {b.get("pool_id") for k in ("archive_clippings", "callouts") for b in plan.get(k) or []}
-    puestos |= {(plan.get("quote_card") or {}).get("pool_id")}
-    cs = [c for c in real["candidatos"] if bt and c["beat"] == bt["n"] and c["id"] not in puestos]   # nunca dos veces
-    orden = [c for c in cs if c["obligatorio"]] + [c for c in cs if not c["obligatorio"] and not c["ya_dicho"]]
-    if not orden and bt and bt["dato_central"] not in puestos:
-        orden = [{"id": bt["dato_central"], "beat": bt["n"], "obligatorio": False}]
-    for c in orden:
-        it = its.get(c["id"])
-        if not it:
-            continue
-        from script_engine.gfx_pool import pool_clause_options
-        txt = re.sub(r"\s+", " ", ev.text_of(it)).strip()
-        opts = pool_clause_options(txt, 12) or [txt]
-        frag = opts[0]
-        blk = {"text": frag, "start": round(t, 3), "kind": "figure", "duration": duracion_texto(frag), "side": side,
-               "fact_idx": None, "pool_id": c["id"], "pico": True, "beat": c["beat"]}
-        plan["callouts"] = sorted((plan.get("callouts") or []) + [blk], key=lambda b: float(b["start"]))
-        pk["block"] = "callouts"
-        pk["block_realizador"] = c["id"]
-        log.append(f"  realizador: pico sin bloque grande → rótulo {c['id']} «{frag}» @ {t:.1f}s (beat {c['beat']})")
-        return "callouts"
-    log.append("  realizador: pico sin bloque grande y sin candidato en su beat")
-    return None
-
-
 def cerrar(plan: dict[str, Any], real: dict[str, Any] | None, pool: dict | None, log: list[str], *,
-           criticar: Any, rotulista: bool, garantizar: bool, side: str = "right", escena: Any = None) -> None:
-    """El final del plan, en orden. F29 (sin rotulista, como v3): finalizar → crítico → garantizar_pico. F29b (con
-    rotulista, §A.6): finalizar → garantizar_pico (respaldo; apagado por defecto) → crítico, así todo bloque que entre
-    por respaldo también se juzga. `criticar()` corre el crítico sobre el plan (in place). F29c: con rotulista,
-    `escena()` (una cosa por escena: gfx_rotulista.escena_final) corre antes de todo."""
+           criticar: Any, rotulista: bool, side: str = "right", escena: Any = None) -> None:
+    """El final del plan, en orden: (con rotulista) `escena()` —crítico de los candidatos, nunca al mismo tiempo,
+    sellos— → finalizar → crítico (`criticar()`, in place). F36 §D: sin el rótulo de respaldo del pico
+    (garantizar_pico, borrado)."""
     if rotulista and escena is not None:
         escena()
     if real:
         finalizar(plan, real, log)
-    if not rotulista:
-        criticar()
-        if real and garantizar:
-            garantizar_pico(plan, real, pool, log, side=side)
-        return
-    if real and garantizar:
-        garantizar_pico(plan, real, pool, log, side=side)
     criticar()

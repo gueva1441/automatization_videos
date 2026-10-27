@@ -147,4 +147,6 @@ def test_el_mapa_cubre_los_modulos_y_trae_aristas():
                                "m01d_particion", "music_intensity", "title_card.html.tmpl"} <= nombres
     assert all(f["sticker"] and f["estado"] for f in m["modulos"])
     assert {"de": "gfx_layer", "a": "gfx_rotulista"} in [{k: a[k] for k in ("de", "a")} for a in m["aristas"]]
-    assert any("garantizar_pico" in x["que"] for x in m["muertos"])
+    # F36 §D: lo muerto se borró; no queda en el mapa ni como módulo ni como muerto
+    assert not any("garantizar_pico" in x["que"] for x in m["muertos"])
+    assert not {"gfx_bug", "gfx_fragments", "gfx_question", "gfx_identity", "rotulista_llm"} & nombres

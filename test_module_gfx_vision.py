@@ -40,33 +40,6 @@ def test_cache_por_hash(tmp_path):
     assert gv.photo_details(img2, tmp_path / "c.json", call=boom) == []                     # el fallo queda anotado: no se reintenta
 
 
-def test_nombrado_gana_y_textura_nunca_con_humano():
-    scenes = [GfxScene(0, 0.0, 6.0), GfxScene(1, 6.0, 12.0)]
-    words = W("El aceite cubría todo el piso. Tenía una herida abierta en la mano izquierda.", step=0.5)
-    det = {0: [ACEITE, HERIDA]}
-    z = gv.pick_zoom(det, scenes, words, intensity=None, sentences=sentences(words), peak_t=None)
-    assert z["detail"] == "herida en la mano" and z["como"] == "nombrado" and z["latido"]        # no el aceite
-    solo_aceite = {0: [ACEITE]}
-    z2 = gv.pick_zoom(solo_aceite, scenes, words, intensity=None, sentences=sentences(words), peak_t=None)
-    assert z2 and z2["tipo"] == "textura" and z2["como"] == "nombrado"                         # sin humano y nombrado: sí
-    z3 = gv.pick_zoom(solo_aceite, scenes, W("Nada que ver acá."), intensity=None, sentences=[], peak_t=None)
-    assert z3 is None                                                                            # textura sin nombrar: no
-
-
-def test_zoom_de_editor_en_la_foto_mas_intensa_y_lejos_del_pico():
-    scenes = [GfxScene(0, 0.0, 6.0), GfxScene(1, 6.0, 12.0)]
-    words = W("Todo era silencio. Nadie sabía nada. Las horas pasaban lentas. Y entonces llegó el final.", step=0.6)
-    sents = sentences(words)
-    det = {0: [ROSTRO], 1: [dict(ROSTRO, label="rostro de un preso")]}
-    hot1 = {"intensidad": [0.2, 0.3, 0.9, 0.95]}
-    z = gv.pick_zoom(det, scenes, words, intensity=hot1, sentences=sents, peak_t=None)
-    assert z["como"] == "de editor" and z["scene_idx"] == 1
-    z = gv.pick_zoom(det, scenes, words, intensity=hot1, sentences=sents, peak_t=9.2)            # zoom de la escena 1 a ±5 s del pico
-    assert z["scene_idx"] == 0
-    low = {0: [dict(ROSTRO, conf=0.7)]}
-    assert gv.pick_zoom(low, scenes, words, intensity=hot1, sentences=sents, peak_t=None) is None   # conf < 0.8
-
-
 def test_acercar_apunta_al_rostro(tmp_path):
     img = tmp_path / "foto.png"
     img.write_bytes(b"png")
@@ -80,22 +53,3 @@ def test_acercar_apunta_al_rostro(tmp_path):
     assert gv.human_box([ACEITE, ROSTRO]) == ROSTRO["box"] and gv.human_box([ACEITE]) is None
 
 
-def test_verificacion_del_recorte_pasa_al_siguiente(tmp_path):
-    from PIL import Image
-    img = tmp_path / "f.png"
-    Image.new("RGB", (200, 100), (40, 40, 40)).save(img)
-    barrotes = dict(ROSTRO, label="manos aferradas", tipo="manos", conf=0.95)
-    scenes = [GfxScene(0, 0.0, 6.0), GfxScene(1, 6.0, 12.0)]
-    det = {0: [barrotes], 1: [ROSTRO]}
-    ok = {"manos aferradas": False, "rostro del niño": True}
-    calls = []
-
-    def fake(jpg, d):
-        calls.append(d["label"])
-        return ok[d["label"]]
-    vc = tmp_path / "v.json"
-    z = gv.pick_zoom(det, scenes, W("Nadie dijo nada."), intensity={"intensidad": [0.9]},
-                     sentences=sentences(W("Nadie dijo nada.")), peak_t=None,
-                     verify=lambda sc, d: gv.verify_crop(img, d, vc, call=fake))
-    assert z["detail"] == "rostro del niño" and calls == ["manos aferradas", "rostro del niño"]
-    assert gv.verify_crop(img, barrotes, vc, call=lambda *a: 1 / 0) is False                      # cacheado: no llama

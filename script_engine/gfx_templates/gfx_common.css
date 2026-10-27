@@ -31,10 +31,6 @@
       .co-text.anton { font: 400 ${callout_anton_px}px/1.02 "${figure_font}", sans-serif; text-transform: uppercase; }
       .co-text.serif { font: ${callout_font_weight} ${callout_font_px}px/1.05 "${callout_font}", serif; }
       .co-rule { width: 420px; height: 8px; margin-top: 18px; background: ${accent}; transform-origin: left center; }
-      /* source_tag (F2 §0d): 1 línea bajo el callout/contador, 40 % del tamaño */
-      .co-src { margin-top: 14px; color: rgba(244,241,234,.85); font: 400 ${source_px}px/1.1 "${figure_font}", sans-serif;
-                letter-spacing: .06em; text-transform: uppercase; text-shadow: ${callout_shadow}; }
-      .count .co-src { font-size: ${source_px}px; }
       /* chapter_question (F2 §0d): cierre del cap, fondo oscurecido, Playfair Bold, acento en la palabra clave */
       #cq-dim { position: absolute; inset: 0; z-index: 30; background: #000; }
       #cq { position: absolute; inset: 0; z-index: 31; display: flex; align-items: center; justify-content: center; }

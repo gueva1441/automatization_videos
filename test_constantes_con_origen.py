@@ -76,7 +76,7 @@ def perfil_tokens() -> dict:
 
 def test_inventario_de_constantes():
     filas = constantes()
-    assert len(filas) > 100                                   # el parser encontró las clases
+    assert len(filas) > 60                                    # el parser encontró las clases (F36 §D: 81 tras borrar perillas)
     assert {f["clase"] for f in filas} == {"GfxRules", "GfxRenderSettings", "TransitionRenderSettings"}
     sin = [f for f in filas if not f["origen"]]
     if os.environ.get("CONSTANTES_ESTRICTO") == "1":

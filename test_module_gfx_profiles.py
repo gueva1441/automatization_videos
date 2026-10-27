@@ -27,16 +27,15 @@ def test_misterio_reproduce_la_calibracion_0b():
     diffs = {f.name for f in fields(gc.GfxRules) if getattr(rm, f.name) != getattr(engine, f.name)}
     assert diffs == {"interrupt_min_sec", "interrupt_max_sec", "grain_opacity", "vignette_opacity",
                      "mood_dark_flicker",                                  # PARADA 1: oscuridad sin parpadeos
-                     "question_auto", "question_dim", "icon_px",           # F3: pregunta generada (70 %) + ícono L
+                     "question_auto", "question_dim",                      # F3: pregunta (70 %)
                      "black_hold_sec", "peak_blocks",                      # F3: corte a negro 1 s + pico del cap
-                     "accent_hex", "punch_scale", "anim_figure", "emphasis_stamp_px",
-                     "question_max_words_auto", "identity_rules", "ticker_min_times",
-                     "intensity_director", "fragment_director", "photo_first_zoom", "auto_icons",
-                     "peak_word", "doc_clippings", "callout_no_repeat", "question_rubric",   # F4c: doctrina
+                     "accent_hex", "punch_scale", "emphasis_stamp_px", "identity_rules",
+                     "intensity_director", "photo_first_zoom", "auto_icons",
+                     "peak_word",                                          # F4c: doctrina (F36 §D: sin las borradas)
                      "visual_critic",                                                         # F4e: crítico visual
                      "icon_literal_only", "critic_snapshot", "stamp_nouns_only"}, diffs       # F5b S4 · G1 · F5e
     assert (rm.interrupt_max_sec, rm.grain_opacity, rm.vignette_opacity) == (18.0, 0.0, 0.15)
-    assert (rm.question_auto, rm.question_dim, rm.icon_px, rm.question_pause_sec) == (True, 0.7, 360, 3.0)
+    assert (rm.question_auto, rm.question_dim, rm.question_pause_sec) == (True, 0.7, 3.0)
 
 
 def test_perfil_activo_por_nicho_y_por_env(monkeypatch):

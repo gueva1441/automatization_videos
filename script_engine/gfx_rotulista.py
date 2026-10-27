@@ -1,45 +1,16 @@
 """
-script_engine/gfx_rotulista.py — F29b §A: el rotulista. El texto de pantalla lo escribe alguien, anclado a la oración.
-F29c: por beat, anclado a la palabra, y la ficha es el title card.
-
-Regla (Omar): un bloque vale si (a) dice algo que la voz no dice, (b) sobre lo que la voz cuenta en ese momento y (c) sin
-adelantar. Con `gfx_rules.rotulista` y escaleta (realizador), por cap:
-    entrada    oraciones de la voz con tiempos y cada palabra numerada (gfx_peak.sentences), el beat de cada oración,
-               beats del cap (gfx_beats_chNN.json), ítems = los `a_pantalla` del cap + `dato_central`/`datos_apoyo` de
-               sus beats (texto fuente completo, fuente, `por_que`), lo ya mostrado (los `a_pantalla` de caps
-               anteriores: dejan correr los 7 caps en paralelo), el pico ÚNICO del cap (pico_cap) y la voz de todo el
-               video (para la coherencia de cifras).
-    llamada    UNA por cap con claude_helpers (Sonnet 5.5 por defecto, effort medium, JSON sin esquema), prompt literal
-               (ROTULISTA_SYSTEM / ROTULISTA_USER, HANDOFF_F29c §A.5), cruda en `_fase2b_work/rotulista_chNN.raw.json`
-               (caché por pedido). De la respuesta se toma el primer objeto JSON válido (§A.6.1). Un reintento si no
-               parsea o si una regla de contenido saca algo; otro si faltan `a_pantalla`. Tope de US$ antes de cada
-               llamada (con las llamadas en vuelo). Sin respuesta válida, el cap sale sin bloques (nunca se inventa).
-    validar    (determinista) anclaje (oración y palabra que existen, en un beat del ítem; el `a_pantalla` del beat pico
-               pasa al beat siguiente si su ítem es de ese beat), forma (tipo, etiqueta, valor, muñón, que quepa en la
-               ficha), candado (cita = subcadena del texto fuente; resto = cada número, nombre propio y año en el texto
-               fuente), tiempos (§A.2: t0 = la palabra `word_idx`; t1 = fin de la oración, o de la siguiente si no
-               alcanza el mínimo de lectura caracteres ÷ 15; nunca después del corte de escena; si no alcanza, no va),
-               no dicho (oración ancla ± 1) y spoiler (oraciones posteriores del cap) (§A.3), coherencia de cifras con
-               la voz de todo el video (§A.4).
-    finalizar  (§A.1) por beat queda 1 (`a_pantalla` primero, después `rank`); el beat pico, 0.
-    colocar    cifra, hecho, persona → ficha (el title card sin #tc-dim: kicker = etiqueta, título = dato); documento →
-               archive_clipping; cita → quote_card; lupa → evidence_zoom con la caja de visión del detalle.
-    escena     (§0/§A.5, después del reloj y el sello) una cosa por escena: la ficha espera a la escena siguiente del
-               beat si en la suya hay title card, reloj, sello u otro bloque; el reloj (animación) no va encima de un
-               texto ni en el beat de otra animación.
-Lecturas declaradas (F29b_REPORT y F29c_REPORT). Sin escaleta o con el flag apagado no corre nada de esto.
-
-F36 §A: el rotulista está partido en cinco módulos (el código se movió, no se reescribió); este archivo queda como
-fachada para que gfx_layer, fase2b, gfx_guion, los tests y el lab no cambien de import:
-    rotulista_llm      prompt, entrada, pedido y llamada (caché, ledger, tope, reintento)
-    rotulista_filtros  validar (los filtros de ORDEN, en orden), finalizar, contradicciones
-    rotulista_colocar  tiempos, colocar, ediciones a mano, escena
-    clima              sellos de clima (y peak_word, traído de gfx_peak)
-    voz_datos          pico del cap, reloj y agua desde la voz, tarjeta fecha-hora
-    voz_utils          números, nombres y oraciones de la voz (los usan los cinco)
-F36 §C.4: el texto de pantalla ya no lo escribe un modelo en Fase 2: lo escribe m01e_pantalla en Fase 1 (el guion en
-papel). preparar_cap lee `01e_pantalla.json`, alinea sus oraciones con las de la voz por texto (`alinear`) y ancla cada
-ficha a su palabra (`palabra_idx`); prefetch (el rotulista de los 7 caps en paralelo) se fue con el modelo.
+script_engine/gfx_rotulista.py — F29b §A: el rotulista; F36 §C: el texto de pantalla ya no lo escribe un modelo en
+Fase 2: lo escribe m01e_pantalla en Fase 1 (el guion en papel, DECISIONES 19:54). Este archivo queda como fachada
+(gfx_layer, fase2b, gfx_guion, los tests y el lab no cambian de import) y con `preparar_cap`: lee `01e_pantalla.json`,
+alinea sus oraciones con las de la voz por texto (`alinear`, aclaración 2) y ancla cada ficha a su palabra
+(`palabra_idx`). Regla (Omar): un texto vale si (a) dice algo que la voz no dice, (b) sobre lo que la voz cuenta en ese
+momento y (c) sin adelantar; eso lo decide el papel y lo re-chequean los filtros de Fase 2.
+    rotulista_filtros  validar_papel (los filtros de ORDEN, en orden), contradicciones
+    rotulista_colocar  tiempos, colocar, reloj contra el corte, nunca al mismo tiempo
+    clima              sellos del papel (y peak_word, traído de gfx_peak)
+    voz_datos          pico del cap, reloj desde la voz, tarjeta fecha-hora derivada
+    voz_utils          números, nombres y oraciones de la voz
+F36 §D: se borraron rotulista_llm (el pedido al modelo) y el prefetch.
 """
 from __future__ import annotations
 
@@ -47,31 +18,38 @@ import re
 from pathlib import Path
 from typing import Any
 
-# F36 §A: re-exports (todos los nombres que el módulo tenía antes de partirse; nadie cambia de import)
+# F36 §A: re-exports (nadie cambia de import); F36 §D: los de lo borrado se fueron con su código
 from script_engine.voz_utils import (_analiza, _ARTPREP, beat_de_oracion, _DIFERENCIA, _DIG, _fmt, _MAGNITUD, munon,
-                                     nombre_inicial, nombres, _num_en, _num_tok, numero_en, numeros, _NUMW, oraciones,
-                                     _palabra_en, palabras, palabras_de_contenido, _PARTICULAS, _raiz_en, _toks,
-                                     _UNIDAD_1, _UNIDAD_2, _valor, _w2n, _W2N, _W2N_LOCK)
-from script_engine.rotulista_filtros import (A_PANTALLA_POR_BEAT, ancla_papel, ORDEN_MODELO, validar_papel, LOCALES, anclaje, candado, cantidad, coherencia, CON_ETIQUETA,
-                                             contradicciones, _DOC, FICHA, finalizar, forma, gancho_dicho, lectura,
-                                             lo_que_pide, no_dicho, ORDEN, pide_documento, regla, spoiler, TIPOS,
-                                             validar)
-from script_engine.rotulista_colocar import (caben, hasta_el_corte, animacion_de_cifra, aplicar_ediciones, CAMPOS_EDITABLES, caracteres,
-                                             colocar, _cubre, despues_del_corte, EDICIONES, ediciones_de, _escena_de,
-                                             escena_final, guardar_ediciones, KIND_FICHA, LECTURA_CPS, lupa_de_detalles,
-                                             mover_a_escena, tiempos, UNIDAD_CONTADOR, unidades)
-from script_engine.rotulista_llm import (pasados_de_largo, A1_SYSTEM, A1_USER, _deshacer, EFFORT_DEFAULT, _EN_VUELO, entrada, gastado,
-                                         _HUECOS, items_cap, items_gancho, _ledger, LINEA_B7, llamar, _LOCK,
-                                         MODELO_DEFAULT,
-                                         OUT_TOKENS_PEOR, _post_con_registro, primer_json, prompt_md5, prompt_user,
-                                         PROMPT_VERSION, PROMPT_VERSION_F29B, REGLAS_REINTENTO, _reintento,
-                                         ROTULISTA_SYSTEM, ROTULISTA_SYSTEM_F29C, ROTULISTA_SYSTEM_F32, ROTULISTA_USER,
-                                         ROTULISTA_USER_F32, _solo_el_json, _tipo_id, TopeRotulista, voz_del_video,
-                                         voz_previa, ya_mostrado)
-from script_engine.clima import (usadas_antes, sellos_del_papel, elegir_clima, _gemini_clima, palabra_clima, peak_word, prompt_clima,
-                                 SELLO_CLIMA_PROMPT, _sello_queda, sellos_por_tema, TEMA_DE_MOOD, vocabulario_clima)
-from script_engine.voz_datos import (_agua_de, agua_de_voz, AGUA_ETIQUETAS, _entero, fechas_completas, _MES_RE,
-                                     pico_cap, pico_plan, _raices, reloj_de_voz, tarjeta_inicial)
+                                     nombre_inicial, nombres, norm_oracion, _num_en, _num_tok, numero_en, numeros,
+                                     _NUMW, oraciones, oraciones_de_texto, _palabra_en, palabras,
+                                     palabras_de_contenido, _PARTICULAS, _raiz_en, _toks, _UNIDAD_1, _UNIDAD_2,
+                                     _valor, _w2n, _W2N_LOCK)
+from script_engine.rotulista_filtros import (ancla_papel, candado, contradicciones, _DOC, FICHA, gancho_dicho,
+                                             lectura, LOCALES, no_dicho, ORDEN, PALABRAS_LOCALES, _palabras_mag,
+                                             pide_documento, regla, spoiler, validar_papel)
+from script_engine.rotulista_colocar import (caben, caracteres, choca, colocar, _cubre, despues_del_corte, _escena_de,
+                                             escena_final, hasta_el_corte, KIND_FICHA, LECTURA_CPS, tiempos, unidades)
+from script_engine.clima import (peak_word, _sello_queda, sellos_del_papel, TEMA_DE_MOOD, usadas_antes,
+                                 vocabulario_clima)
+from script_engine.voz_datos import (_entero, fechas_completas, _MES_RE, pico_cap, pico_plan, _raices, reloj_de_voz,
+                                     tarjeta_inicial)
+
+
+def voz_del_video(ctx: dict[str, Any]) -> list[str]:
+    """§A.4: la voz de los 7 caps, oración por oración (el texto de la narración: el mismo que los subtítulos remapeados
+    del sync map). Movida de rotulista_llm (F36 §D)."""
+    out = []
+    for c in sorted(ctx.get("chapters") or [], key=lambda c: int(c.get("chapter_number") or 0)):
+        out += [s for s in re.split(r"(?<=[.!?…])\s+", str(c.get("narration") or "").strip()) if s.strip()]
+    return out
+
+
+def voz_previa(ctx: dict[str, Any]) -> str:
+    """F34 §A.2.3: la voz de los caps anteriores al del contexto (un nombre que ya dijo no es spoiler). Movida de
+    rotulista_llm (F36 §D)."""
+    n = int(ctx.get("chapter_number") or 0)
+    return " ".join(str(c.get("narration") or "") for c in sorted(ctx.get("chapters") or [],
+                    key=lambda c: int(c.get("chapter_number") or 0)) if int(c.get("chapter_number") or 0) < n)
 
 
 # ═══════════════════════ el guion en papel (F36 §C.4: Fase 2 consume m01e_pantalla) ═══════════════════════
@@ -81,7 +59,6 @@ def alinear(papel: list[str], voz: list[dict[str, Any]]) -> list[dict[str, Any]]
     puntuación, mayúsculas ni etiquetas de TTS), en orden. La que no es igual a ninguna se ancla a la más parecida
     (difflib) y queda marcada `exacta: False` (el guion la muestra como «papel sin alinear»)."""
     from difflib import SequenceMatcher
-    from script_engine.voz_utils import norm_oracion
     vn = [norm_oracion(s["texto"]) for s in voz]
     out, j0 = [], 0
     for i, t in enumerate(papel):

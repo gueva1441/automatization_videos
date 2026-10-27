@@ -189,54 +189,11 @@ _HANDOFF_IDS = {"ken_burns_in", "ken_burns_out", "pan", "depthflow", "veo", "pun
                 "match_cut", "sfx", "chapter_question", "next_chapter_card", "black_hold"}
 
 
-def test_catalogo_cubre_el_handoff_y_es_consistente():
-    from dataclasses import fields
-    from gfx_config import GfxRules
-    types = {f.name: f.type for f in fields(GfxRules)}
-    ids = [e["id"] for e in CAT["elementos"]]
-    assert len(ids) == len(set(ids))
-    assert _HANDOFF_IDS <= set(ids)
-    tabs = {t["id"] for t in CAT["tabs"]}
-    assert tabs == {"foto", "momento", "entre", "cierre", "global"}
-    for e in CAT["elementos"]:
-        assert e["tab"] in tabs and e["estado"] in CAT["estados"]
-        assert all(e["hint"].get(k) for k in ("cuando", "donde", "por_que")), e["id"]
-        assert e["nombre"] and e["que_hace"]
-        for k in e.get("preset_sugerido", {}).get("tokens", {}):
-            assert k in types, f"{e['id']}: token {k}"
-        for a in e["atributos"]:
-            kind = a["aplica"].split(":")[0]
-            assert kind in ("token", "all", "elem", "anotado"), a
-            if kind == "token":
-                assert a["aplica"].split(":")[1] in types, f"{e['id']}.{a['id']}"
-            if a["tipo"] in ("opciones", "anim", "paleta"):
-                assert a["opciones"], f"{e['id']}.{a['id']}"
-            if a["tipo"] == "anim":
-                assert all(o.get("anim") for o in a["opciones"])
-    # texto libre SOLO en la pregunta de cierre (§1.2)
-    libres = [(e["id"], a["id"]) for e in CAT["elementos"] for a in e["atributos"] if a["tipo"] == "texto"]
-    assert libres == [("chapter_question", "texto")]
-
-
 def test_miniaturas_css_existen_para_cada_animacion():
     css = (lab.LAB_DIR / "anim_previews.css").read_text(encoding="utf-8")
     anims = {o["anim"] for e in CAT["elementos"] for a in e["atributos"] if a["tipo"] == "anim" for o in a["opciones"]}
     missing = [a for a in anims if f".ap-{a}" not in css]
     assert not missing, missing
-
-
-def test_tokens_en_vivo_aplican_al_templater():
-    """Cada valor de opción con aplica=token es aceptado por GfxRules (mismo tipo que el default)."""
-    from dataclasses import replace
-    from gfx_config import gfx_rules
-    for e in CAT["elementos"]:
-        for a in e["atributos"]:
-            if a["aplica"].startswith("token:"):
-                f = a["aplica"].split(":")[1]
-                for o in a["opciones"]:
-                    r = replace(gfx_rules, **{f: o["v"]})
-                    assert isinstance(getattr(r, f), type(getattr(gfx_rules, f))) or (
-                        isinstance(getattr(gfx_rules, f), float) and isinstance(o["v"], (int, float))), (e["id"], f, o)
 
 
 def test_sugerencias_borrador_valido():
@@ -461,22 +418,6 @@ def test_lab_iconos_y_contexto(server):
         _get(url + "/media/icon/no_existe.svg")
     st = json.loads(_get(url + "/api/story")[2])
     assert all(p["dark_v"] in ("top", "mid") for p in st["photos"])
-
-
-@needs_data
-def test_lab_pregunta_con_pausa(server, monkeypatch):
-    from script_engine import gfx_question
-    monkeypatch.setattr(gfx_question, "question_for", lambda *a, **k: {"text": "¿Qué hizo ceder a la prisión?", "generated": True})
-    session, url = server
-    assert json.loads(_get(url + "/question")[2])["text"] == "¿Qué hizo ceder a la prisión?"
-    d = session.duration
-    q = {"text": "¿Qué hizo ceder a la prisión?", "start": round(d, 3), "duration": 3.0, "keyword": "", "generated": True, "pause": 3.0}
-    r = _post(url + "/preview", {"plan": {"chapter_number": 2, "chapter_question": q}, "tokens": {},
-                                 "movimientos": {"14": "quieta"}, "solo": [14], "pausa": 3.0})
-    assert not r["rejected"]                                            # generated: fuera del candado literal
-    idx = _get(url + "/solo/index.html")[2].decode("utf-8")
-    assert f'data-duration="{d + 3:.3f}"' in idx and "cq-line" in idx
-    assert f'id="cq" class="clip" data-start="{d:.3f}" data-duration="3.000"' in idx
 
 
 def test_pantalla_iconos_y_pregunta():

@@ -3,7 +3,7 @@ script_engine/voz_utils.py — F36 §A: la utilería de la voz que usan varios m
 gfx_rotulista sin cambios): cifras en dígitos y en letras (`numeros`, `numero_en`), nombres propios (`nombres`,
 `nombre_inicial`), muñones, palabras de contenido, el analizador de cifras con unidad y magnitud (`_analiza`, lo usan la
 coherencia, el contador y el agua) y las oraciones de la voz con cada palabra numerada (`oraciones`, `beat_de_oracion`).
-Va aparte porque la usan rotulista_llm, rotulista_filtros, rotulista_colocar, clima y voz_datos (decisión de F36 A).
+Va aparte porque la usan rotulista_filtros, rotulista_colocar, clima, voz_datos y m01e_pantalla (decisión de F36 A).
 """
 from __future__ import annotations
 
@@ -232,6 +232,13 @@ def oraciones(words: list[dict], time_offset: float = 0.0) -> list[dict[str, Any
                 "t1": round(float(words[i]["end"]) + time_offset, 3)} for j, i in enumerate(s["idx"])]
         out.append({"idx": k, "t0": round(s["t0"], 3), "t1": round(s["t1"], 3), "texto": s["text"], "palabras": pal})
     return out
+
+
+def frases(text: str) -> list[str]:
+    """Frases de una narración (corte en . ! ? … sin perder ¿…? completas). Movida de gfx_question.sentences sin cambios
+    (F36 §D: gfx_question se borró; la usa gfx_layer para las frases vecinas del director de intensidad)."""
+    parts = re.split(r"(?<=[.!?…])\s+", re.sub(r"\s+", " ", str(text)).strip())
+    return [p.strip() for p in parts if p.strip()]
 
 
 def oraciones_de_texto(texto: str) -> list[str]:

@@ -162,32 +162,11 @@ _ENGINE_INVENTORY: tuple[GfxBlock, ...] = (
         max_per_cap=1, llm_decides=True,
     ),
     GfxBlock(
-        name="source_tag",
-        description="Etiqueta de 1 línea bajo un data_callout o count_up con la fuente del fact (organización, año).",
-        params="(ninguno: sale de sources[] cuando el fact nombra la organización)",
-        rules="el LLM no lo elige; sin fuente resoluble no hay etiqueta.",
-        max_per_cap=999, llm_decides=False,
-    ),
-    GfxBlock(
         name="keyword_emphasis",
         description="Palabra de carga de la narración (léxico de moods del perfil) → capa de mood de 1–3 s (CSS, intensidad baja) + sello rojo con la palabra.",
         params="(ninguno: detección por regex sobre la narración con el léxico del perfil)",
         rules="el LLM no lo elige; máx 1 por frase; ≥ 20 s entre moods de la misma categoría; si hay más disparadores que el máximo, quedan las palabras más raras.",
         max_per_cap=5, llm_decides=False,
-    ),
-    GfxBlock(
-        name="icon_callout",
-        description="Ícono del set (grabado 1890) + la palabra de énfasis; reemplaza al sello de texto cuando la categoría del mood tiene ícono.",
-        params="(ninguno: sale del énfasis de palabra y del ícono de su categoría en el perfil)",
-        rules="el LLM no lo elige; solo íconos de la lista blanca; sin ícono aprobado → sello de texto solo.",
-        max_per_cap=3, llm_decides=False,
-    ),
-    GfxBlock(
-        name="icon_array",
-        description="Cifra = N figuras humanas dibujándose en filas de 10; las víctimas en rojo.",
-        params="(ninguno: sale de un fact con relación afectados/total, p. ej. '12 de los 300')",
-        rules="el LLM no lo elige; solo cifras ≤ 500 con relación total/afectados en el fact; la voz tiene que decir la cifra.",
-        max_per_cap=1, llm_decides=False,
     ),
     GfxBlock(
         name="shot_transition",
@@ -216,12 +195,7 @@ VALID_CALLOUT_KINDS: frozenset[str] = frozenset({"year", "figure", "name", "plac
 @dataclass(frozen=True)
 class GfxRules:
     realizador: bool = True                  # F29 §A: con escaleta, el gfx obedece a los beats (gfx_realizador)
-    gap_fill: bool = False                   # F29 §A.4: rellenar huecos con bloques (por hueco, no por relato) → apagado
     rotulista: bool = False                  # F29b §A: el texto de pantalla lo escribe el rotulista (Claude), anclado a la oración
-    rotulista_modelo: str = "claude-sonnet-5-5"   # F29b §A.2 (`fase2b --rotulista-modelo claude-fable-5-1` para probar)
-    rotulista_effort: str = "medium"
-    rotulista_tope_usd: float = 2.0          # F29b: tope Claude de la tanda, chequeado antes de cada llamada
-    garantizar_pico: bool = True             # F29 §A.4: rótulo de respaldo en el pico; con el rotulista no corre (F29b §A.5)
     interrupt_min_sec: float = 25.0          # pattern interrupt: un bloque cada 25–35 s
     interrupt_max_sec: float = 35.0
     accent_hex: str = "#c8102e"              # F2 §0b.9: acento ÚNICO del canal (subrayado, sello, línea, kicker)
@@ -251,11 +225,9 @@ class GfxRules:
     zoom_rect_sec: float = 0.65
     zoom_approach_sec: float = 1.2
     zoom_hold_min_sec: float = 1.0  # identidad F3
-    zoom_scale: float = 2.2  # identidad F3
     zoom_freeze_frame: bool = False          # F4 §3: el render SÍ escala el <video> (C64 era del preview); True = cuadro congelado (lab)
     zoom_box_min: float = 0.06               # lado mínimo del box normalizado
     zoom_box_max: float = 0.25
-    zoom_label_margin_px: int = 40           # "DETALLE" a ≥ 40 px del borde
     zoom_conf_min: float = 0.7               # identidad F3 · F2b §1.2: confianza mínima de visión para el box de la frase ancla
     # archive_clipping (F2 §0b.6: 15 % más chico, 6 s, hasta 2 por cap, lado opuesto al sujeto)
     archive_dur: float = 6.0  # identidad F3
@@ -289,11 +261,7 @@ class GfxRules:
     r1_cut_punch_scale: float = 1.02
     # grade (F2 §0b.1: OFF por default → solo grano 0.15 + viñeta 0.20; recetas A/B/C inactivas)
     # animaciones firma (F2 §2; portadas de lab/hyperframes/f1/text_sampler)
-    anim_name_place: str = "cascade"         # data_callout kind=name/place
-    anim_year: str = "stamp"                 # data_callout kind=year
-    anim_figure: str = "number_pop"          # data_callout kind=figure + count_up
     anim_archive_head: str = "cascade"
-    anim_detail_label: str = "stamp"         # etiqueta "DETALLE"
     cascade_stagger: float = 0.025           # 25 ms por letra
     cascade_rise_px: int = 60
     stamp_from_scale: float = 1.4
@@ -312,48 +280,31 @@ class GfxRules:
     question_dim: float = 0.5
     question_max_words: int = 9
     question_font_px: int = 96
-    question_auto: bool = False              # F3: pregunta de cierre generada por Flash (gfx_question) — el perfil la prende
+    question_auto: bool = False              # F3: pregunta de cierre (F36 §D: el `cierre` del último beat) — el perfil la prende
     question_pause_sec: float = 3.0          # identidad F3 · F3: silencio real al final del cap mientras se ve la pregunta (alarga el cap)
-    question_max_words_auto: int = 12        # F3: tope de la pregunta generada
     black_hold_sec: float = 0.0              # F3: corte a negro después de la pregunta de cierre (se suma a la pausa)
     peak_blocks: bool = False                # F3: pico del cap (gfx_peak): bloque grande + ±5 s libres, zoom con latido, reloj
     # F4 §2: el director aplica la identidad del lab (gfx_style). OFF en el motor = F3 tal cual; misterio lo prende
     identity_rules: bool = False
     crossfade_frames: int = 20               # DECISIONES: 2026-10-25 21:48 (fundido 20 f, identidad F3) · fundido cruzado default de la identidad (20 f)
-    fast_cut_sec: float = 3.5                # plano de < 3.5 s (entrante o saliente) → corte (ritmo rápido)
     dip_max_per_cap: int = 1                 # fundido a negro: 1 por cap
-    dip_min_t: float = 10.0                  # …no antes de los 10 s (el título abre el cap)
     punch_max_identity: int = 4              # golpes de zoom por cap (F4 §1.2.1: Omar aprobó la forma, no 8)
-    icon_stamp_px: int = 112                 # sello dentro del bloque de ícono: M (F4 §1.2.3), aunque el suelto sea S
-    ticker_min_times: int = 0                # F4: el reloj solo sale con ≥ N horas verificadas (misterio: 2)
     intensity_director: bool = False         # F4b §1: Flash marca pico, intensidad por frase y cargas (gfx_intensity)
-    fragment_director: bool = False          # F4b §2: Flash elige el fragmento literal más impactante (gfx_fragments)
     photo_first_zoom: bool = False           # F4b §3: visión mira cada foto antes del zoom (gfx_vision)
     auto_icons: bool = False                 # F4b §4: palabra de carga concreta sin ícono propio → game-icons
     icon_literal_only: bool = False          # F5b S4: ícono SOLO si la palabra está en icon_words del perfil (nunca la
                                              # categoría, nunca un adjetivo, sin game-icons automáticos)
     # F4c: doctrina del director (ANALISIS_director_trace_2026-10-20 §3). OFF en el motor; misterio las prende
     peak_word: bool = False                  # R3: el pico lleva su palabra de mayor peso (sello + mood + ícono)
-    doc_clippings: bool = False              # R6: recorte = documento (solo del fact, suma algo, kicker obligatorio)
-    callout_no_repeat: bool = False          # R7: el dato no repite lo que la voz dice en ese tramo
-    question_rubric: bool = False            # R8: 3 preguntas + elección por rúbrica (gancho, no trivia)
     visual_critic: bool = False              # F4e 6b: Gemini juzga cada bloque contra el cuadro real (suma/repite/estorba)
     critic_snapshot: bool = False            # G1: el crítico mira el bloque DIBUJADO (snapshot de HyperFrames en t+1 s)
     stamp_nouns_only: bool = False           # F5e: sellos solo en sustantivos/adjetivos de carga (nunca verbos ni neutras)
-    archive_head_max_words_pool: int = 12    # F5e G2: titular del recorte del pool hasta 12 palabras (> 8 → cuerpo menor)
     # F5f (pool): entre recortes y contra la voz
-    archive_min_gap_sec: float = 15.0        # mínimo entre el fin de un recorte y el arranque del siguiente
-    archive_figure_echo_sec: float = 10.0    # un recorte con una cifra que la voz dice a ± esto queda fuera
-    quote_dur: float = 5.0                   # bloque cita: texto literal + autor, 4–5 s, fondo oscurecido
-    quote_min_sec: float = 4.0
     quote_dim: float = 0.6
-    quote_max_words: int = 30
-    quote_min_words: int = 6                 # «donde pertenecen» (2) no es un bloque de cita
     # con stamp_nouns_only: palabras del tema (no cargas) → peso 1, nunca sello ni mood
     theme_words: tuple = ("recluso", "reclusos", "reclusa", "reclusas", "prisionero", "prisioneros", "prisionera",
                           "prisioneras", "preso", "presos", "presa", "presas", "cárcel", "cárceles", "prisión",
                           "prisiones")
-    source_tag_scale: float = 0.4            # 40 % del tamaño del callout
     sfx_gain_db: float = -18.0               # bajo la voz
     sfx_shift_max_ms: int = 120              # se corre al hueco entre palabras más cercano
     # keyword_emphasis + moods (F2b §2)
@@ -364,11 +315,6 @@ class GfxRules:
     emphasis_stamp_sec: float = 1.6          # el sello se ve 1.6 s dentro del mood
     emphasis_stamp_px: int = 112
     # íconos (F2b §3)
-    icon_px: int = 190                       # lado del ícono del icon_callout
-    icon_fallback_lucide: bool = False       # respaldo Lucide solo para claves rechazadas por Omar (se prende por perfil)
-    icon_array_max: int = 500
-    icon_array_dur: float = 4.0
-    icon_array_px: int = 34                  # lado de cada figura
     mood_dark_flicker: bool = True           # mood oscuridad: 2 parpadeos de luz (PARADA 1: OFF en misterio)
     grade_default: str = "off"
     grain_opacity: float = 0.15              # F2 §0c: tokens del perfil (antes constantes de _GRADE_OFF)
@@ -409,7 +355,6 @@ _GRADE_B = {"gr-halation": 0.35, "gr-haze": 0.0, "gr-palette": 0.0, "gr-shadowte
 _RULE_FIELDS: frozenset[str] = frozenset(f.name for f in fields(GfxRules))
 _PROFILE_KEYS: frozenset[str] = frozenset({"name", "description", "nichos", "fonts", "tokens", "blocks", "sfx", "moods",
                                           "identity",    # F3: lo escribe el lab; el motor lo ignora
-                                          "channel_bug",    # F4b §0.3: marca del canal (gfx_bug)
                                           "sellos_clima"})  # F34 §A.4: vocabulario de sellos (DECISIONES 14:22)
 # F2b §2: capas de mood que el templater sabe dibujar (CSS, nunca toca píxeles)
 VALID_MOOD_LAYERS: frozenset[str] = frozenset({"veneno", "agua", "muerte", "oscuridad", "minima"})
@@ -449,10 +394,33 @@ def active_profile_name() -> str:
     return DEFAULT_PROFILE
 
 
+# F36 §D: claves que el borrado de D dejó sin código (catálogo de Omar 18:17). El perfil vive fuera de git y lo
+# limpia Omar; mientras estén, se sacan al cargar (no rompen) y quedan en PERFIL_HUERFANAS (la lista va al reporte).
+HUERFANAS_TOKENS: frozenset[str] = frozenset({"anim_detail_label", "anim_figure", "anim_name_place", "anim_year", "archive_figure_echo_sec", "archive_head_max_words_pool", "archive_min_gap_sec", "callout_no_repeat", "dip_min_t", "doc_clippings", "fast_cut_sec", "fragment_director", "gap_fill", "garantizar_pico", "icon_array_dur", "icon_array_max", "icon_array_px", "icon_fallback_lucide", "icon_px", "icon_stamp_px", "question_max_words_auto", "question_rubric", "quote_dur", "quote_max_words", "quote_min_sec", "quote_min_words", "rotulista_effort", "rotulista_modelo", "rotulista_tope_usd", "source_tag_scale", "ticker_min_times", "zoom_label_margin_px", "zoom_scale"})
+HUERFANAS_BLOQUES: frozenset[str] = frozenset({"icon_callout", "icon_array", "source_tag"})
+HUERFANAS_CLAVES: frozenset[str] = frozenset({"channel_bug"})
+PERFIL_HUERFANAS: list[str] = []
+
+
+def _sin_huerfanas(prof: dict[str, Any]) -> list[str]:
+    """Saca del perfil (en memoria) las claves de HUERFANAS_* y devuelve cuáles había."""
+    out = [k for k in prof if k in HUERFANAS_CLAVES]
+    for k in out:
+        prof.pop(k)
+    for campo, quitar in (("tokens", HUERFANAS_TOKENS), ("blocks", HUERFANAS_BLOQUES), ("sfx", HUERFANAS_BLOQUES)):
+        d = prof.get(campo) or {}
+        for k in sorted(set(d) & quitar):
+            d.pop(k)
+            out.append(f"{campo}.{k}")
+    return out
+
+
 def load_profile(name: str | None = None) -> dict[str, Any]:
-    """Lee y valida un perfil. Claves o tokens desconocidos → ValueError (un typo no pasa en silencio)."""
+    """Lee y valida un perfil. Claves o tokens desconocidos → ValueError (un typo no pasa en silencio). F36 §D: las
+    huérfanas declaradas (HUERFANAS_*) se sacan antes y se anotan en PERFIL_HUERFANAS."""
     name = name or active_profile_name()
     prof = json.loads(profile_path(name).read_text(encoding="utf-8"))
+    PERFIL_HUERFANAS[:] = _sin_huerfanas(prof)
     bad = set(prof) - _PROFILE_KEYS
     bad |= {f"tokens.{k}" for k in prof.get("tokens", {}) if k not in _RULE_FIELDS}
     bad |= {f"fonts.{k}" for k in prof.get("fonts", {}) if k not in _FONT_KEYS}
@@ -573,15 +541,6 @@ def render_inventory_for_prompt() -> str:
         where = f" Dónde: {b.where}." if b.where else ""
         lines.append(f"- {b.name} [{who}]: {b.description} Parámetros: {b.params} Reglas: {lim}{b.rules}{where}")
     return "\n".join(lines)
-
-
-def clamp_count(items: list, block: str) -> list:
-    """Recorta una lista al máximo por cap del bloque."""
-    return list(items)[: max_per_cap(block)]
-
-
-def clamp_callout_duration(value: float) -> float:
-    return max(gfx_rules.callout_dur_min, min(gfx_rules.callout_dur_max, float(value)))
 
 
 def clamp_box(box: list[float]) -> list[float] | None:

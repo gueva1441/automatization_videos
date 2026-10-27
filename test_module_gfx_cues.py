@@ -37,7 +37,7 @@ def test_cue_events_ordenados_y_completos():
     ev = cue_events(PLAN, ONE, 30)
     assert [e["t"] for e in ev] == sorted(e["t"] for e in ev)
     blocks = {e["block"] for e in ev}
-    assert {"title_card", "data_callout", "punch_in"} <= blocks
+    assert {"title_card", "ficha", "punch_in"} <= blocks                 # F36 §D: todo texto es ficha
 
 
 def test_plan_transiciones_r1_flash_con_tope(monkeypatch):
@@ -51,17 +51,11 @@ def test_plan_transiciones_r1_flash_con_tope(monkeypatch):
     assert tr[4]["kind"] == tr[5]["kind"] == "dissolve"
 
 
-def test_corte_seco_despues_del_zoom():
-    scenes = [GfxScene(0, 0, 5, "R3"), GfxScene(1, 5, 10, "R2"), GfxScene(2, 10, 20, "R3")]
-    tr = plan_transitions(scenes, zoom_scene_idx=0)
-    assert tr[1]["kind"] == "cut" and tr[2]["kind"] in ("dissolve", "dip")
-
-
 def test_write_cues_y_review(tmp_path):
     ev = cue_events(PLAN, ONE, 30)
     md = write_cues("ch02", ev, ["callout omitido (x)", "  plan: {...}"], [[0.0, 36.0]], 12.3, tmp_path)
     txt = md.read_text(encoding="utf-8")
-    assert "| 00:05.0 | data_callout | «4.6 metros»" in txt
+    assert "| 00:05.0 | ficha |" in txt and "4.6 metros" in txt          # F36 §D: todo texto es ficha
     assert "callout omitido" in txt and "plan:" not in txt and "00:36.0" in txt and "12.3 s" in txt
     page = write_review("ch02", tmp_path / "ch02_segment_only.mp4", tmp_path)
     html = page.read_text(encoding="utf-8")

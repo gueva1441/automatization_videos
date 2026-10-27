@@ -102,56 +102,6 @@ def plan_movements(scenes: list[Any], chplan: Any, prompts: list[dict[str, Any]]
     return out
 
 
-def _setting_tokens(p: dict[str, Any]) -> set[str]:
-    txt = " ".join(str(p.get(k, "")) for k in ("setting", "location"))
-    return {w for w in re.findall(r"[a-z]+", txt.lower()) if len(w) > 2 and w not in _STOP}
-
-
-def same_place(a: dict[str, Any], b: dict[str, Any]) -> bool:
-    """La foto siguiente es del mismo lugar (setting casi igual) → corte obligatorio (evita «slideshow»)."""
-    ta, tb = _setting_tokens(a), _setting_tokens(b)
-    return bool(ta and tb) and len(ta & tb) / len(ta | tb) >= 0.6
-
-
-def identity_transitions(scenes: list[Any], prompts_by_scene: list[dict[str, Any]] | None = None,
-                         zoom_scene_idx: int | None = None) -> dict[int, dict[str, Any]]:
-    """Transición de ENTRADA por escena con la identidad (clave = idx de la escena entrante)."""
-    r = gfx_rules
-    xf = int(r.crossfade_frames)
-    prompts_by_scene = prompts_by_scene or []
-    out: dict[int, dict[str, Any]] = {}
-    flashes: list[float] = []
-    dips = 0
-    since_cut = 0                                    # transiciones seguidas sin corte
-    for s in scenes[1:]:
-        prev = scenes[s.idx - 1] if s.idx - 1 < len(scenes) else None
-        pa = prompts_by_scene[s.idx - 1] if s.idx - 1 < len(prompts_by_scene) else {}
-        pb = prompts_by_scene[s.idx] if s.idx < len(prompts_by_scene) else {}
-        fast = min(s.duration, prev.duration if prev else 99) < r.fast_cut_sec
-        if zoom_scene_idx is not None and s.idx == zoom_scene_idx + 1:
-            tr = {"kind": "cut", "frames": 0, "why": "después del zoom"}
-        elif s.rank == "R1" and len(flashes) < r.flash_max_per_cap and all(
-                s.start - f >= r.flash_min_gap_sec for f in flashes):
-            flashes.append(s.start)
-            tr = {"kind": "flash", "frames": r.transition_frames.get("R1", 3), "why": "impacto"}
-        elif s.rank == "R1":
-            tr = {"kind": "cut_punch", "frames": 0, "why": "impacto sin flash disponible"}
-        elif same_place(pa, pb):
-            tr = {"kind": "cut", "frames": 0, "why": "mismo lugar"}
-        elif fast:
-            tr = {"kind": "cut", "frames": 0, "why": "ritmo rápido"}
-        elif since_cut >= 2:
-            tr = {"kind": "cut", "frames": 0, "why": "≥ 1 corte cada 3"}
-        elif dips < r.dip_max_per_cap and s.rank == "R3" and s.start >= r.dip_min_t:
-            dips += 1
-            tr = {"kind": "dip", "frames": r.dip_frames, "why": "fundido a negro (1 por cap)"}
-        else:
-            tr = {"kind": "dissolve", "frames": xf, "why": "default"}
-        since_cut = 0 if tr["kind"] in ("cut", "cut_punch", "flash") else since_cut + 1
-        out[s.idx] = {**tr, "rank": s.rank}
-    return out
-
-
 ZOOM_PUNCH_SCALE = 1.4        # transition_config «zoom_punch»: 1.0→1.4 saliente / 1.4→1.0 entrante
 ZOOM_PUNCH_MS = 400           # ídem, duration_ms
 
@@ -160,18 +110,16 @@ def transiciones_por_relato(scenes: list[Any], plan: dict[str, Any], beats: list
                             fps: int = 30) -> dict[int, dict[str, Any]]:
     """F30b §A: la transición de ENTRADA de cada escena por el relato (clave = idx de la escena entrante); el
     emotional_rank no decide nada. Por cada corte, la primera que aplica:
-        1. la escena saliente tuvo lupa (evidence_zoom en ella)              → cut       «después de la lupa»
-        2. el corte más cercano a pico.t dentro del beat pico (uno por cap)   → zoom_punch «pico»
-        3. la escena entrante es de otro beat que la saliente                → dissolve  «cambio de beat»
-        4. arranca el reloj (time_ticker) en la escena entrante               → dissolve  «salto de tiempo»
-        5. la última escena del cap (la de la pregunta de cierre)             → dip       «cierre»
-        6. todo lo demás                                                      → cut       «corte»
-    Corre sobre el plan final (después del crítico): una lupa que el crítico sacó no deja su corte."""
+        1. el corte más cercano a pico.t dentro del beat pico (uno por cap)   → zoom_punch «pico»
+        2. la escena entrante es de otro beat que la saliente                → dissolve  «cambio de beat»
+        3. arranca el reloj (time_ticker) en la escena entrante               → dissolve  «salto de tiempo»
+        4. la última escena del cap (la de la pregunta de cierre)             → dip       «cierre»
+        5. todo lo demás                                                      → cut       «corte»
+    Corre sobre el plan final (después del crítico). F36 §D: sin la regla de la lupa (la lupa se borró)."""
     r = gfx_rules
     out: dict[int, dict[str, Any]] = {}
     if len(scenes) < 2:
         return out
-    lupa = (plan.get("evidence_zoom") or {}).get("scene_idx")
     pk = plan.get("pico") or {}
     bpk = next((b for b in beats if b["n"] == pk.get("beat")), None)
     punch = None
@@ -190,9 +138,7 @@ def transiciones_por_relato(scenes: list[Any], plan: dict[str, Any], beats: list
     tk_t = float(tk["start"]) if tk else None
     for s in scenes[1:]:
         prev = scenes[s.idx - 1]
-        if lupa is not None and s.idx == lupa + 1:
-            tr = {"kind": "cut", "frames": 0, "why": "después de la lupa"}
-        elif s.idx == punch:
+        if s.idx == punch:
             tr = {"kind": "zoom_punch", "frames": round(ZOOM_PUNCH_MS / 1000 * fps), "why": "pico"}
         elif beats and beat_de(s.start) != beat_de(prev.start):
             tr = {"kind": "dissolve", "frames": int(r.crossfade_frames), "why": "cambio de beat"}

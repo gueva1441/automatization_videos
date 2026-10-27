@@ -69,15 +69,6 @@ def chars_html(text: str) -> str:
     return " ".join(words)
 
 
-def callout_anim(kind: str) -> str:
-    """Animación firma por tipo de dato (F2 §2)."""
-    if kind == "year":
-        return gfx_rules.anim_year
-    if kind == "figure":
-        return gfx_rules.anim_figure
-    return gfx_rules.anim_name_place
-
-
 def _anim_in_js(sel: str, anim: str, t: float) -> tuple[list[str], list[str]]:
     """(init, timeline) de entrada de un texto. Sin letter-spacing animado (lint)."""
     r = gfx_rules
@@ -93,11 +84,6 @@ def _anim_in_js(sel: str, anim: str, t: float) -> tuple[list[str], list[str]]:
                  f'.to("{sel}", {{ scale: 1, duration: {r.pop_sec}, ease: "power2.out" }}, {t:.3f});'])
     return ([f'      gsap.set("{sel}", {{ yPercent: 105 }});'],                         # slide (F1)
             [f'      tl.to("{sel}", {{ yPercent: 0, duration: .38, ease: "power3.out" }}, {t:.3f});'])
-
-
-def _source_html(source: str) -> str:
-    """source_tag (F2 §0d): 1 línea bajo el callout/contador; vacío si el fact no tiene fuente resoluble."""
-    return f'        <div class="co-src">{_esc(source)}</div>\n' if source else ""
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -189,145 +175,8 @@ def mood_layer(i: int, layer: str, t0: float, d: float, width: int, height: int)
 
 
 # ═══════════════════════════════════════════════════════════════
-#  F2b §3: icon_callout + icon_array
+#  F3/F5f: cita, ficha y reloj de esquina
 # ═══════════════════════════════════════════════════════════════
-
-def _grain_filter(uid: str) -> str:
-    """Filtro SVG de grano leve SOLO dentro de la forma (feComposite con SourceAlpha): funde el bloque con la foto
-    sin dibujar un rectángulo de ruido alrededor. Ruido fractal, sin patrón repetido."""
-    return (f'<svg width="0" height="0" style="position:absolute"><filter id="{uid}-grain" x="0" y="0" width="100%" height="100%">'
-            f'<feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="11" result="n"/>'
-            f'<feColorMatrix in="n" type="saturate" values="0" result="g"/>'
-            f'<feComponentTransfer in="g" result="gl"><feFuncR type="linear" slope=".2" intercept=".8"/>'
-            f'<feFuncG type="linear" slope=".2" intercept=".8"/><feFuncB type="linear" slope=".2" intercept=".8"/></feComponentTransfer>'
-            f'<feComposite in="gl" in2="SourceAlpha" operator="in" result="gm"/>'
-            f'<feBlend in="SourceGraphic" in2="gm" mode="multiply"/></filter></svg>')
-
-
-def icon_callout_html(i: int, e: dict[str, Any], st: float, duration: float,
-                      zone: str | None = None) -> tuple[str, list[str], list[str]]:
-    """F3 (Omar): el ícono NUNCA va suelto. Bloque compuesto = ícono L + sello con la palabra AL LADO + fuente debajo
-    (si hay), en la banda oscura del lado tranquilo (zona = GfxScene.dark_v), con sombra suave y grano leve.
-    ("", [], []) si no hay SVG."""
-    from script_engine.gfx_icons import anim_js, icon_svg, scoped_svg
-    svg = icon_svg(e.get("icon"), fallback=gfx_rules.icon_fallback_lucide)
-    if not svg:
-        return "", [], []
-    uid = f"ic{i}"
-    view = re.search(r'viewBox="([^"]+)"', svg)
-    k = float(view.group(1).split()[2]) / 200.0 if view else 1.0
-    d = e["duration"]
-    right = e.get("side", "right") == "right"
-    top = "38%" if (zone or e.get("zone_v")) == "mid" else "14%"
-    pos = f"top:{top};" + ("right:6%" if right else "left:6%")
-    word = (f'<div class="em-text" style="display:inline-block;font:400 {round(gfx_rules.icon_stamp_px * .9)}px/1 '
-            f'&quot;{gfx_rules.figure_font}&quot;,sans-serif;text-transform:uppercase;color:{gfx_rules.accent_hex};'
-            f'border:7px solid {gfx_rules.accent_hex};padding:8px 24px 4px;background:rgba(10,10,10,.35);white-space:nowrap">'
-            f'{_esc(e["word"])}</div>') if e.get("word") else ""
-    src = (f'<div class="ib-src" style="margin-top:14px;color:rgba(244,241,234,.85);font:400 '
-           f'{round(gfx_rules.callout_anton_px * gfx_rules.source_tag_scale)}px/1.1 &quot;{gfx_rules.figure_font}&quot;,sans-serif;'
-           f'letter-spacing:.06em;text-transform:uppercase;text-shadow:{gfx_rules.callout_shadow};'
-           f'text-align:{"right" if right else "left"}">{_esc(e["source"])}</div>') if e.get("source") else ""
-    # la palabra va del lado de adentro (hacia el centro del cuadro); el ícono queda hacia el borde
-    row = (f'<div style="display:flex;align-items:center;gap:30px;flex-direction:{"row-reverse" if right else "row"}">'
-           f'{scoped_svg(svg, uid, gfx_rules.icon_px)}{word}</div>')
-    html_ = (f'      <div id="icc{i}" class="clip" data-start="{st:.3f}" data-duration="{d:.3f}" '
-             f'style="position:absolute;{pos};z-index:6;filter:url(#{uid}-grain) drop-shadow(0 10px 26px rgba(0,0,0,.6))">'
-             f'{_grain_filter(uid)}{row}{src}</div>')
-    init, js = anim_js(uid, e.get("icon_anim") or "stamp", st, st + d, k=k, strokes_only="lucide-ink" in svg,
-                       has_accent='class="ic-accent"' in svg)
-    if word:
-        a_init, a_js = _anim_in_js(f"#icc{i} .em-text", "stamp", st + .35)
-        init += a_init
-        js += a_js
-        js.append(f'      tl.to("#icc{i} .em-text", {{ opacity: 0, duration: .3, ease: "power1.in" }}, {st + d - .45:.3f});')
-    if src:
-        init.append(f'      gsap.set("#icc{i} .ib-src", {{ opacity: 0 }});')
-        js.append(f'      tl.to("#icc{i} .ib-src", {{ opacity: 1, duration: .3 }}, {st + .5:.3f})'
-                  f'.to("#icc{i} .ib-src", {{ opacity: 0, duration: .3, ease: "power1.in" }}, {st + d - .45:.3f});')
-    return html_, init, js
-
-
-def card_icon_html(uid: str, key: str | None, size: int, *, dark: bool = False) -> str:
-    """F3: ícono de la categoría como viñeta DENTRO de una tarjeta (dato o recorte). Estático (entra con la tarjeta).
-    dark=True → tinta oscura (para el papel claro del recorte)."""
-    if not key:
-        return ""
-    from script_engine.gfx_icons import icon_svg, scoped_svg
-    svg = icon_svg(key, fallback=gfx_rules.icon_fallback_lucide)
-    if not svg:
-        return ""
-    if dark:
-        svg = re.sub(r'(fill|stroke)="#e8e0cc"', r'\1="#1b1a17"', svg)
-    return scoped_svg(svg, uid, size)
-
-
-def icon_array_html(ia: dict[str, Any], duration: float) -> tuple[str, list[str], list[str]]:
-    """Filas de 10 figuras (símbolo <use>: el SVG va una sola vez); las primeras `affected` en el acento.
-    Las figuras se dibujan en orden (fila por fila) y la etiqueta literal ('12 de los 300') va arriba."""
-    from script_engine.gfx_icons import DRY_SEC, icon_svg
-    svg = icon_svg("persona", fallback=gfx_rules.icon_fallback_lucide)
-    if not svg:
-        return "", [], []
-    view = re.search(r'viewBox="([^"]+)"', svg)
-    vb = view.group(1) if view else "0 0 200 200"
-    body = re.sub(r"(?s)^.*?<svg[^>]*>|</svg>\s*$", "", svg)
-    body = re.sub(r'<path class="ic-accent"[^>]*/>', "", body)                     # en la grilla, una sola tinta
-    body = re.sub(r'(?s)<g class="ic-strokes"[^>]*>.*?</g>', "", body) if 'class="ic-fill"' in body else body
-    body = re.sub(r'(fill|stroke)="#e8e0cc"', r'\1="currentColor"', body)
-    n, a, px = ia["total"], ia["affected"], gfx_rules.icon_array_px
-    st, d = min(ia["start"], max(0.0, duration - ia["duration"])), ia["duration"]
-    cols = 10
-    rows = (n + cols - 1) // cols
-    gap = round(px * .25)
-    W, H = cols * (px + gap), rows * (px + gap)
-    uses = "".join(f'<use href="#ia-sym" x="{(j % cols) * (px + gap)}" y="{(j // cols) * (px + gap)}" width="{px}" '
-                   f'height="{px}" class="ia-f" style="color:{gfx_rules.accent_hex if j < a else "#e8e0cc"}"/>'
-                   for j in range(n))
-    side = "right:7%" if ia.get("side", "right") == "right" else "left:7%"
-    scale = min(1.0, 0.55 * 1440 / max(H, 1))                                 # la grilla nunca pasa de ~55 % del alto
-    html_ = (f'      <div id="ia" class="clip" data-start="{st:.3f}" data-duration="{d:.3f}" '
-             f'style="position:absolute;top:22%;{side};z-index:6;transform-origin:top {"right" if "right" in side else "left"};'
-             f'transform:scale({scale:.3f})">'
-             f'<div class="ia-label" style="font:400 64px/1 &quot;{gfx_rules.figure_font}&quot;,sans-serif;color:#f4f1ea;'
-             f'text-transform:uppercase;margin-bottom:18px;text-shadow:{gfx_rules.callout_shadow}">{_esc(ia["label"])}</div>'
-             f'<svg width="{W}" height="{H}" viewBox="0 0 {W} {H}"><defs><symbol id="ia-sym" viewBox="{vb}">{body}</symbol></defs>'
-             f'{uses}</svg></div>')
-    init = ['      gsap.set("#ia .ia-f", { opacity: 0 }); gsap.set("#ia .ia-label", { opacity: 0, y: 20 });']
-    draw = min(1.6, 0.012 * n + 0.4)                                          # 300 figuras ≈ 1.6 s
-    js = [f'      tl.to("#ia .ia-label", {{ opacity: 1, y: 0, duration: .35, ease: "power3.out" }}, {st:.3f})'
-          f'.to("#ia .ia-f", {{ opacity: 1, duration: .12, stagger: {{ amount: {draw:.2f} }} }}, {st + .2:.3f})'
-          f'.to("#ia", {{ opacity: 0, duration: {DRY_SEC}, ease: "power1.in" }}, {st + d - DRY_SEC:.3f});']
-    return html_, init, js
-
-
-# ═══════════════════════════════════════════════════════════════
-#  F3: bloques del pico (nivel de agua), reloj de esquina y corte a negro
-# ═══════════════════════════════════════════════════════════════
-
-def water_level_html(wl: dict[str, Any], width: int, height: int, duration: float) -> tuple[str, list[str], list[str]]:
-    """Línea fina color hueso que sube desde abajo hasta `height` (fracción de pantalla) con la cifra pegada contando
-    ("1 m… 2 m… 4.6 m") + oscurecimiento leve debajo de la línea. Subida `rise` s + hold; sale con fade."""
-    st = min(wl["start"], max(0.0, duration - wl["duration"]))
-    d, rise = wl["duration"], wl.get("rise", 2.5)
-    unit = "m" if str(wl.get("unit", "")).lower().startswith("m") else str(wl.get("unit", ""))
-    final = float(str(wl["value_text"]).replace(",", "."))
-    y = round(height * float(wl["height"]))
-    html_ = (f'      <div id="wl" class="clip" data-start="{st:.3f}" data-duration="{d:.3f}" '
-             f'style="position:absolute;inset:0;z-index:20;pointer-events:none;overflow:hidden">'
-             f'<div id="wl-box" style="position:absolute;left:0;right:0;bottom:0;height:{y}px">'
-             f'<div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.5),rgba(0,0,0,.38))"></div>'
-             f'<div style="position:absolute;left:0;right:0;top:0;height:4px;background:#f2efe6;box-shadow:0 0 14px rgba(242,239,230,.45)"></div>'
-             f'<div id="wl-num" style="position:absolute;right:7%;top:-118px;color:#f2efe6;font:400 104px/1 &quot;{gfx_rules.figure_font}&quot;,'
-             f'sans-serif;text-transform:none;letter-spacing:.02em;text-shadow:{gfx_rules.callout_shadow};font-variant-numeric:tabular-nums">'
-             f'1 {_esc(unit)}</div></div></div>')
-    init = ['      gsap.set("#wl-box", { height: 0 });']
-    js = [f'      var wlObj = {{ v: 0 }}; tl.to("#wl-box", {{ height: {y}, duration: {rise:.3f}, ease: "power1.inOut" }}, {st:.3f})'
-          f'.to(wlObj, {{ v: {final}, duration: {rise:.3f}, ease: "power1.inOut", onUpdate: function () {{'
-          f' var v = wlObj.v >= {final} - 1e-6 ? {json.dumps(str(wl["value_text"]))} : String(Math.max(1, Math.floor(wlObj.v)));'
-          f' document.getElementById("wl-num").textContent = v + " {_esc(unit)}"; }} }}, {st:.3f})'
-          f'.to("#wl", {{ opacity: 0, duration: .4, ease: "power1.in" }}, {st + d - .4:.3f});']
-    return html_, init, js
 
 
 def quote_card_html(qc: dict[str, Any], width: int, height: int, duration: float) -> tuple[str, list[str], list[str]]:
@@ -447,40 +296,6 @@ def load_grade_preset() -> dict[str, Any]:
 
 
 # ═══════════════════════════════════════════════════════════════
-#  count_up: formateo que reproduce EXACTO el literal del fact
-# ═══════════════════════════════════════════════════════════════
-
-_NUM_RE = re.compile(r"^(?P<num>\d{1,3}(?:[,.]\d{3})+|\d+(?:[.,]\d+)?)(?P<suffix>%?)$")
-
-
-def parse_count_literal(value_text: str) -> dict[str, Any] | None:
-    """'6,500' → {value: 6500, thousands: ',', decimals: 0, dec_sep: '.', suffix: ''}. None si no es cifra."""
-    m = _NUM_RE.match(value_text.strip())
-    if not m:
-        return None
-    num, suffix = m.group("num"), m.group("suffix")
-    if re.fullmatch(r"\d{1,3}(?:[,.]\d{3})+", num):
-        sep = "," if "," in num else "."
-        return {"value": int(num.replace(sep, "")), "thousands": sep, "decimals": 0,
-                "dec_sep": "." if sep == "," else ",", "suffix": suffix}
-    if "." in num or "," in num:
-        dec_sep = "." if "." in num else ","
-        ip, dp = num.split(dec_sep)
-        return {"value": float(f"{ip}.{dp}"), "thousands": "", "decimals": len(dp),
-                "dec_sep": dec_sep, "suffix": suffix}
-    return {"value": int(num), "thousands": "", "decimals": 0, "dec_sep": ".", "suffix": suffix}
-
-
-def format_count(value: float, spec: dict[str, Any]) -> str:
-    """Formatea igual que el literal (separador de miles, decimales, sufijo)."""
-    if spec["decimals"]:
-        s = f"{value:.{spec['decimals']}f}".replace(".", spec["dec_sep"])
-    else:
-        s = f"{int(round(value)):,}".replace(",", spec["thousands"]) if spec["thousands"] else str(int(round(value)))
-    return s + spec["suffix"]
-
-
-# ═══════════════════════════════════════════════════════════════
 #  Escenas
 # ═══════════════════════════════════════════════════════════════
 
@@ -521,10 +336,10 @@ def transitions_of(plan: dict[str, Any], scenes: list[GfxScene]) -> dict[int, di
     tr = plan.get("transitions")
     if tr:
         return {int(k): v for k, v in tr.items() if 0 < int(k) < len(scenes)}
-    return plan_transitions(scenes, (plan.get("evidence_zoom") or {}).get("scene_idx"))
+    return plan_transitions(scenes)
 
 
-def plan_transitions(scenes: list[GfxScene], zoom_scene_idx: int | None = None) -> dict[int, dict[str, Any]]:
+def plan_transitions(scenes: list[GfxScene]) -> dict[int, dict[str, Any]]:
     """shot_transition de ENTRADA por escena (determinista desde emotional_rank del plano entrante).
 
     R1 → flash, salvo que ya se hayan usado gfx_rules.flash_max_per_cap flashes o el anterior
@@ -534,11 +349,7 @@ def plan_transitions(scenes: list[GfxScene], zoom_scene_idx: int | None = None) 
     flashes: list[float] = []
     for s in scenes[1:]:
         frames = gfx_rules.transition_frames.get(s.rank, gfx_rules.transition_frames["R3"])
-        if zoom_scene_idx is not None and s.idx == zoom_scene_idx + 1:
-            # F2 §0b.5: el zoom termina EN el corte; una disolvencia partiría del freeze sin zoom
-            # (la foto inicial) → corte seco
-            out[s.idx] = {"kind": "cut", "frames": 0, "rank": s.rank}
-        elif s.rank == "R1":
+        if s.rank == "R1":
             if len(flashes) < gfx_rules.flash_max_per_cap and all(
                     s.start - f >= gfx_rules.flash_min_gap_sec for f in flashes):
                 flashes.append(s.start)
@@ -671,55 +482,10 @@ def _scene_html(s: GfxScene, n: int, plan: dict[str, Any], project: Path,
 
     # ── F2b §2: mood "muerte" → push-in lentísimo de la capa de video (solo si la escena no tiene punch/zoom)
     has_punch = any(s.start <= t < s.end for t in plan.get("punch_in", []))
-    has_zoom = bool(plan.get("evidence_zoom")) and plan["evidence_zoom"].get("scene_idx") == s.idx
     for e in plan.get("emphasis", []) or []:
-        if e.get("layer") == "muerte" and s.start <= e["start"] < s.end and not (has_punch or has_zoom):
+        if e.get("layer") == "muerte" and s.start <= e["start"] < s.end and not has_punch:
             js.append(f'        tl.to("#vw{tag}", {{ scale: 1.015, duration: {e["duration"]:.3f}, ease: "none" }}, {e["start"] - s.start:.3f});')
             break
-
-    # ── evidence_zoom sobre el FRAME DE VIDEO, salida en corte
-    ez = plan.get("evidence_zoom")
-    if ez and ez["scene_idx"] == s.idx:
-        bx, by, bw, bh = ez["box"]
-        x, y, w, h = bx * width, by * height, bw * width, bh * height
-        cx, cy, S = x + w / 2, y + h / 2, gfx_rules.zoom_scale
-        tx = min(max(width / 2, width - (width - cx) * S), cx * S) - cx
-        ty = min(max(height * .42, height - (height - cy) * S), cy * S) - cy
-        mg = gfx_rules.zoom_label_margin_px                         # "DETALLE" a ≥ mg px de los bordes
-        lx = min(max(mg, cx + tx - w * S / 2), width - mg - 380.0)
-        ly = min(max(mg, cy + ty - h * S / 2 - 64), height - mg - 50.0)
-        # F2 §0b.5: el zoom TERMINA en el corte (acerca, sostiene ≥ 1 s y la escena corta). Nunca vuelve.
-        z0 = (ez["start"] - s.start) if "start" in ez else max(0.0, s.duration - gfx_rules.zoom_dur)
-        rest = s.duration - z0
-        # F3 (C64) creyó que HyperFrames no escalaba el <video>; F4 §3 midió que el render y el snapshot SÍ lo escalan
-        # (el frame inyectado es hermano del <video> dentro de #vw). El cuadro congelado queda solo si zoom_freeze_frame
-        # (lab): en producción el clip DepthFlow/Veo sigue moviéndose durante el zoom.
-        zf = project / "public" / "cuts" / f"zoomfz_{tag}.jpg"
-        if gfx_rules.zoom_freeze_frame and not (s.safe and Path(s.safe["image"]).exists()) and _extract_freeze(base, s.start + z0, zf):
-            inner.append(f'      <img id="zf{tag}" class="media clip" src="public/cuts/{zf.name}" data-start="{z0:.3f}" '
-                         f'data-duration="{rest:.3f}" alt="" />')
-        inner.append(_tpl("evidence_zoom.html.tmpl").substitute(n=tag, x=f"{x:.0f}", y=f"{y:.0f}", w=f"{w:.0f}", h=f"{h:.0f}"))
-        outer.append(f'    <div id="zl{tag}" class="zlabel clip" data-start="{z0:.3f}" data-duration="{rest:.3f}" '
-                     f'style="left:{lx:.0f}px;top:{ly:.0f}px">DETALLE</div>')
-        if gfx_rules.anim_detail_label == "stamp":   # F2 §2: "DETALLE" entra como sello
-            init.append(f'        gsap.set("#vw{tag}", {{ transformOrigin: "{cx:.1f}px {cy:.1f}px" }});'
-                        f' gsap.set("#zl{tag}", {{ opacity: 0, scale: {gfx_rules.stamp_from_scale}, rotation: {gfx_rules.stamp_rotation} }});')
-        else:
-            init.append(f'        gsap.set("#vw{tag}", {{ transformOrigin: "{cx:.1f}px {cy:.1f}px" }}); gsap.set("#zl{tag}", {{ opacity: 0 }});')
-        if ez.get("latido_t") is not None:                     # F3: latido (lub-dub) en la palabra
-            lt = float(ez["latido_t"]) - s.start
-            outer.append(f'    <div id="lt{tag}" class="clip" data-start="0" data-duration="{s.duration:.3f}" '
-                         f'style="position:absolute;inset:0;background:#000;pointer-events:none"></div>')
-            init.append(f'        gsap.set("#lt{tag}", {{ opacity: 0 }});')
-            for k, beat in enumerate((0.0, 0.28)):
-                js.append(f'        tl.to("#lt{tag}", {{ opacity: {.32 if k == 0 else .22}, duration: .06, ease: "none" }}, {lt + beat:.3f})'
-                          f'.to("#lt{tag}", {{ opacity: 0, duration: .18, ease: "power1.out" }}, {lt + beat + .06:.3f});')
-        r0, ap = gfx_rules.zoom_rect_sec, gfx_rules.zoom_approach_sec
-        js.append(f'        tl.to("#zr{tag}", {{ opacity: 1, duration: .3 }}, {z0 + .25:.3f})'
-                  f'.to("#vw{tag}", {{ scale: {S}, x: {tx:.1f}, y: {ty:.1f}, duration: {ap}, ease: "power3.inOut" }}, {z0 + r0:.3f})'
-                  + (f'.to("#zl{tag}", {{ opacity: 1, scale: 1, rotation: 0, duration: {gfx_rules.stamp_sec}, ease: "power4.in" }}, {z0 + r0 + ap - .1:.3f});'
-                     if gfx_rules.anim_detail_label == "stamp" else
-                     f'.to("#zl{tag}", {{ opacity: 1, duration: .25 }}, {z0 + r0 + ap - .1:.3f});'))
 
     return _tpl("scene.html.tmpl").substitute(
         n=tag, duration=f"{s.duration:.3f}", width=width, height=height,
@@ -758,32 +524,14 @@ def cue_events(plan: dict[str, Any], scenes: list[GfxScene], fps: int) -> list[d
     if plan.get("chapter_question"):
         add(plan["chapter_question"]["start"], plan["chapter_question"]["duration"], "chapter_question",
             plan["chapter_question"]["text"])
-    for c in plan.get("callouts", []):
-        if c.get("source"):
-            add(c["start"], c.get("duration", gfx_rules.callout_dur), "source_tag", c["source"])
-    for c in plan.get("callouts", []):
-        if c.get("ficha"):                                      # F29c §A.5
-            add(c["start"], c.get("duration", gfx_rules.callout_dur), "ficha", f"{c.get('kicker', '')} · {c['text']}")
-            continue
-        add(c["start"], c.get("duration", gfx_rules.callout_dur), "data_callout", c["text"])
-    cu = plan.get("count_up")
-    if cu:
-        add(cu["start"], cu.get("duration", gfx_rules.count_dur + gfx_rules.count_hold_sec), "count_up", f"{cu['value_text']} {cu.get('unit', '')}".strip())
+    for c in plan.get("callouts", []):                          # F29c §A.5: todo texto es ficha (F36 §D)
+        add(c["start"], c.get("duration", gfx_rules.callout_dur), "ficha", f"{c.get('kicker', '')} · {c['text']}")
     for ar in archive_list(plan):
         add(ar["start"], ar["duration"], "archive_clipping", ar["headline"])
-    ez = plan.get("evidence_zoom")
-    if ez and 0 <= ez["scene_idx"] < len(scenes):
-        sc = scenes[ez["scene_idx"]]
-        z0 = ez.get("start", sc.end - gfx_rules.zoom_dur)
-        add(z0, sc.end - z0, "evidence_zoom", f"box {ez['box']}")
     for t in plan.get("punch_in", []):
         add(t, gfx_rules.punch_in_sec + gfx_rules.punch_out_sec, "punch_in")
-    for e in plan.get("emphasis", []) or []:                    # F2b §2 (+ §3: ícono)
-        add(e["start"], e["duration"], f"{'icon_callout' if e.get('icon_callout') else 'keyword_emphasis'}:{e['category']}",
-            e["word"] + (f" [{e['icon']} · {e.get('icon_anim', 'stamp')}]" if e.get("icon_callout") else ""))
-    if plan.get("water_level"):                                 # F3
-        wl = plan["water_level"]
-        add(wl["start"], wl["duration"], "water_level", f"{wl['value_text']} {wl.get('unit', '')}".strip())
+    for e in plan.get("emphasis", []) or []:                    # F2b §2
+        add(e["start"], e["duration"], f"keyword_emphasis:{e['category']}", e["word"])
     if plan.get("quote_card"):                                  # F5f: cita literal + autor
         qc = plan["quote_card"]
         add(qc["start"], qc["duration"], "quote_card", f"«{qc['text']}» — {qc['author']}")
@@ -794,9 +542,6 @@ def cue_events(plan: dict[str, Any], scenes: list[GfxScene], fps: int) -> list[d
             add(ch["t"], 0.54, "time_ticker_change", f"→ {ch['day']} {ch['month']} · {ch.get('tail', '')}".strip())
     if plan.get("black_hold"):
         add(plan["black_hold"]["start"], plan["black_hold"]["duration"], "black_hold", "corte a negro")
-    if plan.get("icon_array"):                                  # F2b §3
-        ia = plan["icon_array"]
-        add(ia["start"], ia["duration"], "icon_array", f"{ia['label']} ({ia['affected']}/{ia['total']})")
     for idx, tr in transitions_of(plan, scenes).items():
         sc = scenes[idx]
         label = (f"{tr['frames']} f" if tr["frames"] else
@@ -888,7 +633,7 @@ def render_css(width: int, height: int) -> str:
         callout_font=r.callout_font, callout_font_weight=r.callout_font_weight, callout_font_px=r.callout_font_px,
         callout_anton_px=r.callout_anton_px, callout_shadow=r.callout_shadow,
         title_font=r.title_font, figure_font=r.figure_font, clipping_font=r.clipping_font,
-        source_px=round(r.callout_anton_px * r.source_tag_scale), question_px=r.question_font_px,
+        question_px=r.question_font_px,
         stamp_px=round(r.callout_font_px * 0.62),   # el sello va en una sola línea (fechas largas)
         ar_scale=ars, ar_w=min(round(1100 * ars), round(width * r.archive_max_w_frac)), ar_pad_v=round(50 * ars), ar_pad_h=round(60 * ars),
         ar_pad_b=round(60 * ars), ar_kicker_px=round(34 * ars), ar_head_px=round(84 * ars),
@@ -984,13 +729,6 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
         overlays.append(m_html)
         init += m_init
         js += m_js
-        if e.get("icon_callout"):
-            ic_html, ic_init, ic_js = icon_callout_html(i, e, st, duration, zone=scene_at(scenes, st).dark_v)
-            if ic_html:
-                overlays.append(ic_html)
-                init += ic_init
-                js += ic_js
-                continue
         if e.get("stamp") and e.get("word"):
             sd = gfx_rules.emphasis_stamp_sec
             side = "right:8%" if e.get("side", "right") == "right" else "left:8%"
@@ -1010,14 +748,6 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
             js += a_js
             js.append(f'      tl.to("#em{i}", {{ opacity: 0, duration: .3, ease: "power1.in" }}, {st + sd - .3:.3f});')
 
-    # ── F2b §3: icon_array (N figuras en filas de 10, afectados en rojo)
-    if plan.get("icon_array"):
-        a_html, a_init, a_js = icon_array_html(plan["icon_array"], duration)
-        if a_html:
-            overlays.append(a_html)
-            init += a_init
-            js += a_js
-
     # ── title_card (F2: 3.0 s, 30 % más chica, fade de salida 0.4 s, video vivo oscurecido 40 %)
     tc = plan.get("title_card")
     if tc:
@@ -1033,53 +763,14 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
                   '.to("#tc-line", { scaleX: 1, duration: .7, ease: "power3.inOut" }, .25)'
                   f'.to(["#tc", "#tc-dim"], {{ opacity: 0, duration: {fo}, ease: "power2.in" }}, {dur - fo:.3f});')
 
-    # ── data_callout (tercio superior, lado según el sujeto; figure → Anton, resto → Playfair SC)
+    # ── las fichas (F29c §A.5: la ficha = el title card sin #tc-dim, con su id; F36 §D: el único bloque de texto)
     for i, c in enumerate(plan.get("callouts", [])):
         dur = c.get("duration", gfx_rules.callout_dur)
         st = min(c["start"], max(0.0, duration - dur))
-        if c.get("ficha"):                     # F29c §A.5: la ficha = el title card (sin #tc-dim), con su id
-            f_html, f_init, f_js = ficha_html(f"fc{i}", c, st, dur, width)
-            overlays.append(f_html)
-            init += f_init
-            js += f_js
-            continue
-        face = c.get("face") or ("anton" if c.get("kind") == "figure" else "serif")   # F29b: el rotulista fija cara
-        anim = c.get("anim") or callout_anim(c.get("kind", ""))                        # y entrada (nunca sello)
-        text_html = chars_html(c["text"]) if anim == "cascade" else _esc(c["text"])
-        face_cls = f"{face} stamp" if anim == "stamp" else face
-        ico = card_icon_html(f"coi{i}", c.get("icon"), round(gfx_rules.callout_anton_px * .95))
-        overlays.append(_tpl("data_callout.html.tmpl").substitute(
-            i=i, start=f"{st:.3f}", duration=f"{dur:.3f}", text=text_html,
-            icon_html=f'<span class="co-ico">{ico}</span>' if ico else "",
-            side=c.get("side", "left"), face=face_cls, mask_cls="co-mask stamped" if anim == "stamp" else "co-mask",
-            source_html=_source_html(c.get("source", ""))))
-        a_init, a_js = _anim_in_js(f"#co{i} .co-text", anim, st)
-        init += a_init + [f'      gsap.set("#co{i} .co-rule", {{ scaleX: 0 }});']
-        js += a_js
-        js.append(f'      tl.to("#co{i} .co-rule", {{ scaleX: 1, duration: .5, ease: "power3.inOut" }}, {st + .08:.3f})'
-                  f'.to("#co{i}", {{ opacity: 0, duration: .35, ease: "power1.in" }}, {st + dur - .35:.3f});')
-
-    # ── count_up (cifra literal del fact, Anton)
-    cu = plan.get("count_up")
-    if cu:
-        spec = parse_count_literal(cu["value_text"])
-        if spec is not None and format_count(spec["value"], spec) == cu["value_text"]:
-            dur = gfx_rules.count_dur + gfx_rules.count_hold_sec
-            st = min(cu["start"], max(0.0, duration - dur))
-            overlays.append(_tpl("count_up.html.tmpl").substitute(
-                start=f"{st:.3f}", duration=f"{dur:.3f}", zero_text=_esc(format_count(0, spec)), unit=_esc(cu.get("unit", "")),
-                source_html=_source_html(cu.get("source", ""))))
-            js.append(f'      var cuSpec = {json.dumps(spec)}; var cuObj = {{ v: 0 }};'
-                      ' function cuFmt(v) { var s = cuSpec.decimals ? v.toFixed(cuSpec.decimals).replace(".", cuSpec.dec_sep)'
-                      ' : String(Math.round(v)).replace(/\\B(?=(\\d{3})+(?!\\d))/g, cuSpec.thousands); return s + cuSpec.suffix; }'
-                      f' tl.to(cuObj, {{ v: cuSpec.value, duration: {gfx_rules.count_dur}, ease: "power2.out",'
-                      ' onUpdate: function () { document.getElementById("cu-num").textContent = cuFmt(cuObj.v); } },'
-                      f' {st:.3f}); tl.to("#cu", {{ opacity: 0, duration: .3 }}, {st + dur - .3:.3f});')
-            if gfx_rules.anim_figure == "number_pop":            # F2 §2: golpe 1.08 → 1.0 al llegar al valor
-                t_hit = st + gfx_rules.count_dur
-                js.append(f'      tl.fromTo("#cu-num", {{ scale: {gfx_rules.pop_from_scale} }}, {{ scale: 1, duration: {gfx_rules.pop_sec},'
-                          f' ease: "power2.out", immediateRender: false }}, {t_hit:.3f});')
-                init.append('      gsap.set("#cu-num", { display: "inline-block", transformOrigin: "50% 60%" });')
+        f_html, f_init, f_js = ficha_html(f"fc{i}", c, st, dur, width)
+        overlays.append(f_html)
+        init += f_init
+        js += f_js
 
     # ── archive_clipping (F2: hasta 2, 6 s, lado opuesto al sujeto, cuerpo ≥ 52 px, tipografía por década)
     forma_v = forma("V") if forma("V") in ("V2", "V3") else None     # F31
@@ -1095,8 +786,7 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
             head_style=(f' style="font-size:{head_px}px"' if head_step else ""),
             i=i, start=f"{a0:.3f}", duration=f"{a1 - a0:.3f}", paper=paper, font=font, side=ar.get("side", "right"),
             kicker=_esc(ar.get("kicker", "")),
-            icon_html=(f'          <div class="ar-ico">{card_icon_html(f"ari{i}", ar.get("icon"), round(gfx_rules.archive_scale * 150), dark=True)}</div>\n'
-                       if ar.get("icon") and card_icon_html(f"ari{i}", ar.get("icon"), 10) else ""),
+            icon_html="",                                                  # F36 §D: sin ícono por tema
             headline=chars_html(ar["headline"]) if gfx_rules.anim_archive_head == "cascade" and not forma_v
             else _esc(ar["headline"]),
             body_block=(f'          <div class="ar-body">{_esc(ar["body"])}</div>\n' if ar.get("body") else "")))
@@ -1121,12 +811,7 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
         init += q_init
         js += q_js
 
-    # ── F3: nivel de agua (bloque del pico) y reloj de esquina
-    if plan.get("water_level"):
-        w_html, w_init, w_js = water_level_html(plan["water_level"], width, height, duration)
-        overlays.append(w_html)
-        init += w_init
-        js += w_js
+    # ── F3: reloj de esquina
     if plan.get("time_ticker"):
         t_html, t_init, t_js = time_ticker_html(plan["time_ticker"], duration)
         overlays.append(t_html)

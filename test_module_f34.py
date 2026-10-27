@@ -53,76 +53,8 @@ def _bl(si: int, tipo: str, texto: str, pid: str, et: str | None = None, wi: int
 
 # ═══════════════ §A.1 prompt ═══════════════
 
-def test_a1_prompt_tres_reemplazos_exactos_y_el_resto_igual():
-    md = (ROOT / "lab" / "hyperframes" / "f34" / "HANDOFF_F34_reglas_de_pantalla.md").read_text(encoding="utf-8")
-    for viejo, nuevo in gro.A1_SYSTEM[:2]:                 # los dos primeros, literales del handoff
-        assert f"`{viejo}`" in md and f"`{nuevo}`" in md
-        assert nuevo in gro.ROTULISTA_SYSTEM and viejo not in gro.ROTULISTA_SYSTEM
-    assert "`, y si es cifra también unidad y valor`" in md and '`"unidad": str|null, "valor": number|null`' in md
-    assert "`pool_id`, y si es cifra también unidad y valor y una línea `aporta`" in gro.ROTULISTA_SYSTEM
-    assert '"pool_id": str, "unidad": str|null, "valor": number|null, "aporta": str}' in gro.ROTULISTA_USER
-    # deshechos los tres reemplazos, es el de F32 byte a byte
-    assert hashlib.md5((gro.ROTULISTA_SYSTEM_F32 + "\n\n" + gro.ROTULISTA_USER_F32).encode("utf-8")).hexdigest() == \
-        "c9231e24afbc785d5870b33088ce076e"
-    assert gro.prompt_md5() == "d90ae69a2dc8c7928bd410ead421dc6b" and gro.PROMPT_VERSION == "f34-1"
-
-
-def test_a1_gancho_trae_el_pool_del_video_marcado_y_descarta_lo_que_dice_la_voz():
-    pool = {"datos": [{"id": "D118", "texto": "La presa más alta del mundo, con 266 metros de altura.", "tipo": "cifra",
-                       "valor": "266 metros", "fuente": "Tragedia della diga del Vajont, 2018"},
-                      {"id": "D128", "texto": "En el desastre murieron 1.910 personas.", "tipo": "cifra",
-                       "valor": "1.910", "fuente": "F"}]}
-    beats = [{"n": 1, "funcion": "gancho", "t0": 0.0, "t1": 999.0, "cierre": "", "dato_central": "", "datos_apoyo": []}]
-    voz = ["Una niña siente que su cama empieza a correr.", "Murieron mil novecientas diez personas."]
-    its = gro.items_gancho(beats, pool, set(), voz)
-    assert {x["id"]: x["dice_voz"] for x in its} == {"D118": False, "D128": True}
-    assert all(x["gancho"] and x["beats"] == [1] for x in its)
-    ent, words = _ent([(0.0, "Una niña siente que su cama empieza a correr."),
-                       (4.0, "La presa que todos creyeron caída sigue en pie.")], [], beats=beats, voz_video=voz)
-    ent["items"] = its
-    u = gro.prompt_user(ent)
-    assert "D118 · tipo D · a_pantalla: no · por_que: — · solo para el gancho · la narración lo dice en el video: no" in u
-    v = gro.validar({"bloques": [_bl(1, "cifra", "266 m de alto", "D118", et="LA PRESA DEL VAJONT"),
-                                 _bl(0, "cifra", "1.910 personas", "D128", et="MUERTOS")]}, ent, words)
-    assert [b["pool_id"] for b in v["bloques"]] == ["D118"]
-    assert any(r["pool_id"] == "D128" and r["regla"] == "no_dicho" for r in v["rechazos"])
-
 
 # ═══════════════ §A.2 filtros ═══════════════
-
-def test_a2_1_candado_d117_el_anio_que_dice_la_oracion_ancla_cuenta():
-    item = {"id": "D117", "a_pantalla": True, "texto": "El Consejo Superior de Obras Públicas aprobó el proyecto de la "
-            "presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes.",
-            "fuente": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018"}
-    ent, words = _ent([(0.0, "En mil novecientos cuarenta y tres el Consejo aprobó la obra.")], [item])
-    b = _bl(0, "cifra", "13 de 34 representantes presentes", "D117", et="ACTA DEL CONSEJO SUPERIOR, 1943")
-    v = gro.validar({"bloques": [b]}, ent, words)
-    assert [x["pool_id"] for x in v["bloques"]] == ["D117"]
-    ent2, words2 = _ent([(0.0, "El Consejo aprobó la obra.")], [item])          # sin el año en la voz: candado
-    v2 = gro.validar({"bloques": [b]}, ent2, words2)
-    assert v2["rechazos"][0]["regla"] == "candado" and "1943" in v2["rechazos"][0]["motivo"]
-
-
-def test_a2_2_no_dicho_d237_cuatrocientos_cae_por_repetir_y_no_por_lectura():
-    item = {"id": "D237", "texto": "En la construcción de la represa trabajaron cerca de 400 operarios.",
-            "fuente": "Tragedia della diga del Vajont: 9 ottobre 1963, 2018"}
-    ent, words = _ent([(0.0, "Cuando empezaron las obras, unos cuatrocientos hombres colgados de andamios la fueron "
-                             "levantando.")], [item])
-    largo = "Para la construcción de la presa se contrató a cerca de cuatrocientos operarios."
-    v = gro.validar({"bloques": [_bl(0, "cifra", largo, "D237", et="Tragedia della diga del Vajont, 2018")]}, ent, words,
-                    escenas=[Sc(0, 0.0, 3.0), Sc(1, 3.0, 30.0)])
-    assert v["rechazos"][0]["regla"] == "no_dicho" and "400" in v["rechazos"][0]["motivo"]
-
-
-def test_a2_3_spoiler_t85_vajont_dicho_en_un_cap_anterior_no_es_spoiler():
-    item = {"id": "T85", "texto": "Se presenta la sentencia de remisión a juicio contra 11 personas por el desastre del "
-            "Vajont.", "fuente": "Vajont: fu disastro colposo (Cassazione 1971), 2003"}
-    ors = [(0.0, "El juez firmó la remisión a juicio."), (6.0, "El país esperó años."), (12.0, "Nadie olvidó el Vajont.")]
-    b = _bl(0, "hecho", "11 imputados por el desastre del Vajont", "T85", et="REMISIÓN A JUICIO")
-    ent, words = _ent(ors, [item])
-    assert gro.validar({"bloques": [b]}, ent, words)["rechazos"][0]["regla"] == "spoiler"
-    ent2, words2 = _ent(ors, [item], voz_antes="La presa del Vajont era la más alta del mundo.")
-    assert [x["pool_id"] for x in gro.validar({"bloques": [b]}, ent2, words2)["bloques"]] == ["T85"]
 
 
 def test_a2_voz_previa_es_la_de_los_caps_anteriores():
@@ -133,22 +65,6 @@ def test_a2_voz_previa_es_la_de_los_caps_anteriores():
 
 
 # ═══════════════ §A.3 reparto ═══════════════
-
-def test_a3_1_el_reloj_gana_al_sello_del_pico():
-    beats = [{"n": 12, "funcion": "revelacion", "t0": 0.0, "t1": 30.0, "cierre": "", "dato_central": "", "datos_apoyo": []}]
-    ent, words = _ent([(0.0, "Hubo un grito en el valle."), (8.0, "La causa llegó al juez el veinte de febrero de mil "
-                                                                "novecientos sesenta y ocho."), (20.0, "Nadie habló.")], [],
-                      beats=beats)
-    scenes = [Sc(0, 0.0, 8.0), Sc(1, 8.0, 20.0), Sc(2, 20.0, 30.0)]
-    plan = {"pico": {"word": "grito"}, "emphasis": [{"word": "grito", "start": 8.5, "duration": 2.5, "peak_word": True}],
-            "time_ticker": {"day": "20", "month": "FEB", "start": 8.2, "duration": 6.0, "changes": []}}
-    filas = gro.escena_final(plan, scenes, ent, [])
-    assert plan["time_ticker"] is not None and not any(f.get("bloque") == "time_ticker" for f in filas)
-    gro.sellos_por_tema(plan, scenes, ent, words, 0.0, {"caos_gritos": {"layer": "minima", "triggers": {"grito": 3}}},
-                        [], call=lambda p: "MEMORIA")
-    sellos = plan["emphasis"]
-    assert all(not (1 == next(s.idx for s in scenes if s.start <= e["start"] < s.end)) for e in sellos)
-    assert any("ya tiene reloj" in f["motivo"] for f in plan["sellos_tema"])
 
 
 def test_a3_2_cap_de_una_sola_escena_una_cosa_por_oracion():
@@ -182,61 +98,8 @@ def test_a3_3_reloj_desde_la_voz_fecha_completa_en_letras():
 
 # ═══════════════ §A.4 sellos de clima ═══════════════
 
-def test_a4_prompt_literal_y_filtros_de_la_palabra():
-    md = (ROOT / "lab" / "hyperframes" / "f34" / "HANDOFF_F34_reglas_de_pantalla.md").read_text(encoding="utf-8")
-    assert "```\n" + gro.SELLO_CLIMA_PROMPT + "\n```" in md
-    lista = gro.vocabulario_clima()
-    assert lista == ["PÁNICO", "CALMA", "AMENAZA", "AVISO", "ALARMA", "INMINENTE", "COLAPSO", "SILENCIO", "RABIA", "MEMORIA"]
-    p = gro.prompt_clima(lista, "a", "b", "c", "pico")
-    assert p.startswith("Elegí UNA palabra de esta lista") and "PÁNICO, CALMA" in p and "«a» «b» «c»" in p
-    assert gro.palabra_clima("Pánico.", lista, ["", "", ""]) == ("PÁNICO", None)
-    assert gro.palabra_clima("TERROR", lista, ["", "", ""])[0] is None
-    assert gro.palabra_clima("AVISO", lista, ["", "llegaron los avisos", ""])[0] is None       # por su raíz
-    assert gro.palabra_clima("NINGUNA", lista, ["", "", ""])[0] is None
-
-
-def test_a4_un_sello_por_beat_sin_repetir_palabra_y_sin_vocabulario_no_hay(monkeypatch):
-    beats = [{"n": 1, "funcion": "planteo", "t0": 0.0, "t1": 9.9, "cierre": "", "dato_central": "", "datos_apoyo": []},
-             {"n": 2, "funcion": "escalada", "t0": 10.0, "t1": 30.0, "cierre": "", "dato_central": "", "datos_apoyo": []}]
-    ent, words = _ent([(0.0, "Los cadáveres flotaban."), (10.0, "Murieron los técnicos."),
-                       (20.0, "Los cuerpos quedaron en el barro.")], [], beats=beats)
-    moods = {"muerte": {"layer": "muerte", "triggers": {"cadáveres": 3, "murieron": 2, "cuerpos": 3}}}
-    scenes = [Sc(0, 0.0, 10.0), Sc(1, 10.0, 20.0), Sc(2, 20.0, 30.0)]
-    llamadas: list[str] = []
-    plan: dict = {"emphasis": []}
-    gro.sellos_por_tema(plan, scenes, ent, words, 0.0, moods, [], call=lambda p: llamadas.append(p) or "SILENCIO")
-    # F36 §B.3: las dos palabras repetidas se vuelven a pedir una vez (3 pedidos + 2 segundos pedidos)
-    assert [e["word"] for e in plan["emphasis"]] == ["SILENCIO"] and len(llamadas) == 5
-    mot = [f["motivo"] for f in plan["sellos_tema"]]
-    assert any("ya salió en el cap" in m for m in mot) or any("un sello por beat" in m for m in mot)
-    from script_engine import clima                  # F36 §A: sellos_por_tema vive en clima (gro lo re-exporta)
-    monkeypatch.setattr(clima, "vocabulario_clima", lambda: [])
-    plan2: dict = {"emphasis": []}
-    gro.sellos_por_tema(plan2, scenes, ent, words, 0.0, moods, [], call=lambda p: "SILENCIO")
-    assert plan2["emphasis"] == [] and all("sin vocabulario" in f["motivo"] for f in plan2["sellos_tema"])
-
-
-def test_a4_cache_por_prompt(tmp_path):
-    n = []
-    out = gro.elegir_clima(["p1", "p2"], tmp_path / "c.json", call=lambda p: n.append(p) or "CALMA")
-    out2 = gro.elegir_clima(["p1", "p2"], tmp_path / "c.json", call=lambda p: n.append(p) or "RABIA")
-    assert out == out2 == ["CALMA", "CALMA"] and len(n) == 2
-
 
 # ═══════════════ §A.5 agua desde la voz ═══════════════
-
-def test_a5_agua_desde_la_voz_cota_antes_que_nivel_y_sin_falsos():
-    ent, _ = _ent([(0.0, "El embalse estaba a setecientos metros sobre el nivel del mar."),
-                   (6.0, "La cota autorizada fue de setecientos quince."),
-                   (12.0, "La ola la arrastra cuatrocientos metros."),
-                   (18.0, "Cayeron setecientos mil metros cúbicos.")], [])
-    plan: dict = {}
-    wl = gro.agua_de_voz(plan, ent, [])
-    assert (wl["etiqueta"], wl["value_text"], wl["start"], wl["de_voz"]) == ("COTA AUTORIZADA", "715", 6.0, True)
-    assert gro._agua_de("Una ola de veinte metros.", "") == ("OLA", 20.0, "20")
-    assert gro._agua_de("La ola la arrastra cuatrocientos metros.", "") is None
-    assert gro._agua_de("Una ola de veinte años.", "") is None
-    assert gro.agua_de_voz({"water_level": {"x": 1}}, ent, []) is None             # no pisa el del rotulista
 
 
 # ═══════════════ §A.6 tarjeta fecha-hora ═══════════════
@@ -333,23 +196,3 @@ def test_a7_2_la_musica_de_cada_cap_arranca_con_su_title_card(tmp_path, monkeypa
 
 # ═══════════════ crítico: forma, no contenido ═══════════════
 
-def test_critico_sello_de_clima_y_agua_de_voz_solo_salen_si_estorban(tmp_path):
-    from script_engine import gfx_critic as gc
-    plan = {"emphasis": [{"word": "PÁNICO", "start": 1.0, "duration": 2.5, "clima": True},
-                         {"word": "agua", "start": 9.0, "duration": 2.5}],
-            "water_level": {"start": 5.0, "duration": 4.5, "value_text": "715", "unit": "m", "height": 0.5,
-                            "de_voz": True}}
-    img = tmp_path / "f.jpg"
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", "color=c=gray:s=64x36:d=12", str(tmp_path / "b.mp4")],
-                   check=True)
-    veredicto = {"PÁNICO": "repite", "715": "repite", "agua": "repite"}
-
-    def call(im, prompt, *a, **k):
-        for t, v in veredicto.items():
-            if f"«{t}" in prompt or f"«{t.upper()}" in prompt:
-                return {"veredicto": v, "motivo": "x"}
-        return {"veredicto": "suma", "motivo": "x"}
-    rows = gc.criticize(plan, base=tmp_path / "b.mp4", words=[], time_offset=0.0, work_dir=tmp_path, cap="ch01", log=[],
-                        call=call, fewshot=[])
-    assert [e["word"] for e in plan["emphasis"]] == ["PÁNICO"] and plan["water_level"] is not None
-    assert img.parent.exists() and len(rows) == 3

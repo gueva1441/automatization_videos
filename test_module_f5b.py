@@ -148,16 +148,6 @@ def test_s1_recorte_es_clausula_completa_nunca_una_cola():
 
 # ═══════════════════════════════ S5 unidades métricas ═══════════════════════════════
 
-def test_s5_en_pantalla_metros():
-    opts = gp.pool_clause_options("Algunas partes de Nueva Orleans quedaron bajo 15 pies (4.6 metros) de agua.")
-    assert opts == ["4.6 metros"]                                                # la cláusula con pies queda fuera
-    from script_engine.gfx_peak import water_level
-    peak = {"hits": [{"category": "agua", "i": 3, "word": "agua"}], "idx": [0, 1, 2, 3, 4]}
-    words = [{"word": w, "start": k * 0.4} for k, w in enumerate("quedaron bajo 15 pies agua".split())]
-    wl = water_level(peak, {"facts": ["Algunas partes quedaron bajo 15 pies (4.6 metros) de agua."]}, words)
-    assert wl and (wl["value_text"], wl["unit"], wl["meters"]) == ("4.6", "metros", 4.6)
-    assert water_level(peak, {"facts": ["Algunas partes quedaron bajo 15 pies de agua."]}, words) is None
-
 
 # ═══════════════════════════════ S2 cronología · S3 hecho ═══════════════════════════════
 
@@ -184,24 +174,6 @@ def test_s3_mismo_hecho_y_nunca_del_cap_siguiente():
                          {"chapter_number": 1, "evidence_ids": ["D02"]}]}
     assert gp.cap_candidates(PP, skel, 2, set()) == ["T01", "D02"]               # el suyo y el del cap 1; nunca el 3
     assert gp.cap_candidates(PP, {"chapters": [{"chapter_number": 5, "evidence_ids": ["D01"]}]}, 5, {"D02"}) == []
-
-
-def test_s2_un_recorte_no_adelanta_la_cronologia(tmp_path):
-    voice = ("El 28 de agosto el sheriff anunció que los prisioneros no serían evacuados de la prisión. Nadie se movió. "
-             "Las horas pasaban sin noticias. El 29 de agosto, a la medianoche, Gusman pidió ayuda para la evacuación de "
-             "los prisioneros.")
-    words = W(voice)
-    scenes = [GfxScene(0, 0.0, 8.0), GfxScene(1, 8.0, 20.0)]
-    skel = {"chapters": [{"chapter_number": 2, "evidence_ids": ["T02", "T01"]}]}
-    plan = {"archive_clippings": [], "callouts": [], "emphasis": []}
-    gp.plan_pool_documents(plan, ctx={"chapter_number": 2, "pool": PP, "skeleton_all": skel, "moods": {}},
-                           words=words, scenes=scenes, time_offset=0.0, work_dir=tmp_path, cap="ch02", log=[],
-                           call=lambda p, **k: {"elecciones": []})
-    t2 = [a for a in plan["archive_clippings"] if a["pool_id"] == "T02"]
-    t29 = next(w["start"] for w in words if w["word"] == "29")
-    assert all(a["start"] >= t29 - 1.0 for a in t2)                              # el 29 sale cuando la voz llega al 29
-    sents = [{"text": "El 28 de agosto pasó algo."}, {"text": "Nada."}, {"text": "El 29 de agosto, otra cosa."}]
-    assert gp.narrated_dates(sents, "2005") == ["2005-08-28", "2005-08-28", "2005-08-29"]
 
 
 # ═══════════════════════════════ S4 ícono literal ═══════════════════════════════

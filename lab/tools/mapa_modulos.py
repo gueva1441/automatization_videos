@@ -47,8 +47,8 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                    "algo cambió después, no hay render.", "GUION_PANTALLA.json + planes resueltos",
                    "`aprobado` en el guion; sí/no para el hook", "F33", "vivo"),
     "gfx_layer": ("El director de orquesta de la capa gráfica de un capítulo: llama a todos los demás en orden "
-                  "(plan, textos, sellos, crítico, transiciones) y hace el render en HyperFrames. Desde F34, con el "
-                  "guion aprobado dibuja el plan aprobado tal cual (plan congelado) y no lo reescribe.",
+                  "(plan, textos del papel, sellos, crítico, transiciones) y hace el render en HyperFrames. Desde F34, "
+                  "con el guion aprobado dibuja el plan aprobado tal cual (plan congelado) y no lo reescribe.",
                   "visual base del cap + palabras con tiempos + contexto", "`chNN_gfx.mp4`, plan resuelto, sfx, "
                   "escenas", "F1", "vivo"),
     "gfx_director": ("El primer borrador de la pantalla: Gemini Flash propone bloques mirando la narración; acá también "
@@ -56,37 +56,33 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                      "plan crudo y resuelto, contexto, eventos de sfx", "F1",
                      "vivo (sus textos los reemplaza el rotulista; sus sellos, el catálogo)"),
     "gfx_realizador": ("Hace que la pantalla obedezca a la escaleta: ventanas de tiempo de cada beat, qué datos puede "
-                       "mostrar cada uno, la pregunta de cierre del último beat y los topes (desde F36 no borra el "
-                       "contador del rotulista).",
-                       "escaleta + narración por beat + pool", "`gfx_beats_chNN.json`, candidatos, filas de lo quitado",
-                       "F29", "vivo"),
+                       "mostrar cada uno, la pregunta de cierre del último beat y el cierre del plan (F36 D: sin el "
+                       "rótulo de respaldo del pico).", "escaleta + narración por beat + pool", "`gfx_beats_chNN.json`, "
+                       "candidatos, filas de lo quitado", "F29", "vivo"),
     "gfx_rotulista": ("La fachada del rotulista: desde F36 C ya no llama a ningún modelo; `preparar_cap` lee el guion "
                       "en papel de Fase 1 (`01e_pantalla.json`), alinea sus oraciones con las de la voz por texto y ancla "
                       "cada ficha a su palabra; el resto lo re-exporta de sus módulos para que nadie cambie de import.",
                       "papel del topic + oraciones de la voz + beats", "entrada del cap + bloques, sellos, relojes y "
                       "tarjeta del papel", "F29b", "vivo"),
-    "rotulista_llm": ("El pedido al modelo que escribía los textos de pantalla en Fase 2 (Claude Sonnet, uno por cap). "
-                      "Desde F36 C el texto lo escribe m01e_pantalla en Fase 1 y nadie del camino lo llama (D lo borra).",
-                      "oraciones de la voz, beats, pool, escaleta", "respuesta cruda y validada por cap, ledger de costos",
-                      "F36 (código de F29b)", "muerto (F36 C: el texto viene del papel)"),
     "rotulista_filtros": ("Los filtros que deciden si un texto del papel sale, en un orden que se lee en una línea "
                           "(`ORDEN`, F36 C): anclar el papel a la voz, no dicho del gancho, candado de lo literal, no "
-                          "dicho, spoiler y lectura hasta el corte. El orden viejo del modelo (`ORDEN_MODELO`) queda solo "
-                          "para rotulista_llm.", "bloques del papel + entrada del cap", "bloques que pasan, cortados con "
+                          "dicho, spoiler y lectura hasta el corte; además la comparación de cifras con la voz que usa el "
+                          "chequeo del guion.", "bloques del papel + entrada del cap", "bloques que pasan, cortados con "
                           "su regla y motivo", "F36 (código de F29b)", "vivo"),
     "rotulista_colocar": ("Pone cada texto que pasó en su lugar: cuánto dura (lectura, nunca después del corte), qué "
-                          "forma toma (ficha normal, nombre o cita con autor; papel = recorte) y «nunca al mismo tiempo» "
-                          "(DECISIONES 17:58: dos bloques no se solapan ni se tocan; si chocan, esperan al momento "
-                          "siguiente de su beat).", "bloques validados + escenas", "bloques en el plan, filas de lo movido "
-                          "o cortado", "F36 (código de F29b)", "vivo"),
-    "clima": ("Los sellos de clima: desde F36 C la palabra y la oración vienen del guion en papel; acá se pone el "
-              "instante (la palabra de más peso de la oración o su inicio), se mira que no cruce el corte, el crítico "
-              "(«¿estorba?») antes del reparto y que nunca esté al mismo tiempo que otro bloque.",
+                          "forma toma (ficha normal, nombre o cita con autor; papel = recorte), el reloj contra el corte y "
+                          "«nunca al mismo tiempo» (DECISIONES 17:58: dos bloques no se solapan ni se tocan; si chocan, "
+                          "esperan al momento siguiente de su beat).", "bloques validados + escenas", "bloques en el plan, "
+                          "filas de lo movido o cortado", "F36 (código de F29b)", "vivo"),
+    "clima": ("Los sellos de clima: la palabra y la oración vienen del guion en papel; acá se pone el instante (la "
+              "palabra de más peso de la oración o su inicio), se mira que no cruce el corte, el crítico («¿estorba?») "
+              "antes del reparto y que nunca esté al mismo tiempo que otro bloque.",
               "sellos del papel + oraciones + léxico de moods", "sellos en el plan, filas de lo cortado",
               "F36 (código de F32/F34)", "vivo"),
     "voz_datos": ("Lo que sale de la voz y la escaleta sin modelo: el pico del cap, el reloj cuando la voz dice una "
-                  "fecha completa y la tarjeta fecha-hora derivada (desde F36 C solo para comparar con la del papel).",
-                  "oraciones de la voz, escaleta, pool", "pico, reloj, tarjeta derivada", "F36 (código de F34)", "vivo"),
+                  "fecha completa (y su esquina libre), y la tarjeta fecha-hora derivada (solo para comparar con la del "
+                  "papel).", "oraciones de la voz, escaleta, pool", "pico, reloj, tarjeta derivada", "F36 (código de F34)",
+                  "vivo"),
     "voz_utils": ("La utilería de la voz: lee cifras en dígitos y en letras, nombres propios, cifras con su unidad, y "
                   "parte la voz en oraciones con cada palabra numerada; desde F36 C parte igual el texto de Fase 1 "
                   "(`oraciones_de_texto`) y normaliza oraciones para alinear papel y voz.", "texto / palabras con tiempos",
@@ -96,44 +92,34 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                    "solo les pregunta si estorban.", "plan + cuadros del video + voz", "plan sin lo que no pasa + "
                    "veredictos", "F4e", "vivo"),
     "gfx_project": ("El dibujante: convierte el plan en la página HTML que HyperFrames renderiza (title card, ficha, "
-                    "recorte, cita, sello, reloj, agua, contador, zoom).", "plan resuelto + escenas", "proyecto "
-                    "HyperFrames (index.html, CSS)", "F1", "vivo"),
+                    "recorte, cita, sello, reloj, pregunta). F36 D: sin lupa, contador, agua, dato suelto, íconos ni "
+                    "fuente.", "plan resuelto + escenas", "proyecto HyperFrames (index.html, CSS)", "F1", "vivo"),
     "gfx_sparse": ("El ahorrador: HyperFrames solo donde hay algo que dibujar; el resto del cap lo cose ffmpeg, con "
-                   "las transiciones, el grano y la viñeta.", "plan + escenas + base", "`chNN_gfx.mp4` cosido", "F2",
-                   "vivo"),
+                   "las transiciones, el grano y la viñeta (F36 D: sin la marca del canal).", "plan + escenas + base",
+                   "`chNN_gfx.mp4` cosido", "F2", "vivo"),
     "gfx_safe_bake": ("Cuece con ffmpeg el movimiento suave de cada foto (acercar, alejar, paneo) para no pagarlo en "
                       "HyperFrames.", "escenas con movimiento seguro + sus PNG", "`base_cocido.mp4`", "F30", "vivo"),
     "gfx_style": ("La identidad del canal aplicada al plan: qué movimiento lleva cada foto y qué transición va en cada "
-                  "corte según el relato (corte, golpe de zoom en el pico, fundido, dip al cierre).",
+                  "corte según el relato (golpe de zoom en el pico, fundido, dip al cierre, corte).",
                   "escenas + plan + beats", "movimientos y transiciones", "F4", "vivo"),
-    "gfx_peak": ("El pico del capítulo: busca su frase y la palabra de más peso para el sello del pico; trae las "
-                 "piezas de oraciones y palabras que usan los demás (desde F36 la palabra del momento vive en `clima`).", "palabras con tiempos + léxico de moods",
-                 "frase y palabra del pico, sello", "F3", "vivo (el pico de la escaleta; `plan_peak` ya no corre)"),
+    "gfx_peak": ("La utilería de la voz que usan clima y voz_utils: las frases de la narración con sus palabras y "
+                 "tiempos y las palabras del léxico de moods (F36 D: el pico viejo, el agua, el zoom con latido y el reloj "
+                 "de gfx_peak se borraron).", "palabras con tiempos + léxico de moods", "frases, palabras de mood",
+                 "F3", "vivo"),
     "gfx_pool": ("La pantalla alimentada por el pool de evidencia: fuentes literales para el candado, lo ya mostrado "
-                 "en caps anteriores y el reloj de fechas.", "pool de evidencia + palabras", "fuentes, ids ya usados, "
-                 "reloj", "F5", "vivo (recortes, citas y contadores del pool ya no corren)"),
+                 "en caps anteriores, el reloj de fechas y los cortes de cláusula que usa Fase 1 (m01a_skeleton). F36 D: "
+                 "se borraron recortes, citas, contadores y reservados del pool.", "pool de evidencia + palabras",
+                 "fuentes, ids ya usados, reloj", "F5", "vivo"),
     "gfx_intensity": ("Gemini marca cuánto pesa cada frase y qué palabras cargan miedo, muerte o agua; ese léxico "
                       "alimenta los sellos.", "oraciones del cap + vecinas", "pico, cargas, léxico del cap", "F4b",
                       "vivo"),
     "gfx_vision": ("Gemini mira cada foto y dice qué detalles tiene y dónde (rostro, manos, objetos); con eso se "
-                   "decide el movimiento seguro y la caja de la lupa.", "PNG / cuadro de la escena", "detalles con "
-                   "caja, sí/no del recorte", "F4b", "vivo"),
+                   "decide el movimiento seguro (F36 D: la lupa y su verificación se borraron).", "PNG / cuadro de la "
+                   "escena", "detalles con caja, caja humana", "F4b", "vivo"),
     "gfx_literal_lock": ("El candado: un texto que no está literal en las fuentes (narración, pool) no sale.",
                          "plan + fuentes", "plan sin lo no literal + rechazados", "F1", "vivo"),
-    "gfx_question": ("Escribe una pregunta de cierre con Gemini cuando la escaleta no trae una.", "narración del cap y "
-                     "del siguiente", "pregunta validada", "F3", "solo respaldo (con escaleta la pregunta es el cierre "
-                     "del último beat)"),
     "gfx_review": ("La hoja de cues: un renglón por bloque visible con su segundo, para revisar el render.",
                    "eventos del plan", "`gfx_cues_chNN.md/.json`, página de revisión", "F1", "vivo"),
-    "gfx_bug": ("La marca del canal (la llama en el farol): la esquina está apagada desde F4e; queda el cierre del "
-                "último cap si no hay pregunta.", "SVG de la marca + plan", "PNG de la marca para el cosido", "F4b",
-                "vivo (solo el cierre)"),
-    "gfx_fragments": ("Elegía con Gemini el fragmento más impactante de un dato para recortes y rótulos; hoy solo "
-                      "presta el ícono de categoría del sello.", "datos + léxico", "fragmentos; ícono de categoría",
-                      "F4b", "solo sin escaleta (vive por `category_icon`)"),
-    "gfx_identity": ("Guarda la identidad del canal que Omar arma en el laboratorio (F3) dentro del perfil.",
-                     "estado del lab", "`identity` en gfx_profiles/<perfil>.json", "F3",
-                     "muerto en el pipeline (lo usa solo el lab, gfx_lab_server)"),
     "gfx_guion": ("Escribe el guion de pantalla: todo lo que se va a ver, en texto, con lo cortado y por quién, y los "
                   "chequeos (lectura, nunca al mismo tiempo, costuras, inicio de voz, inicio de música, gancho no vacío, "
                   "tarjeta fecha-hora; desde F36 C la columna `papel` y «papel sin colocar / sin alinear»).",
@@ -154,17 +140,9 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                       "voz; Fase 2 lo consume.", "escaleta, narración por cap y beat, títulos, pool, `sellos_clima`",
                       "`01e_pantalla.json/.md` en el topic de Fase 1", "F36", "vivo (fase 1)"),
     "archive_clipping.html.tmpl": ("La forma del recorte de diario (papel, kicker, titular).", "un recorte del plan",
-                                   "HTML", "F1", "vivo (documentos del rotulista)"),
+                                   "HTML", "F1", "vivo (la ficha de estilo papel)"),
     "chapter_question.html.tmpl": ("La forma de la pregunta de cierre sobre la foto oscurecida.", "la pregunta",
                                    "HTML", "F2", "vivo"),
-    "count_up.html.tmpl": ("La forma del contador que sube hasta la cifra.", "cifra + unidad + etiqueta", "HTML", "F1",
-                           "vivo (F32 B.7; en Vajont no salió ninguno)"),
-    "data_callout.html.tmpl": ("La forma vieja del dato en letras grandes sueltas.", "un rótulo del plan", "HTML", "F1",
-                               "muerto en el camino con rotulista (todo texto es ficha); vive sin rotulista"),
-    "evidence_zoom.html.tmpl": ("La forma de la lupa: recuadro, «DETALLE» y acercamiento.", "caja del detalle", "HTML",
-                                "F1", "vivo (lupa del rotulista)"),
-    "grade_css.html.tmpl": ("Un grade de color por CSS de la primera versión.", "—", "—", "F1",
-                            "muerto (nadie la carga; el grade lo hace el CSS común y ffmpeg)"),
     "index.html.tmpl": ("La página base de cada proyecto HyperFrames (escenas, overlays, timeline).", "escenas + "
                         "overlays", "index.html", "F1", "vivo"),
     "scene.html.tmpl": ("La forma de una escena (la foto o el clip con su movimiento).", "una escena", "HTML", "F1",
@@ -175,43 +153,20 @@ M: dict[str, tuple[str, str, str, str, str]] = {
 
 # funciones (o archivos) que el camino de producción ya no llama: (qué, por qué, commit desde el que no corre)
 MUERTOS = [
-    ("gfx_peak.plan_peak (y water_level, zoom_latido, time_ticker, reserved_water_level, clear_around)",
-     "con el rotulista el pico es el de la escaleta (`voz_datos.pico_plan`)", "5ae6177"),
-    ("gfx_realizador.garantizar_pico", "`--rotulista` apaga `garantizar_pico`", "7e704de"),
-    ("gfx_pool.plan_pool_documents, plan_pool_quote, pool_count_up, enforce_reserved",
-     "con el rotulista los textos los escribe él (`rot_on` en apply_gfx)", "5ae6177"),
-    ("gfx_fragments.choose_fragments", "con pool los recortes salían de gfx_pool (F5) y después del rotulista",
-     "e18e656"),
-    ("gfx_fragments.drop_repeated_callouts", "con el rotulista corre su regla de no dicho", "5ae6177"),
-    ("gfx_vision.pick_zoom", "con el rotulista la lupa la propone él", "5ae6177"),
-    ("gfx_director.fill_gaps", "`gap_fill` apagado", "2fcd603"),
-    ("gfx_question.question_for", "con escaleta la pregunta es el `cierre` del último beat (queda de respaldo)",
-     "2fcd603"),
-    ("gfx_style.identity_transitions", "**se llama y se descarta**: con escaleta la pisa `transiciones_por_relato`",
-     "7d0d0e5"),
     ("gfx_style.select_punches", "**se llama y se descarta**: el realizador saca todos los `punch_in` (los reemplaza el "
      "zoom_punch del pico)", "2fde994"),
-    ("gfx_director.place_emphasis (sellos por léxico)", "**se llama y se descarta**: `sellos_por_tema` los reemplaza",
-     "2fde994"),
-    ("data_callout.html.tmpl", "con el rotulista todo texto sale como ficha", "cc3f079"),
-    ("grade_css.html.tmpl", "nadie la carga", "a878836"),
-    ("gfx_identity (todo el módulo)", "solo lo usa el lab de identidad (gfx_lab_server)", "—"),
-    ("rotulista_llm (todo el módulo) y rotulista_filtros.ORDEN_MODELO (anclaje, forma, coherencia, cantidad)",
-     "F36 C: el texto lo escribe el guion en papel (m01e_pantalla); Fase 2 no llama a ningún modelo de texto", "C"),
-    ("clima.sellos_por_tema, elegir_clima, _gemini_clima, palabra_clima, prompt_clima (Gemini de clima)",
-     "F36 C: los sellos vienen del papel (`sellos_del_papel`)", "C"),
-    ("voz_datos.agua_de_voz y rotulista_colocar.animacion_de_cifra (agua y contador)",
-     "F36 C / catálogo 18:17: no hay agua ni contador", "C"),
-    ("rotulista_colocar.aplicar_ediciones, ediciones_de, guardar_ediciones, mover_a_escena (plan_edits.json)",
-     "F36 C: `--plan-edit` edita el papel (m01e_pantalla.editar)", "C"),
+    ("gfx_director.place_emphasis (sellos por léxico)", "**se llama y se descarta**: los sellos vienen del papel "
+     "(`sellos_del_papel`)", "9e9d844"),
+    ("voz_datos.add_peak_word (el sello de la palabra del pico)", "**se llama y se descarta**: los sellos vienen del papel",
+     "9e9d844"),
+    ("gfx_director (el borrador de Gemini: datos, recortes, cita, contador, lupa)", "**se llama y se descarta**: "
+     "`colocar` lo reemplaza por el papel; del borrador queda el title card", "9e9d844"),
 ]
 
 
 def fecha(h: str) -> str:
     if h == "—":
         return "nunca en fase2b"
-    if h == "C":
-        return "F36 C (commit de esta parte)"
     r = subprocess.run(["git", "log", "-1", "--format=%ad %s", "--date=short", h], cwd=ROOT, capture_output=True,
                        text=True, encoding="utf-8", errors="replace")
     return f"{h} {r.stdout.strip()[:80]}"
@@ -253,9 +208,8 @@ def main() -> None:
           "| qué | por qué | desde |", "|---|---|---|"]
     L += [f"| `{m['que']}` | {m['por_que']} | {m['desde']} |" for m in muertos]
     L += ["", "Muerto = en el camino con escaleta y rotulista no aporta nada al video: o nadie lo llama, o **se llama y su "
-          "resultado se descarta** (`select_punches`, `identity_transitions`, `place_emphasis`: lo dice la columna «por "
-          "qué»). El código sigue ahí (los topics sin escaleta o sin rotulista lo usan, o el lab). No se borra nada sin "
-          "decisión de Omar."]
+          "resultado se descarta** (lo dice la columna «por qué»). F36 D borró lo de DECISIONES 18:17 y lo muerto del mapa "
+          "(«borrar, no apagar»); lo que queda en esta tabla está explicado en F36_REPORT.md."]
     (ROOT / "lab" / "MAPA_MODULOS.md").write_text("\n".join(L) + "\n", encoding="utf-8")
     print(f"{len(filas)} módulos · {len(aristas)} aristas · {len(muertos)} muertos")
 

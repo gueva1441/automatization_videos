@@ -91,49 +91,6 @@ def test_trace_saca_paths_reales_sin_texto(tmp_path):
     assert r["accent"] and 'class="ic-fill"' in r["svg"] and "<text" not in r["svg"]
 
 
-def test_icon_callout_max_3_y_sin_icono_listado(approved):
-    out = {"emphasis": [{"word": w, "category": c, "icon": ic, "start": t, "duration": 2.5}
-                        for w, c, ic, t in (("veneno", "veneno_enfermedad", "calavera", 5), ("cadáveres", "muerte", "cruz", 30),
-                                            ("agua", "agua", "gota", 50), ("muertos", "muerte", "cruz", 70),
-                                            ("arsénico", "veneno_enfermedad", "calavera", 95))]}
-    log: list[str] = []
-    gd.mark_icon_callouts(out, log)
-    assert [e["icon_callout"] for e in out["emphasis"]] == [True, True, False, True, False]   # gota sin aprobar; tope 3
-    assert gd.emphasis_without_icon(out) == ["agua", "arsénico"]
-    assert any("sin SVG aprobado" in m for m in log) and any("tope por cap" in m for m in log)
-
-
-def test_icon_array_desde_fact_literal(approved):
-    facts = ["Murieron 12 de los 300 presos de la sección.", "Había 6,500 personas.", "Fueron 600 de 900."]
-    assert gd.array_candidates(facts, None) == [(0, 12, 300, "12 de los 300")]            # > 500 y sin relación: fuera
-    words = [{"word": w, "start": float(i), "end": i + .9} for i, w in enumerate("Ese día 12 de los 300 no salieron".split())]
-    log: list[str] = []
-    ia = gd.place_icon_array([], ctx={"facts": facts, "eligible": None}, words=words, scenes=[GfxScene(0, 0.0, 20.0)],
-                             time_offset=0.0, log=log)
-    assert ia["affected"] == 12 and ia["total"] == 300 and ia["start"] == 2.0
-    plan = {"chapter_number": 2, "callouts": [], "icon_array": ia}
-    ok, rej = lock(plan, {"f": facts[0]}, chapter_number=2)
-    assert ok["icon_array"] and "12 de los 300" in plan_strings(ok)
-    bad, rej = lock({**plan, "icon_array": {**ia, "label": "12 de 999"}}, {"f": facts[0]}, chapter_number=2)
-    assert bad["icon_array"] is None and rej[0]["block"] == "icon_array"
-
-
-def test_templater_icon_callout_e_icon_array(approved, tmp_path):
-    (tmp_path / "proj" / "public").mkdir(parents=True)
-    (tmp_path / "proj" / "public" / "base.mp4").write_bytes(b"x")
-    plan = {"chapter_number": 2, "title_card": None, "callouts": [], "count_up": None, "archive_clippings": [],
-            "evidence_zoom": None, "punch_in": [],
-            "emphasis": [{"word": "cadáveres", "category": "muerte", "layer": "muerte", "icon": "cruz", "icon_anim": "ink_bleed",
-                          "icon_callout": True, "start": 2.0, "duration": 2.5, "side": "left", "stamp": True, "sid": 0}],
-            "icon_array": {"affected": 12, "total": 30, "label": "12 de los 30", "start": 6.0, "duration": 4.0, "side": "right"}}
-    write_project(plan, [GfxScene(0, 0.0, 12.0)], tmp_path / "proj", duration=12.0, width=2560, height=1440, fps=30)
-    html = (tmp_path / "proj" / "index.html").read_text(encoding="utf-8")
-    assert 'id="icc0"' in html and 'id="ic0"' in html and "cadáveres" in html and 'id="em0"' not in html
-    assert html.count('href="#ia-sym"') == 30 and html.count(f'color:{gc.gfx_rules.accent_hex}"') == 12
-    ev = cue_events(plan, [GfxScene(0, 0.0, 12.0)], 30)
-    assert any(e["block"] == "icon_callout:muerte" for e in ev) and any(e["block"] == "icon_array" for e in ev)
-
-
 def test_set_aprobado_por_omar_parada_2():
     """PARADA 2: 12 SVG aprobados; rojo SOLO en calavera (ojos), candado (cerradura) y cruz (clavo); sin texto."""
     d = gc.GFX_PROFILES_DIR / "icons"

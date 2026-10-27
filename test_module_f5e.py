@@ -31,34 +31,10 @@ def test_sellos_sin_verbos_ni_neutras():
     assert [c["word"] for c in res["cargas"]] == ["cadáveres"] and any("neutra" in w for w in why)
 
 
-def test_un_contador_por_hecho_con_la_cifra_precisa():
-    g = gp.count_groups(POOL)
-    assert len(g) == 1 and g[0]["canon"]["num"] == "517" and {"500", "517"} <= g[0]["nums"]
-    chapters = [{"chapter_number": 5, "narration": "517 reclusos no estaban contabilizados."},
-                {"chapter_number": 7, "narration": "Más de 500 prisioneros no figuraban."}]
-    words5 = [{"word": w, "start": k * 0.4} for k, w in enumerate("Después 517 reclusos no estaban contabilizados.".split())]
-    p5 = {"count_up": None, "callouts": []}
-    gp.pool_count_up(p5, ctx={"pool": POOL, "chapter_number": 5, "chapters": chapters}, words=words5, time_offset=0, log=[])
-    assert p5["count_up"]["value_text"] == "517" and p5["count_up"]["pool_id"] == "D01"
-    p7 = {"count_up": {"value_text": "500", "unit": "prisioneros", "start": 3.0}, "callouts": [{"text": "500 prisioneros"}]}
-    gp.pool_count_up(p7, ctx={"pool": POOL, "chapter_number": 7, "chapters": chapters}, words=[], time_offset=0, log=[])
-    assert p7["count_up"] is None and p7["callouts"] == []                      # el mismo hecho ya se animó en el 5
-
-
 def test_titular_hasta_12_palabras_con_cuerpo_menor():
     px8, k8 = archive_head_px("uno dos tres cuatro cinco seis siete ocho", 2560, 1440)
     px12, k12 = archive_head_px("uno dos tres cuatro cinco seis siete ocho nueve diez once doce", 2560, 1440)
     assert k8 == 0 and k12 >= 1 and px12 < px8
-
-
-def test_recorte_se_corre_dentro_de_la_escena_y_reservado_sin_eco():
-    sc = GfxScene(0, 0.0, 20.0)
-    assert gp._free_slot(1.0, sc, 30.0, [(0.0, 3.0)], 6.0, 4.0) == (3.0, 9.0)
-    assert gp._free_slot(1.0, sc, 30.0, [(0.0, 18.0)], 6.0, 4.0) is None
-    sents = [{"text": "Primera oración del cap.", "t0": 0.0}, {"text": "Segunda oración.", "t0": 4.0}]
-    it = {"texto": "Los reclusos reciben su última comida", "_kind": "cronologia", "fecha": "2005-08-27"}
-    assert gp._sentence_for(it, sents, True) is None
-    assert gp._sentence_for(it, sents, True, reserved=True)["t0"] == 4.0          # el reservado va igual
 
 
 def test_marcas_de_qa_studio_y_regeneracion_con_otra_semilla(tmp_path):

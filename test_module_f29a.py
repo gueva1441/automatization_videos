@@ -101,77 +101,15 @@ def test_finalizar_ventana_topes_sellos_y_duraciones(tmp_path):
     assert gr.duracion_texto(" ".join(["x"] * 9)) == 4.0
 
 
-def test_pico_con_bloque_grande_en_los_7_caps(tmp_path):
-    carga, pool = _datos()
-    for cap in range(1, 8):
-        real, _ = _real(cap, carga, pool, tmp_path)
-        top = max(real["beats"], key=lambda b: b["intensidad"])
-        plan = {"pico": {"t": top["t0"] + 2, "word": "x", "block": None}, "callouts": [], "archive_clippings": []}
-        blk = gr.garantizar_pico(plan, real, pool, [])
-        assert blk in gr.GRANDES and plan["pico"]["block"] in gr.GRANDES, cap
-        rot = [c for c in plan["callouts"] if c.get("pico")]
-        assert rot and rot[0]["beat"] == top["n"] and rot[0]["text"]
-    # con un nivel de agua en el pico, no agrega nada
-    plan = {"pico": {"t": 50.0, "word": "x", "block": "water_level"}, "water_level": {"start": 49.0, "duration": 4.5}}
-    assert gr.garantizar_pico(plan, real, pool, []) == "water_level" and not plan.get("callouts")
-
-
 def test_pregunta_es_el_cierre_del_ultimo_beat(tmp_path, monkeypatch):
     from script_engine import gfx_layer as gl
     carga, pool = _datos()
     real, _ = _real(4, carga, pool, tmp_path)
     resolved: dict = {}
     ctx = {"realizador": real, "chapter_number": 4, "chapters": []}
-    monkeypatch.setattr("script_engine.gfx_question.question_for", lambda *a, **k: pytest.fail("no se genera"))
     pause = gl.closing_question(resolved, ctx, tmp_path, "ch04", 100.0, [])
     cierre = next(b for b in carga["escaleta"]["beats"] if int(b["n"]) == 7)["cierre"]
     assert resolved["chapter_question"]["text"] == cierre.strip() and pause > 0
     assert json.loads((tmp_path / "gfx_pause_ch04.json").read_text(encoding="utf-8"))["text"] == cierre.strip()
 
 
-def test_critico_parejo(tmp_path):
-    from script_engine import gfx_critic as gc
-    plan = {"archive_clippings": [{"headline": "recorte reservado", "start": 1.0, "duration": 5.0, "reserved": True},
-                                  {"headline": "reservado que estorba", "start": 9.0, "duration": 5.0, "reserved": True}],
-            "quote_card": {"text": "una cita que estorba", "author": "X", "start": 20.0, "duration": 4.0}}
-    ver = {"recorte reservado": "repite", "reservado que estorba": "estorba", "una cita que estorba": "estorba"}
-
-    for n in ("a", "b", "c"):
-        (tmp_path / f"{n}.jpg").write_bytes(b"x")
-
-    def call(img, prompt, *drawn):
-        txt = next(k for k in ver if k in prompt)
-        return {"veredicto": ver[txt], "motivo": "test"}
-    rows = gc.criticize(plan, base=tmp_path / "no.mp4", words=[], time_offset=0.0, work_dir=tmp_path, cap="ch01",
-                        log=[], call=call, fewshot=[], snaps={1.0 + 1.0: tmp_path / "a.jpg", 9.0 + 1.0: tmp_path / "b.jpg",
-                                                             20.0 + 1.0: tmp_path / "c.jpg"})
-    assert [a["headline"] for a in plan["archive_clippings"]] == ["reservado que estorba"]   # «repite» corta igual
-    assert plan["quote_card"] is None                                                        # la cita perdió la reserva
-    assert {r["texto"]: r["pasa"] for r in rows} == {"recorte reservado": False, "reservado que estorba": True,
-                                                      "una cita que estorba": False}
-
-
-def test_pico_sin_pico_de_gfx_peak_sale_de_la_escaleta(tmp_path):
-    carga, pool = _datos()
-    for cap in (2, 4):                                  # en F27, gfx_peak no encontró pico en estos dos caps
-        real, _ = _real(cap, carga, pool, tmp_path)
-        plan = {"pico": None, "callouts": [], "archive_clippings": []}
-        assert gr.garantizar_pico(plan, real, pool, []) in gr.GRANDES
-        top = max(real["beats"], key=lambda b: (b["intensidad"], b["n"]))
-        assert plan["pico"]["fuente"].startswith(f"escaleta (beat {top['n']}") and plan["callouts"][0]["pico"]
-
-
-def test_pico_no_repite_un_item_ya_puesto(tmp_path):
-    carga, pool = _datos()
-    real, _ = _real(6, carga, pool, tmp_path)
-    pico = next(b for b in real["beats"] if b["funcion"] == "pico")
-    t = pico["t1"] - 4
-    # un recorte que arranca 3 s después de la frase del pico es el bloque del pico: no se agrega nada
-    plan = {"pico": {"t": t, "word": "x", "block": None}, "callouts": [],
-            "archive_clippings": [{"headline": "h", "start": t + 3, "duration": 5.0, "pool_id": "T58"}]}
-    assert gr.garantizar_pico(plan, real, pool, []) == "archive_clippings" and plan["callouts"] == []
-    # el mismo ítem puesto lejos del pico: el rótulo del pico usa OTRO candidato del beat
-    plan = {"pico": {"t": t, "word": "x", "block": None}, "callouts": [],
-            "archive_clippings": [{"headline": "h", "start": pico["t0"] + 5, "duration": 5.0, "pool_id": "T58"}]}
-    gr.garantizar_pico(plan, real, pool, [])
-    assert plan["callouts"] and plan["callouts"][0]["pool_id"] != "T58"

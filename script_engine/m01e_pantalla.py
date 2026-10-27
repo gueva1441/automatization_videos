@@ -576,7 +576,7 @@ def editar(topic_id: str, ediciones: list[dict[str, Any]], steps_dir: Path | Non
                 s = oraciones[e["cap"]][si]
                 estilo = estilo_de(fi["pool_id"], fi.get("etiqueta") or "")
                 tipo = TIPO_DE_ESTILO[estilo]
-                fi = {**fi, "sentence_idx": si, "estilo": estilo, "oracion": s, "editado": True,
+                fi = {"aporta": "(edición a mano)", **fi, "sentence_idx": si, "estilo": estilo, "oracion": s, "editado": True,
                       "palabra_en_oracion": ev.norm(str(fi.get("palabra") or "")) in ev.norm(s),
                       "caracteres": caracteres(tipo, fi.get("etiqueta"), str(fi.get("texto") or ""), fi.get("autor") or ""),
                       "caben": int(len(palabras(s)) * SEG_POR_PALABRA * LECTURA_CPS)}

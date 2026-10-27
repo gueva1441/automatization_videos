@@ -183,46 +183,6 @@ def _ent_simple() -> tuple[dict, list[dict]]:
     return ent, words
 
 
-def test_plan_edit_reemplaza_un_texto_y_el_guion_lo_refleja(tmp_path):
-    ent, words = _ent_simple()
-    res = {"final": {"bloques": [{"sentence_idx": 1, "word_idx": 0, "beat": 1, "rank": 1, "tipo": "hecho",
-                                  "etiqueta": "Muertos", "texto": "Murieron 1.910 personas.", "pool_id": "D1",
-                                  "aporta": "el total"}]}}
-    scenes = [Sc(0, 0.0, 30.0)]
-    gro.guardar_ediciones(tmp_path, [{"cap": "ch03", "pool_id": "D1", "etiqueta": "Muertos en Longarone"}])
-    edits = gro.ediciones_de(tmp_path, "ch03")
-    assert edits == [{"cap": "ch03", "pool_id": "D1", "etiqueta": "Muertos en Longarone"}]
-    res2 = gro.aplicar_ediciones(res, edits, ent, [])
-    assert res["final"]["bloques"][0]["etiqueta"] == "Muertos"                 # la caché del rotulista no se toca
-    plan: dict = {}
-    gro.colocar(plan, res2, ent, scenes=scenes, pool=None, used_before=set(), lupa_box=None, zoom_dur=2.5, log=[],
-                words=words, time_offset=0.0)
-    c = plan["callouts"][0]
-    assert c["kicker"] == "Muertos en Longarone" and c.get("editado")
-    g = _guion([{**_cap(plan, pre=0.0), "plan": plan}])
-    f = next(e for e in g["caps"][0]["eventos"] if e["tipo"] == "ficha")
-    assert f["etiqueta"] == "Muertos en Longarone" and "editado a mano" in f["filtro"]
-    # borrar y agregar
-    res3 = gro.aplicar_ediciones(res, [{"cap": "ch03", "pool_id": "D1", "borrar": True},
-                                       {"cap": "ch03", "agregar": {"pool_id": "D1", "sentence_idx": 1, "word_idx": 1,
-                                                                   "tipo": "hecho", "etiqueta": "Víctimas",
-                                                                   "texto": "Murieron 1.910 personas."}}], ent, [])
-    assert [(b["etiqueta"], b["word_idx"], b.get("editado")) for b in res3["final"]["bloques"]] == [("Víctimas", 1, True)]
-
-
-def test_plan_edit_escena_mueve_al_corte():
-    ent, words = _ent_simple()
-    res = {"final": {"bloques": [{"sentence_idx": 1, "word_idx": 0, "beat": 1, "rank": 1, "tipo": "hecho",
-                                  "etiqueta": "Muertos", "texto": "Murieron 1.910 personas.", "pool_id": "D1",
-                                  "aporta": "el total"}]}}
-    scenes = [Sc(0, 0.0, 8.0), Sc(1, 8.0, 30.0)]
-    plan: dict = {}
-    gro.colocar(plan, res, ent, scenes=scenes, pool=None, used_before=set(), lupa_box=None, zoom_dur=2.5, log=[],
-                words=words, time_offset=0.0)
-    gro.mover_a_escena(plan, [{"cap": "ch03", "pool_id": "D1", "escena": 1}], scenes, ent, [])
-    assert plan["callouts"][0]["start"] == 8.0 and plan["callouts"][0]["editado"]
-
-
 # ═══════════════════════════════ B: arreglos (se verifican en el guion) ═══════════════════════════════
 
 def _ent_b(oraciones: list[tuple[float, str]], items: list[dict], beats: list[dict] | None = None,
@@ -278,113 +238,6 @@ def test_b2_la_pregunta_dura_su_lectura(tmp_path):
     assert pausa == round(len(txt) / 15, 3) + 1.0
 
 
-def test_b3_si_no_cabe_antes_del_corte_arranca_en_la_escena_siguiente():
-    ent, words = _ent_b([(0.0, "En mil novecientos cuarenta y tres se aprobó el proyecto de cerrar esa garganta con una "
-                               "presa y empezó la compra de terrenos en Erto."), (11.0, "La empresa era SADE.")],
-                        [{"id": "D117", "texto": "El Consejo aprobó el proyecto con solo 13 de 34 representantes presentes."}])
-    b = _bl(0, "cifra", "Se aprobó con solo 13 de 34 representantes presentes.", "D117", et="Consejo")
-    # la palabra 7 («aprobó», 2.8 s); la escena corta en 4.0: no hay 4.7 s de lectura → arranca en el corte (4.0)
-    v = gro.validar({"bloques": [{**b, "word_idx": 7}]}, ent, words, escenas=[Sc(0, 0.0, 4.0), Sc(1, 4.0, 20.0)])
-    k = v["bloques"][0]
-    assert k["t0"] == 4.0 and k["movido_corte"].startswith("2.80 → 4.00 s") and "escena 1" in k["movido_corte"]
-    # si tampoco cabe en la escena siguiente, sin tiempo de lectura
-    v2 = gro.validar({"bloques": [{**b, "word_idx": 7}]}, ent, words,
-                     escenas=[Sc(0, 0.0, 4.0), Sc(1, 4.0, 6.0), Sc(2, 6.0, 20.0)])
-    assert not v2["bloques"] and v2["rechazos"][0]["regla"] == "lectura"
-
-
-def test_b4_a_pantalla_documento_sale_como_recorte_aunque_venga_como_cita():
-    ent, words = _ent_b([(0.0, "Esa mañana el municipio de arriba escribió otra vez a la empresa."),
-                         (5.0, "La empresa no contestó y el agua siguió subiendo.")],
-                        [{"id": "Q50", "a_pantalla": True, "kind": "citas", "autor": "Administración del comune",
-                          "fuente": "Tragedia della diga del Vajont, 2018",
-                          "por_que": "Carta del municipio de Erto y Casso a SADE: documento que se lee en pantalla.",
-                          "texto": "Las poblaciones de Erto y Casso están viviendo en continua aprensión."}])
-    v = gro.validar({"bloques": [_bl(0, "cita", "«Las poblaciones de Erto y Casso están viviendo en continua aprensión.»",
-                                     "Q50")]}, ent, words)
-    k = v["bloques"][0]
-    assert k["tipo"] == "documento" and k["etiqueta"] == "Tragedia della diga del Vajont, 2018"
-    assert k["pantalla"].startswith("Las poblaciones") and "documento" in k["forzado"]
-    assert gro.pide_documento("Acta de la sesión") and not gro.pide_documento("Cifra de liras en el fallo")
-    plan: dict = {}
-    gro.colocar(plan, {"final": {"bloques": [_bl(0, "cita", "Las poblaciones de Erto y Casso están viviendo en continua "
-                                                       "aprensión.", "Q50")]}},
-                ent, scenes=[Sc(0, 0.0, 30.0)], pool=None, used_before=set(), lupa_box=None, zoom_dur=2.5, log=[],
-                words=words, time_offset=0.0)
-    assert plan["archive_clippings"][0]["kicker"] == "Tragedia della diga del Vajont, 2018" and plan["quote_card"] is None
-
-
-def test_b5_dos_a_pantalla_por_beat_y_a_pantalla_en_el_pico():
-    beats = [{"n": 10, "funcion": "pico", "t0": 0.0, "t1": 9.0, "cierre": "", "dato_central": "", "datos_apoyo": []},
-             {"n": 11, "funcion": "respiro", "t0": 9.5, "t1": 40.0, "cierre": "", "dato_central": "", "datos_apoyo": []}]
-    ent, words = _ent_b([(0.0, "La ladera entera se desploma dentro del embalse."), (4.5, "Nadie lo esperaba así de rápido."),
-                         (10.0, "En Longarone casi no quedaron casas en pie."), (16.0, "En el estribo izquierdo estaba el "
-                                                                                       "centro de control.")],
-                        [{"id": "D128", "a_pantalla": True, "beats": [10, 11], "texto": "En el desastre murieron 1.910 personas."},
-                         {"id": "D192", "a_pantalla": True, "beats": [11], "texto": "En el centro de control había 20 técnicos que perecieron."},
-                         {"id": "D50", "beats": [10], "texto": "El alcalde Celso murió en el desastre."}],
-                        beats=beats, pico={"beat": 10})
-    resp = {"bloques": [_bl(2, "cifra", "1.910 personas", "D128", et="Muertos (recuento oficial)"),
-                        _bl(3, "cifra", "20 técnicos", "D192", et="Técnicos en el centro de control"),
-                        _bl(0, "hecho", "Celso, alcalde, murió esa noche.", "D50", et="Alcalde")]}
-    v = gro.validar(resp, ent, words)
-    assert sorted(b["pool_id"] for b in v["bloques"]) == ["D128", "D192"] and not v["faltan"]
-    assert any(r["pool_id"] == "D50" and "solo `a_pantalla`" in r["motivo"] for r in v["rechazos"])
-    v2 = gro.validar({"bloques": [_bl(0, "cifra", "1.910 personas", "D128", et="Muertos (recuento oficial)")]}, ent, words)
-    assert v2["bloques"][0]["beat"] == 10 and v2["bloques"][0]["movido"] is None       # el a_pantalla queda en el pico
-
-
-def test_b6_sellos_por_tema_uno_por_beat_nunca_con_un_texto():
-    from script_engine import gfx_realizador as gr
-    beats = [{"n": 1, "funcion": "planteo", "t0": 0.0, "t1": 9.9, "cierre": "", "dato_central": "", "datos_apoyo": []},
-             {"n": 2, "funcion": "escalada", "t0": 10.0, "t1": 30.0, "cierre": "", "dato_central": "", "datos_apoyo": []}]
-    ent, words = _ent_b([(0.0, "El agua del lago subía."), (4.0, "Los cadáveres flotaban en el río."),
-                         (10.0, "Hubo una avalancha de fango."), (16.0, "Murieron los técnicos del turno.")], [], beats=beats)
-    moods = {"muerte": {"layer": "muerte", "triggers": {"cadáveres": 3, "murieron": 2}},
-             "agua": {"layer": "agua", "triggers": {"agua": 1, "avalancha": 3, "fango": 3}}}
-    scenes = [Sc(0, 0.0, 4.0), Sc(1, 4.0, 10.0), Sc(2, 10.0, 16.0), Sc(3, 16.0, 30.0)]
-    plan = {"emphasis": [{"word": "lago", "start": 1.0, "duration": 2.5}],                       # del director, por léxico
-            "callouts": [{"text": "20 técnicos", "start": 10.2, "duration": 3.0, "ficha": True}]}
-    # F34 §A.4: los mismos momentos, pero el sello dice una palabra de clima (Gemini, acá un falso)
-    filas = gro.sellos_por_tema(plan, scenes, ent, words, 0.0, moods, [],
-                                call=lambda p: "PÁNICO" if "cadáveres" in p.split("oración: ")[-1] else "CALMA")
-    assert [(e["word"], e["tema"], e["palabra_voz"]) for e in plan["emphasis"]] == [
-        ("PÁNICO", "muerte", "cadáveres"), ("CALMA", "muerte", "Murieron")]
-    mot = {f["texto"]: f["motivo"] for f in filas}
-    assert "por léxico" in mot["lago"] and "agua" not in mot                 # peso 1: no llega a sello (como el pico)
-    assert "ya tiene ficha" in mot["avalancha"] and "fango" not in mot         # un candidato por oración
-    plan["punch_in"] = [4.4]
-    gr.finalizar({**plan, "rotulista": {"filas": []}}, {"candidatos": [], "beats": beats}, [])
-    p2 = {**plan, "rotulista": {"filas": []}}
-    gr.finalizar(p2, {"candidatos": [], "beats": beats}, [])
-    assert [e["word"] for e in p2["emphasis"]] == ["PÁNICO", "CALMA"] and p2["punch_in"] == []
-    assert any(f["bloque"] == "punch_in" and f["accion"] == "fuera" for f in p2["realizador"]["filas"])
-
-
-def test_b7_el_prompt_cambia_solo_por_una_linea_y_la_cifra_se_anima():
-    import hashlib
-    import re as _re
-    md = (ROOT / "lab" / "hyperframes" / "f29c" / "HANDOFF_F29c_rotulista_por_beat.md").read_text(encoding="utf-8")
-    sys_f29c = _re.search(r"\*\*SYSTEM:\*\*\s*```\n(.*?)\n```", md, _re.S).group(1)
-    assert gro.ROTULISTA_SYSTEM_F29C == sys_f29c
-    assert hashlib.md5((sys_f29c + "\n\n" + gro.ROTULISTA_USER_F32).encode("utf-8")).hexdigest() == "7dafbb964d7ff71daafc65c028834017"
-    nuevo, viejo = gro.ROTULISTA_SYSTEM_F32.splitlines(), sys_f29c.splitlines()     # F34: el de F32 queda como historia
-    assert len(nuevo) == len(viejo) + 1 and [x for x in nuevo if x not in viejo] == [gro.LINEA_B7]
-    assert nuevo[nuevo.index(gro.LINEA_B7) - 1].startswith("- cifra:")
-    assert gro.LINEA_B7.strip() == "devolvé `unidad` (metros, personas, m³, liras u otra) y `valor` numérico"
-    agua = gro.animacion_de_cifra({"tipo": "cifra", "pantalla": "715 metros", "etiqueta": "Cota autorizada del embalse",
-                                   "unidad": "metros", "valor": 715}, "La SADE obtuvo autorización para llenar el embalse "
-                                   "hasta 715 metros, por encima de la cota de seguridad.")
-    assert agua[0] == "water_level" and agua[1]["value_text"] == "715" and agua[1]["unit"] == "metros"
-    cu = gro.animacion_de_cifra({"tipo": "cifra", "pantalla": "1.910 personas", "etiqueta": "Muertos", "unidad": "personas",
-                                 "valor": 1910, "lectura_s": 1.4}, "En el desastre murieron 1.910 personas.")
-    assert cu[0] == "count_up" and cu[1]["value_text"] == "1.910" and cu[1]["source"] == "Muertos"
-    assert gro.animacion_de_cifra({"tipo": "cifra", "pantalla": "50 millones de m³", "unidad": "m³", "valor": 50000000},
-                                  "Cayeron 270 millones de m³.") is None
-    assert gro.animacion_de_cifra({"tipo": "cifra", "pantalla": "260 metros", "unidad": "metros", "valor": 260,
-                                   "etiqueta": "Altura de la presa"}, "La presa medía 260 metros de alto.") is None
-
-
 def test_b8_ficha_un_escalon_mas_chica_con_placa(tmp_path):
     from script_engine.gfx_project import GfxScene, ficha_medida, render_css, tc_metrics, write_project
     from gfx_config import gfx_rules
@@ -405,13 +258,3 @@ def test_b8_ficha_un_escalon_mas_chica_con_placa(tmp_path):
     assert ficha_medida("Muertos", "1.910 personas")["title"] == 1
 
 
-def test_b7_sin_unidad_en_la_respuesta_se_lee_del_texto():
-    """El formato de salida del USER no nombra `unidad`/`valor` (y no se toca): sin ellos, la cifra y su unidad salen
-    del texto del bloque."""
-    cu = gro.animacion_de_cifra({"pantalla": "1.910 personas murieron en el desastre.", "etiqueta": "Muertos",
-                                 "lectura_s": 3.5}, "En el desastre murieron 1.910 personas.")
-    assert cu[0] == "count_up" and cu[1]["value_text"] == "1.910" and cu[1]["duration"] == 3.7
-    assert gro.animacion_de_cifra({"pantalla": "20 técnicos perecieron", "lectura_s": 2.0}, "") is None
-    largo = {"pantalla": "Montedison pagó 55.645.758.500 liras a Longarone.", "etiqueta": "Tribunal de Belluno, 1997",
-             "lectura_s": 4.6}
-    assert gro.animacion_de_cifra(largo, "") is None             # no se lee en lo que dura el contador: queda la ficha

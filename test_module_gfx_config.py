@@ -20,13 +20,12 @@ def test_inventario_es_inmutable():
 def test_inventario_cubre_doc_maestro_v1():
     esperados = {"title_card", "data_callout", "archive_clipping", "evidence_zoom",
                  "count_up", "shot_transition", "punch_in", "grade",
-                 "chapter_question", "source_tag",                  # F2 §0d
-                 "keyword_emphasis",                                # F2b §2
-                 "icon_callout", "icon_array"}                      # F2b §3
+                 "chapter_question",                                # F2 §0d
+                 "keyword_emphasis"}                                # F2b §2 (F36 §D: sin source_tag ni íconos)
     assert gc.VALID_BLOCKS == esperados
     # deterministas: el LLM no los elige
     assert "shot_transition" not in gc.LLM_BLOCKS and "grade" not in gc.LLM_BLOCKS and "keyword_emphasis" not in gc.LLM_BLOCKS
-    assert "source_tag" not in gc.LLM_BLOCKS and "chapter_question" not in gc.LLM_BLOCKS   # F2b §1.3: OFF en misterio
+    assert "chapter_question" not in gc.LLM_BLOCKS          # F2b §1.3: OFF en misterio
 
 
 def test_prompt_incluye_todos_los_bloques():
@@ -40,15 +39,6 @@ def test_maximos_por_cap():
     assert gc.max_per_cap("data_callout") == 5             # F2 §1: techo 5/cap
     assert gc.max_per_cap("punch_in") == 4                     # F4: cupo de la identidad (1 por frase)
     assert gc.max_per_cap("archive_clipping") == 2          # F2 §0b.6
-    assert gc.clamp_count([1, 2, 3, 4, 5, 6], "data_callout") == [1, 2, 3, 4, 5]
-
-
-def test_clamps():
-    assert gc.clamp_callout_duration(99) == gc.gfx_rules.callout_dur_max
-    assert gc.clamp_callout_duration(0.1) == gc.gfx_rules.callout_dur_min
-    assert gc.clamp_box([1.4, -0.2, 0.9, 0.01]) == [0.75, 0.0, 0.25, 0.06]   # tope F1b 0.25
-    assert gc.clamp_box(["x"]) is None
-    assert gc.clamp_quality("looks") == "looks" and gc.clamp_quality("4k") == "looks"
 
 
 def test_calibracion_f1b_vigente():
@@ -56,7 +46,7 @@ def test_calibracion_f1b_vigente():
     assert r.flash_peak == 0.3
     assert r.flash_max_per_cap == 2 and r.flash_min_gap_sec == 20.0
     assert r.callout_dur_min == 2.5 and r.archive_min_sec == 4.0 and r.count_hold_sec == 2.5
-    assert r.zoom_box_max == 0.25 and r.zoom_label_margin_px >= 40
+    assert r.zoom_box_max == 0.25
     assert {"A", "B", "C"} <= set(gc.GRADE_VARIANTS) and gc.GRADE_VARIANTS["C"]["intensity"] == 0.3   # recetas inactivas
     assert gc.GRADE_VARIANTS["B"]["opacity"]["gr-haze"] == 0.0
     assert gc.gfx_rules.css_grade_variant == gc.gfx_rules.grade_default    # alias F1b

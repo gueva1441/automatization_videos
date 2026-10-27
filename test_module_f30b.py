@@ -35,8 +35,8 @@ def test_seis_escenas_lupa_pico_beat_ticker_cierre():
     sc = _sc([0, 10, 20, 30, 40, 50], 60)
     tr = transiciones_por_relato(sc, _plan(), BEATS)
     assert [tr[k]["kind"] for k in sorted(tr)] == ["cut", "zoom_punch", "dissolve", "dissolve", "dip"]
-    assert [tr[k]["why"] for k in sorted(tr)] == ["después de la lupa", "pico", "cambio de beat", "salto de tiempo",
-                                                   "cierre"]
+    assert [tr[k]["why"] for k in sorted(tr)] == ["corte", "pico", "cambio de beat", "salto de tiempo",
+                                                   "cierre"]                 # F36 §D: sin la regla de la lupa
     assert tr[2]["frames"] == 12 and tr[3]["frames"] == gfx_rules.crossfade_frames and tr[5]["frames"] == gfx_rules.dip_frames
 
 
@@ -150,19 +150,6 @@ def test_pieza_de_musica_cubre_el_pre_roll(tmp_path):
                        capture_output=True, check=True)
     x = np.abs(np.frombuffer(r.stdout, np.int16).astype(float))
     assert abs(len(x) / 1000 - 7.0) < 0.02 and x[100:2900].mean() > 1000 and x[3200:].mean() > 1000
-
-
-def test_rotulista_mismo_pedido_con_y_sin_pre_roll():
-    from script_engine import gfx_rotulista as gro
-    ws = [{"word": w, "start": 1.0 + k * 0.4, "end": 1.3 + k * 0.4} for k, w in enumerate("La presa crece sola.".split())]
-    ws3 = [{**w, "start": w["start"] + 3.0, "end": w["end"] + 3.0} for w in ws]
-    real = {"beats": [{"n": 1, "funcion": "escalada", "t0": 1.0, "t1": 3.0, "cierre": "", "dato_central": "",
-                       "datos_apoyo": []}]}
-    real3 = {"beats": [{**real["beats"][0], "t0": 4.0, "t1": 6.0}]}
-    e0 = gro.entrada(1, real, {}, None, ws, 0.0)
-    e3 = gro.entrada(1, real3, {}, None, ws, 3.0, pre_roll=3.0)
-    assert gro.prompt_user(e0) == gro.prompt_user(e3)
-    assert e3["oraciones"][0]["t0"] == 4.0 and ws3                          # la validación sigue en tiempo del plan
 
 
 def test_critico_reusa_el_veredicto_por_identidad_del_bloque(tmp_path):

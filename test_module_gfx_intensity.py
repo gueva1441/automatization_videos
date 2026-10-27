@@ -74,41 +74,6 @@ def test_fallback_tras_dos_fallos_y_cache(tmp_path):
     assert gi.intensity_for(SENTS[:2], cap="ch02", work_dir=tmp_path, moods_all=MOODS, call=lambda p, **k: raw(intensidad=[0.1, 0.2])) is not None  # otra narración → re-llama
 
 
-def test_lexico_del_cap_y_pico():
-    res, _ = gi.validate(raw(), SENTS, MOODS)
-    act = {k: v for k, v in MOODS.items() if v["active"]}
-    aug = gi.augmented_moods(act, res)
-    assert aug["oscuridad_encierro"]["triggers"]["celdas"] == 3 and aug["agua"]["triggers"]["sumergidas"] == 2
-    assert "silencio" not in aug and "celdas" not in MOODS["oscuridad_encierro"]["triggers"]          # sin mutar el perfil
-    assert gi.peak_sentence(res) == 1
-    tie = dict(res, intensidad=[0.9, 0.9, 0.7], cargas=res["cargas"] + [{"word": "sumergidas", "sentence_idx": 0,
-                                                                        "categoria": "agua", "peso": 3, "concreta": False}])
-    assert gi.peak_sentence(tie) == 0 and gi.peak_sentence(dict(res, intensidad=[0.9, 0.9, 0.7], cargas=[])) == 0
-    words = W(" ".join(SENTS))
-    pk = gp.peak_from_intensity(words, aug, res)
-    assert pk["word"] == "celdas." .rstrip(".") and pk["sentence_idx"] == 1 and pk["intensity"] == 0.9
-
-
-def test_pico_garantizado_prefiere_la_cifra_de_agua_cercana(tmp_path):
-    words = W("Las calles quedaron sumergidas bajo 4.6 metros de agua. Nadie abrió las celdas. Fin del día.")
-    ctx = {"facts": ["Algunas partes quedaron bajo 15 pies (4.6 metros) de agua."], "eligible": {}}
-    res = {"intensidad": [0.85, 0.95, 0.2], "cargas": [{"word": "celdas", "sentence_idx": 1, "categoria": "oscuridad_encierro",
-                                                       "peso": 3, "concreta": True}], "pico_llm": 1}
-    aug = gi.augmented_moods({k: v for k, v in MOODS.items() if v["active"]}, res)
-    aug["agua"]["triggers"]["sumergidas"] = 3
-    plan = {"callouts": [], "emphasis": [], "punch_in": [], "archive_clippings": []}
-    log: list[str] = []
-    gp.plan_peak(plan, ctx=ctx, words=words, scenes=[], moods=aug, clip_dur=30.0, box_for=lambda si, w: None, log=log,
-                 intensity=res)
-    assert plan["pico"]["block"] == "water_level" and "por la cifra de agua" in log[0]
-    res2 = dict(res, intensidad=[0.7, 0.95, 0.2])                                     # a más de 0.1 → gana la intensidad
-    plan2 = {"callouts": [], "emphasis": [], "punch_in": [], "archive_clippings": []}
-    gp.plan_peak(plan2, ctx=ctx, words=words, scenes=[], moods=aug, clip_dur=30.0, box_for=lambda si, w: None, intensity=res2)
-    # F4c R3: sin bloque grande el pico igual lleva su palabra (sello + mood)
-    assert plan2["pico"]["word"] == "celdas" and plan2["pico"]["block"] == "emphasis"
-    assert [(e["word"], e.get("peak_word")) for e in plan2["emphasis"]] == [("celdas", True)]
-
-
 def test_propuestas_y_promocion_a_los_2_videos(tmp_path):
     prop, prof = tmp_path / "lexico_propuestas.json", tmp_path / "perfil.json"
     prof.write_text('{\n  "moods": {\n    "oscuridad_encierro": {"active": true, "triggers": {"encierro": 2}}\n  }\n}\n', encoding="utf-8")

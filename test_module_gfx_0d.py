@@ -76,17 +76,15 @@ def test_source_tag_solo_si_el_fact_nombra_la_fuente():
     assert ok["callouts"][0]["source"] == "Human Rights Watch, 2005" and ok["callouts"][1]["source"] == ""
 
 
-def test_plantillas_question_y_source(tmp_path):
+def test_plantilla_question(tmp_path):
     (tmp_path / "public").mkdir()
     (tmp_path / "public" / "base.mp4").write_bytes(b"x")
     plan = {"chapter_number": 2, "title_card": None, "count_up": None, "archive_clippings": [], "evidence_zoom": None,
-            "punch_in": [], "callouts": [{"text": "500 prisioneros", "start": 1.0, "kind": "figure", "duration": 2.5,
-                                          "side": "left", "source": "Human Rights Watch, 2005"}],
+            "punch_in": [], "callouts": [],                  # F36 §D: sin source_tag ni dato suelto
             "chapter_question": {"text": "¿Por qué fallan los generadores?", "start": 7.5, "duration": 2.3,
                                  "keyword": "generadores"}}
     write_project(plan, [GfxScene(0, 0.0, 10.0, "R3", "")], tmp_path, duration=10.0, width=2560, height=1440, fps=30)
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
-    assert 'class="co-src">Human Rights Watch, 2005<' in html
     assert '<span class="kw">generadores</span>' in html and 'id="cq-dim"' in html
 
 

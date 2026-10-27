@@ -21,12 +21,9 @@ Mini-servidor local (http.server, sin dependencias nuevas) que sirve el lab en h
     POST /preview             {plan, tokens, movimientos?, salidas?, solo?} → candado literal → gfx_project.write_project (plantillas REALES)
                               con los tokens pisando gfx_rules SOLO durante ese write_project → src del player
     GET  /objetos?foto=N      §F: movimiento del pipeline + movimiento sugerido + datos del prompt de la foto N
-    GET  /question            pregunta de cierre del cap (gfx_question; cache compartido con el render)
-    POST /question            {regenerate: true} → otra pregunta (Flash) · {text} → edición de Omar
+    GET  /question            F36 §D: borrado (gfx_question se borró: la pregunta es el `cierre` del último beat)
     /media/icon/<k>.svg       uno de los 12 íconos del set · /media/sfx/<nombre>.wav = SFX del perfil (drone)
-    GET  /summary             IDENTIDAD_<perfil>.md del estado guardado (text/markdown)
-    POST /summary             estado de la página → IDENTIDAD_<perfil>.md en vivo (§4), sin escribir nada
-    POST /save_identity       estado → perfil validado + plan dorado + IDENTIDAD_<perfil>.md (gfx_identity)
+    /summary, /save_identity  F36 §D: borrados (gfx_identity salió del pipeline, DECISIONES 16:38)
 
 El preview NO es un render: el player carga la composición y GSAP la anima; el audio va por `audio-src`.
 
@@ -182,17 +179,11 @@ class LabSession:
         return self.with_defaults(json.loads(f.read_text(encoding="utf-8"))["plan"])
 
     def with_defaults(self, plan: dict[str, Any]) -> dict[str, Any]:
-        """F3: lo que el pipeline nuevo agrega por default (si el plan viene de un render anterior): pico con su bloque
-        grande + zoom con latido + reloj (gfx_peak, cajas de visión SOLO desde la cache: el lab no llama a visión),
-        pregunta de cierre generada (cache gfx_question) con su pausa y el corte a negro."""
+        """F3: lo que el pipeline agrega por default (si el plan viene de un render anterior): pregunta de cierre
+        (cache) con su pausa y el corte a negro. F36 §D: sin el pico de gfx_peak (plan_peak se borró)."""
         import gfx_config
-        from script_engine.gfx_peak import box_from_cache, plan_peak, water_used_before
         rules = gfx_config.gfx_rules
         self.context()
-        if rules.peak_blocks and "pico" not in plan:
-            plan_peak(plan, ctx=self._ctx, words=self.words, scenes=self.scenes, moods=gfx_config.active_moods(),
-                      clip_dur=self.duration, box_for=box_from_cache(self.work_dir / f"gfx_zoom_box_{self.cap}.json"),
-                      water_used=water_used_before(self.work_dir, self._ctx["chapter_number"]), time_offset=self.time_offset)
         q = plan.get("chapter_question")
         if rules.question_auto and not q:
             cache = self.work_dir / f"gfx_question_{self.cap}.json"
@@ -279,14 +270,8 @@ class LabSession:
         return {"icon_keys": sorted(ICON_KEYS), "category_icon": cat_icon, "fact_icon": fact_icon}
 
     def question(self, body: dict[str, Any]) -> dict[str, Any]:
-        """F3: pregunta de cierre del cap (gfx_question, cache compartido con el render).
-        body {regenerate: true} → otra pregunta (Flash); {text: "…"} → la edición de Omar (manual)."""
-        from script_engine.gfx_question import question_for, save_edited
-        self.context()
-        if "text" in body:
-            return save_edited(self.work_dir, self.cap, str(body.get("text") or ""))
-        return question_for(self.work_dir, self.cap, self._ctx["chapter_number"], self._ctx.get("chapters") or [],
-                            regenerate=bool(body.get("regenerate")))
+        """F36 §D: borrado (gfx_question se borró: la pregunta de cierre es el `cierre` del último beat de la escaleta)."""
+        raise RuntimeError("la pregunta generada (gfx_question) se borró en F36 D")
 
     def locked(self, plan: dict[str, Any]) -> tuple[dict[str, Any], list[dict[str, Any]]]:
         """Candado literal (§6) sobre el plan del lab. La pregunta de cierre escrita por Omar (manual: true)
@@ -301,8 +286,6 @@ class LabSession:
                             question_sources=self._ctx.get("next_sources"))
         if manual_q:
             ok["chapter_question"] = manual_q
-        from script_engine.gfx_layer import icon_sources
-        icon_sources(ok, self._ctx)                                    # F3: fuente debajo del bloque de ícono
         return ok, rejected
 
     # ── historia
@@ -396,23 +379,12 @@ class LabSession:
         return ok, rejected, cues
 
     def summary(self, state: dict[str, Any]) -> str:
-        from dataclasses import asdict
-        import gfx_config
-        from script_engine.gfx_identity import summary_md
-        _, _, cues = self.cues_for(state["plan"], state.get("tokens") or {})
-        return summary_md(state, self._catalog(), cues, self.story()["words"], asdict(gfx_config.gfx_rules),
-                          profile=gfx_config.active_profile_name(), cap=self.cap, video_id=self.video_id,
-                          sugerencias=self._sugerencias())
+        """F36 §D: borrado (gfx_identity salió del pipeline, DECISIONES 16:38)."""
+        raise RuntimeError("gfx_identity salió del pipeline en F36 D (DECISIONES 16:38)")
 
     def save_identity(self, state: dict[str, Any]) -> dict[str, str]:
-        import gfx_config
-        from script_engine.gfx_identity import save_identity
-        with self._lock:
-            self.save_lab_state(state)
-            ok, rejected, _ = self.cues_for(state["plan"], state.get("tokens") or {})
-            return save_identity(state, profile=gfx_config.active_profile_name(), cap=self.cap,
-                                 video_id=self.video_id, locked_plan=ok, rejected=rejected,
-                                 summary=self.summary(state), md_dir=gfx_config.GFX_PROFILES_DIR)
+        """F36 §D: borrado (gfx_identity salió del pipeline, DECISIONES 16:38)."""
+        raise RuntimeError("gfx_identity salió del pipeline en F36 D (DECISIONES 16:38)")
 
     # ── preview: plantillas REALES vía gfx_project.write_project
     # forma de movimiento del lab → movimiento seguro del templater sobre el PNG fijo (None = clip DepthFlow)
@@ -438,7 +410,7 @@ class LabSession:
     def _transitions_for(self, scenes: list[Any], plan: dict[str, Any], salidas: dict[str, str] | None):
         """plan_transitions del templater con la salida elegida por tramo encima (clave = idx del tramo SALIENTE)."""
         from script_engine import gfx_project
-        tr = gfx_project.plan_transitions(scenes, (plan.get("evidence_zoom") or {}).get("scene_idx"))
+        tr = gfx_project.plan_transitions(scenes)                     # F36 §D: sin la lupa
         if salidas is None:
             return tr
         r = gfx_project.gfx_rules
@@ -512,6 +484,8 @@ class rules_override:
     """Context manager: gfx_project.gfx_rules / GRADE_VARIANTS con los tokens del lab encima del perfil activo."""
 
     def __init__(self, tokens: dict[str, Any]) -> None:
+        from gfx_config import HUERFANAS_TOKENS     # F36 §D: los tokens que D dejó sin código se ignoran, como en el perfil
+        tokens = {k: v for k, v in tokens.items() if k not in HUERFANAS_TOKENS}
         bad = sorted(set(tokens) - _rule_fields())
         if bad:
             raise ValueError(f"tokens desconocidos: {bad}")

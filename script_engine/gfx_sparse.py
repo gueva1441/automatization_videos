@@ -399,7 +399,7 @@ def stitch_graph(segs: list[dict[str, Any]], fps: int, width: int, height: int) 
 
 def stitch(base: Path, hf: Path, windows: list[tuple[float, float]], offsets: list[tuple[float, float, float]],
            dur: float, out: Path, *, width: int, height: int, fps: int, vignette: Path | None,
-           grain: Path | None, grain_opacity: float, crf: int = 16, bug: dict[str, Any] | None = None,
+           grain: Path | None, grain_opacity: float, crf: int = 16,
            transitions: list[tuple[float, dict[str, Any]]] | None = None, encoder: list[str] | None = None) -> None:
     """Cap final = tramos del base fuera de ventanas + tramos del render HF, y grade FFmpeg uniforme encima. F30 §B:
     `transitions` = las transiciones de corte que caen fuera de las ventanas (stitch_transitions): el base se corta en
@@ -424,28 +424,6 @@ def stitch(base: Path, hf: Path, windows: list[tuple[float, float]], offsets: li
         cmd += ["-loop", "1", "-framerate", str(fps), "-i", str(vignette)]
     if grain is not None and grain_opacity > 0:
         cmd += ["-loop", "1", "-framerate", str(fps), "-i", str(grain)]
-    if bug:                                                     # F4b §0.3: marca del canal (+ cierre en el último cap)
-        from script_engine import gfx_bug
-        n_in = 2 + (vignette is not None) + (grain is not None and grain_opacity > 0)
-
-        def _inp(p: Path | None) -> int | None:
-            nonlocal n_in
-            if p is None:
-                return None
-            cmd.extend(["-loop", "1", "-framerate", str(fps), "-i", str(p)])
-            n_in += 1
-            return n_in - 1
-        cfg = bug["cfg"]
-        if bug.get("corner", True):
-            ib, ifl = _inp(bug["corner_pngs"][0]), _inp(bug["corner_pngs"][1])
-            g, last = gfx_bug.overlay_graph(cfg, bug["plan"], bug.get("visible_until", dur), width=width, height=height,
-                                            in_body=ib, in_flame=ifl, last=last, intro=bug.get("intro", False))
-            graph.extend(g)
-        if bug.get("outro_t0") is not None:
-            ob, ofl = _inp(bug["outro_pngs"][0]), _inp(bug["outro_pngs"][1])
-            g, last = gfx_bug.outro_graph(cfg, bug["outro_t0"], width=width, height=height, in_body=ob, in_flame=ofl,
-                                          last=last)
-            graph.extend(g)
     graph.append(f"[{last}]format=yuv420p[o]")
     enc = encoder or ["-c:v", "libx264", "-preset", "ultrafast", "-crf", str(crf)]   # intermedio: fase2b re-encodea
     cmd += ["-filter_complex", ";".join(graph), "-map", "[o]", "-t", f"{dur:.6f}", *enc, "-r", str(fps),

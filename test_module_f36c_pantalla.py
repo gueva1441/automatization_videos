@@ -173,7 +173,6 @@ def test_f_fase2_lee_el_papel_sin_llamar_a_ningun_modelo_de_texto(monkeypatch, t
     import claude_helpers as hx
     from script_engine import gfx_realizador as gr
     from script_engine import gfx_rotulista as gro
-    from script_engine import rotulista_llm
     from script_engine.gfx_layer import remapped_words
     from script_engine.rotulista_filtros import validar_papel
 
@@ -181,7 +180,6 @@ def test_f_fase2_lee_el_papel_sin_llamar_a_ningun_modelo_de_texto(monkeypatch, t
         raise AssertionError("Fase 2 llamó a un modelo de texto")
     monkeypatch.setattr(hx, "_post", no)
     monkeypatch.setattr(hx, "call_json", no)
-    monkeypatch.setattr(rotulista_llm, "llamar", no)
     papel = mp.cargar_papel(VAJONT)
     sc = ROOT / "data" / "scripts" / "f8s3-vajont-f30.json"
     if papel is None or not sc.exists():
@@ -203,3 +201,55 @@ def test_f_fase2_lee_el_papel_sin_llamar_a_ningun_modelo_de_texto(monkeypatch, t
     assert "_rot_prefetch(" not in src and "gro.llamar(" not in src
     from script_engine import rotulista_filtros as rf                # aclaración 3: el ORDEN recortado
     assert [rf.regla(f) for f in rf.ORDEN] == ["anclaje", "no_dicho", "candado", "no_dicho", "spoiler", "lectura"]
+
+
+# F36 §C.4 / §D: lo que Fase 2 hace con el papel (sin modelo)
+def test_g_cita_ficha_con_autor_y_sellos_del_papel_nunca_al_mismo_tiempo(monkeypatch):
+    from script_engine import clima
+    from script_engine import rotulista_colocar as rc
+    Sc = SimpleNamespace
+    words = [{"word": w, "start": i * 0.5, "end": i * 0.5 + 0.4} for i, w in
+             enumerate("La gente pidió justicia en la plaza. El presidente respondió algo esa noche. Nadie volvió a hablar.".split())]
+    sents = __import__("script_engine.voz_utils", fromlist=["oraciones"]).oraciones(words)
+    ent = {"oraciones": sents, "beats": [{"n": 1, "funcion": "revelacion", "t0": 0.0, "t1": 20.0, "cierre": "",
+                                          "dato_central": "", "datos_apoyo": []}],
+           "items": [{"id": "Q14", "a_pantalla": False, "por_que": "", "beats": [1], "tipo": "Q", "kind": "citas",
+                      "texto": "Y justicia tendréis", "fuente": "x", "autor": "Giovanni Leone", "gancho": False,
+                      "dice_voz": False}], "voz_video": [s["texto"] for s in sents], "voz_antes": ""}
+    pool = {"citas": [{"id": "Q14", "texto": "Y justicia tendréis", "autor": "Giovanni Leone", "fuente": "x"}]}
+    res = {"papel": True, "final": {"bloques": [{"pool_id": "Q14", "sentence_idx": 0, "word_idx": 1, "beat": 1, "rank": 1,
+                                                 "tipo": "cita", "estilo": "cita", "etiqueta": "RESPUESTA DE LEONE",
+                                                 "texto": "«Y justicia tendréis»", "aporta": "x", "papel": True}]}}
+    plan: dict = {"title_card": None}
+    scenes = [Sc(idx=0, start=0.0, end=20.0, rank="R3", quiet_side="right")]
+    rc.colocar(plan, res, ent, scenes=scenes, pool=pool, used_before=set(), log=[], words=words)
+    c = plan["callouts"][0]
+    assert c["ficha"] and c["kind"] == "quote" and c["text"] == "«Y justicia tendréis» — Giovanni Leone"
+    assert c["papel"] and c["estilo"] == "cita"
+    monkeypatch.setattr(clima, "vocabulario_clima", lambda: ["MEMORIA", "RABIA"])
+    juez = lambda em: {"pasa": em["word"] != "RABIA", "motivo": "tapa un rostro", "mira": "foto sola"}
+    sellos = [{"palabra": "RABIA", "sentence_idx": 0}, {"palabra": "MEMORIA", "sentence_idx": 1},
+              {"palabra": "MEMORIA", "sentence_idx": 2}]
+    filas = clima.sellos_del_papel(plan, scenes, ent, words, 0.0, {}, [], sellos, juez=juez, usadas_video=set())
+    mot = {f["texto"]: f["motivo"] for f in filas}
+    assert "estorba" in mot["RABIA"]                                    # el crítico, antes del reparto
+    assert [e["word"] for e in plan["emphasis"]] == ["MEMORIA"]         # en la oración 1 choca con la ficha; en la 2, no
+    assert plan["emphasis"][0]["start"] >= c["start"] + c["duration"]
+
+
+def test_h_plan_edit_edita_el_papel(tmp_path):
+    d = tmp_path / "t"
+    d.mkdir()
+    p = {"topic_id": "t", "prompt_version": "m01e-1", "prompt_md5": "x", "modelo": "m", "effort": "medium",
+         "intentos": 1, "usd": 0.0, "tokens_in": 1, "tarjeta": None, "relojes": [], "descartados": [],
+         "caps": [{"cap": "ch01", "titulo": "T", "oraciones": ["La niña es de Longarone.", "Era de noche."]}],
+         "beats": [{"cap": "ch01", "beat": 1, "funcion": "gancho", "pico": True, "ficha": None, "sello": None}]}
+    (d / "01e_pantalla.json").write_text(json.dumps(p, ensure_ascii=False), encoding="utf-8")
+    f = mp.editar("t", [{"cap": "ch01", "beat": 1, "ficha": {"pool_id": "D195", "sentence_idx": 0, "palabra": "Longarone",
+                                                            "etiqueta": "LONGARONE", "texto": "1.269 de 1.328 habitantes"}},
+                        {"tarjeta": {"texto": "9 OCT 1963 · 22:39"}}], tmp_path)
+    q = json.loads(f.read_text(encoding="utf-8"))
+    fi = q["beats"][0]["ficha"]
+    assert fi["editado"] and fi["estilo"] == "normal" and fi["palabra_en_oracion"]
+    assert q["tarjeta"]["texto"] == "9 OCT 1963 · 22:39" and (d / "01e_pantalla.antes_de_edicion.json").exists()
+    assert "LONGARONE · 1.269 de 1.328 habitantes" in (d / "01e_pantalla.md").read_text(encoding="utf-8")

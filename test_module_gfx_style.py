@@ -16,7 +16,7 @@ def W(text: str, t0: float = 0.0, step: float = 0.5) -> list[dict]:
 
 def test_perfil_misterio_prende_la_identidad():
     r = st.gfx_rules
-    assert r.identity_rules and r.punch_max_identity == 4 and r.crossfade_frames == 20 and r.icon_stamp_px == 112
+    assert r.identity_rules and r.punch_max_identity == 4 and r.crossfade_frames == 20
     assert r.emphasis_stamp_px == 84                                       # sello suelto S, el del ícono sigue M
 
 
@@ -57,26 +57,6 @@ def _scenes(durs, ranks=None):
         out.append(GfxScene(i, t, t + d, (ranks or ["R3"] * len(durs))[i]))
         t += d
     return out
-
-
-def test_transiciones_de_la_identidad():
-    sc = _scenes([6, 6, 6, 6, 6, 6, 6, 6], ["R3", "R2", "R2", "R2", "R2", "R2", "R2", "R2"])
-    tr = st.identity_transitions(sc)
-    kinds = [tr[i]["kind"] for i in sorted(tr)]
-    assert kinds[0] == "dissolve" and tr[1]["frames"] == 20                         # fundido cruzado 20 f default
-    assert kinds == ["dissolve", "dissolve", "cut", "dissolve", "dissolve", "cut", "dissolve"]   # ≥ 1 corte cada 3
-    assert not st.identity_violations({}, tr)
-    # ritmo rápido, mismo lugar, después del zoom, flash ≤ tope
-    sc = _scenes([6, 2.5, 6, 6, 6, 6], ["R3", "R2", "R2", "R1", "R1", "R3"])
-    pr = [{}, {}, {"setting": "flooded prison yard at night"}, {"setting": "flooded prison yard at night"}, {}, {}]
-    tr = st.identity_transitions(sc, pr, zoom_scene_idx=4)
-    assert tr[1]["why"] == "ritmo rápido" and tr[2]["why"] == "ritmo rápido"
-    assert tr[3]["kind"] == "flash"                                                 # impacto (R1) gana a mismo lugar
-    assert tr[5]["kind"] == "cut" and tr[5]["why"] == "después del zoom"
-    sc = _scenes([12, 6, 6, 6, 6, 6], ["R3"] * 6)
-    tr = st.identity_transitions(sc)
-    assert [tr[i]["kind"] for i in sorted(tr)].count("dip") == 1                    # 1 fundido a negro por cap
-    assert st.identity_violations({}, {1: {"kind": "dissolve"}, 2: {"kind": "dissolve"}, 3: {"kind": "dip"}})
 
 
 def test_golpes_de_zoom_max_4_uno_por_frase_lejos_del_pico():

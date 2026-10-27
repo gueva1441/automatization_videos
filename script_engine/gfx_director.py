@@ -254,7 +254,6 @@ def system_prompt() -> str:
                              "sistema: vos elegís solo DÓNDE y QUÉ dato.\n" if shot else "")
 
 
-
 _SCHEMA: dict[str, Any] = {
     "type": "OBJECT",
     "properties": {
@@ -764,24 +763,14 @@ def resolve_plan(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict]
 
     out["punch_in"] = [round(t_of(wi), 3) for wi in plan.get("punch_in_word_idx", [])]
 
-    # F2b §3: icon_array (cifra afectados/total ≤ 500 de un fact, cuando la voz la dice)
-    out["icon_array"] = None
-    if max_per_cap("icon_array") > 0 and words:
-        out["icon_array"] = place_icon_array(busy, ctx=ctx, words=words, scenes=scenes, time_offset=time_offset, log=log)
-
     # F2b §2: keyword_emphasis (regex sobre la narración, sin LLM): las palabras de carga más raras del cap
     out["emphasis"] = []
     if max_per_cap("keyword_emphasis") > 0 and active_moods() and words:
         n0 = min(gfx_rules.emphasis_base_per_cap, max_per_cap("keyword_emphasis"))
         place_emphasis(out, busy, words=words, scenes=scenes, ctx=ctx, time_offset=time_offset, limit=n0, log=log)
 
-    # F2 §1: hueco > interrupt_max_sec → el VALIDADOR rellena (callout con fact elegible dicho en el
-    # tramo; si no hay, punch_in en la palabra de más énfasis). gap_warning queda como MÉTRICA.
-    if gfx_rules.gap_fill:                                   # F29 §A.4: apagado por defecto
-        fill_gaps(out, busy, ctx=ctx, words=words, scenes=scenes, time_offset=time_offset, log=log)
     if not out["archive_clippings"] and gfx_rules.archive_max_per_cap > 0:
         convert_callout_to_archive(out, busy, _place_archive, ctx=ctx, scenes=scenes, log=log, skip=_shares_counter)
-    mark_icon_callouts(out, log)                             # F2b §3: hasta 3 énfasis llevan su ícono
     gaps = find_gaps(out, busy, dur)
     for g in gaps:
         log.append(f"gap_warning: {g[1] - g[0]:.1f}s sin bloque ({g[0]:.1f}–{g[1]:.1f}s)")
@@ -891,45 +880,6 @@ def find_gaps(out: dict[str, Any], busy: list[tuple[float, float]], dur: float) 
     marks = sorted({0.0, dur, *[s for s, _ in busy], *out.get("punch_in", [])})
     return [(marks[i], marks[i + 1]) for i in range(len(marks) - 1)
             if marks[i + 1] - marks[i] > gfx_rules.interrupt_max_sec]
-
-
-def _norm_tok(w: str) -> str:
-    return re.sub(r"[^\wáéíóúñü.,%]", "", str(w).lower()).strip(".,")
-
-
-def _fragments(fact: str) -> list[tuple[str, str]]:
-    """Fragmentos literales cortos de un fact aptos para callout: (texto, kind)."""
-    out: list[tuple[str, str]] = []
-    for m in re.finditer(r"\b\d{1,2} de [a-záéíóú]+ de (?:1[5-9]|20)\d\d\b", fact):
-        out.append((m.group(0), "year"))
-    stop = {"y", "o", "de", "del", "el", "la", "los", "las", "en", "a", "al", "que", "por", "con", "un", "una"}
-    for m in re.finditer(r"\b(\d+(?:[.,]\d+)*%?)(?: ([a-záéíóúñ]{3,}))?", fact):
-        num, unit = m.group(1), m.group(2)
-        if _YEAR_RE.fullmatch(num):
-            out.append((num, "year"))
-        elif unit and unit not in stop:
-            out.append((f"{num} {unit}", "figure"))
-        elif re.search(r"[.,]\d{3}|%", num):                 # cifra grande o porcentaje sin unidad
-            out.append((num, "figure"))
-    for m in re.finditer(r"(?<![.!?]\s)(?<!^)\b[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:\s+(?:de\s+)?[A-ZÁÉÍÓÚÑ][\wáéíóúñ]*)*", fact):
-        if len(m.group(0)) > 3:
-            out.append((m.group(0), "place" if " de " in m.group(0) or m.group(0).split()[0] in ("Nueva", "Prisión") else "name"))
-    seen, uniq = set(), []
-    for t, k in out:
-        if t not in seen and 1 <= len(t.split()) <= 6:
-            seen.add(t)
-            uniq.append((t, k))
-    return uniq
-
-
-def _find_spoken(fragment: str, words: list[dict], lo: int = 0) -> int | None:
-    """Índice de la primera palabra (≥ lo) donde la voz dice el fragmento literal (tokens consecutivos)."""
-    toks = [_norm_tok(t) for t in fragment.split()]
-    ws = [_norm_tok(w.get("word", "")) for w in words]
-    for i in range(lo, len(ws) - len(toks) + 1):
-        if ws[i:i + len(toks)] == toks:
-            return i
-    return None
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -1073,13 +1023,22 @@ def emphasis_icon(cat: str, trig: str, weight: int, moods: dict[str, dict[str, A
         from script_engine.m05_narrative import adjectives
         if adjectives(trig):
             return None
-    from script_engine.gfx_fragments import category_icon
     return category_icon(cat, _tok(trig), moods)
 
 
-def emphasis_without_icon(plan: dict[str, Any]) -> list[str]:
-    """Palabras de énfasis que salieron sin ícono (entran al vigilante mensual, F2b §3)."""
-    return [e["word"] for e in plan.get("emphasis", []) or [] if not e.get("icon_callout")]
+def category_icon(cat: str, word: str | None, moods: dict[str, dict[str, Any]]) -> str | None:
+    """Ícono de la palabra si el léxico lo mapea; si no, el ícono más común de la categoría (veneno → calavera).
+    F5b S4 (token icon_literal_only): SOLO el mapa literal palabra→ícono; la categoría decide el mood, no el ícono.
+    Movida de gfx_fragments sin cambios (F36 §D: gfx_fragments se borró)."""
+    from collections import Counter
+    from gfx_config import gfx_rules
+    iw = (moods.get(cat) or {}).get("icon_words") or {}
+    if word and word in iw:
+        return iw[word]
+    if gfx_rules.icon_literal_only:
+        return None
+    common = Counter(iw.values()).most_common(1)
+    return common[0][0] if common else None
 
 
 def figure_digits(value: str) -> str:
@@ -1138,132 +1097,6 @@ def convert_callout_to_archive(out: dict[str, Any], busy: list[tuple[float, floa
     if cands:
         log.append("archive: cap sin recortes y ningún callout convertible entra sin solape")
     return False
-
-
-def mark_icon_callouts(out: dict[str, Any], log: list[str] | None = None) -> None:
-    """F2b §3: los primeros max_per_cap('icon_callout') énfasis (por tiempo) cuya categoría tiene un ícono
-    APROBADO de la lista blanca llevan icon_callout=True. El resto queda con el sello de texto solo.
-    Nunca un ícono equivocado: sin SVG aprobado (o respaldo habilitado) → sin ícono."""
-    from script_engine.gfx_icons import icon_svg
-    n = 0
-    # F4c R3: la palabra del pico lleva su ícono primero (el tope por cap no se la come)
-    for e in sorted(out.get("emphasis", []) or [], key=lambda e: (not e.get("peak_word"), e["start"])):
-        has = bool(e.get("icon")) and icon_svg(e["icon"], fallback=gfx_rules.icon_fallback_lucide) is not None
-        e["icon_callout"] = bool(has and n < max_per_cap("icon_callout"))
-        n += e["icon_callout"]
-        if log is not None and e.get("icon") and not e["icon_callout"]:
-            log.append(f"icon_callout omitido: {e['word']!r} ({e['icon']}: " + ("sin SVG aprobado)" if not has else "tope por cap)"))
-
-
-_ARRAY_RE = re.compile(r"\b(\d{1,3}) de (?:los |las |sus |esos |esas )?(\d{1,3})\b")
-
-
-def array_candidates(facts: list[str], eligible: dict[int, bool] | None) -> list[tuple[int, int, int, str]]:
-    """(fact_idx, afectados, total, fragmento literal) para facts con relación 'A de (los) B', A < B ≤ icon_array_max."""
-    out = []
-    for fi in sorted(eligible if eligible is not None else range(len(facts))):
-        if eligible and eligible.get(fi):                    # foráneos solo valen para data_callout
-            continue
-        for m in _ARRAY_RE.finditer(facts[fi]):
-            a, b = int(m.group(1)), int(m.group(2))
-            if 0 < a < b <= gfx_rules.icon_array_max:
-                out.append((fi, a, b, m.group(0)))
-    return out
-
-
-def place_icon_array(busy: list[tuple[float, float]], *, ctx: dict[str, Any], words: list[dict], scenes: list[Any],
-                     time_offset: float, log: list[str]) -> dict[str, Any] | None:
-    """F2b §3: icon_array cuando la voz dice la cifra de afectados (o el fragmento entero) y hay lugar libre."""
-    from script_engine.gfx_icons import icon_svg
-    from script_engine.gfx_project import scene_at
-    if icon_svg("persona", fallback=gfx_rules.icon_fallback_lucide) is None:
-        return None
-    dur = scenes[-1].end
-    for fi, a, b, frag in array_candidates(ctx["facts"], ctx.get("eligible")):
-        wi = _find_spoken(frag, words)
-        wi = wi if wi is not None else _find_spoken(str(a), words)
-        if wi is None:
-            continue
-        t = float(words[wi]["start"]) + time_offset
-        t1 = t + gfx_rules.icon_array_dur
-        if t1 > dur or not all(t1 <= s or t >= e for s, e in busy):
-            log.append(f"icon_array omitido (solape/fuera de rango @ {t:.1f}s): {frag!r}")
-            continue
-        busy.append((t, t1))
-        log.append(f"icon_array: {frag!r} (fact {fi}) @ {t:.1f}s")
-        return {"affected": a, "total": b, "label": frag, "start": round(t, 3), "duration": gfx_rules.icon_array_dur,
-                "side": getattr(scene_at(scenes, t), "quiet_side", "right"), "fact_idx": fi}
-    return None
-
-
-def fill_gaps(out: dict[str, Any], busy: list[tuple[float, float]], *, ctx: dict[str, Any], words: list[dict],
-              scenes: list[Any], time_offset: float, log: list[str]) -> None:
-    """Rellena huecos > interrupt_max_sec. Nunca escribe texto: solo fragmentos literales de facts elegibles."""
-    from script_engine.gfx_project import scene_at
-    if not words:
-        return
-    dur = scenes[-1].end
-    facts, elig = ctx["facts"], ctx.get("eligible")
-    used = {normalize(c["text"]) for c in out["callouts"]}
-    for _ in range(12):                                    # tope de iteraciones (cada una tapa un hueco)
-        gaps = find_gaps(out, busy, dur)
-        if not gaps:
-            return
-        a, b = gaps[0]
-        placed = False
-        # F2b §1.4: orden del relleno = énfasis de palabra → callout de fact → punch_in
-        if "emphasis" in out and len(out["emphasis"]) < max_per_cap("keyword_emphasis") and active_moods():
-            placed = place_emphasis(out, busy, words=words, scenes=scenes, ctx=ctx, time_offset=time_offset,
-                                    limit=1, window=(a, b), log=log) > 0
-        if not placed and len(out["callouts"]) < max_per_cap("data_callout"):
-            best = None
-            for fi in sorted(elig if elig is not None else range(len(facts))):
-                for text, kind in _fragments(facts[fi]):
-                    if normalize(text) in used:
-                        continue
-                    wi = _find_spoken(text, words)
-                    while wi is not None:
-                        t = float(words[wi]["start"]) + time_offset
-                        cdur = callout_duration(text, wi, words, time_offset)
-                        sc = scene_at(scenes, t)
-                        if a + 1.0 < t < b - 1.0 and t + cdur <= dur and all(t + cdur <= s or t >= e for s, e in busy) \
-                                and not _shown_in_image(text, sc.text_in_image):
-                            if best is None or t < best[0]:
-                                best = (t, text, kind, cdur, sc, fi)
-                            break
-                        wi = _find_spoken(text, words, wi + 1)
-            if best:
-                t, text, kind, cdur, sc, fi = best
-                side = getattr(sc, "quiet_side", "left")
-                prev = [c for c in out["callouts"] if c["start"] < t]
-                if prev and prev[-1]["side"] == side:
-                    side = "left" if side == "right" else "right"
-                out["callouts"].append({"text": text, "start": round(t, 3), "kind": kind, "duration": round(cdur, 3),
-                                        "side": side, "gap_fill": True, "fact_idx": fi,
-                                        "source": (ctx.get("fact_source") or {}).get(fi, "")})
-                out["callouts"].sort(key=lambda c: c["start"])
-                busy.append((t, t + cdur))
-                used.add(normalize(text))
-                log.append(f"gap_fill: callout {text!r} @ {t:.1f}s (fact {fi}) en hueco {a:.1f}–{b:.1f}s")
-                placed = True
-        if not placed:
-            # punch_in en la palabra de más énfasis cerca del centro del hueco: cifra > nombre propio > palabra larga
-            mid = (a + b) / 2
-            best_w = None
-            for i, w in enumerate(words):
-                t = float(w["start"]) + time_offset
-                if not (a + 3.0 < t < b - 3.0):
-                    continue
-                raw = str(w.get("word", "")).strip()
-                score = (3 if re.search(r"\d", raw) else 2 if raw[:1].isupper() and i > 0 and
-                         not re.search(r"[.!?]$", str(words[i - 1].get("word", ""))) else 1 if len(raw) >= 8 else 0)
-                key = (score, -abs(t - mid))
-                if best_w is None or key > best_w[0]:
-                    best_w = (key, t, raw)
-            if best_w is None:
-                return
-            out["punch_in"] = sorted([*out["punch_in"], round(best_w[1], 3)])
-            log.append(f"gap_fill: punch_in en {best_w[2]!r} @ {best_w[1]:.1f}s (hueco {a:.1f}–{b:.1f}s sin fact dicho)")
 
 
 # ═══════════════════════════════════════════════════════════════

@@ -3,23 +3,6 @@
  "camino": "topic con escaleta + `fase2b <topic> --gfx --rotulista` (perfil misterio); `--plan-only` recorre lo mismo sin el render",
  "modulos": [
   {
-   "modulo": "gfx_bug",
-   "archivo": "script_engine/gfx_bug.py",
-   "sticker": "La marca del canal (la llama en el farol): la esquina está apagada desde F4e; queda el cierre del último cap si no hay pregunta.",
-   "recibe": "SVG de la marca + plan",
-   "entrega": "PNG de la marca para el cosido",
-   "lo_llama": [
-    "script_engine/gfx_layer.py",
-    "script_engine/gfx_sparse.py"
-   ],
-   "tests": 3,
-   "lab": 2,
-   "tanda": "F4b",
-   "nacio": "93064c8 2026-10-20 feat(gfx-f4b): zoom foto-primero, iconos gratis y marca del canal (§3, §4, §0.3 apagada)",
-   "estado": "vivo (solo el cierre)",
-   "doc": "gfx_bug.py — Marca del canal (`channel_bug`, F4b §0.3): el encapuchado con farol en la esquina superior izquierda."
-  },
-  {
    "modulo": "gfx_critic",
    "archivo": "script_engine/gfx_critic.py",
    "sticker": "El editor: Gemini mira la foto y saca lo que repite la voz, no aporta o tapa algo. Desde F36 juzga los candidatos ANTES del reparto (lo que saca no ocupa lugar); a las fichas del papel y a los sellos solo les pregunta si estorban.",
@@ -28,12 +11,12 @@
    "lo_llama": [
     "script_engine/gfx_layer.py"
    ],
-   "tests": 7,
+   "tests": 4,
    "lab": 2,
    "tanda": "F4e",
    "nacio": "39e37ac 2026-10-20 feat(gfx-f4e): crítico visual antes del render (suma/repite/estorba), hoja de contactos por cap y marca de esquina apagad",
    "estado": "vivo",
-   "doc": "gfx_critic.py — Crítico visual (F4e, paso 6b, pedido de Omar 2026-10-20). Último filtro ANTES del render."
+   "doc": "gfx_critic.py — Crítico visual (F4e, pedido de Omar 2026-10-20; F29b: el del rotulista; F36 §D: queda solo ese, con «¿estorba?»). Gemini mira la foto sola en el instante del bloque y responde si el bloque tapa un rostro o lo que la imagen muestra; «repite» y «no aporta» ya los decidió el guion en papel. criticize_rotulista las fichas del papel (sus tres respuestas se guardan; cuenta la (3)), antes del reparto estorba el sello de clima (mismo pedido, sin `aporta`), antes del reparto caché gfx_critic_rot_<cap>.json; sin veredicto (Gemini caído) el bloque QUEDA y se anota contact_sheet hoja_conta"
   },
   {
    "modulo": "gfx_director",
@@ -44,11 +27,10 @@
    "lo_llama": [
     "fase2b.py",
     "gfx_lab_server.py",
-    "script_engine/gfx_fragments.py",
     "script_engine/gfx_icons/make_bug.py",
     "script_engine/gfx_layer.py",
     "script_engine/gfx_literal_lock.py",
-    "script_engine/gfx_peak.py"
+    "script_engine/voz_datos.py"
    ],
    "tests": 9,
    "lab": 2,
@@ -56,24 +38,6 @@
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
    "estado": "vivo (sus textos los reemplaza el rotulista; sus sellos, el catálogo)",
    "doc": "gfx_director.py — Director de gráficos por capítulo (Gemini Flash, 1 call por cap)."
-  },
-  {
-   "modulo": "gfx_fragments",
-   "archivo": "script_engine/gfx_fragments.py",
-   "sticker": "Elegía con Gemini el fragmento más impactante de un dato para recortes y rótulos; hoy solo presta el ícono de categoría del sello.",
-   "recibe": "datos + léxico",
-   "entrega": "fragmentos; ícono de categoría",
-   "lo_llama": [
-    "script_engine/gfx_director.py",
-    "script_engine/gfx_layer.py",
-    "script_engine/gfx_pool.py"
-   ],
-   "tests": 2,
-   "lab": 0,
-   "tanda": "F4b",
-   "nacio": "f1af5de 2026-10-20 feat(gfx-f4b): fragmento literal mas impactante para recorte y dato (§2)",
-   "estado": "solo sin escaleta (vive por `category_icon`)",
-   "doc": "gfx_fragments.py — Fragmento literal más impactante (F4b §2). El LLM ELIGE UN NÚMERO, nunca escribe."
   },
   {
    "modulo": "gfx_guion",
@@ -92,30 +56,13 @@
    "doc": "script_engine/gfx_guion.py — F32 §A: el guion de pantalla. Todo lo que se va a ver, en texto, antes de renderizar."
   },
   {
-   "modulo": "gfx_identity",
-   "archivo": "script_engine/gfx_identity.py",
-   "sticker": "Guarda la identidad del canal que Omar arma en el laboratorio (F3) dentro del perfil.",
-   "recibe": "estado del lab",
-   "entrega": "`identity` en gfx_profiles/<perfil>.json",
-   "lo_llama": [
-    "gfx_lab_server.py"
-   ],
-   "tests": 1,
-   "lab": 0,
-   "tanda": "F3",
-   "nacio": "04a6025 2026-10-19 feat(gfx-f3-lab): §C casillas, deshacer, resumen en vivo y Guardar identidad",
-   "estado": "muerto en el pipeline (lo usa solo el lab, gfx_lab_server)",
-   "doc": "gfx_identity.py — Identidad del canal que sale del laboratorio (F3 §C; HANDOFF_F3 §1.1 paso 6 y §4)."
-  },
-  {
    "modulo": "gfx_intensity",
    "archivo": "script_engine/gfx_intensity.py",
    "sticker": "Gemini marca cuánto pesa cada frase y qué palabras cargan miedo, muerte o agua; ese léxico alimenta los sellos.",
    "recibe": "oraciones del cap + vecinas",
    "entrega": "pico, cargas, léxico del cap",
    "lo_llama": [
-    "script_engine/gfx_layer.py",
-    "script_engine/gfx_peak.py"
+    "script_engine/gfx_layer.py"
    ],
    "tests": 5,
    "lab": 3,
@@ -127,17 +74,16 @@
   {
    "modulo": "gfx_layer",
    "archivo": "script_engine/gfx_layer.py",
-   "sticker": "El director de orquesta de la capa gráfica de un capítulo: llama a todos los demás en orden (plan, textos, sellos, crítico, transiciones) y hace el render en HyperFrames. Desde F34, con el guion aprobado dibuja el plan aprobado tal cual (plan congelado) y no lo reescribe.",
+   "sticker": "El director de orquesta de la capa gráfica de un capítulo: llama a todos los demás en orden (plan, textos del papel, sellos, crítico, transiciones) y hace el render en HyperFrames. Desde F34, con el guion aprobado dibuja el plan aprobado tal cual (plan congelado) y no lo reescribe.",
    "recibe": "visual base del cap + palabras con tiempos + contexto",
    "entrega": "`chNN_gfx.mp4`, plan resuelto, sfx, escenas",
    "lo_llama": [
     "fase2b.py",
     "gfx_lab_server.py",
-    "script_engine/gfx_critic.py",
     "script_engine/gfx_icons/demo.py",
     "script_engine/gfx_icons/strip.py"
    ],
-   "tests": 6,
+   "tests": 5,
    "lab": 13,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
@@ -153,10 +99,9 @@
    "lo_llama": [
     "gfx_lab_server.py",
     "script_engine/gfx_director.py",
-    "script_engine/gfx_fragments.py",
     "script_engine/gfx_layer.py"
    ],
-   "tests": 8,
+   "tests": 7,
    "lab": 0,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
@@ -166,56 +111,51 @@
   {
    "modulo": "gfx_peak",
    "archivo": "script_engine/gfx_peak.py",
-   "sticker": "El pico del capítulo: busca su frase y la palabra de más peso para el sello del pico; trae las piezas de oraciones y palabras que usan los demás (desde F36 la palabra del momento vive en `clima`).",
+   "sticker": "La utilería de la voz que usan clima y voz_utils: las frases de la narración con sus palabras y tiempos y las palabras del léxico de moods (F36 D: el pico viejo, el agua, el zoom con latido y el reloj de gfx_peak se borraron).",
    "recibe": "palabras con tiempos + léxico de moods",
-   "entrega": "frase y palabra del pico, sello",
+   "entrega": "frases, palabras de mood",
    "lo_llama": [
     "fase2b.py",
-    "gfx_lab_server.py",
     "script_engine/clima.py",
     "script_engine/gfx_critic.py",
     "script_engine/gfx_director.py",
     "script_engine/gfx_layer.py",
     "script_engine/gfx_pool.py",
-    "script_engine/rotulista_colocar.py",
     "script_engine/voz_datos.py",
     "script_engine/voz_utils.py"
    ],
-   "tests": 9,
+   "tests": 7,
    "lab": 3,
    "tanda": "F3",
    "nacio": "9d36be7 2026-10-20 feat(gfx-f3-lab): pico del cap — nivel de agua, reloj, zoom con latido, corte a negro",
-   "estado": "vivo (el pico de la escaleta; `plan_peak` ya no corre)",
-   "doc": "gfx_peak.py — El pico del capítulo y sus bloques grandes (F3, pedido de Omar 2026-10-20). Determinista, sin LLM."
+   "estado": "vivo",
+   "doc": "gfx_peak.py — F3: el pico del capítulo (pedido de Omar 2026-10-20). F36 §D: queda solo la utilería de la voz que usan clima y voz_utils: `sentences` (las frases de la narración con sus palabras y tiempos), `lexicon_hits` (las palabras del léxico de moods) y `prefer_icon_nouns`. Lo demás (plan_peak, nivel de agua, zoom con latido, reloj de gfx_peak, clear_around) se borró; el reloj en la esquina y la palabra del pico pasaron a voz_datos."
   },
   {
    "modulo": "gfx_pool",
    "archivo": "script_engine/gfx_pool.py",
-   "sticker": "La pantalla alimentada por el pool de evidencia: fuentes literales para el candado, lo ya mostrado en caps anteriores y el reloj de fechas.",
+   "sticker": "La pantalla alimentada por el pool de evidencia: fuentes literales para el candado, lo ya mostrado en caps anteriores, el reloj de fechas y los cortes de cláusula que usa Fase 1 (m01a_skeleton). F36 D: se borraron recortes, citas, contadores y reservados del pool.",
    "recibe": "pool de evidencia + palabras",
    "entrega": "fuentes, ids ya usados, reloj",
    "lo_llama": [
     "script_engine/gfx_director.py",
     "script_engine/gfx_layer.py",
-    "script_engine/gfx_peak.py",
-    "script_engine/gfx_realizador.py",
     "script_engine/m01a_escaleta.py",
     "script_engine/m01a_skeleton.py",
     "script_engine/rotulista_colocar.py",
-    "script_engine/rotulista_filtros.py",
     "script_engine/voz_datos.py"
    ],
    "tests": 4,
    "lab": 2,
    "tanda": "F5",
    "nacio": "e18e656 2026-10-20 feat(f5-gfx): la pantalla se alimenta del evidence_pool — candado, recortes con fuente, ícono por contenido, reloj y preg",
-   "estado": "vivo (recortes, citas y contadores del pool ya no corren)",
+   "estado": "vivo",
    "doc": "gfx_pool.py — La pantalla se alimenta del evidence_pool (F5 §2). Todo detrás de `if pool`: un guion sin pool sigue con verified_facts exactamente como antes."
   },
   {
    "modulo": "gfx_project",
    "archivo": "script_engine/gfx_project.py",
-   "sticker": "El dibujante: convierte el plan en la página HTML que HyperFrames renderiza (title card, ficha, recorte, cita, sello, reloj, agua, contador, zoom).",
+   "sticker": "El dibujante: convierte el plan en la página HTML que HyperFrames renderiza (title card, ficha, recorte, cita, sello, reloj, pregunta). F36 D: sin lupa, contador, agua, dato suelto, íconos ni fuente.",
    "recibe": "plan resuelto + escenas",
    "entrega": "proyecto HyperFrames (index.html, CSS)",
    "lo_llama": [
@@ -226,13 +166,11 @@
     "script_engine/gfx_icons/demo.py",
     "script_engine/gfx_icons/strip.py",
     "script_engine/gfx_layer.py",
-    "script_engine/gfx_pool.py",
     "script_engine/gfx_sparse.py",
     "script_engine/m01e_pantalla.py",
-    "script_engine/rotulista_colocar.py",
-    "script_engine/rotulista_filtros.py"
+    "script_engine/rotulista_colocar.py"
    ],
-   "tests": 27,
+   "tests": 25,
    "lab": 9,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
@@ -240,36 +178,17 @@
    "doc": "gfx_project.py — Templater determinista de la capa gráfica HyperFrames (sin LLM)."
   },
   {
-   "modulo": "gfx_question",
-   "archivo": "script_engine/gfx_question.py",
-   "sticker": "Escribe una pregunta de cierre con Gemini cuando la escaleta no trae una.",
-   "recibe": "narración del cap y del siguiente",
-   "entrega": "pregunta validada",
-   "lo_llama": [
-    "gfx_lab_server.py",
-    "script_engine/gfx_layer.py"
-   ],
-   "tests": 3,
-   "lab": 0,
-   "tanda": "F3",
-   "nacio": "beb2b8f 2026-10-20 feat(gfx-f3-lab): íconos en bloque + pregunta de cierre automática con pausa",
-   "estado": "solo respaldo (con escaleta la pregunta es el cierre del último beat)",
-   "doc": "gfx_question.py — Pregunta de cierre automática por capítulo (F3, pedido de Omar 2026-10-20)."
-  },
-  {
    "modulo": "gfx_realizador",
    "archivo": "script_engine/gfx_realizador.py",
-   "sticker": "Hace que la pantalla obedezca a la escaleta: ventanas de tiempo de cada beat, qué datos puede mostrar cada uno, la pregunta de cierre del último beat y los topes (desde F36 no borra el contador del rotulista).",
+   "sticker": "Hace que la pantalla obedezca a la escaleta: ventanas de tiempo de cada beat, qué datos puede mostrar cada uno, la pregunta de cierre del último beat y el cierre del plan (F36 D: sin el rótulo de respaldo del pico).",
    "recibe": "escaleta + narración por beat + pool",
    "entrega": "`gfx_beats_chNN.json`, candidatos, filas de lo quitado",
    "lo_llama": [
     "script_engine/gfx_layer.py",
-    "script_engine/gfx_pool.py",
     "script_engine/m01e_pantalla.py",
-    "script_engine/rotulista_llm.py",
     "script_engine/voz_datos.py"
    ],
-   "tests": 5,
+   "tests": 3,
    "lab": 1,
    "tanda": "F29",
    "nacio": "2fcd603 2026-10-25 feat(f29a): el gfx obedece a la escaleta — script_engine/gfx_realizador (ventanas por beat en la voz → gfx_beats_chNN.jso",
@@ -304,12 +223,12 @@
     "script_engine/gfx_guion.py",
     "script_engine/gfx_layer.py"
    ],
-   "tests": 7,
+   "tests": 6,
    "lab": 6,
    "tanda": "F29b",
    "nacio": "5ae6177 2026-10-25 feat(f29b-a): el rotulista — el texto de pantalla lo escribe Claude, anclado a la oración (sin render; gfx_rules.rotulist",
    "estado": "vivo",
-   "doc": "script_engine/gfx_rotulista.py — F29b §A: el rotulista. El texto de pantalla lo escribe alguien, anclado a la oración. F29c: por beat, anclado a la palabra, y la ficha es el title card."
+   "doc": "script_engine/gfx_rotulista.py — F29b §A: el rotulista; F36 §C: el texto de pantalla ya no lo escribe un modelo en Fase 2: lo escribe m01e_pantalla en Fase 1 (el guion en papel, DECISIONES 19:54). Este archivo queda como fachada (gfx_layer, fase2b, gfx_guion, los tests y el lab no cambian de import) y con `preparar_cap`: lee `01e_pantalla.json`, alinea sus oraciones con las de la voz por texto (`alinear`, aclaración 2) y ancla cada ficha a su palabra (`palabra_idx`). Regla (Omar): un texto vale si (a) dice algo que la voz no dice, (b) sobre lo que la voz cuenta en ese momento y (c) sin adelant"
   },
   {
    "modulo": "gfx_safe_bake",
@@ -330,13 +249,13 @@
   {
    "modulo": "gfx_sparse",
    "archivo": "script_engine/gfx_sparse.py",
-   "sticker": "El ahorrador: HyperFrames solo donde hay algo que dibujar; el resto del cap lo cose ffmpeg, con las transiciones, el grano y la viñeta.",
+   "sticker": "El ahorrador: HyperFrames solo donde hay algo que dibujar; el resto del cap lo cose ffmpeg, con las transiciones, el grano y la viñeta (F36 D: sin la marca del canal).",
    "recibe": "plan + escenas + base",
    "entrega": "`chNN_gfx.mp4` cosido",
    "lo_llama": [
     "script_engine/gfx_layer.py"
    ],
-   "tests": 8,
+   "tests": 7,
    "lab": 1,
    "tanda": "F2",
    "nacio": "f3d42ed 2026-10-19 feat(gfx-f2): §3.1 render disperso (--gfx-sparse)",
@@ -346,7 +265,7 @@
   {
    "modulo": "gfx_style",
    "archivo": "script_engine/gfx_style.py",
-   "sticker": "La identidad del canal aplicada al plan: qué movimiento lleva cada foto y qué transición va en cada corte según el relato (corte, golpe de zoom en el pico, fundido, dip al cierre).",
+   "sticker": "La identidad del canal aplicada al plan: qué movimiento lleva cada foto y qué transición va en cada corte según el relato (golpe de zoom en el pico, fundido, dip al cierre, corte).",
    "recibe": "escenas + plan + beats",
    "entrega": "movimientos y transiciones",
    "lo_llama": [
@@ -366,9 +285,9 @@
   {
    "modulo": "gfx_vision",
    "archivo": "script_engine/gfx_vision.py",
-   "sticker": "Gemini mira cada foto y dice qué detalles tiene y dónde (rostro, manos, objetos); con eso se decide el movimiento seguro y la caja de la lupa.",
+   "sticker": "Gemini mira cada foto y dice qué detalles tiene y dónde (rostro, manos, objetos); con eso se decide el movimiento seguro (F36 D: la lupa y su verificación se borraron).",
    "recibe": "PNG / cuadro de la escena",
-   "entrega": "detalles con caja, sí/no del recorte",
+   "entrega": "detalles con caja, caja humana",
    "lo_llama": [
     "script_engine/gfx_layer.py"
    ],
@@ -449,7 +368,7 @@
    "tests": 1,
    "lab": 0,
    "tanda": "F36",
-   "nacio": "(sin commit)",
+   "nacio": "9e9d844 2026-10-26 feat(f36-c): m01e_pantalla — el guion de pantalla en papel va a Fase 1 (DECISIONES 19:54) · una llamada a Sonnet por vide",
    "estado": "vivo (fase 1)",
    "doc": "script_engine/m01e_pantalla.py — F36 §C: el guion de pantalla EN PAPEL (DECISIONES 2026-10-26 19:54: «el autor de la pantalla va a Fase 1»). Corre en Fase 1 después de m01d_particion y antes de la voz (fase1_5.run_guion_v3/v4, con su costo en 01_v3_costos.json como los demás pasos) o suelto: `python -m script_engine.m01e_pantalla <topic>`."
   },
@@ -489,95 +408,78 @@
    "doc": "modules/transition_applier.py — Aplicador FFmpeg de transiciones entre segmentos."
   },
   {
-   "modulo": "rotulista_llm",
-   "archivo": "script_engine/rotulista_llm.py",
-   "sticker": "El pedido al modelo que escribía los textos de pantalla en Fase 2 (Claude Sonnet, uno por cap). Desde F36 C el texto lo escribe m01e_pantalla en Fase 1 y nadie del camino lo llama (D lo borra).",
-   "recibe": "oraciones de la voz, beats, pool, escaleta",
-   "entrega": "respuesta cruda y validada por cap, ledger de costos",
-   "lo_llama": [
-    "script_engine/gfx_rotulista.py"
-   ],
-   "tests": 2,
-   "lab": 0,
-   "tanda": "F36 (código de F29b)",
-   "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
-   "estado": "muerto (F36 C: el texto viene del papel)",
-   "doc": "script_engine/rotulista_llm.py — F36 §A: el pedido al modelo del rotulista (movido de gfx_rotulista sin cambios): el prompt literal (`ROTULISTA_SYSTEM`/`ROTULISTA_USER`, `PROMPT_VERSION`, los de F29c/F32 para la historia), la entrada de un cap (`entrada`: oraciones, beats, ítems del cap y del gancho, lo ya mostrado, el pico), el texto del pedido (`prompt_user`) y la llamada (`llamar`: caché por pedido, ledger de costos, tope con las llamadas en vuelo, reintento)."
-  },
-  {
    "modulo": "rotulista_filtros",
    "archivo": "script_engine/rotulista_filtros.py",
-   "sticker": "Los filtros que deciden si un texto del papel sale, en un orden que se lee en una línea (`ORDEN`, F36 C): anclar el papel a la voz, no dicho del gancho, candado de lo literal, no dicho, spoiler y lectura hasta el corte. El orden viejo del modelo (`ORDEN_MODELO`) queda solo para rotulista_llm.",
+   "sticker": "Los filtros que deciden si un texto del papel sale, en un orden que se lee en una línea (`ORDEN`, F36 C): anclar el papel a la voz, no dicho del gancho, candado de lo literal, no dicho, spoiler y lectura hasta el corte; además la comparación de cifras con la voz que usa el chequeo del guion.",
    "recibe": "bloques del papel + entrada del cap",
    "entrega": "bloques que pasan, cortados con su regla y motivo",
    "lo_llama": [
     "script_engine/gfx_rotulista.py",
     "script_engine/m01e_pantalla.py",
-    "script_engine/rotulista_colocar.py",
-    "script_engine/rotulista_llm.py"
+    "script_engine/rotulista_colocar.py"
    ],
    "tests": 2,
    "lab": 0,
    "tanda": "F36 (código de F29b)",
    "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
    "estado": "vivo",
-   "doc": "script_engine/rotulista_filtros.py — F36 §A: todo lo que corta un bloque del rotulista (movido de gfx_rotulista). `validar` corre por bloque los filtros de `ORDEN`, en ese orden, y el primero que devuelve un motivo lo saca con su regla; al final `cantidad` (= `finalizar`) deja uno por beat. Además `contradicciones` (§A.4), `pide_documento` y `lo_que_pide`."
+   "doc": "script_engine/rotulista_filtros.py — F36 §A: todo lo que corta un texto de pantalla (movido de gfx_rotulista). F36 §C: los textos vienen del guion en papel (m01e_pantalla); `validar_papel` corre por bloque los filtros de `ORDEN`, en ese orden, y el primero que devuelve un motivo lo saca con su regla. F36 §D: se borraron el anclaje y la forma del modelo, la coherencia (filtro) y la cantidad por beat. Además `contradicciones` (§A.4: la usa el chequeo del guion) y `pide_documento` (el estilo «papel» del guion en papel)."
   },
   {
    "modulo": "rotulista_colocar",
    "archivo": "script_engine/rotulista_colocar.py",
-   "sticker": "Pone cada texto que pasó en su lugar: cuánto dura (lectura, nunca después del corte), qué forma toma (ficha normal, nombre o cita con autor; papel = recorte) y «nunca al mismo tiempo» (DECISIONES 17:58: dos bloques no se solapan ni se tocan; si chocan, esperan al momento siguiente de su beat).",
+   "sticker": "Pone cada texto que pasó en su lugar: cuánto dura (lectura, nunca después del corte), qué forma toma (ficha normal, nombre o cita con autor; papel = recorte), el reloj contra el corte y «nunca al mismo tiempo» (DECISIONES 17:58: dos bloques no se solapan ni se tocan; si chocan, esperan al momento siguiente de su beat).",
    "recibe": "bloques validados + escenas",
    "entrega": "bloques en el plan, filas de lo movido o cortado",
    "lo_llama": [
     "script_engine/clima.py",
     "script_engine/gfx_rotulista.py",
     "script_engine/m01e_pantalla.py",
-    "script_engine/rotulista_filtros.py",
-    "script_engine/rotulista_llm.py"
+    "script_engine/rotulista_filtros.py"
    ],
-   "tests": 1,
+   "tests": 2,
    "lab": 0,
    "tanda": "F36 (código de F29b)",
    "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
    "estado": "vivo",
-   "doc": "script_engine/rotulista_colocar.py — F36 §A: dónde y cuánto va cada bloque del rotulista (movido de gfx_rotulista sin cambios). `tiempos` y `despues_del_corte` (§A.2: fin de la oración ancla, lectura caracteres ÷ 15, nunca después del corte), `colocar` (cifra/hecho/persona → ficha, documento → recorte, cita, lupa; la cifra como agua o contador con `animacion_de_cifra`), las ediciones a mano (`fase2b --plan-edit`: `aplicar_ediciones`, `guardar_ediciones`, `mover_a_escena`), la caja de la lupa y la escena (`unidades`, `escena_final`: una cosa por escena u oración)."
+   "doc": "script_engine/rotulista_colocar.py — F36 §A: dónde y cuánto va cada texto de pantalla (movido de gfx_rotulista). `tiempos` y `despues_del_corte` (§A.2: fin de la oración ancla, lectura caracteres ÷ 15, nunca después del corte), `colocar` (F36 §C: los bloques del guion en papel; ficha, cita como ficha con autor, papel = recorte), `hasta_el_corte` (el reloj) y `escena_final` («nunca al mismo tiempo», DECISIONES 17:58). F36 §D: se borraron el agua, el contador, la lupa y las ediciones del plan (`--plan-edit` edita el papel)."
   },
   {
    "modulo": "clima",
    "archivo": "script_engine/clima.py",
-   "sticker": "Los sellos de clima: desde F36 C la palabra y la oración vienen del guion en papel; acá se pone el instante (la palabra de más peso de la oración o su inicio), se mira que no cruce el corte, el crítico («¿estorba?») antes del reparto y que nunca esté al mismo tiempo que otro bloque.",
+   "sticker": "Los sellos de clima: la palabra y la oración vienen del guion en papel; acá se pone el instante (la palabra de más peso de la oración o su inicio), se mira que no cruce el corte, el crítico («¿estorba?») antes del reparto y que nunca esté al mismo tiempo que otro bloque.",
    "recibe": "sellos del papel + oraciones + léxico de moods",
    "entrega": "sellos en el plan, filas de lo cortado",
    "lo_llama": [
     "script_engine/gfx_layer.py",
-    "script_engine/gfx_peak.py",
     "script_engine/gfx_rotulista.py",
-    "script_engine/m01e_pantalla.py"
+    "script_engine/m01e_pantalla.py",
+    "script_engine/voz_datos.py"
    ],
-   "tests": 2,
+   "tests": 3,
    "lab": 0,
    "tanda": "F36 (código de F32/F34)",
    "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
    "estado": "vivo",
-   "doc": "script_engine/clima.py — F36 §A: los sellos de clima (movido de gfx_rotulista sin cambios; `peak_word` viene de gfx_peak). Los momentos candidatos (la palabra de más peso de un mood en cada oración y la del pico), la palabra de clima del vocabulario `sellos_clima` del perfil (hoy la elige Gemini Flash con `SELLO_CLIMA_PROMPT`) y el reparto (`sellos_por_tema`: un sello por beat, nunca sobre un texto ni cruzando el corte)."
+   "doc": "script_engine/clima.py — F36 §A: los sellos de clima (movido de gfx_rotulista; `peak_word` viene de gfx_peak). F36 §C: la palabra y la oración vienen del guion en papel (`sellos_del_papel`); acá se pone el instante (la palabra de más peso de la oración o su inicio), el crítico «¿estorba?» antes del reparto y «nunca al mismo tiempo». F36 §D: se borró el camino de Gemini Flash (`sellos_por_tema`, `SELLO_CLIMA_PROMPT`)."
   },
   {
    "modulo": "voz_datos",
    "archivo": "script_engine/voz_datos.py",
-   "sticker": "Lo que sale de la voz y la escaleta sin modelo: el pico del cap, el reloj cuando la voz dice una fecha completa y la tarjeta fecha-hora derivada (desde F36 C solo para comparar con la del papel).",
+   "sticker": "Lo que sale de la voz y la escaleta sin modelo: el pico del cap, el reloj cuando la voz dice una fecha completa (y su esquina libre), y la tarjeta fecha-hora derivada (solo para comparar con la del papel).",
    "recibe": "oraciones de la voz, escaleta, pool",
    "entrega": "pico, reloj, tarjeta derivada",
    "lo_llama": [
-    "script_engine/gfx_rotulista.py",
-    "script_engine/rotulista_llm.py"
+    "script_engine/gfx_layer.py",
+    "script_engine/gfx_pool.py",
+    "script_engine/gfx_rotulista.py"
    ],
-   "tests": 1,
+   "tests": 2,
    "lab": 0,
    "tanda": "F36 (código de F34)",
    "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
    "estado": "vivo",
-   "doc": "script_engine/voz_datos.py — F36 §A: lo que sale de la voz y de la escaleta sin pasar por el modelo (movido de gfx_rotulista sin cambios): el pico del cap (`pico_cap`, `pico_plan`), las fechas completas que dice la voz y su reloj (`fechas_completas`, `reloj_de_voz`), el nivel de agua desde la voz (`agua_de_voz`) y la tarjeta fecha-hora del inicio (`tarjeta_inicial`)."
+   "doc": "script_engine/voz_datos.py — F36 §A: lo que sale de la voz y de la escaleta sin pasar por el modelo (movido de gfx_rotulista sin cambios): el pico del cap (`pico_cap`, `pico_plan`), las fechas completas que dice la voz y su reloj (`fechas_completas`, `reloj_de_voz`) y la tarjeta fecha-hora derivada de la escaleta (`tarjeta_inicial`; desde F36 C solo para comparar con la del guion en papel). F36 §D: se borró el nivel de agua desde la voz."
   },
   {
    "modulo": "voz_utils",
@@ -586,12 +488,10 @@
    "recibe": "texto / palabras con tiempos",
    "entrega": "cifras, nombres, oraciones",
    "lo_llama": [
-    "script_engine/clima.py",
+    "script_engine/gfx_layer.py",
     "script_engine/gfx_rotulista.py",
     "script_engine/m01e_pantalla.py",
-    "script_engine/rotulista_colocar.py",
     "script_engine/rotulista_filtros.py",
-    "script_engine/rotulista_llm.py",
     "script_engine/voz_datos.py"
    ],
    "tests": 2,
@@ -599,7 +499,7 @@
    "tanda": "F36 (código de F29b)",
    "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
    "estado": "vivo",
-   "doc": "script_engine/voz_utils.py — F36 §A: la utilería de la voz que usan varios módulos de la capa de texto (movida de gfx_rotulista sin cambios): cifras en dígitos y en letras (`numeros`, `numero_en`), nombres propios (`nombres`, `nombre_inicial`), muñones, palabras de contenido, el analizador de cifras con unidad y magnitud (`_analiza`, lo usan la coherencia, el contador y el agua) y las oraciones de la voz con cada palabra numerada (`oraciones`, `beat_de_oracion`). Va aparte porque la usan rotulista_llm, rotulista_filtros, rotulista_colocar, clima y voz_datos (decisión de F36 A)."
+   "doc": "script_engine/voz_utils.py — F36 §A: la utilería de la voz que usan varios módulos de la capa de texto (movida de gfx_rotulista sin cambios): cifras en dígitos y en letras (`numeros`, `numero_en`), nombres propios (`nombres`, `nombre_inicial`), muñones, palabras de contenido, el analizador de cifras con unidad y magnitud (`_analiza`, lo usan la coherencia, el contador y el agua) y las oraciones de la voz con cada palabra numerada (`oraciones`, `beat_de_oracion`). Va aparte porque la usan rotulista_filtros, rotulista_colocar, clima, voz_datos y m01e_pantalla (decisión de F36 A)."
   },
   {
    "modulo": "gfx_config",
@@ -611,20 +511,15 @@
     "fase2b.py",
     "gfx_lab_server.py",
     "script_engine/clima.py",
-    "script_engine/gfx_bug.py",
-    "script_engine/gfx_critic.py",
     "script_engine/gfx_director.py",
-    "script_engine/gfx_fragments.py",
     "script_engine/gfx_icons/demo.py",
     "script_engine/gfx_icons/strip.py",
-    "script_engine/gfx_identity.py",
     "script_engine/gfx_intensity.py",
     "script_engine/gfx_layer.py",
     "script_engine/gfx_literal_lock.py",
     "script_engine/gfx_peak.py",
     "script_engine/gfx_pool.py",
     "script_engine/gfx_project.py",
-    "script_engine/gfx_question.py",
     "script_engine/gfx_review.py",
     "script_engine/gfx_safe_bake.py",
     "script_engine/gfx_sparse.py",
@@ -632,7 +527,7 @@
     "script_engine/rotulista_colocar.py",
     "script_engine/voz_datos.py"
    ],
-   "tests": 18,
+   "tests": 13,
    "lab": 5,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
@@ -651,7 +546,7 @@
     "diag_236_pacing_ba6c.py",
     "gfx_lab_server.py"
    ],
-   "tests": 23,
+   "tests": 22,
    "lab": 16,
    "tanda": "previo a F1 (inicial)",
    "nacio": "e33f84a 2026-05-28 Initial commit: automatization_videos pipeline (post chat 32)",
@@ -688,7 +583,7 @@
    "lab": 0,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
-   "estado": "vivo (documentos del rotulista)",
+   "estado": "vivo (la ficha de estilo papel)",
    "doc": ""
   },
   {
@@ -705,68 +600,6 @@
    "tanda": "F2",
    "nacio": "b7b86fd 2026-10-19 feat(gfx-f2): §0d sfx, chapter_question y source_tag",
    "estado": "vivo",
-   "doc": ""
-  },
-  {
-   "modulo": "count_up.html.tmpl",
-   "archivo": "script_engine/gfx_templates/count_up.html.tmpl",
-   "sticker": "La forma del contador que sube hasta la cifra.",
-   "recibe": "cifra + unidad + etiqueta",
-   "entrega": "HTML",
-   "lo_llama": [
-    "script_engine/gfx_project.py"
-   ],
-   "tests": 0,
-   "lab": 0,
-   "tanda": "F1",
-   "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
-   "estado": "vivo (F32 B.7; en Vajont no salió ninguno)",
-   "doc": ""
-  },
-  {
-   "modulo": "data_callout.html.tmpl",
-   "archivo": "script_engine/gfx_templates/data_callout.html.tmpl",
-   "sticker": "La forma vieja del dato en letras grandes sueltas.",
-   "recibe": "un rótulo del plan",
-   "entrega": "HTML",
-   "lo_llama": [
-    "script_engine/gfx_project.py"
-   ],
-   "tests": 0,
-   "lab": 0,
-   "tanda": "F1",
-   "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
-   "estado": "muerto en el camino con rotulista (todo texto es ficha); vive sin rotulista",
-   "doc": ""
-  },
-  {
-   "modulo": "evidence_zoom.html.tmpl",
-   "archivo": "script_engine/gfx_templates/evidence_zoom.html.tmpl",
-   "sticker": "La forma de la lupa: recuadro, «DETALLE» y acercamiento.",
-   "recibe": "caja del detalle",
-   "entrega": "HTML",
-   "lo_llama": [
-    "script_engine/gfx_project.py"
-   ],
-   "tests": 0,
-   "lab": 0,
-   "tanda": "F1",
-   "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
-   "estado": "vivo (lupa del rotulista)",
-   "doc": ""
-  },
-  {
-   "modulo": "grade_css.html.tmpl",
-   "archivo": "script_engine/gfx_templates/grade_css.html.tmpl",
-   "sticker": "Un grade de color por CSS de la primera versión.",
-   "recibe": "—",
-   "entrega": "—",
-   "lo_llama": [],
-   "tests": 0,
-   "lab": 0,
-   "tanda": "F1",
-   "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
-   "estado": "muerto (nadie la carga; el grade lo hace el CSS común y ffmpeg)",
    "doc": ""
   },
   {
@@ -821,21 +654,6 @@
  "aristas": [
   {
    "de": "gfx_layer",
-   "a": "gfx_bug",
-   "donde": [
-    "en _render_sparse",
-    "en apply_gfx"
-   ]
-  },
-  {
-   "de": "gfx_sparse",
-   "a": "gfx_bug",
-   "donde": [
-    "en stitch"
-   ]
-  },
-  {
-   "de": "gfx_layer",
    "a": "gfx_critic",
    "donde": [
     "en _contact_sheet",
@@ -859,13 +677,6 @@
    ]
   },
   {
-   "de": "gfx_fragments",
-   "a": "gfx_director",
-   "donde": [
-    "en doc_kicker"
-   ]
-  },
-  {
    "de": "gfx_layer",
    "a": "gfx_director",
    "donde": [
@@ -882,7 +693,7 @@
    ]
   },
   {
-   "de": "gfx_peak",
+   "de": "voz_datos",
    "a": "gfx_director",
    "donde": [
     "en add_peak_word"
@@ -896,35 +707,6 @@
    ]
   },
   {
-   "de": "gfx_director",
-   "a": "gfx_fragments",
-   "donde": [
-    "en emphasis_icon"
-   ]
-  },
-  {
-   "de": "gfx_layer",
-   "a": "gfx_fragments",
-   "donde": [
-    "en apply_gfx"
-   ]
-  },
-  {
-   "de": "gfx_pool",
-   "a": "gfx_fragments",
-   "donde": [
-    "en _is_verb",
-    "en _verbs",
-    "en _bare_figure",
-    "en _cut_ok",
-    "en pool_clause_options",
-    "en close_quotes",
-    "en _kicker",
-    "en plan_pool_documents",
-    "en _spoken_at"
-   ]
-  },
-  {
    "de": "fase2b",
    "a": "gfx_guion",
    "donde": [
@@ -933,26 +715,10 @@
    ]
   },
   {
-   "de": "gfx_lab_server",
-   "a": "gfx_identity",
-   "donde": [
-    "en LabSession.summary",
-    "en LabSession.save_identity"
-   ]
-  },
-  {
    "de": "gfx_layer",
    "a": "gfx_intensity",
    "donde": [
     "en apply_gfx"
-   ]
-  },
-  {
-   "de": "gfx_peak",
-   "a": "gfx_intensity",
-   "donde": [
-    "en peak_from_intensity",
-    "en plan_peak"
    ]
   },
   {
@@ -970,15 +736,7 @@
    "donde": [
     "en LabSession.__init__",
     "en LabSession._prepare_base",
-    "en LabSession._scenes",
-    "en LabSession.locked"
-   ]
-  },
-  {
-   "de": "gfx_critic",
-   "a": "gfx_layer",
-   "donde": [
-    "en snapshots"
+    "en LabSession._scenes"
    ]
   },
   {
@@ -1010,13 +768,6 @@
    ]
   },
   {
-   "de": "gfx_fragments",
-   "a": "gfx_literal_lock",
-   "donde": [
-    "en lock_ok"
-   ]
-  },
-  {
    "de": "gfx_layer",
    "a": "gfx_literal_lock",
    "donde": [
@@ -1031,17 +782,9 @@
    ]
   },
   {
-   "de": "gfx_lab_server",
-   "a": "gfx_peak",
-   "donde": [
-    "en LabSession.with_defaults"
-   ]
-  },
-  {
    "de": "clima",
    "a": "gfx_peak",
    "donde": [
-    "en sellos_por_tema",
     "en sellos_del_papel",
     "en peak_word"
    ]
@@ -1072,27 +815,13 @@
    "de": "gfx_pool",
    "a": "gfx_peak",
    "donde": [
-    "en plan_pool_documents",
-    "en _water_used",
-    "en _is_water_height",
-    "en plan_pool_quote",
     "en pool_ticker"
-   ]
-  },
-  {
-   "de": "rotulista_colocar",
-   "a": "gfx_peak",
-   "donde": [
-    "en animacion_de_cifra"
    ]
   },
   {
    "de": "voz_datos",
    "a": "gfx_peak",
    "donde": [
-    "en reloj_de_voz",
-    "en agua_de_voz",
-    "en tarjeta_inicial",
     "en pico_plan"
    ]
   },
@@ -1120,20 +849,6 @@
    ]
   },
   {
-   "de": "gfx_peak",
-   "a": "gfx_pool",
-   "donde": [
-    "en reserved_water_level"
-   ]
-  },
-  {
-   "de": "gfx_realizador",
-   "a": "gfx_pool",
-   "donde": [
-    "en garantizar_pico"
-   ]
-  },
-  {
    "de": "m01a_escaleta",
    "a": "gfx_pool",
    "donde": [
@@ -1153,13 +868,6 @@
    "donde": [
     "en colocar",
     "en escena_final"
-   ]
-  },
-  {
-   "de": "rotulista_filtros",
-   "a": "gfx_pool",
-   "donde": [
-    "en forma"
    ]
   },
   {
@@ -1192,7 +900,6 @@
    "de": "clima",
    "a": "gfx_project",
    "donde": [
-    "en sellos_por_tema",
     "en sellos_del_papel"
    ]
   },
@@ -1202,9 +909,7 @@
    "donde": [
     "en resolve_plan",
     "en place_emphasis",
-    "en convert_callout_to_archive",
-    "en place_icon_array",
-    "en fill_gaps"
+    "en convert_callout_to_archive"
    ]
   },
   {
@@ -1214,13 +919,6 @@
     "arriba",
     "en _render_sparse",
     "en apply_gfx"
-   ]
-  },
-  {
-   "de": "gfx_pool",
-   "a": "gfx_project",
-   "donde": [
-    "en plan_pool_documents"
    ]
   },
   {
@@ -1242,17 +940,9 @@
    "a": "gfx_project",
    "donde": [
     "en hasta_el_corte",
-    "en animacion_de_cifra",
     "en colocar",
     "en _cubre",
     "en escena_final"
-   ]
-  },
-  {
-   "de": "rotulista_filtros",
-   "a": "gfx_project",
-   "donde": [
-    "en forma"
    ]
   },
   {
@@ -1270,21 +960,6 @@
    ]
   },
   {
-   "de": "gfx_lab_server",
-   "a": "gfx_question",
-   "donde": [
-    "en LabSession.question"
-   ]
-  },
-  {
-   "de": "gfx_layer",
-   "a": "gfx_question",
-   "donde": [
-    "en closing_question",
-    "en apply_gfx"
-   ]
-  },
-  {
    "de": "gfx_layer",
    "a": "gfx_realizador",
    "donde": [
@@ -1294,24 +969,10 @@
    ]
   },
   {
-   "de": "gfx_pool",
-   "a": "gfx_realizador",
-   "donde": [
-    "en plan_pool_documents"
-   ]
-  },
-  {
    "de": "m01e_pantalla",
    "a": "gfx_realizador",
    "donde": [
     "en entrada"
-   ]
-  },
-  {
-   "de": "rotulista_llm",
-   "a": "gfx_realizador",
-   "donde": [
-    "en items_cap"
    ]
   },
   {
@@ -1340,8 +1001,7 @@
    "de": "fase2b",
    "a": "gfx_rotulista",
    "donde": [
-    "en _solo_plan",
-    "en _assemble_one_video"
+    "en _solo_plan"
    ]
   },
   {
@@ -1555,13 +1215,6 @@
   },
   {
    "de": "gfx_rotulista",
-   "a": "rotulista_llm",
-   "donde": [
-    "arriba"
-   ]
-  },
-  {
-   "de": "gfx_rotulista",
    "a": "rotulista_filtros",
    "donde": [
     "arriba"
@@ -1583,17 +1236,9 @@
    ]
   },
   {
-   "de": "rotulista_llm",
-   "a": "rotulista_filtros",
-   "donde": [
-    "arriba"
-   ]
-  },
-  {
    "de": "clima",
    "a": "rotulista_colocar",
    "donde": [
-    "arriba",
     "en sellos_del_papel"
    ]
   },
@@ -1621,24 +1266,10 @@
    ]
   },
   {
-   "de": "rotulista_llm",
-   "a": "rotulista_colocar",
-   "donde": [
-    "arriba"
-   ]
-  },
-  {
    "de": "gfx_layer",
    "a": "clima",
    "donde": [
     "en apply_gfx"
-   ]
-  },
-  {
-   "de": "gfx_peak",
-   "a": "clima",
-   "donde": [
-    "arriba"
    ]
   },
   {
@@ -1656,6 +1287,27 @@
    ]
   },
   {
+   "de": "voz_datos",
+   "a": "clima",
+   "donde": [
+    "en add_peak_word"
+   ]
+  },
+  {
+   "de": "gfx_layer",
+   "a": "voz_datos",
+   "donde": [
+    "en apply_gfx"
+   ]
+  },
+  {
+   "de": "gfx_pool",
+   "a": "voz_datos",
+   "donde": [
+    "en pool_ticker"
+   ]
+  },
+  {
    "de": "gfx_rotulista",
    "a": "voz_datos",
    "donde": [
@@ -1663,25 +1315,17 @@
    ]
   },
   {
-   "de": "rotulista_llm",
-   "a": "voz_datos",
-   "donde": [
-    "arriba"
-   ]
-  },
-  {
-   "de": "clima",
+   "de": "gfx_layer",
    "a": "voz_utils",
    "donde": [
-    "arriba"
+    "en apply_gfx"
    ]
   },
   {
    "de": "gfx_rotulista",
    "a": "voz_utils",
    "donde": [
-    "arriba",
-    "en alinear"
+    "arriba"
    ]
   },
   {
@@ -1692,21 +1336,7 @@
    ]
   },
   {
-   "de": "rotulista_colocar",
-   "a": "voz_utils",
-   "donde": [
-    "arriba"
-   ]
-  },
-  {
    "de": "rotulista_filtros",
-   "a": "voz_utils",
-   "donde": [
-    "arriba"
-   ]
-  },
-  {
-   "de": "rotulista_llm",
    "a": "voz_utils",
    "donde": [
     "arriba"
@@ -1741,9 +1371,8 @@
     "en LabSession.with_defaults",
     "en LabSession.context",
     "en LabSession._icon_context",
-    "en LabSession.summary",
-    "en LabSession.save_identity",
     "en _rule_fields",
+    "en rules_override.__init__",
     "en rules_override.__enter__",
     "en LabHandler.do_GET"
    ]
@@ -1753,22 +1382,7 @@
    "a": "gfx_config",
    "donde": [
     "en vocabulario_clima",
-    "en sellos_por_tema",
     "en sellos_del_papel"
-   ]
-  },
-  {
-   "de": "gfx_bug",
-   "a": "gfx_config",
-   "donde": [
-    "arriba"
-   ]
-  },
-  {
-   "de": "gfx_critic",
-   "a": "gfx_config",
-   "donde": [
-    "en load_fewshot"
    ]
   },
   {
@@ -1777,23 +1391,8 @@
    "donde": [
     "arriba",
     "en sfx_events",
-    "en emphasis_icon"
-   ]
-  },
-  {
-   "de": "gfx_fragments",
-   "a": "gfx_config",
-   "donde": [
-    "en category_icon",
-    "en choose_fragments"
-   ]
-  },
-  {
-   "de": "gfx_identity",
-   "a": "gfx_config",
-   "donde": [
-    "en apply_identity",
-    "en save_identity"
+    "en emphasis_icon",
+    "en category_icon"
    ]
   },
   {
@@ -1831,11 +1430,7 @@
    "de": "gfx_pool",
    "a": "gfx_config",
    "donde": [
-    "en literal_icon_map",
-    "en _busy_blocks",
-    "en plan_pool_documents",
-    "en plan_pool_quote",
-    "en pool_count_up"
+    "en literal_icon_map"
    ]
   },
   {
@@ -1844,14 +1439,6 @@
    "donde": [
     "arriba",
     "en archive_head_px"
-   ]
-  },
-  {
-   "de": "gfx_question",
-   "a": "gfx_config",
-   "donde": [
-    "en max_words",
-    "en _rubric_on"
    ]
   },
   {
@@ -1887,7 +1474,6 @@
    "de": "rotulista_colocar",
    "a": "gfx_config",
    "donde": [
-    "en animacion_de_cifra",
     "en escena_final"
    ]
   },
@@ -1895,6 +1481,7 @@
    "de": "voz_datos",
    "a": "gfx_config",
    "donde": [
+    "arriba",
     "en pico_plan"
    ]
   },
@@ -1971,27 +1558,6 @@
   },
   {
    "de": "gfx_project",
-   "a": "count_up.html.tmpl",
-   "donde": [
-    "usa la plantilla"
-   ]
-  },
-  {
-   "de": "gfx_project",
-   "a": "data_callout.html.tmpl",
-   "donde": [
-    "usa la plantilla"
-   ]
-  },
-  {
-   "de": "gfx_project",
-   "a": "evidence_zoom.html.tmpl",
-   "donde": [
-    "usa la plantilla"
-   ]
-  },
-  {
-   "de": "gfx_project",
    "a": "index.html.tmpl",
    "donde": [
     "usa la plantilla"
@@ -2014,94 +1580,24 @@
  ],
  "muertos": [
   {
-   "que": "gfx_peak.plan_peak (y water_level, zoom_latido, time_ticker, reserved_water_level, clear_around)",
-   "por_que": "con el rotulista el pico es el de la escaleta (`voz_datos.pico_plan`)",
-   "desde": "5ae6177 2026-10-25 feat(f29b-a): el rotulista — el texto de pantalla lo escribe Claude, "
-  },
-  {
-   "que": "gfx_realizador.garantizar_pico",
-   "por_que": "`--rotulista` apaga `garantizar_pico`",
-   "desde": "7e704de 2026-10-26 fix(f29b): dos observaciones del revisor antes de la parte B — el can"
-  },
-  {
-   "que": "gfx_pool.plan_pool_documents, plan_pool_quote, pool_count_up, enforce_reserved",
-   "por_que": "con el rotulista los textos los escribe él (`rot_on` en apply_gfx)",
-   "desde": "5ae6177 2026-10-25 feat(f29b-a): el rotulista — el texto de pantalla lo escribe Claude, "
-  },
-  {
-   "que": "gfx_fragments.choose_fragments",
-   "por_que": "con pool los recortes salían de gfx_pool (F5) y después del rotulista",
-   "desde": "e18e656 2026-10-20 feat(f5-gfx): la pantalla se alimenta del evidence_pool — candado, re"
-  },
-  {
-   "que": "gfx_fragments.drop_repeated_callouts",
-   "por_que": "con el rotulista corre su regla de no dicho",
-   "desde": "5ae6177 2026-10-25 feat(f29b-a): el rotulista — el texto de pantalla lo escribe Claude, "
-  },
-  {
-   "que": "gfx_vision.pick_zoom",
-   "por_que": "con el rotulista la lupa la propone él",
-   "desde": "5ae6177 2026-10-25 feat(f29b-a): el rotulista — el texto de pantalla lo escribe Claude, "
-  },
-  {
-   "que": "gfx_director.fill_gaps",
-   "por_que": "`gap_fill` apagado",
-   "desde": "2fcd603 2026-10-25 feat(f29a): el gfx obedece a la escaleta — script_engine/gfx_realizad"
-  },
-  {
-   "que": "gfx_question.question_for",
-   "por_que": "con escaleta la pregunta es el `cierre` del último beat (queda de respaldo)",
-   "desde": "2fcd603 2026-10-25 feat(f29a): el gfx obedece a la escaleta — script_engine/gfx_realizad"
-  },
-  {
-   "que": "gfx_style.identity_transitions",
-   "por_que": "**se llama y se descarta**: con escaleta la pisa `transiciones_por_relato`",
-   "desde": "7d0d0e5 2026-10-26 feat(f30b-a): transiciones por relato — por corte, la primera que apl"
-  },
-  {
    "que": "gfx_style.select_punches",
    "por_que": "**se llama y se descarta**: el realizador saca todos los `punch_in` (los reemplaza el zoom_punch del pico)",
    "desde": "2fde994 2026-10-26 feat(f32-b): arreglos del guion de pantalla — B.1 ch01 sin pre-roll y"
   },
   {
    "que": "gfx_director.place_emphasis (sellos por léxico)",
-   "por_que": "**se llama y se descarta**: `sellos_por_tema` los reemplaza",
-   "desde": "2fde994 2026-10-26 feat(f32-b): arreglos del guion de pantalla — B.1 ch01 sin pre-roll y"
+   "por_que": "**se llama y se descarta**: los sellos vienen del papel (`sellos_del_papel`)",
+   "desde": "9e9d844 2026-10-26 feat(f36-c): m01e_pantalla — el guion de pantalla en papel va a Fase "
   },
   {
-   "que": "data_callout.html.tmpl",
-   "por_que": "con el rotulista todo texto sale como ficha",
-   "desde": "cc3f079 2026-10-26 feat(f29c-a): rotulista por beat y la ficha es el title card — prompt"
+   "que": "voz_datos.add_peak_word (el sello de la palabra del pico)",
+   "por_que": "**se llama y se descarta**: los sellos vienen del papel",
+   "desde": "9e9d844 2026-10-26 feat(f36-c): m01e_pantalla — el guion de pantalla en papel va a Fase "
   },
   {
-   "que": "grade_css.html.tmpl",
-   "por_que": "nadie la carga",
-   "desde": "a878836 2026-10-19 feat(gfx): F2 §0b calibración en ch02 (grade off, cortes reales, zoom"
-  },
-  {
-   "que": "gfx_identity (todo el módulo)",
-   "por_que": "solo lo usa el lab de identidad (gfx_lab_server)",
-   "desde": "nunca en fase2b"
-  },
-  {
-   "que": "rotulista_llm (todo el módulo) y rotulista_filtros.ORDEN_MODELO (anclaje, forma, coherencia, cantidad)",
-   "por_que": "F36 C: el texto lo escribe el guion en papel (m01e_pantalla); Fase 2 no llama a ningún modelo de texto",
-   "desde": "F36 C (commit de esta parte)"
-  },
-  {
-   "que": "clima.sellos_por_tema, elegir_clima, _gemini_clima, palabra_clima, prompt_clima (Gemini de clima)",
-   "por_que": "F36 C: los sellos vienen del papel (`sellos_del_papel`)",
-   "desde": "F36 C (commit de esta parte)"
-  },
-  {
-   "que": "voz_datos.agua_de_voz y rotulista_colocar.animacion_de_cifra (agua y contador)",
-   "por_que": "F36 C / catálogo 18:17: no hay agua ni contador",
-   "desde": "F36 C (commit de esta parte)"
-  },
-  {
-   "que": "rotulista_colocar.aplicar_ediciones, ediciones_de, guardar_ediciones, mover_a_escena (plan_edits.json)",
-   "por_que": "F36 C: `--plan-edit` edita el papel (m01e_pantalla.editar)",
-   "desde": "F36 C (commit de esta parte)"
+   "que": "gfx_director (el borrador de Gemini: datos, recortes, cita, contador, lupa)",
+   "por_que": "**se llama y se descarta**: `colocar` lo reemplaza por el papel; del borrador queda el title card",
+   "desde": "9e9d844 2026-10-26 feat(f36-c): m01e_pantalla — el guion de pantalla en papel va a Fase "
   }
  ]
 }

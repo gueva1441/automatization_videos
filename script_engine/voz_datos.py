@@ -1,16 +1,21 @@
 """
 script_engine/voz_datos.py — F36 §A: lo que sale de la voz y de la escaleta sin pasar por el modelo (movido de
 gfx_rotulista sin cambios): el pico del cap (`pico_cap`, `pico_plan`), las fechas completas que dice la voz y su reloj
-(`fechas_completas`, `reloj_de_voz`), el nivel de agua desde la voz (`agua_de_voz`) y la tarjeta fecha-hora del inicio
-(`tarjeta_inicial`).
+(`fechas_completas`, `reloj_de_voz`) y la tarjeta fecha-hora derivada de la escaleta (`tarjeta_inicial`; desde F36 C
+solo para comparar con la del guion en papel). F36 §D: se borró el nivel de agua desde la voz.
 """
 from __future__ import annotations
 
 import re
 from typing import Any
 
+from gfx_config import gfx_rules
 from script_engine import evidence as ev
-from script_engine.voz_utils import _DIG, _analiza, _fmt, _num_en, _toks, _w2n
+from script_engine.voz_utils import _DIG, _w2n
+
+
+MESES = {"enero": "ENE", "febrero": "FEB", "marzo": "MAR", "abril": "ABR", "mayo": "MAY", "junio": "JUN", "julio": "JUL",
+         "agosto": "AGO", "septiembre": "SEP", "setiembre": "SEP", "octubre": "OCT", "noviembre": "NOV", "diciembre": "DIC"}
 
 
 # ═══════════════════════ pico del cap ═══════════════════════
@@ -82,7 +87,6 @@ def reloj_de_voz(ent: dict[str, Any], clip_dur: float) -> dict[str, Any] | None:
     """F34 §A.3.3: el reloj de la primera oración del cap que dice una fecha completa (aunque el director no lo pida),
     en el formato del reloj de la cronología (gfx_pool.pool_ticker): desde el inicio de esa oración hasta TICKER_HOLD
     después de su fin (derivado: lo que el reloj sostiene una fecha nueva); no sale si queda < TICKER_MIN."""
-    from script_engine.gfx_peak import MESES
     from script_engine.gfx_pool import TICKER_HOLD, TICKER_MIN
     for s in ent.get("oraciones") or []:
         fs = fechas_completas(s["texto"])
@@ -99,91 +103,11 @@ def reloj_de_voz(ent: dict[str, Any], clip_dur: float) -> dict[str, Any] | None:
     return None
 
 
-AGUA_ETIQUETAS = ("COTA AUTORIZADA", "COTA", "OLA", "NIVEL DEL EMBALSE", "NIVEL")   # §A.5: las de la oración
-
-
-def _agua_de(texto: str, previa: str) -> tuple[str, float, str] | None:
-    """(etiqueta, metros, cifra tal cual) si la oración dice una altura o nivel de agua con número (lectura declarada de
-    §A.5): «ola de <n> metros» → OLA; «cota» con número en la oración (o la anterior) → COTA (AUTORIZADA si lo dice);
-    «<n> metros sobre el nivel» o «nivel … <n> metros» → NIVEL (DEL EMBALSE si la oración nombra el embalse). El
-    número: con unidad metros, o sin unidad al final de la oración («la cota autorizada fue de setecientos quince»);
-    nunca metros cúbicos ni una diferencia."""
-    toks = _toks(texto)
-    nums, _ = _analiza(texto)
-    tn = ev.norm(texto)
-
-    def num_m(nn: list, desde: int = 0) -> tuple[float, int] | None:
-        for v, u, p in nn:
-            if p >= desde and u == "m":
-                return v, p
-        return None
-
-    def num_fin(nn: list, tt: list[str], desde: int) -> tuple[float, int] | None:
-        for v, u, p in nn:
-            if p >= desde and u is None:
-                _, j = _num_en(tt, p)
-                if j >= len(tt):
-                    return v, p
-        return None
-    if "cota" in toks:
-        i = toks.index("cota")
-        got = num_m(nums, i) or num_fin(nums, toks, i)
-        if got is None and previa:
-            pn, _ = _analiza(previa)
-            got = num_m(pn) or num_fin(pn, _toks(previa), 0)
-        if got:
-            return ("COTA AUTORIZADA" if "autoriz" in tn else "COTA"), got[0], _fmt(got[0])
-    for k, t in enumerate(toks):
-        if t in ("ola", "olas") and k + 1 < len(toks) and toks[k + 1] == "de":
-            got = num_m(nums, k + 2)
-            if got and got[1] == k + 2:
-                return "OLA", got[0], _fmt(got[0])
-    if "nivel" in toks:
-        i = toks.index("nivel")
-        got = num_m(nums, i)
-        if got is None and toks[max(0, i - 2):i] == ["sobre", "el"]:          # «<n> metros sobre el nivel»
-            prev = [(v, p) for v, u, p in nums if u == "m" and p < i]
-            got = prev[-1] if prev else None
-        if got:
-            return ("NIVEL DEL EMBALSE" if "embalse" in tn else "NIVEL"), got[0], _fmt(got[0])
-    return None
-
-
-def agua_de_voz(plan: dict[str, Any], ent: dict[str, Any], log: list[str]) -> dict[str, Any] | None:
-    """F34 §A.5: un `water_level` desde la voz cuando una oración dice una altura o nivel con número (la única animación
-    que puede repetir la cifra de la voz: es la imagen de esa frase). Uno por cap (el plan tiene un solo nivel de agua):
-    el de la etiqueta más específica (AGUA_ETIQUETAS en orden), y entre iguales el primero. No pisa el del rotulista.
-    Arranca con la oración y dura lo que ella (al menos la subida + el hold de la plantilla, WATER_DUR)."""
-    from script_engine.gfx_peak import WATER_DUR, WATER_FULL_M
-    if plan.get("water_level"):
-        return None
-    sents = ent.get("oraciones") or []
-    hall = []
-    for k, s in enumerate(sents):
-        got = _agua_de(s["texto"], sents[k - 1]["texto"] if k else "")
-        if got:
-            hall.append((AGUA_ETIQUETAS.index(got[0]), k, got))
-    if not hall:
-        return None
-    _, k, (etq, meters, txt) = min(hall)
-    s = sents[k]
-    dur = max(float(s["t1"]) - float(s["t0"]), sum(WATER_DUR))
-    wl = {"start": round(float(s["t0"]), 3), "duration": round(dur, 3), "value_text": txt, "unit": "m",
-          "meters": round(meters, 2), "height": round(min(0.85, max(0.15, meters / WATER_FULL_M)), 3),
-          "rise": WATER_DUR[0], "etiqueta": etq, "word": None, "sentence_idx": s["idx"], "de_voz": True,
-          "aporta": f"la imagen de «{s['texto'][:80]}»"}
-    plan["water_level"] = wl
-    log.append(f"  agua desde la voz: {etq} · {txt} m @ {wl['start']:.1f}s (oración [{s['idx']}]); candidatas "
-               f"{[(sents[kk]['idx'], g[0], g[2]) for _, kk, g in hall]}")
-    return wl
-
-
 def tarjeta_inicial(escaleta: dict, pool: dict | None) -> dict[str, Any]:
     """F34 §A.6: la tarjeta fecha-hora del suceso central (antes de la primera imagen, sobre negro, title_dur). Fecha =
     la del ítem del pico de la escaleta (`escaleta.pico.id`); hora = la del propio ítem o, si no la trae, la de un ítem
     de la cronología de esa misma fecha cuya hora dice literalmente el `por_que` del pico (para Vajont: T57 + «22:39»
     de T66). Si no se puede derivar con certeza: `falta` (el guion lo marca y se agrega con --plan-edit)."""
-    from script_engine.gfx_peak import MESES
     its = ev.items(pool) if pool else {}
     pk = escaleta.get("pico") or {}
     it = its.get(str(pk.get("id") or ""))
@@ -212,7 +136,7 @@ def pico_plan(plan: dict[str, Any], ent: dict[str, Any], *, words: list[dict], s
               intensity: dict | None, time_offset: float, freq: dict | None, log: list[str]) -> dict[str, Any] | None:
     """El pico del plan = el de la escaleta (pico_cap), sin privilegio de bloque: solo la palabra del pico (el sello de
     siempre, ≤ 1). gfx_peak no decide el pico cuando hay escaleta."""
-    from script_engine.gfx_peak import add_peak_word, sentences
+    from script_engine.gfx_peak import sentences
     pk = ent.get("pico")
     if not pk:
         return None
@@ -229,3 +153,59 @@ def pico_plan(plan: dict[str, Any], ent: dict[str, Any], *, words: list[dict], s
     log.append(f"  pico (escaleta, beat {pk['beat']}): oración [{pk['sentence_idx']}] @ {pk['t']:.1f}s «{pk['frase'][:70]}»"
                f" · palabra {plan['pico'].get('word')!r}")
     return plan["pico"]
+
+
+# ═══════════════════════ reloj en la esquina y palabra del pico (de gfx_peak, F36 §D) ═══════════════════════
+
+def ticker_corner(tk: dict[str, Any], plan: dict[str, Any]) -> dict[str, Any]:
+    """El reloj va en la esquina superior que esté LIBRE mientras se ve (los datos, recortes y el contador también van
+    arriba). Si las dos están ocupadas en algún momento, el reloj arranca cuando se libera una."""
+    a0, a1 = tk["start"], tk["start"] + tk["duration"]
+    top = [(x["start"], x["start"] + float(x.get("duration", 2.5)), x.get("side", "left")) for x in
+           (plan.get("callouts") or []) + (plan.get("archive_clippings") or [])]
+    hits = [(s, e, side) for s, e, side in top if s < a1 and e > a0]
+    sides = {side for _, _, side in hits}
+    tk["side"] = "right" if "left" in sides and "right" not in sides else "left"
+    if {"left", "right"} <= sides:                                  # las dos ocupadas → arranca después
+        new0 = max(e for _, e, _ in hits) + 0.3
+        tk["duration"] = round(a1 - new0, 3)
+        tk["start"] = round(new0, 3)
+    return tk
+
+
+BLOCK_CATEGORY = {"water_level": "agua"}            # categoría que el bloque grande ya muestra
+
+
+def add_peak_word(plan: dict[str, Any], peak: dict[str, Any], *, words: list[dict], scenes: list[Any],
+                  moods: dict[str, dict], block: str | None, time_offset: float = 0.0,
+                  freq: dict[str, int] | None = None, log: list[str] | None = None) -> dict[str, Any] | None:
+    """Sello + mood + ícono de categoría de la palabra del pico (reemplaza el énfasis que hubiera en esa frase)."""
+    from script_engine.clima import peak_word
+    from script_engine.gfx_director import emphasis_icon
+    big = None
+    if block == "archive_clippings":
+        big = next((a for a in plan.get("archive_clippings") or [] if a.get("peak")), None)
+    bcat = BLOCK_CATEGORY.get(block or "") or (big or {}).get("category")
+    h = peak_word(peak, words, moods, block_category=bcat, freq=freq)
+    if h is None:
+        return None
+    m = moods[h["category"]]
+    t = round(float(words[h["i"]]["start"]) + time_offset, 3)
+    lit = re.sub(r"^[¿¡\"'«“(]+|[.,;:!?…\"'»”)]+$", "", str(words[h["i"]]["word"]).strip())
+    sc = next((s for s in scenes if s.start <= t < s.end), None)
+    side = getattr(sc, "quiet_side", "right") if sc is not None else "right"
+    if big is not None and big.get("side") == side:              # nunca encima del recorte del pico
+        side = "left" if side == "right" else "right"
+    plan["emphasis"] = [e for e in plan.get("emphasis") or [] if not (peak["t0"] - 0.05 <= e["start"] <= peak["t1"])]
+    em = {"word": lit, "category": h["category"], "layer": m.get("layer"), "icon": emphasis_icon(h["category"], h["word"],
+          h["weight"], moods), "icon_anim": m.get("icon_anim") or "stamp", "start": t,
+          "duration": round(gfx_rules.mood_dur, 3), "side": side, "stamp": gfx_rules.emphasis_stamp,
+          "weight": h["weight"], "peak_word": True, **({"sfx": m["sfx"]} if m.get("sfx") else {})}
+    if block == "emphasis":
+        em["peak"] = True
+    plan["emphasis"].append(em)
+    plan["emphasis"].sort(key=lambda e: e["start"])
+    if log is not None:
+        log.append(f"pico: palabra «{lit}» ({h['category']}, peso {h['weight']}) @ {t:.1f}s → sello + mood"
+                   + (f" + ícono {em['icon']}" if em["icon"] else ""))
+    return em
