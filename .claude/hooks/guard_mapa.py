@@ -1,5 +1,5 @@
 """F33 §D.3 — PreToolUse Bash/PowerShell: antes de `git commit`, si lo que entra toca `script_engine/gfx_*.py` (desde
-F36 también `rotulista_*.py`, `clima.py`, `voz_datos.py`, `voz_utils.py`) o `fase2b.py` y no toca `lab/MAPA_MODULOS.md`
+F36 también `rotulista_*.py` —F37: `pantalla_*.py`—, `clima.py`, `voz_datos.py`, `voz_utils.py`) o `fase2b.py` y no toca `lab/MAPA_MODULOS.md`
 ni `.json`, AVISA (no bloquea): el reporte de la tanda tiene que decir por qué el mapa no cambió (o regenerarlo con
 `python lab/tools/mapa_modulos.py`).
 """
@@ -13,7 +13,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _comun import comando, git, git_args, leer_evento, segmentos  # noqa: E402
 
-TOCA = re.compile(r"^(script_engine/(gfx_[^/]*|rotulista_[^/]*|clima|voz_datos|voz_utils)\.py|fase2b\.py)$")   # F36 §A: + los del rotulista partido
+TOCA = re.compile(r"^(script_engine/(gfx_[^/]*|pantalla_[^/]*|clima|voz_datos|voz_utils)\.py|fase2b\.py)$")   # F36 §A / F37 §B.5: + los de la pantalla
 MAPA = ("lab/MAPA_MODULOS.md", "lab/MAPA_MODULOS.json")
 
 

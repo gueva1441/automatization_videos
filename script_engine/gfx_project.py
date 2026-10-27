@@ -290,11 +290,6 @@ def time_ticker_html(tk: dict[str, Any], duration: float) -> tuple[str, list[str
     return html_, init, js
 
 
-def load_grade_preset() -> dict[str, Any]:
-    """Preset de grade versionado (D4)."""
-    return json.loads((GFX_TEMPLATES_DIR / "gfx_grade.json").read_text(encoding="utf-8"))
-
-
 # ═══════════════════════════════════════════════════════════════
 #  Escenas
 # ═══════════════════════════════════════════════════════════════

@@ -5,15 +5,13 @@ from __future__ import annotations
 
 import ast
 import json
-import re
 import subprocess
 from pathlib import Path
 from types import SimpleNamespace as NS
 
 import pytest
 
-from script_engine import gfx_rotulista as gro
-from script_engine import rotulista_filtros as rf
+from script_engine import pantalla_filtros as pf, pantalla_colocar as pc, voz_datos as vd, voz_utils as vu
 
 ROOT = Path(__file__).resolve().parent
 F34 = "1973ba1"                      # el cierre de F34: la base de F36
@@ -36,12 +34,12 @@ def _cuerpo(src: str, fn: str) -> str:
 
 
 def test_a_cada_modulo_tiene_lo_suyo():
-    from script_engine import clima, rotulista_colocar, voz_datos, voz_utils     # F36 §D: sin rotulista_llm
-    assert gro.validar_papel is rf.validar_papel and gro.ORDEN is rf.ORDEN
-    assert gro.colocar is rotulista_colocar.colocar and gro.escena_final is rotulista_colocar.escena_final
-    assert gro.sellos_del_papel is clima.sellos_del_papel and gro.peak_word is clima.peak_word
-    assert gro.reloj_de_voz is voz_datos.reloj_de_voz and gro.tarjeta_inicial is voz_datos.tarjeta_inicial
-    assert gro.numeros is voz_utils.numeros
+    """F37 §B.5: cada módulo tiene lo suyo y la entrada ya no es fachada (no re-exporta lo de los otros)."""
+    from script_engine import clima, pantalla_entrada
+    assert callable(pf.validar_papel) and pf.ORDEN and callable(pc.colocar) and callable(pc.repartir)
+    assert callable(clima.sellos_del_papel) and callable(vd.reloj_de_voz) and callable(vu.numeros)
+    for n in ("validar_papel", "colocar", "repartir", "sellos_del_papel", "reloj_de_voz", "numeros", "escena_final"):
+        assert not hasattr(pantalla_entrada, n), n
 
 
 def test_a_guard_mapa_avisa_tambien_por_los_modulos_nuevos():
@@ -49,7 +47,7 @@ def test_a_guard_mapa_avisa_tambien_por_los_modulos_nuevos():
     spec = importlib.util.spec_from_file_location("gm", ROOT / ".claude" / "hooks" / "guard_mapa.py")
     gm = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(gm)
-    for f in ("rotulista_llm", "rotulista_filtros", "rotulista_colocar", "clima", "voz_datos", "voz_utils"):
+    for f in ("pantalla_entrada", "pantalla_filtros", "pantalla_colocar", "clima", "voz_datos", "voz_utils"):
         assert "guard_mapa" in gm.aviso([f"script_engine/{f}.py"])
     assert gm.aviso(["script_engine/clima.py", "lab/MAPA_MODULOS.json"]) is None
 
@@ -75,34 +73,16 @@ def _ent(oraciones: list[tuple[float, str]], items: list[dict], beats: list[dict
                        "datos_apoyo": []}]
     its = [{"a_pantalla": False, "por_que": "", "beats": [beats[0]["n"]], "kind": "datos", "fuente": "Fuente X, 2013",
             "autor": "", **x, "tipo": x["id"][0]} for x in items]
-    ent = {"cap": 2, "titulo": "t", "oraciones": gro.oraciones(words), "beats": beats, "items": its, "ya_mostrado": [],
+    ent = {"cap": 2, "titulo": "t", "oraciones": vu.oraciones(words), "beats": beats, "items": its, "ya_mostrado": [],
            "pico": None, "voz_video": voz_video or [], "voz_antes": ""}
     for s in ent["oraciones"]:
-        s["beat"] = gro.beat_de_oracion(s, beats)
+        s["beat"] = vu.beat_de_oracion(s, beats)
     return ent, words
 
 
 def _bl(si: int, tipo: str, texto: str, pid: str, et: str | None = None, wi: int = 0, **kw) -> dict:
     return {"sentence_idx": si, "word_idx": wi, "beat": 0, "rank": 1, "tipo": tipo, "etiqueta": et, "texto": texto,
             "pool_id": pid, "aporta": "algo concreto", **kw}
-
-
-def test_b1_el_realizador_no_borra_el_contador_del_rotulista_y_su_texto_es_el_valor():
-    """D128 ch06: el contador «1.910 personas» del rotulista queda; el del director (cifra que dice la voz) sale y su
-    fila dice el valor, no la palabra del ancla («Guglielmo»)."""
-    from script_engine.gfx_realizador import finalizar
-    real = {"candidatos": [], "beats": [{"n": 11, "funcion": "respiro", "t0": 120.0, "t1": 140.0, "intensidad": 1,
-                                         "dato_central": "", "datos_apoyo": [], "cierre": ""}]}
-    cu = {"start": 128.04, "duration": 4.0, "value_text": "1.910", "unit": "personas", "word": "Guglielmo",
-          "rotulista": True, "pool_id": "D128"}
-    plan = {"rotulista": {}, "count_up": dict(cu), "emphasis": [], "punch_in": []}
-    finalizar(plan, real, [])
-    assert plan["count_up"] and plan["count_up"]["value_text"] == "1.910"
-    plan2 = {"rotulista": {}, "count_up": {k: v for k, v in cu.items() if k != "rotulista"}, "emphasis": [],
-             "punch_in": []}
-    filas = finalizar(plan2, real, [])
-    assert plan2["count_up"] is None
-    assert [f["texto"] for f in filas if f["bloque"] == "count_up"] == ["1.910"]
 
 
 def _moods() -> dict:
@@ -137,10 +117,10 @@ def test_b4_reloj_termina_antes_del_corte():
     """Reloj ch07 «20 FEB 1968» (84.7 + 12 contra el corte de 93.77): duración = corte − inicio − 1 cuadro. F36 §D: el
     agua se borró (catálogo 18:17)."""
     plan = {"time_ticker": {"start": 84.7, "duration": 12.0}}
-    gro.hasta_el_corte(plan, [Sc(7, 84.5, 93.767), Sc(8, 93.767, 120.0)], 30, [])
+    pc.hasta_el_corte(plan, [Sc(7, 84.5, 93.767), Sc(8, 93.767, 120.0)], 30, [])
     assert plan["time_ticker"]["duration"] == round(93.767 - 84.7 - 1 / 30, 3)
     plan = {"time_ticker": {"start": 10.0, "duration": 2.0}}
-    gro.hasta_el_corte(plan, [Sc(0, 0.0, 30.0)], 30, [])
+    pc.hasta_el_corte(plan, [Sc(0, 0.0, 30.0)], 30, [])
     assert plan["time_ticker"]["duration"] == 2.0                                        # cabe: no se toca
 
 
@@ -153,10 +133,10 @@ def test_b5_cota_715_no_contradice_niveles_de_otro_momento():
            "La cota autorizada fue de setecientos quince.",
            "En noviembre de mil novecientos sesenta y dos, la ladera ya se desplazaba más de un centímetro y medio por "
            "día."]
-    assert gro.contradicciones("COTA AUTORIZADA 715 m", voz)                # sin vecindad (como antes): ✗
-    assert gro.contradicciones("COTA AUTORIZADA 715 m", voz, cerca=voz[1:4]) == []
-    assert gro.contradicciones("COTA AUTORIZADA 720 m", voz, cerca=voz[1:4])            # otra cota al lado: ✗
-    assert gro.contradicciones("MUERTOS 2.000 personas", ["Murieron mil novecientas diez personas."],
+    assert pf.contradicciones("COTA AUTORIZADA 715 m", voz)                # sin vecindad (como antes): ✗
+    assert pf.contradicciones("COTA AUTORIZADA 715 m", voz, cerca=voz[1:4]) == []
+    assert pf.contradicciones("COTA AUTORIZADA 720 m", voz, cerca=voz[1:4])            # otra cota al lado: ✗
+    assert pf.contradicciones("MUERTOS 2.000 personas", ["Murieron mil novecientas diez personas."],
                                cerca=[]) != []                               # los muertos, contra todo el video
 
 

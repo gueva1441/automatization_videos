@@ -18,7 +18,7 @@ costo en 01_v3_costos.json como los demás pasos) o suelto: `python -m script_en
                y la versión del prompt. F37 §A.5: un reintento si el JSON no parsea o si la validación deja algún motivo
                (ficha caída, pregunta al autor, descarte «la voz lo dice» falso, pico sin ficha), con todos juntos. Dos
                respuestas sin JSON → PARADA (la cruda queda en 01e_pantalla.raw.json).
-    validar    (§C.3, sin tiempos ni fotos, con los filtros de rotulista_filtros) por ficha: anclaje (cap, beat, ítem y
+    validar    (§C.3, sin tiempos ni fotos, con los filtros de pantalla_filtros) por ficha: anclaje (cap, beat, ítem y
                oración que existen; la oración es del beat), formato (etiqueta en 1 línea y dato en 2, gfx_project.
                ficha_medida), F37 §A.1b fecha del relato (el año del ítem contra el último año que dijo la voz) y §A.1c
                cita sin fecha (su autor en la oración o una vecina), candado (números, nombres y años literales en el
@@ -163,7 +163,7 @@ def caben_en(texto: str, seg: float) -> int:
     del narrador) × 15 cps, nunca más que lo que se lee en `callout_dur_max` (F37 §B.2: la ficha dura su lectura y no
     pasa de callout_dur_max, identidad F3 del perfil). Fase 1 no tiene escenas: la medida real es de Fase 2."""
     from gfx_config import gfx_rules
-    from script_engine.rotulista_colocar import LECTURA_CPS
+    from script_engine.pantalla_colocar import LECTURA_CPS
     return int(min(len(palabras(texto)) * seg, float(gfx_rules.callout_dur_max)) * LECTURA_CPS)
 
 
@@ -241,8 +241,8 @@ def entrada_md5(ent: dict[str, Any]) -> str:
 def estilo_de(pool_id: str, etiqueta: str, por_que: str = "") -> str:
     """§C.1: el estilo sale del tipo de dato, sin modelo. Lectura declarada de «D/T que pide_documento»: la etiqueta de la
     ficha (lo que es: «ACTA DEL CONSEJO SUPERIOR») o el `por_que` de su `a_pantalla` nombran una carta, un acta, un
-    informe o un documento (rotulista_filtros.pide_documento, F32 §B.4)."""
-    from script_engine.rotulista_filtros import pide_documento
+    informe o un documento (pantalla_filtros.pide_documento, F32 §B.4)."""
+    from script_engine.pantalla_filtros import pide_documento
     t = str(pool_id)[:1].upper()
     if t == "Q":
         return "cita"
@@ -334,7 +334,7 @@ def validar(resp: Any, ent: dict[str, Any], confirmados: dict[str, dict[str, lis
     - §A.3b los beats pico sin ficha (`picos_vacios`).
     `motivos` = todo lo que va al reintento, en una lista."""
     from script_engine.gfx_project import ficha_medida
-    from script_engine.rotulista_colocar import caracteres
+    from script_engine.pantalla_colocar import caracteres
     caps = {c["cap"]: c for c in ent["caps"]}
     orden_caps = [c["cap"] for c in ent["caps"]]
     beats = {b["n"]: b for b in ent["beats"]}
@@ -460,7 +460,7 @@ def _validar_ficha(fi: dict, cap: str, nb: int | None, b: dict | None, slot: dic
                    ficha_medida: Callable, caracteres: Callable, mom: dict, confirmados: dict | None
                    ) -> tuple[str | None, str | None, dict | None]:
     """(motivo, regla, ficha validada) de una ficha del papel, en el orden de §C.3 (+ F37 §A.1b/c y §A.4)."""
-    from script_engine.rotulista_filtros import candado, gancho_dicho, no_dicho, spoiler
+    from script_engine.pantalla_filtros import candado, gancho_dicho, no_dicho, spoiler
     pid = str(fi.get("pool_id") or "")
     c = caps.get(cap)
     si = _int(fi.get("sentence_idx"))
@@ -504,7 +504,7 @@ def _validar_ficha(fi: dict, cap: str, nb: int | None, b: dict | None, slot: dic
     if x["id"][:1] == "Q" and not anio and not testimonio and not autor_en(autor, x.get("rol") or "", vecinas):
         return (f"cita sin fecha: su autor («{autor}», {x.get('rol') or 'sin rol'}) no aparece en la oración [{si}] ni "
                 f"en sus vecinas", "cita_sin_fecha", None)
-    # candado, no dicho, spoiler (los de rotulista_filtros, con el ítem del archivo como texto fuente)
+    # candado, no dicho, spoiler (los de pantalla_filtros, con el ítem del archivo como texto fuente)
     gancho = (b.get("funcion") == "gancho")
     dice_voz = bool(it) and gancho and (ev.used_in(voz_txt, it) or any(numero_en(n, voz_txt)
                                                                        for n in ev._figures(ev.text_of(it))))
@@ -796,7 +796,7 @@ def editar(topic_id: str, ediciones: list[dict[str, Any]], steps_dir: Path | Non
     {tarjeta: {texto} | null}; reemplazan lo del beat (null lo borra) y quedan marcadas `editado`. El estilo lo vuelve a
     poner el código. La primera vez se guarda una copia (01e_pantalla.antes_de_edicion.json); el .md se reescribe.
     Fase 2 vuelve a pasar lo editado por sus filtros como a todo."""
-    from script_engine.rotulista_colocar import caracteres
+    from script_engine.pantalla_colocar import caracteres
     f = ruta(topic_id, steps_dir)
     p = json.loads(f.read_text(encoding="utf-8"))
     seg = float((p.get("seg_por_palabra") or {}).get("valor") or SEG_POR_PALABRA_RESPALDO)   # la del papel

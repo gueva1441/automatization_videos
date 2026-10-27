@@ -59,15 +59,6 @@ def _scenes(durs, ranks=None):
     return out
 
 
-def test_few_shot_del_plan_dorado():
-    shot = st.golden_fewshot()
-    assert shot.startswith("ASÍ SE ARMA UN CAPÍTULO") and "recorte" in shot and "nivel de agua" in shot
-    assert "Quien fue el culpable" in shot or "culpable" in shot
-    from script_engine.gfx_director import system_prompt
-    assert shot in system_prompt() and "vos elegís solo DÓNDE y QUÉ" in system_prompt()
-    assert st.golden_fewshot({"identity": {}}) == ""
-
-
 def test_transiciones_del_plan_mandan_en_templater_y_cues():
     sc = _scenes([5, 5, 5])
     plan = {"transitions": {"1": {"kind": "cut", "frames": 0, "rank": "R3"}, "2": {"kind": "dip", "frames": 10, "rank": "R3"}}}

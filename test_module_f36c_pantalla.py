@@ -1,6 +1,6 @@
 """
 test_module_f36c_pantalla.py — F36 §C (HANDOFF_F36_C_D_pantalla, aclaración 8): el guion de pantalla en papel
-(script_engine/m01e_pantalla) y su consumo en Fase 2 (gfx_rotulista.preparar_cap, rotulista_filtros.validar_papel).
+(script_engine/m01e_pantalla) y su consumo en Fase 2 (pantalla_entrada.preparar_cap, pantalla_filtros.validar_papel).
     (a) el JSON de salida valida contra el esquema;
     (b) el candado en papel rechaza una ficha con un año que no está en el dato (caso D195 «1963» en la etiqueta);
     (c) las 7 narraciones de Vajont alinean con la voz (100 % o la lista de las que no);
@@ -127,7 +127,7 @@ def test_b_candado_en_papel_rechaza_el_anio_que_no_esta_en_el_dato():
 # (c)
 def test_c_las_siete_narraciones_de_vajont_alinean():
     from script_engine.gfx_layer import remapped_words
-    from script_engine.gfx_rotulista import alinear
+    from script_engine.pantalla_entrada import alinear
     from script_engine.voz_utils import oraciones
     sc = ROOT / "data" / "scripts" / "f8s3-vajont-f30.json"
     if not (STEPS / VAJONT / "01b_narracion_v3.json").exists() or not sc.exists():
@@ -172,9 +172,9 @@ def test_e_el_sello_no_repite_palabra_en_el_video():
 def test_f_fase2_lee_el_papel_sin_llamar_a_ningun_modelo_de_texto(monkeypatch, tmp_path):
     import claude_helpers as hx
     from script_engine import gfx_realizador as gr
-    from script_engine import gfx_rotulista as gro
+    from script_engine import pantalla_entrada as pe
     from script_engine.gfx_layer import remapped_words
-    from script_engine.rotulista_filtros import validar_papel
+    from script_engine.pantalla_filtros import validar_papel
 
     def no(*a, **k):
         raise AssertionError("Fase 2 llamó a un modelo de texto")
@@ -193,20 +193,20 @@ def test_f_fase2_lee_el_papel_sin_llamar_a_ningun_modelo_de_texto(monkeypatch, t
         real = gr.preparar(n, carga, script["evidence_pool"], words, 0.0, tmp_path, f"ch{n:02d}")
         ctx = {"topic_id": VAJONT, "escaleta": carga["escaleta"], "pool": script["evidence_pool"],
                "chapters": script["chapters"], "chapter_number": n}
-        ent, rot = gro.preparar_cap(n, f"ch{n:02d}", real, ctx, words, 0.0)
+        ent, rot = pe.preparar_cap(n, f"ch{n:02d}", real, ctx, words, 0.0)
         assert rot["papel"] and rot["sin_alinear"] == []
         assert len(rot["final"]["bloques"]) == sum(1 for b in papel["beats"] if b["cap"] == f"ch{n:02d}" and b["ficha"])
         validar_papel(rot["final"]["bloques"], ent, words)
     src = (ROOT / "fase2b.py").read_text(encoding="utf-8") + (ROOT / "script_engine" / "gfx_layer.py").read_text(encoding="utf-8")
     assert "_rot_prefetch(" not in src and "gro.llamar(" not in src
-    from script_engine import rotulista_filtros as rf                # aclaración 3: el ORDEN recortado
+    from script_engine import pantalla_filtros as rf                # aclaración 3: el ORDEN recortado
     assert [rf.regla(f) for f in rf.ORDEN] == ["anclaje", "no_dicho", "candado", "no_dicho", "spoiler", "lectura"]
 
 
 # F36 §C.4 / §D: lo que Fase 2 hace con el papel (sin modelo)
 def test_g_cita_ficha_con_autor_y_sellos_del_papel_nunca_al_mismo_tiempo(monkeypatch):
     from script_engine import clima
-    from script_engine import rotulista_colocar as rc
+    from script_engine import pantalla_colocar as rc
     Sc = SimpleNamespace
     words = [{"word": w, "start": i * 0.5, "end": i * 0.5 + 0.4} for i, w in
              enumerate("La gente pidió justicia en la plaza. El presidente respondió algo esa noche. Nadie volvió a hablar.".split())]
@@ -228,13 +228,18 @@ def test_g_cita_ficha_con_autor_y_sellos_del_papel_nunca_al_mismo_tiempo(monkeyp
     assert c["papel"] and c["estilo"] == "cita"
     monkeypatch.setattr(clima, "vocabulario_clima", lambda: ["MEMORIA", "RABIA"])
     juez = lambda em: {"pasa": em["word"] != "RABIA", "motivo": "tapa un rostro", "mira": "foto sola"}
-    sellos = [{"palabra": "RABIA", "sentence_idx": 0}, {"palabra": "MEMORIA", "sentence_idx": 1},
-              {"palabra": "MEMORIA", "sentence_idx": 2}]
-    filas = clima.sellos_del_papel(plan, scenes, ent, words, 0.0, {}, [], sellos, juez=juez, usadas_video=set())
-    mot = {f["texto"]: f["motivo"] for f in filas}
-    assert "estorba" in mot["RABIA"]                                    # el crítico, antes del reparto
-    assert [e["word"] for e in plan["emphasis"]] == ["MEMORIA"]         # en la oración 1 choca con la ficha; en la 2, no
+    # F37 §B.1: MEMORIA en la oración 1 choca con la ficha → se mueve a la oración siguiente del beat (no se corta)
+    filas = clima.sellos_del_papel(plan, scenes, ent, words, 0.0, {}, [], [{"palabra": "MEMORIA", "sentence_idx": 1}],
+                                   juez=juez, usadas_video=set())
+    assert [e["word"] for e in plan["emphasis"]] == ["MEMORIA"] and plan["emphasis"][0]["start"] == sents[2]["t0"]
     assert plan["emphasis"][0]["start"] >= c["start"] + c["duration"]
+    assert any(f["accion"] == "movido" and "se solapa con ficha" in f["motivo"] for f in filas)
+    # el crítico, en cada intento y en los dos lados: RABIA estorba en todos → papel sin colocar, con la lista
+    filas = clima.sellos_del_papel(plan, scenes, ent, words, 0.0, {}, [], [{"palabra": "RABIA", "sentence_idx": 2}],
+                                   juez=juez, usadas_video=set())
+    mot = {f["texto"]: f["motivo"] for f in filas}
+    assert "estorba" in mot["RABIA"] and "lado right" in mot["RABIA"] and "lado left" in mot["RABIA"]
+    assert plan["emphasis"] == []
 
 
 def test_h_plan_edit_edita_el_papel(tmp_path):

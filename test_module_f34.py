@@ -15,7 +15,7 @@ from types import SimpleNamespace as NS
 
 import pytest
 
-from script_engine import gfx_rotulista as gro
+from script_engine import pantalla_colocar as pc, pantalla_entrada as pe, voz_datos as vd, voz_utils as vu
 
 ROOT = Path(__file__).resolve().parent
 
@@ -39,10 +39,10 @@ def _ent(oraciones: list[tuple[float, str]], items: list[dict], beats: list[dict
                        "datos_apoyo": []}]
     its = [{"a_pantalla": False, "por_que": "", "beats": [beats[0]["n"]], "kind": "datos", "fuente": "Fuente X, 2013",
             "autor": "", **x, "tipo": x["id"][0]} for x in items]
-    ent = {"cap": 2, "titulo": "t", "oraciones": gro.oraciones(words), "beats": beats, "items": its, "ya_mostrado": [],
+    ent = {"cap": 2, "titulo": "t", "oraciones": vu.oraciones(words), "beats": beats, "items": its, "ya_mostrado": [],
            "pico": None, "voz_video": voz_video or [], "voz_antes": voz_antes}
     for s in ent["oraciones"]:
-        s["beat"] = gro.beat_de_oracion(s, beats)
+        s["beat"] = vu.beat_de_oracion(s, beats)
     return ent, words
 
 
@@ -61,7 +61,7 @@ def test_a2_voz_previa_es_la_de_los_caps_anteriores():
     ctx = {"chapter_number": 3, "chapters": [{"chapter_number": 1, "narration": "uno"},
                                              {"chapter_number": 2, "narration": "dos"},
                                              {"chapter_number": 3, "narration": "tres"}]}
-    assert gro.voz_previa(ctx) == "uno dos"
+    assert pe.voz_previa(ctx) == "uno dos"
 
 
 # ═══════════════ §A.3 reparto ═══════════════
@@ -73,14 +73,12 @@ def test_a3_2_cap_de_una_sola_escena_una_cosa_por_oracion():
     beats = [{"n": 1, "funcion": "gancho", "t0": 0.0, "t1": 40.0, "cierre": "", "dato_central": "", "datos_apoyo": []}]
     ent, words = _ent(ors, [], beats=beats)
     scenes = [Sc(0, 0.0, 40.0)]
-    us = gro.unidades(scenes, ent)
-    assert [(u.idx, u.start, u.end) for u in us] == [(0, 0.0, 4.0), (1, 4.0, 10.0), (2, 10.0, 16.0), (3, 16.0, 40.0)]
     plan = {"title_card": {"title": "x"},
             "callouts": [{"text": "266 m de alto", "kicker": "LA PRESA", "ficha": True, "start": 4.2, "duration": 4.0,
                           "pool_id": "D118", "rotulista": True, "tipo_rotulista": "cifra"},
                          {"text": "otra", "kicker": "OTRA", "ficha": True, "start": 6.0, "duration": 3.0,
                           "pool_id": "D9", "rotulista": True, "tipo_rotulista": "cifra"}]}
-    gro.escena_final(plan, scenes, ent, [])
+    pc.repartir(plan, scenes, ent, [])                      # F37 §B.1: sin `unidades` (nunca al mismo tiempo)
     c = sorted(plan["callouts"], key=lambda x: x["start"])
     assert c[0]["start"] == 4.2 and (len(c) == 1 or c[1]["start"] >= 10.0)    # la segunda: otra oración o nada
     if len(c) == 2:
@@ -88,11 +86,11 @@ def test_a3_2_cap_de_una_sola_escena_una_cosa_por_oracion():
 
 
 def test_a3_3_reloj_desde_la_voz_fecha_completa_en_letras():
-    assert gro.fechas_completas("Longarone, Italia, nueve de octubre de mil novecientos sesenta y tres.") == \
+    assert vd.fechas_completas("Longarone, Italia, nueve de octubre de mil novecientos sesenta y tres.") == \
         [(9, "octubre", 1963)]
-    assert gro.fechas_completas("El nueve de octubre a la mañana.") == []           # sin año: no
+    assert vd.fechas_completas("El nueve de octubre a la mañana.") == []           # sin año: no
     ent, _ = _ent([(0.0, "Era de noche."), (5.0, "Longarone, Italia, nueve de octubre de mil novecientos sesenta y tres.")], [])
-    tk = gro.reloj_de_voz(ent, 60.0)
+    tk = vd.reloj_de_voz(ent, 60.0)
     assert (tk["day"], tk["month"], tk["tail"], tk["start"], tk["de_voz"]) == ("9", "OCT", "1963", 5.0, True)
 
 
@@ -112,9 +110,9 @@ def test_a6_tarjeta_vajont_y_falta_si_no_hay_certeza():
                            {"id": "T65", "fecha": "1963-10-09", "hora": "22:30", "evento": "Ola."},
                            {"id": "T66", "fecha": "1963-10-09", "hora": "22:39", "evento": "Roca."}]}
     pico = {"pico": {"beat": 10, "id": "T57", "por_que": "el Toc entra al embalse a las 22:39"}}
-    tj = gro.tarjeta_inicial(pico, pool)
+    tj = vd.tarjeta_inicial(pico, pool)
     assert (tj["texto"], tj["hora_de"]) == ("9 OCT 1963 · 22:39", "T66")
-    assert gro.tarjeta_inicial({"pico": {"id": "T57", "por_que": "sin hora"}}, pool)["falta"] is True
+    assert vd.tarjeta_inicial({"pico": {"id": "T57", "por_que": "sin hora"}}, pool)["falta"] is True
     if esc is not None:
         assert esc["pico"]["id"] == "T57"
 
@@ -148,7 +146,7 @@ def test_a7_1_plan_congelado_el_render_no_cambia_los_planes(tmp_path, monkeypatc
     monkeypatch.setattr(gl, "_doctor_once", lambda log: None)
     monkeypatch.setattr(gd, "load_chapter_context", lambda vid, p: {"script_chapter": {}, "sources": {},
                                                                      "chapter_number": 2, "facts": [], "skeleton": {}})
-    monkeypatch.setattr(gd, "select_gfx_plan", lambda *a, **k: (_ for _ in ()).throw(AssertionError("director")))
+    monkeypatch.setattr(gl, "plan_base", lambda *a, **k: (_ for _ in ()).throw(AssertionError("plan nuevo")))   # F37 §B.4
     dibujado = {}
     monkeypatch.setattr(gl, "write_project", lambda resolved, *a, **k: dibujado.update(resolved=json.loads(json.dumps(resolved))))
 

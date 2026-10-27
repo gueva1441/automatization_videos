@@ -166,7 +166,7 @@ def test_a4_d47_llega_como_pregunta_y_el_juicio_del_autor_es_final(vajont, tmp_p
     papel = mp.armar(vajont, res)
     b = next(b for b in papel["beats"] if b["cap"] == "ch02" and b["beat"] == 3)
     assert b["ficha"]["pool_id"] == "D47" and b["ficha"]["juicio_autor"] == {"spoiler": ["2"]}
-    from script_engine.rotulista_filtros import spoiler
+    from script_engine.pantalla_filtros import spoiler
     ctx = {"sents": [{"texto": "El Toc se desmorona."}, {"texto": "Una fisura de dos kilómetros."}], "si": 0,
            "nums": ["2"], "nms": [], "juicio": b["ficha"]["juicio_autor"]}
     assert spoiler({}, {}, ctx) is None

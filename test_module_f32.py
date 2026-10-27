@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 
 from script_engine import gfx_guion as gg
-from script_engine import gfx_rotulista as gro
+from script_engine import voz_utils as vu
 from script_engine.gfx_peak import sentences
 
 ROOT = Path(__file__).resolve().parent
@@ -92,7 +92,7 @@ def test_guion_de_un_cap_con_todos_los_tipos():
     g = _guion([_cap(_plan_todo())])
     ev = g["caps"][0]["eventos"]
     tipos = {e["tipo"] for e in ev}
-    for t in ("costura", "title card", "ficha", "persona", "recorte", "cita", "lupa", "nivel de agua", "contador",
+    for t in ("costura", "title card", "ficha", "persona", "recorte", "cita",      # F37 §B.4: sin lupa, agua ni contador
               "sello", "reloj", "pregunta de cierre", "transición", "punch", "silencio de voz"):
         assert t in tipos, t
     f = next(e for e in ev if e["tipo"] == "ficha" and e["queda"])
@@ -176,10 +176,10 @@ def _ent_simple() -> tuple[dict, list[dict]]:
     beats = [{"n": 1, "funcion": "escalada", "t0": 0.0, "t1": 999.0, "cierre": "", "dato_central": "", "datos_apoyo": []}]
     its = [{"id": "D1", "a_pantalla": False, "por_que": "", "beats": [1], "kind": "datos", "fuente": "Informe, 1963",
             "autor": "", "tipo": "D", "texto": "En el desastre murieron 1.910 personas de Longarone."}]
-    ent = {"cap": 3, "titulo": "t", "oraciones": gro.oraciones(words), "beats": beats, "items": its, "ya_mostrado": [],
+    ent = {"cap": 3, "titulo": "t", "oraciones": vu.oraciones(words), "beats": beats, "items": its, "ya_mostrado": [],
            "pico": None, "voz_video": []}
     for s in ent["oraciones"]:
-        s["beat"] = gro.beat_de_oracion(s, beats)
+        s["beat"] = vu.beat_de_oracion(s, beats)
     return ent, words
 
 
@@ -194,10 +194,10 @@ def _ent_b(oraciones: list[tuple[float, str]], items: list[dict], beats: list[di
                        "datos_apoyo": []}]
     its = [{"a_pantalla": False, "por_que": "", "beats": [beats[0]["n"]], "kind": "datos", "fuente": "Fuente X, 2013",
             "autor": "", **x, "tipo": x["id"][0]} for x in items]
-    ent = {"cap": 3, "titulo": "t", "oraciones": gro.oraciones(words), "beats": beats, "items": its, "ya_mostrado": [],
+    ent = {"cap": 3, "titulo": "t", "oraciones": vu.oraciones(words), "beats": beats, "items": its, "ya_mostrado": [],
            "pico": pico, "voz_video": []}
     for s in ent["oraciones"]:
-        s["beat"] = gro.beat_de_oracion(s, beats)
+        s["beat"] = vu.beat_de_oracion(s, beats)
     return ent, words
 
 

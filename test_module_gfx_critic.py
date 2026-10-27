@@ -33,8 +33,11 @@ def _plan():
 
 
 def test_describe_y_bloques():
-    b = cr.blocks(_plan())
-    assert [x["kind"] for x in b] == ["icono", "nivel_agua", "dato", "sello", "recorte"]
-    assert "ÍCONO «biohazard»" in b[0]["desc"] and "60 %" in b[1]["desc"] and "kicker «2005»" in b[4]["desc"]
+    """F37 §B.4: quedan las formas del papel (sello, recorte, ficha); `blocks` se borró (el crítico corre por intento)."""
+    p = _plan()
+    assert "SELLO rojo" in cr.describe("sello", p["emphasis"][1]) and "a la izquierda" in cr.describe("sello", p["emphasis"][1])
+    assert "kicker «2005»" in cr.describe("recorte", p["archive_clippings"][0])
+    assert "FICHA" in cr.describe("ficha", {"kicker": "Muertos", "text": "1.910 personas"})
+    assert set(cr.KIND_LABEL) == {"sello", "recorte", "ficha"} and not hasattr(cr, "blocks")
 
 

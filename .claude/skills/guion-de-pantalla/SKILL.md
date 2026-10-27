@@ -9,11 +9,11 @@ revisado y aprobado por Omar; el hook `guard_render` lo frena.
 
 ## 1. Generarlo
 ```bash
-PYTHONIOENCODING=utf-8 python fase2b.py <topic> --plan-only --rotulista
+PYTHONIOENCODING=utf-8 python fase2b.py <topic> --plan-only
 ```
 - Implica `--gfx --reuse-visuals`: los visuales base (`chNN_flux_visual.mp4` / `chNN_hybrid_visual.mp4`) tienen que
   estar cocidos (no cuece DepthFlow). Sin navegador, sin HyperFrames, sin render.
-- Corre director, rotulista, reglas y crítico (el crítico mira la foto sola), -g30 de los caps en paralelo y el plan en
+- Corre el papel (F37: sin borrador del director; `--rotulista` ya no existe), reglas, reparto y crítico (el crítico mira la foto sola, en cada intento), -g30 de los caps en paralelo y el plan en
   fila. Vajont: ~2.7 min con el rotulista en caché; ~5 min si el rotulista llama a Claude.
 - Escribe `output/<topic>/GUION_PANTALLA.md` y `.json` (la misma información) y
   `output/<topic>/_fase2b_work/mezcla_preview.wav` (voz + música + sfx, con el grafo del render: para **oír** costuras y

@@ -1,5 +1,5 @@
 """
-test_module_f29b_rotulista.py — F29b §A: el rotulista (script_engine/gfx_rotulista), sin red. Fixtures de Vajont ch03 y ch06
+test_module_f29b_rotulista.py — F29b §A: el rotulista (script_engine/pantalla_entrada), sin red. Fixtures de Vajont ch03 y ch06
 (oraciones, beats, ítems, palabras con tiempos y una respuesta cruda de Sonnet 5.5) en lab/hyperframes/f29b/fixtures/:
 candado, no dicho y spoiler, `a_pantalla` con reintento, pico único (gana la escaleta) y el orden del final del plan (el
 crítico después del respaldo). F29c cambió el prompt, el anclaje (palabra), los topes (1 por beat), la duración (lectura)
@@ -15,7 +15,7 @@ from pathlib import Path
 
 import pytest
 
-from script_engine import gfx_rotulista as gro
+from script_engine import voz_datos as vd, voz_utils as vu
 
 ROOT = Path(__file__).resolve().parent
 FIX = ROOT / "lab" / "hyperframes" / "f29b" / "fixtures"
@@ -81,7 +81,7 @@ def test_pico_unico_gana_la_escaleta():
     si_peak = peak_sentence({"intensidad": raw["intensidad"], "cargas": raw.get("cargas") or []})
     t_peak = sentences(words)[si_peak]["t0"]
     plan: dict = {}
-    pk = gro.pico_plan(plan, ent, words=words, scenes=[], moods={}, intensity=None, time_offset=0.0, freq=None, log=[])
+    pk = vd.pico_plan(plan, ent, words=words, scenes=[], moods={}, intensity=None, time_offset=0.0, freq=None, log=[])
     assert pk["fuente"] == "escaleta.pico" and pk["beat"] == 10
     assert plan["pico"]["t"] == ent["pico"]["t"] != t_peak
     assert plan["pico"]["sentence_idx"] == ent["pico"]["sentence_idx"] != si_peak
@@ -105,10 +105,10 @@ def test_candado_literal_deja_pasar_los_bloques_del_rotulista():
 
 
 def test_numeros_por_valor():
-    assert gro.numero_en("1.910", "fueron mil novecientas diez")
-    assert gro.numero_en("39", "son las diez y treinta y nueve")
-    assert not gro.numero_en("1", "una fisura en la ladera")              # «una» es artículo
-    assert gro.numeros("3 millones de metros") == ["3"]
+    assert vu.numero_en("1.910", "fueron mil novecientas diez")
+    assert vu.numero_en("39", "son las diez y treinta y nueve")
+    assert not vu.numero_en("1", "una fisura en la ladera")              # «una» es artículo
+    assert vu.numeros("3 millones de metros") == ["3"]
 
 
 # ═══════════════ F29b, antes de B: candado de persona y tope en paralelo ═══════════════

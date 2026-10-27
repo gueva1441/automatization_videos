@@ -50,7 +50,9 @@ def test_lock_y_cues_y_templater(tmp_path):
                          {"word": "inventada", "category": "agua", "layer": "agua", "icon": None, "start": 6.0,
                           "duration": 2.5, "side": "right", "stamp": True, "sid": 1}]}
     ok, rej = lock(plan, {"narration_ch02": "Vieron cadáveres en el agua."}, chapter_number=2)
-    assert [e["word"] for e in ok["emphasis"]] == ["cadáveres"] and rej[0]["block"] == "keyword_emphasis"
+    # F37 §B.4: el candado ya no mira los sellos (son de clima: no repiten la voz a propósito)
+    assert [e["word"] for e in ok["emphasis"]] == ["cadáveres", "inventada"] and not rej
+    ok["emphasis"] = ok["emphasis"][:1]
     assert "cadáveres" in plan_strings(ok)
     ev = cue_events(ok, [GfxScene(0, 0.0, 10.0)], 30)
     assert any(e["block"] == "keyword_emphasis:muerte" and e["text"] == "cadáveres" for e in ev)

@@ -1,6 +1,6 @@
 """
 script_engine/voz_datos.py — F36 §A: lo que sale de la voz y de la escaleta sin pasar por el modelo (movido de
-gfx_rotulista sin cambios): el pico del cap (`pico_cap`, `pico_plan`), las fechas completas que dice la voz y su reloj
+pantalla_entrada sin cambios): el pico del cap (`pico_cap`, `pico_plan`), las fechas completas que dice la voz y su reloj
 (`fechas_completas`, `reloj_de_voz`) y la tarjeta fecha-hora derivada de la escaleta (`tarjeta_inicial`; desde F36 C
 solo para comparar con la del guion en papel). F36 §D: se borró el nivel de agua desde la voz.
 """

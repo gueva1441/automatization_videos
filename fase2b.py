@@ -2843,7 +2843,7 @@ def _medir_inicio_musica(plans: list[Any], pista: Path, work_dir: Path, seg_dur:
 
 def _solo_plan(plans: list[Any], video_id: str, work_dir: Path, *, hook: str | None, sync_map: dict,
                safe_by_cap: dict[str, dict[int, dict[str, Any]]], t_inicio: float) -> int:
-    """F32 §A: director + rotulista + reglas + crítico de los caps (sin navegador ni render) → GUION_PANTALLA.md/.json
+    """F32 §A: papel + reglas + crítico de los caps (sin navegador ni render) → GUION_PANTALLA.md/.json
     en output/<id>/ + mezcla_preview.wav en _fase2b_work. El -g30 de los caps va en paralelo; el plan, en fila (cada
     cap mira lo que ya mostraron los anteriores)."""
     from concurrent.futures import ThreadPoolExecutor
@@ -2889,7 +2889,7 @@ def _solo_plan(plans: list[Any], video_id: str, work_dir: Path, *, hook: str | N
     # el guion
     from script_engine.gfx_director import load_chapter_context
     from script_engine.gfx_peak import sentences
-    from script_engine.gfx_rotulista import voz_del_video
+    from script_engine.pantalla_entrada import voz_del_video
     from script_engine import evidence as _ev
     from gfx_config import gfx_rules as _gr
     sm = {c["id"]: c for c in sync_map.get("chapters", [])}
@@ -3107,13 +3107,8 @@ def _assemble_one_video(
         safe_by_cap, risk_counts = _route_safe(plans, video_id, per_image_by_cap)
         print(f"  🛡  safe-router: riesgo low={risk_counts['low']} mid={risk_counts['mid']} high={risk_counts['high']} "
               f"→ movimiento seguro en {sum(len(v) for v in safe_by_cap.values())} imagen(es)")
-    if gfx:
-        # F1b: director de gráficos de los caps en paralelo antes del loop (cache por cap)
-        from script_engine.gfx_layer import prefetch_plans
-        _pre = prefetch_plans([p for p in plans if not only_cap or p.chapter_id == only_cap], video_id, work_dir)
-        print(f"  🎨 gfx_director prefetch: " + ", ".join(f"{c} {t:.0f}s" for c, t in _pre.items()))
-        # F36 §C.4: el texto de pantalla sale del guion en papel (m01e_pantalla, Fase 1): ya no hay rotulista que
-        # llamar en paralelo antes del plan
+    # F37 §B.4: sin el borrador del director (y sin su prefetch en paralelo): el texto de pantalla sale del guion en
+    # papel (m01e_pantalla, Fase 1) y el title card del título de la partición
     if plan_only:                                                       # F32 §A: el guion de pantalla, sin render
         try:
             rc = _solo_plan([p for p in plans if not only_cap or p.chapter_id == only_cap], video_id, work_dir,
@@ -3387,8 +3382,8 @@ def main() -> int:
                              "(flux_visual/hybrid_visual en _fase2b_work) sin re-correr "
                              "DepthFlow ni flow_director. Para re-generar solo subs/música.")
     parser.add_argument("--gfx", action="store_true",
-                        help="F1: capa gráfica HyperFrames por capítulo (grade + bloques del "
-                             "gfx_director) antes de quemar subs. Fallback al clip original ante error.")
+                        help="F1: capa gráfica HyperFrames por capítulo (grade + title card + el guion en papel de "
+                             "Fase 1) antes de quemar subs. Fallback al clip original ante error.")
     parser.add_argument("--gfx-quality", choices=["draft", "looks"], default=None,
                         help="Calidad del render HyperFrames con --gfx (default looks; draft si --gfx-debug).")
     parser.add_argument("--reassemble-from-segments", action="store_true",
@@ -3418,14 +3413,11 @@ def main() -> int:
                              "sin música, sin _final.mp4, sin topics_db. Solo en modo single.")
     parser.add_argument("--gfx-workers", type=int, default=None, metavar="N",
                         help="F30 §C.1: workers del render HyperFrames (default gfx_render.workers).")
-    parser.add_argument("--rotulista", action="store_true",
-                        help="F29b: con --gfx, el texto de pantalla sale del rotulista (gfx_rules.rotulista = True); desde "
-                             "F36 C, del guion en papel de Fase 1 (_steps/<topic>/01e_pantalla.json), sin modelo.")
     parser.add_argument("--forma-variante", type=str, default=None, metavar="V,S,R",
                         help="F31: variantes de forma para comparar (no son default): V1|V2|V3 entrada/salida de ficha y "
                              "recorte, S1|S2|S3 tamaño del sello (+P = con placa), R1|R2 tamaño del reloj; p. ej. V2,S2P,R2.")
     parser.add_argument("--plan-only", action="store_true",
-                        help="F32 §A: el guion de pantalla sin render (director, rotulista, reglas y crítico; sin navegador) "
+                        help="F32 §A: el guion de pantalla sin render (papel, reglas y crítico; sin navegador) "
                              "→ output/<id>/GUION_PANTALLA.md/.json + _fase2b_work/mezcla_preview.wav. Implica --gfx y "
                              "--reuse-visuals (los visuales base tienen que estar cocidos).")
     parser.add_argument("--plan-edit", type=str, default=None, metavar="ARCHIVO.json",
@@ -3447,9 +3439,6 @@ def main() -> int:
     if args.gfx_workers:                        # F30 §C.1 (GfxRenderSettings es frozen)
         from gfx_config import gfx_render as _grs
         object.__setattr__(_grs, "workers", int(args.gfx_workers))
-    if args.rotulista:                          # F29b §B
-        from gfx_config import gfx_rules as _gr
-        object.__setattr__(_gr, "rotulista", True)
     if args.forma_variante:                     # F31: solo para comparar; sin el flag, todo como hoy
         from gfx_config import gfx_rules as _gr
         object.__setattr__(_gr, "forma_variante", args.forma_variante)

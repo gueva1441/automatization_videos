@@ -1,9 +1,9 @@
 """
 script_engine/voz_utils.py — F36 §A: la utilería de la voz que usan varios módulos de la capa de texto (movida de
-gfx_rotulista sin cambios): cifras en dígitos y en letras (`numeros`, `numero_en`), nombres propios (`nombres`,
+pantalla_entrada sin cambios): cifras en dígitos y en letras (`numeros`, `numero_en`), nombres propios (`nombres`,
 `nombre_inicial`), muñones, palabras de contenido, el analizador de cifras con unidad y magnitud (`_analiza`, lo usan la
 coherencia, el contador y el agua) y las oraciones de la voz con cada palabra numerada (`oraciones`, `beat_de_oracion`).
-Va aparte porque la usan rotulista_filtros, rotulista_colocar, clima, voz_datos y m01e_pantalla (decisión de F36 A).
+Va aparte porque la usan pantalla_filtros, pantalla_colocar, clima, voz_datos y m01e_pantalla (decisión de F36 A).
 """
 from __future__ import annotations
 

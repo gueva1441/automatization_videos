@@ -22,8 +22,8 @@ def modulos() -> list[Path]:
     se = ROOT / "script_engine"
     fs = sorted(se.glob("gfx_*.py")) + [se / n for n in ("aprobacion.py", "m01a_escaleta.py", "m01d_particion.py", "m01e_pantalla.py",
                                                           "music_intensity.py", "transition_applier.py")]
-    fs += [se / n for n in ("rotulista_filtros.py", "rotulista_colocar.py", "clima.py",   # F36 §A
-                            "voz_datos.py", "voz_utils.py")]
+    fs += [se / n for n in ("pantalla_entrada.py", "pantalla_filtros.py", "pantalla_colocar.py",   # F37 §B.5
+                            "clima.py", "voz_datos.py", "voz_utils.py")]                         # F36 §A
     fs += [ROOT / n for n in ("gfx_config.py", "fase2b.py", "transition_config.py")]
     return [f for f in fs if f.exists()]
 

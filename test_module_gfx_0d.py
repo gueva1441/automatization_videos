@@ -1,14 +1,11 @@
 """test_module_gfx_0d.py — F2 §0d: sfx, chapter_question y source_tag.
 Correr: python -m pytest test_module_gfx_0d.py -q
 """
-import json
 import sys
 
 import pytest
 
 import gfx_config as gc
-import script_engine.gfx_director as gd
-from script_engine.gfx_literal_lock import lock
 from script_engine.gfx_project import GfxScene, write_project
 
 WORDS = [{"word": w, "start": i * 0.5, "end": i * 0.5 + 0.4} for i, w in enumerate(
@@ -23,42 +20,6 @@ def test_libreria_sfx_existe_y_perfil_la_referencia():
     prof = gc.load_profile("misterio")
     assert {v["file"] for v in prof["sfx"].values()} <= wavs
     assert all(v["gain_db"] <= -18 for v in prof["sfx"].values())          # bajo la voz
-
-
-def test_chapter_question_candado_por_palabras_de_contenido():
-    assert gd.question_ok("¿Por qué fallan los generadores de respaldo?", NEXT)
-    assert not gd.question_ok("¿Quién apagó la prisión entera?", NEXT)      # "apagó", "entera" no están
-    plan = {"chapter_number": 2, "title_card": None, "callouts": [], "count_up": None, "archive_clippings": [],
-            "evidence_zoom": None, "chapter_question": {"text": "¿Quién apagó la prisión entera?"}}
-    ok, rej = lock(plan, {}, chapter_number=2, question_sources=NEXT)
-    assert ok["chapter_question"] is None and rej[0]["block"] == "chapter_question"
-
-
-def test_chapter_question_validador_y_cierre(monkeypatch):
-    real = gd.max_per_cap                       # F2b §1.3: OFF en el perfil; el código sigue vivo
-    monkeypatch.setattr(gd, "max_per_cap", lambda b: 1 if b == "chapter_question" else real(b))
-    raw = {"chapter_question": {"use": True, "text": "Por qué fallan los generadores de respaldo"}}
-    plan = gd.validate_plan(raw, n_facts=1, n_words=len(WORDS), scenes=[GfxScene(0, 0, 40)], facts=["x"])
-    assert plan["chapter_question"]["text"] == "¿Por qué fallan los generadores de respaldo?"
-    long = {"chapter_question": {"use": True, "text": "uno dos tres cuatro cinco seis siete ocho nueve diez"}}
-    assert "chapter_question" not in gd.validate_plan(long, n_facts=1, n_words=1, scenes=[GfxScene(0, 0, 40)], facts=["x"])
-    ctx = {"chapter_number": 2, "facts": ["x"], "skeleton": {}, "eligible": {}}
-    res = gd.resolve_plan(plan, ctx=ctx, words=WORDS, scenes=[GfxScene(0, 0.0, 40.0)])
-    q = res["chapter_question"]
-    assert q["start"] == pytest.approx(40.0 - gc.gfx_rules.question_dur - 0.15) and q["keyword"] == "generadores"
-
-
-def test_source_tag_solo_si_el_fact_nombra_la_fuente():
-    facts = ["Más de 500 prisioneros no figuraban en la lista, según Human Rights Watch.", "El agua subió."]
-    srcs = ["Human Rights Watch, 2005, 'New Orleans: Prisoners Abandoned'", "Tanber, George J., 2005, 'Arrested'"]
-    tags = gd.fact_sources(facts, srcs)
-    assert tags == {0: "Human Rights Watch, 2005"}
-    plan = {"chapter_number": 2, "title_card": None, "count_up": None, "archive_clippings": [], "evidence_zoom": None,
-            "callouts": [{"text": "500 prisioneros", "source": "Human Rights Watch, 2005"},
-                         {"text": "500 prisioneros", "source": "Inventado, 1999"}]}
-    sources = {"verified_facts[0]": facts[0], "sources[0]": srcs[0]}
-    ok, _ = lock(plan, sources, chapter_number=2)
-    assert ok["callouts"][0]["source"] == "Human Rights Watch, 2005" and ok["callouts"][1]["source"] == ""
 
 
 def test_plantilla_question(tmp_path):

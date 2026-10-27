@@ -80,27 +80,6 @@ def _plan_lleno(real):
     }
 
 
-def test_finalizar_ventana_topes_sellos_y_duraciones(tmp_path):
-    carga, pool = _datos()
-    for cap in range(1, 8):
-        real, _ = _real(cap, carga, pool, tmp_path)
-        plan = _plan_lleno(real)
-        gr.finalizar(plan, real, [])
-        cand = {c["id"]: c for c in real["candidatos"]}
-        for b in plan["archive_clippings"] + plan["callouts"]:
-            c = cand[b["pool_id"]]                                   # solo candidatos
-            assert c["t0"] - 0.3 <= b["start"] <= c["t1"]            # dentro de su ventana
-            assert b["duration"] == gr.duracion_texto(b.get("headline") or b.get("text"))
-        n = len(plan["archive_clippings"]) + len(plan["callouts"]) + len(plan["emphasis"])
-        assert n <= gr.TOPE_CAP
-        assert plan["count_up"] is None
-        assert len(plan["emphasis"]) <= 1 and all(e.get("peak_word") for e in plan["emphasis"])
-        assert all("icon" not in e for e in plan["emphasis"])     # gota fuera: ícono figurativo
-        assert all(not b.get("text") == "de VERIFIED_FACTS" for b in plan["callouts"])
-    assert gr.duracion_texto("una dos tres") == 2.5 and gr.duracion_texto(" ".join(["x"] * 30)) == 8.0
-    assert gr.duracion_texto(" ".join(["x"] * 9)) == 4.0
-
-
 def test_pregunta_es_el_cierre_del_ultimo_beat(tmp_path, monkeypatch):
     from script_engine import gfx_layer as gl
     carga, pool = _datos()

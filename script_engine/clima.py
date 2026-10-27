@@ -1,7 +1,8 @@
 """
-script_engine/clima.py — F36 §A: los sellos de clima (movido de gfx_rotulista; `peak_word` viene de gfx_peak). F36 §C:
-la palabra y la oración vienen del guion en papel (`sellos_del_papel`); acá se pone el instante (la palabra de más peso
-de la oración o su inicio), el crítico «¿estorba?» antes del reparto y «nunca al mismo tiempo». F36 §D: se borró el
+script_engine/clima.py — F36 §A: los sellos de clima (movido de pantalla_entrada; `peak_word` viene de gfx_peak). F36 §C:
+la palabra y la oración vienen del guion en papel (`sellos_del_papel`); acá se pone el instante (F37 §B.1: la escalera
+de intentos de pantalla_colocar.instantes y el otro lado de la pantalla), el crítico «¿estorba?» en cada intento y
+«nunca al mismo tiempo». F36 §D: se borró el
 camino de Gemini Flash (`sellos_por_tema`, `SELLO_CLIMA_PROMPT`).
 """
 from __future__ import annotations
@@ -31,22 +32,25 @@ def sellos_del_papel(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any
                      juez: Callable[[dict], dict] | None = None, usadas_video: set[str] | None = None
                      ) -> list[dict[str, Any]]:
     """F36 §C.4 (aclaración 5): los sellos vienen del guion en papel (m01e_pantalla): la palabra y la oración (ya
-    alineada con la voz). El instante dentro de la oración lo pone este módulo como siempre: la palabra de más peso de
-    un mood (peak_word) o, si no hay, el inicio de la oración. Después lo mecánico: la palabra es del vocabulario, no
-    salió antes en el video, no cruza el corte de su escena; el crítico («¿estorba?», B.2) antes del reparto; y el
-    reparto: nunca al mismo tiempo que otro bloque (title card, texto, reloj, otro sello: no se solapan ni se tocan,
-    DECISIONES 17:58). «Uno por beat» ya lo decidió el papel. F36 §D: no hay otros sellos (ni del director ni de la
-    palabra del pico) ni sfx propio del sello. Corre después de escena_final."""
+    alineada con la voz). Primero lo que no depende del instante: la palabra es del vocabulario y no salió antes en el
+    video. F37 §B.1: después se prueban, en orden, los instantes de pantalla_colocar.instantes (1 la palabra de más peso
+    de la oración —peak_word—, el inicio de la oración; 2 el inicio de la escena siguiente dentro de la oración; 3 el
+    inicio de la oración siguiente del beat) y, contra el crítico, 4 el otro lado de la pantalla (el sello va a la
+    izquierda o a la derecha): gana el primero que no cruza el corte de su escena, no está al mismo tiempo que otro
+    bloque (title card, texto, reloj, otro sello; DECISIONES 17:58) y que el crítico («¿estorba?», B.2) no tira; cada
+    intento se juzga de nuevo (caché por identidad: instante y lado). Si ninguno entra, «papel sin colocar» con la
+    lista de intentos. «Uno por beat» ya lo decidió el papel. F36 §D: sin sfx propio. Corre después del reparto."""
     from gfx_config import gfx_rules
     from script_engine.gfx_peak import sentences
     from script_engine.gfx_project import scene_at
-    from script_engine.rotulista_colocar import choca
+    from script_engine.pantalla_colocar import OTRO_LADO, choca, instantes
     filas: list[dict[str, Any]] = []
     plan["emphasis"] = []
     if not scenes:
         return filas
     lista = vocabulario_clima()
     sents = sentences(words, time_offset)
+    ors = ent.get("oraciones") or []
     dur = round(float(gfx_rules.mood_dur), 3)
     iv: list[tuple[float, float, str]] = []
     if plan.get("title_card"):
@@ -62,55 +66,71 @@ def sellos_del_papel(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any
     criticos: list[dict[str, Any]] = []
     for sp in sorted(sellos, key=lambda x: (x.get("sentence_idx") is None, x.get("sentence_idx") or 0)):
         k, palabra = sp.get("sentence_idx"), str(sp.get("palabra") or "")
-        if k is None or not 0 <= int(k) < len(sents):
+        if k is None or not 0 <= int(k) < len(sents) or int(k) >= len(ors):
             filas.append({"bloque": "emphasis", "texto": palabra, "t": None, "accion": "fuera", "regla": "tema",
                           "quien": "papel", "motivo": f"sello del papel «{palabra}»: sin oración de la voz", "papel": True})
             continue
-        s = sents[int(k)]
-        h = peak_word(s, words, moods)
-        # aclaración 5: el instante = la palabra de más peso de la oración o el inicio de la oración; se prueba en ese
-        # orden y queda el primero que no cruza el corte de su escena (lectura declarada, F36_REPORT)
-        momentos = list(dict.fromkeys(([round(float(words[h["i"]]["start"]) + time_offset, 3)] if h else [])
-                                      + [round(float(s["t0"]), 3)]))
-        t = next((x for x in momentos if x + dur <= scene_at(scenes, x).end + 1e-6), momentos[0])
-        sc = scene_at(scenes, t)
-        quien, regla = "catálogo", "tema"
+        k = int(k)
         motivo = (f"«{palabra}» no está en el vocabulario sellos_clima" if palabra not in lista else
-                  f"«{palabra}» ya salió en el video" if palabra in antes else
-                  f"cruza el corte de la escena {sc.idx} ({sc.end:.2f} s) en la palabra de más peso y en el inicio de "
-                  f"la oración" if t + dur > sc.end + 1e-6 else None)
-        if h and t != momentos[0]:
-            h = None                                   # arranca con la oración: no hay palabra de la voz debajo
-        m = (moods.get(str(h["category"])) or {}) if h else {}
-        base = {"category": h["category"] if h else None, "layer": m.get("layer"), "icon_anim": m.get("icon_anim") or "stamp",
-                "side": getattr(sc, "quiet_side", "right") or "right", "stamp": gfx_rules.emphasis_stamp,
-                "weight": h["weight"] if h else 0,
-                "word": palabra, "start": t, "duration": dur, "por_tema": True, "clima": True, "papel": True,
-                "tema": TEMA_DE_MOOD.get(str(h["category"]), h["category"]) if h else None,
-                "palabra_voz": re.sub(r"^[¿¡\"'«“(]+|[.,;:!?…\"'»”)]+$", "", str(words[h["i"]]["word"]).strip()) if h else None,
-                "sentence_idx": int(k), **({"sin_alinear": sp["sin_alinear"]} if sp.get("sin_alinear") else {}),
-                **({"editado": True} if sp.get("editado") else {})}
-        if motivo is None and juez is not None:                   # §B.2: el crítico, antes del reparto
-            row = juez(base)
-            criticos.append(row)
-            if not row["pasa"]:
-                quien, regla = "crítico", "crítico"
-                motivo = f"«{palabra}» estorba: {row['motivo']} (mira {row['mira']})"
-        if motivo is None:
-            hay = choca(iv, t, t + dur)
-            motivo = f"se solapa con {', '.join(sorted(set(hay)))}" if hay else None
+                  f"«{palabra}» ya salió en el video" if palabra in antes else None)
         if motivo:
-            filas.append({"bloque": "emphasis", "texto": palabra, "t": t, "accion": "fuera", "regla": regla,
-                          "quien": quien, "motivo": f"sello del papel «{palabra}»: {motivo}", "papel": True})
+            filas.append({"bloque": "emphasis", "texto": palabra, "t": None, "accion": "fuera", "regla": "tema",
+                          "quien": "catálogo", "motivo": f"sello del papel «{palabra}»: {motivo}", "papel": True})
             continue
-        plan["emphasis"].append(base)
-        iv.append((t, t + dur, "sello"))
+        h = peak_word(sents[k], words, moods)
+        t_peso = round(float(words[h["i"]]["start"]) + time_offset, 3) if h else None
+        fallas: list[str] = []
+        elegido = None
+        for t, si, como in instantes(ors, k, scenes, peso=t_peso):
+            sc = scene_at(scenes, t)
+            if t + dur > sc.end + 1e-6:
+                fallas.append(f"{como} ({t:.2f} s): cruza el corte de la escena {sc.idx} ({sc.end:.2f} s)")
+                continue
+            hay = choca(iv, t, t + dur)
+            if hay:
+                fallas.append(f"{como} ({t:.2f} s): se solapa con {', '.join(sorted(set(hay)))}")
+                continue
+            lado0 = getattr(sc, "quiet_side", "right") or "right"
+            for j, lado in enumerate((lado0, OTRO_LADO.get(lado0, "left"))):
+                hh = h if (h and abs(t - t_peso) < 1e-6) else None      # fuera de la palabra de más peso: sin palabra debajo
+                m = (moods.get(str(hh["category"])) or {}) if hh else {}
+                base = {"category": hh["category"] if hh else None, "layer": m.get("layer"),
+                        "icon_anim": m.get("icon_anim") or "stamp", "side": lado, "stamp": gfx_rules.emphasis_stamp,
+                        "weight": hh["weight"] if hh else 0, "word": palabra, "start": t, "duration": dur,
+                        "por_tema": True, "clima": True, "papel": True,
+                        "tema": TEMA_DE_MOOD.get(str(hh["category"]), hh["category"]) if hh else None,
+                        "palabra_voz": re.sub(r"^[¿¡\"'«“(]+|[.,;:!?…\"'»”)]+$", "", str(words[hh["i"]]["word"]).strip())
+                        if hh else None, "sentence_idx": si, "intento": como + (f" · lado {lado}" if j else ""),
+                        **({"sin_alinear": sp["sin_alinear"]} if sp.get("sin_alinear") else {}),
+                        **({"editado": True} if sp.get("editado") else {})}
+                if juez is not None:                              # §B.2: el crítico, antes del reparto, en cada intento
+                    row = juez(base)
+                    if not row["pasa"]:
+                        fallas.append(f"{como} ({t:.2f} s) · lado {lado}: estorba — {row['motivo']}")
+                        continue
+                    criticos.append(row)
+                elegido = base
+                break
+            if elegido is not None:
+                break
+        if elegido is None:
+            filas.append({"bloque": "emphasis", "texto": palabra, "t": None, "accion": "fuera", "regla": "colocar",
+                          "quien": "colocar (intentos)", "papel": True, "intentos": fallas,
+                          "motivo": f"sello del papel «{palabra}»: no entra en ningún intento: " + " · ".join(fallas)})
+            continue
+        if fallas:
+            filas.append({"bloque": "emphasis", "texto": palabra, "t": elegido["start"], "accion": "movido",
+                          "regla": "colocar", "papel": True, "intentos": fallas,
+                          "motivo": f"sello del papel «{palabra}»: {elegido['intento']} ({elegido['start']:.2f} s) · "
+                                    f"antes: {' · '.join(fallas)}"})
+        plan["emphasis"].append(elegido)
+        iv.append((elegido["start"], elegido["start"] + dur, "sello"))
         antes.add(palabra)
     plan["critico_sellos"] = criticos
     plan["emphasis"].sort(key=lambda e: e["start"])
     plan["sellos_tema"] = filas
-    log.append(f"  sellos del papel: {[(e['word'], round(e['start'], 1)) for e in plan['emphasis']]} · "
-               f"fuera {[(f['texto'], f['motivo']) for f in filas]}")
+    log.append(f"  sellos del papel: {[(e['word'], round(e['start'], 1), e['intento']) for e in plan['emphasis']]} · "
+               f"fuera/movidos {[(f['texto'], f['accion'], f['motivo']) for f in filas]}")
     return filas
 
 

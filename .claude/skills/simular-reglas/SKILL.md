@@ -10,7 +10,7 @@ una por escena) y Vajont salió con 2 textos. Simular primero cuesta segundos.
 ## Entrada
 - La **descripción de la regla** (del handoff, literal).
 - El guion del topic de prueba: `output/<topic>/GUION_PANTALLA.json` (si no existe o es viejo: `fase2b <topic>
-  --plan-only --rotulista`). Para reglas sobre lo que el guion no trae, los planes `output/<topic>/_fase2b_work/
+  --plan-only`). Para reglas sobre lo que el guion no trae, los planes `output/<topic>/_fase2b_work/
   gfx_plan_chNN.resolved.json`.
 
 ## Cómo

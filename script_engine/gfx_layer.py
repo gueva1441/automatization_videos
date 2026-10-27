@@ -6,12 +6,13 @@ resolver base_clip y ANTES de quemar subs + pegar audio. Pasos:
   1. re-encode base_clip -g 30 → work_dir/gfx_chXX/public/base.mp4      (D11)
   2. grade: capas CSS de identidad en la composición (desvío de D4: la pasada media-treatment
      sobre el footage costó 6.29× tiempo real en F1 paso 1; el preset nativo queda versionado)
-  3. gfx_plan = gfx_director (cache work_dir/gfx_plan_chXX.json)
+  3. plan = el title card (título de la partición) + lo del guion en papel (F37 §B.4: el papel es el único camino;
+     el borrador del director se borró): fichas, sellos, relojes y tarjeta, colocados moviendo en vez de cortar
+     (pantalla_colocar.repartir, clima.sellos_del_papel) con el crítico «¿estorba?» (gfx_critic) en cada intento
   4. gfx_literal_lock(plan) → bloques rechazados se QUITAN, nunca se reescriben (D7)
   5. templater (gfx_project) → proyecto HyperFrames en work_dir/gfx_chXX/
-  6b. F4e: crítico visual (gfx_critic) — cada bloque contra el cuadro real + la voz: solo pasan los «suma»
   6. hyperframes lint (0 errores) → render draft|looks → work_dir/chXX_gfx.mp4 (sin audio)
-     (+ F4e: hoja_contactos_chXX.jpg con un cuadro por bloque que pasó)
+     (+ hoja_contactos_chXX.jpg con un cuadro por bloque que pasó)
   7. CUALQUIER excepción → return base_clip (+ error_handler.log_warning)
 
 Todo queda en work_dir/gfx_chXX.log (tiempos y resultado por paso).
@@ -19,7 +20,6 @@ Todo queda en work_dir/gfx_chXX.log (tiempos y resultado por paso).
 from __future__ import annotations
 
 import json
-import math
 import re
 import subprocess
 import time
@@ -275,7 +275,7 @@ def _realizador(ctx: dict[str, Any], words: list[dict], time_offset: float, work
 
 def lectura_pregunta(txt: str) -> float:
     """F32 §B.2: lo que dura la pregunta de cierre = su lectura a 15 cps (§0)."""
-    from script_engine.gfx_rotulista import LECTURA_CPS
+    from script_engine.pantalla_colocar import LECTURA_CPS
     return round(len(txt or "") / LECTURA_CPS, 3)
 
 
@@ -283,7 +283,7 @@ def closing_question(resolved: dict[str, Any], ctx: dict[str, Any], work_dir: Pa
                      log: list[str]) -> float:
     """F3: pregunta de cierre al FINAL del cap, durante una pausa con la voz en silencio. Devuelve la pausa a agregar al
     base (0 si no hay pregunta). F29 §A.6: la pregunta es el `cierre` del último beat, literal. F32 §B.2: dura su lectura
-    (caracteres ÷ 15 cps, gfx_rotulista.LECTURA_CPS); el negro que sigue (black_hold) como siempre; question_pause_sec
+    (caracteres ÷ 15 cps, pantalla_entrada.LECTURA_CPS); el negro que sigue (black_hold) como siempre; question_pause_sec
     queda solo como interruptor (0 = sin pregunta). F36 §D: sin escaleta o sin `cierre`, no hay pregunta (el respaldo
     generado por Flash, gfx_question, se borró)."""
     if not gfx_rules.question_auto or gfx_rules.question_pause_sec <= 0:
@@ -456,50 +456,21 @@ def remapped_words(chplan: Any) -> tuple[list[dict], list[dict]]:
 
 
 # ═══════════════════════════════════════════════════════════════
-#  Palanca F1b: director de todos los caps en paralelo (antes del loop de render)
-# ═══════════════════════════════════════════════════════════════
-
-def prefetch_plans(plans: list[Any], video_id: str, work_dir: Path, *, max_workers: int = 7) -> dict[str, float]:
-    """Llama al gfx_director de todos los caps en paralelo (threads) y deja el cache
-    work_dir/gfx_plan_chXX.json. apply_gfx después lo encuentra y no espera a Gemini.
-
-    Las escenas se estiman con la duración del audio (el cache guarda la respuesta CRUDA y apply_gfx
-    la re-valida con las escenas reales). Nunca lanza: un cap que falla queda para apply_gfx.
-    Devuelve {cap: segundos} (0.0 si ya estaba en cache).
-    """
-    from concurrent.futures import ThreadPoolExecutor
-    from script_engine.gfx_director import DIRECTOR_VERSION, load_chapter_context, select_gfx_plan
-
-    def _cached(cap: str) -> bool:
-        """Cache vigente = existe Y es de la versión actual del director (si no, se re-llama acá en paralelo)."""
-        f = work_dir / f"gfx_plan_{cap}.json"
-        try:
-            return f.exists() and json.loads(f.read_text(encoding="utf-8")).get("director") == DIRECTOR_VERSION
-        except (OSError, ValueError, AttributeError):
-            return False
-
-    def _one(chplan: Any) -> tuple[str, float]:
-        cap = chplan.chapter_id
-        if _cached(cap):
-            return cap, 0.0
-        t = time.time()
-        try:
-            raw_words, words = remapped_words(chplan)
-            ctx = load_chapter_context(video_id, chplan)
-            scenes = build_scenes(chplan, ctx["script_chapter"], raw_words, float(chplan.audio_duration))
-            select_gfx_plan(chplan, ctx=ctx, words=words, scenes=scenes, work_dir=work_dir)
-        except Exception as e:  # noqa: BLE001
-            error_handler.log_warning(PipelineStage.ASSEMBLY, f"[gfx] prefetch {cap} falló ({e}); lo hará apply_gfx")
-        return cap, time.time() - t
-
-    work_dir.mkdir(parents=True, exist_ok=True)
-    with ThreadPoolExecutor(max_workers=max_workers) as ex:
-        return dict(ex.map(_one, plans))
-
-
-# ═══════════════════════════════════════════════════════════════
 #  Entry point
 # ═══════════════════════════════════════════════════════════════
+
+def plan_base(ctx: dict[str, Any]) -> dict[str, Any]:
+    """F37 §B.4: el plan de un cap antes del papel: el title card con el título de la partición (01a_skeleton; el
+    candado literal lo mira contra `skeleton.title`) y los campos vacíos que llenan el papel, el reloj, la pregunta y el
+    crítico. Sin modelo (antes lo armaba el borrador de Gemini del director, que se borró)."""
+    from gfx_config import max_per_cap
+    n = int(ctx["chapter_number"])
+    titulo = (ctx.get("skeleton") or {}).get("title")
+    return {"chapter_number": n,
+            "title_card": {"kicker": f"CAPÍTULO {n}", "title": titulo} if titulo and max_per_cap("title_card") > 0 else None,
+            "callouts": [], "archive_clippings": [], "quote_card": None, "punch_in": [], "emphasis": [],
+            "chapter_question": None, "gap_warnings": []}
+
 
 def plan_congelado(work_dir: Path, cap: str) -> dict[str, Any] | None:
     """F34 §A.7.1: el plan resuelto del cap (una copia) si el guion de pantalla del topic (`work_dir/..`) está aprobado y
@@ -580,14 +551,14 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
 
         ts = time.time()
         raw_words, words = remapped_words(plan)
-        from script_engine.gfx_director import load_chapter_context, resolve_plan, select_gfx_plan
+        from script_engine.gfx_director import load_chapter_context
         ctx = load_chapter_context(video_id, plan)
         real = _realizador(ctx, words, time_offset, work_dir, cap, log) if gfx_plan_override is None else None
-        rot_on = bool(real) and gfx_rules.rotulista and bool(ctx.get("pool"))   # F29b §A: el rotulista escribe el texto
+        rot_on = bool(real) and bool(ctx.get("pool"))       # F37 §B.4: el papel es el único camino (sin --rotulista)
         rot = ent_rot = None
         if rot_on:                          # F36 §C.4: el texto viene del guion en papel (m01e_pantalla), sin modelo
-            from script_engine import gfx_rotulista as gro
-            ent_rot, rot = gro.preparar_cap(ctx["chapter_number"], cap, real, ctx, words, time_offset, pre_roll=pre_roll)
+            from script_engine import pantalla_entrada as pe, pantalla_colocar as pc, clima, voz_datos as vd
+            ent_rot, rot = pe.preparar_cap(ctx["chapter_number"], cap, real, ctx, words, time_offset, pre_roll=pre_roll)
             log.append(f"  guion en papel: {rot.get('modelo') or rot.get('error')} · {len(rot['final']['bloques'])} "
                        f"ficha(s) · {len(rot['sellos'])} sello(s) · {len(rot['relojes'])} reloj(es) · oraciones sin "
                        f"alinear {[(a['papel'], a['parecido']) for a in rot['sin_alinear']]}")
@@ -645,36 +616,20 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             log.append("  plan: override fijo (sin LLM)")
         else:
             from script_engine.gfx_literal_lock import lock
-            raw_plan = select_gfx_plan(plan, ctx=ctx, words=words, scenes=scenes, work_dir=work_dir, log=log,
-                                       time_offset=time_offset)
-            # F2 §1: el box del zoom lo decide visión sobre el frame real (cache por escena)
-            from script_engine.gfx_director import apply_zoom_vision
-            raw_plan = apply_zoom_vision(raw_plan, frame_for_scene=lambda si: _zoom_frame(
-                project / "public" / "base.mp4", scenes[si], work_dir / f"gfx_zoomframe_{cap}_s{si:02d}.jpg"),
-                cache=work_dir / f"gfx_zoom_box_{cap}.json", log=log)
-            # pre-merge: dedupe de cifras a nivel video (contadores ya animados en caps anteriores)
-            from script_engine.gfx_director import counted_figures_before
-            ctx["video_counted"] = counted_figures_before(work_dir, ctx["chapter_number"])
-            if ctx["video_counted"]:
-                log.append(f"  cifras ya animadas en caps anteriores: {sorted(ctx['video_counted'])}")
-            resolved = resolve_plan(raw_plan, ctx=ctx, words=words, scenes=scenes, time_offset=time_offset, log=log)
-            resolved, rejected = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
-                                      question_sources=ctx.get("next_sources"))
+            resolved = plan_base(ctx)                            # F37 §B.4: sin el borrador del director
             if rot_on:                                               # F36 §C.4: el texto viene del guion en papel
                 from script_engine.gfx_pool import used_ids_before as _used
-                resolved["fragmentos"] = gro.colocar(resolved, rot, ent_rot, scenes=scenes, pool=ctx.get("pool"),
+                ent_rot["peso"] = pc.pesos(words, time_offset, ctx.get("moods") or _moods_activos())   # F37 §B.1
+                resolved["fragmentos"] = pc.colocar(resolved, rot, ent_rot, scenes=scenes, pool=ctx.get("pool"),
                                                      used_before=_used(work_dir, ctx["chapter_number"]), log=log,
                                                      words=words, time_offset=time_offset)
-                for k in ("count_up", "water_level", "evidence_zoom", "icon_array"):   # catálogo 18:17: no existen
-                    resolved.pop(k, None)
-                resolved, rej_r = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
-                                       question_sources=ctx.get("next_sources"))
-                rejected += rej_r
+            resolved, rejected = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
+                                      question_sources=ctx.get("next_sources"))
         if gfx_plan_override is None and gfx_rules.peak_blocks:      # F3: pico del cap + reloj
             from gfx_config import active_moods
             if rot_on:                                # F29b §A.1.5/A.5: el pico es el de la escaleta, sin bloque propio
                 from script_engine.gfx_intensity import word_freq
-                gro.pico_plan(resolved, ent_rot, words=words, scenes=scenes, moods=ctx.get("moods") or active_moods(),
+                vd.pico_plan(resolved, ent_rot, words=words, scenes=scenes, moods=ctx.get("moods") or active_moods(),
                               intensity=intensity, time_offset=time_offset,
                               freq=word_freq(ctx.get("narration_all") or ""), log=log)
             if ctx.get("pool"):                                      # F5 §2: el reloj sale de la cronología
@@ -682,7 +637,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                 from script_engine.voz_datos import ticker_corner
                 ptk = pool_ticker(ctx, words, clip_dur, time_offset)
                 if ptk is None and rot_on:                           # F34 §A.3.3: la voz dice una fecha completa
-                    ptk = gro.reloj_de_voz(ent_rot, clip_dur)
+                    ptk = vd.reloj_de_voz(ent_rot, clip_dur)
                     if ptk:
                         log.append(f"  reloj (voz): {ptk['day']} {ptk['month']} {ptk['tail']} @ {ptk['start']:.1f}s")
                 resolved["time_ticker"] = ticker_corner(ptk, resolved) if ptk else None
@@ -694,7 +649,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             rejected += rej2
         if gfx_plan_override is None and rot_on:                     # F36 §C.4: tarjeta y relojes del papel
             if plan.is_first:
-                tp, deriv = rot.get("tarjeta"), gro.tarjeta_inicial(ctx["escaleta"], ctx.get("pool"))
+                tp, deriv = rot.get("tarjeta"), vd.tarjeta_inicial(ctx["escaleta"], ctx.get("pool"))
                 resolved["tarjeta_inicial"] = (
                     {"texto": tp["texto"], "fuente": "guion en papel (m01e_pantalla)", "papel": True,
                      **({"difiere": f"la derivada de la escaleta dice «{deriv['texto']}»"}
@@ -725,37 +680,27 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                 clip_dur = _ffprobe_duration(project / "public" / "base.mp4")
             scenes[-1].end = round(clip_dur, 3)
         def _criticar() -> None:
-            """F36 §D: el crítico es solo el del rotulista con «¿estorba?» y corre antes del reparto
-            (_criticar_antes, sellos_del_papel); acá se juntan sus filas. El crítico viejo (F4e) se borró."""
+            """F37 §B.1: el crítico «¿estorba?» corre en cada intento del reparto (repartir, sellos_del_papel); acá se
+            juntan las filas de los sellos (las de fichas y recortes quedan en `critico_rotulista`)."""
             if gfx_plan_override is None and gfx_rules.visual_critic:
                 resolved["critico"] = list(resolved.pop("critico_previo", None) or [])
 
-        def _criticar_antes() -> None:
-            """F36 §B.2/§C.4: el crítico sobre los textos del papel, antes del reparto (escena_final, sellos), solo
-            «¿estorba?», sobre la foto sola (todavía no hay nada dibujado). Lo que no pasa no ocupa lugar."""
-            resolved["critico_previo"] = []
-            if not (gfx_plan_override is None and gfx_rules.visual_critic):
-                return
-            from script_engine.gfx_critic import criticize_rotulista
-            resolved["critico_rotulista"] = criticize_rotulista(resolved, base=project / "public" / "base.mp4",
-                                                                words=words, time_offset=time_offset, work_dir=work_dir,
-                                                                cap=cap, log=log)
-
-        def _juez_sello(em: dict) -> dict:
+        def _juez(kind: str, obj: dict) -> dict:
+            """F37 §B.1: el crítico «¿estorba?» de un intento (ficha, recorte o sello en su instante y su lado)."""
             from script_engine.gfx_critic import estorba
-            return estorba("sello", em, base=project / "public" / "base.mp4", words=words, time_offset=time_offset,
+            return estorba(kind, obj, base=project / "public" / "base.mp4", words=words, time_offset=time_offset,
                            work_dir=work_dir, cap=cap, log=log)
 
         def _escena() -> None:
-            """F36: crítico de los candidatos → nunca al mismo tiempo → reloj contra el corte → sellos del papel (con
-            su crítico, antes de su reparto)."""
+            """F37 §B.1: reparto moviendo en vez de cortar (nunca al mismo tiempo + crítico en cada intento) → reloj
+            contra el corte → sellos del papel (la misma escalera, con su crítico)."""
             from script_engine.clima import usadas_antes
-            _criticar_antes()
-            gro.escena_final(resolved, scenes, ent_rot, log)
-            gro.hasta_el_corte(resolved, scenes, fps, log)
             critico = gfx_plan_override is None and gfx_rules.visual_critic
-            gro.sellos_del_papel(resolved, scenes, ent_rot, words, time_offset, ctx.get("moods") or _moods_activos(),
-                                 log, rot.get("sellos") or [], juez=_juez_sello if critico else None,
+            resolved["critico_previo"] = []
+            pc.repartir(resolved, scenes, ent_rot, log, juez=_juez if critico else None)
+            pc.hasta_el_corte(resolved, scenes, fps, log)
+            clima.sellos_del_papel(resolved, scenes, ent_rot, words, time_offset, ctx.get("moods") or _moods_activos(),
+                                 log, rot.get("sellos") or [], juez=(lambda em: _juez("sello", em)) if critico else None,
                                  usadas_video=usadas_antes(work_dir, ctx["chapter_number"]))   # F36 §C.4
             resolved["critico_previo"] += [r for r in resolved.pop("critico_sellos", None) or [] if r["pasa"]]
         from script_engine.gfx_realizador import cerrar        # F29: finalizar → crítico → pico · F29b: … → pico → crítico

@@ -13,17 +13,15 @@ prende con el token `identity_rules` del perfil (misterio: true; el motor y otro
                          impacto (R1, tope del perfil); 1 fundido a negro por cap; corte después del zoom
     select_punches()     golpes de zoom: máx punch_max_identity (4), uno por frase, nunca a ±5 s del pico,
                          elegidos por peso de la palabra
-    golden_fewshot()     el plan dorado resumido (t · palabra · elemento · variante) para el prompt del director
     identity_violations() chequeo duro del plan final (cantidades, alternancia, pico) → lista de violaciones
 """
 from __future__ import annotations
 
-import json
 import re
 from pathlib import Path
 from typing import Any
 
-from gfx_config import GFX_PROFILES_DIR, gfx_rules
+from gfx_config import gfx_rules
 
 PEAK_CLEAR_SEC = 5.0
 
@@ -150,48 +148,6 @@ def transiciones_por_relato(scenes: list[Any], plan: dict[str, Any], beats: list
             tr = {"kind": "cut", "frames": 0, "why": "corte"}
         out[s.idx] = {**tr, "rank": s.rank}
     return out
-
-
-_ELEM = {"title_card": "título", "callouts": "dato", "archive_clippings": "recorte", "evidence_zoom": "zoom de detalle",
-         "count_up": "contador", "emphasis": "mood + sello", "icon_array": "matriz de figuras", "water_level": "nivel de agua",
-         "time_ticker": "reloj", "chapter_question": "pregunta de cierre", "icons": "ícono"}
-
-
-def golden_fewshot(profile: dict[str, Any] | None = None, max_rows: int = 24) -> str:
-    """Plan dorado del perfil resumido (t · elemento · qué) para el prompt del director. "" si no hay."""
-    if profile is None:
-        from gfx_config import ACTIVE_PROFILE as profile
-    name = ((profile or {}).get("identity") or {}).get("golden_plan")
-    if not name:
-        return ""
-    try:
-        g = json.loads((GFX_PROFILES_DIR / name).read_text(encoding="utf-8"))
-    except (OSError, ValueError):
-        return ""
-    p = g.get("plan") or {}
-    rows: list[tuple[float, str, str]] = []
-    if p.get("title_card"):
-        rows.append((0.0, "título", f"{p['title_card'].get('kicker', '')} · {p['title_card'].get('title', '')}"))
-    for c in p.get("callouts") or []:
-        rows.append((c["start"], "dato", f"«{c['text']}» ({c.get('kind', '')})"))
-    for a in p.get("archive_clippings") or []:
-        rows.append((a["start"], "recorte", f"«{a['headline']}»" + (" con ícono" if a.get("icon") else "")))
-    if p.get("evidence_zoom"):
-        ez = p["evidence_zoom"]
-        rows.append((ez.get("start", 0.0), "zoom de detalle", f"«{ez.get('word') or ez.get('anchor', '')}»"))
-    for e in p.get("emphasis") or []:
-        rows.append((e["start"], "mood + sello", f"«{e.get('word', '')}» ({e.get('layer', '')})"
-                     + (f" + ícono {e['icon']}" if e.get("icon") else "")))
-    for t in p.get("punch_in") or []:
-        rows.append((float(t), "golpe de zoom", "suave"))
-    if p.get("water_level"):
-        rows.append((p["water_level"]["start"], "nivel de agua", f"{p['water_level'].get('value_text')} {p['water_level'].get('unit', '')}"))
-    if p.get("chapter_question"):
-        rows.append((p["chapter_question"]["start"], "pregunta de cierre", f"«{p['chapter_question'].get('text', '')}»"))
-    rows.sort(key=lambda r: r[0])
-    lines = [f"  {int(t // 60):02d}:{t % 60:04.1f} · {el} · {what}" for t, el, what in rows[:max_rows]]
-    return ("ASÍ SE ARMA UN CAPÍTULO DE ESTE CANAL (plan dorado de "
-            f"{g.get('cap', '?')}, aprobado por el dueño; copiá el RITMO y la densidad, no el contenido):\n" + "\n".join(lines))
 
 
 def identity_violations(plan: dict[str, Any], transitions: dict[Any, dict[str, Any]] | None = None) -> list[str]:

@@ -3,7 +3,7 @@ lab/tools/mapa_modulos.py — F33 §D: arma `lab/MAPA_MODULOS.md` y `lab/MAPA_MO
 
 Los hechos (quién importa a quién, dónde, en qué commit nació cada archivo) salen del código con `mapa_hechos.py`; acá
 van, escritos a mano después de leer cada módulo, el sticker (qué hace para el video, sin jerga), lo que recibe y
-entrega, el estado en el camino de producción de hoy (topic con escaleta + `fase2b --gfx --rotulista`, perfil
+entrega, el estado en el camino de producción de hoy (topic con escaleta + `fase2b --gfx`, perfil
 misterio) y las funciones que ese camino ya no llama. Volver a correrlo después de tocar un módulo:
 
     python lab/tools/mapa_modulos.py
@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import mapa_hechos as mh  # noqa: E402
 
-CAMINO = ("topic con escaleta + `fase2b <topic> --gfx --rotulista` (perfil misterio); `--plan-only` recorre lo mismo "
+CAMINO = ("topic con escaleta + `fase2b <topic> --gfx` (perfil misterio); `--plan-only` recorre lo mismo "
           "sin el render")
 
 # módulo: (sticker, recibe, entrega, tanda, estado)
@@ -47,38 +47,44 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                    "algo cambió después, no hay render.", "GUION_PANTALLA.json + planes resueltos",
                    "`aprobado` en el guion; sí/no para el hook", "F33", "vivo"),
     "gfx_layer": ("El director de orquesta de la capa gráfica de un capítulo: llama a todos los demás en orden "
-                  "(plan, textos del papel, sellos, crítico, transiciones) y hace el render en HyperFrames. Desde F34, "
+                  "(plan base con el title card de la partición —F37: sin borrador del director—, textos del papel, "
+                  "reparto con crítico, sellos, transiciones) y hace el render en HyperFrames. Desde F34, "
                   "con el guion aprobado dibuja el plan aprobado tal cual (plan congelado) y no lo reescribe.",
                   "visual base del cap + palabras con tiempos + contexto", "`chNN_gfx.mp4`, plan resuelto, sfx, "
                   "escenas", "F1", "vivo"),
-    "gfx_director": ("El primer borrador de la pantalla: Gemini Flash propone bloques mirando la narración (de eso queda "
-                     "el title card); acá también se carga el contexto del cap.", "narración, hechos, escenas",
-                     "plan crudo y resuelto, contexto", "F1",
-                     "vivo (del borrador queda el title card; F36 D: sin sellos por léxico ni sfx por bloque)"),
+    "gfx_director": ("El contexto de un capítulo (sin modelo): script, skeleton, fuentes del candado literal, narración del "
+                     "video, pool; y la palabra clave de la pregunta de cierre. F37: el borrador de Gemini (su prompt, su "
+                     "esquema y su caché) se borró: el papel es el único camino y el title card sale de la partición.",
+                     "script + skeleton + canonical + pool", "contexto del cap, palabra clave", "F1", "vivo"),
     "gfx_realizador": ("Hace que la pantalla obedezca a la escaleta: ventanas de tiempo de cada beat, qué datos puede "
-                       "mostrar cada uno, la pregunta de cierre del último beat y el cierre del plan (F36 D: sin el "
-                       "rótulo de respaldo del pico).", "escaleta + narración por beat + pool", "`gfx_beats_chNN.json`, "
-                       "candidatos, filas de lo quitado", "F29", "vivo"),
-    "gfx_rotulista": ("La fachada del rotulista: desde F36 C ya no llama a ningún modelo; `preparar_cap` lee el guion "
-                      "en papel de Fase 1 (`01e_pantalla.json`), alinea sus oraciones con las de la voz por texto y ancla "
-                      "cada ficha a su palabra; el resto lo re-exporta de sus módulos para que nadie cambie de import.",
-                      "papel del topic + oraciones de la voz + beats", "entrada del cap + bloques, sellos, relojes y "
-                      "tarjeta del papel", "F29b", "vivo"),
-    "rotulista_filtros": ("Los filtros que deciden si un texto del papel sale, en un orden que se lee en una línea "
-                          "(`ORDEN`, F36 C): anclar el papel a la voz, no dicho del gancho, candado de lo literal, no "
-                          "dicho, spoiler y lectura hasta el corte (F37: lo que el autor del papel ya juzgó «otro hecho» "
-                          "no vuelve a cortar); además la comparación de cifras con la voz que usa el chequeo del guion.", "bloques del papel + entrada del cap", "bloques que pasan, cortados con "
-                          "su regla y motivo", "F36 (código de F29b)", "vivo"),
-    "rotulista_colocar": ("Pone cada texto que pasó en su lugar: cuánto dura (lectura, nunca después del corte), qué "
-                          "forma toma (ficha normal, nombre o cita con autor; papel = recorte), el reloj contra el corte y "
-                          "«nunca al mismo tiempo» (DECISIONES 17:58: dos bloques no se solapan ni se tocan; si chocan, "
-                          "esperan al momento siguiente de su beat).", "bloques validados + escenas", "bloques en el plan, "
-                          "filas de lo movido o cortado", "F36 (código de F29b)", "vivo"),
-    "clima": ("Los sellos de clima: la palabra y la oración vienen del guion en papel; acá se pone el instante (la "
-              "palabra de más peso de la oración o su inicio), se mira que no cruce el corte, el crítico («¿estorba?») "
-              "antes del reparto y que nunca esté al mismo tiempo que otro bloque.",
-              "sellos del papel + oraciones + léxico de moods", "sellos en el plan, filas de lo cortado",
-              "F36 (código de F32/F34)", "vivo"),
+                       "mostrar cada uno y la pregunta de cierre del último beat. F37: el cierre del plan solo deja los "
+                       "sellos del papel y ningún punch_in (sin las ramas del camino sin papel, del contador ni de los "
+                       "íconos).", "escaleta + narración por beat + pool", "`gfx_beats_chNN.json`, filas de lo quitado",
+                       "F29", "vivo"),
+    "pantalla_entrada": ("La entrada de Fase 2 para el texto de pantalla (F37: antes gfx_rotulista; no escribe nada): "
+                         "`preparar_cap` lee el guion en papel de Fase 1 (`01e_pantalla.json`), alinea sus oraciones con "
+                         "las de la voz por texto y ancla cada ficha a su palabra (con el juicio del autor, si lo hay).",
+                         "papel del topic + oraciones de la voz + beats", "entrada del cap + bloques, sellos, relojes y "
+                         "tarjeta del papel", "F29b", "vivo"),
+    "pantalla_filtros": ("Los filtros que deciden si un texto del papel sale, en un orden que se lee en una línea "
+                         "(`ORDEN`): anclar el papel a la voz, no dicho del gancho, candado de lo literal, no dicho, "
+                         "spoiler (lo que el autor juzgó «otro hecho» no corta) y lectura: desde F37 la lectura prueba la "
+                         "escalera de intentos (otro instante de la oración, la escena siguiente, la oración siguiente) y "
+                         "corta solo si no entra en ninguno. F37: antes rotulista_filtros.", "bloques del papel + entrada "
+                         "del cap", "bloques que pasan con sus intentos, cortados con su regla y motivo",
+                         "F36 (código de F29b)", "vivo"),
+    "pantalla_colocar": ("Pone cada texto del papel en su lugar (F37: antes rotulista_colocar): la ficha dura su "
+                         "lectura entre callout_dur_min y callout_dur_max sin pasar el corte, qué forma toma (ficha normal, "
+                         "nombre o cita con autor; papel = recorte) y el reparto: nunca al mismo tiempo (DECISIONES 17:58) y "
+                         "el crítico en cada intento, moviendo en vez de cortar (otro instante, otra escena, la oración "
+                         "siguiente, el otro lado); lo que no entra queda «sin colocar» con sus intentos.",
+                         "bloques validados + escenas", "bloques en el plan, filas de lo movido o sin colocar",
+                         "F36 (código de F29b)", "vivo"),
+    "clima": ("Los sellos de clima: la palabra y la oración vienen del guion en papel; acá se prueba la misma "
+              "escalera de intentos que las fichas (F37: palabra de más peso, inicio, escena siguiente, oración "
+              "siguiente y el otro lado), sin cruzar el corte, nunca al mismo tiempo que otro bloque y con el crítico "
+              "(«¿estorba?») en cada intento.", "sellos del papel + oraciones + léxico de moods",
+              "sellos en el plan, filas de lo movido o sin colocar", "F36 (código de F32/F34)", "vivo"),
     "voz_datos": ("Lo que sale de la voz y la escaleta sin modelo: el pico del cap, el reloj cuando la voz dice una "
                   "fecha completa (y su esquina libre), y la tarjeta fecha-hora derivada (solo para comparar con la del "
                   "papel).", "oraciones de la voz, escaleta, pool", "pico, reloj, tarjeta derivada", "F36 (código de F34)",
@@ -89,10 +95,10 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                   "la voz (el momento del relato) y cuántos segundos por palabra habla el narrador (mediana de sus voces "
                   "ya generadas).", "texto / palabras con tiempos / voces del narrador",
                   "cifras, años, nombres, oraciones, segundos por palabra", "F36 (código de F29b)", "vivo"),
-    "gfx_critic": ("El editor: Gemini mira la foto y saca lo que repite la voz, no aporta o tapa algo. Desde F36 juzga "
-                   "los candidatos ANTES del reparto (lo que saca no ocupa lugar); a las fichas del papel y a los sellos "
-                   "solo les pregunta si estorban.", "plan + cuadros del video + voz", "plan sin lo que no pasa + "
-                   "veredictos", "F4e", "vivo"),
+    "gfx_critic": ("El editor: Gemini mira la foto en el instante de un bloque del papel y dice si estorba (tapa un "
+                   "rostro o lo que la imagen muestra). F37: corre en cada intento del reparto (instante y lado), y lo "
+                   "que estorba se mueve al intento siguiente en vez de cortarse.", "bloque en un intento + cuadro del "
+                   "video + voz", "veredicto por intento (caché por identidad)", "F4e", "vivo"),
     "gfx_project": ("El dibujante: convierte el plan en la página HTML que HyperFrames renderiza (title card, ficha, "
                     "recorte, cita, sello, reloj, pregunta). F36 D: sin lupa, contador, agua, dato suelto, íconos ni "
                     "fuente.", "plan resuelto + escenas", "proyecto HyperFrames (index.html, CSS)", "F1", "vivo"),
@@ -118,8 +124,10 @@ M: dict[str, tuple[str, str, str, str, str]] = {
     "gfx_vision": ("Gemini mira cada foto y dice qué detalles tiene y dónde (rostro, manos, objetos); con eso se "
                    "decide el movimiento seguro (F36 D: la lupa y su verificación se borraron).", "PNG / cuadro de la "
                    "escena", "detalles con caja, caja humana", "F4b", "vivo"),
-    "gfx_literal_lock": ("El candado: un texto que no está literal en las fuentes (narración, pool) no sale.",
-                         "plan + fuentes", "plan sin lo no literal + rechazados", "F1", "vivo"),
+    "gfx_literal_lock": ("El candado: un texto que no está literal en las fuentes (narración, partición, pool) no sale: "
+                         "title card, reloj y lo que no viene del papel (el papel trae su propio candado). F37: sin las "
+                         "ramas de los bloques borrados.", "plan + fuentes", "plan sin lo no literal + rechazados", "F1",
+                         "vivo"),
     "gfx_review": ("La hoja de cues: un renglón por bloque visible con su segundo, para revisar el render.",
                    "eventos del plan", "`gfx_cues_chNN.md/.json`, página de revisión", "F1", "vivo"),
     "gfx_guion": ("Escribe el guion de pantalla: todo lo que se va a ver, en texto, con lo cortado y por quién, y los "
@@ -156,10 +164,8 @@ M: dict[str, tuple[str, str, str, str, str]] = {
 }
 
 # funciones (o archivos) que el camino de producción ya no llama: (qué, por qué, commit desde el que no corre)
-MUERTOS = [
-    ("gfx_director (el borrador de Gemini: datos, recortes, cita, contador, lupa, punch_in)", "**se llama y se descarta**: "
-     "`colocar` lo reemplaza por el papel y el único golpe es el zoom_punch del pico; del borrador queda el title card. "
-     "Borrarlo cambia el prompt del director (fuera de F36: abierto)", "9e9d844"),
+MUERTOS: list[tuple[str, str, str]] = [
+    # F37 §B.4: el borrador del director (el último muerto de F36) se borró con su prompt; no queda ninguno
 ]
 
 

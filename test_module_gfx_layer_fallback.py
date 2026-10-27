@@ -90,28 +90,6 @@ def test_reuse_no_re_renderiza(env, monkeypatch):
     assert "render original" in log and "reuse" in log      # el reuse agrega, no pisa
 
 
-def test_prefetch_paralelo_usa_cache_y_no_lanza(tmp_path, monkeypatch):
-    import threading
-    import script_engine.gfx_director as gd
-    seen = []
-    monkeypatch.setattr(gl, "remapped_words", lambda p: ([], []))
-    monkeypatch.setattr(gd, "load_chapter_context", lambda vid, p: {"script_chapter": {}})
-    monkeypatch.setattr(gl, "build_scenes", lambda *a, **k: [])
-    def fake_select(chplan, **k):
-        seen.append(threading.current_thread().name)
-        if chplan.chapter_id == "ch03":
-            raise RuntimeError("503")
-    monkeypatch.setattr(gd, "select_gfx_plan", fake_select)
-    import json
-    (tmp_path / "gfx_plan_ch01.json").write_text(json.dumps({"director": gd.DIRECTOR_VERSION, "raw": {}}),
-                                                 encoding="utf-8")         # ya en cache (versión vigente)
-    (tmp_path / "gfx_plan_ch02.json").write_text('{"raw": {}}', encoding="utf-8")   # cache de versión vieja
-    caps = [SimpleNamespace(chapter_id=f"ch0{i}", audio_duration=10.0) for i in (1, 2, 3)]
-    out = gl.prefetch_plans(caps, "vid", tmp_path)
-    assert out["ch01"] == 0.0 and set(out) == {"ch01", "ch02", "ch03"}
-    assert len(seen) == 2                                  # ch01 no se pidió; ch02 (versión vieja) sí
-
-
 def test_excepcion_inesperada_devuelve_base(env, monkeypatch):
     base, chplan, work = env
     monkeypatch.setattr(gl, "_reencode", lambda *a: (_ for _ in ()).throw(OSError("disco lleno")))

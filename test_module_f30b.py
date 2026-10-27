@@ -153,20 +153,23 @@ def test_pieza_de_musica_cubre_el_pre_roll(tmp_path):
 
 
 def test_critico_reusa_el_veredicto_por_identidad_del_bloque(tmp_path):
-    from PIL import Image
-    from script_engine.gfx_critic import clave_identidad, criticize_rotulista, PROMPT_VERSION_ROT
-    img = tmp_path / "x.jpg"
-    Image.new("RGB", (8, 8), (9, 9, 9)).save(img)
-    v = {"habla_de_eso": True, "motivo_1": "a", "dice_algo_nuevo": True, "motivo_2": "b", "estorba": False,
-         "motivo_3": "c"}
+    """F37 §B.1: el crítico corre por intento (gfx_critic.estorba); la identidad es el bloque en su instante y su lado
+    (descripción) con su voz: el mismo intento reusa su veredicto, otro instante no."""
+    from script_engine.gfx_critic import PROMPT_VERSION_ROT, build_prompt_rot, clave_identidad, describe, estorba, voice_vecinas
+    words = [{"word": "x.", "start": 0.0, "end": 1.0}]
+    c = {"text": "1.910 personas", "kicker": "Muertos", "ficha": True, "start": 13.0, "duration": 4.0,
+         "rotulista": True, "pool_id": "D128", "aporta": "la cifra", "sentence_idx": 0}
+    voz = voice_vecinas(words, 0, 13.0, 0.0)
+    assert build_prompt_rot(describe("ficha", c), voz, "", "")
     (tmp_path / "gfx_critic_rot_ch06.json").write_text(json.dumps(
-        {clave_identidad("ch06", "D128", "1.910 personas", "la cifra", PROMPT_VERSION_ROT): v}), encoding="utf-8")
-    plan = {"callouts": [{"text": "1.910 personas", "kicker": "Muertos", "ficha": True, "start": 13.0, "duration": 4.0,
-                          "rotulista": True, "pool_id": "D128", "aporta": "la cifra", "sentence_idx": 0}]}
+        {clave_identidad("estorba", "ch06", "ficha", 13.0, describe("ficha", c), voz, PROMPT_VERSION_ROT):
+         {"estorba": False, "motivo_3": "no tapa"}}), encoding="utf-8")
 
     def call(*a):
         raise AssertionError("no tenía que llamar a Gemini")
-    rows = criticize_rotulista(plan, base=tmp_path / "no.mp4", words=[{"word": "x.", "start": 0.0, "end": 1.0}],
-                               time_offset=0.0, work_dir=tmp_path, cap="ch06", log=[], call=call,
-                               snaps={14.0: img})
-    assert rows[0]["pasa"] and len(plan["callouts"]) == 1
+    row = estorba("ficha", c, base=tmp_path / "no.mp4", words=words, time_offset=0.0, work_dir=tmp_path, cap="ch06",
+                  log=[], call=call)
+    assert row["pasa"] and row["veredicto"] == "no estorba" and row["texto"] == "1.910 personas"
+    otro = estorba("ficha", {**c, "start": 20.0}, base=tmp_path / "no.mp4", words=words, time_offset=0.0,
+                   work_dir=tmp_path, cap="ch06", log=[], call=call)
+    assert otro["veredicto"] == "error" and otro["pasa"]            # otro instante: no reusa (sin Gemini, queda)

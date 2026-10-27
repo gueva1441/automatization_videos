@@ -11,13 +11,7 @@ Con `01a_escaleta.json` en `_steps/<topic>/` (y la narración por beat, `01b_nar
                último beat del cap);
                opcionales: `dato_central` (primero, en un giro) y `datos_apoyo` de cada beat que la voz NO dijo en esa
                ventana (mismo número, mismo nombre o la misma cláusula → fuera). Datos duros y citas, como el pool.
-    finalizar  (después del plan, el pico, el zoom y la pregunta; antes del crítico): fuera los bloques que no salen de
-               un candidato (los «datos» de VERIFIED_FACTS, el contador de una cifra que dice la voz) o que caen fuera
-               de la ventana de su beat; duración por texto (max(2.5, palabras/3 + 1), tope 8) en rótulos, recortes y
-               citas; tope por función del beat y 5 por cap (sin reloj, pregunta ni título); sellos: solo el del pico
-               (`pico.word`), sin ícono figurativo; punch_in solo acompañando un bloque.
-    pico       (después del crítico) 1 bloque grande obligatorio en la frase del pico (`pico.t`): si gfx_peak no puso
-               nivel de agua, zoom ni recorte, un rótulo con el candidato del beat del pico.
+    finalizar  F37 §B.4 (el papel es el único camino): solo los sellos del papel y ningún punch_in (ver la función).
     pregunta   = `cierre` del último beat del cap, literal.
 Sin escaleta (topics viejos, v3) nada de esto corre: gfx_layer sigue por el camino de siempre, con aviso.
 """
@@ -30,12 +24,6 @@ from typing import Any
 
 from script_engine import evidence as ev
 
-TOPE_POR_FUNCION: dict[str, int] = {"gancho": 1, "planteo": 1, "escalada": 2, "giro": 2, "pico": 1, "respiro": 1,
-                                    "revelacion": 2, "cierre": 1}
-TOPE_CAP = 5
-DUR_MIN, DUR_MAX = 2.5, 8.0
-ICONOS_ABSTRACTOS = {"sello", "tinta", "prensa"}
-GRANDES = ("water_level", "evidence_zoom", "archive_clippings", "callouts", "quote_card")
 _NUM_PALABRA = {"uno", "una", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve", "diez", "once",
                 "doce", "trece", "veinte", "treinta", "cuarenta", "cincuenta", "sesenta", "setenta", "ochenta",
                 "noventa", "cien", "ciento", "cientos", "mil", "millones", "novecientos", "novecientas", "quinientos",
@@ -190,147 +178,34 @@ def pregunta_cierre(real: dict) -> str | None:
 
 # ═══════════════════════ finalizar ═══════════════════════
 
-def duracion_texto(texto: str) -> float:
-    return round(min(DUR_MAX, max(DUR_MIN, len(_palabras(texto)) / 3 + 1)), 2)
-
-
-def _beat_en(real: dict, t: float) -> dict | None:
-    for b in real["beats"]:
-        if b["t0"] - 0.3 <= t <= b["t1"] + 0.3:
-            return b
-    prev = [b for b in real["beats"] if b["t0"] <= t]
-    return prev[-1] if prev else (real["beats"][0] if real["beats"] else None)
-
-
-def _lista(plan: dict, k: str) -> list[dict]:
-    return list(plan.get(k) or [])
-
-
 def finalizar(plan: dict[str, Any], real: dict[str, Any], log: list[str]) -> list[dict[str, Any]]:
-    """Ver el docstring del módulo. Devuelve una fila por bloque quitado o ajustado."""
-    cand = {c["id"]: c for c in real["candidatos"]}
+    """El cierre del plan. F37 §B.4: el papel es el único camino (no hay borrador del director): los textos ya pasaron
+    sus filtros, su reparto y su crítico (pantalla_filtros, pantalla_colocar.repartir). Acá queda: los sellos, solo los
+    del guion en papel (clima.sellos_del_papel, `por_tema`), y ningún punch_in (DECISIONES F32: el único golpe es el
+    zoom_punch del pico). Se borraron las ramas del camino sin papel (candidatos, ventanas, duración por texto, topes
+    por función y por cap), la del contador y la de los íconos. Devuelve una fila por bloque quitado."""
     filas: list[dict[str, Any]] = []
-
-    def fuera(k: str, b: dict, motivo: str) -> None:
-        txt = (b.get("value_text") if k == "count_up" else None) or             b.get("headline") or b.get("text") or b.get("word") or b.get("value_text")   # F36 §B.1: el contador es su valor
-        filas.append({"bloque": k, "texto": txt,
-                      "t": b.get("start"), "pool_id": b.get("pool_id"), "accion": "fuera", "motivo": motivo})
-
-    # F29b: con el rotulista, los bloques de texto ya pasaron su anclaje, sus ventanas, su duración y sus topes (A.4):
-    # acá quedan los sellos, el contador y el punch_in
-    rot = bool(plan.get("rotulista"))
-    # 1. solo candidatos, y dentro de la ventana de su beat
-    for k in (() if rot else ("archive_clippings", "callouts")):
-        keep = []
-        for b in _lista(plan, k):
-            c = cand.get(b.get("pool_id") or "")
-            if c is None:
-                fuera(k, b, "no sale de un candidato de los beats del cap (VERIFIED_FACTS u otro cap)")
-            elif c["ya_dicho"] and not c["obligatorio"]:
-                fuera(k, b, f"la voz ya lo dice en el beat {c['beat']}")
-            elif not (c["t0"] - 0.3 <= float(b["start"]) <= c["t1"]):
-                fuera(k, b, f"fuera de la ventana del beat {c['beat']} ({c['t0']:.1f}–{c['t1']:.1f} s)")
-            else:
-                b["beat"] = c["beat"]
-                keep.append(b)
-        plan[k] = keep
-    q = plan.get("quote_card")
-    if q and not rot:
-        c = cand.get(q.get("pool_id") or "")
-        if c is None or (c["ya_dicho"] and not c["obligatorio"]) or not (c["t0"] - 0.3 <= float(q["start"]) <= c["t1"]):
-            fuera("quote_card", q, "cita fuera de los candidatos o de la ventana de su beat")
-            plan["quote_card"] = None
-        else:
-            q["beat"] = c["beat"]
-    if plan.get("count_up") and not plan["count_up"].get("rotulista"):   # F36 §B.1: el del rotulista (no dicho) queda
-        fuera("count_up", plan["count_up"], "contador de una cifra que dice la voz (repite el subtítulo)")
-        plan["count_up"] = None
-    # 2. sellos: solo el del pico, sin ícono figurativo. Con el rotulista, los del guion en papel (clima.sellos_del_papel,
-    # F36 §C.4: ya pasaron el crítico y «nunca al mismo tiempo»)
-    pk = plan.get("pico") or {}
-    sellos = _lista(plan, "emphasis")
-    del_pico = [e for e in sellos if e.get("peak_word") or (pk.get("word") and str(e.get("word", "")).lower().strip(".,;:")
-                                                             == str(pk.get("word")).lower().strip(".,;:"))][:1]
-    keep_s = del_pico + ([e for e in sellos if e.get("por_tema") and e not in del_pico] if rot else [])
+    sellos = list(plan.get("emphasis") or [])
+    keep = [e for e in sellos if e.get("por_tema")]
     for e in sellos:
-        if e not in keep_s:
-            fuera("emphasis", e, "sello por léxico (solo queda el de la palabra del pico)")
-    for e in keep_s:
-        if e.get("icon") and e["icon"] not in ICONOS_ABSTRACTOS:
-            filas.append({"bloque": "emphasis", "texto": e.get("word"), "t": e.get("start"),
-                          "accion": f"ícono figurativo «{e['icon']}» fuera"})
-            e.pop("icon", None)
-            e.pop("icon_callout", None)
-    plan["emphasis"] = keep_s
-    # 3. duración por texto
-    for k, campo in (("archive_clippings", "headline"), ("callouts", "text")):
-        for b in plan.get(k) or []:
-            if not b.get("rotulista"):
-                b["duration"] = duracion_texto(str(b.get(campo) or ""))
-    if plan.get("quote_card") and not plan["quote_card"].get("rotulista"):
-        plan["quote_card"]["duration"] = duracion_texto(plan["quote_card"].get("text", ""))
-    # 4. tope por función del beat y por cap (lo obligatorio y lo del pico primero; después por orden)
-    vivos: list[tuple[str, int | None, dict]] = []
-    for k in (() if rot else ("archive_clippings", "callouts", "emphasis", "icon_array")):
-        for idx, b in enumerate(plan.get(k) or []):
-            vivos.append((k, idx, b))
-    for k in (() if rot else ("quote_card", "evidence_zoom", "water_level")):
-        if plan.get(k) and "start" in plan[k]:
-            vivos.append((k, None, plan[k]))
-
-    def prio(x: tuple[str, int | None, dict]) -> tuple:
-        k, _, b = x
-        c = cand.get(b.get("pool_id") or "")
-        es_pico = k == pk.get("block") or b.get("pico") or b.get("peak_word")
-        return (0 if es_pico else 1, 0 if (c and c["obligatorio"]) else 1, float(b.get("start", 0)))
-    por_beat: dict[int, int] = {}
-    quedan, sacar = 0, []
-    for k, idx, b in sorted(vivos, key=prio):
-        bt = _beat_en(real, float(b.get("start", 0)))
-        n = bt["n"] if bt else -1
-        tope = TOPE_POR_FUNCION.get(bt["funcion"], 2) if bt else 2
-        c = cand.get(b.get("pool_id") or "")
-        obligatorio = bool(c and c["obligatorio"])
-        if quedan >= TOPE_CAP or (por_beat.get(n, 0) >= tope and not obligatorio):
-            sacar.append((k, idx, b))
-            continue
-        por_beat[n] = por_beat.get(n, 0) + 1
-        quedan += 1
-    for k, idx, b in sacar:
-        fuera(k, b, f"tope ({TOPE_CAP} por cap o el de la función del beat)")
-        if idx is None:
-            plan[k] = None
-        else:
-            plan[k] = [x for x in plan[k] if x is not b]
-    # 5. punch_in solo acompañando un bloque. F32 §B.6: con el rotulista, ninguno (el zoom_punch del pico ya está, F30b)
-    if rot:
-        for p in plan.get("punch_in") or []:
-            t = float(p) if isinstance(p, (int, float)) else float((p or {}).get("t", (p or {}).get("start", -1)))
-            filas.append({"bloque": "punch_in", "texto": "acercamiento del director", "t": t, "accion": "fuera",
-                          "regla": "duplica",
-                          "motivo": "punch_in del director: lo reemplaza el zoom_punch del pico (F30b)"})
-        plan["punch_in"] = []
-    iv = [(float(b["start"]), float(b["start"]) + float(b.get("duration", 2.5)))
-          for k in ("archive_clippings", "callouts", "emphasis") for b in plan.get(k) or []]
-    iv += [(float(plan[k]["start"]), float(plan[k]["start"]) + float(plan[k].get("duration", 3)))
-           for k in ("quote_card", "evidence_zoom", "water_level") if plan.get(k) and "start" in plan[k]]
-    pis = plan.get("punch_in") or []
-    def _t(p: Any) -> float:
-        return float(p) if isinstance(p, (int, float)) else float((p or {}).get("t", (p or {}).get("start", -1)))
-    keep_p = [p for p in pis if any(a - 0.2 <= _t(p) <= b for a, b in iv)]
-    if len(keep_p) != len(pis):
-        filas.append({"bloque": "punch_in", "accion": f"{len(pis) - len(keep_p)} fuera (sin bloque que acompañar)"})
-    plan["punch_in"] = keep_p
-    log.append(f"  realizador: {len(filas)} ajuste(s) · quedan {quedan} bloque(s) · por beat {por_beat}")
-    plan["realizador"] = {"filas": filas, "por_beat": por_beat}
+        if e not in keep:
+            filas.append({"bloque": "emphasis", "texto": e.get("word"), "t": e.get("start"), "accion": "fuera",
+                          "motivo": "sello que no viene del guion en papel"})
+    plan["emphasis"] = keep
+    for p in plan.get("punch_in") or []:
+        t = float(p) if isinstance(p, (int, float)) else float((p or {}).get("t", (p or {}).get("start", -1)))
+        filas.append({"bloque": "punch_in", "texto": "acercamiento", "t": t, "accion": "fuera", "regla": "duplica",
+                      "motivo": "punch_in: lo reemplaza el zoom_punch del pico (F30b)"})
+    plan["punch_in"] = []
+    log.append(f"  realizador: {len(filas)} ajuste(s)")
+    plan["realizador"] = {"filas": filas}
     return filas
 
 
 def cerrar(plan: dict[str, Any], real: dict[str, Any] | None, pool: dict | None, log: list[str], *,
            criticar: Any, rotulista: bool, side: str = "right", escena: Any = None) -> None:
-    """El final del plan, en orden: (con rotulista) `escena()` —crítico de los candidatos, nunca al mismo tiempo,
-    sellos— → finalizar → crítico (`criticar()`, in place). F36 §D: sin el rótulo de respaldo del pico
-    (garantizar_pico, borrado)."""
+    """El final del plan, en orden: (con el papel) `escena()` —reparto con el crítico, reloj contra el corte, sellos—
+    → finalizar → crítico (`criticar()`: junta las filas). F36 §D: sin el rótulo de respaldo del pico."""
     if rotulista and escena is not None:
         escena()
     if real:

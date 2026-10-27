@@ -1,5 +1,6 @@
 """
-script_engine/rotulista_filtros.py — F36 §A: todo lo que corta un texto de pantalla (movido de gfx_rotulista). F36 §C:
+script_engine/pantalla_filtros.py — F36 §A: todo lo que corta un texto de pantalla (movido de pantalla_entrada; F37 §B.5:
+antes pantalla_filtros). F36 §C:
 los textos vienen del guion en papel (m01e_pantalla); `validar_papel` corre por bloque los filtros de `ORDEN`, en ese
 orden, y el primero que devuelve un motivo lo saca con su regla. F36 §D: se borraron el anclaje y la forma del modelo,
 la coherencia (filtro) y la cantidad por beat. Además `contradicciones` (§A.4: la usa el chequeo del guion) y
@@ -11,7 +12,7 @@ import re
 from typing import Any
 
 from script_engine import evidence as ev
-from script_engine.rotulista_colocar import LECTURA_CPS, caben, caracteres, despues_del_corte, tiempos
+from script_engine.pantalla_colocar import LECTURA_CPS, caben, caracteres, instantes, tiempos
 from script_engine.voz_utils import (_PARTICULAS, _analiza, _fmt, _palabra_en, _raiz_en, beat_de_oracion,
                                      nombre_inicial, nombres, numero_en, numeros, oraciones, palabras_de_contenido)
 
@@ -163,27 +164,44 @@ def spoiler(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> str 
 
 
 def lectura(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> str | None:
-    """§A.2 tiempos: t0 = la palabra `word_idx`; t1 = fin de la oración (o de la siguiente) sin pasar el corte; si no
-    cabe antes del corte, arranca en la escena siguiente (F32 §B.3); si tampoco, no va."""
+    """F37 §B.1/§B.2: dónde se puede leer el bloque. Prueba los instantes de pantalla_colocar.instantes, en orden (1 la
+    palabra ancla, la de más peso —ent["peso"]—, el inicio de la oración; 2 el inicio de la escena siguiente dentro de
+    la oración; 3 la oración siguiente del beat): en cada uno la duración de la ficha (lectura acotada entre
+    callout_dur_min y callout_dur_max) sin pasar el corte; uno en otra oración vuelve a pasar candado, no dicho y
+    spoiler con esa oración. Sale solo si no entra en ninguno («papel sin colocar», con cada intento y por qué falló);
+    si no, deja `intentos` (los que entran, en orden: el reparto prueba esos con «nunca al mismo tiempo» y el crítico)
+    y t0/t1 = el primero."""
     sents, si, escenas = ctx["sents"], ctx["si"], ctx["escenas"]
-    t0 = ctx["s"]["palabras"][ctx["wi"]]["t0"]
     chars = caracteres(ctx["tipo"], ctx["et"], ctx["txt"], ctx["x"]["autor"])
-    t1, sin_t = tiempos(sents, si, t0, chars, escenas)
-    movido_corte = None
-    if sin_t and escenas:              # F32 §B.3: si no cabe antes del corte, arranca en la escena siguiente
-        otro = despues_del_corte(sents, si, t0, chars, escenas)
-        if otro is not None:
-            t0, t1, movido_corte = otro
-            sin_t = None
-    cab = ctx["sents"][si].get("caben")
-    ctx.update(t0=t0, t1=t1, chars=chars, movido_corte=movido_corte,
-               max_chars=cab if cab is not None else caben(sents, si, escenas))      # F36 §B.8
-    return sin_t
+    ancla = ctx["s"]["palabras"][ctx["wi"]]["t0"]
+    entran: list[dict[str, Any]] = []
+    fallas: list[str] = []
+    for t, k, como in instantes(sents, si, escenas, ancla=ancla, peso=(ent.get("peso") or {}).get(si)):
+        t1, sin_t = tiempos(t, chars, escenas)
+        if sin_t:
+            fallas.append(f"{como} ({t:.2f} s): {sin_t}")
+            continue
+        if k != si:                    # otra oración: los filtros de contenido con esa oración
+            c2 = {**ctx, "si": k, "s": sents[k]}
+            mot = next((f"{regla(f)}: {m}" for f in (candado, no_dicho, spoiler) for m in [f(b, ent, c2)] if m), None)
+            if mot:
+                fallas.append(f"{como} ({t:.2f} s): {mot}")
+                continue
+        entran.append({"t0": round(t, 3), "t1": t1, "si": k, "como": como})
+    cab = sents[si].get("caben")
+    ctx.update(chars=chars, max_chars=cab if cab is not None else caben(sents, si, escenas), intentos=entran,
+               intentos_fallidos=fallas)
+    if not entran:
+        return "no entra en ningún intento: " + " · ".join(fallas)
+    ctx.update(t0=entran[0]["t0"], t1=entran[0]["t1"], si_final=entran[0]["si"],
+               movido_corte=(f"{ancla:.2f} → {entran[0]['t0']:.2f} s ({entran[0]['como']}): " + " · ".join(fallas))
+               if fallas else None)
+    return None
 
 
 def ancla_papel(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> str | None:
     """F36 §C.4: el bloque viene del guion en papel (m01e_pantalla), ya anclado a la oración de la voz por texto
-    (gfx_rotulista.del_papel) y a su palabra; acá solo se arma lo que leen los filtros que siguen (ítem, oración,
+    (pantalla_entrada.del_papel) y a su palabra; acá solo se arma lo que leen los filtros que siguen (ítem, oración,
     palabra, tipo por estilo, texto, etiqueta). El anclaje y la forma del modelo quedan en papel (§C.3); sale solo si
     el ítem no está en el pool."""
     pid = str(b.get("pool_id") or "")
@@ -218,7 +236,7 @@ def regla(f: Any) -> str:
 
 def validar_papel(bloques: list[dict[str, Any]], ent: dict[str, Any], words: list[dict], time_offset: float = 0.0,
                   escenas: list[Any] | None = None) -> dict[str, Any]:
-    """F36 §C.4: los bloques del guion en papel (gfx_rotulista.preparar_cap) por los filtros de `ORDEN`, en ese orden: el
+    """F36 §C.4: los bloques del guion en papel (pantalla_entrada.preparar_cap) por los filtros de `ORDEN`, en ese orden: el
     primero que devuelve un motivo saca el bloque con su regla. {bloques (con t0, t1, dur, beat, pantalla), rechazos,
     faltan, motivo_faltan (los `a_pantalla` del papel que no salieron)}. Sin `escenas` el fin no se corta en la escena."""
     its = {x["id"]: x for x in ent["items"]}
@@ -240,10 +258,11 @@ def validar_papel(bloques: list[dict[str, Any]], ent: dict[str, Any], words: lis
                              "motivo": motivo})
                 break
         else:
-            si, wi, s, t0, t1 = ctx["si"], ctx["wi"], ctx["s"], ctx["t0"], ctx["t1"]
+            si, wi, s, t0, t1 = ctx["si_final"], ctx["wi"], ctx["s"], ctx["t0"], ctx["t1"]
             x, txt, et, chars = ctx["x"], ctx["txt"], ctx["et"], ctx["chars"]
             ok.append({**b, "sentence_idx": si, "word_idx": wi, "palabra": s["palabras"][wi]["w"], "t0": t0, "t1": t1,
                        "dur": round(t1 - t0, 3), "beat": s["beat"], "funcion": funcion.get(s["beat"], ""),
+                       "intentos": ctx["intentos"], "intentos_fallidos": ctx["intentos_fallidos"],
                        "pantalla": txt, "etiqueta": et, "a_pantalla": x["a_pantalla"], "por_que": x["por_que"],
                        "caracteres": chars, "lectura_s": round(chars / LECTURA_CPS, 2), "movido": None,
                        "movido_corte": ctx["movido_corte"], "forzado": ctx["forzado"], "max_chars": ctx["max_chars"]})

@@ -246,10 +246,8 @@ def test_candado_en_el_preview(server):
     assert any(c["block"] == "chapter_question" for c in r["cues"])        # manual: fuera del candado
     html = (session.project / "index.html").read_text(encoding="utf-8")
     assert "#123456" in html and "Quién apagó la luz" in html
-    # sin manual, una pregunta inventada NO pasa
-    plan["chapter_question"]["manual"] = False
-    r = _post(url + "/preview", {"plan": plan, "tokens": {}})
-    assert not any(c["block"] == "chapter_question" for c in r["cues"])
+    # F37 §B.4: sin el candado de la pregunta reformulada del director (borrado): la pregunta es el `cierre` de la
+    # escaleta o la manual de Omar
     _post(url + "/preview", {"plan": session.director_plan(), "tokens": {}})
 
 

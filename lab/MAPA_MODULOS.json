@@ -1,13 +1,13 @@
 {
  "generado_por": "lab/tools/mapa_modulos.py (F33 §D)",
- "camino": "topic con escaleta + `fase2b <topic> --gfx --rotulista` (perfil misterio); `--plan-only` recorre lo mismo sin el render",
+ "camino": "topic con escaleta + `fase2b <topic> --gfx` (perfil misterio); `--plan-only` recorre lo mismo sin el render",
  "modulos": [
   {
    "modulo": "gfx_critic",
    "archivo": "script_engine/gfx_critic.py",
-   "sticker": "El editor: Gemini mira la foto y saca lo que repite la voz, no aporta o tapa algo. Desde F36 juzga los candidatos ANTES del reparto (lo que saca no ocupa lugar); a las fichas del papel y a los sellos solo les pregunta si estorban.",
-   "recibe": "plan + cuadros del video + voz",
-   "entrega": "plan sin lo que no pasa + veredictos",
+   "sticker": "El editor: Gemini mira la foto en el instante de un bloque del papel y dice si estorba (tapa un rostro o lo que la imagen muestra). F37: corre en cada intento del reparto (instante y lado), y lo que estorba se mueve al intento siguiente en vez de cortarse.",
+   "recibe": "bloque en un intento + cuadro del video + voz",
+   "entrega": "veredicto por intento (caché por identidad)",
    "lo_llama": [
     "script_engine/gfx_layer.py"
    ],
@@ -16,27 +16,25 @@
    "tanda": "F4e",
    "nacio": "39e37ac 2026-10-20 feat(gfx-f4e): crítico visual antes del render (suma/repite/estorba), hoja de contactos por cap y marca de esquina apagad",
    "estado": "vivo",
-   "doc": "gfx_critic.py — Crítico visual (F4e, pedido de Omar 2026-10-20; F29b: el del rotulista; F36 §D: queda solo ese, con «¿estorba?»). Gemini mira la foto sola en el instante del bloque y responde si el bloque tapa un rostro o lo que la imagen muestra; «repite» y «no aporta» ya los decidió el guion en papel. criticize_rotulista las fichas del papel (sus tres respuestas se guardan; cuenta la (3)), antes del reparto estorba el sello de clima (mismo pedido, sin `aporta`), antes del reparto caché gfx_critic_rot_<cap>.json; sin veredicto (Gemini caído) el bloque QUEDA y se anota contact_sheet hoja_conta"
+   "doc": "gfx_critic.py — Crítico visual (F4e, pedido de Omar 2026-10-20; F29b: el del rotulista; F36 §D: queda solo ese, con «¿estorba?»). Gemini mira la foto sola en el instante del bloque y responde si el bloque tapa un rostro o lo que la imagen muestra; «repite» y «no aporta» ya los decidió el guion en papel. estorba F37 §B.1: un bloque del papel (ficha, recorte o sello) en UN intento (instante y lado): el reparto (pantalla_colocar.repartir, clima.sellos_del_papel) lo llama en cada intento hasta que uno pasa; lo que no pasa no se corta, se mueve al intento siguiente caché gfx_critic_rot_<cap>.json p"
   },
   {
    "modulo": "gfx_director",
    "archivo": "script_engine/gfx_director.py",
-   "sticker": "El primer borrador de la pantalla: Gemini Flash propone bloques mirando la narración (de eso queda el title card); acá también se carga el contexto del cap.",
-   "recibe": "narración, hechos, escenas",
-   "entrega": "plan crudo y resuelto, contexto",
+   "sticker": "El contexto de un capítulo (sin modelo): script, skeleton, fuentes del candado literal, narración del video, pool; y la palabra clave de la pregunta de cierre. F37: el borrador de Gemini (su prompt, su esquema y su caché) se borró: el papel es el único camino y el title card sale de la partición.",
+   "recibe": "script + skeleton + canonical + pool",
+   "entrega": "contexto del cap, palabra clave",
    "lo_llama": [
     "fase2b.py",
     "gfx_lab_server.py",
-    "script_engine/gfx_icons/make_bug.py",
-    "script_engine/gfx_layer.py",
-    "script_engine/gfx_literal_lock.py"
+    "script_engine/gfx_layer.py"
    ],
-   "tests": 8,
+   "tests": 4,
    "lab": 2,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
-   "estado": "vivo (del borrador queda el title card; F36 D: sin sellos por léxico ni sfx por bloque)",
-   "doc": "gfx_director.py — Director de gráficos por capítulo (Gemini Flash, 1 call por cap)."
+   "estado": "vivo",
+   "doc": "gfx_director.py — El contexto de un capítulo para la capa gráfica (sin modelo): script, skeleton, canonical, las fuentes del candado literal, la narración del video y el pool de evidencia. Y la palabra clave de la pregunta de cierre."
   },
   {
    "modulo": "gfx_guion",
@@ -73,7 +71,7 @@
   {
    "modulo": "gfx_layer",
    "archivo": "script_engine/gfx_layer.py",
-   "sticker": "El director de orquesta de la capa gráfica de un capítulo: llama a todos los demás en orden (plan, textos del papel, sellos, crítico, transiciones) y hace el render en HyperFrames. Desde F34, con el guion aprobado dibuja el plan aprobado tal cual (plan congelado) y no lo reescribe.",
+   "sticker": "El director de orquesta de la capa gráfica de un capítulo: llama a todos los demás en orden (plan base con el title card de la partición —F37: sin borrador del director—, textos del papel, reparto con crítico, sellos, transiciones) y hace el render en HyperFrames. Desde F34, con el guion aprobado dibuja el plan aprobado tal cual (plan congelado) y no lo reescribe.",
    "recibe": "visual base del cap + palabras con tiempos + contexto",
    "entrega": "`chNN_gfx.mp4`, plan resuelto, sfx, escenas",
    "lo_llama": [
@@ -92,7 +90,7 @@
   {
    "modulo": "gfx_literal_lock",
    "archivo": "script_engine/gfx_literal_lock.py",
-   "sticker": "El candado: un texto que no está literal en las fuentes (narración, pool) no sale.",
+   "sticker": "El candado: un texto que no está literal en las fuentes (narración, partición, pool) no sale: title card, reloj y lo que no viene del papel (el papel trae su propio candado). F37: sin las ramas de los bloques borrados.",
    "recibe": "plan + fuentes",
    "entrega": "plan sin lo no literal + rechazados",
    "lo_llama": [
@@ -100,7 +98,7 @@
     "script_engine/gfx_director.py",
     "script_engine/gfx_layer.py"
    ],
-   "tests": 7,
+   "tests": 6,
    "lab": 0,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
@@ -119,6 +117,7 @@
     "script_engine/gfx_critic.py",
     "script_engine/gfx_layer.py",
     "script_engine/gfx_pool.py",
+    "script_engine/pantalla_colocar.py",
     "script_engine/voz_utils.py"
    ],
    "tests": 7,
@@ -139,7 +138,7 @@
     "script_engine/gfx_layer.py",
     "script_engine/m01a_escaleta.py",
     "script_engine/m01a_skeleton.py",
-    "script_engine/rotulista_colocar.py",
+    "script_engine/pantalla_colocar.py",
     "script_engine/voz_datos.py"
    ],
    "tests": 4,
@@ -159,15 +158,14 @@
     "fase2b.py",
     "gfx_lab_server.py",
     "script_engine/clima.py",
-    "script_engine/gfx_director.py",
     "script_engine/gfx_icons/demo.py",
     "script_engine/gfx_icons/strip.py",
     "script_engine/gfx_layer.py",
     "script_engine/gfx_sparse.py",
     "script_engine/m01e_pantalla.py",
-    "script_engine/rotulista_colocar.py"
+    "script_engine/pantalla_colocar.py"
    ],
-   "tests": 25,
+   "tests": 24,
    "lab": 9,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
@@ -177,15 +175,15 @@
   {
    "modulo": "gfx_realizador",
    "archivo": "script_engine/gfx_realizador.py",
-   "sticker": "Hace que la pantalla obedezca a la escaleta: ventanas de tiempo de cada beat, qué datos puede mostrar cada uno, la pregunta de cierre del último beat y el cierre del plan (F36 D: sin el rótulo de respaldo del pico).",
+   "sticker": "Hace que la pantalla obedezca a la escaleta: ventanas de tiempo de cada beat, qué datos puede mostrar cada uno y la pregunta de cierre del último beat. F37: el cierre del plan solo deja los sellos del papel y ningún punch_in (sin las ramas del camino sin papel, del contador ni de los íconos).",
    "recibe": "escaleta + narración por beat + pool",
-   "entrega": "`gfx_beats_chNN.json`, candidatos, filas de lo quitado",
+   "entrega": "`gfx_beats_chNN.json`, filas de lo quitado",
    "lo_llama": [
     "script_engine/gfx_layer.py",
     "script_engine/m01e_pantalla.py",
     "script_engine/voz_datos.py"
    ],
-   "tests": 3,
+   "tests": 2,
    "lab": 1,
    "tanda": "F29",
    "nacio": "2fcd603 2026-10-25 feat(f29a): el gfx obedece a la escaleta — script_engine/gfx_realizador (ventanas por beat en la voz → gfx_beats_chNN.jso",
@@ -208,24 +206,6 @@
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
    "estado": "vivo",
    "doc": "gfx_review.py — Hoja de cues y página de revisión local de la capa gráfica (F1b)."
-  },
-  {
-   "modulo": "gfx_rotulista",
-   "archivo": "script_engine/gfx_rotulista.py",
-   "sticker": "La fachada del rotulista: desde F36 C ya no llama a ningún modelo; `preparar_cap` lee el guion en papel de Fase 1 (`01e_pantalla.json`), alinea sus oraciones con las de la voz por texto y ancla cada ficha a su palabra; el resto lo re-exporta de sus módulos para que nadie cambie de import.",
-   "recibe": "papel del topic + oraciones de la voz + beats",
-   "entrega": "entrada del cap + bloques, sellos, relojes y tarjeta del papel",
-   "lo_llama": [
-    "fase2b.py",
-    "script_engine/gfx_guion.py",
-    "script_engine/gfx_layer.py"
-   ],
-   "tests": 6,
-   "lab": 6,
-   "tanda": "F29b",
-   "nacio": "5ae6177 2026-10-25 feat(f29b-a): el rotulista — el texto de pantalla lo escribe Claude, anclado a la oración (sin render; gfx_rules.rotulist",
-   "estado": "vivo",
-   "doc": "script_engine/gfx_rotulista.py — F29b §A: el rotulista; F36 §C: el texto de pantalla ya no lo escribe un modelo en Fase 2: lo escribe m01e_pantalla en Fase 1 (el guion en papel, DECISIONES 19:54). Este archivo queda como fachada (gfx_layer, fase2b, gfx_guion, los tests y el lab no cambian de import) y con `preparar_cap`: lee `01e_pantalla.json`, alinea sus oraciones con las de la voz por texto (`alinear`, aclaración 2) y ancla cada ficha a su palabra (`palabra_idx`). Regla (Omar): un texto vale si (a) dice algo que la voz no dice, (b) sobre lo que la voz cuenta en ese momento y (c) sin adelant"
   },
   {
    "modulo": "gfx_safe_bake",
@@ -267,7 +247,6 @@
    "entrega": "movimientos y transiciones",
    "lo_llama": [
     "gfx_lab_server.py",
-    "script_engine/gfx_director.py",
     "script_engine/gfx_layer.py",
     "script_engine/gfx_project.py",
     "script_engine/gfx_sparse.py"
@@ -360,7 +339,7 @@
    "lo_llama": [
     "fase1_5.py",
     "fase2b.py",
-    "script_engine/gfx_rotulista.py"
+    "script_engine/pantalla_entrada.py"
    ],
    "tests": 2,
    "lab": 0,
@@ -405,59 +384,76 @@
    "doc": "modules/transition_applier.py — Aplicador FFmpeg de transiciones entre segmentos."
   },
   {
-   "modulo": "rotulista_filtros",
-   "archivo": "script_engine/rotulista_filtros.py",
-   "sticker": "Los filtros que deciden si un texto del papel sale, en un orden que se lee en una línea (`ORDEN`, F36 C): anclar el papel a la voz, no dicho del gancho, candado de lo literal, no dicho, spoiler y lectura hasta el corte (F37: lo que el autor del papel ya juzgó «otro hecho» no vuelve a cortar); además la comparación de cifras con la voz que usa el chequeo del guion.",
-   "recibe": "bloques del papel + entrada del cap",
-   "entrega": "bloques que pasan, cortados con su regla y motivo",
+   "modulo": "pantalla_entrada",
+   "archivo": "script_engine/pantalla_entrada.py",
+   "sticker": "La entrada de Fase 2 para el texto de pantalla (F37: antes gfx_rotulista; no escribe nada): `preparar_cap` lee el guion en papel de Fase 1 (`01e_pantalla.json`), alinea sus oraciones con las de la voz por texto y ancla cada ficha a su palabra (con el juicio del autor, si lo hay).",
+   "recibe": "papel del topic + oraciones de la voz + beats",
+   "entrega": "entrada del cap + bloques, sellos, relojes y tarjeta del papel",
    "lo_llama": [
-    "script_engine/gfx_rotulista.py",
-    "script_engine/m01e_pantalla.py",
-    "script_engine/rotulista_colocar.py"
+    "fase2b.py",
+    "script_engine/gfx_layer.py"
    ],
    "tests": 3,
    "lab": 0,
-   "tanda": "F36 (código de F29b)",
-   "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
+   "tanda": "F29b",
+   "nacio": "(sin commit)",
    "estado": "vivo",
-   "doc": "script_engine/rotulista_filtros.py — F36 §A: todo lo que corta un texto de pantalla (movido de gfx_rotulista). F36 §C: los textos vienen del guion en papel (m01e_pantalla); `validar_papel` corre por bloque los filtros de `ORDEN`, en ese orden, y el primero que devuelve un motivo lo saca con su regla. F36 §D: se borraron el anclaje y la forma del modelo, la coherencia (filtro) y la cantidad por beat. Además `contradicciones` (§A.4: la usa el chequeo del guion) y `pide_documento` (el estilo «papel» del guion en papel)."
+   "doc": "script_engine/pantalla_entrada.py — la entrada de Fase 2 para el texto de pantalla (F37 §B.5: antes gfx_rotulista; el nombre dice lo que hace: no escribe nada). El texto lo escribe m01e_pantalla en Fase 1 (el guion en papel, DECISIONES 19:54); acá `preparar_cap` lee `01e_pantalla.json`, alinea sus oraciones con las de la voz por texto (`alinear`, aclaración 2) y ancla cada ficha a su palabra (`palabra_idx`); `voz_del_video` y `voz_previa` dan la voz del video y la de los caps anteriores. Regla (Omar): un texto vale si (a) dice algo que la voz no dice, (b) sobre lo que la voz cuenta en ese mome"
   },
   {
-   "modulo": "rotulista_colocar",
-   "archivo": "script_engine/rotulista_colocar.py",
-   "sticker": "Pone cada texto que pasó en su lugar: cuánto dura (lectura, nunca después del corte), qué forma toma (ficha normal, nombre o cita con autor; papel = recorte), el reloj contra el corte y «nunca al mismo tiempo» (DECISIONES 17:58: dos bloques no se solapan ni se tocan; si chocan, esperan al momento siguiente de su beat).",
-   "recibe": "bloques validados + escenas",
-   "entrega": "bloques en el plan, filas de lo movido o cortado",
+   "modulo": "pantalla_filtros",
+   "archivo": "script_engine/pantalla_filtros.py",
+   "sticker": "Los filtros que deciden si un texto del papel sale, en un orden que se lee en una línea (`ORDEN`): anclar el papel a la voz, no dicho del gancho, candado de lo literal, no dicho, spoiler (lo que el autor juzgó «otro hecho» no corta) y lectura: desde F37 la lectura prueba la escalera de intentos (otro instante de la oración, la escena siguiente, la oración siguiente) y corta solo si no entra en ninguno. F37: antes rotulista_filtros.",
+   "recibe": "bloques del papel + entrada del cap",
+   "entrega": "bloques que pasan con sus intentos, cortados con su regla y motivo",
    "lo_llama": [
-    "script_engine/clima.py",
-    "script_engine/gfx_rotulista.py",
+    "script_engine/gfx_guion.py",
     "script_engine/m01e_pantalla.py",
-    "script_engine/rotulista_filtros.py"
+    "script_engine/pantalla_colocar.py"
    ],
-   "tests": 2,
+   "tests": 4,
    "lab": 0,
    "tanda": "F36 (código de F29b)",
-   "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
+   "nacio": "(sin commit)",
    "estado": "vivo",
-   "doc": "script_engine/rotulista_colocar.py — F36 §A: dónde y cuánto va cada texto de pantalla (movido de gfx_rotulista). `tiempos` y `despues_del_corte` (§A.2: fin de la oración ancla, lectura caracteres ÷ 15, nunca después del corte), `colocar` (F36 §C: los bloques del guion en papel; ficha, cita como ficha con autor, papel = recorte), `hasta_el_corte` (el reloj) y `escena_final` («nunca al mismo tiempo», DECISIONES 17:58). F36 §D: se borraron el agua, el contador, la lupa y las ediciones del plan (`--plan-edit` edita el papel)."
+   "doc": "script_engine/pantalla_filtros.py — F36 §A: todo lo que corta un texto de pantalla (movido de pantalla_entrada; F37 §B.5: antes pantalla_filtros). F36 §C: los textos vienen del guion en papel (m01e_pantalla); `validar_papel` corre por bloque los filtros de `ORDEN`, en ese orden, y el primero que devuelve un motivo lo saca con su regla. F36 §D: se borraron el anclaje y la forma del modelo, la coherencia (filtro) y la cantidad por beat. Además `contradicciones` (§A.4: la usa el chequeo del guion) y `pide_documento` (el estilo «papel» del guion en papel)."
+  },
+  {
+   "modulo": "pantalla_colocar",
+   "archivo": "script_engine/pantalla_colocar.py",
+   "sticker": "Pone cada texto del papel en su lugar (F37: antes rotulista_colocar): la ficha dura su lectura entre callout_dur_min y callout_dur_max sin pasar el corte, qué forma toma (ficha normal, nombre o cita con autor; papel = recorte) y el reparto: nunca al mismo tiempo (DECISIONES 17:58) y el crítico en cada intento, moviendo en vez de cortar (otro instante, otra escena, la oración siguiente, el otro lado); lo que no entra queda «sin colocar» con sus intentos.",
+   "recibe": "bloques validados + escenas",
+   "entrega": "bloques en el plan, filas de lo movido o sin colocar",
+   "lo_llama": [
+    "script_engine/clima.py",
+    "script_engine/gfx_layer.py",
+    "script_engine/m01e_pantalla.py",
+    "script_engine/pantalla_filtros.py"
+   ],
+   "tests": 5,
+   "lab": 0,
+   "tanda": "F36 (código de F29b)",
+   "nacio": "(sin commit)",
+   "estado": "vivo",
+   "doc": "script_engine/pantalla_colocar.py — dónde y cuánto va cada texto del guion en papel (F36 §A: movido de pantalla_entrada; F37 §B.5: antes pantalla_colocar). `duracion`/`tiempos` (F37 §B.2: la lectura —caracteres ÷ 15— acotada entre callout_dur_min y callout_dur_max, nunca después del corte), `instantes` y `pesos` (F37 §B.1: la escalera de intentos de un bloque que no entra), `colocar` (los bloques del papel en el plan; ficha, cita como ficha con autor, papel = recorte), `repartir` (nunca al mismo tiempo, DECISIONES 17:58, + el crítico en cada intento: mover en vez de cortar; reemplaza a escena_"
   },
   {
    "modulo": "clima",
    "archivo": "script_engine/clima.py",
-   "sticker": "Los sellos de clima: la palabra y la oración vienen del guion en papel; acá se pone el instante (la palabra de más peso de la oración o su inicio), se mira que no cruce el corte, el crítico («¿estorba?») antes del reparto y que nunca esté al mismo tiempo que otro bloque.",
+   "sticker": "Los sellos de clima: la palabra y la oración vienen del guion en papel; acá se prueba la misma escalera de intentos que las fichas (F37: palabra de más peso, inicio, escena siguiente, oración siguiente y el otro lado), sin cruzar el corte, nunca al mismo tiempo que otro bloque y con el crítico («¿estorba?») en cada intento.",
    "recibe": "sellos del papel + oraciones + léxico de moods",
-   "entrega": "sellos en el plan, filas de lo cortado",
+   "entrega": "sellos en el plan, filas de lo movido o sin colocar",
    "lo_llama": [
     "script_engine/gfx_layer.py",
-    "script_engine/gfx_rotulista.py",
-    "script_engine/m01e_pantalla.py"
+    "script_engine/m01e_pantalla.py",
+    "script_engine/pantalla_colocar.py"
    ],
-   "tests": 3,
+   "tests": 4,
    "lab": 0,
    "tanda": "F36 (código de F32/F34)",
    "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
    "estado": "vivo",
-   "doc": "script_engine/clima.py — F36 §A: los sellos de clima (movido de gfx_rotulista; `peak_word` viene de gfx_peak). F36 §C: la palabra y la oración vienen del guion en papel (`sellos_del_papel`); acá se pone el instante (la palabra de más peso de la oración o su inicio), el crítico «¿estorba?» antes del reparto y «nunca al mismo tiempo». F36 §D: se borró el camino de Gemini Flash (`sellos_por_tema`, `SELLO_CLIMA_PROMPT`)."
+   "doc": "script_engine/clima.py — F36 §A: los sellos de clima (movido de pantalla_entrada; `peak_word` viene de gfx_peak). F36 §C: la palabra y la oración vienen del guion en papel (`sellos_del_papel`); acá se pone el instante (F37 §B.1: la escalera de intentos de pantalla_colocar.instantes y el otro lado de la pantalla), el crítico «¿estorba?» en cada intento y «nunca al mismo tiempo». F36 §D: se borró el camino de Gemini Flash (`sellos_por_tema`, `SELLO_CLIMA_PROMPT`)."
   },
   {
    "modulo": "voz_datos",
@@ -468,14 +464,14 @@
    "lo_llama": [
     "script_engine/gfx_layer.py",
     "script_engine/gfx_pool.py",
-    "script_engine/gfx_rotulista.py"
+    "script_engine/pantalla_entrada.py"
    ],
-   "tests": 2,
+   "tests": 4,
    "lab": 0,
    "tanda": "F36 (código de F34)",
    "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
    "estado": "vivo",
-   "doc": "script_engine/voz_datos.py — F36 §A: lo que sale de la voz y de la escaleta sin pasar por el modelo (movido de gfx_rotulista sin cambios): el pico del cap (`pico_cap`, `pico_plan`), las fechas completas que dice la voz y su reloj (`fechas_completas`, `reloj_de_voz`) y la tarjeta fecha-hora derivada de la escaleta (`tarjeta_inicial`; desde F36 C solo para comparar con la del guion en papel). F36 §D: se borró el nivel de agua desde la voz."
+   "doc": "script_engine/voz_datos.py — F36 §A: lo que sale de la voz y de la escaleta sin pasar por el modelo (movido de pantalla_entrada sin cambios): el pico del cap (`pico_cap`, `pico_plan`), las fechas completas que dice la voz y su reloj (`fechas_completas`, `reloj_de_voz`) y la tarjeta fecha-hora derivada de la escaleta (`tarjeta_inicial`; desde F36 C solo para comparar con la del guion en papel). F36 §D: se borró el nivel de agua desde la voz."
   },
   {
    "modulo": "voz_utils",
@@ -485,17 +481,17 @@
    "entrega": "cifras, años, nombres, oraciones, segundos por palabra",
    "lo_llama": [
     "script_engine/gfx_layer.py",
-    "script_engine/gfx_rotulista.py",
     "script_engine/m01e_pantalla.py",
-    "script_engine/rotulista_filtros.py",
+    "script_engine/pantalla_entrada.py",
+    "script_engine/pantalla_filtros.py",
     "script_engine/voz_datos.py"
    ],
-   "tests": 3,
+   "tests": 8,
    "lab": 0,
    "tanda": "F36 (código de F29b)",
    "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
    "estado": "vivo",
-   "doc": "script_engine/voz_utils.py — F36 §A: la utilería de la voz que usan varios módulos de la capa de texto (movida de gfx_rotulista sin cambios): cifras en dígitos y en letras (`numeros`, `numero_en`), nombres propios (`nombres`, `nombre_inicial`), muñones, palabras de contenido, el analizador de cifras con unidad y magnitud (`_analiza`, lo usan la coherencia, el contador y el agua) y las oraciones de la voz con cada palabra numerada (`oraciones`, `beat_de_oracion`). Va aparte porque la usan rotulista_filtros, rotulista_colocar, clima, voz_datos y m01e_pantalla (decisión de F36 A)."
+   "doc": "script_engine/voz_utils.py — F36 §A: la utilería de la voz que usan varios módulos de la capa de texto (movida de pantalla_entrada sin cambios): cifras en dígitos y en letras (`numeros`, `numero_en`), nombres propios (`nombres`, `nombre_inicial`), muñones, palabras de contenido, el analizador de cifras con unidad y magnitud (`_analiza`, lo usan la coherencia, el contador y el agua) y las oraciones de la voz con cada palabra numerada (`oraciones`, `beat_de_oracion`). Va aparte porque la usan pantalla_filtros, pantalla_colocar, clima, voz_datos y m01e_pantalla (decisión de F36 A)."
   },
   {
    "modulo": "gfx_config",
@@ -507,8 +503,8 @@
     "fase2b.py",
     "gfx_lab_server.py",
     "script_engine/clima.py",
-    "script_engine/gfx_director.py",
     "script_engine/gfx_icons/demo.py",
+    "script_engine/gfx_icons/make_bug.py",
     "script_engine/gfx_icons/strip.py",
     "script_engine/gfx_intensity.py",
     "script_engine/gfx_layer.py",
@@ -521,9 +517,9 @@
     "script_engine/gfx_sparse.py",
     "script_engine/gfx_style.py",
     "script_engine/m01e_pantalla.py",
-    "script_engine/rotulista_colocar.py"
+    "script_engine/pantalla_colocar.py"
    ],
-   "tests": 13,
+   "tests": 14,
    "lab": 5,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
@@ -677,22 +673,7 @@
    "a": "gfx_director",
    "donde": [
     "en closing_question",
-    "en prefetch_plans",
     "en apply_gfx"
-   ]
-  },
-  {
-   "de": "gfx_literal_lock",
-   "a": "gfx_director",
-   "donde": [
-    "en lock"
-   ]
-  },
-  {
-   "de": "make_bug",
-   "a": "gfx_director",
-   "donde": [
-    "en flame_box"
    ]
   },
   {
@@ -715,8 +696,7 @@
    "a": "gfx_layer",
    "donde": [
     "en _build_chapter_segment",
-    "en _solo_plan",
-    "en _assemble_one_video"
+    "en _solo_plan"
    ]
   },
   {
@@ -801,6 +781,13 @@
    ]
   },
   {
+   "de": "pantalla_colocar",
+   "a": "gfx_peak",
+   "donde": [
+    "en pesos"
+   ]
+  },
+  {
    "de": "voz_utils",
    "a": "gfx_peak",
    "donde": [
@@ -839,11 +826,11 @@
    ]
   },
   {
-   "de": "rotulista_colocar",
+   "de": "pantalla_colocar",
    "a": "gfx_pool",
    "donde": [
     "en colocar",
-    "en escena_final"
+    "en repartir"
    ]
   },
   {
@@ -880,14 +867,6 @@
    ]
   },
   {
-   "de": "gfx_director",
-   "a": "gfx_project",
-   "donde": [
-    "en resolve_plan",
-    "en convert_callout_to_archive"
-   ]
-  },
-  {
    "de": "gfx_layer",
    "a": "gfx_project",
    "donde": [
@@ -911,13 +890,11 @@
    ]
   },
   {
-   "de": "rotulista_colocar",
+   "de": "pantalla_colocar",
    "a": "gfx_project",
    "donde": [
     "en hasta_el_corte",
-    "en colocar",
-    "en _cubre",
-    "en escena_final"
+    "en colocar"
    ]
   },
   {
@@ -973,28 +950,6 @@
    ]
   },
   {
-   "de": "fase2b",
-   "a": "gfx_rotulista",
-   "donde": [
-    "en _solo_plan"
-   ]
-  },
-  {
-   "de": "gfx_guion",
-   "a": "gfx_rotulista",
-   "donde": [
-    "en chequeos"
-   ]
-  },
-  {
-   "de": "gfx_layer",
-   "a": "gfx_rotulista",
-   "donde": [
-    "en lectura_pregunta",
-    "en apply_gfx"
-   ]
-  },
-  {
    "de": "gfx_layer",
    "a": "gfx_safe_bake",
    "donde": [
@@ -1013,13 +968,6 @@
    "a": "gfx_style",
    "donde": [
     "arriba"
-   ]
-  },
-  {
-   "de": "gfx_director",
-   "a": "gfx_style",
-   "donde": [
-    "en system_prompt"
    ]
   },
   {
@@ -1144,7 +1092,7 @@
    ]
   },
   {
-   "de": "gfx_rotulista",
+   "de": "pantalla_entrada",
    "a": "m01e_pantalla",
    "donde": [
     "en _item",
@@ -1189,44 +1137,59 @@
    ]
   },
   {
-   "de": "gfx_rotulista",
-   "a": "rotulista_filtros",
+   "de": "fase2b",
+   "a": "pantalla_entrada",
    "donde": [
-    "arriba"
+    "en _solo_plan"
+   ]
+  },
+  {
+   "de": "gfx_layer",
+   "a": "pantalla_entrada",
+   "donde": [
+    "en apply_gfx"
+   ]
+  },
+  {
+   "de": "gfx_guion",
+   "a": "pantalla_filtros",
+   "donde": [
+    "en chequeos"
    ]
   },
   {
    "de": "m01e_pantalla",
-   "a": "rotulista_filtros",
+   "a": "pantalla_filtros",
    "donde": [
     "en estilo_de",
     "en _validar_ficha"
    ]
   },
   {
-   "de": "rotulista_colocar",
-   "a": "rotulista_filtros",
+   "de": "pantalla_colocar",
+   "a": "pantalla_filtros",
    "donde": [
     "en colocar"
    ]
   },
   {
    "de": "clima",
-   "a": "rotulista_colocar",
+   "a": "pantalla_colocar",
    "donde": [
     "en sellos_del_papel"
    ]
   },
   {
-   "de": "gfx_rotulista",
-   "a": "rotulista_colocar",
+   "de": "gfx_layer",
+   "a": "pantalla_colocar",
    "donde": [
-    "arriba"
+    "en lectura_pregunta",
+    "en apply_gfx"
    ]
   },
   {
    "de": "m01e_pantalla",
-   "a": "rotulista_colocar",
+   "a": "pantalla_colocar",
    "donde": [
     "en caben_en",
     "en validar",
@@ -1234,8 +1197,8 @@
    ]
   },
   {
-   "de": "rotulista_filtros",
-   "a": "rotulista_colocar",
+   "de": "pantalla_filtros",
+   "a": "pantalla_colocar",
    "donde": [
     "arriba"
    ]
@@ -1248,17 +1211,17 @@
    ]
   },
   {
-   "de": "gfx_rotulista",
-   "a": "clima",
-   "donde": [
-    "arriba"
-   ]
-  },
-  {
    "de": "m01e_pantalla",
    "a": "clima",
    "donde": [
     "en generar"
+   ]
+  },
+  {
+   "de": "pantalla_colocar",
+   "a": "clima",
+   "donde": [
+    "en pesos"
    ]
   },
   {
@@ -1276,7 +1239,7 @@
    ]
   },
   {
-   "de": "gfx_rotulista",
+   "de": "pantalla_entrada",
    "a": "voz_datos",
    "donde": [
     "arriba"
@@ -1290,13 +1253,6 @@
    ]
   },
   {
-   "de": "gfx_rotulista",
-   "a": "voz_utils",
-   "donde": [
-    "arriba"
-   ]
-  },
-  {
    "de": "m01e_pantalla",
    "a": "voz_utils",
    "donde": [
@@ -1304,7 +1260,14 @@
    ]
   },
   {
-   "de": "rotulista_filtros",
+   "de": "pantalla_entrada",
+   "a": "voz_utils",
+   "donde": [
+    "arriba"
+   ]
+  },
+  {
+   "de": "pantalla_filtros",
    "a": "voz_utils",
    "donde": [
     "arriba"
@@ -1354,13 +1317,6 @@
    ]
   },
   {
-   "de": "gfx_director",
-   "a": "gfx_config",
-   "donde": [
-    "arriba"
-   ]
-  },
-  {
    "de": "gfx_intensity",
    "a": "gfx_config",
    "donde": [
@@ -1374,6 +1330,7 @@
    "donde": [
     "arriba",
     "en _moods_activos",
+    "en plan_base",
     "en apply_gfx"
    ]
   },
@@ -1431,8 +1388,7 @@
    "de": "gfx_style",
    "a": "gfx_config",
    "donde": [
-    "arriba",
-    "en golden_fewshot"
+    "arriba"
    ]
   },
   {
@@ -1444,10 +1400,12 @@
    ]
   },
   {
-   "de": "rotulista_colocar",
+   "de": "pantalla_colocar",
    "a": "gfx_config",
    "donde": [
-    "en escena_final"
+    "en duracion",
+    "en tiempos",
+    "en repartir"
    ]
   },
   {
@@ -1455,6 +1413,13 @@
    "a": "gfx_config",
    "donde": [
     "arriba"
+   ]
+  },
+  {
+   "de": "make_bug",
+   "a": "gfx_config",
+   "donde": [
+    "en judge_zoom_box"
    ]
   },
   {
@@ -1543,11 +1508,5 @@
    ]
   }
  ],
- "muertos": [
-  {
-   "que": "gfx_director (el borrador de Gemini: datos, recortes, cita, contador, lupa, punch_in)",
-   "por_que": "**se llama y se descarta**: `colocar` lo reemplaza por el papel y el único golpe es el zoom_punch del pico; del borrador queda el title card. Borrarlo cambia el prompt del director (fuera de F36: abierto)",
-   "desde": "9e9d844 2026-10-26 feat(f36-c): m01e_pantalla — el guion de pantalla en papel va a Fase "
-  }
- ]
+ "muertos": []
 }

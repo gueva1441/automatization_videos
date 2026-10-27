@@ -4,14 +4,11 @@ con verified_facts exactamente como antes.
 
     pool_sources()          textos del pool que el candado literal acepta (datos, citas, cronología, lugares, nombres,
                             fuentes cortas «Organización, año»)
-    cap_candidates()        ids del pool para los recortes/datos de un cap: los suyos (skeleton) y los del cap
-                            ANTERIOR, sin los hechos que ya salieron en pantalla en un cap anterior
-    plan_pool_documents()   recortes: cláusula completa del dato que SUMA a la voz del tramo, kicker = fuente del dato →
-                            su fecha → sin recorte; Flash elige entre las 3 mejores. Datos: la cifra del pool en el
-                            instante en que la voz la nombra (R7 la saca si la voz la dice literal). Nunca un texto de
-                            la narración.
-    content_icon()          ícono del recorte/dato por el mapa LITERAL palabra→ícono del perfil (icon_words)
+    used_ids_before()       los ids del pool que ya salieron en pantalla en un cap anterior
     pool_ticker()           reloj desde la cronología del cap: con hora si la hay; si el cap no avanza de fecha, no sale
+    pool_clause_options()   los cortes de cláusula que usa Fase 1 (m01a_skeleton, con _kicker)
+F36 §D / F37 §B.4: los recortes, datos, citas, contadores y reservados del pool se borraron (el texto de pantalla sale
+del guion en papel); lo que sigue es la historia de las reglas de recorte de F5b–F5f, que quedan como referencia.
 
 F5b (VALIDACION_F5 §5, P1–P6):
     S1 cláusula   pool_clause_options: el recorte arranca donde arranca la cláusula (su sujeto) y termina donde termina

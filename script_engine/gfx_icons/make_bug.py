@@ -16,6 +16,7 @@ from __future__ import annotations
 import sys
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 import requests
@@ -106,13 +107,51 @@ def _dilate(m: np.ndarray, it: int) -> np.ndarray:
     return out
 
 
+# F2b §1.2: visión busca EL detalle que nombra la voz (no "lo más interesante"). Sin eso → sin zoom.
+_ZOOM_SYSTEM = """Mirás UN fotograma de un documental y una FRASE de la narración que nombra un detalle.
+Buscá en el fotograma ESE detalle exacto (no otro). Si está visible con claridad, devolvé su caja normalizada
+[x, y, w, h] (0–1, origen arriba a la izquierda), de lado entre 0.06 y 0.25, y tu confianza 0–1 de que la caja
+muestra lo que dice la frase. Si el detalle no se ve, es ambiguo o solo hay un rostro entero, present=false."""
+
+_ZOOM_SCHEMA: dict[str, Any] = {
+    "type": "OBJECT",
+    "properties": {"present": {"type": "BOOLEAN"}, "box": {"type": "ARRAY", "items": {"type": "NUMBER"}},
+                   "confianza": {"type": "NUMBER"}, "detalle": {"type": "STRING"}},
+    "required": ["present", "box", "confianza", "detalle"],
+}
+
+
+def judge_zoom_box(image_path: Path, anchor: str) -> dict[str, Any]:
+    """F37 §B.4: movida de gfx_director (el borrador se borró; esta herramienta es su único usuario). 1 call Flash vision. {box | None, confianza, detalle}. Fail-safe: error → box None (sin zoom)."""
+    import json
+    from error_handler import error_handler, PipelineStage
+    from gfx_config import clamp_box
+    try:
+        from google.genai import types as genai_types
+        from config import api, gemini_client
+        resp = gemini_client.models.generate_content(
+            model=api.gemini_model,
+            contents=[genai_types.Part.from_bytes(data=image_path.read_bytes(), mime_type="image/jpeg"),
+                      f'FRASE: "{anchor}". Devolvé solo el JSON.'],
+            config=genai_types.GenerateContentConfig(system_instruction=_ZOOM_SYSTEM, temperature=0.0,
+                                                     response_mime_type="application/json",
+                                                     response_schema=_ZOOM_SCHEMA))
+        cost_tracker.track_gemini_vision(description=f"gfx_zoom_box:{image_path.stem}", calls=1)
+        data = json.loads(resp.text)
+        box = clamp_box(data.get("box") or []) if data.get("present") else None
+        conf = max(0.0, min(1.0, float(data.get("confianza") or 0.0)))
+        return {"box": box, "confianza": round(conf, 2), "detalle": str(data.get("detalle", ""))[:120]}
+    except Exception as e:  # noqa: BLE001 — sin visión no hay zoom (conservador)
+        error_handler.log_warning(PipelineStage.ASSEMBLY, f"[make_bug] zoom box falló ({e}) → sin zoom")
+        return {"box": None, "confianza": 0.0, "detalle": f"error: {e}"}
+
+
 def flame_box(png: Path) -> list[float] | None:
     """Caja [x, y, w, h] (0–1) de la llama del farol según Gemini visión (judge_zoom_box). Cacheada en bug_raw/."""
     import json
     cache = png.with_suffix(".flame.json")
     if cache.exists():
         return json.loads(cache.read_text(encoding="utf-8")).get("box")
-    from script_engine.gfx_director import judge_zoom_box
     jpg = png.with_suffix(".jpg")
     Image.open(png).convert("RGB").save(jpg, quality=92)
     r = judge_zoom_box(jpg, "la llama encendida dentro del farol (solo el fuego, no el farol entero)")

@@ -241,9 +241,10 @@ class LabSession:
                         lex.append({"i": w["i"], "word": w["word"], "start": w["start"], "category": cat,
                                     "layer": m.get("layer"), "weight": m["triggers"][key],
                                     "icon": (m.get("icon_words") or {}).get(key), "icon_anim": m.get("icon_anim")})
-            elig: dict[int, bool] = ctx.get("eligible") or {}          # {fact_idx: foráneo}
-            facts = [{"idx": i, "text": f, "eligible": i in elig, "foreign": bool(elig.get(i)),
-                      "source": ctx["fact_source"].get(i, "")} for i, f in enumerate(ctx["facts"])]
+            # F37 §B.4: la elegibilidad por cap y la etiqueta de fuente eran del borrador del director (borrado): el
+            # lab muestra todos los datos
+            facts = [{"idx": i, "text": f, "eligible": True, "foreign": False, "source": ""}
+                     for i, f in enumerate(ctx["facts"])]
             self._ctx = ctx
             self._ctx_cache = {"chapter_number": ctx["chapter_number"], "facts": facts, "lexicon_hits": lex,
                                "moods": {k: {"layer": v.get("layer"), "icon_anim": v.get("icon_anim")}

@@ -42,22 +42,19 @@ def test_lock_quita_bloques_no_literales_sin_reescribir():
     plan = {
         "title_card": {"kicker": "CAPÍTULO 2", "title": "La Tormenta Perfecta"},
         "callouts": [{"text": "4.6 metros", "start": 35.0}, {"text": "5 metros", "start": 40.0}],
-        "archive_clipping": {"kicker": "Nueva Orleans", "headline": "inventado por el LLM", "body": "texto que nadie dijo"},
-        "count_up": {"value_text": "6,500", "unit": "personas", "start": 50.0},
+        "archive_clippings": [{"kicker": "Nueva Orleans", "headline": "inventado por el LLM", "body": "texto que nadie dijo"}],
     }
     ok, rejected = lock(plan, SOURCES, chapter_number=2)
     assert [c["text"] for c in ok["callouts"]] == ["4.6 metros"]
-    assert ok["archive_clipping"] is None
-    assert ok["count_up"]["value_text"] == "6,500"
+    assert ok["archive_clippings"] == []
     assert ok["title_card"]["title"] == "La Tormenta Perfecta"
     assert {r["text"] for r in rejected} == {"5 metros", "inventado por el LLM", "texto que nadie dijo"}
     assert plan["callouts"][1]["text"] == "5 metros"   # no muta la entrada
 
 
 def test_plan_strings():
-    plan = {"title_card": {"kicker": "CAPÍTULO 2", "title": "T"}, "callouts": [{"text": "a"}],
-            "evidence_zoom": {"scene_idx": 0, "box": [0, 0, .1, .1]}}
-    assert plan_strings(plan) == ["CAPÍTULO 2", "T", "a", "DETALLE"]
+    plan = {"title_card": {"kicker": "CAPÍTULO 2", "title": "T"}, "callouts": [{"text": "a"}]}
+    assert plan_strings(plan) == ["CAPÍTULO 2", "T", "a"]
 
 
 if __name__ == "__main__":

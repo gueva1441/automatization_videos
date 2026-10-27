@@ -26,13 +26,12 @@ def test_candado_nivel_de_agua_y_reloj():
     from script_engine.gfx_literal_lock import lock
     src = {"verified_facts[0]": "Algunas partes quedaron bajo 15 pies (4.6 metros) de agua.",
            "verified_facts[1]": "El huracán tocó tierra el 29 de agosto de 2005."}
-    plan = {"water_level": {"value_text": "4.6", "unit": "metros"},
-            "time_ticker": {"source_text": "29 de agosto de 2005", "times": []}}
+    plan = {"time_ticker": {"source_text": "29 de agosto de 2005", "times": []}}     # F37 §B.4: sin nivel de agua
     ok, rej = lock(plan, src, chapter_number=2)
-    assert ok["water_level"] and ok["time_ticker"] and not rej
-    bad = {"water_level": {"value_text": "5", "unit": "metros"}, "time_ticker": {"source_text": "30 de agosto", "times": []}}
+    assert ok["time_ticker"] and not rej
+    bad = {"time_ticker": {"source_text": "30 de agosto", "times": []}}
     ok, rej = lock(bad, src, chapter_number=2)
-    assert ok["water_level"] is None and ok["time_ticker"] is None and len(rej) == 2
+    assert ok["time_ticker"] is None and len(rej) == 1
 
 
 def test_reloj_elige_la_esquina_libre():

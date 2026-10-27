@@ -207,6 +207,8 @@ def _crit_rot(c: dict | None) -> str:
         return ""
     if c.get("error"):
         return f" (crítico sin veredicto: {c['error']})"
+    if c.get("pregunta"):                              # F37 §B.1: el crítico por intento solo pregunta si estorba
+        return f" (crítico ¿estorba?: {'estorba' if c.get('estorba') else 'no estorba'})"
     return (f" (crítico: (1) {'sí' if c.get('habla_de_eso') else 'no'} · (2) {'sí' if c.get('dice_algo_nuevo') else 'no'}"
             f" · (3) {'estorba' if c.get('estorba') else 'no estorba'})")
 
@@ -296,26 +298,6 @@ def eventos_cap(c: dict[str, Any], *, title_dur: float, dip_frames: int, fps: in
             dur=float(qc.get("duration", 0)), lectura=_lectura("cita", None, qc.get("text", ""), qc.get("author", "")),
             k=qc.get("sentence_idx"), aporta=qc.get("aporta"), fuente=fuente_de(qc.get("pool_id")),
             filtro="pasó" + _crit_rot(qc.get("critico")), extra={"pool_id": qc.get("pool_id")})
-    z = plan.get("evidence_zoom")
-    if z and "start" in z:
-        add(float(z["start"]), "lupa", texto=str(z.get("detail") or z.get("anchor") or ""),
-            dur=float(z.get("duration") or 0) or None, k=z.get("sentence_idx"), aporta=z.get("aporta"),
-            fuente=fuente_de(z.get("pool_id")), filtro="pasó" + _crit_rot(z.get("critico")),
-            extra={"pool_id": z.get("pool_id"), "caja": z.get("box")})
-    wl = plan.get("water_level")
-    if wl:
-        add(float(wl["start"]), "nivel de agua", etiqueta=wl.get("etiqueta"),
-            texto=f"{wl.get('value_text')} {wl.get('unit', '')}".strip(), dur=float(wl.get("duration") or 0),
-            k=wl.get("sentence_idx"), aporta=wl.get("aporta"), fuente=fuente_de(wl.get("pool_id")),
-            filtro="pasó" + _crit_rot(wl.get("critico")), extra={"pool_id": wl.get("pool_id"), "altura": wl.get("height"),
-                                                                  "de_voz": bool(wl.get("de_voz"))})
-    cu = plan.get("count_up")
-    if cu:
-        txt = f"{cu.get('value_text')} {cu.get('unit', '')}".strip()
-        add(float(cu["start"]), "contador", etiqueta=cu.get("source") or None, texto=txt,
-            dur=float(cu.get("duration") or 0) or None, lectura=_lectura("cifra", cu.get("source"), txt),
-            k=cu.get("sentence_idx"), aporta=cu.get("aporta"), fuente=fuente_de(cu.get("pool_id")),
-            filtro="pasó" + _crit_rot(cu.get("critico")), extra={"pool_id": cu.get("pool_id")})
     crit_sello = {round(float(r["t"]), 2): r for r in plan.get("critico") or [] if r.get("bloque") in ("sello", "icono")}
     for e in plan.get("emphasis") or []:
         r = crit_sello.get(round(float(e["start"]), 2))
@@ -386,7 +368,8 @@ def cortes_cap(plan: dict[str, Any], rejected: list[dict], sents: list[dict]) ->
         tr = str(f.get("tipo") or "")
         tipo = "reloj" if f.get("bloque") == "time_ticker" else TIPO_ROT.get(tr, tr or "texto")
         out.append({"tipo": tipo, "texto": f.get("texto"), "pool_id": f.get("pool_id"), "t": f.get("t0"),
-                    "regla": "zona", "quien": "zona (nunca al mismo tiempo)", "motivo": f.get("motivo"),
+                    "regla": f.get("regla") or "zona",            # F37 §B.1: «colocar» = ningún intento entró
+                    "quien": f.get("quien") or "zona (nunca al mismo tiempo)", "motivo": f.get("motivo"),
                     "papel": papel and f.get("bloque") != "time_ticker"})
     real = plan.get("realizador") or {}
     for f in list(plan.get("sellos_tema") or []) + list(real.get("filas") or []):   # F32 §B.6: el catálogo de sellos
@@ -465,7 +448,7 @@ def _ocupa(e: dict, escenas: list[dict], title_dur: float) -> list[int]:
 
 def chequeos(caps: list[dict[str, Any]], *, title_dur: float, fps: int, mezcla: dict[str, Any] | None,
              voz_video: list[str]) -> list[dict[str, Any]]:
-    from script_engine.gfx_rotulista import contradicciones
+    from script_engine.pantalla_filtros import contradicciones
     out = []
     # 1. dos bloques al mismo tiempo (DECISIONES 2026-10-26 17:58: «nunca al mismo tiempo» reemplaza a «una por
     # escena»: no se solapan ni se tocan; la escena deja de ser la unidad)

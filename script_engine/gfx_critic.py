@@ -2,12 +2,15 @@
 gfx_critic.py — Crítico visual (F4e, pedido de Omar 2026-10-20; F29b: el del rotulista; F36 §D: queda solo ese, con
 «¿estorba?»). Gemini mira la foto sola en el instante del bloque y responde si el bloque tapa un rostro o lo que la
 imagen muestra; «repite» y «no aporta» ya los decidió el guion en papel.
-    criticize_rotulista  las fichas del papel (sus tres respuestas se guardan; cuenta la (3)), antes del reparto
-    estorba              el sello de clima (mismo pedido, sin `aporta`), antes del reparto
-    caché                gfx_critic_rot_<cap>.json; sin veredicto (Gemini caído) el bloque QUEDA y se anota
+    estorba              F37 §B.1: un bloque del papel (ficha, recorte o sello) en UN intento (instante y lado): el
+                         reparto (pantalla_colocar.repartir, clima.sellos_del_papel) lo llama en cada intento hasta que
+                         uno pasa; lo que no pasa no se corta, se mueve al intento siguiente
+    caché                gfx_critic_rot_<cap>.json por identidad (instante, descripción con el lado, voz); sin
+                         veredicto (Gemini caído) el bloque QUEDA y se anota
     contact_sheet        hoja_contactos_<cap>.jpg del render: un cuadro por bloque que pasó
-El crítico nunca agrega ni reescribe: solo quita. F36 §D: se borró el crítico viejo de F4e (suma/repite/estorba con
-few-shot y snapshot de HyperFrames).
+El crítico nunca agrega ni reescribe. F36 §D: se borró el crítico viejo de F4e (suma/repite/estorba con few-shot y
+snapshot de HyperFrames). F37 §B.1/§B.4: se borraron `criticize_rotulista` y `blocks` (el crítico de todos los bloques de
+una vez, antes del reparto) y las formas de los bloques borrados (contador, nivel de agua, zoom, ícono, dato suelto).
 """
 from __future__ import annotations
 
@@ -17,8 +20,7 @@ import subprocess
 from pathlib import Path
 from typing import Any, Callable
 
-KIND_LABEL = {"sello": "sello", "icono": "ícono", "recorte": "recorte", "dato": "dato", "contador": "contador",
-              "nivel_agua": "nivel de agua", "zoom": "zoom", "cita": "cita", "ficha": "ficha"}
+KIND_LABEL = {"sello": "sello", "recorte": "recorte", "ficha": "ficha"}
 
 
 def _side(b: dict[str, Any], default: str = "right") -> str:
@@ -30,61 +32,14 @@ def describe(kind: str, b: dict[str, Any]) -> str:
     if kind == "sello":
         return (f"SELLO rojo con la palabra «{str(b.get('word', '')).upper()}» (letras grandes, ~8 % del alto) a media "
                 f"altura, a la {_side(b)}, + tinte de mood «{b.get('category')}» sobre toda la imagen 2.5 s")
-    if kind == "icono":
-        return (f"ÍCONO «{b.get('icon')}» (dibujo de ~25 % del alto) + la palabra «{str(b.get('word', '')).upper()}» al "
-                f"lado, en la banda oscura a la {_side(b)}, + tinte de mood «{b.get('category')}»")
     if kind == "recorte":
         k = f" · kicker «{b['kicker']}»" if b.get("kicker") else ""
         return (f"RECORTE de diario (papel, ~30 % del ancho) con el titular «{b.get('headline')}»{k}, a la "
                 f"{_side(b, 'left')}" + (f" con ícono «{b['icon']}»" if b.get("icon") else ""))
-    if kind == "dato":
-        return f"DATO en texto «{b.get('text')}» en la esquina superior {_side(b, 'left')}"
     if kind == "ficha":                                          # F29c §A.5: el componente del title card
         return (f"FICHA como el título del capítulo, arriba a la izquierda: etiqueta roja «{str(b.get('kicker', '')).upper()}» "
                 f"y debajo, en letras grandes, «{str(b.get('text', '')).upper()}», con una raya roja; la imagen no se oscurece")
-    if kind == "contador":
-        return f"CONTADOR que sube hasta «{b.get('value_text')} {b.get('unit', '')}» en la esquina superior izquierda"
-    if kind == "nivel_agua":
-        return (f"NIVEL DE AGUA: línea que sube desde abajo hasta el {round(float(b.get('height', 0.5)) * 100)} % de la "
-                f"altura con la cifra «{b.get('value_text')} {b.get('unit', '')}», tiñe de oscuro la parte de abajo")
-    if kind == "cita":
-        return (f"CITA entre comillas «{b.get('text')}» firmada «— {b.get('author')}», centrada sobre la foto oscurecida "
-                f"al {round(float(b.get('dim', 0.6)) * 100)} %")
-    if kind == "zoom":
-        return (f"ZOOM de evidencia: la cámara acerca hasta la zona {b.get('box')} (x, y, ancho, alto en 0–1) "
-                f"«{b.get('detail') or b.get('anchor')}»")
     return f"{kind}: {json.dumps(b, ensure_ascii=False)[:120]}"
-
-
-def blocks(plan: dict[str, Any]) -> list[dict[str, Any]]:
-    """Bloques a juzgar: {key, kind, t, dur, desc, text}. key = (lista, índice) o (campo, None)."""
-    out = []
-    for i, e in enumerate(plan.get("emphasis") or []):
-        kind = "icono" if e.get("icon_callout") else "sello"
-        out.append({"key": ("emphasis", i), "kind": kind, "t": float(e["start"]), "dur": float(e.get("duration", 2.5)),
-                    "desc": describe(kind, e), "text": e.get("word", ""),
-                    "solo_forma": bool(e.get("clima"))})          # F34 §A.4: el sello de clima, solo forma
-    for i, a in enumerate(plan.get("archive_clippings") or []):
-        out.append({"key": ("archive_clippings", i), "kind": "recorte", "t": float(a["start"]),
-                    "dur": float(a.get("duration", 6.0)), "desc": describe("recorte", a), "text": a.get("headline", ""),
-                    "reserved": bool(a.get("reserved")), "rotulista": bool(a.get("rotulista"))})
-    qc = plan.get("quote_card")
-    if qc:
-        out.append({"key": ("quote_card", None), "kind": "cita", "t": float(qc["start"]), "dur": float(qc["duration"]),
-                    "desc": describe("cita", qc), "text": qc.get("text", ""), "reserved": not qc.get("rotulista"),
-                    "rotulista": bool(qc.get("rotulista"))})
-    for i, c in enumerate(plan.get("callouts") or []):
-        kind = "ficha" if c.get("ficha") else "dato"
-        out.append({"key": ("callouts", i), "kind": kind, "t": float(c["start"]), "dur": float(c.get("duration", 2.5)),
-                    "desc": describe(kind, c), "text": c.get("text", ""), "rotulista": bool(c.get("rotulista"))})
-    for field, kind, dur in (("count_up", "contador", 3.7), ("water_level", "nivel_agua", 4.5), ("evidence_zoom", "zoom", 2.85)):
-        b = plan.get(field)
-        if b and "start" in b:
-            out.append({"key": (field, None), "kind": kind, "t": float(b["start"]), "dur": float(b.get("duration", dur)),
-                        "desc": describe(kind, b), "text": b.get("value_text") or b.get("anchor") or "",
-                        "rotulista": bool(b.get("rotulista")),
-                        "solo_forma": bool(b.get("de_voz"))})     # F34 §A.5: el agua de la voz repite la cifra a propósito
-    return sorted(out, key=lambda x: x["t"])
 
 
 def frame_at(video: Path, t: float, dst: Path, width: int = 1280) -> Path:
@@ -164,10 +119,6 @@ def voice_at(words: list[dict], t: float, time_offset: float = 0.0) -> str:
     return " ".join(str(w["word"]) for w in words if t - 2.0 <= float(w["start"]) + time_offset <= t + 2.0)
 
 
-def voice_around(words: list[dict], t: float, time_offset: float = 0.0, sec: float = 20.0) -> str:
-    return " ".join(str(w["word"]) for w in words if t - sec <= float(w["start"]) + time_offset <= t + sec)
-
-
 def voice_vecinas(words: list[dict], sentence_idx: Any, t: float, time_offset: float = 0.0) -> str:
     """F29c §A.3: la unidad del «no dicho» = la oración ancla y sus dos vecinas (sin índice: la oración que suena en t)."""
     from script_engine.gfx_peak import sentences
@@ -179,82 +130,12 @@ def voice_vecinas(words: list[dict], sentence_idx: Any, t: float, time_offset: f
     return " ".join(s["text"] for s in ss[max(0, k - 1):k + 2])
 
 
-def criticize_rotulista(plan: dict[str, Any], *, base: Path, words: list[dict], time_offset: float, work_dir: Path,
-                        cap: str, log: list[str], call: Callable[..., dict] | None = None,
-                        snaps: dict[float, Path] | None = None) -> list[dict[str, Any]]:
-    """F29b §A.6 (F29c §A.6.2): cada bloque del rotulista, ya dibujado (snapshot en t + 1 s), con la voz de su oración y
-    las vecinas, su `aporta` y (si es `a_pantalla`) su `por_que`: tres sí/no. Sale según `pasa_rot` (in place). Sin
-    veredicto (Gemini caído) el bloque queda y se anota. El veredicto queda en el bloque (`critico`). Caché en
-    gfx_critic_rot_<cap>.json. F36 §C.4/§D: a las fichas del guion en papel solo se les pregunta si estorban (el
-    mismo pedido sin `aporta` ni `por_que`, como `estorba`; de las tres respuestas cuenta la (3)): «habla de eso» y «dice
-    algo nuevo» ya los decidió el papel."""
-    cache = Path(work_dir) / f"gfx_critic_rot_{cap}.json"
-    try:
-        data = json.loads(cache.read_text(encoding="utf-8")) if cache.exists() else {}
-    except (OSError, ValueError):
-        data = {}
-    bl = [b for b in blocks(plan) if b.get("rotulista")]
-    snaps = snaps or {}
-    rows, gone = [], []
-    for b in bl:
-        tf = frame_t(b)
-        obj = plan[b["key"][0]] if b["key"][1] is None else plan[b["key"][0]][b["key"][1]]
-        img = frame_at(base, tf, Path(work_dir) / f"gfx_critic_{cap}" / f"rot_{b['kind']}_{tf:07.2f}.jpg") \
-            if Path(base).exists() else snaps.get(tf)
-        drawn = snaps.get(tf)
-        voz = voice_vecinas(words, obj.get("sentence_idx"), b["t"], time_offset)
-        ap = bool(obj.get("a_pantalla"))
-        prompt = build_prompt_rot(b["desc"], voz, "", "")
-        key = hashlib.sha1((Path(img).read_bytes() if img else b"") + (Path(drawn).read_bytes() if drawn else b"")
-                           + f"|{prompt}|{PROMPT_VERSION_ROT}".encode("utf-8")).hexdigest()[:20]
-        ident = clave_identidad(cap, obj.get("pool_id"), b["text"], obj.get("aporta"), PROMPT_VERSION_ROT)
-        if key in data or ident in data:
-            v = {**data.get(key, data.get(ident)), "cache": True}
-        else:
-            try:
-                raw = (call or _gemini_rot)(Path(img), prompt, *((Path(drawn),) if drawn else ()))
-                v = {"habla_de_eso": raw.get("habla_de_eso"), "motivo_1": str(raw.get("motivo_1") or "")[:160],
-                     "dice_algo_nuevo": raw.get("dice_algo_nuevo"), "motivo_2": str(raw.get("motivo_2") or "")[:160],
-                     "estorba": raw.get("estorba"), "motivo_3": str(raw.get("motivo_3") or "")[:160]}
-                if all(isinstance(v[k], bool) for k in ("habla_de_eso", "dice_algo_nuevo", "estorba")):
-                    data[key] = data[ident] = v
-                    cache.parent.mkdir(parents=True, exist_ok=True)
-                    cache.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
-                else:
-                    v = {**v, "error": f"respuesta inválida: {json.dumps(raw, ensure_ascii=False)[:80]}"}
-            except Exception as e:  # noqa: BLE001 — sin veredicto el bloque queda (como el crítico de siempre)
-                v = {"error": f"{type(e).__name__}: {str(e)[:100]}"}
-            v["cache"] = False
-        ok = v.get("error") is not None or v.get("estorba") is not True
-        obj["critico"] = {k: v.get(k) for k in ("habla_de_eso", "motivo_1", "dice_algo_nuevo", "motivo_2", "estorba",
-                                                "motivo_3", "error")}
-        rows.append({"t": round(b["t"], 3), "t_frame": tf, "bloque": b["kind"], "texto": b["text"],
-                     "pool_id": obj.get("pool_id"), "aporta": obj.get("aporta"), "a_pantalla": ap, **obj["critico"],
-                     "pasa": ok, "mira": "bloque dibujado" if drawn else "foto sola",
-                     "pregunta": "¿estorba?"})
-        log.append(f"  crítico rotulista: {b['t']:6.1f}s {KIND_LABEL[b['kind']]:<10} «{b['text']}» → "
-                   + (f"sin veredicto ({v['error']}) → queda" if v.get("error") else
-                      f"(1) {'sí' if v['habla_de_eso'] else 'NO'} — {v['motivo_1']} · (2) "
-                      f"{'sí' if v['dice_algo_nuevo'] else 'NO'} — {v['motivo_2']} · (3) estorba "
-                      f"{'SÍ' if v['estorba'] else 'no'} — {v['motivo_3']}" + (" · a_pantalla" if ap else ""))
-                   + (" (caché)" if v.get("cache") else ""))
-        if not ok:
-            gone.append(b["key"])
-    for field, idx in sorted(gone, key=lambda k: (k[0], -(k[1] if k[1] is not None else 0))):
-        if idx is None:
-            plan[field] = None
-        else:
-            del plan[field][idx]
-    log.append(f"  crítico rotulista: {sum(r['pasa'] for r in rows)}/{len(rows)} bloques pasan")
-    return rows
-
-
 def estorba(kind: str, obj: dict[str, Any], *, base: Path, words: list[dict], time_offset: float, work_dir: Path,
             cap: str, log: list[str], call: Callable[..., dict] | None = None) -> dict[str, Any]:
-    """F36 §B.2: al sello de clima y al agua de la voz el crítico solo les pregunta si estorban (tapan un rostro o lo que
-    está en la imagen); «repite» y «no aporta» no aplican. Sin prompt nuevo: es el pedido del crítico del rotulista
-    (`build_prompt_rot`, con `aporta` vacío) y de sus tres respuestas solo cuenta la (3). Corre sobre el CANDIDATO,
-    antes del reparto (un sello que no pasa no ocupa su beat ni su escena), sobre la foto sola. Devuelve la fila
+    """F36 §B.2: a los bloques del papel el crítico solo les pregunta si estorban (tapan un rostro o lo que está en la
+    imagen); «repite» y «no aporta» los decidió el papel. Sin prompt nuevo: es el pedido del crítico del rotulista
+    (`build_prompt_rot`, con `aporta` vacío) y de sus tres respuestas solo cuenta la (3). F37 §B.1: corre sobre cada
+    INTENTO del reparto (ficha, recorte o sello en un instante y un lado), sobre la foto sola. Devuelve la fila
     {t, t_frame, dur, bloque, texto, veredicto («estorba» / «no estorba» / «error»), motivo, pasa, voz, mira}. Sin
     veredicto, pasa (como siempre). Caché en gfx_critic_rot_<cap>.json por (cap, bloque, segundo, descripción, voz)."""
     cache = Path(work_dir) / f"gfx_critic_rot_{cap}.json"
@@ -269,7 +150,7 @@ def estorba(kind: str, obj: dict[str, Any], *, base: Path, words: list[dict], ti
     voz = voice_vecinas(words, obj.get("sentence_idx"), t, time_offset)
     prompt = build_prompt_rot(desc, voz, "", "")
     ident = clave_identidad("estorba", cap, kind, round(t, 2), desc, voz, PROMPT_VERSION_ROT)
-    texto = obj.get("word") if kind == "sello" else f"{obj.get('value_text')} {obj.get('unit', '')}".strip()
+    texto = obj.get("word") if kind == "sello" else (obj.get("text") or obj.get("headline") or "")
     if ident in data:
         v = {**data[ident], "cache": True}
     else:

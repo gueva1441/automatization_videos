@@ -131,9 +131,9 @@ def test_simular_regla_cuenta_por_cap_y_da_ejemplos():
 
 def test_guard_mapa_avisa_si_tocan_gfx_sin_el_mapa():
     gm = _hook("guard_mapa")
-    assert "guard_mapa" in gm.aviso(["script_engine/gfx_rotulista.py", "test_module_f33.py"])
+    assert "guard_mapa" in gm.aviso(["script_engine/pantalla_entrada.py", "test_module_f33.py"])
     assert "fase2b.py" in gm.aviso(["fase2b.py"])
-    assert gm.aviso(["script_engine/gfx_rotulista.py", "lab/MAPA_MODULOS.md"]) is None
+    assert gm.aviso(["script_engine/pantalla_entrada.py", "lab/MAPA_MODULOS.md"]) is None
     assert gm.aviso(["script_engine/aprobacion.py", "lab/ESTADO_SESION.md"]) is None
     s = json.loads((ROOT / ".claude" / "settings.json").read_text(encoding="utf-8"))
     assert any("guard_mapa.py" in h["command"] for x in s["hooks"]["PreToolUse"] for h in x["hooks"])
@@ -146,7 +146,7 @@ def test_el_mapa_cubre_los_modulos_y_trae_aristas():
     assert hay <= nombres and {"fase2b", "gfx_config", "transition_config", "transition_applier", "m01a_escaleta",
                                "m01d_particion", "music_intensity", "title_card.html.tmpl"} <= nombres
     assert all(f["sticker"] and f["estado"] for f in m["modulos"])
-    assert {"de": "gfx_layer", "a": "gfx_rotulista"} in [{k: a[k] for k in ("de", "a")} for a in m["aristas"]]
+    assert {"de": "gfx_layer", "a": "pantalla_entrada"} in [{k: a[k] for k in ("de", "a")} for a in m["aristas"]]
     # F36 §D: lo muerto se borró; no queda en el mapa ni como módulo ni como muerto
     assert not any("garantizar_pico" in x["que"] for x in m["muertos"])
     assert not {"gfx_bug", "gfx_fragments", "gfx_question", "gfx_identity", "rotulista_llm"} & nombres

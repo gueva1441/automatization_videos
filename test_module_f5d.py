@@ -81,14 +81,6 @@ def test_largo_minimo_mas_15_para_pro():
     assert nb._len_range("development") == (750, 1950) and nb._len_range("development", 1.15) == (862, 1950)
 
 
-def test_count_up_solo_cantidades():
-    from script_engine.gfx_director import is_count_quantity as q
-    assert q("6,500", "personas", "Aproximadamente 6,500 personas")
-    assert q("650,000", "", "más de 650,000 dólares") and q("4.6", "", "bajo 15 pies (4.6 metros) de agua")
-    assert not q("10", "años", "niños de hasta 10 años") and not q("10", "", "niños de hasta 10 años")
-    assert not q("29", "", "el 29 de agosto") and not q("2005", "", "en 2005")
-
-
 def test_canon_m03_ningun_menor_en_celdas_de_adultos():
     from script_engine import m03_visual as m3
     pool = {"lugares": [{"nombre": "CYC", "rol": "Instalación juvenil"}], "datos": [], "cronologia": [], "personajes": []}

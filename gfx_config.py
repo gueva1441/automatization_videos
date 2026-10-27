@@ -41,7 +41,6 @@ DEFAULT_PROFILE: str = "misterio"
 @dataclass(frozen=True)
 class GfxRenderSettings:
     """Parámetros de render de la capa gráfica (no cambian por nicho)."""
-    enable_gfx: bool = False                 # default OFF: solo con fase2b --gfx
     quality: str = "looks"                   # draft | looks. F2 §0b: draft (JPEG q80 + CRF 28) ablanda la imagen
     debug_quality: str = "draft"             # solo con --gfx-debug (iteración rápida)
     workers: int = 5                         # DECISIONES: 2026-10-25 (8 workers no mejoran; se queda en 5) · sin shaders (D5) → 5 workers (lab v1)
@@ -49,7 +48,6 @@ class GfxRenderSettings:
                                              # ~3 min el render en fila ya tardaba 956–983 s y caía a base_clip)
     player_ready_timeout_ms: int = 240_000   # lab v2: 45 s default no alcanza a 1440p
     protocol_timeout_ms: int = 600_000
-    hyperframes_version: str = "0.8.172"     # versión validada en F0/LAB v1/LAB v2
     node_dir: Path = Path(r"C:\Program Files\nodejs")
     runtime_dir: Path = GFX_RUNTIME_DIR
     # D11: re-encode del base_clip con keyframe cada frame-bloque (draft #1 del lab falló sin esto)
@@ -195,8 +193,6 @@ VALID_CALLOUT_KINDS: frozenset[str] = frozenset({"year", "figure", "name", "plac
 @dataclass(frozen=True)
 class GfxRules:
     realizador: bool = True                  # F29 §A: con escaleta, el gfx obedece a los beats (gfx_realizador)
-    rotulista: bool = False                  # F29b §A: el texto de pantalla lo escribe el rotulista (Claude), anclado a la oración
-    interrupt_min_sec: float = 25.0          # pattern interrupt: un bloque cada 25–35 s
     interrupt_max_sec: float = 35.0
     accent_hex: str = "#c8102e"              # F2 §0b.9: acento ÚNICO del canal (subrayado, sello, línea, kicker)
     # title_card (F2 §0b.2: 30 % más chica, 3.0 s, fade de salida 0.4 s)
@@ -210,9 +206,6 @@ class GfxRules:
     callout_dur_min: float = 2.5  # identidad F3
     callout_dur_max: float = 6.0  # identidad F3
     callout_dur: float = 2.5                 # identidad F3 · default si el plan no trae duración
-    callout_sec_per_word: float = 0.4        # identidad F3 · 0.4 s × palabras + 1.0 s, mín 2.5 s,
-    callout_base_sec: float = 1.0            # identidad F3 · y nunca antes del fin de la frase hablada
-    callout_until_phrase_end: bool = True
     callout_font: str = "Playfair Display SC"   # name/place/year (D13); figure → figure_font
     figure_font: str = "Anton"                 # F2 §0c: fuentes como tokens del perfil (fonts.*)
     title_font: str = "Anton"
@@ -228,19 +221,10 @@ class GfxRules:
     zoom_freeze_frame: bool = False          # F4 §3: el render SÍ escala el <video> (C64 era del preview); True = cuadro congelado (lab)
     zoom_box_min: float = 0.06               # lado mínimo del box normalizado
     zoom_box_max: float = 0.25
-    zoom_conf_min: float = 0.7               # identidad F3 · F2b §1.2: confianza mínima de visión para el box de la frase ancla
     # archive_clipping (F2 §0b.6: 15 % más chico, 6 s, hasta 2 por cap, lado opuesto al sujeto)
-    archive_dur: float = 6.0  # identidad F3
-    archive_max_per_cap: int = 2
     archive_scale: float = 0.68              # identidad F3 · F2 §0b: 0.85 × 0.8 (otro 20 % más chico)
     archive_max_w_frac: float = 0.30         # identidad F3 · ancho máximo del recorte = 30 % del cuadro
-    archive_head_max_words: int = 8          # identidad F3 · titular ≤ 8 palabras (si no, se descarta: nunca se reescribe)
-    archive_body_default: bool = False       # F2 §0b: recorte = kicker + titular; SIN cuerpo por default
-    archive_body_head_max_words: int = 4     # identidad F3 · el cuerpo solo aparece si el titular tiene ≤ 4 palabras
-    archive_body_max_words: int = 12         # identidad F3 · ≈ 2 líneas a 40 px en el papel de 748 px (frase completa)
     archive_body_lines: int = 2              # identidad F3 · tope duro de líneas visibles (CSS)
-    archive_min_scene: float = 4.0           # la escena de inicio debe dar aire al recorte
-    archive_min_sec: float = 4.0
     archive_body_px: int = 40                # identidad F3 · Omar F2 §0b: 40 px, máx 2 líneas (reemplaza el ≥ 52 de D3 para el recorte)
     # count_up
     count_dur: float = 1.2                   # identidad F3 · rampa 0 → valor (F2 §0b: restaurada)
@@ -276,9 +260,7 @@ class GfxRules:
     safe_bake_workers: int = 3               # F30 §A: escenas cocidas a la vez (perspective ya usa hilos por franjas)
     stitch_transitions: bool = True          # F30 §B: dissolve/dip/flash/cut_punch fuera de ventanas los hace el stitch
     # chapter_question / source_tag / sfx (F2 §0d)
-    question_dur: float = 2.3                # 2.0–2.5 s al cierre del cap
     question_dim: float = 0.5
-    question_max_words: int = 9
     question_font_px: int = 96
     question_auto: bool = False              # F3: pregunta de cierre (F36 §D: el `cierre` del último beat) — el perfil la prende
     question_pause_sec: float = 3.0          # identidad F3 · F3: silencio real al final del cap mientras se ve la pregunta (alarga el cap)
@@ -392,7 +374,9 @@ def active_profile_name() -> str:
 
 # F36 §D: claves que el borrado de D dejó sin código (catálogo de Omar 18:17). El perfil vive fuera de git y lo
 # limpia Omar; mientras estén, se sacan al cargar (no rompen) y quedan en PERFIL_HUERFANAS (la lista va al reporte).
-HUERFANAS_TOKENS: frozenset[str] = frozenset({"peak_word", "icon_literal_only", "critic_snapshot", "emphasis_base_per_cap", "emphasis_same_cat_gap_sec", "anim_detail_label", "anim_figure", "anim_name_place", "anim_year", "archive_figure_echo_sec", "archive_head_max_words_pool", "archive_min_gap_sec", "callout_no_repeat", "dip_min_t", "doc_clippings", "fast_cut_sec", "fragment_director", "gap_fill", "garantizar_pico", "icon_array_dur", "icon_array_max", "icon_array_px", "icon_fallback_lucide", "icon_px", "icon_stamp_px", "question_max_words_auto", "question_rubric", "quote_dur", "quote_max_words", "quote_min_sec", "quote_min_words", "rotulista_effort", "rotulista_modelo", "rotulista_tope_usd", "source_tag_scale", "ticker_min_times", "zoom_label_margin_px", "zoom_scale"})
+HUERFANAS_TOKENS: frozenset[str] = frozenset({"peak_word", "icon_literal_only", "critic_snapshot", "emphasis_base_per_cap", "emphasis_same_cat_gap_sec", "anim_detail_label", "anim_figure", "anim_name_place", "anim_year", "archive_figure_echo_sec", "archive_head_max_words_pool", "archive_min_gap_sec", "callout_no_repeat", "dip_min_t", "doc_clippings", "fast_cut_sec", "fragment_director", "gap_fill", "garantizar_pico", "icon_array_dur", "icon_array_max", "icon_array_px", "icon_fallback_lucide", "icon_px", "icon_stamp_px", "question_max_words_auto", "question_rubric", "quote_dur", "quote_max_words", "quote_min_sec", "quote_min_words", "rotulista_effort", "rotulista_modelo", "rotulista_tope_usd", "source_tag_scale", "ticker_min_times", "zoom_label_margin_px", "zoom_scale",
+                                            # F37 §B.4: las perillas que solo leía el borrador del director
+                                            "interrupt_min_sec", "callout_sec_per_word", "callout_base_sec", "zoom_conf_min", "archive_dur", "archive_head_max_words", "archive_body_default", "archive_body_head_max_words", "archive_body_max_words"})
 HUERFANAS_BLOQUES: frozenset[str] = frozenset({"icon_callout", "icon_array", "source_tag"})
 # F36 §D: sfx por bloque salvo el golpe del title card (catálogo 18:17, componente 9)
 HUERFANAS_SFX: frozenset[str] = frozenset({"data_callout", "count_up", "archive_clipping", "evidence_zoom",
@@ -470,9 +454,6 @@ def rules_from_profile(prof: dict[str, Any]) -> GfxRules:
                             ("title", "title_font"), ("clipping", "clipping_font")):
         if fonts.get(key):
             over[field_name] = fonts[key]
-    ar = prof.get("blocks", {}).get("archive_clipping")
-    if ar is not None:
-        over["archive_max_per_cap"] = int(ar.get("max_per_cap", 0)) if ar.get("enabled", True) else 0
     return replace(GfxRules(), **over)
 
 
@@ -513,10 +494,6 @@ def max_per_cap(block: str) -> int:
     return next(b.max_per_cap for b in GFX_INVENTORY if b.name == block)
 
 
-def block_enabled(block: str) -> bool:
-    return next(b.enabled for b in GFX_INVENTORY if b.name == block)
-
-
 def sfx_for(block: str) -> tuple[Path, float] | None:
     """SFX que el perfil declara para un bloque: (wav, ganancia dB) o None."""
     cfg = ACTIVE_PROFILE.get("sfx", {}).get(block)
@@ -536,19 +513,6 @@ def chrome_strings(chapter_number: int) -> frozenset[str]:
 # ═══════════════════════════════════════════════════════════════
 #  HELPERS
 # ═══════════════════════════════════════════════════════════════
-
-def render_inventory_for_prompt() -> str:
-    """Serializa el inventario para el system prompt del gfx_director."""
-    lines: list[str] = []
-    for b in GFX_INVENTORY:
-        if not b.enabled:                    # el perfil lo apaga → el LLM ni lo ve
-            continue
-        who = "VOS elegís" if b.llm_decides else "NO lo elegís (determinista)"
-        lim = f"máx {b.max_per_cap} por cap; " if b.llm_decides else ""
-        where = f" Dónde: {b.where}." if b.where else ""
-        lines.append(f"- {b.name} [{who}]: {b.description} Parámetros: {b.params} Reglas: {lim}{b.rules}{where}")
-    return "\n".join(lines)
-
 
 def clamp_box(box: list[float]) -> list[float] | None:
     """Normaliza un box [x, y, w, h] a [0, 1] y a lados dentro de rango. None si inválido."""

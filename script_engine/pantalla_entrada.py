@@ -1,16 +1,16 @@
 """
-script_engine/gfx_rotulista.py — F29b §A: el rotulista; F36 §C: el texto de pantalla ya no lo escribe un modelo en
-Fase 2: lo escribe m01e_pantalla en Fase 1 (el guion en papel, DECISIONES 19:54). Este archivo queda como fachada
-(gfx_layer, fase2b, gfx_guion, los tests y el lab no cambian de import) y con `preparar_cap`: lee `01e_pantalla.json`,
-alinea sus oraciones con las de la voz por texto (`alinear`, aclaración 2) y ancla cada ficha a su palabra
-(`palabra_idx`). Regla (Omar): un texto vale si (a) dice algo que la voz no dice, (b) sobre lo que la voz cuenta en ese
-momento y (c) sin adelantar; eso lo decide el papel y lo re-chequean los filtros de Fase 2.
-    rotulista_filtros  validar_papel (los filtros de ORDEN, en orden), contradicciones
-    rotulista_colocar  tiempos, colocar, reloj contra el corte, nunca al mismo tiempo
-    clima              sellos del papel (y peak_word, traído de gfx_peak)
-    voz_datos          pico del cap, reloj desde la voz, tarjeta fecha-hora derivada
-    voz_utils          números, nombres y oraciones de la voz
-F36 §D: se borraron rotulista_llm (el pedido al modelo) y el prefetch.
+script_engine/pantalla_entrada.py — la entrada de Fase 2 para el texto de pantalla (F37 §B.5: antes gfx_rotulista; el
+nombre dice lo que hace: no escribe nada). El texto lo escribe m01e_pantalla en Fase 1 (el guion en papel, DECISIONES
+19:54); acá `preparar_cap` lee `01e_pantalla.json`, alinea sus oraciones con las de la voz por texto (`alinear`,
+aclaración 2) y ancla cada ficha a su palabra (`palabra_idx`); `voz_del_video` y `voz_previa` dan la voz del video y la
+de los caps anteriores. Regla (Omar): un texto vale si (a) dice algo que la voz no dice, (b) sobre lo que la voz cuenta
+en ese momento y (c) sin adelantar; eso lo decide el papel y lo re-chequean los filtros de Fase 2. F37 §B.5: sin
+fachada (cada módulo se importa por su nombre):
+    pantalla_filtros  validar_papel (los filtros de ORDEN, en orden), contradicciones
+    pantalla_colocar  duración, escalera de intentos, colocar, repartir (nunca al mismo tiempo + crítico), reloj
+    clima             sellos del papel
+    voz_datos         pico del cap, reloj desde la voz, tarjeta fecha-hora derivada
+    voz_utils         números, años, nombres, oraciones y velocidad de la voz
 """
 from __future__ import annotations
 
@@ -18,20 +18,8 @@ import re
 from pathlib import Path
 from typing import Any
 
-# F36 §A: re-exports (nadie cambia de import); F36 §D: los de lo borrado se fueron con su código
-from script_engine.voz_utils import (_analiza, _ARTPREP, beat_de_oracion, _DIFERENCIA, _DIG, _fmt, frases, _MAGNITUD,
-                                     munon, nombre_inicial, nombres, norm_oracion, _num_en, _num_tok, numero_en,
-                                     numeros, _NUMW, oraciones, oraciones_de_texto, _palabra_en, palabras,
-                                     palabras_de_contenido, _PARTICULAS, _raiz_en, _toks, _UNIDAD_1, _UNIDAD_2,
-                                     _valor, _w2n, _W2N_LOCK)
-from script_engine.rotulista_filtros import (ancla_papel, candado, contradicciones, _DOC, FICHA, gancho_dicho,
-                                             lectura, LOCALES, no_dicho, ORDEN, PALABRAS_LOCALES, _palabras_mag,
-                                             pide_documento, regla, spoiler, validar_papel)
-from script_engine.rotulista_colocar import (caben, caracteres, choca, colocar, _cubre, despues_del_corte, _escena_de,
-                                             escena_final, hasta_el_corte, KIND_FICHA, LECTURA_CPS, tiempos, unidades)
-from script_engine.clima import (peak_word, sellos_del_papel, TEMA_DE_MOOD, usadas_antes, vocabulario_clima)
-from script_engine.voz_datos import (_entero, fechas_completas, _MES_RE, MESES, pico_cap, pico_plan, _raices,
-                                     reloj_de_voz, tarjeta_inicial, ticker_corner)
+from script_engine.voz_datos import pico_cap
+from script_engine.voz_utils import _ARTPREP, beat_de_oracion, norm_oracion, numero_en, oraciones
 
 
 def voz_del_video(ctx: dict[str, Any]) -> list[str]:

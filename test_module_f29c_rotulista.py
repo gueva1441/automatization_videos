@@ -11,7 +11,7 @@ import json
 import re
 from pathlib import Path
 
-from script_engine import gfx_rotulista as gro
+from script_engine import pantalla_colocar as pc, voz_utils as vu
 
 ROOT = Path(__file__).resolve().parent
 FIX_B = ROOT / "lab" / "hyperframes" / "f29b" / "fixtures"
@@ -43,10 +43,10 @@ def _ent(oraciones: list[tuple[float, str]], items: list[dict], beats: list[dict
                        "datos_apoyo": []}]
     its = [{"a_pantalla": False, "por_que": "", "beats": [beats[0]["n"]], "kind": "datos", "fuente": "Fuente X, 2013",
             "autor": "", **x, "tipo": x["id"][0]} for x in items]
-    ent = {"cap": 3, "titulo": "t", "oraciones": gro.oraciones(words), "beats": beats, "items": its,
+    ent = {"cap": 3, "titulo": "t", "oraciones": vu.oraciones(words), "beats": beats, "items": its,
            "ya_mostrado": [], "pico": pico, "voz_video": voz_video or []}
     for s in ent["oraciones"]:
-        s["beat"] = gro.beat_de_oracion(s, beats)
+        s["beat"] = vu.beat_de_oracion(s, beats)
     return ent, words
 
 
@@ -102,22 +102,25 @@ def test_ficha_no_convive_con_reloj_ni_con_title_card():
     plan = {"title_card": {"kicker": "CAPÍTULO 3", "title": "t"},
             "callouts": [{"text": "Aprobada con 13", "kicker": "Acta", "ficha": True, "start": 5.5, "duration": 2.0,
                           "t1": 7.5, "pool_id": "T10", "tipo_rotulista": "hecho", "rotulista": True}]}
-    filas = gro.escena_final(plan, scenes, ent, [])
+    filas = pc.repartir(plan, scenes, ent, [])
     c = plan["callouts"][0]
     # DECISIONES 17:58 (F36 C): nunca al mismo tiempo; la ficha (5.5–7.5 s) no toca el title card (0–3 s): se queda
     assert c["start"] == 5.5 and not [f for f in filas if f.get("accion") == "movido"]
+    # F37 §B.1: la escalera de intentos la traen los filtros (`intentos`); acá, el de su palabra y el de la escena siguiente
     plan1 = {"title_card": {"kicker": "CAPÍTULO 3", "title": "t"},
              "callouts": [{"text": "Aprobada con 13", "kicker": "Acta", "ficha": True, "start": 2.0, "duration": 2.0,
-                           "t1": 4.0, "pool_id": "T10", "tipo_rotulista": "hecho", "rotulista": True}]}
-    filas1 = gro.escena_final(plan1, scenes, ent, [])
+                           "t1": 4.0, "pool_id": "T10", "tipo_rotulista": "hecho", "rotulista": True,
+                           "intentos": [{"t0": 2.0, "t1": 4.0, "si": 0, "como": "1 · palabra ancla"},
+                                        {"t0": 9.0, "t1": 11.0, "si": 1, "como": "2 · inicio de la escena 1"}]}]}
+    filas1 = pc.repartir(plan1, scenes, ent, [])
     c1 = plan1["callouts"][0]                                                       # se solapa con el title card
     assert c1["start"] == 9.0 and any(f["accion"] == "movido" and "title card" in f["motivo"] for f in filas1)
     plan2 = {"time_ticker": {"day": "9", "month": "OCT", "start": 9.5, "duration": 12.0, "changes": []},
              "callouts": [{"text": "Aprobada con 13", "kicker": "Acta", "ficha": True, "start": 12.0, "duration": 2.0,
                            "pool_id": "T10", "tipo_rotulista": "hecho", "rotulista": True}]}
-    filas2 = gro.escena_final(plan2, scenes, ent, [])
+    filas2 = pc.repartir(plan2, scenes, ent, [])
     assert plan2["callouts"] == [] and plan2["time_ticker"]                           # el reloj cubre el resto del beat
-    assert any(f["regla"] == "zona" and f["accion"] == "fuera" and "reloj" in f["motivo"] for f in filas2)
+    assert any(f["regla"] == "colocar" and f["accion"] == "fuera" and "reloj" in f["motivo"] for f in filas2)
 
 
 def test_reloj_no_va_encima_de_un_recorte_y_arranca_en_la_escena_siguiente_del_beat():
@@ -125,8 +128,9 @@ def test_reloj_no_va_encima_de_un_recorte_y_arranca_en_la_escena_siguiente_del_b
     scenes = [Sc(0, 0.0, 9.0), Sc(1, 9.0, 18.0), Sc(2, 18.0, 30.0)]
     plan = {"archive_clippings": [{"headline": "h", "start": 2.0, "duration": 3.0, "rotulista": True, "pool_id": "D1"}],
             "time_ticker": {"day": "9", "month": "OCT", "start": 3.0, "duration": 12.0, "changes": []}}
-    gro.escena_final(plan, scenes, ent, [])
-    assert plan["time_ticker"]["start"] == 9.0 and plan["time_ticker"]["duration"] == 6.0
+    pc.repartir(plan, scenes, ent, [])
+    tk = plan["time_ticker"]                         # F37 §B.1: sale del recorte por la escalera y termina donde terminaba
+    assert tk["start"] >= 5.0 and round(tk["start"] + tk["duration"], 3) == 15.0
 
 
 # ═══════════════ A.6.1: el primer JSON válido ═══════════════

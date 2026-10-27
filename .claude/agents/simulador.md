@@ -11,7 +11,7 @@ Recibís: (a) la regla o el filtro tal como lo escribe el handoff, (b) el topic 
 
 Procedimiento (skill `.claude/skills/simular-reglas/SKILL.md`):
 1. Leé `output/<topic>/GUION_PANTALLA.json` (si no existe, decilo y pará: se genera con `fase2b <topic> --plan-only
-   --rotulista`, que no corrés vos). Mirá dos o tres eventos para ver las claves.
+  `, que no corrés vos). Mirá dos o tres eventos para ver las claves.
 2. Traducí la regla a un predicado sobre el evento `e`. Si la regla es ambigua, elegí la lectura más literal, decí cuál
    y, si cambia mucho el resultado, corré también la otra.
 3. Corré `python lab/tools/simular_regla.py output/<topic>/GUION_PANTALLA.json --nombre "…" --regla "…"` (con

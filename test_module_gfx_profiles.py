@@ -16,7 +16,7 @@ def test_carga_ambos_perfiles_sin_tocar_codigo():
     assert rm.accent_hex == "#c2302f" and rf.accent_hex != rm.accent_hex          # F4: acento de la identidad del lab
     inv_f = {b.name: b for b in gc.inventory_from_profile(fin)}
     assert not inv_f["archive_clipping"].enabled and inv_f["archive_clipping"].max_per_cap == 0
-    assert rf.archive_max_per_cap == 0 and rf.grain_opacity == 0.0
+    assert rf.grain_opacity == 0.0                # F37 §B.4: archive_max_per_cap era del borrador del director
     assert gc.grade_variants(rf)["off"]["opacity"]["gr-grain"] == 0.0
 
 
@@ -25,7 +25,7 @@ def test_misterio_reproduce_la_calibracion_0b():
     rm = gc.rules_from_profile(gc.load_profile("misterio"))
     engine = gc.GfxRules()
     diffs = {f.name for f in fields(gc.GfxRules) if getattr(rm, f.name) != getattr(engine, f.name)}
-    assert diffs == {"interrupt_min_sec", "interrupt_max_sec", "grain_opacity", "vignette_opacity",
+    assert diffs == {"interrupt_max_sec", "grain_opacity", "vignette_opacity",   # F37 §B.4: sin interrupt_min_sec (del director)
                      "mood_dark_flicker",                                  # PARADA 1: oscuridad sin parpadeos
                      "question_auto", "question_dim",                      # F3: pregunta (70 %)
                      "black_hold_sec", "peak_blocks",                      # F3: corte a negro 1 s + pico del cap
@@ -60,14 +60,6 @@ def test_fuente_sin_font_face_falla(tmp_path, monkeypatch):
     monkeypatch.setattr(gc, "GFX_PROFILES_DIR", tmp_path)
     with pytest.raises(ValueError, match="Comic Sans"):
         gc.load_profile("f")
-
-
-def test_bloque_apagado_no_llega_al_prompt(monkeypatch):
-    fin = gc.load_profile("finanzas")
-    monkeypatch.setattr(gc, "GFX_INVENTORY", gc.inventory_from_profile(fin))
-    txt = gc.render_inventory_for_prompt()
-    assert "archive_clipping" not in txt and "evidence_zoom" not in txt and "data_callout" in txt
-    assert "máx 4 por cap" in txt                           # el máximo sale del perfil
 
 
 def test_css_con_perfil_finanzas(monkeypatch):
