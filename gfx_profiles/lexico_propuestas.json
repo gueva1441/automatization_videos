@@ -25,11 +25,13 @@
  },
  "negrura": {
   "categoria": "oscuridad_encierro",
-  "peso": 2,
+  "peso": 3,
   "videos": [
-   "ba6c3cac-a091-41c0-8dad-afd2f4364747"
+   "ba6c3cac-a091-41c0-8dad-afd2f4364747",
+   "ba6c3cac-f5v2"
   ],
-  "concreta": false
+  "concreta": false,
+  "promovida": "2026-10-21"
  },
  "sofocante": {
   "categoria": "oscuridad_encierro",
@@ -73,11 +75,13 @@
  },
  "borradas": {
   "categoria": "silencio",
-  "peso": 2,
+  "peso": 3,
   "videos": [
-   "ba6c3cac-a091-41c0-8dad-afd2f4364747"
+   "ba6c3cac-a091-41c0-8dad-afd2f4364747",
+   "ba6c3cac-f5v2"
   ],
-  "concreta": false
+  "concreta": false,
+  "promovida": "2026-10-21"
  },
  "desvanecidas": {
   "categoria": "silencio",
@@ -150,5 +154,523 @@
    "ba6c3cac-a091-41c0-8dad-afd2f4364747"
   ],
   "concreta": true
+ },
+ "terrible": {
+  "categoria": "caos_gritos",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": false
+ },
+ "estrella": {
+  "categoria": "caos_gritos",
+  "peso": 2,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": false
+ },
+ "suerte": {
+  "categoria": "frio_abandono",
+  "peso": 2,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": false
+ },
+ "subiera": {
+  "categoria": "agua",
+  "peso": 2,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": false
+ },
+ "golpeada": {
+  "categoria": "caos_gritos",
+  "peso": 2,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": false
+ },
+ "estruendo": {
+  "categoria": "caos_gritos",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": false
+ },
+ "nauseabundo": {
+  "categoria": "veneno_enfermedad",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": false
+ },
+ "fétido": {
+  "categoria": "veneno_enfermedad",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": false
+ },
+ "pestilente": {
+  "categoria": "veneno_enfermedad",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": false
+ },
+ "horror": {
+  "categoria": "caos_gritos",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": false
+ },
+ "agujero": {
+  "categoria": "oscuridad_encierro",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": true
+ },
+ "abismo": {
+  "categoria": "oscuridad_encierro",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": false
+ },
+ "desvanecido": {
+  "categoria": "silencio",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": false
+ },
+ "escalofriantes": {
+  "categoria": "oscuridad_encierro",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": false
+ },
+ "fétidas": {
+  "categoria": "veneno_enfermedad",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": true
+ },
+ "intoxicación": {
+  "categoria": "veneno_enfermedad",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": false
+ },
+ "horrores": {
+  "categoria": "caos_gritos",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": false
+ },
+ "existían": {
+  "categoria": "silencio",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": false
+ },
+ "perdieron": {
+  "categoria": "muerte",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": false
+ },
+ "vidas": {
+  "categoria": "muerte",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": false
+ },
+ "reclusos": {
+  "categoria": "oscuridad_encierro",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": true
+ },
+ "huracán": {
+  "categoria": "agua",
+  "peso": 2,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": true
+ },
+ "prisioneros": {
+  "categoria": "oscuridad_encierro",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": true
+ },
+ "hedor": {
+  "categoria": "veneno_enfermedad",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": true
+ },
+ "tragedia": {
+  "categoria": "muerte",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": false
+ },
+ "castigo": {
+  "categoria": "oscuridad_encierro",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": false
+ },
+ "devastadora": {
+  "categoria": "caos_gritos",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": false
+ },
+ "olvido": {
+  "categoria": "frio_abandono",
+  "peso": 2,
+  "videos": [
+   "ba6c3cac-f5v2"
+  ],
+  "concreta": false
+ },
+ "ruido": {
+  "categoria": "caos_gritos",
+  "peso": 2,
+  "videos": [
+   "f8s3-vajont",
+   "f8s3-vajont-f28c"
+  ],
+  "concreta": true,
+  "promovida": "2026-10-25"
+ },
+ "fisura": {
+  "categoria": "caos_gritos",
+  "peso": 3,
+  "videos": [
+   "f8s3-vajont",
+   "f8s3-vajont-f28c"
+  ],
+  "concreta": true,
+  "promovida": "2026-10-25"
+ },
+ "ola": {
+  "categoria": "agua",
+  "peso": 3,
+  "videos": [
+   "f8s3-vajont",
+   "f8s3-vajont-f29"
+  ],
+  "concreta": true,
+  "promovida": "2026-10-25"
+ },
+ "locura": {
+  "categoria": "caos_gritos",
+  "peso": 3,
+  "videos": [
+   "f8s3-vajont",
+   "f8s3-vajont-f28c"
+  ],
+  "concreta": false,
+  "promovida": "2026-10-25"
+ },
+ "estruendos": {
+  "categoria": "caos_gritos",
+  "peso": 3,
+  "videos": [
+   "f8s3-vajont",
+   "f8s3-vajont-f28c"
+  ],
+  "concreta": true,
+  "promovida": "2026-10-25"
+ },
+ "alarma": {
+  "categoria": "caos_gritos",
+  "peso": 3,
+  "videos": [
+   "f8s3-vajont",
+   "f8s3-vajont-f28c"
+  ],
+  "concreta": true,
+  "promovida": "2026-10-25"
+ },
+ "grietas": {
+  "categoria": "caos_gritos",
+  "peso": 3,
+  "videos": [
+   "f8s3-vajont",
+   "f8s3-vajont-f28c"
+  ],
+  "concreta": true,
+  "promovida": "2026-10-25"
+ },
+ "sacudidas": {
+  "categoria": "caos_gritos",
+  "peso": 3,
+  "videos": [
+   "f8s3-vajont",
+   "f8s3-vajont-f28c"
+  ],
+  "concreta": true,
+  "promovida": "2026-10-25"
+ },
+ "mayores": {
+  "categoria": "caos_gritos",
+  "peso": 2,
+  "videos": [
+   "f8s3-vajont",
+   "f8s3-vajont-f29"
+  ],
+  "concreta": false,
+  "promovida": "2026-10-25"
+ },
+ "avalancha": {
+  "categoria": "agua",
+  "peso": 3,
+  "videos": [
+   "f8s3-vajont",
+   "f8s3-vajont-f28c"
+  ],
+  "concreta": true,
+  "promovida": "2026-10-25"
+ },
+ "fango": {
+  "categoria": "agua",
+  "peso": 3,
+  "videos": [
+   "f8s3-vajont",
+   "f8s3-vajont-f28c"
+  ],
+  "concreta": true,
+  "promovida": "2026-10-25"
+ },
+ "fuerza": {
+  "categoria": "caos_gritos",
+  "peso": 3,
+  "videos": [
+   "f8s3-vajont",
+   "f8s3-vajont-f28c"
+  ],
+  "concreta": false,
+  "promovida": "2026-10-25"
+ },
+ "grito": {
+  "categoria": "caos_gritos",
+  "peso": 3,
+  "videos": [
+   "f8s3-vajont",
+   "f8s3-vajont-f28c"
+  ],
+  "concreta": true,
+  "promovida": "2026-10-25"
+ },
+ "vida": {
+  "categoria": "muerte",
+  "peso": 3,
+  "videos": [
+   "f8s3-vajont",
+   "f8s3-vajont-f29"
+  ],
+  "concreta": false,
+  "promovida": "2026-10-25"
+ },
+ "montaña": {
+  "categoria": "agua",
+  "peso": 3,
+  "videos": [
+   "f8s3-vajont",
+   "f8s3-vajont-f29"
+  ],
+  "concreta": true,
+  "promovida": "2026-10-25"
+ },
+ "justicia": {
+  "categoria": "caos_gritos",
+  "peso": 2,
+  "videos": [
+   "f8s3-vajont",
+   "f8s3-vajont-f29"
+  ],
+  "concreta": false,
+  "promovida": "2026-10-25"
+ },
+ "luz": {
+  "categoria": "oscuridad_encierro",
+  "peso": 2,
+  "videos": [
+   "f8s3-vajont-f28c"
+  ],
+  "concreta": false
+ },
+ "respuesta": {
+  "categoria": "caos_gritos",
+  "peso": 3,
+  "videos": [
+   "f8s3-vajont-f28c"
+  ],
+  "concreta": false
+ },
+ "costura": {
+  "categoria": "caos_gritos",
+  "peso": 2,
+  "videos": [
+   "f8s3-vajont-f28c"
+  ],
+  "concreta": true
+ },
+ "desmoronamiento": {
+  "categoria": "caos_gritos",
+  "peso": 3,
+  "videos": [
+   "f8s3-vajont-f28c",
+   "f8s3-vajont-f29"
+  ],
+  "concreta": false,
+  "promovida": "2026-10-25"
+ },
+ "deslizamiento": {
+  "categoria": "caos_gritos",
+  "peso": 3,
+  "videos": [
+   "f8s3-vajont-f28c",
+   "f8s3-vajont-f29"
+  ],
+  "concreta": false,
+  "promovida": "2026-10-25"
+ },
+ "colgados": {
+  "categoria": "oscuridad_encierro",
+  "peso": 2,
+  "videos": [
+   "f8s3-vajont-f28c",
+   "f8s3-vajont-f29"
+  ],
+  "concreta": false,
+  "promovida": "2026-10-25"
+ },
+ "cicatriz": {
+  "categoria": "veneno_enfermedad",
+  "peso": 3,
+  "videos": [
+   "f8s3-vajont-f28c",
+   "f8s3-vajont-f29"
+  ],
+  "concreta": true,
+  "promovida": "2026-10-25"
+ },
+ "garganta": {
+  "categoria": "oscuridad_encierro",
+  "peso": 2,
+  "videos": [
+   "f8s3-vajont-f28c"
+  ],
+  "concreta": true
+ },
+ "evacuación": {
+  "categoria": "frio_abandono",
+  "peso": 3,
+  "videos": [
+   "f8s3-vajont-f28c"
+  ],
+  "concreta": false
+ },
+ "espantosa": {
+  "categoria": "caos_gritos",
+  "peso": 3,
+  "videos": [
+   "f8s3-vajont-f28c"
+  ],
+  "concreta": false
+ },
+ "sensación": {
+  "categoria": "caos_gritos",
+  "peso": 2,
+  "videos": [
+   "f8s3-vajont-f28c"
+  ],
+  "concreta": false
+ },
+ "desastre": {
+  "categoria": "caos_gritos",
+  "peso": 3,
+  "videos": [
+   "f8s3-vajont-f28c"
+  ],
+  "concreta": false
+ },
+ "amenaza": {
+  "categoria": "caos_gritos",
+  "peso": 3,
+  "videos": [
+   "f8s3-vajont-f28c",
+   "f8s3-vajont-f29"
+  ],
+  "concreta": false,
+  "promovida": "2026-10-25"
+ },
+ "roca": {
+  "categoria": "caos_gritos",
+  "peso": 2,
+  "videos": [
+   "f8s3-vajont-f28c",
+   "f8s3-vajont-f29"
+  ],
+  "concreta": true,
+  "promovida": "2026-10-25"
+ },
+ "advertencia": {
+  "categoria": "caos_gritos",
+  "peso": 2,
+  "videos": [
+   "f8s3-vajont-f29",
+   "f8s3-vajont-f30"
+  ],
+  "concreta": false,
+  "promovida": "2026-10-26"
  }
 }
