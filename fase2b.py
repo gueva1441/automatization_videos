@@ -2502,7 +2502,8 @@ def _segment_hash(plan: Any, work_dir: Path, flags: dict[str, Any]) -> str:
     }
     if flags.get("gfx"):
         from gfx_config import ACTIVE_PROFILE
-        for name in (f"gfx_plan_{cap}.json", f"gfx_zoom_box_{cap}.json", f"gfx_question_{cap}.json"):
+        for name in (f"gfx_plan_{cap}.json", f"gfx_plan_{cap}.resolved.json",     # F38e §A r1: el plan dibujado
+                     f"gfx_zoom_box_{cap}.json", f"gfx_question_{cap}.json"):
             f = work_dir / name
             parts[name] = hashlib.sha256(f.read_bytes()).hexdigest() if f.exists() else None
         parts["profile"] = ACTIVE_PROFILE
@@ -2645,6 +2646,9 @@ def _segmentos_en_paralelo(plans: list[Any], *, work_dir: Path, manifest: dict, 
             gfx_sparse=gfx and gfx_sparse, safe_scenes=safe_by_cap.get(plan.chapter_id, {}) if safe_router else None,
             gfx_debug=gfx_debug)
         print(f"     ✓ {seg_path.name} — {_get_duration(seg_path):.1f}s ({time.time() - t0:.0f}s)")
+        if gfx:                                       # F38e §A.3: costura medida en el mp4 (duración + negro)
+            for linea in _costura_del_segmento(plan, seg_path, work_dir, hook=hook):
+                print(f"     {linea}")
         with lock:
             res[i] = seg_path
             manifest[plan.chapter_id] = _segment_hash(plan, work_dir, seg_flags)
@@ -2709,6 +2713,87 @@ def _segmento_de_cap(plan: Any, work_dir: Path, pre_pad: float) -> dict[str, flo
     fps = pipeline.fps
     seg = math.ceil(round(max(plan.audio_duration + pre_pad, clip) * fps, 3) - 1e-3) / fps
     return {"clip_dur": clip, "seg_dur": round(seg, 3), "pre_pad": pre_pad, "pre_roll": float(esc.get("pre_roll") or 0.0)}
+
+
+def _medir_cierre(seg_path: Path, esperado_s: float, negro_s: float, fps: int) -> dict[str, Any]:
+    """F38e §A.3: el chequeo «costuras» medido en el mp4 del segmento (el del guion mide solo el plan). Duración con
+    ffprobe contra `esperado_s` con tolerancia de un cuadro (1/fps, derivado del fps del render) y, si `negro_s` > 0,
+    `blackdetect` sobre el último tramo: el negro tiene que llegar al final y durar al menos `negro_s` menos un cuadro.
+    Medido (lavfi, test f38e_a): cuando la corrida negra llega al fin del archivo, blackdetect da como `black_end` el
+    pts del ÚLTIMO cuadro negro (no su fin) y la cuenta un cuadro corta; en el medio del archivo da el fin exacto. Por
+    eso `d=` de blackdetect = `negro_s` menos dos cuadros (la tolerancia y ese cuadro final; el `d` por defecto, 2 s,
+    no vería un negro de 1 s) y a la corrida que toca el fin se le suma su último cuadro. Umbral de negro: el de
+    ffmpeg por defecto."""
+    assert FFMPEG is not None
+    import re as _re
+    cuadro = 1.0 / float(fps)
+    dur = _get_duration(seg_path)
+    out: dict[str, Any] = {"duracion_s": round(dur, 3), "esperado_s": round(float(esperado_s), 3),
+                           "tolerancia_s": round(cuadro, 4), "negro_s": round(float(negro_s), 3),
+                           "duracion_ok": abs(dur - float(esperado_s)) <= cuadro + 1e-6, "negro_ok": None,
+                           "negro_detectado": None, "blackdetect_d": None}
+    if negro_s <= 0:
+        return out
+    ss = max(0.0, dur - float(negro_s) - cuadro)
+    d_min = max(0.0, float(negro_s) - 2 * cuadro)
+    out["blackdetect_d"] = round(d_min, 4)
+    r = _run_cmd([FFMPEG, "-nostats", "-v", "info", "-ss", f"{ss:.4f}", "-i", str(seg_path),
+                  "-vf", f"blackdetect=d={d_min:.4f}", "-an", "-f", "null", "-"], timeout=120)
+    tramos = []
+    for a, b, c in _re.findall(r"black_start:(\S+) black_end:(\S+) black_duration:(\S+)", r.stderr or ""):
+        ini, fin, d = ss + float(a), ss + float(b), float(c)
+        al_fin = fin >= dur - cuadro - cuadro / 2            # la corrida toca el fin: fin = pts del último cuadro
+        if al_fin:
+            fin, d = fin + cuadro, d + cuadro
+        tramos.append({"black_start": round(ini, 3), "black_end": round(fin, 3), "black_duration": round(d, 3),
+                       "al_fin": al_fin})
+    out["negro_detectado"] = tramos
+    out["negro_ok"] = any(t["al_fin"] and t["black_duration"] >= float(negro_s) - cuadro - 1e-6 for t in tramos)
+    return out
+
+
+def _costura_del_segmento(plan: Any, seg_path: Path, work_dir: Path, *, hook: str | None) -> list[str]:
+    """F38e §A.3: líneas «✓ costura …» / «✗ costura …» para el log del render después de armar un segmento con --gfx.
+    La duración esperada es la del cap en el guion de pantalla (`GUION_PANTALLA.json`, `seg_dur`, lo aprobado) y, si
+    no hay guion para ese cap, la misma cuenta del guion sobre `gfx_escenas_<cap>.json` (_segmento_de_cap: voz +
+    pausa de la pregunta + negro). El negro esperado es el `black_hold.duration` del plan resuelto (el
+    `black_hold_sec` del perfil); sin pregunta de cierre no hay negro que medir."""
+    cap = plan.chapter_id
+    pre_pad = (HOOK_DURATION if (plan.is_first and hook) else 0.0) + _pre_roll_de(plan, True)
+    fps = pipeline.fps
+    esperado, fuente = None, ""
+    g = work_dir.parent / "GUION_PANTALLA.json"
+    try:
+        if g.exists():
+            for c in json.loads(g.read_text(encoding="utf-8")).get("caps") or []:
+                if c.get("cap") == cap and c.get("seg_dur") is not None:
+                    esperado, fuente = float(c["seg_dur"]), "guion"
+        if esperado is None:
+            esperado, fuente = _segmento_de_cap(plan, work_dir, pre_pad)["seg_dur"], "gfx_escenas"
+    except (OSError, ValueError, KeyError) as e:
+        return [f"✗ costura {cap}: sin duración esperada ({type(e).__name__}: {e})"]
+    negro = 0.0
+    f = work_dir / f"gfx_plan_{cap}.resolved.json"
+    try:
+        if f.exists():
+            negro = float(((json.loads(f.read_text(encoding="utf-8")).get("plan") or {}).get("black_hold") or {})
+                          .get("duration") or 0.0)
+    except (OSError, ValueError):
+        negro = 0.0
+    try:
+        m = _medir_cierre(seg_path, esperado, negro, fps)
+    except Exception as e:  # noqa: BLE001 — el chequeo nunca tira el render
+        return [f"✗ costura {cap}: no se pudo medir ({type(e).__name__}: {e})"]
+    out = [f"{'✓' if m['duracion_ok'] else '✗'} costura {cap}: segmento {m['duracion_s']:.3f} s vs {fuente} "
+           f"{m['esperado_s']:.3f} s (±{m['tolerancia_s']:.4f} s, un cuadro)"]
+    if negro <= 0:
+        out.append(f"· costura {cap}: sin pregunta de cierre en el plan → sin negro que medir")
+    else:
+        det = ", ".join(f"{t['black_start']:.3f}→{t['black_end']:.3f} ({t['black_duration']:.3f} s)"
+                        for t in m["negro_detectado"] or []) or "ninguno"
+        out.append(f"{'✓' if m['negro_ok'] else '✗'} costura {cap}: negro de {negro:.2f} s al cierre · blackdetect "
+                   f"(d={m['blackdetect_d']:.4f}) en los últimos {negro + 1.0 / fps:.3f} s: {det}")
+    return out
 
 
 def _mezcla_preview(plans: list[Any], work_dir: Path, video_id: str, segs: dict[str, dict[str, float]],
@@ -3182,6 +3267,9 @@ def _assemble_one_video(
             return 2, None
         seg_dur = _get_duration(seg_path)
         print(f"     ✓ {seg_path.name} — {seg_dur:.1f}s")
+        if gfx:                                       # F38e §A.3: costura medida en el mp4 (duración + negro)
+            for linea in _costura_del_segmento(plan, seg_path, work_dir, hook=hook):
+                print(f"     {linea}")
         segments.append(seg_path)
         if seg_hash:
             # la huella se guarda DESPUÉS del build: recién ahí existen el visual y el box del zoom

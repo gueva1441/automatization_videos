@@ -1,0 +1,45 @@
+[12:59:47] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s3-vajont-f30
+[13:02:56] INFO     | viral_pipeline | [video_assembler] ✓ [gfx] ch02 OK en 189s (disperso)
+[13:04:20] INFO     | viral_pipeline | [cost_tracker] Video f8s3-vajont-f30 — Costo total: $0.0000
+
+  🎬 Modo: SINGLE · 1 video(s) a procesar
+
+════════════════════════════════════════════════════════════
+  🎬 FASE 2B — f8s3-vajont-f30
+════════════════════════════════════════════════════════════
+  🪝 hook:     (ninguno)
+  📝 subs:     ON (karaoke)
+  🎨 gfx:      ON (HyperFrames, looks)
+  📊 capítulos: 7
+  ⏱  duración total estimada: 980.8s (16.3 min)
+
+  Plan por capítulo:
+    [ch01] engine=veo  | audio= 94.8s | 1 clip     | subs+ts
+    [ch02] engine=flux | audio=130.0s | 13 img(s)  | subs+ts
+    [ch03] engine=flux | audio=126.4s | 13 img(s)  | subs+ts
+    [ch04] engine=flux | audio=118.7s | 11 img(s)  | subs+ts
+    [ch05] engine=flux | audio=166.0s | 15 img(s)  | subs+ts
+    [ch06] engine=flux | audio=164.7s | 16 img(s)  | subs+ts
+    [ch07] engine=veo  | audio=180.2s | 1 clip     | subs+ts
+
+  ♻  reuse-visuals: salteando flow_director (clips ya horneados)
+  🛡  safe-router: riesgo low=68 mid=0 high=0 → movimiento seguro en 0 imagen(es)
+
+  🔧 [2/7] ch02 (flux)...
+  [fase2b] ch02 reuse-visuals: ch02_flux_visual.mp4 (sin DepthFlow)
+  [gfx] ch02 reuse: capa sin md5 de plan: se rehace
+     ✓ ch02_segment_only.mp4 — 140.6s
+     ✓ costura ch02: segmento 140.600 s vs guion 140.600 s (±0.0333 s, un cuadro)
+     ✓ costura ch02: negro de 1.00 s al cierre · blackdetect (d=0.9333) en los últimos 1.033 s: 139.600→140.600 (1.000 s)
+
+  ✅ --only-cap ch02: C:\CLAUDE_PROJECTS\automatization_videos\output\f8s3-vajont-f30\_fase2b_work\ch02_segment_only.mp4
+
+════════════════════════════════════════════════════════════
+  ✅ FASE 2B BATCH TERMINADA
+════════════════════════════════════════════════════════════
+  Procesados OK: 1/1
+  ▶ Siguiente paso (empaquetar para publicar):
+       python fase3.py f8s3-vajont-f30
+════════════════════════════════════════════════════════════
+
+exit=0

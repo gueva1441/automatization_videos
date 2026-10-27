@@ -81,9 +81,15 @@ def test_render_ok_devuelve_gfx(env, monkeypatch):
 
 
 def test_reuse_no_re_renderiza(env, monkeypatch):
+    # F38e §A r1: el reuse exige el sidecar chXX_gfx.plan.md5 con el md5 del plan resuelto de hoy (una capa sin
+    # sidecar o de otro plan se rehace: test_module_f38e_a); acá la capa es del plan de hoy.
+    import hashlib
     base, chplan, work = env
     (work / "ch02_gfx.mp4").write_bytes(b"ya")
     (work / "gfx_ch02.log").write_text("render original\n", encoding="utf-8")
+    resolved = work / "gfx_plan_ch02.resolved.json"
+    resolved.write_text(json.dumps({"plan": PLAN, "rejected": []}), encoding="utf-8")
+    gl.sidecar_plan(work, "ch02").write_text(hashlib.md5(resolved.read_bytes()).hexdigest() + "\n", encoding="utf-8")
     monkeypatch.setattr(gl, "_hf", lambda *a, **k: (_ for _ in ()).throw(AssertionError("no debía correr")))
     assert gl.apply_gfx(base, chplan, "vid", work, width=2560, height=1440, fps=30, reuse=True) == work / "ch02_gfx.mp4"
     log = (work / "gfx_ch02.log").read_text(encoding="utf-8")

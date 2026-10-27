@@ -303,10 +303,34 @@ def closing_question(resolved: dict[str, Any], ctx: dict[str, Any], work_dir: Pa
                                     "fuente": "escaleta (cierre del último beat)"}
     bh = float(gfx_rules.black_hold_sec)
     resolved["black_hold"] = {"start": round(clip_dur + pause, 3), "duration": round(bh, 3)} if bh > 0 else None
-    (work_dir / f"gfx_pause_{cap}.json").write_text(json.dumps({"pause": pause + bh, "text": txt},
-                                                               ensure_ascii=False), encoding="utf-8")
     log.append(f"  pregunta de cierre (cierre del beat {real['beats'][-1]['n']}): {txt!r}")
-    return pause + bh
+    return pausa_a_disco(work_dir, cap, resolved)        # F38e §A R8: una sola cuenta (pregunta + negro) y un archivo
+
+
+def pausa_de_cierre(resolved: dict[str, Any]) -> float:
+    """F38e §A R8: lo que el cap dura de más que la voz, leído del plan: la pausa de la pregunta de cierre MÁS el
+    negro (`black_hold.duration`, el `black_hold_sec` del perfil). Es la misma cuenta que `closing_question` devuelve
+    (`pause + bh`); con el plan congelado (F34) nadie llamaba a `closing_question` y se tomaba solo
+    `chapter_question.pause`: el base se alargaba sin el negro y el `black_hold`, planeado en `clip_dur + pause`,
+    caía después del final del clip (v6 de Vajont: cada segmento 1,0 s más corto que el guion y sin negro)."""
+    cq = resolved.get("chapter_question") or {}
+    if not cq:
+        return 0.0
+    bh = resolved.get("black_hold") or {}
+    return round(float(cq.get("pause") or 0.0) + float(bh.get("duration") or 0.0), 3)
+
+
+def pausa_a_disco(work_dir: Path, cap: str, resolved: dict[str, Any]) -> float:
+    """F38e §A R8: `gfx_pause_<cap>.json` (lo lee fase2b._gfx_pauses para la música) sale del plan que se dibuja,
+    también con el plan congelado; sin pregunta no hay archivo. Devuelve la pausa total (pregunta + negro)."""
+    pausa = pausa_de_cierre(resolved)
+    f = Path(work_dir) / f"gfx_pause_{cap}.json"
+    if pausa <= 0:
+        f.unlink(missing_ok=True)
+        return 0.0
+    f.write_text(json.dumps({"pause": pausa, "text": (resolved.get("chapter_question") or {}).get("text")},
+                            ensure_ascii=False), encoding="utf-8")
+    return pausa
 
 
 def _render_sparse(resolved: dict[str, Any], scenes: list[GfxScene], project: Path, out: Path, *, cap: str,
@@ -486,6 +510,53 @@ def plan_congelado(work_dir: Path, cap: str) -> dict[str, Any] | None:
     return copy.deepcopy(json.loads(f.read_text(encoding="utf-8"))["plan"])
 
 
+def sidecar_plan(work_dir: Path, cap: str) -> Path:
+    """F38e §A r1: junto a `chXX_gfx.mp4`, `chXX_gfx.plan.md5` = md5 del plan resuelto con que se dibujó esa capa."""
+    return Path(work_dir) / f"{cap}_gfx.plan.md5"
+
+
+def md5_plan_resuelto(work_dir: Path, cap: str) -> str | None:
+    """F38e §A r1: md5 de los bytes de `gfx_plan_<cap>.resolved.json` (la misma huella por archivo que
+    `aprobacion.md5_planes` junta para el guion aprobado: con guion aprobado ese archivo ES el plan congelado que se
+    dibuja; sin aprobación es el último plan resuelto, el que apply_gfx reescribe al dibujar). None si no existe."""
+    import hashlib
+    f = Path(work_dir) / f"gfx_plan_{cap}.resolved.json"
+    return hashlib.md5(f.read_bytes()).hexdigest() if f.exists() else None
+
+
+def _sellar_capa(work_dir: Path, cap: str, log: list[str]) -> None:
+    """F38e §A r1: al terminar de dibujar la capa, escribe el sidecar con el md5 del plan resuelto de ese momento."""
+    h = md5_plan_resuelto(work_dir, cap)
+    sc = sidecar_plan(work_dir, cap)
+    if h is None:
+        sc.unlink(missing_ok=True)
+        log.append("  sidecar: sin gfx_plan resolved.json → la capa queda sin md5 de plan (se rehará con reuse)")
+        return
+    sc.write_text(f"{h}  gfx_plan_{cap}.resolved.json\n", encoding="utf-8")
+    log.append(f"  sidecar: {sc.name} = {h[:8]}… (md5 del plan resuelto dibujado)")
+
+
+def capa_reusable(work_dir: Path, cap: str) -> tuple[bool, str]:
+    """F38e §A r1: (se puede reusar `chXX_gfx.mp4`, motivo). Solo si existe la capa, existe su sidecar y el md5 del
+    sidecar es el del plan resuelto de hoy; si no, se rehace y el motivo lo dice."""
+    out = Path(work_dir) / f"{cap}_gfx.mp4"
+    if not out.exists():
+        return False, "sin capa"
+    sc = sidecar_plan(work_dir, cap)
+    if not sc.exists():
+        return False, "capa sin md5 de plan: se rehace"
+    try:
+        grabado = sc.read_text(encoding="utf-8").split()[0]
+    except (OSError, IndexError):
+        return False, "capa con sidecar ilegible: se rehace"
+    hoy = md5_plan_resuelto(work_dir, cap)
+    if hoy is None:
+        return False, "sin plan resuelto de hoy contra el que comparar: se rehace"
+    if grabado != hoy:
+        return False, f"capa de otro plan: se rehace (capa {grabado[:8]}…, plan de hoy {hoy[:8]}…)"
+    return True, f"capa del plan de hoy ({hoy[:8]}…): se reusa"
+
+
 def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
               width: int, height: int, fps: int, quality: str | None = None,
               reuse: bool = False, time_offset: float = 0.0,
@@ -498,7 +569,9 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         base_clip: flux_visual / hybrid_visual / veo (sin audio).
         plan: ChapterPlan de fase2b.
         quality: draft | looks (default gfx_render.quality).
-        reuse: si existe chXX_gfx.mp4 y reuse → no re-renderiza (respeta --reuse-visuals).
+        reuse: si existe chXX_gfx.mp4 y reuse → no re-renderiza (respeta --reuse-visuals). F38e §A r1: solo si su
+            sidecar `chXX_gfx.plan.md5` trae el md5 del plan resuelto de hoy; si no (plan cambiado o capa sin
+            sidecar), se rehace y lo dice en el log y en stdout.
         time_offset: pre-pad del hook (ch01) — las palabras se corren igual que los subs.
         gfx_plan_override: plan RESUELTO fijo (paso 1 del handoff, sin LLM). None → director + lock.
         debug: overlay de depuración quemado (timecode, bloque activo, escena, rank). Solo con --gfx-debug.
@@ -520,11 +593,15 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
     def _step(name: str, t_start: float) -> None:
         log.append(f"  {name}: {time.time() - t_start:.1f}s")
 
-    if reuse and out.exists():
-        log.append("  reuse: chXX_gfx.mp4 existente, sin re-render")
-        with log_path.open("a", encoding="utf-8") as fh:   # append: no pisar el log del render original
-            fh.write("\n".join(log) + "\n")
-        return out
+    if reuse and out.exists():                       # F38e §A r1: reusa solo la capa del plan de hoy (sidecar md5)
+        ok, motivo = capa_reusable(work_dir, cap)
+        print(f"  [gfx] {cap} reuse: {motivo}")
+        if ok:
+            log.append(f"  reuse: {out.name} existente, {motivo}, sin re-render")
+            with log_path.open("a", encoding="utf-8") as fh:   # append: no pisar el log del render original
+                fh.write("\n".join(log) + "\n")
+            return out
+        log.append(f"  reuse: {out.name} existente pero {motivo}")
 
     project = work_dir / f"gfx_{cap}"
     congelado = False
@@ -670,8 +747,12 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         # F3: pregunta de cierre generada + pausa real (alarga el base; fase2b rellena el audio con silencio)
         if gfx_plan_override is None:
             pause = closing_question(resolved, ctx, work_dir, cap, clip_dur, log)
-        else:
-            pause = float((resolved.get("chapter_question") or {}).get("pause") or 0.0)
+        else:                      # F38e §A R8: pregunta + negro, como closing_question (antes faltaba el negro)
+            pause = pausa_a_disco(work_dir, cap, resolved)
+            if pause > 0:
+                log.append(f"  pausa de cierre (plan fijo): {pause:.3f}s = pregunta "
+                           f"{float((resolved.get('chapter_question') or {}).get('pause') or 0.0):.3f} + negro "
+                           f"{float((resolved.get('black_hold') or {}).get('duration') or 0.0):.3f}")
         if pause > 0:
             if plan_only:                                     # F32 §A: sin re-codificar; la duración se suma
                 clip_dur = round(clip_dur + pause, 3)
@@ -742,6 +823,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             from script_engine.gfx_review import write_cues
             write_cues(cap, cue_events(resolved, scenes, fps), log, resolved.get("gap_warnings", []), render_sec, work_dir)
             _contact_sheet(resolved, out, work_dir, cap, log)
+            _sellar_capa(work_dir, cap, log)                        # F38e §A r1
             log.append(f"  OK total {time.time() - t0:.1f}s → {out.name} (disperso)")
             error_handler.log_success(PipelineStage.ASSEMBLY, f"[gfx] {cap} OK en {time.time() - t0:.0f}s (disperso)")
             return out
@@ -766,6 +848,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         from script_engine.gfx_review import write_cues
         write_cues(cap, cue_events(resolved, scenes, fps), log, resolved.get("gap_warnings", []), render_sec, work_dir)
         _contact_sheet(resolved, out, work_dir, cap, log)
+        _sellar_capa(work_dir, cap, log)                            # F38e §A r1
 
         log.append(f"  OK total {time.time() - t0:.1f}s → {out.name}")
         error_handler.log_success(PipelineStage.ASSEMBLY, f"[gfx] {cap} OK en {time.time() - t0:.0f}s")
