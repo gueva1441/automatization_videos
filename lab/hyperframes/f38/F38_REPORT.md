@@ -812,3 +812,4 @@ Riesgos que el contrato no cubre:
 ### Retomada (Omar: «liberé RAM, seguí»)
 - RAM medida otra vez: **10.9 GB libres de 31.7** (antes 9.6); Firefox abierto (15 procesos). **< 14 GB → PARADA otra vez**; no se cerró nada; el render no corrió. Medida en `f38/v6/ram_retomar.txt`.
 - Segunda retomada: **13.3 GB libres de 31.7** (Firefox cerrado: 0 procesos). **< 14 GB → PARADA**; el render no corrió (`f38/v6/ram_retomar2.txt`).
+- Tercera retomada: **13.7 GB libres** (Firefox 0, `vmmem` sigue). **< 14 GB → PARADA** (`f38/v6/ram_retomar3.txt`).
