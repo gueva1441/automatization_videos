@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-27 22:47 (F42: mapa completo del proyecto en `lab/MAPA_PROYECTO.md`; reemplaza a MAPA_MODULOS) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-27 23:20 (F42b: librerías del form instaladas, PARADA si falta una, falla del research visible) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,14 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F42b): el form ya tiene las librerías del research y una falla se ve como falla. En el Python del form (`C:\CLAUDE_PROJECTS\viral-video-pipeline\.venv\Scripts\python.exe`) se instalaron `beautifulsoup4` y `pypdf` (faltaban: por eso tronó Waverly Hills a las 22:44). Desde ahora `run_pipeline` revisa las librerías antes de cualquier etapa: si falta una, para **sin gastar** y te dice el comando de pip; y si el research de una semilla falla, el form muestra «✗ pipeline terminó (código 1)» con el motivo y la semilla sigue en la bandeja. Podés relanzar Waverly desde el form. Opcionales que no se instalaron (decisión tuya): `trafilatura` y `pdfplumber` (el research lee mejor páginas y PDF con ellas). Reporte: `lab/hyperframes/f42/F42b_REPORT.md`.
+
+## F42b — Las librerías del form y que una falla se vea como falla (handoff del analista, 2026-10-27) — HECHA, **PARADA**
+- Handoff `lab/hyperframes/f42/HANDOFF_F42b_dependencias_y_fallas_visibles.md` (md5 `c8f1cad4…` ✓). Misma sesión que F42; A → C sin PARADA entre partes.
+- A `bf8cbf4`: `dependencias.py` (librerías de afuera alcanzables desde los scripts de etapa de `run_pipeline`, requeridas/opcionales por AST, `faltantes()` con `find_spec`); en el Python del form faltaban `bs4`, `pypdf` (requeridas) y `trafilatura`, `pdfplumber` (opcionales) → `pip install beautifulsoup4 pypdf` → 0 requeridas faltantes; `requirements.txt` completado. B `d58d1a3`: `run_pipeline.main` para antes de cualquier etapa si falta una requerida (exit 1 + pip). C `fd5e956`: `research_topics` devuelve `.fallas`; `fase1` sale con 1 («semilla X: error; sigue en la bandeja»); `run_pipeline --research` dice «fase1: el research falló». `4e3c438`: 3 tests del contrato viejo del mapa que F42 rompió (f33 ×2, f36 ×1) pasados a MAPA_PROYECTO.
+- Validación: `--check` 0; amplia 916 + 4 (m03_merge_timing ×2 previas; **gfx_lab ×2 nuevas**, probable: datos de Orleans en `_steps/` limpiados); rápida 55 + 3 saltados; tests de la tanda 86. **Candado de ch02 no corrido** (escribe en `output/`, contra la regla de Omar). `test_module_f42b` no corrió en el Python del form (no tiene pytest). Abierto g1–g11 en el reporte.
+- **Regla aprendida:** los tests que levantan un servidor local (gfx_lab) necesitan `NO_PROXY=localhost,127.0.0.1` junto al proxy muerto.
 
 ## 👀 Para Omar (F42): el mapa del proyecto entero está en `lab/MAPA_PROYECTO.md`: el flujograma de la cadena del form (research → guion → compuerta del papel → voz → assets → visor → fondos → guion de pantalla → compuerta → render → packaging), cada caja con su script, sus módulos y el modelo que paga; y los 155 archivos de producción con qué hacen para el video, qué reciben y entregan, quién los llama y su estado (132 vivos, 13 herramientas manuales, 10 huérfanos, 0 rotos; 60 funciones muertas). **⚠ Incidente:** la colecta de tests (`pytest --collect-only`) ejecutó `test_full_pipeline_lab.py`, un script de lab que al importarse llamó 2 veces a Gemini y pidió 20 imágenes a FAL flux-2-pro (19 generadas, en `lab_output_chat26_v2/`, 22:23–22:32): rompe el US$ 0 de la tanda, el gasto no está medido (mirarlo en fal.ai y Google AI). Detalle y arreglo en `lab/hyperframes/f42/F42_REPORT.md`.
 
