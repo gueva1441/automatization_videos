@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-27 (F40b: Kyshtym sin iniciales en la narración y papel regenerado; HECHA, PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-27 (papel de Kyshtym APROBADO por Omar; PARADA antes de la voz) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -12,6 +12,12 @@
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## ✅ Papel de Kyshtym APROBADO (Omar, 2026-10-27)
+- Antes de aprobar: md5 de `data/scripts/_steps/f39-kyshtym/01e_pantalla.md` = `83e8622b…` (el de F40b) ✓.
+- `python fase1_5.py --topic f39-kyshtym --aprobar-papel "Omar 2026-10-27"` → «✓ papel de f39-kyshtym aprobado por Omar (2026-10-27) · md5 7db98e4683ed3fdc40a38ca1b0d2ba4e» (exit 0; log en `lab/hyperframes/f40/f40b/aprobar_papel.log`).
+- `01e_pantalla.json` trae `aprobado: {por: Omar, fecha: 2026-10-27, md5: 7db98e46…}` (el md5 del contenido del papel sin el campo `aprobado`); `fase1_5.estado_papel` = aprobado. El `.md` no cambió (`83e8622b…`). Si el papel se regenera o se edita, el md5 cambia y queda sin aprobar.
+- Lo siguiente (no corrido): la voz e imágenes de Kyshtym (`fase1_5 --topic f39-kyshtym --from normalizer_gate …`), después el guion de pantalla en texto, el render y la publicación (DECISIONES 18:30). **PARADA: no se siguió a la voz.**
 
 ## 👀 Para Omar (F40b): el papel de Kyshtym nuevo, sin iniciales en la voz («Ivanov», «Saprykin», «Buldakov»), está en `data/scripts/_steps/f39-kyshtym/01e_pantalla.md` (entero también en `lab/hyperframes/f40/f40b/F40b_REPORT.md`): 12 fichas, gancho con D03, sin picos vacíos, ch04 beat 5 ahora con D50 (Chernóbil, «unas 19 veces más»), «2.000» corregido en D83. El papel cambió contra el de F40 porque se regeneró (5 fichas distintas). Si está bien: `python fase1_5.py --topic f39-kyshtym --aprobar-papel "Omar <fecha>"`. Las fotos de subtítulos de F40 siguen pendientes de tu mirada.
 
