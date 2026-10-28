@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-27 (F41: una sola cadena y el form de punta a punta; HECHA, PARADA; lo siguiente: Omar corre un tema nuevo de 0 desde el form) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-27 (Omar limpió el historial de research: arranca de 0 con semillas nuevas) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,20 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## ✂ Chequeo de RAM antes del render: BORRADO (Omar, 2026-10-27)
+- Omar: «esa vaina de los 14 GB de RAM para el render, no sé de dónde salió: eliminala». Venía de DECISIONES 2026-10-27 00:30 (que reemplazó la regla de Firefox de F2 por «medir RAM, < 14 GB → PARADA») y CC la había cableado en `run_pipeline` en F41 B2 (`8a0ed90`).
+- Borrado: `RAM_MIN_GB`, `_ram_libre_gb` y el bloque que frenaba antes de `fase2b --gfx` en `run_pipeline._paso_render`; sus 3 tests y los stubs de RAM (fixture de `test_run_pipeline.py` y `lab/hyperframes/f41/b/recorrido_form.py`). Test nuevo: el render corre directo, sin chequeo. El render ahora arranca sin medir RAM.
+- Queda: el orquestador sigue sin cerrar programas de Omar, y si el render falla el reporte sugiere revisar la RAM (mensaje, no freno).
+- **Para el analista:** la regla de RAM de DECISIONES 00:30 queda sin efecto; anotarla como reemplazada en DECISIONES (CC no edita ese registro sin pedido).
+- Tests: `test_run_pipeline` + form + `f41_cadena` + rápida = 166 verdes, 3 saltados (`f24` ×2, `f21` ×1: leían research de `_steps/`, que se limpió).
+
+## 🧹 Historial de research limpiado (Omar, 2026-10-27, después de F41)
+- Omar decidió borrar todo el historial de research para cargar semillas nuevas con el research nuevo, **Kyshtym incluido** (su papel aprobado se pierde) y con la bandeja de semillas vacía.
+- Enviado a la **Papelera de reciclaje** (CC no hace borrados permanentes; vaciarla es de Omar): `data/topics_db.json` y sus 7 copias `topics_db.pre_*`/`backup_*`, `selected_seeds.json` (26 semillas), `seeds_archive.json`, `_last_research.json`, `dynamic_queries_cache.json`, `trends_cache.json`, `topic_evidence_dump.json/.md`, `_probe_abandoned_places_mysterious_history.json` y las **66 carpetas** de `data/scripts/_steps/` (unos 140 MB).
+- Escritas vacías: `topics_db.json` (`topics: []`), `selected_seeds.json` (`seeds: []`), `seeds_archive.json`. El form arranca sin topics para retomar.
+- **No se tocaron:** `data/scripts/<id>.json` (guiones finales de videos viejos, Orleans incluido), `output/` (videos), `cost_history.json`, `geocode_cache.json`, `normalizer_custom_dict.json`, `fase1_review.csv`.
+- Todo lo de ESTADO que nombra topics (Kyshtym listo para la voz, Vajont, candados de topics) queda como historia: esos topics ya no están en `topics_db`. El candado de ch02 de **Orleans** (`ba6c3cac-…`) sigue funcionando: usa `data/scripts/` y `output/`, no `_steps/` ni `topics_db`.
 
 ## 👀 Para Omar (F41): el form ya corre la cadena nueva de punta a punta. Lanzar un tema de 0 desde el form: research → guion → **compuerta del papel** (A aprueba, P para) → voz e imágenes → visor → fondos → **compuerta del guion de pantalla** → render con gfx → fase3. Retomar un topic: la lista «Retomar» del form o `python run_pipeline.py --topic <id> --batch` (arranca donde quedó y no re-paga nada). Kyshtym (`f39-kyshtym`) retoma en la voz. **RAM:** antes del render el orquestador mide la RAM (DECISIONES 00:30) y para si hay < 14 GB (hoy hay 13,3): no cierra nada, liberala vos y retomá. No correr a mano `fase1_5 --topic X --batch` en un topic con papel aprobado: rehace y paga el papel (usar `run_pipeline --topic X`). La UI del form no se probó en navegador (no se lanzó qa_studio).
 

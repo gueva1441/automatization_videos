@@ -61,7 +61,6 @@ def correr(argv: list[str], respuestas: list[str], fake: FakePipeline, titulo: s
     p(sys, "argv", argv)
     p(rp, "QA_FORM", True)
     p(qa_form_markers, "QA_FORM", True)
-    p(rp, "_ram_libre_gb", lambda: rp.RAM_MIN_GB + 1)   # stub: la RAM real de la máquina no entra en el recorrido
     orig_run = fake.run
 
     def run_y_registra(cmd):

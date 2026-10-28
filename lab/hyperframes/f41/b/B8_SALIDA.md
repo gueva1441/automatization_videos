@@ -25,7 +25,7 @@ Nota (hipótesis, solo lectura): si Omar aprobara el papel de `f8s3-vajont`, `et
 Script: `lab/hyperframes/f41/b/recorrido_form.py`. Corre `run_pipeline.main()` en proceso con QA_FORM prendido y lee su salida como la lee `qa_studio_server._form_reader` (header → fase del form; `@@QAFORM@@` → marcador). fase1 es un stub: sus propios marcadores (reuse_seeds, seed_pick, video_type) salen de su subprocess y acá no aparecen. Los documentos de las compuertas son los del stub (unas líneas); en la corrida real el marcador lleva el `01e_pantalla.md` / `GUION_PANTALLA.md` entero en `body`.
 
 
-(Regenerado por CC después de cablear la medida de RAM antes del render, DECISIONES 2026-10-27 00:30: el recorrido usa un stub de RAM suficiente; con la RAM real de hoy, 13,3 GB < 14, el render pararía antes de correr.)
+(El chequeo de RAM de 14 GB antes del render que se agregó en F41 B2 lo sacó Omar el 2026-10-27: el recorrido ya no lo mide ni lo stubea.)
 
 ### Recorrido 1 — research → fase3, A en el papel, C en el visor, A en el guion de pantalla
 

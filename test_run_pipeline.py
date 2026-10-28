@@ -131,7 +131,6 @@ def markers(out: str) -> list[dict]:
 
 @pytest.fixture
 def fake(tmp_path, monkeypatch):
-    monkeypatch.setattr(rp, "_ram_libre_gb", lambda: rp.RAM_MIN_GB + 1)   # F41: la RAM real de la máquina no entra
     return FakePipeline(tmp_path).install(monkeypatch.setattr)
 
 
@@ -366,30 +365,12 @@ def test_render_falla_avisa_ram_y_no_cierra_nada(fake, form, capsys):
         assert prohibido not in src
 
 
-def test_render_con_poca_ram_para_antes_y_no_corre(fake, form, capsys, monkeypatch):
-    """DECISIONES 2026-10-27 00:30: antes de un render completo se mide la RAM; < 14 GB → PARADA (exit 0), sin correr
-    el render y sin cerrar nada."""
-    monkeypatch.setattr(rp, "_ram_libre_gb", lambda: rp.RAM_MIN_GB - 0.5)
-    fake.hasta("render")
-    assert rp.sequence(TID) == 0
-    out = capsys.readouterr().out
-    assert fake.calls == []
-    assert "PARADA antes del render" in out and f"retomar: python run_pipeline.py --topic {TID}" in out
-
-
-def test_render_sin_medida_de_ram_sigue_y_avisa(fake, form, capsys, monkeypatch):
-    """Si la RAM no se puede medir, se avisa y el render sigue (no se inventa una medida)."""
-    monkeypatch.setattr(rp, "_ram_libre_gb", lambda: None)
+def test_render_corre_sin_chequeo_de_ram(fake, form):
+    """Omar sacó el chequeo de 14 GB de RAM antes del render (2026-10-27, después de F41): el render corre directo."""
     fake.hasta("render")
     rp.sequence(TID, batch=True)
-    assert "No pude medir la RAM libre" in capsys.readouterr().out
     assert any("--gfx" in c for cmd in fake.calls for c in cmd)
-
-
-def test_ram_libre_mide_algo_en_esta_maquina():
-    """La medida real (solo lectura) da un número positivo o None, nunca una excepción."""
-    v = rp._ram_libre_gb()
-    assert v is None or v > 0
+    assert not hasattr(rp, "RAM_MIN_GB") and not hasattr(rp, "_ram_libre_gb")
 
 
 # ═══════════════════════ B.6: etapa_de y retomar ═══════════════════════
