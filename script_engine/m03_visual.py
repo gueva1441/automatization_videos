@@ -287,78 +287,23 @@ def _seedream_slots_schema(n: int) -> dict:
     }
 
 
-# F5 §1.6 (CON FRENOS): grupos de personas cuya ubicación documentada no se mezcla en una escena. La regla de
-# composición de cada grupo es fija; el «dónde» sale LITERAL del evidence_pool (lugares + datos/cronología).
-_LOC_GROUPS: tuple[tuple[str, tuple[str, ...], str | None], ...] = (
-    ("Menores detenidos", ("niños", "menores", "juvenil", "jóvenes"), "separados de los adultos"),
-    ("Mujeres", ("mujeres", "prisioneras", "reclusas"), "nunca en la misma celda que hombres"),
-    ("Evacuados", ("evacuados", "evacuadas", "llevados en bote"), None),
-)
-_LOC_DEST = re.compile(r"(?:\b(?:a|al|hacia|hasta|en)\s+(?:la\s+|el\s+|los\s+|las\s+)?)$", re.I)
-
-
-def _documented_places(text: str, places: list[tuple[str, str]]) -> list[str]:
-    """Lugares del pool que el texto nombra como DESTINO/sitio («al paso elevado de Broad Street…», «a la
-    Penitenciaría…», «en Bourbon Street»), literales: desde el rol del lugar si lo precede («paso elevado») hasta el
-    último lugar nombrado seguido. Un lugar de origen («de la sección Templeman III») no cuenta."""
-    low = text.lower()
-    out = []
-    for name, rol in places:
-        k = low.find(name.lower())
-        if k < 0:
-            continue
-        st = k
-        r = (rol or "").lower()
-        if r and len(r.split()) <= 3 and low.rfind(r, 0, k) >= 0 and k - low.rfind(r, 0, k) <= len(r) + 6:
-            st = low.rfind(r, 0, k)                    # «paso elevado de Broad Street»
-        if not _LOC_DEST.search(text[:st]):
-            continue
-        end = k + len(name)
-        for n2, _ in places:                           # «… Broad Street sobre la Interestatal 10»
-            m = re.match(rf"\s+(?:sobre|en|de)\s+(?:la\s+|el\s+)?{re.escape(n2)}", text[end:], re.I)
-            if m:
-                end += m.end()
-        out.append(text[st:end].strip())
-    return [p for p in dict.fromkeys(out) if not any(p != q and p in q for q in out)]
-
-
-def _format_documented_locations(topic: dict) -> str:
-    """F5 §1.6: «UBICACIONES DOCUMENTADAS» para el canon de seedream, de evidence_pool.lugares + personajes (rol +
-    dónde). Texto de contexto, sin regla nueva en el validador. "" si el guion no trae evidence_pool."""
-    pool = topic.get("evidence_pool")
-    if not pool:
-        return ""
-    lugares = pool.get("lugares") or []
-    places = [(p["nombre"], p.get("rol") or "") for p in lugares]
-    places += [(d["valor"], "") for d in pool.get("datos") or [] if d.get("tipo") == "lugar" and d.get("valor")
-               and not any(d["valor"] == n for n, _ in places)]
-    texts = [d.get("texto") or "" for d in pool.get("datos") or []] + \
-            [c.get("evento") or "" for c in pool.get("cronologia") or []]
-    # el escenario principal (la prisión, nombrada en todo el pool) no distingue a nadie: solo los lugares propios
-    places = [x for x in places if sum(x[0].lower() in t.lower() for t in texts) <= 4]
-    places.sort(key=lambda x: -len(x[0]))              # el nombre más largo primero (no «Angola» sola)
-    lines = []
-    for label, roots, rule in _LOC_GROUPS:
-        where: list[str] = []
-        for p in lugares:                              # lugar cuyo rol es del grupo («Instalación juvenil»)
-            if any(r in (p.get("rol") or "").lower() for r in roots):
-                where.append(f"{p['nombre']} ({(p.get('rol') or '').lower()})")
-        for t in texts:
-            if any(re.search(rf"\b{re.escape(r)}", t.lower()) for r in roots):
-                where += [w for w in _documented_places(t, places) if not any(x.startswith(w) for x in where)]
-        where = list(dict.fromkeys(where))
-        if not where:
-            continue
-        lines.append(f"- {label} → {', '.join(where[:3])}" + (f"; {rule}." if rule else "."))
-    for p in pool.get("personajes") or []:             # personas del pool: su ROL y dónde (nunca el nombre)
-        sur = p["nombre"].replace(", Jr.", "").replace(" Jr.", "").split()[-1]
-        where = [w for t in texts if sur in t for w in _documented_places(t, places)]
-        if where and p.get("rol"):
-            lines.append(f"- {p['rol']} → {', '.join(list(dict.fromkeys(where))[:2])}.")
-    if not lines:
-        return ""
-    lines.append("- Ningún menor en celdas de adultos en ninguna escena.")    # F5d: regla fija del bloque
-    return "UBICACIONES DOCUMENTADAS (no mezclar en una misma escena):\n" + "\n".join(dict.fromkeys(lines))
+def _geo_era(topic_id: str, narration: dict) -> dict:
+    """F48 S1: GEO = `lugar_principal` del perfil del research (`_steps/<id>/_perfil.json`); ERA = «primer año–último
+    año» dichos en la narración del video. Nadie escribía `canonical_geo` / `canonical_era`: el pedido decía
+    «(sin geo)» / «(sin era)». Lo que no se puede leer no se pone (queda el respaldo de `_build_topic_block`)."""
+    from script_engine import voz_utils
+    out: dict = {}
+    perfil = STEPS_DIR / topic_id / "_perfil.json"
+    if perfil.exists():
+        lugar = (json.loads(perfil.read_text(encoding="utf-8")) or {}).get("lugar_principal")
+        if lugar:
+            out["canonical_geo"] = lugar
+    texto = " ".join(ch.get("narration") or "" for ch in (narration or {}).get("chapters") or [])
+    anios = sorted(int(y) for y in voz_utils.numeros(texto)
+                   if re.fullmatch(r"\d{4}", y) and 1800 <= int(y) <= 2100)   # derivado: handoff F48 §Constantes (años 1800–2100)
+    if anios:
+        out["canonical_era"] = f"{anios[0]}–{anios[-1]}"
+    return out
 
 
 def _format_seedream_canon_block(topic: dict) -> str:
@@ -434,17 +379,13 @@ def _format_seedream_canon_block(topic: dict) -> str:
     else:
         blocklist_block = "ANACRONISMOS PROHIBIDOS: (vacío)."
 
-    # F5 §1.6: bloque pasivo de ubicaciones, SOLO si el guion trae evidence_pool ("" si no: byte-idéntico)
-    loc_block = _format_documented_locations(topic)
-    loc_block = f"\n\n{loc_block}" if loc_block else ""
-
     return f"""{era_block}
 
 {people_block}
 
 {props_block}
 
-{blocklist_block}{loc_block}
+{blocklist_block}
 
 USO (2 capas): la capa ÉPOCA es genérica; la capa LUGAR PUNTUAL es específica de
 ESTE lugar (úsala para color_palette / setting / props_detail / subject).
@@ -2540,6 +2481,7 @@ def assign_visual_prompts(
     topic_id = topic.get("id") or topic.get("topic_id")
     if not topic_id:
         raise ValueError("topic sin 'id' ni 'topic_id'")
+    topic = {**topic, **_geo_era(topic_id, narration)}      # F48 S1: GEO y ERA del pedido
 
     # chat 117: m03 solo soporta seedream. Los paths flux/kling/veo-old fueron removidos
     # → un misconfig futuro falla RUIDOSO acá, no contra código borrado.

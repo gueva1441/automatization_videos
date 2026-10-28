@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-28 03:40 (F47b: Opus 5.5 (E) y Sonnet 5.5 (F) llenando los casilleros contra Fable (D) y Pro (C2), en texto, PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-28 04:05 (F48 en curso: S1 en producción —GEO/ERA en el pedido de los casilleros, fuera el bloque «UBICACIONES DOCUMENTADAS»— commiteado; etapas S1–S5 en lab) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).

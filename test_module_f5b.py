@@ -188,27 +188,3 @@ def test_s4_icono_solo_por_mapa_literal():
     assert gp.content_icon(cel, ICON_WHITELIST - {"espiral"} if isinstance(ICON_WHITELIST, set) else
                            {k: v for k, v in ICON_WHITELIST.items() if k != "espiral"}, moods,
                            "El huracán Katrina toca tierra") == (None, "espiral")   # sin la clave: se anota
-
-
-# ═══════════════════════════════ S6 / §1.6 ubicaciones en el canon ═══════════════════════════════
-
-def test_s6_ubicaciones_documentadas_solo_con_pool():
-    from script_engine import m03_visual as m3
-    pool = {"lugares": [{"nombre": "CYC", "rol": "Instalación juvenil"}, {"nombre": "Broad Street", "rol": "Paso elevado"},
-                        {"nombre": "Interestatal 10", "rol": "Carretera"}],
-            "datos": [{"texto": "Los prisioneros fueron llevados en bote al paso elevado de Broad Street sobre la "
-                                "Interestatal 10.", "tipo": "lugar", "valor": "Broad Street"},
-                      {"texto": "Prisioneras llegan a la Penitenciaría Estatal de Luisiana (Angola).", "tipo": "lugar",
-                       "valor": "Penitenciaría Estatal de Luisiana (Angola)"}],
-            "cronologia": [], "personajes": []}
-    blk = m3._format_documented_locations({"evidence_pool": pool})
-    assert blk.startswith("UBICACIONES DOCUMENTADAS (no mezclar en una misma escena):")
-    assert "- Menores detenidos → CYC (instalación juvenil); separados de los adultos." in blk
-    assert "- Mujeres → Penitenciaría Estatal de Luisiana (Angola); nunca en la misma celda que hombres." in blk
-    assert "- Evacuados → paso elevado de Broad Street sobre la Interestatal 10." in blk
-    topic = {"era_visual_canon": {}, "documented_people": [], "documented_props": []}
-    plain = m3._format_seedream_canon_block(topic)
-    assert "UBICACIONES" not in plain and plain == m3._format_seedream_canon_block({**topic, "evidence_pool": None})
-    assert "UBICACIONES DOCUMENTADAS" in m3._format_seedream_canon_block({**topic, "evidence_pool": pool})
-
-
