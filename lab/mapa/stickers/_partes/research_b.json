@@ -1,0 +1,82 @@
+{
+ "topic_validator.py": {
+  "sticker": "Después de investigar el tema, mide si vale la pena hacerlo: mira cuánto lo busca la gente en Google Trends, cuánta competencia hay en YouTube en español e inglés, y da un veredicto (oro, arbitraje, caliente, frío, desconocido). Si el tema sirve, además pide a Gemini 3 ganchos y 3 cierres de ejemplo y deja todo escrito en cada tema de la base.",
+  "recibe": "data/topics_db.json (temas con competition_level vacío, vía script_engine/topics_db.load_db); data/trends_cache.json (caché de Trends, opcional); video_type ('short' o 'long') por parámetro; umbrales por nombre desde config (validator_strictness, apuesta_viral).",
+  "entrega": "data/topics_db.json actualizado (competition_level, market_verdict, competition_data, human_options, suggested_format, is_apuesta_viral, video_type, status='validated'); data/trends_cache.json; lista de temas validados que devuelve a fase1.py.",
+  "modelo": [
+   {
+    "modelo": "api.gemini_model (config)",
+    "para": "generar 3 hooks + 3 outros por tema viable (oro/arbitraje/caliente) en _generate_human_options; si falla o bloquea cae a plantillas fijas sin LLM"
+   }
+  ],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1.py:785 llama validate_topics en el PASO 3; run_pipeline.py:530 lanza fase1.py --no-chain en la etapa research",
+  "funciones_muertas": [],
+  "md5": "6c898f0898359495131b441a4eeff6b7"
+ },
+ "script_engine/youtube_scanner.py": {
+  "sticker": "Es el que mira YouTube por todos los demás: cuenta videos en español e inglés para un tema, busca videos virales en inglés, mide cuán saturado está el español y arma la lista de competidores. Lo usan la validación de mercado y el buscador de nichos; no toca el video, solo decide qué temas valen.",
+  "recibe": "Una búsqueda (palabra clave o título) y parámetros de ventana/vistas; internet por scrapetube con proxy, o la API de YouTube como respaldo (claves y proxy por nombre desde config).",
+  "entrega": "Diccionarios y listas en memoria (competencia ES/EN, candidatos virales EN, saturación ES, competidores ES) a topic_validator.py, niche_discoverer.py, script_engine/subtopic_measurer.py y script_engine/transcript_fetch.py; no escribe archivos.",
+  "modelo": [],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "topic_validator.py:42 importa scan_competition y count_competing_spanish; fase1.py:48 importa niche_discoverer que importa este archivo",
+  "funciones_muertas": [
+   {
+    "nombre": "fork_title",
+    "linea": 573,
+    "por_que": "nadie la nombra: ni producción, ni tests, ni strings; fork_views_text y fork_views del mismo bloque sí se usan"
+   }
+  ],
+  "md5": "f58dbddd5a5a3550f85ec98f7a838639"
+ },
+ "topic_researcher.py": {
+  "sticker": "Investiga a fondo el tema elegido antes del guion: le hace a Gemini Pro varias consultas con búsqueda en Google (técnica, humana, misterio, visual), llama al research v3 de documentos y arma el tema completo (título, hechos verificados, resumen, canon visual, personas y objetos documentados). Lo deja guardado en la base de temas.",
+  "recibe": "La semilla elegida (dict de data/selected_seeds.json o un archivo de semilla) y video_type; data/topics_db.json para no repetir títulos; los pasos de researcher_steps/ (step_4a a step_4e, research_v3, pool_gate).",
+  "entrega": "data/topics_db.json con el topic nuevo (status 'researched'); data/scripts/_steps/<id>/00_pool_etiquetado.json a 05_visual_canon.json; data/seeds_archive.json y selected_seeds.json actualizados (solo research_topics); un topic guardado con id fijo por investigar_semilla (solo fase1_5 --semilla).",
+  "modelo": [
+   {
+    "modelo": "api.gemini_model_research (config)",
+    "para": "consultas angulares Pro + Google Search en _research_angle y el research simple de SHORT en _research_seed_simple"
+   }
+  ],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1.py:771 llama research_topics; fase1_5.py:365 llama investigar_semilla (solo con --semilla, que el form no pasa)",
+  "funciones_muertas": [
+   {
+    "nombre": "research_testimonios",
+    "linea": 390,
+    "por_que": "nadie la llama: ni producción, ni tests, ni strings; solo se define (su helper _build_testimonios_prompt solo se alcanza desde ella)"
+   }
+  ],
+  "md5": "a744a37432b65c3413650c9e0b138a5e"
+ },
+ "fase1.py": {
+  "sticker": "Es la pantalla de arranque del research: descubre temas nuevos (o reusa los guardados), los hace juzgar, deja elegir uno a Omar en el form, re-mide que no esté saturado en español, lo investiga y lo valida. Al final escribe qué tema salió para que run_pipeline siga con el guion.",
+  "recibe": "data/selected_seeds.json (semillas), data/topics_db.json; respuestas de Omar por stdin (marcadores @@QAFORM@@ con QA_FORM); flags --video-type y --no-chain que le manda run_pipeline.py.",
+  "entrega": "data/_last_research.json (los tids de esta corrida); data/selected_seeds.json reescrito con el juez; data/seeds_archive.json (seeds borrados); data/fase1_review.csv vía csv_exporter; marcadores del form por stdout.",
+  "modelo": [],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "run_pipeline.py:530 lanza fase1.py --no-chain en la etapa research",
+  "funciones_muertas": [
+   {
+    "nombre": "_save_script",
+    "linea": 476,
+    "por_que": "nadie la nombra: ni producción, ni tests, ni strings; deja SCRIPTS_DIR (fase1.py:78) sin otro uso"
+   }
+  ],
+  "md5": "4fdf55c10148f6817ff797f0d0f609e3"
+ }
+}

@@ -1,0 +1,195 @@
+{
+ "script_engine/gfx_layer.py": {
+  "sticker": "Es el director de orquesta de la capa gráfica de un capítulo: parte del clip de fondo ya cocido, arma el plan de lo que se ve (title card, fichas, recortes, sellos, reloj, pregunta de cierre, transiciones), lo pasa por el candado literal y dibuja la capa en HyperFrames. Con el guion de pantalla aprobado dibuja exactamente ese plan (plan congelado); en modo plan-only solo planea y escribe los archivos de cues, escenas y pausa, sin render. Cualquier falla devuelve el clip de fondo sin capa.",
+  "recibe": "El clip de fondo del cap (data/.../_fase2b_work/chNN_*_visual.mp4), el ChapterPlan de fase2b, los timestamps de la voz, 01a_escaleta.json y el papel del topic (data/scripts/_steps/<id>/), el pool de fuentes, gfx_plan_chNN.resolved.json aprobado (si hay guion aprobado) y los tokens de gfx_config.",
+  "entrega": "_fase2b_work/chNN_gfx.mp4 (+ chNN_gfx.plan.md5), gfx_chNN/ (proyecto HyperFrames y base -g30), gfx_plan_chNN.resolved.json, gfx_escenas_chNN.json, gfx_sfx_chNN.json, gfx_pause_chNN.json, gfx_sparse_chNN.json, gfx_safe_bake_chNN.json, gfx_chNN.log, gfx_cues_chNN.md/.json, hoja_contactos_chNN.jpg.",
+  "modelo": [],
+  "etapa": [
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:1217 llama apply_gfx en _build_chapter_segment (render con --gfx --gfx-sparse, run_pipeline.py:246) y fase2b.py:3147 lo llama con plan_only=True en _solo_plan (fase2b --plan-only, run_pipeline.py:374)",
+  "funciones_muertas": [],
+  "md5": "ea1a0461daa63cce1a6405648d7885ae"
+ },
+ "script_engine/gfx_project.py": {
+  "sticker": "Es el armador de las pantallas: recibe el plan ya resuelto (textos literales, tiempos en segundos) y las escenas del cap y escribe el proyecto HyperFrames completo, con el title card, las fichas, los recortes de archivo, los sellos y capas de clima, el reloj de esquina, la pregunta de cierre, el corte a negro y las transiciones. No usa ningún modelo. También mide cuántas líneas ocupa una ficha (lo usa el guion en papel para validar) y lista los eventos del cap para la hoja de cues.",
+  "recibe": "Plan resuelto (dict) y lista de GfxScene de gfx_layer, base.mp4 -g30 en gfx_chNN/public/, tipografías y gsap de gfx_config (GFX_FONTS_DIR, gsap_js), plantillas de gfx_templates/, tokens gfx_rules.",
+  "entrega": "gfx_chNN/index.html, compositions/scene_NN.html, hyperframes.json, public/fonts, public/cuts/*.jpg (freezes), public/safe/*, vendor/gsap.min.js; en memoria: cue_events, ficha_medida, transitions_of.",
+  "modelo": [],
+  "etapa": [
+   "guion",
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:824 y gfx_layer.py:379 llaman write_project (render); gfx_layer.py:804/839 llaman cue_events (plan-only y render); script_engine/m01e_pantalla.py:406 importa ficha_medida (corre en el paso guion, fase1_5.run_pantalla)",
+  "funciones_muertas": [],
+  "md5": "421823742d3dec2ae0f2445a53d8e5fa"
+ },
+ "script_engine/gfx_guion.py": {
+  "sticker": "Escribe el guion de pantalla: todo lo que se va a ver en el video, en texto y en el orden del mp4 final, con lo que cada filtro cortó, quién y por qué, y los chequeos antes del render (nunca al mismo tiempo, bloque que cruza un corte, lectura a 15 cps, cifra que contradice la voz, costuras, inicio de voz y de música, gancho no vacío, papel sin colocar o sin alinear). Es lo que Omar y el analista leen para aprobar.",
+  "recibe": "Por cap: el plan resuelto, las escenas, los beats, las oraciones de la voz, los timestamps y la mezcla de audio de previsualización, armados por fase2b._solo_plan (_fase2b_work/gfx_plan_chNN.resolved.json, gfx_escenas_chNN.json, 01a_escaleta.json).",
+  "entrega": "output/<id>/GUION_PANTALLA.md y output/<id>/GUION_PANTALLA.json.",
+  "modelo": [],
+  "etapa": [
+   "guion_pantalla"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:3198 llama gg.armar y fase2b.py:3201 gg.escribir dentro de _solo_plan; fase2b.py:3075 importa _pcm",
+  "funciones_muertas": [
+   {
+    "nombre": "_ocupa",
+    "linea": 431,
+    "por_que": "nadie la nombra: ni producción ni tests ni strings; el chequeo «dos bloques al mismo tiempo» (línea 444 en adelante) calcula el solape directo y ya no la usa"
+   }
+  ],
+  "md5": "6483bab081dd950377d317c520f69934"
+ },
+ "script_engine/gfx_sparse.py": {
+  "sticker": "Hace el render «disperso»: en vez de pasar el cap entero por el navegador, calcula las ventanas donde hay bloques o transiciones, las junta en un proyecto corto y después cose esas ventanas con el clip de fondo usando un solo ffmpeg, que además pone la viñeta y el grano parejos. Así solo se renderizan en HyperFrames los tramos con algo en pantalla.",
+  "recibe": "Plan resuelto, lista de GfxScene, base.mp4 -g30 (o base_cocido.mp4), render de HyperFrames de las ventanas (gfx_chNN_sparse/renders/chNN_sparse.mp4), tokens gfx_rules y gfx_render.",
+  "entrega": "Ventanas y offsets en memoria, gfx_chNN_sparse/public/base.mp4, public/vignette.png y grain.png, y el cap cosido gfx_chNN/renders/chNN_gfx_stitch.mp4 (que gfx_layer mueve a chNN_gfx.mp4).",
+  "modelo": [],
+  "etapa": [
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:336-399 (_render_sparse) llama event_windows, stitch_transitions, compose_sparse, cut_base, vignette_png, grain_png y stitch; se activa con --gfx-sparse (run_pipeline.py:246)",
+  "funciones_muertas": [],
+  "md5": "bed5f164e2a46946c73adcf526454c0b"
+ },
+ "script_engine/gfx_safe_bake.py": {
+  "sticker": "Cuece con ffmpeg el movimiento «seguro» (acercar, alejar, paneo o foto quieta) de las escenas que van desde un PNG, con la misma curva que usaba el navegador, y las pega en su tramo del clip de fondo. Así esas escenas no obligan a pasar por HyperFrames.",
+  "recibe": "Clip base -g30 (gfx_chNN/public/base.mp4), lista de GfxScene con su campo safe (PNG, movimiento, origen), ancho, alto y fps.",
+  "entrega": "gfx_chNN/public/base_cocido.mp4 y el informe gfx_safe_bake_chNN.json (lo escribe gfx_layer).",
+  "modelo": [],
+  "etapa": [
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:350 llama bake() en _render_sparse cuando gfx_rules.safe_bake y alguna escena es safe",
+  "funciones_muertas": [],
+  "md5": "86f3da15c9453106bce130a9602c6bca"
+ },
+ "script_engine/gfx_review.py": {
+  "sticker": "Deja la hoja de cues del cap (una línea por bloque visible con su segundo, notas y huecos) y una página HTML estática con el video del segmento y esos cues clicables, para revisar el render sin servidor.",
+  "recibe": "Eventos del cap (gfx_project.cue_events), líneas de log de gfx_layer, gap_warnings del plan y el mp4 del segmento.",
+  "entrega": "_fase2b_work/gfx_cues_chNN.md y .json; _fase2b_work/gfx_review_chNN.html.",
+  "modelo": [],
+  "etapa": [
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:806 (plan-only), 816 y 841 llaman write_cues; fase2b.py:2830 y 3464 llaman write_review (solo con gfx)",
+  "funciones_muertas": [],
+  "md5": "808529aa9f0ced587aa4d3ae10177e04"
+ },
+ "script_engine/gfx_style.py": {
+  "sticker": "Aplica la identidad visual del canal de forma determinista: elige el movimiento de cada foto (acercar, alejar, paneo, quieta, 3D), decide la transición de entrada de cada corte según el relato (zoom del pico, fundido en cambio de beat o de tiempo, fundido a negro al cierre, corte) y chequea las reglas duras del plan final.",
+  "recibe": "Escenas del cap, ChapterPlan (motor y assets), image_prompts del capítulo, el plan resuelto con pico, reloj y beats de la escaleta, tokens gfx_rules.",
+  "entrega": "Por escena: movimiento seguro marcado en GfxScene.safe, resolved['identity'] con movimientos y violaciones, resolved['transitions'] con la transición por escena.",
+  "modelo": [],
+  "etapa": [
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:734 (plan_movements), gfx_layer.py:785-788 (transiciones_por_relato, identity_violations); gfx_project.py:400 y gfx_sparse.py:389 importan ZOOM_PUNCH_SCALE",
+  "funciones_muertas": [],
+  "md5": "db77fc3a2685692ed242577c4e41d50b"
+ },
+ "script_engine/gfx_templates/archive_clipping.html.tmpl": {
+  "sticker": "Plantilla del recorte de archivo: el papel con kicker, regla y titular (y cuerpo opcional) que aparece sobre la foto.",
+  "recibe": "Campos que sustituye gfx_project.write_project: i, start, duration, paper, font, side, kicker, headline, head_style, body_block, icon_html.",
+  "entrega": "Un bloque HTML dentro de gfx_chNN/index.html.",
+  "modelo": [],
+  "etapa": [
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_project.py:780 la lee con _tpl('archive_clipping.html.tmpl') en write_project",
+  "funciones_muertas": [],
+  "md5": "a6bf0b16cca7b3b5413d90ba134a3325"
+ },
+ "script_engine/gfx_templates/chapter_question.html.tmpl": {
+  "sticker": "Plantilla de la pregunta de cierre del capítulo: el fondo oscurecido y el texto centrado.",
+  "recibe": "Campos que sustituye gfx_project.write_project: start, duration, text_html.",
+  "entrega": "Un bloque HTML dentro de gfx_chNN/index.html.",
+  "modelo": [],
+  "etapa": [
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_project.py:828 la lee con _tpl('chapter_question.html.tmpl') en write_project",
+  "funciones_muertas": [],
+  "md5": "a20eab8e78013d930d82a15a3091e8bd"
+ },
+ "script_engine/gfx_templates/gfx_common.css": {
+  "sticker": "Hoja de estilos común de la capa gráfica: title card, ficha, pregunta de cierre, recorte de archivo, flash y las capas de grade (viñeta, grano), con los tokens del perfil. Trae también reglas de bloques que ya no se dibujan (dato con lupa, contador, etiqueta de zoom, ícono).",
+  "recibe": "Tokens de gfx_project.render_css (colores, tipografías, tamaños, escalas) sustituidos con string.Template.",
+  "entrega": "El bloque <style> de gfx_chNN/index.html.",
+  "modelo": [],
+  "etapa": [
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_project.py:623 la lee en render_css y gfx_project.py:846 la mete en index.html.tmpl",
+  "funciones_muertas": [],
+  "md5": "10ac07c66b64c64a6396a9c523777860"
+ },
+ "script_engine/gfx_templates/gfx_grade.json": {
+  "sticker": "Receta de color (ruedas, viñeta, grano, bloom) en el formato del tratamiento nativo de HyperFrames. Quedó versionada pero nadie la lee: el grade real sale de las capas CSS y del ffmpeg del render disperso.",
+  "recibe": "Nada: ningún código la lee.",
+  "entrega": "Nada.",
+  "modelo": [],
+  "etapa": [
+   "ninguna"
+  ],
+  "estado": "huérfano",
+  "estado_prueba": "grep de «gfx_grade» en todo el repo (py, md, json, sh): solo aparece en lab/mapa/hechos.json; gfx_layer.py:7-8 menciona que el preset nativo «queda versionado»",
+  "funciones_muertas": [],
+  "md5": "c81e6f552b1efb048ee08bba9779d9ee"
+ },
+ "script_engine/gfx_templates/index.html.tmpl": {
+  "sticker": "Plantilla madre del proyecto HyperFrames del cap: la página con el css, las escenas, los overlays y el timeline de gsap.",
+  "recibe": "Campos que sustituye gfx_project.write_project: width, height, duration, css, scene_hosts, overlays, init_js, timeline_js.",
+  "entrega": "gfx_chNN/index.html.",
+  "modelo": [],
+  "etapa": [
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_project.py:846 la lee con _tpl('index.html.tmpl') en write_project",
+  "funciones_muertas": [],
+  "md5": "8a888e6e1529f8b93c422df086114f94"
+ },
+ "script_engine/gfx_templates/scene.html.tmpl": {
+  "sticker": "Plantilla de una escena (un plano del cap): el tramo del video base, la imagen segura si hay, la transición de entrada y el punch.",
+  "recibe": "Campos que sustituye gfx_project._scene_html: n, duration, width, height, media_start, inner_html, outer_html, init_js, timeline_js.",
+  "entrega": "gfx_chNN/compositions/scene_NN.html.",
+  "modelo": [],
+  "etapa": [
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_project.py:485 la lee con _tpl('scene.html.tmpl') en _scene_html",
+  "funciones_muertas": [],
+  "md5": "6e3badb933db5f278d66478e5851dccd"
+ },
+ "script_engine/gfx_templates/title_card.html.tmpl": {
+  "sticker": "Plantilla del title card, que la ficha reutiliza (kicker, título y raya): mismo molde, la ficha sin fondo oscurecido.",
+  "recibe": "Campos que sustituye gfx_project: dim_html, tid, start, duration, line_style, box_class, kicker, title.",
+  "entrega": "Un bloque HTML dentro de gfx_chNN/index.html (title card y cada ficha).",
+  "modelo": [],
+  "etapa": [
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_project.py:240 (ficha_html) y gfx_project.py:750 (write_project) la leen con _tpl('title_card.html.tmpl')",
+  "funciones_muertas": [],
+  "md5": "dbccf2c97aa027e945fa828df7a63c07"
+ }
+}

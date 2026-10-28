@@ -1,0 +1,613 @@
+{
+ "_nota": "F42 §B: stickers de la zona research, escritos por los workers (Sonnet) que leyeron cada archivo entero; `md5` = el del archivo leído (`mapa_modulos.py --check` avisa si cambió). `_parte` = el worker.",
+ "fase1.py": {
+  "sticker": "Es la pantalla de arranque del research: descubre temas nuevos (o reusa los guardados), los hace juzgar, deja elegir uno a Omar en el form, re-mide que no esté saturado en español, lo investiga y lo valida. Al final escribe qué tema salió para que run_pipeline siga con el guion.",
+  "recibe": "data/selected_seeds.json (semillas), data/topics_db.json; respuestas de Omar por stdin (marcadores @@QAFORM@@ con QA_FORM); flags --video-type y --no-chain que le manda run_pipeline.py.",
+  "entrega": "data/_last_research.json (los tids de esta corrida); data/selected_seeds.json reescrito con el juez; data/seeds_archive.json (seeds borrados); data/fase1_review.csv vía csv_exporter; marcadores del form por stdout.",
+  "modelo": [],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "run_pipeline.py:530 lanza fase1.py --no-chain en la etapa research",
+  "funciones_muertas": [
+   {
+    "nombre": "_save_script",
+    "linea": 476,
+    "por_que": "nadie la nombra: ni producción, ni tests, ni strings; deja SCRIPTS_DIR (fase1.py:78) sin otro uso"
+   }
+  ],
+  "md5": "4fdf55c10148f6817ff797f0d0f609e3",
+  "_parte": "research_b"
+ },
+ "migrate_4e_into_topics_db.py": {
+  "sticker": "Parche de una sola vez para temas viejos: copia los tres campos de la identidad visual (época, personas documentadas, anacronismos) desde el archivo del paso 4e a cada tema de topics_db.json. Hace backup y pide confirmación; hoy solo lo corre una persona a mano.",
+  "recibe": "data/topics_db.json y data/scripts/_steps/<id>/05_visual_canon.json (ruta relativa a la carpeta desde donde se corre).",
+  "entrega": "data/topics_db.json actualizado y copia data/topics_db.backup_<fecha>.json.",
+  "modelo": [],
+  "etapa": [
+   "herramienta manual"
+  ],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "Nadie lo importa ni lo lanza (lo_importan y lo_lanzan vacíos en A); solo tiene if __name__ == '__main__' en migrate_4e_into_topics_db.py:231",
+  "funciones_muertas": [],
+  "md5": "63831b9d5f30ad76205bf9a401371c42",
+  "_parte": "research_d"
+ },
+ "niche_discoverer.py": {
+  "sticker": "Es el buscador de temas nuevos: un menú que, sobre tres nichos fijos (océano, espacio, lugares abandonados), busca videos virales en inglés y mira si en español hay hueco, o le pide a Gemini misterios de 1950-2000 sin competencia en español, o deja escribir un tema a mano. Lo que sale son las semillas de tema que luego se investigan.",
+  "recibe": "Las respuestas del menú (por input() o por los marcadores @@QAFORM@@ del form), data/dynamic_queries_cache.json (queries dinámicas de las últimas 24 h), y por red: YouTube vía script_engine/youtube_scanner y subtopic_*, Gemini Flash y Pro.",
+  "entrega": "data/selected_seeds.json (lista de seeds con discovery_mode, root_niche, evidence), data/dynamic_queries_cache.json y, con el fan-out activo, data/_steps/dropped_by_cap.jsonl. Devuelve la lista de seeds a fase1.py y escribe los marcadores del form por stdout.",
+  "modelo": [
+   {
+    "modelo": "config.api.gemini_model (Gemini Flash)",
+    "para": "generar queries dinámicas por nicho (_gemini_generate_queries) y traducir los títulos virales a tema en español con event_key (_gemini_translate_viral_titles)"
+   },
+   {
+    "modelo": "config.api.gemini_model_research (Gemini Pro) + Google Search",
+    "para": "arqueología digital: candidatos de misterios 1950-2000 (_gemini_archaeology_search)"
+   },
+   {
+    "modelo": "juez-LLM de script_engine/subtopic_measurer, subtopic_classifier y subtopic_extractor",
+    "para": "medir saturación en español y, solo con SUBTEMA_FANOUT=1, clasificar y abrir el video en subtemas (el modelo lo fijan esos módulos, no este archivo)"
+   }
+  ],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1.py:48 lo importa y fase1.py:669/681/692/749 llaman discover_niches() dentro de la etapa research (fase1.py --no-chain, run_pipeline.py:530)",
+  "funciones_muertas": [
+   {
+    "nombre": "_load_seeds",
+    "linea": 198,
+    "por_que": "nadie llama a esta: fase1.py:85 y topic_researcher.py:786 definen cada uno su propia _load_seeds y usan la suya; los tests tampoco la tocan; solo se define acá (A la contó como usada por esos dos archivos: falso positivo por nombre)"
+   }
+  ],
+  "md5": "ca8822da2515abf728e3553fef3ba80f",
+  "_parte": "research_a"
+ },
+ "nicho_config.py": {
+  "sticker": "Guarda la identidad del nicho activo (hoy solo dark_history: estética de realismo oscuro, referencias y frase de estilo fija). En producción solo sirve para elegir el perfil de capa gráfica según el nombre del nicho.",
+  "recibe": "Nada; es una constante en código.",
+  "entrega": "El diccionario del nicho activo; de ahí gfx_config toma el nombre para elegir el perfil en gfx_profiles/.",
+  "modelo": [],
+  "etapa": [
+   "guion_pantalla",
+   "aprobar_guion",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_config.py:362-363 llama get_active_nicho en active_profile_name cuando GFX_PROFILE no está definida; fase2b.py:383 y :1163 usan gfx_config",
+  "funciones_muertas": [],
+  "md5": "3fedfbe234b8d1842c4841095dacc94b",
+  "_parte": "research_d"
+ },
+ "purge_history.py": {
+  "sticker": "Escoba manual: borra la basura histórica del proyecto (topics_db, semillas elegidas, CSV de revisión, pasos intermedios, guiones finales, logs de issues), con la opción de salvar un solo tema. Sin --execute solo muestra qué borraría.",
+  "recibe": "Argumentos --execute y --keep <topic_id>; data/topics_db.json, data/selected_seeds.json, data/fase1_review.csv, data/scripts/_steps/, data/scripts/*.json, data/issues_log/.",
+  "entrega": "Esos archivos y carpetas borrados o vaciados (topics_db.json y selected_seeds.json reescritos); solo texto por consola en dry-run.",
+  "modelo": [],
+  "etapa": [
+   "herramienta manual"
+  ],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "Nadie lo importa ni lo lanza; se corre a mano con python purge_history.py (main en purge_history.py:145, if __name__ en :180)",
+  "funciones_muertas": [],
+  "md5": "1bd010cff8f0df0de7060d63d4b404fd",
+  "_parte": "research_d"
+ },
+ "researcher_steps/__init__.py": {
+  "sticker": "Archivo vacío que hace de paquete a la carpeta researcher_steps para poder importar sus módulos.",
+  "recibe": "nada",
+  "entrega": "nada (0 líneas)",
+  "modelo": [],
+  "etapa": [
+   "research",
+   "guion"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "marca de paquete: topic_researcher.py:61 hace from researcher_steps.step_4a_facts import …; fase1_5.py:269 hace from researcher_steps import ficha_caso",
+  "funciones_muertas": [],
+  "md5": "d41d8cd98f00b204e9800998ecf8427e",
+  "_parte": "research_c"
+ },
+ "researcher_steps/evidence_pool.py": {
+  "sticker": "Arma el pool de evidencia del research: datos, cronología, lugares, citas y personajes, todo copiado literal de los bloques de investigación. Tiene las reglas para descartar lo que no está literal, lo que el bloque marca como no relacionado y los nombres que no hacen nada, y geocodifica los lugares con OpenStreetMap. Con el research v3 (el de siempre) solo se usa una parte de estas piezas; el resto corre con RESEARCH_V3=0.",
+  "recibe": "los bloques angulares de investigación (tecnico/humano/misterio) como texto; el pool ya armado por research_v3 cuando entra por acting_filter, geocode o anchor_place",
+  "entrega": "el evidence_pool {datos, cronologia, lugares, citas, personajes, _descartados, cifras_canonicas} con ids D01/T01/L01/Q01/P01; en la ruta v3 va dentro de 00_pool_v3.json; el caché de geocodificación queda en data/geocode_cache.json",
+  "modelo": [
+   {
+    "modelo": "Gemini Flash (call_flash_json de gemini_helpers, config.api.gemini_model)",
+    "para": "una llamada por bloque que copia datos literales del bloque (solo en la ruta RESEARCH_V3=0 y en add_block)"
+   }
+  ],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "research_v3.py:1399 (fix_caps), :1718 y :1925 (norm, _content_set), :2042 (acting_filter, anchor_place, geocode) en la ruta v3; step_4a_facts.py:128 llama a extract_evidence_pool con RESEARCH_V3=0",
+  "funciones_muertas": [
+   {
+    "nombre": "add_block",
+    "linea": 697,
+    "por_que": "nadie la nombra en producción; solo test_module_f6a.py (suma un bloque nuevo a un pool existente)"
+   }
+  ],
+  "md5": "57b8dee3f9bb77388d1e02678c3011b1",
+  "_parte": "research_c"
+ },
+ "researcher_steps/ficha_caso.py": {
+  "sticker": "Arma la ficha del caso: una sola llamada a un modelo que lee todo el research del tema (el pool) y devuelve las personas, la cronología, la historia (quién la sufre, los giros, el pico), las escenas, los hechos, las cifras, las citas y las contradicciones. Después un control sin IA revisa que cada cifra, hora, fecha y cita esté de verdad en el texto de los ids que cita, y lo que no está lo manda a «descartados». Es la única fuente de la escaleta y del guion.",
+  "recibe": "data/scripts/_steps/<topic>/00_pool_v3.json (el pool de research, solo lectura) y el título del topic",
+  "entrega": "data/scripts/_steps/<topic>/ficha_caso.json y FICHA_<tag>.md (más ficha_respuesta_cruda.json con la respuesta tal cual de la API); la leen la escaleta y el guion v4 (load / id_texts)",
+  "modelo": [
+   {
+    "modelo": "gpt-6.1-sol (constante MODELO, esfuerzo high)",
+    "para": "la llamada única que arma la ficha por defecto (gpt_helpers.make_call)"
+   },
+   {
+    "modelo": "claude-* (p. ej. claude-opus-5-5, por --modelo / modelo=)",
+    "para": "la misma llamada si se pide un modelo de Claude, por claude_helpers (esfuerzo ESFUERZO_POR_ETAPA['ficha'])"
+   }
+  ],
+  "etapa": [
+   "guion"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.py:386 (run_escaleta_v3 → asegurar_ficha) genera la ficha si falta; fase1_5.py:395 y :425 la cargan; run_escaleta_v3 se llama en fase1_5.py:501 dentro de la etapa guion",
+  "funciones_muertas": [],
+  "md5": "350908826393d68b8f767f2a164b22f2",
+  "_parte": "research_c"
+ },
+ "researcher_steps/pool_gate.py": {
+  "sticker": "Es el semáforo entre el research y el guion: cuenta cuántos datos, citas verificadas, personas elegibles y eventos con fecha tiene el pool y lo marca verde, amarillo o rojo. Con rojo el tema vuelve al inbox con el motivo y no se gasta en guion ni imágenes; con amarillo solo avisa. Escribe un POOL_GATE.md.",
+  "recibe": "el evidence_pool de research v3 (00_pool_v3.json o topic['evidence_pool']) y los umbrales de script_engine/video_length.py",
+  "entrega": "dict del gate (color, métricas, faltan, motivos), data/scripts/_steps/<topic>/POOL_GATE.md y, si es rojo, la excepción PoolGateRed",
+  "modelo": [],
+  "etapa": [
+   "research",
+   "guion"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "research_v3.py:2609 (run_seed, etapa research) y m01a_escaleta.py:714 pool_gate_profile, llamado desde fase1_5.py:383 (run_escaleta_v3, etapa guion)",
+  "funciones_muertas": [],
+  "md5": "981b9f550b42986b32d9788eefbf989b",
+  "_parte": "research_c"
+ },
+ "researcher_steps/research_v3.py": {
+  "sticker": "Es el investigador de documentos del video: dado el tema, busca en Google las páginas y PDF originales (informes, fallos, prensa de la época), los baja, los lee con el modelo y se queda solo con lo que puede probar con una frase copiada literal del documento. Con eso arma el pool de evidencia (datos, cronología, lugares, citas, personajes), marca qué citas están verificadas, calcula las cifras oficiales y un resumen para la escaleta, y pasa la compuerta del pool.",
+  "recibe": "El seed del tema (seed_title, idiomas, etc., desde topic_researcher) y data/_steps/<id>/ con lo que ya haya de corridas anteriores: _perfil.json, fuentes.json (registro de fuentes), fuentes/manifest.json y fuentes/*.txt, _r1_cache.json, _r3_cache/, 00_pool_v3*.json. Por red: Google Search vía Gemini, las páginas y PDF de las fuentes, la Wayback Machine. Más data/geocode_cache.json.",
+  "entrega": "En data/_steps/<id>/: _perfil.json, fuentes.json (registro), fuentes_r1.json, fuentes/<slug>.pdf|html|txt + manifest.json, _r1_cache.json, _r3_cache/r3_*.json, 00_pool_v3.json (evidence_pool con digest y _research_v3) y POOL_GATE.md (vía pool_gate). Devuelve (pool, 4 bloques angulares para 4a-4e, resultado de la compuerta). Además, durante el guion otros módulos le piden el vocabulario del caso (set_vocabulario, vocabulario, caso).",
+  "modelo": [
+   {
+    "modelo": "config.api.gemini_model_research (Gemini Pro) + Google Search",
+    "para": "R1: descubrir las fuentes, 4 focos más una búsqueda por pista (search_pro)"
+   },
+   {
+    "modelo": "config.api.gemini_model (Gemini Flash) + Google Search",
+    "para": "R1 alternativo cuando Pro no devuelve grounding (search_flash)"
+   },
+   {
+    "modelo": "gemini_helpers.call_flash_json (Gemini Flash)",
+    "para": "fichas de las URLs sin ficha (annotate_unmatched), fichas leídas del encabezado (refine_fichas), vocabulario del caso (seed_vocabulario) y perfil del seed (seed_profile)"
+   },
+   {
+    "modelo": "gemini_helpers.call_pro_json (Gemini Pro, thinking_budget=R3_THINKING)",
+    "para": "R3: extraer la evidencia de cada trozo de documento (extract_document)"
+   }
+  ],
+  "etapa": [
+   "research",
+   "guion"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "topic_researcher.py:553-555 llama research_v3_enabled() y run_seed() dentro de _research_seed_deep; fase1_5.py:194 (cargar_perfil, llamado desde _topic_v3 L205) llama set_vocabulario en la etapa guion; script_engine/guion_v4.py:891/1179 y m05_narrative.py:129/478 importan vocabulario/caso",
+  "funciones_muertas": [
+   {
+    "nombre": "rebuild_texts",
+    "linea": 1015,
+    "por_que": "nadie la nombra: ni producción, ni tests, ni string; rehacía el txt de PDF ya bajados"
+   },
+   {
+    "nombre": "metrics",
+    "linea": 2074,
+    "por_que": "en producción nadie la llama (en fase2b.py y depth_probe.py 'metrics' es una variable local, no esta función); solo test_module_f7.py:333 y el script de laboratorio lab/hyperframes/f7/f7b_pool_orleans.py:90"
+   }
+  ],
+  "md5": "2a4b42478b64231fe6f228c4113c6a16",
+  "_parte": "research_a"
+ },
+ "researcher_steps/step_4a_facts.py": {
+  "sticker": "Le pide a un modelo entre 6 y 12 datos duros de los tres bloques de investigación (al menos 3 visuales), cada uno marcado con su bloque de origen, y la lista de fuentes. Con RESEARCH_V3=0 además arma el evidence_pool; con el research v3 solo extrae los facts.",
+  "recibe": "los bloques angulares {tecnico, humano, misterio} como texto (topic_researcher.py:575-577)",
+  "entrega": "{verified_facts, sources, evidence_pool}; topic_researcher lo guarda como data/scripts/_steps/<topic>/01_facts_sources.json",
+  "modelo": [
+   {
+    "modelo": "Gemini Flash (call_flash_json, config.api.gemini_model)",
+    "para": "extraer verified_facts y sources de los tres bloques"
+   }
+  ],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "topic_researcher.py:575 y :577 llaman a extract_facts_and_sources dentro de research_topics (fase1.py:771)",
+  "funciones_muertas": [],
+  "md5": "4058f7e62f88d6d37a499501ba0ce3ba",
+  "_parte": "research_c"
+ },
+ "researcher_steps/step_4b_canonical.py": {
+  "sticker": "Le pide al modelo una descripción visual en inglés (20 a 35 palabras) del sujeto que más se repite en el video, o null si no hay un sujeto físico claro. Solo puede usar lugares y fechas que ya estén en los datos duros.",
+  "recibe": "el seed, los bloques angulares y los verified_facts de 4a",
+  "entrega": "{canonical_subject_description: str | None}; topic_researcher lo guarda como 02_canonical.json en data/scripts/_steps/<topic>/ (lo lee también gfx_director)",
+  "modelo": [
+   {
+    "modelo": "Gemini Flash (call_flash_json, config.api.gemini_model)",
+    "para": "escribir la descripción canónica del sujeto"
+   }
+  ],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "topic_researcher.py:584 llama a extract_canonical; script_engine/gfx_director.py:43 lee 02_canonical.json",
+  "funciones_muertas": [],
+  "md5": "4ad2c509cd1e76e643f385fe0a2c6722",
+  "_parte": "research_c"
+ },
+ "researcher_steps/step_4c_meta.py": {
+  "sticker": "Le pide al modelo la ficha de marketing del video: título de hasta 62 caracteres, palabra de búsqueda, gancho, misterio, revelación, ángulo y un puntaje de viralidad de 1 a 10. Todo dato que use tiene que estar en los datos duros.",
+  "recibe": "el seed, los bloques angulares, los verified_facts de 4a y el canonical de 4b",
+  "entrega": "{video_title, search_keyword, hook, mystery, reveal, angle, virality_score}; topic_researcher lo guarda como 03_meta.json",
+  "modelo": [
+   {
+    "modelo": "Gemini Flash (call_flash_json, config.api.gemini_model)",
+    "para": "generar la meta narrativa del video"
+   }
+  ],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "topic_researcher.py:590 llama a extract_meta dentro de research_topics",
+  "funciones_muertas": [],
+  "md5": "807613665682b23504d522031fb99296",
+  "_parte": "research_c"
+ },
+ "researcher_steps/step_4d_summary.py": {
+  "sticker": "Le pide al modelo un resumen largo (1500 a 3000 caracteres) en tres párrafos (técnico, humano, misterio) que sirva de materia prima al guionista, sin repetir los datos duros ya extraídos.",
+  "recibe": "el seed, los bloques angulares completos, los verified_facts, el canonical y la meta de 4c",
+  "entrega": "{research_summary: str}; topic_researcher lo guarda como 04_summary.json",
+  "modelo": [
+   {
+    "modelo": "Gemini Flash (call_flash_json, config.api.gemini_model)",
+    "para": "escribir el research_summary de tres párrafos"
+   }
+  ],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "topic_researcher.py:595 llama a extract_research_summary dentro de research_topics",
+  "funciones_muertas": [],
+  "md5": "b6e32974cdb3cfc3005bef9a073c2cf1",
+  "_parte": "research_c"
+ },
+ "researcher_steps/step_4e_visual_canon.py": {
+  "sticker": "Le pregunta a un modelo cómo se ve el mundo del tema (ropa, tecnología, vehículos, colores, materiales de la época), qué personas con nombre hay y cómo se ven sin nombre, qué anacronismos prohibir y cuál es el objeto o sujeto central. Después limpia la respuesta con reglas fijas (saca el nombre y la época del aspecto de cada persona, normaliza los objetos). Si falla, devuelve una estructura vacía pero del mismo formato.",
+  "recibe": "el seed del tema, los bloques de investigación (técnico/humano/misterio/visual), los verified_facts de 4a y el canonical de 4b (los pasa topic_researcher.py:603)",
+  "entrega": "dict con era_visual_canon, documented_people, anachronism_blocklist, documented_props y central_subject; topic_researcher lo guarda como data/scripts/_steps/<topic>/05_visual_canon.json y lo pone en topics_db",
+  "modelo": [
+   {
+    "modelo": "Gemini Flash (call_flash_json de gemini_helpers; el modelo lo fija config.api.gemini_model)",
+    "para": "emitir el canon visual con response_schema, con un segundo intento sin esquema si la API lo rechaza"
+   }
+  ],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "topic_researcher.py:603 llama a extract_visual_canon dentro de research_topics; fase1.py:771 llama a research_topics",
+  "funciones_muertas": [],
+  "md5": "7a5feb625476ab8974c1473984c7e180",
+  "_parte": "research_c"
+ },
+ "researcher_steps/verify_quotes.py": {
+  "sticker": "Reúne las herramientas para comprobar que una cita es real: normalizar texto tolerando caracteres rotos, buscar la cita literal en un documento, y una búsqueda con Google que pide la fuente original. En producción solo se usan las piezas chicas (buscar patrón literal, resolver redirecciones, saber si un autor tiene nombre propio); las funciones que verifican citas enteras ya nadie las llama.",
+  "recibe": "citas y documentos del pool (texto, autor, fecha); un prompt de búsqueda",
+  "entrega": "funciones auxiliares que research_v3 y m01b_guionista importan (_nz, _pattern, FFFD, _grounding, resolve_redirect, _named); verificacion por cita solo si se llamara a verify_literal / verify_testimonios",
+  "modelo": [
+   {
+    "modelo": "Gemini con Google Search (config.api.gemini_model, o retry_model)",
+    "para": "_search: buscar la fuente original de una cita testimonio (solo la usa verify_testimonios)"
+   }
+  ],
+  "etapa": [
+   "research",
+   "guion"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "research_v3.py:165,191,372,1179,1218,1227,1246 importan _grounding, resolve_redirect, FFFD, _nz, _pattern; m01b_guionista.py:212 importa _named (lo llama guion_v4 en la etapa guion)",
+  "funciones_muertas": [
+   {
+    "nombre": "verify_literal",
+    "linea": 166,
+    "por_que": "nadie la nombra en producción ni en tests; research_v3 tiene su propia verificación literal (DocText)"
+   },
+   {
+    "nombre": "verify_testimonios",
+    "linea": 241,
+    "por_que": "nadie la nombra en producción; solo test_module_f6b.py (y con ella queda sin uso real judge, _parse, build_prompt, _search)"
+   }
+  ],
+  "md5": "189d2ba882673eee69963754de28f6bf",
+  "_parte": "research_c"
+ },
+ "script_engine/evidence.py": {
+  "sticker": "Caja de herramientas común para leer el pool de evidencia: junta todos los ítems por id, dice qué cifra, fecha o nombre tiene que sonar literal en la narración para contar que el dato se usó (en dígitos o en palabras), detecta datos repetidos dentro de un capítulo, decide si dos ítems cuentan el mismo hecho y arregla mayúsculas pegadas. No llama a ningún modelo.",
+  "recibe": "el evidence_pool (dict con datos, cronologia, citas, lugares, personajes) y textos de narración",
+  "entrega": "funciones puras: items(), anchors(), used_in(), same_fact(), item_date(), repeats_in_cap(), is_hard(), fix_glued_caps(), etc.; no escribe archivos",
+  "modelo": [],
+  "etapa": [
+   "guion",
+   "voz",
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "lo importan guion_v4.py:36 y m01a_escaleta (etapa guion), voz_utils.py:14 y voz_datos (etapa voz), fase2b.py:3161 y pantalla_entrada (guion_pantalla), gfx_pool.py:42 vía gfx_layer.py:266 (render)",
+  "funciones_muertas": [
+   {
+    "nombre": "format_pool",
+    "linea": 177,
+    "por_que": "nadie la nombra en producción ni en tests; solo aparece en el docstring del módulo"
+   }
+  ],
+  "md5": "ac5d3d06d8dade5571556b7f66646fb9",
+  "_parte": "research_c"
+ },
+ "script_engine/learned_patterns.py": {
+  "sticker": "Tabla de conocimiento del viejo juez visual m05: qué módulo suele causar cada tipo de falla de imagen, y listas (hoy vacías) de patrones aprendidos. Nada del pipeline vivo la usa: su único cliente, m05_judge.py, quedó desconectado de la cadena.",
+  "recibe": "Una categoría de falla (texto).",
+  "entrega": "El módulo causa raíz esperado (m03, m00, m01b) o None; diccionarios en memoria.",
+  "modelo": [],
+  "etapa": [
+   "ninguna"
+  ],
+  "estado": "huérfano",
+  "estado_prueba": "Solo lo importa script_engine/m05_judge.py:37, y ningún archivo de producción importa m05_judge (fase1_5.py:15 dice que quedó DESCONECTADO del chain); sin tests",
+  "funciones_muertas": [
+   {
+    "nombre": "add_learned_regex",
+    "linea": 67,
+    "por_que": "nadie la nombra, ni producción ni tests"
+   },
+   {
+    "nombre": "record_other",
+    "linea": 79,
+    "por_que": "nadie la nombra, ni producción ni tests"
+   },
+   {
+    "nombre": "maybe_promote_other",
+    "linea": 90,
+    "por_que": "nadie la nombra, ni producción ni tests"
+   }
+  ],
+  "md5": "76e67947e95e920a7906c81b3cd5c78c",
+  "_parte": "research_d"
+ },
+ "script_engine/m_judge_seeds.py": {
+  "sticker": "Antes de gastar plata en investigar los temas candidatos, un juez de IA les pone nota (oro, dudoso o descartar) para cazar dos trampas: ratio inflado sobre un canal chico y títulos demasiado genéricos. Vota 3 veces por tema y se queda con la mayoría; solo marca, no descarta.",
+  "recibe": "Lista de seeds de data/selected_seeds.json (solo discovery_mode spy_arbitrage, con seed['evidence'] de vistas EN, ratio y saturación ES).",
+  "entrega": "Los mismos seeds con seed['judge'] = {verdict, risk, reason, cohort, votes}; fase1.py los vuelve a guardar en data/selected_seeds.json.",
+  "modelo": [
+   {
+    "modelo": "Gemini Flash (_cfg.gemini_model vía gemini_helpers.call_flash_json)",
+    "para": "juzgar cada seed spy_arbitrage, 3 votos por seed"
+   }
+  ],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1.py:716 importa judge_seeds y fase1.py:720 lo llama en el PASO 1.5 del research (run_latido_a)",
+  "funciones_muertas": [],
+  "md5": "6808fbac35c93edd9c83df597909dbe0",
+  "_parte": "research_d"
+ },
+ "script_engine/subtopic_classifier.py": {
+  "sticker": "Lee el transcript de un video viral y decide si trata de un solo asunto (atómico) o es una compilación de varios casos que se sostendrían solos (contenedor). Esa decisión define si el tema se abre en varios temas chicos.",
+  "recibe": "Título y transcript limpio de un video viral en inglés.",
+  "entrega": "{tipo: ATOMICO | CONTENEDOR | ERROR, razon} para niche_discoverer._try_subtema_fanout.",
+  "modelo": [
+   {
+    "modelo": "Gemini Flash (_cfg.gemini_model, con response_schema, temperature 0.0)",
+    "para": "clasificar el video como atómico o contenedor"
+   }
+  ],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "niche_discoverer.py:670 lo importa y llama classify dentro de _try_subtema_fanout, solo con SUBTEMA_FANOUT=1 (niche_discoverer.py:175, por defecto apagada)",
+  "funciones_muertas": [],
+  "md5": "3d27e9236ce5861e4d6424dfa85b111c",
+  "_parte": "research_d"
+ },
+ "script_engine/subtopic_es_relevance.py": {
+  "sticker": "Dos ayudantes de IA para medir la competencia en español: uno pasa el nombre de un lugar o caso a la grafía con la que lo buscan los hispanohablantes (Chernobyl a Chernóbil) y el otro mira una lista de títulos y deja solo los que hablan de esa misma entidad.",
+  "recibe": "Nombre de una entidad (texto) y lista de videos candidatos en español con título, vistas y meses.",
+  "entrega": "{es_query, es_aliases} y la sub-lista de candidatos relevantes, para subtopic_measurer._measure_es.",
+  "modelo": [
+   {
+    "modelo": "Gemini Flash (_cfg.gemini_model, con response_schema)",
+    "para": "traducir la grafía a español y juzgar relevancia título-entidad"
+   }
+  ],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/subtopic_measurer.py:46 lo importa y lo llama en :93, :98, :115 y :129; _measure_es corre en fase1.py:402",
+  "funciones_muertas": [],
+  "md5": "454cc9df23fb792c6768c0f08cd836c0",
+  "_parte": "research_d"
+ },
+ "script_engine/subtopic_extractor.py": {
+  "sticker": "Cuando un video viral resulta ser una compilación de muchos casos, lee su transcript y saca la lista de casos que de verdad tienen su propio tramo (sin las menciones al pasar). Para cada uno devuelve nombre, qué buscar y el ángulo; después un chequeo marca nombres dudosos por errores de transcripción.",
+  "recibe": "Título y transcript limpio de un video contenedor; lista de nombres para verificar.",
+  "entrega": "Lista de {nombre_en, search_query_en, angle_en} y un diccionario nombre → {canonical, is_real} que usa niche_discoverer.py para armar los seeds por subtema.",
+  "modelo": [
+   {
+    "modelo": "Gemini Flash (_cfg.gemini_model, llamada directa con response_schema)",
+    "para": "extraer sujetos-de-segmento y verificar grafías de nombres"
+   }
+  ],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "niche_discoverer.py:671 lo importa y :1042 lo alcanza vía _try_subtema_fanout, pero solo corre con la variable de entorno SUBTEMA_FANOUT=1 (niche_discoverer.py:175, por defecto apagada)",
+  "funciones_muertas": [],
+  "md5": "fff9aba51e8dca24282821ffab53d5c9",
+  "_parte": "research_d"
+ },
+ "script_engine/subtopic_measurer.py": {
+  "sticker": "Mide si un tema vale la pena: primero cuánta competencia hay en español (traduce el nombre, trae los videos y un juez de IA filtra los que hablan de lo mismo) y, si hay hueco, cuánta demanda tiene en inglés. Es el termómetro del descubrimiento de temas.",
+  "recibe": "Una consulta de búsqueda y el nombre de la entidad (texto); resultados de YouTube que trae script_engine/youtube_scanner.py.",
+  "entrega": "Diccionarios de medición (label de saturación ES, vistas EN, relevantes, query_fallback) que usan niche_discoverer.py y fase1.py para armar los seeds de data/selected_seeds.json.",
+  "modelo": [
+   {
+    "modelo": "Gemini Flash (_cfg.gemini_model, vía subtopic_es_relevance.translate_to_es y filter_relevant)",
+    "para": "traducir la grafía al español y filtrar qué videos ES tratan de la misma entidad"
+   }
+  ],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1.py:51 importa _measure_es y fase1.py:402 lo llama al verificar el pick; niche_discoverer.py:1004 lo llama en la rama atómica (siempre activa)",
+  "funciones_muertas": [
+   {
+    "nombre": "measure",
+    "linea": 203,
+    "por_que": "producción solo llama a _measure_es y _measure_en_laxo por separado (niche_discoverer.py:707 y :730); measure() la usan test_subtopic_measurer.py:29 y test_subtema_fanout_dryrun.py:56. El 'measure' que A le atribuye a researcher_steps/pool_gate.py es otra función homónima"
+   }
+  ],
+  "md5": "fb2a334dcc3abbdae8ecceec8cd94dcb",
+  "_parte": "research_d"
+ },
+ "script_engine/topics_db.py": {
+  "sticker": "La libreta central de temas: lee y guarda data/topics_db.json, busca un tema por id, lo marca como video generado cuando termina el render y como empaquetado cuando fase3 arma el paquete de publicación.",
+  "recibe": "data/topics_db.json y los ids de tema que le pasan las fases.",
+  "entrega": "data/topics_db.json reescrito con status=video_generated, video_id, video_path y los flags packaged y packaged_at.",
+  "modelo": [],
+  "etapa": [
+   "research",
+   "guion",
+   "papel",
+   "voz",
+   "assets",
+   "fondos",
+   "guion_pantalla",
+   "aprobar_guion",
+   "render",
+   "packaging"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.py:73 y fase2a.py:51 importan load_db/save_db, fase2b.py:3807 llama mark_as_generated en el render, fase3.py:69 llama mark_as_packaged; fase1.py lo alcanza por topic_validator.py:58",
+  "funciones_muertas": [
+   {
+    "nombre": "get_pending_for_video",
+    "linea": 52,
+    "por_que": "nadie la nombra, ni producción ni tests"
+   },
+   {
+    "nombre": "revert_generation",
+    "linea": 131,
+    "por_que": "nadie la nombra, ni producción ni tests"
+   }
+  ],
+  "md5": "fe08a04f7da67a6a78fddedceb48f621",
+  "_parte": "research_d"
+ },
+ "script_engine/transcript_fetch.py": {
+  "sticker": "Baja los subtítulos de un video de YouTube a través del proxy del proyecto y los limpia. Distingue tres casos: texto, video sin subtítulos (cadena vacía) y falla de infraestructura (None), para no fabricar un tema falso cuando algo se cayó.",
+  "recibe": "Un video_id de YouTube y los idiomas (en, es).",
+  "entrega": "Texto limpio del transcript, '' si no hay subtítulos, o None si falló la infraestructura.",
+  "modelo": [],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "niche_discoverer.py:669 lo importa y :679 llama fetch_transcript dentro de _try_subtema_fanout, solo con SUBTEMA_FANOUT=1 (niche_discoverer.py:175, por defecto apagada)",
+  "funciones_muertas": [],
+  "md5": "b22293acd52cf82d5689f89e651ddf1d",
+  "_parte": "research_d"
+ },
+ "script_engine/youtube_scanner.py": {
+  "sticker": "Es el que mira YouTube por todos los demás: cuenta videos en español e inglés para un tema, busca videos virales en inglés, mide cuán saturado está el español y arma la lista de competidores. Lo usan la validación de mercado y el buscador de nichos; no toca el video, solo decide qué temas valen.",
+  "recibe": "Una búsqueda (palabra clave o título) y parámetros de ventana/vistas; internet por scrapetube con proxy, o la API de YouTube como respaldo (claves y proxy por nombre desde config).",
+  "entrega": "Diccionarios y listas en memoria (competencia ES/EN, candidatos virales EN, saturación ES, competidores ES) a topic_validator.py, niche_discoverer.py, script_engine/subtopic_measurer.py y script_engine/transcript_fetch.py; no escribe archivos.",
+  "modelo": [],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "topic_validator.py:42 importa scan_competition y count_competing_spanish; fase1.py:48 importa niche_discoverer que importa este archivo",
+  "funciones_muertas": [
+   {
+    "nombre": "fork_title",
+    "linea": 573,
+    "por_que": "nadie la nombra: ni producción, ni tests, ni strings; fork_views_text y fork_views del mismo bloque sí se usan"
+   }
+  ],
+  "md5": "f58dbddd5a5a3550f85ec98f7a838639",
+  "_parte": "research_b"
+ },
+ "topic_researcher.py": {
+  "sticker": "Investiga a fondo el tema elegido antes del guion: le hace a Gemini Pro varias consultas con búsqueda en Google (técnica, humana, misterio, visual), llama al research v3 de documentos y arma el tema completo (título, hechos verificados, resumen, canon visual, personas y objetos documentados). Lo deja guardado en la base de temas.",
+  "recibe": "La semilla elegida (dict de data/selected_seeds.json o un archivo de semilla) y video_type; data/topics_db.json para no repetir títulos; los pasos de researcher_steps/ (step_4a a step_4e, research_v3, pool_gate).",
+  "entrega": "data/topics_db.json con el topic nuevo (status 'researched'); data/scripts/_steps/<id>/00_pool_etiquetado.json a 05_visual_canon.json; data/seeds_archive.json y selected_seeds.json actualizados (solo research_topics); un topic guardado con id fijo por investigar_semilla (solo fase1_5 --semilla).",
+  "modelo": [
+   {
+    "modelo": "api.gemini_model_research (config)",
+    "para": "consultas angulares Pro + Google Search en _research_angle y el research simple de SHORT en _research_seed_simple"
+   }
+  ],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1.py:771 llama research_topics; fase1_5.py:365 llama investigar_semilla (solo con --semilla, que el form no pasa)",
+  "funciones_muertas": [
+   {
+    "nombre": "research_testimonios",
+    "linea": 390,
+    "por_que": "nadie la llama: ni producción, ni tests, ni strings; solo se define (su helper _build_testimonios_prompt solo se alcanza desde ella)"
+   }
+  ],
+  "md5": "a744a37432b65c3413650c9e0b138a5e",
+  "_parte": "research_b"
+ },
+ "topic_validator.py": {
+  "sticker": "Después de investigar el tema, mide si vale la pena hacerlo: mira cuánto lo busca la gente en Google Trends, cuánta competencia hay en YouTube en español e inglés, y da un veredicto (oro, arbitraje, caliente, frío, desconocido). Si el tema sirve, además pide a Gemini 3 ganchos y 3 cierres de ejemplo y deja todo escrito en cada tema de la base.",
+  "recibe": "data/topics_db.json (temas con competition_level vacío, vía script_engine/topics_db.load_db); data/trends_cache.json (caché de Trends, opcional); video_type ('short' o 'long') por parámetro; umbrales por nombre desde config (validator_strictness, apuesta_viral).",
+  "entrega": "data/topics_db.json actualizado (competition_level, market_verdict, competition_data, human_options, suggested_format, is_apuesta_viral, video_type, status='validated'); data/trends_cache.json; lista de temas validados que devuelve a fase1.py.",
+  "modelo": [
+   {
+    "modelo": "api.gemini_model (config)",
+    "para": "generar 3 hooks + 3 outros por tema viable (oro/arbitraje/caliente) en _generate_human_options; si falla o bloquea cae a plantillas fijas sin LLM"
+   }
+  ],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1.py:785 llama validate_topics en el PASO 3; run_pipeline.py:530 lanza fase1.py --no-chain en la etapa research",
+  "funciones_muertas": [],
+  "md5": "6c898f0898359495131b441a4eeff6b7",
+  "_parte": "research_b"
+ }
+}

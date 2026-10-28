@@ -1,0 +1,2436 @@
+{
+ "_dry_run_modeA_chat42.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_dump_cap5.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (5: print); sin commitear",
+  "script_con_efectos": false
+ },
+ "_gen_cap5_missing.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (15: print)",
+  "script_con_efectos": false
+ },
+ "_lab_4e_visual_canon_v2.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (57: mkdir); sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_ab_fluidificador_134.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_atomicity_chat48.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_lab_chat44_es_score.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (40: print)",
+  "script_con_efectos": false
+ },
+ "_lab_chat44_workers.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (12: print)",
+  "script_con_efectos": false
+ },
+ "_lab_chat66_research_sentinel.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (61: print)",
+  "script_con_efectos": false
+ },
+ "_lab_chat66b_m01a_schema.py": {
+  "clase": "roto a sabiendas",
+  "por_que": "F41_REPORT.md:185 (a3) lo declara roto; símbolo borrado: m01a_skeleton.py.DEVELOPMENT_CAPS@19; m01a_skeleton.py.DEVELOPMENT_CAPS@41; m01a_skeleton.py.MAX_BULLETS_PER_CHAPTER@36; último 96c7b7b 2026-06-17",
+  "script_con_efectos": false
+ },
+ "_lab_chat66b_m01b_schema.py": {
+  "clase": "roto a sabiendas",
+  "por_que": "F41_REPORT.md:185 (a3) lo declara roto; dentro del lote lab/_gpt_probe_analista/* o _lab_chat66b que el a3 declara roto; último 96c7b7b 2026-06-17",
+  "script_con_efectos": false
+ },
+ "_lab_chat66b_m02_5_schema.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (45: print)",
+  "script_con_efectos": false
+ },
+ "_lab_chat66b_m05_schema.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (27: print)",
+  "script_con_efectos": false
+ },
+ "_lab_chat66b_m06_schema.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (50: print)",
+  "script_con_efectos": false
+ },
+ "_lab_chat66b_m07_schema.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_lab_chat66b_parse_retry.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (34: print)",
+  "script_con_efectos": false
+ },
+ "_lab_es_saturation_relaxed_chat49.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_lab_eslabon1_wiring.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_flux2_api_ab.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (7: APIConfig); sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_flux_gallows_tolerance.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (11: APIConfig); sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_formula_validate_chat42.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_lab_gemini_cost_probe.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_getchannel_probe_chat41.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_lab_grok_cap5.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (10: mkdir); sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_grok_cap_full.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (10: mkdir); sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_grok_imagine.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (10: APIConfig); sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_grok_std_cap5_v2.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (9: mkdir); sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_grok_textleak_cap5.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (10: APIConfig); sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_grok_v3.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (10: mkdir); sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_grok_v4.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (8: mkdir); sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_grok_video_2probes.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (7: APIConfig); sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_grok_video_probe.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (7: APIConfig); sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_headtohead_img08.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (8: APIConfig); sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_issue1_faceclause_ABtest.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (35: mkdir); sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_issue3_depthflow_speed.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (46: mkdir); sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_issue3_isometric_motor.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (36: mkdir); sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_issue3_regression_matrix.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (35: mkdir); sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_judge_2of3_chat49.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_lab_judge_seeds.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_lab_kling_75a.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (17: APIConfig); sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_kling_cap4_probe.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (18: APIConfig)",
+  "script_con_efectos": false
+ },
+ "_lab_kling_full_run.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (17: APIConfig); sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_molde1_chat42.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_lab_name_scrub.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (59: print); sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_outlier_hunter_chat41.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_lab_probe_query.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_lab_spy_add_parent_chat49.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_lab_spy_stage3_chat49.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_lab_spy_stage3_precision_chat49.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_lab_spy_subtemas_chat49.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_lab_spy_subtemas_chat49_v2.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_lab_spy_subtemas_chat49_v3.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_lab_transcripts_chat42.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_lab_transcripts_v2_chat42.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_lab_veo_blindaje_img15.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (9: APIConfig); sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_veo_moderation_probe.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (9: APIConfig); sin commitear",
+  "script_con_efectos": false
+ },
+ "_lab_vsr_chat41.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_lab_wiki_apisurf_chat47.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (44: requests)",
+  "script_con_efectos": false
+ },
+ "_lab_wiki_gap_chat47.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (62: requests)",
+  "script_con_efectos": false
+ },
+ "_lab_wiki_smoke_chat47.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (58: requests)",
+  "script_con_efectos": false
+ },
+ "_patch_cap5.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (17: print)",
+  "script_con_efectos": false
+ },
+ "_probe_3a_selector.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (33: print); sin commitear",
+  "script_con_efectos": false
+ },
+ "_probe_4e_schema_path.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (39: print); sin commitear",
+  "script_con_efectos": false
+ },
+ "_probe_A.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (5: print)",
+  "script_con_efectos": false
+ },
+ "_probe_B.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (4: print)",
+  "script_con_efectos": false
+ },
+ "_probe_C.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (4: print)",
+  "script_con_efectos": false
+ },
+ "_probe_autocomplete.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (23: print)",
+  "script_con_efectos": false
+ },
+ "_probe_dates.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (21: print)",
+  "script_con_efectos": false
+ },
+ "_probe_depthflow_animation_api.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; sin commitear",
+  "script_con_efectos": false
+ },
+ "_probe_depthflow_coldstart.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; sin commitear",
+  "script_con_efectos": false
+ },
+ "_probe_diag.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (41: print)",
+  "script_con_efectos": false
+ },
+ "_probe_firstpage.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (7: print)",
+  "script_con_efectos": false
+ },
+ "_probe_fork73.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (7: print)",
+  "script_con_efectos": false
+ },
+ "_probe_fork_real.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (14: print)",
+  "script_con_efectos": false
+ },
+ "_probe_metadata.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (6: print)",
+  "script_con_efectos": false
+ },
+ "_probe_noproxy.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_probe_page1.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_probe_pro_price.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (5: APIConfig); sin commitear",
+  "script_con_efectos": false
+ },
+ "_probe_puertas_historia.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (61: print)",
+  "script_con_efectos": false
+ },
+ "_probe_puertas_v2.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (50: print)",
+  "script_con_efectos": false
+ },
+ "_probe_ratio_chicas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (47: print)",
+  "script_con_efectos": false
+ },
+ "_probe_recurrencia_foco.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; sin commitear",
+  "script_con_efectos": false
+ },
+ "_probe_search_fields.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (16: print)",
+  "script_con_efectos": false
+ },
+ "_probe_seedream_negations.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (38: print); sin commitear",
+  "script_con_efectos": false
+ },
+ "_probe_sleep.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_probe_uploads.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (8: print)",
+  "script_con_efectos": false
+ },
+ "_probe_uploads2.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (10: print)",
+  "script_con_efectos": false
+ },
+ "_probe_version.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (7: print)",
+  "script_con_efectos": false
+ },
+ "_probe_views.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (7: print)",
+  "script_con_efectos": false
+ },
+ "_probe_vsr_2temas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "_probe_vsr_real.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (21: print)",
+  "script_con_efectos": false
+ },
+ "_probe_x264_preset_sweep.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; sin commitear",
+  "script_con_efectos": false
+ },
+ "_regen_alignments_chat38.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (37: print)",
+  "script_con_efectos": false
+ },
+ "_run_3b_seedream_cap2.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (33: mkdir); sin commitear",
+  "script_con_efectos": false
+ },
+ "_run_3b_seedream_veo_cap1.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (25: print); sin commitear",
+  "script_con_efectos": false
+ },
+ "_run_kingspark_long.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (29: print); sin commitear",
+  "script_con_efectos": false
+ },
+ "_run_primer_png_cap2.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (26: print); sin commitear",
+  "script_con_efectos": false
+ },
+ "_smoke_chat38_ch01.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (32: print)",
+  "script_con_efectos": false
+ },
+ "_test_elevenlabs_music_probe.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (18: APIConfig)",
+  "script_con_efectos": false
+ },
+ "diag_234_cap4.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado; hace efectos al correrse (12: print)",
+  "script_con_efectos": false
+ },
+ "diag_235_matcher_ba6c.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "diag_236_pacing_ba6c.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "diag_musica_ch04_chat38.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "diag_musica_lufs_banda_chat39.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "diag_shock_curated_ventanas_chat38.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/_gpt_probe_analista/_stubs.py": {
+  "clase": "roto a sabiendas",
+  "por_que": "F41_REPORT.md:185 (a3) lo declara roto; dentro del lote lab/_gpt_probe_analista/* o _lab_chat66b que el a3 declara roto; último ? ?",
+  "script_con_efectos": false
+ },
+ "lab/_gpt_probe_analista/build_prompt_v4.py": {
+  "clase": "roto a sabiendas",
+  "por_que": "F41_REPORT.md:185 (a3) lo declara roto; símbolo borrado: m01b_guionista.py:SYSTEM@5; último ? ?",
+  "script_con_efectos": false
+ },
+ "lab/_gpt_probe_analista/call_gpt.py": {
+  "clase": "roto a sabiendas",
+  "por_que": "F41_REPORT.md:185 (a3) lo declara roto; dentro del lote lab/_gpt_probe_analista/* o _lab_chat66b que el a3 declara roto; último ? ?",
+  "script_con_efectos": false
+ },
+ "lab/_gpt_probe_analista/f38c/sim_f38c.py": {
+  "clase": "roto a sabiendas",
+  "por_que": "F41_REPORT.md:185 (a3) lo declara roto; dentro del lote lab/_gpt_probe_analista/* o _lab_chat66b que el a3 declara roto; último ? ?",
+  "script_con_efectos": false
+ },
+ "lab/_gpt_probe_analista/medir.py": {
+  "clase": "roto a sabiendas",
+  "por_que": "F41_REPORT.md:185 (a3) lo declara roto; dentro del lote lab/_gpt_probe_analista/* o _lab_chat66b que el a3 declara roto; último ? ?",
+  "script_con_efectos": false
+ },
+ "lab/_gpt_probe_analista/orleans/run_orleans_v4c.py": {
+  "clase": "roto a sabiendas",
+  "por_que": "F41_REPORT.md:185 (a3) lo declara roto; dentro del lote lab/_gpt_probe_analista/* o _lab_chat66b que el a3 declara roto; último ? ?",
+  "script_con_efectos": false
+ },
+ "lab/diag_237_pausa_ab.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/diag_238_ley1_ab.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/guion/build_compara_orleans.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F5), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/_handoff_adjuntos/segmenta.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; sin commitear",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f1/build_text_sampler.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; sin commitear",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f1/grade_variants.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (22: mkdir, print); sin commitear",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f10/f10_ajuste_ycua.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F10), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f10/f10_quirurgico_ycua.py": {
+  "clase": "roto a sabiendas",
+  "por_que": "F41_REPORT.md:185 (a3) lo declara roto; símbolo borrado: guion_v3_reglas.py:replace_repeated_dates@60; último b8ff4ef 2026-10-23 F10",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f10/f10_seco_orleans.py": {
+  "clase": "roto a sabiendas",
+  "por_que": "F41_REPORT.md:185 (a3) lo declara roto; símbolo borrado: m01b_guionista.py.write@73; m01c_editor.py.edit@73; último 317c5f1 2026-10-22 F10",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f10/f10_topic_ycua.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F10), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f10/f10_ycua_docs.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F10), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f11/f11_compara.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F11), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f11/f11_convergencia.py": {
+  "clase": "roto a sabiendas",
+  "por_que": "F41_REPORT.md:185 (a3) lo declara roto; símbolo borrado: m01b_guionista.py.SYSTEM@157; m01b_guionista.py.build_prompt@155; último 6264058 2026-10-23 F11",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f11b/f11b_compara.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F11b), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f11b/f11b_corridas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F11b), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f11b/f11b_humo.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F11b), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f11c/f11c_compara.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F11c), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f11c/f11c_corridas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F11c), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f11c/f11c_humo.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F11c), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f12/f12_ficha.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F12), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f13/f13_compara.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F13), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f13/f13_corridas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F13), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f14/f14_compara.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F14), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f14/f14_orleans.py": {
+  "clase": "roto sin saberlo",
+  "por_que": "importa lo que ya no existe: m01a_escaleta.py.SYSTEM@174; m01a_escaleta.py.build_prompt@172; no está en el a3 (F41_REPORT.md:185) ni en ESTADO; último 1920d40 2026-10-23 F14",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f15/f15_compara.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F15), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f15/f15_corridas.py": {
+  "clase": "roto sin saberlo",
+  "por_que": "importa lo que ya no existe: m01a_escaleta.py.SYSTEM@191; m01a_escaleta.py.build_prompt@189; no está en el a3 (F41_REPORT.md:185) ni en ESTADO; último c1b2ebf 2026-10-23 F15",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f15b/f15b_compara.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F15b), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f15b/f15b_corridas.py": {
+  "clase": "roto sin saberlo",
+  "por_que": "importa lo que ya no existe: m01a_escaleta.py.SYSTEM@169; m01a_escaleta.py.build_prompt@167; no está en el a3 (F41_REPORT.md:185) ni en ESTADO; último fa1d02b 2026-10-23 F15b",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f16/f16_compara.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F16), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f16/f16_corridas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F16), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f17/f17_corridas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F17), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f18/f18_compara.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F18), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f18/f18_corridas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F18), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f19/f19_compara.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F19), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f19/f19_corridas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F19), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f2/nitidez_bandas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; hace efectos al correrse (31: print); sin commitear",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f20/f20_corridas.py": {
+  "clase": "roto sin saberlo",
+  "por_que": "importa lo que ya no existe: research_v3.py.SUBJECT_RE_DEFAULT@124; research_v3.py.SUBJECT_RE_DEFAULT@275; no está en el a3 (F41_REPORT.md:185) ni en ESTADO; último 08d63d9 2026-10-24 F20",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f21/f21c_perfil_orleans.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F21c), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f21/recheck.py": {
+  "clase": "roto sin saberlo",
+  "por_que": "importa lo que ya no existe: research_v3.py.SUBJECT_RE_DEFAULT@71; no está en el a3 (F41_REPORT.md:185) ni en ESTADO; último fd54356 2026-10-24 F21b",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f21/recheck_md.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F21b), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f22/cero_cardal.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F22), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f22/f22_compara.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F22), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f22/f22_corridas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F22), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f22/f22_diffs.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F22), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f22b/f22b_corridas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F22c), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f22b/f22b_tabla.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F22b), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f22b/prueba_llave.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F22b), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f22c/f22c_corridas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F22c), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f22c/f22c_tabla.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F22c), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f22d/f22d_corridas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F22d), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f22d/f22d_tabla.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F22d), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f23/f23_compara.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F23), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f23/f23_corridas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F23), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f23/f23_diffs.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F23), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f24/d_r3_sonnet/d_r3_sonnet.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F24), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f24/f24_compara.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F24), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f24/f24_corridas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F24), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f24/f24_registro.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F24), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f25a/f25a_corridas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F25a), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f25b/f25b_corridas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F25b), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f25c/f25c_corridas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F25c), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f26/b/f26b_produccion.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F26b), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f26/c/f26c_prueba.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F26c), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f26/d/prueba_hooks.py": {
+  "clase": "vivo",
+  "por_que": ".claude/hooks/README.md la documenta como la prueba de los hooks; último 40a434d 2026-10-25 F26d",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f26/e/f26e_fichas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F26e), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f26/f26a_corridas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F26a), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f27/b/f27b_produccion.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F27b), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f28/a/f28a_paleta.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F28b), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f28/a/f28a_tabla.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F28a), sin import roto detectado; hace efectos al correrse (31: write_text)",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f28/b/f28b_paleta_produccion.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F28b), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f28/b/f28b_remezcla.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F28b), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f28/c/f28c_rerender.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F28c), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f28/c/f28c_tiempos.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F28c), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f29/c/f29c_bloques.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F29c), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f29/c/f29c_vajont.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F29c), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f29/d/f29d_hoja.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F29d), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f29/d/f29d_sonnet.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F29d), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f29b/b/hoja_bloques.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F30d), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f29c/b/hoja_bloques.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F29c), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f2b/build_report_data.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F2b), sin import roto detectado; hace efectos al correrse (64: write_text)",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f2b/check_un_fact_un_bloque.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F2b), sin import roto detectado; hace efectos al correrse (27: write_text)",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f2b/measure_concat_f2segs.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F2b), sin import roto detectado; hace efectos al correrse (27: mkdir)",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f2b/measure_concat_vs_fuente.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F2b), sin import roto detectado; hace efectos al correrse (24: subprocess)",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f30/f30_costura.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F30a), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f30/f30_planes.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F30a), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f30/f30_ssim.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F30a), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f30/f30_ssim_d.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F30d), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f30/f30_stitch_enc.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F30c), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f30/f30_vajont.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F30a), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f30b/b/a_cuadro.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F30b), sin import roto detectado; hace efectos al correrse (35: write_text)",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f31/f31_variantes.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F31), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f36/diff_guion.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F36), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f38/prueba1/prueba1_rotulos.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F38e), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f38/prueba2/prueba2_titulos.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F38e), sin import roto detectado; hace efectos al correrse (205: write_text)",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f38e/a/medir_v6.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F38e), sin import roto detectado; hace efectos al correrse (17: print)",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f38e/b/diff_guion.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F38e), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f38e/b/sim_b4_cierre.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F38e), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f38e/c/c0_foto_data.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F38e), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f38e/c/c1_prompt_del_md.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F38e), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f38e/c/c_corrida.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F38e), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f38e/d/diff_guion.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F38e), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f38e/e/e_titulos.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F38e), sin import roto detectado; hace efectos al correrse (114: exit)",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f39/a/sim_sin_ficha.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F39), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f4/make_ab.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F4), sin import roto detectado; hace efectos al correrse (6: subprocess)",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f4/s3/measure_punch_ch01_ch04.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F4), sin import roto detectado; hace efectos al correrse (13: print)",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f4/s3/probe_vscale.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F4), sin import roto detectado; hace efectos al correrse (14: mkdir)",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f4/s3/probe_vscale2.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F4), sin import roto detectado; hace efectos al correrse (14: mkdir)",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f4/s3/probe_vscale3.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F4), sin import roto detectado; hace efectos al correrse (7: mkdir)",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f4/s3/probe_vscale4.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F4), sin import roto detectado; hace efectos al correrse (7: mkdir)",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f4/s3/probe_vscale5.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F4), sin import roto detectado; hace efectos al correrse (7: mkdir)",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f40/a/sim_gancho.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F40), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f40/b/gen_ch02_vajont.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F40), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f40/c/c1_c2_voseo_titulos.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F40), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f40/f40b/iniciales.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F40b), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f41/a/tabla_topics.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F41), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f41/b/recorrido_form.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F41), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f41/b/tabla_etapas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F41), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f4c/recorte_marca.py": {
+  "clase": "roto sin saberlo",
+  "por_que": "importa lo que ya no existe: script_engine:gfx_bug@60; no está en el a3 (F41_REPORT.md:185) ni en ESTADO; último 0acff03 2026-10-20 F4c",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f4c/tabla_antes_despues.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F4c), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f4d/recorte_marca.py": {
+  "clase": "roto sin saberlo",
+  "por_que": "importa lo que ya no existe: script_engine:gfx_bug@49; no está en el a3 (F41_REPORT.md:185) ni en ESTADO; último b23b0ae 2026-10-20 F4d",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f4d/tabla_antes_despues.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F4d), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f4e/armar_fewshot_critico.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F4e), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f4e/tabla_critico.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F4e), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f5/analizar_sims.py": {
+  "clase": "roto sin saberlo",
+  "por_que": "importa lo que ya no existe: gfx_pool.py._default_year@79; gfx_pool.py.narrated_dates@80; no está en el a3 (F41_REPORT.md:185) ni en ESTADO; último 19cf5d9 2026-10-21 F5",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f5/correr_f5_orleans.py": {
+  "clase": "roto a sabiendas",
+  "por_que": "F41_REPORT.md:185 (a3) lo declara roto; símbolo borrado: m01a_skeleton.py:generate_skeleton@115; m01b_narrator.py:generate_narration@116; m01b_narrator.py:regenerate_caps@183; último ee20f45 2026-10-21 F5",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f5/metricas_guion.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F5), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f5/produccion_orleans_v2.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F5e), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f5/prompts_personas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F5), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f5/regen_marcadas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F5e), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f5/render_f5f_caps.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F5f), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f5/simular_gfx_v2.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F5f), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f5/sync_check.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F5e), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f5/tabla_f5f.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F5f), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f6/f6a_testimonios_orleans.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F6a), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f6/f6b3_verificar_testimonios.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F6b3), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f6/f6b_escaleta_orleans.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F6c), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f6/f6c_narracion_orleans.py": {
+  "clase": "roto a sabiendas",
+  "por_que": "F41_REPORT.md:185 (a3) lo declara roto; símbolo borrado: m01b_guionista.py.BEST_OF@70; m01b_guionista.py.write@43; m01c_editor.py.edit@52; último 7ec2025 2026-10-21 F6c",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f6/f6c_verificacion_literal.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F6c), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f7/build_compara_v3r.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F7c3), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f7/f7a_fuentes_orleans.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F7a), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f7/f7b_pool_orleans.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F7b), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f7/f7c_orleans.py": {
+  "clase": "roto a sabiendas",
+  "por_que": "F41_REPORT.md:185 (a3) lo declara roto; símbolo borrado: m01b_guionista.py.BEST_OF@133; m01b_guionista.py.write@111; m01c_editor.py.edit@117; último 3db3088 2026-10-22 F9",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f8/f8_humo.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F9), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f8/f8_semillas.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F8), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f9/f9_sync.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F9), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f9/f9_voz.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F8b), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f9/prueba_tts_eleven.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F9), sin import roto detectado; hace efectos al correrse (13: mkdir)",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/f9/prueba_tts_gemini.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (F9), sin import roto detectado; hace efectos al correrse (18: mkdir)",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/lab_cap/tools/build_cap_data.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; sin commitear",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/lab_cap/tools/build_composition.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; sin commitear",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/lab_cap/tools/check_literal.py": {
+  "clase": "vivo",
+  "por_que": "script_engine/gfx_literal_lock.py:7 lo nombra como la herramienta de comparación literal; último ? ?",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/lab_cap/tools/locate_cap.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; sin commitear",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/v2/build_v2.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; sin commitear",
+  "script_con_efectos": false
+ },
+ "lab/hyperframes/v2/measure_audio.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; sin commitear",
+  "script_con_efectos": false
+ },
+ "lab/probe_lock_imageref.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin tanda), sin import roto detectado",
+  "script_con_efectos": false
+ },
+ "lab/probe_orphan_mothers.py": {
+  "clase": "historia",
+  "por_que": "script de tanda cerrada (sin historial), sin import roto detectado; sin commitear",
+  "script_con_efectos": false
+ },
+ "lab/tools/mapa_hechos.py": {
+  "clase": "vivo",
+  "por_que": "herramienta de la tanda en curso F42 (mapa por código); último 29528d4 2026-10-27 F42",
+  "script_con_efectos": false
+ },
+ "lab/tools/mapa_modulos.py": {
+  "clase": "vivo",
+  "por_que": "la usan .claude/hooks/guard_mapa.py y .claude/commands/tanda.md (--check, --zonas); último 29528d4 2026-10-27 F42",
+  "script_con_efectos": false
+ },
+ "lab/tools/simular_regla.py": {
+  "clase": "vivo",
+  "por_que": "la invoca el agente simulador y el skill simular-reglas (.claude/agents/simulador.md); último 2d87032 2026-10-26 F33",
+  "script_con_efectos": false
+ },
+ "test_3movements_on_4hards.py": {
+  "clase": "historia",
+  "por_que": "script con efectos al importar (líneas 57: input): no se colectó para no ejecutarlo; 0 tests; último e33f84a 2026-05-28",
+  "script_con_efectos": true
+ },
+ "test_3movs_plus_effects.py": {
+  "clase": "historia",
+  "por_que": "script con efectos al importar (líneas 93: input, print): no se colectó para no ejecutarlo; 0 tests; último e33f84a 2026-05-28",
+  "script_con_efectos": true
+ },
+ "test_calculate_image_count.py": {
+  "clase": "historia",
+  "por_que": "script con efectos al importar (líneas 14: print; 15: print; 16: print): no se colectó para no ejecutarlo; 0 tests; último e33f84a 2026-05-28",
+  "script_con_efectos": true
+ },
+ "test_chat33_hhmm.py": {
+  "clase": "vivo",
+  "por_que": "colecta 7 tests (tests_collect.json) (m02_5_normalizer_gate.py); imports sin rotos; último 961a96b 2026-05-31",
+  "script_con_efectos": false
+ },
+ "test_chat33_pausas_conjy.py": {
+  "clase": "vivo",
+  "por_que": "colecta 2 tests (tests_collect.json) (m02_5_normalizer_gate.py); imports sin rotos; último fc59a76 2026-10-27 F41",
+  "script_con_efectos": false
+ },
+ "test_chat50_seed_enrichment.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 5eaaa12 2026-06-09",
+  "script_con_efectos": false
+ },
+ "test_chat51_menu_pre_research.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 4325ec8 2026-06-09",
+  "script_con_efectos": false
+ },
+ "test_chat51_observabilidad.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 490a688 2026-06-09",
+  "script_con_efectos": false
+ },
+ "test_chat51_subject_angle.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 5eaaa12 2026-06-09",
+  "script_con_efectos": false
+ },
+ "test_chat52_already_es.py": {
+  "clase": "vivo",
+  "por_que": "colecta 2 tests (tests_collect.json) (subtopic_measurer.py); imports sin rotos; último d68ca96 2026-06-09",
+  "script_con_efectos": false
+ },
+ "test_chat52_atomic_aliases.py": {
+  "clase": "vivo",
+  "por_que": "colecta 3 tests (tests_collect.json) (subtopic_measurer.py); imports sin rotos; último d68ca96 2026-06-09",
+  "script_con_efectos": false
+ },
+ "test_chat52_decay_none.py": {
+  "clase": "vivo",
+  "por_que": "colecta 2 tests (tests_collect.json) (youtube_scanner.py); imports sin rotos; último d68ca96 2026-06-09",
+  "script_con_efectos": false
+ },
+ "test_chat52_dropped_cap.py": {
+  "clase": "vivo",
+  "por_que": "colecta 4 tests (tests_collect.json) (niche_discoverer.py); imports sin rotos; último d68ca96 2026-06-09",
+  "script_con_efectos": false
+ },
+ "test_chat52_m03_response_schema.py": {
+  "clase": "vivo",
+  "por_que": "colecta 4 tests (tests_collect.json) (gemini_helpers.py); imports sin rotos; último 601d4c2 2026-06-09",
+  "script_con_efectos": false
+ },
+ "test_chat52_pick_gate.py": {
+  "clase": "vivo",
+  "por_que": "colecta 5 tests (tests_collect.json) (fase1.py); imports sin rotos; último d68ca96 2026-06-09",
+  "script_con_efectos": false
+ },
+ "test_chat52_variant_label.py": {
+  "clase": "vivo",
+  "por_que": "colecta 4 tests (tests_collect.json) (niche_discoverer.py); imports sin rotos; último d68ca96 2026-06-09",
+  "script_con_efectos": false
+ },
+ "test_chat55_flow_zoom.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último f290e99 2026-07-06",
+  "script_con_efectos": false
+ },
+ "test_constantes_con_origen.py": {
+  "clase": "vivo",
+  "por_que": "colecta 2 tests (tests_collect.json) (sin import directo de producción); imports sin rotos; último 598c65b 2026-10-27 F40",
+  "script_con_efectos": false
+ },
+ "test_edge_density.py": {
+  "clase": "roto sin saberlo",
+  "por_que": "pytest --collect-only da error de colecta: ModuleNotFoundError: No module named 'cv2'; nadie lo declaró (ni a3 ni ESTADO); último e33f84a 2026-05-28",
+  "script_con_efectos": false
+ },
+ "test_elevenlabs_music_hook.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último e33f84a 2026-05-28",
+  "script_con_efectos": false
+ },
+ "test_es_measure_offline.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último fa8d0c7 2026-06-09",
+  "script_con_efectos": false
+ },
+ "test_es_saturation_judge.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último fa8d0c7 2026-06-09",
+  "script_con_efectos": false
+ },
+ "test_explosion_all_movements.py": {
+  "clase": "historia",
+  "por_que": "script con efectos al importar (líneas 35: print; 67: input): no se colectó para no ejecutarlo; 0 tests; último e33f84a 2026-05-28",
+  "script_con_efectos": true
+ },
+ "test_fase1_nochain.py": {
+  "clase": "vivo",
+  "por_que": "colecta 2 tests (tests_collect.json) (fase1.py, fase1_5.py); imports sin rotos; último ea1d0d7 2026-06-13",
+  "script_con_efectos": false
+ },
+ "test_fase2b_anchor_durations.py": {
+  "clase": "historia",
+  "por_que": "script con efectos al importar (líneas 23: print; 24: print; 25: print): no se colectó para no ejecutarlo; 0 tests; último e33f84a 2026-05-28",
+  "script_con_efectos": true
+ },
+ "test_fase3.py": {
+  "clase": "vivo",
+  "por_que": "colecta 5 tests (tests_collect.json) (fase3.py, m09_packaging.py, topics_db.py); imports sin rotos; último b904547 2026-06-12",
+  "script_con_efectos": false
+ },
+ "test_full_pipeline_lab.py": {
+  "clase": "historia",
+  "por_que": "script con efectos al importar (líneas 25: mkdir; 27: APIConfig; 33: print): no se colectó para no ejecutarlo; 0 tests; último e33f84a 2026-05-28",
+  "script_con_efectos": true
+ },
+ "test_judge_seeds_cache.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 802f78c 2026-06-12",
+  "script_con_efectos": false
+ },
+ "test_lab_v5.py": {
+  "clase": "historia",
+  "por_que": "script con efectos al importar (líneas 28: mkdir; 44: APIConfig; 45: Client, genai): no se colectó para no ejecutarlo; 0 tests; último e33f84a 2026-05-28",
+  "script_con_efectos": true
+ },
+ "test_lab_v6.py": {
+  "clase": "historia",
+  "por_que": "script con efectos al importar (líneas 35: mkdir; 51: APIConfig; 52: Client, genai): no se colectó para no ejecutarlo; 0 tests; último e33f84a 2026-05-28",
+  "script_con_efectos": true
+ },
+ "test_lab_v7_bhopal.py": {
+  "clase": "historia",
+  "por_que": "script con efectos al importar (líneas 47: mkdir; 63: APIConfig; 64: Client, genai): no se colectó para no ejecutarlo; 0 tests; último e33f84a 2026-05-28",
+  "script_con_efectos": true
+ },
+ "test_m03_guarda1_degrade.py": {
+  "clase": "vivo",
+  "por_que": "colecta 5 tests (tests_collect.json) (m03_visual.py); imports sin rotos; último 067b409 2026-06-29",
+  "script_con_efectos": false
+ },
+ "test_m06_autopass.py": {
+  "clase": "vivo",
+  "por_que": "colecta 2 tests (tests_collect.json) (m06_classifier.py); imports sin rotos; último 32234d4 2026-06-13",
+  "script_con_efectos": false
+ },
+ "test_m09_packaging.py": {
+  "clase": "vivo",
+  "por_que": "colecta 11 tests (tests_collect.json) (asset_manager.py, m09_packaging.py); imports sin rotos; último 499d488 2026-06-28",
+  "script_con_efectos": false
+ },
+ "test_m09_review_server.py": {
+  "clase": "vivo",
+  "por_que": "colecta 4 tests (tests_collect.json) (m09_packaging.py, m09_review_server.py); imports sin rotos; último dcbcaff 2026-07-05",
+  "script_con_efectos": false
+ },
+ "test_module_00.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último e33f84a 2026-05-28",
+  "script_con_efectos": false
+ },
+ "test_module_00_4e.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último e08582a 2026-07-02",
+  "script_con_efectos": false
+ },
+ "test_module_00_evidence_pool.py": {
+  "clase": "vivo",
+  "por_que": "colecta 4 tests (tests_collect.json) (researcher_steps/evidence_pool.py, researcher_steps/step_4a_facts.py); imports sin rotos; último 66ee44b 2026-10-20 F5",
+  "script_con_efectos": false
+ },
+ "test_module_01b_pauses.py": {
+  "clase": "vivo",
+  "por_que": "colecta 3 tests (tests_collect.json) (m01b_narrator.py, m02_5_normalizer_gate.py, tts_normalizer.py); imports sin rotos; último fc59a76 2026-10-27 F41",
+  "script_con_efectos": false
+ },
+ "test_module_02.py": {
+  "clase": "roto sin saberlo",
+  "por_que": "pytest --collect-only da error de colecta: ModuleNotFoundError: No module named 'script_engine.m02_profiles'; nadie lo declaró (ni a3 ni ESTADO); último e33f84a 2026-05-28",
+  "script_con_efectos": false
+ },
+ "test_module_03.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último cd38988 2026-06-30",
+  "script_con_efectos": false
+ },
+ "test_module_03_anchor_tolerante.py": {
+  "clase": "vivo",
+  "por_que": "colecta 9 tests (tests_collect.json) (m03_visual.py); imports sin rotos; último e33f84a 2026-05-28",
+  "script_con_efectos": false
+ },
+ "test_module_03_leakage_retry.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 43dc5b8 2026-07-04",
+  "script_con_efectos": false
+ },
+ "test_module_03_plan_anchors.py": {
+  "clase": "vivo",
+  "por_que": "colecta 4 tests (tests_collect.json) (m03_visual.py); imports sin rotos; último cd38988 2026-06-30",
+  "script_con_efectos": false
+ },
+ "test_module_03_smoke.py": {
+  "clase": "historia",
+  "por_que": "script con efectos al importar (líneas 22: Client, ModuleType, genai; 40: print; 44: exec_module, exit, print): no se colectó para no ejecutarlo; 0 tests; último cd38988 2026-06-30",
+  "script_con_efectos": true
+ },
+ "test_module_03_smoke_sync.py": {
+  "clase": "historia",
+  "por_que": "script con efectos al importar (líneas 21: ModuleType, genai; 31: Client, genai; 32: genai): no se colectó para no ejecutarlo; 0 tests; último e33f84a 2026-05-28",
+  "script_con_efectos": true
+ },
+ "test_module_03_text_leakage_casing.py": {
+  "clase": "historia",
+  "por_que": "script con efectos al importar (líneas 40: print; 49: print; 61: print): no se colectó para no ejecutarlo; 0 tests; último d981422 2026-06-24",
+  "script_con_efectos": true
+ },
+ "test_module_03_veo_hybrid.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último e33f84a 2026-05-28",
+  "script_con_efectos": false
+ },
+ "test_module_05.py": {
+  "clase": "historia",
+  "por_que": "script con efectos al importar (líneas 22: ModuleType; 33: ModuleType): no se colectó para no ejecutarlo; 0 tests; último f756b4a 2026-06-24",
+  "script_con_efectos": true
+ },
+ "test_module_05_live.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último e33f84a 2026-05-28",
+  "script_con_efectos": false
+ },
+ "test_module_05_voting_live.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último e33f84a 2026-05-28",
+  "script_con_efectos": false
+ },
+ "test_module_134b_fluidificador_flash.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 434a98d 2026-07-04",
+  "script_con_efectos": false
+ },
+ "test_module_134d_place.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 1e9bfc7 2026-07-04",
+  "script_con_efectos": false
+ },
+ "test_module_135_thumbs.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último e850e2d 2026-07-04",
+  "script_con_efectos": false
+ },
+ "test_module_135d_loop.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último bbc296f 2026-07-06",
+  "script_con_efectos": false
+ },
+ "test_module_135e_matcher.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último f59d205 2026-07-04",
+  "script_con_efectos": false
+ },
+ "test_module_137_thumbs_ley1.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 71ce09e 2026-07-05",
+  "script_con_efectos": false
+ },
+ "test_module_137c_fix_recetario.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 4f14737 2026-07-05",
+  "script_con_efectos": false
+ },
+ "test_module_137d_meta_hero.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 678abea 2026-07-05",
+  "script_con_efectos": false
+ },
+ "test_module_138a_doctrina_compartida.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 71ce09e 2026-07-05",
+  "script_con_efectos": false
+ },
+ "test_module_34_m05_pivots.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 81cd17b 2026-05-31",
+  "script_con_efectos": false
+ },
+ "test_module_35_menu_csv.py": {
+  "clase": "vivo",
+  "por_que": "colecta 4 tests (tests_collect.json) (csv_exporter.py, fase1_5.py); imports sin rotos; último b73f4f4 2026-05-31",
+  "script_con_efectos": false
+ },
+ "test_module_36_faltantes_60s.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 17bf857 2026-06-01",
+  "script_con_efectos": false
+ },
+ "test_module_36_hook_v3.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 17bf857 2026-06-01",
+  "script_con_efectos": false
+ },
+ "test_module_36_music_palette.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 17bf857 2026-06-01",
+  "script_con_efectos": false
+ },
+ "test_module_36_music_palette_v2.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 17bf857 2026-06-01",
+  "script_con_efectos": false
+ },
+ "test_module_36_paleta_60s.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 17bf857 2026-06-01",
+  "script_con_efectos": false
+ },
+ "test_module_38_timestamps_lab.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último aaf1a28 2026-06-01",
+  "script_con_efectos": false
+ },
+ "test_module_38b_forced_align_cap1.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último aaf1a28 2026-06-01",
+  "script_con_efectos": false
+ },
+ "test_module_38c_forced_align_7caps.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último aaf1a28 2026-06-01",
+  "script_con_efectos": false
+ },
+ "test_module_38d_forcealign_integration.py": {
+  "clase": "vivo",
+  "por_que": "colecta 6 tests (tests_collect.json) (fase2b.py); imports sin rotos; último f1afd30 2026-06-01",
+  "script_con_efectos": false
+ },
+ "test_module_38e_voice_ab.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 308cfb9 2026-06-01",
+  "script_con_efectos": false
+ },
+ "test_module_39_shock_lab.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último a5662e5 2026-06-02",
+  "script_con_efectos": false
+ },
+ "test_module_40_bloque7.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último eebf028 2026-06-02",
+  "script_con_efectos": false
+ },
+ "test_module_40_detector_sin_calibrar.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último f35257a 2026-06-02",
+  "script_con_efectos": false
+ },
+ "test_module_40_mixer_save.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 22196b9 2026-06-02",
+  "script_con_efectos": false
+ },
+ "test_module_40_rerun_encoding.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 59435e9 2026-06-02",
+  "script_con_efectos": false
+ },
+ "test_module_40_volumen_por_track.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 44be09e 2026-06-02",
+  "script_con_efectos": false
+ },
+ "test_module_42_modeA_filter.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último e510a3d 2026-06-03",
+  "script_con_efectos": false
+ },
+ "test_module_asset_manager_telemetria.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 7ecb047 2026-07-03",
+  "script_con_efectos": false
+ },
+ "test_module_audio_mixer_floor.py": {
+  "clase": "vivo",
+  "por_que": "colecta 4 tests (tests_collect.json) (audio_profiles.py, fase2b.py); imports sin rotos; último e33f84a 2026-05-28",
+  "script_con_efectos": false
+ },
+ "test_module_build_continuous_music.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último e33f84a 2026-05-28",
+  "script_con_efectos": false
+ },
+ "test_module_concat_windowed.py": {
+  "clase": "vivo",
+  "por_que": "colecta 3 tests (tests_collect.json) (fase2b.py, transition_applier.py); imports sin rotos; último 6819ee5 2026-10-19 F2b",
+  "script_con_efectos": false
+ },
+ "test_module_cost_tracker_gemini.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 6b00cd3 2026-07-04",
+  "script_con_efectos": false
+ },
+ "test_module_f10.py": {
+  "clase": "vivo",
+  "por_que": "colecta 11 tests (tests_collect.json) (fase1_5.py, freeze_check.py, gfx_sparse.py); imports sin rotos; último fc59a76 2026-10-27 F41",
+  "script_con_efectos": false
+ },
+ "test_module_f11.py": {
+  "clase": "vivo",
+  "por_que": "colecta 8 tests (tests_collect.json) (fase1_5.py, researcher_steps/research_v3.py, guion_v4.py); imports sin rotos; último fc59a76 2026-10-27 F41",
+  "script_con_efectos": false
+ },
+ "test_module_f11b.py": {
+  "clase": "vivo",
+  "por_que": "colecta 15 tests (tests_collect.json) (cost_tracker.py, fase1_5.py, gemini_helpers.py); imports sin rotos; último fc59a76 2026-10-27 F41",
+  "script_con_efectos": false
+ },
+ "test_module_f11c.py": {
+  "clase": "vivo",
+  "por_que": "colecta 8 tests (tests_collect.json) (cost_tracker.py, gemini_helpers.py, guion_v4.py); imports sin rotos; último b181889 2026-10-25 F27a",
+  "script_con_efectos": false
+ },
+ "test_module_f12.py": {
+  "clase": "vivo",
+  "por_que": "colecta 12 tests (tests_collect.json) (claude_helpers.py, gpt_helpers.py, researcher_steps/ficha_caso.py); imports sin rotos; último 2dcc428 2026-10-24 F22e",
+  "script_con_efectos": false
+ },
+ "test_module_f13.py": {
+  "clase": "vivo",
+  "por_que": "colecta 4 tests (tests_collect.json) (guion_v4.py); imports sin rotos; último c1b2ebf 2026-10-23 F15",
+  "script_con_efectos": false
+ },
+ "test_module_f14.py": {
+  "clase": "vivo",
+  "por_que": "colecta 12 tests (tests_collect.json) (researcher_steps/ficha_caso.py, guion_v4.py, m01a_escaleta.py); imports sin rotos; último f930596 2026-10-27 F39",
+  "script_con_efectos": false
+ },
+ "test_module_f15.py": {
+  "clase": "vivo",
+  "por_que": "colecta 10 tests (tests_collect.json) (researcher_steps/ficha_caso.py, guion_v4.py, m01a_escaleta.py); imports sin rotos; último f930596 2026-10-27 F39",
+  "script_con_efectos": false
+ },
+ "test_module_f15b.py": {
+  "clase": "vivo",
+  "por_que": "colecta 6 tests (tests_collect.json) (researcher_steps/ficha_caso.py, guion_v4.py, m01a_escaleta.py); imports sin rotos; último f930596 2026-10-27 F39",
+  "script_con_efectos": false
+ },
+ "test_module_f16.py": {
+  "clase": "vivo",
+  "por_que": "colecta 20 tests (tests_collect.json) (gpt_helpers.py, m01a_escaleta.py); imports sin rotos; último f930596 2026-10-27 F39",
+  "script_con_efectos": false
+ },
+ "test_module_f17.py": {
+  "clase": "vivo",
+  "por_que": "colecta 27 tests (tests_collect.json) (cost_tracker.py, fase1_5.py, gpt_helpers.py); imports sin rotos; último 16900bd 2026-10-25 F26a",
+  "script_con_efectos": false
+ },
+ "test_module_f19.py": {
+  "clase": "vivo",
+  "por_que": "colecta 15 tests (tests_collect.json) (researcher_steps/ficha_caso.py, researcher_steps/research_v3.py, m01a_escaleta.py); imports sin rotos; último d7ce148 2026-10-24 F19",
+  "script_con_efectos": false
+ },
+ "test_module_f20.py": {
+  "clase": "vivo",
+  "por_que": "colecta 8 tests (tests_collect.json) (researcher_steps/research_v3.py, nombres.py); imports sin rotos; último 8be0ea9 2026-10-24 F21c",
+  "script_con_efectos": false
+ },
+ "test_module_f21.py": {
+  "clase": "vivo",
+  "por_que": "colecta 43 tests (tests_collect.json) (fase1_5.py, researcher_steps/evidence_pool.py, researcher_steps/ficha_caso.py); imports sin rotos; último ed55399 2026-10-24 F22",
+  "script_con_efectos": false
+ },
+ "test_module_f22.py": {
+  "clase": "vivo",
+  "por_que": "colecta 50 tests (tests_collect.json) (researcher_steps/ficha_caso.py, researcher_steps/research_v3.py, guion_v3_reglas.py); imports sin rotos; último fc59a76 2026-10-27 F41",
+  "script_con_efectos": false
+ },
+ "test_module_f22b.py": {
+  "clase": "vivo",
+  "por_que": "colecta 8 tests (tests_collect.json) (claude_helpers.py, guion_v4.py, m05_narrative.py); imports sin rotos; último 03370af 2026-10-24 F23",
+  "script_con_efectos": false
+ },
+ "test_module_f22d.py": {
+  "clase": "vivo",
+  "por_que": "colecta 3 tests (tests_collect.json) (claude_helpers.py, fase1_5.py, researcher_steps/ficha_caso.py); imports sin rotos; último b2db299 2026-10-25 F25a",
+  "script_con_efectos": false
+ },
+ "test_module_f23.py": {
+  "clase": "vivo",
+  "por_que": "colecta 33 tests (tests_collect.json) (researcher_steps/ficha_caso.py, researcher_steps/pool_gate.py, researcher_steps/research_v3.py); imports sin rotos; último fc59a76 2026-10-27 F41",
+  "script_con_efectos": false
+ },
+ "test_module_f24.py": {
+  "clase": "vivo",
+  "por_que": "colecta 10 tests (tests_collect.json) (researcher_steps/research_v3.py, m01a_escaleta.py); imports sin rotos; último c80e601 2026-10-25 F25c",
+  "script_con_efectos": false
+ },
+ "test_module_f25a.py": {
+  "clase": "vivo",
+  "por_que": "colecta 5 tests (tests_collect.json) (claude_helpers.py); imports sin rotos; último b2db299 2026-10-25 F25a",
+  "script_con_efectos": false
+ },
+ "test_module_f25b.py": {
+  "clase": "vivo",
+  "por_que": "colecta 3 tests (tests_collect.json) (claude_helpers.py, researcher_steps/ficha_caso.py); imports sin rotos; último 187166a 2026-10-25 F25b",
+  "script_con_efectos": false
+ },
+ "test_module_f25c.py": {
+  "clase": "vivo",
+  "por_que": "colecta 5 tests (tests_collect.json) (claude_helpers.py, gpt_helpers.py, guion_v4.py); imports sin rotos; último b181889 2026-10-25 F27a",
+  "script_con_efectos": false
+ },
+ "test_module_f26.py": {
+  "clase": "vivo",
+  "por_que": "colecta 3 tests (tests_collect.json) (m01a_escaleta.py); imports sin rotos; último 16900bd 2026-10-25 F26a",
+  "script_con_efectos": false
+ },
+ "test_module_f26c.py": {
+  "clase": "vivo",
+  "por_que": "colecta 6 tests (tests_collect.json) (cost_tracker.py, fase1_5.py, researcher_steps/research_v3.py); imports sin rotos; último fc59a76 2026-10-27 F41",
+  "script_con_efectos": false
+ },
+ "test_module_f27.py": {
+  "clase": "vivo",
+  "por_que": "colecta 11 tests (tests_collect.json) (fase1_5.py, gemini_helpers.py, guion_v4.py); imports sin rotos; último fc59a76 2026-10-27 F41",
+  "script_con_efectos": false
+ },
+ "test_module_f28a.py": {
+  "clase": "vivo",
+  "por_que": "colecta 5 tests (tests_collect.json) (music_config.py, m07_music_director.py); imports sin rotos; último 22582d7 2026-10-25 F28a",
+  "script_con_efectos": false
+ },
+ "test_module_f28b.py": {
+  "clase": "vivo",
+  "por_que": "colecta 9 tests (tests_collect.json) (fase2b.py, m07_music_director.py, music_intensity.py); imports sin rotos; último e3fd23a 2026-10-25 F28b",
+  "script_con_efectos": false
+ },
+ "test_module_f28c.py": {
+  "clase": "vivo",
+  "por_que": "colecta 7 tests (tests_collect.json) (fase2b.py, gfx_review.py); imports sin rotos; último 8e35b25 2026-10-25 F28c",
+  "script_con_efectos": false
+ },
+ "test_module_f29a.py": {
+  "clase": "vivo",
+  "por_que": "colecta 3 tests (tests_collect.json) (gfx_layer.py, gfx_realizador.py); imports sin rotos; último 838a104 2026-10-26 F37",
+  "script_con_efectos": false
+ },
+ "test_module_f29b.py": {
+  "clase": "vivo",
+  "por_que": "colecta 3 tests (tests_collect.json) (sin import directo de producción); imports sin rotos; último 6eb6fda 2026-10-25 F29b",
+  "script_con_efectos": false
+ },
+ "test_module_f29b_rotulista.py": {
+  "clase": "vivo",
+  "por_que": "colecta 3 tests (tests_collect.json) (gfx_intensity.py, gfx_literal_lock.py, gfx_peak.py); imports sin rotos; último 838a104 2026-10-26 F37",
+  "script_con_efectos": false
+ },
+ "test_module_f29c_rotulista.py": {
+  "clase": "vivo",
+  "por_que": "colecta 3 tests (tests_collect.json) (gfx_project.py, pantalla_colocar.py, voz_utils.py); imports sin rotos; último 5008f4d 2026-10-27 F38e",
+  "script_con_efectos": false
+ },
+ "test_module_f30.py": {
+  "clase": "vivo",
+  "por_que": "colecta 10 tests (tests_collect.json) (gfx_config.py, gfx_project.py, gfx_safe_bake.py); imports sin rotos; último 7ac4ef8 2026-10-26 F30c",
+  "script_con_efectos": false
+ },
+ "test_module_f30b.py": {
+  "clase": "vivo",
+  "por_que": "colecta 11 tests (tests_collect.json) (fase2b.py, gfx_config.py, gfx_critic.py); imports sin rotos; último 598c65b 2026-10-27 F40",
+  "script_con_efectos": false
+ },
+ "test_module_f31.py": {
+  "clase": "vivo",
+  "por_que": "colecta 4 tests (tests_collect.json) (gfx_config.py, gfx_project.py); imports sin rotos; último 0253672 2026-10-26 F31",
+  "script_con_efectos": false
+ },
+ "test_module_f32.py": {
+  "clase": "vivo",
+  "por_que": "colecta 10 tests (tests_collect.json) (fase2b.py, gfx_config.py, gfx_guion.py); imports sin rotos; último 838a104 2026-10-26 F37",
+  "script_con_efectos": false
+ },
+ "test_module_f33.py": {
+  "clase": "vivo",
+  "por_que": "colecta 9 tests (tests_collect.json) (aprobacion.py); imports sin rotos; último 838a104 2026-10-26 F37",
+  "script_con_efectos": false
+ },
+ "test_module_f34.py": {
+  "clase": "vivo",
+  "por_que": "colecta 6 tests (tests_collect.json) (fase2b.py, aprobacion.py, gfx_director.py); imports sin rotos; último 68e6c41 2026-10-27 F38e",
+  "script_con_efectos": false
+ },
+ "test_module_f36.py": {
+  "clase": "vivo",
+  "por_que": "colecta 6 tests (tests_collect.json) (fase2b.py, clima.py, gfx_critic.py); imports sin rotos; último 68e6c41 2026-10-27 F38e",
+  "script_con_efectos": false
+ },
+ "test_module_f36c_pantalla.py": {
+  "clase": "vivo",
+  "por_que": "colecta 9 tests (tests_collect.json) (claude_helpers.py, clima.py, gfx_layer.py); imports sin rotos; último 7ecc26a 2026-10-27 F40",
+  "script_con_efectos": false
+ },
+ "test_module_f37a_papel.py": {
+  "clase": "vivo",
+  "por_que": "colecta 9 tests (tests_collect.json) (gfx_config.py, m01e_pantalla.py, pantalla_filtros.py); imports sin rotos; último 2965603 2026-10-27 F38e",
+  "script_con_efectos": false
+ },
+ "test_module_f37b_colocar.py": {
+  "clase": "vivo",
+  "por_que": "colecta 10 tests (tests_collect.json) (gfx_config.py, clima.py, pantalla_colocar.py); imports sin rotos; último 7ecc26a 2026-10-27 F40",
+  "script_con_efectos": false
+ },
+ "test_module_f38a_m01e.py": {
+  "clase": "vivo",
+  "por_que": "colecta 6 tests (tests_collect.json) (m01e_pantalla.py); imports sin rotos; último 68e6c41 2026-10-27 F38e",
+  "script_con_efectos": false
+ },
+ "test_module_f38a_voz.py": {
+  "clase": "vivo",
+  "por_que": "colecta 9 tests (tests_collect.json) (evidence.py, m01e_pantalla.py, voz_utils.py); imports sin rotos; último 68e6c41 2026-10-27 F38e",
+  "script_con_efectos": false
+ },
+ "test_module_f38c_decimales.py": {
+  "clase": "vivo",
+  "por_que": "colecta 12 tests (tests_collect.json) (pantalla_filtros.py, voz_utils.py); imports sin rotos; último 95f2e49 2026-10-27 F38c",
+  "script_con_efectos": false
+ },
+ "test_module_f38c_papel.py": {
+  "clase": "vivo",
+  "por_que": "colecta 10 tests (tests_collect.json) (gfx_guion.py, m01e_pantalla.py, pantalla_filtros.py); imports sin rotos; último 2965603 2026-10-27 F38e",
+  "script_con_efectos": false
+ },
+ "test_module_f38d_vueltas.py": {
+  "clase": "vivo",
+  "por_que": "colecta 6 tests (tests_collect.json) (claude_helpers.py, gfx_guion.py, m01e_pantalla.py); imports sin rotos; último 2965603 2026-10-27 F38e",
+  "script_con_efectos": false
+ },
+ "test_module_f38e_a.py": {
+  "clase": "vivo",
+  "por_que": "colecta 14 tests (tests_collect.json) (fase2b.py, gfx_director.py, gfx_layer.py); imports sin rotos; último a376bde 2026-10-27 F38e",
+  "script_con_efectos": false
+ },
+ "test_module_f38e_b.py": {
+  "clase": "vivo",
+  "por_que": "colecta 12 tests (tests_collect.json) (gfx_pool.py, gfx_realizador.py, pantalla_colocar.py); imports sin rotos; último 7ecc26a 2026-10-27 F40",
+  "script_con_efectos": false
+ },
+ "test_module_f38e_c.py": {
+  "clase": "vivo",
+  "por_que": "colecta 11 tests (tests_collect.json) (evidence.py, m01e_pantalla.py, pantalla_colocar.py); imports sin rotos; último 2965603 2026-10-27 F38e",
+  "script_con_efectos": false
+ },
+ "test_module_f38e_c2.py": {
+  "clase": "vivo",
+  "por_que": "colecta 2 tests (tests_collect.json) (pantalla_entrada.py); imports sin rotos; último 68e6c41 2026-10-27 F38e",
+  "script_con_efectos": false
+ },
+ "test_module_f38e_d.py": {
+  "clase": "vivo",
+  "por_que": "colecta 4 tests (tests_collect.json) (fase2b.py, gfx_guion.py, m01e_pantalla.py); imports sin rotos; último 68e6c41 2026-10-27 F38e",
+  "script_con_efectos": false
+ },
+ "test_module_f38e_e.py": {
+  "clase": "vivo",
+  "por_que": "colecta 7 tests (tests_collect.json) (m01d_particion.py); imports sin rotos; último 6c1656a 2026-10-27 F38e",
+  "script_con_efectos": false
+ },
+ "test_module_f39_escaleta.py": {
+  "clase": "vivo",
+  "por_que": "colecta 8 tests (tests_collect.json) (m01a_columna.py, m01a_escaleta.py); imports sin rotos; último f930596 2026-10-27 F39",
+  "script_con_efectos": false
+ },
+ "test_module_f39_fase1.py": {
+  "clase": "vivo",
+  "por_que": "colecta 11 tests (tests_collect.json) (fase1_5.py, researcher_steps/ficha_caso.py, researcher_steps/pool_gate.py); imports sin rotos; último fc59a76 2026-10-27 F41",
+  "script_con_efectos": false
+ },
+ "test_module_f39_research.py": {
+  "clase": "vivo",
+  "por_que": "colecta 5 tests (tests_collect.json) (researcher_steps/pool_gate.py, researcher_steps/research_v3.py, topic_researcher.py); imports sin rotos; último e664390 2026-10-27 F39",
+  "script_con_efectos": false
+ },
+ "test_module_f40_gancho.py": {
+  "clase": "vivo",
+  "por_que": "colecta 9 tests (tests_collect.json) (m01e_pantalla.py, pantalla_entrada.py, pantalla_filtros.py); imports sin rotos; último 7ecc26a 2026-10-27 F40",
+  "script_con_efectos": false
+ },
+ "test_module_f40_subs.py": {
+  "clase": "vivo",
+  "por_que": "colecta 17 tests (tests_collect.json) (fase2b.py, gfx_config.py); imports sin rotos; último 598c65b 2026-10-27 F40",
+  "script_con_efectos": false
+ },
+ "test_module_f41_cadena.py": {
+  "clase": "vivo",
+  "por_que": "colecta 20 tests (tests_collect.json) (fase1_5.py, researcher_steps/ficha_caso.py, m01a_escaleta.py); imports sin rotos; último fc59a76 2026-10-27 F41",
+  "script_con_efectos": false
+ },
+ "test_module_f42_mapa.py": {
+  "clase": "vivo",
+  "por_que": "colecta 4 tests (tests_collect.json) (sin import directo de producción); imports sin rotos; último ? ?; sin commitear (F42 en curso)",
+  "script_con_efectos": false
+ },
+ "test_module_f5_narrative.py": {
+  "clase": "vivo",
+  "por_que": "colecta 7 tests (tests_collect.json) (evidence.py, m02_5_normalizer_gate.py, m05_narrative.py); imports sin rotos; último fc59a76 2026-10-27 F41",
+  "script_con_efectos": false
+ },
+ "test_module_f5_prod.py": {
+  "clase": "vivo",
+  "por_que": "colecta 2 tests (tests_collect.json) (gfx_critic.py, gfx_project.py, m05_narrative.py); imports sin rotos; último fc59a76 2026-10-27 F41",
+  "script_con_efectos": false
+ },
+ "test_module_f5b.py": {
+  "clase": "vivo",
+  "por_que": "colecta 10 tests (tests_collect.json) (researcher_steps/evidence_pool.py, evidence.py, gfx_pool.py); imports sin rotos; último fc59a76 2026-10-27 F41",
+  "script_con_efectos": false
+ },
+ "test_module_f5c.py": {
+  "clase": "vivo",
+  "por_que": "colecta 3 tests (tests_collect.json) (m05_narrative.py); imports sin rotos; último fc59a76 2026-10-27 F41",
+  "script_con_efectos": false
+ },
+ "test_module_f5d.py": {
+  "clase": "vivo",
+  "por_que": "colecta 6 tests (tests_collect.json) (researcher_steps/evidence_pool.py, m01a_skeleton.py, m01b_narrator.py); imports sin rotos; último fc59a76 2026-10-27 F41",
+  "script_con_efectos": false
+ },
+ "test_module_f5e.py": {
+  "clase": "vivo",
+  "por_que": "colecta 4 tests (tests_collect.json) (qa_studio_server.py, gfx_intensity.py, gfx_pool.py); imports sin rotos; último 9a7522e 2026-10-26 F36",
+  "script_con_efectos": false
+ },
+ "test_module_f5f.py": {
+  "clase": "vivo",
+  "por_que": "colecta 3 tests (tests_collect.json) (clima.py, gfx_intensity.py, gfx_literal_lock.py); imports sin rotos; último 9a7522e 2026-10-26 F36",
+  "script_con_efectos": false
+ },
+ "test_module_f6a.py": {
+  "clase": "vivo",
+  "por_que": "colecta 3 tests (tests_collect.json) (researcher_steps/evidence_pool.py, topic_researcher.py); imports sin rotos; último 97c10ec 2026-10-21 F6a",
+  "script_con_efectos": false
+ },
+ "test_module_f6b.py": {
+  "clase": "vivo",
+  "por_que": "colecta 30 tests (tests_collect.json) (researcher_steps/verify_quotes.py, m01a_escaleta.py); imports sin rotos; último fc59a76 2026-10-27 F41",
+  "script_con_efectos": false
+ },
+ "test_module_f6c.py": {
+  "clase": "vivo",
+  "por_que": "colecta 2 tests (tests_collect.json) (m01a_escaleta.py, m01b_guionista.py); imports sin rotos; último fc59a76 2026-10-27 F41",
+  "script_con_efectos": false
+ },
+ "test_module_f7.py": {
+  "clase": "vivo",
+  "por_que": "colecta 40 tests (tests_collect.json) (researcher_steps/research_v3.py, evidence.py, guion_v3_reglas.py); imports sin rotos; último f930596 2026-10-27 F39",
+  "script_con_efectos": false
+ },
+ "test_module_f7d.py": {
+  "clase": "vivo",
+  "por_que": "colecta 8 tests (tests_collect.json) (researcher_steps/pool_gate.py, researcher_steps/research_v3.py, m01a_escaleta.py); imports sin rotos; último f930596 2026-10-27 F39",
+  "script_con_efectos": false
+ },
+ "test_module_f8.py": {
+  "clase": "vivo",
+  "por_que": "colecta 17 tests (tests_collect.json) (asset_manager.py, engine_profiles.py, error_handler.py); imports sin rotos; último f930596 2026-10-27 F39",
+  "script_con_efectos": false
+ },
+ "test_module_f8b.py": {
+  "clase": "vivo",
+  "por_que": "colecta 17 tests (tests_collect.json) (asset_manager.py, researcher_steps/research_v3.py, image_grade.py); imports sin rotos; último 03370af 2026-10-24 F23",
+  "script_con_efectos": false
+ },
+ "test_module_f9.py": {
+  "clase": "vivo",
+  "por_que": "colecta 10 tests (tests_collect.json) (audio_manager.py, audio_profiles.py, m01c_editor.py); imports sin rotos; último d2bb714 2026-10-22 F9",
+  "script_con_efectos": false
+ },
+ "test_module_fase2b_hwencode.py": {
+  "clase": "vivo",
+  "por_que": "colecta 3 tests (tests_collect.json) (fase2b.py); imports sin rotos; último 115d999 2026-10-25 F29c",
+  "script_con_efectos": false
+ },
+ "test_module_fase2b_hybrid_segment.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último e33f84a 2026-05-28",
+  "script_con_efectos": false
+ },
+ "test_module_fase2b_only_cap.py": {
+  "clase": "vivo",
+  "por_que": "colecta 2 tests (tests_collect.json) (sin import directo de producción); imports sin rotos; último 3ecba0b 2026-10-18",
+  "script_con_efectos": false
+ },
+ "test_module_fase2b_reassemble.py": {
+  "clase": "vivo",
+  "por_que": "colecta 5 tests (tests_collect.json) (fase2b.py); imports sin rotos; último ca6d73a 2026-10-19 F2",
+  "script_con_efectos": false
+ },
+ "test_module_flow_director_fallback.py": {
+  "clase": "historia",
+  "por_que": "script con efectos al importar (líneas 35: print; 36: exit): no se colectó para no ejecutarlo; 0 tests; último b9433a8 2026-06-20",
+  "script_con_efectos": true
+ },
+ "test_module_foto_madre_prompts.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 9199281 2026-07-03",
+  "script_con_efectos": false
+ },
+ "test_module_gfx_0d.py": {
+  "clase": "vivo",
+  "por_que": "colecta 2 tests (tests_collect.json) (gfx_config.py, gfx_project.py); imports sin rotos; último 838a104 2026-10-26 F37",
+  "script_con_efectos": false
+ },
+ "test_module_gfx_anim.py": {
+  "clase": "vivo",
+  "por_que": "colecta 2 tests (tests_collect.json) (gfx_project.py); imports sin rotos; último 9a7522e 2026-10-26 F36",
+  "script_con_efectos": false
+ },
+ "test_module_gfx_auto_icons.py": {
+  "clase": "vivo",
+  "por_que": "colecta 5 tests (tests_collect.json) (m09_packaging.py); imports sin rotos; último 93064c8 2026-10-20 F4b",
+  "script_con_efectos": false
+ },
+ "test_module_gfx_config.py": {
+  "clase": "vivo",
+  "por_que": "colecta 8 tests (tests_collect.json) (fase2b.py, gfx_config.py, gfx_project.py); imports sin rotos; último 838a104 2026-10-26 F37",
+  "script_con_efectos": false
+ },
+ "test_module_gfx_critic.py": {
+  "clase": "vivo",
+  "por_que": "colecta 1 tests (tests_collect.json) (gfx_config.py, gfx_critic.py); imports sin rotos; último 838a104 2026-10-26 F37",
+  "script_con_efectos": false
+ },
+ "test_module_gfx_cues.py": {
+  "clase": "vivo",
+  "por_que": "colecta 7 tests (tests_collect.json) (gfx_project.py, gfx_review.py); imports sin rotos; último 9a7522e 2026-10-26 F36",
+  "script_con_efectos": false
+ },
+ "test_module_gfx_emphasis.py": {
+  "clase": "vivo",
+  "por_que": "colecta 4 tests (tests_collect.json) (gfx_config.py, gfx_director.py, gfx_literal_lock.py); imports sin rotos; último 838a104 2026-10-26 F37",
+  "script_con_efectos": false
+ },
+ "test_module_gfx_f4d.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 9a7522e 2026-10-26 F36",
+  "script_con_efectos": false
+ },
+ "test_module_gfx_icons.py": {
+  "clase": "vivo",
+  "por_que": "colecta 6 tests (tests_collect.json) (gfx_config.py, gfx_director.py, gfx_literal_lock.py); imports sin rotos; último 9a7522e 2026-10-26 F36",
+  "script_con_efectos": false
+ },
+ "test_module_gfx_intensity.py": {
+  "clase": "vivo",
+  "por_que": "colecta 5 tests (tests_collect.json) (gfx_intensity.py, gfx_peak.py); imports sin rotos; último 9a7522e 2026-10-26 F36",
+  "script_con_efectos": false
+ },
+ "test_module_gfx_lab.py": {
+  "clase": "vivo",
+  "por_que": "colecta 45 tests (tests_collect.json) (config.py, gfx_lab_server.py, gfx_project.py); imports sin rotos; último 838a104 2026-10-26 F37",
+  "script_con_efectos": false
+ },
+ "test_module_gfx_layer_fallback.py": {
+  "clase": "vivo",
+  "por_que": "colecta 6 tests (tests_collect.json) (gfx_director.py, gfx_layer.py); imports sin rotos; último 96c2889 2026-10-27 F38e",
+  "script_con_efectos": false
+ },
+ "test_module_gfx_lock.py": {
+  "clase": "vivo",
+  "por_que": "colecta 6 tests (tests_collect.json) (gfx_literal_lock.py); imports sin rotos; último 838a104 2026-10-26 F37",
+  "script_con_efectos": false
+ },
+ "test_module_gfx_peak.py": {
+  "clase": "vivo",
+  "por_que": "colecta 3 tests (tests_collect.json) (gfx_literal_lock.py, gfx_peak.py, gfx_project.py); imports sin rotos; último 838a104 2026-10-26 F37",
+  "script_con_efectos": false
+ },
+ "test_module_gfx_pool.py": {
+  "clase": "vivo",
+  "por_que": "colecta 2 tests (tests_collect.json) (gfx_pool.py, gfx_project.py); imports sin rotos; último 9a7522e 2026-10-26 F36",
+  "script_con_efectos": false
+ },
+ "test_module_gfx_profiles.py": {
+  "clase": "vivo",
+  "por_que": "colecta 6 tests (tests_collect.json) (gfx_config.py, gfx_project.py); imports sin rotos; último 838a104 2026-10-26 F37",
+  "script_con_efectos": false
+ },
+ "test_module_gfx_router.py": {
+  "clase": "vivo",
+  "por_que": "colecta 9 tests (tests_collect.json) (fase2b.py, depth_probe.py, gfx_project.py); imports sin rotos; último 94d9496 2026-10-25 F30a",
+  "script_con_efectos": false
+ },
+ "test_module_gfx_sparse.py": {
+  "clase": "vivo",
+  "por_que": "colecta 3 tests (tests_collect.json) (gfx_project.py, gfx_sparse.py); imports sin rotos; último 537416f 2026-10-26 F30b",
+  "script_con_efectos": false
+ },
+ "test_module_gfx_style.py": {
+  "clase": "vivo",
+  "por_que": "colecta 6 tests (tests_collect.json) (gfx_lab_server.py, gfx_project.py, gfx_sparse.py); imports sin rotos; último 838a104 2026-10-26 F37",
+  "script_con_efectos": false
+ },
+ "test_module_gfx_vision.py": {
+  "clase": "vivo",
+  "por_que": "colecta 3 tests (tests_collect.json) (gfx_peak.py, gfx_project.py, gfx_vision.py); imports sin rotos; último 9a7522e 2026-10-26 F36",
+  "script_con_efectos": false
+ },
+ "test_module_m03_merge_timing.py": {
+  "clase": "vivo",
+  "por_que": "colecta 7 tests (tests_collect.json) (anchor_timing.py, fase2b.py); imports sin rotos; último 7881e82 2026-06-10",
+  "script_con_efectos": false
+ },
+ "test_module_m03_reglas_133.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 9e908b9 2026-07-04",
+  "script_con_efectos": false
+ },
+ "test_module_mix_music_into_video.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último e33f84a 2026-05-28",
+  "script_con_efectos": false
+ },
+ "test_module_parallax_intensity_scale.py": {
+  "clase": "vivo",
+  "por_que": "colecta 6 tests (tests_collect.json) (parallax_animator_v2.py); imports sin rotos; último e33f84a 2026-05-28",
+  "script_con_efectos": false
+ },
+ "test_module_porcap_chat39.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 44be09e 2026-06-02",
+  "script_con_efectos": false
+ },
+ "test_module_qa_form_cost.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 1c95090 2026-07-04",
+  "script_con_efectos": false
+ },
+ "test_module_subs_remap.py": {
+  "clase": "vivo",
+  "por_que": "colecta 6 tests (tests_collect.json) (subs_remap.py); imports sin rotos; último 1e14b01 2026-06-10",
+  "script_con_efectos": false
+ },
+ "test_module_transition_timeout.py": {
+  "clase": "vivo",
+  "por_que": "colecta 8 tests (tests_collect.json) (sin import directo de producción); imports sin rotos; último 12e3a5f 2026-07-04",
+  "script_con_efectos": false
+ },
+ "test_module_veo_supplementals.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último e33f84a 2026-05-28",
+  "script_con_efectos": false
+ },
+ "test_movements_v12.py": {
+  "clase": "historia",
+  "por_que": "script con efectos al importar (líneas 63: input): no se colectó para no ejecutarlo; 0 tests; último e33f84a 2026-05-28",
+  "script_con_efectos": true
+ },
+ "test_music_director_pripyat.py": {
+  "clase": "historia",
+  "por_que": "script con efectos al importar (líneas 46: exit, genai, print): no se colectó para no ejecutarlo; 0 tests; último e33f84a 2026-05-28",
+  "script_con_efectos": true
+ },
+ "test_pr3_calculate_image_count.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último e33f84a 2026-05-28",
+  "script_con_efectos": false
+ },
+ "test_qa_studio.py": {
+  "clase": "vivo",
+  "por_que": "colecta 32 tests (tests_collect.json) (fase1.py, qa_studio_server.py); imports sin rotos; último 78f2e6a 2026-06-26",
+  "script_con_efectos": false
+ },
+ "test_research_parallel.py": {
+  "clase": "vivo",
+  "por_que": "colecta 4 tests (tests_collect.json) (error_handler.py, topic_researcher.py); imports sin rotos; último 78e8751 2026-07-01",
+  "script_con_efectos": false
+ },
+ "test_run_pipeline.py": {
+  "clase": "vivo",
+  "por_que": "colecta 59 tests (tests_collect.json) (qa_form_markers.py, qa_studio_server.py, run_pipeline.py); imports sin rotos; último e68410a 2026-10-27 F41",
+  "script_con_efectos": false
+ },
+ "test_subtema_fanout_dryrun.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 5eaaa12 2026-06-09",
+  "script_con_efectos": false
+ },
+ "test_subtopic_classifier.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 2869713 2026-06-08",
+  "script_con_efectos": false
+ },
+ "test_subtopic_extractor.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 5eaaa12 2026-06-09",
+  "script_con_efectos": false
+ },
+ "test_subtopic_measurer.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 2869713 2026-06-08",
+  "script_con_efectos": false
+ },
+ "test_t1_t3_fanout.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 5eaaa12 2026-06-09",
+  "script_con_efectos": false
+ },
+ "test_t2_relaxed.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 321835a 2026-06-08",
+  "script_con_efectos": false
+ },
+ "test_t4_aggregate.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 321835a 2026-06-08",
+  "script_con_efectos": false
+ },
+ "test_t5_sentinel.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 321835a 2026-06-08",
+  "script_con_efectos": false
+ },
+ "test_transcript_fetch.py": {
+  "clase": "historia",
+  "por_que": "colecta 0 tests: solo main() bajo __main__, nada que pytest corra; script manual de lab; último 2869713 2026-06-08",
+  "script_con_efectos": false
+ },
+ "test_visual_complexity_classifier.py": {
+  "clase": "historia",
+  "por_que": "script con efectos al importar (líneas 80: input): no se colectó para no ejecutarlo; 0 tests; último e33f84a 2026-05-28",
+  "script_con_efectos": true
+ },
+ "_conteo": {
+  "por_clase": {
+   "historia": 323,
+   "vivo": 133,
+   "roto sin saberlo": 10,
+   "roto a sabiendas": 14
+  },
+  "por_tipo": {
+   "test": 210,
+   "suelto_raiz": 105,
+   "lab": 165
+  },
+  "por_clase_y_tipo": {
+   "historia": {
+    "test": 80,
+    "suelto_raiz": 103,
+    "lab": 140
+   },
+   "roto a sabiendas": {
+    "suelto_raiz": 2,
+    "lab": 12
+   },
+   "roto sin saberlo": {
+    "test": 2,
+    "lab": 8
+   },
+   "vivo": {
+    "test": 128,
+    "lab": 5
+   }
+  },
+  "script_con_efectos": 17,
+  "total": 480
+ }
+}

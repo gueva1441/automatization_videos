@@ -1,0 +1,130 @@
+{
+ "script_engine/m_judge_seeds.py": {
+  "sticker": "Antes de gastar plata en investigar los temas candidatos, un juez de IA les pone nota (oro, dudoso o descartar) para cazar dos trampas: ratio inflado sobre un canal chico y títulos demasiado genéricos. Vota 3 veces por tema y se queda con la mayoría; solo marca, no descarta.",
+  "recibe": "Lista de seeds de data/selected_seeds.json (solo discovery_mode spy_arbitrage, con seed['evidence'] de vistas EN, ratio y saturación ES).",
+  "entrega": "Los mismos seeds con seed['judge'] = {verdict, risk, reason, cohort, votes}; fase1.py los vuelve a guardar en data/selected_seeds.json.",
+  "modelo": [{"modelo": "Gemini Flash (_cfg.gemini_model vía gemini_helpers.call_flash_json)", "para": "juzgar cada seed spy_arbitrage, 3 votos por seed"}],
+  "etapa": ["research"],
+  "estado": "vivo",
+  "estado_prueba": "fase1.py:716 importa judge_seeds y fase1.py:720 lo llama en el PASO 1.5 del research (run_latido_a)",
+  "funciones_muertas": [],
+  "md5": "6808fbac35c93edd9c83df597909dbe0"
+ },
+ "script_engine/subtopic_measurer.py": {
+  "sticker": "Mide si un tema vale la pena: primero cuánta competencia hay en español (traduce el nombre, trae los videos y un juez de IA filtra los que hablan de lo mismo) y, si hay hueco, cuánta demanda tiene en inglés. Es el termómetro del descubrimiento de temas.",
+  "recibe": "Una consulta de búsqueda y el nombre de la entidad (texto); resultados de YouTube que trae script_engine/youtube_scanner.py.",
+  "entrega": "Diccionarios de medición (label de saturación ES, vistas EN, relevantes, query_fallback) que usan niche_discoverer.py y fase1.py para armar los seeds de data/selected_seeds.json.",
+  "modelo": [{"modelo": "Gemini Flash (_cfg.gemini_model, vía subtopic_es_relevance.translate_to_es y filter_relevant)", "para": "traducir la grafía al español y filtrar qué videos ES tratan de la misma entidad"}],
+  "etapa": ["research"],
+  "estado": "vivo",
+  "estado_prueba": "fase1.py:51 importa _measure_es y fase1.py:402 lo llama al verificar el pick; niche_discoverer.py:1004 lo llama en la rama atómica (siempre activa)",
+  "funciones_muertas": [{"nombre": "measure", "linea": 203, "por_que": "producción solo llama a _measure_es y _measure_en_laxo por separado (niche_discoverer.py:707 y :730); measure() la usan test_subtopic_measurer.py:29 y test_subtema_fanout_dryrun.py:56. El 'measure' que A le atribuye a researcher_steps/pool_gate.py es otra función homónima"}],
+  "md5": "fb2a334dcc3abbdae8ecceec8cd94dcb"
+ },
+ "migrate_4e_into_topics_db.py": {
+  "sticker": "Parche de una sola vez para temas viejos: copia los tres campos de la identidad visual (época, personas documentadas, anacronismos) desde el archivo del paso 4e a cada tema de topics_db.json. Hace backup y pide confirmación; hoy solo lo corre una persona a mano.",
+  "recibe": "data/topics_db.json y data/scripts/_steps/<id>/05_visual_canon.json (ruta relativa a la carpeta desde donde se corre).",
+  "entrega": "data/topics_db.json actualizado y copia data/topics_db.backup_<fecha>.json.",
+  "modelo": [],
+  "etapa": ["herramienta manual"],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "Nadie lo importa ni lo lanza (lo_importan y lo_lanzan vacíos en A); solo tiene if __name__ == '__main__' en migrate_4e_into_topics_db.py:231",
+  "funciones_muertas": [],
+  "md5": "63831b9d5f30ad76205bf9a401371c42"
+ },
+ "purge_history.py": {
+  "sticker": "Escoba manual: borra la basura histórica del proyecto (topics_db, semillas elegidas, CSV de revisión, pasos intermedios, guiones finales, logs de issues), con la opción de salvar un solo tema. Sin --execute solo muestra qué borraría.",
+  "recibe": "Argumentos --execute y --keep <topic_id>; data/topics_db.json, data/selected_seeds.json, data/fase1_review.csv, data/scripts/_steps/, data/scripts/*.json, data/issues_log/.",
+  "entrega": "Esos archivos y carpetas borrados o vaciados (topics_db.json y selected_seeds.json reescritos); solo texto por consola en dry-run.",
+  "modelo": [],
+  "etapa": ["herramienta manual"],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "Nadie lo importa ni lo lanza; se corre a mano con python purge_history.py (main en purge_history.py:145, if __name__ en :180)",
+  "funciones_muertas": [],
+  "md5": "1bd010cff8f0df0de7060d63d4b404fd"
+ },
+ "script_engine/subtopic_extractor.py": {
+  "sticker": "Cuando un video viral resulta ser una compilación de muchos casos, lee su transcript y saca la lista de casos que de verdad tienen su propio tramo (sin las menciones al pasar). Para cada uno devuelve nombre, qué buscar y el ángulo; después un chequeo marca nombres dudosos por errores de transcripción.",
+  "recibe": "Título y transcript limpio de un video contenedor; lista de nombres para verificar.",
+  "entrega": "Lista de {nombre_en, search_query_en, angle_en} y un diccionario nombre → {canonical, is_real} que usa niche_discoverer.py para armar los seeds por subtema.",
+  "modelo": [{"modelo": "Gemini Flash (_cfg.gemini_model, llamada directa con response_schema)", "para": "extraer sujetos-de-segmento y verificar grafías de nombres"}],
+  "etapa": ["research"],
+  "estado": "vivo",
+  "estado_prueba": "niche_discoverer.py:671 lo importa y :1042 lo alcanza vía _try_subtema_fanout, pero solo corre con la variable de entorno SUBTEMA_FANOUT=1 (niche_discoverer.py:175, por defecto apagada)",
+  "funciones_muertas": [],
+  "md5": "fff9aba51e8dca24282821ffab53d5c9"
+ },
+ "script_engine/subtopic_es_relevance.py": {
+  "sticker": "Dos ayudantes de IA para medir la competencia en español: uno pasa el nombre de un lugar o caso a la grafía con la que lo buscan los hispanohablantes (Chernobyl a Chernóbil) y el otro mira una lista de títulos y deja solo los que hablan de esa misma entidad.",
+  "recibe": "Nombre de una entidad (texto) y lista de videos candidatos en español con título, vistas y meses.",
+  "entrega": "{es_query, es_aliases} y la sub-lista de candidatos relevantes, para subtopic_measurer._measure_es.",
+  "modelo": [{"modelo": "Gemini Flash (_cfg.gemini_model, con response_schema)", "para": "traducir la grafía a español y juzgar relevancia título-entidad"}],
+  "etapa": ["research"],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/subtopic_measurer.py:46 lo importa y lo llama en :93, :98, :115 y :129; _measure_es corre en fase1.py:402",
+  "funciones_muertas": [],
+  "md5": "454cc9df23fb792c6768c0f08cd836c0"
+ },
+ "script_engine/topics_db.py": {
+  "sticker": "La libreta central de temas: lee y guarda data/topics_db.json, busca un tema por id, lo marca como video generado cuando termina el render y como empaquetado cuando fase3 arma el paquete de publicación.",
+  "recibe": "data/topics_db.json y los ids de tema que le pasan las fases.",
+  "entrega": "data/topics_db.json reescrito con status=video_generated, video_id, video_path y los flags packaged y packaged_at.",
+  "modelo": [],
+  "etapa": ["research", "guion", "papel", "voz", "assets", "fondos", "guion_pantalla", "aprobar_guion", "render", "packaging"],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.py:73 y fase2a.py:51 importan load_db/save_db, fase2b.py:3807 llama mark_as_generated en el render, fase3.py:69 llama mark_as_packaged; fase1.py lo alcanza por topic_validator.py:58",
+  "funciones_muertas": [
+   {"nombre": "get_pending_for_video", "linea": 52, "por_que": "nadie la nombra, ni producción ni tests"},
+   {"nombre": "revert_generation", "linea": 131, "por_que": "nadie la nombra, ni producción ni tests"}
+  ],
+  "md5": "fe08a04f7da67a6a78fddedceb48f621"
+ },
+ "script_engine/learned_patterns.py": {
+  "sticker": "Tabla de conocimiento del viejo juez visual m05: qué módulo suele causar cada tipo de falla de imagen, y listas (hoy vacías) de patrones aprendidos. Nada del pipeline vivo la usa: su único cliente, m05_judge.py, quedó desconectado de la cadena.",
+  "recibe": "Una categoría de falla (texto).",
+  "entrega": "El módulo causa raíz esperado (m03, m00, m01b) o None; diccionarios en memoria.",
+  "modelo": [],
+  "etapa": ["ninguna"],
+  "estado": "huérfano",
+  "estado_prueba": "Solo lo importa script_engine/m05_judge.py:37, y ningún archivo de producción importa m05_judge (fase1_5.py:15 dice que quedó DESCONECTADO del chain); sin tests",
+  "funciones_muertas": [
+   {"nombre": "add_learned_regex", "linea": 67, "por_que": "nadie la nombra, ni producción ni tests"},
+   {"nombre": "record_other", "linea": 79, "por_que": "nadie la nombra, ni producción ni tests"},
+   {"nombre": "maybe_promote_other", "linea": 90, "por_que": "nadie la nombra, ni producción ni tests"}
+  ],
+  "md5": "76e67947e95e920a7906c81b3cd5c78c"
+ },
+ "script_engine/transcript_fetch.py": {
+  "sticker": "Baja los subtítulos de un video de YouTube a través del proxy del proyecto y los limpia. Distingue tres casos: texto, video sin subtítulos (cadena vacía) y falla de infraestructura (None), para no fabricar un tema falso cuando algo se cayó.",
+  "recibe": "Un video_id de YouTube y los idiomas (en, es).",
+  "entrega": "Texto limpio del transcript, '' si no hay subtítulos, o None si falló la infraestructura.",
+  "modelo": [],
+  "etapa": ["research"],
+  "estado": "vivo",
+  "estado_prueba": "niche_discoverer.py:669 lo importa y :679 llama fetch_transcript dentro de _try_subtema_fanout, solo con SUBTEMA_FANOUT=1 (niche_discoverer.py:175, por defecto apagada)",
+  "funciones_muertas": [],
+  "md5": "b22293acd52cf82d5689f89e651ddf1d"
+ },
+ "script_engine/subtopic_classifier.py": {
+  "sticker": "Lee el transcript de un video viral y decide si trata de un solo asunto (atómico) o es una compilación de varios casos que se sostendrían solos (contenedor). Esa decisión define si el tema se abre en varios temas chicos.",
+  "recibe": "Título y transcript limpio de un video viral en inglés.",
+  "entrega": "{tipo: ATOMICO | CONTENEDOR | ERROR, razon} para niche_discoverer._try_subtema_fanout.",
+  "modelo": [{"modelo": "Gemini Flash (_cfg.gemini_model, con response_schema, temperature 0.0)", "para": "clasificar el video como atómico o contenedor"}],
+  "etapa": ["research"],
+  "estado": "vivo",
+  "estado_prueba": "niche_discoverer.py:670 lo importa y llama classify dentro de _try_subtema_fanout, solo con SUBTEMA_FANOUT=1 (niche_discoverer.py:175, por defecto apagada)",
+  "funciones_muertas": [],
+  "md5": "3d27e9236ce5861e4d6424dfa85b111c"
+ },
+ "nicho_config.py": {
+  "sticker": "Guarda la identidad del nicho activo (hoy solo dark_history: estética de realismo oscuro, referencias y frase de estilo fija). En producción solo sirve para elegir el perfil de capa gráfica según el nombre del nicho.",
+  "recibe": "Nada; es una constante en código.",
+  "entrega": "El diccionario del nicho activo; de ahí gfx_config toma el nombre para elegir el perfil en gfx_profiles/.",
+  "modelo": [],
+  "etapa": ["guion_pantalla", "aprobar_guion", "render"],
+  "estado": "vivo",
+  "estado_prueba": "gfx_config.py:362-363 llama get_active_nicho en active_profile_name cuando GFX_PROFILE no está definida; fase2b.py:383 y :1163 usan gfx_config",
+  "funciones_muertas": [],
+  "md5": "3fedfbe234b8d1842c4841095dacc94b"
+ }
+}

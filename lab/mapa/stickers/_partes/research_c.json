@@ -1,0 +1,147 @@
+{
+ "researcher_steps/ficha_caso.py": {
+  "sticker": "Arma la ficha del caso: una sola llamada a un modelo que lee todo el research del tema (el pool) y devuelve las personas, la cronología, la historia (quién la sufre, los giros, el pico), las escenas, los hechos, las cifras, las citas y las contradicciones. Después un control sin IA revisa que cada cifra, hora, fecha y cita esté de verdad en el texto de los ids que cita, y lo que no está lo manda a «descartados». Es la única fuente de la escaleta y del guion.",
+  "recibe": "data/scripts/_steps/<topic>/00_pool_v3.json (el pool de research, solo lectura) y el título del topic",
+  "entrega": "data/scripts/_steps/<topic>/ficha_caso.json y FICHA_<tag>.md (más ficha_respuesta_cruda.json con la respuesta tal cual de la API); la leen la escaleta y el guion v4 (load / id_texts)",
+  "modelo": [
+   {"modelo": "gpt-6.1-sol (constante MODELO, esfuerzo high)", "para": "la llamada única que arma la ficha por defecto (gpt_helpers.make_call)"},
+   {"modelo": "claude-* (p. ej. claude-opus-5-5, por --modelo / modelo=)", "para": "la misma llamada si se pide un modelo de Claude, por claude_helpers (esfuerzo ESFUERZO_POR_ETAPA['ficha'])"}
+  ],
+  "etapa": ["guion"],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.py:386 (run_escaleta_v3 → asegurar_ficha) genera la ficha si falta; fase1_5.py:395 y :425 la cargan; run_escaleta_v3 se llama en fase1_5.py:501 dentro de la etapa guion",
+  "funciones_muertas": [],
+  "md5": "350908826393d68b8f767f2a164b22f2"
+ },
+ "researcher_steps/step_4e_visual_canon.py": {
+  "sticker": "Le pregunta a un modelo cómo se ve el mundo del tema (ropa, tecnología, vehículos, colores, materiales de la época), qué personas con nombre hay y cómo se ven sin nombre, qué anacronismos prohibir y cuál es el objeto o sujeto central. Después limpia la respuesta con reglas fijas (saca el nombre y la época del aspecto de cada persona, normaliza los objetos). Si falla, devuelve una estructura vacía pero del mismo formato.",
+  "recibe": "el seed del tema, los bloques de investigación (técnico/humano/misterio/visual), los verified_facts de 4a y el canonical de 4b (los pasa topic_researcher.py:603)",
+  "entrega": "dict con era_visual_canon, documented_people, anachronism_blocklist, documented_props y central_subject; topic_researcher lo guarda como data/scripts/_steps/<topic>/05_visual_canon.json y lo pone en topics_db",
+  "modelo": [
+   {"modelo": "Gemini Flash (call_flash_json de gemini_helpers; el modelo lo fija config.api.gemini_model)", "para": "emitir el canon visual con response_schema, con un segundo intento sin esquema si la API lo rechaza"}
+  ],
+  "etapa": ["research"],
+  "estado": "vivo",
+  "estado_prueba": "topic_researcher.py:603 llama a extract_visual_canon dentro de research_topics; fase1.py:771 llama a research_topics",
+  "funciones_muertas": [],
+  "md5": "7a5feb625476ab8974c1473984c7e180"
+ },
+ "researcher_steps/evidence_pool.py": {
+  "sticker": "Arma el pool de evidencia del research: datos, cronología, lugares, citas y personajes, todo copiado literal de los bloques de investigación. Tiene las reglas para descartar lo que no está literal, lo que el bloque marca como no relacionado y los nombres que no hacen nada, y geocodifica los lugares con OpenStreetMap. Con el research v3 (el de siempre) solo se usa una parte de estas piezas; el resto corre con RESEARCH_V3=0.",
+  "recibe": "los bloques angulares de investigación (tecnico/humano/misterio) como texto; el pool ya armado por research_v3 cuando entra por acting_filter, geocode o anchor_place",
+  "entrega": "el evidence_pool {datos, cronologia, lugares, citas, personajes, _descartados, cifras_canonicas} con ids D01/T01/L01/Q01/P01; en la ruta v3 va dentro de 00_pool_v3.json; el caché de geocodificación queda en data/geocode_cache.json",
+  "modelo": [
+   {"modelo": "Gemini Flash (call_flash_json de gemini_helpers, config.api.gemini_model)", "para": "una llamada por bloque que copia datos literales del bloque (solo en la ruta RESEARCH_V3=0 y en add_block)"}
+  ],
+  "etapa": ["research"],
+  "estado": "vivo",
+  "estado_prueba": "research_v3.py:1399 (fix_caps), :1718 y :1925 (norm, _content_set), :2042 (acting_filter, anchor_place, geocode) en la ruta v3; step_4a_facts.py:128 llama a extract_evidence_pool con RESEARCH_V3=0",
+  "funciones_muertas": [
+   {"nombre": "add_block", "linea": 697, "por_que": "nadie la nombra en producción; solo test_module_f6a.py (suma un bloque nuevo a un pool existente)"}
+  ],
+  "md5": "57b8dee3f9bb77388d1e02678c3011b1"
+ },
+ "script_engine/evidence.py": {
+  "sticker": "Caja de herramientas común para leer el pool de evidencia: junta todos los ítems por id, dice qué cifra, fecha o nombre tiene que sonar literal en la narración para contar que el dato se usó (en dígitos o en palabras), detecta datos repetidos dentro de un capítulo, decide si dos ítems cuentan el mismo hecho y arregla mayúsculas pegadas. No llama a ningún modelo.",
+  "recibe": "el evidence_pool (dict con datos, cronologia, citas, lugares, personajes) y textos de narración",
+  "entrega": "funciones puras: items(), anchors(), used_in(), same_fact(), item_date(), repeats_in_cap(), is_hard(), fix_glued_caps(), etc.; no escribe archivos",
+  "modelo": [],
+  "etapa": ["guion", "voz", "guion_pantalla", "render"],
+  "estado": "vivo",
+  "estado_prueba": "lo importan guion_v4.py:36 y m01a_escaleta (etapa guion), voz_utils.py:14 y voz_datos (etapa voz), fase2b.py:3161 y pantalla_entrada (guion_pantalla), gfx_pool.py:42 vía gfx_layer.py:266 (render)",
+  "funciones_muertas": [
+   {"nombre": "format_pool", "linea": 177, "por_que": "nadie la nombra en producción ni en tests; solo aparece en el docstring del módulo"}
+  ],
+  "md5": "ac5d3d06d8dade5571556b7f66646fb9"
+ },
+ "researcher_steps/verify_quotes.py": {
+  "sticker": "Reúne las herramientas para comprobar que una cita es real: normalizar texto tolerando caracteres rotos, buscar la cita literal en un documento, y una búsqueda con Google que pide la fuente original. En producción solo se usan las piezas chicas (buscar patrón literal, resolver redirecciones, saber si un autor tiene nombre propio); las funciones que verifican citas enteras ya nadie las llama.",
+  "recibe": "citas y documentos del pool (texto, autor, fecha); un prompt de búsqueda",
+  "entrega": "funciones auxiliares que research_v3 y m01b_guionista importan (_nz, _pattern, FFFD, _grounding, resolve_redirect, _named); verificacion por cita solo si se llamara a verify_literal / verify_testimonios",
+  "modelo": [
+   {"modelo": "Gemini con Google Search (config.api.gemini_model, o retry_model)", "para": "_search: buscar la fuente original de una cita testimonio (solo la usa verify_testimonios)"}
+  ],
+  "etapa": ["research", "guion"],
+  "estado": "vivo",
+  "estado_prueba": "research_v3.py:165,191,372,1179,1218,1227,1246 importan _grounding, resolve_redirect, FFFD, _nz, _pattern; m01b_guionista.py:212 importa _named (lo llama guion_v4 en la etapa guion)",
+  "funciones_muertas": [
+   {"nombre": "verify_literal", "linea": 166, "por_que": "nadie la nombra en producción ni en tests; research_v3 tiene su propia verificación literal (DocText)"},
+   {"nombre": "verify_testimonios", "linea": 241, "por_que": "nadie la nombra en producción; solo test_module_f6b.py (y con ella queda sin uso real judge, _parse, build_prompt, _search)"}
+  ],
+  "md5": "189d2ba882673eee69963754de28f6bf"
+ },
+ "researcher_steps/pool_gate.py": {
+  "sticker": "Es el semáforo entre el research y el guion: cuenta cuántos datos, citas verificadas, personas elegibles y eventos con fecha tiene el pool y lo marca verde, amarillo o rojo. Con rojo el tema vuelve al inbox con el motivo y no se gasta en guion ni imágenes; con amarillo solo avisa. Escribe un POOL_GATE.md.",
+  "recibe": "el evidence_pool de research v3 (00_pool_v3.json o topic['evidence_pool']) y los umbrales de script_engine/video_length.py",
+  "entrega": "dict del gate (color, métricas, faltan, motivos), data/scripts/_steps/<topic>/POOL_GATE.md y, si es rojo, la excepción PoolGateRed",
+  "modelo": [],
+  "etapa": ["research", "guion"],
+  "estado": "vivo",
+  "estado_prueba": "research_v3.py:2609 (run_seed, etapa research) y m01a_escaleta.py:714 pool_gate_profile, llamado desde fase1_5.py:383 (run_escaleta_v3, etapa guion)",
+  "funciones_muertas": [],
+  "md5": "981b9f550b42986b32d9788eefbf989b"
+ },
+ "researcher_steps/step_4a_facts.py": {
+  "sticker": "Le pide a un modelo entre 6 y 12 datos duros de los tres bloques de investigación (al menos 3 visuales), cada uno marcado con su bloque de origen, y la lista de fuentes. Con RESEARCH_V3=0 además arma el evidence_pool; con el research v3 solo extrae los facts.",
+  "recibe": "los bloques angulares {tecnico, humano, misterio} como texto (topic_researcher.py:575-577)",
+  "entrega": "{verified_facts, sources, evidence_pool}; topic_researcher lo guarda como data/scripts/_steps/<topic>/01_facts_sources.json",
+  "modelo": [
+   {"modelo": "Gemini Flash (call_flash_json, config.api.gemini_model)", "para": "extraer verified_facts y sources de los tres bloques"}
+  ],
+  "etapa": ["research"],
+  "estado": "vivo",
+  "estado_prueba": "topic_researcher.py:575 y :577 llaman a extract_facts_and_sources dentro de research_topics (fase1.py:771)",
+  "funciones_muertas": [],
+  "md5": "4058f7e62f88d6d37a499501ba0ce3ba"
+ },
+ "researcher_steps/step_4b_canonical.py": {
+  "sticker": "Le pide al modelo una descripción visual en inglés (20 a 35 palabras) del sujeto que más se repite en el video, o null si no hay un sujeto físico claro. Solo puede usar lugares y fechas que ya estén en los datos duros.",
+  "recibe": "el seed, los bloques angulares y los verified_facts de 4a",
+  "entrega": "{canonical_subject_description: str | None}; topic_researcher lo guarda como 02_canonical.json en data/scripts/_steps/<topic>/ (lo lee también gfx_director)",
+  "modelo": [
+   {"modelo": "Gemini Flash (call_flash_json, config.api.gemini_model)", "para": "escribir la descripción canónica del sujeto"}
+  ],
+  "etapa": ["research"],
+  "estado": "vivo",
+  "estado_prueba": "topic_researcher.py:584 llama a extract_canonical; script_engine/gfx_director.py:43 lee 02_canonical.json",
+  "funciones_muertas": [],
+  "md5": "4ad2c509cd1e76e643f385fe0a2c6722"
+ },
+ "researcher_steps/step_4c_meta.py": {
+  "sticker": "Le pide al modelo la ficha de marketing del video: título de hasta 62 caracteres, palabra de búsqueda, gancho, misterio, revelación, ángulo y un puntaje de viralidad de 1 a 10. Todo dato que use tiene que estar en los datos duros.",
+  "recibe": "el seed, los bloques angulares, los verified_facts de 4a y el canonical de 4b",
+  "entrega": "{video_title, search_keyword, hook, mystery, reveal, angle, virality_score}; topic_researcher lo guarda como 03_meta.json",
+  "modelo": [
+   {"modelo": "Gemini Flash (call_flash_json, config.api.gemini_model)", "para": "generar la meta narrativa del video"}
+  ],
+  "etapa": ["research"],
+  "estado": "vivo",
+  "estado_prueba": "topic_researcher.py:590 llama a extract_meta dentro de research_topics",
+  "funciones_muertas": [],
+  "md5": "807613665682b23504d522031fb99296"
+ },
+ "researcher_steps/step_4d_summary.py": {
+  "sticker": "Le pide al modelo un resumen largo (1500 a 3000 caracteres) en tres párrafos (técnico, humano, misterio) que sirva de materia prima al guionista, sin repetir los datos duros ya extraídos.",
+  "recibe": "el seed, los bloques angulares completos, los verified_facts, el canonical y la meta de 4c",
+  "entrega": "{research_summary: str}; topic_researcher lo guarda como 04_summary.json",
+  "modelo": [
+   {"modelo": "Gemini Flash (call_flash_json, config.api.gemini_model)", "para": "escribir el research_summary de tres párrafos"}
+  ],
+  "etapa": ["research"],
+  "estado": "vivo",
+  "estado_prueba": "topic_researcher.py:595 llama a extract_research_summary dentro de research_topics",
+  "funciones_muertas": [],
+  "md5": "b6e32974cdb3cfc3005bef9a073c2cf1"
+ },
+ "researcher_steps/__init__.py": {
+  "sticker": "Archivo vacío que hace de paquete a la carpeta researcher_steps para poder importar sus módulos.",
+  "recibe": "nada",
+  "entrega": "nada (0 líneas)",
+  "modelo": [],
+  "etapa": ["research", "guion"],
+  "estado": "vivo",
+  "estado_prueba": "marca de paquete: topic_researcher.py:61 hace from researcher_steps.step_4a_facts import …; fase1_5.py:269 hace from researcher_steps import ficha_caso",
+  "funciones_muertas": [],
+  "md5": "d41d8cd98f00b204e9800998ecf8427e"
+ }
+}

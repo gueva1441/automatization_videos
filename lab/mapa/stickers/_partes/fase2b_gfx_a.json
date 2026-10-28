@@ -1,0 +1,42 @@
+{
+ "fase2b.py": {
+  "sticker": "Arma el video final a partir de lo que ya dejaron la voz y las imágenes: anima cada imagen, le pone la capa gráfica (títulos, fichas, sellos) cuando se pide, quema los subtítulos, pega la voz, encadena los capítulos con corte a negro y mezcla la música por debajo de la voz. También genera el guion de pantalla (--plan-only) que Omar lee antes de aprobar, y escribe la aprobación (--aprobar-guion).",
+  "recibe": "output/audio/<id>/sync_map.json + chNN.mp3 + chNN_timestamps.json (+ chNN_alignment.json); output/<id>/assets/assets_manifest.json + imágenes/clips por capítulo; data/scripts/<id>.json (narración, prompts, anchors, video_type); output/audio/<id>/music_map.json; data/scripts/_steps/<id>/01a_escaleta.json, 01b_narracion_v3.json, 00_pool_v3.json y 01e_pantalla.json (guion en papel); output/<id>/_fase2b_work/ (visuales base ya cocidos, planes gfx_plan_chNN.resolved.json); output/<id>/assets/flow_specs.json, depth_metrics.json y zoom_verdicts.json (cachés).",
+  "entrega": "output/<id>/<id>_final.mp4 (sin --gfx) o <id>_final_gfx.mp4 (con --gfx) y el respaldo *_no_music.mp4; output/<id>/_fase2b_work/ (seg_NN_chNN.mp4, chNN_flux_visual.mp4, chNN_hybrid_visual.mp4, chNN_subs.ass, segments_manifest.json, mezcla_preview.wav); output/<id>/flow_plan.json; output/audio/<id>/intensity_map.json; output/<id>/GUION_PANTALLA.md/.json (--plan-only); el bloque aprobado dentro de GUION_PANTALLA.json (--aprobar-guion); estado video_generated en topics_db.",
+  "modelo": [
+   {"modelo": "api.gemini_model (constante de config, vía script_engine/flow_director.select_movements_batch)", "para": "elegir el movimiento de cámara de cada imagen (una sola tanda para todo el video; si falla, cae a movimiento vertical fijo); solo corre en la etapa fondos, no con --reuse-visuals"},
+   {"modelo": "api.gemini_model (constante de config, vía script_engine/zoom_judge.judge_candidates)", "para": "visión sobre las imágenes candidatas a zoom y sobre las que tienen persona en el prompt (router anti-deformación); cacheado en zoom_verdicts.json"}
+  ],
+  "etapa": ["fondos", "guion_pantalla", "aprobar_guion", "render"],
+  "estado": "vivo",
+  "estado_prueba": "run_pipeline.py:365 (fondos), 374 (--plan-only), 402 (--aprobar-guion), 412 (--reuse-visuals --keep-segments --gfx --gfx-sparse) lo lanzan por subprocess; mixer_server.py:363 y qa_studio_server.py:638 también lo lanzan",
+  "funciones_muertas": [
+   {"nombre": "_chars_to_syllables", "linea": 553, "por_que": "nadie la llama en producción (fase2b usa karaoke por palabra desde el camino B); solo la usan test_module_38b/38d y dos scripts sueltos de chat 38 (_regen_alignments_chat38.py, _smoke_chat38_ch01.py)"},
+   {"nombre": "_build_ass_from_syllables", "linea": 593, "por_que": "nadie la llama en producción (el comentario de fase2b.py:1237 dice que el cambio a palabra es intencional); solo test_module_38d_forcealign_integration.py"},
+   {"nombre": "_segmentos_en_paralelo", "linea": 2781, "por_que": "único llamador es fase2b.py:3393 dentro de `if paralelo`, y paralelo exige GFX_PARALELO > 1, constante en 1 (fase2b.py:2647, marcada DESCARTADO); inalcanzable con el código tal cual, solo test_module_f28c.py la ejerce forzando la constante a 2"}
+  ],
+  "md5": "c81d7e20bf844a7f51435c548c9058d2"
+ },
+ "script_engine/aprobacion.py": {
+  "sticker": "La compuerta del render: guarda quién aprobó el guion de pantalla y una huella de los planes de ese momento. Si después alguien cambia los planes, la huella no coincide y el render con capa gráfica no arranca hasta volver a aprobar.",
+  "recibe": "output/<id>/GUION_PANTALLA.json (el guion generado por --plan-only) y output/<id>/_fase2b_work/gfx_plan_ch*.resolved.json (los planes resueltos de cada capítulo).",
+  "entrega": "El bloque `aprobado: {por, fecha, md5_planes, planes}` escrito dentro de output/<id>/GUION_PANTALLA.json (aprobar) y un sí/no con el motivo para quien pregunte (estado: hook guard_render, run_pipeline y la capa gráfica).",
+  "modelo": [],
+  "etapa": ["aprobar_guion", "render", "orquestador/form", "Claude Code"],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:3723 importa aprobar (--aprobar-guion); run_pipeline.py:127 llama estado para la compuerta del form; script_engine/gfx_layer.py:507 llama estado en plan_congelado (render); .claude/hooks/guard_render.py:89 llama estado antes de dejar pasar fase2b --gfx",
+  "funciones_muertas": [],
+  "md5": "b5fed4ae2534a4755b7f06a9ce6575b6"
+ },
+ "script_engine/freeze_check.py": {
+  "sticker": "Mira un mp4 ya renderizado y avisa si hay tramos donde la imagen queda congelada más de 1,5 segundos, salvo los que son quietos a propósito (pausa de la pregunta de cierre, negro). Se corre a mano sobre los chNN_gfx.mp4; ninguna etapa del form lo usa.",
+  "recibe": "Uno o más mp4 pasados por línea de comandos (p. ej. output/<id>/_fase2b_work/chNN_gfx.mp4); ffmpeg tomado del PATH.",
+  "entrega": "Un JSON por pantalla con {archivo, congelados: [(inicio, duración)], ok}; no escribe archivos.",
+  "modelo": [],
+  "etapa": ["herramienta manual"],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "script_engine/freeze_check.py:42 (__main__, `python -I -m script_engine.freeze_check <mp4>`); el único otro uso es test_module_f10.py:161; ningún script de producción lo importa ni lo lanza",
+  "funciones_muertas": [],
+  "md5": "edbec655cb35262d071be3f957685889"
+ }
+}

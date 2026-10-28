@@ -1,0 +1,135 @@
+{
+ "gfx_lab_server.py": {
+  "sticker": "Laboratorio de identidad de la capa gráfica: un mini-servidor local donde Omar ve un capítulo ya renderizado, prueba sellos, datos y recortes sobre las fotos y guarda su plan. Solo sirve para diseñar la identidad; el form no lo lanza y no escribe nada de lo que va al video final.",
+  "recibe": "output/audio/<id>/sync_map.json, output/<id>/assets/assets_manifest.json, output/<id>/_fase2b_work/<cap>_flux_visual.mp4 (o gfx_<cap>/public/base.mp4), gfx_plan_<cap>.resolved.json, gfx_question_<cap>.json y flow_specs.json; lab/identidad/ (index.html, catalogo.json, plan_<cap>_lab.json); gfx_profiles/icons/*.svg; script_engine/sfx/*.wav; runtime de hyperframes en script_engine/gfx_runtime/node_modules",
+  "entrega": "Páginas y APIs HTTP en localhost:8765; lab/identidad/plan_<cap>_lab.json (estado guardado por la página); proyectos de preview output/<id>/_fase2b_work/gfx_lab_<cap>/ y gfx_lab_<cap>_solo/ (base.mp4 con cola, lab_scenes.json, miniaturas JPG)",
+  "modelo": [],
+  "etapa": ["herramienta manual"],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "gfx_lab_server.py:702 tiene __main__ (python gfx_lab_server.py --video --cap); nadie lo importa ni lo lanza por subprocess en producción (solo test_module_gfx_lab.py:13); run_pipeline.py no lo nombra",
+  "funciones_muertas": [
+   {"nombre": "LabSession.lab_plan", "linea": 208, "por_que": "nadie la llama: ni producción ni tests; las rutas usan lab_state() directamente"},
+   {"nombre": "LabSession._catalog", "linea": 367, "por_que": "nadie la llama; lee lab/identidad/catalogo.json, que el servidor sirve como estático por /lab/ sin pasar por este método"},
+   {"nombre": "LabSession._sugerencias", "linea": 370, "por_que": "nadie la llama en producción; los tests de sugerencias (test_module_gfx_lab.py:199, 226) leen el archivo sugerencias_<cap>.json a mano"}
+  ],
+  "md5": "2063ce96af157f1a5ffbfbd7d5e71344"
+ },
+ "mixer_server.py": {
+  "sticker": "Mesa de mezcla para calibrar de oído cuánto suena la música bajo la voz de cada capítulo. Omar escucha, ajusta dos números (volumen y volumen de piso) y los guarda en el json de la pista de música; también puede mandar a re-armar el video con un botón.",
+  "recibe": "output/audio/<id>/music_map.json, output/audio/<id>/<cap>.mp3 (voz), output/audio/<id>/sync_map.json (título opcional), audio_library/<track>.mp3 y su .json, audio_profiles.AUDIO_PROFILES[MISTERIO_ABISAL][mixing], mixer.html",
+  "entrega": "Servidor en 127.0.0.1:8000; mezclas de prueba output/audio/<id>/_mixer_renders_chat40/mix_<cap>_<mv>_<mvf>.mp3; escribe music_volume y music_volume_floor en el json de la pista (audio_library/<track>.json); el botón Re-armar lanza `python fase2b.py <id>`",
+  "modelo": [],
+  "etapa": ["herramienta manual"],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "mixer_server.py:609 __main__ (python mixer_server.py --topic); fase2b.py:3527 solo lo nombra en un mensaje al usuario; lo lanza una persona a mano, el form no. Su Popen a fase2b.py (mixer_server.py:363) corre solo con el botón Re-armar",
+  "funciones_muertas": [],
+  "md5": "bfd1b46d6f4177daf2150df09992e94a"
+ },
+ "script_engine/transition_applier.py": {
+  "sticker": "Pega los capítulos uno detrás de otro para armar el video completo. Con la capa gráfica (--gfx) hace un corte a negro y el capítulo siguiente sube desde negro, re-encodeando solo una ventana alrededor de cada unión; sin la capa gráfica usa las transiciones de los perfiles de arte (incluido el flash blanco) o, si algo falla, un corte seco.",
+  "recibe": "Lista de segmentos mp4 por capítulo (output/<id>/_fase2b_work/chNN_*.mp4), los art_profile de cada cap y los args del encoder (fase2b._venc()); ajustes de transition_config / transition_profiles",
+  "entrega": "output/<id>/_fase2b_work/_concat_video.ts y _concat_audio.wav (insumos de la mezcla de música) más el mp4 concatenado sin música (final_path)",
+  "modelo": [],
+  "etapa": ["fondos", "render"],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:2707-2710 llama concat_windowed y fase2b.py:2719-2721 el fallback _concat_demuxer_fallback y concat_with_transitions en _concat_segments (el armado del preview sin gfx corre en fondos; con --gfx en render)",
+  "funciones_muertas": [],
+  "md5": "64944830e968e377ce411c451a6ca046"
+ },
+ "gfx_config.py": {
+  "sticker": "El tablero de perillas de la capa gráfica: duraciones, tamaños, colores, calidad de render y qué bloques (título, datos, recortes, sellos, zoom) están prendidos. Carga el perfil del canal (gfx_profiles/<perfil>.json) y lo valida: una clave desconocida frena todo. Los demás módulos de la capa gráfica leen sus números de acá.",
+  "recibe": "gfx_profiles/<perfil>.json elegido por la variable GFX_PROFILE o por el nicho activo (nicho_config.get_active_nicho); script_engine/sfx/*.wav para validar los sonidos; config.BASE_DIR",
+  "entrega": "Objetos gfx_rules (GfxRules), gfx_render, GFX_INVENTORY, GRADE_VARIANTS, ACTIVE_PROFILE, active_moods(), sfx_for(), ICON_KEYS, listas de claves huérfanas del perfil (PERFIL_HUERFANAS), clamp_box y clamp_quality",
+  "modelo": [],
+  "etapa": ["guion", "fondos", "guion_pantalla", "aprobar_guion", "render"],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:3162 y 3482 leen gfx_rules dentro del render; script_engine/m01e_pantalla.py:80 (tope de costo del papel, en run_pantalla de fase1_5.py:229) y script_engine/clima.py:26,43 y pantalla_colocar.py:34 lo leen en la etapa guion; script_engine/gfx_layer.py lo importa arriba",
+  "funciones_muertas": [
+   {"nombre": "GfxRules.zoom_min_scene", "linea": 306, "por_que": "nadie la nombra ni en producción ni en tests; quedó de cuando el borrador del director chequeaba la duración mínima de escena para el zoom"},
+   {"nombre": "GfxRules.css_grade_variant", "linea": 310, "por_que": "alias F1b que nadie lee en producción; solo lo toca test_module_gfx_config.py:45"},
+   {"nombre": "GfxRules.css_grade_opacity", "linea": 318, "por_que": "nadie la nombra ni en producción ni en tests"}
+  ],
+  "md5": "a1d59c6efc31572ececacea454d87378"
+ },
+ "transition_profiles.py": {
+  "sticker": "Reglas de qué transición entre capítulos le va a cada estilo de arte (submarino, interior, polar, etc.): cuáles se prefieren, cuáles están prohibidas y cuál se usa en cada unión del relato (entrada, medio, clímax, revelación).",
+  "recibe": "transition_config.py (inventario de transiciones válidas y DEFAULT_TRANSITION)",
+  "entrega": "TRANSITION_PROFILES, get_default_transition(), is_allowed(), get_rules(), NARRATIVE_POSITIONS que consume script_engine/transition_applier.py",
+  "modelo": [],
+  "etapa": ["fondos", "render"],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/transition_applier.py:36-40 importa get_default_transition e is_allowed y los usa en build_transition_plan (línea 109 y 115), que llaman concat_windowed y concat_with_transitions desde fase2b.py:2707-2721",
+  "funciones_muertas": [
+   {"nombre": "render_constraints_for_prompt", "linea": 332, "por_que": "nadie la llama ni en producción ni en tests; era para un director de transiciones que nunca se escribió (el comentario dice «futuro»)"}
+  ],
+  "md5": "e4c6afc5b1b033d3355ad2eaec947dad"
+ },
+ "transition_config.py": {
+  "sticker": "Las perillas del pegado entre capítulos (calidad del video, fps, codec, interruptor general de transiciones) y la lista cerrada de transiciones válidas con su duración (flash blanco, zoom, fundidos, corte seco).",
+  "recibe": "Nada: son constantes del módulo",
+  "entrega": "transition_render (ajustes de ffmpeg), TRANSITION_INVENTORY, VALID_TRANSITIONS, DEFAULT_TRANSITION, get_effect(), is_valid(), transition_param_ranges",
+  "modelo": [],
+  "etapa": ["fondos", "render"],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/transition_applier.py:30-35 importa get_effect, is_valid y transition_render; transition_render.enable_transitions se chequea en concat_windowed (transition_applier.py:359) y concat_with_transitions (:488)",
+  "funciones_muertas": [
+   {"nombre": "clamp_duration_ms", "linea": 172, "por_que": "nadie la llama ni en producción ni en tests; es para un director futuro que nunca existió"}
+  ],
+  "md5": "af3e4f5aa19a332a3dae0249d01e688a"
+ },
+ "gfx_profiles/finanzas.json": {
+  "sticker": "Perfil gráfico alternativo para un canal de finanzas (tipografías, duraciones y qué bloques van). Solo se aplica si el nicho activo es «finanzas»; hoy el canal es de misterio, así que no se usa en los videos.",
+  "recibe": "Claves de primer nivel: name, description, nichos, fonts, tokens, blocks",
+  "entrega": "Los valores que gfx_config.load_profile vuelca en gfx_rules e inventario cuando este perfil es el activo",
+  "modelo": [],
+  "etapa": ["guion", "fondos", "guion_pantalla", "aprobar_guion", "render"],
+  "estado": "vivo",
+  "estado_prueba": "gfx_config.py:366-370 lo lee (junto con los demás .json de la carpeta) para buscar el perfil cuyo `nichos` contenga el nicho activo, y gfx_config.py:409-411 lo cargaría con nicho finanzas o GFX_PROFILE=finanzas; con el nicho dark_history actual no se aplica",
+  "funciones_muertas": [],
+  "md5": "8fbe4ad4cf5b5b5393f0e5ea022bffdb"
+ },
+ "gfx_profiles/lexico_propuestas.json": {
+  "sticker": "Cuaderno de palabras nuevas de carga (horror, abismo, tragedia…) que el director de intensidad propone al leer cada capítulo. Cuando una palabra aparece en dos videos distintos, pasa al léxico del perfil de misterio.",
+  "recibe": "Lo escribe gfx_intensity.record_proposals con las cargas que propone el modelo del director de intensidad en cada render con capa gráfica (no en --plan-only)",
+  "entrega": "Mapa palabra → {categoria, peso, videos, concreta}; las que cumplen la regla de los 2 videos se promueven a moods de gfx_profiles/misterio.json",
+  "modelo": [],
+  "etapa": ["render"],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/gfx_layer.py:683 llama gi.record_proposals(...) cuando gfx_rules.intensity_director está prendido y no es plan_only; script_engine/gfx_intensity.py:53 fija su ruta (PROPOSALS)",
+  "funciones_muertas": [],
+  "md5": "c7e66c062a3382d100789e50d5c6d070"
+ },
+ "gfx_profiles/misterio.json": {
+  "sticker": "La identidad gráfica del canal de misterio: tipografías, tamaños y tiempos de título, datos y recortes, qué bloques se usan y cuántos por capítulo, el léxico de palabras de carga con su clima (veneno, agua, muerte, oscuridad), los sellos y el sonido del título. Es el perfil que manda en todos los renders.",
+  "recibe": "Lo editó Omar con el laboratorio de identidad (F3) y se ajusta a mano; claves de primer nivel: name, description, nichos, fonts, tokens, sellos_clima, moods, sfx, blocks, channel_bug, identity",
+  "entrega": "Los valores de gfx_rules, el inventario de bloques, active_moods(), sfx_for(), sellos de clima y topes de costo del papel (por gfx_config)",
+  "modelo": [],
+  "etapa": ["guion", "fondos", "guion_pantalla", "aprobar_guion", "render"],
+  "estado": "vivo",
+  "estado_prueba": "gfx_config.py:480-484 carga el perfil activo al importar el módulo (nichos = [dark_history]); script_engine/gfx_layer.py:672-683 y m01e_pantalla.py:80 leen ACTIVE_PROFILE",
+  "funciones_muertas": [],
+  "md5": "be921562d29ca13c7223724d288b94c1"
+ },
+ "gfx_profiles/misterio_critico_fewshot.json": {
+  "sticker": "Ejemplos de cómo juzgaba el crítico visual viejo si un bloque gráfico suma, repite o estorba. Ese crítico se borró en F36 §D y ningún código lee este archivo.",
+  "recibe": "Claves de primer nivel: fuente, ejemplos",
+  "entrega": "Nada: nadie lo carga",
+  "modelo": [],
+  "etapa": ["ninguna"],
+  "estado": "huérfano",
+  "estado_prueba": "grep del nombre «critico_fewshot» solo da menciones en lab/ESTADO_SESION.md:775; script_engine/gfx_critic.py:11 dice que el crítico de few-shot se borró; solo gfx_config.py:366 lo abre al recorrer la carpeta buscando `nichos` (no lo usa)",
+  "funciones_muertas": [],
+  "md5": "8250e65798eab761ad9c9e0bbb3b5e2f"
+ },
+ "gfx_profiles/misterio_golden_ch02.json": {
+  "sticker": "Plan «dorado» del capítulo 2 que Omar guardó con el laboratorio de identidad el 2026-10-20: qué bloques van en cada momento y con qué tokens. Es una foto de referencia; ningún código lo lee.",
+  "recibe": "Claves de primer nivel: profile, video_id, cap, saved_at, plan, rejected_by_lock, tokens, anotado, marks (lo guardó el lab F3)",
+  "entrega": "Nada: nadie lo carga",
+  "modelo": [],
+  "etapa": ["ninguna"],
+  "estado": "huérfano",
+  "estado_prueba": "grep del nombre «golden_ch02» solo da menciones en lab/ESTADO_SESION.md:826; ningún .py lo abre salvo el barrido de gfx_config.py:366 que lo recorre buscando `nichos`",
+  "funciones_muertas": [],
+  "md5": "3a3ff2d592c9ccec460aaa04c34da8d3"
+ }
+}

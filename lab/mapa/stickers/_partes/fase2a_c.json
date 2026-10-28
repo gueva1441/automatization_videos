@@ -1,0 +1,137 @@
+{
+ "script_engine/m07_music_director.py": {
+  "sticker": "Elige la música de fondo de cada capítulo: mira qué pistas ya tiene la biblioteca del canal para ese tipo de momento (gancho, tensión, golpe...), le pide a Gemini que elija una y escribe el mapa de música del video. Si el momento no tiene pista, genera una nueva con ElevenLabs Music y se la hace escuchar a una persona para aprobarla.",
+  "recibe": "sync_map del video (output/audio/<id>/sync_map.json, con el momento narrativo de cada capítulo); pistas de audio_library/*.json y *.mp3; prompts y paleta de music_config.py.",
+  "entrega": "output/audio/<id>/music_map.json (qué pista suena en cada capítulo); si genera pista nueva, audio_library/<pista>.mp3 y .json.",
+  "modelo": [
+   {"modelo": "Gemini Flash (call_flash_json, constante gemini_model de config)", "para": "elegir entre 2 o más pistas candidatas de la biblioteca para un capítulo"},
+   {"modelo": "ElevenLabs Music music_v1 (MUSIC_MODEL_ID)", "para": "generar una pista nueva cuando ninguna encaja (endpoint /v1/music/detailed)"}
+  ],
+  "etapa": ["voz"],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.py:599 llama m07_music_director.generate_music_map dentro de process_topic (paso m07, corre con --from normalizer_gate en la etapa voz)",
+  "funciones_muertas": [
+   {"nombre": "plan_composicion", "linea": 1202, "por_que": "ningún código de producción la llama; solo test_module_f28a.py y el script de laboratorio lab/hyperframes/f28/a/f28a_paleta.py (corrida manual de F28a)"},
+   {"nombre": "generar_con_plan", "linea": 1249, "por_que": "ningún código de producción la llama; solo test_module_f28a.py y lab/hyperframes/f28/a/f28a_paleta.py"}
+  ],
+  "md5": "4a2a74f4aa8d3a0fa9fba79b00649359"
+ },
+ "audio_manager.py": {
+  "sticker": "Le da voz al video: manda el texto de cada capítulo a ElevenLabs, guarda el mp3, mide cuándo suena cada palabra con el alineador de ElevenLabs y arma el sync_map, el índice con duraciones, tiempos y volúmenes que usan todas las etapas siguientes. Si el texto no cambió, reusa el audio ya grabado.",
+  "recibe": "guion armado por fase1_5 (video_id + capítulos con texto, intención y, si es guion v4, narration_tts); data/scripts/_steps/<id>/01b_narration_normalized.json si existe; perfil de audio de audio_config/audio_profiles.",
+  "entrega": "output/audio/<id>/chNN.mp3, chNN_timestamps.json, chNN_alignment.json, chNN.meta.json y output/audio/<id>/sync_map.json.",
+  "modelo": [
+   {"modelo": "ElevenLabs TTS: eleven_v4 con la voz voice_id_v4 del perfil para guiones con narration_tts; api.elevenlabs_model (constante de config) con la voz voice_id del perfil si TTS_V2=1 o no hay narration_tts", "para": "convertir el texto de cada capítulo en voz"},
+   {"modelo": "ElevenLabs Forced Alignment (/v1/forced-alignment)", "para": "sacar el tiempo de cada palabra del audio ya grabado"}
+  ],
+  "etapa": ["voz", "orquestador/form"],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.py:574 llama audio_manager.process_script en el paso audio (etapa voz); qa_studio_server.py:1257 lo usa para re-grabar un capítulo desde el form",
+  "funciones_muertas": [
+   {"nombre": "_transcribe_word_timestamps", "linea": 149, "por_que": "nadie la llama en todo el repo; era el camino con Whisper, reemplazado por el Forced Alignment de ElevenLabs"},
+   {"nombre": "_force_align_to_script", "linea": 208, "por_que": "nadie la llama en todo el repo; solo la nombra el docstring de test_module_38_timestamps_lab.py (camino Whisper viejo)"}
+  ],
+  "md5": "ec793287942671a54ae266ef9addf2ff"
+ },
+ "script_engine/m02_5_normalizer_gate.py": {
+  "sticker": "Revisa cómo va a leer ElevenLabs cada capítulo antes de grabar la voz: Gemini marca siglas, años, horas, números grandes y palabras raras que se leerían mal y propone cómo escribirlas hablado; en modo batch se aplican todas, en modo manual una persona aprueba una por una. Las siglas que se repiten entre videos pasan al diccionario del canal.",
+  "recibe": "narración del video (data/scripts/_steps/<id>/01b_narration.json, que no se toca); diccionario data/normalizer_custom_dict.json; siglas conocidas de tts_normalizer.",
+  "entrega": "data/scripts/_steps/<id>/01b_narration_normalized.json (texto listo para la voz) y, si hay siglas recurrentes nuevas, entradas nuevas en data/normalizer_custom_dict.json.",
+  "modelo": [
+   {"modelo": "Gemini Flash (call_flash_json, constante gemini_model de config)", "para": "auditar la narración y proponer las formas habladas"}
+  ],
+  "etapa": ["voz"],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.py:541 llama m02_5_normalizer_gate.gate_normalizer_for_topic (paso normalizer_gate, primer paso de la etapa voz)",
+  "funciones_muertas": [],
+  "md5": "77d0d290cf0b21387f19686fbc1e1530"
+ },
+ "music_config.py": {
+  "sticker": "Guarda lo que define el sonido de la música del canal: el texto del sonido del canal, qué pide cada momento narrativo (paleta), los prompts viejos por momento, la lista de estilos prohibidos, la dirección del servicio de música de ElevenLabs y el umbral del elegidor. Es solo datos y dos funciones para armar y validar prompts.",
+  "recibe": "nada (constantes escritas a mano en el archivo).",
+  "entrega": "constantes y funciones que importa m07_music_director (MUSIC_API_URL, MUSIC_MODEL_ID, PALETA_INTENTS, NEGATIVE_GLOBAL_STYLES, build_music_prompt, validate_music_config) y promote_palette_to_library_chat36.py.",
+  "modelo": [],
+  "etapa": ["voz"],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/m07_music_director.py:48-64 lo importa y fase1_5.py:599 corre generate_music_map, que llama validate_music_config (m07:1047)",
+  "funciones_muertas": [],
+  "md5": "a9e888ba91a3b65a647ec70d634c9023"
+ },
+ "tts_normalizer.py": {
+  "sticker": "Arregla el texto antes de dárselo a la voz: expande siglas conocidas, abreviaturas y unidades (FBI, Dr., km/h), pasa horas con AM/PM, dólares, porcentajes a forma hablada y saca las comillas de las citas. Carga además el diccionario del canal cada vez que se importa.",
+  "recibe": "texto de un capítulo; data/normalizer_custom_dict.json.",
+  "entrega": "texto normalizado en memoria (no escribe archivos).",
+  "modelo": [],
+  "etapa": ["voz", "fondos", "render"],
+  "estado": "vivo",
+  "estado_prueba": "audio_manager.py:539 llama normalize_for_tts como respaldo; script_engine/m02_5_normalizer_gate.py:617 llama normalize_pool_forms; anchor_timing.py:49 lo usa para buscar los anchors en fondos y render",
+  "funciones_muertas": [],
+  "md5": "d8a93b515b9e8560eec146fae6389af9"
+ },
+ "script_engine/music_intensity.py": {
+  "sticker": "Decide cuándo sube, baja o se calla la música dentro de cada capítulo: la deja de fondo, la sube 3 dB en los momentos intensos, le da un golpe de +5 dB al pico del video y la silencia un instante antes del pico y durante las citas de testigos. No genera audio nuevo: calcula tramos y los aplica como volumen sobre la pieza.",
+  "recibe": "data/scripts/_steps/<id>/01a_escaleta.json, 01b_narracion_v3.json y 00_pool_v3.json; output/audio/<id>/chNN_timestamps.json; la pieza de música de cada capítulo (wav).",
+  "entrega": "mapa en memoria {chNN: tramos} para fase2b y el wav de música con la envolvente aplicada (en el lugar); beat_pico_de_cap y tiempos_por_palabra los leen otros módulos.",
+  "modelo": [],
+  "etapa": ["guion", "fondos", "guion_pantalla", "render"],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:1563 llama mapa_del_topic y fase2b.py:1675 llama aplicar_a_wav al mezclar la música; script_engine/m01e_pantalla.py:200 usa beat_pico_de_cap",
+  "funciones_muertas": [],
+  "md5": "b22429c84ac12140ab6dcf35b370d866"
+ },
+ "audio_profiles.py": {
+  "sticker": "Es el catálogo de perfiles de sonido del canal: qué voz usa cada perfil (Bill, MS Narrador v4, George, Daniel), los ajustes de la voz por tipo de momento narrativo y los volúmenes de música y efectos con su ducking. Solo datos.",
+  "recibe": "nada (diccionarios escritos a mano).",
+  "entrega": "AUDIO_PROFILES, VOICE_SETTINGS_BY_INTENT y VOICE_SETTINGS_BY_INTENT_V4, que importan audio_config, audio_manager y mixer_server.",
+  "modelo": [],
+  "etapa": ["guion", "voz", "herramienta manual"],
+  "estado": "vivo",
+  "estado_prueba": "audio_manager.py:56 importa VOICE_SETTINGS_BY_INTENT y _V4; audio_config.py:5 importa AUDIO_PROFILES (usado por fase1_5 vía audio_manager); mixer_server.py:41 lo importa",
+  "funciones_muertas": [],
+  "md5": "7ebf9a15fe0bd00df3d8c586581e56d1"
+ },
+ "audio_config.py": {
+  "sticker": "Es el interruptor que dice qué perfil de sonido usa el canal (MISTERIO_ABISAL) y deja listo AUDIO_STYLE, el perfil elegido, para quien lo consulte.",
+  "recibe": "AUDIO_PROFILES de audio_profiles.py.",
+  "entrega": "ACTIVE_AUDIO_PROFILE y AUDIO_STYLE.",
+  "modelo": [],
+  "etapa": ["guion", "voz", "herramienta manual"],
+  "estado": "vivo",
+  "estado_prueba": "audio_manager.py:55 importa AUDIO_STYLE y ACTIVE_AUDIO_PROFILE; script_engine/voz_utils.py:396 lo usa para saber la voz del narrador",
+  "funciones_muertas": [],
+  "md5": "3ebbcbab79e7e64bcd048c11b0ac1cf3"
+ },
+ "subs_remap.py": {
+  "sticker": "Hace que los subtítulos muestren el texto original legible y no el fonético que se le dio a la voz: compara palabra a palabra el texto normalizado con el original y reasigna los tiempos que ya existían. No gasta API.",
+  "recibe": "texto original del capítulo (plan.narration) y las palabras con tiempos de output/audio/<id>/chNN_timestamps.json.",
+  "entrega": "lista de palabras originales con start y end, lista para armar el .ass de los subtítulos.",
+  "modelo": [],
+  "etapa": ["fondos", "render"],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:1248 llama remap_words_to_original al armar el segmento de cada capítulo; script_engine/gfx_layer.py:478 también",
+  "funciones_muertas": [],
+  "md5": "8a2db334569eac087ea2f3ec849e1b3a"
+ },
+ "anchor_timing.py": {
+  "sticker": "Dice en qué segundo exacto de la voz empieza cada frase ancla de las imágenes, buscando sus primeras palabras en los tiempos de la voz. Lo comparten el armado de imágenes, la capa gráfica y el reparto de duraciones, para que todos midan igual.",
+  "recibe": "lista de anchors (frases del guion) y las palabras con tiempos de output/audio/<id>/chNN_timestamps.json.",
+  "entrega": "lista de segundos de inicio, uno por anchor, o None si algún anchor no se encuentra o los tiempos no crecen.",
+  "modelo": [],
+  "etapa": ["voz", "fondos", "render", "orquestador/form"],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/m03_visual.py:1842 (etapa voz), fase2b.py:796 (fondos y render), script_engine/gfx_layer.py:143 (render) y qa_studio_server.py:322 llaman compute_anchor_starts",
+  "funciones_muertas": [],
+  "md5": "a8be6710815331a61a503795ebe7c0d9"
+ },
+ "patch_sync_map_mixing.py": {
+  "sticker": "Parche descartable de una sola vez: reescribía el bloque de volúmenes del sync_map de Pripyat con el perfil de audio activo y dejaba una copia de respaldo. Nadie lo llama; si alguien lo corre, toca ese video fijo.",
+  "recibe": "output/audio/7b52de57-eee6-4018-ac25-8357e9779d92/sync_map.json y el perfil activo de audio_profiles.py.",
+  "entrega": "el mismo sync_map.json con el bloque mixing reemplazado y output/audio/<id>/sync_map.json.bak_pre_chat28_mixing_patch.",
+  "modelo": [],
+  "etapa": ["ninguna"],
+  "estado": "huérfano",
+  "estado_prueba": "ningún archivo lo importa ni lo lanza (solo se nombra en lab/tools/mapa_modulos.py:39 como lista del mapa); su propio docstring dice «Descartable después de chat 28» (línea 6)",
+  "funciones_muertas": [],
+  "md5": "b06c40beea08c6d943fcafcc134fdd27"
+ }
+}

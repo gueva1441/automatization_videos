@@ -1,0 +1,79 @@
+{
+ "script_engine/m05_judge.py": {
+  "sticker": "Juez visual viejo: por cada capítulo le pide a Gemini Flash que compare lo que dice la narración con lo que va a mostrar cada imagen, y arma un reporte de problemas (nombres propios, texto legible, anacronismos) con un menú para aprobar o rechazar. Desde el chat 119 está desconectado de la cadena: nadie lo llama en producción.",
+  "recibe": "data/topics_db.json y data/scripts/_steps/<id>/01a_skeleton.json, 03_visual.json y (opcional) 02_profiles.json; el prompt fijo script_engine/m05_PROMPT_v1.txt.",
+  "entrega": "data/scripts/_steps/<id>/05_judge.json (veredicto PASS/FLAG, lista de issues con cohorte si se votó, reporte de texto).",
+  "modelo": [{"modelo": "Gemini Flash vía gemini_helpers.call_flash_json (modelo = config gemini_model)", "para": "auditar por capítulo imagen contra narración, con response_schema y hasta 3 reintentos con feedback"}],
+  "etapa": ["ninguna"],
+  "estado": "huérfano",
+  "estado_prueba": "ningún .py de producción lo importa (fase1_5.py:15 y :65 dicen que se desconectó en el chat 119); solo test_module_05*.py, test_module_34_m05_pivots.py y _lab_chat66b_m05_schema.py",
+  "funciones_muertas": [{"nombre": "judge_topic_with_voting", "linea": 1855, "por_que": "nadie la nombra en producción; solo test_module_05_voting_live.py; es la entrada del juez con votos y todo el módulo cuelga de ella"}],
+  "md5": "0650dd6384bc4e816d95c052b6581407"
+ },
+ "script_engine/m05_narrative.py": {
+  "sticker": "Juez de la narración, sin IA: mide cada capítulo del guion contra los datos del research (densidad de datos, repeticiones, adjetivos, cifras inventadas, fechas mezcladas, citas falsas, datos reservados para pantalla) y deja un reporte. También presta sus detectores al guionista v4 y a la capa gráfica.",
+  "recibe": "Texto de la narración + evidence_pool del topic (data/scripts/_steps/<id>/01_facts_sources.json, 01a_skeleton.json, 01b_narration.json).",
+  "entrega": "data/scripts/_steps/<id>/06_judge_narrative.json y listas de problemas en memoria para guion_v4, pantalla_colocar y gfx_layer.",
+  "modelo": [],
+  "etapa": ["guion", "guion_pantalla", "render"],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.py:418 y :435 (run_guion_v4 → judge_narration); script_engine/guion_v4.py:794, :952, :1238; gfx_peak.py:52 y gfx_pool.py:92 (adjectives) en la capa gráfica",
+  "funciones_muertas": [],
+  "md5": "9359e89077137ff050bddc691c489803"
+ },
+ "script_engine/m06_classifier.py": {
+  "sticker": "Clasificador viejo que venía después del juez visual: para cada problema que el juez marcó le pide a Gemini Flash que lo ponga en un cajón (auto-corregible, leve, grave, falso positivo), reescribe prompts, arma un handoff para Claude Code y ofrece un menú. Desconectado de la cadena desde el chat 119.",
+  "recibe": "Salida del juez m05 (all_issues con cohorte), data/scripts/_steps/<id>/03_visual.json, 01b_narration.json, 01a_skeleton.json, data/topics_db.json y data/issues_log/known_fps.json.",
+  "entrega": "data/issues_log/<id>/<bucket>_NN.json, HANDOFF_CC_<fecha>.md, backup 03_visual.json.bak_pre_m06 y, al pasar, data/scripts/<id>.json vía m06_assembler.",
+  "modelo": [{"modelo": "Gemini Flash vía gemini_helpers.call_flash_json (modelo = config gemini_model)", "para": "clasificar cada issue en un bucket con response_schema"}],
+  "etapa": ["ninguna"],
+  "estado": "huérfano",
+  "estado_prueba": "ningún .py de producción lo importa (fase1_5.py:15 y :65); solo test_m06_autopass.py y _lab_chat66b_m06_schema.py",
+  "funciones_muertas": [{"nombre": "classify_and_decide", "linea": 593, "por_que": "nadie la nombra en producción; solo la ejercita test_m06_autopass.py; es la entrada pública del módulo y todo lo demás cuelga de ella"}],
+  "md5": "630aeb15dc6c9bfa68af17b81e4ab886"
+ },
+ "script_engine/m06_assembler.py": {
+  "sticker": "Arma el archivo final del guion de un video (el «contrato» que leen los assets y el render): junta la narración, los prompts visuales y la foto madre del sujeto, marca los capítulos 1 y 7 para Veo y el resto para Flux.",
+  "recibe": "data/scripts/_steps/<id>/01b_narration.json y 03_visual.json, y el topic en data/topics_db.json (foto madre, hechos, evidence_pool, fuentes).",
+  "entrega": "data/scripts/<id>.json (capítulos, foto_madre_registry, evidence_pool, verified_facts, contadores veo/flux).",
+  "modelo": [],
+  "etapa": ["voz"],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.py:68 (import) y :657 (process_topic, paso assemble tras m03 cuando corre desde normalizer_gate = etapa voz de run_pipeline._paso_voz)",
+  "funciones_muertas": [],
+  "md5": "24220fd709df1e260832503835d91c00"
+ },
+ "script_engine/flow_director.py": {
+  "sticker": "Le pregunta a Gemini Flash, en una sola llamada, qué movimiento de cámara 2.5D (horizontal, vertical u orbital) darle a cada imagen del video, y garantiza que no haya más de dos seguidos iguales. Si Gemini falla, reparte movimientos por posición.",
+  "recibe": "Lista de escenas en memoria (número, etiqueta de capítulo, narración, prompt de imagen) que arma fase2b desde el manifest y data/scripts/<id>.json.",
+  "entrega": "Lista de FlowSpec (movement, intensity, steady, dof, reasoning), una por imagen; fase2b la cachea como flow_specs.",
+  "modelo": [{"modelo": "Gemini Flash vía gemini_helpers.call_flash_json (modelo = config gemini_model)", "para": "elegir el movimiento DepthFlow de cada imagen en una sola pasada"}],
+  "etapa": ["fondos"],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:49 (import) y :2271 (_dispatch_flow_specs → select_movements_batch), invocado por run_pipeline._paso_fondos (fase2b.py <id>)",
+  "funciones_muertas": [],
+  "md5": "e43892eebd5a04902a7acbc376593d87"
+ },
+ "flow_config.py": {
+  "sticker": "Ajustes técnicos del movimiento de cámara 2.5D (DepthFlow): calidad de render, la lista cerrada de los tres movimientos permitidos y los rangos de intensidad y estabilidad.",
+  "recibe": "Nada del disco; solo la ruta base de config (BASE_DIR).",
+  "entrega": "Constantes y helpers en memoria: flow_render, param_ranges, VALID_MOVEMENTS, render_inventory_for_prompt, clamp_intensity, clamp_steady.",
+  "modelo": [],
+  "etapa": ["fondos"],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/flow_director.py:27 (VALID_MOVEMENTS, clamps, inventario) y parallax_animator_v2.py:28 y depth_probe.py:26 (flow_render), todos cargados por fase2b en fondos",
+  "funciones_muertas": [],
+  "md5": "0b559627ebddd261ab1bf7f76add32eb"
+ },
+ "flow_profiles.py": {
+  "sticker": "Solo define la forma de los datos de un movimiento de cámara (FlowSpec). Era el catálogo de reglas por perfil de arte y quedó reducido a ese tipo desde el chat 19.",
+  "recibe": "Nada.",
+  "entrega": "La clase FlowSpec (TypedDict) que consumen fase2b, el director y el animador.",
+  "modelo": [],
+  "etapa": ["fondos"],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:63, script_engine/flow_director.py:33 y script_engine/parallax_animator_v2.py:29 importan FlowSpec",
+  "funciones_muertas": [],
+  "md5": "e63341137dc76297ac49e21cdee3bcfc"
+ }
+}

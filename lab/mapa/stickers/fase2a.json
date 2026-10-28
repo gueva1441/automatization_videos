@@ -1,0 +1,683 @@
+{
+ "_nota": "F42 §B: stickers de la zona fase2a, escritos por los workers (Sonnet) que leyeron cada archivo entero; `md5` = el del archivo leído (`mapa_modulos.py --check` avisa si cambió). `_parte` = el worker.",
+ "anchor_timing.py": {
+  "sticker": "Dice en qué segundo exacto de la voz empieza cada frase ancla de las imágenes, buscando sus primeras palabras en los tiempos de la voz. Lo comparten el armado de imágenes, la capa gráfica y el reparto de duraciones, para que todos midan igual.",
+  "recibe": "lista de anchors (frases del guion) y las palabras con tiempos de output/audio/<id>/chNN_timestamps.json.",
+  "entrega": "lista de segundos de inicio, uno por anchor, o None si algún anchor no se encuentra o los tiempos no crecen.",
+  "modelo": [],
+  "etapa": [
+   "voz",
+   "fondos",
+   "render",
+   "orquestador/form"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/m03_visual.py:1842 (etapa voz), fase2b.py:796 (fondos y render), script_engine/gfx_layer.py:143 (render) y qa_studio_server.py:322 llaman compute_anchor_starts",
+  "funciones_muertas": [],
+  "md5": "a8be6710815331a61a503795ebe7c0d9",
+  "_parte": "fase2a_c"
+ },
+ "art_config.py": {
+  "sticker": "Parámetros técnicos de la generación de imágenes con Leonardo (modelo, tamaño, contraste, estilo). Leonardo ya no es el motor y ningún módulo importa este archivo.",
+  "recibe": "Valores de config (modelo Leonardo, ancho y alto de imagen)",
+  "entrega": "Nada: define LEONARDO_SETTINGS y nadie lo lee",
+  "modelo": [],
+  "etapa": [
+   "ninguna"
+  ],
+  "estado": "huérfano",
+  "estado_prueba": "grep de 'art_config' y 'LEONARDO_SETTINGS': solo aparece en un comentario de fase2a.py:26 y en su propio archivo",
+  "funciones_muertas": [],
+  "md5": "db741f42be5cf994ced55f02bcc5069c",
+  "_parte": "fase2a_d"
+ },
+ "art_profiles.py": {
+  "sticker": "Catálogo viejo de estilos visuales (13 «perfiles de ADN»: submarino, polar, desierto, etc.) con sus textos de paleta/óptica, el movimiento de ambiente para clips Veo y utilidades para pegarlos a un prompt. Desde el chat 19 está desconectado del flujo: ningún módulo de producción lo importa.",
+  "recibe": "Nada en producción (solo lo importan tests: test_module_02.py importa VALID_PROFILES y test_module_05.py lo simula)",
+  "entrega": "Nada en producción; expone ART_PROFILES, VEO_MOTION, PROFILE_GUIDE, NEGATIVE_PROMPT_GLOBAL y las funciones stitch_*/detect_*",
+  "modelo": [],
+  "etapa": [
+   "ninguna"
+  ],
+  "estado": "huérfano",
+  "estado_prueba": "grep de 'import art_profiles' / 'from art_profiles': 0 imports en producción; asset_manager.py:133 y m03_visual.py:14 dicen que el catálogo está desconectado",
+  "funciones_muertas": [
+   {
+    "nombre": "stitch_prompt",
+    "linea": 155,
+    "por_que": "nadie la nombra, ni producción ni tests"
+   },
+   {
+    "nombre": "stitch_prompt_with_subject",
+    "linea": 172,
+    "por_que": "nadie la nombra, ni producción ni tests"
+   },
+   {
+    "nombre": "detect_style_leakage",
+    "linea": 210,
+    "por_que": "nadie la nombra, ni producción ni tests"
+   },
+   {
+    "nombre": "detect_metadata_leak",
+    "linea": 255,
+    "por_que": "nadie la nombra, ni producción ni tests"
+   },
+   {
+    "nombre": "stitch_veo_video_prompt",
+    "linea": 414,
+    "por_que": "nadie la nombra, ni producción ni tests"
+   }
+  ],
+  "md5": "bebff412fa1d03d3d5d596b10816f04f",
+  "_parte": "fase2a_d"
+ },
+ "audio_config.py": {
+  "sticker": "Es el interruptor que dice qué perfil de sonido usa el canal (MISTERIO_ABISAL) y deja listo AUDIO_STYLE, el perfil elegido, para quien lo consulte.",
+  "recibe": "AUDIO_PROFILES de audio_profiles.py.",
+  "entrega": "ACTIVE_AUDIO_PROFILE y AUDIO_STYLE.",
+  "modelo": [],
+  "etapa": [
+   "guion",
+   "voz",
+   "herramienta manual"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "audio_manager.py:55 importa AUDIO_STYLE y ACTIVE_AUDIO_PROFILE; script_engine/voz_utils.py:396 lo usa para saber la voz del narrador",
+  "funciones_muertas": [],
+  "md5": "3ebbcbab79e7e64bcd048c11b0ac1cf3",
+  "_parte": "fase2a_c"
+ },
+ "audio_manager.py": {
+  "sticker": "Le da voz al video: manda el texto de cada capítulo a ElevenLabs, guarda el mp3, mide cuándo suena cada palabra con el alineador de ElevenLabs y arma el sync_map, el índice con duraciones, tiempos y volúmenes que usan todas las etapas siguientes. Si el texto no cambió, reusa el audio ya grabado.",
+  "recibe": "guion armado por fase1_5 (video_id + capítulos con texto, intención y, si es guion v4, narration_tts); data/scripts/_steps/<id>/01b_narration_normalized.json si existe; perfil de audio de audio_config/audio_profiles.",
+  "entrega": "output/audio/<id>/chNN.mp3, chNN_timestamps.json, chNN_alignment.json, chNN.meta.json y output/audio/<id>/sync_map.json.",
+  "modelo": [
+   {
+    "modelo": "ElevenLabs TTS: eleven_v4 con la voz voice_id_v4 del perfil para guiones con narration_tts; api.elevenlabs_model (constante de config) con la voz voice_id del perfil si TTS_V2=1 o no hay narration_tts",
+    "para": "convertir el texto de cada capítulo en voz"
+   },
+   {
+    "modelo": "ElevenLabs Forced Alignment (/v1/forced-alignment)",
+    "para": "sacar el tiempo de cada palabra del audio ya grabado"
+   }
+  ],
+  "etapa": [
+   "voz",
+   "orquestador/form"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.py:574 llama audio_manager.process_script en el paso audio (etapa voz); qa_studio_server.py:1257 lo usa para re-grabar un capítulo desde el form",
+  "funciones_muertas": [
+   {
+    "nombre": "_transcribe_word_timestamps",
+    "linea": 149,
+    "por_que": "nadie la llama en todo el repo; era el camino con Whisper, reemplazado por el Forced Alignment de ElevenLabs"
+   },
+   {
+    "nombre": "_force_align_to_script",
+    "linea": 208,
+    "por_que": "nadie la llama en todo el repo; solo la nombra el docstring de test_module_38_timestamps_lab.py (camino Whisper viejo)"
+   }
+  ],
+  "md5": "ec793287942671a54ae266ef9addf2ff",
+  "_parte": "fase2a_c"
+ },
+ "audio_profiles.py": {
+  "sticker": "Es el catálogo de perfiles de sonido del canal: qué voz usa cada perfil (Bill, MS Narrador v4, George, Daniel), los ajustes de la voz por tipo de momento narrativo y los volúmenes de música y efectos con su ducking. Solo datos.",
+  "recibe": "nada (diccionarios escritos a mano).",
+  "entrega": "AUDIO_PROFILES, VOICE_SETTINGS_BY_INTENT y VOICE_SETTINGS_BY_INTENT_V4, que importan audio_config, audio_manager y mixer_server.",
+  "modelo": [],
+  "etapa": [
+   "guion",
+   "voz",
+   "herramienta manual"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "audio_manager.py:56 importa VOICE_SETTINGS_BY_INTENT y _V4; audio_config.py:5 importa AUDIO_PROFILES (usado por fase1_5 vía audio_manager); mixer_server.py:41 lo importa",
+  "funciones_muertas": [],
+  "md5": "7ebf9a15fe0bd00df3d8c586581e56d1",
+  "_parte": "fase2a_c"
+ },
+ "engine_profiles.py": {
+  "sticker": "Describe cada motor de imagen (Kling y Seedream) como una ficha: qué modelo llamar, dirección, tamaño de imagen, costo y, para Seedream, el orden de las piezas del prompt. Con la clave del motor activo devuelve su ficha, así cambiar de motor es cambiar de ficha y no de código.",
+  "recibe": "api.image_engine y datos de config (nombres de modelo, ancho y alto de imagen)",
+  "entrega": "El EngineProfile del motor pedido (o None para flux), que leen asset_manager y m03_visual",
+  "modelo": [
+   {
+    "modelo": "api.fal_kling_model",
+    "para": "perfil Kling: model_id de la llamada a fal"
+   },
+   {
+    "modelo": "fal-ai/bytedance/seedream/v5/lite/text-to-image (SEEDREAM_V5_LITE_MODEL_ID)",
+    "para": "perfil Seedream: model_id de la llamada a fal"
+   }
+  ],
+  "etapa": [
+   "voz",
+   "assets"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "asset_manager.py:257,278,329 y script_engine/m03_visual.py:965 llaman select_profile (m03 corre en voz, asset_manager en assets)",
+  "funciones_muertas": [],
+  "md5": "bf4cc0382effa027c77a9d44f31de49a",
+  "_parte": "fase2a_d"
+ },
+ "fase2a.py": {
+  "sticker": "Es la etapa «assets» del form: toma el guion ensamblado del video, lo traduce al formato que esperan los gestores, comprueba que la voz ya esté hecha, reintenta la foto madre si faltó y manda a generar las imágenes de cada capítulo (y los clips Veo). Al terminar marca el tema como «assets_rendered». No arma el video: eso lo hace fase2b.",
+  "recibe": "data/scripts/<id>.json (contrato que deja fase1_5), output/audio/<id>/sync_map.json (en LONG), data/topics_db (estado del tema), data/fase1_review.csv (solo si se corre sin --topic)",
+  "entrega": "output/<id>/assets/assets_manifest.json (vía asset_manager), foto madre en output/<id>/foto_madre/ si faltaba, topic con status='assets_rendered' en la base de temas",
+  "modelo": [
+   {
+    "modelo": "api.image_engine (motor de imagen activo, vía asset_manager.process_script; perfiles en engine_profiles)",
+    "para": "generar las imágenes de cada capítulo"
+   },
+   {
+    "modelo": "openai/gpt-image-2 (MADRE_IMAGE_MODEL, vía foto_madre)",
+    "para": "reintento idempotente de la foto madre"
+   },
+   {
+    "modelo": "Veo vía fal (asset_manager._generate_veo_clip)",
+    "para": "clips de capítulos con render_engine='veo'"
+   },
+   {
+    "modelo": "ElevenLabs (api.elevenlabs_model, audio_manager.process_script)",
+    "para": "solo la rama SHORT: generar la voz en un tiro"
+   }
+  ],
+  "etapa": [
+   "assets"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "run_pipeline.py:342 lo lanza como cmd ['fase2a.py','--topic',tid] en la etapa assets",
+  "funciones_muertas": [],
+  "md5": "48e2566121c229e8e29ba62296b12749",
+  "_parte": "fase2a_d"
+ },
+ "flow_config.py": {
+  "sticker": "Ajustes técnicos del movimiento de cámara 2.5D (DepthFlow): calidad de render, la lista cerrada de los tres movimientos permitidos y los rangos de intensidad y estabilidad.",
+  "recibe": "Nada del disco; solo la ruta base de config (BASE_DIR).",
+  "entrega": "Constantes y helpers en memoria: flow_render, param_ranges, VALID_MOVEMENTS, render_inventory_for_prompt, clamp_intensity, clamp_steady.",
+  "modelo": [],
+  "etapa": [
+   "fondos"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/flow_director.py:27 (VALID_MOVEMENTS, clamps, inventario) y parallax_animator_v2.py:28 y depth_probe.py:26 (flow_render), todos cargados por fase2b en fondos",
+  "funciones_muertas": [],
+  "md5": "0b559627ebddd261ab1bf7f76add32eb",
+  "_parte": "fase2a_b"
+ },
+ "flow_profiles.py": {
+  "sticker": "Solo define la forma de los datos de un movimiento de cámara (FlowSpec). Era el catálogo de reglas por perfil de arte y quedó reducido a ese tipo desde el chat 19.",
+  "recibe": "Nada.",
+  "entrega": "La clase FlowSpec (TypedDict) que consumen fase2b, el director y el animador.",
+  "modelo": [],
+  "etapa": [
+   "fondos"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:63, script_engine/flow_director.py:33 y script_engine/parallax_animator_v2.py:29 importan FlowSpec",
+  "funciones_muertas": [],
+  "md5": "e63341137dc76297ac49e21cdee3bcfc",
+  "_parte": "fase2a_b"
+ },
+ "foto_madre.py": {
+  "sticker": "Genera la «foto madre» del video: una imagen de referencia limpia del sujeto principal (objeto o lugar) y de cada objeto clave anclado, para que después todas las imágenes de capítulo mantengan el mismo aspecto. Usa GPT Image 2 y, si falla, el motor de imagen activo; si ya hay un archivo (o Omar dejó uno a mano) lo reutiliza en vez de generar.",
+  "recibe": "El topic de la base de temas (central_subject, era_visual_canon, documented_props, anachronism_blocklist) y el video_id",
+  "entrega": "output/<id>/foto_madre/<nombre>.png y el path absoluto guardado en topic[...]['foto_madre'] (el que llama persiste con save_db)",
+  "modelo": [
+   {
+    "modelo": "openai/gpt-image-2 (MADRE_IMAGE_MODEL, vía fal)",
+    "para": "generar cada foto madre en 2560x1440"
+   },
+   {
+    "modelo": "api.image_engine (vía asset_manager._generate_image_raw)",
+    "para": "fallback si GPT Image 2 falla"
+   }
+  ],
+  "etapa": [
+   "voz",
+   "assets"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.py:647 lo llama (paso0, tras m03, dentro del comando de voz) y fase2a.py:337 como reintento",
+  "funciones_muertas": [],
+  "md5": "c3e6507527742723fc21c8ecb83a5288",
+  "_parte": "fase2a_d"
+ },
+ "music_config.py": {
+  "sticker": "Guarda lo que define el sonido de la música del canal: el texto del sonido del canal, qué pide cada momento narrativo (paleta), los prompts viejos por momento, la lista de estilos prohibidos, la dirección del servicio de música de ElevenLabs y el umbral del elegidor. Es solo datos y dos funciones para armar y validar prompts.",
+  "recibe": "nada (constantes escritas a mano en el archivo).",
+  "entrega": "constantes y funciones que importa m07_music_director (MUSIC_API_URL, MUSIC_MODEL_ID, PALETA_INTENTS, NEGATIVE_GLOBAL_STYLES, build_music_prompt, validate_music_config) y promote_palette_to_library_chat36.py.",
+  "modelo": [],
+  "etapa": [
+   "voz"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/m07_music_director.py:48-64 lo importa y fase1_5.py:599 corre generate_music_map, que llama validate_music_config (m07:1047)",
+  "funciones_muertas": [],
+  "md5": "a9e888ba91a3b65a647ec70d634c9023",
+  "_parte": "fase2a_c"
+ },
+ "patch_sync_map_mixing.py": {
+  "sticker": "Parche descartable de una sola vez: reescribía el bloque de volúmenes del sync_map de Pripyat con el perfil de audio activo y dejaba una copia de respaldo. Nadie lo llama; si alguien lo corre, toca ese video fijo.",
+  "recibe": "output/audio/7b52de57-eee6-4018-ac25-8357e9779d92/sync_map.json y el perfil activo de audio_profiles.py.",
+  "entrega": "el mismo sync_map.json con el bloque mixing reemplazado y output/audio/<id>/sync_map.json.bak_pre_chat28_mixing_patch.",
+  "modelo": [],
+  "etapa": [
+   "ninguna"
+  ],
+  "estado": "huérfano",
+  "estado_prueba": "ningún archivo lo importa ni lo lanza (solo se nombra en lab/tools/mapa_modulos.py:39 como lista del mapa); su propio docstring dice «Descartable después de chat 28» (línea 6)",
+  "funciones_muertas": [],
+  "md5": "b06c40beea08c6d943fcafcc134fdd27",
+  "_parte": "fase2a_c"
+ },
+ "promote_palette_to_library_chat36.py": {
+  "sticker": "Script de una sola vez del chat 36: pasa los 7 tracks de música elegidos por Omar a la biblioteca de música (audio_library/) como la biblioteca fija, escribe su descriptor JSON y manda lo que hubiera en la biblioteca a un backup. No llama a ningún servicio de pago.",
+  "recibe": "_music_palette_test_chat36/*.mp3 (los 7 ganadores), lo que haya en audio_library/, ACTIVE_AUDIO_PROFILE y NEGATIVE_GLOBAL_STYLES",
+  "entrega": "audio_library/<intent>_curated.mp3 + .json, y los archivos previos movidos a audio_library_backup_nyos_chat36/",
+  "modelo": [],
+  "etapa": [
+   "herramienta manual"
+  ],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "tiene if __name__ == '__main__' (línea 195) y nadie lo importa ni lo lanza (grep del repo: solo su propio docstring)",
+  "funciones_muertas": [],
+  "md5": "e472e69beea502060ef767cf3c9e68bf",
+  "_parte": "fase2a_d"
+ },
+ "script_engine/depth_probe.py": {
+  "sticker": "Mide la profundidad real de cada imagen con el estimador DepthAnythingV2 (en el entorno aislado de DepthFlow, en la GPU local) y decide qué imágenes pueden ser candidatas a zoom: las que tienen un sujeto cercano en el centro y un fondo que se aleja. También elige el tope de zooms por capítulo y marca las imágenes con retrato como de riesgo de deformación para que el render use un movimiento seguro.",
+  "recibe": "Los PNG de cada capítulo (output/<id>/assets/*.png), los prompts de imagen del guion (data/scripts/<id>.json) y los veredictos cacheados del juez (output/<id>/assets/zoom_verdicts.json); el caché de métricas output/<id>/assets/depth_metrics.json.",
+  "entrega": "output/<id>/assets/depth_metrics.json (c-b, percentiles y spread por imagen) y, en memoria para fase2b, la lista de candidatas, el orden de promoción y el riesgo de deformación low/high por imagen.",
+  "modelo": [
+   {
+    "modelo": "DepthAnythingV2 (broken.externals.depthmap, local en .venv-depthflow, sin costo de API)",
+    "para": "estimar el mapa de profundidad de cada PNG"
+   }
+  ],
+  "etapa": [
+   "fondos",
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:2424 (probe_images y gate_zoom dentro de _apply_zoom_gate, llamado en fase2b.py:3300 cuando no hay --reuse-visuals, etapa fondos) y fase2b.py:2585-2625 (route_images y portrait_candidates en _route_safe, fase2b.py:3376, que corren en --plan-only y en el render con --gfx).",
+  "funciones_muertas": [],
+  "md5": "1e89f18904d5572d74e30bd381865b4a",
+  "_parte": "fase2a_a"
+ },
+ "script_engine/flow_director.py": {
+  "sticker": "Le pregunta a Gemini Flash, en una sola llamada, qué movimiento de cámara 2.5D (horizontal, vertical u orbital) darle a cada imagen del video, y garantiza que no haya más de dos seguidos iguales. Si Gemini falla, reparte movimientos por posición.",
+  "recibe": "Lista de escenas en memoria (número, etiqueta de capítulo, narración, prompt de imagen) que arma fase2b desde el manifest y data/scripts/<id>.json.",
+  "entrega": "Lista de FlowSpec (movement, intensity, steady, dof, reasoning), una por imagen; fase2b la cachea como flow_specs.",
+  "modelo": [
+   {
+    "modelo": "Gemini Flash vía gemini_helpers.call_flash_json (modelo = config gemini_model)",
+    "para": "elegir el movimiento DepthFlow de cada imagen en una sola pasada"
+   }
+  ],
+  "etapa": [
+   "fondos"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:49 (import) y :2271 (_dispatch_flow_specs → select_movements_batch), invocado por run_pipeline._paso_fondos (fase2b.py <id>)",
+  "funciones_muertas": [],
+  "md5": "e43892eebd5a04902a7acbc376593d87",
+  "_parte": "fase2a_b"
+ },
+ "script_engine/image_grade.py": {
+  "sticker": "Le da a cada imagen generada un aspecto de película vieja antes de animarla: baja la saturación, levanta un poco los negros, agrega viñeta leve, grano fino y un tono ligeramente frío, con ffmpeg. Guarda la imagen graduada al lado de la original y la original no se toca.",
+  "recibe": "Cada PNG de imagen del manifest de assets (output/<id>/assets/...png) y, opcional, una clave image_grade en gfx_profiles/misterio.json (hoy el perfil no la trae: valen los DEFAULTS del módulo).",
+  "entrega": "output/<id>/assets/<nombre>_graded.png al lado de cada original; asset_manager cambia el path del manifest al graduado.",
+  "modelo": [],
+  "etapa": [
+   "assets"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "asset_manager.py:1215-1229 (_apply_grade importa image_grade y llama params() y grade()), invocado en asset_manager.py:1321 cuando _grade_enabled(script) (guion v3 con marca 'sensible' en las imágenes, o IMAGE_GRADE=1).",
+  "funciones_muertas": [
+   {
+    "nombre": "stats",
+    "linea": 77,
+    "por_que": "en producción nadie la llama; solo test_module_f8b.py y test_module_05_voting_live.py (la medición del test del grade)"
+   }
+  ],
+  "md5": "3600eb520b3aaa2f3871ab8d119a741a",
+  "_parte": "fase2a_a"
+ },
+ "script_engine/m02_5_normalizer_gate.py": {
+  "sticker": "Revisa cómo va a leer ElevenLabs cada capítulo antes de grabar la voz: Gemini marca siglas, años, horas, números grandes y palabras raras que se leerían mal y propone cómo escribirlas hablado; en modo batch se aplican todas, en modo manual una persona aprueba una por una. Las siglas que se repiten entre videos pasan al diccionario del canal.",
+  "recibe": "narración del video (data/scripts/_steps/<id>/01b_narration.json, que no se toca); diccionario data/normalizer_custom_dict.json; siglas conocidas de tts_normalizer.",
+  "entrega": "data/scripts/_steps/<id>/01b_narration_normalized.json (texto listo para la voz) y, si hay siglas recurrentes nuevas, entradas nuevas en data/normalizer_custom_dict.json.",
+  "modelo": [
+   {
+    "modelo": "Gemini Flash (call_flash_json, constante gemini_model de config)",
+    "para": "auditar la narración y proponer las formas habladas"
+   }
+  ],
+  "etapa": [
+   "voz"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.py:541 llama m02_5_normalizer_gate.gate_normalizer_for_topic (paso normalizer_gate, primer paso de la etapa voz)",
+  "funciones_muertas": [],
+  "md5": "77d0d290cf0b21387f19686fbc1e1530",
+  "_parte": "fase2a_c"
+ },
+ "script_engine/m03_imagenes_v3.py": {
+  "sticker": "Reglas de las imágenes del guion v3: reparte los beats de la escaleta entre las imágenes de cada capítulo, pone el estilo de película granulada al principio y al final del prompt, y detecta o limpia lo que no puede llevar una imagen (manos y caras en primer plano, armas, sangre, menores en daño, conteos exactos, izquierda/derecha, texto en el idioma equivocado). También audita el video entero (motivos repetidos, cuerpos, planos medios) y propone re-encuadres. Todo es determinista, sin llamar a ningún modelo.",
+  "recibe": "La escaleta y la narración v3 del tema (data/scripts/_steps/<id>/01a_escaleta.json y 01b_narracion_v3.json, o topic['escaleta'] / topic['parrafos_v3']), el evidence_pool del tema, y las anclas, slots y prosa que le pasa m03_visual.",
+  "entrega": "Datos en memoria para m03_visual: beats por capítulo, asignación beat-imagen, prosa corregida y envuelta en el estilo, marcas sensible/motivos por imagen y reporte de auditoría (se guardan dentro de data/scripts/_steps/<id>/03_visual.json como _f8_imagenes y reencuadres_propuestos). No escribe archivos propios.",
+  "modelo": [],
+  "etapa": [
+   "voz"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/m03_visual.py:107 lo importa (v3img) y lo usa en m03_visual.py:969-1100 y 2571; m03_visual corre dentro de fase1_5.py:632 (etapa voz).",
+  "funciones_muertas": [],
+  "md5": "4d9c036355dc7efe55f818a560e0e8f4",
+  "_parte": "fase2a_a"
+ },
+ "script_engine/m03_visual.py": {
+  "sticker": "Escribe, para cada capítulo del documental, la descripción de cada imagen que después pinta el generador (Seedream). Elige qué frase de la narración ilustra cada imagen, llena la ficha de la escena con un modelo de Gemini, la teje en un texto fluido y revisa que las cifras de los datos verificados salgan bien, que no se cuelen nombres de personas ni texto escrito en la imagen. En los capítulos 1 y 7 además redacta el movimiento del clip de video.",
+  "recibe": "El tema ya armado (data/topics_db.json: datos verificados, canon visual de época, personas y objetos documentados, evidence_pool), el esqueleto y la narración (data/scripts/_steps/<id>/01a_*.json y 01b_*.json), el mapa de sincronía del audio (output/audio/<id>/sync_map.json), los tiempos por palabra (output/audio/<id>/chNN_timestamps.json) y la escaleta v3 si existe (data/scripts/_steps/<id>/01a_escaleta.json, 01b_narracion_v3.json).",
+  "entrega": "data/scripts/_steps/<id>/03_visual.json (por capítulo: image_prompts con prompt final, ancla de narración, rango emocional, foto_madre_ref; en caps 1 y 7: image_prompt, video_prompt y supplemental_image_prompts); lo devuelve también como dict a fase1_5.py, que lo ensambla al contrato data/scripts/<id>.json. Sus constantes DOCTRINE_* las reutiliza m09_packaging.",
+  "modelo": [
+   {
+    "modelo": "api.gemini_model_research (por config; call_pro_json)",
+    "para": "llenar los casilleros de cada imagen (slots) por capítulo y el movimiento del clip de apertura/cierre (description m03:slots y m03:motion)"
+   },
+   {
+    "modelo": "api.gemini_model (por config; call_flash_json, thinking_budget=0)",
+    "para": "elegir las anclas de narración (paso 1) y tejer los casilleros en prosa con candado de cifras (m03:fluidificador)"
+   }
+  ],
+  "etapa": [
+   "voz",
+   "packaging"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.py:632 llama assign_visual_prompts dentro de process_topic (tramo audio -> m07 -> m03 que corre con --from normalizer_gate, el comando de la etapa voz en run_pipeline); script_engine/m09_packaging.py:40 importa DOCTRINE_* en tiempo de carga (fase3, etapa packaging).",
+  "funciones_muertas": [
+   {
+    "nombre": "_format_bullets",
+    "linea": 1368,
+    "por_que": "nadie la nombra en todo el repo; solo su definición"
+   },
+   {
+    "nombre": "_format_visual_canon_block",
+    "linea": 1374,
+    "por_que": "sin llamadores; solo la nombran un comentario/docstring (m03_visual.py:367) y test_module_m03_reglas_133.py, que cuenta su texto en el fuente (la declara 'dead code') sin ejecutarla"
+   },
+   {
+    "nombre": "_validate_no_text_leakage",
+    "linea": 1895,
+    "por_que": "en producción nadie la llama (el camino seedream usa _find_text_leakage); solo test_module_03_text_leakage_casing.py"
+   }
+  ],
+  "md5": "8d92e8f7e41f6e8cd8f05460646b1b72",
+  "_parte": "fase2a_a"
+ },
+ "script_engine/m05_judge.py": {
+  "sticker": "Juez visual viejo: por cada capítulo le pide a Gemini Flash que compare lo que dice la narración con lo que va a mostrar cada imagen, y arma un reporte de problemas (nombres propios, texto legible, anacronismos) con un menú para aprobar o rechazar. Desde el chat 119 está desconectado de la cadena: nadie lo llama en producción.",
+  "recibe": "data/topics_db.json y data/scripts/_steps/<id>/01a_skeleton.json, 03_visual.json y (opcional) 02_profiles.json; el prompt fijo script_engine/m05_PROMPT_v1.txt.",
+  "entrega": "data/scripts/_steps/<id>/05_judge.json (veredicto PASS/FLAG, lista de issues con cohorte si se votó, reporte de texto).",
+  "modelo": [
+   {
+    "modelo": "Gemini Flash vía gemini_helpers.call_flash_json (modelo = config gemini_model)",
+    "para": "auditar por capítulo imagen contra narración, con response_schema y hasta 3 reintentos con feedback"
+   }
+  ],
+  "etapa": [
+   "ninguna"
+  ],
+  "estado": "huérfano",
+  "estado_prueba": "ningún .py de producción lo importa (fase1_5.py:15 y :65 dicen que se desconectó en el chat 119); solo test_module_05*.py, test_module_34_m05_pivots.py y _lab_chat66b_m05_schema.py",
+  "funciones_muertas": [
+   {
+    "nombre": "judge_topic_with_voting",
+    "linea": 1855,
+    "por_que": "nadie la nombra en producción; solo test_module_05_voting_live.py; es la entrada del juez con votos y todo el módulo cuelga de ella"
+   }
+  ],
+  "md5": "0650dd6384bc4e816d95c052b6581407",
+  "_parte": "fase2a_b"
+ },
+ "script_engine/m05_narrative.py": {
+  "sticker": "Juez de la narración, sin IA: mide cada capítulo del guion contra los datos del research (densidad de datos, repeticiones, adjetivos, cifras inventadas, fechas mezcladas, citas falsas, datos reservados para pantalla) y deja un reporte. También presta sus detectores al guionista v4 y a la capa gráfica.",
+  "recibe": "Texto de la narración + evidence_pool del topic (data/scripts/_steps/<id>/01_facts_sources.json, 01a_skeleton.json, 01b_narration.json).",
+  "entrega": "data/scripts/_steps/<id>/06_judge_narrative.json y listas de problemas en memoria para guion_v4, pantalla_colocar y gfx_layer.",
+  "modelo": [],
+  "etapa": [
+   "guion",
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.py:418 y :435 (run_guion_v4 → judge_narration); script_engine/guion_v4.py:794, :952, :1238; gfx_peak.py:52 y gfx_pool.py:92 (adjectives) en la capa gráfica",
+  "funciones_muertas": [],
+  "md5": "9359e89077137ff050bddc691c489803",
+  "_parte": "fase2a_b"
+ },
+ "script_engine/m06_assembler.py": {
+  "sticker": "Arma el archivo final del guion de un video (el «contrato» que leen los assets y el render): junta la narración, los prompts visuales y la foto madre del sujeto, marca los capítulos 1 y 7 para Veo y el resto para Flux.",
+  "recibe": "data/scripts/_steps/<id>/01b_narration.json y 03_visual.json, y el topic en data/topics_db.json (foto madre, hechos, evidence_pool, fuentes).",
+  "entrega": "data/scripts/<id>.json (capítulos, foto_madre_registry, evidence_pool, verified_facts, contadores veo/flux).",
+  "modelo": [],
+  "etapa": [
+   "voz"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.py:68 (import) y :657 (process_topic, paso assemble tras m03 cuando corre desde normalizer_gate = etapa voz de run_pipeline._paso_voz)",
+  "funciones_muertas": [],
+  "md5": "24220fd709df1e260832503835d91c00",
+  "_parte": "fase2a_b"
+ },
+ "script_engine/m06_classifier.py": {
+  "sticker": "Clasificador viejo que venía después del juez visual: para cada problema que el juez marcó le pide a Gemini Flash que lo ponga en un cajón (auto-corregible, leve, grave, falso positivo), reescribe prompts, arma un handoff para Claude Code y ofrece un menú. Desconectado de la cadena desde el chat 119.",
+  "recibe": "Salida del juez m05 (all_issues con cohorte), data/scripts/_steps/<id>/03_visual.json, 01b_narration.json, 01a_skeleton.json, data/topics_db.json y data/issues_log/known_fps.json.",
+  "entrega": "data/issues_log/<id>/<bucket>_NN.json, HANDOFF_CC_<fecha>.md, backup 03_visual.json.bak_pre_m06 y, al pasar, data/scripts/<id>.json vía m06_assembler.",
+  "modelo": [
+   {
+    "modelo": "Gemini Flash vía gemini_helpers.call_flash_json (modelo = config gemini_model)",
+    "para": "clasificar cada issue en un bucket con response_schema"
+   }
+  ],
+  "etapa": [
+   "ninguna"
+  ],
+  "estado": "huérfano",
+  "estado_prueba": "ningún .py de producción lo importa (fase1_5.py:15 y :65); solo test_m06_autopass.py y _lab_chat66b_m06_schema.py",
+  "funciones_muertas": [
+   {
+    "nombre": "classify_and_decide",
+    "linea": 593,
+    "por_que": "nadie la nombra en producción; solo la ejercita test_m06_autopass.py; es la entrada pública del módulo y todo lo demás cuelga de ella"
+   }
+  ],
+  "md5": "630aeb15dc6c9bfa68af17b81e4ab886",
+  "_parte": "fase2a_b"
+ },
+ "script_engine/m07_music_director.py": {
+  "sticker": "Elige la música de fondo de cada capítulo: mira qué pistas ya tiene la biblioteca del canal para ese tipo de momento (gancho, tensión, golpe...), le pide a Gemini que elija una y escribe el mapa de música del video. Si el momento no tiene pista, genera una nueva con ElevenLabs Music y se la hace escuchar a una persona para aprobarla.",
+  "recibe": "sync_map del video (output/audio/<id>/sync_map.json, con el momento narrativo de cada capítulo); pistas de audio_library/*.json y *.mp3; prompts y paleta de music_config.py.",
+  "entrega": "output/audio/<id>/music_map.json (qué pista suena en cada capítulo); si genera pista nueva, audio_library/<pista>.mp3 y .json.",
+  "modelo": [
+   {
+    "modelo": "Gemini Flash (call_flash_json, constante gemini_model de config)",
+    "para": "elegir entre 2 o más pistas candidatas de la biblioteca para un capítulo"
+   },
+   {
+    "modelo": "ElevenLabs Music music_v1 (MUSIC_MODEL_ID)",
+    "para": "generar una pista nueva cuando ninguna encaja (endpoint /v1/music/detailed)"
+   }
+  ],
+  "etapa": [
+   "voz"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.py:599 llama m07_music_director.generate_music_map dentro de process_topic (paso m07, corre con --from normalizer_gate en la etapa voz)",
+  "funciones_muertas": [
+   {
+    "nombre": "plan_composicion",
+    "linea": 1202,
+    "por_que": "ningún código de producción la llama; solo test_module_f28a.py y el script de laboratorio lab/hyperframes/f28/a/f28a_paleta.py (corrida manual de F28a)"
+   },
+   {
+    "nombre": "generar_con_plan",
+    "linea": 1249,
+    "por_que": "ningún código de producción la llama; solo test_module_f28a.py y lab/hyperframes/f28/a/f28a_paleta.py"
+   }
+  ],
+  "md5": "4a2a74f4aa8d3a0fa9fba79b00649359",
+  "_parte": "fase2a_c"
+ },
+ "script_engine/music_intensity.py": {
+  "sticker": "Decide cuándo sube, baja o se calla la música dentro de cada capítulo: la deja de fondo, la sube 3 dB en los momentos intensos, le da un golpe de +5 dB al pico del video y la silencia un instante antes del pico y durante las citas de testigos. No genera audio nuevo: calcula tramos y los aplica como volumen sobre la pieza.",
+  "recibe": "data/scripts/_steps/<id>/01a_escaleta.json, 01b_narracion_v3.json y 00_pool_v3.json; output/audio/<id>/chNN_timestamps.json; la pieza de música de cada capítulo (wav).",
+  "entrega": "mapa en memoria {chNN: tramos} para fase2b y el wav de música con la envolvente aplicada (en el lugar); beat_pico_de_cap y tiempos_por_palabra los leen otros módulos.",
+  "modelo": [],
+  "etapa": [
+   "guion",
+   "fondos",
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:1563 llama mapa_del_topic y fase2b.py:1675 llama aplicar_a_wav al mezclar la música; script_engine/m01e_pantalla.py:200 usa beat_pico_de_cap",
+  "funciones_muertas": [],
+  "md5": "b22429c84ac12140ab6dcf35b370d866",
+  "_parte": "fase2a_c"
+ },
+ "script_engine/parallax_animator_v2.py": {
+  "sticker": "Le da movimiento a cada imagen fija del video: arma un clip mudo de pocos segundos con efecto de profundidad 2.5D (DepthFlow, corre local en la GPU, sin costo) y, si DepthFlow falla, cae a un zoom simple de FFmpeg. Para los paneos y la órbita renderiza siempre un ciclo de 7 s y lo repite hasta la duración que pide la imagen; también atenúa el movimiento de las imágenes de riesgo medio de deformación.",
+  "recibe": "Imagen base (output/<id>/assets/...png), duración, un FlowSpec ya decidido por flow_director (movimiento, intensidad, steady, dof), venv aislado .venv-depthflow",
+  "entrega": "Clip mp4 silencioso por imagen (el mini clip que fase2b pega en el capítulo, work_dir/_mini_NN.mp4); devuelve 'depthflow' o 'kenburns' según lo que usó",
+  "modelo": [],
+  "etapa": [
+   "fondos",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:916 llama build_animated_clip, fase2b.py:911 build_kenburns_fallback y fase2b.py:2637 clamp_for_risk",
+  "funciones_muertas": [
+   {
+    "nombre": "build_hook_clip",
+    "linea": 573,
+    "por_que": "nadie la llama en todo el repo (ni producción ni tests); solo figura en __all__ y en un comentario de flow_profiles.py:32"
+   }
+  ],
+  "md5": "7999ee960ccad43b2cc1d04285d8f1d2",
+  "_parte": "fase2a_d"
+ },
+ "script_engine/vision_validator.py": {
+  "sticker": "Guardia de calidad por visión: mira una imagen generada con Gemini y dice si corresponde a su prompt (sujeto, escala, época sin objetos modernos, sin texto ni logos). Si falla, arma el prompt corregido para un segundo intento. Hoy está apagado por una constante en asset_manager.py: el camino de generación pasa por él solo si se la cambia a True.",
+  "recibe": "Un PNG generado (output/<id>/assets/*.png) y el prompt original con que se generó.",
+  "entrega": "Un veredicto en memoria {match, reason, correction_suggestion, failure_type} y, si se pide, el prompt corregido para reintentar. No escribe archivos.",
+  "modelo": [
+   {
+    "modelo": "gemini-2.5-flash (constante VISION_MODEL del archivo, con visión)",
+    "para": "auditar que la imagen corresponda al prompt"
+   }
+  ],
+  "etapa": [
+   "assets"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "asset_manager.py:52 lo importa y asset_manager.py:510 y 536 lo llaman dentro de _generate_flux_image_at, pero solo si ENABLE_VISION_VALIDATOR (asset_manager.py:68) es True; hoy es False, así que sus funciones no se ejecutan (código alcanzable por import, dormido por constante).",
+  "funciones_muertas": [],
+  "md5": "6156263093cd7acd24976e73ee8157d6",
+  "_parte": "fase2a_a"
+ },
+ "script_engine/voz_datos.py": {
+  "sticker": "Saca datos de la voz y de la escaleta sin usar ningún modelo: dónde está el pico de cada capítulo, cuándo la voz dice una fecha completa (para mostrar el reloj en pantalla) y en qué esquina cabe ese reloj sin pisar otros rótulos.",
+  "recibe": "Oraciones de la voz con tiempos, escaleta (pico), pool de evidencia, plan de la capa gráfica",
+  "entrega": "Pico del cap, pico del plan, reloj armado desde la voz y esquina libre del reloj (en memoria, no escribe archivos)",
+  "modelo": [],
+  "etapa": [
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "pantalla_entrada.py:21 importa pico_cap; gfx_layer.py:637 y :714 usan pico_plan, reloj_de_voz y ticker_corner; gfx_pool.py:431 usa MESES (todo dentro de fase2b)",
+  "funciones_muertas": [],
+  "md5": "2d5e7aa4c9612553728e8da09a68f540",
+  "_parte": "fase2a_d"
+ },
+ "script_engine/voz_utils.py": {
+  "sticker": "La caja de herramientas para leer la voz y el texto: entiende cifras en dígitos y en letras (incluidas fracciones como «un centímetro y medio» y decimales), nombres propios, años que nombra el relato, y parte la narración en oraciones con cada palabra numerada y con sus tiempos. También calcula cuántos segundos por palabra habla el narrador, midiéndolo sobre las voces ya generadas.",
+  "recibe": "Texto o lista de palabras con tiempos de la voz (chNN_timestamps.json), output/audio/<id>/chNN.meta.json para medir la velocidad del narrador, AUDIO_STYLE de audio_config",
+  "entrega": "Listas de cifras, nombres, años y oraciones numeradas; segundos por palabra {valor, oraciones, caps, voz}; no escribe archivos",
+  "modelo": [],
+  "etapa": [
+   "guion",
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/m01e_pantalla.py:62 y pantalla_filtros.py:16 lo importan arriba (papel en fase1_5, run_pantalla); gfx_realizador.py:193, pantalla_entrada.py:21-22 y gfx_layer.py:674 lo usan en fase2b",
+  "funciones_muertas": [
+   {
+    "nombre": "munon",
+    "linea": 120,
+    "por_que": "nadie la nombra, ni producción ni tests"
+   }
+  ],
+  "md5": "eabb5406a73ee1b9afd26f08948555ff",
+  "_parte": "fase2a_d"
+ },
+ "script_engine/zoom_judge.py": {
+  "sticker": "Mira cada imagen candidata con Gemini (visión, a ciegas, temperatura 0) y la clasifica en una de cinco categorías de composición: sujeto con fondo, cara en primer plano, superficie plana, corredor o túnel, otro. Solo las de sujeto con fondo se promueven a zoom; las caras se marcan para no deformarlas. Guarda los veredictos para no volver a llamar al modelo.",
+  "recibe": "Los PNG candidatos (output/<id>/assets/*.png) y el caché output/<id>/assets/zoom_verdicts.json.",
+  "entrega": "output/<id>/assets/zoom_verdicts.json ({imagen: {categoria, confianza, razon}}) y, en memoria para fase2b, el sí/no de promoción a zoom.",
+  "modelo": [
+   {
+    "modelo": "api.gemini_model (por config), con visión",
+    "para": "clasificar cada imagen en la taxonomía de 5 categorías"
+   }
+  ],
+  "etapa": [
+   "fondos",
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:2436 y 2445 (judge_candidates y promotes_to_zoom en _apply_zoom_gate, etapa fondos) y fase2b.py:2599-2617 (judge_candidates sobre imágenes con persona en _route_safe, plan-only y render).",
+  "funciones_muertas": [],
+  "md5": "ccd12ecc1998452a7ebf67b5aecc126b",
+  "_parte": "fase2a_a"
+ },
+ "subs_remap.py": {
+  "sticker": "Hace que los subtítulos muestren el texto original legible y no el fonético que se le dio a la voz: compara palabra a palabra el texto normalizado con el original y reasigna los tiempos que ya existían. No gasta API.",
+  "recibe": "texto original del capítulo (plan.narration) y las palabras con tiempos de output/audio/<id>/chNN_timestamps.json.",
+  "entrega": "lista de palabras originales con start y end, lista para armar el .ass de los subtítulos.",
+  "modelo": [],
+  "etapa": [
+   "fondos",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:1248 llama remap_words_to_original al armar el segmento de cada capítulo; script_engine/gfx_layer.py:478 también",
+  "funciones_muertas": [],
+  "md5": "8a2db334569eac087ea2f3ec849e1b3a",
+  "_parte": "fase2a_c"
+ },
+ "tts_normalizer.py": {
+  "sticker": "Arregla el texto antes de dárselo a la voz: expande siglas conocidas, abreviaturas y unidades (FBI, Dr., km/h), pasa horas con AM/PM, dólares, porcentajes a forma hablada y saca las comillas de las citas. Carga además el diccionario del canal cada vez que se importa.",
+  "recibe": "texto de un capítulo; data/normalizer_custom_dict.json.",
+  "entrega": "texto normalizado en memoria (no escribe archivos).",
+  "modelo": [],
+  "etapa": [
+   "voz",
+   "fondos",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "audio_manager.py:539 llama normalize_for_tts como respaldo; script_engine/m02_5_normalizer_gate.py:617 llama normalize_pool_forms; anchor_timing.py:49 lo usa para buscar los anchors en fondos y render",
+  "funciones_muertas": [],
+  "md5": "d8a93b515b9e8560eec146fae6389af9",
+  "_parte": "fase2a_c"
+ }
+}

@@ -1,0 +1,410 @@
+{
+ "cost_tracker.py": {
+  "sticker": "Es la caja registradora del pipeline: cada vez que un módulo gasta plata en una API (Gemini, Flux, Kling, Seedream, Veo, ElevenLabs, y también Claude y GPT por la puerta de atrás) anota cuánto, en qué etapa y para qué video. Al cerrar el video guarda el total en el historial y, en la corrida del form, avisa el gasto de Gemini en vivo.",
+  "recibe": "Llamadas de los demás módulos (track_gemini_response, track_flux_pro, track_kling, track_seedream, track_fal, track_elevenlabs, _add_entry desde claude_helpers/gpt_helpers) y las tarifas de config.py (pipeline.costs: gemini_per_call, gemini_vision_per_call, flux_pro_per_image, flux_pro_ultra_per_image, kling_per_image, seedream_per_image, leonardo_per_image, fal_per_clip, elevenlabs_per_char, gemini_rates_per_1m). Lee data/cost_history.json.",
+  "entrega": "data/cost_history.json (un reporte por video, se agrega al cerrar con end_video; bajo pytest no escribe), data/session_report_<fecha>.json (save_session_report, lo llama fase1.py), resúmenes impresos en consola (print_summary / print_gemini_report) y el marcador de costo en vivo para el form (qa_form_markers.emit_cost_marker, solo Gemini).",
+  "modelo": [],
+  "etapa": [
+   "research",
+   "guion",
+   "papel",
+   "voz",
+   "assets",
+   "fondos",
+   "guion_pantalla",
+   "render",
+   "packaging"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:3282 abre el video con cost_tracker.start_video y fase2b.py:3389 lo cierra; fase1_5.py:218 y asset_manager.py:1243 también; gemini_helpers.py:193 anota cada llamada Gemini.",
+  "funciones_muertas": [
+   {
+    "nombre": "CostTracker.track_leonardo",
+    "linea": 257,
+    "por_que": "nadie la llama: solo se nombra en REPO_MAP.md (como deprecada) y en su propio docstring; Leonardo fue reemplazado por Flux."
+   },
+   {
+    "nombre": "CostTracker.track_custom",
+    "linea": 297,
+    "por_que": "ningún módulo de producción la llama; solo test_module_f26c.py:138 (prueba del lock de hilos)."
+   }
+  ],
+  "md5": "75f85351a4f37892bd8a7d47083c3684"
+ },
+ "gemini_helpers.py": {
+  "sticker": "Es el único teléfono para hablar con Gemini y recibir la respuesta como datos ordenados: manda el pedido, reintenta si el servidor está caído, y si el modelo devuelve un JSON roto o vacío lo vuelve a llamar hasta tres veces. Cada llamada real queda anotada en el costo.",
+  "recibe": "Prompt, instrucción de sistema opcional, esquema de salida opcional y tag de la llamada, desde research (research_v3, step_4a..4e, m_judge_seeds, subtopic_*), guion (m01d_particion, guion_v4), voz (m02_5_normalizer_gate, m03_visual, m05_judge, m06_classifier, m07_music_director), fondos/render (flow_director, gfx_intensity) y el qa_studio (arreglos de frase/clip/narración); modelo y llave de config.py (APIConfig: gemini_api_key, gemini_model, gemini_model_research).",
+  "entrega": "Un dict ya parseado a quien llama; si falla tres veces, data/_debug/json_invalid_<fecha>.txt con la respuesta cruda y un ValueError. Anota el costo por tokens en cost_tracker.",
+  "modelo": [
+   {
+    "modelo": "APIConfig.gemini_model (config.py)",
+    "para": "call_flash_json: tareas rápidas (normalizador, juez, clasificador, extracción de hechos, fluidificador)"
+   },
+   {
+    "modelo": "APIConfig.gemini_model_research (config.py)",
+    "para": "call_pro_json: research largo y guion con Gemini Pro"
+   },
+   {
+    "modelo": "el que pase quien llama (p. ej. gemini-4-argon desde guion_v4.MODELOS)",
+    "para": "call_model_json / make_call: modelo explícito atado por el guionista v4"
+   }
+  ],
+  "etapa": [
+   "research",
+   "guion",
+   "voz",
+   "fondos",
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/m02_5_normalizer_gate.py:31 (corre en voz) y researcher_steps/step_4a_facts.py:19 (research) lo importan arriba; guion_v4.py:817 usa make_call.",
+  "funciones_muertas": [],
+  "md5": "60f16ae2957490846fb380c6b89e12fe"
+ },
+ "error_handler.py": {
+  "sticker": "Es el encargado de avisar cuando algo sale mal y de insistir: escribe el diario del pipeline (archivo y consola), y ofrece el decorador que repite una llamada a una API si falla (más veces y esperando más cuando el servidor está saturado). Si todo falla, corta con un error que dice en qué etapa pasó.",
+  "recibe": "Mensajes y excepciones de casi todos los módulos (log_info, log_error, log_warning, log_success) y funciones envueltas con @error_handler.retry(PipelineStage.X); LOGS_DIR, max_retries y retry_delay_seconds de config.py.",
+  "entrega": "logs/pipeline_<fecha>.log (se crea al importar el módulo), líneas por consola, y PipelineError cuando se agotan los reintentos.",
+  "modelo": [],
+  "etapa": [
+   "research",
+   "guion",
+   "papel",
+   "voz",
+   "assets",
+   "fondos",
+   "guion_pantalla",
+   "render",
+   "packaging"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "asset_manager.py:311 (@error_handler.retry en la generación de imágenes) y audio_manager.py:382 (retry de la voz); cost_tracker.py:19 lo importa y lo usa en start_video.",
+  "funciones_muertas": [
+   {
+    "nombre": "ErrorHandler.save_error_report",
+    "linea": 228,
+    "por_que": "nadie la llama: solo se define; no hay llamador en producción ni en tests."
+   },
+   {
+    "nombre": "ErrorHandler.has_critical_errors",
+    "linea": 242,
+    "por_que": "nadie la llama: solo se define; no hay llamador en producción ni en tests."
+   }
+  ],
+  "md5": "68799ed1b8303793f3c900fd4f4f9e84"
+ },
+ "claude_helpers.py": {
+  "sticker": "Es el teléfono para hablar con Claude (Anthropic) y recibir la respuesta como datos ordenados. Habla directo por internet en modo streaming, reintenta si la API se satura o el JSON viene roto, y anota lo que cuesta cada llamada. Lo usan la ficha del caso, la escaleta, el guion y el papel de pantalla.",
+  "recibe": "Prompt, instrucción de sistema, esquema y esfuerzo de razonamiento desde researcher_steps/ficha_caso.py, script_engine/guion_v4.py, m01a_escaleta.py y m01e_pantalla.py; la llave ANTHROPIC_API_KEY del entorno o del .env (nunca se imprime).",
+  "entrega": "Un dict ya parseado a quien llama y una entrada de costo por tokens en cost_tracker (service «Anthropic <modelo>»). Si el modelo se niega o falla tres veces, ClaudeError.",
+  "modelo": [
+   {
+    "modelo": "claude-fable-5-1",
+    "para": "escaleta y guion v4 por defecto (F22e/F25c); precio en PRICES"
+   },
+   {
+    "modelo": "claude-opus-5-5",
+    "para": "alternativa de guion/ficha/escaleta con --modelo"
+   },
+   {
+    "modelo": "claude-sonnet-5-5",
+    "para": "papel de pantalla (m01e_pantalla.MODELO)"
+   }
+  ],
+  "etapa": [
+   "guion",
+   "papel",
+   "guion_pantalla"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/m01e_pantalla.py:816 importa claude_helpers; script_engine/guion_v4.py:820-821 y m01a_escaleta.py:761 arman el call con make_call.",
+  "funciones_muertas": [],
+  "md5": "1ea9bf2914389592eba47042f3d2b6f1"
+ },
+ "gpt_helpers.py": {
+  "sticker": "Es el teléfono para hablar con GPT (OpenAI) y recibir la respuesta como datos ordenados. Misma forma que el de Gemini y el de Claude, así el guion no se entera de qué modelo contesta; reintenta y anota el costo. Es el modelo por defecto de la ficha del caso.",
+  "recibe": "Prompt, sistema, esquema y esfuerzo desde researcher_steps/ficha_caso.py (call_for) y script_engine/guion_v4.py (call_for); la llave OPENAI_API_KEY del entorno o del .env (nunca se imprime).",
+  "entrega": "Un dict ya parseado a quien llama y una entrada de costo en cost_tracker (service «OpenAI <modelo>», con los tokens de razonamiento aparte). Si falla tres veces, GPTError.",
+  "modelo": [
+   {
+    "modelo": "gpt-6.1-sol",
+    "para": "ficha del caso, escaleta y columna por defecto (guion_v4.DEFAULT_MODELO)"
+   },
+   {
+    "modelo": "gpt-6-astra",
+    "para": "alternativa más cara del guionista con --modelo"
+   }
+  ],
+  "etapa": [
+   "guion"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "researcher_steps/ficha_caso.py:794 importa gpt_helpers y arma el call; script_engine/guion_v4.py:822-823 lo usa para los modelos GPT.",
+  "funciones_muertas": [],
+  "md5": "47f856540e1a3c5cbdf5783614c70869"
+ },
+ "tools/dump_topic_evidence.py": {
+  "sticker": "Herramienta de escritorio de Omar o del analista: junta en un solo texto toda la evidencia de mercado de cada tema candidato (veredicto, vistas del viral en inglés, hook) para leerla o pegarla a otro modelo. No participa de ningún video.",
+  "recibe": "data/topics_db.json (la base de temas).",
+  "entrega": "data/topic_evidence_dump.md y data/topic_evidence_dump.json.",
+  "modelo": [],
+  "etapa": [
+   "herramienta manual"
+  ],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "tools/dump_topic_evidence.py:232 tiene __main__ y nadie la importa ni la lanza (solo la nombra tools/build_gemini_validation_prompt.py:72 en un mensaje de ayuda).",
+  "funciones_muertas": [],
+  "md5": "4d16acc95bd79efe173913b037e5ee9e"
+ },
+ "tools/build_gemini_validation_prompt.py": {
+  "sticker": "Herramienta de escritorio: arma un texto listo para pegar en Gemini, con las instrucciones de un analista de contenido más el volcado de evidencia de los temas, para pedirle una segunda opinión sobre cuáles producir. No participa de ningún video.",
+  "recibe": "data/topic_evidence_dump.md (lo deja dump_topic_evidence.py).",
+  "entrega": "data/gemini_validation_prompt.txt.",
+  "modelo": [],
+  "etapa": [
+   "herramienta manual"
+  ],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "tools/build_gemini_validation_prompt.py:83 tiene __main__; ningún módulo lo importa ni lo lanza, no llama a ninguna API (el prompt va a mano a Gemini).",
+  "funciones_muertas": [],
+  "md5": "19ce046b15f04c7c416927852a6114ac"
+ },
+ "mixer.html": {
+  "sticker": "La pantalla de la mesa de mezcla: Omar elige un capítulo, mueve dos deslizadores (volumen de la música y piso de la música), escucha una vista previa y el render real, y guarda el volumen en el json del track de música. También tiene un botón para volver a armar el video.",
+  "recibe": "Lo que le sirve mixer_server.py: /caps, /topic, /suggested_start, /audio/voice, /audio/music, /defaults, /render_confirm, /save, /rerun, /rerun_status.",
+  "entrega": "Pedidos POST al mixer_server (guardar volumen en audio_library/<track>.json, render de prueba, re-armado con fase2b); no escribe archivos por sí misma.",
+  "modelo": [],
+  "etapa": [
+   "herramienta manual"
+  ],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "mixer_server.py:71 la carga (HTML_PATH); mixer_server solo lo corre una persona a mano (fase2b.py:3527 lo nombra solo en un mensaje de advertencia).",
+  "funciones_muertas": [],
+  "md5": "59dae904e6fa382e52d16f984571eae9"
+ },
+ "qa_gallery.html": {
+  "sticker": "La galería de temas pendientes del form de Omar: una tarjeta por tema con su nicho, competencia, demanda del viral en inglés y el aviso del juez. Omar toca una tarjeta, aprieta Producir, o borra un tema o pide generar nuevos.",
+  "recibe": "El marcador del form vía window.renderGallery(marker) que llama qa_form.html (menú reuse_seeds antes del juez, seed_pick después).",
+  "entrega": "Respuestas al form por window.qaFormAnswer: produce (con índice y título), delete o regenerate, que el form traduce a una línea por stdin para fase1.py.",
+  "modelo": [],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "qa_studio_server.py:1425 la registra en _FORM_MENU_HTML como __gallery__; qa_form.html:278 y 282 la usan para reuse_seeds y seed_pick.",
+  "funciones_muertas": [],
+  "md5": "85e540b0c59782b7c47da42279c8f86a"
+ },
+ "qa_seed_pick.html": {
+  "sticker": "Pantalla vieja de selección de temas (lista con columnas de hueco, demanda, ratio y riesgo, y una sección de dudosos). Fue reemplazada por qa_gallery.html y ya nadie la sirve.",
+  "recibe": "Nada: el servidor ya no la entrega; esperaba window.renderSeeds(items) desde el form.",
+  "entrega": "Nada: emitía produce o delete por window.qaFormAnswer, pero ninguna ruta la abre.",
+  "modelo": [],
+  "etapa": [
+   "ninguna"
+  ],
+  "estado": "huérfano",
+  "estado_prueba": "qa_studio_server.py:1420-1421 dice que está jubilada y su tabla _FORM_MENU_HTML (1422-1427) no la incluye; ningún .py ni .html la abre (solo la citan comentarios de qa_choice, qa_gallery y qa_judge).",
+  "funciones_muertas": [],
+  "md5": "01b4d5ffd57c0d5e1c9494397a3ca8d0"
+ },
+ "qa_judge.html": {
+  "sticker": "La pantalla del juez del form: muestra los problemas que el juez encontró en el guion antes de gastar en imágenes (capítulo, imagen, categoría, gravedad, motivo) y los botones para verlos uno por uno, aprobar todos los arreglos, rechazarlos o salir.",
+  "recibe": "El marcador judge_action del form vía window.renderJudge(marker), con el veredicto y la lista de issues (los arma script_engine/m05_judge.py).",
+  "entrega": "La tecla elegida (V, A, R o S) por window.qaFormAnswer, que el form manda por stdin al gate del juez.",
+  "modelo": [],
+  "etapa": [
+   "voz"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "qa_studio_server.py:1426 la registra como __judge__; script_engine/m05_judge.py:1618 emite el menú judge_action; qa_form.html:282 la elige.",
+  "funciones_muertas": [],
+  "md5": "bff6c2cd8004c381de2889b381ff8c79"
+ },
+ "qa_choice.html": {
+  "sticker": "El diálogo genérico de botones del form de Omar: muestra una pregunta y una columna de opciones con su tecla (la recomendada en verde); un click o la tecla elige. Lo usan los menús de una sola opción como tipo de video y las compuertas de papel, visor y guion.",
+  "recibe": "El marcador del form vía window.renderChoice(marker) (menu, prompt, options, default, body).",
+  "entrega": "La clave elegida por window.qaFormAnswer({menu, action:'choose', value}), que el form manda por stdin a la etapa que espera.",
+  "modelo": [],
+  "etapa": [
+   "research",
+   "papel",
+   "fondos",
+   "aprobar_guion"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "qa_studio_server.py:1423 la registra como __choice__ y qa_form.html:282 la usa para cualquier menú de tipo key.",
+  "funciones_muertas": [],
+  "md5": "1f004c6b967743cf5261909f86ee090f"
+ },
+ "qa_multi.html": {
+  "sticker": "El diálogo de casillas del form de Omar: Omar marca uno o varios nichos (o Todos) y confirma. Se usa en el paso donde se eligen los nichos para buscar temas.",
+  "recibe": "El marcador del form vía window.renderMulti(marker) (menu, prompt, options, body).",
+  "entrega": "Una lista de claves elegidas por window.qaFormAnswer, que el form une con coma y manda por stdin (por ejemplo 1,3 o A).",
+  "modelo": [],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "qa_studio_server.py:1424 la registra como __multi__ (accept 'keys', submenú de nichos); qa_form.html:282 la elige.",
+  "funciones_muertas": [],
+  "md5": "cc25febacf766ef88b7c71e78ce310f7"
+ },
+ ".claude/agents/simulador.md": {
+  "sticker": "Instrucciones del ayudante de Claude Code que prueba en seco una regla o filtro nuevo contra el guion de pantalla de un video ya hecho y devuelve cuántos eventos cortaría y tres ejemplos, antes de que nadie escriba código. No toca el pipeline ni el video.",
+  "recibe": "La regla tal como la escribe el handoff y un topic de prueba (por defecto f8s3-vajont-f30); lee output/<topic>/GUION_PANTALLA.json.",
+  "entrega": "Una tabla propuestos, cortados por la regla, quedan, con tres ejemplos y una línea de lectura (sale en el reporte de la tanda).",
+  "modelo": [
+   {
+    "modelo": "sonnet (campo model del agente de Claude Code)",
+    "para": "es el modelo con que corre el propio ayudante"
+   }
+  ],
+  "etapa": [
+   "Claude Code"
+  ],
+  "estado": "vivo",
+  "estado_prueba": ".claude/commands/tanda.md:17 manda invocar al subagente simulador cuando el handoff trae una regla nueva; usa lab/tools/simular_regla.py.",
+  "funciones_muertas": [],
+  "md5": "7711b3d4d6ec8c24598aa25832446014"
+ },
+ ".claude/agents/structure-auditor.md": {
+  "sticker": "Instrucciones del ayudante de Claude Code que recorre el repo para armar un resumen de estructura (qué hace cada módulo, quién llama a quién por subprocess o por archivos) y lo deja en _repo_audit/STRUCTURE_DIGEST.md para que una persona arme REPO_MAP.md. No toca código.",
+  "recibe": "Una lista fija de 55 módulos de producción dentro del propio texto del agente, más el código del repo.",
+  "entrega": "Un único archivo, _repo_audit/STRUCTURE_DIGEST.md, y un resumen de tres líneas.",
+  "modelo": [
+   {
+    "modelo": "sonnet (campo model del agente de Claude Code)",
+    "para": "es el modelo con que corre el propio ayudante"
+   }
+  ],
+  "etapa": [
+   "Claude Code"
+  ],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "ningún comando ni hook lo invoca (tanda.md no lo nombra); solo existe para pedirlo a mano al armar REPO_MAP; _repo_audit/ está vacío.",
+  "funciones_muertas": [],
+  "md5": "b213c4907964e026399c43f9b7cfae85"
+ },
+ ".claude/commands/tanda.md": {
+  "sticker": "El comando /tanda de Claude Code: el procedimiento de 12 pasos con que Claude programa una tanda desde un handoff (leer reglas, declarar módulos, una variable por vez, constantes con origen, simulador, PARADA, suite de tests, mapa, reporte con revisor, ESTADO). Ordena cómo se trabaja; no genera video.",
+  "recibe": "La ruta del handoff y la autorización de Omar ($ARGUMENTS).",
+  "entrega": "Instrucciones que Claude sigue: el reporte lab/hyperframes/fNN/FNN_REPORT.md, el commit por parte y lab/ESTADO_SESION.md actualizado.",
+  "modelo": [],
+  "etapa": [
+   "Claude Code"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "CLAUDE.md pide trabajar por tanda y el comando está en .claude/commands/ (lo dispara quien escribe /tanda).",
+  "funciones_muertas": [],
+  "md5": "773354d0cb27d69b7bccac08d0979cd6",
+  "md5_nota": "F42 §C: CC releyó la versión editada en esta tanda y actualizó el md5"
+ },
+ ".claude/hooks/README.md": {
+  "sticker": "La tabla que explica los seis candados automáticos de Claude Code en este repo (qué bloquean, cuándo avisan) y sus límites conocidos; desde F42 dice que guard_mapa corre el chequeo del mapa del proyecto. Es documentación para las personas; no se ejecuta.",
+  "recibe": "Nada.",
+  "entrega": "Nada (texto de consulta).",
+  "modelo": [],
+  "etapa": [
+   "Claude Code"
+  ],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "es un README: nadie lo importa ni lo lee desde código; describe los hooks cableados en .claude/settings.json:8-20.",
+  "funciones_muertas": [],
+  "md5": "582575453abb1793b0c30ce05ff0d8b4",
+  "md5_nota": "F42 §C: CC releyó la versión editada en esta tanda y actualizó el md5"
+ },
+ ".claude/hooks/_comun.py": {
+  "sticker": "Piezas compartidas por los candados de Claude Code: leer el evento que manda la herramienta, partir un comando en sus partes (&&, |, ;), entender un git ... y frenar con un motivo. No hace nada por sí solo.",
+  "recibe": "El JSON del evento por stdin y el texto del comando que Claude quiere correr.",
+  "entrega": "Funciones para los otros hooks; bloquear() sale con código 2 y escribe el motivo por stderr.",
+  "modelo": [],
+  "etapa": [
+   "Claude Code"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "guard_git.py:16, guard_mapa.py:16, guard_render.py:17, md5_prompt.py:14, suite_rapida.py:13 y tope_tanda.py:14 lo importan.",
+  "funciones_muertas": [],
+  "md5": "234b93de45a9c13ae1c71f401b453ce4"
+ },
+ ".claude/hooks/guard_git.py": {
+  "sticker": "Candado de Claude Code sobre git: no deja commitear .env, config.py, lab/_gpt_probe_analista ni archivos que tengan una llave de Anthropic u OpenAI adentro, y bloquea el push a main y el merge estando en main. Protege las llaves y la rama principal.",
+  "recibe": "El comando de Bash/PowerShell que Claude va a correr (evento PreToolUse) y lo que git dice que entraría (git add --dry-run, git diff --cached).",
+  "entrega": "Nada si pasa; si no, sale con código 2 y el motivo para Claude.",
+  "modelo": [],
+  "etapa": [
+   "Claude Code"
+  ],
+  "estado": "vivo",
+  "estado_prueba": ".claude/settings.json:8 lo cablea en PreToolUse (Bash|PowerShell).",
+  "funciones_muertas": [],
+  "md5": "348b4c9e6585f2ad61d8b53eff6968ab"
+ },
+ ".claude/hooks/guard_mapa.py": {
+  "sticker": "Aviso de Claude Code antes de cada git commit: corre el chequeo del mapa del proyecto y, si un archivo de producción que entra en el commit no tiene sticker en el mapa o lo tiene desactualizado, avisa. No bloquea, solo recuerda reescribir el sticker.",
+  "recibe": "El comando de git commit del evento PreToolUse y lab/tools/mapa_modulos.py (check, que compara md5 contra lab/mapa/stickers/*.json).",
+  "entrega": "Un mensaje de aviso (systemMessage y additionalContext) con los archivos con sticker viejo; nunca frena el commit.",
+  "modelo": [],
+  "etapa": [
+   "Claude Code"
+  ],
+  "estado": "vivo",
+  "estado_prueba": ".claude/settings.json:12 lo cablea en PreToolUse (Bash|PowerShell).",
+  "funciones_muertas": [],
+  "md5": "facfa9268459e87323a23d355addb5f8",
+  "md5_nota": "F42 §C: CC releyó la versión editada en esta tanda y actualizó el md5"
+ },
+ ".claude/hooks/guard_render.py": {
+  "sticker": "Candado de Claude Code sobre el render: no deja correr fase2b con --gfx (el render con la capa gráfica) si el guion de pantalla del video no existe, no está aprobado por Omar o cambió después de aprobarse. Así no se gasta un render sin la aprobación.",
+  "recibe": "El comando de Bash/PowerShell del evento PreToolUse y output/<topic>/GUION_PANTALLA.json, que juzga script_engine/aprobacion.py.",
+  "entrega": "Nada si pasa; si no, sale con código 2 y el motivo.",
+  "modelo": [],
+  "etapa": [
+   "Claude Code"
+  ],
+  "estado": "vivo",
+  "estado_prueba": ".claude/settings.json:11 lo cablea en PreToolUse (Bash|PowerShell); .claude/commands/tanda.md:19 lo cita.",
+  "funciones_muertas": [],
+  "md5": "c55192745a95926c50ed5f9ac2c13acf"
+ },
+ ".claude/hooks/md5_prompt.py": {
+  "sticker": "Aviso de Claude Code después de editar un archivo: si es un PROMPT_*.md o tiene un bloque ## SISTEMA, dice el md5 nuevo y el que tenía en el último commit (y el del bloque), para que se vea cuándo un prompt cambió de verdad. No bloquea.",
+  "recibe": "La ruta del archivo editado (evento PostToolUse Edit/Write/MultiEdit) y el contenido de HEAD (git show).",
+  "entrega": "Un mensaje de aviso con los md5 (systemMessage y additionalContext).",
+  "modelo": [],
+  "etapa": [
+   "Claude Code"
+  ],
+  "estado": "vivo",
+  "estado_prueba": ".claude/settings.json:20 lo cablea en PostToolUse (Edit|Write|MultiEdit).",
+  "funciones_muertas": [],
+  "md5": "6500f806d61f25c77032fa73331b9d6d"
+ },
+ ".claude/hooks/suite_rapida.py": {
+  "sticker": "Candado de Claude Code antes de cada git commit: corre la suite rápida de tests (f25c, f24, f21) y si alguno falla, frena el commit y muestra el final del error. Evita commitear algo roto.",
+  "recibe": "El comando de git commit del evento PreToolUse y los tests test_module_f25c.py, f24.py y f21.py (o la lista de HOOK_SUITE_RAPIDA).",
+  "entrega": "Nada si la suite pasa; si no, sale con código 2 con las últimas 25 líneas de pytest.",
+  "modelo": [],
+  "etapa": [
+   "Claude Code"
+  ],
+  "estado": "vivo",
+  "estado_prueba": ".claude/settings.json:9 lo cablea en PreToolUse (Bash|PowerShell).",
+  "funciones_muertas": [],
+  "md5": "884ed894c7cd4a3ccc1489d0ff874dc7"
+ },
+ ".claude/hooks/tope_tanda.py": {
+  "sticker": "Candado de Claude Code sobre el gasto: antes de correr fase1_5.py o fase2a.py mira el tope en dólares de la tanda (lab/TOPE_TANDA.json) y, si el gasto del historial desde que empezó la tanda ya lo alcanzó, no deja arrancar. Sin archivo de tope no hace nada.",
+  "recibe": "El comando de Bash/PowerShell del evento PreToolUse, lab/TOPE_TANDA.json y data/cost_history.json (lee total_cost y created_at de cada video).",
+  "entrega": "Nada si hay margen; si no, sale con código 2 con el gasto y el tope.",
+  "modelo": [],
+  "etapa": [
+   "Claude Code"
+  ],
+  "estado": "vivo",
+  "estado_prueba": ".claude/settings.json:10 lo cablea en PreToolUse (Bash|PowerShell).",
+  "funciones_muertas": [],
+  "md5": "2da7b54b2321602031cbb1278b35924c"
+ }
+}

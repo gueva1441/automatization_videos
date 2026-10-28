@@ -1,0 +1,98 @@
+{
+ "qa_studio_server.py": {
+  "sticker": "Es el servidor local que Omar levanta a mano para producir un video con botones: sirve la pantalla del form y la del visor de capítulos, lanza el orquestador (run_pipeline) como proceso hijo y le pasa las respuestas de Omar. También deja arreglar a mano una foto, un clip o una pronunciación de un capítulo y armar el video con el botón ENSAMBLAR.",
+  "recibe": "Pedidos HTTP del navegador (form y visor); data/scripts/<id>.json, output/audio/<id>/chNN.mp3 y chNN_timestamps.json, output/<id>/assets/chNN_flux/*.png y chNN_veo/*.mp4, data/topics_db.json (lista de retomar), data/scripts/_steps/<id>/01b_narration_normalized.json; las líneas @@QAFORM@@ y @@QAFORM_COST@@ que imprime run_pipeline.",
+  "entrega": "Las páginas qa_form.html y qa_studio.html; JSON de estado del form (fase, costo Gemini en vivo, diálogo pendiente); líneas por stdin al hijo; imágenes y clips regenerados en output/<id>/assets/ con copia en _qa_backups/; output/<id>/assets/_qa_marks.json (fotos marcadas); data/normalizer_custom_dict.json; el audio del capítulo re-hecho; levanta fase2b, run_pipeline y el servidor de miniaturas de m09 como subprocesos.",
+  "modelo": [
+   {"modelo": "Gemini (config api.gemini_model, vía gemini_helpers.call_flash_json)", "para": "reescribir el prompt de una foto con el cambio que pide Omar (_fix_core, _clipfix_core) y detectar qué palabra se pronuncia mal (_narrfix_core)"},
+   {"modelo": "imagen (config api.fal_image_model, vía asset_manager._generate_flux_image_at)", "para": "regenerar una foto suelta (fix de foto, fix de clip y marcar para regenerar)"},
+   {"modelo": "Veo (config api.fal_video_model, vía asset_manager._generate_veo_clip)", "para": "regenerar el clip de un capítulo veo sobre la foto nueva"},
+   {"modelo": "ElevenLabs (vía audio_manager.process_script)", "para": "re-hacer el audio de un capítulo tras corregir la pronunciación"}
+  ],
+  "etapa": ["orquestador/form"],
+  "estado": "vivo",
+  "estado_prueba": "qa_studio_server.py:1522 lanza run_pipeline.py --research --video-type long --batch y :1527 lo retoma con --topic; :2080 es el main que Omar corre a mano",
+  "funciones_muertas": [
+   {"nombre": "_reseed_core", "linea": 819, "por_que": "ninguna ruta del servidor ni del form la llama (el POST /mark solo marca, no regenera); solo la nombran test_module_f5e.py y la herramienta manual lab/hyperframes/f5/regen_marcadas.py"},
+   {"nombre": "_build_clipfix_user_prompt", "linea": 1014, "por_que": "nadie la llama; el propio archivo (L968-971) dice que el rewriter de movimiento quedó DORMIDO desde el chat 113 y esta función y _FIX_CLIP_REWRITE_INSTRUCTION no tienen call-site"}
+  ],
+  "md5": "e6586509812cb0c223a1377eb02e1bd9"
+ },
+ "qa_form.html": {
+  "sticker": "Es la pantalla del form de producción asistida: muestra una barra con las fases del pipeline, el costo de Gemini en vivo y, cuando el pipeline necesita una decisión de Omar, abre el diálogo (elegir tema, aprobar el papel, aprobar el guion de pantalla, ir al visor). También deja retomar un tema que quedó a medias.",
+  "recibe": "Del servidor: /form_state (fase activa, costo, marcador pendiente, últimas líneas de consola), /form_topics (lista de topics de data/topics_db.json) y los diálogos de qa_choice.html, qa_gallery.html, qa_multi.html y qa_judge.html por /form_menu.",
+  "entrega": "Respuestas al servidor: POST /form_launch, /form_resume?topic=<id>, /form_answer con la tecla elegida (A, P, C, número de seed…) y /form_shutdown.",
+  "modelo": [],
+  "etapa": ["orquestador/form"],
+  "estado": "vivo",
+  "estado_prueba": "qa_studio_server.py:1384 define HTML_FORM_PATH y :1847-1848 lo sirve en /form (serve() lo abre en el navegador, :2052)",
+  "funciones_muertas": [],
+  "md5": "3b9c06656eef9e62d0035cc3a099b0ed"
+ },
+ "run_pipeline.py": {
+  "sticker": "Es el director de orquesta: toma un tema y corre una tras otra las etapas (guion, papel, voz, assets, fondos, guion de pantalla, aprobar guion, render, packaging), cada una como programa aparte. Antes de cada paso mira qué archivos ya existen en disco y arranca donde quedó; frena en las dos compuertas donde Omar tiene que aprobar y nunca aprueba solo.",
+  "recibe": "--topic <id> (o --research para elegir tema nuevo con fase1); data/scripts/_steps/<id>/01e_pantalla.md, data/scripts/<id>.json, output/<id>/assets/assets_manifest.json, output/<id>/_fase2b_work/*, output/<id>/GUION_PANTALLA.json, output/<id>/<id>_final_gfx.mp4, data/topics_db.json, data/_last_research.json; la tecla A/P/C que manda el form por stdin.",
+  "entrega": "No escribe archivos de producción: lanza fase1.py, fase1_5.py, fase2a.py, fase2b.py y fase3.py como subprocesos; imprime los encabezados de fase y los marcadores @@QAFORM@@ para el form, y el reporte final con el comando para retomar.",
+  "modelo": [],
+  "etapa": ["orquestador/form"],
+  "estado": "vivo",
+  "estado_prueba": "qa_studio_server.py:1522 y :1527 lo lanzan; run_pipeline.py:553 es el main",
+  "funciones_muertas": [],
+  "md5": "b271cffada4021087b4be8cc28c3a31b"
+ },
+ "qa_form_markers.py": {
+  "sticker": "Es el mensajero entre el pipeline y el form: cuando el form está activo, imprime una línea especial (con un diálogo o con un gasto de Gemini) que el servidor del form lee para mostrarle un botón a Omar o sumar el costo. Sin el form no imprime nada.",
+  "recibe": "La variable de entorno QA_FORM y los datos del diálogo (menú, opciones, texto, payload) o del gasto (modelo, USD, tokens) que le pasan run_pipeline, m05_judge y cost_tracker.",
+  "entrega": "Una línea por stdout: @@QAFORM@@ {json} (diálogo) o @@QAFORM_COST@@ {json} (costo).",
+  "modelo": [],
+  "etapa": ["research", "guion", "papel", "voz", "assets", "fondos", "guion_pantalla", "aprobar_guion", "render", "packaging"],
+  "estado": "vivo",
+  "estado_prueba": "run_pipeline.py:281, :357 (diálogos de papel, guion de pantalla y visor) y cost_tracker.py:161-162 (costo Gemini de cualquier etapa)",
+  "funciones_muertas": [],
+  "md5": "ee12fdaa059f62040c9f81bc9b3e97dd"
+ },
+ "fase3.py": {
+  "sticker": "Es el paso de empaquetado: toma el video ya terminado, genera las candidatas de título y miniaturas si faltan y abre el form de m09 para que Omar elija y componga; al primer componer marca el tema como empaquetado. La subida a YouTube sigue a mano.",
+  "recibe": "<topic_id> (o un menú de los topics terminados sin empaquetar), data/topics_db.json (status video_generated y video_path del mp4), flags de passthrough para m09 con --headless.",
+  "entrega": "Llama a script_engine/m09_packaging (candidatas, review, componer) y marca packaged en data/topics_db.json; con --headless lanza python -m script_engine.m09_packaging como subproceso.",
+  "modelo": [],
+  "etapa": ["packaging"],
+  "estado": "vivo",
+  "estado_prueba": "run_pipeline.py:430 lo lanza en _paso_packaging (solo sin --batch; el form siempre usa --batch, así que el form solo reporta el comando)",
+  "funciones_muertas": [],
+  "md5": "5019d255b81d74b1f4f3a544639cb0b8"
+ },
+ "version_stamp.py": {
+  "sticker": "Escribe un VERSION.json con un identificador de versión (fecha y hora más un código al azar) cada vez que alguien lo corre. Nada del pipeline lo usa: es un sello manual de cuando se empuja el código.",
+  "recibe": "Nada (usa el reloj y un token aleatorio).",
+  "entrega": "VERSION.json en la raíz (push_id y pushed_at_local) y el PUSH_ID por pantalla.",
+  "modelo": [],
+  "etapa": ["herramienta manual"],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "REPO_MAP.md:13 dice que lo corre CC a mano; ningún .py, hook ni comando de .claude/ lo nombra (grep) y VERSION.json está versionado en git",
+  "funciones_muertas": [],
+  "md5": "5a0202ed69711dc21366c428941e5f90"
+ },
+ "script_engine/__init__.py": {
+  "sticker": "Es el marcador de paquete de script_engine (la carpeta con los módulos del guion y de las etapas): no hace nada salvo permitir que se importen los demás módulos. Su docstring es solo una lista vieja de módulos.",
+  "recibe": "Nada.",
+  "entrega": "Nada (solo docstring).",
+  "modelo": [],
+  "etapa": ["orquestador/form"],
+  "estado": "vivo",
+  "estado_prueba": "run_pipeline.py:49 hace from script_engine import aprobacion, topics_db, y fase3.py:24-25 lo mismo; sin este archivo no se importa el paquete",
+  "funciones_muertas": [],
+  "md5": "e956cce87d6019a48b6f0a367a40aba7"
+ },
+ "qa_studio.html": {
+  "sticker": "Es la pantalla del visor por capítulo: muestra la línea de tiempo de cada capítulo con sus fotos y clips, deja escuchar la narración tramo por tramo, marcar fotos para regenerar, pedir un fix de foto o de clip, corregir una pronunciación y lanzar ENSAMBLAR VIDEO. También embebe el formulario de miniaturas.",
+  "recibe": "Del servidor: /topic, /caps, /cap?cap=chNN (segmentos con tiempos y anchors), /img, /clip y /audio del capítulo, /marks, /fix_status, /assemble_status, /thumbs_status.",
+  "entrega": "Pedidos al servidor: POST /mark, /fix_image, /fix_clip, /fix_narration, /assemble y /thumbs_start.",
+  "modelo": [],
+  "etapa": ["orquestador/form"],
+  "estado": "vivo",
+  "estado_prueba": "qa_studio_server.py:72 define HTML_PATH y :1828-1829 lo sirve en / (el form lo abre en el gate del visor, qa_form.html:349)",
+  "funciones_muertas": [],
+  "md5": "d9741576cb884c5e000361738611f928"
+ }
+}

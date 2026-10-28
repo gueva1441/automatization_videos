@@ -1,0 +1,141 @@
+{
+ "script_engine/gfx_pool.py": {
+  "sticker": "Le da a la pantalla las piezas del archivo de evidencia que necesita: las fuentes literales que el candado acepta, los ids que ya salieron en capítulos anteriores, el reloj de fechas del capítulo y los cortes de cláusula y conteos que usa la escaleta en Fase 1. Casi todo lo demás que trae (recortes, citas, contadores) quedó como historia sin uso.",
+  "recibe": "pool de evidencia del video (data/scripts/<id>.json › evidence_pool), palabras con tiempos de la voz, planes resueltos de caps anteriores (output/<id>/work/gfx_plan_ch*.resolved.json)",
+  "entrega": "fuentes literales para el candado (dict), ids ya mostrados, el bloque del reloj (time_ticker), opciones de cláusula, grupos de conteo; no escribe archivos",
+  "modelo": [],
+  "etapa": ["guion", "guion_pantalla", "render"],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:267/698/713 llama used_ids_before y pool_ticker; gfx_director.py:71 pool_sources/short_source; m01a_escaleta.py:162 count_groups; m01a_skeleton.py:106 _kicker y pool_clause_options (vía finalize_pool_plan, m01a_escaleta.py:572)",
+  "funciones_muertas": [
+   {"nombre": "content_icon", "linea": 87, "por_que": "nadie la nombra en producción; solo test_module_f5b.py y test_module_gfx_pool.py (el ícono por contenido del recorte se borró en F36 D)"},
+   {"nombre": "cap_candidates", "linea": 383, "por_que": "nadie la nombra en producción; solo test_module_f5b.py (los candidatos del pool por cap los reemplazó el guion en papel)"}
+  ],
+  "md5": "b4f0e7088bd141f4fe0651f55f34cc44"
+ },
+ "script_engine/pantalla_colocar.py": {
+  "sticker": "Decide dónde y cuánto dura cada texto del guion en papel: cuánto tarda en leerse, qué instantes de su oración se prueban si no entra, y reparte todo para que nunca haya dos cosas al mismo tiempo, moviendo en vez de cortar (otro instante, la escena siguiente, la oración siguiente, el otro lado). El reloj no cruza el corte de su escena.",
+  "recibe": "bloques del papel ya filtrados (resultado de pantalla_filtros.validar_papel), escenas del cap, oraciones de la voz con tiempos (ent_rot), pool de evidencia, el crítico visual como juez opcional",
+  "entrega": "plan del cap con callouts, archive_clippings, time_ticker acomodados y filas de lo colocado, movido o fuera (en memoria; gfx_layer lo escribe en output/<id>/work/gfx_plan_<cap>.resolved.json)",
+  "modelo": [],
+  "etapa": ["guion", "guion_pantalla", "render"],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:699-702 (pesos, colocar), :773-775 (hasta_el_corte, repartir); m01e_pantalla.py:191/407/1156 importa LECTURA_CPS y caracteres en Fase 1",
+  "funciones_muertas": [],
+  "md5": "e0dedaacc31ae94efbda1961f15dd4e7"
+ },
+ "script_engine/gfx_intensity.py": {
+  "sticker": "Un modelo de Gemini lee la narración de cada capítulo y marca qué frase pega más fuerte y qué palabras cargan miedo, muerte o agua, sin escribir texto nuevo. Esas palabras suman al léxico de clima del capítulo y las nuevas se guardan como propuestas para el perfil.",
+  "recibe": "frases numeradas del capítulo (más 2 del anterior y 2 del siguiente), moods del perfil activo (gfx_profiles/misterio.json), narración completa del video",
+  "entrega": "intensidad por frase, cargas validadas y frase pico (en memoria); caché output/<id>/work/gfx_intensity_<cap>.json; propuestas en gfx_profiles/lexico_propuestas.json",
+  "modelo": [{"modelo": "Gemini Flash vía gemini_helpers.call_flash_json (config api.gemini_model)", "para": "marcar intensidad por frase, frase pico y palabras de carga del capítulo"}],
+  "etapa": ["guion_pantalla", "render"],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:670-689 lo llama si gfx_rules.intensity_director (clave presente en gfx_profiles/misterio.json; valor no leído)",
+  "funciones_muertas": [],
+  "md5": "633b7457ad6954536afbe558c51e91bd"
+ },
+ "script_engine/pantalla_filtros.py": {
+  "sticker": "Los filtros que deciden si un texto del guion en papel sale o no, en un orden fijo: anclar a la voz, candado de lo literal, que la voz no lo diga ya, que no adelante lo que viene, y que haya dónde leerlo. Además compara cifras del bloque contra las de la voz para el chequeo del guion.",
+  "recibe": "bloques del papel (anclados a oración y palabra), entrada del cap (ent: ítems del pool, oraciones, beats, voz del video), palabras con tiempos y escenas",
+  "entrega": "bloques que pasan con sus tiempos e intentos, rechazos con la regla y el motivo, y los a_pantalla que faltan (en memoria, para pantalla_colocar.colocar)",
+  "modelo": [],
+  "etapa": ["guion", "guion_pantalla", "render"],
+  "estado": "vivo",
+  "estado_prueba": "pantalla_colocar.py:173-178 llama validar_papel; m01e_pantalla.py:274/570 usa pide_documento, candado, no_dicho, spoiler, contradicciones_de en Fase 1; gfx_guion.py:442 contradicciones",
+  "funciones_muertas": [],
+  "md5": "375f50013234f10dd16df526b11ad5c8"
+ },
+ "script_engine/gfx_realizador.py": {
+  "sticker": "Hace que la pantalla obedezca a la escaleta: calcula la ventana de tiempo de cada beat en la voz, la pregunta de cierre del capítulo (sale de la voz y dice de dónde salió) y el cierre del plan (deja solo los sellos del papel y ningún acercamiento suelto). También ordena el final: reparto, cierre y crítico.",
+  "recibe": "data/scripts/_steps/<topic_id>/01a_escaleta.json y 01b_narracion_v3.json, pool de evidencia, palabras con tiempos de la voz",
+  "entrega": "beats con ventanas y candidatos (en memoria y en output/<id>/work/gfx_beats_<cap>.json), texto y fuente de la pregunta de cierre, plan cerrado (realizador.filas)",
+  "modelo": [],
+  "etapa": ["guion", "guion_pantalla", "render"],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:260-268 (cargar, preparar), :292 (pregunta_cierre_fuente), :780 (cerrar); m01e_pantalla.py:199 beat_de_pantalla en Fase 1",
+  "funciones_muertas": [
+   {"nombre": "pregunta_cierre", "linea": 218, "por_que": "nadie la nombra en producción (gfx_layer usa pregunta_cierre_fuente); solo test_module_f38e_b.py"}
+  ],
+  "md5": "8ae63ab262594e82263975f1a864656a"
+ },
+ "script_engine/gfx_critic.py": {
+  "sticker": "El editor visual: Gemini mira la foto en el instante en que va un bloque y dice si estorba, es decir, si tapa un rostro o un texto de la imagen. Se llama en cada intento del reparto; si estorba, el bloque se mueve al intento siguiente en vez de cortarse. También arma la hoja de contactos del render.",
+  "recibe": "video base del cap (output/<id>/work/…/base.mp4 vía gfx_layer), bloque en un intento (instante y lado), palabras con tiempos de la voz",
+  "entrega": "fila de veredicto por intento (pasa o no); caché output/<id>/work/gfx_critic_rot_<cap>.json; cuadros en gfx_critic_<cap>/; hoja de contactos hoja_contactos_<cap>.jpg",
+  "modelo": [{"modelo": "Gemini (config api.gemini_model) con imagen", "para": "juzgar si un bloque de pantalla estorba sobre la foto"}],
+  "etapa": ["guion_pantalla", "render"],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:763 estorba (juez del reparto, solo si gfx_rules.visual_critic, clave presente en misterio.json) y :425 contact_sheet",
+  "funciones_muertas": [],
+  "md5": "b330e8dd013cea5bdb12e3ec562956de"
+ },
+ "script_engine/clima.py": {
+  "sticker": "Pone los sellos de clima (la palabra grande en rojo, como MUERTE o AGUA): la palabra y la oración vienen del guion en papel; acá se elige el instante probando la misma escalera de intentos que las fichas, sin cruzar el corte, sin chocar con otro bloque y con el crítico en cada intento.",
+  "recibe": "sellos del papel (ent_rot), oraciones y palabras de la voz, moods del perfil, vocabulario sellos_clima del perfil activo, planes resueltos de caps anteriores",
+  "entrega": "plan['emphasis'] con los sellos, filas de lo movido o sin colocar (plan['sellos_tema']) y veredictos (plan['critico_sellos']); en memoria",
+  "modelo": [],
+  "etapa": ["guion", "guion_pantalla", "render"],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:776 sellos_del_papel y :770 usadas_antes; m01e_pantalla.py:1119 vocabulario_clima en Fase 1",
+  "funciones_muertas": [],
+  "md5": "9ffd4515fa17bcaf6dc8ef2ac9c649fe"
+ },
+ "script_engine/pantalla_entrada.py": {
+  "sticker": "La entrada de Fase 2 para el texto de pantalla: lee el guion en papel que dejó Fase 1, alinea sus oraciones con las de la voz y ancla cada ficha, sello y reloj a su oración y palabra. No escribe nada ni usa modelo.",
+  "recibe": "data/scripts/_steps/<topic_id>/01e_pantalla.json (vía m01e_pantalla.cargar_papel), contexto del cap (escaleta, pool, narración), beats con ventanas, palabras con tiempos",
+  "entrega": "entrada del cap (oraciones, beats, ítems del pool, pico, voz del video) y papel del cap (bloques, sellos, relojes, alineación); en memoria",
+  "modelo": [],
+  "etapa": ["guion_pantalla", "render"],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:637-638 llama preparar_cap; fase2b.py:3160 importa voz_del_video en --plan-only",
+  "funciones_muertas": [],
+  "md5": "473106ef0103c73f763306b486338e4f"
+ },
+ "script_engine/gfx_vision.py": {
+  "sticker": "Gemini mira cada foto y dice qué detalles tiene y dónde (rostro, manos, objetos, texto). Con eso el render elige un movimiento seguro y acerca al rostro en lugar de deformarlo. El resultado se guarda para no volver a gastar.",
+  "recibe": "PNG de la escena o cuadro del video base",
+  "entrega": "hasta 3 detalles por foto con caja y tipo; caché output/<id>/assets/photo_details.json; caja del rostro o manos",
+  "modelo": [{"modelo": "Gemini (config api.gemini_model) con imagen", "para": "listar detalles acercables de cada foto"}],
+  "etapa": ["guion_pantalla", "render"],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:651-662 lo llama si gfx_rules.photo_first_zoom (clave presente en misterio.json; valor no leído)",
+  "funciones_muertas": [],
+  "md5": "1a393f500ceb724553488946ca665d50"
+ },
+ "script_engine/gfx_literal_lock.py": {
+  "sticker": "El candado: un texto que no está literal en las fuentes del capítulo (narración, partición, pool, fuentes) no sale en pantalla. Los bloques del papel traen su propio candado, así que acá solo se revisan el title card y el reloj; lo rechazado se quita y nunca se reescribe.",
+  "recibe": "plan resuelto del cap y diccionario de fuentes (ctx['sources'] de gfx_director)",
+  "entrega": "plan sin lo no literal y lista de rechazados (output/<id>/work/gfx_plan_<cap>.resolved.json › rejected)",
+  "modelo": [],
+  "etapa": ["guion_pantalla", "render"],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:695-704 y :723 llaman lock; gfx_director.py:19 importa normalize",
+  "funciones_muertas": [
+   {"nombre": "plan_strings", "linea": 90, "por_que": "nadie la nombra en producción; solo test_module_gfx_emphasis.py, test_module_gfx_icons.py y test_module_gfx_lock.py (auditoría y tests)"}
+  ],
+  "md5": "0dbcfcacb9f49edc78bfae07d4d45231"
+ },
+ "script_engine/gfx_director.py": {
+  "sticker": "Reúne el contexto de un capítulo para la capa gráfica sin usar modelo: guion, partición, fuentes del candado literal, narración del video y pool de evidencia. También saca la palabra clave de la pregunta de cierre.",
+  "recibe": "data/scripts/<id>.json, data/scripts/_steps/<topic_id>/01a_skeleton.json y 02_canonical.json, plan del cap",
+  "entrega": "diccionario de contexto del cap (sources, pool, skeleton, narración, capítulos) y la palabra clave de la pregunta; en memoria",
+  "modelo": [],
+  "etapa": ["guion_pantalla", "render"],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:631-632 load_chapter_context y :291 question_keyword; fase2b.py:3158-3172 load_chapter_context en --plan-only",
+  "funciones_muertas": [],
+  "md5": "4da6bcbceb97f56ffe6d41762ebe6706"
+ },
+ "script_engine/gfx_peak.py": {
+  "sticker": "Utilería de la voz que usan varios módulos: parte la narración en oraciones con sus palabras y tiempos, busca las palabras del léxico de moods y, si hay un sustantivo con ícono y un adjetivo de la misma categoría en una frase, prefiere el sustantivo.",
+  "recibe": "palabras con tiempos de la voz y el léxico de moods del perfil",
+  "entrega": "oraciones con índices y tiempos, aciertos del léxico, aciertos filtrados; en memoria",
+  "modelo": [],
+  "etapa": ["guion", "guion_pantalla", "render"],
+  "estado": "vivo",
+  "estado_prueba": "voz_utils.py:324/343/410 importa sentences (lo usa m01e_pantalla en Fase 1); clima.py:143 lexicon_hits y prefer_icon_nouns; gfx_critic.py:115 y gfx_pool.py:430 sentences",
+  "funciones_muertas": [],
+  "md5": "0db364616c26fb102d19e09a67e966d7"
+ }
+}

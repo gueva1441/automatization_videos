@@ -1,0 +1,711 @@
+{
+ "_nota": "F42 §B: stickers de la zona orquestador, escritos por los workers (Sonnet) que leyeron cada archivo entero; `md5` = el del archivo leído (`mapa_modulos.py --check` avisa si cambió). `_parte` = el worker.",
+ ".claude/agents/simulador.md": {
+  "sticker": "Instrucciones del ayudante de Claude Code que prueba en seco una regla o filtro nuevo contra el guion de pantalla de un video ya hecho y devuelve cuántos eventos cortaría y tres ejemplos, antes de que nadie escriba código. No toca el pipeline ni el video.",
+  "recibe": "La regla tal como la escribe el handoff y un topic de prueba (por defecto f8s3-vajont-f30); lee output/<topic>/GUION_PANTALLA.json.",
+  "entrega": "Una tabla propuestos, cortados por la regla, quedan, con tres ejemplos y una línea de lectura (sale en el reporte de la tanda).",
+  "modelo": [
+   {
+    "modelo": "sonnet (campo model del agente de Claude Code)",
+    "para": "es el modelo con que corre el propio ayudante"
+   }
+  ],
+  "etapa": [
+   "Claude Code"
+  ],
+  "estado": "vivo",
+  "estado_prueba": ".claude/commands/tanda.md:17 manda invocar al subagente simulador cuando el handoff trae una regla nueva; usa lab/tools/simular_regla.py.",
+  "funciones_muertas": [],
+  "md5": "7711b3d4d6ec8c24598aa25832446014",
+  "_parte": "orquestador_c"
+ },
+ ".claude/agents/structure-auditor.md": {
+  "sticker": "Instrucciones del ayudante de Claude Code que recorre el repo para armar un resumen de estructura (qué hace cada módulo, quién llama a quién por subprocess o por archivos) y lo deja en _repo_audit/STRUCTURE_DIGEST.md para que una persona arme REPO_MAP.md. No toca código.",
+  "recibe": "Una lista fija de 55 módulos de producción dentro del propio texto del agente, más el código del repo.",
+  "entrega": "Un único archivo, _repo_audit/STRUCTURE_DIGEST.md, y un resumen de tres líneas.",
+  "modelo": [
+   {
+    "modelo": "sonnet (campo model del agente de Claude Code)",
+    "para": "es el modelo con que corre el propio ayudante"
+   }
+  ],
+  "etapa": [
+   "Claude Code"
+  ],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "ningún comando ni hook lo invoca (tanda.md no lo nombra); solo existe para pedirlo a mano al armar REPO_MAP; _repo_audit/ está vacío.",
+  "funciones_muertas": [],
+  "md5": "b213c4907964e026399c43f9b7cfae85",
+  "_parte": "orquestador_c"
+ },
+ ".claude/commands/tanda.md": {
+  "sticker": "El comando /tanda de Claude Code: el procedimiento de 12 pasos con que Claude programa una tanda desde un handoff (leer reglas, declarar módulos, una variable por vez, constantes con origen, simulador, PARADA, suite de tests, mapa, reporte con revisor, ESTADO). Ordena cómo se trabaja; no genera video.",
+  "recibe": "La ruta del handoff y la autorización de Omar ($ARGUMENTS).",
+  "entrega": "Instrucciones que Claude sigue: el reporte lab/hyperframes/fNN/FNN_REPORT.md, el commit por parte y lab/ESTADO_SESION.md actualizado.",
+  "modelo": [],
+  "etapa": [
+   "Claude Code"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "CLAUDE.md pide trabajar por tanda y el comando está en .claude/commands/ (lo dispara quien escribe /tanda).",
+  "funciones_muertas": [],
+  "md5": "773354d0cb27d69b7bccac08d0979cd6",
+  "md5_nota": "F42 §C: CC releyó la versión editada en esta tanda y actualizó el md5",
+  "_parte": "orquestador_c"
+ },
+ ".claude/hooks/README.md": {
+  "sticker": "La tabla que explica los seis candados automáticos de Claude Code en este repo (qué bloquean, cuándo avisan) y sus límites conocidos; desde F42 dice que guard_mapa corre el chequeo del mapa del proyecto. Es documentación para las personas; no se ejecuta.",
+  "recibe": "Nada.",
+  "entrega": "Nada (texto de consulta).",
+  "modelo": [],
+  "etapa": [
+   "Claude Code"
+  ],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "es un README: nadie lo importa ni lo lee desde código; describe los hooks cableados en .claude/settings.json:8-20.",
+  "funciones_muertas": [],
+  "md5": "582575453abb1793b0c30ce05ff0d8b4",
+  "md5_nota": "F42 §C: CC releyó la versión editada en esta tanda y actualizó el md5",
+  "_parte": "orquestador_c"
+ },
+ ".claude/hooks/_comun.py": {
+  "sticker": "Piezas compartidas por los candados de Claude Code: leer el evento que manda la herramienta, partir un comando en sus partes (&&, |, ;), entender un git ... y frenar con un motivo. No hace nada por sí solo.",
+  "recibe": "El JSON del evento por stdin y el texto del comando que Claude quiere correr.",
+  "entrega": "Funciones para los otros hooks; bloquear() sale con código 2 y escribe el motivo por stderr.",
+  "modelo": [],
+  "etapa": [
+   "Claude Code"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "guard_git.py:16, guard_mapa.py:16, guard_render.py:17, md5_prompt.py:14, suite_rapida.py:13 y tope_tanda.py:14 lo importan.",
+  "funciones_muertas": [],
+  "md5": "234b93de45a9c13ae1c71f401b453ce4",
+  "_parte": "orquestador_c"
+ },
+ ".claude/hooks/guard_git.py": {
+  "sticker": "Candado de Claude Code sobre git: no deja commitear .env, config.py, lab/_gpt_probe_analista ni archivos que tengan una llave de Anthropic u OpenAI adentro, y bloquea el push a main y el merge estando en main. Protege las llaves y la rama principal.",
+  "recibe": "El comando de Bash/PowerShell que Claude va a correr (evento PreToolUse) y lo que git dice que entraría (git add --dry-run, git diff --cached).",
+  "entrega": "Nada si pasa; si no, sale con código 2 y el motivo para Claude.",
+  "modelo": [],
+  "etapa": [
+   "Claude Code"
+  ],
+  "estado": "vivo",
+  "estado_prueba": ".claude/settings.json:8 lo cablea en PreToolUse (Bash|PowerShell).",
+  "funciones_muertas": [],
+  "md5": "348b4c9e6585f2ad61d8b53eff6968ab",
+  "_parte": "orquestador_c"
+ },
+ ".claude/hooks/guard_mapa.py": {
+  "sticker": "Aviso de Claude Code antes de cada git commit: corre el chequeo del mapa del proyecto y, si un archivo de producción que entra en el commit no tiene sticker en el mapa o lo tiene desactualizado, avisa. No bloquea, solo recuerda reescribir el sticker.",
+  "recibe": "El comando de git commit del evento PreToolUse y lab/tools/mapa_modulos.py (check, que compara md5 contra lab/mapa/stickers/*.json).",
+  "entrega": "Un mensaje de aviso (systemMessage y additionalContext) con los archivos con sticker viejo; nunca frena el commit.",
+  "modelo": [],
+  "etapa": [
+   "Claude Code"
+  ],
+  "estado": "vivo",
+  "estado_prueba": ".claude/settings.json:12 lo cablea en PreToolUse (Bash|PowerShell).",
+  "funciones_muertas": [],
+  "md5": "facfa9268459e87323a23d355addb5f8",
+  "md5_nota": "F42 §C: CC releyó la versión editada en esta tanda y actualizó el md5",
+  "_parte": "orquestador_c"
+ },
+ ".claude/hooks/guard_render.py": {
+  "sticker": "Candado de Claude Code sobre el render: no deja correr fase2b con --gfx (el render con la capa gráfica) si el guion de pantalla del video no existe, no está aprobado por Omar o cambió después de aprobarse. Así no se gasta un render sin la aprobación.",
+  "recibe": "El comando de Bash/PowerShell del evento PreToolUse y output/<topic>/GUION_PANTALLA.json, que juzga script_engine/aprobacion.py.",
+  "entrega": "Nada si pasa; si no, sale con código 2 y el motivo.",
+  "modelo": [],
+  "etapa": [
+   "Claude Code"
+  ],
+  "estado": "vivo",
+  "estado_prueba": ".claude/settings.json:11 lo cablea en PreToolUse (Bash|PowerShell); .claude/commands/tanda.md:19 lo cita.",
+  "funciones_muertas": [],
+  "md5": "c55192745a95926c50ed5f9ac2c13acf",
+  "_parte": "orquestador_c"
+ },
+ ".claude/hooks/md5_prompt.py": {
+  "sticker": "Aviso de Claude Code después de editar un archivo: si es un PROMPT_*.md o tiene un bloque ## SISTEMA, dice el md5 nuevo y el que tenía en el último commit (y el del bloque), para que se vea cuándo un prompt cambió de verdad. No bloquea.",
+  "recibe": "La ruta del archivo editado (evento PostToolUse Edit/Write/MultiEdit) y el contenido de HEAD (git show).",
+  "entrega": "Un mensaje de aviso con los md5 (systemMessage y additionalContext).",
+  "modelo": [],
+  "etapa": [
+   "Claude Code"
+  ],
+  "estado": "vivo",
+  "estado_prueba": ".claude/settings.json:20 lo cablea en PostToolUse (Edit|Write|MultiEdit).",
+  "funciones_muertas": [],
+  "md5": "6500f806d61f25c77032fa73331b9d6d",
+  "_parte": "orquestador_c"
+ },
+ ".claude/hooks/suite_rapida.py": {
+  "sticker": "Candado de Claude Code antes de cada git commit: corre la suite rápida de tests (f25c, f24, f21) y si alguno falla, frena el commit y muestra el final del error. Evita commitear algo roto.",
+  "recibe": "El comando de git commit del evento PreToolUse y los tests test_module_f25c.py, f24.py y f21.py (o la lista de HOOK_SUITE_RAPIDA).",
+  "entrega": "Nada si la suite pasa; si no, sale con código 2 con las últimas 25 líneas de pytest.",
+  "modelo": [],
+  "etapa": [
+   "Claude Code"
+  ],
+  "estado": "vivo",
+  "estado_prueba": ".claude/settings.json:9 lo cablea en PreToolUse (Bash|PowerShell).",
+  "funciones_muertas": [],
+  "md5": "884ed894c7cd4a3ccc1489d0ff874dc7",
+  "_parte": "orquestador_c"
+ },
+ ".claude/hooks/tope_tanda.py": {
+  "sticker": "Candado de Claude Code sobre el gasto: antes de correr fase1_5.py o fase2a.py mira el tope en dólares de la tanda (lab/TOPE_TANDA.json) y, si el gasto del historial desde que empezó la tanda ya lo alcanzó, no deja arrancar. Sin archivo de tope no hace nada.",
+  "recibe": "El comando de Bash/PowerShell del evento PreToolUse, lab/TOPE_TANDA.json y data/cost_history.json (lee total_cost y created_at de cada video).",
+  "entrega": "Nada si hay margen; si no, sale con código 2 con el gasto y el tope.",
+  "modelo": [],
+  "etapa": [
+   "Claude Code"
+  ],
+  "estado": "vivo",
+  "estado_prueba": ".claude/settings.json:10 lo cablea en PreToolUse (Bash|PowerShell).",
+  "funciones_muertas": [],
+  "md5": "2da7b54b2321602031cbb1278b35924c",
+  "_parte": "orquestador_c"
+ },
+ "asset_manager.py": {
+  "sticker": "Es el que genera las fotos (y los clips de Veo, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió.",
+  "recibe": "El guion canónico con image_prompts/video_prompts por capítulo y foto_madre_registry (data/scripts/<id>.json), el sync_map de voz (output/<id>/audio/sync_map.json, opcional) y las fotos madre en disco (rutas del registry).",
+  "entrega": "output/<id>/assets/<capNN>_flux/<capNN>_img_NN.png (y _supp_NN.png, _graded.png), output/<id>/assets/<capNN>_veo/<capNN>_clip_NN.mp4 y output/<id>/assets/assets_manifest.json. Además, otros módulos le piden la función de imagen cruda (foto_madre.py, m09_packaging).",
+  "modelo": [
+   {
+    "modelo": "api.image_engine (valor por defecto seedream; perfiles seedream y kling en engine_profiles.py; ruta histórica api.fal_image_model / fal_image_model_ultra para flux)",
+    "para": "generar cada imagen por fal.ai (t2i, o /edit anclado con la foto madre)"
+   },
+   {
+    "modelo": "api.fal_video_model (Veo 3.1 Lite image-to-video)",
+    "para": "clips de video de los capítulos veo"
+   },
+   {
+    "modelo": "validador de visión (script_engine/vision_validator.py), apagado por ENABLE_VISION_VALIDATOR=False",
+    "para": "validar la imagen contra su prompt (hoy no corre)"
+   }
+  ],
+  "etapa": [
+   "assets",
+   "packaging"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase2a.py:55 importa process_script como asset_process y lo corre en la etapa assets (run_pipeline.py:340-342 lanza fase2a.py --topic); m09_packaging.py:489 lo usa para las miniaturas",
+  "funciones_muertas": [],
+  "md5": "c3e06c16110ca81d220723a854f08938",
+  "_parte": "orquestador_b"
+ },
+ "claude_helpers.py": {
+  "sticker": "Es el teléfono para hablar con Claude (Anthropic) y recibir la respuesta como datos ordenados. Habla directo por internet en modo streaming, reintenta si la API se satura o el JSON viene roto, y anota lo que cuesta cada llamada. Lo usan la ficha del caso, la escaleta, el guion y el papel de pantalla.",
+  "recibe": "Prompt, instrucción de sistema, esquema y esfuerzo de razonamiento desde researcher_steps/ficha_caso.py, script_engine/guion_v4.py, m01a_escaleta.py y m01e_pantalla.py; la llave ANTHROPIC_API_KEY del entorno o del .env (nunca se imprime).",
+  "entrega": "Un dict ya parseado a quien llama y una entrada de costo por tokens en cost_tracker (service «Anthropic <modelo>»). Si el modelo se niega o falla tres veces, ClaudeError.",
+  "modelo": [
+   {
+    "modelo": "claude-fable-5-1",
+    "para": "escaleta y guion v4 por defecto (F22e/F25c); precio en PRICES"
+   },
+   {
+    "modelo": "claude-opus-5-5",
+    "para": "alternativa de guion/ficha/escaleta con --modelo"
+   },
+   {
+    "modelo": "claude-sonnet-5-5",
+    "para": "papel de pantalla (m01e_pantalla.MODELO)"
+   }
+  ],
+  "etapa": [
+   "guion",
+   "papel",
+   "guion_pantalla"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/m01e_pantalla.py:816 importa claude_helpers; script_engine/guion_v4.py:820-821 y m01a_escaleta.py:761 arman el call con make_call.",
+  "funciones_muertas": [],
+  "md5": "1ea9bf2914389592eba47042f3d2b6f1",
+  "_parte": "orquestador_c"
+ },
+ "config.py": {
+  "sticker": "Es el panel de control central: rutas del proyecto, endpoints y modelos de cada servicio, parámetros del video (resolución, fps, concurrencia de imágenes), precios por llamada, largos objetivo del video largo y umbrales del validador de temas. También crea el cliente de Gemini que comparten todos los módulos.",
+  "recibe": "Nada de archivos: son constantes y dataclasses en el propio archivo; al importarse crea las carpetas output/, logs/ y data/ si faltan.",
+  "entrega": "Los objetos api, pipeline, long_video, short_video, apuesta_viral, validator_strictness y gemini_client, las rutas BASE_DIR/OUTPUT_DIR/LOGS_DIR/DATA_DIR y la función estimated_cost_for.",
+  "modelo": [
+   {
+    "modelo": "api.gemini_model, api.gemini_model_research, api.image_engine, api.fal_video_model, api.elevenlabs_model (solo los fija; no los llama)",
+    "para": "declara qué modelo usa cada etapa; el cliente gemini_client se crea acá"
+   }
+  ],
+  "etapa": [
+   "research",
+   "guion",
+   "papel",
+   "voz",
+   "assets",
+   "fondos",
+   "guion_pantalla",
+   "aprobar_guion",
+   "render",
+   "packaging"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "importado por run_pipeline.py y por fase1.py, fase1_5.py, fase2a.py, fase2b.py y fase3.py (hechos de A: 49 importadores)",
+  "funciones_muertas": [
+   {
+    "nombre": "get_video_config",
+    "linea": 330,
+    "por_que": "solo la nombra el docstring de config.py:9; ningún .py del repo la llama (ni producción ni tests)"
+   }
+  ],
+  "md5": "e82045128f8bc7d0a91f53b6f7883e8e",
+  "_parte": "orquestador_b"
+ },
+ "cost_tracker.py": {
+  "sticker": "Es la caja registradora del pipeline: cada vez que un módulo gasta plata en una API (Gemini, Flux, Kling, Seedream, Veo, ElevenLabs, y también Claude y GPT por la puerta de atrás) anota cuánto, en qué etapa y para qué video. Al cerrar el video guarda el total en el historial y, en la corrida del form, avisa el gasto de Gemini en vivo.",
+  "recibe": "Llamadas de los demás módulos (track_gemini_response, track_flux_pro, track_kling, track_seedream, track_fal, track_elevenlabs, _add_entry desde claude_helpers/gpt_helpers) y las tarifas de config.py (pipeline.costs: gemini_per_call, gemini_vision_per_call, flux_pro_per_image, flux_pro_ultra_per_image, kling_per_image, seedream_per_image, leonardo_per_image, fal_per_clip, elevenlabs_per_char, gemini_rates_per_1m). Lee data/cost_history.json.",
+  "entrega": "data/cost_history.json (un reporte por video, se agrega al cerrar con end_video; bajo pytest no escribe), data/session_report_<fecha>.json (save_session_report, lo llama fase1.py), resúmenes impresos en consola (print_summary / print_gemini_report) y el marcador de costo en vivo para el form (qa_form_markers.emit_cost_marker, solo Gemini).",
+  "modelo": [],
+  "etapa": [
+   "research",
+   "guion",
+   "papel",
+   "voz",
+   "assets",
+   "fondos",
+   "guion_pantalla",
+   "render",
+   "packaging"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:3282 abre el video con cost_tracker.start_video y fase2b.py:3389 lo cierra; fase1_5.py:218 y asset_manager.py:1243 también; gemini_helpers.py:193 anota cada llamada Gemini.",
+  "funciones_muertas": [
+   {
+    "nombre": "CostTracker.track_leonardo",
+    "linea": 257,
+    "por_que": "nadie la llama: solo se nombra en REPO_MAP.md (como deprecada) y en su propio docstring; Leonardo fue reemplazado por Flux."
+   },
+   {
+    "nombre": "CostTracker.track_custom",
+    "linea": 297,
+    "por_que": "ningún módulo de producción la llama; solo test_module_f26c.py:138 (prueba del lock de hilos)."
+   }
+  ],
+  "md5": "75f85351a4f37892bd8a7d47083c3684",
+  "_parte": "orquestador_c"
+ },
+ "csv_exporter.py": {
+  "sticker": "Escribe y lee el CSV de revisión de temas (data/fase1_review.csv): una fila por tema validado, con veredicto, título, ganchos, cierres y costo estimado. También sabe armar el CSV de un solo tema para que fase2a lo procese sin que nadie edite nada.",
+  "recibe": "data/topics_db.json (temas con status validated) y, para el costo estimado, config.estimated_cost_for.",
+  "entrega": "data/fase1_review.csv (UTF-8 con BOM, todas las celdas entre comillas) y un resumen por consola; parse_decisions_csv devuelve un dict approved/skipped/pending/malformed.",
+  "modelo": [],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1.py:588 y :793 llaman export_fase1_csv (Paso 4 de la investigación); fase1_5.py:750 llama export_single_topic_csv desde el menú interactivo",
+  "funciones_muertas": [],
+  "md5": "d8ad9a923d160bad4652db866b15727c",
+  "_parte": "orquestador_b"
+ },
+ "error_handler.py": {
+  "sticker": "Es el encargado de avisar cuando algo sale mal y de insistir: escribe el diario del pipeline (archivo y consola), y ofrece el decorador que repite una llamada a una API si falla (más veces y esperando más cuando el servidor está saturado). Si todo falla, corta con un error que dice en qué etapa pasó.",
+  "recibe": "Mensajes y excepciones de casi todos los módulos (log_info, log_error, log_warning, log_success) y funciones envueltas con @error_handler.retry(PipelineStage.X); LOGS_DIR, max_retries y retry_delay_seconds de config.py.",
+  "entrega": "logs/pipeline_<fecha>.log (se crea al importar el módulo), líneas por consola, y PipelineError cuando se agotan los reintentos.",
+  "modelo": [],
+  "etapa": [
+   "research",
+   "guion",
+   "papel",
+   "voz",
+   "assets",
+   "fondos",
+   "guion_pantalla",
+   "render",
+   "packaging"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "asset_manager.py:311 (@error_handler.retry en la generación de imágenes) y audio_manager.py:382 (retry de la voz); cost_tracker.py:19 lo importa y lo usa en start_video.",
+  "funciones_muertas": [
+   {
+    "nombre": "ErrorHandler.save_error_report",
+    "linea": 228,
+    "por_que": "nadie la llama: solo se define; no hay llamador en producción ni en tests."
+   },
+   {
+    "nombre": "ErrorHandler.has_critical_errors",
+    "linea": 242,
+    "por_que": "nadie la llama: solo se define; no hay llamador en producción ni en tests."
+   }
+  ],
+  "md5": "68799ed1b8303793f3c900fd4f4f9e84",
+  "_parte": "orquestador_c"
+ },
+ "fase3.py": {
+  "sticker": "Es el paso de empaquetado: toma el video ya terminado, genera las candidatas de título y miniaturas si faltan y abre el form de m09 para que Omar elija y componga; al primer componer marca el tema como empaquetado. La subida a YouTube sigue a mano.",
+  "recibe": "<topic_id> (o un menú de los topics terminados sin empaquetar), data/topics_db.json (status video_generated y video_path del mp4), flags de passthrough para m09 con --headless.",
+  "entrega": "Llama a script_engine/m09_packaging (candidatas, review, componer) y marca packaged en data/topics_db.json; con --headless lanza python -m script_engine.m09_packaging como subproceso.",
+  "modelo": [],
+  "etapa": [
+   "packaging"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "run_pipeline.py:430 lo lanza en _paso_packaging (solo sin --batch; el form siempre usa --batch, así que el form solo reporta el comando)",
+  "funciones_muertas": [],
+  "md5": "5019d255b81d74b1f4f3a544639cb0b8",
+  "_parte": "orquestador_a"
+ },
+ "gemini_helpers.py": {
+  "sticker": "Es el único teléfono para hablar con Gemini y recibir la respuesta como datos ordenados: manda el pedido, reintenta si el servidor está caído, y si el modelo devuelve un JSON roto o vacío lo vuelve a llamar hasta tres veces. Cada llamada real queda anotada en el costo.",
+  "recibe": "Prompt, instrucción de sistema opcional, esquema de salida opcional y tag de la llamada, desde research (research_v3, step_4a..4e, m_judge_seeds, subtopic_*), guion (m01d_particion, guion_v4), voz (m02_5_normalizer_gate, m03_visual, m05_judge, m06_classifier, m07_music_director), fondos/render (flow_director, gfx_intensity) y el qa_studio (arreglos de frase/clip/narración); modelo y llave de config.py (APIConfig: gemini_api_key, gemini_model, gemini_model_research).",
+  "entrega": "Un dict ya parseado a quien llama; si falla tres veces, data/_debug/json_invalid_<fecha>.txt con la respuesta cruda y un ValueError. Anota el costo por tokens en cost_tracker.",
+  "modelo": [
+   {
+    "modelo": "APIConfig.gemini_model (config.py)",
+    "para": "call_flash_json: tareas rápidas (normalizador, juez, clasificador, extracción de hechos, fluidificador)"
+   },
+   {
+    "modelo": "APIConfig.gemini_model_research (config.py)",
+    "para": "call_pro_json: research largo y guion con Gemini Pro"
+   },
+   {
+    "modelo": "el que pase quien llama (p. ej. gemini-4-argon desde guion_v4.MODELOS)",
+    "para": "call_model_json / make_call: modelo explícito atado por el guionista v4"
+   }
+  ],
+  "etapa": [
+   "research",
+   "guion",
+   "voz",
+   "fondos",
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/m02_5_normalizer_gate.py:31 (corre en voz) y researcher_steps/step_4a_facts.py:19 (research) lo importan arriba; guion_v4.py:817 usa make_call.",
+  "funciones_muertas": [],
+  "md5": "60f16ae2957490846fb380c6b89e12fe",
+  "_parte": "orquestador_c"
+ },
+ "gpt_helpers.py": {
+  "sticker": "Es el teléfono para hablar con GPT (OpenAI) y recibir la respuesta como datos ordenados. Misma forma que el de Gemini y el de Claude, así el guion no se entera de qué modelo contesta; reintenta y anota el costo. Es el modelo por defecto de la ficha del caso.",
+  "recibe": "Prompt, sistema, esquema y esfuerzo desde researcher_steps/ficha_caso.py (call_for) y script_engine/guion_v4.py (call_for); la llave OPENAI_API_KEY del entorno o del .env (nunca se imprime).",
+  "entrega": "Un dict ya parseado a quien llama y una entrada de costo en cost_tracker (service «OpenAI <modelo>», con los tokens de razonamiento aparte). Si falla tres veces, GPTError.",
+  "modelo": [
+   {
+    "modelo": "gpt-6.1-sol",
+    "para": "ficha del caso, escaleta y columna por defecto (guion_v4.DEFAULT_MODELO)"
+   },
+   {
+    "modelo": "gpt-6-astra",
+    "para": "alternativa más cara del guionista con --modelo"
+   }
+  ],
+  "etapa": [
+   "guion"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "researcher_steps/ficha_caso.py:794 importa gpt_helpers y arma el call; script_engine/guion_v4.py:822-823 lo usa para los modelos GPT.",
+  "funciones_muertas": [],
+  "md5": "47f856540e1a3c5cbdf5783614c70869",
+  "_parte": "orquestador_c"
+ },
+ "mixer.html": {
+  "sticker": "La pantalla de la mesa de mezcla: Omar elige un capítulo, mueve dos deslizadores (volumen de la música y piso de la música), escucha una vista previa y el render real, y guarda el volumen en el json del track de música. También tiene un botón para volver a armar el video.",
+  "recibe": "Lo que le sirve mixer_server.py: /caps, /topic, /suggested_start, /audio/voice, /audio/music, /defaults, /render_confirm, /save, /rerun, /rerun_status.",
+  "entrega": "Pedidos POST al mixer_server (guardar volumen en audio_library/<track>.json, render de prueba, re-armado con fase2b); no escribe archivos por sí misma.",
+  "modelo": [],
+  "etapa": [
+   "herramienta manual"
+  ],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "mixer_server.py:71 la carga (HTML_PATH); mixer_server solo lo corre una persona a mano (fase2b.py:3527 lo nombra solo en un mensaje de advertencia).",
+  "funciones_muertas": [],
+  "md5": "59dae904e6fa382e52d16f984571eae9",
+  "_parte": "orquestador_c"
+ },
+ "qa_choice.html": {
+  "sticker": "El diálogo genérico de botones del form de Omar: muestra una pregunta y una columna de opciones con su tecla (la recomendada en verde); un click o la tecla elige. Lo usan los menús de una sola opción como tipo de video y las compuertas de papel, visor y guion.",
+  "recibe": "El marcador del form vía window.renderChoice(marker) (menu, prompt, options, default, body).",
+  "entrega": "La clave elegida por window.qaFormAnswer({menu, action:'choose', value}), que el form manda por stdin a la etapa que espera.",
+  "modelo": [],
+  "etapa": [
+   "research",
+   "papel",
+   "fondos",
+   "aprobar_guion"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "qa_studio_server.py:1423 la registra como __choice__ y qa_form.html:282 la usa para cualquier menú de tipo key.",
+  "funciones_muertas": [],
+  "md5": "1f004c6b967743cf5261909f86ee090f",
+  "_parte": "orquestador_c"
+ },
+ "qa_form.html": {
+  "sticker": "Es la pantalla del form de producción asistida: muestra una barra con las fases del pipeline, el costo de Gemini en vivo y, cuando el pipeline necesita una decisión de Omar, abre el diálogo (elegir tema, aprobar el papel, aprobar el guion de pantalla, ir al visor). También deja retomar un tema que quedó a medias.",
+  "recibe": "Del servidor: /form_state (fase activa, costo, marcador pendiente, últimas líneas de consola), /form_topics (lista de topics de data/topics_db.json) y los diálogos de qa_choice.html, qa_gallery.html, qa_multi.html y qa_judge.html por /form_menu.",
+  "entrega": "Respuestas al servidor: POST /form_launch, /form_resume?topic=<id>, /form_answer con la tecla elegida (A, P, C, número de seed…) y /form_shutdown.",
+  "modelo": [],
+  "etapa": [
+   "orquestador/form"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "qa_studio_server.py:1384 define HTML_FORM_PATH y :1847-1848 lo sirve en /form (serve() lo abre en el navegador, :2052)",
+  "funciones_muertas": [],
+  "md5": "3b9c06656eef9e62d0035cc3a099b0ed",
+  "_parte": "orquestador_a"
+ },
+ "qa_form_markers.py": {
+  "sticker": "Es el mensajero entre el pipeline y el form: cuando el form está activo, imprime una línea especial (con un diálogo o con un gasto de Gemini) que el servidor del form lee para mostrarle un botón a Omar o sumar el costo. Sin el form no imprime nada.",
+  "recibe": "La variable de entorno QA_FORM y los datos del diálogo (menú, opciones, texto, payload) o del gasto (modelo, USD, tokens) que le pasan run_pipeline, m05_judge y cost_tracker.",
+  "entrega": "Una línea por stdout: @@QAFORM@@ {json} (diálogo) o @@QAFORM_COST@@ {json} (costo).",
+  "modelo": [],
+  "etapa": [
+   "research",
+   "guion",
+   "papel",
+   "voz",
+   "assets",
+   "fondos",
+   "guion_pantalla",
+   "aprobar_guion",
+   "render",
+   "packaging"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "run_pipeline.py:281, :357 (diálogos de papel, guion de pantalla y visor) y cost_tracker.py:161-162 (costo Gemini de cualquier etapa)",
+  "funciones_muertas": [],
+  "md5": "ee12fdaa059f62040c9f81bc9b3e97dd",
+  "_parte": "orquestador_a"
+ },
+ "qa_gallery.html": {
+  "sticker": "La galería de temas pendientes del form de Omar: una tarjeta por tema con su nicho, competencia, demanda del viral en inglés y el aviso del juez. Omar toca una tarjeta, aprieta Producir, o borra un tema o pide generar nuevos.",
+  "recibe": "El marcador del form vía window.renderGallery(marker) que llama qa_form.html (menú reuse_seeds antes del juez, seed_pick después).",
+  "entrega": "Respuestas al form por window.qaFormAnswer: produce (con índice y título), delete o regenerate, que el form traduce a una línea por stdin para fase1.py.",
+  "modelo": [],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "qa_studio_server.py:1425 la registra en _FORM_MENU_HTML como __gallery__; qa_form.html:278 y 282 la usan para reuse_seeds y seed_pick.",
+  "funciones_muertas": [],
+  "md5": "85e540b0c59782b7c47da42279c8f86a",
+  "_parte": "orquestador_c"
+ },
+ "qa_judge.html": {
+  "sticker": "La pantalla del juez del form: muestra los problemas que el juez encontró en el guion antes de gastar en imágenes (capítulo, imagen, categoría, gravedad, motivo) y los botones para verlos uno por uno, aprobar todos los arreglos, rechazarlos o salir.",
+  "recibe": "El marcador judge_action del form vía window.renderJudge(marker), con el veredicto y la lista de issues (los arma script_engine/m05_judge.py).",
+  "entrega": "La tecla elegida (V, A, R o S) por window.qaFormAnswer, que el form manda por stdin al gate del juez.",
+  "modelo": [],
+  "etapa": [
+   "voz"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "qa_studio_server.py:1426 la registra como __judge__; script_engine/m05_judge.py:1618 emite el menú judge_action; qa_form.html:282 la elige.",
+  "funciones_muertas": [],
+  "md5": "bff6c2cd8004c381de2889b381ff8c79",
+  "_parte": "orquestador_c"
+ },
+ "qa_multi.html": {
+  "sticker": "El diálogo de casillas del form de Omar: Omar marca uno o varios nichos (o Todos) y confirma. Se usa en el paso donde se eligen los nichos para buscar temas.",
+  "recibe": "El marcador del form vía window.renderMulti(marker) (menu, prompt, options, body).",
+  "entrega": "Una lista de claves elegidas por window.qaFormAnswer, que el form une con coma y manda por stdin (por ejemplo 1,3 o A).",
+  "modelo": [],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "qa_studio_server.py:1424 la registra como __multi__ (accept 'keys', submenú de nichos); qa_form.html:282 la elige.",
+  "funciones_muertas": [],
+  "md5": "cc25febacf766ef88b7c71e78ce310f7",
+  "_parte": "orquestador_c"
+ },
+ "qa_seed_pick.html": {
+  "sticker": "Pantalla vieja de selección de temas (lista con columnas de hueco, demanda, ratio y riesgo, y una sección de dudosos). Fue reemplazada por qa_gallery.html y ya nadie la sirve.",
+  "recibe": "Nada: el servidor ya no la entrega; esperaba window.renderSeeds(items) desde el form.",
+  "entrega": "Nada: emitía produce o delete por window.qaFormAnswer, pero ninguna ruta la abre.",
+  "modelo": [],
+  "etapa": [
+   "ninguna"
+  ],
+  "estado": "huérfano",
+  "estado_prueba": "qa_studio_server.py:1420-1421 dice que está jubilada y su tabla _FORM_MENU_HTML (1422-1427) no la incluye; ningún .py ni .html la abre (solo la citan comentarios de qa_choice, qa_gallery y qa_judge).",
+  "funciones_muertas": [],
+  "md5": "01b4d5ffd57c0d5e1c9494397a3ca8d0",
+  "_parte": "orquestador_c"
+ },
+ "qa_studio.html": {
+  "sticker": "Es la pantalla del visor por capítulo: muestra la línea de tiempo de cada capítulo con sus fotos y clips, deja escuchar la narración tramo por tramo, marcar fotos para regenerar, pedir un fix de foto o de clip, corregir una pronunciación y lanzar ENSAMBLAR VIDEO. También embebe el formulario de miniaturas.",
+  "recibe": "Del servidor: /topic, /caps, /cap?cap=chNN (segmentos con tiempos y anchors), /img, /clip y /audio del capítulo, /marks, /fix_status, /assemble_status, /thumbs_status.",
+  "entrega": "Pedidos al servidor: POST /mark, /fix_image, /fix_clip, /fix_narration, /assemble y /thumbs_start.",
+  "modelo": [],
+  "etapa": [
+   "orquestador/form"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "qa_studio_server.py:72 define HTML_PATH y :1828-1829 lo sirve en / (el form lo abre en el gate del visor, qa_form.html:349)",
+  "funciones_muertas": [],
+  "md5": "d9741576cb884c5e000361738611f928",
+  "_parte": "orquestador_a"
+ },
+ "qa_studio_server.py": {
+  "sticker": "Es el servidor local que Omar levanta a mano para producir un video con botones: sirve la pantalla del form y la del visor de capítulos, lanza el orquestador (run_pipeline) como proceso hijo y le pasa las respuestas de Omar. También deja arreglar a mano una foto, un clip o una pronunciación de un capítulo y armar el video con el botón ENSAMBLAR.",
+  "recibe": "Pedidos HTTP del navegador (form y visor); data/scripts/<id>.json, output/audio/<id>/chNN.mp3 y chNN_timestamps.json, output/<id>/assets/chNN_flux/*.png y chNN_veo/*.mp4, data/topics_db.json (lista de retomar), data/scripts/_steps/<id>/01b_narration_normalized.json; las líneas @@QAFORM@@ y @@QAFORM_COST@@ que imprime run_pipeline.",
+  "entrega": "Las páginas qa_form.html y qa_studio.html; JSON de estado del form (fase, costo Gemini en vivo, diálogo pendiente); líneas por stdin al hijo; imágenes y clips regenerados en output/<id>/assets/ con copia en _qa_backups/; output/<id>/assets/_qa_marks.json (fotos marcadas); data/normalizer_custom_dict.json; el audio del capítulo re-hecho; levanta fase2b, run_pipeline y el servidor de miniaturas de m09 como subprocesos.",
+  "modelo": [
+   {
+    "modelo": "Gemini (config api.gemini_model, vía gemini_helpers.call_flash_json)",
+    "para": "reescribir el prompt de una foto con el cambio que pide Omar (_fix_core, _clipfix_core) y detectar qué palabra se pronuncia mal (_narrfix_core)"
+   },
+   {
+    "modelo": "imagen (config api.fal_image_model, vía asset_manager._generate_flux_image_at)",
+    "para": "regenerar una foto suelta (fix de foto, fix de clip y marcar para regenerar)"
+   },
+   {
+    "modelo": "Veo (config api.fal_video_model, vía asset_manager._generate_veo_clip)",
+    "para": "regenerar el clip de un capítulo veo sobre la foto nueva"
+   },
+   {
+    "modelo": "ElevenLabs (vía audio_manager.process_script)",
+    "para": "re-hacer el audio de un capítulo tras corregir la pronunciación"
+   }
+  ],
+  "etapa": [
+   "orquestador/form"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "qa_studio_server.py:1522 lanza run_pipeline.py --research --video-type long --batch y :1527 lo retoma con --topic; :2080 es el main que Omar corre a mano",
+  "funciones_muertas": [
+   {
+    "nombre": "_reseed_core",
+    "linea": 819,
+    "por_que": "ninguna ruta del servidor ni del form la llama (el POST /mark solo marca, no regenera); solo la nombran test_module_f5e.py y la herramienta manual lab/hyperframes/f5/regen_marcadas.py"
+   },
+   {
+    "nombre": "_build_clipfix_user_prompt",
+    "linea": 1014,
+    "por_que": "nadie la llama; el propio archivo (L968-971) dice que el rewriter de movimiento quedó DORMIDO desde el chat 113 y esta función y _FIX_CLIP_REWRITE_INSTRUCTION no tienen call-site"
+   }
+  ],
+  "md5": "e6586509812cb0c223a1377eb02e1bd9",
+  "_parte": "orquestador_a"
+ },
+ "report_foto_madre_edits.py": {
+  "sticker": "Herramienta de telemetría que se corre a mano: recorre los manifiestos de assets de cada corrida y lista qué imágenes salieron ancladas a la foto madre (por /edit), marcando las que todavía muestran telemetría vieja. No genera imágenes ni llama a ninguna API.",
+  "recibe": "output/<id>/assets/assets_manifest.json de cada corrida (o solo la de --topic <id>).",
+  "entrega": "output/<id>/assets/foto_madre_edits.json por corrida y el índice output/foto_madre_edits.json, más una tabla por consola.",
+  "modelo": [],
+  "etapa": [
+   "herramienta manual"
+  ],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "nadie lo importa ni lo lanza en producción ni en tests (grep del repo); su propio bloque __main__ (report_foto_madre_edits.py:115) es la única entrada",
+  "funciones_muertas": [],
+  "md5": "de8ce7938575d4cea5528d36e322fe9e",
+  "_parte": "orquestador_b"
+ },
+ "run_pipeline.py": {
+  "sticker": "Es el director de orquesta: toma un tema y corre una tras otra las etapas (guion, papel, voz, assets, fondos, guion de pantalla, aprobar guion, render, packaging), cada una como programa aparte. Antes de cada paso mira qué archivos ya existen en disco y arranca donde quedó; frena en las dos compuertas donde Omar tiene que aprobar y nunca aprueba solo.",
+  "recibe": "--topic <id> (o --research para elegir tema nuevo con fase1); data/scripts/_steps/<id>/01e_pantalla.md, data/scripts/<id>.json, output/<id>/assets/assets_manifest.json, output/<id>/_fase2b_work/*, output/<id>/GUION_PANTALLA.json, output/<id>/<id>_final_gfx.mp4, data/topics_db.json, data/_last_research.json; la tecla A/P/C que manda el form por stdin.",
+  "entrega": "No escribe archivos de producción: lanza fase1.py, fase1_5.py, fase2a.py, fase2b.py y fase3.py como subprocesos; imprime los encabezados de fase y los marcadores @@QAFORM@@ para el form, y el reporte final con el comando para retomar.",
+  "modelo": [],
+  "etapa": [
+   "orquestador/form"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "qa_studio_server.py:1522 y :1527 lo lanzan; run_pipeline.py:553 es el main",
+  "funciones_muertas": [],
+  "md5": "b271cffada4021087b4be8cc28c3a31b",
+  "_parte": "orquestador_a"
+ },
+ "script_engine/__init__.py": {
+  "sticker": "Es el marcador de paquete de script_engine (la carpeta con los módulos del guion y de las etapas): no hace nada salvo permitir que se importen los demás módulos. Su docstring es solo una lista vieja de módulos.",
+  "recibe": "Nada.",
+  "entrega": "Nada (solo docstring).",
+  "modelo": [],
+  "etapa": [
+   "orquestador/form"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "run_pipeline.py:49 hace from script_engine import aprobacion, topics_db, y fase3.py:24-25 lo mismo; sin este archivo no se importa el paquete",
+  "funciones_muertas": [],
+  "md5": "e956cce87d6019a48b6f0a367a40aba7",
+  "_parte": "orquestador_a"
+ },
+ "script_engine/m09_packaging.py": {
+  "sticker": "Arma el paquete de publicación de YouTube: le pide a Gemini 6 títulos, 6 textos para la miniatura, descripción y etiquetas a partir del guion y los hechos verificados, genera 3 conceptos de miniatura con imagen, y compone la miniatura final con el texto encima y el checklist para subir el video a mano. Se puede correr por pasos (candidatas, componer) o abriendo el formulario web de revisión.",
+  "recibe": "data/scripts/<id>.json (guion con narración y verified_facts), opcionalmente _lab_out/lab_fidelity_punch_chat56/audit_map.csv y las imágenes de output/<id>/assets/ para las 'existentes', la fuente script_engine/fonts/Anton-Regular.ttf y la ruta del MP4 final (--video-path).",
+  "entrega": "output/<id>/publish/metadata.json, metadata_candidatos.md, hero_iterations.json, thumb_candidates/{existing_NN,fresh_NN}.png, thumb_final_NN.png (o .jpg si pesa más de 2 MB) y CHECKLIST_PUBLICACION.md.",
+  "modelo": [
+   {
+    "modelo": "api.gemini_model (config.py)",
+    "para": "metadata (títulos, overlays, descripción, tags) y los 3 conceptos de miniatura con su casting, vía _gemini_json"
+   },
+   {
+    "modelo": "api.image_engine vía asset_manager._generate_image_raw (por defecto seedream)",
+    "para": "renderizar las miniaturas frescas fresh_NN.png"
+   }
+  ],
+  "etapa": [
+   "packaging"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase3.py:64 arma el comando python -m script_engine.m09_packaging (etapa packaging, run_pipeline.py:430 lanza fase3.py); qa_studio_server.py:1490 lo lanza con --review --auto-first",
+  "funciones_muertas": [],
+  "md5": "df2f2de74c72a589d4e55fc110713b6a",
+  "_parte": "orquestador_b"
+ },
+ "script_engine/m09_review_server.py": {
+  "sticker": "Es la pantalla web local donde Omar revisa las miniaturas: ve las candidatas, elige una, pide más con una crítica, borra las que no sirven y compone la final con texto, color y tamaño. Es un servidor chico en 127.0.0.1 que usa el packaging para hacer todo el trabajo.",
+  "recibe": "Las candidatas y la metadata de output/<id>/publish/ (thumb_candidates/*.png, metadata.json, hero_iterations.json) y los clicks de Omar por HTTP (/generate, /compose, /delete_candidate).",
+  "entrega": "Nuevas candidatas fresh_NN.png y hero_iterations.json, thumb_final_NN.png con metadata.json y CHECKLIST_PUBLICACION.md actualizados, y candidatas borradas movidas a output/<id>/publish/_qa_backups/. Avisa a fase3 con on_compose para marcar el tema como empaquetado.",
+  "modelo": [],
+  "etapa": [
+   "packaging"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "m09_packaging.py:717-720 run_review lo importa y llama a serve() (CLI --review, fase3.py:64 y qa_studio_server.py:1490)",
+  "funciones_muertas": [],
+  "md5": "ba5188076c8706bb93695d67afd6f798",
+  "_parte": "orquestador_b"
+ },
+ "tools/build_gemini_validation_prompt.py": {
+  "sticker": "Herramienta de escritorio: arma un texto listo para pegar en Gemini, con las instrucciones de un analista de contenido más el volcado de evidencia de los temas, para pedirle una segunda opinión sobre cuáles producir. No participa de ningún video.",
+  "recibe": "data/topic_evidence_dump.md (lo deja dump_topic_evidence.py).",
+  "entrega": "data/gemini_validation_prompt.txt.",
+  "modelo": [],
+  "etapa": [
+   "herramienta manual"
+  ],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "tools/build_gemini_validation_prompt.py:83 tiene __main__; ningún módulo lo importa ni lo lanza, no llama a ninguna API (el prompt va a mano a Gemini).",
+  "funciones_muertas": [],
+  "md5": "19ce046b15f04c7c416927852a6114ac",
+  "_parte": "orquestador_c"
+ },
+ "tools/dump_topic_evidence.py": {
+  "sticker": "Herramienta de escritorio de Omar o del analista: junta en un solo texto toda la evidencia de mercado de cada tema candidato (veredicto, vistas del viral en inglés, hook) para leerla o pegarla a otro modelo. No participa de ningún video.",
+  "recibe": "data/topics_db.json (la base de temas).",
+  "entrega": "data/topic_evidence_dump.md y data/topic_evidence_dump.json.",
+  "modelo": [],
+  "etapa": [
+   "herramienta manual"
+  ],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "tools/dump_topic_evidence.py:232 tiene __main__ y nadie la importa ni la lanza (solo la nombra tools/build_gemini_validation_prompt.py:72 en un mensaje de ayuda).",
+  "funciones_muertas": [],
+  "md5": "4d16acc95bd79efe173913b037e5ee9e",
+  "_parte": "orquestador_c"
+ },
+ "version_stamp.py": {
+  "sticker": "Escribe un VERSION.json con un identificador de versión (fecha y hora más un código al azar) cada vez que alguien lo corre. Nada del pipeline lo usa: es un sello manual de cuando se empuja el código.",
+  "recibe": "Nada (usa el reloj y un token aleatorio).",
+  "entrega": "VERSION.json en la raíz (push_id y pushed_at_local) y el PUSH_ID por pantalla.",
+  "modelo": [],
+  "etapa": [
+   "herramienta manual"
+  ],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "REPO_MAP.md:13 dice que lo corre CC a mano; ningún .py, hook ni comando de .claude/ lo nombra (grep) y VERSION.json está versionado en git",
+  "funciones_muertas": [],
+  "md5": "5a0202ed69711dc21366c428941e5f90",
+  "_parte": "orquestador_a"
+ }
+}

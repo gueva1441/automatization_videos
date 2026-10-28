@@ -1,0 +1,336 @@
+{
+ "_nota": "F42 §B: stickers de la zona guion, escritos por los workers (Sonnet) que leyeron cada archivo entero; `md5` = el del archivo leído (`mapa_modulos.py --check` avisa si cambió). `_parte` = el worker.",
+ "fase1_5.py": {
+  "sticker": "Es el director de la Fase 1: de un tema con el research hecho arma, en orden, la compuerta del pool, la ficha del caso, la escaleta, el guion v4 con su reparación, la partición en 7 capítulos y el guion de pantalla en papel, y se detiene en la PARADA del papel hasta que Omar lo aprueba (`--aprobar-papel`, con md5). Ya aprobado, sigue con la normalización de la voz, la voz, la música, los prompts de imagen, la foto madre y el ensamblado del contrato data/scripts/<id>.json que lee la Fase 2.",
+  "recibe": "data/topics_db.json (topic con evidence_pool v3), data/scripts/_steps/<id>/ (_perfil.json, escaleta_notas.md, ficha_caso.json, 01a_escaleta.json, 01e_pantalla.json), data/seeds_archive.json (título de la semilla), una semilla .json con --semilla, output/audio/<id>/sync_map.json al reanudar",
+  "entrega": "data/scripts/_steps/<id>/ (01a_escaleta, 01b_guionista_v4, 01a_skeleton, 01b_narration, 01b_narracion_v3, 06_judge_narrative, 01e_pantalla.json/.md, 01_v3_costos.json, aprobado con md5 dentro de 01e_pantalla.json); audio y sync_map de la voz (output/audio/<id>/), music_map, prompts de imagen de m03, la foto madre en topics_db y data/scripts/<id>.json",
+  "modelo": [
+   {
+    "modelo": "claude-fable-5-1 (guion_v4.DEFAULT_MODELO_GUION)",
+    "para": "guionista v4 y reparación; --modelo elige otro"
+   },
+   {
+    "modelo": "claude-fable-5-1 (m01a_escaleta.DEFAULT_MODELO_ESCALETA)",
+    "para": "la escaleta; --modelo-escaleta elige otro"
+   },
+   {
+    "modelo": "gpt-6.1-sol, esfuerzo high (ficha_caso.MODELO)",
+    "para": "la ficha del caso, solo si falta"
+   },
+   {
+    "modelo": "claude-sonnet-5-5 (m01e_pantalla.MODELO)",
+    "para": "el guion de pantalla en papel"
+   },
+   {
+    "modelo": "gemini_model_research / gemini_model (gemini_helpers, por m01d_particion)",
+    "para": "acortar un párrafo, regenerar un cap y títulos de cap"
+   },
+   {
+    "modelo": "ElevenLabs (audio_manager.process_script)",
+    "para": "la voz de cada capítulo, en el paso de voz"
+   },
+   {
+    "modelo": "openai/gpt-image-2 (foto_madre.MADRE_IMAGE_MODEL)",
+    "para": "la foto madre antes del ensamblado"
+   }
+  ],
+  "etapa": [
+   "guion",
+   "papel",
+   "voz"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "run_pipeline.py:301 lo lanza en guion (--batch), :325 en papel (--aprobar-papel) y :334 en voz (--from normalizer_gate --batch)",
+  "funciones_muertas": [],
+  "md5": "7772ec58ff028679945dba4a07b599c9",
+  "_parte": "guion_b"
+ },
+ "script_engine/guion_v3_reglas.py": {
+  "sticker": "Biblioteca de reglas de oficio sobre el texto del guion, sin modelo: una cita por párrafo, el gancho sin fechas ni fotos, juicios que el caso no respalda, rol de quien habla, voz de tráiler, relleno, nombre completo del humano, frases repetidas entre capítulos, fechas completas repetidas, eco después de una cita y cierre. En el camino actual no frena nada salvo el chequeo de rol; el resto sale como métrica de lectura del guion.",
+  "recibe": "texto de los capítulos y párrafos del guion, la escaleta (01a_escaleta.json) y el pool de evidencia; el perfil de roles del caso (researcher_steps/research_v3.py vocabulario/caso)",
+  "entrega": "listas de problemas (texto) y métricas que devuelve a guion_v4 / m01b_guionista / m01d_particion / m05_narrative; no escribe archivos",
+  "modelo": [],
+  "etapa": [
+   "guion"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "guion_v4.py:966 (role_problems en los bloqueantes), guion_v4.py:1097-1230 (closing_soft, echo_soft, antagonista_caps…), m01b_guionista.py:221 (review_v3 vía guion_v4.metricas, guion_v4.py:1216), m01d_particion.py:190, m05_narrative.py:130",
+  "funciones_muertas": [],
+  "md5": "1cad66ff02590c35b5fdbbf2e399d86d",
+  "_parte": "guion_a"
+ },
+ "script_engine/guion_v4.py": {
+  "sticker": "Escribe la narración del video: manda a un modelo la escaleta y los datos de cada capítulo y recibe los párrafos de voz. Después revisa lo que escribió (cifras o citas inventadas, rol equivocado de quien habla, contaminación de otros casos, capítulos vacíos), repara en una sola ronda corrigiendo solo las frases con problema y reemplaza las fechas repetidas por «ese día». Al final calcula métricas de lectura que nunca rechazan.",
+  "recibe": "data/scripts/_steps/<id>/01a_escaleta.json, el pool de evidencia del topic y data/scripts/_steps/<id>/ficha_caso.json (el texto de cada dato sale de la ficha)",
+  "entrega": "los párrafos del guion con sus ids y la lista de bloqueantes antes/después de reparar (fase1_5 los guarda en data/scripts/_steps/<id>/01b_guionista_v4.json); de ahí salen la partición en capítulos, el papel, la voz y la pantalla",
+  "modelo": [
+   {
+    "modelo": "claude-fable-5-1 (DEFAULT_MODELO_GUION, vía claude_helpers.make_call con esfuerzo high)",
+    "para": "escribir los párrafos del guion y editar oraciones/regenerar capítulos en la reparación"
+   },
+   {
+    "modelo": "gpt-6.1-sol (DEFAULT_MODELO, call_for(None))",
+    "para": "modelo por defecto de call_for cuando no se le dice cuál; hoy lo usa la columna"
+   },
+   {
+    "modelo": "gemini-pro, gpt-6-astra, gemini-4-argon, claude-opus-5-5 (lista MODELOS)",
+    "para": "alternativas que se eligen con --modelo"
+   }
+  ],
+  "etapa": [
+   "guion"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.py:424-430 (run_guion_v4 llama g4.call_for, g4.write, g4.reparar y g4.metricas); fase1_5.py:512 lo corre desde process_topic; fase1_5.py:430 también g4.nota_b",
+  "funciones_muertas": [],
+  "md5": "7e886d2ef7c9348d18cf0812e62dc77d",
+  "_parte": "guion_a"
+ },
+ "script_engine/m01a_columna.py": {
+  "sticker": "Escribe en una página la columna vertebral del caso (a quién seguimos, quién decide, qué pasa en cada uno de los 7 capítulos y qué queda afuera) para que Omar la lea; solo corre si se pide con --columna y no alimenta a la escaleta. Su parte que sí corre siempre es de apoyo: reconocer si una institución o persona existe en la ficha y sus variantes de nombre, que usa la escaleta para validar al antagonista.",
+  "recibe": "ficha del caso v2 (data/scripts/_steps/<id>/ficha_caso.json), el pool de evidencia y el título/ángulo del topic",
+  "entrega": "data/scripts/_steps/<id>/01a_columna.json y COLUMNA_<id>.md (solo con --columna), o 01a_columna_rechazada.json si falla dos veces",
+  "modelo": [
+   {
+    "modelo": "gpt-6.1-sol en esfuerzo high (guion_v4.call_for(None) → DEFAULT_MODELO)",
+    "para": "escribir la columna vertebral (una llamada y una regeneración si falla el chequeo)"
+   }
+  ],
+  "etapa": [
+   "guion"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "m01a_escaleta.py:1257 (institucion_de_la_ficha dentro de bloqueantes) y m01a_escaleta.py:1581 (variantes_de) corren siempre en la escaleta; fase1_5.py:399-402 llama generate_columna y to_markdown solo con --columna (que el form no pasa)",
+  "funciones_muertas": [
+   {
+    "nombre": "load",
+    "linea": 400,
+    "por_que": "nadie la llama en producción; solo test_module_f17.py (ni fase1_5 ni la escaleta leen 01a_columna.json)"
+   }
+  ],
+  "md5": "2c8877de9574825b709e16c837028131",
+  "_parte": "guion_a"
+ },
+ "script_engine/m01a_escaleta.py": {
+  "sticker": "Decide la historia del video antes de escribirla: elige a quién seguimos, el momento más fuerte, y reparte el caso en 7 capítulos con sus escenas, datos y la pregunta que va en pantalla. Revisa el resultado con reglas mecánicas (cantidad de escenas, orden, que los datos existan) y, si falla, lo repite una sola vez; si vuelve a fallar, frena sin seguir gastando. Sin la ficha del caso v2 también frena sin llamar a ningún modelo.",
+  "recibe": "data/scripts/_steps/<id>/ficha_caso.json (ficha v2 con historia), el pool de evidencia del topic (data/scripts/topics_db.json → evidence_pool), el título/ángulo del topic y la compuerta del pool (researcher_steps/pool_gate.py)",
+  "entrega": "data/scripts/_steps/<id>/01a_escaleta.json (o 01a_escaleta_rechazada.json si falla dos veces) y POOL_GATE.md; esa escaleta la leen el guion v4, la partición y la capa gráfica",
+  "modelo": [
+   {
+    "modelo": "claude-fable-5-1 (DEFAULT_MODELO_ESCALETA, vía claude_helpers.make_call con ESFUERZO_POR_ETAPA['escaleta'])",
+    "para": "armar la escaleta de 7 capítulos con beats, humano, pico y pregunta de pantalla"
+   },
+   {
+    "modelo": "cualquier otro de guion_v4.MODELOS (p. ej. gpt-6.1-sol) si se pasa --modelo-escaleta",
+    "para": "lo mismo, con el modelo elegido a mano"
+   }
+  ],
+  "etapa": [
+   "guion"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.py:390 (run_escaleta_v3 llama me.generate_escaleta) y fase1_5.py:383 (me.pool_gate_profile); el form lo lanza con fase1_5.py --topic <tid> --batch (run_pipeline.py:301 según los hechos de A); además m01d_particion.py:163 usa caps_view y tts_tags.py:140 usa intent_de_cap dentro de la misma etapa",
+  "funciones_muertas": [
+   {
+    "nombre": "to_markdown",
+    "linea": 1658,
+    "por_que": "nadie la llama en producción ni en tests; solo la usan scripts viejos de lab/hyperframes (f6, f7, f10…); el docstring del módulo (línea 14) todavía la anuncia"
+   }
+  ],
+  "md5": "55d7026a9965e95c17e3a63638e8a23d",
+  "_parte": "guion_a"
+ },
+ "script_engine/m01a_skeleton.py": {
+  "sticker": "Lo que queda del estructurador viejo: las constantes de la cadena (carpeta _steps, el contrato de 7 capítulos con su rol y duración, el intent narrativo por cap) y los pasos que reparten las cifras canónicas y los datos del pool reservados para pantalla en cada cap.",
+  "recibe": "el esquema de caps y el evidence_pool (en memoria); duraciones de video_length",
+  "entrega": "STEPS_DIR (data/scripts/_steps), CHAPTER_SCHEMA, DEFAULT_INTENT_BY_CAP y los campos evidence_ids / pantalla_ids / _pool_plan sobre el skeleton en memoria; no escribe archivos",
+  "modelo": [],
+  "etapa": [
+   "guion",
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/m01d_particion.py:29 importa CHAPTER_SCHEMA, DEFAULT_INTENT_BY_CAP y STEPS_DIR; script_engine/m01e_pantalla.py:1120 importa STEPS_DIR; m01a_escaleta usa finalize_pool_plan",
+  "funciones_muertas": [],
+  "md5": "4afb3ceff94bb9d27e5d75452a15575d",
+  "_parte": "guion_b"
+ },
+ "script_engine/m01b_guionista.py": {
+  "sticker": "Revisa la narración completa del video contra las reglas del guion v3 (gancho, ritmo, cifras, humano en ≥ 3 caps, citas sin verificar, largo del video, una cifra por conteo) y devuelve las duras y las blandas. Además trae las utilidades que usa el guion v4: reparte los párrafos por cap (caps_text), parte oraciones, cuenta palabras y detecta al antagonista verificado. El guionista que escribía el texto se borró en F41.",
+  "recibe": "topic con evidence_pool, escaleta (01a_escaleta), párrafos del guion, ficha del caso (opcional)",
+  "entrega": "un dict {hard, soft, score, por_cap} en memoria; no escribe archivos",
+  "modelo": [],
+  "etapa": [
+   "guion"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/guion_v4.py:1216 llama mg.review (metricas) y m01d_particion.py:28 lo importa (mg.caps_text en :217)",
+  "funciones_muertas": [],
+  "md5": "a0ca2e5c7b76d922efbd27cf4f02b7a8",
+  "_parte": "guion_b"
+ },
+ "script_engine/m01b_narrator.py": {
+  "sticker": "Lo que queda del narrador viejo: el validador de un capítulo. Revisa el largo por rol (hook, desarrollo, cierre), que la primera frase del gancho sea corta y que no haya aperturas, cierres ni conectores de YouTube prohibidos. También entrega la banda de caracteres por rol que usa la partición.",
+  "recibe": "el texto de un cap, su rol y su número",
+  "entrega": "levanta NarrationValidationError (con `kind`) o no devuelve nada; len_range devuelve (mín, máx) de caracteres; no escribe archivos",
+  "modelo": [],
+  "etapa": [
+   "guion"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/m01b_guionista.py:141 llama _validate_narration dentro de review; script_engine/m01d_particion.py:37 usa _len_range",
+  "funciones_muertas": [],
+  "md5": "d820e6f2dba1d47df58f5f1bf2dcdaf0",
+  "_parte": "guion_b"
+ },
+ "script_engine/m01c_editor.py": {
+  "sticker": "Lo que queda del editor del guion: el prompt de la pasada opcional «--editor» que aprieta la narración sin agregar nada, la guardia léxica que verifica que un texto reescrito no meta cifras, nombres propios, adjetivos ni citas nuevas, y el puente que pide las etiquetas de voz (narration_tts).",
+  "recibe": "texto antes y después de una edición; escaleta y párrafos para el prompt; los caps para las etiquetas",
+  "entrega": "lista de problemas de la guardia léxica (vacía = pasa); el prompt y el esquema del editor; los caps con narration_tts; no escribe archivos",
+  "modelo": [],
+  "etapa": [
+   "guion"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/m01d_particion.py:95 y :164 importan lexical_guard y narration_tts; script_engine/guion_v4.py importa build_prompt y lexical_guard",
+  "funciones_muertas": [],
+  "md5": "e4e98102ba70a15ba474e556e7aaaf03",
+  "_parte": "guion_b"
+ },
+ "script_engine/m01d_particion.py": {
+  "sticker": "Reparte los párrafos del guion en los 7 capítulos con su largo en caracteres (mueve o acorta el último párrafo de un cap que se pasa), le pone título a cada capítulo con una llamada corta a Gemini (con título de respaldo si falla) y arma el contrato de 7 caps con etiquetas de voz que lee todo lo de río abajo. También trae el retoque quirúrgico de un cap (regenerate_cap_v3) que usa la reparación del guion v4.",
+  "recibe": "los párrafos del guion v4 ya reparados, la escaleta (01a_escaleta), el evidence_pool del topic",
+  "entrega": "data/scripts/_steps/<id>/01a_skeleton.json, 01b_narration.json y 01b_narracion_v3.json (narración por cap y por beat, títulos, narration_tts)",
+  "modelo": [
+   {
+    "modelo": "gemini_model_research (gemini_helpers.call_pro_json)",
+    "para": "acortar un párrafo (editor_shorten), regenerar un cap (regenerate_cap_v3, con el call de la cadena v4) y cut_phrases"
+   },
+   {
+    "modelo": "gemini_model (gemini_helpers.call_flash_json)",
+    "para": "los 7 títulos de capítulo"
+   }
+  ],
+  "etapa": [
+   "guion"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.py:432 (run_guion_v4 llama md.particionar con md.editor_shorten); guion_v4.py:1151 llama md.regenerate_cap_v3",
+  "funciones_muertas": [
+   {
+    "nombre": "cut_phrases",
+    "linea": 372,
+    "por_que": "nadie la llama: guion_v4.py:16 y :1022 solo la nombran en comentarios («patrón de m01d.cut_phrases») y ningún test ni string de producción la usa"
+   }
+  ],
+  "md5": "255d5b2d6e6f2635a5770a8fe4632c4c",
+  "_parte": "guion_b"
+ },
+ "script_engine/m01e_pantalla.py": {
+  "sticker": "Escribe el guion de pantalla en papel: para cada beat del video decide qué ficha de texto (un dato, una cita o un nombre del archivo del caso) y qué palabra de clima aparecen en pantalla y sobre qué oración de la voz, más los relojes de fechas. Una sola llamada a Claude con toda la narración, la escaleta y el archivo del caso; después el código valida todo en papel (candado de cifras y nombres, que la voz no lo diga ya, que no adelante nada, que quepa) y le devuelve al autor los motivos para reintentar solo los beats con problema. Deja el papel para que Omar lo apruebe antes de pagar la voz; la Fase 2 lo consume.",
+  "recibe": "data/scripts/_steps/<id>/01a_escaleta.json, 01b_narracion_v3.json (párrafos por cap y beat), 01a_skeleton.json (títulos de cap), 00_pool_v3.json (el pool); perfil gfx (clave costos.m01e_tope_usd); voces ya generadas del narrador (segundos por palabra); vocabulario de clima",
+  "entrega": "data/scripts/_steps/<id>/01e_pantalla.json (el papel, que luego se aprueba con md5), 01e_pantalla.md (para que lo lea Omar), 01e_pantalla.raw.json (caché y respuesta cruda); suma su costo al 01_v3_costos.json (paso «pantalla») vía fase1_5.run_pantalla",
+  "modelo": [
+   {
+    "modelo": "claude-sonnet-5-5 (constante MODELO, esfuerzo medium; Messages API de Anthropic vía claude_helpers._post)",
+    "para": "autor de las fichas y sellos del guion de pantalla: una llamada y hasta varias vueltas de reintento parcial, dentro del tope de costo del perfil"
+   }
+  ],
+  "etapa": [
+   "guion",
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.py:236 (run_pantalla llama mp.generar, dentro de run_guion_v4:434); la Fase 2 lo lee por script_engine/pantalla_entrada.py:83 y :100 (_texto_item, TIPO_DE_ESTILO, cargar_papel) y fase2b.py:3738 usa editar (--plan-edit, a mano)",
+  "funciones_muertas": [],
+  "md5": "e9bb6f55164a60a21b7724b5b4f6cc9c",
+  "_parte": "guion_b"
+ },
+ "script_engine/name_matching.py": {
+  "sticker": "Decide qué texto cuenta como el nombre de una persona documentada y, antes de mandar un prompt de imagen al generador, reemplaza esos nombres por un descriptor neutro (a dockworker of the era) para que el modelo no dibuje caras reales. No toca la narración ni las anclas de sincronización.",
+  "recibe": "el prompt de imagen y la lista de personas documentadas (nombre, rol, era)",
+  "entrega": "(prompt sin nombres, lista de reemplazos para el log), en memoria; no escribe archivos",
+  "modelo": [],
+  "etapa": [
+   "voz"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/m03_visual.py:105 lo importa y lo llama en :785 y :1085 (m03 corre en voz: fase1_5.py:632); m05_judge lo importa pero no tiene llamador de producción",
+  "funciones_muertas": [],
+  "md5": "3a24d0bff30db6c291d6a005efc2da4c",
+  "_parte": "guion_b"
+ },
+ "script_engine/nombres.py": {
+  "sticker": "Única fuente de verdad sobre nombres de persona: decide qué es un nombre, cuál es el apellido y si dos nombres son la misma persona, en cualquier alfabeto, con iniciales, partículas y cargos delante (Deputy Foster, Juan de la Cruz). También busca a una persona dentro de un texto. Lo usan el research, la escaleta, el guion y el papel para no confundir ni inventar nombres.",
+  "recibe": "nombres y textos sueltos; el vocabulario del perfil del caso (roles de testigo y antagonista, formas de grupo) por set_tratamientos y set_grupos",
+  "entrega": "valores en memoria (normalizados, listas de partes, booleanos); no escribe archivos",
+  "modelo": [],
+  "etapa": [
+   "research",
+   "guion",
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "researcher_steps/research_v3.py lo importa arriba (es_persona, misma, set_vocabulario→set_tratamientos); script_engine/m01d_particion.py:189 y script_engine/m01b_guionista.py:40 lo usan en el guion; script_engine/gfx_pool.py, gfx_guion.py y pantalla_filtros.py en Fase 2",
+  "funciones_muertas": [],
+  "md5": "5df58f01015003c7866d2c68d0287cd9",
+  "_parte": "guion_b"
+ },
+ "script_engine/num_es.py": {
+  "sticker": "Pasa números a palabras en español sin dependencias («6,500» a «seis mil quinientas», «6:10 AM» a «seis y diez de la mañana») y da las formas en que la voz puede decir una cifra. Sirve para comparar cifras escritas con cifras dichas y para que la voz lea bien horas, dólares y porcentajes.",
+  "recibe": "números, cifras escritas como texto u horas",
+  "entrega": "palabras o variantes en memoria; no escribe archivos",
+  "modelo": [],
+  "etapa": [
+   "guion",
+   "voz",
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/evidence.py:109 (variants), script_engine/voz_utils.py:31, :97 y :232, tts_normalizer.py:121 y :136 (hour_words en la voz)",
+  "funciones_muertas": [],
+  "md5": "3fbbc507dd0097413a6112a48fc00663",
+  "_parte": "guion_b"
+ },
+ "script_engine/tts_tags.py": {
+  "sticker": "Le pone a la narración las etiquetas de ElevenLabs v4 (pausas largas y cortas, susurro o voz baja en la frase de golpe, voz lenta al abrir el gancho y el pico) con reglas fijas, sin modelo. La narración limpia queda igual (subtítulos, candado); las etiquetas van en un campo aparte que solo lee la voz, y después se pasan al texto normalizado que de verdad se graba.",
+  "recibe": "la escaleta (intensidad por beat y pico), los párrafos por cap, el texto normalizado de cada cap",
+  "entrega": "el campo narration_tts y el conteo tts_tags dentro de cada cap de 01b_narration.json; el texto normalizado con etiquetas que usa audio_manager para generar la voz",
+  "modelo": [],
+  "etapa": [
+   "guion",
+   "voz"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/m01c_editor.py:128 llama caps_tts (desde m01d_particion.py:217 en guion) y audio_manager.py:619 llama transfer_tags (en voz)",
+  "funciones_muertas": [
+   {
+    "nombre": "strip_tags",
+    "linea": 30,
+    "por_que": "nadie la llama en producción; solo test_module_f9.py, test_module_f10.py y un script de lab (f10_seco_orleans.py)"
+   }
+  ],
+  "md5": "966b40c5ce32a83b702739540cd511db",
+  "_parte": "guion_b"
+ },
+ "script_engine/video_length.py": {
+  "sticker": "Guarda los parámetros de largo del video (palabras objetivo por cap, segundos por cap, tope de imágenes, mínimo y máximo de beats y umbrales de la compuerta del pool). Los lee de config.long_video y, si falta un campo, vale el default de acá; también calcula la banda de caracteres por rol.",
+  "recibe": "config.long_video (config.py) o sus defaults",
+  "entrega": "valores enteros (get) y la banda de caracteres por rol (char_band); no escribe archivos",
+  "modelo": [],
+  "etapa": [
+   "research",
+   "guion",
+   "voz"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/m01a_skeleton.py:29, m01b_narrator.py:22 y m01a_escaleta.py:61 (guion); researcher_steps/pool_gate.py:80 (research y compuerta); script_engine/m03_visual.py:1328 (voz)",
+  "funciones_muertas": [],
+  "md5": "a47150bcddfc73d9e0d1e575743d5566",
+  "_parte": "guion_b"
+ }
+}

@@ -1,0 +1,83 @@
+{
+ "script_engine/m03_visual.py": {
+  "sticker": "Escribe, para cada capítulo del documental, la descripción de cada imagen que después pinta el generador (Seedream). Elige qué frase de la narración ilustra cada imagen, llena la ficha de la escena con un modelo de Gemini, la teje en un texto fluido y revisa que las cifras de los datos verificados salgan bien, que no se cuelen nombres de personas ni texto escrito en la imagen. En los capítulos 1 y 7 además redacta el movimiento del clip de video.",
+  "recibe": "El tema ya armado (data/topics_db.json: datos verificados, canon visual de época, personas y objetos documentados, evidence_pool), el esqueleto y la narración (data/scripts/_steps/<id>/01a_*.json y 01b_*.json), el mapa de sincronía del audio (output/audio/<id>/sync_map.json), los tiempos por palabra (output/audio/<id>/chNN_timestamps.json) y la escaleta v3 si existe (data/scripts/_steps/<id>/01a_escaleta.json, 01b_narracion_v3.json).",
+  "entrega": "data/scripts/_steps/<id>/03_visual.json (por capítulo: image_prompts con prompt final, ancla de narración, rango emocional, foto_madre_ref; en caps 1 y 7: image_prompt, video_prompt y supplemental_image_prompts); lo devuelve también como dict a fase1_5.py, que lo ensambla al contrato data/scripts/<id>.json. Sus constantes DOCTRINE_* las reutiliza m09_packaging.",
+  "modelo": [
+   {"modelo": "api.gemini_model_research (por config; call_pro_json)", "para": "llenar los casilleros de cada imagen (slots) por capítulo y el movimiento del clip de apertura/cierre (description m03:slots y m03:motion)"},
+   {"modelo": "api.gemini_model (por config; call_flash_json, thinking_budget=0)", "para": "elegir las anclas de narración (paso 1) y tejer los casilleros en prosa con candado de cifras (m03:fluidificador)"}
+  ],
+  "etapa": ["voz", "packaging"],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.py:632 llama assign_visual_prompts dentro de process_topic (tramo audio -> m07 -> m03 que corre con --from normalizer_gate, el comando de la etapa voz en run_pipeline); script_engine/m09_packaging.py:40 importa DOCTRINE_* en tiempo de carga (fase3, etapa packaging).",
+  "funciones_muertas": [
+   {"nombre": "_format_bullets", "linea": 1368, "por_que": "nadie la nombra en todo el repo; solo su definición"},
+   {"nombre": "_format_visual_canon_block", "linea": 1374, "por_que": "sin llamadores; solo la nombran un comentario/docstring (m03_visual.py:367) y test_module_m03_reglas_133.py, que cuenta su texto en el fuente (la declara 'dead code') sin ejecutarla"},
+   {"nombre": "_validate_no_text_leakage", "linea": 1895, "por_que": "en producción nadie la llama (el camino seedream usa _find_text_leakage); solo test_module_03_text_leakage_casing.py"}
+  ],
+  "md5": "8d92e8f7e41f6e8cd8f05460646b1b72"
+ },
+ "script_engine/m03_imagenes_v3.py": {
+  "sticker": "Reglas de las imágenes del guion v3: reparte los beats de la escaleta entre las imágenes de cada capítulo, pone el estilo de película granulada al principio y al final del prompt, y detecta o limpia lo que no puede llevar una imagen (manos y caras en primer plano, armas, sangre, menores en daño, conteos exactos, izquierda/derecha, texto en el idioma equivocado). También audita el video entero (motivos repetidos, cuerpos, planos medios) y propone re-encuadres. Todo es determinista, sin llamar a ningún modelo.",
+  "recibe": "La escaleta y la narración v3 del tema (data/scripts/_steps/<id>/01a_escaleta.json y 01b_narracion_v3.json, o topic['escaleta'] / topic['parrafos_v3']), el evidence_pool del tema, y las anclas, slots y prosa que le pasa m03_visual.",
+  "entrega": "Datos en memoria para m03_visual: beats por capítulo, asignación beat-imagen, prosa corregida y envuelta en el estilo, marcas sensible/motivos por imagen y reporte de auditoría (se guardan dentro de data/scripts/_steps/<id>/03_visual.json como _f8_imagenes y reencuadres_propuestos). No escribe archivos propios.",
+  "modelo": [],
+  "etapa": ["voz"],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/m03_visual.py:107 lo importa (v3img) y lo usa en m03_visual.py:969-1100 y 2571; m03_visual corre dentro de fase1_5.py:632 (etapa voz).",
+  "funciones_muertas": [],
+  "md5": "4d9c036355dc7efe55f818a560e0e8f4"
+ },
+ "script_engine/depth_probe.py": {
+  "sticker": "Mide la profundidad real de cada imagen con el estimador DepthAnythingV2 (en el entorno aislado de DepthFlow, en la GPU local) y decide qué imágenes pueden ser candidatas a zoom: las que tienen un sujeto cercano en el centro y un fondo que se aleja. También elige el tope de zooms por capítulo y marca las imágenes con retrato como de riesgo de deformación para que el render use un movimiento seguro.",
+  "recibe": "Los PNG de cada capítulo (output/<id>/assets/*.png), los prompts de imagen del guion (data/scripts/<id>.json) y los veredictos cacheados del juez (output/<id>/assets/zoom_verdicts.json); el caché de métricas output/<id>/assets/depth_metrics.json.",
+  "entrega": "output/<id>/assets/depth_metrics.json (c-b, percentiles y spread por imagen) y, en memoria para fase2b, la lista de candidatas, el orden de promoción y el riesgo de deformación low/high por imagen.",
+  "modelo": [
+   {"modelo": "DepthAnythingV2 (broken.externals.depthmap, local en .venv-depthflow, sin costo de API)", "para": "estimar el mapa de profundidad de cada PNG"}
+  ],
+  "etapa": ["fondos", "guion_pantalla", "render"],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:2424 (probe_images y gate_zoom dentro de _apply_zoom_gate, llamado en fase2b.py:3300 cuando no hay --reuse-visuals, etapa fondos) y fase2b.py:2585-2625 (route_images y portrait_candidates en _route_safe, fase2b.py:3376, que corren en --plan-only y en el render con --gfx).",
+  "funciones_muertas": [],
+  "md5": "1e89f18904d5572d74e30bd381865b4a"
+ },
+ "script_engine/zoom_judge.py": {
+  "sticker": "Mira cada imagen candidata con Gemini (visión, a ciegas, temperatura 0) y la clasifica en una de cinco categorías de composición: sujeto con fondo, cara en primer plano, superficie plana, corredor o túnel, otro. Solo las de sujeto con fondo se promueven a zoom; las caras se marcan para no deformarlas. Guarda los veredictos para no volver a llamar al modelo.",
+  "recibe": "Los PNG candidatos (output/<id>/assets/*.png) y el caché output/<id>/assets/zoom_verdicts.json.",
+  "entrega": "output/<id>/assets/zoom_verdicts.json ({imagen: {categoria, confianza, razon}}) y, en memoria para fase2b, el sí/no de promoción a zoom.",
+  "modelo": [
+   {"modelo": "api.gemini_model (por config), con visión", "para": "clasificar cada imagen en la taxonomía de 5 categorías"}
+  ],
+  "etapa": ["fondos", "guion_pantalla", "render"],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:2436 y 2445 (judge_candidates y promotes_to_zoom en _apply_zoom_gate, etapa fondos) y fase2b.py:2599-2617 (judge_candidates sobre imágenes con persona en _route_safe, plan-only y render).",
+  "funciones_muertas": [],
+  "md5": "ccd12ecc1998452a7ebf67b5aecc126b"
+ },
+ "script_engine/image_grade.py": {
+  "sticker": "Le da a cada imagen generada un aspecto de película vieja antes de animarla: baja la saturación, levanta un poco los negros, agrega viñeta leve, grano fino y un tono ligeramente frío, con ffmpeg. Guarda la imagen graduada al lado de la original y la original no se toca.",
+  "recibe": "Cada PNG de imagen del manifest de assets (output/<id>/assets/...png) y, opcional, una clave image_grade en gfx_profiles/misterio.json (hoy el perfil no la trae: valen los DEFAULTS del módulo).",
+  "entrega": "output/<id>/assets/<nombre>_graded.png al lado de cada original; asset_manager cambia el path del manifest al graduado.",
+  "modelo": [],
+  "etapa": ["assets"],
+  "estado": "vivo",
+  "estado_prueba": "asset_manager.py:1215-1229 (_apply_grade importa image_grade y llama params() y grade()), invocado en asset_manager.py:1321 cuando _grade_enabled(script) (guion v3 con marca 'sensible' en las imágenes, o IMAGE_GRADE=1).",
+  "funciones_muertas": [
+   {"nombre": "stats", "linea": 77, "por_que": "en producción nadie la llama; solo test_module_f8b.py y test_module_05_voting_live.py (la medición del test del grade)"}
+  ],
+  "md5": "3600eb520b3aaa2f3871ab8d119a741a"
+ },
+ "script_engine/vision_validator.py": {
+  "sticker": "Guardia de calidad por visión: mira una imagen generada con Gemini y dice si corresponde a su prompt (sujeto, escala, época sin objetos modernos, sin texto ni logos). Si falla, arma el prompt corregido para un segundo intento. Hoy está apagado por una constante en asset_manager.py: el camino de generación pasa por él solo si se la cambia a True.",
+  "recibe": "Un PNG generado (output/<id>/assets/*.png) y el prompt original con que se generó.",
+  "entrega": "Un veredicto en memoria {match, reason, correction_suggestion, failure_type} y, si se pide, el prompt corregido para reintentar. No escribe archivos.",
+  "modelo": [
+   {"modelo": "gemini-2.5-flash (constante VISION_MODEL del archivo, con visión)", "para": "auditar que la imagen corresponda al prompt"}
+  ],
+  "etapa": ["assets"],
+  "estado": "vivo",
+  "estado_prueba": "asset_manager.py:52 lo importa y asset_manager.py:510 y 536 lo llaman dentro de _generate_flux_image_at, pero solo si ENABLE_VISION_VALIDATOR (asset_manager.py:68) es True; hoy es False, así que sus funciones no se ejecutan (código alcanzable por import, dormido por constante).",
+  "funciones_muertas": [],
+  "md5": "6156263093cd7acd24976e73ee8157d6"
+ }
+}

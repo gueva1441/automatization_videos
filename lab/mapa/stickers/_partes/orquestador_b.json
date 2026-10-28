@@ -1,0 +1,123 @@
+{
+ "asset_manager.py": {
+  "sticker": "Es el que genera las fotos (y los clips de Veo, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió.",
+  "recibe": "El guion canónico con image_prompts/video_prompts por capítulo y foto_madre_registry (data/scripts/<id>.json), el sync_map de voz (output/<id>/audio/sync_map.json, opcional) y las fotos madre en disco (rutas del registry).",
+  "entrega": "output/<id>/assets/<capNN>_flux/<capNN>_img_NN.png (y _supp_NN.png, _graded.png), output/<id>/assets/<capNN>_veo/<capNN>_clip_NN.mp4 y output/<id>/assets/assets_manifest.json. Además, otros módulos le piden la función de imagen cruda (foto_madre.py, m09_packaging).",
+  "modelo": [
+   {
+    "modelo": "api.image_engine (valor por defecto seedream; perfiles seedream y kling en engine_profiles.py; ruta histórica api.fal_image_model / fal_image_model_ultra para flux)",
+    "para": "generar cada imagen por fal.ai (t2i, o /edit anclado con la foto madre)"
+   },
+   {
+    "modelo": "api.fal_video_model (Veo 3.1 Lite image-to-video)",
+    "para": "clips de video de los capítulos veo"
+   },
+   {
+    "modelo": "validador de visión (script_engine/vision_validator.py), apagado por ENABLE_VISION_VALIDATOR=False",
+    "para": "validar la imagen contra su prompt (hoy no corre)"
+   }
+  ],
+  "etapa": [
+   "assets",
+   "packaging"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase2a.py:55 importa process_script como asset_process y lo corre en la etapa assets (run_pipeline.py:340-342 lanza fase2a.py --topic); m09_packaging.py:489 lo usa para las miniaturas",
+  "funciones_muertas": [],
+  "md5": "c3e06c16110ca81d220723a854f08938"
+ },
+ "script_engine/m09_packaging.py": {
+  "sticker": "Arma el paquete de publicación de YouTube: le pide a Gemini 6 títulos, 6 textos para la miniatura, descripción y etiquetas a partir del guion y los hechos verificados, genera 3 conceptos de miniatura con imagen, y compone la miniatura final con el texto encima y el checklist para subir el video a mano. Se puede correr por pasos (candidatas, componer) o abriendo el formulario web de revisión.",
+  "recibe": "data/scripts/<id>.json (guion con narración y verified_facts), opcionalmente _lab_out/lab_fidelity_punch_chat56/audit_map.csv y las imágenes de output/<id>/assets/ para las 'existentes', la fuente script_engine/fonts/Anton-Regular.ttf y la ruta del MP4 final (--video-path).",
+  "entrega": "output/<id>/publish/metadata.json, metadata_candidatos.md, hero_iterations.json, thumb_candidates/{existing_NN,fresh_NN}.png, thumb_final_NN.png (o .jpg si pesa más de 2 MB) y CHECKLIST_PUBLICACION.md.",
+  "modelo": [
+   {
+    "modelo": "api.gemini_model (config.py)",
+    "para": "metadata (títulos, overlays, descripción, tags) y los 3 conceptos de miniatura con su casting, vía _gemini_json"
+   },
+   {
+    "modelo": "api.image_engine vía asset_manager._generate_image_raw (por defecto seedream)",
+    "para": "renderizar las miniaturas frescas fresh_NN.png"
+   }
+  ],
+  "etapa": [
+   "packaging"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase3.py:64 arma el comando python -m script_engine.m09_packaging (etapa packaging, run_pipeline.py:430 lanza fase3.py); qa_studio_server.py:1490 lo lanza con --review --auto-first",
+  "funciones_muertas": [],
+  "md5": "df2f2de74c72a589d4e55fc110713b6a"
+ },
+ "script_engine/m09_review_server.py": {
+  "sticker": "Es la pantalla web local donde Omar revisa las miniaturas: ve las candidatas, elige una, pide más con una crítica, borra las que no sirven y compone la final con texto, color y tamaño. Es un servidor chico en 127.0.0.1 que usa el packaging para hacer todo el trabajo.",
+  "recibe": "Las candidatas y la metadata de output/<id>/publish/ (thumb_candidates/*.png, metadata.json, hero_iterations.json) y los clicks de Omar por HTTP (/generate, /compose, /delete_candidate).",
+  "entrega": "Nuevas candidatas fresh_NN.png y hero_iterations.json, thumb_final_NN.png con metadata.json y CHECKLIST_PUBLICACION.md actualizados, y candidatas borradas movidas a output/<id>/publish/_qa_backups/. Avisa a fase3 con on_compose para marcar el tema como empaquetado.",
+  "modelo": [],
+  "etapa": [
+   "packaging"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "m09_packaging.py:717-720 run_review lo importa y llama a serve() (CLI --review, fase3.py:64 y qa_studio_server.py:1490)",
+  "funciones_muertas": [],
+  "md5": "ba5188076c8706bb93695d67afd6f798"
+ },
+ "csv_exporter.py": {
+  "sticker": "Escribe y lee el CSV de revisión de temas (data/fase1_review.csv): una fila por tema validado, con veredicto, título, ganchos, cierres y costo estimado. También sabe armar el CSV de un solo tema para que fase2a lo procese sin que nadie edite nada.",
+  "recibe": "data/topics_db.json (temas con status validated) y, para el costo estimado, config.estimated_cost_for.",
+  "entrega": "data/fase1_review.csv (UTF-8 con BOM, todas las celdas entre comillas) y un resumen por consola; parse_decisions_csv devuelve un dict approved/skipped/pending/malformed.",
+  "modelo": [],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1.py:588 y :793 llaman export_fase1_csv (Paso 4 de la investigación); fase1_5.py:750 llama export_single_topic_csv desde el menú interactivo",
+  "funciones_muertas": [],
+  "md5": "d8ad9a923d160bad4652db866b15727c"
+ },
+ "report_foto_madre_edits.py": {
+  "sticker": "Herramienta de telemetría que se corre a mano: recorre los manifiestos de assets de cada corrida y lista qué imágenes salieron ancladas a la foto madre (por /edit), marcando las que todavía muestran telemetría vieja. No genera imágenes ni llama a ninguna API.",
+  "recibe": "output/<id>/assets/assets_manifest.json de cada corrida (o solo la de --topic <id>).",
+  "entrega": "output/<id>/assets/foto_madre_edits.json por corrida y el índice output/foto_madre_edits.json, más una tabla por consola.",
+  "modelo": [],
+  "etapa": [
+   "herramienta manual"
+  ],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "nadie lo importa ni lo lanza en producción ni en tests (grep del repo); su propio bloque __main__ (report_foto_madre_edits.py:115) es la única entrada",
+  "funciones_muertas": [],
+  "md5": "de8ce7938575d4cea5528d36e322fe9e"
+ },
+ "config.py": {
+  "sticker": "Es el panel de control central: rutas del proyecto, endpoints y modelos de cada servicio, parámetros del video (resolución, fps, concurrencia de imágenes), precios por llamada, largos objetivo del video largo y umbrales del validador de temas. También crea el cliente de Gemini que comparten todos los módulos.",
+  "recibe": "Nada de archivos: son constantes y dataclasses en el propio archivo; al importarse crea las carpetas output/, logs/ y data/ si faltan.",
+  "entrega": "Los objetos api, pipeline, long_video, short_video, apuesta_viral, validator_strictness y gemini_client, las rutas BASE_DIR/OUTPUT_DIR/LOGS_DIR/DATA_DIR y la función estimated_cost_for.",
+  "modelo": [
+   {
+    "modelo": "api.gemini_model, api.gemini_model_research, api.image_engine, api.fal_video_model, api.elevenlabs_model (solo los fija; no los llama)",
+    "para": "declara qué modelo usa cada etapa; el cliente gemini_client se crea acá"
+   }
+  ],
+  "etapa": [
+   "research",
+   "guion",
+   "papel",
+   "voz",
+   "assets",
+   "fondos",
+   "guion_pantalla",
+   "aprobar_guion",
+   "render",
+   "packaging"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "importado por run_pipeline.py y por fase1.py, fase1_5.py, fase2a.py, fase2b.py y fase3.py (hechos de A: 49 importadores)",
+  "funciones_muertas": [
+   {
+    "nombre": "get_video_config",
+    "linea": 330,
+    "por_que": "solo la nombra el docstring de config.py:9; ningún .py del repo la llama (ni producción ni tests)"
+   }
+  ],
+  "md5": "e82045128f8bc7d0a91f53b6f7883e8e"
+ }
+}

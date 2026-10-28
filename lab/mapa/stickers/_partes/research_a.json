@@ -1,0 +1,38 @@
+{
+ "researcher_steps/research_v3.py": {
+  "sticker": "Es el investigador de documentos del video: dado el tema, busca en Google las páginas y PDF originales (informes, fallos, prensa de la época), los baja, los lee con el modelo y se queda solo con lo que puede probar con una frase copiada literal del documento. Con eso arma el pool de evidencia (datos, cronología, lugares, citas, personajes), marca qué citas están verificadas, calcula las cifras oficiales y un resumen para la escaleta, y pasa la compuerta del pool.",
+  "recibe": "El seed del tema (seed_title, idiomas, etc., desde topic_researcher) y data/_steps/<id>/ con lo que ya haya de corridas anteriores: _perfil.json, fuentes.json (registro de fuentes), fuentes/manifest.json y fuentes/*.txt, _r1_cache.json, _r3_cache/, 00_pool_v3*.json. Por red: Google Search vía Gemini, las páginas y PDF de las fuentes, la Wayback Machine. Más data/geocode_cache.json.",
+  "entrega": "En data/_steps/<id>/: _perfil.json, fuentes.json (registro), fuentes_r1.json, fuentes/<slug>.pdf|html|txt + manifest.json, _r1_cache.json, _r3_cache/r3_*.json, 00_pool_v3.json (evidence_pool con digest y _research_v3) y POOL_GATE.md (vía pool_gate). Devuelve (pool, 4 bloques angulares para 4a-4e, resultado de la compuerta). Además, durante el guion otros módulos le piden el vocabulario del caso (set_vocabulario, vocabulario, caso).",
+  "modelo": [
+   {"modelo": "config.api.gemini_model_research (Gemini Pro) + Google Search", "para": "R1: descubrir las fuentes, 4 focos más una búsqueda por pista (search_pro)"},
+   {"modelo": "config.api.gemini_model (Gemini Flash) + Google Search", "para": "R1 alternativo cuando Pro no devuelve grounding (search_flash)"},
+   {"modelo": "gemini_helpers.call_flash_json (Gemini Flash)", "para": "fichas de las URLs sin ficha (annotate_unmatched), fichas leídas del encabezado (refine_fichas), vocabulario del caso (seed_vocabulario) y perfil del seed (seed_profile)"},
+   {"modelo": "gemini_helpers.call_pro_json (Gemini Pro, thinking_budget=R3_THINKING)", "para": "R3: extraer la evidencia de cada trozo de documento (extract_document)"}
+  ],
+  "etapa": ["research", "guion"],
+  "estado": "vivo",
+  "estado_prueba": "topic_researcher.py:553-555 llama research_v3_enabled() y run_seed() dentro de _research_seed_deep; fase1_5.py:194 (cargar_perfil, llamado desde _topic_v3 L205) llama set_vocabulario en la etapa guion; script_engine/guion_v4.py:891/1179 y m05_narrative.py:129/478 importan vocabulario/caso",
+  "funciones_muertas": [
+   {"nombre": "rebuild_texts", "linea": 1015, "por_que": "nadie la nombra: ni producción, ni tests, ni string; rehacía el txt de PDF ya bajados"},
+   {"nombre": "metrics", "linea": 2074, "por_que": "en producción nadie la llama (en fase2b.py y depth_probe.py 'metrics' es una variable local, no esta función); solo test_module_f7.py:333 y el script de laboratorio lab/hyperframes/f7/f7b_pool_orleans.py:90"}
+  ],
+  "md5": "2a4b42478b64231fe6f228c4113c6a16"
+ },
+ "niche_discoverer.py": {
+  "sticker": "Es el buscador de temas nuevos: un menú que, sobre tres nichos fijos (océano, espacio, lugares abandonados), busca videos virales en inglés y mira si en español hay hueco, o le pide a Gemini misterios de 1950-2000 sin competencia en español, o deja escribir un tema a mano. Lo que sale son las semillas de tema que luego se investigan.",
+  "recibe": "Las respuestas del menú (por input() o por los marcadores @@QAFORM@@ del form), data/dynamic_queries_cache.json (queries dinámicas de las últimas 24 h), y por red: YouTube vía script_engine/youtube_scanner y subtopic_*, Gemini Flash y Pro.",
+  "entrega": "data/selected_seeds.json (lista de seeds con discovery_mode, root_niche, evidence), data/dynamic_queries_cache.json y, con el fan-out activo, data/_steps/dropped_by_cap.jsonl. Devuelve la lista de seeds a fase1.py y escribe los marcadores del form por stdout.",
+  "modelo": [
+   {"modelo": "config.api.gemini_model (Gemini Flash)", "para": "generar queries dinámicas por nicho (_gemini_generate_queries) y traducir los títulos virales a tema en español con event_key (_gemini_translate_viral_titles)"},
+   {"modelo": "config.api.gemini_model_research (Gemini Pro) + Google Search", "para": "arqueología digital: candidatos de misterios 1950-2000 (_gemini_archaeology_search)"},
+   {"modelo": "juez-LLM de script_engine/subtopic_measurer, subtopic_classifier y subtopic_extractor", "para": "medir saturación en español y, solo con SUBTEMA_FANOUT=1, clasificar y abrir el video en subtemas (el modelo lo fijan esos módulos, no este archivo)"}
+  ],
+  "etapa": ["research"],
+  "estado": "vivo",
+  "estado_prueba": "fase1.py:48 lo importa y fase1.py:669/681/692/749 llaman discover_niches() dentro de la etapa research (fase1.py --no-chain, run_pipeline.py:530)",
+  "funciones_muertas": [
+   {"nombre": "_load_seeds", "linea": 198, "por_que": "nadie llama a esta: fase1.py:85 y topic_researcher.py:786 definen cada uno su propia _load_seeds y usan la suya; los tests tampoco la tocan; solo se define acá (A la contó como usada por esos dos archivos: falso positivo por nombre)"}
+  ],
+  "md5": "ca8822da2515abf728e3553fef3ba80f"
+ }
+}

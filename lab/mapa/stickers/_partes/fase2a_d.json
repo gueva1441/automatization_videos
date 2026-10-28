@@ -1,0 +1,122 @@
+{
+ "script_engine/parallax_animator_v2.py": {
+  "sticker": "Le da movimiento a cada imagen fija del video: arma un clip mudo de pocos segundos con efecto de profundidad 2.5D (DepthFlow, corre local en la GPU, sin costo) y, si DepthFlow falla, cae a un zoom simple de FFmpeg. Para los paneos y la órbita renderiza siempre un ciclo de 7 s y lo repite hasta la duración que pide la imagen; también atenúa el movimiento de las imágenes de riesgo medio de deformación.",
+  "recibe": "Imagen base (output/<id>/assets/...png), duración, un FlowSpec ya decidido por flow_director (movimiento, intensidad, steady, dof), venv aislado .venv-depthflow",
+  "entrega": "Clip mp4 silencioso por imagen (el mini clip que fase2b pega en el capítulo, work_dir/_mini_NN.mp4); devuelve 'depthflow' o 'kenburns' según lo que usó",
+  "modelo": [],
+  "etapa": ["fondos", "render"],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:916 llama build_animated_clip, fase2b.py:911 build_kenburns_fallback y fase2b.py:2637 clamp_for_risk",
+  "funciones_muertas": [
+   {"nombre": "build_hook_clip", "linea": 573, "por_que": "nadie la llama en todo el repo (ni producción ni tests); solo figura en __all__ y en un comentario de flow_profiles.py:32"}
+  ],
+  "md5": "7999ee960ccad43b2cc1d04285d8f1d2"
+ },
+ "art_profiles.py": {
+  "sticker": "Catálogo viejo de estilos visuales (13 «perfiles de ADN»: submarino, polar, desierto, etc.) con sus textos de paleta/óptica, el movimiento de ambiente para clips Veo y utilidades para pegarlos a un prompt. Desde el chat 19 está desconectado del flujo: ningún módulo de producción lo importa.",
+  "recibe": "Nada en producción (solo lo importan tests: test_module_02.py importa VALID_PROFILES y test_module_05.py lo simula)",
+  "entrega": "Nada en producción; expone ART_PROFILES, VEO_MOTION, PROFILE_GUIDE, NEGATIVE_PROMPT_GLOBAL y las funciones stitch_*/detect_*",
+  "modelo": [],
+  "etapa": ["ninguna"],
+  "estado": "huérfano",
+  "estado_prueba": "grep de 'import art_profiles' / 'from art_profiles': 0 imports en producción; asset_manager.py:133 y m03_visual.py:14 dicen que el catálogo está desconectado",
+  "funciones_muertas": [
+   {"nombre": "stitch_prompt", "linea": 155, "por_que": "nadie la nombra, ni producción ni tests"},
+   {"nombre": "stitch_prompt_with_subject", "linea": 172, "por_que": "nadie la nombra, ni producción ni tests"},
+   {"nombre": "detect_style_leakage", "linea": 210, "por_que": "nadie la nombra, ni producción ni tests"},
+   {"nombre": "detect_metadata_leak", "linea": 255, "por_que": "nadie la nombra, ni producción ni tests"},
+   {"nombre": "stitch_veo_video_prompt", "linea": 414, "por_que": "nadie la nombra, ni producción ni tests"}
+  ],
+  "md5": "bebff412fa1d03d3d5d596b10816f04f"
+ },
+ "fase2a.py": {
+  "sticker": "Es la etapa «assets» del form: toma el guion ensamblado del video, lo traduce al formato que esperan los gestores, comprueba que la voz ya esté hecha, reintenta la foto madre si faltó y manda a generar las imágenes de cada capítulo (y los clips Veo). Al terminar marca el tema como «assets_rendered». No arma el video: eso lo hace fase2b.",
+  "recibe": "data/scripts/<id>.json (contrato que deja fase1_5), output/audio/<id>/sync_map.json (en LONG), data/topics_db (estado del tema), data/fase1_review.csv (solo si se corre sin --topic)",
+  "entrega": "output/<id>/assets/assets_manifest.json (vía asset_manager), foto madre en output/<id>/foto_madre/ si faltaba, topic con status='assets_rendered' en la base de temas",
+  "modelo": [
+   {"modelo": "api.image_engine (motor de imagen activo, vía asset_manager.process_script; perfiles en engine_profiles)", "para": "generar las imágenes de cada capítulo"},
+   {"modelo": "openai/gpt-image-2 (MADRE_IMAGE_MODEL, vía foto_madre)", "para": "reintento idempotente de la foto madre"},
+   {"modelo": "Veo vía fal (asset_manager._generate_veo_clip)", "para": "clips de capítulos con render_engine='veo'"},
+   {"modelo": "ElevenLabs (api.elevenlabs_model, audio_manager.process_script)", "para": "solo la rama SHORT: generar la voz en un tiro"}
+  ],
+  "etapa": ["assets"],
+  "estado": "vivo",
+  "estado_prueba": "run_pipeline.py:342 lo lanza como cmd ['fase2a.py','--topic',tid] en la etapa assets",
+  "funciones_muertas": [],
+  "md5": "48e2566121c229e8e29ba62296b12749"
+ },
+ "script_engine/voz_utils.py": {
+  "sticker": "La caja de herramientas para leer la voz y el texto: entiende cifras en dígitos y en letras (incluidas fracciones como «un centímetro y medio» y decimales), nombres propios, años que nombra el relato, y parte la narración en oraciones con cada palabra numerada y con sus tiempos. También calcula cuántos segundos por palabra habla el narrador, midiéndolo sobre las voces ya generadas.",
+  "recibe": "Texto o lista de palabras con tiempos de la voz (chNN_timestamps.json), output/audio/<id>/chNN.meta.json para medir la velocidad del narrador, AUDIO_STYLE de audio_config",
+  "entrega": "Listas de cifras, nombres, años y oraciones numeradas; segundos por palabra {valor, oraciones, caps, voz}; no escribe archivos",
+  "modelo": [],
+  "etapa": ["guion", "guion_pantalla", "render"],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/m01e_pantalla.py:62 y pantalla_filtros.py:16 lo importan arriba (papel en fase1_5, run_pantalla); gfx_realizador.py:193, pantalla_entrada.py:21-22 y gfx_layer.py:674 lo usan en fase2b",
+  "funciones_muertas": [
+   {"nombre": "munon", "linea": 120, "por_que": "nadie la nombra, ni producción ni tests"}
+  ],
+  "md5": "eabb5406a73ee1b9afd26f08948555ff"
+ },
+ "foto_madre.py": {
+  "sticker": "Genera la «foto madre» del video: una imagen de referencia limpia del sujeto principal (objeto o lugar) y de cada objeto clave anclado, para que después todas las imágenes de capítulo mantengan el mismo aspecto. Usa GPT Image 2 y, si falla, el motor de imagen activo; si ya hay un archivo (o Omar dejó uno a mano) lo reutiliza en vez de generar.",
+  "recibe": "El topic de la base de temas (central_subject, era_visual_canon, documented_props, anachronism_blocklist) y el video_id",
+  "entrega": "output/<id>/foto_madre/<nombre>.png y el path absoluto guardado en topic[...]['foto_madre'] (el que llama persiste con save_db)",
+  "modelo": [
+   {"modelo": "openai/gpt-image-2 (MADRE_IMAGE_MODEL, vía fal)", "para": "generar cada foto madre en 2560x1440"},
+   {"modelo": "api.image_engine (vía asset_manager._generate_image_raw)", "para": "fallback si GPT Image 2 falla"}
+  ],
+  "etapa": ["voz", "assets"],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.py:647 lo llama (paso0, tras m03, dentro del comando de voz) y fase2a.py:337 como reintento",
+  "funciones_muertas": [],
+  "md5": "c3e6507527742723fc21c8ecb83a5288"
+ },
+ "promote_palette_to_library_chat36.py": {
+  "sticker": "Script de una sola vez del chat 36: pasa los 7 tracks de música elegidos por Omar a la biblioteca de música (audio_library/) como la biblioteca fija, escribe su descriptor JSON y manda lo que hubiera en la biblioteca a un backup. No llama a ningún servicio de pago.",
+  "recibe": "_music_palette_test_chat36/*.mp3 (los 7 ganadores), lo que haya en audio_library/, ACTIVE_AUDIO_PROFILE y NEGATIVE_GLOBAL_STYLES",
+  "entrega": "audio_library/<intent>_curated.mp3 + .json, y los archivos previos movidos a audio_library_backup_nyos_chat36/",
+  "modelo": [],
+  "etapa": ["herramienta manual"],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "tiene if __name__ == '__main__' (línea 195) y nadie lo importa ni lo lanza (grep del repo: solo su propio docstring)",
+  "funciones_muertas": [],
+  "md5": "e472e69beea502060ef767cf3c9e68bf"
+ },
+ "script_engine/voz_datos.py": {
+  "sticker": "Saca datos de la voz y de la escaleta sin usar ningún modelo: dónde está el pico de cada capítulo, cuándo la voz dice una fecha completa (para mostrar el reloj en pantalla) y en qué esquina cabe ese reloj sin pisar otros rótulos.",
+  "recibe": "Oraciones de la voz con tiempos, escaleta (pico), pool de evidencia, plan de la capa gráfica",
+  "entrega": "Pico del cap, pico del plan, reloj armado desde la voz y esquina libre del reloj (en memoria, no escribe archivos)",
+  "modelo": [],
+  "etapa": ["guion_pantalla", "render"],
+  "estado": "vivo",
+  "estado_prueba": "pantalla_entrada.py:21 importa pico_cap; gfx_layer.py:637 y :714 usan pico_plan, reloj_de_voz y ticker_corner; gfx_pool.py:431 usa MESES (todo dentro de fase2b)",
+  "funciones_muertas": [],
+  "md5": "2d5e7aa4c9612553728e8da09a68f540"
+ },
+ "engine_profiles.py": {
+  "sticker": "Describe cada motor de imagen (Kling y Seedream) como una ficha: qué modelo llamar, dirección, tamaño de imagen, costo y, para Seedream, el orden de las piezas del prompt. Con la clave del motor activo devuelve su ficha, así cambiar de motor es cambiar de ficha y no de código.",
+  "recibe": "api.image_engine y datos de config (nombres de modelo, ancho y alto de imagen)",
+  "entrega": "El EngineProfile del motor pedido (o None para flux), que leen asset_manager y m03_visual",
+  "modelo": [
+   {"modelo": "api.fal_kling_model", "para": "perfil Kling: model_id de la llamada a fal"},
+   {"modelo": "fal-ai/bytedance/seedream/v5/lite/text-to-image (SEEDREAM_V5_LITE_MODEL_ID)", "para": "perfil Seedream: model_id de la llamada a fal"}
+  ],
+  "etapa": ["voz", "assets"],
+  "estado": "vivo",
+  "estado_prueba": "asset_manager.py:257,278,329 y script_engine/m03_visual.py:965 llaman select_profile (m03 corre en voz, asset_manager en assets)",
+  "funciones_muertas": [],
+  "md5": "bf4cc0382effa027c77a9d44f31de49a"
+ },
+ "art_config.py": {
+  "sticker": "Parámetros técnicos de la generación de imágenes con Leonardo (modelo, tamaño, contraste, estilo). Leonardo ya no es el motor y ningún módulo importa este archivo.",
+  "recibe": "Valores de config (modelo Leonardo, ancho y alto de imagen)",
+  "entrega": "Nada: define LEONARDO_SETTINGS y nadie lo lee",
+  "modelo": [],
+  "etapa": ["ninguna"],
+  "estado": "huérfano",
+  "estado_prueba": "grep de 'art_config' y 'LEONARDO_SETTINGS': solo aparece en un comentario de fase2a.py:26 y en su propio archivo",
+  "funciones_muertas": [],
+  "md5": "db741f42be5cf994ced55f02bcc5069c"
+ }
+}

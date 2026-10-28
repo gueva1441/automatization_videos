@@ -1,206 +1,720 @@
 {
- "_nota": "F42 §B: punto de partida = stickers de lab/MAPA_MODULOS.md (F33–F41, solo gfx) de los módulos de esta zona; el worker de la zona los relee contra el código y los reescribe con el formato F42.",
- "script_engine/gfx_critic.py": {
-  "sticker": "El editor: Gemini mira la foto en el instante de un bloque del papel y dice si estorba (tapa un rostro o lo que la imagen muestra). F37: corre en cada intento del reparto (instante y lado), y lo que estorba se mueve al intento siguiente en vez de cortarse.",
-  "recibe": "bloque en un intento + cuadro del video + voz",
-  "entrega": "veredicto por intento (caché por identidad)",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F4e"
- },
- "script_engine/gfx_director.py": {
-  "sticker": "El contexto de un capítulo (sin modelo): script, skeleton, fuentes del candado literal, narración del video, pool; y la palabra clave de la pregunta de cierre. F37: el borrador de Gemini (su prompt, su esquema y su caché) se borró: el papel es el único camino y el title card sale de la partición.",
-  "recibe": "script + skeleton + canonical + pool",
-  "entrega": "contexto del cap, palabra clave",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F1"
- },
- "script_engine/gfx_guion.py": {
-  "sticker": "Escribe el guion de pantalla: todo lo que se va a ver, en texto, con lo cortado y por quién, y los chequeos (lectura, nunca al mismo tiempo, costuras, inicio de voz, inicio de música, gancho no vacío; desde F36 C la columna `papel` y «papel sin colocar / sin alinear»; desde F38c «cifra que contradice la voz» no marca lo que el autor juzgó otro hecho). F38e §D: sin evento ni chequeo de fecha-hora del segundo 0; la costura de ch01 dice «primer cuadro congelado».",
-  "recibe": "planes, escenas, beats, mezcla",
-  "entrega": "GUION_PANTALLA.md/.json",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F32"
- },
- "script_engine/gfx_intensity.py": {
-  "sticker": "Gemini marca cuánto pesa cada frase y qué palabras cargan miedo, muerte o agua; ese léxico alimenta los sellos.",
-  "recibe": "oraciones del cap + vecinas",
-  "entrega": "pico, cargas, léxico del cap",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F4b"
- },
- "script_engine/gfx_layer.py": {
-  "sticker": "El director de orquesta de la capa gráfica de un capítulo: llama a todos los demás en orden (plan base con el title card de la partición —F37: sin borrador del director—, textos del papel, reparto con crítico, sellos, relojes del papel, transiciones) y hace el render en HyperFrames. Desde F34, con el guion aprobado dibuja el plan aprobado tal cual (plan congelado) y no lo reescribe. F38e: la pausa de cierre es pregunta + negro en los dos caminos (`pausa_de_cierre`), así el negro queda dentro del clip; la capa deja junto a `chNN_gfx.mp4` el md5 de su plan (`chNN_gfx.plan.md5`) y con `--reuse-visuals` se reusa solo si es el del plan de hoy (si no, «capa de otro plan / sin md5 de plan: se rehace»); la pregunta de cierre lleva su fuente (voz-pregunta · voz-alineada · escaleta).",
-  "recibe": "visual base del cap + palabras con tiempos + contexto",
-  "entrega": "`chNN_gfx.mp4`, plan resuelto, sfx, escenas",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F1"
- },
- "script_engine/gfx_literal_lock.py": {
-  "sticker": "El candado: un texto que no está literal en las fuentes (narración, partición, pool) no sale: title card, reloj y lo que no viene del papel (el papel trae su propio candado). F37: sin las ramas de los bloques borrados.",
-  "recibe": "plan + fuentes",
-  "entrega": "plan sin lo no literal + rechazados",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F1"
- },
- "script_engine/gfx_peak.py": {
-  "sticker": "La utilería de la voz que usan clima y voz_utils: las frases de la narración con sus palabras y tiempos y las palabras del léxico de moods (F36 D: el pico viejo, el agua, el zoom con latido y el reloj de gfx_peak se borraron).",
-  "recibe": "palabras con tiempos + léxico de moods",
-  "entrega": "frases, palabras de mood",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F3"
- },
- "script_engine/gfx_pool.py": {
-  "sticker": "La pantalla alimentada por el pool de evidencia: fuentes literales para el candado, lo ya mostrado en caps anteriores, el reloj de fechas y los cortes de cláusula que usa Fase 1 (m01a_skeleton). F36 D: se borraron recortes, citas, contadores y reservados del pool.",
-  "recibe": "pool de evidencia + palabras",
-  "entrega": "fuentes, ids ya usados, reloj",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F5"
- },
- "script_engine/gfx_project.py": {
-  "sticker": "El dibujante: convierte el plan en la página HTML que HyperFrames renderiza (title card, ficha, recorte, cita, sello, reloj, pregunta). F36 D: sin lupa, contador, agua, dato suelto, íconos ni fuente.",
-  "recibe": "plan resuelto + escenas",
-  "entrega": "proyecto HyperFrames (index.html, CSS)",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F1"
- },
- "script_engine/gfx_realizador.py": {
-  "sticker": "Hace que la pantalla obedezca a la escaleta: ventanas de tiempo de cada beat, qué datos puede mostrar cada uno y la pregunta de cierre, que desde F38e B4 sale de la voz (la última oración del cap si es pregunta; si no, las oraciones de la voz del último beat que alinean con su `cierre`; si ninguna, el `cierre` literal) y dice de dónde salió. F37: el cierre del plan solo deja los sellos del papel y ningún punch_in (sin las ramas del camino sin papel, del contador ni de los íconos).",
-  "recibe": "escaleta + narración por beat + pool",
-  "entrega": "`gfx_beats_chNN.json`, filas de lo quitado",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F29"
- },
- "script_engine/gfx_review.py": {
-  "sticker": "La hoja de cues: un renglón por bloque visible con su segundo, para revisar el render.",
-  "recibe": "eventos del plan",
-  "entrega": "`gfx_cues_chNN.md/.json`, página de revisión",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F1"
- },
- "script_engine/gfx_safe_bake.py": {
-  "sticker": "Cuece con ffmpeg el movimiento suave de cada foto (acercar, alejar, paneo) para no pagarlo en HyperFrames.",
-  "recibe": "escenas con movimiento seguro + sus PNG",
-  "entrega": "`base_cocido.mp4`",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F30"
- },
- "script_engine/gfx_sparse.py": {
-  "sticker": "El ahorrador: HyperFrames solo donde hay algo que dibujar; el resto del cap lo cose ffmpeg, con las transiciones, el grano y la viñeta (F36 D: sin la marca del canal).",
-  "recibe": "plan + escenas + base",
-  "entrega": "`chNN_gfx.mp4` cosido",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F2"
- },
- "script_engine/gfx_style.py": {
-  "sticker": "La identidad del canal aplicada al plan: qué movimiento lleva cada foto y qué transición va en cada corte según el relato (golpe de zoom en el pico, fundido, dip al cierre, corte).",
-  "recibe": "escenas + plan + beats",
-  "entrega": "movimientos y transiciones",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F4"
- },
- "script_engine/gfx_vision.py": {
-  "sticker": "Gemini mira cada foto y dice qué detalles tiene y dónde (rostro, manos, objetos); con eso se decide el movimiento seguro (F36 D: la lupa y su verificación se borraron).",
-  "recibe": "PNG / cuadro de la escena",
-  "entrega": "detalles con caja, caja humana",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F4b"
- },
- "script_engine/aprobacion.py": {
-  "sticker": "La compuerta del render: guarda quién aprobó el guion de pantalla y la huella de los planes; si algo cambió después, no hay render.",
-  "recibe": "GUION_PANTALLA.json + planes resueltos",
-  "entrega": "`aprobado` en el guion; sí/no para el hook",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F33"
- },
- "script_engine/transition_applier.py": {
-  "sticker": "Pega los capítulos uno detrás de otro. Con --gfx: corte a negro y el siguiente sube desde negro; sin --gfx, las transiciones del perfil de arte (incluido el flash blanco).",
-  "recibe": "segmentos por cap",
-  "entrega": "`_concat_video.ts` + `_concat_audio.wav` y el mp4 sin música",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "previo a F1"
- },
- "script_engine/pantalla_entrada.py": {
-  "sticker": "La entrada de Fase 2 para el texto de pantalla (F37: antes gfx_rotulista; no escribe nada): `preparar_cap` lee el guion en papel de Fase 1 (`01e_pantalla.json`), alinea sus oraciones con las de la voz por texto y ancla cada ficha a su palabra (con el juicio del autor, si lo hay). F38e §C: el autor que el papel muestra en una cita es el que ve Fase 2. F40: el ítem ya no trae `dice_voz` (solo la marca de gancho).",
-  "recibe": "papel del topic + oraciones de la voz + beats",
-  "entrega": "entrada del cap + bloques, sellos y relojes del papel",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F29b"
- },
- "script_engine/pantalla_filtros.py": {
-  "sticker": "Los filtros que deciden si un texto del papel sale, en un orden que se lee en una línea (`ORDEN`): F40: sin el corte del gancho (`gancho_dicho`): su coincidencia con la voz de todo el video es de no dicho y se le pregunta al autor. Orden: anclar el papel a la voz, candado de lo literal, no dicho (en el gancho, con la voz de todo el video), spoiler (lo que el autor juzgó «otro hecho» no corta) y lectura: desde F37 la lectura prueba la escalera de intentos (otro instante de la oración, la escena siguiente, la oración siguiente) y corta solo si no entra en ninguno. F37: antes rotulista_filtros. F38c: «cifra que contradice la voz» da también dónde y qué cifra (el papel se la pregunta al autor) y respeta lo que el autor juzgó «otro hecho».",
-  "recibe": "bloques del papel + entrada del cap",
-  "entrega": "bloques que pasan con sus intentos, cortados con su regla y motivo",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F36 (código de F29b)"
- },
- "script_engine/pantalla_colocar.py": {
-  "sticker": "Pone cada texto del papel en su lugar (F37: antes rotulista_colocar): la ficha dura su lectura entre callout_dur_min y callout_dur_max sin pasar el corte, qué forma toma (ficha normal, nombre o cita con autor; papel = recorte) y el reparto: nunca al mismo tiempo (DECISIONES 17:58) y el crítico en cada intento, moviendo en vez de cortar (otro instante, todo inicio de escena dentro de la oración —F38e B1—, la oración siguiente, el otro lado); el reloj mueve su fin con el intento y se recorta en su nuevo corte (F38e B2); lo que no entra queda «sin colocar» y todo lo movido declara qué falló en cada intento anterior, también en los filtros (F38e B3). F38c: cada ficha lleva el juicio del autor hasta el guion de pantalla.",
-  "recibe": "bloques validados + escenas",
-  "entrega": "bloques en el plan, filas de lo movido o sin colocar",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F36 (código de F29b)"
- },
- "script_engine/clima.py": {
-  "sticker": "Los sellos de clima: la palabra y la oración vienen del guion en papel; acá se prueba la misma escalera de intentos que las fichas (F37: palabra de más peso, inicio, escena siguiente, oración siguiente y el otro lado), sin cruzar el corte, nunca al mismo tiempo que otro bloque y con el crítico («¿estorba?») en cada intento.",
-  "recibe": "sellos del papel + oraciones + léxico de moods",
-  "entrega": "sellos en el plan, filas de lo movido o sin colocar",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F36 (código de F32/F34)"
+ "_nota": "F42 §B: stickers de la zona fase2b_gfx, escritos por los workers (Sonnet) que leyeron cada archivo entero; `md5` = el del archivo leído (`mapa_modulos.py --check` avisa si cambió). `_parte` = el worker.",
+ "fase2b.py": {
+  "sticker": "Arma el video final a partir de lo que ya dejaron la voz y las imágenes: anima cada imagen, le pone la capa gráfica (títulos, fichas, sellos) cuando se pide, quema los subtítulos, pega la voz, encadena los capítulos con corte a negro y mezcla la música por debajo de la voz. También genera el guion de pantalla (--plan-only) que Omar lee antes de aprobar, y escribe la aprobación (--aprobar-guion).",
+  "recibe": "output/audio/<id>/sync_map.json + chNN.mp3 + chNN_timestamps.json (+ chNN_alignment.json); output/<id>/assets/assets_manifest.json + imágenes/clips por capítulo; data/scripts/<id>.json (narración, prompts, anchors, video_type); output/audio/<id>/music_map.json; data/scripts/_steps/<id>/01a_escaleta.json, 01b_narracion_v3.json, 00_pool_v3.json y 01e_pantalla.json (guion en papel); output/<id>/_fase2b_work/ (visuales base ya cocidos, planes gfx_plan_chNN.resolved.json); output/<id>/assets/flow_specs.json, depth_metrics.json y zoom_verdicts.json (cachés).",
+  "entrega": "output/<id>/<id>_final.mp4 (sin --gfx) o <id>_final_gfx.mp4 (con --gfx) y el respaldo *_no_music.mp4; output/<id>/_fase2b_work/ (seg_NN_chNN.mp4, chNN_flux_visual.mp4, chNN_hybrid_visual.mp4, chNN_subs.ass, segments_manifest.json, mezcla_preview.wav); output/<id>/flow_plan.json; output/audio/<id>/intensity_map.json; output/<id>/GUION_PANTALLA.md/.json (--plan-only); el bloque aprobado dentro de GUION_PANTALLA.json (--aprobar-guion); estado video_generated en topics_db.",
+  "modelo": [
+   {
+    "modelo": "api.gemini_model (constante de config, vía script_engine/flow_director.select_movements_batch)",
+    "para": "elegir el movimiento de cámara de cada imagen (una sola tanda para todo el video; si falla, cae a movimiento vertical fijo); solo corre en la etapa fondos, no con --reuse-visuals"
+   },
+   {
+    "modelo": "api.gemini_model (constante de config, vía script_engine/zoom_judge.judge_candidates)",
+    "para": "visión sobre las imágenes candidatas a zoom y sobre las que tienen persona en el prompt (router anti-deformación); cacheado en zoom_verdicts.json"
+   }
+  ],
+  "etapa": [
+   "fondos",
+   "guion_pantalla",
+   "aprobar_guion",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "run_pipeline.py:365 (fondos), 374 (--plan-only), 402 (--aprobar-guion), 412 (--reuse-visuals --keep-segments --gfx --gfx-sparse) lo lanzan por subprocess; mixer_server.py:363 y qa_studio_server.py:638 también lo lanzan",
+  "funciones_muertas": [
+   {
+    "nombre": "_chars_to_syllables",
+    "linea": 553,
+    "por_que": "nadie la llama en producción (fase2b usa karaoke por palabra desde el camino B); solo la usan test_module_38b/38d y dos scripts sueltos de chat 38 (_regen_alignments_chat38.py, _smoke_chat38_ch01.py)"
+   },
+   {
+    "nombre": "_build_ass_from_syllables",
+    "linea": 593,
+    "por_que": "nadie la llama en producción (el comentario de fase2b.py:1237 dice que el cambio a palabra es intencional); solo test_module_38d_forcealign_integration.py"
+   },
+   {
+    "nombre": "_segmentos_en_paralelo",
+    "linea": 2781,
+    "por_que": "único llamador es fase2b.py:3393 dentro de `if paralelo`, y paralelo exige GFX_PARALELO > 1, constante en 1 (fase2b.py:2647, marcada DESCARTADO); inalcanzable con el código tal cual, solo test_module_f28c.py la ejerce forzando la constante a 2"
+   }
+  ],
+  "md5": "c81d7e20bf844a7f51435c548c9058d2",
+  "_parte": "fase2b_gfx_a"
  },
  "gfx_config.py": {
-  "sticker": "El tablero de perillas de la capa gráfica: duraciones, tamaños, colores y qué reglas están prendidas; el perfil del canal (identidad F3) pisa los valores; el perfil trae también el vocabulario de sellos de clima (`sellos_clima`).",
-  "recibe": "gfx_profiles/<perfil>.json",
-  "entrega": "`gfx_rules`, `gfx_render`, moods, sfx del title card, claves huérfanas del perfil",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F1"
+  "sticker": "El tablero de perillas de la capa gráfica: duraciones, tamaños, colores, calidad de render y qué bloques (título, datos, recortes, sellos, zoom) están prendidos. Carga el perfil del canal (gfx_profiles/<perfil>.json) y lo valida: una clave desconocida frena todo. Los demás módulos de la capa gráfica leen sus números de acá.",
+  "recibe": "gfx_profiles/<perfil>.json elegido por la variable GFX_PROFILE o por el nicho activo (nicho_config.get_active_nicho); script_engine/sfx/*.wav para validar los sonidos; config.BASE_DIR",
+  "entrega": "Objetos gfx_rules (GfxRules), gfx_render, GFX_INVENTORY, GRADE_VARIANTS, ACTIVE_PROFILE, active_moods(), sfx_for(), ICON_KEYS, listas de claves huérfanas del perfil (PERFIL_HUERFANAS), clamp_box y clamp_quality",
+  "modelo": [],
+  "etapa": [
+   "guion",
+   "fondos",
+   "guion_pantalla",
+   "aprobar_guion",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:3162 y 3482 leen gfx_rules dentro del render; script_engine/m01e_pantalla.py:80 (tope de costo del papel, en run_pantalla de fase1_5.py:229) y script_engine/clima.py:26,43 y pantalla_colocar.py:34 lo leen en la etapa guion; script_engine/gfx_layer.py lo importa arriba",
+  "funciones_muertas": [
+   {
+    "nombre": "GfxRules.zoom_min_scene",
+    "linea": 306,
+    "por_que": "nadie la nombra ni en producción ni en tests; quedó de cuando el borrador del director chequeaba la duración mínima de escena para el zoom"
+   },
+   {
+    "nombre": "GfxRules.css_grade_variant",
+    "linea": 310,
+    "por_que": "alias F1b que nadie lee en producción; solo lo toca test_module_gfx_config.py:45"
+   },
+   {
+    "nombre": "GfxRules.css_grade_opacity",
+    "linea": 318,
+    "por_que": "nadie la nombra ni en producción ni en tests"
+   }
+  ],
+  "md5": "a1d59c6efc31572ececacea454d87378",
+  "_parte": "fase2b_gfx_c"
  },
- "fase2b.py": {
-  "sticker": "El armador final: junta imagen, voz, subtítulos y música de cada capítulo en un segmento y los pega en el video. Con `--gfx` le pone encima la capa gráfica; con `--plan-only` solo escribe el guion de pantalla. Desde F34, con `--gfx` la música de cada cap arranca con su title card (pieza = segmento, después de la intro) y la mezcla de previsualización mide dónde arranca. La intro es siempre INITIAL_SILENCE_SEC con el primer cuadro congelado (F38e §D: la fecha-hora del segundo 0 se borró; el video arranca con la primera imagen); `--plan-edit` edita el guion en papel (ficha o sello de un beat; otra cosa se rechaza). F38e §A: después de armar cada segmento con `--gfx`, chequeo «costuras» medido en el mp4 (`_medir_cierre`): duración con ffprobe contra el `seg_dur` del guion aprobado (±1 cuadro) y `blackdetect` del negro de cierre, ✓/✗ en el log del render; la huella del re-ensamble (`_segment_hash`) ve el plan resuelto. F40: el long-form quema subtítulos documentales (Anton del perfil, blanco con borde negro, sin resaltar palabra, una oración o frase por evento con ≤ 42 caracteres por renglón, ≤ 2 renglones y 0,833–7 s, Netflix); el karaoke amarillo por palabra queda solo para Shorts.",
-  "recibe": "assets del topic (imágenes/clips), voz por cap + tiempos, sync map, música",
-  "entrega": "`*_final(_gfx).mp4`; o GUION_PANTALLA + mezcla",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "previo a F1 (inicial)"
+ "gfx_lab_server.py": {
+  "sticker": "Laboratorio de identidad de la capa gráfica: un mini-servidor local donde Omar ve un capítulo ya renderizado, prueba sellos, datos y recortes sobre las fotos y guarda su plan. Solo sirve para diseñar la identidad; el form no lo lanza y no escribe nada de lo que va al video final.",
+  "recibe": "output/audio/<id>/sync_map.json, output/<id>/assets/assets_manifest.json, output/<id>/_fase2b_work/<cap>_flux_visual.mp4 (o gfx_<cap>/public/base.mp4), gfx_plan_<cap>.resolved.json, gfx_question_<cap>.json y flow_specs.json; lab/identidad/ (index.html, catalogo.json, plan_<cap>_lab.json); gfx_profiles/icons/*.svg; script_engine/sfx/*.wav; runtime de hyperframes en script_engine/gfx_runtime/node_modules",
+  "entrega": "Páginas y APIs HTTP en localhost:8765; lab/identidad/plan_<cap>_lab.json (estado guardado por la página); proyectos de preview output/<id>/_fase2b_work/gfx_lab_<cap>/ y gfx_lab_<cap>_solo/ (base.mp4 con cola, lab_scenes.json, miniaturas JPG)",
+  "modelo": [],
+  "etapa": [
+   "herramienta manual"
+  ],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "gfx_lab_server.py:702 tiene __main__ (python gfx_lab_server.py --video --cap); nadie lo importa ni lo lanza por subprocess en producción (solo test_module_gfx_lab.py:13); run_pipeline.py no lo nombra",
+  "funciones_muertas": [
+   {
+    "nombre": "LabSession.lab_plan",
+    "linea": 208,
+    "por_que": "nadie la llama: ni producción ni tests; las rutas usan lab_state() directamente"
+   },
+   {
+    "nombre": "LabSession._catalog",
+    "linea": 367,
+    "por_que": "nadie la llama; lee lab/identidad/catalogo.json, que el servidor sirve como estático por /lab/ sin pasar por este método"
+   },
+   {
+    "nombre": "LabSession._sugerencias",
+    "linea": 370,
+    "por_que": "nadie la llama en producción; los tests de sugerencias (test_module_gfx_lab.py:199, 226) leen el archivo sugerencias_<cap>.json a mano"
+   }
+  ],
+  "md5": "2063ce96af157f1a5ffbfbd7d5e71344",
+  "_parte": "fase2b_gfx_c"
  },
- "transition_config.py": {
-  "sticker": "Las perillas del pegado entre capítulos (calidad del video, fps) y el inventario de transiciones de los perfiles de arte.",
-  "recibe": "—",
-  "entrega": "`transition_render` y el inventario",
-  "estado_viejo": "vivo (con --gfx solo calidad y fps; el inventario es del camino sin gfx)",
-  "tanda_vieja": "previo a F1"
+ "gfx_profiles/finanzas.json": {
+  "sticker": "Perfil gráfico alternativo para un canal de finanzas (tipografías, duraciones y qué bloques van). Solo se aplica si el nicho activo es «finanzas»; hoy el canal es de misterio, así que no se usa en los videos.",
+  "recibe": "Claves de primer nivel: name, description, nichos, fonts, tokens, blocks",
+  "entrega": "Los valores que gfx_config.load_profile vuelca en gfx_rules e inventario cuando este perfil es el activo",
+  "modelo": [],
+  "etapa": [
+   "guion",
+   "fondos",
+   "guion_pantalla",
+   "aprobar_guion",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_config.py:366-370 lo lee (junto con los demás .json de la carpeta) para buscar el perfil cuyo `nichos` contenga el nicho activo, y gfx_config.py:409-411 lo cargaría con nicho finanzas o GFX_PROFILE=finanzas; con el nicho dark_history actual no se aplica",
+  "funciones_muertas": [],
+  "md5": "8fbe4ad4cf5b5b5393f0e5ea022bffdb",
+  "_parte": "fase2b_gfx_c"
+ },
+ "gfx_profiles/lexico_propuestas.json": {
+  "sticker": "Cuaderno de palabras nuevas de carga (horror, abismo, tragedia…) que el director de intensidad propone al leer cada capítulo. Cuando una palabra aparece en dos videos distintos, pasa al léxico del perfil de misterio.",
+  "recibe": "Lo escribe gfx_intensity.record_proposals con las cargas que propone el modelo del director de intensidad en cada render con capa gráfica (no en --plan-only)",
+  "entrega": "Mapa palabra → {categoria, peso, videos, concreta}; las que cumplen la regla de los 2 videos se promueven a moods de gfx_profiles/misterio.json",
+  "modelo": [],
+  "etapa": [
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/gfx_layer.py:683 llama gi.record_proposals(...) cuando gfx_rules.intensity_director está prendido y no es plan_only; script_engine/gfx_intensity.py:53 fija su ruta (PROPOSALS)",
+  "funciones_muertas": [],
+  "md5": "c7e66c062a3382d100789e50d5c6d070",
+  "_parte": "fase2b_gfx_c"
+ },
+ "gfx_profiles/misterio.json": {
+  "sticker": "La identidad gráfica del canal de misterio: tipografías, tamaños y tiempos de título, datos y recortes, qué bloques se usan y cuántos por capítulo, el léxico de palabras de carga con su clima (veneno, agua, muerte, oscuridad), los sellos y el sonido del título. Es el perfil que manda en todos los renders.",
+  "recibe": "Lo editó Omar con el laboratorio de identidad (F3) y se ajusta a mano; claves de primer nivel: name, description, nichos, fonts, tokens, sellos_clima, moods, sfx, blocks, channel_bug, identity",
+  "entrega": "Los valores de gfx_rules, el inventario de bloques, active_moods(), sfx_for(), sellos de clima y topes de costo del papel (por gfx_config)",
+  "modelo": [],
+  "etapa": [
+   "guion",
+   "fondos",
+   "guion_pantalla",
+   "aprobar_guion",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_config.py:480-484 carga el perfil activo al importar el módulo (nichos = [dark_history]); script_engine/gfx_layer.py:672-683 y m01e_pantalla.py:80 leen ACTIVE_PROFILE",
+  "funciones_muertas": [],
+  "md5": "be921562d29ca13c7223724d288b94c1",
+  "_parte": "fase2b_gfx_c"
+ },
+ "gfx_profiles/misterio_critico_fewshot.json": {
+  "sticker": "Ejemplos de cómo juzgaba el crítico visual viejo si un bloque gráfico suma, repite o estorba. Ese crítico se borró en F36 §D y ningún código lee este archivo.",
+  "recibe": "Claves de primer nivel: fuente, ejemplos",
+  "entrega": "Nada: nadie lo carga",
+  "modelo": [],
+  "etapa": [
+   "ninguna"
+  ],
+  "estado": "huérfano",
+  "estado_prueba": "grep del nombre «critico_fewshot» solo da menciones en lab/ESTADO_SESION.md:775; script_engine/gfx_critic.py:11 dice que el crítico de few-shot se borró; solo gfx_config.py:366 lo abre al recorrer la carpeta buscando `nichos` (no lo usa)",
+  "funciones_muertas": [],
+  "md5": "8250e65798eab761ad9c9e0bbb3b5e2f",
+  "_parte": "fase2b_gfx_c"
+ },
+ "gfx_profiles/misterio_golden_ch02.json": {
+  "sticker": "Plan «dorado» del capítulo 2 que Omar guardó con el laboratorio de identidad el 2026-10-20: qué bloques van en cada momento y con qué tokens. Es una foto de referencia; ningún código lo lee.",
+  "recibe": "Claves de primer nivel: profile, video_id, cap, saved_at, plan, rejected_by_lock, tokens, anotado, marks (lo guardó el lab F3)",
+  "entrega": "Nada: nadie lo carga",
+  "modelo": [],
+  "etapa": [
+   "ninguna"
+  ],
+  "estado": "huérfano",
+  "estado_prueba": "grep del nombre «golden_ch02» solo da menciones en lab/ESTADO_SESION.md:826; ningún .py lo abre salvo el barrido de gfx_config.py:366 que lo recorre buscando `nichos`",
+  "funciones_muertas": [],
+  "md5": "3a3ff2d592c9ccec460aaa04c34da8d3",
+  "_parte": "fase2b_gfx_c"
+ },
+ "mixer_server.py": {
+  "sticker": "Mesa de mezcla para calibrar de oído cuánto suena la música bajo la voz de cada capítulo. Omar escucha, ajusta dos números (volumen y volumen de piso) y los guarda en el json de la pista de música; también puede mandar a re-armar el video con un botón.",
+  "recibe": "output/audio/<id>/music_map.json, output/audio/<id>/<cap>.mp3 (voz), output/audio/<id>/sync_map.json (título opcional), audio_library/<track>.mp3 y su .json, audio_profiles.AUDIO_PROFILES[MISTERIO_ABISAL][mixing], mixer.html",
+  "entrega": "Servidor en 127.0.0.1:8000; mezclas de prueba output/audio/<id>/_mixer_renders_chat40/mix_<cap>_<mv>_<mvf>.mp3; escribe music_volume y music_volume_floor en el json de la pista (audio_library/<track>.json); el botón Re-armar lanza `python fase2b.py <id>`",
+  "modelo": [],
+  "etapa": [
+   "herramienta manual"
+  ],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "mixer_server.py:609 __main__ (python mixer_server.py --topic); fase2b.py:3527 solo lo nombra en un mensaje al usuario; lo lanza una persona a mano, el form no. Su Popen a fase2b.py (mixer_server.py:363) corre solo con el botón Re-armar",
+  "funciones_muertas": [],
+  "md5": "bfd1b46d6f4177daf2150df09992e94a",
+  "_parte": "fase2b_gfx_c"
+ },
+ "script_engine/aprobacion.py": {
+  "sticker": "La compuerta del render: guarda quién aprobó el guion de pantalla y una huella de los planes de ese momento. Si después alguien cambia los planes, la huella no coincide y el render con capa gráfica no arranca hasta volver a aprobar.",
+  "recibe": "output/<id>/GUION_PANTALLA.json (el guion generado por --plan-only) y output/<id>/_fase2b_work/gfx_plan_ch*.resolved.json (los planes resueltos de cada capítulo).",
+  "entrega": "El bloque `aprobado: {por, fecha, md5_planes, planes}` escrito dentro de output/<id>/GUION_PANTALLA.json (aprobar) y un sí/no con el motivo para quien pregunte (estado: hook guard_render, run_pipeline y la capa gráfica).",
+  "modelo": [],
+  "etapa": [
+   "aprobar_guion",
+   "render",
+   "orquestador/form",
+   "Claude Code"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:3723 importa aprobar (--aprobar-guion); run_pipeline.py:127 llama estado para la compuerta del form; script_engine/gfx_layer.py:507 llama estado en plan_congelado (render); .claude/hooks/guard_render.py:89 llama estado antes de dejar pasar fase2b --gfx",
+  "funciones_muertas": [],
+  "md5": "b5fed4ae2534a4755b7f06a9ce6575b6",
+  "_parte": "fase2b_gfx_a"
+ },
+ "script_engine/clima.py": {
+  "sticker": "Pone los sellos de clima (la palabra grande en rojo, como MUERTE o AGUA): la palabra y la oración vienen del guion en papel; acá se elige el instante probando la misma escalera de intentos que las fichas, sin cruzar el corte, sin chocar con otro bloque y con el crítico en cada intento.",
+  "recibe": "sellos del papel (ent_rot), oraciones y palabras de la voz, moods del perfil, vocabulario sellos_clima del perfil activo, planes resueltos de caps anteriores",
+  "entrega": "plan['emphasis'] con los sellos, filas de lo movido o sin colocar (plan['sellos_tema']) y veredictos (plan['critico_sellos']); en memoria",
+  "modelo": [],
+  "etapa": [
+   "guion",
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:776 sellos_del_papel y :770 usadas_antes; m01e_pantalla.py:1119 vocabulario_clima en Fase 1",
+  "funciones_muertas": [],
+  "md5": "9ffd4515fa17bcaf6dc8ef2ac9c649fe",
+  "_parte": "fase2b_gfx_d"
+ },
+ "script_engine/freeze_check.py": {
+  "sticker": "Mira un mp4 ya renderizado y avisa si hay tramos donde la imagen queda congelada más de 1,5 segundos, salvo los que son quietos a propósito (pausa de la pregunta de cierre, negro). Se corre a mano sobre los chNN_gfx.mp4; ninguna etapa del form lo usa.",
+  "recibe": "Uno o más mp4 pasados por línea de comandos (p. ej. output/<id>/_fase2b_work/chNN_gfx.mp4); ffmpeg tomado del PATH.",
+  "entrega": "Un JSON por pantalla con {archivo, congelados: [(inicio, duración)], ok}; no escribe archivos.",
+  "modelo": [],
+  "etapa": [
+   "herramienta manual"
+  ],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "script_engine/freeze_check.py:42 (__main__, `python -I -m script_engine.freeze_check <mp4>`); el único otro uso es test_module_f10.py:161; ningún script de producción lo importa ni lo lanza",
+  "funciones_muertas": [],
+  "md5": "edbec655cb35262d071be3f957685889",
+  "_parte": "fase2b_gfx_a"
+ },
+ "script_engine/gfx_critic.py": {
+  "sticker": "El editor visual: Gemini mira la foto en el instante en que va un bloque y dice si estorba, es decir, si tapa un rostro o un texto de la imagen. Se llama en cada intento del reparto; si estorba, el bloque se mueve al intento siguiente en vez de cortarse. También arma la hoja de contactos del render.",
+  "recibe": "video base del cap (output/<id>/work/…/base.mp4 vía gfx_layer), bloque en un intento (instante y lado), palabras con tiempos de la voz",
+  "entrega": "fila de veredicto por intento (pasa o no); caché output/<id>/work/gfx_critic_rot_<cap>.json; cuadros en gfx_critic_<cap>/; hoja de contactos hoja_contactos_<cap>.jpg",
+  "modelo": [
+   {
+    "modelo": "Gemini (config api.gemini_model) con imagen",
+    "para": "juzgar si un bloque de pantalla estorba sobre la foto"
+   }
+  ],
+  "etapa": [
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:763 estorba (juez del reparto, solo si gfx_rules.visual_critic, clave presente en misterio.json) y :425 contact_sheet",
+  "funciones_muertas": [],
+  "md5": "b330e8dd013cea5bdb12e3ec562956de",
+  "_parte": "fase2b_gfx_d"
+ },
+ "script_engine/gfx_director.py": {
+  "sticker": "Reúne el contexto de un capítulo para la capa gráfica sin usar modelo: guion, partición, fuentes del candado literal, narración del video y pool de evidencia. También saca la palabra clave de la pregunta de cierre.",
+  "recibe": "data/scripts/<id>.json, data/scripts/_steps/<topic_id>/01a_skeleton.json y 02_canonical.json, plan del cap",
+  "entrega": "diccionario de contexto del cap (sources, pool, skeleton, narración, capítulos) y la palabra clave de la pregunta; en memoria",
+  "modelo": [],
+  "etapa": [
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:631-632 load_chapter_context y :291 question_keyword; fase2b.py:3158-3172 load_chapter_context en --plan-only",
+  "funciones_muertas": [],
+  "md5": "4da6bcbceb97f56ffe6d41762ebe6706",
+  "_parte": "fase2b_gfx_d"
+ },
+ "script_engine/gfx_guion.py": {
+  "sticker": "Escribe el guion de pantalla: todo lo que se va a ver en el video, en texto y en el orden del mp4 final, con lo que cada filtro cortó, quién y por qué, y los chequeos antes del render (nunca al mismo tiempo, bloque que cruza un corte, lectura a 15 cps, cifra que contradice la voz, costuras, inicio de voz y de música, gancho no vacío, papel sin colocar o sin alinear). Es lo que Omar y el analista leen para aprobar.",
+  "recibe": "Por cap: el plan resuelto, las escenas, los beats, las oraciones de la voz, los timestamps y la mezcla de audio de previsualización, armados por fase2b._solo_plan (_fase2b_work/gfx_plan_chNN.resolved.json, gfx_escenas_chNN.json, 01a_escaleta.json).",
+  "entrega": "output/<id>/GUION_PANTALLA.md y output/<id>/GUION_PANTALLA.json.",
+  "modelo": [],
+  "etapa": [
+   "guion_pantalla"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:3198 llama gg.armar y fase2b.py:3201 gg.escribir dentro de _solo_plan; fase2b.py:3075 importa _pcm",
+  "funciones_muertas": [
+   {
+    "nombre": "_ocupa",
+    "linea": 431,
+    "por_que": "nadie la nombra: ni producción ni tests ni strings; el chequeo «dos bloques al mismo tiempo» (línea 444 en adelante) calcula el solape directo y ya no la usa"
+   }
+  ],
+  "md5": "6483bab081dd950377d317c520f69934",
+  "_parte": "fase2b_gfx_b"
+ },
+ "script_engine/gfx_intensity.py": {
+  "sticker": "Un modelo de Gemini lee la narración de cada capítulo y marca qué frase pega más fuerte y qué palabras cargan miedo, muerte o agua, sin escribir texto nuevo. Esas palabras suman al léxico de clima del capítulo y las nuevas se guardan como propuestas para el perfil.",
+  "recibe": "frases numeradas del capítulo (más 2 del anterior y 2 del siguiente), moods del perfil activo (gfx_profiles/misterio.json), narración completa del video",
+  "entrega": "intensidad por frase, cargas validadas y frase pico (en memoria); caché output/<id>/work/gfx_intensity_<cap>.json; propuestas en gfx_profiles/lexico_propuestas.json",
+  "modelo": [
+   {
+    "modelo": "Gemini Flash vía gemini_helpers.call_flash_json (config api.gemini_model)",
+    "para": "marcar intensidad por frase, frase pico y palabras de carga del capítulo"
+   }
+  ],
+  "etapa": [
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:670-689 lo llama si gfx_rules.intensity_director (clave presente en gfx_profiles/misterio.json; valor no leído)",
+  "funciones_muertas": [],
+  "md5": "633b7457ad6954536afbe558c51e91bd",
+  "_parte": "fase2b_gfx_d"
+ },
+ "script_engine/gfx_layer.py": {
+  "sticker": "Es el director de orquesta de la capa gráfica de un capítulo: parte del clip de fondo ya cocido, arma el plan de lo que se ve (title card, fichas, recortes, sellos, reloj, pregunta de cierre, transiciones), lo pasa por el candado literal y dibuja la capa en HyperFrames. Con el guion de pantalla aprobado dibuja exactamente ese plan (plan congelado); en modo plan-only solo planea y escribe los archivos de cues, escenas y pausa, sin render. Cualquier falla devuelve el clip de fondo sin capa.",
+  "recibe": "El clip de fondo del cap (data/.../_fase2b_work/chNN_*_visual.mp4), el ChapterPlan de fase2b, los timestamps de la voz, 01a_escaleta.json y el papel del topic (data/scripts/_steps/<id>/), el pool de fuentes, gfx_plan_chNN.resolved.json aprobado (si hay guion aprobado) y los tokens de gfx_config.",
+  "entrega": "_fase2b_work/chNN_gfx.mp4 (+ chNN_gfx.plan.md5), gfx_chNN/ (proyecto HyperFrames y base -g30), gfx_plan_chNN.resolved.json, gfx_escenas_chNN.json, gfx_sfx_chNN.json, gfx_pause_chNN.json, gfx_sparse_chNN.json, gfx_safe_bake_chNN.json, gfx_chNN.log, gfx_cues_chNN.md/.json, hoja_contactos_chNN.jpg.",
+  "modelo": [],
+  "etapa": [
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:1217 llama apply_gfx en _build_chapter_segment (render con --gfx --gfx-sparse, run_pipeline.py:246) y fase2b.py:3147 lo llama con plan_only=True en _solo_plan (fase2b --plan-only, run_pipeline.py:374)",
+  "funciones_muertas": [],
+  "md5": "ea1a0461daa63cce1a6405648d7885ae",
+  "_parte": "fase2b_gfx_b"
+ },
+ "script_engine/gfx_literal_lock.py": {
+  "sticker": "El candado: un texto que no está literal en las fuentes del capítulo (narración, partición, pool, fuentes) no sale en pantalla. Los bloques del papel traen su propio candado, así que acá solo se revisan el title card y el reloj; lo rechazado se quita y nunca se reescribe.",
+  "recibe": "plan resuelto del cap y diccionario de fuentes (ctx['sources'] de gfx_director)",
+  "entrega": "plan sin lo no literal y lista de rechazados (output/<id>/work/gfx_plan_<cap>.resolved.json › rejected)",
+  "modelo": [],
+  "etapa": [
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:695-704 y :723 llaman lock; gfx_director.py:19 importa normalize",
+  "funciones_muertas": [
+   {
+    "nombre": "plan_strings",
+    "linea": 90,
+    "por_que": "nadie la nombra en producción; solo test_module_gfx_emphasis.py, test_module_gfx_icons.py y test_module_gfx_lock.py (auditoría y tests)"
+   }
+  ],
+  "md5": "0dbcfcacb9f49edc78bfae07d4d45231",
+  "_parte": "fase2b_gfx_d"
+ },
+ "script_engine/gfx_peak.py": {
+  "sticker": "Utilería de la voz que usan varios módulos: parte la narración en oraciones con sus palabras y tiempos, busca las palabras del léxico de moods y, si hay un sustantivo con ícono y un adjetivo de la misma categoría en una frase, prefiere el sustantivo.",
+  "recibe": "palabras con tiempos de la voz y el léxico de moods del perfil",
+  "entrega": "oraciones con índices y tiempos, aciertos del léxico, aciertos filtrados; en memoria",
+  "modelo": [],
+  "etapa": [
+   "guion",
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "voz_utils.py:324/343/410 importa sentences (lo usa m01e_pantalla en Fase 1); clima.py:143 lexicon_hits y prefer_icon_nouns; gfx_critic.py:115 y gfx_pool.py:430 sentences",
+  "funciones_muertas": [],
+  "md5": "0db364616c26fb102d19e09a67e966d7",
+  "_parte": "fase2b_gfx_d"
+ },
+ "script_engine/gfx_pool.py": {
+  "sticker": "Le da a la pantalla las piezas del archivo de evidencia que necesita: las fuentes literales que el candado acepta, los ids que ya salieron en capítulos anteriores, el reloj de fechas del capítulo y los cortes de cláusula y conteos que usa la escaleta en Fase 1. Casi todo lo demás que trae (recortes, citas, contadores) quedó como historia sin uso.",
+  "recibe": "pool de evidencia del video (data/scripts/<id>.json › evidence_pool), palabras con tiempos de la voz, planes resueltos de caps anteriores (output/<id>/work/gfx_plan_ch*.resolved.json)",
+  "entrega": "fuentes literales para el candado (dict), ids ya mostrados, el bloque del reloj (time_ticker), opciones de cláusula, grupos de conteo; no escribe archivos",
+  "modelo": [],
+  "etapa": [
+   "guion",
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:267/698/713 llama used_ids_before y pool_ticker; gfx_director.py:71 pool_sources/short_source; m01a_escaleta.py:162 count_groups; m01a_skeleton.py:106 _kicker y pool_clause_options (vía finalize_pool_plan, m01a_escaleta.py:572)",
+  "funciones_muertas": [
+   {
+    "nombre": "content_icon",
+    "linea": 87,
+    "por_que": "nadie la nombra en producción; solo test_module_f5b.py y test_module_gfx_pool.py (el ícono por contenido del recorte se borró en F36 D)"
+   },
+   {
+    "nombre": "cap_candidates",
+    "linea": 383,
+    "por_que": "nadie la nombra en producción; solo test_module_f5b.py (los candidatos del pool por cap los reemplazó el guion en papel)"
+   }
+  ],
+  "md5": "b4f0e7088bd141f4fe0651f55f34cc44",
+  "_parte": "fase2b_gfx_d"
+ },
+ "script_engine/gfx_project.py": {
+  "sticker": "Es el armador de las pantallas: recibe el plan ya resuelto (textos literales, tiempos en segundos) y las escenas del cap y escribe el proyecto HyperFrames completo, con el title card, las fichas, los recortes de archivo, los sellos y capas de clima, el reloj de esquina, la pregunta de cierre, el corte a negro y las transiciones. No usa ningún modelo. También mide cuántas líneas ocupa una ficha (lo usa el guion en papel para validar) y lista los eventos del cap para la hoja de cues.",
+  "recibe": "Plan resuelto (dict) y lista de GfxScene de gfx_layer, base.mp4 -g30 en gfx_chNN/public/, tipografías y gsap de gfx_config (GFX_FONTS_DIR, gsap_js), plantillas de gfx_templates/, tokens gfx_rules.",
+  "entrega": "gfx_chNN/index.html, compositions/scene_NN.html, hyperframes.json, public/fonts, public/cuts/*.jpg (freezes), public/safe/*, vendor/gsap.min.js; en memoria: cue_events, ficha_medida, transitions_of.",
+  "modelo": [],
+  "etapa": [
+   "guion",
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:824 y gfx_layer.py:379 llaman write_project (render); gfx_layer.py:804/839 llaman cue_events (plan-only y render); script_engine/m01e_pantalla.py:406 importa ficha_medida (corre en el paso guion, fase1_5.run_pantalla)",
+  "funciones_muertas": [],
+  "md5": "421823742d3dec2ae0f2445a53d8e5fa",
+  "_parte": "fase2b_gfx_b"
+ },
+ "script_engine/gfx_realizador.py": {
+  "sticker": "Hace que la pantalla obedezca a la escaleta: calcula la ventana de tiempo de cada beat en la voz, la pregunta de cierre del capítulo (sale de la voz y dice de dónde salió) y el cierre del plan (deja solo los sellos del papel y ningún acercamiento suelto). También ordena el final: reparto, cierre y crítico.",
+  "recibe": "data/scripts/_steps/<topic_id>/01a_escaleta.json y 01b_narracion_v3.json, pool de evidencia, palabras con tiempos de la voz",
+  "entrega": "beats con ventanas y candidatos (en memoria y en output/<id>/work/gfx_beats_<cap>.json), texto y fuente de la pregunta de cierre, plan cerrado (realizador.filas)",
+  "modelo": [],
+  "etapa": [
+   "guion",
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:260-268 (cargar, preparar), :292 (pregunta_cierre_fuente), :780 (cerrar); m01e_pantalla.py:199 beat_de_pantalla en Fase 1",
+  "funciones_muertas": [
+   {
+    "nombre": "pregunta_cierre",
+    "linea": 218,
+    "por_que": "nadie la nombra en producción (gfx_layer usa pregunta_cierre_fuente); solo test_module_f38e_b.py"
+   }
+  ],
+  "md5": "8ae63ab262594e82263975f1a864656a",
+  "_parte": "fase2b_gfx_d"
+ },
+ "script_engine/gfx_review.py": {
+  "sticker": "Deja la hoja de cues del cap (una línea por bloque visible con su segundo, notas y huecos) y una página HTML estática con el video del segmento y esos cues clicables, para revisar el render sin servidor.",
+  "recibe": "Eventos del cap (gfx_project.cue_events), líneas de log de gfx_layer, gap_warnings del plan y el mp4 del segmento.",
+  "entrega": "_fase2b_work/gfx_cues_chNN.md y .json; _fase2b_work/gfx_review_chNN.html.",
+  "modelo": [],
+  "etapa": [
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:806 (plan-only), 816 y 841 llaman write_cues; fase2b.py:2830 y 3464 llaman write_review (solo con gfx)",
+  "funciones_muertas": [],
+  "md5": "808529aa9f0ced587aa4d3ae10177e04",
+  "_parte": "fase2b_gfx_b"
+ },
+ "script_engine/gfx_safe_bake.py": {
+  "sticker": "Cuece con ffmpeg el movimiento «seguro» (acercar, alejar, paneo o foto quieta) de las escenas que van desde un PNG, con la misma curva que usaba el navegador, y las pega en su tramo del clip de fondo. Así esas escenas no obligan a pasar por HyperFrames.",
+  "recibe": "Clip base -g30 (gfx_chNN/public/base.mp4), lista de GfxScene con su campo safe (PNG, movimiento, origen), ancho, alto y fps.",
+  "entrega": "gfx_chNN/public/base_cocido.mp4 y el informe gfx_safe_bake_chNN.json (lo escribe gfx_layer).",
+  "modelo": [],
+  "etapa": [
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:350 llama bake() en _render_sparse cuando gfx_rules.safe_bake y alguna escena es safe",
+  "funciones_muertas": [],
+  "md5": "86f3da15c9453106bce130a9602c6bca",
+  "_parte": "fase2b_gfx_b"
+ },
+ "script_engine/gfx_sparse.py": {
+  "sticker": "Hace el render «disperso»: en vez de pasar el cap entero por el navegador, calcula las ventanas donde hay bloques o transiciones, las junta en un proyecto corto y después cose esas ventanas con el clip de fondo usando un solo ffmpeg, que además pone la viñeta y el grano parejos. Así solo se renderizan en HyperFrames los tramos con algo en pantalla.",
+  "recibe": "Plan resuelto, lista de GfxScene, base.mp4 -g30 (o base_cocido.mp4), render de HyperFrames de las ventanas (gfx_chNN_sparse/renders/chNN_sparse.mp4), tokens gfx_rules y gfx_render.",
+  "entrega": "Ventanas y offsets en memoria, gfx_chNN_sparse/public/base.mp4, public/vignette.png y grain.png, y el cap cosido gfx_chNN/renders/chNN_gfx_stitch.mp4 (que gfx_layer mueve a chNN_gfx.mp4).",
+  "modelo": [],
+  "etapa": [
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:336-399 (_render_sparse) llama event_windows, stitch_transitions, compose_sparse, cut_base, vignette_png, grain_png y stitch; se activa con --gfx-sparse (run_pipeline.py:246)",
+  "funciones_muertas": [],
+  "md5": "bed5f164e2a46946c73adcf526454c0b",
+  "_parte": "fase2b_gfx_b"
+ },
+ "script_engine/gfx_style.py": {
+  "sticker": "Aplica la identidad visual del canal de forma determinista: elige el movimiento de cada foto (acercar, alejar, paneo, quieta, 3D), decide la transición de entrada de cada corte según el relato (zoom del pico, fundido en cambio de beat o de tiempo, fundido a negro al cierre, corte) y chequea las reglas duras del plan final.",
+  "recibe": "Escenas del cap, ChapterPlan (motor y assets), image_prompts del capítulo, el plan resuelto con pico, reloj y beats de la escaleta, tokens gfx_rules.",
+  "entrega": "Por escena: movimiento seguro marcado en GfxScene.safe, resolved['identity'] con movimientos y violaciones, resolved['transitions'] con la transición por escena.",
+  "modelo": [],
+  "etapa": [
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:734 (plan_movements), gfx_layer.py:785-788 (transiciones_por_relato, identity_violations); gfx_project.py:400 y gfx_sparse.py:389 importan ZOOM_PUNCH_SCALE",
+  "funciones_muertas": [],
+  "md5": "db77fc3a2685692ed242577c4e41d50b",
+  "_parte": "fase2b_gfx_b"
  },
  "script_engine/gfx_templates/archive_clipping.html.tmpl": {
-  "sticker": "La forma del recorte de diario (papel, kicker, titular).",
-  "recibe": "un recorte del plan",
-  "entrega": "HTML",
-  "estado_viejo": "vivo (la ficha de estilo papel)",
-  "tanda_vieja": "F1"
+  "sticker": "Plantilla del recorte de archivo: el papel con kicker, regla y titular (y cuerpo opcional) que aparece sobre la foto.",
+  "recibe": "Campos que sustituye gfx_project.write_project: i, start, duration, paper, font, side, kicker, headline, head_style, body_block, icon_html.",
+  "entrega": "Un bloque HTML dentro de gfx_chNN/index.html.",
+  "modelo": [],
+  "etapa": [
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_project.py:780 la lee con _tpl('archive_clipping.html.tmpl') en write_project",
+  "funciones_muertas": [],
+  "md5": "a6bf0b16cca7b3b5413d90ba134a3325",
+  "_parte": "fase2b_gfx_b"
  },
  "script_engine/gfx_templates/chapter_question.html.tmpl": {
-  "sticker": "La forma de la pregunta de cierre sobre la foto oscurecida.",
-  "recibe": "la pregunta",
-  "entrega": "HTML",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F2"
+  "sticker": "Plantilla de la pregunta de cierre del capítulo: el fondo oscurecido y el texto centrado.",
+  "recibe": "Campos que sustituye gfx_project.write_project: start, duration, text_html.",
+  "entrega": "Un bloque HTML dentro de gfx_chNN/index.html.",
+  "modelo": [],
+  "etapa": [
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_project.py:828 la lee con _tpl('chapter_question.html.tmpl') en write_project",
+  "funciones_muertas": [],
+  "md5": "a20eab8e78013d930d82a15a3091e8bd",
+  "_parte": "fase2b_gfx_b"
+ },
+ "script_engine/gfx_templates/gfx_common.css": {
+  "sticker": "Hoja de estilos común de la capa gráfica: title card, ficha, pregunta de cierre, recorte de archivo, flash y las capas de grade (viñeta, grano), con los tokens del perfil. Trae también reglas de bloques que ya no se dibujan (dato con lupa, contador, etiqueta de zoom, ícono).",
+  "recibe": "Tokens de gfx_project.render_css (colores, tipografías, tamaños, escalas) sustituidos con string.Template.",
+  "entrega": "El bloque <style> de gfx_chNN/index.html.",
+  "modelo": [],
+  "etapa": [
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_project.py:623 la lee en render_css y gfx_project.py:846 la mete en index.html.tmpl",
+  "funciones_muertas": [],
+  "md5": "10ac07c66b64c64a6396a9c523777860",
+  "_parte": "fase2b_gfx_b"
+ },
+ "script_engine/gfx_templates/gfx_grade.json": {
+  "sticker": "Receta de color (ruedas, viñeta, grano, bloom) en el formato del tratamiento nativo de HyperFrames. Quedó versionada pero nadie la lee: el grade real sale de las capas CSS y del ffmpeg del render disperso.",
+  "recibe": "Nada: ningún código la lee.",
+  "entrega": "Nada.",
+  "modelo": [],
+  "etapa": [
+   "ninguna"
+  ],
+  "estado": "huérfano",
+  "estado_prueba": "grep de «gfx_grade» en todo el repo (py, md, json, sh): solo aparece en lab/mapa/hechos.json; gfx_layer.py:7-8 menciona que el preset nativo «queda versionado»",
+  "funciones_muertas": [],
+  "md5": "c81e6f552b1efb048ee08bba9779d9ee",
+  "_parte": "fase2b_gfx_b"
  },
  "script_engine/gfx_templates/index.html.tmpl": {
-  "sticker": "La página base de cada proyecto HyperFrames (escenas, overlays, timeline).",
-  "recibe": "escenas + overlays",
-  "entrega": "index.html",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F1"
+  "sticker": "Plantilla madre del proyecto HyperFrames del cap: la página con el css, las escenas, los overlays y el timeline de gsap.",
+  "recibe": "Campos que sustituye gfx_project.write_project: width, height, duration, css, scene_hosts, overlays, init_js, timeline_js.",
+  "entrega": "gfx_chNN/index.html.",
+  "modelo": [],
+  "etapa": [
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_project.py:846 la lee con _tpl('index.html.tmpl') en write_project",
+  "funciones_muertas": [],
+  "md5": "8a888e6e1529f8b93c422df086114f94",
+  "_parte": "fase2b_gfx_b"
  },
  "script_engine/gfx_templates/scene.html.tmpl": {
-  "sticker": "La forma de una escena (la foto o el clip con su movimiento).",
-  "recibe": "una escena",
-  "entrega": "HTML",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F1"
+  "sticker": "Plantilla de una escena (un plano del cap): el tramo del video base, la imagen segura si hay, la transición de entrada y el punch.",
+  "recibe": "Campos que sustituye gfx_project._scene_html: n, duration, width, height, media_start, inner_html, outer_html, init_js, timeline_js.",
+  "entrega": "gfx_chNN/compositions/scene_NN.html.",
+  "modelo": [],
+  "etapa": [
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_project.py:485 la lee con _tpl('scene.html.tmpl') en _scene_html",
+  "funciones_muertas": [],
+  "md5": "6e3badb933db5f278d66478e5851dccd",
+  "_parte": "fase2b_gfx_b"
  },
  "script_engine/gfx_templates/title_card.html.tmpl": {
-  "sticker": "La forma del title card del capítulo; desde F29c también la de la ficha.",
-  "recibe": "kicker + título",
-  "entrega": "HTML",
-  "estado_viejo": "vivo",
-  "tanda_vieja": "F1"
+  "sticker": "Plantilla del title card, que la ficha reutiliza (kicker, título y raya): mismo molde, la ficha sin fondo oscurecido.",
+  "recibe": "Campos que sustituye gfx_project: dim_html, tid, start, duration, line_style, box_class, kicker, title.",
+  "entrega": "Un bloque HTML dentro de gfx_chNN/index.html (title card y cada ficha).",
+  "modelo": [],
+  "etapa": [
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_project.py:240 (ficha_html) y gfx_project.py:750 (write_project) la leen con _tpl('title_card.html.tmpl')",
+  "funciones_muertas": [],
+  "md5": "dbccf2c97aa027e945fa828df7a63c07",
+  "_parte": "fase2b_gfx_b"
+ },
+ "script_engine/gfx_vision.py": {
+  "sticker": "Gemini mira cada foto y dice qué detalles tiene y dónde (rostro, manos, objetos, texto). Con eso el render elige un movimiento seguro y acerca al rostro en lugar de deformarlo. El resultado se guarda para no volver a gastar.",
+  "recibe": "PNG de la escena o cuadro del video base",
+  "entrega": "hasta 3 detalles por foto con caja y tipo; caché output/<id>/assets/photo_details.json; caja del rostro o manos",
+  "modelo": [
+   {
+    "modelo": "Gemini (config api.gemini_model) con imagen",
+    "para": "listar detalles acercables de cada foto"
+   }
+  ],
+  "etapa": [
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:651-662 lo llama si gfx_rules.photo_first_zoom (clave presente en misterio.json; valor no leído)",
+  "funciones_muertas": [],
+  "md5": "1a393f500ceb724553488946ca665d50",
+  "_parte": "fase2b_gfx_d"
+ },
+ "script_engine/pantalla_colocar.py": {
+  "sticker": "Decide dónde y cuánto dura cada texto del guion en papel: cuánto tarda en leerse, qué instantes de su oración se prueban si no entra, y reparte todo para que nunca haya dos cosas al mismo tiempo, moviendo en vez de cortar (otro instante, la escena siguiente, la oración siguiente, el otro lado). El reloj no cruza el corte de su escena.",
+  "recibe": "bloques del papel ya filtrados (resultado de pantalla_filtros.validar_papel), escenas del cap, oraciones de la voz con tiempos (ent_rot), pool de evidencia, el crítico visual como juez opcional",
+  "entrega": "plan del cap con callouts, archive_clippings, time_ticker acomodados y filas de lo colocado, movido o fuera (en memoria; gfx_layer lo escribe en output/<id>/work/gfx_plan_<cap>.resolved.json)",
+  "modelo": [],
+  "etapa": [
+   "guion",
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:699-702 (pesos, colocar), :773-775 (hasta_el_corte, repartir); m01e_pantalla.py:191/407/1156 importa LECTURA_CPS y caracteres en Fase 1",
+  "funciones_muertas": [],
+  "md5": "e0dedaacc31ae94efbda1961f15dd4e7",
+  "_parte": "fase2b_gfx_d"
+ },
+ "script_engine/pantalla_entrada.py": {
+  "sticker": "La entrada de Fase 2 para el texto de pantalla: lee el guion en papel que dejó Fase 1, alinea sus oraciones con las de la voz y ancla cada ficha, sello y reloj a su oración y palabra. No escribe nada ni usa modelo.",
+  "recibe": "data/scripts/_steps/<topic_id>/01e_pantalla.json (vía m01e_pantalla.cargar_papel), contexto del cap (escaleta, pool, narración), beats con ventanas, palabras con tiempos",
+  "entrega": "entrada del cap (oraciones, beats, ítems del pool, pico, voz del video) y papel del cap (bloques, sellos, relojes, alineación); en memoria",
+  "modelo": [],
+  "etapa": [
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "gfx_layer.py:637-638 llama preparar_cap; fase2b.py:3160 importa voz_del_video en --plan-only",
+  "funciones_muertas": [],
+  "md5": "473106ef0103c73f763306b486338e4f",
+  "_parte": "fase2b_gfx_d"
+ },
+ "script_engine/pantalla_filtros.py": {
+  "sticker": "Los filtros que deciden si un texto del guion en papel sale o no, en un orden fijo: anclar a la voz, candado de lo literal, que la voz no lo diga ya, que no adelante lo que viene, y que haya dónde leerlo. Además compara cifras del bloque contra las de la voz para el chequeo del guion.",
+  "recibe": "bloques del papel (anclados a oración y palabra), entrada del cap (ent: ítems del pool, oraciones, beats, voz del video), palabras con tiempos y escenas",
+  "entrega": "bloques que pasan con sus tiempos e intentos, rechazos con la regla y el motivo, y los a_pantalla que faltan (en memoria, para pantalla_colocar.colocar)",
+  "modelo": [],
+  "etapa": [
+   "guion",
+   "guion_pantalla",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "pantalla_colocar.py:173-178 llama validar_papel; m01e_pantalla.py:274/570 usa pide_documento, candado, no_dicho, spoiler, contradicciones_de en Fase 1; gfx_guion.py:442 contradicciones",
+  "funciones_muertas": [],
+  "md5": "375f50013234f10dd16df526b11ad5c8",
+  "_parte": "fase2b_gfx_d"
+ },
+ "script_engine/transition_applier.py": {
+  "sticker": "Pega los capítulos uno detrás de otro para armar el video completo. Con la capa gráfica (--gfx) hace un corte a negro y el capítulo siguiente sube desde negro, re-encodeando solo una ventana alrededor de cada unión; sin la capa gráfica usa las transiciones de los perfiles de arte (incluido el flash blanco) o, si algo falla, un corte seco.",
+  "recibe": "Lista de segmentos mp4 por capítulo (output/<id>/_fase2b_work/chNN_*.mp4), los art_profile de cada cap y los args del encoder (fase2b._venc()); ajustes de transition_config / transition_profiles",
+  "entrega": "output/<id>/_fase2b_work/_concat_video.ts y _concat_audio.wav (insumos de la mezcla de música) más el mp4 concatenado sin música (final_path)",
+  "modelo": [],
+  "etapa": [
+   "fondos",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:2707-2710 llama concat_windowed y fase2b.py:2719-2721 el fallback _concat_demuxer_fallback y concat_with_transitions en _concat_segments (el armado del preview sin gfx corre en fondos; con --gfx en render)",
+  "funciones_muertas": [],
+  "md5": "64944830e968e377ce411c451a6ca046",
+  "_parte": "fase2b_gfx_c"
+ },
+ "transition_config.py": {
+  "sticker": "Las perillas del pegado entre capítulos (calidad del video, fps, codec, interruptor general de transiciones) y la lista cerrada de transiciones válidas con su duración (flash blanco, zoom, fundidos, corte seco).",
+  "recibe": "Nada: son constantes del módulo",
+  "entrega": "transition_render (ajustes de ffmpeg), TRANSITION_INVENTORY, VALID_TRANSITIONS, DEFAULT_TRANSITION, get_effect(), is_valid(), transition_param_ranges",
+  "modelo": [],
+  "etapa": [
+   "fondos",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/transition_applier.py:30-35 importa get_effect, is_valid y transition_render; transition_render.enable_transitions se chequea en concat_windowed (transition_applier.py:359) y concat_with_transitions (:488)",
+  "funciones_muertas": [
+   {
+    "nombre": "clamp_duration_ms",
+    "linea": 172,
+    "por_que": "nadie la llama ni en producción ni en tests; es para un director futuro que nunca existió"
+   }
+  ],
+  "md5": "af3e4f5aa19a332a3dae0249d01e688a",
+  "_parte": "fase2b_gfx_c"
+ },
+ "transition_profiles.py": {
+  "sticker": "Reglas de qué transición entre capítulos le va a cada estilo de arte (submarino, interior, polar, etc.): cuáles se prefieren, cuáles están prohibidas y cuál se usa en cada unión del relato (entrada, medio, clímax, revelación).",
+  "recibe": "transition_config.py (inventario de transiciones válidas y DEFAULT_TRANSITION)",
+  "entrega": "TRANSITION_PROFILES, get_default_transition(), is_allowed(), get_rules(), NARRATIVE_POSITIONS que consume script_engine/transition_applier.py",
+  "modelo": [],
+  "etapa": [
+   "fondos",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/transition_applier.py:36-40 importa get_default_transition e is_allowed y los usa en build_transition_plan (línea 109 y 115), que llaman concat_windowed y concat_with_transitions desde fase2b.py:2707-2721",
+  "funciones_muertas": [
+   {
+    "nombre": "render_constraints_for_prompt",
+    "linea": 332,
+    "por_que": "nadie la llama ni en producción ni en tests; era para un director de transiciones que nunca se escribió (el comentario dice «futuro»)"
+   }
+  ],
+  "md5": "e4c6afc5b1b033d3355ad2eaec947dad",
+  "_parte": "fase2b_gfx_c"
  }
 }
