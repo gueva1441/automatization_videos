@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-27 23:20 (F42b: librerías del form instaladas, PARADA si falta una, falla del research visible) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-28 00:25 (F44 parte 1: A/B de la ficha con el caso en Wittenoom, PARADA 1) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,13 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F44, PARADA 1): la prueba A/B de la ficha está en `lab/hyperframes/f44/F44_REPORT.md` (tabla entera). Lo principal: con el caso, la escaleta B quedó con **Daniel Écija (padre)** como humano (el ángulo del video); A terminó con María Bernal porque el modelo dio el id equivocado y la reparación cambió de persona. El pico es el mismo en las dos (empate, como anticipaba el analista). Los datos por capítulo se parecen poco (31 %). Ojo: la ficha B tuvo que re-pedirse dos veces por respuesta cortada y costó US$ 1,13 (A 0,35); B total US$ 2,05 de 3,00. Una sola corrida por rama: las diferencias pueden ser azar. Decidís: **B gana / empate / A gana** (si B gana, la parte 2 tiene tope US$ 4,00).
+
+## F44 — ¿La ficha mejora si ve el caso? (handoff del analista, 2026-10-27 23:55) — parte 1 HECHA, **PARADA 1**
+- Handoff `lab/hyperframes/f44/HANDOFF_F44_caso_en_la_ficha.md` (md5 `f0388d7b…` ✓). Tema Wittenoom `123bbb64-…`. Commit `533eb68`: `ficha_caso.prompt/build/run` con `caso` opcional (f44-1; sin caso byte-idéntico a f23-1, test contra `01a5858`), `test_module_f44.py` (3 verdes), `lab/hyperframes/f44/` (A copiada, B corrida, `f44_corridas.py`, `f44_compara.py`, `TABLA_AB.md`), sticker y mapa (`--check` 0). Producción no usa el `caso` (`fase1_5` sin tocar).
+- B: ficha US$ 1,1278 (2 respuestas cortadas re-llamadas por gpt_helpers) + escaleta US$ 0,9249 (1 intento) = **US$ 2,0527** (tope 3,00). Nada en `data/` ni `output/` (lo nuevo ahí es del form de Omar, que siguió con Wittenoom hasta `fase2a`).
+- Abierto e1–e10 en el reporte. **No se arrancó la parte 2.**
 
 ## 👀 Para Omar (F42b): el form ya tiene las librerías del research y una falla se ve como falla. En el Python del form (`C:\CLAUDE_PROJECTS\viral-video-pipeline\.venv\Scripts\python.exe`) se instalaron `beautifulsoup4` y `pypdf` (faltaban: por eso tronó Waverly Hills a las 22:44). Desde ahora `run_pipeline` revisa las librerías antes de cualquier etapa: si falta una, para **sin gastar** y te dice el comando de pip; y si el research de una semilla falla, el form muestra «✗ pipeline terminó (código 1)» con el motivo y la semilla sigue en la bandeja. Podés relanzar Waverly desde el form. Opcionales que no se instalaron (decisión tuya): `trafilatura` y `pdfplumber` (el research lee mejor páginas y PDF con ellas). Reporte: `lab/hyperframes/f42/F42b_REPORT.md`.
 
