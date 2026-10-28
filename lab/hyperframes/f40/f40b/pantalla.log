@@ -1,0 +1,10 @@
+[20:05:47] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f39-kyshtym
+[20:07:55] INFO     | viral_pipeline | [cost_tracker] Video f39-kyshtym — Costo total: $0.3929
+  m01e intento 1: in 47865 · out 18145 · US$ 0.2772 · JSON
+  m01e intento 1 validado: fichas fuera 0 · preguntas 7 · vuelven 5 · picos vacíos 0
+  m01e intento 2: in 55780 · out 418 · US$ 0.1157 · JSON
+  m01e vuelta 1 validada: fichas fuera 0 · preguntas nuevas 0 · picos vacíos 0
+  m01e: 5 motivo(s) sin beat → sin otra vuelta (anotados)
+  m01e: 12 fichas · 9 sellos · 6 relojes → C:\CLAUDE_PROJECTS\automatization_videos\data\scripts\_steps\f39-kyshtym\01e_pantalla.md
+papel: sí
+exit=0
