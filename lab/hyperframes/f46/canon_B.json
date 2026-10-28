@@ -1,0 +1,139 @@
+{
+ "facts_de_la_ficha": 147,
+ "era_visual_canon": {
+  "primary_decade": "1960s",
+  "spans": "1937-2026",
+  "clothing": "Miners' work clothes (heavy-duty fabrics, possibly some dust masks early on), casual desert attire for families (light cottons, short sleeves, trousers/skirts). Bureaucrats and officials in more formal mid-century attire (shirts, ties, trousers, dresses) when visiting or in cities.",
+  "technology": "Basic mining tools, industrial machinery for processing asbestos (mills, conveyors), rudimentary dust reduction equipment, early medical diagnostic tools. Analog gauges, manual controls. No digital displays, no advanced automation.",
+  "vehicles_machinery": "Heavy-duty mining vehicles (trucks, loaders), small propeller airplanes for remote access, basic utility vehicles and cars from mid-20th century (e.g., 1940s-1960s models), possibly some early four-wheel drives for rough terrain. No modern trucks or excavators.",
+  "interiors": "Simple, functional residential buildings often made from corrugated iron, wood, and asbestos cement sheets with basic furnishings. Industrial interiors of the mill were dusty, noisy, filled with machinery. Small, sparse offices and clinics.",
+  "forbidden_anachronisms": "smartphones, LED screens, contemporary clothing (post-2000s), modern flat panel displays, advanced digital cameras, modern industrial safety equipment (e.g., full respirators with filters, advanced hazard suits), GPS navigation systems, modern environmental monitoring drones, modern medical diagnostic equipment.",
+  "materials_textures": "Corrugated iron, wood, fiber cement sheets (uralita) for buildings. Red earth, fine pervasive dust, loose blue asbestos fibers (crocidolite). Asbestos tailings used as road and yard surfaces. (Sourced from visual facts 138-141)",
+  "color_palette": "Dominant red earth tones, pale blue of asbestos waste, drab grey of fiber cement sheets, weathered metallic grey of corrugated iron, dust-covered surfaces. (Sourced from visual facts 138-141)",
+  "scale_dimensions": "Small propeller plane. Modest, single-story dwellings in a compact town layout. Vast mining areas with open pits, tailings dumps, and a mill. Wide, dusty unsealed roads and yards. (Sourced from visual facts 138, 140, 141)",
+  "distinctive_features": "An isolated desert ghost town in Western Australia, characterized by pervasive blue asbestos contamination visible in the construction materials of its deserted buildings, roads, and surrounding landscape, now a vast, fenced-off toxic forbidden zone. (Synthesized from canonical subject and visual facts)",
+  "demographics": "Australian, Spanish, and other European immigrant workers and their families in a remote mining town. Miners in work attire, women and children in everyday desert clothing. (Sourced from verified facts and visual references)",
+  "visual_reference_availability": "Multiple textual descriptions of conditions, materials, and colors from official reports and personal testimonies. Family photographs from the era. Contemporary photographs and drone footage of the abandoned town and its blockades. Historical photos of mining operations and the town when active.",
+  "condition_evolution": {
+   "at_event": "A functioning, albeit dusty and hazardous, mining town with active operations and residential areas. Buildings were intact and occupied, roads and yards actively used, often covered with asbestos tailings. (Sourced from verified facts 29-31, 141)",
+   "later": "A deserted, decaying ghost town with demolished buildings, removed services, and permanent access blockades. The landscape is heavily contaminated with asbestos tailings dispersed by wind and water, declared an uninhabitable toxic zone. (Sourced from verified facts 40-41, 50-54, 147)"
+  }
+ },
+ "documented_people": [
+  {
+   "name": "Eric Saint",
+   "role": "Medical professional/adviser",
+   "age_at_event": 45,
+   "era": "1948",
+   "appearance_canon": "a mid-40s medical professional with a serious demeanor"
+  },
+  {
+   "name": "Daniel Écija",
+   "role": "Miner",
+   "age_at_event": 26,
+   "era": "1962",
+   "appearance_canon": "an early-20s Spanish immigrant miner, seen with a bandaged foot in a family portrait"
+  },
+  {
+   "name": "María Bernal",
+   "role": "Housewife/Mother",
+   "age_at_event": 26,
+   "era": "1962",
+   "appearance_canon": "an early-20s Spanish immigrant mother, recalling a difficult childbirth, often seen in sepia-toned family photographs"
+  },
+  {
+   "name": "Milagros Barroso",
+   "role": "Housewife/Mother",
+   "age_at_event": 27,
+   "era": "1962",
+   "appearance_canon": "a late-20s Spanish immigrant mother, friend of the Écija-Bernal family"
+  },
+  {
+   "name": "Ramón de Juan",
+   "role": "Miner",
+   "age_at_event": 27,
+   "era": "1962",
+   "appearance_canon": "a late-20s Spanish immigrant miner, known for long shifts"
+  },
+  {
+   "name": "Víctor Calvo",
+   "role": "Child resident",
+   "age_at_event": 8,
+   "era": "1962",
+   "appearance_canon": "a pre-teen child resident in Wittenoom, recalling playing with asbestos"
+  },
+  {
+   "name": "John Patrick",
+   "role": "Infant",
+   "age_at_event": 0,
+   "era": "1963",
+   "appearance_canon": "an infant born in Wittenoom"
+  },
+  {
+   "name": "Daniel Écija",
+   "role": "Infant",
+   "age_at_event": 0,
+   "era": "1963",
+   "appearance_canon": "an infant born in Wittenoom, later identified by airport police as a former resident"
+  },
+  {
+   "name": "Maitland Parker",
+   "role": "Victim/Activist",
+   "age_at_event": 70,
+   "era": "2023",
+   "appearance_canon": "an elderly victim-activist who suffered from mesotelioma"
+  },
+  {
+   "name": "Peter Gordon",
+   "role": "Lawyer",
+   "age_at_event": 40,
+   "era": "1988",
+   "appearance_canon": "an early-40s Australian lawyer involved in asbestos litigation"
+  },
+  {
+   "name": "James Vernon",
+   "role": "Executive",
+   "age_at_event": 50,
+   "era": "1966",
+   "appearance_canon": "a mid-50s executive announcing the closure of mining operations"
+  },
+  {
+   "name": "Ben Wyatt",
+   "role": "Politician",
+   "age_at_event": 45,
+   "era": "2019",
+   "appearance_canon": "a mid-40s Australian politician"
+  },
+  {
+   "name": "Marcos Orellana",
+   "role": "UN Rapporteur",
+   "age_at_event": 45,
+   "era": "2023",
+   "appearance_canon": "a mid-40s UN Special Rapporteur on toxics and human rights"
+  },
+  {
+   "name": "Mercedes",
+   "role": "Resident",
+   "age_at_event": 22,
+   "era": "1971",
+   "appearance_canon": "an early-20s former Wittenoom resident who remained in Australia"
+  }
+ ],
+ "anachronism_blocklist": [
+  "smartphones",
+  "LED screens",
+  "contemporary clothing (post-2000s)",
+  "modern flat panel displays",
+  "modern industrial safety equipment",
+  "modern vehicles (post-1970s)",
+  "digital communication devices",
+  "contemporary architectural styles (post-1980s)",
+  "GPS navigation systems",
+  "modern medical diagnostic equipment"
+ ],
+ "documented_props": [],
+ "central_subject": {
+  "kind": "place",
+  "foto_madre": ""
+ }
+}

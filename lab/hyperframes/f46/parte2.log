@@ -1,0 +1,38 @@
+inicio 02:12:19
+[02:12:21] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f46-lab
+  {'var': 'B1', 'foto': 9, 'estado': 'ok', 'nsfw': False, 'ms': 30158}
+  {'var': 'B1', 'foto': 2, 'estado': 'ok', 'nsfw': False, 'ms': 32103}
+  {'var': 'B2', 'foto': 1, 'estado': 'ok', 'nsfw': False, 'ms': 34444}
+  {'var': 'B1', 'foto': 14, 'estado': 'ok', 'nsfw': False, 'ms': 37764}
+  {'var': 'B1', 'foto': 4, 'estado': 'ok', 'nsfw': False, 'ms': 38346}
+  {'var': 'B2', 'foto': 3, 'estado': 'ok', 'nsfw': False, 'ms': 38560}
+  {'var': 'B2', 'foto': 2, 'estado': 'ok', 'nsfw': False, 'ms': 38633}
+  {'var': 'B1', 'foto': 16, 'estado': 'ok', 'nsfw': False, 'ms': 39262}
+  {'var': 'B1', 'foto': 5, 'estado': 'ok', 'nsfw': False, 'ms': 39353}
+  {'var': 'B1', 'foto': 1, 'estado': 'ok', 'nsfw': False, 'ms': 39384}
+  {'var': 'B1', 'foto': 12, 'estado': 'ok', 'nsfw': False, 'ms': 39675}
+  {'var': 'B1', 'foto': 15, 'estado': 'ok', 'nsfw': False, 'ms': 40780}
+  {'var': 'B1', 'foto': 11, 'estado': 'ok', 'nsfw': False, 'ms': 41620}
+  {'var': 'B1', 'foto': 10, 'estado': 'ok', 'nsfw': False, 'ms': 42592}
+  {'var': 'B2', 'foto': 4, 'estado': 'ok', 'nsfw': False, 'ms': 42977}
+  {'var': 'B1', 'foto': 7, 'estado': 'ok', 'nsfw': False, 'ms': 43372}
+  {'var': 'B1', 'foto': 6, 'estado': 'ok', 'nsfw': False, 'ms': 43979}
+  {'var': 'B1', 'foto': 8, 'estado': 'ok', 'nsfw': False, 'ms': 44438}
+  {'var': 'B1', 'foto': 13, 'estado': 'ok', 'nsfw': False, 'ms': 44623}
+  {'var': 'B1', 'foto': 3, 'estado': 'ok', 'nsfw': False, 'ms': 49175}
+  {'var': 'B2', 'foto': 9, 'estado': 'ok', 'nsfw': False, 'ms': 33121}
+  {'var': 'B2', 'foto': 10, 'estado': 'ok', 'nsfw': False, 'ms': 38017}
+  {'var': 'B2', 'foto': 7, 'estado': 'ok', 'nsfw': False, 'ms': 42446}
+  {'var': 'B2', 'foto': 6, 'estado': 'ok', 'nsfw': False, 'ms': 44854}
+  {'var': 'B2', 'foto': 12, 'estado': 'ok', 'nsfw': False, 'ms': 37677}
+  {'var': 'B2', 'foto': 8, 'estado': 'ok', 'nsfw': False, 'ms': 39613}
+  {'var': 'B2', 'foto': 13, 'estado': 'ok', 'nsfw': False, 'ms': 39761}
+  {'var': 'B2', 'foto': 15, 'estado': 'ok', 'nsfw': False, 'ms': 40193}
+  {'var': 'B2', 'foto': 14, 'estado': 'ok', 'nsfw': False, 'ms': 42832}
+  {'var': 'B2', 'foto': 11, 'estado': 'ok', 'nsfw': False, 'ms': 43951}
+  {'var': 'B2', 'foto': 16, 'estado': 'ok', 'nsfw': False, 'ms': 45984}
+  {'var': 'B2', 'foto': 5, 'estado': 'ok', 'nsfw': False, 'ms': 59296}
+[02:13:51] INFO     | viral_pipeline | [cost_tracker] Video f46-lab — Costo total: $1.1200
+  parte 2: 32 fotos nuevas · cost_history f46-lab = US$ 1.3051
+exit 0
+fin 02:13:52

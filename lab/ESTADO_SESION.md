@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-28 00:25 (F44 parte 1: A/B de la ficha con el caso en Wittenoom, PARADA 1) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-28 02:25 (F46: A/B de fotos de época del cap 2 de Wittenoom en lab, PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,13 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F46, PARADA): las 4 hojas A | B1 | B2 del cap 2 de Wittenoom están en `lab/hyperframes/f46/hoja_01-04.jpg` … `hoja_13-16.jpg` (A = hoy; B1 = la misma estructura con datos nuevos: época desde la ficha y fecha/lugar/escena por beat; B2 = los mismos datos de B1 con el sujeto primero y sin «mood»). Los prompts enteros y la tabla de palabras/año/lugar: `lab/hyperframes/f46/PROMPTS_AB.md`. Gasto real US$ 1,31 (tope 3,00), 0 fotos rechazadas. Producción no se tocó: elegir variante es tuyo y del analista.
+
+## F46 — Fotos de época: A/B del cap 2 de Wittenoom (handoff del analista, 2026-10-28 02:10) — HECHA, **PARADA**
+- Handoff `lab/hyperframes/f46/HANDOFF_F46_fotos_de_epoca.md` (md5 `b217a820…` ✓). Paso 0 `e8ebb67` (DECISIONES 02:00). Lab: `f46_corridas.py` (prompts / fotos, con freno; producción importada y solo parcheada dentro del proceso: `beats_block` en B1, año por foto, `wrap_style` en B2), `f46_hoja.py` (hojas + costos).
+- Parte 1: canon B desde la ficha (147 facts), B1 por el flujo de m03 con WHEN/WHERE/SCENES (anclas y beats de 03_visual), B2 = slots de B1 con la formula nueva sin mood. US$ 0,1851. Parte 2: 32 fotos en paralelo (FLUX_MAX_WORKERS), grade, 4 hojas. Total US$ 1,3051 (cost_history `f46-lab`). Las PNG (~190 MB) no van a git.
+- Abierto h1–h11 en el reporte (canon nuevo con spans hasta 2026; año 1961 en todo el cap; «faceless» en B1; el lugar casi no llega a la prosa; 6 frases sacadas por «menor en daño»; B2 foto 15 sin 150.000).
 
 ## 👀 Para Omar (F44, PARADA 1): la prueba A/B de la ficha está en `lab/hyperframes/f44/F44_REPORT.md` (tabla entera). Lo principal: con el caso, la escaleta B quedó con **Daniel Écija (padre)** como humano (el ángulo del video); A terminó con María Bernal porque el modelo dio el id equivocado y la reparación cambió de persona. El pico es el mismo en las dos (empate, como anticipaba el analista). Los datos por capítulo se parecen poco (31 %). Ojo: la ficha B tuvo que re-pedirse dos veces por respuesta cortada y costó US$ 1,13 (A 0,35); B total US$ 2,05 de 3,00. Una sola corrida por rama: las diferencias pueden ser azar. Decidís: **B gana / empate / A gana** (si B gana, la parte 2 tiene tope US$ 4,00).
 

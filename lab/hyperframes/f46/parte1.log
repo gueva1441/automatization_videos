@@ -1,0 +1,17 @@
+inicio 02:09:34
+[02:09:36] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f46-lab
+  canon B: 147 facts de la ficha → ['anachronism_blocklist', 'central_subject', 'documented_people', 'documented_props', 'era_visual_canon'] · US$ 0.0195
+  ⚠ [m03] cap 2 img #7: reglas F8 DEGRADADAS ([('menor en daño', 'A medium shot of a Spanish boy, around eight years old, leaning against the hot ')]) → frase sacada (run sigue).
+  ⚠ [m03] cap 2 img #3: reglas F8 DEGRADADAS ([('menor en daño', 'A wide shot captures hundreds of Spanish migrant families, including men, women,')]) → frase sacada (run sigue).
+  ⚠ [m03] cap 2 img #6: reglas F8 DEGRADADAS ([('menor en daño', 'A wide shot shows two young Spanish couples in their late twenties and their sma')]) → frase sacada (run sigue).
+  ⚠ [m03] cap 2 img #8: reglas F8 DEGRADADAS ([('menor en daño', 'A wide shot captures a young Spanish boy from behind, standing on the dock and h')]) → frase sacada (run sigue).
+  ⚠ [m03] cap 2 img #16: reglas F8 DEGRADADAS ([('menor en daño', 'A wide shot captures a group of young children, including Spanish immigrants, in')]) → frase sacada (run sigue).
+  B1: 16 prompts · US$ 0.1713
+  ⚠ [m03] cap 2 img #8: reglas F8 DEGRADADAS ([('menor en daño', "This is a wide shot, taken from a low angle at the child's height, using a wide-")]) → frase sacada (run sigue).
+  ⚠ [m03] cap 2 img #15: Guarda 1 DEGRADADA tras 3 intentos — cifras no embebidas: ['150.000 (+mass unit EN)']; unidades ES residuales: -. Prosa aceptada SIN esas cifras (run sigue).
+  B2: 16 prompts · US$ 0.1851
+  PROMPTS_AB.md: 16 fotos
+[02:12:00] INFO     | viral_pipeline | [cost_tracker] Video f46-lab — Costo total: $0.1851
+  parte 1: US$ 0.1851 en cost_history (f46-lab)
+exit 0
+fin 02:12:00
