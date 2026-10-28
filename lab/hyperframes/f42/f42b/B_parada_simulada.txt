@@ -1,0 +1,10 @@
+$ python run_pipeline.py --research --video-type long --batch   (find_spec simulado: falta bs4)
+
+════════════════════════════════════════════════════════════
+  ⛔ PARADA antes de gastar: a este Python le faltan librerías que la cadena necesita
+     Python: C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+     - bs4: researcher_steps/research_v3.py:687, researcher_steps/research_v3.py:874
+  ➡  Instalalas y retomá: "C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe" -m pip install -r requirements.txt
+════════════════════════════════════════════════════════════
+
+exit 1

@@ -7,7 +7,7 @@
     "etapa": "research",
     "orden": 0,
     "funcion": "main (--research)",
-    "linea": 530,
+    "linea": 553,
     "encabezado": "RESEARCH (fase1)",
     "comandos": [
      {
@@ -15,7 +15,7 @@
        "fase1.py",
        "--no-chain"
       ],
-      "linea": 530,
+      "linea": 553,
       "script": "fase1.py"
      }
     ],
@@ -25,7 +25,7 @@
    },
    {
     "funcion": "_paso_guion",
-    "linea": 296,
+    "linea": 297,
     "encabezado": "GUION (fase1_5)",
     "comandos": [
      {
@@ -35,7 +35,7 @@
        "<tid>",
        "--batch"
       ],
-      "linea": 301,
+      "linea": 302,
       "script": "fase1_5.py"
      }
     ],
@@ -47,7 +47,7 @@
    },
    {
     "funcion": "_paso_papel",
-    "linea": 306,
+    "linea": 307,
     "encabezado": "PAPEL (compuerta del papel)",
     "comandos": [
      {
@@ -58,14 +58,14 @@
        "--aprobar-papel",
        "Omar <…>"
       ],
-      "linea": 325,
+      "linea": 326,
       "script": "fase1_5.py"
      }
     ],
     "compuertas": [
      {
       "menu": "papel_gate",
-      "linea": 319,
+      "linea": 320,
       "solo_con_form": true
      }
     ],
@@ -76,7 +76,7 @@
    },
    {
     "funcion": "_paso_voz",
-    "linea": 330,
+    "linea": 331,
     "encabezado": "VOZ (fase1_5 --from normalizer_gate)",
     "comandos": [
      {
@@ -88,7 +88,7 @@
        "normalizer_gate",
        "--batch"
       ],
-      "linea": 334,
+      "linea": 335,
       "script": "fase1_5.py"
      }
     ],
@@ -100,7 +100,7 @@
    },
    {
     "funcion": "_paso_assets",
-    "linea": 339,
+    "linea": 340,
     "encabezado": "ASSETS (fase2a)",
     "comandos": [
      {
@@ -109,7 +109,7 @@
        "--topic",
        "<tid>"
       ],
-      "linea": 342,
+      "linea": 343,
       "script": "fase2a.py"
      }
     ],
@@ -121,7 +121,7 @@
    },
    {
     "funcion": "_paso_fondos",
-    "linea": 347,
+    "linea": 348,
     "encabezado": "FONDOS (fase2b sin gfx)",
     "comandos": [
      {
@@ -129,14 +129,14 @@
        "fase2b.py",
        "<tid>"
       ],
-      "linea": 365,
+      "linea": 366,
       "script": "fase2b.py"
      }
     ],
     "compuertas": [
      {
       "menu": "visor_gate",
-      "linea": 357,
+      "linea": 358,
       "solo_con_form": true
      }
     ],
@@ -147,7 +147,7 @@
    },
    {
     "funcion": "_paso_guion_pantalla",
-    "linea": 370,
+    "linea": 371,
     "encabezado": "PANTALLA (fase2b --plan-only)",
     "comandos": [
      {
@@ -156,7 +156,7 @@
        "<tid>",
        "--plan-only"
       ],
-      "linea": 374,
+      "linea": 375,
       "script": "fase2b.py"
      }
     ],
@@ -168,7 +168,7 @@
    },
    {
     "funcion": "_paso_aprobar_guion",
-    "linea": 379,
+    "linea": 380,
     "encabezado": "PANTALLA (compuerta del guion de pantalla)",
     "comandos": [
      {
@@ -178,14 +178,14 @@
        "--aprobar-guion",
        "Omar <…>"
       ],
-      "linea": 402,
+      "linea": 403,
       "script": "fase2b.py"
      }
     ],
     "compuertas": [
      {
       "menu": "guion_gate",
-      "linea": 394,
+      "linea": 395,
       "solo_con_form": true
      }
     ],
@@ -196,7 +196,7 @@
    },
    {
     "funcion": "_paso_render",
-    "linea": 407,
+    "linea": 408,
     "encabezado": "RENDER (fase2b --gfx --gfx-sparse)",
     "comandos": [
      {
@@ -208,7 +208,7 @@
        "--gfx",
        "--gfx-sparse"
       ],
-      "linea": 412,
+      "linea": 413,
       "script": "fase2b.py"
      }
     ],
@@ -220,7 +220,7 @@
    },
    {
     "funcion": "_paso_packaging",
-    "linea": 421,
+    "linea": 422,
     "encabezado": "PACKAGING (fase3, form)",
     "comandos": [
      {
@@ -228,7 +228,7 @@
        "fase3.py",
        "<tid>"
       ],
-      "linea": 430,
+      "linea": 431,
       "script": "fase3.py"
      }
     ],
@@ -566,8 +566,8 @@
   "topic_validator.py"
  ],
  "conteo": {
-  "vivo": 132,
-  "solo herramienta manual": 14,
+  "vivo": 133,
+  "solo herramienta manual": 13,
   "huérfano": 10,
   "roto": 0,
   "(sin sticker)": 0
@@ -1200,23 +1200,25 @@
    "entrega": "La tabla librería · requerida/opcional · archivo:línea · la tiene; faltantes() con las que no están; el comando de pip.",
    "modelo": [],
    "modelos": [],
-   "etapas_a": [],
+   "etapas_a": [
+    "orquestador/form"
+   ],
    "etapas_sticker": [
-    "herramienta manual"
+    "orquestador/form"
    ],
    "compartido": false,
-   "lo_llaman": [],
-   "tests": 0,
-   "nacio": "(fuera de git)",
-   "ultimo": "(fuera de git)",
-   "estado_a": "solo herramienta manual",
-   "estado": "solo herramienta manual",
-   "estado_prueba": "dependencias.py: tiene `if __name__ == \"__main__\"`; en F42b A nadie lo importa todavía (B lo llama desde run_pipeline.main)",
+   "lo_llaman": [
+    "run_pipeline.py"
+   ],
+   "tests": 1,
+   "nacio": "bf8cbf4 2026-10-27 (F42b)",
+   "ultimo": "bf8cbf4 2026-10-27 (F42b)",
+   "estado_a": "vivo",
+   "estado": "vivo",
+   "estado_prueba": "run_pipeline.py: `import dependencias` arriba; `_chequeo_dependencias()` en main antes de cualquier etapa (F42b B)",
    "funciones_muertas": [],
    "imports_rotos": [],
-   "sin_llamador_a": [
-    "comando_pip"
-   ],
+   "sin_llamador_a": [],
    "md5": "9d3a754a0e8ba697c149afeefd7562f2",
    "sticker_al_dia": true
   },
@@ -1384,8 +1386,8 @@
    "sin_llamador_a": [
     "_save_script"
    ],
-   "md5": "4fdf55c10148f6817ff797f0d0f609e3",
-   "sticker_al_dia": true
+   "md5": "44424529e33fe2fab3634b615760301a",
+   "sticker_al_dia": false
   },
   "fase1_5.py": {
    "archivo": "fase1_5.py",
@@ -2915,7 +2917,7 @@
   "run_pipeline.py": {
    "archivo": "run_pipeline.py",
    "zona": "orquestador",
-   "sticker": "Es el director de orquesta: toma un tema y corre una tras otra las etapas (guion, papel, voz, assets, fondos, guion de pantalla, aprobar guion, render, packaging), cada una como programa aparte. Antes de cada paso mira qué archivos ya existen en disco y arranca donde quedó; frena en las dos compuertas donde Omar tiene que aprobar y nunca aprueba solo.",
+   "sticker": "Es el director de orquesta: toma un tema y corre una tras otra las etapas (guion, papel, voz, assets, fondos, guion de pantalla, aprobar guion, render, packaging), cada una como programa aparte. Antes de cada paso mira qué archivos ya existen en disco y arranca donde quedó; frena en las dos compuertas donde Omar tiene que aprobar y nunca aprueba solo. Antes de cualquier etapa (F42b) revisa que este Python tenga las librerías que la cadena importa: si falta una requerida, para sin gastar y da el comando de pip.",
    "recibe": "--topic <id> (o --research para elegir tema nuevo con fase1); data/scripts/_steps/<id>/01e_pantalla.md, data/scripts/<id>.json, output/<id>/assets/assets_manifest.json, output/<id>/_fase2b_work/*, output/<id>/GUION_PANTALLA.json, output/<id>/<id>_final_gfx.mp4, data/topics_db.json, data/_last_research.json; la tecla A/P/C que manda el form por stdin.",
    "entrega": "No escribe archivos de producción: lanza fase1.py, fase1_5.py, fase2a.py, fase2b.py y fase3.py como subprocesos; imprime los encabezados de fase y los marcadores @@QAFORM@@ para el form, y el reporte final con el comando para retomar.",
    "modelo": [],
@@ -2930,7 +2932,7 @@
    "lo_llaman": [
     "qa_studio_server.py"
    ],
-   "tests": 1,
+   "tests": 2,
    "nacio": "1127427 2026-06-13",
    "ultimo": "e68410a 2026-10-27 (F41)",
    "estado_a": "vivo",
@@ -2939,7 +2941,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "b271cffada4021087b4be8cc28c3a31b",
+   "md5": "dd6cd35b05b33e66aebcbcb01e45bae6",
    "sticker_al_dia": true
   },
   "script_engine/__init__.py": {
@@ -5961,8 +5963,8 @@
    "sin_llamador_a": [
     "research_testimonios"
    ],
-   "md5": "a744a37432b65c3413650c9e0b138a5e",
-   "sticker_al_dia": true
+   "md5": "5d3d4c4c19746b24bb27a79d5e0b20cf",
+   "sticker_al_dia": false
   },
   "topic_validator.py": {
    "archivo": "topic_validator.py",

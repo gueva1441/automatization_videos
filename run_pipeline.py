@@ -45,6 +45,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+import dependencias
 from config import DATA_DIR, OUTPUT_DIR
 from script_engine import aprobacion, topics_db
 
@@ -501,6 +502,24 @@ def _newest_validated(tids: list[str]) -> str:
     return max(tids, key=_ts)
 
 
+def _chequeo_dependencias() -> int | None:
+    """F42b: antes de cualquier etapa (y de gastar), las librerías de afuera que la cadena importa (`dependencias`).
+    Falta una requerida → PARADA con exit 1, la lista con archivo:línea y el comando de pip para ESTE Python. Las
+    opcionales que falten solo avisan. None = sigue."""
+    fal = dependencias.faltantes()
+    if fal["opcionales"]:
+        print("  ⚠ Librerías opcionales que faltan (la cadena sigue sin ellas): "
+              + "; ".join(f"{f['libreria']} ({', '.join(f['sitios'][:2])})" for f in fal["opcionales"]))
+    if not fal["requeridas"]:
+        return None
+    print(f"\n{'═' * 60}\n  ⛔ PARADA antes de gastar: a este Python le faltan librerías que la cadena necesita")
+    print(f"     Python: {sys.executable}")
+    for f in fal["requeridas"]:
+        print(f"     - {f['libreria']}: {', '.join(f['sitios'])}")
+    print(f"  ➡  Instalalas y retomá: {dependencias.comando_pip()}\n{'═' * 60}\n")
+    return 1
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(
         description="run_pipeline — secuenciador subprocess del pipeline (1 topic).")
@@ -519,6 +538,10 @@ def main() -> int:
                          "de pantalla NO se saltean. Convive con --research (el pick de seed "
                          "SIEMPRE es interactivo).")
     args = ap.parse_args()
+
+    rc = _chequeo_dependencias()
+    if rc is not None:
+        return rc
 
     if args.research:
         # El pick de seed (gasto de grounding) SIEMPRE es interactivo: --batch solo

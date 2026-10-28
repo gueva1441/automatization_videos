@@ -50,6 +50,7 @@ class FakePipeline:
         setattr_(rp, "OUTPUT_DIR", self.tmp / "output")
         setattr_(rp, "RESEARCH_SENTINEL", self.tmp / "data" / "_last_research.json")
         setattr_(rp, "_run", self.run)
+        setattr_(rp, "_chequeo_dependencias", lambda: None)   # F42b: el chequeo de librerías tiene sus propios tests
         setattr_(rp, "_estado_papel",
                  lambda t: (True, "papel aprobado por Omar (stub)") if self.papel_ok
                  else (False, "el papel no está aprobado"))

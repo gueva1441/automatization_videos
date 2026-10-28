@@ -311,13 +311,13 @@
   "entrega": "La tabla librería · requerida/opcional · archivo:línea · la tiene; faltantes() con las que no están; el comando de pip.",
   "modelo": [],
   "etapa": [
-   "herramienta manual"
+   "orquestador/form"
   ],
-  "estado": "solo herramienta manual",
-  "estado_prueba": "dependencias.py: tiene `if __name__ == \"__main__\"`; en F42b A nadie lo importa todavía (B lo llama desde run_pipeline.main)",
+  "estado": "vivo",
+  "estado_prueba": "run_pipeline.py: `import dependencias` arriba; `_chequeo_dependencias()` en main antes de cualquier etapa (F42b B)",
   "funciones_muertas": [],
   "md5": "9d3a754a0e8ba697c149afeefd7562f2",
-  "_parte": "F42b A (CC)"
+  "_parte": "F42b A–B (CC)"
  },
  "error_handler.py": {
   "sticker": "Es el encargado de avisar cuando algo sale mal y de insistir: escribe el diario del pipeline (archivo y consola), y ofrece el decorador que repite una llamada a una API si falla (más veces y esperando más cuando el servidor está saturado). Si todo falla, corta con un error que dice en qué etapa pasó.",
@@ -616,7 +616,7 @@
   "_parte": "orquestador_b"
  },
  "run_pipeline.py": {
-  "sticker": "Es el director de orquesta: toma un tema y corre una tras otra las etapas (guion, papel, voz, assets, fondos, guion de pantalla, aprobar guion, render, packaging), cada una como programa aparte. Antes de cada paso mira qué archivos ya existen en disco y arranca donde quedó; frena en las dos compuertas donde Omar tiene que aprobar y nunca aprueba solo.",
+  "sticker": "Es el director de orquesta: toma un tema y corre una tras otra las etapas (guion, papel, voz, assets, fondos, guion de pantalla, aprobar guion, render, packaging), cada una como programa aparte. Antes de cada paso mira qué archivos ya existen en disco y arranca donde quedó; frena en las dos compuertas donde Omar tiene que aprobar y nunca aprueba solo. Antes de cualquier etapa (F42b) revisa que este Python tenga las librerías que la cadena importa: si falta una requerida, para sin gastar y da el comando de pip.",
   "recibe": "--topic <id> (o --research para elegir tema nuevo con fase1); data/scripts/_steps/<id>/01e_pantalla.md, data/scripts/<id>.json, output/<id>/assets/assets_manifest.json, output/<id>/_fase2b_work/*, output/<id>/GUION_PANTALLA.json, output/<id>/<id>_final_gfx.mp4, data/topics_db.json, data/_last_research.json; la tecla A/P/C que manda el form por stdin.",
   "entrega": "No escribe archivos de producción: lanza fase1.py, fase1_5.py, fase2a.py, fase2b.py y fase3.py como subprocesos; imprime los encabezados de fase y los marcadores @@QAFORM@@ para el form, y el reporte final con el comando para retomar.",
   "modelo": [],
@@ -626,8 +626,8 @@
   "estado": "vivo",
   "estado_prueba": "qa_studio_server.py:1522 y :1527 lo lanzan; run_pipeline.py:553 es el main",
   "funciones_muertas": [],
-  "md5": "b271cffada4021087b4be8cc28c3a31b",
-  "_parte": "orquestador_a"
+  "md5": "dd6cd35b05b33e66aebcbcb01e45bae6",
+  "_parte": "orquestador_a · F42b B (CC)"
  },
  "script_engine/__init__.py": {
   "sticker": "Es el marcador de paquete de script_engine (la carpeta con los módulos del guion y de las etapas): no hace nada salvo permitir que se importen los demás módulos. Su docstring es solo una lista vieja de módulos.",
