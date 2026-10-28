@@ -377,7 +377,7 @@
   "estado": "vivo",
   "estado_prueba": "script_engine/m03_visual.py:107 lo importa (v3img) y lo usa en m03_visual.py:969-1100 y 2571; m03_visual corre dentro de fase1_5.py:632 (etapa voz).",
   "funciones_muertas": [],
-  "md5": "4d9c036355dc7efe55f818a560e0e8f4",
+  "md5": "bbb740b0df7d08403d3b423afe077619",
   "_parte": "fase2a_a"
  },
  "script_engine/m03_visual.py": {

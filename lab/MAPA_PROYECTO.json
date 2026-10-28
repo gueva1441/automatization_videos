@@ -4483,7 +4483,7 @@
    "lo_llaman": [
     "script_engine/m03_visual.py"
    ],
-   "tests": 2,
+   "tests": 3,
    "nacio": "73e3613 2026-10-22 (F8)",
    "ultimo": "317c5f1 2026-10-22 (F10)",
    "estado_a": "vivo",
@@ -4492,7 +4492,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "4d9c036355dc7efe55f818a560e0e8f4",
+   "md5": "bbb740b0df7d08403d3b423afe077619",
    "sticker_al_dia": true
   },
   "script_engine/m03_visual.py": {
@@ -4534,7 +4534,7 @@
    ],
    "tests": 17,
    "nacio": "e33f84a 2026-05-28",
-   "ultimo": "b181889 2026-10-25 (F27a)",
+   "ultimo": "0ec8e7b 2026-10-28 (F48)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py:632 llama assign_visual_prompts dentro de process_topic (tramo audio -> m07 -> m03 que corre con --from normalizer_gate, el comando de la etapa voz en run_pipeline); script_engine/m09_packaging.py:40 importa DOCTRINE_* en tiempo de carga (fase3, etapa packaging).",

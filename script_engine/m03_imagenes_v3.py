@@ -275,6 +275,7 @@ HUMAN = r"\b(man|men|woman|women|person|people|inmates?|prisoners?|guards?|offic
         r"crowd|boy|girl|survivors?|workers?|firefighters?|families|mother|father|teen\w*)\b"
 COUNT_WORDS = "two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|a dozen"
 COUNT_RE = re.compile(rf"\b(?:exactly\s+)?({COUNT_WORDS})\s+(?=(?:\w+\s+){{0,2}}{HUMAN[2:]})", re.I)
+ART_COUNT_RE = re.compile(rf"\b(?:(the|a|an)\s+)?{COUNT_RE.pattern[2:]}", re.I)
 LR_RE = re.compile(r"\b(?:on|to|at|from)\s+the\s+(?:far\s+)?(?:left|right)(?:\s+side)?(?:\s+of\s+the\s+frame)?\b"
                    r"|\b(?:left|right)[- ](?:hand|side|third|edge|foreground|background)\b"
                    r"|\b(?:in\s+the\s+)?(?:left|right)\s+(?:of\s+the\s+frame|corner)\b", re.I)
@@ -317,12 +318,15 @@ def problems(prose: str, shot_scale: str | None = None) -> list[tuple[str, str]]
 
 
 def fix_counts_lr(prose: str) -> str:
-    """D4 determinista: «three inmates» → «a few inmates»; «on the left» → «to one side». Las cifras del candado van en
-    numerales, no en palabras: no se tocan."""
+    """D4 determinista: «three inmates» → «a few inmates»; «on the left» → «to one side». Un artículo delante de la cifra
+    se va con ella («The two men» → «A couple of men»). Las cifras del candado van en numerales, no en palabras: no se
+    tocan."""
     def _cnt(m: re.Match) -> str:
-        w = m.group(1).lower()
-        return "a couple of " if w == "two" else "a few " if w in ("three", "four") else "several "
-    p = COUNT_RE.sub(_cnt, prose)
+        w = m.group(2).lower()
+        out = "a couple of " if w == "two" else "a few " if w in ("three", "four") else "several "
+        return out[0].upper() + out[1:] if (m.group(1) or "")[:1].isupper() else out
+    # F49: el artículo de antes de la cifra se va con ella («The two men» → «A couple of men», no «The a couple of»)
+    p = ART_COUNT_RE.sub(_cnt, prose)
     p = LR_RE.sub(lambda m: "to one side" if m.group(0).lower().startswith(("on", "to", "at", "from")) else "side", p)
     return re.sub(r"\s{2,}", " ", p)
 
