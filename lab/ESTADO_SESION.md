@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-28 11:05 (F49: chascada de `fix_counts_lr` en producción y 40 fotos C2 | S5 de los caps 2 y 7 en lab, PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-28 12:30 (F50: el prompt nuevo de foto y de video pasó a producción —canon desde la ficha, casilleros con Opus, armado por código, Veo con negative_prompt y duration— y Wittenoom quedó en papel, PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,16 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F50, PARADA): **cambió producción.** Las fotos ya no las escribe Gemini: Opus llena las fichas de cada foto con un expediente (año, lugar, párrafo de la voz, hechos, personas, grupos de gente) y el código arma la frase. El canon de época y de grupos de gente sale de la ficha, antes de las fotos. El clip Veo lleva el movimiento que escribe Opus, una lista fija de lo que no tiene que pasar y la duración explícita (la prueba de 4 s salió bien). Wittenoom quedó **en papel**: `lab/hyperframes/f50/PAPEL_FOTOS_WITTENOOM.md` (96 fotos con su prompt entero; caps 1 y 7 con el movimiento del clip). Cero fotos. Gasto registrado US$ 2,39 (más una corrida de m03 que corté, sin registrar, como mucho ~2,1). Falta: revisión del analista (DEBERÍA), tu OK, y después la tanda de fotos y clips.
+
+## F50 — Prompt nuevo de foto y de video a producción; Wittenoom en papel (handoff del analista, 2026-10-28 11:50) — HECHA, **PARADA**
+- Handoff `lab/hyperframes/f50/HANDOFF_F50_prompt_nuevo_a_produccion.md` (md5 `55862541…` ✓). Paso 0 `3751124` (DECISIONES 11:15 / 11:22 / 11:50; copias en `f50/antes/`).
+- A `5b071d0`: `step_4e.canon_desde_ficha` + `fase1_5.asegurar_canon` (marca `canon_ficha_md5`); 4e del research borrado. Pedido = el de S5 de F48 (md5 `46ff0c7b…`, en seco). Wittenoom: 7 people_groups (`A_CANON.md`).
+- B+C `dcea932` (un commit: mismo archivo): `m03_expediente.py` nuevo; casilleros con Opus, armado por código, F8 backstop; fuera fluidificador, Guarda 1, re-tejido, `SEEDREAM_SLOTS_USE_PRO`, `wrap_style`, camino sin escaleta, con sus tests; chascadas (cartel con sujeto, cifra en mayúscula). Verificación: pedido del cap 2 byte a byte; armado 26/28 iguales, 2 por el cartel. Veo: movimiento con Opus (§C.1), `negative_prompt` y `duration`; prueba 4 s ok (4,000 s, 1080p).
+- D `ab1fd00`: `--only m03` en Wittenoom: 96 fotos (= antes), años 28 ancla + 68 casillero, 0 re-hechuras, 10 carteles, US$ 2,1205. Los caps Veo ahora guardan año/grupo/plano/notas F8 por foto.
+- Suites: rápida 55; amplia 944 + 4 previas (m03_merge_timing ×2, gfx_lab ×2); ch02 `f792f3d4…` ✓; mapa 0 (157 archivos).
+- Abierto n1–n17 en `F50_REPORT.md`: cartel con mayúsculas del modelo («written Over the entrance»), gasto de la corrida cortada sin registrar, canon con 7 grupos (S5 tenía 15), foto madre a rehacer, casilleros que el armado no usa, Veo 3.1 se apaga el 17-11.
 
 ## 👀 Para Omar (F49, PARADA): las hojas C2 | S5 están en `lab/hyperframes/f49/hoja_ch02_*.jpg` (cap 2, 4 hojas) y `hoja_ch07_*.jpg` (cap 7, 3 hojas). Cada fila trae el n.º de foto, el año de cada variante y el comienzo de la frase de la voz. Salieron las 40 fotos nuevas, sin ningún rechazo del filtro, por US$ 1,40 (tope 2,50). En el cap 2 los años coinciden en las 16 fotos; en el cap 7 difieren en 7 de 12 (S5 pone 2021 en las fotos 1–4 y 2026 en las 10–12). **Producción cambió en una sola cosa:** «The two men» ahora queda «A couple of men» (antes «The a couple of men»). Elegir C2 o S5 es tuyo y del analista.
 
