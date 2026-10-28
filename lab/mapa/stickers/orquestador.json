@@ -305,6 +305,20 @@
   "md5": "d8ad9a923d160bad4652db866b15727c",
   "_parte": "orquestador_b"
  },
+ "dependencias.py": {
+  "sticker": "Dice qué librerías de afuera necesita la cadena del form y cuáles le faltan al Python que corre: sigue los imports desde los scripts de cada etapa de run_pipeline, separa las requeridas de las opcionales (las que están dentro de un try que atrapa la falta) y pregunta si están sin importarlas. Con --requirements da la línea distribución==versión de cada requerida instalada.",
+  "recibe": "El código del repo (run_pipeline.py y los scripts que lanza, con sus imports) y el Python con que se corre.",
+  "entrega": "La tabla librería · requerida/opcional · archivo:línea · la tiene; faltantes() con las que no están; el comando de pip.",
+  "modelo": [],
+  "etapa": [
+   "herramienta manual"
+  ],
+  "estado": "solo herramienta manual",
+  "estado_prueba": "dependencias.py: tiene `if __name__ == \"__main__\"`; en F42b A nadie lo importa todavía (B lo llama desde run_pipeline.main)",
+  "funciones_muertas": [],
+  "md5": "9d3a754a0e8ba697c149afeefd7562f2",
+  "_parte": "F42b A (CC)"
+ },
  "error_handler.py": {
   "sticker": "Es el encargado de avisar cuando algo sale mal y de insistir: escribe el diario del pipeline (archivo y consola), y ofrece el decorador que repite una llamada a una API si falla (más veces y esperando más cuando el servidor está saturado). Si todo falla, corta con un error que dice en qué etapa pasó.",
   "recibe": "Mensajes y excepciones de casi todos los módulos (log_info, log_error, log_warning, log_success) y funciones envueltas con @error_handler.retry(PipelineStage.X); LOGS_DIR, max_retries y retry_delay_seconds de config.py.",

@@ -2,6 +2,7 @@
 annotated-types==0.7.0
 anyio==4.13.0
 av==17.0.1
+beautifulsoup4==4.15.0
 certifi==2026.4.22
 cffi==2.0.0
 charset-normalizer==3.4.7
@@ -45,11 +46,12 @@ pycparser==3.0
 pydantic==2.13.3
 pydantic_core==2.46.3
 Pygments==2.20.0
+pypdf==6.21.3
 pyphen==0.17.2
 python-dateutil==2.9.0.post0
 pytrends==4.9.2
 PyYAML==6.0.3
-requests==2.33.1
+requests==2.34.2
 rich==15.0.0
 scrapetube @ git+https://github.com/night-0909/scrapetube  # CHAT 42: fork revive get_channel (oficial 2.6.0 cuelga)
 shellingham==1.5.4
@@ -66,6 +68,6 @@ typer==0.25.0
 typing-inspection==0.4.2
 typing_extensions==4.15.0
 tzdata==2026.2
-urllib3==2.6.3
+urllib3==2.7.0
 websockets==16.0
 youtube-transcript-api==1.2.4

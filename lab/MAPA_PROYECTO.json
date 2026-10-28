@@ -539,6 +539,7 @@
   "asset_manager.py",
   "audio_manager.py",
   "csv_exporter.py",
+  "dependencias.py",
   "fase1.py",
   "fase1_5.py",
   "fase2a.py",
@@ -566,7 +567,7 @@
  ],
  "conteo": {
   "vivo": 132,
-  "solo herramienta manual": 13,
+  "solo herramienta manual": 14,
   "huérfano": 10,
   "roto": 0,
   "(sin sticker)": 0
@@ -1189,6 +1190,34 @@
    "imports_rotos": [],
    "sin_llamador_a": [],
    "md5": "d8ad9a923d160bad4652db866b15727c",
+   "sticker_al_dia": true
+  },
+  "dependencias.py": {
+   "archivo": "dependencias.py",
+   "zona": "orquestador",
+   "sticker": "Dice qué librerías de afuera necesita la cadena del form y cuáles le faltan al Python que corre: sigue los imports desde los scripts de cada etapa de run_pipeline, separa las requeridas de las opcionales (las que están dentro de un try que atrapa la falta) y pregunta si están sin importarlas. Con --requirements da la línea distribución==versión de cada requerida instalada.",
+   "recibe": "El código del repo (run_pipeline.py y los scripts que lanza, con sus imports) y el Python con que se corre.",
+   "entrega": "La tabla librería · requerida/opcional · archivo:línea · la tiene; faltantes() con las que no están; el comando de pip.",
+   "modelo": [],
+   "modelos": [],
+   "etapas_a": [],
+   "etapas_sticker": [
+    "herramienta manual"
+   ],
+   "compartido": false,
+   "lo_llaman": [],
+   "tests": 0,
+   "nacio": "(fuera de git)",
+   "ultimo": "(fuera de git)",
+   "estado_a": "solo herramienta manual",
+   "estado": "solo herramienta manual",
+   "estado_prueba": "dependencias.py: tiene `if __name__ == \"__main__\"`; en F42b A nadie lo importa todavía (B lo llama desde run_pipeline.main)",
+   "funciones_muertas": [],
+   "imports_rotos": [],
+   "sin_llamador_a": [
+    "comando_pip"
+   ],
+   "md5": "9d3a754a0e8ba697c149afeefd7562f2",
    "sticker_al_dia": true
   },
   "engine_profiles.py": {
@@ -6921,7 +6950,7 @@
    ],
    "tests": 0,
    "nacio": "ba7e958 2026-10-26 (F33)",
-   "ultimo": "838a104 2026-10-26 (F37)",
+   "ultimo": "601a5bf 2026-10-27 (F42)",
    "estado_a": "solo herramienta manual",
    "estado": "vivo",
    "estado_prueba": ".claude/settings.json:12 lo cablea en PreToolUse (Bash|PowerShell).",
@@ -7011,7 +7040,7 @@
    "lo_llaman": [],
    "tests": 0,
    "nacio": "40a434d 2026-10-25 (F26d)",
-   "ultimo": "ba7e958 2026-10-26 (F33)",
+   "ultimo": "601a5bf 2026-10-27 (F42)",
    "estado_a": "solo herramienta manual",
    "estado": "solo herramienta manual",
    "estado_prueba": "es un README: nadie lo importa ni lo lee desde código; describe los hooks cableados en .claude/settings.json:8-20.",
@@ -7167,7 +7196,7 @@
    "lo_llaman": [],
    "tests": 0,
    "nacio": "2d87032 2026-10-26 (F33)",
-   "ultimo": "24d9dad 2026-10-26 (F34)",
+   "ultimo": "601a5bf 2026-10-27 (F42)",
    "estado_a": "solo herramienta manual",
    "estado": "vivo",
    "estado_prueba": "CLAUDE.md pide trabajar por tanda y el comando está en .claude/commands/ (lo dispara quien escribe /tanda).",

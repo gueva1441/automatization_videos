@@ -1,0 +1,21 @@
+Python: C:\CLAUDE_PROJECTS\viral-video-pipeline\.venv\Scripts\python.exe
+| librería | requerida u opcional | archivo:línea | la tiene |
+|---|---|---|---|
+| PIL | requerida | foto_madre.py:64, script_engine/gfx_critic.py:187, script_engine/gfx_project.py:592 (+3) | sí |
+| bs4 | requerida | researcher_steps/research_v3.py:687, researcher_steps/research_v3.py:874 | sí |
+| faster_whisper | requerida | audio_manager.py:120 | sí |
+| google | requerida | config.py:26, gemini_helpers.py:6, gemini_helpers.py:7 (+13) | sí |
+| langdetect | requerida | script_engine/youtube_scanner.py:68 | sí |
+| numpy | requerida | fase2b.py:3074, script_engine/gfx_guion.py:84, script_engine/gfx_guion.py:92 (+6) | sí |
+| pdfplumber | opcional | researcher_steps/research_v3.py:748 | NO |
+| pypdf | requerida | researcher_steps/research_v3.py:756 | sí |
+| pyphen | requerida | fase2b.py:44 | sí |
+| pytrends | requerida | topic_validator.py:48 | sí |
+| requests | requerida | asset_manager.py:45, audio_manager.py:46, foto_madre.py:22 (+5) | sí |
+| scrapetube | requerida | script_engine/youtube_scanner.py:67 | sí |
+| trafilatura | opcional | researcher_steps/research_v3.py:681 | NO |
+| typing_extensions | requerida | flow_profiles.py:20 | sí |
+| urllib3 | requerida | script_engine/youtube_scanner.py:42 | sí |
+| youtube_transcript_api | opcional | script_engine/transcript_fetch.py:64, script_engine/transcript_fetch.py:75 | sí |
+
+0 requeridas faltantes · 2 opcionales faltantes
