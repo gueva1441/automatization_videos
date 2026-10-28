@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-28 02:25 (F46: A/B de fotos de época del cap 2 de Wittenoom en lab, PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-28 02:50 (F46b: prompt de imagen armado por código con expediente por foto, A/B C0/C1/C2 en lab, PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,13 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F46b, PARADA): las 4 hojas de 8 columnas (A | B1 | C0a | C0b | C1a | C1b | C2a | C2b) están en `lab/hyperframes/f46/f46b/hoja_01-04.jpg` … `hoja_13-16.jpg`. C0 = el prompt armado por código con el expediente de cada foto (año dicho por la voz: 1961 la foto 1, 1962 el resto; aspecto y ropa del grupo de gente; sin mood ni «faceless»); C1 = C0 en español; C2 = C0 sin la oración de aspecto; 2 fotos por prompt. Gasto US$ 3,57 (tope 6,00), 0 rechazadas. Ojo: el aspecto que devolvió el canon dice «de origen europeo» pero no trae piel ni pelo. Elegir variante es tuyo y del analista.
+
+## F46b — El prompt de imagen «como cuchillo» (handoff del analista, 2026-10-28 02:35) — HECHA, **PARADA**
+- Handoff `lab/hyperframes/f46/HANDOFF_F46b_prompt_cuchillo.md` (md5 `8e3dd590…` ✓). Paso 0 `878405d` (DECISIONES 02:24). Lab: `lab/hyperframes/f46/f46b/f46b_corridas.py` (canon C con people_groups, expediente por foto, 1 Pro con `people_group`, armado por código, F8 con backstop, C1 por Flash, C2; fotos ×2 con freno), `f46b_hoja.py`.
+- Parte 1 US$ 0,2068 (`canon_C.json`, `expedientes.md`, `PROMPTS_C.md`); parte 2: 96 fotos en paralelo, US$ 3,36; total US$ 3,5668 (cost_history `f46b-lab`). PNG (~580 MB) fuera de git.
+- Abierto i1–i12 en el reporte (appearance sin piel/pelo; C1 perdió «20th century»; el lugar llega en 4/16; F8 sin re-tejido; cifras fuera de C).
 
 ## 👀 Para Omar (F46, PARADA): las 4 hojas A | B1 | B2 del cap 2 de Wittenoom están en `lab/hyperframes/f46/hoja_01-04.jpg` … `hoja_13-16.jpg` (A = hoy; B1 = la misma estructura con datos nuevos: época desde la ficha y fecha/lugar/escena por beat; B2 = los mismos datos de B1 con el sujeto primero y sin «mood»). Los prompts enteros y la tabla de palabras/año/lugar: `lab/hyperframes/f46/PROMPTS_AB.md`. Gasto real US$ 1,31 (tope 3,00), 0 fotos rechazadas. Producción no se tocó: elegir variante es tuyo y del analista.
 

@@ -1,0 +1,875 @@
+{
+ "chapter_number": 2,
+ "image_prompts": [
+  {
+   "foto": 1,
+   "beat": 2,
+   "anio": "1961",
+   "anio_fuente": "1) dicho en el ancla",
+   "people_group": [
+    "european_migrant_families"
+   ],
+   "partes": {
+    "sujeto": "A young Spanish man in his late 20s and a woman in her mid-20s, in 1961 evening wear. Dancing together under the lights of a grand ballroom.",
+    "aspecto": "",
+    "mirada": "Looking into each other's eyes as they turn on the dance floor.",
+    "objeto": "A crystal chandelier casting a soft, multi-faceted light over the dancers.",
+    "lugar_anio": "The ornate, crowded ballroom of the Círculo de Bellas Artes in Madrid, with high ceilings and classical decor, 1961.",
+    "estilo": "Grainy 35mm documentary photograph, 1961, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors.",
+    "luz": "Warm, elegant indoor lighting from chandeliers and wall sconces. Warm incandescent yellows, deep reds of the decor, contrasted with black and white formal attire.",
+    "tecnica": "Wide shot, eye-level, deep depth of field.",
+    "texto": "",
+    "cierre": "The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+   },
+   "prompt": "A young Spanish man in his late 20s and a woman in her mid-20s, in 1961 evening wear. Dancing together under the lights of a grand ballroom. Looking into each other's eyes as they turn on the dance floor. A crystal chandelier casting a soft, multi-faceted light over the dancers. The ornate, crowded ballroom of the Círculo de Bellas Artes in Madrid, with high ceilings and classical decor, 1961. Grainy 35mm documentary photograph, 1961, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Warm, elegant indoor lighting from chandeliers and wall sconces. Warm incandescent yellows, deep reds of the decor, contrasted with black and white formal attire. Wide shot, eye-level, deep depth of field. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "f8_problemas": [],
+   "hard_fact_ids_fuera": [],
+   "slots": {
+    "subject": "A young Spanish man in his late 20s and a woman in her mid-20s, in 1961 evening wear.",
+    "action": "Dancing together under the lights of a grand ballroom.",
+    "gaze_interaction": "Looking into each other's eyes as they turn on the dance floor.",
+    "setting": "The ornate, crowded ballroom of the Círculo de Bellas Artes in Madrid, with high ceilings and classical decor.",
+    "color_palette": "Warm incandescent yellows, deep reds of the decor, contrasted with black and white formal attire.",
+    "props_detail": "A crystal chandelier casting a soft, multi-faceted light over the dancers.",
+    "shot_scale": "wide",
+    "camera_angle": "eye-level",
+    "lens_technique": "deep depth of field",
+    "lighting": "Warm, elegant indoor lighting from chandeliers and wall sconces.",
+    "mood": "A bustling, cheerful atmosphere filled with music and movement, a sense of hopeful romance.",
+    "style": "documentary photographic realism, dark-history, faceless",
+    "text_in_image": {
+     "present": false,
+     "text": "",
+     "font": "",
+     "location": ""
+    },
+    "hard_fact_ids": [],
+    "subject_ref": "interior_scene",
+    "foto_madre_ref": [],
+    "emotional_rank": "R3",
+    "people_group": [
+     "european_migrant_families"
+    ],
+    "beat": 2,
+    "cerrada": false,
+    "texto_en_imagen": false
+   }
+  },
+  {
+   "foto": 2,
+   "beat": 2,
+   "anio": "1962",
+   "anio_fuente": "1) dicho en el ancla",
+   "people_group": [
+    "european_migrant_families"
+   ],
+   "partes": {
+    "sujeto": "A newlywed Spanish couple in 1962 wedding attire, he in a simple dark suit, she in a modest white dress. Emerging from a church doorway, caught in a shower of thrown rice.",
+    "aspecto": "",
+    "mirada": "Smiling, heads slightly bowed as they move through the crowd of well-wishers.",
+    "objeto": "A handful of uncooked white rice frozen in mid-air by the camera's shutter.",
+    "lugar_anio": "The weathered stone archway of a mid-century Madrid church, 1962.",
+    "estilo": "Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors.",
+    "luz": "Bright, natural daylight, slightly overcast. Sepia tones, cream-colored stone, white of the dress, dark suits.",
+    "tecnica": "Medium shot, eye-level, shallow depth of field.",
+    "texto": "",
+    "cierre": "The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+   },
+   "prompt": "A newlywed Spanish couple in 1962 wedding attire, he in a simple dark suit, she in a modest white dress. Emerging from a church doorway, caught in a shower of thrown rice. Smiling, heads slightly bowed as they move through the crowd of well-wishers. A handful of uncooked white rice frozen in mid-air by the camera's shutter. The weathered stone archway of a mid-century Madrid church, 1962. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Bright, natural daylight, slightly overcast. Sepia tones, cream-colored stone, white of the dress, dark suits. Medium shot, eye-level, shallow depth of field. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "f8_problemas": [],
+   "hard_fact_ids_fuera": [],
+   "slots": {
+    "subject": "A newlywed Spanish couple in 1962 wedding attire, he in a simple dark suit, she in a modest white dress.",
+    "action": "Emerging from a church doorway, caught in a shower of thrown rice.",
+    "gaze_interaction": "Smiling, heads slightly bowed as they move through the crowd of well-wishers.",
+    "setting": "The weathered stone archway of a mid-century Madrid church.",
+    "color_palette": "Sepia tones, cream-colored stone, white of the dress, dark suits.",
+    "props_detail": "A handful of uncooked white rice frozen in mid-air by the camera's shutter.",
+    "shot_scale": "medium",
+    "camera_angle": "eye-level",
+    "lens_technique": "shallow depth of field",
+    "lighting": "Bright, natural daylight, slightly overcast.",
+    "mood": "A fleeting moment of joy and celebration, the beginning of a new chapter.",
+    "style": "documentary photographic realism, dark-history, faceless",
+    "text_in_image": {
+     "present": false,
+     "text": "",
+     "font": "",
+     "location": ""
+    },
+    "hard_fact_ids": [],
+    "subject_ref": "main_subject",
+    "foto_madre_ref": [],
+    "emotional_rank": "R3",
+    "people_group": [
+     "european_migrant_families"
+    ],
+    "beat": 2,
+    "cerrada": false,
+    "texto_en_imagen": false
+   }
+  },
+  {
+   "foto": 3,
+   "beat": 2,
+   "anio": "1962",
+   "anio_fuente": "2) el de la foto anterior del cap",
+   "people_group": [
+    "european_migrant_families"
+   ],
+   "partes": {
+    "sujeto": "Hundreds of Spanish migrant families with worn suitcases and bundles. Crowding the pier and ascending a long gangway onto a large passenger ship.",
+    "aspecto": "",
+    "mirada": "A mix of gazes: some looking back at the land they're leaving, others focused on the difficult boarding process.",
+    "objeto": "A battered cardboard suitcase tied shut with rope, held by a man in the crowd.",
+    "lugar_anio": "A bustling Spanish port in 1962, with industrial cranes and the massive steel hull of the ship dominating the frame, 1962.",
+    "estilo": "Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors.",
+    "luz": "Harsh midday sun, casting strong shadows. Muted blues and grays of the harbor, rust tones on the ship, drab colors of the migrants' clothing.",
+    "tecnica": "Wide shot, low angle, deep depth of field.",
+    "texto": "",
+    "cierre": "The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+   },
+   "prompt": "Hundreds of Spanish migrant families with worn suitcases and bundles. Crowding the pier and ascending a long gangway onto a large passenger ship. A mix of gazes: some looking back at the land they're leaving, others focused on the difficult boarding process. A battered cardboard suitcase tied shut with rope, held by a man in the crowd. A bustling Spanish port in 1962, with industrial cranes and the massive steel hull of the ship dominating the frame, 1962. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Harsh midday sun, casting strong shadows. Muted blues and grays of the harbor, rust tones on the ship, drab colors of the migrants' clothing. Wide shot, low angle, deep depth of field. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "f8_problemas": [],
+   "hard_fact_ids_fuera": [],
+   "slots": {
+    "subject": "Hundreds of Spanish migrant families with worn suitcases and bundles.",
+    "action": "Crowding the pier and ascending a long gangway onto a large passenger ship.",
+    "gaze_interaction": "A mix of gazes: some looking back at the land they're leaving, others focused on the difficult boarding process.",
+    "setting": "A bustling Spanish port in 1962, with industrial cranes and the massive steel hull of the ship dominating the frame.",
+    "color_palette": "Muted blues and grays of the harbor, rust tones on the ship, drab colors of the migrants' clothing.",
+    "props_detail": "A battered cardboard suitcase tied shut with rope, held by a man in the crowd.",
+    "shot_scale": "wide",
+    "camera_angle": "low angle",
+    "lens_technique": "deep depth of field",
+    "lighting": "Harsh midday sun, casting strong shadows.",
+    "mood": "An air of massive, hopeful, yet chaotic transition; the scale of the migration is overwhelming.",
+    "style": "documentary photographic realism, dark-history, faceless",
+    "text_in_image": {
+     "present": false,
+     "text": "",
+     "font": "",
+     "location": ""
+    },
+    "hard_fact_ids": [],
+    "subject_ref": "establishing_shot",
+    "foto_madre_ref": [],
+    "emotional_rank": "R3",
+    "people_group": [
+     "european_migrant_families"
+    ],
+    "beat": 2,
+    "cerrada": false,
+    "texto_en_imagen": false
+   }
+  },
+  {
+   "foto": 4,
+   "beat": 2,
+   "anio": "1962",
+   "anio_fuente": "2) el de la foto anterior del cap",
+   "people_group": [
+    "european_migrant_families"
+   ],
+   "partes": {
+    "sujeto": "A young Spanish couple in practical 1960s travel clothes, standing on the deck of a ship. The man points towards the horizon, while the woman stands close, looking where he indicates.",
+    "aspecto": "",
+    "mirada": "Both are looking forward, out to the vast, empty ocean, their expressions unreadable from behind.",
+    "objeto": "A heavy wool blanket draped over the woman's shoulders against the sea breeze.",
+    "lugar_anio": "The windswept deck of a passenger liner at sea, only the sky and water are visible, 1962.",
+    "estilo": "Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors.",
+    "luz": "Clear, bright oceanic daylight. Deep ocean blue, stark white of the ship's paint, pale blue sky.",
+    "tecnica": "Medium shot, eye-level, from behind, 85mm lens.",
+    "texto": "",
+    "cierre": "The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+   },
+   "prompt": "A young Spanish couple in practical 1960s travel clothes, standing on the deck of a ship. The man points towards the horizon, while the woman stands close, looking where he indicates. Both are looking forward, out to the vast, empty ocean, their expressions unreadable from behind. A heavy wool blanket draped over the woman's shoulders against the sea breeze. The windswept deck of a passenger liner at sea, only the sky and water are visible, 1962. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Clear, bright oceanic daylight. Deep ocean blue, stark white of the ship's paint, pale blue sky. Medium shot, eye-level, from behind, 85mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "f8_problemas": [],
+   "hard_fact_ids_fuera": [],
+   "slots": {
+    "subject": "A young Spanish couple in practical 1960s travel clothes, standing on the deck of a ship.",
+    "action": "The man points towards the horizon, while the woman stands close, looking where he indicates.",
+    "gaze_interaction": "Both are looking forward, out to the vast, empty ocean, their expressions unreadable from behind.",
+    "setting": "The windswept deck of a passenger liner at sea, only the sky and water are visible.",
+    "color_palette": "Deep ocean blue, stark white of the ship's paint, pale blue sky.",
+    "props_detail": "A heavy wool blanket draped over the woman's shoulders against the sea breeze.",
+    "shot_scale": "medium",
+    "camera_angle": "eye-level, from behind",
+    "lens_technique": "85mm lens",
+    "lighting": "Clear, bright oceanic daylight.",
+    "mood": "A sense of quiet anticipation and isolation, two small figures against a vast, unknown future.",
+    "style": "documentary photographic realism, dark-history, faceless",
+    "text_in_image": {
+     "present": false,
+     "text": "",
+     "font": "",
+     "location": ""
+    },
+    "hard_fact_ids": [],
+    "subject_ref": "main_subject",
+    "foto_madre_ref": [],
+    "emotional_rank": "R3",
+    "people_group": [
+     "european_migrant_families"
+    ],
+    "beat": 2,
+    "cerrada": false,
+    "texto_en_imagen": false
+   }
+  },
+  {
+   "foto": 5,
+   "beat": 2,
+   "anio": "1962",
+   "anio_fuente": "2) el de la foto anterior del cap",
+   "people_group": [
+    "european_migrant_families"
+   ],
+   "partes": {
+    "sujeto": "A mid-20s Spanish migrant woman and her husband. The woman clutches her husband's arm tightly, her body pressed close to his side.",
+    "aspecto": "",
+    "mirada": "Her face is turned away from the camera, buried in his shoulder. He stares blankly at the sea.",
+    "objeto": "The woman's simple wedding band on the hand that grips her husband's arm.",
+    "lugar_anio": "At the railing of the ship, with the endless sea stretching out before them, 1962.",
+    "estilo": "Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors.",
+    "luz": "Overcast daylight, soft and diffuse. Desaturated blues and grays, the texture of his worn jacket.",
+    "tecnica": "Close shot, eye-level, shallow depth of field.",
+    "texto": "",
+    "cierre": "The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+   },
+   "prompt": "A mid-20s Spanish migrant woman and her husband. The woman clutches her husband's arm tightly, her body pressed close to his side. Her face is turned away from the camera, buried in his shoulder. He stares blankly at the sea. At the railing of the ship, with the endless sea stretching out before them, 1962. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Overcast daylight, soft and diffuse. Desaturated blues and grays, the texture of his worn jacket. Close shot, eye-level, shallow depth of field. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "f8_problemas": [
+    "manos/cara: manos en plano close"
+   ],
+   "hard_fact_ids_fuera": [],
+   "slots": {
+    "subject": "A mid-20s Spanish migrant woman and her husband.",
+    "action": "The woman clutches her husband's arm tightly, her body pressed close to his side.",
+    "gaze_interaction": "Her face is turned away from the camera, buried in his shoulder. He stares blankly at the sea.",
+    "setting": "At the railing of the ship, with the endless sea stretching out before them.",
+    "color_palette": "Desaturated blues and grays, the texture of his worn jacket.",
+    "props_detail": "The woman's simple wedding band on the hand that grips her husband's arm.",
+    "shot_scale": "close",
+    "camera_angle": "eye-level",
+    "lens_technique": "shallow depth of field",
+    "lighting": "Overcast daylight, soft and diffuse.",
+    "mood": "A mix of dependence and apprehension, a physical expression of clinging to the only certainty in an uncertain world.",
+    "style": "documentary photographic realism, dark-history, faceless",
+    "text_in_image": {
+     "present": false,
+     "text": "",
+     "font": "",
+     "location": ""
+    },
+    "hard_fact_ids": [],
+    "subject_ref": "main_subject",
+    "foto_madre_ref": [],
+    "emotional_rank": "R2",
+    "people_group": [
+     "european_migrant_families"
+    ],
+    "beat": 2,
+    "cerrada": false,
+    "texto_en_imagen": false
+   }
+  },
+  {
+   "foto": 6,
+   "beat": 2,
+   "anio": "1962",
+   "anio_fuente": "2) el de la foto anterior del cap",
+   "people_group": [
+    "european_migrant_families"
+   ],
+   "partes": {
+    "sujeto": "Two young Spanish couples in their mid-to-late 20s, dressed in simple, practical clothing. Sitting around a small metal table on the ship's deck, sharing a bottle of wine and talking.",
+    "aspecto": "",
+    "mirada": "They are engaged in conversation, leaning in towards each other, gesturing with their hands.",
+    "objeto": "A green glass bottle of wine, half-empty, on the center of the table with four small glasses.",
+    "lugar_anio": "A communal recreation area on the deck of a 1960s passenger ship, 1962.",
+    "estilo": "Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors.",
+    "luz": "Bright, late afternoon sun. Faded primary colors from the ship's furniture, sun-bleached tones, oceanic blues.",
+    "tecnica": "Medium shot, eye-level, deep depth of field.",
+    "texto": "",
+    "cierre": "The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+   },
+   "prompt": "Two young Spanish couples in their mid-to-late 20s, dressed in simple, practical clothing. Sitting around a small metal table on the ship's deck, sharing a bottle of wine and talking. They are engaged in conversation, leaning in towards each other, gesturing with their hands. A green glass bottle of wine, half-empty, on the center of the table with four small glasses. A communal recreation area on the deck of a 1960s passenger ship, 1962. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Bright, late afternoon sun. Faded primary colors from the ship's furniture, sun-bleached tones, oceanic blues. Medium shot, eye-level, deep depth of field. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "f8_problemas": [],
+   "hard_fact_ids_fuera": [],
+   "slots": {
+    "subject": "Two young Spanish couples in their mid-to-late 20s, dressed in simple, practical clothing.",
+    "action": "Sitting around a small metal table on the ship's deck, sharing a bottle of wine and talking.",
+    "gaze_interaction": "They are engaged in conversation, leaning in towards each other, gesturing with their hands.",
+    "setting": "A communal recreation area on the deck of a 1960s passenger ship.",
+    "color_palette": "Faded primary colors from the ship's furniture, sun-bleached tones, oceanic blues.",
+    "props_detail": "A green glass bottle of wine, half-empty, on the center of the table with four small glasses.",
+    "shot_scale": "medium",
+    "camera_angle": "eye-level",
+    "lens_technique": "deep depth of field",
+    "lighting": "Bright, late afternoon sun.",
+    "mood": "A moment of camaraderie and shared experience, a temporary community formed in transit.",
+    "style": "documentary photographic realism, dark-history, faceless",
+    "text_in_image": {
+     "present": false,
+     "text": "",
+     "font": "",
+     "location": ""
+    },
+    "hard_fact_ids": [],
+    "subject_ref": "interior_scene",
+    "foto_madre_ref": [],
+    "emotional_rank": "R3",
+    "people_group": [
+     "european_migrant_families"
+    ],
+    "beat": 2,
+    "cerrada": false,
+    "texto_en_imagen": false
+   }
+  },
+  {
+   "foto": 7,
+   "beat": 2,
+   "anio": "1962",
+   "anio_fuente": "2) el de la foto anterior del cap",
+   "people_group": [
+    "european_migrant_families",
+    "wittenoom_children"
+   ],
+   "partes": {
+    "sujeto": "A young Spanish boy, around eight years old, with dark hair. Standing on the sun-baked deck, shirt clinging to his back with sweat, fanning his face with a folded piece of paper.",
+    "aspecto": "",
+    "mirada": "Squinting his eyes against the bright glare, looking out over the water.",
+    "objeto": "Beads of sweat trickling down the side of the boy's face.",
+    "lugar_anio": "The exposed deck of the ship, heat haze shimmering above the metal railings, 1962.",
+    "estilo": "Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors.",
+    "luz": "Blazing, unfiltered sunlight of the tropics. Harsh whites of the sun's glare, deep blue of the sea, tan skin.",
+    "tecnica": "Medium shot, eye-level, 85mm lens.",
+    "texto": "",
+    "cierre": "The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+   },
+   "prompt": "A young Spanish boy, around eight years old, with dark hair. Standing on the sun-baked deck, shirt clinging to his back with sweat, fanning his face with a folded piece of paper. Squinting his eyes against the bright glare, looking out over the water. Beads of sweat trickling down the side of the boy's face. The exposed deck of the ship, heat haze shimmering above the metal railings, 1962. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Blazing, unfiltered sunlight of the tropics. Harsh whites of the sun's glare, deep blue of the sea, tan skin. Medium shot, eye-level, 85mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "f8_problemas": [],
+   "hard_fact_ids_fuera": [],
+   "slots": {
+    "subject": "A young Spanish boy, around eight years old, with dark hair.",
+    "action": "Standing on the sun-baked deck, shirt clinging to his back with sweat, fanning his face with a folded piece of paper.",
+    "gaze_interaction": "Squinting his eyes against the bright glare, looking out over the water.",
+    "setting": "The exposed deck of the ship, heat haze shimmering above the metal railings.",
+    "color_palette": "Harsh whites of the sun's glare, deep blue of the sea, tan skin.",
+    "props_detail": "Beads of sweat trickling down the side of the boy's face.",
+    "shot_scale": "medium",
+    "camera_angle": "eye-level",
+    "lens_technique": "85mm lens",
+    "lighting": "Blazing, unfiltered sunlight of the tropics.",
+    "mood": "Oppressive, inescapable heat, a physical representation of the arduous journey.",
+    "style": "documentary photographic realism, dark-history, faceless",
+    "text_in_image": {
+     "present": false,
+     "text": "",
+     "font": "",
+     "location": ""
+    },
+    "hard_fact_ids": [],
+    "subject_ref": "main_subject",
+    "foto_madre_ref": [],
+    "emotional_rank": "R3",
+    "people_group": [
+     "european_migrant_families",
+     "wittenoom_children"
+    ],
+    "beat": 2,
+    "cerrada": false,
+    "texto_en_imagen": false
+   }
+  },
+  {
+   "foto": 8,
+   "beat": 3,
+   "anio": "1962",
+   "anio_fuente": "2) el de la foto anterior del cap",
+   "people_group": [
+    "european_migrant_families",
+    "wittenoom_children"
+   ],
+   "partes": {
+    "sujeto": "An eight-year-old boy in shorts and a simple shirt. Clutching a small, worn satchel as he stands with his family in a line of people boarding a ship.",
+    "aspecto": "",
+    "mirada": "Looking up with a wide-eyed expression at the immense, towering side of the ocean liner.",
+    "objeto": "The boy's small, scuffed leather shoes, standing on the grimy cobblestones of the port.",
+    "lugar_anio": "A crowded dockside, the boy dwarfed by the scale of the ship and the surrounding crowd, 1962.",
+    "estilo": "Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors.",
+    "luz": "Overcast daylight, creating a somber, flat light. Monochromatic tones, with the dark, riveted steel of the ship's hull dominating.",
+    "tecnica": "Medium shot, low angle, deep depth of field.",
+    "texto": "",
+    "cierre": "The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+   },
+   "prompt": "An eight-year-old boy in shorts and a simple shirt. Clutching a small, worn satchel as he stands with his family in a line of people boarding a ship. Looking up with a wide-eyed expression at the immense, towering side of the ocean liner. The boy's small, scuffed leather shoes, standing on the grimy cobblestones of the port. A crowded dockside, the boy dwarfed by the scale of the ship and the surrounding crowd, 1962. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Overcast daylight, creating a somber, flat light. Monochromatic tones, with the dark, riveted steel of the ship's hull dominating. Medium shot, low angle, deep depth of field. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "f8_problemas": [],
+   "hard_fact_ids_fuera": [],
+   "slots": {
+    "subject": "An eight-year-old boy in shorts and a simple shirt.",
+    "action": "Clutching a small, worn satchel as he stands with his family in a line of people boarding a ship.",
+    "gaze_interaction": "Looking up with a wide-eyed expression at the immense, towering side of the ocean liner.",
+    "setting": "A crowded dockside, the boy dwarfed by the scale of the ship and the surrounding crowd.",
+    "color_palette": "Monochromatic tones, with the dark, riveted steel of the ship's hull dominating.",
+    "props_detail": "The boy's small, scuffed leather shoes, standing on the grimy cobblestones of the port.",
+    "shot_scale": "medium",
+    "camera_angle": "low angle",
+    "lens_technique": "deep depth of field",
+    "lighting": "Overcast daylight, creating a somber, flat light.",
+    "mood": "A child's perspective of a momentous, overwhelming event; a sense of being small and swept up in something huge.",
+    "style": "documentary photographic realism, dark-history, faceless",
+    "text_in_image": {
+     "present": false,
+     "text": "",
+     "font": "",
+     "location": ""
+    },
+    "hard_fact_ids": [],
+    "subject_ref": "main_subject",
+    "foto_madre_ref": [],
+    "emotional_rank": "R3",
+    "people_group": [
+     "european_migrant_families",
+     "wittenoom_children"
+    ],
+    "beat": 3,
+    "cerrada": false,
+    "texto_en_imagen": false
+   }
+  },
+  {
+   "foto": 9,
+   "beat": 3,
+   "anio": "1962",
+   "anio_fuente": "2) el de la foto anterior del cap",
+   "people_group": [],
+   "partes": {
+    "sujeto": "A large, mid-century passenger liner. Steaming across the open ocean, its wake trailing behind it for miles.",
+    "aspecto": "",
+    "mirada": "The scene is focused on the vastness of the ocean surrounding the solitary ship.",
+    "objeto": "A plume of dark smoke rising from the ship's funnel and dispersing into the wind.",
+    "lugar_anio": "The middle of the ocean, with no land in sight, under a vast, cloud-streaked sky, 1962.",
+    "estilo": "Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors.",
+    "luz": "Mid-day sun, reflecting brightly off the surface of the water. Endless shades of blue and grey in the water and sky, with the white and black of the ship.",
+    "tecnica": "Extreme wide shot, high angle, aerial, deep depth of field.",
+    "texto": "",
+    "cierre": "The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+   },
+   "prompt": "A large, mid-century passenger liner. Steaming across the open ocean, its wake trailing behind it for miles. The scene is focused on the vastness of the ocean surrounding the solitary ship. A plume of dark smoke rising from the ship's funnel and dispersing into the wind. The middle of the ocean, with no land in sight, under a vast, cloud-streaked sky, 1962. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Mid-day sun, reflecting brightly off the surface of the water. Endless shades of blue and grey in the water and sky, with the white and black of the ship. Extreme wide shot, high angle, aerial, deep depth of field. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "f8_problemas": [],
+   "hard_fact_ids_fuera": [],
+   "slots": {
+    "subject": "A large, mid-century passenger liner.",
+    "action": "Steaming across the open ocean, its wake trailing behind it for miles.",
+    "gaze_interaction": "The scene is focused on the vastness of the ocean surrounding the solitary ship.",
+    "setting": "The middle of the ocean, with no land in sight, under a vast, cloud-streaked sky.",
+    "color_palette": "Endless shades of blue and grey in the water and sky, with the white and black of the ship.",
+    "props_detail": "A plume of dark smoke rising from the ship's funnel and dispersing into the wind.",
+    "shot_scale": "extreme_wide",
+    "camera_angle": "high angle, aerial",
+    "lens_technique": "deep depth of field",
+    "lighting": "Mid-day sun, reflecting brightly off the surface of the water.",
+    "mood": "A profound sense of isolation and the immense scale of the journey undertaken.",
+    "style": "documentary photographic realism, dark-history, faceless",
+    "text_in_image": {
+     "present": false,
+     "text": "",
+     "font": "",
+     "location": ""
+    },
+    "hard_fact_ids": [],
+    "subject_ref": "establishing_shot",
+    "foto_madre_ref": [],
+    "emotional_rank": "R3",
+    "people_group": [],
+    "beat": 3,
+    "cerrada": false,
+    "texto_en_imagen": false
+   }
+  },
+  {
+   "foto": 10,
+   "beat": 3,
+   "anio": "1962",
+   "anio_fuente": "2) el de la foto anterior del cap",
+   "people_group": [
+    "european_migrant_families",
+    "wittenoom_children"
+   ],
+   "partes": {
+    "sujeto": "Passengers of various ages, including an 8-year-old boy, on the deck of a ship. Slumped in deck chairs or leaning against railings, bodies limp from the heat, clothes visibly damp with sweat.",
+    "aspecto": "",
+    "mirada": "Eyes are closed or gazing listlessly at the passing shoreline. A man mops his neck with a handkerchief.",
+    "objeto": "A metal cup of water, condensation dripping down its side, held loosely in a passenger's hand.",
+    "lugar_anio": "The ship navigating the narrow Suez Canal, with flat, sun-scorched sandy banks visible close by, 1962.",
+    "estilo": "Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors.",
+    "luz": "Intense, glaring, high-noon sunlight. Pale yellows and beiges of the desert sand, washed-out blue of the sky, shimmering heat haze.",
+    "tecnica": "Wide shot, eye-level, telephoto lens, compressing the heat haze.",
+    "texto": "",
+    "cierre": "The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+   },
+   "prompt": "Passengers of various ages, including an 8-year-old boy, on the deck of a ship. Slumped in deck chairs or leaning against railings, bodies limp from the heat, clothes visibly damp with sweat. Eyes are closed or gazing listlessly at the passing shoreline. A man mops his neck with a handkerchief. A metal cup of water, condensation dripping down its side, held loosely in a passenger's hand. The ship navigating the narrow Suez Canal, with flat, sun-scorched sandy banks visible close by, 1962. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Intense, glaring, high-noon sunlight. Pale yellows and beiges of the desert sand, washed-out blue of the sky, shimmering heat haze. Wide shot, eye-level, telephoto lens, compressing the heat haze. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "f8_problemas": [],
+   "hard_fact_ids_fuera": [],
+   "slots": {
+    "subject": "Passengers of various ages, including an 8-year-old boy, on the deck of a ship.",
+    "action": "Slumped in deck chairs or leaning against railings, bodies limp from the heat, clothes visibly damp with sweat.",
+    "gaze_interaction": "Eyes are closed or gazing listlessly at the passing shoreline. A man mops his neck with a handkerchief.",
+    "setting": "The ship navigating the narrow Suez Canal, with flat, sun-scorched sandy banks visible close by.",
+    "color_palette": "Pale yellows and beiges of the desert sand, washed-out blue of the sky, shimmering heat haze.",
+    "props_detail": "A metal cup of water, condensation dripping down its side, held loosely in a passenger's hand.",
+    "shot_scale": "wide",
+    "camera_angle": "eye-level",
+    "lens_technique": "telephoto lens, compressing the heat haze",
+    "lighting": "Intense, glaring, high-noon sunlight.",
+    "mood": "A state of oppressive, suffocating heat and exhaustion; the air itself feels thick and heavy.",
+    "style": "documentary photographic realism, dark-history, faceless",
+    "text_in_image": {
+     "present": false,
+     "text": "",
+     "font": "",
+     "location": ""
+    },
+    "hard_fact_ids": [],
+    "subject_ref": "interior_scene",
+    "foto_madre_ref": [],
+    "emotional_rank": "R3",
+    "people_group": [
+     "european_migrant_families",
+     "wittenoom_children"
+    ],
+    "beat": 3,
+    "cerrada": false,
+    "texto_en_imagen": false
+   }
+  },
+  {
+   "foto": 11,
+   "beat": 3,
+   "anio": "1962",
+   "anio_fuente": "2) el de la foto anterior del cap",
+   "people_group": [
+    "wittenoom_children"
+   ],
+   "partes": {
+    "sujeto": "A young Spanish boy, about eight, sitting on a bunk in a cramped cabin. Staring out of a small, round porthole, his reflection faintly visible on the glass.",
+    "aspecto": "",
+    "mirada": "His gaze is fixed on the endlessly moving horizon line, face expressionless.",
+    "objeto": "A single suitcase tucked under the lower bunk, its straps buckled tight.",
+    "lugar_anio": "A small, sparse passenger cabin on a ship, the room gently rocking with the motion of the waves, 1962.",
+    "estilo": "Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors.",
+    "luz": "Dim interior light supplemented by the natural light coming through the single porthole. Dark wood paneling, navy blue of the sea outside, stark white of the bedsheets.",
+    "tecnica": "Medium shot, eye-level, shallow depth of field.",
+    "texto": "",
+    "cierre": "The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+   },
+   "prompt": "A young Spanish boy, about eight, sitting on a bunk in a cramped cabin. Staring out of a small, round porthole, his reflection faintly visible on the glass. His gaze is fixed on the endlessly moving horizon line, face expressionless. A single suitcase tucked under the lower bunk, its straps buckled tight. A small, sparse passenger cabin on a ship, the room gently rocking with the motion of the waves, 1962. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Dim interior light supplemented by the natural light coming through the single porthole. Dark wood paneling, navy blue of the sea outside, stark white of the bedsheets. Medium shot, eye-level, shallow depth of field. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "f8_problemas": [],
+   "hard_fact_ids_fuera": [],
+   "slots": {
+    "subject": "A young Spanish boy, about eight, sitting on a bunk in a cramped cabin.",
+    "action": "Staring out of a small, round porthole, his reflection faintly visible on the glass.",
+    "gaze_interaction": "His gaze is fixed on the endlessly moving horizon line, face expressionless.",
+    "setting": "A small, sparse passenger cabin on a ship, the room gently rocking with the motion of the waves.",
+    "color_palette": "Dark wood paneling, navy blue of the sea outside, stark white of the bedsheets.",
+    "props_detail": "A single suitcase tucked under the lower bunk, its straps buckled tight.",
+    "shot_scale": "medium",
+    "camera_angle": "eye-level",
+    "lens_technique": "shallow depth of field",
+    "lighting": "Dim interior light supplemented by the natural light coming through the single porthole.",
+    "mood": "A feeling of confinement, introspection, and quiet uncertainty; the endless motion is both physical and metaphorical.",
+    "style": "documentary photographic realism, dark-history, faceless",
+    "text_in_image": {
+     "present": false,
+     "text": "",
+     "font": "",
+     "location": ""
+    },
+    "hard_fact_ids": [],
+    "subject_ref": "main_subject",
+    "foto_madre_ref": [],
+    "emotional_rank": "R2",
+    "people_group": [
+     "wittenoom_children"
+    ],
+    "beat": 3,
+    "cerrada": false,
+    "texto_en_imagen": false
+   }
+  },
+  {
+   "foto": 12,
+   "beat": 3,
+   "anio": "1962",
+   "anio_fuente": "2) el de la foto anterior del cap",
+   "people_group": [
+    "european_migrant_families"
+   ],
+   "partes": {
+    "sujeto": "A small group of Spanish migrants, including a family with a child. Sitting inside a vibrating aircraft cabin, gripping their armrests as the plane shakes.",
+    "aspecto": "",
+    "mirada": "Looking anxiously out the small windows or at each other, faces showing unease from the turbulence.",
+    "objeto": "A view of the plane's propeller, a spinning blur against the stark desert landscape.",
+    "lugar_anio": "The cramped, utilitarian interior of a 1960s propeller plane, 1962.",
+    "estilo": "Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors.",
+    "luz": "Harsh sunlight flooding through the small, scratched windows. Industrial grays and greens of the cabin interior, bright red-orange of the desert visible outside.",
+    "tecnica": "Medium shot, eye-level, from an adjacent seat, deep depth of field.",
+    "texto": "",
+    "cierre": "The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+   },
+   "prompt": "A small group of Spanish migrants, including a family with a child. Sitting inside a vibrating aircraft cabin, gripping their armrests as the plane shakes. Looking anxiously out the small windows or at each other, faces showing unease from the turbulence. A view of the plane's propeller, a spinning blur against the stark desert landscape. The cramped, utilitarian interior of a 1960s propeller plane, 1962. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Harsh sunlight flooding through the small, scratched windows. Industrial grays and greens of the cabin interior, bright red-orange of the desert visible outside. Medium shot, eye-level, from an adjacent seat, deep depth of field. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "f8_problemas": [],
+   "hard_fact_ids_fuera": [],
+   "slots": {
+    "subject": "A small group of Spanish migrants, including a family with a child.",
+    "action": "Sitting inside a vibrating aircraft cabin, gripping their armrests as the plane shakes.",
+    "gaze_interaction": "Looking anxiously out the small windows or at each other, faces showing unease from the turbulence.",
+    "setting": "The cramped, utilitarian interior of a 1960s propeller plane.",
+    "color_palette": "Industrial grays and greens of the cabin interior, bright red-orange of the desert visible outside.",
+    "props_detail": "A view of the plane's propeller, a spinning blur against the stark desert landscape.",
+    "shot_scale": "medium",
+    "camera_angle": "eye-level, from an adjacent seat",
+    "lens_technique": "deep depth of field",
+    "lighting": "Harsh sunlight flooding through the small, scratched windows.",
+    "mood": "A jarring, rattling transition, a feeling of instability and discomfort after the long sea voyage.",
+    "style": "documentary photographic realism, dark-history, faceless",
+    "text_in_image": {
+     "present": false,
+     "text": "",
+     "font": "",
+     "location": ""
+    },
+    "hard_fact_ids": [],
+    "subject_ref": "interior_scene",
+    "foto_madre_ref": [],
+    "emotional_rank": "R3",
+    "people_group": [
+     "european_migrant_families"
+    ],
+    "beat": 3,
+    "cerrada": false,
+    "texto_en_imagen": false
+   }
+  },
+  {
+   "foto": 13,
+   "beat": 3,
+   "anio": "1962",
+   "anio_fuente": "2) el de la foto anterior del cap",
+   "people_group": [],
+   "partes": {
+    "sujeto": "A vintage twin-propeller aircraft. Landing on an unpaved runway, its wheels throwing up a massive, trailing cloud of red dust.",
+    "aspecto": "",
+    "mirada": "The focus is on the violent interaction between the machine and the alien landscape.",
+    "objeto": "The spinning propellers chopping through the thick cloud of dust.",
+    "lugar_anio": "A rudimentary airstrip in the vast, empty Pilbara desert, surrounded by nothing but red earth and low scrub, 1962.",
+    "estilo": "Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors.",
+    "luz": "Blazing, unfiltered Australian sun. Intense ochre and red of the earth and dust, pale dusty blue sky, silver of the aircraft.",
+    "tecnica": "Extreme wide shot, low angle, deep depth of field.",
+    "texto": "",
+    "cierre": "The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+   },
+   "prompt": "A vintage twin-propeller aircraft. Landing on an unpaved runway, its wheels throwing up a massive, trailing cloud of red dust. The focus is on the violent interaction between the machine and the alien landscape. The spinning propellers chopping through the thick cloud of dust. A rudimentary airstrip in the vast, empty Pilbara desert, surrounded by nothing but red earth and low scrub, 1962. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Blazing, unfiltered Australian sun. Intense ochre and red of the earth and dust, pale dusty blue sky, silver of the aircraft. Extreme wide shot, low angle, deep depth of field. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "f8_problemas": [],
+   "hard_fact_ids_fuera": [
+    "F08"
+   ],
+   "slots": {
+    "subject": "A vintage twin-propeller aircraft.",
+    "action": "Landing on an unpaved runway, its wheels throwing up a massive, trailing cloud of red dust.",
+    "gaze_interaction": "The focus is on the violent interaction between the machine and the alien landscape.",
+    "setting": "A rudimentary airstrip in the vast, empty Pilbara desert, surrounded by nothing but red earth and low scrub.",
+    "color_palette": "Intense ochre and red of the earth and dust, pale dusty blue sky, silver of the aircraft.",
+    "props_detail": "The spinning propellers chopping through the thick cloud of dust.",
+    "shot_scale": "extreme_wide",
+    "camera_angle": "low angle",
+    "lens_technique": "deep depth of field",
+    "lighting": "Blazing, unfiltered Australian sun.",
+    "mood": "A dramatic, dusty arrival in a harsh and desolate new world; the landscape itself feels hostile.",
+    "style": "documentary photographic realism, dark-history, faceless",
+    "text_in_image": {
+     "present": false,
+     "text": "",
+     "font": "",
+     "location": ""
+    },
+    "hard_fact_ids": [
+     "F08"
+    ],
+    "subject_ref": "establishing_shot",
+    "foto_madre_ref": [],
+    "emotional_rank": "R3",
+    "people_group": [],
+    "beat": 3,
+    "cerrada": false,
+    "texto_en_imagen": false
+   }
+  },
+  {
+   "foto": 14,
+   "beat": 3,
+   "anio": "1962",
+   "anio_fuente": "2) el de la foto anterior del cap",
+   "people_group": [
+    "european_migrant_families",
+    "wittenoom_children"
+   ],
+   "partes": {
+    "sujeto": "A Spanish family—man, woman, and young boy—carrying their few belongings. Being led down a dusty track towards a row of identical, stark-looking houses.",
+    "aspecto": "",
+    "mirada": "The boy shields his eyes with his hand, staring at the strange, metallic-looking houses.",
+    "objeto": "A thin layer of fine grey-blue dust coating every surface, including the family's clothes and hair.",
+    "lugar_anio": "A newly-built street in 1962 Wittenoom. The houses are simple structures of corrugated iron, wood, and asbestos cement sheeting, under a dusty sky, 1962.",
+    "estilo": "Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors.",
+    "luz": "Harsh, diffuse daylight filtered through a permanent haze of dust. Red-brown earth, grey of the uralita and iron, faded and sun-bleached wood.",
+    "tecnica": "Wide shot, eye-level, deep depth of field.",
+    "texto": "",
+    "cierre": "The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+   },
+   "prompt": "A Spanish family—man, woman, and young boy—carrying their few belongings. Being led down a dusty track towards a row of identical, stark-looking houses. The boy shields his eyes with his hand, staring at the strange, metallic-looking houses. A thin layer of fine grey-blue dust coating every surface, including the family's clothes and hair. A newly-built street in 1962 Wittenoom. The houses are simple structures of corrugated iron, wood, and asbestos cement sheeting, under a dusty sky, 1962. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Harsh, diffuse daylight filtered through a permanent haze of dust. Red-brown earth, grey of the uralita and iron, faded and sun-bleached wood. Wide shot, eye-level, deep depth of field. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "f8_problemas": [],
+   "hard_fact_ids_fuera": [],
+   "slots": {
+    "subject": "A Spanish family—man, woman, and young boy—carrying their few belongings.",
+    "action": "Being led down a dusty track towards a row of identical, stark-looking houses.",
+    "gaze_interaction": "The boy shields his eyes with his hand, staring at the strange, metallic-looking houses.",
+    "setting": "A newly-built street in 1962 Wittenoom. The houses are simple structures of corrugated iron, wood, and asbestos cement sheeting, under a dusty sky.",
+    "color_palette": "Red-brown earth, grey of the uralita and iron, faded and sun-bleached wood.",
+    "props_detail": "A thin layer of fine grey-blue dust coating every surface, including the family's clothes and hair.",
+    "shot_scale": "wide",
+    "camera_angle": "eye-level",
+    "lens_technique": "deep depth of field",
+    "lighting": "Harsh, diffuse daylight filtered through a permanent haze of dust.",
+    "mood": "A sense of bleakness and uniformity; the promise of a new home confronting a grim, dusty reality.",
+    "style": "documentary photographic realism, dark-history, faceless",
+    "text_in_image": {
+     "present": false,
+     "text": "",
+     "font": "",
+     "location": ""
+    },
+    "hard_fact_ids": [],
+    "subject_ref": "establishing_shot",
+    "foto_madre_ref": [
+     "Wittenoom buildings"
+    ],
+    "emotional_rank": "R3",
+    "people_group": [
+     "european_migrant_families",
+     "wittenoom_children"
+    ],
+    "beat": 3,
+    "cerrada": false,
+    "texto_en_imagen": false
+   }
+  },
+  {
+   "foto": 15,
+   "beat": 3,
+   "anio": "1962",
+   "anio_fuente": "2) el de la foto anterior del cap",
+   "people_group": [],
+   "partes": {
+    "sujeto": "A close-up of blue asbestos tailings. The loose, fibrous mineral is embedded in the ground, its needle-like fibers catching the light.",
+    "aspecto": "",
+    "mirada": "The camera's focus is tight on the texture and color of the raw crocidolite.",
+    "objeto": "A single, sharp-edged rock of raw crocidolite, its fibrous structure clearly visible.",
+    "lugar_anio": "The surface of a yard or pathway in Wittenoom, where the asbestos was used as landfill and surfacing, 1962.",
+    "estilo": "Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors.",
+    "luz": "Direct, harsh sunlight making the fibers glint. A disturbing contrast between the earthy red-ochre soil and the striking blue-grey of the asbestos fibers.",
+    "tecnica": "Detail shot, top-down, macro lens.",
+    "texto": "",
+    "cierre": "The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+   },
+   "prompt": "A close-up of blue asbestos tailings. The loose, fibrous mineral is embedded in the ground, its needle-like fibers catching the light. The camera's focus is tight on the texture and color of the raw crocidolite. A single, sharp-edged rock of raw crocidolite, its fibrous structure clearly visible. The surface of a yard or pathway in Wittenoom, where the asbestos was used as landfill and surfacing, 1962. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Direct, harsh sunlight making the fibers glint. A disturbing contrast between the earthy red-ochre soil and the striking blue-grey of the asbestos fibers. Detail shot, top-down, macro lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "f8_problemas": [],
+   "hard_fact_ids_fuera": [
+    "F08"
+   ],
+   "slots": {
+    "subject": "A close-up of blue asbestos tailings.",
+    "action": "The loose, fibrous mineral is embedded in the ground, its needle-like fibers catching the light.",
+    "gaze_interaction": "The camera's focus is tight on the texture and color of the raw crocidolite.",
+    "setting": "The surface of a yard or pathway in Wittenoom, where the asbestos was used as landfill and surfacing.",
+    "color_palette": "A disturbing contrast between the earthy red-ochre soil and the striking blue-grey of the asbestos fibers.",
+    "props_detail": "A single, sharp-edged rock of raw crocidolite, its fibrous structure clearly visible.",
+    "shot_scale": "detail",
+    "camera_angle": "top-down",
+    "lens_technique": "macro lens",
+    "lighting": "Direct, harsh sunlight making the fibers glint.",
+    "mood": "A clinical, menacing examination of the beautiful but deadly mineral at the heart of the story.",
+    "style": "documentary photographic realism, dark-history, faceless",
+    "text_in_image": {
+     "present": false,
+     "text": "",
+     "font": "",
+     "location": ""
+    },
+    "hard_fact_ids": [
+     "F08"
+    ],
+    "subject_ref": "detail",
+    "foto_madre_ref": [
+     "blue asbestos tailings"
+    ],
+    "emotional_rank": "R2",
+    "people_group": [],
+    "beat": 3,
+    "cerrada": false,
+    "texto_en_imagen": false
+   }
+  },
+  {
+   "foto": 16,
+   "beat": 3,
+   "anio": "1962",
+   "anio_fuente": "2) el de la foto anterior del cap",
+   "people_group": [],
+   "partes": {
+    "sujeto": "A silhouette of a man in a 1940s suit and fedora, seen from behind. Standing motionless, looking out a large window at a distant mining operation.",
+    "aspecto": "",
+    "mirada": "His gaze is fixed on the distant mine, where a faint haze of dust hangs in the air.",
+    "objeto": "A single, official-looking document lying on the desk beside him, the text unreadable.",
+    "lugar_anio": "A sparse, wood-paneled company office, circa 1944. A geological map is partially visible on the wall, 1962.",
+    "estilo": "Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors.",
+    "luz": "Low-key interior lighting, with the figure silhouetted by the bright light from the window. Dark, shadowy browns and blacks of the interior, contrasted with the bright, dusty landscape outside.",
+    "tecnica": "Medium shot, eye-level, deep depth of field.",
+    "texto": "",
+    "cierre": "The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+   },
+   "prompt": "A silhouette of a man in a 1940s suit and fedora, seen from behind. Standing motionless, looking out a large window at a distant mining operation. His gaze is fixed on the distant mine, where a faint haze of dust hangs in the air. A single, official-looking document lying on the desk beside him, the text unreadable. A sparse, wood-paneled company office, circa 1944. A geological map is partially visible on the wall, 1962. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Low-key interior lighting, with the figure silhouetted by the bright light from the window. Dark, shadowy browns and blacks of the interior, contrasted with the bright, dusty landscape outside. Medium shot, eye-level, deep depth of field. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "f8_problemas": [],
+   "hard_fact_ids_fuera": [],
+   "slots": {
+    "subject": "A silhouette of a man in a 1940s suit and fedora, seen from behind.",
+    "action": "Standing motionless, looking out a large window at a distant mining operation.",
+    "gaze_interaction": "His gaze is fixed on the distant mine, where a faint haze of dust hangs in the air.",
+    "setting": "A sparse, wood-paneled company office, circa 1944. A geological map is partially visible on the wall.",
+    "color_palette": "Dark, shadowy browns and blacks of the interior, contrasted with the bright, dusty landscape outside.",
+    "props_detail": "A single, official-looking document lying on the desk beside him, the text unreadable.",
+    "shot_scale": "medium",
+    "camera_angle": "eye-level",
+    "lens_technique": "deep depth of field",
+    "lighting": "Low-key interior lighting, with the figure silhouetted by the bright light from the window.",
+    "mood": "A cold, calculated stillness; the quiet authority of a secret being kept.",
+    "style": "documentary photographic realism, dark-history, faceless",
+    "text_in_image": {
+     "present": false,
+     "text": "",
+     "font": "",
+     "location": ""
+    },
+    "hard_fact_ids": [],
+    "subject_ref": "main_subject",
+    "foto_madre_ref": [],
+    "emotional_rank": "R1",
+    "people_group": [],
+    "beat": 3,
+    "cerrada": false,
+    "texto_en_imagen": false
+   }
+  }
+ ]
+}
