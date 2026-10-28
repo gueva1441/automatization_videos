@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-28 03:25 (F47: C2 medido solo en texto en los caps 5–7 de Wittenoom + D con Claude Fable 5.1 llenando los casilleros, PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-28 03:40 (F47b: Opus 5.5 (E) y Sonnet 5.5 (F) llenando los casilleros contra Fable (D) y Pro (C2), en texto, PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,15 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F47b, PARADA): la comparación de los 4 modelos está en `lab/hyperframes/f47/PROMPTS_F47b.md` (tabla de 10 chequeos y costos). Cada modelo recibió exactamente el mismo pedido, en los caps 2, 5, 6 y 7 (60 fotos). Opus 5.5 (E): el lugar en la prosa en 29/60, gente sin grupo 1, 134 palabras, US$ 0,24–0,31 por cap. Sonnet 5.5 (F): lugar 29/60, sin grupo 6, 143 palabras, US$ 0,12–0,16 por cap. Fable (D): lugar 34/60, sin grupo 6, 178 palabras, mete «no people» en 6 settings, US$ 0,60–1,07 por cap. Pro (C2): lugar 22/60, 6 frases sacadas por F8, US$ 0,09–0,15 por cap. Ningún modelo se negó; nombres reales de personas en la prosa: 0 en los cuatro. Gasto US$ 1,72 (tope 4,00). Elegir modelo es tuyo y del analista; después van las fotos del ganador contra Pro.
+
+## F47b — Opus 5.5 y Sonnet 5.5 contra Fable y Pro, en texto (handoff del analista, 2026-10-28 03:22) — HECHA, **PARADA**
+- Handoff `lab/hyperframes/f47/HANDOFF_F47b_opus_sonnet.md` (md5 `90bc49e6…` ✓). Paso 0 `fc72ed8` (DECISIONES 03:19).
+- Lab: `f47b_corridas.py` importa `f47_corridas`, con `LAB_ID` `f47b-lab`, tope 4,00 y E/F en `MODELOS`. En `f47_corridas.py`, `MODELOS[var]` reemplaza a `MODELO_D`; D no cambia.
+- 8 llamadas en paralelo, todas ok al 1.er intento; pedido de E y F = pedido de D (md5) en los 4 caps. Chequeos nuevos: 9 (año del setting ≠ año de la foto) y 10 (negaciones en el setting).
+- US$ 1,7210 (E 1,13, F 0,59; cost_history `f47b-lab`). Suites: rápida 55; amplia 918 + 5 (las mismas de F47). Candado de ch02 no corrido.
+- Abierto k1–k11 en `F47b_REPORT.md`: una corrida por modelo; los arreglos de F47 siguen pendientes; el effort `high` no es equivalente entre modelos.
 
 ## 👀 Para Omar (F47, PARADA): la tabla está en `lab/hyperframes/f47/PROMPTS_F47.md` (los prompts C2 | D enteros, foto por foto, de los caps 2, 5, 6 y 7 de Wittenoom, y la tabla de los 8 chequeos). Solo texto: cero fotos. Lo principal: el canon es uno por video (1937-2007), así que las 12 fotos del cap 7 y 2 del cap 6 (2016–2024) quedan fuera de época; ningún grupo de gente es Banjima; Fable (D) nombra el lugar más seguido y escribe prompts más largos, pero repite el año en 47 de 60 fotos y mete «no people» en el setting. Gasto US$ 3,68 (tope 6,00): Fable US$ 3,31, Pro 0,37. Fable no se negó ni rompió el JSON. Elegir variante es tuyo y del analista.
 

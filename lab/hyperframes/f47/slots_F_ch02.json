@@ -1,0 +1,961 @@
+{
+ "var": "F",
+ "cap": 2,
+ "items": [
+  {
+   "subject": "a slim Spanish man in his late 20s in a dark suit and a Spanish woman in her mid-20s in a tea-length dress, among many dancing couples",
+   "action": "turn slowly on the dance floor, heads inclined toward each other as they meet",
+   "gaze_interaction": "their eyes held on each other, bodies turned in toward one another, the rest of the room a blur",
+   "setting": "grand ballroom of the Círculo de Bellas Artes, Madrid, September 1961, polished parquet, gilded cornices, tall draped windows",
+   "color_palette": "warm gold, ivory, deep red velvet, sepia-toned shadows",
+   "props_detail": "a crystal chandelier glowing above the dance floor",
+   "shot_scale": "wide",
+   "camera_angle": "high angle from the balcony",
+   "lens_technique": "35mm lens, deep depth of field",
+   "lighting": "soft warm chandelier light, even and steady",
+   "mood": "warm amber glow, couples swaying in unhurried rhythm, calm and tender",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [
+    "european_migrant_families"
+   ],
+   "narration_anchor": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal.",
+   "beat": 2,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "a Spanish couple, the man in a dark suit and the woman in a simple pale suit with a small hat, with a few relatives around them",
+   "action": "descend the stone steps of a parish church in Madrid after their wedding on a Thursday morning",
+   "gaze_interaction": "the couple walk close together, the woman's arm tucked into his, both looking ahead toward the street",
+   "setting": "worn stone façade of a modest Madrid parish church, September 1962, cobbled street, a few relatives gathered on the steps",
+   "color_palette": "pale limestone, muted grey-brown, soft ivory, dark wool suits",
+   "props_detail": "a small bouquet of white flowers carried against the woman's pale suit",
+   "shot_scale": "wide",
+   "camera_angle": "eye-level",
+   "lens_technique": "50mm lens, deep depth of field",
+   "lighting": "soft overcast morning daylight",
+   "mood": "quiet, even light, small figures framed by the heavy stone doorway, unhurried",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "establishing_shot",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [
+    "european_migrant_families"
+   ],
+   "narration_anchor": "Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos.",
+   "beat": 2,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "hundreds of Spanish emigrants with cardboard suitcases and bundles, filling the quay beside a large passenger liner",
+   "action": "queue along the quay and file up the gangway to board the ship",
+   "gaze_interaction": "most figures seen from behind or from above, faces turned up toward the ship's tall hull",
+   "setting": "harbor quay at Málaga, 1962, a steel ocean liner moored against the stone dock, cranes and crates behind",
+   "color_palette": "grey-blue sea haze, black hull, sun-faded brown and grey clothing, rust-red crane iron",
+   "props_detail": "a worn cardboard suitcase tied with cord in the foreground of the queue",
+   "shot_scale": "extreme_wide",
+   "camera_angle": "high angle from the quay crane",
+   "lens_technique": "28mm lens, deep depth of field",
+   "lighting": "early morning haze, flat soft light",
+   "mood": "slow dense line of small figures beneath a towering hull, hazy early light, steady and observational",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "establishing_shot",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [
+    "european_migrant_families"
+   ],
+   "narration_anchor": "Cuatro días más tarde ya están en el barco. Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles.",
+   "beat": 2,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "a young Spanish couple seen from behind, the man in a worn jacket and the woman in a cotton dress",
+   "action": "stand together at the ship's rail looking out at the open sea",
+   "gaze_interaction": "both look out toward the empty horizon, her shoulder pressed against his arm",
+   "setting": "upper deck of a passenger liner at sea, 1962, painted steel rail, coiled ropes, lifeboat davits",
+   "color_palette": "deep blue sea, burnished gold sky, dark silhouettes, white painted steel",
+   "props_detail": "a small canvas bag hanging from the man's shoulder",
+   "shot_scale": "wide",
+   "camera_angle": "eye-level from behind",
+   "lens_technique": "50mm lens, deep depth of field",
+   "lighting": "low golden hour sun, long rim light",
+   "mood": "rim-lit silhouettes close together before an empty horizon, calm sea, quiet",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [
+    "european_migrant_families"
+   ],
+   "narration_anchor": "De Wittenoom no saben nada; saben que hay trabajo y que van juntos.",
+   "beat": 2,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "a collection of old sepia family photographs of a young couple standing close together",
+   "action": "rest on a lace-covered table, the nearest photo showing the couple pressed side by side",
+   "gaze_interaction": "the focal direction falls on the central photograph, the figures within it leaning into one another",
+   "setting": "a modest Madrid apartment interior, embroidered lace cloth on a wooden table beside a window",
+   "color_palette": "sepia brown, cream, faded ivory, soft amber wood",
+   "props_detail": "a framed wedding photograph propped among loose snapshots with curled edges",
+   "shot_scale": "detail",
+   "camera_angle": "high angle looking down at the table",
+   "lens_technique": "85mm lens, shallow depth of field",
+   "lighting": "soft window light from one side, gentle fall-off",
+   "mood": "warm dust-free window light on aged paper, still and intimate",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "interior_scene",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "«Iba pegadita a mi marido, como una niña», recuerda su mujer.",
+   "beat": 2,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "two young Spanish couples from Madrid, the men in work shirts and the women in faded cotton dresses, seated together at a small table",
+   "action": "share a table and mugs on a shaded porch as friends in the evening",
+   "gaze_interaction": "figures turned toward one another around the table, one woman gesturing as she speaks, the rest listening",
+   "setting": "shaded porch of a small corrugated-iron and wood house in Wittenoom, 1962, red earth yard, tin roof edge",
+   "color_palette": "red earth, ochre, faded grey tin, warm brown shadow",
+   "props_detail": "enamel mugs and a battered tin teapot on the table",
+   "shot_scale": "wide",
+   "camera_angle": "eye-level from the yard",
+   "lens_technique": "35mm lens, deep depth of field",
+   "lighting": "warm late afternoon light under the porch roof",
+   "mood": "warm light on red earth, relaxed posture, heads close across the table",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [
+    "european_migrant_families"
+   ],
+   "narration_anchor": "Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan. Esa familia madrileña había hecho el mismo viaje un mes antes.",
+   "beat": 2,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "a Spanish boy of about 8, thin, in a short-sleeved shirt and shorts, small against the ship's deck",
+   "action": "leans on the ship's rail in the white heat, shirt stuck to his back with sweat",
+   "gaze_interaction": "he looks out over the shimmering sea, face turned partly away from the camera",
+   "setting": "open deck of a liner crossing the tropics, 1962, scorched steel plates, funnel and lifeboat behind",
+   "color_palette": "bleached white steel, hard blue sea, pale sandy sky, dark sweat-soaked cotton",
+   "props_detail": "a damp folded cloth in the boy's hand beside the rail",
+   "shot_scale": "wide",
+   "camera_angle": "eye-level",
+   "lens_technique": "35mm lens, deep depth of field",
+   "lighting": "hard overhead midday sun, short shadows, heat haze on the deck",
+   "mood": "glare off steel plates, heat shimmer over the sea, a small figure alone in bright space",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [
+    "wittenoom_children"
+   ],
+   "narration_anchor": "Un niño que hizo ese viaje todavía recuerda el calor.",
+   "beat": 2,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "a Spanish family from behind: a mother in a plain dress, a father in a worn jacket, and a small boy holding her skirt",
+   "action": "climb the gangway of the liner at Málaga with their suitcases",
+   "gaze_interaction": "all face up the gangway toward the ship's dark doorway, the boy glancing back once over his shoulder",
+   "setting": "gangway of a passenger liner at Málaga harbor, 1962, quay and warehouses below, gulls overhead",
+   "color_palette": "dark hull steel, faded brown clothing, pale grey-blue harbor haze",
+   "props_detail": "a tied cardboard suitcase carried by the father",
+   "shot_scale": "wide",
+   "camera_angle": "eye-level from the quay behind them",
+   "lens_technique": "50mm lens, deep depth of field",
+   "lighting": "flat overcast morning light",
+   "mood": "small family dwarfed by the black hull, hazy flat light, slow steady climb",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [
+    "european_migrant_families",
+    "wittenoom_children"
+   ],
+   "narration_anchor": "Víctor Calvo era un niño cuando subió a ese barco.",
+   "beat": 3,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "a large passenger liner alone on the open ocean",
+   "action": "steams steadily across the sea, leaving a long straight wake",
+   "gaze_interaction": "the focal direction runs along the wake toward the distant ship, no figures visible",
+   "setting": "open ocean, 1962, endless water on all sides, a thin line of smoke from the funnel",
+   "color_palette": "deep teal sea, pale hazy sky, white foam, black hull",
+   "props_detail": "a long white wake stretching behind the ship",
+   "shot_scale": "extreme_wide",
+   "camera_angle": "high angle",
+   "lens_technique": "24mm lens, deep depth of field",
+   "lighting": "flat midday sun through haze",
+   "mood": "vast flat water, the ship tiny and unhurried under a pale empty sky",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "«Salimos de Málaga y tardamos más de 20 días en llegar en barco a Australia», dice Calvo.",
+   "beat": 3,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "a passenger liner in the narrow Suez Canal between low sand banks",
+   "action": "glides slowly through the canal under blazing heat",
+   "gaze_interaction": "focal line follows the canal straight to the shimmering horizon, a few small figures watching from the bank",
+   "setting": "Suez Canal, 1962, flat desert banks, a distant palm and low buildings, ship funnel above the sand",
+   "color_palette": "bleached sand, pale brass sky, dull green water, white hull",
+   "props_detail": "heat haze rippling above the sand bank",
+   "shot_scale": "extreme_wide",
+   "camera_angle": "high angle",
+   "lens_technique": "telephoto 135mm lens, compressed perspective",
+   "lighting": "harsh white midday sun, heat shimmer",
+   "mood": "glaring white light, rippling heat haze, narrow water through empty sand",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Recuerda el canal de Suez y el calor que hacía ahí, un calor que todavía lo hace resoplar cuando lo cuenta.",
+   "beat": 3,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "a Spanish family of a mother, father and small boy in the shade of a liner's deck, sweat-darkened clothes clinging to them",
+   "action": "sit slumped on deck chairs and suitcases, the mother with her head against the bulkhead, the father staring out to sea, the boy curled with his cheek on a case",
+   "gaze_interaction": "the father's gaze goes out toward the empty sea, the mother's eyes closed, the boy's face half hidden against the suitcase",
+   "setting": "shaded section of a liner's lower deck under a canvas awning, 1962, bulkhead, coiled rope, a bucket",
+   "color_palette": "dull grey steel, faded cotton browns, pale hazy blue light, damp salt stains",
+   "props_detail": "a battered suitcase serving as the boy's pillow",
+   "shot_scale": "medium",
+   "camera_angle": "eye-level",
+   "lens_technique": "50mm lens, shallow depth of field",
+   "lighting": "dim diffused light under the awning, hot glare beyond",
+   "mood": "slumped bodies, damp clinging shirts, sea haze beyond the awning, heavy stillness",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R1",
+   "people_group": [
+    "european_migrant_families",
+    "wittenoom_children"
+   ],
+   "narration_anchor": "Recuerda los mareos. Y la incertidumbre: no saber muy bien adónde iban ni cómo iban a vivir.",
+   "beat": 3,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "a small twin-engine propeller aircraft flying low over red desert",
+   "action": "flies on with its wings rocking in the rough air, a thin trail of dust below",
+   "gaze_interaction": "the focal line follows the plane across the empty red land toward a distant pale strip",
+   "setting": "sky above the Pilbara desert in Western Australia, 1962, red earth, scattered scrub, low rocky hills",
+   "color_palette": "deep red earth, dusty blue sky, silver fuselage, ochre haze",
+   "props_detail": "blurred propellers and a pale shadow racing over the red ground",
+   "shot_scale": "extreme_wide",
+   "camera_angle": "high angle looking down on the aircraft",
+   "lens_technique": "telephoto 200mm lens, slight motion blur on propellers",
+   "lighting": "harsh midday sun, strong shadows",
+   "mood": "small craft over huge red land, unsteady wings, hard dry light",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "establishing_shot",
+   "foto_madre_ref": [],
+   "emotional_rank": "R2",
+   "people_group": [],
+   "narration_anchor": "Después del barco, un avión pequeño, de hélices, que se sacude durante todo el vuelo.",
+   "beat": 3,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "a small propeller aircraft just landed on a bare airstrip, with a few migrant passengers in dusty clothes stepping onto the strip",
+   "action": "rolls to a stop as a thick cloud of red dust rises and drifts over the strip and the scrub",
+   "gaze_interaction": "the passengers look out across the flat red ground toward a few low roofs in the distance",
+   "setting": "airstrip at Wittenoom in the Pilbara desert, Western Australia, 1962, flat red earth, scrub, a low ridge, strip faintly tinged blue-grey under the red dust",
+   "color_palette": "deep red earth, ochre dust, dusty blue sky, faint grey-blue tinge on the strip",
+   "props_detail": "a thick plume of red dust hanging in the air behind the aircraft",
+   "shot_scale": "wide",
+   "camera_angle": "low angle",
+   "lens_technique": "35mm lens, deep depth of field",
+   "lighting": "hard midday sun filtered through dust",
+   "mood": "dust hanging in bright air, tiny figures on a vast red plain, a silence after the engines",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F08"
+   ],
+   "subject_ref": "establishing_shot",
+   "foto_madre_ref": [],
+   "emotional_rank": "R2",
+   "people_group": [
+    "european_migrant_families"
+   ],
+   "narration_anchor": "Aterriza en una pista en medio de una tierra muy roja, en el desierto de Pilbara, en Australia Occidental. Hay polvo por todas partes.",
+   "beat": 3,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "a Spanish family in dusty clothes, from behind, with a small boy between his parents",
+   "action": "walk along a red dirt road toward a row of small houses with their suitcases",
+   "gaze_interaction": "all face toward the row of low houses, the boy looking up at the dust blowing across the road",
+   "setting": "street of Wittenoom, 1962, small houses of corrugated iron, wood and asbestos cement sheeting, red earth yards, an active town with parked trucks",
+   "color_palette": "red earth, ochre, faded grey tin, weathered brown timber, faint blue-grey in the road surface",
+   "props_detail": "a dust-coated suitcase carried by the father",
+   "shot_scale": "wide",
+   "camera_angle": "eye-level from behind",
+   "lens_technique": "35mm lens, deep depth of field",
+   "lighting": "hard afternoon sun, dust haze",
+   "mood": "dust drifting across the road, small figures before rows of low tin roofs, hard dry light",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F08"
+   ],
+   "subject_ref": "establishing_shot",
+   "foto_madre_ref": [],
+   "emotional_rank": "R2",
+   "people_group": [
+    "european_migrant_families",
+    "wittenoom_children"
+   ],
+   "narration_anchor": "Ese niño cuenta que nunca había visto tanto polvo. Los llevan a las casas: chapa, madera y uralita.",
+   "beat": 3,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "blue-grey asbestos tailings heaped beside an ore mill at the edge of the town",
+   "action": "spread out in heaps as the wind lifts fine dust off them and a heavy truck rolls past",
+   "gaze_interaction": "the focal line runs from the foreground heaps toward the distant mill and the red hills",
+   "setting": "mining area at Wittenoom, early 1960s, a dusty industrial mill with corrugated walls, red desert earth, hills behind",
+   "color_palette": "blue-grey tailings against deep red earth, rust browns, dusty blue sky",
+   "props_detail": "a loaded truck raising a pale plume of dust beside the heaps",
+   "shot_scale": "wide",
+   "camera_angle": "low angle",
+   "lens_technique": "28mm lens, deep depth of field",
+   "lighting": "hard midday sun, clear shadows, dust glow",
+   "mood": "pale dust drifting over red earth, the mill silent and large, harsh clear sky",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F01"
+   ],
+   "subject_ref": "establishing_shot",
+   "foto_madre_ref": [
+    "blue asbestos tailings"
+   ],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "De esa tierra sacan crocidolita, el asbesto azul, un mineral que se paga bien porque aguanta el calor y no se gasta.",
+   "beat": 3,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "a Spanish woman in her mid-20s in a faded cotton dress, dust on her skin and hair, with her small boy playing at her feet",
+   "action": "sweeps pale blue-grey dust off the porch step into the street while the boy plays in the dust",
+   "gaze_interaction": "she looks straight toward the camera with a calm, squinting gaze while the dust keeps settling behind her",
+   "setting": "porch of a small corrugated-iron and wood house in Wittenoom, 1962, yard and road surfaced with blue-grey tailings over red earth",
+   "color_palette": "red earth, ochre, faded tin grey, pale blue-grey dust on every surface",
+   "props_detail": "a worn straw broom and a thin film of blue-grey dust coating the porch boards",
+   "shot_scale": "medium",
+   "camera_angle": "eye-level",
+   "lens_technique": "50mm lens, moderate depth of field",
+   "lighting": "hard afternoon sun with dust glowing in the air",
+   "mood": "dust lit in the air, grime on skin and hem, a boy's small footprints in pale dust, silence",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F08"
+   ],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R1",
+   "people_group": [
+    "european_migrant_families",
+    "wittenoom_children"
+   ],
+   "narration_anchor": "Nadie les dijo qué era el polvo. La compañía lo sabía desde hacía dieciocho años.",
+   "beat": 3,
+   "cerrada": false,
+   "texto_en_imagen": false
+  }
+ ],
+ "estado": "ok",
+ "pedidos": [
+  {
+   "intento": 1,
+   "md5_system": "65d7f452791646498666e4371f50afd5",
+   "md5_user": "fb15ec01273e9334632474d623e08f7a",
+   "md5_schema": "bcb706ab4fd6094eec15a20e1c4bdcee"
+  }
+ ],
+ "crudos": [
+  {
+   "intento": 1,
+   "segundos": 84.0,
+   "respuesta": {
+    "image_prompts": [
+     {
+      "subject": "a slim Spanish man in his late 20s in a dark suit and a Spanish woman in her mid-20s in a tea-length dress, among many dancing couples",
+      "action": "turn slowly on the dance floor, heads inclined toward each other as they meet",
+      "gaze_interaction": "their eyes held on each other, bodies turned in toward one another, the rest of the room a blur",
+      "setting": "grand ballroom of the Círculo de Bellas Artes, Madrid, September 1961, polished parquet, gilded cornices, tall draped windows",
+      "color_palette": "warm gold, ivory, deep red velvet, sepia-toned shadows",
+      "props_detail": "a crystal chandelier glowing above the dance floor",
+      "shot_scale": "wide",
+      "camera_angle": "high angle from the balcony",
+      "lens_technique": "35mm lens, deep depth of field",
+      "lighting": "soft warm chandelier light, even and steady",
+      "mood": "warm amber glow, couples swaying in unhurried rhythm, calm and tender",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": [
+       "european_migrant_families"
+      ]
+     },
+     {
+      "subject": "a Spanish couple, the man in a dark suit and the woman in a simple pale suit with a small hat, with a few relatives around them",
+      "action": "descend the stone steps of a parish church in Madrid after their wedding on a Thursday morning",
+      "gaze_interaction": "the couple walk close together, the woman's arm tucked into his, both looking ahead toward the street",
+      "setting": "worn stone façade of a modest Madrid parish church, September 1962, cobbled street, a few relatives gathered on the steps",
+      "color_palette": "pale limestone, muted grey-brown, soft ivory, dark wool suits",
+      "props_detail": "a small bouquet of white flowers carried against the woman's pale suit",
+      "shot_scale": "wide",
+      "camera_angle": "eye-level",
+      "lens_technique": "50mm lens, deep depth of field",
+      "lighting": "soft overcast morning daylight",
+      "mood": "quiet, even light, small figures framed by the heavy stone doorway, unhurried",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "establishing_shot",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": [
+       "european_migrant_families"
+      ]
+     },
+     {
+      "subject": "hundreds of Spanish emigrants with cardboard suitcases and bundles, filling the quay beside a large passenger liner",
+      "action": "queue along the quay and file up the gangway to board the ship",
+      "gaze_interaction": "most figures seen from behind or from above, faces turned up toward the ship's tall hull",
+      "setting": "harbor quay at Málaga, 1962, a steel ocean liner moored against the stone dock, cranes and crates behind",
+      "color_palette": "grey-blue sea haze, black hull, sun-faded brown and grey clothing, rust-red crane iron",
+      "props_detail": "a worn cardboard suitcase tied with cord in the foreground of the queue",
+      "shot_scale": "extreme_wide",
+      "camera_angle": "high angle from the quay crane",
+      "lens_technique": "28mm lens, deep depth of field",
+      "lighting": "early morning haze, flat soft light",
+      "mood": "slow dense line of small figures beneath a towering hull, hazy early light, steady and observational",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "establishing_shot",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": [
+       "european_migrant_families"
+      ]
+     },
+     {
+      "subject": "a young Spanish couple seen from behind, the man in a worn jacket and the woman in a cotton dress",
+      "action": "stand together at the ship's rail looking out at the open sea",
+      "gaze_interaction": "both look out toward the empty horizon, her shoulder pressed against his arm",
+      "setting": "upper deck of a passenger liner at sea, 1962, painted steel rail, coiled ropes, lifeboat davits",
+      "color_palette": "deep blue sea, burnished gold sky, dark silhouettes, white painted steel",
+      "props_detail": "a small canvas bag hanging from the man's shoulder",
+      "shot_scale": "wide",
+      "camera_angle": "eye-level from behind",
+      "lens_technique": "50mm lens, deep depth of field",
+      "lighting": "low golden hour sun, long rim light",
+      "mood": "rim-lit silhouettes close together before an empty horizon, calm sea, quiet",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": [
+       "european_migrant_families"
+      ]
+     },
+     {
+      "subject": "a collection of old sepia family photographs of a young couple standing close together",
+      "action": "rest on a lace-covered table, the nearest photo showing the couple pressed side by side",
+      "gaze_interaction": "the focal direction falls on the central photograph, the figures within it leaning into one another",
+      "setting": "a modest Madrid apartment interior, embroidered lace cloth on a wooden table beside a window",
+      "color_palette": "sepia brown, cream, faded ivory, soft amber wood",
+      "props_detail": "a framed wedding photograph propped among loose snapshots with curled edges",
+      "shot_scale": "detail",
+      "camera_angle": "high angle looking down at the table",
+      "lens_technique": "85mm lens, shallow depth of field",
+      "lighting": "soft window light from one side, gentle fall-off",
+      "mood": "warm dust-free window light on aged paper, still and intimate",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "interior_scene",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "two young Spanish couples from Madrid, the men in work shirts and the women in faded cotton dresses, seated together at a small table",
+      "action": "share a table and mugs on a shaded porch as friends in the evening",
+      "gaze_interaction": "figures turned toward one another around the table, one woman gesturing as she speaks, the rest listening",
+      "setting": "shaded porch of a small corrugated-iron and wood house in Wittenoom, 1962, red earth yard, tin roof edge",
+      "color_palette": "red earth, ochre, faded grey tin, warm brown shadow",
+      "props_detail": "enamel mugs and a battered tin teapot on the table",
+      "shot_scale": "wide",
+      "camera_angle": "eye-level from the yard",
+      "lens_technique": "35mm lens, deep depth of field",
+      "lighting": "warm late afternoon light under the porch roof",
+      "mood": "warm light on red earth, relaxed posture, heads close across the table",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": [
+       "european_migrant_families"
+      ]
+     },
+     {
+      "subject": "a Spanish boy of about 8, thin, in a short-sleeved shirt and shorts, small against the ship's deck",
+      "action": "leans on the ship's rail in the white heat, shirt stuck to his back with sweat",
+      "gaze_interaction": "he looks out over the shimmering sea, face turned partly away from the camera",
+      "setting": "open deck of a liner crossing the tropics, 1962, scorched steel plates, funnel and lifeboat behind",
+      "color_palette": "bleached white steel, hard blue sea, pale sandy sky, dark sweat-soaked cotton",
+      "props_detail": "a damp folded cloth in the boy's hand beside the rail",
+      "shot_scale": "wide",
+      "camera_angle": "eye-level",
+      "lens_technique": "35mm lens, deep depth of field",
+      "lighting": "hard overhead midday sun, short shadows, heat haze on the deck",
+      "mood": "glare off steel plates, heat shimmer over the sea, a small figure alone in bright space",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": [
+       "wittenoom_children"
+      ]
+     },
+     {
+      "subject": "a Spanish family from behind: a mother in a plain dress, a father in a worn jacket, and a small boy holding her skirt",
+      "action": "climb the gangway of the liner at Málaga with their suitcases",
+      "gaze_interaction": "all face up the gangway toward the ship's dark doorway, the boy glancing back once over his shoulder",
+      "setting": "gangway of a passenger liner at Málaga harbor, 1962, quay and warehouses below, gulls overhead",
+      "color_palette": "dark hull steel, faded brown clothing, pale grey-blue harbor haze",
+      "props_detail": "a tied cardboard suitcase carried by the father",
+      "shot_scale": "wide",
+      "camera_angle": "eye-level from the quay behind them",
+      "lens_technique": "50mm lens, deep depth of field",
+      "lighting": "flat overcast morning light",
+      "mood": "small family dwarfed by the black hull, hazy flat light, slow steady climb",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": [
+       "european_migrant_families",
+       "wittenoom_children"
+      ]
+     },
+     {
+      "subject": "a large passenger liner alone on the open ocean",
+      "action": "steams steadily across the sea, leaving a long straight wake",
+      "gaze_interaction": "the focal direction runs along the wake toward the distant ship, no figures visible",
+      "setting": "open ocean, 1962, endless water on all sides, a thin line of smoke from the funnel",
+      "color_palette": "deep teal sea, pale hazy sky, white foam, black hull",
+      "props_detail": "a long white wake stretching behind the ship",
+      "shot_scale": "extreme_wide",
+      "camera_angle": "high angle",
+      "lens_technique": "24mm lens, deep depth of field",
+      "lighting": "flat midday sun through haze",
+      "mood": "vast flat water, the ship tiny and unhurried under a pale empty sky",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "a passenger liner in the narrow Suez Canal between low sand banks",
+      "action": "glides slowly through the canal under blazing heat",
+      "gaze_interaction": "focal line follows the canal straight to the shimmering horizon, a few small figures watching from the bank",
+      "setting": "Suez Canal, 1962, flat desert banks, a distant palm and low buildings, ship funnel above the sand",
+      "color_palette": "bleached sand, pale brass sky, dull green water, white hull",
+      "props_detail": "heat haze rippling above the sand bank",
+      "shot_scale": "extreme_wide",
+      "camera_angle": "high angle",
+      "lens_technique": "telephoto 135mm lens, compressed perspective",
+      "lighting": "harsh white midday sun, heat shimmer",
+      "mood": "glaring white light, rippling heat haze, narrow water through empty sand",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "a Spanish family of a mother, father and small boy in the shade of a liner's deck, sweat-darkened clothes clinging to them",
+      "action": "sit slumped on deck chairs and suitcases, the mother with her head against the bulkhead, the father staring out to sea, the boy curled with his cheek on a case",
+      "gaze_interaction": "the father's gaze goes out toward the empty sea, the mother's eyes closed, the boy's face half hidden against the suitcase",
+      "setting": "shaded section of a liner's lower deck under a canvas awning, 1962, bulkhead, coiled rope, a bucket",
+      "color_palette": "dull grey steel, faded cotton browns, pale hazy blue light, damp salt stains",
+      "props_detail": "a battered suitcase serving as the boy's pillow",
+      "shot_scale": "medium",
+      "camera_angle": "eye-level",
+      "lens_technique": "50mm lens, shallow depth of field",
+      "lighting": "dim diffused light under the awning, hot glare beyond",
+      "mood": "slumped bodies, damp clinging shirts, sea haze beyond the awning, heavy stillness",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R1",
+      "people_group": [
+       "european_migrant_families",
+       "wittenoom_children"
+      ]
+     },
+     {
+      "subject": "a small twin-engine propeller aircraft flying low over red desert",
+      "action": "flies on with its wings rocking in the rough air, a thin trail of dust below",
+      "gaze_interaction": "the focal line follows the plane across the empty red land toward a distant pale strip",
+      "setting": "sky above the Pilbara desert in Western Australia, 1962, red earth, scattered scrub, low rocky hills",
+      "color_palette": "deep red earth, dusty blue sky, silver fuselage, ochre haze",
+      "props_detail": "blurred propellers and a pale shadow racing over the red ground",
+      "shot_scale": "extreme_wide",
+      "camera_angle": "high angle looking down on the aircraft",
+      "lens_technique": "telephoto 200mm lens, slight motion blur on propellers",
+      "lighting": "harsh midday sun, strong shadows",
+      "mood": "small craft over huge red land, unsteady wings, hard dry light",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "establishing_shot",
+      "foto_madre_ref": [],
+      "emotional_rank": "R2",
+      "people_group": []
+     },
+     {
+      "subject": "a small propeller aircraft just landed on a bare airstrip, with a few migrant passengers in dusty clothes stepping onto the strip",
+      "action": "rolls to a stop as a thick cloud of red dust rises and drifts over the strip and the scrub",
+      "gaze_interaction": "the passengers look out across the flat red ground toward a few low roofs in the distance",
+      "setting": "airstrip at Wittenoom in the Pilbara desert, Western Australia, 1962, flat red earth, scrub, a low ridge, strip faintly tinged blue-grey under the red dust",
+      "color_palette": "deep red earth, ochre dust, dusty blue sky, faint grey-blue tinge on the strip",
+      "props_detail": "a thick plume of red dust hanging in the air behind the aircraft",
+      "shot_scale": "wide",
+      "camera_angle": "low angle",
+      "lens_technique": "35mm lens, deep depth of field",
+      "lighting": "hard midday sun filtered through dust",
+      "mood": "dust hanging in bright air, tiny figures on a vast red plain, a silence after the engines",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F08"
+      ],
+      "subject_ref": "establishing_shot",
+      "foto_madre_ref": [],
+      "emotional_rank": "R2",
+      "people_group": [
+       "european_migrant_families"
+      ]
+     },
+     {
+      "subject": "a Spanish family in dusty clothes, from behind, with a small boy between his parents",
+      "action": "walk along a red dirt road toward a row of small houses with their suitcases",
+      "gaze_interaction": "all face toward the row of low houses, the boy looking up at the dust blowing across the road",
+      "setting": "street of Wittenoom, 1962, small houses of corrugated iron, wood and asbestos cement sheeting, red earth yards, an active town with parked trucks",
+      "color_palette": "red earth, ochre, faded grey tin, weathered brown timber, faint blue-grey in the road surface",
+      "props_detail": "a dust-coated suitcase carried by the father",
+      "shot_scale": "wide",
+      "camera_angle": "eye-level from behind",
+      "lens_technique": "35mm lens, deep depth of field",
+      "lighting": "hard afternoon sun, dust haze",
+      "mood": "dust drifting across the road, small figures before rows of low tin roofs, hard dry light",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F08"
+      ],
+      "subject_ref": "establishing_shot",
+      "foto_madre_ref": [],
+      "emotional_rank": "R2",
+      "people_group": [
+       "european_migrant_families",
+       "wittenoom_children"
+      ]
+     },
+     {
+      "subject": "blue-grey asbestos tailings heaped beside an ore mill at the edge of the town",
+      "action": "spread out in heaps as the wind lifts fine dust off them and a heavy truck rolls past",
+      "gaze_interaction": "the focal line runs from the foreground heaps toward the distant mill and the red hills",
+      "setting": "mining area at Wittenoom, early 1960s, a dusty industrial mill with corrugated walls, red desert earth, hills behind",
+      "color_palette": "blue-grey tailings against deep red earth, rust browns, dusty blue sky",
+      "props_detail": "a loaded truck raising a pale plume of dust beside the heaps",
+      "shot_scale": "wide",
+      "camera_angle": "low angle",
+      "lens_technique": "28mm lens, deep depth of field",
+      "lighting": "hard midday sun, clear shadows, dust glow",
+      "mood": "pale dust drifting over red earth, the mill silent and large, harsh clear sky",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F01"
+      ],
+      "subject_ref": "establishing_shot",
+      "foto_madre_ref": [
+       "blue asbestos tailings"
+      ],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "a Spanish woman in her mid-20s in a faded cotton dress, dust on her skin and hair, with her small boy playing at her feet",
+      "action": "sweeps pale blue-grey dust off the porch step into the street while the boy plays in the dust",
+      "gaze_interaction": "she looks straight toward the camera with a calm, squinting gaze while the dust keeps settling behind her",
+      "setting": "porch of a small corrugated-iron and wood house in Wittenoom, 1962, yard and road surfaced with blue-grey tailings over red earth",
+      "color_palette": "red earth, ochre, faded tin grey, pale blue-grey dust on every surface",
+      "props_detail": "a worn straw broom and a thin film of blue-grey dust coating the porch boards",
+      "shot_scale": "medium",
+      "camera_angle": "eye-level",
+      "lens_technique": "50mm lens, moderate depth of field",
+      "lighting": "hard afternoon sun with dust glowing in the air",
+      "mood": "dust lit in the air, grime on skin and hem, a boy's small footprints in pale dust, silence",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F08"
+      ],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R1",
+      "people_group": [
+       "european_migrant_families",
+       "wittenoom_children"
+      ]
+     }
+    ]
+   }
+  }
+ ]
+}

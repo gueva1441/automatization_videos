@@ -1,0 +1,12 @@
+[03:22:01] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f47b-lab
+  F ch07: ok · intentos 1 · US$ 0.1177
+  F ch06: ok · intentos 1 · US$ 0.2600
+  E ch07: ok · intentos 1 · US$ 0.4964
+  E ch02: ok · intentos 1 · US$ 0.7730
+  F ch02: ok · intentos 1 · US$ 0.9377
+  F ch05: ok · intentos 1 · US$ 1.1011
+  E ch05: ok · intentos 1 · US$ 1.4091
+  E ch06: ok · intentos 1 · US$ 1.7210
+[03:23:52] INFO     | viral_pipeline | [cost_tracker] Video f47b-lab � Costo total: $1.7210
+  PROMPTS_F47b.md listo
+  F47b: US$ 1.7210 en cost_history (f47b-lab)

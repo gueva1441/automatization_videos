@@ -40,6 +40,7 @@ TOPE_USD = 6.00                                       # Omar, al pegar el prompt
 CAPS_C2 = (5, 6, 7)                                   # handoff F47 §Constantes (los de otra época, ENTRADA 28c)
 CAPS_D = (2, 5, 6, 7)                                 # handoff F47 §Constantes (cap 2: C2 ya tiene fotos en F46b)
 MODELO_D = "claude-fable-5-1"                         # handoff F47 §Constantes (Omar 02:55 pidió un Claude)
+MODELOS = {"D": MODELO_D}                             # variante → modelo Claude (F47b agrega E y F)
 CANON_C = F46 / "f46b" / "canon_C.json"
 
 _TL = threading.local()
@@ -129,7 +130,7 @@ def ruteador(prompt, system_instruction=None, response_schema=None, thinking_bud
         raw = _PRO_ORIG(prompt, system_instruction=system_instruction, response_schema=response_schema,
                         description=desc)
     else:
-        raw = claude_helpers.call_json(prompt, model=MODELO_D, system_instruction=system_instruction,
+        raw = claude_helpers.call_json(prompt, model=MODELOS[var], system_instruction=system_instruction,
                                        response_schema=response_schema, effort=guion_v4.ESFUERZO[MODELO_D],
                                        description=desc)
         if isinstance(raw, list):                     # igual que gemini_helpers._try_json_parse (array → wrapper)

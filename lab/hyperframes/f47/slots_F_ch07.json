@@ -1,0 +1,724 @@
+{
+ "var": "F",
+ "cap": 7,
+ "items": [
+  {
+   "subject": "blue asbestos tailings carried by runoff along a braided creek channel in red desert country",
+   "action": "the water carries the pale blue fibrous material downstream and leaves it staining the sediment",
+   "gaze_interaction": "focal direction follows the channel from the foreground toward the distant river plain",
+   "setting": "aerial view of a dry-season creek system below the old Wittenoom tailings, Pilbara red desert",
+   "color_palette": "red earth and ochre, grey-brown sediment, streaks of pale blue, dusty blue sky",
+   "props_detail": "a ribbon of pale blue-grey fibre deposits lining the creek edge",
+   "shot_scale": "extreme_wide",
+   "camera_angle": "high aerial angle looking down the watercourse",
+   "lens_technique": "deep depth of field, 24mm wide lens",
+   "lighting": "soft dawn light, long low shadows, no sun glare",
+   "mood": "still, quiet, an empty land with a faint blue stain spreading across the red ground",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F02"
+   ],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [
+    "blue asbestos tailings"
+   ],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Los relaves del vertedero de Colonial se van con el agua.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "eroded gullies cut through the slope of the tailings dump",
+   "action": "runoff rills run down the slope, cutting channels and pulling loose material toward the creek below",
+   "gaze_interaction": "focal direction leads down the gullies toward the creek bed at the base",
+   "setting": "edge of the old tailings dump in Wittenoom Gorge country, red rock hills behind",
+   "color_palette": "rust red, ochre, grey dust",
+   "props_detail": "fresh-cut gullies with pale blue-grey fibre fanning out at their mouths",
+   "shot_scale": "wide",
+   "camera_angle": "elevated angle from the ridge looking down the slope",
+   "lens_technique": "deep depth of field, 35mm lens",
+   "lighting": "soft dawn light, low raking shadows picking out the gullies",
+   "mood": "hushed and exposed, bare slope under a pale sky, nothing moving but dust",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F02"
+   ],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [
+    "blue asbestos tailings"
+   ],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Un informe técnico lo marcó como la fuente principal y la vía del asbesto:",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false,
+   "_f8_slots_scrub": [
+    "color_palette: thin veins of blue-grey tailings"
+   ]
+  },
+  {
+   "subject": "a floodplain of shallow pools and dry channels spreading toward the Fortescue River",
+   "action": "water has spread across the flat plain and settled into pools, leaving the channels branching toward the river",
+   "gaze_interaction": "focal direction runs along the pools to the far river line on the horizon",
+   "setting": "Pilbara floodplain below Wittenoom Gorge, scattered spinifex and a distant line of river gums",
+   "color_palette": "red earth, ochre, silver-grey pools, a pale blue tint along the pool edges, hazy blue sky",
+   "props_detail": "a chain of still pools rimmed with pale blue deposits",
+   "shot_scale": "extreme_wide",
+   "camera_angle": "high aerial angle over the plain",
+   "lens_technique": "deep depth of field, 24mm wide lens",
+   "lighting": "soft dawn light, pools holding a pale sky reflection",
+   "mood": "calm, suspended, a vast flat country in silence",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F03"
+   ],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "la erosión, los lechos de arroyo, las pozas, las llanuras de inundación hacia el río Fortescue.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "the edge of a drying pool in a creek bed",
+   "action": "the last of the water has drawn back, leaving a crust of pale blue fibre on the cracked mud",
+   "gaze_interaction": "focal direction falls along the shrinking waterline across the cracked surface",
+   "setting": "dry creek bed in the red desert, tilted sunlit mud plates, a few stones",
+   "color_palette": "ochre, brown cracked mud, thin pale blue fibre crust, grey stones",
+   "props_detail": "a pale blue fibrous crust along the receding waterline, with a small wind-blown tuft lifting at one edge",
+   "shot_scale": "detail",
+   "camera_angle": "low angle close to the ground",
+   "lens_technique": "macro-leaning 100mm lens, shallow depth of field",
+   "lighting": "low raking dawn light across the surface",
+   "mood": "still, quiet, nothing disturbed but a faint stir of dust",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [
+    "blue asbestos tailings"
+   ],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Fibras azules que el agua deja donde se seca.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "a dry creek channel outside the marked contaminated zone, with a lone survey stake in the sand",
+   "action": "a faded survey stake stands where fibres were recorded, the channel bending away into the empty country",
+   "gaze_interaction": "focal direction runs from the stake down the channel toward the open horizon",
+   "setting": "creek channel on the Pilbara plain beyond the contaminated boundary, red sand, scattered river gums",
+   "color_palette": "red sand, ochre, bleached grey wood, pale blue-grey traces in the sand, clear dusty sky",
+   "props_detail": "a weathered wooden stake with a sun-bleached strip of tape tied at its top",
+   "shot_scale": "wide",
+   "camera_angle": "eye-level, slightly low",
+   "lens_technique": "deep depth of field, 35mm lens",
+   "lighting": "soft dawn light, pale and even",
+   "mood": "quiet and empty, a lone marker in a vast silent landscape",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "En dos mil veintiuno, una nota ambiental registró fibras en canales de arroyos fuera de la zona marcada como contaminada.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "the Fortescue River basin stretching under a pale sky",
+   "action": "the river winds slowly through the plain, carrying the country's water onward into the distance",
+   "gaze_interaction": "focal direction follows the river bend to the far horizon",
+   "setting": "wide Fortescue basin seen from a high escarpment, red hills, spinifex, a thin line of river gums",
+   "color_palette": "red earth, ochre hills, olive-grey vegetation, silver river, soft blue sky",
+   "props_detail": "a slow river curve with pale deposits along its sandy banks",
+   "shot_scale": "extreme_wide",
+   "camera_angle": "high angle from the escarpment",
+   "lens_technique": "deep depth of field, 24mm wide lens",
+   "lighting": "quiet dawn light, soft gold on the hills and haze in the valley",
+   "mood": "suspended and calm, an open land that stays quiet and unresolved",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F03"
+   ],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "El mismo informe advirtió que, sin intervención, el aporte de asbesto a la cuenca del Fortescue puede seguir durante cientos de años.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "an elderly Banjima man, thin and frail, and a visitor, a man in his sixties of European descent, seated together on red ground, both seen from behind",
+   "action": "they sit side by side facing the open country, the elder speaking slowly and the visitor listening",
+   "gaze_interaction": "both gaze outward over the land; faces turned away from the camera",
+   "setting": "red earth clearing on Banjima country near Wittenoom, scattered spinifex, low hills in the distance",
+   "color_palette": "red earth, ochre, sun-faded khaki and washed cotton, pale blue sky",
+   "props_detail": "a weathered wide-brimmed hat held on the elder's knee",
+   "shot_scale": "wide",
+   "camera_angle": "eye-level from behind, slightly low",
+   "lens_technique": "85mm lens, moderate depth of field",
+   "lighting": "soft dawn rim light outlining both figures",
+   "mood": "quiet and unhurried, two figures small against a large silent land, shoulders slumped with weight",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R2",
+   "people_group": [
+    "asbestos_advocates_victims"
+   ],
+   "narration_anchor": "Es tierra Banjima. En dos mil veintitrés, Marcos Orellana visitó Australia y se sentó con Maitland Parker, un anciano Banjima.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "an elderly Banjima man in his seventies, gaunt and frail, wearing a sun-faded cotton shirt and a worn hat",
+   "action": "he sits on the red ground facing the country, speaking and then falling silent, one hand resting on his chest",
+   "gaze_interaction": "his face in three-quarter profile, eyes toward the far hills, red dust cut by tear tracks on his cheeks",
+   "setting": "open red earth at the edge of Banjima country, low gorge hills behind him",
+   "color_palette": "red earth, ochre, faded cotton, dark weathered skin, pale dawn sky",
+   "props_detail": "a thin wooden walking stick lying across his lap",
+   "shot_scale": "medium",
+   "camera_angle": "eye-level, three-quarter from the side",
+   "lens_technique": "85mm lens, shallow depth of field",
+   "lighting": "soft dawn light, warm on one side of his face",
+   "mood": "slumped shoulders, slow stillness, a person unwilling to leave a place",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R2",
+   "people_group": [
+    "asbestos_advocates_victims"
+   ],
+   "narration_anchor": "«Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él», dijo Parker.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "an empty wooden chair left on the red earth, a worn hat resting on its seat",
+   "action": "the chair stands untouched at the edge of the country as a light breeze lifts a little dust around its legs",
+   "gaze_interaction": "focal direction leads from the chair out to the open land and the hills beyond",
+   "setting": "quiet clearing of red earth on Banjima country, spinifex and gorge hills in the distance",
+   "color_palette": "red earth, ochre, weathered grey wood, faded felt, pale clear sky",
+   "props_detail": "a worn wide-brimmed hat resting on the seat of a plain wooden chair",
+   "shot_scale": "wide",
+   "camera_angle": "low angle, eye-level with the chair",
+   "lens_technique": "50mm lens, deep depth of field",
+   "lighting": "quiet dawn light, soft long shadow falling across the red ground",
+   "mood": "calm and hushed, absence held in an open landscape",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R1",
+   "people_group": [],
+   "narration_anchor": "Maitland Parker murió de mesotelioma en dos mil veinticuatro.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "a modern Australian federal courthouse exterior in the early morning",
+   "action": "the building stands closed and quiet, its empty forecourt waiting for the day's filings",
+   "gaze_interaction": "focal direction rises from the empty forecourt steps to the main entrance",
+   "setting": "Federal Court building exterior in an Australian city, wide empty plaza, a few small trees",
+   "color_palette": "cool grey stone and glass, pale blue sky, muted warm light on the walls",
+   "props_detail": "a flagpole with a flag hanging still in the calm air",
+   "shot_scale": "wide",
+   "camera_angle": "elevated angle from across the plaza",
+   "lens_technique": "deep depth of field, 28mm lens",
+   "lighting": "soft dawn light, long gentle shadows",
+   "mood": "still and formal, an empty institution at first light",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F05"
+   ],
+   "subject_ref": "establishing_shot",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Dos años después, Gordon Legal presentó en nombre de BNTAC un proceso contra Australia Occidental en el Tribunal Federal.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "a permanent barricade across the gravel road at the entrance to the old town and gorge",
+   "action": "the barrier holds shut the road while wind moves the red dust beyond it, with nobody passing",
+   "gaze_interaction": "focal direction passes through the barricade to the empty road and bare red earth beyond",
+   "setting": "entrance to the abolished Wittenoom town, gravel road, steel barrier, empty red landscape stretching beyond",
+   "color_palette": "red earth, ochre, weathered steel grey, faded signage, dusty blue sky",
+   "props_detail": "a heavy steel barrier across the road with a weathered warning sign",
+   "shot_scale": "wide",
+   "camera_angle": "eye-level, low and centred on the road",
+   "lens_technique": "deep depth of field, 28mm lens",
+   "lighting": "quiet dawn light, low and pale with soft shadows",
+   "mood": "empty, silent, wind and red dust drifting across a closed road",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": true,
+    "text": "ROAD CLOSED",
+    "font": "block stencil capitals",
+    "location": "on the warning sign fixed to the steel barrier"
+   },
+   "hard_fact_ids": [
+    "F09"
+   ],
+   "subject_ref": "establishing_shot",
+   "foto_madre_ref": [],
+   "emotional_rank": "R2",
+   "people_group": [],
+   "narration_anchor": "Nadie ha empezado a limpiar. En los accesos al pueblo y desfiladero hay bloqueos.",
+   "beat": 14,
+   "cerrada": false,
+   "texto_en_imagen": true
+  },
+  {
+   "subject": "an open cardboard box on a wooden table holding an old portrait of a late-20s Spanish migrant miner, a bandage visible on one foot",
+   "action": "the portrait rests in the box, edge-lit by morning window light, a keepsake kept for decades",
+   "gaze_interaction": "the man in the portrait looks straight toward the camera, and the viewer's gaze falls on him",
+   "setting": "a modest apartment room in Madrid with a wooden table, a window and plain walls",
+   "color_palette": "sepia and faded black-and-white photograph tones, worn cardboard brown, soft warm window light",
+   "props_detail": "a weathered black-and-white portrait of a miner seated with a bandaged foot, resting on folded papers in the box",
+   "shot_scale": "close",
+   "camera_angle": "high angle looking down into the box",
+   "lens_technique": "50mm lens, shallow depth of field",
+   "lighting": "soft quiet window light from one side, gentle fall-off",
+   "mood": "hushed, a still room and a long-kept memory in an open box",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R1",
+   "people_group": [
+    "mining_workers"
+   ],
+   "narration_anchor": "El gobierno de Australia Occidental habla de un «grave problema de salud y seguri",
+   "beat": 14,
+   "cerrada": false,
+   "texto_en_imagen": false
+  }
+ ],
+ "estado": "ok",
+ "pedidos": [
+  {
+   "intento": 1,
+   "md5_system": "65d7f452791646498666e4371f50afd5",
+   "md5_user": "1f7547ed8e11bf1221e22ab35456a147",
+   "md5_schema": "bcb706ab4fd6094eec15a20e1c4bdcee"
+  }
+ ],
+ "crudos": [
+  {
+   "intento": 1,
+   "segundos": 59.7,
+   "respuesta": {
+    "image_prompts": [
+     {
+      "subject": "blue asbestos tailings carried by runoff along a braided creek channel in red desert country",
+      "action": "the water carries the pale blue fibrous material downstream and leaves it staining the sediment",
+      "gaze_interaction": "focal direction follows the channel from the foreground toward the distant river plain",
+      "setting": "aerial view of a dry-season creek system below the old Wittenoom tailings, Pilbara red desert",
+      "color_palette": "red earth and ochre, grey-brown sediment, streaks of pale blue, dusty blue sky",
+      "props_detail": "a ribbon of pale blue-grey fibre deposits lining the creek edge",
+      "shot_scale": "extreme_wide",
+      "camera_angle": "high aerial angle looking down the watercourse",
+      "lens_technique": "deep depth of field, 24mm wide lens",
+      "lighting": "soft dawn light, long low shadows, no sun glare",
+      "mood": "still, quiet, an empty land with a faint blue stain spreading across the red ground",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F02"
+      ],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [
+       "blue asbestos tailings"
+      ],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "eroded gullies cut through the slope of the tailings dump",
+      "action": "runoff rills run down the slope, cutting channels and pulling loose material toward the creek below",
+      "gaze_interaction": "focal direction leads down the gullies toward the creek bed at the base",
+      "setting": "edge of the old tailings dump in Wittenoom Gorge country, red rock hills behind",
+      "color_palette": "rust red, ochre, grey dust, thin veins of blue-grey tailings",
+      "props_detail": "fresh-cut gullies with pale blue-grey fibre fanning out at their mouths",
+      "shot_scale": "wide",
+      "camera_angle": "elevated angle from the ridge looking down the slope",
+      "lens_technique": "deep depth of field, 35mm lens",
+      "lighting": "soft dawn light, low raking shadows picking out the gullies",
+      "mood": "hushed and exposed, bare slope under a pale sky, nothing moving but dust",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F02"
+      ],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [
+       "blue asbestos tailings"
+      ],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "a floodplain of shallow pools and dry channels spreading toward the Fortescue River",
+      "action": "water has spread across the flat plain and settled into pools, leaving the channels branching toward the river",
+      "gaze_interaction": "focal direction runs along the pools to the far river line on the horizon",
+      "setting": "Pilbara floodplain below Wittenoom Gorge, scattered spinifex and a distant line of river gums",
+      "color_palette": "red earth, ochre, silver-grey pools, a pale blue tint along the pool edges, hazy blue sky",
+      "props_detail": "a chain of still pools rimmed with pale blue deposits",
+      "shot_scale": "extreme_wide",
+      "camera_angle": "high aerial angle over the plain",
+      "lens_technique": "deep depth of field, 24mm wide lens",
+      "lighting": "soft dawn light, pools holding a pale sky reflection",
+      "mood": "calm, suspended, a vast flat country in silence",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F03"
+      ],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "the edge of a drying pool in a creek bed",
+      "action": "the last of the water has drawn back, leaving a crust of pale blue fibre on the cracked mud",
+      "gaze_interaction": "focal direction falls along the shrinking waterline across the cracked surface",
+      "setting": "dry creek bed in the red desert, tilted sunlit mud plates, a few stones",
+      "color_palette": "ochre, brown cracked mud, thin pale blue fibre crust, grey stones",
+      "props_detail": "a pale blue fibrous crust along the receding waterline, with a small wind-blown tuft lifting at one edge",
+      "shot_scale": "detail",
+      "camera_angle": "low angle close to the ground",
+      "lens_technique": "macro-leaning 100mm lens, shallow depth of field",
+      "lighting": "low raking dawn light across the surface",
+      "mood": "still, quiet, nothing disturbed but a faint stir of dust",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [
+       "blue asbestos tailings"
+      ],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "a dry creek channel outside the marked contaminated zone, with a lone survey stake in the sand",
+      "action": "a faded survey stake stands where fibres were recorded, the channel bending away into the empty country",
+      "gaze_interaction": "focal direction runs from the stake down the channel toward the open horizon",
+      "setting": "creek channel on the Pilbara plain beyond the contaminated boundary, red sand, scattered river gums",
+      "color_palette": "red sand, ochre, bleached grey wood, pale blue-grey traces in the sand, clear dusty sky",
+      "props_detail": "a weathered wooden stake with a sun-bleached strip of tape tied at its top",
+      "shot_scale": "wide",
+      "camera_angle": "eye-level, slightly low",
+      "lens_technique": "deep depth of field, 35mm lens",
+      "lighting": "soft dawn light, pale and even",
+      "mood": "quiet and empty, a lone marker in a vast silent landscape",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "the Fortescue River basin stretching under a pale sky",
+      "action": "the river winds slowly through the plain, carrying the country's water onward into the distance",
+      "gaze_interaction": "focal direction follows the river bend to the far horizon",
+      "setting": "wide Fortescue basin seen from a high escarpment, red hills, spinifex, a thin line of river gums",
+      "color_palette": "red earth, ochre hills, olive-grey vegetation, silver river, soft blue sky",
+      "props_detail": "a slow river curve with pale deposits along its sandy banks",
+      "shot_scale": "extreme_wide",
+      "camera_angle": "high angle from the escarpment",
+      "lens_technique": "deep depth of field, 24mm wide lens",
+      "lighting": "quiet dawn light, soft gold on the hills and haze in the valley",
+      "mood": "suspended and calm, an open land that stays quiet and unresolved",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F03"
+      ],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "an elderly Banjima man, thin and frail, and a visitor, a man in his sixties of European descent, seated together on red ground, both seen from behind",
+      "action": "they sit side by side facing the open country, the elder speaking slowly and the visitor listening",
+      "gaze_interaction": "both gaze outward over the land; faces turned away from the camera",
+      "setting": "red earth clearing on Banjima country near Wittenoom, scattered spinifex, low hills in the distance",
+      "color_palette": "red earth, ochre, sun-faded khaki and washed cotton, pale blue sky",
+      "props_detail": "a weathered wide-brimmed hat held on the elder's knee",
+      "shot_scale": "wide",
+      "camera_angle": "eye-level from behind, slightly low",
+      "lens_technique": "85mm lens, moderate depth of field",
+      "lighting": "soft dawn rim light outlining both figures",
+      "mood": "quiet and unhurried, two figures small against a large silent land, shoulders slumped with weight",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R2",
+      "people_group": [
+       "asbestos_advocates_victims"
+      ]
+     },
+     {
+      "subject": "an elderly Banjima man in his seventies, gaunt and frail, wearing a sun-faded cotton shirt and a worn hat",
+      "action": "he sits on the red ground facing the country, speaking and then falling silent, one hand resting on his chest",
+      "gaze_interaction": "his face in three-quarter profile, eyes toward the far hills, red dust cut by tear tracks on his cheeks",
+      "setting": "open red earth at the edge of Banjima country, low gorge hills behind him",
+      "color_palette": "red earth, ochre, faded cotton, dark weathered skin, pale dawn sky",
+      "props_detail": "a thin wooden walking stick lying across his lap",
+      "shot_scale": "medium",
+      "camera_angle": "eye-level, three-quarter from the side",
+      "lens_technique": "85mm lens, shallow depth of field",
+      "lighting": "soft dawn light, warm on one side of his face",
+      "mood": "slumped shoulders, slow stillness, a person unwilling to leave a place",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R2",
+      "people_group": [
+       "asbestos_advocates_victims"
+      ]
+     },
+     {
+      "subject": "an empty wooden chair left on the red earth, a worn hat resting on its seat",
+      "action": "the chair stands untouched at the edge of the country as a light breeze lifts a little dust around its legs",
+      "gaze_interaction": "focal direction leads from the chair out to the open land and the hills beyond",
+      "setting": "quiet clearing of red earth on Banjima country, spinifex and gorge hills in the distance",
+      "color_palette": "red earth, ochre, weathered grey wood, faded felt, pale clear sky",
+      "props_detail": "a worn wide-brimmed hat resting on the seat of a plain wooden chair",
+      "shot_scale": "wide",
+      "camera_angle": "low angle, eye-level with the chair",
+      "lens_technique": "50mm lens, deep depth of field",
+      "lighting": "quiet dawn light, soft long shadow falling across the red ground",
+      "mood": "calm and hushed, absence held in an open landscape",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R1",
+      "people_group": []
+     },
+     {
+      "subject": "a modern Australian federal courthouse exterior in the early morning",
+      "action": "the building stands closed and quiet, its empty forecourt waiting for the day's filings",
+      "gaze_interaction": "focal direction rises from the empty forecourt steps to the main entrance",
+      "setting": "Federal Court building exterior in an Australian city, wide empty plaza, a few small trees",
+      "color_palette": "cool grey stone and glass, pale blue sky, muted warm light on the walls",
+      "props_detail": "a flagpole with a flag hanging still in the calm air",
+      "shot_scale": "wide",
+      "camera_angle": "elevated angle from across the plaza",
+      "lens_technique": "deep depth of field, 28mm lens",
+      "lighting": "soft dawn light, long gentle shadows",
+      "mood": "still and formal, an empty institution at first light",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F05"
+      ],
+      "subject_ref": "establishing_shot",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "a permanent barricade across the gravel road at the entrance to the old town and gorge",
+      "action": "the barrier holds shut the road while wind moves the red dust beyond it, with nobody passing",
+      "gaze_interaction": "focal direction passes through the barricade to the empty road and bare red earth beyond",
+      "setting": "entrance to the abolished Wittenoom town, gravel road, steel barrier, empty red landscape stretching beyond",
+      "color_palette": "red earth, ochre, weathered steel grey, faded signage, dusty blue sky",
+      "props_detail": "a heavy steel barrier across the road with a weathered warning sign",
+      "shot_scale": "wide",
+      "camera_angle": "eye-level, low and centred on the road",
+      "lens_technique": "deep depth of field, 28mm lens",
+      "lighting": "quiet dawn light, low and pale with soft shadows",
+      "mood": "empty, silent, wind and red dust drifting across a closed road",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": true,
+       "text": "ROAD CLOSED",
+       "font": "block stencil capitals",
+       "location": "on the warning sign fixed to the steel barrier"
+      },
+      "hard_fact_ids": [
+       "F09"
+      ],
+      "subject_ref": "establishing_shot",
+      "foto_madre_ref": [],
+      "emotional_rank": "R2",
+      "people_group": []
+     },
+     {
+      "subject": "an open cardboard box on a wooden table holding an old portrait of a late-20s Spanish migrant miner, a bandage visible on one foot",
+      "action": "the portrait rests in the box, edge-lit by morning window light, a keepsake kept for decades",
+      "gaze_interaction": "the man in the portrait looks straight toward the camera, and the viewer's gaze falls on him",
+      "setting": "a modest apartment room in Madrid with a wooden table, a window and plain walls",
+      "color_palette": "sepia and faded black-and-white photograph tones, worn cardboard brown, soft warm window light",
+      "props_detail": "a weathered black-and-white portrait of a miner seated with a bandaged foot, resting on folded papers in the box",
+      "shot_scale": "close",
+      "camera_angle": "high angle looking down into the box",
+      "lens_technique": "50mm lens, shallow depth of field",
+      "lighting": "soft quiet window light from one side, gentle fall-off",
+      "mood": "hushed, a still room and a long-kept memory in an open box",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R1",
+      "people_group": [
+       "mining_workers"
+      ]
+     }
+    ]
+   }
+  }
+ ]
+}

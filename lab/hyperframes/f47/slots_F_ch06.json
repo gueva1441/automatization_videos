@@ -1,0 +1,969 @@
+{
+ "var": "F",
+ "cap": 6,
+ "items": [
+  {
+   "subject": "the isolated Wittenoom town seen from outside, its corrugated iron and asbestos cement buildings sitting small in the red desert",
+   "action": "fine pale dust drifts slowly across the empty streets and patios as the sun rises",
+   "gaze_interaction": "focal direction runs along the main street toward the distant gorge wall",
+   "setting": "Wittenoom townsite at dawn, 1989, half-deserted, streets surfaced with pale tailings",
+   "color_palette": "red earth, ochre, weathered grey, faint blue-grey tailings, dusty pale-blue sky",
+   "props_detail": "a lone faded verandah with a swinging screen door at the street edge",
+   "shot_scale": "extreme_wide",
+   "camera_angle": "high angle from a ridge",
+   "lens_technique": "deep depth of field, 24mm lens",
+   "lighting": "soft low dawn light, long gentle shadows, hazy air",
+   "mood": "stillness in a wide dusty landscape, no figure in sight, light thin and pale",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "establishing_shot",
+   "foto_madre_ref": [
+    "__subject__"
+   ],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "En mil novecientos ochenta y nueve ya habían muerto más de quinientos antiguos trabajadores y residentes de Wittenoom.",
+   "beat": 11,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "older Australian and Spanish-born former miners and residents, mostly in their 50s and 60s, gathered in a plain meeting hall, seen mostly from behind",
+   "action": "they sit together on folding chairs facing a small table, a few leaning on one another",
+   "gaze_interaction": "all turned toward the front of the hall and a tall window",
+   "setting": "modest 1980s community hall in Australia, timber panelling, linoleum floor",
+   "color_palette": "warm beige, faded green, muted brown, pale daylight",
+   "props_detail": "a tea urn and stacked cups on a side table",
+   "shot_scale": "wide",
+   "camera_angle": "eye-level from the back of the room",
+   "lens_technique": "deep depth of field, 35mm lens",
+   "lighting": "soft diffused daylight from a tall window, calm and even",
+   "mood": "rounded shoulders and bowed heads in a quiet room, thin breathing audible in the stillness, soft light",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "interior_scene",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [
+    "asbestos_advocates_victims"
+   ],
+   "narration_anchor": "Los que seguían vivos se habían juntado diez años antes en la Asbestos Diseases Society of Australia.",
+   "beat": 11,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "a white Australian judge in dark robes, small and distant at the bench, with a courtroom gallery of ageing ex-workers and widows",
+   "action": "the judge reads from a document while the gallery sits still and listens",
+   "gaze_interaction": "gallery faces turned up toward the bench, the judge's eyes down on the page",
+   "setting": "1988 Australian courtroom, dark timber, high windows, public benches",
+   "color_palette": "dark walnut brown, cream walls, faded grey suits, muted daylight",
+   "props_detail": "a heavy bound volume open on the bench",
+   "shot_scale": "wide",
+   "camera_angle": "eye-level from the back of the gallery",
+   "lens_technique": "deep depth of field, 28mm lens",
+   "lighting": "single soft shaft of daylight from a high window falling across the bench",
+   "mood": "a long silent room, bent shoulders in the gallery, light falling on an empty witness stand",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "interior_scene",
+   "foto_madre_ref": [],
+   "emotional_rank": "R2",
+   "people_group": [
+    "officials_regulators",
+    "asbestos_advocates_victims"
+   ],
+   "narration_anchor": "En mil novecientos ochenta y ocho un juez leyó su veredicto: la compañía había mostrado un desprecio continuo, consciente y contumaz por la seguridad y la salud de sus trabajadores.",
+   "beat": 11,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "a mid-30s Spanish-Australian woman with dark hair, lying on a scanner table in a plain hospital gown, seen from the feet end",
+   "action": "the table slides her slowly into the ring of the scanner",
+   "gaze_interaction": "her face is turned up toward the ceiling, mostly out of view; a technician stands behind glass",
+   "setting": "1988 Australian hospital radiology room, tiled walls, heavy scanner gantry",
+   "color_palette": "pale green tile, cream, steel grey, soft white",
+   "props_detail": "a folded white sheet and a small lead apron on a hook",
+   "shot_scale": "wide",
+   "camera_angle": "low angle from the foot of the table",
+   "lens_technique": "deep depth of field, 35mm lens",
+   "lighting": "soft even overhead hospital light with a calm glow from the machine",
+   "mood": "a small body in a large machine, still air, shoulders settled flat on the table, soft clinical light",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R2",
+   "people_group": [
+    "asbestos_advocates_victims"
+   ],
+   "narration_anchor": "Mercedes de Juan, que se quedó en Australia, entra en un escáner y después sopla en un tubo.",
+   "beat": 11,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "a mid-30s Spanish-Australian woman with dark hair, seated in a plain dress beside a lung-function machine, a technician in a white coat nearby",
+   "action": "she draws a breath and blows steadily into a tube attached to the machine",
+   "gaze_interaction": "her eyes fixed on a paper trace unrolling from the machine, face in soft profile",
+   "setting": "1988 Australian hospital testing room, plain walls, a small desk",
+   "color_palette": "cream, pale green, steel grey, warm skin tones",
+   "props_detail": "a spirometer with a ribbon of paper trace",
+   "shot_scale": "medium",
+   "camera_angle": "eye-level from the side",
+   "lens_technique": "85mm lens, shallow depth of field",
+   "lighting": "soft window light from one side, gentle and even",
+   "mood": "a still seated figure, rib cage lifting with a held breath, calm pale light, quiet room",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R1",
+   "people_group": [
+    "asbestos_advocates_victims"
+   ],
+   "narration_anchor": "«Nos hacen un escáner y una prueba de función pulmonar», dice Mercedes.",
+   "beat": 11,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "blue asbestos tailings, fibrous strands mixed into red earth",
+   "action": "fibres lift and drift in a faint breeze, catching the light",
+   "gaze_interaction": "focal direction pulls to the strands nearest the lens, then out across the dust",
+   "setting": "a Wittenoom patio edge, tailings spread over red ground",
+   "color_palette": "blue-grey fibres, rust-red earth, ochre dust",
+   "props_detail": "a single tuft of pale blue fibre caught on a cracked stone",
+   "shot_scale": "detail",
+   "camera_angle": "low angle at ground level",
+   "lens_technique": "macro lens, shallow depth of field",
+   "lighting": "soft low sun backlighting the drifting fibres",
+   "mood": "hushed ground-level stillness, floating dust held in warm light",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [
+    "blue asbestos tailings"
+   ],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Las fibras pueden causar mesotelioma, asbestosis y cáncer de pulmón.",
+   "beat": 11,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "a hospital waiting room with ageing Australian and Spanish-born ex-workers and widows seated in rows, seen from behind and from a distance",
+   "action": "they wait quietly in orderly rows, one slowly turning a page of a magazine",
+   "gaze_interaction": "heads turned toward a closed door at the far end",
+   "setting": "1988 Australian hospital waiting room, vinyl chairs, a wall clock",
+   "color_palette": "pale green, cream, faded blue vinyl, muted grey",
+   "props_detail": "a wall clock above a closed consulting-room door",
+   "shot_scale": "wide",
+   "camera_angle": "eye-level from the back of the room",
+   "lens_technique": "deep depth of field, 28mm lens",
+   "lighting": "soft overcast daylight through frosted windows",
+   "mood": "slumped shoulders in a long quiet room, coats folded on laps, even grey light",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "interior_scene",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [
+    "asbestos_advocates_victims"
+   ],
+   "narration_anchor": "La cuenta oficial se detuvo. «El gobierno dejó de contar en 2.000, pero ahora se calcula que la cifra puede ser superior a los 4.000.",
+   "beat": 11,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "the weathered police station and schoolhouse of Wittenoom, empty and dusty",
+   "action": "dust settles on the verandahs and a loose iron sheet shifts in the breeze",
+   "gaze_interaction": "focal direction runs along the empty verandah toward a shuttered door",
+   "setting": "Wittenoom public buildings at late afternoon, tailings-surfaced yard, corrugated iron and asbestos cement walls",
+   "color_palette": "faded ochre, weathered grey-green paint, red earth, pale blue-grey tailings",
+   "props_detail": "a child's swing hanging still over a patch of pale tailings",
+   "shot_scale": "wide",
+   "camera_angle": "eye-level across the yard",
+   "lens_technique": "deep depth of field, 35mm lens",
+   "lighting": "soft late-afternoon light, long calm shadows",
+   "mood": "empty yard, motionless swing, pale dust on every surface, warm light fading",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "establishing_shot",
+   "foto_madre_ref": [
+    "Wittenoom buildings"
+   ],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Y sigue aumentando», dice Melita Markey. Están enfermando hijos de policías y de maestros que trabajaron en el pueblo.",
+   "beat": 11,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "the whole Wittenoom townsite from above, small and quiet against vast red country",
+   "action": "a thin veil of dust drifts across the roads and rooftops, as if smoothing the town away",
+   "gaze_interaction": "focal direction runs along the grid of streets to the gorge",
+   "setting": "Wittenoom townsite from a high ridge, airstrip and roads visible",
+   "color_palette": "red earth, ochre, grey roofs, pale blue-grey tailings, dusty blue sky",
+   "props_detail": "the pale scar of the airstrip crossing the plain",
+   "shot_scale": "extreme_wide",
+   "camera_angle": "high angle",
+   "lens_technique": "deep depth of field, 24mm lens",
+   "lighting": "soft late-afternoon golden light, calm haze",
+   "mood": "a small settlement under a huge sky, long shadows, dust hanging in warm air",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F09"
+   ],
+   "subject_ref": "establishing_shot",
+   "foto_madre_ref": [
+    "__subject__"
+   ],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Mientras los enfermos se contaban a sí mismos, el Estado decidió qué hacer con el pueblo: borrarlo.",
+   "beat": 11,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "a roadside highway sign post on a red desert road, its board stripped bare of any name",
+   "action": "pale rectangles and empty bolt holes show where the lettering was removed, dust settling on the blank board",
+   "gaze_interaction": "focal direction runs from the blank sign down the empty road toward the horizon",
+   "setting": "remote Western Australian road at the Wittenoom turn-off, 2007, red gravel shoulder",
+   "color_palette": "red earth, bleached grey metal, dusty blue sky",
+   "props_detail": "empty bolt holes and a pale ghost-outline on the blank sign board",
+   "shot_scale": "wide",
+   "camera_angle": "eye-level from the roadside",
+   "lens_technique": "deep depth of field, 35mm lens",
+   "lighting": "soft midday haze, low contrast",
+   "mood": "a still blank board on a long empty road, dust in the air, pale flat light",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F09"
+   ],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [],
+   "emotional_rank": "R2",
+   "people_group": [],
+   "narration_anchor": "Junio de dos mil siete; otras fuentes dicen dos mil seis. Wittenoom es abolido formalmente. Le quitan el nombre a las señales de la carretera y lo sacan de los mapas.",
+   "beat": 12,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "a typed government statement lying on a polished desk beside a window, a rolled map pushed aside",
+   "action": "a page lies squared on the desk while soft light moves slowly across it",
+   "gaze_interaction": "focal direction falls on the headline at the top of the page",
+   "setting": "Western Australian government office, 2007, timber desk, blinds half drawn",
+   "color_palette": "warm brown wood, cream paper, muted grey, soft daylight white",
+   "props_detail": "a rolled map with an untouched blank corner pushed to the desk edge",
+   "shot_scale": "detail",
+   "camera_angle": "high angle looking down at the desk",
+   "lens_technique": "50mm lens, shallow depth of field",
+   "lighting": "soft window light with gentle blind shadows",
+   "mood": "an empty chair, quiet room, polished surface, cool light across clean paper",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": true,
+    "text": "DARK CHAPTER ENDS",
+    "font": "typed serif",
+    "location": "top of the page on the desk"
+   },
+   "hard_fact_ids": [
+    "F09"
+   ],
+   "subject_ref": "interior_scene",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "El gobierno de Australia Occidental habla de «el fin de un período oscuro en la historia de nuestro Estado».",
+   "beat": 12,
+   "cerrada": false,
+   "texto_en_imagen": true
+  },
+  {
+   "subject": "an empty parliamentary committee room with a long table and stacks of bound reports, 1992",
+   "action": "light slowly crosses the table and the closed reports as the room stays empty",
+   "gaze_interaction": "focal direction runs down the long table to a high window",
+   "setting": "1992 Australian parliamentary committee room, timber panelling, leather chairs pushed in",
+   "color_palette": "deep brown timber, green leather, cream paper, muted daylight",
+   "props_detail": "a stack of bound reports squared at the head of the table",
+   "shot_scale": "wide",
+   "camera_angle": "eye-level at the end of the table",
+   "lens_technique": "deep depth of field, 28mm lens",
+   "lighting": "soft diffused daylight through tall windows, even and calm",
+   "mood": "empty chairs pushed in, closed volumes, still dust motes in a pale shaft of light",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "interior_scene",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Quince años antes, en mil novecientos noventa y dos, una investigación parlamentaria había recomendado limpiar los relaves. El gobierno rechazó esas recomendaciones.",
+   "beat": 12,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "a gorge creek bed in Wittenoom Gorge, pale blue-grey tailings spread across red rock and floodplain",
+   "action": "wind lifts a thin haze of dust off the tailings and drifts it down the gorge",
+   "gaze_interaction": "focal direction follows the pale creek bed into the gorge",
+   "setting": "Wittenoom Gorge, Western Australia, red cliffs over a floodplain of tailings",
+   "color_palette": "rust-red cliffs, blue-grey tailings, ochre, dusty pale-blue sky",
+   "props_detail": "a rusted pipe half buried in pale tailings",
+   "shot_scale": "extreme_wide",
+   "camera_angle": "high angle from the gorge wall",
+   "lens_technique": "deep depth of field, 24mm lens",
+   "lighting": "soft late-afternoon light, long calm shadows across the gorge",
+   "mood": "a huge silent gorge, pale dust drifting in still warm air, no one in sight",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F02"
+   ],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [
+    "blue asbestos tailings"
+   ],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "«La minería en los desfiladeros ha dejado una contaminación que solo puede describirse como vergonzosa, incluso para los estándares de la época», dijo Larry Graham.",
+   "beat": 12,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "a steel barrier gate closing a red dirt road at the edge of the Wittenoom zone, tailings plain beyond",
+   "action": "wind carries thin dust past the closed gate toward the distant road",
+   "gaze_interaction": "focal direction runs through the gate onto the empty plain beyond",
+   "setting": "entrance to the Wittenoom exclusion zone, red gravel road, distant gorge ridgeline",
+   "color_palette": "rust-red earth, grey steel, pale blue-grey tailings, dusty blue sky",
+   "props_detail": "a chain and padlock holding the gate closed",
+   "shot_scale": "wide",
+   "camera_angle": "eye-level",
+   "lens_technique": "deep depth of field, 35mm lens",
+   "lighting": "soft low sun, gentle warm light",
+   "mood": "a shut gate, a long empty road, dust moving silently in warm light",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F03",
+    "F09"
+   ],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "«Tenemos el deber de impedir una mayor dispersión de los relaves de asbesto», dijo Mark Nevill, por los residentes, por los visitantes, por las generaciones futuras.",
+   "beat": 12,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "an old rusted bulldozer parked idle beside a huge mound of pale tailings",
+   "action": "it sits unused in the dust while wind slowly sheds fibres from the mound's surface",
+   "gaze_interaction": "focal direction runs from the idle machine up the long flank of the mound",
+   "setting": "Wittenoom tailings field, 2016, flat red plain",
+   "color_palette": "rust-red, oxidised orange, blue-grey tailings, dusty pale-blue sky",
+   "props_detail": "a weathered blade resting on the ground, dust gathered in its cab",
+   "shot_scale": "wide",
+   "camera_angle": "low angle for scale",
+   "lens_technique": "deep depth of field, 28mm lens",
+   "lighting": "soft late-afternoon light, calm warm tones",
+   "mood": "idle machine, stationary mound, dust shifting in quiet air, wide empty ground",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F02"
+   ],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [
+    "blue asbestos tailings"
+   ],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "En dos mil dieciséis, los documentos dicen por qué los relaves siguen donde están: no porque no se pueda, sino por lo que cuesta.",
+   "beat": 12,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "an elderly Anglo-Australian man, thin and stooped from illness, in a faded work shirt and wide-brim hat, seen from behind",
+   "action": "he stands at the edge of the barrier and lets a folded paper map hang from his hand while dust blows past",
+   "gaze_interaction": "he faces away from the camera toward the distant town and gorge",
+   "setting": "edge of the Wittenoom exclusion zone, red plain with the distant town and gorge",
+   "color_palette": "rust-red earth, faded khaki, pale blue-grey dust, soft golden sky",
+   "props_detail": "a paper map fluttering in his hand while dust passes over it",
+   "shot_scale": "wide",
+   "camera_angle": "low angle from behind",
+   "lens_technique": "deep depth of field, 35mm lens",
+   "lighting": "soft golden hour light rim-lighting his shoulders and the dust",
+   "mood": "a thin stooped figure small against a wide red plain, dust streaming past, warm settling light",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F09"
+   ],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R1",
+   "people_group": [
+    "asbestos_advocates_victims"
+   ],
+   "narration_anchor": "En dos mil veintitrés, los estudios del Estado sobre hasta dónde llega la contaminación ya estaban desactualizados. Borraron el nombre del mapa. El polvo no leía mapas.",
+   "beat": 12,
+   "cerrada": false,
+   "texto_en_imagen": false
+  }
+ ],
+ "estado": "ok",
+ "pedidos": [
+  {
+   "intento": 1,
+   "md5_system": "65d7f452791646498666e4371f50afd5",
+   "md5_user": "89ae9f1216aed0ccce5986797da1c2a9",
+   "md5_schema": "bcb706ab4fd6094eec15a20e1c4bdcee"
+  }
+ ],
+ "crudos": [
+  {
+   "intento": 1,
+   "segundos": 73.2,
+   "respuesta": {
+    "image_prompts": [
+     {
+      "subject": "the isolated Wittenoom town seen from outside, its corrugated iron and asbestos cement buildings sitting small in the red desert",
+      "action": "fine pale dust drifts slowly across the empty streets and patios as the sun rises",
+      "gaze_interaction": "focal direction runs along the main street toward the distant gorge wall",
+      "setting": "Wittenoom townsite at dawn, 1989, half-deserted, streets surfaced with pale tailings",
+      "color_palette": "red earth, ochre, weathered grey, faint blue-grey tailings, dusty pale-blue sky",
+      "props_detail": "a lone faded verandah with a swinging screen door at the street edge",
+      "shot_scale": "extreme_wide",
+      "camera_angle": "high angle from a ridge",
+      "lens_technique": "deep depth of field, 24mm lens",
+      "lighting": "soft low dawn light, long gentle shadows, hazy air",
+      "mood": "stillness in a wide dusty landscape, no figure in sight, light thin and pale",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "establishing_shot",
+      "foto_madre_ref": [
+       "__subject__"
+      ],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "older Australian and Spanish-born former miners and residents, mostly in their 50s and 60s, gathered in a plain meeting hall, seen mostly from behind",
+      "action": "they sit together on folding chairs facing a small table, a few leaning on one another",
+      "gaze_interaction": "all turned toward the front of the hall and a tall window",
+      "setting": "modest 1980s community hall in Australia, timber panelling, linoleum floor",
+      "color_palette": "warm beige, faded green, muted brown, pale daylight",
+      "props_detail": "a tea urn and stacked cups on a side table",
+      "shot_scale": "wide",
+      "camera_angle": "eye-level from the back of the room",
+      "lens_technique": "deep depth of field, 35mm lens",
+      "lighting": "soft diffused daylight from a tall window, calm and even",
+      "mood": "rounded shoulders and bowed heads in a quiet room, thin breathing audible in the stillness, soft light",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "interior_scene",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": [
+       "asbestos_advocates_victims"
+      ]
+     },
+     {
+      "subject": "a white Australian judge in dark robes, small and distant at the bench, with a courtroom gallery of ageing ex-workers and widows",
+      "action": "the judge reads from a document while the gallery sits still and listens",
+      "gaze_interaction": "gallery faces turned up toward the bench, the judge's eyes down on the page",
+      "setting": "1988 Australian courtroom, dark timber, high windows, public benches",
+      "color_palette": "dark walnut brown, cream walls, faded grey suits, muted daylight",
+      "props_detail": "a heavy bound volume open on the bench",
+      "shot_scale": "wide",
+      "camera_angle": "eye-level from the back of the gallery",
+      "lens_technique": "deep depth of field, 28mm lens",
+      "lighting": "single soft shaft of daylight from a high window falling across the bench",
+      "mood": "a long silent room, bent shoulders in the gallery, light falling on an empty witness stand",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "interior_scene",
+      "foto_madre_ref": [],
+      "emotional_rank": "R2",
+      "people_group": [
+       "officials_regulators",
+       "asbestos_advocates_victims"
+      ]
+     },
+     {
+      "subject": "a mid-30s Spanish-Australian woman with dark hair, lying on a scanner table in a plain hospital gown, seen from the feet end",
+      "action": "the table slides her slowly into the ring of the scanner",
+      "gaze_interaction": "her face is turned up toward the ceiling, mostly out of view; a technician stands behind glass",
+      "setting": "1988 Australian hospital radiology room, tiled walls, heavy scanner gantry",
+      "color_palette": "pale green tile, cream, steel grey, soft white",
+      "props_detail": "a folded white sheet and a small lead apron on a hook",
+      "shot_scale": "wide",
+      "camera_angle": "low angle from the foot of the table",
+      "lens_technique": "deep depth of field, 35mm lens",
+      "lighting": "soft even overhead hospital light with a calm glow from the machine",
+      "mood": "a small body in a large machine, still air, shoulders settled flat on the table, soft clinical light",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R2",
+      "people_group": [
+       "asbestos_advocates_victims"
+      ]
+     },
+     {
+      "subject": "a mid-30s Spanish-Australian woman with dark hair, seated in a plain dress beside a lung-function machine, a technician in a white coat nearby",
+      "action": "she draws a breath and blows steadily into a tube attached to the machine",
+      "gaze_interaction": "her eyes fixed on a paper trace unrolling from the machine, face in soft profile",
+      "setting": "1988 Australian hospital testing room, plain walls, a small desk",
+      "color_palette": "cream, pale green, steel grey, warm skin tones",
+      "props_detail": "a spirometer with a ribbon of paper trace",
+      "shot_scale": "medium",
+      "camera_angle": "eye-level from the side",
+      "lens_technique": "85mm lens, shallow depth of field",
+      "lighting": "soft window light from one side, gentle and even",
+      "mood": "a still seated figure, rib cage lifting with a held breath, calm pale light, quiet room",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R1",
+      "people_group": [
+       "asbestos_advocates_victims"
+      ]
+     },
+     {
+      "subject": "blue asbestos tailings, fibrous strands mixed into red earth",
+      "action": "fibres lift and drift in a faint breeze, catching the light",
+      "gaze_interaction": "focal direction pulls to the strands nearest the lens, then out across the dust",
+      "setting": "a Wittenoom patio edge, tailings spread over red ground",
+      "color_palette": "blue-grey fibres, rust-red earth, ochre dust",
+      "props_detail": "a single tuft of pale blue fibre caught on a cracked stone",
+      "shot_scale": "detail",
+      "camera_angle": "low angle at ground level",
+      "lens_technique": "macro lens, shallow depth of field",
+      "lighting": "soft low sun backlighting the drifting fibres",
+      "mood": "hushed ground-level stillness, floating dust held in warm light",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [
+       "blue asbestos tailings"
+      ],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "a hospital waiting room with ageing Australian and Spanish-born ex-workers and widows seated in rows, seen from behind and from a distance",
+      "action": "they wait quietly in orderly rows, one slowly turning a page of a magazine",
+      "gaze_interaction": "heads turned toward a closed door at the far end",
+      "setting": "1988 Australian hospital waiting room, vinyl chairs, a wall clock",
+      "color_palette": "pale green, cream, faded blue vinyl, muted grey",
+      "props_detail": "a wall clock above a closed consulting-room door",
+      "shot_scale": "wide",
+      "camera_angle": "eye-level from the back of the room",
+      "lens_technique": "deep depth of field, 28mm lens",
+      "lighting": "soft overcast daylight through frosted windows",
+      "mood": "slumped shoulders in a long quiet room, coats folded on laps, even grey light",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "interior_scene",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": [
+       "asbestos_advocates_victims"
+      ]
+     },
+     {
+      "subject": "the weathered police station and schoolhouse of Wittenoom, empty and dusty",
+      "action": "dust settles on the verandahs and a loose iron sheet shifts in the breeze",
+      "gaze_interaction": "focal direction runs along the empty verandah toward a shuttered door",
+      "setting": "Wittenoom public buildings at late afternoon, tailings-surfaced yard, corrugated iron and asbestos cement walls",
+      "color_palette": "faded ochre, weathered grey-green paint, red earth, pale blue-grey tailings",
+      "props_detail": "a child's swing hanging still over a patch of pale tailings",
+      "shot_scale": "wide",
+      "camera_angle": "eye-level across the yard",
+      "lens_technique": "deep depth of field, 35mm lens",
+      "lighting": "soft late-afternoon light, long calm shadows",
+      "mood": "empty yard, motionless swing, pale dust on every surface, warm light fading",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "establishing_shot",
+      "foto_madre_ref": [
+       "Wittenoom buildings"
+      ],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "the whole Wittenoom townsite from above, small and quiet against vast red country",
+      "action": "a thin veil of dust drifts across the roads and rooftops, as if smoothing the town away",
+      "gaze_interaction": "focal direction runs along the grid of streets to the gorge",
+      "setting": "Wittenoom townsite from a high ridge, airstrip and roads visible",
+      "color_palette": "red earth, ochre, grey roofs, pale blue-grey tailings, dusty blue sky",
+      "props_detail": "the pale scar of the airstrip crossing the plain",
+      "shot_scale": "extreme_wide",
+      "camera_angle": "high angle",
+      "lens_technique": "deep depth of field, 24mm lens",
+      "lighting": "soft late-afternoon golden light, calm haze",
+      "mood": "a small settlement under a huge sky, long shadows, dust hanging in warm air",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F09"
+      ],
+      "subject_ref": "establishing_shot",
+      "foto_madre_ref": [
+       "__subject__"
+      ],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "a roadside highway sign post on a red desert road, its board stripped bare of any name",
+      "action": "pale rectangles and empty bolt holes show where the lettering was removed, dust settling on the blank board",
+      "gaze_interaction": "focal direction runs from the blank sign down the empty road toward the horizon",
+      "setting": "remote Western Australian road at the Wittenoom turn-off, 2007, red gravel shoulder",
+      "color_palette": "red earth, bleached grey metal, dusty blue sky",
+      "props_detail": "empty bolt holes and a pale ghost-outline on the blank sign board",
+      "shot_scale": "wide",
+      "camera_angle": "eye-level from the roadside",
+      "lens_technique": "deep depth of field, 35mm lens",
+      "lighting": "soft midday haze, low contrast",
+      "mood": "a still blank board on a long empty road, dust in the air, pale flat light",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F09"
+      ],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [],
+      "emotional_rank": "R2",
+      "people_group": []
+     },
+     {
+      "subject": "a typed government statement lying on a polished desk beside a window, a rolled map pushed aside",
+      "action": "a page lies squared on the desk while soft light moves slowly across it",
+      "gaze_interaction": "focal direction falls on the headline at the top of the page",
+      "setting": "Western Australian government office, 2007, timber desk, blinds half drawn",
+      "color_palette": "warm brown wood, cream paper, muted grey, soft daylight white",
+      "props_detail": "a rolled map with an untouched blank corner pushed to the desk edge",
+      "shot_scale": "detail",
+      "camera_angle": "high angle looking down at the desk",
+      "lens_technique": "50mm lens, shallow depth of field",
+      "lighting": "soft window light with gentle blind shadows",
+      "mood": "an empty chair, quiet room, polished surface, cool light across clean paper",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": true,
+       "text": "DARK CHAPTER ENDS",
+       "font": "typed serif",
+       "location": "top of the page on the desk"
+      },
+      "hard_fact_ids": [
+       "F09"
+      ],
+      "subject_ref": "interior_scene",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "an empty parliamentary committee room with a long table and stacks of bound reports, 1992",
+      "action": "light slowly crosses the table and the closed reports as the room stays empty",
+      "gaze_interaction": "focal direction runs down the long table to a high window",
+      "setting": "1992 Australian parliamentary committee room, timber panelling, leather chairs pushed in",
+      "color_palette": "deep brown timber, green leather, cream paper, muted daylight",
+      "props_detail": "a stack of bound reports squared at the head of the table",
+      "shot_scale": "wide",
+      "camera_angle": "eye-level at the end of the table",
+      "lens_technique": "deep depth of field, 28mm lens",
+      "lighting": "soft diffused daylight through tall windows, even and calm",
+      "mood": "empty chairs pushed in, closed volumes, still dust motes in a pale shaft of light",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "interior_scene",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "a gorge creek bed in Wittenoom Gorge, pale blue-grey tailings spread across red rock and floodplain",
+      "action": "wind lifts a thin haze of dust off the tailings and drifts it down the gorge",
+      "gaze_interaction": "focal direction follows the pale creek bed into the gorge",
+      "setting": "Wittenoom Gorge, Western Australia, red cliffs over a floodplain of tailings",
+      "color_palette": "rust-red cliffs, blue-grey tailings, ochre, dusty pale-blue sky",
+      "props_detail": "a rusted pipe half buried in pale tailings",
+      "shot_scale": "extreme_wide",
+      "camera_angle": "high angle from the gorge wall",
+      "lens_technique": "deep depth of field, 24mm lens",
+      "lighting": "soft late-afternoon light, long calm shadows across the gorge",
+      "mood": "a huge silent gorge, pale dust drifting in still warm air, no one in sight",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F02"
+      ],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [
+       "blue asbestos tailings"
+      ],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "a steel barrier gate closing a red dirt road at the edge of the Wittenoom zone, tailings plain beyond",
+      "action": "wind carries thin dust past the closed gate toward the distant road",
+      "gaze_interaction": "focal direction runs through the gate onto the empty plain beyond",
+      "setting": "entrance to the Wittenoom exclusion zone, red gravel road, distant gorge ridgeline",
+      "color_palette": "rust-red earth, grey steel, pale blue-grey tailings, dusty blue sky",
+      "props_detail": "a chain and padlock holding the gate closed",
+      "shot_scale": "wide",
+      "camera_angle": "eye-level",
+      "lens_technique": "deep depth of field, 35mm lens",
+      "lighting": "soft low sun, gentle warm light",
+      "mood": "a shut gate, a long empty road, dust moving silently in warm light",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F03",
+       "F09"
+      ],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "an old rusted bulldozer parked idle beside a huge mound of pale tailings",
+      "action": "it sits unused in the dust while wind slowly sheds fibres from the mound's surface",
+      "gaze_interaction": "focal direction runs from the idle machine up the long flank of the mound",
+      "setting": "Wittenoom tailings field, 2016, flat red plain",
+      "color_palette": "rust-red, oxidised orange, blue-grey tailings, dusty pale-blue sky",
+      "props_detail": "a weathered blade resting on the ground, dust gathered in its cab",
+      "shot_scale": "wide",
+      "camera_angle": "low angle for scale",
+      "lens_technique": "deep depth of field, 28mm lens",
+      "lighting": "soft late-afternoon light, calm warm tones",
+      "mood": "idle machine, stationary mound, dust shifting in quiet air, wide empty ground",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F02"
+      ],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [
+       "blue asbestos tailings"
+      ],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "an elderly Anglo-Australian man, thin and stooped from illness, in a faded work shirt and wide-brim hat, seen from behind",
+      "action": "he stands at the edge of the barrier and lets a folded paper map hang from his hand while dust blows past",
+      "gaze_interaction": "he faces away from the camera toward the distant town and gorge",
+      "setting": "edge of the Wittenoom exclusion zone, red plain with the distant town and gorge",
+      "color_palette": "rust-red earth, faded khaki, pale blue-grey dust, soft golden sky",
+      "props_detail": "a paper map fluttering in his hand while dust passes over it",
+      "shot_scale": "wide",
+      "camera_angle": "low angle from behind",
+      "lens_technique": "deep depth of field, 35mm lens",
+      "lighting": "soft golden hour light rim-lighting his shoulders and the dust",
+      "mood": "a thin stooped figure small against a wide red plain, dust streaming past, warm settling light",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F09"
+      ],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R1",
+      "people_group": [
+       "asbestos_advocates_victims"
+      ]
+     }
+    ]
+   }
+  }
+ ]
+}
