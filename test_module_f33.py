@@ -129,24 +129,42 @@ def test_simular_regla_cuenta_por_cap_y_da_ejemplos():
 
 # ═══════════════ §D.3: el aviso del mapa ═══════════════
 
-def test_guard_mapa_avisa_si_tocan_gfx_sin_el_mapa():
+def _stickers_viejos(tmp: Path, archivos: list[str]) -> Path:
+    """Copia de lab/mapa/stickers/ con el md5 de `archivos` cambiado (sticker viejo), fuera del repo."""
+    for f in (ROOT / "lab" / "mapa" / "stickers").glob("*.json"):
+        d = json.loads(f.read_text(encoding="utf-8"))
+        for a in archivos:
+            if a in d:
+                d[a]["md5"] = "0" * 32
+        (tmp / f.name).write_text(json.dumps(d, ensure_ascii=False), encoding="utf-8")
+    return tmp
+
+
+def test_guard_mapa_avisa_si_tocan_gfx_sin_el_mapa(tmp_path, monkeypatch):
+    """F42 (antes F33 §D.3, MAPA_MODULOS): avisa si el commit toca un archivo de producción con sticker viejo; con el
+    sticker al día no dice nada."""
     gm = _hook("guard_mapa")
+    import mapa_modulos as mm
+    assert gm.aviso(["script_engine/pantalla_entrada.py", "fase2b.py"]) is None     # el mapa de hoy está al día
+    monkeypatch.setattr(mm.check, "__defaults__",
+                        (_stickers_viejos(tmp_path, ["script_engine/pantalla_entrada.py", "fase2b.py"]),))
     assert "guard_mapa" in gm.aviso(["script_engine/pantalla_entrada.py", "test_module_f33.py"])
     assert "fase2b.py" in gm.aviso(["fase2b.py"])
-    assert gm.aviso(["script_engine/pantalla_entrada.py", "lab/MAPA_MODULOS.md"]) is None
     assert gm.aviso(["script_engine/aprobacion.py", "lab/ESTADO_SESION.md"]) is None
     s = json.loads((ROOT / ".claude" / "settings.json").read_text(encoding="utf-8"))
     assert any("guard_mapa.py" in h["command"] for x in s["hooks"]["PreToolUse"] for h in x["hooks"])
 
 
 def test_el_mapa_cubre_los_modulos_y_trae_aristas():
-    m = json.loads((ROOT / "lab" / "MAPA_MODULOS.json").read_text(encoding="utf-8"))
-    nombres = {f["modulo"] for f in m["modulos"]}
+    """F42: MAPA_PROYECTO reemplaza a MAPA_MODULOS; cubre la capa gfx con sticker y estado, y las aristas salen del
+    código (gfx_layer llama a pantalla_entrada)."""
+    m = json.loads((ROOT / "lab" / "MAPA_PROYECTO.json").read_text(encoding="utf-8"))["modulos"]
+    nombres = {Path(k).name.removesuffix(".py") for k in m}
     hay = {p.stem for p in (ROOT / "script_engine").glob("gfx_*.py")}
     assert hay <= nombres and {"fase2b", "gfx_config", "transition_config", "transition_applier", "m01a_escaleta",
                                "m01d_particion", "music_intensity", "title_card.html.tmpl"} <= nombres
-    assert all(f["sticker"] and f["estado"] for f in m["modulos"])
-    assert {"de": "gfx_layer", "a": "pantalla_entrada"} in [{k: a[k] for k in ("de", "a")} for a in m["aristas"]]
-    # F36 §D: lo muerto se borró; no queda en el mapa ni como módulo ni como muerto
-    assert not any("garantizar_pico" in x["que"] for x in m["muertos"])
+    assert all(f["sticker"] and f["estado"] != "(sin sticker)" for f in m.values())
+    assert "script_engine/gfx_layer.py" in m["script_engine/pantalla_entrada.py"]["lo_llaman"]
+    # F36 §D: lo muerto se borró; no queda en el mapa
     assert not {"gfx_bug", "gfx_fragments", "gfx_question", "gfx_identity", "rotulista_llm"} & nombres
+    assert not (ROOT / "lab" / "MAPA_MODULOS.json").exists()

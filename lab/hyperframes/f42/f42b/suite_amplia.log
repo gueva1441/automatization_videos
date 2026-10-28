@@ -1,0 +1,111 @@
+23:13:59
+bringing up nodes...
+bringing up nodes...
+
+...............................s........s....s.......................... [  7%]
+........ss.....s........................................................ [ 15%]
+...........s...................................s................s....... [ 22%]
+.................................................................s...... [ 30%]
+..........s.....................s.....................s.s.s..sssss...... [ 37%]
+.............s.......sss.............................s.................. [ 45%]
+........................................................................ [ 53%]
+........................................................................ [ 60%]
+........................................................................ [ 68%]
+........................................................................ [ 75%]
+.............s.............................ss................s........s. [ 83%]
+........................................................................ [ 90%]
+.............................F....F..F.................................. [ 98%]
+....F.........                                                           [100%]
+================================== FAILURES ===================================
+_____________________ test_cues_sin_escribir_el_proyecto ______________________
+[gw2] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+server = (<gfx_lab_server.LabSession object at 0x000001C3E8DB6AD0>, 'http://127.0.0.1:50721')
+
+    @needs_data
+    def test_cues_sin_escribir_el_proyecto(server):
+        session, url = server
+        before = (session.project / "index.html").stat().st_mtime_ns
+        r = _post(url + "/cues", {"plan": session.director_plan(), "tokens": {}})
+>       assert any(c["block"] == "archive_clipping" for c in r["cues"]) and r["rejected"] == []
+E       AssertionError: assert (True and [{'block': 't...ta Perfecta'}] == []
+E        +  where True = any(<generator object test_cues_sin_escribir_el_proyecto.<locals>.<genexpr> at 0x000001C3E870C040>)
+E         
+E         Left contains one more item: [0m{[33m'[39;49;00m[33mblock[39;49;00m[33m'[39;49;00m: [33m'[39;49;00m[33mtitle_card[39;49;00m[33m'[39;49;00m, [33m'[39;49;00m[33mfield[39;49;00m[33m'[39;49;00m: [33m'[39;49;00m[33mtitle[39;49;00m[33m'[39;49;00m, [33m'[39;49;00m[33mtext[39;49;00m[33m'[39;49;00m: [33m'[39;49;00m[33mLa Tormenta Perfecta[39;49;00m[33m'[39;49;00m}[90m[39;49;00m
+E         Use -v to get more diff)
+
+test_module_gfx_lab.py:372: AssertionError
+___________________________ test_c_guarda_de_minimo ___________________________
+[gw1] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+    def test_c_guarda_de_minimo():
+        """Aunque haya gaps apretados, NO baja del mínimo."""
+        # 4 items, todos apretados; min_count=4 → no debe fusionar ninguno.
+        words = _words(("a", 0.0), ("b", 0.3), ("c", 0.6), ("d", 0.9))
+        plan = _flux_plan("a", "b", "c", "d")
+        out, dropped = m._reconcile_anchor_timing(plan, "flux", words, min_count=4, cap_number=1)
+        assert dropped == 0
+        assert len(out["anchors"]) == 4
+        # min_count=3 → fusiona hasta quedar exactamente en 3, no menos.
+        plan2 = _flux_plan("a", "b", "c", "d")
+        out2, dropped2 = m._reconcile_anchor_timing(plan2, "flux", words, min_count=3, cap_number=1)
+>       assert len(out2["anchors"]) == 3
+E       AssertionError: assert 4 == 3
+E        +  where 4 = len([{'anchor': 'a', 'pos': 0, 'end': 1}, {'anchor': 'b', 'pos': 1, 'end': 2}, {'anchor': 'c', 'pos': 2, 'end': 3}, {'anchor': 'd', 'pos': 3, 'end': 4}])
+
+test_module_m03_merge_timing.py:88: AssertionError
+---------------------------- Captured stdout call -----------------------------
+  [03][audit] cap 1: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
+  [03][audit] cap 1: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
+____________________ test_c_veo_path_y_veo_anchor_intacto _____________________
+[gw13] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+    def test_c_veo_path_y_veo_anchor_intacto():
+        """La fusión corre también para veo (supplementals); el veo_anchor NO se toca."""
+        words = _words(("uno", 0.0), ("dos", 0.4), ("tres", 5.0), ("cuatro", 10.0),
+                       ("cinco", 15.0))
+        plan = _veo_plan("uno", "dos", "tres", "cuatro", "cinco")
+        out, dropped = m._reconcile_anchor_timing(plan, "veo", words, min_count=4, cap_number=7)
+>       assert dropped == 1                                  # 'dos' (gap 0.4) fuera
+        ^^^^^^^^^^^^^^^^^^^
+E       assert 0 == 1
+
+test_module_m03_merge_timing.py:98: AssertionError
+---------------------------- Captured stdout call -----------------------------
+  [03][audit] cap 7: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
+___________________ test_preview_usa_las_plantillas_reales ____________________
+[gw18] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+server = (<gfx_lab_server.LabSession object at 0x000002586CBC89D0>, 'http://127.0.0.1:50696')
+
+    @needs_data
+    def test_preview_usa_las_plantillas_reales(server):
+        """El preview es write_project (mismo templater que el render) + el runtime inyectado."""
+        session, url = server
+        plan = session.director_plan()
+        r = _post(url + "/preview", {"plan": plan})
+        assert r["src"].startswith("/composition/index.html?v=")
+>       assert any(c["block"] == "title_card" for c in r["cues"])
+E       assert False
+E        +  where False = any(<generator object test_preview_usa_las_plantillas_reales.<locals>.<genexpr> at 0x000002586C539970>)
+
+test_module_gfx_lab.py:148: AssertionError
+============================== warnings summary ===============================
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+  C:\CLAUDE_PROJECTS\automatization_videos\script_engine\image_grade.py:83: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+    luma = list(im.convert("L").getdata())
+
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+  C:\CLAUDE_PROJECTS\automatization_videos\script_engine\image_grade.py:85: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+    s = [sv for sv, lv in zip(hsv.getdata(band=1), luma) if lv > 24] or [0]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED test_module_gfx_lab.py::test_cues_sin_escribir_el_proyecto - Assertion...
+FAILED test_module_m03_merge_timing.py::test_c_guarda_de_minimo - AssertionEr...
+FAILED test_module_m03_merge_timing.py::test_c_veo_path_y_veo_anchor_intacto
+FAILED test_module_gfx_lab.py::test_preview_usa_las_plantillas_reales - asser...
+4 failed, 916 passed, 30 skipped, 4 warnings in 58.86s
+23:14:59

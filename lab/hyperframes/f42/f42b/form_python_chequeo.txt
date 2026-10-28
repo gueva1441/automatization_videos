@@ -1,0 +1,5 @@
+$ <Python del form> — run_pipeline._chequeo_dependencias() real, sin simular
+Python: C:\CLAUDE_PROJECTS\viral-video-pipeline\.venv\Scripts\python.exe
+faltantes: {'requeridas': [], 'opcionales': ['pdfplumber', 'trafilatura']}
+  ⚠ Librerías opcionales que faltan (la cadena sigue sin ellas): pdfplumber (researcher_steps/research_v3.py:748); trafilatura (researcher_steps/research_v3.py:681)
+_chequeo_dependencias() → None (None = sigue a la etapa)

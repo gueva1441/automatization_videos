@@ -42,14 +42,25 @@ def test_a_cada_modulo_tiene_lo_suyo():
         assert not hasattr(pantalla_entrada, n), n
 
 
-def test_a_guard_mapa_avisa_tambien_por_los_modulos_nuevos():
+def test_a_guard_mapa_avisa_tambien_por_los_modulos_nuevos(tmp_path, monkeypatch):
+    """F42: guard_mapa avisa por cualquier archivo de producción con sticker viejo (antes, una lista de gfx)."""
     import importlib.util
     spec = importlib.util.spec_from_file_location("gm", ROOT / ".claude" / "hooks" / "guard_mapa.py")
     gm = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(gm)
-    for f in ("pantalla_entrada", "pantalla_filtros", "pantalla_colocar", "clima", "voz_datos", "voz_utils"):
-        assert "guard_mapa" in gm.aviso([f"script_engine/{f}.py"])
-    assert gm.aviso(["script_engine/clima.py", "lab/MAPA_MODULOS.json"]) is None
+    import mapa_modulos as mm
+    nuevos = [f"script_engine/{f}.py" for f in ("pantalla_entrada", "pantalla_filtros", "pantalla_colocar", "clima",
+                                                 "voz_datos", "voz_utils")]
+    assert gm.aviso(["script_engine/clima.py"]) is None                  # el mapa de hoy está al día
+    for f in (ROOT / "lab" / "mapa" / "stickers").glob("*.json"):
+        d = json.loads(f.read_text(encoding="utf-8"))
+        for a in nuevos:
+            if a in d:
+                d[a]["md5"] = "0" * 32
+        (tmp_path / f.name).write_text(json.dumps(d, ensure_ascii=False), encoding="utf-8")
+    monkeypatch.setattr(mm.check, "__defaults__", (tmp_path,))
+    for a in nuevos:
+        assert "guard_mapa" in gm.aviso([a])
 
 
 # ═══════════════ B: los bugs, con el caso real de cada uno ═══════════════
