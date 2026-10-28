@@ -371,6 +371,7 @@
    "sin_form": "",
    "propios": [
     "m02_5_normalizer_gate",
+    "m03_expediente",
     "m03_imagenes_v3",
     "m06_assembler",
     "m07_music_director",
@@ -379,6 +380,7 @@
     "qa_judge.html"
    ],
    "modelos": [
+    "Claude Opus",
     "ElevenLabs Music",
     "ElevenLabs TTS",
     "ElevenLabs alineador",
@@ -386,7 +388,8 @@
     "Gemini Flash",
     "Gemini Pro",
     "Kling (fal)",
-    "Seedream (fal)"
+    "Seedream (fal)",
+    "Veo (fal)"
    ],
    "es_compuerta": false
   },
@@ -520,9 +523,9 @@
     "m09_review_server"
    ],
    "modelos": [
+    "Claude Opus",
     "Flux (fal)",
     "Gemini Flash",
-    "Gemini Pro",
     "Kling (fal)",
     "Seedream (fal)",
     "Veo (fal)"
@@ -565,7 +568,7 @@
   "topic_validator.py"
  ],
  "conteo": {
-  "vivo": 133,
+  "vivo": 134,
   "solo herramienta manual": 13,
   "huérfano": 10,
   "roto": 0,
@@ -705,7 +708,7 @@
   "asset_manager.py": {
    "archivo": "asset_manager.py",
    "zona": "orquestador",
-   "sticker": "Es el que genera las fotos (y los clips de Veo, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió.",
+   "sticker": "Es el que genera las fotos (y los clips de Veo, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, a cada clip de Veo le manda además una lista fija de lo que no tiene que pasar (texto, marcas de agua, caras que se deforman, gente que entra al cuadro, cambios bruscos de luz…) y la duración explícita (8 s, la del planificador de m03; desde F50), y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió.",
    "recibe": "El guion canónico con image_prompts/video_prompts por capítulo y foto_madre_registry (data/scripts/<id>.json), el sync_map de voz (output/<id>/audio/sync_map.json, opcional) y las fotos madre en disco (rutas del registry).",
    "entrega": "output/<id>/assets/<capNN>_flux/<capNN>_img_NN.png (y _supp_NN.png, _graded.png), output/<id>/assets/<capNN>_veo/<capNN>_clip_NN.mp4 y output/<id>/assets/assets_manifest.json. Además, otros módulos le piden la función de imagen cruda (foto_madre.py, m09_packaging).",
    "modelo": [
@@ -747,7 +750,7 @@
     "qa_studio_server.py",
     "script_engine/m09_packaging.py"
    ],
-   "tests": 5,
+   "tests": 6,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "d56bf14 2026-10-22 (F8b)",
    "estado_a": "vivo",
@@ -756,7 +759,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "c3e06c16110ca81d220723a854f08938",
+   "md5": "6124fd60d7baf8c79e8902f5eb35f117",
    "sticker_al_dia": true
   },
   "audio_config.py": {
@@ -828,7 +831,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "voz",
@@ -944,7 +948,8 @@
     "fondos",
     "guion_pantalla",
     "aprobar_guion",
-    "render"
+    "render",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion",
@@ -956,9 +961,10 @@
     "researcher_steps/ficha_caso.py",
     "script_engine/guion_v4.py",
     "script_engine/m01a_escaleta.py",
-    "script_engine/m01e_pantalla.py"
+    "script_engine/m01e_pantalla.py",
+    "script_engine/m03_visual.py"
    ],
-   "tests": 8,
+   "tests": 10,
    "nacio": "cd5fde5 2026-10-24 (F22b)",
    "ultimo": "b2db299 2026-10-25 (F25a)",
    "estado_a": "vivo",
@@ -1155,7 +1161,7 @@
     "CostTracker.track_leonardo",
     "CostTracker.track_custom"
    ],
-   "md5": "75f85351a4f37892bd8a7d47083c3684",
+   "md5": "8d3b22155701383fb4c1ec23b8f50239",
    "sticker_al_dia": true
   },
   "csv_exporter.py": {
@@ -1171,7 +1177,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "research"
@@ -1258,6 +1265,7 @@
    "compartido": true,
    "lo_llaman": [
     "asset_manager.py",
+    "script_engine/m03_imagenes_v3.py",
     "script_engine/m03_visual.py"
    ],
    "tests": 1,
@@ -1440,7 +1448,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion",
@@ -1455,7 +1464,7 @@
    ],
    "tests": 15,
    "nacio": "e33f84a 2026-05-28",
-   "ultimo": "fc59a76 2026-10-27 (F41)",
+   "ultimo": "5b071d0 2026-10-28 (F50)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "run_pipeline.py:301 lo lanza en guion (--batch), :325 en papel (--aprobar-papel) y :334 en voz (--from normalizer_gate --batch)",
@@ -1709,7 +1718,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "voz",
@@ -1963,7 +1973,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion"
@@ -2054,7 +2065,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "voz"
@@ -2509,7 +2521,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion"
@@ -2674,7 +2687,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "research"
@@ -2715,7 +2729,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "research"
@@ -2756,7 +2771,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "research"
@@ -2797,7 +2813,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "research"
@@ -2838,7 +2855,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion",
@@ -2850,7 +2868,7 @@
    ],
    "tests": 2,
    "nacio": "21f2e10 2026-06-21",
-   "ultimo": "1e9bfc7 2026-07-04",
+   "ultimo": "5b071d0 2026-10-28 (F50)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.asegurar_canon llama a canon_desde_ficha después de la ficha (run_escaleta_v3) y antes de m03 (process_topic); el research ya no lo llama (F50 A).",
@@ -3044,7 +3062,8 @@
     "fondos",
     "guion_pantalla",
     "aprobar_guion",
-    "render"
+    "render",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion",
@@ -3549,7 +3568,8 @@
     "fondos",
     "guion_pantalla",
     "aprobar_guion",
-    "render"
+    "render",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion",
@@ -3609,7 +3629,8 @@
     "fondos",
     "guion_pantalla",
     "aprobar_guion",
-    "render"
+    "render",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion",
@@ -3654,7 +3675,8 @@
     "fondos",
     "guion_pantalla",
     "aprobar_guion",
-    "render"
+    "render",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion",
@@ -3805,7 +3827,8 @@
     "fondos",
     "guion_pantalla",
     "aprobar_guion",
-    "render"
+    "render",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion_pantalla",
@@ -3946,7 +3969,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion"
@@ -3955,7 +3979,8 @@
    "lo_llaman": [
     "fase1_5.py",
     "script_engine/m01a_columna.py",
-    "script_engine/m01a_escaleta.py"
+    "script_engine/m01a_escaleta.py",
+    "script_engine/m03_visual.py"
    ],
    "tests": 15,
    "nacio": "6264058 2026-10-23 (F11)",
@@ -4080,7 +4105,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion"
@@ -4132,7 +4158,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion"
@@ -4182,7 +4209,8 @@
     "fondos",
     "guion_pantalla",
     "aprobar_guion",
-    "render"
+    "render",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion",
@@ -4223,7 +4251,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion"
@@ -4258,7 +4287,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion"
@@ -4293,7 +4323,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion"
@@ -4340,7 +4371,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion"
@@ -4394,7 +4426,8 @@
     "fondos",
     "guion_pantalla",
     "aprobar_guion",
-    "render"
+    "render",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion",
@@ -4439,7 +4472,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "voz"
@@ -4460,12 +4494,12 @@
    "md5": "77d0d290cf0b21387f19686fbc1e1530",
    "sticker_al_dia": true
   },
-  "script_engine/m03_imagenes_v3.py": {
-   "archivo": "script_engine/m03_imagenes_v3.py",
+  "script_engine/m03_expediente.py": {
+   "archivo": "script_engine/m03_expediente.py",
    "zona": "fase2a",
-   "sticker": "Reglas de las imágenes del guion v3: reparte los beats de la escaleta entre las imágenes de cada capítulo, pone el estilo de película granulada al principio y al final del prompt, y detecta o limpia lo que no puede llevar una imagen (manos y caras en primer plano, armas, sangre, menores en daño, conteos exactos, izquierda/derecha, texto en el idioma equivocado). También audita el video entero (motivos repetidos, cuerpos, planos medios) y propone re-encuadres. Todo es determinista, sin llamar a ningún modelo.",
-   "recibe": "La escaleta y la narración v3 del tema (data/scripts/_steps/<id>/01a_escaleta.json y 01b_narracion_v3.json, o topic['escaleta'] / topic['parrafos_v3']), el evidence_pool del tema, y las anclas, slots y prosa que le pasa m03_visual.",
-   "entrega": "Datos en memoria para m03_visual: beats por capítulo, asignación beat-imagen, prosa corregida y envuelta en el estilo, marcas sensible/motivos por imagen y reporte de auditoría (se guardan dentro de data/scripts/_steps/<id>/03_visual.json como _f8_imagenes y reencuadres_propuestos). No escribe archivos propios.",
+   "sticker": "Arma el expediente de cada foto que se le pide a Claude Opus en m03: por cada frase de la voz que va a ilustrar una imagen junta el año que dice esa frase, dónde pasa, el párrafo entero de la voz, las escenas de la ficha, los hechos, las citas y las personas (rol · lugar · años) de su beat, y un año de respaldo; al final, los grupos de gente del canon. Lo escribe como un bloque de texto que va dentro del pedido. Determinista, sin modelo.",
+   "recibe": "El topic (evidence_pool: personajes, datos, cronología, citas, lugares), la escaleta, la ficha del caso y los párrafos v3 (data/scripts/_steps/<id>/01a_escaleta.json, ficha_caso.json, 01b_narracion_v3.json), los beats del capítulo, las anclas y la narración de los capítulos anteriores (para el año de respaldo).",
+   "entrega": "En memoria para m03_visual: la lista de expedientes por foto y el bloque de texto «CASE FILE PER IMAGE» del pedido. No escribe archivos.",
    "modelo": [],
    "modelos": [],
    "etapas_a": [
@@ -4483,36 +4517,73 @@
    "lo_llaman": [
     "script_engine/m03_visual.py"
    ],
-   "tests": 3,
+   "tests": 1,
+   "nacio": "(fuera de git)",
+   "ultimo": "(fuera de git)",
+   "estado_a": "vivo",
+   "estado": "vivo",
+   "estado_prueba": "script_engine/m03_visual.py lo importa (mexp) y lo usa en _render_prompts_seedream (m03_visual.py:563-568) y en assign_visual_prompts (2041-2042); m03_visual corre dentro de fase1_5.py:671 (etapa voz).",
+   "funciones_muertas": [],
+   "imports_rotos": [],
+   "sin_llamador_a": [],
+   "md5": "522ff17801a0f76eb305248a7ed9c45e",
+   "sticker_al_dia": true
+  },
+  "script_engine/m03_imagenes_v3.py": {
+   "archivo": "script_engine/m03_imagenes_v3.py",
+   "zona": "fase2a",
+   "sticker": "Reglas de las imágenes del guion v3: reparte los beats de la escaleta entre las imágenes de cada capítulo, arma la frase de cada imagen desde sus casilleros en un orden fijo (sujeto, mirada, objeto, lugar y año, estilo de película granulada, luz, plano, cartel con sujeto, 16:9 y sin texto), elige el año de la foto (dicho en la frase de la voz, el que propone el modelo o el de respaldo) y detecta o limpia lo que no puede llevar una imagen (manos y caras en primer plano, armas, sangre, menores en daño, conteos exactos, izquierda/derecha, texto en el idioma equivocado): si queda un problema, saca la frase. También audita el video entero (motivos repetidos, cuerpos, planos medios) y propone re-encuadres. Todo es determinista, sin llamar a ningún modelo.",
+   "recibe": "La escaleta y la narración v3 del tema (data/scripts/_steps/<id>/01a_escaleta.json y 01b_narracion_v3.json, o topic['escaleta'] / topic['parrafos_v3']), el evidence_pool del tema, y las anclas, slots y prosa que le pasa m03_visual.",
+   "entrega": "Datos en memoria para m03_visual: beats por capítulo, asignación beat-imagen, prosa armada y corregida, año de cada foto con su fuente, marcas sensible/motivos por imagen y reporte de auditoría (se guardan dentro de data/scripts/_steps/<id>/03_visual.json como _f8_imagenes y reencuadres_propuestos). No escribe archivos propios.",
+   "modelo": [],
+   "modelos": [],
+   "etapas_a": [
+    "research",
+    "guion",
+    "papel",
+    "voz",
+    "assets",
+    "packaging"
+   ],
+   "etapas_sticker": [
+    "voz"
+   ],
+   "compartido": true,
+   "lo_llaman": [
+    "script_engine/m03_expediente.py",
+    "script_engine/m03_visual.py"
+   ],
+   "tests": 4,
    "nacio": "73e3613 2026-10-22 (F8)",
    "ultimo": "e76d8ed 2026-10-28 (F49)",
    "estado_a": "vivo",
    "estado": "vivo",
-   "estado_prueba": "script_engine/m03_visual.py:107 lo importa (v3img) y lo usa en m03_visual.py:969-1100 y 2571; m03_visual corre dentro de fase1_5.py:632 (etapa voz).",
+   "estado_prueba": "script_engine/m03_visual.py:107 lo importa (v3img) y lo usa en m03_visual.py:561-629 (armado, F8, año) y 2037-2168; m03_visual corre dentro de fase1_5.py:671 (etapa voz).",
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "bbb740b0df7d08403d3b423afe077619",
+   "md5": "730b11424016501faf8fb67dafa3a6e5",
    "sticker_al_dia": true
   },
   "script_engine/m03_visual.py": {
    "archivo": "script_engine/m03_visual.py",
    "zona": "fase2a",
-   "sticker": "Escribe, para cada capítulo del documental, la descripción de cada imagen que después pinta el generador (Seedream). Le pasa al modelo el lugar principal del caso y el tramo de años que dice la narración (GEO y ERA). Elige qué frase de la narración ilustra cada imagen, llena la ficha de la escena con un modelo de Gemini, la teje en un texto fluido y revisa que las cifras de los datos verificados salgan bien, que no se cuelen nombres de personas ni texto escrito en la imagen. En los capítulos 1 y 7 además redacta el movimiento del clip de video.",
-   "recibe": "El tema ya armado (data/topics_db.json: datos verificados, canon visual de época, personas y objetos documentados, evidence_pool), el perfil del research (data/scripts/_steps/<id>/_perfil.json: lugar_principal), el esqueleto y la narración (data/scripts/_steps/<id>/01a_*.json y 01b_*.json), el mapa de sincronía del audio (output/audio/<id>/sync_map.json), los tiempos por palabra (output/audio/<id>/chNN_timestamps.json) y la escaleta v3 si existe (data/scripts/_steps/<id>/01a_escaleta.json, 01b_narracion_v3.json).",
-   "entrega": "data/scripts/_steps/<id>/03_visual.json (por capítulo: image_prompts con prompt final, ancla de narración, rango emocional, foto_madre_ref; en caps 1 y 7: image_prompt, video_prompt y supplemental_image_prompts); lo devuelve también como dict a fase1_5.py, que lo ensambla al contrato data/scripts/<id>.json. Sus constantes DOCTRINE_* las reutiliza m09_packaging.",
+   "sticker": "Escribe, para cada capítulo del documental, la descripción de cada imagen que después pinta el generador (Seedream). Le pasa al modelo el lugar principal del caso y el tramo de años que dice la narración (GEO y ERA). Elige qué frase de la narración ilustra cada imagen (Gemini Flash) y, desde F50, le pide a Claude Opus que llene la ficha de cada escena (casilleros) con un expediente por foto: año dicho, lugar, párrafo de la voz, escenas de la ficha, hechos, citas, personas y los grupos de gente del canon. El código arma la frase en un orden fijo y la revisa (sin nombres de personas, sin conteos ni izquierda/derecha, sin manos, sangre o texto suelto: si queda un problema, saca la frase). Rehace las fotos que no cumplen las reglas del capítulo y del video por el mismo camino. En los capítulos 1 y 7 además Opus redacta el movimiento del clip de video con el orden de la guía de Google.",
+   "recibe": "El tema ya armado (data/topics_db.json: canon visual con people_groups que arma fase1_5.asegurar_canon desde la ficha, personas y objetos documentados, evidence_pool), el perfil del research (data/scripts/_steps/<id>/_perfil.json: lugar_principal), el esqueleto y la narración (data/scripts/_steps/<id>/01a_*.json y 01b_*.json), la escaleta, la ficha y los párrafos v3 para el expediente (01a_escaleta.json, ficha_caso.json, 01b_narracion_v3.json), el mapa de sincronía del audio (output/audio/<id>/sync_map.json) y los tiempos por palabra (output/audio/<id>/chNN_timestamps.json).",
+   "entrega": "data/scripts/_steps/<id>/03_visual.json (por capítulo: image_prompts con prompt final, casilleros crudos, año y de dónde salió, ancla de narración, rango emocional, foto_madre_ref, notas F8; en caps 1 y 7: image_prompt, video_prompt y supplemental_image_prompts); lo devuelve también como dict a fase1_5.py, que lo ensambla al contrato data/scripts/<id>.json. Sus constantes DOCTRINE_* las reutiliza m09_packaging.",
    "modelo": [
     {
-     "modelo": "api.gemini_model_research (por config; call_pro_json)",
-     "para": "llenar los casilleros de cada imagen (slots) por capítulo y el movimiento del clip de apertura/cierre (description m03:slots y m03:motion)"
+     "modelo": "claude-opus-5-5, effort high (MODELO_CASILLEROS; claude_helpers.call_json)",
+     "para": "llenar los casilleros de cada imagen por capítulo y en cada re-hechura (m03:casilleros) y el movimiento del clip Veo (m03:motion)"
     },
     {
-     "modelo": "api.gemini_model (por config; call_flash_json, thinking_budget=0)",
-     "para": "elegir las anclas de narración (paso 1) y tejer los casilleros en prosa con candado de cifras (m03:fluidificador)"
+     "modelo": "api.gemini_model (por config; call_flash_json)",
+     "para": "elegir las anclas de narración (paso 1)"
     }
    ],
    "modelos": [
-    "Gemini Pro",
+    "Claude Opus",
+    "Veo (fal)",
     "Gemini Flash"
    ],
    "etapas_a": [
@@ -4529,39 +4600,34 @@
    ],
    "compartido": true,
    "lo_llaman": [
+    "asset_manager.py",
     "fase1_5.py",
     "script_engine/m09_packaging.py"
    ],
-   "tests": 17,
+   "tests": 14,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "0ec8e7b 2026-10-28 (F48)",
    "estado_a": "vivo",
    "estado": "vivo",
-   "estado_prueba": "fase1_5.py:632 llama assign_visual_prompts dentro de process_topic (tramo audio -> m07 -> m03 que corre con --from normalizer_gate, el comando de la etapa voz en run_pipeline); script_engine/m09_packaging.py:40 importa DOCTRINE_* en tiempo de carga (fase3, etapa packaging).",
+   "estado_prueba": "fase1_5.py:671 llama assign_visual_prompts dentro de process_topic (tramo audio -> m07 -> m03 que corre con --from normalizer_gate, el comando de la etapa voz en run_pipeline; también --only m03); script_engine/m09_packaging.py:40 importa DOCTRINE_* en tiempo de carga (fase3, etapa packaging).",
    "funciones_muertas": [
     {
      "nombre": "_format_bullets",
-     "linea": 1309,
+     "linea": 919,
      "por_que": "nadie la nombra en todo el repo; solo su definición"
     },
     {
      "nombre": "_format_visual_canon_block",
-     "linea": 1315,
-     "por_que": "sin llamadores; solo la nombran un comentario/docstring (m03_visual.py:312) y test_module_m03_reglas_133.py, que cuenta su texto en el fuente (la declara 'dead code') sin ejecutarla"
-    },
-    {
-     "nombre": "_validate_no_text_leakage",
-     "linea": 1836,
-     "por_que": "en producción nadie la llama (el camino seedream usa _find_text_leakage); solo test_module_03_text_leakage_casing.py"
+     "linea": 925,
+     "por_que": "sin llamadores; solo la nombran un comentario/docstring y test_module_m03_reglas_133.py, que cuenta su texto en el fuente (la declara 'dead code') sin ejecutarla"
     }
    ],
    "imports_rotos": [],
    "sin_llamador_a": [
     "_format_bullets",
-    "_format_visual_canon_block",
-    "_validate_no_text_leakage"
+    "_format_visual_canon_block"
    ],
-   "md5": "8f3ade0b35e54f921dcd35da44187806",
+   "md5": "1b7750a271a23ba277f01c6df97f9bba",
    "sticker_al_dia": true
   },
   "script_engine/m05_judge.py": {
@@ -4665,7 +4731,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "voz"
@@ -4754,7 +4821,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "voz"
@@ -4922,7 +4990,8 @@
     "fondos",
     "guion_pantalla",
     "aprobar_guion",
-    "render"
+    "render",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion",
@@ -4970,6 +5039,7 @@
    ],
    "compartido": true,
    "lo_llaman": [
+    "script_engine/m03_imagenes_v3.py",
     "script_engine/m03_visual.py",
     "script_engine/m05_judge.py"
    ],
@@ -5101,7 +5171,8 @@
     "fondos",
     "guion_pantalla",
     "aprobar_guion",
-    "render"
+    "render",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion",
@@ -5179,7 +5250,8 @@
     "fondos",
     "guion_pantalla",
     "aprobar_guion",
-    "render"
+    "render",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion",
@@ -5395,7 +5467,9 @@
     }
    ],
    "imports_rotos": [],
-   "sin_llamador_a": [],
+   "sin_llamador_a": [
+    "measure"
+   ],
    "md5": "fb2a334dcc3abbdae8ecceec8cd94dcb",
    "sticker_al_dia": true
   },
@@ -5543,7 +5617,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion",
@@ -5680,7 +5755,8 @@
     "fondos",
     "guion_pantalla",
     "aprobar_guion",
-    "render"
+    "render",
+    "packaging"
    ],
    "etapas_sticker": [
     "guion_pantalla",
@@ -5734,6 +5810,7 @@
     "script_engine/gfx_layer.py",
     "script_engine/gfx_realizador.py",
     "script_engine/m01e_pantalla.py",
+    "script_engine/m03_expediente.py",
     "script_engine/m03_visual.py",
     "script_engine/pantalla_entrada.py",
     "script_engine/pantalla_filtros.py",
@@ -5949,7 +6026,8 @@
     "guion",
     "papel",
     "voz",
-    "assets"
+    "assets",
+    "packaging"
    ],
    "etapas_sticker": [
     "research"
@@ -5961,7 +6039,7 @@
    ],
    "tests": 11,
    "nacio": "e33f84a 2026-05-28",
-   "ultimo": "fd5e956 2026-10-27 (F42b)",
+   "ultimo": "5b071d0 2026-10-28 (F50)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1.py:771 llama research_topics; fase1_5.py:365 llama investigar_semilla (solo con --semilla, que el form no pasa)",
@@ -6429,7 +6507,8 @@
     "fondos",
     "guion_pantalla",
     "aprobar_guion",
-    "render"
+    "render",
+    "packaging"
    ],
    "etapas_sticker": [
     "render"
@@ -6467,7 +6546,8 @@
     "fondos",
     "guion_pantalla",
     "aprobar_guion",
-    "render"
+    "render",
+    "packaging"
    ],
    "etapas_sticker": [
     "render"
@@ -6571,7 +6651,8 @@
     "fondos",
     "guion_pantalla",
     "aprobar_guion",
-    "render"
+    "render",
+    "packaging"
    ],
    "etapas_sticker": [
     "render"
@@ -6609,7 +6690,8 @@
     "fondos",
     "guion_pantalla",
     "aprobar_guion",
-    "render"
+    "render",
+    "packaging"
    ],
    "etapas_sticker": [
     "render"
@@ -6647,7 +6729,8 @@
     "fondos",
     "guion_pantalla",
     "aprobar_guion",
-    "render"
+    "render",
+    "packaging"
    ],
    "etapas_sticker": [
     "render"
@@ -7552,9 +7635,7 @@
   },
   {
    "test": "test_m03_guarda1_degrade.py",
-   "importa": [
-    "m03_visual"
-   ],
+   "importa": [],
    "colecta": 5,
    "error": "",
    "imports_rotos": [],
@@ -7668,8 +7749,7 @@
   {
    "test": "test_module_03_leakage_retry.py",
    "importa": [
-    "fase1_5",
-    "m03_visual"
+    "fase1_5"
    ],
    "colecta": 0,
    "error": "",
@@ -7757,8 +7837,7 @@
    "test": "test_module_134b_fluidificador_flash.py",
    "importa": [
     "cost_tracker",
-    "gemini_helpers",
-    "m03_visual"
+    "gemini_helpers"
    ],
    "colecta": 0,
    "error": "",
@@ -8429,8 +8508,7 @@
    "importa": [
     "fase1_5",
     "gemini_helpers",
-    "guion_v4",
-    "m03_visual"
+    "guion_v4"
    ],
    "colecta": 11,
    "error": "",
@@ -9039,6 +9117,7 @@
    "test": "test_module_f8.py",
    "importa": [
     "asset_manager",
+    "claude_helpers",
     "engine_profiles",
     "error_handler",
     "guion_v3_reglas",

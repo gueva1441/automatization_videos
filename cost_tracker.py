@@ -427,7 +427,7 @@ class CostTracker:
     @staticmethod
     def _gemini_module_of(description: str) -> str:
         """Módulo/paso de una entry Gemini para el desglose (HANDOFF_134b). Usa el `description`
-        del call site: 'm03:fluidificador'/'m03:slots'/'m03:motion', 'deep-*'/'niche_*'/
+        del call site: 'm03:casilleros'/'m03:motion', 'deep-*'/'niche_*'/
         'dynamic_queries' (discovery), y los genéricos 'call_flash_json'/'call_pro_json' (los
         callers del motor sin tag → agrupan como 'motor (sin tag)')."""
         d = (description or "").strip()
@@ -435,7 +435,7 @@ class CostTracker:
             return "motor (sin tag)"
         if ": " in d:              # sufijo free-text (p.ej. "dynamic_queries: <niche>")
             return d.split(": ", 1)[0]
-        return d                   # "m03:fluidificador", "deep-tecnico", etc.
+        return d                   # "m03:casilleros", "deep-tecnico", etc.
 
     def get_gemini_summary(self) -> dict:
         """Agrega las entries de Gemini (unit_label='tokens') por modelo/servicio Y por módulo

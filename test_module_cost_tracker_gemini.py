@@ -38,7 +38,7 @@ def main() -> int:
 
     # ── (a)+(b) Pro con usage conocido ──
     ct = CostTracker()
-    ct.track_gemini_response(_Resp(_UM(1000, 2000, 8000)), "gemini-2.5-pro", "m03:slots")
+    ct.track_gemini_response(_Resp(_UM(1000, 2000, 8000)), "gemini-2.5-pro", "ficha_caso")
     g = ct.get_gemini_summary()
     pro = g["by_model"].get("Gemini 2.5 Pro")
     _check(pro is not None, "(a) no se registró servicio 'Gemini 2.5 Pro'", fails)

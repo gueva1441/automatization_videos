@@ -69,6 +69,12 @@ ENABLE_VISION_VALIDATOR: bool = False  # Flag maestro. False = una sola llamada 
 
 RATE_LIMIT_BACKOFF_SECONDS = 20
 
+# F50 C: lo que no tiene que pasar en un clip Veo, igual para todo el canal (el movimiento lo escribe m03 sin negaciones).
+# Sin «elementos modernos»: la época la fija la foto (el cap 7 de Wittenoom es 2024).
+VEO_NEGATIVE_PROMPT = ("text, subtitles, captions, watermark, logo, morphing faces, distorted hands, extra limbs, "
+                       "people entering the frame, sudden lighting change, camera shake, fast cuts, cartoon, CGI look")   # derivado: handoff F50 §C.2, confirmado por Omar al pegar F50
+VEO_DURACIONES_S = (4, 6, 8)        # estándar: fal veo3.1 i2v acepta duration "4s" | "6s" | "8s"
+
 # Capítulo del gancho → usa Flux Ultra (máxima calidad)
 HOOK_CHAPTER_ID = "ch01"
 
@@ -585,11 +591,24 @@ def _veo_poll(status_url: str, response_url: str,
     raise TimeoutError(f"fal.ai timeout tras {timeout}s")
 
 
-def _call_veo_once(image_path: Path, prompt: str, output_path: Path) -> Path:
+def _veo_duration(segundos: float | None = None) -> str:
+    """La `duration` de fal para el clip: la de m03 (VEO_CLIP_DURATION_SEC, 8 s) salvo que se pida otra; si no es
+    4/6/8 → error (no se redondea)."""
+    if segundos is None:
+        from script_engine.m03_visual import VEO_CLIP_DURATION_SEC
+        segundos = VEO_CLIP_DURATION_SEC
+    if float(segundos) not in VEO_DURACIONES_S:
+        raise ValueError(f"duración de clip Veo {segundos} s: fal acepta {VEO_DURACIONES_S}")
+    return f"{int(segundos)}s"
+
+
+def _call_veo_once(image_path: Path, prompt: str, output_path: Path, duracion_s: float | None = None) -> Path:
     image_b64 = base64.b64encode(image_path.read_bytes()).decode()
     payload = {
         "prompt": prompt,
         "image_url": f"data:image/png;base64,{image_b64}",
+        "negative_prompt": VEO_NEGATIVE_PROMPT,           # F50 C
+        "duration": _veo_duration(duracion_s),            # F50 C: explícito (antes, el 8 s por defecto de fal)
         "generate_audio": False,
         # FIX B: sin esto fal cae al default "720p". Configurable vía api.* (gitignored);
         # getattr con default para no romper si el campo no está en config.

@@ -168,7 +168,7 @@
   "_parte": "orquestador_c"
  },
  "asset_manager.py": {
-  "sticker": "Es el que genera las fotos (y los clips de Veo, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió.",
+  "sticker": "Es el que genera las fotos (y los clips de Veo, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, a cada clip de Veo le manda además una lista fija de lo que no tiene que pasar (texto, marcas de agua, caras que se deforman, gente que entra al cuadro, cambios bruscos de luz…) y la duración explícita (8 s, la del planificador de m03; desde F50), y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió.",
   "recibe": "El guion canónico con image_prompts/video_prompts por capítulo y foto_madre_registry (data/scripts/<id>.json), el sync_map de voz (output/<id>/audio/sync_map.json, opcional) y las fotos madre en disco (rutas del registry).",
   "entrega": "output/<id>/assets/<capNN>_flux/<capNN>_img_NN.png (y _supp_NN.png, _graded.png), output/<id>/assets/<capNN>_veo/<capNN>_clip_NN.mp4 y output/<id>/assets/assets_manifest.json. Además, otros módulos le piden la función de imagen cruda (foto_madre.py, m09_packaging).",
   "modelo": [
@@ -192,7 +192,7 @@
   "estado": "vivo",
   "estado_prueba": "fase2a.py:55 importa process_script como asset_process y lo corre en la etapa assets (run_pipeline.py:340-342 lanza fase2a.py --topic); m09_packaging.py:489 lo usa para las miniaturas",
   "funciones_muertas": [],
-  "md5": "c3e06c16110ca81d220723a854f08938",
+  "md5": "6124fd60d7baf8c79e8902f5eb35f117",
   "_parte": "orquestador_b"
  },
  "claude_helpers.py": {
@@ -288,7 +288,7 @@
     "por_que": "ningún módulo de producción la llama; solo test_module_f26c.py:138 (prueba del lock de hilos)."
    }
   ],
-  "md5": "75f85351a4f37892bd8a7d47083c3684",
+  "md5": "8d3b22155701383fb4c1ec23b8f50239",
   "_parte": "orquestador_c"
  },
  "csv_exporter.py": {

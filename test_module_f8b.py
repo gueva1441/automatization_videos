@@ -202,7 +202,7 @@ def test_render_v3_sin_texto_por_defecto(fake_llm):
     topic = _topic_f8()
     topic["_f8"]["lang"] = "en"
     out = m3._render_prompts_seedream(topic, {"chapter_number": 5}, NARR, plan, 5)
-    assert all(v3.NO_TEXT in i["prompt"] for i in out["image_prompts"])
+    assert all(i["prompt"].endswith(v3.NO_TEXT) for i in out["image_prompts"])      # F50 B: cierra el armado
     assert all(i["texto_en_imagen"] is False for i in out["image_prompts"])
     assert "Language of the place of the event" in fake_llm["prompts"][0] and "English" in fake_llm["prompts"][0]
 

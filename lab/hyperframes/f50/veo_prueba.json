@@ -1,0 +1,194 @@
+{
+ "imagen": "output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch01_veo\\ch01_img_01.png",
+ "video_prompt": "The camera performs a very slow, subtle push-in, drawing closer to the unsettling details of the bandaged foot. As fine particles of red and grey dust drift across the ground, a single loose thread on the crude bandage flutters gently in a faint, imperceptible breeze.",
+ "negative_prompt": "text, subtitles, captions, watermark, logo, morphing faces, distorted hands, extra limbs, people entering the frame, sudden lighting change, camera shake, fast cuts, cartoon, CGI look",
+ "duration": "4s",
+ "endpoint": "https://queue.fal.run/fal-ai/veo3.1/lite/image-to-video",
+ "respuestas": [
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/lite/image-to-video",
+   "status": 200,
+   "body": "{\"status\":\"IN_QUEUE\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{},\"queue_position\":0,\"user_queue_position\":0,\"user_queued_count\":1}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 202,
+   "body": "{\"status\":\"IN_PROGRESS\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status",
+   "status": 200,
+   "body": "{\"status\":\"COMPLETED\",\"request_id\":\"01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"response_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7\",\"status_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/status\",\"cancel_url\":\"https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7/cancel\",\"logs\":null,\"metrics\":{\"inference_time\":148.72199988365173}}"
+  },
+  {
+   "url": "https://queue.fal.run/fal-ai/veo3.1/requests/01a1833c-5ab1-7cd2-8e90-c3f62a78cbf7",
+   "status": 200,
+   "body": "{\"video\":{\"url\":\"https://v3b.fal.media/files/b/0ab03607/1hiZ_mWaocMUAsGs8MOiA_c0ffd7add7c14b4dbcb34e2f73d302e0.mp4\",\"content_type\":\"video/mp4\",\"file_name\":\"c0ffd7add7c14b4dbcb34e2f73d302e0.mp4\",\"file_size\":10061028}}"
+  }
+ ],
+ "payload": {
+  "prompt": "The camera performs a very slow, subtle push-in, drawing closer to the unsettling details of the bandaged foot. As fine particles of red and grey dust drift across the ground, a single loose thread on the crude bandage flutters gently in a faint, imperceptible breeze.",
+  "image_url": "data:image/png;base64,/9j/4AAQSkZJRgABAQ…",
+  "negative_prompt": "text, subtitles, captions, watermark, logo, morphing faces, distorted hands, extra limbs, people entering the frame, sudden lighting change, camera shake, fast cuts, cartoon, CGI look",
+  "duration": "4s",
+  "generate_audio": false,
+  "resolution": "1080p"
+ },
+ "estado": "ok",
+ "costo_tracker_usd": 0.24,
+ "segundos": 157.2,
+ "ffprobe": {
+  "programs": [],
+  "stream_groups": [],
+  "streams": [
+   {
+    "codec_name": "h264",
+    "width": 1920,
+    "height": 1080
+   }
+  ],
+  "format": {
+   "duration": "4.000000"
+  }
+ }
+}

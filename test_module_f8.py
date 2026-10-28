@@ -174,10 +174,22 @@ def test_sin_escaleta_no_hay_beats(tmp_path):
 #  §1 C–E — estilo, composición, sensible
 # ═══════════════════════════════════════════════════════════════
 
-def test_estilo_al_principio_y_al_final():
-    p = v3.wrap_style("A flooded cell at night. The image has a 16:9 aspect ratio.", "2005")
-    assert p.startswith("Grainy 35mm documentary photograph, 2005, dark-history realism")
-    assert p.endswith(v3.STYLE_TAIL) and v3.wrap_style(p, "2005") == p
+def test_estilo_en_el_medio_del_armado():
+    # F50 B: sin wrap_style; el armado por código empieza por el sujeto y pone el estilo después de lugar + año
+    it = {"subject": "a flooded cell", "action": "water rising", "setting": "Orleans Parish Prison",
+          "shot_scale": "wide", "text_in_image": {"present": False, "text": "", "font": "", "location": ""}}
+    head = v3.style_head("2005")
+    assert head.startswith("Grainy 35mm documentary photograph, 2005, dark-history realism")
+    p = v3.armar(it, "2005")["prompt"]
+    assert p.startswith("A flooded cell. Water rising.") and f"{head} {v3.STYLE_TAIL}" in p
+    assert p.index("Orleans Parish Prison, 2005.") < p.index(head)
+    assert p.endswith(f"{ep.select_profile('seedream').aspect_ratio_text} {v3.NO_TEXT}")
+    # el setting que ya trae año no lo repite; con cartel no va el «sin texto»
+    p2 = v3.armar({**it, "setting": "Orleans Parish Prison in 2005",
+                   "text_in_image": {"present": True, "text": "PARISH PRISON", "font": "", "location": "above the gate"}},
+                  "2005")["prompt"]
+    assert "Orleans Parish Prison in 2005." in p2 and "2005, 2005" not in p2 and head in p2
+    assert 'The words "PARISH PRISON" are written above the gate' in p2 and v3.NO_TEXT not in p2
     assert v3.topic_year({"era_visual_canon": {"spans": "2005-2010"}}, None) == "2005"
 
 
@@ -246,27 +258,24 @@ def _fake_slots(n, body=False):
                     "lighting": "low-key night", "mood": "cold", "style": "documentary",
                     "text_in_image": {"present": False, "text": "", "font": "", "location": ""},
                     "hard_fact_ids": [], "subject_ref": "interior_scene", "foto_madre_ref": [],
-                    "emotional_rank": "R3"})
+                    "emotional_rank": "R3", "people_group": [], "year": "2005"})
     return out
 
 
 @pytest.fixture
 def fake_llm(monkeypatch):
-    seen = {"prompts": [], "systems": []}
+    """F50 B: se simula la llamada de los casilleros (Opus); el reintento, la validación y el armado son los reales."""
+    seen = {"prompts": [], "systems": [], "descriptions": []}
 
-    def call(prompt, validator, cap_number, system_instruction=None, **k):
+    def casilleros(prompt, system_instruction=None, response_schema=None, description=None, **k):
         seen["prompts"].append(prompt)
         seen["systems"].append(system_instruction)
+        seen["descriptions"].append(description)
         block = prompt.split("ANCHORS YA ELEGIDOS")[1].split("Emit EXACTLY")[0]
         n = len([ln for ln in block.splitlines() if ln.strip().startswith("[")])
-        body = "FOR THIS IMAGE" not in prompt and cap_number == 1
-        return validator({"image_prompts": _fake_slots(n, body)})
-
-    def fluid(slots, locked, profile, label, max_attempts=3, extra_feedback=""):
-        return (f"A {slots['shot_scale']} view: {slots['subject']}, {slots['action']}, {slots['gaze_interaction']}. "
-                "The image has a 16:9 aspect ratio.").ljust(130, ".")
-    monkeypatch.setattr(m3, "_call_with_validation_retry", call)
-    monkeypatch.setattr(m3, "_fluidify_item", fluid)
+        body = "FOR THIS IMAGE" not in prompt and "\nCAP 1 —" in prompt
+        return {"image_prompts": _fake_slots(n, body)}
+    monkeypatch.setattr(m3, "_llamar_casilleros", casilleros)
     return seen
 
 
@@ -280,10 +289,18 @@ def test_render_v3_usa_beats_estilo_y_reglas(fake_llm):
                                                    "Segundo párrafo, el pico", "Tercer párrafo, respiro"]]}
     out = m3._render_prompts_seedream(_topic_f8(), {"chapter_number": 5, "bullets": ["b1"]}, NARR, plan, 5)
     assert "VISUAL SUBJECT PER IMAGE" in fake_llm["prompts"][0]
-    assert fake_llm["systems"][0] == m3.SYSTEM_INSTRUCTION_VISUAL_SEEDREAM_V3
+    assert "CASE FILE PER IMAGE" in fake_llm["prompts"][0]                     # F50 B: el expediente va en el pedido
+    assert fake_llm["systems"][0] == m3.SYSTEM_INSTRUCTION_CASILLEROS
+    assert set(fake_llm["descriptions"]) == {"m03:casilleros"}
+    # el SI de los casilleros es el v3 con `people_group` y `year` agregados
+    si = m3.SYSTEM_INSTRUCTION_CASILLEROS
+    assert "COMPOSITION RULES (v3" in si and m3.TEXTO_2_PEOPLE_GROUP in si and m3.TEXTO_S4_YEAR in si
     its = out["image_prompts"]
     assert [i["beat"] for i in its].count(5) == 2
-    assert all(i["prompt"].startswith("Grainy 35mm documentary photograph, 2005") for i in its)
+    head = v3.style_head("2005")
+    # la prosa empieza por el sujeto; el estilo del año va en el medio
+    assert all(head in i["prompt"] and not i["prompt"].startswith(head) for i in its)
+    assert all(i["anio"] == "2005" and v3.NO_TEXT in i["prompt"] for i in its)
     assert all("jaw" not in i["prompt"] for i in its) and all("sensible" in i for i in its)
     assert any("ESTABLISHING" in p for p in fake_llm["prompts"][1:])   # sin establecimiento → se rehizo una
     assert any(m3.F8_NOTE_CERRADA in p for p in fake_llm["prompts"][1:])  # la del pico salió wide → se rehizo
@@ -320,12 +337,32 @@ def test_pasada_de_video_rehace_excesos_menos_el_cuadro_veo(monkeypatch):
     assert v3.problems("A close shot of a man drinking from his cupped hands.")
 
 
-def test_render_v2_sin_cambios(fake_llm):
+def test_sin_escaleta_no_hay_casilleros(fake_llm):
+    # F50 B: el camino v2 (sin escaleta) se borró: sin `_f8` no hay expediente ni casilleros, y no se llama al modelo
     plan = {"anchors": [{"anchor": "Primer párrafo"}]}
     topic = {"id": "t", "verified_facts": []}
-    out = m3._render_prompts_seedream(topic, {"chapter_number": 3}, NARR, plan, 3)
-    assert fake_llm["systems"] == [m3.SYSTEM_INSTRUCTION_VISUAL_SEEDREAM]
-    assert fake_llm["prompts"][0] == m3._build_seedream_prompt_step2(topic, {"chapter_number": 3}, NARR,
-                                                                     ["Primer párrafo"])
-    it = out["image_prompts"][0]
-    assert "beat" not in it and "sensible" not in it and not it["prompt"].startswith("Grainy")
+    with pytest.raises(m3.VisualValidationError, match="sin escaleta"):
+        m3._render_prompts_seedream(topic, {"chapter_number": 3}, NARR, plan, 3)
+    assert fake_llm["prompts"] == []
+
+
+def test_refill_rehace_una_foto_con_su_nota(fake_llm):
+    item = {"narration_anchor": "Sigue el agua", "beat": 4, "cerrada": False}
+    nota = "Show the empty bunk."
+    new = m3._f8_refill(_topic_f8(), {"chapter_number": 5}, NARR, item, 5, nota)
+    assert new["_f8_rehecha"] == nota and new["narration_anchor"] == "Sigue el agua" and new["beat"] == 4
+    assert len(fake_llm["prompts"]) == 1 and f"FOR THIS IMAGE: {nota}" in fake_llm["prompts"][0]
+
+
+def test_negativa_de_opus_es_parada(monkeypatch):
+    import claude_helpers
+
+    def niega(*a, **k):
+        raise claude_helpers.ClaudeError("refusal")
+    monkeypatch.setattr(m3, "_llamar_casilleros", niega)
+    plan = {"anchors": [{"anchor": "Sigue el agua"}]}
+    with pytest.raises(m3.CasillerosParada, match="no llenó los casilleros"):
+        m3._render_prompts_seedream(_topic_f8(), {"chapter_number": 5}, NARR, plan, 5)
+    item = {"narration_anchor": "Sigue el agua", "beat": 4, "cerrada": False}
+    with pytest.raises(m3.CasillerosParada, match="re-hechura de la foto"):
+        m3._f8_refill(_topic_f8(), {"chapter_number": 5}, NARR, item, 5, "x")

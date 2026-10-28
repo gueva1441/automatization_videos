@@ -204,15 +204,6 @@ def style_head(year: str) -> str:
 STYLE_TAIL = "35mm film grain, muted documentary colors."
 
 
-def wrap_style(prose: str, year: str) -> str:
-    """Estilo primero y repetido abreviado al final (con el estilo en cola, Seedream devuelve set de película)."""
-    p = (prose or "").strip()
-    head = style_head(year)
-    if p.startswith(head[:30]):
-        return p
-    return f"{head} {p} {STYLE_TAIL}".strip()
-
-
 # ═══════════════════════════════════════════════════════════════
 #  D/E — reglas sobre el prompt (validador determinista) + instrucción al director
 # ═══════════════════════════════════════════════════════════════
@@ -319,13 +310,14 @@ def problems(prose: str, shot_scale: str | None = None) -> list[tuple[str, str]]
 
 def fix_counts_lr(prose: str) -> str:
     """D4 determinista: «three inmates» → «a few inmates»; «on the left» → «to one side». Un artículo delante de la cifra
-    se va con ella («The two men» → «A couple of men»). Las cifras del candado van en numerales, no en palabras: no se
-    tocan."""
+    se va con ella («The two men» → «A couple of men») y la cantidad va en mayúscula si la cifra o su artículo la
+    tenían. Las cifras en numerales no se tocan."""
     def _cnt(m: re.Match) -> str:
         w = m.group(2).lower()
         out = "a couple of " if w == "two" else "a few " if w in ("three", "four") else "several "
-        return out[0].upper() + out[1:] if (m.group(1) or "")[:1].isupper() else out
-    # F49: el artículo de antes de la cifra se va con ella («The two men» → «A couple of men», no «The a couple of»)
+        return out[0].upper() + out[1:] if m.group(0)[:1].isupper() else out   # F50: mayúscula si la cifra o su
+    # artículo la tenían («Three inmates stand» → «A few inmates stand»). F49: el artículo de antes de la cifra se va
+    # con ella («The two men» → «A couple of men», no «The a couple of»)
     p = ART_COUNT_RE.sub(_cnt, prose)
     p = LR_RE.sub(lambda m: "to one side" if m.group(0).lower().startswith(("on", "to", "at", "from")) else "side", p)
     return re.sub(r"\s{2,}", " ", p)
@@ -559,3 +551,89 @@ def reencuadres(n_pedidas: int, n_fotos: int, rank_order: list[int]) -> list[dic
         out.append({"reencuadre_de": idx, "zoom": round(1.3 + 0.3 * (j % 2), 2), "tercio": "opuesto",
                     "movimiento": "pan" if j % 2 else "push_in"})
     return out
+
+
+# ═══════════════════════════════════════════════════════════════
+#  F50 B — armado por código de la prosa (la candidata de F46b–F49, sin tejido)
+# ═══════════════════════════════════════════════════════════════
+
+_ANIO_O_DECADA = re.compile(r"\b(1[89]\d\d|20\d\d)s?\b")
+# preposiciones de lugar del inglés (gramática, no de un tema): con ellas la ubicación del cartel no puede ser sujeto
+_PREP_LUGAR = ("on", "in", "at", "above", "across", "along", "over", "under", "beneath", "beside", "behind", "inside",
+               "outside", "near", "around", "by", "from", "onto", "into", "upon")
+
+
+def oracion(x: str) -> str:
+    x = re.sub(r"\s+", " ", str(x or "")).strip().rstrip(".,;")
+    return (x[:1].upper() + x[1:] + ".") if x else ""
+
+
+def frase_cartel(tii: dict) -> str:
+    """El texto visible del cartel con sujeto: «The words "X" are written on … in <font>, in clear crisp lettering.»
+    si la ubicación empieza con preposición; si no, «The <ubicación> reads "X" in <font>, …»; sin ubicación, «A sign
+    reads …». Sin el «lettering» que antes se pegaba al font."""
+    texto = tii.get("text")
+    font = str(tii.get("font") or "").strip().rstrip(".,;")
+    loc = re.sub(r"\s+", " ", str(tii.get("location") or "")).strip().rstrip(".,;")
+    en = f" in {font}" if font else ""
+    if not loc:
+        return oracion(f'A sign reads "{texto}"{en}, in clear crisp lettering')
+    if loc.split()[0].lower() in _PREP_LUGAR:
+        return oracion(f'The words "{texto}" are written {loc}{en}, in clear crisp lettering')
+    sujeto = re.sub(r"^(the|a|an)\s+", "", loc, flags=re.I)
+    return oracion(f'The {sujeto} reads "{texto}"{en}, in clear crisp lettering')
+
+
+def armar(it: dict, anio: str, grupos: dict[str, dict] | None = None) -> dict:
+    """Prosa en el orden medido: sujeto/acción → mirada → objeto → lugar + año (sin «, año» si el setting ya trae año o
+    década) → estilo → luz + paleta → plano/ángulo/lente → cartel → 16:9 (+ sin texto si no hay cartel). Los grupos
+    de gente no se escriben (`aspecto` vacío: así se midió)."""
+    from engine_profiles import select_profile
+    tii = it.get("text_in_image") or {}
+    texto = frase_cartel(tii) if tii.get("present") and tii.get("text") else ""
+    plano = ", ".join(str(x).strip().rstrip(".,; ") for x in
+                      [f"{str(it.get('shot_scale') or '').replace('_', ' ')} shot", it.get("camera_angle"),
+                       it.get("lens_technique")] if x and str(x).strip())
+    setting = str(it.get("setting") or "")
+    partes = {
+        "sujeto": " ".join(p for p in (oracion(it.get("subject")), oracion(it.get("action"))) if p),
+        "aspecto": "",
+        "mirada": oracion(it.get("gaze_interaction")),
+        "objeto": oracion(it.get("props_detail")),
+        "lugar_anio": oracion(setting) if _ANIO_O_DECADA.search(setting)
+        else oracion(f"{setting.strip().rstrip('.')}, {anio}"),
+        "estilo": f"{style_head(anio)} {STYLE_TAIL}",
+        "luz": " ".join(p for p in (oracion(it.get("lighting")), oracion(it.get("color_palette"))) if p),
+        "tecnica": oracion(plano),
+        "texto": texto,
+        "cierre": f"{select_profile('seedream').aspect_ratio_text}" + ("" if texto else f" {NO_TEXT}"),
+    }
+    return {"partes": partes, "prompt": " ".join(p for p in partes.values() if p)}
+
+
+def f8_backstop(prompt: str, it: dict, escala: bool, documented) -> tuple[str, list[str]]:
+    """Las reglas F8 sobre la prosa armada: nombres documentados fuera, conteos e izquierda/derecha, escala; si queda un
+    problema (manos/cara, prohibida, arma, menor en daño), se saca la frase (sin re-tejido)."""
+    from script_engine.name_matching import scrub_documented_names
+    notas = []
+    p, _ = scrub_documented_names(prompt, documented)
+    p = fix_counts_lr(p)
+    if escala:
+        p = fix_scale(p)
+    probs = problems(p, it.get("shot_scale"))
+    if probs:
+        notas = [f"{k}: {f}" for k, f in probs]
+        p = scrub_sentence_problems(p, it.get("shot_scale"))
+    if escala and re.search(HUMAN, p, re.I) and not SCALE_EN.search(p):
+        p = p.rstrip() + " Hundreds of people fill the frame."
+    return re.sub(r"\s+", " ", p).strip(), notas
+
+
+def anio_final(e: dict, it: dict) -> tuple[str, str]:
+    """El año de la foto: 1) dicho en el ancla 2) el casillero `year` 3)–5) el respaldo del expediente."""
+    if e.get("anio_ancla"):
+        return e["anio_ancla"], "1) dicho en el ancla"
+    y = str(it.get("year") or "").strip()
+    if re.fullmatch(r"\d{4}", y) and 1800 <= int(y) <= 2100:      # derivado: handoff F48 §Constantes (años 1800–2100)
+        return y, "2) el casillero `year` del modelo"
+    return tuple(e["respaldo"])
