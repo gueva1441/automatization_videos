@@ -1,0 +1,864 @@
+{
+ "comando": "python -m pytest --collect-only -q -p no:cacheprovider test_*.py",
+ "exit": 2,
+ "resumen": "1144 tests collected, 2 errors in 15.75s",
+ "archivos": {
+  "test_chat33_hhmm.py": {
+   "colecta": 7,
+   "error": ""
+  },
+  "test_chat33_pausas_conjy.py": {
+   "colecta": 2,
+   "error": ""
+  },
+  "test_chat50_seed_enrichment.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_chat51_menu_pre_research.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_chat51_observabilidad.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_chat51_subject_angle.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_chat52_already_es.py": {
+   "colecta": 2,
+   "error": ""
+  },
+  "test_chat52_atomic_aliases.py": {
+   "colecta": 3,
+   "error": ""
+  },
+  "test_chat52_decay_none.py": {
+   "colecta": 2,
+   "error": ""
+  },
+  "test_chat52_dropped_cap.py": {
+   "colecta": 4,
+   "error": ""
+  },
+  "test_chat52_m03_response_schema.py": {
+   "colecta": 4,
+   "error": ""
+  },
+  "test_chat52_pick_gate.py": {
+   "colecta": 5,
+   "error": ""
+  },
+  "test_chat52_variant_label.py": {
+   "colecta": 4,
+   "error": ""
+  },
+  "test_chat55_flow_zoom.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_constantes_con_origen.py": {
+   "colecta": 2,
+   "error": ""
+  },
+  "test_edge_density.py": {
+   "colecta": 0,
+   "error": "ModuleNotFoundError: No module named 'cv2'"
+  },
+  "test_elevenlabs_music_hook.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_es_measure_offline.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_es_saturation_judge.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_fase1_nochain.py": {
+   "colecta": 2,
+   "error": ""
+  },
+  "test_fase3.py": {
+   "colecta": 5,
+   "error": ""
+  },
+  "test_judge_seeds_cache.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_m03_guarda1_degrade.py": {
+   "colecta": 5,
+   "error": ""
+  },
+  "test_m06_autopass.py": {
+   "colecta": 2,
+   "error": ""
+  },
+  "test_m09_packaging.py": {
+   "colecta": 11,
+   "error": ""
+  },
+  "test_m09_review_server.py": {
+   "colecta": 4,
+   "error": ""
+  },
+  "test_module_00.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_00_4e.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_00_evidence_pool.py": {
+   "colecta": 4,
+   "error": ""
+  },
+  "test_module_01b_pauses.py": {
+   "colecta": 3,
+   "error": ""
+  },
+  "test_module_02.py": {
+   "colecta": 0,
+   "error": "ModuleNotFoundError: No module named 'script_engine.m02_profiles'"
+  },
+  "test_module_03.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_03_anchor_tolerante.py": {
+   "colecta": 9,
+   "error": ""
+  },
+  "test_module_03_leakage_retry.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_03_plan_anchors.py": {
+   "colecta": 4,
+   "error": ""
+  },
+  "test_module_03_veo_hybrid.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_05_live.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_05_voting_live.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_134b_fluidificador_flash.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_134d_place.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_135_thumbs.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_135d_loop.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_135e_matcher.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_137_thumbs_ley1.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_137c_fix_recetario.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_137d_meta_hero.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_138a_doctrina_compartida.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_34_m05_pivots.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_35_menu_csv.py": {
+   "colecta": 4,
+   "error": ""
+  },
+  "test_module_36_faltantes_60s.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_36_hook_v3.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_36_music_palette.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_36_music_palette_v2.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_36_paleta_60s.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_38_timestamps_lab.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_38b_forced_align_cap1.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_38c_forced_align_7caps.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_38d_forcealign_integration.py": {
+   "colecta": 6,
+   "error": ""
+  },
+  "test_module_38e_voice_ab.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_39_shock_lab.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_40_bloque7.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_40_detector_sin_calibrar.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_40_mixer_save.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_40_rerun_encoding.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_40_volumen_por_track.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_42_modeA_filter.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_asset_manager_telemetria.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_audio_mixer_floor.py": {
+   "colecta": 4,
+   "error": ""
+  },
+  "test_module_build_continuous_music.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_concat_windowed.py": {
+   "colecta": 3,
+   "error": ""
+  },
+  "test_module_cost_tracker_gemini.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_f10.py": {
+   "colecta": 11,
+   "error": ""
+  },
+  "test_module_f11.py": {
+   "colecta": 8,
+   "error": ""
+  },
+  "test_module_f11b.py": {
+   "colecta": 15,
+   "error": ""
+  },
+  "test_module_f11c.py": {
+   "colecta": 8,
+   "error": ""
+  },
+  "test_module_f12.py": {
+   "colecta": 12,
+   "error": ""
+  },
+  "test_module_f13.py": {
+   "colecta": 4,
+   "error": ""
+  },
+  "test_module_f14.py": {
+   "colecta": 12,
+   "error": ""
+  },
+  "test_module_f15.py": {
+   "colecta": 10,
+   "error": ""
+  },
+  "test_module_f15b.py": {
+   "colecta": 6,
+   "error": ""
+  },
+  "test_module_f16.py": {
+   "colecta": 20,
+   "error": ""
+  },
+  "test_module_f17.py": {
+   "colecta": 27,
+   "error": ""
+  },
+  "test_module_f19.py": {
+   "colecta": 15,
+   "error": ""
+  },
+  "test_module_f20.py": {
+   "colecta": 8,
+   "error": ""
+  },
+  "test_module_f21.py": {
+   "colecta": 43,
+   "error": ""
+  },
+  "test_module_f22.py": {
+   "colecta": 50,
+   "error": ""
+  },
+  "test_module_f22b.py": {
+   "colecta": 8,
+   "error": ""
+  },
+  "test_module_f22d.py": {
+   "colecta": 3,
+   "error": ""
+  },
+  "test_module_f23.py": {
+   "colecta": 33,
+   "error": ""
+  },
+  "test_module_f24.py": {
+   "colecta": 10,
+   "error": ""
+  },
+  "test_module_f25a.py": {
+   "colecta": 5,
+   "error": ""
+  },
+  "test_module_f25b.py": {
+   "colecta": 3,
+   "error": ""
+  },
+  "test_module_f25c.py": {
+   "colecta": 5,
+   "error": ""
+  },
+  "test_module_f26.py": {
+   "colecta": 3,
+   "error": ""
+  },
+  "test_module_f26c.py": {
+   "colecta": 6,
+   "error": ""
+  },
+  "test_module_f27.py": {
+   "colecta": 11,
+   "error": ""
+  },
+  "test_module_f28a.py": {
+   "colecta": 5,
+   "error": ""
+  },
+  "test_module_f28b.py": {
+   "colecta": 9,
+   "error": ""
+  },
+  "test_module_f28c.py": {
+   "colecta": 7,
+   "error": ""
+  },
+  "test_module_f29a.py": {
+   "colecta": 3,
+   "error": ""
+  },
+  "test_module_f29b.py": {
+   "colecta": 3,
+   "error": ""
+  },
+  "test_module_f29b_rotulista.py": {
+   "colecta": 3,
+   "error": ""
+  },
+  "test_module_f29c_rotulista.py": {
+   "colecta": 3,
+   "error": ""
+  },
+  "test_module_f30.py": {
+   "colecta": 10,
+   "error": ""
+  },
+  "test_module_f30b.py": {
+   "colecta": 11,
+   "error": ""
+  },
+  "test_module_f31.py": {
+   "colecta": 4,
+   "error": ""
+  },
+  "test_module_f32.py": {
+   "colecta": 10,
+   "error": ""
+  },
+  "test_module_f33.py": {
+   "colecta": 9,
+   "error": ""
+  },
+  "test_module_f34.py": {
+   "colecta": 6,
+   "error": ""
+  },
+  "test_module_f36.py": {
+   "colecta": 6,
+   "error": ""
+  },
+  "test_module_f36c_pantalla.py": {
+   "colecta": 9,
+   "error": ""
+  },
+  "test_module_f37a_papel.py": {
+   "colecta": 9,
+   "error": ""
+  },
+  "test_module_f37b_colocar.py": {
+   "colecta": 10,
+   "error": ""
+  },
+  "test_module_f38a_m01e.py": {
+   "colecta": 6,
+   "error": ""
+  },
+  "test_module_f38a_voz.py": {
+   "colecta": 9,
+   "error": ""
+  },
+  "test_module_f38c_decimales.py": {
+   "colecta": 12,
+   "error": ""
+  },
+  "test_module_f38c_papel.py": {
+   "colecta": 10,
+   "error": ""
+  },
+  "test_module_f38d_vueltas.py": {
+   "colecta": 6,
+   "error": ""
+  },
+  "test_module_f38e_a.py": {
+   "colecta": 14,
+   "error": ""
+  },
+  "test_module_f38e_b.py": {
+   "colecta": 12,
+   "error": ""
+  },
+  "test_module_f38e_c.py": {
+   "colecta": 11,
+   "error": ""
+  },
+  "test_module_f38e_c2.py": {
+   "colecta": 2,
+   "error": ""
+  },
+  "test_module_f38e_d.py": {
+   "colecta": 4,
+   "error": ""
+  },
+  "test_module_f38e_e.py": {
+   "colecta": 7,
+   "error": ""
+  },
+  "test_module_f39_escaleta.py": {
+   "colecta": 8,
+   "error": ""
+  },
+  "test_module_f39_fase1.py": {
+   "colecta": 11,
+   "error": ""
+  },
+  "test_module_f39_research.py": {
+   "colecta": 5,
+   "error": ""
+  },
+  "test_module_f40_gancho.py": {
+   "colecta": 9,
+   "error": ""
+  },
+  "test_module_f40_subs.py": {
+   "colecta": 17,
+   "error": ""
+  },
+  "test_module_f41_cadena.py": {
+   "colecta": 20,
+   "error": ""
+  },
+  "test_module_f42_mapa.py": {
+   "colecta": 4,
+   "error": ""
+  },
+  "test_module_f5_narrative.py": {
+   "colecta": 7,
+   "error": ""
+  },
+  "test_module_f5_prod.py": {
+   "colecta": 2,
+   "error": ""
+  },
+  "test_module_f5b.py": {
+   "colecta": 10,
+   "error": ""
+  },
+  "test_module_f5c.py": {
+   "colecta": 3,
+   "error": ""
+  },
+  "test_module_f5d.py": {
+   "colecta": 6,
+   "error": ""
+  },
+  "test_module_f5e.py": {
+   "colecta": 4,
+   "error": ""
+  },
+  "test_module_f5f.py": {
+   "colecta": 3,
+   "error": ""
+  },
+  "test_module_f6a.py": {
+   "colecta": 3,
+   "error": ""
+  },
+  "test_module_f6b.py": {
+   "colecta": 30,
+   "error": ""
+  },
+  "test_module_f6c.py": {
+   "colecta": 2,
+   "error": ""
+  },
+  "test_module_f7.py": {
+   "colecta": 40,
+   "error": ""
+  },
+  "test_module_f7d.py": {
+   "colecta": 8,
+   "error": ""
+  },
+  "test_module_f8.py": {
+   "colecta": 17,
+   "error": ""
+  },
+  "test_module_f8b.py": {
+   "colecta": 17,
+   "error": ""
+  },
+  "test_module_f9.py": {
+   "colecta": 10,
+   "error": ""
+  },
+  "test_module_fase2b_hwencode.py": {
+   "colecta": 3,
+   "error": ""
+  },
+  "test_module_fase2b_hybrid_segment.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_fase2b_only_cap.py": {
+   "colecta": 2,
+   "error": ""
+  },
+  "test_module_fase2b_reassemble.py": {
+   "colecta": 5,
+   "error": ""
+  },
+  "test_module_foto_madre_prompts.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_gfx_0d.py": {
+   "colecta": 2,
+   "error": ""
+  },
+  "test_module_gfx_anim.py": {
+   "colecta": 2,
+   "error": ""
+  },
+  "test_module_gfx_auto_icons.py": {
+   "colecta": 5,
+   "error": ""
+  },
+  "test_module_gfx_config.py": {
+   "colecta": 8,
+   "error": ""
+  },
+  "test_module_gfx_critic.py": {
+   "colecta": 1,
+   "error": ""
+  },
+  "test_module_gfx_cues.py": {
+   "colecta": 7,
+   "error": ""
+  },
+  "test_module_gfx_emphasis.py": {
+   "colecta": 4,
+   "error": ""
+  },
+  "test_module_gfx_f4d.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_gfx_icons.py": {
+   "colecta": 6,
+   "error": ""
+  },
+  "test_module_gfx_intensity.py": {
+   "colecta": 5,
+   "error": ""
+  },
+  "test_module_gfx_lab.py": {
+   "colecta": 45,
+   "error": ""
+  },
+  "test_module_gfx_layer_fallback.py": {
+   "colecta": 6,
+   "error": ""
+  },
+  "test_module_gfx_lock.py": {
+   "colecta": 6,
+   "error": ""
+  },
+  "test_module_gfx_peak.py": {
+   "colecta": 3,
+   "error": ""
+  },
+  "test_module_gfx_pool.py": {
+   "colecta": 2,
+   "error": ""
+  },
+  "test_module_gfx_profiles.py": {
+   "colecta": 6,
+   "error": ""
+  },
+  "test_module_gfx_router.py": {
+   "colecta": 9,
+   "error": ""
+  },
+  "test_module_gfx_sparse.py": {
+   "colecta": 3,
+   "error": ""
+  },
+  "test_module_gfx_style.py": {
+   "colecta": 6,
+   "error": ""
+  },
+  "test_module_gfx_vision.py": {
+   "colecta": 3,
+   "error": ""
+  },
+  "test_module_m03_merge_timing.py": {
+   "colecta": 7,
+   "error": ""
+  },
+  "test_module_m03_reglas_133.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_mix_music_into_video.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_parallax_intensity_scale.py": {
+   "colecta": 6,
+   "error": ""
+  },
+  "test_module_porcap_chat39.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_qa_form_cost.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_module_subs_remap.py": {
+   "colecta": 6,
+   "error": ""
+  },
+  "test_module_transition_timeout.py": {
+   "colecta": 8,
+   "error": ""
+  },
+  "test_module_veo_supplementals.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_pr3_calculate_image_count.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_qa_studio.py": {
+   "colecta": 32,
+   "error": ""
+  },
+  "test_research_parallel.py": {
+   "colecta": 4,
+   "error": ""
+  },
+  "test_run_pipeline.py": {
+   "colecta": 59,
+   "error": ""
+  },
+  "test_subtema_fanout_dryrun.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_subtopic_classifier.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_subtopic_extractor.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_subtopic_measurer.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_t1_t3_fanout.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_t2_relaxed.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_t4_aggregate.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_t5_sentinel.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_transcript_fetch.py": {
+   "colecta": 0,
+   "error": ""
+  },
+  "test_3movements_on_4hards.py": {
+   "colecta": 0,
+   "error": "",
+   "no_colectado": "efectos al importarse (script): 57: input"
+  },
+  "test_3movs_plus_effects.py": {
+   "colecta": 0,
+   "error": "",
+   "no_colectado": "efectos al importarse (script): 93: input, print"
+  },
+  "test_calculate_image_count.py": {
+   "colecta": 0,
+   "error": "",
+   "no_colectado": "efectos al importarse (script): 14: print; 15: print; 16: print"
+  },
+  "test_explosion_all_movements.py": {
+   "colecta": 0,
+   "error": "",
+   "no_colectado": "efectos al importarse (script): 35: print; 67: input"
+  },
+  "test_fase2b_anchor_durations.py": {
+   "colecta": 0,
+   "error": "",
+   "no_colectado": "efectos al importarse (script): 23: print; 24: print; 25: print"
+  },
+  "test_full_pipeline_lab.py": {
+   "colecta": 0,
+   "error": "",
+   "no_colectado": "efectos al importarse (script): 25: mkdir; 27: APIConfig; 33: print"
+  },
+  "test_lab_v5.py": {
+   "colecta": 0,
+   "error": "",
+   "no_colectado": "efectos al importarse (script): 28: mkdir; 44: APIConfig; 45: Client, genai"
+  },
+  "test_lab_v6.py": {
+   "colecta": 0,
+   "error": "",
+   "no_colectado": "efectos al importarse (script): 35: mkdir; 51: APIConfig; 52: Client, genai"
+  },
+  "test_lab_v7_bhopal.py": {
+   "colecta": 0,
+   "error": "",
+   "no_colectado": "efectos al importarse (script): 47: mkdir; 63: APIConfig; 64: Client, genai"
+  },
+  "test_module_03_smoke.py": {
+   "colecta": 0,
+   "error": "",
+   "no_colectado": "efectos al importarse (script): 22: Client, ModuleType, genai; 40: print; 44: exec_module, exit, print"
+  },
+  "test_module_03_smoke_sync.py": {
+   "colecta": 0,
+   "error": "",
+   "no_colectado": "efectos al importarse (script): 21: ModuleType, genai; 31: Client, genai; 32: genai"
+  },
+  "test_module_03_text_leakage_casing.py": {
+   "colecta": 0,
+   "error": "",
+   "no_colectado": "efectos al importarse (script): 40: print; 49: print; 61: print"
+  },
+  "test_module_05.py": {
+   "colecta": 0,
+   "error": "",
+   "no_colectado": "efectos al importarse (script): 22: ModuleType; 33: ModuleType"
+  },
+  "test_module_flow_director_fallback.py": {
+   "colecta": 0,
+   "error": "",
+   "no_colectado": "efectos al importarse (script): 35: print; 36: exit"
+  },
+  "test_movements_v12.py": {
+   "colecta": 0,
+   "error": "",
+   "no_colectado": "efectos al importarse (script): 63: input"
+  },
+  "test_music_director_pripyat.py": {
+   "colecta": 0,
+   "error": "",
+   "no_colectado": "efectos al importarse (script): 46: exit, genai, print"
+  },
+  "test_visual_complexity_classifier.py": {
+   "colecta": 0,
+   "error": "",
+   "no_colectado": "efectos al importarse (script): 80: input"
+  }
+ }
+}

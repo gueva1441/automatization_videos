@@ -1,17 +1,20 @@
 """
-lab/tools/mapa_modulos.py — F33 §D: arma `lab/MAPA_MODULOS.md` y `lab/MAPA_MODULOS.json`.
+lab/tools/mapa_modulos.py — F42 §C (antes F33 §D, solo gfx): arma `lab/MAPA_PROYECTO.md` y `lab/MAPA_PROYECTO.json`.
 
-Los hechos (quién importa a quién, dónde, en qué commit nació cada archivo) salen del código con `mapa_hechos.py`; acá
-van, escritos a mano después de leer cada módulo, el sticker (qué hace para el video, sin jerga), lo que recibe y
-entrega, el estado en el camino de producción de hoy (topic con escaleta + `fase2b --gfx`, perfil
-misterio) y las funciones que ese camino ya no llama. Volver a correrlo después de tocar un módulo:
+Los hechos (quién importa o lanza a quién, la secuencia del form, el alcance por etapa, commits, md5) salen del código
+con `mapa_hechos.py`; los stickers (qué hace para el video, recibe/entrega, modelo, etapa y estado verificados, funciones
+muertas confirmadas) los escribe quien leyó cada archivo entero, en `lab/mapa/stickers/<zona>.json`, con el md5 del
+archivo que leyó. Si el archivo cambia, el sticker queda viejo y `--check` lo dice.
 
-    python lab/tools/mapa_modulos.py
+    python lab/tools/mapa_modulos.py            → lab/MAPA_PROYECTO.md + .json
+    python lab/tools/mapa_modulos.py --check    → exit 1 si un archivo de producción no tiene sticker o lo tiene viejo
+    python lab/tools/mapa_modulos.py --zonas    → la zona de cada archivo de producción (JSON)
 """
 from __future__ import annotations
 
+import argparse
+import fnmatch
 import json
-import subprocess
 import sys
 from pathlib import Path
 
@@ -19,253 +22,259 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import mapa_hechos as mh  # noqa: E402
 
-CAMINO = ("topic con escaleta + `fase2b <topic> --gfx` (perfil misterio); `--plan-only` recorre lo mismo "
-          "sin el render")
+MAPA = ROOT / "lab" / "mapa"
+STICKERS = MAPA / "stickers"
+SALIDA_MD = ROOT / "lab" / "MAPA_PROYECTO.md"
+SALIDA_JSON = ROOT / "lab" / "MAPA_PROYECTO.json"
 
-# módulo: (sticker, recibe, entrega, tanda, estado)
-M: dict[str, tuple[str, str, str, str, str]] = {
-    "fase2b": ("El armador final: junta imagen, voz, subtítulos y música de cada capítulo en un segmento y los pega en "
-               "el video. Con `--gfx` le pone encima la capa gráfica; con `--plan-only` solo escribe el guion de pantalla. "
-               "Desde F34, con `--gfx` la música de cada cap arranca con su title card (pieza = segmento, después de "
-               "la intro) y la mezcla de previsualización mide dónde arranca. La intro es siempre INITIAL_SILENCE_SEC "
-               "con el primer cuadro congelado (F38e §D: la fecha-hora del segundo 0 se borró; el video arranca con la "
-               "primera imagen); `--plan-edit` edita el guion en papel (ficha o sello de un beat; otra cosa se rechaza). "
-               "F38e §A: después de armar cada segmento con `--gfx`, chequeo «costuras» medido en el mp4 "
-               "(`_medir_cierre`): duración con ffprobe contra el `seg_dur` del guion aprobado (±1 cuadro) y "
-               "`blackdetect` del negro de cierre, ✓/✗ en el log del render; la huella del re-ensamble "
-               "(`_segment_hash`) ve el plan resuelto. F40: el long-form quema subtítulos documentales (Anton del "
-               "perfil, blanco con borde negro, sin resaltar palabra, una oración o frase por evento con ≤ 42 "
-               "caracteres por renglón, ≤ 2 renglones y 0,833–7 s, Netflix); el karaoke amarillo por palabra queda "
-               "solo para Shorts.",
-               "assets del topic (imágenes/clips), voz por cap + tiempos, sync map, música", "`*_final(_gfx).mp4`; o "
-               "GUION_PANTALLA + mezcla", "previo a F1 (inicial)", "vivo"),
-    "gfx_config": ("El tablero de perillas de la capa gráfica: duraciones, tamaños, colores y qué reglas están "
-                   "prendidas; el perfil del canal (identidad F3) pisa los valores; el perfil trae también el vocabulario de "
-                   "sellos de clima (`sellos_clima`).", "gfx_profiles/<perfil>.json",
-                   "`gfx_rules`, `gfx_render`, moods, sfx del title card, claves huérfanas del perfil", "F1", "vivo"),
-    "transition_config": ("Las perillas del pegado entre capítulos (calidad del video, fps) y el inventario de "
-                          "transiciones de los perfiles de arte.", "—", "`transition_render` y el inventario", "previo a F1",
-                          "vivo (con --gfx solo calidad y fps; el inventario es del camino sin gfx)"),
-    "transition_applier": ("Pega los capítulos uno detrás de otro. Con --gfx: corte a negro y el siguiente sube desde "
-                           "negro; sin --gfx, las transiciones del perfil de arte (incluido el flash blanco).",
-                           "segmentos por cap", "`_concat_video.ts` + `_concat_audio.wav` y el mp4 sin música",
-                           "previo a F1", "vivo"),
-    "aprobacion": ("La compuerta del render: guarda quién aprobó el guion de pantalla y la huella de los planes; si "
-                   "algo cambió después, no hay render.", "GUION_PANTALLA.json + planes resueltos",
-                   "`aprobado` en el guion; sí/no para el hook", "F33", "vivo"),
-    "gfx_layer": ("El director de orquesta de la capa gráfica de un capítulo: llama a todos los demás en orden "
-                  "(plan base con el title card de la partición —F37: sin borrador del director—, textos del papel, "
-                  "reparto con crítico, sellos, relojes del papel, transiciones) y hace el render en HyperFrames. Desde "
-                  "F34, con el guion aprobado dibuja el plan aprobado tal cual (plan congelado) y no lo reescribe. F38e: "
-                  "la pausa de cierre es pregunta + negro en los dos caminos (`pausa_de_cierre`), así el negro queda "
-                  "dentro del clip; la capa deja junto a `chNN_gfx.mp4` el md5 de su plan (`chNN_gfx.plan.md5`) y con "
-                  "`--reuse-visuals` se reusa solo si es el del plan de hoy (si no, «capa de otro plan / sin md5 de "
-                  "plan: se rehace»); la pregunta de cierre lleva su fuente (voz-pregunta · voz-alineada · escaleta).",
-                  "visual base del cap + palabras con tiempos + contexto", "`chNN_gfx.mp4`, plan resuelto, sfx, "
-                  "escenas", "F1", "vivo"),
-    "gfx_director": ("El contexto de un capítulo (sin modelo): script, skeleton, fuentes del candado literal, narración del "
-                     "video, pool; y la palabra clave de la pregunta de cierre. F37: el borrador de Gemini (su prompt, su "
-                     "esquema y su caché) se borró: el papel es el único camino y el title card sale de la partición.",
-                     "script + skeleton + canonical + pool", "contexto del cap, palabra clave", "F1", "vivo"),
-    "gfx_realizador": ("Hace que la pantalla obedezca a la escaleta: ventanas de tiempo de cada beat, qué datos puede "
-                       "mostrar cada uno y la pregunta de cierre, que desde F38e B4 sale de la voz (la última oración "
-                       "del cap si es pregunta; si no, las oraciones de la voz del último beat que alinean con su "
-                       "`cierre`; si ninguna, el `cierre` literal) y dice de dónde salió. F37: el cierre del plan solo "
-                       "deja los sellos del papel y ningún punch_in (sin las ramas del camino sin papel, del contador "
-                       "ni de los íconos).", "escaleta + narración por beat + pool", "`gfx_beats_chNN.json`, filas de lo quitado",
-                       "F29", "vivo"),
-    "pantalla_entrada": ("La entrada de Fase 2 para el texto de pantalla (F37: antes gfx_rotulista; no escribe nada): "
-                         "`preparar_cap` lee el guion en papel de Fase 1 (`01e_pantalla.json`), alinea sus oraciones con "
-                         "las de la voz por texto y ancla cada ficha a su palabra (con el juicio del autor, si lo hay). "
-                         "F38e §C: el autor que el papel muestra en una cita es el que ve Fase 2. F40: el ítem ya no "
-                         "trae `dice_voz` (solo la marca de gancho).",
-                         "papel del topic + oraciones de la voz + beats", "entrada del cap + bloques, sellos y relojes "
-                         "del papel", "F29b", "vivo"),
-    "pantalla_filtros": ("Los filtros que deciden si un texto del papel sale, en un orden que se lee en una línea "
-                         "(`ORDEN`): F40: sin el corte del gancho (`gancho_dicho`): su coincidencia con la voz de todo "
-                         "el video es de no dicho y se le pregunta al autor. Orden: anclar el papel a la voz, candado de "
-                         "lo literal, no dicho (en el gancho, con la voz de todo el video), "
-                         "spoiler (lo que el autor juzgó «otro hecho» no corta) y lectura: desde F37 la lectura prueba la "
-                         "escalera de intentos (otro instante de la oración, la escena siguiente, la oración siguiente) y "
-                         "corta solo si no entra en ninguno. F37: antes rotulista_filtros. F38c: «cifra que contradice la "
-                         "voz» da también dónde y qué cifra (el papel se la pregunta al autor) y respeta lo que el autor "
-                         "juzgó «otro hecho».", "bloques del papel + entrada "
-                         "del cap", "bloques que pasan con sus intentos, cortados con su regla y motivo",
-                         "F36 (código de F29b)", "vivo"),
-    "pantalla_colocar": ("Pone cada texto del papel en su lugar (F37: antes rotulista_colocar): la ficha dura su "
-                         "lectura entre callout_dur_min y callout_dur_max sin pasar el corte, qué forma toma (ficha normal, "
-                         "nombre o cita con autor; papel = recorte) y el reparto: nunca al mismo tiempo (DECISIONES 17:58) y "
-                         "el crítico en cada intento, moviendo en vez de cortar (otro instante, todo inicio de escena "
-                         "dentro de la oración —F38e B1—, la oración siguiente, el otro lado); el reloj mueve su fin con "
-                         "el intento y se recorta en su nuevo corte (F38e B2); lo que no entra queda «sin colocar» y "
-                         "todo lo movido declara qué falló en cada intento anterior, también en los filtros (F38e B3). "
-                         "F38c: cada ficha lleva el juicio del autor hasta el guion de pantalla.",
-                         "bloques validados + escenas", "bloques en el plan, filas de lo movido o sin colocar",
-                         "F36 (código de F29b)", "vivo"),
-    "clima": ("Los sellos de clima: la palabra y la oración vienen del guion en papel; acá se prueba la misma "
-              "escalera de intentos que las fichas (F37: palabra de más peso, inicio, escena siguiente, oración "
-              "siguiente y el otro lado), sin cruzar el corte, nunca al mismo tiempo que otro bloque y con el crítico "
-              "(«¿estorba?») en cada intento.", "sellos del papel + oraciones + léxico de moods",
-              "sellos en el plan, filas de lo movido o sin colocar", "F36 (código de F32/F34)", "vivo"),
-    "voz_datos": ("Lo que sale de la voz y la escaleta sin modelo: el pico del cap, el reloj cuando la voz dice una "
-                  "fecha completa (y su esquina libre). F38e §D: la fecha-hora del segundo 0 (la derivada de la escaleta "
-                  "y la de la voz, con su lector de horas) se borró.",
-                  "oraciones de la voz, escaleta, pool", "pico, reloj", "F36 (código de F34)",
-                  "vivo"),
-    "voz_utils": ("La utilería de la voz: lee cifras en dígitos y en letras, nombres propios, cifras con su unidad, y "
-                  "parte la voz en oraciones con cada palabra numerada; desde F36 C parte igual el texto de Fase 1 "
-                  "(`oraciones_de_texto`) y normaliza oraciones para alinear papel y voz; desde F37 dice qué años nombra "
-                  "la voz (el momento del relato) y cuántos segundos por palabra habla el narrador (mediana de sus voces "
-                  "ya generadas); desde F38 lee fracciones en letras («un centímetro y medio», «medio», «y cuarto», "
-                  "«un tercio») y compara cifras a la precisión del archivo; desde F38c lee bien los decimales con "
-                  "punto («722.50» = 722,5, no 72 250).", "texto / palabras con tiempos / voces del narrador",
-                  "cifras, años, nombres, oraciones, segundos por palabra", "F36 (código de F29b)", "vivo"),
-    "gfx_critic": ("El editor: Gemini mira la foto en el instante de un bloque del papel y dice si estorba (tapa un "
-                   "rostro o lo que la imagen muestra). F37: corre en cada intento del reparto (instante y lado), y lo "
-                   "que estorba se mueve al intento siguiente en vez de cortarse.", "bloque en un intento + cuadro del "
-                   "video + voz", "veredicto por intento (caché por identidad)", "F4e", "vivo"),
-    "gfx_project": ("El dibujante: convierte el plan en la página HTML que HyperFrames renderiza (title card, ficha, "
-                    "recorte, cita, sello, reloj, pregunta). F36 D: sin lupa, contador, agua, dato suelto, íconos ni "
-                    "fuente.", "plan resuelto + escenas", "proyecto HyperFrames (index.html, CSS)", "F1", "vivo"),
-    "gfx_sparse": ("El ahorrador: HyperFrames solo donde hay algo que dibujar; el resto del cap lo cose ffmpeg, con "
-                   "las transiciones, el grano y la viñeta (F36 D: sin la marca del canal).", "plan + escenas + base",
-                   "`chNN_gfx.mp4` cosido", "F2", "vivo"),
-    "gfx_safe_bake": ("Cuece con ffmpeg el movimiento suave de cada foto (acercar, alejar, paneo) para no pagarlo en "
-                      "HyperFrames.", "escenas con movimiento seguro + sus PNG", "`base_cocido.mp4`", "F30", "vivo"),
-    "gfx_style": ("La identidad del canal aplicada al plan: qué movimiento lleva cada foto y qué transición va en cada "
-                  "corte según el relato (golpe de zoom en el pico, fundido, dip al cierre, corte).",
-                  "escenas + plan + beats", "movimientos y transiciones", "F4", "vivo"),
-    "gfx_peak": ("La utilería de la voz que usan clima y voz_utils: las frases de la narración con sus palabras y "
-                 "tiempos y las palabras del léxico de moods (F36 D: el pico viejo, el agua, el zoom con latido y el reloj "
-                 "de gfx_peak se borraron).", "palabras con tiempos + léxico de moods", "frases, palabras de mood",
-                 "F3", "vivo"),
-    "gfx_pool": ("La pantalla alimentada por el pool de evidencia: fuentes literales para el candado, lo ya mostrado "
-                 "en caps anteriores, el reloj de fechas y los cortes de cláusula que usa Fase 1 (m01a_skeleton). F36 D: "
-                 "se borraron recortes, citas, contadores y reservados del pool.", "pool de evidencia + palabras",
-                 "fuentes, ids ya usados, reloj", "F5", "vivo"),
-    "gfx_intensity": ("Gemini marca cuánto pesa cada frase y qué palabras cargan miedo, muerte o agua; ese léxico "
-                      "alimenta los sellos.", "oraciones del cap + vecinas", "pico, cargas, léxico del cap", "F4b",
-                      "vivo"),
-    "gfx_vision": ("Gemini mira cada foto y dice qué detalles tiene y dónde (rostro, manos, objetos); con eso se "
-                   "decide el movimiento seguro (F36 D: la lupa y su verificación se borraron).", "PNG / cuadro de la "
-                   "escena", "detalles con caja, caja humana", "F4b", "vivo"),
-    "gfx_literal_lock": ("El candado: un texto que no está literal en las fuentes (narración, partición, pool) no sale: "
-                         "title card, reloj y lo que no viene del papel (el papel trae su propio candado). F37: sin las "
-                         "ramas de los bloques borrados.", "plan + fuentes", "plan sin lo no literal + rechazados", "F1",
-                         "vivo"),
-    "gfx_review": ("La hoja de cues: un renglón por bloque visible con su segundo, para revisar el render.",
-                   "eventos del plan", "`gfx_cues_chNN.md/.json`, página de revisión", "F1", "vivo"),
-    "gfx_guion": ("Escribe el guion de pantalla: todo lo que se va a ver, en texto, con lo cortado y por quién, y los "
-                  "chequeos (lectura, nunca al mismo tiempo, costuras, inicio de voz, inicio de música, gancho no vacío; "
-                  "desde F36 C la columna `papel` y «papel sin colocar / sin alinear»; desde F38c "
-                  "«cifra que contradice la voz» no marca lo que el autor juzgó otro hecho). F38e §D: sin evento ni "
-                  "chequeo de fecha-hora del segundo 0; la costura de ch01 dice «primer cuadro congelado».",
-                  "planes, escenas, beats, mezcla", "GUION_PANTALLA.md/.json", "F32", "vivo"),
-    "music_intensity": ("Decide cuándo la música calla, acompaña o sube en cada cap según la escaleta; también da el "
-                        "beat pico de cada cap.", "escaleta + narración por beat + tiempos de la voz",
-                        "tramos de volumen por cap, beat pico", "F28", "vivo"),
-    "m01a_escaleta": ("Fase 1: arma la escaleta (los beats del video con función, intensidad, datos y cierre) desde la "
-                      "ficha del caso v2; es lo que el gfx lee para saber qué va dónde. F39 §A.2: sin ficha v2 "
-                      "(`ficha_caso.json` con `historia`) lanza `EscaletaSinFicha` y para sin gastar; el camino viejo "
-                      "sin ficha (prompt, reglas y ejemplos de Pro) se borró. F41: `is_v3` (el selector por "
-                      "`guion_version`/`GUION_V3`) se borró; la escaleta corre siempre en la cadena única de fase1_5.",
-                      "ficha del caso v2 + pool",
-                      "`01a_escaleta.json`", "F6", "vivo (fase 1; el gfx lee su salida)"),
-    "m01d_particion": ("Fase 1: parte el guion en los 7 capítulos con su texto para la voz; de ahí salen la "
-                       "narración por cap y por beat que leen el realizador y el guion en papel. F38e: los títulos de "
-                       "cap son la promesa del cap: Flash ve de cada beat su función, qué se ve y qué pregunta abre, cuál "
-                       "es el pico (esc.pico.beat) y cómo termina cada cap (marcado «no lo cuentes»); el pedido es el "
-                       "bloque de PRUEBA2_prompt_titulos.md letra por letra (`PEDIDO_TITULOS`), con la misma validación "
-                       "(≤ 5 palabras, sin cifra, sin «?») y el mismo respaldo. F41: `regenerate_cap` (el retoque "
-                       "v3 de F10 con `m01c_editor.edit`) se borró con la cadena vieja.", "guion + escaleta",
-                       "narración por cap y por beat, títulos de cap", "F10", "vivo (fase 1)"),
-    "m01e_pantalla": ("Fase 1 (F36 C): el guion de pantalla EN PAPEL. Una llamada a Sonnet por video con la narración "
-                      "de los 7 caps (oraciones numeradas y cuánto cabe), la escaleta, el archivo del caso y el "
-                      "vocabulario de clima → por beat ficha o nada, sello o nada; relojes (F38e §D: sin fecha-hora del "
-                      "segundo 0). Lo valida en papel "
-                      "(candado, no dicho, spoiler, una vez, cabe, formato; F37: fecha del relato, cita sin fecha, "
-                      "descartes «la voz lo dice» verificados, picos sin ficha; una coincidencia de número se le pregunta "
-                      "al autor); F38: un reintento PARCIAL con todos los motivos cambia solo los beats con motivo (lo "
-                      "demás queda congelado; F38b: sin juez de anclaje). F38c: lo que la escaleta dejó para la "
-                      "pantalla le llega aparte de «la voz lo cuenta», y un beat sin él es motivo del reintento; una "
-                      "cifra que contradice la voz se le pregunta al autor. F38d: el reintento da vueltas mientras haya "
-                      "motivos nuevos y entre en el tope del perfil (lo nuevo de una vuelta se pregunta en la siguiente "
-                      "en vez de cortarse), y «caben» se mide igual en el prompt, en el motivo y en el código (en una "
-                      "cita cuenta el autor). F38e: prompt m01e-6 (el de la prueba 1, letra por letra): el dato con las "
-                      "palabras del autor y los hechos en un `respaldo` literal del ítem (regla `respaldo`; el candado "
-                      "mira cifras, nombres y años contra él); en una cita el autor viene en español y se muestra si sus "
-                      "nombres están en el archivo (`autor_origen`). F40: el dato del gancho ya no cae en seco si una "
-                      "cifra suya está en la voz de cualquier cap: se le pregunta al autor con el cap, el número de "
-                      "oración y la oración. "
-                      "Lo deja para que Omar lo revise antes de la voz; Fase 2 lo consume.", "escaleta, narración por cap y beat, títulos, pool, `sellos_clima`",
-                      "`01e_pantalla.json/.md` en el topic de Fase 1", "F36", "vivo (fase 1)"),
-    "archive_clipping.html.tmpl": ("La forma del recorte de diario (papel, kicker, titular).", "un recorte del plan",
-                                   "HTML", "F1", "vivo (la ficha de estilo papel)"),
-    "chapter_question.html.tmpl": ("La forma de la pregunta de cierre sobre la foto oscurecida.", "la pregunta",
-                                   "HTML", "F2", "vivo"),
-    "index.html.tmpl": ("La página base de cada proyecto HyperFrames (escenas, overlays, timeline).", "escenas + "
-                        "overlays", "index.html", "F1", "vivo"),
-    "scene.html.tmpl": ("La forma de una escena (la foto o el clip con su movimiento).", "una escena", "HTML", "F1",
-                        "vivo"),
-    "title_card.html.tmpl": ("La forma del title card del capítulo; desde F29c también la de la ficha.", "kicker + "
-                             "título", "HTML", "F1", "vivo"),
-}
-
-# funciones (o archivos) que el camino de producción ya no llama: (qué, por qué, commit desde el que no corre)
-MUERTOS: list[tuple[str, str, str]] = [
-    # F37 §B.4: el borrador del director (el último muerto de F36) se borró con su prompt; no queda ninguno
+# Zonas del handoff F42 §B, por patrón sobre el nombre del archivo (sin extensión); lo que no cae en ninguna va a la 5.
+ZONAS: list[tuple[str, list[str]]] = [
+    ("research", ["niche_discoverer", "nicho_config", "topic_researcher", "topic_validator", "topics_db", "subtopic_*",
+                  "youtube_scanner", "transcript_fetch", "m_judge_seeds", "evidence*", "learned_patterns", "fase1",
+                  "researcher_steps/*", "purge_history", "migrate_*"]),
+    ("guion", ["fase1_5", "m01a_*", "m01b_*", "m01c_*", "m01d_*", "m01e_*", "guion_v3_reglas", "guion_v4", "nombres",
+               "num_es", "name_matching", "tts_tags", "video_length"]),
+    ("fase2a", ["fase2a", "m02_5_*", "tts_normalizer", "audio_*", "music_*", "m07_*", "m03_*", "foto_madre",
+                "image_grade", "vision_validator", "zoom_judge", "parallax_*", "depth_probe", "art_*", "engine_profiles",
+                "flow_*", "anchor_timing", "m05_*", "m06_*", "voz_*", "subs_remap", "patch_sync_map_mixing",
+                "promote_palette_*"]),
+    ("fase2b_gfx", ["fase2b", "gfx_*", "gfx_profiles/*", "script_engine/gfx_templates/*", "pantalla_*", "clima",
+                    "aprobacion", "freeze_check", "transition_*", "gfx_lab_server", "mixer_server"]),
+    ("orquestador", ["*"]),
 ]
+ESTADOS = ("vivo", "solo herramienta manual", "huérfano", "roto")
 
 
-def fecha(h: str) -> str:
-    if h == "—":
-        return "nunca en fase2b"
-    r = subprocess.run(["git", "log", "-1", "--format=%ad %s", "--date=short", h], cwd=ROOT, capture_output=True,
-                       text=True, encoding="utf-8", errors="replace")
-    return f"{h} {r.stdout.strip()[:80]}"
+def zona(archivo: str) -> str:
+    p = Path(archivo)
+    tallo = p.name.split(".")[0]
+    for z, pats in ZONAS:
+        for pat in pats:
+            if "/" in pat:
+                if fnmatch.fnmatch(archivo, pat):
+                    return z
+            elif not archivo.startswith(".claude/") and fnmatch.fnmatch(tallo, pat):
+                return z
+    return ZONAS[-1][0]
 
 
-def main() -> None:
+def produccion() -> dict[str, str]:
+    """{archivo de producción: md5} — rápido (sin git ni AST): lo usa --check y el hook."""
+    pys = mh.py_produccion()
+    return {mh.rel(p): mh.md5(p) for p in pys + mh.no_py_produccion(pys)}
+
+
+def stickers(carpeta: Path = STICKERS) -> tuple[dict[str, dict], list[str]]:
+    out: dict[str, dict] = {}
+    dup: list[str] = []
+    for f in sorted(x for x in carpeta.glob("*.json") if not x.name.startswith("_")):
+        for k, v in json.loads(f.read_text(encoding="utf-8")).items():
+            if k.startswith("_"):
+                continue
+            if k in out:
+                dup.append(f"{k} ({f.name} y {out[k]['_zona_archivo']})")
+            out[k] = {**v, "_zona_archivo": f.name}
+    return out, dup
+
+
+def check(carpeta: Path = STICKERS) -> list[str]:
+    prod = produccion()
+    st, dup = stickers(carpeta)
+    fallas = [f"sticker repetido: {d}" for d in dup]
+    for k, m in sorted(prod.items()):
+        if k not in st:
+            fallas.append(f"sin sticker: {k} (zona {zona(k)})")
+        elif st[k].get("md5") != m:
+            fallas.append(f"sticker viejo: {k} (md5 del sticker {str(st[k].get('md5'))[:8]}… ≠ archivo {m[:8]}…; "
+                          f"releer el archivo y reescribir su sticker en {st[k]['_zona_archivo']})")
+        elif st[k].get("estado") not in ESTADOS:
+            fallas.append(f"estado inválido: {k} → {st[k].get('estado')!r}")
+    fallas += [f"sticker sin archivo de producción: {k}" for k in sorted(set(st) - set(prod))]
+    return fallas
+
+
+# ─────────────────────────── armado ───────────────────────────
+def _corto(k: str) -> str:
+    return Path(k).name.removesuffix(".py")
+
+
+def _git(e: dict | None) -> str:
+    if not e:
+        return "(fuera de git)"
+    return f"{e['commit']} {e['fecha']}" + (f" ({e['tanda']})" if e.get("tanda") else "")
+
+
+def _modelos(s: dict) -> list[str]:
+    return [m.get("modelo", "") for m in (s.get("modelo") or []) if isinstance(m, dict) and m.get("modelo")]
+
+
+def _celda(x) -> str:
+    if isinstance(x, list):
+        x = "; ".join(str(i) for i in x)
+    return str(x or "—").replace("|", "\\|").replace("\n", " ")
+
+
+def flujograma(seq: dict, filas: dict[str, dict]) -> tuple[list[str], list[dict]]:
+    """Mermaid de la cadena del form desde la secuencia de A: una caja por etapa (rombo si es compuerta), con su script,
+    sus módulos propios (los que solo esa etapa usa, según el sticker) y el modelo que paga."""
+    L = ["```mermaid", "flowchart TD"]
+    cajas = []
+    previo = None
+    for e in seq["etapas"]:
+        if not e["comandos"] and not e["compuertas"]:
+            continue
+        nid = e["etapa"].upper()
+        script = e["comandos"][0]["script"] if e["comandos"] else ""
+        propios = sorted(_corto(k) for k, f in filas.items() if f["etapas_sticker"] == [e["etapa"]])
+        modelos = sorted({m for k, f in filas.items() if e["etapa"] in f["etapas_sticker"] for m in f["modelos"]})
+        es_compuerta = bool(e["compuertas"]) and all(any(a.startswith("--aprobar") for a in c["argv"])
+                                                      for c in e["comandos"])
+        cajas.append({"etapa": e["etapa"], "orden": e["orden"], "encabezado": e["encabezado"], "funcion": e["funcion"],
+                      "comandos": [" ".join(["python", *c["argv"]]) for c in e["comandos"]],
+                      "compuertas": [c["menu"] for c in e["compuertas"]], "sin_form": e.get("sin_form", ""),
+                      "propios": propios, "modelos": modelos, "es_compuerta": es_compuerta})
+        lineas_mod = [", ".join(propios[i:i + 4]) for i in range(0, len(propios), 4)]
+        txt = "<br/>".join([f"<b>{e['encabezado'] or e['etapa']}</b>", f"<i>{script}</i>"]
+                           + ([f"módulos propios: {lineas_mod[0]}"] + lineas_mod[1:] if propios else [])
+                           + ([f"modelo: {', '.join(modelos)}"] if modelos else []))
+        txt = txt.replace('"', "'")
+        for c in e["compuertas"]:
+            if es_compuerta:
+                continue
+            gid = f"G_{c['menu']}"
+            L.append(f'  {gid}{{"compuerta del form: {c["menu"]}"}}')
+            if previo:
+                L.append(f"  {previo} --> {gid}")
+            previo = gid
+        L.append(f'  {nid}{{"{txt}"}}' if es_compuerta else f'  {nid}["{txt}"]')
+        if previo:
+            L.append(f"  {previo} --> {nid}")
+        previo = nid
+    L.append("```")
+    return L, cajas
+
+
+def armar() -> tuple[dict, list[str]]:
+    H = mh.hechos()
+    st, dup = stickers()
+    tc_path = MAPA / "tests_collect.json"
+    tc = json.loads(tc_path.read_text(encoding="utf-8")) if tc_path.exists() else {"archivos": {}, "resumen": "(sin colecta)"}
+    tl_path = MAPA / "tests_lab.json"
+    tl = json.loads(tl_path.read_text(encoding="utf-8")) if tl_path.exists() else {}
+    filas: dict[str, dict] = {}
+    for k, h in H["modulos"].items():
+        s = st.get(k, {})
+        quien = sorted(set(h.get("lo_importan", {})) | set(h.get("lo_lanzan", {})) | set(h.get("lo_referencian", [])))
+        filas[k] = {"archivo": k, "zona": zona(k), "sticker": s.get("sticker", "(sin sticker)"),
+                    "recibe": s.get("recibe", ""), "entrega": s.get("entrega", ""), "modelo": s.get("modelo", []),
+                    "modelos": _modelos(s), "etapas_a": h.get("etapas", []), "etapas_sticker": s.get("etapa", []),
+                    "compartido": h.get("compartido", False), "lo_llaman": quien, "tests": len(h.get("tests", [])),
+                    "nacio": _git(h.get("nacio")), "ultimo": _git(h.get("ultimo")), "estado_a": h.get("estado_a", ""),
+                    "estado": s.get("estado", "(sin sticker)"), "estado_prueba": s.get("estado_prueba", ""),
+                    "funciones_muertas": s.get("funciones_muertas", []), "imports_rotos": h.get("imports_rotos", []),
+                    "sin_llamador_a": [f["nombre"] for f in h.get("funciones", []) if f.get("sin_llamador")],
+                    "md5": h.get("md5"), "sticker_al_dia": s.get("md5") == h.get("md5")}
+    L_flujo, cajas = flujograma(H["secuencia"], filas)
+    conteo = {e: sum(1 for f in filas.values() if f["estado"] == e) for e in ESTADOS}
+    conteo["(sin sticker)"] = sum(1 for f in filas.values() if f["estado"] == "(sin sticker)")
+    tests = []
+    for t, v in sorted(tc.get("archivos", {}).items()):
+        imp = H["tests"].get(t, {})
+        tests.append({"test": t, "importa": [_corto(x) for x in imp.get("importa", [])],
+                      "colecta": v.get("colecta", 0), "error": v.get("error", ""),
+                      "imports_rotos": [r["falta"] for r in imp.get("imports_rotos", [])],
+                      "clase": (tl.get(t) or {}).get("clase", "")})
+    data = {"generado_por": "lab/tools/mapa_modulos.py (F42 §C)", "secuencia": H["secuencia"], "cajas": cajas,
+            "form": H["form"], "orquestador": H["orquestador"], "entradas": H["entradas"], "conteo": conteo,
+            "modulos": filas, "tests": tests, "tests_resumen": tc.get("resumen", ""), "stickers_repetidos": dup}
+    return data, L_flujo
+
+
+def escribir(data: dict, L_flujo: list[str]) -> None:
+    F = data["modulos"]
+    L = ["# MAPA DEL PROYECTO — de la semilla al video", "",
+         "Generado por `lab/tools/mapa_modulos.py` (F42). Los hechos (imports, `subprocess`, la secuencia del form, el "
+         "alcance por etapa, commits, md5) salen del código con `lab/tools/mapa_hechos.py`; sticker, recibe/entrega, "
+         "modelo, etapa y estado los escribió quien leyó cada archivo entero (`lab/mapa/stickers/<zona>.json`, con el md5 "
+         "del archivo leído). `python lab/tools/mapa_modulos.py --check` falla si un archivo de producción no tiene "
+         "sticker o lo tiene viejo. Datos para máquinas: `lab/MAPA_PROYECTO.json`.", "",
+         "## La cadena como la corre el form", "",
+         f"El form (`{', '.join(data['form'])}`) lanza `{data['orquestador']}`; `sequence()` corre las etapas de "
+         "`ETAPAS` en orden desde la primera que falta (`etapa_de`). Cajas leídas de `run_pipeline.py` por AST; los "
+         "rombos son compuertas del form (sin el form, la etapa para y reporta el comando).", ""]
+    L += L_flujo
+    L += ["", "### Las etapas", "", "| # | etapa | función | comando | compuerta | módulos propios | modelo |",
+          "|---|---|---|---|---|---|---|"]
+    for c in data["cajas"]:
+        L.append(f"| {c['orden']} | {c['encabezado'] or c['etapa']} | `{c['funcion']}` | "
+                 f"{'<br>'.join('`' + x + '`' for x in c['comandos']) or '—'} | {', '.join(c['compuertas']) or '—'} | "
+                 f"{', '.join(c['propios']) or '—'} | {', '.join(c['modelos']) or '—'} |")
+    L += ["", "### Conteo por estado", "", "| estado | archivos |", "|---|---|"]
+    L += [f"| {k} | {v} |" for k, v in data["conteo"].items()]
+    L += ["", "## Todos los módulos, por zona", ""]
+    for z, _ in ZONAS:
+        filas = sorted((f for f in F.values() if f["zona"] == z), key=lambda f: f["archivo"])
+        L += [f"### Zona {z} ({len(filas)})", "",
+              "| módulo | sticker | recibe | entrega | modelo | etapa(s) | quién lo llama | nació / último cambio | estado |",
+              "|---|---|---|---|---|---|---|---|---|"]
+        for f in filas:
+            mod = "; ".join(f"{m.get('modelo')}: {m.get('para', '')}" for m in f["modelo"] if isinstance(m, dict)) \
+                if f["modelo"] else "—"
+            quien = ", ".join(_corto(q) for q in f["lo_llaman"][:12]) + (" …" if len(f["lo_llaman"]) > 12 else "")
+            quien = (quien or "—") + (f" (+ {f['tests']} tests)" if f["tests"] else "")
+            L.append(f"| `{f['archivo']}` | {_celda(f['sticker'])} | {_celda(f['recibe'])} | {_celda(f['entrega'])} | "
+                     f"{_celda(mod)} | {_celda(f['etapas_sticker'])} | {quien} | {f['nacio']} / {f['ultimo']} | "
+                     f"{f['estado']}{'' if f['sticker_al_dia'] else ' ⚠ sticker viejo'} |")
+        L.append("")
+    L +=["## Compartidos (los alcanzan dos o más scripts de etapa)", "", "| módulo | etapas (sticker) | etapas por import (A) |",
+          "|---|---|---|"]
+    L += [f"| `{f['archivo']}` | {_celda(f['etapas_sticker'])} | {_celda(f['etapas_a'])} |"
+          for f in sorted(F.values(), key=lambda f: f["archivo"]) if f["compartido"]]
+    for est, tit in (("solo herramienta manual", "Solo herramienta manual"), ("huérfano", "Huérfanos"), ("roto", "Rotos")):
+        sel = sorted((f for f in F.values() if f["estado"] == est), key=lambda f: f["archivo"])
+        L += ["", f"## {tit} ({len(sel)})", "", "| módulo | prueba | sticker |", "|---|---|---|"]
+        L += [f"| `{f['archivo']}` | {_celda(f['estado_prueba'])} | {_celda(f['sticker'])} |" for f in sel]
+    muertas = [(f["archivo"], m) for f in sorted(F.values(), key=lambda f: f["archivo"]) for m in f["funciones_muertas"]]
+    L += ["", f"## Funciones muertas confirmadas leyendo ({len(muertas)})", "",
+          "Candidatas de A = funciones sin ninguna referencia por nombre en producción (ni como string); el worker de la "
+          "zona confirmó leyendo y descartó las que se llaman por string, `getattr`, decoradores o el framework.", "",
+          "| módulo | función | línea | por qué |", "|---|---|---|---|"]
+    for a, m in muertas:
+        m = m if isinstance(m, dict) else {"nombre": m}
+        L.append(f"| `{a}` | `{m.get('nombre')}` | {m.get('linea', '')} | {_celda(m.get('por_que', ''))} |")
+    L += ["", f"## Tests (A.4) — `pytest --collect-only` (no se corren): {data['tests_resumen']}", "",
+          "| test | módulos de producción que importa | colecta | error de import | clase (zona 6) |",
+          "|---|---|---|---|---|"]
+    for t in data["tests"]:
+        L.append(f"| `{t['test']}` | {_celda(', '.join(t['importa']))} | {t['colecta']} | "
+                 f"{_celda(t['error'] or '; '.join(t['imports_rotos']))} | {t['clase'] or '—'} |")
+    SALIDA_MD.write_text("\n".join(L) + "\n", encoding="utf-8")
+    SALIDA_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
+
+
+def main() -> int:
     sys.stdout.reconfigure(encoding="utf-8")
-    hechos = json.loads(subprocess.run([sys.executable, str(Path(__file__).with_name("mapa_hechos.py"))], cwd=ROOT,
-                                       capture_output=True, text=True, encoding="utf-8").stdout)
-    faltan = sorted(set(hechos) - set(M))
-    sobran = sorted(set(M) - set(hechos))
-    assert not faltan and not sobran, f"módulos sin sticker {faltan} · stickers sin módulo {sobran}"
-    filas, aristas = [], []
-    for k, h in hechos.items():
-        st, rec, ent, tanda, estado = M[k]
-        quien = sorted(h["lo_importan"])
-        filas.append({"modulo": k, "archivo": h["archivo"], "sticker": st, "recibe": rec, "entrega": ent,
-                      "lo_llama": quien, "tests": len(h["tests"]), "lab": len(h["lab"]), "tanda": tanda,
-                      "nacio": h["nacio"], "estado": estado, "doc": h["doc"]})
-        for q, donde in h["lo_importan"].items():
-            aristas.append({"de": Path(q).stem if not q.endswith(".tmpl") else q, "a": k, "donde": donde})
-    muertos = [{"que": q, "por_que": p, "desde": fecha(c)} for q, p, c in MUERTOS]
-    data = {"generado_por": "lab/tools/mapa_modulos.py (F33 §D)", "camino": CAMINO, "modulos": filas,
-            "aristas": aristas, "muertos": muertos}
-    (ROOT / "lab" / "MAPA_MODULOS.json").write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
-    L = ["# MAPA DE MÓDULOS — capa gráfica y lo que la alimenta", "",
-         f"Generado por `lab/tools/mapa_modulos.py` (F33 §D) leyendo el código: quién llama a quién y cuándo nació cada "
-         f"archivo salen del AST y de git; sticker, recibe/entrega y estado los escribió CC después de leer cada módulo. "
-         f"Estado = en el camino de producción de hoy: {CAMINO}. Los datos con las aristas, para el flujograma, en "
-         f"`lab/MAPA_MODULOS.json`.", "",
-         "| módulo | sticker | recibe | entrega | quién lo llama | tanda en que nació | estado |",
-         "|---|---|---|---|---|---|---|"]
-    for f in filas:
-        quien = ", ".join(Path(q).name for q in f["lo_llama"]) or "—"
-        extra = f" (+ {f['tests']} tests)" if f["tests"] else ""
-        L.append(f"| `{f['modulo']}` | {f['sticker']} | {f['recibe']} | {f['entrega']} | {quien}{extra} | "
-                 f"{f['tanda']} (`{f['nacio'][:7]}`) | {f['estado']} |")
-    L += ["", "## Lo que el camino de producción ya no llama (muertos)", "",
-          "| qué | por qué | desde |", "|---|---|---|"]
-    L += [f"| `{m['que']}` | {m['por_que']} | {m['desde']} |" for m in muertos]
-    L += ["", "Muerto = en el camino con escaleta y rotulista no aporta nada al video: o nadie lo llama, o **se llama y su "
-          "resultado se descarta** (lo dice la columna «por qué»). F36 D borró lo de DECISIONES 18:17 y lo muerto del mapa "
-          "(«borrar, no apagar»); lo que queda en esta tabla está explicado en F36_REPORT.md."]
-    (ROOT / "lab" / "MAPA_MODULOS.md").write_text("\n".join(L) + "\n", encoding="utf-8")
-    print(f"{len(filas)} módulos · {len(aristas)} aristas · {len(muertos)} muertos")
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--check", action="store_true")
+    ap.add_argument("--zonas", action="store_true")
+    ap.add_argument("--stickers", type=Path, default=STICKERS, help="carpeta de stickers (para probar --check)")
+    a = ap.parse_args()
+    if a.zonas:
+        print(json.dumps({k: zona(k) for k in sorted(produccion())}, ensure_ascii=False, indent=1))
+        return 0
+    if a.check:
+        fallas = check(a.stickers)
+        for f in fallas:
+            print(f"✗ {f}")
+        n = len(produccion())
+        print(f"mapa --check: {n} archivos de producción · {len(fallas)} fallas")
+        return 1 if fallas else 0
+    data, L_flujo = armar()
+    escribir(data, L_flujo)
+    print(f"{len(data['modulos'])} archivos · {len(data['cajas'])} cajas · conteo {data['conteo']} → "
+          f"{SALIDA_MD.relative_to(ROOT).as_posix()}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

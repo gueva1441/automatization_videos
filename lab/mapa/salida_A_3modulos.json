@@ -1,0 +1,565 @@
+{
+ "run_pipeline.py": {
+  "archivo": "run_pipeline.py",
+  "modulo": "run_pipeline",
+  "tipo": "py",
+  "lineas": 553,
+  "md5": "b271cffada4021087b4be8cc28c3a31b",
+  "doc": "run_pipeline.py — Orquestador del pipeline completo (secuenciador por SUBPROCESS).",
+  "entrada": true,
+  "funciones": [
+   {
+    "nombre": "_papel_md_path",
+    "linea": 64,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [
+     "test_run_pipeline.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_script_path",
+    "linea": 69,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [
+     "test_run_pipeline.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_manifest_path",
+    "linea": 74,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [
+     "test_run_pipeline.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_fondos_path",
+    "linea": 79,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [
+     "test_run_pipeline.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_visuales_base_faltan",
+    "linea": 85,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_guion_pantalla_path",
+    "linea": 109,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [
+     "test_run_pipeline.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   "… (34 en total)"
+  ],
+  "importa": {
+   "config.py": [
+    "arriba"
+   ],
+   "script_engine/aprobacion.py": [
+    "arriba"
+   ],
+   "script_engine/topics_db.py": [
+    "arriba"
+   ],
+   "qa_form_markers.py": [
+    "arriba"
+   ],
+   "fase1_5.py": [
+    "en _estado_papel",
+    "en main"
+   ]
+  },
+  "lanza": {
+   "fase1_5.py": [
+    301,
+    325,
+    334,
+    268
+   ],
+   "fase2a.py": [
+    342
+   ],
+   "fase2b.py": [
+    365,
+    374,
+    402,
+    412
+   ],
+   "fase3.py": [
+    430
+   ],
+   "fase1.py": [
+    530
+   ]
+  },
+  "imports_rotos": [],
+  "lo_importan": {},
+  "lo_lanzan": {
+   "qa_studio_server.py": [
+    1522,
+    1527
+   ]
+  },
+  "tests": [
+   "test_run_pipeline.py"
+  ],
+  "nacio": {
+   "commit": "1127427",
+   "fecha": "2026-06-13",
+   "asunto": "run_pipeline asistido (secuenciador subprocess)",
+   "tanda": ""
+  },
+  "ultimo": {
+   "commit": "e68410a",
+   "fecha": "2026-10-27",
+   "asunto": "fix: sin chequeo de RAM antes del render (pedido de Omar, 2026-10-27) — borrados RAM_MIN_GB, _ram_libre_gb y el freno de 14 GB en run_pipeli",
+   "tanda": "F41"
+  },
+  "scripts_que_lo_alcanzan": [],
+  "etapas": [
+   "orquestador/form"
+  ],
+  "compartido": false,
+  "estado_a": "vivo"
+ },
+ "fase1_5.py": {
+  "archivo": "fase1_5.py",
+  "modulo": "fase1_5",
+  "tipo": "py",
+  "lineas": 980,
+  "md5": "7772ec58ff028679945dba4a07b599c9",
+  "doc": "fase1_5.py — Orchestrator del motor de guion (m01a → m03 → assemble)",
+  "entrada": true,
+  "funciones": [
+   {
+    "nombre": "_derive_failed_step",
+    "linea": 84,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [
+     "test_module_03_leakage_retry.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_build_audio_script",
+    "linea": 95,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [
+     "test_module_f10.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_load_topic_by_id",
+    "linea": 139,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py",
+     "researcher_steps/ficha_caso.py"
+    ],
+    "tests": [
+     "test_module_f17.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_load_step_output",
+    "linea": 155,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_load_skeleton",
+    "linea": 166,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_load_narration",
+    "linea": 170,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   "… (31 en total)"
+  ],
+  "importa": {
+   "config.py": [
+    "arriba"
+   ],
+   "cost_tracker.py": [
+    "arriba",
+    "en _step_cost"
+   ],
+   "csv_exporter.py": [
+    "arriba"
+   ],
+   "audio_manager.py": [
+    "arriba"
+   ],
+   "script_engine/m02_5_normalizer_gate.py": [
+    "arriba"
+   ],
+   "script_engine/m03_visual.py": [
+    "arriba"
+   ],
+   "script_engine/m06_assembler.py": [
+    "arriba"
+   ],
+   "script_engine/m07_music_director.py": [
+    "arriba"
+   ],
+   "foto_madre.py": [
+    "arriba"
+   ],
+   "script_engine/topics_db.py": [
+    "arriba"
+   ],
+   "researcher_steps/research_v3.py": [
+    "en cargar_perfil"
+   ],
+   "script_engine/m01e_pantalla.py": [
+    "en run_pantalla"
+   ],
+   "researcher_steps/ficha_caso.py": [
+    "en asegurar_ficha",
+    "en run_escaleta_v3",
+    "en run_guion_v4"
+   ],
+   "topic_researcher.py": [
+    "en research_de_semilla"
+   ],
+   "researcher_steps/pool_gate.py": [
+    "en research_de_semilla",
+    "en run_escaleta_v3"
+   ],
+   "script_engine/m01a_escaleta.py": [
+    "en run_escaleta_v3"
+   ],
+   "script_engine/m01a_columna.py": [
+    "en run_escaleta_v3"
+   ],
+   "script_engine/guion_v4.py": [
+    "en run_guion_v4"
+   ],
+   "script_engine/m01d_particion.py": [
+    "en run_guion_v4"
+   ],
+   "script_engine/m05_narrative.py": [
+    "en run_guion_v4"
+   ]
+  },
+  "lanza": {},
+  "imports_rotos": [],
+  "lo_importan": {
+   "fase1.py": [
+    "en run_latido_a"
+   ],
+   "researcher_steps/ficha_caso.py": [
+    "en main"
+   ],
+   "run_pipeline.py": [
+    "en _estado_papel",
+    "en main"
+   ]
+  },
+  "lo_lanzan": {
+   "run_pipeline.py": [
+    301,
+    325,
+    334,
+    268
+   ]
+  },
+  "tests": [
+   "test_chat51_menu_pre_research.py",
+   "test_fase1_nochain.py",
+   "test_module_03_leakage_retry.py",
+   "test_module_35_menu_csv.py",
+   "test_module_f10.py",
+   "test_module_f11.py",
+   "test_module_f11b.py",
+   "test_module_f17.py",
+   "test_module_f21.py",
+   "test_module_f22d.py",
+   "test_module_f26c.py",
+   "test_module_f27.py",
+   "test_module_f39_fase1.py",
+   "test_module_f41_cadena.py"
+  ],
+  "nacio": {
+   "commit": "e33f84a",
+   "fecha": "2026-05-28",
+   "asunto": "Initial commit: automatization_videos pipeline (post chat 32)",
+   "tanda": ""
+  },
+  "ultimo": {
+   "commit": "fc59a76",
+   "fecha": "2026-10-27",
+   "asunto": "feat(f41-A): una sola cadena — fase1_5 corre solo la de F39 con guion v4 (compuerta → ficha si falta → escaleta → guion v4 → partición → pap",
+   "tanda": "F41"
+  },
+  "scripts_que_lo_alcanzan": [
+   "fase1.py",
+   "fase1_5.py",
+   "fase2a.py"
+  ],
+  "etapas": [
+   "research",
+   "guion",
+   "papel",
+   "voz",
+   "assets"
+  ],
+  "compartido": true,
+  "estado_a": "vivo"
+ },
+ "script_engine/m01e_pantalla.py": {
+  "archivo": "script_engine/m01e_pantalla.py",
+  "modulo": "m01e_pantalla",
+  "tipo": "py",
+  "lineas": 1222,
+  "md5": "e9bb6f55164a60a21b7724b5b4f6cc9c",
+  "doc": "script_engine/m01e_pantalla.py — F36 §C: el guion de pantalla EN PAPEL (DECISIONES 2026-10-26 19:54: «el autor de la pantalla va a Fase 1»). Corre en Fase 1 después de m01d_particion y antes de la voz (fase1_5.run_guion_v4, con su costo en 01_v3_costos.json como los demás pasos) o suelto: `python -m script_engine.m01e_pantalla <topic>`.",
+  "entrada": true,
+  "funciones": [
+   {
+    "nombre": "tope_usd",
+    "linea": 77,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [
+     "test_module_f37a_papel.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "velocidad",
+    "linea": 87,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [
+     "test_module_f37a_papel.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "prompt_md5",
+    "linea": 136,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [
+     "test_module_f38c_papel.py",
+     "test_module_f38d_vueltas.py",
+     "test_module_f38e_c.py",
+     "test_module_f40_gancho.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "pedido",
+    "linea": 142,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "cap_id",
+    "linea": 149,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py",
+     "script_engine/pantalla_entrada.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_texto_item",
+    "linea": 153,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py",
+     "script_engine/pantalla_entrada.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   "… (47 en total)"
+  ],
+  "importa": {
+   "script_engine/evidence.py": [
+    "arriba"
+   ],
+   "script_engine/voz_utils.py": [
+    "arriba"
+   ],
+   "gfx_config.py": [
+    "en tope_usd",
+    "en caben_en"
+   ],
+   "script_engine/pantalla_colocar.py": [
+    "en caben_en",
+    "en validar",
+    "en editar"
+   ],
+   "script_engine/gfx_realizador.py": [
+    "en entrada"
+   ],
+   "script_engine/music_intensity.py": [
+    "en entrada"
+   ],
+   "script_engine/pantalla_filtros.py": [
+    "en estilo_de",
+    "en _validar_ficha"
+   ],
+   "script_engine/gfx_project.py": [
+    "en validar"
+   ],
+   "claude_helpers.py": [
+    "en llamar"
+   ],
+   "script_engine/clima.py": [
+    "en generar"
+   ],
+   "script_engine/m01a_skeleton.py": [
+    "en generar",
+    "en ruta",
+    "en main"
+   ],
+   "cost_tracker.py": [
+    "en main"
+   ]
+  },
+  "lanza": {},
+  "imports_rotos": [],
+  "lo_importan": {
+   "fase1_5.py": [
+    "en run_pantalla"
+   ],
+   "fase2b.py": [
+    "en main"
+   ],
+   "script_engine/pantalla_entrada.py": [
+    "en _item",
+    "en preparar_cap"
+   ]
+  },
+  "lo_lanzan": {},
+  "tests": [
+   "test_module_f36c_pantalla.py",
+   "test_module_f37a_papel.py",
+   "test_module_f38a_m01e.py",
+   "test_module_f38a_voz.py",
+   "test_module_f38c_papel.py",
+   "test_module_f38d_vueltas.py",
+   "test_module_f38e_c.py",
+   "test_module_f38e_d.py",
+   "test_module_f40_gancho.py"
+  ],
+  "nacio": {
+   "commit": "9e9d844",
+   "fecha": "2026-10-26",
+   "asunto": "feat(f36-c): m01e_pantalla — el guion de pantalla en papel va a Fase 1 (DECISIONES 19:54) · una llamada a Sonnet por video con el prompt lit",
+   "tanda": "F36"
+  },
+  "ultimo": {
+   "commit": "fc59a76",
+   "fecha": "2026-10-27",
+   "asunto": "feat(f41-A): una sola cadena — fase1_5 corre solo la de F39 con guion v4 (compuerta → ficha si falta → escaleta → guion v4 → partición → pap",
+   "tanda": "F41"
+  },
+  "scripts_que_lo_alcanzan": [
+   "fase1.py",
+   "fase1_5.py",
+   "fase2a.py",
+   "fase2b.py"
+  ],
+  "etapas": [
+   "research",
+   "guion",
+   "papel",
+   "voz",
+   "assets",
+   "fondos",
+   "guion_pantalla",
+   "aprobar_guion",
+   "render"
+  ],
+  "compartido": true,
+  "estado_a": "vivo"
+ }
+}
