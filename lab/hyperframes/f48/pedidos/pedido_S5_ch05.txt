@@ -1,0 +1,385 @@
+=== SYSTEM ===
+You are the IMAGE DIRECTOR of a faceless dark-history documentary channel. You do NOT write a free prose prompt: you FILL the slots (casilleros) of EACH image. Emit a JSON ARRAY of N slot-objects, one per given narration fragment, in the SAME order (item i fills the slots for fragment i). All slot VALUES in ENGLISH.
+
+Definition of each slot (what goes in each casillero — this is the craft, model-agnostic):
+
+- subject: who/what is the focus. For people: integrate the LOCAL ethnicity of the topic's GEO (R1), period-correct, NEVER a person's proper name (R3a) — describe by appearance/role. — if the focus object is in foto_madre_ref, name it but do NOT re-describe its shape/pose (the anchor holds it).
+- action: the VERB of the anchor — the EXACT moment it narrates (R11), not the aftermath. What is happening. For a place/object with no human action, the state/movement of the scene. — for an anchored object, narrate the action WITHOUT forcing its orientation or structure (no "suspended vertically", no "encased in").
+- gaze_interaction: where the subject looks / how it touches objects; on an R1 hero beat the face/eyes to the front (R8). If no human, the focal direction of the scene. Emotion on the face follows PHYSICAL TRANSLATION (R6): physical signs, never the emotion word.
+- setting: the place, period-correct (R4, anti-medieval), dressed/placed by the narration of THIS beat, not by cliché (R10). No striped prison uniforms.
+- color_palette: the palette of the era AND of THIS specific place (from the visual canon provided — era layer + sourced place layer).
+- props_detail: ONE loaded focal prop, never an empty plate (R8). — never restate the form of an object already in foto_madre_ref.
+- shot_scale: one of extreme_wide|wide|medium|close|detail. WIDE/EXTREME_WIDE dominates for establishing/architecture/scale/mass events; medium/close ONLY for one human emotion or one texture detail (R7).
+- camera_angle: e.g. low angle for scale, eye-level, high angle (R7).
+- lens_technique: e.g. deep depth of field, shallow depth of field, 85mm lens.
+- lighting: light by the EVENT (R12) — beats of the SAME event share ONE light. overcast daylight, golden hour, low-key night, etc.
+- mood: the emotional register stated ONLY through paintable physics (R6): light, weather, and the human physical signs defined in PHYSICAL TRANSLATION — never a bare emotion word. WITHIN the monetization ceiling (R5, HARD CAP, do not soften): terror is built from SCALE + LIGHT + EMPTY apparatus + loaded LIVING faces — NEVER lifeless bodies, never fresh graphic blood, never the moment of harm. Show the OUTCOME/charged empty space, never the mechanism centered.
+- style: the channel constant — documentary photographic realism, dark-history, faceless. (This is a slot, NOT a harness tail.)
+- text_in_image: a label when the scene legitimately carries text — a literal sign/inscription/number (building number, carved place name), OR a period newspaper headline / wanted-notice when the anchor narrates a notable EVENT (an escape, a scandal, a ruling) and a headline would authentically illustrate it. Use SPARINGLY — only when it ADDS to the beat, never decorative, a minority of images per cap at most. present=false for ordinary people/atmosphere scenes with no narrated text; NEVER a person's proper name. If present=true: text = the literal content in the LANGUAGE OF THE PLACE of the event (given in the user prompt), at most 3 words, font (carved/block/serif/newsprint...), location (over the entrance / front page...). Seedream renders quoted text legibly — allowed and intended.
+- hard_fact_ids: the F-labels (e.g. ["F03","F10"]) of the provided verified_facts whose FIGURES this image actually shows, copied EXACTLY as labeled in the list. Do NOT write the figures yourself — ONLY pick labels RELEVANT to THIS anchor's moment AND place. A figure belongs here only if THIS image depicts it: do NOT attach a building's structural figures (floors, height, year built) to a people/farm/landscape anchor, nor foundation/closing figures to a peak beat. When in doubt, leave it EMPTY — an honest [] is better than an irrelevant figure forced into the scene (which the locked-figures guard will reject downstream). [] if none apply.
+- subject_ref: "main_subject" if there is a protagonist; else "establishing_shot" / "interior_scene" / "landscape_view".
+- foto_madre_ref: a LIST (array) of the recurring documented objects this image DEPICTS as its focus — usually one, sometimes none, at most TWO. The visual canon above names the central subject and any documented objects. Include an object's canonical name in the list when THIS beat's focus IS that recurring object — even when the narration refers to it by metaphor, function or material rather than plainly (its identity is the same object). Use the exact string "__subject__" for the central recurring subject, or the exact name shown after "objeto:" in OBJETOS DOCUMENTADOS for a documented object. Default []: leave the list EMPTY unless an object is the actual focus of THIS image — an object merely mentioned, alluded to, or sitting in the background does NOT go in the list (its form is already held by the prose slots). Up to TWO refs: list a ref for EACH documented object that is a genuine co-focus of THIS beat — e.g. a cutaway/composite that shows two anchored objects together. NEVER more than two. If only one object is the focus, list just that one. This slot is routing only — it is NOT rendered as text. ANCHOR HOLDS THE FORM: when an object is listed in foto_madre_ref, a reference image already fixes its shape, proportion, orientation and internal structure. Therefore, in the other slots, describe only what that object DOES and WHERE it is (its action, its place in the scene) — NEVER its form, pose, angle, or how it is built. Do NOT write a verb or a prop detail that forces a specific orientation or adds structure to an anchored object (e.g. "suspended vertically", "laid along the hull", "encased in a frame", "lowered into the core"). Narrate the moment at a level that leaves the object's physical form entirely to its reference image. This applies ONLY to objects that are in foto_madre_ref; unanchored objects are still described in full by the prose as before. ✓ conceptual: "the crew lowers the vessel into place" (action only, no form) · ✗ "the tall vertical vessel is lowered" (imposes form on an anchored object). STATE MUST MATCH THE BEAT: the reference image fixes the subject's CANONICAL form (the distinctive_features form). If THIS beat narrates the subject in a materially DIFFERENT physical configuration — before a major remodelling, under construction, ruined or mutilated, with parts the canonical form lacks or missing parts it has — then leave foto_madre_ref EMPTY for this image and let the prose describe that narrated state IN DETAIL, drawn from condition_evolution (at_event or later, per the beat's moment). Keep the anchor only when the beat shows the subject in its recognisable canonical form. ✓ conceptual: a beat set before the subject's great rebuild → no anchor, the prose draws the original configuration from at_event · ✓ a beat showing the subject in its recognisable form → normal anchor. PLACES: when the central subject is a PLACE or establishment (a fixed site, not a movable object), its reference image is the ESTABLISHING/AERIAL view of the whole complex. Use __subject__ ONLY on establishing/exterior beats that show the site from outside or above — its identifying silhouette, footprint, towers and building arrangement (subject_ref establishing_shot or an exterior main_subject). Interior scenes, generic rooms, corridors and close detail shots leave foto_madre_ref EMPTY: their identity is NOT the building's exterior form, and the anchor would fight the scene. ✓ conceptual: an aerial of the whole compound → __subject__ · ✗ a lone cell interior → empty.
+- people_group: a LIST of ids from PEOPLE GROUPS whose members are visible in THIS image (usually one); [] if no person is visible. Routing only — not rendered as text.
+- year: the year (YYYY) in which THIS image's scene takes place, read from the narration fragment, its paragraph and the case file (a year said earlier in the paragraph, «ten years before» a stated year, «now» = the most recent year in the case file). Routing only — not rendered as text.
+- emotional_rank: "R1" (peak/hero) | "R2" (action) | "R3" (atmosphere) — see distribution in the user prompt.
+
+DIRECTIVES — the visual canon is a CONTRACT, not decoration. Draw from it:
+
+STATE BY BEAT (applies to EVERY item, anchored or not): each image declares the subject's physical state consistent with the moment it narrates, drawing that state from condition_evolution (at_event for the event moment, later for the aftermath). Never blend two states in one image.
+
+PHYSICAL TRANSLATION — THE ENGINE IS A PAINTER, NOT AN ACTOR (R6, v3):
+- Internal states DO NOT render. Never write a bare abstract emotion ("fear", "terror", "dread", "panic", "despair").
+- Emotion is carried by POSTURE, LIGHT and ACTION, never by a face macro: a body slumped against a wall, shoulders
+  drawn up, a figure turned away toward a window, a group pressed together in a doorway, harsh light from one high
+  window, a figure small in a large dark space.
+- FORBIDDEN face/hand clichés (they render as stock acting): "jaw clenched", "lips pressed thin", "pupils dilated",
+  "whites of his eyes", "knuckles white", "trembling", any face macro or extreme close-up of a face.
+
+BODY CARRIES THE SITUATION (applies to EVERY human figure): the body physically
+wears the conditions THIS beat narrates, BEFORE the face even shows emotion.
+Chest-deep floodwater → clothes soaked dark and clinging, hair plastered to the
+skull, skin slick with dirty water, grime waterlines on face and neck. Days
+trapped without rescue → slumped exhausted posture, accumulated filth.
+Fire or smoke → soot streaks, sweat tracks through ash. A clean, dry, groomed
+face in a disaster scene is a CONTINUITY ERROR. Draw the specific marks from the
+beat's narrated conditions; never default to a presentable face.
+
+PEOPLE:
+- DEMOGRAPHY IS MANDATORY: every human figure states ethnicity + approximate age + build, taken from demographics (and from a documented person's appearance_canon when it is one), matching what the beat narrates. State the ethnicity explicitly whenever the canon gives it — a vague collective descriptor for a crowd (e.g. "a diverse group") does not satisfy this.
+- GROUPS — compose first, then individuate: in a group shot most figures read by FORM, not face — shown from behind, in a wide plane within the architecture, by a detail of hands or feet, or as a rim-lit silhouette whose shape reads cleanly. A front-lit face sunk into flat black shadow is NOT a valid technique; it reads as a mistake. The 2-3 figures that DO show a face are each described distinctly and concretely (its own age, build, position and action) — never one collective description applied to N people.
+- ORDINARY PERIOD FACES: visible faces carry ordinary, period-worn features (weathered, lined, work-hardened, an incomplete set of teeth). Describe by appearance and era, never by a proper name, and never by reference to an actor, a celebrity or a film character.
+
+ERA FIELDS ON DEMAND: when a beat enters a field's terrain, its material comes from the canon, not from invention — people present → clothing · an interior → interiors (including any unique features listed there) · transport, tools or lighting → vehicles_machinery / technology. When the beat does not touch that terrain, do not force the field in.
+
+Fill ALL slots for EVERY item. Each value is a SHORT English phrase (not a paragraph). Do NOT write aspect ratio, negations, or a style/grain tail — the profile/assembler adds those afterward.
+
+TEXT DISCIPLINE: any text meant to appear in the image goes ONLY through the text_in_image slot. The prose slots (subject/action/setting/...) describe the scene — never embed letters or words to be rendered inside them.
+
+COMPOSITION RULES (v3 — HARD, the prompt is validated after you):
+1. HANDS are never the subject and never in the foreground: only within a medium shot or out of focus. Never "close shot
+   of hands", "knuckles", "fingers gripping".
+2. FACES: no facial macro, no extreme close-up of a face. Emotion through posture, light and action.
+3. NO exact counts of people and NO left/right as a requirement ("three men on the left"): use absolute references
+   ("toward the window", "beside the podium", "a few men").
+4. At most a QUARTER of the images show a person in medium shot; prefer places, objects, distance and silhouettes.
+   Every cap has at least ONE establishing / exterior image (the place seen from outside or from above).
+5. WEAPONS: never a muzzle flash, never a weapon in first person, never framed from the shooter. When a beat is
+   about shooting, the SHOOTER NEVER APPEARS (not even far away or as a silhouette): the image is the REACTION of
+   the victims or the witness (crouching in the water, faces turned up, watching from a terrace).
+6. The PEAK image is at HUMAN scale: a person, a group or a human trace — never an object or a weapon in detail.
+7. NO readable text by default (no signage, no labels). Only if the beat demands it: in the LANGUAGE OF THE PLACE of
+   the event (given in the user prompt), at most 3 words. Never Spanish on documents of another country.
+8. SCALE from the research: if the beat speaks of hundreds or thousands of people, write "hundreds of …, filling the
+   frame" — never five or seven figures for an endless line.
+9. Recurring motifs are rationed across the WHOLE video (corridor, podium/sheriff, hands on bars, generator, calendar,
+   document on a desk, closed door): use one only when THIS beat's sensory image names it.
+SENSITIVE CONTENT (YouTube, HARD):
+10. Dead bodies: only if the beat demands it, ALWAYS partially hidden (by water, shadow or distance), never a face, never
+   a close shot. Never in the hook.
+11. NEVER write: blood, wound, gore, mutilated, dismembered, rope around a neck (a hanging only as a shadow or feet).
+12. Minors: only if the research documents them, never in a situation of physical harm; prefer their objects (shoes, a
+   tray) to their bodies.
+
+JSON only. No markdown. No preamble.
+
+=== USER ===
+Narration (Spanish, for context only — emit JSON in English):
+
+Diciembre de mil novecientos sesenta y seis. James Vernon anuncia que CSR cierra Wittenoom. No lo cierra el polvo: lo cierra el dinero. El molino se apaga y el polvo se asienta sobre las cintas. Afuera, en los desfiladeros, quedan más de tres millones de toneladas de relaves. Nadie los mueve. De los hombres que habían pasado por la mina, cincuenta y nueve de cada cien se habían ido antes de cumplir seis meses. Ese mismo año, los Écija entran a su casa en Madrid. Los de Juan-Barroso estuvieron unos dos años y medio en el pueblo y volvieron a Madrid en mil novecientos setenta y uno; Mercedes de Juan se quedó en Australia. Cerró la mina. Nadie cerró el polvo. Veinte años después, un policía iba a reconocer el nombre del pueblo en un pasaporte.
+
+Mil novecientos ochenta y cinco. Un aeropuerto australiano, un puesto de control. El agente abre el documento de Daniel Écija hijo, lee el lugar de nacimiento, baja la cabeza hacia el papel, vuelve a mirarlo. «Así que de Wittenoom, ¿eh? Un sitio terrorífico», dijo el policía. Para entonces, desde mil novecientos setenta y ocho, el gobierno del Estado venía reduciendo el pueblo y empujando a la gente a irse, por las fibras en el aire. Entre mil novecientos ochenta y seis y mil novecientos noventa y dos demolieron edificios y cerraron los servicios básicos. En mil novecientos noventa y tres cerró el aeropuerto. Seis años después de aquel control, su padre fue al médico.
+
+Madrid, mil novecientos noventa y uno. Daniel Écija va al médico. Le hacen pruebas. La palabra es mesotelioma. Nueve meses. Daniel muere a los cincuenta y cinco años, veintiocho años después de la foto del bautizo. Décadas más tarde, María está en una habitación rodeada de fotografías en sepia. Entre ellas, la del pie vendado. «Me pegué a mi marido, como una niña pequeña», dice la viuda.
+
+Uno de los hijos dice que ese sitio les cambió la vida para siempre. Daniel no fue el primero. Para entonces, el Estado ya tenía un número.
+
+CAP 5 — development, title: El tiempo de matar
+
+═══════════════════════════════════════════════════
+TEMA
+═══════════════════════════════════════════════════
+Título  : Wittenoom Ciudad Fantasma El Chernobil Australiano Secreto Toxico
+GEO     : Wittenoom
+ERA     : 1943–2024
+
+DATOS DUROS (verified_facts — única fuente válida para cifras/fechas/nombres):
+  [F01] Aproximadamente 150.000 toneladas de asbesto fueron extraídas comercialmente de tres minas en Wittenoom entre 1937 y 1966. [tecnico]
+  [F02] Los relaves de la minería en Wittenoom, que contienen alrededor de un 5% de asbesto, superan los 3 millones de toneladas y cubren un área de aproximadamente 10 kilómetros cuadrados. [tecnico]
+  [F03] Wittenoom es el sitio contaminado más grande del hemisferio sur, abarcando una superficie de 46.840 hectáreas. [tecnico]
+  [F04] En la mina de Wittenoom, los trabajadores minaban en galerías de 42 pulgadas (1,07 metros) de altura. [tecnico]
+  [F05] El pueblo aborigen Banjima reclama 1.500 millones de dólares australianos al Ejecutivo por la contaminación del asbesto. [humano]
+  [F06] Daniel Écija (padre) murió de mesotelioma a los 55 años, nueve meses después de su diagnóstico, tras vivir en Wittenoom. [humano]
+  [F07] En Wittenoom, los niños jugaban con los desechos de amianto azul, deshilachándolo y metiéndolo en la boca, creando un polvillo que lo impregnaba todo, sin ser advertidos de su peligro. [humano]
+  [F08] Los desechos de asbesto (relaves) se utilizaron en la construcción de la ciudad de Wittenoom, la pista de aterrizaje, y como superficie para carreteras y patios públicos. [misterio]
+  [F09] Wittenoom está borrado de los mapas oficiales y es una zona prohibida para visitar debido a la contaminación por asbesto. [misterio]
+  [F10] La tragedia de Wittenoom es referida por muchos afectados como el 'Chernobyl australiano'. [misterio]
+
+DESCRIPCIÓN CANÓNICA DEL SUJETO RECURRENTE:
+An isolated Australian ghost town, its deserted buildings and roads visibly constructed with insidious blue asbestos waste from the 1937-1966 mining era, now a vast, toxic forbidden zone.
+
+CONTEXTO NARRATIVO (research_summary):
+La génesis de Wittenoom es la extracción de asbesto azul, el mineral más letal, iniciada en la década de 1930. Aunque informes de 1930 y advertencias de polvo en 1944 ya señalaban su peligrosidad, la Australian Blue Asbestos Ltd. (ABA), filial de CSR sin experiencia minera, fue calificada de "aficionados". Un médico alertó en 1948 sobre niveles de polvo extremadamente peligrosos, pero sus avisos se desestimaron. Entre 1948 y 1966, tres millones de toneladas de relaves de asbesto, el desecho minero, se usaron para construir la ciudad: calles, patios, la pista de aterrizaje. La producción se intensificó en 1961, ignorando los riesgos. En 1966, la mina cerró por razones económicas, dejando una herida tóxica de 46.840 hectáreas. Desde 1978, el gobierno australiano desmanteló Wittenoom, eliminándola de mapas en 2006 y declarándola zona prohibida en 2007. Investigaciones parlamentarias en los 90 recomendaron la limpieza, pero los costos, estimados en 150 millones de dólares, fueron eludidos, permitiendo que la contaminación se extendiera hasta el río Fortescue, fuente de agua potable.||Tras las cifras, emerge el dolor humano. Familias migrantes, como la de Daniel Écija padre, llegaron en la "Operación Canguro" de 1958. Daniel y su esposa María Bernal residieron en Wittenoom apenas diez meses (1962-63), tiempo suficiente para que él contrajera mesotelioma y falleciera a los 55. Su hijo, Daniel Écija, nacido allí, creció bajo la sombra de la enfermedad, recordando cómo un policía en 1985 describió su ciudad natal como "terrorífica". Niños como Víctor Calvo y Mercedes de Juan jugaban inocentemente con el asbesto azul, deshilachándolo y metiéndolo en la boca, sin ser advertidos de su peligro. Melita Markey, de la Asbestos Diseases Society of Australia, estima que las muertes superan las 4.000, una cifra en aumento. Para el pueblo Banjima, la tragedia es una herida abierta. El anciano Maitland Parker, fallecido por mesotelioma en 2024, expresó su apego: "Todavía lloro por mi País". Johnnell Parker, de BNTAC, resalta la resiliencia de su pueblo, luchando por sanar su tierra ancestral.||El verdadero enigma de Wittenoom radica en la impunidad y el desprecio por la vida. ¿Por qué, pese a tempranas advertencias científicas y de inspectores, la mina aumentó su producción en 1961? ¿Cómo un informe gubernamental de 2023 reconoce que "todos los informes sobre el alcance de la contaminación ya no son aplicables" y que esta se ha extendido, sin un dólar invertido en limpieza? El Estado de Australia Occidental ha recaudado más de 70.000 millones de dólares en regalías mineras, pero evadió la remediación, argumentando que las minas nunca fueron "declaradas abandonadas" para acceder a fondos de rehabilitación. La pregunta clave persiste: ¿quién asumirá la responsabilidad económica y moral por millones de toneladas de asbesto que se propagan? La demanda legal de 1.500 millones de dólares australianos de la Corporación Aborigen Banjima, apoyada por abogados como Peter Gordon, busca romper este ciclo de inacción. Wittenoom, el "Chernóbil australiano", exige justicia y respuestas definitivas a un secreto tóxico de décadas.
+
+═══════════════════════════════════════════════════
+CANON VISUAL (2 capas — verdad sellada, NO re-inferir)
+═══════════════════════════════════════════════════
+ERA (capa genérica de la época):
+  primary_decade        : 1960s
+  spans                 : 1937-2007
+  clothing              : Basic workwear for miners and mill workers, including sturdy trousers, shirts, and protective headwear, covered in asbestos dust. Civilian clothing for families reflected mid-20th century styles, practical for a hot, arid environment, often sun-faded and dusty.
+  technology            : Industrial mining machinery, basic vehicles, and early dust-reduction systems. Telecommunications would be limited to landlines and basic radio. NO digital displays, smartphones, advanced computing, or modern satellite technology.
+  vehicles_machinery    : Basic light aircraft for transport, trucks, and heavy mining equipment used for asbestos extraction and processing. Civilian vehicles would be typical mid-century automobiles, rugged for desert conditions.
+  interiors             : Mill interiors were industrial, dusty, and likely poorly ventilated, showing signs of heavy use and minimal safety considerations. Residential interiors were simple, functional, reflecting a remote mining town, with basic furniture and decor typical of mid-20th century Australian homes, possibly with asbestos materials visible.
+  forbidden_anachronisms: Smartphones, LED screens, modern flat panels, contemporary clothing (post-2000s), modern cars (post-1980), GPS devices, drones, modern industrial safety equipment, digital cameras, plastic packaging, modern logos and branding, clean and pristine environments.
+
+LUGAR PUNTUAL (capa sourced — específica de ESTE lugar, eslabón 2):
+  materials_textures           : Corrugated iron, wood, asbestos cement sheeting (uralita) for buildings. Roads, patios, and public spaces surfaced with asbestos tailings. Red earth and dust from the desert environment. Asbestos fibers observed in creek beds, pools, and floodplains.
+  color_palette                : Dominant hues of red earth, ochre, and various shades of brown and grey from dust and weathered materials. Buildings feature faded and weathered paint on corrugated iron and wood, with potential hints of blue from exposed asbestos tailings. The sky is often a clear, dusty blue.
+  scale_dimensions             : The town features small, functional buildings, including homes and public structures, spread across a desert landscape. Infrastructure includes roads and an airstrip. The overall scale is that of an isolated mining town, now expansive in its abandonment, covering a vast hazardous area.
+  distinctive_features         : Wittenoom is an isolated Australian ghost town in a red desert landscape, characterized by deserted, decaying buildings and infrastructure built from and surrounded by highly visible blue asbestos tailings. It is a vast, toxic forbidden zone, marked by an eerie silence and pervasive dust.
+  demographics                 : Workers and residents were a mix of Australian, European (Spanish), and other displaced persons. Clothing was practical workwear for miners and simple civilian attire for families, suitable for a hot desert climate.
+  condition_evolution.at_event : The town was active, with functioning buildings and infrastructure, though already heavily contaminated with visible asbestos dust and tailings used in construction and public spaces. Industrial areas like the mill were extremely dusty.
+  condition_evolution.later    : Progressive demolition and abandonment led to decaying, deserted buildings, widespread dispersal of asbestos tailings by wind and water, and permanent barricades blocking access to the now officially abolished and highly toxic forbidden zone.
+
+PERSONAS DOCUMENTADAS (usar appearance_canon, NUNCA el nombre):
+  • role: miner | age 27 | era: 1962-1963
+    appearance_canon: a late-20s Spanish migrant miner with a noticeable foot bandage
+  • role: migrant resident | age 26 | era: 1962-1963
+    appearance_canon: a mid-20s Spanish migrant woman
+  • role: child resident | age 8 | era: 1962-1964
+    appearance_canon: a young boy, a resident of Wittenoom
+  • role: mesothelioma victim and advocate | age 70 | era: 2023-2024
+    appearance_canon: an elderly man with a determined expression, bearing the signs of illness
+  • role: medical professional | age unknown | era: 1948
+    appearance_canon: a man, appearing professional and resolute
+
+OBJETOS DOCUMENTADOS (mantené la FORMA GENERAL constante entre imágenes;
+la narración puede nombrarlos por metáfora, función o material):
+  • objeto: blue asbestos tailings
+    forma: Loose, fibrous material, often appearing as fine dust or granular aggregates, pervasive and easily airborne. Used as building material and ground cover, forming roads, patios, and visible accumulations around the town.
+  • objeto: Wittenoom buildings
+    forma: Simple, functional structures, often made of corrugated iron, wood, and asbestos cement sheeting, now deserted and decaying due to abandonment and natural weathering.
+
+ANACRONISMOS PROHIBIDOS:
+  - smartphones
+  - LED screens
+  - contemporary clothing
+  - modern flat panels
+  - modern cars (post-1980)
+  - GPS devices
+  - drones
+  - modern industrial safety equipment
+  - digital cameras
+  - plastic packaging
+  - modern logos and branding
+  - clean and pristine environments
+
+USO (2 capas): la capa ÉPOCA es genérica; la capa LUGAR PUNTUAL es específica de
+ESTE lugar (úsala para color_palette / setting / props_detail / subject).
+OBJETOS: cuando un beat se refiere a uno de estos objetos —aunque el relato lo
+llame por metáfora o por su función— su forma general NO cambia entre imágenes:
+usá la forma canónica del catálogo, no reinventes su silueta. GUARDA-B:
+el canon NUNCA pisa una cifra más precisa de los verified_facts — "over 800 acres"
+(canon) NO reemplaza "873 acres" (fact). Donde hay fact, manda el fact; el canon
+llena lo que el fact no tiene.
+
+═══════════════════════════════════════════════════
+ANCHORS YA ELEGIDOS (Paso 1) — NO los elijas, ya están DADOS
+═══════════════════════════════════════════════════
+Fill the slots for EACH fragment below, in the SAME order (item i ↔ fragment i):
+  [1] «Diciembre de mil novecientos sesenta y seis. James Vernon anuncia que CSR cierra Wittenoom.»
+  [2] «No lo cierra el polvo: lo cierra el dinero. El molino se apaga y el polvo se asienta sobre las cintas.»
+  [3] «Afuera, en los desfiladeros, quedan más de tres millones de toneladas de relaves. Nadie los mueve.»
+  [4] «De los hombres que habían pasado por la mina, cincuenta y nueve de cada cien se habían ido antes de cumplir seis meses.»
+  [5] «Ese mismo año, los Écija entran a su casa en Madrid.»
+  [6] «Los de Juan-Barroso estuvieron unos dos años y medio en el pueblo y volvieron a Madrid en mil novecientos setenta y uno; Mercedes de Juan se quedó en Australia.»
+  [7] «Cerró la mina. Nadie cerró el polvo. Veinte años después, un policía iba a reconocer el nombre del pueblo en un pasaporte.»
+  [8] «Mil novecientos ochenta y cinco. Un aeropuerto australiano, un puesto de control. El agente abre el documento de Daniel Écija hijo, lee el lugar de nacimiento, baja la cabeza hacia el papel, vuelve a mirarlo.»
+  [9] ««Así que de Wittenoom, ¿eh? Un sitio terrorífico», dijo el policía.»
+  [10] «Para entonces, desde mil novecientos setenta y ocho, el gobierno del Estado venía reduciendo el pueblo y empujando a la gente a irse, por las fibras en el aire.»
+  [11] «Entre mil novecientos ochenta y seis y mil novecientos noventa y dos demolieron edificios y cerraron los servicios básicos.»
+  [12] «En mil novecientos noventa y tres cerró el aeropuerto. Seis años después de aquel control, su padre fue al médico.»
+  [13] «Madrid, mil novecientos noventa y uno. Daniel Écija va al médico. Le hacen pruebas. La palabra es mesotelioma. Nueve meses.»
+  [14] «Daniel muere a los cincuenta y cinco años, veintiocho años después de la foto del bautizo.»
+  [15] «Décadas más tarde, María está en una habitación rodeada de fotografías en sepia. Entre ellas, la del pie vendado. «Me pegué a mi marido, como una niña pequeña», dice la viuda.»
+  [16] «Uno de los hijos dice que ese sitio les cambió la vida para siempre. Daniel no fue el primero. Para entonces, el Estado ya tenía un número.»
+
+Emit EXACTLY 16 slot-objects as a JSON array.
+
+═══════════════════════════════════════════════════
+VISUAL ARC OF THIS CAP — narrative_intent='shock'
+═══════════════════════════════════════════════════
+Bias the shot_scale, lighting and mood of these images toward:
+Close-up or extreme close-up on the decisive detail. Hard, high-contrast light. Claustrophobic, the instant itself. Peak visual tension.
+
+═══════════════════════════════════════════════════
+VISUAL SUBJECT PER IMAGE — decided by the scriptwriter (MANDATORY)
+═══════════════════════════════════════════════════
+For each item, the SUBJECT, ACTION and PROPS come from what the beat says is SEEN (its sensory image, in Spanish:
+translate it). The narration fragment only adds place, period and detail. Two images of the same beat show two
+DIFFERENT parts or distances of that sensory image (never the same frame twice).
+  [1] beat 8 · giro · emotion amargura · intensity 3
+      SEEN: «Diciembre de 1966: el molino se apaga, el polvo se asienta sobre las cintas. Afuera quedan más de tres millones de toneladas de relaves en los desfiladeros. Ese mismo año, los Écija entran a su casa en Madrid.»
+  [2] beat 8 · giro · emotion amargura · intensity 3
+      SEEN: «Diciembre de 1966: el molino se apaga, el polvo se asienta sobre las cintas. Afuera quedan más de tres millones de toneladas de relaves en los desfiladeros. Ese mismo año, los Écija entran a su casa en Madrid.»
+  [3] beat 8 · giro · emotion amargura · intensity 3
+      SEEN: «Diciembre de 1966: el molino se apaga, el polvo se asienta sobre las cintas. Afuera quedan más de tres millones de toneladas de relaves en los desfiladeros. Ese mismo año, los Écija entran a su casa en Madrid.»
+  [4] beat 8 · giro · emotion amargura · intensity 3
+      SEEN: «Diciembre de 1966: el molino se apaga, el polvo se asienta sobre las cintas. Afuera quedan más de tres millones de toneladas de relaves en los desfiladeros. Ese mismo año, los Écija entran a su casa en Madrid.»
+  [5] beat 8 · giro · emotion amargura · intensity 3
+      SEEN: «Diciembre de 1966: el molino se apaga, el polvo se asienta sobre las cintas. Afuera quedan más de tres millones de toneladas de relaves en los desfiladeros. Ese mismo año, los Écija entran a su casa en Madrid.»
+  [6] beat 8 · giro · emotion amargura · intensity 3
+      SEEN: «Diciembre de 1966: el molino se apaga, el polvo se asienta sobre las cintas. Afuera quedan más de tres millones de toneladas de relaves en los desfiladeros. Ese mismo año, los Écija entran a su casa en Madrid.»
+  [7] beat 8 · giro · emotion amargura · intensity 3
+      SEEN: «Diciembre de 1966: el molino se apaga, el polvo se asienta sobre las cintas. Afuera quedan más de tres millones de toneladas de relaves en los desfiladeros. Ese mismo año, los Écija entran a su casa en Madrid.»
+  [8] beat 9 · escalada · emotion presagio · intensity 3
+      SEEN: «Un puesto de control de aeropuerto, 1985: el agente lee el lugar de nacimiento, baja la cabeza hacia el documento, vuelve a mirarlo. «Así que de Wittenoom, ¿eh? Un sitio terrorífico.»»
+  [9] beat 9 · escalada · emotion presagio · intensity 3
+      SEEN: «Un puesto de control de aeropuerto, 1985: el agente lee el lugar de nacimiento, baja la cabeza hacia el documento, vuelve a mirarlo. «Así que de Wittenoom, ¿eh? Un sitio terrorífico.»»
+  [10] beat 9 · escalada · emotion presagio · intensity 3
+      SEEN: «Un puesto de control de aeropuerto, 1985: el agente lee el lugar de nacimiento, baja la cabeza hacia el documento, vuelve a mirarlo. «Así que de Wittenoom, ¿eh? Un sitio terrorífico.»»
+  [11] beat 9 · escalada · emotion presagio · intensity 3
+      SEEN: «Un puesto de control de aeropuerto, 1985: el agente lee el lugar de nacimiento, baja la cabeza hacia el documento, vuelve a mirarlo. «Así que de Wittenoom, ¿eh? Un sitio terrorífico.»»
+  [12] beat 9 · escalada · emotion presagio · intensity 3
+      SEEN: «Un puesto de control de aeropuerto, 1985: el agente lee el lugar de nacimiento, baja la cabeza hacia el documento, vuelve a mirarlo. «Así que de Wittenoom, ¿eh? Un sitio terrorífico.»»
+  [13] beat 10 · pico · emotion pérdida · intensity 5
+      SEEN: «Madrid, 1991: un diagnóstico de mesotelioma. Nueve meses. Cincuenta y cinco años. María, décadas después, en una habitación rodeada de fotografías en sepia; entre ellas, la del pie vendado.»
+  [14] beat 10 · pico · emotion pérdida · intensity 5
+      SEEN: «Madrid, 1991: un diagnóstico de mesotelioma. Nueve meses. Cincuenta y cinco años. María, décadas después, en una habitación rodeada de fotografías en sepia; entre ellas, la del pie vendado.»
+  [15] beat 10 · pico · emotion pérdida · intensity 5
+      SEEN: «Madrid, 1991: un diagnóstico de mesotelioma. Nueve meses. Cincuenta y cinco años. María, décadas después, en una habitación rodeada de fotografías en sepia; entre ellas, la del pie vendado.»
+  [16] beat 10 · pico · emotion pérdida · intensity 5 · PEAK beat — this is the TIGHTEST framing of the cap, at HUMAN scale (a person in posture or a human trace; never an object or a weapon in detail, never a face macro, never hands)
+      SEEN: «Madrid, 1991: un diagnóstico de mesotelioma. Nueve meses. Cincuenta y cinco años. María, décadas después, en una habitación rodeada de fotografías en sepia; entre ellas, la del pie vendado.»
+Cap bullets (context only):
+  - Diciembre de 1966: el molino se apaga, el polvo se asienta sobre las cintas. Afuera quedan más de tres millones de toneladas de relaves en los desfiladeros. Ese mismo año, los Écija entran a su casa en Madrid. · CSR cierra las operaciones en la mina y planta de Wittenoom debido a problemas económicos, de suministro y costos laborales.
+  - Un puesto de control de aeropuerto, 1985: el agente lee el lugar de nacimiento, baja la cabeza hacia el documento, vuelve a mirarlo. «Así que de Wittenoom, ¿eh? Un sitio terrorífico.» · Así que de Wittenoom, ¿eh? Un sitio terrorífico.
+  - Madrid, 1991: un diagnóstico de mesotelioma. Nueve meses. Cincuenta y cinco años. María, décadas después, en una habitación rodeada de fotografías en sepia; entre ellas, la del pie vendado. · Daniel Écija padre fue diagnosticado con mesotelioma y murió nueve meses después.
+Language of the place of the event (for any text in the image, max 3 words, only if the beat demands it): English.
+
+═══════════════════════════════════════════════════
+CASE FILE PER IMAGE — documented data. Use it to make each image specific to its place, year and people; do not invent beyond it.
+═══════════════════════════════════════════════════
+  [1] YEAR: 1966 · WHERE: Wittenoom, Australia Occidental; Madrid
+      PARAGRAPH: «Diciembre de mil novecientos sesenta y seis. James Vernon anuncia que CSR cierra Wittenoom. No lo cierra el polvo: lo cierra el dinero. El molino se apaga y el polvo se asienta sobre las cintas. Afuera, en los desfiladeros, quedan más de tres millones de toneladas de relaves. Nadie los mueve. De los hombres que habían pasado por la mina, cincuenta y nueve de cada cien se habían ido antes de cumplir seis meses. Ese mismo año, los Écija entran a su casa en Madrid. Los de Juan-Barroso estuvieron unos dos años y medio en el pueblo y volvieron a Madrid en mil novecientos setenta y uno; Mercedes de Juan se quedó en Australia. Cerró la mina. Nadie cerró el polvo. Veinte años después, un policía iba a reconocer el nombre del pueblo en un pasaporte.»
+      SCENES: -
+      FACTS: «1966-12 · CSR cierra las operaciones en la mina y planta de Wittenoom debido a problemas económicos, de suministro y costos laborales.» | «1966 · La familia Écija-Bernal regresó a Madrid.» | «1971 · La familia De Juan-Barroso regresó a Madrid.» | «Se estima que los relaves de la minería, que contienen alrededor de un 5% de asbesto, superan los 3 millones de toneladas.» | «La familia De Juan-Barroso vivió en Wittenoom unos dos años y medio, entre 1962 y 1964.» | «El 59% de los trabajadores de Wittenoom se había ido en 6 meses o menos.»
+      QUOTES: -
+      PEOPLE (role · where · years): Presidente de CSR · - · 1966
+  [2] YEAR: - · WHERE: Wittenoom, Australia Occidental; Madrid
+      PARAGRAPH: «Diciembre de mil novecientos sesenta y seis. James Vernon anuncia que CSR cierra Wittenoom. No lo cierra el polvo: lo cierra el dinero. El molino se apaga y el polvo se asienta sobre las cintas. Afuera, en los desfiladeros, quedan más de tres millones de toneladas de relaves. Nadie los mueve. De los hombres que habían pasado por la mina, cincuenta y nueve de cada cien se habían ido antes de cumplir seis meses. Ese mismo año, los Écija entran a su casa en Madrid. Los de Juan-Barroso estuvieron unos dos años y medio en el pueblo y volvieron a Madrid en mil novecientos setenta y uno; Mercedes de Juan se quedó en Australia. Cerró la mina. Nadie cerró el polvo. Veinte años después, un policía iba a reconocer el nombre del pueblo en un pasaporte.»
+      SCENES: -
+      FACTS: «1966-12 · CSR cierra las operaciones en la mina y planta de Wittenoom debido a problemas económicos, de suministro y costos laborales.» | «1966 · La familia Écija-Bernal regresó a Madrid.» | «1971 · La familia De Juan-Barroso regresó a Madrid.» | «Se estima que los relaves de la minería, que contienen alrededor de un 5% de asbesto, superan los 3 millones de toneladas.» | «La familia De Juan-Barroso vivió en Wittenoom unos dos años y medio, entre 1962 y 1964.» | «El 59% de los trabajadores de Wittenoom se había ido en 6 meses o menos.»
+      QUOTES: -
+      PEOPLE (role · where · years): -
+  [3] YEAR: - · WHERE: Wittenoom, Australia Occidental; Madrid
+      PARAGRAPH: «Diciembre de mil novecientos sesenta y seis. James Vernon anuncia que CSR cierra Wittenoom. No lo cierra el polvo: lo cierra el dinero. El molino se apaga y el polvo se asienta sobre las cintas. Afuera, en los desfiladeros, quedan más de tres millones de toneladas de relaves. Nadie los mueve. De los hombres que habían pasado por la mina, cincuenta y nueve de cada cien se habían ido antes de cumplir seis meses. Ese mismo año, los Écija entran a su casa en Madrid. Los de Juan-Barroso estuvieron unos dos años y medio en el pueblo y volvieron a Madrid en mil novecientos setenta y uno; Mercedes de Juan se quedó en Australia. Cerró la mina. Nadie cerró el polvo. Veinte años después, un policía iba a reconocer el nombre del pueblo en un pasaporte.»
+      SCENES: -
+      FACTS: «1966-12 · CSR cierra las operaciones en la mina y planta de Wittenoom debido a problemas económicos, de suministro y costos laborales.» | «1966 · La familia Écija-Bernal regresó a Madrid.» | «1971 · La familia De Juan-Barroso regresó a Madrid.» | «Se estima que los relaves de la minería, que contienen alrededor de un 5% de asbesto, superan los 3 millones de toneladas.» | «La familia De Juan-Barroso vivió en Wittenoom unos dos años y medio, entre 1962 y 1964.» | «El 59% de los trabajadores de Wittenoom se había ido en 6 meses o menos.»
+      QUOTES: -
+      PEOPLE (role · where · years): -
+  [4] YEAR: - · WHERE: Wittenoom, Australia Occidental; Madrid
+      PARAGRAPH: «Diciembre de mil novecientos sesenta y seis. James Vernon anuncia que CSR cierra Wittenoom. No lo cierra el polvo: lo cierra el dinero. El molino se apaga y el polvo se asienta sobre las cintas. Afuera, en los desfiladeros, quedan más de tres millones de toneladas de relaves. Nadie los mueve. De los hombres que habían pasado por la mina, cincuenta y nueve de cada cien se habían ido antes de cumplir seis meses. Ese mismo año, los Écija entran a su casa en Madrid. Los de Juan-Barroso estuvieron unos dos años y medio en el pueblo y volvieron a Madrid en mil novecientos setenta y uno; Mercedes de Juan se quedó en Australia. Cerró la mina. Nadie cerró el polvo. Veinte años después, un policía iba a reconocer el nombre del pueblo en un pasaporte.»
+      SCENES: -
+      FACTS: «1966-12 · CSR cierra las operaciones en la mina y planta de Wittenoom debido a problemas económicos, de suministro y costos laborales.» | «1966 · La familia Écija-Bernal regresó a Madrid.» | «1971 · La familia De Juan-Barroso regresó a Madrid.» | «Se estima que los relaves de la minería, que contienen alrededor de un 5% de asbesto, superan los 3 millones de toneladas.» | «La familia De Juan-Barroso vivió en Wittenoom unos dos años y medio, entre 1962 y 1964.» | «El 59% de los trabajadores de Wittenoom se había ido en 6 meses o menos.»
+      QUOTES: -
+      PEOPLE (role · where · years): -
+  [5] YEAR: - · WHERE: Wittenoom, Australia Occidental; Madrid
+      PARAGRAPH: «Diciembre de mil novecientos sesenta y seis. James Vernon anuncia que CSR cierra Wittenoom. No lo cierra el polvo: lo cierra el dinero. El molino se apaga y el polvo se asienta sobre las cintas. Afuera, en los desfiladeros, quedan más de tres millones de toneladas de relaves. Nadie los mueve. De los hombres que habían pasado por la mina, cincuenta y nueve de cada cien se habían ido antes de cumplir seis meses. Ese mismo año, los Écija entran a su casa en Madrid. Los de Juan-Barroso estuvieron unos dos años y medio en el pueblo y volvieron a Madrid en mil novecientos setenta y uno; Mercedes de Juan se quedó en Australia. Cerró la mina. Nadie cerró el polvo. Veinte años después, un policía iba a reconocer el nombre del pueblo en un pasaporte.»
+      SCENES: -
+      FACTS: «1966-12 · CSR cierra las operaciones en la mina y planta de Wittenoom debido a problemas económicos, de suministro y costos laborales.» | «1966 · La familia Écija-Bernal regresó a Madrid.» | «1971 · La familia De Juan-Barroso regresó a Madrid.» | «Se estima que los relaves de la minería, que contienen alrededor de un 5% de asbesto, superan los 3 millones de toneladas.» | «La familia De Juan-Barroso vivió en Wittenoom unos dos años y medio, entre 1962 y 1964.» | «El 59% de los trabajadores de Wittenoom se había ido en 6 meses o menos.»
+      QUOTES: -
+      PEOPLE (role · where · years): -
+  [6] YEAR: 1971 · WHERE: Wittenoom, Australia Occidental; Madrid
+      PARAGRAPH: «Diciembre de mil novecientos sesenta y seis. James Vernon anuncia que CSR cierra Wittenoom. No lo cierra el polvo: lo cierra el dinero. El molino se apaga y el polvo se asienta sobre las cintas. Afuera, en los desfiladeros, quedan más de tres millones de toneladas de relaves. Nadie los mueve. De los hombres que habían pasado por la mina, cincuenta y nueve de cada cien se habían ido antes de cumplir seis meses. Ese mismo año, los Écija entran a su casa en Madrid. Los de Juan-Barroso estuvieron unos dos años y medio en el pueblo y volvieron a Madrid en mil novecientos setenta y uno; Mercedes de Juan se quedó en Australia. Cerró la mina. Nadie cerró el polvo. Veinte años después, un policía iba a reconocer el nombre del pueblo en un pasaporte.»
+      SCENES: -
+      FACTS: «1966-12 · CSR cierra las operaciones en la mina y planta de Wittenoom debido a problemas económicos, de suministro y costos laborales.» | «1966 · La familia Écija-Bernal regresó a Madrid.» | «1971 · La familia De Juan-Barroso regresó a Madrid.» | «Se estima que los relaves de la minería, que contienen alrededor de un 5% de asbesto, superan los 3 millones de toneladas.» | «La familia De Juan-Barroso vivió en Wittenoom unos dos años y medio, entre 1962 y 1964.» | «El 59% de los trabajadores de Wittenoom se había ido en 6 meses o menos.»
+      QUOTES: -
+      PEOPLE (role · where · years): Hija de Ramón de Juan, vivió en Wittenoom de niña · Wittenoom · 1962, 1963, 1964
+  [7] YEAR: - · WHERE: Wittenoom, Australia Occidental; Madrid
+      PARAGRAPH: «Diciembre de mil novecientos sesenta y seis. James Vernon anuncia que CSR cierra Wittenoom. No lo cierra el polvo: lo cierra el dinero. El molino se apaga y el polvo se asienta sobre las cintas. Afuera, en los desfiladeros, quedan más de tres millones de toneladas de relaves. Nadie los mueve. De los hombres que habían pasado por la mina, cincuenta y nueve de cada cien se habían ido antes de cumplir seis meses. Ese mismo año, los Écija entran a su casa en Madrid. Los de Juan-Barroso estuvieron unos dos años y medio en el pueblo y volvieron a Madrid en mil novecientos setenta y uno; Mercedes de Juan se quedó en Australia. Cerró la mina. Nadie cerró el polvo. Veinte años después, un policía iba a reconocer el nombre del pueblo en un pasaporte.»
+      SCENES: -
+      FACTS: «1966-12 · CSR cierra las operaciones en la mina y planta de Wittenoom debido a problemas económicos, de suministro y costos laborales.» | «1966 · La familia Écija-Bernal regresó a Madrid.» | «1971 · La familia De Juan-Barroso regresó a Madrid.» | «Se estima que los relaves de la minería, que contienen alrededor de un 5% de asbesto, superan los 3 millones de toneladas.» | «La familia De Juan-Barroso vivió en Wittenoom unos dos años y medio, entre 1962 y 1964.» | «El 59% de los trabajadores de Wittenoom se había ido en 6 meses o menos.»
+      QUOTES: -
+      PEOPLE (role · where · years): -
+  [8] YEAR: 1985 · WHERE: Australia; Wittenoom; Puesto de control de un aeropuerto australiano.
+      PARAGRAPH: «Mil novecientos ochenta y cinco. Un aeropuerto australiano, un puesto de control. El agente abre el documento de Daniel Écija hijo, lee el lugar de nacimiento, baja la cabeza hacia el papel, vuelve a mirarlo. «Así que de Wittenoom, ¿eh? Un sitio terrorífico», dijo el policía. Para entonces, desde mil novecientos setenta y ocho, el gobierno del Estado venía reduciendo el pueblo y empujando a la gente a irse, por las fibras en el aire. Entre mil novecientos ochenta y seis y mil novecientos noventa y dos demolieron edificios y cerraron los servicios básicos. En mil novecientos noventa y tres cerró el aeropuerto. Seis años después de aquel control, su padre fue al médico.»
+      SCENES: «Puesto de control de un aeropuerto australiano. · Daniel Écija hijo y un policía. · El agente lee su documentación, baja la cabeza hacia el documento y vuelve a mirarlo antes de reconocer su lugar de nacimiento. · El movimiento de la mirada y la frase audible: «Así que de Wittenoom, ¿eh? Un sitio terrorífico».»
+      FACTS: «1985 · Un policía en un aeropuerto australiano identificó a Daniel Écija hijo como procedente de Wittenoom, llamándolo un 'sitio terrorífico'.» | «En 1978, el Gobierno Estatal comenzó a reducir gradualmente el pueblo de Wittenoom.» | «Entre 1986 y 1992 se demolieron casas y edificios y se cerraron la escuela, el puesto de enfermería y la comisaría en Wittenoom.» | «1993 · El aeropuerto fue cerrado oficialmente.»
+      QUOTES: «Así que de Wittenoom, ¿eh? Un sitio terrorífico.»
+      PEOPLE (role · where · years): -
+  [9] YEAR: - · WHERE: Australia; Wittenoom; Puesto de control de un aeropuerto australiano.
+      PARAGRAPH: «Mil novecientos ochenta y cinco. Un aeropuerto australiano, un puesto de control. El agente abre el documento de Daniel Écija hijo, lee el lugar de nacimiento, baja la cabeza hacia el papel, vuelve a mirarlo. «Así que de Wittenoom, ¿eh? Un sitio terrorífico», dijo el policía. Para entonces, desde mil novecientos setenta y ocho, el gobierno del Estado venía reduciendo el pueblo y empujando a la gente a irse, por las fibras en el aire. Entre mil novecientos ochenta y seis y mil novecientos noventa y dos demolieron edificios y cerraron los servicios básicos. En mil novecientos noventa y tres cerró el aeropuerto. Seis años después de aquel control, su padre fue al médico.»
+      SCENES: «Puesto de control de un aeropuerto australiano. · Daniel Écija hijo y un policía. · El agente lee su documentación, baja la cabeza hacia el documento y vuelve a mirarlo antes de reconocer su lugar de nacimiento. · El movimiento de la mirada y la frase audible: «Así que de Wittenoom, ¿eh? Un sitio terrorífico».»
+      FACTS: «1985 · Un policía en un aeropuerto australiano identificó a Daniel Écija hijo como procedente de Wittenoom, llamándolo un 'sitio terrorífico'.» | «En 1978, el Gobierno Estatal comenzó a reducir gradualmente el pueblo de Wittenoom.» | «Entre 1986 y 1992 se demolieron casas y edificios y se cerraron la escuela, el puesto de enfermería y la comisaría en Wittenoom.» | «1993 · El aeropuerto fue cerrado oficialmente.»
+      QUOTES: «Así que de Wittenoom, ¿eh? Un sitio terrorífico.»
+      PEOPLE (role · where · years): -
+  [10] YEAR: 1978 · WHERE: Australia; Wittenoom; Puesto de control de un aeropuerto australiano.
+      PARAGRAPH: «Mil novecientos ochenta y cinco. Un aeropuerto australiano, un puesto de control. El agente abre el documento de Daniel Écija hijo, lee el lugar de nacimiento, baja la cabeza hacia el papel, vuelve a mirarlo. «Así que de Wittenoom, ¿eh? Un sitio terrorífico», dijo el policía. Para entonces, desde mil novecientos setenta y ocho, el gobierno del Estado venía reduciendo el pueblo y empujando a la gente a irse, por las fibras en el aire. Entre mil novecientos ochenta y seis y mil novecientos noventa y dos demolieron edificios y cerraron los servicios básicos. En mil novecientos noventa y tres cerró el aeropuerto. Seis años después de aquel control, su padre fue al médico.»
+      SCENES: «Puesto de control de un aeropuerto australiano. · Daniel Écija hijo y un policía. · El agente lee su documentación, baja la cabeza hacia el documento y vuelve a mirarlo antes de reconocer su lugar de nacimiento. · El movimiento de la mirada y la frase audible: «Así que de Wittenoom, ¿eh? Un sitio terrorífico».»
+      FACTS: «1985 · Un policía en un aeropuerto australiano identificó a Daniel Écija hijo como procedente de Wittenoom, llamándolo un 'sitio terrorífico'.» | «En 1978, el Gobierno Estatal comenzó a reducir gradualmente el pueblo de Wittenoom.» | «Entre 1986 y 1992 se demolieron casas y edificios y se cerraron la escuela, el puesto de enfermería y la comisaría en Wittenoom.» | «1993 · El aeropuerto fue cerrado oficialmente.»
+      QUOTES: «Así que de Wittenoom, ¿eh? Un sitio terrorífico.»
+      PEOPLE (role · where · years): -
+  [11] YEAR: 1986 · WHERE: Australia; Wittenoom; Puesto de control de un aeropuerto australiano.
+      PARAGRAPH: «Mil novecientos ochenta y cinco. Un aeropuerto australiano, un puesto de control. El agente abre el documento de Daniel Écija hijo, lee el lugar de nacimiento, baja la cabeza hacia el papel, vuelve a mirarlo. «Así que de Wittenoom, ¿eh? Un sitio terrorífico», dijo el policía. Para entonces, desde mil novecientos setenta y ocho, el gobierno del Estado venía reduciendo el pueblo y empujando a la gente a irse, por las fibras en el aire. Entre mil novecientos ochenta y seis y mil novecientos noventa y dos demolieron edificios y cerraron los servicios básicos. En mil novecientos noventa y tres cerró el aeropuerto. Seis años después de aquel control, su padre fue al médico.»
+      SCENES: «Puesto de control de un aeropuerto australiano. · Daniel Écija hijo y un policía. · El agente lee su documentación, baja la cabeza hacia el documento y vuelve a mirarlo antes de reconocer su lugar de nacimiento. · El movimiento de la mirada y la frase audible: «Así que de Wittenoom, ¿eh? Un sitio terrorífico».»
+      FACTS: «1985 · Un policía en un aeropuerto australiano identificó a Daniel Écija hijo como procedente de Wittenoom, llamándolo un 'sitio terrorífico'.» | «En 1978, el Gobierno Estatal comenzó a reducir gradualmente el pueblo de Wittenoom.» | «Entre 1986 y 1992 se demolieron casas y edificios y se cerraron la escuela, el puesto de enfermería y la comisaría en Wittenoom.» | «1993 · El aeropuerto fue cerrado oficialmente.»
+      QUOTES: «Así que de Wittenoom, ¿eh? Un sitio terrorífico.»
+      PEOPLE (role · where · years): -
+  [12] YEAR: 1993 · WHERE: Australia; Wittenoom; Puesto de control de un aeropuerto australiano.
+      PARAGRAPH: «Mil novecientos ochenta y cinco. Un aeropuerto australiano, un puesto de control. El agente abre el documento de Daniel Écija hijo, lee el lugar de nacimiento, baja la cabeza hacia el papel, vuelve a mirarlo. «Así que de Wittenoom, ¿eh? Un sitio terrorífico», dijo el policía. Para entonces, desde mil novecientos setenta y ocho, el gobierno del Estado venía reduciendo el pueblo y empujando a la gente a irse, por las fibras en el aire. Entre mil novecientos ochenta y seis y mil novecientos noventa y dos demolieron edificios y cerraron los servicios básicos. En mil novecientos noventa y tres cerró el aeropuerto. Seis años después de aquel control, su padre fue al médico.»
+      SCENES: «Puesto de control de un aeropuerto australiano. · Daniel Écija hijo y un policía. · El agente lee su documentación, baja la cabeza hacia el documento y vuelve a mirarlo antes de reconocer su lugar de nacimiento. · El movimiento de la mirada y la frase audible: «Así que de Wittenoom, ¿eh? Un sitio terrorífico».»
+      FACTS: «1985 · Un policía en un aeropuerto australiano identificó a Daniel Écija hijo como procedente de Wittenoom, llamándolo un 'sitio terrorífico'.» | «En 1978, el Gobierno Estatal comenzó a reducir gradualmente el pueblo de Wittenoom.» | «Entre 1986 y 1992 se demolieron casas y edificios y se cerraron la escuela, el puesto de enfermería y la comisaría en Wittenoom.» | «1993 · El aeropuerto fue cerrado oficialmente.»
+      QUOTES: «Así que de Wittenoom, ¿eh? Un sitio terrorífico.»
+      PEOPLE (role · where · years): -
+  [13] YEAR: 1991 · WHERE: España; Lugar de la entrevista de María Bernal, no precisado en el pasaje.
+      PARAGRAPH: «Madrid, mil novecientos noventa y uno. Daniel Écija va al médico. Le hacen pruebas. La palabra es mesotelioma. Nueve meses. Daniel muere a los cincuenta y cinco años, veintiocho años después de la foto del bautizo. Décadas más tarde, María está en una habitación rodeada de fotografías en sepia. Entre ellas, la del pie vendado. «Me pegué a mi marido, como una niña pequeña», dice la viuda.»
+      SCENES: «Lugar de la entrevista de María Bernal, no precisado en el pasaje. · María Bernal. · María recuerda que iba muy cerca de su marido al emigrar y que confiaba en el futuro. · La entrevista la muestra rodeada de fotografías familiares de tono sepia.»
+      FACTS: «1991 · Daniel Écija padre fue diagnosticado con mesotelioma y murió nueve meses después.» | «Daniel Écija padre murió de mesotelioma a los 55 años, nueve meses después de su diagnóstico.»
+      QUOTES: «Ese sitio nos cambió la vida para siempre. Nosotros nos quedamos sin padre, y mi madre sin marido, por una empresa que no tuvo reparos en poner en riesgo la vida de sus trabajadores con tal de ganar dinero, y por unas autoridades que no lo impidieron.» | «Me pegué a mi marido, como una niña pequeña. Pero estaba orgullosa. Me había enamorado de ese hombre y confiaba en el futuro… aunque estuviera tan lejos. En España no teníamos nada, ninguno de los dos.»
+      PEOPLE (role · where · years): -
+  [14] YEAR: - · WHERE: España; Lugar de la entrevista de María Bernal, no precisado en el pasaje.
+      PARAGRAPH: «Madrid, mil novecientos noventa y uno. Daniel Écija va al médico. Le hacen pruebas. La palabra es mesotelioma. Nueve meses. Daniel muere a los cincuenta y cinco años, veintiocho años después de la foto del bautizo. Décadas más tarde, María está en una habitación rodeada de fotografías en sepia. Entre ellas, la del pie vendado. «Me pegué a mi marido, como una niña pequeña», dice la viuda.»
+      SCENES: «Lugar de la entrevista de María Bernal, no precisado en el pasaje. · María Bernal. · María recuerda que iba muy cerca de su marido al emigrar y que confiaba en el futuro. · La entrevista la muestra rodeada de fotografías familiares de tono sepia.»
+      FACTS: «1991 · Daniel Écija padre fue diagnosticado con mesotelioma y murió nueve meses después.» | «Daniel Écija padre murió de mesotelioma a los 55 años, nueve meses después de su diagnóstico.»
+      QUOTES: «Ese sitio nos cambió la vida para siempre. Nosotros nos quedamos sin padre, y mi madre sin marido, por una empresa que no tuvo reparos en poner en riesgo la vida de sus trabajadores con tal de ganar dinero, y por unas autoridades que no lo impidieron.» | «Me pegué a mi marido, como una niña pequeña. Pero estaba orgullosa. Me había enamorado de ese hombre y confiaba en el futuro… aunque estuviera tan lejos. En España no teníamos nada, ninguno de los dos.»
+      PEOPLE (role · where · years): -
+  [15] YEAR: - · WHERE: España; Lugar de la entrevista de María Bernal, no precisado en el pasaje.
+      PARAGRAPH: «Madrid, mil novecientos noventa y uno. Daniel Écija va al médico. Le hacen pruebas. La palabra es mesotelioma. Nueve meses. Daniel muere a los cincuenta y cinco años, veintiocho años después de la foto del bautizo. Décadas más tarde, María está en una habitación rodeada de fotografías en sepia. Entre ellas, la del pie vendado. «Me pegué a mi marido, como una niña pequeña», dice la viuda.»
+      SCENES: «Lugar de la entrevista de María Bernal, no precisado en el pasaje. · María Bernal. · María recuerda que iba muy cerca de su marido al emigrar y que confiaba en el futuro. · La entrevista la muestra rodeada de fotografías familiares de tono sepia.»
+      FACTS: «1991 · Daniel Écija padre fue diagnosticado con mesotelioma y murió nueve meses después.» | «Daniel Écija padre murió de mesotelioma a los 55 años, nueve meses después de su diagnóstico.»
+      QUOTES: «Ese sitio nos cambió la vida para siempre. Nosotros nos quedamos sin padre, y mi madre sin marido, por una empresa que no tuvo reparos en poner en riesgo la vida de sus trabajadores con tal de ganar dinero, y por unas autoridades que no lo impidieron.» | «Me pegué a mi marido, como una niña pequeña. Pero estaba orgullosa. Me había enamorado de ese hombre y confiaba en el futuro… aunque estuviera tan lejos. En España no teníamos nada, ninguno de los dos.»
+      PEOPLE (role · where · years): -
+  [16] YEAR: - · WHERE: España; Lugar de la entrevista de María Bernal, no precisado en el pasaje.
+      PARAGRAPH: «Uno de los hijos dice que ese sitio les cambió la vida para siempre. Daniel no fue el primero. Para entonces, el Estado ya tenía un número.»
+      SCENES: «Lugar de la entrevista de María Bernal, no precisado en el pasaje. · María Bernal. · María recuerda que iba muy cerca de su marido al emigrar y que confiaba en el futuro. · La entrevista la muestra rodeada de fotografías familiares de tono sepia.»
+      FACTS: «1991 · Daniel Écija padre fue diagnosticado con mesotelioma y murió nueve meses después.» | «Daniel Écija padre murió de mesotelioma a los 55 años, nueve meses después de su diagnóstico.»
+      QUOTES: «Ese sitio nos cambió la vida para siempre. Nosotros nos quedamos sin padre, y mi madre sin marido, por una empresa que no tuvo reparos en poner en riesgo la vida de sus trabajadores con tal de ganar dinero, y por unas autoridades que no lo impidieron.» | «Me pegué a mi marido, como una niña pequeña. Pero estaba orgullosa. Me había enamorado de ese hombre y confiaba en el futuro… aunque estuviera tan lejos. En España no teníamos nada, ninguno de los dos.»
+      PEOPLE (role · where · years): -
+PEOPLE GROUPS:
+  - mine_regulatory_officials: Australian government mine inspectors and deputy state mining engineers · Reporting on dust problems in Wittenoom from 1944 onwards
+  - early_mine_operators: Early prospectors and mine operators, co-owners of the mining interests (e.g., Hancock and Wright) · Operating the crocidolite industry in Wittenoom Gorge from 1937 to 1943
+  - public_health_professionals: Australian public health doctors, commissioners, and industrial hygienists investigating asbestos-related diseases and conditions · Reporting on dust levels, diagnosing illnesses, and assessing workplace safety in Wittenoom from the 1940s to 1960s
+  - csr_executives: Executives and chairmen of CSR, the company operating the Wittenoom mine · Managing mining operations, making decisions regarding safety, and announcing closure from the 1940s to 1960s
+  - parliamentary_inquiry_members: Australian politicians leading parliamentary inquiries into the Wittenoom disaster · Recommending clean-up programs and remediation actions in the early 1990s and beyond
+  - banjima_elders_activists: Banjima Indigenous elders and activists affected by the Wittenoom contamination · Advocating for remediation and justice in Wittenoom from 2023 onwards
+  - bntac_representatives: Representatives of the Banjima Native Title Aboriginal Corporation (BNTAC) · Pursuing legal action against the State of Western Australia in 2026
+  - spanish_migrant_wives_wittenoom: Spanish migrant women, wives of miners, residing in Wittenoom · Living in Wittenoom from the early to mid-1960s, managing family life in harsh conditions
+  - wittenoom_child_residents: Children of miners and other residents growing up in Wittenoom's dusty and asbestos-laden environment · Playing in the town's streets, patios, and schools from the 1940s to the 1960s
+  - spanish_migrant_miners_wittenoom: Spanish migrant men working as miners in Wittenoom · Working in the Wittenoom mines and mill from the late 1950s to mid-1960s
+  - asbestos_society_advocates: Leaders and advocates of the Asbestos Diseases Society of Australia · Formed in 1979 to support victims and pursue legal action against companies responsible for asbestos exposure
+  - australian_prime_ministers: Australian Prime Ministers during the operational period of Wittenoom · Making statements about mine life and related policies in the mid-20th century, such as Chifley in 1947
+  - wittenoom_general_workers: General laborers and mill workers of various nationalities in Wittenoom · Performing various tasks at the mine and mill throughout the operational period (1937-1966)
+  - aba_management: Management personnel of Australian Blue Asbestos (ABA) · Responsible for mine operations and safety during the 1940s-1950s
+  - western_australian_officials_modern: Western Australian state government ministers and officials in the 21st century · Commenting on remediation costs, pollution, and ongoing issues regarding Wittenoom in recent years
+
+DISTRIBUTION OF emotional_rank:
+- 1-2 items R1 (peak of cap: closing, revelation, biggest impact).
+- 2-3 items R2 (action, strong transition, person in tension).
+- Rest R3 (descriptive scene, context, ambience).
+
+For hard_fact_ids: pick the F-labels (e.g. "F03") of verified_facts whose FIGURES
+this image weaves, copied EXACTLY as labeled — and ONLY those relevant to THIS
+anchor's moment (do NOT bring foundation-era figures into a peak-era beat). Do NOT
+rewrite the figures.
+
+JSON only. No markdown. No preamble.

@@ -1,0 +1,937 @@
+{
+ "var": "S2",
+ "cap": 5,
+ "items": [
+  {
+   "subject": "A typed company closure notice pinned to the corrugated iron gate of the Wittenoom asbestos mill",
+   "action": "The notice hangs freshly pinned as the mill beyond falls still on the day the closure is announced",
+   "gaze_interaction": "Focal direction locked on the notice, the silent mill sheds blurred behind it",
+   "setting": "Wittenoom mill gate, December 1966, dust-caked corrugated iron fence, red gorge walls beyond",
+   "color_palette": "Red earth, ochre, rust brown, dust grey, faint blue-grey fibre film on metal",
+   "props_detail": "A single sheet of typed paper held by rusted drawing pins, its edges already greyed by settling dust",
+   "shot_scale": "close",
+   "camera_angle": "eye-level",
+   "lens_technique": "Shallow depth of field, 85mm lens",
+   "lighting": "Harsh Pilbara summer midday sun, hard black shadows in the iron corrugations",
+   "mood": "Hard white glare, motionless air, a padlocked gate, no figure in sight",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": true,
+    "text": "MINE CLOSING",
+    "font": "Typewriter block capitals",
+    "location": "Top line of the pinned notice"
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "establishing_shot",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Diciembre de mil novecientos sesenta y seis. James Vernon anuncia que CSR cierra Wittenoom.",
+   "beat": 8,
+   "cerrada": false,
+   "texto_en_imagen": true
+  },
+  {
+   "subject": "Stilled conveyor belts inside the shut-down Wittenoom asbestos mill",
+   "action": "The machinery has just stopped and fine dust drifts down, settling in a grey-blue film over the motionless belts",
+   "gaze_interaction": "Focal direction along the dead conveyor line toward a high dusty window",
+   "setting": "Mill interior, December 1966, poorly ventilated industrial hall, dust-furred rollers, steel gantries, asbestos cement walls",
+   "color_palette": "Dust grey, dull steel, rust brown, faint blue fibre haze, ochre light",
+   "props_detail": "A rubber conveyor belt thick with undisturbed blue-grey fibre dust, a single boot print breaking it",
+   "shot_scale": "detail",
+   "camera_angle": "Low angle along the belt",
+   "lens_technique": "Shallow depth of field, macro texture, background rollers dissolving",
+   "lighting": "Hard shafts of midday sun through one high window, motes hanging in the beams",
+   "mood": "Suspended dust in hard beams, total stillness of machines, an empty hall swallowing the light",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "interior_scene",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "No lo cierra el polvo: lo cierra el dinero. El molino se apaga y el polvo se asienta sobre las cintas.",
+   "beat": 8,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "Vast dumps of blue asbestos tailings filling the gorge outside Wittenoom",
+   "action": "The tailings lie abandoned in the gorge, untouched, wind lifting thin veils of dust from their crests",
+   "gaze_interaction": "Focal direction down the length of the gorge, the dumps receding into heat haze",
+   "setting": "Wittenoom Gorge, Pilbara, December 1966, red cliff walls, spinifex, a dry creek bed",
+   "color_palette": "Red earth, ochre cliffs, blue-grey tailings, dusty pale blue sky",
+   "props_detail": "An abandoned ore truck half-buried at the foot of the dumps",
+   "shot_scale": "extreme_wide",
+   "camera_angle": "High angle from the gorge rim",
+   "lens_technique": "Deep depth of field, wide lens",
+   "lighting": "Harsh midday summer sun, hard shadows on the cliff faces",
+   "mood": "Immense scale against tiny machinery, blinding heat, dust drifting with no one to stop it",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F02"
+   ],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [
+    "blue asbestos tailings"
+   ],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Afuera, en los desfiladeros, quedan más de tres millones de toneladas de relaves. Nadie los mueve.",
+   "beat": 8,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "Departing mine workers, Spanish, Italian and Anglo-Australian men in their 20s to 40s, lean and sun-worn, seen from behind",
+   "action": "The men ride away on the open bed of a dusty truck heading out of town, suitcases and swags at their feet",
+   "gaze_interaction": "Backs to camera, heads turned toward the road ahead, one man glancing back at the town",
+   "setting": "Red dirt road leaving Wittenoom, 1960s, tailings-grey verges, town roofs shrinking behind",
+   "color_palette": "Red earth, ochre, faded khaki workwear, dust grey, pale dusty sky",
+   "props_detail": "A battered cardboard suitcase tied with twine on the truck bed",
+   "shot_scale": "wide",
+   "camera_angle": "Eye-level from the road behind the truck",
+   "lens_technique": "Deep depth of field, 35mm lens",
+   "lighting": "Harsh midday summer sun, long plume of dust backlit",
+   "mood": "A dust plume trailing the truck, slumped shoulders, a town receding into glare",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [
+    "mining_workers"
+   ],
+   "narration_anchor": "De los hombres que habían pasado por la mina, cincuenta y nueve de cada cien se habían ido antes de cumplir seis meses.",
+   "beat": 8,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "A returning Spanish migrant family, a man near 30, a slim woman in her late 20s and a small boy, seen from behind",
+   "action": "The family steps through the doorway of a modest Madrid apartment building carrying worn luggage",
+   "gaze_interaction": "Backs to camera, the woman's head tilted toward the dark stairwell inside",
+   "setting": "Working-class Madrid street, 1966, plaster facade, wooden double door, iron balconies",
+   "color_palette": "Ochre plaster, faded brown, muted grey, warm stone",
+   "props_detail": "A scuffed leather suitcase still carrying red Australian dust on its corners",
+   "shot_scale": "wide",
+   "camera_angle": "Eye-level from across the street",
+   "lens_technique": "Deep depth of field, 35mm lens",
+   "lighting": "Hard late-afternoon sun, sharp shadow line across the doorway",
+   "mood": "A dark doorway swallowing small figures, hard shadow splitting the facade",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [
+    "european_migrant_families"
+   ],
+   "narration_anchor": "Ese mismo año, los Écija entran a su casa en Madrid.",
+   "beat": 8,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "A Spanish migrant family walking toward a waiting airliner, and a Spanish teenage girl staying behind at the fence",
+   "action": "The parents cross the tarmac toward the boarding stairs while the girl remains at the chain-link fence",
+   "gaze_interaction": "Family seen from behind; the girl, slight, dark-haired, about sixteen, stands still facing the plane",
+   "setting": "Western Australian airport apron, 1971, propeller airliner, heat shimmer on tarmac",
+   "color_palette": "Sun-bleached grey tarmac, ochre horizon, faded floral cotton, aluminium glare",
+   "props_detail": "A chain-link fence separating the girl from the boarding stairs",
+   "shot_scale": "wide",
+   "camera_angle": "Eye-level from behind the fence",
+   "lens_technique": "Deep depth of field, 50mm lens",
+   "lighting": "Harsh midday sun, heat haze softening the aircraft",
+   "mood": "A lone small figure at a fence, distance widening across a blazing apron",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [
+    "european_migrant_families"
+   ],
+   "narration_anchor": "Los de Juan-Barroso estuvieron unos dos años y medio en el pueblo y volvieron a Madrid en mil novecientos setenta y uno; Mercedes de Juan se quedó en Australia.",
+   "beat": 8,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "Blue asbestos tailings surfacing a town patio in Wittenoom",
+   "action": "A gust lifts a thin swirl of fibrous dust off the patio and carries it toward an open house door",
+   "gaze_interaction": "Focal direction from the ground surface toward the doorway",
+   "setting": "Residential yard in Wittenoom after the mine closure, corrugated iron house, abandoned child's tricycle",
+   "color_palette": "Blue-grey tailings, red earth, faded paint, rust",
+   "props_detail": "A child's rusting tricycle standing in the drifting dust",
+   "shot_scale": "detail",
+   "camera_angle": "Low angle at ground level",
+   "lens_technique": "Shallow depth of field, 50mm macro",
+   "lighting": "Harsh midday sun, dust swirl backlit",
+   "mood": "Fibres glittering in hard light, an empty yard, dust moving where nothing else does",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [
+    "blue asbestos tailings"
+   ],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Cerró la mina. Nadie cerró el polvo. Veinte años después, un policía iba a reconocer el nombre del pueblo en un pasaporte.",
+   "beat": 8,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "An Anglo-Australian immigration officer in his 40s, heavy-set, light-blue uniform shirt and peaked cap; a young Spanish-born man in his early 20s seen from behind",
+   "action": "The officer opens the passport, reads the place of birth, lowers his head to the page",
+   "gaze_interaction": "Officer's eyes down on the document; the young man stands still, shoulders slightly raised",
+   "setting": "Australian airport checkpoint, 1985, laminate counter, glass booth, rubber stamps",
+   "color_palette": "Institutional beige, pale blue uniform, fluorescent white, brown laminate",
+   "props_detail": "An open passport under the officer's gaze",
+   "shot_scale": "medium",
+   "camera_angle": "Eye-level over the young man's shoulder",
+   "lens_technique": "Shallow depth of field, 85mm lens",
+   "lighting": "Hard overhead fluorescent light, flat high contrast",
+   "mood": "Cold fluorescent glare, a pause at the counter, the young man's body gone still",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R2",
+   "people_group": [
+    "european_migrant_families"
+   ],
+   "narration_anchor": "Mil novecientos ochenta y cinco. Un aeropuerto australiano, un puesto de control. El agente abre el documento de Daniel Écija hijo, lee el lugar de nacimiento, baja la cabeza hacia el papel, vuelve a mirarlo.",
+   "beat": 9,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "The Anglo-Australian officer's head and peaked cap above the open passport",
+   "action": "The officer lifts his eyes from the page back up toward the young man as he speaks",
+   "gaze_interaction": "Officer's gaze rising from the document toward the traveller, brow lowered",
+   "setting": "Same 1985 airport checkpoint booth, glass partition, stamp pad",
+   "color_palette": "Fluorescent white, pale blue cotton, beige, ink black",
+   "props_detail": "A rubber entry stamp held motionless above the open passport",
+   "shot_scale": "close",
+   "camera_angle": "Slightly low angle from the traveller's side",
+   "lens_technique": "Shallow depth of field, 85mm lens",
+   "lighting": "Hard overhead fluorescent light, deep shadow under the cap brim",
+   "mood": "The cap brim's shadow over the eyes, a raised stamp frozen in the air",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R2",
+   "people_group": [],
+   "narration_anchor": "«Así que de Wittenoom, ¿eh? Un sitio terrorífico», dijo el policía.",
+   "beat": 9,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "Wittenoom town seen from above, being run down by the State",
+   "action": "The thinning town sits under a dust haze, a lone loaded truck leaving down the main road",
+   "gaze_interaction": "Focal direction across the rooftops toward the gorge",
+   "setting": "Wittenoom, late 1970s, half-emptied streets, tailings-surfaced roads, red ranges beyond",
+   "color_palette": "Red earth, ochre, blue-grey road surfaces, rust, dusty blue sky",
+   "props_detail": "A single truck stacked with household furniture on the main road",
+   "shot_scale": "extreme_wide",
+   "camera_angle": "High angle aerial",
+   "lens_technique": "Deep depth of field, wide lens",
+   "lighting": "Harsh midday sun through a fine airborne dust haze",
+   "mood": "Dust haze veiling the rooftops, empty streets, a lone vehicle leaving",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "establishing_shot",
+   "foto_madre_ref": [
+    "__subject__"
+   ],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Para entonces, desde mil novecientos setenta y ocho, el gobierno del Estado venía reduciendo el pueblo y empujando a la gente a irse, por las fibras en el aire.",
+   "beat": 9,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "A bulldozer flattening a corrugated iron and asbestos-cement house in Wittenoom",
+   "action": "The blade crushes the house wall, sheets folding, a dust cloud rising over the rubble",
+   "gaze_interaction": "Focal direction on the collapsing wall and the rising dust",
+   "setting": "Wittenoom, late 1980s, demolished lots, shuttered nursing post nearby, tailings roads",
+   "color_palette": "Yellow-ochre machinery, rust, grey cement shards, blue-grey dust, red earth",
+   "props_detail": "A splintered asbestos-cement wall sheet lifting in the blade",
+   "shot_scale": "wide",
+   "camera_angle": "Low angle",
+   "lens_technique": "Deep depth of field, 35mm lens",
+   "lighting": "Harsh midday sun, dust cloud backlit",
+   "mood": "A billowing dust cloud, broken walls, empty lots stretching away",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "establishing_shot",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Entre mil novecientos ochenta y seis y mil novecientos noventa y dos demolieron edificios y cerraron los servicios básicos.",
+   "beat": 9,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "The disused Wittenoom airstrip behind a padlocked gate",
+   "action": "The airstrip lies closed, a limp windsock over cracked grey surface and creeping spinifex",
+   "gaze_interaction": "Focal direction down the empty runway to the red ranges",
+   "setting": "Wittenoom airstrip, 1993, tailings-surfaced runway, rusted fence, red desert",
+   "color_palette": "Blue-grey runway, red earth, faded orange windsock, rust, dusty blue sky",
+   "props_detail": "A rusted padlock and chain on the gate",
+   "shot_scale": "wide",
+   "camera_angle": "Eye-level",
+   "lens_technique": "Deep depth of field, wide lens",
+   "lighting": "Harsh midday sun, heat shimmer",
+   "mood": "Heat shimmer over a dead runway, a windsock hanging slack, no movement",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": true,
+    "text": "AIRPORT CLOSED",
+    "font": "Stencilled block letters",
+    "location": "Weathered sign wired to the gate"
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "En mil novecientos noventa y tres cerró el aeropuerto. Seis años después de aquel control, su padre fue al médico.",
+   "beat": 9,
+   "cerrada": false,
+   "texto_en_imagen": true
+  },
+  {
+   "subject": "A chest X-ray film clipped to a hospital light box in a Madrid consulting room",
+   "action": "The film glows on the light box at the moment of diagnosis, a pale opaque mass along the lung lining",
+   "gaze_interaction": "Focal direction straight into the glowing film, empty chair beyond out of focus",
+   "setting": "Madrid hospital consulting room, 1991, metal desk, tiled wall",
+   "color_palette": "Cold white glow, blue-black film, institutional green tile",
+   "props_detail": "The X-ray film with a clouded lung lining",
+   "shot_scale": "detail",
+   "camera_angle": "Eye-level",
+   "lens_technique": "Shallow depth of field, 50mm lens",
+   "lighting": "Hard light box glow in a darkened room, high contrast",
+   "mood": "A cold glow in a dark room, the empty patient's chair waiting",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F06"
+   ],
+   "subject_ref": "interior_scene",
+   "foto_madre_ref": [],
+   "emotional_rank": "R2",
+   "people_group": [],
+   "narration_anchor": "Madrid, mil novecientos noventa y uno. Daniel Écija va al médico. Le hacen pruebas. La palabra es mesotelioma. Nueve meses.",
+   "beat": 10,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "A sepia baptism photograph on a Madrid sideboard beside an empty armchair",
+   "action": "The photograph stands propped against the wall, a folded black mourning ribbon laid at its foot",
+   "gaze_interaction": "Focal direction from the empty armchair to the photograph",
+   "setting": "Modest Madrid flat, 1991, dark wood sideboard, lace runner, drawn curtains",
+   "color_palette": "Sepia, dark walnut, mourning black, muted cream",
+   "props_detail": "A black mourning ribbon folded before the baptism photograph",
+   "shot_scale": "detail",
+   "camera_angle": "Eye-level",
+   "lens_technique": "Shallow depth of field, 85mm lens",
+   "lighting": "Hard single shaft of light through a gap in the curtains",
+   "mood": "A narrow blade of light in a darkened room, an armchair still dented and empty",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F06"
+   ],
+   "subject_ref": "interior_scene",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Daniel muere a los cincuenta y cinco años, veintiocho años después de la foto del bautizo.",
+   "beat": 10,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "An elderly Spanish widow, around 75, small and stooped, grey hair pinned back, dark cardigan, deep-lined weathered face",
+   "action": "She sits among framed sepia photographs, turned toward the one of a young miner with a bandaged foot as she recalls clinging to her husband",
+   "gaze_interaction": "Eyes on the bandaged-foot photograph, shoulders drawn in, head tilted toward it",
+   "setting": "Spanish living room decades later, walls and shelves crowded with sepia family photographs",
+   "color_palette": "Sepia, dark wood, faded cream, mourning black",
+   "props_detail": "A sepia photograph of a late-20s Spanish miner with a bandaged foot",
+   "shot_scale": "medium",
+   "camera_angle": "Eye-level",
+   "lens_technique": "Shallow depth of field, 85mm lens",
+   "lighting": "Hard single window light from one side, deep shadow across the room",
+   "mood": "A small figure folded inward among dozens of frames, one hard window beam",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R1",
+   "people_group": [
+    "asbestos_advocates_victims"
+   ],
+   "narration_anchor": "Décadas más tarde, María está en una habitación rodeada de fotografías en sepia. Entre ellas, la del pie vendado. «Me pegué a mi marido, como una niña pequeña», dice la viuda.",
+   "beat": 10,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "The elderly Spanish widow, around 75, stooped frame in a dark cardigan, seen from behind and slightly to the side",
+   "action": "She sits bowed toward the wall of sepia photographs, head lowered, body curled forward",
+   "gaze_interaction": "Face turned away toward the photographs, only the curve of her bowed neck and grey hair visible",
+   "setting": "Same Spanish room crowded with sepia family photographs, blurred frames ahead of her",
+   "color_palette": "Sepia, charcoal black, faded cream, grey",
+   "props_detail": "The blurred wall of sepia family photographs before her",
+   "shot_scale": "close",
+   "camera_angle": "Slightly high angle from behind her shoulder",
+   "lens_technique": "Shallow depth of field, 85mm lens",
+   "lighting": "Hard single window light rim-lighting her shoulder and grey hair, deep shadow around",
+   "mood": "A bowed silhouette rimmed by one hard light, shoulders sunk, the room dissolving into dark",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R1",
+   "people_group": [
+    "asbestos_advocates_victims"
+   ],
+   "narration_anchor": "Uno de los hijos dice que ese sitio les cambió la vida para siempre. Daniel no fue el primero. Para entonces, el Estado ya tenía un número.",
+   "beat": 10,
+   "cerrada": true,
+   "texto_en_imagen": false
+  }
+ ],
+ "estado": "ok",
+ "pedidos": [
+  {
+   "intento": 1,
+   "md5_system": "65d7f452791646498666e4371f50afd5",
+   "md5_user": "0de3308aa97fccc9116e9a8000d8be09",
+   "md5_schema": "bcb706ab4fd6094eec15a20e1c4bdcee"
+  }
+ ],
+ "crudos": [
+  {
+   "intento": 1,
+   "segundos": 96.1,
+   "respuesta": {
+    "image_prompts": [
+     {
+      "subject": "A typed company closure notice pinned to the corrugated iron gate of the Wittenoom asbestos mill",
+      "action": "The notice hangs freshly pinned as the mill beyond falls still on the day the closure is announced",
+      "gaze_interaction": "Focal direction locked on the notice, the silent mill sheds blurred behind it",
+      "setting": "Wittenoom mill gate, December 1966, dust-caked corrugated iron fence, red gorge walls beyond",
+      "color_palette": "Red earth, ochre, rust brown, dust grey, faint blue-grey fibre film on metal",
+      "props_detail": "A single sheet of typed paper held by rusted drawing pins, its edges already greyed by settling dust",
+      "shot_scale": "close",
+      "camera_angle": "eye-level",
+      "lens_technique": "Shallow depth of field, 85mm lens",
+      "lighting": "Harsh Pilbara summer midday sun, hard black shadows in the iron corrugations",
+      "mood": "Hard white glare, motionless air, a padlocked gate, no figure in sight",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": true,
+       "text": "MINE CLOSING",
+       "font": "Typewriter block capitals",
+       "location": "Top line of the pinned notice"
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "establishing_shot",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "Stilled conveyor belts inside the shut-down Wittenoom asbestos mill",
+      "action": "The machinery has just stopped and fine dust drifts down, settling in a grey-blue film over the motionless belts",
+      "gaze_interaction": "Focal direction along the dead conveyor line toward a high dusty window",
+      "setting": "Mill interior, December 1966, poorly ventilated industrial hall, dust-furred rollers, steel gantries, asbestos cement walls",
+      "color_palette": "Dust grey, dull steel, rust brown, faint blue fibre haze, ochre light",
+      "props_detail": "A rubber conveyor belt thick with undisturbed blue-grey fibre dust, a single boot print breaking it",
+      "shot_scale": "detail",
+      "camera_angle": "Low angle along the belt",
+      "lens_technique": "Shallow depth of field, macro texture, background rollers dissolving",
+      "lighting": "Hard shafts of midday sun through one high window, motes hanging in the beams",
+      "mood": "Suspended dust in hard beams, total stillness of machines, an empty hall swallowing the light",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "interior_scene",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "Vast dumps of blue asbestos tailings filling the gorge outside Wittenoom",
+      "action": "The tailings lie abandoned in the gorge, untouched, wind lifting thin veils of dust from their crests",
+      "gaze_interaction": "Focal direction down the length of the gorge, the dumps receding into heat haze",
+      "setting": "Wittenoom Gorge, Pilbara, December 1966, red cliff walls, spinifex, a dry creek bed",
+      "color_palette": "Red earth, ochre cliffs, blue-grey tailings, dusty pale blue sky",
+      "props_detail": "An abandoned ore truck half-buried at the foot of the dumps",
+      "shot_scale": "extreme_wide",
+      "camera_angle": "High angle from the gorge rim",
+      "lens_technique": "Deep depth of field, wide lens",
+      "lighting": "Harsh midday summer sun, hard shadows on the cliff faces",
+      "mood": "Immense scale against tiny machinery, blinding heat, dust drifting with no one to stop it",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F02"
+      ],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [
+       "blue asbestos tailings"
+      ],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "Departing mine workers, Spanish, Italian and Anglo-Australian men in their 20s to 40s, lean and sun-worn, seen from behind",
+      "action": "The men ride away on the open bed of a dusty truck heading out of town, suitcases and swags at their feet",
+      "gaze_interaction": "Backs to camera, heads turned toward the road ahead, one man glancing back at the town",
+      "setting": "Red dirt road leaving Wittenoom, 1960s, tailings-grey verges, town roofs shrinking behind",
+      "color_palette": "Red earth, ochre, faded khaki workwear, dust grey, pale dusty sky",
+      "props_detail": "A battered cardboard suitcase tied with twine on the truck bed",
+      "shot_scale": "wide",
+      "camera_angle": "Eye-level from the road behind the truck",
+      "lens_technique": "Deep depth of field, 35mm lens",
+      "lighting": "Harsh midday summer sun, long plume of dust backlit",
+      "mood": "A dust plume trailing the truck, slumped shoulders, a town receding into glare",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": [
+       "mining_workers"
+      ]
+     },
+     {
+      "subject": "A returning Spanish migrant family, a man near 30, a slim woman in her late 20s and a small boy, seen from behind",
+      "action": "The family steps through the doorway of a modest Madrid apartment building carrying worn luggage",
+      "gaze_interaction": "Backs to camera, the woman's head tilted toward the dark stairwell inside",
+      "setting": "Working-class Madrid street, 1966, plaster facade, wooden double door, iron balconies",
+      "color_palette": "Ochre plaster, faded brown, muted grey, warm stone",
+      "props_detail": "A scuffed leather suitcase still carrying red Australian dust on its corners",
+      "shot_scale": "wide",
+      "camera_angle": "Eye-level from across the street",
+      "lens_technique": "Deep depth of field, 35mm lens",
+      "lighting": "Hard late-afternoon sun, sharp shadow line across the doorway",
+      "mood": "A dark doorway swallowing small figures, hard shadow splitting the facade",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": [
+       "european_migrant_families"
+      ]
+     },
+     {
+      "subject": "A Spanish migrant family walking toward a waiting airliner, and a Spanish teenage girl staying behind at the fence",
+      "action": "The parents cross the tarmac toward the boarding stairs while the girl remains at the chain-link fence",
+      "gaze_interaction": "Family seen from behind; the girl, slight, dark-haired, about sixteen, stands still facing the plane",
+      "setting": "Western Australian airport apron, 1971, propeller airliner, heat shimmer on tarmac",
+      "color_palette": "Sun-bleached grey tarmac, ochre horizon, faded floral cotton, aluminium glare",
+      "props_detail": "A chain-link fence separating the girl from the boarding stairs",
+      "shot_scale": "wide",
+      "camera_angle": "Eye-level from behind the fence",
+      "lens_technique": "Deep depth of field, 50mm lens",
+      "lighting": "Harsh midday sun, heat haze softening the aircraft",
+      "mood": "A lone small figure at a fence, distance widening across a blazing apron",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": [
+       "european_migrant_families"
+      ]
+     },
+     {
+      "subject": "Blue asbestos tailings surfacing a town patio in Wittenoom",
+      "action": "A gust lifts a thin swirl of fibrous dust off the patio and carries it toward an open house door",
+      "gaze_interaction": "Focal direction from the ground surface toward the doorway",
+      "setting": "Residential yard in Wittenoom after the mine closure, corrugated iron house, abandoned child's tricycle",
+      "color_palette": "Blue-grey tailings, red earth, faded paint, rust",
+      "props_detail": "A child's rusting tricycle standing in the drifting dust",
+      "shot_scale": "detail",
+      "camera_angle": "Low angle at ground level",
+      "lens_technique": "Shallow depth of field, 50mm macro",
+      "lighting": "Harsh midday sun, dust swirl backlit",
+      "mood": "Fibres glittering in hard light, an empty yard, dust moving where nothing else does",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [
+       "blue asbestos tailings"
+      ],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "An Anglo-Australian immigration officer in his 40s, heavy-set, light-blue uniform shirt and peaked cap; a young Spanish-born man in his early 20s seen from behind",
+      "action": "The officer opens the passport, reads the place of birth, lowers his head to the page",
+      "gaze_interaction": "Officer's eyes down on the document; the young man stands still, shoulders slightly raised",
+      "setting": "Australian airport checkpoint, 1985, laminate counter, glass booth, rubber stamps",
+      "color_palette": "Institutional beige, pale blue uniform, fluorescent white, brown laminate",
+      "props_detail": "An open passport under the officer's gaze",
+      "shot_scale": "medium",
+      "camera_angle": "Eye-level over the young man's shoulder",
+      "lens_technique": "Shallow depth of field, 85mm lens",
+      "lighting": "Hard overhead fluorescent light, flat high contrast",
+      "mood": "Cold fluorescent glare, a pause at the counter, the young man's body gone still",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R2",
+      "people_group": [
+       "european_migrant_families"
+      ]
+     },
+     {
+      "subject": "The Anglo-Australian officer's head and peaked cap above the open passport",
+      "action": "The officer lifts his eyes from the page back up toward the young man as he speaks",
+      "gaze_interaction": "Officer's gaze rising from the document toward the traveller, brow lowered",
+      "setting": "Same 1985 airport checkpoint booth, glass partition, stamp pad",
+      "color_palette": "Fluorescent white, pale blue cotton, beige, ink black",
+      "props_detail": "A rubber entry stamp held motionless above the open passport",
+      "shot_scale": "close",
+      "camera_angle": "Slightly low angle from the traveller's side",
+      "lens_technique": "Shallow depth of field, 85mm lens",
+      "lighting": "Hard overhead fluorescent light, deep shadow under the cap brim",
+      "mood": "The cap brim's shadow over the eyes, a raised stamp frozen in the air",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R2",
+      "people_group": []
+     },
+     {
+      "subject": "Wittenoom town seen from above, being run down by the State",
+      "action": "The thinning town sits under a dust haze, a lone loaded truck leaving down the main road",
+      "gaze_interaction": "Focal direction across the rooftops toward the gorge",
+      "setting": "Wittenoom, late 1970s, half-emptied streets, tailings-surfaced roads, red ranges beyond",
+      "color_palette": "Red earth, ochre, blue-grey road surfaces, rust, dusty blue sky",
+      "props_detail": "A single truck stacked with household furniture on the main road",
+      "shot_scale": "extreme_wide",
+      "camera_angle": "High angle aerial",
+      "lens_technique": "Deep depth of field, wide lens",
+      "lighting": "Harsh midday sun through a fine airborne dust haze",
+      "mood": "Dust haze veiling the rooftops, empty streets, a lone vehicle leaving",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "establishing_shot",
+      "foto_madre_ref": [
+       "__subject__"
+      ],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "A bulldozer flattening a corrugated iron and asbestos-cement house in Wittenoom",
+      "action": "The blade crushes the house wall, sheets folding, a dust cloud rising over the rubble",
+      "gaze_interaction": "Focal direction on the collapsing wall and the rising dust",
+      "setting": "Wittenoom, late 1980s, demolished lots, shuttered nursing post nearby, tailings roads",
+      "color_palette": "Yellow-ochre machinery, rust, grey cement shards, blue-grey dust, red earth",
+      "props_detail": "A splintered asbestos-cement wall sheet lifting in the blade",
+      "shot_scale": "wide",
+      "camera_angle": "Low angle",
+      "lens_technique": "Deep depth of field, 35mm lens",
+      "lighting": "Harsh midday sun, dust cloud backlit",
+      "mood": "A billowing dust cloud, broken walls, empty lots stretching away",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "establishing_shot",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "The disused Wittenoom airstrip behind a padlocked gate",
+      "action": "The airstrip lies closed, a limp windsock over cracked grey surface and creeping spinifex",
+      "gaze_interaction": "Focal direction down the empty runway to the red ranges",
+      "setting": "Wittenoom airstrip, 1993, tailings-surfaced runway, rusted fence, red desert",
+      "color_palette": "Blue-grey runway, red earth, faded orange windsock, rust, dusty blue sky",
+      "props_detail": "A rusted padlock and chain on the gate",
+      "shot_scale": "wide",
+      "camera_angle": "Eye-level",
+      "lens_technique": "Deep depth of field, wide lens",
+      "lighting": "Harsh midday sun, heat shimmer",
+      "mood": "Heat shimmer over a dead runway, a windsock hanging slack, no movement",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": true,
+       "text": "AIRPORT CLOSED",
+       "font": "Stencilled block letters",
+       "location": "Weathered sign wired to the gate"
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "A chest X-ray film clipped to a hospital light box in a Madrid consulting room",
+      "action": "The film glows on the light box at the moment of diagnosis, a pale opaque mass along the lung lining",
+      "gaze_interaction": "Focal direction straight into the glowing film, empty chair beyond out of focus",
+      "setting": "Madrid hospital consulting room, 1991, metal desk, tiled wall",
+      "color_palette": "Cold white glow, blue-black film, institutional green tile",
+      "props_detail": "The X-ray film with a clouded lung lining",
+      "shot_scale": "detail",
+      "camera_angle": "Eye-level",
+      "lens_technique": "Shallow depth of field, 50mm lens",
+      "lighting": "Hard light box glow in a darkened room, high contrast",
+      "mood": "A cold glow in a dark room, the empty patient's chair waiting",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F06"
+      ],
+      "subject_ref": "interior_scene",
+      "foto_madre_ref": [],
+      "emotional_rank": "R2",
+      "people_group": []
+     },
+     {
+      "subject": "A sepia baptism photograph on a Madrid sideboard beside an empty armchair",
+      "action": "The photograph stands propped against the wall, a folded black mourning ribbon laid at its foot",
+      "gaze_interaction": "Focal direction from the empty armchair to the photograph",
+      "setting": "Modest Madrid flat, 1991, dark wood sideboard, lace runner, drawn curtains",
+      "color_palette": "Sepia, dark walnut, mourning black, muted cream",
+      "props_detail": "A black mourning ribbon folded before the baptism photograph",
+      "shot_scale": "detail",
+      "camera_angle": "Eye-level",
+      "lens_technique": "Shallow depth of field, 85mm lens",
+      "lighting": "Hard single shaft of light through a gap in the curtains",
+      "mood": "A narrow blade of light in a darkened room, an armchair still dented and empty",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F06"
+      ],
+      "subject_ref": "interior_scene",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "An elderly Spanish widow, around 75, small and stooped, grey hair pinned back, dark cardigan, deep-lined weathered face",
+      "action": "She sits among framed sepia photographs, turned toward the one of a young miner with a bandaged foot as she recalls clinging to her husband",
+      "gaze_interaction": "Eyes on the bandaged-foot photograph, shoulders drawn in, head tilted toward it",
+      "setting": "Spanish living room decades later, walls and shelves crowded with sepia family photographs",
+      "color_palette": "Sepia, dark wood, faded cream, mourning black",
+      "props_detail": "A sepia photograph of a late-20s Spanish miner with a bandaged foot",
+      "shot_scale": "medium",
+      "camera_angle": "Eye-level",
+      "lens_technique": "Shallow depth of field, 85mm lens",
+      "lighting": "Hard single window light from one side, deep shadow across the room",
+      "mood": "A small figure folded inward among dozens of frames, one hard window beam",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R1",
+      "people_group": [
+       "asbestos_advocates_victims"
+      ]
+     },
+     {
+      "subject": "The elderly Spanish widow, around 75, stooped frame in a dark cardigan, seen from behind and slightly to the side",
+      "action": "She sits bowed toward the wall of sepia photographs, head lowered, body curled forward",
+      "gaze_interaction": "Face turned away toward the photographs, only the curve of her bowed neck and grey hair visible",
+      "setting": "Same Spanish room crowded with sepia family photographs, blurred frames ahead of her",
+      "color_palette": "Sepia, charcoal black, faded cream, grey",
+      "props_detail": "The blurred wall of sepia family photographs before her",
+      "shot_scale": "close",
+      "camera_angle": "Slightly high angle from behind her shoulder",
+      "lens_technique": "Shallow depth of field, 85mm lens",
+      "lighting": "Hard single window light rim-lighting her shoulder and grey hair, deep shadow around",
+      "mood": "A bowed silhouette rimmed by one hard light, shoulders sunk, the room dissolving into dark",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R1",
+      "people_group": [
+       "asbestos_advocates_victims"
+      ]
+     }
+    ]
+   }
+  }
+ ]
+}

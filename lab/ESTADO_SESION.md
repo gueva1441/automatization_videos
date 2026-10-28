@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-28 04:05 (F48 en curso: S1 en producción —GEO/ERA en el pedido de los casilleros, fuera el bloque «UBICACIONES DOCUMENTADAS»— commiteado; etapas S1–S5 en lab) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-28 04:15 (F48: S1 en producción —GEO/ERA, fuera «UBICACIONES DOCUMENTADAS»— y S1→S5 en texto con Opus en lab, PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,19 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F48, PARADA): **cambió producción en una cosa:** el pedido de las fotos (m03) ahora le dice al modelo el lugar del caso y el tramo de años de la voz (Wittenoom: «Wittenoom», «1943–2024»), y ya no lleva el bloque de ubicaciones de Orleans («→ Madrid», «ningún menor en celdas de adultos»). Lo demás se probó en texto con Opus, en etapas y en `lab/hyperframes/f48/PROMPTS_F48.md`:
+- **S4 (el año como casillero):** el año ya no sale repetido en la prosa (de 33 fotos a 0) y sigue a la voz. Por ejemplo, «diez años antes» de 1989 da 1979, y el prompt ya no dice 1989.
+- **S5 (canon con los personajes del pool):** el canon arma 15 grupos en vez de 5. Maitland Parker entra en un grupo Banjima («Elderly Indigenous Australians»).
+
+Gasto US$ 5,76 (tope 7,00); cero fotos. Pasar S2–S5 a producción y las fotos lo deciden vos y el analista.
+
+## F48 — Entrada del prompt de foto (handoff del analista, 2026-10-28 03:50) — HECHA, **PARADA**
+- Handoff `lab/hyperframes/f48/HANDOFF_F48_entrada_del_prompt_de_foto.md` (md5 `9aabfd5b…` ✓). Paso 0 `220d32e` (DECISIONES 03:34).
+- S1 en producción `0ec8e7b`: `m03_visual._geo_era` (GEO = `lugar_principal` del perfil; ERA = primer–último año de la narración, aplicado en `assign_visual_prompts`). Se borraron `_format_documented_locations`, `_documented_places`, `_LOC_GROUPS`, `_LOC_DEST` y sus tests de f5b/f5d. Test nuevo `test_module_f48.py` (4). Sticker y mapa con `--check` 0. Suites: rápida 55; amplia 921 + 4 previas.
+- Lab `f48_corridas.py`, que importa f47, f47b y f46b. Las etapas S1→S5 van en secuencia, con 4 llamadas a Opus en paralelo por etapa: 20 ok al 1.er intento, más 1 de Flash para el canon de S5. US$ 5,7588 (cost_history `f48-lab`).
+- S5 toma del canon regenerado solo los `people_groups`; el resto es el canon C de F46b.
+- Abierto l1–l13 en `F48_REPORT.md`: S5 sube la gente sin grupo a 5; F8 deja «The a couple of men»; candado de ch02 no corrido.
 
 ## 👀 Para Omar (F47b, PARADA): la comparación de los 4 modelos está en `lab/hyperframes/f47/PROMPTS_F47b.md` (tabla de 10 chequeos y costos). Cada modelo recibió exactamente el mismo pedido, en los caps 2, 5, 6 y 7 (60 fotos). Opus 5.5 (E): el lugar en la prosa en 29/60, gente sin grupo 1, 134 palabras, US$ 0,24–0,31 por cap. Sonnet 5.5 (F): lugar 29/60, sin grupo 6, 143 palabras, US$ 0,12–0,16 por cap. Fable (D): lugar 34/60, sin grupo 6, 178 palabras, mete «no people» en 6 settings, US$ 0,60–1,07 por cap. Pro (C2): lugar 22/60, 6 frases sacadas por F8, US$ 0,09–0,15 por cap. Ningún modelo se negó; nombres reales de personas en la prosa: 0 en los cuatro. Gasto US$ 1,72 (tope 4,00). Elegir modelo es tuyo y del analista; después van las fotos del ganador contra Pro.
 

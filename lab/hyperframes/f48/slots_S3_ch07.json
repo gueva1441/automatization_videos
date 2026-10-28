@@ -1,0 +1,705 @@
+{
+ "var": "S3",
+ "cap": 7,
+ "items": [
+  {
+   "subject": "The Colonial mine tailings dump spreading down a red-earth slope, its blue asbestos tailings cut by fresh runoff",
+   "action": "Rainwater runoff carries tailings off the dump, threading pale blue silt down eroded gullies toward the plain",
+   "gaze_interaction": "No human; the eye follows the runoff downslope from the dump into the valley",
+   "setting": "Hamersley Range foothills below the abandoned Colonial mine, Banjima country, Western Australia, present day",
+   "color_palette": "Red earth, ochre, dusty grey-brown, threads of muted asbestos blue, pale dawn sky",
+   "props_detail": "A shallow braided rivulet of muddy water leaving the foot of the dump",
+   "shot_scale": "extreme_wide",
+   "camera_angle": "High aerial angle",
+   "lens_technique": "Deep depth of field, wide-angle aerial perspective",
+   "lighting": "Soft dawn light, low raking sun after rain, long shadows in the gullies",
+   "mood": "Stillness; wet sheen on red slopes, mist lifting, water moving silently away from the dump",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F02"
+   ],
+   "subject_ref": "establishing_shot",
+   "foto_madre_ref": [
+    "blue asbestos tailings"
+   ],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Los relaves del vertedero de Colonial se van con el agua.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "Deep erosion gullies leading from the tailings dump into a dry creek, marked as the asbestos pathway",
+   "action": "Erosion channels cut from the dump edge and merge into the creek line, carrying grey-blue sediment",
+   "gaze_interaction": "No human; focal line runs from a weathered survey stake down the gully into the creek",
+   "setting": "Gully head below the Colonial tailings dump, spinifex and scattered white-barked gums, Wittenoom area",
+   "color_palette": "Ochre, rust red, grey sediment, faint blue streaks, dusty blue sky",
+   "props_detail": "A weathered timber survey stake with tattered faded flagging tape at the gully lip",
+   "shot_scale": "wide",
+   "camera_angle": "High angle looking down the gully line",
+   "lens_technique": "Deep depth of field, 24mm lens",
+   "lighting": "Soft dawn light, low raking sun picking out the gully edges",
+   "mood": "Quiet morning, damp earth slumped into channels, nothing moving but drying water",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Un informe técnico lo marcó como la fuente principal y la vía del asbesto:",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "A network of creek beds, rock pools and floodplains stretching toward the Fortescue River",
+   "action": "Sediment-laden water lies in pools and spreads thinly across the floodplain toward the distant river",
+   "gaze_interaction": "No human; the eye travels from foreground pools across the floodplain to the river line on the horizon",
+   "setting": "Fortescue River catchment below Wittenoom Gorge, Banjima country, Pilbara, present day",
+   "color_palette": "Red earth, ochre banks, olive spinifex, silver water, pale dusty blue sky",
+   "props_detail": "A still rock pool reflecting the sky, its rim edged with grey-blue silt",
+   "shot_scale": "extreme_wide",
+   "camera_angle": "High aerial angle",
+   "lens_technique": "Deep depth of field, wide aerial lens",
+   "lighting": "Soft dawn light, low sun glinting off scattered pools",
+   "mood": "Vast silence, mist over the floodplain, water lying motionless across the land",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "la erosión, los lechos de arroyo, las pozas, las llanuras de inundación hacia el río Fortescue.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "Blue asbestos fibres stranded at the dried edge of a creek pool",
+   "action": "As the pool recedes, the water leaves the fibres behind on the cracking mud",
+   "gaze_interaction": "No human; focus on the line where wet mud turns to dry crust",
+   "setting": "Margin of a drying rock pool in a creek bed, Wittenoom catchment",
+   "color_palette": "Cracked red mud, ochre crust, muted asbestos blue, wet dark rust",
+   "props_detail": "A thin curling crust of dried mud lifting at the pool's edge",
+   "shot_scale": "detail",
+   "camera_angle": "Low angle near ground level",
+   "lens_technique": "Shallow depth of field, macro-style 100mm lens",
+   "lighting": "Soft dawn light, low raking sun skimming the dried crust",
+   "mood": "Stillness; evaporating water, a faint shimmer of drying moisture, no movement",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [
+    "blue asbestos tailings"
+   ],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Fibras azules que el agua deja donde se seca.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "A creek channel running past a faded contamination boundary post into open country",
+   "action": "The channel carries faint blue-grey deposits past the boundary and on beyond it",
+   "gaze_interaction": "No human; the eye follows the streaked channel from the post into the distance",
+   "setting": "Creek channel at the edge of the Wittenoom contaminated zone, spinifex flats, 2021",
+   "color_palette": "Red earth, ochre banks, grey silt, faint blue streaks, bleached timber",
+   "props_detail": "A sun-bleached leaning boundary post with peeling paint beside the creek bank",
+   "shot_scale": "wide",
+   "camera_angle": "Eye-level along the channel",
+   "lens_technique": "Deep depth of field, 35mm lens",
+   "lighting": "Soft dawn light, low raking sun along the channel",
+   "mood": "Quiet; the channel winding on unhindered, empty land on both sides of the post",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "En dos mil veintiuno, una nota ambiental registró fibras en canales de arroyos fuera de la zona marcada como contaminada.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "The Fortescue River catchment receiving creek inflow from the Wittenoom side",
+   "action": "Sediment-tinted creek water slowly feeds into the broad river channel",
+   "gaze_interaction": "No human; focal point where the tinted creek meets the clearer river water",
+   "setting": "Confluence of a Wittenoom creek with the Fortescue River, Pilbara plains to the horizon",
+   "color_palette": "Red earth, olive river gums, silver-green water, faint grey-blue plume, pale dawn sky",
+   "props_detail": "A slow pale plume of silt fanning into the river current",
+   "shot_scale": "extreme_wide",
+   "camera_angle": "High aerial angle",
+   "lens_technique": "Deep depth of field, wide aerial lens",
+   "lighting": "Soft dawn light, low sun haze over the water",
+   "mood": "Calm, endless; the flow continuing quietly toward a far horizon",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "El mismo informe advirtió que, sin intervención, el aporte de asbesto a la cuenca del Fortescue puede seguir durante cientos de años.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "An elderly Aboriginal Australian Banjima man around 70, thin and gaunt, seated with a middle-aged Latin American visiting official",
+   "action": "The two sit together on low camp chairs beside a dry creek, the elder speaking, the visitor listening",
+   "gaze_interaction": "Elder looks out over the creek bed; the visitor leans toward him, both seen at a distance",
+   "setting": "Shade of a white-barked ghost gum beside a dry creek bed on Banjima country, 2023",
+   "color_palette": "Red earth, ochre, white gum bark, sun-faded khaki and cotton shirts, dusty blue sky",
+   "props_detail": "The elder's sweat-stained wide-brimmed felt hat resting on his knee",
+   "shot_scale": "wide",
+   "camera_angle": "Eye-level from across the creek",
+   "lens_technique": "Deep depth of field, 50mm lens",
+   "lighting": "Warm late-afternoon golden light filtering through gum leaves",
+   "mood": "Unhurried stillness, long shadows, the elder's slow careful posture",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R2",
+   "people_group": [
+    "asbestos_advocates_victims"
+   ],
+   "narration_anchor": "Es tierra Banjima. En dos mil veintitrés, Marcos Orellana visitó Australia y se sentó con Maitland Parker, un anciano Banjima.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "An elderly Aboriginal Australian Banjima man around 70, thin frame, sunken cheeks, weathered lined face, sun-faded long-sleeve work shirt",
+   "action": "He stands alone on the creek bank, hat held at his chest, unable to turn away from his country",
+   "gaze_interaction": "Face toward the camera in three-quarter, eyes lowered to the creek bed, shoulders drawn and stooped",
+   "setting": "Red-earth bank above a dry creek on Banjima country, gorge walls behind, 2023",
+   "color_palette": "Red earth, ochre cliffs, faded khaki, dusty blue sky turning gold",
+   "props_detail": "A sweat-stained wide-brimmed felt hat held against his chest",
+   "shot_scale": "medium",
+   "camera_angle": "Eye-level",
+   "lens_technique": "Shallow depth of field, 85mm lens",
+   "lighting": "Warm late-afternoon golden light, rim light on his shoulders",
+   "mood": "Stillness; a slight stoop, slow breath, wind lifting dust along the bank behind him",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R1",
+   "people_group": [
+    "asbestos_advocates_victims"
+   ],
+   "narration_anchor": "«Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él», dijo Parker.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "An empty camp chair and a wide-brimmed felt hat left beneath a ghost gum by the dry creek",
+   "action": "The chair stands unoccupied as dusk settles over the creek bed",
+   "gaze_interaction": "No human; focal point on the hat resting on the empty seat",
+   "setting": "The same gum-shaded creek bank on Banjima country, 2024",
+   "color_palette": "Dusky red earth, deep ochre, white gum bark, fading violet sky",
+   "props_detail": "A sweat-stained felt hat resting on the canvas seat",
+   "shot_scale": "wide",
+   "camera_angle": "Eye-level",
+   "lens_technique": "Deep depth of field, 35mm lens",
+   "lighting": "Last golden light at dusk, long shadow of the empty chair",
+   "mood": "Silence after; long shadow, still air, a few leaves settled on the seat",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [],
+   "emotional_rank": "R2",
+   "people_group": [],
+   "narration_anchor": "Maitland Parker murió de mesotelioma en dos mil veinticuatro.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "A small group of Aboriginal Australian Banjima community members, mixed ages, plain cotton shirts and dresses, seen from behind",
+   "action": "They climb the broad steps of the Federal Court building to lodge the case",
+   "gaze_interaction": "Figures read by form from behind, heads raised toward the entrance",
+   "setting": "Exterior of a stone Federal Court building in a Western Australian city, 2026",
+   "color_palette": "Grey stone, muted sandstone, faded ochre and khaki clothing, pale overcast sky",
+   "props_detail": "A worn cardboard archive box carried under one man's arm",
+   "shot_scale": "wide",
+   "camera_angle": "Low angle from the foot of the steps",
+   "lens_technique": "Deep depth of field, 28mm lens",
+   "lighting": "Flat overcast daylight",
+   "mood": "Measured steady climb, small figures against a large stone facade",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": true,
+    "text": "FEDERAL COURT",
+    "font": "carved serif capitals",
+    "location": "over the entrance"
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "establishing_shot",
+   "foto_madre_ref": [],
+   "emotional_rank": "R2",
+   "people_group": [
+    "asbestos_advocates_victims"
+   ],
+   "narration_anchor": "Dos años después, Gordon Legal presentó en nombre de BNTAC un proceso contra Australia Occidental en el Tribunal Federal.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": true
+  },
+  {
+   "subject": "A permanent steel-and-earth barricade cutting the road into the old town and the gorge",
+   "action": "Wind drives red dust across the empty road beyond the barricade",
+   "gaze_interaction": "No human; the eye passes over the barricade to the empty red land beyond",
+   "setting": "Road entrance to the abandoned Wittenoom townsite and gorge, Pilbara, 2024",
+   "color_palette": "Red earth, ochre, rusted steel, faded white paint, dusty blue sky",
+   "props_detail": "A rust-streaked closure sign bolted to the barricade",
+   "shot_scale": "wide",
+   "camera_angle": "Eye-level from the road",
+   "lens_technique": "Deep depth of field, 35mm lens",
+   "lighting": "Low windswept late-afternoon light, dust haze",
+   "mood": "Emptiness; dust drifting over a deserted road, nothing beyond but wind and red earth",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": true,
+    "text": "ROAD CLOSED",
+    "font": "stencilled block letters",
+    "location": "on the barricade sign"
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "establishing_shot",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Nadie ha empezado a limpiar. En los accesos al pueblo y desfiladero hay bloqueos.",
+   "beat": 14,
+   "cerrada": false,
+   "texto_en_imagen": true
+  },
+  {
+   "subject": "The abandoned Wittenoom townsite seen from above, sealed off behind its barricaded access road",
+   "action": "Wind carries red dust across the deserted street grid and empty lots",
+   "gaze_interaction": "No human; the eye moves from the blocked road into the silent townsite and gorge mouth",
+   "setting": "Wittenoom ghost town and gorge entrance, Hamersley Range, 2024",
+   "color_palette": "Red earth, ochre, grey weathered corrugated iron, faint blue tailings, dusky sky",
+   "props_detail": "The barricaded road running into the empty grid",
+   "shot_scale": "extreme_wide",
+   "camera_angle": "High aerial angle",
+   "lens_technique": "Deep depth of field, wide aerial lens",
+   "lighting": "Windswept dusk light, low sun through dust haze",
+   "mood": "Suspended silence; drifting dust, long shadows, no movement in the town",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F03"
+   ],
+   "subject_ref": "establishing_shot",
+   "foto_madre_ref": [
+    "__subject__"
+   ],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "El gobierno de Australia Occidental habla de un «grave problema de salud y seguri",
+   "beat": 14,
+   "cerrada": false,
+   "texto_en_imagen": false
+  }
+ ],
+ "estado": "ok",
+ "pedidos": [
+  {
+   "intento": 1,
+   "md5_system": "65d7f452791646498666e4371f50afd5",
+   "md5_user": "033005642b6eaf61969a3af629c3fa3c",
+   "md5_schema": "bcb706ab4fd6094eec15a20e1c4bdcee"
+  }
+ ],
+ "crudos": [
+  {
+   "intento": 1,
+   "segundos": 75.5,
+   "respuesta": {
+    "image_prompts": [
+     {
+      "subject": "The Colonial mine tailings dump spreading down a red-earth slope, its blue asbestos tailings cut by fresh runoff",
+      "action": "Rainwater runoff carries tailings off the dump, threading pale blue silt down eroded gullies toward the plain",
+      "gaze_interaction": "No human; the eye follows the runoff downslope from the dump into the valley",
+      "setting": "Hamersley Range foothills below the abandoned Colonial mine, Banjima country, Western Australia, present day",
+      "color_palette": "Red earth, ochre, dusty grey-brown, threads of muted asbestos blue, pale dawn sky",
+      "props_detail": "A shallow braided rivulet of muddy water leaving the foot of the dump",
+      "shot_scale": "extreme_wide",
+      "camera_angle": "High aerial angle",
+      "lens_technique": "Deep depth of field, wide-angle aerial perspective",
+      "lighting": "Soft dawn light, low raking sun after rain, long shadows in the gullies",
+      "mood": "Stillness; wet sheen on red slopes, mist lifting, water moving silently away from the dump",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F02"
+      ],
+      "subject_ref": "establishing_shot",
+      "foto_madre_ref": [
+       "blue asbestos tailings"
+      ],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "Deep erosion gullies leading from the tailings dump into a dry creek, marked as the asbestos pathway",
+      "action": "Erosion channels cut from the dump edge and merge into the creek line, carrying grey-blue sediment",
+      "gaze_interaction": "No human; focal line runs from a weathered survey stake down the gully into the creek",
+      "setting": "Gully head below the Colonial tailings dump, spinifex and scattered white-barked gums, Wittenoom area",
+      "color_palette": "Ochre, rust red, grey sediment, faint blue streaks, dusty blue sky",
+      "props_detail": "A weathered timber survey stake with tattered faded flagging tape at the gully lip",
+      "shot_scale": "wide",
+      "camera_angle": "High angle looking down the gully line",
+      "lens_technique": "Deep depth of field, 24mm lens",
+      "lighting": "Soft dawn light, low raking sun picking out the gully edges",
+      "mood": "Quiet morning, damp earth slumped into channels, nothing moving but drying water",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "A network of creek beds, rock pools and floodplains stretching toward the Fortescue River",
+      "action": "Sediment-laden water lies in pools and spreads thinly across the floodplain toward the distant river",
+      "gaze_interaction": "No human; the eye travels from foreground pools across the floodplain to the river line on the horizon",
+      "setting": "Fortescue River catchment below Wittenoom Gorge, Banjima country, Pilbara, present day",
+      "color_palette": "Red earth, ochre banks, olive spinifex, silver water, pale dusty blue sky",
+      "props_detail": "A still rock pool reflecting the sky, its rim edged with grey-blue silt",
+      "shot_scale": "extreme_wide",
+      "camera_angle": "High aerial angle",
+      "lens_technique": "Deep depth of field, wide aerial lens",
+      "lighting": "Soft dawn light, low sun glinting off scattered pools",
+      "mood": "Vast silence, mist over the floodplain, water lying motionless across the land",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "Blue asbestos fibres stranded at the dried edge of a creek pool",
+      "action": "As the pool recedes, the water leaves the fibres behind on the cracking mud",
+      "gaze_interaction": "No human; focus on the line where wet mud turns to dry crust",
+      "setting": "Margin of a drying rock pool in a creek bed, Wittenoom catchment",
+      "color_palette": "Cracked red mud, ochre crust, muted asbestos blue, wet dark rust",
+      "props_detail": "A thin curling crust of dried mud lifting at the pool's edge",
+      "shot_scale": "detail",
+      "camera_angle": "Low angle near ground level",
+      "lens_technique": "Shallow depth of field, macro-style 100mm lens",
+      "lighting": "Soft dawn light, low raking sun skimming the dried crust",
+      "mood": "Stillness; evaporating water, a faint shimmer of drying moisture, no movement",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [
+       "blue asbestos tailings"
+      ],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "A creek channel running past a faded contamination boundary post into open country",
+      "action": "The channel carries faint blue-grey deposits past the boundary and on beyond it",
+      "gaze_interaction": "No human; the eye follows the streaked channel from the post into the distance",
+      "setting": "Creek channel at the edge of the Wittenoom contaminated zone, spinifex flats, 2021",
+      "color_palette": "Red earth, ochre banks, grey silt, faint blue streaks, bleached timber",
+      "props_detail": "A sun-bleached leaning boundary post with peeling paint beside the creek bank",
+      "shot_scale": "wide",
+      "camera_angle": "Eye-level along the channel",
+      "lens_technique": "Deep depth of field, 35mm lens",
+      "lighting": "Soft dawn light, low raking sun along the channel",
+      "mood": "Quiet; the channel winding on unhindered, empty land on both sides of the post",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "The Fortescue River catchment receiving creek inflow from the Wittenoom side",
+      "action": "Sediment-tinted creek water slowly feeds into the broad river channel",
+      "gaze_interaction": "No human; focal point where the tinted creek meets the clearer river water",
+      "setting": "Confluence of a Wittenoom creek with the Fortescue River, Pilbara plains to the horizon",
+      "color_palette": "Red earth, olive river gums, silver-green water, faint grey-blue plume, pale dawn sky",
+      "props_detail": "A slow pale plume of silt fanning into the river current",
+      "shot_scale": "extreme_wide",
+      "camera_angle": "High aerial angle",
+      "lens_technique": "Deep depth of field, wide aerial lens",
+      "lighting": "Soft dawn light, low sun haze over the water",
+      "mood": "Calm, endless; the flow continuing quietly toward a far horizon",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "An elderly Aboriginal Australian Banjima man around 70, thin and gaunt, seated with a middle-aged Latin American visiting official",
+      "action": "The two sit together on low camp chairs beside a dry creek, the elder speaking, the visitor listening",
+      "gaze_interaction": "Elder looks out over the creek bed; the visitor leans toward him, both seen at a distance",
+      "setting": "Shade of a white-barked ghost gum beside a dry creek bed on Banjima country, 2023",
+      "color_palette": "Red earth, ochre, white gum bark, sun-faded khaki and cotton shirts, dusty blue sky",
+      "props_detail": "The elder's sweat-stained wide-brimmed felt hat resting on his knee",
+      "shot_scale": "wide",
+      "camera_angle": "Eye-level from across the creek",
+      "lens_technique": "Deep depth of field, 50mm lens",
+      "lighting": "Warm late-afternoon golden light filtering through gum leaves",
+      "mood": "Unhurried stillness, long shadows, the elder's slow careful posture",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R2",
+      "people_group": [
+       "asbestos_advocates_victims"
+      ]
+     },
+     {
+      "subject": "An elderly Aboriginal Australian Banjima man around 70, thin frame, sunken cheeks, weathered lined face, sun-faded long-sleeve work shirt",
+      "action": "He stands alone on the creek bank, hat held at his chest, unable to turn away from his country",
+      "gaze_interaction": "Face toward the camera in three-quarter, eyes lowered to the creek bed, shoulders drawn and stooped",
+      "setting": "Red-earth bank above a dry creek on Banjima country, gorge walls behind, 2023",
+      "color_palette": "Red earth, ochre cliffs, faded khaki, dusty blue sky turning gold",
+      "props_detail": "A sweat-stained wide-brimmed felt hat held against his chest",
+      "shot_scale": "medium",
+      "camera_angle": "Eye-level",
+      "lens_technique": "Shallow depth of field, 85mm lens",
+      "lighting": "Warm late-afternoon golden light, rim light on his shoulders",
+      "mood": "Stillness; a slight stoop, slow breath, wind lifting dust along the bank behind him",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R1",
+      "people_group": [
+       "asbestos_advocates_victims"
+      ]
+     },
+     {
+      "subject": "An empty camp chair and a wide-brimmed felt hat left beneath a ghost gum by the dry creek",
+      "action": "The chair stands unoccupied as dusk settles over the creek bed",
+      "gaze_interaction": "No human; focal point on the hat resting on the empty seat",
+      "setting": "The same gum-shaded creek bank on Banjima country, 2024",
+      "color_palette": "Dusky red earth, deep ochre, white gum bark, fading violet sky",
+      "props_detail": "A sweat-stained felt hat resting on the canvas seat",
+      "shot_scale": "wide",
+      "camera_angle": "Eye-level",
+      "lens_technique": "Deep depth of field, 35mm lens",
+      "lighting": "Last golden light at dusk, long shadow of the empty chair",
+      "mood": "Silence after; long shadow, still air, a few leaves settled on the seat",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [],
+      "emotional_rank": "R2",
+      "people_group": []
+     },
+     {
+      "subject": "A small group of Aboriginal Australian Banjima community members, mixed ages, plain cotton shirts and dresses, seen from behind",
+      "action": "They climb the broad steps of the Federal Court building to lodge the case",
+      "gaze_interaction": "Figures read by form from behind, heads raised toward the entrance",
+      "setting": "Exterior of a stone Federal Court building in a Western Australian city, 2026",
+      "color_palette": "Grey stone, muted sandstone, faded ochre and khaki clothing, pale overcast sky",
+      "props_detail": "A worn cardboard archive box carried under one man's arm",
+      "shot_scale": "wide",
+      "camera_angle": "Low angle from the foot of the steps",
+      "lens_technique": "Deep depth of field, 28mm lens",
+      "lighting": "Flat overcast daylight",
+      "mood": "Measured steady climb, small figures against a large stone facade",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": true,
+       "text": "FEDERAL COURT",
+       "font": "carved serif capitals",
+       "location": "over the entrance"
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "establishing_shot",
+      "foto_madre_ref": [],
+      "emotional_rank": "R2",
+      "people_group": [
+       "asbestos_advocates_victims"
+      ]
+     },
+     {
+      "subject": "A permanent steel-and-earth barricade cutting the road into the old town and the gorge",
+      "action": "Wind drives red dust across the empty road beyond the barricade",
+      "gaze_interaction": "No human; the eye passes over the barricade to the empty red land beyond",
+      "setting": "Road entrance to the abandoned Wittenoom townsite and gorge, Pilbara, 2024",
+      "color_palette": "Red earth, ochre, rusted steel, faded white paint, dusty blue sky",
+      "props_detail": "A rust-streaked closure sign bolted to the barricade",
+      "shot_scale": "wide",
+      "camera_angle": "Eye-level from the road",
+      "lens_technique": "Deep depth of field, 35mm lens",
+      "lighting": "Low windswept late-afternoon light, dust haze",
+      "mood": "Emptiness; dust drifting over a deserted road, nothing beyond but wind and red earth",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": true,
+       "text": "ROAD CLOSED",
+       "font": "stencilled block letters",
+       "location": "on the barricade sign"
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "establishing_shot",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "The abandoned Wittenoom townsite seen from above, sealed off behind its barricaded access road",
+      "action": "Wind carries red dust across the deserted street grid and empty lots",
+      "gaze_interaction": "No human; the eye moves from the blocked road into the silent townsite and gorge mouth",
+      "setting": "Wittenoom ghost town and gorge entrance, Hamersley Range, 2024",
+      "color_palette": "Red earth, ochre, grey weathered corrugated iron, faint blue tailings, dusky sky",
+      "props_detail": "The barricaded road running into the empty grid",
+      "shot_scale": "extreme_wide",
+      "camera_angle": "High aerial angle",
+      "lens_technique": "Deep depth of field, wide aerial lens",
+      "lighting": "Windswept dusk light, low sun through dust haze",
+      "mood": "Suspended silence; drifting dust, long shadows, no movement in the town",
+      "style": "Documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F03"
+      ],
+      "subject_ref": "establishing_shot",
+      "foto_madre_ref": [
+       "__subject__"
+      ],
+      "emotional_rank": "R3",
+      "people_group": []
+     }
+    ]
+   }
+  }
+ ]
+}
