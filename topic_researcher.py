@@ -3,12 +3,12 @@ topic_researcher.py — Investigación de temas (REDISEÑO MODULAR)
 
 CAMBIOS vs versión vieja:
   - El monolito _synthesize_deep_research (4ta llamada con 11 tareas) se ELIMINA.
-  - LONG ahora corre 5 sub-pasos Flash separados que viven en researcher_steps/:
+  - LONG ahora corre 4 sub-pasos Flash separados que viven en researcher_steps/:
       step_4a_facts        → verified_facts (etiquetados) + sources
       step_4b_canonical    → canonical_subject_description
       step_4c_meta         → video_title + search_keyword + hook + mystery + reveal + angle + virality_score
       step_4d_summary      → research_summary masivo
-      step_4e_visual_canon → era_visual_canon + documented_people + anachronism_blocklist + documented_props
+      (el ex 4e, canon visual, lo arma fase1_5.asegurar_canon desde la ficha: F50 A)
   - Cada sub-paso recibe los anteriores ya cerrados como input fijo.
     Imposible auto-contradicción.
   - Persistencia intermedia: cada sub-paso guarda su output en
@@ -19,7 +19,7 @@ CAMBIOS vs versión vieja:
   - Las 4 angle queries Pro+grounding (TÉCNICA/HUMANA/MISTERIO/VISUAL) se reusan
     intactas — ya están bien diseñadas (SRP correcto).
 
-CONTRATO DE SALIDA (topic en topics_db) — extendido con el 4e:
+CONTRATO DE SALIDA (topic en topics_db) — sin canon visual (F50: lo arma fase1_5.asegurar_canon desde la ficha):
   {
     "id": uuid,
     "seed_id": ...,
@@ -34,10 +34,6 @@ CONTRATO DE SALIDA (topic en topics_db) — extendido con el 4e:
     "research_summary": "...",   (LONG: masivo, SHORT: corto)
     "sources": [...],
     "verified_facts": [...],     (LONG: list[{fact, source_block}], SHORT: list[str])
-    "era_visual_canon": {...},   (LONG: dict del 4e; SHORT: {} vacío)
-    "documented_people": [...],  (LONG: list[dict] del 4e; SHORT: [] vacía)
-    "anachronism_blocklist": [...],  (LONG: list[str] del 4e; SHORT: [] vacía)
-    "documented_props": [...],   (LONG: list[dict] del 4e {nombre,forma,anclado,foto_madre}; SHORT: [] vacía)
     "virality_score": int 1-10,
     "status": "researched",
     "created_at": iso
@@ -62,7 +58,6 @@ from researcher_steps.step_4a_facts import extract_facts_and_sources
 from researcher_steps.step_4b_canonical import extract_canonical
 from researcher_steps.step_4c_meta import extract_meta
 from researcher_steps.step_4d_summary import extract_research_summary
-from researcher_steps.step_4e_visual_canon import extract_visual_canon
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -547,7 +542,7 @@ def _research_seed_deep(seed: dict, existing_titles: list[str], topic_id: str | 
 
     # ─── F7d: research v3 por defecto (documentos bajados y leídos; RESEARCH_V3=0 → el camino de abajo) ───
     # La compuerta del pool corre adentro: rojo → PoolGateRed (research_topics deja el seed en el inbox con el motivo).
-    # Los bloques angulares para 4a–4e se arman con el pool (sin las 4 búsquedas de resumen).
+    # Los bloques angulares para 4a–4d se arman con el pool (sin las 4 búsquedas de resumen).
     from researcher_steps.research_v3 import research_v3_enabled
     v3_pool = None
     if research_v3_enabled():
@@ -598,26 +593,7 @@ def _research_seed_deep(seed: dict, existing_titles: list[str], topic_id: str | 
     _save_step_output(topic_id, "04_summary", step_4d)
     research_summary = step_4d.get("research_summary", "")
 
-    # ─── Sub-paso 4e: visual canon (era + people + blocklist) ───
-    print(f"       → 4e: extrayendo visual canon...")
-    step_4e = extract_visual_canon(
-        seed, angle_blocks, verified_facts, canonical
-    )
-    _save_step_output(topic_id, "05_visual_canon", step_4e)
-    era_visual_canon = step_4e.get("era_visual_canon", {})
-    documented_people = step_4e.get("documented_people", [])
-    anachronism_blocklist = step_4e.get("anachronism_blocklist", [])
-    documented_props = step_4e.get("documented_props", [])
-    central_subject = step_4e.get("central_subject", {"kind": "other", "foto_madre": ""})
-
-    # Aviso suave si el 4e degradó (no rompemos: el pipeline sigue,
-    # pero queda flag de que m03/m05 van a tener menos contexto)
-    if not era_visual_canon.get("primary_decade"):
-        error_handler.log_warning(
-            PipelineStage.TOPIC_RESEARCHER,
-            f"  4e devolvió canon vacío para '{seed.get('seed_title', '?')}'. "
-            f"m03 va a degradar a inferir era por cap.",
-        )
+    # F50 A: el canon visual (ex 4e) ya no nace en el research: lo arma fase1_5.asegurar_canon desde la ficha.
 
     # ─── Consolidación final ───
     data = {
@@ -634,11 +610,6 @@ def _research_seed_deep(seed: dict, existing_titles: list[str], topic_id: str | 
         "sources": sources,
         "verified_facts": verified_facts,
         "evidence_pool": step_4a.get("evidence_pool"),          # F5 §1.1 (None en topics viejos)
-        "era_visual_canon": era_visual_canon,
-        "documented_people": documented_people,
-        "anachronism_blocklist": anachronism_blocklist,
-        "documented_props": documented_props,
-        "central_subject": central_subject,
     }
     if v3_pool is not None:
         data["research_version"] = 3                                # F7d
@@ -923,11 +894,6 @@ def _enrich_with_seed_metadata(topic_data: dict, seed: dict, video_type: str | N
         "research_summary": topic_data.get("research_summary", ""),
         "sources": topic_data.get("sources", []),
         "verified_facts": topic_data.get("verified_facts", []),
-        "era_visual_canon": topic_data.get("era_visual_canon", {}),
-        "documented_people": topic_data.get("documented_people", []),
-        "anachronism_blocklist": topic_data.get("anachronism_blocklist", []),
-        "documented_props": topic_data.get("documented_props", []),
-        "central_subject": topic_data.get("central_subject", {"kind": "other", "foto_madre": ""}),
         "virality_score": topic_data.get("virality_score", 5),
         # F10: el pool de research v3 viaja al topic (antes se perdía acá y el guion v3 no corría sin carga a mano)
         **({"evidence_pool": topic_data["evidence_pool"]} if topic_data.get("evidence_pool") else {}),
@@ -953,7 +919,7 @@ def investigar_semilla(seed: dict, topic_id: str) -> dict:
     """F39 §A.3: investiga UNA semilla en el topic `topic_id` y la registra en topics_db.
 
     La misma cadena que `research_topics(video_type="long")`: `_research_seed_deep` (research v3 `run_seed` en
-    `STEPS_DIR / topic_id` + sub-pasos 4a–4e) + `_enrich_with_seed_metadata`, pero:
+    `STEPS_DIR / topic_id` + sub-pasos 4a–4d) + `_enrich_with_seed_metadata`, pero:
       - el topic queda con `id == topic_id` (no uuid4) y guarda `seed_title` (el título de la ficha, como F23/F24);
       - sin el filtro de semillas ya investigadas;
       - no toca el inbox (`selected_seeds.json`) ni el archivo de semillas (`seeds_archive.json`);

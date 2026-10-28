@@ -95,7 +95,6 @@ def _stub_steps(monkeypatch, tr, calls):
     monkeypatch.setattr(tr, "extract_canonical", lambda *a, **k: {"canonical_subject_description": "c"})
     monkeypatch.setattr(tr, "extract_meta", lambda *a, **k: {"video_title": "T", "search_keyword": "k"})
     monkeypatch.setattr(tr, "extract_research_summary", lambda *a, **k: {"research_summary": "r"})
-    monkeypatch.setattr(tr, "extract_visual_canon", lambda *a, **k: {"era_visual_canon": {"primary_decade": "2000s"}})
 
 
 def test_research_v3_is_default_and_zero_keeps_old_path(monkeypatch):

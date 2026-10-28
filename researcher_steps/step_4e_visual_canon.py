@@ -750,6 +750,8 @@ def extract_visual_canon(
     angle_blocks: dict,
     verified_facts: list,
     canonical: str | None,
+    extra: str = "",
+    schema=None,
 ) -> dict:
     """
     Sub-paso 4e: emite el canon visual del tema.
@@ -771,12 +773,14 @@ def extract_visual_canon(
         return _empty_canon()
 
     prompt = _build_prompt(seed, angle_blocks, verified_facts, canonical)
+    if extra:                                                  # F50 A: el bloque de people_groups, al final
+        prompt = prompt.rstrip() + "\n\n" + extra
 
     data = None
     try:
         # response_schema (decisión B): fuerza color_palette y sourced a STRING
         # (nullable, no required → no presiona alucinar en topics pobres).
-        data = call_flash_json(prompt, response_schema=_VISUAL_CANON_SCHEMA)
+        data = call_flash_json(prompt, response_schema=schema or _VISUAL_CANON_SCHEMA)
     except Exception:
         # El response_schema es la ÚNICA pieza no validada en lab (el probe del
         # chat 93 corrió prompt-only). Si la API lo rechaza, degradá al camino
@@ -819,10 +823,63 @@ def extract_visual_canon(
         raw_props = []
     cleaned_props = [cp for rp in raw_props if (cp := _clean_prop(rp)) is not None]
 
-    return {
+    out = {
         "era_visual_canon": era_canon,
         "documented_people": cleaned_people,
         "anachronism_blocklist": blocklist,
         "documented_props": cleaned_props,
         "central_subject": _clean_central_subject(data.get("central_subject")),
     }
+    if schema is not None:                                     # F50 A: grupos con id (= lab f46b.canon_c)
+        out["people_groups"] = [g for g in data.get("people_groups") or [] if isinstance(g, dict) and g.get("id")]
+    return out
+
+
+# ═══════════════════════════════════════════════════════════════
+#  F50 A — CANON DESDE LA FICHA (antes de m03; reemplaza al 4e del research)
+# ═══════════════════════════════════════════════════════════════
+
+# los textos del lab, tal cual (F46b texto 1; F48 TEXTO_S5)
+TEXTO_1_PEOPLE_GROUPS = """═══ BLOQUE EXTRA: people_groups ═══
+Lista de los grupos de personas que el material documenta en este caso (hechos, cronología, escenas y citas de arriba). Por grupo, un objeto:
+- id: corto, snake_case, en inglés (p. ej. "spanish_migrant_families")
+- who: quiénes son y su origen documentado (EN, una frase)
+- where_when: dónde y en qué años aparecen (EN, una frase)
+- appearance: cómo se ven físicamente según su origen documentado y su época: tono de piel, color y tipo de pelo, rasgos, contextura típica de su trabajo (EN, una frase)
+- clothing: ropa, peinado y accesorios de ESE grupo en ESOS años, ese clima y esa clase social (EN, una frase)
+Sin nombres propios de personas. Solo grupos que el material documenta; si el material no dice el origen de un grupo, no lo inventes: dejá appearance vacío."""
+TEXTO_S5 = ("Personajes del material (rol · lugar · años; sin nombres). Que ningún grupo que aparezca acá quede fuera de "
+            "people_groups:")
+
+_GRUPO_SCHEMA = genai_types.Schema(type=genai_types.Type.OBJECT, properties={
+    k: _STR for k in ("id", "who", "where_when", "appearance", "clothing")})
+VISUAL_CANON_SCHEMA_FICHA = genai_types.Schema(type=genai_types.Type.OBJECT, nullable=True, properties={
+    **_VISUAL_CANON_SCHEMA.properties,
+    "people_groups": genai_types.Schema(type=genai_types.Type.ARRAY, nullable=True, items=_GRUPO_SCHEMA)})
+
+
+def adaptador_facts(ficha: dict) -> list[dict]:
+    """La ficha como «verified_facts» del canon (dato, no regla): hechos, cronología «fecha: evento» y escenas
+    «donde — quien — que_pasa — sentidos»."""
+    out = [{"fact": h.get("texto") or ""} for h in ficha.get("hechos") or []]
+    out += [{"fact": f"{c.get('fecha') or ''}: {c.get('evento') or ''}"} for c in ficha.get("cronologia") or []]
+    out += [{"fact": " — ".join(str(e.get(k) or "") for k in ("donde", "quien", "que_pasa", "sentidos"))}
+            for e in ficha.get("escenas") or []]
+    return [f for f in out if f["fact"].strip(" :—")]
+
+
+def bloque_people_groups(topic: dict) -> str:
+    """Texto 1 + TEXTO_S5 + los personajes del pool (rol · lugar · años), al final del pedido."""
+    pers = (topic.get("evidence_pool") or {}).get("personajes") or []
+    lineas = [f"- {(p.get('rol') or '').strip().rstrip('.')} · {p.get('lugar') or '-'} · "
+              f"{', '.join(p.get('fechas_presente') or []) or '-'}" for p in pers]
+    return TEXTO_1_PEOPLE_GROUPS + "\n" + TEXTO_S5 + "\n" + "\n".join(lineas)
+
+
+def canon_desde_ficha(topic: dict, ficha: dict) -> dict:
+    """El canon visual en UNA llamada a Flash, con la ficha como hechos (sin bloques de ángulo) y `people_groups`.
+    Todas las claves salen de esta respuesta."""
+    return extract_visual_canon(seed={"seed_title": topic.get("video_title")}, angle_blocks={},
+                                verified_facts=adaptador_facts(ficha),
+                                canonical=topic.get("canonical_subject_description"),
+                                extra=bloque_people_groups(topic), schema=VISUAL_CANON_SCHEMA_FICHA)

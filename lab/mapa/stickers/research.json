@@ -295,22 +295,23 @@
   "_parte": "research_c"
  },
  "researcher_steps/step_4e_visual_canon.py": {
-  "sticker": "Le pregunta a un modelo cómo se ve el mundo del tema (ropa, tecnología, vehículos, colores, materiales de la época), qué personas con nombre hay y cómo se ven sin nombre, qué anacronismos prohibir y cuál es el objeto o sujeto central. Después limpia la respuesta con reglas fijas (saca el nombre y la época del aspecto de cada persona, normaliza los objetos). Si falla, devuelve una estructura vacía pero del mismo formato.",
-  "recibe": "el seed del tema, los bloques de investigación (técnico/humano/misterio/visual), los verified_facts de 4a y el canonical de 4b (los pasa topic_researcher.py:603)",
-  "entrega": "dict con era_visual_canon, documented_people, anachronism_blocklist, documented_props y central_subject; topic_researcher lo guarda como data/scripts/_steps/<topic>/05_visual_canon.json y lo pone en topics_db",
+  "sticker": "Arma el canon visual del tema en una llamada a un modelo: cómo se ve el mundo del tema (ropa, tecnología, vehículos, colores, materiales de la época), qué personas con nombre hay y cómo se ven sin nombre, qué anacronismos prohibir, cuál es el objeto o sujeto central y, desde F50, los grupos de personas que muestra el material (people_groups: quiénes son, dónde y cuándo, cómo se ven y cómo se visten). Desde F50 los hechos salen de la ficha del caso (hechos, cronología y escenas) y al final del pedido van los personajes del pool (rol · lugar · años, sin nombres). Después limpia la respuesta con reglas fijas (saca el nombre y la época del aspecto de cada persona, normaliza los objetos). Si falla, devuelve una estructura vacía pero del mismo formato.",
+  "recibe": "El topic (video_title, canonical_subject_description, evidence_pool.personajes) y la ficha del caso (data/scripts/_steps/<id>/ficha_caso.json); los pasa fase1_5.asegurar_canon.",
+  "entrega": "dict con era_visual_canon, documented_people, anachronism_blocklist, documented_props, central_subject y people_groups; fase1_5.asegurar_canon lo guarda en el topic de data/topics_db.json y en data/scripts/_steps/<id>/05_visual_canon.json.",
   "modelo": [
    {
     "modelo": "Gemini Flash (call_flash_json de gemini_helpers; el modelo lo fija config.api.gemini_model)",
-    "para": "emitir el canon visual con response_schema, con un segundo intento sin esquema si la API lo rechaza"
+    "para": "emitir el canon visual con response_schema (con people_groups), con un segundo intento sin esquema si la API lo rechaza"
    }
   ],
   "etapa": [
-   "research"
+   "guion",
+   "voz"
   ],
   "estado": "vivo",
-  "estado_prueba": "topic_researcher.py:603 llama a extract_visual_canon dentro de research_topics; fase1.py:771 llama a research_topics",
+  "estado_prueba": "fase1_5.asegurar_canon llama a canon_desde_ficha después de la ficha (run_escaleta_v3) y antes de m03 (process_topic); el research ya no lo llama (F50 A).",
   "funciones_muertas": [],
-  "md5": "7a5feb625476ab8974c1473984c7e180",
+  "md5": "7079a906842c559d14b6b7e7a4cd4a3a",
   "_parte": "research_c"
  },
  "researcher_steps/verify_quotes.py": {
@@ -567,9 +568,9 @@
   "_parte": "research_b"
  },
  "topic_researcher.py": {
-  "sticker": "Investiga a fondo el tema elegido antes del guion: le hace a Gemini Pro varias consultas con búsqueda en Google (técnica, humana, misterio, visual), llama al research v3 de documentos y arma el tema completo (título, hechos verificados, resumen, canon visual, personas y objetos documentados). Lo deja guardado en la base de temas. Una semilla cuyo research tira un error ya no se traga: research_topics la devuelve en `.fallas` con su error y la deja en la bandeja (F42b); la compuerta del pool no cuenta como falla.",
-  "recibe": "La semilla elegida (dict de data/selected_seeds.json o un archivo de semilla) y video_type; data/topics_db.json para no repetir títulos; los pasos de researcher_steps/ (step_4a a step_4e, research_v3, pool_gate).",
-  "entrega": "data/topics_db.json con el topic nuevo (status 'researched'); data/scripts/_steps/<id>/00_pool_etiquetado.json a 05_visual_canon.json; data/seeds_archive.json y selected_seeds.json actualizados (solo research_topics); un topic guardado con id fijo por investigar_semilla (solo fase1_5 --semilla).",
+  "sticker": "Investiga a fondo el tema elegido antes del guion: le hace a Gemini Pro varias consultas con búsqueda en Google (técnica, humana, misterio, visual), llama al research v3 de documentos y arma el tema completo (título, hechos verificados, resumen). Lo deja guardado en la base de temas. Desde F50 ya no arma el canon visual (lo arma fase1_5 desde la ficha). Una semilla cuyo research tira un error ya no se traga: research_topics la devuelve en `.fallas` con su error y la deja en la bandeja (F42b); la compuerta del pool no cuenta como falla.",
+  "recibe": "La semilla elegida (dict de data/selected_seeds.json o un archivo de semilla) y video_type; data/topics_db.json para no repetir títulos; los pasos de researcher_steps/ (step_4a a step_4d, research_v3, pool_gate).",
+  "entrega": "data/topics_db.json con el topic nuevo (status 'researched'); data/scripts/_steps/<id>/00_pool_etiquetado.json a 04_summary.json; data/seeds_archive.json y selected_seeds.json actualizados (solo research_topics); un topic guardado con id fijo por investigar_semilla (solo fase1_5 --semilla).",
   "modelo": [
    {
     "modelo": "api.gemini_model_research (config)",
@@ -588,7 +589,7 @@
     "por_que": "nadie la llama: ni producción, ni tests, ni strings; solo se define (su helper _build_testimonios_prompt solo se alcanza desde ella)"
    }
   ],
-  "md5": "27b5a58a968ced6dda161e4404a5a7ec",
+  "md5": "8d99254e99b94f6aa2ef30ee8c21223f",
   "_parte": "research_b · F42b C (CC)"
  },
  "topic_validator.py": {

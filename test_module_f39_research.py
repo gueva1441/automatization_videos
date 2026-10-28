@@ -1,6 +1,6 @@
 """test_module_f39_research.py — F39 §A.3: `topic_researcher.investigar_semilla(seed, topic_id)`.
 
-Una semilla en un topic dado: la misma cadena del modo long (run_seed de v3 + 4a–4e + _enrich_with_seed_metadata), con
+Una semilla en un topic dado: la misma cadena del modo long (run_seed de v3 + 4a–4d + _enrich_with_seed_metadata), con
 `id == topic_id` y `seed_title`, sin filtro de semillas ya investigadas y sin tocar inbox ni archivo de semillas.
 `research_topics` queda igual por fuera. Sin red, sin LLM, sin data/ (todo a tmp_path)."""
 import json
@@ -17,7 +17,7 @@ SEED = {"seed_id": "s-f39", "seed_title": "La explosión de Kyshtym", "discovery
 
 @pytest.fixture
 def entorno(monkeypatch, tmp_path):
-    """Rutas a tmp_path, Flash 4a–4e falsos, run_seed falso que anota (topic_id, steps_dir)."""
+    """Rutas a tmp_path, Flash 4a–4d falsos, run_seed falso que anota (topic_id, steps_dir)."""
     inbox, archivo, db = tmp_path / "selected_seeds.json", tmp_path / "seeds_archive.json", tmp_path / "topics_db.json"
     steps = tmp_path / "_steps"
     inbox.write_text(json.dumps({"seeds": [SEED]}, ensure_ascii=False), encoding="utf-8")
@@ -39,8 +39,6 @@ def entorno(monkeypatch, tmp_path):
                         {"video_title": "Kyshtym", "search_keyword": "kyshtym"})
     monkeypatch.setattr(tr, "extract_research_summary", lambda *a, **k: llamadas.append("4d") or
                         {"research_summary": "r"})
-    monkeypatch.setattr(tr, "extract_visual_canon", lambda *a, **k: llamadas.append("4e") or
-                        {"era_visual_canon": {"primary_decade": "1950s"}})
     return {"inbox": inbox, "archivo": archivo, "db": db, "steps": steps, "llamadas": llamadas}
 
 
@@ -54,12 +52,12 @@ def test_investigar_semilla_registra_con_el_id_dado_sin_tocar_inbox_ni_archivo(e
     assert topic["id"] == "f39-prueba" and topic["seed_title"] == SEED["seed_title"]
     assert topic["seed_id"] == "s-f39" and topic["research_version"] == 3 and topic["evidence_pool"] == {"v3": True}
     assert entorno["llamadas"] == [("run_seed", "f39-prueba", entorno["steps"] / "f39-prueba"),
-                                   "4a", "4b", "4c", "4d", "4e"]
+                                   "4a", "4b", "4c", "4d"]   # F50 A: sin 4e
     guardado = json.loads(entorno["db"].read_text(encoding="utf-8"))["topics"]
     assert guardado == [topic]
+    assert not {"era_visual_canon", "documented_people", "central_subject"} & set(topic)   # F50 A: el research no arma canon
     assert {p.name for p in (entorno["steps"] / "f39-prueba").iterdir()} == {
-        "00_pool_etiquetado.json", "01_facts_sources.json", "02_canonical.json", "03_meta.json", "04_summary.json",
-        "05_visual_canon.json"}
+        "00_pool_etiquetado.json", "01_facts_sources.json", "02_canonical.json", "03_meta.json", "04_summary.json"}
     assert _bytes(entorno) == antes                      # ni inbox ni seeds_archive
 
 
@@ -97,7 +95,7 @@ def test_pool_gate_red_se_propaga_y_no_registra(entorno, monkeypatch):
     with pytest.raises(PoolGateRed) as e:
         tr.investigar_semilla(SEED, "f39-rojo")
     assert e.value.gate["motivos"] == ["no hay con qué contar"]
-    assert entorno["llamadas"] == ["run_seed"]           # 4a–4e no corren
+    assert entorno["llamadas"] == ["run_seed"]           # 4a–4d no corren
     assert not entorno["db"].exists() and _bytes(entorno) == antes   # sin registro, inbox sin bandera
 
 

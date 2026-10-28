@@ -281,6 +281,41 @@ def asegurar_ficha(topic_id: str, topic: dict, log: list[str]) -> dict:
     return fc.load(topic_id, STEPS_DIR)
 
 
+
+CANON_KEYS = ("era_visual_canon", "documented_people", "anachronism_blocklist", "documented_props", "central_subject",
+              "people_groups")
+
+
+def asegurar_canon(topic_id: str, topic: dict, log: list[str]) -> dict:
+    """F50 A: el canon visual sale de la ficha (`step_4e.canon_desde_ficha`, una llamada a Flash) y se guarda en el
+    topic de topics_db (lo leen m03 y la foto madre) con la marca `canon_ficha_md5` = md5 de `ficha_caso.json`. Si la
+    marca coincide, no se llama. Sin ficha o sin `people_groups` → Parada. Devuelve el topic con el canon."""
+    import hashlib
+    from researcher_steps import step_4e_visual_canon as s4e
+    from researcher_steps import ficha_caso as fc
+    f = STEPS_DIR / topic_id / "ficha_caso.json"
+    if not f.exists():
+        raise Parada(f"{topic_id}: sin ficha_caso.json no hay canon visual")
+    md5 = hashlib.md5(f.read_bytes()).hexdigest()
+    if topic.get("canon_ficha_md5") == md5:
+        log.append(f"  [canon] ya armado con esta ficha ({md5[:8]}): se usa")
+        return topic
+    canon = _step_cost(topic_id, "canon", lambda: s4e.canon_desde_ficha(topic, fc.load(topic_id, STEPS_DIR)))
+    if not canon.get("people_groups"):
+        raise Parada(f"{topic_id}: el canon desde la ficha salió sin people_groups")
+    nuevo = {**{k: canon.get(k) for k in CANON_KEYS}, "canon_ficha_md5": md5}
+    db = load_db()
+    t = next((x for x in db.get("topics", []) if x.get("id") == topic_id), None)
+    if t is None:
+        raise Parada(f"{topic_id}: no está en topics_db")
+    t.update(nuevo)
+    save_db(db)
+    (STEPS_DIR / topic_id / "05_visual_canon.json").write_text(json.dumps(nuevo, ensure_ascii=False, indent=2),
+                                                               encoding="utf-8")
+    log.append(f"  [canon] desde la ficha ({md5[:8]}): {len(nuevo['people_groups'])} people_groups, "
+               f"{len(nuevo['documented_people'] or [])} personas, {len(nuevo['documented_props'] or [])} props")
+    return {**topic, **nuevo}
+
 # ═══════════════════════ F39 §A.4: la compuerta del papel (como --aprobar-guion de F33) ═══════════════════════
 
 def _papel_path(topic_id: str) -> Path:
@@ -384,6 +419,7 @@ def run_escaleta_v3(topic_id: str, columna: bool = False, modelo: str | None = N
         except PoolGateRed as e:
             raise Parada(f"{topic_id}: compuerta del pool ROJA: {'; '.join(e.gate.get('motivos') or [])}") from e
         asegurar_ficha(topic_id, topic, log)
+        topic = asegurar_canon(topic_id, topic, log)    # F50 A
         print("\n".join(log))
         log.clear()
     try:
@@ -628,8 +664,12 @@ def process_topic(
                         f"Re-correr desde audio: --from audio"
                     )
                 sync_map = json.loads(sync_map_path.read_text(encoding="utf-8"))
+            _log: list[str] = []
+            topic = asegurar_canon(topic_id, topic, _log)    # F50 A: el canon de la ficha, antes de m03
+            print("\n".join(_log))
             print(f"  [03] Generando visual prompts...")
-            visual = assign_visual_prompts(topic, skeleton, narration, sync_map=sync_map)
+            visual = _step_cost(topic_id, "m03", lambda: assign_visual_prompts(topic, skeleton, narration,
+                                                                               sync_map=sync_map))
             result["steps_completed"].append("m03")
             if stop_after_step == "m03":
                 result["status"] = "PASS"

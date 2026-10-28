@@ -74,6 +74,7 @@ def env(tmp_path, monkeypatch):
                                                               encoding="utf-8")
         return {"meta": {"conteos": {}, "sacados": 0}}
     monkeypatch.setattr(fc, "run", ficha_run)
+    monkeypatch.setattr(f15, "asegurar_canon", lambda tid, topic, log: pasos.append("canon") or topic)   # F50 A
 
     def guion_v4(topic_id, **k):
         pasos.append("guion → caps → papel")
@@ -104,7 +105,7 @@ def test_a3_de_la_semilla_al_papel_en_orden_y_para_en_el_papel(env, capsys):
     r, out = _cadena(env, capsys)
     with capsys.disabled():                       # A.5 (b): con `pytest -s` la salida queda a la vista
         print("\n── pasos:", " → ".join(env["pasos"]), "\n" + out)
-    assert env["pasos"] ==["research", "compuerta", "ficha «Un desastre de prueba»", "escaleta",
+    assert env["pasos"] ==["research", "compuerta", "ficha «Un desastre de prueba»", "canon", "escaleta",
                             "guion → caps → papel"]
     assert r["status"] == "PARADA" and r["parada"] == "papel" and r["steps_completed"] == ["m01a", "m01b"]
     assert "PARADA del papel: el papel no está aprobado" in out

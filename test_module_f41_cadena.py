@@ -72,6 +72,7 @@ def cadena(tmp_path, monkeypatch):
         (steps / topic_id / "01e_pantalla.json").write_text(json.dumps({"topic_id": topic_id}), encoding="utf-8")
         return {"particion": {"skeleton": {}, "narration": {}}}
     monkeypatch.setattr(f15, "run_guion_v4", guion_v4)
+    monkeypatch.setattr(f15, "asegurar_canon", lambda tid, topic, log: pasos.append("canon") or topic)   # F50 A
 
     for nombre in ("gate_normalizer_for_topic",):
         monkeypatch.setattr(f15.m02_5_normalizer_gate, nombre, _explota(nombre))
@@ -88,6 +89,7 @@ def _sin_gasto(monkeypatch):
     monkeypatch.setattr(f15, "run_escaleta_v3", _explota("escaleta"))
     monkeypatch.setattr(f15, "run_guion_v4", _explota("guion v4"))
     monkeypatch.setattr(f15, "asegurar_ficha", _explota("ficha"))
+    monkeypatch.setattr(f15, "asegurar_canon", _explota("canon"))
     monkeypatch.setattr(f15, "_step_cost", _explota("_step_cost"))
 
 
@@ -120,7 +122,7 @@ def test_pool_v3_sin_guion_version_corre_la_cadena_unica(cadena, capsys):
     cadena["topics"][TID] = topic
     (cadena["steps"] / TID).mkdir()
     r = f15.process_topic(TID, gate_interactive=False, music_gate_interactive=False)
-    assert cadena["pasos"] == ["compuerta", "ficha", "escaleta", "guion v4 → caps → papel"]
+    assert cadena["pasos"] == ["compuerta", "ficha", "canon", "escaleta", "guion v4 → caps → papel"]
     assert r["status"] == "PARADA" and r["parada"] == "papel" and r["steps_completed"] == ["m01a", "m01b"]
     assert "PARADA del papel" in capsys.readouterr().out
     assert "guion_version" not in topic                       # nadie lo escribe: no elige nada

@@ -279,6 +279,7 @@ def test_fase1_5_sin_columna(monkeypatch, tmp_path, columna):
     monkeypatch.setattr(f15, "STEPS_DIR", tmp_path)
     monkeypatch.setattr(me, "generate_escaleta", lambda topic, **kw: seen.update(kw) or {"ok": 1})
     monkeypatch.setattr("researcher_steps.ficha_caso.load", lambda tid, d=None: FICHA)
+    monkeypatch.setattr(f15, "asegurar_canon", lambda tid, topic, log: topic)   # F50 A (el canon tiene su test)
     monkeypatch.setattr(mc, "generate_columna", lambda *a, **k: seen.setdefault("col", col_buena()))
     (tmp_path / "t-f17").mkdir()
     f15.run_escaleta_v3("t-f17", columna=columna)
