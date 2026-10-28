@@ -626,8 +626,8 @@
   "estado": "vivo",
   "estado_prueba": "qa_studio_server.py:1522 y :1527 lo lanzan; run_pipeline.py:553 es el main",
   "funciones_muertas": [],
-  "md5": "dd6cd35b05b33e66aebcbcb01e45bae6",
-  "_parte": "orquestador_a · F42b B (CC)"
+  "md5": "747839adba2d6237d44d263e29e9e5e1",
+  "_parte": "orquestador_a · F42b C (CC)"
  },
  "script_engine/__init__.py": {
   "sticker": "Es el marcador de paquete de script_engine (la carpeta con los módulos del guion y de las etapas): no hace nada salvo permitir que se importen los demás módulos. Su docstring es solo una lista vieja de módulos.",

@@ -34,6 +34,7 @@ NOTAS:
 import argparse
 import json
 import os
+import sys
 from datetime import datetime
 from pathlib import Path
 
@@ -574,8 +575,9 @@ def run_latido_a(
     export_only: bool = False,
     rejudge: bool = False,
     no_chain: bool = False,
-) -> None:
-    """Latido A: de cero (o desde un checkpoint) hasta el CSV Dashboard 2.0."""
+) -> int | None:
+    """Latido A: de cero (o desde un checkpoint) hasta el CSV Dashboard 2.0. Devuelve 1 si el research de una semilla
+    falló (F42b); None (= exit 0) en los demás casos, incluidos soltar el pick o cancelar."""
     print(f"\n{'═' * 60}")
     print(f"  🎬 FASE 1 · LATIDO A — Investigación")
     print(f"{'═' * 60}")
@@ -768,7 +770,13 @@ def run_latido_a(
             if video_type == "long":
                 print(f"     🔬 Deep Research activado (4 llamadas/seed)")
             print(f"{'─' * 60}")
-            research_topics(seeds_to_ground, video_type=video_type)
+            investigados = research_topics(seeds_to_ground, video_type=video_type)
+            fallas = getattr(investigados, "fallas", [])
+            if fallas:                                   # F42b: una semilla que tronó es una falla, no un «Abortando»
+                print(f"\n  ❌ El research falló en {len(fallas)} semilla(s):")
+                for f in fallas:
+                    print(f"     - semilla «{f['seed_title']}»: {f['error']}; sigue en la bandeja")
+                return 1
         else:
             print(f"\n  ⏭  Paso 2 saltado")
 
@@ -889,7 +897,7 @@ if __name__ == "__main__":
     if args.process_csv:
         run_latido_b()
     else:
-        run_latido_a(
+        rc = run_latido_a(
             video_type=args.video_type,
             skip_niche=args.skip_niche,
             skip_research=args.skip_research,
@@ -898,3 +906,4 @@ if __name__ == "__main__":
             rejudge=args.rejudge,
             no_chain=args.no_chain,
         )
+        sys.exit(rc or 0)   # F42b: la falla del research sale con 1 (run_pipeline --research la propaga)

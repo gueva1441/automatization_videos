@@ -985,10 +985,19 @@ def investigar_semilla(seed: dict, topic_id: str) -> dict:
 #  FUNCIÓN PÚBLICA — research_topics (firma intacta)
 # ═══════════════════════════════════════════════════════════════
 
+class Investigados(list):
+    """F42b: la lista de topics investigados, más `fallas`: las semillas cuyo research tiró un error (cada una con
+    seed_id, seed_title y el error). La compuerta del pool (`PoolGateRed`) no es una falla: devuelve la semilla."""
+
+    def __init__(self, *a):
+        super().__init__(*a)
+        self.fallas: list[dict] = []
+
+
 def research_topics(
     seeds: list[dict] | None = None,
     video_type: str = "short",
-) -> list[dict]:
+) -> Investigados:
     """
     Investiga seeds y guarda topics en topics_db.
 
@@ -997,7 +1006,7 @@ def research_topics(
         video_type: "short" (1 llamada Pro) | "long" (4 angle queries en paralelo + 4 sub-pasos Flash)
 
     Returns:
-        Lista de topics investigados.
+        Lista de topics investigados; en `.fallas`, las semillas que fallaron con su error (siguen en la bandeja).
     """
     if video_type not in ("short", "long"):
         raise ValueError(f"video_type debe ser 'short' o 'long', no '{video_type}'")
@@ -1007,7 +1016,7 @@ def research_topics(
 
     if not seeds:
         print("\n  ⚠ No hay seeds para investigar.")
-        return []
+        return Investigados()
 
     db = _load_topics_db()
     existing_seed_ids = _get_existing_seed_ids(db)
@@ -1017,13 +1026,13 @@ def research_topics(
     pending = [s for s in seeds if s["seed_id"] not in existing_seed_ids]
     if not pending:
         print("\n  ✓ Todos los seeds ya estaban investigados.")
-        return []
+        return Investigados()
 
     print(f"\n  🔬 Investigando {len(pending)} seed(s) en modo {video_type.upper()}...")
     if video_type == "long":
         print(f"     (4 angle queries Pro en paralelo + 4 sub-pasos Flash por seed)")
 
-    researched: list[dict] = []
+    researched = Investigados()
 
     for i, seed in enumerate(pending):
         print(f"\n  [{i+1}/{len(pending)}] {seed['seed_title']}")
@@ -1046,6 +1055,10 @@ def research_topics(
                 PipelineStage.TOPIC_RESEARCHER, e,
                 context={"seed_title": seed.get("seed_title", "?")}
             )
+            # F42b: la falla no se traga: vuelve a quien llamó (la semilla sigue en la bandeja)
+            researched.fallas.append({"seed_id": seed.get("seed_id"), "seed_title": seed.get("seed_title", "?"),
+                                      "error": f"{type(e).__name__}: {e}"})
+            print(f"     ❌ Falló: {type(e).__name__}: {e} — la semilla sigue en la bandeja")
             continue
 
         topic = _enrich_with_seed_metadata(topic_data, seed, video_type=video_type)   # F41 §A.2: el tipo pedido
@@ -1079,9 +1092,13 @@ def research_topics(
     for mode, count in by_mode.items():
         print(f"     - {mode}: {count}")
 
+    if researched.fallas:
+        print(f"  ❌ {len(researched.fallas)} semilla(s) fallaron (siguen en la bandeja)")
+
     remaining_seeds = _load_seeds()
     print(f"\n  📥 Bandeja: {len(remaining_seeds)} seed(s) pendiente(s)")
-    print(f"\n  ➡  Siguiente paso: topic_validator\n")
+    if not researched.fallas:
+        print(f"\n  ➡  Siguiente paso: topic_validator\n")
 
     return researched
 

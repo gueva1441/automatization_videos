@@ -553,7 +553,8 @@ def main() -> int:
         rc = _run(["fase1.py", "--no-chain"]
                   + (["--video-type", args.video_type] if args.video_type else []))
         if rc != 0:
-            print("  ⛔ fase1 falló o se canceló — no hay tema para seguir.")
+            print(f"  ⛔ fase1: el research falló (exit {rc}) — el motivo está arriba en el log; la semilla sigue en "
+                  f"la bandeja.")
             return rc
         tids = _read_research_sentinel()          # consume el sentinel; NO escanea el DB
         if not tids:

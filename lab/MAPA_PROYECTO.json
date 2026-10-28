@@ -1354,7 +1354,7 @@
   "fase1.py": {
    "archivo": "fase1.py",
    "zona": "research",
-   "sticker": "Es la pantalla de arranque del research: descubre temas nuevos (o reusa los guardados), los hace juzgar, deja elegir uno a Omar en el form, re-mide que no esté saturado en español, lo investiga y lo valida. Al final escribe qué tema salió para que run_pipeline siga con el guion.",
+   "sticker": "Es la pantalla de arranque del research: descubre temas nuevos (o reusa los guardados), los hace juzgar, deja elegir uno a Omar en el form, re-mide que no esté saturado en español, lo investiga y lo valida. Al final escribe qué tema salió para que run_pipeline siga con el guion. Si el research de una semilla tira un error, lo dice por semilla («sigue en la bandeja») y sale con exit 1 (F42b); soltar el pick o cancelar sigue saliendo con 0.",
    "recibe": "data/selected_seeds.json (semillas), data/topics_db.json; respuestas de Omar por stdin (marcadores @@QAFORM@@ con QA_FORM); flags --video-type y --no-chain que le manda run_pipeline.py.",
    "entrega": "data/_last_research.json (los tids de esta corrida); data/selected_seeds.json reescrito con el juez; data/seeds_archive.json (seeds borrados); data/fase1_review.csv vía csv_exporter; marcadores del form por stdout.",
    "modelo": [],
@@ -1369,7 +1369,7 @@
    "lo_llaman": [
     "run_pipeline.py"
    ],
-   "tests": 5,
+   "tests": 6,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "a126d9f 2026-06-17",
    "estado_a": "vivo",
@@ -1387,7 +1387,7 @@
     "_save_script"
    ],
    "md5": "44424529e33fe2fab3634b615760301a",
-   "sticker_al_dia": false
+   "sticker_al_dia": true
   },
   "fase1_5.py": {
    "archivo": "fase1_5.py",
@@ -2558,7 +2558,7 @@
     "script_engine/m01a_escaleta.py",
     "topic_researcher.py"
    ],
-   "tests": 4,
+   "tests": 5,
    "nacio": "6941f16 2026-10-22 (F7d)",
    "ultimo": "03370af 2026-10-24 (F23)",
    "estado_a": "vivo",
@@ -2934,14 +2934,14 @@
    ],
    "tests": 2,
    "nacio": "1127427 2026-06-13",
-   "ultimo": "e68410a 2026-10-27 (F41)",
+   "ultimo": "d58d1a3 2026-10-27 (F42b)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "qa_studio_server.py:1522 y :1527 lo lanzan; run_pipeline.py:553 es el main",
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "dd6cd35b05b33e66aebcbcb01e45bae6",
+   "md5": "747839adba2d6237d44d263e29e9e5e1",
    "sticker_al_dia": true
   },
   "script_engine/__init__.py": {
@@ -4882,7 +4882,7 @@
    "lo_llaman": [
     "fase1.py"
    ],
-   "tests": 5,
+   "tests": 6,
    "nacio": "5ad9904 2026-06-07",
    "ultimo": "802f78c 2026-06-12",
    "estado_a": "vivo",
@@ -5919,7 +5919,7 @@
   "topic_researcher.py": {
    "archivo": "topic_researcher.py",
    "zona": "research",
-   "sticker": "Investiga a fondo el tema elegido antes del guion: le hace a Gemini Pro varias consultas con búsqueda en Google (técnica, humana, misterio, visual), llama al research v3 de documentos y arma el tema completo (título, hechos verificados, resumen, canon visual, personas y objetos documentados). Lo deja guardado en la base de temas.",
+   "sticker": "Investiga a fondo el tema elegido antes del guion: le hace a Gemini Pro varias consultas con búsqueda en Google (técnica, humana, misterio, visual), llama al research v3 de documentos y arma el tema completo (título, hechos verificados, resumen, canon visual, personas y objetos documentados). Lo deja guardado en la base de temas. Una semilla cuyo research tira un error ya no se traga: research_topics la devuelve en `.fallas` con su error y la deja en la bandeja (F42b); la compuerta del pool no cuenta como falla.",
    "recibe": "La semilla elegida (dict de data/selected_seeds.json o un archivo de semilla) y video_type; data/topics_db.json para no repetir títulos; los pasos de researcher_steps/ (step_4a a step_4e, research_v3, pool_gate).",
    "entrega": "data/topics_db.json con el topic nuevo (status 'researched'); data/scripts/_steps/<id>/00_pool_etiquetado.json a 05_visual_canon.json; data/seeds_archive.json y selected_seeds.json actualizados (solo research_topics); un topic guardado con id fijo por investigar_semilla (solo fase1_5 --semilla).",
    "modelo": [
@@ -5946,7 +5946,7 @@
     "fase1.py",
     "fase1_5.py"
    ],
-   "tests": 9,
+   "tests": 10,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "fc59a76 2026-10-27 (F41)",
    "estado_a": "vivo",
@@ -5963,8 +5963,8 @@
    "sin_llamador_a": [
     "research_testimonios"
    ],
-   "md5": "5d3d4c4c19746b24bb27a79d5e0b20cf",
-   "sticker_al_dia": false
+   "md5": "27b5a58a968ced6dda161e4404a5a7ec",
+   "sticker_al_dia": true
   },
   "topic_validator.py": {
    "archivo": "topic_validator.py",

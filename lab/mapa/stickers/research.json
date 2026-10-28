@@ -1,7 +1,7 @@
 {
  "_nota": "F42 §B: stickers de la zona research, escritos por los workers (Sonnet) que leyeron cada archivo entero; `md5` = el del archivo leído (`mapa_modulos.py --check` avisa si cambió). `_parte` = el worker.",
  "fase1.py": {
-  "sticker": "Es la pantalla de arranque del research: descubre temas nuevos (o reusa los guardados), los hace juzgar, deja elegir uno a Omar en el form, re-mide que no esté saturado en español, lo investiga y lo valida. Al final escribe qué tema salió para que run_pipeline siga con el guion.",
+  "sticker": "Es la pantalla de arranque del research: descubre temas nuevos (o reusa los guardados), los hace juzgar, deja elegir uno a Omar en el form, re-mide que no esté saturado en español, lo investiga y lo valida. Al final escribe qué tema salió para que run_pipeline siga con el guion. Si el research de una semilla tira un error, lo dice por semilla («sigue en la bandeja») y sale con exit 1 (F42b); soltar el pick o cancelar sigue saliendo con 0.",
   "recibe": "data/selected_seeds.json (semillas), data/topics_db.json; respuestas de Omar por stdin (marcadores @@QAFORM@@ con QA_FORM); flags --video-type y --no-chain que le manda run_pipeline.py.",
   "entrega": "data/_last_research.json (los tids de esta corrida); data/selected_seeds.json reescrito con el juez; data/seeds_archive.json (seeds borrados); data/fase1_review.csv vía csv_exporter; marcadores del form por stdout.",
   "modelo": [],
@@ -17,8 +17,8 @@
     "por_que": "nadie la nombra: ni producción, ni tests, ni strings; deja SCRIPTS_DIR (fase1.py:78) sin otro uso"
    }
   ],
-  "md5": "4fdf55c10148f6817ff797f0d0f609e3",
-  "_parte": "research_b"
+  "md5": "44424529e33fe2fab3634b615760301a",
+  "_parte": "research_b · F42b C (CC)"
  },
  "migrate_4e_into_topics_db.py": {
   "sticker": "Parche de una sola vez para temas viejos: copia los tres campos de la identidad visual (época, personas documentadas, anacronismos) desde el archivo del paso 4e a cada tema de topics_db.json. Hace backup y pide confirmación; hoy solo lo corre una persona a mano.",
@@ -567,7 +567,7 @@
   "_parte": "research_b"
  },
  "topic_researcher.py": {
-  "sticker": "Investiga a fondo el tema elegido antes del guion: le hace a Gemini Pro varias consultas con búsqueda en Google (técnica, humana, misterio, visual), llama al research v3 de documentos y arma el tema completo (título, hechos verificados, resumen, canon visual, personas y objetos documentados). Lo deja guardado en la base de temas.",
+  "sticker": "Investiga a fondo el tema elegido antes del guion: le hace a Gemini Pro varias consultas con búsqueda en Google (técnica, humana, misterio, visual), llama al research v3 de documentos y arma el tema completo (título, hechos verificados, resumen, canon visual, personas y objetos documentados). Lo deja guardado en la base de temas. Una semilla cuyo research tira un error ya no se traga: research_topics la devuelve en `.fallas` con su error y la deja en la bandeja (F42b); la compuerta del pool no cuenta como falla.",
   "recibe": "La semilla elegida (dict de data/selected_seeds.json o un archivo de semilla) y video_type; data/topics_db.json para no repetir títulos; los pasos de researcher_steps/ (step_4a a step_4e, research_v3, pool_gate).",
   "entrega": "data/topics_db.json con el topic nuevo (status 'researched'); data/scripts/_steps/<id>/00_pool_etiquetado.json a 05_visual_canon.json; data/seeds_archive.json y selected_seeds.json actualizados (solo research_topics); un topic guardado con id fijo por investigar_semilla (solo fase1_5 --semilla).",
   "modelo": [
@@ -588,8 +588,8 @@
     "por_que": "nadie la llama: ni producción, ni tests, ni strings; solo se define (su helper _build_testimonios_prompt solo se alcanza desde ella)"
    }
   ],
-  "md5": "a744a37432b65c3413650c9e0b138a5e",
-  "_parte": "research_b"
+  "md5": "27b5a58a968ced6dda161e4404a5a7ec",
+  "_parte": "research_b · F42b C (CC)"
  },
  "topic_validator.py": {
   "sticker": "Después de investigar el tema, mide si vale la pena hacerlo: mira cuánto lo busca la gente en Google Trends, cuánta competencia hay en YouTube en español e inglés, y da un veredicto (oro, arbitraje, caliente, frío, desconocido). Si el tema sirve, además pide a Gemini 3 ganchos y 3 cierres de ejemplo y deja todo escrito en cada tema de la base.",

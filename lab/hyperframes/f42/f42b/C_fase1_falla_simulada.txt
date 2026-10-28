@@ -1,0 +1,34 @@
+$ fase1.run_latido_a(video_type="long", skip_niche=True, no_chain=True)   (test_module_f42b: _research_seed_deep simulado lanzando ModuleNotFoundError)
+
+  🎬 FASE 1 · LATIDO A — Investigación
+════════════════════════════════════════════════════════════
+
+  ✓ video_type de esta corrida: LONG
+
+  ⏭  Paso 1 saltado — 1 seed(s) existentes
+
+────────────────────────────────────────────────────────────
+  📌 PASO 1.5/4 — Juez LLM pre-grounding
+────────────────────────────────────────────────────────────
+
+────────────────────────────────────────────────────────────
+  📌 PASO 2/4 — Investigación de temas
+     🔬 Deep Research activado (4 llamadas/seed)
+────────────────────────────────────────────────────────────
+
+  🔬 Investigando 1 seed(s) en modo LONG...
+     (4 angle queries Pro en paralelo + 4 sub-pasos Flash por seed)
+
+  [1/1] Hospital Waverly Hills embrujado
+     ❌ Falló: ModuleNotFoundError: No module named 'bs4' — la semilla sigue en la bandeja
+
+────────────────────────────────────────────────────────────
+  ✅ 0 topic(s) investigado(s)
+  ❌ 1 semilla(s) fallaron (siguen en la bandeja)
+
+  📥 Bandeja: 1 seed(s) pendiente(s)
+
+  ❌ El research falló en 1 semilla(s):
+     - semilla «Hospital Waverly Hills embrujado»: ModuleNotFoundError: No module named 'bs4'; sigue en la bandeja
+
+rc = 1 · la bandeja sigue con [s-waverly] (asserts del test)
