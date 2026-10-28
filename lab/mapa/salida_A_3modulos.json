@@ -84,7 +84,322 @@
     "string": [],
     "sin_llamador": false
    },
-   "… (34 en total)"
+   {
+    "nombre": "_render_path",
+    "linea": 114,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [
+     "test_run_pipeline.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_estado_papel",
+    "linea": 119,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_estado_guion",
+    "linea": 125,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_packaged",
+    "linea": 130,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_video_hecho",
+    "linea": 135,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_mtime",
+    "linea": 140,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "etapa_de",
+    "linea": 152,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [
+     "test_run_pipeline.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_run",
+    "linea": 208,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_report",
+    "linea": 217,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_phase_header",
+    "linea": 249,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_hoy",
+    "linea": 253,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_shell",
+    "linea": 258,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_retomar_cmd",
+    "linea": 262,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_fallo",
+    "linea": 266,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_compuerta",
+    "linea": 274,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_paso_guion",
+    "linea": 296,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_paso_papel",
+    "linea": 306,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_paso_voz",
+    "linea": 330,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_paso_assets",
+    "linea": 339,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_paso_fondos",
+    "linea": 347,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_paso_guion_pantalla",
+    "linea": 370,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_paso_aprobar_guion",
+    "linea": 379,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_paso_render",
+    "linea": 407,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_paso_packaging",
+    "linea": 421,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "sequence",
+    "linea": 443,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [
+     "test_run_pipeline.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_read_research_sentinel",
+    "linea": 482,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_newest_validated",
+    "linea": 491,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "main",
+    "linea": 504,
+    "tipo": "funcion",
+    "prod": [
+     "run_pipeline.py"
+    ],
+    "tests": [
+     "test_run_pipeline.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   }
   ],
   "importa": {
    "config.py": [
@@ -239,7 +554,326 @@
     "string": [],
     "sin_llamador": false
    },
-   "… (31 en total)"
+   {
+    "nombre": "pool_v3",
+    "linea": 178,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "motivo_sin_pool",
+    "linea": 184,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "cargar_perfil",
+    "linea": 191,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [
+     "test_module_f21.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_topic_v3",
+    "linea": 201,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_step_cost",
+    "linea": 212,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "run_pantalla",
+    "linea": 230,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "Parada",
+    "linea": 242,
+    "tipo": "clase",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [
+     "test_module_f39_fase1.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_titulo_de_semilla",
+    "linea": 249,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [
+     "test_module_f41_cadena.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "asegurar_ficha",
+    "linea": 265,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [
+     "test_module_f39_fase1.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_papel_path",
+    "linea": 286,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "md5_papel",
+    "linea": 290,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "estado_papel",
+    "linea": 298,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py",
+     "run_pipeline.py"
+    ],
+    "tests": [
+     "test_module_f39_fase1.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "aprobar_papel",
+    "linea": 313,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [
+     "test_module_f39_fase1.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "parada_del_papel",
+    "linea": 327,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "leer_semilla",
+    "linea": 338,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "research_de_semilla",
+    "linea": 348,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [
+     "test_module_f39_fase1.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "run_escaleta_v3",
+    "linea": 372,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [
+     "test_module_f17.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "run_guion_v4",
+    "linea": 409,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [
+     "test_module_f22d.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "process_topic",
+    "linea": 448,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [
+     "test_module_f11b.py",
+     "test_module_f17.py",
+     "test_module_f27.py",
+     "test_module_f39_fase1.py",
+     "test_module_f41_cadena.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_select_topic_interactive",
+    "linea": 684,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py",
+     "run_pipeline.py"
+    ],
+    "tests": [
+     "test_module_35_menu_csv.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "run_one_topic_from_menu",
+    "linea": 730,
+    "tipo": "funcion",
+    "prod": [
+     "fase1.py",
+     "fase1_5.py"
+    ],
+    "tests": [
+     "test_chat51_menu_pre_research.py",
+     "test_fase1_nochain.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_print_gemini_cost",
+    "linea": 780,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "temas_cmds",
+    "linea": 793,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [
+     "test_module_f26c.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "run_temas",
+    "linea": 812,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py"
+    ],
+    "tests": [
+     "test_module_f26c.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "main",
+    "linea": 832,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py",
+     "researcher_steps/ficha_caso.py",
+     "run_pipeline.py"
+    ],
+    "tests": [
+     "test_fase1_nochain.py",
+     "test_module_03_leakage_retry.py",
+     "test_module_35_menu_csv.py",
+     "test_module_f17.py",
+     "test_module_f39_fase1.py",
+     "test_module_f41_cadena.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   }
   ],
   "importa": {
    "config.py": [
@@ -458,7 +1092,539 @@
     "string": [],
     "sin_llamador": false
    },
-   "… (47 en total)"
+   {
+    "nombre": "_tipo",
+    "linea": 164,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "cargar",
+    "linea": 172,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [
+     "test_module_f36c_pantalla.py",
+     "test_module_f37a_papel.py",
+     "test_module_f38a_m01e.py",
+     "test_module_f38a_voz.py",
+     "test_module_f38c_papel.py",
+     "test_module_f38d_vueltas.py",
+     "test_module_f38e_c.py",
+     "test_module_f40_gancho.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "caben_en",
+    "linea": 186,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "entrada",
+    "linea": 195,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [
+     "test_module_f36c_pantalla.py",
+     "test_module_f37a_papel.py",
+     "test_module_f38a_m01e.py",
+     "test_module_f38a_voz.py",
+     "test_module_f38c_papel.py",
+     "test_module_f38d_vueltas.py",
+     "test_module_f38e_c.py",
+     "test_module_f40_gancho.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_para_modelo",
+    "linea": 257,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [
+     "test_module_f38c_papel.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "entrada_md5",
+    "linea": 264,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "estilo_de",
+    "linea": 270,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_voz_video",
+    "linea": 286,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "momentos",
+    "linea": 290,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "autor_en",
+    "linea": 305,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_nombres_del_autor",
+    "linea": 317,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [
+     "test_module_f38e_c.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "autor_mostrado",
+    "linea": 330,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [
+     "test_module_f38e_c.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_cifras",
+    "linea": 346,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "voz_no_lo_dice",
+    "linea": 353,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [
+     "test_module_f38a_voz.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_donde",
+    "linea": 375,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "validar",
+    "linea": 383,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [
+     "test_module_f36c_pantalla.py",
+     "test_module_f37a_papel.py",
+     "test_module_f38a_m01e.py",
+     "test_module_f38a_voz.py",
+     "test_module_f38c_papel.py",
+     "test_module_f38d_vueltas.py",
+     "test_module_f38e_c.py",
+     "test_module_f38e_d.py",
+     "test_module_f40_gancho.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_pregunta_txt",
+    "linea": 545,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_int",
+    "linea": 557,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_validar_ficha",
+    "linea": 564,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "TopePantalla",
+    "linea": 698,
+    "tipo": "clase",
+    "prod": [
+     "fase1_5.py",
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "SinJSON",
+    "linea": 702,
+    "tipo": "clase",
+    "prod": [
+     "fase1_5.py",
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "primer_json",
+    "linea": 706,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_peor_usd",
+    "linea": 719,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [
+     "test_module_f38d_vueltas.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_reintento",
+    "linea": 725,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_reintento_parcial",
+    "linea": 731,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_confirmar",
+    "linea": 742,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [
+     "test_module_f38c_papel.py",
+     "test_module_f38d_vueltas.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "beats_con_motivo",
+    "linea": 750,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [
+     "test_module_f38a_m01e.py",
+     "test_module_f38d_vueltas.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "fusionar",
+    "linea": 758,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [
+     "test_module_f38a_m01e.py",
+     "test_module_f38d_vueltas.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "llamar",
+    "linea": 799,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [
+     "test_module_f36c_pantalla.py",
+     "test_module_f37a_papel.py",
+     "test_module_f38a_m01e.py",
+     "test_module_f38d_vueltas.py",
+     "test_module_f38e_c.py",
+     "test_module_f40_gancho.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_clave_desc",
+    "linea": 953,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_union_beats",
+    "linea": 959,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_acumular",
+    "linea": 963,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "armar",
+    "linea": 976,
+    "tipo": "funcion",
+    "prod": [
+     "fase2b.py",
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [
+     "test_module_f36c_pantalla.py",
+     "test_module_f37a_papel.py",
+     "test_module_f38a_m01e.py",
+     "test_module_f38c_papel.py",
+     "test_module_f38d_vueltas.py",
+     "test_module_f38e_c.py",
+     "test_module_f38e_d.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_respuestas",
+    "linea": 1001,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "_por_que_falta",
+    "linea": 1013,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "a_markdown",
+    "linea": 1026,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [
+     "test_module_f37a_papel.py",
+     "test_module_f38a_m01e.py",
+     "test_module_f38c_papel.py",
+     "test_module_f38d_vueltas.py",
+     "test_module_f38e_c.py",
+     "test_module_f38e_d.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "generar",
+    "linea": 1115,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py",
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [
+     "script_engine/m01a_escaleta.py"
+    ],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "ruta",
+    "linea": 1135,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "cargar_papel",
+    "linea": 1140,
+    "tipo": "funcion",
+    "prod": [
+     "script_engine/pantalla_entrada.py"
+    ],
+    "tests": [
+     "test_module_f36c_pantalla.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "editar",
+    "linea": 1149,
+    "tipo": "funcion",
+    "prod": [
+     "fase2b.py"
+    ],
+    "tests": [
+     "test_module_f36c_pantalla.py",
+     "test_module_f38e_d.py"
+    ],
+    "string": [],
+    "sin_llamador": false
+   },
+   {
+    "nombre": "main",
+    "linea": 1192,
+    "tipo": "funcion",
+    "prod": [
+     "fase1_5.py",
+     "fase2b.py",
+     "script_engine/m01e_pantalla.py"
+    ],
+    "tests": [],
+    "string": [],
+    "sin_llamador": false
+   }
   ],
   "importa": {
    "script_engine/evidence.py": [

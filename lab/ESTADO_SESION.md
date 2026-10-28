@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-27 (Omar limpió el historial de research: arranca de 0 con semillas nuevas) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-27 22:47 (F42: mapa completo del proyecto en `lab/MAPA_PROYECTO.md`; reemplaza a MAPA_MODULOS) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,15 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F42): el mapa del proyecto entero está en `lab/MAPA_PROYECTO.md`: el flujograma de la cadena del form (research → guion → compuerta del papel → voz → assets → visor → fondos → guion de pantalla → compuerta → render → packaging), cada caja con su script, sus módulos y el modelo que paga; y los 155 archivos de producción con qué hacen para el video, qué reciben y entregan, quién los llama y su estado (132 vivos, 13 herramientas manuales, 10 huérfanos, 0 rotos; 60 funciones muertas). **⚠ Incidente:** la colecta de tests (`pytest --collect-only`) ejecutó `test_full_pipeline_lab.py`, un script de lab que al importarse llamó 2 veces a Gemini y pidió 20 imágenes a FAL flux-2-pro (19 generadas, en `lab_output_chat26_v2/`, 22:23–22:32): rompe el US$ 0 de la tanda, el gasto no está medido (mirarlo en fal.ai y Google AI). Detalle y arreglo en `lab/hyperframes/f42/F42_REPORT.md`.
+
+## F42 — Mapa completo del proyecto (handoff del analista, 2026-10-27) — HECHA, **PARADA**
+- Handoff `lab/hyperframes/f42/HANDOFF_F42_mapa_del_proyecto.md` (md5 `343f25b2…` ✓). Sesión nueva pedida por Omar; 0 → A → B → C sin PARADA entre partes.
+- Paso 0 `5176646` (DECISIONES 21:50 sin chequeo de RAM, 22:20 F42) · A `29528d4` (`mapa_hechos.py` para los 155 archivos de producción; secuencia de `run_pipeline` por AST; alcance por etapa; colecta de tests) · B `6ed0c41` (18 workers Sonnet en paralelo: 17 partes de zonas 1–5 + zona 6; stickers en `lab/mapa/stickers/<zona>.json`, notas de auditoría `lab/mapa/notas_auditoria_*.md` para F43, `lab/mapa/tests_lab.json`) · C `601a5bf` (`lab/MAPA_PROYECTO.md/.json`, `--check` = 0, `test_module_f42_mapa.py` 4 verdes, guard_mapa/tanda.md/README a MAPA_PROYECTO, chascada del paso 8 de tanda.md, MAPA_MODULOS borrado).
+- **Regla nueva del mapa:** si un commit toca un archivo de producción, releerlo, reescribir su sticker (con el md5 nuevo) en `lab/mapa/stickers/<zona>.json` y correr `python lab/tools/mapa_modulos.py`; `--check` tiene que dar 0 (guard_mapa avisa).
+- **Incidente de gasto:** la primera colecta importó `test_full_pipeline_lab.py` (Gemini ×2 + FAL flux-2-pro ×20). Arreglo: `mapa_hechos --tests` no importa los 17 `test_*.py` con efectos al importarse (AST) y corre con proxy muerto. **Regla aprendida: en este repo `pytest --collect-only` no es inocuo**; nunca `pytest test_*.py` en bloque.
+- No corridos (corrida viva): suite amplia y candado de ch02. El hook `suite_rapida` sí corrió en cada commit (offline). Abierto k1–k17 en el reporte.
 
 ## ✂ Chequeo de RAM antes del render: BORRADO (Omar, 2026-10-27)
 - Omar: «esa vaina de los 14 GB de RAM para el render, no sé de dónde salió: eliminala». Venía de DECISIONES 2026-10-27 00:30 (que reemplazó la regla de Firefox de F2 por «medir RAM, < 14 GB → PARADA») y CC la había cableado en `run_pipeline` en F41 B2 (`8a0ed90`).
