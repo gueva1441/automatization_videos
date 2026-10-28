@@ -91,6 +91,29 @@
   #dialog{display:none;border:1px solid #222229;border-radius:12px;overflow:hidden;background:#0f0f12;}
   #dialog iframe{width:100%;height:78vh;border:0;display:block;background:#0f0f12;}
   .empty{font-family:var(--mono);font-size:12.5px;color:#5e5e68;}
+
+  /* F41 — compuertas con documento (papel_gate / guion_gate): el documento ENTERO, legible, con scroll, y A/P. */
+  .docgate{padding:16px 18px;}
+  .docgate .tag{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:#d8a02a;display:block;margin-bottom:6px;}
+  .docgate .dprompt{font-size:15px;color:#f0e2c0;margin-bottom:6px;}
+  .docgate .dmeta{font-family:var(--mono);font-size:11px;color:#8a8a92;margin-bottom:10px;word-break:break-word;}
+  .docgate pre.doc{font-family:var(--mono);font-size:12.5px;line-height:1.55;color:#e8e8ec;background:#08080b;
+    border:1px solid #222229;border-radius:10px;padding:14px 16px;margin:0 0 14px;max-height:62vh;overflow:auto;
+    white-space:pre-wrap;word-break:break-word;}
+  .docgate .dbtns{display:flex;gap:10px;flex-wrap:wrap;}
+  .docgate .gbtn{font-family:var(--disp);font-weight:700;font-size:14px;color:#06140a;background:#2ea043;border:none;
+    padding:11px 20px;border-radius:10px;cursor:pointer;}
+  .docgate .gbtn.ghost{color:#e8e8ec;background:#222229;border:1px solid #34343c;}
+  .docgate .gbtn:disabled{opacity:.5;cursor:not-allowed;}
+
+  /* F41 — retomar un topic donde quedó (run_pipeline --topic <id> --batch). */
+  #resume{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:#8a8a92;
+    margin:0 0 14px;}
+  #resume select{font-family:var(--mono);font-size:12px;color:#e8e8ec;background:#14141a;border:1px solid #2a2a33;
+    border-radius:8px;padding:7px 9px;max-width:100%;min-width:0;flex:1 1 260px;}
+  #resume button{font-family:var(--disp);font-weight:700;font-size:13px;color:#e8e8ec;background:#222229;
+    border:1px solid #34343c;border-radius:9px;padding:8px 16px;cursor:pointer;}
+  #resume button:disabled{opacity:.5;cursor:not-allowed;}
 </style>
 </head>
 <body>
@@ -98,13 +121,17 @@
   <div class="top">
     <div>
       <div class="eyebrow">QA STUDIO · PRODUCCIÓN ASISTIDA</div>
-      <h1>Producir un tema (research → guion → assets → video)</h1>
+      <h1>Producir un tema (research → guion → papel → voz e imágenes → fondos → guion de pantalla → render)</h1>
     </div>
     <div class="topbtns">
       <button class="btn" id="launchBtn">↻ Reiniciar corrida</button>
       <button class="btn ghost" id="closeBtn">✕ Salir</button>
     </div>
   </div>
+
+  <div id="resume"><span>Retomar un topic donde quedó:</span>
+    <select id="resumeSel"><option value="">(cargando topics…)</option></select>
+    <button id="resumeBtn">Retomar</button></div>
 
   <div class="prog" id="prog"></div>
   <div class="proglabels" id="progLabels"></div>
@@ -157,6 +184,7 @@ function renderProgress(phase, phases, assets){
 function renderState(s){
   const el=$('state'); const b=$('launchBtn');
   lastRunning=!!s.running;
+  $('resumeBtn').disabled=!!s.running;
   if(s.running){ el.innerHTML='<span class="run">● corriendo</span> '+(s.phase?('· fase '+s.phase):''); b.disabled=true; b.textContent='● corriendo…'; }
   else if(s.returncode!=null){
     const ok=s.returncode===0;
@@ -182,8 +210,9 @@ function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,
 // nombre humano por etapa, en inglés (lo pidió Omar). Mapeamos el tag/módulo de la línea más
 // reciente reconocible a un label; si no reconocemos nada → label de la fase → "Working…".
 // NUNCA volvemos a mostrar la línea cruda. Parseo host-only sobre console_tail (datos ya existen).
-const PHASE_LABEL={RESEARCH:'Researching topic…',GUION:'Building script…',ASSETS:'Generating assets…',
-  VIDEO:'Assembling video…',PACKAGING:'Packaging…'};
+const PHASE_LABEL={RESEARCH:'Researching topic…',GUION:'Building script…',PAPEL:'Waiting for the script review…',
+  VOZ:'Generating voiceover…',ASSETS:'Generating assets…',FONDOS:'Baking backgrounds…',
+  PANTALLA:'Planning the screen script…',RENDER:'Rendering video…',PACKAGING:'Packaging…'};
 function activityLabel(line){
   const l=String(line==null?'':line);
   if(/\[cost_tracker\]/i.test(l)) return null;                       // ruido → seguir buscando
@@ -236,6 +265,8 @@ function handleMarker(m){
       if(m.menu==='seed_pick' && pickedSeedTitle!=null){ bridgeSeedPick(m); }
       // Gates: NO abren diálogo de una → plantan el banner ámbar con botón(es).
       else if(m.menu==='judge_action' || m.menu==='visor_gate' || m.menu==='remeasure_pick'){ showGate(m); }
+      // F41: compuertas con documento (papel / guion de pantalla) → el documento entero + A/P.
+      else if(m.menu==='papel_gate' || m.menu==='guion_gate'){ showDocGate(m); }
       else showDialog(m);
     }
   } else if(curMarkerKey!==null){ curMarkerKey=null; hideDialog(); hideGate(); }
@@ -268,6 +299,29 @@ function showDialog(marker){
     }catch(e){ console.error('dialog wiring', e); }
   };
   area.appendChild(ifr);
+}
+// F41 — compuerta con documento: el texto entero (marker.body) en un bloque con scroll y los botones del marcador.
+function showDocGate(m){
+  hideGate();
+  $('placeholder').style.display='none';
+  setPaused(true);
+  const area=$('dialog'); area.style.display='block'; area.innerHTML='';
+  const box=document.createElement('div'); box.className='docgate';
+  const tag=m.menu==='papel_gate'?'📄 COMPUERTA · PAPEL':'🎬 COMPUERTA · GUION DE PANTALLA';
+  const p=m.payload||{};
+  box.innerHTML='<span class="tag">'+tag+'</span><div class="dprompt">'+esc(m.prompt||'')+'</div>'+
+    '<div class="dmeta">'+esc((p.topic_id||'')+' · '+(p.doc||'')+(p.motivo?(' · '+p.motivo):''))+'</div>';
+  const pre=document.createElement('pre'); pre.className='doc'; pre.textContent=m.body||'(documento vacío)';
+  box.appendChild(pre);
+  const btns=document.createElement('div'); btns.className='dbtns';
+  (m.options||[]).forEach(o=>{
+    const b=document.createElement('button'); b.className='gbtn'+(o.key==='A'?'':' ghost');
+    b.textContent=o.key+' · '+o.label; b.disabled=!!o.disabled;
+    b.onclick=()=>{ [...btns.children].forEach(x=>x.disabled=true);
+      postLine(o.key).then(()=>{ curMarkerKey=null; setPaused(false); hideDialog(); }); };
+    btns.appendChild(b);
+  });
+  box.appendChild(btns); area.appendChild(box);
 }
 function hideDialog(){ const a=$('dialog'); a.style.display='none'; a.innerHTML=''; if($('gate').style.display!=='flex') $('placeholder').style.display='block'; }
 
@@ -379,7 +433,8 @@ async function poll(){
 }
 // HANDOFF_133 — panel de costo Gemini: total + desglose por ETAPA (fase activa) y por modelo.
 // Va sumando en vivo mientras corre el research/guion (el server bucketea cada llamada).
-const PHASE_ES={RESEARCH:'Research',GUION:'Guion',ASSETS:'Assets',VIDEO:'Video',PACKAGING:'Packaging','(inicio)':'Inicio'};
+const PHASE_ES={RESEARCH:'Research',GUION:'Guion',PAPEL:'Papel',VOZ:'Voz',ASSETS:'Assets',FONDOS:'Fondos',
+  PANTALLA:'Guion de pantalla',RENDER:'Render',PACKAGING:'Packaging','(inicio)':'Inicio'};
 function fmtUsd(n){ return '$'+(Number(n||0)).toFixed(4); }
 function renderCost(gc){
   const el=$('costPanel'); if(!el) return;
@@ -413,7 +468,32 @@ async function launch(){
   }catch(e){ $('state').innerHTML='<span class="err">✗ '+e.message+'</span>'; }
   startPolling();
 }
-$('launchBtn').onclick=launch;   // vía manual de reiniciar (el server da 409 si ya hay corrida)
+$('launchBtn').onclick=launch;
+
+// F41 — RETOMAR: lista de topics (/form_topics) y POST /form_resume?topic=<id> (run_pipeline --topic <id> --batch).
+async function loadTopics(){
+  const sel=$('resumeSel');
+  try{
+    const ts=await (await fetch('/form_topics')).json();
+    sel.innerHTML='';
+    ts.forEach(t=>{ const o=document.createElement('option'); o.value=t.id;
+      o.textContent=t.id+(t.title?(' · '+t.title):'')+(t.status?(' · '+t.status):''); sel.appendChild(o); });
+    if(!ts.length) sel.innerHTML='<option value="">(no hay topics)</option>';
+  }catch(e){ sel.innerHTML='<option value="">(no pude leer los topics)</option>'; }
+}
+async function resume(tid){
+  if(!tid) return;
+  $('resumeBtn').disabled=true; $('launchBtn').disabled=true;
+  $('errstrip').style.display='none';
+  try{
+    const r=await fetch('/form_resume?topic='+encodeURIComponent(tid),{method:'POST'});
+    if(r.status===409){ $('state').innerHTML='<span class="run">● ya hay una corrida en curso</span>'; }
+    else if(!r.ok){ const e=await r.json().catch(()=>({})); $('state').innerHTML='<span class="err">✗ '+esc(e.error||'no pude retomar')+'</span>'; }
+  }catch(e){ $('state').innerHTML='<span class="err">✗ '+esc(e.message)+'</span>'; }
+  startPolling();
+}
+$('resumeBtn').onclick=()=>resume($('resumeSel').value);
+loadTopics();   // vía manual de reiniciar (el server da 409 si ya hay corrida)
 
 // CERRAR SERVER (HANDOFF 64a) — mata la corrida hija (si la hay) y apaga el server (os._exit).
 // Confirm OBLIGATORIO si hay corrida en curso: research/imgs = plata.
@@ -439,10 +519,12 @@ $('closeBtn').onclick=closeServer;
 // ITEM 1 — auto-run al abrir: si está fresco (nada corriendo y sin returncode) → lanzar solo,
 // sin click. El run frena en el primer diálogo esperando input → $0 de gasto hasta que Omar
 // elige. Si ya hay corrida (refresh a mitad) → NO relanzar, solo enganchar el polling.
+// F41: /form?topic=<id> abre RETOMANDO ese topic en vez de un research nuevo.
 (async function init(){
   try{
     const s=await (await fetch('/form_state')).json();
-    if(!s.running && s.returncode==null){ await launch(); return; }
+    const want=new URLSearchParams(location.search).get('topic');
+    if(!s.running && s.returncode==null){ if(want){ await resume(want); } else { await launch(); } return; }
   }catch(e){ /* si /form_state falla, igual enganchamos polling abajo */ }
   startPolling();
 })();

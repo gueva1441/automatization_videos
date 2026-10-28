@@ -1374,7 +1374,8 @@ def _start_narrfix(cap: str, feedback: str) -> dict:
 
 # ═════════════════════════════════════════════════════════════════
 #  FORM ASISTIDO — driver del subprocess run_pipeline + gates al browser
-#  (contrato chat 61). Lanza `run_pipeline.py --research` con QA_FORM=1; lee stdout
+#  (contrato chat 61). Lanza `run_pipeline.py --research` (o, F41, `--topic <id>` para
+#  retomar: /form_resume) con QA_FORM=1; lee stdout
 #  linea a linea; al ver el marcador @@QAFORM@@ lo expone como dialogo; la respuesta
 #  del HTML (window.qaFormAnswer) se traduce a una linea de stdin. La terminal NO
 #  cambia: el marcador solo se emite con QA_FORM seteada.
@@ -1411,7 +1412,9 @@ def _form_apply_cost(gc: dict, marker: dict, phase) -> None:
     md = gc["by_model"].setdefault(model, {"usd": 0.0, "calls": 0})
     md["usd"] = round(md["usd"] + usd, 6)
     md["calls"] += 1
-_FORM_PHASES = ["RESEARCH", "GUION", "ASSETS", "VIDEO", "PACKAGING"]
+# F41: las fases de run_pipeline (el header «  ▶ <FASE> (…) — <tid>»; gana la primera de la lista que aparece en la
+# línea, así que ningún nombre contiene a otro).
+_FORM_PHASES = ["RESEARCH", "GUION", "PAPEL", "VOZ", "ASSETS", "FONDOS", "PANTALLA", "RENDER", "PACKAGING"]
 _FORM_CONSOLE_MAX = 600
 # HTML por menú. __choice__ = diálogo genérico de botones (accept='key': video_type, …).
 # El host elige cuál según marker.accept. HANDOFF 65a: seed_pick y reuse_seeds van ambos a
@@ -1511,12 +1514,27 @@ def _thumbs_status() -> dict:
 
 def _form_command() -> list[str]:
     """Comando del run asistido. FACTORIZADO para que el smoke inyecte un stub.
-    El form arranca long directo (sin S/L) y con --batch: tras el pick de seed corre
-    GUION->ASSETS->VIDEO solo (gates del medio auto-decididos en fase1_5). El pick de
-    seed SIGUE interactivo (--batch solo gobierna del guion en adelante). Los flags los
-    agrega SOLO este lanzamiento; correr run_pipeline/fase1 a mano por terminal sigue
-    interactivo igual que hoy."""
+    El form arranca long directo (sin S/L) y con --batch: tras el pick de seed corre la
+    cadena de run_pipeline y se planta en las compuertas del papel y del guion de pantalla
+    (A/P de Omar); --batch solo hace que fase3 se reporte en vez de levantar su form. Los
+    flags los agrega SOLO este lanzamiento; correr run_pipeline/fase1 a mano por terminal
+    sigue igual."""
     return [sys.executable, "run_pipeline.py", "--research", "--video-type", "long", "--batch"]
+
+
+def _form_resume_command(tid: str) -> list[str]:
+    """F41: «retomar topic» — run_pipeline arranca en la primera etapa que le falta a `tid` (etapa_de)."""
+    return [sys.executable, "run_pipeline.py", "--topic", tid, "--batch"]
+
+
+def _form_topics() -> list[dict]:
+    """Los topics de data/topics_db.json para la lista «Retomar» del form: {id, title, status}. Solo lectura."""
+    try:
+        db = json.loads((BASE_DIR / "data" / "topics_db.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return []
+    return [{"id": t.get("id"), "title": t.get("video_title") or t.get("seed_title") or "",
+             "status": t.get("status")} for t in db.get("topics", []) if t.get("id")]
 
 
 def _form_reader(proc) -> None:
@@ -1586,7 +1604,8 @@ def _form_reader(proc) -> None:
         _FORM["marker"] = None
 
 
-def _start_form() -> dict:
+def _start_form(cmd: list[str] | None = None) -> dict:
+    """Lanza la corrida del form: `cmd` (p. ej. _form_resume_command) o, sin él, el research (_form_command)."""
     with _FORM_LOCK:
         if _FORM["running"]:
             return {"conflict": True}
@@ -1599,7 +1618,7 @@ def _start_form() -> dict:
     env = {**os.environ, "QA_FORM": "1", "PYTHONUNBUFFERED": "1", "PYTHONIOENCODING": "utf-8"}
     try:
         proc = subprocess.Popen(
-            _form_command(), cwd=str(BASE_DIR),
+            cmd or _form_command(), cwd=str(BASE_DIR),
             stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
             text=True, bufsize=1, encoding="utf-8", errors="replace", env=env,
         )
@@ -1832,6 +1851,8 @@ class Handler(BaseHTTPRequestHandler):
                 self._send_file(_FORM_MENU_HTML.get(menu), "text/html; charset=utf-8")
             elif route == "/form_state":
                 self._send_json(_form_state())
+            elif route == "/form_topics":
+                self._send_json(_form_topics())     # F41: lista «Retomar»
             elif route == "/thumbs_status":
                 self._send_json(_thumbs_status())   # HANDOFF_135
             elif route == "/marks":
@@ -1937,6 +1958,19 @@ class Handler(BaseHTTPRequestHandler):
                 else:
                     print("  ▶ form: lanzando run_pipeline --research (QA_FORM=1)…")
                     self._send_json({"started": True})
+            elif route == "/form_resume":                # F41: retomar un topic donde quedó
+                tid = self._qs().get("topic", [""])[0]
+                if tid not in {t["id"] for t in _form_topics()}:
+                    self._send_json({"error": "topic desconocido (no está en topics_db)"}, status=400)
+                    return
+                res = _start_form(_form_resume_command(tid))
+                if res.get("conflict"):
+                    self._send_json({"error": "ya hay una corrida en curso"}, status=409)
+                elif res.get("error"):
+                    self._send_json(res, status=500)
+                else:
+                    print(f"  ▶ form: retomando {tid} (run_pipeline --topic, QA_FORM=1)…")
+                    self._send_json({"started": True, "topic": tid})
             elif route == "/form_answer":
                 length = int(self.headers.get("Content-Length", 0))
                 body = json.loads(self.rfile.read(length) or b"{}")
