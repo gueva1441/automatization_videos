@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-27 (papel de Kyshtym APROBADO por Omar; PARADA antes de la voz) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-27 (F41: una sola cadena y el form de punta a punta; HECHA, PARADA; lo siguiente: Omar corre un tema nuevo de 0 desde el form) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -9,9 +9,20 @@
 - Video de prueba: Orleans `ba6c3cac-a091-41c0-8dad-afd2f4364747` (7 caps; ch02 es el cap de calibración, ch05 el segundo). Copia del research para F5: **`ba6c3cac-f5v2`**.
 - Candados vigentes:
   - md5 de ch02 `--only-cap` sin `--gfx` (`--reuse-visuals --sw-encode`) = **`f792f3d483a1fa42daed5f7f0e054f46`** desde F40 (subtítulos documentales; con `--no-subs` = `98386f86…`); hasta F39 era `38e5ba14…` (karaoke; `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`). `lab/hyperframes/f40/verificar.sh` lo imprime;
-  - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
+  - **Desde F41: suite amplia = 936 verdes + 2 fallas previas (`m03_merge_timing` ×2)**; las 3 de `test_module_01b_pauses.py` se borraron con el narrador viejo. Correrla con `lab/hyperframes/f41/verificar.sh` (`shopt -s nullglob`: `test_module_01a*.py` ya no existe).
+  - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F41): el form ya corre la cadena nueva de punta a punta. Lanzar un tema de 0 desde el form: research → guion → **compuerta del papel** (A aprueba, P para) → voz e imágenes → visor → fondos → **compuerta del guion de pantalla** → render con gfx → fase3. Retomar un topic: la lista «Retomar» del form o `python run_pipeline.py --topic <id> --batch` (arranca donde quedó y no re-paga nada). Kyshtym (`f39-kyshtym`) retoma en la voz. **RAM:** antes del render el orquestador mide la RAM (DECISIONES 00:30) y para si hay < 14 GB (hoy hay 13,3): no cierra nada, liberala vos y retomá. No correr a mano `fase1_5 --topic X --batch` en un topic con papel aprobado: rehace y paga el papel (usar `run_pipeline --topic X`). La UI del form no se probó en navegador (no se lanzó qa_studio).
+
+## F41 — Una sola cadena y el form de punta a punta (handoff del analista, 2026-10-27) — HECHA, **PARADA**
+- Handoff `lab/hyperframes/f41/HANDOFF_F41_una_cadena_y_el_form.md` (md5 `bd6361b3…`). Paso 0 `72d9eb2` (DECISIONES 20:59, md5 `f2bbbdfe…`). Sesión nueva abierta por Omar desde la de F38e–F40b.
+- A `fc59a76`: `fase1_5` con una sola cadena (F39 + guion v4); borrados `is_v3_topic`, `is_v4_guion`, `--v3`, `--guion`, `run_guion_v3` y la cadena vieja de m01a_skeleton/m01b_narrator/m01b_guionista/m01c_editor (lo que tiene otro llamador quedó); sin pool v3 = PARADA sin gastar; `video_type` guardado por research; `_titulo_de_semilla` también en `archived`.
+- B `0354cbc` + B2 `8a0ed90`: `run_pipeline` = GUION → PAPEL → VOZ → ASSETS → VISOR → FONDOS → GUION DE PANTALLA → RENDER gfx → fase3, con `etapa_de` y retomar; compuertas `papel_gate`/`guion_gate` (solo «A» aprueba; sin form paran); RAM medida antes del render (< 14 GB → PARADA); `/form_topics`, `/form_resume`; fuera el mensaje «m06».
+- Validación: candado ch02 `f792f3d4…` con subs y `98386f86…` sin subs ✓; rápida 58; amplia 936 + **2** previas (`m03_merge_timing`: las 3 de `01b_pauses` se borraron con el narrador viejo); `verificar.sh` de F41 con `shopt -s nullglob`. US$ 0.
+- Abierto a1–a10, b1–b9 en `lab/hyperframes/f41/F41_REPORT.md`. Lo siguiente: Omar corre un tema nuevo de 0 desde el form.
+- Reglas aprendidas: un `verificar.sh` con patrones de tests borrados aborta la suite entera («no tests ran»): `shopt -s nullglob`; los tests viejos de `test_run_pipeline.py` devolvían bool y pasaban siempre.
 
 ## ✅ Papel de Kyshtym APROBADO (Omar, 2026-10-27)
 - Antes de aprobar: md5 de `data/scripts/_steps/f39-kyshtym/01e_pantalla.md` = `83e8622b…` (el de F40b) ✓.
