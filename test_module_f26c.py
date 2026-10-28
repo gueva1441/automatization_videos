@@ -146,9 +146,9 @@ def test_cost_tracker_desde_hilos_no_se_pisa():
 def test_temas_un_proceso_por_tema(tmp_path, monkeypatch):
     import fase1_5 as f15
     monkeypatch.setattr(f15, "STEPS_DIR", tmp_path)
-    cmds = f15.temas_cmds(["a", "b"], ["--temas", "a,b", "--v3", "--from", "m01b"])
+    cmds = f15.temas_cmds(["a", "b"], ["--temas", "a,b", "--columna", "--from", "m01b"])   # F41: sin --v3
     assert [c[-2:] for c in cmds] == [["--topic", "a"], ["--topic", "b"]]
-    assert all("--temas" not in c and "--batch" in c and "--v3" in c for c in cmds)
+    assert all("--temas" not in c and "--batch" in c and "--columna" in c for c in cmds)
     vistos = []
 
     class P:

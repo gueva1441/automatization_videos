@@ -397,17 +397,3 @@ PÁRRAFO:
     return out
 
 
-def regenerate_cap(topic: dict, esc: dict, parrafos: list[dict], cap: int, *,
-                   call: Callable[..., dict] | None = None, log: list[str] | None = None) -> list[dict]:
-    """F10 §2 «regenerate_caps v3»: rehace UN cap con el editor (escaleta + texto vecino), no con el guionista entero.
-    Devuelve los párrafos con los del cap editados (los demás, intactos)."""
-    from script_engine import m01c_editor as mc
-    idx = [k for k, p in enumerate(parrafos) if p["cap"] == cap]
-    ctx = [k for k, p in enumerate(parrafos) if p["cap"] in (cap - 1, cap, cap + 1)]
-    sub = [parrafos[k] for k in ctx]
-    res = mc.edit(topic, esc, sub, call=call, log=log)
-    out = [dict(p) for p in parrafos]
-    for k_sub, k in enumerate(ctx):
-        if k in idx:
-            out[k] = res["parrafos"][k_sub]
-    return out

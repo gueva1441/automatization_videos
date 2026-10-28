@@ -354,18 +354,3 @@ def test_diff_de_los_prompts_es_solo_lo_dicho():
                                                        "lugares": []}, "x")
 
 
-def test_dorado_v3_solo_cambian_las_bandas(tmp_path, monkeypatch):
-    import test_module_f11 as t11
-    digest, out = t11._run_v3(tmp_path, monkeypatch)
-    assert digest == t11.V3_GOLDEN
-
-    def rev(s: str) -> str:
-        for a, b in t11.BANDAS_F23:
-            s = s.replace(a, b)
-        return s
-    h = hashlib.sha256()
-    for name in ("01b_guionista_v3.json", "01b_editor_v3.json", "01a_skeleton.json", "01b_narration.json",
-                 "01b_narracion_v3.json"):
-        h.update(rev((tmp_path / "t-f11" / name).read_bytes().decode("utf-8")).encode("utf-8"))
-    h.update(rev(json.dumps(out["juez"], ensure_ascii=False, sort_keys=True)).encode("utf-8"))
-    assert h.hexdigest() == t11.V3_GOLDEN_F22

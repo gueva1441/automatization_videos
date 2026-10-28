@@ -899,8 +899,9 @@ def _get_existing_seed_ids(db: dict) -> set[str]:
 #  ENRIQUECIMIENTO CON METADATA DEL SEED
 # ═══════════════════════════════════════════════════════════════
 
-def _enrich_with_seed_metadata(topic_data: dict, seed: dict) -> dict:
-    """Agrega trazabilidad del seed original al topic final."""
+def _enrich_with_seed_metadata(topic_data: dict, seed: dict, video_type: str | None = None) -> dict:
+    """Agrega trazabilidad del seed original al topic final. F41 §A.2: con `video_type`, el topic lo guarda (el tipo
+    pedido al research; antes solo lo ponía el validador y los topics de `investigar_semilla` quedaban en None)."""
     # Si el deep ya pre-generó topic_id, lo reusamos para no romper persistencia
     topic_id = topic_data.pop("_pre_topic_id", None) or str(uuid.uuid4())
 
@@ -931,6 +932,7 @@ def _enrich_with_seed_metadata(topic_data: dict, seed: dict) -> dict:
         # F10: el pool de research v3 viaja al topic (antes se perdía acá y el guion v3 no corría sin carga a mano)
         **({"evidence_pool": topic_data["evidence_pool"]} if topic_data.get("evidence_pool") else {}),
         **({"research_version": topic_data["research_version"]} if topic_data.get("research_version") else {}),
+        **({"video_type": video_type} if video_type else {}),
         "status": "researched",
         "competition_level": None,
         "market_verdict": None,
@@ -954,7 +956,8 @@ def investigar_semilla(seed: dict, topic_id: str) -> dict:
     `STEPS_DIR / topic_id` + sub-pasos 4a–4e) + `_enrich_with_seed_metadata`, pero:
       - el topic queda con `id == topic_id` (no uuid4) y guarda `seed_title` (el título de la ficha, como F23/F24);
       - sin el filtro de semillas ya investigadas;
-      - no toca el inbox (`selected_seeds.json`) ni el archivo de semillas (`seeds_archive.json`).
+      - no toca el inbox (`selected_seeds.json`) ni el archivo de semillas (`seeds_archive.json`);
+      - F41 §A.2: guarda `video_type: "long"` (es la cadena long; ningún llamador pide otro tipo).
     `topic_id` ya en topics_db → ValueError antes de gastar (y de nuevo al registrar: no pisa).
     Compuerta del pool en rojo → `PoolGateRed` se propaga (no se registra nada).
     Devuelve el topic tal como quedó guardado."""
@@ -967,7 +970,7 @@ def investigar_semilla(seed: dict, topic_id: str) -> dict:
         raise ValueError(f"{topic_id} ya está en topics_db: no se pisa")
     print(f"\n  🔬 Investigando la semilla «{seed['seed_title']}» en el topic {topic_id} (LONG)...")
     topic_data = _research_seed_deep(seed, _get_existing_titles(_load_topics_db()), topic_id=topic_id)
-    topic = {**_enrich_with_seed_metadata(topic_data, seed), "seed_title": seed["seed_title"]}
+    topic = {**_enrich_with_seed_metadata(topic_data, seed, video_type="long"), "seed_title": seed["seed_title"]}
     db = _load_topics_db()                      # releído: el research tarda minutos
     if _topic_registrado(db, topic_id):
         raise ValueError(f"{topic_id} apareció en topics_db durante el research: no se pisa")
@@ -1045,7 +1048,7 @@ def research_topics(
             )
             continue
 
-        topic = _enrich_with_seed_metadata(topic_data, seed)
+        topic = _enrich_with_seed_metadata(topic_data, seed, video_type=video_type)   # F41 §A.2: el tipo pedido
         db["topics"].append(topic)
         researched.append(topic)
         existing_titles.append(topic["video_title"])

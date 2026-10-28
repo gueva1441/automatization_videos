@@ -10,8 +10,7 @@ sigue siendo 7 caps (`EXPECTED_CHAPTER_COUNT`): cada beat va a un cap.
 
     generate_escaleta(topic)   → escaleta (persistida en _steps/<id>/01a_escaleta.json); sin ficha v2, EscaletaSinFicha
     frozen_escaleta(topic)     token `escaleta_frozen` (o `skeleton_frozen` apuntando a una escaleta): usa una ya
-                               hecha, traduce sus ids al pool actual por texto, como frozen_skeleton
-    is_v3(topic)               GUION_V3=1 o topic["guion_version"] == 3, y el topic tiene evidence_pool
+                               hecha, traduce sus ids al pool actual por texto
     to_markdown(esc, pool)     la escaleta legible (para Omar)
 
 Validador (determinista). Repara (y lo anota en `_reparaciones`) solo lo mecánico:
@@ -51,7 +50,6 @@ from __future__ import annotations
 
 import copy
 import json
-import os
 import re
 from pathlib import Path
 from typing import Any, Callable
@@ -752,11 +750,6 @@ def ficha_notes(esc: dict, ficha: dict) -> None:
             f"humano «{hum.get('nombre')}» no está entre los humanos_candidatos de la ficha "
             f"({', '.join(str(c.get('nombre')) for c in cands)}); justificación: "
             f"{esc.get('justificacion_humano') or '(sin justificación)'}")
-
-
-def is_v3(topic: dict) -> bool:
-    """Guion v3 solo con evidence_pool y con el flag (GUION_V3=1 o topic["guion_version"] == 3)."""
-    return bool(topic.get("evidence_pool")) and (os.environ.get("GUION_V3") == "1" or topic.get("guion_version") == 3)
 
 
 def call_escaleta(modelo: str | None = None) -> Callable[..., dict]:

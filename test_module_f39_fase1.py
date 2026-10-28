@@ -96,7 +96,7 @@ def env(tmp_path, monkeypatch):
 
 def _cadena(env, capsys):
     f15.research_de_semilla(env["sem"], TID)
-    r = f15.process_topic(TID, v3=True, guion="v4", gate_interactive=False, music_gate_interactive=False)
+    r = f15.process_topic(TID, gate_interactive=False, music_gate_interactive=False)
     return r, capsys.readouterr().out
 
 
@@ -143,7 +143,7 @@ def test_a1_compuerta_roja_no_paga_la_ficha(env, monkeypatch, capsys):
         raise PoolGateRed({"color": "rojo", "motivos": ["sin fecha"], "metricas": {}})
     monkeypatch.setattr(me, "pool_gate_profile", rojo)
     f15.research_de_semilla(env["sem"], TID)
-    r = f15.process_topic(TID, v3=True, guion="v4", gate_interactive=False, music_gate_interactive=False)
+    r = f15.process_topic(TID, gate_interactive=False, music_gate_interactive=False)
     assert r["status"] == "PARADA" and "ROJA: sin fecha" in r["motivo"]
     assert not any(p.startswith("ficha") for p in env["pasos"])
 
@@ -152,7 +152,7 @@ def test_a1_ficha_v2_existente_no_se_regenera(env, capsys):
     f15.research_de_semilla(env["sem"], TID)
     (env["steps"] / TID / "ficha_caso.json").write_text(json.dumps({"historia": {}, "prompt_version": "f23-1"}),
                                                         encoding="utf-8")
-    f15.process_topic(TID, v3=True, guion="v4", gate_interactive=False, music_gate_interactive=False)
+    f15.process_topic(TID, gate_interactive=False, music_gate_interactive=False)
     assert not any(p.startswith("ficha") for p in env["pasos"])
     assert "ya hay ficha v2 (f23-1): se usa" in capsys.readouterr().out
 
@@ -181,7 +181,7 @@ def test_a4_aprobar_papel_y_md5(env, capsys, monkeypatch):
 
 def test_a4_reanudar_despues_de_m01b_mira_el_papel(env, capsys):
     _cadena(env, capsys)
-    r = f15.process_topic(TID, from_step="audio", v3=True, guion="v4", gate_interactive=False,
+    r = f15.process_topic(TID, from_step="audio", gate_interactive=False,
                           music_gate_interactive=False)
     assert r["status"] == "PARADA" and r["parada"] == "papel"
 
@@ -197,7 +197,7 @@ def test_a4_sin_papel_no_hay_nada_que_aprobar(env):
 def test_a4_papel_aprobado_deja_seguir(env, capsys):
     _cadena(env, capsys)
     f15.aprobar_papel(TID, "Omar 2026-10-27")
-    r = f15.process_topic(TID, from_step="normalizer_gate", v3=True, guion="v4", gate_interactive=False,
+    r = f15.process_topic(TID, from_step="normalizer_gate", gate_interactive=False,
                           music_gate_interactive=False)
     out = capsys.readouterr().out
     assert "[papel] papel aprobado por Omar (2026-10-27)" in out        # pasó la compuerta del papel …

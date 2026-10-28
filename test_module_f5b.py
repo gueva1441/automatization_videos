@@ -1,8 +1,6 @@
 """F5b (VALIDACION_F5): narración N1–N5 y pantalla S1–S6. Sin red."""
 from __future__ import annotations
 
-import json
-
 from researcher_steps import evidence_pool as ep
 from script_engine import evidence as ev
 from script_engine import gfx_pool as gp
@@ -214,21 +212,3 @@ def test_s6_ubicaciones_documentadas_solo_con_pool():
     assert "UBICACIONES DOCUMENTADAS" in m3._format_seedream_canon_block({**topic, "evidence_pool": pool})
 
 
-def test_narrador_declara_ids_y_corrige_mayusculas(monkeypatch):
-    import script_engine.m01b_narrator as nb
-    base = "Los guardias contaron a los presos en el patio de la cárcel una vez más. "
-    good = (base * 5 + "El patio estaba húmedo, sucio y oscuro, el aire pesado. " + base * 5
-            + "En la prisión había niños de hasta 10 años, dijo un Recluso, Arrestado el lunes. Nadie los contó.").strip()
-    sk = {"chapters": [{"chapter_number": 2, "evidence_ids": ["D01"], "cliffhanger": None}], "personajes": []}
-    monkeypatch.setattr(nb, "call_flash_json", lambda p, response_schema=None: (
-        json.dumps(response_schema) and {"narration": good, "datos_usados": ["[D01]"]}))
-    declared: dict = {}
-    out = nb._call_with_length_retry("P", role="development", cap_number=2, max_attempts=3,
-                                     f5={"pool": {**POOL, "personajes": [*(POOL.get("personajes") or []),
-                                                                        {"id": "P99", "nombre": "Ana Paz",
-                                                                         "rol": "recluso arrestado"}]},
-                                         "skeleton": sk, "previous": []}, violations={}, declared=declared)
-    assert declared == {2: ["D01"]} and ", arrestado el lunes" in out
-    assert "datos_usados" in nb._narration_schema(with_ids=True)["required"]
-    assert nb._narration_schema() == {"type": "OBJECT", "properties": {"narration": {"type": "STRING"}},
-                                      "required": ["narration"]}            # sin pool: igual que antes

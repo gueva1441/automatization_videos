@@ -76,7 +76,7 @@ def test_fechas_con_su_fecha_y_sin_fundir():
 
 
 def test_largo_minimo_mas_15_para_pro():
-    assert nb.POOL_MIN_LEN_FACTOR == 1.15
+    # F41: POOL_MIN_LEN_FACTOR (el del narrador viejo) se borró; queda la banda de _len_range con su factor
     # F23 §1.2: la banda sale de video_length (dev_words 250 × 6 × 0.5–1.3 = 750–1950; antes, fija 800–2000)
     assert nb._len_range("development") == (750, 1950) and nb._len_range("development", 1.15) == (862, 1950)
 
@@ -89,6 +89,3 @@ def test_canon_m03_ningun_menor_en_celdas_de_adultos():
     assert m3._format_documented_locations({"evidence_pool": None}) == ""
 
 
-def test_prompt_trae_las_reglas_nuevas():
-    for k in ("L. Fechas", "M. Literal es solo", "N. Cifra canónica", "O. Los DATOS RESERVADOS PARA PANTALLA"):
-        assert k in nb.F5_RULES

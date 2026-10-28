@@ -167,14 +167,17 @@ M: dict[str, tuple[str, str, str, str, str]] = {
     "m01a_escaleta": ("Fase 1: arma la escaleta (los beats del video con función, intensidad, datos y cierre) desde la "
                       "ficha del caso v2; es lo que el gfx lee para saber qué va dónde. F39 §A.2: sin ficha v2 "
                       "(`ficha_caso.json` con `historia`) lanza `EscaletaSinFicha` y para sin gastar; el camino viejo "
-                      "sin ficha (prompt, reglas y ejemplos de Pro) se borró.", "ficha del caso v2 + pool",
+                      "sin ficha (prompt, reglas y ejemplos de Pro) se borró. F41: `is_v3` (el selector por "
+                      "`guion_version`/`GUION_V3`) se borró; la escaleta corre siempre en la cadena única de fase1_5.",
+                      "ficha del caso v2 + pool",
                       "`01a_escaleta.json`", "F6", "vivo (fase 1; el gfx lee su salida)"),
     "m01d_particion": ("Fase 1: parte el guion en los 7 capítulos con su texto para la voz; de ahí salen la "
                        "narración por cap y por beat que leen el realizador y el guion en papel. F38e: los títulos de "
                        "cap son la promesa del cap: Flash ve de cada beat su función, qué se ve y qué pregunta abre, cuál "
                        "es el pico (esc.pico.beat) y cómo termina cada cap (marcado «no lo cuentes»); el pedido es el "
                        "bloque de PRUEBA2_prompt_titulos.md letra por letra (`PEDIDO_TITULOS`), con la misma validación "
-                       "(≤ 5 palabras, sin cifra, sin «?») y el mismo respaldo.", "guion + escaleta",
+                       "(≤ 5 palabras, sin cifra, sin «?») y el mismo respaldo. F41: `regenerate_cap` (el retoque "
+                       "v3 de F10 con `m01c_editor.edit`) se borró con la cadena vieja.", "guion + escaleta",
                        "narración por cap y por beat, títulos de cap", "F10", "vivo (fase 1)"),
     "m01e_pantalla": ("Fase 1 (F36 C): el guion de pantalla EN PAPEL. Una llamada a Sonnet por video con la narración "
                       "de los 7 caps (oraciones numeradas y cuánto cabe), la escaleta, el archivo del caso y el "

@@ -166,32 +166,6 @@ def test_fechas_ese_dia():
     assert "«ese domingo»" not in src
 
 
-def test_dorado_v3_solo_cambian_los_mensajes_de_f22(tmp_path, monkeypatch):
-    import test_module_f11 as t11
-    digest, out = t11._run_v3(tmp_path, monkeypatch)
-    assert digest == t11.V3_GOLDEN
-    pares = t11.BANDAS_F23 + [                                # F23: primero las notas de largo de m01d
-             ("una ruta 10 no son los niños de 10 años", "«Interestatal 10» no son los niños de 10 años"),
-             ("(una frase corta con el lugar y el año) antes de la segunda cita",
-              "(una frase corta con la ciudad y el año: «Nueva Orleans, agosto de 2005.») antes de la segunda cita"),
-             ("(cómo era el lugar, la luz, el frío o el calor)", "(cómo era el agua, la celda, el calor)"),
-             ("(el nombre completo con el cargo basta una vez; después, el cargo o el apellido solo)",
-              "(«sheriff Marlin N. Gusman» basta una vez; después «el sheriff», «Gusman»)"),
-             ("después de la primera, «ese día», «esa noche», «esa mañana»",
-              "después de la primera, «ese domingo», «esa noche», «esa mañana»")]
-
-    def rev(s: str) -> str:
-        for a, b in pares:
-            s = s.replace(a, b)
-        return s
-    h = hashlib.sha256()
-    for name in ("01b_guionista_v3.json", "01b_editor_v3.json", "01a_skeleton.json", "01b_narration.json",
-                 "01b_narracion_v3.json"):
-        h.update(rev((tmp_path / "t-f11" / name).read_bytes().decode("utf-8")).encode("utf-8"))
-    h.update(rev(json.dumps(out["juez"], ensure_ascii=False, sort_keys=True)).encode("utf-8"))
-    assert h.hexdigest() == t11.V3_GOLDEN_F21
-
-
 # ═══════════════════════════════════════════════════════════════
 #  §1.2 antagonista: columna
 # ═══════════════════════════════════════════════════════════════

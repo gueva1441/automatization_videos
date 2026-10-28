@@ -4,7 +4,6 @@ un `call` falso y la reparación de una sola ronda (nunca vuelve a llamar al gui
 """
 from __future__ import annotations
 
-import hashlib
 import json
 
 import pytest
@@ -63,77 +62,6 @@ def _esc():
 def _parrafos(esc, text=FRASE):
     return [{"beat": b["n"], "cap": b["cap"], "texto": f"{text}El portón {b['n']} quedó cerrado.", "ids_usados": []}
             for b in esc["beats"]]
-
-
-# ═══════════════════════════════════════════════════════════════
-#  v3 byte-idéntico (con call falso)
-# ═══════════════════════════════════════════════════════════════
-
-# sha256 de los 6 archivos que escribe run_guion_v3 con el call falso, medido en b8ff4ef (antes de F11)
-# F22: cambian solo cinco mensajes de feedback al modelo (sin nombres de Orleans); con esos textos vueltos atrás el
-# hash es el de F21 (76101fbe…): test_module_f22.test_dorado_v3_solo_cambian_los_mensajes_de_f22
-# F23: cambian solo las notas de largo de m01d (las bandas de caracteres salen de video_length, §1.2); con esas notas
-# vueltas atrás el hash es el de F22e (cf2181e4…): test_module_f23.test_dorado_v3_solo_cambian_las_bandas
-V3_GOLDEN = "aaffb169c5832630b055a81e84921794969dde8a50a78b1e99a79463e4ec220c"
-V3_GOLDEN_F22 = "cf2181e4a83d166cefd7afb530a4ef495dcefe067b4942ed10f88325dfb2b6bd"
-BANDAS_F23 = [("< 280 (corto", "< 255 (corto"), ("< 637 (corto", "< 680 (corto"), ("< 357 (corto", "< 340 (corto")]
-V3_GOLDEN_F21 = "76101fbe25c8dec5aaa1f42978d541f2150d778cc30368ef67588061fe79bb6a"
-
-
-def _fake_pro(prompt, **kw):
-    d = kw.get("description") or ""
-    esc = _esc()
-    if d.startswith("m01b_guionista"):
-        return {"parrafos": [{"beat": p["beat"], "texto": p["texto"], "ids_usados": [f"D{p['beat']}"]}
-                             for p in _parrafos(esc)]}
-    if d == "m01c_editor":
-        ps = _parrafos(esc)
-        return {"parrafos": [{"beat": p["beat"], "texto": p["texto"].replace("Nadie entendía nada. ", ""),
-                              "ids_usados": [f"D{p['beat']}"]} for p in ps],
-                "cambios": [{"parrafo": 0, "antes": "a", "despues": "b", "motivo": "corta"}]}
-    return {"texto": prompt[-200:]}
-
-
-def _run_v3(tmp_path, monkeypatch, **kw):
-    import gemini_helpers
-    monkeypatch.setattr(gemini_helpers, "call_pro_json", _fake_pro)
-    monkeypatch.setattr(gemini_helpers, "call_flash_json",
-                        lambda p, **k: {"titulos": [f"Título {n}" for n in range(1, 8)]})
-    monkeypatch.setattr(f15, "STEPS_DIR", tmp_path)
-    monkeypatch.setattr(md, "STEPS_DIR", tmp_path)
-    monkeypatch.setattr(f15, "_load_topic_by_id", lambda tid: dict(TOPIC))
-    monkeypatch.setattr(f15, "_step_cost", lambda tid, label, fn: fn())
-    (tmp_path / "t-f11").mkdir(parents=True, exist_ok=True)
-    (tmp_path / "t-f11" / "01a_escaleta.json").write_text(json.dumps(_esc(), ensure_ascii=False), encoding="utf-8")
-    import script_engine.m05_narrative as m05
-    monkeypatch.setattr(m05, "judge_narration", lambda tid, **k: m05.video_metrics(
-        sorted(k["narration"]["chapters"], key=lambda c: c["chapter_number"]), k["pool"], k["skeleton"]))
-    out = f15.run_guion_v3("t-f11", **kw)
-    h = hashlib.sha256()
-    for name in ("01b_guionista_v3.json", "01b_editor_v3.json", "01a_skeleton.json", "01b_narration.json",
-                 "01b_narracion_v3.json"):
-        h.update((tmp_path / "t-f11" / name).read_bytes())
-    h.update(json.dumps(out["juez"], ensure_ascii=False, sort_keys=True).encode("utf-8"))
-    return h.hexdigest(), out
-
-
-def test_v3_byte_identico(tmp_path, monkeypatch):
-    digest, _ = _run_v3(tmp_path, monkeypatch)
-    assert digest == V3_GOLDEN
-
-
-def test_v3_sigue_por_su_camino_y_v4_por_el_suyo(monkeypatch):
-    called = []
-    monkeypatch.setattr(f15, "_load_topic_by_id", lambda tid: {"id": tid, "evidence_pool": {"datos": []}})
-    monkeypatch.setattr(f15, "_topic_v3", lambda tid: {"id": tid})
-    out = {"particion": {"skeleton": {}, "narration": {}}}
-    monkeypatch.setattr(f15, "run_guion_v3", lambda tid: called.append("v3") or out)
-    monkeypatch.setattr(f15, "run_guion_v4", lambda tid: called.append("v4") or out)
-    f15.process_topic("t", from_step="m01b", stop_after_step="m01b", v3=True)
-    f15.process_topic("t", from_step="m01b", stop_after_step="m01b", v3=True, guion="v4")
-    assert called == ["v3", "v4"]
-    assert f15.is_v4_guion({"guion_version": 4}) and not f15.is_v4_guion({"guion_version": 3})
-    assert f15.is_v3_topic({"evidence_pool": {"datos": []}, "guion_version": 4})
 
 
 # ═══════════════════════════════════════════════════════════════

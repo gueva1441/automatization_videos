@@ -132,26 +132,6 @@ def test_audio_script_v2_igual_y_v3_con_narration_tts():
     assert v3["chapters"][0]["narration_tts"] == "Hola. [long pause]" and v3["chapters"][0]["text"] == "Hola."
 
 
-def test_cuando_corre_v3():
-    assert not f15.is_v3_topic({"evidence_pool": {"datos": []}})
-    assert f15.is_v3_topic({"evidence_pool": {"datos": []}}, flag=True)
-    assert f15.is_v3_topic({"evidence_pool": {"datos": []}, "guion_version": 3})
-    assert not f15.is_v3_topic({"guion_version": 3})                  # sin pool no hay v3
-
-
-def test_sin_flag_corre_el_camino_viejo(monkeypatch):
-    called = []
-    monkeypatch.setattr(f15, "_load_topic_by_id", lambda tid: {"id": tid})
-    monkeypatch.setattr(f15, "generate_skeleton", lambda t: called.append("m01a_skeleton") or {"chapters": []})
-    monkeypatch.setattr(f15, "run_escaleta_v3", lambda tid, **kw: called.append("escaleta"))   # F22d: + columna=
-    r = f15.process_topic("t", from_step="m01a", stop_after_step="m01a")
-    assert r["status"] == "PASS" and called == ["m01a_skeleton"]
-    called.clear()
-    monkeypatch.setattr(f15, "_load_topic_by_id", lambda tid: {"id": tid, "evidence_pool": {"datos": []}})
-    r = f15.process_topic("t", from_step="m01a", stop_after_step="m01a", v3=True)
-    assert r["status"] == "PASS" and called == ["escaleta"]
-
-
 def test_el_pool_v3_llega_al_topic():
     import topic_researcher as tr
     seed = {"seed_id": "s", "discovery_mode": "manual", "tags": []}

@@ -281,6 +281,7 @@
    "entrega": "`aprobado` en el guion; sí/no para el hook",
    "lo_llama": [
     "fase2b.py",
+    "run_pipeline.py",
     "script_engine/gfx_layer.py"
    ],
    "tests": 2,
@@ -293,7 +294,7 @@
   {
    "modulo": "m01a_escaleta",
    "archivo": "script_engine/m01a_escaleta.py",
-   "sticker": "Fase 1: arma la escaleta (los beats del video con función, intensidad, datos y cierre) desde la ficha del caso v2; es lo que el gfx lee para saber qué va dónde. F39 §A.2: sin ficha v2 (`ficha_caso.json` con `historia`) lanza `EscaletaSinFicha` y para sin gastar; el camino viejo sin ficha (prompt, reglas y ejemplos de Pro) se borró.",
+   "sticker": "Fase 1: arma la escaleta (los beats del video con función, intensidad, datos y cierre) desde la ficha del caso v2; es lo que el gfx lee para saber qué va dónde. F39 §A.2: sin ficha v2 (`ficha_caso.json` con `historia`) lanza `EscaletaSinFicha` y para sin gastar; el camino viejo sin ficha (prompt, reglas y ejemplos de Pro) se borró. F41: `is_v3` (el selector por `guion_version`/`GUION_V3`) se borró; la escaleta corre siempre en la cadena única de fase1_5.",
    "recibe": "ficha del caso v2 + pool",
    "entrega": "`01a_escaleta.json`",
    "lo_llama": [
@@ -305,8 +306,8 @@
     "script_engine/m01d_particion.py",
     "script_engine/tts_tags.py"
    ],
-   "tests": 20,
-   "lab": 28,
+   "tests": 21,
+   "lab": 29,
    "tanda": "F6",
    "nacio": "4b41280 2026-10-21 wip(f6b): m01a_escaleta (schema, prompt con few-shot, validador, pool plan heredado, frozen) + tests",
    "estado": "vivo (fase 1; el gfx lee su salida)",
@@ -315,14 +316,14 @@
   {
    "modulo": "m01d_particion",
    "archivo": "script_engine/m01d_particion.py",
-   "sticker": "Fase 1: parte el guion en los 7 capítulos con su texto para la voz; de ahí salen la narración por cap y por beat que leen el realizador y el guion en papel. F38e: los títulos de cap son la promesa del cap: Flash ve de cada beat su función, qué se ve y qué pregunta abre, cuál es el pico (esc.pico.beat) y cómo termina cada cap (marcado «no lo cuentes»); el pedido es el bloque de PRUEBA2_prompt_titulos.md letra por letra (`PEDIDO_TITULOS`), con la misma validación (≤ 5 palabras, sin cifra, sin «?») y el mismo respaldo.",
+   "sticker": "Fase 1: parte el guion en los 7 capítulos con su texto para la voz; de ahí salen la narración por cap y por beat que leen el realizador y el guion en papel. F38e: los títulos de cap son la promesa del cap: Flash ve de cada beat su función, qué se ve y qué pregunta abre, cuál es el pico (esc.pico.beat) y cómo termina cada cap (marcado «no lo cuentes»); el pedido es el bloque de PRUEBA2_prompt_titulos.md letra por letra (`PEDIDO_TITULOS`), con la misma validación (≤ 5 palabras, sin cifra, sin «?») y el mismo respaldo. F41: `regenerate_cap` (el retoque v3 de F10 con `m01c_editor.edit`) se borró con la cadena vieja.",
    "recibe": "guion + escaleta",
    "entrega": "narración por cap y por beat, títulos de cap",
    "lo_llama": [
     "fase1_5.py",
     "script_engine/guion_v4.py"
    ],
-   "tests": 6,
+   "tests": 7,
    "lab": 8,
    "tanda": "F10",
    "nacio": "317c5f1 2026-10-22 wip(f10-4.1): fase1_5 --v3 (escaleta → guionista → editor → m01d_particion → juez) con el contrato de 7 caps; --from; cor",
@@ -345,7 +346,7 @@
    "tanda": "F36",
    "nacio": "9e9d844 2026-10-26 feat(f36-c): m01e_pantalla — el guion de pantalla en papel va a Fase 1 (DECISIONES 19:54) · una llamada a Sonnet por vide",
    "estado": "vivo (fase 1)",
-   "doc": "script_engine/m01e_pantalla.py — F36 §C: el guion de pantalla EN PAPEL (DECISIONES 2026-10-26 19:54: «el autor de la pantalla va a Fase 1»). Corre en Fase 1 después de m01d_particion y antes de la voz (fase1_5.run_guion_v3/v4, con su costo en 01_v3_costos.json como los demás pasos) o suelto: `python -m script_engine.m01e_pantalla <topic>`."
+   "doc": "script_engine/m01e_pantalla.py — F36 §C: el guion de pantalla EN PAPEL (DECISIONES 2026-10-26 19:54: «el autor de la pantalla va a Fase 1»). Corre en Fase 1 después de m01d_particion y antes de la voz (fase1_5.run_guion_v4, con su costo en 01_v3_costos.json como los demás pasos) o suelto: `python -m script_engine.m01e_pantalla <topic>`."
   },
   {
    "modulo": "music_intensity",
@@ -999,6 +1000,13 @@
    ]
   },
   {
+   "de": "run_pipeline",
+   "a": "aprobacion",
+   "donde": [
+    "arriba"
+   ]
+  },
+  {
    "de": "gfx_layer",
    "a": "aprobacion",
    "donde": [
@@ -1030,7 +1038,6 @@
    "de": "m01b_guionista",
    "a": "m01a_escaleta",
    "donde": [
-    "en extra_material",
     "en review"
    ]
   },
@@ -1059,7 +1066,6 @@
    "de": "fase1_5",
    "a": "m01d_particion",
    "donde": [
-    "en run_guion_v3",
     "en run_guion_v4"
    ]
   },

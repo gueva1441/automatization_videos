@@ -156,16 +156,6 @@ def test_generate_con_reintento_pool_plan_y_frozen(tmp_path, monkeypatch):
     assert fz["beats"][0]["dato_central"] == "Q01" and fz["_frozen"]["problemas"] == []
 
 
-def test_flag_v3_y_camino_v2(monkeypatch):
-    monkeypatch.delenv("GUION_V3", raising=False)
-    assert not me.is_v3({"evidence_pool": POOL}) and me.is_v3({"evidence_pool": POOL, "guion_version": 3})
-    assert not me.is_v3({"guion_version": 3})                                   # sin pool: siempre v2
-    monkeypatch.setenv("GUION_V3", "1")
-    assert me.is_v3({"evidence_pool": POOL})
-    with pytest.raises(ValueError):
-        me.generate_escaleta({"id": "x"}, call=lambda *a, **k: {})
-
-
 # ═══ F6b-3 ═══
 
 def _pool3():

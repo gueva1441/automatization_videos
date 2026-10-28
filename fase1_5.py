@@ -1,10 +1,15 @@
 """
 fase1_5.py — Orchestrator del motor de guion (m01a → m03 → assemble)
 
-Toma topics aprobados desde el CSV editado de fase1 (latido A) y los corre
-por la cadena m01a → m01b → normalizer_gate → audio → m07 → m03 → assemble.
-Tras m03 se ensambla directo data/scripts/<topic_id>.json (contrato sagrado
-que lee fase2a) con assemble_final_script.
+F41 (DECISIONES 2026-10-27 20:59): UNA sola cadena, la de F39 con guion v4, para todo topic (sin flags ni
+`guion_version` que la elijan):
+  m01a  compuerta del pool → ficha si falta → escaleta
+  m01b  guion v4 → reparación → partición (caps y títulos) → papel (m01e) → juez m05
+  PARADA del papel salvo `--aprobar-papel` vigente
+  normalizer_gate → audio → m07 → m03 → foto madre → assemble (data/scripts/<topic_id>.json, el contrato que lee
+  fase2a)
+Un topic sin evidence_pool v3 (`_research_v3`, el research v3) para antes de gastar, con su motivo. La cadena vieja
+(m01a_skeleton → m01b_narrator) y el guionista v3 (F10) se borraron.
 
 Chat 119: el juez (m05 voting + m06 clasificador/menú [P]/[R]/[E]) fue
 DESCONECTADO del chain. m05_judge.py y m06_classifier.py siguen VIVOS en el
@@ -13,11 +18,13 @@ repo; para re-enchufarlos → git revert del commit de desconexión (o tag juez-
 Cada módulo persiste su output en data/scripts/_steps/<topic_id>/.
 
 Uso:
-  python fase1_5.py                              corre todos los topics aprobados desde m01a
-  python fase1_5.py --topic <id>                 corre solo 1 topic específico
+  python fase1_5.py                              menú: elegir 1 topic validado y correr la cadena desde m01a
+  python fase1_5.py --topic <id> --batch         corre la cadena de 1 topic (hasta la PARADA del papel)
+  python fase1_5.py --topic <id> --from normalizer_gate --batch
+                                                 con el papel aprobado: voz, música, m03, foto madre y assemble
   python fase1_5.py --topic <id> --only m03      corre SOLO m03 y corta (sin arrastrar la cadena)
   python fase1_5.py --topic <id> --only m01b     corre SOLO m01b y corta
-  python fase1_5.py --semilla <s.json> --topic <id_nuevo> --v3 --guion v4 --batch
+  python fase1_5.py --semilla <s.json> --topic <id_nuevo> --batch
                                                  F39: de la semilla al papel (research → ficha → escaleta → guion →
                                                  caps → papel) y PARADA del papel
   python fase1_5.py --topic <id> --aprobar-papel "Omar <fecha>"
@@ -53,8 +60,6 @@ from csv_exporter import parse_decisions_csv, OUTPUT_CSV, export_single_topic_cs
 
 # Módulos del motor de guion
 import audio_manager
-from script_engine.m01a_skeleton import generate_skeleton
-from script_engine.m01b_narrator import generate_narration
 from script_engine import m02_5_normalizer_gate
 from script_engine.m03_visual import assign_visual_prompts
 # Chat 119: el juez (m05_judge + m06_classifier) fue DESCONECTADO del chain — assemble
@@ -167,18 +172,20 @@ def _load_narration(topic_id: str) -> dict:
 
 
 # ═══════════════════════════════════════════════════════════════
-#  GUION v3 (F10): compuerta → escaleta → guionista → editor → partición → juez
+#  LA CADENA (F39/F41): compuerta → ficha → escaleta → guion v4 → partición → papel → juez
 # ═══════════════════════════════════════════════════════════════
 
-def is_v3_topic(topic: dict, flag: bool = False) -> bool:
-    """F10: el camino v3 corre con `--v3` o `topic["guion_version"] == 3` (F11: o 4), y solo si el topic trae
-    evidence_pool."""
-    return bool(topic.get("evidence_pool")) and (flag or topic.get("guion_version") in (3, 4))
+def pool_v3(topic: dict) -> bool:
+    """F41: la única cadena necesita el evidence_pool del research v3 (la marca `_research_v3` que pone el research v3
+    y que mira la compuerta del pool, `m01a_escaleta.pool_gate_profile`)."""
+    return bool((topic.get("evidence_pool") or {}).get("_research_v3"))
 
 
-def is_v4_guion(topic: dict, guion: str | None = None) -> bool:
-    """F11: el guionista v4 (una llamada → reparación de una ronda) con `--guion v4` o `topic["guion_version"] == 4`."""
-    return guion == "v4" or (guion is None and topic.get("guion_version") == 4)
+def motivo_sin_pool(topic_id: str, topic: dict) -> str:
+    """El motivo de la PARADA de un topic sin evidence_pool v3 (antes de gastar nada)."""
+    falta = "sin evidence_pool" if not topic.get("evidence_pool") else "el evidence_pool no es del research v3"
+    return (f"{topic_id}: {falta} (falta `_research_v3`): la cadena no corre sin el pool del research v3; "
+            f"para un tema nuevo, `python fase1_5.py --semilla <archivo> --topic <id_nuevo> --batch`")
 
 
 def cargar_perfil(topic_id: str) -> bool:
@@ -192,11 +199,10 @@ def cargar_perfil(topic_id: str) -> bool:
 
 
 def _topic_v3(topic_id: str) -> dict:
-    """El topic con lo que la tubería v3 necesita: guion_version 3 y las notas del analista para la escaleta
+    """El topic con lo que la cadena necesita: el perfil del caso y las notas del analista para la escaleta
     (`_steps/<id>/escaleta_notas.md`, si existe; van como indicaciones, no como reglas)."""
     topic = dict(_load_topic_by_id(topic_id))
-    topic["guion_version"] = 3
-    cargar_perfil(topic_id)                                  # F21b: el vocabulario del caso, antes de cualquier bloqueante
+    cargar_perfil(topic_id)                                 # F21b: el vocabulario del caso, antes de cualquier bloqueante
     notes = STEPS_DIR / topic_id / "escaleta_notas.md"
     if notes.exists() and not topic.get("escaleta_notas"):
         topic["escaleta_notas"] = notes.read_text(encoding="utf-8").strip()
@@ -248,7 +254,9 @@ def _titulo_de_semilla(topic: dict) -> str | None:
     f = DATA_DIR / "seeds_archive.json"
     if topic.get("seed_id") and f.exists():
         data = json.loads(f.read_text(encoding="utf-8"))
-        for s in (data.get("seeds") if isinstance(data, dict) else data) or []:
+        # F41: también `archived` (donde research_topics archiva la semilla que investigó: el camino del form)
+        filas = ((data.get("seeds") or []) + (data.get("archived") or [])) if isinstance(data, dict) else data
+        for s in filas or []:
             if isinstance(s, dict) and s.get("seed_id") == topic["seed_id"] and s.get("seed_title"):
                 return str(s["seed_title"])
     return None
@@ -398,30 +406,6 @@ def run_escaleta_v3(topic_id: str, columna: bool = False, modelo: str | None = N
     return esc
 
 
-def run_guion_v3(topic_id: str) -> dict:
-    """m01b v3: guionista (best_of_2) → editor → m01d_particion (contrato de 7 caps) → juez m05.
-    Escribe 01b_guionista_v3, 01b_editor_v3, 01a_skeleton, 01b_narration, 01b_narracion_v3 y 06_judge_narrative."""
-    from script_engine import m01b_guionista as mg
-    from script_engine import m01c_editor as mc
-    from script_engine import m01d_particion as md
-    from script_engine.m05_narrative import judge_narration
-    topic = _topic_v3(topic_id)
-    pool = topic["evidence_pool"]
-    esc = _load_step_output(topic_id, "01a_escaleta.json")
-    log: list[str] = []
-    d = STEPS_DIR / topic_id
-    g = _step_cost(topic_id, "guionista", lambda: mg.write(topic, esc, log=log))
-    (d / "01b_guionista_v3.json").write_text(json.dumps(g, ensure_ascii=False, indent=2), encoding="utf-8")
-    e = _step_cost(topic_id, "editor", lambda: mc.edit(topic, esc, g["parrafos"], log=log))
-    (d / "01b_editor_v3.json").write_text(json.dumps(e, ensure_ascii=False, indent=2), encoding="utf-8")
-    part = _step_cost(topic_id, "particion", lambda: md.particionar(topic, esc, e["parrafos"], pool, log=log,
-                                                                     shorten=md.editor_shorten()))
-    pantalla = run_pantalla(topic_id, pool, log)                 # F36 §C: después de la partición, antes de la voz
-    judge = judge_narration(topic_id, pool=pool, narration=part["narration"], skeleton=part["skeleton"])
-    print("\n".join(log[-12:]))
-    return {"guionista": g, "editor": e, "particion": part, "pantalla": pantalla, "juez": judge}
-
-
 def run_guion_v4(topic_id: str, modelo: str | None = None, editor: bool = False) -> dict:
     """F11: m01b v4: guionista v4 (UNA llamada) → reparación (una ronda: cap, oración, fechas, editor) → m01d_particion
     → juez m05. Escribe 01b_guionista_v4 (texto, bloqueantes antes/después, pasos), 01a_skeleton, 01b_narration,
@@ -433,7 +417,6 @@ def run_guion_v4(topic_id: str, modelo: str | None = None, editor: bool = False)
     from script_engine import m01d_particion as md
     from script_engine.m05_narrative import judge_narration
     topic = _topic_v3(topic_id)
-    topic["guion_version"] = 4
     pool = topic["evidence_pool"]
     esc = _load_step_output(topic_id, "01a_escaleta.json")
     log: list[str] = []
@@ -468,14 +451,14 @@ def process_topic(
     gate_interactive: bool = True,
     music_gate_interactive: bool = True,
     stop_after_step: str | None = None,
-    v3: bool = False,
-    guion: str | None = None,
     modelo: str | None = None,
     columna: bool = False,
     modelo_escaleta: str | None = None,
     editor: bool = False,
 ) -> dict:
-    """Corre la cadena m01a → m03 + assemble para 1 topic, reanudando desde from_step.
+    """Corre LA cadena (F41: la única) para 1 topic, reanudando desde from_step: m01a (compuerta → ficha → escaleta)
+    → m01b (guion v4 → partición → papel → juez) → PARADA del papel salvo aprobado → normalizer_gate → audio → m07 →
+    m03 → foto madre → assemble. Un topic sin evidence_pool v3 → PARADA antes de gastar, desde cualquier paso.
 
     Chat 119: el juez (m05 + m06) fue DESCONECTADO — tras m03 se ensambla directo el
     JSON final con assemble_final_script. Los módulos del juez siguen vivos en el repo.
@@ -492,6 +475,9 @@ def process_topic(
         stop_after_step: PR --only chat 24. Si != None, después de ejecutar
             ese step la cadena se corta (no avanza al siguiente). Útil para
             validar 1 módulo aislado sin arrastrar la cadena.
+        modelo: F11b `--modelo`, el de la cadena v4 (guionista + reparación); None = el del guion.
+        columna, modelo_escaleta: F22d `--columna`, F25c `--modelo-escaleta` (la escaleta).
+        editor: F27 `--editor`, la pasada del editor m01c en la reparación del guion v4.
 
     Returns:
       dict {topic_id, steps_completed: list[str], status: 'PASS'|'FAIL', error?: str}
@@ -503,82 +489,43 @@ def process_topic(
     result = {"topic_id": topic_id, "steps_completed": [], "status": "RUNNING"}
 
     try:
-        # F10: guion v3 (--v3 o topic["guion_version"] == 3) — m01a = compuerta + escaleta; m01b = guionista →
-        # editor → partición (deja 01a_skeleton/01b_narration con el contrato de siempre) → juez. Lo demás, igual.
-        use_v3 = is_v3_topic(_load_topic_by_id(topic_id), v3)
-        if use_v3:
-            print(f"  [v3] guion v3 (escaleta → guionista → editor → partición)")
+        # F41: una sola cadena; sin el pool del research v3 no corre nada (PARADA antes de gastar, desde cualquier paso)
+        topic = _load_topic_by_id(topic_id)
+        if not pool_v3(topic):
+            raise Parada(motivo_sin_pool(topic_id, topic))
+        skeleton = narration = None                          # se cargan abajo si hace falta
 
-        # m01a — skeleton
-        if from_step in ("m01a",) and use_v3:
-            print(f"  [01a v3] Compuerta del pool + escaleta...")
+        # m01a — compuerta del pool → ficha si falta → escaleta
+        if from_step == "m01a":
+            print(f"  [01a] Compuerta del pool + ficha si falta + escaleta...")
             run_escaleta_v3(topic_id, columna=columna, modelo=modelo_escaleta)
-            skeleton = None
-            result["steps_completed"].append("m01a")
-            if stop_after_step == "m01a":
-                result["status"] = "PASS"
-                print(f"\n  ✅ Topic {topic_id} OK (stop after m01a) — pasos: {result['steps_completed']}")
-                return result
-        elif from_step in ("m01a",):
-            topic = _load_topic_by_id(topic_id)
-            print(f"  [01a] Generando skeleton...")
-            skeleton = generate_skeleton(topic)
             result["steps_completed"].append("m01a")
             if stop_after_step == "m01a":
                 result["status"] = "PASS"
                 print(f"\n  ✅ Topic {topic_id} OK (stop after m01a) — pasos: {result['steps_completed']}")
                 return result
 
-        else:
-            skeleton = None  # se carga abajo si hace falta
-
-        # m01b — narración
-        if from_step in ("m01a", "m01b") and use_v3 and is_v4_guion(_load_topic_by_id(topic_id), guion):
-            print(f"  [01b v4] Guionista v4 → reparación (una ronda) → partición → juez...")
+        # m01b — guion v4 → reparación (una ronda) → partición (caps y títulos) → papel (m01e) → juez
+        if from_step in ("m01a", "m01b"):
+            print(f"  [01b] Guion v4 → reparación (una ronda) → partición → papel → juez...")
             ed = {"editor": True} if editor else {}          # F27: sin --editor, la llamada de siempre
-            v3out = run_guion_v4(topic_id, modelo=modelo, **ed) if modelo else run_guion_v4(topic_id, **ed)
+            out = run_guion_v4(topic_id, modelo=modelo, **ed) if modelo else run_guion_v4(topic_id, **ed)
             topic = _topic_v3(topic_id)
-            skeleton, narration = v3out["particion"]["skeleton"], v3out["particion"]["narration"]
+            skeleton, narration = out["particion"]["skeleton"], out["particion"]["narration"]
             result["steps_completed"].append("m01b")
             if stop_after_step == "m01b":
                 result["status"] = "PASS"
                 print(f"\n  ✅ Topic {topic_id} OK (stop after m01b) — pasos: {result['steps_completed']}")
                 return result
-        elif from_step in ("m01a", "m01b") and use_v3:
-            print(f"  [01b v3] Guionista → editor → partición → juez...")
-            v3out = run_guion_v3(topic_id)
-            topic = _topic_v3(topic_id)
-            skeleton, narration = v3out["particion"]["skeleton"], v3out["particion"]["narration"]
-            result["steps_completed"].append("m01b")
-            if stop_after_step == "m01b":
-                result["status"] = "PASS"
-                print(f"\n  ✅ Topic {topic_id} OK (stop after m01b) — pasos: {result['steps_completed']}")
-                return result
-        elif from_step in ("m01a", "m01b"):
-            if skeleton is None:
-                topic = _load_topic_by_id(topic_id)
-                skeleton = _load_skeleton(topic_id)
-            else:
-                topic = _load_topic_by_id(topic_id)
-            print(f"  [01b] Generando narración...")
-            narration = generate_narration(topic, skeleton)
-            result["steps_completed"].append("m01b")
-            if stop_after_step == "m01b":
-                result["status"] = "PASS"
-                print(f"\n  ✅ Topic {topic_id} OK (stop after m01b) — pasos: {result['steps_completed']}")
-                return result
-        else:
-            narration = None
 
         # F39 §A.4 (DECISIONES 2026-10-26 19:54): nada después de m01b (la voz se paga) sin el papel aprobado y vigente;
-        # vale también al reanudar (--from normalizer_gate / audio / m07 / m03). Solo en la cadena v3, la que hace papel.
-        if use_v3:
-            ok, motivo = estado_papel(topic_id)
-            if not ok:
-                print(f"\n  ⏸  {parada_del_papel(topic_id)}")
-                result.update(status="PARADA", parada="papel", motivo=motivo)
-                return result
-            print(f"  [papel] {motivo}")
+        # vale también al reanudar (--from normalizer_gate / audio / m07 / m03).
+        ok, motivo = estado_papel(topic_id)
+        if not ok:
+            print(f"\n  ⏸  {parada_del_papel(topic_id)}")
+            result.update(status="PARADA", parada="papel", motivo=motivo)
+            return result
+        print(f"  [papel] {motivo}")
 
         # normalizer_gate — gate humano del tts_normalizer (PR 2.0 chat 24).
         # Detecta sospechosos en la narración (siglas/abreviaturas/unidades sin
@@ -790,10 +737,11 @@ def run_one_topic_from_menu(
     """Chat 35 — Punto de entrada interactivo de UN tema.
 
     Flujo: menú → elegir 1 tema validado → reescribir el CSV con ese único tema
-    (para fase2a) → correr la cadena m01a→m03+assemble sobre ese tema.
+    (para fase2a) → correr LA cadena (F41: la única, sin flags) sobre ese tema.
 
     Lo usan: fase1_5.main() (cuando se corre SIN --topic) y fase1.py (encadenado
-    al final del Latido A). Devuelve exit code (0 ok / cancelado, 1 fail).
+    al final del Latido A). Devuelve exit code (0 ok / cancelado / PARADA del papel,
+    2 otra PARADA, 1 fail).
     """
     chosen_id = _select_topic_interactive()
     if chosen_id is None:
@@ -818,6 +766,11 @@ def run_one_topic_from_menu(
         print(f"{'═' * 60}\n")
         _print_gemini_cost()
         return 0
+    if result["status"] == "PARADA":                         # F41: la cadena única para en el papel (0) u otra (2)
+        print(f"  ⏸  {chosen_id}  (PARADA en {result.get('parada')}: {result.get('motivo')})")
+        print(f"{'═' * 60}\n")
+        _print_gemini_cost()
+        return 0 if result.get("parada") == "papel" else 2
     print(f"  ❌ {chosen_id}  ({result.get('error', '?')})")
     print(f"{'═' * 60}\n")
     _print_gemini_cost()
@@ -895,15 +848,9 @@ def main():
                         help="Skipear el gate interactivo de m07 music_director "
                              "(modo batch nocturno; todos los tracks generados "
                              "se aprueban automáticamente)")
-    parser.add_argument("--v3", action="store_true",
-                        help="F10: guion v3 (compuerta → escaleta → guionista → editor → partición → juez); también "
-                             "corre solo si el topic tiene guion_version == 3")
-    parser.add_argument("--guion", choices=("v3", "v4"), default=None,
-                        help="F11: con --v3, el guionista v4 (una llamada → reparación de una ronda); también corre "
-                             "si el topic tiene guion_version == 4")
     parser.add_argument("--modelo", choices=("gemini-pro", "gpt-6.1-sol", "gpt-6-astra", "gemini-4-argon",
                                              "claude-opus-5-5", "claude-fable-5-1"), default=None,
-                        help="F11b: con --guion v4, el modelo de toda la cadena v4 (guionista + reparación); el juez "
+                        help="F11b: el modelo del guion v4 (guionista + reparación); por defecto el del guion; el juez "
                              "es el de siempre")
     parser.add_argument("--modelo-escaleta", dest="modelo_escaleta", choices=("claude-fable-5-1", "claude-opus-5-5",
                                                                            "gpt-6.1-sol"), default=None,
@@ -919,7 +866,7 @@ def main():
                              "(normalizer_gate + music_gate). Equivale a "
                              "--no-gate --no-music-gate.")
     parser.add_argument("--editor", action="store_true",
-                        help="F27: con --guion v4, la pasada del editor m01c en la reparación (fuera del camino desde "
+                        help="F27: la pasada del editor m01c en la reparación del guion v4 (fuera del camino desde "
                              "F27; solo para leer)")
     parser.add_argument("--temas", type=str, default=None,
                         help="F26 §C: varios topic_id separados por coma; cada uno corre en su propio proceso (el "
@@ -999,8 +946,6 @@ def main():
             gate_interactive=gate_interactive,
             music_gate_interactive=music_gate_interactive,
             stop_after_step=stop_after_step,
-            v3=args.v3,
-            guion=args.guion,
             modelo=args.modelo,
             columna=args.columna,
             modelo_escaleta=args.modelo_escaleta,

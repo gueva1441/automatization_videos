@@ -129,12 +129,13 @@ def test_reparar_con_bloqueantes_ya_no_llama_al_editor():
 def test_fase1_5_editor_solo_con_la_bandera(monkeypatch):
     import fase1_5 as f15
     vistos = []
-    monkeypatch.setattr(f15, "_load_topic_by_id", lambda tid: {"id": tid, "evidence_pool": {"datos": []}})
+    monkeypatch.setattr(f15, "_load_topic_by_id", lambda tid: {"id": tid, "evidence_pool": {"datos": [],
+                                                                                         "_research_v3": True}})
     monkeypatch.setattr(f15, "_topic_v3", lambda tid: {"id": tid})
     out = {"particion": {"skeleton": {}, "narration": {}}}
     monkeypatch.setattr(f15, "run_guion_v4", lambda tid, **kw: vistos.append(kw) or out)
-    f15.process_topic("t", from_step="m01b", stop_after_step="m01b", v3=True, guion="v4")
-    f15.process_topic("t", from_step="m01b", stop_after_step="m01b", v3=True, guion="v4", editor=True)
+    f15.process_topic("t", from_step="m01b", stop_after_step="m01b")                 # F41: la única cadena
+    f15.process_topic("t", from_step="m01b", stop_after_step="m01b", editor=True)
     assert vistos == [{}, {"editor": True}]
 
 

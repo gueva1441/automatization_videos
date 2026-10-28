@@ -1,27 +1,21 @@
 """
-script_engine/m01c_editor.py — Módulo 01c v3 (F6c, HANDOFF_F6 §2.4): el editor APRIETA la narración del guionista.
+script_engine/m01c_editor.py — Módulo 01c v3 (F6c, HANDOFF_F6 §2.4): el editor que APRIETA la narración.
 
-Una llamada a Gemini Pro con la narración completa (párrafo por párrafo, con su beat) y la escaleta. Solo puede
-cortar, reordenar frases dentro del beat, acortar, quitar repeticiones y relleno y reforzar el ritmo (partir una frase
-larga, dejar una corta antes del golpe). NO puede agregar datos, cifras, nombres, adjetivos ni citas. Devuelve el
-texto editado (mismos párrafos, mismo orden) + `cambios[]` (antes/después/motivo) para auditoría.
-
-Después del editor corren TODOS los validadores duros otra vez. Por párrafo (`edit`):
-    1. guardia léxica   el párrafo editado no trae cifras (dígitos o en letras), nombres propios, adjetivos ni citas
-                        entre comillas que el original no tenía
-    2. validadores      se aplica sobre el texto aceptado hasta ahí; si el cap queda con MÁS problemas duros
-                        (m01b_guionista.review: los de m05 por cap + gancho, ritmo, humano, citas sin verificar,
-                        un conteo una cifra), el párrafo se rechaza
-Un párrafo rechazado vuelve al original del guionista; nunca se rechaza el video.
+Solo puede cortar, reordenar frases dentro del beat, acortar, quitar repeticiones y relleno y reforzar el ritmo (partir
+una frase larga, dejar una corta antes del golpe). NO puede agregar datos, cifras, nombres, adjetivos ni citas.
+Queda lo que usa la cadena única: el prompt (`SYSTEM`, `SCHEMA`, `build_prompt`) de la pasada `--editor` de guion_v4
+(F27), la guardia léxica (`lexical_guard`, `GUARD_ALL`: el texto editado no trae cifras, nombres propios, adjetivos
+ni citas que el original no tenía) que usan guion_v4 y m01d_particion, y `narration_tts`.
+F41 (DECISIONES 2026-10-27 20:59, una sola cadena): `edit` (el editor del guion v3 con re-revisión por párrafo) se
+borró con la cadena vieja de fase1_5.
 """
 from __future__ import annotations
 
 import re
-from typing import Any, Callable
+from typing import Any
 
 from script_engine import evidence as ev
 
-PROMPT_VERSION = "f8-1"            # f8-1: cierre del video en cita o pregunta (blanda, F8 §2)
 
 SYSTEM = ("Sos el editor de guion de un canal de documentales de misterio. Recibís una narración ya escrita y la "
           "apretás: cortás, acortás, sacás repeticiones y relleno, reordenás frases dentro del mismo párrafo y "
@@ -135,58 +129,3 @@ def narration_tts(esc: dict, parrafos: list[dict], caps: list[dict], *, slowly_d
     return caps_tts(esc, parrafos, caps, slowly_dev=slowly_dev)
 
 
-def _cap_hard(review: dict, cap: int) -> int:
-    pc = review["por_cap"].get(cap) or {}
-    glob = [h for h in review["hard"] if not h.startswith("cap ")]
-    return len(pc.get("duras") or []) + len(glob)
-
-
-def edit(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[..., dict] | None = None,
-         log: list[str] | None = None) -> dict[str, Any]:
-    """{"parrafos": aceptados, "cambios": [...con estado], "revision_antes", "revision_despues"}."""
-    from script_engine import m01b_guionista as mg
-    log = log if log is not None else []
-    if call is None:
-        from gemini_helpers import call_pro_json as call
-    from script_engine.guion_v3_reglas import closing_soft, echo_soft
-    raw = call(build_prompt(esc, parrafos, echo_soft(parrafos), closing_soft(parrafos)), system_instruction=SYSTEM,
-               response_schema=SCHEMA,
-               description="m01c_editor")
-    edited = raw.get("parrafos") or []
-    cambios_llm = raw.get("cambios") or []
-    before_rv = mg.review(topic, esc, parrafos)
-    out = [dict(p) for p in parrafos]
-    estado = []
-    if len(edited) != len(parrafos):
-        log.append(f"  [editor] devolvió {len(edited)} párrafos (se esperaban {len(parrafos)}): se conserva el original")
-        return {"parrafos": out, "cambios": [{**c, "estado": "rechazado", "motivo_rechazo": "cantidad de párrafos"}
-                                            for c in cambios_llm],
-                "revision_antes": before_rv, "revision_despues": before_rv, "aceptados": 0}
-    cur_rv = before_rv
-    for k, (orig, e) in enumerate(zip(parrafos, edited)):
-        new_t = ev.fix_glued_caps(str(e.get("texto") or "").strip(), topic.get("evidence_pool"))
-        if not new_t or new_t == orig["texto"]:
-            continue
-        rec = {"parrafo": k, "beat": orig["beat"], "antes": orig["texto"], "despues": new_t}
-        lg = lexical_guard(orig["texto"], new_t)
-        if lg:
-            estado.append({**rec, "estado": "rechazado", "motivo_rechazo": "; ".join(lg)})
-            continue
-        trial = [dict(p) for p in out]
-        ids = [str(x).strip().strip("[]").upper() for x in e.get("ids_usados") or [] if str(x).strip()]
-        trial[k] = {**orig, "texto": new_t, "ids_usados": ids or orig["ids_usados"]}
-        rv = mg.review(topic, esc, trial)
-        if _cap_hard(rv, orig["cap"]) > _cap_hard(cur_rv, orig["cap"]) or len(rv["hard"]) > len(cur_rv["hard"]):
-            new_h = [h for h in rv["hard"] if h not in cur_rv["hard"]]
-            estado.append({**rec, "estado": "rechazado", "motivo_rechazo": "validadores: " + "; ".join(new_h[:3])})
-            continue
-        out, cur_rv = trial, rv
-        estado.append({**rec, "estado": "aceptado"})
-    motivo = {int(c.get("parrafo", -1)): c.get("motivo") for c in cambios_llm if isinstance(c, dict)}
-    for s in estado:
-        s["motivo"] = motivo.get(s["parrafo"]) or ""
-    n_ok = sum(1 for s in estado if s["estado"] == "aceptado")
-    log.append(f"  [editor] {len(estado)} párrafo(s) editado(s): {n_ok} aceptado(s), {len(estado) - n_ok} rechazado(s) · "
-               f"duras {len(before_rv['hard'])} → {len(cur_rv['hard'])}")
-    return {"parrafos": out, "cambios": estado, "cambios_llm": cambios_llm, "revision_antes": before_rv,
-            "revision_despues": cur_rv, "aceptados": n_ok, "prompt_version": PROMPT_VERSION}

@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import json
 
-import script_engine.m01b_narrator as nb
 from script_engine import evidence as ev
 from script_engine import m05_narrative as mn
 from script_engine.num_es import hour_words, variants, words
@@ -90,37 +89,6 @@ def test_metricas_de_video():
     assert mn.trigram_overlap(["a b c d", "x b c d"])[0] > 0
 
 
-def test_prompt_narrador_con_y_sin_pool():
-    topic = {"video_title": "x", "verified_facts": [{"fact": "f"}]}
-    sk = {"chapters": [{"chapter_number": n, "title": "t", "role": "development", "bullets": ["b"]} for n in range(1, 8)]}
-    plain = nb._prompt_development(topic, sk, [], 2)
-    assert "EVIDENCE POOL" not in plain and "literal en los verified_facts arriba" in plain
-    skp = {**sk, "chapters": [{**c, **(SKEL["chapters"][0] if c["chapter_number"] == 2 else {})} for c in sk["chapters"]],
-           "personajes": SKEL["personajes"]}
-    withp = nb._prompt_development({**topic, "evidence_pool": POOL}, skp, [], 2)
-    assert "ASIGNADOS A ESTE CAP" in withp and "[Q01] CITA" in withp and "Marlin N. Gusman" in withp
-    assert "CLIFFHANGER" in withp and "o en el EVIDENCE POOL" in withp and "nunca como firma" in withp.lower()
-
-
-def test_retry_por_pool_y_aceptacion_con_violaciones(monkeypatch):
-    base = "Los guardias contaron a los presos en el patio de la cárcel una vez más. "
-    filler = (base * 14).strip()
-    good = (base * 4 + "El patio estaba húmedo, sucio y oscuro, el aire pesado. " + base * 4 + GOOD2).strip()
-    q = [filler, filler, filler]
-    prompts = []
-    monkeypatch.setattr(nb, "call_flash_json", lambda p, response_schema=None: (prompts.append(p), {"narration": q.pop(0), "datos_usados": IDS2})[1])
-    viol: dict = {}
-    out = nb._call_with_length_retry("P", role="development", cap_number=2, max_attempts=3,
-                                     f5={"pool": POOL, "skeleton": SKEL, "previous": []}, violations=viol)
-    assert out == filler and 2 in viol and "REGLAS DEL EVIDENCE POOL" in prompts[1]   # acepta y anota
-    q2 = [filler, good]
-    monkeypatch.setattr(nb, "call_flash_json", lambda p, response_schema=None: {"narration": q2.pop(0), "datos_usados": IDS2})
-    viol2: dict = {}
-    nb._call_with_length_retry("P", role="development", cap_number=2, max_attempts=3,
-                               f5={"pool": POOL, "skeleton": SKEL, "previous": []}, violations=viol2)
-    assert not q2                                                            # reintentó una vez
-
-
 def test_gate_sin_diccionario_global(monkeypatch, tmp_path):
     from script_engine import m02_5_normalizer_gate as g
     monkeypatch.setattr(g, "STEPS_DIR", tmp_path)
@@ -143,14 +111,3 @@ def test_juez_persiste_reporte(tmp_path):
     assert saved["umbrales"]["adj_100_max"] == mn.ADJ_MAX
 
 
-def test_ultimo_intento_largo_acepta_el_anterior(monkeypatch):
-    """F5: si el último intento rompe el largo pero uno anterior solo fallaba reglas del pool, se acepta el anterior."""
-    base = "Los guardias contaron a los presos en el patio de la cárcel una vez más. "
-    pool_only = (base * 14).strip()
-    too_long = (base * 40).strip()
-    q = [pool_only, too_long, too_long]
-    monkeypatch.setattr(nb, "call_flash_json", lambda p, response_schema=None: {"narration": q.pop(0)})
-    viol: dict = {}
-    out = nb._call_with_length_retry("P", role="development", cap_number=2, max_attempts=3,
-                                     f5={"pool": POOL, "skeleton": SKEL, "previous": []}, violations=viol)
-    assert out == pool_only and viol[2]

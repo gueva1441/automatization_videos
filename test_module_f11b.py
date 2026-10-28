@@ -173,12 +173,13 @@ def test_toda_la_cadena_v4_usa_el_call_del_modelo(monkeypatch):
 
 def test_fase1_5_pasa_el_modelo(monkeypatch):
     got = []
-    monkeypatch.setattr(f15, "_load_topic_by_id", lambda tid: {"id": tid, "evidence_pool": {"datos": []}})
+    monkeypatch.setattr(f15, "_load_topic_by_id", lambda tid: {"id": tid, "evidence_pool": {"datos": [],
+                                                                                         "_research_v3": True}})
     monkeypatch.setattr(f15, "_topic_v3", lambda tid: {"id": tid})
     out = {"particion": {"skeleton": {}, "narration": {}}}
     monkeypatch.setattr(f15, "run_guion_v4", lambda tid, modelo=None: got.append(modelo) or out)
-    f15.process_topic("t", from_step="m01b", stop_after_step="m01b", v3=True, guion="v4", modelo="gpt-6-astra")
-    f15.process_topic("t", from_step="m01b", stop_after_step="m01b", v3=True, guion="v4")
+    f15.process_topic("t", from_step="m01b", stop_after_step="m01b", modelo="gpt-6-astra")   # F41: la única cadena
+    f15.process_topic("t", from_step="m01b", stop_after_step="m01b")
     assert got == ["gpt-6-astra", None]
 
 

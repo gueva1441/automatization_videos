@@ -8,7 +8,6 @@ import copy
 
 from script_engine import m01a_escaleta as me
 from script_engine import m01b_guionista as mg
-from script_engine import m01c_editor as mc
 from test_module_f6b import POOL, good
 
 
@@ -39,9 +38,7 @@ def _p(beat, cap, texto, ids=()):
 
 
 def test_prompt_y_particion():
-    topic, esc, _ = _setup()
-    pr = mg.build_prompt(topic, esc, ["cap 2: faltan datos"])
-    assert "BEAT 1" in pr and "Edward Burton" in pr and "CORREGÍ" in pr and "≤ 12 palabras" in pr
+    topic, esc, _ = _setup()                                 # F41: el prompt del guionista v3 se borró (build_prompt)
     ps = mg.normalize({"parrafos": [{"beat": 1, "texto": "Agua negra.", "ids_usados": ["[q01]"]},
                                     {"beat": 99, "texto": "fuera"}, {"beat": 2, "texto": ""}]}, esc)
     assert ps == [{"beat": 1, "cap": 1, "texto": "Agua negra.", "ids_usados": ["Q01"]}]
@@ -61,40 +58,3 @@ def test_revision_v3_detecta_gancho_ritmo_citas_y_conteo():
     assert "faltan los beats" in h and "Edward Burton aparece por nombre" in h
 
 
-def test_editor_guardia_y_rechazo_por_validadores():
-    topic, esc, _ = _setup()
-    orig = [_p(1, 1, "El agua subía por los barrotes. Nadie vino. Edward Burton esperó en la celda oscura toda la noche.",
-               ["Q01"]),
-            _p(2, 2, "El sheriff anunció que no los iba a evacuar. Fue el 28 de agosto.", ["T01"])]
-    assert mc.lexical_guard(orig[0]["texto"], orig[0]["texto"].replace("toda la noche", "durante 3 noches"))
-    assert "nombres nuevos" in " ".join(mc.lexical_guard(orig[1]["texto"], orig[1]["texto"] + " Lo confirmó Kathleen Blanco."))
-    assert mc.lexical_guard(orig[0]["texto"], "El agua subía por los barrotes. Nadie vino.") == []
-
-    def fake(prompt, **kw):
-        return {"parrafos": [
-            {"beat": 1, "texto": "El agua subía por los barrotes. Nadie vino.", "ids_usados": []},       # acorta: ok
-            {"beat": 2, "texto": "El sheriff anunció que no los iba a evacuar. Eran 300 presos.", "ids_usados": ["T01"]}],
-            "cambios": [{"parrafo": 0, "antes": "x", "despues": "y", "motivo": "corta"},
-                        {"parrafo": 1, "antes": "x", "despues": "y", "motivo": "ritmo"}]}
-    out = mc.edit(topic, esc, orig, call=fake)
-    st = {c["parrafo"]: c for c in out["cambios"]}
-    assert st[1]["estado"] == "rechazado" and "cifras nuevas" in st[1]["motivo_rechazo"]
-    assert out["parrafos"][1]["texto"] == orig[1]["texto"]                    # vuelve el original del guionista
-    # el párrafo 0 pierde el nombre del humano: si los validadores empeoran, también se rechaza
-    assert st[0]["estado"] in ("aceptado", "rechazado")
-    if st[0]["estado"] == "rechazado":
-        assert st[0]["motivo_rechazo"].startswith("validadores")
-    bad = mc.edit(topic, esc, orig, call=lambda *a, **k: {"parrafos": [], "cambios": []})
-    assert bad["parrafos"] == orig and bad["aceptados"] == 0
-
-
-def test_write_best_of_2_reintenta_con_las_duras():
-    topic, esc, _ = _setup()
-    prompts = []
-
-    def fake(prompt, **kw):
-        prompts.append(prompt)
-        return {"parrafos": [{"beat": 1, "texto": "En 2005 todo cambió.", "ids_usados": []}]}
-    out = mg.write(topic, esc, call=fake)
-    assert len(prompts) == 2 and "CORREGÍ" in prompts[1] and out["elegido"] in (1, 2)
-    assert len(out["_intentos"]) == 2 and out["revision"]["hard"]
