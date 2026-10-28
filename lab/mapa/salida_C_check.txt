@@ -1,0 +1,13 @@
+$ python lab/tools/mapa_modulos.py --check
+mapa --check: 155 archivos de producción · 0 fallas
+exit 0
+
+$ python lab/tools/mapa_modulos.py --check --stickers <copia fuera del repo: md5 de gfx_layer cambiado, sticker de num_es borrado>
+✗ sticker viejo: script_engine/gfx_layer.py (md5 del sticker 00000000… ≠ archivo ea1a0461…; releer el archivo y reescribir su sticker en fase2b_gfx.json)
+✗ sin sticker: script_engine/num_es.py (zona guion)
+mapa --check: 155 archivos de producción · 2 fallas
+exit 1
+$ guard_mapa.aviso (python -I, como el hook)
+al día, commit que toca gfx_layer → None
+copia vieja, commit que toca gfx_layer → guard_mapa: el commit toca archivos de producción con sticker viejo o sin sticker — sticker viejo: script_engine/gfx_layer.py (md5 del sticker 00000000… ≠ archivo ea1a0461…; releer el archivo y reescribir su sticker en fase2b_gfx.json). Releer el archivo, reescribir su sticker en lab/mapa/stickers/ y regenerar el mapa (`python lab/tools/mapa_modulos.py`), o decir en el reporte por qué no cambió. (`--check` da 2 fallas en total.)
+copia vieja, commit que no toca producción → None

@@ -15,6 +15,7 @@ from __future__ import annotations
 import argparse
 import fnmatch
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -104,8 +105,33 @@ def _git(e: dict | None) -> str:
     return f"{e['commit']} {e['fecha']}" + (f" ({e['tanda']})" if e.get("tanda") else "")
 
 
+# El `modelo` del sticker es texto libre (lo que dice el código); para las cajas del flujograma se lleva a la familia que
+# paga. No pagan: lo que solo fija nombres (config), lo local y lo apagado.
+FAMILIAS: list[tuple[str, str]] = [
+    (r"claude-fable", "Claude Fable"), (r"claude-sonnet", "Claude Sonnet"), (r"claude-opus", "Claude Opus"),
+    (r"gpt-image", "GPT Image (fal)"), (r"gpt-6", "GPT-6"), (r"gemini-4-argon", "Gemini 4 Argon"),
+    (r"gemini_model_research|gemini-2\.5-pro|call_pro_json|Gemini Pro", "Gemini Pro"),
+    (r"gemini_model\b|gemini-2\.5-flash|call_flash_json|Gemini Flash|VISION_MODEL|Gemini \(config", "Gemini Flash"),
+    (r"ElevenLabs Music|music_v1", "ElevenLabs Music"), (r"[Ff]orced[- ][Aa]lignment", "ElevenLabs alineador"),
+    (r"ElevenLabs|eleven_v|elevenlabs_model", "ElevenLabs TTS"), (r"[Ss]eedream", "Seedream (fal)"),
+    (r"[Kk]ling", "Kling (fal)"), (r"[Vv]eo|fal_video_model", "Veo (fal)"), (r"[Ff]lux", "Flux (fal)"),
+]
+NO_PAGA = re.compile(r"solo los fija|sin costo de API|apagado|local en|el que pase quien llama|lista MODELOS|"
+                     r"si se pasa --modelo|por --modelo")
+
+
+def familias(texto: str) -> list[str]:
+    if NO_PAGA.search(texto):
+        return []
+    return [nombre for pat, nombre in FAMILIAS if re.search(pat, texto)]
+
+
 def _modelos(s: dict) -> list[str]:
-    return [m.get("modelo", "") for m in (s.get("modelo") or []) if isinstance(m, dict) and m.get("modelo")]
+    out: list[str] = []
+    for m in s.get("modelo") or []:
+        if isinstance(m, dict) and m.get("modelo"):
+            out += [f for f in familias(f"{m['modelo']} {m.get('para', '')}") if f not in out]
+    return out
 
 
 def _celda(x) -> str:
@@ -120,15 +146,18 @@ def flujograma(seq: dict, filas: dict[str, dict]) -> tuple[list[str], list[dict]
     L = ["```mermaid", "flowchart TD"]
     cajas = []
     previo = None
+    scripts = {c["script"] for e in seq["etapas"] for c in e["comandos"]}     # orquestan: su sticker lista lo de abajo
     for e in seq["etapas"]:
         if not e["comandos"] and not e["compuertas"]:
             continue
         nid = e["etapa"].upper()
         script = e["comandos"][0]["script"] if e["comandos"] else ""
         propios = sorted(_corto(k) for k, f in filas.items() if f["etapas_sticker"] == [e["etapa"]])
-        modelos = sorted({m for k, f in filas.items() if e["etapa"] in f["etapas_sticker"] for m in f["modelos"]})
         es_compuerta = bool(e["compuertas"]) and all(any(a.startswith("--aprobar") for a in c["argv"])
                                                       for c in e["comandos"])
+        modelos = [] if es_compuerta else sorted({m for k, f in filas.items()
+                                                  if e["etapa"] in f["etapas_sticker"] and k not in scripts
+                                                  for m in f["modelos"]})
         cajas.append({"etapa": e["etapa"], "orden": e["orden"], "encabezado": e["encabezado"], "funcion": e["funcion"],
                       "comandos": [" ".join(["python", *c["argv"]]) for c in e["comandos"]],
                       "compuertas": [c["menu"] for c in e["compuertas"]], "sin_form": e.get("sin_form", ""),

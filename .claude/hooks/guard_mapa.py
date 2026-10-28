@@ -1,7 +1,9 @@
-"""F33 §D.3 — PreToolUse Bash/PowerShell: antes de `git commit`, si lo que entra toca `script_engine/gfx_*.py` (desde
-F36 también `rotulista_*.py` —F37: `pantalla_*.py`—, `clima.py`, `voz_datos.py`, `voz_utils.py`) o `fase2b.py` y no toca `lab/MAPA_MODULOS.md`
-ni `.json`, AVISA (no bloquea): el reporte de la tanda tiene que decir por qué el mapa no cambió (o regenerarlo con
-`python lab/tools/mapa_modulos.py`).
+"""F42 §C.4 (antes F33 §D.3, solo gfx) — PreToolUse Bash/PowerShell: antes de `git commit` corre el chequeo del mapa del
+proyecto (`lab/tools/mapa_modulos.py --check`, en proceso: md5 de cada archivo de producción contra el de su sticker en
+`lab/mapa/stickers/<zona>.json`). Si un archivo de producción que entra en el commit no tiene sticker o lo tiene viejo,
+AVISA (no bloquea): releer el archivo, reescribir su sticker y regenerar `lab/MAPA_PROYECTO.md` (`python
+lab/tools/mapa_modulos.py`), o decir en el reporte por qué el mapa no cambió. Vale para cualquier archivo de producción,
+no solo gfx.
 """
 from __future__ import annotations
 
@@ -11,18 +13,26 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _comun import comando, git, git_args, leer_evento, segmentos  # noqa: E402
+from _comun import ROOT, comando, git, git_args, leer_evento, segmentos  # noqa: E402
 
-TOCA = re.compile(r"^(script_engine/(gfx_[^/]*|pantalla_[^/]*|clima|voz_datos|voz_utils)\.py|fase2b\.py)$")   # F36 §A / F37 §B.5: + los de la pantalla
-MAPA = ("lab/MAPA_MODULOS.md", "lab/MAPA_MODULOS.json")
+sys.path.insert(0, str(ROOT / "lab" / "tools"))
 
 
 def aviso(staged: list[str]) -> str | None:
-    tocados = [f for f in staged if TOCA.match(f)]
-    if not tocados or any(f in MAPA for f in staged):
+    try:
+        import mapa_modulos as mm
+        fallas = mm.check()
+    except Exception as e:  # noqa: BLE001 — el hook nunca tira el commit
+        return f"guard_mapa: no pude correr `mapa_modulos.py --check` ({type(e).__name__}: {e})"
+    if not fallas:
         return None
-    return (f"guard_mapa: el commit toca {', '.join(tocados)} y no toca lab/MAPA_MODULOS.md/.json — regenerar el mapa "
-            f"(`python lab/tools/mapa_modulos.py`) o decir en el reporte por qué no cambió")
+    del_commit = [f for f in fallas if any(f"{s} " in f or f.endswith(s) for s in staged)]
+    if not del_commit:
+        return None
+    return (f"guard_mapa: el commit toca archivos de producción con sticker viejo o sin sticker — "
+            f"{'; '.join(del_commit[:8])}{' …' if len(del_commit) > 8 else ''}. Releer el archivo, reescribir su "
+            f"sticker en lab/mapa/stickers/ y regenerar el mapa (`python lab/tools/mapa_modulos.py`), o decir en el "
+            f"reporte por qué no cambió. (`--check` da {len(fallas)} fallas en total.)")
 
 
 def main() -> None:
