@@ -1,0 +1,111 @@
+{
+  "era_visual_canon": {
+    "primary_decade": "1960s",
+    "spans": "1937-1966",
+    "clothing": "Practical, durable workwear for miners (overalls, flannel shirts, leather boots); simple, often homemade dresses or skirts and blouses for women; shorts, shirts, and sturdy shoes for children. Lack of personal protective equipment for asbestos exposure is a defining visual element.",
+    "technology": "Analog mining equipment, basic processing machinery, hand tools. Early to mid-20th century vehicles (trucks, jeeps, utility cars). Basic landline telephones and radios. NO advanced digital displays, no modern safety gear, no sophisticated environmental monitoring equipment.",
+    "vehicles_machinery": "Heavy-duty trucks for transporting asbestos ore and tailings, earthmoving equipment for mining operations, basic drilling and excavation machinery. Older model utility vehicles and sedans for personal transport. Road graders for unpaved surfaces.",
+    "interiors": "Simple and functional, often dusty. Mining offices with basic wooden desks and file cabinets. Residential interiors with basic furniture, practical fabrics, and sparse decorations. Likely evidence of dust accumulation, including asbestos fibers, on surfaces. Confined mine galleries (1.07 meters high).",
+    "forbidden_anachronisms": "Smartphones, LED screens, contemporary clothing (post-2000s), modern flat panel displays, modern vehicles (post-1980s), digital cameras, advanced telecommunication devices, satellite communication dishes, modern industrial safety equipment, GPS devices, modern construction materials (e.g., PVC window frames).",
+    "materials_textures": "Blue asbestos (crocidolite) fibers and waste visibly mixed into construction materials (roads, airstrip, building foundations). Weathered corrugated iron, sun-baked earth, dusty gravel, cracked concrete, peeling paint, wood, rock formations of the Pilbara region.",
+    "color_palette": "Dominant hues of red earth and ochre from the Pilbara landscape; dusty blues, greys, and pale browns from asbestos waste; sun-bleached yellows, creams, and faded pastels on buildings. Interior colors are typically muted, reflecting the utilitarian nature and desert environment.",
+    "scale_dimensions": "Mine galleries are 42 inches (1.07 meters) high. Asbestos tailings cover approximately 10 square kilometers and exceed 3 million tonnes. The Wittenoom Asbestos Management Area (WAMA) spans 46,840 hectares. Buildings are generally low-rise, typical of a remote town, without specific documented heights.",
+    "distinctive_features": "An Australian ghost town profoundly defined by its widespread and visible contamination from blue asbestos waste, used in its very construction, now a large, toxic, and officially forbidden zone. The visible integration of the insidious blue asbestos into the town's fabric is its most striking and dangerous characteristic.",
+    "demographics": "Primarily Australian and European (notably Spanish) miners and their families, including children. A significant presence of Banjima Aboriginal people as Traditional Owners, affected by the contamination. Clothing reflects a remote, working-class town in a hot climate during the mid-20th century.",
+    "visual_reference_availability": "Historical photographs and textual descriptions document the town's buildings, mining operations, and the use of asbestos waste in construction. Textual records confirm ethnic demographics and roles of residents. Contemporary imagery shows the ghost town's abandoned state and environmental degradation. Specific dimensions and materials are sourced from technical reports and historical accounts.",
+    "condition_evolution": {
+      "at_event": "A functional mining town and active industrial site, with operational mines, residential buildings, and infrastructure, all built with and surrounded by asbestos waste. Dust and industrial activity are present.",
+      "later": "An abandoned, desolate ghost town with derelict, weathered buildings and roads visibly made of asbestos waste. Extensive areas of toxic asbestos tailings are exposed, heavily eroded by wind and water, and the entire area is officially designated as a highly contaminated and forbidden zone."
+    }
+  },
+  "documented_people": [
+    {
+      "name": "Daniel Écija (padre)",
+      "role": "Resident and victim of mesothelioma",
+      "age_at_event": null,
+      "era": "mid-20th century",
+      "appearance_canon": "a middle-aged Spanish man who was a resident of a mining town"
+    },
+    {
+      "name": "María Bernal",
+      "role": "Miner's wife and Wittenoom resident",
+      "age_at_event": null,
+      "era": "mid-20th century",
+      "appearance_canon": "a middle-aged Spanish woman, resident of a remote mining town"
+    },
+    {
+      "name": "Ramón de Juan",
+      "role": "Spanish miner",
+      "age_at_event": null,
+      "era": "mid-20th century",
+      "appearance_canon": "a middle-aged Spanish man working as a miner"
+    },
+    {
+      "name": "Milagros Barroso",
+      "role": "Miner's wife and Wittenoom resident",
+      "age_at_event": null,
+      "era": "mid-20th century",
+      "appearance_canon": "a middle-aged Spanish woman, resident of a remote mining town"
+    },
+    {
+      "name": "Víctor Calvo",
+      "role": "Child resident of Wittenoom",
+      "age_at_event": null,
+      "era": "mid-20th century",
+      "appearance_canon": "a child resident of a remote mining town"
+    },
+    {
+      "name": "Mercedes de Juan",
+      "role": "Child resident of Wittenoom",
+      "age_at_event": null,
+      "era": "mid-20th century",
+      "appearance_canon": "a child resident of a remote mining town"
+    },
+    {
+      "name": "Johnnell Parker",
+      "role": "Banjima Traditional Owner and activist",
+      "age_at_event": null,
+      "era": "21st century",
+      "appearance_canon": "an Indigenous Australian elder, a Traditional Owner and community leader"
+    },
+    {
+      "name": "Maitland Parker",
+      "role": "Banjima Traditional Owner, activist, and victim of mesothelioma",
+      "age_at_event": null,
+      "era": "21st century",
+      "appearance_canon": "an Indigenous Australian elder, a Traditional Owner and victim of asbestos-related illness"
+    },
+    {
+      "name": "Lang Hancock",
+      "role": "Prospector and mine deputy director",
+      "age_at_event": null,
+      "era": "1930s-1940s",
+      "appearance_canon": "a middle-aged Australian prospector and mine manager"
+    },
+    {
+      "name": "Peter Wright",
+      "role": "Prospector and mine owner",
+      "age_at_event": null,
+      "era": "1930s-1940s",
+      "appearance_canon": "a middle-aged Australian prospector and mine owner"
+    }
+  ],
+  "anachronism_blocklist": [
+    "smartphones",
+    "LED screens",
+    "contemporary clothing",
+    "modern flat panel displays",
+    "modern industrial safety equipment",
+    "digital cameras",
+    "modern vehicles (post-1980s)",
+    "advanced telecommunication devices",
+    "satellite communication dishes",
+    "modern construction materials (e.g., PVC window frames)",
+    "GPS devices"
+  ],
+  "documented_props": [],
+  "central_subject": {
+    "kind": "place",
+    "foto_madre": ""
+  }
+}
