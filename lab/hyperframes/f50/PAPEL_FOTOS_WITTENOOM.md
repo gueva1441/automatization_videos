@@ -1,0 +1,939 @@
+# Wittenoom en papel — las fotos con el prompt nuevo (F50 D)
+
+Salida de `python fase1_5.py --topic 123bbb64-9fca-4395-8bf4-57d60e219ef1 --only m03` con el camino de F50 (canon desde la ficha, casilleros con Opus 5.5, armado por código, F8). **Cero fotos.** Para revisar antes de la tanda de fotos y clips.
+
+## Cap 1 — 5 fotos (antes 5)
+
+**Clip Veo** (start) — ancla: «con el pie envuelto en una venda blanca»
+
+- video_prompt (635 caracteres): A slow, somber close documentary shot on grainy 35mm film, muted desaturated colors, slightly underexposed, low at ground level. The camera makes a very slow push-in, starting on the bandaged foot and the unlaced boot beside it and ending in a tighter frame on the dust-stained white bandage. First, fine red dust drifts low across the dirt, then a faint breeze stirs the rolled cuff of the worn trousers and a loose bootlace. The foot rests flat and steady as the man holds still for the photograph. Cold, flat overcast daylight falls evenly on the rust-red earth, bluish-grey grit and the base of the corrugated iron wall throughout.
+- negative_prompt: text, subtitles, captions, watermark, logo, morphing faces, distorted hands, extra limbs, people entering the frame, sudden lighting change, camera shake, fast cuts, cartoon, CGI look
+- duration: 8s
+
+### Cap 1 · foto 1 (primer cuadro del clip Veo)
+
+- Ancla: «con el pie envuelto en una venda blanca»
+- Beat: 1 · año **1962** (2) el casillero `year` del modelo)
+- people_group: spanish_migrant_families · plano: close · low angle at ground level · shallow depth of field, 85mm lens
+- Prompt (958 caracteres): Bandaged right foot of a lean mid-20s Spanish migrant miner, olive skin, worn work trousers rolled at the ankle. The foot rests flat on the red dirt while he holds still for a family photograph, the bandage already stained with dust. Focal pull onto the white bandage, the rest of the body cut off above the knee and out of focus. A scuffed leather work boot left unlaced beside it. Dusty yard of a 1962 Wittenoom miner's house, red earth ground scattered with bluish-grey grit, base of a corrugated iron wall. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Cold overcast daylight, flat and shadowless. Desaturated blue-grey, chalky white bandage, muted rust-red earth, dull galvanized grey. Close shot, low angle at ground level, shallow depth of field, 85mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: props_detail: a loosely wound white cotton bandage with a faint grey seep of dust working into its folds,
+- Rehecha: no
+
+### Cap 1 · foto 2
+
+- Ancla: «En el retrato de familia todos miran a cámara menos el pie: está vendado, y la herida que le hizo un trozo de amianto no cierra.»
+- Beat: 1 · año **1962** (2) el casillero `year` del modelo)
+- people_group: spanish_migrant_families · plano: wide · eye-level, like a family box camera · deep depth of field, slightly soft period snapshot framing
+- Prompt (1137 caracteres): A Spanish migrant family posed for a 1962 snapshot: a lean mid-20s Spanish miner with a bandaged foot, a slim mid-20s Spanish woman in a plain cotton dress, a few relatives behind them. The family holds still facing the camera while the young man shifts his weight off the bandaged foot. Faces turned to the lens, squinting against the glare; the young man's shoulders tilt toward his good leg, the bandaged foot planted at the front of the frame. The white bandage on his foot, the only bright spot in the frame. Front of a corrugated iron and asbestos-cement house in 1962 Wittenoom, red earth yard, a grey granular path running past the door. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Cold overcast daylight, flat and shadowless. Faded blue-grey photographic tones, rust-red earth, weathered metallic grey, chalky white bandage. Wide shot, eye-level, like a family box camera, deep depth of field, slightly soft period snapshot framing. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 1 · foto 3
+
+- Ancla: «El hombre se llama Daniel Écija y es minero. Vino de Madrid.»
+- Beat: 1 · año **1962** (2) el casillero `year` del modelo)
+- people_group: wittenoom_miners_and_mill_workers · plano: medium · eye-level · shallow depth of field, 50mm lens
+- Prompt (877 caracteres): A lean mid-20s Spanish migrant miner, olive skin, dark hair dulled with grey dust, tired build. He stands outside after a long shift, weight held off one bandaged foot. Face to the front, eyes heavy-lidded with fatigue, one shoulder sagging against the iron wall. A dented metal lunch tin hanging from his hand, coated in fine bluish dust. Corrugated iron wall of a miners' quarters in 1962 Wittenoom, red earth underfoot, fine pale-blue grit on the ground. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Cold overcast daylight, flat and shadowless. Cold blue-grey, dusty khaki workwear, rust-red earth, dull galvanized iron. Medium shot, eye-level, shallow depth of field, 50mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 1 · foto 4
+
+- Ancla: «Wittenoom, Australia Occidental, mil novecientos sesenta y dos.»
+- Beat: 1 · año **1962** (1) dicho en el ancla)
+- people_group: wittenoom_miners_and_mill_workers · plano: extreme_wide · high angle from the gorge rim · deep depth of field, wide-angle lens
+- Prompt (1114 caracteres): The working mining town of Wittenoom in 1962, rows of low corrugated iron and asbestos-cement houses below rust-red Pilbara gorge walls. A 1950s truck raises a pale grey dust trail along an unsealed road surfaced with crushed mine waste. Focal direction down the dusty main road toward the distant mill and the waste dumps at the foot of the gorge. A weathered roadside sign at the town's edge, its paint dulled by dust. Active 1962 Wittenoom, functional one-storey homes, roads and yards spread with grey-blue granular tailings, Pilbara desert beyond. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Cold overcast daylight, flat and shadowless. Rust-red earth, dusty grey, weathered metallic corrugated iron, a faint blue tinge in the road surface. Extreme wide shot, high angle from the gorge rim, deep depth of field, wide-angle lens. The words "WITTENOOM" are written on the roadside sign at the town's edge in painted block letters, in clear crisp lettering. The image has a 16:9 aspect ratio.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 1 · foto 5
+
+- Ancla: «Para entender ese pie hay que volver a un baile en Madrid, un año antes de la foto.»
+- Beat: 1 · año **1961** (2) el casillero `year` del modelo)
+- people_group: spanish_migrant_families · plano: wide · eye-level from the edge of the dance floor · deep depth of field, 35mm lens
+- Prompt (1101 caracteres): Young Spanish couples in their twenties at a 1961 Madrid neighbourhood dance, men in pressed dark suits and women in full-skirted cotton dresses, mostly seen from behind. Couples turn slowly on a tiled floor; at the edge a slim dark-haired young man in a borrowed suit offers his hand to a young woman. Most dancers read as silhouettes against the bandstand; the young man in the foreground is turned toward the woman, his good shoes polished. His polished black leather shoes, both feet whole, on the worn tiles. Modest 1961 Madrid dance hall, whitewashed walls, paper garlands, a small bandstand with a few musicians. Grainy 35mm documentary photograph, 1961, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Cold low-key interior light from a few bare bulbs, hard shadows on the walls. Cold desaturated blue-grey, black suits, pale cotton dresses, dim whitewash. Wide shot, eye-level from the edge of the dance floor, deep depth of field, 35mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+## Cap 2 — 16 fotos (antes 16)
+
+### Cap 2 · foto 1
+
+- Ancla: «Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal.»
+- Beat: 2 · año **1961** (1) dicho en el ancla)
+- people_group: spanish_migrant_families · plano: wide · high angle from the upper balcony · deep depth of field, 35mm lens
+- Prompt (1024 caracteres): Spanish couples in their mid-20s, slim working-class builds, dancing on a crowded ballroom floor; a young dark-haired man in a narrow dark suit and a dark-haired woman in a modest full-skirted dress meet near the centre. The young man and woman take their first dance step together amid hundreds of dancing couples. The pair face each other at arm's length, heads slightly bowed, smiling toward each other. A large crystal chandelier hanging above the dance floor. Grand ballroom of the Círculo de Bellas Artes, Madrid, 1961, marble columns, gilded balconies, polished parquet. Grainy 35mm documentary photograph, 1961, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Warm evening chandelier light, soft amber glow. Warm gilt, ivory marble, deep burgundy drapery, dark suits against pale dresses. Wide shot, high angle from the upper balcony, deep depth of field, 35mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 2 · foto 2
+
+- Ancla: «Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos.»
+- Beat: 2 · año **1962** (1) dicho en el ancla)
+- people_group: spanish_migrant_families · plano: wide · eye-level from across the street · deep depth of field, 35mm lens
+- Prompt (892 caracteres): A modest Spanish wedding party: a groom in his mid-20s, lean, dark borrowed suit, and a bride of the same age in a plain white dress, surrounded by a few relatives in sober Sunday clothes. The newlyweds step out of the church doors onto the stone steps on a Thursday morning. The couple look down the steps toward the street, arm in arm. A small bouquet of white carnations in the bride's arm. Stone steps of a modest Madrid parish church, 1962, narrow street, parked 1950s cars. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Soft overcast morning daylight. Pale limestone, soft white, charcoal suits, dusty Madrid ochre. Wide shot, eye-level from across the street, deep depth of field, 35mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 2 · foto 3
+
+- Ancla: «Cuatro días más tarde ya están en el barco. Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles.»
+- Beat: 2 · año **1962** (2) el casillero `year` del modelo)
+- people_group: spanish_migrant_families · plano: extreme_wide · low angle from the quay toward the hull · deep depth of field, 24mm lens
+- Prompt (930 caracteres): Hundreds of Spanish emigrants, men and women in their 20s and 30s, lean builds, plain 1960s travel clothes, lining the rails of an ocean liner, filling the frame. The liner is docked, emigrants crowd the decks as the gangways are cleared for departure. Most figures seen from behind and in profile, looking down toward relatives on the quay. Worn cardboard suitcases tied with string stacked on the quay. Spanish port quay, September 1962, a large white ocean liner moored, cranes and warehouses behind. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Neutral midday daylight. White hull, rust-streaked waterline, grey quay stone, faded blue sky. Extreme wide shot, low angle from the quay toward the hull, deep depth of field, 24mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 2 · foto 4
+
+- Ancla: «De Wittenoom no saben nada; saben que hay trabajo y que van juntos.»
+- Beat: 2 · año **1962** (2) el casillero `year` del modelo)
+- people_group: spanish_migrant_families · plano: wide · eye-level from behind · deep depth of field, 35mm lens
+- Prompt (759 caracteres): A Spanish couple in their mid-20s, slim, plain cotton shirt and simple travel dress, seen from behind at the ship's rail. The couple stand side by side at the stern rail as the ship sails into open sea. Both gaze out toward the empty horizon, backs to the camera. A single shared suitcase resting at their feet. Stern deck of an ocean liner, open sea, 1962. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Neutral afternoon daylight over water. Deep sea blue, white painted steel, weathered teak deck. Wide shot, eye-level from behind, deep depth of field, 35mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 2 · foto 5
+
+- Ancla: ««Iba pegadita a mi marido, como una niña», recuerda su mujer.»
+- Beat: 2 · año **1962** (2) el casillero `year` del modelo)
+- people_group: spanish_migrant_families · plano: medium · eye-level · shallow depth of field, 85mm lens
+- Prompt (918 caracteres): A young Spanish woman, about 26, slight build, dark hair pinned back, simple printed dress, pressed against the arm of her husband, a lean Spanish man of the same age in a rolled-sleeve shirt. She walks the deck close against her husband's side, her head near his shoulder. Her face turned slightly up toward him, his gaze ahead along the deck, both faces toward the camera at a soft angle. A folded handkerchief tucked in her hand at his elbow. Promenade deck of an emigrant liner, 1962, lifeboats overhead. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Soft neutral daylight with sea glare. Sun-bleached white steel, pale teak, soft sea blue, faded cotton prints. Medium shot, eye-level, shallow depth of field, 85mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 2 · foto 6
+
+- Ancla: «Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan. Esa familia madrileña había hecho el mismo viaje un mes antes.»
+- Beat: 2 · año **1962** (2) el casillero `year` del modelo)
+- people_group: spanish_migrant_families · plano: wide · slight high angle from an upper deck · deep depth of field, 35mm lens
+- Prompt (837 caracteres): Another Spanish family from Madrid: a man in his late 20s, stocky, cap and work shirt; a woman of similar age, sturdy, practical dress; a young boy beside them. The family sits together on a deck bench among other emigrants a month earlier on the same route. The man and woman look toward the sea, the boy looks up at the funnel. A wicker basket of bread and fruit on the bench. Crowded emigrant deck of an ocean liner, August 1962. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Neutral midday daylight. Faded cotton blues and browns, white steel, grey-blue sea. Wide shot, slight high angle from an upper deck, deep depth of field, 35mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 2 · foto 7
+
+- Ancla: «Un niño que hizo ese viaje todavía recuerda el calor.»
+- Beat: 2 · año **1962** (2) el casillero `year` del modelo)
+- people_group: spanish_migrant_families · plano: wide · eye-level · deep depth of field, 35mm lens
+- Prompt (742 caracteres): A Spanish boy about 7, thin, short shorts and damp cotton shirt, sun-browned skin, hair sticking with sweat. The boy sits in the narrow shade beneath a lifeboat, knees drawn up, as heat shimmers off the deck. He looks out at the glaring water, shoulders slumped. A tin cup of water beside him on the deck. Blazing steel deck of an emigrant liner, 1962. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Harsh overhead sun, hard shadow. Bleached white, hot metal grey, glaring pale sky, deep shadow. Wide shot, eye-level, deep depth of field, 35mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 2 · foto 8
+
+- Ancla: «Víctor Calvo era un niño cuando subió a ese barco. «Salimos de Málaga y tardamos más de 20 días en llegar en barco a Australia», dice Calvo.»
+- Beat: 3 · año **1962** (2) el casillero `year` del modelo)
+- people_group: spanish_migrant_families · plano: wide · low angle from the quay · deep depth of field, 28mm lens
+- Prompt (848 caracteres): A Spanish boy about 7, slim, short trousers and buttoned shirt, holding his mother's skirt; his mother, sturdy late 20s, carrying a suitcase, among a line of emigrant families. The family climbs the gangway onto the liner at Málaga. The boy looks up at the towering hull, mother looks ahead to the deck. A bundled blanket roll tied to the suitcase. Port of Málaga, August 1962, quay with cranes, whitewashed warehouses, palm trees. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Bright clear Mediterranean daylight. White hull, Mediterranean blue, sandy quay stone, faded travel clothes. Wide shot, low angle from the quay, deep depth of field, 28mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 2 · foto 9
+
+- Ancla: «Recuerda el canal de Suez y el calor que hacía ahí, un calor que todavía lo hace resoplar cuando lo cuenta.»
+- Beat: 3 · año **1962** (2) el casillero `year` del modelo)
+- people_group: spanish_migrant_families · plano: extreme_wide · high angle from the canal bank · deep depth of field, telephoto compression
+- Prompt (791 caracteres): An emigrant ocean liner passing through the Suez Canal, tiny figures crowded under deck awnings. The ship glides slowly between flat desert banks under a white-hot sky. Focal line runs along the narrow canal toward the shimmering horizon. A canvas deck awning sagging in the windless heat. Suez Canal, 1962, sand banks, a lone palm cluster and low stone post. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Harsh midday sun, heat shimmer. Pale sand, bleached sky, white hull, narrow band of green water. Extreme wide shot, high angle from the canal bank, deep depth of field, telephoto compression. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 2 · foto 10
+
+- Ancla: «Recuerda los mareos. Y la incertidumbre: no saber muy bien adónde iban ni cómo iban a vivir.»
+- Beat: 3 · año **1962** (2) el casillero `year` del modelo)
+- people_group: spanish_migrant_families · plano: medium · slightly high angle · shallow depth of field, 50mm lens
+- Prompt (884 caracteres): A Spanish boy about 7, thin, pale and sweat-damp, lying on a lower bunk; his mother, late 20s, sturdy, sitting on the bunk edge in a creased dress. The boy lies curled on his side as the cabin rolls, the mother sits slumped with her back against the bulkhead. The boy stares at the porthole, the mother gazes at the floor. A round porthole showing a tilted grey sea. Cramped lower-deck emigrant cabin, 1962, metal bunks, stacked luggage. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Single shaft of daylight through the porthole, dim interior. Pale green painted steel, grey blankets, dim brass, sea-blue porthole light. Medium shot, slightly high angle, shallow depth of field, 50mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 2 · foto 11
+
+- Ancla: «Después del barco, un avión pequeño, de hélices, que se sacude durante todo el vuelo.»
+- Beat: 3 · año **1962** (2) el casillero `year` del modelo)
+- people_group: — · plano: extreme_wide · high angle looking down past the plane to the land · deep depth of field, wide lens
+- Prompt (782 caracteres): A small twin-propeller passenger aircraft of the early 1960s. The plane bucks through turbulence, one wing dipping, over endless red ranges. Focal direction follows the aircraft across the vast empty land below. Spinning propeller blades catching the sun. Sky above the Pilbara desert, Western Australia, 1962, flat-topped red ranges and spinifex. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Harsh clear desert daylight. Deep red earth, ochre ridges, pale hazy sky, silver aluminium. Extreme wide shot, high angle looking down past the plane to the land, deep depth of field, wide lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 2 · foto 12
+
+- Ancla: «Aterriza en una pista en medio de una tierra muy roja, en el desierto de Pilbara, en Australia Occidental.»
+- Beat: 3 · año **1962** (2) el casillero `year` del modelo)
+- people_group: — · plano: wide · low angle from the edge of the strip · deep depth of field, 28mm lens
+- Prompt (879 caracteres): The small propeller plane touching down on a remote dirt airstrip. Wheels hit the strip and throw up a long plume of red and grey dust. Focal direction along the runway toward a lone corrugated-iron hut. A rusting corrugated-iron hut with a painted place name. Remote Wittenoom airstrip in the Pilbara, 1962, surface laid with mine waste, red plain and ranges beyond. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Harsh midday desert sun. Vivid red earth, dusty grey strip, weathered corrugated iron, faint blue-grey grit. Wide shot, low angle from the edge of the strip, deep depth of field, 28mm lens. The words "WITTENOOM" are written on the side of the airstrip hut in hand-painted block letters, in clear crisp lettering. The image has a 16:9 aspect ratio.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 2 · foto 13
+
+- Ancla: «Hay polvo por todas partes. Ese niño cuenta que nunca había visto tanto polvo.»
+- Beat: 3 · año **1962** (2) el casillero `year` del modelo)
+- people_group: spanish_migrant_families · plano: wide · eye-level, child's height · deep depth of field, 35mm lens
+- Prompt (817 caracteres): A Spanish boy about 7, slim, travel shirt already streaked with red dust, standing beside his mother, sturdy late 20s, at the foot of the plane steps. The boy stops on the strip as a gust lifts a cloud of fine dust around them. He faces forward toward the camera, squinting into the dust, one arm raised to shield his eyes. A small cardboard suitcase coated in red powder at his feet. Wittenoom airstrip, 1962, propeller plane behind, red plain stretching away. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Harsh midday sun diffused by airborne dust. Red earth, dusty grey haze, sun-bleached clothes, dull silver fuselage. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: menor en daño: Wide shot, eye-level, child's height, deep depth of field, 35mm lens.
+- Rehecha: no
+
+### Cap 2 · foto 14
+
+- Ancla: «Los llevan a las casas: chapa, madera y uralita.»
+- Beat: 3 · año **1962** (2) el casillero `year` del modelo)
+- people_group: spanish_migrant_families · plano: extreme_wide · slightly high angle over the street · deep depth of field, 24mm lens
+- Prompt (889 caracteres): Rows of company houses of corrugated iron, wood and asbestos cement; a Spanish family with suitcases stepping down from a 1950s company truck. The newly arrived family is led toward the houses along a dusty street. Figures seen from behind, looking toward the low houses ahead. A dusty 1950s company truck with its tailgate down. Residential street of working Wittenoom, 1962, gorge ranges behind, roads and yards surfaced with grey-blue tailings. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Harsh afternoon desert sun. Weathered corrugated silver, pale asbestos cement, red earth, dusty grey-blue ground. Extreme wide shot, slightly high angle over the street, deep depth of field, 24mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 2 · foto 15
+
+- Ancla: «La familia de Juan-Barroso había llegado en agosto de mil novecientos sesenta y dos. De esa tierra sacan crocidolita, el asbesto azul, un mineral que se paga bien porque aguanta el calor y no se gasta.»
+- Beat: 3 · año **1962** (1) dicho en el ancla)
+- people_group: wittenoom_miners_and_mill_workers · plano: extreme_wide · low angle from the gorge floor · deep depth of field, wide lens
+- Prompt (895 caracteres): The asbestos mill on the gorge slope with its waste dumps; European migrant mineworkers in their 20s-40s, lean, dust-covered work clothes, small against the plant. The mill runs at full production, conveyors feeding the dumps of tailings as trucks haul bagged fibre. Focal direction up the slope from the trucks to the mill and dumps. A loaded truck of hessian sacks of blue fibre. Wittenoom Gorge mine and mill, Pilbara, 1962, red cliffs, exposed machinery. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Harsh midday sun through hanging dust. Red cliffs, rusted iron, dusty grey haze, distinctive blue of crocidolite. Extreme wide shot, low angle from the gorge floor, deep depth of field, wide lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 2 · foto 16
+
+- Ancla: «Nadie les dijo qué era el polvo. La compañía lo sabía desde hacía dieciocho años.»
+- Beat: 3 · año **1962** (2) el casillero `year` del modelo)
+- people_group: spanish_migrant_families · plano: wide · eye-level from the yard fence · deep depth of field, 35mm lens
+- Prompt (960 caracteres): A Spanish mother, late 20s, sturdy, cotton house dress, hanging laundry; her boy about 7, thin, shorts and bare dusty legs, crouched in the yard. The boy scoops the yard's tailings into a mound while a breeze lifts fine dust across the drying sheets. The boy looks down at the ground he plays in, the mother faces the line, neither looks at the dust. White sheets on the line carrying a faint grey film. Backyard of a corrugated-iron house in working Wittenoom, 1962, yard surfaced with mine waste. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Harsh afternoon desert sun, dust glittering in the light. Pale grey-blue tailings, red earth beyond, white sheets dulled with dust, weathered iron. Wide shot, eye-level from the yard fence, deep depth of field, 35mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+## Cap 3 — 16 fotos (antes 16)
+
+### Cap 3 · foto 1
+
+- Ancla: «En mil novecientos cuarenta y cuatro, el inspector de minas y el ingeniero de minas Adjunto del Estado ya habían informado sobre el problema del polvo.»
+- Beat: 4 · año **1944** (1) dicho en el ancla)
+- people_group: australian_government_representatives · plano: wide · high angle from the cliff edge behind the officials · deep depth of field, 35mm lens
+- Prompt (1019 caracteres): Two middle-aged Anglo-Australian state officials in pale suits and felt hats, the mines inspector and deputy mining engineer, small against the gorge. Standing on a red rock ledge, studying a pale dust plume rising from the early mine workings below. Both figures seen from behind, turned toward the drifting plume, one with a notebook held at his side. A pale haze of dust hanging over the tin sheds like low cloud. Wittenoom Gorge 1944, raw red cliffs, a scatter of corrugated iron sheds and a timber ore chute at the mine mouth. Grainy 35mm documentary photograph, 1944, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Harsh late-afternoon desert sun, long raking shadows across the gorge. Rust-red rock, dusty grey haze, faint blue-grey streaks of fibre, weathered tin. Wide shot, high angle from the cliff edge behind the officials, deep depth of field, 35mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 3 · foto 2
+
+- Ancla: «En mil novecientos cuarenta y seis ya había diagnósticos de asbestosis, y un inspector describió las condiciones de trabajo como terroríficas.»
+- Beat: 4 · año **1946** (1) dicho en el ancla)
+- people_group: wittenoom_miners_and_mill_workers · plano: wide · eye-level from the tunnel floor · wide-angle lens, deep focus, compressed low ceiling
+- Prompt (1006 caracteres): Wiry Anglo-Australian and European migrant miners in their twenties and thirties, singlets and work trousers caked in blue-grey dust. Crawling and hunched on their knees in a cramped underground gallery, picking at the blue seam. Figures read by bent backs and shoulders, heads lowered under the rock ceiling, an inspector's carbide lamp pushing in from the tunnel mouth. A hanging carbide lamp whose beam turns solid with floating fibres. Low underground asbestos gallery barely higher than a kneeling man, timber props, fibrous blue seam in the rock wall, 1946. Grainy 35mm documentary photograph, 1946, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Low-key, single carbide lamp beam cutting through thick dust. Deep shadow, ochre rock, choking grey dust. Wide shot, eye-level from the tunnel floor, wide-angle lens, deep focus, compressed low ceiling. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: color_palette: blue asbestos veins,
+- Rehecha: no
+
+### Cap 3 · foto 3
+
+- Ancla: «La mina era entonces de ABA, una filial de CSR que en mil novecientos cuarenta y tres había tomado los intereses de Hancock y Wright.»
+- Beat: 4 · año **1943** (1) dicho en el ancla)
+- people_group: — · plano: wide · low angle from the dirt track · deep depth of field, 28mm lens
+- Prompt (929 caracteres): The asbestos mine entrance in the gorge under its new owner. A freshly painted company sign stands over a tin shed while an ore truck idles in the dust. Focal line runs from the sign down the dirt track into the dark mine mouth. A 1940s flatbed truck loaded with hessian sacks of fibre, dust trailing from its wheels. Wittenoom Gorge 1943, corrugated iron sheds, timber headframe, red scree slopes. Grainy 35mm documentary photograph, 1943, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Flat hard midday sun, bleached sky. Red earth, sun-bleached corrugated iron, fresh white paint, blue-grey fibre dust. Wide shot, low angle from the dirt track, deep depth of field, 28mm lens. The words "AUSTRALIAN BLUE ASBESTOS" are written on a board over the shed entrance in hand-painted block letters, in clear crisp lettering. The image has a 16:9 aspect ratio.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 3 · foto 4
+
+- Ancla: «Mil novecientos cuarenta y ocho. Un médico llega en avión y escribe una carta a máquina: los niveles de polvo son extremadamente peligrosos.»
+- Beat: 4 · año **1948** (1) dicho en el ancla)
+- people_group: australian_public_health_officials · plano: wide · low angle from the strip beside the wheel · 50mm lens, moderate depth of field
+- Prompt (908 caracteres): A lean fair-skinned British-born flying doctor in his thirties, crumpled linen suit, leather medical bag. Stepping down from a small propeller aircraft onto the red dirt airstrip, the mill dust visible on the horizon. Face toward camera under his hat brim, eyes narrowed against the glare toward the distant plume. A scuffed leather medical bag already filmed with red dust. Remote Pilbara airstrip 1948, red earth runway, a tin windsock pole, flat spinifex plain. Grainy 35mm documentary photograph, 1948, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Harsh noon desert sun, hard short shadows. Burnt red earth, silver aircraft skin, dusty grey horizon, pale khaki. Wide shot, low angle from the strip beside the wheel, 50mm lens, moderate depth of field. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 3 · foto 5
+
+- Ancla: «El médico escribe que en un año o dos ABA va a producir la cosecha más abundante y letal de casos de asbestosis de la literatura mundial»
+- Beat: 4 · año **1948** (2) el casillero `year` del modelo)
+- people_group: — · plano: detail · slightly high angle over the roller · macro, shallow depth of field
+- Prompt (933 caracteres): A manual typewriter with a half-typed medical letter in its roller. The letter is mid-sentence, a fine grey dust settling on the keys as it is written. Focus on the typed line in the roller, the rest of the desk falling soft. A thin layer of blue-grey fibre dust on the typewriter keys and carbon sheet. Bare corrugated iron clinic office 1948, rough timber desk, louvred window onto red ground. Grainy 35mm documentary photograph, 1948, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Harsh noon light slanting through a louvred window, dust motes visible. Pale functional walls, gunmetal typewriter, yellowed paper, grey dust film. Detail shot, slightly high angle over the roller, macro, shallow depth of field. The typed line on the page in the roller reads "extremely dangerous" in typewriter, in clear crisp lettering. The image has a 16:9 aspect ratio.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 3 · foto 6
+
+- Ancla: «y que convendría examinar algunos de esos tórax. Se llama Eric Saint.»
+- Beat: 4 · año **1948** (2) el casillero `year` del modelo)
+- people_group: australian_public_health_officials, wittenoom_miners_and_mill_workers · plano: medium · eye-level, slightly behind the worker · 85mm lens, shallow depth of field
+- Prompt (948 caracteres): The fair-skinned flying doctor in his thirties and a gaunt Southern European mill worker in his forties, shirt off, skin grimed with grey dust. The doctor presses a stethoscope to the worker's back as the man coughs, bent forward on a stool. Worker's back to camera, shoulders hunched with the cough; doctor's head tilted, listening, face in profile. A steel stethoscope on a dust-streaked back. Makeshift tin-walled clinic 1948, timber bench, enamel basin, louvred window. Grainy 35mm documentary photograph, 1948, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Harsh noon light from one high window, deep shadow in the corners. Pale walls, grey dust on skin, steel stethoscope, red earth glow through window. Medium shot, eye-level, slightly behind the worker, 85mm lens, shallow depth of field. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 3 · foto 7
+
+- Ancla: «Lo que pasó con la carta lo contó él mismo: «Me desestimaron y, de hecho, me tildaron de alborotador», dijo Saint.»
+- Beat: 4 · año **1948** (2) el casillero `year` del modelo)
+- people_group: — · plano: close · high angle over the desk · 50mm lens, shallow depth of field
+- Prompt (785 caracteres): The doctor's typed letter, pushed aside on a company manager's desk. Lying discarded under a heavy glass ashtray, half buried by ledgers, cigarette smoke curling. Focal line falls on the trapped letter beside an empty swivel chair. A glass ashtray full of butts weighting down the letter. Company manager's office 1948, venetian blinds, metal filing cabinet, oscillating fan. Grainy 35mm documentary photograph, 1948, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Striped noon light through venetian blinds. Brown timber, nicotine yellow, grey ash, pale paper. Close shot, high angle over the desk, 50mm lens, shallow depth of field. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 3 · foto 8
+
+- Ancla: «Un año después, en una sala de arbitraje, la empresa contestó a los que hablaban del polvo.»
+- Beat: 4 · año **1949** (2) el casillero `year` del modelo)
+- people_group: csr_corporate_personnel, wittenoom_miners_and_mill_workers · plano: wide · high angle from the back of the room · deep depth of field, 35mm lens
+- Prompt (932 caracteres): An arbitration hearing: Anglo-Australian company men in dark suits at a front table, rows of dust-stained migrant and Australian workers seated behind. The hearing in session, a presiding officer above, papers spread, workers listening in rigid rows. Workers seen mostly from behind, heads turned toward the bench and the company table. A slow ceiling fan stirring hazy air over the room. Wood-panelled arbitration room 1949, high bench, ceiling fans, tall windows. Grainy 35mm documentary photograph, 1949, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Hazy afternoon light through tall windows, long shadows across the floor. Dark varnished wood, charcoal suits, khaki workwear, dusty window glow. Wide shot, high angle from the back of the room, deep depth of field, 35mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 3 · foto 9
+
+- Ancla: ««El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso», dijo el defensor del empleador.»
+- Beat: 4 · año **1949** (2) el casillero `year` del modelo)
+- people_group: csr_corporate_personnel, wittenoom_miners_and_mill_workers · plano: medium · low angle from the workers' row · 85mm lens, shallow depth of field, foreground blur
+- Prompt (866 caracteres): A heavy-set Anglo-Australian employer's advocate in his fifties, double-breasted suit, slicked hair. Standing at the company table, one palm open in a dismissive gesture as he addresses the bench. Framed past the blurred dusty shoulders of a seated worker; the advocate faces the bench, chin lifted. A seated worker's dust-grimed shoulder in the soft foreground. Wood-panelled arbitration room 1949. Grainy 35mm documentary photograph, 1949, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Hazy afternoon window light, side-lit, growing shadow behind him. Dark wood, charcoal suit, grey-blue dust on a worker's collar. Medium shot, low angle from the workers' row, 85mm lens, shallow depth of field, foreground blur. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 3 · foto 10
+
+- Ancla: «Nueve años después, otro organismo entró al molino y escribió lo que vio.»
+- Beat: 4 · año **1957** (2) el casillero `year` del modelo)
+- people_group: australian_government_representatives · plano: wide · eye-level from the access road · deep depth of field, 35mm lens
+- Prompt (889 caracteres): The asbestos processing mill exterior, a few Anglo-Australian board members in suits with clipboards walking toward it. The inspection party approaches the mill as a dense pale cloud rolls from its doors and vents. Figures seen from behind, small, heads tilted toward the haze-wrapped building. The cloud of fibre dust swallowing the top of the mill. Wittenoom mill 1957, tall corrugated iron sheds, conveyor gantries, tailings dumps below red hills. Grainy 35mm documentary photograph, 1957, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Sun diffused to a dull glare by suspended dust. Red earth, weathered corrugated iron, dusty grey cloud, blue-grey tailings. Wide shot, eye-level from the access road, deep depth of field, 35mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 3 · foto 11
+
+- Ancla: «Mil novecientos cincuenta y siete. La Junta de Referencia entra al molino y deja constancia: condiciones extremadamente polvorientas»
+- Beat: 5 · año **1957** (1) dicho en el ancla)
+- people_group: australian_government_representatives, wittenoom_miners_and_mill_workers · plano: wide · eye-level from behind the doorway figures · wide-angle lens, deep focus
+- Prompt (870 caracteres): The mill interior, crushers and conveyor belts running, board members silhouetted in the doorway. Machinery thunders as dust boils off the belts, the inspectors pausing at the threshold. Silhouetted figures face into the hall, one shielding his mouth with a handkerchief. A conveyor belt heaped with fibre shedding dust into the air. Wittenoom asbestos mill interior 1957, exposed belt drives, steel hoppers, timber walkways. Grainy 35mm documentary photograph, 1957, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Shafts of daylight from roof gaps turned solid by dust. Gunmetal machinery, grey-blue fibre haze, rust, dull amber light. Wide shot, eye-level from behind the doorway figures, wide-angle lens, deep focus. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 3 · foto 12
+
+- Ancla: «trabajadores cubiertos de polvo de pies a cabeza. «Una espesa nube de polvo estaba presente en las inmediaciones del molino», escribió la Junta.»
+- Beat: 5 · año **1957** (2) el casillero `year` del modelo)
+- people_group: wittenoom_miners_and_mill_workers · plano: medium · eye-level · 50mm lens, moderate depth of field
+- Prompt (938 caracteres): Mill workers coated head to toe in blue-grey dust: a stocky Italian migrant in his thirties and a thin Anglo-Australian youth around twenty, others behind. Standing outside the mill at shift's end, slapping dust from their clothes as a thick cloud hangs over the building. The older man faces the camera, eyelashes and brows grey with fibre; the youth turned aside coughing into his arm. A puff of fibre bursting from a slapped work shirt. Yard beside the Wittenoom mill 1957, corrugated iron walls, red ground under a fibre haze. Grainy 35mm documentary photograph, 1957, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Dust-diffused daylight, flat and choked. Blue-grey dust over skin and cloth, rust-red earth, dull grey sky. Medium shot, eye-level, 50mm lens, moderate depth of field. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 3 · foto 13
+
+- Ancla: «Siete meses después, con unos equipos reductores de polvo ya instalados, el suplemento salarial por polvo se redujo y se restringió.»
+- Beat: 5 · año **1957** (2) el casillero `year` del modelo)
+- people_group: — · plano: detail · high angle over the counter · macro, shallow depth of field
+- Prompt (831 caracteres): The mill pay office counter. A reduced pay packet lies beside an open ledger, a few small copper coins counted out, new dust ducting visible through the window. Focal line from the coins to the ruled ledger entry. A buff pay envelope and a few pennies on a dusty counter. Corrugated iron pay office 1957, timber counter, wire grille, window onto the mill. Grainy 35mm documentary photograph, 1957, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Dust-diffused daylight through a small window. Brown timber, copper coins, buff envelope, grey dust film. Detail shot, high angle over the counter, macro, shallow depth of field. The ledger column heading reads "DUST ALLOWANCE" in ruled ledger serif, in clear crisp lettering. The image has a 16:9 aspect ratio.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 3 · foto 14
+
+- Ancla: «CSR venía de la industria azucarera y tenía muy poca experiencia en minas. Los reguladores del Estado hicieron poco más que emitir advertencias y pedir equipos para el polvo.»
+- Beat: 5 · año **1958** (2) el casillero `year` del modelo)
+- people_group: australian_government_representatives · plano: wide · low angle from behind the sedan · deep depth of field, 35mm lens
+- Prompt (851 caracteres): A middle-aged Anglo-Australian state regulator in a grey suit and hat beside a 1950s sedan. Standing at a distance looking up at a newly bolted extraction duct while dust still pours from the mill doors. Seen from behind, head tilted up toward the duct. A shiny new galvanised duct on a rusted wall, haze leaking around it. Wittenoom mill yard late 1950s, corrugated iron sheds, conveyor gantry, red earth. Grainy 35mm documentary photograph, 1958, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Hard afternoon sun dulled by suspended dust. Red earth, grey suit, fresh galvanised duct against weathered iron, blue-grey haze. Wide shot, low angle from behind the sedan, deep depth of field, 35mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 3 · foto 15
+
+- Ancla: «Jim McNulty lo explicó así: cuando las Casandras advirtieron que el polvo era un problema y predijeron la enfermedad, en la industria minera no se encendieron las alarmas»
+- Beat: 5 · año **1960** (2) el casillero `year` del modelo)
+- people_group: — · plano: close · low angle looking up · 85mm lens, shallow depth of field, haze softening the background
+- Prompt (769 caracteres): A silent steam whistle on the mill roof. Unsounded, slowly furred over with fibre dust as the conveyors keep running beneath it. Focal direction up at the idle whistle against a hazy sky. A brass whistle and its slack pull cord coated in grey fibre. Roofline of the Wittenoom mill circa 1960, corrugated iron, gantry beams. Grainy 35mm documentary photograph, 1960, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Dust-veiled late afternoon sun, low contrast. Rusted brass, dull grey sky, blue-grey dust, weathered tin. Close shot, low angle looking up, 85mm lens, shallow depth of field, haze softening the background. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 3 · foto 16
+
+- Ancla: ««porque estaban acostumbrados; lo esperaban», dijo McNulty. En mil novecientos sesenta y uno la producción subió. Al año siguiente, los Écija bajaban de aquel avión.»
+- Beat: 5 · año **1961** (1) dicho en el ancla)
+- people_group: spanish_migrant_families · plano: wide · low angle from the strip · 35mm lens, deep depth of field
+- Prompt (920 caracteres): A young Spanish migrant family: a dark-haired man in his mid-twenties with a cardboard suitcase and his slim wife of the same age in a cotton dress. Stepping off a propeller aircraft onto the airstrip surfaced with mining waste, the mill plume on the horizon. The man faces the camera squinting into glare; the woman turned toward the distant plume, hand at her brow. A battered cardboard suitcase set down in loose waste dust. Wittenoom airstrip 1962, grey-blue waste surface, red hills, mill dust beyond. Grainy 35mm documentary photograph, 1961, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Harsh morning desert sun, long shadows. Blue-grey waste, red earth, silver aircraft, faded cotton tones. Wide shot, low angle from the strip, 35mm lens, deep depth of field. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+## Cap 4 — 14 fotos (antes 14)
+
+### Cap 4 · foto 1
+
+- Ancla: «Los chicos del pueblo juegan con el mineral.»
+- Beat: 6 · año **1962** (2) el casillero `year` del modelo)
+- people_group: spanish_migrant_families · plano: wide · eye-level from a child's height · deep depth of field, 35mm
+- Prompt (937 caracteres): Spanish and Australian migrant children aged six to nine, olive-skinned and sunburnt, thin builds, in cotton shorts and simple dresses. Playing and kneeling in a backyard whose ground is spread with blue-grey mill waste, scooping and tossing loose fibrous clumps. Most seen from behind or in profile, heads bent over the ground, absorbed in the game. A dented tin bucket half-filled with blue-grey fibrous waste. Wittenoom backyard behind a corrugated iron house, 1960s, ground surfaced with blue-grey tailings instead of soil, red gorge walls beyond. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Harsh midday desert sun through a haze of fine suspended dust. Red earth, dusty grey, faded blue asbestos tint, weathered corrugated iron silver. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: menor en daño: Wide shot, eye-level from a child's height, deep depth of field, 35mm.
+- Rehecha: no
+
+### Cap 4 · foto 2
+
+- Ancla: «Víctor Calvo lo cuenta: «Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo».»
+- Beat: 6 · año **1962** (2) el casillero `year` del modelo)
+- people_group: spanish_migrant_families · plano: medium · eye-level, slightly low · shallow depth of field, 85mm lens
+- Prompt (974 caracteres): A Spanish migrant boy about seven, olive skin, dark cropped hair, skinny, shirt and knees grey with dust. Crouched on the waste-covered ground, pulling a tuft of blue fibers apart and lifting it toward his mouth as fine powder lifts into the air. Eyes down on the fraying fibers, face in soft three-quarter profile, dust settling on his eyelashes and hair. A small tuft of blue asbestos fiber shedding a glittering powder cloud. Dusty yard of a Wittenoom family house, 1960s, tailings underfoot, corrugated iron fence behind. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Harsh midday desert sun, backlit dust motes sparkling around the boy. Red earth, dusty grey, pale blue fiber tint, sun-bleached cotton. Medium shot, eye-level, slightly low, shallow depth of field, 85mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 4 · foto 3
+
+- Ancla: «Estaban rodeados de amianto azul y no les daba miedo. Tampoco había dónde no estar rodeados.»
+- Beat: 6 · año **1962** (2) el casillero `year` del modelo)
+- people_group: spanish_migrant_families · plano: wide · high angle looking down on the square · deep depth of field, 28mm
+- Prompt (940 caracteres): A few migrant children, Southern European and Anglo-Australian, aged five to nine, small figures in light summer clothes. Running across a blue-grey surfaced open square, kicking up pale dust trails. Figures read by silhouette and motion, faces turned away toward the houses. A scuffed leather ball leaving a pale dust plume behind it. Wittenoom public open space, 1960s, every surface underfoot spread with tailings, low corrugated iron and asbestos-cement houses ringing the square. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Harsh midday desert sun, flat glare, dust haze softening the horizon. Dusty grey, faded blue, red earth gorge walls, metallic roof glints. Wide shot, high angle looking down on the square, deep depth of field, 28mm. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 4 · foto 4
+
+- Ancla: «Los relaves del molino se usaron para construir el pueblo y la pista de aterrizaje.»
+- Beat: 6 · año **1962** (2) el casillero `year` del modelo)
+- people_group: — · plano: extreme_wide · high angle aerial view · deep depth of field, wide angle
+- Prompt (883 caracteres): The Wittenoom asbestos mill's waste and the town and dirt airstrip built from it. An old flatbed truck hauls a load from the mill dumps toward the airstrip, where a small propeller plane sits on the surfaced runway. Focal line runs from the mill dumps across the town to the airstrip. A 1950s flatbed truck trailing a pale dust plume. Pilbara desert valley, 1960s, mill sheds at the gorge mouth, town grid and airstrip on the flat beyond. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Hazy afternoon desert light, dust suspended over the valley. Red earth, dusty grey, blue-tinted waste, weathered metallic sheds. Extreme wide shot, high angle aerial view, deep depth of field, wide angle. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 4 · foto 5
+
+- Ancla: «Se extendieron como suelo en las carreteras, en los patios, en los espacios públicos: el acceso a la escuela, el jardín de infantes, la iglesia.»
+- Beat: 6 · año **1962** (2) el casillero `year` del modelo)
+- people_group: wittenoom_miners_and_mill_workers · plano: wide · eye-level · deep depth of field, 35mm
+- Prompt (901 caracteres): The entrance path of the town kindergarten and a small church beyond, surfaced with mill waste. A company truck has just tipped a fresh load onto the path, a man in dusty workwear raking it flat. Focal direction along the path toward the kindergarten gate. A long iron rake leaning in the freshly spread waste. Wittenoom street, 1960s, low asbestos-cement kindergarten with a picket gate, corrugated iron church further down. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Harsh midday desert sun, dust haze. Dusty grey, faded blue, red earth verges, pale painted walls. Wide shot, eye-level, deep depth of field, 35mm. The words "Wittenoom Kindergarten" are written on a board above the gate in hand-painted block letters, in clear crisp lettering. The image has a 16:9 aspect ratio.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 4 · foto 6
+
+- Ancla: «El pueblo entero estaba hecho de eso.»
+- Beat: 6 · año **1962** (2) el casillero `year` del modelo)
+- people_group: — · plano: extreme_wide · high angle from the gorge rim · deep depth of field, wide angle
+- Prompt (848 caracteres): The whole working town of Wittenoom in its red gorge. Streets, yards and roofs lie under a uniform grey-blue skin, dust drifting between the rows of houses. Focal sweep over the town grid toward the gorge mouth. A lone water tower standing above the grey rooftops. Pilbara desert, 1960s, functional mining town of one-storey corrugated iron and asbestos-cement houses, mill in the distance. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Late afternoon low sun, long shadows creeping across the grey streets. Red earth, dusty grey, blue asbestos tint, metallic roof glare. Extreme wide shot, high angle from the gorge rim, deep depth of field, wide angle. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 4 · foto 7
+
+- Ancla: «Y en ese pueblo, en junio de mil novecientos sesenta y tres, nació un niño.»
+- Beat: 6 · año **1963** (1) dicho en el ancla)
+- people_group: — · plano: wide · low angle from the forecourt · deep depth of field, 35mm
+- Prompt (748 caracteres): The small Wittenoom hospital building. A single window glows at night as a birth takes place inside, dust drifting through the lamplight. Focal pull toward the lit window. A 1950s station wagon parked askew by the door. Wittenoom, June 1963, low asbestos-cement hospital with corrugated iron roof, forecourt surfaced with grey tailings. Grainy 35mm documentary photograph, 1963, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Low-key desert night, one warm interior lamp. Deep night blue, warm amber window, dusty grey forecourt. Wide shot, low angle from the forecourt, deep depth of field, 35mm. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 4 · foto 8
+
+- Ancla: «Daniel trabajaba en la mina. Ramón de Juan, el amigo, hacía jornadas de dieciséis horas.»
+- Beat: 7 · año **1962** (2) el casillero `year` del modelo)
+- people_group: wittenoom_miners_and_mill_workers · plano: wide · eye-level · deep depth of field, 35mm
+- Prompt (851 caracteres): Spanish migrant miners in their mid-twenties, olive-skinned, wiry, workwear caked grey, hair whitened with dust. Trudging out of the mine portal at the end of a sixteen-hour shift, one figure slumped against the timber frame. Heads bowed, shoulders dropped, rim-lit silhouettes against the tunnel mouth. A dented ore cart dusted with blue fiber. Wittenoom Gorge mine entrance, 1962, timber-framed adit in red rock, ore carts on rails. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Low-key night, single bulb at the portal, dust hanging in its beam. Red rock, dusty grey, blue-tinged dust, dim tungsten amber. Wide shot, eye-level, deep depth of field, 35mm. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 4 · foto 9
+
+- Ancla: «Uno de los hijos de Daniel cuenta que el primer día de trabajo de su padre hubo una explosión y murió gente.»
+- Beat: 7 · año **1962** (2) el casillero `year` del modelo)
+- people_group: wittenoom_miners_and_mill_workers · plano: wide · low angle behind the men · deep depth of field, 50mm
+- Prompt (821 caracteres): A group of European migrant miners, Spanish and Italian, twenties to forties, lean builds, dusty work clothes. Standing still below the mine as a heavy cloud of dust rolls out of the gorge after a blast. Seen from behind, faces turned up toward the dust cloud, one man gripping another's shoulder. A dropped helmet lying on the grey ground. Wittenoom Gorge, 1962, rock face and mine workings below steep red cliffs. Grainy 35mm documentary photograph, 1962, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Overcast daylight dimmed by a rolling dust cloud. Red cliffs, choking grey-blue dust, washed-out sky. Wide shot, low angle behind the men, deep depth of field, 50mm. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 4 · foto 10
+
+- Ancla: «En marzo de mil novecientos sesenta y tres, Milagros Barroso dio a luz en Wittenoom a John Patrick.»
+- Beat: 7 · año **1963** (1) dicho en el ancla)
+- people_group: spanish_migrant_families · plano: wide · eye-level from the ward doorway · deep depth of field, 35mm
+- Prompt (814 caracteres): A mid-twenties Spanish migrant mother, dark hair loose, olive skin, slim, holding her newborn. Resting in a hospital bed after giving birth, the swaddled baby against her chest. Head bowed toward the infant, seen across the ward. A fine grey dust layer on the windowsill beside the bed. Wittenoom hospital ward, March 1963, pale painted walls filmed with dust, iron bedsteads, louvred windows. Grainy 35mm documentary photograph, 1963, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Soft morning daylight through dusty louvres. Pale functional green-white walls, dusty grey, soft white linen. Wide shot, eye-level from the ward doorway, deep depth of field, 35mm. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 4 · foto 11
+
+- Ancla: «Tres meses después le tocó a María. Llegó al hospital de Wittenoom debilitada por una infección renal. El bebé era muy grande. Lo sacaron con fórceps. Le pusieron Daniel, como el padre.»
+- Beat: 7 · año **1963** (2) el casillero `year` del modelo)
+- people_group: spanish_migrant_families · plano: medium · eye-level · shallow depth of field, 85mm lens
+- Prompt (886 caracteres): A mid-twenties Spanish migrant woman, olive skin gone pale, slim frame drained, hair damp with sweat, with a very large swaddled newborn. Lying spent after a forceps delivery, the large baby placed against her. Face toward camera, eyelids heavy, head sunk into the pillow, one arm curled around the infant. A steel instrument tray with obstetric forceps set aside. Wittenoom hospital delivery room, June 1963, unadorned walls, iron bed, enamel basin. Grainy 35mm documentary photograph, 1963, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Low-key night, a single overhead lamp, shadows pooling at the edges. Pale functional walls, sickly lamp yellow, white linen, dusty grey. Medium shot, eye-level, shallow depth of field, 85mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 4 · foto 12
+
+- Ancla: «Hay una foto del bautizo: siete de julio de mil novecientos sesenta y tres.»
+- Beat: 7 · año **1963** (1) dicho en el ancla)
+- people_group: spanish_migrant_families · plano: wide · eye-level · deep depth of field, 50mm
+- Prompt (864 caracteres): A young Spanish migrant family, mid-twenties parents, olive skin, the father wiry in his only suit, the mother in a plain dress holding an infant in a white christening gown. Posing stiffly for a baptism photograph outside a small church. Parents looking toward the camera, squinting into the glare. A long white christening gown trailing near the grey ground. Wittenoom, July 1963, small corrugated iron church, path surfaced with grey tailings, red gorge behind. Grainy 35mm documentary photograph, 1963, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Winter midday desert sun, flat bright light. Red earth, dusty grey, white christening gown, faded Sunday suit. Wide shot, eye-level, deep depth of field, 50mm. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 4 · foto 13
+
+- Ancla: «Después de esa foto, las maletas. Diez meses en Wittenoom.»
+- Beat: 7 · año **1963** (2) el casillero `year` del modelo)
+- people_group: — · plano: detail · low angle at floor level · shallow depth of field, 50mm
+- Prompt (799 caracteres): Worn leather suitcases of a migrant family. Packed and strapped, waiting on a porch whose floor is drifted with fine grey-blue dust. Focal direction from the suitcases toward the open screen door. A battered cardboard-and-leather suitcase tied with a belt, dust on its lid. Veranda of a corrugated iron house in Wittenoom, July 1963, dusty boards, yard of tailings beyond. Grainy 35mm documentary photograph, 1963, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Late afternoon low sun, long shadows across the porch. Scuffed brown leather, dusty grey, faded blue tint, red earth. Detail shot, low angle at floor level, shallow depth of field, 50mm. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 4 · foto 14
+
+- Ancla: «Se fueron antes de que nadie les dijera nada. Nadie les había dicho nada.»
+- Beat: 7 · año **1963** (2) el casillero `year` del modelo)
+- people_group: spanish_migrant_families · plano: wide · low angle behind the family · deep depth of field, 35mm
+- Prompt (843 caracteres): A young Spanish migrant couple in their twenties, olive skin, lean, the woman carrying a swaddled infant, the man carrying suitcases. Walking away across the tailings-surfaced airstrip toward a small propeller plane. Seen from behind, never looking back, grey dust lifting at their heels. A small twin-propeller aircraft with its door open. Wittenoom airstrip, July 1963, grey surfaced runway, red ranges on the horizon. Grainy 35mm documentary photograph, 1963, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Late afternoon low sun, long shadows trailing behind them. Dusty grey runway, red earth, pale sky, silver aircraft. Wide shot, low angle behind the family, deep depth of field, 35mm. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+## Cap 5 — 16 fotos (antes 16)
+
+### Cap 5 · foto 1
+
+- Ancla: «Diciembre de mil novecientos sesenta y seis. James Vernon anuncia que CSR cierra Wittenoom.»
+- Beat: 8 · año **1966** (1) dicho en el ancla)
+- people_group: csr_corporate_personnel · plano: wide · Eye-level from the far end of the table · Deep depth of field, 35mm lens, long table leading to the speaker
+- Prompt (1196 caracteres): Elderly Anglo-Australian corporate chairman, about seventy, heavy-set, grey hair, dark three-piece suit, standing at the head of a long boardroom table among seated middle-aged Anglo-Australian executives seen from behind. Reading the closure statement aloud while the seated men sit motionless, cigarette smoke hanging still. Chairman's eyes lowered to the paper in his hand; the executives' backs and shoulders turned toward him, heads tilted down. A heavy glass ashtray brimming with stubbed cigarettes beside a closed ledger at the chairman's place. Wood-panelled corporate boardroom in a Sydney head office, December 1966, venetian blinds, heavy leather chairs. Grainy 35mm documentary photograph, 1966, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Hard summer daylight cut into stripes by venetian blinds, deep shadows between the bars. Dark walnut, charcoal suits, nicotine-yellow ceiling, slatted white window light. Wide shot, Eye-level from the far end of the table, Deep depth of field, 35mm lens, long table leading to the speaker. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 5 · foto 2
+
+- Ancla: «No lo cierra el polvo: lo cierra el dinero. El molino se apaga y el polvo se asienta sobre las cintas.»
+- Beat: 8 · año **1966** (2) el casillero `year` del modelo)
+- people_group: — · plano: detail · Low angle along the belt surface · Shallow depth of field, 85mm lens, dust motes sharp in the foreground
+- Prompt (982 caracteres): A stopped conveyor belt inside the Wittenoom asbestos mill. Machinery falling silent while fine blue-grey dust drifts down and settles on the motionless belt. Focal direction runs along the belt toward a dim crusher housing at the far end. A thick blanket of fibrous blue-grey dust coating the rubber belt and its rollers. Corrugated-iron processing mill interior at Wittenoom, Pilbara, December 1966, exposed rollers and steel gantries. Grainy 35mm documentary photograph, 1966, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Hard Pilbara noon sun stabbing through gaps in the iron roof, high-contrast shafts through the haze. Dusty grey, faded asbestos blue, rusted metallic hues, red earth stains on the floor. Detail shot, Low angle along the belt surface, Shallow depth of field, 85mm lens, dust motes sharp in the foreground. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 5 · foto 3
+
+- Ancla: «Afuera, en los desfiladeros, quedan más de tres millones de toneladas de relaves. Nadie los mueve.»
+- Beat: 8 · año **1966** (2) el casillero `year` del modelo)
+- people_group: — · plano: extreme_wide · High angle from the gorge rim · Deep depth of field, wide-angle lens, vast scale
+- Prompt (899 caracteres): Asbestos tailings dumped across the red gorge outside Wittenoom. Lying untouched and abandoned in the gorge, a thin veil of dust lifting off them in the hot wind. Focal direction sweeps from the tailings deep into the gorge toward the tiny distant town. A lone idle haul truck from the 1950s parked at the foot of the waste, dwarfed by it. Wittenoom Gorge, Pilbara desert, December 1966, banded red rock walls and spinifex. Grainy 35mm documentary photograph, 1966, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Hard Pilbara noon sun, harsh shadows on the gorge walls. Pervasive red earth, dusty grey, distinctive pale asbestos blue, bleached sky. Extreme wide shot, High angle from the gorge rim, Deep depth of field, wide-angle lens, vast scale. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 5 · foto 4
+
+- Ancla: «De los hombres que habían pasado por la mina, cincuenta y nueve de cada cien se habían ido antes de cumplir seis meses.»
+- Beat: 8 · año **1966** (2) el casillero `year` del modelo)
+- people_group: — · plano: wide · Eye-level from the end of the hut · Deep depth of field, 28mm lens, strong perspective
+- Prompt (901 caracteres): Empty single men's quarters of the Wittenoom mine. Rows of stripped iron bunks standing abandoned, men long gone after short stays. Focal direction down the line of bare beds toward an open door glaring with sunlight. A single dust-caked work jacket left hanging on a nail above an empty bunk. Corrugated-iron and asbestos-cement barracks hut at Wittenoom, 1966, dusty plank floor. Grainy 35mm documentary photograph, 1966, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Hard noon sun through a doorway and small window, high-contrast pools on the floor. Pale functional wall paint dulled by dust, rust-flecked iron, red earth tracked across the floor. Wide shot, Eye-level from the end of the hut, Deep depth of field, 28mm lens, strong perspective. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 5 · foto 5
+
+- Ancla: «Ese mismo año, los Écija entran a su casa en Madrid.»
+- Beat: 8 · año **1966** (2) el casillero `year` del modelo)
+- people_group: spanish_migrant_families · plano: wide · Eye-level from across the narrow street · Deep depth of field, 35mm lens
+- Prompt (984 caracteres): Spanish migrant couple around thirty, lean, sun-darkened, in plain 1960s clothes, with a small child holding the woman's hand, all seen from behind. Stepping through the doorway of a modest apartment building, a battered suitcase carried in. Backs to camera, heads turned toward the dim stairwell ahead, the man's shoulders weighed down by the case. A scuffed leather suitcase still streaked with faint red Pilbara dust. Working-class Madrid street of brick apartment blocks, 1966, iron balconies and laundry lines. Grainy 35mm documentary photograph, 1966, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Hard Castilian afternoon sun, sharp diagonal shadows across the facade. Ochre brick, faded green shutters, worn grey pavement, warm dusty light. Wide shot, Eye-level from across the narrow street, Deep depth of field, 35mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 5 · foto 6
+
+- Ancla: «Los de Juan-Barroso estuvieron unos dos años y medio en el pueblo y volvieron a Madrid en mil novecientos setenta y uno; Mercedes de Juan se quedó en Australia.»
+- Beat: 8 · año **1971** (1) dicho en el ancla)
+- people_group: spanish_migrant_families · plano: wide · Eye-level from behind her · Deep depth of field, 50mm lens, figure small against the airfield
+- Prompt (960 caracteres): Young woman of Spanish descent, early twenties, slim, dark hair tied back, in a simple early-1970s cotton dress, seen from behind. Standing alone at the observation fence watching a propeller airliner carrying her family taxi away. Back to camera, head lifted toward the departing aircraft, one arm folded across her body. A small cardboard suitcase standing upright beside her feet. Perth airport observation deck, Western Australia, 1971, chain-link fence and baking tarmac. Grainy 35mm documentary photograph, 1971, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Hard midday sun, short black shadow at her feet. Bleached concrete, pale sky, aluminium fuselage glint, faded red earth beyond the runway. Wide shot, Eye-level from behind her, Deep depth of field, 50mm lens, figure small against the airfield. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 5 · foto 7
+
+- Ancla: «Cerró la mina. Nadie cerró el polvo. Veinte años después, un policía iba a reconocer el nombre del pueblo en un pasaporte.»
+- Beat: 8 · año **1966** (2) el casillero `year` del modelo)
+- people_group: — · plano: wide · Low angle at street level · Deep depth of field, wide-angle lens, dust haze in the air
+- Prompt (902 caracteres): Asbestos tailings surfacing the main street of Wittenoom after the mine's closure. Hot wind lifting pale blue-grey dust off the street and driving it between the low houses. Focal direction down the empty street toward the gorge on the horizon. A child's tricycle abandoned at a gate, half buried in drifting dust. Wittenoom main street, Pilbara, late 1966, single-storey corrugated-iron and asbestos-cement houses, still standing and intact. Grainy 35mm documentary photograph, 1966, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Hard Pilbara noon sun diffused into a glaring dust haze. Red earth, dusty grey, asbestos blue, weathered corrugated iron. Wide shot, Low angle at street level, Deep depth of field, wide-angle lens, dust haze in the air. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 5 · foto 8
+
+- Ancla: «Mil novecientos ochenta y cinco. Un aeropuerto australiano, un puesto de control.»
+- Beat: 9 · año **1985** (1) dicho en el ancla)
+- people_group: australian_airport_police · plano: wide · Slightly high angle over the queue · Deep depth of field, 28mm lens
+- Prompt (917 caracteres): Passport control hall of an Australian airport, a few Anglo-Australian officers in pale blue uniform shirts inside wooden booths, travellers queued as silhouettes. A line of travellers inching toward the booths under buzzing tubes. Officers' heads bowed over counters; travellers read by silhouette and posture. Heavy rubber stamp and ink pad on the nearest booth counter. Australian airport arrivals checkpoint, 1985, laminate booths, terrazzo floor, rope barriers. Grainy 35mm documentary photograph, 1985, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Hard overhead fluorescent tubes, flat glare with dark edges. Fluorescent green-white, beige laminate, navy uniforms, grey terrazzo. Wide shot, Slightly high angle over the queue, Deep depth of field, 28mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 5 · foto 9
+
+- Ancla: «El agente abre el documento de Daniel Écija hijo, lee el lugar de nacimiento, baja la cabeza hacia el papel, vuelve a mirarlo.»
+- Beat: 9 · año **1985** (2) el casillero `year` del modelo)
+- people_group: australian_airport_police, spanish_migrant_families · plano: medium · Eye-level from beside the booth · Shallow depth of field, 50mm lens
+- Prompt (968 caracteres): Anglo-Australian airport police officer, mid-forties, thickset, moustache, pale blue uniform shirt, facing a lean Spanish-Australian young man of about twenty-two in a 1980s windbreaker. The officer lowering his head to the open passport, then raising his eyes back to the young man. Officer's gaze lifted over the document straight at the traveller; the young man standing stiff, shoulders drawn up. The open passport lying on the counter between them. Wooden passport booth at an Australian airport checkpoint, 1985. Grainy 35mm documentary photograph, 1985, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Hard overhead fluorescent light, sharp shadows under brows. Fluorescent white-green, beige laminate, navy and pale blue uniform. Medium shot, Eye-level from beside the booth, Shallow depth of field, 50mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 5 · foto 10
+
+- Ancla: ««Así que de Wittenoom, ¿eh? Un sitio terrorífico», dijo el policía.»
+- Beat: 9 · año **1985** (2) el casillero `year` del modelo)
+- people_group: — · plano: detail · High angle looking down onto the counter · Macro, shallow depth of field, background dissolved
+- Prompt (824 caracteres): An open passport lying on a laminate checkpoint counter. The page held open at the birthplace line, the officer behind it a blurred navy shape. Focal direction locked on the typed place of birth. Typed birthplace entry on the passport page. Australian airport passport booth, 1985. Grainy 35mm documentary photograph, 1985, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Hard overhead fluorescent light, crisp shadow of the page edge. Fluorescent white, beige laminate, faded passport ink, navy blur. Detail shot, High angle looking down onto the counter, Macro, shallow depth of field, background dissolved. The birthplace line of the open passport page reads "WITTENOOM" in typewritten, in clear crisp lettering. The image has a 16:9 aspect ratio.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 5 · foto 11
+
+- Ancla: «Para entonces, desde mil novecientos setenta y ocho, el gobierno del Estado venía reduciendo el pueblo y empujando a la gente a irse, por las fibras en el aire.»
+- Beat: 9 · año **1978** (1) dicho en el ancla)
+- people_group: australian_government_representatives · plano: wide · Eye-level from across the street · Deep depth of field, 35mm lens
+- Prompt (1018 caracteres): Anglo-Australian family of residents loading belongings onto an old utility truck, watched by a middle-aged Anglo-Australian state official in short-sleeved shirt and tie with a clipboard. Furniture being roped onto the truck as the official ticks off a house; neighbouring homes already emptied. Residents seen from behind, heads down over the load; the official looking along the empty street. A mattress roped onto the truck bed, coated with fine dust. Wittenoom residential street, 1978, corrugated-iron houses with drawn curtains, tailings-surfaced road. Grainy 35mm documentary photograph, 1978, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Hard Pilbara sun, haze of airborne dust softening the far houses. Red earth, dusty grey, faded asbestos blue on the road, sun-bleached paint. Wide shot, Eye-level from across the street, Deep depth of field, 35mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 5 · foto 12
+
+- Ancla: «Entre mil novecientos ochenta y seis y mil novecientos noventa y dos demolieron edificios y cerraron los servicios básicos.»
+- Beat: 9 · año **1986** (1) dicho en el ancla)
+- people_group: — · plano: wide · Low angle from the street · Deep depth of field, 35mm lens, dust frozen mid-air
+- Prompt (863 caracteres): Wittenoom's deserted buildings being torn down. A 1970s bulldozer pushing through a house as dust erupts into the air; boarded nursing post beyond. Focal direction on the billowing dust cloud rising over the rubble. A boarded-up front door lying flat in the rubble, still hinged to its frame. Wittenoom township during demolition, 1986, red earth lots and a closed police station nearby. Grainy 35mm documentary photograph, 1986, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Hard Pilbara afternoon sun, backlit dust cloud glowing. Red earth, dusty grey, weathered corrugated iron, yellow bulldozer paint, asbestos blue. Wide shot, Low angle from the street, Deep depth of field, 35mm lens, dust frozen mid-air. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 5 · foto 13
+
+- Ancla: «En mil novecientos noventa y tres cerró el aeropuerto. Seis años después de aquel control, su padre fue al médico.»
+- Beat: 9 · año **1993** (1) dicho en el ancla)
+- people_group: — · plano: extreme_wide · Low angle from the runway threshold · Deep depth of field, wide-angle lens
+- Prompt (775 caracteres): Abandoned Wittenoom airstrip surfaced with asbestos tailings. The strip lying closed and empty, wind tugging a shredded windsock. Focal direction down the runway toward the red ranges. A tattered windsock on a leaning steel pole. Wittenoom airport, Pilbara, 1993, a locked gate and a small corrugated-iron terminal shed. Grainy 35mm documentary photograph, 1993, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Hard Pilbara noon sun, heat shimmer over the strip. Red earth, pale blue-grey runway surface, rusted iron, bleached sky. Extreme wide shot, Low angle from the runway threshold, Deep depth of field, wide-angle lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 5 · foto 14
+
+- Ancla: «Madrid, mil novecientos noventa y uno. Daniel Écija va al médico. Le hacen pruebas. La palabra es mesotelioma.»
+- Beat: 10 · año **1991** (1) dicho en el ancla)
+- people_group: spanish_migrant_families · plano: medium · Eye-level from behind the patient · Shallow depth of field, 50mm lens, X-ray sharp
+- Prompt (883 caracteres): Spanish man of fifty-five, gaunt, thinning grey hair, worn cardigan, seated seen from behind, facing a Spanish doctor in a white coat. The doctor pointing to a chest X-ray clipped to a lightbox as the diagnosis is spoken. The man's head and shoulders sunk forward toward the glowing X-ray. Chest X-ray on the lightbox, a pale shadow clouding one lung. Madrid hospital consulting room, 1991, metal desk, green tiled walls. Grainy 35mm documentary photograph, 1991, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Hard cold glow of the lightbox in a dim room, high contrast. Hospital green, cold white lightbox glow, grey cardigan, chrome. Medium shot, Eye-level from behind the patient, Shallow depth of field, 50mm lens, X-ray sharp. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 5 · foto 15
+
+- Ancla: «Nueve meses. Daniel muere a los cincuenta y cinco años, veintiocho años después de la foto del bautizo.»
+- Beat: 10 · año **1992** (2) el casillero `year` del modelo)
+- people_group: — · plano: close · Eye-level from the foot of the bed · Shallow depth of field, 85mm lens, photograph in focus
+- Prompt (802 caracteres): An empty hospital bed in a Madrid ward. The bed stripped and vacant, a cardigan folded on the chair beside it. Focal direction on the bedside table where a sepia baptism photograph is propped. Sepia baptism photograph in a small frame on the bedside table. Madrid hospital room, 1992, iron bedframe, tall window with half-drawn curtain. Grainy 35mm documentary photograph, 1992, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Hard window light cutting across the bed, deep shadow beyond. Hospital white and green, sepia photo tones, grey cardigan. Close shot, Eye-level from the foot of the bed, Shallow depth of field, 85mm lens, photograph in focus. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 5 · foto 16
+
+- Ancla: «Uno de los hijos dice que ese sitio les cambió la vida para siempre. Daniel no fue el primero. Para entonces, el Estado ya tenía un número.»
+- Beat: 10 · año **2023** (2) el casillero `year` del modelo)
+- people_group: spanish_migrant_families · plano: close · Eye-level, slightly to the side · Shallow depth of field, 85mm lens, photos blurring behind her
+- Prompt (895 caracteres): Elderly Spanish widow in her eighties, small, frail build, lined weathered face, white hair, dark cardigan, seated among framed sepia family photographs. Face turned toward camera, eyes lowered to the photograph, shoulders drawn in. Small sepia photograph of a baby's bandaged foot on the table before her. Modest Madrid sitting room decades later, walls and sideboard crowded with sepia family photographs, 2023. Grainy 35mm documentary photograph, 2023, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Hard single window light from the side, half her figure in deep shadow. Sepia browns, faded cream walls, dark wool, cold window grey. Close shot, Eye-level, slightly to the side, Shallow depth of field, 85mm lens, photos blurring behind her. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: menor en daño: Sitting very still, body curled forward toward one photograph of a bandaged infa
+- Rehecha: no
+
+## Cap 6 — 16 fotos (antes 16)
+
+### Cap 6 · foto 1
+
+- Ancla: «En mil novecientos ochenta y nueve ya habían muerto más de quinientos antiguos trabajadores y residentes de Wittenoom.»
+- Beat: 11 · año **1989** (1) dicho en el ancla)
+- people_group: — · plano: wide · eye-level from the road centre · deep depth of field, 35mm
+- Prompt (865 caracteres): Wittenoom's deserted buildings, a thinning Pilbara mining town with many houses already empty. Late-afternoon wind moves loose red dust across empty yards and unswept verandas. Focal direction down the empty main street toward the red ranges, with no figure anywhere. A sun-faded screen door hanging open on one empty house. Wittenoom, Pilbara desert, 1989, the town half-abandoned and slowly being dismantled. Grainy 35mm documentary photograph, 1989, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Soft, low golden light with long gentle shadows. Red earth, dusty grey, weathered corrugated-iron silver, faint asbestos blue at the road edges. Wide shot, eye-level from the road centre, deep depth of field, 35mm. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 6 · foto 2
+
+- Ancla: «Los que seguían vivos se habían juntado diez años antes en la Asbestos Diseases Society of Australia.»
+- Beat: 11 · año **1979** (2) el casillero `year` del modelo)
+- people_group: wittenoom_miners_and_mill_workers, spanish_migrant_families · plano: wide · slightly high angle from the back of the hall · deep depth of field, 28mm
+- Prompt (1067 caracteres): Former Wittenoom miners and their widows: Spanish, Italian and Anglo-Australian men and women in their 50s and 60s, mostly seen from behind on folding chairs; a heavyset grey-haired Spanish man leaning on a cane; a lean Anglo-Australian woman in her 40s with a notebook. The survivors gather to found an association, chairs filling a modest hall. Most backs turned toward a trestle table at the front; the man with the cane bent forward, shoulders hunched as he catches his breath. A battered tin donation box on the trestle table. A plain suburban community hall in Perth, 1979, fibro walls, louvred windows. Grainy 35mm documentary photograph, 1979, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Soft overcast daylight through louvred windows. Pale functional cream walls, brown laminate, faded cotton shirts, muted 1970s tones. Wide shot, slightly high angle from the back of the hall, deep depth of field, 28mm. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 6 · foto 3
+
+- Ancla: «En mil novecientos ochenta y ocho un juez leyó su veredicto: la compañía había mostrado un desprecio continuo, consciente y contumaz por la seguridad y la salud de sus trabajadores.»
+- Beat: 11 · año **1988** (1) dicho en el ancla)
+- people_group: wittenoom_miners_and_mill_workers · plano: wide · eye-level from the rear of the public gallery · deep depth of field, 35mm
+- Prompt (824 caracteres): An Anglo-Australian judge in his 60s, robed and wigged, small at a raised timber bench; former mine workers in the gallery seen from behind. The judge reads the verdict aloud from a sheet of paper. Judge looking down at his text; gallery figures sitting rigidly upright, some leaning forward. The verdict pages lit on the bench. A wood-panelled Supreme Court room in Perth, 1988. Grainy 35mm documentary photograph, 1988, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Soft diffuse daylight from high courtroom windows. Dark jarrah wood, ivory paper, muted grey suits, dusty green carpet. Wide shot, eye-level from the rear of the public gallery, deep depth of field, 35mm. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 6 · foto 4
+
+- Ancla: «Mercedes de Juan, que se quedó en Australia, entra en un escáner y después sopla en un tubo.»
+- Beat: 11 · año **2023** (2) el casillero `year` del modelo)
+- people_group: spanish_migrant_families · plano: wide · eye-level from the foot of the scanner table · deep depth of field, 35mm
+- Prompt (823 caracteres): A slim woman of Spanish descent in her late 60s, grey hair tied back, in a pale hospital gown, who stayed in Australia after a childhood in Wittenoom. She lies back on the table as it slides into the scanner ring. Eyes turned up to the ceiling, arms still at her sides, chest rising slowly. The thin hospital blanket folded over her legs. A quiet hospital imaging room in Perth, plain walls, the bulky scanner ring centred, 2023. Grainy 35mm documentary photograph, 2023, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Soft even diffuse light. Clinical white, soft pale blue, beige floor. Wide shot, eye-level from the foot of the scanner table, deep depth of field, 35mm. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 6 · foto 5
+
+- Ancla: ««Nos hacen un escáner y una prueba de función pulmonar», dice Mercedes.»
+- Beat: 11 · año **2023** (2) el casillero `year` del modelo)
+- people_group: spanish_migrant_families · plano: medium · eye-level, side-on · shallow depth of field, 85mm
+- Prompt (755 caracteres): The same woman of Spanish descent in her late 60s, slight build, seated in a cardigan over a blouse. She blows hard into the mouthpiece of a lung-function tube. Seen in profile, cheeks drawn in, shoulders lifted with effort, eyes fixed toward the window. The spirometer tube and its cardboard mouthpiece. A small respiratory testing room in a Perth clinic, 2023. Grainy 35mm documentary photograph, 2023, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Soft daylight through a frosted window. Pale clinic green, soft white, warm window light. Medium shot, eye-level, side-on, shallow depth of field, 85mm. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 6 · foto 6
+
+- Ancla: «Las fibras pueden causar mesotelioma, asbestosis y cáncer de pulmón.»
+- Beat: 11 · año **2023** (2) el casillero `year` del modelo)
+- people_group: — · plano: detail · eye-level, straight on · shallow depth of field, macro
+- Prompt (641 caracteres): A chest radiograph on a backlit clinic viewing box. The film hangs, showing faint pale shadows across the lung fields. Focal direction into the glowing film. A metal clip holding the film at its top edge. A dim consulting room wall, 2023. Grainy 35mm documentary photograph, 2023, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Soft backlight from the viewing box. Cool grey film, milky white backlight, dark surroundings. Detail shot, eye-level, straight on, shallow depth of field, macro. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 6 · foto 7
+
+- Ancla: «La cuenta oficial se detuvo. «El gobierno dejó de contar en 2.000, pero ahora se calcula que la cifra puede ser superior a los 4.000. Y sigue aumentando», dice Melita Markey.»
+- Beat: 11 · año **2023** (2) el casillero `year` del modelo)
+- people_group: — · plano: wide · eye-level down the aisle of shelving · deep depth of field, 35mm
+- Prompt (747 caracteres): A middle-aged Anglo-Australian woman, sturdy build, in a plain blouse, small among shelves of case files. She slides another archive box onto an already full shelf. Seen from behind, head tilted up along rows of boxes. One newly labelled archive box held in her arms. A modest asbestos-victims advocacy office in Perth, rows of shelving, 2023. Grainy 35mm documentary photograph, 2023, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Soft daylight from a side window. Buff cardboard, pale grey walls, soft daylight cream. Wide shot, eye-level down the aisle of shelving, deep depth of field, 35mm. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 6 · foto 8
+
+- Ancla: «Están enfermando hijos de policías y de maestros que trabajaron en el pueblo.»
+- Beat: 11 · año **2023** (2) el casillero `year` del modelo)
+- people_group: — · plano: wide · eye-level from the playground edge · deep depth of field, 28mm
+- Prompt (763 caracteres): Wittenoom's deserted buildings, the former schoolhouse and police quarters. The empty buildings stand silent, red dust drifting across the old playground. Focal direction across the bare playground toward the schoolhouse door. A rusted swing frame without seats in the playground. Wittenoom ghost town, Pilbara, a yard surfaced with grey tailings, 2023. Grainy 35mm documentary photograph, 2023, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Soft late-afternoon light. Red earth, dusty grey, weathered metallic hues, faint asbestos blue. Wide shot, eye-level from the playground edge, deep depth of field, 28mm. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 6 · foto 9
+
+- Ancla: «Mientras los enfermos se contaban a sí mismos, el Estado decidió qué hacer con el pueblo: borrarlo.»
+- Beat: 11 · año **2006** (2) el casillero `year` del modelo)
+- people_group: — · plano: wide · low angle from the dusty ground · deep depth of field, 24mm
+- Prompt (791 caracteres): Wittenoom's deserted buildings being cleared by a front-end loader. A loader stands idle beside a half-cleared lot, dust hanging after the demolition. Focal direction from the loader bucket toward the remaining houses. A twisted sheet of corrugated iron in the loader bucket. Wittenoom ghost town, Pilbara, cleared slabs among red earth, 2006. Grainy 35mm documentary photograph, 2006, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Soft golden late-afternoon light through suspended dust. Red earth, machine yellow faded by dust, grey tailings, corrugated-iron silver. Wide shot, low angle from the dusty ground, deep depth of field, 24mm. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 6 · foto 10
+
+- Ancla: «Junio de dos mil siete; otras fuentes dicen dos mil seis. Wittenoom es abolido formalmente.»
+- Beat: 12 · año **2007** (1) dicho en el ancla)
+- people_group: — · plano: extreme_wide · high aerial angle · deep depth of field, wide aerial lens
+- Prompt (746 caracteres): The Wittenoom ghost town seen from above, scattered remaining houses among red ranges and gorges. The abolished town lies quiet, roads leading nowhere. Focal direction over the whole footprint toward the gorge mouth. A single dirt road curling away into the empty plain. Pilbara desert, Hamersley Range foothills, June 2007. Grainy 35mm documentary photograph, 2007, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Soft low winter sun, golden hour. Red earth, dusty grey, weathered metallic glints, faint blue tailings. Extreme wide shot, high aerial angle, deep depth of field, wide aerial lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 6 · foto 11
+
+- Ancla: «Le quitan el nombre a las señales de la carretera y lo sacan de los mapas. El gobierno de Australia Occidental habla de «el fin de un período oscuro en la historia de nuestro Estado».»
+- Beat: 12 · año **2007** (2) el casillero `year` del modelo)
+- people_group: australian_government_representatives · plano: wide · low angle from the roadside · deep depth of field, 35mm
+- Prompt (811 caracteres): A lean Anglo-Australian road worker in his 40s in high-visibility shirt and wide hat, small beside a roadside sign. He unbolts the town name plate from the highway sign. Seen from behind on a ladder, arms raised to the sign. The removed name plate leaning against the ladder. A bare Pilbara highway shoulder, red earth and spinifex, 2007. Grainy 35mm documentary photograph, 2007, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Soft golden-hour light. Faded road-sign green, red earth, sun-bleached white, pale blue sky. Wide shot, low angle from the roadside, deep depth of field, 35mm. The words "WITTENOOM" are written on the removed name plate in block road-sign letters, in clear crisp lettering. The image has a 16:9 aspect ratio.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 6 · foto 12
+
+- Ancla: «Quince años antes, en mil novecientos noventa y dos, una investigación parlamentaria había recomendado limpiar los relaves. El gobierno rechazó esas recomendaciones.»
+- Beat: 12 · año **1992** (1) dicho en el ancla)
+- people_group: australian_government_representatives · plano: wide · eye-level from the end of the table · deep depth of field, 35mm
+- Prompt (761 caracteres): An empty parliamentary committee room, a few Anglo-Australian officials in suits leaving, seen from behind. The inquiry's bound report sits on the long table as the room empties. Focal direction along the table to the closed report. The thick bound inquiry report, unopened. A committee room in Parliament House, Perth, 1992, timber panelling. Grainy 35mm documentary photograph, 1992, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Soft afternoon light through tall windows. Dark timber, green leather chairs, ivory paper, grey suits. Wide shot, eye-level from the end of the table, deep depth of field, 35mm. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 6 · foto 13
+
+- Ancla: ««La minería en los desfiladeros ha dejado una contaminación que solo puede describirse como vergonzosa, incluso para los estándares de la época», dijo Larry Graham.»
+- Beat: 12 · año **1994** (2) el casillero `year` del modelo)
+- people_group: australian_government_representatives · plano: extreme_wide · low angle from the gorge floor · deep depth of field, 24mm
+- Prompt (794 caracteres): Asbestos tailings dumps filling Wittenoom Gorge; a middle-aged Anglo-Australian committee chairman in a suit, small at the edge, seen from behind. He stands still before the slopes of mine waste spilling into the gorge. Facing the dumps, shoulders squared, hands loose at his sides. A rusted ore chute jutting from the dump face. Wittenoom Gorge, Pilbara, red rock walls, 1994. Grainy 35mm documentary photograph, 1994, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Soft late-afternoon light in the gorge. Red gorge walls, grey-blue tailings, dusty green spinifex. Extreme wide shot, low angle from the gorge floor, deep depth of field, 24mm. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 6 · foto 14
+
+- Ancla: «Le parecía casi increíble que la propiedad de los depósitos de relaves hubiera pasado, por defecto, al gobierno estatal.»
+- Beat: 12 · año **1994** (2) el casillero `year` del modelo)
+- people_group: — · plano: medium · eye-level from the old access track · deep depth of field, 50mm
+- Prompt (730 caracteres): The abandoned asbestos mill at the foot of the gorge, rusted conveyor and empty sheds. The derelict mill stands unclaimed, its conveyor frozen mid-span. Focal direction along the conveyor toward the waste slopes. A padlock-free gate swinging open on the mill fence. Wittenoom Gorge mill site, Pilbara, 1994. Grainy 35mm documentary photograph, 1994, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Soft golden light, gentle shadows. Rust orange, corrugated-iron grey, red earth, pale blue fibre streaks. Medium shot, eye-level from the old access track, deep depth of field, 50mm. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 6 · foto 15
+
+- Ancla: ««Tenemos el deber de impedir una mayor dispersión de los relaves de asbesto», dijo Mark Nevill, por los residentes, por los visitantes, por las generaciones futuras.»
+- Beat: 12 · año **1992** (2) el casillero `year` del modelo)
+- people_group: — · plano: wide · eye-level across the creek · deep depth of field, 35mm
+- Prompt (734 caracteres): Asbestos tailings at the gorge mouth. A steady wind lifts a pale veil of dust off the waste and carries it toward the creek bed and plain. Focal direction following the drifting dust downstream. A dry creek channel carrying the dust trail. Wittenoom Gorge mouth, Pilbara, a dry creek leading toward the Fortescue plain, 1992. Grainy 35mm documentary photograph, 1992, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Soft golden backlight through the dust. Grey-blue tailings, red earth, pale dust haze, olive spinifex. Wide shot, eye-level across the creek, deep depth of field, 35mm. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 6 · foto 16
+
+- Ancla: «En dos mil dieciséis, los documentos dicen por qué los relaves siguen donde están: no porque no se pueda, sino por lo que cuesta. En dos mil veintitrés, los estudios del Estado sobre hasta dónde llega la contaminación ya estaban desactualizados. Borraron el nombre del mapa. El polvo no leía mapas.»
+- Beat: 12 · año **2016** (1) dicho en el ancla)
+- people_group: — · plano: wide · low angle from road level · deep depth of field, 28mm
+- Prompt (822 caracteres): A permanent barricade across the empty access road, a folded paper road map weighted with a stone on its rail, a lone boot print in the dust. Wind carries fine pale dust past the barricade and over the map, out across the plain. Focal direction from the map past the barricade to the open horizon. The worn road map with the town missing, edges lifting in the wind. The closed road into the Wittenoom zone, Pilbara, 2023. Grainy 35mm documentary photograph, 2016, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Soft golden hour, low sun. Red earth, faded barricade white and red, pale dust, soft amber sky. Wide shot, low angle from road level, deep depth of field, 28mm. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+## Cap 7 — 13 fotos (antes 13)
+
+**Clip Veo** (end) — ancla: «No se ha retirado una sola palada de asbesto. ¿Quién va a sacar la primera palada de esa tierra?»
+
+- video_prompt (583 caracteres): A slow, somber wide documentary shot on grainy 35mm film, muted colors, slightly underexposed. The camera makes a slow push-in from ground level, starting wide on the lone shovel standing in the red earth with the dump rising behind it, and ending closer on the shovel with the unbroken slope leading up toward the gorge walls. First, faint dust lifts off the slopes in the morning wind, then thin wisps drift low across the red earth past the shovel's rusted blade. Pale cool dawn light with long soft shadows stays even over the abandoned waste dump and the quiet gorge throughout.
+- negative_prompt: text, subtitles, captions, watermark, logo, morphing faces, distorted hands, extra limbs, people entering the frame, sudden lighting change, camera shake, fast cuts, cartoon, CGI look
+- duration: 8s
+
+### Cap 7 · foto 1 (primer cuadro del clip Veo)
+
+- Ancla: «No se ha retirado una sola palada de asbesto. ¿Quién va a sacar la primera palada de esa tierra?»
+- Beat: 13 · año **2026** (2) el casillero `year` del modelo)
+- people_group: — · plano: wide · Low angle from ground level beside the shovel · Deep depth of field, 24mm lens
+- Prompt (993 caracteres): An untouched expanse of the Colonial tailings dump on the edge of the Wittenoom Gorge, with a lone old long-handled shovel standing upright in the red earth at its foot. Morning wind lifts faint dust off the undisturbed slopes; nobody has dug and the shovel stands unused. Focal line runs from the idle shovel up the unbroken flank of the dump toward the gorge walls. A single weathered wooden-handled shovel with a rusted blade, clean of any dug soil. Abandoned Colonial mine waste dump, Wittenoom Gorge, Pilbara desert, present day, no machinery anywhere, 2026. Grainy 35mm documentary photograph, 2026, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Pale cool dawn light, long soft shadows. Red earth, dusty grey, muted asbestos blue, pale dawn sky. Wide shot, Low angle from ground level beside the shovel, Deep depth of field, 24mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 7 · foto 2
+
+- Ancla: «Los relaves del vertedero de Colonial se van con el agua.»
+- Beat: 13 · año **2021** (2) el casillero `year` del modelo)
+- people_group: — · plano: wide · High angle looking down the slope · Deep depth of field, 35mm lens
+- Prompt (855 caracteres): The Colonial mine tailings dump on the gorge slope after rain. Rainwater runoff cuts gullies down the flank, carrying grey-blue sediment downhill toward a dry creek bed. Eye follows the wet runnels from the dump down into the creek channel. A fan of blue-grey silt spreading where the runoff meets the creek bed. Wittenoom Gorge below the old Colonial mine, Pilbara desert, scattered spinifex and rock, 2021. Grainy 35mm documentary photograph, 2021, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Soft overcast dawn after rain, diffuse and shadowless. Wet red earth, dusty grey, streaks of asbestos blue, overcast silver sky. Wide shot, High angle looking down the slope, Deep depth of field, 35mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 7 · foto 3
+
+- Ancla: «Un informe técnico lo marcó como la fuente principal y la vía del asbesto: la erosión, los lechos de arroyo, las pozas, las llanuras de inundación hacia el río Fortescue.»
+- Beat: 13 · año **2021** (2) el casillero `year` del modelo)
+- people_group: — · plano: extreme_wide · Aerial high angle · Deep depth of field, wide-angle aerial
+- Prompt (918 caracteres): A braided network of creek beds, rock pools and floodplains winding out of the Hamersley Range toward the Fortescue River. Shallow water threads through the channels and spills onto the flats, leaving pale bluish margins. Focal direction sweeps from the gorge mouth to the distant green line of the river. A thin blue-grey rim of deposited sediment tracing every channel edge. Pilbara catchment between Wittenoom Gorge and the Fortescue River floodplain, 2021. Grainy 35mm documentary photograph, 2021, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Pale dawn light, low sun glinting on the pools. Red earth, ochre rock, silver water, faint asbestos blue along the banks, olive river gums. Extreme wide shot, Aerial high angle, Deep depth of field, wide-angle aerial. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 7 · foto 4
+
+- Ancla: «Fibras azules que el agua deja donde se seca.»
+- Beat: 13 · año **2021** (2) el casillero `year` del modelo)
+- people_group: — · plano: detail · High angle, looking straight down · Macro lens, shallow depth of field
+- Prompt (828 caracteres): The drying margin of a creek pool, a crust of fine blue asbestos fibers left on cracked red mud. The water has receded, leaving a fibrous blue tideline where the mud has dried. Focus rests on the blue fibrous crust curling at the edge of the remaining water. Matted wisps of blue fiber lifting at the edges of a mud crack. Shallow rock pool in a Pilbara creek bed downstream of Wittenoom, 2021. Grainy 35mm documentary photograph, 2021, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Soft dawn light raking across the cracks. Cracked red mud, dusty grey, vivid asbestos blue, still dark water. Detail shot, High angle, looking straight down, Macro lens, shallow depth of field. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 7 · foto 5
+
+- Ancla: «En dos mil veintiuno, una nota ambiental registró fibras en canales de arroyos fuera de la zona marcada como contaminada.»
+- Beat: 13 · año **2021** (1) dicho en el ancla)
+- people_group: australian_government_representatives · plano: wide · Eye-level from across the creek · Deep depth of field, 50mm lens
+- Prompt (897 caracteres): A middle-aged white Australian environmental officer, lean build, sun-weathered, in a faded khaki work shirt and wide-brimmed hat, small within the landscape. Crouches at a creek channel beyond the marked zone, recording blue deposits in a field notebook. Head bowed toward the bluish silt at the water's edge, back half-turned to the camera. A weathered field notebook resting on his knee. Dry creek channel outside the Wittenoom contamination boundary, open Pilbara scrub, 2021. Grainy 35mm documentary photograph, 2021, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Pale early morning light, long shadows. Red earth, khaki, dusty grey, faint asbestos blue, pale sky. Wide shot, Eye-level from across the creek, Deep depth of field, 50mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 7 · foto 6
+
+- Ancla: «El mismo informe advirtió que, sin intervención, el aporte de asbesto a la cuenca del Fortescue puede seguir durante cientos de años.»
+- Beat: 13 · año **2021** (2) el casillero `year` del modelo)
+- people_group: — · plano: extreme_wide · Aerial elevated view · Deep depth of field, wide-angle
+- Prompt (740 caracteres): The Fortescue River valley stretching to the horizon. The river lies broad and still, fed by pale tributaries descending from the ranges. Focal direction toward the far horizon where the river vanishes. A pale bluish tributary seam joining the main river. Fortescue River floodplain, Pilbara, river gums along the banks, 2021. Grainy 35mm documentary photograph, 2021, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Soft dawn light, mist over the water. Red earth, olive gums, silver water, hazy blue-grey distance. Extreme wide shot, Aerial elevated view, Deep depth of field, wide-angle. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 7 · foto 7
+
+- Ancla: «Es tierra Banjima. En dos mil veintitrés, Marcos Orellana visitó Australia y se sentó con Maitland Parker, un anciano Banjima.»
+- Beat: 13 · año **2023** (1) dicho en el ancla)
+- people_group: banjima_traditional_owners_and_advocates · plano: wide · Eye-level from a distance · Deep depth of field, 50mm lens
+- Prompt (911 caracteres): An elderly Aboriginal Banjima man, thin and frail, white-bearded, in a plain checked shirt and old hat, seated with a middle-aged Latin American man in a pale shirt. The two sit side by side on low camp chairs in the shade of a ghost gum beside a creek bed, talking. The elder looks out over the creek and ranges; the visitor leans toward him, listening. A tin billy can resting on embers between the chairs. Banjima country near Wittenoom, a ghost gum on a red-earth bank above a dry creek, 2023. Grainy 35mm documentary photograph, 2023, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Warm late afternoon golden hour, long shadows. Red earth, white gum bark, olive spinifex, golden light. Wide shot, Eye-level from a distance, Deep depth of field, 50mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 7 · foto 8
+
+- Ancla: ««Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él», dijo Parker.»
+- Beat: 13 · año **2023** (2) el casillero `year` del modelo)
+- people_group: banjima_traditional_owners_and_advocates · plano: medium · Eye-level · 85mm lens, shallow depth of field
+- Prompt (800 caracteres): An elderly Aboriginal Banjima man, gaunt and stooped, lined weathered face, white beard, faded checked shirt. Sits on the red earth at the creek bank, one palm resting flat on the ground beside him. Face to the front, eyes wet and heavy-lidded, gazing past the camera toward his country, shoulders bowed. A worn felt hat resting on his knee. Red-earth creek bank on Banjima country, gorge walls behind, 2023. Grainy 35mm documentary photograph, 2023, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Warm low golden hour light from the side. Red earth, ochre rock, faded cotton, golden light. Medium shot, Eye-level, 85mm lens, shallow depth of field. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 7 · foto 9
+
+- Ancla: «Maitland Parker murió de mesotelioma en dos mil veinticuatro.»
+- Beat: 13 · año **2024** (1) dicho en el ancla)
+- people_group: — · plano: wide · Eye-level · Deep depth of field, 35mm lens
+- Prompt (704 caracteres): An empty camp chair under the ghost gum by the creek, a worn felt hat left on its seat. Dusk wind stirs the leaves; the chair stays empty. Focal direction from the empty chair out over the dry creek bed. The worn felt hat resting on the empty seat. Banjima country near Wittenoom, the same ghost gum and red bank, 2024. Grainy 35mm documentary photograph, 2024, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Dim blue dusk, last light on the gorge rim. Fading red earth, white bark, violet dusk sky. Wide shot, Eye-level, Deep depth of field, 35mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 7 · foto 10
+
+- Ancla: «Dos años después, Gordon Legal presentó en nombre de BNTAC un proceso contra Australia Occidental en el Tribunal Federal.»
+- Beat: 13 · año **2026** (2) el casillero `year` del modelo)
+- people_group: banjima_traditional_owners_and_advocates · plano: wide · Low angle from the foot of the steps · Deep depth of field, 28mm lens
+- Prompt (891 caracteres): The Federal Court building in Perth, with a few Aboriginal Banjima advocates, middle-aged and younger, in plain shirts, seen from behind climbing the steps. The group walks up toward the entrance carrying document folders. Backs to the camera, heads raised toward the doors. A thick bound case file held under one arm. Federal Court of Australia, Perth, stone forecourt and broad steps, 2026. Grainy 35mm documentary photograph, 2026, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Clean early morning light, crisp shadows. Pale stone, grey glass, muted earth-toned clothing, clear morning sky. Wide shot, Low angle from the foot of the steps, Deep depth of field, 28mm lens. The words "Federal Court" are written Over the entrance in Metal block letters, in clear crisp lettering. The image has a 16:9 aspect ratio.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 7 · foto 11
+
+- Ancla: «Nadie ha empezado a limpiar.»
+- Beat: 14 · año **2026** (2) el casillero `year` del modelo)
+- people_group: — · plano: extreme_wide · Aerial high angle · Deep depth of field, wide-angle aerial
+- Prompt (788 caracteres): The abandoned Wittenoom town site seen from above. Wind moves dust across empty streets and bare foundation slabs; no work, no vehicles. Focal direction across the deserted grid toward the gorge mouth. A tailings-surfaced street running empty through the grid. Former Wittenoom township, Pilbara desert, demolished lots and remnant structures, 2026. Grainy 35mm documentary photograph, 2026, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Pale dawn light, long low shadows. Red earth, dusty grey, weathered corrugated iron, asbestos blue in the road surfaces. Extreme wide shot, Aerial high angle, Deep depth of field, wide-angle aerial. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 7 · foto 12
+
+- Ancla: «En los accesos al pueblo y desfiladero hay bloqueos.»
+- Beat: 14 · año **2026** (2) el casillero `year` del modelo)
+- people_group: — · plano: wide · Low angle from the road surface · Deep depth of field, 24mm lens
+- Prompt (817 caracteres): A permanent barricade of steel rails and concrete blocks cutting the road into Wittenoom Gorge. Wind drives red dust across the closed road; beyond the barrier, empty land. Focal direction past the barricade down the vacant road toward the gorge walls. Heavy concrete blocks with rusted steel rails bolted across the road. Access road at the entrance to Wittenoom Gorge, Pilbara desert, 2026. Grainy 35mm documentary photograph, 2026, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Early morning light with wind-borne dust haze. Red earth, weathered grey steel, ochre gorge walls, pale sky. Wide shot, Low angle from the road surface, Deep depth of field, 24mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- Notas F8: —
+- Rehecha: no
+
+### Cap 7 · foto 13
+
+- Ancla: «El gobierno de Australia Occidental habla de un «grave problema de salud y seguri»
+- Beat: 14 · año **2026** (2) el casillero `year` del modelo)
+- people_group: — · plano: medium · Eye-level · 50mm lens, moderate depth of field
+- Prompt (848 caracteres): A sun-faded government warning sign fixed to the barricade at the old town entrance. The sign rattles in the wind while red dust drifts across the closed road. Focal direction on the sign, with the empty road beyond softly receding. A dented metal warning sign bolted to the steel rail. Barricaded entrance to the former Wittenoom township, open red desert, 2026. Grainy 35mm documentary photograph, 2026, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Early morning light with dust haze. Faded red and white sign, red earth, weathered steel, pale sky. Medium shot, Eye-level, 50mm lens, moderate depth of field. The words "ASBESTOS DANGER" are written On the warning sign on the barricade in Bold block stencil, in clear crisp lettering. The image has a 16:9 aspect ratio.
+- Notas F8: —
+- Rehecha: no
+
+## Resumen
+
+| cap | fotos | antes |
+|---|---:|---:|
+| 1 | 5 | 5 |
+| 2 | 16 | 16 |
+| 3 | 16 | 16 |
+| 4 | 14 | 14 |
+| 5 | 16 | 16 |
+| 6 | 16 | 16 |
+| 7 | 13 | 13 |
+| **total** | **96** | **96** |
+
+El número de fotos no cambia (las anclas se re-planean en cada corrida).
+
+**Años por fuente**
+
+- 1) dicho en el ancla: 28
+- 2) el casillero `year` del modelo: 68
+
+**Re-hechuras:** 0 fotos quedaron rehechas (marca `_f8_rehecha`); la pasada del video rehízo 0.
+
+
+**Carteles:** 10
+
+- cap 1 foto 4: «WITTENOOM» → The words "WITTENOOM" are written on the roadside sign at the town's edge in painted block letters, in clear crisp lettering
+- cap 2 foto 12: «WITTENOOM» → The words "WITTENOOM" are written on the side of the airstrip hut in hand-painted block letters, in clear crisp lettering
+- cap 3 foto 3: «AUSTRALIAN BLUE ASBESTOS» → The words "AUSTRALIAN BLUE ASBESTOS" are written on a board over the shed entrance in hand-painted block letters, in clear crisp lettering
+- cap 3 foto 5: «extremely dangerous» → The typed line on the page in the roller reads "extremely dangerous" in typewriter, in clear crisp lettering
+- cap 3 foto 13: «DUST ALLOWANCE» → The ledger column heading reads "DUST ALLOWANCE" in ruled ledger serif, in clear crisp lettering
+- cap 4 foto 5: «Wittenoom Kindergarten» → The words "Wittenoom Kindergarten" are written on a board above the gate in hand-painted block letters, in clear crisp lettering
+- cap 5 foto 10: «WITTENOOM» → The birthplace line of the open passport page reads "WITTENOOM" in typewritten, in clear crisp lettering
+- cap 6 foto 11: «WITTENOOM» → The words "WITTENOOM" are written on the removed name plate in block road-sign letters, in clear crisp lettering
+- cap 7 foto 10: «Federal Court» → The words "Federal Court" are written Over the entrance in Metal block letters, in clear crisp lettering
+- cap 7 foto 13: «ASBESTOS DANGER» → The words "ASBESTOS DANGER" are written On the warning sign on the barricade in Bold block stencil, in clear crisp lettering
+
+**Costos reales** (cost_history, último registro de `123bbb64-9fca-4395-8bf4-57d60e219ef1`, 2026-10-28T12:07:49.265062): total US$ 2.1205
+
+| servicio · descripción | llamadas | US$ |
+|---|---:|---:|
+| Anthropic claude-opus-5-5 · m03:casilleros | 7 | 1.951 |
+| Anthropic claude-opus-5-5 · m03:motion | 3 | 0.0279 |
+| Gemini 2.5 Flash · call_flash_json | 7 | 0.1416 |
+
+Pasos en `01_v3_costos.json`: [{'paso': 'pantalla', 'usd': 0.6585, 'segundos': 226.4}, {'paso': 'canon', 'usd': 0.0306, 'segundos': 48.2}, {'paso': 'm03', 'usd': 2.1205, 'segundos': 168.9}]

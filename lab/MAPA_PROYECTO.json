@@ -752,7 +752,7 @@
    ],
    "tests": 6,
    "nacio": "e33f84a 2026-05-28",
-   "ultimo": "d56bf14 2026-10-22 (F8b)",
+   "ultimo": "dcea932 2026-10-28 (F50)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase2a.py:55 importa process_script como asset_process y lo corre en la etapa assets (run_pipeline.py:340-342 lanza fase2a.py --topic); m09_packaging.py:489 lo usa para las miniaturas",
@@ -1140,7 +1140,7 @@
    ],
    "tests": 6,
    "nacio": "e33f84a 2026-05-28",
-   "ultimo": "16def01 2026-10-25 (F26c)",
+   "ultimo": "dcea932 2026-10-28 (F50)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase2b.py:3282 abre el video con cost_tracker.start_video y fase2b.py:3389 lo cierra; fase1_5.py:218 y asset_manager.py:1243 también; gemini_helpers.py:193 anota cada llamada Gemini.",
@@ -4518,8 +4518,8 @@
     "script_engine/m03_visual.py"
    ],
    "tests": 1,
-   "nacio": "(fuera de git)",
-   "ultimo": "(fuera de git)",
+   "nacio": "dcea932 2026-10-28 (F50)",
+   "ultimo": "dcea932 2026-10-28 (F50)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "script_engine/m03_visual.py lo importa (mexp) y lo usa en _render_prompts_seedream (m03_visual.py:563-568) y en assign_visual_prompts (2041-2042); m03_visual corre dentro de fase1_5.py:671 (etapa voz).",
@@ -4555,7 +4555,7 @@
    ],
    "tests": 4,
    "nacio": "73e3613 2026-10-22 (F8)",
-   "ultimo": "e76d8ed 2026-10-28 (F49)",
+   "ultimo": "dcea932 2026-10-28 (F50)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "script_engine/m03_visual.py:107 lo importa (v3img) y lo usa en m03_visual.py:561-629 (armado, F8, año) y 2037-2168; m03_visual corre dentro de fase1_5.py:671 (etapa voz).",
@@ -4570,7 +4570,7 @@
    "zona": "fase2a",
    "sticker": "Escribe, para cada capítulo del documental, la descripción de cada imagen que después pinta el generador (Seedream). Le pasa al modelo el lugar principal del caso y el tramo de años que dice la narración (GEO y ERA). Elige qué frase de la narración ilustra cada imagen (Gemini Flash) y, desde F50, le pide a Claude Opus que llene la ficha de cada escena (casilleros) con un expediente por foto: año dicho, lugar, párrafo de la voz, escenas de la ficha, hechos, citas, personas y los grupos de gente del canon. El código arma la frase en un orden fijo y la revisa (sin nombres de personas, sin conteos ni izquierda/derecha, sin manos, sangre o texto suelto: si queda un problema, saca la frase). Rehace las fotos que no cumplen las reglas del capítulo y del video por el mismo camino. En los capítulos 1 y 7 además Opus redacta el movimiento del clip de video con el orden de la guía de Google.",
    "recibe": "El tema ya armado (data/topics_db.json: canon visual con people_groups que arma fase1_5.asegurar_canon desde la ficha, personas y objetos documentados, evidence_pool), el perfil del research (data/scripts/_steps/<id>/_perfil.json: lugar_principal), el esqueleto y la narración (data/scripts/_steps/<id>/01a_*.json y 01b_*.json), la escaleta, la ficha y los párrafos v3 para el expediente (01a_escaleta.json, ficha_caso.json, 01b_narracion_v3.json), el mapa de sincronía del audio (output/audio/<id>/sync_map.json) y los tiempos por palabra (output/audio/<id>/chNN_timestamps.json).",
-   "entrega": "data/scripts/_steps/<id>/03_visual.json (por capítulo: image_prompts con prompt final, casilleros crudos, año y de dónde salió, ancla de narración, rango emocional, foto_madre_ref, notas F8; en caps 1 y 7: image_prompt, video_prompt y supplemental_image_prompts); lo devuelve también como dict a fase1_5.py, que lo ensambla al contrato data/scripts/<id>.json. Sus constantes DOCTRINE_* las reutiliza m09_packaging.",
+   "entrega": "data/scripts/_steps/<id>/03_visual.json (por capítulo: image_prompts con prompt final, casilleros crudos, año y de dónde salió, ancla de narración, rango emocional, foto_madre_ref, notas F8; en caps 1 y 7: image_prompt con su image_f8 (año, grupo, plano, notas F8), video_prompt y supplemental_image_prompts con las mismas claves); lo devuelve también como dict a fase1_5.py, que lo ensambla al contrato data/scripts/<id>.json. Sus constantes DOCTRINE_* las reutiliza m09_packaging.",
    "modelo": [
     {
      "modelo": "claude-opus-5-5, effort high (MODELO_CASILLEROS; claude_helpers.call_json)",
@@ -4606,7 +4606,7 @@
    ],
    "tests": 14,
    "nacio": "e33f84a 2026-05-28",
-   "ultimo": "0ec8e7b 2026-10-28 (F48)",
+   "ultimo": "dcea932 2026-10-28 (F50)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py:671 llama assign_visual_prompts dentro de process_topic (tramo audio -> m07 -> m03 que corre con --from normalizer_gate, el comando de la etapa voz en run_pipeline; también --only m03); script_engine/m09_packaging.py:40 importa DOCTRINE_* en tiempo de carga (fase3, etapa packaging).",
@@ -4627,7 +4627,7 @@
     "_format_bullets",
     "_format_visual_canon_block"
    ],
-   "md5": "1b7750a271a23ba277f01c6df97f9bba",
+   "md5": "6745a3442cf7a51eafb24e330ad99849",
    "sticker_al_dia": true
   },
   "script_engine/m05_judge.py": {

@@ -1874,6 +1874,11 @@ def _seedream_video_prompt(image_prompt: str, anchor: str, label: str, max_attem
     return last
 
 
+# F50 D: lo que el papel de fotos necesita de cada foto de un cap Veo (los caps flux guardan el ítem entero)
+CLAVES_F8_PAPEL = ("anio", "anio_fuente", "people_group", "shot_scale", "camera_angle", "lens_technique",
+                   "_f8_problemas", "_f8_slots_scrub", "_f8_texto_fuera", "_f8_rehecha")
+
+
 def _render_prompts_seedream_veo(topic, cap_data, narration, plan, veo_position, cap_number):
     """Paso 2 VEO bajo seedream. Reusa el skeleton de caps flux para TODAS las fotos
     vía un plan sintético [veo_anchor]+supplementals → resultado[0]=foto Veo
@@ -1915,10 +1920,13 @@ def _render_prompts_seedream_veo(topic, cap_data, narration, plan, veo_position,
              "narration_anchor": it["narration_anchor"],
              "art_profile": "",
              "raw_llm_prompt": it.get("raw_llm_prompt"),
-             **({k: it[k] for k in ("beat", "sensible", "motivos") if k in it} if topic.get("_f8") else {})}
+             **({k: it[k] for k in ("beat", "sensible", "motivos", *CLAVES_F8_PAPEL) if k in it}
+                if topic.get("_f8") else {})}
             for it in supp_items
         ],
-        **({"image_sensible": image_item.get("sensible", False), "_f8_items": items} if topic.get("_f8") else {}),
+        **({"image_sensible": image_item.get("sensible", False), "_f8_items": items,
+            "image_f8": {k: image_item[k] for k in ("beat", "motivos", "raw_llm_prompt", *CLAVES_F8_PAPEL)
+                         if k in image_item}} if topic.get("_f8") else {}),
     }
 
 
@@ -2202,7 +2210,7 @@ def assign_visual_prompts(
                 c["supplemental_image_prompts"] = [
                     {"prompt": it["prompt"], "narration_anchor": it["narration_anchor"], "art_profile": "",
                      "raw_llm_prompt": it.get("raw_llm_prompt"),
-                     **{k: it[k] for k in ("beat", "sensible", "motivos") if k in it}}
+                     **{k: it[k] for k in ("beat", "sensible", "motivos", *CLAVES_F8_PAPEL) if k in it}}
                     for it in by_cap[c["chapter_number"]][1:]]
 
     # PR 1 chat 24: persistir solo el video_id como referencia. El sync_map
