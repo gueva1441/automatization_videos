@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-28 04:15 (F48: S1 en producción —GEO/ERA, fuera «UBICACIONES DOCUMENTADAS»— y S1→S5 en texto con Opus en lab, PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-28 11:05 (F49: chascada de `fix_counts_lr` en producción y 40 fotos C2 | S5 de los caps 2 y 7 en lab, PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,17 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F49, PARADA): las hojas C2 | S5 están en `lab/hyperframes/f49/hoja_ch02_*.jpg` (cap 2, 4 hojas) y `hoja_ch07_*.jpg` (cap 7, 3 hojas). Cada fila trae el n.º de foto, el año de cada variante y el comienzo de la frase de la voz. Salieron las 40 fotos nuevas, sin ningún rechazo del filtro, por US$ 1,40 (tope 2,50). En el cap 2 los años coinciden en las 16 fotos; en el cap 7 difieren en 7 de 12 (S5 pone 2021 en las fotos 1–4 y 2026 en las 10–12). **Producción cambió en una sola cosa:** «The two men» ahora queda «A couple of men» (antes «The a couple of men»). Elegir C2 o S5 es tuyo y del analista.
+
+## F49 — Fotos S5 (Opus + entrada nueva) contra C2 (Pro), caps 2 y 7 (handoff del analista, 2026-10-28 10:40) — HECHA, **PARADA**
+- Handoff `lab/hyperframes/f49/HANDOFF_F49_fotos_opus_vs_pro.md` (md5 `8bc4a5dd…` ✓). Paso 0 `c5893e1` (DECISIONES 10:34 ×2).
+- Chascada en producción `e76d8ed`: `m03_imagenes_v3.fix_counts_lr` usa `ART_COUNT_RE`, que se lleva el artículo junto con la cifra. Test nuevo `test_module_f49.py`. Sticker (md5) y mapa con `--check` 0. Suites: rápida 56; amplia 922 + 4 previas.
+- Lab `f49_corridas.py` (prompts | fotos | hojas | costos), que importa f47 y f46b:
+  - re-pase F8: con la F8 previa reproduce los 40 prompts guardados byte a byte; con la nueva cambia 1 (S5 cap 7 foto 7);
+  - 40 llamadas a Seedream con `num_images` 1, en un pool de 20 workers (`FLUX_MAX_WORKERS`), con freno y grade de producción: 40/40 ok, 0 rechazos;
+  - cost_history `f49-lab`: US$ 1,4000.
+- Abierto m1–m10 en `F49_REPORT.md`: una sola corrida; dos cambios juntos (modelo + entrada); el C2 del cap 2 son las fotos de F46b; candado de ch02 sin correr.
 
 ## 👀 Para Omar (F48, PARADA): **cambió producción en una cosa:** el pedido de las fotos (m03) ahora le dice al modelo el lugar del caso y el tramo de años de la voz (Wittenoom: «Wittenoom», «1943–2024»), y ya no lleva el bloque de ubicaciones de Orleans («→ Madrid», «ningún menor en celdas de adultos»). Lo demás se probó en texto con Opus, en etapas y en `lab/hyperframes/f48/PROMPTS_F48.md`:
 - **S4 (el año como casillero):** el año ya no sale repetido en la prosa (de 33 fotos a 0) y sigue a la voz. Por ejemplo, «diez años antes» de 1989 da 1979, y el prompt ya no dice 1989.

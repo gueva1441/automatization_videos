@@ -1,0 +1,12 @@
+# F49 — prompts re-pasados por F8 con `fix_counts_lr` arreglada (e76d8ed)
+
+Se re-pasaron 40 prompts (S5 caps 2 y 7, C2 cap 7). Con la F8 previa el re-pase reproduce los 40 guardados byte a byte (assert). Cambiaron **1**:
+
+| variante | cap | foto | antes (fragmento) | después (fragmento) |
+|---|---|---|---|---|
+| S5 | 7 | 7 | …an man in his fifties in a plain shirt. The a couple of men sit side by side on Banjima country, the… | …an man in his fifties in a plain shirt. A couple of men sit side by side on Banjima country, the eld… |
+
+**S5 cap 7 foto 7**
+
+- antes: An elderly Aboriginal Banjima man around 70, thin frame and hollowed cheeks from illness, seated on a camp chair beside a Latin American man in his fifties in a plain shirt. The a couple of men sit side by side on Banjima country, the elder speaking and gesturing toward the gorge. Elder looks out toward the red cliffs, the visitor turned toward him listening, notebook resting on his knee. A battered tin mug of tea set on the red ground between the chairs. Red earth clearing near Wittenoom Gorge, spinifex and a river gum, 2023. Grainy 35mm documentary photograph, 2023, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Low golden late-afternoon sun. Red earth, ochre cliffs, faded khaki and white shirts, dusty blue sky. Medium shot, eye-level, shallow depth of field, 50mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
+- después: An elderly Aboriginal Banjima man around 70, thin frame and hollowed cheeks from illness, seated on a camp chair beside a Latin American man in his fifties in a plain shirt. A couple of men sit side by side on Banjima country, the elder speaking and gesturing toward the gorge. Elder looks out toward the red cliffs, the visitor turned toward him listening, notebook resting on his knee. A battered tin mug of tea set on the red ground between the chairs. Red earth clearing near Wittenoom Gorge, spinifex and a river gum, 2023. Grainy 35mm documentary photograph, 2023, dark-history realism, muted colors, visible film grain, slightly underexposed. 35mm film grain, muted documentary colors. Low golden late-afternoon sun. Red earth, ochre cliffs, faded khaki and white shirts, dusty blue sky. Medium shot, eye-level, shallow depth of field, 50mm lens. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.
