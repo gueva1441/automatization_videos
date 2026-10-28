@@ -43,6 +43,7 @@ MODELO, ESFUERZO = "gpt-6.1-sol", "high"
 PROMPT_VERSION = "f23-1"           # f12-1: sin criterios (Ycuá F12) · f14-1: criterios (Orleans F14) · f15-1: historia y escenas
                                    # · f22-1: ejemplos del caso inventado (Puerto Cardal), instituciones en personas
                                    # · f23-1: cronología con la fecha que haya (año, mes o día) y conteos con piso más bajo
+PROMPT_VERSION_CASO = "f44-1"      # F44 (lab, A/B): el mismo prompt con el <caso> de 4 líneas (convención del repo)
 PROMPT_VERSION_F22 = "f22-1"       # F23: la v2.1 de F22 sigue con system("f22-1"), byte-idéntica
 PROMPT_VERSION_F15 = "f15-1"       # F22: el sistema v2 de F15 sigue disponible con system("f15-1"), byte-idéntico
 MAX_LEV = 3
@@ -325,8 +326,17 @@ def pool_section(pool: dict) -> str:
     return "\n".join(out)
 
 
-def prompt(pool: dict, title: str) -> str:
-    return f"""<caso>{title}</caso>
+def caso_block(title: str, caso: dict | None = None) -> str:
+    """F44: sin `caso`, `<caso>{title}</caso>` (byte-idéntico a f23-1). Con `caso` (angle/mystery/reveal del topic), las
+    mismas 4 líneas que ya recibe la escaleta (`m01a_escaleta.build_prompt_v2`), con su mismo «-» si falta una."""
+    if caso is None:
+        return f"<caso>{title}</caso>"
+    return (f"<caso>\nTÍTULO: {title}\nÁNGULO: {caso.get('angle') or '-'}\nMISTERIO: {caso.get('mystery') or '-'}\n"
+            f"REVELACIÓN: {caso.get('reveal') or '-'}\n</caso>")
+
+
+def prompt(pool: dict, title: str, caso: dict | None = None) -> str:
+    return f"""{caso_block(title, caso)}
 
 <pool>
 {pool_section(pool)}
@@ -641,8 +651,8 @@ def _label(s: str, item: dict) -> str:
 #  Corrida y salidas
 # ═══════════════════════════════════════════════════════════════
 
-def build(pool: dict, title: str, *, call: Callable[..., dict]) -> dict:
-    return call(prompt(pool, title), system_instruction=system(), response_schema=SCHEMA,
+def build(pool: dict, title: str, *, call: Callable[..., dict], caso: dict | None = None) -> dict:
+    return call(prompt(pool, title, caso), system_instruction=system(), response_schema=SCHEMA,
                 description="ficha_caso")
 
 
@@ -804,20 +814,23 @@ def call_for(modelo: str | None = None, *, crudo: Path | None = None,
 
 
 def run(topic_id: str, *, steps_dir: Path, title: str, tag: str, out_dirs: list[Path] = (),
-        call: Callable[..., dict] | None = None, modelo: str | None = None) -> dict:
+        call: Callable[..., dict] | None = None, modelo: str | None = None, caso: dict | None = None) -> dict:
     """Lee el pool, hace UNA llamada, chequea y escribe ficha_caso.json + FICHA_<tag>.md en `_steps/<topic>/` y en
     cada `out_dirs`. `call` por defecto: `call_for(modelo)` (sin modelo, gpt-6.1-sol high), con la respuesta cruda en
-    `_steps/<topic>/ficha_respuesta_cruda.json`."""
+    `_steps/<topic>/ficha_respuesta_cruda.json`. F44: `caso` (angle/mystery/reveal) va al bloque `<caso>`
+    (`prompt_version` f44-1); sin él, todo igual que hoy."""
     raw_pool = (steps_dir / topic_id / "00_pool_v3.json").read_bytes()
     pool = json.loads(raw_pool.decode("utf-8"))
     if call is None:
         call = call_for(modelo, crudo=steps_dir / topic_id / "ficha_respuesta_cruda.json")
-    raw = build(pool, title, call=call) or {}
-    return save(topic_id, raw, raw_pool, steps_dir=steps_dir, title=title, tag=tag, out_dirs=out_dirs, modelo=modelo)
+    raw = build(pool, title, call=call, caso=caso) or {}
+    return save(topic_id, raw, raw_pool, steps_dir=steps_dir, title=title, tag=tag, out_dirs=out_dirs, modelo=modelo,
+                prompt_version=PROMPT_VERSION_CASO if caso is not None else PROMPT_VERSION)
 
 
 def save(topic_id: str, raw: dict, raw_pool: bytes, *, steps_dir: Path, title: str, tag: str,
-         out_dirs: list[Path] = (), usd: float | None = None, modelo: str | None = None) -> dict:
+         out_dirs: list[Path] = (), usd: float | None = None, modelo: str | None = None,
+         prompt_version: str = PROMPT_VERSION) -> dict:
     """Chequeo determinista sobre la salida del modelo (`raw`) y escritura de ficha_caso.json + FICHA_<tag>.md.
     Re-aplicable sobre un crudo guardado, sin otra llamada."""
     pool = json.loads(raw_pool.decode("utf-8"))
@@ -825,7 +838,7 @@ def save(topic_id: str, raw: dict, raw_pool: bytes, *, steps_dir: Path, title: s
     from cost_tracker import cost_tracker
     cv = cost_tracker.current_video
     meta = {"topic": topic_id, "titulo": title, "modelo": modelo or MODELO, "esfuerzo": esfuerzo_de(modelo),
-            "prompt_version": PROMPT_VERSION, "pool_md5": hashlib.md5(raw_pool).hexdigest(),
+            "prompt_version": prompt_version, "pool_md5": hashlib.md5(raw_pool).hexdigest(),
             "conteos_crudo": counts(raw), "conteos": counts(ficha), "sacados": len(sacados),
             "usd": usd if usd is not None else (round(cv.total_cost, 4) if cv else 0.0)}
     out = {**meta, **ficha, "chequeo": {"sacados": sacados}}

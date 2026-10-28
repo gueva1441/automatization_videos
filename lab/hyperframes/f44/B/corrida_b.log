@@ -1,0 +1,13 @@
+inicio 23:56:36
+  pool B: md5 3eef2b448a82cfefa4abd4574341c985 = A ✓
+[23:56:38] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f44-B-123bbb64-9fca-4395-8bf4-57d60e219ef1
+  [freno] ficha B: gastado 0.0000 + estimado 0.3533 ≤ 3.00 → sigue
+[gpt] ficha_caso: JSON inválido (Expecting value; finish_reason length) (intento 1/3) — re-llamando
+[gpt] ficha_caso: JSON inválido (Expecting value; finish_reason length) (intento 2/3) — re-llamando
+  ficha B: f44-1 · {'humanos_candidatos': 4, 'giros': 6, 'pico': 1, 'pregunta_final': 1, 'escenas': 10, 'contradicciones': 1, 'decisiones': 15, 'versiones': 3, 'personas': 60, 'personas_descartadas': 8, 'cifras': 28, 'cronologia': 80, 'hechos': 70, 'citas': 23, 'descartados': 25} · sacados 8 · US$ 1.1278
+  [freno] escaleta B (m01a_escaleta v2 intento 1): gastado 1.1278 + estimado 0.9318 ≤ 3.00 → sigue
+  [escaleta] compuerta del pool: verde {'datos': 155, 'citas_verificadas': 42, 'elegibles_humano': 25, 'eventos_con_fecha': 98, 'personas_con_nombre': 35}
+  [escaleta v2] intento 1: 0 bloqueante(s) [] · 18 reparación(es) · 13 a métricas
+  escaleta B: ok · US$ 0.9249 · total B US$ 2.0527
+exit 0
+fin 00:18:48

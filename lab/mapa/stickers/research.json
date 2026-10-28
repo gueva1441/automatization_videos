@@ -138,7 +138,7 @@
   "_parte": "research_c"
  },
  "researcher_steps/ficha_caso.py": {
-  "sticker": "Arma la ficha del caso: una sola llamada a un modelo que lee todo el research del tema (el pool) y devuelve las personas, la cronología, la historia (quién la sufre, los giros, el pico), las escenas, los hechos, las cifras, las citas y las contradicciones. Después un control sin IA revisa que cada cifra, hora, fecha y cita esté de verdad en el texto de los ids que cita, y lo que no está lo manda a «descartados». Es la única fuente de la escaleta y del guion.",
+  "sticker": "Arma la ficha del caso: una sola llamada a un modelo que lee todo el research del tema (el pool) y devuelve las personas, la cronología, la historia (quién la sufre, los giros, el pico), las escenas, los hechos, las cifras, las citas y las contradicciones. Después un control sin IA revisa que cada cifra, hora, fecha y cita esté de verdad en el texto de los ids que cita, y lo que no está lo manda a «descartados». Es la única fuente de la escaleta y del guion. Desde F44 puede recibir además el ángulo, el misterio y la revelación del video (`caso`, prompt f44-1); sin eso el pedido es el mismo de siempre (f23-1), que es lo que corre en producción.",
   "recibe": "data/scripts/_steps/<topic>/00_pool_v3.json (el pool de research, solo lectura) y el título del topic",
   "entrega": "data/scripts/_steps/<topic>/ficha_caso.json y FICHA_<tag>.md (más ficha_respuesta_cruda.json con la respuesta tal cual de la API); la leen la escaleta y el guion v4 (load / id_texts)",
   "modelo": [
@@ -157,8 +157,8 @@
   "estado": "vivo",
   "estado_prueba": "fase1_5.py:386 (run_escaleta_v3 → asegurar_ficha) genera la ficha si falta; fase1_5.py:395 y :425 la cargan; run_escaleta_v3 se llama en fase1_5.py:501 dentro de la etapa guion",
   "funciones_muertas": [],
-  "md5": "350908826393d68b8f767f2a164b22f2",
-  "_parte": "research_c"
+  "md5": "73f373ecd6e924872ad0497031c03000",
+  "_parte": "research_c · F44 (CC)"
  },
  "researcher_steps/pool_gate.py": {
   "sticker": "Es el semáforo entre el research y el guion: cuenta cuántos datos, citas verificadas, personas elegibles y eventos con fecha tiene el pool y lo marca verde, amarillo o rojo. Con rojo el tema vuelve al inbox con el motivo y no se gasta en guion ni imágenes; con amarillo solo avisa. Escribe un POOL_GATE.md.",
