@@ -127,3 +127,5 @@ Motivo: retención + costo de sostener; 19 componentes con 7 tipos de texto prod
 - 2026-10-27 22:20 · **F42: mapa completo del proyecto**, regenerable por código (`lab/MAPA_PROYECTO.md`, stickers por zona, `--check` en el hook); reemplaza a `MAPA_MODULOS` (solo gfx). Solo lectura, US$ 0. La auditoría va aparte (F43) sobre el mapa · Omar · F42.
 - 2026-10-28 02:00 · F46: A/B de fotos de época del cap 2 de Wittenoom en lab (entrada nueva y estructura nueva, una variable por variante); el gasto no es problema · Omar · F46.
 - 2026-10-28 02:24 · F46b: el prompt de imagen se arma solo por código con un expediente por foto (canon + people_groups + año dicho por la voz + escenas y citas del beat), en el orden de la guía de Seedream 5 Lite; A/B en lab con C0/C1 (idioma)/C2 (sin aspecto) y 2 fotos por prompt; el gasto no es problema · Omar · F46b.
+- 2026-10-28 02:49 · C2 no pasa a producción hasta evaluar si su estructura sirve para cualquier historia · Omar
+- 2026-10-28 02:55 · F47: C2 se mide solo en texto (sin fotos) en los caps 5, 6 y 7 de Wittenoom, más una variante D con Claude Fable 5.1 llenando los casilleros (caps 2, 5, 6, 7) · Omar · F47
