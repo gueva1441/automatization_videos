@@ -25,6 +25,8 @@ Nota (hipótesis, solo lectura): si Omar aprobara el papel de `f8s3-vajont`, `et
 Script: `lab/hyperframes/f41/b/recorrido_form.py`. Corre `run_pipeline.main()` en proceso con QA_FORM prendido y lee su salida como la lee `qa_studio_server._form_reader` (header → fase del form; `@@QAFORM@@` → marcador). fase1 es un stub: sus propios marcadores (reuse_seeds, seed_pick, video_type) salen de su subprocess y acá no aparecen. Los documentos de las compuertas son los del stub (unas líneas); en la corrida real el marcador lleva el `01e_pantalla.md` / `GUION_PANTALLA.md` entero en `body`.
 
 
+(Regenerado por CC después de cablear la medida de RAM antes del render, DECISIONES 2026-10-27 00:30: el recorrido usa un stub de RAM suficiente; con la RAM real de hoy, 13,3 GB < 14, el render pararía antes de correr.)
+
 ### Recorrido 1 — research → fase3, A en el papel, C en el visor, A en el guion de pantalla
 
 argv: `run_pipeline.py --research --video-type long --batch` · respuestas del form por stdin: ['A', 'C', 'A']
@@ -75,7 +77,7 @@ argv: `run_pipeline.py --research --video-type long --batch` · respuestas del f
     form → stdin: 'P'
     reporte: ⛔ Frenó en: PAPEL
     reporte: ➡  Próximos comandos:
-    reporte: leer:    C:/Users/Canada/AppData/Local/Temp/f41b_recorrido_77m_wdz4/dos/data/scripts/_steps/top_f41/01e_pantalla.md
+    reporte: leer:    C:/Users/Canada/AppData/Local/Temp/f41b_recorrido_2ztyk23x/dos/data/scripts/_steps/top_f41/01e_pantalla.md
     reporte: aprobar: python fase1_5.py --topic top_f41 --aprobar-papel "Omar <fecha>"
     reporte: retomar: python run_pipeline.py --topic top_f41
   exit code de run_pipeline: 0

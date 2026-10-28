@@ -244,6 +244,27 @@ def _report(tid: str, ran: list[str], *, stopped_at: str | None,
 
 # Flags del render final (lab/ESTADO_SESION.md, «Video completo»; tabla de constantes de F41).
 RENDER_FLAGS = ["--reuse-visuals", "--keep-segments", "--gfx", "--gfx-sparse"]
+RAM_MIN_GB = 14.0   # DECISIONES: 2026-10-27 00:30 (antes de un render completo: < 14 GB libres → avisar y PARADA; umbral de F2)
+
+
+def _ram_libre_gb() -> float | None:
+    """La RAM física libre en GB (Windows: GlobalMemoryStatusEx); None si no se puede medir. Solo mide: no cierra nada."""
+    try:
+        import ctypes
+
+        class _MEM(ctypes.Structure):
+            _fields_ = [("dwLength", ctypes.c_ulong), ("dwMemoryLoad", ctypes.c_ulong),
+                        ("ullTotalPhys", ctypes.c_ulonglong), ("ullAvailPhys", ctypes.c_ulonglong),
+                        ("ullTotalPageFile", ctypes.c_ulonglong), ("ullAvailPageFile", ctypes.c_ulonglong),
+                        ("ullTotalVirtual", ctypes.c_ulonglong), ("ullAvailVirtual", ctypes.c_ulonglong),
+                        ("ullAvailExtendedVirtual", ctypes.c_ulonglong)]
+        m = _MEM()
+        m.dwLength = ctypes.sizeof(_MEM)
+        if not ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(m)):
+            return None
+        return m.ullAvailPhys / 1024 ** 3
+    except Exception:  # noqa: BLE001 — sin medida no se inventa una
+        return None
 
 
 def _phase_header(name: str, tid: str) -> None:
@@ -409,9 +430,18 @@ def _paso_render(tid: str, ran: list[str], batch: bool) -> int | None:
     necesita RAM, lo dice el reporte y Omar decide."""
     _phase_header("RENDER (fase2b --gfx --gfx-sparse)", tid)
     ran.append("render")
-    print("  ℹ Render completo con gfx: el orquestador no cierra ningún programa. Si falta RAM, "
-          "cerrá vos lo que quieras y retomá.")
     cmd = ["fase2b.py", tid, *RENDER_FLAGS]
+    libre = _ram_libre_gb()                              # DECISIONES 00:30: medir antes de un render completo
+    if libre is None:
+        print(f"  ⚠ No pude medir la RAM libre (DECISIONES 00:30 pide ≥ {RAM_MIN_GB:g} GB); el render sigue.")
+    elif libre < RAM_MIN_GB:
+        _report(tid, ran, stopped_at="RENDER", next_cmd=[f"retomar: {_retomar_cmd(tid)}"],
+                why=f"RAM libre {libre:.1f} GB < {RAM_MIN_GB:g} GB (DECISIONES 00:30): PARADA antes del render. "
+                    f"El orquestador no cierra ningún programa; liberá RAM vos y retomá.")
+        return 0
+    else:
+        print(f"  ℹ RAM libre {libre:.1f} GB ≥ {RAM_MIN_GB:g} GB (DECISIONES 00:30).")
+    print("  ℹ Render completo con gfx: el orquestador no cierra ningún programa.")
     rc = _run(cmd)
     if rc != 0:
         _report(tid, ran, stopped_at="RENDER", next_cmd=[_shell(cmd), f"retomar: {_retomar_cmd(tid)}"],
