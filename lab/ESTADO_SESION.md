@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-28 02:50 (F46b: prompt de imagen armado por código con expediente por foto, A/B C0/C1/C2 en lab, PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-28 03:25 (F47: C2 medido solo en texto en los caps 5–7 de Wittenoom + D con Claude Fable 5.1 llenando los casilleros, PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,13 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F47, PARADA): la tabla está en `lab/hyperframes/f47/PROMPTS_F47.md` (los prompts C2 | D enteros, foto por foto, de los caps 2, 5, 6 y 7 de Wittenoom, y la tabla de los 8 chequeos). Solo texto: cero fotos. Lo principal: el canon es uno por video (1937-2007), así que las 12 fotos del cap 7 y 2 del cap 6 (2016–2024) quedan fuera de época; ningún grupo de gente es Banjima; Fable (D) nombra el lugar más seguido y escribe prompts más largos, pero repite el año en 47 de 60 fotos y mete «no people» en el setting. Gasto US$ 3,68 (tope 6,00): Fable US$ 3,31, Pro 0,37. Fable no se negó ni rompió el JSON. Elegir variante es tuyo y del analista.
+
+## F47 — ¿Sirve C2 para cualquier historia? En texto + D con Claude (handoff del analista, 2026-10-28 03:05) — HECHA, **PARADA**
+- Handoff `lab/hyperframes/f47/HANDOFF_F47_c2_en_texto.md` (md5 `a9f039e2…` ✓). Paso 0 `8f43d8a` (DECISIONES 02:49 y 02:55). Lab: `lab/hyperframes/f47/f47_corridas.py`. Importa `f46b_corridas` (expedientes, slots, armado, F8) con el cap como parámetro y el canon C de F46b sin regenerar. En el proceso, `m03.call_pro_json` se reemplaza por un ruteador por hilo: Pro para C2, `claude_helpers.call_json` con Fable effort high para D. 7 llamadas en paralelo, freno antes de cada una. Tiene un modo `seco` sin API.
+- Pedidos C2 = D por cap (md5); D del cap 2 es byte-idéntico al pedido de F46b. 7/7 ok al 1.er intento. US$ 3,6833 (cost_history `f47-lab`). Suites: rápida 55; amplia 918 + 5 (m03_merge_timing ×2 y gfx_lab ×3, que no vienen de esta tanda); candado de ch02 no corrido (escribe en `output/`).
+- Abierto j1–j15 en `F47_REPORT.md`: canon por tramos; grupo Banjima; año duplicado y negaciones en D; falsos positivos del chequeo de nombres; DÓNDE vacío en el cap 6.
 
 ## 👀 Para Omar (F46b, PARADA): las 4 hojas de 8 columnas (A | B1 | C0a | C0b | C1a | C1b | C2a | C2b) están en `lab/hyperframes/f46/f46b/hoja_01-04.jpg` … `hoja_13-16.jpg`. C0 = el prompt armado por código con el expediente de cada foto (año dicho por la voz: 1961 la foto 1, 1962 el resto; aspecto y ropa del grupo de gente; sin mood ni «faceless»); C1 = C0 en español; C2 = C0 sin la oración de aspecto; 2 fotos por prompt. Gasto US$ 3,57 (tope 6,00), 0 rechazadas. Ojo: el aspecto que devolvió el canon dice «de origen europeo» pero no trae piel ni pelo. Elegir variante es tuyo y del analista.
 

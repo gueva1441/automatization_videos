@@ -1,0 +1,949 @@
+{
+ "var": "C2",
+ "cap": 6,
+ "items": [
+  {
+   "subject": "A collection of faded photographs showing Australian and European migrant miners from the 1960s.",
+   "action": "Hanging on a plain wall, representing the hundreds of deceased workers.",
+   "gaze_interaction": "The faces in the photographs look out with neutral expressions, fixed in the past.",
+   "setting": "A quiet, commemorative room in an advocacy group's office, circa 1989.",
+   "color_palette": "Sepia, black and white, and the faded colours of old photographs against a muted beige wall.",
+   "props_detail": "Dozens of small, mismatched frames containing individual portraits.",
+   "shot_scale": "medium",
+   "camera_angle": "Eye-level",
+   "lens_technique": "Shallow depth of field, 50mm lens, focusing on a few photographs.",
+   "lighting": "Soft, diffused daylight from an unseen window.",
+   "mood": "Somber, silent remembrance, the scale of loss conveyed by the number of individual lives.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "interior_scene",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [
+    "mining_workers"
+   ],
+   "narration_anchor": "En mil novecientos ochenta y nueve ya habían muerto más de quinientos antiguos trabajadores y residentes de Wittenoom.",
+   "beat": 11,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "A group of middle-aged and older men and women, former Wittenoom residents.",
+   "action": "Meeting in a community hall, sitting in a circle of chairs, engaged in a serious discussion.",
+   "gaze_interaction": "Listening intently to a speaker out of frame, faces showing lines of fatigue and worry.",
+   "setting": "A sparse community meeting room, late 1970s, with institutional furniture.",
+   "color_palette": "Muted beige, institutional green, faded wood tones.",
+   "props_detail": "A simple folding table holding a pitcher of water and some scattered papers.",
+   "shot_scale": "wide",
+   "camera_angle": "Eye-level",
+   "lens_technique": "Deep depth of field, 35mm lens.",
+   "lighting": "Flat, even overhead fluorescent lighting.",
+   "mood": "Quiet solidarity and shared burden, a small group facing a monumental challenge.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "interior_scene",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [
+    "asbestos_advocates_victims"
+   ],
+   "narration_anchor": "Los que seguían vivos se habían juntado diez años antes en la Asbestos Diseases Society of Australia.",
+   "beat": 11,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "An Australian judge in traditional robes, seen from a low side angle.",
+   "action": "Reading aloud from a thick document at a high bench in a courtroom.",
+   "gaze_interaction": "Eyes focused downward on the text of the verdict.",
+   "setting": "A formal, wood-paneled courtroom, circa 1988.",
+   "color_palette": "Dark mahogany wood tones, black fabric of the robes, cream-colored paper.",
+   "props_detail": "A thick, bound legal document spread open on the judge's bench.",
+   "shot_scale": "medium",
+   "camera_angle": "Low angle",
+   "lens_technique": "50mm lens, focusing on the judge and the document.",
+   "lighting": "Solemn, directional light highlighting the bench, with the rest of the courtroom in shadow.",
+   "mood": "The immense gravity of justice being delivered, a moment of formal condemnation.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "interior_scene",
+   "foto_madre_ref": [],
+   "emotional_rank": "R2",
+   "people_group": [],
+   "narration_anchor": "En mil novecientos ochenta y ocho un juez leyó su veredicto: la compañía había mostrado un desprecio continuo, consciente y contumaz por la seguridad y la salud de sus trabajadores.",
+   "beat": 11,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "A middle-aged woman, appearing to be a Spanish former resident of Wittenoom.",
+   "action": "Lying still on the sliding bed of a CT scanner as it moves her into the machine's large circular aperture.",
+   "gaze_interaction": "Her eyes look straight up, her body is motionless, hands resting at her sides.",
+   "setting": "A sterile hospital examination room from the late 1980s.",
+   "color_palette": "Clinical whites, greys, and the light blue of a hospital gown.",
+   "props_detail": "The large, beige-white cylindrical form of a late 1980s CT scanner.",
+   "shot_scale": "medium",
+   "camera_angle": "Eye-level, from the side of the machine.",
+   "lens_technique": "50mm lens, shallow depth of field.",
+   "lighting": "Even, cold fluorescent lighting.",
+   "mood": "Clinical impersonality, a sense of human vulnerability within the workings of medical technology.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R2",
+   "people_group": [
+    "asbestos_advocates_victims"
+   ],
+   "narration_anchor": "Mercedes de Juan, que se quedó en Australia, entra en un escáner y después sopla en un tubo.",
+   "beat": 11,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "The same middle-aged Spanish woman from the previous scene.",
+   "action": "Sitting upright in a hospital chair, exhaling with maximum effort into the tube of a spirometer.",
+   "gaze_interaction": "Her cheeks are puffed and her face is taut with exertion, eyes focused on a point just beyond the camera.",
+   "setting": "A hospital testing room with medical equipment.",
+   "color_palette": "Clinical whites and greys, with the blue of her hospital gown.",
+   "props_detail": "A spirometry device with a clear plastic mouthpiece and coiled tube.",
+   "shot_scale": "close",
+   "camera_angle": "Eye-level",
+   "lens_technique": "85mm lens.",
+   "lighting": "Bright, even clinical lighting.",
+   "mood": "A feeling of physical strain, the invisible damage inside the body being quantified.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [
+    "asbestos_advocates_victims"
+   ],
+   "narration_anchor": "«Nos hacen un escáner y una prueba de función pulmonar», dice Mercedes.",
+   "beat": 11,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "A medical chest X-ray.",
+   "action": "Displayed on a lightbox, the image shows the web-like scarring and pleural thickening of advanced asbestosis.",
+   "gaze_interaction": "The focus is the texture of the damaged lung tissue.",
+   "setting": "A darkened radiologist's viewing room.",
+   "color_palette": "Stark black, white, and translucent greys of the X-ray film.",
+   "props_detail": "The glowing X-ray film, showing clear evidence of fibrous lung damage.",
+   "shot_scale": "close",
+   "camera_angle": "Straight-on",
+   "lens_technique": "Macro lens, capturing the fine details of the scarring.",
+   "lighting": "The image is the sole light source, glowing intensely from the light box.",
+   "mood": "Cold, clinical finality; the undeniable visual proof of internal destruction.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "interior_scene",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Las fibras pueden causar mesotelioma, asbestosis y cáncer de pulmón.",
+   "beat": 11,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "A hand holding a metal, mechanical tally counter.",
+   "action": "The thumb stops pressing the button, and the numbered wheels freeze, halting the count.",
+   "gaze_interaction": "The focus is on the mechanism coming to a dead stop.",
+   "setting": "A cluttered government office desk, circa 2000.",
+   "color_palette": "Dull metallic sheen, beige plastic, and the grey of dusty office equipment.",
+   "props_detail": "The hand-held tally counter, its digits frozen on a number in the thousands.",
+   "shot_scale": "detail",
+   "camera_angle": "High angle, looking down.",
+   "lens_technique": "Macro lens with a very shallow depth of field.",
+   "lighting": "Harsh, focused light from a single desk lamp.",
+   "mood": "An abrupt, bureaucratic halt; the deliberate act of ceasing to acknowledge a growing tragedy.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "interior_scene",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "La cuenta oficial se detuvo. «El gobierno dejó de contar en 2.000, pero ahora se calcula que la cifra puede ser superior a los 4.000.",
+   "beat": 11,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "A young Australian man in his late 20s, the son of a former Wittenoom worker.",
+   "action": "Sitting slumped on the edge of a hospital bed, his posture conveying exhaustion and defeat.",
+   "gaze_interaction": "His head is bowed into his hands, obscuring his face completely.",
+   "setting": "A simple, public hospital room with minimal furnishings.",
+   "color_palette": "Pale institutional greens, whites, and the light blue of patient clothing.",
+   "props_detail": "A basic, metal-framed hospital bed.",
+   "shot_scale": "medium",
+   "camera_angle": "Eye-level, slightly distant.",
+   "lens_technique": "50mm lens, deep depth of field.",
+   "lighting": "Soft, flat light coming from a large window to one side.",
+   "mood": "The silent weight of inherited tragedy, quiet suffering that spans generations.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [
+    "asbestos_advocates_victims"
+   ],
+   "narration_anchor": "Y sigue aumentando», dice Melita Markey. Están enfermando hijos de policías y de maestros que trabajaron en el pueblo.",
+   "beat": 11,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "The hand of a government official.",
+   "action": "Drawing a thick, heavy red line through the town's name on an official document, striking it out.",
+   "gaze_interaction": "The focus is on the decisive, forceful movement of the marker across the paper.",
+   "setting": "A bureaucratic office desk cluttered with papers and files.",
+   "color_palette": "Stark white paper, black printed text, and the aggressive, saturated red of the marker ink.",
+   "props_detail": "A government report with 'Wittenoom' clearly typed, now being redacted.",
+   "shot_scale": "close",
+   "camera_angle": "Top-down, directly overhead.",
+   "lens_technique": "Macro lens.",
+   "lighting": "Bright, even fluorescent office lighting.",
+   "mood": "A cold and definitive act of bureaucratic erasure, wiping a problem off the page.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F09"
+   ],
+   "subject_ref": "interior_scene",
+   "foto_madre_ref": [],
+   "emotional_rank": "R2",
+   "people_group": [
+    "officials_regulators"
+   ],
+   "narration_anchor": "Mientras los enfermos se contaban a sí mismos, el Estado decidió qué hacer con el pueblo: borrarlo.",
+   "beat": 11,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "Two road workers next to a large highway sign.",
+   "action": "Removing the metal letters that spell 'Wittenoom' from the sign, leaving a blank space.",
+   "gaze_interaction": "Their faces are turned away or obscured as they focus on the manual task.",
+   "setting": "A roadside in the vast, red-earthed Australian outback, circa 2007.",
+   "color_palette": "The deep green of the road sign, metallic silver letters, against the ochre of the desert and a vast blue sky.",
+   "props_detail": "The large, official green highway directional sign, now visibly defaced.",
+   "shot_scale": "wide",
+   "camera_angle": "Low angle, looking up.",
+   "lens_technique": "Wide-angle lens with deep depth of field.",
+   "lighting": "Harsh, bright midday sun casting sharp shadows.",
+   "mood": "A stark, physical act of erasure; the official removal of a place from public existence.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F09"
+   ],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [],
+   "emotional_rank": "R1",
+   "people_group": [],
+   "narration_anchor": "Junio de dos mil siete; otras fuentes dicen dos mil seis. Wittenoom es abolido formalmente. Le quitan el nombre a las señales de la carretera y lo sacan de los mapas.",
+   "beat": 12,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "A government official in a dark suit, seen from behind the shoulder.",
+   "action": "Standing at a podium, addressing an unseen audience during a press conference.",
+   "gaze_interaction": "The figure's head is angled towards the bank of microphones, face obscured.",
+   "setting": "A formal press briefing room with an official state crest on the wall behind the podium.",
+   "color_palette": "Corporate blues and dark greys of the suit, rich wood tones of the podium.",
+   "props_detail": "A cluster of microphones on the podium, bearing logos of various news agencies.",
+   "shot_scale": "medium",
+   "camera_angle": "Eye-level.",
+   "lens_technique": "85mm lens, shallow depth of field focusing on the microphones.",
+   "lighting": "Bright, direct lighting typical of a staged press event.",
+   "mood": "Polished, disingenuous officialdom; a narrative being carefully managed and brought to a close.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "interior_scene",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [
+    "officials_regulators"
+   ],
+   "narration_anchor": "El gobierno de Australia Occidental habla de «el fin de un período oscuro en la historia de nuestro Estado».",
+   "beat": 12,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "A thick, bound parliamentary report from 1992.",
+   "action": "Lying on a dark wood desk, its cover stamped with a large, decisive red mark.",
+   "gaze_interaction": "The focus is on the stamped word, signifying the dismissal of the report's contents.",
+   "setting": "A government office interior, suggesting the 1990s.",
+   "color_palette": "Yellowed cream paper, black serif type, and stark red ink.",
+   "props_detail": "The front cover of the official report, marred by a large 'REJECTED' stamp.",
+   "shot_scale": "close",
+   "camera_angle": "High angle, looking directly down onto the desk.",
+   "lens_technique": "50mm lens.",
+   "lighting": "Slightly shadowy office lighting from an unseen overhead source.",
+   "mood": "The blunt finality of bureaucratic rejection, a critical warning ignored.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": true,
+    "text": "REJECTED",
+    "font": "block",
+    "location": "stamped over the document title"
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "interior_scene",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Quince años antes, en mil novecientos noventa y dos, una investigación parlamentaria había recomendado limpiar los relaves. El gobierno rechazó esas recomendaciones.",
+   "beat": 12,
+   "cerrada": false,
+   "texto_en_imagen": true
+  },
+  {
+   "subject": "The Wittenoom Gorge landscape, scarred by mining.",
+   "action": "Vast quantities of asbestos tailings spill down the gorge walls like pale blue glaciers, smothering the natural red rock.",
+   "gaze_interaction": "The visual focus is the jarring contrast between the industrial waste and the natural environment.",
+   "setting": "Wittenoom Gorge, Western Australia.",
+   "color_palette": "The sickly pale blue-grey of the asbestos tailings against the deep reds and ochres of the gorge.",
+   "props_detail": "The sheer volume and spread of the mining waste, covering a huge area.",
+   "shot_scale": "extreme_wide",
+   "camera_angle": "High angle, aerial perspective.",
+   "lens_technique": "Wide-angle lens with deep depth of field.",
+   "lighting": "Bright, harsh desert sun that bleaches the color from the tailings.",
+   "mood": "A sense of permanent, large-scale environmental violation; a shameful, toxic legacy.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F02",
+    "F03"
+   ],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [
+    "blue asbestos tailings"
+   ],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "«La minería en los desfiladeros ha dejado una contaminación que solo puede describirse como vergonzosa, incluso para los estándares de la época», dijo Larry Graham.",
+   "beat": 12,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "Fine asbestos dust rising from a tailings pile.",
+   "action": "A gust of wind blows across the surface of the asbestos waste, lifting a visible cloud of pale blue fibers into the air.",
+   "gaze_interaction": "The focus is the ethereal, deadly movement of the airborne dust cloud as it begins to disperse.",
+   "setting": "The edge of a massive tailings field in the Australian outback.",
+   "color_palette": "Pale blue-grey dust against a red-earth foreground and a hazy, dusty blue sky.",
+   "props_detail": "The plume of airborne asbestos fibers, made visible by the low sun.",
+   "shot_scale": "wide",
+   "camera_angle": "Low angle.",
+   "lens_technique": "35mm lens.",
+   "lighting": "Late afternoon golden hour light, backlighting the dust cloud and making the particles glow.",
+   "mood": "An insidious, unstoppable contamination; a deceptively beautiful but lethal dispersion.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F02"
+   ],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [
+    "blue asbestos tailings"
+   ],
+   "emotional_rank": "R2",
+   "people_group": [],
+   "narration_anchor": "«Tenemos el deber de impedir una mayor dispersión de los relaves de asbesto», dijo Mark Nevill, por los residentes, por los visitantes, por las generaciones futuras.",
+   "beat": 12,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "A page from a government financial report.",
+   "action": "The camera focuses on a single line item, 'Wittenoom Site Remediation', followed by a staggering multi-million dollar figure.",
+   "gaze_interaction": "The focus is entirely on the astronomical cost, which is circled in red pen.",
+   "setting": "A document laid out on an office desk, circa 2016.",
+   "color_palette": "Black and white of the printed report, with the red circle drawing the eye.",
+   "props_detail": "A printed spreadsheet or report with columns of figures, highlighting the remediation cost.",
+   "shot_scale": "detail",
+   "camera_angle": "Top-down",
+   "lens_technique": "Macro lens, isolating the single line of text and numbers.",
+   "lighting": "Focused light from a desk lamp, creating a slight glare on the paper.",
+   "mood": "The cold, brutal arithmetic of inaction; a human tragedy reduced to an prohibitive expense.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "interior_scene",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "En dos mil dieciséis, los documentos dicen por qué los relaves siguen donde están: no porque no se pueda, sino por lo que cuesta.",
+   "beat": 12,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "A high-resolution digital map on a large monitor.",
+   "action": "A thin layer of real red dust is scattered across the screen's surface, partially obscuring the map where a finger points to the blank space where Wittenoom used to be.",
+   "gaze_interaction": "The finger traces the empty spot on the digital map, while the physical dust defies the erasure.",
+   "setting": "A darkened, modern geological survey office.",
+   "color_palette": "The vibrant satellite colors of the map seen through a film of real, ochre-colored dust.",
+   "props_detail": "A fine coating of actual reddish dust covering the glass of the monitor.",
+   "shot_scale": "close",
+   "camera_angle": "Eye-level, angled to catch the screen's glow on the dust particles.",
+   "lens_technique": "50mm lens, shallow depth of field.",
+   "lighting": "The monitor screen is the sole source of light.",
+   "mood": "Grim irony; the unstoppable physical reality of the dust mocking the futility of digital and bureaucratic erasure.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F09",
+    "F10"
+   ],
+   "subject_ref": "interior_scene",
+   "foto_madre_ref": [],
+   "emotional_rank": "R1",
+   "people_group": [],
+   "narration_anchor": "En dos mil veintitrés, los estudios del Estado sobre hasta dónde llega la contaminación ya estaban desactualizados. Borraron el nombre del mapa. El polvo no leía mapas.",
+   "beat": 12,
+   "cerrada": false,
+   "texto_en_imagen": false
+  }
+ ],
+ "estado": "ok",
+ "pedidos": [
+  {
+   "intento": 1,
+   "md5_system": "65d7f452791646498666e4371f50afd5",
+   "md5_user": "89ae9f1216aed0ccce5986797da1c2a9",
+   "md5_schema": "bcb706ab4fd6094eec15a20e1c4bdcee"
+  }
+ ],
+ "crudos": [
+  {
+   "intento": 1,
+   "segundos": 104.1,
+   "respuesta": {
+    "image_prompts": [
+     {
+      "subject": "A collection of faded photographs showing Australian and European migrant miners from the 1960s.",
+      "action": "Hanging on a plain wall, representing the hundreds of deceased workers.",
+      "gaze_interaction": "The faces in the photographs look out with neutral expressions, fixed in the past.",
+      "setting": "A quiet, commemorative room in an advocacy group's office, circa 1989.",
+      "color_palette": "Sepia, black and white, and the faded colours of old photographs against a muted beige wall.",
+      "props_detail": "Dozens of small, mismatched frames containing individual portraits.",
+      "shot_scale": "medium",
+      "camera_angle": "Eye-level",
+      "lens_technique": "Shallow depth of field, 50mm lens, focusing on a few photographs.",
+      "lighting": "Soft, diffused daylight from an unseen window.",
+      "mood": "Somber, silent remembrance, the scale of loss conveyed by the number of individual lives.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "interior_scene",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": [
+       "mining_workers"
+      ]
+     },
+     {
+      "subject": "A group of middle-aged and older men and women, former Wittenoom residents.",
+      "action": "Meeting in a community hall, sitting in a circle of chairs, engaged in a serious discussion.",
+      "gaze_interaction": "Listening intently to a speaker out of frame, faces showing lines of fatigue and worry.",
+      "setting": "A sparse community meeting room, late 1970s, with institutional furniture.",
+      "color_palette": "Muted beige, institutional green, faded wood tones.",
+      "props_detail": "A simple folding table holding a pitcher of water and some scattered papers.",
+      "shot_scale": "wide",
+      "camera_angle": "Eye-level",
+      "lens_technique": "Deep depth of field, 35mm lens.",
+      "lighting": "Flat, even overhead fluorescent lighting.",
+      "mood": "Quiet solidarity and shared burden, a small group facing a monumental challenge.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "interior_scene",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": [
+       "asbestos_advocates_victims"
+      ]
+     },
+     {
+      "subject": "An Australian judge in traditional robes, seen from a low side angle.",
+      "action": "Reading aloud from a thick document at a high bench in a courtroom.",
+      "gaze_interaction": "Eyes focused downward on the text of the verdict.",
+      "setting": "A formal, wood-paneled courtroom, circa 1988.",
+      "color_palette": "Dark mahogany wood tones, black fabric of the robes, cream-colored paper.",
+      "props_detail": "A thick, bound legal document spread open on the judge's bench.",
+      "shot_scale": "medium",
+      "camera_angle": "Low angle",
+      "lens_technique": "50mm lens, focusing on the judge and the document.",
+      "lighting": "Solemn, directional light highlighting the bench, with the rest of the courtroom in shadow.",
+      "mood": "The immense gravity of justice being delivered, a moment of formal condemnation.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "interior_scene",
+      "foto_madre_ref": [],
+      "emotional_rank": "R2",
+      "people_group": []
+     },
+     {
+      "subject": "A middle-aged woman, appearing to be a Spanish former resident of Wittenoom.",
+      "action": "Lying still on the sliding bed of a CT scanner as it moves her into the machine's large circular aperture.",
+      "gaze_interaction": "Her eyes look straight up, her body is motionless, hands resting at her sides.",
+      "setting": "A sterile hospital examination room from the late 1980s.",
+      "color_palette": "Clinical whites, greys, and the light blue of a hospital gown.",
+      "props_detail": "The large, beige-white cylindrical form of a late 1980s CT scanner.",
+      "shot_scale": "medium",
+      "camera_angle": "Eye-level, from the side of the machine.",
+      "lens_technique": "50mm lens, shallow depth of field.",
+      "lighting": "Even, cold fluorescent lighting.",
+      "mood": "Clinical impersonality, a sense of human vulnerability within the workings of medical technology.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R2",
+      "people_group": [
+       "asbestos_advocates_victims"
+      ]
+     },
+     {
+      "subject": "The same middle-aged Spanish woman from the previous scene.",
+      "action": "Sitting upright in a hospital chair, exhaling with maximum effort into the tube of a spirometer.",
+      "gaze_interaction": "Her cheeks are puffed and her face is taut with exertion, eyes focused on a point just beyond the camera.",
+      "setting": "A hospital testing room with medical equipment.",
+      "color_palette": "Clinical whites and greys, with the blue of her hospital gown.",
+      "props_detail": "A spirometry device with a clear plastic mouthpiece and coiled tube.",
+      "shot_scale": "close",
+      "camera_angle": "Eye-level",
+      "lens_technique": "85mm lens.",
+      "lighting": "Bright, even clinical lighting.",
+      "mood": "A feeling of physical strain, the invisible damage inside the body being quantified.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": [
+       "asbestos_advocates_victims"
+      ]
+     },
+     {
+      "subject": "A medical chest X-ray.",
+      "action": "Displayed on a lightbox, the image shows the web-like scarring and pleural thickening of advanced asbestosis.",
+      "gaze_interaction": "The focus is the texture of the damaged lung tissue.",
+      "setting": "A darkened radiologist's viewing room.",
+      "color_palette": "Stark black, white, and translucent greys of the X-ray film.",
+      "props_detail": "The glowing X-ray film, showing clear evidence of fibrous lung damage.",
+      "shot_scale": "close",
+      "camera_angle": "Straight-on",
+      "lens_technique": "Macro lens, capturing the fine details of the scarring.",
+      "lighting": "The image is the sole light source, glowing intensely from the light box.",
+      "mood": "Cold, clinical finality; the undeniable visual proof of internal destruction.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "interior_scene",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "A hand holding a metal, mechanical tally counter.",
+      "action": "The thumb stops pressing the button, and the numbered wheels freeze, halting the count.",
+      "gaze_interaction": "The focus is on the mechanism coming to a dead stop.",
+      "setting": "A cluttered government office desk, circa 2000.",
+      "color_palette": "Dull metallic sheen, beige plastic, and the grey of dusty office equipment.",
+      "props_detail": "The hand-held tally counter, its digits frozen on a number in the thousands.",
+      "shot_scale": "detail",
+      "camera_angle": "High angle, looking down.",
+      "lens_technique": "Macro lens with a very shallow depth of field.",
+      "lighting": "Harsh, focused light from a single desk lamp.",
+      "mood": "An abrupt, bureaucratic halt; the deliberate act of ceasing to acknowledge a growing tragedy.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "interior_scene",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "A young Australian man in his late 20s, the son of a former Wittenoom worker.",
+      "action": "Sitting slumped on the edge of a hospital bed, his posture conveying exhaustion and defeat.",
+      "gaze_interaction": "His head is bowed into his hands, obscuring his face completely.",
+      "setting": "A simple, public hospital room with minimal furnishings.",
+      "color_palette": "Pale institutional greens, whites, and the light blue of patient clothing.",
+      "props_detail": "A basic, metal-framed hospital bed.",
+      "shot_scale": "medium",
+      "camera_angle": "Eye-level, slightly distant.",
+      "lens_technique": "50mm lens, deep depth of field.",
+      "lighting": "Soft, flat light coming from a large window to one side.",
+      "mood": "The silent weight of inherited tragedy, quiet suffering that spans generations.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": [
+       "asbestos_advocates_victims"
+      ]
+     },
+     {
+      "subject": "The hand of a government official.",
+      "action": "Drawing a thick, heavy red line through the town's name on an official document, striking it out.",
+      "gaze_interaction": "The focus is on the decisive, forceful movement of the marker across the paper.",
+      "setting": "A bureaucratic office desk cluttered with papers and files.",
+      "color_palette": "Stark white paper, black printed text, and the aggressive, saturated red of the marker ink.",
+      "props_detail": "A government report with 'Wittenoom' clearly typed, now being redacted.",
+      "shot_scale": "close",
+      "camera_angle": "Top-down, directly overhead.",
+      "lens_technique": "Macro lens.",
+      "lighting": "Bright, even fluorescent office lighting.",
+      "mood": "A cold and definitive act of bureaucratic erasure, wiping a problem off the page.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F09"
+      ],
+      "subject_ref": "interior_scene",
+      "foto_madre_ref": [],
+      "emotional_rank": "R2",
+      "people_group": [
+       "officials_regulators"
+      ]
+     },
+     {
+      "subject": "Two road workers next to a large highway sign.",
+      "action": "Removing the metal letters that spell 'Wittenoom' from the sign, leaving a blank space.",
+      "gaze_interaction": "Their faces are turned away or obscured as they focus on the manual task.",
+      "setting": "A roadside in the vast, red-earthed Australian outback, circa 2007.",
+      "color_palette": "The deep green of the road sign, metallic silver letters, against the ochre of the desert and a vast blue sky.",
+      "props_detail": "The large, official green highway directional sign, now visibly defaced.",
+      "shot_scale": "wide",
+      "camera_angle": "Low angle, looking up.",
+      "lens_technique": "Wide-angle lens with deep depth of field.",
+      "lighting": "Harsh, bright midday sun casting sharp shadows.",
+      "mood": "A stark, physical act of erasure; the official removal of a place from public existence.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F09"
+      ],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [],
+      "emotional_rank": "R1",
+      "people_group": []
+     },
+     {
+      "subject": "A government official in a dark suit, seen from behind the shoulder.",
+      "action": "Standing at a podium, addressing an unseen audience during a press conference.",
+      "gaze_interaction": "The figure's head is angled towards the bank of microphones, face obscured.",
+      "setting": "A formal press briefing room with an official state crest on the wall behind the podium.",
+      "color_palette": "Corporate blues and dark greys of the suit, rich wood tones of the podium.",
+      "props_detail": "A cluster of microphones on the podium, bearing logos of various news agencies.",
+      "shot_scale": "medium",
+      "camera_angle": "Eye-level.",
+      "lens_technique": "85mm lens, shallow depth of field focusing on the microphones.",
+      "lighting": "Bright, direct lighting typical of a staged press event.",
+      "mood": "Polished, disingenuous officialdom; a narrative being carefully managed and brought to a close.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "interior_scene",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": [
+       "officials_regulators"
+      ]
+     },
+     {
+      "subject": "A thick, bound parliamentary report from 1992.",
+      "action": "Lying on a dark wood desk, its cover stamped with a large, decisive red mark.",
+      "gaze_interaction": "The focus is on the stamped word, signifying the dismissal of the report's contents.",
+      "setting": "A government office interior, suggesting the 1990s.",
+      "color_palette": "Yellowed cream paper, black serif type, and stark red ink.",
+      "props_detail": "The front cover of the official report, marred by a large 'REJECTED' stamp.",
+      "shot_scale": "close",
+      "camera_angle": "High angle, looking directly down onto the desk.",
+      "lens_technique": "50mm lens.",
+      "lighting": "Slightly shadowy office lighting from an unseen overhead source.",
+      "mood": "The blunt finality of bureaucratic rejection, a critical warning ignored.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": true,
+       "text": "REJECTED",
+       "font": "block",
+       "location": "stamped over the document title"
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "interior_scene",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "The Wittenoom Gorge landscape, scarred by mining.",
+      "action": "Vast quantities of asbestos tailings spill down the gorge walls like pale blue glaciers, smothering the natural red rock.",
+      "gaze_interaction": "The visual focus is the jarring contrast between the industrial waste and the natural environment.",
+      "setting": "Wittenoom Gorge, Western Australia.",
+      "color_palette": "The sickly pale blue-grey of the asbestos tailings against the deep reds and ochres of the gorge.",
+      "props_detail": "The sheer volume and spread of the mining waste, covering a huge area.",
+      "shot_scale": "extreme_wide",
+      "camera_angle": "High angle, aerial perspective.",
+      "lens_technique": "Wide-angle lens with deep depth of field.",
+      "lighting": "Bright, harsh desert sun that bleaches the color from the tailings.",
+      "mood": "A sense of permanent, large-scale environmental violation; a shameful, toxic legacy.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F02",
+       "F03"
+      ],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [
+       "blue asbestos tailings"
+      ],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "Fine asbestos dust rising from a tailings pile.",
+      "action": "A gust of wind blows across the surface of the asbestos waste, lifting a visible cloud of pale blue fibers into the air.",
+      "gaze_interaction": "The focus is the ethereal, deadly movement of the airborne dust cloud as it begins to disperse.",
+      "setting": "The edge of a massive tailings field in the Australian outback.",
+      "color_palette": "Pale blue-grey dust against a red-earth foreground and a hazy, dusty blue sky.",
+      "props_detail": "The plume of airborne asbestos fibers, made visible by the low sun.",
+      "shot_scale": "wide",
+      "camera_angle": "Low angle.",
+      "lens_technique": "35mm lens.",
+      "lighting": "Late afternoon golden hour light, backlighting the dust cloud and making the particles glow.",
+      "mood": "An insidious, unstoppable contamination; a deceptively beautiful but lethal dispersion.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F02"
+      ],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [
+       "blue asbestos tailings"
+      ],
+      "emotional_rank": "R2",
+      "people_group": []
+     },
+     {
+      "subject": "A page from a government financial report.",
+      "action": "The camera focuses on a single line item, 'Wittenoom Site Remediation', followed by a staggering multi-million dollar figure.",
+      "gaze_interaction": "The focus is entirely on the astronomical cost, which is circled in red pen.",
+      "setting": "A document laid out on an office desk, circa 2016.",
+      "color_palette": "Black and white of the printed report, with the red circle drawing the eye.",
+      "props_detail": "A printed spreadsheet or report with columns of figures, highlighting the remediation cost.",
+      "shot_scale": "detail",
+      "camera_angle": "Top-down",
+      "lens_technique": "Macro lens, isolating the single line of text and numbers.",
+      "lighting": "Focused light from a desk lamp, creating a slight glare on the paper.",
+      "mood": "The cold, brutal arithmetic of inaction; a human tragedy reduced to an prohibitive expense.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "interior_scene",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "A high-resolution digital map on a large monitor.",
+      "action": "A thin layer of real red dust is scattered across the screen's surface, partially obscuring the map where a finger points to the blank space where Wittenoom used to be.",
+      "gaze_interaction": "The finger traces the empty spot on the digital map, while the physical dust defies the erasure.",
+      "setting": "A darkened, modern geological survey office.",
+      "color_palette": "The vibrant satellite colors of the map seen through a film of real, ochre-colored dust.",
+      "props_detail": "A fine coating of actual reddish dust covering the glass of the monitor.",
+      "shot_scale": "close",
+      "camera_angle": "Eye-level, angled to catch the screen's glow on the dust particles.",
+      "lens_technique": "50mm lens, shallow depth of field.",
+      "lighting": "The monitor screen is the sole source of light.",
+      "mood": "Grim irony; the unstoppable physical reality of the dust mocking the futility of digital and bureaucratic erasure.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F09",
+       "F10"
+      ],
+      "subject_ref": "interior_scene",
+      "foto_madre_ref": [],
+      "emotional_rank": "R1",
+      "people_group": []
+     }
+    ]
+   }
+  }
+ ]
+}

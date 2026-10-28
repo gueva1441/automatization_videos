@@ -1,0 +1,713 @@
+{
+ "var": "C2",
+ "cap": 7,
+ "items": [
+  {
+   "subject": "Tailings from a distant mine dump.",
+   "action": "Flowing with water runoff, forming contaminated sediments in dry creek beds.",
+   "gaze_interaction": "The scene's focus follows the path of the water channels spreading across the landscape.",
+   "setting": "The vast, arid floodplain of the Fortescue River basin in Western Australia, scarred by erosion.",
+   "color_palette": "Red earth, ochre, pale grey sediments, and a dusty, washed-out blue sky.",
+   "props_detail": "A network of shallow, braided watercourses cutting through the red soil.",
+   "shot_scale": "extreme_wide",
+   "camera_angle": "high angle, aerial view",
+   "lens_technique": "deep depth of field",
+   "lighting": "Harsh, overcast daylight, flattening the landscape.",
+   "mood": "A sense of vast, silent, and unstoppable contamination spreading across the land.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F02",
+    "F03"
+   ],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Los relaves del vertedero de Colonial se van con el agua.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "An official technical report document.",
+   "action": "Lying open on a simple wooden desk, showing diagrams of water erosion patterns.",
+   "gaze_interaction": "The camera's focus is on a highlighted map showing the contamination pathway.",
+   "setting": "A spartan office or research tent in a remote area, 2020s.",
+   "color_palette": "Manila paper, black ink, metallic grey desk, khaki canvas walls.",
+   "props_detail": "A page showing a fluvial map with arrows indicating the spread of contaminants from a source point marked 'Colonial Dump'.",
+   "shot_scale": "close",
+   "camera_angle": "top-down shot",
+   "lens_technique": "shallow depth of field",
+   "lighting": "Cool, single-source utility light from above.",
+   "mood": "The cold, factual evidence of a slow-motion disaster.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "interior_scene",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Un informe técnico lo marcó como la fuente principal y la vía del asbesto:",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "A wide, flat floodplain leading to the distant Fortescue River.",
+   "action": "Showing the scars of seasonal flooding, with debris and sediment deposited across its expanse.",
+   "gaze_interaction": "The eye is drawn along the dry, cracked earth towards the hazy horizon.",
+   "setting": "The lower catchment area of the Fortescue River, under a vast, empty sky.",
+   "color_palette": "Monochromatic tones of dried mud, grey-brown vegetation, and a pale, hazy sky.",
+   "props_detail": "Stagnant pools of murky water lingering in low-lying depressions of the plain.",
+   "shot_scale": "extreme_wide",
+   "camera_angle": "eye-level",
+   "lens_technique": "panoramic lens, deep depth of field",
+   "lighting": "Flat, diffuse light from a completely overcast sky.",
+   "mood": "Desolation and ecological ruin, a landscape waiting for the next rain to spread its poison.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "la erosión, los lechos de arroyo, las pozas, las llanuras de inundación hacia el río Fortescue.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "A crust of dried sediment on a riverbank.",
+   "action": "Containing visible, hair-like blue asbestos fibers embedded in the cracked mud.",
+   "gaze_interaction": "The focus is sharply on the unnatural blue-grey hue of the toxic fibers against the red earth.",
+   "setting": "The edge of a dried-up water pool in the Wittenoom area.",
+   "color_palette": "Earthy reds and browns contrasted with the sharp, pale blue-grey of asbestos.",
+   "props_detail": "The delicate, crystalline structure of crocidolite fibers, glinting faintly in the light.",
+   "shot_scale": "detail",
+   "camera_angle": "low angle",
+   "lens_technique": "macro lens",
+   "lighting": "Low, soft morning light catching the texture of the fibers and mud.",
+   "mood": "A beautiful, deadly residue left by the receding water; poison masquerading as a natural deposit.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "detail_shot",
+   "foto_madre_ref": [
+    "blue asbestos tailings"
+   ],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Fibras azules que el agua deja donde se seca.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "An environmental scientist, seen from the back in neutral-colored field gear.",
+   "action": "Kneeling to carefully scoop a sediment sample from a dry creek bed into a labeled bag.",
+   "gaze_interaction": "Focus is entirely on the careful, deliberate action of collecting the contaminated soil.",
+   "setting": "A remote, unmarked watercourse in the Western Australian outback, 2021.",
+   "color_palette": "Khaki, red earth, and the grey of the dry stream bed.",
+   "props_detail": "A clear plastic sample bag with a biohazard symbol and handwritten field notes on a label.",
+   "shot_scale": "medium",
+   "camera_angle": "eye-level, from behind",
+   "lens_technique": "shallow depth of field",
+   "lighting": "Bright, clear daylight of the Australian outback.",
+   "mood": "A methodical, quiet search for a truth that is already known but must be proven again.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "En dos mil veintiuno, una nota ambiental registró fibras en canales de arroyos fuera de la zona marcada como contaminada.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "The vast, interconnected network of dry riverbeds and floodplains.",
+   "action": "Stretching endlessly towards the horizon, seen from a high vantage point.",
+   "gaze_interaction": "The view encompasses the immense scale of the river system, implying an inescapable contamination.",
+   "setting": "The entire Fortescue River basin, viewed from the air.",
+   "color_palette": "Hazy bands of ochre, red, and brown under a pale, limitless sky.",
+   "props_detail": "The faint, branching patterns of the watercourses",
+   "shot_scale": "extreme_wide",
+   "camera_angle": "high aerial shot",
+   "lens_technique": "wide-angle lens, deep depth of field",
+   "lighting": "Muted, late afternoon light, casting long, soft shadows.",
+   "mood": "The overwhelming and permanent scale of the disaster, a problem too large to comprehend or contain.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F03"
+   ],
+   "subject_ref": "landscape_view",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "El mismo informe advirtió que, sin intervención, el aporte de asbesto a la cuenca del Fortescue puede seguir durante cientos de años.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false,
+   "_f8_slots_scrub": [
+    "props_detail: like veins across the land."
+   ]
+  },
+  {
+   "subject": "An elderly Banjima man in his 70s, with a weathered face showing signs of illness.",
+   "action": "Sitting alone on a rocky outcrop, his body slightly turned away from the camera.",
+   "gaze_interaction": "He looks out across the vast, red-earth landscape of his ancestral land, his shoulders slightly slumped.",
+   "setting": "A quiet, elevated spot in the Hamersley Range, overlooking the contaminated territory, 2023.",
+   "color_palette": "Deep reds of the rock, dark tones of his clothing, pale blue sky.",
+   "props_detail": "His hands resting on his knees, one gripping the other.",
+   "shot_scale": "wide",
+   "camera_angle": "eye-level",
+   "lens_technique": "85mm lens, subject isolated against the landscape.",
+   "lighting": "Warm, golden hour light from the side, illuminating the dust in the air.",
+   "mood": "A deep, solitary connection to a poisoned land; the physical weight of enduring sorrow.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R2",
+   "people_group": [
+    "asbestos_advocates_victims"
+   ],
+   "narration_anchor": "Es tierra Banjima. En dos mil veintitrés, Marcos Orellana visitó Australia y se sentó con Maitland Parker, un anciano Banjima.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "The elderly Banjima man, bearing the signs of illness, his face lined with determination and sorrow.",
+   "action": "Turning his head to face the camera, his gaze steady and direct.",
+   "gaze_interaction": "Looking directly into the lens, his eyes holding the weight of memory and loss, his expression not of tears but of profound weariness.",
+   "setting": "Outdoors, against the soft-focus backdrop of his red, dusty homeland.",
+   "color_palette": "Warm skin tones, grey hair, against the ochre and red of the outback.",
+   "props_detail": "The deep lines etched around his eyes and mouth, telling a story of a long life and a long fight.",
+   "shot_scale": "medium",
+   "camera_angle": "eye-level",
+   "lens_technique": "shallow depth of field",
+   "lighting": "Soft, frontal golden hour light, catching the texture of his skin.",
+   "mood": "A quiet, unyielding dignity in the face of immense loss; the human anchor of the tragedy.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "main_subject",
+   "foto_madre_ref": [],
+   "emotional_rank": "R1",
+   "people_group": [
+    "asbestos_advocates_victims"
+   ],
+   "narration_anchor": "«Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él», dijo Parker.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "A simple, hand-carved wooden staff.",
+   "action": "Leaning against the same rocky outcrop where the elder sat, now empty.",
+   "gaze_interaction": "The focus is on the object, a symbol of presence and now absence.",
+   "setting": "The elevated lookout point over the Wittenoom landscape, at dawn.",
+   "color_palette": "Dark wood against the deep red rock, under a soft, pre-dawn purple and orange sky.",
+   "props_detail": "The polished, worn texture of the wood where a hand has held it for many years.",
+   "shot_scale": "medium",
+   "camera_angle": "low angle",
+   "lens_technique": "shallow depth of field",
+   "lighting": "First light of dawn, casting a soft glow on the staff and rock.",
+   "mood": "A profound sense of absence and memory; a life's story left imprinted on the land.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "subject_ref": "interior_scene",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Maitland Parker murió de mesotelioma en dos mil veinticuatro.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "The modern, geometric facade of the Federal Court of Australia building.",
+   "action": "Standing impassively, its clean lines contrasting with the organic chaos of the contaminated land.",
+   "gaze_interaction": "The camera looks up at the imposing structure, emphasizing its scale and authority.",
+   "setting": "An Australian city, outside the Federal Court.",
+   "color_palette": "Cool greys of concrete and glass, deep blue sky, sharp shadows.",
+   "props_detail": "The coat of arms of Australia carved in stone above the main entrance.",
+   "shot_scale": "wide",
+   "camera_angle": "low angle",
+   "lens_technique": "deep depth of field",
+   "lighting": "Bright, direct midday sun, creating harsh, defined shadows.",
+   "mood": "The cold, impersonal face of justice and bureaucracy, far removed from the red earth.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F05"
+   ],
+   "subject_ref": "establishing_shot",
+   "foto_madre_ref": [],
+   "emotional_rank": "R3",
+   "people_group": [],
+   "narration_anchor": "Dos años después, Gordon Legal presentó en nombre de BNTAC un proceso contra Australia Occidental en el Tribunal Federal.",
+   "beat": 13,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "A permanent blockade of heavy concrete barriers and steel gates.",
+   "action": "Barring access to a dirt road that disappears into the Wittenoom gorge.",
+   "gaze_interaction": "The view is framed by the impassable barrier, looking into the forbidden zone.",
+   "setting": "The access road to Wittenoom, with the red cliffs of the gorge visible in the distance.",
+   "color_palette": "Pale grey of concrete, rusted metal, against the deep red of the earth and cliffs.",
+   "props_detail": "A weathered, faded warning sign bolted to the gate, its text made illegible by dust and sun.",
+   "shot_scale": "wide",
+   "camera_angle": "eye-level",
+   "lens_technique": "deep depth of field",
+   "lighting": "Harsh, late afternoon sun, creating long shadows that stretch from the blockade.",
+   "mood": "A final, definitive act of abandonment; a land sealed but not healed.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F09"
+   ],
+   "subject_ref": "establishing_shot",
+   "foto_madre_ref": [],
+   "emotional_rank": "R2",
+   "people_group": [],
+   "narration_anchor": "Nadie ha empezado a limpiar. En los accesos al pueblo y desfiladero hay bloqueos.",
+   "beat": 14,
+   "cerrada": false,
+   "texto_en_imagen": false
+  },
+  {
+   "subject": "A stark, official warning sign affixed to the road barrier.",
+   "action": "Standing as a silent, final statement against the backdrop of the deserted landscape.",
+   "gaze_interaction": "The text on the sign is the clear, sharp focus of the image.",
+   "setting": "The barricaded entrance to the Wittenoom contaminated area.",
+   "color_palette": "White and red of the sign against the dusty browns and ochres of the outback.",
+   "props_detail": "Streaks of red dust running down the face of the sign, partially obscuring the metal.",
+   "shot_scale": "close",
+   "camera_angle": "eye-level, straight on",
+   "lens_technique": "50mm lens",
+   "lighting": "Flat, shadowless light of an overcast day.",
+   "mood": "The bureaucratic final word on a human tragedy. officially declared closed.",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": true,
+    "text": "DANGER ASBESTOS CONTAMINATION",
+    "font": "block",
+    "location": "center of sign"
+   },
+   "hard_fact_ids": [
+    "F09"
+   ],
+   "subject_ref": "detail_shot",
+   "foto_madre_ref": [],
+   "emotional_rank": "R1",
+   "people_group": [],
+   "narration_anchor": "El gobierno de Australia Occidental habla de un «grave problema de salud y seguri",
+   "beat": 14,
+   "cerrada": false,
+   "texto_en_imagen": true,
+   "_f8_slots_scrub": [
+    "mood: An open wound,"
+   ]
+  }
+ ],
+ "estado": "ok",
+ "pedidos": [
+  {
+   "intento": 1,
+   "md5_system": "65d7f452791646498666e4371f50afd5",
+   "md5_user": "1f7547ed8e11bf1221e22ab35456a147",
+   "md5_schema": "bcb706ab4fd6094eec15a20e1c4bdcee"
+  }
+ ],
+ "crudos": [
+  {
+   "intento": 1,
+   "segundos": 66.5,
+   "respuesta": {
+    "image_prompts": [
+     {
+      "subject": "Tailings from a distant mine dump.",
+      "action": "Flowing with water runoff, forming contaminated sediments in dry creek beds.",
+      "gaze_interaction": "The scene's focus follows the path of the water channels spreading across the landscape.",
+      "setting": "The vast, arid floodplain of the Fortescue River basin in Western Australia, scarred by erosion.",
+      "color_palette": "Red earth, ochre, pale grey sediments, and a dusty, washed-out blue sky.",
+      "props_detail": "A network of shallow, braided watercourses cutting through the red soil.",
+      "shot_scale": "extreme_wide",
+      "camera_angle": "high angle, aerial view",
+      "lens_technique": "deep depth of field",
+      "lighting": "Harsh, overcast daylight, flattening the landscape.",
+      "mood": "A sense of vast, silent, and unstoppable contamination spreading across the land.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F02",
+       "F03"
+      ],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "An official technical report document.",
+      "action": "Lying open on a simple wooden desk, showing diagrams of water erosion patterns.",
+      "gaze_interaction": "The camera's focus is on a highlighted map showing the contamination pathway.",
+      "setting": "A spartan office or research tent in a remote area, 2020s.",
+      "color_palette": "Manila paper, black ink, metallic grey desk, khaki canvas walls.",
+      "props_detail": "A page showing a fluvial map with arrows indicating the spread of contaminants from a source point marked 'Colonial Dump'.",
+      "shot_scale": "close",
+      "camera_angle": "top-down shot",
+      "lens_technique": "shallow depth of field",
+      "lighting": "Cool, single-source utility light from above.",
+      "mood": "The cold, factual evidence of a slow-motion disaster.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "interior_scene",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "A wide, flat floodplain leading to the distant Fortescue River.",
+      "action": "Showing the scars of seasonal flooding, with debris and sediment deposited across its expanse.",
+      "gaze_interaction": "The eye is drawn along the dry, cracked earth towards the hazy horizon.",
+      "setting": "The lower catchment area of the Fortescue River, under a vast, empty sky.",
+      "color_palette": "Monochromatic tones of dried mud, grey-brown vegetation, and a pale, hazy sky.",
+      "props_detail": "Stagnant pools of murky water lingering in low-lying depressions of the plain.",
+      "shot_scale": "extreme_wide",
+      "camera_angle": "eye-level",
+      "lens_technique": "panoramic lens, deep depth of field",
+      "lighting": "Flat, diffuse light from a completely overcast sky.",
+      "mood": "Desolation and ecological ruin, a landscape waiting for the next rain to spread its poison.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "A crust of dried sediment on a riverbank.",
+      "action": "Containing visible, hair-like blue asbestos fibers embedded in the cracked mud.",
+      "gaze_interaction": "The focus is sharply on the unnatural blue-grey hue of the toxic fibers against the red earth.",
+      "setting": "The edge of a dried-up water pool in the Wittenoom area.",
+      "color_palette": "Earthy reds and browns contrasted with the sharp, pale blue-grey of asbestos.",
+      "props_detail": "The delicate, crystalline structure of crocidolite fibers, glinting faintly in the light.",
+      "shot_scale": "detail",
+      "camera_angle": "low angle",
+      "lens_technique": "macro lens",
+      "lighting": "Low, soft morning light catching the texture of the fibers and mud.",
+      "mood": "A beautiful, deadly residue left by the receding water; poison masquerading as a natural deposit.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "detail_shot",
+      "foto_madre_ref": [
+       "blue asbestos tailings"
+      ],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "An environmental scientist, seen from the back in neutral-colored field gear.",
+      "action": "Kneeling to carefully scoop a sediment sample from a dry creek bed into a labeled bag.",
+      "gaze_interaction": "Focus is entirely on the careful, deliberate action of collecting the contaminated soil.",
+      "setting": "A remote, unmarked watercourse in the Western Australian outback, 2021.",
+      "color_palette": "Khaki, red earth, and the grey of the dry stream bed.",
+      "props_detail": "A clear plastic sample bag with a biohazard symbol and handwritten field notes on a label.",
+      "shot_scale": "medium",
+      "camera_angle": "eye-level, from behind",
+      "lens_technique": "shallow depth of field",
+      "lighting": "Bright, clear daylight of the Australian outback.",
+      "mood": "A methodical, quiet search for a truth that is already known but must be proven again.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "The vast, interconnected network of dry riverbeds and floodplains.",
+      "action": "Stretching endlessly towards the horizon, seen from a high vantage point.",
+      "gaze_interaction": "The view encompasses the immense scale of the river system, implying an inescapable contamination.",
+      "setting": "The entire Fortescue River basin, viewed from the air.",
+      "color_palette": "Hazy bands of ochre, red, and brown under a pale, limitless sky.",
+      "props_detail": "The faint, branching patterns of the watercourses, like veins across the land.",
+      "shot_scale": "extreme_wide",
+      "camera_angle": "high aerial shot",
+      "lens_technique": "wide-angle lens, deep depth of field",
+      "lighting": "Muted, late afternoon light, casting long, soft shadows.",
+      "mood": "The overwhelming and permanent scale of the disaster, a problem too large to comprehend or contain.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F03"
+      ],
+      "subject_ref": "landscape_view",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "An elderly Banjima man in his 70s, with a weathered face showing signs of illness.",
+      "action": "Sitting alone on a rocky outcrop, his body slightly turned away from the camera.",
+      "gaze_interaction": "He looks out across the vast, red-earth landscape of his ancestral land, his shoulders slightly slumped.",
+      "setting": "A quiet, elevated spot in the Hamersley Range, overlooking the contaminated territory, 2023.",
+      "color_palette": "Deep reds of the rock, dark tones of his clothing, pale blue sky.",
+      "props_detail": "His hands resting on his knees, one gripping the other.",
+      "shot_scale": "wide",
+      "camera_angle": "eye-level",
+      "lens_technique": "85mm lens, subject isolated against the landscape.",
+      "lighting": "Warm, golden hour light from the side, illuminating the dust in the air.",
+      "mood": "A deep, solitary connection to a poisoned land; the physical weight of enduring sorrow.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R2",
+      "people_group": [
+       "asbestos_advocates_victims"
+      ]
+     },
+     {
+      "subject": "The elderly Banjima man, bearing the signs of illness, his face lined with determination and sorrow.",
+      "action": "Turning his head to face the camera, his gaze steady and direct.",
+      "gaze_interaction": "Looking directly into the lens, his eyes holding the weight of memory and loss, his expression not of tears but of profound weariness.",
+      "setting": "Outdoors, against the soft-focus backdrop of his red, dusty homeland.",
+      "color_palette": "Warm skin tones, grey hair, against the ochre and red of the outback.",
+      "props_detail": "The deep lines etched around his eyes and mouth, telling a story of a long life and a long fight.",
+      "shot_scale": "medium",
+      "camera_angle": "eye-level",
+      "lens_technique": "shallow depth of field",
+      "lighting": "Soft, frontal golden hour light, catching the texture of his skin.",
+      "mood": "A quiet, unyielding dignity in the face of immense loss; the human anchor of the tragedy.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "main_subject",
+      "foto_madre_ref": [],
+      "emotional_rank": "R1",
+      "people_group": [
+       "asbestos_advocates_victims"
+      ]
+     },
+     {
+      "subject": "A simple, hand-carved wooden staff.",
+      "action": "Leaning against the same rocky outcrop where the elder sat, now empty.",
+      "gaze_interaction": "The focus is on the object, a symbol of presence and now absence.",
+      "setting": "The elevated lookout point over the Wittenoom landscape, at dawn.",
+      "color_palette": "Dark wood against the deep red rock, under a soft, pre-dawn purple and orange sky.",
+      "props_detail": "The polished, worn texture of the wood where a hand has held it for many years.",
+      "shot_scale": "medium",
+      "camera_angle": "low angle",
+      "lens_technique": "shallow depth of field",
+      "lighting": "First light of dawn, casting a soft glow on the staff and rock.",
+      "mood": "A profound sense of absence and memory; a life's story left imprinted on the land.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [],
+      "subject_ref": "interior_scene",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "The modern, geometric facade of the Federal Court of Australia building.",
+      "action": "Standing impassively, its clean lines contrasting with the organic chaos of the contaminated land.",
+      "gaze_interaction": "The camera looks up at the imposing structure, emphasizing its scale and authority.",
+      "setting": "An Australian city, outside the Federal Court.",
+      "color_palette": "Cool greys of concrete and glass, deep blue sky, sharp shadows.",
+      "props_detail": "The coat of arms of Australia carved in stone above the main entrance.",
+      "shot_scale": "wide",
+      "camera_angle": "low angle",
+      "lens_technique": "deep depth of field",
+      "lighting": "Bright, direct midday sun, creating harsh, defined shadows.",
+      "mood": "The cold, impersonal face of justice and bureaucracy, far removed from the red earth.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F05"
+      ],
+      "subject_ref": "establishing_shot",
+      "foto_madre_ref": [],
+      "emotional_rank": "R3",
+      "people_group": []
+     },
+     {
+      "subject": "A permanent blockade of heavy concrete barriers and steel gates.",
+      "action": "Barring access to a dirt road that disappears into the Wittenoom gorge.",
+      "gaze_interaction": "The view is framed by the impassable barrier, looking into the forbidden zone.",
+      "setting": "The access road to Wittenoom, with the red cliffs of the gorge visible in the distance.",
+      "color_palette": "Pale grey of concrete, rusted metal, against the deep red of the earth and cliffs.",
+      "props_detail": "A weathered, faded warning sign bolted to the gate, its text made illegible by dust and sun.",
+      "shot_scale": "wide",
+      "camera_angle": "eye-level",
+      "lens_technique": "deep depth of field",
+      "lighting": "Harsh, late afternoon sun, creating long shadows that stretch from the blockade.",
+      "mood": "A final, definitive act of abandonment; a land sealed but not healed.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": false,
+       "text": "",
+       "font": "",
+       "location": ""
+      },
+      "hard_fact_ids": [
+       "F09"
+      ],
+      "subject_ref": "establishing_shot",
+      "foto_madre_ref": [],
+      "emotional_rank": "R2",
+      "people_group": []
+     },
+     {
+      "subject": "A stark, official warning sign affixed to the road barrier.",
+      "action": "Standing as a silent, final statement against the backdrop of the deserted landscape.",
+      "gaze_interaction": "The text on the sign is the clear, sharp focus of the image.",
+      "setting": "The barricaded entrance to the Wittenoom contaminated area.",
+      "color_palette": "White and red of the sign against the dusty browns and ochres of the outback.",
+      "props_detail": "Streaks of red dust running down the face of the sign, partially obscuring the metal.",
+      "shot_scale": "close",
+      "camera_angle": "eye-level, straight on",
+      "lens_technique": "50mm lens",
+      "lighting": "Flat, shadowless light of an overcast day.",
+      "mood": "The bureaucratic final word on a human tragedy. An open wound, officially declared closed.",
+      "style": "documentary photographic realism, dark-history, faceless",
+      "text_in_image": {
+       "present": true,
+       "text": "DANGER ASBESTOS CONTAMINATION",
+       "font": "block",
+       "location": "center of sign"
+      },
+      "hard_fact_ids": [
+       "F09"
+      ],
+      "subject_ref": "detail_shot",
+      "foto_madre_ref": [],
+      "emotional_rank": "R1",
+      "people_group": []
+     }
+    ]
+   }
+  }
+ ]
+}
