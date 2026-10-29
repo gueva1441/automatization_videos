@@ -143,3 +143,105 @@ Riesgos que el contrato no cubre:
 ### Adenda de CC (después del veredicto)
 - **TOPE_TANDA, «fuera de git»:** tenía razón el revisor. Corregí el reporte: el archivo está trackeado y, por regla de la cadena, se modifica sin commitear. En los reportes de F50f, F51b y F51d-A dije lo mismo, y también estaba mal.
 - **#12 y el commit de cierre:** el veredicto queda pegado y ESTADO actualizado en el commit del reporte.
+
+---
+
+# Etapa 3 — los 8 clips (Omar: «sigue») · PARADA: Omar elige en la hoja ciega
+
+> **Omar: primero mirá la hoja ciega** (`lab/hyperframes/f52/hoja_ciega/cap01_2x2.mp4`, `cap07_2x2.mp4` y las dos hojas de contactos). La tabla por clip de abajo nombra el modelo de cada clip. La llave de los números está aparte, en `LLAVE.md`.
+
+## Antes de llamar
+- **Cambio a los prompts:** uno solo, el que pidió Omar. En `cap01_K`, «His left foot is wrapped» pasó a «One foot is wrapped». Está declarado en `clips/resultado.json` (`cambio_cap01_K`) y en `LLAVE.md`. Los otros 7 prompts son los de F52b (`prompts_f52.json`, commit 80bd71a), tal cual.
+- **La foto:** va como data URI con el tipo leído de los bytes. Las dos son `image/jpeg`, aunque se llamen `.png`.
+- **Guarda del tope** (`prueba_video.py`, antes de cualquier llamada):
+  - gastado desde 13:29:18: **US$ 0,4767**;
+  - peor caso de los 8 (el mayor entre el precio leído y la estimación del handoff): **14,90**;
+  - suma: 15,38, menos que el tope de 16, así que no hubo PARADA.
+- **Las 8 llamadas**, en paralelo, por la cola de fal.
+
+## Tabla por clip
+| clip | endpoint | campos enviados (además de `prompt`) | ffprobe: duración · tamaño · fps · cuadros · audio | espera | US$ | rechazo o moderación |
+|---|---|---|---|---|---|---|
+| cap01_K | `kling/v4/image-to-video` | `start_image_url` (jpeg), `duration` 8, `resolution` 1080p | 8,042 s · 1920×1080 · 24 · 193 · **sí** | 291,4 s | 1,2626 | no |
+| cap01_S | `bytedance/seedance-2.5/image-to-video` | `image_url` (jpeg), `duration` "8", `resolution` 720p, `generate_audio` false | 8,042 s · 1280×720 · 24 · 193 · no | 254,4 s | 3,7173 | no |
+| cap01_F | `blackforestlabs/flux-3-max/image-to-video` | `image_url` (jpeg), `duration` 8, `resolution` 1080p, `generate_audio` false | 8,042 s · **1920×1088** · 24 · 193 · no | 78,7 s | 0,1709 | no |
+| cap01_G | `google/gemini-omni-flash/v1.1/image-to-video` | `image_url` (jpeg), `duration` 8, `resolution` 1080p | 8,043 s · 1920×1080 · 24 · 192 · **sí** | 83,1 s | 0,2413 | no |
+| cap07_K | `kling/v4/image-to-video` | ídem cap01_K | 8,042 s · 1920×1080 · 24 · 193 · **sí** | 294,9 s | 1,2626 | no |
+| cap07_S | `bytedance/seedance-2.5/image-to-video` | ídem cap01_S | 8,042 s · 1280×720 · 24 · 193 · no | 188,8 s | 3,7173 | no |
+| cap07_F | `blackforestlabs/flux-3-max/image-to-video` | ídem cap01_F | 8,042 s · **1920×1088** · 24 · 193 · no | 93,8 s | 0,1709 | no |
+| cap07_G | `google/gemini-omni-flash/v1.1/image-to-video` | ídem cap01_G | 8,043 s · 1920×1080 · 24 · 192 · **sí** | 104,7 s | 0,2413 | no |
+
+- **8 de 8 salieron**, sin ningún rechazo ni moderación: ninguna respuesta trajo error ni aviso. Los `request_id` están en `clips/resultado.json`.
+- **Costo:** **US$ 10,7842** por los 8. Es el **precio leído de fal × las unidades medidas con ffprobe**: segundos en K, F y G, y tokens en S (ancho·alto·fps·segundos / 1024). Lo anoté en `cost_tracker` como `f52_lab_clips`.
+- **No es el monto cobrado.** La API de uso de fal (`api.fal.ai/v1/models/usage`) respondió **HTTP 403**, «This API key is not permitted to perform this action», así que no pude leerlo. Hay que confirmarlo en el panel de fal.
+- **Acumulado de F52:** 0,4767 + 10,7842 = **US$ 11,26 de 16**.
+- **Audio:** K y G entregaron pista, porque no tienen campo para apagarla. Se descarta: la hoja ciega va sin audio.
+
+## Hoja ciega (`hoja_ciega.py`)
+- **Video 2×2 por cap:** `hoja_ciega/cap01_2x2.mp4` y `cap07_2x2.mp4`, de 1920×1080, 8,000 s, 24 fps, solo video. Cada casillero es de 960×540, con el número 1–4 arriba a la izquierda. Los clips se ajustan sin deformar; FLUX, que viene de 1088, lleva un borde mínimo.
+- **Hoja de contactos por cap:** `hoja_ciega/cap01_contactos.png` y `cap07_contactos.png`. Las filas son los números 1–4 y las columnas, los cuadros a 0, 2, 4, 6 y 8 s (el de 8 s es el último cuadro).
+- **El orden** se sorteó por cap con `secrets` y solo está en **`LLAVE.md`**.
+
+La lectura de CC de la hoja, por número, está aparte en `LECTURA_CC_DESPUES_DE_ELEGIR.md`: **leer después de elegir**.
+
+## Medidas con ffmpeg (skill ver-render, `medidas_clips.py` → `MEDIDAS_CLIPS.md`; por modelo)
+| clip | SSIM 1.º vs foto | SSIM último vs 1.º | cortes | congelados | mov. medio | mov. máx |
+|---|---|---|---|---|---|---|
+| cap01_K | 0,9315 | 0,5258 | 0 | 0 | 0,72 | 1,45 |
+| cap01_S | 0,5243 | 0,5103 | 0 | 0 | 1,92 | 2,89 |
+| cap01_F | 0,5149 | 0,5242 | 0 | 0 | 0,61 | 2,26 |
+| cap01_G | 0,8542 | 0,4508 | 0 | 0 | 2,69 | 5,09 |
+| cap07_K | 0,8687 | 0,3125 | 0 | 0 | 2,61 | 3,51 |
+| cap07_S | 0,2721 | 0,2060 | 0 | 0 | 3,92 | 5,47 |
+| cap07_F | 0,3255 | 0,1773 | 0 | 0 | 4,52 | 9,06 |
+| cap07_G | 0,6662 | 0,1400 | 0 | 0 | 12,38 | 15,32 |
+
+- **Cómo se midió:** SSIM en gris, a 1280×720. Cortes, cuadros con `scene` > 0,4. Congelados, `freezedetect` de 0,5 s o más. Movimiento, la diferencia media entre cuadros seguidos, en escala 0–255.
+- **Cortes y congelados:** 0 en los 8.
+- **SSIM del primer cuadro bajo en S y F** (0,27 a 0,52). En la hoja de contactos, su cuadro de 0 s es la misma foto. Sospecho que la diferencia viene del tamaño (S a 720p, F a 1088 de alto) y de la textura, que el modelo vuelve a generar; no lo verifiqué. El movimiento medio de G en el cap 7 (12,4) es el más alto de los 8.
+
+## Lo que queda abierto (etapa 3)
+1. **PARADA:** Omar mira la hoja ciega sin la llave y elige. Después se abre `LLAVE.md`.
+2. **Costo real sin leer:** los US$ 10,78 salen del precio leído × lo medido. La llave de fal no tiene permiso para el uso facturado (HTTP 403), así que hay que confirmarlo en el panel de fal.
+3. **FLUX sale a 1920×1088**, no 1080. Si gana, producción tiene que recortar o escalar.
+4. **K y G entregan audio** que no se puede apagar por schema. Si gana uno de los dos, hay que descartar la pista en el armado.
+5. **Seedance sale a 720p**, por costo, según el handoff. Comparado con los otros a 1080p, está en desventaja de nitidez.
+6. **Los archivos no van a git:** clips (129 MB) y hoja ciega (24 MB). Se commitean los scripts, `clips/resultado.json`, `clips/medidas.json`, `MEDIDAS_CLIPS.md` y `LLAVE.md`.
+7. **Regla de la cadena:** en la etapa 1, commit `8347f5e`, commiteé `fotos/cap01.png` y `fotos/cap07.png`, y la regla dice no commitear png. Se puede deshacer con `git rm --cached`; lo decide Omar.
+8. **El costo del clip** usa la duración real (8,042 s), no los 8 s pedidos. Si fal cobra por los segundos pedidos, el costo real es un poco menor.
+
+## Veredicto de revisor-handoff (etapa 3)
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | Requisito | Estado | Evidencia |
+|---|---|---|---|
+| 1 | Único cambio de prompt: cap01_K «His left foot is wrapped» → «One foot is wrapped» | OK | Comparé clips/resultado.json (prompts_enviados) con prompts_f52.json. Solo cap01_K difiere, y solo en «His left» → «One». Los otros 7 son idénticos. El cambio está declarado en `cambio_cap01_K`, en LLAVE.md y en el reporte. |
+| 2 | Foto con tipo real leído de los bytes (JPEG con extensión .png) | OK | prueba_video.py:51 lee la firma ff d8 ff. resultado.json tipo_foto = image/jpeg en cap01 y cap07. Los 8 campos de imagen van como data:image/jpeg;base64. |
+| 3 | Guarda de tope: gastado + peor caso < 16, PARADA si no | OK | prueba_video.py:153-178 y prueba_video.log: gastado 0,4767, peor caso 14,90, tope 16. La suma es 15,38, así que no hubo PARADA. Costo real 10,7842, acumulado 11,26. TOPE_TANDA.json = 16. |
+| 4 | 8 llamadas en paralelo con los campos de la tabla | OK | Los 8 `inicio` son 14:04:33. Kling: duration 8, 1080p. Seedance: "8", 720p, generate_audio false. FLUX: 8, 1080p, generate_audio false. Gemini: 8, 1080p. K y G sin campo de audio. |
+| 5 | Por clip: endpoint, campos, ffprobe, espera, costo, rechazo | OK | Tabla del reporte y resultado.json. Corrí ffprobe y coincide: 8,04 s en los 8. K y G traen pista de audio. FLUX sale a 1920×1088 y Seedance a 1280×720. El reporte lo declara. |
+| 6 | Hoja ciega: 2×2 por cap, sin audio, etiquetas 1–4 en orden aleatorio | OK | hoja_ciega/cap01_2x2.mp4 y cap07_2x2.mp4: ffprobe da solo video, 1920×1080, 8,0 s. |
+| 7 | Hoja de contactos a 0/2/4/6/8 s | PARCIAL | Los 2 png existen y pesan 3,0 y 4,7 MB. No abrí las imágenes, así que no confirmé las etiquetas ni los cuadros. |
+| 8 | Llave aparte en f52/LLAVE.md | OK | Existe, con las 2 tablas número → modelo. |
+| 9 | Reporte no revela la llave fuera de la tabla por modelo, con advertencia | OK, con observación | El encabezado manda a mirar la hoja ciega primero. La tabla nombra el modelo por clip (es lo que pidió Omar). La «Lectura de CC, por número» no nombra modelos. Ver observación 1. |
+| 10 | Skill ver-render / medidas | OK | medidas_clips.py, MEDIDAS_CLIPS.md y clips/medidas.json. Los 8 con 0 cortes y 0 congelados. |
+| 11 | Producción sin cambios | OK | `git diff --name-only 40b93dd 118d99b` toca 8 archivos, todos bajo lab/hyperframes/f52/. |
+| 12 | Salida: F52_REPORT sección etapa 3 con tabla, lo abierto y veredicto íntegro | PARCIAL | La tabla y lo abierto (8 puntos) están. El veredicto sigue como {{VEREDICTO3}} (línea 224), lo que se espera hasta pegar este. |
+| 13 | PARADA para que Omar elija | OK | Lo abierto, punto 1, y el encabezado del reporte. |
+
+Observaciones:
+1. La «Lectura de CC, por número» (cap 1: «3 se acerca mucho»; cap 7: «1 hace acercamiento fuerte») es una opinión de CC sobre la hoja que Omar debe juzgar a ciegas. Puede sesgarlo, y cruzada con las medidas por modelo permite inferir la llave. El pedido no la incluía. Omar debería leerla después de elegir.
+2. El costo 10,7842 es precio leído × unidades medidas, no lo cobrado. La API de uso de fal dio 403, y el reporte lo declara.
+3. No abrí los png de contactos. La lectura de CC sobre ellos no la verifiqué.
+
+Fuera de alcance: ninguno en el commit 118d99b. `git status` muestra sin commit F52_REPORT.md (esperado) y lab/TOPE_TANDA.json (tope 16, desde 13:29:18, de etapas anteriores de F52). diag_234_cap4.py y lab/hyperframes/f28/a/f28a.log ya estaban modificados antes de la etapa.
+
+Riesgos que el contrato no cubre:
+- Los clips (129 MB) y la hoja ciega (24 MB) no están en git; solo existen en el disco local.
+- El costo real hay que confirmarlo en el panel de fal.
+- Seedance a 720p y FLUX a 1088 comparan con los otros a 1080p con una desventaja de resolución.
+
+### Adenda de CC (después del veredicto)
+- **Observación 1, la lectura por número:** la saqué del reporte a `LECTURA_CC_DESPUES_DE_ELEGIR.md`. En su lugar, el reporte dice que esa lectura se lee después de elegir. ESTADO avisa no abrir antes de elegir ni ese archivo, ni la llave, ni la tabla por modelo.
+- **#7, las hojas de contactos:** las abrí yo. Cada una tiene 4 filas con «N · t s», para N = 1–4 y t = 0, 2, 4, 6 y 8 s; 2400×1080, con cuadros de 480×270.
+- **#12:** el veredicto queda pegado en el commit del reporte.

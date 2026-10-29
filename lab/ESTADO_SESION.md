@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 14:00 (F52b: los 8 prompts de video rehechos con fichas en inglés y Opus mirando la foto, US$ 0,29; acumulado F52 0,48 de 16; PARADA: el analista revisa antes de los clips) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 14:25 (F52 etapa 3: los 8 clips y la hoja ciega, US$ 10,78; acumulado F52 11,26 de 16; PARADA: Omar elige en la hoja ciega) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,15 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F52 etapa 3, PARADA): la hoja ciega está lista para que elijas.
+- Mirá `lab/hyperframes/f52/hoja_ciega/cap01_2x2.mp4` y `cap07_2x2.mp4` (4 modelos lado a lado, numerados 1–4 al azar, sin audio) y las hojas de contactos `cap01_contactos.png` y `cap07_contactos.png`. **No abras `LLAVE.md` antes de elegir**, ni `LECTURA_CC_DESPUES_DE_ELEGIR.md`, ni la tabla por modelo del reporte.
+- Los 8 clips salieron, sin rechazos ni moderación, y ninguno tiene cortes ni cuadros congelados.
+- **Gasto:** US$ 10,78 los 8 clips (precio de fal × duración; fal no deja leer lo cobrado con esta llave: confirmarlo en su panel). Acumulado F52: 11,26 de 16.
+
+## F52 etapa 3 — los 8 clips (Omar: «sigue», 2026-10-29) — PARADA
+- Commit `118d99b` (scripts, resultado, medidas, llave). Los mp4 y png (153 MB) quedan fuera de git. El reporte va en el commit siguiente.
+- Único cambio de prompt: cap01_K «His left foot» → «One foot». Foto como image/jpeg. Guarda de tope: 0,48 + peor caso 14,90 < 16.
 
 ## 👀 Para Omar (F52b, PARADA antes de los clips): los 8 prompts de video, rehechos en inglés y mirando la foto real.
 - Los 8 salieron en inglés (antes Kling estaba en castellano), y los 4 del cap 1 ahora parten del cuerpo entero que tiene la foto (antes decían plano medio).
