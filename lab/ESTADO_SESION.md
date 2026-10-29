@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 03:30 (F50i: las 4 fotos con manchas rojas, de nuevo con el aspecto sin «dusted red»; US$ 0,28; PARADA: el analista mira las hojas) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 04:00 (F51a: el armado C de F50h en producción, contrato 20/20; US$ 0; PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,22 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F51a, PARADA): el prompt de foto de producción ya es el armado C de F50h.
+- Es el que ganó en F50h. Ya no van la mirada, el objeto, la paleta, `style_head` ni `STYLE_TAIL`.
+- **Contrato: 20/20 byte a byte iguales al C de F50h.**
+- Wittenoom rearmado en seco: cambian las 96 fotos; mediana de palabras 157.5 → 122.5. **No se escribió `03_visual.json`**: eso es F51d.
+- **Gasto:** US$ 0.
+- **Sigue:** F51b (el canon con el aspecto separado del estado).
+
+## F51a — C a producción (handoff del analista, 2026-10-29) — PARADA
+- Commits:
+  - `0fdeee4` etapa 0: DECISIONES 00:07 (Court) y 03:23 (F51);
+  - `6817e7a` etapa 1: `armar` = C, con el contrato y los tests;
+  - `c93428a` etapa 2: `REARMADO_F51a.md`.
+  - El último commit es el del reporte (`lab/hyperframes/f51a/F51a_REPORT.md`).
+- Suites: rápida 55; amplia 994 (991 + 3 de `test_module_f51a.py`) + 4 previas; ch02 `f792f3d4…`.
+- Abierto: `lab/hyperframes/f46/f46_corridas.py` y `f46b_corridas.py` usan `style_head`/`STYLE_TAIL` y ahora fallarían al correrse (se dejaron como están).
 
 ## 👀 Para Omar (F50i, PARADA): las 4 hojas están en `lab/hyperframes/f50i/hojas/` (2/9, 4/11, 4/12, 5/8).
 - Arriba van las 2 fotos de C de F50h; abajo, las 2 nuevas, con el aspecto de las familias españolas sin «dusted red».
