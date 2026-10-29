@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 13:45 (F52 etapas 0–2: 2 fotos de arranque y 8 prompts de video en texto, US$ 0,19 de 16; PARADA: el analista revisa los prompts y Omar dice «sigue» para los clips) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 14:00 (F52b: los 8 prompts de video rehechos con fichas en inglés y Opus mirando la foto, US$ 0,29; acumulado F52 0,48 de 16; PARADA: el analista revisa antes de los clips) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,16 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F52b, PARADA antes de los clips): los 8 prompts de video, rehechos en inglés y mirando la foto real.
+- Los 8 salieron en inglés (antes Kling estaba en castellano), y los 4 del cap 1 ahora parten del cuerpo entero que tiene la foto (antes decían plano medio).
+- **Para mirar:** el de Kling del cap 1 dice «left foot» y en la foto es el pie derecho; Gemini sigue largo (≈ 165 palabras).
+- **Gasto:** US$ 0,29 (acumulado F52: 0,48 de 16). Ningún clip generado.
+- **Sigue:** el analista revisa `lab/hyperframes/f52/PROMPTS_F52.md` (cada prompt al lado del anterior); los clips solo con tu «sigue».
+
+## F52b — prompts de video con fichas en inglés y la foto (handoff del analista, 2026-10-29 13:50) — PARADA
+- Commits: `d8b98ce` etapa 0 (DECISIONES 13:50 + `prompts_f52_v1.json`); `cefc1dc` etapa 1 (fichas en inglés); `80bd71a` etapa 2 (`prompts_video.py` con la foto; las fotos son JPEG con extensión .png). El último commit es el del reporte (`lab/hyperframes/f52/F52b_REPORT.md`).
+- Producción sin cambios; fotos sin regenerar.
 
 ## 👀 Para Omar (F52, PARADA antes de los clips): los 8 prompts de video están en texto, listos para revisar.
 - 4 modelos (Kling 4.0, Seedance 2.5, FLUX 3 Max, Gemini Omni Flash 1.1) × 2 clips de Wittenoom (caps 1 y 7). Las 2 fotos de arranque ya están: `lab/hyperframes/f52/fotos/`.
