@@ -372,10 +372,56 @@ def _vision_una(png: Path, prompt: str) -> dict:
     return {"data": json.loads(resp.text), "tokens": tokens}
 
 
-def vision() -> int:
-    """Una llamada por png con el cliente y el modelo de gfx_critic; sin variante, prompt ni nombre de archivo."""
-    import rearmar as rg
+def _valida(d, ids) -> bool:
+    """Una respuesta sirve si es un objeto con `elements` y trae una respuesta para cada id pedido (un JSON que copia
+    el «<id>» del ejemplo no se puede asignar: cuenta como uno que no parsea)."""
+    if not isinstance(d, dict) or not isinstance(d.get("elements"), list):
+        return False
+    vistos = {e.get("id") for e in d["elements"] if isinstance(e, dict)}
+    return set(ids) <= vistos
+
+
+def vision_repetir() -> int:
+    """Re-pide UNA vez las respuestas guardadas que no sirven (`_valida`) y que tienen un intento libre; el resto queda
+    igual. Un hueco que ya usó sus 2 intentos no se toca."""
     from cost_tracker import cost_tracker
+    f = F50H / "VISION_F50h_crudo.json"
+    d = json.loads(f.read_text(encoding="utf-8"))
+    prompts_png = {(t[0], t[1], t[2]): t[4] for t in _trabajos_vision()}
+    previo = _gastado_previo()
+    cost_tracker.start_video(LAB_ID)
+    hechos = []
+    try:
+        for r in d["respuestas"]:
+            if "respuesta" in r and r.get("intentos", 1) < 2 and not _valida(r["respuesta"], r["ids"]):
+                if _gastado(previo) > TOPE_USD:
+                    raise Parada(f"tope US$ {TOPE_USD:.2f} alcanzado antes de {r['foto']} {r['letra']}{r['n']}")
+                p = FOTOS_DIR / r["foto"].replace("/", "_") / f"{r['letra']}_{r['n']}.png"
+                prompt = prompts_png[(r["foto"], r["letra"], r["n"])]
+                previa = r.pop("respuesta")
+                try:
+                    nueva = _vision_una(p, prompt)
+                    if _valida(nueva["data"], r["ids"]):
+                        r.update(respuesta=nueva["data"], tokens_reintento=nueva["tokens"], intentos=2,
+                                 descartada=previa)
+                    else:
+                        r.update(hueco=["respuesta con ids que no son los pedidos", "el reintento tampoco sirve"],
+                                 intentos=2, descartada=previa)
+                except Exception as e:  # noqa: BLE001
+                    r.update(hueco=["respuesta con ids que no son los pedidos", f"{type(e).__name__}: {e}"[:200]],
+                             intentos=2, descartada=previa)
+                hechos.append(f"{r['foto']} {r['letra']}{r['n']}: {'ok' if 'respuesta' in r else 'hueco'}")
+    finally:
+        cost_tracker.end_video()
+    d["usd_lab"] = _gastado_previo()
+    f.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"repetidas: {hechos or 'ninguna'} · cost_history {LAB_ID} = US$ {d['usd_lab']:.4f}")
+    return 0
+
+
+def _trabajos_vision() -> list:
+    """[(foto, letra, n, png, prompt, ids)] de los png que existen; el prompt sale de los casilleros de la foto."""
+    import rearmar as rg
     from script_engine.topics_db import get_topic_by_id
     vivo = json.loads(rg.VISUAL.read_text(encoding="utf-8"))
     items = {f"{c['chapter_number']}/{i}": it for c in vivo["chapters"] for i, (it, _) in enumerate(rg.fotos(c), 1)}
@@ -394,6 +440,13 @@ def vision() -> int:
                 p = FOTOS_DIR / f"{cap}_{foto}" / f"{letra}_{n}.png"
                 if p.exists():
                     trabajos.append((key, letra, n, p, prompt, [i for i, _ in el]))
+    return trabajos
+
+
+def vision() -> int:
+    """Una llamada por png con el cliente y el modelo de gfx_critic; sin variante, prompt ni nombre de archivo."""
+    from cost_tracker import cost_tracker
+    trabajos = _trabajos_vision()
     previo = _gastado_previo()
     cost_tracker.start_video(LAB_ID)
 
@@ -406,8 +459,8 @@ def vision() -> int:
             try:
                 r = _vision_una(p, prompt)
                 d = r["data"]
-                if not isinstance(d, dict) or not isinstance(d.get("elements"), list):
-                    raise ValueError("JSON sin elements")
+                if not _valida(d, ids):
+                    raise ValueError("JSON sin elements o con ids que no son los pedidos")
                 return {"foto": key, "letra": letra, "n": n, "ids": ids, "respuesta": d, "tokens": r["tokens"],
                         "intentos": intento}
             except Exception as e:  # noqa: BLE001
@@ -497,11 +550,11 @@ def tabla() -> int:
 
 
 def main() -> int:
-    for flag, fn in (("--prompts", prompts), ("--fotos", fotos), ("--hojas", hojas), ("--vision", vision),
+    for flag, fn in (("--prompts", prompts), ("--fotos", fotos), ("--hojas", hojas), ("--vision-repetir", vision_repetir), ("--vision", vision),
                      ("--tabla", tabla)):
         if flag in sys.argv:
             return fn()
-    print("uso: f50h.py --prompts | --fotos | --hojas | --vision | --tabla")
+    print("uso: f50h.py --prompts | --fotos | --hojas | --vision | --vision-repetir | --tabla")
     return 2
 
 

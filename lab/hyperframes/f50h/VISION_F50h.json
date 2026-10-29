@@ -1,0 +1,6376 @@
+{
+ "por_foto": [
+  {
+   "foto": "1/2",
+   "A": {
+    "puntaje": 0.688,
+    "not_visible": 0,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "B": {
+    "puntaje": 0.812,
+    "not_visible": 0,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "C": {
+    "puntaje": 1.0,
+    "not_visible": 3,
+    "invented_text": 0,
+    "huecos": 0
+   }
+  },
+  {
+   "foto": "1/3",
+   "A": {
+    "puntaje": 0.722,
+    "not_visible": 0,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "B": {
+    "puntaje": 1.0,
+    "not_visible": 0,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "C": {
+    "puntaje": 0.945,
+    "not_visible": 0,
+    "invented_text": 0,
+    "huecos": 0
+   }
+  },
+  {
+   "foto": "1/4",
+   "A": {
+    "puntaje": 1.0,
+    "not_visible": 0,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "B": {
+    "puntaje": 1.0,
+    "not_visible": 0,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "C": {
+    "puntaje": 1.0,
+    "not_visible": 0,
+    "invented_text": 0,
+    "huecos": 0
+   }
+  },
+  {
+   "foto": "2/9",
+   "A": {
+    "puntaje": 1.0,
+    "not_visible": 6,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "B": {
+    "puntaje": 0.812,
+    "not_visible": 3,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "C": {
+    "puntaje": 0.5,
+    "not_visible": 0,
+    "invented_text": 0,
+    "huecos": 0
+   }
+  },
+  {
+   "foto": "2/11",
+   "A": {
+    "puntaje": 1.0,
+    "not_visible": 1,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "B": {
+    "puntaje": 1.0,
+    "not_visible": 0,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "C": {
+    "puntaje": 0.857,
+    "not_visible": 0,
+    "invented_text": 0,
+    "huecos": 0
+   }
+  },
+  {
+   "foto": "2/15",
+   "A": {
+    "puntaje": 0.928,
+    "not_visible": 3,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "B": {
+    "puntaje": 0.833,
+    "not_visible": 4,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "C": {
+    "puntaje": 0.916,
+    "not_visible": 4,
+    "invented_text": 0,
+    "huecos": 0
+   }
+  },
+  {
+   "foto": "3/3",
+   "A": {
+    "puntaje": 0.873,
+    "not_visible": 2,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "B": {
+    "puntaje": 0.945,
+    "not_visible": 2,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "C": {
+    "puntaje": 0.666,
+    "not_visible": 0,
+    "invented_text": 0,
+    "huecos": 0
+   }
+  },
+  {
+   "foto": "3/6",
+   "A": {
+    "puntaje": 1.0,
+    "not_visible": 4,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "B": {
+    "puntaje": 0.889,
+    "not_visible": 4,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "C": {
+    "puntaje": 1.0,
+    "not_visible": 4,
+    "invented_text": 0,
+    "huecos": 0
+   }
+  },
+  {
+   "foto": "3/10",
+   "A": {
+    "puntaje": 1.0,
+    "not_visible": 6,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "B": {
+    "puntaje": 0.938,
+    "not_visible": 0,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "C": {
+    "puntaje": 0.857,
+    "not_visible": 2,
+    "invented_text": 0,
+    "huecos": 0
+   }
+  },
+  {
+   "foto": "4/1",
+   "A": {
+    "puntaje": 1.0,
+    "not_visible": 3,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "B": {
+    "puntaje": 0.812,
+    "not_visible": 3,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "C": {
+    "puntaje": 1.0,
+    "not_visible": 6,
+    "invented_text": 0,
+    "huecos": 0
+   }
+  },
+  {
+   "foto": "4/11",
+   "A": {
+    "puntaje": 1.0,
+    "not_visible": 4,
+    "invented_text": 0,
+    "huecos": 1
+   },
+   "B": {
+    "puntaje": 0.857,
+    "not_visible": 2,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "C": {
+    "puntaje": 1.0,
+    "not_visible": 5,
+    "invented_text": 0,
+    "huecos": 0
+   }
+  },
+  {
+   "foto": "4/12",
+   "A": {
+    "puntaje": 0.75,
+    "not_visible": 1,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "B": {
+    "puntaje": 0.938,
+    "not_visible": 1,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "C": {
+    "puntaje": 1.0,
+    "not_visible": 2,
+    "invented_text": 0,
+    "huecos": 0
+   }
+  },
+  {
+   "foto": "5/1",
+   "A": {
+    "puntaje": 0.714,
+    "not_visible": 0,
+    "invented_text": 2,
+    "huecos": 0
+   },
+   "B": {
+    "puntaje": 0.857,
+    "not_visible": 2,
+    "invented_text": 2,
+    "huecos": 0
+   },
+   "C": {
+    "puntaje": 0.857,
+    "not_visible": 3,
+    "invented_text": 2,
+    "huecos": 0
+   }
+  },
+  {
+   "foto": "5/8",
+   "A": {
+    "puntaje": 0.688,
+    "not_visible": 2,
+    "invented_text": 1,
+    "huecos": 0
+   },
+   "B": {
+    "puntaje": 0.775,
+    "not_visible": 7,
+    "invented_text": 1,
+    "huecos": 0
+   },
+   "C": {
+    "puntaje": 1.0,
+    "not_visible": 4,
+    "invented_text": 0,
+    "huecos": 0
+   }
+  },
+  {
+   "foto": "5/13",
+   "A": {
+    "puntaje": 0.817,
+    "not_visible": 5,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "B": {
+    "puntaje": 0.9,
+    "not_visible": 7,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "C": {
+    "puntaje": 0.857,
+    "not_visible": 4,
+    "invented_text": 0,
+    "huecos": 0
+   }
+  },
+  {
+   "foto": "5/16",
+   "A": {
+    "puntaje": 1.0,
+    "not_visible": 4,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "B": {
+    "puntaje": 1.0,
+    "not_visible": 4,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "C": {
+    "puntaje": 0.875,
+    "not_visible": 7,
+    "invented_text": 0,
+    "huecos": 0
+   }
+  },
+  {
+   "foto": "6/5",
+   "A": {
+    "puntaje": 0.544,
+    "not_visible": 1,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "B": {
+    "puntaje": 0.688,
+    "not_visible": 0,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "C": {
+    "puntaje": 0.544,
+    "not_visible": 1,
+    "invented_text": 0,
+    "huecos": 0
+   }
+  },
+  {
+   "foto": "6/15",
+   "A": {
+    "puntaje": 1.0,
+    "not_visible": 1,
+    "invented_text": 2,
+    "huecos": 0
+   },
+   "B": {
+    "puntaje": 1.0,
+    "not_visible": 0,
+    "invented_text": 2,
+    "huecos": 0
+   },
+   "C": {
+    "puntaje": 1.0,
+    "not_visible": 0,
+    "invented_text": 2,
+    "huecos": 0
+   }
+  },
+  {
+   "foto": "7/7",
+   "A": {
+    "puntaje": 1.0,
+    "not_visible": 7,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "B": {
+    "puntaje": 1.0,
+    "not_visible": 4,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "C": {
+    "puntaje": 1.0,
+    "not_visible": 8,
+    "invented_text": 0,
+    "huecos": 0
+   }
+  },
+  {
+   "foto": "7/9",
+   "A": {
+    "puntaje": 0.803,
+    "not_visible": 1,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "B": {
+    "puntaje": 1.0,
+    "not_visible": 4,
+    "invented_text": 0,
+    "huecos": 0
+   },
+   "C": {
+    "puntaje": 0.857,
+    "not_visible": 2,
+    "invented_text": 0,
+    "huecos": 0
+   }
+  }
+ ],
+ "total": {
+  "A": {
+   "puntaje_medio": 0.873,
+   "pngs_medidos": 39,
+   "not_visible": 51,
+   "invented_text": 5,
+   "huecos": 1
+  },
+  "B": {
+   "puntaje_medio": 0.903,
+   "pngs_medidos": 40,
+   "not_visible": 47,
+   "invented_text": 5,
+   "huecos": 0
+  },
+  "C": {
+   "puntaje_medio": 0.887,
+   "pngs_medidos": 40,
+   "not_visible": 55,
+   "invented_text": 4,
+   "huecos": 0
+  }
+ },
+ "por_png": {
+  "1/2 A1": {
+   "si": 5,
+   "no": 3,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.625,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "no",
+     "reason": "Cannot confirm ethnicity, occupation, relationships, or shirt is pressed."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Family faces camera, bandaged foot prominent."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "no",
+     "reason": "Cannot confirm ethnicity or location, though physical traits match."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "Cannot confirm specific material, location, or exact era."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Everything visible fits 1962; no anachronisms present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Light is flat, diffuse, and shadowless, consistent with overcast."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Wide, eye-level shot, consistent with 1960s box camera."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "1/2 A2": {
+   "si": 6,
+   "no": 2,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.75,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "no",
+     "reason": "Appearance does not confirm Spanish migrant family; 'miner' is an assumption."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Family faces camera, bandaged foot prominently displayed."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "no",
+     "reason": "Appearance does not confirm Spanish Mediterranean ethnicity."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Corrugated house, asbestos-cement panel, red earth yard visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Clothing and setting fit 1962; no anachronisms present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Overcast daylight, flat and shadowless."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Wide, eye-level shot, consistent with 1960s photography."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible."
+    }
+   ]
+  },
+  "1/2 B1": {
+   "si": 8,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Olive-skinned family, man in shirt with bandaged foot, woman in dress, relatives."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Family stands squared for portrait; bandaged foot sticks out prominently."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "yes",
+     "reason": "Olive skin, dark hair, slim builds; dusted red, consistent with description."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Corrugated metal house, asbestos-cement wall, packed red earth yard visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Clothing and structures fit 1962; no modern items are visible."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Flat, shadowless, diffuse light suggests hard cold overcast daylight."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Wide, eye-level shot, direct framing, consistent with 1960s box camera."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "1/2 B2": {
+   "si": 5,
+   "no": 3,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.625,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "no",
+     "reason": "Cannot confirm 'Spanish migrant family', 'miner', 'wife', or 'relatives' from image."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Family stands squared to camera; bandaged foot sticks out prominently."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "no",
+     "reason": "Cannot confirm 'Spanish Mediterranean people' or 'in Wittenoom' from image."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "Cannot confirm 'Wittenoom early 1960s' from the image alone."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Everything visible fits 1962; no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Light is flat and shadowless, consistent with overcast daylight."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It is a wide, eye-level shot, typical of a 1960s box camera."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible anywhere in the image."
+    }
+   ]
+  },
+  "1/2 C1": {
+   "si": 5,
+   "no": 0,
+   "not_visible": 3,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Ethnicity, family roles, and occupation are not visually confirmable."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Family stands posed for portrait; bandaged foot is prominent."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "not_visible",
+     "reason": "Ethnicity and specific location 'Wittenoom' are not visually confirmable."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Corrugated house and red earth are visible, but 'Wittenoom' is not."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Everything visible fits the year 1962; no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Lighting is flat and shadowless, consistent with overcast daylight."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It is a wide, eye-level shot, consistent with a box camera."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "1/2 C2": {
+   "si": 8,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Family posed, olive-skinned man with bandaged foot, woman in cotton dress, relatives behind."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Family stands squared to camera; bandaged foot prominently displayed."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "yes",
+     "reason": "People have olive skin, dark hair/eyes, slim builds, appear tanned and dusted red."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Corrugated metal, block wall, packed red earth yard are visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Everything visible fits 1962; no anachronistic items are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Lighting is flat and shadowless, consistent with overcast daylight."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It is a wide, eye-level shot, consistent with 1960s photography."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "1/3 A1": {
+   "si": 9,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Young man with olive skin, dark hair, lean build, dust-caked clothes, bandaged leg."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Standing against a sheet-metal wall, appearing to shift weight."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "yes",
+     "reason": "Subject has olive skin, dark hair, dark eyes, slim build, fitting description."
+    },
+    {
+     "id": "appearance_mine_and_mill_workers",
+     "answer": "yes",
+     "reason": "Subject has olive skin, short hair, lean build, coated in fine dust."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Corrugated sheet-metal wall, red earth, blue-grey pile visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Everything visible fits 1962; no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Hard, cold, overcast daylight from one side is visible."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Medium shot, eye-level with the subject."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "1/3 A2": {
+   "si": 4,
+   "no": 5,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.444,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "no",
+     "reason": "Specific ethnicity and occupation cannot be confirmed; other physical details visible."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "Standing against wall visible; 'after shift' and 'shifting weight' are inferred."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "no",
+     "reason": "No women or children visible; specific ethnicity cannot be confirmed."
+    },
+    {
+     "id": "appearance_mine_and_mill_workers",
+     "answer": "yes",
+     "reason": "Visible worker matches physical description; specific nationalities not verifiable."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "Environmental details visible; specific location and year cannot be confirmed."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements consistent with era; no modern items present."
+    },
+    {
+     "id": "lighting",
+     "answer": "no",
+     "reason": "Lighting is directional daylight, but not clearly 'hard cold overcast'."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Subject shown from waist up; camera at eye level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "1/3 B1": {
+   "si": 9,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Man's appearance, attire, and injury match the detailed description."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Man stands against wall, shifting weight; 'after a shift' is not visible."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "yes",
+     "reason": "The man's appearance matches the description of Spanish Mediterranean people."
+    },
+    {
+     "id": "appearance_mine_and_mill_workers",
+     "answer": "yes",
+     "reason": "The man's appearance and dust-coated clothes match the description."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Corrugated house, red earth, and blue-grey piles are clearly visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements are consistent with the year 1962."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Light is hard, cold, overcast, and comes from one side."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The shot is medium and taken at eye-level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "1/3 B2": {
+   "si": 9,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Young man with olive skin, dark hair, dirty clothes, and bandaged foot."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Standing against a wall, leaning, with weight shifted off the bandaged foot."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "yes",
+     "reason": "Man has olive skin, dark hair, and slim build consistent with description."
+    },
+    {
+     "id": "appearance_mine_and_mill_workers",
+     "answer": "yes",
+     "reason": "Man has olive skin, short hair, lean build, and dusty clothes."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Corrugated house, red earth, and distant blue-grey landscape are visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements are consistent with the 1962 era, and no modern items are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Light is cool, diffused, and appears to come from the left side."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The man is shown from the waist up, and the camera is at eye-level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "1/3 C1": {
+   "si": 8,
+   "no": 1,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.889,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Man's appearance, clothing, and bandaged foot match the description."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Man leans on wall, bandaged foot slightly raised, implying weight shift."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "yes",
+     "reason": "Visible people in background have olive skin, dark hair, slim builds, dusted red."
+    },
+    {
+     "id": "appearance_mine_and_mill_workers",
+     "answer": "yes",
+     "reason": "All men show lean builds, short hair, sun-darkened skin, and dust."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "Corrugated house, red earth, tailings visible; specific town name not verifiable."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Clothing, buildings, and environment are consistent with 1962; no anachronisms."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Daylight from left, creating defined shadows; sky appears overcast."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Main subject shown from waist up; camera at eye level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are present in the image."
+    }
+   ]
+  },
+  "1/3 C2": {
+   "si": 9,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Young man with olive skin, dark hair, lean build, work clothes, bandaged foot."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Leaning on wall, bandaged leg suggests weight shift, dusty clothes imply end of shift."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "yes",
+     "reason": "Main subject and background figures have olive skin, dark hair, and are covered in red dust."
+    },
+    {
+     "id": "appearance_mine_and_mill_workers",
+     "answer": "yes",
+     "reason": "Men in background show varied European features, short hair, lean builds, covered in red dust."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Corrugated metal house, red earth, blue-grey mound in background."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Clothing, building, and lack of modern items fit the 1962 era."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Diffuse light from left, consistent with overcast conditions."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Main subject from waist up, camera at eye level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable text is visible in the image."
+    }
+   ]
+  },
+  "1/4 A1": {
+   "si": 7,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Sign reads Wittenoom, red desert, operating mine, and town visible."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Dust drifts from mill; tipper trucks spread tailings on roads."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Wittenoom sign, houses, red ranges, unsealed blue-grey tailings road."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "No modern items visible; trucks and structures fit 1962."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Overcast daylight, cold tone, dust haze flattens distance."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Extreme wide shot from a high angle on a ridge."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "A legible sign in foreground reads exactly \"WITTENOOM\"."
+    }
+   ]
+  },
+  "1/4 A2": {
+   "si": 7,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Sign, red desert, houses, mining activity, and dust are visible."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Dust from the mill and trucks is visible, and trucks are spreading material."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Sign, houses, red ranges, and unsealed blue-grey tailings road are visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements are consistent with the 1962 era."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Overcast sky, flat light, and dust haze flattening distance are visible."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Broad view of town and landscape, taken from an elevated position."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "Prominent sign clearly reads \"WITTENOOM\" and is legible."
+    }
+   ]
+  },
+  "1/4 B1": {
+   "si": 7,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "The sign reads Wittenoom, it's a small town in a red desert with dust."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Dust drifts from the mill and trucks spread tailings on the roads."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Wittenoom sign, houses, red ranges, and unsealed blue-grey road are visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "No modern items are visible; the scene fits 1962."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Overcast daylight and dust haze flatten the distant landscape."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It's an extreme wide shot from a high angle on a ridge."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "A legible sign clearly reads \"WITTENOOM\"."
+    }
+   ]
+  },
+  "1/4 B2": {
+   "si": 7,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Sign says \"WITTENOOM\", red desert, mining activity, houses."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Dust drifts from mill, tipper trucks on dusty blue-grey roads."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Sign, red ranges, simple houses, unsealed blue-grey roads."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "No modern items, vehicles and infrastructure fit 1962 era."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Overcast sky, dust haze flattens distant landscape."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Broad view of town and landscape from elevated position."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "Prominent sign clearly reads \"WITTENOOM\"."
+    }
+   ]
+  },
+  "1/4 C1": {
+   "si": 7,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Sign says Wittenoom, mining operation, red desert landscape, small town."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Dust from the mill, tipper trucks on dusty road, consistent with spreading tailings."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Houses, red ranges, unsealed blue-grey road, consistent with description."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "No modern items visible; vehicles and infrastructure fit the 1960s era."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Overcast sky, cold daylight, and dust haze flattening the distance are visible."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Very wide view of town and landscape, taken from an elevated position."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "A clear, legible sign in the foreground reads \"WITTENOOM\"."
+    }
+   ]
+  },
+  "1/4 C2": {
+   "si": 7,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Town, mining, red desert, and \"WITTENOOM\" sign are visible."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Mill dust, tipper trucks, and tailings on roads are visible."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Houses, red ranges, unsealed blue-grey road, and \"WITTENOOM\" sign are visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "No anachronisms are visible; everything fits the 1962 era."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Overcast sky, hard light, and dust haze flattening distance are visible."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Extreme wide shot from a high angle on a ridge is visible."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "A legible sign clearly reads \"WITTENOOM\"."
+    }
+   ]
+  },
+  "2/11 A1": {
+   "si": 6,
+   "no": 0,
+   "not_visible": 1,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Small propeller plane and airstrip in red desert are clearly visible."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Plane on airstrip with large dust plume, consistent with touching down."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific location, year, and strip material cannot be confirmed from image."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "No anachronistic elements; plane and environment fit the specified era."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Short shadows and bright, high-contrast scene indicate harsh midday sun."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Vast landscape and overhead perspective confirm extreme wide, high angle aerial."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "2/11 A2": {
+   "si": 7,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Small propeller plane and airstrip in red desert are clearly visible."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Plane on airstrip with large dust plume clearly visible."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Blue-grey strip, red earth, scattered vegetation, and ranges are visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "No anachronisms are visible; the scene fits the specified era."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Short, distinct shadows and bright, high-contrast scene indicate harsh midday sun."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Vast landscape, plane, and airstrip are seen from a high aerial perspective."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "2/11 B1": {
+   "si": 7,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Small propeller plane, airstrip, and red desert are clearly visible."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Plane on airstrip with a long plume of dust, consistent with touching down."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Blue-grey strip, intense red earth, scattered spinifex, and ranges are visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "No anachronistic items are visible; the scene fits the described era."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Short, distinct shadows and bright light indicate harsh midday sun."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Vast landscape from a high angle, consistent with extreme_wide aerial view."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible anywhere in the image."
+    }
+   ]
+  },
+  "2/11 B2": {
+   "si": 7,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Small propeller plane, airstrip, and red desert are clearly visible."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Plane on airstrip with a long plume of dust behind it."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Blue-grey strip, intense red earth, scattered vegetation, and ranges are visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Everything visible, including the plane, fits the 1962 era."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Short, distinct shadows and bright, direct light indicate harsh midday sun."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The image shows a broad landscape from a high, overhead perspective."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "2/11 C1": {
+   "si": 5,
+   "no": 2,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.714,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "no",
+     "reason": "Specific location names \"Wittenoom\" and \"Pilbara\" are not visible."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Plane is low, kicking up a long plume of dust on the airstrip."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "Specific location name, year, and strip material are not visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "The scene appears consistent with 1962, and no modern items are visible."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Short, distinct shadows and bright, even light indicate harsh midday sun."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The image shows a vast landscape from a high aerial perspective."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible anywhere in the image."
+    }
+   ]
+  },
+  "2/11 C2": {
+   "si": 7,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "A small propeller plane is on an airstrip in a red desert."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "The plane is landing, kicking up a long plume of dust."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Blue-grey strip, intense red earth, scattered spinifex, and ranges are visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Everything visible fits 1962; no modern items are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "The lighting is bright and direct, consistent with midday desert sun."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It's an extreme wide, high-angle aerial view of the landscape."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible anywhere in the image."
+    }
+   ]
+  },
+  "2/15 A1": {
+   "si": 6,
+   "no": 1,
+   "not_visible": 1,
+   "sin_respuesta": [],
+   "puntaje": 0.857,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Blue fibrous material in red rock is visible, with out-of-focus men beyond."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "No active working of the mineral is visible, only its state with loose fibers."
+    },
+    {
+     "id": "appearance_mine_and_mill_workers",
+     "answer": "not_visible",
+     "reason": "Ethnicity, skin tone, and build are not discernible due to blur and distance."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Banded red rock walls are clearly visible in the image."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements are consistent with the 1962 era; no anachronisms appear."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Bright, strong shadows indicate harsh sunlight raking across the rock face."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The framing is a detail shot of the rock, taken at eye-level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible anywhere in the image."
+    }
+   ]
+  },
+  "2/15 A2": {
+   "si": 6,
+   "no": 0,
+   "not_visible": 2,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Blue fibrous material in red rock, dust-coated men out of focus beyond."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Fibrous blue mineral appears worked from rock, loose fibers fraying."
+    },
+    {
+     "id": "appearance_mine_and_mill_workers",
+     "answer": "not_visible",
+     "reason": "Ethnicity and specific build not visible; short hair and dust are."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific location and year not visible; banded red rock walls are."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "No anachronisms; clothing and general scene fit the specified year."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Strong highlights and shadows indicate harsh sunlight raking across rock."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Foreground detail is sharp, filling frame; perspective is eye-level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are present anywhere in the image."
+    }
+   ]
+  },
+  "2/15 B1": {
+   "si": 5,
+   "no": 1,
+   "not_visible": 2,
+   "sin_respuesta": [],
+   "puntaje": 0.833,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Blue fibrous material in red rock, dust-coated miner visible."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "No active working shown; only loose fibers are visible."
+    },
+    {
+     "id": "appearance_mine_and_mill_workers",
+     "answer": "not_visible",
+     "reason": "Miner too blurry/distant to judge most appearance details."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Banded red rock walls visible, but specific location/year not."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "No anachronisms; clothing and scene fit the described era."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Strong highlights and shadows indicate harsh raking sunlight."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Foreground detail is sharp and fills frame; eye-level view."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are present in the image."
+    }
+   ]
+  },
+  "2/15 B2": {
+   "si": 5,
+   "no": 1,
+   "not_visible": 2,
+   "sin_respuesta": [],
+   "puntaje": 0.833,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Blue fibrous material in red rock, with dust-coated men blurred behind."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "Active working is not shown; only frayed fibers are visible."
+    },
+    {
+     "id": "appearance_mine_and_mill_workers",
+     "answer": "not_visible",
+     "reason": "Ethnicity and muscular build cannot be determined from blurred figures."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific location and year cannot be confirmed from the image."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Clothing and lack of modern items fit the described era."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Strong shadows and highlights indicate harsh, raking sunlight."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Close-up on rock and blue material, camera at eye-level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are present in the image."
+    }
+   ]
+  },
+  "2/15 C1": {
+   "si": 5,
+   "no": 1,
+   "not_visible": 2,
+   "sin_respuesta": [],
+   "puntaje": 0.833,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Blue fibrous material in red rock, gorge setting, out-of-focus men."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "No active working is visible, only frayed material."
+    },
+    {
+     "id": "appearance_mine_and_mill_workers",
+     "answer": "not_visible",
+     "reason": "Ethnicity, precise skin tone, and dust coating are not discernible due to blur."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific location and year cannot be confirmed visually."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "No anachronistic elements are visible in the image."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Strong highlights and shadows indicate harsh, raking sunlight."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Close-up on rock and fibres, perspective is eye-level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible."
+    }
+   ]
+  },
+  "2/15 C2": {
+   "si": 6,
+   "no": 0,
+   "not_visible": 2,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Blue fibrous material in red rock and blurry miners are visible; specific location not confirmable."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Loose fibres and dust are visible where the mineral is broken."
+    },
+    {
+     "id": "appearance_mine_and_mill_workers",
+     "answer": "not_visible",
+     "reason": "Figures are too blurry and distant to judge ethnicity, skin, or build."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific location 'Wittenoom' and year '1962' are not visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "No anachronisms are visible; clothing and environment fit the era."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Strong highlights and shadows indicate harsh, angled sunlight on the rock."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Foreground rock is detailed and prominent; perspective is eye-level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable text is visible in the image."
+    }
+   ]
+  },
+  "2/9 A1": {
+   "si": 4,
+   "no": 0,
+   "not_visible": 4,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Ethnicity and specific skin tone are not visible; other details match."
+    },
+    {
+     "id": "action",
+     "answer": "not_visible",
+     "reason": "'Seasick' and 'ship rolls' are not directly visible actions."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "not_visible",
+     "reason": "Ethnicity and specific location details are not visible."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific ocean and year are not visible in the image."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Visible elements fit the era; no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Lighting is soft, diffused, consistent with overcast sea light."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It is a medium shot at eye-level with the subjects."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "2/9 A2": {
+   "si": 6,
+   "no": 0,
+   "not_visible": 2,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Boy and mother fit description; boy looks pale, slim, dark damp hair, cotton shirt."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Boy sits slumped on bench, head on mother's side; sea suggests rolling."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "not_visible",
+     "reason": "Skin, hair, build fit; 'Spanish' and 'Wittenoom' not visible; 'dusted red' is visible."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Looks like a ship deck with wet railings and rolling swell; ocean/year not visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Everything visible fits 1962; no modern items are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "The lighting is flat, even, and consistent with an overcast sea."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It is a medium, eye-level shot of the subjects."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "There are no readable letters or words anywhere in the image."
+    }
+   ]
+  },
+  "2/9 B1": {
+   "si": 5,
+   "no": 0,
+   "not_visible": 3,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Ethnicity and specific skin tone details are not visible or confirmable."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Boy is slumped, head on mother, choppy water suggests rolling ship."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "not_visible",
+     "reason": "Ethnicity and specific location (Wittenoom) are not visible."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific ocean and year are not visible in the image."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Clothing and ship design fit 1962; no modern anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "The light is soft, diffused, and consistent with an overcast sea."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It's a medium shot, and the camera is at eye-level with the woman."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible anywhere in the image."
+    }
+   ]
+  },
+  "2/9 B2": {
+   "si": 5,
+   "no": 3,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.625,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "no",
+     "reason": "Spanish ethnicity and 'pale under tan' are not visible."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Boy slumped on bench, head on mother's side; ocean rolling."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "no",
+     "reason": "Spanish ethnicity and Wittenoom location are not visible."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "Indian Ocean and 1962 are not visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements fit 1962; no modern items appear."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Soft, diffused light consistent with overcast sea conditions."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Medium shot, subjects from waist up, camera at eye-level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "2/9 C1": {
+   "si": 4,
+   "no": 4,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.5,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "no",
+     "reason": "Spanish ethnicity and specific paleness under tan are not visible."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "Boy's internal state of being seasick is not directly visible."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "no",
+     "reason": "Ethnicity and specific location 'Wittenoom' are not visible."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "Specific location 'Indian Ocean' and year '1962' are not visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Everything visible fits the era; no modern items are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Lighting is flat, diffused, and consistent with overcast sea light."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Shot is medium and at eye-level with the subjects."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "2/9 C2": {
+   "si": 4,
+   "no": 4,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.5,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "no",
+     "reason": "Spanish origin and paleness are not visible; boy is young, slim, dark hair, cotton shirt."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "Boy's seasickness and ship rolling are not clearly visible; he is slumped."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "no",
+     "reason": "Spanish origin and Wittenoom location are not visible; skin, hair, build fit."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "Indian Ocean and specific year not visible; wet deck, railings, rolling swell."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Everything visible fits 1962; no anachronisms like modern tech or clothing appear."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Light is soft, diffused, and even, consistent with overcast sea light."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It is a medium shot, showing subjects from waist up, at eye-level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible anywhere in the image."
+    }
+   ]
+  },
+  "3/10 A1": {
+   "si": 5,
+   "no": 0,
+   "not_visible": 3,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Nationalities (Southern European, Australian) are not visible; physical traits are."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Men are stepping out, coated in dust, with a dust cloud behind them."
+    },
+    {
+     "id": "appearance_mine_and_mill_workers",
+     "answer": "not_visible",
+     "reason": "Specific ethnicities are not visible; other physical traits and dust are."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific mill name and year are not visible; dust cloud is."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Everything visible fits 1957; no listed modern items appear."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Harsh midday sun is diffused by dust, creating a flat grey glare."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It is a medium shot at eye-level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "3/10 A2": {
+   "si": 5,
+   "no": 0,
+   "not_visible": 3,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Cannot confirm nationalities; physical descriptions of men are visible."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Men are dusty, walking from a building, with a dust cloud behind them."
+    },
+    {
+     "id": "appearance_mine_and_mill_workers",
+     "answer": "not_visible",
+     "reason": "Cannot confirm specific mix of nationalities; physical traits are visible."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Cannot confirm specific mill or year; a dust cloud is visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "No anachronisms; clothing and setting fit the specified era."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Bright, high-angle light diffused by dust creates a flat grey glare."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Figures are shown in medium shot; camera is at eye-level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "3/10 B1": {
+   "si": 8,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Mill hands are at a mill door; two men fit descriptions, though origins not visible."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Men are stepping out of a mill, coated in dust, with a dust cloud."
+    },
+    {
+     "id": "appearance_mine_and_mill_workers",
+     "answer": "yes",
+     "reason": "Men are lean, muscular, short-haired, and heavily coated in fine dust."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "A mill doorway is visible with a thick dust cloud over the yard."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Everything visible fits 1957; no anachronisms like modern tech or clothing."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Harsh midday sun is diffused by dust, creating a flat grey glare."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It is a medium shot, framed at eye-level with the subjects."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible anywhere in the image."
+    }
+   ]
+  },
+  "3/10 B2": {
+   "si": 7,
+   "no": 1,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.875,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Two main subjects match descriptions: a younger man walking, an older man seated."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Men are covered in dust, stepping out of a building, with dust cloud behind."
+    },
+    {
+     "id": "appearance_mine_and_mill_workers",
+     "answer": "yes",
+     "reason": "Men show mixed features, short hair, lean builds, and are coated in dust."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "Cannot confirm specific mill name or year from visual evidence alone."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements are consistent with the 1957 era; no anachronisms present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Midday sun is diffused by dust, creating a flat, grey glare."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The shot is medium, showing subjects from waist up, at eye-level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "3/10 C1": {
+   "si": 6,
+   "no": 1,
+   "not_visible": 1,
+   "sin_respuesta": [],
+   "puntaje": 0.857,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Two men fit descriptions: one younger, standing; one older, seated on crate."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "One main subject is seated, not actively stepping out of the mill."
+    },
+    {
+     "id": "appearance_mine_and_mill_workers",
+     "answer": "yes",
+     "reason": "Men are dusty, lean, short hair, varied skin tones, fitting the description."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific names 'Wittenoom mill, 1957' cannot be visually confirmed."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Clothing and environment consistent with 1957; no anachronisms are visible."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Harsh midday sun diffused by dust cloud, creating flat grey glare."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Medium shot, eye-level perspective on the subjects."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "3/10 C2": {
+   "si": 6,
+   "no": 1,
+   "not_visible": 1,
+   "sin_respuesta": [],
+   "puntaje": 0.857,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Two men match descriptions: young man standing, older man seated."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "Men are at the mill door, but not actively stepping out."
+    },
+    {
+     "id": "appearance_mine_and_mill_workers",
+     "answer": "yes",
+     "reason": "Men fit descriptions: mixed ethnicity, skin, hair, build, and dust coating."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific mill name and year are not visible or verifiable."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements are consistent with the 1957 era, and no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Lighting is bright, diffused by dust, creating a flat grey glare."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The shot frames subjects from knees up at eye-level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "3/3 A1": {
+   "si": 8,
+   "no": 1,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.889,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Managers in suits meet prospectors in work shirts and hats."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "Truck is parked, not pulling in. Taking over workings is not visible."
+    },
+    {
+     "id": "appearance_company_managers",
+     "answer": "yes",
+     "reason": "Men in suits have fair complexions, neat hair, and average builds."
+    },
+    {
+     "id": "appearance_prospectors_mine_owners",
+     "answer": "yes",
+     "reason": "Men in work clothes have tanned skin, short hair, and lean builds."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Tents, metal huts, crushing shed, and red scree slopes are visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements fit 1943; no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Harsh midday sun creates short, distinct black shadows."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It is a wide, eye-level shot from beside the huts."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "The truck clearly reads \"AUSTRALIAN BLUE ASBESTOS\"."
+    }
+   ]
+  },
+  "3/3 A2": {
+   "si": 6,
+   "no": 1,
+   "not_visible": 2,
+   "sin_respuesta": [],
+   "puntaje": 0.857,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Men in suits and work shirts meeting; clothing and roles fit."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "Truck is parked, not pulling in; intent to take over not visible."
+    },
+    {
+     "id": "appearance_company_managers",
+     "answer": "not_visible",
+     "reason": "Descent and complexion not visible; hair and build fit description."
+    },
+    {
+     "id": "appearance_prospectors_mine_owners",
+     "answer": "not_visible",
+     "reason": "Descent not visible; tanned skin, short hair, lean build fit."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Tents, corrugated huts, crushing shed, red scree slopes visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements fit 1943; no modern items present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Harsh, direct sun; short, distinct black shadows visible."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Wide, eye-level shot from beside the huts."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "Sign 'AUSTRALIAN BLUE ASBESTOS' is clearly legible on truck."
+    }
+   ]
+  },
+  "3/3 B1": {
+   "si": 7,
+   "no": 0,
+   "not_visible": 2,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Managers in suits meet prospectors in work shirts and hats."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Truck is present, men in suits walk towards prospectors near huts."
+    },
+    {
+     "id": "appearance_company_managers",
+     "answer": "not_visible",
+     "reason": "Cannot confirm descent or hair for all; builds are consistent."
+    },
+    {
+     "id": "appearance_prospectors_mine_owners",
+     "answer": "not_visible",
+     "reason": "Cannot confirm descent or hair for all; skin and builds are consistent."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Tents, corrugated huts, crushing shed, and red scree slopes are visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements are consistent with 1943, no anachronisms."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Bright light, distinct and short black shadows indicate midday sun."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Wide shot, eye-level perspective from beside the huts."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "\"AUSTRALIAN BLUE ASBESTOS\" is clearly legible on the truck."
+    }
+   ]
+  },
+  "3/3 B2": {
+   "si": 8,
+   "no": 1,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.889,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Managers in suits meet prospectors in work shirts; attire and appearance match description."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "The truck is parked, not pulling in; intent to take over is not visible."
+    },
+    {
+     "id": "appearance_company_managers",
+     "answer": "yes",
+     "reason": "Men in suits have fair complexions, neat hair, and office-worker builds."
+    },
+    {
+     "id": "appearance_prospectors_mine_owners",
+     "answer": "yes",
+     "reason": "Prospectors have sun-tanned, weathered faces, short hair, and lean builds."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Tents, corrugated huts, a crushing shed, and red scree slopes are visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements fit the 1943 era; no modern items are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Harsh midday desert sun is evident with short, dark shadows."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It is a wide, eye-level shot taken from beside the huts."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "The truck clearly reads \"AUSTRALIAN BLUE ASBESTOS\" and is legible."
+    }
+   ]
+  },
+  "3/3 C1": {
+   "si": 8,
+   "no": 1,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.889,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Men in suits meet men in work shirts; attire and appearance match description."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "Truck is parked, not pulling in; 'take over workings' is not visible."
+    },
+    {
+     "id": "appearance_company_managers",
+     "answer": "yes",
+     "reason": "Managers have fair complexions, neat hair, and office-worker builds."
+    },
+    {
+     "id": "appearance_prospectors_mine_owners",
+     "answer": "yes",
+     "reason": "Prospectors are sun-tanned, weathered, with short hair and lean builds."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Tents, huts, crushing shed, and red scree slopes are all visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible items are consistent with 1943; no modern elements are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Lighting is harsh, and shadows are short and dark, typical of midday."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Wide shot, eye-level perspective, taken from beside the huts."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "The truck door clearly displays \"AUSTRALIAN BLUE ASBESTOS\" legibly."
+    }
+   ]
+  },
+  "3/3 C2": {
+   "si": 4,
+   "no": 5,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.444,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "no",
+     "reason": "Specific roles and descent of the men are not clearly visible."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "Truck is stationary, not pulling in; 'take over workings' is not visible."
+    },
+    {
+     "id": "appearance_company_managers",
+     "answer": "no",
+     "reason": "'Australian men of British descent' is not visible."
+    },
+    {
+     "id": "appearance_prospectors_mine_owners",
+     "answer": "no",
+     "reason": "'Descent' and 'from bush prospecting' are not visible."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "Specific name 'Yampire gorge' and date '1943' are not visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements are consistent with the era; no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Bright, direct light creates short, distinct shadows."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Wide view, camera at eye-level, positioned near the huts."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "Sign on truck clearly reads 'AUSTRALIAN BLUE ASBESTOS'."
+    }
+   ]
+  },
+  "3/6 A1": {
+   "si": 5,
+   "no": 0,
+   "not_visible": 4,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Cannot confirm nationality, profession, or descent; other details are visible."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Man stands at desk holding paper; managers lean back, one turned away."
+    },
+    {
+     "id": "appearance_mine_and_health_officials",
+     "answer": "not_visible",
+     "reason": "Cannot confirm nationality or descent; fair skin, neat hair, office build visible."
+    },
+    {
+     "id": "appearance_company_managers",
+     "answer": "not_visible",
+     "reason": "Cannot confirm nationality or descent; fair complexion, neat hair, office build visible."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Cannot confirm specific location, year, or wall material; other details visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements fit 1948; no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Harsh side light from window; doctor is partially in shadow."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Medium shot, slightly high angle, with an off-balance composition."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible anywhere in the image."
+    }
+   ]
+  },
+  "3/6 A2": {
+   "si": 9,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Standing man is lean, fair, in suit; seated men wear short-sleeved white shirts and ties."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Man stands at desk holding paper; managers lean back, one turned away."
+    },
+    {
+     "id": "appearance_mine_and_health_officials",
+     "answer": "yes",
+     "reason": "Visible men have fair skin, short neat hair, and professional builds."
+    },
+    {
+     "id": "appearance_company_managers",
+     "answer": "yes",
+     "reason": "Seated men have fair complexions, neat hair, and office-worker builds."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Office with timber/paneled walls, ceiling fan, filing cabinets, and mill haze through window."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements fit 1948; no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Harsh side light from window illuminates one side of the doctor, casting shadow."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Medium shot, slightly high angle, with an off-balance composition."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible anywhere in the image."
+    }
+   ]
+  },
+  "3/6 B1": {
+   "si": 5,
+   "no": 0,
+   "not_visible": 4,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Nationality, profession, and descent are not visually verifiable."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "All described actions are clearly visible in the image."
+    },
+    {
+     "id": "appearance_mine_and_health_officials",
+     "answer": "not_visible",
+     "reason": "Nationality and descent are not visually verifiable."
+    },
+    {
+     "id": "appearance_company_managers",
+     "answer": "not_visible",
+     "reason": "Nationality and descent are not visually verifiable."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific location, year, and asbestos-cement walls are not verifiable."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements are consistent with the era; no modern items are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Strong side light from window creates shadows on the standing man."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The shot is medium, slightly high, with an asymmetrical composition."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "3/6 B2": {
+   "si": 7,
+   "no": 2,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.778,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Standing man in suit faces seated managers in white shirts and ties."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "The managers are leaning back, but none are clearly turning their chair away."
+    },
+    {
+     "id": "appearance_mine_and_health_officials",
+     "answer": "yes",
+     "reason": "The standing man fits the description of fair skin, neat hair, professional build."
+    },
+    {
+     "id": "appearance_company_managers",
+     "answer": "yes",
+     "reason": "Seated men have fair complexions, neat hair, and office-worker builds."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "Cannot confirm Wittenoom, 1948, or asbestos-cement walls from the image."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements fit 1948; no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Harsh side light from the window leaves the doctor half in shadow."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It's a medium shot, slightly high angle, with an off-balance composition."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No letters or words are clearly readable anywhere in the image."
+    }
+   ]
+  },
+  "3/6 C1": {
+   "si": 5,
+   "no": 0,
+   "not_visible": 4,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Nationality, descent, and profession are not visually verifiable from the image."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "The man stands holding papers; managers are seated, one turned away."
+    },
+    {
+     "id": "appearance_mine_and_health_officials",
+     "answer": "not_visible",
+     "reason": "Nationality and descent are not visually verifiable from the image."
+    },
+    {
+     "id": "appearance_company_managers",
+     "answer": "not_visible",
+     "reason": "Nationality and descent are not visually verifiable from the image."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific location, year, and asbestos-cement material are not visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Clothing and objects fit 1948; no modern items are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Harsh side light from the window casts the doctor half in shadow."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It's a medium, slightly high-angle shot with an off-balance composition."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No letters or words are clearly readable anywhere in the image."
+    }
+   ]
+  },
+  "3/6 C2": {
+   "si": 9,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Standing man is lean, fair, in a lightweight suit, facing seated managers."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Man stands at desk, holding a letter; managers lean back, one angled away."
+    },
+    {
+     "id": "appearance_mine_and_health_officials",
+     "answer": "yes",
+     "reason": "Men have fair skin, short neat hair, and professional office builds."
+    },
+    {
+     "id": "appearance_company_managers",
+     "answer": "yes",
+     "reason": "Seated men have fair complexions, neat hair, and office-worker builds."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Office has paneled walls, ceiling fan, filing cabinet, and mill haze outside."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements fit 1948; no modern items are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Harsh side light from window casts doctor half in shadow."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Medium shot, slightly high angle, with an off-balance composition."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible on any papers or surfaces."
+    }
+   ]
+  },
+  "4/1 A1": {
+   "si": 5,
+   "no": 0,
+   "not_visible": 3,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Nationality/ethnicity cannot be determined from appearance alone."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Children are clearly handling blue fibers and putting them near mouths."
+    },
+    {
+     "id": "appearance_town_children",
+     "answer": "not_visible",
+     "reason": "Nationality/ethnicity cannot be determined from appearance alone."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific location and exact era cannot be visually confirmed."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Clothing and environment are consistent with the era; no modern items visible."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Bright light and short, distinct shadows are clearly visible."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The shot includes the group and background from a slightly elevated view."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No letters or words are visible in the image."
+    }
+   ]
+  },
+  "4/1 A2": {
+   "si": 8,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Children of described age, skin, build, clothing, barefoot, dusted."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Children crouched, shredding blue fibers, lifting tufts to mouths."
+    },
+    {
+     "id": "appearance_town_children",
+     "answer": "yes",
+     "reason": "Children have light to olive skin, tousled hair, dusted with earth."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Corrugated metal house, yard with blue-grey tailings visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Clothing and setting fit 1963; no modern anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Bright sky, hard and short shadows indicate midday sun."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The shot is wide, showing context, and taken from a high angle."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible anywhere in the image."
+    }
+   ]
+  },
+  "4/1 B1": {
+   "si": 5,
+   "no": 0,
+   "not_visible": 3,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Cannot determine nationality; other details like age, build, clothing, dust fit."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Children are crouched, shredding blue fibers, and lifting them to mouths."
+    },
+    {
+     "id": "appearance_town_children",
+     "answer": "not_visible",
+     "reason": "Cannot determine nationality; skin, hair, and dust details fit."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Corrugated house and yard fit; specific town and year not visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements fit 1963; no modern items are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Harsh, direct light with short, hard shadows indicates midday sun."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The shot is wide, showing the group and surroundings from a high angle."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "4/1 B2": {
+   "si": 5,
+   "no": 3,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.625,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "no",
+     "reason": "Nationality not visible; other details like age, clothing, dusting match."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Children are crouched, handling blue fibers, and lifting them to their mouths."
+    },
+    {
+     "id": "appearance_town_children",
+     "answer": "no",
+     "reason": "Nationalities not visible; other appearance details like skin, hair, dusting match."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "Specific location and era (Wittenoom, 1960s) not visible in the image."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements consistent with era; no modern items are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Harsh, direct light with hard, short shadows from high sun."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Wide shot from a slightly high angle, capturing the scene."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible anywhere in the image."
+    }
+   ]
+  },
+  "4/1 C1": {
+   "si": 5,
+   "no": 0,
+   "not_visible": 3,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Cannot visually confirm specific ethnicities of children."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Children are crouched, handling blue fibers, and lifting them to mouths."
+    },
+    {
+     "id": "appearance_town_children",
+     "answer": "not_visible",
+     "reason": "Cannot visually confirm specific ethnicities of children."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Cannot visually confirm specific town or year from the image."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Visible elements fit the era; no modern items are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Bright sun, clear sky, and short, hard shadows are visible."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The shot is wide and taken from a slightly elevated position."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable text is visible in the image."
+    }
+   ]
+  },
+  "4/1 C2": {
+   "si": 5,
+   "no": 0,
+   "not_visible": 3,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Ethnicity (Spanish and Australian) cannot be determined from the image."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Children are crouched, shredding blue fibres, and lifting them to mouths."
+    },
+    {
+     "id": "appearance_town_children",
+     "answer": "not_visible",
+     "reason": "Ethnicity (Australian, European, Spanish) cannot be determined from the image."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific town (Wittenoom) and year (early 1960s) are not visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements fit the era; no modern items are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Harsh midday sun is evident with hard, short shadows."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The shot is wide and taken from a slightly high angle."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "4/11 A1": {
+   "hueco": [
+    "TypeError: the JSON object must be str, bytes or bytearray, not NoneType",
+    "TypeError: the JSON object must be str, bytes or bytearray, not NoneType"
+   ]
+  },
+  "4/11 A2": {
+   "si": 4,
+   "no": 0,
+   "not_visible": 4,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Forceps, tray, and person in bed are visible, but 'weakened Spanish woman' is not."
+    },
+    {
+     "id": "action",
+     "answer": "not_visible",
+     "reason": "Instruments are ready by the bed, but 'difficult birth' cannot be confirmed."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "not_visible",
+     "reason": "The person is out of focus and seen from behind; specific appearance is not visible."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Enamel basin and iron bed are visible, but specific room/hospital/date are not."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Everything visible fits 1963; no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "A single overhead bulb is visible, casting deep shadows at the edges."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It is a close shot from a slightly high angle."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible anywhere in the image."
+    }
+   ]
+  },
+  "4/11 B1": {
+   "si": 7,
+   "no": 0,
+   "not_visible": 1,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Forceps on enamel tray, out-of-focus woman in bed are visible."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Instruments are laid ready beside the bed, consistent with birth."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "yes",
+     "reason": "Woman's dark hair and skin tone are consistent with description."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific hospital, date, and multiple basins are not visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements fit the 1963 era; no anachronisms present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Single overhead bulb and deep shadows are clearly visible."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The framing is a close shot from a slightly high angle."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "4/11 B2": {
+   "si": 5,
+   "no": 2,
+   "not_visible": 1,
+   "sin_respuesta": [],
+   "puntaje": 0.714,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Steel instrument on enamel tray; weakened woman in bed, out of focus."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "Instruments are ready by the bed; \"difficult birth\" is not visible."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "not_visible",
+     "reason": "Woman is out of focus; specific ethnic features are not discernible."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "Iron bed frame visible; other details like \"delivery room\" or \"Wittenoom\" not confirmed."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements are consistent with the year 1963."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Single overhead bulb is visible, casting deep shadows."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The shot is close-up and from a slightly high angle."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable text is visible in the image."
+    }
+   ]
+  },
+  "4/11 C1": {
+   "si": 7,
+   "no": 0,
+   "not_visible": 1,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Steel obstetric forceps, enamel tray, weakened woman in bed are visible."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Instruments are ready beside a bed with a weakened, possibly bleeding woman."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "not_visible",
+     "reason": "Ethnicity, specific tan, and 'Wittenoom' context are not discernible."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Enamel basin and iron bed frame are clearly visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible items fit 1963; no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Single overhead bulb and deep shadows are clearly visible."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Close shot from a slightly high angle is evident."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are present in the image."
+    }
+   ]
+  },
+  "4/11 C2": {
+   "si": 4,
+   "no": 0,
+   "not_visible": 4,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Woman's ethnicity is not visible; other elements are present."
+    },
+    {
+     "id": "action",
+     "answer": "not_visible",
+     "reason": "Specific type of bed and event (birth) cannot be confirmed."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "not_visible",
+     "reason": "Person is out of focus; ethnicity and specific features not visible."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific location and date are not visible in the image."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Visible items are consistent with 1963; no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "A single lit overhead bulb and deep shadows are visible."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The shot is close to the foreground; angle is slightly high."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible anywhere in the image."
+    }
+   ]
+  },
+  "4/12 A1": {
+   "si": 4,
+   "no": 4,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.5,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "no",
+     "reason": "Cannot confirm Spanish ethnicity or baptism event."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Photograph on dusty surface; family posed at church font."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "no",
+     "reason": "Cannot confirm tanning, dusting, or Wittenoom location."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "Cannot confirm tabletop or sheet-metal miners' house."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Everything fits 1963; no anachronisms visible."
+    },
+    {
+     "id": "lighting",
+     "answer": "no",
+     "reason": "Cannot confirm late-afternoon time of day."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Close-up, viewed from above."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "Text '7 July 1963' is clearly legible."
+    }
+   ]
+  },
+  "4/12 A2": {
+   "si": 7,
+   "no": 0,
+   "not_visible": 1,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Sepia photo shows family, father in shirt, mother in dress, infant in white gown near font."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Photo lies on dusty surface; family is posed next to a large basin/font."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "yes",
+     "reason": "People have dark hair/eyes, olive skin; mother has red tint on cheek."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Photo is on a tabletop, date is visible, but 'sheet-metal miners' house' is not verifiable."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements fit 1963; no modern items are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Slanting shadows consistent with light through louvres are visible."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The shot is a close-up, directly from above the photograph."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "The text \"7 July 1963\" is clearly written and legible."
+    }
+   ]
+  },
+  "4/12 B1": {
+   "si": 7,
+   "no": 1,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.875,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Sepia baptism photo of young family: father in pressed shirt, mother in cotton dress, large infant in white christening gown."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Photograph lies on dusty table; family posed at a church font."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "yes",
+     "reason": "People have olive skin, dark hair/eyes, slim builds, consistent with description."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "Tabletop is visible, but not a sheet-metal miners' house."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Everything visible fits 1963; no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Slanting, warm light through louvred window creates striped shadows."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It is a detail, top-down shot of the photograph."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "The text \"7 July 1963\" is clearly legible on the photo."
+    }
+   ]
+  },
+  "4/12 B2": {
+   "si": 7,
+   "no": 0,
+   "not_visible": 1,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Sepia photo of young family, father shirt, mother dress, infant gown."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Photo on dusty surface; family posed at stone font."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "yes",
+     "reason": "Dark hair, slim builds, reddish dust on skin visible."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Tabletop and date visible; specific house type not."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Clothing and photo style fit 1963; no modern items."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Slanting light through louvred window creates distinct shadows."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Close-up, top-down view of the photograph."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "\"7 July 1963\" is clearly written and legible."
+    }
+   ]
+  },
+  "4/12 C1": {
+   "si": 6,
+   "no": 0,
+   "not_visible": 2,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "All aspects of the family, clothing, and baptism context are visible."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "The photo is on a dusty surface, and the family is by a font."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "not_visible",
+     "reason": "Sepia tone prevents judging specific colors like 'tanned and dusted red'."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "No visual information about a 'sheet-metal miners' house' is present."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements fit 1963, and no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Slanting shadows and light quality match a louvred window."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The image is a close, overhead view of the photograph."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "The text '7 July 1963' is clearly written and legible."
+    }
+   ]
+  },
+  "4/12 C2": {
+   "si": 8,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Sepia photo of family, father in shirt, mother in dress, baby in gown."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Photo on dusty surface; family posed at a stone font."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "yes",
+     "reason": "People fit description; woman and child have red dust."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Dusty surface fits tabletop in miners' house; date is 1963."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements fit 1963; no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Slanting light and distinct shadows suggest louvred window."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The shot is a close-up, directly from above."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "The text \"7 July 1963\" is clearly legible on the photo."
+    }
+   ]
+  },
+  "5/1 A1": {
+   "si": 5,
+   "no": 2,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.714,
+   "invented_text": true,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "no",
+     "reason": "Cannot confirm 1966 Australian newspaper or Wittenoom mill office from image."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Closure announcement 'MINE TO CLOSE' is open with dust on newsprint."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "Cannot confirm specific location, date, wall materials; typewriter is visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Everything visible fits 1966; no modern items are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Hard, high-contrast daylight through dusty window, creating deep shadows."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It is a detail shot, high angle looking down onto the table."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "The newspaper headline clearly reads 'MINE TO CLOSE' and is legible."
+    }
+   ]
+  },
+  "5/1 A2": {
+   "si": 5,
+   "no": 2,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.714,
+   "invented_text": true,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "no",
+     "reason": "Cannot confirm 1966, Australian, or Wittenoom mill office from image."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Newspaper with closure announcement is open, dust is settling on it."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "Cannot confirm Wittenoom, December 1966, or asbestos-cement partition."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Everything visible fits 1966; no modern items are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Hard daylight through dusty window, creating high contrast and shadows."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It is a detail shot from a high angle looking down."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "The newspaper headline clearly reads \"MINE TO CLOSE\" and is legible."
+    }
+   ]
+  },
+  "5/1 B1": {
+   "si": 5,
+   "no": 0,
+   "not_visible": 2,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": true,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Cannot confirm specific year, nationality, or location of the office."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Newspaper headline announces closure, lies open, and is covered in dust."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Cannot confirm specific location, date, or material of the partition."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible items are consistent with the specified era; no modern items appear."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Hard, high-contrast daylight from a window and deep shadows are clearly visible."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The image is a detail shot from a high angle looking down onto the table."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "The newspaper headline clearly reads \"MINE TO CLOSE\" and is legible."
+    }
+   ]
+  },
+  "5/1 B2": {
+   "si": 5,
+   "no": 2,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.714,
+   "invented_text": true,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "no",
+     "reason": "Cannot confirm \"1966 Australian\" or \"Wittenoom mill office\" from image."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Newspaper open with closure announcement, dust visible on newsprint."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "Cannot confirm \"Wittenoom mill office\", \"December 1966\", or \"asbestos-cement\"."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible items fit 1966, and no listed modern items are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Bright, high-contrast light from dusty window, with deep shadows."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Close-up on table from above, showing details."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "Newspaper headline clearly reads \"MINE TO CLOSE\" and is legible."
+    }
+   ]
+  },
+  "5/1 C1": {
+   "si": 5,
+   "no": 2,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.714,
+   "invented_text": true,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "no",
+     "reason": "Specific date, nationality, and location are not visible."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Newspaper open to headline; dust visible on newsprint."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "Specific location, date, and partition material are not visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible items fit the era; no modern items are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Hard, high-contrast light from window with dust; deep shadows."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Close-up shot, camera positioned above the table."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "Newspaper headline clearly reads \"MINE TO CLOSE\" and is legible."
+    }
+   ]
+  },
+  "5/1 C2": {
+   "si": 4,
+   "no": 0,
+   "not_visible": 3,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": true,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Cannot confirm specific year, nationality, or location from the image."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Newspaper headline is a closure announcement, dust is visible."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Cannot confirm specific location, date, or partition material."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible items fit the era; no modern items are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "not_visible",
+     "reason": "Cannot confirm 'desert' as the source of daylight."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The shot is a detail, high-angle view of the table."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "The newspaper headline clearly reads 'MINE TO CLOSE'."
+    }
+   ]
+  },
+  "5/13 A1": {
+   "si": 4,
+   "no": 1,
+   "not_visible": 3,
+   "sin_respuesta": [],
+   "puntaje": 0.8,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Ethnicity, exact age, and build are not visible from behind."
+    },
+    {
+     "id": "action",
+     "answer": "not_visible",
+     "reason": "The action of 'giving' the test result is not explicitly shown."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "no",
+     "reason": "No families, women, children, or Wittenoom are visible in the image."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific location (Madrid hospital) and year (1991) are unconfirmable."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Everything visible fits 1991; no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Hard cold glow from light box, rest of room in shadow."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It is a wide, eye-level shot from behind the patient."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible anywhere in the image."
+    }
+   ]
+  },
+  "5/13 A2": {
+   "si": 5,
+   "no": 1,
+   "not_visible": 2,
+   "sin_respuesta": [],
+   "puntaje": 0.833,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Ethnicity, exact age, and build are not visible from behind."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Patient sits before doctor with glowing X-ray; result implied."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "no",
+     "reason": "The specific context of migrant families in Wittenoom is not depicted."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Location and year are not verifiable; walls and desk are visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements are consistent with 1991; no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Light box glows brightly; rest of room is dimly lit."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Shot is wide, eye-level, and from behind the patient."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable text is visible on any objects or surfaces."
+    }
+   ]
+  },
+  "5/13 B1": {
+   "si": 4,
+   "no": 0,
+   "not_visible": 4,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Cannot confirm ethnicity, age, or body type from behind."
+    },
+    {
+     "id": "action",
+     "answer": "not_visible",
+     "reason": "Physician and test result being given are not visible."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "not_visible",
+     "reason": "Cannot confirm ethnicity, skin, eye color, build, or presence of women/children."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Cannot confirm \"Madrid hospital\" or \"1991\"; only tiled walls and metal desk."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements are consistent with 1991; no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Light box emits a hard, cold glow; the rest of the room is shadowed."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It's a wide, eye-level shot taken from directly behind the patient."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "5/13 B2": {
+   "si": 4,
+   "no": 1,
+   "not_visible": 3,
+   "sin_respuesta": [],
+   "puntaje": 0.8,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Nationality, age, and build are not visible from behind; hair and clothing are."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "The physician and the act of giving results are not visible."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "not_visible",
+     "reason": "Only the back of a man's head is visible; no families or specific details."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific city and year are not visible; tiled walls and metal desk are."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements, including clothing and equipment, are consistent with the era."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "The light box emits a strong glow, and the rest of the room is dim."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The shot is wide, at eye-level, and taken from behind the patient."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No discernible letters or words are visible in the image."
+    }
+   ]
+  },
+  "5/13 C1": {
+   "si": 5,
+   "no": 0,
+   "not_visible": 3,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Ethnicity, exact age, and build are not visible from behind."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Patient sits before doctor discussing results, X-ray glowing on light box."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "not_visible",
+     "reason": "Patient is seen from behind; specific family details and Wittenoom are not visible."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Madrid and 1991 are not visible; consultation room, tiled walls, metal desk are."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Everything visible fits 1991; no anachronisms like smartphones or LED screens."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Hard cold glow from light box is visible, rest of room is in shadow."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It is a wide, eye-level shot from behind the patient."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible anywhere in the image."
+    }
+   ]
+  },
+  "5/13 C2": {
+   "si": 5,
+   "no": 2,
+   "not_visible": 1,
+   "sin_respuesta": [],
+   "puntaje": 0.714,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "no",
+     "reason": "Ethnicity not visible, patient not thin; greying hair, cardigan, doctor's room fit."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Patient faces doctor, X-ray on light box, consistent with results being given."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "not_visible",
+     "reason": "Ethnicity, skin/eye color not visible; Wittenoom context irrelevant to image."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "City and year not visible; tiled walls and metal desk are present."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements fit 1991; no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Light box glows brightly; rest of room is in shadow."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Medium-wide, eye-level shot from behind the patient."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "5/16 A1": {
+   "si": 8,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Elderly woman with grey hair, modest clothing, appears frail and weathered."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "She leans toward a portrait of a young man with a bandaged foot."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "yes",
+     "reason": "People in photos have dark hair/eyes, slim builds; consistent with description."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Modest room with many framed sepia/B&W family photographs."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "No modern items are visible; everything fits the specified era."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Hard, high-contrast light shaft from window, rest of room shadowed."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Close, eye-level shot, just behind and above her shoulder."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "5/16 A2": {
+   "si": 4,
+   "no": 0,
+   "not_visible": 4,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Ethnicity, marital status, age, and facial details are not visible."
+    },
+    {
+     "id": "action",
+     "answer": "not_visible",
+     "reason": "Miner's ethnicity is not visible; other actions and portrait details are visible."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "not_visible",
+     "reason": "Ethnicity, specific skin tones, and environmental effects are not visible."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific city, location context, and exact photo era are not visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Current setting fits 2023; listed anachronisms are absent."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Light is hard, high-contrast, from a window, illuminating photos, rest in shadow."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Shot is close, eye-level, from behind and above her shoulder."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "5/16 B1": {
+   "si": 4,
+   "no": 0,
+   "not_visible": 4,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Nationality, marital status, and exact age are not visible."
+    },
+    {
+     "id": "action",
+     "answer": "not_visible",
+     "reason": "Miner's nationality is not visible in the portrait."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "not_visible",
+     "reason": "Nationality, specific skin details, and location are not visible."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific location and exact timeframes are not visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "No modern items are visible; the setting is timeless."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Bright window light illuminates photos; rest of room is shadowed."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Close shot, eye-level, from behind and above her shoulder."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible."
+    }
+   ]
+  },
+  "5/16 B2": {
+   "si": 8,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Elderly woman with grey hair, blouse, cardigan, and lined skin is visible."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "She leans towards a sepia portrait of a miner with a bandaged foot."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "yes",
+     "reason": "People in photos have dark hair, dark eyes, consistent with Mediterranean features."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Wall crowded with framed sepia/B&W family photos from the early 1960s."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Everything visible fits 2023; no modern anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Hard, high-contrast light from a window illuminates photos, rest is shadow."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Close, eye-level shot, just behind and above her shoulder."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible anywhere in the image."
+    }
+   ]
+  },
+  "5/16 C1": {
+   "si": 5,
+   "no": 0,
+   "not_visible": 3,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Cannot confirm ethnicity, age, skin details, or frailness from the back view."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Woman leans towards a portrait of a young miner with a bandaged foot."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "not_visible",
+     "reason": "Ethnicity, specific skin/hair/eye colors, and location 'Wittenoom' are not discernible."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Cannot confirm specific location, era of photos, or 'Wittenoom' from the image."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "No modern items are visible; clothing and setting are consistent with the absence of modern tech."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Hard, high-contrast light from a single source illuminates photos, rest of room is shadowed."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Close shot, eye-level, from just behind and above her shoulder."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "5/16 C2": {
+   "si": 3,
+   "no": 1,
+   "not_visible": 4,
+   "sin_respuesta": [],
+   "puntaje": 0.75,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Spanish, widow, eighties, frail build, blouse not visible or confirmable."
+    },
+    {
+     "id": "action",
+     "answer": "not_visible",
+     "reason": "Cannot confirm 'sits' or 'Spanish'; other elements are visible."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "not_visible",
+     "reason": "Spanish, Mediterranean, tanned, dusted red, Wittenoom not visible."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Madrid, sitting room, Wittenoom, side table, specific date not visible."
+    },
+    {
+     "id": "era",
+     "answer": "no",
+     "reason": "Photographs clearly depict an older era, not fitting 2023."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Strong, focused light illuminates photos; rest of room in shadow."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Close, eye-level shot from behind and above her shoulder."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "5/8 A1": {
+   "si": 7,
+   "no": 1,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.875,
+   "invented_text": true,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Officer and young man match visible descriptions; ethnicity not visible."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Officer bows head over open passport; specific reading content or future action not visible."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "no",
+     "reason": "Background people are dark-skinned, contradicting 'Spanish Mediterranean people with olive to light skin'."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Appears to be a passport checkpoint in an airport terminal; specific country and year not visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Visible elements fit 1985; none of the listed modern items are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Lighting is hard overhead, likely fluorescent, with high contrast on the counter."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Shot is medium, over-the-shoulder, and appears to be at eye-level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No clearly readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "5/8 A2": {
+   "si": 3,
+   "no": 3,
+   "not_visible": 2,
+   "sin_respuesta": [],
+   "puntaje": 0.5,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Cannot confirm specific nationalities, ethnicities, or exact age from visual evidence."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "Cannot confirm specific content being read or future action."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "no",
+     "reason": "No Spanish migrant families, women, children, or Wittenoom are visible."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Cannot confirm specific country or type of terminal from visual evidence."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Clothing, uniform, and lack of modern tech fit the 1985 era."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Visible overhead fluorescent lights create hard light and contrast."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Framing shows upper bodies, from behind one person, at eye level."
+    },
+    {
+     "id": "no_text",
+     "answer": "no",
+     "reason": "Officer's name tag 'DAVIES' is clearly readable."
+    }
+   ]
+  },
+  "5/8 B1": {
+   "si": 4,
+   "no": 1,
+   "not_visible": 3,
+   "sin_respuesta": [],
+   "puntaje": 0.8,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Officer is visible, middle-aged, in uniform; nationality/descent not visible."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "Officer is looking down at passports; specific reading content or future action not visible."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "not_visible",
+     "reason": "Women and children in background appear tanned/red-dusted; ethnicity/location not visible."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Appears to be a checkpoint booth; specific location or exact year not visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements are consistent with 1985; no modern items are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Lighting is hard, overhead, and creates high contrast on the counter."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The shot is a medium, over-the-shoulder, eye-level view."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "Text is present on passports but is not clearly readable."
+    }
+   ]
+  },
+  "5/8 B2": {
+   "si": 3,
+   "no": 1,
+   "not_visible": 4,
+   "sin_respuesta": [],
+   "puntaje": 0.75,
+   "invented_text": true,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Officer's ethnicity/nationality and man's ethnicity not visible."
+    },
+    {
+     "id": "action",
+     "answer": "not_visible",
+     "reason": "Cannot confirm specific content being read or officer's intent."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "not_visible",
+     "reason": "Cannot confirm specific ethnicity or location 'Wittenoom'."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Cannot confirm 'Australian' nationality or exact year '1985'."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements are consistent with the specified era."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Lighting is hard overhead, creating high contrast on the counter."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Shot is medium, over-the-shoulder, and at eye-level."
+    },
+    {
+     "id": "no_text",
+     "answer": "no",
+     "reason": "Text is visible on the passports, though not fully legible."
+    }
+   ]
+  },
+  "5/8 C1": {
+   "si": 4,
+   "no": 0,
+   "not_visible": 4,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Cannot confirm nationalities, ethnicities, specific era, or specific clothing details."
+    },
+    {
+     "id": "action",
+     "answer": "not_visible",
+     "reason": "Cannot confirm what officer is reading or his future action."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "not_visible",
+     "reason": "Cannot confirm ethnicity or specific details like \"dusted red in Wittenoom\"."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Cannot confirm specific country, type of terminal, or exact year."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "No modern anachronisms are visible; visible elements are consistent with 1985."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Overhead fluorescent lights are visible, creating hard light and high contrast."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Shot is medium, over-the-shoulder from the man's perspective, at eye-level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No discernible letters or words are visible in the image."
+    }
+   ]
+  },
+  "5/8 C2": {
+   "si": 8,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Officer's uniform, age, and cap are visible; man is young, dark-haired, in jeans and jacket."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Officer bows head over open passport; specific reading content or intention is not visible."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "yes",
+     "reason": "People fit physical description, are tanned and dusted red; location 'Wittenoom' is not visible."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "It is a passport checkpoint booth; uniform suggests Australian airport terminal."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements fit 1985; no anachronisms are present in the image."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Lighting is hard, overhead fluorescent, creating high contrast on the counter."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Shot is medium, over-the-shoulder, and appears to be at eye-level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "Text on name tag, passport, and background is present but not readable."
+    }
+   ]
+  },
+  "6/15 A1": {
+   "si": 6,
+   "no": 0,
+   "not_visible": 1,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": true,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Document titled \"CABINET IN CONFIDENCE\" on an office desk."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Memo advises closing access and suspending works due to cost, next to a folder."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Cannot confirm \"Perth\" specifically from the image."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Document dated 2016, and visible items fit the era."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Soft, natural light illuminates the scene from a window."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Close-up on the document, shot from above."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "The document clearly displays \"CABINET IN CONFIDENCE\" and is legible."
+    }
+   ]
+  },
+  "6/15 A2": {
+   "si": 7,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": true,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Document titled \"CABINET IN CONFIDENCE\" on an office desk."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Memo advises to leave tailings, close access, and mentions cost savings."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Memo dated 2016, office environment looks modern and fits."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Memo dated 2016, all visible items fit the specified era."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Natural, soft light from a side, consistent with window daylight."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Close-up on memo and folder, camera positioned above looking down."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "The document clearly and legibly reads \"CABINET IN CONFIDENCE\"."
+    }
+   ]
+  },
+  "6/15 B1": {
+   "si": 7,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": true,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Document titled 'CABINET IN CONFIDENCE' on an office desk."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Document advises to leave tailings and close access due to cost."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Document states 'WA GOVERNMENT | PERTH | 2016' in a modern office."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Document states 2016; visible items fit the era, no anachronisms."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Soft, natural light appears to come from a window."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Close-up shot of the document from a high angle."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "The document clearly reads 'CABINET IN CONFIDENCE' and is legible."
+    }
+   ]
+  },
+  "6/15 B2": {
+   "si": 7,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": true,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Document titled \"CABINET IN CONFIDENCE\" on a desk, government context."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Memo advises to cease rehabilitation and close access due to cost."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Memo indicates Perth, WA, 2016; office setting with city view."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible items are consistent with 2016, no anachronisms present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Light comes from the window, appearing soft and natural."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Close-up on documents, camera positioned above looking down."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "The document clearly displays \"CABINET IN CONFIDENCE\" legibly."
+    }
+   ]
+  },
+  "6/15 C1": {
+   "si": 7,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": true,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Memo from WA Cabinet Secretariat to WA Mines & Saaty Dept."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Memo advises ceasing remediation and closing access due to cost."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Memo from WA government, dated 2016, in a modern office."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "The memo is dated 2016, and all visible elements fit this era."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Light comes from large windows, appearing as soft daylight."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The camera is close to the memo, looking down at it."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "The memo clearly reads 'CABINET IN CONFIDENCE' at the top."
+    }
+   ]
+  },
+  "6/15 C2": {
+   "si": 7,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": true,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Document titled \"CABINET IN CONFIDENCE\" on an office desk."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Memo advises suspending rehabilitation, closing access, halting expenditure due to costs."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Memo dated 2016, from Dept of Mines (Perth, WA), in modern office."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Office setting and items are consistent with 2016, no anachronisms."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Light comes from large windows, appears soft and natural daylight."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Close-up on memo, camera positioned above looking down."
+    },
+    {
+     "id": "sign",
+     "answer": "yes",
+     "reason": "Document clearly displays \"CABINET IN CONFIDENCE\" legibly."
+    }
+   ]
+  },
+  "6/5 A1": {
+   "si": 5,
+   "no": 2,
+   "not_visible": 1,
+   "sin_respuesta": [],
+   "puntaje": 0.714,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Elderly woman with described features and clothing; man in background fits description."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "Woman is blowing into a tube, but there is no nose clip visible."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "no",
+     "reason": "No children, no indication of Wittenoom or \"tanned and dusted red\" environment."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Appears to be a modern testing room, but \"Perth\" cannot be confirmed."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements, including clothing and equipment, fit the year 2024."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Lighting is soft, diffuse, and consistent with a clinical indoor setting."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The shot is eye-level and frames the subject from the chest up."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "6/5 A2": {
+   "si": 3,
+   "no": 5,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.375,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "no",
+     "reason": "Ethnicity (Spanish, Anglo-Australian) not verifiable from image."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "No nose clip visible; it's a mask, not just a mouthpiece."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "no",
+     "reason": "Ethnicity not verifiable; no children, Wittenoom, or dust visible."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "Specific location 'Perth' not verifiable from image."
+    },
+    {
+     "id": "era",
+     "answer": "no",
+     "reason": "Contemporary clothing is visible, contradicting the negative list."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Lighting is soft, diffuse, and consistent with clinical daylight."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It is a medium, eye-level shot of the subjects."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "6/5 B1": {
+   "si": 4,
+   "no": 4,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.5,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "no",
+     "reason": "Ethnicity and specific role of technician are not clearly visible."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "She has an oxygen mask, not a lung-function tube; no nose clip."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "no",
+     "reason": "Cannot confirm ethnicity; no children, Wittenoom, tanning, or red dust."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "Appears to be a modern clinic, but 'Perth' is not visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements are consistent with the year 2024."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Lighting is soft, diffuse, and consistent with a clinical setting."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The shot is medium and taken at eye-level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "6/5 B2": {
+   "si": 7,
+   "no": 1,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.875,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Elderly woman with described features; technician in background fits description."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "Woman uses lung-function tube, but no separate nose clip is visible."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "yes",
+     "reason": "Elderly woman's appearance matches physical description."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Modern respiratory testing room in a clinic is visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements are consistent with the year 2024."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Lighting is soft, diffuse, and consistent with clinical daylight."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Image is a medium, eye-level shot of the subjects."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "6/5 C1": {
+   "si": 3,
+   "no": 5,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.375,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "no",
+     "reason": "Ethnicity of subjects (Spanish, Anglo-Australian) cannot be confirmed from image."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "The woman is wearing a mask, but no nose clip is visible."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "no",
+     "reason": "Ethnicity cannot be confirmed; no children or Wittenoom-specific details."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "It is a modern respiratory room, but 'Perth' cannot be confirmed."
+    },
+    {
+     "id": "era",
+     "answer": "no",
+     "reason": "A modern flat panel/LED screen is visible, contradicting the instruction."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "The lighting is soft, diffuse, and consistent with a clinical setting."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It is a medium shot, framed at the subject's eye-level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible anywhere in the image."
+    }
+   ]
+  },
+  "6/5 C2": {
+   "si": 5,
+   "no": 2,
+   "not_visible": 1,
+   "sin_respuesta": [],
+   "puntaje": 0.714,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Woman's appearance and clothing match; technician is blonde, in scrubs, out of focus."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Woman is actively using a lung-function tube with a nose clip."
+    },
+    {
+     "id": "appearance_spanish_migrant_families",
+     "answer": "no",
+     "reason": "No families or Wittenoom context; only one woman, not \"women and children\"."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Cannot confirm \"Perth clinic\" location from the image."
+    },
+    {
+     "id": "era",
+     "answer": "no",
+     "reason": "A modern flat panel monitor is clearly visible, contradicting the description."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Lighting is soft, diffuse, and consistent with a clinical setting."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The shot is medium and taken at eye-level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "7/7 A1": {
+   "si": 4,
+   "no": 0,
+   "not_visible": 4,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Cannot confirm ethnicity or tribal affiliation from behind."
+    },
+    {
+     "id": "action",
+     "answer": "not_visible",
+     "reason": "Cannot confirm the specific cultural connection implied by 'his country'."
+    },
+    {
+     "id": "appearance_banjima_traditional_owners",
+     "answer": "not_visible",
+     "reason": "Skin color and specific hair texture not visible; ethnicity not confirmable."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific named location and tribal land cannot be confirmed."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "No anachronisms are visible; clothing and landscape fit 2023."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Warm, golden light consistent with late afternoon is visible."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Wide shot, eye-level, from behind on the rim is visible."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "7/7 A2": {
+   "si": 5,
+   "no": 0,
+   "not_visible": 3,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Ethnicity and specific build details cannot be determined from behind."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Man stands at gorge rim, overlooking a vast landscape."
+    },
+    {
+     "id": "appearance_banjima_traditional_owners",
+     "answer": "not_visible",
+     "reason": "Skin color and specific hair texture are not visible from behind."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific named locations cannot be confirmed from the image."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Everything visible fits the contemporary era; no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "The image shows warm, golden light consistent with late afternoon."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It is a wide, eye-level shot from behind the subject on the rim."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible anywhere in the image."
+    }
+   ]
+  },
+  "7/7 B1": {
+   "si": 8,
+   "no": 0,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Elderly man with grey hair, beard, hat, shirt, small against land."
+    },
+    {
+     "id": "action",
+     "answer": "yes",
+     "reason": "Man stands at red gorge rim, overlooking vast landscape."
+    },
+    {
+     "id": "appearance_banjima_traditional_owners",
+     "answer": "yes",
+     "reason": "Elderly man with grey hair, beard, consistent build."
+    },
+    {
+     "id": "place",
+     "answer": "yes",
+     "reason": "Red cliffs and spinifex visible, consistent with description."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "No anachronisms; clothing and landscape fit contemporary era."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Warm, low-angled light consistent with late afternoon."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Wide, eye-level shot from behind man on gorge rim."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "7/7 B2": {
+   "si": 4,
+   "no": 0,
+   "not_visible": 4,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Cannot confirm Aboriginal Banjima identity from behind."
+    },
+    {
+     "id": "action",
+     "answer": "not_visible",
+     "reason": "Cannot confirm 'his country' or specific ownership from image."
+    },
+    {
+     "id": "appearance_banjima_traditional_owners",
+     "answer": "not_visible",
+     "reason": "Skin color, specific hair, Pilbara location not visible."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific named locations (Banjima, Hamersley, Wittenoom) not visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Everything visible fits 2023; no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Warm, low-angle light illuminates the scene with a golden hue."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Wide, eye-level shot from behind, on the gorge rim."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "7/7 C1": {
+   "si": 4,
+   "no": 0,
+   "not_visible": 4,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Cannot confirm 'Aboriginal Banjima' or 'weathered build' from behind."
+    },
+    {
+     "id": "action",
+     "answer": "not_visible",
+     "reason": "Cannot confirm 'his country' from the visual information."
+    },
+    {
+     "id": "appearance_banjima_traditional_owners",
+     "answer": "not_visible",
+     "reason": "Subject seen from behind; skin, hair type, and specific build details not visible."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific geographical location (Banjima country, Hamersley Ranges, Wittenoom) not visible."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "No anachronistic items; all visible elements fit the specified era."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Warm, low-angle light with golden hues and long shadows is visible."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Wide shot, eye-level, subject seen from behind on the gorge rim."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are present in the image."
+    }
+   ]
+  },
+  "7/7 C2": {
+   "si": 4,
+   "no": 0,
+   "not_visible": 4,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "not_visible",
+     "reason": "Cannot confirm 'Aboriginal Banjima man' or 'weathered build' from behind."
+    },
+    {
+     "id": "action",
+     "answer": "not_visible",
+     "reason": "Cannot confirm 'his country' (cultural ownership) from the image."
+    },
+    {
+     "id": "appearance_banjima_traditional_owners",
+     "answer": "not_visible",
+     "reason": "Cannot confirm ethnicity, skin color, or specific region from behind."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Cannot confirm specific geographical location (Banjima country, Hamersley Ranges)."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "Everything visible fits 2023; none of the excluded items appear."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "The image clearly shows warm, low-angle, golden light."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It is a wide, eye-level shot from behind the subject on the rim."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible anywhere in the image."
+    }
+   ]
+  },
+  "7/9 A1": {
+   "si": 6,
+   "no": 2,
+   "not_visible": 0,
+   "sin_respuesta": [],
+   "puntaje": 0.75,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Man is elderly, dark-skinned, grey-haired, bearded, wearing a faded shirt and hat."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "Cannot judge \"unwilling to leave\"; tree species not definitively identifiable."
+    },
+    {
+     "id": "appearance_banjima_traditional_owners",
+     "answer": "yes",
+     "reason": "Man has dark skin, grey hair/beard, and a build consistent with outdoor life."
+    },
+    {
+     "id": "place",
+     "answer": "no",
+     "reason": "Cannot confirm specific location (Banjima country, Wittenoom) or year from image."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements are consistent with 2023; no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Warm, golden light illuminates the scene from the side."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "The shot is medium and taken at eye-level with the subject."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "7/9 A2": {
+   "si": 6,
+   "no": 1,
+   "not_visible": 1,
+   "sin_respuesta": [],
+   "puntaje": 0.857,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Man fits description: elderly, dark skin, grey hair/beard, slim, faded shirt, hat."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "Physical actions are visible, but 'unwilling to leave' is not clearly depicted."
+    },
+    {
+     "id": "appearance_banjima_traditional_owners",
+     "answer": "yes",
+     "reason": "Subject's appearance matches description of Aboriginal elder and outdoor life."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Dry creek bed is visible, but specific location and year cannot be confirmed."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "No anachronistic items are visible; everything fits the specified era."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Light is warm, golden, and clearly illuminates the subject from the side."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Subject is shown from waist up, and camera is at eye level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are present in the image."
+    }
+   ]
+  },
+  "7/9 B1": {
+   "si": 6,
+   "no": 0,
+   "not_visible": 2,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Elderly man with dark skin, grey beard, weathered build, faded shirt, and hat visible."
+    },
+    {
+     "id": "action",
+     "answer": "not_visible",
+     "reason": "Man stands by dry creek, hand on tree; emotional state \"unwilling to leave\" not visible."
+    },
+    {
+     "id": "appearance_banjima_traditional_owners",
+     "answer": "yes",
+     "reason": "Elder with dark skin, grey beard, weathered build consistent with outdoor life."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Dry creek bed visible; specific location and year cannot be confirmed from image."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements fit 2023; no anachronistic or modern items listed are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Image shows warm, golden light coming from the side, creating shadows."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It is a medium shot at eye-level, showing the man from the waist up."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "7/9 B2": {
+   "si": 6,
+   "no": 0,
+   "not_visible": 2,
+   "sin_respuesta": [],
+   "puntaje": 1.0,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Elderly man with dark skin, grey beard, hat, and faded shirt visible."
+    },
+    {
+     "id": "action",
+     "answer": "not_visible",
+     "reason": "Emotion 'unwilling to leave' is not visibly depicted in the image."
+    },
+    {
+     "id": "appearance_banjima_traditional_owners",
+     "answer": "yes",
+     "reason": "Man fits description: dark skin, grey hair/beard, build shaped by outdoor life."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Specific location and year are not verifiable from the image alone."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "No anachronisms; visible elements are consistent with the year 2023."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Warm, golden light illuminates the scene from the side."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It is a medium shot, captured at eye-level perspective."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are present anywhere in the image."
+    }
+   ]
+  },
+  "7/9 C1": {
+   "si": 6,
+   "no": 1,
+   "not_visible": 1,
+   "sin_respuesta": [],
+   "puntaje": 0.857,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Elderly man with dark skin, grey beard, hat, and faded shirt is visible."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "Man stands by creek, hand on tree, but 'unwilling to leave' is not visible."
+    },
+    {
+     "id": "appearance_banjima_traditional_owners",
+     "answer": "yes",
+     "reason": "Elderly man with dark skin, grey beard, and weathered build is visible."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Dry creek bed is visible, but specific location and year are not."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements fit 2023; no anachronisms are present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Golden light from the side creates strong highlights and shadows."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "It is a medium, eye-level shot of the man and tree."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  },
+  "7/9 C2": {
+   "si": 6,
+   "no": 1,
+   "not_visible": 1,
+   "sin_respuesta": [],
+   "puntaje": 0.857,
+   "invented_text": false,
+   "respuestas": [
+    {
+     "id": "subject",
+     "answer": "yes",
+     "reason": "Elderly man with dark skin, grey beard, hat, faded shirt, weathered build."
+    },
+    {
+     "id": "action",
+     "answer": "no",
+     "reason": "The emotional state 'unwilling to leave' is not clearly depicted."
+    },
+    {
+     "id": "appearance_banjima_traditional_owners",
+     "answer": "yes",
+     "reason": "Man fits description: dark skin, grey beard, weathered build, curly hair."
+    },
+    {
+     "id": "place",
+     "answer": "not_visible",
+     "reason": "Dry creek bed visible, but specific location and year cannot be verified."
+    },
+    {
+     "id": "era",
+     "answer": "yes",
+     "reason": "All visible elements are consistent with 2023; no anachronisms present."
+    },
+    {
+     "id": "lighting",
+     "answer": "yes",
+     "reason": "Warm, golden light from the side creates highlights and shadows."
+    },
+    {
+     "id": "shot",
+     "answer": "yes",
+     "reason": "Subject shown from waist up; camera is at eye level."
+    },
+    {
+     "id": "no_text",
+     "answer": "yes",
+     "reason": "No readable letters or words are visible in the image."
+    }
+   ]
+  }
+ },
+ "usd_lab": 4.2123
+}
