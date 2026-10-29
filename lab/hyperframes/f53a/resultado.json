@@ -1,0 +1,232 @@
+{
+ "elegidas": [
+  {
+   "archivo": "foto1.png",
+   "origen": "output\\7dbf5ab2-e26a-43eb-b61d-fe74f7fd66bd\\assets\\ch03_flux\\ch03_img_14.png",
+   "topic": "7dbf5ab2-e26a-43eb-b61d-fe74f7fd66bd",
+   "caso": "Old City Jail: 14,000 Muertes y los Fantasmas de Charleston",
+   "cap": 3,
+   "img": 14,
+   "tipo": "ahorcamiento: condenados con la soga al cuello en el patíbulo",
+   "prompt": "A medium shot captures a line of condemned African American men standing on the gallows platform, bound but with their heads held high in defiance. They look forward, over the heads of an unseen crowd, with unwavering resolve. On the execution gallows platform in the year 1822, moments before the sentence is carried out, the shadow of the gallows beam falls across their chests. The color palette is desaturated, focusing on the stark contrast between their dark skin and their light-colored, simple shirts under the bright, glaring daylight from an overcast sky. The mood is one of tragic dignity, rendered in a style of documentary photographic realism that is both dark-history and faceless. An 85mm lens compresses the space between them, while a low angle shot emphasizes their dignity and the oppressive structure above. The image has a 16:9 aspect ratio.",
+   "ancla": "En sus últimos momentos, estos hombres enfrentaron la horca,",
+   "video_prompt": null,
+   "md5": "65e4a3d6e0662d178bafef48d10f75a3",
+   "motor_foto": "fal-ai/bytedance/seedream/v4.5/text-to-image"
+  },
+  {
+   "archivo": "foto2.png",
+   "origen": "output\\7dbf5ab2-e26a-43eb-b61d-fe74f7fd66bd\\assets\\ch05_flux\\ch05_img_11.png",
+   "topic": "7dbf5ab2-e26a-43eb-b61d-fe74f7fd66bd",
+   "caso": "Old City Jail: 14,000 Muertes y los Fantasmas de Charleston",
+   "cap": 5,
+   "img": 11,
+   "tipo": "cadáver: cuerpo amortajado con la cara visible",
+   "prompt": "A medium shot shows two men in simple laborer's clothing carrying a body wrapped in a simple canvas shroud down a dark corridor. Their faces are obscured by shadow and angle, their focus entirely on the task as they move through a long, narrow brick corridor in the jail's lower levels, where the coarse, rough texture of the canvas shroud is visible. The scene is nearly monochromatic, dominated by deep shadows, the dark red brick, and the pale shroud. Low-key lantern light casts long, moving shadows, creating a grim, dehumanizing, and routine mood. The style is one of dark-history documentary photographic realism, rendering the figures as faceless, with a slight motion blur conveying the repetitive action. The low camera angle follows the men as they move away. The image has a 16:9 aspect ratio.",
+   "ancla": "Los cuerpos se acumulaban, día tras día, año tras año",
+   "video_prompt": null,
+   "md5": "a4986f97adc4d98d095d83ae17425314",
+   "motor_foto": "fal-ai/bytedance/seedream/v4.5/text-to-image"
+  }
+ ],
+ "tipo_foto": {
+  "foto1": "image/png",
+  "foto2": "image/png"
+ },
+ "gastado_antes": 0,
+ "peor_caso": 2.95,
+ "usd_prompts": 0.138,
+ "usd_clips": 1.662,
+ "prompts": {
+  "foto1_G": {
+   "prompt": "Low-angle medium shot of a line of condemned Black men standing on a wooden gallows platform in 1822, nooses around their necks and coarse rope binding their arms and waists over plain light and grey shirts. They hold still with quiet dignity, gazing up and past the crowd toward the overcast sky. Their chests rise and fall with slow breaths, the man at center swallows and lifts his chin slightly, and a breeze stirs the loose ropes and shirt collars. The shadow of the gallows beam drifts subtly across their chests as clouds move behind the heavy timber.\n\nCamera: a slow, steady dolly-in from the low angle, gently easing toward the central man while keeping the beam and hanging ropes in frame overhead. One continuous shot with no cuts. The figures stay standing and the moment of execution is never shown.\n\nPreserve from the image: the faces, clothing, ropes and knots of each man, the weathered gallows beam with its iron chains, the blurred crowd in period hats below, and the grey cloudy sky.\n\nLook: desaturated documentary realism, flat glaring overcast daylight, 85mm compression, and stark contrast between dark skin and pale linen.\n\nSound: wind across the platform, faint creak of rope and timber, a low indistinct murmur from the distant crowd. No music and no dialogue.\n\nNo on-screen text, no captions.",
+   "usage": {
+    "input_tokens": 5432,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 656,
+    "service_tier": "standard",
+    "inference_geo": "global",
+    "speed": "standard",
+    "output_tokens_details": {
+     "thinking_tokens": 204
+    }
+   },
+   "usd": 0.03485,
+   "stop_reason": "end_turn",
+   "intento": 1
+  },
+  "foto1_S": {
+   "prompt": "One single continuous shot, no cuts. The camera holds the low angle and drifts very slowly to the right along the line of men, with a gentle push in toward the man in the white shirt at center. The men stay standing still and dignified throughout; nothing beyond this moment happens.\n\n0–3 s: Gray clouds slide slowly across the sky behind the beam. A light breeze stirs the loose fabric of the shirts and makes the slack ropes above the nooses sway slightly. The chests rise and fall with slow, steady breaths against the bindings.\n\n3–6 s: The center man blinks once and lifts his chin a fraction higher, his gaze fixed far ahead. Beside him, the man in the gray shirt swallows and settles his jaw. The shadow of the beam across their chests softens and shifts slightly as a thin patch of cloud passes the sun. Far below, the blurred crowd shifts faintly.\n\n6–8 s: The camera eases to a near stop. The breeze fades, the ropes settle, and the men remain motionless, heads held high, in steady silence.\n\nDesaturated documentary realism, natural overcast light, subtle and restrained motion. No dialogue, no music, no on-screen text.",
+   "usage": {
+    "input_tokens": 5448,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 595,
+    "service_tier": "standard",
+    "inference_geo": "global",
+    "speed": "standard",
+    "output_tokens_details": {
+     "thinking_tokens": 200
+    }
+   },
+   "usd": 0.03369,
+   "stop_reason": "end_turn",
+   "intento": 1
+  },
+  "foto2_G": {
+   "prompt": "Two laborers, seen from behind, carry a canvas-wrapped body between them down a narrow red-brick jail corridor. They walk away from camera at a slow, heavy, routine pace. The shrouded body sags and sways slightly with each step, its head toward the far end.\n\nCamera: a low-angle tracking shot follows behind at the same pace, holding the men centered as they move deeper toward the barred door at the corridor's end.\n\nThe hanging lantern above sways gently. Its warm light shifts across the brick, and the long shadows of the men and their burden stretch and slide along the floor and walls.\n\nKeep from the image: the two faceless silhouetted men, the coarse rope-tied burlap shroud, the barred cell windows on both walls, the hanging lantern, the deep shadows, and the near-monochrome palette of dark red brick and pale canvas. The men's faces stay hidden in shadow throughout.\n\nLook: grim dark-history documentary realism, low-key light, slight motion blur.\n\nSound: slow scuffing footsteps on stone, the strain of rough canvas and rope, heavy breathing, the faint creak of the lantern chain, and a hollow corridor echo. No music, no dialogue.\n\nOne continuous 8-second shot, no cuts, no on-screen text, no captions.",
+   "usage": {
+    "input_tokens": 5434,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 617,
+    "service_tier": "standard",
+    "inference_geo": "global",
+    "speed": "standard",
+    "output_tokens_details": {
+     "thinking_tokens": 190
+    }
+   },
+   "usd": 0.03408,
+   "stop_reason": "end_turn",
+   "intento": 1
+  },
+  "foto2_S": {
+   "prompt": "One single continuous shot, no cuts. The camera stays low behind the two men and follows them at a steady walking pace down the corridor, gradually letting them pull slightly ahead.\n\n0–3 s: The two men walk forward in unison, away from the camera, with heavy, measured steps. The shrouded body hangs between their arms and sways gently with each stride. The loose rope ends on the canvas swing slightly. The hanging lantern above rocks softly on its chain, and its flame flickers.\n\n3–6 s: The men keep the same tired, repetitive rhythm, shoulders shifting under the weight. As they pass beneath the lantern, the long shadows on the floor stretch, slide and bend across the stone and up the brick walls. The barred cell doors on either side slip past at the edges of the frame.\n\n6–8 s: The men continue deeper toward the dim barred door at the far end of the corridor and become smaller and darker as they move out of the lantern's reach. The light dims around them. The lantern keeps swaying slowly, and the shadows settle into the darkness behind them.\n\nTheir faces stay turned away and hidden in shadow throughout. Motion is slow, grim and routine, with slight motion blur on the walking figures. Lighting and colors match the first frame. No dialogue, no music, no on-screen text.",
+   "usage": {
+    "input_tokens": 5450,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 679,
+    "service_tier": "standard",
+    "inference_geo": "global",
+    "speed": "standard",
+    "output_tokens_details": {
+     "thinking_tokens": 251
+    }
+   },
+   "usd": 0.03538,
+   "stop_reason": "end_turn",
+   "intento": 1
+  }
+ },
+ "clips": {
+  "foto1_G": {
+   "clip": "foto1_G",
+   "endpoint": "google/gemini-omni-flash/v1.1/image-to-video",
+   "campos": {
+    "image_url": "data:image/png;base64,…",
+    "duration": 4,
+    "resolution": "360p"
+   },
+   "prompt_palabras": 222,
+   "inicio": "2026-10-29T14:30:33",
+   "request_id": "01a188ed-96ef-79e3-93c0-c02fc813dc05",
+   "espera_s": 18.0,
+   "error": "resultado HTTP 422: {\"detail\":[{\"loc\":[\"body\",\"prompt\"],\"msg\":\"The input could not be submitted. This prompt contains dangerous content that violates Google's Responsible AI practices. If you think this was an error, send feedback.\",\"type\":\"content_policy_violation\",\"url\":\"https://docs.fal.ai/errors#content_policy_violation\",\"input\":{\"prompt\":\"Low-angle medium shot of a line of condemned Black men standing on a wooden gallows platform in 1822, nooses around their necks and coarse rope binding their arms and waists over plain light and grey shirts. They hold still with quiet dignity, gazing up and past the crowd toward the overcast sky. Their chests rise and fall with slow breaths, the man at center swallows and lifts his chin slightly, and a breeze stirs the loose ropes and shirt collars. The shadow of the ga"
+  },
+  "foto1_S": {
+   "clip": "foto1_S",
+   "endpoint": "bytedance/seedance-2.5/image-to-video",
+   "campos": {
+    "image_url": "data:image/png;base64,…",
+    "duration": "4",
+    "resolution": "480p",
+    "generate_audio": false
+   },
+   "prompt_palabras": 198,
+   "inicio": "2026-10-29T14:30:33",
+   "request_id": "01a188ed-96d3-7883-887d-6e0ba759a29b",
+   "espera_s": 229.0,
+   "respuesta": {
+    "seed": 26746145,
+    "draft_id": null
+   },
+   "archivo": "clips\\foto1_S.mp4",
+   "ffprobe": {
+    "duracion_s": 4.042,
+    "ancho": 854,
+    "alto": 480,
+    "fps": 24.0,
+    "codec": "h264",
+    "cuadros": "97",
+    "audio": false
+   },
+   "usd": 0.831
+  },
+  "foto2_G": {
+   "clip": "foto2_G",
+   "endpoint": "google/gemini-omni-flash/v1.1/image-to-video",
+   "campos": {
+    "image_url": "data:image/png;base64,…",
+    "duration": 4,
+    "resolution": "360p"
+   },
+   "prompt_palabras": 200,
+   "inicio": "2026-10-29T14:30:33",
+   "request_id": "01a188ed-97fd-7010-bf4d-ab7cc69ae638",
+   "espera_s": 39.9,
+   "error": "resultado HTTP 504: {\"detail\":[{\"loc\":[\"body\"],\"msg\":\"Downstream service unavailable\",\"type\":\"downstream_service_unavailable\",\"url\":\"https://docs.fal.ai/errors#downstream_service_unavailable\",\"input\":{\"prompt\":\"Two laborers, seen from behind, carry a canvas-wrapped body between them down a narrow red-brick jail corridor. They walk away from camera at a slow, heavy, routine pace. The shrouded body sags and sways slightly with each step, its head toward the far end.\\n\\nCamera: a low-angle tracking shot follows behind at the same pace, holding the men centered as they move deeper toward the barred door at the corridor's end.\\n\\nThe hanging lantern above sways gently. Its warm light shifts across the brick, and the long shadows of the men and their burden stretch and slide along the floor and walls.\\n\\nKeep from "
+  },
+  "foto2_S": {
+   "clip": "foto2_S",
+   "endpoint": "bytedance/seedance-2.5/image-to-video",
+   "campos": {
+    "image_url": "data:image/png;base64,…",
+    "duration": "4",
+    "resolution": "480p",
+    "generate_audio": false
+   },
+   "prompt_palabras": 225,
+   "inicio": "2026-10-29T14:30:33",
+   "request_id": "01a188ed-9773-77b3-963e-b3d20bebe8d8",
+   "espera_s": 287.3,
+   "respuesta": {
+    "seed": 976925961,
+    "draft_id": null
+   },
+   "archivo": "clips\\foto2_S.mp4",
+   "ffprobe": {
+    "duracion_s": 4.042,
+    "ancho": 854,
+    "alto": 480,
+    "fps": 24.0,
+    "codec": "h264",
+    "cuadros": "97",
+    "audio": false
+   },
+   "usd": 0.831
+  },
+  "foto2_G_reintento": {
+   "clip": "foto2_G_reintento",
+   "endpoint": "google/gemini-omni-flash/v1.1/image-to-video",
+   "campos": {
+    "image_url": "data:image/png;base64,…",
+    "duration": 4,
+    "resolution": "360p"
+   },
+   "prompt_palabras": 200,
+   "inicio": "2026-10-29T14:35:48",
+   "request_id": "01a188f2-67ba-7c90-ab6b-55bc63fa5a34",
+   "espera_s": 18.4,
+   "error": "resultado HTTP 422: {\"detail\":[{\"loc\":[\"body\",\"prompt\"],\"msg\":\"The input could not be submitted. This prompt contains dangerous content that violates Google's Responsible AI practices. If you think this was an error, send feedback.\",\"type\":\"content_policy_violation\",\"url\":\"https://docs.fal.ai/errors#content_policy_violation\",\"input\":{\"prompt\":\"Two laborers, seen from behind, carry a canvas-wrapped body between them down a narrow red-brick jail corridor. They walk away from camera at a slow, heavy, routine pace. The shrouded body sags and sways slightly with each step, its head toward the far end.\\n\\nCamera: a low-angle tracking shot follows behind at the same pace, holding the men centered as they move deeper toward the barred door at the corridor's end.\\n\\nThe hanging lantern above sways gently. Its warm lig"
+  }
+ }
+}

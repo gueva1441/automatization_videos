@@ -1,0 +1,30 @@
+[
+ {
+  "archivo": "foto1.png",
+  "origen": "output\\7dbf5ab2-e26a-43eb-b61d-fe74f7fd66bd\\assets\\ch03_flux\\ch03_img_14.png",
+  "topic": "7dbf5ab2-e26a-43eb-b61d-fe74f7fd66bd",
+  "caso": "Old City Jail: 14,000 Muertes y los Fantasmas de Charleston",
+  "cap": 3,
+  "img": 14,
+  "tipo": "ahorcamiento: condenados con la soga al cuello en el patíbulo",
+  "prompt": "A medium shot captures a line of condemned African American men standing on the gallows platform, bound but with their heads held high in defiance. They look forward, over the heads of an unseen crowd, with unwavering resolve. On the execution gallows platform in the year 1822, moments before the sentence is carried out, the shadow of the gallows beam falls across their chests. The color palette is desaturated, focusing on the stark contrast between their dark skin and their light-colored, simple shirts under the bright, glaring daylight from an overcast sky. The mood is one of tragic dignity, rendered in a style of documentary photographic realism that is both dark-history and faceless. An 85mm lens compresses the space between them, while a low angle shot emphasizes their dignity and the oppressive structure above. The image has a 16:9 aspect ratio.",
+  "ancla": "En sus últimos momentos, estos hombres enfrentaron la horca,",
+  "video_prompt": null,
+  "md5": "65e4a3d6e0662d178bafef48d10f75a3",
+  "motor_foto": "fal-ai/bytedance/seedream/v4.5/text-to-image"
+ },
+ {
+  "archivo": "foto2.png",
+  "origen": "output\\7dbf5ab2-e26a-43eb-b61d-fe74f7fd66bd\\assets\\ch05_flux\\ch05_img_11.png",
+  "topic": "7dbf5ab2-e26a-43eb-b61d-fe74f7fd66bd",
+  "caso": "Old City Jail: 14,000 Muertes y los Fantasmas de Charleston",
+  "cap": 5,
+  "img": 11,
+  "tipo": "cadáver: cuerpo amortajado con la cara visible",
+  "prompt": "A medium shot shows two men in simple laborer's clothing carrying a body wrapped in a simple canvas shroud down a dark corridor. Their faces are obscured by shadow and angle, their focus entirely on the task as they move through a long, narrow brick corridor in the jail's lower levels, where the coarse, rough texture of the canvas shroud is visible. The scene is nearly monochromatic, dominated by deep shadows, the dark red brick, and the pale shroud. Low-key lantern light casts long, moving shadows, creating a grim, dehumanizing, and routine mood. The style is one of dark-history documentary photographic realism, rendering the figures as faceless, with a slight motion blur conveying the repetitive action. The low camera angle follows the men as they move away. The image has a 16:9 aspect ratio.",
+  "ancla": "Los cuerpos se acumulaban, día tras día, año tras año",
+  "video_prompt": null,
+  "md5": "a4986f97adc4d98d095d83ae17425314",
+  "motor_foto": "fal-ai/bytedance/seedream/v4.5/text-to-image"
+ }
+]
