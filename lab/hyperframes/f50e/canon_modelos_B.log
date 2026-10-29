@@ -1,0 +1,6 @@
+[23:21:12] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f50e-b-canon-opus
+tanda 1: US$ 0.7244 (opus 1: 0.0000)
+[23:23:45] INFO     | viral_pipeline | [cost_tracker] Video f50e-b-canon-opus — Costo total: $0.7244
+{"md5_pedido": "d2568e2a94c5db96f9836451b2f80cd7", "parada": null, "total_usd": 0.7244, "produccion_intacta": {"topics_db": true, "05_visual_canon": true}}
+opus_2 96/96 · ['1937-1946', '1947-1966', '1967-1993', '1994-2026'] · grupos 13 0.3877 153.2 ['d2568e2a']
+opus_3 96/96 · ['1937-1947', '1948-1966', '1967-1992', '1993-2026'] · grupos 11 0.3367 125.9 ['d2568e2a']

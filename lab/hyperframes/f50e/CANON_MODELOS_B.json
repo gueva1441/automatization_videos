@@ -1,0 +1,490 @@
+{
+ "md5_pedido": "d2568e2a94c5db96f9836451b2f80cd7",
+ "parada": null,
+ "total_usd": 0.7244,
+ "produccion_intacta": {
+  "topics_db": true,
+  "05_visual_canon": true
+ },
+ "fotos_con_anio": 96,
+ "fotos": 96,
+ "corridas": {
+  "opus_2": {
+   "intentos": [
+    {
+     "md5_pedido": "d2568e2a94c5db96f9836451b2f80cd7",
+     "con_esquema": false
+    }
+   ],
+   "errores": [],
+   "segundos": 153.2,
+   "usd": 0.3877,
+   "tokens_in": 14952,
+   "tokens_out": 16394,
+   "tokens_thinking": 0,
+   "medida": {
+    "periods": [
+     "1937-1946",
+     "1947-1966",
+     "1967-1993",
+     "1994-2026"
+    ],
+    "por_cap": {
+     "1": {
+      "con_anio": 5,
+      "cubiertas": 5
+     },
+     "2": {
+      "con_anio": 16,
+      "cubiertas": 16
+     },
+     "3": {
+      "con_anio": 16,
+      "cubiertas": 16
+     },
+     "4": {
+      "con_anio": 14,
+      "cubiertas": 14
+     },
+     "5": {
+      "con_anio": 16,
+      "cubiertas": 16
+     },
+     "6": {
+      "con_anio": 16,
+      "cubiertas": 16
+     },
+     "7": {
+      "con_anio": 13,
+      "cubiertas": 13
+     }
+    },
+    "con_anio": 96,
+    "cubiertas": 96,
+    "sin_period": [],
+    "grupos": [
+     {
+      "id": "prospectors_mine_owners",
+      "where_when": "Yampire and Wittenoom Gorges in the Hamersley Ranges, 1937-1943.",
+      "anios": [
+       1937,
+       1943
+      ],
+      "ropa": [
+       "1937-1943"
+      ],
+      "anios_sin_ropa": []
+     },
+     {
+      "id": "mine_mill_workers",
+      "where_when": "Wittenoom mines and mill, 1937-1966; surviving former workers reappear in compensation claims and court cases from 1979 to 1989.",
+      "anios": [
+       1937,
+       1966,
+       1979,
+       1989
+      ],
+      "ropa": [
+       "1937-1946",
+       "1947-1966",
+       "1979-1989"
+      ],
+      "anios_sin_ropa": []
+     },
+     {
+      "id": "spanish_migrant_families",
+      "where_when": "Ship voyage via Suez and arrival at Wittenoom in 1962, residence 1962-1964, returns to Madrid in 1966 and 1971; children later reappear as adults in 1985 and in later interviews alongside their elderly mothers.",
+      "anios": [
+       1962,
+       1964,
+       1966,
+       1971,
+       1985
+      ],
+      "ropa": [
+       "1962-1964",
+       "1966-1971",
+       "1985-1992",
+       "1993-2026"
+      ],
+      "anios_sin_ropa": []
+     },
+     {
+      "id": "mining_regulators_inspectors",
+      "where_when": "Visiting the Wittenoom mine and mill and writing reports from state offices, 1944-1966.",
+      "anios": [
+       1944,
+       1966
+      ],
+      "ropa": [
+       "1944-1966"
+      ],
+      "anios_sin_ropa": []
+     },
+     {
+      "id": "public_health_physicians",
+      "where_when": "Wittenoom and state health offices, 1948-1951, 1960-1968, including a 1965 schoolyard reprimand and a 1966 machinery inspection.",
+      "anios": [
+       1948,
+       1951,
+       1960,
+       1965,
+       1966,
+       1968
+      ],
+      "ropa": [
+       "1948-1968"
+      ],
+      "anios_sin_ropa": []
+     },
+     {
+      "id": "company_executives_managers",
+      "where_when": "Wittenoom site management and Sydney corporate offices, 1943-1966, including a 1949 employer representative and the 1966 closure announcement.",
+      "anios": [
+       1943,
+       1949,
+       1966
+      ],
+      "ropa": [
+       "1943-1966"
+      ],
+      "anios_sin_ropa": []
+     },
+     {
+      "id": "labour_arbitration_and_union",
+      "where_when": "Arbitration hearings and the Wittenoom mill, 1946-1959, including the 1957 Board of Reference inspection.",
+      "anios": [
+       1946,
+       1957,
+       1959
+      ],
+      "ropa": [
+       "1946-1959"
+      ],
+      "anios_sin_ropa": []
+     },
+     {
+      "id": "politicians_government",
+      "where_when": "Canberra and Perth offices and parliament, 1947, 1978-1994 and 2006-2026.",
+      "anios": [
+       1947,
+       1978,
+       1994,
+       2006,
+       2026
+      ],
+      "ropa": [
+       "1947-1966",
+       "1978-1994",
+       "2006-2026"
+      ],
+      "anios_sin_ropa": []
+     },
+     {
+      "id": "late_residents",
+      "where_when": "Wittenoom township from the 1978 reduction policy to the departure of the last residents in 2022-2023.",
+      "anios": [
+       1978,
+       2022,
+       2023
+      ],
+      "ropa": [
+       "1978-2023"
+      ],
+      "anios_sin_ropa": []
+     },
+     {
+      "id": "banjima_traditional_owners",
+      "where_when": "Wittenoom and Banjima country, 2023-2026, including the UN rapporteur meeting and the federal court action.",
+      "anios": [
+       2023,
+       2026
+      ],
+      "ropa": [
+       "2023-2026"
+      ],
+      "anios_sin_ropa": []
+     },
+     {
+      "id": "victims_advocates_lawyers",
+      "where_when": "Perth courts, offices and meetings, 1979-1989 and again 2020s-2026.",
+      "anios": [
+       1979,
+       1989,
+       2026
+      ],
+      "ropa": [
+       "1979-1989",
+       "2020-2026"
+      ],
+      "anios_sin_ropa": []
+     },
+     {
+      "id": "airport_police",
+      "where_when": "An Australian airport passport control desk, 1985.",
+      "anios": [
+       1985
+      ],
+      "ropa": [
+       "1985"
+      ],
+      "anios_sin_ropa": []
+     },
+     {
+      "id": "un_rapporteur",
+      "where_when": "Australia, 2023, interviewing affected Banjima people.",
+      "anios": [
+       2023
+      ],
+      "ropa": [
+       "2023"
+      ],
+      "anios_sin_ropa": []
+     }
+    ],
+    "grupos_con_anios_sin_ropa": 0,
+    "ilegibles": [],
+    "sin_appearance": [
+     "late_residents",
+     "airport_police",
+     "un_rapporteur"
+    ]
+   }
+  },
+  "opus_3": {
+   "intentos": [
+    {
+     "md5_pedido": "d2568e2a94c5db96f9836451b2f80cd7",
+     "con_esquema": false
+    }
+   ],
+   "errores": [],
+   "segundos": 125.9,
+   "usd": 0.3367,
+   "tokens_in": 14952,
+   "tokens_out": 13843,
+   "tokens_thinking": 0,
+   "medida": {
+    "periods": [
+     "1937-1947",
+     "1948-1966",
+     "1967-1992",
+     "1993-2026"
+    ],
+    "por_cap": {
+     "1": {
+      "con_anio": 5,
+      "cubiertas": 5
+     },
+     "2": {
+      "con_anio": 16,
+      "cubiertas": 16
+     },
+     "3": {
+      "con_anio": 16,
+      "cubiertas": 16
+     },
+     "4": {
+      "con_anio": 14,
+      "cubiertas": 14
+     },
+     "5": {
+      "con_anio": 16,
+      "cubiertas": 16
+     },
+     "6": {
+      "con_anio": 16,
+      "cubiertas": 16
+     },
+     "7": {
+      "con_anio": 13,
+      "cubiertas": 13
+     }
+    },
+    "con_anio": 96,
+    "cubiertas": 96,
+    "sin_period": [],
+    "grupos": [
+     {
+      "id": "spanish_migrant_families",
+      "where_when": "Seen on the migrant ship from Málaga via Suez and in Wittenoom (1962-1966), in Madrid and Australia afterward (1966-1971), and decades later at a 1985 airport checkpoint, at a 1991 diagnosis and in present-day interviews.",
+      "anios": [
+       1962,
+       1966,
+       1971,
+       1985,
+       1991
+      ],
+      "ropa": [
+       "1962-1966",
+       "1967-1992",
+       "1993-2026"
+      ],
+      "anios_sin_ropa": []
+     },
+     {
+      "id": "australian_mine_mill_workers",
+      "where_when": "Seen in the Wittenoom mines, gorges and mill from 1937 to 1966, notably in 1946-1959 award and dust-allowance disputes and in the 1957 Board of Reference inspection, and later as disease victims and claimants (1979-1989).",
+      "anios": [
+       1937,
+       1946,
+       1957,
+       1959,
+       1966,
+       1979,
+       1989
+      ],
+      "ropa": [
+       "1937-1966",
+       "1979-1989"
+      ],
+      "anios_sin_ropa": []
+     },
+     {
+      "id": "european_displaced_persons_workers",
+      "where_when": "Seen in the Wittenoom mines and mill under 1948-1951 government contracts and through CSR recruitment from 1950 onward.",
+      "anios": [
+       1948,
+       1950,
+       1951
+      ],
+      "ropa": [
+       "1948-1966"
+      ],
+      "anios_sin_ropa": []
+     },
+     {
+      "id": "prospectors_mine_owners",
+      "where_when": "Seen in the Yampire and Wittenoom Gorges and the Hamersley Ranges from 1937 to 1943.",
+      "anios": [
+       1937,
+       1943
+      ],
+      "ropa": [
+       "1937-1943"
+      ],
+      "anios_sin_ropa": []
+     },
+     {
+      "id": "company_executives",
+      "where_when": "Seen in company management roles and dust hearings from 1943 to 1966, including the 1949 manager hearing and the 1966 closure announcement, and in later litigation (1988-1989).",
+      "anios": [
+       1943,
+       1949,
+       1966,
+       1988,
+       1989
+      ],
+      "ropa": [
+       "1943-1966",
+       "1988-1989"
+      ],
+      "anios_sin_ropa": []
+     },
+     {
+      "id": "health_and_mines_officials",
+      "where_when": "Seen at Wittenoom and in government offices from 1944 to 1968, including the 1944 dust report, 1948-1951 warnings, the 1957 mill inspection, the 1962 mesothelioma report, the 1965 schoolyard reprimand and the 1966 hygiene review.",
+      "anios": [
+       1944,
+       1948,
+       1951,
+       1957,
+       1962,
+       1965,
+       1966,
+       1968
+      ],
+      "ropa": [
+       "1944-1968"
+      ],
+      "anios_sin_ropa": []
+     },
+     {
+      "id": "politicians_and_government",
+      "where_when": "Seen in government settings in 1947, in the 1978 relocation policy, in the 1992 and 1994 parliamentary reports, in the 2006-2007 abolition, in 2016 and 2019 decisions and in 2023-2026 responses to the lawsuit.",
+      "anios": [
+       1947,
+       1978,
+       1992,
+       1994,
+       2006,
+       2007,
+       2016,
+       2019,
+       2023,
+       2026
+      ],
+      "ropa": [
+       "1947-1966",
+       "1978-1994",
+       "2006-2026"
+      ],
+      "anios_sin_ropa": []
+     },
+     {
+      "id": "banjima_traditional_owners",
+      "where_when": "Seen on Banjima country around the Wittenoom area and in legal and advocacy settings from 2023 to 2026.",
+      "anios": [
+       2023,
+       2026
+      ],
+      "ropa": [
+       "2023-2026"
+      ],
+      "anios_sin_ropa": []
+     },
+     {
+      "id": "victims_advocates_and_lawyers",
+      "where_when": "Seen in Australian advocacy and court settings from 1979 through the 1988 verdict and the 1989 settlement, and in continuing advocacy and the 2026 Federal Court action.",
+      "anios": [
+       1979,
+       1988,
+       1989,
+       2026
+      ],
+      "ropa": [
+       "1979-1989",
+       "2020-2026"
+      ],
+      "anios_sin_ropa": []
+     },
+     {
+      "id": "late_wittenoom_residents",
+      "where_when": "Seen in the shrinking town from 1978 through the 1986-1992 demolitions, with remaining residents in 2006 and the last departures in 2022-2023.",
+      "anios": [
+       1978,
+       1986,
+       1992,
+       2006,
+       2022,
+       2023
+      ],
+      "ropa": [
+       "1978-1992",
+       "2006-2023"
+      ],
+      "anios_sin_ropa": []
+     },
+     {
+      "id": "airport_police",
+      "where_when": "Seen at an Australian airport checkpoint in 1985.",
+      "anios": [
+       1985
+      ],
+      "ropa": [
+       "1985"
+      ],
+      "anios_sin_ropa": []
+     }
+    ],
+    "grupos_con_anios_sin_ropa": 0,
+    "ilegibles": [],
+    "sin_appearance": [
+     "victims_advocates_and_lawyers",
+     "late_wittenoom_residents",
+     "airport_police"
+    ]
+   }
+  }
+ }
+}

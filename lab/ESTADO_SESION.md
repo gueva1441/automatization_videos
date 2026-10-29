@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-28 23:45 (F50e-A: el canon de Wittenoom con Flash, Sonnet y Opus en texto; 7 de 9 corridas, Opus 2–3 frenadas por el tope; los Claude corrieron sin esquema; US$ 0,81; PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 00:00 (F50e-B: las 3 corridas de Opus en el canon de Wittenoom, 96/96 en las 3; US$ 0,72; PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,23 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F50e-B, PARADA): ya están las 3 corridas de Opus. La tabla completa está en `lab/hyperframes/f50e/CANON_MODELOS.md`.
+- **Opus y Sonnet** cubren 96/96 fotos en sus 3 corridas.
+- **Desempates:**
+  - grupos con años sin ropa: Opus 0/0/0, Sonnet 1/0/1;
+  - grupos sin aspecto: Opus 2–3 por corrida, Sonnet 4–7;
+  - n.º de grupos: Opus 13/13/11, Sonnet 7/10/8;
+  - costo por corrida: Opus US$ 0,36, Sonnet 0,13.
+- **Gasto de F50e-B:** US$ 0,72.
+- **Pendiente:** elegir el modelo es tuyo; después corre D de F50d.
+
+## F50e-B — Opus 2 y 3 del canon (handoff del analista, 2026-10-28 23:20) — PARADA
+- opus_2 y opus_3 corrieron directo sin esquema, con el md5 del pedido `d2568e2a…`.
+- Las corridas de F50e-A no se tocaron.
+- Medida 4a–4g para las 9.
+- Producción intacta.
+- Suites: rápida 55, amplia 976 + 4 previas; ch02 `f792f3d4…`.
 
 ## 👀 Para Omar (F50e-A, PARADA): la tabla de los 3 modelos está en `lab/hyperframes/f50e/CANON_MODELOS.md`.
 - **Fotos cuyo año cae en algún tramo del canon:**

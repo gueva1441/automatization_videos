@@ -14,6 +14,9 @@ canon vacío sin avisar: acá un canon vacío o sin `periods` es FALLA y no se m
 Tope US$ 1,00 (`lab/TOPE_TANDA.json`): tanda 1 = 7 a la vez (flash ×3, sonnet ×3, opus 1); las opus 2 y 3 corren
 solo si lo gastado + 2 × (costo de opus 1) ≤ tope; si no, PARADA.
 Uso: python -u lab/hyperframes/f50e/canon_modelos.py
+F50e-B: `--opus23` corre SOLO opus_2 y opus_3, en paralelo, directo por el camino sin esquema (el que contestó en
+opus_1: la API rechaza el esquema de 46 opcionales), sin pisar nada de F50e-A; frena si el md5 del pedido no es el de
+F50e-A o si ya existen sus json; guarda en CANON_MODELOS_B.json (sesión `f50e-b-canon-opus`).
 """
 from __future__ import annotations
 
@@ -31,6 +34,7 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "lab" / "hyperframes" / "f50c"))
 F50E = Path(__file__).resolve().parent
 TID = "123bbb64-9fca-4395-8bf4-57d60e219ef1"
+MD5_PEDIDO_A = "d2568e2a94c5db96f9836451b2f80cd7"   # el pedido de F50e-A (F50e-B lo exige igual)
 MODELOS = {"flash": None, "sonnet": "claude-sonnet-5-5", "opus": "claude-opus-5-5"}   # Omar 2026-10-28 23:04
 EFFORT = "high"                       # Opus: guion_v4.ESFUERZO; Sonnet: el de F47b (k7)
 _TL = threading.local()
@@ -61,7 +65,8 @@ def ruteador(prompt, system_instruction=None, response_schema=None, thinking_bud
             return gemini_helpers.call_flash_json(prompt, system_instruction=system_instruction,
                                                   response_schema=response_schema, description=desc)
         esquema = (_sin_nullable(response_schema.model_dump(mode="json", exclude_none=True))
-                   if response_schema is not None else None)
+                   if response_schema is not None and not getattr(_TL, "sin_esquema", False) else None)
+        r["intentos"][-1]["con_esquema"] = esquema is not None
         return claude_helpers.call_json(prompt, model=MODELOS[_TL.modelo], system_instruction=system_instruction,
                                         response_schema=esquema, effort=EFFORT, description=desc)
     except Exception as e:  # noqa: BLE001 — se guarda y se re-lanza (extract_visual_canon lo traga)
@@ -69,10 +74,10 @@ def ruteador(prompt, system_instruction=None, response_schema=None, thinking_bud
         raise
 
 
-def una(modelo: str, n: int, topic: dict, ficha: dict) -> None:
+def una(modelo: str, n: int, topic: dict, ficha: dict, sin_esquema: bool = False) -> None:
     from researcher_steps import step_4e_visual_canon as s4e
     clave = f"{modelo}_{n}"
-    _TL.clave, _TL.modelo = clave, modelo
+    _TL.clave, _TL.modelo, _TL.sin_esquema = clave, modelo, sin_esquema
     _REG[clave] = {"intentos": [], "errores": []}
     t0 = time.time()
     canon = s4e.canon_desde_ficha(topic, ficha)
@@ -128,7 +133,10 @@ def medir(canon: dict, fotos: list[dict]) -> dict:
     return {"periods": [y for y, _ in tramos], "por_cap": por_cap,
             "con_anio": sum(c["con_anio"] for c in por_cap.values()),
             "cubiertas": sum(c["cubiertas"] for c in por_cap.values()), "sin_period": sin, "grupos": grupos,
-            "grupos_con_anios_sin_ropa": sum(bool(g["anios_sin_ropa"]) for g in grupos), "ilegibles": ilegibles}
+            "grupos_con_anios_sin_ropa": sum(bool(g["anios_sin_ropa"]) for g in grupos), "ilegibles": ilegibles,
+            # F50e-B 4g: grupos con appearance vacío
+            "sin_appearance": [g.get("id") for g in canon.get("people_groups") or []
+                               if not str(g.get("appearance") or "").strip()]}
 
 
 def main() -> int:
@@ -145,16 +153,31 @@ def main() -> int:
     canon_antes = hashlib.md5((fase1_5.STEPS_DIR / TID / "05_visual_canon.json").read_bytes()).hexdigest()
     fotos = fotos_con_anio()
     s4e.call_flash_json = ruteador
-    cost_tracker.start_video("f50e-canon-modelos")
+    b = "--opus23" in sys.argv
+    if b:
+        if md5_pedido != MD5_PEDIDO_A:
+            print(f"PARADA: md5 del pedido {md5_pedido} ≠ {MD5_PEDIDO_A}")
+            return 1
+        ya = [f.name for f in (F50E / "canon_opus_2.json", F50E / "canon_opus_3.json") if f.exists()]
+        if ya:
+            print(f"PARADA: ya existen {ya} (no se pisan)")
+            return 1
+    cost_tracker.start_video("f50e-b-canon-opus" if b else "f50e-canon-modelos")
     parada = None
     try:
+        if b:
+            with ThreadPoolExecutor(max_workers=2) as ex_:
+                list(ex_.map(lambda mn: una(*mn, topic, ficha, sin_esquema=True), [("opus", 2), ("opus", 3)]))
         tanda1 = [("flash", 1), ("flash", 2), ("flash", 3), ("sonnet", 1), ("sonnet", 2), ("sonnet", 3), ("opus", 1)]
-        with ThreadPoolExecutor(max_workers=len(tanda1)) as ex_:
-            list(ex_.map(lambda mn: una(*mn, topic, ficha), tanda1))
+        if not b:
+            with ThreadPoolExecutor(max_workers=len(tanda1)) as ex_:
+                list(ex_.map(lambda mn: una(*mn, topic, ficha), tanda1))
         gastado = sum(e.total_cost for e in cost_tracker.current_video.entries)
         opus1 = sum(e.total_cost for e in cost_tracker.current_video.entries if "canon opus_1" in e.description)
         print(f"tanda 1: US$ {gastado:.4f} (opus 1: {opus1:.4f})", flush=True)
-        if gastado + 2 * opus1 <= tope:
+        if b:
+            pass
+        elif gastado + 2 * opus1 <= tope:
             with ThreadPoolExecutor(max_workers=2) as ex_:
                 list(ex_.map(lambda mn: una(*mn, topic, ficha), [("opus", 2), ("opus", 3)]))
         else:
@@ -183,7 +206,7 @@ def main() -> int:
     salida = {"md5_pedido": md5_pedido, "parada": parada, "total_usd": round(getattr(rep, "total_cost", 0) or 0, 4),
               "produccion_intacta": {"topics_db": db_antes == db_despues, "05_visual_canon": canon_antes == canon_despues},
               "fotos_con_anio": sum(f["anio"] is not None for f in fotos), "fotos": len(fotos), "corridas": _REG}
-    (F50E / "CANON_MODELOS.json").write_text(json.dumps(salida, ensure_ascii=False, indent=1, default=str),
+    (F50E / ("CANON_MODELOS_B.json" if b else "CANON_MODELOS.json")).write_text(json.dumps(salida, ensure_ascii=False, indent=1, default=str),
                                              encoding="utf-8")
     print(json.dumps({k: salida[k] for k in ("md5_pedido", "parada", "total_usd", "produccion_intacta")}), flush=True)
     for k, r in _REG.items():
