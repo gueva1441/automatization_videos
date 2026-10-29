@@ -743,13 +743,15 @@ def extract_visual_canon(
 #  F50 A — CANON DESDE LA FICHA (antes de m03; reemplaza al 4e del research)
 # ═══════════════════════════════════════════════════════════════
 
-# los textos del lab (F46b texto 1; F48 TEXTO_S5); F50d A: where_when con todos los años y clothing_by_period
+# los textos del lab (F46b texto 1; F48 TEXTO_S5); F50d A: where_when con todos los años y clothing_by_period;
+# F51b: appearance = solo los rasgos fijos, y el estado documentado va a condition_by_period (nadie lo pega en la foto)
 TEXTO_1_PEOPLE_GROUPS = """═══ BLOQUE EXTRA: people_groups ═══
 Lista de los grupos de personas que el material documenta en este caso (hechos, cronología, escenas y citas de arriba). Por grupo, un objeto:
 - id: corto, snake_case, en inglés (p. ej. "spanish_migrant_families")
 - who: quiénes son y su origen documentado (EN, una frase)
 - where_when: dónde y en qué años aparecen, todos los años en que el material los muestra, también décadas después (EN, una frase)
-- appearance: cómo se ven físicamente según su origen documentado y su época: tono de piel, color y tipo de pelo, rasgos, contextura típica de su trabajo (EN, una frase)
+- appearance: solo los rasgos físicos fijos de la persona según su origen documentado: tono de piel, color y tipo de pelo, color de ojos, rasgos de la cara y contextura (EN, una frase). Nada que cambie según dónde estén, qué hagan o qué les pase: eso va en condition_by_period
+- condition_by_period: una entrada por cada tramo de años en que el material documenta un estado físico de ese grupo (polvo, suciedad, bronceado, heridas, enfermedad, desgaste); years "AAAA-AAAA" y condition (EN, una frase). Si el material no documenta ningún estado, lista vacía
 - clothing_by_period: una entrada por cada tramo de años en que el material muestra a ese grupo; years "AAAA-AAAA" y clothing: ropa, peinado y accesorios de ESE grupo en ESE tramo, ese clima y esa clase social (EN, una frase)
 Sin nombres propios de personas. Solo grupos que el material documenta; si el material no dice el origen de un grupo, no lo inventes: dejá appearance vacío."""
 TEXTO_S5 = ("Personajes del material (rol · lugar · años; sin nombres). Que ningún grupo que aparezca acá quede fuera de "

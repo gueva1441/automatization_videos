@@ -2838,7 +2838,7 @@
   "researcher_steps/step_4e_visual_canon.py": {
    "archivo": "researcher_steps/step_4e_visual_canon.py",
    "zona": "research",
-   "sticker": "Arma el canon visual del tema en una llamada a Claude Opus 5.5 (effort high, sin esquema: la API de Claude no acepta el esquema del canon; desde F50f, antes Flash): cómo se ve el mundo del tema (ropa, tecnología, vehículos, colores, materiales de la época), qué personas con nombre hay y cómo se ven sin nombre, qué anacronismos prohibir, cuál es el objeto o sujeto central y, desde F50, los grupos de personas que muestra el material (people_groups: quiénes son, dónde y cuándo, cómo se ven y cómo se visten en cada tramo de años). Desde F50d la época también viene por tramo de años (periods: ropa, tecnología, vehículos e interiores de cada tramo), además de la descripción única. Desde F50 los hechos salen de la ficha del caso (hechos, cronología y escenas) y al final del pedido van los personajes del pool (rol · lugar · años, sin nombres). Después limpia la respuesta con reglas fijas (saca el nombre y la época del aspecto de cada persona, normaliza los objetos). Si la llamada falla o la respuesta no trae los tramos de época (periods) y los grupos de gente, corta con un error (no hay canon vacío de respaldo). La marca del canon (md5 de la ficha, del texto del pedido, del modelo y del esfuerzo) la calcula acá `marca_canon`.",
+   "sticker": "Arma el canon visual del tema en una llamada a Claude Opus 5.5 (effort high, sin esquema: la API de Claude no acepta el esquema del canon; desde F50f, antes Flash): cómo se ve el mundo del tema (ropa, tecnología, vehículos, colores, materiales de la época), qué personas con nombre hay y cómo se ven sin nombre, qué anacronismos prohibir, cuál es el objeto o sujeto central y, desde F50, los grupos de personas que muestra el material (people_groups: quiénes son, dónde y cuándo, cómo se ven —desde F51b, solo los rasgos fijos según su origen; el estado documentado, como polvo o enfermedad, va aparte por tramo de años en condition_by_period, que no se pega en la foto— y cómo se visten en cada tramo de años). Desde F50d la época también viene por tramo de años (periods: ropa, tecnología, vehículos e interiores de cada tramo), además de la descripción única. Desde F50 los hechos salen de la ficha del caso (hechos, cronología y escenas) y al final del pedido van los personajes del pool (rol · lugar · años, sin nombres). Después limpia la respuesta con reglas fijas (saca el nombre y la época del aspecto de cada persona, normaliza los objetos). Si la llamada falla o la respuesta no trae los tramos de época (periods) y los grupos de gente, corta con un error (no hay canon vacío de respaldo). La marca del canon (md5 de la ficha, del texto del pedido, del modelo y del esfuerzo) la calcula acá `marca_canon`.",
    "recibe": "El topic (video_title, canonical_subject_description, evidence_pool.personajes) y la ficha del caso (data/scripts/_steps/<id>/ficha_caso.json); los pasa fase1_5.asegurar_canon.",
    "entrega": "dict con era_visual_canon, documented_people, anachronism_blocklist, documented_props, central_subject y people_groups; fase1_5.asegurar_canon lo guarda en el topic de data/topics_db.json y en data/scripts/_steps/<id>/05_visual_canon.json.",
    "modelo": [
@@ -2866,7 +2866,7 @@
    "lo_llaman": [
     "fase1_5.py"
    ],
-   "tests": 3,
+   "tests": 4,
    "nacio": "21f2e10 2026-06-21",
    "ultimo": "e4bb427 2026-10-28 (F50f)",
    "estado_a": "vivo",
@@ -2875,7 +2875,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "49d77b2acacce5913b9a2f676c7f99d1",
+   "md5": "5df3b731e60847072c06d1840623c47b",
    "sticker_al_dia": true
   },
   "researcher_steps/verify_quotes.py": {
@@ -4532,7 +4532,7 @@
   "script_engine/m03_imagenes_v3.py": {
    "archivo": "script_engine/m03_imagenes_v3.py",
    "zona": "fase2a",
-   "sticker": "Reglas de las imágenes del guion v3: reparte los beats de la escaleta entre las imágenes de cada capítulo, arma la frase de cada imagen desde sus casilleros (antes saca de cada casillero las cláusulas negadas, como «with no figure anywhere», salvo «No. 4» o «nothing but», y baja a minúscula lo que queda en mitad de una oración) en un orden fijo (desde F51a el armado C de F50h, en el orden de la guía de fal: sujeto, aspecto del grupo de gente del canon —la oración appearance de cada grupo de la foto—, lugar y año, cartel con sujeto, luz, plano, una oración de estilo de foto documental granulada con el año, 16:9 y sin texto; sin mirada, objeto ni paleta), elige el año de la foto (dicho en la frase de la voz, el que propone el modelo o el de respaldo) y detecta o limpia lo que no puede llevar una imagen (manos y caras en primer plano, armas, sangre, menores en daño, conteos exactos, izquierda/derecha, texto en el idioma equivocado): si queda un problema, saca la frase. También audita el video entero (motivos repetidos, cuerpos, planos medios) y propone re-encuadres. Todo es determinista, sin llamar a ningún modelo.",
+   "sticker": "Reglas de las imágenes del guion v3: reparte los beats de la escaleta entre las imágenes de cada capítulo, arma la frase de cada imagen desde sus casilleros (antes saca de cada casillero las cláusulas negadas, como «with no figure anywhere», salvo «No. 4» o «nothing but», y baja a minúscula lo que queda en mitad de una oración) en un orden fijo (desde F51a el armado C de F50h, en el orden de la guía de fal: sujeto, aspecto del grupo de gente del canon —la oración appearance de cada grupo de la foto—, lugar y año, cartel con sujeto, luz, plano, una oración de estilo de foto documental granulada con el año —sin año, sin «taken in»—, 16:9 y sin texto; sin mirada, objeto ni paleta), elige el año de la foto (dicho en la frase de la voz, el que propone el modelo o el de respaldo) y detecta o limpia lo que no puede llevar una imagen (manos y caras en primer plano, armas, sangre, menores en daño, conteos exactos, izquierda/derecha, texto en el idioma equivocado): si queda un problema, saca la frase. También audita el video entero (motivos repetidos, cuerpos, planos medios) y propone re-encuadres. Todo es determinista, sin llamar a ningún modelo.",
    "recibe": "La escaleta y la narración v3 del tema (data/scripts/_steps/<id>/01a_escaleta.json y 01b_narracion_v3.json, o topic['escaleta'] / topic['parrafos_v3']), el evidence_pool del tema, y las anclas, slots y prosa que le pasa m03_visual.",
    "entrega": "Datos en memoria para m03_visual: beats por capítulo, asignación beat-imagen, prosa armada y corregida, año de cada foto con su fuente, marcas sensible/motivos por imagen y reporte de auditoría (se guardan dentro de data/scripts/_steps/<id>/03_visual.json como _f8_imagenes y reencuadres_propuestos). No escribe archivos propios.",
    "modelo": [],
@@ -4553,16 +4553,16 @@
     "script_engine/m03_expediente.py",
     "script_engine/m03_visual.py"
    ],
-   "tests": 7,
+   "tests": 8,
    "nacio": "73e3613 2026-10-22 (F8)",
-   "ultimo": "9f4ca2a 2026-10-29 (F50g)",
+   "ultimo": "6817e7a 2026-10-29 (F51a)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "script_engine/m03_visual.py:107 lo importa (v3img) y lo usa en m03_visual.py:561-629 (armado, F8, año) y 2037-2168; m03_visual corre dentro de fase1_5.py:671 (etapa voz).",
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "f203188632b2888f00a0524102583234",
+   "md5": "b94350c9377d22b14ae0e75954bd1d3b",
    "sticker_al_dia": true
   },
   "script_engine/m03_visual.py": {

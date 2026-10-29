@@ -620,7 +620,7 @@ _PROSA = ("subject", "action", "setting", "lighting", "camera_angle", "lens_tech
 def armar(it: dict, anio: str, grupos: dict[str, dict] | None = None) -> dict:
     """F51a: el armado C de F50h, en el orden de la guía de fal: sujeto/acción → aspecto → lugar + año (sin «, año» si
     el setting ya trae año o década) → cartel → luz (solo `lighting`) → plano/ángulo/lente → estilo (`ESTILO_C` con el
-    año) → 16:9 (+ sin texto si no hay cartel). Sin mirada, objeto ni paleta. F50g-A: `aspecto` = la oración
+    año; F51b: sin año, sin «taken in») → 16:9 (+ sin texto si no hay cartel). Sin mirada, objeto ni paleta. F50g-A: `aspecto` = la oración
     `appearance` de cada grupo de `people_group` del canon, en el orden del casillero; sin grupo o sin `appearance`,
     nada. F50b: antes de armar salen las cláusulas negadas de cada casillero de prosa (un casillero que queda vacío se
     omite) y lo que va en mitad de oración baja a minúscula."""
@@ -642,7 +642,7 @@ def armar(it: dict, anio: str, grupos: dict[str, dict] | None = None) -> dict:
         "texto": texto,
         "luz": oracion(it.get("lighting")),
         "tecnica": oracion(plano),
-        "estilo": ESTILO_C.format(anio=anio),
+        "estilo": ESTILO_C.format(anio=anio) if anio else ESTILO_C.replace(" taken in {anio}", ""),   # F51b: sin año
         "cierre": f"{select_profile('seedream').aspect_ratio_text}" + ("" if texto else f" {NO_TEXT}"),
     }
     return {"partes": partes, "prompt": " ".join(p for p in partes.values() if p)}
