@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 19:05 (F54 Parte B completa: <ejemplos> v5.6, m09 lee el gancho, Wittenoom en texto con escaleta de 2 loops y guion f54-2 (4 bloqueantes: 1 (d) previo + 3 (h) falsos positivos del detector), medida de retención y panel ciego (7,9 → 7,8); US$ 3,34 de 6; PARADA B) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 20:15 (F55 etapa 0: snapshots en f55/antes/, 4 decisiones nuevas, fuera el tope por tanda y la constante v5.5 del guionista; US$ 0; PARADA 0) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,17 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F55 etapa 0, PARADA 0): lo de Wittenoom quedó guardado y se borraron el tope por tanda y la constante v5.5.
+- Snapshots de F54 B.5 en `lab/hyperframes/f55/antes/`; DECISIONES con las 4 líneas (16:08, 19:07, 19:16, 19:15) más las dos de las 19:30 ya escritas antes.
+- Ya no hay candado de dólares: `fase1_5`/`fase2a` no se frenan por gasto; el gasto se informa en cada reporte.
+- El guionista sigue en v5.6 (`f54-2`); la escaleta sigue en `f54-1` hasta la Parte C.
+- **Sigue:** Parte A (el detector: A1/A2 por código + segunda opinión de Sonnet sobre lo que el código marcó «no dicho»), con PARADA A. Gasto etapa 0: US$ 0.
+
+## F55 — etapa 0 (handoff del analista 19:50, pedido de Omar 20:00) — PARADA 0
+- Commits: `527040a` (DECISIONES 19:30, antes del arranque); `0c4eaa4` etapa 0. El último commit es el del reporte (`lab/hyperframes/f55/F55_REPORT.md`).
+- Sin tope: `lab/TOPE_TANDA.json` y `.claude/hooks/tope_tanda.py` ya no existen; el hook de la suite rápida y los guards siguen.
+- Suites: rápida 55; f54+f22 86; MAPA --check 0 (157 archivos). La amplia se corre al cerrar la Parte A.
 
 ## 👀 Para Omar (F54 Parte B, PARADA B): Wittenoom tiene escaleta y guion nuevos en texto; el panel no nota la diferencia, y los frenos nuevos frenan por un detector que no ve datos sin cifra.
 - La escaleta nueva declara 2 loops (el pie vendado → la muerte 29 años después; qué sabía la empresa al reclutar) y el re-gancho al cierre del cap 3; el cap 1 nuevo dice la apuesta en la segunda oración («murió de esos diez meses casi treinta años después»). Los dos cap 1 están lado a lado en el reporte.
