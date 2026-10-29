@@ -676,8 +676,8 @@
   "_parte": "fase2a_c"
  },
  "script_engine/m03_expediente.py": {
-  "sticker": "Arma el expediente de cada foto que se le pide a Claude Opus en m03: por cada frase de la voz que va a ilustrar una imagen junta el año que dice esa frase, dónde pasa, el párrafo entero de la voz, las escenas de la ficha, los hechos, las citas y las personas (rol · lugar · años) de su beat, y un año de respaldo; al final, los grupos de gente del canon. Lo escribe como un bloque de texto que va dentro del pedido. Determinista, sin modelo.",
-  "recibe": "El topic (evidence_pool: personajes, datos, cronología, citas, lugares), la escaleta, la ficha del caso y los párrafos v3 (data/scripts/_steps/<id>/01a_escaleta.json, ficha_caso.json, 01b_narracion_v3.json), los beats del capítulo, las anclas y la narración de los capítulos anteriores (para el año de respaldo).",
+  "sticker": "Arma el expediente de cada foto que se le pide a Claude Opus en m03: por cada frase de la voz que va a ilustrar una imagen junta el año que dice esa frase, dónde pasa, el párrafo entero de la voz, las escenas de la ficha, los hechos, las citas y las personas que nombra esa frase (las de la ficha del caso; si no nombra a nadie, las de la última frase del mismo párrafo que sí nombró a alguien), con rol · lugar · años, y un año de respaldo; al final, los grupos de gente del canon. Lo escribe como un bloque de texto que va dentro del pedido. Determinista, sin modelo.",
+  "recibe": "El topic (evidence_pool: personajes, datos, cronología, citas, lugares), la escaleta, la ficha del caso (escenas y personas) y los párrafos v3 (data/scripts/_steps/<id>/01a_escaleta.json, ficha_caso.json, 01b_narracion_v3.json), los beats del capítulo, las anclas y la narración de los capítulos anteriores (para el año de respaldo).",
   "entrega": "En memoria para m03_visual: la lista de expedientes por foto y el bloque de texto «CASE FILE PER IMAGE» del pedido. No escribe archivos.",
   "modelo": [],
   "etapa": [
@@ -687,6 +687,6 @@
   "estado_prueba": "script_engine/m03_visual.py lo importa (mexp) y lo usa en _render_prompts_seedream (m03_visual.py:563-568) y en assign_visual_prompts (2041-2042); m03_visual corre dentro de fase1_5.py:671 (etapa voz).",
   "funciones_muertas": [],
   "_parte": "F50 B (CC)",
-  "md5": "522ff17801a0f76eb305248a7ed9c45e"
+  "md5": "1e7c4ec11c419170b81ce1e4eef3bcbb"
  }
 }

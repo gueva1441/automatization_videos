@@ -1,5 +1,6 @@
 """F50 B — el expediente por foto del pedido de casilleros (m03): por cada ancla, el año dicho, dónde, el párrafo de la
-voz, las escenas de la ficha, los hechos, las citas y las personas de su beat, y al final los grupos de gente del canon.
+voz, las escenas de la ficha, los hechos, las citas y las personas que nombra el ancla (desde la ficha; si no
+nombra a nadie, las de la última ancla del mismo párrafo), y al final los grupos de gente del canon.
 Es el de la candidata de F46b–F49 (lab: `f46b.expedientes` + `f48.extra_por_foto` y `f48.bloque` en S5), portado sin
 cambiar lo que se midió; el único cambio es la regla 3 del año de respaldo: el último año dicho en la NARRACIÓN de los
 caps anteriores (en producción los caps corren en paralelo y las anclas de otros caps todavía no existen)."""
@@ -51,8 +52,73 @@ def anio_previo(narr_chapters: list[dict], cap: int) -> str | None:
     return ultimo
 
 
-def _sale_entero(nombre: str, texto: str) -> bool:
-    return bool(re.search(rf"\b{re.escape(nombre)}\b", texto or "", re.I))
+_ANIO4 = re.compile(r"\b(1[89]\d\d|20\d\d)\b")
+ARRASTRE = " (named earlier in the paragraph)"   # F50c A: texto literal del handoff (dato, no regla)
+
+
+def _formas(persona: dict) -> list[str]:
+    """F50c A: `nombre` y cada `variantes[]` de la ficha, sin lo que va entre paréntesis."""
+    return [f for f in (re.sub(r"\s*\(.*?\)", "", str(x or "")).strip()
+                        for x in [persona.get("nombre"), *(persona.get("variantes") or [])]) if f]
+
+
+def _calificativo(persona: dict) -> str:
+    m = re.search(r"\((.*?)\)", persona.get("nombre") or "")
+    return m.group(1).strip().lower() if m else ""
+
+
+def _anios_persona(persona: dict, excluir: set, pool: dict) -> set[int]:
+    """Años de 4 cifras de `fechas_presente` de sus ids P y de `fecha` de sus ids de cronología y datos, sin `excluir`."""
+    tablas = [{x["id"]: x for x in pool.get(k) or []} for k in ("personajes", "cronologia", "datos")]
+    ys: set[int] = set()
+    for i in set(persona.get("ids") or []) - excluir:
+        p, t, d = (tb.get(i) or {} for tb in tablas)
+        for f in [*(p.get("fechas_presente") or []), t.get("fecha"), d.get("fecha")]:
+            ys |= {int(y) for y in _ANIO4.findall(str(f or ""))}
+    return ys
+
+
+def personas_del_ancla(ancla: str, anio: int | None, ficha_personas: list[dict], pool: dict) -> tuple[list, list]:
+    """F50c A: las personas de la ficha que nombra el ancla. Por persona vale su forma más larga que aparece (palabra
+    entera, sin mayúsculas). Una forma de varias personas: gana la que el ancla sigue con su calificativo («Daniel Écija
+    hijo» → «(hijo)»); si no, la de años más cerca del año de la foto (sin los ids que comparten); empate o sin año:
+    nadie. Devuelve (personas en el orden de la ficha, formas sin resolver)."""
+    por_forma: dict[str, list[dict]] = {}
+    for p in ficha_personas or []:
+        hay = [f for f in _formas(p) if re.search(rf"\b{re.escape(f)}\b", ancla or "", re.I)]
+        if hay:
+            por_forma.setdefault(max(hay, key=len).lower(), []).append(p)
+    out, dudas = [], []
+    for forma, ps in por_forma.items():
+        if len(ps) == 1:
+            out.append(ps[0])
+            continue
+        q = [p for p in ps if _calificativo(p)
+             and re.search(rf"\b{re.escape(forma)}\W+{re.escape(_calificativo(p))}\b", ancla, re.I)]
+        if len(q) == 1:
+            out.append(q[0])
+            continue
+        comunes = set.intersection(*[set(p.get("ids") or []) for p in ps])
+        if anio is not None:
+            d = sorted((min((abs(anio - y) for y in _anios_persona(p, comunes, pool)), default=10**4), k)
+                       for k, p in enumerate(ps))
+            if d[0][0] < d[1][0]:
+                out.append(ps[d[0][1]])
+                continue
+        dudas.append(forma)
+    unicas: list[dict] = []
+    for p in out:
+        if p not in unicas:
+            unicas.append(p)
+    return unicas, dudas
+
+
+def linea_persona(persona: dict, pers_pool: dict) -> str:
+    """`rol de la ficha · lugar · años`: lugar y años del primer id P de la persona que los tenga en el pool."""
+    ps = [pers_pool[i] for i in persona.get("ids") or [] if i in pers_pool]
+    lugar = next((p["lugar"] for p in ps if p.get("lugar")), None)
+    anios = next((p["fechas_presente"] for p in ps if p.get("fechas_presente")), None)
+    return f"{(persona.get('rol') or '').strip().rstrip('.')} · {lugar or '-'} · {', '.join(anios or []) or '-'}"
 
 
 def expedientes(topic: dict, fu: dict, cap_beats: list[dict], anchors: list[str], assign: list[dict],
@@ -63,6 +129,8 @@ def expedientes(topic: dict, fu: dict, cap_beats: list[dict], anchors: list[str]
     crono = {t["id"]: t for t in pool.get("cronologia") or []}
     citas = {q["id"]: q for q in pool.get("citas") or []}
     pers = {p["id"]: p for p in pool.get("personajes") or []}
+    ficha_personas = (fu.get("ficha") or {}).get("personas") or []
+    nombro: dict[str, list[dict]] = {}          # párrafo → personas de la última ancla que nombró a alguien
     datos = {x["id"]: x for x in pool.get("datos") or []}
     esc_beats = {b["n"]: b for b in (fu.get("esc") or {}).get("beats") or []}
     by_n = {b["n"]: b for b in cap_beats or []}
@@ -88,22 +156,28 @@ def expedientes(topic: dict, fu: dict, cap_beats: list[dict], anchors: list[str]
                 facts.append(datos[x]["texto"])
             if x in crono and crono[x].get("evento"):
                 facts.append(f"{crono[x].get('fecha') or '-'} · {crono[x]['evento']}")
-        quien = [pers[x] for x in ids if x in pers]
-        quien += [p for p in pers.values() if p not in quien and _sale_entero(p["nombre"], ancla)]
         if anio_prev:
             respaldo = (anio_prev, "3) el último año dicho en la narración de los caps anteriores")
         elif re.match(r"\d{4}", b.get("fecha") or ""):
             respaldo = (b["fecha"][:4], "4) la fecha del dato_central del beat")
         else:
             respaldo = (year_topic, "5) topic_year")
+        anio_ancla = anio_del_texto(ancla)
+        a0 = str(anio_ancla or respaldo[0] or "")
+        quien, dudas = personas_del_ancla(ancla, int(a0) if a0.isdigit() else None, ficha_personas, pool)
+        fuente = "ancla" if quien else None
+        if quien:
+            nombro[par] = quien
+        elif nombro.get(par):                              # arrastre dentro del mismo párrafo, nunca entre párrafos
+            quien, fuente = nombro[par], "arrastre"
         out.append({
             "foto": i, "ancla": ancla, "parrafo": par, "beat": bn, "donde": donde,
             "escenas": [" · ".join(str(e.get(k) or "") for k in ("donde", "quien", "que_pasa", "sentidos")) for e in escenas],
             "facts": facts,
             "citas": [citas[x].get("texto") for x in ids if x in citas],
-            "people3": [f"{(p.get('rol') or '').strip().rstrip('.')} · {p.get('lugar') or '-'} · "
-                        f"{', '.join(p.get('fechas_presente') or []) or '-'}" for p in quien],
-            "anio_ancla": anio_del_texto(ancla), "respaldo": respaldo})
+            "people3": [linea_persona(p, pers) + (ARRASTRE if fuente == "arrastre" else "") for p in quien],
+            "personas": [p.get("nombre") for p in quien], "personas_fuente": fuente, "personas_dudas": dudas,
+            "anio_ancla": anio_ancla, "respaldo": respaldo})
     return out
 
 

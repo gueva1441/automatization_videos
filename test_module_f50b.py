@@ -76,12 +76,14 @@ TOPIC = {"evidence_pool": {
     "citas": [{"id": "q1", "texto": "Iba pegadita"}], "lugares": []}}
 FU = {"esc": {"beats": [{"n": 3, "dato_central": "c1", "datos_apoyo": ["d1", "q1", "p1"]}]},
       "ficha": {"escenas": [{"ids": ["c1"], "donde": "puerto", "quien": "familias", "que_pasa": "bajan",
-                             "sentidos": "calor"}]},
+                             "sentidos": "calor"}],
+                # F50c A: las personas salen de la ficha (y el ancla las nombra), no de los ids P del beat
+                "personas": [{"nombre": "Ana Pérez", "rol": "Esposa de minero.", "variantes": [], "ids": ["p1"]}]},
       "parrafos": [{"beat": 3, "texto": "En 1962 llegan al puerto."}]}
 
 
 def test_expediente_y_bloque():
-    exps = mexp.expedientes(TOPIC, FU, [{"n": 3, "fecha": "1962-05"}], ["En 1962 llegan al puerto."],
+    exps = mexp.expedientes(TOPIC, FU, [{"n": 3, "fecha": "1962-05"}], ["En 1962 Ana Pérez llega al puerto."],
                             [{"beat": 3, "cerrada": False}], None, "1961")
     e = exps[0]
     assert e["anio_ancla"] == "1962" and e["donde"] == ["Fremantle", "puerto"]
