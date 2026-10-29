@@ -9,7 +9,9 @@ Dos comparaciones:
 - «código solo»: el mismo código con el canon de antes (`antes/topic_wittenoom.json`, sin periods ni
   clothing_by_period) → `pedidos/codigo_solo/pedido_chNN.txt`. Aísla lo que cambia el código del cambio del canon.
 Salida: PEDIDOS_F50d.md. Sale 1 si la comparación «canon nuevo» cambia algo fuera de las dos zonas.
-Uso: python lab/hyperframes/f50d/pedidos_f50d.py
+Uso: python lab/hyperframes/f50d/pedidos_f50d.py [--salida DIR]
+F50f: `--salida DIR` escribe pedidos/, PEDIDOS_F50d.md y PEDIDOS.json (las filas) en DIR; el canon de antes sigue
+siendo `f50d/antes/topic_wittenoom.json` (el de los pedidos de F50c).
 """
 from __future__ import annotations
 
@@ -67,7 +69,8 @@ def main() -> int:
                                                           "anachronism_blocklist", "documented_props",
                                                           "central_subject", "people_groups")}}
     v = json.loads((ROOT / "data" / "scripts" / "_steps" / ex.TID / "03_visual.json").read_text(encoding="utf-8"))
-    (F50D / "pedidos" / "codigo_solo").mkdir(parents=True, exist_ok=True)
+    sal = Path(sys.argv[sys.argv.index("--salida") + 1]) if "--salida" in sys.argv else F50D
+    (sal / "pedidos" / "codigo_solo").mkdir(parents=True, exist_ok=True)
     canon_viejo = m03._format_seedream_canon_block(topic_viejo)        # el bloque del canon entero en F50c
     filas, fallas, detalle = [], [], []
     for cap in sorted(v["chapters"], key=lambda c: c["chapter_number"]):
@@ -77,8 +80,8 @@ def main() -> int:
         narr = next(c for c in narr_ch if c["chapter_number"] == n)["narration"].strip()
         p_nuevo, exps = ex.pedido_y_expedientes(mexp, topic, sch, narr, anchors, n)
         p_solo, _ = ex.pedido_y_expedientes(mexp, topic_viejo, sch, narr, anchors, n)
-        (F50D / "pedidos" / f"pedido_ch{n:02d}.txt").write_text(p_nuevo, encoding="utf-8")
-        (F50D / "pedidos" / "codigo_solo" / f"pedido_ch{n:02d}.txt").write_text(p_solo, encoding="utf-8")
+        (sal / "pedidos" / f"pedido_ch{n:02d}.txt").write_text(p_nuevo, encoding="utf-8")
+        (sal / "pedidos" / "codigo_solo" / f"pedido_ch{n:02d}.txt").write_text(p_solo, encoding="utf-8")
         ref = (F50C / "pedidos" / f"pedido_ch{n:02d}.txt").read_text(encoding="utf-8")
         cn, cs = comparar(ref, p_nuevo), comparar(ref, p_solo)
         crudo_solo = [x for x in difflib.unified_diff(ref.splitlines(), p_solo.splitlines(), lineterm="", n=0)
@@ -122,7 +125,9 @@ def main() -> int:
               *[x[:400] for x in crudo], "```", "", "### canon nuevo: diff por zona", ""]
         for z in ("era", "grupo", "resto"):
             L += [f"**{z}**", "", "```diff", *[x[:400] for x in cn[z]], "```", ""]
-    (F50D / "PEDIDOS_F50d.md").write_text("\n".join(L), encoding="utf-8")
+    (sal / "PEDIDOS_F50d.md").write_text("\n".join(L), encoding="utf-8")
+    (sal / "PEDIDOS.json").write_text(json.dumps({"filas": filas, "fallas": fallas}, ensure_ascii=False, indent=1),
+                                      encoding="utf-8")
     print(json.dumps({"filas": filas, "fallas": fallas}, ensure_ascii=False))
     return 0 if not fallas else 1
 
