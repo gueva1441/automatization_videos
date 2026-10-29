@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 14:25 (F52 etapa 3: los 8 clips y la hoja ciega, US$ 10,78; acumulado F52 11,26 de 16; PARADA: Omar elige en la hoja ciega) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 14:50 (F53a: Gemini Omni Flash rechazó las 2 fotos oscuras, Seedance las hizo sin suavizar; US$ 1,80 de 4; PARADA: deciden G o S para F53b) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,15 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F53a, PARADA): Gemini no aguanta el contenido oscuro; Seedance sí.
+- Con las 2 fotos más fuertes del canal (los condenados con la soga al cuello y el cuerpo amortajado de Old City Jail), **Gemini Omni Flash rechazó las 2** («dangerous content … Google's Responsible AI practices», marcando el prompt). **Seedance hizo las 2 sin tapar ni borrar nada**.
+- **Decidís con el analista:** G o S para F53b. Si G se queda, habría que probar si pasa con un prompt que nombre menos el contenido (otra tanda).
+- **Gasto:** US$ 1,80 de 4 (confirmar en el panel de fal).
+
+## F53a — moderación con contenido oscuro (handoff del analista, 2026-10-29 14:30) — PARADA
+- Commits: `0344920` etapa 0 (DECISIONES 14:24 y 14:30); `1bb2c37` etapas 1–2 (`elegidas.json`, `moderacion.py`, `reintento_g2.py`, `resultado.json`). El último commit es el del reporte (`lab/hyperframes/f53a/F53a_REPORT.md`).
+- foto2_G dio primero un 504 (servicio) y se reintentó una vez: 422 igual que foto1_G. Producción sin cambios; png y mp4 fuera de git.
 
 ## 👀 Para Omar (F52 etapa 3, PARADA): la hoja ciega está lista para que elijas.
 - Mirá `lab/hyperframes/f52/hoja_ciega/cap01_2x2.mp4` y `cap07_2x2.mp4` (4 modelos lado a lado, numerados 1–4 al azar, sin audio) y las hojas de contactos `cap01_contactos.png` y `cap07_contactos.png`. **No abras `LLAVE.md` antes de elegir**, ni `LECTURA_CC_DESPUES_DE_ELEGIR.md`, ni la tabla por modelo del reporte.
