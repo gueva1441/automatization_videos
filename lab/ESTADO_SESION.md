@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 00:30 (F50f: el canon pasa a Opus en producción y Wittenoom quedó en texto con papel nuevo; bug del filtro de nombres con «Court»; US$ 2,67; PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 02:00 (F50g-A: el aspecto del grupo del canon va al prompt de foto por código; 59 fotos de Wittenoom lo ganan; US$ 0; PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,21 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F50g-A, PARADA): **cambió producción en una cosa.** El prompt de cada foto con gente ahora dice cómo se ve el grupo, con los rasgos del canon; por ejemplo, en la 1/2: «Spanish Mediterranean people with olive to light skin, dark brown or black hair, dark eyes…».
+- Lo arma el código, sin modelo (US$ 0).
+- **Wittenoom:** 59 de 96 fotos lo ganan; las demás no tienen gente. Papel nuevo en `lab/hyperframes/f50g/PAPEL_FOTOS_WITTENOOM.md`.
+- **Sigue pendiente F50g-B:** el bug de «Court» (fotos 6/3 y 7/11), el corte Veo y `anio_final`.
+
+## F50g-A — Aspecto del grupo en el prompt (handoff del analista, 2026-10-29) — PARADA
+- Commits:
+  - `8ff5961` etapa 0: DECISIONES 01:29.
+  - `9f4ca2a` etapa 1: `armar` llena `aspecto` con el `appearance` de cada grupo de `people_group`, más `test_module_f50g.py` (6 tests, en la raíz porque `tests/` no existe).
+  - `a3b6684` etapa 2: `rearmar.py` en seco da 58/36 sobre las 94 del analista (59/37 sobre 96), mediana de palabras 136 → 157,5.
+  - `40ea9ee` etapa 3: `--escribir` (59 prompts) y el papel nuevo.
+  - El último commit es el del reporte.
+- Suites: rápida 55; amplia 991 + 4 previas; ch02 `f792f3d4…`; MAPA `--check` 0.
+- Abierto: repeticiones entre el sujeto y el aspecto (la prueba L/C sigue pendiente); F50g-B.
 
 ## 👀 Para Omar (F50f, PARADA): **cambió producción.** El canon visual ahora lo arma Opus en una llamada sin esquema; el camino Flash se borró.
 - **Wittenoom:**
