@@ -398,6 +398,21 @@ def _lineas_epoca(era: dict, anios=None) -> list:
     return out
 
 
+def _log_sin_period(topic: dict, anios, cap_number) -> str:
+    """F50f: cuántas fotos del cap no cruzan ningún period del canon y qué tramo les dio la regla del más cercano."""
+    periods = [pe for pe in (topic.get("era_visual_canon") or {}).get("periods") or [] if isinstance(pe, dict)]
+    if not periods:
+        return f"cap {cap_number}: canon sin periods (época única)"
+    sin = {}
+    for a in anios or []:
+        y = next(iter(re.findall(r"\d{4}", str(a or ""))), None)
+        if y and not any((t := _tramo(pe.get("years"))) and t[0] <= int(y) <= t[1] for pe in periods):
+            sin[y] = [pe.get("years") for pe in _periods_del_cap(periods, [y])]
+    n = sum(1 for a in anios or [] if next(iter(re.findall(r"\d{4}", str(a or ""))), None) in sin)
+    return (f"cap {cap_number}: {n} de {len(anios or [])} fotos sin period"
+            + ("" if not sin else " → " + "; ".join(f"{y}: {' · '.join(t)}" for y, t in sorted(sin.items()))))
+
+
 def _format_seedream_canon_block(topic: dict, anios=None) -> str:
     """Canon de 2 CAPAS para el user-prompt del skeleton (eslabón 3b cablea el 2).
 
@@ -628,6 +643,8 @@ def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number):
     extra += mexp.bloque(exps, topic.get("people_groups") or [])
     # F50d B: año de cada foto = el del expediente (ancla, si no el respaldo) → elige los tramos del canon
     anios = [e.get("anio_ancla") or (e.get("respaldo") or ("",))[0] for e in exps]
+    if not f8.get("refill"):
+        print(f"  [03] {_log_sin_period(topic, anios, cap_number)}")     # F50f: medida, no freno
     prompt = _build_seedream_prompt_step2(topic, cap_data, narration, anchors, extra, anios)
 
     def _validator(parsed):

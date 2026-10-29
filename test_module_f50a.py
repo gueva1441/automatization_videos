@@ -20,16 +20,17 @@ def test_adaptador_ficha_a_hechos():
 def test_canon_desde_ficha_pide_grupos_y_los_devuelve(monkeypatch):
     pedido = {}
 
-    def flash(prompt, response_schema=None, **k):
-        pedido.update(prompt=prompt, schema=response_schema)
-        return {"people_groups": [{"id": "miners", "who": "w"}, {"who": "sin id"}], "documented_props": None}
-    monkeypatch.setattr(s4e, "call_flash_json", flash)
+    def opus(prompt, **k):                                    # F50f: el canon va a Claude Opus, sin esquema
+        pedido.update(prompt=prompt, **k)
+        return {"era_visual_canon": {"periods": [{"years": "1937-1966"}]}, "documented_props": None,
+                "people_groups": [{"id": "miners", "who": "w"}, {"who": "sin id"}]}
+    monkeypatch.setattr(s4e.claude_helpers, "call_json", opus)
     topic = {"video_title": "Wittenoom", "evidence_pool": {"personajes": [
         {"rol": "Minero español.", "lugar": "Wittenoom", "fechas_presente": ["1962"]}]}}
     canon = s4e.canon_desde_ficha(topic, FICHA)
     assert canon["people_groups"] == [{"id": "miners", "who": "w"}] and canon["documented_props"] == []
     assert pedido["prompt"].endswith(s4e.TEXTO_S5 + "\n- Minero español · Wittenoom · 1962")
-    assert s4e.TEXTO_1_PEOPLE_GROUPS in pedido["prompt"] and "people_groups" in pedido["schema"].properties
+    assert s4e.TEXTO_1_PEOPLE_GROUPS in pedido["prompt"] and "response_schema" not in pedido
 
 
 @pytest.fixture

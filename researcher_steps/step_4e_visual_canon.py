@@ -1,7 +1,10 @@
 """
 researcher_steps/step_4e_visual_canon.py — Sub-paso 4e del módulo 00.
 
-Tarea ÚNICA: emitir el "canon visual" del tema en una sola llamada Flash.
+Tarea ÚNICA: emitir el "canon visual" del tema en una sola llamada a Claude Opus 5.5 (F50f, DECISIONES 2026-10-28
+23:34: antes era Flash con esquema; la API de Claude no acepta ese esquema —46 opcionales > 24—, así que la llamada va
+sin esquema y la salida JSON se parsea del texto). Si la llamada falla o la respuesta no trae `era_visual_canon.periods`
+y `people_groups`: CanonError (no hay canon vacío de respaldo).
 Datos estables del topic que m03 (extractor visual) y m05 (juez) consumen
 sin re-inferir.
 
@@ -26,7 +29,7 @@ prompt. era_visual_canon se extiende con una 2ª CAPA de campos SOURCED del
 sujeto puntual (materials_textures, color_palette, scale_dimensions,
 distinctive_features, demographics, visual_reference_availability,
 condition_evolution) que salen de ese bloque visual. color_palette se fuerza a
-flat-string vía response_schema nullable. C5: era/ropa que se colaba en
+flat-string (hasta F50f vía response_schema; hoy por el pedido + `_flatten_to_str`). C5: era/ropa que se colaba en
 documented_people.appearance_canon se remueve con un check determinista
 post-LLM. Las 7 keys de época viejas NO se tocan (m05 las lee).
 
@@ -71,9 +74,15 @@ nomenclatura de filesystem.
 
 import re
 
-from google.genai import types as genai_types
+import claude_helpers
 
-from gemini_helpers import call_flash_json
+# F50f: el modelo del canon y su esfuerzo (DECISIONES 2026-10-28 23:34; effort = guion_v4.ESFUERZO de Opus)
+MODELO_CANON = "claude-opus-5-5"
+ESFUERZO_CANON = "high"
+
+
+class CanonError(RuntimeError):
+    """F50f: el canon no salió (la llamada falló, o la respuesta no es JSON o le faltan `periods`/`people_groups`)."""
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -449,109 +458,6 @@ _ERA_REQUIRED_KEYS = (
 _PERSON_REQUIRED_KEYS = ("name", "role", "era", "appearance_canon")
 
 
-# ═══════════════════════════════════════════════════════════════
-#  RESPONSE SCHEMA (decisión B chat 93) — fuerza el TIPO, NO la presencia
-# ═══════════════════════════════════════════════════════════════
-#
-# Root-cause de color_palette dict {ext,int}: el modelo lo emitía como objeto.
-# El schema fuerza color_palette (y todos los sourced) a STRING. PERO: pasar un
-# response_schema vuelve los campos OBLIGATORIOS (gemini_helpers L127-129) → en
-# topics POBRES forzaría a inventar. Por eso TODO va nullable=True y NADA en
-# `required`: el modelo puede devolver null/"" sin presión de alucinar. Solo se
-# constriñe el TIPO. El flatten defensivo de _clean_era_canon es el cinturón.
-_STR = genai_types.Schema(type=genai_types.Type.STRING, nullable=True)
-
-_VISUAL_CANON_SCHEMA = genai_types.Schema(
-    type=genai_types.Type.OBJECT,
-    nullable=True,
-    properties={
-        "era_visual_canon": genai_types.Schema(
-            type=genai_types.Type.OBJECT,
-            nullable=True,
-            properties={
-                "primary_decade": _STR,
-                "spans": _STR,
-                "clothing": _STR,
-                "technology": _STR,
-                "vehicles_machinery": _STR,
-                "interiors": _STR,
-                "forbidden_anachronisms": _STR,
-                "materials_textures": _STR,
-                "color_palette": _STR,       # ← el objetivo: STRING, nunca objeto
-                "scale_dimensions": _STR,
-                "distinctive_features": _STR,
-                "demographics": _STR,
-                "visual_reference_availability": _STR,
-                "condition_evolution": genai_types.Schema(
-                    type=genai_types.Type.OBJECT,
-                    nullable=True,
-                    properties={"at_event": _STR, "later": _STR},
-                ),
-            },
-        ),
-        "documented_people": genai_types.Schema(
-            type=genai_types.Type.ARRAY,
-            nullable=True,
-            items=genai_types.Schema(
-                type=genai_types.Type.OBJECT,
-                properties={
-                    "name": _STR,
-                    "role": _STR,
-                    "age_at_event": genai_types.Schema(
-                        type=genai_types.Type.INTEGER, nullable=True
-                    ),
-                    "era": _STR,
-                    "appearance_canon": _STR,
-                },
-            ),
-        ),
-        "anachronism_blocklist": genai_types.Schema(
-            type=genai_types.Type.ARRAY,
-            nullable=True,
-            items=genai_types.Schema(type=genai_types.Type.STRING),
-        ),
-        # documented_props (eslabón 2): anclado = STRING plano, NO enum — _clean_prop
-        # lo normaliza a "si"/"no". nullable + nada en required → no presiona alucinar.
-        "documented_props": genai_types.Schema(
-            type=genai_types.Type.ARRAY,
-            nullable=True,
-            items=genai_types.Schema(
-                type=genai_types.Type.OBJECT,
-                properties={
-                    "nombre": _STR,
-                    "forma": _STR,
-                    "anclado": _STR,
-                    "foto_madre": _STR,
-                },
-            ),
-        ),
-        # central_subject: kind = STRING plano, NO enum — _clean_central_subject lo normaliza
-        # a object/person/place/other (default "other"). nullable → no presiona.
-        "central_subject": genai_types.Schema(
-            type=genai_types.Type.OBJECT,
-            nullable=True,
-            properties={
-                "kind": _STR,
-                "foto_madre": _STR,
-            },
-        ),
-    },
-)
-
-
-def _empty_canon() -> dict:
-    """Estructura vacía pero con shape correcto (para que m03/m05 no rompan)."""
-    era = {k: "" for k in _ERA_REQUIRED_KEYS}
-    era["condition_evolution"] = {"at_event": "", "later": ""}  # objeto, aparte
-    return {
-        "era_visual_canon": era,
-        "documented_people": [],
-        "anachronism_blocklist": [],
-        "documented_props": [],
-        "central_subject": {"kind": "other", "foto_madre": ""},
-    }
-
-
 def _flatten_to_str(v) -> str:
     """Aplana un valor a string plano. Si viene dict (ej: color_palette llegó
     como {exterior, interior} pese al schema), une sus valores en una frase en
@@ -752,50 +658,43 @@ def extract_visual_canon(
     verified_facts: list,
     canonical: str | None,
     extra: str = "",
-    schema=None,
 ) -> dict:
     """
-    Sub-paso 4e: emite el canon visual del tema.
+    Sub-paso 4e: emite el canon visual del tema (F50f: UNA llamada a `MODELO_CANON`, sin esquema).
 
     Args:
         seed: el seed original (necesita seed_title).
-        angle_blocks: los 3 bloques angulares (contexto de época).
-        verified_facts: facts ya cerrados del 4a.
+        angle_blocks: los bloques angulares (contexto de época; desde la ficha van vacíos).
+        verified_facts: los hechos (desde F50 A, la ficha vía `adaptador_facts`).
         canonical: canonical_subject_description del 4b (puede ser None).
+        extra: el bloque de people_groups (F50 A), al final del pedido.
 
     Returns:
-        dict con era_visual_canon, documented_people, anachronism_blocklist,
-        documented_props.
-        Si verified_facts está vacío o Flash falla, retorna estructura
-        vacía pero con shape correcto (no rompe el pipeline).
+        dict con era_visual_canon (con `periods`), documented_people, anachronism_blocklist, documented_props,
+        central_subject y people_groups.
+
+    Raises:
+        CanonError: sin hechos, si la llamada falla, o si la respuesta no trae `era_visual_canon.periods` ni
+        `people_groups` (F50f: sin canon vacío de respaldo).
     """
-    # Sin facts no podemos derivar época con seguridad. Devolver vacío.
     if not verified_facts:
-        return _empty_canon()
+        raise CanonError("sin hechos no hay canon visual")
 
     prompt = _build_prompt(seed, angle_blocks, verified_facts, canonical)
     if extra:                                                  # F50 A: el bloque de people_groups, al final
         prompt = prompt.rstrip() + "\n\n" + extra
-
-    data = None
     try:
-        # response_schema (decisión B): fuerza color_palette y sourced a STRING
-        # (nullable, no required → no presiona alucinar en topics pobres).
-        data = call_flash_json(prompt, response_schema=schema or _VISUAL_CANON_SCHEMA)
-    except Exception:
-        # El response_schema es la ÚNICA pieza no validada en lab (el probe del
-        # chat 93 corrió prompt-only). Si la API lo rechaza, degradá al camino
-        # prompt-only que SÍ se validó + flatten defensivo — NO a vacío (sería
-        # regresión para TODOS los topics). El prompt ya pide color_palette flat.
-        try:
-            data = call_flash_json(prompt)
-        except Exception:
-            # Ahora sí, fallo real del 4e. Tolerancia defensiva (espejo de 4b):
-            # no rompemos el m00 — m03 degrada a inferir, el pipeline sigue.
-            return _empty_canon()
-
+        data = claude_helpers.call_json(prompt, model=MODELO_CANON, effort=ESFUERZO_CANON,
+                                        description="canon visual")
+    except claude_helpers.ClaudeError as e:
+        raise CanonError(f"{MODELO_CANON}: {e}") from e
     if not isinstance(data, dict):
-        return _empty_canon()
+        raise CanonError(f"{MODELO_CANON}: la respuesta no es un objeto JSON")
+    raw_era = data.get("era_visual_canon")
+    if not (isinstance(raw_era, dict) and isinstance(raw_era.get("periods"), list) and raw_era["periods"]):
+        raise CanonError(f"{MODELO_CANON}: la respuesta no trae era_visual_canon.periods")
+    if not [g for g in data.get("people_groups") or [] if isinstance(g, dict) and g.get("id")]:
+        raise CanonError(f"{MODELO_CANON}: la respuesta no trae people_groups")
 
     # ─── BLOQUE 1: era_visual_canon ───
     raw_era = data.get("era_visual_canon", {})
@@ -824,7 +723,7 @@ def extract_visual_canon(
 
     # ─── BLOQUE 4: documented_props (eslabón 2) ───
     raw_props = data.get("documented_props", [])
-    if not isinstance(raw_props, list):  # el schema es nullable → puede venir None
+    if not isinstance(raw_props, list):  # puede venir None
         raw_props = []
     cleaned_props = [cp for rp in raw_props if (cp := _clean_prop(rp)) is not None]
 
@@ -835,8 +734,8 @@ def extract_visual_canon(
         "documented_props": cleaned_props,
         "central_subject": _clean_central_subject(data.get("central_subject")),
     }
-    if schema is not None:                                     # F50 A: grupos con id (= lab f46b.canon_c)
-        out["people_groups"] = [g for g in data.get("people_groups") or [] if isinstance(g, dict) and g.get("id")]
+    # F50 A: grupos con id (= lab f46b.canon_c)
+    out["people_groups"] = [g for g in data.get("people_groups") or [] if isinstance(g, dict) and g.get("id")]
     return out
 
 
@@ -856,21 +755,8 @@ Sin nombres propios de personas. Solo grupos que el material documenta; si el ma
 TEXTO_S5 = ("Personajes del material (rol · lugar · años; sin nombres). Que ningún grupo que aparezca acá quede fuera de "
             "people_groups:")
 
-# F50d A: la época y la ropa de cada grupo por tramo de años («AAAA-AAAA», como `spans`)
+# F50d A: la época por tramo de años («AAAA-AAAA», como `spans`): los campos de cada period
 PERIODO_CAMPOS = ("years", "clothing", "technology", "vehicles_machinery", "interiors")
-_PERIODO_SCHEMA = genai_types.Schema(type=genai_types.Type.OBJECT, properties={k: _STR for k in PERIODO_CAMPOS})
-_ROPA_TRAMO_SCHEMA = genai_types.Schema(type=genai_types.Type.OBJECT,
-                                        properties={k: _STR for k in ("years", "clothing")})
-_GRUPO_SCHEMA = genai_types.Schema(type=genai_types.Type.OBJECT, properties={
-    **{k: _STR for k in ("id", "who", "where_when", "appearance")},
-    "clothing_by_period": genai_types.Schema(type=genai_types.Type.ARRAY, nullable=True, items=_ROPA_TRAMO_SCHEMA)})
-_ERA_SCHEMA = _VISUAL_CANON_SCHEMA.properties["era_visual_canon"]
-VISUAL_CANON_SCHEMA_FICHA = genai_types.Schema(type=genai_types.Type.OBJECT, nullable=True, properties={
-    **_VISUAL_CANON_SCHEMA.properties,
-    "era_visual_canon": genai_types.Schema(type=genai_types.Type.OBJECT, nullable=True, properties={
-        **_ERA_SCHEMA.properties,     # los campos únicos se quedan: los leen m05_judge, m06_classifier y m03_imagenes_v3
-        "periods": genai_types.Schema(type=genai_types.Type.ARRAY, nullable=True, items=_PERIODO_SCHEMA)}),
-    "people_groups": genai_types.Schema(type=genai_types.Type.ARRAY, nullable=True, items=_GRUPO_SCHEMA)})
 
 
 def adaptador_facts(ficha: dict) -> list[dict]:
@@ -894,23 +780,24 @@ def bloque_people_groups(topic: dict) -> str:
 def _args_canon(topic: dict, ficha: dict) -> dict:
     return {"seed": {"seed_title": topic.get("video_title")}, "angle_blocks": {},
             "verified_facts": adaptador_facts(ficha), "canonical": topic.get("canonical_subject_description"),
-            "extra": bloque_people_groups(topic), "schema": VISUAL_CANON_SCHEMA_FICHA}
+            "extra": bloque_people_groups(topic)}
 
 
 def pedido_canon(topic: dict, ficha: dict) -> str:
-    """El texto exacto que `canon_desde_ficha` le manda a Flash (el mismo armado que `extract_visual_canon`)."""
+    """El texto exacto que `canon_desde_ficha` le manda al modelo (el mismo armado que `extract_visual_canon`)."""
     a = _args_canon(topic, ficha)
     return _build_prompt(a["seed"], a["angle_blocks"], a["verified_facts"], a["canonical"]).rstrip() + "\n\n" + a["extra"]
 
 
 def marca_canon(topic: dict, ficha: dict, ficha_bytes: bytes) -> str:
-    """F50d: md5(ficha + texto del pedido del canon + esquema). Cambiar el pedido o el esquema rehace el canon."""
+    """F50f: md5(ficha + texto del pedido del canon + modelo + esfuerzo). Cambiar el pedido o el modelo rehace el
+    canon en cualquier tema."""
     import hashlib
-    esquema = VISUAL_CANON_SCHEMA_FICHA.model_dump_json(exclude_none=True)
-    return hashlib.md5(ficha_bytes + pedido_canon(topic, ficha).encode("utf-8") + esquema.encode("utf-8")).hexdigest()
+    return hashlib.md5(ficha_bytes + pedido_canon(topic, ficha).encode("utf-8")
+                       + f"{MODELO_CANON}|{ESFUERZO_CANON}".encode("utf-8")).hexdigest()
 
 
 def canon_desde_ficha(topic: dict, ficha: dict) -> dict:
-    """El canon visual en UNA llamada a Flash, con la ficha como hechos (sin bloques de ángulo) y `people_groups`.
-    Todas las claves salen de esta respuesta."""
+    """El canon visual en UNA llamada a `MODELO_CANON`, con la ficha como hechos (sin bloques de ángulo) y
+    `people_groups`. Todas las claves salen de esta respuesta; si no sale, CanonError."""
     return extract_visual_canon(**_args_canon(topic, ficha))

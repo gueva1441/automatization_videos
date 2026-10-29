@@ -26,20 +26,11 @@ def test_f50d_a_las_tres_lineas_del_pedido():
     assert "- clothing: ropa, peinado y accesorios de ESE grupo en ESOS años" not in p
 
 
-def test_f50d_a_esquema_por_tramo_y_campos_unicos_que_se_quedan():
-    era = s4e.VISUAL_CANON_SCHEMA_FICHA.properties["era_visual_canon"].properties
-    assert set(era["periods"].items.properties) == set(s4e.PERIODO_CAMPOS)
-    assert {"clothing", "technology", "vehicles_machinery", "interiors"} <= set(era)   # los leen m05, m06 y v3
-    g = s4e.VISUAL_CANON_SCHEMA_FICHA.properties["people_groups"].items.properties
-    assert "clothing" not in g and set(g["clothing_by_period"].items.properties) == {"years", "clothing"}
-    assert "periods" not in s4e._VISUAL_CANON_SCHEMA.properties["era_visual_canon"].properties   # el viejo, intacto
-
-
 def test_f50d_a_la_respuesta_guarda_periods_y_ropa_por_tramo(monkeypatch):
     resp = {"era_visual_canon": {"primary_decade": "1960s", "periods": [
         {"years": "1937-1966", "clothing": "work shirts", "technology": "valve radios"}, "basura"]},
         "people_groups": [{"id": "g", "clothing_by_period": [{"years": "1958-1966", "clothing": "cotton"}]}]}
-    monkeypatch.setattr(s4e, "call_flash_json", lambda prompt, response_schema=None, **k: resp)
+    monkeypatch.setattr(s4e.claude_helpers, "call_json", lambda prompt, **k: resp)   # F50f: Opus
     c = s4e.canon_desde_ficha(TOPIC, FICHA)
     assert c["era_visual_canon"]["periods"] == [{"years": "1937-1966", "clothing": "work shirts",
                                                  "technology": "valve radios", "vehicles_machinery": "",
