@@ -1,0 +1,245 @@
+{
+ "cambio_cap01_K": [
+  "His left foot is wrapped",
+  "One foot is wrapped"
+ ],
+ "tipo_foto": {
+  "cap01": "image/jpeg",
+  "cap07": "image/jpeg"
+ },
+ "gastado_antes": 0.4767,
+ "peor_caso": 14.9,
+ "usd_clips": 10.7842,
+ "clips": {
+  "cap01_K": {
+   "clip": "cap01_K",
+   "endpoint": "kling/v4/image-to-video",
+   "campos": {
+    "start_image_url": "data:image/jpeg;base64,…",
+    "duration": 8,
+    "resolution": "1080p"
+   },
+   "prompt_palabras": 319,
+   "inicio": "2026-10-29T14:04:33",
+   "request_id": "01a188d5-cf4b-7811-9155-f9bb413e8313",
+   "espera_s": 291.4,
+   "respuesta": {},
+   "archivo": "clips\\cap01_K.mp4",
+   "ffprobe": {
+    "duracion_s": 8.042,
+    "ancho": 1920,
+    "alto": 1080,
+    "fps": 24.0,
+    "codec": "h264",
+    "cuadros": "193",
+    "audio": true
+   },
+   "usd": 1.2626
+  },
+  "cap01_S": {
+   "clip": "cap01_S",
+   "endpoint": "bytedance/seedance-2.5/image-to-video",
+   "campos": {
+    "image_url": "data:image/jpeg;base64,…",
+    "duration": "8",
+    "resolution": "720p",
+    "generate_audio": false
+   },
+   "prompt_palabras": 152,
+   "inicio": "2026-10-29T14:04:33",
+   "request_id": "01a188d5-cf69-7422-a376-814c1218b374",
+   "espera_s": 254.4,
+   "respuesta": {
+    "seed": 1541265252,
+    "draft_id": null
+   },
+   "archivo": "clips\\cap01_S.mp4",
+   "ffprobe": {
+    "duracion_s": 8.042,
+    "ancho": 1280,
+    "alto": 720,
+    "fps": 24.0,
+    "codec": "h264",
+    "cuadros": "193",
+    "audio": false
+   },
+   "usd": 3.7173
+  },
+  "cap01_F": {
+   "clip": "cap01_F",
+   "endpoint": "blackforestlabs/flux-3-max/image-to-video",
+   "campos": {
+    "image_url": "data:image/jpeg;base64,…",
+    "duration": 8,
+    "resolution": "1080p",
+    "generate_audio": false
+   },
+   "prompt_palabras": 122,
+   "inicio": "2026-10-29T14:04:33",
+   "request_id": "01a188d5-cf6e-7562-b9fc-0a2b888ba3c1",
+   "espera_s": 78.7,
+   "respuesta": {
+    "seed": 1668176,
+    "timings": {
+     "inference": 14.740386810852215
+    }
+   },
+   "archivo": "clips\\cap01_F.mp4",
+   "ffprobe": {
+    "duracion_s": 8.042,
+    "ancho": 1920,
+    "alto": 1088,
+    "fps": 24.0,
+    "codec": "h264",
+    "cuadros": "193",
+    "audio": false
+   },
+   "usd": 0.1709
+  },
+  "cap01_G": {
+   "clip": "cap01_G",
+   "endpoint": "google/gemini-omni-flash/v1.1/image-to-video",
+   "campos": {
+    "image_url": "data:image/jpeg;base64,…",
+    "duration": 8,
+    "resolution": "1080p"
+   },
+   "prompt_palabras": 167,
+   "inicio": "2026-10-29T14:04:33",
+   "request_id": "01a188d5-cda3-7953-8726-2d4dbc5560c4",
+   "espera_s": 83.1,
+   "respuesta": {},
+   "archivo": "clips\\cap01_G.mp4",
+   "ffprobe": {
+    "duracion_s": 8.043,
+    "ancho": 1920,
+    "alto": 1080,
+    "fps": 24.0,
+    "codec": "h264",
+    "cuadros": "192",
+    "audio": true
+   },
+   "usd": 0.2413
+  },
+  "cap07_K": {
+   "clip": "cap07_K",
+   "endpoint": "kling/v4/image-to-video",
+   "campos": {
+    "start_image_url": "data:image/jpeg;base64,…",
+    "duration": 8,
+    "resolution": "1080p"
+   },
+   "prompt_palabras": 302,
+   "inicio": "2026-10-29T14:04:33",
+   "request_id": "01a188d5-cdc9-71d3-b6ef-90c051c99219",
+   "espera_s": 294.9,
+   "respuesta": {},
+   "archivo": "clips\\cap07_K.mp4",
+   "ffprobe": {
+    "duracion_s": 8.042,
+    "ancho": 1920,
+    "alto": 1080,
+    "fps": 24.0,
+    "codec": "h264",
+    "cuadros": "193",
+    "audio": true
+   },
+   "usd": 1.2626
+  },
+  "cap07_S": {
+   "clip": "cap07_S",
+   "endpoint": "bytedance/seedance-2.5/image-to-video",
+   "campos": {
+    "image_url": "data:image/jpeg;base64,…",
+    "duration": "8",
+    "resolution": "720p",
+    "generate_audio": false
+   },
+   "prompt_palabras": 161,
+   "inicio": "2026-10-29T14:04:33",
+   "request_id": "01a188d5-cdb2-7b82-a8b9-a4b65bd41b6d",
+   "espera_s": 188.8,
+   "respuesta": {
+    "seed": 462223346,
+    "draft_id": null
+   },
+   "archivo": "clips\\cap07_S.mp4",
+   "ffprobe": {
+    "duracion_s": 8.042,
+    "ancho": 1280,
+    "alto": 720,
+    "fps": 24.0,
+    "codec": "h264",
+    "cuadros": "193",
+    "audio": false
+   },
+   "usd": 3.7173
+  },
+  "cap07_F": {
+   "clip": "cap07_F",
+   "endpoint": "blackforestlabs/flux-3-max/image-to-video",
+   "campos": {
+    "image_url": "data:image/jpeg;base64,…",
+    "duration": 8,
+    "resolution": "1080p",
+    "generate_audio": false
+   },
+   "prompt_palabras": 115,
+   "inicio": "2026-10-29T14:04:33",
+   "request_id": "01a188d5-cdb6-7953-86d7-5b118b85a4a8",
+   "espera_s": 93.8,
+   "respuesta": {
+    "seed": 1872701130,
+    "timings": {
+     "inference": 14.783449206966907
+    }
+   },
+   "archivo": "clips\\cap07_F.mp4",
+   "ffprobe": {
+    "duracion_s": 8.042,
+    "ancho": 1920,
+    "alto": 1088,
+    "fps": 24.0,
+    "codec": "h264",
+    "cuadros": "193",
+    "audio": false
+   },
+   "usd": 0.1709
+  },
+  "cap07_G": {
+   "clip": "cap07_G",
+   "endpoint": "google/gemini-omni-flash/v1.1/image-to-video",
+   "campos": {
+    "image_url": "data:image/jpeg;base64,…",
+    "duration": 8,
+    "resolution": "1080p"
+   },
+   "prompt_palabras": 165,
+   "inicio": "2026-10-29T14:04:33",
+   "request_id": "01a188d5-cdcb-7943-aa49-b8a7f10e3f12",
+   "espera_s": 104.7,
+   "respuesta": {},
+   "archivo": "clips\\cap07_G.mp4",
+   "ffprobe": {
+    "duracion_s": 8.043,
+    "ancho": 1920,
+    "alto": 1080,
+    "fps": 24.0,
+    "codec": "h264",
+    "cuadros": "192",
+    "audio": true
+   },
+   "usd": 0.2413
+  }
+ },
+ "prompts_enviados": {
+  "cap01_K": "[General settings]\nA dusty yard of a 1960s mining-town company house: red-ochre earth in the foreground, a long dull grey corrugated iron wall across the middle, and a pale washed-out sky above. Grainy 35mm documentary film look from the early sixties, with muted colors, slight underexposure, a somber realist tone, and one continuous shot. A young miner with olive skin and short dark hair stands in full figure at the center. He wears a dust-stained tan work shirt with sleeves rolled to the elbows, dark dusty trousers, and one worn leather boot. One foot is wrapped in a white bandage and lifted slightly forward, with its tip barely touching the red earth and his weight resting on the booted foot. Hard sunlight casts a sharp shadow from his legs across the ground. He looks straight into the lens with a stiff, serious expression.\n\n[Sequence]\n0–3 s: The camera holds the full-figure framing and begins a very slow push-in. Fine red dust drifts low across the ochre earth around his feet. He stands still in his stiff pose and breathes slowly, his chest rising and falling under the open collar.\n\n3–6 s: The slow push-in continues. A light breeze makes the loose shirt fabric and rolled sleeves stir faintly. The bandaged foot stays lifted and steady, its white wrapping sharp against the red ground. His gaze stays fixed on the camera, and his hands hang loosely at his sides.\n\n6 s–end: The camera settles slightly closer, with the bandaged foot still sharp in the lower frame and the corrugated wall flat and still behind him. Dust settles back onto the earth, and the sharp shadows hold steady in the hard light. He remains posed, quiet and unmoving, as if waiting for the shutter.\n\n[Audio]\nSoft dry wind across open ground, a faint hiss of drifting dust, and an occasional low tick of sun-heated corrugated iron. No subtitles, no background music.",
+  "cap01_S": "One single continuous shot, no cuts. The camera makes a very slow, steady push-in from the full-length framing toward a slightly closer shot, keeping the white bandaged foot sharp and inside the lower frame throughout.\n\n0–3 s: Fine red dust drifts low across the ochre earth, lifting and settling around his boot and the bandaged foot resting on its tip. He holds his stiff pose, weight on the booted leg, eyes fixed on the camera.\n\n3–6 s: A light breeze faintly stirs the loose dusty shirt and its rolled sleeves. His chest rises and falls with slow, shallow breaths, and his face stays still and unsmiling.\n\n6–8 s: The push-in eases to a stop. He remains in place, the bandaged foot motionless, while short sharp shadows stay steady under the hard, cold midday light.\n\nGrainy early-1960s 35mm documentary look, muted colors, slight underexposure, somber pace. No dialogue, no music, no on-screen text.",
+  "cap01_F": "A very slow push-in from the full-length eye-level framing to a slightly closer shot, keeping the same hard midday light, pale washed-out sky and sharp white bandage in the lower frame, on a young dark-haired miner in a dust-stained rolled-sleeve work shirt and dark trousers who holds his stiff pose with the bandaged foot lifted just off the ground, breathing slowly and staring steadily into the lens, in a red-ochre yard before a dull grey corrugated iron wall, as fine red dust drifts low across the earth and his shirt stirs faintly in a light breeze, short sharp shadows unchanged, grainy early-1960s 35mm documentary look with muted colors and slight underexposure, one continuous 8-second shot, no cuts, no on-screen text, no subtitles.",
+  "cap01_G": "Grainy early-1960s 35mm documentary look, muted colors, slight underexposure. Very slow push-in from this full-length shot of the young miner standing in the red-ochre yard in front of the grey corrugated iron wall. End slightly closer, with the white bandaged foot still sharp in the lower frame. He holds his stiff pose, weight on his booted foot, the bandaged foot resting lightly on its toes. His face stays steady and serious, eyes on the lens, and he breathes slowly. Fine red dust drifts low across the earth. The rolled sleeves of his dust-stained shirt stir faintly in a light breeze. Hard, cold midday light under a pale washed-out sky keeps the short sharp shadows steady. Keep his face, the dusty tan shirt, the dark dirt-streaked trousers, the white bandage, the corrugated wall and the red ground exactly as in the image. Sound: faint dry wind and a soft hiss of dust, distant quiet outback stillness. One continuous 8-second shot, no cuts, no dialogue, no music, no captions.",
+  "cap07_K": "[General settings]\nEarly-morning creek bed in a red Pilbara gorge, filmed as a slow, somber documentary on grainy 35mm film with muted colors, slight underexposure, and a quiet dark-history realist tone. An old long-handled shovel with a rusted blade stands upright, its blade sunk in a mound of blue-grey crocidolite tailings on the left of the frame. A thin, clear stream winds out of the distance and flows past the mound toward the lower right, over flat red-ochre stones. Behind the mound lies a still shallow pool. Spinifex clumps line the red-ochre bank on the right. Dark red cliffs rise on both sides under a pale, cold dawn sky. Long soft shadows lie across the ground. The camera is low at creek-bed level and moves very slowly in one continuous shot.\n\n[Sequence]\n0–3 s: Wide view of the upright shovel in the blue-grey tailings. The camera begins a very slow push-in toward the shovel. The stream slides steadily past the base of the mound, rippling softly over the flat stones and catching glints of pale light.\n\n3–6 s: The slow push-in continues. A faint breeze stirs the spinifex clumps on the right bank, and their thin blades sway gently. A few wisps of pale dust lift from the surface of the tailings and drift low across the mound. The water keeps flowing past the mound toward the lower right.\n\n6 s–end: The camera settles on a closer framing of the shovel's handle and sunken rusted blade, with the red-ochre bank and the moving stream behind it. The shovel stays perfectly still. Pale cold dawn light and long soft shadows hold steady over the gorge.\n\n[Audio]\nSoft, steady trickle of shallow water over stones, a faint dry wind, and a light rustle of spinifex. Quiet ambient gorge atmosphere. No background music. No subtitles.",
+  "cap07_S": "One single continuous shot, no cuts. Grainy 35mm documentary look, muted colors and slight underexposure, quiet and somber.\n\n0–3 s: From low at creek-bed level, the camera begins a very slow, steady push-in toward the upright shovel in the blue-grey tailings. The stream on the right slides steadily past the mound, its surface rippling softly and glinting in the pale light.\n\n3–6 s: The push-in continues smoothly. The water keeps flowing past the edge of the tailings and over the shallow pools. A faint breeze stirs the spinifex clumps on the right bank and in the background.\n\n6–8 s: The camera settles on a closer framing of the shovel and its sunken blade against the red-ochre bank. A few thin wisps of pale dust lift gently from the tailings and drift away. The shovel stays completely still and untouched. Light and shadows stay unchanged throughout.\n\nClip length: 8 seconds, one continuous shot, no cuts, no dialogue, no music, no on-screen text.",
+  "cap07_F": "Low at creek-bed level, the camera pushes in very slowly from the wide view toward the upright rusted shovel whose blade stays sunk in the blue-grey tailings, while the thin stream slides steadily past it over the stones and ripples through the shallow pools toward the floodplain, the red-ochre banks and dark gorge walls holding their place as a faint breeze stirs the spinifex clumps and lifts a few wisps of pale dust from the tailings, the same framing, pale cold dawn light and long soft shadows as the first frame kept throughout one continuous 8-second shot on grainy 35mm film with muted colors and slight underexposure, somber and still, no on-screen text, no subtitles.",
+  "cap07_G": "Slow push-in at creek-bed level on an old rusted shovel standing upright in a mound of blue-grey asbestos tailings, a thin creek flowing past on the right toward the floodplain. The shot starts wide and ends on a closer framing of the shovel and its sunken blade. The stream slides steadily over the stones and ripples into the shallow pools. Midway, a faint breeze stirs the spinifex clumps and lifts a few wisps of pale dust from the tailings. The shovel stays untouched and does not move. Keep the composition from the image: the shovel left of center in the tailings, the winding stream, the red-ochre banks and pools, the dark gorge walls under a pale sky. Pale cold dawn light and long soft shadows hold steady. The look is grainy 35mm documentary, muted colors, slight underexposure, somber and realist. Sound: only the soft trickle of water and a low breeze, with no music and no voices. One continuous 8-second shot, no cuts, no captions."
+ }
+}

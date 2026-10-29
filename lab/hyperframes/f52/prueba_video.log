@@ -1,0 +1,13 @@
+[14:09:29] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f52_lab_clips
+[14:09:29] INFO     | viral_pipeline | [cost_tracker] Video f52_lab_clips — Costo total: $10.7842
+gastado 0.4767 · peor caso de los 8 14.90 · tope 16.0
+cap01_F {'duracion_s': 8.042, 'ancho': 1920, 'alto': 1088, 'fps': 24.0, 'codec': 'h264', 'cuadros': '193', 'audio': False} · espera 78.7 s · US$ 0.1709
+cap01_G {'duracion_s': 8.043, 'ancho': 1920, 'alto': 1080, 'fps': 24.0, 'codec': 'h264', 'cuadros': '192', 'audio': True} · espera 83.1 s · US$ 0.2413
+cap01_K {'duracion_s': 8.042, 'ancho': 1920, 'alto': 1080, 'fps': 24.0, 'codec': 'h264', 'cuadros': '193', 'audio': True} · espera 291.4 s · US$ 1.2626
+cap01_S {'duracion_s': 8.042, 'ancho': 1280, 'alto': 720, 'fps': 24.0, 'codec': 'h264', 'cuadros': '193', 'audio': False} · espera 254.4 s · US$ 3.7173
+cap07_F {'duracion_s': 8.042, 'ancho': 1920, 'alto': 1088, 'fps': 24.0, 'codec': 'h264', 'cuadros': '193', 'audio': False} · espera 93.8 s · US$ 0.1709
+cap07_G {'duracion_s': 8.043, 'ancho': 1920, 'alto': 1080, 'fps': 24.0, 'codec': 'h264', 'cuadros': '192', 'audio': True} · espera 104.7 s · US$ 0.2413
+cap07_K {'duracion_s': 8.042, 'ancho': 1920, 'alto': 1080, 'fps': 24.0, 'codec': 'h264', 'cuadros': '193', 'audio': True} · espera 294.9 s · US$ 1.2626
+cap07_S {'duracion_s': 8.042, 'ancho': 1280, 'alto': 720, 'fps': 24.0, 'codec': 'h264', 'cuadros': '193', 'audio': False} · espera 188.8 s · US$ 3.7173
+US$ clips 10.7842
+exit 0
