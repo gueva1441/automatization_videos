@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 02:00 (F50g-A: el aspecto del grupo del canon va al prompt de foto por código; 59 fotos de Wittenoom lo ganan; US$ 0; PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 02:30 (F50h etapas 0–1: los 60 prompts L/C/C+ép de la prueba L contra C, en texto; US$ 0; PARADA antes de las fotos) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,24 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F50h, PARADA tras la etapa 1): ya están en texto los 3 armados de las 20 fotos de la prueba, en `lab/hyperframes/f50h/PROMPTS_F50h.md`:
+- **L**, el prompt de hoy;
+- **C**, el corto en el orden de fal;
+- **C+ép**, el corto con el estilo «foto real de ese año».
+
+C queda en una mediana de 131 palabras, contra 167,5 de L, y en 9 oraciones contra 13. No llega a las 2–4 oraciones de la guía de fal. US$ 0. Las fotos (etapa 2, ≤ US$ 4,20) y la visión (etapa 3) esperan tu OK después de que el analista revise los 60.
+
+## F50h — Prueba L contra C (handoff del analista, 2026-10-29) — PARADA tras la etapa 1
+- Commits:
+  - `de7f3e8` etapa 0: DECISIONES 02:03.
+  - `d218880` etapa 1: `f50h.py --prompts`.
+    - L = guardado 20/20;
+    - palabras, mediana: L 167,5 · C 131 · C+ép 139;
+    - oraciones, mediana: 13 · 9 · 9.
+  - El último commit es el del reporte.
+- Suites: rápida 55; amplia 991 + 4 previas; ch02 `f792f3d4…`.
+- Producción intacta.
 
 ## 👀 Para Omar (F50g-A, PARADA): **cambió producción en una cosa.** El prompt de cada foto con gente ahora dice cómo se ve el grupo, con los rasgos del canon; por ejemplo, en la 1/2: «Spanish Mediterranean people with olive to light skin, dark brown or black hair, dark eyes…».
 - Lo arma el código, sin modelo (US$ 0).
