@@ -49,10 +49,12 @@ def test_escaleta_f25_1_literal_y_un_solo_cambio():
 
 
 def test_guion_v5_4_literal_y_un_solo_cambio():
-    assert g4.system() == g4.SYSTEM_V5_4 == _sistema("PROMPT_GUIONISTA_v5_4.md") and g4.PROMPT_VERSION == "f25-1"
-    assert _md5(g4.system()) == "2f66c1e07e4d6c31178091371821c0c9"
+    # F54: el guion de hoy es el v5.5 (test_module_f54); el v5.4 queda con su versión
+    assert g4.system("f25-1") == g4.SYSTEM_V5_4 == _sistema("PROMPT_GUIONISTA_v5_4.md")
+    assert g4.PROMPT_VERSION_V5_4 == "f25-1"
+    assert _md5(g4.system("f25-1")) == "2f66c1e07e4d6c31178091371821c0c9"
     assert _md5(g4.system("f23-1")) == "8ca9aa494e3a0b9b4a99f60e6006c5f8"
-    (viejo, nuevo), = _dif(g4.system("f23-1"), g4.system())
+    (viejo, nuevo), = _dif(g4.system("f23-1"), g4.system("f25-1"))
     assert viejo.replace("Segunda: la promesa.", "Segunda: la promesa, como viene en la escaleta, sin agregarle lo "
                                                  "que va a pasar después.") == nuevo
     assert "f25-1" in g4.VERSIONES_V5 and "f23-1" in g4.VERSIONES_V5

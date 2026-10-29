@@ -126,12 +126,11 @@ def test_lo_demas_de_validate_no_rechaza():
         e["beats"][0].update(intensidad=4)                                     # baja antes del pico (sin flash-forward)
         e["beats"][2].update(imagen_sensorial="la desesperación")              # imagen abstracta / corta
         e["beats"][2].update(humano_en_escena=True)                            # humano en escena sin dato verificado
-        e["promesa_gancho"] = "Murieron 517 personas en 2005."                 # promesa con cifras
         e["beats"][1]["pregunta_pantalla"] = "Era cierto"                      # pregunta de pantalla mal formada
     esc, bloq, rep, otros = _mut(peor, _pool3())
     assert bloq == [] and len(otros) >= 4
     m = me.metricas_escaleta(esc, _pool3(), FICHA, otros)
-    assert m["curva_problemas"] and m["promesa_con_cifras"] and m["imagenes_abstractas"]
+    assert m["curva_problemas"] and m["imagenes_abstractas"]             # F54: la promesa con cifras ya no se mide
 
 
 # ═══════════════════════════════════════════════════════════════

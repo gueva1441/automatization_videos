@@ -3964,7 +3964,7 @@
   "script_engine/guion_v3_reglas.py": {
    "archivo": "script_engine/guion_v3_reglas.py",
    "zona": "guion",
-   "sticker": "Biblioteca de reglas de oficio sobre el texto del guion, sin modelo: una cita por párrafo, el gancho sin fechas ni fotos, juicios que el caso no respalda, rol de quien habla, voz de tráiler, relleno, nombre completo del humano, frases repetidas entre capítulos, fechas completas repetidas, eco después de una cita y cierre. En el camino actual no frena nada salvo el chequeo de rol; el resto sale como métrica de lectura del guion.",
+   "sticker": "Biblioteca de reglas de oficio sobre el texto del guion, sin modelo: una cita por párrafo, el gancho sin fechas ni fotos, juicios que el caso no respalda, rol de quien habla, voz de tráiler, relleno, nombre completo del humano, frases repetidas entre capítulos, fechas completas repetidas, eco después de una cita y cierre; cuenta además los años dichos y los datos por minuto de cada capítulo. En el camino actual no frena nada salvo el chequeo de rol; el resto sale como métrica de lectura del guion.",
    "recibe": "texto de los capítulos y párrafos del guion, la escaleta (01a_escaleta.json) y el pool de evidencia; el perfil de roles del caso (researcher_steps/research_v3.py vocabulario/caso)",
    "entrega": "listas de problemas (texto) y métricas que devuelve a guion_v4 / m01b_guionista / m01d_particion / m05_narrative; no escribe archivos",
    "modelo": [],
@@ -3992,7 +3992,7 @@
     "script_engine/m01d_particion.py",
     "script_engine/m05_narrative.py"
    ],
-   "tests": 5,
+   "tests": 6,
    "nacio": "b18a7b3 2026-10-22 (F7c2)",
    "ultimo": "03370af 2026-10-24 (F23)",
    "estado_a": "vivo",
@@ -4001,13 +4001,13 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "1cad66ff02590c35b5fdbbf2e399d86d",
+   "md5": "56fa13882009b0e5efe712ce052dedc2",
    "sticker_al_dia": true
   },
   "script_engine/guion_v4.py": {
    "archivo": "script_engine/guion_v4.py",
    "zona": "guion",
-   "sticker": "Escribe la narración del video: manda a un modelo la escaleta y los datos de cada capítulo y recibe los párrafos de voz. Después revisa lo que escribió (cifras o citas inventadas, rol equivocado de quien habla, contaminación de otros casos, capítulos vacíos), repara en una sola ronda corrigiendo solo las frases con problema y reemplaza las fechas repetidas por «ese día». Al final calcula métricas de lectura que nunca rechazan.",
+   "sticker": "Escribe la narración del video: manda a un modelo la escaleta y los datos de cada capítulo y recibe los párrafos de voz. Después revisa lo que escribió (cifras o citas inventadas, rol equivocado de quien habla, contaminación de otros casos, capítulos vacíos, el dato del cierre que el cap 7 no dice, una misma cita dicha en dos capítulos), repara en una sola ronda corrigiendo solo las frases con problema y reemplaza las fechas repetidas por «ese día». Al final calcula métricas de lectura que nunca rechazan (entre ellas, años dichos y datos por minuto de cada capítulo).",
    "recibe": "data/scripts/_steps/<id>/01a_escaleta.json, el pool de evidencia del topic y data/scripts/_steps/<id>/ficha_caso.json (el texto de cada dato sale de la ficha)",
    "entrega": "los párrafos del guion con sus ids y la lista de bloqueantes antes/después de reparar (fase1_5 los guarda en data/scripts/_steps/<id>/01b_guionista_v4.json); de ahí salen la partición en capítulos, el papel, la voz y la pantalla",
    "modelo": [
@@ -4051,7 +4051,7 @@
     "script_engine/m03_visual.py",
     "script_engine/video_prompt.py"
    ],
-   "tests": 15,
+   "tests": 16,
    "nacio": "6264058 2026-10-23 (F11)",
    "ultimo": "b181889 2026-10-25 (F27a)",
    "estado_a": "vivo",
@@ -4060,7 +4060,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "7e886d2ef7c9348d18cf0812e62dc77d",
+   "md5": "41b083ded14d7fac21f75496eb5a43d5",
    "sticker_al_dia": true
   },
   "script_engine/image_grade.py": {
@@ -4248,6 +4248,7 @@
    "compartido": true,
    "lo_llaman": [
     "fase1_5.py",
+    "script_engine/guion_v3_reglas.py",
     "script_engine/guion_v4.py",
     "script_engine/m01a_columna.py",
     "script_engine/m01b_guionista.py",
@@ -4255,7 +4256,7 @@
     "script_engine/m01d_particion.py",
     "script_engine/tts_tags.py"
    ],
-   "tests": 21,
+   "tests": 22,
    "nacio": "4b41280 2026-10-21 (F6b)",
    "ultimo": "fc59a76 2026-10-27 (F41)",
    "estado_a": "vivo",
@@ -4270,7 +4271,7 @@
    ],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "55d7026a9965e95c17e3a63638e8a23d",
+   "md5": "4ef8e56c3d0e414c210b564869d63095",
    "sticker_al_dia": true
   },
   "script_engine/m01a_skeleton.py": {

@@ -215,6 +215,24 @@ def fechas_literales_por_cap(caps: list[dict]) -> dict[int, int]:
     return {c["chapter_number"]: len(DATE_RE.findall(c.get("narration") or "")) for c in caps}
 
 
+def anios_por_cap(caps: list[dict]) -> dict[int, int]:
+    """F54 A.3 (métrica, sin freno): cuántos años literales dice cada cap, en cifras («1962») o en letras («mil
+    novecientos sesenta y dos», «dos mil siete»); cada mención cuenta."""
+    from script_engine.m01a_escaleta import NUM_PALABRA
+    rx = re.compile(rf"\b(?:\d{{4}}|mil (?:ochocientos|novecientos)(?: (?:{NUM_PALABRA}))?|dos mil (?:{NUM_PALABRA}))\b")
+    return {c["chapter_number"]: len(rx.findall(ev.norm(c.get("narration") or ""))) for c in caps}
+
+
+def datos_por_min(caps: list[dict], palabras_por_seg: float) -> dict[int, float]:
+    """F54 A.3 (métrica, sin freno): ids usados del cap (`datos_usados`) por minuto de duración estimada
+    (palabras / `palabras_por_seg`)."""
+    out = {}
+    for c in caps:
+        w = len((c.get("narration") or "").split())
+        out[c["chapter_number"]] = round(len(c.get("datos_usados") or []) / (w / palabras_por_seg / 60), 1) if w else 0.0
+    return out
+
+
 def date_problems(caps: list[dict]) -> list[str]:
     """F10 (Omar): la fecha completa (con año) de un día una sola vez en el video. F23 §1.1: el tope de una fecha
     literal por cap (DATE_MAX_PER_CAP) pasó a métrica (`fechas_literales_por_cap`)."""

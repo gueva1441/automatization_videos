@@ -46,7 +46,7 @@
   "_parte": "guion_b"
  },
  "script_engine/guion_v3_reglas.py": {
-  "sticker": "Biblioteca de reglas de oficio sobre el texto del guion, sin modelo: una cita por párrafo, el gancho sin fechas ni fotos, juicios que el caso no respalda, rol de quien habla, voz de tráiler, relleno, nombre completo del humano, frases repetidas entre capítulos, fechas completas repetidas, eco después de una cita y cierre. En el camino actual no frena nada salvo el chequeo de rol; el resto sale como métrica de lectura del guion.",
+  "sticker": "Biblioteca de reglas de oficio sobre el texto del guion, sin modelo: una cita por párrafo, el gancho sin fechas ni fotos, juicios que el caso no respalda, rol de quien habla, voz de tráiler, relleno, nombre completo del humano, frases repetidas entre capítulos, fechas completas repetidas, eco después de una cita y cierre; cuenta además los años dichos y los datos por minuto de cada capítulo. En el camino actual no frena nada salvo el chequeo de rol; el resto sale como métrica de lectura del guion.",
   "recibe": "texto de los capítulos y párrafos del guion, la escaleta (01a_escaleta.json) y el pool de evidencia; el perfil de roles del caso (researcher_steps/research_v3.py vocabulario/caso)",
   "entrega": "listas de problemas (texto) y métricas que devuelve a guion_v4 / m01b_guionista / m01d_particion / m05_narrative; no escribe archivos",
   "modelo": [],
@@ -56,11 +56,11 @@
   "estado": "vivo",
   "estado_prueba": "guion_v4.py:966 (role_problems en los bloqueantes), guion_v4.py:1097-1230 (closing_soft, echo_soft, antagonista_caps…), m01b_guionista.py:221 (review_v3 vía guion_v4.metricas, guion_v4.py:1216), m01d_particion.py:190, m05_narrative.py:130",
   "funciones_muertas": [],
-  "md5": "1cad66ff02590c35b5fdbbf2e399d86d",
+  "md5": "56fa13882009b0e5efe712ce052dedc2",
   "_parte": "guion_a"
  },
  "script_engine/guion_v4.py": {
-  "sticker": "Escribe la narración del video: manda a un modelo la escaleta y los datos de cada capítulo y recibe los párrafos de voz. Después revisa lo que escribió (cifras o citas inventadas, rol equivocado de quien habla, contaminación de otros casos, capítulos vacíos), repara en una sola ronda corrigiendo solo las frases con problema y reemplaza las fechas repetidas por «ese día». Al final calcula métricas de lectura que nunca rechazan.",
+  "sticker": "Escribe la narración del video: manda a un modelo la escaleta y los datos de cada capítulo y recibe los párrafos de voz. Después revisa lo que escribió (cifras o citas inventadas, rol equivocado de quien habla, contaminación de otros casos, capítulos vacíos, el dato del cierre que el cap 7 no dice, una misma cita dicha en dos capítulos), repara en una sola ronda corrigiendo solo las frases con problema y reemplaza las fechas repetidas por «ese día». Al final calcula métricas de lectura que nunca rechazan (entre ellas, años dichos y datos por minuto de cada capítulo).",
   "recibe": "data/scripts/_steps/<id>/01a_escaleta.json, el pool de evidencia del topic y data/scripts/_steps/<id>/ficha_caso.json (el texto de cada dato sale de la ficha)",
   "entrega": "los párrafos del guion con sus ids y la lista de bloqueantes antes/después de reparar (fase1_5 los guarda en data/scripts/_steps/<id>/01b_guionista_v4.json); de ahí salen la partición en capítulos, el papel, la voz y la pantalla",
   "modelo": [
@@ -83,7 +83,7 @@
   "estado": "vivo",
   "estado_prueba": "fase1_5.py:424-430 (run_guion_v4 llama g4.call_for, g4.write, g4.reparar y g4.metricas); fase1_5.py:512 lo corre desde process_topic; fase1_5.py:430 también g4.nota_b",
   "funciones_muertas": [],
-  "md5": "7e886d2ef7c9348d18cf0812e62dc77d",
+  "md5": "41b083ded14d7fac21f75496eb5a43d5",
   "_parte": "guion_a"
  },
  "script_engine/m01a_columna.py": {
@@ -137,7 +137,7 @@
     "por_que": "nadie la llama en producción ni en tests; solo la usan scripts viejos de lab/hyperframes (f6, f7, f10…); el docstring del módulo (línea 14) todavía la anuncia"
    }
   ],
-  "md5": "55d7026a9965e95c17e3a63638e8a23d",
+  "md5": "4ef8e56c3d0e414c210b564869d63095",
   "_parte": "guion_a"
  },
  "script_engine/m01a_skeleton.py": {

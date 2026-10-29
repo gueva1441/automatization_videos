@@ -32,9 +32,9 @@ ANTAGONISTA = " Su nombre va exactamente como está escrito en la ficha, sin sig
 
 
 def test_escaleta_f26_1_literal_contra_el_archivo():
-    assert me.SYSTEM_V2 == _sistema(F26 / "PROMPT_ESCALETA_f26_1.md") and me.PROMPT_VERSION_V2 == "f26-1"
-    assert _md5(me.SYSTEM_V2) == "2e67791cedbfa7492f8b6de1268b7b30"
-    assert me.PROMPT_VERSION_COLUMNA == "f26-1"
+    # F54: la escaleta de hoy es la f54-1 (test_module_f54); la f26-1 queda con su versión
+    assert me.SYSTEM_V2_F26_1 == _sistema(F26 / "PROMPT_ESCALETA_f26_1.md") and me.PROMPT_VERSION_V2_F26_1 == "f26-1"
+    assert _md5(me.SYSTEM_V2_F26_1) == "2e67791cedbfa7492f8b6de1268b7b30"
 
 
 def test_f25_1_queda_con_su_version():
@@ -43,7 +43,7 @@ def test_f25_1_queda_con_su_version():
 
 
 def test_solo_los_tres_agregados():
-    a, b = me.SYSTEM_V2_F25_1.split("\n"), me.SYSTEM_V2.split("\n")
+    a, b = me.SYSTEM_V2_F25_1.split("\n"), me.SYSTEM_V2_F26_1.split("\n")
     assert len(a) == len(b)
     dif = [(x, y) for x, y in zip(a, b) if x != y]
     assert len(dif) == 3
@@ -56,5 +56,5 @@ def test_solo_los_tres_agregados():
             if viejo.endswith(fin) and nuevo == viejo + add:
                 vistos.add((fin, add))
     assert vistos == esperado
-    assert me.SYSTEM_V2.replace(PROMESA, "").replace(PANTALLA, "").replace(ANTAGONISTA, "") == me.SYSTEM_V2_F25_1
+    assert me.SYSTEM_V2_F26_1.replace(PROMESA, "").replace(PANTALLA, "").replace(ANTAGONISTA, "") == me.SYSTEM_V2_F25_1
 

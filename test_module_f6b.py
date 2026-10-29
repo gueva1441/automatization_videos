@@ -72,8 +72,6 @@ def test_escaleta_buena_pasa():
     (lambda e: e["beats"][6].update(intensidad=2), "respiro"),
     (lambda e: e["beats"][4].update(dato_central="Q01"), "un id, un solo beat"),
     (lambda e: e["beats"][4].update(dato_central="D99"), "no existe"),
-    (lambda e: e.update(promesa_gancho="En 2005 todo se inundó."), "promesa del gancho"),
-    (lambda e: e.update(promesa_gancho="Dejaron a más de seis mil personas encerradas."), "promesa del gancho"),
     (lambda e: e["beats"][0].update(imagen_sensorial="la desesperación y la injusticia del sistema"), "ver, oír"),
     (lambda e: [b.update(humano_en_escena=False) for b in e["beats"][1:]], "en escena"),
     (lambda e: e["beats"][6].update(humano_en_escena=True), "sin un dato suyo"),
