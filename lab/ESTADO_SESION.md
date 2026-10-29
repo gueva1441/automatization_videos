@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 13:20 (F51f: la frase del cartel con una sola forma; Wittenoom rearmado sin LLM, cambian solo los 8 carteles; US$ 0; PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 13:45 (F52 etapas 0–2: 2 fotos de arranque y 8 prompts de video en texto, US$ 0,19 de 16; PARADA: el analista revisa los prompts y Omar dice «sigue» para los clips) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,16 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F52, PARADA antes de los clips): los 8 prompts de video están en texto, listos para revisar.
+- 4 modelos (Kling 4.0, Seedance 2.5, FLUX 3 Max, Gemini Omni Flash 1.1) × 2 clips de Wittenoom (caps 1 y 7). Las 2 fotos de arranque ya están: `lab/hyperframes/f52/fotos/`.
+- **Para decidir antes de gastar:** los prompts de Kling salieron en castellano (su ficha está en castellano); ningún modelo deja ajustar la tolerancia; Kling y Gemini no dejan apagar el audio (se descarta); la foto del cap 1 tiene el pie vendado en un ángulo raro.
+- **Gasto:** US$ 0,19 de 16. Los 8 clips costarían ≈ US$ 10,7 con los precios leídos de fal (≈ 14,9 con la estimación del handoff).
+- **Sigue:** el analista revisa `lab/hyperframes/f52/PROMPTS_F52.md`; los clips solo con tu «sigue».
+
+## F52 — prueba de 4 modelos de video, etapas 0–2 (handoff del analista, 2026-10-29 13:24) — PARADA
+- Commits: `35804d2` etapa 0 (DECISIONES 13:24); `8347f5e` etapa 1 (schemas y precios de fal; fotos `cap01.png`, `cap07.png`); `7b8d838` etapa 2 (fichas, `prompts_video.py`, `PROMPTS_F52.md`). El último commit es el del reporte (`lab/hyperframes/f52/F52_REPORT.md`).
+- Producción sin cambios. `lab/TOPE_TANDA.json` = 16,00 desde 13:29:18.
 
 ## 👀 Para Omar (F51f, PARADA): los 8 carteles de Wittenoom ya son gramaticales.
 - La frase del cartel va «… in clear crisp {font} lettering» (antes «in carved, in clear crisp lettering»); con una sola palabra, «The word "WITTENOOM" is …».
