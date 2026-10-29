@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 15:25 (F53b Parte A: perfiles de video G y K, track_video y video_prompt.py; 2 prompts de G en seco, US$ 0,065; PARADA A: el analista revisa los prompts y Omar dice «sigue» para la Parte B) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 15:45 (F53b Parte B: sale Veo, la cadena de clips es Gemini Omni Flash → Kling 4.0; 1 clip real del cap 7 con G, US$ 1,23; F53b 1,34 de 3; PARADA B) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,17 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F53b Parte B, PARADA B): Veo salió; los clips ahora los hace Gemini Omni Flash, y Kling si Google rechaza.
+- Por cada clip, Opus escribe el prompt de cada motor mirando la foto; si Gemini lo rechaza por contenido, pasa a Kling sin suavizar; la pista de audio se quita.
+- **Clip real:** el cap 7 de Wittenoom salió con Gemini, 1920×1080, 8 s, sin audio, US$ 1,20 (igual a lo que dice el panel). Está en `lab/hyperframes/f53b/clip/cap07_clip_01.mp4`.
+- **Prompt de Kling en seco** (cap 1): en `lab/hyperframes/f53b/SECO_K.md`, al lado del de Gemini; esta vez dice bien el pie derecho.
+- **Ojo:** la cadena todavía no pasó a Kling en una corrida real (solo en tests); `config.py` está fuera de git (los motores nuevos viven solo en esta PC); `lab/hyperframes/f50/veo_prueba.py` quedó roto (permitido).
+- **Gasto F53b:** US$ 1,34 de 3 (confirmar en el panel de fal).
+
+## F53b — Parte B (Omar: «sigue», 2026-10-29) — PARADA B
+- Commits: `4fda044` (cadena en `asset_manager`, sale Veo y `track_fal`, `qa_studio_server`, `fase2a` con `narration_anchor`, test de la cadena, seco de K, clip real); `0c1a16e` (sticker); `1c492ea` (`papel.py` sin Veo). El último commit es el del reporte (`lab/hyperframes/f53b/F53b_REPORT.md`, sección «Parte B»).
+- Suites: rápida 55; amplia 1053 + 4 previas; ch02 `f792f3d4…`; MAPA --check 0.
 
 ## 👀 Para Omar (F53b Parte A, PARADA A): el motor de clips nuevo está armado, todavía sin enchufar.
 - Ya hay perfiles para Gemini Omni Flash (G) y Kling 4.0 (K, el respaldo), el costo de un clip sale del perfil (G 1,20 y K 1,88 por clip de 8 s) y hay un módulo nuevo que le pide a Opus el prompt de video mirando la foto.
