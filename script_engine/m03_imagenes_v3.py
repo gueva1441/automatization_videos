@@ -566,13 +566,17 @@ _PREP_LUGAR = ("on", "in", "at", "above", "across", "along", "over", "under", "b
 
 
 # F50b: palabras de negación del inglés (gramática, no de un tema); «without» no, describe lo que sí hay
-_NEGADA = re.compile(r"\s*(?:with\s+)?(?:no|nobody|nothing|never|none)\b", re.I)
+# F50c: «No.» + cifra es abreviatura de número y «nothing but» dice lo que sí hay: no cuentan como negación
+_NEGADA = re.compile(r"\s*(?:with\s+)?(?:no(?!\.\s*\d)|nobody|nothing(?!\s+but\b)|never|none)\b", re.I)
+# F50c: el punto de «No.» + cifra («Cell No. 5») no cierra la cláusula
+_CORTE_CLAUSULA = re.compile(r"([,;]|\.(?!(?<=\b[Nn]o\.)\s*\d))")
 
 
 def _sin_negadas(texto: str) -> str:
     """Saca del casillero la cláusula (entre comas, punto y coma o punto) que empieza con no/nobody/nothing/never/none,
-    con un «with» delante opcional: Seedream dibuja lo que lee aunque esté negado. Puede quedar vacío."""
-    trozos = re.split(r"([,;.])", str(texto or ""))
+    con un «with» delante opcional: Seedream dibuja lo que lee aunque esté negado. Puede quedar vacío.
+    F50c: «No.» + cifra no corta ni niega («Cell No. 5», «No. 4 Shaft») y un trozo con «nothing but» se queda."""
+    trozos = _CORTE_CLAUSULA.split(str(texto or ""))
     quedan = []
     for k in range(0, len(trozos), 2):
         c, sep = trozos[k], (trozos[k + 1] if k + 1 < len(trozos) else "")
