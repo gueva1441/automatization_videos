@@ -60,7 +60,7 @@
   "_parte": "guion_a"
  },
  "script_engine/guion_v4.py": {
-  "sticker": "Escribe la narración del video: manda a un modelo la escaleta (con los loops declarados y qué pregunta paga cada beat) y los datos de cada capítulo y recibe los párrafos de voz. Después revisa lo que escribió (cifras o citas inventadas, rol equivocado de quien habla, contaminación de otros casos, capítulos vacíos, el dato del cierre que el cap 7 no dice, una misma cita dicha en dos capítulos, un pago declarado que la voz no dice), repara en una sola ronda corrigiendo solo las frases con problema y reemplaza las fechas repetidas por «ese día». Al final calcula métricas de lectura que nunca rechazan (entre ellas, años dichos y datos por minuto de cada capítulo).",
+  "sticker": "Escribe la narración del video: manda a un modelo la escaleta (con los loops declarados y qué pregunta paga cada beat) y los datos de cada capítulo y recibe los párrafos de voz. Después revisa lo que escribió (cifras o citas inventadas, rol equivocado de quien habla, contaminación de otros casos, capítulos vacíos, el dato del cierre que el cap 7 no dice, una misma cita dicha en dos capítulos, un pago declarado que la voz no dice; para un dato sin cifra ni fecha, la segunda opinión la da Sonnet por dicho_verificador y, si dice que sí, el dato entra a los ids del párrafo), repara en una sola ronda corrigiendo solo las frases con problema y reemplaza las fechas repetidas por «ese día». Al final calcula métricas de lectura que nunca rechazan (entre ellas, años dichos, datos por minuto, lo que confirmó Sonnet y lo que costó).",
   "recibe": "data/scripts/_steps/<id>/01a_escaleta.json, el pool de evidencia del topic y data/scripts/_steps/<id>/ficha_caso.json (el texto de cada dato sale de la ficha)",
   "entrega": "los párrafos del guion con sus ids y la lista de bloqueantes antes/después de reparar (fase1_5 los guarda en data/scripts/_steps/<id>/01b_guionista_v4.json); de ahí salen la partición en capítulos, el papel, la voz y la pantalla",
   "modelo": [
@@ -83,7 +83,7 @@
   "estado": "vivo",
   "estado_prueba": "fase1_5.py:424-430 (run_guion_v4 llama g4.call_for, g4.write, g4.reparar y g4.metricas); fase1_5.py:512 lo corre desde process_topic; fase1_5.py:430 también g4.nota_b",
   "funciones_muertas": [],
-  "md5": "ef696cf5cc2124a91ef4dcdb97aa71be",
+  "md5": "819d8f8ecd78a4ed244c0e1a42452359",
   "_parte": "guion_a"
  },
  "script_engine/m01a_columna.py": {
@@ -332,5 +332,23 @@
   "funciones_muertas": [],
   "md5": "a47150bcddfc73d9e0d1e575743d5566",
   "_parte": "guion_b"
+ },
+ "script_engine/dicho_verificador.py": {
+  "sticker": "Segunda opinión del detector de «lo que la voz dice» (F55): cuando un dato del cierre o de un pago no tiene cifra ni fecha que buscar, le pregunta a Sonnet 5.5 si alguna oración del capítulo dice ese hecho, con las mismas palabras o con otras, y solo acepta la respuesta si el fragmento que copia está en esa oración. Con la respuesta, el guion v4 da el dato por dicho o frena. Caché por capítulo dentro de la corrida; el gasto se registra en el cost_tracker.",
+  "recibe": "el texto del hecho (pool de evidencia) y las oraciones del capítulo que le pasa guion_v4 (cierre_no_dicho / pago_no_dicho)",
+  "entrega": "el número de la oración que dice el hecho, o nada; el contador de llamadas, caché y dólares para las métricas del guion (01b_guionista_v4.json → metricas.verificador y confirmados_sonnet)",
+  "modelo": [
+   {
+    "modelo": "claude-sonnet-5-5",
+    "para": "decir si una oración del cap dice el hecho (solo sin ancla)"
+   }
+  ],
+  "etapa": [
+   "guion"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "guion_v4.py (bloqueantes → cierre_no_dicho / pago_no_dicho lo importan)",
+  "md5": "09f2906f604c4efebf2570240e9355ef",
+  "_parte": "guion_a"
  }
 }

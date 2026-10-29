@@ -13,7 +13,8 @@ script_engine/guion_v4.py — F11 (HANDOFF_F11 §1): guion v4. Menos reglas, ofi
         d  contaminación                   m05.contamination
         e  cita SIN VERIFICAR con nombre   el bloque de m01b_guionista.review (salvo el humano: §1.1)
         f  cierre no dicho                 F54 A.2 (la (d) del handoff): el dato central del beat `cierre` no está
-                                           en los ids de su cap
+                                           en los ids de su cap. F55 A.3: si el dato no tiene ancla, decide Sonnet
+                                           (dicho_verificador); un «sí» entra a `ids_usados` del párrafo (alta)
         g  cita repetida                   F54 A.2 (la (e) del handoff): una misma Q dicha en dos caps
         h  pago no dicho                   F54 B.3 (la (f) del handoff): el dato central de un beat con `paga` (o del
                                            beat que paga un loop) no está en los ids de su cap
@@ -998,28 +999,55 @@ def unverified_named(esc: dict, pool: dict, parrafos: list[dict]) -> list[dict]:
     return out
 
 
-def cierre_no_dicho(esc: dict, parrafos: list[dict]) -> list[dict]:
+def _oraciones_cap(parrafos: list[dict], cap: int) -> list[tuple[int, str]]:
+    """F55 A.3: [(índice del párrafo en `parrafos`, oración)] de un cap, en orden."""
+    return [(k, s) for k, p in enumerate(parrafos) if p["cap"] == cap for s in ev._sentences(p["texto"])]
+
+
+def _dicho_o_verificado(b: dict, parrafos: list[dict], pool: dict, verificar: Callable[..., int | None] | None,
+                        que: str) -> tuple[bool, dict | None]:
+    """F55 A.3 (HANDOFF_F55 §1 «dato_central de pago/cierre → siempre verificador»): con ancla decide el código (está en
+    `ids_usados` del cap o no); sin ancla pregunta a `verificar` aunque A1/A2 digan sí. Devuelve (dicho, alta)."""
+    its = ev.items(pool)
+    it = its.get(b["dato_central"])
+    ids = {i for p in parrafos if p["cap"] == b["cap"] for i in p.get("ids_usados") or []}
+    if it is None or ev.anchors(it):
+        return b["dato_central"] in ids, None
+    if verificar is None:
+        return b["dato_central"] in ids, None
+    ors = _oraciones_cap(parrafos, b["cap"])
+    n = verificar(it.get("texto") or ev.text_of(it), [s for _, s in ors], id=b["dato_central"])
+    if not n:
+        return False, None
+    k, _ = ors[n - 1]
+    return True, {"id": b["dato_central"], "cap": b["cap"], "parrafo": k, "oracion": n, "regla": "sonnet", "que": que}
+
+
+def cierre_no_dicho(esc: dict, parrafos: list[dict], pool: dict | None = None,
+                    verificar: Callable[..., int | None] | None = None) -> tuple[list[dict], list[dict]]:
     """(f) F54 A.2: el `dato_central` del beat `funcion=cierre` tiene que estar en los ids (`ids_usados`) de los
-    párrafos de su cap (el 7); si no, el video no vuelve a lo que la escaleta cerró."""
-    out = []
+    párrafos de su cap (el 7); si no, el video no vuelve a lo que la escaleta cerró. F55 A.3: devuelve
+    (bloqueantes, altas); sin ancla decide `verificar` (Sonnet)."""
+    out, altas = [], []
     for b in esc.get("beats") or []:
         if b.get("funcion") != "cierre" or not b.get("dato_central"):
             continue
-        ids = {i for p in parrafos if p["cap"] == b["cap"] for i in p.get("ids_usados") or []}
-        if b["dato_central"] not in ids:
+        dicho, alta = _dicho_o_verificado(b, parrafos, pool or {}, verificar, "cierre")
+        if alta:
+            altas.append(alta)
+        if not dicho:
             out.append(_b("f", None, "", f"cierre no dicho: el dato central {b['dato_central']} del beat {b['n']} "
                                          f"(cierre) no está en el cap {b['cap']}", cap=b["cap"], beat=b["n"]))
-    return out
+    return out, altas
 
 
-def pago_no_dicho(esc: dict, parrafos: list[dict]) -> list[dict]:
+def pago_no_dicho(esc: dict, parrafos: list[dict], pool: dict | None = None,
+                  verificar: Callable[..., int | None] | None = None) -> tuple[list[dict], list[dict]]:
     """(h) F54 B.3: un beat marcado `paga` (o el beat que paga un loop) tiene que decir su `dato_central` en su cap
-    (`ids_usados`); si no, la pregunta que la escaleta dejó abierta no se paga en la voz."""
+    (`ids_usados`); si no, la pregunta que la escaleta dejó abierta no se paga en la voz. F55 A.3: devuelve
+    (bloqueantes, altas); sin ancla decide `verificar` (Sonnet)."""
     beats = {b["n"]: b for b in esc.get("beats") or []}
-    ids = {}
-    for p in parrafos:
-        ids.setdefault(p["cap"], set()).update(p.get("ids_usados") or [])
-    out, vistos = [], set()
+    out, altas, vistos = [], [], set()
     pagos = [(b["n"], f"la pregunta del beat {b['paga']}") for b in beats.values() if b.get("paga")]
     pagos += [(lp.get("paga_beat"), f"el loop {lp.get('id') or k}") for k, lp in enumerate(esc.get("loops") or [], 1)]
     for n, que in pagos:
@@ -1027,10 +1055,13 @@ def pago_no_dicho(esc: dict, parrafos: list[dict]) -> list[dict]:
         if not b or not b.get("dato_central") or (n, que) in vistos:
             continue
         vistos.add((n, que))
-        if b["dato_central"] not in ids.get(b["cap"], set()):
+        dicho, alta = _dicho_o_verificado(b, parrafos, pool or {}, verificar, que)
+        if alta and alta not in altas:
+            altas.append(alta)
+        if not dicho:
             out.append(_b("h", None, "", f"pago no dicho: el beat {n} paga {que} con {b['dato_central']}, que no "
                                          f"está en el cap {b['cap']}", cap=b["cap"], beat=n))
-    return out
+    return out, altas
 
 
 def cita_repetida(pool: dict, parrafos: list[dict]) -> list[dict]:
@@ -1103,9 +1134,15 @@ def largo_txt(palabras: int) -> str:
             + (f" (más que el tope de {_len('max_words')})" if palabras > _len("max_words") else ""))
 
 
+ULTIMAS_ALTAS: list[dict] = []      # F55 A.3: las altas de Sonnet de la última llamada a `bloqueantes` (→ metricas)
+
+
 def bloqueantes(topic: dict, esc: dict, parrafos: list[dict], largo: str = "abierto",
-                ficha: dict | None = None, version: str = PROMPT_VERSION) -> list[dict]:
+                ficha: dict | None = None, version: str = PROMPT_VERSION,
+                verificar: Callable[..., int | None] | None = None) -> list[dict]:
     """[{codigo, cap, beat, frase, motivo}] — lo único que frena. Lista vacía = pasa.
+    F55 A.3: `verificar` (por defecto `dicho_verificador.verificar`, Sonnet) decide (f) y (h) para un dato sin ancla;
+    cada alta se suma a `ids_usados` del párrafo que la dijo (en `parrafos`, en el lugar) y queda en ULTIMAS_ALTAS.
     F13: con `largo="abierto"` no se evalúa el cap fuera de ±25 % de su objetivo (quedan beat faltante, cap vacío y
     el tope `max_words`). F25c: el tope de palabras ya no frena: va a `metricas` («largo: N palabras ≈ M min»).
     F22b: (a) acepta las cifras de las líneas de datos que recibió el guionista (`datos_recibidos`, según `version`)."""
@@ -1131,9 +1168,18 @@ def bloqueantes(topic: dict, esc: dict, parrafos: list[dict], largo: str = "abie
             out.append(_b("d", p, t, f"fuera del caso (descartado en el pool): {x[:80]}"))
     out += unverified_named(esc, pool_j, parrafos)
     ps_ids = with_ids(parrafos, pool, esc)
-    out += cierre_no_dicho(esc, ps_ids)
-    out += cita_repetida(pool_j, parrafos)
-    out += pago_no_dicho(esc, ps_ids)
+    if verificar is None:
+        from script_engine.dicho_verificador import verificar as verificar_real
+        verificar = verificar_real
+    bf, af = cierre_no_dicho(esc, ps_ids, pool, verificar=verificar)
+    bh, ah = pago_no_dicho(esc, ps_ids, pool, verificar=verificar)
+    out += bf + cita_repetida(pool_j, parrafos) + bh
+    altas = af + [a for a in ah if a not in af]
+    for a in altas:                                      # opción a: entran a ids_usados como cualquier id
+        p = parrafos[a["parrafo"]]
+        if a["id"] not in (p.get("ids_usados") or []):
+            p["ids_usados"] = [*(p.get("ids_usados") or []), a["id"]]
+    ULTIMAS_ALTAS[:] = altas
     # (c) estructura
     written = {p["beat"] for p in parrafos}
     for b in esc["beats"]:
@@ -1395,6 +1441,8 @@ def metricas(topic: dict, esc: dict, parrafos: list[dict], *, declared: bool = F
             "antagonista_tipo": antagonista_tipo(esc), "antagonista_caps": antagonista_caps(caps, esc, pool),
             "fechas_literales_por_cap": fechas_literales_por_cap(caps),            # F23 §1.1 (métrica)
             "anios_por_cap": anios_por_cap(caps),                                  # F54 A.3 (métrica, sin freno)
+            "confirmados_sonnet": list(ULTIMAS_ALTAS),                             # F55 A.3: las altas de (f)/(h)
+            "verificador": __import__("script_engine.dicho_verificador", fromlist=["x"]).estado(),
             "datos_por_min": datos_por_min(caps, PALABRAS_POR_SEG),                # F54 A.3 (métrica, sin freno)
             "por_cap": rv["por_cap"], "ids_por_parrafo": ids_per_paragraph(ps, pool, esc, declared=declared)}
 

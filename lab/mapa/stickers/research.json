@@ -346,7 +346,7 @@
   "_parte": "research_c"
  },
  "script_engine/evidence.py": {
-  "sticker": "Caja de herramientas común para leer el pool de evidencia: junta todos los ítems por id, dice qué cifra, fecha o nombre tiene que sonar literal en la narración para contar que el dato se usó (en dígitos o en palabras), detecta datos repetidos dentro de un capítulo, decide si dos ítems cuentan el mismo hecho y arregla mayúsculas pegadas. No llama a ningún modelo.",
+  "sticker": "Caja de herramientas común para leer el pool de evidencia: junta todos los ítems por id, dice qué cifra, fecha o nombre tiene que sonar literal en la narración para contar que el dato se usó (en dígitos o en palabras) y, desde F55, también da por dicho un dato sin cifra ni fecha si una oración trae su año y una palabra del hecho (A1) o la mitad de sus palabras de contenido (A2); detecta datos repetidos dentro de un capítulo, decide si dos ítems cuentan el mismo hecho y arregla mayúsculas pegadas. No llama a ningún modelo.",
   "recibe": "el evidence_pool (dict con datos, cronologia, citas, lugares, personajes) y textos de narración",
   "entrega": "funciones puras: items(), anchors(), used_in(), same_fact(), item_date(), repeats_in_cap(), is_hard(), fix_glued_caps(), etc.; no escribe archivos",
   "modelo": [],
@@ -365,7 +365,7 @@
     "por_que": "nadie la nombra en producción ni en tests; solo aparece en el docstring del módulo"
    }
   ],
-  "md5": "ac5d3d06d8dade5571556b7f66646fb9",
+  "md5": "632a1a2b55d0196c668228bda10cfd3a",
   "_parte": "research_c"
  },
  "script_engine/learned_patterns.py": {

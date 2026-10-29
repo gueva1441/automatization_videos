@@ -162,16 +162,93 @@ def _sentences(text: str) -> list[str]:
     return [x for x in re.split(r"(?<=[.!?…])\s+", str(text)) if x.strip()]
 
 
-def used_in(text: str, it: dict[str, Any]) -> bool:
+# F55 A.1 (DECISIONES 2026-10-29 19:16; HANDOFF_F55 §1): un `datos` sin ancla también cuenta como dicho por A1 (año de
+# 4 dígitos + ≥ 1 palabra de contenido del hecho en la misma oración) o A2 (≥ UMBRAL_A2 de las palabras de contenido
+# del hecho en una oración, mínimo A2_MIN_COINCIDENCIAS). Constante propia: no es la de `same_fact`.
+UMBRAL_A2 = 0.5                 # DECISIONES: HANDOFF_F55 §1 A2 (derivado: 6/6 marcados en la voz; D10 queda en 0,43)
+A2_MIN_COINCIDENCIAS = 2        # DECISIONES: HANDOFF_F55 §1 A2 («mín. 2 coincidencias»)
+
+
+def _anio_sin_guion(it: dict[str, Any]) -> str | None:
+    f = str(it.get("fecha") or "")
+    return f if re.fullmatch(r"\d{4}", f) else None
+
+
+def _formas_anio(anio: str) -> list[str]:
+    from script_engine.num_es import variants
+    return variants(anio)
+
+
+def _oracion_a1(anio: str, texto_hecho: str, sentences: list[str]) -> int | None:
+    formas = _formas_anio(anio)
+    quitar = {w[:6] for f in formas for w in re.findall(r"[^\W\d_]{5,}", norm(f))}
+    words = _content(texto_hecho) - quitar
+    for k, s in enumerate(sentences):
+        ns = norm(s)
+        if any(re.search(rf"(?<![\w]){re.escape(norm(f))}(?![\w])", ns) for f in formas) and words & _content(s):
+            return k
+    return None
+
+
+def _oracion_a2(texto_hecho: str, sentences: list[str]) -> int | None:
+    c = _content(texto_hecho)
+    if not c:
+        return None
+    for k, s in enumerate(sentences):
+        inter = len(c & _content(s))
+        if inter >= A2_MIN_COINCIDENCIAS and inter / len(c) >= UMBRAL_A2:
+            return k
+    return None
+
+
+def _oracion_ancla(text: str, it: dict[str, Any]) -> int | None:
+    """El código de siempre (anclas), devolviendo la oración: para los eventos con fecha, la que trae ancla y palabra
+    del hecho; para el resto, la primera oración con el ancla (o 0 si el ancla cruza oraciones)."""
     ancs = anchors(it)
     dated = it.get("_kind") == "cronologia" or (it.get("_kind") == "datos" and it.get("tipo") == "fecha")
+    ss = _sentences(text)
     if not dated:
-        return any(literal_in(a, text) for a in ancs)
+        if not any(literal_in(a, text) for a in ancs):
+            return None
+        return next((k for k, s in enumerate(ss) if any(literal_in(a, s) for a in ancs)), 0)
     words = _content(text_of(it)) - {w[:6] for a in ancs for w in re.findall(r"[a-zñ]{5,}", norm(a))}
-    for s in _sentences(text):
+    for k, s in enumerate(ss):
         if any(literal_in(a, s) for a in ancs) and (not words or words & _content(s)):
-            return True
-    return False
+            return k
+    return None
+
+
+def regla_dicho(text: str, it: dict[str, Any]) -> str | None:
+    """Por qué el texto «dice» el ítem: "ancla" (código de siempre), "A1", "A2" o None. Con ancla, nada cambia; sin
+    ancla solo los `datos` entran a A1 (si `fecha` es un año de 4 dígitos) y después a A2."""
+    if anchors(it):
+        return "ancla" if _oracion_ancla(text, it) is not None else None
+    if it.get("_kind") != "datos":
+        return None
+    ss = _sentences(text)
+    anio = _anio_sin_guion(it)
+    if anio and _oracion_a1(anio, it.get("texto") or "", ss) is not None:
+        return "A1"
+    return "A2" if _oracion_a2(it.get("texto") or "", ss) is not None else None
+
+
+def oracion_dicha(text: str, it: dict[str, Any]) -> int | None:
+    """Índice (en `_sentences(text)`) de la oración que acertó, por la misma regla que `regla_dicho`; None si no se dice."""
+    if anchors(it):
+        return _oracion_ancla(text, it)
+    if it.get("_kind") != "datos":
+        return None
+    ss = _sentences(text)
+    anio = _anio_sin_guion(it)
+    if anio:
+        k = _oracion_a1(anio, it.get("texto") or "", ss)
+        if k is not None:
+            return k
+    return _oracion_a2(it.get("texto") or "", ss)
+
+
+def used_in(text: str, it: dict[str, Any]) -> bool:
+    return regla_dicho(text, it) is not None
 
 
 def format_pool(pool: dict[str, Any] | None, ids: list[str] | None = None) -> str:

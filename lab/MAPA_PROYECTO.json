@@ -322,6 +322,7 @@
    "compuertas": [],
    "sin_form": "",
    "propios": [
+    "dicho_verificador",
     "ficha_caso",
     "gpt_helpers",
     "guion_v3_reglas",
@@ -569,7 +570,7 @@
   "topic_validator.py"
  ],
  "conteo": {
-  "vivo": 133,
+  "vivo": 134,
   "solo herramienta manual": 13,
   "huérfano": 11,
   "roto": 0,
@@ -970,6 +971,7 @@
    "lo_llaman": [
     "researcher_steps/ficha_caso.py",
     "researcher_steps/step_4e_visual_canon.py",
+    "script_engine/dicho_verificador.py",
     "script_engine/guion_v4.py",
     "script_engine/m01a_escaleta.py",
     "script_engine/m01e_pantalla.py",
@@ -3192,10 +3194,58 @@
    "md5": "1e89f18904d5572d74e30bd381865b4a",
    "sticker_al_dia": true
   },
+  "script_engine/dicho_verificador.py": {
+   "archivo": "script_engine/dicho_verificador.py",
+   "zona": "orquestador",
+   "sticker": "Segunda opinión del detector de «lo que la voz dice» (F55): cuando un dato del cierre o de un pago no tiene cifra ni fecha que buscar, le pregunta a Sonnet 5.5 si alguna oración del capítulo dice ese hecho, con las mismas palabras o con otras, y solo acepta la respuesta si el fragmento que copia está en esa oración. Con la respuesta, el guion v4 da el dato por dicho o frena. Caché por capítulo dentro de la corrida; el gasto se registra en el cost_tracker.",
+   "recibe": "el texto del hecho (pool de evidencia) y las oraciones del capítulo que le pasa guion_v4 (cierre_no_dicho / pago_no_dicho)",
+   "entrega": "el número de la oración que dice el hecho, o nada; el contador de llamadas, caché y dólares para las métricas del guion (01b_guionista_v4.json → metricas.verificador y confirmados_sonnet)",
+   "modelo": [
+    {
+     "modelo": "claude-sonnet-5-5",
+     "para": "decir si una oración del cap dice el hecho (solo sin ancla)"
+    }
+   ],
+   "modelos": [
+    "Claude Sonnet"
+   ],
+   "etapas_a": [
+    "research",
+    "guion",
+    "papel",
+    "voz",
+    "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
+    "packaging"
+   ],
+   "etapas_sticker": [
+    "guion"
+   ],
+   "compartido": true,
+   "lo_llaman": [
+    "script_engine/guion_v4.py"
+   ],
+   "tests": 1,
+   "nacio": "(fuera de git)",
+   "ultimo": "(fuera de git)",
+   "estado_a": "vivo",
+   "estado": "vivo",
+   "estado_prueba": "guion_v4.py (bloqueantes → cierre_no_dicho / pago_no_dicho lo importan)",
+   "funciones_muertas": [],
+   "imports_rotos": [],
+   "sin_llamador_a": [
+    "reset"
+   ],
+   "md5": "09f2906f604c4efebf2570240e9355ef",
+   "sticker_al_dia": true
+  },
   "script_engine/evidence.py": {
    "archivo": "script_engine/evidence.py",
    "zona": "research",
-   "sticker": "Caja de herramientas común para leer el pool de evidencia: junta todos los ítems por id, dice qué cifra, fecha o nombre tiene que sonar literal en la narración para contar que el dato se usó (en dígitos o en palabras), detecta datos repetidos dentro de un capítulo, decide si dos ítems cuentan el mismo hecho y arregla mayúsculas pegadas. No llama a ningún modelo.",
+   "sticker": "Caja de herramientas común para leer el pool de evidencia: junta todos los ítems por id, dice qué cifra, fecha o nombre tiene que sonar literal en la narración para contar que el dato se usó (en dígitos o en palabras) y, desde F55, también da por dicho un dato sin cifra ni fecha si una oración trae su año y una palabra del hecho (A1) o la mitad de sus palabras de contenido (A2); detecta datos repetidos dentro de un capítulo, decide si dos ítems cuentan el mismo hecho y arregla mayúsculas pegadas. No llama a ningún modelo.",
    "recibe": "el evidence_pool (dict con datos, cronologia, citas, lugares, personajes) y textos de narración",
    "entrega": "funciones puras: items(), anchors(), used_in(), same_fact(), item_date(), repeats_in_cap(), is_hard(), fix_glued_caps(), etc.; no escribe archivos",
    "modelo": [],
@@ -3222,6 +3272,7 @@
    "lo_llaman": [
     "fase2b.py",
     "researcher_steps/ficha_caso.py",
+    "script_engine/dicho_verificador.py",
     "script_engine/gfx_guion.py",
     "script_engine/gfx_pool.py",
     "script_engine/gfx_realizador.py",
@@ -3242,7 +3293,7 @@
     "script_engine/voz_datos.py",
     "script_engine/voz_utils.py"
    ],
-   "tests": 7,
+   "tests": 8,
    "nacio": "2be6c11 2026-10-20 (F5)",
    "ultimo": "03370af 2026-10-24 (F23)",
    "estado_a": "vivo",
@@ -3257,9 +3308,10 @@
    ],
    "imports_rotos": [],
    "sin_llamador_a": [
+    "oracion_dicha",
     "format_pool"
    ],
-   "md5": "ac5d3d06d8dade5571556b7f66646fb9",
+   "md5": "632a1a2b55d0196c668228bda10cfd3a",
    "sticker_al_dia": true
   },
   "script_engine/flow_director.py": {
@@ -4007,7 +4059,7 @@
   "script_engine/guion_v4.py": {
    "archivo": "script_engine/guion_v4.py",
    "zona": "guion",
-   "sticker": "Escribe la narración del video: manda a un modelo la escaleta (con los loops declarados y qué pregunta paga cada beat) y los datos de cada capítulo y recibe los párrafos de voz. Después revisa lo que escribió (cifras o citas inventadas, rol equivocado de quien habla, contaminación de otros casos, capítulos vacíos, el dato del cierre que el cap 7 no dice, una misma cita dicha en dos capítulos, un pago declarado que la voz no dice), repara en una sola ronda corrigiendo solo las frases con problema y reemplaza las fechas repetidas por «ese día». Al final calcula métricas de lectura que nunca rechazan (entre ellas, años dichos y datos por minuto de cada capítulo).",
+   "sticker": "Escribe la narración del video: manda a un modelo la escaleta (con los loops declarados y qué pregunta paga cada beat) y los datos de cada capítulo y recibe los párrafos de voz. Después revisa lo que escribió (cifras o citas inventadas, rol equivocado de quien habla, contaminación de otros casos, capítulos vacíos, el dato del cierre que el cap 7 no dice, una misma cita dicha en dos capítulos, un pago declarado que la voz no dice; para un dato sin cifra ni fecha, la segunda opinión la da Sonnet por dicho_verificador y, si dice que sí, el dato entra a los ids del párrafo), repara en una sola ronda corrigiendo solo las frases con problema y reemplaza las fechas repetidas por «ese día». Al final calcula métricas de lectura que nunca rechazan (entre ellas, años dichos, datos por minuto, lo que confirmó Sonnet y lo que costó).",
    "recibe": "data/scripts/_steps/<id>/01a_escaleta.json, el pool de evidencia del topic y data/scripts/_steps/<id>/ficha_caso.json (el texto de cada dato sale de la ficha)",
    "entrega": "los párrafos del guion con sus ids y la lista de bloqueantes antes/después de reparar (fase1_5 los guarda en data/scripts/_steps/<id>/01b_guionista_v4.json); de ahí salen la partición en capítulos, el papel, la voz y la pantalla",
    "modelo": [
@@ -4051,16 +4103,16 @@
     "script_engine/m03_visual.py",
     "script_engine/video_prompt.py"
    ],
-   "tests": 16,
+   "tests": 17,
    "nacio": "6264058 2026-10-23 (F11)",
-   "ultimo": "8935ef2 2026-10-29 (F54)",
+   "ultimo": "0c4eaa4 2026-10-29 (F55)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py:424-430 (run_guion_v4 llama g4.call_for, g4.write, g4.reparar y g4.metricas); fase1_5.py:512 lo corre desde process_topic; fase1_5.py:430 también g4.nota_b",
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "ef696cf5cc2124a91ef4dcdb97aa71be",
+   "md5": "819d8f8ecd78a4ed244c0e1a42452359",
    "sticker_al_dia": true
   },
   "script_engine/image_grade.py": {
@@ -4822,7 +4874,7 @@
     "script_engine/m01b_narrator.py",
     "script_engine/m01c_editor.py"
    ],
-   "tests": 10,
+   "tests": 11,
    "nacio": "fc955ef 2026-10-20 (F5)",
    "ultimo": "03370af 2026-10-24 (F23)",
    "estado_a": "vivo",
@@ -7312,7 +7364,7 @@
    "lo_llaman": [],
    "tests": 0,
    "nacio": "40a434d 2026-10-25 (F26d)",
-   "ultimo": "601a5bf 2026-10-27 (F42)",
+   "ultimo": "0c4eaa4 2026-10-29 (F55)",
    "estado_a": "solo herramienta manual",
    "estado": "solo herramienta manual",
    "estado_prueba": "es un README: nadie lo importa ni lo lee desde código; describe los hooks cableados en .claude/settings.json:8-20.",
