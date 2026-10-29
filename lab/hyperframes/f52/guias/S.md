@@ -1,0 +1,1 @@
+**S — Seedance 2.5** (guía de BytePlus vía resúmenes): en imagen a video escribir solo lo que se mueve, construir sobre la foto sin re-describirla; claridad y cero contradicciones valen más que encabezados; rangos de tiempo contiguos (0–3 s, 3–6 s…) guían el orden; si el prompt describe otra escena, el modelo puede cortar: decir que es una sola toma continua.

@@ -1,0 +1,1 @@
+**G — Gemini Omni Flash 1.1** (Google vía fal): sujeto, acción, movimiento de cámara, look y sonido, escritos como indicaciones a un equipo de rodaje; movimientos de cámara con su nombre de cine; es menos prescriptivo que Veo: prompts cortos y enfocados rinden más que largos; en imagen a video nombrar lo que de la foto tiene que sobrevivir; cerrar con «no captions».
