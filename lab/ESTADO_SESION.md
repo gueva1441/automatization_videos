@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 16:40 (F54 Parte A: la promesa del gancho puede llevar lo que está en juego; bloqueantes (f) cierre no dicho y (g) cita repetida; años y datos/min por cap; Wittenoom frena por (f) en el cap 7; US$ 0; PARADA A) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 17:20 (F54 Parte B.1/B.3: loops declarados en la escaleta, paga por beat, recuerda_loop, bloqueante (h) pago no dicho; <ejemplos> nuevo propuesto en texto; US$ 0; PARADA B.0 hasta el OK del analista) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,17 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F54 Parte B.1/B.3, PARADA B.0): la escaleta ahora declara sus loops y el código chequea que se paguen; el bloque de ejemplos nuevo espera el OK del analista.
+- La escaleta dice 1–2 loops (la pregunta abierta, dónde se abre y dónde se paga), qué pregunta anterior paga cada beat y el re-gancho al cierre del cap 3; si no los trae, frena (no se fabrica).
+- El guionista ve en cada beat qué pregunta paga, y un pago que la voz no dice frena el guion.
+- **Para el analista:** el bloque `<ejemplos>` propuesto está en `lab/hyperframes/f54/EJEMPLOS_v5_6_propuesta.md` y pegado en el reporte. No entra al código hasta su OK.
+- **Sigue (con el OK):** B.4 (la miniatura lee el gancho entero) y B.5 (Wittenoom en texto desde la escaleta hasta el papel, ≈ US$ 4, cero fotos y cero voz). Gasto hasta acá: US$ 0.
+
+## F54 — Parte B.1/B.3 (Omar: «sigue», 2026-10-29 16:50) — PARADA B.0
+- Commits: `f72da82` DECISIONES 16:05 con loops: 2 y re-gancho; `66804dc` B.1/B.3 + chascada (`m01a_escaleta`: esquema loops/paga/recuerda_loop, validador con 3 bloqueantes nuevos, §2 con una sola oración sobre la promesa + la línea de loops; `guion_v4`: <estructura> §2, `paga` y LOOP visibles al guionista, bloqueante `h`; `test_module_f6b.good()` con un loop; `test_module_f54` 39). El último commit es el del reporte (`lab/hyperframes/f54/F54_REPORT.md`, sección «Parte B»).
+- Letras: la (f) del handoff es `h` (f y g se usaron en la Parte A). `recuerda_loop` es opcional en el esquema (como dice el handoff) pero, si viene, va en el último beat del cap 3.
+- Suites: rápida 55; amplia 1094 + 4 previas; ch02 `f792f3d4…`; MAPA --check 0.
 
 ## 👀 Para Omar (F54 Parte A, PARADA A): la promesa del gancho ya puede decir lo que está en juego, y dos chequeos nuevos frenan el guion.
 - La escaleta ya no rechaza una promesa con años o cifras, y el guionista la dice con sus palabras. La imagen del gancho sigue sin año ni cifras.

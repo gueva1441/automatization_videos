@@ -170,3 +170,180 @@ Riesgos que el contrato no cubre:
 - **`diag_234_cap4.py` y `f28a.log`:** no los toqué ni entraron en ningún commit (`git show --stat` de `1c9cd7d`, `2f91029` y `5bc5965`).
 - **Criterio de años:** si Omar o el analista prefieren otro (por ejemplo, sin `\d{4}`), se cambia en una línea de `guion_v3_reglas.anios_por_cap`; como solo es métrica, nada frena por él.
 - **La Parte B espera dos cosas:** el «sigue» de Omar y la línea de las 16:05 con «loops: N» y «re-gancho», que son las constantes de B.1.
+
+
+---
+
+# Parte B — B.1/B.3 + chascada · PARADA B.0 (Omar: «sigue», 2026-10-29 16:50)
+
+Pedido de Omar al dar el «sigue»: Fable medium; loops: 2 · re-gancho: sí, al cierre del cap 3 (campo `recuerda_loop`); chascada: §2 de la escaleta con una sola oración sobre la promesa; B.1 y B.3; después B.2 con PARADA B.0; B.4 y B.5 solo con el OK del analista. **Gasto hasta acá: US$ 0** (sin LLM).
+
+## Commits
+| commit | qué |
+|---|---|
+| `f72da82` | etapa 0, cierre: DECISIONES 16:05 con «loops: 2 · re-gancho: sí, al cierre del cap 3 (campo recuerda_loop)» |
+| `66804dc` | B.1/B.3 + chascada: código, tests, los dos `.md`, stickers, MAPA |
+| (este) | reporte (esta sección), `EJEMPLOS_v5_6_propuesta.md`, ESTADO, logs |
+
+## Módulos: antes → después
+| módulo | antes | después |
+|---|---|---|
+| `script_engine/m01a_escaleta.py` | esquema sin loops; §2 de `f54-1` con dos oraciones sobre la promesa | **esquema:** `loops: [{id, pregunta, abre_beat, paga_beat}]` (requerido), `recuerda_loop: {beat, oracion}` (opcional, con descripción: «el re-gancho: una oración al cierre del cap 3»), `beat.paga` (INTEGER, 0 = ninguna; descripción en el esquema). **validador:** `LOOPS_RANGO = (1, 2)` y `RECUERDA_LOOP_CAP = 3` (DECISIONES 16:05); cada loop se paga después de abrirse; el principal (el primero) en el cap 7 o en el pico; `paga` apunta a un beat anterior; `recuerda_loop`, si viene, en el último beat del cap 3 con su oración; sin loop → hard sin fabricar («si la ficha no da para un loop, decilo»). 3 bloqueantes nuevos en `BLOQUEANTES_V2` (rechazan → PARADA tras la regeneración). **métricas:** `loops`, `beats_con_paga`, `recuerda_loop`. **prompt `f54-1`:** §2 = una oración sobre la promesa + la línea literal de B.1 |
+| `script_engine/guion_v4.py` | `<estructura>` 2 «termina con algo sin resolver que el siguiente paga»; el guionista no veía pagos | `<estructura>` 2 reemplazado (B.3, literal); `escaleta_section_v5` muestra por beat `paga: la pregunta del beat N («…»)` y `recuerda el loop: …`; el `<caso>` lleva `LOOP n: pregunta — se abre en el beat a, se paga en el beat p` (`loops_txt`; sin loops, nada); **bloqueante (h) pago no dicho:** el `dato_central` de un beat con `paga` (o del `paga_beat` de un loop) no está en los `ids_usados` de su cap → frena, sin edición por oración |
+| `test_module_f6b.good()` | sin loops | un loop (abre 1, paga 8) y el beat 8 con `paga: 1`: la fixture que comparten f6b/f8/f16/f17/f19/f22/f24/f39/f54 |
+
+Tests: `test_module_f54.py` 39 (26 de A + 13: esquema, pasa y normaliza, 9 rechazos duros que son bloqueantes, pico/segundo loop/recuerda_loop que pasan, métricas, `escaleta_section_v5`, bloqueante h frena/pasa). Los dos tests de los prompts se reescribieron: la escaleta sigue siendo un solo cambio contra f26-1 (toda §2 desde «La promesa es una sola oración…»); el guion v5.5 son dos líneas contra v5.4 (§1 y §2).
+
+## Decisiones de CC (Parte B.1/B.3)
+1. **La (f) del handoff es `h`** (f y g se usaron en la Parte A). Igual que f y g, no pasa por la edición por oración: frena.
+2. **`recuerda_loop` opcional** en el esquema, como lo escribe el handoff («opcional»); Omar dijo «re-gancho: sí». Cuando el modelo lo trae, el validador exige el último beat del cap 3 (RECUERDA_LOOP_CAP, DECISIONES 16:05) y una oración. No lo hice obligatorio porque el prompt de B.1 no lo nombra y la regla fija prohíbe agregar texto al prompt; en vez de eso lleva `description` en el esquema (formato de salida). Si el modelo no lo trae en B.5, se ve en la tabla y lo decide Omar.
+3. **`paga` = 0 significa ninguna.** El esquema de salida estructurada no acepta `null` cómodamente (el conversor baja `type` a minúsculas y exige `additionalProperties: false`); 0 u omitido → `None` al validar.
+4. **El loop principal** es el primero de la lista: es el que tiene que pagarse en el cap 7 o en el pico. El segundo solo tiene que pagarse después de abrirse.
+5. **(h) también mira el `paga_beat` de cada loop**, no solo los beats con `paga`: DECISIONES 16:05 dice «cierre y pagos chequeados por código», y un loop es un pago declarado.
+6. **`<estructura>` §2 del guion:** el texto real era «cada uno avanza la historia y termina con algo sin resolver que el siguiente paga.»; reemplacé la segunda mitad y dejé «cada uno avanza la historia.» como oración propia. Reemplaza, no suma.
+7. **Escaletas viejas** (sin `loops`): el guionista y los lectores siguen funcionando (`.get`, `loops_txt` vacío); solo `validate` las rechazaría si volvieran a pasar por él (`frozen_escaleta`). Ningún topic usa `escaleta_frozen` hoy; anotado.
+
+## Salida B.1/B.3 (texto)
+
+### Diff del prompt de la escaleta (f54-1 de la Parte A → f54-1 de hoy, solo la línea que cambia)
+```diff
+- 2. … Sin contexto, sin año, sin cifras: lo que se ve. La promesa es una sola oración que deja una imagen sin cerrar o una pregunta que el espectador no puede responder todavía. La promesa dice qué va a entender el espectador si se queda: puede nombrar lo que está en juego, con años o cifras si hacen falta; no es un índice de lo que viene.
++ 2. … Sin contexto, sin año, sin cifras: lo que se ve. La promesa dice qué va a entender el espectador si se queda: puede nombrar lo que está en juego, con años o cifras si hacen falta; no es un índice de lo que viene. Declará 1–2 loops: la pregunta que el video deja abierta, en qué beat se abre y en qué beat se paga. Cada beat dice qué pregunta anterior paga (o ninguna).
+```
+
+### Diff del prompt del guionista (v5.5 de la Parte A → v5.5 de hoy, solo la línea que cambia)
+```diff
+- 2. Caps 2 a 6: cada uno avanza la historia y termina con algo sin resolver que el siguiente paga. La última frase de cada cap no resume: deja una puerta abierta o nombra lo que viene.
++ 2. Caps 2 a 6: cada uno avanza la historia. La primera frase de cada cap paga lo que el beat marcado `paga` dejó abierto; la escaleta dice cuál. La última frase de cada cap no resume: deja una puerta abierta o nombra lo que viene.
+```
+
+### Lo que el guionista ve ahora en la escaleta (fixture de prueba)
+```text
+LOOP 1: ¿quién cerró el portón? — se abre en el beat 1, se paga en el beat 12
+…
+  BEAT 6 · escalada · miedo · intensidad 3
+    imagen sensorial: el humo del beat 6
+    dato central: [D6] El portón número 6 estaba cerrado
+    el espectador se pregunta: ¿quién cerró?
+    paga: la pregunta del beat 2 («¿quién cerró?»)
+```
+
+### Validador sobre la fixture, con mutaciones (de `test_module_f54`)
+| mutación | mensaje duro | bloqueante |
+|---|---|---|
+| sin loops | `loops: 0 declarado(s); tienen que ser 1–2; si la ficha no da para un loop, decilo en vez de fabricarlo` | sí |
+| 3 loops | `loops: 3 declarado(s); tienen que ser 1–2` | sí |
+| se abre en 5, se paga en 3 | `loop 1: se abre en el beat 5 y se paga en el 3: tiene que pagarse después de abrirse` | sí |
+| principal pagado en el beat 5 (cap 5) | `loop 1 (el principal) se paga en el beat 5 (cap 5): tiene que pagarse en el cap 7 o en el pico (beat 6)` | sí |
+| principal pagado en el pico (beat 6) | — | pasa |
+| beat 3 con `paga: 5` | `beat 3: paga 5 tiene que apuntar a un beat anterior` | sí |
+| `recuerda_loop` en el beat 2 | `recuerda_loop: va en el último beat del cap 3 (beat 3) con su oración; vino beat 2, oración «x»` | sí |
+| `recuerda_loop` en el beat 3 con oración | — | pasa |
+
+### Bloqueante (h) sobre la fixture
+`pago no dicho: el beat 6 paga la pregunta del beat 2 con D6, que no está en el cap 4` · `pago no dicho: el beat 10 paga el loop L1 con D10, que no está en el cap 6`.
+
+## Suite
+`bash lab/hyperframes/f41/verificar.sh f54b` (logs en `lab/hyperframes/f41/f54b/`): ch02 md5 `f792f3d483a1fa42daed5f7f0e054f46`; rápida **55 passed**; amplia **1094 passed** + las 4 fallas previas conocidas (`m03_merge_timing` ×2, `gfx_lab` ×2); `mapa_modulos.py --check`: 0 fallas.
+
+## B.2 — bloque `<ejemplos>` entero (PARADA B.0: espera el OK del analista; no está en el código)
+También en `lab/hyperframes/f54/EJEMPLOS_v5_6_propuesta.md`.
+
+```text
+<ejemplos>
+Los ejemplos son de un caso que no es el tuyo (una estación de radio y faro en una isla, mil novecientos sesenta y ocho). Copiá la técnica, no el contenido: ninguno de estos nombres, lugares ni cifras está en tus datos.
+
+Gancho (escena en curso, la apuesta, lugar y año, vuelta atrás):
+«Una mujer transmite en clave morse a la luz de una vela. La sala huele a querosén quemado. Afuera, el faro sigue encendido. Once personas esperan un barco. Tres de ellas no van a ver la primavera. Puerto Cardal, invierno de mil novecientos sesenta y ocho. Pero tres semanas antes de la vela, llegó un telegrama. Y con él, una orden.»
+
+Cierre de cap que deja una deuda, y la primera frase del cap siguiente que la paga:
+el cap 2 termina: «El Alborada tenía que llegar el lunes. No llegó el lunes.»
+el cap 3 empieza: «El lunes, el Alborada estaba amarrado en el puerto, con la bodega cargada y el capitán a bordo. Lo que faltaba era un papel.»
+
+Re-gancho a mitad del video (una oración que recuerda la deuda sin pagarla, al cierre de un cap):
+«Quedaban nueve días de telegramas sin firma. Para entonces, el niño ya tosía.»
+
+Escena con los sentidos, sin inventar hechos (todo sale de «olor a querosén, ventanas tapadas con mantas, el ruido del generador que se apaga, el silencio después»):
+«La noche del catorce, el generador tosió dos veces y se apagó. Por primera vez en tres semanas la estación quedó en silencio. Las ventanas estaban tapadas con mantas para guardar el calor. Olía a querosén. Alguien encendió una vela y la sala apareció, chica, llena de gente que no hablaba.»
+
+Cita y silencio después:
+«Teo Marín iba en el Alborada esa mañana. "El capitán leyó el papel y dio la vuelta", dijo Marín. No supo qué decía el papel. Vio la isla a lo lejos. Vio que se alejaba.»
+
+El hecho concreto en vez del juicio (no dice «cruel», «abandono», «inhumano»):
+«Elvira pidió el barco siete veces. Las siete respuestas dicen lo mismo: mantener servicio. Ninguna tiene firma.»
+
+Pico (dos frases cortas antes, la más corta después; es la primera de las tres muertes que el gancho prometió):
+«Bascuñán mira la silla. La levanta. La rompe contra el piso de la sala de radio y mete las patas en la estufa. Esa noche, mientras la madera arde, Elvira transmite con las baterías del faro. En el cuarto de al lado, el niño deja de toser. Nadie lo dice. Lo saben.»
+
+Versiones en disputa, sin elegir:
+«Según los telegramas que Elvira guardó, el Alborada zarpó y recibió orden de volver. El capitán declaró ante la comisión que nunca salió del puerto por el temporal. El barco, esa semana, no llegó.»
+
+Cierre del video (vuelve a la imagen del gancho; la última frase es una cita, sin moraleja):
+«La vela se apagó sola, al amanecer del día veintitrés, cuando el Alborada ya se veía desde la torre. Elvira Soto no habla de la comisión. Habla de su libro de telegramas: "Yo mandaba los telegramas. Nadie me dijo que los leyeran".»
+</ejemplos>
+```
+
+## Qué cambió frente al bloque del v5.4/v5.5, ejemplo por ejemplo
+| ejemplo | v5.5 | propuesta |
+|---|---|---|
+| Gancho | «Once personas esperan un barco que no va a llegar, porque alguien decidió que no llegara.» (sin apuesta: no dice qué se pierde) | «Once personas esperan un barco. Tres de ellas no van a ver la primavera.» (la frase del handoff; primera frase sin cifra, lugar y año, vuelta atrás, igual que antes) |
+| Cierre de cap que abre | «Cuando el Alborada entró por fin a la bahía, el padre Quiroga contó… Faltaban dos. Las familias decían que tres.» (solo el cierre; adelantaba el conteo del final) | el cierre del cap 2 («No llegó el lunes.») **y** la primera frase del cap 3 que lo paga («…Lo que faltaba era un papel.») |
+| Re-gancho | no había | una oración al cierre de un cap de la mitad que recuerda la deuda («…el niño ya tosía») sin pagarla |
+| Pico | igual | igual, y el rótulo dice que paga lo que el gancho prometió (la primera de las tres muertes) |
+| Cierre del video | la cita de Soto sola | la vela del gancho se apaga (vuelve a la imagen) y después la cita de Soto, igual que antes |
+| Escena con los sentidos · Cita y silencio · Hecho concreto · Versiones en disputa | — | sin cambios |
+
+## Para mirar (analista)
+- El conteo: el gancho promete tres muertes; el pico es la primera (el niño); el viejo ejemplo de «faltaban dos, las familias decían que tres» se fue con el cierre de cap, y las versiones en disputa (comisión dos, familias tres) siguen en la escaleta de ejemplo de `m01a`. Si eso molesta, cambio «Tres» por lo que diga el analista: la frase es la del handoff.
+- «Quedaban nueve días» es un número del caso ficticio (como los veintitrés días y los siete telegramas del bloque viejo), no una constante del pipeline.
+- Se agregan dos nombres de técnica (deuda pagada en la primera frase, re-gancho) que ya existen en `<estructura>` §2 y en `recuerda_loop`: no hay regla nueva, hay ejemplo nuevo.
+
+## Lo que queda abierto (Parte B)
+1. **PARADA B.0:** el analista revisa el bloque `<ejemplos>`; con su OK entra en `guion_v4` como v5.6 (`f54-2`) y recién ahí B.4 (m09 lee el gancho entero) y B.5 (Wittenoom en texto, ≈ US$ 4 según los pasos de la corrida anterior: escaleta 1,86 + guion 1,23 + reparación 0,08 + partición 0,05 + papel 0,66; tope 6).
+2. `recuerda_loop` opcional (decisión 2): si el modelo no lo trae, Omar decide si se vuelve obligatorio.
+3. La (d) contaminación del cap 3 de Wittenoom puede frenar la corrida de B.5: no se arregla, se reporta (pedido de Omar).
+4. Escaletas viejas sin loops no vuelven a pasar por `validate` (decisión 7).
+5. Lo de la Parte A: dedupe Q12/Q25, tope de años por cap, las «6 frases».
+
+**PARADA B.0.**
+
+## Veredicto de revisor-handoff (Parte B.1/B.3, íntegro)
+
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+Corrí `pytest -q test_module_f54.py test_module_f6b.py test_module_f16.py` y dio 91 passed. El md5 del handoff coincide (1ac47c9b…). No llamé a ningún modelo.
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | Chascada: una sola oración sobre la promesa en §2, en código y `.md` | OK | `m01a_escaleta.py` (SYSTEM_V2 §2) y `PROMPT_ESCALETA_f54_1.md` quedan solo con «La promesa dice qué va a entender…». La vieja «La promesa es una sola oración…» se borró en ambos (`git show 66804dc`). El test byte-idéntico pasa. |
+| 2 | Línea de loops literal del handoff, sin agregados | OK | «Declará 1–2 loops: la pregunta que el video deja abierta, en qué beat se abre y en qué beat se paga. Cada beat dice qué pregunta anterior paga (o ninguna).» Es idéntica a B.1. |
+| 3 | DECISIONES 16:05 con el texto literal del handoff más los dos valores | OK | `f72da82`. La línea es literal y agrega «loops: 2 · re-gancho: sí, al cierre del cap 3 (campo recuerda_loop) · Omar». |
+| 4 | Esquema B.1: `loops`, `recuerda_loop`, `paga` | OK, con desvío menor | `loops` es requerido y `recuerda_loop` es opcional. `paga` es INTEGER con 0 = ninguna; el handoff decía `null`. `validate` lo normaliza a None. |
+| 5 | Validador: pago posterior a la apertura, principal en cap 7 o pico, `paga` hacia atrás, sin loop es hard | OK | `m01a_escaleta.py` (bloque F54 B.1 de `validate`). Sin loop da hard con «decilo en vez de fabricarlo». Coincide con la lección de `garantizar_pico`. |
+| 6 | Constantes sin números nuevos | OK | `LOOPS_RANGO=(1,2)` y `RECUERDA_LOOP_CAP=3` citan DECISIONES 16:05. Los otros números salen del handoff. |
+| 7 | B.3: `<estructura>` §2 reemplaza (no suma), con la frase literal | OK | `guion_v4.py` y `PROMPT_GUIONISTA_v5_5.md`: «La primera frase de cada cap paga lo que el beat marcado `paga` dejó abierto; la escaleta dice cuál.» Sigue «La última frase de cada cap… deja una puerta abierta», que ya estaba en v5.4. |
+| 8 | Bloqueante de pago no dicho (la (f) del handoff) | OK | `pago_no_dicho` es la (h) porque (f) y (g) ya estaban tomadas por la Parte A. Está en `bloqueantes` y frena, sin pasar por `reparar`. Además de los beats con `paga`, mira el `paga_beat` de cada loop; es una extensión de CC, razonable y declarada. |
+| 9 | Loops 1–2 + `recuerda_loop` | OK | Ver observación 4 sobre cómo sale el campo en el prompt. |
+| 10 | B.2: bloque `<ejemplos>` escrito y pegado en el reporte | FALLA parcial | El bloque está en `lab/hyperframes/f54/EJEMPLOS_v5_6_propuesta.md` (5839 bytes) y no entró al código, como corresponde a la PARADA B.0. Pero `F54_REPORT.md` no se modificó y no tiene sección «Parte B». El pedido decía «pegalo en F54_REPORT.md». `git status` no lo lista y sus 172 líneas terminan en «Adenda de CC». |
+| 11 | Nada de B.4/B.5 corrió | OK | `m09_packaging.py` no está en el diff. No existe `lab/hyperframes/f54/antes/`. Los logs de `f41/f54b` son solo suites y ch02, y no hay `01e_pantalla`. |
+
+Observaciones concretas:
+1. **Reporte sin Parte B.** `lab/ESTADO_SESION.md` línea 3 dice que el bloque está «propuesto en texto». El pedido de Omar era pegarlo en `F54_REPORT.md`, y eso no está. Solo vive en el archivo suelto. Tampoco están en ese reporte las decisiones de CC de Parte B, que era lo que había que revisar (letra h, recuerda_loop en el esquema, paga 0, loop principal = el primero, etc.). Esas decisiones las deduje del diff y del mensaje del commit.
+2. **Ejemplos: lo que se queda.** Escena con sentidos, cita y silencio, hecho concreto y versiones en disputa son idénticos al bloque actual (`guion_v4.py` líneas 232–245). La frase del gancho es literal. También están el cierre de cap 2 con la primera frase del cap 3 que paga, el re-gancho, el pico y el cierre que vuelve a la vela.
+3. **Ejemplos: rótulos y contenido nuevos.**
+   - Los rótulos cambiaron: «(…la apuesta, lugar y año, vuelta atrás)», «Re-gancho a mitad… sin pagarla», «es la primera de las tres muertes que el gancho prometió». Esas aclaraciones son descripciones nuevas dentro del prompt. No son reglas de estilo, pero tampoco son literales del handoff.
+   - Aparecen contenido y cifras nuevas: «Quedaban nueve días» y «tres muertes».
+   - Las versiones en disputa (comisión dos, familias tres) no calzan del todo con la promesa de tres muertes. La propuesta lo avisa en «Para mirar».
+   - «Tres de ellas no van a ver la primavera» le pone una cifra a la apuesta, pero la segunda frase del gancho sí puede llevar cifras (v5.5 §1), así que no contradice `<estructura>`.
+4. **`recuerda_loop` sin texto en el prompt.** Está en el esquema con `description`, pero el SYSTEM de la escaleta no lo menciona. Respeta «cero reglas nuevas», pero depende de que el modelo lea la descripción del esquema. Como es opcional y Omar dijo «sí», puede no salir. En ese caso `validate` lo deja en None sin frenar.
+5. **Desvío de `paga` 0 vs `null`.** Es menor y está declarado.
+
+Fuera de alcance: ninguno. El commit 66804dc toca solo los 9 archivos esperados. Los sin commitear (`EJEMPLOS_v5_6_propuesta.md`, `ESTADO_SESION.md`, logs en `f41/f54b`) son los anunciados. `F54_REPORT.md` figura como sin cambios.
+
+Riesgos que el contrato no cubre: (a) `loops` es requerido y la validación es dura. Una ficha sin loop frena la corrida B.5 en vez de degradar. (b) El bloqueante (h) puede dar falso positivo si el guionista paga con otro id, como ya pasó con (d) en el cap 3 de Wittenoom. (c) Si cambia el conteo del ejemplo (tres muertes), hay que revisar el ejemplo de escaleta en `m01a` que menciona la versión en disputa.
+
+## Adenda de CC (Parte B.1/B.3)
+- **Fila 10 / observación 1:** el revisor leyó el reporte antes de que esta sección existiera (la escribí mientras corría; le avisé y cerró igual). La sección «Parte B» está arriba, con el bloque `<ejemplos>` entero y las decisiones de CC. Lo demás del veredicto no depende de eso.
+- **Observación 3 (rótulos nuevos en `<ejemplos>`):** los rótulos describen la técnica del ejemplo, como los del bloque viejo («Gancho (escena en curso, sin contexto, promesa, vuelta atrás)»). Si el analista prefiere los rótulos viejos tal cual, se cambian al pegar el bloque: la PARADA B.0 es para eso.
+- **Observación 4 (`recuerda_loop`):** si en B.5 el modelo no lo trae, se reporta y Omar decide si el prompt lo nombra (sería texto nuevo en el prompt, con su decisión).
+- **Riesgo (a):** es lo que pide el handoff («Sin loop → hard, no fabricar; si la ficha no da para 1 loop, PARADA con el motivo»).
