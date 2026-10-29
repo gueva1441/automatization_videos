@@ -188,3 +188,30 @@ def test_lo_viejo_ya_no_esta():
               "_classify_locked_facts", "_f8_finish_item", "FLUIDIFICADOR_SYSTEM", "_find_text_leakage"):
         assert not hasattr(m3, s), s
     assert not hasattr(v3, "wrap_style")
+
+
+# ─────────────────────────── F50b: tres bugs del armado ───────────────────────────
+def test_f50b_plano_con_shot_no_es_menor_en_danio():
+    assert not v3.problems("Wide shot, eye-level, child's height, deep depth of field, 35mm lens.")
+    assert ("menor en daño", "The boy was shot dead.") in v3.problems("The boy was shot dead.")
+
+
+def test_f50b_clausula_negada_sale_del_setting():
+    p = v3.armar({**SLOTS, "setting": "the empty main street, with no figure anywhere"}, "1962")["prompt"]
+    assert "no figure" not in p and "The empty main street, 1962." in p
+    assert v3._sin_negadas("swings without seats, a rusted frame") == "swings without seats, a rusted frame"
+    assert v3._sin_negadas("no work, no vehicles") == ""
+    assert v3.armar({**SLOTS, "setting": "nobody anywhere"}, "1962")["partes"]["lugar_anio"] == ""
+
+
+def test_f50b_minuscula_en_mitad_de_oracion():
+    p = v3.armar({**SLOTS, "camera_angle": "Eye-level", "lens_technique": "Deep depth of field"}, "1962")["prompt"]
+    assert "Wide shot, eye-level, deep depth of field." in p
+    assert v3._minuscula_media("DSLR look") == "DSLR look" and v3._minuscula_media("35mm") == "35mm"
+    assert v3.frase_cartel({"present": True, "text": "X", "font": "Metal block letters",
+                            "location": "Over the entrance"}) == \
+        'The words "X" are written over the entrance in metal block letters, in clear crisp lettering.'
+    assert v3.frase_cartel({"present": True, "text": "X", "font": "", "location": "Federal Court sign"}) == \
+        'The Federal Court sign reads "X", in clear crisp lettering.'
+    assert v3.frase_cartel({"present": True, "text": "X", "font": "", "location": "At the Federal Court"}) == \
+        'The words "X" are written at the Federal Court, in clear crisp lettering.'

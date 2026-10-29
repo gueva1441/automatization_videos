@@ -3,7 +3,7 @@
 PAPEL_FOTOS_WITTENOOM.md y .json: por cap y por foto, n.º · ancla · beat · año y de dónde salió · people_group · plano ·
 prompt entero · notas F8 · si fue rehecha y por qué; caps 1 y 7 además video_prompt, negative_prompt y duration.
 Al final: fotos por cap (contra las de antes), años por fuente, re-hechuras, carteles y costos reales por modelo.
-Uso: python lab/hyperframes/f50/papel.py   (solo lee; sin API)
+Uso: python lab/hyperframes/f50/papel.py [--salida DIR]   (solo lee; sin API; F50b: --salida lab/hyperframes/f50b)
 """
 import json
 import sys
@@ -116,8 +116,9 @@ def main() -> int:
           "", "| servicio · descripción | llamadas | US$ |", "|---|---:|---:|"]
     L += [f"| {k} | {x['llamadas']} | {x['usd']} |" for k, x in co["por_servicio"].items()]
     L += ["", f"Pasos en `01_v3_costos.json`: {co['pasos_01_v3_costos']}", ""]
-    (F50 / "PAPEL_FOTOS_WITTENOOM.md").write_text("\n".join(L), encoding="utf-8")
-    (F50 / "PAPEL_FOTOS_WITTENOOM.json").write_text(json.dumps(
+    sal = Path(sys.argv[sys.argv.index("--salida") + 1]) if "--salida" in sys.argv else F50
+    (sal / "PAPEL_FOTOS_WITTENOOM.md").write_text("\n".join(L), encoding="utf-8")
+    (sal / "PAPEL_FOTOS_WITTENOOM.json").write_text(json.dumps(
         {"caps": caps, "fotos": filas, "fuentes_anio": fuentes, "rehechas_video": rv, "costos": co,
          "negative_prompt": VEO_NEGATIVE_PROMPT, "duration": _veo_duration()}, ensure_ascii=False, indent=1),
         encoding="utf-8")

@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-28 12:30 (F50: el prompt nuevo de foto y de video pasó a producción —canon desde la ficha, casilleros con Opus, armado por código, Veo con negative_prompt y duration— y Wittenoom quedó en papel, PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-28 22:30 (F50b: tres bugs del armado de la foto arreglados y el papel de Wittenoom re-armado en seco —33 fotos cambian, todas de la tabla del handoff—, US$ 0, PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,25 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F50b, PARADA): el papel de Wittenoom se re-armó **sin llamar a ningún modelo** (US$ 0) con tres arreglos del código que arma la frase. Ahora el plano de las fotos con chicos ya no se corta por la palabra «shot». Se sacan las frases negadas como «with no figure anywhere» o «nobody has dug», porque Seedream dibuja lo que lee. Y quedan en minúscula las palabras que el modelo escribía con mayúscula en mitad de una oración («Eye-level», «Over the entrance»). Cambian 33 de las 96 fotos, todas dentro de la tabla del handoff. Papel nuevo: `lab/hyperframes/f50b/PAPEL_FOTOS_WITTENOOM.md`; antes → después foto por foto en `lab/hyperframes/f50b/DIFF_PAPEL.md`. Falta tu OK sobre este papel para la tanda de fotos (F51), que regenera también la foto madre.
+
+## F50b — Tres bugs del armado y el papel re-armado en seco (handoff del analista, 2026-10-28 21:40) — HECHA, **PARADA**
+- Paso 0: DECISIONES 21:23 (foto madre de Wittenoom se regenera en F51; la `subject.png` vieja pasa a `f50/antes/`). En esta tanda no se movió: la foto madre no se toca.
+- `m03_imagenes_v3.py`:
+  - `HARM` sin `shot` suelto ni `body|bodies`;
+  - `_sin_negadas` saca la cláusula negada de cada casillero de prosa antes de armar;
+  - `_minuscula_media` baja a minúscula `camera_angle`, `lens_technique`, `font` y la preposición inicial de `location`.
+- Tests: `test_module_f50b.py` pasa de 18 a 21.
+- Re-armado: `lab/hyperframes/f50b/rearmar.py`.
+  - Con el código de F50 reproduce las 96 fotos byte a byte.
+  - Con los arreglos cambian 33: arreglo 1 3 fotos, arreglo 2 4, arreglo 3 29 (técnica) + 2 carteles. Verificación: PASA.
+  - En `03_visual.json` solo cambiaron `prompt`/`image_prompt` (copia previa en `f50b/antes/`). Los `video_prompt` no se rehicieron.
+- Suites: rápida 55; amplia 947 (944 + 3 nuevos) con las mismas 4 fallas previas (`gfx_lab` ×2, `m03_merge_timing` ×2). ch02 `f792f3d4…`. `MAPA_PROYECTO --check` 0.
+- Abierto (en `F50b_REPORT.md`):
+  - las notas F8 de 2/13, 4/1 y 5/16 en el papel siguen diciendo «menor en daño»; son de F50, porque solo se reescribió el prompt;
+  - la foto madre va en F51;
+  - los 4 casos que el handoff dejó en la lista.
 
 ## 👀 Para Omar (F50, PARADA): **cambió producción.** Las fotos ya no las escribe Gemini: Opus llena las fichas de cada foto con un expediente (año, lugar, párrafo de la voz, hechos, personas, grupos de gente) y el código arma la frase. El canon de época y de grupos de gente sale de la ficha, antes de las fotos. El clip Veo lleva el movimiento que escribe Opus, una lista fija de lo que no tiene que pasar y la duración explícita (la prueba de 4 s salió bien). Wittenoom quedó **en papel**: `lab/hyperframes/f50/PAPEL_FOTOS_WITTENOOM.md` (96 fotos con su prompt entero; caps 1 y 7 con el movimiento del clip). Cero fotos. Gasto registrado US$ 2,39 (más una corrida de m03 que corté, sin registrar, como mucho ~2,1). Falta: revisión del analista (DEBERÍA), tu OK, y después la tanda de fotos y clips.
 

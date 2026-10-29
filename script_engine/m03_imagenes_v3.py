@@ -255,7 +255,9 @@ HANDS_PHRASE = (r",?\s*(?:\w+\s+){0,2}(?:in|with|from|between|by)\s+(?:his|her|t
 FORBIDDEN = [r"\bblood\w*", r"\bbleed\w*", r"\bwounds?\b", r"\bwounded\b", r"\bgore\b", r"\bgory\b", r"\bmutilat\w*",
              r"\bdismember\w*", r"\brope\s+around\s+(?:his|her|the|a)?\s*neck\b", r"\bnoose\b", r"\bhanged\s+body\b"]
 MINOR = r"\b(child|children|kid|kids|boy|girl|toddler|baby|infant|teen(?:ager)?s?|minor|juvenile)\b"
-HARM = r"\b(beaten|hurt|injur\w*|dead|dying|drown\w*|burn\w*|shot|kill\w*|corpse|body|bodies|abuse\w*|struck)\b"
+# F50b: «shot» solo si es disparo (la oración de plano lleva «Wide shot») y sin «body/bodies» (los cubre BODY)
+HARM = (r"\b(beaten|hurt|injur\w*|dead|dying|drown\w*|burn\w*|shot\s+(?:dead|down)|gunshot\w*|kill\w*|corpse|"
+        r"abuse\w*|struck)\b")
 BODY = (r"\b(corpses?|cadavers?|dead\s+(?:body|bodies|man|men|woman|women|inmates?|prisoners?)|lifeless|"
         r"(?:floating|drowned|bloated)\s+bod(?:y|ies)|body\s+bags?|human\s+remains)\b")
 # «body»/«bodies» solo cuenta como cuerpo con una palabra de muerte en la misma oración («the body of one of the men»
@@ -563,6 +565,33 @@ _PREP_LUGAR = ("on", "in", "at", "above", "across", "along", "over", "under", "b
                "outside", "near", "around", "by", "from", "onto", "into", "upon")
 
 
+# F50b: palabras de negación del inglés (gramática, no de un tema); «without» no, describe lo que sí hay
+_NEGADA = re.compile(r"\s*(?:with\s+)?(?:no|nobody|nothing|never|none)\b", re.I)
+
+
+def _sin_negadas(texto: str) -> str:
+    """Saca del casillero la cláusula (entre comas, punto y coma o punto) que empieza con no/nobody/nothing/never/none,
+    con un «with» delante opcional: Seedream dibuja lo que lee aunque esté negado. Puede quedar vacío."""
+    trozos = re.split(r"([,;.])", str(texto or ""))
+    quedan = []
+    for k in range(0, len(trozos), 2):
+        c, sep = trozos[k], (trozos[k + 1] if k + 1 < len(trozos) else "")
+        if c.strip() and _NEGADA.match(c):
+            continue
+        quedan.append(c + sep)
+    return re.sub(r"\s+", " ", "".join(quedan)).strip(" ,;")
+
+
+def _minuscula_media(x: str) -> str:
+    """F50b: un casillero pegado en mitad de una oración va con la primera letra en minúscula si su primera palabra es
+    «Xxxx» (mayúscula y después minúsculas); toda en mayúsculas o con cifra al inicio, queda igual."""
+    x = str(x or "").strip()
+    w = x.split()[0] if x else ""
+    if len(w) >= 2 and w[0].isupper() and not any(c.isupper() for c in w[1:]):
+        return x[0].lower() + x[1:]
+    return x
+
+
 def oracion(x: str) -> str:
     x = re.sub(r"\s+", " ", str(x or "")).strip().rstrip(".,;")
     return (x[:1].upper() + x[1:] + ".") if x else ""
@@ -573,34 +602,43 @@ def frase_cartel(tii: dict) -> str:
     si la ubicación empieza con preposición; si no, «The <ubicación> reads "X" in <font>, …»; sin ubicación, «A sign
     reads …». Sin el «lettering» que antes se pegaba al font."""
     texto = tii.get("text")
-    font = str(tii.get("font") or "").strip().rstrip(".,;")
+    font = _minuscula_media(str(tii.get("font") or "").strip().rstrip(".,;"))
     loc = re.sub(r"\s+", " ", str(tii.get("location") or "")).strip().rstrip(".,;")
     en = f" in {font}" if font else ""
     if not loc:
         return oracion(f'A sign reads "{texto}"{en}, in clear crisp lettering')
     if loc.split()[0].lower() in _PREP_LUGAR:
+        loc = _minuscula_media(loc)                    # F50b: solo la preposición («Over» → «over»)
         return oracion(f'The words "{texto}" are written {loc}{en}, in clear crisp lettering')
     sujeto = re.sub(r"^(the|a|an)\s+", "", loc, flags=re.I)
     return oracion(f'The {sujeto} reads "{texto}"{en}, in clear crisp lettering')
 
 
+# los casilleros de prosa del armado (F50b: de estos salen las cláusulas negadas)
+_PROSA = ("subject", "action", "gaze_interaction", "props_detail", "setting", "lighting", "color_palette",
+          "camera_angle", "lens_technique")
+
+
 def armar(it: dict, anio: str, grupos: dict[str, dict] | None = None) -> dict:
     """Prosa en el orden medido: sujeto/acción → mirada → objeto → lugar + año (sin «, año» si el setting ya trae año o
     década) → estilo → luz + paleta → plano/ángulo/lente → cartel → 16:9 (+ sin texto si no hay cartel). Los grupos
-    de gente no se escriben (`aspecto` vacío: así se midió)."""
+    de gente no se escriben (`aspecto` vacío: así se midió). F50b: antes de armar salen las cláusulas negadas de cada
+    casillero de prosa (un casillero que queda vacío se omite) y lo que va en mitad de oración baja a minúscula."""
     from engine_profiles import select_profile
+    it = {**it, **{k: _sin_negadas(it.get(k)) for k in _PROSA if isinstance(it.get(k), str)}}   # F50b arreglo 2
     tii = it.get("text_in_image") or {}
     texto = frase_cartel(tii) if tii.get("present") and tii.get("text") else ""
     plano = ", ".join(str(x).strip().rstrip(".,; ") for x in
-                      [f"{str(it.get('shot_scale') or '').replace('_', ' ')} shot", it.get("camera_angle"),
-                       it.get("lens_technique")] if x and str(x).strip())
+                      [f"{str(it.get('shot_scale') or '').replace('_', ' ')} shot",
+                       _minuscula_media(it.get("camera_angle")), _minuscula_media(it.get("lens_technique"))]
+                      if x and str(x).strip())
     setting = str(it.get("setting") or "")
     partes = {
         "sujeto": " ".join(p for p in (oracion(it.get("subject")), oracion(it.get("action"))) if p),
         "aspecto": "",
         "mirada": oracion(it.get("gaze_interaction")),
         "objeto": oracion(it.get("props_detail")),
-        "lugar_anio": oracion(setting) if _ANIO_O_DECADA.search(setting)
+        "lugar_anio": "" if not setting.strip() else oracion(setting) if _ANIO_O_DECADA.search(setting)
         else oracion(f"{setting.strip().rstrip('.')}, {anio}"),
         "estilo": f"{style_head(anio)} {STYLE_TAIL}",
         "luz": " ".join(p for p in (oracion(it.get("lighting")), oracion(it.get("color_palette"))) if p),
