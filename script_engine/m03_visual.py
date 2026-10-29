@@ -337,7 +337,68 @@ def _geo_era(topic_id: str, narration: dict) -> dict:
     return out
 
 
-def _format_seedream_canon_block(topic: dict) -> str:
+def _punta(tok: str, hoy: int):
+    """F50d B: un extremo del tramo → (desde, hasta): «1958» → (1958, 1958); «1950s» → (1950, 1959);
+    «present» → (hoy, hoy); otra cosa → None."""
+    tok = tok.strip().lower()
+    if re.fullmatch(r"\d{4}", tok):
+        return int(tok), int(tok)
+    if re.fullmatch(r"\d{3}0'?s", tok):
+        return int(tok[:4]), int(tok[:4]) + 9
+    if tok in ("present", "now", "today"):
+        return hoy, hoy
+    return None
+
+
+def _tramo(years, hoy: int | None = None) -> tuple[int, int] | None:
+    """F50d B: `years` del canon → (inicio, fin). Formatos de Flash: «1958-1966», «1950s-1970s» (1950–1979),
+    «1937-1950s» (1937–1959), «2000s-present», un año o una década suelta. Ilegible → None (no cruza)."""
+    import datetime
+    hoy = hoy or datetime.date.today().year
+    partes = re.split(r"\s*(?:-|–|—|\bto\b)\s*", str(years or "").strip())
+    if not 1 <= len(partes) <= 2:
+        return None
+    puntas = [_punta(t, hoy) for t in partes]
+    if None in puntas or puntas[0][0] > puntas[-1][1]:
+        return None
+    return puntas[0][0], puntas[-1][1]
+
+
+def _periods_del_cap(periods: list, anios, hoy: int | None = None) -> list:
+    """F50d B: los `period` del canon para los años de las fotos del cap, foto por foto: el/los que cruzan
+    ese año; si ninguno lo cruza, el/los más cercanos (menor distancia en años; empate → todos). Se juntan
+    en el orden del canon. Sin años en el cap → todos. `years` ilegible → no cruza ni es el más cercano;
+    si ninguno es legible → [] (y el bloque vuelve a los campos únicos)."""
+    ys = sorted({int(m) for a in anios or [] for m in re.findall(r"\d{4}", str(a or ""))})
+    if not ys:
+        return list(periods)
+    tramos = {i: t for i, pe in enumerate(periods) if (t := _tramo(pe.get("years"), hoy))}
+    elegidos = set()
+    for y in ys:
+        d = {i: max(t[0] - y, y - t[1], 0) for i, t in tramos.items()}
+        elegidos |= {i for i in d if d[i] == min(d.values())}
+    return [periods[i] for i in sorted(elegidos)]
+
+
+def _lineas_epoca(era: dict, anios=None) -> list:
+    """F50d B: las 4 líneas clothing/technology/vehicles_machinery/interiors; con `periods`, una tanda
+    por period del cap (cabecera `  period AAAA-AAAA:`); sin `periods` (topic viejo), los campos únicos."""
+    def cuatro(d):
+        return [f"  clothing              : {d.get('clothing', '')}",
+                f"  technology            : {d.get('technology', '')}",
+                f"  vehicles_machinery    : {d.get('vehicles_machinery', '')}",
+                f"  interiors             : {d.get('interiors', '')}"]
+    periods = [pe for pe in era.get("periods") or [] if isinstance(pe, dict)]
+    elegidos = _periods_del_cap(periods, anios) if periods else []
+    if not elegidos:                       # topic viejo, o ningún period legible
+        return cuatro(era)
+    out = []
+    for pe in elegidos:
+        out += [f"  period {pe.get('years', '')}:", *cuatro(pe)]
+    return out
+
+
+def _format_seedream_canon_block(topic: dict, anios=None) -> str:
     """Canon de 2 CAPAS para el user-prompt del skeleton (eslabón 3b cablea el 2).
 
     Espejo de _format_visual_canon_block PERO extendido con la capa SOURCED del
@@ -345,6 +406,7 @@ def _format_seedream_canon_block(topic: dict) -> str:
     distinctive_features, demographics, condition_evolution (HANDOFF_133 R4:
     visual_reference_availability ya NO se surfacea — meta-info de research inútil
     para pintar). NO modifica el bloque viejo; es una función aparte del path seedream.
+    F50d B: `anios` = años de las fotos del cap (expediente); con `era.periods` imprime los tramos del cap.
     """
     era = topic.get("era_visual_canon") or {}
     people = topic.get("documented_people") or []
@@ -356,10 +418,7 @@ def _format_seedream_canon_block(topic: dict) -> str:
             "ERA (capa genérica de la época):",
             f"  primary_decade        : {era.get('primary_decade', '')}",
             f"  spans                 : {era.get('spans', '')}",
-            f"  clothing              : {era.get('clothing', '')}",
-            f"  technology            : {era.get('technology', '')}",
-            f"  vehicles_machinery    : {era.get('vehicles_machinery', '')}",
-            f"  interiors             : {era.get('interiors', '')}",
+            *_lineas_epoca(era, anios),            # F50d B: por tramo si el canon trae periods
             f"  forbidden_anachronisms: {era.get('forbidden_anachronisms', '')}",
         ]
         cond = era.get("condition_evolution") or {}
@@ -462,7 +521,8 @@ Bias the shot_scale, lighting and mood of these images toward:
 """
 
 
-def _build_seedream_prompt_step2(topic, cap_data, narration_text, anchors, extra_block: str = "") -> str:
+def _build_seedream_prompt_step2(topic, cap_data, narration_text, anchors, extra_block: str = "",
+                                 anios=None) -> str:
     """User-prompt del skeleton seedream: canon 2-capas + facts + anchors → pedir
     N slot-sets (uno por fragmento). El LLM elige hard_fact_ids; NO escribe cifras."""
     cap_n = cap_data["chapter_number"]
@@ -471,7 +531,7 @@ def _build_seedream_prompt_step2(topic, cap_data, narration_text, anchors, extra
     n = len(anchors)
     anchor_list = "\n".join(f"  [{i + 1}] «{a}»" for i, a in enumerate(anchors))
     topic_block = _build_topic_block(topic)
-    canon_block = _format_seedream_canon_block(topic)
+    canon_block = _format_seedream_canon_block(topic, anios)   # F50d B: años de las fotos del cap
     arc_block = _visual_arc_block(cap_data.get("narrative_intent"))
     # HANDOFF_142b PALANCA B.1: en el HOOK, el item [1] es el beat del CLIP de apertura (lo PRIMERO
     # que ve el espectador). Regla dura: close/medium sobre el detalle, NUNCA establishing/aéreo/wide.
@@ -566,7 +626,9 @@ def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number):
     if f8.get("note"):
         extra += f"\nFOR THIS IMAGE: {f8['note']}\n"
     extra += mexp.bloque(exps, topic.get("people_groups") or [])
-    prompt = _build_seedream_prompt_step2(topic, cap_data, narration, anchors, extra)
+    # F50d B: año de cada foto = el del expediente (ancla, si no el respaldo) → elige los tramos del canon
+    anios = [e.get("anio_ancla") or (e.get("respaldo") or ("",))[0] for e in exps]
+    prompt = _build_seedream_prompt_step2(topic, cap_data, narration, anchors, extra, anios)
 
     def _validator(parsed):
         items = parsed.get("image_prompts") if isinstance(parsed, dict) else None

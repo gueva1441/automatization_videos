@@ -99,9 +99,9 @@ def test_f50c_c_grupo_con_aspecto_y_ropa_y_quotes_en_el_bloque():
     e = {"foto": 1, "anio_ancla": "1962", "donde": [], "parrafo": "p", "escenas": [], "facts": [],
          "citas": [mexp.linea_cita({"texto": "x", "autor": "A", "rol": "r"})], "people3": []}
     b = mexp.bloque([e], [{"id": "migrant_families", "who": "w", "where_when": "ww", "appearance": "olive skin",
-                           "clothing": "cotton dresses"}])
+                           "clothing_by_period": [{"years": "1958-1966", "clothing": "cotton dresses"}]}])  # F50d B
     assert "      QUOTES: «x» — A · r" in b
-    assert b.endswith("  - migrant_families: w · ww · APPEARANCE: olive skin · CLOTHING: cotton dresses\n")
+    assert b.endswith("  - migrant_families: w · ww · APPEARANCE: olive skin · CLOTHING: 1958-1966: cotton dresses\n")
 
 
 # ─────────────────────────── D. chascada de _sin_negadas ───────────────────────────

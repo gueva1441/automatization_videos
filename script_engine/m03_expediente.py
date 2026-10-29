@@ -190,7 +190,7 @@ def expedientes(topic: dict, fu: dict, cap_beats: list[dict], anchors: list[str]
 
 
 def bloque(exps: list[dict], people_groups: list[dict]) -> str:
-    """El bloque de texto del expediente (= lab `f48.bloque` en S5)."""
+    """El bloque de texto del expediente (= lab `f48.bloque` en S5); F50d B: CLOTHING del grupo por tramo (`clothing_by_period`)."""
     L = ["", _SEP, TEXTO_3_ENCABEZADO, _SEP]
     for e in exps:
         L += [f"  [{e['foto']}] YEAR: {e.get('anio_ancla') or '-'} · WHERE: {'; '.join(e['donde']) or '-'}",
@@ -201,6 +201,9 @@ def bloque(exps: list[dict], people_groups: list[dict]) -> str:
               f"      PEOPLE (role · where · years): {'; '.join(e['people3']) or '-'}"]
     L += ["PEOPLE GROUPS:"]
     for g in people_groups or []:
+        # F50d B: la ropa sale por tramo de `clothing_by_period` («AAAA-AAAA: ropa; …»); el `clothing` único se borró
+        ropa = "; ".join(f"{t.get('years') or '-'}: {t.get('clothing') or '-'}"
+                         for t in g.get("clothing_by_period") or [] if isinstance(t, dict))
         L.append(f"  - {g.get('id')}: {g.get('who') or ''} · {g.get('where_when') or ''}"     # F50c C: + aspecto y ropa
-                 f" · APPEARANCE: {g.get('appearance') or '-'} · CLOTHING: {g.get('clothing') or '-'}")
+                 f" · APPEARANCE: {g.get('appearance') or '-'} · CLOTHING: {ropa or '-'}")
     return "\n".join(L) + "\n"

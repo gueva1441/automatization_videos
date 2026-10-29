@@ -1,0 +1,361 @@
+=== SYSTEM ===
+You are the IMAGE DIRECTOR of a faceless dark-history documentary channel. You do NOT write a free prose prompt: you FILL the slots (casilleros) of EACH image. Emit a JSON ARRAY of N slot-objects, one per given narration fragment, in the SAME order (item i fills the slots for fragment i). All slot VALUES in ENGLISH.
+
+Definition of each slot (what goes in each casillero — this is the craft, model-agnostic):
+
+- subject: who/what is the focus. For people: integrate the LOCAL ethnicity of the topic's GEO (R1), period-correct, NEVER a person's proper name (R3a) — describe by appearance/role. — if the focus object is in foto_madre_ref, name it but do NOT re-describe its shape/pose (the anchor holds it).
+- action: the VERB of the anchor — the EXACT moment it narrates (R11), not the aftermath. What is happening. For a place/object with no human action, the state/movement of the scene. — for an anchored object, narrate the action WITHOUT forcing its orientation or structure (no "suspended vertically", no "encased in").
+- gaze_interaction: where the subject looks / how it touches objects; on an R1 hero beat the face/eyes to the front (R8). If no human, the focal direction of the scene. Emotion on the face follows PHYSICAL TRANSLATION (R6): physical signs, never the emotion word.
+- setting: the place, period-correct (R4, anti-medieval), dressed/placed by the narration of THIS beat, not by cliché (R10). No striped prison uniforms.
+- color_palette: the palette of the era AND of THIS specific place (from the visual canon provided — era layer + sourced place layer).
+- props_detail: ONE loaded focal prop, never an empty plate (R8). — never restate the form of an object already in foto_madre_ref.
+- shot_scale: one of extreme_wide|wide|medium|close|detail. WIDE/EXTREME_WIDE dominates for establishing/architecture/scale/mass events; medium/close ONLY for one human emotion or one texture detail (R7).
+- camera_angle: e.g. low angle for scale, eye-level, high angle (R7).
+- lens_technique: e.g. deep depth of field, shallow depth of field, 85mm lens.
+- lighting: light by the EVENT (R12) — beats of the SAME event share ONE light. overcast daylight, golden hour, low-key night, etc.
+- mood: the emotional register stated ONLY through paintable physics (R6): light, weather, and the human physical signs defined in PHYSICAL TRANSLATION — never a bare emotion word. WITHIN the monetization ceiling (R5, HARD CAP, do not soften): terror is built from SCALE + LIGHT + EMPTY apparatus + loaded LIVING faces — NEVER lifeless bodies, never fresh graphic blood, never the moment of harm. Show the OUTCOME/charged empty space, never the mechanism centered.
+- style: the channel constant — documentary photographic realism, dark-history, faceless. (This is a slot, NOT a harness tail.)
+- text_in_image: a label when the scene legitimately carries text — a literal sign/inscription/number (building number, carved place name), OR a period newspaper headline / wanted-notice when the anchor narrates a notable EVENT (an escape, a scandal, a ruling) and a headline would authentically illustrate it. Use SPARINGLY — only when it ADDS to the beat, never decorative, a minority of images per cap at most. present=false for ordinary people/atmosphere scenes with no narrated text; NEVER a person's proper name. If present=true: text = the literal content in the LANGUAGE OF THE PLACE of the event (given in the user prompt), at most 3 words, font (carved/block/serif/newsprint...), location (over the entrance / front page...). Seedream renders quoted text legibly — allowed and intended.
+- hard_fact_ids: the F-labels (e.g. ["F03","F10"]) of the provided verified_facts whose FIGURES this image actually shows, copied EXACTLY as labeled in the list. Do NOT write the figures yourself — ONLY pick labels RELEVANT to THIS anchor's moment AND place. A figure belongs here only if THIS image depicts it: do NOT attach a building's structural figures (floors, height, year built) to a people/farm/landscape anchor, nor foundation/closing figures to a peak beat. When in doubt, leave it EMPTY — an honest [] is better than an irrelevant figure forced into the scene (which the locked-figures guard will reject downstream). [] if none apply.
+- subject_ref: "main_subject" if there is a protagonist; else "establishing_shot" / "interior_scene" / "landscape_view".
+- foto_madre_ref: a LIST (array) of the recurring documented objects this image DEPICTS as its focus — usually one, sometimes none, at most TWO. The visual canon above names the central subject and any documented objects. Include an object's canonical name in the list when THIS beat's focus IS that recurring object — even when the narration refers to it by metaphor, function or material rather than plainly (its identity is the same object). Use the exact string "__subject__" for the central recurring subject, or the exact name shown after "objeto:" in OBJETOS DOCUMENTADOS for a documented object. Default []: leave the list EMPTY unless an object is the actual focus of THIS image — an object merely mentioned, alluded to, or sitting in the background does NOT go in the list (its form is already held by the prose slots). Up to TWO refs: list a ref for EACH documented object that is a genuine co-focus of THIS beat — e.g. a cutaway/composite that shows two anchored objects together. NEVER more than two. If only one object is the focus, list just that one. This slot is routing only — it is NOT rendered as text. ANCHOR HOLDS THE FORM: when an object is listed in foto_madre_ref, a reference image already fixes its shape, proportion, orientation and internal structure. Therefore, in the other slots, describe only what that object DOES and WHERE it is (its action, its place in the scene) — NEVER its form, pose, angle, or how it is built. Do NOT write a verb or a prop detail that forces a specific orientation or adds structure to an anchored object (e.g. "suspended vertically", "laid along the hull", "encased in a frame", "lowered into the core"). Narrate the moment at a level that leaves the object's physical form entirely to its reference image. This applies ONLY to objects that are in foto_madre_ref; unanchored objects are still described in full by the prose as before. ✓ conceptual: "the crew lowers the vessel into place" (action only, no form) · ✗ "the tall vertical vessel is lowered" (imposes form on an anchored object). STATE MUST MATCH THE BEAT: the reference image fixes the subject's CANONICAL form (the distinctive_features form). If THIS beat narrates the subject in a materially DIFFERENT physical configuration — before a major remodelling, under construction, ruined or mutilated, with parts the canonical form lacks or missing parts it has — then leave foto_madre_ref EMPTY for this image and let the prose describe that narrated state IN DETAIL, drawn from condition_evolution (at_event or later, per the beat's moment). Keep the anchor only when the beat shows the subject in its recognisable canonical form. ✓ conceptual: a beat set before the subject's great rebuild → no anchor, the prose draws the original configuration from at_event · ✓ a beat showing the subject in its recognisable form → normal anchor. PLACES: when the central subject is a PLACE or establishment (a fixed site, not a movable object), its reference image is the ESTABLISHING/AERIAL view of the whole complex. Use __subject__ ONLY on establishing/exterior beats that show the site from outside or above — its identifying silhouette, footprint, towers and building arrangement (subject_ref establishing_shot or an exterior main_subject). Interior scenes, generic rooms, corridors and close detail shots leave foto_madre_ref EMPTY: their identity is NOT the building's exterior form, and the anchor would fight the scene. ✓ conceptual: an aerial of the whole compound → __subject__ · ✗ a lone cell interior → empty.
+- people_group: a LIST of ids from PEOPLE GROUPS whose members are visible in THIS image (usually one); [] if no person is visible. Routing only — not rendered as text.
+- year: the year (YYYY) in which THIS image's scene takes place, read from the narration fragment, its paragraph and the case file (a year said earlier in the paragraph, «ten years before» a stated year, «now» = the most recent year in the case file). Routing only — not rendered as text.
+- emotional_rank: "R1" (peak/hero) | "R2" (action) | "R3" (atmosphere) — see distribution in the user prompt.
+
+DIRECTIVES — the visual canon is a CONTRACT, not decoration. Draw from it:
+
+STATE BY BEAT (applies to EVERY item, anchored or not): each image declares the subject's physical state consistent with the moment it narrates, drawing that state from condition_evolution (at_event for the event moment, later for the aftermath). Never blend two states in one image.
+
+PHYSICAL TRANSLATION — THE ENGINE IS A PAINTER, NOT AN ACTOR (R6, v3):
+- Internal states DO NOT render. Never write a bare abstract emotion ("fear", "terror", "dread", "panic", "despair").
+- Emotion is carried by POSTURE, LIGHT and ACTION, never by a face macro: a body slumped against a wall, shoulders
+  drawn up, a figure turned away toward a window, a group pressed together in a doorway, harsh light from one high
+  window, a figure small in a large dark space.
+- FORBIDDEN face/hand clichés (they render as stock acting): "jaw clenched", "lips pressed thin", "pupils dilated",
+  "whites of his eyes", "knuckles white", "trembling", any face macro or extreme close-up of a face.
+
+BODY CARRIES THE SITUATION (applies to EVERY human figure): the body physically
+wears the conditions THIS beat narrates, BEFORE the face even shows emotion.
+Chest-deep floodwater → clothes soaked dark and clinging, hair plastered to the
+skull, skin slick with dirty water, grime waterlines on face and neck. Days
+trapped without rescue → slumped exhausted posture, accumulated filth.
+Fire or smoke → soot streaks, sweat tracks through ash. A clean, dry, groomed
+face in a disaster scene is a CONTINUITY ERROR. Draw the specific marks from the
+beat's narrated conditions; never default to a presentable face.
+
+PEOPLE:
+- DEMOGRAPHY IS MANDATORY: every human figure states ethnicity + approximate age + build, taken from demographics (and from a documented person's appearance_canon when it is one), matching what the beat narrates. State the ethnicity explicitly whenever the canon gives it — a vague collective descriptor for a crowd (e.g. "a diverse group") does not satisfy this.
+- GROUPS — compose first, then individuate: in a group shot most figures read by FORM, not face — shown from behind, in a wide plane within the architecture, by a detail of hands or feet, or as a rim-lit silhouette whose shape reads cleanly. A front-lit face sunk into flat black shadow is NOT a valid technique; it reads as a mistake. The 2-3 figures that DO show a face are each described distinctly and concretely (its own age, build, position and action) — never one collective description applied to N people.
+- ORDINARY PERIOD FACES: visible faces carry ordinary, period-worn features (weathered, lined, work-hardened, an incomplete set of teeth). Describe by appearance and era, never by a proper name, and never by reference to an actor, a celebrity or a film character.
+
+ERA FIELDS ON DEMAND: when a beat enters a field's terrain, its material comes from the canon, not from invention — people present → clothing · an interior → interiors (including any unique features listed there) · transport, tools or lighting → vehicles_machinery / technology. When the beat does not touch that terrain, do not force the field in.
+
+Fill ALL slots for EVERY item. Each value is a SHORT English phrase (not a paragraph). Do NOT write aspect ratio, negations, or a style/grain tail — the profile/assembler adds those afterward.
+
+TEXT DISCIPLINE: any text meant to appear in the image goes ONLY through the text_in_image slot. The prose slots (subject/action/setting/...) describe the scene — never embed letters or words to be rendered inside them.
+
+COMPOSITION RULES (v3 — HARD, the prompt is validated after you):
+1. HANDS are never the subject and never in the foreground: only within a medium shot or out of focus. Never "close shot
+   of hands", "knuckles", "fingers gripping".
+2. FACES: no facial macro, no extreme close-up of a face. Emotion through posture, light and action.
+3. NO exact counts of people and NO left/right as a requirement ("three men on the left"): use absolute references
+   ("toward the window", "beside the podium", "a few men").
+4. At most a QUARTER of the images show a person in medium shot; prefer places, objects, distance and silhouettes.
+   Every cap has at least ONE establishing / exterior image (the place seen from outside or from above).
+5. WEAPONS: never a muzzle flash, never a weapon in first person, never framed from the shooter. When a beat is
+   about shooting, the SHOOTER NEVER APPEARS (not even far away or as a silhouette): the image is the REACTION of
+   the victims or the witness (crouching in the water, faces turned up, watching from a terrace).
+6. The PEAK image is at HUMAN scale: a person, a group or a human trace — never an object or a weapon in detail.
+7. NO readable text by default (no signage, no labels). Only if the beat demands it: in the LANGUAGE OF THE PLACE of
+   the event (given in the user prompt), at most 3 words. Never Spanish on documents of another country.
+8. SCALE from the research: if the beat speaks of hundreds or thousands of people, write "hundreds of …, filling the
+   frame" — never five or seven figures for an endless line.
+9. Recurring motifs are rationed across the WHOLE video (corridor, podium/sheriff, hands on bars, generator, calendar,
+   document on a desk, closed door): use one only when THIS beat's sensory image names it.
+SENSITIVE CONTENT (YouTube, HARD):
+10. Dead bodies: only if the beat demands it, ALWAYS partially hidden (by water, shadow or distance), never a face, never
+   a close shot. Never in the hook.
+11. NEVER write: blood, wound, gore, mutilated, dismembered, rope around a neck (a hanging only as a shadow or feet).
+12. Minors: only if the research documents them, never in a situation of physical harm; prefer their objects (shoes, a
+   tray) to their bodies.
+
+JSON only. No markdown. No preamble.
+
+=== USER ===
+Narration (Spanish, for context only — emit JSON in English):
+
+Los relaves del vertedero de Colonial se van con el agua. Un informe técnico lo marcó como la fuente principal y la vía del asbesto: la erosión, los lechos de arroyo, las pozas, las llanuras de inundación hacia el río Fortescue. Fibras azules que el agua deja donde se seca. En dos mil veintiuno, una nota ambiental registró fibras en canales de arroyos fuera de la zona marcada como contaminada. El mismo informe advirtió que, sin intervención, el aporte de asbesto a la cuenca del Fortescue puede seguir durante cientos de años.
+
+Es tierra Banjima. En dos mil veintitrés, Marcos Orellana visitó Australia y se sentó con Maitland Parker, un anciano Banjima. «Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él», dijo Parker. Maitland Parker murió de mesotelioma en dos mil veinticuatro. Dos años después, Gordon Legal presentó en nombre de BNTAC un proceso contra Australia Occidental en el Tribunal Federal. Nadie ha empezado a limpiar.
+
+En los accesos al pueblo y desfiladero hay bloqueos. El gobierno de Australia Occidental habla de un «grave problema de salud y seguridad pública». No se ha retirado una sola palada de asbesto. ¿Quién va a sacar la primera palada de esa tierra?
+
+CAP 7 — reveal_outro, title: Una herida abierta
+
+═══════════════════════════════════════════════════
+TEMA
+═══════════════════════════════════════════════════
+Título  : Wittenoom Ciudad Fantasma El Chernobil Australiano Secreto Toxico
+GEO     : Wittenoom
+ERA     : 1943–2024
+
+DATOS DUROS (verified_facts — única fuente válida para cifras/fechas/nombres):
+  [F01] Aproximadamente 150.000 toneladas de asbesto fueron extraídas comercialmente de tres minas en Wittenoom entre 1937 y 1966. [tecnico]
+  [F02] Los relaves de la minería en Wittenoom, que contienen alrededor de un 5% de asbesto, superan los 3 millones de toneladas y cubren un área de aproximadamente 10 kilómetros cuadrados. [tecnico]
+  [F03] Wittenoom es el sitio contaminado más grande del hemisferio sur, abarcando una superficie de 46.840 hectáreas. [tecnico]
+  [F04] En la mina de Wittenoom, los trabajadores minaban en galerías de 42 pulgadas (1,07 metros) de altura. [tecnico]
+  [F05] El pueblo aborigen Banjima reclama 1.500 millones de dólares australianos al Ejecutivo por la contaminación del asbesto. [humano]
+  [F06] Daniel Écija (padre) murió de mesotelioma a los 55 años, nueve meses después de su diagnóstico, tras vivir en Wittenoom. [humano]
+  [F07] En Wittenoom, los niños jugaban con los desechos de amianto azul, deshilachándolo y metiéndolo en la boca, creando un polvillo que lo impregnaba todo, sin ser advertidos de su peligro. [humano]
+  [F08] Los desechos de asbesto (relaves) se utilizaron en la construcción de la ciudad de Wittenoom, la pista de aterrizaje, y como superficie para carreteras y patios públicos. [misterio]
+  [F09] Wittenoom está borrado de los mapas oficiales y es una zona prohibida para visitar debido a la contaminación por asbesto. [misterio]
+  [F10] La tragedia de Wittenoom es referida por muchos afectados como el 'Chernobyl australiano'. [misterio]
+
+DESCRIPCIÓN CANÓNICA DEL SUJETO RECURRENTE:
+An isolated Australian ghost town, its deserted buildings and roads visibly constructed with insidious blue asbestos waste from the 1937-1966 mining era, now a vast, toxic forbidden zone.
+
+CONTEXTO NARRATIVO (research_summary):
+La génesis de Wittenoom es la extracción de asbesto azul, el mineral más letal, iniciada en la década de 1930. Aunque informes de 1930 y advertencias de polvo en 1944 ya señalaban su peligrosidad, la Australian Blue Asbestos Ltd. (ABA), filial de CSR sin experiencia minera, fue calificada de "aficionados". Un médico alertó en 1948 sobre niveles de polvo extremadamente peligrosos, pero sus avisos se desestimaron. Entre 1948 y 1966, tres millones de toneladas de relaves de asbesto, el desecho minero, se usaron para construir la ciudad: calles, patios, la pista de aterrizaje. La producción se intensificó en 1961, ignorando los riesgos. En 1966, la mina cerró por razones económicas, dejando una herida tóxica de 46.840 hectáreas. Desde 1978, el gobierno australiano desmanteló Wittenoom, eliminándola de mapas en 2006 y declarándola zona prohibida en 2007. Investigaciones parlamentarias en los 90 recomendaron la limpieza, pero los costos, estimados en 150 millones de dólares, fueron eludidos, permitiendo que la contaminación se extendiera hasta el río Fortescue, fuente de agua potable.||Tras las cifras, emerge el dolor humano. Familias migrantes, como la de Daniel Écija padre, llegaron en la "Operación Canguro" de 1958. Daniel y su esposa María Bernal residieron en Wittenoom apenas diez meses (1962-63), tiempo suficiente para que él contrajera mesotelioma y falleciera a los 55. Su hijo, Daniel Écija, nacido allí, creció bajo la sombra de la enfermedad, recordando cómo un policía en 1985 describió su ciudad natal como "terrorífica". Niños como Víctor Calvo y Mercedes de Juan jugaban inocentemente con el asbesto azul, deshilachándolo y metiéndolo en la boca, sin ser advertidos de su peligro. Melita Markey, de la Asbestos Diseases Society of Australia, estima que las muertes superan las 4.000, una cifra en aumento. Para el pueblo Banjima, la tragedia es una herida abierta. El anciano Maitland Parker, fallecido por mesotelioma en 2024, expresó su apego: "Todavía lloro por mi País". Johnnell Parker, de BNTAC, resalta la resiliencia de su pueblo, luchando por sanar su tierra ancestral.||El verdadero enigma de Wittenoom radica en la impunidad y el desprecio por la vida. ¿Por qué, pese a tempranas advertencias científicas y de inspectores, la mina aumentó su producción en 1961? ¿Cómo un informe gubernamental de 2023 reconoce que "todos los informes sobre el alcance de la contaminación ya no son aplicables" y que esta se ha extendido, sin un dólar invertido en limpieza? El Estado de Australia Occidental ha recaudado más de 70.000 millones de dólares en regalías mineras, pero evadió la remediación, argumentando que las minas nunca fueron "declaradas abandonadas" para acceder a fondos de rehabilitación. La pregunta clave persiste: ¿quién asumirá la responsabilidad económica y moral por millones de toneladas de asbesto que se propagan? La demanda legal de 1.500 millones de dólares australianos de la Corporación Aborigen Banjima, apoyada por abogados como Peter Gordon, busca romper este ciclo de inacción. Wittenoom, el "Chernóbil australiano", exige justicia y respuestas definitivas a un secreto tóxico de décadas.
+
+═══════════════════════════════════════════════════
+CANON VISUAL (2 capas — verdad sellada, NO re-inferir)
+═══════════════════════════════════════════════════
+ERA (capa genérica de la época):
+  primary_decade        : 1960s
+  spans                 : 1937-2026
+  period 1958-1966:
+  clothing              : Similar workwear for miners, but with some attempts at dust protection; civilian clothing adapted to evolving 1960s styles, still practical for the desert.
+  technology            : Larger-scale mining equipment, introduction of some dust reduction machinery. More common use of landline phones. Early televisions in some homes.
+  vehicles_machinery    : A greater variety of 1950s-1960s trucks and utility vehicles. More modern (for the era) passenger cars. Small propeller aircraft for regional transport.
+  interiors             : Slightly more established home interiors reflecting mid-century styles, though still basic. Mill interiors remained heavily dusty despite mitigation efforts.
+  forbidden_anachronisms: smartphones, LED screens, contemporary clothing (post-2000s), modern flat panels, modern industrial safety equipment, GPS devices, digital cameras, plastic water bottles, modern construction machinery, satellite dishes, modern vehicles post-1970s, advanced personal protective equipment.
+
+LUGAR PUNTUAL (capa sourced — específica de ESTE lugar, eslabón 2):
+  materials_textures           : Weathered corrugated iron, wood, fiber-cement sheeting, red earth, fine pervasive dust, and visible blue asbestos tailings used in construction for roads, yards, and buildings.
+  color_palette                : Exterior dominated by dusty red earth and blue asbestos accents, with weathered browns, greys, and muted tones of corrugated iron and timber structures. Interiors likely had simple, light-colored walls to reflect heat, quickly covered in dust.
+  scale_dimensions             : The subject is an isolated, sprawling ghost town, characterized by deserted buildings and extensive roads within a vast area covering 46,840 hectares, with remnants of mining operations and contaminated landscapes.
+  distinctive_features         : An isolated Australian desert ghost town, uniquely defined by its visible construction from insidious blue asbestos waste from the 1937-1966 mining era, now a vast, toxic, and permanently barricaded forbidden zone.
+  demographics                 : The population primarily consisted of Australian workers and families during the early mining phase, later supplemented by European migrants, notably Spanish, recruited for mining labor. Workers were mostly men, with families residing in the town.
+  condition_evolution.at_event : During its active mining period (1937-1966), Wittenoom was a functional but extremely dusty mining town, with buildings and infrastructure visibly constructed using blue asbestos tailings. Despite evident health risks, operations continued.
+  condition_evolution.later    : Post-1966, Wittenoom gradually became an abandoned ghost town. Buildings were demolished between 1986 and 2007, services were disconnected, and access was permanently barricaded. The area remains a vast, toxic zone with asbestos spread by wind and water, declared unsafe for human occupation.
+
+PERSONAS DOCUMENTADAS (usar appearance_canon, NUNCA el nombre):
+  • role: Medical inspector / Public health doctor | age unknown | era: 1948
+    appearance_canon: a middle-aged medical inspector with a concerned demeanor
+  • role: Spanish migrant miner | age 26 | era: 1962
+    appearance_canon: an early-20s Spanish migrant miner, likely with a bandaged foot from an injury
+  • role: Spanish migrant wife and Wittenoom resident | age unknown | era: 1962
+    appearance_canon: a young adult Spanish migrant woman, often in family photos, potentially weakened after a complicated childbirth
+  • role: Spanish migrant wife and Wittenoom resident | age unknown | era: 1962
+    appearance_canon: a young adult Spanish migrant woman, friend of Maria Bernal
+  • role: Spanish migrant miner | age unknown | era: 1962
+    appearance_canon: a young adult Spanish migrant miner, working long shifts
+  • role: Child resident of Wittenoom | age unknown | era: 1962
+    appearance_canon: a young child, playing with asbestos material
+  • role: Infant resident of Wittenoom | age 0 | era: 1963
+    appearance_canon: an infant born in Wittenoom, subject of a baptism photo
+  • role: Banjima elder, activist, mesotelioma victim | age unknown | era: 2023
+    appearance_canon: an elderly Indigenous Australian man, activist for land remediation
+  • role: Lawyer for asbestos victims | age unknown | era: 1988
+    appearance_canon: a middle-aged lawyer with a determined demeanor
+  • role: CSR Chairman | age unknown | era: 1966
+    appearance_canon: a middle-aged corporate chairman announcing the mine closure
+  • role: Minister for Lands | age unknown | era: 2019
+    appearance_canon: a middle-aged government minister discussing remediation costs
+  • role: UN Special Rapporteur | age unknown | era: 2023
+    appearance_canon: a middle-aged UN rapporteur investigating environmental damage
+
+OBJETOS DOCUMENTADOS: (vacío) — describí cualquier objeto que nombre la narración por su forma física según el relato, sin inventar detalles no dichos.
+
+ANACRONISMOS PROHIBIDOS:
+  - smartphones
+  - LED screens
+  - contemporary clothing (post-2000s)
+  - modern flat panels
+  - modern industrial safety equipment (e.g., hazmat suits)
+  - GPS devices
+  - digital cameras
+  - plastic water bottles
+  - modern construction machinery (e.g., large excavators)
+  - satellite dishes
+  - vehicles post-1970s
+  - advanced personal protective equipment
+
+USO (2 capas): la capa ÉPOCA es genérica; la capa LUGAR PUNTUAL es específica de
+ESTE lugar (úsala para color_palette / setting / props_detail / subject).
+OBJETOS: cuando un beat se refiere a uno de estos objetos —aunque el relato lo
+llame por metáfora o por su función— su forma general NO cambia entre imágenes:
+usá la forma canónica del catálogo, no reinventes su silueta. GUARDA-B:
+el canon NUNCA pisa una cifra más precisa de los verified_facts — "over 800 acres"
+(canon) NO reemplaza "873 acres" (fact). Donde hay fact, manda el fact; el canon
+llena lo que el fact no tiene.
+
+═══════════════════════════════════════════════════
+ANCHORS YA ELEGIDOS (Paso 1) — NO los elijas, ya están DADOS
+═══════════════════════════════════════════════════
+Fill the slots for EACH fragment below, in the SAME order (item i ↔ fragment i):
+  [1] «No se ha retirado una sola palada de asbesto. ¿Quién va a sacar la primera palada de esa tierra?»
+  [2] «Los relaves del vertedero de Colonial se van con el agua.»
+  [3] «Un informe técnico lo marcó como la fuente principal y la vía del asbesto: la erosión, los lechos de arroyo, las pozas, las llanuras de inundación hacia el río Fortescue.»
+  [4] «Fibras azules que el agua deja donde se seca.»
+  [5] «En dos mil veintiuno, una nota ambiental registró fibras en canales de arroyos fuera de la zona marcada como contaminada.»
+  [6] «El mismo informe advirtió que, sin intervención, el aporte de asbesto a la cuenca del Fortescue puede seguir durante cientos de años.»
+  [7] «Es tierra Banjima. En dos mil veintitrés, Marcos Orellana visitó Australia y se sentó con Maitland Parker, un anciano Banjima.»
+  [8] ««Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él», dijo Parker.»
+  [9] «Maitland Parker murió de mesotelioma en dos mil veinticuatro.»
+  [10] «Dos años después, Gordon Legal presentó en nombre de BNTAC un proceso contra Australia Occidental en el Tribunal Federal.»
+  [11] «Nadie ha empezado a limpiar.»
+  [12] «En los accesos al pueblo y desfiladero hay bloqueos.»
+  [13] «El gobierno de Australia Occidental habla de un «grave problema de salud y seguri»
+
+Emit EXACTLY 13 slot-objects as a JSON array.
+
+═══════════════════════════════════════════════════
+VISUAL ARC OF THIS CAP — narrative_intent='outro'
+═══════════════════════════════════════════════════
+Bias the shot_scale, lighting and mood of these images toward:
+Wide, often elevated/aerial. Stillness, dawn or quiet. An open, suspended note — the silence after. Calm.
+
+═══════════════════════════════════════════════════
+VISUAL SUBJECT PER IMAGE — decided by the scriptwriter (MANDATORY)
+═══════════════════════════════════════════════════
+For each item, the SUBJECT, ACTION and PROPS come from what the beat says is SEEN (its sensory image, in Spanish:
+translate it). The narration fragment only adds place, period and detail. Two images of the same beat show two
+DIFFERENT parts or distances of that sensory image (never the same frame twice).
+  [1] beat 13 · consecuencia · emotion duelo · intensity 3
+      SEEN: «Lechos de arroyo, pozas, llanuras de inundación hacia el río Fortescue: fibras azules depositadas por el agua, ya fuera de la zona marcada. Un anciano Banjima que llora por su territorio y no puede alejarse de él.»
+  [2] beat 13 · consecuencia · emotion duelo · intensity 3
+      SEEN: «Lechos de arroyo, pozas, llanuras de inundación hacia el río Fortescue: fibras azules depositadas por el agua, ya fuera de la zona marcada. Un anciano Banjima que llora por su territorio y no puede alejarse de él.»
+  [3] beat 13 · consecuencia · emotion duelo · intensity 3
+      SEEN: «Lechos de arroyo, pozas, llanuras de inundación hacia el río Fortescue: fibras azules depositadas por el agua, ya fuera de la zona marcada. Un anciano Banjima que llora por su territorio y no puede alejarse de él.»
+  [4] beat 13 · consecuencia · emotion duelo · intensity 3
+      SEEN: «Lechos de arroyo, pozas, llanuras de inundación hacia el río Fortescue: fibras azules depositadas por el agua, ya fuera de la zona marcada. Un anciano Banjima que llora por su territorio y no puede alejarse de él.»
+  [5] beat 13 · consecuencia · emotion duelo · intensity 3
+      SEEN: «Lechos de arroyo, pozas, llanuras de inundación hacia el río Fortescue: fibras azules depositadas por el agua, ya fuera de la zona marcada. Un anciano Banjima que llora por su territorio y no puede alejarse de él.»
+  [6] beat 13 · consecuencia · emotion duelo · intensity 3
+      SEEN: «Lechos de arroyo, pozas, llanuras de inundación hacia el río Fortescue: fibras azules depositadas por el agua, ya fuera de la zona marcada. Un anciano Banjima que llora por su territorio y no puede alejarse de él.»
+  [7] beat 13 · consecuencia · emotion duelo · intensity 3
+      SEEN: «Lechos de arroyo, pozas, llanuras de inundación hacia el río Fortescue: fibras azules depositadas por el agua, ya fuera de la zona marcada. Un anciano Banjima que llora por su territorio y no puede alejarse de él.»
+  [8] beat 13 · consecuencia · emotion duelo · intensity 3
+      SEEN: «Lechos de arroyo, pozas, llanuras de inundación hacia el río Fortescue: fibras azules depositadas por el agua, ya fuera de la zona marcada. Un anciano Banjima que llora por su territorio y no puede alejarse de él.»
+  [9] beat 13 · consecuencia · emotion duelo · intensity 3
+      SEEN: «Lechos de arroyo, pozas, llanuras de inundación hacia el río Fortescue: fibras azules depositadas por el agua, ya fuera de la zona marcada. Un anciano Banjima que llora por su territorio y no puede alejarse de él.»
+  [10] beat 13 · consecuencia · emotion duelo · intensity 3
+      SEEN: «Lechos de arroyo, pozas, llanuras de inundación hacia el río Fortescue: fibras azules depositadas por el agua, ya fuera de la zona marcada. Un anciano Banjima que llora por su territorio y no puede alejarse de él.»
+  [11] beat 14 · cierre · emotion vacío · intensity 3
+      SEEN: «Barricadas permanentes cortando la entrada del pueblo y del desfiladero. Del otro lado, nada: viento, tierra roja. Y en una caja en Madrid, el retrato del hombre con el pie vendado.»
+  [12] beat 14 · cierre · emotion vacío · intensity 3
+      SEEN: «Barricadas permanentes cortando la entrada del pueblo y del desfiladero. Del otro lado, nada: viento, tierra roja. Y en una caja en Madrid, el retrato del hombre con el pie vendado.»
+  [13] beat 14 · cierre · emotion vacío · intensity 3
+      SEEN: «Barricadas permanentes cortando la entrada del pueblo y del desfiladero. Del otro lado, nada: viento, tierra roja. Y en una caja en Madrid, el retrato del hombre con el pie vendado.»
+Cap bullets (context only):
+  - Lechos de arroyo, pozas, llanuras de inundación hacia el río Fortescue: fibras azules depositadas por el agua, ya fuera de la zona marcada. Un anciano Banjima que llora por su territorio y no puede alejarse de él. · Todavía lloro por mi País, pero eso está arraigado en mí, simplemente no puedo alejarme de él.
+  - Barricadas permanentes cortando la entrada del pueblo y del desfiladero. Del otro lado, nada: viento, tierra roja. Y en una caja en Madrid, el retrato del hombre con el pie vendado. · Se han instalado barricadas permanentes en las entradas del antiguo pueblo y del desfiladero de Wittenoom.
+Language of the place of the event (for any text in the image, max 3 words, only if the beat demands it): English.
+
+═══════════════════════════════════════════════════
+CASE FILE PER IMAGE — documented data. Use it to make each image specific to its place, year and people; do not invent beyond it.
+═══════════════════════════════════════════════════
+  [1] YEAR: - · WHERE: Wittenoom; Australia; Tribunal Federal; Cauces, pozas y llanuras de inundación hasta el río Fortescue.
+      PARAGRAPH: «En los accesos al pueblo y desfiladero hay bloqueos. El gobierno de Australia Occidental habla de un «grave problema de salud y seguridad pública». No se ha retirado una sola palada de asbesto. ¿Quién va a sacar la primera palada de esa tierra?»
+      SCENES: «Cauces, pozas y llanuras de inundación hasta el río Fortescue. · Observadores del estudio ambiental. · El informe registra material de asbesto transportado y depositado por el agua. · Depósitos observados en lechos de arroyos, pozas y llanuras aluviales.»
+      FACTS: «La fuente y vía de migración más significativa del asbesto es la erosión por agua desde el vertedero de relaves de la mina Colonial.» | «El material de asbesto del vertedero de Colonial alimenta el área de captación del río Fortescue.» | «2021 · El Departamento de Regulación del Agua y Medio Ambiente menciona que se han encontrado fibras de asbesto en canales de arroyos más allá de la zona de contaminación de Wittenoom.» | «2023 · El Relator Especial de la ONU, Dr. Marcos Orellana, visita Australia y entrevista al anciano Banjima Maitland Parker sobre la contaminación en Wittenoom.» | «2024 · Maitland Parker muere de mesotelioma.» | «2026 · Gordon Legal inicia un proceso legal en el Tribunal Federal contra el Estado de Australia Occidental en nombre de BNTAC.»
+      QUOTES: «Todavía lloro por mi País, pero eso está arraigado en mí, simplemente no puedo alejarme de él.» — Maitland Parker · Dueño tradicional Banjima · witness
+      PEOPLE (role · where · years): -
+  [2] YEAR: - · WHERE: Wittenoom; Australia; Tribunal Federal; Cauces, pozas y llanuras de inundación hasta el río Fortescue.
+      PARAGRAPH: «Los relaves del vertedero de Colonial se van con el agua. Un informe técnico lo marcó como la fuente principal y la vía del asbesto: la erosión, los lechos de arroyo, las pozas, las llanuras de inundación hacia el río Fortescue. Fibras azules que el agua deja donde se seca. En dos mil veintiuno, una nota ambiental registró fibras en canales de arroyos fuera de la zona marcada como contaminada. El mismo informe advirtió que, sin intervención, el aporte de asbesto a la cuenca del Fortescue puede seguir durante cientos de años.»
+      SCENES: «Cauces, pozas y llanuras de inundación hasta el río Fortescue. · Observadores del estudio ambiental. · El informe registra material de asbesto transportado y depositado por el agua. · Depósitos observados en lechos de arroyos, pozas y llanuras aluviales.»
+      FACTS: «La fuente y vía de migración más significativa del asbesto es la erosión por agua desde el vertedero de relaves de la mina Colonial.» | «El material de asbesto del vertedero de Colonial alimenta el área de captación del río Fortescue.» | «2021 · El Departamento de Regulación del Agua y Medio Ambiente menciona que se han encontrado fibras de asbesto en canales de arroyos más allá de la zona de contaminación de Wittenoom.» | «2023 · El Relator Especial de la ONU, Dr. Marcos Orellana, visita Australia y entrevista al anciano Banjima Maitland Parker sobre la contaminación en Wittenoom.» | «2024 · Maitland Parker muere de mesotelioma.» | «2026 · Gordon Legal inicia un proceso legal en el Tribunal Federal contra el Estado de Australia Occidental en nombre de BNTAC.»
+      QUOTES: «Todavía lloro por mi País, pero eso está arraigado en mí, simplemente no puedo alejarme de él.» — Maitland Parker · Dueño tradicional Banjima · witness
+      PEOPLE (role · where · years): -
+  [3] YEAR: - · WHERE: Wittenoom; Australia; Tribunal Federal; Cauces, pozas y llanuras de inundación hasta el río Fortescue.
+      PARAGRAPH: «Los relaves del vertedero de Colonial se van con el agua. Un informe técnico lo marcó como la fuente principal y la vía del asbesto: la erosión, los lechos de arroyo, las pozas, las llanuras de inundación hacia el río Fortescue. Fibras azules que el agua deja donde se seca. En dos mil veintiuno, una nota ambiental registró fibras en canales de arroyos fuera de la zona marcada como contaminada. El mismo informe advirtió que, sin intervención, el aporte de asbesto a la cuenca del Fortescue puede seguir durante cientos de años.»
+      SCENES: «Cauces, pozas y llanuras de inundación hasta el río Fortescue. · Observadores del estudio ambiental. · El informe registra material de asbesto transportado y depositado por el agua. · Depósitos observados en lechos de arroyos, pozas y llanuras aluviales.»
+      FACTS: «La fuente y vía de migración más significativa del asbesto es la erosión por agua desde el vertedero de relaves de la mina Colonial.» | «El material de asbesto del vertedero de Colonial alimenta el área de captación del río Fortescue.» | «2021 · El Departamento de Regulación del Agua y Medio Ambiente menciona que se han encontrado fibras de asbesto en canales de arroyos más allá de la zona de contaminación de Wittenoom.» | «2023 · El Relator Especial de la ONU, Dr. Marcos Orellana, visita Australia y entrevista al anciano Banjima Maitland Parker sobre la contaminación en Wittenoom.» | «2024 · Maitland Parker muere de mesotelioma.» | «2026 · Gordon Legal inicia un proceso legal en el Tribunal Federal contra el Estado de Australia Occidental en nombre de BNTAC.»
+      QUOTES: «Todavía lloro por mi País, pero eso está arraigado en mí, simplemente no puedo alejarme de él.» — Maitland Parker · Dueño tradicional Banjima · witness
+      PEOPLE (role · where · years): -
+  [4] YEAR: - · WHERE: Wittenoom; Australia; Tribunal Federal; Cauces, pozas y llanuras de inundación hasta el río Fortescue.
+      PARAGRAPH: «Los relaves del vertedero de Colonial se van con el agua. Un informe técnico lo marcó como la fuente principal y la vía del asbesto: la erosión, los lechos de arroyo, las pozas, las llanuras de inundación hacia el río Fortescue. Fibras azules que el agua deja donde se seca. En dos mil veintiuno, una nota ambiental registró fibras en canales de arroyos fuera de la zona marcada como contaminada. El mismo informe advirtió que, sin intervención, el aporte de asbesto a la cuenca del Fortescue puede seguir durante cientos de años.»
+      SCENES: «Cauces, pozas y llanuras de inundación hasta el río Fortescue. · Observadores del estudio ambiental. · El informe registra material de asbesto transportado y depositado por el agua. · Depósitos observados en lechos de arroyos, pozas y llanuras aluviales.»
+      FACTS: «La fuente y vía de migración más significativa del asbesto es la erosión por agua desde el vertedero de relaves de la mina Colonial.» | «El material de asbesto del vertedero de Colonial alimenta el área de captación del río Fortescue.» | «2021 · El Departamento de Regulación del Agua y Medio Ambiente menciona que se han encontrado fibras de asbesto en canales de arroyos más allá de la zona de contaminación de Wittenoom.» | «2023 · El Relator Especial de la ONU, Dr. Marcos Orellana, visita Australia y entrevista al anciano Banjima Maitland Parker sobre la contaminación en Wittenoom.» | «2024 · Maitland Parker muere de mesotelioma.» | «2026 · Gordon Legal inicia un proceso legal en el Tribunal Federal contra el Estado de Australia Occidental en nombre de BNTAC.»
+      QUOTES: «Todavía lloro por mi País, pero eso está arraigado en mí, simplemente no puedo alejarme de él.» — Maitland Parker · Dueño tradicional Banjima · witness
+      PEOPLE (role · where · years): -
+  [5] YEAR: 2021 · WHERE: Wittenoom; Australia; Tribunal Federal; Cauces, pozas y llanuras de inundación hasta el río Fortescue.
+      PARAGRAPH: «Los relaves del vertedero de Colonial se van con el agua. Un informe técnico lo marcó como la fuente principal y la vía del asbesto: la erosión, los lechos de arroyo, las pozas, las llanuras de inundación hacia el río Fortescue. Fibras azules que el agua deja donde se seca. En dos mil veintiuno, una nota ambiental registró fibras en canales de arroyos fuera de la zona marcada como contaminada. El mismo informe advirtió que, sin intervención, el aporte de asbesto a la cuenca del Fortescue puede seguir durante cientos de años.»
+      SCENES: «Cauces, pozas y llanuras de inundación hasta el río Fortescue. · Observadores del estudio ambiental. · El informe registra material de asbesto transportado y depositado por el agua. · Depósitos observados en lechos de arroyos, pozas y llanuras aluviales.»
+      FACTS: «La fuente y vía de migración más significativa del asbesto es la erosión por agua desde el vertedero de relaves de la mina Colonial.» | «El material de asbesto del vertedero de Colonial alimenta el área de captación del río Fortescue.» | «2021 · El Departamento de Regulación del Agua y Medio Ambiente menciona que se han encontrado fibras de asbesto en canales de arroyos más allá de la zona de contaminación de Wittenoom.» | «2023 · El Relator Especial de la ONU, Dr. Marcos Orellana, visita Australia y entrevista al anciano Banjima Maitland Parker sobre la contaminación en Wittenoom.» | «2024 · Maitland Parker muere de mesotelioma.» | «2026 · Gordon Legal inicia un proceso legal en el Tribunal Federal contra el Estado de Australia Occidental en nombre de BNTAC.»
+      QUOTES: «Todavía lloro por mi País, pero eso está arraigado en mí, simplemente no puedo alejarme de él.» — Maitland Parker · Dueño tradicional Banjima · witness
+      PEOPLE (role · where · years): -
+  [6] YEAR: - · WHERE: Wittenoom; Australia; Tribunal Federal; Cauces, pozas y llanuras de inundación hasta el río Fortescue.
+      PARAGRAPH: «Los relaves del vertedero de Colonial se van con el agua. Un informe técnico lo marcó como la fuente principal y la vía del asbesto: la erosión, los lechos de arroyo, las pozas, las llanuras de inundación hacia el río Fortescue. Fibras azules que el agua deja donde se seca. En dos mil veintiuno, una nota ambiental registró fibras en canales de arroyos fuera de la zona marcada como contaminada. El mismo informe advirtió que, sin intervención, el aporte de asbesto a la cuenca del Fortescue puede seguir durante cientos de años.»
+      SCENES: «Cauces, pozas y llanuras de inundación hasta el río Fortescue. · Observadores del estudio ambiental. · El informe registra material de asbesto transportado y depositado por el agua. · Depósitos observados en lechos de arroyos, pozas y llanuras aluviales.»
+      FACTS: «La fuente y vía de migración más significativa del asbesto es la erosión por agua desde el vertedero de relaves de la mina Colonial.» | «El material de asbesto del vertedero de Colonial alimenta el área de captación del río Fortescue.» | «2021 · El Departamento de Regulación del Agua y Medio Ambiente menciona que se han encontrado fibras de asbesto en canales de arroyos más allá de la zona de contaminación de Wittenoom.» | «2023 · El Relator Especial de la ONU, Dr. Marcos Orellana, visita Australia y entrevista al anciano Banjima Maitland Parker sobre la contaminación en Wittenoom.» | «2024 · Maitland Parker muere de mesotelioma.» | «2026 · Gordon Legal inicia un proceso legal en el Tribunal Federal contra el Estado de Australia Occidental en nombre de BNTAC.»
+      QUOTES: «Todavía lloro por mi País, pero eso está arraigado en mí, simplemente no puedo alejarme de él.» — Maitland Parker · Dueño tradicional Banjima · witness
+      PEOPLE (role · where · years): -
+  [7] YEAR: 2023 · WHERE: Wittenoom; Australia; Tribunal Federal; Cauces, pozas y llanuras de inundación hasta el río Fortescue.
+      PARAGRAPH: «Es tierra Banjima. En dos mil veintitrés, Marcos Orellana visitó Australia y se sentó con Maitland Parker, un anciano Banjima. «Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él», dijo Parker. Maitland Parker murió de mesotelioma en dos mil veinticuatro. Dos años después, Gordon Legal presentó en nombre de BNTAC un proceso contra Australia Occidental en el Tribunal Federal. Nadie ha empezado a limpiar.»
+      SCENES: «Cauces, pozas y llanuras de inundación hasta el río Fortescue. · Observadores del estudio ambiental. · El informe registra material de asbesto transportado y depositado por el agua. · Depósitos observados en lechos de arroyos, pozas y llanuras aluviales.»
+      FACTS: «La fuente y vía de migración más significativa del asbesto es la erosión por agua desde el vertedero de relaves de la mina Colonial.» | «El material de asbesto del vertedero de Colonial alimenta el área de captación del río Fortescue.» | «2021 · El Departamento de Regulación del Agua y Medio Ambiente menciona que se han encontrado fibras de asbesto en canales de arroyos más allá de la zona de contaminación de Wittenoom.» | «2023 · El Relator Especial de la ONU, Dr. Marcos Orellana, visita Australia y entrevista al anciano Banjima Maitland Parker sobre la contaminación en Wittenoom.» | «2024 · Maitland Parker muere de mesotelioma.» | «2026 · Gordon Legal inicia un proceso legal en el Tribunal Federal contra el Estado de Australia Occidental en nombre de BNTAC.»
+      QUOTES: «Todavía lloro por mi País, pero eso está arraigado en mí, simplemente no puedo alejarme de él.» — Maitland Parker · Dueño tradicional Banjima · witness
+      PEOPLE (role · where · years): Anciano Banjima que denunció el daño a su territorio, habló con el relator de la ONU y murió de mesotelioma · Wittenoom · 2023, 2024; Relator especial de la ONU sobre sustancias tóxicas y derechos humanos; visitó Australia y entrevistó a Maitland Parker · Wittenoom · 2023, 2024
+  [8] YEAR: - · WHERE: Wittenoom; Australia; Tribunal Federal; Cauces, pozas y llanuras de inundación hasta el río Fortescue.
+      PARAGRAPH: «Es tierra Banjima. En dos mil veintitrés, Marcos Orellana visitó Australia y se sentó con Maitland Parker, un anciano Banjima. «Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él», dijo Parker. Maitland Parker murió de mesotelioma en dos mil veinticuatro. Dos años después, Gordon Legal presentó en nombre de BNTAC un proceso contra Australia Occidental en el Tribunal Federal. Nadie ha empezado a limpiar.»
+      SCENES: «Cauces, pozas y llanuras de inundación hasta el río Fortescue. · Observadores del estudio ambiental. · El informe registra material de asbesto transportado y depositado por el agua. · Depósitos observados en lechos de arroyos, pozas y llanuras aluviales.»
+      FACTS: «La fuente y vía de migración más significativa del asbesto es la erosión por agua desde el vertedero de relaves de la mina Colonial.» | «El material de asbesto del vertedero de Colonial alimenta el área de captación del río Fortescue.» | «2021 · El Departamento de Regulación del Agua y Medio Ambiente menciona que se han encontrado fibras de asbesto en canales de arroyos más allá de la zona de contaminación de Wittenoom.» | «2023 · El Relator Especial de la ONU, Dr. Marcos Orellana, visita Australia y entrevista al anciano Banjima Maitland Parker sobre la contaminación en Wittenoom.» | «2024 · Maitland Parker muere de mesotelioma.» | «2026 · Gordon Legal inicia un proceso legal en el Tribunal Federal contra el Estado de Australia Occidental en nombre de BNTAC.»
+      QUOTES: «Todavía lloro por mi País, pero eso está arraigado en mí, simplemente no puedo alejarme de él.» — Maitland Parker · Dueño tradicional Banjima · witness
+      PEOPLE (role · where · years): Anciano Banjima que denunció el daño a su territorio, habló con el relator de la ONU y murió de mesotelioma · Wittenoom · 2023, 2024 (named earlier in the paragraph); Relator especial de la ONU sobre sustancias tóxicas y derechos humanos; visitó Australia y entrevistó a Maitland Parker · Wittenoom · 2023, 2024 (named earlier in the paragraph)
+  [9] YEAR: 2024 · WHERE: Wittenoom; Australia; Tribunal Federal; Cauces, pozas y llanuras de inundación hasta el río Fortescue.
+      PARAGRAPH: «Es tierra Banjima. En dos mil veintitrés, Marcos Orellana visitó Australia y se sentó con Maitland Parker, un anciano Banjima. «Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él», dijo Parker. Maitland Parker murió de mesotelioma en dos mil veinticuatro. Dos años después, Gordon Legal presentó en nombre de BNTAC un proceso contra Australia Occidental en el Tribunal Federal. Nadie ha empezado a limpiar.»
+      SCENES: «Cauces, pozas y llanuras de inundación hasta el río Fortescue. · Observadores del estudio ambiental. · El informe registra material de asbesto transportado y depositado por el agua. · Depósitos observados en lechos de arroyos, pozas y llanuras aluviales.»
+      FACTS: «La fuente y vía de migración más significativa del asbesto es la erosión por agua desde el vertedero de relaves de la mina Colonial.» | «El material de asbesto del vertedero de Colonial alimenta el área de captación del río Fortescue.» | «2021 · El Departamento de Regulación del Agua y Medio Ambiente menciona que se han encontrado fibras de asbesto en canales de arroyos más allá de la zona de contaminación de Wittenoom.» | «2023 · El Relator Especial de la ONU, Dr. Marcos Orellana, visita Australia y entrevista al anciano Banjima Maitland Parker sobre la contaminación en Wittenoom.» | «2024 · Maitland Parker muere de mesotelioma.» | «2026 · Gordon Legal inicia un proceso legal en el Tribunal Federal contra el Estado de Australia Occidental en nombre de BNTAC.»
+      QUOTES: «Todavía lloro por mi País, pero eso está arraigado en mí, simplemente no puedo alejarme de él.» — Maitland Parker · Dueño tradicional Banjima · witness
+      PEOPLE (role · where · years): Anciano Banjima que denunció el daño a su territorio, habló con el relator de la ONU y murió de mesotelioma · Wittenoom · 2023, 2024
+  [10] YEAR: - · WHERE: Wittenoom; Australia; Tribunal Federal; Cauces, pozas y llanuras de inundación hasta el río Fortescue.
+      PARAGRAPH: «Es tierra Banjima. En dos mil veintitrés, Marcos Orellana visitó Australia y se sentó con Maitland Parker, un anciano Banjima. «Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él», dijo Parker. Maitland Parker murió de mesotelioma en dos mil veinticuatro. Dos años después, Gordon Legal presentó en nombre de BNTAC un proceso contra Australia Occidental en el Tribunal Federal. Nadie ha empezado a limpiar.»
+      SCENES: «Cauces, pozas y llanuras de inundación hasta el río Fortescue. · Observadores del estudio ambiental. · El informe registra material de asbesto transportado y depositado por el agua. · Depósitos observados en lechos de arroyos, pozas y llanuras aluviales.»
+      FACTS: «La fuente y vía de migración más significativa del asbesto es la erosión por agua desde el vertedero de relaves de la mina Colonial.» | «El material de asbesto del vertedero de Colonial alimenta el área de captación del río Fortescue.» | «2021 · El Departamento de Regulación del Agua y Medio Ambiente menciona que se han encontrado fibras de asbesto en canales de arroyos más allá de la zona de contaminación de Wittenoom.» | «2023 · El Relator Especial de la ONU, Dr. Marcos Orellana, visita Australia y entrevista al anciano Banjima Maitland Parker sobre la contaminación en Wittenoom.» | «2024 · Maitland Parker muere de mesotelioma.» | «2026 · Gordon Legal inicia un proceso legal en el Tribunal Federal contra el Estado de Australia Occidental en nombre de BNTAC.»
+      QUOTES: «Todavía lloro por mi País, pero eso está arraigado en mí, simplemente no puedo alejarme de él.» — Maitland Parker · Dueño tradicional Banjima · witness
+      PEOPLE (role · where · years): Corporación Banjima cuya junta decidió impulsar acciones legales para obtener la limpieza y que demanda al Estado · - · 2026; Estudio jurídico que inició el proceso contra Australia Occidental en representación de BNTAC; es también fuente de afirmaciones de la parte demandante · - · -; Órgano judicial ante el que se presentó el proceso de BNTAC; el pool no contiene una sentencia sobre esa demanda · - · -
+  [11] YEAR: - · WHERE: Entradas del antiguo pueblo y de Wittenoom Gorge.
+      PARAGRAPH: «Es tierra Banjima. En dos mil veintitrés, Marcos Orellana visitó Australia y se sentó con Maitland Parker, un anciano Banjima. «Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él», dijo Parker. Maitland Parker murió de mesotelioma en dos mil veinticuatro. Dos años después, Gordon Legal presentó en nombre de BNTAC un proceso contra Australia Occidental en el Tribunal Federal. Nadie ha empezado a limpiar.»
+      SCENES: «Entradas del antiguo pueblo y de Wittenoom Gorge. · Las personas que pudieran intentar entrar; el documento no identifica visitantes concretos. · La descripción oficial informa que se instalaron bloqueos permanentes porque el área no es segura. · Barricadas permanentes que cortan físicamente los accesos.»
+      FACTS: «Se han instalado barricadas permanentes en las entradas del antiguo pueblo y del desfiladero de Wittenoom.» | «El gobierno de Australia Occidental no ha gastado ni un dólar en la remediación del sitio.» | «No se ha retirado ni una sola palada de asbesto de la tierra Banjima.»
+      QUOTES: «es consciente del 'grave problema de salud y seguridad pública' en torno a Wittenoom y continúa trabajando en opciones a largo plazo para el área y las tierras circundantes.» — Gobierno de Australia Occidental · Gobierno estatal
+      PEOPLE (role · where · years): Corporación Banjima cuya junta decidió impulsar acciones legales para obtener la limpieza y que demanda al Estado · - · 2026 (named earlier in the paragraph); Estudio jurídico que inició el proceso contra Australia Occidental en representación de BNTAC; es también fuente de afirmaciones de la parte demandante · - · - (named earlier in the paragraph); Órgano judicial ante el que se presentó el proceso de BNTAC; el pool no contiene una sentencia sobre esa demanda · - · - (named earlier in the paragraph)
+  [12] YEAR: - · WHERE: Entradas del antiguo pueblo y de Wittenoom Gorge.
+      PARAGRAPH: «En los accesos al pueblo y desfiladero hay bloqueos. El gobierno de Australia Occidental habla de un «grave problema de salud y seguridad pública». No se ha retirado una sola palada de asbesto. ¿Quién va a sacar la primera palada de esa tierra?»
+      SCENES: «Entradas del antiguo pueblo y de Wittenoom Gorge. · Las personas que pudieran intentar entrar; el documento no identifica visitantes concretos. · La descripción oficial informa que se instalaron bloqueos permanentes porque el área no es segura. · Barricadas permanentes que cortan físicamente los accesos.»
+      FACTS: «Se han instalado barricadas permanentes en las entradas del antiguo pueblo y del desfiladero de Wittenoom.» | «El gobierno de Australia Occidental no ha gastado ni un dólar en la remediación del sitio.» | «No se ha retirado ni una sola palada de asbesto de la tierra Banjima.»
+      QUOTES: «es consciente del 'grave problema de salud y seguridad pública' en torno a Wittenoom y continúa trabajando en opciones a largo plazo para el área y las tierras circundantes.» — Gobierno de Australia Occidental · Gobierno estatal
+      PEOPLE (role · where · years): -
+  [13] YEAR: - · WHERE: Entradas del antiguo pueblo y de Wittenoom Gorge.
+      PARAGRAPH: «Junio de dos mil siete; otras fuentes dicen dos mil seis. Wittenoom es abolido formalmente. Le quitan el nombre a las señales de la carretera y lo sacan de los mapas. El gobierno de Australia Occidental habla de «el fin de un período oscuro en la historia de nuestro Estado». Quince años antes, en mil novecientos noventa y dos, una investigación parlamentaria había recomendado limpiar los relaves. El gobierno rechazó esas recomendaciones.»
+      SCENES: «Entradas del antiguo pueblo y de Wittenoom Gorge. · Las personas que pudieran intentar entrar; el documento no identifica visitantes concretos. · La descripción oficial informa que se instalaron bloqueos permanentes porque el área no es segura. · Barricadas permanentes que cortan físicamente los accesos.»
+      FACTS: «Se han instalado barricadas permanentes en las entradas del antiguo pueblo y del desfiladero de Wittenoom.» | «El gobierno de Australia Occidental no ha gastado ni un dólar en la remediación del sitio.» | «No se ha retirado ni una sola palada de asbesto de la tierra Banjima.»
+      QUOTES: «es consciente del 'grave problema de salud y seguridad pública' en torno a Wittenoom y continúa trabajando en opciones a largo plazo para el área y las tierras circundantes.» — Gobierno de Australia Occidental · Gobierno estatal
+      PEOPLE (role · where · years): Gobierno estatal que impulsó el cierre del pueblo, restringe el acceso y es demandado por BNTAC; incluye al Gabinete y al gobierno de Court mencionados en las decisiones sobre remediación · - · -
+PEOPLE GROUPS:
+  - mine_workers: Predominantly Australian and European migrant men working in the asbestos mines and mill. · Wittenoom, Australia, 1937-1966. · APPEARANCE: Predominantly Caucasian, diverse European ethnicities, dusty and fatigued complexion, often lean build from manual labor. · CLOTHING: 1937-1966: Durable work shirts and trousers, often covered in dust, rudimentary or no personal protective equipment, hard hats for some roles, heavy boots.
+  - spanish_migrant_miners: Spanish men recruited for work in the Wittenoom asbestos mines and mill. · Wittenoom, Australia, 1958-1966. · APPEARANCE: Southern European features, often sun-tanned complexion, dusty, physically robust from labor. · CLOTHING: 1958-1966: Work shirts and trousers, often with rolled-up sleeves due to heat, sometimes covered in dust, basic work boots.
+  - wittenoom_residents: Australian and European migrant civilians living in the Wittenoom town. · Wittenoom, Australia, 1937-1978. · APPEARANCE: Diverse Caucasian ethnicities, generally sun-exposed and adapted to desert life. · CLOTHING: 1937-1950s: Practical, modest clothing suitable for a remote, hot environment; women in dresses or skirts and blouses; men in shirts and trousers, often light colors.; 1950s-1970s: Casual dresses, skirts, blouses for women, light shirts and trousers or shorts for men and children; often slightly faded or worn due to climate and conditions.
+  - spanish_migrant_families: Spanish migrant men, women, and children living in Wittenoom, often related to miners. · Wittenoom, Australia, 1962-1971. · APPEARANCE: Southern European features, often sun-exposed. Women and children with practical, modest hairstyles. · CLOTHING: 1962-1971: Modest, practical dresses for women, simple shirts and trousers or shorts for men and children, suitable for hot desert climate; often slightly formal for social occasions like baptisms, but everyday wear is casual.
+  - wittenoom_children: Children of Australian and European migrant families residing in Wittenoom. · Wittenoom, Australia, 1937-1966. · APPEARANCE: Diverse Caucasian children, often covered in dust, sometimes with signs of play in harsh conditions. · CLOTHING: 1937-1966: Simple, durable play clothes, shorts and t-shirts for boys, simple dresses for girls, often barefoot or in sandals.
+  - government_officials: Various government roles including mining inspectors, state engineers, public health officials, parliamentary investigators, and ministers. · Wittenoom and various government offices in Australia, 1944-2026. · APPEARANCE: Predominantly Caucasian, well-groomed, formal or semi-formal appearance reflecting their professional roles. · CLOTHING: 1940s-1960s: Business suits, dress shirts, ties for men; formal dresses or suits for women, indicative of professional status.; 1970s-2000s: Evolving business attire, still formal but adapting to later styles, suits for men, business dresses or suits for women.; 2000s-2026: Contemporary business casual to formal wear, reflecting modern Australian professional dress codes.
+  - corporate_executives: Executives and managers from companies like ABA and CSR. · Corporate offices and Wittenoom, Australia, 1943-1966. · APPEARANCE: Predominantly Caucasian, well-dressed, confident demeanor. · CLOTHING: 1943-1966: Formal business suits, dress shirts, and ties, projecting authority and corporate image.
+  - public_health_professionals: Doctors, industrial hygienists, and other medical/scientific personnel involved in assessing health risks. · Wittenoom and medical/government facilities, 1948-1966. · APPEARANCE: Predominantly Caucasian, professional and academic appearance, serious demeanor. · CLOTHING: 1948-1966: Lab coats over professional attire, sometimes wearing respirators or basic protective gear in dusty environments; business suits or dresses in offices.
+  - indigenous_activists: Banjima elders and traditional owners advocating for remediation. · Wittenoom area, Australia, and legal/activist settings, 2023-2026. · APPEARANCE: Indigenous Australian features, often elderly, with expressions of concern and determination. · CLOTHING: 2023-2026: Contemporary casual or semi-formal attire suitable for public speaking, legal appearances, or visits to ancestral lands, reflecting respect and activism.
+  - legal_professionals: Lawyers representing victims and other legal personnel. · Courts and legal offices in Australia, 1988-2026. · APPEARANCE: Diverse, formal and professional appearance, clean-cut. · CLOTHING: 1988-2026: Business suits and ties for men, business suits or formal dresses for women, reflecting modern legal dress codes.
+  - asbestos_victims_advocates: Individuals and leaders involved in the Asbestos Diseases Society of Australia. · Australia, 1979-present. · APPEARANCE: Diverse, often former residents or their families, reflecting determination and resilience. · CLOTHING: 1979-2000s: Modest, everyday civilian clothing of the era, suitable for public advocacy, meetings, or media appearances.; 2000s-present: Contemporary casual or semi-formal attire, reflecting their roles in advocacy and public engagement.
+
+DISTRIBUTION OF emotional_rank:
+- 1-2 items R1 (peak of cap: closing, revelation, biggest impact).
+- 2-3 items R2 (action, strong transition, person in tension).
+- Rest R3 (descriptive scene, context, ambience).
+
+For hard_fact_ids: pick the F-labels (e.g. "F03") of verified_facts whose FIGURES
+this image weaves, copied EXACTLY as labeled — and ONLY those relevant to THIS
+anchor's moment (do NOT bring foundation-era figures into a peak-era beat). Do NOT
+rewrite the figures.
+
+JSON only. No markdown. No preamble.

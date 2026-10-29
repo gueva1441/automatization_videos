@@ -381,7 +381,7 @@
   "_parte": "fase2a_a"
  },
  "script_engine/m03_visual.py": {
-  "sticker": "Escribe, para cada capítulo del documental, la descripción de cada imagen que después pinta el generador (Seedream). Le pasa al modelo el lugar principal del caso y el tramo de años que dice la narración (GEO y ERA). Elige qué frase de la narración ilustra cada imagen (Gemini Flash) y, desde F50, le pide a Claude Opus que llene la ficha de cada escena (casilleros) con un expediente por foto: año dicho, lugar, párrafo de la voz, escenas de la ficha, hechos, citas, personas y los grupos de gente del canon. El código arma la frase en un orden fijo y la revisa (sin nombres de personas, sin conteos ni izquierda/derecha, sin manos, sangre o texto suelto: si queda un problema, saca la frase). Rehace las fotos que no cumplen las reglas del capítulo y del video por el mismo camino. En los capítulos 1 y 7 además Opus redacta el movimiento del clip de video con el orden de la guía de Google.",
+  "sticker": "Escribe, para cada capítulo del documental, la descripción de cada imagen que después pinta el generador (Seedream). Le pasa al modelo el lugar principal del caso y el tramo de años que dice la narración (GEO y ERA). Elige qué frase de la narración ilustra cada imagen (Gemini Flash) y, desde F50, le pide a Claude Opus que llene la ficha de cada escena (casilleros) con un expediente por foto: año dicho, lugar, párrafo de la voz, escenas de la ficha, hechos, citas, personas y los grupos de gente del canon. Desde F50d, la época del canon (ropa, tecnología, vehículos, interiores) entra por tramo: los tramos que cruzan los años de las fotos del capítulo, o el más cercano si ninguno cruza. El código arma la frase en un orden fijo y la revisa (sin nombres de personas, sin conteos ni izquierda/derecha, sin manos, sangre o texto suelto: si queda un problema, saca la frase). Rehace las fotos que no cumplen las reglas del capítulo y del video por el mismo camino. En los capítulos 1 y 7 además Opus redacta el movimiento del clip de video con el orden de la guía de Google.",
   "recibe": "El tema ya armado (data/topics_db.json: canon visual con people_groups que arma fase1_5.asegurar_canon desde la ficha, personas y objetos documentados, evidence_pool), el perfil del research (data/scripts/_steps/<id>/_perfil.json: lugar_principal), el esqueleto y la narración (data/scripts/_steps/<id>/01a_*.json y 01b_*.json), la escaleta, la ficha y los párrafos v3 para el expediente (01a_escaleta.json, ficha_caso.json, 01b_narracion_v3.json), el mapa de sincronía del audio (output/audio/<id>/sync_map.json) y los tiempos por palabra (output/audio/<id>/chNN_timestamps.json).",
   "entrega": "data/scripts/_steps/<id>/03_visual.json (por capítulo: image_prompts con prompt final, casilleros crudos, año y de dónde salió, ancla de narración, rango emocional, foto_madre_ref, notas F8; en caps 1 y 7: image_prompt con su image_f8 (año, grupo, plano, notas F8), video_prompt y supplemental_image_prompts con las mismas claves); lo devuelve también como dict a fase1_5.py, que lo ensambla al contrato data/scripts/<id>.json. Sus constantes DOCTRINE_* las reutiliza m09_packaging.",
   "modelo": [
@@ -412,7 +412,7 @@
     "por_que": "sin llamadores; solo la nombran un comentario/docstring y test_module_m03_reglas_133.py, que cuenta su texto en el fuente (la declara 'dead code') sin ejecutarla"
    }
   ],
-  "md5": "6745a3442cf7a51eafb24e330ad99849",
+  "md5": "3573b79a8175a983b3485ba41c3a3751",
   "_parte": "fase2a_a"
  },
  "script_engine/m05_judge.py": {
@@ -676,7 +676,7 @@
   "_parte": "fase2a_c"
  },
  "script_engine/m03_expediente.py": {
-  "sticker": "Arma el expediente de cada foto que se le pide a Claude Opus en m03: por cada frase de la voz que va a ilustrar una imagen junta el año que dice esa frase, dónde pasa, el párrafo entero de la voz, las escenas de la ficha, los hechos, las citas (con quién la dijo, su rol, la fecha y si fue testigo) y las personas que nombra esa frase (las de la ficha del caso; si no nombra a nadie, las de la última frase del mismo párrafo que sí nombró a alguien), con rol · lugar · años, y un año de respaldo; al final, los grupos de gente del canon con su aspecto y su ropa. Lo escribe como un bloque de texto que va dentro del pedido. Determinista, sin modelo.",
+  "sticker": "Arma el expediente de cada foto que se le pide a Claude Opus en m03: por cada frase de la voz que va a ilustrar una imagen junta el año que dice esa frase, dónde pasa, el párrafo entero de la voz, las escenas de la ficha, los hechos, las citas (con quién la dijo, su rol, la fecha y si fue testigo) y las personas que nombra esa frase (las de la ficha del caso; si no nombra a nadie, las de la última frase del mismo párrafo que sí nombró a alguien), con rol · lugar · años, y un año de respaldo; al final, los grupos de gente del canon con su aspecto y su ropa por tramo de años. Lo escribe como un bloque de texto que va dentro del pedido. Determinista, sin modelo.",
   "recibe": "El topic (evidence_pool: personajes, datos, cronología, citas, lugares), la escaleta, la ficha del caso (escenas y personas) y los párrafos v3 (data/scripts/_steps/<id>/01a_escaleta.json, ficha_caso.json, 01b_narracion_v3.json), los beats del capítulo, las anclas y la narración de los capítulos anteriores (para el año de respaldo).",
   "entrega": "En memoria para m03_visual: la lista de expedientes por foto y el bloque de texto «CASE FILE PER IMAGE» del pedido. No escribe archivos.",
   "modelo": [],
@@ -687,6 +687,6 @@
   "estado_prueba": "script_engine/m03_visual.py lo importa (mexp) y lo usa en _render_prompts_seedream (m03_visual.py:563-568) y en assign_visual_prompts (2041-2042); m03_visual corre dentro de fase1_5.py:671 (etapa voz).",
   "funciones_muertas": [],
   "_parte": "F50 B (CC)",
-  "md5": "794b442a721ae98d22492216923efecd"
+  "md5": "5628da6a02d6766ac8e3ff37ce9251bf"
  }
 }
