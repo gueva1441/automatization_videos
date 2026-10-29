@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 12:40 (F51c: sin el borrado de nombres, corte Veo al final de oración, anio_final sin el paso del ancla; US$ 0; PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 13:05 (F51d-A: m03 de Wittenoom en texto, US$ 2,27, cero fal; PARADA: el analista revisa el papel y Omar da el OK antes de F51d-B) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,18 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F51d-A, PARADA): Wittenoom tiene el papel de fotos nuevo, en texto (96 fotos). No se generó ninguna foto ni clip.
+- m03 corrió entero, sin PARADA ni fallback: **US$ 2,27 de 3,00**. El canon no se rehízo.
+- Todas las fotos apuntan a grupos del canon nuevo; ningún prompt pega el estado (polvo, bronceado); «Supreme Court» y «Federal Court» intactos; el año de las 96 sale del `year` de Opus; las anclas Veo no cortan palabras.
+- Prompts más cortos: mediana 115 palabras (antes 157,5), máximo 155 (antes 273).
+- **Para mirar:** 4/3 y 5/9 quedan sin aspecto ni etnia (sus grupos tienen aspecto vacío); el cap 3 salió sin reconciliación temporal; el cartel de 7/10 dice «in carved».
+- **Sigue:** el analista revisa `lab/hyperframes/f51d/PAPEL_FOTOS_WITTENOOM.md` y vos das el OK para F51d-B (las fotos).
+
+## F51d-A — m03 de Wittenoom en texto (handoff del analista, 2026-10-29 12:28) — PARADA
+- Commits: `7b6b112` etapa 0 (DECISIONES 12:28 + chascada: el expediente rotula «2)/3)/4)» y `anio_final` lo pasa tal cual); `7c9860b` etapa 1 (copia `f51d/antes/03_visual.json` y log de m03); `122a3b8` etapa 2 (papel, `MEDIDAS_F51d.md`, contrato F51a fijado a `f51d/antes/`). El último commit es el del reporte (`lab/hyperframes/f51d/F51d_A_REPORT.md`).
+- `03_visual.json` de Wittenoom: md5 `59a8484d…` → `72fdd85c…` (en `data/`, fuera de git). `lab/TOPE_TANDA.json` = 3,00 desde 12:37:02.
+- Suites: rápida 55; amplia 1007 + 4 previas; ch02 `f792f3d4…`; contrato F51a 20/20; MAPA --check 0.
 
 ## 👀 Para Omar (F51c, PARADA): los 3 arreglos del armado de fotos están en producción (en seco, sin regenerar).
 - «Court» ya no se borra: en Wittenoom vuelven «Supreme Court» (6/3) y el cartel «FEDERAL COURT» (7/11), que el borrado había roto.
