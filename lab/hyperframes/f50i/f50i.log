@@ -1,0 +1,8 @@
+prompts: C = F50h 4/4 · solo la cláusula 4/4 · diffs [[('replace', 'builds; women and children tanned and dusted red in Wittenoom.', 'builds.')], [('replace', 'builds; women and children tanned and dusted red in Wittenoom.', 'builds.')], [('replace', 'builds; women and children tanned and dusted red in Wittenoom.', 'builds.')], [('replace', 'builds; women and children tanned and dusted red in Wittenoom.', 'builds.')]]
+[03:16:17] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f50i-lab
+[03:17:35] INFO     | viral_pipeline | [cost_tracker] Video f50i-lab — Costo total: $0.2800
+fotos: [{'foto': '2/9', 'estado': 'ok', 'intentos': 1}, {'foto': '4/11', 'estado': 'ok', 'intentos': 1}, {'foto': '4/12', 'estado': 'ok', 'intentos': 1}, {'foto': '5/8', 'estado': 'ok', 'intentos': 1}] · cost_history f50i-lab = US$ 0.2800
+lab\hyperframes\f50i\hojas\hoja_2_9.jpg  2896x1566
+lab\hyperframes\f50i\hojas\hoja_4_11.jpg  2896x1566
+lab\hyperframes\f50i\hojas\hoja_4_12.jpg  2896x1566
+lab\hyperframes\f50i\hojas\hoja_5_8.jpg  2896x1566
