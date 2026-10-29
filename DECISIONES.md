@@ -159,3 +159,4 @@ Motivo: retención + costo de sostener; 19 componentes con 7 tipos de texto prod
 - 2026-10-29 14:43 · **F53b:** motor de clips = Gemini Omni Flash 1.1 a 1080p; si Google lo rechaza por contenido, Seedance 2.5 a 1080p automático; no se suavizan los prompts; Veo se borra · Omar · F53b
 - 2026-10-29 15:00 · **F53b adenda:** el respaldo de Gemini Omni Flash es Kling 4.0 a 1080p (F53a-K pasó la moderación sin suavizar); Seedance sale de la cadena · Omar · F53b
 - 2026-10-29 15:40 · orden: gancho (texto) antes que foto/clip del gancho, miniaturas/QA y fotos de Wittenoom · Omar
+- 2026-10-29 16:05 · F54: se quitan R3 (cifras en promesa), R4 (prueba del adelanto f25c/f26), R5 (promesa intocable en guion v5.4); loops declarados en la escaleta; cierre y pagos chequeados por código; ejemplos nuevos del guionista · loops: 2 · re-gancho: sí, al cierre del cap 3 (campo recuerda_loop) · Omar
