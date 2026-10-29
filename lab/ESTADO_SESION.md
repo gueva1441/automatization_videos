@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-28 23:20 (F50d: la época por tramo entró al canon y al pedido de m03, pero el canon de Wittenoom salió sin tramos después de 1966 y la verificación de B falló: PARADA en B, D no corrió; US$ 0,0989) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-28 23:45 (F50e-A: el canon de Wittenoom con Flash, Sonnet y Opus en texto; 7 de 9 corridas, Opus 2–3 frenadas por el tope; los Claude corrieron sin esquema; US$ 0,81; PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,28 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F50e-A, PARADA): la tabla de los 3 modelos está en `lab/hyperframes/f50e/CANON_MODELOS.md`.
+- **Fotos cuyo año cae en algún tramo del canon:**
+  - Flash: 61/96 en sus 2 corridas medidas (sin tramos después de 1966); la 3.ª falló, sin tramos.
+  - Sonnet: 96/96 en las 3, con 4 tramos hasta 2026; 7, 10 y 8 grupos; US$ 0,13 por corrida.
+  - Opus: 96/96 en su única corrida, con 13 grupos; US$ 0,35.
+- **Ojo:**
+  - Las Opus 2 y 3 no corrieron: habrían pasado el tope de US$ 1,00. Se gastó 0,81.
+  - Sonnet y Opus corrieron **sin el esquema**: la API de Claude lo rechaza porque tiene más de 24 campos opcionales, y el código cayó al mismo pedido sin esquema. Flash sí lo usó.
+- **Pendiente:** elegir el modelo es tuyo. Después corre D de F50d.
+
+## F50e-A — Canon por modelo (handoff del analista, 2026-10-28 23:10) — PARADA
+- md5 del pedido `d2568e2a…`, igual en todos los intentos. Producción intacta.
+- Corridas en el lab con `canon_modelos.py`:
+  - tanda 1: 7 a la vez;
+  - tanda 2: Opus 2 y 3, frenadas por el tope.
+- Abierto:
+  - el esquema de 46 campos opcionales es incompatible con los structured outputs de Claude;
+  - Opus con 1 sola corrida;
+  - Flash con mucha varianza;
+  - Sonnet 1 y 3 dejan a las familias españolas sin ropa para 1966 y 1971.
+- Suites: rápida 55, amplia 976 + 4 previas; ch02 `f792f3d4…`.
 
 ## 👀 Para Omar (F50d, PARADA en B: D no corrió): el código de la época por tramo está hecho, pero **el canon nuevo de Wittenoom no salió como esperaba el analista.**
 - **El canon que quedó en producción** (la corrida 1 de las 3) trae tramos de época solo hasta 1966. Las familias españolas tienen una sola ropa, de 1962-1971.

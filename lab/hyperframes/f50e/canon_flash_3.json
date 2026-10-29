@@ -1,0 +1,258 @@
+{
+ "era_visual_canon": {
+  "primary_decade": "1960s",
+  "spans": "1937-2026",
+  "clothing": "Miners wore rough work clothes, often covered in asbestos dust, with inadequate protective gear. Families in Wittenoom wore practical, light-colored clothing suitable for the desert heat, such as dresses for women, shorts and t-shirts for children, and casual shirts and trousers for men. Spanish migrants initially wore their European travel attire, then adapted to Australian outback wear. Government and company officials wore formal business attire of the mid-20th century, or practical field clothing for site inspections.",
+  "technology": "Mining operations relied on industrial drills, crushing mills, conveyor belts, and rudimentary ventilation systems. Dust extraction equipment was often inadequate. Town infrastructure included basic utilities. Communications were limited to landlines and early radio. Homes had basic 1950s-60s appliances. Office technology consisted of typewriters, adding machines, and analog gauges. NO smartphones, NO LED screens, NO advanced digital systems.",
+  "vehicles_machinery": "Heavy mining machinery like excavators, loaders, and crushing equipment were in use. Transportation included utilitarian vehicles like early model trucks and 'utes', often traversing unpaved, dusty roads. Propeller planes were used for arriving at the remote airstrip. NO modern SUVs, NO high-tech construction vehicles.",
+  "interiors": "Interiors of Wittenoom homes were simple and functional, featuring basic furniture, often in structures made of corrugated iron, timber, and fibro cement. Mining offices were utilitarian and likely dusty. Community buildings such as the school, nursing post, police station, and churches had basic, unadorned interiors. Later, some interiors would appear dilapidated or completely removed in the ghost town phase.",
+  "forbidden_anachronisms": "smartphones, LED screens, contemporary clothing, modern industrial safety equipment, digital cameras, modern GPS devices, flat-screen TVs, modern cars (post-1980s designs), wind turbines, large-scale solar panel arrays",
+  "materials_textures": "Fine, dusty blue asbestos fibers mixed with red desert earth, used extensively in construction. Weathered corrugated iron (sheet metal), rough-sawn timber, and fibro cement (uralita) for buildings. Vast quantities of mine tailings formed roads, yards, and public spaces. Water-deposited asbestos materials in creek beds and floodplains.",
+  "color_palette": "Dominant tones of red earth and dust. Blue-grey of crocidolite asbestos fibers. Rust-brown and dull silver of weathered corrugated iron. Faded and peeling paints on buildings. Dry, muted greens and browns of sparse outback vegetation. Pale, washed-out interiors.",
+  "scale_dimensions": "A small, isolated town nestled in a large desert landscape. Predominantly single-story residential and commercial buildings. Large open-pit mining areas and extensive tailings dumps. The official Wittenoom Asbestos Management Area spans 46,840 hectares.",
+  "distinctive_features": "An isolated Australian ghost town, its deserted buildings and roads visibly constructed with insidious blue asbestos waste from the 1937-1966 mining era, now a vast, toxic forbidden zone.",
+  "demographics": "The population comprised Australian and European (notably Spanish) migrant miners and their families, living in a remote outback environment. Children were a visible part of the town playing in the asbestos-laden environment. Town also included government officials, company management, and support staff.",
+  "visual_reference_availability": "Extensive archival photographs and video footage from the mining era (1937-1966) show town life, mining operations, and the use of asbestos materials. Post-closure, there are photographs of the abandoned town and environmental surveys. Family albums provide personal visual records. Academic and governmental reports offer textual descriptions of conditions and materials.",
+  "condition_evolution": {
+   "at_event": "An active, dusty mining town with rudimentary but functioning infrastructure. Asbestos tailings were widely used in construction throughout the town, appearing as an ordinary building material and surface covering.",
+   "later": "A deserted ghost town with many buildings demolished or severely dilapidated. Asbestos waste has been widely dispersed by wind and water, contaminating a vast area. Permanent roadblocks prevent access, and the area is officially classified as a toxic, uninhabitable site."
+  },
+  "periods": [
+   {
+    "years": "1937-1957",
+    "clothing": "Miners in basic work clothes, minimal protection. Early settler and mining community attire, practical and suited for hot, dusty conditions. Fashions reflect 1940s-1950s casual wear.",
+    "technology": "Early industrial mining equipment (drills, crushers), basic manual tools. Rudimentary dust control efforts. Limited town infrastructure. Analog communication devices.",
+    "vehicles_machinery": "Early model trucks and utility vehicles. Basic excavators and loaders for mining. Propeller-driven light aircraft for access to the remote area.",
+    "interiors": "Simple, functional residential and administrative interiors. Basic furnishings, often reflecting makeshift conditions. Utility-focused mining offices."
+   },
+   {
+    "years": "1958-1966",
+    "clothing": "Miners in similar work clothes, still often covered in visible asbestos dust. Increased diversity in casual wear due to European migrant influx, adapting to Australian outback styles. Children's clothing often soiled from playing in asbestos-laden areas.",
+    "technology": "Increased mechanization in mining, though dust control remained inadequate. More established town utilities. Early 1960s household appliances. Office equipment typical of the era, such as typewriters.",
+    "vehicles_machinery": "More 1960s model trucks and utility vehicles. Enhanced, though still basic, mining machinery. Regular propeller plane flights for migrant arrivals and departures.",
+    "interiors": "Slightly more established residential and community interiors, but still basic and adapted to remote conditions. Evidence of greater population density in housing. Buildings made of fibro cement, timber, and corrugated iron."
+   }
+  ]
+ },
+ "documented_people": [
+  {
+   "name": "Eric Saint",
+   "role": "Public health doctor",
+   "age_at_event": null,
+   "era": "1948",
+   "appearance_canon": "a middle-aged medical professional with a serious demeanor"
+  },
+  {
+   "name": "Daniel Écija",
+   "role": "Spanish migrant miner",
+   "age_at_event": 26,
+   "era": "1962",
+   "appearance_canon": "an early-20s Spanish migrant man with a determined expression, often seen in work clothes"
+  },
+  {
+   "name": "María Bernal",
+   "role": "Spanish migrant resident, wife of Daniel Écija",
+   "age_at_event": 26,
+   "era": "1962",
+   "appearance_canon": "an early-20s Spanish migrant woman, often in practical attire suitable for the outback"
+  },
+  {
+   "name": "Milagros Barroso",
+   "role": "Spanish migrant resident, wife of Ramón de Juan",
+   "age_at_event": 26,
+   "era": "1962",
+   "appearance_canon": "an early-20s Spanish migrant woman, a close friend of María Bernal"
+  },
+  {
+   "name": "Ramón de Juan",
+   "role": "Spanish migrant miner",
+   "age_at_event": 26,
+   "era": "1962",
+   "appearance_canon": "an early-20s Spanish migrant man working long shifts in the mine"
+  },
+  {
+   "name": "Víctor Calvo",
+   "role": "Spanish migrant child",
+   "age_at_event": 8,
+   "era": "1962",
+   "appearance_canon": "a young Spanish boy, often seen playing with asbestos tailings and covered in dust"
+  },
+  {
+   "name": "John Patrick",
+   "role": "Child born in Wittenoom",
+   "age_at_event": 0,
+   "era": "1963",
+   "appearance_canon": "an infant boy born to Spanish migrant parents in Wittenoom"
+  },
+  {
+   "name": "Daniel Écija hijo",
+   "role": "Child born in Wittenoom, son of Daniel Écija and María Bernal",
+   "age_at_event": 0,
+   "era": "1963",
+   "appearance_canon": "an infant boy born to Spanish migrant parents in Wittenoom"
+  },
+  {
+   "name": "Davidson",
+   "role": "Public Health Commissioner",
+   "age_at_event": null,
+   "era": "1965",
+   "appearance_canon": "a middle-aged government official with an authoritative presence"
+  },
+  {
+   "name": "Major",
+   "role": "Industrial Hygienist",
+   "age_at_event": null,
+   "era": "1966",
+   "appearance_canon": "a middle-aged professional specializing in industrial health and safety"
+  },
+  {
+   "name": "James Vernon",
+   "role": "CSR Chairman",
+   "age_at_event": null,
+   "era": "1966",
+   "appearance_canon": "a middle-aged corporate executive announcing a significant company decision"
+  },
+  {
+   "name": "Peter Gordon",
+   "role": "Lawyer",
+   "age_at_event": null,
+   "era": "1988",
+   "appearance_canon": "a middle-aged legal professional advocating for asbestos victims"
+  },
+  {
+   "name": "Maitland Parker",
+   "role": "Banjima elder, activist, mesotelioma victim",
+   "age_at_event": null,
+   "era": "2023",
+   "appearance_canon": "an elderly Indigenous Australian man with a resilient and dignified demeanor"
+  },
+  {
+   "name": "Ben Wyatt",
+   "role": "Minister for Lands",
+   "age_at_event": null,
+   "era": "2019",
+   "appearance_canon": "a middle-aged Australian government minister addressing environmental issues"
+  },
+  {
+   "name": "Marcos Orellana",
+   "role": "UN Special Rapporteur",
+   "age_at_event": null,
+   "era": "2023",
+   "appearance_canon": "a middle-aged international legal expert with a focused and analytical expression"
+  }
+ ],
+ "anachronism_blocklist": [
+  "smartphones",
+  "LED screens",
+  "contemporary clothing",
+  "modern industrial safety equipment",
+  "digital cameras",
+  "modern GPS devices",
+  "flat-screen TVs",
+  "modern cars (post-1980s designs)",
+  "wind turbines",
+  "large-scale solar panel arrays"
+ ],
+ "documented_props": [
+  {
+   "nombre": "Asbestos tailings",
+   "forma": "Fine, dusty blue asbestos fibers, often mixed with red earth and prominently used as construction material for roads, yards, and to build the town's structures.",
+   "anclado": "si",
+   "foto_madre": ""
+  },
+  {
+   "nombre": "Wittenoom buildings",
+   "forma": "Simple, low-rise structures primarily made of corrugated iron, timber, and fibro cement, often directly incorporating asbestos tailings in their construction and surrounding areas. Later, deserted and dilapidated.",
+   "anclado": "si",
+   "foto_madre": ""
+  },
+  {
+   "nombre": "Permanent roadblocks",
+   "forma": "Physical barricades, typically sturdy and prominent, installed at all access points to the former town and gorge, visibly cutting off entry to a hazardous zone.",
+   "anclado": "si",
+   "foto_madre": ""
+  }
+ ],
+ "central_subject": {
+  "kind": "place",
+  "foto_madre": ""
+ },
+ "people_groups": [
+  {
+   "id": "wittenoom_miners",
+   "who": "Men working in the crocidolite asbestos mines of Wittenoom, including Australian and European migrants.",
+   "where_when": "Wittenoom, 1937-1966.",
+   "appearance": "Men with varied European and Australian complexions, often showing signs of physical labor. Typically rugged physique, frequently covered in fine, blue-grey asbestos dust.",
+   "clothing_by_period": [
+    {
+     "years": "1937-1957",
+     "clothing": "Rough, durable work clothes like overalls, trousers, and button-up shirts made of sturdy cotton or similar fabrics. Often visibly dusty and worn. Minimal and inadequate personal protective equipment."
+    },
+    {
+     "years": "1958-1966",
+     "clothing": "Similar rough work attire, including overalls, trousers, and shirts. Clothes are heavily soiled with blue asbestos dust, often appearing greyish. Inadequate dust masks or respirators might be present but largely ineffective."
+    }
+   ]
+  },
+  {
+   "id": "wittenoom_residents",
+   "who": "Families of miners and other town residents, including Australian and European migrants, living in and around Wittenoom.",
+   "where_when": "Wittenoom, primarily 1940s-1960s, later as adult victims/activists up to 2026.",
+   "appearance": "Men, women, and children of varying ages. European and Australian complexions. Appear adapted to harsh desert life, often with visible dust on clothing and skin from the environment.",
+   "clothing_by_period": [
+    {
+     "years": "1940-1957",
+     "clothing": "Practical, light-colored clothing suitable for desert heat. Women wore simple dresses or skirts and blouses. Men wore casual shirts and trousers. Children wore shorts, t-shirts, or simple dresses. All often covered in fine dust."
+    },
+    {
+     "years": "1958-1966",
+     "clothing": "Casual and functional attire for a remote Australian outback town, including simple dresses, skirts, and blouses for women, and shirts and shorts for men and children. Clothing is visibly marked with red earth and asbestos fibers, especially children's play clothes."
+    },
+    {
+     "years": "1970-2026",
+     "clothing": "Contemporary casual to semi-formal attire for adults involved in interviews, activism, or legal proceedings. Reflects modern civilian clothing, often in a more somber tone."
+    }
+   ]
+  },
+  {
+   "id": "government_officials",
+   "who": "Mine inspectors, state engineers, public health officials, corporate executives, and parliamentary members investigating the asbestos problem.",
+   "where_when": "Wittenoom (for inspections) and various official settings, 1944-2026.",
+   "appearance": "Men, typically of European descent, with a formal or professional demeanor. Often presenting a tidy appearance, contrasting with the dusty environment of Wittenoom.",
+   "clothing_by_period": [
+    {
+     "years": "1940-1966",
+     "clothing": "Formal or semi-formal business attire, such as suits, ties, and dress shirts, in a style typical of the mid-20th century. For site visits, practical, durable field clothing might be worn over or instead of formal wear."
+    },
+    {
+     "years": "1970-2026",
+     "clothing": "Contemporary business attire for formal meetings or interviews, such as suits or smart casual wear. Reflects modern professional standards and varying roles within government or corporate structures."
+    }
+   ]
+  },
+  {
+   "id": "wittenoom_children",
+   "who": "Children living in Wittenoom during its active mining years, often playing in asbestos-laden environments.",
+   "where_when": "Wittenoom, particularly 1940s-1960s.",
+   "appearance": "Young boys and girls, often with a playful yet grimy appearance. Their hair and skin might show traces of red dust and fine asbestos fibers from their environment and play.",
+   "clothing_by_period": [
+    {
+     "years": "1940-1966",
+     "clothing": "Casual, durable children's clothing suitable for play in a dusty, hot environment, such as shorts, t-shirts, and simple dresses. Clothes are frequently soiled and stained with red earth and visible asbestos dust."
+    }
+   ]
+  },
+  {
+   "id": "banjima_people",
+   "who": "Indigenous Australians of the Banjima nation, traditional owners of the land contaminated by Wittenoom's asbestos.",
+   "where_when": "Wittenoom area, 2023-2026.",
+   "appearance": "Indigenous Australians, often elders, with distinct facial features and complexions characteristic of Aboriginal people from the Pilbara region.",
+   "clothing_by_period": [
+    {
+     "years": "2023-2026",
+     "clothing": "Contemporary casual or semi-formal attire, reflecting modern Indigenous Australian community leaders or activists. Clothing may include elements that signify cultural identity, often practical for outdoor or community settings."
+    }
+   ]
+  }
+ ]
+}

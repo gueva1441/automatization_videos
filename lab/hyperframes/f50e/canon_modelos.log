@@ -1,0 +1,11 @@
+[23:09:35] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f50e-canon-modelos
+tanda 1: US$ 0.8093 (opus 1: 0.3464)
+[23:11:45] INFO     | viral_pipeline | [cost_tracker] Video f50e-canon-modelos — Costo total: $0.8093
+{"md5_pedido": "d2568e2a94c5db96f9836451b2f80cd7", "parada": "tope: gastado 0.8093 + 2 \u00d7 opus 1 0.3464 = 1.5021 > 1.0: opus 2 y 3 no corren", "total_usd": 0.8093, "produccion_intacta": {"topics_db": true, "05_visual_canon": true}}
+flash_1 61/96 · ['1937-1966'] · grupos 22 0.0397 69.0 ['d2568e2a']
+flash_2 canon sin periods 0.0119 18.9 ['d2568e2a']
+flash_3 61/96 · ['1937-1957', '1958-1966'] · grupos 5 0.025 43.8 ['d2568e2a']
+sonnet_1 96/96 · ['1937-1949', '1950-1966', '1967-1992', '1993-2026'] · grupos 7 0.1241 65.8 ['d2568e2a']
+sonnet_2 96/96 · ['1937-1949', '1950-1966', '1967-1992', '1993-2026'] · grupos 10 0.1428 77.7 ['d2568e2a']
+sonnet_3 96/96 · ['1937-1946', '1947-1966', '1967-1992', '1993-2026'] · grupos 8 0.1193 65.3 ['d2568e2a']
+opus_1 96/96 · ['1937-1947', '1948-1966', '1967-1992', '1993-2026'] · grupos 13 0.3464 130.8 ['d2568e2a']

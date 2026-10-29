@@ -1,0 +1,239 @@
+{
+ "era_visual_canon": {
+  "primary_decade": "1960s",
+  "spans": "1937-2026",
+  "clothing": "Mining era (1937-1966): working men in sweat-stained khaki or drill work shirts, trousers, heavy boots, singlets and cloth caps or slouch hats, often coated in fine grey dust; mill workers in simple overalls. Women and children in modest 1950s-60s cotton dresses, blouses, skirts and shorts; Spanish migrant families in plain, practical mid-century European-style clothing. Officials and inspectors in short-sleeved shirts or suits with ties. Post-1990s scenes: almost no people, only occasional officials or legal and community figures in plain contemporary-neutral work wear.",
+  "technology": "Mid-century industrial and domestic technology: mechanical mill machinery, hand and pneumatic tools, paper records and typed reports, black-and-white and early colour film photography, radio, landline telephones, analogue gauges. Dust-reduction equipment appears only in basic 1950s forms. NO digital displays, NO smartphones, NO modern respirator or hazmat protocols in the mining era.",
+  "vehicles_machinery": "Small propeller aircraft landing on a dirt and tailings airstrip; mid-century trucks and utility vehicles hauling ore and tailings; ore crushing, milling and bagging plant at the mill; tailings dumped from trucks into the gorges. Later years: only barricade gates and occasional modern government or survey vehicles at the access points.",
+  "interiors": "Modest company-town interiors: small houses of sheet metal, timber and uralita (asbestos-cement sheeting), simple furniture, family photographs on the walls (sepia tone in the family interviews), a small hospital, school, nursing post and police station. The mill interior is hazy with suspended dust.",
+  "forbidden_anachronisms": "smartphones, LED or flat-panel screens, modern high-vis safety gear and P100 respirators or hazmat suits in 1937-1966 scenes, modern SUVs and 4x4s in mining-era scenes, drones, tourist infrastructure, lush green vegetation (the setting is arid Pilbara desert), a pristine intact town in post-2007 scenes, readable modern brand logos.",
+  "materials_textures": "Houses of corrugated sheet metal, timber and uralita (asbestos-cement sheeting). Roads, yards, the school playground, the airstrip and public spaces surfaced with loose, fine, powdery asbestos tailings. Raw asbestos fibre frays like thread and crumbles to fine dust at a touch. Dry red desert soil and gorge rock; in later years, water-eroded gullies and sediments carried to creek beds, pools and floodplains.",
+  "color_palette": "intense red earth and rust-red dust, pale blue-grey tailings and fibre (inferred from the name 'blue asbestos'), dull grey sheet metal and weathered timber, hazy pale-grey dust cloud near the mill, bleached desert sky",
+  "scale_dimensions": "The Wittenoom Asbestos Management Area covers 46,840 hectares; roughly 150,000 tonnes of commercial asbestos were produced from three mines, and more than three million tonnes of tailings remained. The town and its airstrip were a small remote settlement in the Pilbara gorges; individual building dimensions are not documented.",
+  "distinctive_features": "A small remote Pilbara desert town of tin, timber and uralita houses, with red earth everywhere and its roads, yards, schoolyard and airstrip surfaced with pale blue-grey asbestos tailings, so that fine dust coated people and surroundings. Today a barricaded, demolished, toxic exclusion zone.",
+  "demographics": "Mostly male mine and mill workers of mixed European origin (including Spanish migrants recruited under the 1958 Spain-Australia agreement and European displaced persons assigned from 1948-1951), their wives and young children, plus company managers, inspectors and a few officials. Workers wear dust-covered khaki or overalls; women and children wear plain light cotton clothing. Later, Banjima Traditional Owners appear in the legal and community narrative.",
+  "visual_reference_availability": "Sources for this subject in the pool are mainly TEXT (oral testimony such as Víctor Calvo's memories of red earth, dust and uralita houses; official and technical reports on tailings and erosion; the Reference Board findings on dust at the mill) and a few family items (a family portrait showing a bandaged foot, sepia family photographs, a baptism photograph dated 1963-07-07). No verified archival photographs or plans of building dimensions or exact colours are included here. The blue-grey tint of the tailings is INFERENCE from the name 'blue asbestos'; ethnicity details come from the written record, not photographs. Final demolition year is unresolved (2022-2023).",
+  "condition_evolution": {
+   "at_event": "Operating company town (1937-1966, focus on 1962-1964): red earth and dust everywhere, houses of sheet metal, timber and uralita, tailings spread on roads, patios, school grounds and the airstrip, workers and mill surroundings covered in dust with a thick cloud near the mill, children playing with and fraying asbestos fibre.",
+   "later": "From 1978 the state reduced the town; 1986-1992 buildings demolished and school, nursing post and police station closed; airport closed 1993; power disconnected 2006; town abolished and removed from maps and signs in 2007; area declared contaminated in 2008; last residents left in 2022-2023 and remaining structures demolished; permanent barricades block the town and gorge access while water erosion carries asbestos toward the Fortescue."
+  },
+  "periods": [
+   {
+    "years": "1937-1946",
+    "clothing": "Prospectors and early miners in khaki drill shirts and trousers, slouch hats, heavy boots; sparse company staff in plain shirts.",
+    "technology": "Hand tools, basic early mill equipment, paper correspondence and typed inspection reports. No digital technology.",
+    "vehicles_machinery": "Utility trucks and lorries on rough tracks in the Hamersley Ranges, rudimentary crushing and bagging plant in the gorges.",
+    "interiors": "Rough tin and timber huts, basic mine offices, minimal furniture."
+   },
+   {
+    "years": "1947-1966",
+    "clothing": "Mill and mine workers in work shirts, overalls, singlets, boots and caps covered in dust; European migrant families in plain mid-century clothing; officials and inspectors in short-sleeved shirts and ties.",
+    "technology": "Mid-century mill machinery, dust-reduction equipment installed after 1957, typed reports, radio and landline telephone, black-and-white and early colour photographs. NO digital devices.",
+    "vehicles_machinery": "Propeller aircraft on the airstrip, trucks hauling ore and dumping tailings, crushing and milling plant with a thick dust cloud hanging near the mill.",
+    "interiors": "Houses of sheet metal, timber and uralita; school, hospital, church, nursing post and police station; hazy mill interiors with dust on every surface."
+   },
+   {
+    "years": "1967-1992",
+    "clothing": "Dwindling residents in 1970s-80s casual clothing; officials and demolition crews in plain work wear.",
+    "technology": "1970s-80s office technology: typed and photocopied reports, landline phones, analogue photography and film. No smartphones.",
+    "vehicles_machinery": "1970s-80s trucks and earthmoving equipment used for demolition; the airstrip still in use until the 1993 closure.",
+    "interiors": "Emptying houses and closed services (school, nursing post, police station), stripped rooms, bare floors."
+   },
+   {
+    "years": "1993-2026",
+    "clothing": "Almost no people shown; the occasional official, surveyor or advocate in plain neutral work or office clothing.",
+    "technology": "Barricade signage and government reports; survey and environmental sampling in the background only.",
+    "vehicles_machinery": "Permanent barricades at the access roads to the former town and the gorge; occasional official vehicles at the barriers.",
+    "interiors": "No intact interiors; demolished building footprints and bare ground."
+   }
+  ]
+ },
+ "documented_people": [
+  {
+   "name": "Eric Saint",
+   "role": "Official who warned in writing in 1948 that dust levels were extremely dangerous",
+   "age_at_event": null,
+   "era": "1948",
+   "appearance_canon": "a middle-aged Australian man with a serious, earnest demeanor and the look of a public servant"
+  },
+  {
+   "name": "Davidson",
+   "role": "Official who reprimanded the school principal in 1965 for covering the playground with tailings",
+   "age_at_event": null,
+   "era": "1965",
+   "appearance_canon": "a middle-aged Australian official with a stern, authoritative demeanor"
+  },
+  {
+   "name": "Daniel Écija",
+   "role": "Spanish miner at Wittenoom, later died of mesothelioma",
+   "age_at_event": null,
+   "era": "1962-1963",
+   "appearance_canon": "a young adult Spanish man of working build, newly married, with a hopeful but weary demeanor"
+  },
+  {
+   "name": "María Bernal",
+   "role": "Spanish migrant wife and Wittenoom resident, mother of Daniel",
+   "age_at_event": null,
+   "era": "1962-1963",
+   "appearance_canon": "a young adult Spanish woman with a warm, trusting demeanor"
+  },
+  {
+   "name": "Ramón de Juan",
+   "role": "Spanish miner at Wittenoom working 16-hour shifts",
+   "age_at_event": null,
+   "era": "1962-1964",
+   "appearance_canon": "a young adult Spanish man with a tired, laboring build and a worn expression"
+  },
+  {
+   "name": "Milagros Barroso",
+   "role": "Spanish migrant wife of Ramón de Juan and Wittenoom resident",
+   "age_at_event": null,
+   "era": "1962-1964",
+   "appearance_canon": "a young adult Spanish woman, a mother with a friendly, resilient demeanor"
+  },
+  {
+   "name": "Víctor Calvo",
+   "role": "Child of a Spanish migrant family who grew up in Wittenoom and later recounted it",
+   "age_at_event": null,
+   "era": "1962-1964",
+   "appearance_canon": "a Spanish child with a curious, playful demeanor"
+  },
+  {
+   "name": "Daniel Écija hijo",
+   "role": "Son born in Wittenoom in 1963, later a television producer",
+   "age_at_event": null,
+   "era": "1985",
+   "appearance_canon": "a young adult man of Spanish parentage at an airport checkpoint, calm and attentive"
+  },
+  {
+   "name": "Maitland Parker",
+   "role": "Banjima elder and activist who died of mesothelioma in 2024",
+   "age_at_event": null,
+   "era": "2023-2024",
+   "appearance_canon": "an elderly Aboriginal Banjima man with a dignified, grave demeanor"
+  }
+ ],
+ "anachronism_blocklist": [
+  "smartphones",
+  "LED screens",
+  "modern flat panels",
+  "contemporary clothing (post-2000s) in 1937-1966 scenes",
+  "modern industrial safety equipment such as P100 respirators, hazmat suits and high-vis vests in mining-era scenes",
+  "modern SUVs and 4x4 vehicles in mining-era scenes",
+  "tourist signage or tourist infrastructure",
+  "lush green vegetation or temperate landscape",
+  "a pristine intact town in post-2007 scenes",
+  "readable modern brand logos"
+ ],
+ "documented_props": [],
+ "central_subject": {
+  "kind": "place",
+  "foto_madre": ""
+ },
+ "people_groups": [
+  {
+   "id": "prospectors_and_mine_owners",
+   "who": "Prospectors and mine owners/sub-managers who opened the blue asbestos operations in the Yampire and Wittenoom Gorges.",
+   "where_when": "Yampire and Wittenoom Gorges, Pilbara, Western Australia, 1937 and 1943.",
+   "appearance": "",
+   "clothing_by_period": [
+    {
+     "years": "1937-1943",
+     "clothing": "Khaki drill work shirts and trousers, slouch hats and heavy boots, sun-weathered and dusty from field work in the hot arid gorges."
+    }
+   ]
+  },
+  {
+   "id": "company_executives",
+   "who": "CSR and ABA company management: ABA manager and CSR presidents.",
+   "where_when": "Company offices and the mine site, 1943-1966 and in later legal contexts.",
+   "appearance": "",
+   "clothing_by_period": [
+    {
+     "years": "1943-1966",
+     "clothing": "Short-sleeved or long-sleeved business shirts with ties, or mid-century suits, neat hair and plain office accessories."
+    }
+   ]
+  },
+  {
+   "id": "government_and_health_officials",
+   "who": "State and federal officials: mine inspectors, public health doctors and commissioners, health inspectors, an industrial hygienist, the Wittenoom steering committee and labour arbitration bodies.",
+   "where_when": "Mine, mill and government offices, 1944-1966, with later reviews.",
+   "appearance": "",
+   "clothing_by_period": [
+    {
+     "years": "1944-1966",
+     "clothing": "Short-sleeved shirts or suits with ties, notebooks and clipboards, with dust-stained shoes when visiting the mine and mill."
+    }
+   ]
+  },
+  {
+   "id": "politicians_and_inquiry_leaders",
+   "who": "Prime Ministers, the Minister for Lands, the state government, and the leader and chair of parliamentary inquiries.",
+   "where_when": "Government and parliamentary settings, 1947, 1992, 1994 and 2019.",
+   "appearance": "",
+   "clothing_by_period": [
+    {
+     "years": "1947-1994",
+     "clothing": "Formal business suits and ties of the period, with conservative hairstyles."
+    },
+    {
+     "years": "2019-2019",
+     "clothing": "Contemporary formal business attire, kept to a minimum in any scene."
+    }
+   ]
+  },
+  {
+   "id": "wittenoom_miners_and_millworkers",
+   "who": "Miners, mill fitters and laborers at Wittenoom, including European displaced persons assigned in 1948-1951 and recruited by CSR from 1950.",
+   "where_when": "Mines and mill at Wittenoom, 1947-1966.",
+   "appearance": "Mixed European workforce with lean to muscular builds of manual labor, sun-weathered skin and hair and clothing dusted grey by fibre dust.",
+   "clothing_by_period": [
+    {
+     "years": "1947-1966",
+     "clothing": "Dusty work shirts, overalls or singlets, heavy boots and caps, covered in fine grey dust, with only basic dust-reduction equipment."
+    }
+   ]
+  },
+  {
+   "id": "spanish_migrant_families",
+   "who": "Spanish miners, their wives and children who migrated under the 1958 Spain-Australia agreement and lived at Wittenoom, with the later adult children (a television producer and a film director/producer).",
+   "where_when": "Wittenoom, 1962-1964, with return to Madrid in 1966 and 1971 and later testimony and interviews.",
+   "appearance": "Southern European people with typically olive skin and dark hair; working men of lean laboring build, women and children in everyday family settings.",
+   "clothing_by_period": [
+    {
+     "years": "1962-1964",
+     "clothing": "Plain mid-century cotton dresses, blouses and skirts for women, simple shorts and shirts for children, work clothes and boots for men, in hot, dusty desert conditions of modest working-class means."
+    },
+    {
+     "years": "1985-1991",
+     "clothing": "Ordinary 1980s-90s casual and formal clothing for adult descendants in airport and family settings."
+    }
+   ]
+  },
+  {
+   "id": "banjima_traditional_owners",
+   "who": "Banjima Traditional Owners and activists, including an elder who died of mesothelioma and a BNTAC vice-president.",
+   "where_when": "Wittenoom and its Country, 2023, 2024 and 2026.",
+   "appearance": "Aboriginal Australian people of Banjima descent, with dark skin and dark hair.",
+   "clothing_by_period": [
+    {
+     "years": "2023-2026",
+     "clothing": "Plain contemporary casual or formal clothing, without period-specific costume."
+    }
+   ]
+  },
+  {
+   "id": "asbestos_disease_advocates",
+   "who": "Advocates for people affected by asbestos disease, such as the CEO of the Asbestos Diseases Society of Australia.",
+   "where_when": "Australia, from 1979 onward.",
+   "appearance": "",
+   "clothing_by_period": [
+    {
+     "years": "1979-2026",
+     "clothing": "Plain, neutral business or smart casual clothing of the relevant decade."
+    }
+   ]
+  }
+ ]
+}
