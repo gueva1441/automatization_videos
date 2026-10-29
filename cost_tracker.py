@@ -272,6 +272,7 @@ class CostTracker:
 
     def track_fal(self, description: str, clips: int = 1) -> None:
         """Registra costo de generación de video con fal.ai (Veo 3.1 Lite)."""
+        # F53b: se borra con Veo (y pipeline.costs["fal_per_clip"]) en la Parte B; el reemplazo es track_video.
         cost_per = pipeline.costs["fal_per_clip"]
         self._add_entry(
             stage=PipelineStage.VIDEO.value,
@@ -280,6 +281,24 @@ class CostTracker:
             units=clips,
             unit_label="clips",
             cost_per_unit=cost_per,
+        )
+
+    def track_video(self, perfil, segundos: float, ancho: int | None = None,
+                    alto: int | None = None, description: str = "") -> None:
+        """Registra costo de un clip image-to-video (F53b) según su VideoProfile de engine_profiles.
+
+        El total sale de perfil.costo(segundos, ancho, alto) (precio leído × multiplicador de la
+        resolución × segundos); cost_per_unit queda como el US$/s efectivo, solo informativo.
+        """
+        total = perfil.costo(segundos, ancho, alto)
+        self._add_entry(
+            stage=PipelineStage.VIDEO.value,
+            service=f"fal {perfil.endpoint}",
+            description=description,
+            units=segundos,
+            unit_label="s",
+            cost_per_unit=round(total / segundos, 6) if segundos else 0.0,
+            total_cost=total,
         )
 
     def track_elevenlabs(self, description: str, characters: int = 0) -> None:

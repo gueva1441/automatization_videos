@@ -107,3 +107,71 @@ def select_profile(engine_key: str) -> EngineProfile | None:
     """Devuelve el perfil del motor SYNC activo (kling/seedream), o None si el
     motor no es de perfil (ej: "flux", que mantiene su path legacy de queue)."""
     return _PROFILES.get(engine_key)
+
+
+# ═══════════════════════════════════════════════════════════════
+#  PERFILES DE VIDEO (F53b): motor de clips image-to-video por fal
+# ═══════════════════════════════════════════════════════════════
+
+@dataclass(frozen=True)
+class VideoProfile:
+    """Un motor de clips image-to-video (F53b). DATA, sin HTTP: la llamada vive en asset_manager.
+    Campos del schema de fal leídos en F52 (`lab/hyperframes/f52/SCHEMAS_F52.md`); ficha de guía en inglés de F52b
+    (`lab/hyperframes/f52/guias/<letra>.md`, copiada tal cual); costo medido en el panel de fal (2026-10-29 14:22)."""
+    engine_key: str
+    endpoint: str                 # id de fal (queue)
+    campo_imagen: str             # el campo de la foto inicial («image_url» | «start_image_url»)
+    duracion_min: int             # rango del schema, en segundos
+    duracion_max: int
+    duracion_como_texto: bool     # el schema pide `duration` como string (Seedance) o como entero (G, K)
+    resolucion: str
+    campo_audio: str | None       # None: el schema no deja apagar el audio → la pista se quita con ffmpeg (`-an`)
+    ficha: str                    # ficha de guía del modelo (entrada para Opus en script_engine/video_prompt.py)
+    usd_por_s_leido: float        # precio unitario de api.fal.ai/v1/models/pricing
+    mult_resolucion: float        # cobro real / precio leído a `resolucion` (panel de fal)
+
+    def costo(self, segundos: float, ancho: int | None = None, alto: int | None = None) -> float:
+        """US$ de un clip: precio leído × multiplicador de la resolución × segundos. G y K cobran por segundo (ancho y
+        alto no cambian el precio; quedan en la firma para un motor que cobre por tokens)."""
+        return round(self.usd_por_s_leido * self.mult_resolucion * segundos, 4)
+
+
+# G: 0,03 US$/s leído; a 1080p el panel cobró 80,43 s por 16,09 s generados (×5) → 0,15 US$/s (DECISIONES 14:24).
+PERFIL_VIDEO_G = VideoProfile(
+    engine_key="gemini_omni_flash",
+    endpoint="google/gemini-omni-flash/v1.1/image-to-video",
+    campo_imagen="image_url",
+    duracion_min=3,
+    duracion_max=10,
+    duracion_como_texto=False,
+    resolucion="1080p",
+    campo_audio=None,
+    ficha='**G — Gemini Omni Flash 1.1** (Google via fal): subject, action, camera movement, look and sound, written as directions to a film crew; camera moves by their film name; less prescriptive than Veo: short focused prompts work better than long ones; in image-to-video name what from the image must survive; close with "no captions".',
+    usd_por_s_leido=0.03,
+    mult_resolucion=5.0,
+)
+
+# K: 0,157 US$/s leído; a 1080p el panel cobró 23,95 s por 16,08 s generados (×1,5) → 0,235 US$/s (adenda F53b).
+PERFIL_VIDEO_K = VideoProfile(
+    engine_key="kling_4",
+    endpoint="kling/v4/image-to-video",
+    campo_imagen="start_image_url",
+    duracion_min=3,
+    duracion_max=30,
+    duracion_como_texto=False,
+    resolucion="1080p",
+    campo_audio=None,
+    ficha='**K — Kling 4.0** (official Kling guide, 2026-10-26): descriptive, concrete language; few abstract words and few negations (they increase errors); the only negations needed: no subtitles and no background music. Structure: [General settings] scene and texture, visual style, camera tone · [Sequence] 0–X s / X–Y s / Y s–end with action and camera movement · [Audio]. In image-to-video: subject + motion, background + motion.',
+    usd_por_s_leido=0.157,
+    mult_resolucion=1.5,
+)
+
+_VIDEO_PROFILES: dict[str, VideoProfile] = {
+    PERFIL_VIDEO_G.engine_key: PERFIL_VIDEO_G,
+    PERFIL_VIDEO_K.engine_key: PERFIL_VIDEO_K,
+}
+
+
+def select_video_profile(engine_key: str) -> VideoProfile:
+    """El perfil de video de `engine_key` («gemini_omni_flash» | «kling_4»). KeyError si no existe."""
+    return _VIDEO_PROFILES[engine_key]

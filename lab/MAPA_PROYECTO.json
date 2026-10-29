@@ -405,9 +405,11 @@
    "propios": [
     "fase2a",
     "image_grade",
+    "video_prompt",
     "vision_validator"
    ],
    "modelos": [
+    "Claude Opus",
     "Flux (fal)",
     "GPT Image (fal)",
     "Gemini Flash",
@@ -569,7 +571,7 @@
  "conteo": {
   "vivo": 133,
   "solo herramienta manual": 13,
-  "huérfano": 11,
+  "huérfano": 12,
   "roto": 0,
   "(sin sticker)": 0
  },
@@ -962,9 +964,10 @@
     "script_engine/guion_v4.py",
     "script_engine/m01a_escaleta.py",
     "script_engine/m01e_pantalla.py",
-    "script_engine/m03_visual.py"
+    "script_engine/m03_visual.py",
+    "script_engine/video_prompt.py"
    ],
-   "tests": 11,
+   "tests": 12,
    "nacio": "cd5fde5 2026-10-24 (F22b)",
    "ultimo": "b2db299 2026-10-25 (F25a)",
    "estado_a": "vivo",
@@ -979,7 +982,7 @@
   "config.py": {
    "archivo": "config.py",
    "zona": "orquestador",
-   "sticker": "Es el panel de control central: rutas del proyecto, endpoints y modelos de cada servicio, parámetros del video (resolución, fps, concurrencia de imágenes), precios por llamada, largos objetivo del video largo y umbrales del validador de temas. También crea el cliente de Gemini que comparten todos los módulos.",
+   "sticker": "Es el panel de control central: rutas del proyecto, endpoints y modelos de cada servicio, parámetros del video (resolución, fps, concurrencia de imágenes), precios por llamada, largos objetivo del video largo (desde F53b la estimación del costo por video usa el costo de un clip de Gemini Omni Flash a 8 s, del perfil de engine_profiles) y umbrales del validador de temas. También crea el cliente de Gemini que comparten todos los módulos.",
    "recibe": "Nada de archivos: son constantes y dataclasses en el propio archivo; al importarse crea las carpetas output/, logs/ y data/ si faltan.",
    "entrega": "Los objetos api, pipeline, long_video, short_video, apuesta_viral, validator_strictness y gemini_client, las rutas BASE_DIR/OUTPUT_DIR/LOGS_DIR/DATA_DIR y la función estimated_cost_for.",
    "modelo": [
@@ -1063,7 +1066,7 @@
     "topic_validator.py",
     "tts_normalizer.py"
    ],
-   "tests": 21,
+   "tests": 22,
    "nacio": "(fuera de git)",
    "ultimo": "(fuera de git)",
    "estado_a": "vivo",
@@ -1080,13 +1083,13 @@
    "sin_llamador_a": [
     "get_video_config"
    ],
-   "md5": "e82045128f8bc7d0a91f53b6f7883e8e",
+   "md5": "eea9736dbab5024841dce17eb47a2021",
    "sticker_al_dia": true
   },
   "cost_tracker.py": {
    "archivo": "cost_tracker.py",
    "zona": "orquestador",
-   "sticker": "Es la caja registradora del pipeline: cada vez que un módulo gasta plata en una API (Gemini, Flux, Kling, Seedream, Veo, ElevenLabs, y también Claude y GPT por la puerta de atrás) anota cuánto, en qué etapa y para qué video. Al cerrar el video guarda el total en el historial y, en la corrida del form, avisa el gasto de Gemini en vivo.",
+   "sticker": "Es la caja registradora del pipeline: cada vez que un módulo gasta plata en una API (Gemini, Flux, Kling, Seedream, Veo, ElevenLabs, y también Claude y GPT por la puerta de atrás) anota cuánto, en qué etapa y para qué video. Desde F53b, el costo de un clip de video sale del perfil del motor (track_video: segundos × precio por segundo medido); track_fal, el de Veo, se borra en la Parte B. Al cerrar el video guarda el total en el historial y, en la corrida del form, avisa el gasto de Gemini en vivo.",
    "recibe": "Llamadas de los demás módulos (track_gemini_response, track_flux_pro, track_kling, track_seedream, track_fal, track_elevenlabs, _add_entry desde claude_helpers/gpt_helpers) y las tarifas de config.py (pipeline.costs: gemini_per_call, gemini_vision_per_call, flux_pro_per_image, flux_pro_ultra_per_image, kling_per_image, seedream_per_image, leonardo_per_image, fal_per_clip, elevenlabs_per_char, gemini_rates_per_1m). Lee data/cost_history.json.",
    "entrega": "data/cost_history.json (un reporte por video, se agrega al cerrar con end_video; bajo pytest no escribe), data/session_report_<fecha>.json (save_session_report, lo llama fase1.py), resúmenes impresos en consola (print_summary / print_gemini_report) y el marcador de costo en vivo para el form (qa_form_markers.emit_cost_marker, solo Gemini).",
    "modelo": [],
@@ -1138,7 +1141,7 @@
     "script_engine/zoom_judge.py",
     "topic_researcher.py"
    ],
-   "tests": 6,
+   "tests": 7,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "dcea932 2026-10-28 (F50)",
    "estado_a": "vivo",
@@ -1159,9 +1162,10 @@
    "imports_rotos": [],
    "sin_llamador_a": [
     "CostTracker.track_leonardo",
+    "CostTracker.track_video",
     "CostTracker.track_custom"
    ],
-   "md5": "8d3b22155701383fb4c1ec23b8f50239",
+   "md5": "2e2b300f7689a8071073bd05aebf2526",
    "sticker_al_dia": true
   },
   "csv_exporter.py": {
@@ -1233,9 +1237,9 @@
   "engine_profiles.py": {
    "archivo": "engine_profiles.py",
    "zona": "fase2a",
-   "sticker": "Describe cada motor de imagen (Kling y Seedream) como una ficha: qué modelo llamar, dirección, tamaño de imagen, costo y, para Seedream, el orden de las piezas del prompt. Con la clave del motor activo devuelve su ficha, así cambiar de motor es cambiar de ficha y no de código.",
+   "sticker": "Describe cada motor de imagen (Kling y Seedream) como una ficha: qué modelo llamar, dirección, tamaño de imagen, costo y, para Seedream, el orden de las piezas del prompt. Con la clave del motor activo devuelve su ficha, así cambiar de motor es cambiar de ficha y no de código. Desde F53b también describe los motores de clips de video (Gemini Omni Flash 1.1 y, de respaldo, Kling 4.0): endpoint de fal, campo de la foto, rango de duración, resolución, si deja apagar el audio, la ficha de guía en inglés para Opus y el costo por segundo medido en el panel de fal.",
    "recibe": "api.image_engine y datos de config (nombres de modelo, ancho y alto de imagen)",
-   "entrega": "El EngineProfile del motor pedido (o None para flux), que leen asset_manager y m03_visual",
+   "entrega": "El EngineProfile del motor pedido (o None para flux), que leen asset_manager y m03_visual; desde F53b, el VideoProfile de un motor de clips (select_video_profile), que leen script_engine/video_prompt.py, cost_tracker.track_video y config.py (estimaciones)",
    "modelo": [
     {
      "modelo": "api.fal_kling_model",
@@ -1256,6 +1260,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -1265,10 +1273,12 @@
    "compartido": true,
    "lo_llaman": [
     "asset_manager.py",
+    "config.py",
     "script_engine/m03_imagenes_v3.py",
-    "script_engine/m03_visual.py"
+    "script_engine/m03_visual.py",
+    "script_engine/video_prompt.py"
    ],
-   "tests": 1,
+   "tests": 4,
    "nacio": "c0b85bc 2026-06-22",
    "ultimo": "73e3613 2026-10-22 (F8)",
    "estado_a": "vivo",
@@ -1276,8 +1286,10 @@
    "estado_prueba": "asset_manager.py:257,278,329 y script_engine/m03_visual.py:965 llaman select_profile (m03 corre en voz, asset_manager en assets)",
    "funciones_muertas": [],
    "imports_rotos": [],
-   "sin_llamador_a": [],
-   "md5": "bf4cc0382effa027c77a9d44f31de49a",
+   "sin_llamador_a": [
+    "select_video_profile"
+   ],
+   "md5": "62e28804e43ddf2d3f5e6bed849f2f1a",
    "sticker_al_dia": true
   },
   "error_handler.py": {
@@ -1334,7 +1346,7 @@
     "topic_validator.py",
     "tts_normalizer.py"
    ],
-   "tests": 2,
+   "tests": 3,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "e33f84a 2026-05-28",
    "estado_a": "vivo",
@@ -3979,7 +3991,8 @@
     "fase1_5.py",
     "script_engine/m01a_columna.py",
     "script_engine/m01a_escaleta.py",
-    "script_engine/m03_visual.py"
+    "script_engine/m03_visual.py",
+    "script_engine/video_prompt.py"
    ],
    "tests": 15,
    "nacio": "6264058 2026-10-23 (F11)",
@@ -4554,7 +4567,7 @@
    ],
    "tests": 11,
    "nacio": "73e3613 2026-10-22 (F8)",
-   "ultimo": "7b6b112 2026-10-29 (F51d)",
+   "ultimo": "ee908b5 2026-10-29 (F51f)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "script_engine/m03_visual.py:107 lo importa (v3img) y lo usa en m03_visual.py:561-629 (armado, F8, año) y 2037-2168; m03_visual corre dentro de fase1_5.py:671 (etapa voz).",
@@ -4601,7 +4614,8 @@
    "lo_llaman": [
     "asset_manager.py",
     "fase1_5.py",
-    "script_engine/m09_packaging.py"
+    "script_engine/m09_packaging.py",
+    "script_engine/video_prompt.py"
    ],
    "tests": 17,
    "nacio": "e33f84a 2026-05-28",
@@ -5684,6 +5698,41 @@
    "imports_rotos": [],
    "sin_llamador_a": [],
    "md5": "a47150bcddfc73d9e0d1e575743d5566",
+   "sticker_al_dia": true
+  },
+  "script_engine/video_prompt.py": {
+   "archivo": "script_engine/video_prompt.py",
+   "zona": "orquestador",
+   "sticker": "Escribe el prompt de movimiento de un clip de video para un motor de clips (F53b): le manda a Claude Opus la foto real del primer cuadro (con su tipo leído de los bytes) y el pedido de F52b con la ficha de guía del motor, el prompt de la foto, la frase de la voz y el movimiento ya aprobado, y devuelve el texto. No suaviza nada ni agrega reglas.",
+   "recibe": "El VideoProfile del motor (engine_profiles), la foto (bytes o ruta), el image_prompt, el ancla de narración y el video_prompt del 03_visual (o nada).",
+   "entrega": "El texto del prompt de video, en memoria; el costo de la llamada va a cost_tracker.",
+   "modelo": [
+    {
+     "modelo": "claude-opus-5-5, effort high (MODELO_CASILLEROS; claude_helpers._post)",
+     "para": "escribir el prompt de movimiento del clip mirando la foto"
+    }
+   ],
+   "modelos": [
+    "Claude Opus"
+   ],
+   "etapas_a": [],
+   "etapas_sticker": [
+    "assets"
+   ],
+   "compartido": false,
+   "lo_llaman": [],
+   "tests": 1,
+   "nacio": "(fuera de git)",
+   "ultimo": "(fuera de git)",
+   "estado_a": "huérfano",
+   "estado": "huérfano",
+   "estado_prueba": "nuevo en F53b Parte A: todavía nadie lo llama en producción; lo va a llamar asset_manager._generate_clip en la Parte B. Lo usan test_module_f53b_video_prompt.py y lab/hyperframes/f53b/seco_g.py (corrida en seco).",
+   "funciones_muertas": [],
+   "imports_rotos": [],
+   "sin_llamador_a": [
+    "escribir"
+   ],
+   "md5": "64acb78b20c245eb5c2a5896980636cf",
    "sticker_al_dia": true
   },
   "script_engine/vision_validator.py": {

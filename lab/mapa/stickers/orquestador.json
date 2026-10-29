@@ -225,7 +225,7 @@
   "_parte": "orquestador_c"
  },
  "config.py": {
-  "sticker": "Es el panel de control central: rutas del proyecto, endpoints y modelos de cada servicio, parámetros del video (resolución, fps, concurrencia de imágenes), precios por llamada, largos objetivo del video largo y umbrales del validador de temas. También crea el cliente de Gemini que comparten todos los módulos.",
+  "sticker": "Es el panel de control central: rutas del proyecto, endpoints y modelos de cada servicio, parámetros del video (resolución, fps, concurrencia de imágenes), precios por llamada, largos objetivo del video largo (desde F53b la estimación del costo por video usa el costo de un clip de Gemini Omni Flash a 8 s, del perfil de engine_profiles) y umbrales del validador de temas. También crea el cliente de Gemini que comparten todos los módulos.",
   "recibe": "Nada de archivos: son constantes y dataclasses en el propio archivo; al importarse crea las carpetas output/, logs/ y data/ si faltan.",
   "entrega": "Los objetos api, pipeline, long_video, short_video, apuesta_viral, validator_strictness y gemini_client, las rutas BASE_DIR/OUTPUT_DIR/LOGS_DIR/DATA_DIR y la función estimated_cost_for.",
   "modelo": [
@@ -255,11 +255,11 @@
     "por_que": "solo la nombra el docstring de config.py:9; ningún .py del repo la llama (ni producción ni tests)"
    }
   ],
-  "md5": "e82045128f8bc7d0a91f53b6f7883e8e",
+  "md5": "eea9736dbab5024841dce17eb47a2021",
   "_parte": "orquestador_b"
  },
  "cost_tracker.py": {
-  "sticker": "Es la caja registradora del pipeline: cada vez que un módulo gasta plata en una API (Gemini, Flux, Kling, Seedream, Veo, ElevenLabs, y también Claude y GPT por la puerta de atrás) anota cuánto, en qué etapa y para qué video. Al cerrar el video guarda el total en el historial y, en la corrida del form, avisa el gasto de Gemini en vivo.",
+  "sticker": "Es la caja registradora del pipeline: cada vez que un módulo gasta plata en una API (Gemini, Flux, Kling, Seedream, Veo, ElevenLabs, y también Claude y GPT por la puerta de atrás) anota cuánto, en qué etapa y para qué video. Desde F53b, el costo de un clip de video sale del perfil del motor (track_video: segundos × precio por segundo medido); track_fal, el de Veo, se borra en la Parte B. Al cerrar el video guarda el total en el historial y, en la corrida del form, avisa el gasto de Gemini en vivo.",
   "recibe": "Llamadas de los demás módulos (track_gemini_response, track_flux_pro, track_kling, track_seedream, track_fal, track_elevenlabs, _add_entry desde claude_helpers/gpt_helpers) y las tarifas de config.py (pipeline.costs: gemini_per_call, gemini_vision_per_call, flux_pro_per_image, flux_pro_ultra_per_image, kling_per_image, seedream_per_image, leonardo_per_image, fal_per_clip, elevenlabs_per_char, gemini_rates_per_1m). Lee data/cost_history.json.",
   "entrega": "data/cost_history.json (un reporte por video, se agrega al cerrar con end_video; bajo pytest no escribe), data/session_report_<fecha>.json (save_session_report, lo llama fase1.py), resúmenes impresos en consola (print_summary / print_gemini_report) y el marcador de costo en vivo para el form (qa_form_markers.emit_cost_marker, solo Gemini).",
   "modelo": [],
@@ -288,7 +288,7 @@
     "por_que": "ningún módulo de producción la llama; solo test_module_f26c.py:138 (prueba del lock de hilos)."
    }
   ],
-  "md5": "8d3b22155701383fb4c1ec23b8f50239",
+  "md5": "2e2b300f7689a8071073bd05aebf2526",
   "_parte": "orquestador_c"
  },
  "csv_exporter.py": {
@@ -721,5 +721,23 @@
   "funciones_muertas": [],
   "md5": "5a0202ed69711dc21366c428941e5f90",
   "_parte": "orquestador_a"
+ },
+ "script_engine/video_prompt.py": {
+  "sticker": "Escribe el prompt de movimiento de un clip de video para un motor de clips (F53b): le manda a Claude Opus la foto real del primer cuadro (con su tipo leído de los bytes) y el pedido de F52b con la ficha de guía del motor, el prompt de la foto, la frase de la voz y el movimiento ya aprobado, y devuelve el texto. No suaviza nada ni agrega reglas.",
+  "recibe": "El VideoProfile del motor (engine_profiles), la foto (bytes o ruta), el image_prompt, el ancla de narración y el video_prompt del 03_visual (o nada).",
+  "entrega": "El texto del prompt de video, en memoria; el costo de la llamada va a cost_tracker.",
+  "modelo": [
+   {
+    "modelo": "claude-opus-5-5, effort high (MODELO_CASILLEROS; claude_helpers._post)",
+    "para": "escribir el prompt de movimiento del clip mirando la foto"
+   }
+  ],
+  "etapa": [
+   "assets"
+  ],
+  "estado": "huérfano",
+  "estado_prueba": "nuevo en F53b Parte A: todavía nadie lo llama en producción; lo va a llamar asset_manager._generate_clip en la Parte B. Lo usan test_module_f53b_video_prompt.py y lab/hyperframes/f53b/seco_g.py (corrida en seco).",
+  "funciones_muertas": [],
+  "md5": "64acb78b20c245eb5c2a5896980636cf"
  }
 }

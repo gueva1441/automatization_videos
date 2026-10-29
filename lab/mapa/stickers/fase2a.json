@@ -139,9 +139,9 @@
   "_parte": "fase2a_c"
  },
  "engine_profiles.py": {
-  "sticker": "Describe cada motor de imagen (Kling y Seedream) como una ficha: qué modelo llamar, dirección, tamaño de imagen, costo y, para Seedream, el orden de las piezas del prompt. Con la clave del motor activo devuelve su ficha, así cambiar de motor es cambiar de ficha y no de código.",
+  "sticker": "Describe cada motor de imagen (Kling y Seedream) como una ficha: qué modelo llamar, dirección, tamaño de imagen, costo y, para Seedream, el orden de las piezas del prompt. Con la clave del motor activo devuelve su ficha, así cambiar de motor es cambiar de ficha y no de código. Desde F53b también describe los motores de clips de video (Gemini Omni Flash 1.1 y, de respaldo, Kling 4.0): endpoint de fal, campo de la foto, rango de duración, resolución, si deja apagar el audio, la ficha de guía en inglés para Opus y el costo por segundo medido en el panel de fal.",
   "recibe": "api.image_engine y datos de config (nombres de modelo, ancho y alto de imagen)",
-  "entrega": "El EngineProfile del motor pedido (o None para flux), que leen asset_manager y m03_visual",
+  "entrega": "El EngineProfile del motor pedido (o None para flux), que leen asset_manager y m03_visual; desde F53b, el VideoProfile de un motor de clips (select_video_profile), que leen script_engine/video_prompt.py, cost_tracker.track_video y config.py (estimaciones)",
   "modelo": [
    {
     "modelo": "api.fal_kling_model",
@@ -159,7 +159,7 @@
   "estado": "vivo",
   "estado_prueba": "asset_manager.py:257,278,329 y script_engine/m03_visual.py:965 llaman select_profile (m03 corre en voz, asset_manager en assets)",
   "funciones_muertas": [],
-  "md5": "bf4cc0382effa027c77a9d44f31de49a",
+  "md5": "62e28804e43ddf2d3f5e6bed849f2f1a",
   "_parte": "fase2a_d"
  },
  "fase2a.py": {
