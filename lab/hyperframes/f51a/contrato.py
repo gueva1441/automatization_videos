@@ -44,7 +44,7 @@ def main() -> int:
         cap = int(f["foto"].split("/")[0])
         by_n = {b["n"]: b for b in beats.get(cap) or []}
         escala = bool((by_n.get(it.get("beat")) or {}).get("escala"))
-        p, _ = rg.rearmar_una(it, escala, topic.get("documented_people"), grupos)
+        p, _ = rg.rearmar_una(it, escala, grupos)
         prod[f["foto"]] = p
         igual = p.encode("utf-8") == f["C"].encode("utf-8")
         print(f"| {f['foto']} | {'sí' if igual else 'NO'} |")

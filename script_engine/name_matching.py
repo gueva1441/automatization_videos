@@ -3,11 +3,10 @@
 Movido desde m05_judge.py (chat 87, B-name-scrub) para que m03 pueda reusar el matcher sin
 crear una dependencia m03→m05. Provee:
   - los helpers de normalización (`_normalize_text`, `_extract_last_name`) que m05 sigue consumiendo,
-  - la primitiva compartida `iter_name_patterns` (gating de full_name / last_name en un solo lugar),
-  - el scrub determinístico post-LLM `scrub_documented_names` que usa m03.
+  - la primitiva compartida `iter_name_patterns` (gating de full_name / last_name en un solo lugar).
 
-INVARIANTE: el scrub solo toca el texto de PROMPT que va a Kling. Nunca la narración ni el
-`narration_anchor` (sync temporal, substring exacto). Ver HANDOFF B-name-scrub.
+F51c: se borró el scrub post-LLM `scrub_documented_names` (en Wittenoom, 0 nombres reales en 96 fotos
+y 1 falso positivo: «Court» en «Supreme Court»).
 """
 import re
 import unicodedata
@@ -40,7 +39,7 @@ def _normalize_text(s: str) -> str:
 def _extract_last_name(full_name: str, raw: bool = False) -> str:
     """Extrae el last_name de un nombre completo.
     raw=False (default): normalizado (minúscula, sin diacríticos) — blacklist-check + label.
-    raw=True: PRESERVA el caso original — para el pattern case-sensitive del scrub."""
+    raw=True: PRESERVA el caso original — para el pattern case-sensitive."""
     tokens = (full_name or "").strip().split()
     if not tokens:
         return ""
@@ -61,7 +60,7 @@ def iter_name_patterns(documented_people):
 
     Yield (regex_pattern, label, person). full_name siempre; last_name solo si
     len>=_MIN_LAST_NAME_LEN y su token core no está en la blacklist. El `regex_pattern`
-    es sobre el texto crudo (lo usa el scrub con IGNORECASE); el `label` es el string
+    es sobre el texto crudo (m05 lo busca con IGNORECASE); el `label` es el string
     documentado (lo reporta m05 como matched_pattern: full crudo / last normalizado).
     """
     for person in documented_people or []:
@@ -77,32 +76,3 @@ def iter_name_patterns(documented_people):
             # "orange" (color) NO. El label yieldeado sigue normalizado (m05 lo espera así).
             yield (rf"\b(?-i:{re.escape(raw_last)})\b", last, person)
 
-
-def _neutral_descriptor(person):
-    """(b) rol+era breve. NO inventar: usar campos del documented_people."""
-    role = (person.get("role") or "").strip()
-    era = (person.get("era") or "").strip()
-    if role and era:
-        return f"a {role} of the {era} era"
-    if role:
-        return f"a {role}"
-    return "a person of the era"
-
-
-def scrub_documented_names(prompt, documented_people):
-    """Reemplaza nombres documentados por un descriptor neutro.
-
-    CASE-INSENSITIVE sobre el prompt ORIGINAL (el reemplazo va en el texto real, no en el
-    normalizado). Devuelve (prompt_scrubeado, [hits para log]). No-op si no hay prompt o
-    no hay gente documentada.
-    """
-    if not prompt or not documented_people:
-        return prompt, []
-    out, hits = prompt, []
-    for pat, label, person in iter_name_patterns(documented_people):
-        repl = _neutral_descriptor(person)
-        new = re.sub(pat, repl, out, flags=re.IGNORECASE)
-        if new != out:
-            hits.append({"matched": label, "repl": repl})
-            out = new
-    return out, hits

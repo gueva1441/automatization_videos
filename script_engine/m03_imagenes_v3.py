@@ -648,13 +648,11 @@ def armar(it: dict, anio: str, grupos: dict[str, dict] | None = None) -> dict:
     return {"partes": partes, "prompt": " ".join(p for p in partes.values() if p)}
 
 
-def f8_backstop(prompt: str, it: dict, escala: bool, documented) -> tuple[str, list[str]]:
-    """Las reglas F8 sobre la prosa armada: nombres documentados fuera, conteos e izquierda/derecha, escala; si queda un
-    problema (manos/cara, prohibida, arma, menor en daño), se saca la frase (sin re-tejido)."""
-    from script_engine.name_matching import scrub_documented_names
+def f8_backstop(prompt: str, it: dict, escala: bool) -> tuple[str, list[str]]:
+    """Las reglas F8 sobre la prosa armada: conteos e izquierda/derecha, escala; si queda un problema (manos/cara,
+    prohibida, arma, menor en daño), se saca la frase (sin re-tejido). F51c: ya no borra nombres documentados."""
     notas = []
-    p, _ = scrub_documented_names(prompt, documented)
-    p = fix_counts_lr(p)
+    p = fix_counts_lr(prompt)
     if escala:
         p = fix_scale(p)
     probs = problems(p, it.get("shot_scale"))
@@ -667,10 +665,10 @@ def f8_backstop(prompt: str, it: dict, escala: bool, documented) -> tuple[str, l
 
 
 def anio_final(e: dict, it: dict) -> tuple[str, str]:
-    """El año de la foto: 1) dicho en el ancla 2) el casillero `year` 3)–5) el respaldo del expediente."""
-    if e.get("anio_ancla"):
-        return e["anio_ancla"], "1) dicho en el ancla"
+    """El año de la foto (F51c, sin el paso «dicho en el ancla»): 1) el casillero `year` 2)–4) el respaldo del
+    expediente (el expediente lo rotula 3)–5); acá se renumera)."""
     y = str(it.get("year") or "").strip()
     if re.fullmatch(r"\d{4}", y) and 1800 <= int(y) <= 2100:      # derivado: handoff F48 §Constantes (años 1800–2100)
-        return y, "2) el casillero `year` del modelo"
-    return tuple(e["respaldo"])
+        return y, "1) el casillero `year` del modelo"
+    anio, fuente = e["respaldo"]
+    return anio, re.sub(r"^(\d)\)", lambda m: f"{int(m.group(1)) - 1})", fuente)

@@ -102,7 +102,6 @@ from config import DATA_DIR, OUTPUT_DIR, api
 from gemini_helpers import call_flash_json
 from nicho_config import get_active_nicho
 from anchor_timing import compute_anchor_starts
-from script_engine.name_matching import scrub_documented_names
 from engine_profiles import select_profile
 from script_engine import m03_imagenes_v3 as v3img
 from script_engine import m03_expediente as mexp
@@ -690,8 +689,7 @@ def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number):
     for it, e in zip(slots_out["image_prompts"], exps):
         anio, fuente = v3img.anio_final(e, it)
         armado = v3img.armar(it, anio, grupos)
-        prose, notas = v3img.f8_backstop(armado["prompt"], it, bool((by_n.get(it.get("beat")) or {}).get("escala")),
-                                         documented)
+        prose, notas = v3img.f8_backstop(armado["prompt"], it, bool((by_n.get(it.get("beat")) or {}).get("escala")))
         tii = it.get("text_in_image") or {}
         prose, fuera = _sacar_frases_con_texto(prose, (tii.get("text") or "") if tii.get("present") else "")
         # raw_llm_prompt = los casilleros crudos (auditoría)
@@ -1127,12 +1125,22 @@ CONTEXTO NARRATIVO (research_summary):
 
 def _carve_veo_zones(narration_text: str, veo_position: str, veo_zone_chars: int) -> tuple:
     """Carveo de zonas (zona Veo + zonas de supplementals). Devuelve
-    (veo_lo, veo_hi, supps_lo, supps_hi)."""
+    (veo_lo, veo_hi, supps_lo, supps_hi).
+
+    F51c: el corte va al final de oración más cercano a `veo_zone_chars` (el regex de
+    _sentence_content_spans); sin final de oración en la narración, al espacio más cercano;
+    empate → el que deja la zona Veo más corta (el clip dura 8 s fijos)."""
     narration_len = len(narration_text)
+    cut = veo_zone_chars if veo_position == "start" else narration_len - veo_zone_chars
+    cands = ([m.end() for m in re.finditer(r"[.!?…]+", narration_text) if 0 < m.end() < narration_len]
+             or [m.start() for m in re.finditer(r"\s", narration_text) if 0 < m.start() < narration_len])
+    if cands:
+        largo_veo = (lambda c: c) if veo_position == "start" else (lambda c: narration_len - c)
+        cut = min(cands, key=lambda c: (abs(c - cut), largo_veo(c)))
     if veo_position == "start":
-        return 0, veo_zone_chars, veo_zone_chars, narration_len
+        return 0, cut, cut, narration_len
     # "end"
-    return narration_len - veo_zone_chars, narration_len, 0, narration_len - veo_zone_chars
+    return cut, narration_len, 0, cut
 
 
 # ─── FALLBACK determinístico (candado de Omar #3: EXACTAMENTE n ventanas, SIEMPRE) ───
@@ -1527,8 +1535,8 @@ def _validate_no_text_leakage(prompt: str, label: str,
     allow_intentional_text (eslabón 3b, R3 INVERTIDA para Seedream): cuando True,
     se SALTEA la pasada 2 (texto entrecomillado = rótulo intencional del slot
     text_in_image, herramienta legítima de Seedream). La pasada 1 (eufemismos)
-    se mantiene; los nombres de PERSONA los sigue cortando scrub_documented_names
-    (aplicado aparte, en los dos motores). Default False → Kling/Flux intactos.
+    se mantiene (F51c: los nombres de PERSONA ya no se borran después). Default False →
+    Kling/Flux intactos.
 
     intentional_text (camino C, fix 110b): el TITULAR sancionado del slot
     text_in_image. Con allow_intentional_text=True, si un patrón de Pasada 1 matchea

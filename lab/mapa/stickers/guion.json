@@ -249,17 +249,17 @@
   "_parte": "guion_b"
  },
  "script_engine/name_matching.py": {
-  "sticker": "Decide qué texto cuenta como el nombre de una persona documentada y, antes de mandar un prompt de imagen al generador, reemplaza esos nombres por un descriptor neutro (a dockworker of the era) para que el modelo no dibuje caras reales. No toca la narración ni las anclas de sincronización.",
-  "recibe": "el prompt de imagen y la lista de personas documentadas (nombre, rol, era)",
-  "entrega": "(prompt sin nombres, lista de reemplazos para el log), en memoria; no escribe archivos",
+  "sticker": "Decide qué texto cuenta como el nombre de una persona documentada (nombre completo y, si es largo y no es común, el apellido) para el juez visual viejo m05. Desde F51c ya no borra nombres del prompt de imagen: ese borrado se quitó (en Wittenoom solo daba falsos positivos, como «Court» en «Supreme Court»).",
+  "recibe": "la lista de personas documentadas (nombre)",
+  "entrega": "los patrones de nombre (regex, etiqueta, persona), en memoria; no escribe archivos",
   "modelo": [],
   "etapa": [
-   "voz"
+   "ninguna"
   ],
-  "estado": "vivo",
-  "estado_prueba": "script_engine/m03_visual.py:105 lo importa y lo llama en :785 y :1085 (m03 corre en voz: fase1_5.py:632); m05_judge lo importa pero no tiene llamador de producción",
+  "estado": "huérfano",
+  "estado_prueba": "solo lo importa script_engine/m05_judge.py (iter_name_patterns, _normalize_text, _extract_last_name), que no tiene llamador de producción; m03_visual dejó de importarlo en F51c",
   "funciones_muertas": [],
-  "md5": "3a24d0bff30db6c291d6a005efc2da4c",
+  "md5": "1dac01ddfb93008d6803bdbaaad322a6",
   "_parte": "guion_b"
  },
  "script_engine/nombres.py": {

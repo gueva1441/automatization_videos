@@ -37,8 +37,7 @@ from gemini_helpers import call_flash_json
 from script_engine.learned_patterns import LEARNED_REGEX_PATTERNS, get_root_cause
 # B-name-scrub (chat 87): la lógica de matcheo de nombres documentados vive ahora en
 # name_matching (módulo hoja, único dueño). m05 la consume y re-exporta los helpers que
-# su test sigue importando por nombre (_normalize_text, _extract_last_name); m03 reusa el
-# mismo matcher vía scrub_documented_names.
+# su test sigue importando por nombre (_normalize_text, _extract_last_name).
 from script_engine.name_matching import (
     _extract_last_name,
     _normalize_text,

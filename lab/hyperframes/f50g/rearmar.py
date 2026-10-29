@@ -45,12 +45,12 @@ def sin_esp(p: str) -> str:
     return re.sub(r"\s+", "", p or "")
 
 
-def rearmar_una(it: dict, escala: bool, documented, grupos: dict) -> tuple[str, dict]:
+def rearmar_una(it: dict, escala: bool, grupos: dict) -> tuple[str, dict]:
     from script_engine import m03_imagenes_v3 as v3
     from script_engine.m03_visual import _sacar_frases_con_texto
     slots = json.loads(it["raw_llm_prompt"])
     armado = v3.armar(slots, it["anio"], grupos)
-    prose, _ = v3.f8_backstop(armado["prompt"], slots, escala, documented)
+    prose, _ = v3.f8_backstop(armado["prompt"], slots, escala)
     tii = slots.get("text_in_image") or {}
     prose, _ = _sacar_frases_con_texto(prose, (tii.get("text") or "") if tii.get("present") else "")
     return prose, armado["partes"]
@@ -63,7 +63,7 @@ def correr(v: dict, topic: dict, beats, grupos: dict) -> dict:
         by_n = {b["n"]: b for b in beats.get(n) or []}
         for i, (it, rol) in enumerate(fotos(cap), start=1):
             esc = bool((by_n.get(it.get("beat")) or {}).get("escala"))
-            out[(n, i)] = rearmar_una(it, esc, topic.get("documented_people"), grupos)
+            out[(n, i)] = rearmar_una(it, esc, grupos)
     return out
 
 
