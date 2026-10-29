@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 13:05 (F51d-A: m03 de Wittenoom en texto, US$ 2,27, cero fal; PARADA: el analista revisa el papel y Omar da el OK antes de F51d-B) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 13:20 (F51f: la frase del cartel con una sola forma; Wittenoom rearmado sin LLM, cambian solo los 8 carteles; US$ 0; PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,17 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F51f, PARADA): los 8 carteles de Wittenoom ya son gramaticales.
+- La frase del cartel va «… in clear crisp {font} lettering» (antes «in carved, in clear crisp lettering»); con una sola palabra, «The word "WITTENOOM" is …».
+- Wittenoom se rearmó sin llamar a ningún modelo: en el `03_visual.json` cambiaron solo los 8 prompts con cartel, y solo en esa oración. US$ 0.
+- Papel nuevo: `lab/hyperframes/f51f/PAPEL_FOTOS_WITTENOOM.md`.
+- **Sigue:** F51d-B (generar las fotos) cuando des el OK; el modelo de video va en una tanda aparte.
+
+## F51f — la frase del cartel (handoff del analista, 2026-10-29 12:54) — PARADA
+- Commits: `afa2678` etapa 0 (DECISIONES 12:54); `ee908b5` etapa 1 (`frase_cartel`, tests, contrato F51a ajustado: lo esperado = C de F50h con el cartel nuevo, 20/20); `426409a` etapa 2 (`f51f/rearmar_f51f.py`, `REARMADO_F51f.md`, copia en `f51f/antes/`, papel). El último commit es el del reporte (`lab/hyperframes/f51f/F51f_REPORT.md`).
+- `03_visual.json` de Wittenoom: md5 `72fdd85c…` → `0d57b6ba…`, diff de campos = 8 `prompt`.
+- Suites: rápida 55; amplia 1019 + 4 previas; ch02 `f792f3d4…`; MAPA --check 0.
 
 ## 👀 Para Omar (F51d-A, PARADA): Wittenoom tiene el papel de fotos nuevo, en texto (96 fotos). No se generó ninguna foto ni clip.
 - m03 corrió entero, sin PARADA ni fallback: **US$ 2,27 de 3,00**. El canon no se rehízo.
