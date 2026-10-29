@@ -192,7 +192,7 @@
   "estado": "vivo",
   "estado_prueba": "fase2a.py:55 importa process_script como asset_process y lo corre en la etapa assets (run_pipeline.py:340-342 lanza fase2a.py --topic); m09_packaging.py:489 lo usa para las miniaturas",
   "funciones_muertas": [],
-  "md5": "19c38fad3c2ba6f548ae28441978b6f1",
+  "md5": "08b8b6e31d6f825d483f10aacf74e611",
   "_parte": "orquestador_b"
  },
  "claude_helpers.py": {
