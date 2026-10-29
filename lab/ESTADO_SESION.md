@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 17:20 (F54 Parte B.1/B.3: loops declarados en la escaleta, paga por beat, recuerda_loop, bloqueante (h) pago no dicho; <ejemplos> nuevo propuesto en texto; US$ 0; PARADA B.0 hasta el OK del analista) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 19:05 (F54 Parte B completa: <ejemplos> v5.6, m09 lee el gancho, Wittenoom en texto con escaleta de 2 loops y guion f54-2 (4 bloqueantes: 1 (d) previo + 3 (h) falsos positivos del detector), medida de retención y panel ciego (7,9 → 7,8); US$ 3,34 de 6; PARADA B) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,18 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F54 Parte B, PARADA B): Wittenoom tiene escaleta y guion nuevos en texto; el panel no nota la diferencia, y los frenos nuevos frenan por un detector que no ve datos sin cifra.
+- La escaleta nueva declara 2 loops (el pie vendado → la muerte 29 años después; qué sabía la empresa al reclutar) y el re-gancho al cierre del cap 3; el cap 1 nuevo dice la apuesta en la segunda oración («murió de esos diez meses casi treinta años después»). Los dos cap 1 están lado a lado en el reporte.
+- El guion nuevo frena por 4 cosas: una vieja (la cita del arbitraje en el cap 3) y 3 «pago no dicho» que son **falsos**: la voz sí dice el dato, pero el detector de producción no reconoce datos sin cifra ni fecha. Eso también explica el freno del cap 7 viejo. Arreglo general en un handoff aparte.
+- **Panel ciego** (Flash, Sonnet, Opus; sin saber cuál es cuál): 7,9 el viejo, 7,8 el nuevo. Opus marca en el gancho nuevo la oración de la apuesta como «pide demasiado de golpe».
+- **Gasto:** US$ 3,34 de 6. Cero fotos, cero voz. Nada pasa a fotos sin tu OK (F51d-B) y la nota del analista.
+- Papel nuevo: `data/scripts/_steps/123bbb64-…/01e_pantalla.md` (también en el reporte). Lo viejo: `lab/hyperframes/f54/antes/`.
+
+## F54 — Parte B.2/B.4/B.5 + adenda (OK del analista, 2026-10-29 18:30) — PARADA B
+- Commits: `8935ef2` B.2 + B.4; `5de02fc` B.5 (corrida, `antes/`, `salida_b.py`, `medida_retencion.py`, `panel_ciego.py`). El último commit es el del reporte (`lab/hyperframes/f54/F54_REPORT.md`, sección «Parte B — B.2/B.4/B.5»).
+- Suites: rápida 55; amplia 1096 + 4 previas; ch02 `f792f3d4…`; MAPA --check 0. Wittenoom: escaleta `f54-1` (0 bloqueantes), guion `f54-2` (4 → 4, PARADA del guion; la cadena siguió hasta el papel), papel 13 fichas · 9 sellos · 3 relojes.
+- Abierto grande: `evidence.used_in` no detecta datos sin ancla (D21, D10, D42, D85) ni años en letras → (f)/(h) con falsos positivos; handoff aparte.
 
 ## 👀 Para Omar (F54 Parte B.1/B.3, PARADA B.0): la escaleta ahora declara sus loops y el código chequea que se paguen; el bloque de ejemplos nuevo espera el OK del analista.
 - La escaleta dice 1–2 loops (la pregunta abierta, dónde se abre y dónde se paga), qué pregunta anterior paga cada beat y el re-gancho al cierre del cap 3; si no los trae, frena (no se fabrica).

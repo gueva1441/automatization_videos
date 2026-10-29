@@ -382,3 +382,317 @@ Riesgos que el contrato no cubre: (a) `loops` es requerido y la validación es d
 - **Observación 3 (rótulos nuevos en `<ejemplos>`):** los rótulos describen la técnica del ejemplo, como los del bloque viejo («Gancho (escena en curso, sin contexto, promesa, vuelta atrás)»). Si el analista prefiere los rótulos viejos tal cual, se cambian al pegar el bloque: la PARADA B.0 es para eso.
 - **Observación 4 (`recuerda_loop`):** si en B.5 el modelo no lo trae, se reporta y Omar decide si el prompt lo nombra (sería texto nuevo en el prompt, con su decisión).
 - **Riesgo (a):** es lo que pide el handoff («Sin loop → hard, no fabricar; si la ficha no da para 1 loop, PARADA con el motivo»).
+
+
+---
+
+# Parte B — B.2/B.4/B.5 + adenda · PARADA B (OK del analista 2026-10-29 18:30)
+
+Pedido: OK al bloque `<ejemplos>` tal cual (v5.6, `f54-2`); adenda del handoff (md5 `1732538fdd0b563c34a1325a2f1c01bf`, verificado) con la medida de retención por código y el panel ciego; B.4 y B.5; si la (d) del cap 3 frena, reportarla y seguir. **Gasto de la Parte B: US$ 3,34 de 6** (B.5 2,93: escaleta 1,08 + guionista 1,15 + reparación 0,05 + partición 0,13 + papel 0,51; panel ciego 0,41; `cost_history` desde las 16:17:29 = 3,34). Acumulado F54: US$ 3,34.
+
+## Commits
+| commit | qué |
+|---|---|
+| `8935ef2` | B.2 (`SYSTEM_V5_6`, `f54-2`) + B.4 (m09 lee el GANCHO entero) + tests + `.md` + stickers + MAPA |
+| `5de02fc` | B.5: corrida de Wittenoom, `antes/`, `salida_b.py` → `SALIDA_B.md`, `medida_retencion.py` → `MEDIDA_RETENCION.md`, `panel_ciego.py`, log |
+| (este) | panel ciego (`PANEL_CIEGO.md/.json`, log), reporte, ESTADO |
+
+## Módulos: antes → después
+| módulo | antes | después |
+|---|---|---|
+| `script_engine/guion_v4.py` | v5.5 (`f54-1`) vigente | **`SYSTEM_V5_6` (`f54-2`)** = v5.5 con el bloque `<ejemplos>` entero de `EJEMPLOS_v5_6_propuesta.md`; el bloque viejo ya no está en el prompt vigente; v5.5 queda como constante (`version="f54-1"`), como todas las versiones anteriores |
+| `script_engine/m09_packaging.py` | el hero recibía la narración truncada a 1400 caracteres por cap; la metadata, título + facts + narración | `_bloque_gancho`: «GANCHO (la narración del cap 1 entera; la primera oración del título y el sujeto de la miniatura salen del GANCHO):» como **primer bloque** del usuario del hero (`_hero_user_prompt`) y de la metadata (`_meta_user_prompt`, función nueva y pura; `generate_metadata` la usa); `_narration_for_hero` ya no trunca el cap 1 (los demás caps, igual que antes) |
+| `lab/hyperframes/f54/medida_retencion.py` (nuevo, lab) | — | adenda (1): ingredientes viejo \| nuevo por código, sin LLM |
+| `lab/hyperframes/f54/panel_ciego.py` (nuevo, lab) | — | adenda (2): 3 modelos × 2 guiones × 7 caps, ciego, pregunta literal, notas y coincidencias |
+| `lab/hyperframes/f54/salida_b.py` (nuevo, lab) | — | arma `SALIDA_B.md` |
+
+Tests: `test_module_f54.py` 41 (+2: v5.6 literal y solo cambia `<ejemplos>`; m09 GANCHO primero y cap 1 sin truncar); `test_module_f22.py` (tupla de versiones). `test_m09_packaging.py` (script de lab, no está en la suite): el test del hero pasa; sus 4 cruces (títulos=4, overlays=4, descripción) ya estaban antes de este cambio (mismo conteo con el árbol limpio).
+
+## Corrida B.5 (texto, `lab/hyperframes/f54/b5_run.log`)
+`python fase1_5.py --topic 123bbb64-… --batch`: compuerta verde · ficha y canon ya existentes (sin costo) · **escaleta f54-1: 0 bloqueantes al primer intento** (25 reparaciones, 10 a métricas), con 2 loops, 4 beats con `paga` y `recuerda_loop` en el beat 5 (último del cap 3) · guionista f54-2: 19 párrafos, 1979 palabras · reparación: **4 bloqueantes → 4** (la edición del beat 5 se rechazó: «tocó otras frases del párrafo») → **PARADA del guion** reportada, y la cadena siguió (como pidió Omar) · partición: cap 3 y cap 7 acortados por el editor de largo · papel m01e: 2 intentos, 13 fichas · 9 sellos · 3 relojes → `01e_pantalla.md` · PARADA del papel (no aprobado). Cero fotos, cero voz.
+
+### Los 4 bloqueantes del guion nuevo y qué son
+| # | código | cap | qué dice | qué pasa de verdad |
+|---|---|---|---|---|
+| 1 | (d) | 3 | fuera del caso: «Defensor del empleador no identificado» (la cita del arbitraje) | el mismo de la Parte A, previo a esta tanda; Omar pidió no arreglarlo |
+| 2 | (h) | 3 | el beat 5 paga la pregunta del beat 3 con D21 («la producción se incrementó en 1961»), que no está en el cap 3 | **falso positivo**: la voz dice «En mil novecientos sesenta y uno, la producción aumentó.» |
+| 3 | (h) | 3 | el beat 5 paga el loop L2 con D21 | el mismo dato, el mismo falso positivo |
+| 4 | (h) | 6 | el beat 11 paga la pregunta del beat 10 con D10 («el asbesto del vertedero de Colonial alimenta la cuenca del Fortescue») | **falso positivo**: la voz dice «Salía del vertedero de Colonial, arrastrado por el agua, … hasta el río Fortescue.» |
+
+**Hallazgo (no se arregla en esta tanda; a la lista):** `evidence.used_in`, el detector de «lo que la voz dice» que alimenta `ids_usados` y por lo tanto (f), (h) y la medida, **nunca reconoce un dato sin cifra ni fecha** (`anchors` vacío → `any([])` → False): D21, D10, D85 y D42 son imposibles de detectar diga lo que diga la voz. Es la misma razón por la que (f) frenó en la Parte A sobre D42 («barricadas permanentes») y por la que T64 no figuraba en los ids del cap 5 (el año en letras y el hecho en oraciones distintas). Los chequeos nuevos están bien escritos sobre el detector que hay; el detector es el que ve poco. Arreglo general propuesto: para un dato sin ancla, `used_in` por palabras de contenido del hecho (como hace con los eventos con fecha), y los años en letras a cifras antes de buscar el ancla (lo que hace `medida_retencion._anios_a_digitos`). Es cambio de producción con sus tests: handoff aparte.
+
+## Decisiones de CC (B.2/B.4/B.5)
+1. **v5.5 queda como constante** (`f54-1`) aunque Omar dijo «el bloque viejo se borra»: el bloque viejo sale del prompt vigente; las versiones anteriores quedan como constantes, como pide el handoff A.1 («como siempre») y como con v5.4, f26-1, etc. Si Omar quiere borrar también la constante v5.5, es un commit de una línea.
+2. **m09:** la instrucción literal del handoff va en el rótulo del bloque GANCHO del usuario (formato de salida), no en los sistemas `_HERO_SYSTEM` / `_META_SYSTEM` (cero reglas nuevas en prompts). `_meta_user_prompt` se separó de `generate_metadata` para poder probarla sin red.
+3. **Medida (1), «primera apuesta»:** la primera oración del video que dice el dato del pico o el `dato_central` del `paga_beat` del loop principal, con el detector de producción; solo para medir, los años en letras pasan a cifras y, en un evento con fecha, el año y el hecho pueden estar en oraciones vecinas del mismo cap. Con el detector tal cual, las dos corridas daban «nunca».
+4. **Medida (1), «el cierre vuelve a la imagen del gancho»:** sí/no = el `dato_central` del beat `cierre` dicho en el cap 7, como define la adenda. En el nuevo es Q24 (una cita: se detecta); en el viejo era D42 (sin ancla: no se detecta nunca).
+5. **Panel (2):** una llamada por (modelo, guion, cap) = 42; orden de los dos guiones al azar por cap con semilla fija (reproducible); Claude en `medium`, Flash con esquema; costo medido con `cost_tracker` bajo el id «f54-panel». «Coincidencia» = los 3 marcan la misma oración (primeros 60 caracteres normalizados); «2 de 3» se muestra aparte.
+6. **No corrí el revisor sobre la (d)** ni toqué `contamination`: pedido de Omar.
+
+## Salida B (texto; entera en `lab/hyperframes/f54/SALIDA_B.md`)
+
+## 1. Tabla A/B cap por cap
+
+| cap | palabras v | n | años v | n | datos/min v | n | bloqueantes viejo | bloqueantes nuevo (tras la ronda única) |
+|---|---|---|---|---|---|---|---|---|
+| 1 | 86 | 168 | 1 | 2 | 0.0 | 0.9 | — | — |
+| 2 | 302 | 263 | 3 | 3 | 2.4 | 3.3 | — | — |
+| 3 | 350 | 368 | 6 | 11 | 1.2 | 2.0 | (d) fuera del caso (descartado en el pool): Defensor del empleador no iden | (d) fuera del caso (descartado en el pool): Defensor del empleador no iden; (h) pago no dicho: el beat 5 paga la pregunta del beat 3 con D21, que no e; (h) pago no dicho: el beat 5 paga el loop L2 con D21, que no está en el ca |
+| 4 | 239 | 335 | 3 | 2 | 3.6 | 1.7 | — | — |
+| 5 | 344 | 252 | 8 | 5 | 2.5 | 4.0 | — | — |
+| 6 | 359 | 278 | 7 | 7 | 0.8 | 1.6 | — | (h) pago no dicho: el beat 11 paga la pregunta del beat 10 con D10, que no |
+| 7 | 207 | 249 | 3 | 5 | 2.1 | 3.5 | (f) cierre no dicho: el dato central D42 del beat 14 (cierre) no está en e | — |
+| **total** | 1887 | 1913 | 31 | 35 | | | 2 | 4 |
+
+Guion nuevo: bloqueantes antes de la ronda única 4 → después 4 · PARADA del guion: True.
+
+Bloqueantes del crudo nuevo (antes de reparar):
+
+- cap 3 beat 5 (d): fuera del caso (descartado en el pool): Defensor del empleador no identificado — ««El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso», dijo el defensor del empleador en m»
+- cap 3 beat 5 (h): pago no dicho: el beat 5 paga la pregunta del beat 3 con D21, que no está en el cap 3
+- cap 6 beat 11 (h): pago no dicho: el beat 11 paga la pregunta del beat 10 con D10, que no está en el cap 6
+- cap 3 beat 5 (h): pago no dicho: el beat 5 paga el loop L2 con D21, que no está en el cap 3
+
+### 2. Los dos cap 1, lado a lado
+
+| viejo (f26-1 / f25-1) | nuevo (f54-1 / f54-2) |
+|---|---|
+| Un hombre joven posa para una foto con el pie envuelto en una venda blanca. Detrás, tierra roja y paredes de chapa. En el retrato de familia todos miran a cámara menos el pie: está vendado, y la herida que le hizo un trozo de amianto no cierra. El hombre se llama Daniel Écija y es minero. Vino de Madrid. Wittenoom, Australia Occidental, mil novecientos sesenta y dos. Para entender ese pie hay que volver a un baile en Madrid, un año antes de la foto. | Un hombre joven posa de pie para un retrato, con un pie envuelto en vendas. Vivió diez meses en el pueblo donde le tomaron esa foto y murió de esos diez meses casi treinta años después, en Madrid; había gente con cargo y con firma que sabía desde mil novecientos cuarenta y ocho lo que hacía ese polvo, y más de tres millones de toneladas siguen donde las dejaron. La foto es sepia, como las demás que hay sobre la mesa. Una mujer mayor las ordena, una por una. Cuenta que a su marido le cayó un trozo de amianto en el pie y que la herida no cerraba; por eso la venda. «Me pegué a mi marido, como una niña pequeña», dice la mujer que ordena las fotos. El hombre del pie vendado se llamaba Daniel Écija, minero emigrante español. Wittenoom, Australia Occidental, mil novecientos sesenta y dos. Para entender ese retrato hay que volver a Madrid, a un baile, un año antes de que lo tomaran. |
+
+Promesa del gancho — viejo: «En el retrato de familia todos miran a cámara menos el pie: está vendado, y la herida que le hizo un trozo de amianto no cierra.» · nuevo: «Daniel Écija vivió diez meses en Wittenoom. Murió de eso casi treinta años después, en Madrid. Esta es la historia de quién sabía, desde mil novecientos cuarenta y ocho, lo que hacía ese polvo, y de por qué tres millones de toneladas siguen donde las dejaron.»
+
+### 3. Loops declarados con sus pagos (escaleta nueva)
+
+- **Loop 1** (L1): «¿Por qué un hombre que vivió diez meses en un pueblo del desierto muere de ese pueblo casi treinta años después y a medio mundo de distancia?» — se abre en el beat 1 (cap 1, D85) · se paga en el beat 9 (cap 5, D89: Si diez meses bastaron para él, ¿qué pasa con los que se quedaron años, y con los niños que se lo metían en la boca?)
+- **Loop 2** (L2): «¿Qué sabía la empresa del polvo cuando fue a Europa a reclutar a estas familias?» — se abre en el beat 3 (cap 2, Q14) · se paga en el beat 5 (cap 3, D21: ¿Cómo se recluta gente en Europa para un lugar así, y qué se les cuenta?)
+
+Beats con `paga` (4):
+- beat 5 (cap 3, D21) paga la pregunta del beat 3: «¿De qué está hecho ese polvo que nadie había visto en esa cantidad?»
+- beat 9 (cap 5, D89) paga la pregunta del beat 1: «¿Qué le pasó al hombre del pie vendado, y por qué una herida que no cierra importa en una historia sobre un pueblo borrado del mapa?»
+- beat 11 (cap 6, D10) paga la pregunta del beat 10: «Si borrar el nombre es el fin del episodio, ¿qué pasa con el polvo que sigue ahí?»
+- beat 12 (cap 7, T92) paga la pregunta del beat 11: «Si se sabe cómo encapsularlo y cuánto cuesta, ¿por qué no se ha hecho nunca?»
+
+`recuerda_loop`: beat 5 · «A ese molino cubierto de polvo, a fines de mil novecientos sesenta y dos, iba a entrar un recién casado de Madrid que llevaba cuatro días de matrimonio cuando subió al barco.»
+
+### 4. Los 7 títulos
+
+| cap | viejo | nuevo |
+|---|---|---|
+| 1 | El pie que no cura | La herida que no cerró |
+| 2 | El polvo de la tierra | Promesas y polvo |
+| 3 | La verdad silenciada | Peligro silenciado |
+| 4 | Jugar con veneno | El polvo lo cubría todo |
+| 5 | El tiempo de matar | La factura del tiempo |
+| 6 | Borrar el problema | Un pueblo, polvo eterno |
+| 7 | Una herida abierta | El costo sin fin |
+
+### 5. El papel (01e_pantalla.md, nuevo)
+
+# Guion de pantalla en papel — 123bbb64-9fca-4395-8bf4-57d60e219ef1
+
+`m01e_pantalla` m01e-6 (md5 del prompt `3b98aef1d8595124967ac7a85b75bab7`) · claude-sonnet-5-5 medium · 2 intento(s) · US$ 0.5103 · tokens de entrada 52702
+
+Segundos por palabra 0.34 (mediana de 347 oraciones de 16 caps del narrador N9Z5MLTIaHFLflaLtbDi) · tope US$ 1.0 (respaldo (el perfil no trae costos.m01e_tope_usd)) · intento 1: in 52702 · out 25700 · US$ 0.3624 · intento 2: in 58538 · out 3082 · US$ 0.1479
+
+Totales: 13 fichas · 9 sellos · 3 relojes · 23 descartados
+
+### ch01 — La herida que no cerró
+
+- beat 1 · gancho · PICO · ficha **D90** [normal] «MUERTOS POR WITTENOOM · Se calcula que superan los 4.000» en [1] sobre «polvo» (53/90 car.) · respaldo: «puede ser superior a 4.000» · año — / relato 1948 · aporta: La voz habla de un hombre y de las toneladas que quedan, pero nunca dice cuánta gente murió por el pueblo. · sello **MEMORIA** en [3]
+- relojes: —
+
+### ch02 — Promesas y polvo
+
+- beat 2 · planteo · ficha **D83** [normal] «EL PLAN MIGRATORIO · Se llamó Operación Canguro, desde 1958» en [3] sobre «acuerdo» (56/90 car.) · respaldo: «iniciado en 1958, llamado Operación Canguro» · año 1958 / relato 1950 · juzgado por el autor: otro hecho {'spoiler': ['1958']} · aporta: La voz dice que cruzaron ocho mil españoles, pero no cómo se llamaba el acuerdo ni cuándo empezó. · sello **SILENCIO** en [8]
+- beat 3 · planteo · PICO · ficha **D82** [normal] «AISLADO DEL MUNDO · A unos 1.400 kilómetros de Perth» en [15] sobre «desierto» (49/90 car.) · respaldo: «a unos 1.400 kilómetros de Perth» · año — / relato 1950 · aporta: Pone una distancia al aislamiento: la voz solo dice 'en medio del desierto'. · sello **AMENAZA** en [20]
+- relojes: 16 SEP 1961 en [0], 20 SEP 1962 en [2]
+
+### ch03 — Peligro silenciado
+
+- beat 4 · escalada · PICO · ficha **Q45** [cita] «SU PRONÓSTICO · la cosecha más rica y letal de casos de asbestosis» — Eric Saint (autor: modelo) en [5] sobre «carta» (no está en la oración) (78/90 car.) · respaldo: «la cosecha más rica y letal de casos de asbestosis en la literatura mundial» · año 1948 / relato 1948 · aporta: Lo que Saint predijo en su advertencia. La voz solo cita cómo lo trataron después. · sello **ALARMA** en [3]
+- beat 5 · giro · ficha **D78** [normal] «YA SE SABÍA · A mediados de la década de 1950 se descubrió que el asbesto da cáncer» en [14] sobre «mesotelioma» (80/90 car.) · respaldo: «A mediados de la década de 1950, los investigadores descubrieron los peligros cancerígenos del mineral de asbesto.» · año 1955 / relato 1962 · aporta: La voz cuenta el primer mesotelioma de 1962, pero no que el riesgo de cáncer se conocía desde los años 50. · sello **INMINENTE** en [16]
+- relojes: —
+
+### ch04 — El polvo lo cubría todo
+
+- beat 6 · escalada · PICO · ficha **Q19** [cita] «LO QUE NO SABÍAN · Nadie nos avisó de nada» — Víctor Calvo (autor: modelo) en [5] sobre «deshilachaban» (56/90 car.) · respaldo: «Nadie nos avisó de nada.» · año — / relato 1962 · aporta: Cierra el testimonio de Calvo con la frase que la voz no dice: a los niños nadie les advirtió. · sello **CALMA** en [8]
+- beat 7 · escalada · ficha **D88** [normal] «SE QUEDARON MÁS · La familia de Ramón vivió allí unos dos años y medio» en [14] sobre «Ramón» (67/90 car.) · respaldo: «vivió en Wittenoom unos dos años y medio» · año — / relato 1965 · juzgado por el autor: otro hecho {'no_dicho': ['Ramón']} · aporta: Cuánto se quedaron los amigos de los Écija, para contrastar con los diez meses que la voz cuenta después. · sello —
+- relojes: 7 JUL 1963 en [18]
+
+### ch05 — La factura del tiempo
+
+- beat 8 · giro · ficha **D51** [normal] «LO QUE SACÓ LA MINA · 131.000 toneladas de amianto azul» en [1] sobre «anunció» (52/86 car.) · respaldo: «La mina de Wittenoom produjo 131.000 toneladas de crocidolita» · año 1966 / relato 1966 · aporta: Pone cifra a lo que produjo la mina que se cerraba; la voz solo dice el motivo y el número de personas. · sello —
+- beat 9 · pico · PICO · ficha **D23** [papel] «ANTES QUE DANIEL · Para 1989, más de 500 antiguos trabajadores y residentes habían muerto» en [15] sobre «cuenta» (86/90 car.) · respaldo: «Para 1989, más de 500 antiguos trabajadores y residentes de Wittenoom habían muerto» · año 1989 / relato 1991 · aporta: Muestra que Daniel no fue el primero: cuando murió ya había más de 500 muertos documentados. La voz no lo dice. · sello **COLAPSO** en [19]
+- relojes: —
+
+### ch06 — Un pueblo, polvo eterno
+
+- beat 10 · respiro · ficha **D26** [normal] «EL ÁREA CERRADA · El sitio contaminado más grande del hemisferio sur» en [6] sobre «área» (65/86 car.) · respaldo: «sitio contaminado más grande del hemisferio sur» · año — / relato 2006 · aporta: Pone tamaño a lo que las barricadas encierran: la voz solo dice que el área no es segura. · sello **AVISO** en [8]
+- beat 11 · revelacion · PICO · ficha **D94** [normal] «LO QUE PAGÓ CSR · 18,3 millones de dólares a 200 afectados» en [13] sobre «propiedad» (55/90 car.) · respaldo: «la empresa CSR pagó 18,3 millones de dólares australianos en indemnizaciones a 200 afectados» · año 1989 / relato 2006 · aporta: La voz habla de quién quedó con los relaves, pero no de lo que pagó la empresa por los enfermos. · sello **RABIA** en [16]
+- relojes: —
+
+### ch07 — El costo sin fin
+
+- beat 12 · consecuencia · PICO · ficha **T86** [normal] «LOS MÁS AFECTADOS · Banjima: la mayor incidencia de cáncer por asbesto per cápita del mundo» en [6] sobre «Banjima» (88/90 car.) · respaldo: «el pueblo Banjima sufre la mayor incidencia per cápita de cáncer por asbesto del mundo» · año 2016 / relato 2026 · aporta: Dice cuánto ha golpeado la enfermedad a los Banjima, algo que la voz no cuenta. · sello —
+- beat 13 · cierre · ficha **D109** [normal] «CONTADOS EN 1986 · 94 mesoteliomas en 6912 extrabajadores» en [10] sobre «escáner» (54/71 car.) · respaldo: «Para finales de 1986, se habían registrado 94 casos de mesotelioma, 141 de cáncer de pulmón y 356 reclamos por asbestosis en una cohorte de 6912 antiguos trabajadores de Wittenoom» · año 1986 / relato 2026 · aporta: Pone cifra a los casos ya registrados entre los trabajadores, algo que la voz no dice al hablar de los controles médicos. · sello —
+- relojes: —
+
+### Lo que cayó
+
+- (nada)
+
+### Reintento: los motivos que se le mandaron al autor
+
+- Q02 (ch06 beat 10) «LA ADVERTENCIA · desaconseja firmemente TODOS los viajes»: cita_sin_fecha: cita sin fecha: su autor («State Government», Gobierno estatal) no aparece en la oración [6] ni en sus vecinas
+- D83 (ch02 beat 2, oración [3]) «EL PLAN MIGRATORIO · Se llamó Operación Canguro, desde 1958»: la voz dice «1958» en una oración posterior en ch03 [12] («En mil novecientos cincuenta y ocho, otro inspector resumió la mina en una palabra: una tragedia.»); ¿es el mismo hecho? si no, mantenelo
+- D88 (ch04 beat 7, oración [14]) «SE QUEDARON MÁS · La familia de Ramón vivió allí unos dos años y medio»: la voz dice «Ramón» en la oración ancla o en una vecina en ch04 [14] («Tres meses antes, en marzo, Milagros Barroso había dado a luz en ese mismo pueblo a John Patrick; María recuerda que ella y Daniel se hicieron íntimos amigos de Milagros y de Ramón de Juan, que hacía jornadas de dieciséis horas.»); ¿es el mismo hecho? si no, mantenelo
+- Q25: dijiste que la voz lo dice («La voz cita esa frase de María en la oración 5 del capítulo 1.»); la voz de ch01 no dice «2» («Me pegué a mi marido, como una niña pequeña. Pero estaba orgullosa. Me había enamorado de ese hombre y confiaba en el futuro… aunque estuviera tan lejos. En España no teníamos nada, ninguno de los dos.»): vuelve a ser candidato
+- D28: dijiste que la voz lo dice («La voz cuenta las demoliciones y los cierres entre 1986 y 1992.»); la voz de ch06 no dice «Wittenoom» («Entre 1986 y 1992 se demolieron casas y edificios y se cerraron la escuela, el puesto de enfermería y la comisaría en Wittenoom.»): vuelve a ser candidato
+- D95: dijiste que la voz lo dice («La voz dice los 1.500 millones del reclamo.»); la voz de ch07 no dice «1.500» («El pueblo aborigen banjima reclama 1.500 millones de dólares australianos al Ejecutivo por la contaminación.»): vuelve a ser candidato
+- el beat 11 de ch06 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D23 («Recuento oficial de muertes hasta 1989 (más de 500): documento, no voz.»), D94 («Acuerdo de indemnización de CSR de 1989, 18,3 millones a 200 afectados: cifra de archivo.»)
+- el beat 13 de ch07 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D109 («Cohorte de 6.912 trabajadores y 94 mesoteliomas hasta 1986: dato de estudio, va a pantalla sobre los controles médicos.»)
+
+### Preguntas y respuesta del autor
+
+- D83 {'spoiler': ['1958']}: la mantuvo en ch02 beat 2 [3]: otro hecho
+- D88 {'no_dicho': ['Ramón']}: la mantuvo en ch04 beat 7 [14]: otro hecho
+
+### Reintento parcial: 1 vuelta(s)
+
+#### Vuelta 1 · US$ 0.1479
+
+- beats que podía cambiar: ch02 beat 2, ch04 beat 7, ch06 beat 10, ch06 beat 11, ch07 beat 13
+- motivos:
+  - Q02 (ch06 beat 10) «LA ADVERTENCIA · desaconseja firmemente TODOS los viajes»: cita_sin_fecha: cita sin fecha: su autor («State Government», Gobierno estatal) no aparece en la oración [6] ni en sus vecinas
+  - D83 (ch02 beat 2, oración [3]) «EL PLAN MIGRATORIO · Se llamó Operación Canguro, desde 1958»: la voz dice «1958» en una oración posterior en ch03 [12] («En mil novecientos cincuenta y ocho, otro inspector resumió la mina en una palabra: una tragedia.»); ¿es el mismo hecho? si no, mantenelo
+  - D88 (ch04 beat 7, oración [14]) «SE QUEDARON MÁS · La familia de Ramón vivió allí unos dos años y medio»: la voz dice «Ramón» en la oración ancla o en una vecina en ch04 [14] («Tres meses antes, en marzo, Milagros Barroso había dado a luz en ese mismo pueblo a John Patrick; María recuerda que ella y Daniel se hicieron íntimos amigos de Milagros y de Ramón de Juan, que hacía jornadas de dieciséis horas.»); ¿es el mismo hecho? si no, mantenelo
+  - Q25: dijiste que la voz lo dice («La voz cita esa frase de María en la oración 5 del capítulo 1.»); la voz de ch01 no dice «2» («Me pegué a mi marido, como una niña pequeña. Pero estaba orgullosa. Me había enamorado de ese hombre y confiaba en el futuro… aunque estuviera tan lejos. En España no teníamos nada, ninguno de los dos.»): vuelve a ser candidato
+  - D28: dijiste que la voz lo dice («La voz cuenta las demoliciones y los cierres entre 1986 y 1992.»); la voz de ch06 no dice «Wittenoom» («Entre 1986 y 1992 se demolieron casas y edificios y se cerraron la escuela, el puesto de enfermería y la comisaría en Wittenoom.»): vuelve a ser candidato
+  - D95: dijiste que la voz lo dice («La voz dice los 1.500 millones del reclamo.»); la voz de ch07 no dice «1.500» («El pueblo aborigen banjima reclama 1.500 millones de dólares australianos al Ejecutivo por la contaminación.»): vuelve a ser candidato
+  - el beat 11 de ch06 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D23 («Recuento oficial de muertes hasta 1989 (más de 500): documento, no voz.»), D94 («Acuerdo de indemnización de CSR de 1989, 18,3 millones a 200 afectados: cifra de archivo.»)
+  - el beat 13 de ch07 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D109 («Cohorte de 6.912 trabajadores y 94 mesoteliomas hasta 1986: dato de estudio, va a pantalla sobre los controles médicos.»)
+- aplicados: ch06 beat 10 (ficha), ch06 beat 11 (ficha), ch07 beat 13 (ficha)
+
+### Motivos sin beat (no hubo reintento)
+
+- Q25: dijiste que la voz lo dice («La voz cita esa frase de María en la oración 5 del capítulo 1.»); la voz de ch01 no dice «2» («Me pegué a mi marido, como una niña pequeña. Pero estaba orgullosa. Me había enamorado de ese hombre y confiaba en el futuro… aunque estuviera tan lejos. En España no teníamos nada, ninguno de los dos.»): vuelve a ser candidato
+- D28: dijiste que la voz lo dice («La voz cuenta las demoliciones y los cierres entre 1986 y 1992.»); la voz de ch06 no dice «Wittenoom» («Entre 1986 y 1992 se demolieron casas y edificios y se cerraron la escuela, el puesto de enfermería y la comisaría en Wittenoom.»): vuelve a ser candidato
+- D95: dijiste que la voz lo dice («La voz dice los 1.500 millones del reclamo.»); la voz de ch07 no dice «1.500» («El pueblo aborigen banjima reclama 1.500 millones de dólares australianos al Ejecutivo por la contaminación.»): vuelve a ser candidato
+
+### Cierre del reintento
+
+- cerró por: **sin beat** (después de 1 vuelta)
+- cortado al cerrar, sin preguntarle al autor: (nada)
+
+### Descartados por el modelo
+
+- D85 [otro]: Dato central del gancho que no figura en el archivo; se usó D90, que la voz no dice.
+- Q25 [voz_lo_dice]: La voz cita esa frase de María en la oración 5 del capítulo 1. — **falso: la voz no dice ['2']**
+- T34 [voz_lo_dice]: La voz cuenta el baile del 16 de septiembre de 1961.
+- Q13 [spoiler]: Adelanta la amistad con Milagros y Ramón, que la voz cuenta en el capítulo 4.
+- Q14 [voz_lo_dice]: La voz cita la travesía de Calvo casi completa.
+- Q15 [voz_lo_dice]: La voz cuenta el avión, la tierra roja y el polvo.
+- D92 [voz_lo_dice]: La voz dice que Saint advirtió por escrito en 1948.
+- D21 [voz_lo_dice]: La voz dice que en 1961 la producción aumentó; la ficha solo repetiría eso.
+- Q44 [voz_lo_dice]: La voz cita la frase de los relaves en la escuela.
+- T41 [voz_lo_dice]: La voz cuenta el bautizo del 7 de julio de 1963 y la partida.
+- T49 [voz_lo_dice]: La voz ya dice que la razón fue económica; se prefirió el dato de producción.
+- D89 [voz_lo_dice]: La voz dice nueve meses, cincuenta y cinco años y la muerte en Madrid.
+- Q23 [otro]: La voz cita su primera frase y no cabía una ficha de cita en la oración libre.
+- D28 [voz_lo_dice]: La voz cuenta las demoliciones y los cierres entre 1986 y 1992. — **falso: la voz no dice ['Wittenoom']**
+- Q07 [voz_lo_dice]: La voz cita 'el fin de un período oscuro'.
+- D58 [otro]: Cifra de costo válida, pero en el beat 11 se prefirió D146.
+- D10 [otro]: Dato central del beat 11 que no figura en el archivo.
+- T92 [voz_lo_dice]: La voz cuenta la visita de Orellana en 2023.
+- D95 [voz_lo_dice]: La voz dice los 1.500 millones del reclamo. — **falso: la voz no dice ['1.500']**
+- Q24 [voz_lo_dice]: La voz cita la frase del policía.
+- D109 [otro]: Se prefirió D110, que sugiere mejor la escala.
+- D87 [voz_lo_dice]: La voz dice 'diez meses en total'.
+- D56 [spoiler]: Introduce a los aborígenes que usan las gargantas antes de que la voz presente a los Banjima.
+
+
+## Medida de retención (adenda 18:30, 1): viejo | nuevo, por código (`MEDIDA_RETENCION.md`)
+
+| ingrediente | viejo | nuevo |
+|---|---|---|
+| segundos hasta la primera apuesta | 511.3 s (cap 5, pico (T64)) | 550.0 s (cap 5, loop principal (D89)) |
+| loops abiertos / pagados | 0 declarado(s) | 2 declarado(s) · loop L1 (D89): pagado; loop L2 (D21): NO pagado; beat 5 paga (D21): NO pagado; beat 9 paga (D89): pagado; beat 11 paga (D10): NO pagado; beat 12 paga (T92): pagado |
+| re-gancho | no declarado | sí (cap 3, min 5.33, parecido 1.0) |
+| el cierre vuelve a la imagen del gancho | NO (D42 en el cap 7) | sí (Q24 en el cap 7) |
+
+| cap | palabras v | n | años v | n | datos/min v | n |
+|---|---|---|---|---|---|---|
+| 1 | 86 | 168 | 1 | 2 | 0.0 | 0.9 |
+| 2 | 302 | 263 | 3 | 3 | 2.4 | 3.3 |
+| 3 | 350 | 368 | 6 | 11 | 1.2 | 2.0 |
+| 4 | 239 | 335 | 3 | 2 | 3.6 | 1.7 |
+| 5 | 344 | 252 | 8 | 5 | 2.5 | 4.0 |
+| 6 | 359 | 278 | 7 | 7 | 0.8 | 1.6 |
+| 7 | 207 | 249 | 3 | 5 | 2.1 | 3.5 |
+
+
+Lectura de CC: la escaleta nueva declara 2 loops y 4 pagos; el código ve pagados L1 (D89, cap 5) y los pagos de los beats 9 (D89) y 12 (T92), y NO ve L2 ni los beats 5 y 11 por el hallazgo de arriba (D21 y D10 sin ancla; la voz sí los dice). Ningún pago cae en la **primera oración** del cap (las primeras oraciones de los caps 3, 5 y 7: «Se llamaba amianto azul…», «Funcionó tres años más.», «Se llamaba Maitland Parker…»): el guionista no siguió `<estructura>` §2 al pie de la letra. El re-gancho está declarado y dicho (cap 3, min 5,33, textual). La «primera apuesta» por código da 550 s en el nuevo (D89 en el cap 5), pero la segunda oración del cap 1 nuevo ya nombra lo que está en juego («murió de esos diez meses casi treinta años después, en Madrid») sin el año 1991 ni la palabra mesotelioma: el detector, anclado en el año, no la cuenta. Años por cap: el cap 3 nuevo dice **11** (viejo 6); datos/min suben en 5 de 7 caps.
+
+## Panel ciego (adenda 18:30, 2; `PANEL_CIEGO.md`, US$ 0,41)
+Pregunta literal por cap: «Estás escuchando este capítulo. ¿En qué oración dejarías de escuchar y por qué? Al final, una nota de 1 a 10 de cuánto te quedarías hasta el siguiente capítulo.» Modelos: Gemini Flash, Sonnet 5.5, Opus 5.5; los dos guiones sin marcar, orden al azar por cap.
+
+#### Notas (1–10) por cap y modelo
+
+| cap | gemini-flash v | gemini-flash n | claude-sonnet-5-5 v | claude-sonnet-5-5 n | claude-opus-5-5 v | claude-opus-5-5 n | media v | media n |
+|---|---|---|---|---|---|---|---|---|
+| 1 | 10 | 9 | 7 | 7 | 8 | 8 | 8.3 | 8.0 |
+| 2 | 10 | 10 | 7 | 6 | 8 | 8 | 8.3 | 8.0 |
+| 3 | 9 | 10 | 6 | 6 | 8 | 8 | 7.7 | 8.0 |
+| 4 | 9 | 9 | 7 | 5 | 9 | 8 | 8.3 | 7.3 |
+| 5 | 10 | 10 | 6 | 8 | 8 | 8 | 8.0 | 8.7 |
+| 6 | 8 | 9 | 6 | 6 | 7 | 7 | 7.0 | 7.3 |
+| 7 | 9 | 9 | 8 | 5 | 7 | 7 | 8.0 | 7.0 |
+| **video** |  |  |  |  |  |  | **7.9** | **7.8** |
+
+
+#### Coincidencias (los 3 modelos marcan la misma oración de abandono)
+
+| cap | viejo | nuevo |
+|---|---|---|
+| 1 | 2 de 3 | no |
+| 2 | no | no |
+| 3 | no | no |
+| 4 | no | no |
+| 5 | 2 de 3 | no |
+| 6 | 2 de 3 | no |
+| 7 | no | no |
+
+Orden en que cada modelo leyó los dos guiones por cap (ciego; semilla fija): cap 1: nuevo → viejo, cap 2: viejo → nuevo, cap 3: viejo → nuevo, cap 4: viejo → nuevo, cap 5: viejo → nuevo, cap 6: viejo → nuevo, cap 7: nuevo → viejo
+
+
+
+### Oración de abandono del cap 1 (las 42 filas están en `PANEL_CIEGO.md`)
+### viejo
+| cap | modelo | oración de abandono | por qué |
+|---|---|---|---|
+| 1 | gemini-flash | Para entender ese pie hay que volver a un baile en Madrid, un año antes de la foto. | Esta oración funciona como un excelente gancho, creando una intriga sobre el pasado del personaje y cómo se conecta con su situación actual. Me deja con ganas d |
+| 1 | claude-sonnet-5-5 | Para entender ese pie hay que volver a un baile en Madrid, un año antes de la foto. | Hasta ahí el arranque engancha: la imagen del pie vendado, la herida que no cierra y el contraste entre Madrid y Wittenoom crean intriga. Pero esa última frase  |
+| 1 | claude-opus-5-5 | Ninguna. Si tuviera que señalar el punto de mayor riesgo, sería «Vino de Madrid.», la única frase que suena a ficha informativa y no a image | El capítulo es breve y está bien construido. Abre con una imagen concreta y extraña: la venda blanca, la tierra roja, la chapa. Luego introduce una torsión inge |
+### nuevo
+| cap | modelo | oración de abandono | por qué |
+|---|---|---|---|
+| 1 | gemini-flash | Wittenoom, Australia Occidental, mil novecientos sesenta y dos. | Porque en este punto ya se ha revelado la identidad del hombre, la causa de su herida y el contexto espacio-temporal de la foto, cerrando el marco inicial del r |
+| 1 | claude-sonnet-5-5 | Para entender ese retrato hay que volver a Madrid, a un baile, un año antes de que lo tomaran. | Hasta ahí me tenía: la foto, el pie vendado y esa frase sobre el polvo que sabían peligroso y las tres millones de toneladas que siguen allí. Pero la última ora |
+| 1 | claude-opus-5-5 | No dejaría de escuchar. El punto de mayor riesgo es la segunda oración: «Vivió diez meses en el pueblo donde le tomaron esa foto y murió de  | Escuchada en voz alta, esa oración pide demasiado de golpe: un pueblo sin nombre, una muerte diferida, unos responsables, un año y una cifra de toneladas, todo  |
+
+Lectura de CC: **el panel no distingue los dos guiones** (media del video 7,9 viejo contra 7,8 nuevo; Flash puntúa 9–10 a casi todo, Sonnet 5–8, Opus 7–9). En el cap 1 los tres leen el viejo y el nuevo como «funciona»; Opus señala en el nuevo la segunda oración («pide demasiado de golpe: un pueblo sin nombre, una muerte diferida, unos responsables, un año y una cifra de toneladas») y Sonnet la vuelta atrás final en los dos. Las coincidencias de los 3 son 0 en los dos guiones; «2 de 3» aparece en los caps 1, 5 y 6 del viejo y en ninguno del nuevo. Informa, no frena.
+
+## Lo que queda abierto (Parte B)
+1. **El detector `evidence.used_in` no ve datos sin cifra ni fecha** (ni años en letras): (f) y (h) frenan por eso con la voz diciendo el dato; la promesa del gancho nuevo y la primera apuesta tampoco se miden bien. Handoff aparte, con tests.
+2. **La promesa del gancho de la escaleta nueva** empieza «Esta es la historia de quién sabía…»: voz de tráiler, que `<voz>` del guionista prohíbe y el guionista no copió (dijo «había gente con cargo y con firma que sabía…»). La escaleta no tiene esa regla; el analista decide si es ejemplo (el `promesa_gancho` del `<ejemplo>` de la escaleta sigue diciendo «Esta es la historia de quién decidió que no llegara») o nada.
+3. **Ningún pago en la primera oración del cap**: `<estructura>` §2 nuevo no se cumplió en la corrida; (h) no lo mide (mide que el dato esté en el cap). Si Omar lo quiere chequeado, es un bloqueante más o una métrica.
+4. **El cap 3 nuevo dice 11 años**; el tope de años/cap sigue sin decidir (solo métrica).
+5. La (d) contaminación del cap 3 (previa) sigue frenando el guion; `reparar` no la pudo editar (tocaba otras frases).
+6. El guion nuevo quedó con **PARADA del guion** (4 bloqueantes, 3 falsos) y PARADA del papel: nada pasa a voz ni a fotos sin Omar.
+7. De la Parte A: dedupe Q12/Q25, las «6 frases».
+
+**PARADA B.** El analista califica 1–10 y Omar decide si la versión nueva pasa a fotos (F51d-B) o se vuelve a correr con los arreglos.
+
+## Veredicto de revisor-handoff (Parte B.2/B.4/B.5, íntegro)
+
+(se pega abajo)

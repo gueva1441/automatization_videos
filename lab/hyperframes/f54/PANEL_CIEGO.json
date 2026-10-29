@@ -1,0 +1,371 @@
+{
+ "orden": {
+  "1": [
+   "nuevo",
+   "viejo"
+  ],
+  "2": [
+   "viejo",
+   "nuevo"
+  ],
+  "3": [
+   "viejo",
+   "nuevo"
+  ],
+  "4": [
+   "viejo",
+   "nuevo"
+  ],
+  "5": [
+   "viejo",
+   "nuevo"
+  ],
+  "6": [
+   "viejo",
+   "nuevo"
+  ],
+  "7": [
+   "nuevo",
+   "viejo"
+  ]
+ },
+ "respuestas": [
+  {
+   "cap": 1,
+   "guion": "nuevo",
+   "modelo": "gemini-flash",
+   "oracion_abandono": "Wittenoom, Australia Occidental, mil novecientos sesenta y dos.",
+   "por_que": "Porque en este punto ya se ha revelado la identidad del hombre, la causa de su herida y el contexto espacio-temporal de la foto, cerrando el marco inicial del retrato antes de que el narrador proponga un salto temporal y geográfico a Madrid. Sería un buen punto para hacer una pausa antes de embarcarse en el siguiente hilo narrativo.",
+   "nota": 9
+  },
+  {
+   "cap": 1,
+   "guion": "nuevo",
+   "modelo": "claude-sonnet-5-5",
+   "oracion_abandono": "Para entender ese retrato hay que volver a Madrid, a un baile, un año antes de que lo tomaran.",
+   "por_que": "Hasta ahí me tenía: la foto, el pie vendado y esa frase sobre el polvo que sabían peligroso y las tres millones de toneladas que siguen allí. Pero la última oración anuncia un salto atrás convencional, con un baile y una historia de amor de manual, y el tono pasa de la denuncia contundente a una fórmula de documental. Además, la primera oración larga con tantas subordinadas y datos acumulados es algo densa para escuchar sin poder releer. Aun así, seguiría un poco para ver si el baile se cuenta con detalles concretos, no con tópicos.",
+   "nota": 7
+  },
+  {
+   "cap": 1,
+   "guion": "nuevo",
+   "modelo": "claude-opus-5-5",
+   "oracion_abandono": "No dejaría de escuchar. El punto de mayor riesgo es la segunda oración: «Vivió diez meses en el pueblo donde le tomaron esa foto y murió de esos diez meses casi treinta años después, en Madrid; había gente con cargo y con firma que sabía desde mil novecientos cuarenta y ocho lo que hacía ese polvo, y más de tres millones de toneladas siguen donde las dejaron.»",
+   "por_que": "Escuchada en voz alta, esa oración pide demasiado de golpe: un pueblo sin nombre, una muerte diferida, unos responsables, un año y una cifra de toneladas, todo antes de saber de qué hablamos. Corre el riesgo de perder al oyente. Pero también es el gancho: «murió de esos diez meses» es una frase extraña y potente, y «gente con cargo y con firma que sabía» promete una historia de culpa e impunidad. Luego el texto baja a lo concreto (la mujer, las fotos, la herida que no cerraba) y la cita «Me pegué a mi marido, como una niña pequeña» da calidez humana. El nombre, el lugar y la fecha llegan tarde, aunque bien dosificados. El cierre, «hay que volver a Madrid, a un baile, un año antes», es un salto atractivo: pasa del amianto a una historia de amor y deja una pregunta abierta. Un posible ajuste sería partir esa segunda oración en dos o tres para el oído, o mover la cifra de toneladas más adelante.",
+   "nota": 8
+  },
+  {
+   "cap": 1,
+   "guion": "viejo",
+   "modelo": "gemini-flash",
+   "oracion_abandono": "Para entender ese pie hay que volver a un baile en Madrid, un año antes de la foto.",
+   "por_que": "Esta oración funciona como un excelente gancho, creando una intriga sobre el pasado del personaje y cómo se conecta con su situación actual. Me deja con ganas de saber qué pasó en ese baile en Madrid y cómo llevó a la herida de amianto en Australia.",
+   "nota": 10
+  },
+  {
+   "cap": 1,
+   "guion": "viejo",
+   "modelo": "claude-sonnet-5-5",
+   "oracion_abandono": "Para entender ese pie hay que volver a un baile en Madrid, un año antes de la foto.",
+   "por_que": "Hasta ahí el arranque engancha: la imagen del pie vendado, la herida que no cierra y el contraste entre Madrid y Wittenoom crean intriga. Pero esa última frase es una fórmula muy conocida de narración con flashback y promete un desvío a un baile, justo cuando la tensión estaba en la herida y el amianto. En audio, sin imágenes, esa vuelta atrás tan anunciada puede sentirse como un freno. Aun así no abandonaría del todo; solo es el punto donde mi atención podría flaquear si el baile se alarga sin conectar pronto con el amianto.",
+   "nota": 7
+  },
+  {
+   "cap": 1,
+   "guion": "viejo",
+   "modelo": "claude-opus-5-5",
+   "oracion_abandono": "Ninguna. Si tuviera que señalar el punto de mayor riesgo, sería «Vino de Madrid.», la única frase que suena a ficha informativa y no a imagen.",
+   "por_que": "El capítulo es breve y está bien construido. Abre con una imagen concreta y extraña: la venda blanca, la tierra roja, la chapa. Luego introduce una torsión ingeniosa, «todos miran a cámara menos el pie», que convierte la herida en protagonista. Wittenoom y el amianto anuncian una tragedia real para quien conozca la historia, y la última frase cierra con un salto atrás («un baile en Madrid») que crea una pregunta clara: ¿cómo se pasa de un baile a ese pie? Hay algunos roces menores. «Un hombre joven posa» y después «el retrato de familia» parecen dos fotos distintas, y eso confunde un instante. «Vino de Madrid» se repite enseguida con «un baile en Madrid» y anticipa información que el final quería revelar. Además, la fecha y el lugar llegan en bloque, como pie de foto, y en audio pierden fuerza. Aun así, nada de esto me haría apagar. Me quedo por el contraste entre el baile y la mina.",
+   "nota": 8
+  },
+  {
+   "cap": 2,
+   "guion": "viejo",
+   "modelo": "gemini-flash",
+   "oracion_abandono": "Nadie les dijo qué era el polvo. La compañía lo sabía desde hacía dieciocho años.",
+   "por_que": "Esta oración es un cliffhanger muy potente. La revelación de que la compañía conocía el peligro del polvo de asbesto desde hacía dieciocho años crea una gran expectación sobre las consecuencias para las personas que vivían y trabajaban allí. Me dejaría con muchísima intriga y la necesidad de saber qué ocurrió después.",
+   "nota": 10
+  },
+  {
+   "cap": 2,
+   "guion": "viejo",
+   "modelo": "claude-sonnet-5-5",
+   "oracion_abandono": "Un niño que hizo ese viaje todavía recuerda el calor.",
+   "por_que": "Hasta ahí el arranque engancha: fechas, una pareja, el barco y el hueco de lo que no saben de Wittenoom. Pero esa frase rompe el ritmo. Adelanta un detalle que luego se repite con Víctor Calvo, y la cronología se vuelve confusa: la familia Juan-Barroso llegó un mes antes, luego en agosto, y el narrador salta de una pareja a otra y a un niño sin presentarlos. Las fechas y los nombres sueltos cansan al oído, porque en audio no puedo volver atrás para ordenarlos. Aun así, el cierre con la compañía que sabía lo del polvo desde hacía dieciocho años es un gancho potente que me retiene.",
+   "nota": 7
+  },
+  {
+   "cap": 2,
+   "guion": "viejo",
+   "modelo": "claude-opus-5-5",
+   "oracion_abandono": "No lo dejaría. El punto de mayor riesgo es «La familia de Juan-Barroso había llegado en agosto de mil novecientos sesenta y dos.»",
+   "por_que": "Es la única frase en la que la atención se cae. Repite un dato que ya se dio («un mes antes») y lo hace justo cuando la escena del polvo y las casas de chapa empieza a crecer, así que corta el impulso antes del golpe final. Al oído también confunde un poco quién es Víctor Calvo: ¿el hijo de Milagros y Ramón? La transición «Un niño que hizo ese viaje…» lo insinúa pero no lo ata, y cuesta seguir tres apellidos y dos parejas sin poder releer. Aun así no me iría. Las fechas exactas, el «pegadita a mi marido, como una niña», el calor de Suez y el polvo rojo construyen una inocencia que el cierre rompe de golpe: «Nadie les dijo qué era el polvo. La compañía lo sabía desde hacía dieciocho años.» Ese remate convierte la crónica migratoria en una historia de engaño y amenaza. Es imposible no querer saber qué les pasó.",
+   "nota": 8
+  },
+  {
+   "cap": 2,
+   "guion": "nuevo",
+   "modelo": "gemini-flash",
+   "oracion_abandono": "La pista donde frenaron estaba hecha de relaves de la mina.",
+   "por_que": "Esta oración transforma la percepción del polvo, revelando que no es solo un elemento del desierto, sino un residuo de la mina. Esto implica un riesgo potencial significativo y genera una gran intriga sobre la verdadera naturaleza de ese polvo y sus consecuencias, impulsando la necesidad de continuar escuchando.",
+   "nota": 10
+  },
+  {
+   "cap": 2,
+   "guion": "nuevo",
+   "modelo": "claude-sonnet-5-5",
+   "oracion_abandono": "El dieciséis de septiembre de mil novecientos sesenta y uno hubo un baile en el Círculo de Bellas Artes de Madrid.",
+   "por_que": "Arranca con una cadena de fechas escritas en letra y datos de archivo (baile, boda, acuerdo, empresa, año de reclutamiento) que en audio cuesta retener y suenan a ficha, no a historia. La emoción llega más tarde, con la cita de María y el polvo, pero la apertura es fría y densa. Aun así, el gancho del polvo y el expediente al final intriga, así que aguantaría un poco más antes de irme.",
+   "nota": 6
+  },
+  {
+   "cap": 2,
+   "guion": "nuevo",
+   "modelo": "claude-opus-5-5",
+   "oracion_abandono": "No la abandonaría, pero el punto de mayor riesgo es: «Australia buscaba gente: cerca de ocho mil españoles cruzaron con el acuerdo entre los dos países, y la empresa que explotaba la mina de Wittenoom, CSR, hacía viajes propios a Europa para reclutar desde mil novecientos cincuenta.»",
+   "por_que": "Es el único momento en que la atención podría escaparse. Justo cuando la boda y el baile me han metido en la historia íntima, llega una oración larga y cargada de datos (cifras, acuerdo bilateral, siglas de empresa, otra fecha). Al oído, sin poder releer, se convierte en ruido y frena el impulso. Sobra la acumulación de fechas en cifras deletreadas: dieciséis de septiembre, veinte de septiembre, mil novecientos cincuenta. Aun así, no me iría, porque la frase siguiente me rescata: «dice la viuda» revela de pasada que Daniel murió, y eso me engancha más que cualquier dato. «Nadie les habló del polvo» funciona como presagio. La voz de Víctor Calvo da textura, y el descenso al Pilbara está muy bien escuchado: avión de hélices, tierra roja, chapa y uralita. El cierre es excelente. Que la pista estuviera hecha de relaves, «el polvo tenía nombre» y el expediente de casi veinte años crean un gancho de culpa institucional que pide el siguiente capítulo. Sugerencia: mover el dato de los ocho mil españoles y la CSR más adelante, o partirlo en frases cortas, y aligerar las fechas.",
+   "nota": 8
+  },
+  {
+   "cap": 3,
+   "guion": "viejo",
+   "modelo": "gemini-flash",
+   "oracion_abandono": "Jim McNulty lo explicó así: cuando las Casandras advirtieron que el polvo era un problema y predijeron la enfermedad, en la industria minera no se encendieron las alarmas, «porque estaban acostumbrados; lo esperaban», dijo McNulty.",
+   "por_que": "Esta oración cierra de manera contundente la explicación de por qué, a pesar de las repetidas advertencias y la evidencia del peligro del polvo, no se tomaron medidas significativas. Resume la complacencia y la normalización del riesgo, lo que me da una comprensión completa del contexto de negligencia antes de pasar a la historia personal que se insinúa al final del capítulo.",
+   "nota": 9
+  },
+  {
+   "cap": 3,
+   "guion": "viejo",
+   "modelo": "claude-sonnet-5-5",
+   "oracion_abandono": "Nueve años después, otro organismo entró al molino y escribió lo que vio.",
+   "por_que": "Hasta ahí el capítulo engancha con la carta de Saint y la frase del defensor, pero luego se vuelve una cronología de informes, organismos y fechas que repite la misma idea: todos sabían del polvo y nadie actuó. Los nombres institucionales (ABA, CSR, Junta de Referencia) y los saltos de años cansan en audio, y el anuncio de que otro organismo escribirá algo anticipa más de lo mismo. Si no fuera por el gancho final con los Écija, habría soltado aquí.",
+   "nota": 6
+  },
+  {
+   "cap": 3,
+   "guion": "viejo",
+   "modelo": "claude-opus-5-5",
+   "oracion_abandono": "La mina era entonces de ABA, una filial de CSR que en mil novecientos cuarenta y tres había tomado los intereses de Hancock y Wright.",
+   "por_que": "Es el único punto donde casi me pierdo. Escuchado, el primer párrafo es un informe administrativo: fechas en letras, cargos burocráticos («ingeniero de minas Adjunto del Estado») y luego, en una sola oración, dos siglas y dos apellidos corporativos sin contexto. El oído no puede volver atrás para ver quién es quién, y todavía no hay ninguna persona a la que seguir. Si el capítulo continuara así, me iría. Me quedo porque enseguida aparece una escena concreta: un médico que llega en avión, escribe a máquina y anuncia «la cosecha más abundante y letal». Eric Saint, con nombre y voz propia («me tildaron de alborotador»), es el ancla que faltaba. A partir de ahí la estructura de crónica por años funciona como un redoble: cada fecha trae una advertencia y una respuesta cínica. La frase del defensor sobre las nubes de polvo y el recorte del suplemento salarial justo después de admitir la polvareda son golpes de ironía que se sienten sin subrayarlos. El párrafo de CSR y McNulty baja un poco el ritmo, pero «estaban acostumbrados; lo esperaban» lo compensa. El cierre es lo mejor: tras páginas de instituciones, «los Écija bajaban de aquel avión» devuelve el relato a una familia concreta y, con todo lo que acabamos de saber, la llegada suena a sentencia. Es imposible no querer saber qué les pasa.",
+   "nota": 8
+  },
+  {
+   "cap": 3,
+   "guion": "nuevo",
+   "modelo": "gemini-flash",
+   "oracion_abandono": "A ese molino cubierto de polvo, a fines de mil novecientos sesenta y dos, iba a entrar un recién casado de Madrid que llevaba cuatro días de matrimonio cuando subió al barco.",
+   "por_que": "Esta es la última oración del capítulo y, lejos de hacerme querer abandonar la escucha, actúa como un gancho muy potente. El relato construye una historia impactante de negligencia corporativa y tragedia humana, y al introducir al final la historia personal de un recién casado, genera una gran intriga y un fuerte deseo de saber qué le depara el futuro en ese lugar tan peligroso. La narrativa es muy efectiva y me mantendría completamente enganchado hasta este punto.",
+   "nota": 10
+  },
+  {
+   "cap": 3,
+   "guion": "nuevo",
+   "modelo": "claude-sonnet-5-5",
+   "oracion_abandono": "En mil novecientos cuarenta y cuatro, el inspector de minas y el ingeniero de minas Adjunto del Estado informaron sobre el problema del polvo.",
+   "por_que": "El arranque con el amianto azul engancha, pero enseguida el capítulo se convierte en una lista de años y cargos oficiales (ABA, CSR, Hancock y Wright, inspectores, ingeniero adjunto) que en audio es difícil de seguir y no tiene a nadie con quien conectar. Cada oración repite el mismo patrón de 'en tal año alguien dijo o escribió algo', y la sensación de monotonía crece. Lo que me retiene son las frases concretas, como la del defensor del empleador o la del médico llamado alborotador, y el final con el recién casado de Madrid promete una persona real, pero hasta llegar ahí el ritmo cansa y yo ya habría soltado el hilo.",
+   "nota": 6
+  },
+  {
+   "cap": 3,
+   "guion": "nuevo",
+   "modelo": "claude-opus-5-5",
+   "oracion_abandono": "No lo dejaría, pero estuve a punto en la segunda oración: «En mil novecientos cuarenta y tres, ABA, filial de CSR, tomó los intereses de Hancock y Wright en la mina; CSR venía de la industria azucarera y sabía muy poco de minería.»",
+   "por_que": "Al oído, esa oración es el punto más frágil. Junta dos siglas, dos apellidos de socios y una relación corporativa que no se puede retener sin verla escrita, y llega justo cuando todavía no sé por qué debería importarme. Si el capítulo siguiera así, una fecha más y otro organismo más, me iría. Lo que me salva es la cadencia: cada año trae una advertencia más grave, y entre advertencia y advertencia aparece la respuesta oficial. La «vida ilimitada» de Chifley, el médico tildado de «alborotador» y, sobre todo, la frase de las nubes de polvo, anunciada al final de un párrafo y entregada al comienzo del siguiente, que funciona como un pequeño gancho sonoro. A partir de ahí, la lista de años se vuelve un contador que se acelera hacia algo inevitable. Destacan «se redujo y restringió el suplemento salarial que los obreros cobraban por respirarlo» y el seco «En mil novecientos sesenta y uno, la producción aumentó», que pesa más por lo que calla. Hay un riesgo real de fatiga: los «mil novecientos…» leídos en voz alta se repiten mucho y algún nombre propio (McNulty, la Junta de Referencia) se pierde. El cierre, en cambio, es excelente. Después de toda esa documentación impersonal aparece por fin una persona, un recién casado de Madrid con cuatro días de matrimonio, y el oyente ya sabe exactamente qué le espera en ese molino. Esa ironía dramática es lo que me hace querer el siguiente capítulo.",
+   "nota": 8
+  },
+  {
+   "cap": 4,
+   "guion": "viejo",
+   "modelo": "gemini-flash",
+   "oracion_abandono": "Se fueron antes de que nadie les dijera nada.",
+   "por_que": "Esta oración marca un punto de inflexión significativo para la familia de Daniel, sugiriendo una huida temprana y la implicación de un peligro inminente que aún no era reconocido oficialmente. Genera una fuerte intriga sobre lo que sucedió después con el pueblo y sus habitantes.",
+   "nota": 9
+  },
+  {
+   "cap": 4,
+   "guion": "viejo",
+   "modelo": "claude-sonnet-5-5",
+   "oracion_abandono": "Nadie les había dicho nada.",
+   "por_que": "No abandonaría antes: el arranque con los niños jugando con amianto es muy potente y la prosa seca y contenida genera inquietud. Pero el segundo párrafo se llena de nombres y fechas (Daniel, Ramón de Juan, Milagros Barroso, John Patrick, María) que se confunden y diluyen la tensión, y el cierre repite la idea de que nadie sabía nada, que ya estaba implícita. Aun así me quedaría, porque la ironía trágica y el nacimiento del niño prometen una historia personal y familiar con peso.",
+   "nota": 7
+  },
+  {
+   "cap": 4,
+   "guion": "viejo",
+   "modelo": "claude-opus-5-5",
+   "oracion_abandono": "No dejaría de escuchar. Si tuviera que señalar el punto más débil, sería «Daniel trabajaba en la mina. Ramón de Juan, el amigo, hacía jornadas de dieciséis horas.», donde el salto brusco a nombres nuevos sin presentación (Daniel, Ramón, Milagros, John Patrick, María) puede desorientar al oyente por un momento.",
+   "por_que": "El arranque es muy potente: el testimonio de Víctor Calvo («Nos lo metíamos en la boca») genera inquietud inmediata, y la enumeración de lugares hechos de amianto (la escuela, el jardín de infantes, la iglesia) cierra con «El pueblo entero estaba hecho de eso. Y en ese pueblo... nació un niño», un gancho excelente. El segundo párrafo introduce varios nombres de golpe, lo que en audio cuesta seguir, pero el detalle concreto (fórceps, la foto del bautizo, la fecha exacta) devuelve la atención. El cierre, «Se fueron antes de que nadie les dijera nada. Nadie les había dicho nada.», funciona como una amenaza latente: sabemos que el amianto ya está dentro de ese bebé, y queremos saber qué pasa. Las frases cortas y el ritmo seco funcionan muy bien para la escucha.",
+   "nota": 9
+  },
+  {
+   "cap": 4,
+   "guion": "nuevo",
+   "modelo": "gemini-flash",
+   "oracion_abandono": "Se marcharon convencidos de haber salido a tiempo. La mina siguió funcionando.",
+   "por_que": "Esta oración final crea una potente sensación de ironía y presagio. El contraste entre su convicción de haber escapado a tiempo y la realidad de que la mina continuó operando deja al lector con la intriga de si realmente lo lograron y cuáles fueron las consecuencias a largo plazo para ellos y para el lugar. Querría saber el desenlace de esa aparente huida a tiempo.",
+   "nota": 9
+  },
+  {
+   "cap": 4,
+   "guion": "nuevo",
+   "modelo": "claude-sonnet-5-5",
+   "oracion_abandono": "En el hospital del pueblo, en junio del sesenta y tres, María entró a dar a luz.",
+   "por_que": "Hasta ahí la atmósfera del pueblo y los relaves es potente, pero ese salto de 1965 a 1963 desordena la cronología y corta el impulso. Luego la narración se llena de nombres y fechas (Milagros, John Patrick, Ramón de Juan) que no sé por qué importan, y la anécdota de la explosión se desmiente a sí misma. Me quedo con la imagen del amianto, pero la tensión se diluye y el final avisa de una amenaza que no llega a concretarse.",
+   "nota": 5
+  },
+  {
+   "cap": 4,
+   "guion": "nuevo",
+   "modelo": "claude-opus-5-5",
+   "oracion_abandono": "Tres meses antes, en marzo, Milagros Barroso había dado a luz en ese mismo pueblo a John Patrick; María recuerda que ella y Daniel se hicieron íntimos amigos de Milagros y de Ramón de Juan, que hacía jornadas de dieciséis horas.",
+   "por_que": "En realidad no dejaría de escuchar, pero este es el punto donde más fácil sería desconectarse. Hasta aquí el capítulo me tiene atrapado. El pueblo está pavimentado con relaves, «del resto se encargaban el viento y el agua» insinúa la amenaza sin nombrarla, y la imagen de los niños deshilachando amianto azul y metiéndoselo en la boca es devastadora. Esta oración, en cambio, es la más larga del texto y en audio pesa. Encadena tres nombres nuevos (Milagros Barroso, John Patrick, Ramón de Juan) justo después de que ya hay dos Daniel, padre e hijo, y además da un salto atrás en el tiempo. El oyente no puede releer, así que pierde el hilo de quién es quién y no sabe por qué debería retener esos nombres. Si John Patrick o Ramón importan más adelante, habría que presentarlos con más aire. También descoloca un poco el orden previo: se pasa de 1965 (el comisionado) a 1963 (el parto) sin una transición clara. Lo que me retiene enseguida es la frase siguiente sobre la explosión del primer día («Es lo que cuenta el hijo. Nadie más lo ha contado»), que abre una duda sobre la memoria y la verdad. Y el cierre es excelente: «Se marcharon convencidos de haber salido a tiempo. La mina siguió funcionando.» Con esa ironía dramática, sé que el amianto los alcanzará y quiero saber cómo.",
+   "nota": 8
+  },
+  {
+   "cap": 5,
+   "guion": "viejo",
+   "modelo": "gemini-flash",
+   "oracion_abandono": "Daniel muere a los cincuenta y cinco años, veintiocho años después de la foto del bautizo.",
+   "por_que": "Esta oración cierra el arco de la trágica consecuencia personal para Daniel Écija, que ha sido el foco principal de la narrativa del capítulo. Siente como una conclusión devastadora a su historia, dejando un fuerte impacto emocional.",
+   "nota": 10
+  },
+  {
+   "cap": 5,
+   "guion": "viejo",
+   "modelo": "claude-sonnet-5-5",
+   "oracion_abandono": "Los de Juan-Barroso estuvieron unos dos años y medio en el pueblo y volvieron a Madrid en mil novecientos setenta y uno; Mercedes de Juan se quedó en Australia.",
+   "por_que": "Hasta ahí el capítulo tiene tensión y un hilo claro: el cierre de la mina, el polvo que sigue ahí y los Écija. Pero esta oración introduce de golpe otra familia con apellidos compuestos y un destino aparte, sin que sepamos quiénes son. Es un dato de archivo suelto que rompe el ritmo y me hace perder el hilo. Además, el capítulo salta entre fechas y lugares (1966, 1985, 1991) con mucha cifra, y el cierre con frases como «el Estado ya tenía un número» resulta algo críptico. Seguiría por la fuerza emocional de la escena del policía y la viuda, pero la maraña de nombres y datos me haría dudar.",
+   "nota": 6
+  },
+  {
+   "cap": 5,
+   "guion": "viejo",
+   "modelo": "claude-opus-5-5",
+   "oracion_abandono": "Los de Juan-Barroso estuvieron unos dos años y medio en el pueblo y volvieron a Madrid en mil novecientos setenta y uno; Mercedes de Juan se quedó en Australia.",
+   "por_que": "No llegaría a abandonar el capítulo, pero aquí es donde más cerca estaría de desconectarme. Hasta ese punto el ritmo es seco y eficaz: frases cortas, la imagen del polvo asentándose, la cifra de los relaves. Esa oración rompe el ritmo de golpe. Mete apellidos nuevos (Juan-Barroso, Mercedes de Juan) sin anclarlos a nadie que yo pueda visualizar. Encadena otra duración y otro año, y en audio choca con lo que acabo de oír: la mina cierra en 1966, pero esta familia vuelve en 1971, y no sé si me he perdido algo. La frase anterior, la del cincuenta y nueve por ciento que se iba antes de seis meses, ya me obligaba a hacer cuentas mentales, y esta añade carga sin emoción. Leído en papel se relee; escuchado, me saca de la historia de los Écija, que es la que me importa. Lo que me devuelve enseguida es el contrapunto «Cerró la mina. Nadie cerró el polvo» y, sobre todo, la escena del policía con el pasaporte, que es un gancho magnífico. Después vienen el diagnóstico en tres frases, la viuda «como una niña pequeña» y el cierre «el Estado ya tenía un número», que me deja con ganas del siguiente capítulo.",
+   "nota": 8
+  },
+  {
+   "cap": 5,
+   "guion": "nuevo",
+   "modelo": "gemini-flash",
+   "oracion_abandono": "Había respirado el polvo de Wittenoom desde el otoño del sesenta y dos hasta el verano del sesenta y tres, y la cuenta llegó casi treinta años más tarde, a medio mundo de distancia.",
+   "por_que": "Esta oración cierra el círculo de la exposición al peligro (el polvo de Wittenoom) con la trágica consecuencia final (la muerte de Daniel Écija), enfatizando la larga espera y la distancia del suceso. Es el clímax de la tragedia personal y explica el impacto diferido y silencioso del asbesto, lo cual es muy impactante.",
+   "nota": 10
+  },
+  {
+   "cap": 5,
+   "guion": "nuevo",
+   "modelo": "claude-sonnet-5-5",
+   "oracion_abandono": "No dejaría de escuchar: la oración en la que más me tambalearía es «Diez meses.», que contradice los «nueve meses» de antes y suena como un fragmento suelto.",
+   "por_que": "El capítulo engancha por su estructura: el cierre de la mina, el diagnóstico tardío y el contraste final entre Daniel muriendo y el pueblo desmontado. Lo único que me saca es la incongruencia de «nueve meses» y «Diez meses», más alguna enumeración densa de fechas y la frase «las toneladas del principio, las que siguen ahí», algo confusa al oído. Son tropiezos menores frente a la carga emocional y el cierre contundente con «Tablón por tablón».",
+   "nota": 8
+  },
+  {
+   "cap": 5,
+   "guion": "nuevo",
+   "modelo": "claude-opus-5-5",
+   "oracion_abandono": "Ninguna: no lo dejaría. El punto de mayor riesgo es «Ese mismo año, mil novecientos sesenta y seis, los Écija volvieron a Madrid».",
+   "por_que": "El primer párrafo es una cadena de cifras y años (1966, siete mil personas, 1948, dieciocho años, 1978, 1991). En audio cuesta retenerlas y se escuchan como un informe. Además, «Funcionó tres años más» arranca sin un sujeto claro para quien no recuerda el capítulo anterior. Ahí la atención flaquea, y la frase de 1966 confunde: más adelante se dice que Daniel respiró el polvo solo del otoño del 62 al verano del 63. ¿Por qué la familia vuelve en el 66? Un oyente atento lo nota y desconfía. Aun así, la última frase del párrafo («a Daniel Écija le dieron un diagnóstico») funciona como gancho y rescata la escucha. A partir de ahí el capítulo es muy bueno. Las fotos en las que falta el hombre, las frases cortas («Le hicieron las pruebas. Le dieron el resultado.»), la edad, la distancia en tiempo y espacio. El cierre con el pueblo desmontado «tablón por tablón» mientras él muere es una imagen paralela potente. Un detalle menor: «Diez meses» justo después de «Nueve meses después» se confunde fácilmente al oído. Conviene aclarar que se refiere al tiempo de exposición. También chirría un poco el salto al presente con María, sin que quede claro quién es para un oyente nuevo.",
+   "nota": 8
+  },
+  {
+   "cap": 6,
+   "guion": "viejo",
+   "modelo": "gemini-flash",
+   "oracion_abandono": "Mientras los enfermos se contaban a sí mismos, el Estado decidió qué hacer con el pueblo: borrarlo.",
+   "por_que": "Esta oración marca un punto de inflexión sombrío en la narrativa. Pasa del recuento de las víctimas y su sufrimiento a la decisión burocrática del Estado de 'borrar' el pueblo, lo que transmite una sensación de intento de ocultamiento o negación del problema, en lugar de una solución real. Cierra una sección sobre el impacto humano y abre una nueva sobre la respuesta oficial y sus deficiencias.",
+   "nota": 8
+  },
+  {
+   "cap": 6,
+   "guion": "viejo",
+   "modelo": "claude-sonnet-5-5",
+   "oracion_abandono": "Junio de dos mil siete; otras fuentes dicen dos mil seis.",
+   "por_que": "El arranque es fuerte, pero el capítulo se vuelve un desfile de cifras, fechas y citas de nombres sueltos (Mercedes, Melita, Larry, Mark) sin que ninguno cobre vida. En esa oración la imprecisión de la fecha rompe el ritmo en audio y se siente burocrático. Hasta ahí aguantaría por la indignación del veredicto, pero después la sucesión de citas oficiales me haría desconectar. El cierre ('El polvo no leía mapas') es potente, pero llega tarde para quien ya se fue.",
+   "nota": 6
+  },
+  {
+   "cap": 6,
+   "guion": "viejo",
+   "modelo": "claude-opus-5-5",
+   "oracion_abandono": "Junio de dos mil siete; otras fuentes dicen dos mil seis.",
+   "por_que": "Probablemente no dejaría de escuchar, pero este es el punto donde más cerca estaría. Hasta ahí el capítulo engancha: cifras que crecen, el veredicto, Mercedes soplando en un tubo y el giro de 'borrarlo', que es un gran gancho. Justo después de esa promesa, el narrador duda en voz alta sobre una fecha. Al oído suena a nota de investigación que se coló en el guion, y le resta autoridad al momento más dramático. A eso se suma que la cronología ya venía saltando (1989 y luego 1988; 2007 y luego 1992), así que el oyente pierde pie. En la parte siguiente aparecen Larry Graham y Mark Nevill sin decir quiénes son ni en qué cargo hablan, y las citas parlamentarias se vuelven abstractas tras la escena humana de Mercedes. Me rescata el cierre, 'El polvo no leía mapas', una frase memorable que da ganas de seguir. Mejoras posibles: llevar la discrepancia de fechas a una nota o resolverla, identificar a cada voz por su cargo y ordenar los años.",
+   "nota": 7
+  },
+  {
+   "cap": 6,
+   "guion": "nuevo",
+   "modelo": "gemini-flash",
+   "oracion_abandono": "En dos mil dieciséis, una nota del Estado aconsejó desistir de asegurar los relaves. No porque no se supiera cómo. Por lo que costaba.",
+   "por_que": "Esta oración es un punto de inflexión que revela una decisión gubernamental impactante y éticamente cuestionable. El hecho de que se priorice el costo sobre la solución de un problema ambiental grave y conocido, en lugar de la incapacidad técnica, genera mucha indignación y curiosidad sobre las consecuencias y el desarrollo futuro de la situación.",
+   "nota": 9
+  },
+  {
+   "cap": 6,
+   "guion": "nuevo",
+   "modelo": "claude-sonnet-5-5",
+   "oracion_abandono": "Larry Graham lo dijo con otras palabras: «Es casi increíble que la propiedad de los depósitos de relaves se haya transferido, por defecto, al gobierno estatal», declaró Graham.",
+   "por_que": "Hasta ahí la enumeración seca de cierres y fechas funciona como una elegía fría y el giro del informe técnico engancha. Pero esta oración introduce a un personaje sin presentarlo, 'lo dijo con otras palabras' no remite a nada claro y la cita burocrática es floja y redundante ('dijo... declaró'). Rompe el ritmo y me saca del relato justo cuando se acumulan datos y fechas; en audio cuesta seguir tanta cronología y nombres. Aun así, el cierre con el hombre ante el relator de la ONU deja curiosidad, por eso no me voy del todo.",
+   "nota": 6
+  },
+  {
+   "cap": 6,
+   "guion": "nuevo",
+   "modelo": "claude-opus-5-5",
+   "oracion_abandono": "«Es casi increíble que la propiedad de los depósitos de relaves se haya transferido, por defecto, al gobierno estatal», declaró Graham.",
+   "por_que": "Probablemente no dejaría de escuchar, pero este es el punto donde más me costaría seguir. El capítulo arranca fuerte: la enumeración seca de cierres, el corte de luz a ocho personas y el borrado del mapa funcionan muy bien al oído, y la frase del gobierno contradicha por sus propios técnicos es un gancho excelente. El primer bache llega con la cadena hidrográfica (vertedero de Colonial, arroyos, Fortescue, acuífero Millstream, Karratha). Escuchada en audio, son muchos nombres propios seguidos y cuesta retenerlos. Justo después aparece Larry Graham sin ninguna presentación: no sé quién es ni por qué su opinión importa. Además, la atribución se duplica («lo dijo con otras palabras… declaró Graham»), y eso al oído suena a error de edición y me saca del relato. La acumulación de fechas en palabras (dos mil seis, dos mil dieciséis, dos mil veintiuno) también empieza a pesar, porque todas suenan parecidas. Lo que me retiene es el remate: «No porque no se supiera cómo. Por lo que costaba» es contundente, y la última oración deja una intriga clara. ¿Quién es ese hombre? ¿Qué dijo ante la ONU? Querría saberlo.",
+   "nota": 7
+  },
+  {
+   "cap": 7,
+   "guion": "nuevo",
+   "modelo": "gemini-flash",
+   "oracion_abandono": "¿Quién va a sacarlo de esa tierra?",
+   "por_que": "Esta pregunta retórica cierra el capítulo de forma contundente, encapsulando la desesperanza y la imposibilidad de escape para las víctimas de la contaminación. Deja una reflexión profunda que marca un cierre emocional para esta parte de la narrativa, haciendo sentir que el capítulo ha cumplido su objetivo de transmitir la tragedia.",
+   "nota": 9
+  },
+  {
+   "cap": 7,
+   "guion": "nuevo",
+   "modelo": "claude-sonnet-5-5",
+   "oracion_abandono": "En agosto de dos mil veintitrés, el Estado reconoció que sus estudios sobre la extensión de la contaminación estaban desactualizados.",
+   "por_que": "Hasta ahí el arranque funciona: un anciano con nombre propio, una cita emotiva y su muerte. Pero luego el texto cae en un ritmo de crónica administrativa, con fechas, demandas y cifras de reclamación que enfrían la emoción. Además, el capítulo salta entre personajes (Parker, Mercedes de Juan, Melita Markey, Daniel Écija) sin darme tiempo a encariñarme con ninguno, y el audio exige retener muchos nombres y años. El final con la pregunta retórica es efectista y algo forzado. Tengo curiosidad por el tema, pero no me sostiene un hilo narrativo claro, así que probablemente lo dejaría en ese punto.",
+   "nota": 5
+  },
+  {
+   "cap": 7,
+   "guion": "nuevo",
+   "modelo": "claude-opus-5-5",
+   "oracion_abandono": "Los que fueron niños en ese pueblo siguen yendo al médico.",
+   "por_que": "Hasta ahí el capítulo me sostiene, aunque con esfuerzo. La voz de Maitland Parker es un gancho potente y su muerte golpea. Después llega una ráfaga de fechas que se pierde al oído: dos mil veintitrés, dos mil veinticuatro, agosto de dos mil veintitrés y dos mil veintiséis. La cronología retrocede después de anunciar la muerte, y el «sus estudios» queda ambiguo. Además, el dato de los mil quinientos millones no está anclado a nada. En ese punto, la oración final del párrafo («Mientras tanto, los que nacieron ahí siguen pasando controles») funciona como cierre. Pero la siguiente repite exactamente la misma idea con otras palabras, y en audio eso suena a que el relato da vueltas sobre sí mismo. Es el momento en que mi atención se suelta. Las citas de Mercedes de Juan y Melita Markey son breves y no se distinguen bien entre sí sin contexto. La frase del gobierno sobre el «grave problema de salud» es la más plana del texto. Lo que me haría volver es el final: la escena del policía en mil novecientos ochenta y cinco es concreta y escalofriante, y «Seis años después llegó el diagnóstico» es un golpe seco. La pregunta de cierre es un buen anzuelo. Aun así, Daniel Écija entra de golpe, y el oyente puede no saber quién es si no lo recuerda de capítulos anteriores. Sugerencia: eliminar la redundancia, agrupar las fechas o reducirlas, y mover antes la escena del policía.",
+   "nota": 7
+  },
+  {
+   "cap": 7,
+   "guion": "viejo",
+   "modelo": "gemini-flash",
+   "oracion_abandono": "Nadie ha empezado a limpiar.",
+   "por_que": "En este punto, el capítulo ha expuesto la gravedad del problema del asbesto, el impacto trágico en vidas humanas y las acciones legales tomadas, culminando con la cruda realidad de que, a pesar de todo, no se ha hecho nada. Es un momento que resume la frustración y la impotencia.",
+   "nota": 9
+  },
+  {
+   "cap": 7,
+   "guion": "viejo",
+   "modelo": "claude-sonnet-5-5",
+   "oracion_abandono": "No me iría en ninguna oración concreta; lo más cercano a un punto de fuga sería la última, «¿Quién va a sacar la primera palada de esa tierra?», que es una pregunta retórica algo forzada tras un cierre ya contundente.",
+   "por_que": "El capítulo es breve, denso y muy concreto: fibras azules, fechas, un anciano que murió de mesotelioma y una inacción de siglos. La imagen del agua arrastrando el asbesto engancha desde el inicio. Lo único que me resta es la repetición de «palada» y el cierre retórico, que subraya algo que el texto ya dejó claro. Aun así, el material tiene peso humano y tensión, y quiero saber qué pasa con los bloqueos y el juicio.",
+   "nota": 8
+  },
+  {
+   "cap": 7,
+   "guion": "viejo",
+   "modelo": "claude-opus-5-5",
+   "oracion_abandono": "No dejaría de escuchar; si tuviera que señalar el punto más débil, sería «En dos mil veintiuno, una nota ambiental registró fibras en canales de arroyos fuera de la zona marcada como contaminada.», donde el tono de informe técnico se acumula antes de que aparezca una persona.",
+   "por_que": "El primer párrafo es denso y burocrático al oído: «un informe técnico», «una nota ambiental», «el mismo informe»... Fuentes sin nombre y vocabulario hidrológico (llanuras de inundación, lechos de arroyo) que cuesta seguir sin ver el texto. Aun así, la imagen de las «fibras azules que el agua deja donde se seca» y la escala de «cientos de años» sostienen la atención. El capítulo despega con Maitland Parker: su cita es lo más poderoso del texto y su muerte por mesotelioma, dicha en seco, golpea. El cierre funciona bien en audio por su repetición casi de estribillo («Nadie ha empezado a limpiar», «No se ha retirado una sola palada») y una pregunta final que deja algo pendiente. Le resta que los actores aparecen sin presentación: Marcos Orellana (no se dice que es relator especial de la ONU), BNTAC y Gordon Legal son siglas y nombres opacos para quien escucha. También que el capítulo se sienta como continuación de algo cuyo contexto (qué es Wittenoom, qué fue Colonial) se da por sabido.",
+   "nota": 7
+  }
+ ],
+ "costo_usd": 0.4077
+}

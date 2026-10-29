@@ -1,0 +1,8 @@
+[18:50:54] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f54-panel
+[18:56:08] INFO     | viral_pipeline | [cost_tracker] Video f54-panel — Costo total: $0.4077
+# F54 — panel ciego de retención (adenda 18:30, 2)
+
+Pregunta literal por cap: «Estás escuchando este capítulo. ¿En qué oración dejarías de escuchar y por qué? Al final, una nota de 1 a 10 de cuánto te quedarías hasta el siguiente capítulo.» · modelos: gemini-flash, claude-sonnet-5-5, claude-opus-5-5 · los dos guiones sin marcar, orden al azar por cap · costo US$ 0.4077 · informa, no frena.
+
+respuestas: 42 · costo 0.4077
+exit 0
