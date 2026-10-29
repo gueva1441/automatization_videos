@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 15:05 (F53a-K: Kling 4.0 pasó las 2 fotos oscuras sin rechazo ni suavizado, US$ 1,35 de 2; PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 15:25 (F53b Parte A: perfiles de video G y K, track_video y video_prompt.py; 2 prompts de G en seco, US$ 0,065; PARADA A: el analista revisa los prompts y Omar dice «sigue» para la Parte B) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,17 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F53b Parte A, PARADA A): el motor de clips nuevo está armado, todavía sin enchufar.
+- Ya hay perfiles para Gemini Omni Flash (G) y Kling 4.0 (K, el respaldo), el costo de un clip sale del perfil (G 1,20 y K 1,88 por clip de 8 s) y hay un módulo nuevo que le pide a Opus el prompt de video mirando la foto.
+- Los 2 prompts de G para Wittenoom (caps 1 y 7) están en `lab/hyperframes/f53b/SECO_G.md`: el del cap 1 ya parte del cuerpo entero con el pie levantado.
+- **Sigue:** el analista revisa los 2 prompts; la Parte B (enchufar G→K en lugar de Veo, borrar Veo y 1 clip real del cap 7, ≈ US$ 1,30) solo con tu «sigue».
+- **Ojo:** `config.py` está fuera de git, así que el cambio de sus estimaciones de costo vive solo en esta PC.
+
+## F53b — Parte A (handoff + adenda Kling, 2026-10-29 14:43 / 15:00) — PARADA A
+- Commits: `630a7d0` etapa 0; `7986ff7` Parte A (`engine_profiles.VideoProfile` G/K, `cost_tracker.track_video`, `script_engine/video_prompt.py`, 20 tests); `c350e17` seco (2 prompts de G). El último commit es el del reporte (`lab/hyperframes/f53b/F53b_REPORT.md`).
+- `track_fal` y `fal_per_clip` se borran con Veo en la Parte B (decisión de CC, el revisor la aprueba). `TOPE_TANDA` = 3 desde 15:02:37.
+- Suites: rápida 55; amplia 1039 + 4 previas; ch02 `f792f3d4…`; MAPA --check 0.
 
 ## 👀 Para Omar (F53a-K, PARADA): Kling 4.0 también aguanta el contenido oscuro.
 - Con las mismas 2 fotos de F53a (condenados con la soga al cuello; cuerpo amortajado), **Kling hizo las 2 sin rechazo y sin tapar ni borrar nada** (720p, 4 s; trae audio que se descarta).
