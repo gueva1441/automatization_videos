@@ -1,0 +1,217 @@
+{
+  "era_visual_canon": {
+    "primary_decade": "1960s",
+    "spans": "1937-2026",
+    "clothing": "Miners wore rugged work clothes, often appearing dirty and dusty. Town residents wore practical, light attire suitable for hot desert conditions, including simple dresses, shirts, and shorts. Government and corporate officials wore more formal attire, such as suits, appropriate for their roles and the era.",
+    "technology": "Analog gauges, basic mining machinery with exposed components, rudimentary processing plants, simple residential appliances (e.g., older refrigerators, stoves), landline telephones, and radios. NO LEDs, NO digital displays, NO smartphones, NO advanced computing devices.",
+    "vehicles_machinery": "Early to mid-20th century trucks (e.g., for asbestos transport), desert-adapted 4x4 vehicles, passenger cars from the 1940s-1960s. Propeller-driven small aircraft for transport to the remote town. Mining equipment included drills, crushers, and conveyor belt systems.",
+    "interiors": "Residential interiors were basic and utilitarian, often in houses of corrugated iron, wood, and asbestos cement, prone to dust accumulation. Offices featured simple desks, manual typewriters, and basic filing systems. Public buildings like hospitals had functional, unadorned spaces with period-appropriate medical equipment.",
+    "forbidden_anachronisms": "smartphones, LED screens, contemporary clothing (post-2000s), modern flat panels, modern cars (post-1970s), digital cameras, modern industrial safety equipment (e.g., advanced respirators), satellite dishes, renewable energy installations.",
+    "materials_textures": "Corrugated iron, wood, asbestos cement, pervasive red earth, blue asbestos waste, fine asbestos dust, loose granular tailings, deposited asbestos fibers, weathered metallic tones, barricade construction materials.",
+    "color_palette": "Exterior palette dominated by red earth, dusty grey, weathered metallic hues (corrugated iron), and the distinctive blue of asbestos. Interiors typically featured pale, functional colors on walls, often obscured by dust.",
+    "scale_dimensions": "Extensive desert landscapes, a small town footprint with residential and industrial structures of modest scale (typically one to two stories), large mining waste dumps, and vast areas of ground-level asbestos deposits spreading across 46,840 hectares. Transported asbestos fibers are microscopic but accumulate in large visible deposits.",
+    "distinctive_features": "An isolated Australian ghost town in the Pilbara desert, visibly constructed with and heavily contaminated by insidious blue asbestos waste from the 1937-1966 mining era. The pervasive red earth and fine, constantly disturbed asbestos dust are omnipresent, defining the toxic and deserted environment.",
+    "demographics": "The population consisted primarily of Australian and European migrant workers (including Spanish and displaced persons) from the 1940s-1960s, working as miners and mill workers, along with their families. Children were present, often playing in contaminated areas. Later, Aboriginal Banjima traditional owners became prominent in advocacy regarding the contaminated lands. Clothing ranged from rough workwear for miners to simple, practical attire for residents in a hot, dusty environment.",
+    "visual_reference_availability": "Descriptions of the town's construction, dust, asbestos material, deserted buildings, and barricades are derived from eyewitness accounts and official reports. Family photographs, official archival images, and environmental study documents provide visual references for the people, structures, and landscape over time. Written records detail demographics and events, allowing for inference of appearance where direct visual sources are scarce.",
+    "condition_evolution": {
+      "at_event": "A remote, functional mining town with active blue asbestos mining and processing operations. Its infrastructure and residential areas were visibly constructed using asbestos tailings, resulting in pervasive dust and rudimentary, functional buildings.",
+      "later": "A deserted ghost town characterized by demolished buildings, permanent barricades blocking access to an officially contaminated area of 46,840 hectares, and extensive asbestos contamination spread by wind and water across the landscape."
+    }
+  },
+  "documented_people": [
+    {
+      "name": "Eric Saint",
+      "role": "Doctor/Health Official",
+      "age_at_event": null,
+      "era": "1948",
+      "appearance_canon": "a middle-aged health official, likely Australian, with a serious demeanor"
+    },
+    {
+      "name": "Daniel Écija padre",
+      "role": "Spanish Migrant Miner",
+      "age_at_event": 26,
+      "era": "1962",
+      "appearance_canon": "a mid-20s Spanish migrant miner, often working long hours in dusty conditions, potentially appearing fatigued"
+    },
+    {
+      "name": "María Bernal",
+      "role": "Spanish Migrant Resident",
+      "age_at_event": 26,
+      "era": "1962",
+      "appearance_canon": "a mid-20s Spanish migrant woman, resilient in harsh living conditions, possibly showing signs of fatigue from a complicated childbirth"
+    },
+    {
+      "name": "Milagros Barroso",
+      "role": "Spanish Migrant Resident",
+      "age_at_event": 26,
+      "era": "1962",
+      "appearance_canon": "a mid-20s Spanish migrant woman, forming friendships in a challenging desert environment"
+    },
+    {
+      "name": "Ramón de Juan",
+      "role": "Spanish Migrant Miner",
+      "age_at_event": 26,
+      "era": "1962",
+      "appearance_canon": "a mid-20s Spanish migrant miner, working excessively long hours in dangerous conditions, likely appearing dust-covered and exhausted"
+    },
+    {
+      "name": "Víctor Calvo",
+      "role": "Child Resident",
+      "age_at_event": 7,
+      "era": "1962",
+      "appearance_canon": "a child of early elementary school age, playing in a dusty, asbestos-laden environment, potentially appearing oblivious to danger"
+    },
+    {
+      "name": "Daniel Écija hijo",
+      "role": "Television Producer / Wittenoom-born",
+      "age_at_event": 22,
+      "era": "1985",
+      "appearance_canon": "an early-20s Spanish-Australian young adult, looking at his documentation while being questioned by an airport police officer"
+    },
+    {
+      "name": "Maitland Parker",
+      "role": "Banjima Elder / Activist",
+      "age_at_event": null,
+      "era": "2023",
+      "appearance_canon": "an elderly Aboriginal Banjima man, bearing the physical toll of asbestos exposure"
+    },
+    {
+      "name": "Peter Gordon",
+      "role": "Lawyer",
+      "age_at_event": null,
+      "era": "1988",
+      "appearance_canon": "a middle-aged lawyer, determined in legal proceedings regarding corporate accountability"
+    },
+    {
+      "name": "Mercedes",
+      "role": "Daughter of Migrant Miners",
+      "age_at_event": null,
+      "era": "1971",
+      "appearance_canon": "a young adult of Spanish descent, having lived in Wittenoom as a child, choosing to remain in Australia"
+    },
+    {
+      "name": "John Patrick",
+      "role": "Infant Resident",
+      "age_at_event": 0,
+      "era": "1963",
+      "appearance_canon": "an infant born in Wittenoom to Spanish migrant parents"
+    },
+    {
+      "name": "Davidson",
+      "role": "Public Health Official",
+      "age_at_event": null,
+      "era": "1965",
+      "appearance_canon": "a middle-aged health official, likely Australian, sternly addressing safety concerns"
+    },
+    {
+      "name": "Major",
+      "role": "Industrial Hygienist",
+      "age_at_event": null,
+      "era": "1966",
+      "appearance_canon": "a middle-aged industrial hygienist, meticulously documenting safety deficiencies"
+    },
+    {
+      "name": "James Vernon",
+      "role": "CSR Chairman",
+      "age_at_event": null,
+      "era": "1966",
+      "appearance_canon": "an elderly corporate chairman making a public announcement"
+    },
+    {
+      "name": "Ben Wyatt",
+      "role": "Minister for Lands",
+      "age_at_event": null,
+      "era": "2019",
+      "appearance_canon": "a middle-aged Aboriginal Australian government minister, addressing environmental remediation responsibilities"
+    },
+    {
+      "name": "Marcos Orellana",
+      "role": "UN Rapporteur",
+      "age_at_event": null,
+      "era": "2023",
+      "appearance_canon": "a middle-aged UN rapporteur, conducting interviews related to environmental contamination"
+    }
+  ],
+  "anachronism_blocklist": [
+    "smartphones",
+    "LED screens",
+    "contemporary clothing (post-2000s)",
+    "modern flat panels",
+    "modern cars (post-1970s)",
+    "digital cameras",
+    "modern industrial safety equipment (e.g., advanced respirators)",
+    "satellite dishes",
+    "GPS devices",
+    "modern communication technology"
+  ],
+  "documented_props": [
+    {
+      "nombre": "Asbestos tailings",
+      "forma": "Finely crushed rock and blue asbestos fibers, used as construction material or deposited as waste, appearing as loose granular piles or spread over surfaces, easily disturbed to release fine dust.",
+      "anclado": "si",
+      "foto_madre": ""
+    },
+    {
+      "nombre": "Wittenoom's deserted buildings",
+      "forma": "Shabby structures of corrugated iron, wood, and asbestos cement, often appearing neglected or partially demolished, constructed directly with or heavily contaminated by blue asbestos waste.",
+      "anclado": "si",
+      "foto_madre": ""
+    }
+  ],
+  "central_subject": {
+    "kind": "place",
+    "foto_madre": ""
+  },
+  "people_groups": [
+    {
+      "id": "wittenoom_miners_and_mill_workers",
+      "who": "Various European migrant and Australian laborers working in the asbestos mines and processing mill.",
+      "where_when": "Wittenoom, from 1937 to 1966.",
+      "appearance": "Physically robust individuals, often appearing fatigued and covered in a pervasive fine dust, with diverse European features.",
+      "clothing": "Rugged, practical work clothes, heavy-duty trousers and shirts, sometimes with hard hats, all visibly stained and impregnated with asbestos dust."
+    },
+    {
+      "id": "spanish_migrant_families",
+      "who": "Spanish families who migrated to Wittenoom under government schemes.",
+      "where_when": "Wittenoom, primarily 1958-1966.",
+      "appearance": "Adults and children of Southern European descent, appearing resilient and resourceful, adapting to a harsh desert environment, often showing signs of physical strain or everyday weariness.",
+      "clothing": "Simple, light clothing suitable for a hot, dusty climate; women in plain dresses or skirts/blouses, men in casual shirts and trousers, children in basic playwear, all often soiled with red earth and dust."
+    },
+    {
+      "id": "australian_public_health_officials",
+      "who": "Doctors, inspectors, and hygienists from Australian public health departments.",
+      "where_when": "Wittenoom and state offices, 1944-1966.",
+      "appearance": "Predominantly Caucasian, appearing professional, often with a serious or concerned demeanor due to the health risks.",
+      "clothing": "Formal or semi-formal attire of the era, such as suits, collared shirts, and ties, or clean uniforms for medical staff."
+    },
+    {
+      "id": "australian_government_representatives",
+      "who": "Various Australian federal and state government officials, including politicians, committee members, and regulators.",
+      "where_when": "Government offices and occasional visits to Wittenoom, 1940s-2020s.",
+      "appearance": "Predominantly Caucasian, appearing authoritative and formal, reflecting their political or administrative roles.",
+      "clothing": "Formal business attire, including suits and ties, typical of Australian politicians and civil servants of the respective decades."
+    },
+    {
+      "id": "csr_corporate_personnel",
+      "who": "Executives, managers, and other personnel from Colonial Sugar Refining (CSR) and its subsidiary, Australian Blue Asbestos (ABA).",
+      "where_when": "Corporate offices and Wittenoom, 1937-1966.",
+      "appearance": "Predominantly Caucasian, appearing well-dressed and corporate, often with an air of authority, sometimes dismissive of worker concerns.",
+      "clothing": "Business suits and formal wear, reflecting their executive or managerial positions, often clean and sharp in contrast to the dusty environment."
+    },
+    {
+      "id": "banjima_traditional_owners_and_advocates",
+      "who": "Indigenous Banjima people, including elders and legal advocates, asserting their rights over contaminated lands.",
+      "where_when": "Wittenoom area and legal forums, 2010s-2020s.",
+      "appearance": "Indigenous Australian people, often older, appearing resilient and determined, some bearing the visible or implied health consequences of asbestos exposure.",
+      "clothing": "Practical, contemporary casual clothing suitable for the Australian climate and for meetings or public appearances."
+    },
+    {
+      "id": "australian_airport_police",
+      "who": "Law enforcement personnel working in Australian airports.",
+      "where_when": "Australian airport checkpoint, 1985.",
+      "appearance": "Predominantly Caucasian, appearing uniformed and professional.",
+      "clothing": "Standard police uniform of the mid-1980s, typically including a collared shirt, trousers, and a peaked cap."
+    }
+  ],
+  "canon_ficha_md5": "b02aa6f88586f5e0c8a87a80d2ccb067"
+}
