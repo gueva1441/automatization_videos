@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 03:00 (F50h etapas 2–3: 120 fotos a ciegas, 20 hojas y visión por letra; ~US$ 4,93 reales de 5,00; PARADA: Omar elige letra por foto) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 03:30 (F50i: las 4 fotos con manchas rojas, de nuevo con el aspecto sin «dusted red»; US$ 0,28; PARADA: el analista mira las hojas) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,24 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F50i, PARADA): las 4 hojas están en `lab/hyperframes/f50i/hojas/` (2/9, 4/11, 4/12, 5/8).
+- Arriba van las 2 fotos de C de F50h; abajo, las 2 nuevas, con el aspecto de las familias españolas sin «dusted red».
+- **Mi lectura, no la del analista:** C tiene manchas rojas en 6 de 8; las nuevas, en ninguna de las 8.
+- **Ojo con la 5/8:** las nuevas no muestran las familias de fondo.
+- **Gasto:** US$ 0,28. Producción intacta.
+- **Sigue:** el analista revisa; si se confirma, F51 lleva C a producción y el canon separa el aspecto del estado.
+
+## F50i — aspecto sin estado (handoff del analista, 2026-10-29 03:10) — PARADA
+- Commits:
+  - `e93ea18` etapa 0: DECISIONES 03:10.
+  - `7211ff7` etapa única:
+    - `f50i.py`, con C = C de F50h 4/4 y el diff C → C′ solo en la cláusula, 4/4;
+    - 8 fotos ok al primer intento;
+    - las hojas.
+  - El último commit es el del reporte.
+- El md5 del primer prompt venía con un error de tipeo: hubo PARADA y aviso, y Omar confirmó el md5 correcto.
+- Suites: rápida 55; amplia 991 + 4 previas; ch02 `f792f3d4…`.
 
 ## 👀 Para Omar (F50h, PARADA tras la etapa 3): están las 20 hojas a ciegas en `lab/hyperframes/f50h/hojas/hoja_<cap>_<foto>.jpg`.
 - Cada hoja tiene 3 columnas, A, B y C, sorteadas por foto, y 2 fotos por columna.
