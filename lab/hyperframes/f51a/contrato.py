@@ -5,6 +5,8 @@
 `PROMPTS_F50h.json → fotos[i]["C"]`. Sin modelos, sin fal; no escribe producción.
 F51b: los grupos salen del canon con el que se armó F50h (`f50f/canon_f50f.json`, = el del topic hasta F51b), no del
 topic vivo: así el contrato mide el armado y no se mueve cuando F51b rehace el canon.
+F51d-A: los casilleros salen de la copia del 03_visual.json de antes de rehacer m03 (`f51d/antes/03_visual.json`, md5
+59a8484d…, = el vivo hasta F51d-A), por la misma razón.
 
 Uso: python lab/hyperframes/f51a/contrato.py      # tabla de las 20, diff palabra por palabra si alguna difiere,
                                                   # y 2 prompts enteros (1/2 y una con cartel); sale 1 si falla una
@@ -20,6 +22,7 @@ sys.path.insert(0, str(ROOT / "lab" / "hyperframes" / "f50g"))
 TID = "123bbb64-9fca-4395-8bf4-57d60e219ef1"
 PROMPTS = ROOT / "lab" / "hyperframes" / "f50h" / "PROMPTS_F50h.json"
 CANON_F50H = ROOT / "lab" / "hyperframes" / "f50f" / "canon_f50f.json"     # el canon de F50h (F51b)
+VISUAL_F50H = ROOT / "lab" / "hyperframes" / "f51d" / "antes" / "03_visual.json"  # los casilleros de F50h (F51d-A)
 
 
 def diff_palabras(a: str, b: str) -> str:
@@ -31,7 +34,7 @@ def main() -> int:
     from script_engine import m03_imagenes_v3 as v3
     from script_engine.topics_db import get_topic_by_id
     esperado = json.loads(PROMPTS.read_text(encoding="utf-8"))["fotos"]
-    vivo = json.loads(rg.VISUAL.read_text(encoding="utf-8"))
+    vivo = json.loads(VISUAL_F50H.read_text(encoding="utf-8"))
     topic = get_topic_by_id(TID)
     beats = v3.load_beats(topic, rg.STEPS)
     canon = json.loads(CANON_F50H.read_text(encoding="utf-8"))
