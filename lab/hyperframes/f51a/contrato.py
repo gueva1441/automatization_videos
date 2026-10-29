@@ -7,6 +7,9 @@ F51b: los grupos salen del canon con el que se armó F50h (`f50f/canon_f50f.json
 topic vivo: así el contrato mide el armado y no se mueve cuando F51b rehace el canon.
 F51d-A: los casilleros salen de la copia del 03_visual.json de antes de rehacer m03 (`f51d/antes/03_visual.json`, md5
 59a8484d…, = el vivo hasta F51d-A), por la misma razón.
+F51f: la frase del cartel cambió a propósito («… in clear crisp {font} lettering»). Lo esperado = el C de F50h con la
+frase vieja del cartel (`_frase_cartel_f50h`, la de producción hasta F51f) cambiada por la de `frase_cartel`; además,
+el prompt de producción sin la oración nueva tiene que ser igual al C de F50h sin la vieja (solo cambia el cartel).
 
 Uso: python lab/hyperframes/f51a/contrato.py      # tabla de las 20, diff palabra por palabra si alguna difiere,
                                                   # y 2 prompts enteros (1/2 y una con cartel); sale 1 si falla una
@@ -25,6 +28,23 @@ CANON_F50H = ROOT / "lab" / "hyperframes" / "f50f" / "canon_f50f.json"     # el 
 VISUAL_F50H = ROOT / "lab" / "hyperframes" / "f51d" / "antes" / "03_visual.json"  # los casilleros de F50h (F51d-A)
 
 
+def _frase_cartel_f50h(tii: dict) -> str:
+    """La frase del cartel de producción hasta F51f (copia, para el contrato)."""
+    import re
+    from script_engine import m03_imagenes_v3 as v3
+    texto = tii.get("text")
+    font = v3._minuscula_media(str(tii.get("font") or "").strip().rstrip(".,;"))
+    loc = re.sub(r"\s+", " ", str(tii.get("location") or "")).strip().rstrip(".,;")
+    en = f" in {font}" if font else ""
+    if not loc:
+        return v3.oracion(f'A sign reads "{texto}"{en}, in clear crisp lettering')
+    if loc.split()[0].lower() in v3._PREP_LUGAR:
+        loc = v3._minuscula_media(loc)
+        return v3.oracion(f'The words "{texto}" are written {loc}{en}, in clear crisp lettering')
+    sujeto = re.sub(r"^(the|a|an)\s+", "", loc, flags=re.I)
+    return v3.oracion(f'The {sujeto} reads "{texto}"{en}, in clear crisp lettering')
+
+
 def diff_palabras(a: str, b: str) -> str:
     return " ".join(d for d in difflib.ndiff(a.split(), b.split()) if d[0] in "+-")
 
@@ -40,7 +60,7 @@ def main() -> int:
     canon = json.loads(CANON_F50H.read_text(encoding="utf-8"))
     grupos = {g["id"]: g for g in canon.get("people_groups") or [] if isinstance(g, dict) and g.get("id")}
     items = {f"{c['chapter_number']}/{i}": it for c in vivo["chapters"] for i, (it, _) in enumerate(rg.fotos(c), 1)}
-    malas, prod = [], {}
+    malas, prod, carteles = [], {}, []
     print("| foto | igual |\n|---|---|")
     for f in esperado:
         it = items[f["foto"]]
@@ -49,11 +69,24 @@ def main() -> int:
         escala = bool((by_n.get(it.get("beat")) or {}).get("escala"))
         p, _ = rg.rearmar_una(it, escala, grupos)
         prod[f["foto"]] = p
-        igual = p.encode("utf-8") == f["C"].encode("utf-8")
+        C = f["C"]
+        tii = json.loads(it["raw_llm_prompt"]).get("text_in_image") or {}
+        if tii.get("present"):                                   # F51f: el cartel cambió a propósito
+            vieja, nueva = _frase_cartel_f50h(tii), v3.frase_cartel(tii)
+            solo_cartel = C.count(vieja) == 1 and p.count(nueva) == 1 and C.replace(vieja, "") == p.replace(nueva, "")
+            carteles.append((f["foto"], vieja, nueva, solo_cartel))
+            C = C.replace(vieja, nueva) if solo_cartel else C
+        igual = p.encode("utf-8") == C.encode("utf-8")
         print(f"| {f['foto']} | {'sí' if igual else 'NO'} |")
         if not igual:
-            malas.append((f["foto"], diff_palabras(f["C"], p)))
-    print(f"\n**{len(esperado) - len(malas)}/{len(esperado)} byte a byte iguales a PROMPTS_F50h.json → C**")
+            malas.append((f["foto"], diff_palabras(C, p)))
+    print(f"\n**{len(esperado) - len(malas)}/{len(esperado)} byte a byte iguales a PROMPTS_F50h.json → C "
+          f"(con la frase del cartel de F51f)**")
+    print(f"\nCarteles: {len(carteles)} fotos, solo cambia la oración del cartel en "
+          f"{sum(1 for c in carteles if c[3])}/{len(carteles)}")
+    for foto, vieja, nueva, ok in carteles:
+        print(f"- {foto} {'ok' if ok else 'NO'}: «{vieja}» → «{nueva}» · diff contra F50h: "
+              f"{diff_palabras(next(x['C'] for x in esperado if x['foto'] == foto), prod[foto])}")
     for foto, d in malas:
         print(f"\nDIFF {foto} (- C de F50h, + producción): {d}")
     con_cartel = next(f["foto"] for f in esperado if f.get("cartel"))

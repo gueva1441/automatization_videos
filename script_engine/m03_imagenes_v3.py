@@ -597,20 +597,24 @@ def oracion(x: str) -> str:
 
 
 def frase_cartel(tii: dict) -> str:
-    """El texto visible del cartel con sujeto: «The words "X" are written on … in <font>, in clear crisp lettering.»
-    si la ubicación empieza con preposición; si no, «The <ubicación> reads "X" in <font>, …»; sin ubicación, «A sign
-    reads …». Sin el «lettering» que antes se pegaba al font."""
+    """El texto visible del cartel con sujeto: «The words "X" are written on … in clear crisp <font> lettering.» si la
+    ubicación empieza con preposición (una sola palabra: «The word "X" is written …»); si no, «The <ubicación> reads
+    "X" in clear crisp <font> lettering.»; sin ubicación, «A sign reads …». F51f: el font va dentro de «in clear crisp
+    … lettering» (sin repetir el «lettering»/«letters» final del casillero); sin font, «in clear crisp lettering»."""
     texto = tii.get("text")
     font = _minuscula_media(str(tii.get("font") or "").strip().rstrip(".,;"))
+    font = re.sub(r"\s*\b(lettering|letters)$", "", font, flags=re.I).strip()
+    en = f" in clear crisp {font} lettering" if font else " in clear crisp lettering"
     loc = re.sub(r"\s+", " ", str(tii.get("location") or "")).strip().rstrip(".,;")
-    en = f" in {font}" if font else ""
     if not loc:
-        return oracion(f'A sign reads "{texto}"{en}, in clear crisp lettering')
+        return oracion(f'A sign reads "{texto}"{en}')
     if loc.split()[0].lower() in _PREP_LUGAR:
         loc = _minuscula_media(loc)                    # F50b: solo la preposición («Over» → «over»)
-        return oracion(f'The words "{texto}" are written {loc}{en}, in clear crisp lettering')
+        palabras = "The word" if len(str(texto or "").split()) == 1 else "The words"
+        verbo = "is" if palabras == "The word" else "are"
+        return oracion(f'{palabras} "{texto}" {verbo} written {loc}{en}')
     sujeto = re.sub(r"^(the|a|an)\s+", "", loc, flags=re.I)
-    return oracion(f'The {sujeto} reads "{texto}"{en}, in clear crisp lettering')
+    return oracion(f'The {sujeto} reads "{texto}"{en}')
 
 
 # los casilleros de prosa del armado (F50b: de estos salen las cláusulas negadas)

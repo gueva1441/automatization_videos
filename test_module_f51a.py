@@ -21,7 +21,7 @@ def test_f51a_orden_c_con_cartel_y_un_grupo():
     assert list(a["partes"]) == ["sujeto", "aspecto", "lugar_anio", "texto", "luz", "tecnica", "estilo", "cierre"]
     assert a["prompt"] == (
         "A miner. Loading ore. Lean men with sun-darkened skin. The mill yard, 1962. "
-        'The words "DANGER" are written on the gate in stencil, in clear crisp lettering. Harsh noon. '
+        'The word "DANGER" is written on the gate in clear crisp stencil lettering. Harsh noon. '
         "Wide shot, eye-level, 35mm. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight "
         "underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio.")
 

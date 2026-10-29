@@ -13,12 +13,12 @@ from script_engine import m03_visual as m3
 # ─────────────────────────── chascadas ───────────────────────────
 @pytest.mark.parametrize("loc, font, sale", [
     ("on the warning sign fixed to the barricade", "faded block stencil",
-     'The words "X" are written on the warning sign fixed to the barricade in faded block stencil, in clear crisp '
-     'lettering.'),
+     'The word "X" is written on the warning sign fixed to the barricade in clear crisp faded block stencil '
+     'lettering.'),                                                      # F51f: una sola palabra → «The word … is»
     ("place of birth line on the passport page", "typed passport typeface",
-     'The place of birth line on the passport page reads "X" in typed passport typeface, in clear crisp lettering.'),
-    ("the folder tab", "typed serif", 'The folder tab reads "X" in typed serif, in clear crisp lettering.'),
-    ("", "", 'A sign reads "X", in clear crisp lettering.'),
+     'The place of birth line on the passport page reads "X" in clear crisp typed passport typeface lettering.'),
+    ("the folder tab", "typed serif", 'The folder tab reads "X" in clear crisp typed serif lettering.'),
+    ("", "", 'A sign reads "X" in clear crisp lettering.'),
 ])
 def test_cartel_con_sujeto(loc, font, sale):
     assert v3.frase_cartel({"present": True, "text": "X", "font": font, "location": loc}) == sale
@@ -47,7 +47,7 @@ def test_armado_en_el_orden_c():
     assert con_anio == "The mill yard in the 1960s."                    # el setting ya trae década: sin «, 1962»
     cartel = v3.armar({**SLOTS, "text_in_image": {"present": True, "text": "DANGER", "font": "stencil",
                                                   "location": "on the gate"}}, "1962")["prompt"]
-    assert 'The words "DANGER" are written on the gate in stencil, in clear crisp lettering.' in cartel
+    assert 'The word "DANGER" is written on the gate in clear crisp stencil lettering.' in cartel
     assert v3.NO_TEXT not in cartel
 
 
@@ -216,8 +216,8 @@ def test_f50b_minuscula_en_mitad_de_oracion():
     assert v3._minuscula_media("DSLR look") == "DSLR look" and v3._minuscula_media("35mm") == "35mm"
     assert v3.frase_cartel({"present": True, "text": "X", "font": "Metal block letters",
                             "location": "Over the entrance"}) == \
-        'The words "X" are written over the entrance in metal block letters, in clear crisp lettering.'
+        'The word "X" is written over the entrance in clear crisp metal block lettering.'
     assert v3.frase_cartel({"present": True, "text": "X", "font": "", "location": "Federal Court sign"}) == \
-        'The Federal Court sign reads "X", in clear crisp lettering.'
+        'The Federal Court sign reads "X" in clear crisp lettering.'
     assert v3.frase_cartel({"present": True, "text": "X", "font": "", "location": "At the Federal Court"}) == \
-        'The words "X" are written at the Federal Court, in clear crisp lettering.'
+        'The word "X" is written at the Federal Court in clear crisp lettering.'
