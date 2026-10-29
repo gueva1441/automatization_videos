@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 04:20 (F51b: canon de Wittenoom con appearance fijo + condition_by_period; US$ 0,39; PARADA: Omar decide sobre 3 grupos con estado en appearance) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 12:40 (F51c: sin el borrado de nombres, corte Veo al final de oración, anio_final sin el paso del ancla; US$ 0; PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,18 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F51c, PARADA): los 3 arreglos del armado de fotos están en producción (en seco, sin regenerar).
+- «Court» ya no se borra: en Wittenoom vuelven «Supreme Court» (6/3) y el cartel «FEDERAL COURT» (7/11), que el borrado había roto.
+- El año de la foto lo manda el `year` de Opus: la 3/16 pasa de 1961 a 1962.
+- La zona del clip Veo se corta en el final de oración: cap 1 tras «chapa.» (+0,44 s), cap 7 tras «pública».» (+0,94 s).
+- Cambian 3 de 96 fotos, las esperadas. Ninguna regla nueva.
+- **Decidís vos:** `_lab_name_scrub.py` no se borró (sin git; el permiso rechazó el `rm`). 6 scripts de lab quedan rotos por el cambio de firma (lista en el reporte).
+- **Sigue:** F51d (regenerar Wittenoom).
+
+## F51c — «Court», corte Veo y `anio_final` (handoff del analista, 2026-10-29 12:10) — PARADA
+- Commits: `a4a784e` etapa 0 (DECISIONES 12:10); `57f6aaf` etapa 1 (código, stickers: `name_matching` → huérfano); `9366b45` etapa 2 (tests f50b y `test_module_f51c.py`); `51ada1f` etapa 3 (`REARMADO_F51c.md`). El último commit es el del reporte (`lab/hyperframes/f51c/F51c_REPORT.md`).
+- Suites: rápida 55; amplia 1003 + 5 fallas (4 previas + `gfx_lab::test_candado_en_el_preview`, intermitente, pasa sola 2/2); ch02 `f792f3d4…`; contrato F51a 20/20.
 
 ## 👀 Para Omar (F51b, PARADA): el canon de Wittenoom ya separa el aspecto fijo del estado, pero no del todo.
 - Las familias españolas ya no traen el polvo rojo en el aspecto: va aparte, en `condition_by_period`, que no se pega en la foto.
