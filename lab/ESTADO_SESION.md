@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 20:15 (F55 etapa 0: snapshots en f55/antes/, 4 decisiones nuevas, fuera el tope por tanda y la constante v5.5 del guionista; US$ 0; PARADA 0) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 21:05 (F55 Parte A: evidence.regla_dicho A1/A2 + dicho_verificador (Sonnet) en (f)/(h); Wittenoom viejo y nuevo pasan de 1 y 3 bloqueantes f/h a 0; US$ 0,012; PARADA A) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,16 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F55 Parte A, PARADA A): el detector ya ve los datos sin cifra, y Sonnet da la segunda opinión en el cierre y los pagos.
+- Sobre los dos guiones de Wittenoom, los frenos falsos de F54 desaparecen: viejo 1 → 0, nuevo 3 → 0. Sonnet confirmó D42 (cap 7 viejo), D21 (cap 3) y D10 (cap 6). US$ 0,009.
+- El código marca exactamente lo que simuló el analista (13 por año + palabra, 6 por palabras).
+- **Ojo:** 3 tests de tandas viejas (F51c, F48) comparan contra la narración de Wittenoom que F54 B.5 regeneró y ahora fallan; no es F55. Lo decide el analista.
+- **Sigue:** Parte B (dedupe de citas del pool, US$ 0), ya confirmada por vos (0,7 + mismo autor).
+
+## F55 — Parte A (handoff 19:50) — PARADA A
+- Commits: `090b1eb` (evidence, dicho_verificador, guion_v4, test_module_f55 17, stickers, MAPA); el siguiente es el del reporte (sección «Parte A», `SALIDA_A.md`).
+- Suites: rápida 55; amplia 1107 + 8 fallas (4 previas + candado intermitente + 3 de f51c/f48 por la narración regenerada en F54 B.5); ch02 `f792f3d4…`; MAPA --check 0 (158).
 
 ## 👀 Para Omar (F55 etapa 0, PARADA 0): lo de Wittenoom quedó guardado y se borraron el tope por tanda y la constante v5.5.
 - Snapshots de F54 B.5 en `lab/hyperframes/f55/antes/`; DECISIONES con las 4 líneas (16:08, 19:07, 19:16, 19:15) más las dos de las 19:30 ya escritas antes.

@@ -106,3 +106,173 @@ Riesgos que el contrato no cubre:
 ## Adenda de CC (etapa 0)
 - **Fila 5:** el `--stat` del reporte tenía el número de una corrida anterior (`MAPA_PROYECTO.md | 11`, antes del sticker del README); corregido a 13, el del commit. La suite rápida de 3 archivos la corrí yo dos veces (55 passed): el hook `suite_rapida` la vuelve a correr en cada commit.
 - **Fila 3c:** las dos frases y el «seis → cinco» del README describían al hook borrado; «lo viejo se borra».
+
+
+---
+
+# Parte A — detector · PARADA A
+
+**Gasto Parte A: US$ 0,012** (Salida A: 3 llamadas a Sonnet, US$ 0,0091 por `cost_of`; test real `F55_REAL=1`: 1 llamada ≈ US$ 0,003). Acumulado F55: ≈ US$ 0,012.
+
+## Para Omar, en corto
+- El detector de «lo que la voz dice» ahora reconoce un dato sin cifra ni fecha si la oración trae su año y una palabra del hecho (A1) o la mitad de sus palabras (A2). Sobre Wittenoom marca exactamente los 13 (A1) y los 6 (A2) de la simulación del analista.
+- Para el dato del cierre y de los pagos, cuando no hay cifra que buscar, la segunda opinión la da Sonnet: le muestra el hecho y las oraciones del cap y acepta el «sí» solo si copia un fragmento real.
+- Resultado sobre los dos guiones de Wittenoom: **0 bloqueantes (f)/(h)** (antes: 1 en el viejo, 3 en el nuevo, todos falsos). Sonnet confirmó D42 en el cap 7 viejo, D21 en el cap 3 y D10 en el cap 6 nuevos. Costó US$ 0,009.
+
+## Commits
+| commit | qué |
+|---|---|
+| `090b1eb` | `evidence.regla_dicho`/`oracion_dicha`, `dicho_verificador.py`, `guion_v4` (f)/(h) con verificador, `test_module_f55.py`, stickers, MAPA |
+| (este) | `salida_a.py` → `SALIDA_A.md` + `salida_a.json`, reporte, ESTADO, logs |
+
+## Módulos: antes → después
+| módulo | antes | después |
+|---|---|---|
+| `script_engine/evidence.py` | `used_in` solo con anclas (un `datos` sin cifra ni fecha con guion → nunca dicho) | `regla_dicho(text, it) -> "ancla" \| "A1" \| "A2" \| None`; con ancla, el código de siempre (`_oracion_ancla`, mismo criterio, byte a byte en la lógica); sin ancla y `_kind == "datos"`: A1 si `fecha` es un año de 4 dígitos (el año en cifras con límite de palabra o en letras vía `num_es.variants`, normalizado con `norm`, + ≥ 1 palabra de `_content(texto)` **descontando** las palabras del año en letras, en la misma oración); si no o si A1 falla → A2 (`|C∩S|/|C| ≥ UMBRAL_A2 = 0.5` y `|C∩S| ≥ A2_MIN_COINCIDENCIAS = 2`, constantes propias, no las de `same_fact`); citas, lugares, personajes y cronología siguen como hoy. `oracion_dicha(text, it) -> int \| None` (índice en `_sentences`). `used_in = regla_dicho(...) is not None` |
+| `script_engine/dicho_verificador.py` (nuevo) | — | `pedido(hecho, oraciones)` puro (hecho, oraciones numeradas desde 1, la pregunta literal del handoff, formato JSON); `verificar(hecho, oraciones, *, log, id, cap_md5_, post)` → Sonnet 5.5 `medium` (`claude_helpers._post`, `cost_of`, `_track(..., "dicho_verificador")`), salida `{"oracion": n\|null, "fragmento": str\|null}` con esquema; `None` si `n` fuera de rango o el fragmento normalizado no es subcadena de la oración `n`; error/timeout/JSON roto → `None` + log, 1 reintento; caché en memoria por `(id, md5 del cap)`; `estado()` = llamadas, caché, usd; `reset()` |
+| `script_engine/guion_v4.py` | (f)/(h) devolvían bloqueantes puros mirando solo `ids_usados` | `cierre_no_dicho(esc, parrafos, pool, verificar)` y `pago_no_dicho(...)` → `(bloqueantes, altas)`; `_dicho_o_verificado`: con ancla decide el código (en `ids_usados` o no); **sin ancla pregunta a `verificar` aunque A1/A2 digan sí** (§1 del handoff); `bloqueantes(..., verificar=None)` usa `dicho_verificador.verificar` por defecto, suma cada alta a `ids_usados` del párrafo indicado (opción a, en el lugar; m03/gfx los ven) y la deja en `ULTIMAS_ALTAS`; `metricas` agrega `confirmados_sonnet` (las altas) y `verificador` (llamadas, caché, usd) |
+
+Tests: `test_module_f55.py` (17): constantes; A1/A2 sobre el guion nuevo = la simulación §3 (68 sin ancla; A1 = los 13; A2 = D42, D71, D85, D150, y D19/D92 por A1 antes que A2; D21 A1 cap 3; D10 None; D42 A2 cap 6; D85 A2 cap 1; D92 cap 1 True); `oracion_dicha`; A1 no cuenta el año en letras como palabra; A2 exige 2 y la mitad; con ancla nada cambia (A2 no aplica); `pedido` literal; lectura de la respuesta (rango, fragmento); `verificar` con `post` simulado (caché, costo, error → 1 reintento); (f)/(h) con `verificar` sí / no / None y las altas en `ids_usados` y en `metricas`; sin ancla Sonnet decide aunque A2 diga sí; con ancla no se llama; `ids_usados` de los 7 caps viejos y nuevos: antes ⊆ después con la diferencia escrita; **Sonnet real** sobre D10 del cap 6 nuevo con `skipif` por `F55_REAL=1` (corrido una vez: pasa, oración con «Colonial», 1 llamada).
+
+## Decisiones de CC (Parte A)
+1. **`_oracion_ancla`** reproduce el `used_in` viejo y además dice la oración: para eventos con fecha, la que trae ancla y palabra del hecho; para el resto, la primera con el ancla. El criterio de «dicho» con ancla no cambió (test `con_ancla_nada_cambia`; los `ids_usados` «antes» de las 2×7 tablas son subconjunto de «después»).
+2. **A1 antes que A2** cuando hay año: por eso D19 y D92 salen «A1» aunque también cumplan A2 (la simulación del analista los contaba en los dos).
+3. **Esquema del verificador en JSON Schema minúsculas**: `claude_helpers.json_schema` solo baja los `type` que son `str`; con `["INTEGER","NULL"]` la API devolvía 400 (primera corrida de la Salida A, 6 llamadas fallidas sin costo). Corregido antes de la corrida que cuenta.
+4. **`verificar` por defecto = Sonnet real** en `bloqueantes`, como pide el handoff; los tests inyectan uno simulado. Riesgo: un test futuro con un `dato_central` sin ancla y sin `verificar` llamaría a la API (los fixtures de hoy tienen ancla).
+5. **Las altas se aplican en el lugar** sobre `parrafos`; `with_ids` recalcula `ids_usados` desde el texto en cada paso de `reparar`, así que una alta puede «perderse» entre pasos y volver en el siguiente `bloqueantes` (caché: sin llamada). El último `bloqueantes` de `reparar` la deja en los párrafos finales.
+6. **`git stash` una vez**, para separar el commit del reporte de la etapa 0 del `evidence.py` ya editado (push/pop de un archivo, inmediato). La convención pide no usarlo; lo digo.
+
+## Salida A (texto; entera en `lab/hyperframes/f55/SALIDA_A.md`, crudo en `salida_a.json`)
+
+## viejo
+
+##### 1. D21, D10, D42, D85: regla · cap · oración
+
+| id | hecho | regla por código | cap | oración | Sonnet (f/h) |
+|---|---|---|---|---|---|
+| D21 | La producción minera en Wittenoom se incrementó en 1961 a pesar de la  | A1 | 3 | En mil novecientos sesenta y uno la producción subió. | — |
+| D10 | El material de asbesto del vertedero de Colonial alimenta el área de c | ninguna | — | — | — |
+| D42 | Se han instalado barricadas permanentes en las entradas del antiguo pu | A2 | 7 | En los accesos al antiguo pueblo y al desfiladero hay bloqueos permanentes. | sí: cap 7, oración 12 (cierre) |
+| D85 | Daniel Écija padre se hirió el pie con un trozo de amianto y la herida | ninguna | — | — | — |
+
+##### 2. Bloqueantes (f)/(h) con el detector nuevo + Sonnet: 0
+
+
+Altas de Sonnet (entran a `ids_usados`):
+
+- D42 → cap 7, párrafo 23, oración 12 (cierre)
+
+##### 3. `ids_usados` antes (solo anclas) → después (regla_dicho + Sonnet), por párrafo
+
+| cap | párrafo (beat) | antes | + después |
+|---|---|---|---|
+| 1 | 0 (1) | — | — |
+| 2 | 1 (2) | D82, D83, Q12 | — |
+| 2 | 2 (3) | Q14 | — |
+| 2 | 3 (3) | T36 | — |
+| 3 | 4 (4) | T06, T13 | D19 |
+| 3 | 5 (4) | — | — |
+| 3 | 6 (4) | — | — |
+| 3 | 7 (5) | — | — |
+| 3 | 8 (5) | Q49 | — |
+| 3 | 9 (5) | — | D21 |
+| 4 | 10 (6) | T40 | — |
+| 4 | 11 (7) | D87, D104, D129, T39, T41 | — |
+| 5 | 12 (8) | D02, T51 | — |
+| 5 | 13 (9) | T67, Q24 | D27 |
+| 5 | 14 (10) | D89, Q25 | — |
+| 5 | 15 (10) | — | — |
+| 6 | 16 (11) | D23, Q21 | D36, D93 |
+| 6 | 17 (11) | — | — |
+| 6 | 18 (12) | — | D54 |
+| 6 | 19 (12) | — | — |
+| 6 | 20 (12) | — | D59, D61 |
+| 7 | 21 (13) | T90 | — |
+| 7 | 22 (13) | T92, T96 | — |
+| 7 | 23 (14) | — | D42, D71 |
+
+Log del verificador:
+
+    [verificador] D42: oración 12
+
+#### nuevo
+
+##### 1. D21, D10, D42, D85: regla · cap · oración
+
+| id | hecho | regla por código | cap | oración | Sonnet (f/h) |
+|---|---|---|---|---|---|
+| D21 | La producción minera en Wittenoom se incrementó en 1961 a pesar de la  | A1 | 3 | En mil novecientos sesenta y uno, la producción aumentó. | sí: cap 3, oración 15 (la pregunta del beat 3); sí: cap 3, oración 15 (el loop L2) |
+| D10 | El material de asbesto del vertedero de Colonial alimenta el área de c | ninguna | — | — | sí: cap 6, oración 11 (la pregunta del beat 10) |
+| D42 | Se han instalado barricadas permanentes en las entradas del antiguo pu | A2 | 6 | En las entradas al pueblo y al desfiladero pusieron barricadas permanentes, porque el área no es segura. | — |
+| D85 | Daniel Écija padre se hirió el pie con un trozo de amianto y la herida | A2 | 1 | Cuenta que a su marido le cayó un trozo de amianto en el pie y que la herida no cerraba; por eso la venda. | — |
+
+##### 2. Bloqueantes (f)/(h) con el detector nuevo + Sonnet: 0
+
+
+Altas de Sonnet (entran a `ids_usados`):
+
+- D21 → cap 3, párrafo 6, oración 15 (la pregunta del beat 3)
+- D10 → cap 6, párrafo 14, oración 11 (la pregunta del beat 10)
+- D21 → cap 3, párrafo 6, oración 15 (el loop L2)
+
+##### 3. `ids_usados` antes (solo anclas) → después (regla_dicho + Sonnet), por párrafo
+
+| cap | párrafo (beat) | antes | + después |
+|---|---|---|---|
+| 1 | 0 (1) | Q25 | D85 |
+| 2 | 1 (2) | D82, D83, T24, T34, T37, Q12 | — |
+| 2 | 2 (3) | — | — |
+| 2 | 3 (3) | — | — |
+| 3 | 4 (4) | T06, T13 | D19 |
+| 3 | 5 (4) | — | D92 |
+| 3 | 6 (5) | T27, T29, T35 | D21 |
+| 4 | 7 (6) | Q44 | — |
+| 4 | 8 (6) | — | — |
+| 4 | 9 (7) | D87, D104, T41 | — |
+| 5 | 10 (8) | D121, T21, T47, T48, T64 | D27 |
+| 5 | 11 (9) | D89 | — |
+| 5 | 12 (9) | Q23 | — |
+| 6 | 13 (10) | D06, T67 | D42 |
+| 6 | 14 (11) | T90 | D59, D150, D10 |
+| 7 | 15 (12) | D95, T92, T96 | D61 |
+| 7 | 16 (13) | Q21 | — |
+| 7 | 17 (13) | — | — |
+| 7 | 18 (13) | T57, Q24 | — |
+
+Log del verificador:
+
+    [verificador] D21: oración 15
+    [verificador] D10: oración 11
+
+#### Verificador (las dos corridas)
+
+llamadas 3 · caché 1 · US$ 0.0091
+
+
+### Resumen de la Salida A
+| | viejo | nuevo |
+|---|---|---|
+| D21 | A1, cap 3 («En mil novecientos sesenta y uno la producción subió.») | A1, cap 3 + Sonnet sí (oración 15) para (h) ×2 |
+| D10 | ninguna | ninguna por código → **Sonnet sí** (cap 6, oración 11) |
+| D42 | A2, cap 7 («En los accesos al antiguo pueblo y al desfiladero hay bloqueos permanentes.») + Sonnet sí (oración 12) para (f) | A2, cap 6 |
+| D85 | ninguna | A2, cap 1 |
+| bloqueantes (f)/(h) | 1 → **0** | 3 → **0** |
+| `ids_usados` que cambian | 7 párrafos (+D19, D21, D27, D36, D93, D54, D59, D61, D42, D71) | 8 párrafos (+D85, D19, D92, D21, D27, D42, D59, D150, D10, D61) |
+| verificador | 1 llamada | 2 llamadas + 1 caché (D21 ×2) · total US$ 0,0091 |
+
+Nota: en el viejo, D42 no llega a A2 en el cap 7 por código (`regla_dicho` lo da A2 porque la oración «hay bloqueos permanentes» comparte «perman», «entrad», «pueblo», «desfil» = 4 de 7 ≥ 0,5: sí llega; la simulación del analista lo decía); en cualquier caso, al ser `dato_central` del cierre, lo decide Sonnet, que confirmó.
+
+## Suite
+`bash lab/hyperframes/f41/verificar.sh f55a` (logs en `lab/hyperframes/f41/f55a/`): ch02 md5 `f792f3d483a1fa42daed5f7f0e054f46`; rápida **55 passed**; amplia **1107 passed** + 8 fallas: las 4 previas (`m03_merge_timing` ×2, `gfx_lab` ×2), `gfx_lab::test_candado_en_el_preview` (intermitente conocido desde F51c) y **3 nuevas que no son de F55**: `test_module_f51c.py::test_f51c_corte_veo_real_de_wittenoom` ×2 y `test_module_f48.py::test_geo_era_de_wittenoom` leen `data/scripts/_steps/<Wittenoom>/01b_narration.json`, que **F54 B.5 regeneró** (18:46): esperan «paredes de chapa.», «seguridad pública».» y «1943–2024» del guion viejo. Es la primera suite amplia desde esa regeneración (la de F54 B arrancó antes de que B.5 escribiera). Van a «lo abierto»: tests de tandas cerradas clavados a un dato de producción que cambia.
+
+## Lo que queda abierto (Parte A)
+1. Los 3 tests de F51c/F48 clavados a la narración vieja de Wittenoom (y volverán a romperse en la Parte D): decidir si se apuntan a `lab/hyperframes/f54/antes/` o se borran.
+2. `verificar` real por defecto en `bloqueantes` (decisión 4): un fixture sin ancla y sin `verificar` gasta.
+3. Alcance declarado del handoff: «el 48», «el cuarenta y ocho», décadas; citas parafraseadas no cuentan (por decisión).
+4. `with_ids` recalcula y descarta las altas entre pasos de `reparar` (decisión 5): funciona por la caché, pero no es prolijo.
+
+**PARADA A.**
+
+## Veredicto de revisor-handoff (Parte A, íntegro)
+
+(se pega abajo)
