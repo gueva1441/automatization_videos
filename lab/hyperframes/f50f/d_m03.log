@@ -1,0 +1,58 @@
+
+  Modo: 1 topic específico → 123bbb64-9fca-4395-8bf4-57d60e219ef1
+
+════════════════════════════════════════════════════════════
+  📜 Procesando topic 123bbb64-9fca-4395-8bf4-57d60e219ef1 desde m03
+════════════════════════════════════════════════════════════
+  [papel] papel aprobado por Omar (2026-10-28), md5 17bddfb5…
+  [canon] ya armado con esta ficha y este pedido (a08c790c): se usa
+  [03] Generando visual prompts...
+[23:46:32] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: 123bbb64-9fca-4395-8bf4-57d60e219ef1
+  [03] cap 1 (veo, pos=start) → 1 clip Veo 8s + 4 Flux extras (audio 33.0s, veo_zone≈109 chars), casilleros claude-opus-5-5 + armado...
+  [03] cap 2 (flux) → 16 imgs (audio 123.0s ÷ 7.0s target, role=development), casilleros claude-opus-5-5 + armado...
+  [03] cap 3 (flux) → 16 imgs (audio 154.8s ÷ 7.0s target, role=development), casilleros claude-opus-5-5 + armado...
+  [03] cap 4 (flux) → 14 imgs (audio 98.3s ÷ 7.0s target, role=development), casilleros claude-opus-5-5 + armado...
+  [03] cap 5 (flux) → 16 imgs (audio 149.7s ÷ 7.0s target, role=development), casilleros claude-opus-5-5 + armado...
+  [03] cap 6 (flux) → 16 imgs (audio 156.8s ÷ 7.0s target, role=development), casilleros claude-opus-5-5 + armado...
+  [03] cap 7 (veo, pos=end) → 1 clip Veo 8s + 12 Flux extras (audio 89.3s, veo_zone≈110 chars), casilleros claude-opus-5-5 + armado...
+  [03] cap 1: 0 de 5 fotos sin period
+  [03] cap 4: 0 de 14 fotos sin period
+  [03] cap 5: validación falló intento 1/3: cap 5 (plan flux) anchor 9: el narration_anchor NO es substring exacto.
+  ANCHOR QUE ENVIASTE (parafraseado, INVÁLIDO):
+...
+  [03][audit] cap 3: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
+  [03] cap 3: 0 de 16 fotos sin period
+  [03] cap 7: 0 de 13 fotos sin period
+  [03] cap 2: 0 de 16 fotos sin period
+  [03] cap 6: 0 de 16 fotos sin period
+  [03] cap 5: 0 de 16 fotos sin period
+  [03] cap 1 (veo)  ✓ Veo prompt + 4 supplementals
+  [03] cap 4 (flux) ✓ 14 imgs validadas
+  [03] cap 7 (veo)  ✓ Veo prompt + 12 supplementals
+  [03] cap 2 (flux) ✓ 16 imgs validadas
+  [03] cap 3 (flux) ✓ 16 imgs validadas
+  [03] cap 6 (flux) ✓ 16 imgs validadas
+  [03] cap 5 (flux) ✓ 16 imgs validadas
+[23:49:09] INFO     | viral_pipeline | [cost_tracker] Video 123bbb64-9fca-4395-8bf4-57d60e219ef1 — Costo total: $2.3320
+
+  ✅ Topic 123bbb64-9fca-4395-8bf4-57d60e219ef1 OK (stop after m03) — pasos: ['m03']
+
+════════════════════════════════════════════════════════════
+  📊 RESUMEN FASE 1.5
+════════════════════════════════════════════════════════════
+  Total: 1  |  PASS: 1  |  PARADA: 0  |  FAIL: 0
+
+  ✅ 123bbb64-9fca-4395-8bf4-57d60e219ef1
+
+
+──────────────────────────────────────────────────
+  🧠 GEMINI (por tokens — thinking incluido)
+──────────────────────────────────────────────────
+    Anthropic claude-opus-5-5   11 calls  in  239,832  out   64,695  think        0  $2.2532
+    Gemini 2.5 Flash          8 calls  in    6,060  out    3,242  think   27,557  $0.0788
+  · por módulo:
+    m03:casilleros          8 calls  in  236,376  out   63,968  think        0  $2.2249  (0% think)
+    motor (sin tag)         8 calls  in    6,060  out    3,242  think   27,557  $0.0788  (89% think)
+    m03:motion              3 calls  in    3,456  out      727  think        0  $0.0284  (0% think)
+──────────────────────────────────────────────────
+    TOTAL Gemini: 19 calls · in 245,892 · out 67,937 · think 27,557 · $2.3320 USD
