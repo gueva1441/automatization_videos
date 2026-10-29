@@ -141,6 +141,8 @@ def _normalize_long(script: dict) -> dict:
                 ch.get("supplemental_image_prompts") or []
             )
             norm_ch["veo_position"] = ch.get("veo_position", "start")
+            # F53b: la frase de la voz del clip, para el prompt de video que Opus escribe mirando la foto
+            norm_ch["narration_anchor"] = ch.get("narration_anchor", "")
         normalized_chapters.append(norm_ch)
 
     return {

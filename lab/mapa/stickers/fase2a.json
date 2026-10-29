@@ -163,7 +163,7 @@
   "_parte": "fase2a_d"
  },
  "fase2a.py": {
-  "sticker": "Es la etapa «assets» del form: toma el guion ensamblado del video, lo traduce al formato que esperan los gestores, comprueba que la voz ya esté hecha, reintenta la foto madre si faltó y manda a generar las imágenes de cada capítulo (y los clips Veo). Al terminar marca el tema como «assets_rendered». No arma el video: eso lo hace fase2b.",
+  "sticker": "Es la etapa «assets» del form: toma el guion ensamblado del video, lo traduce al formato que esperan los gestores, comprueba que la voz ya esté hecha, reintenta la foto madre si faltó y manda a generar las imágenes de cada capítulo (y los clips de video: desde F53b, Gemini Omni Flash → Kling 4.0). Al terminar marca el tema como «assets_rendered». No arma el video: eso lo hace fase2b.",
   "recibe": "data/scripts/<id>.json (contrato que deja fase1_5), output/audio/<id>/sync_map.json (en LONG), data/topics_db (estado del tema), data/fase1_review.csv (solo si se corre sin --topic)",
   "entrega": "output/<id>/assets/assets_manifest.json (vía asset_manager), foto madre en output/<id>/foto_madre/ si faltaba, topic con status='assets_rendered' en la base de temas",
   "modelo": [
@@ -176,8 +176,8 @@
     "para": "reintento idempotente de la foto madre"
    },
    {
-    "modelo": "Veo vía fal (asset_manager._generate_veo_clip)",
-    "para": "clips de capítulos con render_engine='veo'"
+    "modelo": "Gemini Omni Flash 1.1 (google/gemini-omni-flash/v1.1/image-to-video) y, si rechaza por contenido, Kling 4.0 (kling/v4/image-to-video), vía asset_manager._generate_clip (api.video_engines); el prompt de cada motor lo escribe claude-opus-5-5 mirando la foto (script_engine/video_prompt.py)",
+    "para": "clips de los capítulos con clip (render_engine='veo')"
    },
    {
     "modelo": "ElevenLabs (api.elevenlabs_model, audio_manager.process_script)",
@@ -190,7 +190,7 @@
   "estado": "vivo",
   "estado_prueba": "run_pipeline.py:342 lo lanza como cmd ['fase2a.py','--topic',tid] en la etapa assets",
   "funciones_muertas": [],
-  "md5": "48e2566121c229e8e29ba62296b12749",
+  "md5": "8d2e7821c99ff6716134f78589da9caf",
   "_parte": "fase2a_d"
  },
  "flow_config.py": {

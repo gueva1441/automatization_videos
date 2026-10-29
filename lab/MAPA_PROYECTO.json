@@ -569,9 +569,9 @@
   "topic_validator.py"
  ],
  "conteo": {
-  "vivo": 133,
+  "vivo": 134,
   "solo herramienta manual": 13,
-  "huérfano": 12,
+  "huérfano": 11,
   "roto": 0,
   "(sin sticker)": 0
  },
@@ -709,7 +709,7 @@
   "asset_manager.py": {
    "archivo": "asset_manager.py",
    "zona": "orquestador",
-   "sticker": "Es el que genera las fotos (y los clips de Veo, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, a cada clip de Veo le manda además una lista fija de lo que no tiene que pasar (texto, marcas de agua, caras que se deforman, gente que entra al cuadro, cambios bruscos de luz…) y la duración explícita (8 s, la del planificador de m03; desde F50), y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió.",
+   "sticker": "Es el que genera las fotos (y los clips de video, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, desde F53b cada clip sale de Gemini Omni Flash y, si Google lo rechaza por contenido, de Kling 4.0 (el prompt de cada motor lo escribe Opus mirando la foto, sin suavizar; 8 s, 1080p, la pista de audio se quita, y el costo sale de los segundos reales), y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió.",
    "recibe": "El guion canónico con image_prompts/video_prompts por capítulo y foto_madre_registry (data/scripts/<id>.json), el sync_map de voz (output/<id>/audio/sync_map.json, opcional) y las fotos madre en disco (rutas del registry).",
    "entrega": "output/<id>/assets/<capNN>_flux/<capNN>_img_NN.png (y _supp_NN.png, _graded.png), output/<id>/assets/<capNN>_veo/<capNN>_clip_NN.mp4 y output/<id>/assets/assets_manifest.json. Además, otros módulos le piden la función de imagen cruda (foto_madre.py, m09_packaging).",
    "modelo": [
@@ -718,8 +718,8 @@
      "para": "generar cada imagen por fal.ai (t2i, o /edit anclado con la foto madre)"
     },
     {
-     "modelo": "api.fal_video_model (Veo 3.1 Lite image-to-video)",
-     "para": "clips de video de los capítulos veo"
+     "modelo": "Gemini Omni Flash 1.1 (google/gemini-omni-flash/v1.1/image-to-video) y, si rechaza por contenido, Kling 4.0 (kling/v4/image-to-video), vía asset_manager._generate_clip (api.video_engines); el prompt de cada motor lo escribe claude-opus-5-5 mirando la foto (script_engine/video_prompt.py)",
+     "para": "clips de los capítulos con clip (render_engine='veo')"
     },
     {
      "modelo": "validador de visión (script_engine/vision_validator.py), apagado por ENABLE_VISION_VALIDATOR=False",
@@ -730,6 +730,7 @@
     "Seedream (fal)",
     "Kling (fal)",
     "Flux (fal)",
+    "Claude Opus",
     "Veo (fal)"
    ],
    "etapas_a": [
@@ -738,6 +739,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -751,7 +756,7 @@
     "qa_studio_server.py",
     "script_engine/m09_packaging.py"
    ],
-   "tests": 6,
+   "tests": 7,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "dcea932 2026-10-28 (F50)",
    "estado_a": "vivo",
@@ -760,7 +765,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "6124fd60d7baf8c79e8902f5eb35f117",
+   "md5": "19c38fad3c2ba6f548ae28441978b6f1",
    "sticker_al_dia": true
   },
   "audio_config.py": {
@@ -833,6 +838,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -987,7 +996,7 @@
    "entrega": "Los objetos api, pipeline, long_video, short_video, apuesta_viral, validator_strictness y gemini_client, las rutas BASE_DIR/OUTPUT_DIR/LOGS_DIR/DATA_DIR y la función estimated_cost_for.",
    "modelo": [
     {
-     "modelo": "api.gemini_model, api.gemini_model_research, api.image_engine, api.fal_video_model, api.elevenlabs_model (solo los fija; no los llama)",
+     "modelo": "api.gemini_model, api.gemini_model_research, api.image_engine, api.video_engines, api.elevenlabs_model (solo los fija; no los llama)",
      "para": "declara qué modelo usa cada etapa; el cliente gemini_client se crea acá"
     }
    ],
@@ -1083,14 +1092,14 @@
    "sin_llamador_a": [
     "get_video_config"
    ],
-   "md5": "eea9736dbab5024841dce17eb47a2021",
+   "md5": "f213f5dfd9c4bff27aa7dd6159765f5d",
    "sticker_al_dia": true
   },
   "cost_tracker.py": {
    "archivo": "cost_tracker.py",
    "zona": "orquestador",
-   "sticker": "Es la caja registradora del pipeline: cada vez que un módulo gasta plata en una API (Gemini, Flux, Kling, Seedream, Veo, ElevenLabs, y también Claude y GPT por la puerta de atrás) anota cuánto, en qué etapa y para qué video. Desde F53b, el costo de un clip de video sale del perfil del motor (track_video: segundos × precio por segundo medido); track_fal, el de Veo, se borra en la Parte B. Al cerrar el video guarda el total en el historial y, en la corrida del form, avisa el gasto de Gemini en vivo.",
-   "recibe": "Llamadas de los demás módulos (track_gemini_response, track_flux_pro, track_kling, track_seedream, track_fal, track_elevenlabs, _add_entry desde claude_helpers/gpt_helpers) y las tarifas de config.py (pipeline.costs: gemini_per_call, gemini_vision_per_call, flux_pro_per_image, flux_pro_ultra_per_image, kling_per_image, seedream_per_image, leonardo_per_image, fal_per_clip, elevenlabs_per_char, gemini_rates_per_1m). Lee data/cost_history.json.",
+   "sticker": "Es la caja registradora del pipeline: cada vez que un módulo gasta plata en una API (Gemini, Flux, Kling, Seedream, clips de video, ElevenLabs, y también Claude y GPT por la puerta de atrás) anota cuánto, en qué etapa y para qué video. Desde F53b, el costo de un clip de video sale del perfil del motor (track_video: segundos × precio por segundo medido). Al cerrar el video guarda el total en el historial y, en la corrida del form, avisa el gasto de Gemini en vivo.",
+   "recibe": "Llamadas de los demás módulos (track_gemini_response, track_flux_pro, track_kling, track_seedream, track_video, track_elevenlabs, _add_entry desde claude_helpers/gpt_helpers) y las tarifas de config.py (pipeline.costs: gemini_per_call, gemini_vision_per_call, flux_pro_per_image, flux_pro_ultra_per_image, kling_per_image, seedream_per_image, leonardo_per_image, elevenlabs_per_char, gemini_rates_per_1m). Lee data/cost_history.json.",
    "entrega": "data/cost_history.json (un reporte por video, se agrega al cerrar con end_video; bajo pytest no escribe), data/session_report_<fecha>.json (save_session_report, lo llama fase1.py), resúmenes impresos en consola (print_summary / print_gemini_report) y el marcador de costo en vivo para el form (qa_form_markers.emit_cost_marker, solo Gemini).",
    "modelo": [],
    "modelos": [],
@@ -1141,9 +1150,9 @@
     "script_engine/zoom_judge.py",
     "topic_researcher.py"
    ],
-   "tests": 7,
+   "tests": 8,
    "nacio": "e33f84a 2026-05-28",
-   "ultimo": "dcea932 2026-10-28 (F50)",
+   "ultimo": "7986ff7 2026-10-29 (F53b)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase2b.py:3282 abre el video con cost_tracker.start_video y fase2b.py:3389 lo cierra; fase1_5.py:218 y asset_manager.py:1243 también; gemini_helpers.py:193 anota cada llamada Gemini.",
@@ -1162,10 +1171,9 @@
    "imports_rotos": [],
    "sin_llamador_a": [
     "CostTracker.track_leonardo",
-    "CostTracker.track_video",
     "CostTracker.track_custom"
    ],
-   "md5": "2e2b300f7689a8071073bd05aebf2526",
+   "md5": "415d8c677bdabf09aaee4cc64277da2d",
    "sticker_al_dia": true
   },
   "csv_exporter.py": {
@@ -1182,6 +1190,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -1280,15 +1292,13 @@
    ],
    "tests": 4,
    "nacio": "c0b85bc 2026-06-22",
-   "ultimo": "73e3613 2026-10-22 (F8)",
+   "ultimo": "7986ff7 2026-10-29 (F53b)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "asset_manager.py:257,278,329 y script_engine/m03_visual.py:965 llaman select_profile (m03 corre en voz, asset_manager en assets)",
    "funciones_muertas": [],
    "imports_rotos": [],
-   "sin_llamador_a": [
-    "select_video_profile"
-   ],
+   "sin_llamador_a": [],
    "md5": "62e28804e43ddf2d3f5e6bed849f2f1a",
    "sticker_al_dia": true
   },
@@ -1461,6 +1471,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -1489,7 +1503,7 @@
   "fase2a.py": {
    "archivo": "fase2a.py",
    "zona": "fase2a",
-   "sticker": "Es la etapa «assets» del form: toma el guion ensamblado del video, lo traduce al formato que esperan los gestores, comprueba que la voz ya esté hecha, reintenta la foto madre si faltó y manda a generar las imágenes de cada capítulo (y los clips Veo). Al terminar marca el tema como «assets_rendered». No arma el video: eso lo hace fase2b.",
+   "sticker": "Es la etapa «assets» del form: toma el guion ensamblado del video, lo traduce al formato que esperan los gestores, comprueba que la voz ya esté hecha, reintenta la foto madre si faltó y manda a generar las imágenes de cada capítulo (y los clips de video: desde F53b, Gemini Omni Flash → Kling 4.0). Al terminar marca el tema como «assets_rendered». No arma el video: eso lo hace fase2b.",
    "recibe": "data/scripts/<id>.json (contrato que deja fase1_5), output/audio/<id>/sync_map.json (en LONG), data/topics_db (estado del tema), data/fase1_review.csv (solo si se corre sin --topic)",
    "entrega": "output/<id>/assets/assets_manifest.json (vía asset_manager), foto madre en output/<id>/foto_madre/ si faltaba, topic con status='assets_rendered' en la base de temas",
    "modelo": [
@@ -1502,8 +1516,8 @@
      "para": "reintento idempotente de la foto madre"
     },
     {
-     "modelo": "Veo vía fal (asset_manager._generate_veo_clip)",
-     "para": "clips de capítulos con render_engine='veo'"
+     "modelo": "Gemini Omni Flash 1.1 (google/gemini-omni-flash/v1.1/image-to-video) y, si rechaza por contenido, Kling 4.0 (kling/v4/image-to-video), vía asset_manager._generate_clip (api.video_engines); el prompt de cada motor lo escribe claude-opus-5-5 mirando la foto (script_engine/video_prompt.py)",
+     "para": "clips de los capítulos con clip (render_engine='veo')"
     },
     {
      "modelo": "ElevenLabs (api.elevenlabs_model, audio_manager.process_script)",
@@ -1512,6 +1526,8 @@
    ],
    "modelos": [
     "GPT Image (fal)",
+    "Claude Opus",
+    "Kling (fal)",
     "Veo (fal)",
     "ElevenLabs TTS"
    ],
@@ -1534,7 +1550,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "48e2566121c229e8e29ba62296b12749",
+   "md5": "8d2e7821c99ff6716134f78589da9caf",
    "sticker_al_dia": true
   },
   "fase2b.py": {
@@ -1731,6 +1747,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -1985,6 +2005,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -2077,6 +2101,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -2337,8 +2365,8 @@
      "para": "regenerar una foto suelta (fix de foto, fix de clip y marcar para regenerar)"
     },
     {
-     "modelo": "Veo (config api.fal_video_model, vía asset_manager._generate_veo_clip)",
-     "para": "regenerar el clip de un capítulo veo sobre la foto nueva"
+     "modelo": "Gemini Omni Flash 1.1 (google/gemini-omni-flash/v1.1/image-to-video) y, si rechaza por contenido, Kling 4.0 (kling/v4/image-to-video), vía asset_manager._generate_clip (api.video_engines); el prompt de cada motor lo escribe claude-opus-5-5 mirando la foto (script_engine/video_prompt.py)",
+     "para": "regenerar el clip de un cap con clip (_clipfix_core)"
     },
     {
      "modelo": "ElevenLabs (vía audio_manager.process_script)",
@@ -2348,7 +2376,8 @@
    "modelos": [
     "Gemini Flash",
     "Flux (fal)",
-    "Veo (fal)",
+    "Claude Opus",
+    "Kling (fal)",
     "ElevenLabs TTS"
    ],
    "etapas_a": [
@@ -2385,7 +2414,7 @@
     "Handler.do_GET",
     "Handler.do_POST"
    ],
-   "md5": "e6586509812cb0c223a1377eb02e1bd9",
+   "md5": "ec730e1395a90655b02019b20a7f7b44",
    "sticker_al_dia": true
   },
   "report_foto_madre_edits.py": {
@@ -2533,6 +2562,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -2699,6 +2732,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -2741,6 +2778,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -2783,6 +2824,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -2825,6 +2870,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -2867,6 +2916,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -3981,6 +4034,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -4020,6 +4077,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -4118,6 +4179,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -4171,6 +4236,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -4264,6 +4333,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -4300,6 +4373,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -4336,6 +4413,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -4384,6 +4465,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -4485,6 +4570,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -4520,6 +4609,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -4555,6 +4648,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -4604,6 +4701,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -4613,6 +4714,7 @@
    "compartido": true,
    "lo_llaman": [
     "asset_manager.py",
+    "config.py",
     "fase1_5.py",
     "script_engine/m09_packaging.py",
     "script_engine/video_prompt.py"
@@ -4745,6 +4847,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -4835,6 +4941,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -5622,6 +5732,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -5715,23 +5829,34 @@
    "modelos": [
     "Claude Opus"
    ],
-   "etapas_a": [],
+   "etapas_a": [
+    "research",
+    "guion",
+    "papel",
+    "voz",
+    "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
+    "packaging"
+   ],
    "etapas_sticker": [
     "assets"
    ],
-   "compartido": false,
-   "lo_llaman": [],
-   "tests": 1,
-   "nacio": "(fuera de git)",
-   "ultimo": "(fuera de git)",
-   "estado_a": "huérfano",
-   "estado": "huérfano",
-   "estado_prueba": "nuevo en F53b Parte A: todavía nadie lo llama en producción; lo va a llamar asset_manager._generate_clip en la Parte B. Lo usan test_module_f53b_video_prompt.py y lab/hyperframes/f53b/seco_g.py (corrida en seco).",
+   "compartido": true,
+   "lo_llaman": [
+    "asset_manager.py"
+   ],
+   "tests": 2,
+   "nacio": "7986ff7 2026-10-29 (F53b)",
+   "ultimo": "7986ff7 2026-10-29 (F53b)",
+   "estado_a": "vivo",
+   "estado": "vivo",
+   "estado_prueba": "asset_manager._generate_clip lo llama por cada motor de la cadena (F53b Parte B); _generate_clip lo llaman _process_veo_chapter (asset_manager.process_script, etapa assets: fase2a) y qa_studio_server._clipfix_core.",
    "funciones_muertas": [],
    "imports_rotos": [],
-   "sin_llamador_a": [
-    "escribir"
-   ],
+   "sin_llamador_a": [],
    "md5": "64acb78b20c245eb5c2a5896980636cf",
    "sticker_al_dia": true
   },
@@ -5756,6 +5881,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [
@@ -6066,6 +6195,10 @@
     "papel",
     "voz",
     "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
     "packaging"
    ],
    "etapas_sticker": [

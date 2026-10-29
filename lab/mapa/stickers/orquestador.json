@@ -168,7 +168,7 @@
   "_parte": "orquestador_c"
  },
  "asset_manager.py": {
-  "sticker": "Es el que genera las fotos (y los clips de Veo, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, a cada clip de Veo le manda además una lista fija de lo que no tiene que pasar (texto, marcas de agua, caras que se deforman, gente que entra al cuadro, cambios bruscos de luz…) y la duración explícita (8 s, la del planificador de m03; desde F50), y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió.",
+  "sticker": "Es el que genera las fotos (y los clips de video, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, desde F53b cada clip sale de Gemini Omni Flash y, si Google lo rechaza por contenido, de Kling 4.0 (el prompt de cada motor lo escribe Opus mirando la foto, sin suavizar; 8 s, 1080p, la pista de audio se quita, y el costo sale de los segundos reales), y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió.",
   "recibe": "El guion canónico con image_prompts/video_prompts por capítulo y foto_madre_registry (data/scripts/<id>.json), el sync_map de voz (output/<id>/audio/sync_map.json, opcional) y las fotos madre en disco (rutas del registry).",
   "entrega": "output/<id>/assets/<capNN>_flux/<capNN>_img_NN.png (y _supp_NN.png, _graded.png), output/<id>/assets/<capNN>_veo/<capNN>_clip_NN.mp4 y output/<id>/assets/assets_manifest.json. Además, otros módulos le piden la función de imagen cruda (foto_madre.py, m09_packaging).",
   "modelo": [
@@ -177,8 +177,8 @@
     "para": "generar cada imagen por fal.ai (t2i, o /edit anclado con la foto madre)"
    },
    {
-    "modelo": "api.fal_video_model (Veo 3.1 Lite image-to-video)",
-    "para": "clips de video de los capítulos veo"
+    "modelo": "Gemini Omni Flash 1.1 (google/gemini-omni-flash/v1.1/image-to-video) y, si rechaza por contenido, Kling 4.0 (kling/v4/image-to-video), vía asset_manager._generate_clip (api.video_engines); el prompt de cada motor lo escribe claude-opus-5-5 mirando la foto (script_engine/video_prompt.py)",
+    "para": "clips de los capítulos con clip (render_engine='veo')"
    },
    {
     "modelo": "validador de visión (script_engine/vision_validator.py), apagado por ENABLE_VISION_VALIDATOR=False",
@@ -192,7 +192,7 @@
   "estado": "vivo",
   "estado_prueba": "fase2a.py:55 importa process_script como asset_process y lo corre en la etapa assets (run_pipeline.py:340-342 lanza fase2a.py --topic); m09_packaging.py:489 lo usa para las miniaturas",
   "funciones_muertas": [],
-  "md5": "6124fd60d7baf8c79e8902f5eb35f117",
+  "md5": "19c38fad3c2ba6f548ae28441978b6f1",
   "_parte": "orquestador_b"
  },
  "claude_helpers.py": {
@@ -230,7 +230,7 @@
   "entrega": "Los objetos api, pipeline, long_video, short_video, apuesta_viral, validator_strictness y gemini_client, las rutas BASE_DIR/OUTPUT_DIR/LOGS_DIR/DATA_DIR y la función estimated_cost_for.",
   "modelo": [
    {
-    "modelo": "api.gemini_model, api.gemini_model_research, api.image_engine, api.fal_video_model, api.elevenlabs_model (solo los fija; no los llama)",
+    "modelo": "api.gemini_model, api.gemini_model_research, api.image_engine, api.video_engines, api.elevenlabs_model (solo los fija; no los llama)",
     "para": "declara qué modelo usa cada etapa; el cliente gemini_client se crea acá"
    }
   ],
@@ -255,12 +255,12 @@
     "por_que": "solo la nombra el docstring de config.py:9; ningún .py del repo la llama (ni producción ni tests)"
    }
   ],
-  "md5": "eea9736dbab5024841dce17eb47a2021",
+  "md5": "f213f5dfd9c4bff27aa7dd6159765f5d",
   "_parte": "orquestador_b"
  },
  "cost_tracker.py": {
-  "sticker": "Es la caja registradora del pipeline: cada vez que un módulo gasta plata en una API (Gemini, Flux, Kling, Seedream, Veo, ElevenLabs, y también Claude y GPT por la puerta de atrás) anota cuánto, en qué etapa y para qué video. Desde F53b, el costo de un clip de video sale del perfil del motor (track_video: segundos × precio por segundo medido); track_fal, el de Veo, se borra en la Parte B. Al cerrar el video guarda el total en el historial y, en la corrida del form, avisa el gasto de Gemini en vivo.",
-  "recibe": "Llamadas de los demás módulos (track_gemini_response, track_flux_pro, track_kling, track_seedream, track_fal, track_elevenlabs, _add_entry desde claude_helpers/gpt_helpers) y las tarifas de config.py (pipeline.costs: gemini_per_call, gemini_vision_per_call, flux_pro_per_image, flux_pro_ultra_per_image, kling_per_image, seedream_per_image, leonardo_per_image, fal_per_clip, elevenlabs_per_char, gemini_rates_per_1m). Lee data/cost_history.json.",
+  "sticker": "Es la caja registradora del pipeline: cada vez que un módulo gasta plata en una API (Gemini, Flux, Kling, Seedream, clips de video, ElevenLabs, y también Claude y GPT por la puerta de atrás) anota cuánto, en qué etapa y para qué video. Desde F53b, el costo de un clip de video sale del perfil del motor (track_video: segundos × precio por segundo medido). Al cerrar el video guarda el total en el historial y, en la corrida del form, avisa el gasto de Gemini en vivo.",
+  "recibe": "Llamadas de los demás módulos (track_gemini_response, track_flux_pro, track_kling, track_seedream, track_video, track_elevenlabs, _add_entry desde claude_helpers/gpt_helpers) y las tarifas de config.py (pipeline.costs: gemini_per_call, gemini_vision_per_call, flux_pro_per_image, flux_pro_ultra_per_image, kling_per_image, seedream_per_image, leonardo_per_image, elevenlabs_per_char, gemini_rates_per_1m). Lee data/cost_history.json.",
   "entrega": "data/cost_history.json (un reporte por video, se agrega al cerrar con end_video; bajo pytest no escribe), data/session_report_<fecha>.json (save_session_report, lo llama fase1.py), resúmenes impresos en consola (print_summary / print_gemini_report) y el marcador de costo en vivo para el form (qa_form_markers.emit_cost_marker, solo Gemini).",
   "modelo": [],
   "etapa": [
@@ -288,7 +288,7 @@
     "por_que": "ningún módulo de producción la llama; solo test_module_f26c.py:138 (prueba del lock de hilos)."
    }
   ],
-  "md5": "2e2b300f7689a8071073bd05aebf2526",
+  "md5": "415d8c677bdabf09aaee4cc64277da2d",
   "_parte": "orquestador_c"
  },
  "csv_exporter.py": {
@@ -573,8 +573,8 @@
     "para": "regenerar una foto suelta (fix de foto, fix de clip y marcar para regenerar)"
    },
    {
-    "modelo": "Veo (config api.fal_video_model, vía asset_manager._generate_veo_clip)",
-    "para": "regenerar el clip de un capítulo veo sobre la foto nueva"
+    "modelo": "Gemini Omni Flash 1.1 (google/gemini-omni-flash/v1.1/image-to-video) y, si rechaza por contenido, Kling 4.0 (kling/v4/image-to-video), vía asset_manager._generate_clip (api.video_engines); el prompt de cada motor lo escribe claude-opus-5-5 mirando la foto (script_engine/video_prompt.py)",
+    "para": "regenerar el clip de un cap con clip (_clipfix_core)"
    },
    {
     "modelo": "ElevenLabs (vía audio_manager.process_script)",
@@ -598,7 +598,7 @@
     "por_que": "nadie la llama; el propio archivo (L968-971) dice que el rewriter de movimiento quedó DORMIDO desde el chat 113 y esta función y _FIX_CLIP_REWRITE_INSTRUCTION no tienen call-site"
    }
   ],
-  "md5": "e6586509812cb0c223a1377eb02e1bd9",
+  "md5": "ec730e1395a90655b02019b20a7f7b44",
   "_parte": "orquestador_a"
  },
  "report_foto_madre_edits.py": {
@@ -735,8 +735,8 @@
   "etapa": [
    "assets"
   ],
-  "estado": "huérfano",
-  "estado_prueba": "nuevo en F53b Parte A: todavía nadie lo llama en producción; lo va a llamar asset_manager._generate_clip en la Parte B. Lo usan test_module_f53b_video_prompt.py y lab/hyperframes/f53b/seco_g.py (corrida en seco).",
+  "estado": "vivo",
+  "estado_prueba": "asset_manager._generate_clip lo llama por cada motor de la cadena (F53b Parte B); _generate_clip lo llaman _process_veo_chapter (asset_manager.process_script, etapa assets: fase2a) y qa_studio_server._clipfix_core.",
   "funciones_muertas": [],
   "md5": "64acb78b20c245eb5c2a5896980636cf"
  }

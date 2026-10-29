@@ -270,19 +270,6 @@ class CostTracker:
             cost_per_unit=cost_per,
         )
 
-    def track_fal(self, description: str, clips: int = 1) -> None:
-        """Registra costo de generación de video con fal.ai (Veo 3.1 Lite)."""
-        # F53b: se borra con Veo (y pipeline.costs["fal_per_clip"]) en la Parte B; el reemplazo es track_video.
-        cost_per = pipeline.costs["fal_per_clip"]
-        self._add_entry(
-            stage=PipelineStage.VIDEO.value,
-            service="fal.ai (Veo 3.1 Lite)",
-            description=description,
-            units=clips,
-            unit_label="clips",
-            cost_per_unit=cost_per,
-        )
-
     def track_video(self, perfil, segundos: float, ancho: int | None = None,
                     alto: int | None = None, description: str = "") -> None:
         """Registra costo de un clip image-to-video (F53b) según su VideoProfile de engine_profiles.

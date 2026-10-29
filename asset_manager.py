@@ -7,7 +7,7 @@ CAMBIO MAYOR (Fase 2A Evolución Final):
 
 ARQUITECTURA:
   render_engine del guion ahora es uno de:
-    - "veo"  → clips de video con fal.ai Veo 3.1 Lite
+    - "veo"  → clips de video (F53b: Gemini Omni Flash 1.1 → Kling 4.0 si rechaza; `_generate_clip`)
     - "flux" → imágenes con fal.ai Flux Pro v1.1
 
   El capítulo "ch01" (gancho) usa automáticamente Flux Ultra para máxima
@@ -25,7 +25,7 @@ VISION GUARDRAIL:
   - 2 intentos: si el primero falla, el segundo re-prompta con corrección.
 
 FALLBACK UNIVERSAL:
-  - Si Veo falla (contenido o técnico) → Ken Burns con imagen Flux.
+  - Si el clip falla (todos los motores rechazan, o error técnico) → Ken Burns con imagen Flux.
   - Manifest distingue: ok | kenburns_fallback | technical_fallback | failed.
 
 SMART SKIP: archivos existentes no re-llaman a la API.
@@ -47,7 +47,7 @@ import requests
 from config import api, pipeline, OUTPUT_DIR
 from error_handler import error_handler, PipelineStage
 from cost_tracker import cost_tracker
-from engine_profiles import select_profile
+from engine_profiles import select_profile, select_video_profile
 
 from script_engine.vision_validator import validate_image, build_corrected_prompt
 
@@ -62,18 +62,12 @@ from script_engine.vision_validator import validate_image, build_corrected_promp
 # F8 §1A: sale de config (`pipeline.fal_concurrency`, default 20). Baja a 10 si no se compran $100 en 4 semanas.
 FLUX_MAX_WORKERS = int(getattr(pipeline, "fal_concurrency", 20) or 20)
 FLUX_POLL_TIMEOUT = 180
-VEO_POLL_TIMEOUT = 600
-VEO_MAX_ATTEMPTS_NON_REJECTION = 3
+CLIP_POLL_TIMEOUT = 600                 # F53b: espera de un clip en la cola de fal (el de Veo, sin cambios)
+CLIP_MAX_ATTEMPTS_NON_REJECTION = 3     # F53b: reintentos de red/429/5xx del mismo motor (los de Veo, sin cambios)
 FLUX_MAX_VISION_ATTEMPTS = 2
 ENABLE_VISION_VALIDATOR: bool = False  # Flag maestro. False = una sola llamada Flux por imagen, sin validación. Cambiar a True para reactivar el guardrail.
 
 RATE_LIMIT_BACKOFF_SECONDS = 20
-
-# F50 C: lo que no tiene que pasar en un clip Veo, igual para todo el canal (el movimiento lo escribe m03 sin negaciones).
-# Sin «elementos modernos»: la época la fija la foto (el cap 7 de Wittenoom es 2024).
-VEO_NEGATIVE_PROMPT = ("text, subtitles, captions, watermark, logo, morphing faces, distorted hands, extra limbs, "
-                       "people entering the frame, sudden lighting change, camera shake, fast cuts, cartoon, CGI look")   # derivado: handoff F50 §C.2, confirmado por Omar al pegar F50
-VEO_DURACIONES_S = (4, 6, 8)        # estándar: fal veo3.1 i2v acepta duration "4s" | "6s" | "8s"
 
 # Capítulo del gancho → usa Flux Ultra (máxima calidad)
 HOOK_CHAPTER_ID = "ch01"
@@ -564,125 +558,151 @@ def _generate_flux_image_at(
 
 
 # ═══════════════════════════════════════════
-#  Veo
+#  Clips de video (F53b): Gemini Omni Flash → Kling 4.0
 # ═══════════════════════════════════════════
 
-def _veo_poll(status_url: str, response_url: str,
-              timeout: int = VEO_POLL_TIMEOUT) -> str:
+def _clip_poll(status_url: str, response_url: str, timeout: int = CLIP_POLL_TIMEOUT) -> dict[str, Any]:
+    """Espera un pedido en la cola de fal y devuelve su respuesta. Un rechazo de contenido (al pedir el resultado:
+    HTTP 422 `content_policy_violation`, como el de Gemini en F53a) → ContentRejectedError."""
     start = time.time()
     while time.time() - start < timeout:
         resp = requests.get(status_url, headers=_fal_headers(), timeout=15)
         resp.raise_for_status()
         data = resp.json()
         status = data.get("status", "").upper()
-
         if status == "COMPLETED":
-            res = requests.get(response_url, headers=_fal_headers(), timeout=15)
+            res = requests.get(response_url, headers=_fal_headers(), timeout=30)
+            if res.status_code >= 400 and _is_content_rejection(res.text):
+                raise ContentRejectedError(res.text[:600])
             res.raise_for_status()
-            return res.json()["video"]["url"]
-
+            return res.json()
         if status in ("FAILED", "ERROR"):
             err_body = json.dumps(data)
             if _is_content_rejection(err_body):
-                raise ContentRejectedError(f"Veo rechazó prompt: {err_body[:300]}")
+                raise ContentRejectedError(err_body[:600])
             raise RuntimeError(f"fal.ai tarea falló: {err_body[:300]}")
-
         time.sleep(5)
     raise TimeoutError(f"fal.ai timeout tras {timeout}s")
 
 
-def _veo_duration(segundos: float | None = None) -> str:
-    """La `duration` de fal para el clip: la de m03 (VEO_CLIP_DURATION_SEC, 8 s) salvo que se pida otra; si no es
-    4/6/8 → error (no se redondea)."""
-    if segundos is None:
-        from script_engine.m03_visual import VEO_CLIP_DURATION_SEC
-        segundos = VEO_CLIP_DURATION_SEC
-    if float(segundos) not in VEO_DURACIONES_S:
-        raise ValueError(f"duración de clip Veo {segundos} s: fal acepta {VEO_DURACIONES_S}")
-    return f"{int(segundos)}s"
-
-
-def _call_veo_once(image_path: Path, prompt: str, output_path: Path, duracion_s: float | None = None) -> Path:
-    image_b64 = base64.b64encode(image_path.read_bytes()).decode()
-    payload = {
+def _clip_payload(perfil, foto: Path, prompt: str, duracion_s: float) -> dict[str, Any]:
+    """El payload del motor: la foto como data URI con el tipo leído de los bytes (Seedream entrega JPEG con extensión
+    .png: F52b), la duración en el rango del perfil y la resolución de config; audio apagado solo si el schema lo deja."""
+    from script_engine.video_prompt import tipo_imagen
+    datos = foto.read_bytes()
+    if not perfil.duracion_min <= duracion_s <= perfil.duracion_max:
+        raise ValueError(f"{perfil.engine_key}: {duracion_s} s fuera de {perfil.duracion_min}–{perfil.duracion_max}")
+    payload: dict[str, Any] = {
         "prompt": prompt,
-        "image_url": f"data:image/png;base64,{image_b64}",
-        "negative_prompt": VEO_NEGATIVE_PROMPT,           # F50 C
-        "duration": _veo_duration(duracion_s),            # F50 C: explícito (antes, el 8 s por defecto de fal)
-        "generate_audio": False,
-        # FIX B: sin esto fal cae al default "720p". Configurable vía api.* (gitignored);
-        # getattr con default para no romper si el campo no está en config.
-        "resolution": getattr(api, "fal_veo_resolution", "1080p"),
+        perfil.campo_imagen: f"data:{tipo_imagen(datos)};base64,{base64.b64encode(datos).decode()}",
+        "duration": str(int(duracion_s)) if perfil.duracion_como_texto else int(duracion_s),
+        "resolution": getattr(api, "video_resolution", perfil.resolucion),
     }
-    submit_url = f"{api.fal_base_url}/{api.fal_video_model}"
+    if perfil.campo_audio:
+        payload[perfil.campo_audio] = False
+    return payload
 
+
+def _clip_ffprobe(path: Path) -> dict[str, Any]:
+    import subprocess  # noqa: PLC0415
+    out = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "stream=codec_type,width,height:format=duration",
+                          "-of", "json", str(path)], capture_output=True, text=True)
+    d = json.loads(out.stdout or "{}")
+    v = next((s for s in d.get("streams", []) if s.get("codec_type") == "video"), {})
+    return {"segundos": float((d.get("format") or {}).get("duration") or 0), "ancho": v.get("width"),
+            "alto": v.get("height"), "audio": any(s.get("codec_type") == "audio" for s in d.get("streams", []))}
+
+
+def _quitar_audio(path: Path) -> None:
+    """El motor no deja apagar el audio (G, K): la pista se quita con ffmpeg, copiando el video (F52)."""
+    import subprocess  # noqa: PLC0415
+    tmp = path.with_name(path.stem + "_conaudio" + path.suffix)
+    path.replace(tmp)
+    r = subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-i", str(tmp), "-an", "-c:v", "copy",
+                        str(path)], capture_output=True, text=True)
+    if r.returncode:
+        tmp.replace(path)
+        raise RuntimeError(f"ffmpeg -an falló: {r.stderr[-300:]}")
+    tmp.unlink()
+
+
+def _call_clip_once(perfil, foto: Path, prompt: str, output_path: Path, duracion_s: float) -> dict[str, Any]:
+    """Una llamada al motor por la cola de fal: pide, espera, baja el mp4, le quita el audio si hace falta."""
+    submit_url = f"{api.fal_base_url}/{perfil.endpoint}"
     try:
-        resp = requests.post(submit_url, headers=_fal_headers(),
-                             json=payload, timeout=30)
+        resp = requests.post(submit_url, headers=_fal_headers(), json=_clip_payload(perfil, foto, prompt, duracion_s),
+                             timeout=60)
         resp.raise_for_status()
     except requests.HTTPError as e:
         body = e.response.text if e.response is not None else str(e)
         if _is_content_rejection(body):
-            raise ContentRejectedError(f"Veo rechazó prompt en submit: {body[:300]}")
+            raise ContentRejectedError(body[:600])
         raise
-
-    result = resp.json()
-    if "video" in result:
-        video_url = result["video"]["url"]
-    else:
-        video_url = _veo_poll(result["status_url"], result["response_url"])
-
+    sub = resp.json()
+    data = sub if "video" in sub else _clip_poll(sub["status_url"], sub["response_url"])
+    video_url = (data.get("video") or {}).get("url")
+    if not video_url:
+        raise RuntimeError(f"{perfil.engine_key} sin video: {json.dumps(data)[:300]}")
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    vid_resp = requests.get(video_url, timeout=120)
-    vid_resp.raise_for_status()
-    output_path.write_bytes(vid_resp.content)
-    return output_path
+    vid = requests.get(video_url, timeout=300)
+    vid.raise_for_status()
+    output_path.write_bytes(vid.content)
+    if perfil.campo_audio is None:
+        _quitar_audio(output_path)
+    med = _clip_ffprobe(output_path)
+    if not med["segundos"] or not med["ancho"]:
+        raise RuntimeError(f"{perfil.engine_key}: el mp4 bajado no tiene video legible ({med})")
+    return med
 
 
-def _generate_veo_clip(image_path: Path, prompt: str, output_path: Path) -> Path:
-    """Veo con backoff: 20s para 429, lineal para 5xx/timeout."""
-    last_error: Exception | None = None
-    for attempt in range(1, VEO_MAX_ATTEMPTS_NON_REJECTION + 1):
-        try:
-            path = _call_veo_once(image_path, prompt, output_path)
-            cost_tracker.track_fal(
-                description=f"{output_path.stem}: {prompt[:50]}...",
-                clips=1,
-            )
-            return path
-        except ContentRejectedError:
-            raise
-        except (requests.HTTPError, requests.Timeout, requests.ConnectionError,
-                RuntimeError) as e:
-            last_error = e
-            err_str = str(e)
-
-            is_rate_limit = _is_rate_limit(err_str)
-            is_transient = is_rate_limit or any(
-                code in err_str for code in ("503", "500", "502", "504", "timeout", "Timeout")
-            )
-
-            if not is_transient or attempt >= VEO_MAX_ATTEMPTS_NON_REJECTION:
-                error_handler.log_error(PipelineStage.VIDEO, e, attempt=attempt)
-                raise
-
-            if is_rate_limit:
-                wait = RATE_LIMIT_BACKOFF_SECONDS
-                error_handler.log_warning(
-                    PipelineStage.VIDEO,
-                    f"Veo 429 — backoff {wait}s (intento {attempt})",
-                )
-            else:
-                wait = 15 * attempt
-                error_handler.log_warning(
-                    PipelineStage.VIDEO,
-                    f"Veo intento {attempt} falló ({err_str[:80]}). Retry en {wait}s...",
-                )
-            time.sleep(wait)
-
-    raise RuntimeError(
-        f"Veo falló tras {VEO_MAX_ATTEMPTS_NON_REJECTION} intentos: {last_error}"
-    )
+def _generate_clip(foto: Path, intento_movimiento: str, output_path: Path, *, image_prompt: str = "",
+                   ancla: str = "", log: list | None = None) -> Path:
+    """F53b: el clip de un cap con clip. Recorre la cadena de motores (`api.video_engines`: Gemini Omni Flash 1.1 →
+    Kling 4.0). Por cada motor, Opus escribe el prompt con su ficha mirando la foto (`script_engine.video_prompt`,
+    `intento_movimiento` = el `video_prompt` aprobado) y se llama al motor. Si el motor rechaza por contenido, pasa al
+    siguiente (no se suaviza el prompt); los errores de red/429/5xx reintentan el mismo motor y no saltan de motor. El
+    costo va por `cost_tracker.track_video` con los segundos reales. Cada paso queda en `log` (motor, rechazo literal,
+    segundos, costo) si se pasa una lista, y en el log del pipeline."""
+    from script_engine import video_prompt
+    from script_engine.m03_visual import VEO_CLIP_DURATION_SEC
+    rechazos: list[str] = []
+    for engine_key in api.video_engines:
+        perfil = select_video_profile(engine_key)
+        prompt = video_prompt.escribir(perfil, foto, image_prompt or video_prompt.SIN_DATO, ancla,
+                                       intento_movimiento, description=f"{output_path.stem}: prompt {engine_key}")
+        for attempt in range(1, CLIP_MAX_ATTEMPTS_NON_REJECTION + 1):
+            try:
+                med = _call_clip_once(perfil, foto, prompt, output_path, VEO_CLIP_DURATION_SEC)
+                cost_tracker.track_video(perfil, med["segundos"], med["ancho"], med["alto"],
+                                         description=f"{output_path.stem}: {engine_key}")
+                fila = {"clip": output_path.name, "motor": engine_key, "rechazos": rechazos, **med,
+                        "usd": perfil.costo(med["segundos"], med["ancho"], med["alto"]), "prompt": prompt}
+                error_handler.log_info(PipelineStage.VIDEO, f"[clip] {output_path.name}: {engine_key} · "
+                                                            f"{med['segundos']:.2f} s · US$ {fila['usd']:.4f}"
+                                                            + (f" · rechazos previos: {len(rechazos)}" if rechazos else ""))
+                if log is not None:
+                    log.append(fila)
+                return output_path
+            except ContentRejectedError as e:
+                rechazos.append(f"{engine_key}: {e}")
+                error_handler.log_warning(PipelineStage.VIDEO, f"[clip] {output_path.name}: {engine_key} rechazó por "
+                                                               f"contenido — {str(e)[:300]}")
+                break
+            except (requests.HTTPError, requests.Timeout, requests.ConnectionError, RuntimeError, TimeoutError) as e:
+                err_str = str(e)
+                is_rate_limit = _is_rate_limit(err_str)
+                is_transient = is_rate_limit or any(
+                    code in err_str for code in ("503", "500", "502", "504", "timeout", "Timeout"))
+                if not is_transient or attempt >= CLIP_MAX_ATTEMPTS_NON_REJECTION:
+                    error_handler.log_error(PipelineStage.VIDEO, e, attempt=attempt)
+                    raise
+                wait = RATE_LIMIT_BACKOFF_SECONDS if is_rate_limit else 15 * attempt
+                error_handler.log_warning(PipelineStage.VIDEO, f"[clip] {engine_key} intento {attempt} falló "
+                                                               f"({err_str[:80]}). Retry en {wait}s...")
+                time.sleep(wait)
+    if log is not None:
+        log.append({"clip": output_path.name, "motor": None, "rechazos": rechazos})
+    raise ContentRejectedError(" | ".join(rechazos)[:900])
 
 
 # ═══════════════════════════════════════════
@@ -1131,9 +1151,10 @@ def _process_veo_chapter(
                 })
                 continue
 
-        error_handler.log_info(PipelineStage.VIDEO, f"[{chapter_id}] Veo clip {idx}...")
+        error_handler.log_info(PipelineStage.VIDEO, f"[{chapter_id}] clip {idx}...")
         try:
-            _generate_veo_clip(base_img_path, vid_prompt, clip_path)
+            _generate_clip(base_img_path, vid_prompt, clip_path, image_prompt=raw_img_prompt,
+                           ancla=chapter.get("narration_anchor") or "")
             clip_results.append({
                 "index": idx, "video_prompt": vid_prompt, "image_prompt": raw_img_prompt,
                 "path": str(clip_path.relative_to(OUTPUT_DIR)),
@@ -1363,9 +1384,11 @@ def process_script(
             "image_engine": api.image_engine,
             "safety_checker": True,
         },
-        "veo_config": {
-            "poll_timeout_seconds": VEO_POLL_TIMEOUT,
-            "max_attempts": VEO_MAX_ATTEMPTS_NON_REJECTION,
+        "veo_config": {                      # F53b: la clave queda (concepto «cap con clip»); los motores son los de abajo
+            "video_engines": list(api.video_engines),
+            "video_resolution": getattr(api, "video_resolution", None),
+            "poll_timeout_seconds": CLIP_POLL_TIMEOUT,
+            "max_attempts": CLIP_MAX_ATTEMPTS_NON_REJECTION,
             "rate_limit_backoff_seconds": RATE_LIMIT_BACKOFF_SECONDS,
         },
         # Deprecated chat 19: catálogo art_profiles desconectado.

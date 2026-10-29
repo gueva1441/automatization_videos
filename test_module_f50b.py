@@ -166,29 +166,6 @@ def test_movimiento_con_opus_y_el_pedido_de_la_guia(monkeypatch):
     assert not hasattr(m3, "_VEO_VIDEO_PROMPT_STRUCT") and not hasattr(m3, "_SEEDREAM_MOTION_SYSTEM")
 
 
-def test_payload_veo_con_negative_prompt_y_duration(monkeypatch, tmp_path):
-    img = tmp_path / "f.png"
-    img.write_bytes(b"png")
-    visto = {}
-
-    class R:
-        status_code, content = 200, b"mp4"
-
-        def raise_for_status(self):
-            pass
-
-        def json(self):
-            return {"video": {"url": "u"}}
-    monkeypatch.setattr(am.requests, "post", lambda url, **k: visto.update(k["json"]) or R())
-    monkeypatch.setattr(am.requests, "get", lambda url, **k: R())
-    am._call_veo_once(img, "prompt", tmp_path / "c.mp4")
-    assert visto["negative_prompt"] == am.VEO_NEGATIVE_PROMPT and visto["duration"] == "8s"
-    assert visto["generate_audio"] is False and "resolution" in visto
-    assert am._veo_duration(4) == "4s"
-    with pytest.raises(ValueError):
-        am._veo_duration(5)
-
-
 def test_lo_viejo_ya_no_esta():
     for s in ("SEEDREAM_SLOTS_USE_PRO", "_fluidify_item", "_fluidify_with_leakage_guard", "_post_check_locked",
               "_classify_locked_facts", "_f8_finish_item", "FLUIDIFICADOR_SYSTEM", "_find_text_leakage"):

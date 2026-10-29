@@ -1057,7 +1057,7 @@ def _clipfix_core(
         seed_fn = seed_fn or am._seed_for_subject
         generate_fn = generate_fn or am._generate_flux_image_at
         is_hook_fn = is_hook_fn or am._is_hook_chapter
-        generate_veo_fn = generate_veo_fn or am._generate_veo_clip
+        generate_veo_fn = generate_veo_fn or am._generate_clip           # F53b: G → K (sale Veo)
         content_rejected_exc = content_rejected_exc or am.ContentRejectedError
 
     # 1. Resolver la entrada (video_prompt + image_prompt + primer frame + clip + profile/subject).

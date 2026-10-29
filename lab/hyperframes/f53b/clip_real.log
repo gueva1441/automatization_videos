@@ -1,0 +1,35 @@
+[15:21:46] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f53b_clip_real
+[15:24:01] INFO     | viral_pipeline | [video_generator] [clip] cap07_clip_01.mp4: gemini_omni_flash · 8.00 s · US$ 1.2000
+[15:24:01] INFO     | viral_pipeline | [cost_tracker] Video f53b_clip_real — Costo total: $1.2327
+gastado 0.1042 · peor caso 1.24 · tope 3.0
+{
+ "error": null,
+ "log": [
+  {
+   "clip": "cap07_clip_01.mp4",
+   "motor": "gemini_omni_flash",
+   "rechazos": [],
+   "segundos": 8.0,
+   "ancho": 1920,
+   "alto": 1080,
+   "audio": false,
+   "usd": 1.2,
+   "prompt": "Slow push-in at creek-bed level on an old rusted shovel standing upright, blade sunk in a mound of blue-grey crocidolite tailings, as a thin creek slides past it through red-ochre ground. The water ripples steadily over stones and shallow pools. Late in the shot, a faint breeze stirs the spinifex clumps and lifts a few wisps of pale dust from the tailings. The camera ends on a closer framing of the shovel and its buried blade against the red bank. The shovel never moves.\n\nKeep from the image: the shovel's position and angle, the blue-grey mound, the winding stream on the right, the red banks and spinifex, the dark gorge cliffs and pale sky.\n\nLook: grainy 35mm documentary film, muted colors, slight underexposure, pale cold dawn light with long soft shadows, somber and still.\n\nSound: quiet running water and a soft, thin wind; no music, no dialogue.\n\nOne continuous 8-second shot, no cuts, no on-screen text, no captions."
+  }
+ ],
+ "cost_tracker": [
+  {
+   "servicio": "Anthropic claude-opus-5-5",
+   "descripcion": "cap07_clip_01: prompt gemini_omni_flash",
+   "usd": 0.03268
+  },
+  {
+   "servicio": "fal google/gemini-omni-flash/v1.1/image-to-video",
+   "descripcion": "cap07_clip_01: gemini_omni_flash",
+   "usd": 1.2
+  }
+ ],
+ "usd_total": 1.2327,
+ "usd_tabla_G": 1.2
+}
+exit 0
