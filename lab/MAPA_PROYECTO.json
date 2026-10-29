@@ -569,7 +569,7 @@
   "topic_validator.py"
  ],
  "conteo": {
-  "vivo": 134,
+  "vivo": 133,
   "solo herramienta manual": 13,
   "huérfano": 11,
   "roto": 0,
@@ -4053,14 +4053,14 @@
    ],
    "tests": 16,
    "nacio": "6264058 2026-10-23 (F11)",
-   "ultimo": "66804dc 2026-10-29 (F54)",
+   "ultimo": "8935ef2 2026-10-29 (F54)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py:424-430 (run_guion_v4 llama g4.call_for, g4.write, g4.reparar y g4.metricas); fase1_5.py:512 lo corre desde process_topic; fase1_5.py:430 también g4.nota_b",
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "3f292bc1eac1089bd51c1c5acb142d4b",
+   "md5": "ef696cf5cc2124a91ef4dcdb97aa71be",
    "sticker_al_dia": true
   },
   "script_engine/image_grade.py": {
@@ -5016,7 +5016,7 @@
    ],
    "tests": 9,
    "nacio": "1720d01 2026-06-11",
-   "ultimo": "93064c8 2026-10-20 (F4b)",
+   "ultimo": "8935ef2 2026-10-29 (F54)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase3.py:64 arma el comando python -m script_engine.m09_packaging (etapa packaging, run_pipeline.py:430 lanza fase3.py); qa_studio_server.py:1490 lo lanza con --review --auto-first",
@@ -7163,7 +7163,7 @@
    "ultimo": "40a434d 2026-10-25 (F26d)",
    "estado_a": "solo herramienta manual",
    "estado": "vivo",
-   "estado_prueba": "guard_git.py:16, guard_mapa.py:16, guard_render.py:17, md5_prompt.py:14, suite_rapida.py:13 y tope_tanda.py:14 lo importan.",
+   "estado_prueba": "guard_git.py:16, guard_mapa.py:16, guard_render.py:17, md5_prompt.py:14, suite_rapida.py:13 lo importan.",
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
@@ -7297,7 +7297,7 @@
   ".claude/hooks/README.md": {
    "archivo": ".claude/hooks/README.md",
    "zona": "orquestador",
-   "sticker": "La tabla que explica los seis candados automáticos de Claude Code en este repo (qué bloquean, cuándo avisan) y sus límites conocidos; desde F42 dice que guard_mapa corre el chequeo del mapa del proyecto. Es documentación para las personas; no se ejecuta.",
+   "sticker": "La tabla que explica los cinco candados automáticos de Claude Code en este repo (qué bloquean, cuándo avisan) y sus límites conocidos; desde F42 dice que guard_mapa corre el chequeo del mapa del proyecto; desde F55 ya no está el tope por tanda. Es documentación para las personas; no se ejecuta.",
    "recibe": "Nada.",
    "entrega": "Nada (texto de consulta).",
    "modelo": [],
@@ -7319,7 +7319,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "582575453abb1793b0c30ce05ff0d8b4",
+   "md5": "7ec62d96d59f21796d25458517297d1c",
    "sticker_al_dia": true
   },
   ".claude/hooks/suite_rapida.py": {
@@ -7351,37 +7351,6 @@
    "imports_rotos": [],
    "sin_llamador_a": [],
    "md5": "884ed894c7cd4a3ccc1489d0ff874dc7",
-   "sticker_al_dia": true
-  },
-  ".claude/hooks/tope_tanda.py": {
-   "archivo": ".claude/hooks/tope_tanda.py",
-   "zona": "orquestador",
-   "sticker": "Candado de Claude Code sobre el gasto: antes de correr fase1_5.py o fase2a.py mira el tope en dólares de la tanda (lab/TOPE_TANDA.json) y, si el gasto del historial desde que empezó la tanda ya lo alcanzó, no deja arrancar. Sin archivo de tope no hace nada.",
-   "recibe": "El comando de Bash/PowerShell del evento PreToolUse, lab/TOPE_TANDA.json y data/cost_history.json (lee total_cost y created_at de cada video).",
-   "entrega": "Nada si hay margen; si no, sale con código 2 con el gasto y el tope.",
-   "modelo": [],
-   "modelos": [],
-   "etapas_a": [
-    "Claude Code"
-   ],
-   "etapas_sticker": [
-    "Claude Code"
-   ],
-   "compartido": false,
-   "lo_llaman": [
-    ".claude/hooks/README.md",
-    ".claude/settings.json"
-   ],
-   "tests": 0,
-   "nacio": "40a434d 2026-10-25 (F26d)",
-   "ultimo": "40a434d 2026-10-25 (F26d)",
-   "estado_a": "solo herramienta manual",
-   "estado": "vivo",
-   "estado_prueba": ".claude/settings.json:10 lo cablea en PreToolUse (Bash|PowerShell).",
-   "funciones_muertas": [],
-   "imports_rotos": [],
-   "sin_llamador_a": [],
-   "md5": "2da7b54b2321602031cbb1278b35924c",
    "sticker_al_dia": true
   },
   ".claude/agents/simulador.md": {

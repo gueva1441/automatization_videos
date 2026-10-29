@@ -66,25 +66,10 @@ def test_guion_v5_6_literal_y_solo_cambia_ejemplos():
     ej = (F54 / "EJEMPLOS_v5_6_propuesta.md").read_text(encoding="utf-8").split("```text", 1)[1]
     bloque = ej[ej.index("<ejemplos>"):ej.index("</ejemplos>") + len("</ejemplos>")]
     assert bloque in g4.SYSTEM_V5_6 and "Tres de ellas no van a ver la primavera." in bloque
-    v55 = g4.SYSTEM_V5_5
+    v55 = _sistema(F54 / "PROMPT_GUIONISTA_v5_5.md")          # F55 etapa 0: la constante SYSTEM_V5_5 se borró
     viejo = v55[v55.index("<ejemplos>"):v55.index("</ejemplos>") + len("</ejemplos>")]
     assert g4.SYSTEM_V5_6.replace(bloque, viejo) == v55 and viejo not in g4.SYSTEM_V5_6
-    assert g4.VERSIONES_V5[:3] == ("f54-2", "f54-1", "f25-1") and g4.prompt_version(version="f54-1") == "f54-1"
-
-
-def test_guion_v5_5_literal_y_dos_cambios():
-    assert g4.system("f54-1") == g4.SYSTEM_V5_5 == _sistema(F54 / "PROMPT_GUIONISTA_v5_5.md") and g4.PROMPT_VERSION_V5_5 == "f54-1"
-    assert g4.system("f25-1") == g4.SYSTEM_V5_4 and _md5(g4.SYSTEM_V5_4) == "2f66c1e07e4d6c31178091371821c0c9"
-    dif = _dif(g4.SYSTEM_V5_4, g4.SYSTEM_V5_5)
-    assert len(dif) == 2
-    (v1, n1), (v2, n2) = dif
-    assert v1.replace("Segunda: la promesa, como viene en la escaleta, sin agregarle lo que va a pasar después.",
-                      "Segunda: la promesa: lo que está en juego, con tus palabras, sin índice de lo que viene.") == n1
-    assert "Primera frase: lo que se ve, sin año, sin cifra, sin institución." in n1
-    assert v2.replace("cada uno avanza la historia y termina con algo sin resolver que el siguiente paga.",
-                      "cada uno avanza la historia. La primera frase de cada cap paga lo que el beat marcado `paga` dejó "
-                      "abierto; la escaleta dice cuál.") == n2                   # B.3: reemplaza, no suma
-    assert g4.prompt_version(version="f25-1") == "f25-1"
+    assert g4.VERSIONES_V5[:2] == ("f54-2", "f25-1") and not hasattr(g4, "SYSTEM_V5_5")
 
 
 # ═══════════════════════════════════════════════════════════════

@@ -1,0 +1,274 @@
+{
+  "topic_id": "123bbb64-9fca-4395-8bf4-57d60e219ef1",
+  "chapters": [
+    {
+      "chapter_number": 1,
+      "title": "La herida que no cerró",
+      "role": "hook",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "hook",
+      "bullets": [
+        "Un retrato familiar en sepia: un hombre joven, de pie, con un pie vendado. La familia dice que le cayó un trozo de amianto y que la herida no cerraba. Alrededor, sobre la mesa de la entrevista, más fotografías del mismo tono, y una mujer mayor que las ordena. · Daniel Écija padre se hirió el pie con un trozo de amianto y la herida no se cerraba."
+      ],
+      "evidence_ids": [
+        "D85",
+        "Q25"
+      ],
+      "cliffhanger": "T34",
+      "pantalla_ids": []
+    },
+    {
+      "chapter_number": 2,
+      "title": "Promesas y polvo",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "setup",
+      "bullets": [
+        "María, entre las fotos sepia, recuerda que iba muy pegada a su marido cuando emigraron y que confiaba en el futuro. El baile del Círculo de Bellas Artes, el 16 de septiembre de 1961; la boda, el 20 de septiembre de 1962; cuatro días después, el barco. · María Bernal y Daniel Écija se conocieron en un baile.",
+        "Más de veinte días de barco desde Málaga, el calor del canal de Suez, los mareos. Después, un avión pequeño de hélices que se sacude antes de tocar una pista en medio de una tierra muy roja; polvo por todas partes; casas de chapa, madera y uralita. La pista misma está hecha de relaves. · Salimos de Málaga y tardamos más de 20 días en llegar en barco a Australia. Pasamos por el canal de Suez… Puf, el calor que hacía allí. Recuerdo los mareos. La incertidumbre. Aquella sensación de no saber muy bien adónde íbamos ni cómo viviríamos."
+      ],
+      "evidence_ids": [
+        "T34",
+        "T37",
+        "T38",
+        "Q12",
+        "D83",
+        "T24",
+        "Q13",
+        "Q14",
+        "Q15",
+        "D82",
+        "D03",
+        "Q27"
+      ],
+      "cliffhanger": "D92",
+      "pantalla_ids": [
+        "T28",
+        "D113"
+      ]
+    },
+    {
+      "chapter_number": 3,
+      "title": "Peligro silenciado",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "rising_tension",
+      "bullets": [
+        "Una carta escrita por un médico que llega en avión a atender el pueblo, en 1948: niveles de polvo extremadamente peligrosos. Antes, en 1944, dos funcionarios de Minas ya habían informado del polvo; en 1946 ya había un diagnóstico de asbestosis. En 1947 el primer ministro Chifley dice que la vida de la mina es, a efectos prácticos, ilimitada. · En 1948, el doctor Eric Saint advirtió por escrito que los niveles de polvo en Wittenoom eran extremadamente peligrosos.",
+        "Obreros del molino cubiertos de polvo de pies a cabeza; una nube espesa suspendida junto al edificio, constatada por una Junta de Referencia en 1957. En 1949 la empresa había dicho que las nubes de polvo no demostraban que el polvo fuera peligroso. En 1962 un médico comunica un mesotelioma en un antiguo trabajador del molino. En 1961, la producción aumenta. · La producción minera en Wittenoom se incrementó en 1961 a pesar de la evidencia de los riesgos."
+      ],
+      "evidence_ids": [
+        "D92",
+        "T06",
+        "D132",
+        "D19",
+        "T13",
+        "Q37",
+        "Q46",
+        "D21",
+        "Q53",
+        "Q54",
+        "T27",
+        "T35",
+        "T29"
+      ],
+      "cliffhanger": "Q19",
+      "pantalla_ids": [
+        "T19",
+        "T14"
+      ]
+    },
+    {
+      "chapter_number": 4,
+      "title": "El polvo lo cubría todo",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "rising_tension",
+      "bullets": [
+        "Niños que deshilachan fibras de amianto azul y se las meten en la boca; al tocarlas sale un polvillo fino que lo impregna todo. Quien quería arreglar un patio o un acceso pedía relaves y la empresa descargaba una carga: patios, caminos, la escuela, el jardín de infantes, las iglesias. En 1965 un comisionado de salud reprende al director de la escuela por cubrir el patio con eso. · En Wittenoom, un pueblo levantado de la nada, se había utilizado muchísimo. Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo. Estábamos rodeados de amianto azul, pero no nos daba miedo. Nadie nos avisó de nada.",
+        "Un parto complicado después de una infección renal: un bebé muy grande, la madre débil, fórceps. El niño recibe el nombre del padre. El 7 de julio de 1963, la foto del bautizo. Después del bautizo, se van. Diez meses en total. El hijo cuenta además una explosión mortal el primer día de trabajo del padre; nadie más lo documenta. · La familia Écija-Bernal bautizó a su hijo Daniel y poco después abandonó Wittenoom."
+      ],
+      "evidence_ids": [
+        "Q19",
+        "Q44",
+        "D129",
+        "D18",
+        "T41",
+        "T40",
+        "D87",
+        "Q16",
+        "D104",
+        "T39"
+      ],
+      "cliffhanger": "T49",
+      "pantalla_ids": [
+        "D26",
+        "T10"
+      ]
+    },
+    {
+      "chapter_number": 5,
+      "title": "La factura del tiempo",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "shock",
+      "bullets": [
+        "Diciembre de 1966: el presidente de CSR anuncia el cierre por razones económicas. Ese mismo año los Écija vuelven a Madrid. En los desfiladeros quedan más de tres millones de toneladas de relaves, vertidos durante dieciocho años. En 1978 el Estado empieza a reducir el pueblo y a pedir a la gente que se vaya por las fibras en el aire. · CSR cierra las operaciones en la mina y planta de Wittenoom debido a problemas económicos, de suministro y costos laborales.",
+        "María, rodeada de las fotografías sepia: la boda, el barco, el retrato del pie vendado, el bautizo. El hombre de las fotos ya no está. Mesotelioma, 1991. Nueve meses después, muerto a los 55 años. Casi treinta años después de diez meses de polvo. · Daniel Écija padre murió de mesotelioma a los 55 años, nueve meses después de su diagnóstico."
+      ],
+      "evidence_ids": [
+        "T49",
+        "T48",
+        "T21",
+        "D02",
+        "T47",
+        "D27",
+        "D121",
+        "D89",
+        "T64",
+        "Q23",
+        "D36"
+      ],
+      "cliffhanger": "D28",
+      "pantalla_ids": [
+        "D51"
+      ]
+    },
+    {
+      "chapter_number": 6,
+      "title": "Un pueblo, polvo eterno",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "resolution",
+      "bullets": [
+        "Entre 1986 y 1992 caen los edificios, cierran la escuela, la enfermería, la comisaría; en 1993, el aeropuerto. En octubre de 2006 quedan ocho personas. En diciembre les cortan la red eléctrica. En 2007 el nombre desaparece de los mapas y de las señales. Barricadas permanentes en las entradas al pueblo y al desfiladero. · Entre 1986 y 1992 se demolieron casas y edificios y se cerraron la escuela, el puesto de enfermería y la comisaría en Wittenoom.",
+        "Depósitos de asbesto en lechos de arroyos, en pozas, en llanuras de inundación, arrastrados por el agua hasta el río Fortescue, que alimenta el acuífero que abastece a Karratha. El informe de 2006 dice que sin intervención el aporte continuará durante cientos de años. En 2016 una nota del Estado aconseja desistir de la remediación por su costo. En 2021 aparecen fibras fuera de la zona reconocida. · El material de asbesto del vertedero de Colonial alimenta el área de captación del río Fortescue."
+      ],
+      "evidence_ids": [
+        "D28",
+        "T67",
+        "D06",
+        "T76",
+        "T80",
+        "Q07",
+        "D42",
+        "D10",
+        "D09",
+        "D150",
+        "Q05",
+        "D59",
+        "T90"
+      ],
+      "cliffhanger": "T92",
+      "pantalla_ids": [
+        "D23",
+        "D94"
+      ]
+    },
+    {
+      "chapter_number": 7,
+      "title": "El costo sin fin",
+      "role": "reveal_outro",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "outro",
+      "bullets": [
+        "Un anciano Banjima, Maitland Parker, habla en 2023 con el relator de la ONU: todavía llora por su territorio, no puede alejarse de él. Muere de mesotelioma en 2024. En agosto de 2023 el propio Estado reconoce que sus estudios sobre la extensión de la contaminación están desactualizados. En 2026 los Banjima demandan al Estado ante el Tribunal Federal: no se ha retirado una sola palada de asbesto de su tierra. · El Relator Especial de la ONU, Dr. Marcos Orellana, visita Australia y entrevista al anciano Banjima Maitland Parker sobre la contaminación en Wittenoom.",
+        "1985, el puesto de control de un aeropuerto australiano. Un policía lee la documentación de un joven que lleva el nombre de su padre y Wittenoom como lugar de nacimiento. Baja la cabeza hacia el papel, vuelve a mirarlo. «Así que de Wittenoom, ¿eh? Un sitio terrorífico.» Mercedes de Juan sigue haciéndose escáneres y pruebas de función pulmonar; hay hijos de policías y maestros del pueblo que están enfermando ahora. · Así que de Wittenoom, ¿eh? Un sitio terrorífico."
+      ],
+      "evidence_ids": [
+        "T92",
+        "Q10",
+        "T96",
+        "D61",
+        "D62",
+        "D70",
+        "D95",
+        "Q24",
+        "T57",
+        "Q21",
+        "Q20",
+        "Q34"
+      ],
+      "cliffhanger": "",
+      "pantalla_ids": [
+        "D109",
+        "T98"
+      ]
+    }
+  ],
+  "personajes": [
+    {
+      "id": "P16",
+      "nombre": "María Bernal",
+      "rol": "Esposa del minero Daniel Écija y residente de Wittenoom.",
+      "antagonista": false,
+      "entra_en_cap": 1
+    },
+    {
+      "id": "",
+      "nombre": "CSR",
+      "rol": "institución",
+      "tipo": "institucion",
+      "variantes": [
+        "CSR Ltd.",
+        "CSR Limited",
+        "Colonial Sugar Refining Company"
+      ],
+      "antagonista": true,
+      "entra_en_cap": 5
+    }
+  ],
+  "_pool_plan": {
+    "cifras_canonicas": [],
+    "pantalla": [
+      "cap 2: pantalla ['T28', 'D113']",
+      "cap 3: pantalla ['T19', 'T14']",
+      "cap 4: pantalla ['D26', 'T10']",
+      "cap 5: pantalla ['D109', 'D110']",
+      "cap 6: pantalla ['D30', 'T59']",
+      "cap 7: pantalla ['T98', 'D68']"
+    ]
+  },
+  "_v3": {
+    "escaleta": "01a_escaleta.json",
+    "prompt_version": "f54-1",
+    "humano": {
+      "id": "P16",
+      "nombre": "María Bernal",
+      "rol": "Minero emigrante español; marido de María Bernal, padre del niño nacido en Wittenoom",
+      "por_que": "Es el único candidato con un arco completo de entrada, daño y pérdida anclado en fechas y escenas: se casa en Madrid el 20 de septiembre de 1962, emigra cuatro días después, se hiere con un trozo de amianto en el pie (retrato con el pie vendado), ve nacer a su hijo en el hospital del pueblo, se va tras el bautizo del 7 de julio de 1963 con apenas diez meses de estancia, vuelve a Madrid en 1966 y muere en 1991-92 de mesotelioma a los 55 años, nueve meses después del diagnóstico. Es además el pico que marca la ficha y el ángulo del caso. No tiene citas verificadas propias: su voz la ponen María Bernal (E9, Q12, Q23) y su hijo (E8, Q16, Q24); el guionista no le atribuye frases.",
+      "colectivo": false,
+      "fuente": "T37, T38, D85, T41, T47, T64, D89"
+    },
+    "antagonista": {
+      "tipo": "institucion",
+      "id": "CSR",
+      "nombre": "CSR",
+      "por_que": "Es quien decide en cada vuelta: toma la explotación en 1943 sin experiencia minera (venía del azúcar), recluta en Europa desde 1950 mientras acumula advertencias desde 1944 y la carta de Saint de 1948, vierte los relaves en los desfiladeros entre 1948 y 1966, los entrega a los vecinos para patios y accesos, aumenta la producción en 1961 pese a la evidencia sanitaria y cierra en diciembre de 1966 por razones económicas, no sanitarias. Un juez determinó en 1988 su desprecio continuo, consciente y contumaz por la salud de sus trabajadores. El Gobierno de Australia Occidental hereda los relaves por defecto y es el demandado hoy, pero la decisión que mata a Daniel la tomó la empresa.",
+      "variantes": [
+        "CSR Ltd.",
+        "CSR Limited",
+        "Colonial Sugar Refining Company"
+      ]
+    },
+    "pico": {
+      "beat": 9,
+      "id": "D89",
+      "por_que": "Es el pico que marca la ficha y no hay razón para moverlo: la familia creyó haber salido a tiempo en 1963 y el asbesto la alcanza en Madrid en 1991; la muerte a los 55 años, nueve meses después del diagnóstico, convierte la salida en la pérdida del padre. Todo lo anterior (las advertencias desde 1944, el aumento de producción de 1961, los niños con el amianto en la boca, los diez meses) está puesto para que esa muerte no sea una estadística."
+    },
+    "particion": {
+      "notas": [
+        "cap 3: 2273 caracteres > 2242 → el editor acortó el último párrafo (1136 → 1065)",
+        "cap 7: 1810 caracteres > 1255 → el editor acortó el último párrafo (536 → 237)"
+      ],
+      "titulos": "flash"
+    }
+  }
+}

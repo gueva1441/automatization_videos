@@ -83,7 +83,7 @@
   "estado": "vivo",
   "estado_prueba": "fase1_5.py:424-430 (run_guion_v4 llama g4.call_for, g4.write, g4.reparar y g4.metricas); fase1_5.py:512 lo corre desde process_topic; fase1_5.py:430 también g4.nota_b",
   "funciones_muertas": [],
-  "md5": "3f292bc1eac1089bd51c1c5acb142d4b",
+  "md5": "ef696cf5cc2124a91ef4dcdb97aa71be",
   "_parte": "guion_a"
  },
  "script_engine/m01a_columna.py": {

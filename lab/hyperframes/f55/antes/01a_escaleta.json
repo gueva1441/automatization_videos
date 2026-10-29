@@ -1,0 +1,841 @@
+{
+  "humano": {
+    "id": "P16",
+    "nombre": "María Bernal",
+    "rol": "Minero emigrante español; marido de María Bernal, padre del niño nacido en Wittenoom",
+    "por_que": "Es el único candidato con un arco completo de entrada, daño y pérdida anclado en fechas y escenas: se casa en Madrid el 20 de septiembre de 1962, emigra cuatro días después, se hiere con un trozo de amianto en el pie (retrato con el pie vendado), ve nacer a su hijo en el hospital del pueblo, se va tras el bautizo del 7 de julio de 1963 con apenas diez meses de estancia, vuelve a Madrid en 1966 y muere en 1991-92 de mesotelioma a los 55 años, nueve meses después del diagnóstico. Es además el pico que marca la ficha y el ángulo del caso. No tiene citas verificadas propias: su voz la ponen María Bernal (E9, Q12, Q23) y su hijo (E8, Q16, Q24); el guionista no le atribuye frases.",
+    "colectivo": false,
+    "fuente": "T37, T38, D85, T41, T47, T64, D89"
+  },
+  "antagonista": {
+    "tipo": "institucion",
+    "id": "CSR",
+    "nombre": "CSR",
+    "por_que": "Es quien decide en cada vuelta: toma la explotación en 1943 sin experiencia minera (venía del azúcar), recluta en Europa desde 1950 mientras acumula advertencias desde 1944 y la carta de Saint de 1948, vierte los relaves en los desfiladeros entre 1948 y 1966, los entrega a los vecinos para patios y accesos, aumenta la producción en 1961 pese a la evidencia sanitaria y cierra en diciembre de 1966 por razones económicas, no sanitarias. Un juez determinó en 1988 su desprecio continuo, consciente y contumaz por la salud de sus trabajadores. El Gobierno de Australia Occidental hereda los relaves por defecto y es el demandado hoy, pero la decisión que mata a Daniel la tomó la empresa.",
+    "variantes": [
+      "CSR Ltd.",
+      "CSR Limited",
+      "Colonial Sugar Refining Company"
+    ]
+  },
+  "promesa_gancho": "Daniel Écija vivió diez meses en Wittenoom. Murió de eso casi treinta años después, en Madrid. Esta es la historia de quién sabía, desde mil novecientos cuarenta y ocho, lo que hacía ese polvo, y de por qué tres millones de toneladas siguen donde las dejaron.",
+  "loops": [
+    {
+      "id": "L1",
+      "pregunta": "¿Por qué un hombre que vivió diez meses en un pueblo del desierto muere de ese pueblo casi treinta años después y a medio mundo de distancia?",
+      "abre_beat": 1,
+      "paga_beat": 9
+    },
+    {
+      "id": "L2",
+      "pregunta": "¿Qué sabía la empresa del polvo cuando fue a Europa a reclutar a estas familias?",
+      "abre_beat": 3,
+      "paga_beat": 5
+    }
+  ],
+  "recuerda_loop": {
+    "beat": 5,
+    "oracion": "A ese molino cubierto de polvo, a fines de mil novecientos sesenta y dos, iba a entrar un recién casado de Madrid que llevaba cuatro días de matrimonio cuando subió al barco."
+  },
+  "pico": {
+    "beat": 9,
+    "id": "D89",
+    "por_que": "Es el pico que marca la ficha y no hay razón para moverlo: la familia creyó haber salido a tiempo en 1963 y el asbesto la alcanza en Madrid en 1991; la muerte a los 55 años, nueve meses después del diagnóstico, convierte la salida en la pérdida del padre. Todo lo anterior (las advertencias desde 1944, el aumento de producción de 1961, los niños con el amianto en la boca, los diez meses) está puesto para que esa muerte no sea una estadística."
+  },
+  "cierre_humano": "Se vuelve a Daniel a través de la escena del aeropuerto de 1985: un policía lee el documento de su hijo, que lleva su nombre y Wittenoom como lugar de nacimiento, y dice «Así que de Wittenoom, ¿eh? Un sitio terrorífico». Es la única advertencia que la familia recibió, seis años antes del diagnóstico, y vino de un desconocido. El video termina en esa frase y en la pregunta que nadie respondió: quién va a sacar el asbesto de esa tierra.",
+  "beats": [
+    {
+      "n": 1,
+      "cap": 1,
+      "funcion": "gancho",
+      "emocion": "inquietud",
+      "intensidad": 4,
+      "dato_central": "D85",
+      "datos_apoyo": [
+        "Q25"
+      ],
+      "humano_en_escena": true,
+      "imagen_sensorial": "Un retrato familiar en sepia: un hombre joven, de pie, con un pie vendado. La familia dice que le cayó un trozo de amianto y que la herida no cerraba. Alrededor, sobre la mesa de la entrevista, más fotografías del mismo tono, y una mujer mayor que las ordena.",
+      "pregunta_abierta": "¿Qué le pasó al hombre del pie vendado, y por qué una herida que no cierra importa en una historia sobre un pueblo borrado del mapa?",
+      "pregunta_pantalla": "¿Qué tiene un pie vendado que ver con un pueblo que ya no existe?",
+      "cierre": "Para entender ese retrato hay que volver a Madrid, a un baile, un año antes de que lo tomaran.",
+      "palabras_objetivo": 110,
+      "flash_forward": true,
+      "contador": false,
+      "paga": null,
+      "escena_idx": 6,
+      "pregunta_valida": false
+    },
+    {
+      "n": 2,
+      "cap": 2,
+      "funcion": "planteo",
+      "emocion": "ternura",
+      "intensidad": 1,
+      "dato_central": "T34",
+      "datos_apoyo": [
+        "T37",
+        "T38",
+        "Q12",
+        "D83",
+        "T24",
+        "Q13"
+      ],
+      "humano_en_escena": true,
+      "imagen_sensorial": "María, entre las fotos sepia, recuerda que iba muy pegada a su marido cuando emigraron y que confiaba en el futuro. El baile del Círculo de Bellas Artes, el 16 de septiembre de 1961; la boda, el 20 de septiembre de 1962; cuatro días después, el barco.",
+      "pregunta_abierta": "¿Qué les prometieron a cambio de cruzar medio mundo recién casados?",
+      "pregunta_pantalla": "",
+      "cierre": "Cuatro días después de la boda subieron al barco. Nadie les habló del polvo.",
+      "palabras_objetivo": 125,
+      "flash_forward": false,
+      "contador": false,
+      "paga": null,
+      "escena_idx": 9
+    },
+    {
+      "n": 3,
+      "cap": 2,
+      "funcion": "planteo",
+      "emocion": "incertidumbre",
+      "intensidad": 2,
+      "dato_central": "Q14",
+      "datos_apoyo": [
+        "Q15",
+        "D82",
+        "D03",
+        "Q27"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Más de veinte días de barco desde Málaga, el calor del canal de Suez, los mareos. Después, un avión pequeño de hélices que se sacude antes de tocar una pista en medio de una tierra muy roja; polvo por todas partes; casas de chapa, madera y uralita. La pista misma está hecha de relaves.",
+      "pregunta_abierta": "¿De qué está hecho ese polvo que nadie había visto en esa cantidad?",
+      "pregunta_pantalla": "¿De qué estaba hecho ese polvo?",
+      "cierre": "El polvo tenía nombre. Y en los archivos del Estado, un expediente de casi veinte años.",
+      "palabras_objetivo": 125,
+      "flash_forward": false,
+      "contador": false,
+      "paga": null,
+      "escena_idx": 2,
+      "pregunta_valida": false
+    },
+    {
+      "n": 4,
+      "cap": 3,
+      "funcion": "escalada",
+      "emocion": "indignación fría",
+      "intensidad": 3,
+      "dato_central": "D92",
+      "datos_apoyo": [
+        "T06",
+        "D132",
+        "D19",
+        "T13",
+        "Q37",
+        "Q46"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Una carta escrita por un médico que llega en avión a atender el pueblo, en 1948: niveles de polvo extremadamente peligrosos. Antes, en 1944, dos funcionarios de Minas ya habían informado del polvo; en 1946 ya había un diagnóstico de asbestosis. En 1947 el primer ministro Chifley dice que la vida de la mina es, a efectos prácticos, ilimitada.",
+      "pregunta_abierta": "¿Quién leyó esa carta y qué hizo con ella?",
+      "pregunta_pantalla": "",
+      "cierre": "Un año después de la carta, un representante de la empresa tuvo que responder ante un árbitro. Respondió.",
+      "palabras_objetivo": 125,
+      "flash_forward": false,
+      "contador": false,
+      "paga": null
+    },
+    {
+      "n": 5,
+      "cap": 3,
+      "funcion": "giro",
+      "emocion": "rabia contenida",
+      "intensidad": 3,
+      "dato_central": "D21",
+      "datos_apoyo": [
+        "Q53",
+        "Q54",
+        "T27",
+        "T35",
+        "T29"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Obreros del molino cubiertos de polvo de pies a cabeza; una nube espesa suspendida junto al edificio, constatada por una Junta de Referencia en 1957. En 1949 la empresa había dicho que las nubes de polvo no demostraban que el polvo fuera peligroso. En 1962 un médico comunica un mesotelioma en un antiguo trabajador del molino. En 1961, la producción aumenta.",
+      "pregunta_abierta": "¿Cómo se recluta gente en Europa para un lugar así, y qué se les cuenta?",
+      "pregunta_pantalla": "¿Qué les contaron cuando los reclutaron?",
+      "cierre": "A ese molino cubierto de polvo, a fines de mil novecientos sesenta y dos, iba a entrar un recién casado de Madrid que llevaba cuatro días de matrimonio cuando subió al barco.",
+      "palabras_objetivo": 125,
+      "flash_forward": false,
+      "contador": false,
+      "paga": 3,
+      "escena_idx": 4,
+      "pregunta_valida": true
+    },
+    {
+      "n": 6,
+      "cap": 4,
+      "funcion": "escalada",
+      "emocion": "horror doméstico",
+      "intensidad": 3,
+      "dato_central": "Q19",
+      "datos_apoyo": [
+        "Q44",
+        "D129",
+        "D18"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Niños que deshilachan fibras de amianto azul y se las meten en la boca; al tocarlas sale un polvillo fino que lo impregna todo. Quien quería arreglar un patio o un acceso pedía relaves y la empresa descargaba una carga: patios, caminos, la escuela, el jardín de infantes, las iglesias. En 1965 un comisionado de salud reprende al director de la escuela por cubrir el patio con eso.",
+      "pregunta_abierta": "¿Había algún lugar del pueblo donde no hubiera relaves?",
+      "pregunta_pantalla": "",
+      "cierre": "En el hospital del pueblo, en junio del sesenta y tres, María entró a dar a luz.",
+      "palabras_objetivo": 125,
+      "flash_forward": false,
+      "contador": false,
+      "paga": null,
+      "escena_idx": 3
+    },
+    {
+      "n": 7,
+      "cap": 4,
+      "funcion": "escalada",
+      "emocion": "alivio engañoso",
+      "intensidad": 3,
+      "dato_central": "T41",
+      "datos_apoyo": [
+        "T40",
+        "D87",
+        "Q16",
+        "D104",
+        "T39"
+      ],
+      "humano_en_escena": true,
+      "imagen_sensorial": "Un parto complicado después de una infección renal: un bebé muy grande, la madre débil, fórceps. El niño recibe el nombre del padre. El 7 de julio de 1963, la foto del bautizo. Después del bautizo, se van. Diez meses en total. El hijo cuenta además una explosión mortal el primer día de trabajo del padre; nadie más lo documenta.",
+      "pregunta_abierta": "¿Se fueron a tiempo?",
+      "pregunta_pantalla": "¿Se fueron a tiempo?",
+      "cierre": "Diez meses. Se fueron convencidos de haber salido a tiempo. La mina siguió funcionando.",
+      "palabras_objetivo": 125,
+      "flash_forward": false,
+      "contador": false,
+      "paga": null,
+      "escena_idx": 7,
+      "pregunta_valida": false
+    },
+    {
+      "n": 8,
+      "cap": 5,
+      "funcion": "giro",
+      "emocion": "amargura",
+      "intensidad": 3,
+      "dato_central": "T49",
+      "datos_apoyo": [
+        "T48",
+        "T21",
+        "D02",
+        "T47",
+        "D27",
+        "D121"
+      ],
+      "humano_en_escena": true,
+      "imagen_sensorial": "Diciembre de 1966: el presidente de CSR anuncia el cierre por razones económicas. Ese mismo año los Écija vuelven a Madrid. En los desfiladeros quedan más de tres millones de toneladas de relaves, vertidos durante dieciocho años. En 1978 el Estado empieza a reducir el pueblo y a pedir a la gente que se vaya por las fibras en el aire.",
+      "pregunta_abierta": "¿Cuánto tarda el asbesto en cobrarse lo que respiró cada uno de los siete mil que pasaron por ahí?",
+      "pregunta_pantalla": "",
+      "cierre": "En 1991, en Madrid, a Daniel Écija le dieron un diagnóstico.",
+      "palabras_objetivo": 130,
+      "flash_forward": false,
+      "contador": false,
+      "paga": null
+    },
+    {
+      "n": 9,
+      "cap": 5,
+      "funcion": "pico",
+      "emocion": "pérdida",
+      "intensidad": 5,
+      "dato_central": "D89",
+      "datos_apoyo": [
+        "T64",
+        "Q23",
+        "D36"
+      ],
+      "humano_en_escena": true,
+      "imagen_sensorial": "María, rodeada de las fotografías sepia: la boda, el barco, el retrato del pie vendado, el bautizo. El hombre de las fotos ya no está. Mesotelioma, 1991. Nueve meses después, muerto a los 55 años. Casi treinta años después de diez meses de polvo.",
+      "pregunta_abierta": "Si diez meses bastaron para él, ¿qué pasa con los que se quedaron años, y con los niños que se lo metían en la boca?",
+      "pregunta_pantalla": "¿Y los que se quedaron?",
+      "cierre": "Mientras Daniel moría en Madrid, en Wittenoom estaban desmontando el pueblo. Tablón por tablón.",
+      "palabras_objetivo": 120,
+      "flash_forward": false,
+      "contador": false,
+      "paga": 1,
+      "escena_idx": 9,
+      "pregunta_valida": false
+    },
+    {
+      "n": 10,
+      "cap": 6,
+      "funcion": "respiro",
+      "emocion": "vacío",
+      "intensidad": 2,
+      "dato_central": "D28",
+      "datos_apoyo": [
+        "T67",
+        "D06",
+        "T76",
+        "T80",
+        "Q07",
+        "D42"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Entre 1986 y 1992 caen los edificios, cierran la escuela, la enfermería, la comisaría; en 1993, el aeropuerto. En octubre de 2006 quedan ocho personas. En diciembre les cortan la red eléctrica. En 2007 el nombre desaparece de los mapas y de las señales. Barricadas permanentes en las entradas al pueblo y al desfiladero.",
+      "pregunta_abierta": "Si borrar el nombre es el fin del episodio, ¿qué pasa con el polvo que sigue ahí?",
+      "pregunta_pantalla": "",
+      "cierre": "El Gobierno habló del fin de un período oscuro. Sus propios técnicos, el año anterior, habían escrito otra cosa.",
+      "palabras_objetivo": 109,
+      "flash_forward": false,
+      "contador": false,
+      "paga": null,
+      "escena_idx": 11
+    },
+    {
+      "n": 11,
+      "cap": 6,
+      "funcion": "revelacion",
+      "emocion": "vértigo",
+      "intensidad": 4,
+      "dato_central": "D10",
+      "datos_apoyo": [
+        "D09",
+        "D150",
+        "Q05",
+        "D59",
+        "T90"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Depósitos de asbesto en lechos de arroyos, en pozas, en llanuras de inundación, arrastrados por el agua hasta el río Fortescue, que alimenta el acuífero que abastece a Karratha. El informe de 2006 dice que sin intervención el aporte continuará durante cientos de años. En 2016 una nota del Estado aconseja desistir de la remediación por su costo. En 2021 aparecen fibras fuera de la zona reconocida.",
+      "pregunta_abierta": "Si se sabe cómo encapsularlo y cuánto cuesta, ¿por qué no se ha hecho nunca?",
+      "pregunta_pantalla": "¿Por qué nadie lo limpió?",
+      "cierre": "Un hombre que no podía irse de esa tierra lo dijo delante de un relator de las Naciones Unidas.",
+      "palabras_objetivo": 141,
+      "flash_forward": false,
+      "contador": false,
+      "paga": 10,
+      "escena_idx": 10,
+      "pregunta_valida": true
+    },
+    {
+      "n": 12,
+      "cap": 7,
+      "funcion": "consecuencia",
+      "emocion": "duelo y resolución",
+      "intensidad": 3,
+      "dato_central": "T92",
+      "datos_apoyo": [
+        "Q10",
+        "T96",
+        "D61",
+        "D62",
+        "D70",
+        "D95"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Un anciano Banjima, Maitland Parker, habla en 2023 con el relator de la ONU: todavía llora por su territorio, no puede alejarse de él. Muere de mesotelioma en 2024. En agosto de 2023 el propio Estado reconoce que sus estudios sobre la extensión de la contaminación están desactualizados. En 2026 los Banjima demandan al Estado ante el Tribunal Federal: no se ha retirado una sola palada de asbesto de su tierra.",
+      "pregunta_abierta": "¿Quién va a pagar y quién va a ejecutar una limpieza cuya extensión ya nadie conoce?",
+      "pregunta_pantalla": "",
+      "cierre": "Mientras tanto, los que nacieron ahí siguen pasando controles.",
+      "palabras_objetivo": 73,
+      "flash_forward": false,
+      "contador": false,
+      "paga": 11
+    },
+    {
+      "n": 13,
+      "cap": 7,
+      "funcion": "cierre",
+      "emocion": "escalofrío",
+      "intensidad": 3,
+      "dato_central": "Q24",
+      "datos_apoyo": [
+        "T57",
+        "Q21",
+        "Q20",
+        "Q34"
+      ],
+      "humano_en_escena": true,
+      "imagen_sensorial": "1985, el puesto de control de un aeropuerto australiano. Un policía lee la documentación de un joven que lleva el nombre de su padre y Wittenoom como lugar de nacimiento. Baja la cabeza hacia el papel, vuelve a mirarlo. «Así que de Wittenoom, ¿eh? Un sitio terrorífico.» Mercedes de Juan sigue haciéndose escáneres y pruebas de función pulmonar; hay hijos de policías y maestros del pueblo que están enfermando ahora.",
+      "pregunta_abierta": "¿Cuándo supo la familia, y por quién?",
+      "pregunta_pantalla": "¿Quién les avisó?",
+      "cierre": "La única persona que advirtió a esa familia fue un policía que leyó un pasaporte. Seis años después llegó el diagnóstico. El polvo sigue donde lo dejaron.",
+      "palabras_objetivo": 67,
+      "flash_forward": false,
+      "contador": false,
+      "paga": null,
+      "escena_idx": 8,
+      "pregunta_valida": true
+    }
+  ],
+  "a_pantalla": [
+    {
+      "id": "D23",
+      "cap": 6,
+      "por_que": "Recuento oficial de muertes hasta 1989 (más de 500): documento, no voz."
+    },
+    {
+      "id": "D94",
+      "cap": 6,
+      "por_que": "Acuerdo de indemnización de CSR de 1989, 18,3 millones a 200 afectados: cifra de archivo."
+    },
+    {
+      "id": "D51",
+      "cap": 5,
+      "por_que": "Producción atribuida por Vernon a la mina, 131.000 toneladas: cifra del anuncio de cierre."
+    },
+    {
+      "id": "D109",
+      "cap": 7,
+      "por_que": "Cohorte de 6.912 trabajadores y 94 mesoteliomas hasta 1986: dato de estudio, va a pantalla sobre los controles médicos."
+    }
+  ],
+  "justificacion_humano": "La ficha propone a Daniel Écija padre como ángulo y como pico, y su arco es el único cerrado (entra recién casado, se hiere, ve nacer a su hijo, se va a los diez meses, muere de mesotelioma a los 55). No tiene citas verificadas: eso se resuelve con las voces que lo rodean, María Bernal en el gancho y en el pico, Daniel hijo en el cierre, y con Víctor Calvo (2 citas verificadas) como testigo de la llegada y de la exposición infantil en los caps 2 y 4. Maitland Parker queda como segundo humano del cap 7, porque la ficha necesita que la demanda Banjima tenga cara. El giro 6 y la pregunta final del caso cierran con él; el video cierra con Daniel.",
+  "topic_id": "123bbb64-9fca-4395-8bf4-57d60e219ef1",
+  "prompt_version": "f54-1",
+  "_reparaciones": [
+    "beat 1: apoyo E6 no existe en el pool → fuera",
+    "beat 1: apoyo E9 no existe en el pool → fuera",
+    "beat 3: apoyo E1 no existe en el pool → fuera",
+    "beat 3: apoyo E2 no existe en el pool → fuera",
+    "beat 5: apoyo E4 no existe en el pool → fuera",
+    "beat 6: apoyo E3 no existe en el pool → fuera",
+    "beat 6: apoyo E5 no existe en el pool → fuera",
+    "beat 6: apoyo P33 no existe en el pool → fuera",
+    "beat 7: apoyo E7 no existe en el pool → fuera",
+    "beat 9: apoyo E9 no existe en el pool → fuera",
+    "beat 9: apoyo T37 ya está en el beat 2 → fuera",
+    "beat 11: apoyo E10 no existe en el pool → fuera",
+    "beat 13: apoyo E8 no existe en el pool → fuera",
+    "humano.nombre «Daniel Écija (padre)» → «María Bernal» (el nombre exacto del pool)",
+    "a_pantalla D93: cap 6 inválido o lleno → fuera",
+    "a_pantalla D40: cap 6 inválido o lleno → fuera",
+    "a_pantalla Q03: cap 6 inválido o lleno → fuera",
+    "a_pantalla D155: cap 6 inválido o lleno → fuera",
+    "cap 1: palabras 180 → 110 (objetivo 110)",
+    "cap 2: palabras 440 → 250 (objetivo 250)",
+    "cap 3: palabras 520 → 250 (objetivo 250)",
+    "cap 4: palabras 480 → 250 (objetivo 250)",
+    "cap 5: palabras 460 → 250 (objetivo 250)",
+    "cap 6: palabras 460 → 250 (objetivo 250)",
+    "cap 7: palabras 460 → 140 (objetivo 140)",
+    "beat 4: escena_idx 0 no es una escena de la ficha → fuera",
+    "beat 8: escena_idx 0 no es una escena de la ficha → fuera",
+    "beat 12: escena_idx 0 no es una escena de la ficha → fuera"
+  ],
+  "_avisos": [],
+  "_intentos": [
+    {
+      "intento": 1,
+      "bloqueantes": [],
+      "reparaciones": [
+        "beat 1: apoyo E6 no existe en el pool → fuera",
+        "beat 1: apoyo E9 no existe en el pool → fuera",
+        "beat 3: apoyo E1 no existe en el pool → fuera",
+        "beat 3: apoyo E2 no existe en el pool → fuera",
+        "beat 5: apoyo E4 no existe en el pool → fuera",
+        "beat 6: apoyo E3 no existe en el pool → fuera",
+        "beat 6: apoyo E5 no existe en el pool → fuera",
+        "beat 6: apoyo P33 no existe en el pool → fuera",
+        "beat 7: apoyo E7 no existe en el pool → fuera",
+        "beat 9: apoyo E9 no existe en el pool → fuera",
+        "beat 9: apoyo T37 ya está en el beat 2 → fuera",
+        "beat 11: apoyo E10 no existe en el pool → fuera",
+        "beat 13: apoyo E8 no existe en el pool → fuera",
+        "humano.nombre «Daniel Écija (padre)» → «María Bernal» (el nombre exacto del pool)",
+        "a_pantalla D93: cap 6 inválido o lleno → fuera",
+        "a_pantalla D40: cap 6 inválido o lleno → fuera",
+        "a_pantalla Q03: cap 6 inválido o lleno → fuera",
+        "a_pantalla D155: cap 6 inválido o lleno → fuera",
+        "cap 1: palabras 180 → 110 (objetivo 110)",
+        "cap 2: palabras 440 → 250 (objetivo 250)",
+        "cap 3: palabras 520 → 250 (objetivo 250)",
+        "cap 4: palabras 480 → 250 (objetivo 250)",
+        "cap 5: palabras 460 → 250 (objetivo 250)",
+        "cap 6: palabras 460 → 250 (objetivo 250)",
+        "cap 7: palabras 460 → 140 (objetivo 140)",
+        "beat 4: escena_idx 0 no es una escena de la ficha → fuera",
+        "beat 8: escena_idx 0 no es una escena de la ficha → fuera",
+        "beat 12: escena_idx 0 no es una escena de la ficha → fuera"
+      ],
+      "no_bloqueantes": [
+        "falta un beat de intensidad 1 (respiro) después del pico",
+        "beat 1: María Bernal en escena sin un dato suyo verificado (ninguna cita ni mención en ['D85', 'Q25']); datos suyos que valen: ['D87', 'T34', 'T37', 'T38', 'T40', 'T41', 'T47']",
+        "beat 9: María Bernal en escena sin un dato suyo verificado (ninguna cita ni mención en ['D89', 'T64', 'Q23', 'D36']); datos suyos que valen: ['D87', 'T34', 'T37', 'T38', 'T40', 'T41', 'T47']",
+        "beat 13: María Bernal en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q24', 'T57', 'Q21', 'Q20', 'Q34']); datos suyos que valen: ['D87', 'T34', 'T37', 'T38', 'T40', 'T41', 'T47']",
+        "la última frase del video (cierre del beat 13) no nombra al humano ni a un testigo verificado (Jim McNulty, Mark Nevill, Larry Graham, Maitland Parker, Johnnell Parker, Víctor Calvo, Mercedes de Juan, Melita Markey, Eric Saint, Dennis Morgan, Cec Reem, W. S. Davidson, Ben Wyatt, State Government, Sir James Vernon, Subcomité de Wittenoom, Prime Minister Chifley, Inspector de Salud Regional, Junta de Referencia): «La única persona que advirtió a esa familia fue un policía que leyó un pasaporte. Seis años después llegó el diagnóstico. El polvo sigue donde lo dejaron.»",
+        "pregunta de pantalla del cap 6 «¿Por qué nadie lo limpió?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+        "pregunta de pantalla del cap 1 «¿Qué tiene un pie vendado que ver con un pueblo que ya no existe?»: 14 palabras (máximo 8)",
+        "pregunta de pantalla del cap 2 «¿De qué estaba hecho ese polvo?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)",
+        "pregunta de pantalla del cap 4 «¿Se fueron a tiempo?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)",
+        "pregunta de pantalla del cap 5 «¿Y los que se quedaron?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)"
+      ]
+    }
+  ],
+  "ficha": {
+    "prompt_version": "f23-1",
+    "pool_md5": "3eef2b448a82cfefa4abd4574341c985"
+  },
+  "pool_gate": {
+    "color": "verde",
+    "metricas": {
+      "datos": 155,
+      "citas_verificadas": 42,
+      "elegibles_humano": 25,
+      "eventos_con_fecha": 98,
+      "personas_con_nombre": 35
+    },
+    "motivos": [],
+    "target_words": 1500
+  },
+  "_pantalla_por_fecha": [
+    "D110 cuenta lo mismo que D109, ya en pantalla: fuera",
+    "D30 (None) → cap 6 lleno: fuera",
+    "T59 (None) → cap 6 lleno: fuera",
+    "D68 (None) → cap 7 lleno: fuera"
+  ],
+  "caps": [
+    {
+      "chapter_number": 1,
+      "role": "hook",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "hook",
+      "evidence_ids": [
+        "D85",
+        "Q25"
+      ],
+      "cliffhanger": "T34",
+      "pantalla_ids": [],
+      "palabras_objetivo": 110
+    },
+    {
+      "chapter_number": 2,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "setup",
+      "evidence_ids": [
+        "T34",
+        "T37",
+        "T38",
+        "Q12",
+        "D83",
+        "T24",
+        "Q13",
+        "Q14",
+        "Q15",
+        "D82",
+        "D03",
+        "Q27"
+      ],
+      "cliffhanger": "D92",
+      "pantalla_ids": [
+        "T28",
+        "D113"
+      ],
+      "palabras_objetivo": 250
+    },
+    {
+      "chapter_number": 3,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "rising_tension",
+      "evidence_ids": [
+        "D92",
+        "T06",
+        "D132",
+        "D19",
+        "T13",
+        "Q37",
+        "Q46",
+        "D21",
+        "Q53",
+        "Q54",
+        "T27",
+        "T35",
+        "T29"
+      ],
+      "cliffhanger": "Q19",
+      "pantalla_ids": [
+        "T19",
+        "T14"
+      ],
+      "palabras_objetivo": 250
+    },
+    {
+      "chapter_number": 4,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "rising_tension",
+      "evidence_ids": [
+        "Q19",
+        "Q44",
+        "D129",
+        "D18",
+        "T41",
+        "T40",
+        "D87",
+        "Q16",
+        "D104",
+        "T39"
+      ],
+      "cliffhanger": "T49",
+      "pantalla_ids": [
+        "D26",
+        "T10"
+      ],
+      "palabras_objetivo": 250
+    },
+    {
+      "chapter_number": 5,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "shock",
+      "evidence_ids": [
+        "T49",
+        "T48",
+        "T21",
+        "D02",
+        "T47",
+        "D27",
+        "D121",
+        "D89",
+        "T64",
+        "Q23",
+        "D36"
+      ],
+      "cliffhanger": "D28",
+      "pantalla_ids": [
+        "D51"
+      ],
+      "palabras_objetivo": 250
+    },
+    {
+      "chapter_number": 6,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "resolution",
+      "evidence_ids": [
+        "D28",
+        "T67",
+        "D06",
+        "T76",
+        "T80",
+        "Q07",
+        "D42",
+        "D10",
+        "D09",
+        "D150",
+        "Q05",
+        "D59",
+        "T90"
+      ],
+      "cliffhanger": "T92",
+      "pantalla_ids": [
+        "D23",
+        "D94"
+      ],
+      "palabras_objetivo": 250
+    },
+    {
+      "chapter_number": 7,
+      "role": "reveal_outro",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "outro",
+      "evidence_ids": [
+        "T92",
+        "Q10",
+        "T96",
+        "D61",
+        "D62",
+        "D70",
+        "D95",
+        "Q24",
+        "T57",
+        "Q21",
+        "Q20",
+        "Q34"
+      ],
+      "cliffhanger": "",
+      "pantalla_ids": [
+        "D109",
+        "T98"
+      ],
+      "palabras_objetivo": 140
+    }
+  ],
+  "_pool_plan": {
+    "cifras_canonicas": [],
+    "pantalla": [
+      "cap 2: pantalla ['T28', 'D113']",
+      "cap 3: pantalla ['T19', 'T14']",
+      "cap 4: pantalla ['D26', 'T10']",
+      "cap 5: pantalla ['D109', 'D110']",
+      "cap 6: pantalla ['D30', 'T59']",
+      "cap 7: pantalla ['T98', 'D68']"
+    ]
+  },
+  "_metricas": {
+    "curva_intensidad": [
+      4,
+      1,
+      2,
+      3,
+      3,
+      3,
+      3,
+      3,
+      5,
+      2,
+      4,
+      3,
+      3
+    ],
+    "flash_forward_beat1": true,
+    "curva_problemas": [
+      "falta un beat de intensidad 1 (respiro) después del pico"
+    ],
+    "humano_en_escena_caps": [
+      1,
+      2,
+      4,
+      5,
+      7
+    ],
+    "humano_entra_cap": 1,
+    "humano_con_cita_sin_verificar_en_escena": [
+      1,
+      2
+    ],
+    "humano_en_escena_problemas": [
+      "beat 1: María Bernal en escena sin un dato suyo verificado (ninguna cita ni mención en ['D85', 'Q25']); datos suyos que valen: ['D87', 'T34', 'T37', 'T38', 'T40', 'T41', 'T47']",
+      "beat 9: María Bernal en escena sin un dato suyo verificado (ninguna cita ni mención en ['D89', 'T64', 'Q23', 'D36']); datos suyos que valen: ['D87', 'T34', 'T37', 'T38', 'T40', 'T41', 'T47']",
+      "beat 13: María Bernal en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q24', 'T57', 'Q21', 'Q20', 'Q34']); datos suyos que valen: ['D87', 'T34', 'T37', 'T38', 'T40', 'T41', 'T47']"
+    ],
+    "imagen_gancho_con_cifras": false,
+    "imagenes_abstractas": [],
+    "escenas_usadas": [
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "escena_gancho": 6,
+    "escena_pico": 9,
+    "giros": [
+      {
+        "orden": 1,
+        "que_cambia": "Las advertencias dejan de ser generales: Eric Saint denuncia por escrito el peligro del polvo y anticipa una cosecha letal de asbestosis.",
+        "beat": null
+      },
+      {
+        "orden": 2,
+        "que_cambia": "La producción aumenta pese a la evidencia sanitaria, antes de la llegada documentada de las familias españolas.",
+        "beat": 2
+      },
+      {
+        "orden": 3,
+        "que_cambia": "La mina finalmente cierra, pero por razones económicas, no porque se haya eliminado la contaminación.",
+        "beat": 6
+      },
+      {
+        "orden": 4,
+        "que_cambia": "La salida del pueblo no cierra el daño: Daniel Écija padre recibe un diagnóstico de mesotelioma y muere después.",
+        "beat": 7
+      },
+      {
+        "orden": 5,
+        "que_cambia": "Se elimina oficialmente el pueblo, pero la declaración posterior exige remediar un territorio que sigue contaminado.",
+        "beat": 10
+      },
+      {
+        "orden": 6,
+        "que_cambia": "La dispersión fuera del área reconocida y la falta de una solución desembocan en la demanda de BNTAC contra el Estado.",
+        "beat": 11
+      }
+    ],
+    "giros_con_beat": 5,
+    "giros_total": 6,
+    "humano_en_candidatos": true,
+    "pico_es_el_de_la_ficha": true,
+    "palabras_objetivo_por_cap": {
+      "1": 110,
+      "2": 250,
+      "3": 250,
+      "4": 250,
+      "5": 250,
+      "6": 250,
+      "7": 140
+    },
+    "antagonista_tipo": "institucion",
+    "antagonista_caps": [
+      2,
+      3,
+      5
+    ],
+    "cifra_en_pantalla_repetida": [],
+    "ultima_frase_repite_cita": [],
+    "ultima_frase_sin_humano": [
+      "la última frase del video (cierre del beat 13) no nombra al humano ni a un testigo verificado (Jim McNulty, Mark Nevill, Larry Graham, Maitland Parker, Johnnell Parker, Víctor Calvo, Mercedes de Juan, Melita Markey, Eric Saint, Dennis Morgan, Cec Reem, W. S. Davidson, Ben Wyatt, State Government, Sir James Vernon, Subcomité de Wittenoom, Prime Minister Chifley, Inspector de Salud Regional, Junta de Referencia): «La única persona que advirtió a esa familia fue un policía que leyó un pasaporte. Seis años después llegó el diagnóstico. El polvo sigue donde lo dejaron.»"
+    ],
+    "preguntas_pantalla": [
+      "pregunta de pantalla del cap 6 «¿Por qué nadie lo limpió?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+      "pregunta de pantalla del cap 1 «¿Qué tiene un pie vendado que ver con un pueblo que ya no existe?»: 14 palabras (máximo 8)",
+      "pregunta de pantalla del cap 2 «¿De qué estaba hecho ese polvo?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)",
+      "pregunta de pantalla del cap 4 «¿Se fueron a tiempo?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)",
+      "pregunta de pantalla del cap 5 «¿Y los que se quedaron?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)"
+    ],
+    "preguntas_abiertas": [
+      "¿Qué le pasó al hombre del pie vendado, y por qué una herida que no cierra importa en una historia sobre un pueblo borrado del mapa?",
+      "¿Qué les prometieron a cambio de cruzar medio mundo recién casados?",
+      "¿De qué está hecho ese polvo que nadie había visto en esa cantidad?",
+      "¿Quién leyó esa carta y qué hizo con ella?",
+      "¿Cómo se recluta gente en Europa para un lugar así, y qué se les cuenta?",
+      "¿Había algún lugar del pueblo donde no hubiera relaves?",
+      "¿Se fueron a tiempo?",
+      "¿Cuánto tarda el asbesto en cobrarse lo que respiró cada uno de los siete mil que pasaron por ahí?",
+      "Si diez meses bastaron para él, ¿qué pasa con los que se quedaron años, y con los niños que se lo metían en la boca?",
+      "Si borrar el nombre es el fin del episodio, ¿qué pasa con el polvo que sigue ahí?",
+      "Si se sabe cómo encapsularlo y cuánto cuesta, ¿por qué no se ha hecho nunca?",
+      "¿Quién va a pagar y quién va a ejecutar una limpieza cuya extensión ya nadie conoce?",
+      "¿Cuándo supo la familia, y por quién?"
+    ],
+    "loops": [
+      {
+        "id": "L1",
+        "pregunta": "¿Por qué un hombre que vivió diez meses en un pueblo del desierto muere de ese pueblo casi treinta años después y a medio mundo de distancia?",
+        "abre_beat": 1,
+        "paga_beat": 9
+      },
+      {
+        "id": "L2",
+        "pregunta": "¿Qué sabía la empresa del polvo cuando fue a Europa a reclutar a estas familias?",
+        "abre_beat": 3,
+        "paga_beat": 5
+      }
+    ],
+    "recuerda_loop": {
+      "beat": 5,
+      "oracion": "A ese molino cubierto de polvo, a fines de mil novecientos sesenta y dos, iba a entrar un recién casado de Madrid que llevaba cuatro días de matrimonio cuando subió al barco."
+    },
+    "beats_con_paga": {
+      "5": 3,
+      "9": 1,
+      "11": 10,
+      "12": 11
+    },
+    "otros": []
+  }
+}

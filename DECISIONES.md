@@ -162,3 +162,7 @@ Motivo: retención + costo de sostener; 19 componentes con 7 tipos de texto prod
 - 2026-10-29 16:05 · F54: se quitan R3 (cifras en promesa), R4 (prueba del adelanto f25c/f26), R5 (promesa intocable en guion v5.4); loops declarados en la escaleta; cierre y pagos chequeados por código; ejemplos nuevos del guionista · loops: 2 · re-gancho: sí, al cierre del cap 3 (campo recuerda_loop) · Omar
 - 2026-10-29 19:30 · dedupe de citas del pool: mismo autor + 70 % de palabras de contenido en común (UMBRAL_DEDUPE_CITAS = 0.7; derivado del pool de Wittenoom, 8 pares reales, 0 falsos) · Omar
 - 2026-10-29 19:30 · F55 C.0 opción (ii): se borran las 5 versiones viejas del prompt de la escaleta (SYSTEM_V2_F26_1, F25_1, F24_1, F22_2, F22_1 y sus PROMPT_VERSION) con sus tests; queda solo la vigente, que pasa a f55-1 con el ejemplo de una oración · Omar
+- 2026-10-29 16:08 · sin tope de dólares por tanda; el gasto se informa, no frena · Omar
+- 2026-10-29 19:07 · se borra la constante v5.5 del guionista (`SYSTEM_V5_5`) con su test: lo viejo se borra, no se apaga · Omar
+- 2026-10-29 19:16 · segunda opinión del detector con Sonnet 5.5 solo sobre lo que el código marcó “no dicho” · Omar
+- 2026-10-29 19:15 · `promesa_gancho` de la escaleta = una oración · Omar
