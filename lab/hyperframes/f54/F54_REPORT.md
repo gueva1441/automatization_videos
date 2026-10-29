@@ -683,7 +683,7 @@ Orden en que cada modelo leyó los dos guiones por cap (ciego; semilla fija): ca
 Lectura de CC: **el panel no distingue los dos guiones** (media del video 7,9 viejo contra 7,8 nuevo; Flash puntúa 9–10 a casi todo, Sonnet 5–8, Opus 7–9). En el cap 1 los tres leen el viejo y el nuevo como «funciona»; Opus señala en el nuevo la segunda oración («pide demasiado de golpe: un pueblo sin nombre, una muerte diferida, unos responsables, un año y una cifra de toneladas») y Sonnet la vuelta atrás final en los dos. Las coincidencias de los 3 son 0 en los dos guiones; «2 de 3» aparece en los caps 1, 5 y 6 del viejo y en ninguno del nuevo. Informa, no frena.
 
 ## Lo que queda abierto (Parte B)
-1. **El detector `evidence.used_in` no ve datos sin cifra ni fecha** (ni años en letras): (f) y (h) frenan por eso con la voz diciendo el dato; la promesa del gancho nuevo y la primera apuesta tampoco se miden bien. Handoff aparte, con tests.
+1. **El detector `evidence.used_in` no ve datos sin ancla: sin cifra, sin fecha, o con fecha sin guion como D21 `fecha='1961'`** (ni años en letras): (f) y (h) frenan por eso con la voz diciendo el dato; la promesa del gancho nuevo y la primera apuesta tampoco se miden bien. Handoff aparte, con tests.
 2. **La promesa del gancho de la escaleta nueva** empieza «Esta es la historia de quién sabía…»: voz de tráiler, que `<voz>` del guionista prohíbe y el guionista no copió (dijo «había gente con cargo y con firma que sabía…»). La escaleta no tiene esa regla; el analista decide si es ejemplo (el `promesa_gancho` del `<ejemplo>` de la escaleta sigue diciendo «Esta es la historia de quién decidió que no llegara») o nada.
 3. **Ningún pago en la primera oración del cap**: `<estructura>` §2 nuevo no se cumplió en la corrida; (h) no lo mide (mide que el dato esté en el cap). Si Omar lo quiere chequeado, es un bloqueante más o una métrica.
 4. **El cap 3 nuevo dice 11 años**; el tope de años/cap sigue sin decidir (solo métrica).
@@ -695,4 +695,38 @@ Lectura de CC: **el panel no distingue los dos guiones** (media del video 7,9 vi
 
 ## Veredicto de revisor-handoff (Parte B.2/B.4/B.5, íntegro)
 
-(se pega abajo)
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | v5.6 = v5.5 con solo `<ejemplos>` cambiado, idéntico al OK del analista | OK | `guion_v4.py` SYSTEM_V5_6, PROMPT_VERSION `f54-2`. `test_guion_v5_6_literal_y_solo_cambia_ejemplos` exige que el bloque esté en el sistema y que, al cambiarlo por el viejo, salga el v5.5 exacto. `pytest test_module_f54.py test_module_f22.py`: 87 passed, 8 skipped. |
+| 2 | «El bloque viejo se borra» | PARCIAL | Sale del prompt vigente, pero sigue en `SYSTEM_V5_5` (`version="f54-1"`, `guion_v4.py` `system()`) y en las versiones anteriores. Omar dijo «lo viejo se borra, no se apaga por flag», y el selector por versión es en la práctica un flag. CC lo declara (decisión 1 del reporte, «un commit de una línea»), pero no obedece el texto literal. Decide Omar. |
+| 3 | B.4: GANCHO primer bloque en hero y metadata, con la instrucción literal | OK | `m09_packaging.py`: `GANCHO_INSTRUCCION` es la frase literal del handoff. `_bloque_gancho` va primero en `_hero_user_prompt` y en `_meta_user_prompt`. Test `test_m09_gancho_primero…`. |
+| 4 | B.4: cap 1 sin truncar, sin texto nuevo en los sistemas | OK | `_narration_for_hero` solo trunca `n != 1`. El diff no toca `_HERO_SYSTEM` ni `_META_SYSTEM`. |
+| 5 | B.5: corrida hasta `01e_pantalla.md`, cero fotos y voz | OK | `b5_run.log`: escaleta f54-1, guion f54-2, papel «13 fichas · 9 sellos · 3 relojes». Termina en «PARADA del papel». |
+| 6 | Viejos guardados en `f54/antes/` | OK | `antes/` tiene 11 archivos (escaleta, guion, narración, pantalla). El cap 1 viejo tiene 86 palabras y el nuevo 168. |
+| 7 | La (d) se reporta y no se arregla | OK | Reporte, tabla de bloqueantes, fila 1. No se tocó `contamination`. |
+| 8 | Tope US$ 6 | OK | Sumé `data/cost_history.json` desde 2026-10-29T16:17:29: US$ 3,336 (3,13 de la corrida B.5 y 0,41 del panel con redondeos). Coincide con el «3,34» del reporte. |
+| 9 | Salida B completa (tabla A/B, los dos cap 1, loops con pagos, 7 títulos, papel) | OK | `SALIDA_B.md` y reporte, secciones 1 a 5. |
+| 10 | Medida de retención (1) por código, viejo \| nuevo | OK | `medida_retencion.py` y `MEDIDA_RETENCION.md`: primera apuesta, loops, re-gancho (cap 3, min 5,33), años/cap, datos/min, cierre a la imagen. |
+| 11 | Relajaciones del detector declaradas | PARCIAL | Están en el docstring (`medida_retencion.py:53-54, 80, 98`) y en la decisión 3 del reporte. Pero `MEDIDA_RETENCION.md`, el artefacto que se lee, no las menciona (grep sin resultados). Se aplican igual a viejo y nuevo, y solo en el script de medida. |
+| 12 | Panel ciego (2) | OK | `panel_ciego.py`: la pregunta literal es idéntica a la adenda. Los 3 modelos hacen 42 llamadas, con orden al azar (semilla 54) y sin marcar. Salidas: notas, oraciones de abandono, tabla de coincidencias. Costo US$ 0,408, medido en `cost_history`. |
+| 13 | Hallazgo `used_in` → 3 falsos positivos (h) | OK, confirmado | Lo corrí. Con el pool: D21 (`tipo=fecha`, `fecha='1961'`, sin guion) y D10 (`lugar`) dan `anchors()==[]`, entonces `used_in` es False aunque la voz lo diga. Cap 3: «En mil novecientos sesenta y uno, la producción aumentó.» Cap 6: «Salía del vertedero de Colonial… hasta el río Fortescue.» Matiz: el reporte dice «sin cifra ni fecha», pero D21 tiene un año; falla porque `fecha` no tiene «-» (`evidence.py:80-100`). |
+| 14 | Informa, no frena | OK | El panel y la medida no bloquean nada. |
+
+Observación adicional: la medida da «primera apuesta» 550 s en el nuevo, un valor sobre todo del detector. El reporte lo admite. Con L2 y los beats 5 y 11 marcados «NO pagado» por la misma ceguera, esa fila de la medida no sirve como evidencia tal cual.
+
+Fuera de alcance: ninguno. Los commits tocan solo `script_engine/guion_v4.py` y `m09_packaging.py`, los dos tests, `lab/hyperframes/f54/*`, `f41/f54c` (logs), stickers, MAPA y ESTADO. Los archivos modificados sin commit (`diag_234_cap4.py`, `lab/TOPE_TANDA.json`, `f28a.log`) ya estaban así en el snapshot inicial.
+
+Riesgos que el contrato no cubre:
+- El guion nuevo queda con PARADA (4 bloqueantes, 3 de ellos falsos). Mientras `used_in` no se arregle, (f) y (h) volverán a frenar guiones buenos.
+- Ningún pago cae en la primera oración del cap. Nada lo chequea, así que la regla de B.3 no se cumple en la práctica.
+- El panel no distingue los guiones (7,9 contra 7,8) y no tiene coincidencias de los 3 modelos. Con n=1 caso, no hay evidencia de que v5.6 retenga más.
+
+Nota: la sección «Veredicto de revisor-handoff (Parte B.2/B.4/B.5)» del reporte (`lab/hyperframes/f54/F54_REPORT.md`) dice «(se pega abajo)». Falta pegar este veredicto ahí.
+
+## Adenda de CC (Parte B.2/B.4/B.5)
+- **Fila 2 (v5.5 como constante):** es la práctica del proyecto desde F15 (cada versión del prompt queda con su `version=`, byte-idéntica, y el handoff A.1 la pide «como siempre»). El prompt vigente no tiene el bloque viejo. Si Omar quiere borrar `SYSTEM_V5_5` y su test, es un commit de una línea; lo decide él.
+- **Fila 11:** las dos relajaciones del detector que usa la medida (años en letras → cifras; año y hecho en oraciones vecinas del mismo cap) quedan dichas acá, en la decisión 3 y en el docstring del script; se aplican igual a los dos guiones. `MEDIDA_RETENCION.md` lleva ahora una línea que las nombra (commit de este veredicto).
+- **Fila 13, matiz:** correcto: D21 tiene `fecha='1961'` pero `anchors` solo toma fechas con guion; D10 y D42 no tienen nada. El hallazgo queda escrito así en «lo abierto»: datos sin ancla **o con fecha sin guion**.
+- **Observación adicional:** de acuerdo; la fila «primera apuesta» y los «NO pagado» de L2/beats 5 y 11 miden al detector, no al guion. Está dicho en la lectura de CC y es el abierto 1.

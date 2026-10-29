@@ -1,6 +1,6 @@
 # F54 — medida de retención por código (adenda 18:30, 1): viejo | nuevo
 
-viejo = `C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f54\antes` (escaleta f26-1) · nuevo = `C:\CLAUDE_PROJECTS\automatization_videos\data\scripts\_steps\123bbb64-9fca-4395-8bf4-57d60e219ef1` (escaleta f54-1) · 2.4 pal/s. Informa, no frena.
+viejo = `C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f54\antes` (escaleta f26-1) · nuevo = `C:\CLAUDE_PROJECTS\automatization_videos\data\scripts\_steps\123bbb64-9fca-4395-8bf4-57d60e219ef1` (escaleta f54-1) · 2.4 pal/s. Informa, no frena. Detector: `evidence.used_in` (el de producción) con dos relajaciones solo para medir, iguales para los dos guiones: los años en letras pasan a cifras antes de buscar el ancla, y en un evento con fecha el año y el hecho pueden estar en oraciones vecinas del mismo cap (ver `medida_retencion._dice`).
 
 | ingrediente | viejo | nuevo |
 |---|---|---|
