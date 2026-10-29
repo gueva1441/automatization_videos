@@ -1,0 +1,10 @@
+[23:43:30] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: 123bbb64-9fca-4395-8bf4-57d60e219ef1
+[23:45:42] INFO     | viral_pipeline | [cost_tracker] Video 123bbb64-9fca-4395-8bf4-57d60e219ef1 — Costo total: $0.3415
+  [03] cap 1: 0 de 5 fotos sin period
+  [03] cap 2: 0 de 16 fotos sin period
+  [03] cap 3: 0 de 16 fotos sin period
+  [03] cap 4: 0 de 14 fotos sin period
+  [03] cap 5: 0 de 16 fotos sin period
+  [03] cap 6: 0 de 16 fotos sin period
+  [03] cap 7: 0 de 13 fotos sin period
+{"marca": "a08c790ceac3a982d0cdca904424371f", "log": ["  [canon] desde la ficha (a08c790c): 12 people_groups, 22 personas, 0 props"], "costo": [{"paso": "canon", "usd": 0.3415, "segundos": 132.1}], "cubiertas": "96/96", "periods": ["1937-1945", "1946-1966", "1967-1992", "1993-2026"], "grupos": 12, "sin_ropa": 0, "sin_appearance": ["international_un_official", "airport_police"], "pasa": true}
