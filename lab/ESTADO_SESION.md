@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 15:45 (F53b Parte B: sale Veo, la cadena de clips es Gemini Omni Flash → Kling 4.0; 1 clip real del cap 7 con G, US$ 1,23; F53b 1,34 de 3; PARADA B) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 16:40 (F54 Parte A: la promesa del gancho puede llevar lo que está en juego; bloqueantes (f) cierre no dicho y (g) cita repetida; años y datos/min por cap; Wittenoom frena por (f) en el cap 7; US$ 0; PARADA A) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,18 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F54 Parte A, PARADA A): la promesa del gancho ya puede decir lo que está en juego, y dos chequeos nuevos frenan el guion.
+- La escaleta ya no rechaza una promesa con años o cifras, y el guionista la dice con sus palabras. La imagen del gancho sigue sin año ni cifras.
+- Frena si el cap 7 no dice el dato del cierre o si una misma cita se dice en dos caps. **El guion actual de Wittenoom frena por el cierre del cap 7 (D42).**
+- Años dichos por cap: 1 · 3 · 6 · 3 · 8 · 7 · 3 (el analista esperaba 7 en los caps 3, 5 y 6). Datos por minuto en la tabla del reporte.
+- **Falta tu dato:** la línea de las 16:05 de DECISIONES lleva «loops: N» y «re-gancho: …» y no llegaron los valores; no la escribí (votos del analista: 2; fin del cap 3, campo `recuerda_loop`).
+- **Sigue:** la Parte B solo con tu «sigue». Gasto de la Parte A: US$ 0.
+
+## F54 — Parte A (handoff del analista, 2026-10-29 16:05) — PARADA A
+- Commits: `1c9cd7d` etapa 0 (DECISIONES 15:40; ESTADO sin diferencias de CRLF); `2f91029` Parte A (`m01a_escaleta`: fuera el rechazo de la promesa con cifras y su métrica, `NUM_WORDS` con compuestos, prompt `f54-1`; `guion_v4`: v5.5 `f54-1`, bloqueantes `f`/`g`, métricas; `guion_v3_reglas`: `anios_por_cap`, `datos_por_min`; tests; stickers y MAPA); `5bc5965` salida A (`lab/hyperframes/f54/salida_a.py`, `SALIDA_A.md`). El último commit es el del reporte (`lab/hyperframes/f54/F54_REPORT.md`).
+- Las letras: la (d) del handoff es `f` y la (e) es `g` (d y e ya existían en `guion_v4`). `TOPE_TANDA` = 6 desde 16:17:29.
+- Suites: rápida 55; amplia 1077 + 4 previas; ch02 `f792f3d4…`; MAPA --check 0.
 
 ## 👀 Para Omar (F53b Parte B, PARADA B): Veo salió; los clips ahora los hace Gemini Omni Flash, y Kling si Google rechaza.
 - Por cada clip, Opus escribe el prompt de cada motor mirando la foto; si Gemini lo rechaza por contenido, pasa a Kling sin suavizar; la pista de audio se quita.
