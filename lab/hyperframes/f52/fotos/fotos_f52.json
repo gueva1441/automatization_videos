@@ -1,0 +1,31 @@
+{
+ "cap01": {
+  "veo_position": "start",
+  "prompt": "A young adult Spanish migrant miner, olive skin, short dark early-1960s hair, lean wiry build, in a dust-coated short-sleeved work shirt and drill trousers, one foot wrapped in a white bandage. Stands stiffly posing for a family photograph, weight shifted off the bandaged foot. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Yard of a Wittenoom company house in 1962, red-ochre earth underfoot, dull grey corrugated iron wall behind. Hard cold midday light under a pale washed-out sky, short sharp shadows. Medium shot, eye-level, as a family snapshot camera, 50mm lens, moderate depth of field, bandage sharp in lower frame. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+  "art_profile": "",
+  "meta": {
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
+   "ms": 35239,
+   "width": null,
+   "height": null,
+   "seed": 955188763,
+   "nsfw_flag": false
+  },
+  "md5": "7f55f96bfaeb3da5e3d1cbb7a69129d1"
+ },
+ "cap07": {
+  "veo_position": "end",
+  "prompt": "An old long-handled shovel standing upright in a bank of blue-grey crocidolite tailings at a creek bed edge. The shovel stands unused, blade sunk in untouched tailings, while a thin stream slides past it toward the floodplain. Dry Pilbara creek bed below a Wittenoom gorge, red-ochre banks, shallow pools, spinifex clumps, 2026. Pale cold dawn light, long soft shadows. Wide shot, low angle at creek-bed level, deep depth of field, 24mm lens. A grainy 35mm documentary photograph taken in 2026, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+  "art_profile": "",
+  "meta": {
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
+   "ms": 61302,
+   "width": null,
+   "height": null,
+   "seed": 1070366601,
+   "nsfw_flag": false
+  },
+  "md5": "b343bef3422d256fcccc3a55e62df69e"
+ },
+ "_costo_usd": 0.07
+}

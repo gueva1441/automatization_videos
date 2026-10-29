@@ -1,0 +1,639 @@
+{
+ "K": {
+  "endpoint": "kling/v4/image-to-video",
+  "entrada": {
+   "schema": "V4ImageToVideoInput",
+   "campos": {
+    "multi_prompt": {
+     "tipo": [
+      "array",
+      "null"
+     ],
+     "default": null,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "Per-shot prompts for multi-shot generation. The video duration is the sum of the shot durations."
+    },
+    "resolution": {
+     "tipo": "string",
+     "default": "1080p",
+     "enum": [
+      "720p",
+      "1080p"
+     ],
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "Output resolution."
+    },
+    "start_image_url": {
+     "tipo": "string",
+     "default": null,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": true,
+     "desc": "Image to use as the first frame of the video.\n\nMax file size: 30.0MB, Min width: 300px, Min height: 300px, Min aspect ratio: 0.40, Max aspect ratio: 2.50, Timeo"
+    },
+    "middle_image_urls": {
+     "tipo": [
+      "array",
+      "null"
+     ],
+     "default": null,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "Ordered keyframes between the first and last frames (max 8)."
+    },
+    "duration": {
+     "tipo": "integer",
+     "default": 5,
+     "enum": null,
+     "min": 3,
+     "max": 30,
+     "requerido": false,
+     "desc": "Video duration in seconds (3-30)."
+    },
+    "end_image_url": {
+     "tipo": [
+      "string",
+      "null"
+     ],
+     "default": null,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "Image to use as the last frame of the video."
+    },
+    "prompt": {
+     "tipo": [
+      "string",
+      "null"
+     ],
+     "default": null,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "Text prompt. Either prompt or multi_prompt must be provided."
+    }
+   }
+  },
+  "precio": {
+   "http": 200,
+   "body": {
+    "prices": [
+     {
+      "endpoint_id": "kling/v4/image-to-video",
+      "unit_price": 0.157,
+      "unit": "seconds",
+      "currency": "USD"
+     }
+    ],
+    "next_cursor": null,
+    "has_more": false
+   }
+  }
+ },
+ "S": {
+  "endpoint": "bytedance/seedance-2.5/image-to-video",
+  "entrada": {
+   "schema": "Seedance25ImageToVideoInput",
+   "campos": {
+    "duration": {
+     "tipo": "string",
+     "default": "auto",
+     "enum": [
+      "auto",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "25",
+      "26",
+      "27",
+      "28",
+      "29",
+      "30"
+     ],
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "Duration of the video in seconds. Supports 4 to 30 seconds, or auto to let the model decide based on the prompt."
+    },
+    "resolution": {
+     "tipo": "string",
+     "default": "720p",
+     "enum": [
+      "480p",
+      "720p",
+      "1080p"
+     ],
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "Video resolution - 480p for faster generation, 720p for balance, 1080p for high quality."
+    },
+    "prompt": {
+     "tipo": [
+      "string",
+      "null"
+     ],
+     "default": null,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "The text prompt describing the desired motion and action for the video."
+    },
+    "aspect_ratio": {
+     "tipo": "string",
+     "default": "auto",
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "The aspect ratio of the generated video. Always \"auto\" for image-to-video"
+    },
+    "codec": {
+     "tipo": "string",
+     "default": "auto",
+     "enum": [
+      "auto",
+      "H264",
+      "H265"
+     ],
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "'auto' retains default video codec behaviour; 'H264' uses H.264; 'H265' uses H.265."
+    },
+    "image_url": {
+     "tipo": "string",
+     "default": null,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": true,
+     "desc": "The URL of the starting frame image to animate. Supported formats: JPEG, PNG, WebP, BMP, TIFF, GIF, HEIC, HEIF. Max 30 MB."
+    },
+    "end_user_id": {
+     "tipo": [
+      "string",
+      "null"
+     ],
+     "default": null,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "The unique user ID of the end user."
+    },
+    "end_image_url": {
+     "tipo": [
+      "string",
+      "null"
+     ],
+     "default": null,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "The URL of the image to use as the last frame of the video. When provided, the generated video will transition from the starting image to this ending image. Sup"
+    },
+    "draft": {
+     "tipo": "boolean",
+     "default": false,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "Generate a draft preview at 480p, overriding resolution. Returns a draft_id for completing the draft at 1080p within seven days."
+    },
+    "bitrate_mode": {
+     "tipo": "string",
+     "default": "standard",
+     "enum": [
+      "standard",
+      "high"
+     ],
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "Output bitrate mode. 'high' requests a higher-quality, larger-file encode from the model; 'standard' uses the default bitrate."
+    },
+    "generate_audio": {
+     "tipo": "boolean",
+     "default": true,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "Whether to generate synchronized audio for the video, including sound effects, ambient sounds, and lip-synced speech. The cost of video generation is the same r"
+    }
+   }
+  },
+  "precio": {
+   "http": 200,
+   "body": {
+    "prices": [
+     {
+      "endpoint_id": "bytedance/seedance-2.5/image-to-video",
+      "unit_price": 0.0214,
+      "unit": "1000 tokens",
+      "currency": "USD"
+     }
+    ],
+    "next_cursor": null,
+    "has_more": false
+   }
+  }
+ },
+ "F": {
+  "endpoint": "blackforestlabs/flux-3-max/image-to-video",
+  "entrada": {
+   "schema": "Flux3MaxImageToVideoInput",
+   "campos": {
+    "end_image_url": {
+     "tipo": [
+      "string",
+      "null"
+     ],
+     "default": null,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "Optional URL of the image used as the last frame of the video (PNG, JPEG, or WebP)."
+    },
+    "aspect_ratio": {
+     "tipo": "string",
+     "default": "auto",
+     "enum": [
+      "auto",
+      "21:9",
+      "2:1",
+      "16:9",
+      "4:3",
+      "1:1",
+      "3:4",
+      "9:16"
+     ],
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "Aspect ratio of the generated video. `auto` uses 16:9 for text prompts and follows the first image otherwise."
+    },
+    "generate_audio": {
+     "tipo": "boolean",
+     "default": true,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "Whether to generate audio for the video."
+    },
+    "image_url": {
+     "tipo": "string",
+     "default": null,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": true,
+     "desc": "URL of the image the video starts from (PNG, JPEG, or WebP)."
+    },
+    "seed": {
+     "tipo": [
+      "integer",
+      "null"
+     ],
+     "default": null,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "The seed to use for the generation. Random when not provided."
+    },
+    "resolution": {
+     "tipo": "string",
+     "default": "720p",
+     "enum": [
+      "720p",
+      "1080p"
+     ],
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "Resolution of the generated video."
+    },
+    "reasoning_level": {
+     "tipo": "string",
+     "default": "high",
+     "enum": [
+      "low",
+      "high"
+     ],
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "How much effort the harness spends reasoning about the given prompt. Higher reasoning effort means slower generation time."
+    },
+    "prompt": {
+     "tipo": "string",
+     "default": null,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": true,
+     "desc": "The text prompt describing how the video unfolds from the image."
+    },
+    "duration": {
+     "tipo": "integer",
+     "default": 5,
+     "enum": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+     ],
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "Duration of the generated video in seconds."
+    }
+   }
+  },
+  "precio": {
+   "http": 200,
+   "body": {
+    "prices": [
+     {
+      "endpoint_id": "blackforestlabs/flux-3-max/image-to-video",
+      "unit_price": 0.02125,
+      "unit": "seconds",
+      "currency": "USD"
+     }
+    ],
+    "next_cursor": null,
+    "has_more": false
+   }
+  }
+ },
+ "G": {
+  "endpoint": "google/gemini-omni-flash/v1.1/image-to-video",
+  "entrada": {
+   "schema": "GeminiOmniFlashV11ImageToVideoInput",
+   "campos": {
+    "image_url": {
+     "tipo": "string",
+     "default": null,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": true,
+     "desc": "URL of the first frame to animate."
+    },
+    "resolution": {
+     "tipo": "string",
+     "default": "720p",
+     "enum": [
+      "360p",
+      "720p",
+      "1080p",
+      "4k"
+     ],
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "The resolution of the generated video."
+    },
+    "duration": {
+     "tipo": "integer",
+     "default": 8,
+     "enum": null,
+     "min": 3,
+     "max": 10,
+     "requerido": false,
+     "desc": "The duration of the generated video, in seconds."
+    },
+    "aspect_ratio": {
+     "tipo": "string",
+     "default": "16:9",
+     "enum": [
+      "16:9",
+      "9:16"
+     ],
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "The aspect ratio of the generated video."
+    },
+    "prompt": {
+     "tipo": "string",
+     "default": null,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": true,
+     "desc": "The text prompt describing how the first image should be animated or interpolated into the optional end image."
+    },
+    "end_image_url": {
+     "tipo": [
+      "string",
+      "null"
+     ],
+     "default": null,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "Optional URL of the end frame. When provided, the model interpolates between the two images in their listed order."
+    }
+   }
+  },
+  "precio": {
+   "http": 200,
+   "body": {
+    "prices": [
+     {
+      "endpoint_id": "google/gemini-omni-flash/v1.1/image-to-video",
+      "unit_price": 0.03,
+      "unit": "seconds",
+      "currency": "USD"
+     }
+    ],
+    "next_cursor": null,
+    "has_more": false
+   }
+  }
+ },
+ "seedream": {
+  "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
+  "entrada": {
+   "schema": "BytedanceSeedreamV5LiteTextToImageInput",
+   "campos": {
+    "output_format": {
+     "tipo": "string",
+     "default": "jpeg",
+     "enum": [
+      "jpeg",
+      "png"
+     ],
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "The file format of the generated images."
+    },
+    "enable_safety_checker": {
+     "tipo": "boolean",
+     "default": true,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "If set to true, the safety checker will be enabled. Disabling it requires account authorization; unauthorized requests are always checked."
+    },
+    "sequential_image_generation": {
+     "tipo": [
+      "string",
+      "null"
+     ],
+     "default": null,
+     "enum": [
+      "auto",
+      "disabled"
+     ],
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "Generate related images with `auto`, or one image per generation with `disabled`. When omitted, values of `max_images` above one enable `auto`."
+    },
+    "max_images": {
+     "tipo": "integer",
+     "default": 1,
+     "enum": null,
+     "min": 1,
+     "max": 15,
+     "requerido": false,
+     "desc": "Maximum images per generation in sequential mode. Ignored when sequential generation is disabled. Combined input references and outputs per generation cannot ex"
+    },
+    "image_size": {
+     "tipo": [
+      null,
+      "string"
+     ],
+     "default": "auto_2K",
+     "enum": [
+      "square_hd",
+      "square",
+      "portrait_4_3",
+      "portrait_16_9",
+      "landscape_4_3",
+      "landscape_16_9",
+      "auto_2K",
+      "auto_3K",
+      "auto_4K"
+     ],
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "The size of the generated image. Custom dimensions within the provider's pixel and aspect limits are sent unchanged. Other sizes use compatible scaling. The pro"
+    },
+    "num_images": {
+     "tipo": "integer",
+     "default": 1,
+     "enum": null,
+     "min": 1,
+     "max": 6,
+     "requerido": false,
+     "desc": "Number of separate model generations to be run with the prompt."
+    },
+    "return_byteplus_urls": {
+     "tipo": "boolean",
+     "default": false,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "If set to true returns seedance-2 trusted URLs. Please note these urls expire in 24 hours."
+    },
+    "prompt": {
+     "tipo": "string",
+     "default": null,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": true,
+     "desc": "The text prompt used to generate the image"
+    },
+    "watermark": {
+     "tipo": "boolean",
+     "default": false,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "Whether to add the provider's visible watermark."
+    },
+    "sync_mode": {
+     "tipo": "boolean",
+     "default": false,
+     "enum": null,
+     "min": null,
+     "max": null,
+     "requerido": false,
+     "desc": "If `True`, the media will be returned as a data URI and the output data won't be available in the request history."
+    }
+   }
+  },
+  "precio": {
+   "http": 200,
+   "body": {
+    "prices": [
+     {
+      "endpoint_id": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
+      "unit_price": 0.035,
+      "unit": "images",
+      "currency": "USD"
+     }
+    ],
+    "next_cursor": null,
+    "has_more": false
+   }
+  }
+ }
+}
