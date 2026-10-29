@@ -644,7 +644,7 @@
   "_parte": "orquestador_a"
  },
  "script_engine/m09_packaging.py": {
-  "sticker": "Arma el paquete de publicación de YouTube: le pide a Gemini 6 títulos, 6 textos para la miniatura, descripción y etiquetas a partir del guion y los hechos verificados, genera 3 conceptos de miniatura con imagen, y compone la miniatura final con el texto encima y el checklist para subir el video a mano. Se puede correr por pasos (candidatas, componer) o abriendo el formulario web de revisión.",
+  "sticker": "Arma el paquete de publicación de YouTube: le pide a Gemini 6 títulos, 6 textos para la miniatura, descripción y etiquetas a partir del guion (con el gancho, la narración del cap 1 entera, como primer bloque: de ahí salen la primera oración del título y el sujeto de la miniatura) y los hechos verificados, genera 3 conceptos de miniatura con imagen, y compone la miniatura final con el texto encima y el checklist para subir el video a mano. Se puede correr por pasos (candidatas, componer) o abriendo el formulario web de revisión.",
   "recibe": "data/scripts/<id>.json (guion con narración y verified_facts), opcionalmente _lab_out/lab_fidelity_punch_chat56/audit_map.csv y las imágenes de output/<id>/assets/ para las 'existentes', la fuente script_engine/fonts/Anton-Regular.ttf y la ruta del MP4 final (--video-path).",
   "entrega": "output/<id>/publish/metadata.json, metadata_candidatos.md, hero_iterations.json, thumb_candidates/{existing_NN,fresh_NN}.png, thumb_final_NN.png (o .jpg si pesa más de 2 MB) y CHECKLIST_PUBLICACION.md.",
   "modelo": [
@@ -663,7 +663,7 @@
   "estado": "vivo",
   "estado_prueba": "fase3.py:64 arma el comando python -m script_engine.m09_packaging (etapa packaging, run_pipeline.py:430 lanza fase3.py); qa_studio_server.py:1490 lo lanza con --review --auto-first",
   "funciones_muertas": [],
-  "md5": "df2f2de74c72a589d4e55fc110713b6a",
+  "md5": "8b9ce288da35d270d47f940152e3508b",
   "_parte": "orquestador_b"
  },
  "script_engine/m09_review_server.py": {

@@ -4053,14 +4053,14 @@
    ],
    "tests": 16,
    "nacio": "6264058 2026-10-23 (F11)",
-   "ultimo": "2f91029 2026-10-29 (F54)",
+   "ultimo": "66804dc 2026-10-29 (F54)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py:424-430 (run_guion_v4 llama g4.call_for, g4.write, g4.reparar y g4.metricas); fase1_5.py:512 lo corre desde process_topic; fase1_5.py:430 también g4.nota_b",
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "c82e7e882b86736902529d65a3cdc659",
+   "md5": "3f292bc1eac1089bd51c1c5acb142d4b",
    "sticker_al_dia": true
   },
   "script_engine/image_grade.py": {
@@ -4258,7 +4258,7 @@
    ],
    "tests": 22,
    "nacio": "4b41280 2026-10-21 (F6b)",
-   "ultimo": "2f91029 2026-10-29 (F54)",
+   "ultimo": "66804dc 2026-10-29 (F54)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py:390 (run_escaleta_v3 llama me.generate_escaleta) y fase1_5.py:383 (me.pool_gate_profile); el form lo lanza con fase1_5.py --topic <tid> --batch (run_pipeline.py:301 según los hechos de A); además m01d_particion.py:163 usa caps_view y tts_tags.py:140 usa intent_de_cap dentro de la misma etapa",
@@ -4985,7 +4985,7 @@
   "script_engine/m09_packaging.py": {
    "archivo": "script_engine/m09_packaging.py",
    "zona": "orquestador",
-   "sticker": "Arma el paquete de publicación de YouTube: le pide a Gemini 6 títulos, 6 textos para la miniatura, descripción y etiquetas a partir del guion y los hechos verificados, genera 3 conceptos de miniatura con imagen, y compone la miniatura final con el texto encima y el checklist para subir el video a mano. Se puede correr por pasos (candidatas, componer) o abriendo el formulario web de revisión.",
+   "sticker": "Arma el paquete de publicación de YouTube: le pide a Gemini 6 títulos, 6 textos para la miniatura, descripción y etiquetas a partir del guion (con el gancho, la narración del cap 1 entera, como primer bloque: de ahí salen la primera oración del título y el sujeto de la miniatura) y los hechos verificados, genera 3 conceptos de miniatura con imagen, y compone la miniatura final con el texto encima y el checklist para subir el video a mano. Se puede correr por pasos (candidatas, componer) o abriendo el formulario web de revisión.",
    "recibe": "data/scripts/<id>.json (guion con narración y verified_facts), opcionalmente _lab_out/lab_fidelity_punch_chat56/audit_map.csv y las imágenes de output/<id>/assets/ para las 'existentes', la fuente script_engine/fonts/Anton-Regular.ttf y la ruta del MP4 final (--video-path).",
    "entrega": "output/<id>/publish/metadata.json, metadata_candidatos.md, hero_iterations.json, thumb_candidates/{existing_NN,fresh_NN}.png, thumb_final_NN.png (o .jpg si pesa más de 2 MB) y CHECKLIST_PUBLICACION.md.",
    "modelo": [
@@ -5014,7 +5014,7 @@
     "qa_studio_server.py",
     "script_engine/m09_review_server.py"
    ],
-   "tests": 8,
+   "tests": 9,
    "nacio": "1720d01 2026-06-11",
    "ultimo": "93064c8 2026-10-20 (F4b)",
    "estado_a": "vivo",
@@ -5023,7 +5023,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "df2f2de74c72a589d4e55fc110713b6a",
+   "md5": "8b9ce288da35d270d47f940152e3508b",
    "sticker_al_dia": true
   },
   "script_engine/m09_review_server.py": {

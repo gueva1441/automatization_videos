@@ -109,7 +109,7 @@ def test_los_viejos_quedan_con_su_version():
     assert _md5(mc.SYSTEM_F17_1) == "1408569c5c9de22ec406a10ba0cd9b13"
     assert _md5(me.SYSTEM_V2_F16_1) == "49ed74d941def064cdda077212629ff1"
     assert _md5(g4.system("f15b-1")) == "cdce609abea95ee36d0eb4f44d74dda8"
-    assert g4.system("f15-1") == g4.SYSTEM_V5 and g4.VERSIONES_V5 == ("f54-1", "f25-1", "f23-1", "f22-1", "f15b-1", "f15-1")
+    assert g4.system("f15-1") == g4.SYSTEM_V5 and g4.VERSIONES_V5 == ("f54-2", "f54-1", "f25-1", "f23-1", "f22-1", "f15b-1", "f15-1")
 
 
 def test_prompts_sin_ejemplos_de_orleans_ni_ycua():

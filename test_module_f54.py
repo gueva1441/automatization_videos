@@ -60,8 +60,20 @@ def test_escaleta_f54_1_literal_y_un_solo_cambio():
     assert nuevo.count("La promesa") == 1                                      # chascada: una sola oración sobre la promesa
 
 
+def test_guion_v5_6_literal_y_solo_cambia_ejemplos():
+    # B.2 (OK del analista 2026-10-29 18:30): el v5.6 = v5.5 con el bloque <ejemplos> de EJEMPLOS_v5_6_propuesta.md
+    assert g4.system() == g4.SYSTEM_V5_6 == _sistema(F54 / "PROMPT_GUIONISTA_v5_6.md") and g4.PROMPT_VERSION == "f54-2"
+    ej = (F54 / "EJEMPLOS_v5_6_propuesta.md").read_text(encoding="utf-8").split("```text", 1)[1]
+    bloque = ej[ej.index("<ejemplos>"):ej.index("</ejemplos>") + len("</ejemplos>")]
+    assert bloque in g4.SYSTEM_V5_6 and "Tres de ellas no van a ver la primavera." in bloque
+    v55 = g4.SYSTEM_V5_5
+    viejo = v55[v55.index("<ejemplos>"):v55.index("</ejemplos>") + len("</ejemplos>")]
+    assert g4.SYSTEM_V5_6.replace(bloque, viejo) == v55 and viejo not in g4.SYSTEM_V5_6
+    assert g4.VERSIONES_V5[:3] == ("f54-2", "f54-1", "f25-1") and g4.prompt_version(version="f54-1") == "f54-1"
+
+
 def test_guion_v5_5_literal_y_dos_cambios():
-    assert g4.system() == g4.SYSTEM_V5_5 == _sistema(F54 / "PROMPT_GUIONISTA_v5_5.md") and g4.PROMPT_VERSION == "f54-1"
+    assert g4.system("f54-1") == g4.SYSTEM_V5_5 == _sistema(F54 / "PROMPT_GUIONISTA_v5_5.md") and g4.PROMPT_VERSION_V5_5 == "f54-1"
     assert g4.system("f25-1") == g4.SYSTEM_V5_4 and _md5(g4.SYSTEM_V5_4) == "2f66c1e07e4d6c31178091371821c0c9"
     dif = _dif(g4.SYSTEM_V5_4, g4.SYSTEM_V5_5)
     assert len(dif) == 2
@@ -72,7 +84,7 @@ def test_guion_v5_5_literal_y_dos_cambios():
     assert v2.replace("cada uno avanza la historia y termina con algo sin resolver que el siguiente paga.",
                       "cada uno avanza la historia. La primera frase de cada cap paga lo que el beat marcado `paga` dejó "
                       "abierto; la escaleta dice cuál.") == n2                   # B.3: reemplaza, no suma
-    assert g4.VERSIONES_V5[:2] == ("f54-1", "f25-1") and g4.prompt_version(version="f25-1") == "f25-1"
+    assert g4.prompt_version(version="f25-1") == "f25-1"
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -304,3 +316,22 @@ def test_metricas_traen_las_dos_y_no_frenan():
     m = g4.metricas(t11.TOPIC, esc, ps)
     assert set(m["anios_por_cap"]) == set(range(1, 8)) and set(m["datos_por_min"]) == set(range(1, 8))
     assert g4.bloqueantes(t11.TOPIC, esc, ps) == []
+
+
+# ═══════════════════════════════════════════════════════════════
+#  B.4: el hero y la metadata reciben el GANCHO (cap 1 entero) primero
+# ═══════════════════════════════════════════════════════════════
+
+def test_m09_gancho_primero_y_cap_1_sin_truncar():
+    from script_engine import m09_packaging as m9
+    cap1 = "Un hombre joven posa con el pie vendado. " * 60                    # > HERO_NARRATION_PER_CAP
+    canonical = {"video_title": "W", "canonical_subject_description": "s", "verified_facts": [{"fact": "f"}],
+                 "chapters": [{"chapter_number": 1, "narration": cap1},
+                              {"chapter_number": 7, "narration": "Z" * 2000}]}
+    for u in (m9._hero_user_prompt(canonical), m9._meta_user_prompt(canonical)):
+        assert u.startswith("GANCHO (la narración del cap 1 entera; " + m9.GANCHO_INSTRUCCION + "):\n" + cap1.strip())
+        assert "la primera oración del título y el sujeto de la miniatura salen del GANCHO" in u
+    hero = m9._hero_user_prompt(canonical)
+    assert hero.count(cap1.strip()) == 2                                       # en el GANCHO y en [Cap 1], entero
+    assert "[Cap 1] " + cap1.strip() in hero and "[Cap 7] " + "Z" * m9.HERO_NARRATION_PER_CAP + " […]" in hero
+    assert m9._meta_user_prompt(canonical).count("NARRACIÓN COMPLETA") == 1

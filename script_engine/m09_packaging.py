@@ -171,7 +171,23 @@ TAGS:
   ambos idiomas). La suma de todos los tags no debe superar ~450 caracteres."""
 
 
-def generate_metadata(canonical: dict) -> dict:
+# F54 B.4 (DECISIONES 2026-10-29 16:05): el gancho entero es la entrada del título y de la miniatura (formato de
+# salida, no regla de estilo); va como primer bloque del usuario del hero y de la metadata.
+GANCHO_INSTRUCCION = "la primera oración del título y el sujeto de la miniatura salen del GANCHO"
+
+
+def _gancho(canonical: dict) -> str:
+    """La narración del cap 1 entera (el gancho), sin truncar."""
+    c1 = next((c for c in canonical.get("chapters", []) if c.get("chapter_number") == 1), None)
+    return (c1 or {}).get("narration", "").strip() if c1 else ""
+
+
+def _bloque_gancho(canonical: dict) -> str:
+    return f"GANCHO (la narración del cap 1 entera; {GANCHO_INSTRUCCION}):\n{_gancho(canonical)}\n\n"
+
+
+def _meta_user_prompt(canonical: dict) -> str:
+    """F54 B.4: el usuario de la metadata, con el GANCHO primero. Puro/testeable."""
     narr = "\n\n".join(
         f"[Cap {c.get('chapter_number','?')}] {c.get('narration','').strip()}"
         for c in canonical.get("chapters", [])
@@ -183,14 +199,18 @@ def generate_metadata(canonical: dict) -> dict:
         f"F{i:02d}: {f.get('fact', f) if isinstance(f, dict) else f}"
         for i, f in enumerate(facts, start=1)
     )
-    user = (
-        f"TÍTULO DE TRABAJO: {canonical.get('video_title','')}\n\n"
+    return (
+        _bloque_gancho(canonical)
+        + f"TÍTULO DE TRABAJO: {canonical.get('video_title','')}\n\n"
         f"SUJETO CANÓNICO: {canonical.get('canonical_subject_description','')}\n\n"
         f"VERIFIED FACTS (única fuente válida de cifras/fechas/nombres):\n{facts_txt}\n\n"
         f"NARRACIÓN COMPLETA:\n{narr}\n\n"
         f"Generá el paquete de metadata (6 títulos, 6 overlays, descripción, tags)."
     )
-    data = _gemini_json(_META_SYSTEM, user, _META_SCHEMA, META_TEMP)
+
+
+def generate_metadata(canonical: dict) -> dict:
+    data = _gemini_json(_META_SYSTEM, _meta_user_prompt(canonical), _META_SCHEMA, META_TEMP)
     return _normalize_metadata(data)
 
 
@@ -346,12 +366,12 @@ HERO_NARRATION_PER_CAP = 1400   # tope por cap para que la narración de los 7 c
 
 def _narration_for_hero(canonical: dict) -> str:
     """Narración de los 7 caps para que el hero elija el sujeto (PASO 1). Cada cap se trunca a
-    HERO_NARRATION_PER_CAP para no exceder contexto (se anota el truncado)."""
+    HERO_NARRATION_PER_CAP para no exceder contexto (se anota el truncado). F54 B.4: el cap 1 (el gancho) va entero."""
     parts = []
     for c in canonical.get("chapters", []):
         n = c.get("chapter_number", "?")
         txt = (c.get("narration") or "").strip()
-        if len(txt) > HERO_NARRATION_PER_CAP:
+        if n != 1 and len(txt) > HERO_NARRATION_PER_CAP:
             txt = txt[:HERO_NARRATION_PER_CAP] + " […]"
         parts.append(f"[Cap {n}] {txt}")
     return "\n\n".join(parts)
@@ -360,7 +380,8 @@ def _narration_for_hero(canonical: dict) -> str:
 def _hero_user_prompt(canonical: dict) -> str:
     """Arma el user prompt del hero (PASO 1 necesita la narración). Puro/testeable."""
     return (
-        f"TÍTULO: {canonical.get('video_title','')}\n"
+        _bloque_gancho(canonical)
+        + f"TÍTULO: {canonical.get('video_title','')}\n"
         f"SUJETO CANÓNICO: {canonical.get('canonical_subject_description','')}\n\n"
         f"NARRACIÓN COMPLETA (PASO 1 — leela y elegí los sujetos más icónicos):\n"
         f"{_narration_for_hero(canonical)}\n\n"
