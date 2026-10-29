@@ -1,6 +1,6 @@
 """F50 B — el expediente por foto del pedido de casilleros (m03): por cada ancla, el año dicho, dónde, el párrafo de la
-voz, las escenas de la ficha, los hechos, las citas y las personas que nombra el ancla (desde la ficha; si no
-nombra a nadie, las de la última ancla del mismo párrafo), y al final los grupos de gente del canon.
+voz, las escenas de la ficha, los hechos, las citas (con autor) y las personas que nombra el ancla (desde la ficha; si no
+nombra a nadie, las de la última ancla del mismo párrafo), y al final los grupos de gente del canon con aspecto y ropa.
 Es el de la candidata de F46b–F49 (lab: `f46b.expedientes` + `f48.extra_por_foto` y `f48.bloque` en S5), portado sin
 cambiar lo que se midió; el único cambio es la regla 3 del año de respaldo: el último año dicho en la NARRACIÓN de los
 caps anteriores (en producción los caps corren en paralelo y las anclas de otros caps todavía no existen)."""
@@ -121,6 +121,14 @@ def linea_persona(persona: dict, pers_pool: dict) -> str:
     return f"{(persona.get('rol') or '').strip().rstrip('.')} · {lugar or '-'} · {', '.join(anios or []) or '-'}"
 
 
+def linea_cita(q: dict) -> str:
+    """F50c B: `«texto» — autor · rol` + ` · fecha` si la trae + ` · witness` si `testigo`."""
+    quien = " · ".join(x for x in (str(q.get("autor") or "").strip(),
+                                   str(q.get("rol") or "").strip().rstrip(".")) if x)
+    return (f"«{q.get('texto')}»" + (f" — {quien}" if quien else "") + (f" · {q['fecha']}" if q.get("fecha") else "")
+            + (" · witness" if q.get("testigo") is True else ""))
+
+
 def expedientes(topic: dict, fu: dict, cap_beats: list[dict], anchors: list[str], assign: list[dict],
                 anio_prev: str | None, year_topic: str) -> list[dict]:
     """Un expediente por ancla (en el orden del pedido)."""
@@ -174,7 +182,7 @@ def expedientes(topic: dict, fu: dict, cap_beats: list[dict], anchors: list[str]
             "foto": i, "ancla": ancla, "parrafo": par, "beat": bn, "donde": donde,
             "escenas": [" · ".join(str(e.get(k) or "") for k in ("donde", "quien", "que_pasa", "sentidos")) for e in escenas],
             "facts": facts,
-            "citas": [citas[x].get("texto") for x in ids if x in citas],
+            "citas": [linea_cita(citas[x]) for x in ids if x in citas],
             "people3": [linea_persona(p, pers) + (ARRASTRE if fuente == "arrastre" else "") for p in quien],
             "personas": [p.get("nombre") for p in quien], "personas_fuente": fuente, "personas_dudas": dudas,
             "anio_ancla": anio_ancla, "respaldo": respaldo})
@@ -189,9 +197,10 @@ def bloque(exps: list[dict], people_groups: list[dict]) -> str:
               f"      PARAGRAPH: «{e['parrafo']}»",
               f"      SCENES: {' | '.join('«' + s + '»' for s in e['escenas']) or '-'}",
               f"      FACTS: {' | '.join('«' + q + '»' for q in e['facts']) or '-'}",
-              f"      QUOTES: {' | '.join('«' + q + '»' for q in e['citas']) or '-'}",
+              f"      QUOTES: {' | '.join(e['citas']) or '-'}",
               f"      PEOPLE (role · where · years): {'; '.join(e['people3']) or '-'}"]
     L += ["PEOPLE GROUPS:"]
     for g in people_groups or []:
-        L.append(f"  - {g.get('id')}: {g.get('who') or ''} · {g.get('where_when') or ''}")
+        L.append(f"  - {g.get('id')}: {g.get('who') or ''} · {g.get('where_when') or ''}"     # F50c C: + aspecto y ropa
+                 f" · APPEARANCE: {g.get('appearance') or '-'} · CLOTHING: {g.get('clothing') or '-'}")
     return "\n".join(L) + "\n"

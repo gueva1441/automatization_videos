@@ -87,6 +87,23 @@ def test_f50c_a_fotos_testigo_de_wittenoom():
         assert (e["personas"], e["personas_fuente"]) == (nombres, fuente), (cap, foto)
 
 
+# ─────────────────────────── B. citas con autor · C. grupos con aspecto y ropa ───────────────────────────
+def test_f50c_b_cita_con_y_sin_fecha_y_testigo():
+    q = {"texto": "Iba pegadita", "autor": "María Bernal", "rol": "Esposa de minero.", "fecha": "1962",
+         "testigo": True}
+    assert mexp.linea_cita(q) == "«Iba pegadita» — María Bernal · Esposa de minero · 1962 · witness"
+    assert mexp.linea_cita({**q, "fecha": None, "testigo": False}) == "«Iba pegadita» — María Bernal · Esposa de minero"
+
+
+def test_f50c_c_grupo_con_aspecto_y_ropa_y_quotes_en_el_bloque():
+    e = {"foto": 1, "anio_ancla": "1962", "donde": [], "parrafo": "p", "escenas": [], "facts": [],
+         "citas": [mexp.linea_cita({"texto": "x", "autor": "A", "rol": "r"})], "people3": []}
+    b = mexp.bloque([e], [{"id": "migrant_families", "who": "w", "where_when": "ww", "appearance": "olive skin",
+                           "clothing": "cotton dresses"}])
+    assert "      QUOTES: «x» — A · r" in b
+    assert b.endswith("  - migrant_families: w · ww · APPEARANCE: olive skin · CLOTHING: cotton dresses\n")
+
+
 # ─────────────────────────── D. chascada de _sin_negadas ───────────────────────────
 def test_f50c_d_cell_no_cifra_queda():
     assert v3._sin_negadas("Cell No. 5, a bare room") == "Cell No. 5, a bare room"

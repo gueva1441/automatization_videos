@@ -92,7 +92,7 @@ def test_expediente_y_bloque():
     b = mexp.bloque(exps, [{"id": "spanish_families", "who": "w", "where_when": "ww"}])
     assert "  [1] YEAR: 1962 · WHERE: Fremantle; puerto" in b and "      FACTS: «1962 · Llega el barco»" in b
     assert "      PEOPLE (role · where · years): Esposa de minero · Wittenoom · 1962" in b
-    assert b.endswith("PEOPLE GROUPS:\n  - spanish_families: w · ww\n")
+    assert b.endswith("PEOPLE GROUPS:\n  - spanish_families: w · ww · APPEARANCE: - · CLOTHING: -\n")   # F50c C
 
 
 def test_anio_previo_de_la_narracion():
