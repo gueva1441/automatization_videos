@@ -172,3 +172,112 @@ Rutas: C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f53a\F53a_REPORT
 ### Adenda de CC (después del veredicto)
 - **#16:** el veredicto queda pegado y el reporte con commit, junto con ESTADO, en el commit de cierre.
 - **El 422 de G marca el prompt, no la foto:** es así, y el reporte lo dice. Probar G con un prompt neutro sobre la misma foto sería una variable nueva que este handoff no pide. Queda para el analista (abierto 2), por si quiere un F53a′ antes de decidir.
+
+---
+
+# F53a-K — moderación de Kling 4.0 con las mismas 2 fotos · PARADA
+
+CC → Omar / analista · 2026-10-29 · solo `lab/hyperframes/f53a/K/` · corre al mismo tiempo que la Parte A de F53b, sin tocar nada de F53b · gasto **US$ 1,35 de 2,00**.
+
+## Resultado en una línea
+**Kling 4.0 hizo las 2 fotos sin rechazo y sin suavizarlas.**
+
+## Etapa 0
+`tail -1 DECISIONES.md`, commit `76c1205`:
+```
+- 2026-10-29 14:50 · **F53a-K:** prueba de moderación de Kling 4.0 con las 2 fotos oscuras de F53a; si pasa, Kling a 1080p reemplaza a Seedance como respaldo (≈ US$ 1,88 vs ≈ 8–9 por clip) · Omar · F53a-K
+```
+- **Formato:** el texto es el del pedido. Puse «**F53a-K:**» en negrita, como en las otras líneas de DECISIONES; en el pegado venía sin formato.
+- **Tope:** el handoff de F53b fija US$ 3 (§Tope) y esta prueba suma 2, así que `lab/TOPE_TANDA.json` = `{"usd": 5.0, "desde": "2026-10-29T14:49:52"}`. Antes de escribirlo, el script comprobó que el archivo seguía con el valor de F53a (4, desde 14:26:35), o sea que F53b todavía no lo había fijado. En ese momento `cost_history` no tenía nada gastado por F53b.
+
+## Cómo se corrió
+`f53a/K/moderacion_k.py` reusa `f53a/moderacion.py` por import: `foto` (tipo leído de los bytes: las 2 son `image/png`), `contactos`, el `PEDIDO` y `llamar` de F52b (Opus 5.5 effort high, foto como bloque `image`) con la ficha `f52/guias/K.md` en inglés, y `correr`, `ffprobe` y `costo` de F52. «APPROVED MOTION» va «(none)», igual que en F53a.
+
+- **Guarda de tope:** gastado 0 + peor caso 1,96 (2 × 4 s × 0,235 US$/s, el precio por segundo de K a 1080p que estimó F52, + Opus 0,08) < 5, así que no hubo PARADA.
+- **Llamadas:** 2 a Opus y después 2 a fal, en paralelo.
+
+## Tabla por clip
+| clip | endpoint | campos enviados (además de `prompt`) | ffprobe | espera | US$ (precio leído) | rechazo / moderación |
+|---|---|---|---|---|---|---|
+| foto1_K (patíbulo) | `kling/v4/image-to-video` | `start_image_url` (png), `duration` 4, `resolution` 720p | 4,042 s · 1280×720 · 24 fps · 97 cuadros · **con audio** (se descarta) | 371,1 s | 0,6346 | **No.** Sin error ni aviso |
+| foto2_K (cuerpo amortajado) | ídem | ídem | 4,042 s · 1280×720 · 24 fps · 97 cuadros · **con audio** (se descarta) | 265,0 s | 0,6346 | **No.** Sin error ni aviso |
+
+- **Costo:** clips US$ 1,2692 (0,157 US$/s leído × 4,042 s), más prompts 0,0844, da **US$ 1,35**. El precio leído de fal no dice a qué resolución corresponde, y en G el cobro real fue ×5. **El costo real se confirma en el panel de fal.**
+
+## ¿Kling suavizó? (`K/contactos.png`, cuadros a 0, 1, 2, 3 y 4 s; skill ver-render)
+- **foto1_K, el patíbulo:** de 0 a 4 s se ven las sogas al cuello, los nudos, las ataduras y las caras de los condenados, con un acercamiento leve. **No tapó, no borró ni cambió nada.**
+- **foto2_K, el cuerpo amortajado:** los dos hombres cargan el cuerpo por el pasillo y se alejan. A los 3–4 s están al fondo y el cuerpo se ve chico, pero sigue sin tapar. La cara del muerto de la foto se pierde por la distancia, no porque la cubran. Kling hace el alejamiento más rápido que Seedance. Es lectura de CC, con cuadros fijos.
+
+## Los 2 prompts (enteros; Opus vio la foto)
+**foto1_K** (365 palabras):
+```
+[General settings]
+Documentary photographic realism of a historical execution in 1822, with a desaturated palette of muted greys, off-white linen and dark weathered wood. Bright, diffuse daylight comes from a heavy overcast sky. Coarse hemp rope fibers, rumpled linen shirts, beads of sweat on dark skin and grained, cracked timber on the gallows beam are rendered in fine texture. An 85mm lens compresses the line of men. A low-angle medium shot looks up at the gallows beam overhead. The camera tone is solemn, quiet and steady.
+
+[Sequence]
+0–3 s: A line of Black men stands shoulder to shoulder beneath the wooden beam. Nooses hang from iron chains and loop around their necks. Ropes cross their chests and bind their waists, and their hands are tied behind their backs. They gaze upward and forward with calm, steady faces. Their chests rise and fall slowly with deep breaths. A light breeze ripples the loose fabric of their shirts. The camera holds low and begins a very slow push forward toward the central man in the cream shirt.
+3–6 s: The central man swallows, his jaw tightening as his eyes stay fixed on the distant sky. The man to his left blinks slowly and lifts his chin slightly higher. The hanging ropes sway gently and the iron chain links shift with a faint creak. Grey clouds drift slowly behind the beam. The diagonal shadow of the beam across their chests softens and sharpens as the light shifts through the clouds. Below, the blurred crowd in period hats and coats murmurs and shifts in place.
+6 s–end: The camera completes its slow push, settling closer on the central man's face and the coiled knot of the noose beside his jaw. He draws one long, steady breath and his gaze remains unbroken. The men on either side stay upright and still, their heads held high. The breeze moves through their collars and the clouds continue to drift overhead.
+
+[Audio]
+Soft wind across an open square, the low creak of rope and timber, a faint clink of iron chain links, and slow, deep breathing from the men. A distant, hushed murmur rises from the crowd below. No subtitles, no background music.
+```
+**foto2_K** (349 palabras):
+```
+[General settings]
+A narrow brick corridor in the lower level of an old jail, dark red bricks with crumbling grey mortar, iron-barred cell doors set into both walls, a barred gate at the far end. Two men in rough work shirts and dark trousers, seen from behind as faceless silhouettes, carry a body wrapped in coarse canvas tied with rope, holding it between them by the edges at waist height. A single oil lantern hangs from a chain on the ceiling, its warm glow the only light; long black shadows stretch across the concrete floor toward the camera. Nearly monochrome palette of deep black, dark red brick and pale canvas. Dark-history documentary realism, photographic texture, fine grain, slight motion blur on the walking figures. Low camera close to the floor, steady and quiet.
+
+[Sequence]
+0–3 s: The two men walk away from the camera with heavy, matched steps. The wrapped body sways gently with each stride, the rope ends at the bundled feet swinging. The low camera tracks forward behind them at the same slow walking pace. Their long shadows slide and stretch across the floor beneath the camera.
+3–6 s: The men pass under the hanging lantern. The lantern rocks slightly on its chain, and the light shifts across the brick walls and the cell bars, shadows swinging along both walls. The camera keeps following, low and steady, as the canvas catches the warm light from above, its rough weave and knotted rope clearly visible.
+6 s–end: The men continue into the darker part of the corridor toward the barred gate, their figures shrinking into the shadow while the pale shroud stays faintly visible between them. The camera slows and comes to rest while they keep walking, the lantern still gently swaying, the corridor walls and empty cells framing them as they fade into the dark.
+
+[Audio]
+Slow, heavy footsteps on damp concrete echoing down the corridor, the creak of the lantern chain, canvas and rope rubbing with each step, the men's low, steady breathing, a distant drip of water in the dark. No subtitles, no background music.
+```
+El prompt de foto1_K dice «Nooses … loop around their necks» y «historical execution», y aun así Kling no lo rechazó. El de G, con un texto parecido, sí lo rechazó en F53a.
+
+## Lo que queda abierto (F53a-K)
+1. **PARADA:** decidir si Kling a 1080p reemplaza a Seedance como respaldo, como prevé la línea de DECISIONES de las 14:50. Con estas 2 fotos, K pasó el 100 %, igual que S.
+2. **El costo real va al panel de fal.** Para la decisión importa el costo de K a 1080p, que no se midió acá; F52 estimó ≈ US$ 1,88 por clip de 8 s.
+3. **El audio de Kling:** el schema no permite apagarlo, así que hay que descartar la pista en producción.
+4. **El tope compartido con F53b** (`TOPE_TANDA` = 5 desde 14:49:52): si la sesión de F53b lo reescribe a 3, deja de contar los 1,35 de esta prueba. Lo dejo dicho para que no se pisen.
+5. **Los prompts piden 8 s y los clips son de 4 s** (el pedido de F52b, tal cual), igual que en F53a.
+6. **No van a git** (regla): `K/clips/*.mp4` y `K/contactos.png`.
+
+## Veredicto de revisor-handoff (F53a-K)
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | Requisito | Estado | Evidencia |
+|---|---|---|---|
+| 1 | Solo K, `kling/v4/image-to-video`, payload `start_image_url`, 4 s, 720p | OK | `K/moderacion_k.py:23,29` y `resultado.json` (campos `start_image_url` png, `duration` 4, `resolution` 720p; endpoint correcto en ambos clips) |
+| 2 | Reuso de `moderacion.py` por import | OK | `moderacion_k.py:21` (`import moderacion as mo`); usa `mo.foto`, `mo.contactos`, `mo.pv.PEDIDO` y `mo.pv.llamar`, `mo.pr.correr`. No copia código |
+| 3 | Prompt por el camino de F52b (PEDIDO + ficha `f52/guias/K.md`, inglés, Opus mira la foto) | OK | `moderacion_k.py:44-54`; `resultado.json` (prompts de 365 y 349 palabras, en inglés); el reporte los pega enteros |
+| 4 | Fotos iguales a las de F53a | OK | md5 de `foto1.png` y `foto2.png` coinciden con `elegidas.json` (65e4a3d6…, a4986f97…); el script las lee de `f53a/fotos/` |
+| 5 | Salida en `f53a/K/` | OK | existen `moderacion_k.py`, `resultado.json`, `moderacion_k.log`, `clips/foto1_K.mp4` (2,9 MB), `clips/foto2_K.mp4` (4,2 MB), `contactos.png` (1,8 MB) |
+| 6 | Etapa 0: línea de DECISIONES | OK, con observación | commit 76c1205, `DECISIONES.md` última línea. El texto y el orden son los del pedido; la única diferencia es `**F53a-K:**` en negrita |
+| 7 | Tope US$ 2 sumado al de F53b en TOPE_TANDA | OK | `TOPE_TANDA.json` = `{"usd": 5.0, "desde": "2026-10-29T14:49:52"}`. F53b fija 3 (`HANDOFF_F53b:47`) y 3 + 2 = 5. Gasto 1,35 (prompts 0,0844 + clips 1,2692) < 2 |
+| 8 | Por clip: rechazo o moderación literal, o «suavizó» con hoja a 0/1/2/3/4 s | OK | Ambos clips salieron sin error (4,042 s, 1280×720, 97 cuadros). Vi `contactos.png`: foto1 mantiene sogas, nudos, ataduras y caras con un acercamiento leve. foto2 mantiene el bulto pálido, que se aleja y se achica hasta 4 s. Coincido con «sin suavizar» |
+| 9 | Audio descartado | OK | `ffprobe.audio=True` en los clips y el reporte dice que se descarta (K no tiene campo de audio). No se usa la pista |
+| 10 | Sección «F53a-K» en F53a_REPORT con tabla, 2 prompts y veredicto | PARCIAL | La tabla y los 2 prompts están (+75 líneas). El veredicto es el placeholder `{{VEREDICTO_K}}`, que se llena con este texto |
+| 11 | Ningún mp4/png commiteado | OK | `git ls-files` no lista ningún mp4/png de f53; `K/clips/` y `contactos.png` quedan untracked. `git diff 0886134 HEAD --name-only` muestra solo 4 archivos |
+| 12 | Producción y F53b sin tocar | OK | Los commits solo tocan `DECISIONES.md` y `f53a/K/*`. `f53b/` es untracked y no es de esta tanda |
+| 13 | Costo en `cost_history` con registros f53ak_* | OK | El log muestra `f53ak_lab_prompts` y `f53ak_lab_clips`. No leí `data/cost_history.json` directamente |
+| 14 | PARADA | OK | La tanda no avanza más: el reporte termina en «PARADA» y en decisiones abiertas |
+
+Fuera de alcance: ninguno atribuible a esta tanda. `diag_234_cap4.py`, `f28a.log` y `lab/hyperframes/f53a/clips`, `contactos.png` y `fotos/*.png` ya estaban modificados o sin trackear de antes. `lab/TOPE_TANDA.json` y `F53a_REPORT.md` están modificados sin commit, lo cual el pedido permite.
+
+Observaciones:
+- Negrita en DECISIONES: las líneas vecinas usan `**F52b:**`, así que la negrita respeta el formato del archivo. «Tal cual» se cumple en el texto, no en el formato. Lo declaró en el reporte. Lo juzgo aceptable, pero es una desviación literal menor.
+- Número en el código: el 0,235 US$/s (`moderacion_k.py:24`) sale de la estimación de F52 y está citado. No figura en DECISIONES.
+- `TOPE_TANDA.json` sin commit: si la sesión de F53b lo reescribe a 3, deja de contar este gasto. El reporte lo avisa (abierto 4).
+
+Riesgos que el contrato no cubre:
+- foto2 exige poco al moderador. Opus la reescribió con «faceless silhouettes», el cuerpo va envuelto y se aleja hasta quedar chico. Que pase no prueba que K tolere un cuerpo en primer plano con la cara visible, que es lo que decía el tipo de foto.
+- Costo a 1080p: se midió a 720p (0,157 US$/s leído, ×5 no descartado como pasó con G). El costo real a 1080p, que sostiene el argumento de reemplazar a Seedance, no se midió. Solo hay 2 muestras.
+
+### Adenda de CC (después del veredicto)
+- **#10:** el veredicto queda pegado y la sección con commit, junto con ESTADO.
+- **#13, cost_history:** lo leí yo. Hay 2 registros: `f53ak_lab_prompts` 0,0844 y `f53ak_lab_clips` 1,2692. Son los únicos desde 14:49:52.
+- **El 0,235 US$/s:** solo se usa en la guarda del peor caso. Sale de la tabla de constantes del handoff F52 («Kling 4.0 ≈ 2 × 1,88»), no es un número nuevo del código de producción.
+- **Riesgo 1, foto2:** tiene razón. El foco duro de esta prueba es foto1, el patíbulo con caras y sogas, que es la que G rechazó por el prompt. foto2 depende de cómo Opus describe el cuerpo, y el caso de un cuerpo en primer plano con la cara visible sigue sin probarse.

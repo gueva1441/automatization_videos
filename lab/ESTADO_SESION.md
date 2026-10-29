@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 14:50 (F53a: Gemini Omni Flash rechazó las 2 fotos oscuras, Seedance las hizo sin suavizar; US$ 1,80 de 4; PARADA: deciden G o S para F53b) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 15:05 (F53a-K: Kling 4.0 pasó las 2 fotos oscuras sin rechazo ni suavizado, US$ 1,35 de 2; PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,15 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F53a-K, PARADA): Kling 4.0 también aguanta el contenido oscuro.
+- Con las mismas 2 fotos de F53a (condenados con la soga al cuello; cuerpo amortajado), **Kling hizo las 2 sin rechazo y sin tapar ni borrar nada** (720p, 4 s; trae audio que se descarta).
+- **Decidís:** si Kling a 1080p reemplaza a Seedance como respaldo (DECISIONES 14:50). El costo de K a 1080p no se midió acá: confirmar en el panel de fal.
+- **Gasto:** US$ 1,35 de 2. `TOPE_TANDA` = 5 (3 de F53b + 2 de esta prueba) desde 14:49:52: si F53b lo reescribe, que sume estos 1,35.
+
+## F53a-K — moderación de Kling 4.0 (pedido de Omar, 2026-10-29 14:50) — PARADA
+- Commits: `76c1205` (DECISIONES 14:50); `d3c9aae` (`f53a/K/moderacion_k.py`, `resultado.json`, log). El último commit es el de la sección «F53a-K» de `lab/hyperframes/f53a/F53a_REPORT.md`.
+- Producción y F53b sin tocar; mp4 y png fuera de git.
 
 ## 👀 Para Omar (F53a, PARADA): Gemini no aguanta el contenido oscuro; Seedance sí.
 - Con las 2 fotos más fuertes del canal (los condenados con la soga al cuello y el cuerpo amortajado de Old City Jail), **Gemini Omni Flash rechazó las 2** («dangerous content … Google's Responsible AI practices», marcando el prompt). **Seedance hizo las 2 sin tapar ni borrar nada**.
