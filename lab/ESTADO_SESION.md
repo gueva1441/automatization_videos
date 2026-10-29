@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 04:00 (F51a: el armado C de F50h en producción, contrato 20/20; US$ 0; PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 04:20 (F51b: canon de Wittenoom con appearance fijo + condition_by_period; US$ 0,39; PARADA: Omar decide sobre 3 grupos con estado en appearance) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,22 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F51b, PARADA): el canon de Wittenoom ya separa el aspecto fijo del estado, pero no del todo.
+- Las familias españolas ya no traen el polvo rojo en el aspecto: va aparte, en `condition_by_period`, que no se pega en la foto.
+- **Decidís vos:** quedan «sun-weathered» en 2 grupos (dueños y gerentes; funcionarios) y «tanned» en 1 (sindicatos). No agregué reglas al pedido.
+- **Ojo:** Opus cambió los ids de 8 de los 12 grupos, y 20 fotos del `03_visual.json` de hoy apuntan a ids viejos (se arregla en F51d). Además, 5 grupos quedaron sin aspecto (antes eran 2).
+- **Gasto:** US$ 0,39 de 1,00 (1 llamada, sin reintento).
+- **Sigue:** el analista compara grupo por grupo (`lab/hyperframes/f51b/CANON_F51b.md`) antes de F51d.
+
+## F51b — aspecto fijo y estado (handoff del analista, 2026-10-29 03:52) — PARADA
+- Commits:
+  - `a5842ba` etapa 0: DECISIONES 03:52;
+  - `d2b443c` etapa 1: el pedido con las 2 líneas, la chascada del estilo sin año, el contrato F51a fijado al canon de F50h y los tests;
+  - `7f8fea2` etapa 2: el canon con Opus y `CANON_F51b.md`.
+  - El último commit es el del reporte (`lab/hyperframes/f51b/F51b_REPORT.md`).
+- Marca del canon: `a08c790c` → `4828d0e6`. Respaldo del canon viejo en `lab/hyperframes/f51b/antes/`.
+- Suites: rápida 55; amplia 998 + 5 fallas (las 4 previas y `gfx_lab::test_preview_solo_un_objeto_sobre_la_foto_quieta`, un 404 intermitente con -n auto que pasa corrido solo); ch02 `f792f3d4…`; contrato F51a 20/20.
 
 ## 👀 Para Omar (F51a, PARADA): el prompt de foto de producción ya es el armado C de F50h.
 - Es el que ganó en F50h. Ya no van la mirada, el objeto, la paleta, `style_head` ni `STYLE_TAIL`.
