@@ -295,7 +295,7 @@
   "_parte": "research_c"
  },
  "researcher_steps/step_4e_visual_canon.py": {
-  "sticker": "Arma el canon visual del tema en una llamada a un modelo: cómo se ve el mundo del tema (ropa, tecnología, vehículos, colores, materiales de la época), qué personas con nombre hay y cómo se ven sin nombre, qué anacronismos prohibir, cuál es el objeto o sujeto central y, desde F50, los grupos de personas que muestra el material (people_groups: quiénes son, dónde y cuándo, cómo se ven y cómo se visten). Desde F50 los hechos salen de la ficha del caso (hechos, cronología y escenas) y al final del pedido van los personajes del pool (rol · lugar · años, sin nombres). Después limpia la respuesta con reglas fijas (saca el nombre y la época del aspecto de cada persona, normaliza los objetos). Si falla, devuelve una estructura vacía pero del mismo formato.",
+  "sticker": "Arma el canon visual del tema en una llamada a un modelo: cómo se ve el mundo del tema (ropa, tecnología, vehículos, colores, materiales de la época), qué personas con nombre hay y cómo se ven sin nombre, qué anacronismos prohibir, cuál es el objeto o sujeto central y, desde F50, los grupos de personas que muestra el material (people_groups: quiénes son, dónde y cuándo, cómo se ven y cómo se visten en cada tramo de años). Desde F50d la época también viene por tramo de años (periods: ropa, tecnología, vehículos e interiores de cada tramo), además de la descripción única. Desde F50 los hechos salen de la ficha del caso (hechos, cronología y escenas) y al final del pedido van los personajes del pool (rol · lugar · años, sin nombres). Después limpia la respuesta con reglas fijas (saca el nombre y la época del aspecto de cada persona, normaliza los objetos). Si falla, devuelve una estructura vacía pero del mismo formato. La marca del canon (md5 de la ficha, del texto del pedido y del esquema) la calcula acá `marca_canon`.",
   "recibe": "El topic (video_title, canonical_subject_description, evidence_pool.personajes) y la ficha del caso (data/scripts/_steps/<id>/ficha_caso.json); los pasa fase1_5.asegurar_canon.",
   "entrega": "dict con era_visual_canon, documented_people, anachronism_blocklist, documented_props, central_subject y people_groups; fase1_5.asegurar_canon lo guarda en el topic de data/topics_db.json y en data/scripts/_steps/<id>/05_visual_canon.json.",
   "modelo": [
@@ -311,7 +311,7 @@
   "estado": "vivo",
   "estado_prueba": "fase1_5.asegurar_canon llama a canon_desde_ficha después de la ficha (run_escaleta_v3) y antes de m03 (process_topic); el research ya no lo llama (F50 A).",
   "funciones_muertas": [],
-  "md5": "7079a906842c559d14b6b7e7a4cd4a3a",
+  "md5": "63dc63f65224102d36f61a667b073520",
   "_parte": "research_c"
  },
  "researcher_steps/verify_quotes.py": {

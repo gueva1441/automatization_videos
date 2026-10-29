@@ -168,6 +168,7 @@ Sub-campos de ÉPOCA (genéricos de la década, derivados de los facts/contexto)
   Ej: "analog gauges, vacuum tubes, rotary dials. NO LEDs, NO digital displays."
 - vehicles_machinery: string EN, vehículos y maquinaria de época.
 - interiors: string EN, interiores característicos (oficinas, salas, casas).
+- periods: una entrada por cada tramo del material en que cambian la ropa, la tecnología, los vehículos o los interiores; years "AAAA-AAAA" y esos 4 campos para ese tramo (EN). Si el tema es de una sola época, una sola entrada.
 - forbidden_anachronisms: string EN, lista de elementos contemporáneos a
   evitar específicos del tema.
 
@@ -803,6 +804,10 @@ def extract_visual_canon(
     era_canon["condition_evolution"] = _clean_condition_evolution(
         raw_era.get("condition_evolution") if isinstance(raw_era, dict) else None
     )
+    # F50d A: la época por tramo (lista de objetos; _clean_era_canon solo deja los campos planos)
+    if isinstance(raw_era, dict) and isinstance(raw_era.get("periods"), list):
+        era_canon["periods"] = [{k: _flatten_to_str(p.get(k, "")) for k in PERIODO_CAMPOS}
+                                for p in raw_era["periods"] if isinstance(p, dict)]
 
     # ─── BLOQUE 2: documented_people ───
     raw_people = data.get("documented_people", [])
@@ -839,22 +844,32 @@ def extract_visual_canon(
 #  F50 A — CANON DESDE LA FICHA (antes de m03; reemplaza al 4e del research)
 # ═══════════════════════════════════════════════════════════════
 
-# los textos del lab, tal cual (F46b texto 1; F48 TEXTO_S5)
+# los textos del lab (F46b texto 1; F48 TEXTO_S5); F50d A: where_when con todos los años y clothing_by_period
 TEXTO_1_PEOPLE_GROUPS = """═══ BLOQUE EXTRA: people_groups ═══
 Lista de los grupos de personas que el material documenta en este caso (hechos, cronología, escenas y citas de arriba). Por grupo, un objeto:
 - id: corto, snake_case, en inglés (p. ej. "spanish_migrant_families")
 - who: quiénes son y su origen documentado (EN, una frase)
-- where_when: dónde y en qué años aparecen (EN, una frase)
+- where_when: dónde y en qué años aparecen, todos los años en que el material los muestra, también décadas después (EN, una frase)
 - appearance: cómo se ven físicamente según su origen documentado y su época: tono de piel, color y tipo de pelo, rasgos, contextura típica de su trabajo (EN, una frase)
-- clothing: ropa, peinado y accesorios de ESE grupo en ESOS años, ese clima y esa clase social (EN, una frase)
+- clothing_by_period: una entrada por cada tramo de años en que el material muestra a ese grupo; years "AAAA-AAAA" y clothing: ropa, peinado y accesorios de ESE grupo en ESE tramo, ese clima y esa clase social (EN, una frase)
 Sin nombres propios de personas. Solo grupos que el material documenta; si el material no dice el origen de un grupo, no lo inventes: dejá appearance vacío."""
 TEXTO_S5 = ("Personajes del material (rol · lugar · años; sin nombres). Que ningún grupo que aparezca acá quede fuera de "
             "people_groups:")
 
+# F50d A: la época y la ropa de cada grupo por tramo de años («AAAA-AAAA», como `spans`)
+PERIODO_CAMPOS = ("years", "clothing", "technology", "vehicles_machinery", "interiors")
+_PERIODO_SCHEMA = genai_types.Schema(type=genai_types.Type.OBJECT, properties={k: _STR for k in PERIODO_CAMPOS})
+_ROPA_TRAMO_SCHEMA = genai_types.Schema(type=genai_types.Type.OBJECT,
+                                        properties={k: _STR for k in ("years", "clothing")})
 _GRUPO_SCHEMA = genai_types.Schema(type=genai_types.Type.OBJECT, properties={
-    k: _STR for k in ("id", "who", "where_when", "appearance", "clothing")})
+    **{k: _STR for k in ("id", "who", "where_when", "appearance")},
+    "clothing_by_period": genai_types.Schema(type=genai_types.Type.ARRAY, nullable=True, items=_ROPA_TRAMO_SCHEMA)})
+_ERA_SCHEMA = _VISUAL_CANON_SCHEMA.properties["era_visual_canon"]
 VISUAL_CANON_SCHEMA_FICHA = genai_types.Schema(type=genai_types.Type.OBJECT, nullable=True, properties={
     **_VISUAL_CANON_SCHEMA.properties,
+    "era_visual_canon": genai_types.Schema(type=genai_types.Type.OBJECT, nullable=True, properties={
+        **_ERA_SCHEMA.properties,     # los campos únicos se quedan: los leen m05_judge, m06_classifier y m03_imagenes_v3
+        "periods": genai_types.Schema(type=genai_types.Type.ARRAY, nullable=True, items=_PERIODO_SCHEMA)}),
     "people_groups": genai_types.Schema(type=genai_types.Type.ARRAY, nullable=True, items=_GRUPO_SCHEMA)})
 
 
@@ -876,10 +891,26 @@ def bloque_people_groups(topic: dict) -> str:
     return TEXTO_1_PEOPLE_GROUPS + "\n" + TEXTO_S5 + "\n" + "\n".join(lineas)
 
 
+def _args_canon(topic: dict, ficha: dict) -> dict:
+    return {"seed": {"seed_title": topic.get("video_title")}, "angle_blocks": {},
+            "verified_facts": adaptador_facts(ficha), "canonical": topic.get("canonical_subject_description"),
+            "extra": bloque_people_groups(topic), "schema": VISUAL_CANON_SCHEMA_FICHA}
+
+
+def pedido_canon(topic: dict, ficha: dict) -> str:
+    """El texto exacto que `canon_desde_ficha` le manda a Flash (el mismo armado que `extract_visual_canon`)."""
+    a = _args_canon(topic, ficha)
+    return _build_prompt(a["seed"], a["angle_blocks"], a["verified_facts"], a["canonical"]).rstrip() + "\n\n" + a["extra"]
+
+
+def marca_canon(topic: dict, ficha: dict, ficha_bytes: bytes) -> str:
+    """F50d: md5(ficha + texto del pedido del canon + esquema). Cambiar el pedido o el esquema rehace el canon."""
+    import hashlib
+    esquema = VISUAL_CANON_SCHEMA_FICHA.model_dump_json(exclude_none=True)
+    return hashlib.md5(ficha_bytes + pedido_canon(topic, ficha).encode("utf-8") + esquema.encode("utf-8")).hexdigest()
+
+
 def canon_desde_ficha(topic: dict, ficha: dict) -> dict:
     """El canon visual en UNA llamada a Flash, con la ficha como hechos (sin bloques de ángulo) y `people_groups`.
     Todas las claves salen de esta respuesta."""
-    return extract_visual_canon(seed={"seed_title": topic.get("video_title")}, angle_blocks={},
-                                verified_facts=adaptador_facts(ficha),
-                                canonical=topic.get("canonical_subject_description"),
-                                extra=bloque_people_groups(topic), schema=VISUAL_CANON_SCHEMA_FICHA)
+    return extract_visual_canon(**_args_canon(topic, ficha))

@@ -288,19 +288,20 @@ CANON_KEYS = ("era_visual_canon", "documented_people", "anachronism_blocklist", 
 
 def asegurar_canon(topic_id: str, topic: dict, log: list[str]) -> dict:
     """F50 A: el canon visual sale de la ficha (`step_4e.canon_desde_ficha`, una llamada a Flash) y se guarda en el
-    topic de topics_db (lo leen m03 y la foto madre) con la marca `canon_ficha_md5` = md5 de `ficha_caso.json`. Si la
-    marca coincide, no se llama. Sin ficha o sin `people_groups` → Parada. Devuelve el topic con el canon."""
-    import hashlib
+    topic de topics_db (lo leen m03 y la foto madre) con la marca `canon_ficha_md5` = md5(ficha + texto del pedido
+    del canon + esquema) (F50d: antes era solo la ficha; un pedido o un esquema nuevos rehacen el canon). Si la marca
+    coincide, no se llama. Sin ficha o sin `people_groups` → Parada. Devuelve el topic con el canon."""
     from researcher_steps import step_4e_visual_canon as s4e
     from researcher_steps import ficha_caso as fc
     f = STEPS_DIR / topic_id / "ficha_caso.json"
     if not f.exists():
         raise Parada(f"{topic_id}: sin ficha_caso.json no hay canon visual")
-    md5 = hashlib.md5(f.read_bytes()).hexdigest()
+    ficha = fc.load(topic_id, STEPS_DIR)
+    md5 = s4e.marca_canon(topic, ficha, f.read_bytes())
     if topic.get("canon_ficha_md5") == md5:
-        log.append(f"  [canon] ya armado con esta ficha ({md5[:8]}): se usa")
+        log.append(f"  [canon] ya armado con esta ficha y este pedido ({md5[:8]}): se usa")
         return topic
-    canon = _step_cost(topic_id, "canon", lambda: s4e.canon_desde_ficha(topic, fc.load(topic_id, STEPS_DIR)))
+    canon = _step_cost(topic_id, "canon", lambda: s4e.canon_desde_ficha(topic, ficha))
     if not canon.get("people_groups"):
         raise Parada(f"{topic_id}: el canon desde la ficha salió sin people_groups")
     nuevo = {**{k: canon.get(k) for k in CANON_KEYS}, "canon_ficha_md5": md5}

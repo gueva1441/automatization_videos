@@ -1403,7 +1403,7 @@
    "zona": "guion",
    "sticker": "Es el director de la Fase 1: de un tema con el research hecho arma, en orden, la compuerta del pool, la ficha del caso, el canon visual desde la ficha (F50), la escaleta, el guion v4 con su reparación, la partición en 7 capítulos y el guion de pantalla en papel, y se detiene en la PARADA del papel hasta que Omar lo aprueba (`--aprobar-papel`, con md5). Ya aprobado, sigue con la normalización de la voz, la voz, la música, el canon visual si la ficha cambió, los prompts de imagen, la foto madre y el ensamblado del contrato data/scripts/<id>.json que lee la Fase 2.",
    "recibe": "data/topics_db.json (topic con evidence_pool v3), data/scripts/_steps/<id>/ (_perfil.json, escaleta_notas.md, ficha_caso.json, 01a_escaleta.json, 01e_pantalla.json), data/seeds_archive.json (título de la semilla), una semilla .json con --semilla, output/audio/<id>/sync_map.json al reanudar",
-   "entrega": "data/scripts/_steps/<id>/ (01a_escaleta, 01b_guionista_v4, 01a_skeleton, 01b_narration, 01b_narracion_v3, 06_judge_narrative, 01e_pantalla.json/.md, 01_v3_costos.json con los pasos ficha, canon y m03, 05_visual_canon.json, aprobado con md5 dentro de 01e_pantalla.json); el canon visual con canon_ficha_md5 en topics_db; audio y sync_map de la voz (output/audio/<id>/), music_map, prompts de imagen de m03, la foto madre en topics_db y data/scripts/<id>.json",
+   "entrega": "data/scripts/_steps/<id>/ (01a_escaleta, 01b_guionista_v4, 01a_skeleton, 01b_narration, 01b_narracion_v3, 06_judge_narrative, 01e_pantalla.json/.md, 01_v3_costos.json con los pasos ficha, canon y m03, 05_visual_canon.json, aprobado con md5 dentro de 01e_pantalla.json); el canon visual con canon_ficha_md5 (md5 de ficha + pedido del canon + esquema, F50d) en topics_db; audio y sync_map de la voz (output/audio/<id>/), music_map, prompts de imagen de m03, la foto madre en topics_db y data/scripts/<id>.json",
    "modelo": [
     {
      "modelo": "claude-fable-5-1 (guion_v4.DEFAULT_MODELO_GUION)",
@@ -1471,7 +1471,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "35fbe4b8b464729ed501e290f84adde2",
+   "md5": "b82ae0ec7a5e2144217eda933634acb1",
    "sticker_al_dia": true
   },
   "fase2a.py": {
@@ -2838,7 +2838,7 @@
   "researcher_steps/step_4e_visual_canon.py": {
    "archivo": "researcher_steps/step_4e_visual_canon.py",
    "zona": "research",
-   "sticker": "Arma el canon visual del tema en una llamada a un modelo: cómo se ve el mundo del tema (ropa, tecnología, vehículos, colores, materiales de la época), qué personas con nombre hay y cómo se ven sin nombre, qué anacronismos prohibir, cuál es el objeto o sujeto central y, desde F50, los grupos de personas que muestra el material (people_groups: quiénes son, dónde y cuándo, cómo se ven y cómo se visten). Desde F50 los hechos salen de la ficha del caso (hechos, cronología y escenas) y al final del pedido van los personajes del pool (rol · lugar · años, sin nombres). Después limpia la respuesta con reglas fijas (saca el nombre y la época del aspecto de cada persona, normaliza los objetos). Si falla, devuelve una estructura vacía pero del mismo formato.",
+   "sticker": "Arma el canon visual del tema en una llamada a un modelo: cómo se ve el mundo del tema (ropa, tecnología, vehículos, colores, materiales de la época), qué personas con nombre hay y cómo se ven sin nombre, qué anacronismos prohibir, cuál es el objeto o sujeto central y, desde F50, los grupos de personas que muestra el material (people_groups: quiénes son, dónde y cuándo, cómo se ven y cómo se visten en cada tramo de años). Desde F50d la época también viene por tramo de años (periods: ropa, tecnología, vehículos e interiores de cada tramo), además de la descripción única. Desde F50 los hechos salen de la ficha del caso (hechos, cronología y escenas) y al final del pedido van los personajes del pool (rol · lugar · años, sin nombres). Después limpia la respuesta con reglas fijas (saca el nombre y la época del aspecto de cada persona, normaliza los objetos). Si falla, devuelve una estructura vacía pero del mismo formato. La marca del canon (md5 de la ficha, del texto del pedido y del esquema) la calcula acá `marca_canon`.",
    "recibe": "El topic (video_title, canonical_subject_description, evidence_pool.personajes) y la ficha del caso (data/scripts/_steps/<id>/ficha_caso.json); los pasa fase1_5.asegurar_canon.",
    "entrega": "dict con era_visual_canon, documented_people, anachronism_blocklist, documented_props, central_subject y people_groups; fase1_5.asegurar_canon lo guarda en el topic de data/topics_db.json y en data/scripts/_steps/<id>/05_visual_canon.json.",
    "modelo": [
@@ -2866,7 +2866,7 @@
    "lo_llaman": [
     "fase1_5.py"
    ],
-   "tests": 2,
+   "tests": 3,
    "nacio": "21f2e10 2026-06-21",
    "ultimo": "5b071d0 2026-10-28 (F50)",
    "estado_a": "vivo",
@@ -2875,7 +2875,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "7079a906842c559d14b6b7e7a4cd4a3a",
+   "md5": "63dc63f65224102d36f61a667b073520",
    "sticker_al_dia": true
   },
   "researcher_steps/verify_quotes.py": {
@@ -4519,7 +4519,7 @@
    ],
    "tests": 2,
    "nacio": "dcea932 2026-10-28 (F50)",
-   "ultimo": "6cf9317 2026-10-28 (F50c)",
+   "ultimo": "fbbd58c 2026-10-28 (F50c)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "script_engine/m03_visual.py lo importa (mexp) y lo usa en _render_prompts_seedream (m03_visual.py:563-568) y en assign_visual_prompts (2041-2042); m03_visual corre dentro de fase1_5.py:671 (etapa voz).",

@@ -1,6 +1,5 @@
 """F50 A — el canon visual sale de la ficha (`step_4e.canon_desde_ficha`) y lo asegura `fase1_5.asegurar_canon` antes
 de m03, con la marca `canon_ficha_md5`. Offline: Flash y topics_db falsos."""
-import hashlib
 import json
 
 import pytest
@@ -52,7 +51,8 @@ def entorno(tmp_path, monkeypatch):
 def test_marca_md5_misma_ficha_no_llama_y_ficha_nueva_si(entorno):
     tid, db, llamadas = entorno["tid"], entorno["db"], entorno["llamadas"]
     t1 = fase1_5.asegurar_canon(tid, dict(db["topics"][0]), [])
-    md5 = hashlib.md5((entorno["dir"] / "ficha_caso.json").read_bytes()).hexdigest()
+    f = entorno["dir"] / "ficha_caso.json"                       # F50d: marca = ficha + pedido + esquema
+    md5 = s4e.marca_canon(db["topics"][0], json.loads(f.read_text(encoding="utf-8")), f.read_bytes())
     assert llamadas == [1] and t1["canon_ficha_md5"] == md5 and db["topics"][0]["people_groups"] == [{"id": "g"}]
     assert (entorno["dir"] / "05_visual_canon.json").exists()
     fase1_5.asegurar_canon(tid, dict(db["topics"][0]), [])
