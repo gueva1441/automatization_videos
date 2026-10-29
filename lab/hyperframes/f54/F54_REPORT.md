@@ -342,6 +342,41 @@ Fuera de alcance: ninguno. El commit 66804dc toca solo los 9 archivos esperados.
 
 Riesgos que el contrato no cubre: (a) `loops` es requerido y la validación es dura. Una ficha sin loop frena la corrida B.5 en vez de degradar. (b) El bloqueante (h) puede dar falso positivo si el guionista paga con otro id, como ya pasó con (d) en el cap 3 de Wittenoom. (c) Si cambia el conteo del ejemplo (tres muertes), hay que revisar el ejemplo de escaleta en `m01a` que menciona la versión en disputa.
 
+## Veredicto actualizado del revisor-handoff (tras releer F54_REPORT.md con la sección Parte B, íntegro)
+
+VEREDICTO: CUMPLE CON OBSERVACIONES (actualizado tras releer F54_REPORT.md)
+
+Corrí `pytest -q test_module_f54.py test_module_f6b.py test_module_f16.py` y dio 91 passed. El md5 del handoff coincide (1ac47c9b…). No llamé a ningún modelo.
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | Chascada: una sola oración sobre la promesa en §2, en código y `.md` | OK | `m01a_escaleta.py` (SYSTEM_V2 §2) y `PROMPT_ESCALETA_f54_1.md` quedan solo con «La promesa dice qué va a entender…». La vieja «La promesa es una sola oración…» se borró en ambos (`git show 66804dc`). El test byte-idéntico pasa. |
+| 2 | Línea de loops literal del handoff | OK | «Declará 1–2 loops: la pregunta que el video deja abierta, en qué beat se abre y en qué beat se paga. Cada beat dice qué pregunta anterior paga (o ninguna).» Es idéntica a B.1. |
+| 3 | DECISIONES 16:05 con el texto literal del handoff más los dos valores | OK | `f72da82`. La línea agrega «loops: 2 · re-gancho: sí, al cierre del cap 3 (campo recuerda_loop) · Omar». |
+| 4 | Esquema B.1: `loops` (requerido), `recuerda_loop` (opcional), `paga` | OK, desvío menor | `m01a_escaleta.py`. `paga` es INTEGER con 0 = ninguna; el handoff decía null. El reporte lo declara (decisión 3) y `validate` lo normaliza a None. |
+| 5 | Validador: pago posterior a la apertura, principal en cap 7 o pico, `paga` hacia atrás, sin loop es hard | OK | Bloque F54 B.1 de `validate`. Sin loop da hard con «decilo en vez de fabricarlo». |
+| 6 | Constantes sin números nuevos | OK | `LOOPS_RANGO=(1,2)` y `RECUERDA_LOOP_CAP=3` citan DECISIONES 16:05. |
+| 7 | B.3: `<estructura>` §2 reemplaza (no suma), con la frase literal | OK | `guion_v4.py` y `PROMPT_GUIONISTA_v5_5.md`. La frase es la literal del handoff y la segunda mitad vieja desaparece. |
+| 8 | Bloqueante de pago no dicho | OK | `pago_no_dicho` es la (h), porque (f) y (g) ya estaban tomadas por la Parte A. Frena sin pasar por `reparar`. Además de los beats con `paga`, mira el `paga_beat` de cada loop; es una extensión de CC, declarada en el reporte (decisión 5). |
+| 9 | B.2: bloque `<ejemplos>` entero pegado en F54_REPORT.md | OK | Ahora sí: `F54_REPORT.md` líneas 249–300 (sección B.2). Verifiqué con diff que el bloque `<ejemplos>` del reporte es idéntico al de `EJEMPLOS_v5_6_propuesta.md`. No está en el código (`guion_v4.py` conserva el Puerto Cardal viejo, líneas 226–252), como pide la PARADA B.0. |
+| 10 | Decisiones de CC y salida en texto en el reporte | OK | Sección «Decisiones de CC (Parte B.1/B.3)», líneas 197+. Las 7 decisiones coinciden con el diff. Incluye diffs de ambos prompts, mutaciones del validador y el bloqueante (h). |
+| 11 | Nada de B.4/B.5 corrió | OK | `m09_packaging.py` no está en el diff y no existe `lab/hyperframes/f54/antes/`. Los logs de `f41/f54b` son solo suites y ch02. El reporte dice que gastó US$ 0. |
+
+Observaciones:
+1. **Veredicto pendiente en el reporte.** La sección «Veredicto de revisor-handoff (Parte B.1/B.3, íntegro)» tiene el placeholder «(se pega abajo)». Este informe es lo que va ahí.
+2. **Ejemplos: lo que se queda.** Escena con sentidos, cita y silencio, hecho concreto y versiones en disputa son idénticos al bloque actual (`guion_v4.py` líneas 232–245). La frase del gancho es literal. El cierre del cap 2 con la primera frase del cap 3 que paga, el re-gancho, el pico y el cierre que vuelve a la vela cumplen B.2.
+3. **Ejemplos: rótulos y contenido nuevos.**
+   - Los rótulos cambiaron, por ejemplo «Re-gancho a mitad… sin pagarla» y «es la primera de las tres muertes que el gancho prometió». Son descripciones nuevas dentro del prompt, no reglas de estilo, pero tampoco literales del handoff.
+   - «Quedaban nueve días» y «tres muertes» son números nuevos del caso ficticio, y el reporte los declara.
+   - Las versiones en disputa (comisión dos, familias tres) no calzan del todo con la promesa de tres muertes. El reporte lo avisa en «Para mirar».
+   - «Tres de ellas no van a ver la primavera» pone una cifra en la apuesta. Es la frase del handoff y `<estructura>` §1 permite cifras en la segunda frase, así que no hay contradicción con `<estructura>` ni con `<voz>`.
+4. **`recuerda_loop` sin texto en el prompt.** Está en el esquema con `description` pero el SYSTEM de la escaleta no lo nombra. Respeta «cero reglas nuevas», pero depende de que el modelo lea la descripción. Es opcional y, si no viene, `validate` lo deja en None sin frenar. El reporte lo deja abierto para que decida Omar.
+5. **`paga` 0 en vez de null.** Es menor y está declarado.
+
+Fuera de alcance: ninguno. El commit 66804dc toca solo los 9 archivos esperados. Sin commitear quedan `F54_REPORT.md`, `EJEMPLOS_v5_6_propuesta.md`, `ESTADO_SESION.md` y los logs de `f41/f54b`, como se anunció.
+
+Riesgos que el contrato no cubre: (a) `loops` es requerido y la validación es dura. Una ficha sin loop frena B.5 en vez de degradar. (b) El bloqueante (h) puede dar falso positivo si el guionista paga con otro id, como ya pasó con (d) en el cap 3 de Wittenoom. (c) Si cambia el conteo del ejemplo (tres muertes), hay que revisar el ejemplo de escaleta en `m01a`, que menciona la versión en disputa.
+
 ## Adenda de CC (Parte B.1/B.3)
 - **Fila 10 / observación 1:** el revisor leyó el reporte antes de que esta sección existiera (la escribí mientras corría; le avisé y cerró igual). La sección «Parte B» está arriba, con el bloque `<ejemplos>` entero y las decisiones de CC. Lo demás del veredicto no depende de eso.
 - **Observación 3 (rótulos nuevos en `<ejemplos>`):** los rótulos describen la técnica del ejemplo, como los del bloque viejo («Gancho (escena en curso, sin contexto, promesa, vuelta atrás)»). Si el analista prefiere los rótulos viejos tal cual, se cambian al pegar el bloque: la PARADA B.0 es para eso.
