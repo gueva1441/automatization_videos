@@ -1,6 +1,6 @@
 # PROMPT DE LA ESCALETA f54-1 — Misterios Sepultados
 
-**F54 A.1 (CC, `f54-1`):** la f26-1 de F26 (`lab/hyperframes/f26/PROMPT_ESCALETA_f26_1.md`) con el final de <oficio> §2 cambiado: de «No cuenta lo que va a pasar…» a «…lo que no cierra.» se reemplaza por una oración (texto literal del handoff F54). «Sin contexto, sin año, sin cifras: lo que se ve» (la imagen del gancho) se queda. El resto, tal cual. Para CC: el bloque SISTEMA va literal en `m01a_escaleta.SYSTEM_V2`. Anclado en `## SISTEMA`.
+**F54 A.1 + B.1 (CC, `f54-1`):** la f26-1 de F26 (`lab/hyperframes/f26/PROMPT_ESCALETA_f26_1.md`) con <oficio> §2 cambiado desde «La promesa es una sola oración…» hasta «…lo que no cierra.»: una oración sobre la promesa (texto literal del handoff F54 A.1; la oración vieja «La promesa es una sola oración…» se borró por la chascada del analista, 2026-10-29) y una sobre los loops (texto literal de B.1, formato de salida). «Sin contexto, sin año, sin cifras: lo que se ve» (la imagen del gancho) se queda. El resto, tal cual. Para CC: el bloque SISTEMA va literal en `m01a_escaleta.SYSTEM_V2`. Anclado en `## SISTEMA`.
 
 ---
 
@@ -18,7 +18,7 @@ El antagonista es quien decide: una persona de la ficha, o una institución que 
 
 <oficio>
 1. El humano primero. La ficha trae candidatos con arco. Elegí al que tenga más momentos concretos (entra, sufre, sale) y más citas verificadas. Tiene que aparecer en el gancho, en el pico y en el cierre; si en el medio desaparece dos caps, el espectador lo olvida.
-2. El gancho es el peor momento, ya en curso. Tomá la escena más fuerte de la ficha y ponela en el beat 1, marcado como flash-forward. Sin contexto, sin año, sin cifras: lo que se ve. La promesa es una sola oración que deja una imagen sin cerrar o una pregunta que el espectador no puede responder todavía. La promesa dice qué va a entender el espectador si se queda: puede nombrar lo que está en juego, con años o cifras si hacen falta; no es un índice de lo que viene.
+2. El gancho es el peor momento, ya en curso. Tomá la escena más fuerte de la ficha y ponela en el beat 1, marcado como flash-forward. Sin contexto, sin año, sin cifras: lo que se ve. La promesa dice qué va a entender el espectador si se queda: puede nombrar lo que está en juego, con años o cifras si hacen falta; no es un índice de lo que viene. Declará 1–2 loops: la pregunta que el video deja abierta, en qué beat se abre y en qué beat se paga. Cada beat dice qué pregunta anterior paga (o ninguna).
 3. Del gancho se vuelve atrás. El cap 2 es la vida antes: quién era esta gente, qué hacía ahí. Es el único cap tranquilo y por eso es el más importante para que duela lo que viene.
 4. Cada cap avanza y deja algo abierto. La frase de cierre de un cap nombra lo que viene o lo deja incompleto. Nunca resume.
 5. El pico es uno solo, y es el que la ficha marcó salvo que tengas una razón mejor (decila). Antes del pico, un cap que aprieta; después del pico, un respiro: lo que queda cuando pasa lo peor, el recuento, el silencio.

@@ -38,12 +38,16 @@ def _dif(a: str, b: str) -> list[tuple[str, str]]:
 #  Los dos prompts (A.1, A.2)
 # ═══════════════════════════════════════════════════════════════
 
-VIEJO_P = ("No cuenta lo que va a pasar, no enumera lo que viene, no nombra juicios, comisiones ni consecuencias. "
-           "Probala así: si la oración se puede leer como un resumen de lo que viene («nadie lo sabrá durante años», "
-           "«terminará en un juicio»), no es una promesa; es un adelanto. Volvé a escribirla con lo que se ve o lo que "
-           "no cierra.")
+# A.1 + chascada (analista, 2026-10-29): desde «La promesa es una sola oración…» hasta «…lo que no cierra.» → una
+# oración sobre la promesa; B.1: + una oración sobre los loops (formato de salida)
+VIEJO_P = ("La promesa es una sola oración que deja una imagen sin cerrar o una pregunta que el espectador no puede "
+           "responder todavía. No cuenta lo que va a pasar, no enumera lo que viene, no nombra juicios, comisiones ni "
+           "consecuencias. Probala así: si la oración se puede leer como un resumen de lo que viene («nadie lo sabrá "
+           "durante años», «terminará en un juicio»), no es una promesa; es un adelanto. Volvé a escribirla con lo que "
+           "se ve o lo que no cierra.")
 NUEVO_P = ("La promesa dice qué va a entender el espectador si se queda: puede nombrar lo que está en juego, con años "
-           "o cifras si hacen falta; no es un índice de lo que viene.")
+           "o cifras si hacen falta; no es un índice de lo que viene. Declará 1–2 loops: la pregunta que el video deja "
+           "abierta, en qué beat se abre y en qué beat se paga. Cada beat dice qué pregunta anterior paga (o ninguna).")
 
 
 def test_escaleta_f54_1_literal_y_un_solo_cambio():
@@ -53,15 +57,21 @@ def test_escaleta_f54_1_literal_y_un_solo_cambio():
     (viejo, nuevo), = _dif(me.SYSTEM_V2_F26_1, me.SYSTEM_V2)
     assert VIEJO_P in viejo and viejo.replace(VIEJO_P, NUEVO_P) == nuevo
     assert "Sin contexto, sin año, sin cifras: lo que se ve." in nuevo          # R1 (la imagen del gancho) se queda
+    assert nuevo.count("La promesa") == 1                                      # chascada: una sola oración sobre la promesa
 
 
-def test_guion_v5_5_literal_y_un_solo_cambio():
+def test_guion_v5_5_literal_y_dos_cambios():
     assert g4.system() == g4.SYSTEM_V5_5 == _sistema(F54 / "PROMPT_GUIONISTA_v5_5.md") and g4.PROMPT_VERSION == "f54-1"
     assert g4.system("f25-1") == g4.SYSTEM_V5_4 and _md5(g4.SYSTEM_V5_4) == "2f66c1e07e4d6c31178091371821c0c9"
-    (viejo, nuevo), = _dif(g4.SYSTEM_V5_4, g4.SYSTEM_V5_5)
-    assert viejo.replace("Segunda: la promesa, como viene en la escaleta, sin agregarle lo que va a pasar después.",
-                         "Segunda: la promesa: lo que está en juego, con tus palabras, sin índice de lo que viene.") == nuevo
-    assert "Primera frase: lo que se ve, sin año, sin cifra, sin institución." in nuevo
+    dif = _dif(g4.SYSTEM_V5_4, g4.SYSTEM_V5_5)
+    assert len(dif) == 2
+    (v1, n1), (v2, n2) = dif
+    assert v1.replace("Segunda: la promesa, como viene en la escaleta, sin agregarle lo que va a pasar después.",
+                      "Segunda: la promesa: lo que está en juego, con tus palabras, sin índice de lo que viene.") == n1
+    assert "Primera frase: lo que se ve, sin año, sin cifra, sin institución." in n1
+    assert v2.replace("cada uno avanza la historia y termina con algo sin resolver que el siguiente paga.",
+                      "cada uno avanza la historia. La primera frase de cada cap paga lo que el beat marcado `paga` dejó "
+                      "abierto; la escaleta dice cuál.") == n2                   # B.3: reemplaza, no suma
     assert g4.VERSIONES_V5[:2] == ("f54-1", "f25-1") and g4.prompt_version(version="f25-1") == "f25-1"
 
 
@@ -154,6 +164,119 @@ def test_f_y_g_no_se_editan_por_oracion():
     import inspect
     src = inspect.getsource(g4.reparar)
     assert 'x["codigo"] in ("a", "b", "d", "e")' in src
+
+
+# ═══════════════════════════════════════════════════════════════
+#  B.1: loops, paga, recuerda_loop en el esquema y en el validador (DECISIONES 2026-10-29 16:05)
+# ═══════════════════════════════════════════════════════════════
+
+def _good():
+    import test_module_f6b as t6
+    return t6.good(), t6.POOL
+
+
+def _hard(mut):
+    e, pool = _good()
+    mut(e)
+    return me.validate(e, pool)[1]
+
+
+def test_esquema_con_loops_paga_y_recuerda_loop():
+    for s in (me.SCHEMA, me.SCHEMA_FICHA):
+        lp = s["properties"]["loops"]["items"]
+        assert set(lp["required"]) == {"id", "pregunta", "abre_beat", "paga_beat"}
+        assert "loops" in s["required"] and "recuerda_loop" not in s["required"]
+        assert s["properties"]["recuerda_loop"]["required"] == ["beat", "oracion"]
+        assert s["properties"]["beats"]["items"]["properties"]["paga"]["type"] == "INTEGER"
+        assert "paga" not in s["properties"]["beats"]["items"]["required"]
+    assert me.LOOPS_RANGO == (1, 2) and me.RECUERDA_LOOP_CAP == 3
+
+
+def test_escaleta_con_un_loop_pasa_y_normaliza(monkeypatch):
+    monkeypatch.setattr(me, "MIN_BEATS_DEV_CAP", 1)
+    e, pool = _good()
+    e["beats"][3]["paga"] = 0                                           # 0 = ninguna
+    esc, hard, _, _ = me.validate(e, pool)
+    assert hard == []
+    assert esc["loops"] == [{"id": "L1", "pregunta": "¿cuántos eran?", "abre_beat": 1, "paga_beat": 8}]
+    assert esc["beats"][-1]["paga"] == 1 and esc["beats"][3]["paga"] is None and esc["recuerda_loop"] is None
+
+
+@pytest.mark.parametrize("nombre, mut, frag", [
+    ("sin loop → hard, sin fabricar", lambda e: e.update(loops=[]), "loops: 0 declarado(s)"),
+    ("más de 2 loops", lambda e: e.update(loops=e["loops"] * 3), "loops: 3 declarado(s)"),
+    ("se paga antes de abrirse", lambda e: e["loops"][0].update(abre_beat=5, paga_beat=3), "pagarse después de abrirse"),
+    ("el principal fuera del cap 7 y del pico", lambda e: e["loops"][0].update(paga_beat=5), "cap 7 o en el pico"),
+    ("beat inexistente", lambda e: e["loops"][0].update(paga_beat=40), "no es un beat"),
+    ("sin pregunta", lambda e: e["loops"][0].update(pregunta=""), "sin pregunta"),
+    ("paga hacia adelante", lambda e: e["beats"][2].update(paga=5), "beat 3: paga 5 tiene que apuntar a un beat anterior"),
+    ("recuerda_loop fuera del cierre del cap 3", lambda e: e.update(recuerda_loop={"beat": 2, "oracion": "x"}),
+     "recuerda_loop: va en el último beat del cap 3 (beat 3)"),
+    ("recuerda_loop sin oración", lambda e: e.update(recuerda_loop={"beat": 3, "oracion": ""}), "recuerda_loop"),
+])
+def test_loops_rechazos_duros_y_son_bloqueantes(nombre, mut, frag):
+    hard = _hard(mut)
+    hit = [h for h in hard if frag in h]
+    assert hit, (nombre, hard)
+    assert all(me.bloqueante_de(h) for h in hit), (nombre, hit)
+
+
+def test_loop_principal_pagado_en_el_pico_pasa():
+    assert not [h for h in _hard(lambda e: e["loops"][0].update(paga_beat=6)) if h.startswith("loop")]
+
+
+def test_recuerda_loop_en_el_cierre_del_cap_3_pasa():
+    e, pool = _good()
+    e["recuerda_loop"] = {"beat": 3, "oracion": "El polvo seguía ahí."}
+    esc, hard, _, _ = me.validate(e, pool)
+    assert not [h for h in hard if "recuerda_loop" in h] and esc["recuerda_loop"]["beat"] == 3
+
+
+def test_segundo_loop_no_exige_cap_7_ni_pico():
+    e, pool = _good()
+    e["loops"].append({"id": "L2", "pregunta": "¿quién apagó la luz?", "abre_beat": 2, "paga_beat": 4})
+    assert not [h for h in me.validate(e, pool)[1] if h.startswith("loop")]
+
+
+def test_metricas_escaleta_traen_loops():
+    import test_module_f16 as t16
+    e = t16.good()
+    e["recuerda_loop"] = {"beat": 3, "oracion": "El polvo seguía ahí."}
+    esc = me.validate(e, t16.POOL)[0]
+    m = me.metricas_escaleta(esc, t16.POOL, t16.FICHA, [])
+    assert m["loops"] == esc["loops"] and m["beats_con_paga"] == {8: 1} and m["recuerda_loop"]["beat"] == 3
+
+
+# ═══════════════════════════════════════════════════════════════
+#  B.3: la escaleta que ve el guionista dice qué paga; bloqueante (h) pago no dicho
+# ═══════════════════════════════════════════════════════════════
+
+def test_escaleta_section_muestra_paga_loops_y_recuerda():
+    import test_module_f11 as t11
+    esc = t11._esc_ok()
+    esc["beats"][5]["paga"] = 2                                       # beat 6 (cap 4) paga la pregunta del beat 2
+    esc["loops"] = [{"id": "L1", "pregunta": "¿quién cerró el portón?", "abre_beat": 1, "paga_beat": 12}]
+    esc["recuerda_loop"] = {"beat": 5, "oracion": "El portón seguía cerrado."}
+    sec = g4.escaleta_section_v5(esc, t11.POOL)
+    assert "    paga: la pregunta del beat 2 («¿quién cerró?»)" in sec
+    assert "    recuerda el loop: El portón seguía cerrado." in sec
+    assert "LOOP 1: ¿quién cerró el portón? — se abre en el beat 1, se paga en el beat 12\n" in g4.prompt_v5(t11.TOPIC, esc)
+    esc.pop("loops"); esc.pop("recuerda_loop")
+    assert "LOOP" not in g4.prompt_v5(t11.TOPIC, esc)                  # sin loops (escaletas viejas): nada
+
+
+def test_pago_no_dicho_frena_y_dicho_pasa():
+    t11, esc = _fixture()
+    esc["beats"][5]["paga"] = 2                                       # beat 6, cap 4, dato central D6
+    esc["loops"] = [{"id": "L1", "pregunta": "¿quién cerró?", "abre_beat": 1, "paga_beat": 10}]   # beat 10, cap 6, D10
+    ps = t11._parrafos(esc)
+    assert not [x for x in g4.bloqueantes(t11.TOPIC, esc, ps) if x["codigo"] == "h"]
+    ps[5]["texto"] = t11.FRASE + "Nadie volvió a abrir."             # el cap 4 ya no dice D6
+    ps[9]["texto"] = t11.FRASE + "Nadie volvió a abrir."             # el cap 6 ya no dice D10
+    h = sorted((x["beat"], x["cap"]) for x in g4.bloqueantes(t11.TOPIC, esc, ps) if x["codigo"] == "h")
+    assert h == [(6, 4), (10, 6)]
+    m = [x["motivo"] for x in g4.bloqueantes(t11.TOPIC, esc, ps) if x["codigo"] == "h"]
+    assert any("la pregunta del beat 2 con D6" in x for x in m) and any("el loop L1 con D10" in x for x in m)
 
 
 # ═══════════════════════════════════════════════════════════════

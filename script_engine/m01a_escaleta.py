@@ -131,20 +131,27 @@ SCHEMA: dict[str, Any] = {
             "required": ["id", "nombre", "rol", "por_que", "colectivo"]},
         "antagonista": {"type": "OBJECT", "properties": {"id": _S, "por_que": _S}, "required": ["id"]},
         "promesa_gancho": _S,
+        # F54 B.1 (DECISIONES 2026-10-29 16:05): los loops que el video deja abiertos y dónde se pagan; el re-gancho
+        "loops": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
+            "id": _S, "pregunta": _S, "abre_beat": _I, "paga_beat": _I},
+            "required": ["id", "pregunta", "abre_beat", "paga_beat"]}},
+        "recuerda_loop": {"type": "OBJECT", "properties": {"beat": _I, "oracion": _S}, "required": ["beat", "oracion"],
+                          "description": "el re-gancho: una oración al cierre del cap 3 que recuerda el loop principal"},
         "pico": {"type": "OBJECT", "properties": {"beat": _I, "id": _S, "por_que": _S}, "required": ["beat", "id", "por_que"]},
         "cierre_humano": _S,
         "beats": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
             "n": _I, "cap": _I, "funcion": {"type": "STRING", "enum": list(FUNCIONES)}, "emocion": _S,
             "intensidad": _I, "dato_central": _S, "datos_apoyo": {"type": "ARRAY", "items": _S},
             "humano_en_escena": _B, "imagen_sensorial": _S, "pregunta_abierta": _S, "pregunta_pantalla": _S,
-            "cierre": _S, "palabras_objetivo": _I, "flash_forward": _B, "contador": _B},
+            "cierre": _S, "palabras_objetivo": _I, "flash_forward": _B, "contador": _B,
+            "paga": {"type": "INTEGER", "description": "n del beat cuya pregunta_abierta paga este beat; 0 si ninguna"}},
             "required": ["n", "cap", "funcion", "emocion", "intensidad", "dato_central", "datos_apoyo",
                          "humano_en_escena", "imagen_sensorial", "pregunta_abierta", "pregunta_pantalla", "cierre",
                          "palabras_objetivo"]}},
         "a_pantalla": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {"id": _S, "cap": _I, "por_que": _S},
                                                   "required": ["id", "cap"]}},
     },
-    "required": ["humano", "antagonista", "promesa_gancho", "pico", "cierre_humano", "beats", "a_pantalla"],
+    "required": ["humano", "antagonista", "promesa_gancho", "loops", "pico", "cierre_humano", "beats", "a_pantalla"],
 }
 # F39 §A.2: SCHEMA ya no se manda solo (era el de la escaleta sin ficha, borrada); queda como base de SCHEMA_FICHA.
 
@@ -403,6 +410,50 @@ def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "",
         hard.append("falta la promesa del gancho")
     if beats and has_figure(beats[0].get("imagen_sensorial") or ""):
         hard.append("la imagen sensorial del gancho no lleva cifras")
+    # F54 B.1: loops declarados (1–2), cada uno pagado después de abrirse, el principal en el cap 7 o en el pico;
+    # `paga` apunta a un beat anterior; `recuerda_loop` (si viene) va al cierre del cap 3. Sin loop no se fabrica: hard.
+    cap_of = {b["n"]: b["cap"] for b in beats}
+    loops = [x for x in esc.get("loops") or [] if isinstance(x, dict)]
+    if not LOOPS_RANGO[0] <= len(loops) <= LOOPS_RANGO[1]:
+        hard.append(f"loops: {len(loops)} declarado(s); tienen que ser {LOOPS_RANGO[0]}–{LOOPS_RANGO[1]}"
+                    + ("; si la ficha no da para un loop, decilo en vez de fabricarlo" if not loops else ""))
+    for k, lp in enumerate(loops, start=1):
+        try:
+            a, p = int(lp.get("abre_beat")), int(lp.get("paga_beat"))
+        except (TypeError, ValueError):
+            hard.append(f"loop {k}: abre_beat/paga_beat no numéricos")
+            continue
+        lp["abre_beat"], lp["paga_beat"] = a, p
+        if not str(lp.get("pregunta") or "").strip():
+            hard.append(f"loop {k}: sin pregunta")
+        if a not in cap_of or p not in cap_of:
+            hard.append(f"loop {k}: abre_beat {a} o paga_beat {p} no es un beat")
+        elif p <= a:
+            hard.append(f"loop {k}: se abre en el beat {a} y se paga en el {p}: tiene que pagarse después de abrirse")
+        elif k == 1 and cap_of[p] != 7 and p != pb:
+            hard.append(f"loop 1 (el principal) se paga en el beat {p} (cap {cap_of[p]}): tiene que pagarse en el cap 7 "
+                        f"o en el pico (beat {pb})")
+    esc["loops"] = loops
+    for b in beats:
+        try:
+            pg = int(b.get("paga") or 0)
+        except (TypeError, ValueError):
+            pg = -1
+        b["paga"] = pg or None
+        if pg and not 1 <= pg < b["n"]:
+            hard.append(f"beat {b['n']}: paga {pg} tiene que apuntar a un beat anterior")
+    rl = esc.get("recuerda_loop")
+    if isinstance(rl, dict) and (rl.get("beat") or rl.get("oracion")):
+        try:
+            rb = int(rl.get("beat"))
+        except (TypeError, ValueError):
+            rb = 0
+        ultimo = max([b["n"] for b in beats if b["cap"] == RECUERDA_LOOP_CAP] or [0])
+        if rb != ultimo or not str(rl.get("oracion") or "").strip():
+            hard.append(f"recuerda_loop: va en el último beat del cap {RECUERDA_LOOP_CAP} (beat {ultimo}) con su oración; "
+                        f"vino beat {rl.get('beat')}, oración «{str(rl.get('oracion') or '')[:60]}»")
+    else:
+        esc["recuerda_loop"] = None
     for b in beats:
         im = str(b.get("imagen_sensorial") or "")
         content = [w for w in (_plain(x) for x in re.findall(r"[\wáéíóúñ]+", im)) if len(w) >= 4
@@ -818,11 +869,14 @@ PROMPT_VERSION_V2_F22_2 = "f22-2"   # F22e: v2.1 + la promesa es una imagen o un
 PROMPT_VERSION_V2_F22 = "f22-1"     # F22: escaleta v2.1 (ejemplo del caso inventado, antagonista de tres tipos)
 PROMPT_VERSION_V2_F16 = "f16-1"     # la v2 de F16: SYSTEM_V2_F16_1, byte-idéntico
 REGENERACIONES_V2 = 1               # F16 §1.3: si fallan los bloqueantes, UNA regeneración; si vuelve a fallar, PARADA
+LOOPS_RANGO = (1, 2)                # DECISIONES: 2026-10-29 16:05 (loops declarados por video: 1–2; Omar: 2)
+RECUERDA_LOOP_CAP = 3               # DECISIONES: 2026-10-29 16:05 (re-gancho: una oración al cierre del cap 3)
 MAX_BEATS_POR_CAP = 3               # F24 §B.1: cada cap entre 1 y 3 beats (bloqueante de estructura)
 
-# F54 A.1: el bloque SISTEMA de lab/hyperframes/f54/PROMPT_ESCALETA_f54_1.md, literal (test byte-idéntico contra el
-# .md): la f26-1 con el final de §2 (de «No cuenta lo que va a pasar» a «lo que no cierra.») cambiado por una
-# oración: la promesa puede nombrar lo que está en juego. R1 (la imagen del gancho sin año ni cifras) se queda.
+# F54 A.1 + B.1: el bloque SISTEMA de lab/hyperframes/f54/PROMPT_ESCALETA_f54_1.md, literal (test byte-idéntico
+# contra el .md): la f26-1 con §2 cambiado desde «La promesa es una sola oración…» hasta «lo que no cierra.» por
+# una oración sobre la promesa (puede nombrar lo que está en juego) y una sobre los loops (formato de salida).
+# R1 (la imagen del gancho sin año ni cifras) se queda.
 SYSTEM_V2 = """<rol>
 Sos el guionista jefe de Misterios Sepultados, un canal de documentales de historia oscura en YouTube. Antes de que nadie escriba una línea, vos decidís la historia: a quién seguimos, qué sabe el espectador en cada momento, dónde golpea, y con qué se queda al final. Trabajás solo con la ficha del caso que te dan: no inventás nombres, cifras, fechas ni citas. Lo que no está en la ficha no pasó.
 </rol>
@@ -835,7 +889,7 @@ El antagonista es quien decide: una persona de la ficha, o una institución que 
 
 <oficio>
 1. El humano primero. La ficha trae candidatos con arco. Elegí al que tenga más momentos concretos (entra, sufre, sale) y más citas verificadas. Tiene que aparecer en el gancho, en el pico y en el cierre; si en el medio desaparece dos caps, el espectador lo olvida.
-2. El gancho es el peor momento, ya en curso. Tomá la escena más fuerte de la ficha y ponela en el beat 1, marcado como flash-forward. Sin contexto, sin año, sin cifras: lo que se ve. La promesa es una sola oración que deja una imagen sin cerrar o una pregunta que el espectador no puede responder todavía. La promesa dice qué va a entender el espectador si se queda: puede nombrar lo que está en juego, con años o cifras si hacen falta; no es un índice de lo que viene.
+2. El gancho es el peor momento, ya en curso. Tomá la escena más fuerte de la ficha y ponela en el beat 1, marcado como flash-forward. Sin contexto, sin año, sin cifras: lo que se ve. La promesa dice qué va a entender el espectador si se queda: puede nombrar lo que está en juego, con años o cifras si hacen falta; no es un índice de lo que viene. Declará 1–2 loops: la pregunta que el video deja abierta, en qué beat se abre y en qué beat se paga. Cada beat dice qué pregunta anterior paga (o ninguna).
 3. Del gancho se vuelve atrás. El cap 2 es la vida antes: quién era esta gente, qué hacía ahí. Es el único cap tranquilo y por eso es el más importante para que duela lo que viene.
 4. Cada cap avanza y deja algo abierto. La frase de cierre de un cap nombra lo que viene o lo deja incompleto. Nunca resume.
 5. El pico es uno solo, y es el que la ficha marcó salvo que tengas una razón mejor (decila). Antes del pico, un cap que aprieta; después del pico, un respiro: lo que queda cuando pasa lo peor, el recuento, el silencio.
@@ -1316,6 +1370,10 @@ BLOQUEANTES_V2 = (
     ("antagonista es persona de la ficha", r"^antagonista (.* no es una persona del pool|«ninguno» sin por_que)"),
     ("a_pantalla no repite un id de un beat", r"^a_pantalla \S+ también está en un beat"),
     ("otra cifra del mismo conteo fuera", r"^beat \d+: \S+ es otra cifra del conteo "),
+    # F54 B.1 (DECISIONES 2026-10-29 16:05): loops declarados y pagados; paga hacia atrás; re-gancho al cierre del cap 3
+    ("loops: 1–2, pagados después de abrirse, el principal en el cap 7 o en el pico", r"^loops?[: ]"),
+    ("paga apunta a un beat anterior", r"^beat \d+: paga "),
+    ("recuerda_loop al cierre del cap 3", r"^recuerda_loop: "),
 )
 
 
@@ -1442,6 +1500,8 @@ def metricas_escaleta(esc: dict, pool: dict, ficha: dict | None, otros: list[str
         "ultima_frase_sin_humano": _msgs(r"la última frase del video .* no nombra"),
         "preguntas_pantalla": _msgs(r"^pregunta de pantalla"),
         "preguntas_abiertas": [b.get("pregunta_abierta") for b in beats],
+        "loops": esc.get("loops") or [], "recuerda_loop": esc.get("recuerda_loop"),               # F54 B.1
+        "beats_con_paga": {b["n"]: b.get("paga") for b in beats if b.get("paga")},
         "otros": [m for m in otros if not re.search(
             r"intensidad|flash-forward|respiro|el beat del pico|en escena|el humano entra|es una idea|imagen sensorial "
             r"vacía|se ve en pantalla dos veces|la última frase|^pregunta de pantalla", m)],

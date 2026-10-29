@@ -15,6 +15,8 @@ script_engine/guion_v4.py — F11 (HANDOFF_F11 §1): guion v4. Menos reglas, ofi
         f  cierre no dicho                 F54 A.2 (la (d) del handoff): el dato central del beat `cierre` no está
                                            en los ids de su cap
         g  cita repetida                   F54 A.2 (la (e) del handoff): una misma Q dicha en dos caps
+        h  pago no dicho                   F54 B.3 (la (f) del handoff): el dato central de un beat con `paga` (o del
+                                           beat que paga un loop) no está en los ids de su cap
     reparar(topic, esc, parrafos)      UNA ronda: (c) → m01d.regenerate_cap_v3 de ese cap (1 intento); (a)(b)(d)(e) →
                                        edición de la oración (patrón de m01d.cut_phrases + guardia léxica de m01c);
                                        fechas repetidas (determinista); una pasada del editor m01c con sus blandas,
@@ -175,8 +177,9 @@ Esto es lo que NO hacés. Son errores reales de versiones anteriores.
 
 # F23 §1.1: el bloque SISTEMA de lab/hyperframes/f23/PROMPT_GUIONISTA_v5_3.md, literal (test byte-idéntico contra
 # el .md).
-# F54 A.2: el bloque SISTEMA de lab/hyperframes/f54/PROMPT_GUIONISTA_v5_5.md, literal: el v5.4 con la segunda
-# frase del gancho (<estructura> 1) que lleva la promesa con lo que está en juego, con las palabras del guionista.
+# F54 A.2 + B.3: el bloque SISTEMA de lab/hyperframes/f54/PROMPT_GUIONISTA_v5_5.md, literal: el v5.4 con la segunda
+# frase del gancho (<estructura> 1: la promesa con lo que está en juego, con las palabras del guionista) y
+# <estructura> 2 (la primera frase de cada cap paga lo que el beat marcado `paga` dejó abierto).
 SYSTEM_V5_5 = """<rol>
 Sos el guionista de Misterios Sepultados, un canal de documentales de historia oscura en YouTube, en español neutro. Escribís la narración en off: lo que el espectador oye mientras mira las imágenes. Contás casos reales. Tu trabajo es que la persona que puso el video no se vaya, y eso se logra con una historia bien contada, no con adjetivos ni con promesas.
 
@@ -200,7 +203,7 @@ La voz es la de alguien que estuvo ahí y lo cuenta en voz baja, cerca del oído
 El video tiene siete capítulos. La escaleta que recibís ya decidió la historia: el humano, el pico, el gancho, los beats. Vos la escribís. No la cambiás.
 
 1. Gancho (cap 1): la escena del peor momento, ya en curso. Primera frase: lo que se ve, sin año, sin cifra, sin institución. Segunda: la promesa: lo que está en juego, con tus palabras, sin índice de lo que viene. Antes de terminar el cap, una frase corta con lugar y año. El cap 1 termina volviendo atrás: «horas antes», «días antes».
-2. Caps 2 a 6: cada uno avanza la historia y termina con algo sin resolver que el siguiente paga. La última frase de cada cap no resume: deja una puerta abierta o nombra lo que viene.
+2. Caps 2 a 6: cada uno avanza la historia. La primera frase de cada cap paga lo que el beat marcado `paga` dejó abierto; la escaleta dice cuál. La última frase de cada cap no resume: deja una puerta abierta o nombra lo que viene.
 3. El humano: nombre y apellido con su rol la primera vez; después, nombre o apellido solo. Aparece en el gancho, en el pico y en el cierre. Lo que le pasa a él es lo que le pasa al oyente.
 4. El pico: antes del golpe, dos frases cortas seguidas. Después del golpe, la frase más corta del video.
 5. Cierre (cap 7): la última frase es una cita o una pregunta. Nunca un resumen, nunca una moraleja, nunca «hoy».
@@ -794,9 +797,21 @@ def escaleta_section_v5(esc: dict, pool: dict, ficha: dict | None = None) -> str
             for i in b.get("datos_apoyo") or []:
                 out.append(f"    apoyo: {data_line(i, its, esc, pool, fx, vm)}")
             out.append(f"    el espectador se pregunta: {b.get('pregunta_abierta')}")
+            if b.get("paga"):                                            # F54 B.3: la escaleta dice qué paga
+                prev = next((x for x in esc["beats"] if x["n"] == b["paga"]), {})
+                out.append(f"    paga: la pregunta del beat {b['paga']} («{prev.get('pregunta_abierta')}»)")
+            rl = esc.get("recuerda_loop") or {}
+            if rl.get("beat") == b["n"] and rl.get("oracion"):
+                out.append(f"    recuerda el loop: {rl['oracion']}")
             if b.get("cierre"):
                 out.append(f"    cierre: {b['cierre']}")
     return "\n".join(out)
+
+
+def loops_txt(esc: dict) -> str:
+    """F54 B.3: los loops declarados en la escaleta, como datos del <caso> (una línea por loop; sin loops, nada)."""
+    return "".join(f"LOOP {k}: {lp.get('pregunta')} — se abre en el beat {lp.get('abre_beat')}, se paga en el beat "
+                   f"{lp.get('paga_beat')}\n" for k, lp in enumerate(esc.get("loops") or [], start=1))
 
 
 def prompt_v5(topic: dict, esc: dict, ficha: dict | None = None) -> str:
@@ -808,7 +823,7 @@ def prompt_v5(topic: dict, esc: dict, ficha: dict | None = None) -> str:
 TEMA: {topic.get("video_title")}
 HUMANO: {hum.get("nombre")} ({hum.get("rol")}) — por qué: {hum.get("por_que")}
 PROMESA DEL GANCHO: {esc.get("promesa_gancho")}
-PICO: beat {pico.get("beat")} — por qué: {pico.get("por_que")}
+{loops_txt(esc)}PICO: beat {pico.get("beat")} — por qué: {pico.get("por_que")}
 CIERRE HUMANO: {esc.get("cierre_humano")}
 </caso>
 
@@ -993,6 +1008,27 @@ def cierre_no_dicho(esc: dict, parrafos: list[dict]) -> list[dict]:
     return out
 
 
+def pago_no_dicho(esc: dict, parrafos: list[dict]) -> list[dict]:
+    """(h) F54 B.3: un beat marcado `paga` (o el beat que paga un loop) tiene que decir su `dato_central` en su cap
+    (`ids_usados`); si no, la pregunta que la escaleta dejó abierta no se paga en la voz."""
+    beats = {b["n"]: b for b in esc.get("beats") or []}
+    ids = {}
+    for p in parrafos:
+        ids.setdefault(p["cap"], set()).update(p.get("ids_usados") or [])
+    out, vistos = [], set()
+    pagos = [(b["n"], f"la pregunta del beat {b['paga']}") for b in beats.values() if b.get("paga")]
+    pagos += [(lp.get("paga_beat"), f"el loop {lp.get('id') or k}") for k, lp in enumerate(esc.get("loops") or [], 1)]
+    for n, que in pagos:
+        b = beats.get(n)
+        if not b or not b.get("dato_central") or (n, que) in vistos:
+            continue
+        vistos.add((n, que))
+        if b["dato_central"] not in ids.get(b["cap"], set()):
+            out.append(_b("h", None, "", f"pago no dicho: el beat {n} paga {que} con {b['dato_central']}, que no "
+                                         f"está en el cap {b['cap']}", cap=b["cap"], beat=n))
+    return out
+
+
 def cita_repetida(pool: dict, parrafos: list[dict]) -> list[dict]:
     """(g) F54 A.2: una misma cita Q## dicha en dos caps (lo que la voz dice: `used_items` sobre las citas del pool,
     no solo los ids del beat). Dos ids con el mismo texto son dedupe del pool: no se miran acá."""
@@ -1090,8 +1126,10 @@ def bloqueantes(topic: dict, esc: dict, parrafos: list[dict], largo: str = "abie
         for x in contamination(t, pool_d, facts):
             out.append(_b("d", p, t, f"fuera del caso (descartado en el pool): {x[:80]}"))
     out += unverified_named(esc, pool_j, parrafos)
-    out += cierre_no_dicho(esc, with_ids(parrafos, pool, esc))
+    ps_ids = with_ids(parrafos, pool, esc)
+    out += cierre_no_dicho(esc, ps_ids)
     out += cita_repetida(pool_j, parrafos)
+    out += pago_no_dicho(esc, ps_ids)
     # (c) estructura
     written = {p["beat"] for p in parrafos}
     for b in esc["beats"]:

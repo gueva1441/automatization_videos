@@ -50,6 +50,8 @@ def good() -> dict:
     return {"humano": {"id": "P08", "nombre": "Edward Burton", "rol": "preso", "por_que": "estuvo ahí", "colectivo": False},
             "antagonista": {"id": "P01"}, "promesa_gancho": "Esa noche dejaron a miles encerrados con el agua subiendo.",
             "pico": {"beat": 6, "id": "D08", "por_que": "los cadáveres"}, "cierre_humano": "¿Cuántos siguen sin nombre?",
+            # F54 B.1: un loop declarado (se abre en el gancho, se paga en el cierre); el beat 8 paga la pregunta del 1
+            "loops": [{"id": "L1", "pregunta": "¿cuántos eran?", "abre_beat": 1, "paga_beat": 8}],
             "beats": [
                 _beat(1, 1, "Q01", 2, "¿Quién dejó a Edward Burton ahí?", fn="gancho", hum=True, words=me.CAP_WORDS[1]),
                 {**_beat(2, 2, "T01", 2, "¿Por qué el sheriff no los sacó?", hum=True, words=me.CAP_WORDS[2]), "datos_apoyo": ["D03"]},
@@ -59,7 +61,7 @@ def good() -> dict:
                 _beat(6, 5, "D08", 5, "¿Dónde están los 517 reclusos?", fn="pico", words=me.CAP_WORDS[5] * 9 // 19),
                 _beat(7, 6, "D09", 1, "¿Por qué mintió el sheriff?", fn="respiro", words=me.CAP_WORDS[6]),
                 {**_beat(8, 7, "D05", 2, "¿Cuántos siguen sin nombre en la prisión?", fn="cierre", words=me.CAP_WORDS[7]),
-                 "cierre": "Edward Burton todavía espera que alguien diga cuántos eran."}]}
+                 "cierre": "Edward Burton todavía espera que alguien diga cuántos eran.", "paga": 1}]}
 
 
 def test_escaleta_buena_pasa():

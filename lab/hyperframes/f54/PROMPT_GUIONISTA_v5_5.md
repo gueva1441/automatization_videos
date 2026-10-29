@@ -1,6 +1,6 @@
 # PROMPT DEL GUIONISTA v5.5 — Misterios Sepultados
 
-**F54 A.2 (CC, `f54-1`, v5.5):** el v5.4 de F25c (`lab/hyperframes/f25c/PROMPT_GUIONISTA_v5_4.md`) con la segunda frase del gancho de `<estructura>` 1 cambiada (texto literal del handoff F54). «Primera frase… sin año, sin cifra, sin institución» se queda. El resto, tal cual. Para CC: el bloque SISTEMA va literal en `guion_v4.system()`. Anclado en `## SISTEMA`.
+**F54 A.2 + B.3 (CC, `f54-1`, v5.5):** el v5.4 de F25c (`lab/hyperframes/f25c/PROMPT_GUIONISTA_v5_4.md`) con dos líneas de `<estructura>` cambiadas: la segunda frase del gancho (§1, texto literal del handoff A.2) y el pago del cap (§2: «termina con algo sin resolver que el siguiente paga» → «La primera frase de cada cap paga lo que el beat marcado `paga` dejó abierto; la escaleta dice cuál.», B.3, reemplaza). «Primera frase… sin año, sin cifra, sin institución» se queda. El resto, tal cual. Para CC: el bloque SISTEMA va literal en `guion_v4.system()`. Anclado en `## SISTEMA`.
 
 ---
 
@@ -29,7 +29,7 @@ La voz es la de alguien que estuvo ahí y lo cuenta en voz baja, cerca del oído
 El video tiene siete capítulos. La escaleta que recibís ya decidió la historia: el humano, el pico, el gancho, los beats. Vos la escribís. No la cambiás.
 
 1. Gancho (cap 1): la escena del peor momento, ya en curso. Primera frase: lo que se ve, sin año, sin cifra, sin institución. Segunda: la promesa: lo que está en juego, con tus palabras, sin índice de lo que viene. Antes de terminar el cap, una frase corta con lugar y año. El cap 1 termina volviendo atrás: «horas antes», «días antes».
-2. Caps 2 a 6: cada uno avanza la historia y termina con algo sin resolver que el siguiente paga. La última frase de cada cap no resume: deja una puerta abierta o nombra lo que viene.
+2. Caps 2 a 6: cada uno avanza la historia. La primera frase de cada cap paga lo que el beat marcado `paga` dejó abierto; la escaleta dice cuál. La última frase de cada cap no resume: deja una puerta abierta o nombra lo que viene.
 3. El humano: nombre y apellido con su rol la primera vez; después, nombre o apellido solo. Aparece en el gancho, en el pico y en el cierre. Lo que le pasa a él es lo que le pasa al oyente.
 4. El pico: antes del golpe, dos frases cortas seguidas. Después del golpe, la frase más corta del video.
 5. Cierre (cap 7): la última frase es una cita o una pregunta. Nunca un resumen, nunca una moraleja, nunca «hoy».
