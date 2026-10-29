@@ -156,3 +156,5 @@ Motivo: retención + costo de sostener; 19 componentes con 7 tipos de texto prod
 - 2026-10-29 14:24 · **F52 elige:** Gemini Omni Flash 1.1 a 1080p como motor de clips (respaldo Seedance 2.5); costo real G ≈ US$ 0,15/s a 1080p (panel de fal: ×5 sobre 0,03) · Omar · F52
 - 2026-10-29 14:30 · **F53a:** prueba de moderación de G y S con las 2 fotos más oscuras ya generadas del canal, 4 s, resolución mínima; solo lab · Omar · F53a
 - 2026-10-29 14:50 · **F53a-K:** prueba de moderación de Kling 4.0 con las 2 fotos oscuras de F53a; si pasa, Kling a 1080p reemplaza a Seedance como respaldo (≈ US$ 1,88 vs ≈ 8–9 por clip) · Omar · F53a-K
+- 2026-10-29 14:43 · **F53b:** motor de clips = Gemini Omni Flash 1.1 a 1080p; si Google lo rechaza por contenido, Seedance 2.5 a 1080p automático; no se suavizan los prompts; Veo se borra · Omar · F53b
+- 2026-10-29 15:00 · **F53b adenda:** el respaldo de Gemini Omni Flash es Kling 4.0 a 1080p (F53a-K pasó la moderación sin suavizar); Seedance sale de la cadena · Omar · F53b
