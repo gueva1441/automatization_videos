@@ -52,15 +52,16 @@ def test_armado_en_el_orden_c():
 
 
 def test_anio_final_en_orden():
-    e = {"anio_ancla": None, "respaldo": ("1961", "3) …")}
-    assert v3.anio_final({**e, "anio_ancla": "1962"}, {"year": "1979"})[0] == "1962"
-    assert v3.anio_final(e, {"year": "1979"}) == ("1979", "2) el casillero `year` del modelo")
-    assert v3.anio_final(e, {"year": "3000"})[0] == "1961" and v3.anio_final(e, {})[0] == "1961"
+    # F51c: sin el paso «dicho en el ancla»: manda el `year` del modelo y después el respaldo del expediente
+    e = {"anio_ancla": "1962", "respaldo": ("1961", "3) el último año dicho en la narración de los caps anteriores")}
+    assert v3.anio_final(e, {"year": "1979"}) == ("1979", "1) el casillero `year` del modelo")
+    assert v3.anio_final(e, {"year": "3000"}) == ("1961", "2) el último año dicho en la narración de los caps anteriores")
+    assert v3.anio_final(e, {})[0] == "1961"
 
 
 def test_f8_backstop_saca_la_frase_y_no_reteje():
     p, notas = v3.f8_backstop("Two men stand on the left. Blood on the floor. A dusty road.", {"shot_scale": "wide"},
-                              False, [])
+                              False)
     assert "Blood" not in p and "A couple of men stand to one side." in p and notas
 
 
