@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-28 22:30 (F50b: tres bugs del armado de la foto arreglados y el papel de Wittenoom re-armado en seco —33 fotos cambian, todas de la tabla del handoff—, US$ 0, PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-28 23:00 (F50c: el expediente de foto ahora lleva las personas desde la ficha, las citas con autor y los grupos con aspecto y ropa; pedidos de los 7 caps en seco, verificación PASA; US$ 0, PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,38 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F50c, PARADA): el dossier que recibe Opus por cada foto ahora trae lo que ya tenían el research y la ficha, **sin llamar a ningún modelo** (US$ 0).
+- **Personas:** llegan a 73 de las 96 fotos (antes 17). En 35 las nombra la frase de la voz; en 38 vienen de la frase anterior del mismo párrafo, marcadas como contexto. El padre y el hijo Écija se distinguen bien.
+- **Citas:** las 84 llegan con quién las dijo.
+- **Grupos de gente:** los 7 llevan su aspecto y su ropa.
+- **Lo demás del pedido** queda igual.
+- Pedidos en `lab/hyperframes/f50c/pedidos/`; detalle foto por foto en `lab/hyperframes/f50c/EXPEDIENTES_F50c.md`.
+- No se tocaron las fotos ni el papel.
+- Sigue F50d (ropa por tramo de años); F51 (fotos) espera a F50d.
+
+## F50c — Cableado del expediente de foto (handoff del analista, 2026-10-28 22:30) — HECHA, **PARADA**
+- Commits:
+  - `2a2a2b4` paso 0: DECISIONES 22:09; TOPE_TANDA 0.
+  - `9efc125` D: `_sin_negadas` deja «No. 4» y «nothing but».
+  - `6cf9317` A: personas desde `ficha.personas`, con arrastre dentro del párrafo; fuera `_sale_entero`.
+  - `fbbd58c` B+C: citas «texto» — autor · rol · fecha · witness; grupos con APPEARANCE y CLOTHING.
+  - El commit final: `expedientes_f50c.py` con sus salidas, y el reporte.
+- Verificación (`expedientes_f50c.py`):
+  - 73 fotos con PEOPLE (35 por ancla, 38 por arrastre), 0 ambiguas, reparto 48/23/2;
+  - 8/8 fotos testigo;
+  - 84 fotos con QUOTES, todas con autor; 7 grupos;
+  - el pedido no cambia fuera de las tres líneas;
+  - Resultado: PASA.
+- Suites:
+  - rápida: 55 verdes;
+  - amplia: 961 verdes (951 + 15 nuevos), con las 4 fallas previas y una 5.ª intermitente con `-n auto` (`gfx_lab::test_candado_en_el_preview`; corrido solo, pasa).
+  - ch02 `f792f3d4…`; `MAPA --check` 0.
+- Abierto (en `F50c_REPORT.md`):
+  - los nombres reales que entran al pedido por el autor de las citas;
+  - 2/7 arrastra a Milagros y Ramón;
+  - organizaciones en `ficha.personas`;
+  - 11 fotos con un grupo fuera de su tramo de años (se resuelve en F50d).
 
 ## 👀 Para Omar (F50b, PARADA): el papel de Wittenoom se re-armó **sin llamar a ningún modelo** (US$ 0) con tres arreglos del código que arma la frase. Ahora el plano de las fotos con chicos ya no se corta por la palabra «shot». Se sacan las frases negadas como «with no figure anywhere» o «nobody has dug», porque Seedream dibuja lo que lee. Y quedan en minúscula las palabras que el modelo escribía con mayúscula en mitad de una oración («Eye-level», «Over the entrance»). Cambian 33 de las 96 fotos, todas dentro de la tabla del handoff. Papel nuevo: `lab/hyperframes/f50b/PAPEL_FOTOS_WITTENOOM.md`; antes → después foto por foto en `lab/hyperframes/f50b/DIFF_PAPEL.md`. Falta tu OK sobre este papel para la tanda de fotos (F51), que regenera también la foto madre.
 
