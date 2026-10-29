@@ -1,0 +1,65 @@
+[18:37:23] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: 123bbb64-9fca-4395-8bf4-57d60e219ef1
+[18:40:56] INFO     | viral_pipeline | [cost_tracker] Video 123bbb64-9fca-4395-8bf4-57d60e219ef1 — Costo total: $1.0835
+[18:40:56] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: 123bbb64-9fca-4395-8bf4-57d60e219ef1
+[18:44:45] INFO     | viral_pipeline | [cost_tracker] Video 123bbb64-9fca-4395-8bf4-57d60e219ef1 — Costo total: $1.1541
+[18:44:45] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: 123bbb64-9fca-4395-8bf4-57d60e219ef1
+[18:45:07] INFO     | viral_pipeline | [cost_tracker] Video 123bbb64-9fca-4395-8bf4-57d60e219ef1 — Costo total: $0.0518
+[18:45:17] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: 123bbb64-9fca-4395-8bf4-57d60e219ef1
+[18:46:59] INFO     | viral_pipeline | [cost_tracker] Video 123bbb64-9fca-4395-8bf4-57d60e219ef1 — Costo total: $0.1290
+[18:46:59] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: 123bbb64-9fca-4395-8bf4-57d60e219ef1
+[18:50:21] INFO     | viral_pipeline | [cost_tracker] Video 123bbb64-9fca-4395-8bf4-57d60e219ef1 — Costo total: $0.5103
+
+  Modo: 1 topic específico → 123bbb64-9fca-4395-8bf4-57d60e219ef1
+
+════════════════════════════════════════════════════════════
+  📜 Procesando topic 123bbb64-9fca-4395-8bf4-57d60e219ef1 desde m01a
+════════════════════════════════════════════════════════════
+  [01a] Compuerta del pool + ficha si falta + escaleta...
+  [escaleta] compuerta del pool: verde {'datos': 155, 'citas_verificadas': 42, 'elegibles_humano': 25, 'eventos_con_fecha': 98, 'personas_con_nombre': 35}
+  [ficha] ya hay ficha v2 (f23-1): se usa
+  [canon] ya armado con esta ficha y este pedido (4828d0e6): se usa
+  [escaleta] compuerta del pool: verde {'datos': 155, 'citas_verificadas': 42, 'elegibles_humano': 25, 'eventos_con_fecha': 98, 'personas_con_nombre': 35}
+  [escaleta v2] intento 1: 0 bloqueante(s) [] · 25 reparación(es) · 10 a métricas
+  [01b] Guion v4 → reparación (una ronda) → partición → papel → juez...
+  [guionista v4] 19 párrafos · 1979 palabras
+  [editar v4] beat 5: rechazada (tocó otras frases del párrafo)
+  [editor v4] fuera del camino desde F27
+  [reparación v4] bloqueantes 4 → 4 (una ronda; no hay segunda)
+  [01d] cap 3: 2273 caracteres > 2242 → el editor acortó el último párrafo (1136 → 1065)
+  [01d] cap 7: 1810 caracteres > 1255 → el editor acortó el último párrafo (536 → 237)
+  m01e intento 1: in 52702 · out 25700 · US$ 0.3624 · JSON
+  m01e intento 1 validado: fichas fuera 1 · preguntas 2 · vuelven 3 · picos vacíos 0
+  m01e intento 2: in 58538 · out 3082 · US$ 0.1479 · JSON
+  m01e vuelta 1 validada: fichas fuera 0 · preguntas nuevas 0 · picos vacíos 0
+  m01e: 3 motivo(s) sin beat → sin otra vuelta (anotados)
+  m01e: 13 fichas · 9 sellos · 3 relojes → C:\CLAUDE_PROJECTS\automatization_videos\data\scripts\_steps\123bbb64-9fca-4395-8bf4-57d60e219ef1\01e_pantalla.md
+  [v4] quedan 4 bloqueante(s) después de la ronda única: PARADA
+
+  ⏸  PARADA del papel: el papel no está aprobado.
+     Leer: C:\CLAUDE_PROJECTS\automatization_videos\data\scripts\_steps\123bbb64-9fca-4395-8bf4-57d60e219ef1\01e_pantalla.md
+     Aprobar: python fase1_5.py --topic 123bbb64-9fca-4395-8bf4-57d60e219ef1 --aprobar-papel "Omar <fecha>"
+
+════════════════════════════════════════════════════════════
+  📊 RESUMEN FASE 1.5
+════════════════════════════════════════════════════════════
+  Total: 1  |  PASS: 0  |  PARADA: 1  |  FAIL: 0
+
+  ⏸  123bbb64-9fca-4395-8bf4-57d60e219ef1  (PARADA en papel: el papel no está aprobado)
+
+
+──────────────────────────────────────────────────
+  🧠 GEMINI (por tokens — thinking incluido)
+──────────────────────────────────────────────────
+    Anthropic claude-fable-5-1    3 calls  in   40,887  out   37,611  think        0  $2.2894
+    Anthropic claude-sonnet-5-5    2 calls  in  111,240  out   28,782  think        0  $0.5103
+    Gemini 2.5 Flash          1 calls  in    2,008  out       76  think    1,454  $0.0044
+    Gemini 2.5 Pro            2 calls  in      568  out      330  think   12,052  $0.1245
+  · por módulo:
+    guion_v4 guionista      1 calls  in   14,996  out   20,082  think        0  $1.1541  (0% think)
+    m01a_escaleta v2 intento 1    1 calls  in   24,629  out   16,745  think        0  $1.0835  (0% think)
+    m01e_pantalla           2 calls  in  111,240  out   28,782  think        0  $0.5103  (0% think)
+    m01d_particion          3 calls  in    2,576  out      406  think   13,506  $0.1290  (97% think)
+    guion_v4 editar frase    1 calls  in    1,262  out      784  think        0  $0.0518  (0% think)
+──────────────────────────────────────────────────
+    TOTAL Gemini: 8 calls · in 154,703 · out 66,799 · think 13,506 · $2.9286 USD
+exit 0

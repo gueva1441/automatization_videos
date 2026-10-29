@@ -1,0 +1,1135 @@
+{
+ "topic_id": "123bbb64-9fca-4395-8bf4-57d60e219ef1",
+ "prompt_version": "m01e-6",
+ "prompt_md5": "3b98aef1d8595124967ac7a85b75bab7",
+ "modelo": "claude-sonnet-5-5",
+ "effort": "medium",
+ "entrada_md5": "619ea2386f0b0aafa3413a82621e3e19",
+ "intentos": 3,
+ "usd": 0.65853,
+ "tokens_in": 53361,
+ "caps": [
+  {
+   "cap": "ch01",
+   "titulo": "El pie que no cura",
+   "oraciones": [
+    "Un hombre joven posa para una foto con el pie envuelto en una venda blanca.",
+    "Detrás, tierra roja y paredes de chapa.",
+    "En el retrato de familia todos miran a cámara menos el pie: está vendado, y la herida que le hizo un trozo de amianto no cierra.",
+    "El hombre se llama Daniel Écija y es minero.",
+    "Vino de Madrid.",
+    "Wittenoom, Australia Occidental, mil novecientos sesenta y dos.",
+    "Para entender ese pie hay que volver a un baile en Madrid, un año antes de la foto."
+   ]
+  },
+  {
+   "cap": "ch02",
+   "titulo": "El polvo de la tierra",
+   "oraciones": [
+    "Dieciséis de septiembre de mil novecientos sesenta y uno.",
+    "En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal.",
+    "Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos.",
+    "Cuatro días más tarde ya están en el barco.",
+    "Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles.",
+    "De Wittenoom no saben nada; saben que hay trabajo y que van juntos.",
+    "«Iba pegadita a mi marido, como una niña», recuerda su mujer.",
+    "Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan.",
+    "Esa familia madrileña había hecho el mismo viaje un mes antes.",
+    "Un niño que hizo ese viaje todavía recuerda el calor.",
+    "Víctor Calvo era un niño cuando subió a ese barco.",
+    "«Salimos de Málaga y tardamos más de 20 días en llegar en barco a Australia», dice Calvo.",
+    "Recuerda el canal de Suez y el calor que hacía ahí, un calor que todavía lo hace resoplar cuando lo cuenta.",
+    "Recuerda los mareos.",
+    "Y la incertidumbre: no saber muy bien adónde iban ni cómo iban a vivir.",
+    "Después del barco, un avión pequeño, de hélices, que se sacude durante todo el vuelo.",
+    "Aterriza en una pista en medio de una tierra muy roja, en el desierto de Pilbara, en Australia Occidental.",
+    "Hay polvo por todas partes.",
+    "Ese niño cuenta que nunca había visto tanto polvo.",
+    "Los llevan a las casas: chapa, madera y uralita.",
+    "La familia de Juan-Barroso había llegado en agosto de mil novecientos sesenta y dos.",
+    "De esa tierra sacan crocidolita, el asbesto azul, un mineral que se paga bien porque aguanta el calor y no se gasta.",
+    "Nadie les dijo qué era el polvo.",
+    "La compañía lo sabía desde hacía dieciocho años."
+   ]
+  },
+  {
+   "cap": "ch03",
+   "titulo": "La verdad silenciada",
+   "oraciones": [
+    "En mil novecientos cuarenta y cuatro, el inspector de minas y el ingeniero de minas Adjunto del Estado ya habían informado sobre el problema del polvo.",
+    "En mil novecientos cuarenta y seis ya había diagnósticos de asbestosis, y un inspector describió las condiciones de trabajo como terroríficas.",
+    "La mina era entonces de ABA, una filial de CSR que en mil novecientos cuarenta y tres había tomado los intereses de Hancock y Wright.",
+    "Mil novecientos cuarenta y ocho.",
+    "Un médico llega en avión y escribe una carta a máquina: los niveles de polvo son extremadamente peligrosos.",
+    "El médico escribe que en un año o dos ABA va a producir la cosecha más abundante y letal de casos de asbestosis de la literatura mundial, y que convendría examinar algunos de esos tórax.",
+    "Se llama Eric Saint.",
+    "Lo que pasó con la carta lo contó él mismo: «Me desestimaron y, de hecho, me tildaron de alborotador», dijo Saint.",
+    "Un año después, en una sala de arbitraje, la empresa contestó a los que hablaban del polvo.",
+    "«El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso», dijo el defensor del empleador.",
+    "Nueve años después, otro organismo entró al molino y escribió lo que vio.",
+    "Mil novecientos cincuenta y siete.",
+    "La Junta de Referencia entra al molino y deja constancia: condiciones extremadamente polvorientas, trabajadores cubiertos de polvo de pies a cabeza.",
+    "«Una espesa nube de polvo estaba presente en las inmediaciones del molino», escribió la Junta.",
+    "Siete meses después, con unos equipos reductores de polvo ya instalados, el suplemento salarial por polvo se redujo y se restringió.",
+    "CSR venía de la industria azucarera y tenía muy poca experiencia en minas.",
+    "Los reguladores del Estado hicieron poco más que emitir advertencias y pedir equipos para el polvo.",
+    "Jim McNulty lo explicó así: cuando las Casandras advirtieron que el polvo era un problema y predijeron la enfermedad, en la industria minera no se encendieron las alarmas, «porque estaban acostumbrados; lo esperaban», dijo McNulty.",
+    "En mil novecientos sesenta y uno la producción subió.",
+    "Al año siguiente, los Écija bajaban de aquel avión."
+   ]
+  },
+  {
+   "cap": "ch04",
+   "titulo": "Jugar con veneno",
+   "oraciones": [
+    "Los chicos del pueblo juegan con el mineral.",
+    "Víctor Calvo lo cuenta: «Nosotros jugábamos con él y lo íbamos deshilachando.",
+    "Nos lo metíamos en la boca.",
+    "Cuando lo tocábamos salía un polvillo que lo impregnaba todo».",
+    "Estaban rodeados de amianto azul y no les daba miedo.",
+    "Tampoco había dónde no estar rodeados.",
+    "Los relaves del molino se usaron para construir el pueblo y la pista de aterrizaje.",
+    "Se extendieron como suelo en las carreteras, en los patios, en los espacios públicos: el acceso a la escuela, el jardín de infantes, la iglesia.",
+    "El pueblo entero estaba hecho de eso.",
+    "Y en ese pueblo, en junio de mil novecientos sesenta y tres, nació un niño.",
+    "Daniel trabajaba en la mina.",
+    "Ramón de Juan, el amigo, hacía jornadas de dieciséis horas.",
+    "Uno de los hijos de Daniel cuenta que el primer día de trabajo de su padre hubo una explosión y murió gente.",
+    "En marzo de mil novecientos sesenta y tres, Milagros Barroso dio a luz en Wittenoom a John Patrick.",
+    "Tres meses después le tocó a María.",
+    "Llegó al hospital de Wittenoom debilitada por una infección renal.",
+    "El bebé era muy grande.",
+    "Lo sacaron con fórceps.",
+    "Le pusieron Daniel, como el padre.",
+    "Hay una foto del bautizo: siete de julio de mil novecientos sesenta y tres.",
+    "Después de esa foto, las maletas.",
+    "Diez meses en Wittenoom.",
+    "Se fueron antes de que nadie les dijera nada.",
+    "Nadie les había dicho nada."
+   ]
+  },
+  {
+   "cap": "ch05",
+   "titulo": "El tiempo de matar",
+   "oraciones": [
+    "Diciembre de mil novecientos sesenta y seis.",
+    "James Vernon anuncia que CSR cierra Wittenoom.",
+    "No lo cierra el polvo: lo cierra el dinero.",
+    "El molino se apaga y el polvo se asienta sobre las cintas.",
+    "Afuera, en los desfiladeros, quedan más de tres millones de toneladas de relaves.",
+    "Nadie los mueve.",
+    "De los hombres que habían pasado por la mina, cincuenta y nueve de cada cien se habían ido antes de cumplir seis meses.",
+    "Ese mismo año, los Écija entran a su casa en Madrid.",
+    "Los de Juan-Barroso estuvieron unos dos años y medio en el pueblo y volvieron a Madrid en mil novecientos setenta y uno; Mercedes de Juan se quedó en Australia.",
+    "Cerró la mina.",
+    "Nadie cerró el polvo.",
+    "Veinte años después, un policía iba a reconocer el nombre del pueblo en un pasaporte.",
+    "Mil novecientos ochenta y cinco.",
+    "Un aeropuerto australiano, un puesto de control.",
+    "El agente abre el documento de Daniel Écija hijo, lee el lugar de nacimiento, baja la cabeza hacia el papel, vuelve a mirarlo.",
+    "«Así que de Wittenoom, ¿eh?",
+    "Un sitio terrorífico», dijo el policía.",
+    "Para entonces, desde mil novecientos setenta y ocho, el gobierno del Estado venía reduciendo el pueblo y empujando a la gente a irse, por las fibras en el aire.",
+    "Entre mil novecientos ochenta y seis y mil novecientos noventa y dos demolieron edificios y cerraron los servicios básicos.",
+    "En mil novecientos noventa y tres cerró el aeropuerto.",
+    "Seis años después de aquel control, su padre fue al médico.",
+    "Madrid, mil novecientos noventa y uno.",
+    "Daniel Écija va al médico.",
+    "Le hacen pruebas.",
+    "La palabra es mesotelioma.",
+    "Nueve meses.",
+    "Daniel muere a los cincuenta y cinco años, veintiocho años después de la foto del bautizo.",
+    "Décadas más tarde, María está en una habitación rodeada de fotografías en sepia.",
+    "Entre ellas, la del pie vendado.",
+    "«Me pegué a mi marido, como una niña pequeña», dice la viuda.",
+    "Uno de los hijos dice que ese sitio les cambió la vida para siempre.",
+    "Daniel no fue el primero.",
+    "Para entonces, el Estado ya tenía un número."
+   ]
+  },
+  {
+   "cap": "ch06",
+   "titulo": "Borrar el problema",
+   "oraciones": [
+    "En mil novecientos ochenta y nueve ya habían muerto más de quinientos antiguos trabajadores y residentes de Wittenoom.",
+    "Los que seguían vivos se habían juntado diez años antes en la Asbestos Diseases Society of Australia.",
+    "En mil novecientos ochenta y ocho un juez leyó su veredicto: la compañía había mostrado un desprecio continuo, consciente y contumaz por la seguridad y la salud de sus trabajadores.",
+    "Mercedes de Juan, que se quedó en Australia, entra en un escáner y después sopla en un tubo.",
+    "«Nos hacen un escáner y una prueba de función pulmonar», dice Mercedes.",
+    "Las fibras pueden causar mesotelioma, asbestosis y cáncer de pulmón.",
+    "La cuenta oficial se detuvo.",
+    "«El gobierno dejó de contar en 2.000, pero ahora se calcula que la cifra puede ser superior a los 4.000.",
+    "Y sigue aumentando», dice Melita Markey.",
+    "Están enfermando hijos de policías y de maestros que trabajaron en el pueblo.",
+    "Mientras los enfermos se contaban a sí mismos, el Estado decidió qué hacer con el pueblo: borrarlo.",
+    "Junio de dos mil siete; otras fuentes dicen dos mil seis.",
+    "Wittenoom es abolido formalmente.",
+    "Le quitan el nombre a las señales de la carretera y lo sacan de los mapas.",
+    "El gobierno de Australia Occidental habla de «el fin de un período oscuro en la historia de nuestro Estado».",
+    "Quince años antes, en mil novecientos noventa y dos, una investigación parlamentaria había recomendado limpiar los relaves.",
+    "El gobierno rechazó esas recomendaciones.",
+    "«La minería en los desfiladeros ha dejado una contaminación que solo puede describirse como vergonzosa, incluso para los estándares de la época», dijo Larry Graham.",
+    "Le parecía casi increíble que la propiedad de los depósitos de relaves hubiera pasado, por defecto, al gobierno estatal.",
+    "«Tenemos el deber de impedir una mayor dispersión de los relaves de asbesto», dijo Mark Nevill, por los residentes, por los visitantes, por las generaciones futuras.",
+    "En dos mil dieciséis, los documentos dicen por qué los relaves siguen donde están: no porque no se pueda, sino por lo que cuesta.",
+    "En dos mil veintitrés, los estudios del Estado sobre hasta dónde llega la contaminación ya estaban desactualizados.",
+    "Borraron el nombre del mapa.",
+    "El polvo no leía mapas."
+   ]
+  },
+  {
+   "cap": "ch07",
+   "titulo": "Una herida abierta",
+   "oraciones": [
+    "Los relaves del vertedero de Colonial se van con el agua.",
+    "Un informe técnico lo marcó como la fuente principal y la vía del asbesto: la erosión, los lechos de arroyo, las pozas, las llanuras de inundación hacia el río Fortescue.",
+    "Fibras azules que el agua deja donde se seca.",
+    "En dos mil veintiuno, una nota ambiental registró fibras en canales de arroyos fuera de la zona marcada como contaminada.",
+    "El mismo informe advirtió que, sin intervención, el aporte de asbesto a la cuenca del Fortescue puede seguir durante cientos de años.",
+    "Es tierra Banjima.",
+    "En dos mil veintitrés, Marcos Orellana visitó Australia y se sentó con Maitland Parker, un anciano Banjima.",
+    "«Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él», dijo Parker.",
+    "Maitland Parker murió de mesotelioma en dos mil veinticuatro.",
+    "Dos años después, Gordon Legal presentó en nombre de BNTAC un proceso contra Australia Occidental en el Tribunal Federal.",
+    "Nadie ha empezado a limpiar.",
+    "En los accesos al pueblo y desfiladero hay bloqueos.",
+    "El gobierno de Australia Occidental habla de un «grave problema de salud y seguridad pública».",
+    "No se ha retirado una sola palada de asbesto.",
+    "¿Quién va a sacar la primera palada de esa tierra?"
+   ]
+  }
+ ],
+ "beats": [
+  {
+   "cap": "ch01",
+   "beat": 1,
+   "funcion": "gancho",
+   "pico": true,
+   "ficha": {
+    "pool_id": "D26",
+    "sentence_idx": 2,
+    "palabra": "amianto",
+    "palabra_en_oracion": true,
+    "etiqueta": "El lugar de la foto, hoy",
+    "texto": "El sitio contaminado más grande del hemisferio sur",
+    "respaldo": "Wittenoom es el sitio contaminado más grande del hemisferio sur",
+    "estilo": "normal",
+    "aporta": "La voz nunca dice la escala de la contaminación actual; el dato dice por qué ese pie vendado no es un caso aislado.",
+    "oracion": "En el retrato de familia todos miran a cámara menos el pie: está vendado, y la herida que le hizo un trozo de amianto no cierra.",
+    "caracteres": 74,
+    "caben": 90,
+    "anio": null,
+    "relato": null
+   },
+   "sello": {
+    "palabra": "AMENAZA",
+    "sentence_idx": 2,
+    "oracion": "En el retrato de familia todos miran a cámara menos el pie: está vendado, y la herida que le hizo un trozo de amianto no cierra."
+   }
+  },
+  {
+   "cap": "ch02",
+   "beat": 2,
+   "funcion": "planteo",
+   "pico": false,
+   "ficha": {
+    "pool_id": "D83",
+    "sentence_idx": 4,
+    "palabra": "acuerdo",
+    "palabra_en_oracion": true,
+    "etiqueta": "Así lo llamaron",
+    "texto": "Operación Canguro, desde 1958",
+    "respaldo": "iniciado en 1958, llamado Operación Canguro",
+    "estilo": "normal",
+    "aporta": "La voz no dice el nombre del acuerdo migratorio ni cuándo empezó.",
+    "oracion": "Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles.",
+    "caracteres": 44,
+    "caben": 83,
+    "anio": 1958,
+    "relato": 1962
+   },
+   "sello": {
+    "palabra": "CALMA",
+    "sentence_idx": 5,
+    "oracion": "De Wittenoom no saben nada; saben que hay trabajo y que van juntos."
+   }
+  },
+  {
+   "cap": "ch02",
+   "beat": 3,
+   "funcion": "planteo",
+   "pico": true,
+   "ficha": {
+    "pool_id": "D82",
+    "sentence_idx": 16,
+    "palabra": "Pilbara",
+    "palabra_en_oracion": true,
+    "etiqueta": "Lejos de todo",
+    "texto": "A unos 1.400 kilómetros de Perth",
+    "respaldo": "a unos 1.400 kilómetros de Perth",
+    "estilo": "normal",
+    "aporta": "Pone en una distancia el aislamiento del lugar al que aterrizan; la voz solo dice desierto y tierra roja.",
+    "oracion": "Aterriza en una pista en medio de una tierra muy roja, en el desierto de Pilbara, en Australia Occidental.",
+    "caracteres": 45,
+    "caben": 90,
+    "anio": null,
+    "relato": 1962
+   },
+   "sello": {
+    "palabra": "SILENCIO",
+    "sentence_idx": 22,
+    "oracion": "Nadie les dijo qué era el polvo."
+   }
+  },
+  {
+   "cap": "ch03",
+   "beat": 4,
+   "funcion": "escalada",
+   "pico": true,
+   "ficha": {
+    "pool_id": "D44",
+    "sentence_idx": 0,
+    "palabra": "informado",
+    "palabra_en_oracion": true,
+    "etiqueta": "Ya se sabía antes",
+    "texto": "1930: un informe ligó el asbesto a la asbestosis",
+    "respaldo": "El informe de Merryweather y Price de 1930 estableció que la asbestosis era una enfermedad consecuente a la exposición al asbesto.",
+    "estilo": "normal",
+    "aporta": "La voz arranca en 1944; el dato muestra que la ciencia ya había probado el daño catorce años antes.",
+    "oracion": "En mil novecientos cuarenta y cuatro, el inspector de minas y el ingeniero de minas Adjunto del Estado ya habían informado sobre el problema del polvo.",
+    "caracteres": 65,
+    "caben": 90,
+    "anio": 1930,
+    "relato": 1944
+   },
+   "sello": {
+    "palabra": "AVISO",
+    "sentence_idx": 4,
+    "oracion": "Un médico llega en avión y escribe una carta a máquina: los niveles de polvo son extremadamente peligrosos."
+   }
+  },
+  {
+   "cap": "ch03",
+   "beat": 5,
+   "funcion": "escalada",
+   "pico": false,
+   "ficha": {
+    "pool_id": "Q37",
+    "sentence_idx": 17,
+    "palabra": "Casandras",
+    "palabra_en_oracion": true,
+    "etiqueta": "Lo que creían",
+    "texto": "la vida de la mina [de Wittenoom] es ilimitada",
+    "respaldo": "para todos los fines prácticos, la vida de la mina [de Wittenoom] es ilimitada.",
+    "estilo": "cita",
+    "autor": "Primer Ministro Chifley",
+    "autor_origen": "modelo",
+    "aporta": "La voz habla de industria acostumbrada y sin alarma; la frase del Primer Ministro muestra la confianza en que la mina no acabaría nunca.",
+    "oracion": "Jim McNulty lo explicó así: cuando las Casandras advirtieron que el polvo era un problema y predijeron la enfermedad, en la industria minera no se encendieron las alarmas, «porque estaban acostumbrados; lo esperaban», dijo McNulty.",
+    "caracteres": 87,
+    "caben": 90,
+    "anio": 1947,
+    "relato": 1957
+   },
+   "sello": null
+  },
+  {
+   "cap": "ch04",
+   "beat": 6,
+   "funcion": "escalada",
+   "pico": true,
+   "ficha": {
+    "pool_id": "D112",
+    "sentence_idx": 6,
+    "palabra": "pueblo",
+    "palabra_en_oracion": true,
+    "etiqueta": "Un pueblo grande",
+    "texto": "El mayor centro urbano del norte de Australia Occidental",
+    "respaldo": "Wittenoom se convirtió en el centro urbano más grande de Australia Occidental al norte del Trópico de Capricornio.",
+    "estilo": "normal",
+    "aporta": "La voz no dice que no era un puesto perdido sino el pueblo más grande de la región: mucha gente rodeada de relaves.",
+    "oracion": "Los relaves del molino se usaron para construir el pueblo y la pista de aterrizaje.",
+    "caracteres": 72,
+    "caben": 77,
+    "anio": 1950,
+    "relato": 1961
+   },
+   "sello": null
+  },
+  {
+   "cap": "ch04",
+   "beat": 7,
+   "funcion": "escalada",
+   "pico": false,
+   "ficha": {
+    "pool_id": "Q18",
+    "sentence_idx": 12,
+    "palabra": "explosión",
+    "palabra_en_oracion": true,
+    "etiqueta": "Wittenoom según su padre",
+    "texto": "un lugar sin ley",
+    "respaldo": "Mi padre nos habló de Wittenoom como un lugar sin ley.",
+    "estilo": "cita",
+    "autor": "Daniel Écija, hijo de minero",
+    "autor_origen": "modelo",
+    "aporta": "Suma cómo describía el lugar quien lo vivió, algo que la voz no cuenta.",
+    "oracion": "Uno de los hijos de Daniel cuenta que el primer día de trabajo de su padre hubo una explosión y murió gente.",
+    "caracteres": 73,
+    "caben": 90,
+    "anio": null,
+    "relato": 1963
+   },
+   "sello": null
+  },
+  {
+   "cap": "ch05",
+   "beat": 8,
+   "funcion": "giro",
+   "pico": false,
+   "ficha": {
+    "pool_id": "D51",
+    "sentence_idx": 1,
+    "palabra": "cierra",
+    "palabra_en_oracion": true,
+    "etiqueta": "Lo que sacó la mina",
+    "texto": "131.000 toneladas",
+    "respaldo": "La mina de Wittenoom produjo 131.000 toneladas de crocidolita",
+    "estilo": "normal",
+    "aporta": "La voz no dice cuánto asbesto azul produjo la mina; la cifra pone en toneladas lo que se cierra.",
+    "oracion": "James Vernon anuncia que CSR cierra Wittenoom.",
+    "caracteres": 36,
+    "caben": 36,
+    "anio": 1966,
+    "relato": 1966
+   },
+   "sello": {
+    "palabra": "COLAPSO",
+    "sentence_idx": 3,
+    "oracion": "El molino se apaga y el polvo se asienta sobre las cintas."
+   }
+  },
+  {
+   "cap": "ch05",
+   "beat": 9,
+   "funcion": "escalada",
+   "pico": false,
+   "ficha": {
+    "pool_id": "D102",
+    "sentence_idx": 14,
+    "palabra": "Daniel",
+    "palabra_en_oracion": true,
+    "etiqueta": "Hoy, ese chico",
+    "texto": "Productor de televisión conocido en España",
+    "respaldo": "es un conocido productor de televisión en España",
+    "estilo": "normal",
+    "aporta": "La voz no dice qué fue del niño nacido en Wittenoom que muestra el pasaporte.",
+    "oracion": "El agente abre el documento de Daniel Écija hijo, lee el lugar de nacimiento, baja la cabeza hacia el papel, vuelve a mirarlo.",
+    "caracteres": 56,
+    "caben": 90,
+    "anio": null,
+    "relato": 1985
+   },
+   "sello": {
+    "palabra": "INMINENTE",
+    "sentence_idx": 20,
+    "oracion": "Seis años después de aquel control, su padre fue al médico."
+   }
+  },
+  {
+   "cap": "ch05",
+   "beat": 10,
+   "funcion": "pico",
+   "pico": true,
+   "ficha": {
+    "pool_id": "T32",
+    "sentence_idx": 31,
+    "palabra": "primero",
+    "palabra_en_oracion": true,
+    "etiqueta": "Primer mesotelioma",
+    "texto": "1960",
+    "respaldo": "diagnostica el primer caso de mesotelioma originado en Wittenoom. (fecha 1960)",
+    "estilo": "normal",
+    "aporta": "Da fecha al primer caso de la enfermedad que mató a Daniel; la voz solo dice que no fue el primero.",
+    "oracion": "Daniel no fue el primero.",
+    "caracteres": 22,
+    "caben": 25,
+    "anio": 1960,
+    "relato": 1991
+   },
+   "sello": {
+    "palabra": "MEMORIA",
+    "sentence_idx": 28,
+    "oracion": "Entre ellas, la del pie vendado."
+   }
+  },
+  {
+   "cap": "ch06",
+   "beat": 11,
+   "funcion": "respiro",
+   "pico": false,
+   "ficha": {
+    "pool_id": "D40",
+    "sentence_idx": 10,
+    "palabra": "pueblo",
+    "palabra_en_oracion": true,
+    "etiqueta": "Tamaño de la zona de asbesto",
+    "texto": "46.840 hectáreas",
+    "respaldo": "cubre una superficie de 46.840 hectáreas",
+    "estilo": "normal",
+    "aporta": "La voz no dice qué tan grande es el área que el Estado gestiona como zona de asbesto; la cifra la pone en hectáreas.",
+    "oracion": "Mientras los enfermos se contaban a sí mismos, el Estado decidió qué hacer con el pueblo: borrarlo.",
+    "caracteres": 44,
+    "caben": 88,
+    "anio": null,
+    "relato": 2000
+   },
+   "sello": null
+  },
+  {
+   "cap": "ch06",
+   "beat": 12,
+   "funcion": "revelacion",
+   "pico": true,
+   "ficha": {
+    "pool_id": "D94",
+    "sentence_idx": 15,
+    "palabra": "investigación",
+    "palabra_en_oracion": true,
+    "etiqueta": "Lo que pagó la empresa",
+    "texto": "18,3 millones de dólares australianos a 200 afectados",
+    "respaldo": "En 1989, la empresa CSR pagó 18,3 millones de dólares australianos en indemnizaciones a 200 afectados.",
+    "estilo": "papel",
+    "aporta": "La voz no dice cuánto pagó la empresa en indemnizaciones; la cifra pone en dinero lo que recibieron los afectados.",
+    "oracion": "Quince años antes, en mil novecientos noventa y dos, una investigación parlamentaria había recomendado limpiar los relaves.",
+    "caracteres": 75,
+    "caben": 88,
+    "anio": 1989,
+    "relato": 1992
+   },
+   "sello": {
+    "palabra": "RABIA",
+    "sentence_idx": 16,
+    "oracion": "El gobierno rechazó esas recomendaciones."
+   }
+  },
+  {
+   "cap": "ch07",
+   "beat": 13,
+   "funcion": "consecuencia",
+   "pico": true,
+   "ficha": {
+    "pool_id": "D95",
+    "sentence_idx": 9,
+    "palabra": "proceso",
+    "palabra_en_oracion": true,
+    "etiqueta": "Lo que reclaman",
+    "texto": "1.500 millones de dólares australianos",
+    "respaldo": "El pueblo aborigen banjima reclama 1.500 millones de dólares australianos al Ejecutivo por la contaminación.",
+    "estilo": "normal",
+    "aporta": "La voz no dice el monto del reclamo (monto pedido, no concedido).",
+    "oracion": "Dos años después, Gordon Legal presentó en nombre de BNTAC un proceso contra Australia Occidental en el Tribunal Federal.",
+    "caracteres": 53,
+    "caben": 90,
+    "anio": null,
+    "relato": 2024
+   },
+   "sello": null
+  },
+  {
+   "cap": "ch07",
+   "beat": 14,
+   "funcion": "cierre",
+   "pico": false,
+   "ficha": {
+    "pool_id": "D68",
+    "sentence_idx": 12,
+    "palabra": "problema",
+    "palabra_en_oracion": true,
+    "etiqueta": "Hace 10 años",
+    "texto": "Banjima: mayor incidencia de cáncer por asbesto del mundo",
+    "respaldo": "Hace 10 años que el Gobierno de Australia Occidental fue informado de que el pueblo Banjima tiene la mayor incidencia de cáncer por asbesto per cápita del mundo.",
+    "estilo": "normal",
+    "aporta": "Muestra lo que el gobierno sabe desde hace una década, frente a su frase de «grave problema».",
+    "oracion": "El gobierno de Australia Occidental habla de un «grave problema de salud y seguridad pública».",
+    "caracteres": 69,
+    "caben": 77,
+    "anio": null,
+    "relato": 2024
+   },
+   "sello": null
+  }
+ ],
+ "relojes": [
+  {
+   "cap": "ch02",
+   "sentence_idx": 0,
+   "fecha": "16 SEP 1961",
+   "oracion": "Dieciséis de septiembre de mil novecientos sesenta y uno."
+  },
+  {
+   "cap": "ch02",
+   "sentence_idx": 2,
+   "fecha": "20 SEP 1962",
+   "oracion": "Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos."
+  },
+  {
+   "cap": "ch04",
+   "sentence_idx": 19,
+   "fecha": "7 JUL 1963",
+   "oracion": "Hay una foto del bautizo: siete de julio de mil novecientos sesenta y tres."
+  }
+ ],
+ "descartados": [
+  {
+   "pool_id": "D85",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Es el dato central del beat 1 pero no existe en el archivo; se usó D26 para el gancho.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T34",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta el baile y la fecha.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T37",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice la boda y su fecha.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T38",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice la salida en barco.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q12",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita a María.",
+   "quien": "modelo",
+   "verificado": "falso: la voz no dice ['2']"
+  },
+  {
+   "pool_id": "Q13",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta a la otra pareja.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q14",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita a Calvo.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q15",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz la cuenta casi igual.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T36",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que llegaron en agosto de 1962.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D92",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta la advertencia de Saint.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q45",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz la parafrasea.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q46",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz la cita.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D19",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice 1944.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T13",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice 1946.",
+   "quien": "modelo",
+   "verificado": "falso: la voz no dice ['Wittenoom']"
+  },
+  {
+   "pool_id": "Q53",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz la cita.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T06",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta lo de ABA.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D135",
+   "regla": "modelo",
+   "tipo": "spoiler",
+   "motivo": "La inexperiencia de la gerencia la cuenta después la voz (CSR venía del azúcar).",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q54",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz la cita.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T27",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta el recorte del suplemento.",
+   "quien": "modelo",
+   "verificado": "falso: la voz no dice ['3', '4']"
+  },
+  {
+   "pool_id": "D21",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que en 1961 subió la producción.",
+   "quien": "modelo",
+   "verificado": "falso: la voz no dice ['Wittenoom']"
+  },
+  {
+   "pool_id": "Q49",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita a McNulty.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q19",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita a Calvo.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q22",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "La cita sobre la excursión escolar no cabe en la oración ancla y recortada pierde sentido.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D04",
+   "regla": "modelo",
+   "tipo": "spoiler",
+   "motivo": "La dispersión por viento y agua es tema del capítulo 7.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T40",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta el nacimiento.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q16",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta la explosión.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D104",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice las jornadas de dieciséis horas.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T41",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta el bautizo.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D87",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice diez meses.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T39",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta el nacimiento de John Patrick.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T49",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta el cierre.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D02",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice los tres millones de toneladas.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D122",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice el 59%.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D51",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "No cabe en una oración ancla corta; D116 respalda mejor el motivo del cierre.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q24",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita al policía.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D27",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice 1978.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D28",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice las demoliciones.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T67",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice el cierre del aeropuerto.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D06",
+   "regla": "modelo",
+   "tipo": "spoiler",
+   "motivo": "Los 8 residentes de 2006 pertenecen al relato del capítulo 6.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T64",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta el diagnóstico y los nueve meses.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D89",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que murió a los 55 años.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D67",
+   "regla": "modelo",
+   "tipo": "spoiler",
+   "motivo": "Adelanta el conocimiento oficial que el capítulo 6 desarrolla.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D23",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice los más de quinientos muertos.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D79",
+   "regla": "modelo",
+   "tipo": "spoiler",
+   "motivo": "Pisa la cifra de 2.000 y 4.000 que cuenta la voz.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D93",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita el veredicto.",
+   "quien": "modelo",
+   "verificado": "falso: la voz no dice ['CSR']"
+  },
+  {
+   "pool_id": "D31",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta el borrado del mapa.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q10",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita a Parker.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D64",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "La comparación con el estadio no se entiende sola; se prefirió otro dato.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D63",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz ya dijo los 3 millones de toneladas.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D47",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Contradice cómo la voz cuenta el traspaso de 1943.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D26",
+   "regla": "modelo",
+   "tipo": "repetido",
+   "motivo": "Ya usado en el gancho.",
+   "quien": "modelo"
+  }
+ ],
+ "seg_por_palabra": {
+  "valor": 0.3459,
+  "oraciones": 200,
+  "caps": 9,
+  "voz": "N9Z5MLTIaHFLflaLtbDi",
+  "origen": "mediana de 200 oraciones de 9 caps del narrador N9Z5MLTIaHFLflaLtbDi"
+ },
+ "tope": {
+  "usd": 1.0,
+  "de": "respaldo (el perfil no trae costos.m01e_tope_usd)"
+ },
+ "error": null,
+ "por_intento": [
+  {
+   "tokens_in": 53361,
+   "tokens_out": 28827,
+   "usd": 0.39499,
+   "segundos": 197.1
+  },
+  {
+   "tokens_in": 60566,
+   "tokens_out": 2013,
+   "usd": 0.14126,
+   "segundos": 17.1
+  },
+  {
+   "tokens_in": 60010,
+   "tokens_out": 226,
+   "usd": 0.12228,
+   "segundos": 4.5
+  }
+ ],
+ "reintento": {
+  "motivos": [
+   "D94 (ch06 beat 11) «Lo que pagó CSR · 18,3 millones de dólares a 200 afectados»: fecha_relato: D94 es de 1989 y en la oración [2] el relato va por 1988 (el último año que dijo la voz); ni la oración ni sus vecinas lo sitúan después",
+   "D116 (ch05 beat 8, oración [2]) «Pérdidas acumuladas · 2,5 millones de dólares»: la voz dice «2,5» en una oración posterior en ch05 [8] («Los de Juan-Barroso estuvieron unos dos años y medio en el pueblo y volvieron a Madrid en mil novecientos setenta y uno; Mercedes de Juan se quedó en Australia.»); ¿es el mismo hecho? si no, mantenelo",
+   "Q12: dijiste que la voz lo dice («La voz cita a María.»); la voz de ch02 no dice «2» («Iba pegadita a mi marido, como una niña. Pero estaba orgullosa. Me había enamorado de aquel hombre y confiaba en el futuro…, aunque estuviera tan lejos. En España no teníamos nada ninguno de los dos.»): vuelve a ser candidato",
+   "T13: dijiste que la voz lo dice («La voz dice 1946.»); la voz de ch03 no dice «Wittenoom» («Se diagnosticó un primer caso de asbestosis en Wittenoom. (fecha 1946)»): vuelve a ser candidato",
+   "T27: dijiste que la voz lo dice («La voz cuenta el recorte del suplemento.»); la voz de ch03 no dice «3» ni «4» («El subsidio por polvo se redujo a 3 o 4 peniques y se restringió a ciertas áreas, tras la instalación de equipo para reducir el polvo. (fecha 1957)»): vuelve a ser candidato",
+   "D21: dijiste que la voz lo dice («La voz dice que en 1961 subió la producción.»); la voz de ch03 no dice «Wittenoom» («La producción minera en Wittenoom se incrementó en 1961 a pesar de la evidencia de los riesgos.»): vuelve a ser candidato",
+   "D93: dijiste que la voz lo dice («La voz cita el veredicto.»); la voz de ch06 no dice «CSR» («En 1988, un juez determinó que la compañía minera CSR actuó con un 'continuo, consciente y contumaz' desprecio por la seguridad de sus trabajadores.»): vuelve a ser candidato",
+   "el beat 8 de ch05 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D01 («150.000 toneladas de asbesto comercial entre 1937 y 1966: cifra de informe técnico.»), D51 («131.000 toneladas atribuidas por el presidente de CSR al anunciar el cierre; cifra declarada, distinta del total técnico.»)",
+   "el beat 11 de ch06 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D40 («Superficie oficial del Área de Gestión del Asbesto: 46.840 hectáreas. Cifra administrativa, va en pantalla sobre el mapa.»)",
+   "el beat 12 de ch06 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D94 («Acuerdo de CSR de 1989: 18,3 millones de dólares australianos a 200 afectados. Cifra de documento.»)"
+  ],
+  "preguntas": [
+   {
+    "pool_id": "D116",
+    "coincidencias": {
+     "spoiler": [
+      "2,5"
+     ]
+    },
+    "respuesta": "la sacó o la cambió (el mismo hecho, o eligió otra)"
+   }
+  ],
+  "tipo": "parcial",
+  "beats": [
+   [
+    "ch05",
+    8
+   ],
+   [
+    "ch06",
+    11
+   ],
+   [
+    "ch06",
+    12
+   ]
+  ],
+  "aplicados": [
+   {
+    "cap": "ch05",
+    "beat": 8,
+    "partes": [
+     "ficha"
+    ]
+   },
+   {
+    "cap": "ch06",
+    "beat": 11,
+    "partes": [
+     "ficha"
+    ]
+   },
+   {
+    "cap": "ch06",
+    "beat": 12,
+    "partes": [
+     "ficha"
+    ]
+   }
+  ],
+  "ignorados": [],
+  "sin_beat": [
+   "Q12: dijiste que la voz lo dice («La voz cita a María.»); la voz de ch02 no dice «2» («Iba pegadita a mi marido, como una niña. Pero estaba orgullosa. Me había enamorado de aquel hombre y confiaba en el futuro…, aunque estuviera tan lejos. En España no teníamos nada ninguno de los dos.»): vuelve a ser candidato",
+   "T13: dijiste que la voz lo dice («La voz dice 1946.»); la voz de ch03 no dice «Wittenoom» («Se diagnosticó un primer caso de asbestosis en Wittenoom. (fecha 1946)»): vuelve a ser candidato",
+   "T27: dijiste que la voz lo dice («La voz cuenta el recorte del suplemento.»); la voz de ch03 no dice «3» ni «4» («El subsidio por polvo se redujo a 3 o 4 peniques y se restringió a ciertas áreas, tras la instalación de equipo para reducir el polvo. (fecha 1957)»): vuelve a ser candidato",
+   "D21: dijiste que la voz lo dice («La voz dice que en 1961 subió la producción.»); la voz de ch03 no dice «Wittenoom» («La producción minera en Wittenoom se incrementó en 1961 a pesar de la evidencia de los riesgos.»): vuelve a ser candidato",
+   "D93: dijiste que la voz lo dice («La voz cita el veredicto.»); la voz de ch06 no dice «CSR» («En 1988, un juez determinó que la compañía minera CSR actuó con un 'continuo, consciente y contumaz' desprecio por la seguridad de sus trabajadores.»): vuelve a ser candidato"
+  ],
+  "vueltas": [
+   {
+    "vuelta": 1,
+    "beats": [
+     [
+      "ch05",
+      8
+     ],
+     [
+      "ch06",
+      11
+     ],
+     [
+      "ch06",
+      12
+     ]
+    ],
+    "motivos": [
+     "D94 (ch06 beat 11) «Lo que pagó CSR · 18,3 millones de dólares a 200 afectados»: fecha_relato: D94 es de 1989 y en la oración [2] el relato va por 1988 (el último año que dijo la voz); ni la oración ni sus vecinas lo sitúan después",
+     "D116 (ch05 beat 8, oración [2]) «Pérdidas acumuladas · 2,5 millones de dólares»: la voz dice «2,5» en una oración posterior en ch05 [8] («Los de Juan-Barroso estuvieron unos dos años y medio en el pueblo y volvieron a Madrid en mil novecientos setenta y uno; Mercedes de Juan se quedó en Australia.»); ¿es el mismo hecho? si no, mantenelo",
+     "Q12: dijiste que la voz lo dice («La voz cita a María.»); la voz de ch02 no dice «2» («Iba pegadita a mi marido, como una niña. Pero estaba orgullosa. Me había enamorado de aquel hombre y confiaba en el futuro…, aunque estuviera tan lejos. En España no teníamos nada ninguno de los dos.»): vuelve a ser candidato",
+     "T13: dijiste que la voz lo dice («La voz dice 1946.»); la voz de ch03 no dice «Wittenoom» («Se diagnosticó un primer caso de asbestosis en Wittenoom. (fecha 1946)»): vuelve a ser candidato",
+     "T27: dijiste que la voz lo dice («La voz cuenta el recorte del suplemento.»); la voz de ch03 no dice «3» ni «4» («El subsidio por polvo se redujo a 3 o 4 peniques y se restringió a ciertas áreas, tras la instalación de equipo para reducir el polvo. (fecha 1957)»): vuelve a ser candidato",
+     "D21: dijiste que la voz lo dice («La voz dice que en 1961 subió la producción.»); la voz de ch03 no dice «Wittenoom» («La producción minera en Wittenoom se incrementó en 1961 a pesar de la evidencia de los riesgos.»): vuelve a ser candidato",
+     "D93: dijiste que la voz lo dice («La voz cita el veredicto.»); la voz de ch06 no dice «CSR» («En 1988, un juez determinó que la compañía minera CSR actuó con un 'continuo, consciente y contumaz' desprecio por la seguridad de sus trabajadores.»): vuelve a ser candidato",
+     "el beat 8 de ch05 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D01 («150.000 toneladas de asbesto comercial entre 1937 y 1966: cifra de informe técnico.»), D51 («131.000 toneladas atribuidas por el presidente de CSR al anunciar el cierre; cifra declarada, distinta del total técnico.»)",
+     "el beat 11 de ch06 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D40 («Superficie oficial del Área de Gestión del Asbesto: 46.840 hectáreas. Cifra administrativa, va en pantalla sobre el mapa.»)",
+     "el beat 12 de ch06 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D94 («Acuerdo de CSR de 1989: 18,3 millones de dólares australianos a 200 afectados. Cifra de documento.»)"
+    ],
+    "aplicados": [
+     {
+      "cap": "ch05",
+      "beat": 8,
+      "partes": [
+       "ficha"
+      ]
+     },
+     {
+      "cap": "ch06",
+      "beat": 11,
+      "partes": [
+       "ficha"
+      ]
+     }
+    ],
+    "ignorados": [],
+    "usd": 0.14126
+   },
+   {
+    "vuelta": 2,
+    "beats": [
+     [
+      "ch06",
+      12
+     ]
+    ],
+    "motivos": [
+     "Q12: dijiste que la voz lo dice («La voz cita a María.»); la voz de ch02 no dice «2» («Iba pegadita a mi marido, como una niña. Pero estaba orgullosa. Me había enamorado de aquel hombre y confiaba en el futuro…, aunque estuviera tan lejos. En España no teníamos nada ninguno de los dos.»): vuelve a ser candidato",
+     "T13: dijiste que la voz lo dice («La voz dice 1946.»); la voz de ch03 no dice «Wittenoom» («Se diagnosticó un primer caso de asbestosis en Wittenoom. (fecha 1946)»): vuelve a ser candidato",
+     "T27: dijiste que la voz lo dice («La voz cuenta el recorte del suplemento.»); la voz de ch03 no dice «3» ni «4» («El subsidio por polvo se redujo a 3 o 4 peniques y se restringió a ciertas áreas, tras la instalación de equipo para reducir el polvo. (fecha 1957)»): vuelve a ser candidato",
+     "D21: dijiste que la voz lo dice («La voz dice que en 1961 subió la producción.»); la voz de ch03 no dice «Wittenoom» («La producción minera en Wittenoom se incrementó en 1961 a pesar de la evidencia de los riesgos.»): vuelve a ser candidato",
+     "D93: dijiste que la voz lo dice («La voz cita el veredicto.»); la voz de ch06 no dice «CSR» («En 1988, un juez determinó que la compañía minera CSR actuó con un 'continuo, consciente y contumaz' desprecio por la seguridad de sus trabajadores.»): vuelve a ser candidato",
+     "el beat 12 de ch06 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D94 («Acuerdo de CSR de 1989: 18,3 millones de dólares australianos a 200 afectados. Cifra de documento.»)"
+    ],
+    "aplicados": [
+     {
+      "cap": "ch06",
+      "beat": 12,
+      "partes": [
+       "ficha"
+      ]
+     }
+    ],
+    "ignorados": [],
+    "usd": 0.12228
+   }
+  ],
+  "cierre": "sin beat",
+  "cortados_al_cierre": []
+ },
+ "picos_vacios": [],
+ "a_pantalla_vacios": [],
+ "aprobado": {
+  "por": "Omar",
+  "fecha": "2026-10-28",
+  "md5": "17bddfb51bb48d68cd9ca7ea67e72c65"
+ }
+}

@@ -1,0 +1,275 @@
+{
+  "topic_id": "123bbb64-9fca-4395-8bf4-57d60e219ef1",
+  "chapters": [
+    {
+      "chapter_number": 1,
+      "title": "El pie que no cura",
+      "role": "hook",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "hook",
+      "bullets": [
+        "Un retrato familiar: un hombre joven posa con el pie envuelto en una venda blanca; a su alrededor, tierra roja y chapa. Le cayó un trozo de amianto en el pie y la herida no cierra. · Daniel Écija padre se hirió el pie con un trozo de amianto y la herida no se cerraba."
+      ],
+      "evidence_ids": [
+        "D85"
+      ],
+      "cliffhanger": "T34",
+      "pantalla_ids": []
+    },
+    {
+      "chapter_number": 2,
+      "title": "El polvo de la tierra",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "setup",
+      "bullets": [
+        "El salón de baile del Círculo de Bellas Artes, 16 de septiembre de 1961; una pareja que un año después se casa un jueves y cuatro días más tarde ya está en el barco. · María Bernal y Daniel Écija se conocieron en un baile.",
+        "Más de veinte días de barco desde Málaga, el calor del canal de Suez, los mareos; después un avión pequeño de hélices que se sacude y aterriza sobre una tierra muy roja. Polvo por todas partes. Casas de chapa, madera y uralita. · Salimos de Málaga y tardamos más de 20 días en llegar en barco a Australia. Pasamos por el canal de Suez… Puf, el calor que hacía allí. Recuerdo los mareos. La incertidumbre. Aquella sensación de no saber muy bien adónde íbamos ni cómo viviríamos."
+      ],
+      "evidence_ids": [
+        "T34",
+        "T37",
+        "T38",
+        "Q12",
+        "Q13",
+        "D83",
+        "Q14",
+        "Q15",
+        "T36",
+        "D82",
+        "D35",
+        "D76"
+      ],
+      "cliffhanger": "D92",
+      "pantalla_ids": [
+        "T28"
+      ]
+    },
+    {
+      "chapter_number": 3,
+      "title": "La verdad silenciada",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "rising_tension",
+      "bullets": [
+        "Una carta escrita a máquina en 1948 por un médico que llega en avión: niveles de polvo extremadamente peligrosos, una cosecha letal de asbestosis en un año o dos. En la sala de arbitraje de 1949, un abogado de la empresa dice que una nube de polvo no demuestra nada. · En 1948, el doctor Eric Saint advirtió por escrito que los niveles de polvo en Wittenoom eran extremadamente peligrosos.",
+        "Obreros cubiertos de polvo de pies a cabeza, una nube espesa suspendida alrededor del molino. Siete meses después, con unos equipos instalados, les recortan el suplemento salarial por polvo. · Las condiciones dentro del molino eran extremadamente polvorientas y... los trabajadores del molino estaban mugrientos de polvo... Una espesa nube de polvo estaba presente en las inmediaciones del molino."
+      ],
+      "evidence_ids": [
+        "D92",
+        "Q45",
+        "Q46",
+        "D19",
+        "T13",
+        "Q53",
+        "T06",
+        "Q54",
+        "T27",
+        "D21",
+        "Q49",
+        "D20",
+        "D132",
+        "Q37"
+      ],
+      "cliffhanger": "Q19",
+      "pantalla_ids": [
+        "D115",
+        "T14"
+      ]
+    },
+    {
+      "chapter_number": 4,
+      "title": "Jugar con veneno",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "rising_tension",
+      "bullets": [
+        "Niños que deshilachan fibras azules con los dedos y se las meten en la boca; al tocarlas sale un polvillo fino que lo impregna todo. Relaves extendidos como suelo en patios, accesos, la escuela, el jardín de infantes, la iglesia. · En Wittenoom, un pueblo levantado de la nada, se había utilizado muchísimo. Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo. Estábamos rodeados de amianto azul, pero no nos daba miedo. Nadie nos avisó de nada.",
+        "El hospital de Wittenoom: María debilitada por una infección renal, un bebé muy grande, los fórceps. Lo llaman Daniel, como el padre. Una foto del bautizo, 7 de julio de 1963; después, las maletas. · Nació Daniel Écija Bernal en el hospital de Wittenoom."
+      ],
+      "evidence_ids": [
+        "Q19",
+        "D03",
+        "D129",
+        "T40",
+        "Q16",
+        "D104",
+        "T41",
+        "D87",
+        "T39"
+      ],
+      "cliffhanger": "T49",
+      "pantalla_ids": [
+        "D113",
+        "T15"
+      ]
+    },
+    {
+      "chapter_number": 5,
+      "title": "El tiempo de matar",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "shock",
+      "bullets": [
+        "Diciembre de 1966: el molino se apaga, el polvo se asienta sobre las cintas. Afuera quedan más de tres millones de toneladas de relaves en los desfiladeros. Ese mismo año, los Écija entran a su casa en Madrid. · CSR cierra las operaciones en la mina y planta de Wittenoom debido a problemas económicos, de suministro y costos laborales.",
+        "Un puesto de control de aeropuerto, 1985: el agente lee el lugar de nacimiento, baja la cabeza hacia el documento, vuelve a mirarlo. «Así que de Wittenoom, ¿eh? Un sitio terrorífico.» · Así que de Wittenoom, ¿eh? Un sitio terrorífico.",
+        "Madrid, 1991: un diagnóstico de mesotelioma. Nueve meses. Cincuenta y cinco años. María, décadas después, en una habitación rodeada de fotografías en sepia; entre ellas, la del pie vendado. · Daniel Écija padre fue diagnosticado con mesotelioma y murió nueve meses después."
+      ],
+      "evidence_ids": [
+        "T49",
+        "T47",
+        "T51",
+        "D02",
+        "D88",
+        "D122",
+        "Q24",
+        "T57",
+        "D27",
+        "D28",
+        "T67",
+        "T64",
+        "D89",
+        "Q23",
+        "Q25"
+      ],
+      "cliffhanger": "D23",
+      "pantalla_ids": [
+        "D01",
+        "D51"
+      ]
+    },
+    {
+      "chapter_number": 6,
+      "title": "Borrar el problema",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "resolution",
+      "bullets": [
+        "Mercedes de Juan, que se quedó en Australia, dentro de un escáner; después sopla en un tubo para la prueba de función pulmonar. Un juez en 1988 lee su veredicto: desprecio continuo, consciente y contumaz. · Para 1989, más de 500 antiguos trabajadores y residentes de Wittenoom habían muerto por infecciones relacionadas con el asbesto.",
+        "Un cartel de carretera al que le quitan el nombre; un mapa donde el pueblo ya no figura. Un comunicado habla del fin de un período oscuro. En otro escritorio, una nota aconseja no limpiar porque sale caro, y cerrar el acceso. · En junio de 2007, el sitio del pueblo de Wittenoom fue oficialmente desclasificado y su nombre eliminado de los mapas y señales de tráfico oficiales."
+      ],
+      "evidence_ids": [
+        "D23",
+        "D93",
+        "T56",
+        "Q21",
+        "Q20",
+        "D36",
+        "D31",
+        "Q07",
+        "D61",
+        "Q05",
+        "D54",
+        "Q55",
+        "D59"
+      ],
+      "cliffhanger": "Q10",
+      "pantalla_ids": [
+        "D40",
+        "D94"
+      ]
+    },
+    {
+      "chapter_number": 7,
+      "title": "Una herida abierta",
+      "role": "reveal_outro",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "outro",
+      "bullets": [
+        "Lechos de arroyo, pozas, llanuras de inundación hacia el río Fortescue: fibras azules depositadas por el agua, ya fuera de la zona marcada. Un anciano Banjima que llora por su territorio y no puede alejarse de él. · Todavía lloro por mi País, pero eso está arraigado en mí, simplemente no puedo alejarme de él.",
+        "Barricadas permanentes cortando la entrada del pueblo y del desfiladero. Del otro lado, nada: viento, tierra roja. Y en una caja en Madrid, el retrato del hombre con el pie vendado. · Se han instalado barricadas permanentes en las entradas del antiguo pueblo y del desfiladero de Wittenoom."
+      ],
+      "evidence_ids": [
+        "Q10",
+        "D09",
+        "D10",
+        "T90",
+        "T92",
+        "T96",
+        "T98",
+        "D42",
+        "Q34",
+        "D70",
+        "D71"
+      ],
+      "cliffhanger": "",
+      "pantalla_ids": [
+        "D95",
+        "T21"
+      ]
+    }
+  ],
+  "personajes": [
+    {
+      "id": "P16",
+      "nombre": "María Bernal",
+      "rol": "Esposa del minero Daniel Écija y residente de Wittenoom.",
+      "antagonista": false,
+      "entra_en_cap": 1
+    },
+    {
+      "id": "",
+      "nombre": "CSR",
+      "rol": "institución",
+      "tipo": "institucion",
+      "variantes": [
+        "CSR Ltd.",
+        "CSR Limited",
+        "Colonial Sugar Refining Company"
+      ],
+      "antagonista": true,
+      "entra_en_cap": 1
+    }
+  ],
+  "_pool_plan": {
+    "cifras_canonicas": [],
+    "pantalla": [
+      "cap 2: pantalla ['T28', 'D115']",
+      "cap 3: pantalla ['T14', 'T19']",
+      "cap 4: pantalla ['D113', 'T15']",
+      "cap 5: pantalla ['T59', 'T50']",
+      "cap 6: pantalla ['D109', 'T66']",
+      "cap 7: pantalla ['T21', 'D11']"
+    ]
+  },
+  "_v3": {
+    "escaleta": "01a_escaleta.json",
+    "prompt_version": "f26-1",
+    "humano": {
+      "id": "P16",
+      "nombre": "María Bernal",
+      "rol": "Minero emigrante español, esposo de María Bernal y padre del niño nacido en Wittenoom.",
+      "por_que": "Es el único candidato con entrada, daño y salida fechados: se casa el 20 de septiembre de 1962 y emigra cuatro días después (T37, T38), aparece con el pie vendado en el retrato familiar (D85), su hijo nace en el hospital del pueblo (T40), abandona Wittenoom tras el bautizo del 7 de julio de 1963 (T41, D87), vuelve a Madrid en 1966 (T47) y muere de mesotelioma a los 55 años, nueve meses después del diagnóstico de 1991 (T64, D89). No tiene citas verificadas propias, pero habla a través de María (Q12, sin verificar) y de sus hijos (Q23, Q24); el guionista no pondrá su nombre en esas frases.",
+      "colectivo": false
+    },
+    "antagonista": {
+      "tipo": "institucion",
+      "id": "T06",
+      "nombre": "CSR",
+      "por_que": "Es la matriz de ABA desde 1943 (T06) y la que decide: vierte los relaves en los desfiladeros entre 1948 y 1966 (T21), recluta en Europa desde 1950 (T24), sostiene la producción y la aumenta en 1961 pese a la evidencia sanitaria (D21), desestima a Saint (Q46) y cierra en diciembre de 1966 por razones económicas, no sanitarias (T49). Un juez describió en 1988 su desprecio continuo y consciente por la salud de sus trabajadores (D93).",
+      "variantes": [
+        "CSR Ltd.",
+        "CSR Limited",
+        "Colonial Sugar Refining Company"
+      ]
+    },
+    "pico": {
+      "beat": 10,
+      "id": "T64",
+      "por_que": "Es el que la ficha marca y no hay razón mejor: la familia salió de Wittenoom a los diez meses, volvió a Madrid, y veinticinco años después el polvo la alcanza igual. Convierte la huida en una ilusión y da sentido a todo lo que el cap 3 mostró que la compañía sabía."
+    },
+    "particion": {
+      "notas": [
+        "cap 7: 1621 caracteres > 1255 → el editor acortó el último párrafo (632 → 244)"
+      ],
+      "titulos": "flash"
+    }
+  }
+}
