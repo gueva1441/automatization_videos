@@ -275,4 +275,30 @@ Nota: en el viejo, D42 no llega a A2 en el cap 7 por código (`regla_dicho` lo d
 
 ## Veredicto de revisor-handoff (Parte A, íntegro)
 
-(se pega abajo)
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+Handoff md5 404a899d... verificado. Corrí `pytest -q test_module_f55.py test_module_f54.py test_module_f11.py`: 67 passed, 2 skipped (el test real de Sonnet y otro skip). No llamé a ningún modelo ni puse F55_REAL.
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | regla_dicho: ancla → A1 → A2 → None; alcance solo `datos`; con ancla, código viejo; oracion_dicha devuelve índice en `_sentences`; used_in envoltorio | OK | script_engine/evidence.py: `_oracion_ancla` es idéntica a `used_in` de 3a45c75 (rama dated y no dated). `regla_dicho` devuelve None si `_kind != "datos"`. A1 solo con `\d{4}` (`_anio_sin_guion`), con límite de palabra, formas de `num_es.variants` normalizadas con `norm`, y descuenta las palabras del año en letras. A2 usa `UMBRAL_A2=0.5` y `A2_MIN_COINCIDENCIAS=2`, constantes propias. `used_in = regla_dicho(...) is not None`. |
+| 2 | dicho_verificador | OK | dicho_verificador.py: MODELO `claude-sonnet-5-5` y EFFORT `medium`, iguales a m01e_pantalla l.67-68. Usa `hx._post`, `hx.cost_of` y `hx._track(..., "dicho_verificador")`. `PREGUNTA` es literal. Oraciones numeradas desde 1. `_leer` da None si el número está fuera de rango o el fragmento normalizado no es subcadena. 1 reintento con log. Caché por (id, md5 del cap). `estado()` devuelve llamadas, cache y usd. |
+| 3 | guion_v4 (f)/(h) y llamador | OK con observación | `cierre_no_dicho` y `pago_no_dicho` devuelven (bloqueantes, altas). Las oraciones del cap son `[(k, s)...]` con `ev._sentences`. Un dato sin ancla va a `verificar` aunque A1/A2 digan sí (`_dicho_o_verificado`; lo cubre `test_sin_ancla_sonnet_decide_aunque_a2_diga_si`). `bloqueantes` suma las altas a `ids_usados` del párrafo, las deja en `ULTIMAS_ALTAS` y `metricas` las guarda en `confirmados_sonnet` y `verificador`. El párrafo no recibe claves nuevas. |
+| 4 | Tests A.4 | OK | test_module_f55.py (17 tests). Casos de §3: D21 A1, D10 None, D42 A2, D85 A2, D92 cap 1 A1. También el conjunto A1 de 13 y el A2 de 4, pedido puro, (f)/(h) con verificar sí/no/None y `ids_usados` de los 7 caps viejos y nuevos (antes ⊆ después, diferencia escrita). Test real de Sonnet con skipif `F55_REAL`. |
+| 5 | Salida A | OK | SALIDA_A.md: tabla de D21/D10/D42/D85 en viejo y nuevo, `ids_usados` antes→después por párrafo, 3 llamadas, 1 caché, US$ 0,0091. Bloqueantes (f)/(h) en 0 en ambos. |
+| 6 | Nota de las 3 fallas nuevas | OK | Confirmado. test_module_f48.py:16-18 lee `01b_narration.json` de producción y espera «1943–2024». test_module_f51c.py:42 espera «paredes de chapa.» y «seguridad pública».» (f51c ×2). Las 3 fallas reproducen sin red. El diff 3a45c75..HEAD no toca datos de producción, solo código, tests y lab. Es la narración que F54 B.5 regeneró, no F55. |
+| 7 | Fuera de alcance | OK | `git diff --name-only 3a45c75 HEAD` no contiene research_v3 ni m01a_escaleta. |
+
+Observaciones (no bloqueantes):
+- guion_v4.py, `_dicho_o_verificado`: cada alta lleva una clave extra `"que"` además de las 5 del handoff {id, cap, parrafo, oracion, regla}. Es inofensiva y `test_f_y_h_devuelven_bloqueantes_y_altas` la fija en el test, pero no está en el contrato.
+- La Salida A muestra D21 con Sonnet «sí» en el nuevo y D42 «sí» en el viejo, y D10 confirmado por Sonnet (cap 6, oración 11). Eso hace creíble el diseño, pero el resultado de Sonnet es un solo run; el test real no lo corrí.
+- Los datos que A1/A2 dan por dichos y no son `dato_central` de cierre ni de pago entran a `ids_usados` sin segunda opinión. El handoff lo acepta (D92 cap 1, D135, D144).
+
+Fuera de alcance: ninguno. Aparte quedan sin commitear `diag_234_cap4.py` y `lab/hyperframes/f28/a/f28a.log`; ya estaban modificados antes de F55, no vienen de estos commits. El sticker `research.json` y MAPA son regeneración legítima por el cambio de md5 de evidence.py.
+
+Riesgos que el contrato no cubre: `bloqueantes` modifica `parrafos` en el lugar y la alta usa un índice de párrafo calculado sobre `ps_ids`. Eso depende de que `with_ids` conserve el orden. Los 3 tests de producción (f48, f51c ×2) quedan rojos hasta que alguien los actualice, y la suite amplia seguirá mostrando 8 fallas.
+
+## Adenda de CC (Parte A)
+- **Clave `"que"` en las altas:** dice qué pago o cierre confirmó Sonnet (para la Salida A y el reporte); no la lee ningún otro módulo. Si el analista la quiere fuera, es una línea.
+- **Test real:** lo corrí yo una vez con `F55_REAL=1` (pasa: D10 confirmado en la oración con «Colonial», 1 llamada); el revisor no lo repitió a propósito.
+- **`with_ids` conserva el orden** (recorre `parrafos` en orden y devuelve una lista nueva del mismo largo): el índice de párrafo de la alta es el mismo en `ps_ids` y en `parrafos`.
