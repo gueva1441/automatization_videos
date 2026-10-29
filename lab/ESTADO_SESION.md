@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-28 23:00 (F50c: el expediente de foto ahora lleva las personas desde la ficha, las citas con autor y los grupos con aspecto y ropa; pedidos de los 7 caps en seco, verificación PASA; US$ 0, PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-28 23:20 (F50d: la época por tramo entró al canon y al pedido de m03, pero el canon de Wittenoom salió sin tramos después de 1966 y la verificación de B falló: PARADA en B, D no corrió; US$ 0,0989) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,35 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F50d, PARADA en B: D no corrió): el código de la época por tramo está hecho, pero **el canon nuevo de Wittenoom no salió como esperaba el analista.**
+- **El canon que quedó en producción** (la corrida 1 de las 3) trae tramos de época solo hasta 1966. Las familias españolas tienen una sola ropa, de 1962-1971.
+- **Las otras dos corridas** sí traen un tramo hasta 2026. La 3 es la más cercana a lo esperado.
+- **Consecuencia:** con ese canon, las fotos de 1971 a 2024 (caps 5–7) seguirían recibiendo la época 1958-1966.
+- **La verificación de B falló:** con el canon rehecho cambian también otras partes del bloque del canon y los grupos (de 7 pasan a 11), no solo la época y la ropa. Por la regla, no corrí Opus sobre Wittenoom (D).
+- **Gasto:** US$ 0,0989 de 3,00.
+- **A decidir:**
+  - qué canon usar (la corrida 3, otra corrida, o reforzar el pedido);
+  - cómo verificar B con un canon nuevo.
+- Detalle en `lab/hyperframes/f50d/F50d_REPORT.md`, `CANON_VARIANZA.md` y `PEDIDOS_F50d.md`.
+
+## F50d — Época por tramo en el canon (handoff del analista, 2026-10-28 22:45) — PARADA en B
+- Commits:
+  - `8463dfb` paso 0: DECISIONES 22:30; TOPE_TANDA 3,00.
+  - `16eeb84` A:
+    - `periods` y `clothing_by_period` en el esquema;
+    - las 3 líneas del pedido;
+    - la marca = md5(ficha + pedido + esquema).
+  - `b3222fb` C: 3 corridas, la 1 en topics_db (marca 696c0995…).
+    - corrida 1: 11 grupos, tramos 1937-1957 · 1958-1966;
+    - corrida 2: 6 grupos, tramos 1937-1966 · 1966-2026;
+    - corrida 3: 6 grupos, tramos 1937-1966 · 1978-2026.
+  - `20b3e8b` B: el bloque ERA trae los tramos del cap (el más cercano si ninguno cruza) y CLOTHING va por tramo; pedidos en seco.
+    - código solo: el pedido es igual al de F50c salvo las líneas CLOTHING;
+    - con el canon nuevo, 0 líneas cambian fuera del canon entero y de los grupos, pero la verificación del handoff falla.
+  - El último commit es el del reporte.
+- Suites: rápida 55; amplia 976 verdes + 4 fallas previas. ch02 `f792f3d4…`. `MAPA --check` 0.
+- `03_visual.json` y el papel de F50b no se tocaron. topics_db ya tiene el canon nuevo, de 11 grupos.
 
 ## 👀 Para Omar (F50c, PARADA): el dossier que recibe Opus por cada foto ahora trae lo que ya tenían el research y la ficha, **sin llamar a ningún modelo** (US$ 0).
 - **Personas:** llegan a 73 de las 96 fotos (antes 17). En 35 las nombra la frase de la voz; en 38 vienen de la frase anterior del mismo párrafo, marcadas como contexto. El padre y el hijo Écija se distinguen bien.
