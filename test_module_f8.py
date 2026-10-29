@@ -174,16 +174,16 @@ def test_sin_escaleta_no_hay_beats(tmp_path):
 #  §1 C–E — estilo, composición, sensible
 # ═══════════════════════════════════════════════════════════════
 
-def test_estilo_en_el_medio_del_armado():
-    # F50 B: sin wrap_style; el armado por código empieza por el sujeto y pone el estilo después de lugar + año
+def test_estilo_antes_del_cierre():
+    # F51a: el armado C empieza por el sujeto y pone la oración de estilo (con el año) justo antes del 16:9
     it = {"subject": "a flooded cell", "action": "water rising", "setting": "Orleans Parish Prison",
           "shot_scale": "wide", "text_in_image": {"present": False, "text": "", "font": "", "location": ""}}
-    head = v3.style_head("2005")
-    assert head.startswith("Grainy 35mm documentary photograph, 2005, dark-history realism")
+    head = v3.ESTILO_C.format(anio="2005")
+    assert head.startswith("A grainy 35mm documentary photograph taken in 2005, with muted colors")
     p = v3.armar(it, "2005")["prompt"]
-    assert p.startswith("A flooded cell. Water rising.") and f"{head} {v3.STYLE_TAIL}" in p
+    assert p.startswith("A flooded cell. Water rising.") and head in p
     assert p.index("Orleans Parish Prison, 2005.") < p.index(head)
-    assert p.endswith(f"{ep.select_profile('seedream').aspect_ratio_text} {v3.NO_TEXT}")
+    assert p.endswith(f"{head} {ep.select_profile('seedream').aspect_ratio_text} {v3.NO_TEXT}")
     # el setting que ya trae año no lo repite; con cartel no va el «sin texto»
     p2 = v3.armar({**it, "setting": "Orleans Parish Prison in 2005",
                    "text_in_image": {"present": True, "text": "PARISH PRISON", "font": "", "location": "above the gate"}},
@@ -297,8 +297,8 @@ def test_render_v3_usa_beats_estilo_y_reglas(fake_llm):
     assert "COMPOSITION RULES (v3" in si and m3.TEXTO_2_PEOPLE_GROUP in si and m3.TEXTO_S4_YEAR in si
     its = out["image_prompts"]
     assert [i["beat"] for i in its].count(5) == 2
-    head = v3.style_head("2005")
-    # la prosa empieza por el sujeto; el estilo del año va en el medio
+    head = v3.ESTILO_C.format(anio="2005")
+    # la prosa empieza por el sujeto; la oración de estilo con el año va antes del cierre (F51a)
     assert all(head in i["prompt"] and not i["prompt"].startswith(head) for i in its)
     assert all(i["anio"] == "2005" and v3.NO_TEXT in i["prompt"] for i in its)
     assert all("jaw" not in i["prompt"] for i in its) and all("sensible" in i for i in its)

@@ -16,9 +16,10 @@ GRUPOS = {"miners": {"id": "miners", "appearance": "Lean men with sun-darkened s
           "police": {"id": "police", "appearance": ""}}
 
 
-def test_f50g_a_un_grupo_va_entre_sujeto_y_mirada():
+def test_f50g_a_un_grupo_va_entre_sujeto_y_lugar():
+    # F51a: sin la mirada, el aspecto queda entre el sujeto y el lugar + año
     p = v3.armar({**SLOTS, "people_group": ["miners"]}, "1962", GRUPOS)["prompt"]
-    assert p.startswith("A miner. Loading ore. Lean men with sun-darkened skin and dark hair. Eyes down. A sack.")
+    assert p.startswith("A miner. Loading ore. Lean men with sun-darkened skin and dark hair. The mill yard, 1962.")
 
 
 def test_f50g_a_dos_grupos_en_el_orden_de_people_group():

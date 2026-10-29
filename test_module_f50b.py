@@ -36,10 +36,13 @@ SLOTS = {"subject": "a miner", "action": "loading ore", "gaze_interaction": "eye
          "camera_angle": "eye-level", "lens_technique": "35mm", "text_in_image": {"present": False}}
 
 
-def test_armado_en_el_orden_medido():
+def test_armado_en_el_orden_c():
+    # F51a: sin mirada, objeto ni paleta; el estilo C va antes del cierre
     p = v3.armar(SLOTS, "1962")["prompt"]
-    assert p.startswith("A miner. Loading ore. Eyes down. A sack. The mill yard, 1962. " + v3.style_head("1962"))
-    assert v3.STYLE_TAIL in p and p.endswith(v3.NO_TEXT) and "16:9" in p
+    assert p.startswith("A miner. Loading ore. The mill yard, 1962. Harsh noon. Wide shot, eye-level, 35mm. "
+                        + v3.ESTILO_C.format(anio="1962"))
+    assert "Eyes down" not in p and "A sack" not in p and "ochre" not in p.lower()
+    assert p.endswith(v3.NO_TEXT) and "16:9" in p
     con_anio = v3.armar({**SLOTS, "setting": "the mill yard in the 1960s"}, "1962")["partes"]["lugar_anio"]
     assert con_anio == "The mill yard in the 1960s."                    # el setting ya trae década: sin «, 1962»
     cartel = v3.armar({**SLOTS, "text_in_image": {"present": True, "text": "DANGER", "font": "stencil",

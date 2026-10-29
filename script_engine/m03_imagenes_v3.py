@@ -192,16 +192,11 @@ DIFFERENT parts or distances of that sensory image (never the same frame twice).
 
 
 # ═══════════════════════════════════════════════════════════════
-#  C — estilo al principio y al final
+#  C — la oración de estilo (F51a: el estilo C de F50h, una sola oración)
 # ═══════════════════════════════════════════════════════════════
 
-def style_head(year: str) -> str:
-    y = f", {year}" if year else ""
-    return (f"Grainy 35mm documentary photograph{y}, dark-history realism, muted colors, visible film grain, "
-            f"slightly underexposed.")
-
-
-STYLE_TAIL = "35mm film grain, muted documentary colors."
+ESTILO_C = ("A grainy 35mm documentary photograph taken in {anio}, with muted colors and slight underexposure, in a "
+            "dark-history realist style.")          # handoff F50h, parte 7 de C (F51a: a producción)
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -619,16 +614,16 @@ def frase_cartel(tii: dict) -> str:
 
 
 # los casilleros de prosa del armado (F50b: de estos salen las cláusulas negadas)
-_PROSA = ("subject", "action", "gaze_interaction", "props_detail", "setting", "lighting", "color_palette",
-          "camera_angle", "lens_technique")
+_PROSA = ("subject", "action", "setting", "lighting", "camera_angle", "lens_technique")
 
 
 def armar(it: dict, anio: str, grupos: dict[str, dict] | None = None) -> dict:
-    """Prosa en el orden medido: sujeto/acción → mirada → objeto → lugar + año (sin «, año» si el setting ya trae año o
-    década) → estilo → luz + paleta → plano/ángulo/lente → cartel → 16:9 (+ sin texto si no hay cartel). F50g-A:
-    `aspecto` (entre sujeto y mirada) = la oración `appearance` de cada grupo de `people_group` del canon, en el orden
-    del casillero; sin grupo o sin `appearance`, nada. F50b: antes de armar salen las cláusulas negadas de cada
-    casillero de prosa (un casillero que queda vacío se omite) y lo que va en mitad de oración baja a minúscula."""
+    """F51a: el armado C de F50h, en el orden de la guía de fal: sujeto/acción → aspecto → lugar + año (sin «, año» si
+    el setting ya trae año o década) → cartel → luz (solo `lighting`) → plano/ángulo/lente → estilo (`ESTILO_C` con el
+    año) → 16:9 (+ sin texto si no hay cartel). Sin mirada, objeto ni paleta. F50g-A: `aspecto` = la oración
+    `appearance` de cada grupo de `people_group` del canon, en el orden del casillero; sin grupo o sin `appearance`,
+    nada. F50b: antes de armar salen las cláusulas negadas de cada casillero de prosa (un casillero que queda vacío se
+    omite) y lo que va en mitad de oración baja a minúscula."""
     from engine_profiles import select_profile
     it = {**it, **{k: _sin_negadas(it.get(k)) for k in _PROSA if isinstance(it.get(k), str)}}   # F50b arreglo 2
     tii = it.get("text_in_image") or {}
@@ -642,14 +637,12 @@ def armar(it: dict, anio: str, grupos: dict[str, dict] | None = None) -> dict:
         "sujeto": " ".join(p for p in (oracion(it.get("subject")), oracion(it.get("action"))) if p),
         "aspecto": " ".join(p for p in (oracion(((grupos or {}).get(g) or {}).get("appearance"))     # F50g-A
                                         for g in it.get("people_group") or [] if isinstance(g, str)) if p),
-        "mirada": oracion(it.get("gaze_interaction")),
-        "objeto": oracion(it.get("props_detail")),
         "lugar_anio": "" if not setting.strip() else oracion(setting) if _ANIO_O_DECADA.search(setting)
         else oracion(f"{setting.strip().rstrip('.')}, {anio}"),
-        "estilo": f"{style_head(anio)} {STYLE_TAIL}",
-        "luz": " ".join(p for p in (oracion(it.get("lighting")), oracion(it.get("color_palette"))) if p),
-        "tecnica": oracion(plano),
         "texto": texto,
+        "luz": oracion(it.get("lighting")),
+        "tecnica": oracion(plano),
+        "estilo": ESTILO_C.format(anio=anio),
         "cierre": f"{select_profile('seedream').aspect_ratio_text}" + ("" if texto else f" {NO_TEXT}"),
     }
     return {"partes": partes, "prompt": " ".join(p for p in partes.values() if p)}
