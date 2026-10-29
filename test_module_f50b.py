@@ -53,7 +53,7 @@ def test_armado_en_el_orden_c():
 
 def test_anio_final_en_orden():
     # F51c: sin el paso «dicho en el ancla»: manda el `year` del modelo y después el respaldo del expediente
-    e = {"anio_ancla": "1962", "respaldo": ("1961", "3) el último año dicho en la narración de los caps anteriores")}
+    e = {"anio_ancla": "1962", "respaldo": ("1961", "2) el último año dicho en la narración de los caps anteriores")}
     assert v3.anio_final(e, {"year": "1979"}) == ("1979", "1) el casillero `year` del modelo")
     assert v3.anio_final(e, {"year": "3000"}) == ("1961", "2) el último año dicho en la narración de los caps anteriores")
     assert v3.anio_final(e, {})[0] == "1961"

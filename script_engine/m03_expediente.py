@@ -165,11 +165,11 @@ def expedientes(topic: dict, fu: dict, cap_beats: list[dict], anchors: list[str]
             if x in crono and crono[x].get("evento"):
                 facts.append(f"{crono[x].get('fecha') or '-'} · {crono[x]['evento']}")
         if anio_prev:
-            respaldo = (anio_prev, "3) el último año dicho en la narración de los caps anteriores")
+            respaldo = (anio_prev, "2) el último año dicho en la narración de los caps anteriores")
         elif re.match(r"\d{4}", b.get("fecha") or ""):
-            respaldo = (b["fecha"][:4], "4) la fecha del dato_central del beat")
+            respaldo = (b["fecha"][:4], "3) la fecha del dato_central del beat")
         else:
-            respaldo = (year_topic, "5) topic_year")
+            respaldo = (year_topic, "4) topic_year")
         anio_ancla = anio_del_texto(ancla)
         a0 = str(anio_ancla or respaldo[0] or "")
         quien, dudas = personas_del_ancla(ancla, int(a0) if a0.isdigit() else None, ficha_personas, pool)

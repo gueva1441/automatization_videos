@@ -666,9 +666,8 @@ def f8_backstop(prompt: str, it: dict, escala: bool) -> tuple[str, list[str]]:
 
 def anio_final(e: dict, it: dict) -> tuple[str, str]:
     """El año de la foto (F51c, sin el paso «dicho en el ancla»): 1) el casillero `year` 2)–4) el respaldo del
-    expediente (el expediente lo rotula 3)–5); acá se renumera)."""
+    expediente, con el rótulo tal cual lo pone el expediente."""
     y = str(it.get("year") or "").strip()
     if re.fullmatch(r"\d{4}", y) and 1800 <= int(y) <= 2100:      # derivado: handoff F48 §Constantes (años 1800–2100)
         return y, "1) el casillero `year` del modelo"
-    anio, fuente = e["respaldo"]
-    return anio, re.sub(r"^(\d)\)", lambda m: f"{int(m.group(1)) - 1})", fuente)
+    return tuple(e["respaldo"])
