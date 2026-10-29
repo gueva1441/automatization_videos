@@ -160,3 +160,191 @@ Riesgos que el contrato no cubre:
 - **Suite rápida y candado:** corrieron en `lab/hyperframes/f41/f50h/`. Rápida 55 passed y 3 skipped; amplia 991 passed más las 4 previas; ch02 `f792f3d483a1fa42daed5f7f0e054f46`.
 - **Riesgo 2:** si F50g-B o F51 cambian `armar` antes de las etapas 2 y 3, hay que regenerar `--prompts` y volver a verificar L = guardado antes de gastar. Queda como condición de la etapa 2.
 
+
+---
+
+# F50h — etapas 2 y 3 (Omar OK 2026-10-29 02:30) · PARADA: la llave sigue cerrada
+
+## Qué pasó, en llano
+- **Fotos:** se generaron las 120 fotos (20 fotos × 3 armados × 2 imágenes). Las 60 llamadas a Seedream salieron bien al primer intento.
+- **Hojas:** una por foto, a ciegas. Cada columna es una letra (A, B, C) sorteada por foto, y la llave que dice qué armado es cada letra está guardada aparte, sin abrir.
+- **Visión:** Gemini Flash puntuó las 120 fotos, elemento por elemento; 119 dan puntaje y 1 quedó como hueco.
+- **Gasto:**
+  - registrado: US$ 4,2123;
+  - real, contando los tokens de la visión: **~US$ 4,93 de 5,00**. La visión costó ~US$ 0,73 y no los 0,30 estimados, porque Gemini razona mucho por foto, y `track_gemini_vision` registra una tarifa fija de US$ 0,0001 por llamada.
+- **Falta:** que Omar elija una letra por foto. Recién ahí se abre la llave (etapa 4, que se pide aparte).
+
+## Commits (etapas 2 y 3)
+| etapa | commit |
+|---|---|
+| 2: fotos | `96942e9` |
+| 3: hojas y visión | `b1776c2` |
+| reporte y ESTADO | este commit |
+
+## Antes de gastar
+`f50h.py --prompts` de nuevo (abierto 6):
+```
+L = guardado 20/20 · palabras mediana {'L': 167.5, 'C': 131.0, 'C+ép': 139.0} · máx {'L': 273, 'C': 196, 'C+ép': 204} · oraciones mediana {'L': 13.0, 'C': 9.0, 'C+ép': 9.0}
+```
+`PROMPTS_F50h.json` queda con el mismo md5 que en la etapa 1 (`532062d4…`).
+
+## Etapa 2 — fotos (`f50h.py --fotos`)
+**Cómo se corrió:**
+- **Llamadas:** 60 (20 fotos × L, C, C+ép), en paralelo con `asset_manager.FLUX_MAX_WORKERS` workers.
+- **Por llamada:** `generar_2` es `f49_corridas.generar_1` con `num_images` 2 (constante del handoff): el mismo payload de producción (`_SYNC_PAYLOAD_BUILDERS["seedream"]`), el mismo endpoint y el mismo `track_seedream`. La única diferencia es que guarda las 2 imágenes, porque `generar_1` guarda solo la primera.
+- **Freno:** como el de F49, contra el tope de US$ 5,00, con lo ya gastado en `cost_history` (`f50h-lab`) más lo reservado en vuelo.
+- **Reintento:** uno, si hay rechazo o error.
+- **A ciegas:**
+  - Cada foto tiene su sorteo de letras con `random.SystemRandom` (sin semilla).
+  - Las imágenes quedan en `fotos/<cap>_<foto>/<letra>_<n>.png`.
+  - La llave (`llave.json`) está fuera de git (`.git/info/exclude`) y no se abrió.
+  - Ningún archivo commiteado nombra una variante: lo comprobé con grep sobre `fotos_resultado.json`, `fotos.log` y los json y logs de la visión.
+- **Las 120 png quedan fuera de git**, como en F49.
+- **Sin grade:** las fotos no pasaron por `image_grade.grade`, porque el handoff no lo pide. Son las mismas condiciones para las 3 variantes.
+
+Salida:
+```
+fotos: 60/60 llamadas ok · 120 png · cost_history f50h-lab = US$ 4.2000
+```
+- Hubo 0 huecos y 0 rechazos.
+- Costo: 60 × 2 × US$ 0,035 = **US$ 4,20**, igual a la constante del handoff.
+
+## Etapa 3 — hojas, visión y tabla
+**Hojas** (`--hojas`): 20 jpg en `hojas/hoja_<cap>_<foto>.jpg`, de 3888×1586, en git.
+- Cada hoja tiene 2 filas × 3 columnas: A, B y C, con la foto 1 arriba y la 2 abajo.
+- Cada celda lleva su rótulo (`A1`…`C2`), y arriba de la hoja va el ancla en español.
+- El estilo es el de las hojas de F49.
+
+**Visión** (`--vision`):
+- **Cliente y modelo:** los de `gfx_critic` (`config.gemini_client`, `api.gemini_model` = gemini-2.5-flash), con `temperature` 0 y salida JSON, como `gfx_critic`.
+- **Prompt:** el del handoff, exacto.
+- **Llamadas:** una por png, en paralelo.
+- **Lo que ve el modelo:** solo la imagen y la lista de elementos; no ve la variante, el prompt ni el nombre del archivo.
+- **Elementos:** se arman por código desde los casilleros de cada foto, como dice el handoff. La lista de anacronismos sale de `f50f/canon_f50f.json`.
+
+Salida:
+```
+visión: 119/120 ok · huecos 1 · cost_history f50h-lab = US$ 4.2122
+```
+- **5/13 C1:** la primera respuesta no sirvió y salió bien en su reintento, dentro de `--vision`.
+- **Hueco 4/11 A1:** Gemini devolvió la respuesta vacía en los 2 intentos (`resp.text` = None). Queda como hueco, como dice la regla.
+- **7/7 A2:** el JSON se parseó, pero el modelo copió literal el `"<id>"` del ejemplo en vez de los ids, así que no se puede asignar a los elementos.
+  - Lo traté como un JSON que no parsea, con su único reintento: `--vision-repetir` vuelve a pedir solo las respuestas guardadas que no sirven y tienen un intento libre.
+  - Salida: «repetidas: ['7/7 A2: ok'] · cost_history f50h-lab = US$ 4.2123».
+  - La validación de ids (`_valida`) también quedó en `--vision`, para la próxima corrida.
+- **Revisión del analista (la 7/7 de espaldas):** `appearance_banjima_traditional_owners` da `not_visible` en 5 de los 6 png (A1, A2, B2, C1, C2) y `yes` en B1. No hubo ningún `no`.
+
+**Tabla** (`--tabla`): `VISION_F50h.json` y `VISION_F50h.md`, por letra y no por variante. Puntaje por png = sí / (sí + no), con `not_visible` aparte.
+
+| letra | puntaje medio | png medidos | not_visible | invented_text | huecos |
+|---|---:|---:|---:|---:|---:|
+| A | 0.873 | 39 | 51 | 5 | 1 |
+| B | 0.903 | 40 | 47 | 5 | 0 |
+| C | 0.887 | 40 | 55 | 4 | 0 |
+
+**Ojo con el total por letra:** las letras se sortearon foto por foto, así que la «A» de una foto no es el mismo armado que la «A» de otra. Mientras la llave siga cerrada, el total por letra no compara variantes. Lo pide así el handoff para no abrirla; la comparación por variante sale en la etapa 4, con la llave. La tabla por foto completa está en `VISION_F50h.md`.
+
+## Costo real
+| paso | registrado (cost_history `f50h-lab`) | real |
+|---|---:|---:|
+| fotos: 120 × US$ 0,035 | 4,2000 | 4,2000 |
+| visión: 123 llamadas (120 + 2 reintentos dentro de `--vision`, el de 4/11 A1, que siguió vacío, y el de 5/13 C, que salió bien en el segundo intento, + 1 de `--vision-repetir`, la 7/7 A2) | 0,0123 (tarifa fija de `track_gemini_vision`) | **~0,733**: 83 049 tokens de entrada y 283 249 de salida con razonamiento, a US$ 0,30 / 2,50 por millón (precios de gemini-2.5-flash en `cost_tracker`). La llamada vacía del hueco no trae uso y no suma |
+| **total** | **4,2123** | **~4,93** (tope 5,00) |
+
+## Verificación (etapas 2 y 3)
+- Suite rápida: 55 passed, 3 skipped.
+- Suite amplia: 4 failed, 991 passed (las 4 de siempre). Logs en `f41/f50h_23`.
+- ch02: `f792f3d483a1fa42daed5f7f0e054f46`, igual.
+- No se tocó ningún archivo de producción.
+
+## Lo que queda abierto (etapas 2 y 3)
+1. **Omar elige una letra por foto** mirando `hojas/`. Después, en una etapa 4 pedida aparte, CC abre la llave, cruza las elecciones con la visión y escribe el resultado. La regla del handoff: gana la que Omar elige en más fotos; si hay empate, decide el puntaje de visión.
+2. **La etapa 3 pasó su presupuesto propio:** el handoff la estimaba en ≤ US$ 0,30 y costó ~0,73 real. El tope global de US$ 5,00 se respetó (~4,93), con un margen de ~0,07. Además, `track_gemini_vision` registra una tarifa fija de US$ 0,0001 por llamada, que no refleja el uso real. El freno usó la cifra registrada y el total real quedó en ~4,93, cerca del tope de 5,00. Si se repite una visión así, hay que medir por tokens (`track_gemini_response`) o apagar el razonamiento. Es una decisión del analista.
+3. **El elemento `era` tiene un sesgo:** usa la lista de anacronismos del canon entera, como manda el handoff. Esa lista trae «contemporary clothing» y otras cosas de la época de la mina, así que en las fotos de 2016–2024 el elemento se contradice. Pesa igual en las 3 variantes, así que la comparación no se tuerce, pero el puntaje absoluto de esas fotos baja.
+4. **Huecos:** queda 1 de 120 (4/11 A1, respuesta vacía de Gemini).
+5. **Las fotos no tienen grade de producción.** Son iguales para las 3 variantes.
+6. **Los png están fuera de git,** en `lab/hyperframes/f50h/fotos/` (`.git/info/exclude`), igual que `llave.json`.
+7. **De la etapa 1 y de antes:**
+   - C no llega a 2–4 oraciones;
+   - repeticiones entre el sujeto y el aspecto;
+   - F50g-B (Court, corte Veo, `anio_final`);
+   - la foto madre en F51;
+   - Veo 3.1 en fal se apaga el 2026-11-17.
+
+## Procesos (etapas 2 y 3)
+Corrieron:
+- `--fotos` en segundo plano (exit 0);
+- `--hojas`, `--vision`, `--vision-repetir` y `--tabla` en primer plano;
+- `verificar.sh f50h_23`.
+
+No queda nada corriendo. No se cerró ningún programa de Omar.
+
+## Veredicto de revisor-handoff (etapas 2 y 3)
+**Primer veredicto** (el revisor todavía no había visto esta sección del reporte):
+
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+Solo lectura. Corrí `--prompts` (en seco) y `--tabla`. No abrí llave.json ni llamé a ninguna API.
+
+| # | Requisito | Estado | Evidencia |
+|---|---|---|---|
+| 1 | Antes de gastar, L = guardado 20/20 | OK | `--prompts` hoy: «L = guardado 20/20 · mediana L 167,5 / C 131 / C+ép 139». Los archivos de etapa 1 no cambiaron en git. |
+| 2 | VISION_PROMPT idéntico al del handoff | OK | Comparé por script el bloque de handoff l.93-100 contra `f50h.py` l.331-338, con `{{ }}` des-doblado: `True`, diff vacío. |
+| 3 | generar_2 fiel a generar_1 | OK | `f50h.py` l.175-202 vs `f49_corridas.py` l.105-132. Mismo `select_profile("seedream")`, `_SYNC_PAYLOAD_BUILDERS["seedream"]`, `num_images`=2, URL, headers, timeout 240, rechazo de contenido y `track_seedream`. Guarda las 2 imágenes como `<letra>_1/_2.png`, y la descripción del tracker ya no lleva el prompt. |
+| 4 | 60 llamadas, 120 png, letras al azar por foto | OK | `fotos_resultado.json`: 60 «ok», todas al intento 1, 0 huecos. `fotos.log`: «120 png · US$ 4,2000». Las letras salen de `SystemRandom` y la llave se escribe en un archivo aparte. |
+| 5 | Tope US$ 5,00 | OK | Freno antes de cada llamada de fotos (l.238), con lo reservado en vuelo. Costo medido de punta a punta: fotos 4,2000, más 0,0122 de visión registrada a tarifa fija = 4,2123 en `cost_history`. |
+| 6 | Costo real de la visión | PARCIAL | Recalculé desde los tokens del crudo: 82.366 de entrada y 281.534 de salida más pensamiento. A las tarifas públicas de gemini-2.5-flash (mis valores, no del handoff) da ≈ US$ 0,73, o sea ≈ 0,733 como dice el reporte. Total real ≈ 4,93, bajo el tope de 5,00. Pero el handoff presupuestó la etapa 3 en ≤ 0,30 y la real es ≈ 0,73. El tope global se respetó; el de etapa no. El freno de `--vision` y `--vision-repetir` mira el costo del tracker (≈ 0,0001 por llamada) y nunca habría frenado por el gasto real. Margen final ≈ 0,07. |
+| 7 | Visión: cliente y modelo de gfx_critic, sin variante, prompt ni nombre de archivo | OK | `_vision_una` usa `api.gemini_model`, `gemini_client`, `track_gemini_vision`, `temperature=0.0` y JSON, igual que `gfx_critic.py` l.106-109. Manda solo el png y el prompt. |
+| 8 | Elementos de visión por código desde los casilleros | OK | `elementos()` l.341-356 genera subject, action, `appearance_<grupo>`, place, era (con el `anachronism_blocklist` de `canon_f50f.json`), lighting, shot, y sign o no_text según haya cartel. |
+| 9 | 7/7 A2 con «<id>» literal | OK | `_valida` (l.375-381) trata las respuestas con ids que no son los pedidos como no parseables. `--vision-repetir` re-pide solo las que tienen un intento libre. En el crudo, 7/7 A2 quedó con `intentos`=2, `descartada` con los «<id>» y respuesta válida. |
+| 10 | Hueco 4/11 A1 | OK | Dos intentos, ambos `TypeError` por respuesta vacía. Queda con `hueco` y `intentos`=2. En la tabla aparece como «1 hueco» en la letra A (39 png medidos), sin reintento extra. |
+| 11 | 7/7 de espaldas → not_visible | OK | `VISION_F50h.json`: `appearance_banjima_traditional_owners` da not_visible en A1, A2 y C1, y yes en B1. Coincide con el «5 de 6» del reporte; no verifiqué la cifra completa. |
+| 12 | Hojas 2×3 con rótulos y ancla | OK | `hojas()` l.292-327: 2 filas × 3 columnas (A, B, C; arriba la foto 1, abajo la 2), rótulos `A1`…`C2` y el ancla en español arriba (del papel f50g). 20 jpg en git; `hoja_7_7.jpg` mide 3888×1586, consistente con 3 columnas de 1280 y 2 filas. No las miré una por una. |
+| 13 | Tabla por letra, no por variante | OK | `--tabla` reproduce `VISION_F50h.json/.md` sin diff en git. Totales: A 0,873 · B 0,903 · C 0,887. |
+| 14 | Ninguna variante de una letra en archivos commiteados | OK | Grep de «C+ép», «"L"» y «variante» en `fotos_resultado.json`, `fotos.log`, `vision.log`, `VISION_F50h.json`, el crudo: 0. En `VISION_F50h.md`, 1 coincidencia, que es la frase «no por variante». `git ls-files` no lista llave.json ni las png. `.git/info/exclude` tiene `llave.json` y `fotos/`. `PROMPTS_F50h.json` (etapa 1) lleva L/C/C+ép por foto, pero sin letras. |
+| 15 | Producción intacta | OK | `git diff 6d2a875..HEAD --stat` sin `script_engine/`, `03_visual.json` ni topics_db: solo los 27 archivos de `lab/hyperframes/f50h/`. |
+| 16 | Ningún número fuera de la tabla de constantes | OK | `TOPE_USD`, `NUM_IMAGES` y 120 (`max_workers` de visión) vienen del handoff. Los números de layout de las hojas (margen 12, cabecera 110, calidad 88, ancho 1280, fuentes) son estética del modelo F49 y no afectan la medida. |
+| 17 | F50h_REPORT.md etapas 2 y 3, ESTADO, veredicto íntegro | NO VERIFICABLE | `F50h_REPORT.md` sigue en la versión de 6d2a875 (sin diff; no tiene la sección «etapas 2 y 3» ni el marcador). Esto lo dijiste vos como pendiente. Verifiqué solo que el costo estimado (~0,733 y ~4,93) coincide con mis números. Faltan por revisar el texto del reporte, el ESTADO y el commit de ambos. |
+
+Observaciones:
+- El crudo (`VISION_F50h_crudo.json`) conserva la respuesta descartada de 7/7 A2, con los «<id>» literales. Es dato de proceso, no de variante.
+- La etapa 3 superó su presupuesto propio (0,30) con ≈ 0,73. El reporte debe decirlo explícito, no solo «~4,93 de 5,00».
+- El `invented_text` lo juzga el modelo con el prompt del handoff y se cuenta por png. No hay filtro por código para las fotos con cartel; el handoff lo delega al prompt.
+
+Fuera de alcance: ninguno. Lo no commiteado es `lab/hyperframes/f41/f50h_23/` (logs de las suites) y el reporte, como anunciaste.
+
+Riesgos que el contrato no cubre:
+- El costo en `cost_history` subestima la visión (≈ 0,012 registrado contra ≈ 0,73 real). Cualquier tracker o freno futuro que se base en él verá ≈ 4,21 cuando el gasto real es ≈ 4,93.
+- El puntaje por letra mezcla elementos `not_visible` (47 a 55 por letra) fuera del denominador. Las letras difieren por décimas (0,873 a 0,903) y hay 1 hueco en A, así que la visión es un desempate débil.
+- 120 hilos simultáneos en visión pudieron causar los vacíos de respuesta (4/11 A1, 5/13 C). No es un problema de contrato.
+
+**Actualización del revisor** (después de leer esta sección):
+
+VEREDICTO: CUMPLE CON OBSERVACIONES (el veredicto anterior sigue en pie. Ya leí la sección «etapas 2 y 3» de F50h_REPORT.md, l.166-282, y cierra el punto 17 que había marcado NO VERIFICABLE).
+
+Tabla del veredicto anterior, con el # 6 y el # 17 actualizados. Los demás quedan igual: prompt de visión idéntico al handoff, generar_2 fiel a generar_1, 60/60 llamadas ok y 120 png, freno contra el tope, letras al azar con llave aparte y sin abrir, hojas 2×3 con rótulos y ancla, elementos de visión por código, tratamiento de 7/7 A2 y del hueco 4/11 A1, producción intacta y ningún número fuera de la tabla de constantes. Ver el veredicto anterior para la evidencia de cada uno.
+
+| # | Requisito | Estado | Evidencia |
+|---|---|---|---|
+| 6 | Costo real de la visión y tope | OK | Mi recálculo desde los tokens del crudo da ≈ US$ 0,73. El reporte dice ~0,733 y total real ~4,93 de 5,00. Admite que la visión superó la estimación de 0,30 y que `track_gemini_vision` registra una tarifa fija, así que el freno usó la cifra registrada (reporte, «Costo real» y abierto 2). El tope global se respetó. |
+| 17 | Reporte etapas 2 y 3, ESTADO, veredicto íntegro | PARCIAL | La sección existe y cubre la salida de cada etapa, el costo real, lo abierto y el 7/7 de espaldas. Falta el marcador `{{VEREDICTO_23}}` (pendiente de pegar este veredicto), el commit del reporte y el ESTADO. No verifiqué el ESTADO. |
+
+Observaciones nuevas sobre el reporte:
+- **Llamadas de visión:** el reporte dice «122 llamadas (120 + 1 reintento del hueco + 1 de `--vision-repetir`)». Pero 5/13 C también tiene `intentos` 2 en el crudo sin ser hueco, y el costo registrado, 4,2123 − 4,2000 = 0,0123 a 0,0001 por llamada, implica 123. El reporte no menciona esa llamada de 5/13 C. Es un descuadre menor de conteo; no afecta el costo real.
+- **Tokens:** el reporte cita 83.049 de entrada y 283.249 de salida. Yo sumé 82.366 y 281.534 sobre las respuestas finales del crudo. La diferencia es compatible con contar también las respuestas descartadas (7/7 A2 y el reintento de 5/13 C). No lo pude confirmar.
+- **Sesgo del elemento `era`:** el reporte lo declara. Es la lista completa de anacronismos del canon, como manda el handoff, y trae «contemporary clothing», así que contradice a las fotos de 2016–2024. Pesa igual en las 3 variantes.
+- **Verificaciones de suites:** el reporte cita suite rápida 55 passed, amplia 991 passed + 4 failed y ch02 f792f3d4. No las corrí (no se me permitía). Los logs están en `lab/hyperframes/f41/f50h_23/`.
+
+Fuera de alcance: ninguno. Está sin commitear `F50h_REPORT.md` (la sección nueva) y `lab/hyperframes/f41/f50h_23/`, como anunciaste.
+
+Riesgos que el contrato no cubre:
+- El `cost_history` queda subregistrado en la visión (≈ 0,012 contra ≈ 0,73 real), con un margen real bajo el tope de ≈ 0,07. Un freno futuro basado en el tracker no habría frenado.
+- Los totales por letra (0,873 / 0,903 / 0,887, con 47 a 55 `not_visible` por letra) mezclan variantes distintas foto a foto. Con la llave cerrada no comparan variantes, y las diferencias son de décimas.
+- Antes de commitear el reporte hay que reemplazar `{{VEREDICTO_23}}` por este veredicto, y no dejar el marcador.
+
+### Adenda de CC (después del veredicto)
+- **Conteo de llamadas:** corregido a 123. Son las 120, 2 reintentos dentro de `--vision` (4/11 A1, que siguió vacía, y 5/13 C1, que salió bien) y 1 de `--vision-repetir` (7/7 A2). La 5/13 C1 quedó agregada en la etapa 3.
+- **Tokens:** los 83 049 / 283 249 suman el campo `tokens` de cada respuesta final más el `tokens_reintento` de la 7/7 A2. La respuesta descartada de la 5/13 C1 dentro de `--vision` no guardó su uso, así que el costo real puede estar un poco por debajo de lo gastado. Igual queda dentro del margen al tope, de ~0,07.
+- **Presupuesto propio de la etapa 3:** el punto 2 de lo abierto dice ahora explícito que superó la estimación de ≤ US$ 0,30.
+- **Marcador y ESTADO:** este texto reemplaza `{{VEREDICTO_23}}`. ESTADO va en el mismo commit.
+

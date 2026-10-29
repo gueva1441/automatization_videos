@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 02:30 (F50h etapas 0–1: los 60 prompts L/C/C+ép de la prueba L contra C, en texto; US$ 0; PARADA antes de las fotos) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 03:00 (F50h etapas 2–3: 120 fotos a ciegas, 20 hojas y visión por letra; ~US$ 4,93 reales de 5,00; PARADA: Omar elige letra por foto) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,24 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F50h, PARADA tras la etapa 3): están las 20 hojas a ciegas en `lab/hyperframes/f50h/hojas/hoja_<cap>_<foto>.jpg`.
+- Cada hoja tiene 3 columnas, A, B y C, sorteadas por foto, y 2 fotos por columna.
+- **Elegí una letra por foto en el chat.** Recién ahí CC abre la llave (etapa 4).
+- **Visión por letra:** A 0,873 · B 0,903 · C 0,887. No compara variantes: las letras cambian de una foto a otra.
+- **Gasto real:** ~US$ 4,93 de 5,00 (fotos 4,20 + visión ~0,73). El tracker anotó 4,21, porque registra la visión a tarifa fija.
+
+## F50h etapas 2–3 (Omar OK 2026-10-29 02:30) — PARADA
+- Commits:
+  - `96942e9` etapa 2: 60/60 llamadas ok, 120 png fuera de git, llave fuera de git.
+  - `b1776c2` etapa 3: hojas; visión 119/120 + 1 hueco; 7/7 A2 re-pedida por copiar «<id>»; tabla por letra.
+  - El último commit es el del reporte.
+- L = guardado 20/20, re-verificado antes de gastar.
+- Suites: rápida 55; amplia 991 + 4 previas; ch02 `f792f3d4…`.
+- Abierto:
+  - el costo de la visión, que el tracker registra a tarifa fija;
+  - el sesgo del elemento `era` en las fotos de hoy;
+  - las fotos sin grade.
 
 ## 👀 Para Omar (F50h, PARADA tras la etapa 1): ya están en texto los 3 armados de las 20 fotos de la prueba, en `lab/hyperframes/f50h/PROMPTS_F50h.md`:
 - **L**, el prompt de hoy;
