@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 00:00 (F50e-B: las 3 corridas de Opus en el canon de Wittenoom, 96/96 en las 3; US$ 0,72; PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 00:30 (F50f: el canon pasa a Opus en producción y Wittenoom quedó en texto con papel nuevo; bug del filtro de nombres con «Court»; US$ 2,67; PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,25 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F50f, PARADA): **cambió producción.** El canon visual ahora lo arma Opus en una llamada sin esquema; el camino Flash se borró.
+- **Wittenoom:**
+  - el canon nuevo cubre las 96 fotos con 4 tramos de época, hasta 2026;
+  - el papel nuevo está en `lab/hyperframes/f50f/PAPEL_FOTOS_WITTENOOM.md`, con las medidas en `MEDIDAS_D.md`;
+  - 0 fotos sin tramo y 0 nombres propios.
+- **Gasto:** US$ 2,67 de 3,00.
+- **Bug a arreglar antes de F51:** el filtro de nombres borró la palabra «Court» de «Federal Court» y de «Supreme Court», porque el canon trae a un premier llamado Court. Dejó 2 fotos con el prompt roto (6/3 y 7/11).
+- **Pendiente:** la revisión DEBERÍA del analista sobre el papel, y tu OK a F51.
+
+## F50f — Canon con Opus en producción + Wittenoom en texto (handoff del analista, 2026-10-28 23:40) — PARADA
+- Commits:
+  - `e4bb427` A: step_4e con Opus sin esquema, CanonError y lo viejo borrado; la marca incluye el modelo; Parada por years ilegibles; log de fotos sin period.
+  - `f4ddafc` B: canon 96/96, 12 grupos, 0 con años sin ropa.
+  - `41e1e7a` C: pedidos en seco, 0 líneas fuera del canon y de los grupos; caps 5–7 con 1967+.
+  - `00b178b` D: m03 con Opus US$ 2,332, papel y 5 medidas.
+  - El último commit es el del reporte.
+- Suites: rápida 55; amplia 985 + 4 previas; ch02 `f792f3d4…`; MAPA `--check` 0.
+- Abierto: el bug de `scrub_documented_names` con apellidos que son palabras comunes; la foto madre; la medida 1 hecha por lista de palabras; los testigos por texto.
 
 ## 👀 Para Omar (F50e-B, PARADA): ya están las 3 corridas de Opus. La tabla completa está en `lab/hyperframes/f50e/CANON_MODELOS.md`.
 - **Opus y Sonnet** cubren 96/96 fotos en sus 3 corridas.

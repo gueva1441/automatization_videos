@@ -77,6 +77,9 @@ def main() -> int:
     n67v = sum(1 for f in viejo["fotos"] if f.get("anio") and int(f["anio"]) >= 1967)
     n67n = sum(1 for f in nuevo["fotos"] if f.get("anio") and int(f["anio"]) >= 1967)
     L += ["## 1. Fotos de 1967+ con marcas de época de los 40–60", "",
+          "Medida de lab (no del handoff): una lista de marcas de época armada por CC (décadas 1940s–1960s en cifras y "
+          "objetos o prendas típicos de esos años), como palabra entera. «forties/fifties/sixties» quedan fuera: en los "
+          "prompts son edades («in their sixties»), no épocas. Se pega cada frase para revisarla.", "",
           f"- F50b: {len(ev)} de {n67v} fotos de 1967+ · F50f: **{len(en)} de {n67n}**", "",
           "| papel | cap/foto | año | marcas | frase |", "|---|---|---|---|---|"]
     L += [f"| {pp} | {x['cap']}/{x['foto']} | {x['anio']} | {', '.join(x['marcas'])} | {' '.join(x['frases'])[:300]} |"

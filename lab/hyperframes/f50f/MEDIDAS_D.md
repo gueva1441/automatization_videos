@@ -19,6 +19,8 @@ Prompts idénticos (misma foto): 0 de 96. Anclas iguales: 35 de 96.
 
 ## 1. Fotos de 1967+ con marcas de época de los 40–60
 
+Medida de lab (no del handoff): una lista de marcas de época armada por CC (décadas 1940s–1960s en cifras y objetos o prendas típicos de esos años), como palabra entera. «forties/fifties/sixties» quedan fuera: en los prompts son edades («in their sixties»), no épocas. Se pega cada frase para revisarla.
+
 - F50b: 0 de 39 fotos de 1967+ · F50f: **2 de 39**
 
 | papel | cap/foto | año | marcas | frase |

@@ -70,13 +70,16 @@ def test_f50c_a_ya_no_busca_en_el_pool_por_nombre():
 
 
 def test_f50c_a_fotos_testigo_de_wittenoom():
-    """Las 8 fotos testigo del handoff con los datos reales de Wittenoom (en seco: la llamada a Opus se corta)."""
-    if not (ROOT / "data" / "scripts" / "_steps" / "123bbb64-9fca-4395-8bf4-57d60e219ef1" / "03_visual.json").exists():
+    """Las 8 fotos testigo del handoff con los datos reales de Wittenoom (en seco: la llamada a Opus se corta). Las
+    anclas son las de F50c, congeladas en `lab/hyperframes/f50f/antes/03_visual.json` (F50f: m03 re-planea las anclas
+    en cada corrida, así que el 03_visual.json vivo ya no tiene las mismas frases en las mismas posiciones)."""
+    anclas = ROOT / "lab" / "hyperframes" / "f50f" / "antes" / "03_visual.json"
+    if not (ROOT / "data" / "scripts" / "_steps" / "123bbb64-9fca-4395-8bf4-57d60e219ef1").exists() or not anclas.exists():
         pytest.skip("sin los datos de Wittenoom")
     sys.path.insert(0, str(ROOT / "lab" / "hyperframes" / "f50c"))
     import expedientes_f50c as ex
     topic, skel, narr_ch = ex.preparar()
-    v = json.loads((ROOT / "data" / "scripts" / "_steps" / ex.TID / "03_visual.json").read_text(encoding="utf-8"))
+    v = json.loads(anclas.read_text(encoding="utf-8"))
     for (cap, foto), (nombres, fuente) in ex.TESTIGOS.items():
         c = next(x for x in v["chapters"] if x["chapter_number"] == cap)
         anchors, _ = ex._anclas(c)
