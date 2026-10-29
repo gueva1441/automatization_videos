@@ -1465,7 +1465,7 @@
    ],
    "tests": 16,
    "nacio": "e33f84a 2026-05-28",
-   "ultimo": "16eeb84 2026-10-28 (F50d)",
+   "ultimo": "e4bb427 2026-10-28 (F50f)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "run_pipeline.py:301 lo lanza en guion (--batch), :325 en papel (--aprobar-papel) y :334 en voz (--from normalizer_gate --batch)",
@@ -2868,7 +2868,7 @@
    ],
    "tests": 3,
    "nacio": "21f2e10 2026-06-21",
-   "ultimo": "16eeb84 2026-10-28 (F50d)",
+   "ultimo": "e4bb427 2026-10-28 (F50f)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.asegurar_canon llama a canon_desde_ficha después de la ficha (run_escaleta_v3) y antes de m03 (process_topic); el research ya no lo llama (F50 A).",
@@ -4532,7 +4532,7 @@
   "script_engine/m03_imagenes_v3.py": {
    "archivo": "script_engine/m03_imagenes_v3.py",
    "zona": "fase2a",
-   "sticker": "Reglas de las imágenes del guion v3: reparte los beats de la escaleta entre las imágenes de cada capítulo, arma la frase de cada imagen desde sus casilleros (antes saca de cada casillero las cláusulas negadas, como «with no figure anywhere», salvo «No. 4» o «nothing but», y baja a minúscula lo que queda en mitad de una oración) en un orden fijo (sujeto, mirada, objeto, lugar y año, estilo de película granulada, luz, plano, cartel con sujeto, 16:9 y sin texto), elige el año de la foto (dicho en la frase de la voz, el que propone el modelo o el de respaldo) y detecta o limpia lo que no puede llevar una imagen (manos y caras en primer plano, armas, sangre, menores en daño, conteos exactos, izquierda/derecha, texto en el idioma equivocado): si queda un problema, saca la frase. También audita el video entero (motivos repetidos, cuerpos, planos medios) y propone re-encuadres. Todo es determinista, sin llamar a ningún modelo.",
+   "sticker": "Reglas de las imágenes del guion v3: reparte los beats de la escaleta entre las imágenes de cada capítulo, arma la frase de cada imagen desde sus casilleros (antes saca de cada casillero las cláusulas negadas, como «with no figure anywhere», salvo «No. 4» o «nothing but», y baja a minúscula lo que queda en mitad de una oración) en un orden fijo (sujeto, aspecto del grupo de gente del canon —desde F50g-A, la oración appearance de cada grupo de la foto—, mirada, objeto, lugar y año, estilo de película granulada, luz, plano, cartel con sujeto, 16:9 y sin texto), elige el año de la foto (dicho en la frase de la voz, el que propone el modelo o el de respaldo) y detecta o limpia lo que no puede llevar una imagen (manos y caras en primer plano, armas, sangre, menores en daño, conteos exactos, izquierda/derecha, texto en el idioma equivocado): si queda un problema, saca la frase. También audita el video entero (motivos repetidos, cuerpos, planos medios) y propone re-encuadres. Todo es determinista, sin llamar a ningún modelo.",
    "recibe": "La escaleta y la narración v3 del tema (data/scripts/_steps/<id>/01a_escaleta.json y 01b_narracion_v3.json, o topic['escaleta'] / topic['parrafos_v3']), el evidence_pool del tema, y las anclas, slots y prosa que le pasa m03_visual.",
    "entrega": "Datos en memoria para m03_visual: beats por capítulo, asignación beat-imagen, prosa armada y corregida, año de cada foto con su fuente, marcas sensible/motivos por imagen y reporte de auditoría (se guardan dentro de data/scripts/_steps/<id>/03_visual.json como _f8_imagenes y reencuadres_propuestos). No escribe archivos propios.",
    "modelo": [],
@@ -4553,7 +4553,7 @@
     "script_engine/m03_expediente.py",
     "script_engine/m03_visual.py"
    ],
-   "tests": 5,
+   "tests": 6,
    "nacio": "73e3613 2026-10-22 (F8)",
    "ultimo": "9efc125 2026-10-28 (F50c)",
    "estado_a": "vivo",
@@ -4562,7 +4562,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "f44d121fcb3443579f83bb67bb0d01cd",
+   "md5": "cefc610be8a8b93894b436a4914ce4b0",
    "sticker_al_dia": true
   },
   "script_engine/m03_visual.py": {
@@ -4606,7 +4606,7 @@
    ],
    "tests": 16,
    "nacio": "e33f84a 2026-05-28",
-   "ultimo": "20b3e8b 2026-10-28 (F50d)",
+   "ultimo": "e4bb427 2026-10-28 (F50f)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py:671 llama assign_visual_prompts dentro de process_topic (tramo audio -> m07 -> m03 que corre con --from normalizer_gate, el comando de la etapa voz en run_pipeline; también --only m03); script_engine/m09_packaging.py:40 importa DOCTRINE_* en tiempo de carga (fase3, etapa packaging).",

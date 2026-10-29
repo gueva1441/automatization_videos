@@ -625,8 +625,9 @@ _PROSA = ("subject", "action", "gaze_interaction", "props_detail", "setting", "l
 
 def armar(it: dict, anio: str, grupos: dict[str, dict] | None = None) -> dict:
     """Prosa en el orden medido: sujeto/acción → mirada → objeto → lugar + año (sin «, año» si el setting ya trae año o
-    década) → estilo → luz + paleta → plano/ángulo/lente → cartel → 16:9 (+ sin texto si no hay cartel). Los grupos
-    de gente no se escriben (`aspecto` vacío: así se midió). F50b: antes de armar salen las cláusulas negadas de cada
+    década) → estilo → luz + paleta → plano/ángulo/lente → cartel → 16:9 (+ sin texto si no hay cartel). F50g-A:
+    `aspecto` (entre sujeto y mirada) = la oración `appearance` de cada grupo de `people_group` del canon, en el orden
+    del casillero; sin grupo o sin `appearance`, nada. F50b: antes de armar salen las cláusulas negadas de cada
     casillero de prosa (un casillero que queda vacío se omite) y lo que va en mitad de oración baja a minúscula."""
     from engine_profiles import select_profile
     it = {**it, **{k: _sin_negadas(it.get(k)) for k in _PROSA if isinstance(it.get(k), str)}}   # F50b arreglo 2
@@ -639,7 +640,8 @@ def armar(it: dict, anio: str, grupos: dict[str, dict] | None = None) -> dict:
     setting = str(it.get("setting") or "")
     partes = {
         "sujeto": " ".join(p for p in (oracion(it.get("subject")), oracion(it.get("action"))) if p),
-        "aspecto": "",
+        "aspecto": " ".join(p for p in (oracion(((grupos or {}).get(g) or {}).get("appearance"))     # F50g-A
+                                        for g in it.get("people_group") or [] if isinstance(g, str)) if p),
         "mirada": oracion(it.get("gaze_interaction")),
         "objeto": oracion(it.get("props_detail")),
         "lugar_anio": "" if not setting.strip() else oracion(setting) if _ANIO_O_DECADA.search(setting)
