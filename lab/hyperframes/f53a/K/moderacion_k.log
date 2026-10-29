@@ -1,0 +1,9 @@
+[14:50:38] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f53ak_lab_prompts
+[14:50:53] INFO     | viral_pipeline | [cost_tracker] Video f53ak_lab_prompts — Costo total: $0.0844
+[14:57:05] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f53ak_lab_clips
+[14:57:05] INFO     | viral_pipeline | [cost_tracker] Video f53ak_lab_clips — Costo total: $1.2692
+gastado 0 · peor caso K 1.96 · tope 5.0
+foto1_K {'duracion_s': 4.042, 'ancho': 1280, 'alto': 720, 'fps': 24.0, 'codec': 'h264', 'cuadros': '97', 'audio': True} · espera 371.1 s · US$ 0.6346
+foto2_K {'duracion_s': 4.042, 'ancho': 1280, 'alto': 720, 'fps': 24.0, 'codec': 'h264', 'cuadros': '97', 'audio': True} · espera 265.0 s · US$ 0.6346
+US$ prompts 0.0844 · clips 1.2692
+exit 0

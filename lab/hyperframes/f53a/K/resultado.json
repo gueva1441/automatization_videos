@@ -1,0 +1,108 @@
+{
+ "tipo_foto": {
+  "foto1": "image/png",
+  "foto2": "image/png"
+ },
+ "gastado_antes": 0,
+ "peor_caso": 1.96,
+ "usd_prompts": 0.0844,
+ "usd_clips": 1.2692,
+ "prompts": {
+  "foto1_K": {
+   "prompt": "[General settings]\nDocumentary photographic realism of a historical execution in 1822, with a desaturated palette of muted greys, off-white linen and dark weathered wood. Bright, diffuse daylight comes from a heavy overcast sky. Coarse hemp rope fibers, rumpled linen shirts, beads of sweat on dark skin and grained, cracked timber on the gallows beam are rendered in fine texture. An 85mm lens compresses the line of men. A low-angle medium shot looks up at the gallows beam overhead. The camera tone is solemn, quiet and steady.\n\n[Sequence]\n0–3 s: A line of Black men stands shoulder to shoulder beneath the wooden beam. Nooses hang from iron chains and loop around their necks. Ropes cross their chests and bind their waists, and their hands are tied behind their backs. They gaze upward and forward with calm, steady faces. Their chests rise and fall slowly with deep breaths. A light breeze ripples the loose fabric of their shirts. The camera holds low and begins a very slow push forward toward the central man in the cream shirt.\n3–6 s: The central man swallows, his jaw tightening as his eyes stay fixed on the distant sky. The man to his left blinks slowly and lifts his chin slightly higher. The hanging ropes sway gently and the iron chain links shift with a faint creak. Grey clouds drift slowly behind the beam. The diagonal shadow of the beam across their chests softens and sharpens as the light shifts through the clouds. Below, the blurred crowd in period hats and coats murmurs and shifts in place.\n6 s–end: The camera completes its slow push, settling closer on the central man's face and the coiled knot of the noose beside his jaw. He draws one long, steady breath and his gaze remains unbroken. The men on either side stay upright and still, their heads held high. The breeze moves through their collars and the clouds continue to drift overhead.\n\n[Audio]\nSoft wind across an open square, the low creak of rope and timber, a faint clink of iron chain links, and slow, deep breathing from the men. A distant, hushed murmur rises from the crowd below. No subtitles, no background music.",
+   "usage": {
+    "input_tokens": 5476,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 952,
+    "service_tier": "standard",
+    "inference_geo": "global",
+    "speed": "standard",
+    "output_tokens_details": {
+     "thinking_tokens": 222
+    }
+   },
+   "usd": 0.04094,
+   "stop_reason": "end_turn",
+   "intento": 1
+  },
+  "foto2_K": {
+   "prompt": "[General settings]\nA narrow brick corridor in the lower level of an old jail, dark red bricks with crumbling grey mortar, iron-barred cell doors set into both walls, a barred gate at the far end. Two men in rough work shirts and dark trousers, seen from behind as faceless silhouettes, carry a body wrapped in coarse canvas tied with rope, holding it between them by the edges at waist height. A single oil lantern hangs from a chain on the ceiling, its warm glow the only light; long black shadows stretch across the concrete floor toward the camera. Nearly monochrome palette of deep black, dark red brick and pale canvas. Dark-history documentary realism, photographic texture, fine grain, slight motion blur on the walking figures. Low camera close to the floor, steady and quiet.\n\n[Sequence]\n0–3 s: The two men walk away from the camera with heavy, matched steps. The wrapped body sways gently with each stride, the rope ends at the bundled feet swinging. The low camera tracks forward behind them at the same slow walking pace. Their long shadows slide and stretch across the floor beneath the camera.\n3–6 s: The men pass under the hanging lantern. The lantern rocks slightly on its chain, and the light shifts across the brick walls and the cell bars, shadows swinging along both walls. The camera keeps following, low and steady, as the canvas catches the warm light from above, its rough weave and knotted rope clearly visible.\n6 s–end: The men continue into the darker part of the corridor toward the barred gate, their figures shrinking into the shadow while the pale shroud stays faintly visible between them. The camera slows and comes to rest while they keep walking, the lantern still gently swaying, the corridor walls and empty cells framing them as they fade into the dark.\n\n[Audio]\nSlow, heavy footsteps on damp concrete echoing down the corridor, the creak of the lantern chain, canvas and rope rubbing with each step, the men's low, steady breathing, a distant drip of water in the dark. No subtitles, no background music.",
+   "usage": {
+    "input_tokens": 5478,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 1078,
+    "service_tier": "standard",
+    "inference_geo": "global",
+    "speed": "standard",
+    "output_tokens_details": {
+     "thinking_tokens": 391
+    }
+   },
+   "usd": 0.04347,
+   "stop_reason": "end_turn",
+   "intento": 1
+  }
+ },
+ "clips": {
+  "foto1_K": {
+   "clip": "foto1_K",
+   "endpoint": "kling/v4/image-to-video",
+   "campos": {
+    "start_image_url": "data:image/png;base64,…",
+    "duration": 4,
+    "resolution": "720p"
+   },
+   "prompt_palabras": 365,
+   "inicio": "2026-10-29T14:50:53",
+   "request_id": "01a18900-31b0-7e01-863d-70e668c664e0",
+   "espera_s": 371.1,
+   "respuesta": {},
+   "archivo": "clips\\foto1_K.mp4",
+   "ffprobe": {
+    "duracion_s": 4.042,
+    "ancho": 1280,
+    "alto": 720,
+    "fps": 24.0,
+    "codec": "h264",
+    "cuadros": "97",
+    "audio": true
+   },
+   "usd": 0.6346
+  },
+  "foto2_K": {
+   "clip": "foto2_K",
+   "endpoint": "kling/v4/image-to-video",
+   "campos": {
+    "start_image_url": "data:image/png;base64,…",
+    "duration": 4,
+    "resolution": "720p"
+   },
+   "prompt_palabras": 349,
+   "inicio": "2026-10-29T14:50:53",
+   "request_id": "01a18900-3814-7cf2-89af-a98b4f476056",
+   "espera_s": 265.0,
+   "respuesta": {},
+   "archivo": "clips\\foto2_K.mp4",
+   "ffprobe": {
+    "duracion_s": 4.042,
+    "ancho": 1280,
+    "alto": 720,
+    "fps": 24.0,
+    "codec": "h264",
+    "cuadros": "97",
+    "audio": true
+   },
+   "usd": 0.6346
+  }
+ }
+}
