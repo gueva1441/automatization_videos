@@ -54,7 +54,9 @@ def costos() -> dict:
 
 
 def main() -> int:
-    from asset_manager import VEO_NEGATIVE_PROMPT, _veo_duration
+    from config import api
+    from script_engine.m03_visual import VEO_CLIP_DURATION_SEC   # F53b: sale Veo (sin negative_prompt)
+    motores = " → ".join(api.video_engines)
     v = _j(STEPS / "03_visual.json")
     antes = _j(F50 / "antes" / "03_visual.json")
     n_antes = {c["chapter_number"]: len(fotos_de(c)) for c in antes["chapters"]}
@@ -70,7 +72,7 @@ def main() -> int:
         if cap.get("video_prompt"):
             L += [f"**Clip Veo** ({cap.get('veo_position')}) — ancla: «{cap.get('narration_anchor')}»", "",
                   f"- video_prompt ({len(cap['video_prompt'])} caracteres): {cap['video_prompt']}",
-                  f"- negative_prompt: {VEO_NEGATIVE_PROMPT}", f"- duration: {_veo_duration()}", ""]
+                  f"- motores (F53b): {motores}", f"- duration: {VEO_CLIP_DURATION_SEC:g} s", ""]
         for i, it in enumerate(fs, start=1):
             tii = {}
             try:
@@ -120,7 +122,7 @@ def main() -> int:
     (sal / "PAPEL_FOTOS_WITTENOOM.md").write_text("\n".join(L), encoding="utf-8")
     (sal / "PAPEL_FOTOS_WITTENOOM.json").write_text(json.dumps(
         {"caps": caps, "fotos": filas, "fuentes_anio": fuentes, "rehechas_video": rv, "costos": co,
-         "negative_prompt": VEO_NEGATIVE_PROMPT, "duration": _veo_duration()}, ensure_ascii=False, indent=1),
+         "motores_clip": list(api.video_engines), "duration_s": VEO_CLIP_DURATION_SEC}, ensure_ascii=False, indent=1),
         encoding="utf-8")
     print(f"fotos {total} (antes {total_antes}) · fuentes {dict(fuentes)} · rehechas {len(rehechas_cap)} "
           f"(video {len(rv)}) · carteles {len(carteles)} · US$ {co['total']}")
