@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-30 (F58 Parte A: miniaturas como 3 paquetes (título + texto + foto) con Opus y la foto por la máquina de producción; texto en la mitad izquierda partido por ancho; camino Gemini y bases «existentes» borrados; A8 PEDIDO_FINAL sin movimiento; US$ 0; PARADA A, la Parte B espera el OK del analista) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-30 (F58 Parte B: corrida real en Wittenoom, 3 paquetes con foto y compuesta, sin avisos, ningún nombre en los prompts, US$ 0,3953 (Opus paquetes 0,168 + casilleros 0,122 + 3 fotos 0,105; canon sin gasto); hoja en lab/hyperframes/f58/hoja_paquetes.jpg; PARADA B) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,15 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F58, PARADA B): los 3 paquetes de Wittenoom ya están hechos y cuestan US$ 0,40.
+- `python -m script_engine.m09_packaging 123bbb64-… --candidates`: paquete 01 «Vivió 10 meses junto a una mina de amianto azul y murió a los 55» / «¿QUÉ RESPIRÓ ALLÍ?»; 02 «Sabían del polvo desde 1944: la mina que mató a Daniel Écija» / «LO LLAMARON ALBOROTADOR»; 03 «Wittenoom, 1963: el pueblo de amianto que borraron de los mapas» / «NADIE SACÓ UNA PALADA». Sin avisos de cifras ni de ancho; ningún prompt nombra a nadie. Hoja: `lab/hyperframes/f58/hoja_paquetes.jpg`.
+- Para mirar: la oración de composición (persona a la derecha) va en los 3 prompts aunque el casillero no tenga persona: en el paisaje de los relaves (03) y en el detalle del pie (02) Seedream puso igual una cara a la derecha.
+- Gasto US$ 0,3953 (Opus paquetes 0,168 + casilleros 0,122 + 3 fotos Seedream 0,105; el canon no gastó). Todo en `lab/hyperframes/f58/SALIDA_B.md` y `F58_REPORT.md`.
+
+## F58 Parte B — corrida real en Wittenoom — PARADA B
+- `lab/hyperframes/f58/parte_b.py` (el comando del handoff vía `main()` dentro de `cost_tracker`), `SALIDA_B.md`, `parte_b.json/.log`, `hoja_paquetes.jpg` (no va a git). Imágenes en `output/123bbb64-…/publish/thumb_candidates/paquete_NN(_base).png`; `publish/metadata.json` con los 3 paquetes, descripción (1502 caracteres) y 23 tags.
+- Abierto: la oración de composición en prompts sin persona; A8 sin clip nuevo; fila xfail de A5.
 
 ## 👀 Para Omar (F58, PARADA A): las miniaturas salen como 3 paquetes y la foto de cada uno la hace la máquina de producción.
 - Opus escribe en una llamada 3 paquetes (título + texto + la oración del gancho que muestra la foto), estrategias distintas, leyendo el gancho entero, la narración y el pool; las cifras se cotejan por código (aviso). La foto: casilleros del cap 1 con esa oración + armado + canon, sin cartel, persona en la mitad derecha; el texto en la mitad izquierda, partido por ancho y achicado hasta caber.

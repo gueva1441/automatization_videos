@@ -1,0 +1,25 @@
+[04:38:18] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f58_parte_b
+[04:41:38] INFO     | viral_pipeline | [cost_tracker] Video f58_parte_b — Costo total: $0.3953
+  [m09a] 3 paquetes (Opus)...
+  [m09a] fotos: casilleros + armado (cap 1, 3 anclas)...
+  [canon] ya armado con esta ficha y este pedido (4828d0e6): se usa
+     paquete 01 · Vivió 10 meses junto a una mina de amianto azul y murió a lo · «¿QUÉ RESPIRÓ ALLÍ?» · paquete_01_base.png
+     paquete 02 · Sabían del polvo desde 1944: la mina que mató a Daniel Écija · «LO LLAMARON ALBOROTADOR» · paquete_02_base.png
+     paquete 03 · Wittenoom, 1963: el pueblo de amianto que borraron de los ma · «NADIE SACÓ UNA PALADA» · paquete_03_base.png
+  ✅ candidates en C:\CLAUDE_PROJECTS\automatization_videos\output\123bbb64-9fca-4395-8bf4-57d60e219ef1\publish
+     Revisá con --review o componé: --compose --paquete N [--base <archivo>] [--text "TEXTO"]
+| fal.ai Seedream 5.0 Lite (t2i) | paquete_01_base: A young adult Spanish migrant miner, olive skin, short dark ... | 0.035 |
+| fal.ai Seedream 5.0 Lite (t2i) | paquete_02_base: The bandaged foot of a young Spanish migrant miner resting o... | 0.035 |
+| fal.ai Seedream 5.0 Lite (t2i) | paquete_03_base: Vast abandoned blue-grey asbestos tailings dumps spilling do... | 0.035 |
+
+Por rubro: **m09:paquetes** US$ 0.16794 · **casilleros** US$ 0.12233 · **fotos** US$ 0.105
+
+**Total US$ 0.3953**.
+
+`asegurar_canon`: no llamó a Flash (la marca `canon_ficha_md5` del topic coincidía con la ficha).
+
+## 7. Archivos
+
+- `output/123bbb64-9fca-4395-8bf4-57d60e219ef1/publish/metadata.json` (paquetes, descripción, tags) y `thumb_candidates/paquete_NN*.png` (no van a git)
+- `lab/hyperframes/f58/hoja_paquetes.jpg`, `parte_b.json` (todo), `parte_b.log` (stdout de la corrida)
+exit=0
