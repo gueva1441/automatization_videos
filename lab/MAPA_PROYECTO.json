@@ -759,7 +759,7 @@
    ],
    "tests": 9,
    "nacio": "e33f84a 2026-05-28",
-   "ultimo": "10f08c0 2026-10-30 (F59)",
+   "ultimo": "a2e32f3 2026-10-30 (F60)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase2a.py:55 importa process_script como asset_process y lo corre en la etapa assets (run_pipeline.py:340-342 lanza fase2a.py --topic); m09_packaging.py:489 lo usa para las miniaturas",
@@ -4787,7 +4787,7 @@
    ],
    "tests": 22,
    "nacio": "e33f84a 2026-05-28",
-   "ultimo": "724c948 2026-10-30 (F59)",
+   "ultimo": "a2e32f3 2026-10-30 (F60)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py:671 llama assign_visual_prompts dentro de process_topic (tramo audio -> m07 -> m03 que corre con --from normalizer_gate, el comando de la etapa voz en run_pipeline; también --only m03); script_engine/m09_packaging.py:40 importa DOCTRINE_* en tiempo de carga (fase3, etapa packaging).",
@@ -4802,7 +4802,7 @@
    "sin_llamador_a": [
     "_format_bullets"
    ],
-   "md5": "7da291a3f95b98b95937d6eb4d16bad6",
+   "md5": "87e41de401ab60235887657d9ed3ba15",
    "sticker_al_dia": true
   },
   "script_engine/m05_judge.py": {

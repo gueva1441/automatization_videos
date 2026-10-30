@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-30 (F60 Etapa A: casillero de ruteo `persona` en m03 — input del canon con el nombre, TEXTO_PERSONA byte a byte, esquema ARRAY/required, CLAVES_F8_PAPEL, _iter_image_items; `_format_visual_canon_block` borrado; m03 sobre la copia f60/base: las 96 fotos traen `persona` sin nombres en la prosa, pero Daniel sale en 4 (≈ 9 esperadas: «mi marido», «se casan», «los Écija» no disparan); PARÁ del grep: 2 «Court» como sustantivo; hallazgo: `_steps` tiene un guion nuevo del 29-oct 20:55 distinto del 03_visual y del audio; US$ 4,83 · PARADA A. Siguiente: analista decide grep «Court», texto del casillero para «la pareja/los Écija» y el guion desalineado; después Etapa B.)
+Última actualización: 2026-10-30 (F60 Etapa A2: `TEXTO_PERSONA` sin «or if unsure»; m03 caps 2-4 sobre la copia: Daniel pasa de 2 a 0 fotos en esos caps, María entra en baile y pista; diagnóstico: «same age and condition» + canon «one foot visibly bandaged» excluye a Daniel en toda escena sin venda (10/10 fotos con Daniel en 3 corridas tienen venda o cojera); control de nombres 0 PARÁ, 1 revisar («Court»); US$ 1,08 · PARADA A2. Siguiente: analista/Omar deciden la cláusula de condición o el canon; después Etapa B.)
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,19 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F60, PARADA A2): sacar «or if unsure» no trajo a Daniel; lo que lo deja afuera es la venda del canon.
+- Probado en caps 2-4 (una corrida, US$ 1,08): Daniel pasa de 2 fotos a 0; María entra en el baile y en la pista. Ningún falso positivo.
+- Por qué: el casillero pide la persona «con la misma edad y condición del canon», y el canon de Daniel dice «con un pie vendado». En las 3 corridas, las 10 fotos donde Opus puso a Daniel tienen la venda o la cojera; en el baile, la boda, el barco y la pista no hay venda, así que Opus lo excluye. Hay que decidir: sacar «and condition» del casillero, aclarar que el canon no excluye otras escenas, o separar identidad de estado en el canon.
+- Control de nombres con la regla nueva: 0 PARÁ; 1 «revisar» («Court» = sala del tribunal).
+- Suites limpias (ch02 en candado, rápida 53, amplia 1295 + las 4 previas). Reporte: `lab/hyperframes/f60/F60_REPORT.md` §Etapa A2; `SALIDA_A2.md`.
+
+## F60 Etapa A2 — «or if unsure» fuera — PARADA A2
+- m03_visual `TEXTO_PERSONA`: «…, if they appear inside a photograph or picture within the scene, or if unsure.» → «…, or if they appear inside a photograph or picture within the scene.» (constante entera antes/después en SALIDA_A2). Sticker m03_visual, MAPA 0. DECISIONES ×2 (19:35) tal cual, CRLF.
+- Runner `etapa_a2_m03.py` (copia de etapa_a_m03 con las entradas de la corrida 2; caps 2-4 llaman a Opus, los otros 4 vienen de la referencia a/03_visual_despues.json vía envoltura del executor; pase F8 de video no tocó nada fuera de 2-4). 209,3 s, US$ 1,0826. Emparejamiento por ancla: 8/16, 8/16, 8/14 pares (Gemini cortó las anclas distinto); cambios de persona 2/0/0; 44 anclas sin par aparte. Tabla a: Daniel 0/8 escenas; b: 0 falsos positivos; c: por cap.
+- Revisor Etapa A2: CUMPLE CON OBSERVACIONES (wrapper de caps respeta «solo 2-4» con el pase F8 sobre los 7 como riesgo declarado; 54 % de fotos sin par por ancla → cambios débiles; diagnóstico de la venda verificado 9/9 por el revisor, 10/10 con la foto del clip; resultado negativo dicho sin maquillar; «Court» en revisar); veredicto íntegro + adenda en F60_REPORT.md §Etapa A2.
+- Abiertos: cláusula «and condition» + venda del canon (decisión); anclas inestables entre corridas (fijar paso 1 para A/B); n=1; «Court» en revisar; método de caps parciales depende del refill F8.
+- PARADA A2: no se pasa a la Etapa B sin OK del analista y de Omar.
 
 ## 👀 Para Omar (F60, PARADA A): el casillero `persona` ya sale de m03, pero Opus deja a Daniel fuera cuando la voz no lo nombra.
 - m03 ahora devuelve por foto `persona`: la lista de nombres del canon de quién sale (solo ruteo, no va a la foto). Las 96 fotos de Wittenoom lo traen y ningún nombre se coló en la prosa.

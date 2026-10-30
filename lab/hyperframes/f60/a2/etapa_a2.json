@@ -1,0 +1,1070 @@
+{
+ "tid": "123bbb64-9fca-4395-8bf4-57d60e219ef1",
+ "caps": [
+  2,
+  3,
+  4
+ ],
+ "segundos": 209.3,
+ "usd": 1.0826,
+ "texto_persona": "- persona: a LIST with the exact name, as written in PERSONAS DOCUMENTADAS, of each documented person who is recognisably shown in THIS image (even from behind), at the same age and condition the canon describes — the main one first, at most TWO; [] if none, if only a body part is shown, or if they appear inside a photograph or picture within the scene. Routing only — not rendered as text.",
+ "fuera_identicos": {
+  "1": true,
+  "5": true,
+  "6": true,
+  "7": true
+ },
+ "conteos": {
+  "2": {
+   "referencia": 16,
+   "a2": 16
+  },
+  "3": {
+   "referencia": 16,
+   "a2": 16
+  },
+  "4": {
+   "referencia": 14,
+   "a2": 14
+  }
+ },
+ "pares": [
+  {
+   "cap": 2,
+   "k": 1,
+   "i_a2": 0,
+   "i_ref": 0,
+   "ancla": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal.",
+   "persona_ref": [],
+   "persona_a2": [
+    "María Bernal"
+   ],
+   "year": "1961",
+   "cambio": true,
+   "parrafo": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal. Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos. Cuatro días más tarde ya están en el barco. Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles. De Wittenoom no saben nada; saben que hay trabajo y que van juntos. «Iba pegadita a mi marido, como una niña», recuerda su mujer. Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan. Esa familia madrileña había hecho el mismo viaje un mes antes. Un niño que hizo ese viaje todavía recuerda el calor."
+  },
+  {
+   "cap": 2,
+   "k": 1,
+   "i_a2": 3,
+   "i_ref": 4,
+   "ancla": "«Iba pegadita a mi marido, como una niña», recuerda su mujer.",
+   "persona_ref": [
+    "María Bernal"
+   ],
+   "persona_a2": [
+    "María Bernal"
+   ],
+   "year": "1962",
+   "cambio": false,
+   "parrafo": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal. Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos. Cuatro días más tarde ya están en el barco. Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles. De Wittenoom no saben nada; saben que hay trabajo y que van juntos. «Iba pegadita a mi marido, como una niña», recuerda su mujer. Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan. Esa familia madrileña había hecho el mismo viaje un mes antes. Un niño que hizo ese viaje todavía recuerda el calor."
+  },
+  {
+   "cap": 2,
+   "k": 1,
+   "i_a2": 4,
+   "i_ref": 5,
+   "ancla": "Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan.",
+   "persona_ref": [
+    "Milagros Barroso",
+    "Ramón de Juan"
+   ],
+   "persona_a2": [
+    "Milagros Barroso",
+    "Ramón de Juan"
+   ],
+   "year": "1963",
+   "cambio": false,
+   "parrafo": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal. Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos. Cuatro días más tarde ya están en el barco. Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles. De Wittenoom no saben nada; saben que hay trabajo y que van juntos. «Iba pegadita a mi marido, como una niña», recuerda su mujer. Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan. Esa familia madrileña había hecho el mismo viaje un mes antes. Un niño que hizo ese viaje todavía recuerda el calor."
+  },
+  {
+   "cap": 2,
+   "k": 1,
+   "i_a2": 5,
+   "i_ref": 6,
+   "ancla": "Esa familia madrileña había hecho el mismo viaje un mes antes.",
+   "persona_ref": [
+    "Milagros Barroso",
+    "Víctor Calvo"
+   ],
+   "persona_a2": [],
+   "year": "1962",
+   "cambio": true,
+   "parrafo": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal. Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos. Cuatro días más tarde ya están en el barco. Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles. De Wittenoom no saben nada; saben que hay trabajo y que van juntos. «Iba pegadita a mi marido, como una niña», recuerda su mujer. Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan. Esa familia madrileña había hecho el mismo viaje un mes antes. Un niño que hizo ese viaje todavía recuerda el calor."
+  },
+  {
+   "cap": 2,
+   "k": 1,
+   "i_a2": 8,
+   "i_ref": 8,
+   "ancla": "«Salimos de Málaga y tardamos más de 20 días en llegar en barco a Australia», dice Calvo.",
+   "persona_ref": [],
+   "persona_a2": [],
+   "year": "1962",
+   "cambio": false,
+   "parrafo": "Víctor Calvo era un niño cuando subió a ese barco. «Salimos de Málaga y tardamos más de 20 días en llegar en barco a Australia», dice Calvo. Recuerda el canal de Suez y el calor que hacía ahí, un calor que todavía lo hace resoplar cuando lo cuenta. Recuerda los mareos. Y la incertidumbre: no saber muy bien adónde iban ni cómo iban a vivir."
+  },
+  {
+   "cap": 2,
+   "k": 1,
+   "i_a2": 9,
+   "i_ref": 9,
+   "ancla": "Recuerda el canal de Suez y el calor que hacía ahí, un calor que todavía lo hace resoplar cuando lo cuenta.",
+   "persona_ref": [],
+   "persona_a2": [],
+   "year": "1962",
+   "cambio": false,
+   "parrafo": "Víctor Calvo era un niño cuando subió a ese barco. «Salimos de Málaga y tardamos más de 20 días en llegar en barco a Australia», dice Calvo. Recuerda el canal de Suez y el calor que hacía ahí, un calor que todavía lo hace resoplar cuando lo cuenta. Recuerda los mareos. Y la incertidumbre: no saber muy bien adónde iban ni cómo iban a vivir."
+  },
+  {
+   "cap": 2,
+   "k": 1,
+   "i_a2": 10,
+   "i_ref": 10,
+   "ancla": "Recuerda los mareos. Y la incertidumbre: no saber muy bien adónde iban ni cómo iban a vivir.",
+   "persona_ref": [
+    "Víctor Calvo",
+    "Milagros Barroso"
+   ],
+   "persona_a2": [
+    "Víctor Calvo",
+    "Milagros Barroso"
+   ],
+   "year": "1962",
+   "cambio": false,
+   "parrafo": "Víctor Calvo era un niño cuando subió a ese barco. «Salimos de Málaga y tardamos más de 20 días en llegar en barco a Australia», dice Calvo. Recuerda el canal de Suez y el calor que hacía ahí, un calor que todavía lo hace resoplar cuando lo cuenta. Recuerda los mareos. Y la incertidumbre: no saber muy bien adónde iban ni cómo iban a vivir."
+  },
+  {
+   "cap": 2,
+   "k": 1,
+   "i_a2": 11,
+   "i_ref": 11,
+   "ancla": "Después del barco, un avión pequeño, de hélices, que se sacude durante todo el vuelo.",
+   "persona_ref": [],
+   "persona_a2": [],
+   "year": "1962",
+   "cambio": false,
+   "parrafo": "Después del barco, un avión pequeño, de hélices, que se sacude durante todo el vuelo. Aterriza en una pista en medio de una tierra muy roja, en el desierto de Pilbara, en Australia Occidental. Hay polvo por todas partes. Ese niño cuenta que nunca había visto tanto polvo. Los llevan a las casas: chapa, madera y uralita. La familia de Juan-Barroso había llegado en agosto de mil novecientos sesenta y dos. De esa tierra sacan crocidolita, el asbesto azul, un mineral que se paga bien porque aguanta el calor y no se gasta. Nadie les dijo qué era el polvo. La compañía lo sabía desde hacía dieciocho años."
+  },
+  {
+   "cap": 3,
+   "k": 2,
+   "i_a2": 0,
+   "i_ref": 0,
+   "ancla": "En mil novecientos cuarenta y cuatro, el inspector de minas y el ingeniero de minas Adjunto del Estado ya habían informado sobre el problema del polvo.",
+   "persona_ref": [],
+   "persona_a2": [],
+   "year": "1944",
+   "cambio": false,
+   "parrafo": "En mil novecientos cuarenta y cuatro, el inspector de minas y el ingeniero de minas Adjunto del Estado ya habían informado sobre el problema del polvo. En mil novecientos cuarenta y seis ya había diagnósticos de asbestosis, y un inspector describió las condiciones de trabajo como terroríficas. La mina era entonces de ABA, una filial de CSR que en mil novecientos cuarenta y tres había tomado los intereses de Hancock y Wright."
+  },
+  {
+   "cap": 3,
+   "k": 2,
+   "i_a2": 1,
+   "i_ref": 1,
+   "ancla": "En mil novecientos cuarenta y seis ya había diagnósticos de asbestosis, y un inspector describió las condiciones de trabajo como terroríficas.",
+   "persona_ref": [],
+   "persona_a2": [],
+   "year": "1946",
+   "cambio": false,
+   "parrafo": "En mil novecientos cuarenta y cuatro, el inspector de minas y el ingeniero de minas Adjunto del Estado ya habían informado sobre el problema del polvo. En mil novecientos cuarenta y seis ya había diagnósticos de asbestosis, y un inspector describió las condiciones de trabajo como terroríficas. La mina era entonces de ABA, una filial de CSR que en mil novecientos cuarenta y tres había tomado los intereses de Hancock y Wright."
+  },
+  {
+   "cap": 3,
+   "k": 2,
+   "i_a2": 2,
+   "i_ref": 2,
+   "ancla": "La mina era entonces de ABA, una filial de CSR que en mil novecientos cuarenta y tres había tomado los intereses de Hancock y Wright.",
+   "persona_ref": [],
+   "persona_a2": [],
+   "year": "1943",
+   "cambio": false,
+   "parrafo": "En mil novecientos cuarenta y cuatro, el inspector de minas y el ingeniero de minas Adjunto del Estado ya habían informado sobre el problema del polvo. En mil novecientos cuarenta y seis ya había diagnósticos de asbestosis, y un inspector describió las condiciones de trabajo como terroríficas. La mina era entonces de ABA, una filial de CSR que en mil novecientos cuarenta y tres había tomado los intereses de Hancock y Wright."
+  },
+  {
+   "cap": 3,
+   "k": 2,
+   "i_a2": 3,
+   "i_ref": 3,
+   "ancla": "Mil novecientos cuarenta y ocho. Un médico llega en avión y escribe una carta a máquina: los niveles de polvo son extremadamente peligrosos.",
+   "persona_ref": [
+    "Eric Saint"
+   ],
+   "persona_a2": [
+    "Eric Saint"
+   ],
+   "year": "1948",
+   "cambio": false,
+   "parrafo": "Mil novecientos cuarenta y ocho. Un médico llega en avión y escribe una carta a máquina: los niveles de polvo son extremadamente peligrosos. El médico escribe que en un año o dos ABA va a producir la cosecha más abundante y letal de casos de asbestosis de la literatura mundial, y que convendría examinar algunos de esos tórax. Se llama Eric Saint. Lo que pasó con la carta lo contó él mismo: «Me desestimaron y, de hecho, me tildaron de alborotador», dijo Saint."
+  },
+  {
+   "cap": 3,
+   "k": 2,
+   "i_a2": 4,
+   "i_ref": 4,
+   "ancla": "El médico escribe que en un año o dos ABA va a producir la cosecha más abundante y letal de casos de asbestosis de la literatura mundial",
+   "persona_ref": [],
+   "persona_a2": [],
+   "year": "1948",
+   "cambio": false,
+   "parrafo": "Mil novecientos cuarenta y ocho. Un médico llega en avión y escribe una carta a máquina: los niveles de polvo son extremadamente peligrosos. El médico escribe que en un año o dos ABA va a producir la cosecha más abundante y letal de casos de asbestosis de la literatura mundial, y que convendría examinar algunos de esos tórax. Se llama Eric Saint. Lo que pasó con la carta lo contó él mismo: «Me desestimaron y, de hecho, me tildaron de alborotador», dijo Saint."
+  },
+  {
+   "cap": 3,
+   "k": 2,
+   "i_a2": 7,
+   "i_ref": 6,
+   "ancla": "Un año después, en una sala de arbitraje, la empresa contestó a los que hablaban del polvo.",
+   "persona_ref": [],
+   "persona_a2": [],
+   "year": "1949",
+   "cambio": false,
+   "parrafo": "Un año después, en una sala de arbitraje, la empresa contestó a los que hablaban del polvo. «El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso», dijo el defensor del empleador. Nueve años después, otro organismo entró al molino y escribió lo que vio."
+  },
+  {
+   "cap": 3,
+   "k": 2,
+   "i_a2": 8,
+   "i_ref": 7,
+   "ancla": "«El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso», dijo el defensor del empleador.",
+   "persona_ref": [],
+   "persona_a2": [],
+   "year": "1949",
+   "cambio": false,
+   "parrafo": "Un año después, en una sala de arbitraje, la empresa contestó a los que hablaban del polvo. «El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso», dijo el defensor del empleador. Nueve años después, otro organismo entró al molino y escribió lo que vio."
+  },
+  {
+   "cap": 3,
+   "k": 2,
+   "i_a2": 12,
+   "i_ref": 11,
+   "ancla": "Siete meses después, con unos equipos reductores de polvo ya instalados, el suplemento salarial por polvo se redujo y se restringió.",
+   "persona_ref": [],
+   "persona_a2": [],
+   "year": "1957",
+   "cambio": false,
+   "parrafo": "Mil novecientos cincuenta y siete. La Junta de Referencia entra al molino y deja constancia: condiciones extremadamente polvorientas, trabajadores cubiertos de polvo de pies a cabeza. «Una espesa nube de polvo estaba presente en las inmediaciones del molino», escribió la Junta. Siete meses después, con unos equipos reductores de polvo ya instalados, el suplemento salarial por polvo se redujo y se restringió."
+  },
+  {
+   "cap": 4,
+   "k": 3,
+   "i_a2": 0,
+   "i_ref": 0,
+   "ancla": "Los chicos del pueblo juegan con el mineral.",
+   "persona_ref": [],
+   "persona_a2": [],
+   "year": "1963",
+   "cambio": false,
+   "parrafo": "Los chicos del pueblo juegan con el mineral. Víctor Calvo lo cuenta: «Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo». Estaban rodeados de amianto azul y no les daba miedo. Tampoco había dónde no estar rodeados. Los relaves del molino se usaron para construir el pueblo y la pista de aterrizaje. Se extendieron como suelo en las carreteras, en los patios, en los espacios públicos: el acceso a la escuela, el jardín de infantes, la iglesia. El pueblo entero estaba hecho de eso. Y en ese pueblo, en junio de mil novecientos sesenta y tres, nació un niño."
+  },
+  {
+   "cap": 4,
+   "k": 3,
+   "i_a2": 4,
+   "i_ref": 4,
+   "ancla": "Los relaves del molino se usaron para construir el pueblo y la pista de aterrizaje.",
+   "persona_ref": [],
+   "persona_a2": [],
+   "year": "1963",
+   "cambio": false,
+   "parrafo": "Los chicos del pueblo juegan con el mineral. Víctor Calvo lo cuenta: «Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo». Estaban rodeados de amianto azul y no les daba miedo. Tampoco había dónde no estar rodeados. Los relaves del molino se usaron para construir el pueblo y la pista de aterrizaje. Se extendieron como suelo en las carreteras, en los patios, en los espacios públicos: el acceso a la escuela, el jardín de infantes, la iglesia. El pueblo entero estaba hecho de eso. Y en ese pueblo, en junio de mil novecientos sesenta y tres, nació un niño."
+  },
+  {
+   "cap": 4,
+   "k": 3,
+   "i_a2": 5,
+   "i_ref": 5,
+   "ancla": "Se extendieron como suelo en las carreteras, en los patios, en los espacios públicos: el acceso a la escuela, el jardín de infantes, la iglesia.",
+   "persona_ref": [],
+   "persona_a2": [],
+   "year": "1963",
+   "cambio": false,
+   "parrafo": "Los chicos del pueblo juegan con el mineral. Víctor Calvo lo cuenta: «Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo». Estaban rodeados de amianto azul y no les daba miedo. Tampoco había dónde no estar rodeados. Los relaves del molino se usaron para construir el pueblo y la pista de aterrizaje. Se extendieron como suelo en las carreteras, en los patios, en los espacios públicos: el acceso a la escuela, el jardín de infantes, la iglesia. El pueblo entero estaba hecho de eso. Y en ese pueblo, en junio de mil novecientos sesenta y tres, nació un niño."
+  },
+  {
+   "cap": 4,
+   "k": 3,
+   "i_a2": 6,
+   "i_ref": 6,
+   "ancla": "El pueblo entero estaba hecho de eso.",
+   "persona_ref": [],
+   "persona_a2": [],
+   "year": "1963",
+   "cambio": false,
+   "parrafo": "Los chicos del pueblo juegan con el mineral. Víctor Calvo lo cuenta: «Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo». Estaban rodeados de amianto azul y no les daba miedo. Tampoco había dónde no estar rodeados. Los relaves del molino se usaron para construir el pueblo y la pista de aterrizaje. Se extendieron como suelo en las carreteras, en los patios, en los espacios públicos: el acceso a la escuela, el jardín de infantes, la iglesia. El pueblo entero estaba hecho de eso. Y en ese pueblo, en junio de mil novecientos sesenta y tres, nació un niño."
+  },
+  {
+   "cap": 4,
+   "k": 3,
+   "i_a2": 7,
+   "i_ref": 7,
+   "ancla": "Y en ese pueblo, en junio de mil novecientos sesenta y tres, nació un niño.",
+   "persona_ref": [],
+   "persona_a2": [],
+   "year": "1963",
+   "cambio": false,
+   "parrafo": "Los chicos del pueblo juegan con el mineral. Víctor Calvo lo cuenta: «Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo». Estaban rodeados de amianto azul y no les daba miedo. Tampoco había dónde no estar rodeados. Los relaves del molino se usaron para construir el pueblo y la pista de aterrizaje. Se extendieron como suelo en las carreteras, en los patios, en los espacios públicos: el acceso a la escuela, el jardín de infantes, la iglesia. El pueblo entero estaba hecho de eso. Y en ese pueblo, en junio de mil novecientos sesenta y tres, nació un niño."
+  },
+  {
+   "cap": 4,
+   "k": 3,
+   "i_a2": 8,
+   "i_ref": 8,
+   "ancla": "Daniel trabajaba en la mina. Ramón de Juan, el amigo, hacía jornadas de dieciséis horas.",
+   "persona_ref": [
+    "Ramón de Juan"
+   ],
+   "persona_a2": [
+    "Ramón de Juan"
+   ],
+   "year": "1962",
+   "cambio": false,
+   "parrafo": "Daniel trabajaba en la mina. Ramón de Juan, el amigo, hacía jornadas de dieciséis horas. Uno de los hijos de Daniel cuenta que el primer día de trabajo de su padre hubo una explosión y murió gente. En marzo de mil novecientos sesenta y tres, Milagros Barroso dio a luz en Wittenoom a John Patrick. Tres meses después le tocó a María. Llegó al hospital de Wittenoom debilitada por una infección renal. El bebé era muy grande. Lo sacaron con fórceps. Le pusieron Daniel, como el padre. Hay una foto del bautizo: siete de julio de mil novecientos sesenta y tres. Después de esa foto, las maletas. Diez meses en Wittenoom. Se fueron antes de que nadie les dijera nada. Nadie les había dicho nada."
+  },
+  {
+   "cap": 4,
+   "k": 3,
+   "i_a2": 9,
+   "i_ref": 9,
+   "ancla": "Uno de los hijos de Daniel cuenta que el primer día de trabajo de su padre hubo una explosión y murió gente.",
+   "persona_ref": [],
+   "persona_a2": [],
+   "year": "1962",
+   "cambio": false,
+   "parrafo": "Daniel trabajaba en la mina. Ramón de Juan, el amigo, hacía jornadas de dieciséis horas. Uno de los hijos de Daniel cuenta que el primer día de trabajo de su padre hubo una explosión y murió gente. En marzo de mil novecientos sesenta y tres, Milagros Barroso dio a luz en Wittenoom a John Patrick. Tres meses después le tocó a María. Llegó al hospital de Wittenoom debilitada por una infección renal. El bebé era muy grande. Lo sacaron con fórceps. Le pusieron Daniel, como el padre. Hay una foto del bautizo: siete de julio de mil novecientos sesenta y tres. Después de esa foto, las maletas. Diez meses en Wittenoom. Se fueron antes de que nadie les dijera nada. Nadie les había dicho nada."
+  },
+  {
+   "cap": 4,
+   "k": 3,
+   "i_a2": 10,
+   "i_ref": 10,
+   "ancla": "En marzo de mil novecientos sesenta y tres, Milagros Barroso dio a luz en Wittenoom a John Patrick.",
+   "persona_ref": [
+    "Milagros Barroso",
+    "John Patrick"
+   ],
+   "persona_a2": [
+    "Milagros Barroso",
+    "John Patrick"
+   ],
+   "year": "1963",
+   "cambio": false,
+   "parrafo": "Daniel trabajaba en la mina. Ramón de Juan, el amigo, hacía jornadas de dieciséis horas. Uno de los hijos de Daniel cuenta que el primer día de trabajo de su padre hubo una explosión y murió gente. En marzo de mil novecientos sesenta y tres, Milagros Barroso dio a luz en Wittenoom a John Patrick. Tres meses después le tocó a María. Llegó al hospital de Wittenoom debilitada por una infección renal. El bebé era muy grande. Lo sacaron con fórceps. Le pusieron Daniel, como el padre. Hay una foto del bautizo: siete de julio de mil novecientos sesenta y tres. Después de esa foto, las maletas. Diez meses en Wittenoom. Se fueron antes de que nadie les dijera nada. Nadie les había dicho nada."
+  }
+ ],
+ "sin_par": [
+  {
+   "cap": 2,
+   "i_a2": 1,
+   "ancla": "Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos. Cuatro días más tarde ya están en el barco.",
+   "persona_a2": [
+    "María Bernal"
+   ],
+   "parrafo": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal. Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos. Cuatro días más tarde ya están en el barco. Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles. De Wittenoom no saben nada; saben que hay trabajo y que van juntos. «Iba pegadita a mi marido, como una niña», recuerda su mujer. Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan. Esa familia madrileña había hecho el mismo viaje un mes antes. Un niño que hizo ese viaje todavía recuerda el calor."
+  },
+  {
+   "cap": 2,
+   "i_a2": 2,
+   "ancla": "Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles. De Wittenoom no saben nada; saben que hay trabajo y que van juntos.",
+   "persona_a2": [],
+   "parrafo": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal. Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos. Cuatro días más tarde ya están en el barco. Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles. De Wittenoom no saben nada; saben que hay trabajo y que van juntos. «Iba pegadita a mi marido, como una niña», recuerda su mujer. Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan. Esa familia madrileña había hecho el mismo viaje un mes antes. Un niño que hizo ese viaje todavía recuerda el calor."
+  },
+  {
+   "cap": 2,
+   "i_a2": 6,
+   "ancla": "Un niño que hizo ese viaje todavía recuerda el calor.",
+   "persona_a2": [
+    "Víctor Calvo"
+   ],
+   "parrafo": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal. Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos. Cuatro días más tarde ya están en el barco. Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles. De Wittenoom no saben nada; saben que hay trabajo y que van juntos. «Iba pegadita a mi marido, como una niña», recuerda su mujer. Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan. Esa familia madrileña había hecho el mismo viaje un mes antes. Un niño que hizo ese viaje todavía recuerda el calor."
+  },
+  {
+   "cap": 2,
+   "i_a2": 7,
+   "ancla": "Víctor Calvo era un niño cuando subió a ese barco.",
+   "persona_a2": [
+    "Víctor Calvo",
+    "Milagros Barroso"
+   ],
+   "parrafo": "Víctor Calvo era un niño cuando subió a ese barco. «Salimos de Málaga y tardamos más de 20 días en llegar en barco a Australia», dice Calvo. Recuerda el canal de Suez y el calor que hacía ahí, un calor que todavía lo hace resoplar cuando lo cuenta. Recuerda los mareos. Y la incertidumbre: no saber muy bien adónde iban ni cómo iban a vivir."
+  },
+  {
+   "cap": 2,
+   "i_a2": 12,
+   "ancla": "Aterriza en una pista en medio de una tierra muy roja, en el desierto de Pilbara, en Australia Occidental. Hay polvo por todas partes.",
+   "persona_a2": [],
+   "parrafo": "Después del barco, un avión pequeño, de hélices, que se sacude durante todo el vuelo. Aterriza en una pista en medio de una tierra muy roja, en el desierto de Pilbara, en Australia Occidental. Hay polvo por todas partes. Ese niño cuenta que nunca había visto tanto polvo. Los llevan a las casas: chapa, madera y uralita. La familia de Juan-Barroso había llegado en agosto de mil novecientos sesenta y dos. De esa tierra sacan crocidolita, el asbesto azul, un mineral que se paga bien porque aguanta el calor y no se gasta. Nadie les dijo qué era el polvo. La compañía lo sabía desde hacía dieciocho años."
+  },
+  {
+   "cap": 2,
+   "i_a2": 13,
+   "ancla": "Ese niño cuenta que nunca había visto tanto polvo. Los llevan a las casas: chapa, madera y uralita.",
+   "persona_a2": [
+    "Víctor Calvo",
+    "Milagros Barroso"
+   ],
+   "parrafo": "Después del barco, un avión pequeño, de hélices, que se sacude durante todo el vuelo. Aterriza en una pista en medio de una tierra muy roja, en el desierto de Pilbara, en Australia Occidental. Hay polvo por todas partes. Ese niño cuenta que nunca había visto tanto polvo. Los llevan a las casas: chapa, madera y uralita. La familia de Juan-Barroso había llegado en agosto de mil novecientos sesenta y dos. De esa tierra sacan crocidolita, el asbesto azul, un mineral que se paga bien porque aguanta el calor y no se gasta. Nadie les dijo qué era el polvo. La compañía lo sabía desde hacía dieciocho años."
+  },
+  {
+   "cap": 2,
+   "i_a2": 14,
+   "ancla": "De esa tierra sacan crocidolita, el asbesto azul, un mineral que se paga bien porque aguanta el calor y no se gasta.",
+   "persona_a2": [],
+   "parrafo": "Después del barco, un avión pequeño, de hélices, que se sacude durante todo el vuelo. Aterriza en una pista en medio de una tierra muy roja, en el desierto de Pilbara, en Australia Occidental. Hay polvo por todas partes. Ese niño cuenta que nunca había visto tanto polvo. Los llevan a las casas: chapa, madera y uralita. La familia de Juan-Barroso había llegado en agosto de mil novecientos sesenta y dos. De esa tierra sacan crocidolita, el asbesto azul, un mineral que se paga bien porque aguanta el calor y no se gasta. Nadie les dijo qué era el polvo. La compañía lo sabía desde hacía dieciocho años."
+  },
+  {
+   "cap": 2,
+   "i_a2": 15,
+   "ancla": "Nadie les dijo qué era el polvo. La compañía lo sabía desde hacía dieciocho años.",
+   "persona_a2": [],
+   "parrafo": "Después del barco, un avión pequeño, de hélices, que se sacude durante todo el vuelo. Aterriza en una pista en medio de una tierra muy roja, en el desierto de Pilbara, en Australia Occidental. Hay polvo por todas partes. Ese niño cuenta que nunca había visto tanto polvo. Los llevan a las casas: chapa, madera y uralita. La familia de Juan-Barroso había llegado en agosto de mil novecientos sesenta y dos. De esa tierra sacan crocidolita, el asbesto azul, un mineral que se paga bien porque aguanta el calor y no se gasta. Nadie les dijo qué era el polvo. La compañía lo sabía desde hacía dieciocho años."
+  },
+  {
+   "cap": 2,
+   "i_ref": 1,
+   "ancla": "Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos.",
+   "persona_ref": [
+    "María Bernal"
+   ],
+   "solo_en_referencia": true
+  },
+  {
+   "cap": 2,
+   "i_ref": 2,
+   "ancla": "Cuatro días más tarde ya están en el barco. Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles.",
+   "persona_ref": [],
+   "solo_en_referencia": true
+  },
+  {
+   "cap": 2,
+   "i_ref": 3,
+   "ancla": "De Wittenoom no saben nada; saben que hay trabajo y que van juntos.",
+   "persona_ref": [
+    "María Bernal"
+   ],
+   "solo_en_referencia": true
+  },
+  {
+   "cap": 2,
+   "i_ref": 7,
+   "ancla": "Un niño que hizo ese viaje todavía recuerda el calor. Víctor Calvo era un niño cuando subió a ese barco.",
+   "persona_ref": [
+    "Víctor Calvo"
+   ],
+   "solo_en_referencia": true
+  },
+  {
+   "cap": 2,
+   "i_ref": 12,
+   "ancla": "Aterriza en una pista en medio de una tierra muy roja, en el desierto de Pilbara, en Australia Occidental.",
+   "persona_ref": [],
+   "solo_en_referencia": true
+  },
+  {
+   "cap": 2,
+   "i_ref": 13,
+   "ancla": "Hay polvo por todas partes. Ese niño cuenta que nunca había visto tanto polvo.",
+   "persona_ref": [
+    "Víctor Calvo"
+   ],
+   "solo_en_referencia": true
+  },
+  {
+   "cap": 2,
+   "i_ref": 14,
+   "ancla": "Los llevan a las casas: chapa, madera y uralita. La familia de Juan-Barroso había llegado en agosto de mil novecientos sesenta y dos.",
+   "persona_ref": [],
+   "solo_en_referencia": true
+  },
+  {
+   "cap": 2,
+   "i_ref": 15,
+   "ancla": "De esa tierra sacan crocidolita, el asbesto azul, un mineral que se paga bien porque aguanta el calor y no se gasta. Nadie les dijo qué era el polvo. La compañía lo sabía desde hacía dieciocho años.",
+   "persona_ref": [],
+   "solo_en_referencia": true
+  },
+  {
+   "cap": 3,
+   "i_a2": 5,
+   "ancla": "y que convendría examinar algunos de esos tórax. Se llama Eric Saint.",
+   "persona_a2": [
+    "Eric Saint"
+   ],
+   "parrafo": "Mil novecientos cuarenta y ocho. Un médico llega en avión y escribe una carta a máquina: los niveles de polvo son extremadamente peligrosos. El médico escribe que en un año o dos ABA va a producir la cosecha más abundante y letal de casos de asbestosis de la literatura mundial, y que convendría examinar algunos de esos tórax. Se llama Eric Saint. Lo que pasó con la carta lo contó él mismo: «Me desestimaron y, de hecho, me tildaron de alborotador», dijo Saint."
+  },
+  {
+   "cap": 3,
+   "i_a2": 6,
+   "ancla": "Lo que pasó con la carta lo contó él mismo: «Me desestimaron y, de hecho, me tildaron de alborotador», dijo Saint.",
+   "persona_a2": [
+    "Eric Saint"
+   ],
+   "parrafo": "Mil novecientos cuarenta y ocho. Un médico llega en avión y escribe una carta a máquina: los niveles de polvo son extremadamente peligrosos. El médico escribe que en un año o dos ABA va a producir la cosecha más abundante y letal de casos de asbestosis de la literatura mundial, y que convendría examinar algunos de esos tórax. Se llama Eric Saint. Lo que pasó con la carta lo contó él mismo: «Me desestimaron y, de hecho, me tildaron de alborotador», dijo Saint."
+  },
+  {
+   "cap": 3,
+   "i_a2": 9,
+   "ancla": "Nueve años después, otro organismo entró al molino y escribió lo que vio. Mil novecientos cincuenta y siete.",
+   "persona_a2": [],
+   "parrafo": "Un año después, en una sala de arbitraje, la empresa contestó a los que hablaban del polvo. «El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso», dijo el defensor del empleador. Nueve años después, otro organismo entró al molino y escribió lo que vio."
+  },
+  {
+   "cap": 3,
+   "i_a2": 10,
+   "ancla": "La Junta de Referencia entra al molino y deja constancia: condiciones extremadamente polvorientas, trabajadores cubiertos de polvo de pies a cabeza.",
+   "persona_a2": [],
+   "parrafo": "Mil novecientos cincuenta y siete. La Junta de Referencia entra al molino y deja constancia: condiciones extremadamente polvorientas, trabajadores cubiertos de polvo de pies a cabeza. «Una espesa nube de polvo estaba presente en las inmediaciones del molino», escribió la Junta. Siete meses después, con unos equipos reductores de polvo ya instalados, el suplemento salarial por polvo se redujo y se restringió."
+  },
+  {
+   "cap": 3,
+   "i_a2": 11,
+   "ancla": "«Una espesa nube de polvo estaba presente en las inmediaciones del molino», escribió la Junta.",
+   "persona_a2": [],
+   "parrafo": "Mil novecientos cincuenta y siete. La Junta de Referencia entra al molino y deja constancia: condiciones extremadamente polvorientas, trabajadores cubiertos de polvo de pies a cabeza. «Una espesa nube de polvo estaba presente en las inmediaciones del molino», escribió la Junta. Siete meses después, con unos equipos reductores de polvo ya instalados, el suplemento salarial por polvo se redujo y se restringió."
+  },
+  {
+   "cap": 3,
+   "i_a2": 13,
+   "ancla": "CSR venía de la industria azucarera y tenía muy poca experiencia en minas. Los reguladores del Estado hicieron poco más que emitir advertencias y pedir equipos para el polvo.",
+   "persona_a2": [],
+   "parrafo": "CSR venía de la industria azucarera y tenía muy poca experiencia en minas. Los reguladores del Estado hicieron poco más que emitir advertencias y pedir equipos para el polvo. Jim McNulty lo explicó así: cuando las Casandras advirtieron que el polvo era un problema y predijeron la enfermedad, en la industria minera no se encendieron las alarmas, «porque estaban acostumbrados; lo esperaban», dijo McNulty."
+  },
+  {
+   "cap": 3,
+   "i_a2": 14,
+   "ancla": "Jim McNulty lo explicó así: cuando las Casandras advirtieron que el polvo era un problema y predijeron la enfermedad, en la industria minera no se encendieron las alarmas",
+   "persona_a2": [],
+   "parrafo": "CSR venía de la industria azucarera y tenía muy poca experiencia en minas. Los reguladores del Estado hicieron poco más que emitir advertencias y pedir equipos para el polvo. Jim McNulty lo explicó así: cuando las Casandras advirtieron que el polvo era un problema y predijeron la enfermedad, en la industria minera no se encendieron las alarmas, «porque estaban acostumbrados; lo esperaban», dijo McNulty."
+  },
+  {
+   "cap": 3,
+   "i_a2": 15,
+   "ancla": "«porque estaban acostumbrados; lo esperaban», dijo McNulty. En mil novecientos sesenta y uno la producción subió. Al año siguiente, los Écija bajaban de aquel avión.",
+   "persona_a2": [
+    "María Bernal"
+   ],
+   "parrafo": "CSR venía de la industria azucarera y tenía muy poca experiencia en minas. Los reguladores del Estado hicieron poco más que emitir advertencias y pedir equipos para el polvo. Jim McNulty lo explicó así: cuando las Casandras advirtieron que el polvo era un problema y predijeron la enfermedad, en la industria minera no se encendieron las alarmas, «porque estaban acostumbrados; lo esperaban», dijo McNulty."
+  },
+  {
+   "cap": 3,
+   "i_ref": 5,
+   "ancla": "Se llama Eric Saint. Lo que pasó con la carta lo contó él mismo: «Me desestimaron y, de hecho, me tildaron de alborotador», dijo Saint.",
+   "persona_ref": [
+    "Eric Saint"
+   ],
+   "solo_en_referencia": true
+  },
+  {
+   "cap": 3,
+   "i_ref": 8,
+   "ancla": "Nueve años después, otro organismo entró al molino y escribió lo que vio.",
+   "persona_ref": [],
+   "solo_en_referencia": true
+  },
+  {
+   "cap": 3,
+   "i_ref": 9,
+   "ancla": "Mil novecientos cincuenta y siete. La Junta de Referencia entra al molino y deja constancia: condiciones extremadamente polvorientas",
+   "persona_ref": [],
+   "solo_en_referencia": true
+  },
+  {
+   "cap": 3,
+   "i_ref": 10,
+   "ancla": "trabajadores cubiertos de polvo de pies a cabeza. «Una espesa nube de polvo estaba presente en las inmediaciones del molino», escribió la Junta.",
+   "persona_ref": [],
+   "solo_en_referencia": true
+  },
+  {
+   "cap": 3,
+   "i_ref": 12,
+   "ancla": "CSR venía de la industria azucarera y tenía muy poca experiencia en minas.",
+   "persona_ref": [],
+   "solo_en_referencia": true
+  },
+  {
+   "cap": 3,
+   "i_ref": 13,
+   "ancla": "Los reguladores del Estado hicieron poco más que emitir advertencias y pedir equipos para el polvo.",
+   "persona_ref": [],
+   "solo_en_referencia": true
+  },
+  {
+   "cap": 3,
+   "i_ref": 14,
+   "ancla": "cuando las Casandras advirtieron que el polvo era un problema y predijeron la enfermedad, en la industria minera no se encendieron las alarmas",
+   "persona_ref": [],
+   "solo_en_referencia": true
+  },
+  {
+   "cap": 3,
+   "i_ref": 15,
+   "ancla": "En mil novecientos sesenta y uno la producción subió. Al año siguiente, los Écija bajaban de aquel avión.",
+   "persona_ref": [],
+   "solo_en_referencia": true
+  },
+  {
+   "cap": 4,
+   "i_a2": 1,
+   "ancla": "Víctor Calvo lo cuenta: «Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca.",
+   "persona_a2": [
+    "Víctor Calvo"
+   ],
+   "parrafo": "Los chicos del pueblo juegan con el mineral. Víctor Calvo lo cuenta: «Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo». Estaban rodeados de amianto azul y no les daba miedo. Tampoco había dónde no estar rodeados. Los relaves del molino se usaron para construir el pueblo y la pista de aterrizaje. Se extendieron como suelo en las carreteras, en los patios, en los espacios públicos: el acceso a la escuela, el jardín de infantes, la iglesia. El pueblo entero estaba hecho de eso. Y en ese pueblo, en junio de mil novecientos sesenta y tres, nació un niño."
+  },
+  {
+   "cap": 4,
+   "i_a2": 2,
+   "ancla": "Cuando lo tocábamos salía un polvillo que lo impregnaba todo».",
+   "persona_a2": [],
+   "parrafo": "Los chicos del pueblo juegan con el mineral. Víctor Calvo lo cuenta: «Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo». Estaban rodeados de amianto azul y no les daba miedo. Tampoco había dónde no estar rodeados. Los relaves del molino se usaron para construir el pueblo y la pista de aterrizaje. Se extendieron como suelo en las carreteras, en los patios, en los espacios públicos: el acceso a la escuela, el jardín de infantes, la iglesia. El pueblo entero estaba hecho de eso. Y en ese pueblo, en junio de mil novecientos sesenta y tres, nació un niño."
+  },
+  {
+   "cap": 4,
+   "i_a2": 3,
+   "ancla": "Estaban rodeados de amianto azul y no les daba miedo. Tampoco había dónde no estar rodeados.",
+   "persona_a2": [],
+   "parrafo": "Los chicos del pueblo juegan con el mineral. Víctor Calvo lo cuenta: «Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo». Estaban rodeados de amianto azul y no les daba miedo. Tampoco había dónde no estar rodeados. Los relaves del molino se usaron para construir el pueblo y la pista de aterrizaje. Se extendieron como suelo en las carreteras, en los patios, en los espacios públicos: el acceso a la escuela, el jardín de infantes, la iglesia. El pueblo entero estaba hecho de eso. Y en ese pueblo, en junio de mil novecientos sesenta y tres, nació un niño."
+  },
+  {
+   "cap": 4,
+   "i_a2": 11,
+   "ancla": "Tres meses después le tocó a María. Llegó al hospital de Wittenoom debilitada por una infección renal. El bebé era muy grande. Lo sacaron con fórceps.",
+   "persona_a2": [
+    "María Bernal"
+   ],
+   "parrafo": "Daniel trabajaba en la mina. Ramón de Juan, el amigo, hacía jornadas de dieciséis horas. Uno de los hijos de Daniel cuenta que el primer día de trabajo de su padre hubo una explosión y murió gente. En marzo de mil novecientos sesenta y tres, Milagros Barroso dio a luz en Wittenoom a John Patrick. Tres meses después le tocó a María. Llegó al hospital de Wittenoom debilitada por una infección renal. El bebé era muy grande. Lo sacaron con fórceps. Le pusieron Daniel, como el padre. Hay una foto del bautizo: siete de julio de mil novecientos sesenta y tres. Después de esa foto, las maletas. Diez meses en Wittenoom. Se fueron antes de que nadie les dijera nada. Nadie les había dicho nada."
+  },
+  {
+   "cap": 4,
+   "i_a2": 12,
+   "ancla": "Le pusieron Daniel, como el padre. Hay una foto del bautizo: siete de julio de mil novecientos sesenta y tres. Después de esa foto, las maletas. Diez meses en Wittenoom.",
+   "persona_a2": [],
+   "parrafo": "Daniel trabajaba en la mina. Ramón de Juan, el amigo, hacía jornadas de dieciséis horas. Uno de los hijos de Daniel cuenta que el primer día de trabajo de su padre hubo una explosión y murió gente. En marzo de mil novecientos sesenta y tres, Milagros Barroso dio a luz en Wittenoom a John Patrick. Tres meses después le tocó a María. Llegó al hospital de Wittenoom debilitada por una infección renal. El bebé era muy grande. Lo sacaron con fórceps. Le pusieron Daniel, como el padre. Hay una foto del bautizo: siete de julio de mil novecientos sesenta y tres. Después de esa foto, las maletas. Diez meses en Wittenoom. Se fueron antes de que nadie les dijera nada. Nadie les había dicho nada."
+  },
+  {
+   "cap": 4,
+   "i_a2": 13,
+   "ancla": "Se fueron antes de que nadie les dijera nada. Nadie les había dicho nada.",
+   "persona_a2": [
+    "María Bernal"
+   ],
+   "parrafo": "Daniel trabajaba en la mina. Ramón de Juan, el amigo, hacía jornadas de dieciséis horas. Uno de los hijos de Daniel cuenta que el primer día de trabajo de su padre hubo una explosión y murió gente. En marzo de mil novecientos sesenta y tres, Milagros Barroso dio a luz en Wittenoom a John Patrick. Tres meses después le tocó a María. Llegó al hospital de Wittenoom debilitada por una infección renal. El bebé era muy grande. Lo sacaron con fórceps. Le pusieron Daniel, como el padre. Hay una foto del bautizo: siete de julio de mil novecientos sesenta y tres. Después de esa foto, las maletas. Diez meses en Wittenoom. Se fueron antes de que nadie les dijera nada. Nadie les había dicho nada."
+  },
+  {
+   "cap": 4,
+   "i_ref": 1,
+   "ancla": "Víctor Calvo lo cuenta: «Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo».",
+   "persona_ref": [
+    "Víctor Calvo"
+   ],
+   "solo_en_referencia": true
+  },
+  {
+   "cap": 4,
+   "i_ref": 2,
+   "ancla": "Estaban rodeados de amianto azul y no les daba miedo.",
+   "persona_ref": [],
+   "solo_en_referencia": true
+  },
+  {
+   "cap": 4,
+   "i_ref": 3,
+   "ancla": "Tampoco había dónde no estar rodeados.",
+   "persona_ref": [],
+   "solo_en_referencia": true
+  },
+  {
+   "cap": 4,
+   "i_ref": 11,
+   "ancla": "Tres meses después le tocó a María. Llegó al hospital de Wittenoom debilitada por una infección renal.",
+   "persona_ref": [
+    "María Bernal"
+   ],
+   "solo_en_referencia": true
+  },
+  {
+   "cap": 4,
+   "i_ref": 12,
+   "ancla": "El bebé era muy grande. Lo sacaron con fórceps. Le pusieron Daniel, como el padre. Hay una foto del bautizo: siete de julio de mil novecientos sesenta y tres.",
+   "persona_ref": [
+    "María Bernal",
+    "Daniel Écija"
+   ],
+   "solo_en_referencia": true
+  },
+  {
+   "cap": 4,
+   "i_ref": 13,
+   "ancla": "Después de esa foto, las maletas. Diez meses en Wittenoom. Se fueron antes de que nadie les dijera nada. Nadie les había dicho nada.",
+   "persona_ref": [
+    "María Bernal",
+    "Daniel Écija"
+   ],
+   "solo_en_referencia": true
+  }
+ ],
+ "cambios_por_cap": {
+  "2": 2,
+  "3": 0,
+  "4": 0
+ },
+ "pares_por_cap": {
+  "2": 8,
+  "3": 8,
+  "4": 8
+ },
+ "escenas": [
+  {
+   "escena": "baile",
+   "frag": "Dieciséis de septiembre",
+   "referencia": [
+    [
+     "chapters[1].img[0]",
+     [],
+     "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal."
+    ]
+   ],
+   "a2": [
+    [
+     "chapters[1].img[0]",
+     [
+      "María Bernal"
+     ],
+     "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal."
+    ]
+   ]
+  },
+  {
+   "escena": "boda",
+   "frag": "se casan",
+   "referencia": [
+    [
+     "chapters[1].img[1]",
+     [
+      "María Bernal"
+     ],
+     "Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos."
+    ]
+   ],
+   "a2": [
+    [
+     "chapters[1].img[1]",
+     [
+      "María Bernal"
+     ],
+     "Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos. Cuatro días más tarde ya están en el barco."
+    ]
+   ]
+  },
+  {
+   "escena": "barco",
+   "frag": "van juntos",
+   "referencia": [
+    [
+     "chapters[1].img[3]",
+     [
+      "María Bernal"
+     ],
+     "De Wittenoom no saben nada; saben que hay trabajo y que van juntos."
+    ]
+   ],
+   "a2": [
+    [
+     "chapters[1].img[2]",
+     [],
+     "Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles. De Wittenoom no saben nada; saben que hay trabajo y que van juntos."
+    ]
+   ]
+  },
+  {
+   "escena": "mi marido",
+   "frag": "mi marido",
+   "referencia": [
+    [
+     "chapters[1].img[4]",
+     [
+      "María Bernal"
+     ],
+     "«Iba pegadita a mi marido, como una niña», recuerda su mujer."
+    ]
+   ],
+   "a2": [
+    [
+     "chapters[1].img[3]",
+     [
+      "María Bernal"
+     ],
+     "«Iba pegadita a mi marido, como una niña», recuerda su mujer."
+    ]
+   ]
+  },
+  {
+   "escena": "dos parejas",
+   "frag": "amigos íntimos de otra pareja",
+   "referencia": [
+    [
+     "chapters[1].img[5]",
+     [
+      "Milagros Barroso",
+      "Ramón de Juan"
+     ],
+     "Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan."
+    ]
+   ],
+   "a2": [
+    [
+     "chapters[1].img[4]",
+     [
+      "Milagros Barroso",
+      "Ramón de Juan"
+     ],
+     "Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan."
+    ]
+   ]
+  },
+  {
+   "escena": "pista",
+   "frag": "los Écija bajaban",
+   "referencia": [
+    [
+     "chapters[2].img[15]",
+     [],
+     "En mil novecientos sesenta y uno la producción subió. Al año siguiente, los Écija bajaban de aquel avión."
+    ]
+   ],
+   "a2": [
+    [
+     "chapters[2].img[15]",
+     [
+      "María Bernal"
+     ],
+     "«porque estaban acostumbrados; lo esperaban», dijo McNulty. En mil novecientos sesenta y uno la producción subió. Al año siguiente, los Écija bajaban de aquel avión."
+    ]
+   ]
+  },
+  {
+   "escena": "mina (Daniel trabajaba)",
+   "frag": "Daniel trabajaba en la mina",
+   "referencia": [
+    [
+     "chapters[3].img[8]",
+     [
+      "Ramón de Juan"
+     ],
+     "Daniel trabajaba en la mina. Ramón de Juan, el amigo, hacía jornadas de dieciséis horas."
+    ]
+   ],
+   "a2": [
+    [
+     "chapters[3].img[8]",
+     [
+      "Ramón de Juan"
+     ],
+     "Daniel trabajaba en la mina. Ramón de Juan, el amigo, hacía jornadas de dieciséis horas."
+    ]
+   ]
+  },
+  {
+   "escena": "mina (primer día)",
+   "frag": "primer día de trabajo de su padre",
+   "referencia": [
+    [
+     "chapters[3].img[9]",
+     [],
+     "Uno de los hijos de Daniel cuenta que el primer día de trabajo de su padre hubo una explosión y murió gente."
+    ]
+   ],
+   "a2": [
+    [
+     "chapters[3].img[9]",
+     [],
+     "Uno de los hijos de Daniel cuenta que el primer día de trabajo de su padre hubo una explosión y murió gente."
+    ]
+   ]
+  }
+ ],
+ "daniel_a2": [],
+ "nombres_canon": [
+  "Hancock",
+  "Wright",
+  "Eric Saint",
+  "Chifley",
+  "McNulty",
+  "Davidson",
+  "Major",
+  "James Vernon",
+  "Víctor Calvo",
+  "Milagros Barroso",
+  "Ramón de Juan",
+  "Mercedes",
+  "John Patrick",
+  "Daniel Écija",
+  "María Bernal",
+  "Daniel Écija hijo",
+  "Peter Gordon",
+  "Court",
+  "Ben Wyatt",
+  "Marcos Orellana",
+  "Maitland Parker",
+  "Melita Markey"
+ ],
+ "control_para": [],
+ "control_revisar": [
+  {
+   "ref": "chapters[2].img[7]",
+   "nombre_canon": "Court",
+   "token": "Court",
+   "prompt": "A 1949 labour arbitration hearing: Australian union men of European descent in shirtsleeves on benches, board members in formal suits at a raised table. The hearing in session, union men leaning forward on benches as the company side rises to answer. Adult Australian men of European descent with fair to tanned skin. Adult Anglo-Australian men of European descent with fair to sun-weathered skin and short hair. Austere arbitration court room 1949, dark timber panelling, high windows, wooden benches and a raised bench. Hard late-afternoon light from high windows, long shafts across the benches. Wide shot, high angle from the back of the room, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1949, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+  }
+ ],
+ "persona_a2_caps": [
+  {
+   "ref": "chapters[1].img[0]",
+   "persona": [
+    "María Bernal"
+   ],
+   "ancla": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal."
+  },
+  {
+   "ref": "chapters[1].img[1]",
+   "persona": [
+    "María Bernal"
+   ],
+   "ancla": "Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos. Cuatro días más tarde ya están en el barco."
+  },
+  {
+   "ref": "chapters[1].img[3]",
+   "persona": [
+    "María Bernal"
+   ],
+   "ancla": "«Iba pegadita a mi marido, como una niña», recuerda su mujer."
+  },
+  {
+   "ref": "chapters[1].img[4]",
+   "persona": [
+    "Milagros Barroso",
+    "Ramón de Juan"
+   ],
+   "ancla": "Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan."
+  },
+  {
+   "ref": "chapters[1].img[6]",
+   "persona": [
+    "Víctor Calvo"
+   ],
+   "ancla": "Un niño que hizo ese viaje todavía recuerda el calor."
+  },
+  {
+   "ref": "chapters[1].img[7]",
+   "persona": [
+    "Víctor Calvo",
+    "Milagros Barroso"
+   ],
+   "ancla": "Víctor Calvo era un niño cuando subió a ese barco."
+  },
+  {
+   "ref": "chapters[1].img[10]",
+   "persona": [
+    "Víctor Calvo",
+    "Milagros Barroso"
+   ],
+   "ancla": "Recuerda los mareos. Y la incertidumbre: no saber muy bien adónde iban ni cómo iban a vivir."
+  },
+  {
+   "ref": "chapters[1].img[13]",
+   "persona": [
+    "Víctor Calvo",
+    "Milagros Barroso"
+   ],
+   "ancla": "Ese niño cuenta que nunca había visto tanto polvo. Los llevan a las casas: chapa, madera y uralita."
+  },
+  {
+   "ref": "chapters[2].img[3]",
+   "persona": [
+    "Eric Saint"
+   ],
+   "ancla": "Mil novecientos cuarenta y ocho. Un médico llega en avión y escribe una carta a máquina: los niveles de polvo son extremadamente peligrosos."
+  },
+  {
+   "ref": "chapters[2].img[5]",
+   "persona": [
+    "Eric Saint"
+   ],
+   "ancla": "y que convendría examinar algunos de esos tórax. Se llama Eric Saint."
+  },
+  {
+   "ref": "chapters[2].img[6]",
+   "persona": [
+    "Eric Saint"
+   ],
+   "ancla": "Lo que pasó con la carta lo contó él mismo: «Me desestimaron y, de hecho, me tildaron de alborotador», dijo Saint."
+  },
+  {
+   "ref": "chapters[2].img[15]",
+   "persona": [
+    "María Bernal"
+   ],
+   "ancla": "«porque estaban acostumbrados; lo esperaban», dijo McNulty. En mil novecientos sesenta y uno la producción subió. Al año siguiente, los Écija bajaban de aquel avión."
+  },
+  {
+   "ref": "chapters[3].img[1]",
+   "persona": [
+    "Víctor Calvo"
+   ],
+   "ancla": "Víctor Calvo lo cuenta: «Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca."
+  },
+  {
+   "ref": "chapters[3].img[8]",
+   "persona": [
+    "Ramón de Juan"
+   ],
+   "ancla": "Daniel trabajaba en la mina. Ramón de Juan, el amigo, hacía jornadas de dieciséis horas."
+  },
+  {
+   "ref": "chapters[3].img[10]",
+   "persona": [
+    "Milagros Barroso",
+    "John Patrick"
+   ],
+   "ancla": "En marzo de mil novecientos sesenta y tres, Milagros Barroso dio a luz en Wittenoom a John Patrick."
+  },
+  {
+   "ref": "chapters[3].img[11]",
+   "persona": [
+    "María Bernal"
+   ],
+   "ancla": "Tres meses después le tocó a María. Llegó al hospital de Wittenoom debilitada por una infección renal. El bebé era muy grande. Lo sacaron con fórceps."
+  },
+  {
+   "ref": "chapters[3].img[13]",
+   "persona": [
+    "María Bernal"
+   ],
+   "ancla": "Se fueron antes de que nadie les dijera nada. Nadie les había dicho nada."
+  }
+ ],
+ "log": [
+  "entradas copiadas a la copia (las de la corrida 2 de la Etapa A); referencia = a/03_visual_despues.json",
+  "TEXTO_PERSONA en el SI, sin «or if unsure»: - persona: a LIST with the exact name, as written in PERSONAS DOCUMENTADAS, of each documented person who is recognisably shown in THIS image (even from behind), at the same age and condition the canon describes — the main one first, at most TWO; [] if none, if only a body part is shown, or if they appear inside a photograph or picture within the scene. Routing only — not rendered as text.",
+  "[a2] cap 1: no se llama a Opus; capítulo de la referencia (corrida 2)",
+  "[a2] cap 5: no se llama a Opus; capítulo de la referencia (corrida 2)",
+  "[a2] cap 6: no se llama a Opus; capítulo de la referencia (corrida 2)",
+  "[a2] cap 7: no se llama a Opus; capítulo de la referencia (corrida 2)",
+  "m03 (caps (2, 3, 4) + pase F8 de video): 209.3 s · US$ 1.0826 (cost_tracker)",
+  "caps fuera de 2-4 idénticos a la referencia: {1: True, 5: True, 6: True, 7: True}",
+  "pares por ancla: {2: 8, 3: 8, 4: 8} · cambios de persona: {2: 2, 3: 0, 4: 0} · sin par: 44 · conteos: {2: {'referencia': 16, 'a2': 16}, 3: {'referencia': 16, 'a2': 16}, 4: {'referencia': 14, 'a2': 14}}",
+  "[a] baile: ref [('chapters[1].img[0]', [])] → a2 [('chapters[1].img[0]', ['María Bernal'])]",
+  "[a] boda: ref [('chapters[1].img[1]', ['María Bernal'])] → a2 [('chapters[1].img[1]', ['María Bernal'])]",
+  "[a] barco: ref [('chapters[1].img[3]', ['María Bernal'])] → a2 [('chapters[1].img[2]', [])]",
+  "[a] mi marido: ref [('chapters[1].img[4]', ['María Bernal'])] → a2 [('chapters[1].img[3]', ['María Bernal'])]",
+  "[a] dos parejas: ref [('chapters[1].img[5]', ['Milagros Barroso', 'Ramón de Juan'])] → a2 [('chapters[1].img[4]', ['Milagros Barroso', 'Ramón de Juan'])]",
+  "[a] pista: ref [('chapters[2].img[15]', [])] → a2 [('chapters[2].img[15]', ['María Bernal'])]",
+  "[a] mina (Daniel trabajaba): ref [('chapters[3].img[8]', ['Ramón de Juan'])] → a2 [('chapters[3].img[8]', ['Ramón de Juan'])]",
+  "[a] mina (primer día): ref [('chapters[3].img[9]', [])] → a2 [('chapters[3].img[9]', [])]",
+  "[b] fotos de caps 2-4 con Daniel en A2: 0 (referencia: 0 entre los pares)",
+  "control de nombres caps 2-4: PARÁ (2+ palabras) 0 · revisar (1 palabra) 1",
+  "  revisar chapters[2].img[7]: «Court» (Court)"
+ ]
+}

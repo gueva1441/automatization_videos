@@ -278,8 +278,9 @@ TEXTO_2_PEOPLE_GROUP = ("- people_group: a LIST of ids from PEOPLE GROUPS whose 
 TEXTO_S4_YEAR = ("- year: the year (YYYY) in which THIS image's scene takes place, read from the narration fragment, its "
                  "paragraph and the case file (a year said earlier in the paragraph, «ten years before» a stated year, "
                  "«now» = the most recent year in the case file). Routing only — not rendered as text.")
-# F60 A: casillero de ruteo `persona` (nombre exacto de PERSONAS DOCUMENTADAS; nada lo consume hasta la Etapa B)
-TEXTO_PERSONA = ("- persona: a LIST with the exact name, as written in PERSONAS DOCUMENTADAS, of each documented person who is recognisably shown in THIS image (even from behind), at the same age and condition the canon describes — the main one first, at most TWO; [] if none, if only a body part is shown, if they appear inside a photograph or picture within the scene, or if unsure. Routing only — not rendered as text.")
+# F60 A: casillero de ruteo `persona` (nombre exacto de PERSONAS DOCUMENTADAS; nada lo consume hasta la Etapa B).
+# F60 A2: sin «or if unsure» (Opus dejaba a Daniel afuera cuando la voz no lo nombraba en la misma oración).
+TEXTO_PERSONA = ("- persona: a LIST with the exact name, as written in PERSONAS DOCUMENTADAS, of each documented person who is recognisably shown in THIS image (even from behind), at the same age and condition the canon describes — the main one first, at most TWO; [] if none, if only a body part is shown, or if they appear inside a photograph or picture within the scene. Routing only — not rendered as text.")
 
 
 def _si_casilleros() -> str:

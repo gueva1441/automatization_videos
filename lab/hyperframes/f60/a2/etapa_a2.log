@@ -1,0 +1,20 @@
+entradas copiadas a la copia (las de la corrida 2 de la Etapa A); referencia = a/03_visual_despues.json
+TEXTO_PERSONA en el SI, sin «or if unsure»: - persona: a LIST with the exact name, as written in PERSONAS DOCUMENTADAS, of each documented person who is recognisably shown in THIS image (even from behind), at the same age and condition the canon describes — the main one first, at most TWO; [] if none, if only a body part is shown, or if they appear inside a photograph or picture within the scene. Routing only — not rendered as text.
+[a2] cap 1: no se llama a Opus; capítulo de la referencia (corrida 2)
+[a2] cap 5: no se llama a Opus; capítulo de la referencia (corrida 2)
+[a2] cap 6: no se llama a Opus; capítulo de la referencia (corrida 2)
+[a2] cap 7: no se llama a Opus; capítulo de la referencia (corrida 2)
+m03 (caps (2, 3, 4) + pase F8 de video): 209.3 s · US$ 1.0826 (cost_tracker)
+caps fuera de 2-4 idénticos a la referencia: {1: True, 5: True, 6: True, 7: True}
+pares por ancla: {2: 8, 3: 8, 4: 8} · cambios de persona: {2: 2, 3: 0, 4: 0} · sin par: 44 · conteos: {2: {'referencia': 16, 'a2': 16}, 3: {'referencia': 16, 'a2': 16}, 4: {'referencia': 14, 'a2': 14}}
+[a] baile: ref [('chapters[1].img[0]', [])] → a2 [('chapters[1].img[0]', ['María Bernal'])]
+[a] boda: ref [('chapters[1].img[1]', ['María Bernal'])] → a2 [('chapters[1].img[1]', ['María Bernal'])]
+[a] barco: ref [('chapters[1].img[3]', ['María Bernal'])] → a2 [('chapters[1].img[2]', [])]
+[a] mi marido: ref [('chapters[1].img[4]', ['María Bernal'])] → a2 [('chapters[1].img[3]', ['María Bernal'])]
+[a] dos parejas: ref [('chapters[1].img[5]', ['Milagros Barroso', 'Ramón de Juan'])] → a2 [('chapters[1].img[4]', ['Milagros Barroso', 'Ramón de Juan'])]
+[a] pista: ref [('chapters[2].img[15]', [])] → a2 [('chapters[2].img[15]', ['María Bernal'])]
+[a] mina (Daniel trabajaba): ref [('chapters[3].img[8]', ['Ramón de Juan'])] → a2 [('chapters[3].img[8]', ['Ramón de Juan'])]
+[a] mina (primer día): ref [('chapters[3].img[9]', [])] → a2 [('chapters[3].img[9]', [])]
+[b] fotos de caps 2-4 con Daniel en A2: 0 (referencia: 0 entre los pares)
+control de nombres caps 2-4: PARÁ (2+ palabras) 0 · revisar (1 palabra) 1
+  revisar chapters[2].img[7]: «Court» (Court)
