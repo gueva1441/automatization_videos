@@ -748,12 +748,51 @@ def markdown(ficha: dict, meta: dict) -> str:
     return "\n".join(L) + "\n"
 
 
-def load(topic_id: str, steps_dir: Path | None = None) -> dict | None:
-    """La ficha del topic (`_steps/<topic>/ficha_caso.json`) o None si no hay."""
+def load(topic_id: str, steps_dir: Path | None = None, log: list[str] | None = None) -> dict | None:
+    """La ficha del topic (`_steps/<topic>/ficha_caso.json`) o None si no hay.
+    F55 D.0: si el pool del topic (`00_pool_v3.json`) trae citas descartadas por duplicadas, los ids de la ficha se
+    remapean en memoria con `research_v3.remapear_ids` (el archivo no se reescribe); `log` dice cuántos ids cambiaron.
+    Sin descartados, la ficha vuelve tal cual."""
     if steps_dir is None:
         from script_engine.m01a_skeleton import STEPS_DIR as steps_dir
     p = Path(steps_dir) / topic_id / "ficha_caso.json"
-    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
+    if not p.exists():
+        return None
+    ficha = json.loads(p.read_text(encoding="utf-8"))
+    pp = Path(steps_dir) / topic_id / "00_pool_v3.json"
+    if not pp.exists():
+        return ficha
+    try:
+        pool = json.loads(pp.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return ficha
+    pool = pool.get("evidence_pool", pool) if isinstance(pool, dict) else {}
+    n = ids_remapeados(ficha, pool)
+    if not n:
+        return ficha
+    from researcher_steps.research_v3 import remapear_ids
+    out = remapear_ids(ficha, pool)
+    if log is not None:
+        log.append(f"  [ficha] {n} id(s) de citas duplicadas remapeados al cargar (el archivo no cambia)")
+    return out
+
+
+def ids_remapeados(obj: Any, pool: dict) -> int:
+    """Cuántas apariciones de ids descartados (claves `kind == "citas"` de `pool["_descartados"]`) hay en `obj`
+    (strings sueltos, en listas y como claves de dict)."""
+    gone = {d.get("id") for d in pool.get("_descartados") or [] if d.get("kind") == "citas" and d.get("duplicado_de")}
+    if not gone:
+        return 0
+
+    def _c(x: Any) -> int:
+        if isinstance(x, str):
+            return 1 if x in gone else 0
+        if isinstance(x, list):
+            return sum(_c(v) for v in x)
+        if isinstance(x, dict):
+            return sum((1 if k in gone else 0) + _c(v) for k, v in x.items())
+        return 0
+    return _c(obj)
 
 
 def id_texts(ficha: dict | None) -> dict[str, str]:

@@ -50,8 +50,19 @@ Pares que NO se deduplican (control del handoff §4):
 
 Total de referencias a ids descartados: 22.
 
+## 3. Las tres copias del pool (D.0)
+
+| copia | citas | ids de citas | descartados (citas) |
+|---|---|---|---|
+| topics_db.json | 50 | Q01, Q02, Q03, Q04, Q05, Q06, Q07, Q08, Q09, Q10, Q11, Q13, Q14, Q16, Q17, Q18, Q19, Q21, Q22, Q24, Q25, Q27, Q31, Q32, Q33, Q34, Q35, Q36, Q37, Q38, Q39, Q40, Q41, Q42, Q43, Q44, Q45, Q46, Q47, Q48, Q49, Q50, Q51, Q52, Q53, Q54, Q55, Q56, Q57, Q58 | Q12, Q15, Q20, Q23, Q26, Q28, Q29, Q30 |
+| 01_facts_sources.json | 50 | Q01, Q02, Q03, Q04, Q05, Q06, Q07, Q08, Q09, Q10, Q11, Q13, Q14, Q16, Q17, Q18, Q19, Q21, Q22, Q24, Q25, Q27, Q31, Q32, Q33, Q34, Q35, Q36, Q37, Q38, Q39, Q40, Q41, Q42, Q43, Q44, Q45, Q46, Q47, Q48, Q49, Q50, Q51, Q52, Q53, Q54, Q55, Q56, Q57, Q58 | Q12, Q15, Q20, Q23, Q26, Q28, Q29, Q30 |
+| 00_pool_v3.json | 50 | Q01, Q02, Q03, Q04, Q05, Q06, Q07, Q08, Q09, Q10, Q11, Q13, Q14, Q16, Q17, Q18, Q19, Q21, Q22, Q24, Q25, Q27, Q31, Q32, Q33, Q34, Q35, Q36, Q37, Q38, Q39, Q40, Q41, Q42, Q43, Q44, Q45, Q46, Q47, Q48, Q49, Q50, Q51, Q52, Q53, Q54, Q55, Q56, Q57, Q58 | Q12, Q15, Q20, Q23, Q26, Q28, Q29, Q30 |
+
+Las tres copias tienen los MISMOS ids de citas y los mismos descartados.
+
 Log:
 
     [dedupe citas] Q12 → Q25 (0.88); Q26 → Q14 (0.88); Q15 → Q27 (0.9); Q28 → Q16 (0.89); Q29 → Q17 (0.73); Q30 → Q18 (0.92); Q20 → Q33 (0.94); Q23 → Q35 (0.71)
+    [dedupe citas] Q12 → Q25 (0.88); Q26 → Q14 (0.88); Q15 → Q27 (0.9); Q28 → Q16 (0.89); Q29 → Q17 (0.73); Q30 → Q18 (0.92); Q20 → Q33 (0.94); Q23 → Q35 (0.71)
 
-Escrito: `C:\CLAUDE_PROJECTS\automatization_videos\data\topics_db.json` (respaldo `topics_db.pre_f55_dedupe.json`) y `C:\CLAUDE_PROJECTS\automatization_videos\data\scripts\_steps\123bbb64-9fca-4395-8bf4-57d60e219ef1\01_facts_sources.json`.
+Escrito: `C:\CLAUDE_PROJECTS\automatization_videos\data\topics_db.json` (respaldo `topics_db.pre_f55_dedupe.json`), `C:\CLAUDE_PROJECTS\automatization_videos\data\scripts\_steps\123bbb64-9fca-4395-8bf4-57d60e219ef1\01_facts_sources.json` y `C:\CLAUDE_PROJECTS\automatization_videos\data\scripts\_steps\123bbb64-9fca-4395-8bf4-57d60e219ef1\00_pool_v3.json` (su copia de antes: `C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f55\antes\00_pool_v3.json`).

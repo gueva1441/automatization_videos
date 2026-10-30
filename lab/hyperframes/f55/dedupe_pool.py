@@ -44,10 +44,22 @@ def main() -> None:
     topics = db.get("topics", []) if isinstance(db, dict) else db
     t = next(x for x in topics if x.get("id") == TID)
     pool = t["evidence_pool"]
-    its_antes = ev.items(pool)
-    n_antes = len(pool["citas"])
+    # D.0: el pool vive en TRES copias; el dedupe es idempotente (0 pares si ya se aplicó). Para las tablas se parte del
+    # pool de antes (f55/antes/01_facts_sources.json, 58 citas), que es el mismo que tenían las tres.
+    antes_p = json.loads((ANTES / "01_facts_sources.json").read_text(encoding="utf-8"))
+    antes_p = antes_p.get("evidence_pool", antes_p)
+    its_antes = ev.items(antes_p)
+    n_antes = len(antes_p["citas"])
     log: list[str] = []
-    fuera = r3._dedupe_citas(pool, log)
+    fuera = r3._dedupe_citas(antes_p, log)
+    r3._dedupe_citas(pool, log)                     # topics_db (ya deduplicado en B.2: 0 pares)
+    fs = STEPS / "01_facts_sources.json"
+    d2 = json.loads(fs.read_text(encoding="utf-8"))
+    r3._dedupe_citas(d2["evidence_pool"], log)
+    p3 = STEPS / "00_pool_v3.json"
+    pool3 = json.loads(p3.read_text(encoding="utf-8"))
+    r3._dedupe_citas(pool3.get("evidence_pool", pool3), log)
+    copias = {"topics_db.json": pool, "01_facts_sources.json": d2["evidence_pool"], "00_pool_v3.json": pool3.get("evidence_pool", pool3)}
     L = ["# F55 — Salida B (texto): dedupe de citas del pool de Wittenoom", "",
          f"Regla: mismo autor (igualdad exacta tras `norm`) + |Ca∩Cb| / min(|Ca|,|Cb|) ≥ {r3.UMBRAL_DEDUPE_CITAS} "
          f"(DECISIONES 2026-10-29 19:30). Citas: {n_antes} → {len(pool['citas'])}. {'SECO: no se escribió nada.' if a.seco else 'Escrito en topics_db.json y 01_facts_sources.json.'}", "",
@@ -84,17 +96,24 @@ def main() -> None:
                 L.append(f"| {nombre} | {ruta} | {i} | {mapa[i]} |")
     if not n_refs:
         L.append("| — | — | — | — |")
-    L += ["", f"Total de referencias a ids descartados: {n_refs}.", "", "Log:", ""] + [f"    {x.strip()}" for x in log]
+    L += ["", f"Total de referencias a ids descartados: {n_refs}.", "", "## 3. Las tres copias del pool (D.0)", "",
+          "| copia | citas | ids de citas | descartados (citas) |", "|---|---|---|---|"]
+    firmas = set()
+    for nombre, pc in copias.items():
+        ids = [q["id"] for q in pc["citas"]]
+        desc = sorted(d["id"] for d in pc.get("_descartados") or [] if d.get("kind") == "citas")
+        firmas.add((tuple(ids), tuple(desc)))
+        L.append(f"| {nombre} | {len(ids)} | {', '.join(ids)} | {', '.join(desc)} |")
+    L += ["", f"Las tres copias {'tienen los MISMOS ids de citas y los mismos descartados' if len(firmas) == 1 else 'DIFIEREN'}.",
+          "", "Log:", ""] + [f"    {x.strip()}" for x in log]
     if not a.seco:
         bak = fase1_5.TOPICS_DB.with_name("topics_db.pre_f55_dedupe.json")
         if not bak.exists():
             shutil.copy2(fase1_5.TOPICS_DB, bak)
         fase1_5.TOPICS_DB.write_text(json.dumps(db, ensure_ascii=False, indent=2), encoding="utf-8")
-        fs = STEPS / "01_facts_sources.json"
-        d2 = json.loads(fs.read_text(encoding="utf-8"))
-        d2["evidence_pool"] = pool
         fs.write_text(json.dumps(d2, ensure_ascii=False, indent=2), encoding="utf-8")
-        L += ["", f"Escrito: `{fase1_5.TOPICS_DB}` (respaldo `{bak.name}`) y `{fs}`."]
+        p3.write_text(json.dumps(pool3, ensure_ascii=False, indent=1), encoding="utf-8")
+        L += ["", f"Escrito: `{fase1_5.TOPICS_DB}` (respaldo `{bak.name}`), `{fs}` y `{p3}` (su copia de antes: `{ANTES / '00_pool_v3.json'}`)."]
     (ROOT / "lab/hyperframes/f55/SALIDA_B.md").write_text("\n".join(L), encoding="utf-8", newline="\n")
     print("\n".join(L))
 

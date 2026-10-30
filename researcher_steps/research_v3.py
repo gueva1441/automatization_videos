@@ -2127,7 +2127,8 @@ def _dedupe_citas(pool: dict[str, Any], log: list[str] | None = None) -> list[di
 
 def remapear_ids(obj: Any, pool: dict[str, Any]) -> Any:
     """F55 B.1: reemplaza, en listas de ids (y en strings que son un id) de `obj`, cada cita descartada por su
-    `duplicado_de` (sin repetir dentro de una lista). Recorre dicts y listas; devuelve una copia."""
+    `duplicado_de` (sin repetir dentro de una lista). Recorre dicts y listas; devuelve una copia. D.0: también las
+    claves de dict que son ids (si la clave nueva ya existe, queda la existente)."""
     mapa = {d["id"]: d["duplicado_de"] for d in pool.get("_descartados") or []
             if d.get("kind") == "citas" and d.get("duplicado_de")}
     if not mapa:
@@ -2144,8 +2145,14 @@ def remapear_ids(obj: Any, pool: dict[str, Any]) -> Any:
                     continue                                 # dos ids iguales en la misma lista: uno
                 out.append(nv)
             return out
-        if isinstance(x, dict):
-            return {k: _r(v) for k, v in x.items()}
+        if isinstance(x, dict):                              # D.0: también las claves que son ids
+            out_d: dict = {}
+            for k, v in x.items():
+                nk = mapa.get(k, k) if isinstance(k, str) else k
+                if nk in out_d and nk != k:
+                    continue                                 # la clave nueva ya existe: queda la existente
+                out_d[nk] = _r(v)
+            return out_d
         return x
     return _r(obj)
 

@@ -1,6 +1,7 @@
 """F48 S1 — GEO y ERA del pedido de los casilleros de foto (m03_visual._geo_era) y fuera el bloque «UBICACIONES
 DOCUMENTADAS» (hardcode de Orleans). Offline: lee el perfil y la narración de Wittenoom de `_steps/` si están."""
 import json
+from pathlib import Path
 
 import pytest
 
@@ -10,10 +11,14 @@ WITTENOOM = "123bbb64-9fca-4395-8bf4-57d60e219ef1"
 _W = m3.STEPS_DIR / WITTENOOM
 
 
-@pytest.mark.skipif(not (_W / "_perfil.json").exists() or not (_W / "01b_narration.json").exists(),
-                    reason="sin el research de Wittenoom en _steps/")
+_NARR_F54 = Path(__file__).resolve().parent / "lab" / "hyperframes" / "f54" / "antes" / "01b_narration.json"   # F55 D.0
+
+
+@pytest.mark.skipif(not (_W / "_perfil.json").exists() or not _NARR_F54.exists(),
+                    reason="sin el research de Wittenoom en _steps/ o sin la narración congelada de F54")
 def test_geo_era_de_wittenoom():
-    narr = json.loads((_W / "01b_narration.json").read_text(encoding="utf-8"))
+    # F55 D.0: la narración congelada para la que se escribió el test (F54 B.5 la regeneró en _steps/)
+    narr = json.loads(_NARR_F54.read_text(encoding="utf-8"))
     ge = m3._geo_era(WITTENOOM, narr)
     assert ge == {"canonical_geo": "Wittenoom", "canonical_era": "1943–2024"}   # el perfil dice anio_fin 2007: no se usa
     block = m3._build_topic_block({"video_title": "x", **ge})

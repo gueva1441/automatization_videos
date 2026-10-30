@@ -372,3 +372,58 @@ def test_promesa_de_dos_oraciones_se_repara_por_codigo():
     assert esc["_promesa_oraciones"] == 1 and not any("promesa" in r for r in rep)
     import test_module_f16 as t16
     assert me.metricas_escaleta(esc, t16.POOL, t16.FICHA, [])["promesa_oraciones"] == 1
+
+
+# ═══════════════════════════════════════════════════════════════
+#  D.0: remapear_ids con claves; ficha_caso.load remapea contra el pool del topic
+# ═══════════════════════════════════════════════════════════════
+
+def test_remapear_ids_tambien_claves_de_dict():
+    pool = {"_descartados": [{"kind": "citas", "id": "Q12", "duplicado_de": "Q25"}]}
+    out = r3.remapear_ids({"textos": {"Q12": "a", "D3": "b"}, "lista": ["Q12"]}, pool)
+    assert out == {"textos": {"Q25": "a", "D3": "b"}, "lista": ["Q25"]}
+    out = r3.remapear_ids({"textos": {"Q25": "la que queda", "Q12": "la duplicada"}}, pool)
+    assert out == {"textos": {"Q25": "la que queda"}}                       # la clave nueva ya existía: queda la existente
+
+
+def test_ficha_load_remapea_en_memoria(tmp_path):
+    from researcher_steps import ficha_caso as fc
+    d = tmp_path / "t1"
+    d.mkdir()
+    ficha = {"escenas": [{"ids": ["Q12", "D3"]}], "versiones": [{"versiones": [{"ids": ["Q23"]}]}], "personas": [{"ids": ["Q25"]}]}
+    (d / "ficha_caso.json").write_text(json.dumps(ficha), encoding="utf-8")
+    (d / "00_pool_v3.json").write_text(json.dumps({"citas": [], "_descartados": [
+        {"kind": "citas", "id": "Q12", "duplicado_de": "Q25"}, {"kind": "citas", "id": "Q23", "duplicado_de": "Q35"},
+        {"kind": "datos_r3", "id": "D99"}]}), encoding="utf-8")
+    log: list[str] = []
+    out = fc.load("t1", tmp_path, log=log)
+    assert out["escenas"][0]["ids"] == ["Q25", "D3"] and out["versiones"][0]["versiones"][0]["ids"] == ["Q35"]
+    assert log == ["  [ficha] 2 id(s) de citas duplicadas remapeados al cargar (el archivo no cambia)"]
+    assert json.loads((d / "ficha_caso.json").read_text(encoding="utf-8")) == ficha        # el archivo no se reescribe
+    # sin descartados: tal cual, sin log
+    d2 = tmp_path / "t2"
+    d2.mkdir()
+    (d2 / "ficha_caso.json").write_text(json.dumps(ficha), encoding="utf-8")
+    (d2 / "00_pool_v3.json").write_text(json.dumps({"citas": [], "_descartados": []}), encoding="utf-8")
+    log2: list[str] = []
+    assert fc.load("t2", tmp_path, log=log2) == ficha and log2 == []
+    # sin pool: tal cual
+    d3 = tmp_path / "t3"
+    d3.mkdir()
+    (d3 / "ficha_caso.json").write_text(json.dumps(ficha), encoding="utf-8")
+    assert fc.load("t3", tmp_path) == ficha and fc.load("t4", tmp_path) is None
+
+
+@hay
+def test_ficha_de_wittenoom_cargada_sin_ids_descartados():
+    from researcher_steps import ficha_caso as fc
+    from script_engine.m01a_skeleton import STEPS_DIR
+    tid = "123bbb64-9fca-4395-8bf4-57d60e219ef1"
+    if not (STEPS_DIR / tid / "ficha_caso.json").exists():
+        pytest.skip("sin la ficha de Wittenoom en _steps/")
+    pool = json.loads((STEPS_DIR / tid / "00_pool_v3.json").read_text(encoding="utf-8"))
+    gone = {d["id"] for d in pool.get("_descartados") or [] if d.get("kind") == "citas"}
+    if not gone:
+        pytest.skip("el pool de Wittenoom en _steps/ no tiene citas descartadas (dedupe_pool.py no corrió)")
+    s = json.dumps(fc.load(tid), ensure_ascii=False)
+    assert not re.findall(r'"(' + "|".join(sorted(gone)) + r')"', s)

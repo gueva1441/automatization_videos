@@ -12,7 +12,7 @@ from script_engine import name_matching
 
 ROOT = Path(__file__).resolve().parent
 TID = "123bbb64-9fca-4395-8bf4-57d60e219ef1"
-NARR = ROOT / "data" / "scripts" / "_steps" / TID / "01b_narration.json"
+NARR = ROOT / "lab" / "hyperframes" / "f54" / "antes" / "01b_narration.json"   # F55 D.0: la narración congelada para la que se escribió
 SYNC = ROOT / "output" / "audio" / TID / "sync_map.json"
 
 

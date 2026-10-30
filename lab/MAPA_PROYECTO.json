@@ -2542,7 +2542,7 @@
   "researcher_steps/ficha_caso.py": {
    "archivo": "researcher_steps/ficha_caso.py",
    "zona": "research",
-   "sticker": "Arma la ficha del caso: una sola llamada a un modelo que lee todo el research del tema (el pool) y devuelve las personas, la cronología, la historia (quién la sufre, los giros, el pico), las escenas, los hechos, las cifras, las citas y las contradicciones. Después un control sin IA revisa que cada cifra, hora, fecha y cita esté de verdad en el texto de los ids que cita, y lo que no está lo manda a «descartados». Es la única fuente de la escaleta y del guion. Desde F44 puede recibir además el ángulo, el misterio y la revelación del video (`caso`, prompt f44-1); sin eso el pedido es el mismo de siempre (f23-1), que es lo que corre en producción.",
+   "sticker": "Arma la ficha del caso: una sola llamada a un modelo que lee todo el research del tema (el pool) y devuelve las personas, la cronología, la historia (quién la sufre, los giros, el pico), las escenas, los hechos, las cifras, las citas y las contradicciones. Después un control sin IA revisa que cada cifra, hora, fecha y cita esté de verdad en el texto de los ids que cita, y lo que no está lo manda a «descartados». Es la única fuente de la escaleta y del guion. Desde F44 puede recibir además el ángulo, el misterio y la revelación del video (`caso`, prompt f44-1); sin eso el pedido es el mismo de siempre (f23-1), que es lo que corre en producción. Desde F55, al cargar la ficha de un topic cuyo pool tiene citas descartadas por duplicadas, los ids de la ficha se cambian en memoria por la cita que quedó (el archivo no se toca).",
    "recibe": "data/scripts/_steps/<topic>/00_pool_v3.json (el pool de research, solo lectura) y el título del topic",
    "entrega": "data/scripts/_steps/<topic>/ficha_caso.json y FICHA_<tag>.md (más ficha_respuesta_cruda.json con la respuesta tal cual de la API); la leen la escaleta y el guion v4 (load / id_texts)",
    "modelo": [
@@ -2579,7 +2579,7 @@
     "script_engine/guion_v4.py",
     "script_engine/m01a_escaleta.py"
    ],
-   "tests": 14,
+   "tests": 15,
    "nacio": "b204868 2026-10-23 (F12)",
    "ultimo": "533eb68 2026-10-28 (F44)",
    "estado_a": "vivo",
@@ -2588,7 +2588,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "73f373ecd6e924872ad0497031c03000",
+   "md5": "34063a3a54b93ab6d06dfcb76c05928f",
    "sticker_al_dia": true
   },
   "researcher_steps/pool_gate.py": {
@@ -2681,6 +2681,7 @@
    "compartido": true,
    "lo_llaman": [
     "fase1_5.py",
+    "researcher_steps/ficha_caso.py",
     "researcher_steps/pool_gate.py",
     "script_engine/guion_v3_reglas.py",
     "script_engine/guion_v4.py",
@@ -2708,10 +2709,9 @@
    "imports_rotos": [],
    "sin_llamador_a": [
     "rebuild_texts",
-    "remapear_ids",
     "metrics"
    ],
-   "md5": "f5fb9f90276b7ac3bd3bf47c25d17c8f",
+   "md5": "6ed429b6a79f0a215eb7c2e717ac526e",
    "sticker_al_dia": true
   },
   "researcher_steps/step_4a_facts.py": {
@@ -4312,7 +4312,7 @@
    ],
    "tests": 22,
    "nacio": "4b41280 2026-10-21 (F6b)",
-   "ultimo": "66804dc 2026-10-29 (F54)",
+   "ultimo": "c7dfb7f 2026-10-29 (F55)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py:390 (run_escaleta_v3 llama me.generate_escaleta) y fase1_5.py:383 (me.pool_gate_profile); el form lo lanza con fase1_5.py --topic <tid> --batch (run_pipeline.py:301 según los hechos de A); además m01d_particion.py:163 usa caps_view y tts_tags.py:140 usa intent_de_cap dentro de la misma etapa",
@@ -4362,7 +4362,7 @@
     "script_engine/m01e_pantalla.py",
     "script_engine/tts_tags.py"
    ],
-   "tests": 4,
+   "tests": 5,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "fc59a76 2026-10-27 (F41)",
    "estado_a": "vivo",
