@@ -60,6 +60,13 @@ def main() -> None:
     pool3 = json.loads(p3.read_text(encoding="utf-8"))
     r3._dedupe_citas(pool3.get("evidence_pool", pool3), log)
     copias = {"topics_db.json": pool, "01_facts_sources.json": d2["evidence_pool"], "00_pool_v3.json": pool3.get("evidence_pool", pool3)}
+    # D (hallazgo de la Salida D §6): el `digest` del pool (lo que ya estaba armado antes del dedupe) seguía listando los
+    # ids descartados; en un research nuevo build_pool arma el digest DESPUÉS del dedupe. Acá se remapea lo que no es
+    # `citas` ni `_descartados` (digest y cualquier otra lista de ids del pool) con remapear_ids, en las 3 copias.
+    for pc in copias.values():
+        for k in list(pc):
+            if k not in ("citas", "_descartados"):
+                pc[k] = r3.remapear_ids(pc[k], pc)
     L = ["# F55 — Salida B (texto): dedupe de citas del pool de Wittenoom", "",
          f"Regla: mismo autor (igualdad exacta tras `norm`) + |Ca∩Cb| / min(|Ca|,|Cb|) ≥ {r3.UMBRAL_DEDUPE_CITAS} "
          f"(DECISIONES 2026-10-29 19:30). Citas: {n_antes} → {len(pool['citas'])}. {'SECO: no se escribió nada.' if a.seco else 'Escrito en topics_db.json y 01_facts_sources.json.'}", "",

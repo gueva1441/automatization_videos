@@ -1,0 +1,67 @@
+[20:21:24] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: 123bbb64-9fca-4395-8bf4-57d60e219ef1
+[20:26:10] INFO     | viral_pipeline | [cost_tracker] Video 123bbb64-9fca-4395-8bf4-57d60e219ef1 — Costo total: $1.6392
+[20:26:10] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: 123bbb64-9fca-4395-8bf4-57d60e219ef1
+[20:31:28] INFO     | viral_pipeline | [cost_tracker] Video 123bbb64-9fca-4395-8bf4-57d60e219ef1 — Costo total: $1.5522
+[20:31:28] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: 123bbb64-9fca-4395-8bf4-57d60e219ef1
+[20:32:12] INFO     | viral_pipeline | [cost_tracker] Video 123bbb64-9fca-4395-8bf4-57d60e219ef1 — Costo total: $0.0849
+[20:32:23] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: 123bbb64-9fca-4395-8bf4-57d60e219ef1
+[20:32:47] INFO     | viral_pipeline | [cost_tracker] Video 123bbb64-9fca-4395-8bf4-57d60e219ef1 — Costo total: $0.0235
+[20:32:47] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: 123bbb64-9fca-4395-8bf4-57d60e219ef1
+[20:36:10] INFO     | viral_pipeline | [cost_tracker] Video 123bbb64-9fca-4395-8bf4-57d60e219ef1 — Costo total: $0.6279
+
+  Modo: 1 topic específico → 123bbb64-9fca-4395-8bf4-57d60e219ef1
+
+════════════════════════════════════════════════════════════
+  📜 Procesando topic 123bbb64-9fca-4395-8bf4-57d60e219ef1 desde m01a
+════════════════════════════════════════════════════════════
+  [01a] Compuerta del pool + ficha si falta + escaleta...
+  [escaleta] compuerta del pool: verde {'datos': 155, 'citas_verificadas': 40, 'elegibles_humano': 25, 'eventos_con_fecha': 98, 'personas_con_nombre': 35}
+  [ficha] ya hay ficha v2 (f23-1): se usa
+  [canon] ya armado con esta ficha y este pedido (4828d0e6): se usa
+  [escaleta] compuerta del pool: verde {'datos': 155, 'citas_verificadas': 40, 'elegibles_humano': 25, 'eventos_con_fecha': 98, 'personas_con_nombre': 35}
+  [escaleta v2] intento 1: 1 bloqueante(s) ['humano colectivo sin fuente del pool (fuente «ÁNGULO DEL CASO Y CANDIDATOS CON ARCO DE LA FICHA [T37, T38, D85, T41, T47, T64, D89]»)'] · 11 reparación(es) · 9 a métricas
+  [escaleta v2] intento 2: 0 bloqueante(s) [] · 24 reparación(es) · 8 a métricas
+  [01b] Guion v4 → reparación (una ronda) → partición → papel → juez...
+  [editor v4] fuera del camino desde F27
+  [reparación v4] bloqueantes 4 → 3 (una ronda; no hay segunda)
+  [01d] cap 3: 3056 caracteres > 2242 → el último párrafo (beat 6) pasa al cap 4
+  [01d] cap 7: 1378 caracteres > 1255 → el editor acortó el último párrafo (304 → 160)
+  m01e intento 1: in 51320 · out 23746 · US$ 0.3401 · JSON
+  m01e intento 1 validado: fichas fuera 2 · preguntas 3 · vuelven 5 · picos vacíos 0
+  m01e intento 2: in 59781 · out 4826 · US$ 0.1678 · JSON
+  m01e vuelta 1 validada: fichas fuera 0 · preguntas nuevas 1 · picos vacíos 0
+  m01e intento 3: in 58827 · out 232 · US$ 0.1200 · JSON
+  m01e vuelta 2 validada: fichas fuera 0 · preguntas nuevas 0 · picos vacíos 0
+  m01e: 5 motivo(s) sin beat → sin otra vuelta (anotados)
+  m01e: 13 fichas · 6 sellos · 3 relojes → C:\CLAUDE_PROJECTS\automatization_videos\data\scripts\_steps\123bbb64-9fca-4395-8bf4-57d60e219ef1\01e_pantalla.md
+  [v4] quedan 3 bloqueante(s) después de la ronda única: PARADA
+
+  ⏸  PARADA del papel: el papel no está aprobado.
+     Leer: C:\CLAUDE_PROJECTS\automatization_videos\data\scripts\_steps\123bbb64-9fca-4395-8bf4-57d60e219ef1\01e_pantalla.md
+     Aprobar: python fase1_5.py --topic 123bbb64-9fca-4395-8bf4-57d60e219ef1 --aprobar-papel "Omar <fecha>"
+
+════════════════════════════════════════════════════════════
+  📊 RESUMEN FASE 1.5
+════════════════════════════════════════════════════════════
+  Total: 1  |  PASS: 0  |  PARADA: 1  |  FAIL: 0
+
+  ⏸  123bbb64-9fca-4395-8bf4-57d60e219ef1  (PARADA en papel: el papel no está aprobado)
+
+
+──────────────────────────────────────────────────
+  🧠 GEMINI (por tokens — thinking incluido)
+──────────────────────────────────────────────────
+    Anthropic claude-fable-5-1    6 calls  in   64,728  out   52,580  think        0  $3.2763
+    Anthropic claude-sonnet-5-5    3 calls  in  169,928  out   28,804  think        0  $0.6279
+    Gemini 2.5 Flash          1 calls  in    1,503  out       41  think    1,340  $0.0039
+    Gemini 2.5 Pro            1 calls  in      164  out       49  think    1,891  $0.0196
+  · por módulo:
+    guion_v4 guionista      1 calls  in   13,289  out   28,387  think        0  $1.5522  (0% think)
+    m01a_escaleta v2 intento 1    1 calls  in   24,632  out   13,938  think        0  $0.9432  (0% think)
+    m01a_escaleta v2 intento 2    1 calls  in   24,764  out    8,966  think        0  $0.6959  (0% think)
+    m01e_pantalla           3 calls  in  169,928  out   28,804  think        0  $0.6279  (0% think)
+    guion_v4 editar frase    3 calls  in    2,043  out    1,289  think        0  $0.0849  (0% think)
+    m01d_particion          2 calls  in    1,667  out       90  think    3,231  $0.0235  (97% think)
+──────────────────────────────────────────────────
+    TOTAL Gemini: 11 calls · in 236,323 · out 81,474 · think 3,231 · $3.9277 USD
+exit 0
