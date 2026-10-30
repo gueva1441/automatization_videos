@@ -275,7 +275,7 @@ Papel: (ver log).
 
 ## Lo que queda abierto
 1. **Cap 3 largo** (3056 > 2242, aviso): el editor de largo acortó el párrafo del re-gancho perdiendo su oración y el reparto lo rechazó (lo que pide B). Para que ese cap entre en el largo hace falta otra cosa (acortar otro párrafo, o que el editor sepa qué oración no puede tocar): decisión del analista.
-2. `test_module_f50c::test_f50c_a_fotos_testigo_de_wittenoom` clavado a `_steps`: apuntarlo a una copia congelada (como f48/f51c en F55 D.0) o borrarlo.
+2. `test_module_f50c::test_f50c_a_fotos_testigo_de_wittenoom` clavado a `_steps`: falla desde la regeneración de Wittenoom (F55 D / F56 C; pasaba en la suite anterior a F55 D); apuntarlo a una copia congelada (como f48/f51c en F55 D.0) o borrarlo.
 3. Los textos de la ficha en `hechos`/`escenas` que parafrasean la cita duplicada no cambian (decisión 4); solo `citas[].texto`.
 4. El guion quedó con **0 bloqueantes** y PARADA del papel: nada pasa a voz ni a fotos sin Omar. El re-gancho está en el cap 3, oración 31 (parecido 0,93).
 5. `person_stats` del pool sin recalcular; `fase1_5` sin el log del remapeo (de F55).
@@ -284,4 +284,38 @@ Papel: (ver log).
 
 ## Veredicto de revisor-handoff (íntegro)
 
-(se pega abajo)
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+Md5 del handoff verificado: af1361eda9a69be3a5a555c15a34fd75. Corrí `python -m pytest -q test_module_f56.py test_module_f56_reparto.py test_module_f5c.py test_module_f8.py`: 36 passed. No corrí reparto_c.py, fase1_5 ni ningún modelo.
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | A: `contamination` salta kinds `personajes*` y citas con `duplicado_de`; `false_quotes` suma el texto de las duplicadas; nada más cambia en los jueces; `datos_r3` y cita inventada siguen frenando | OK | `m05_narrative.py` diff en l.415 y l.523, 7 líneas, sin otro cambio en los jueces. `test_module_f56.py` (7 tests) pasa e incluye `datos_r3` y cita inventada. |
+| 2 | A: `ficha_caso.load` pasa el texto de `citas[]` de la duplicada al de la cita que quedó, en memoria | OK | `ficha_caso.py` `textos_de_la_cita_que_quedo` + `load`. Solo modifica el dict devuelto; no hay escritura de archivo. El test con la ficha de Wittenoom pasa. |
+| 3 | B: `rebalance` protege el beat de `recuerda_loop`; acorta solo si la oración sigue entera, si no deja el original más aviso; sin `recuerda_loop` queda igual | OK | `m01d_particion.py` diff: `rl_beat` entra en la condición de mover, y `ev.norm(rl_oracion) not in ev.norm(new)` descarta el acortado. Con `rl_beat=0` la condición no cambia. `test_module_f56_reparto.py` (7 tests) pasa, incluido el beat 6 de Wittenoom en el cap 3. |
+| 4 | B: `medida_retencion.re_gancho` busca en todos los caps e informa `cap_declarado` y `cap_dicho` | OK | `medida_retencion.py` diff: el filtro por cap desaparece, devuelve ambos campos y la tabla los muestra. Hay test. |
+| 5 | C: usa los párrafos de `f56/antes/01b_guionista_v4.json` → `reparacion.parrafos`, sin guionista ni escaleta | OK | `reparto_c.py` l.37-38 y 51: lee `ANTES/...` y solo llama a `g4.bloqueantes`, `md.particionar`, `run_pantalla` y `judge_narration`. La escaleta se lee de disco. `fase1_5` sin diff. `c_run.log` muestra solo 2 bloques de cost_tracker, $0.0458 y $0.7005. |
+| 5b | C: bloqueantes 3 → 0 y quién los vio | OK | `01b_guionista_v4.json` tiene `_f56.bloqueantes_f55` con 3, `parada` False y `bloqueantes_despues` con 0. Los vio código (`false_quotes` y `contamination`); verificador: 0 llamadas, $0. |
+| 5c | C: el re-gancho cae en el cap 3 | OK | En `01b_narration.json` la frase «Un año después de que McNulty» está en el cap 3 y en ningún otro. `SALIDA_C.md`: cap 3, oración 31, parecido 0,93. |
+| 5d | C: 7 caps con largo y títulos, papel, gasto | OK | Los 7 caps coinciden con `01b_narration.json`: 834, 1188, 3056, 1259, 1682, 1712 y 1266 caracteres. Hay 7 títulos y papel (`01e_pantalla.md`). Gasto en `01_v3_costos.json`: 0,0458 + 0,7005 = US$ 0,7463 ≈ 0,75. |
+| 6 | Cero cambios en prompts/esquemas, sin constantes nuevas | OK | `git show 46a1d8a -U0 \| grep` de SYSTEM_/SCHEMA/PROMPT: sin ningún cambio real (los resultados son MAPA y un `CHAPTER_SCHEMA` ya existente). No hay números nuevos en el código. |
+| 7 | Falla de `test_f50c_a_fotos_testigo_de_wittenoom` es de los datos vivos y no del código de F56 | PARCIAL | La falla reproduce (`([], None) != (['Eric Saint'], 'arrastre')`, foto 3/7). El test llama a `ex.preparar()`, que lee escaleta y narración vivas de `_steps` (`test_module_f50c.py` l.~80). El código de F56 no toca `mexp` ni `expedientes_f50c`. Eso es coherente con la explicación del reporte. No está demostrado que falle solo por F55 D: la narración y el skeleton de `_steps` también los reescribió F56 C (`SALIDA_C.md`) y la suite corrió con C en paralelo. El log `f55d0` no contiene f50c, así que el «pasaba antes» no se puede comprobar. |
+| 8 | Nada fuera de alcance | OK | `git diff --name-only 46a1d8a~1 HEAD` solo trae `lab/`, los 3 módulos, los 2 tests y `ficha_caso`. Los únicos modificados sin commitear, `diag_234_cap4.py` y `lab/hyperframes/f28/a/f28a.log`, ya estaban sucios antes y no son de F56. |
+| 9 | «Lo que queda abierto» entero | OK | F56_REPORT.md l.276: 5 ítems (cap 3 largo, f50c clavado, textos parafraseados en `hechos` y `escenas`, PARADA del papel, `person_stats` sin recalcular). |
+
+Fuera de alcance: ninguno.
+
+Observaciones:
+1. El cap 3 queda en 3056 caracteres (523 palabras) contra un tope de 2242, es decir 36% por encima. Es consecuencia de proteger el re-gancho y está declarado como aviso, pero el entregable «largo de los 7 caps» no cumple el rango del cap 3. Es decisión del analista.
+2. El punto 7 de arriba: la causa de la falla en f50c es verosímil pero no probada.
+3. El reporte dice «verificado» para el md5 del handoff, y coincide. El veredicto del revisor en F56_REPORT.md está pendiente («se pega abajo»), como corresponde en este momento.
+
+Riesgos que el contrato no cubre:
+- `contamination` ahora ignora cualquier kind `personajes*` y toda cita con `duplicado_de`. Si un `duplicado_de` apuntara mal, la contaminación pasaría sin que nada la frene.
+- `reparto_c.py` sobrescribe `01b_narration.json`, el skeleton y el papel de `_steps` vivos. El respaldo en `f56/antes/` es de F55 D, no de F56 C, y otros tests clavados a esos datos pueden romperse.
+
+## Adenda de CC
+- **Fila 7 (f50c):** correcto, no está probado cuál de las dos regeneraciones lo rompió: el log de la suite amplia solo lista fallas y f50c no estaba en la lista de `f55d0` (corrida antes de F55 D), así que pasaba con los datos previos a F55 D; después de F55 D y de F56 C (las dos reescriben escaleta/skeleton/narración v3 de `_steps`) falla. Lo que sí está demostrado es que el código de F56 no toca lo que ese test ejercita (`m03_expediente`, `expedientes_f50c`) salvo `fuentes` leyendo la ficha por `load` (D.0), que ya estaba cuando pasó. Abierto 2 queda escrito así: «falla desde la regeneración de Wittenoom (F55 D / F56 C)».
+- **Observación 1 (cap 3 largo):** es el costo de B tal como la pide el handoff; la salida lo declara con su número. Decisión del analista (abierto 1).
+- **Riesgo `duplicado_de` mal apuntado:** `duplicado_de` lo escribe `_dedupe_citas` con el id que quedó en el mismo pool (test F55 B); no viene del modelo.
+- **Respaldo:** `f56/antes/` guarda lo de F55 D, que es lo que C transformó; el resultado de C es lo que hay en `_steps` y está entero en `SALIDA_C.md` (narración por caps, títulos, papel). Si hace falta congelarlo, es una copia más.
