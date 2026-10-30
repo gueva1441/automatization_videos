@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-30 (F57: foto final en todos los clips (edit de la inicial por Seedream, instrucción de Opus) + la voz entera del clip (voz_clip); Parte A en 6 módulos + 20 tests, suite limpia; Parte B: clip real del cap 1 de Wittenoom con Gemini, SSIM 0,78, US$ 1,34; PARADA B) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-30 (F58 Parte A: miniaturas como 3 paquetes (título + texto + foto) con Opus y la foto por la máquina de producción; texto en la mitad izquierda partido por ancho; camino Gemini y bases «existentes» borrados; A8 PEDIDO_FINAL sin movimiento; US$ 0; PARADA A, la Parte B espera el OK del analista) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,16 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F58, PARADA A): las miniaturas salen como 3 paquetes y la foto de cada uno la hace la máquina de producción.
+- Opus escribe en una llamada 3 paquetes (título + texto + la oración del gancho que muestra la foto), estrategias distintas, leyendo el gancho entero, la narración y el pool; las cifras se cotejan por código (aviso). La foto: casilleros del cap 1 con esa oración + armado + canon, sin cartel, persona en la mitad derecha; el texto en la mitad izquierda, partido por ancho y achicado hasta caber.
+- Se borraron el camino Gemini (6+6 + hero) y las bases de otro video; lo viejo de Wittenoom está en `publish/_antes_f58/`. Chascada F57: la instrucción de la foto final de los clips ya no mira el movimiento.
+- **US$ 0.** La Parte B (Wittenoom real) espera el OK del analista a la Parte A.
+
+## F58 — miniaturas como 3 paquetes (handoff del analista 23:23/23:38) — PARADA A
+- Commits: `efbe36e` (DECISIONES ×5), `13d2690` (Parte A: m09_packaging, m09_review_server, m03_visual, m03_imagenes_v3, video_prompt, asset_manager; test_module_f58 31+1 xfail, test_module_f58_a3 9; adaptados f57/f51a/f54/gfx_auto_icons/m09_*/fase3; stickers; MAPA); el siguiente es el del reporte (`lab/hyperframes/f58/F58_REPORT.md`, SALIDA_A.md).
+- Suites: rápida 53; amplia 1194 + 1 xfail + 4 previas; ch02 `f792f3d4…`; MAPA --check 0.
+- Abierto: fila «¿QUIÉN SABÍA» de la tabla A5 mide −3/−2 px acá (xfail estricto); Parte B con su gasto (Opus ×2 + 3 fotos).
 
 ## 👀 Para Omar (F57, PARADA B): cada clip va a llevar una foto final (edit de la inicial) y el motor mira la voz entera de los 8 s.
 - Parte A (US$ 0): `voz_clip` por código, `PEDIDO_CON_FINAL` y `PEDIDO_FINAL` tal cual el handoff, `foto_final_del_clip` (Opus → Seedream /edit → SSIM), el motor recibe las dos fotos (`end_image_url` en G y K); un guion viejo sin `voz_clip` PARA.
