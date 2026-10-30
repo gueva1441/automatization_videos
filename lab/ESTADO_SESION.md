@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 23:30 (F55 Parte D: Wittenoom en texto con detector + dedupe + promesa; escaleta f55-1 con promesa de 1 oración y 2 loops pagados; guion con 3 bloqueantes, 2 falsos por el texto de una cita duplicada; US$ 3,93; PARADA D) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-30 00:20 (F56: los 3 frenos falsos del guion de Wittenoom ya no frenan (jueces (a)/(d) y ficha), el reparto protege el re-gancho; Wittenoom con 0 bloqueantes sin volver a escribir el guion; US$ 0,75; PARADA C) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,17 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F56, PARADA C): el guion de Wittenoom quedó con 0 bloqueantes sin volver a escribirlo, y el re-gancho volvió al cap 3.
+- Los 3 frenos eran falsos: citas duplicadas y rótulos sin nombre ya no cuentan como «de otro caso» ni como «cita inventada»; la ficha cargada trae el texto de la cita que quedó.
+- El reparto ya no mueve ni recorta el párrafo del re-gancho (como el pico). Precio: el cap 3 queda largo (3056 caracteres, aviso), porque el editor de largo perdía esa oración al acortar.
+- Títulos y papel nuevos (mismos párrafos). **Gasto F56: US$ 0,75.** Cero fotos, cero voz. Decidís con el analista si pasa a fotos.
+- **Ojo:** 1 test viejo (F50c) clavado a los datos vivos de Wittenoom falla desde la corrida de F55 D (no es F56).
+
+## F56 — frenos falsos y re-gancho (handoff del analista 21:00) — PARADA C
+- Commits: `46a1d8a` (A + B: m05_narrative, ficha_caso, m01d_particion, medida_retencion, tests f56 y f56_reparto, antes/, reparto_c.py, stickers, MAPA); el siguiente es el del reporte (`lab/hyperframes/f56/F56_REPORT.md`, SALIDA_C.md).
+- Wittenoom en `_steps`: mismos 28 párrafos de F55 D; bloqueantes 3 → 0; reparto nuevo (beat 6 en el cap 3); títulos nuevos (Flash); papel nuevo. Lo de F55 D en `lab/hyperframes/f56/antes/`.
+- Suites: rápida 53; amplia 1132 + 5 (4 previas + f50c clavado a datos vivos); ch02 `f792f3d4…`; MAPA --check 0.
 
 ## 👀 Para Omar (F55 Parte D, PARADA D): Wittenoom tiene escaleta, guion y papel nuevos; la promesa salió en una oración y los loops se pagan.
 - El guion frena con 3 cosas: la vieja del cap 3 y **2 falsas nuevas**: la voz citó una cita con las palabras de la versión que el dedupe sacó (Q15), y los jueces la toman por inventada y por de otro caso. Arreglo general en un handoff aparte.

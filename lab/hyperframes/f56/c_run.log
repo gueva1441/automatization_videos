@@ -1,0 +1,51 @@
+[20:54:29] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: 123bbb64-9fca-4395-8bf4-57d60e219ef1
+[20:55:16] INFO     | viral_pipeline | [cost_tracker] Video 123bbb64-9fca-4395-8bf4-57d60e219ef1 — Costo total: $0.0458
+[20:55:16] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: 123bbb64-9fca-4395-8bf4-57d60e219ef1
+[20:58:11] INFO     | viral_pipeline | [cost_tracker] Video 123bbb64-9fca-4395-8bf4-57d60e219ef1 — Costo total: $0.7005
+# F56 — Salida C (texto)
+
+Párrafos: los de `lab/hyperframes/f56/antes/01b_guionista_v4.json` → `reparacion.parrafos` (28; los del guionista f54-2 + la edición por oración de F55 D, ANTES del reparto). Guionista y escaleta sin volver a llamar.
+
+## 1. Bloqueantes antes → después, y quién los vio
+
+**Antes (F55 D, jueces viejos): 3**
+- cap 3 beat 4 (a): entre comillas, pero no es una cita del pool: «Aterrizamos en una pista en medio de una tierra muy muy roja…»
+- cap 3 beat 4 (d): fuera del caso (descartado en el pool): El avión era pequeño, de hélices, y se movía muchísimo. Aterrizamos en una pista
+- cap 3 beat 5 (d): fuera del caso (descartado en el pool): Defensor del empleador no identificado
+
+**Después (jueces F56 A): 0**
+- (ninguno)
+
+Quién los vio: (a) `false_quotes` y (d) `contamination` nuevos (código); (f)/(h) `regla_dicho` + verificador: {'llamadas': 0, 'cache': 0, 'usd': 0.0} · altas de Sonnet: ninguna.
+PARADA del guion: no.
+
+## 2. Dónde cae el re-gancho
+
+`recuerda_loop`: beat 6 · «Un año después de que McNulty escribiera ese primer caso, un recién casado de Madrid se bajaba de un avión en esa misma pista de polvo.»
+
+Notas del reparto: cap 3: el acortado del último párrafo (beat 6) perdía la oración del re-gancho → se deja el original · cap 3: 3056 caracteres > 2242 y no se pudo mover ni acortar (aviso) · cap 7: 1378 caracteres > 1255 → el editor acortó el último párrafo (304 → 192)
+
+Oración del re-gancho en la narración (parecido ≥ 0,6): cap 3, oración 31 (0.93)
+
+## 3. Los 7 caps con su largo (y los 7 títulos)
+
+| cap | título | palabras | caracteres | beats |
+|---|---|---|---|---|
+| 1 | La herida que no cerraba | 161 | 834 | [1] |
+| 2 | A la tierra roja | 220 | 1188 | [2, 3] |
+| 3 | Ignorar el veneno | 523 | 3056 | [4, 5, 6] |
+| 4 | El juego peligroso | 232 | 1259 | [7, 8] |
+| 5 | Wittenoom por dentro | 292 | 1682 | [9, 10] |
+| 6 | El polvo viaja | 297 | 1712 | [11, 12] |
+| 7 | La herida ancestral | 216 | 1266 | [13] |
+
+Total: 1941 palabras.
+
+## 4. Gasto
+
+Pasos nuevos en `01_v3_costos.json`: [{'paso': 'particion (F56 C)', 'usd': 0.0458, 'segundos': 46.8}, {'paso': 'pantalla', 'usd': 0.7005, 'segundos': 174.8}] · verificador US$ 0.0 · **total US$ 0.7463**.
+
+## 5. El papel (01e_pantalla.md)
+
+juez: {'caps': [{'palabras': 161, 'datos_usados': [], 'densidad': 0.0, 'adjetivos': 2, 'adj_100': 1.24, 'relleno_seguido': 0, 'relleno_prohibido': [], 'conteo': 'por_id', 'repetidos_en_cap': [], 'nombres_si
+exit 0
