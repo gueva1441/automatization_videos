@@ -1,0 +1,502 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "Queue OpenAPI for fal-ai/bytedance/seedream/v5/lite/edit",
+  "version": "1.0.0",
+  "description": "The OpenAPI schema for the fal-ai/bytedance/seedream/v5/lite/edit queue.",
+  "x-fal-metadata": {
+   "endpointId": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "category": "image-to-image",
+   "thumbnailUrl": "https://v3b.fal.media/files/b/0a9c2fb5/PIUPm_8kBdpdBoSkOebbz_bcfdbe1021324995bf3c36b05ab59c2c.jpg",
+   "playgroundUrl": "https://fal.ai/models/fal-ai/bytedance/seedream/v5/lite/edit",
+   "documentationUrl": "https://fal.ai/models/fal-ai/bytedance/seedream/v5/lite/edit/api",
+   "about": "Edit images using Bytedance's SeedDream 5.0 Lite model."
+  }
+ },
+ "components": {
+  "securitySchemes": {
+   "apiKeyAuth": {
+    "type": "apiKey",
+    "in": "header",
+    "name": "Authorization",
+    "description": "Fal Key"
+   }
+  },
+  "schemas": {
+   "QueueStatus": {
+    "type": "object",
+    "properties": {
+     "status": {
+      "type": "string",
+      "enum": [
+       "IN_QUEUE",
+       "IN_PROGRESS",
+       "COMPLETED"
+      ]
+     },
+     "request_id": {
+      "type": "string",
+      "description": "The request id."
+     },
+     "response_url": {
+      "type": "string",
+      "description": "The response url."
+     },
+     "status_url": {
+      "type": "string",
+      "description": "The status url."
+     },
+     "cancel_url": {
+      "type": "string",
+      "description": "The cancel url."
+     },
+     "logs": {
+      "type": "object",
+      "description": "The logs.",
+      "additionalProperties": true
+     },
+     "metrics": {
+      "type": "object",
+      "description": "The metrics.",
+      "additionalProperties": true
+     },
+     "queue_position": {
+      "type": "integer",
+      "description": "The queue position."
+     }
+    },
+    "required": [
+     "status",
+     "request_id"
+    ]
+   },
+   "BytedanceSeedreamV5LiteEditInput": {
+    "properties": {
+     "prompt": {
+      "description": "The text prompt used to edit the image",
+      "type": "string",
+      "examples": [
+       "Replace the product in Figure 1 with that in Figure 2. Seamlessly render logo in Figure 3 into the product design, in frosted glass texture. Remove any extra text in Figure 1, and design a catchy tagline for the perfume."
+      ],
+      "title": "Prompt"
+     },
+     "image_urls": {
+      "description": "List of URLs of input images for editing. When more than 10 references are provided, only the last 10 are used.",
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "examples": [
+       [
+        "https://v3b.fal.media/files/b/0a8f9936/KOsb_qPB_W0ZJ0Ee2OsnU_586e2892841d46f09049ee7199b303d3.png",
+        "https://v3b.fal.media/files/b/0a8f994e/JroWTogO6jOTFk9b6B3XM_591ca38cef2f44bbba2843cbf80fb1b2.png",
+        "https://v3b.fal.media/files/b/0a8f9960/Q6pzwXAiFaFPOpSScoE-D_0eca5db19e5242739f127efe49b38922.png"
+       ]
+      ],
+      "title": "Image URLs"
+     },
+     "num_images": {
+      "description": "Number of separate model generations to be run with the prompt.",
+      "minimum": 1,
+      "type": "integer",
+      "maximum": 6,
+      "title": "Num Images",
+      "default": 1
+     },
+     "max_images": {
+      "description": "Maximum images per generation in sequential mode. Ignored when sequential generation is disabled. Combined input references and outputs per generation cannot exceed 15.",
+      "minimum": 1,
+      "type": "integer",
+      "maximum": 15,
+      "title": "Max Images",
+      "default": 1
+     },
+     "enable_safety_checker": {
+      "description": "If set to true, the safety checker will be enabled. Disabling it requires account authorization; unauthorized requests are always checked.",
+      "type": "boolean",
+      "examples": [
+       true
+      ],
+      "title": "Enable Safety Checker",
+      "default": true
+     },
+     "sequential_image_generation": {
+      "description": "Generate related images with `auto`, or one image per generation with `disabled`. When omitted, values of `max_images` above one enable `auto`.",
+      "title": "Sequential Image Generation",
+      "anyOf": [
+       {
+        "type": "string",
+        "enum": [
+         "auto",
+         "disabled"
+        ]
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "sync_mode": {
+      "description": "If `True`, the media will be returned as a data URI and the output data won't be available in the request history.",
+      "type": "boolean",
+      "title": "Sync Mode",
+      "default": false
+     },
+     "watermark": {
+      "description": "Whether to add the provider's visible watermark.",
+      "type": "boolean",
+      "title": "Watermark",
+      "default": false
+     },
+     "image_size": {
+      "description": "The size of the generated image. Custom dimensions within the provider's pixel and aspect limits are sent unchanged. Other sizes use compatible scaling. The provider's native pixel range is 2560x1440 to 4096x4096, with aspect ratio between 1/16 and 16.",
+      "title": "Image Size",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/SeedreamLiteImageSize"
+       },
+       {
+        "type": "string",
+        "enum": [
+         "square_hd",
+         "square",
+         "portrait_4_3",
+         "portrait_16_9",
+         "landscape_4_3",
+         "landscape_16_9",
+         "auto_2K",
+         "auto_3K",
+         "auto_4K"
+        ]
+       }
+      ],
+      "default": "auto_2K"
+     },
+     "output_format": {
+      "description": "The file format of the generated images.",
+      "type": "string",
+      "default": "jpeg",
+      "title": "Output Format",
+      "enum": [
+       "jpeg",
+       "png"
+      ]
+     }
+    },
+    "type": "object",
+    "title": "SeedDream50LiteEditInput",
+    "x-fal-order-properties": [
+     "prompt",
+     "image_size",
+     "num_images",
+     "max_images",
+     "sync_mode",
+     "enable_safety_checker",
+     "output_format",
+     "watermark",
+     "sequential_image_generation",
+     "image_urls"
+    ],
+    "required": [
+     "prompt",
+     "image_urls"
+    ]
+   },
+   "BytedanceSeedreamV5LiteEditOutput": {
+    "properties": {
+     "seed": {
+      "description": "Seed used for generation.",
+      "type": "integer",
+      "examples": [
+       42
+      ],
+      "title": "Seed"
+     },
+     "images": {
+      "description": "Generated images",
+      "items": {
+       "$ref": "#/components/schemas/Image"
+      },
+      "type": "array",
+      "examples": [
+       [
+        {
+         "url": "https://v3b.fal.media/files/b/0a8fbf56/wu9vcxO3xO6lkHv5zdiIs_7aa8564f6e4f4cc795ecb8e923deb2fb.png"
+        }
+       ]
+      ],
+      "title": "Images"
+     }
+    },
+    "type": "object",
+    "title": "SeedDream50LiteEditOutput",
+    "x-fal-order-properties": [
+     "images",
+     "seed"
+    ],
+    "required": [
+     "images",
+     "seed"
+    ]
+   },
+   "SeedreamLiteImageSize": {
+    "properties": {
+     "height": {
+      "description": "The height of the generated image.",
+      "default": 512,
+      "type": "integer",
+      "maximum": 16384,
+      "title": "Height",
+      "exclusiveMinimum": 0
+     },
+     "width": {
+      "description": "The width of the generated image.",
+      "default": 512,
+      "type": "integer",
+      "maximum": 16384,
+      "title": "Width",
+      "exclusiveMinimum": 0
+     }
+    },
+    "type": "object",
+    "title": "SeedreamLiteImageSize",
+    "x-fal-order-properties": [
+     "width",
+     "height"
+    ]
+   },
+   "Image": {
+    "description": "Represents an image file.",
+    "properties": {
+     "height": {
+      "description": "The height of the image in pixels.",
+      "examples": [
+       1024
+      ],
+      "title": "Height",
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "content_type": {
+      "description": "The mime type of the file.",
+      "examples": [
+       "image/png"
+      ],
+      "title": "Content Type",
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "file_name": {
+      "description": "The name of the file. It will be auto-generated if not provided.",
+      "examples": [
+       "z9RV14K95DvU.png"
+      ],
+      "title": "File Name",
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "url": {
+      "description": "The URL where the file can be downloaded from.",
+      "type": "string",
+      "title": "Url"
+     },
+     "file_size": {
+      "description": "The size of the file in bytes.",
+      "examples": [
+       4404019
+      ],
+      "title": "File Size",
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "width": {
+      "description": "The width of the image in pixels.",
+      "examples": [
+       1024
+      ],
+      "title": "Width",
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     }
+    },
+    "type": "object",
+    "title": "Image",
+    "x-fal-order-properties": [
+     "url",
+     "content_type",
+     "file_name",
+     "file_size",
+     "width",
+     "height"
+    ],
+    "required": [
+     "url"
+    ]
+   }
+  }
+ },
+ "paths": {
+  "/fal-ai/bytedance/seedream/v5/lite/edit/requests/{request_id}/status": {
+   "get": {
+    "parameters": [
+     {
+      "name": "request_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "description": "Request ID"
+      }
+     },
+     {
+      "name": "logs",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "number",
+       "description": "Whether to include logs (`1`) in the response or not (`0`)."
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "The request status.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/QueueStatus"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/fal-ai/bytedance/seedream/v5/lite/edit/requests/{request_id}/cancel": {
+   "put": {
+    "parameters": [
+     {
+      "name": "request_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "description": "Request ID"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "The request was cancelled.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "success": {
+           "type": "boolean",
+           "description": "Whether the request was cancelled successfully."
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/fal-ai/bytedance/seedream/v5/lite/edit": {
+   "post": {
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/BytedanceSeedreamV5LiteEditInput"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "The request status.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/QueueStatus"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/fal-ai/bytedance/seedream/v5/lite/edit/requests/{request_id}": {
+   "get": {
+    "parameters": [
+     {
+      "name": "request_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "description": "Request ID"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Result of the request.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/BytedanceSeedreamV5LiteEditOutput"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "servers": [
+  {
+   "url": "https://queue.fal.run"
+  }
+ ],
+ "security": [
+  {
+   "apiKeyAuth": []
+  }
+ ]
+}

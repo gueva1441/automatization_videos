@@ -1,0 +1,75 @@
+ROOT  = C:\CLAUDE_PROJECTS\automatization_videos
+BASE  = C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f60\base
+TID   = 123bbb64-9fca-4395-8bf4-57d60e219ef1
+
+[1] ensamblado en la copia: lab\hyperframes\f60\base\data\scripts\123bbb64-9fca-4395-8bf4-57d60e219ef1.json  (1019230 bytes)
+
+[2a] narración: 01b_narration.json vs guion vivo data/scripts/<tid>.json
+| cap | chars 01b | chars vivo | md5 01b | md5 vivo | iguales |
+|---|---|---|---|---|---|
+| 1 | 834 | 453 | ec9d4d5f | 8765aaf4 | NO |
+| 2 | 1188 | 1664 | 8fe5ecd3 | 0de61909 | NO |
+| 3 | 3056 | 2105 | 34fa2417 | 9e404f1e | NO |
+| 4 | 1259 | 1343 | ef464253 | 1309d196 | NO |
+| 5 | 1682 | 1961 | 4ef159fd | 22310727 | NO |
+| 6 | 1712 | 2186 | 407dc929 | 3c7af1b0 | NO |
+| 7 | 1266 | 1233 | 7ea3bf10 | 7933696e | NO |
+→ caps que difieren: 7 de 7
+
+[2b] voz_clip (caps con render_engine == veo)
+| cap | veo_position | palabras | chars | ventana | palabras voz_clip | chars voz_clip |
+|---|---|---|---|---|---|---|
+| 1 | start | 86 | 453 | 101 | 20 | 105 |
+| 7 | end | 207 | 1233 | 114 | 21 | 116 |
+
+voz_clip cap 1:
+«Un hombre joven posa para una foto con el pie envuelto en una venda blanca. Detrás, tierra roja y paredes»
+
+voz_clip cap 7:
+«seguridad pública». No se ha retirado una sola palada de asbesto. ¿Quién va a sacar la primera palada de esa tierra?»
+
+[3] _steps copiados a lab\hyperframes\f60\base\data\scripts\_steps\123bbb64-9fca-4395-8bf4-57d60e219ef1: 03_visual.json (+voz_clip caps [1, 7]), 01a_skeleton.json
+[4] assets: 196 archivos, 615.4 MB → lab\hyperframes\f60\base\output\123bbb64-9fca-4395-8bf4-57d60e219ef1\assets
+[4] audio: 31 archivos, 13.2 MB (< 100 MB) → copiado a lab\hyperframes\f60\base\output\audio\123bbb64-9fca-4395-8bf4-57d60e219ef1
+
+[5] QAState(tid, base_dir=base): caps en _script = 7
+    ch01: render_engine=veo veo_position=start anchors=0 supp=4 role=hook
+    ch02: render_engine=flux veo_position=start anchors=16 supp=0 role=development
+    ch03: render_engine=flux veo_position=start anchors=16 supp=0 role=development
+    ch04: render_engine=flux veo_position=start anchors=14 supp=0 role=development
+    ch05: render_engine=flux veo_position=start anchors=16 supp=0 role=development
+    ch06: render_engine=flux veo_position=start anchors=16 supp=0 role=development
+    ch07: render_engine=veo veo_position=end anchors=0 supp=12 role=reveal_outro
+    _flux_imgs('ch02') = 16 PNG (primero: ch02_img_01.png)
+    resolve_clip('ch01') = lab\hyperframes\f60\base\output\123bbb64-9fca-4395-8bf4-57d60e219ef1\assets\ch01_veo\ch01_clip_01.mp4
+    resolve_audio('ch01') = C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f60\base\output\audio\123bbb64-9fca-4395-8bf4-57d60e219ef1\ch01.mp3
+    words ch01 = 86
+
+[5] árbol de lab\hyperframes\f60\base/ (dir · archivos directos · MB directos)
+    base/  (0 archivos, 0.0 MB)
+      data/  (0 archivos, 0.0 MB)
+        scripts/  (1 archivos, 1.0 MB)
+          _steps/  (0 archivos, 0.0 MB)
+            123bbb64-9fca-4395-8bf4-57d60e219ef1/  (2 archivos, 0.4 MB)
+      output/  (0 archivos, 0.0 MB)
+        123bbb64-9fca-4395-8bf4-57d60e219ef1/  (0 archivos, 0.0 MB)
+          assets/  (4 archivos, 0.2 MB)
+            ch01_flux/  (8 archivos, 26.0 MB)
+            ch01_veo/  (2 archivos, 10.6 MB)
+            ch02_flux/  (32 archivos, 98.6 MB)
+            ch03_flux/  (32 archivos, 97.3 MB)
+            ch04_flux/  (28 archivos, 85.3 MB)
+            ch05_flux/  (32 archivos, 95.1 MB)
+            ch06_flux/  (32 archivos, 95.7 MB)
+            ch07_flux/  (24 archivos, 77.6 MB)
+            ch07_veo/  (2 archivos, 29.1 MB)
+        audio/  (0 archivos, 0.0 MB)
+          123bbb64-9fca-4395-8bf4-57d60e219ef1/  (31 archivos, 13.2 MB)
+    TOTAL: 230 archivos, 629.9 MB
+
+[5] md5
+    guion COPIA lab\hyperframes\f60\base\data\scripts\123bbb64-9fca-4395-8bf4-57d60e219ef1.json: 9273e37dd6f030d9c75609121c8a7479
+    guion VIVO  data\scripts\123bbb64-9fca-4395-8bf4-57d60e219ef1.json: antes f762dc482027e9a65ccd7fa38316510e · después f762dc482027e9a65ccd7fa38316510e
+    _steps de producción (03_visual, 01a_skeleton, 01b_narration): sin cambios
+
+OK — producción intacta, copia de lab lista.

@@ -1,0 +1,12 @@
+precio fal: t2i 0.035 US$/images · edit 0.035 US$/images
+
+PROMPT MADRE:
+Head-and-shoulders portrait of a young adult Spanish migrant miner. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.
+
+[madre] 26.9 s · seed 143986887 · NonexNone · US$ 0.035
+
+[lote 1] 6 fotos: ['ch02_img_01.png', 'ch02_img_02.png', 'ch02_img_04.png', 'ch02_img_05.png', 'ch03_img_16.png', 'ch04_img_07.png'] · prompt 4608 chars
+[lote 1] ERROR ReadTimeout: HTTPSConnectionPool(host='fal.run', port=443): Read timed out. (read timeout=240)
+
+[lote 2] 3 fotos: ['ch04_img_09.png', 'ch04_img_14.png', 'ch05_img_05.png'] · prompt 2405 chars
+[lote 2] devueltas 3/3 · 142.5 s · seed 1339186958 · US$ 0.105 (0.035 × 3)

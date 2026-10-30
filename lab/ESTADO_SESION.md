@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-30 (F59 Etapa B: prueba real en Wittenoom sobre la copia de lab — B1 3 paquetes con la composición nueva (byte-identidad con F58 probada), B2 ch03_img_08 rehecha por `_fix_core` (Opus cambió solo `action`, scrub sin quitar nada), B3 `_clipfix_core` ch01: Opus editó el movimiento pero Gemini y Kling rechazaron por la foto vieja del 28-oct (venda manchada), mp4 intacto; US$ 0,384 · PARADA B. Siguiente: lo que diga el analista.)
+Última actualización: 2026-10-30 (F60 Etapa 0: prueba de secuencia en lab sobre la copia f60/base — madre de Daniel Écija con Seedream v5 Lite t2i OK; lote de 6 fotos /edit agotó el timeout existente de 240 s (PARÁ: falta el número), lote de 3 salió 3/3 en 142,5 s con la cara de la madre 8/10 y contagio; US$ 0,14 confirmado (+0,21 probable) · PARADA 0. Siguiente: el analista decide el timeout para N fotos; después Etapa A.)
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,19 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F60, PARADA 0): la madre por persona + /edit en secuencia funciona, pero 6 fotos por llamada no entran en el timeout de hoy.
+- Madre de Daniel Écija (Seedream v5 Lite, 27 s, US$ 0,035): retrato frontal, fondo gris, sale bien (`lab/hyperframes/f60/e0/madre_daniel_ecija.png`).
+- Lote de 3 fotos en UNA llamada `/edit` con la madre (142 s, US$ 0,105): las 3 son la escena pedida (la de los mineros, parcial: todos de frente, nadie de espaldas); en la única con caras, la madre se ve clara (8/10) pero se copia en 2–3 de los 8 mineros (el contagio que ya aceptaste); la ropa de la madre (camisa manchada) se arrastra a las 3 fotos. Hoja: `lab/hyperframes/f60/hoja_madre_secuencia.jpg`; caras: `hoja_caras_lote2.jpg`.
+- Lote de 6 fotos: la llamada tardó más de 240 s (el timeout que usa producción) y se cortó sin fotos; con 3 fotos tardó 142 s → 6 proyectan ~285 s. Falta decidir el timeout (o pasar la secuencia por la cola de fal). fal pudo haber cobrado igual esas 6 (US$ 0,21).
+- Los PNG «viejos» de la copia son del guion del 28-oct, así que la comparación cara nueva vs vieja casi no tiene par (hallazgo F59 §5.1).
+- Nada de producción tocado. DECISIONES.md con las 4 líneas del handoff. Reporte: `lab/hyperframes/f60/F60_REPORT.md`.
+
+## F60 Etapa 0 — secuencia en lab — PARADA 0 (PARÁ por timeout)
+- Copia `lab/hyperframes/f60/base/` (`copia_lab.py`, método F59; producción intacta). Runner `etapa0_secuencia.py` → `etapa0.json/.log`; `schema_edit_v5_lite.json` (GET). Schema /edit: `max_images` 1–15, `num_images` 1–6, referencias+salidas ≤ 15; precio fal 0,035 US$/imagen (edit y t2i).
+- Madre: prompt B.1 a mano (canon recortado «a young adult Spanish migrant miner» + appearance de `spanish_migrant_families` + ESTILO_C 1962 + NO_TEXT), payload espejo de `_seedream_payload_for`. 9 fotos de Daniel (tabla de verdad, 15/15 referencias coinciden; chapters[4].img[4] entra y se declara) → lotes 6+3. Lote 1: ReadTimeout 240 s, 0 devueltas. Lote 2: 3/3, 142,5 s, seed 1339186958.
+- Revisor Etapa 0: CUMPLE CON OBSERVACIONES (lote de 6 no obtenido por PARÁ legítimo; `sequential_image_generation="auto"` explícito; el PARÁ se aplicó tras el lote 2; imágenes no ignoradas por git); veredicto íntegro + adenda en F60_REPORT.md.
+- Abiertos: timeout para N fotos (PARÁ); lote de 6 sin ver; el modelo ignora «de espaldas» cuando hay madre; ropa de la madre arrastrada; cobro del lote cortado no verificable; PNG viejos sin par. Imágenes fuera de git.
 
 ## 👀 Para Omar (F59, PARADA B): probado en Wittenoom (copia de lab): el «rehacer foto» funciona de punta a punta; el «rehacer clip» hizo todo bien hasta el motor, y el motor rechazó por la foto vieja.
 - Foto (ch03, el abogado del empleador): tu pedido «que mire hacia la cámara, con el ceño fruncido» → Opus cambió solo la acción («looking directly into the camera with a furrowed brow»), el filtro no sacó nada, y la foto nueva lo muestra mirando a cámara con el ceño fruncido. Antes/después en `lab/hyperframes/f59/b2/hoja_b2.jpg`.
