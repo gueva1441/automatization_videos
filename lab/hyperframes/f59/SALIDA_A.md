@@ -82,3 +82,49 @@ Helpers nuevos en qa_studio_server.py (l. ~838-955): `_steps_dir`, `_visual_path
 - amplia: **1295 passed**, 31 skipped, **3 xfailed** (2 de `test_module_f59_a1` + 1 previo de `test_module_f58`), **4 failed = las 4 previas** (`test_module_m03_merge_timing` ×2, `test_module_gfx_lab` ×2; no son de F59).
 - `test_qa_studio.py` (no está en la amplia) + `test_module_f57.py`: **61 passed**.
 - `python lab/tools/mapa_modulos.py --check`: 158 archivos · **0 fallas**. Stickers al día: `qa_studio_server.py`, `qa_studio.html`, `asset_manager.py`, `script_engine/m09_packaging.py` (orquestador), `script_engine/m03_visual.py`, `script_engine/m03_imagenes_v3.py` (fase2a); `_build_clipfix_user_prompt` salió de `funciones_muertas`; el modelo del fix pasa de Gemini a Opus.
+
+## Veredicto de revisor-handoff — Etapa A (íntegro)
+
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | Los 2 pedidos byte a byte | OK | Extraje los bloques del handoff (l. 97-108 y 115-126) con un script propio y los comparé con `qa_studio_server.PEDIDO_EDITAR_CASILLEROS` y `PEDIDO_EDITAR_MOVIMIENTO`: True y True. Placeholders `{ancla}/{casilleros}/{pedido}` y `{segundos}/{voz_clip}/{movimiento}/{pedido}`. |
+| 2 | `CASILLEROS_EDITABLES` | OK | m03_imagenes_v3.py:623 `(*_PROSA, "shot_scale", "text_in_image", "year")`. Resuelve a las 9 claves del handoff; `people_group` queda fuera. |
+| 3 | A1 byte-idéntico | OK | `pytest test_module_f59_a1.py`: 102 passed, 2 xfailed (los 2 xfail declarados en SALIDA_A). `a1_fixture.json` es una copia fija de 96 ítems. El test «antes vs después» carga m03 de `git show f7265fe` (l. 21, 137) y compara el JSON completo y el orden de claves en 3 modos. Ese test sí lee `topics_db.json` y `01b_narration.json` vivos (l. 106, 111), pero los mismos datos alimentan los dos lados, y se saltea si faltan. |
+| 4a | A2 puntos 1-9 | OK | El código sigue el handoff punto por punto. Desviaciones declaradas: kwarg `anio_fuente` en `armar_item` y grade que falla hace fallar el fix. |
+| 4b | A3 puntos 1-6 | OK | Mismo resultado, uno por uno contra `_clipfix_core`. |
+| 4c | Borrados completos | PARCIAL | En código, tests y html no queda `_FIX_REWRITE_INSTRUCTION`, `_build_fix_user_prompt`, `generate_veo_fn` ni `DORMIDO` (solo un comentario en test_module_f57.py:370). Sí quedan nombres viejos en: `lab/mapa/stickers/_partes/orquestador_a.json:17` (`_build_clipfix_user_prompt`, `_FIX_CLIP_REWRITE_INSTRUCTION`, DORMIDO) y `test_module_137c_fix_recetario.py` en `lab/MAPA_PROYECTO.json:8109`, `lab/mapa/tests_collect.json:182`, `lab/mapa/tests_lab.json:1637`. |
+| 5 | Chascada de la galería | OK | qa_studio_server.py:185-197 filtra con `_IMG_NAME_RE`. `test_galeria_ignora_graded` (test_qa_studio.py:497) cubre n = crudos, `anchors[i]` en la foto i y `sync_approx` False. Pasa. |
+| 6 | A4 hints y «Veo» | OK | Los 2 placeholders de qa_studio.html:508 coinciden con `PENDIENTE_C_QA_hint.md`, con `&quot;` en las comillas dobles. `grep -c Veo qa_studio.html` = 0. Agregado de CC: `pollFix` muestra `reason` cuando ok. |
+| 7 | A5 | OK | `COMPOSICION_MINIATURA` es literalmente la oración de DECISIONES 08:22 y el comentario está actualizado. `foto_final_del_clip(foto_inicial, image_prompt, voz_clip, out_path, *, use_ultra)` sin `video_prompt_aprobado`. Las llamadas (asset_manager:1210, clip_b.py:80, test_module_f57 268/288/304, `def final` 326, qa_studio_server) están todas actualizadas. `video_prompt.escribir` intacto. |
+| 8 | Números nuevos | PARCIAL | `MAX_RETRY_ATTEMPTS` y `_segundos()` tienen origen. Hay recortes de mensaje nuevos sin origen declarado: `[:200]` (l. ~345/347) y `[:600]` (`filtro:` del clip). Antes no existían en el archivo (0 ocurrencias en f7265fe); `[:160]` viene del código previo. |
+| 9 | Suites y MAPA | OK | Corrí `pytest test_qa_studio.py test_module_f57.py test_module_f58.py`: 94 passed, 1 xfailed. `mapa_modulos.py --check`: 158 archivos, 0 fallas. Logs de f41/f59: rápida 53 passed y 3 skipped; amplia 1295 passed, 3 xfailed, 4 failed (`m03_merge_timing` ×2 y `gfx_lab` ×2, atribuidas a previas por SALIDA_A, no re-verificadas); ch02 md5 `f792f3d4…`. |
+| 10 | Sin gasto y B sin correr | OK | `data/cost_history.json` tiene un registro nuevo (10:24:51, video `ba6c3cac`) con `entries: []` y total 0.0, que corresponde al `--only-cap` ch02 del candado. No hay `F59_REPORT.md`, ni hoja f59, ni `_qa_backups` en `base/`. |
+| 11 | SALIDA_A y ESTADO | OK | SALIDA_A.md (84 líneas) trae los pedidos, `CASILLEROS_EDITABLES`, la tabla antes y después, los ejemplos y las suites. ESTADO_SESION al día con PARADA A y la B esperando OK. |
+
+Fuera de alcance: ninguno. Todo lo tocado está en la lista del contrato (MAPA y stickers incluidos). `diag_234_cap4.py` y `f28a.log` ya estaban modificados antes de la tanda.
+
+Observaciones:
+- Referencias viejas en los sticker `_partes` y en los índices del MAPA (fila 4c). `--check` no las detecta.
+- Los recortes `[:200]` y `[:600]` no tienen origen (fila 8).
+- `_fix_core` lee el guion vivo y `03_visual.json` antes de generar y los escribe completos después de Seedream y grade. Un fix de narración u otro writer en ese intervalo se pisa. Además `dst.update(it)` copia al guion vivo todos los campos de `03_visual` del ítem; si el ancla difiere por espacios (95/96 literal en Etapa 0), el guion vivo queda con el ancla de `03_visual`.
+- La orden de scrub en `armar_item` cambió respecto de m03 (corre después del filtro place y de `anio_final`). CC lo justificó y el test de orden de claves y los 96/96 lo respaldan, pero no hay prueba exhaustiva.
+
+Riesgos que el contrato no cubre: (1) en la Etapa B todavía no se probó que el `video_prompt` guardado por QA sobreviva a un m06 nuevo ni que `_generate_clip` entregue «rechazos literales» con motores reales. (2) Los 4 fallos previos de la amplia no se re-verificaron contra f7265fe.
+
+### Adenda de CC
+- **Fila 4c:** `lab/mapa/stickers/_partes/*.json`, `lab/mapa/hechos.json`, `lab/mapa/tests_collect.json` y `lab/mapa/tests_lab.json` son los insumos y auditorías de F42 (commit `6ed0c41`), no se regeneran por tanda; los stickers vivos (`orquestador.json`, `fase2a.json`) y `MAPA_PROYECTO.{json,md}` (de `mapa_modulos.py`) están al día, y `_build_clipfix_user_prompt` salió de `funciones_muertas`. La fila «test: test_module_137c_fix_recetario.py» de `MAPA_PROYECTO.json:8109` viene de `hechos.json` (F42): queda como abierto 5 (abajo), sin tocar a mano un archivo generado.
+- **Fila 8:** `[:200]` y `[:600]` son recortes de mensajes de error para `/fix_status.reason` (como los `[:160]` que ya había y los `[:60]/[:90]/[:120]` de F58); no entran a la lógica. Se declaran.
+- **Observación 3 (ventana de escritura y `dst.update(it)`):** es cierto; el guard `_FIX` ya impide dos fixes a la vez (foto, clip y narración comparten el guard), así que el intervalo solo lo pisa un writer externo (p. ej. un m06 nuevo), que es el caso que la decisión b) del analista contempla guardando en los dos archivos. El ancla del ítem de 03_visual pasa al guion vivo tal cual: en Wittenoom la única diferencia es un espacio por un salto de párrafo (ch03 ítem 16). Queda como abierto 6.
+- **Observación 4:** el razonamiento del orden está en §3; lo fijan el test de orden de claves por ítem, los 96/96 y los 3 modos del test antes/después con casilleros que disparan scrub, filtro place y respaldo de año.
+- **Riesgos:** son los de la Etapa B (clip real, m06 nuevo); se miden ahí.
+
+## Lo que queda abierto (Etapa A)
+1. La foto inicial de un cap con clip no se rehace desde QA (decisión a del analista).
+2. Fila xfail de A1: `_f8_slots_scrub` no se reproduce desde casilleros ya scrubeados (y el falso positivo «loosely wound bandage» por `\bwounds?\b`, fuera de F59).
+3. Grade que falla hace fallar el fix (decisión de CC; `_apply_grade` de producción solo avisa): si prefieren avisar y guardar igual, es una línea.
+4. El informe del scrub llega a Omar por `/fix_status.reason` y el front lo muestra junto al «✅ lista» (agregado de CC, A2.8).
+5. `lab/mapa/hechos.json` / `tests_lab.json` / `tests_collect.json` / `_partes` (F42) siguen nombrando `test_module_137c_fix_recetario.py` y `_build_clipfix_user_prompt`: índices históricos, no se regeneran por tanda.
+6. `_fix_core` copia el ítem entero de 03_visual al guion vivo (`dst.update(it)`): el ancla queda la de 03_visual (en Wittenoom difiere en un espacio en ch03 ítem 16).
+7. Etapa B: con OK del analista. B1 ≈ US$ 0,105 (3 fotos), B2 ≈ 0,035 + Opus + 1 foto, B3 Opus + foto final + clip (G o K).

@@ -22,6 +22,7 @@
 ## F59 Etapa A — código — PARADA A
 - Commits: `724c948` (A1: `armar_item` + fixture de 96 ítems), y el de A2–A5 (qa_studio_server, qa_studio.html, m03_imagenes_v3 `CASILLEROS_EDITABLES`, m09 `COMPOSICION_MINIATURA`, asset_manager `foto_final_del_clip`, clip_b, tests; `test_module_137c_fix_recetario.py` borrado; stickers; MAPA; SALIDA_A).
 - Decisiones de CC: kwarg `anio_fuente` en `armar_item` (orden de claves byte-idéntico); grade que falla → fix falla sin guardar; el front muestra `reason` cuando el fix sale bien (A2.8); test viejo de F57 del clipfix borrado con nota.
+- Revisor Etapa A: CUMPLE CON OBSERVACIONES (recortes [:200]/[:600] declarados; índices de F42 con nombres viejos; ventana de escritura del fix); veredicto íntegro en SALIDA_A.md.
 - Pendiente: OK del analista → Etapa B (B1 composición de los 3 paquetes F58 sin LLM ≈ US$ 0,105; B2 ch03_img_08 «que mire hacia la cámara, con el ceño fruncido»; B3 clip ch01 «cámara quieta, solo sube el polvo, lento») sobre la copia de lab, con cost_tracker.
 
 ## 👀 Para Omar (F59, PARADA 0): la Etapa 0 (solo lectura) está; falta tu OK para programar la A.
