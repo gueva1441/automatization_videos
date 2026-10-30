@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-30 (F58 Parte B: corrida real en Wittenoom, 3 paquetes con foto y compuesta, sin avisos, ningún nombre en los prompts, US$ 0,3953 (Opus paquetes 0,168 + casilleros 0,122 + 3 fotos 0,105; canon sin gasto); hoja en lab/hyperframes/f58/hoja_paquetes.jpg; PARADA B) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-30 (F59 Etapa 0: 6 decisiones en DECISIONES; cuadros vacíos de QA Studio confirmados (los *_graded.png entran al glob y resolve_image los rechaza: la mitad de los cuadros, primero en el orden, anclas corridas y sync perdido); copia de lab de Wittenoom en lab/hyperframes/f59/base/ (629,9 MB, ignorada por git) con narración del guion vivo y voz_clip en caps 1 y 7; candidato B2 ch03_img_08; US$ 0; PARADA 0) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,16 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F59, PARADA 0): la Etapa 0 (solo lectura) está; falta tu OK para programar la A.
+- Las 6 decisiones del handoff están en DECISIONES. Los cuadros vacíos de QA Studio: confirmado, los `*_graded.png` entran al glob de la galería y `/img` los rechaza (la mitad de los cuadros, y además van primero, se llevan las anclas y rompen el sync); no se arregla en F59.
+- Copia de lab de Wittenoom en `lab/hyperframes/f59/base/` para probar sin tocar producción. Ojo: las fotos en disco son del guion del 28 y el `03_visual.json` es del 29 (casilleros nuevos sin fotos); B2 regenera la foto «antes» desde 03_visual, así que compara bien.
+- **US$ 0.** Salida 0 en `lab/hyperframes/f59/SALIDA_0.md`.
+
+## F59 — QA Studio arregla con la máquina de producción (handoff del analista 08:22) — PARADA 0
+- Commits: `e5b1dbf` (DECISIONES ×6 + handoff md5 9325c5ee…); el siguiente: `SALIDA_0.md`, `copia_lab.py`, ESTADO.
+- Etapa 0: §2 tabla de cuadros vacíos por cap (ch02 16/32, ch01 4/8) + causa en qa_studio_server.py:76/181-195/215-232 + 3 efectos más (orden, anclas corridas, `sync_approx` en los 7 caps); §3 copia de lab (m06 sin LLM con SCRIPTS_DIR redirigido; narración del vivo; `voz_clip` cap 1 «Un hombre joven posa…» y cap 7 «…la primera palada de esa tierra?»; anclas de 03_visual 96/96 en el vivo); §4 candidatos B2 (ch03_img_08 recomendado).
+- Pendiente: OK del analista → Etapa A (A1 armar_item, A2 editor de foto, A3 editor de clip, A4 front, A5 chascadas, A6 suites) → PARADA A → Etapa B con OK.
 
 ## 👀 Para Omar (F58, PARADA B): los 3 paquetes de Wittenoom ya están hechos y cuestan US$ 0,40.
 - `python -m script_engine.m09_packaging 123bbb64-… --candidates`: paquete 01 «Vivió 10 meses junto a una mina de amianto azul y murió a los 55» / «¿QUÉ RESPIRÓ ALLÍ?»; 02 «Sabían del polvo desde 1944: la mina que mató a Daniel Écija» / «LO LLAMARON ALBOROTADOR»; 03 «Wittenoom, 1963: el pueblo de amianto que borraron de los mapas» / «NADIE SACÓ UNA PALADA». Sin avisos de cifras ni de ancho; ningún prompt nombra a nadie. Hoja: `lab/hyperframes/f58/hoja_paquetes.jpg`.
