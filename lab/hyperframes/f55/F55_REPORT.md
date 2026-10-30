@@ -487,9 +487,34 @@ Y lo que no es texto del prompt pero el modelo recibe: el esquema de salida (`SC
 1. Decisión 1 (6 constantes y no 5): confirmar.
 2. Los digests de tests del mapa (`tests_collect.json`, `tests_lab.json`) listan `test_module_f26.py` hasta que se regeneren.
 3. `lab/hyperframes/f54/salida_a.py` (ya roto por v5.5) ahora también por `SYSTEM_V2_F26_1`.
+4. `evidence._sentences` corta en abreviaturas («Dr.», «Mt.»): una promesa de una oración con abreviatura se recortaría mal (aviso visible en `rep`). Sin caso real todavía.
 
 **PARADA C.** La Parte D (Wittenoom en texto, combinada) solo con el OK del analista.
 
 ## Veredicto de revisor-handoff (Parte C, íntegro)
 
-(se pega abajo)
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | Requisito | Estado | Evidencia |
+|---|---|---|---|
+| 1 | C.1 promesa_gancho con description exacta en SCHEMA y SCHEMA_FICHA | OK | m01a_escaleta.py:133 tiene el texto exacto. SCHEMA_FICHA es deepcopy de SCHEMA (:160), así que lo hereda. `SCHEMA['properties']['promesa_gancho']` lo confirma. SCHEMA_FICHA se pasa como `response_schema` en :1310. |
+| 1b | El reporte confirma que el esquema viaja por API y no dentro del texto del prompt | PARCIAL | F55_REPORT.md:481 dice «lo que no es texto del prompt pero el modelo recibe: el esquema de salida (SCHEMA_FICHA)». Lo dice, pero sin las palabras «por API». El mensaje del commit sí dice «va por API en el esquema». Es una observación menor. |
+| 2 | C.2: cambia una sola línea del ejemplo; nada más | OK | Diff de los .md de f54-1 y f55-1: solo cambian el título, la nota de cabecera (línea 3) y la línea 39 de `promesa_gancho`. La línea 39 pasa exactamente de «…un barco que no llegó. Esta es la historia de quién decidió que no llegara.» a «…un barco que alguien había decidido que no llegara.». `SYSTEM_V2` está contenida en el .md f55-1. PROMPT_VERSION_V2 y PROMPT_VERSION_COLUMNA son "f55-1". |
+| 3 | C.3: más de una oración → aviso y reparación por código, métrica, sin número nuevo | OK | :411-415 usa `ev._sentences`, deja la primera oración y agrega el aviso a `rep`. :1109 agrega la métrica `promesa_oraciones`. El único umbral es `> 1`, tomado del handoff. Hay un test nuevo en test_module_f55. |
+| 4 | C.0 (ii): constantes viejas borradas | OK | `dir(m)` no tiene ninguna `SYSTEM_V2_*` ni `PROMPT_VERSION_V2_*` con sufijo. Solo quedan SYSTEM_V2 y PROMPT_VERSION_V2. |
+| 5 | Tests: borrados y ajustados | OK | Se borraron f24::test_prompt_escaleta_f24_literal_y_una_sola_linea, f25c::test_escaleta_f25_1_literal_y_un_solo_cambio y test_module_f26.py. Los tres comparaban solo constantes viejas. Los ajustes en f16, f17, f21, f22, f22d, f23 y f54 quitan asserts de constantes o comparan contra los .md. Los md5 y los diffs de una sola línea siguen igual (por ejemplo f54 compara f26-1 y f54-1 por .md). test_module_f55 agrega 4 tests: f55-1 literal, constantes borradas, esquema y promesa de dos oraciones. Corrí el pytest que pediste: 244 passed, 15 skipped. |
+| 6 | Salida C: diff completo antes/después | OK | F55_REPORT.md:473-481 muestra 65 líneas, 64 iguales y 1 distinta, con el diff exacto. Agrega el cambio del esquema. |
+| 7 | Alcance | OK | c7dfb7f no toca research_v3, guion_v4 ni evidence. Solo toca m01a_escaleta, tests, el .md nuevo, el sticker y el MAPA. El commit de docs posterior solo toca ESTADO, F55_REPORT y logs f55c. |
+| 8 | `grep SYSTEM_V2_F\|PROMPT_VERSION_V2_F` fuera de lab/ y _* | OK | Quedan solo 4 coincidencias, todas en strings o comentarios de tests: test_module_f16.py:54 (un comentario) y test_module_f55.py:351-353 (los nombres que el test verifica como ausentes). No hay código vivo. |
+
+Decisión 1 (6 constantes en vez de 5): está bien, no es un apartamiento. DECISIONES 19:30 enumera 5 pero dice «queda solo la vigente». El handoff C.0 (ii) dice «F26_1…F16_1». Dejar F16_1 habría roto «queda solo la vigente». Quedó declarada en F55_REPORT.md:467 y abierta para confirmar en :487. Lo que falta es la confirmación explícita de Omar.
+
+Fuera de alcance: ninguno.
+
+Observaciones, riesgos y pendientes que el contrato no cubre:
+- `ev._sentences` parte en abreviaturas. «El Dr. Smith llegó… Mt. Wittenoom» se divide en 3 «oraciones». Con la reparación por código, una promesa legítima de una sola oración con «Dr.», «Mt.» o similar quedaría truncada en «El Dr.» y se avisaría un falso positivo. No hay test de ese caso.
+- El reporte deja abiertos: los digests tests_collect.json y tests_lab.json listan test_module_f26.py hasta regenerarse, y f54/salida_a.py ya estaba roto y ahora también por `SYSTEM_V2_F26_1`. Ambos están fuera del código de producción.
+
+## Adenda de CC (Parte C)
+- **Fila 1b:** confirmado y dicho con todas las letras acá: el esquema (`SCHEMA_FICHA`, con la `description`) viaja **por la API** como `response_schema` → `output_config.format` (`claude_helpers.call_json` l. 174–175) / `response_schema` de Gemini; no es texto del prompt.
+- **Abreviaturas en `_sentences`:** cierto; es el mismo cortador que usa todo el pipeline (guion, medida, (f)/(h)). Una promesa con «Dr.» quedaría cortada; el aviso queda en `rep` y se ve en el reporte de la escaleta. A la lista, sin número nuevo.
