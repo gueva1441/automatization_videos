@@ -25,8 +25,9 @@ def _j(p: Path) -> dict:
 def fuentes(topic_id: str, steps_dir: Path) -> dict:
     """Lo que lee el expediente de `_steps/<id>/`: la escaleta (dato_central y datos_apoyo de cada beat), la ficha
     (escenas) y los párrafos de la narración v3."""
+    from researcher_steps.ficha_caso import load as _load_ficha        # F55 D.0: la ficha siempre por `load` (remapea ids)
     d = steps_dir / topic_id
-    return {"esc": _j(d / "01a_escaleta.json"), "ficha": _j(d / "ficha_caso.json"),
+    return {"esc": _j(d / "01a_escaleta.json"), "ficha": _load_ficha(topic_id, steps_dir) or {},
             "parrafos": _j(d / "01b_narracion_v3.json").get("parrafos") or []}
 
 

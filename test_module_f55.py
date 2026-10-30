@@ -427,3 +427,14 @@ def test_ficha_de_wittenoom_cargada_sin_ids_descartados():
         pytest.skip("el pool de Wittenoom en _steps/ no tiene citas descartadas (dedupe_pool.py no corrió)")
     s = json.dumps(fc.load(tid), ensure_ascii=False)
     assert not re.findall(r'"(' + "|".join(sorted(gone)) + r')"', s)
+
+
+def test_m03_expediente_lee_la_ficha_por_load(tmp_path):
+    from script_engine import m03_expediente as mx
+    d = tmp_path / "t1"
+    d.mkdir()
+    (d / "ficha_caso.json").write_text(json.dumps({"escenas": [{"ids": ["Q12"]}]}), encoding="utf-8")
+    (d / "00_pool_v3.json").write_text(json.dumps({"citas": [], "_descartados": [{"kind": "citas", "id": "Q12", "duplicado_de": "Q25"}]}),
+                                       encoding="utf-8")
+    assert mx.fuentes("t1", tmp_path)["ficha"] == {"escenas": [{"ids": ["Q25"]}]}
+    assert mx.fuentes("t2", tmp_path)["ficha"] == {}                                 # sin ficha: {} como antes

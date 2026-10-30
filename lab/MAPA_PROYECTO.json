@@ -2577,11 +2577,12 @@
    "lo_llaman": [
     "fase1_5.py",
     "script_engine/guion_v4.py",
-    "script_engine/m01a_escaleta.py"
+    "script_engine/m01a_escaleta.py",
+    "script_engine/m03_expediente.py"
    ],
    "tests": 15,
    "nacio": "b204868 2026-10-23 (F12)",
-   "ultimo": "533eb68 2026-10-28 (F44)",
+   "ultimo": "3e1cc98 2026-10-29 (F55)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py:386 (run_escaleta_v3 → asegurar_ficha) genera la ficha si falta; fase1_5.py:395 y :425 la cargan; run_escaleta_v3 se llama en fase1_5.py:501 dentro de la etapa guion",
@@ -2690,7 +2691,7 @@
    ],
    "tests": 13,
    "nacio": "74fffa9 2026-10-21 (F7a)",
-   "ultimo": "551ab8f 2026-10-29 (F55)",
+   "ultimo": "3e1cc98 2026-10-29 (F55)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "topic_researcher.py:553-555 llama research_v3_enabled() y run_seed() dentro de _research_seed_deep; fase1_5.py:194 (cargar_perfil, llamado desde _topic_v3 L205) llama set_vocabulario en la etapa guion; script_engine/guion_v4.py:891/1179 y m05_narrative.py:129/478 importan vocabulario/caso",
@@ -4677,7 +4678,7 @@
    "lo_llaman": [
     "script_engine/m03_visual.py"
    ],
-   "tests": 4,
+   "tests": 5,
    "nacio": "dcea932 2026-10-28 (F50)",
    "ultimo": "7b6b112 2026-10-29 (F51d)",
    "estado_a": "vivo",
@@ -4686,7 +4687,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "74bee0cc9376b45f64ecaa0a626d61e5",
+   "md5": "a0f8253247c68cde3fb15086bec5c3e3",
    "sticker_al_dia": true
   },
   "script_engine/m03_imagenes_v3.py": {

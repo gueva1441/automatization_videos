@@ -687,6 +687,6 @@
   "estado_prueba": "script_engine/m03_visual.py lo importa (mexp) y lo usa en _render_prompts_seedream (m03_visual.py:563-568) y en assign_visual_prompts (2041-2042); m03_visual corre dentro de fase1_5.py:671 (etapa voz).",
   "funciones_muertas": [],
   "_parte": "F50 B (CC)",
-  "md5": "74bee0cc9376b45f64ecaa0a626d61e5"
+  "md5": "a0f8253247c68cde3fb15086bec5c3e3"
  }
 }

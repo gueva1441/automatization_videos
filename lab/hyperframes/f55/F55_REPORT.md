@@ -583,10 +583,38 @@ Las tres copias tienen los MISMOS ids de citas y los mismos descartados.
 
 ## Lo que queda abierto (D.0)
 1. `fase1_5` no imprime el log del remapeo de la ficha (la firma lo admite).
+3. Dos menciones de ids descartados dentro de prosa de la ficha (`dice`: «El pasaje de Q23…», «Q26 añade…») no se remapean: son texto, no ids.
 2. `person_stats` del pool de Wittenoom sigue sin recalcular tras el dedupe (de la Parte B).
 
 **D.0 pasó entera → sigue la Parte D sin esperar** (pedido de Omar).
 
 ## Veredicto de revisor-handoff (D.0, íntegro)
 
-(se pega abajo)
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | Requisito | Estado | Evidencia |
+|---|---|---|---|
+| 1 | 3 copias del pool: mismos 50 ids de citas y mismos 8 descartados | OK | Lo recalculé por código. topics_db, 01_facts_sources y 00_pool_v3 dan 50 ids únicos, secuencia idéntica y descartados Q12, Q15, Q20, Q23, Q26, Q28, Q29, Q30. `lab/hyperframes/f55/dedupe_pool.py:47-62` escribe la tercera copia y compara las tres. |
+| 2a | `load` remapea en memoria, el archivo no cambia, log con el conteo | OK | `researcher_steps/ficha_caso.py:751-775`. `fc.load(tid, log=lg)` devolvió el log "36 id(s) ... remapeados". Ninguna ruta de `load` escribe el archivo. |
+| 2b | Sin descartados o sin pool devuelve tal cual; firma compatible | OK | `ficha_caso.py:767-773`: `log` es opcional. `test_module_f55.py` `test_ficha_load_remapea_en_memoria` cubre sin descartados, sin pool y sin ficha (None). Pasa. |
+| 2c | Todos los que leen la ficha pasan por `load` | PARCIAL | Pasan por `load`: `fase1_5.py:270`, `fase1_5.py:300` y `script_engine/m01a_escaleta.py:850`. NO pasa: `script_engine/m03_expediente.py:29` lee `ficha_caso.json` directo con `_j(...)` y lo usa para las escenas del expediente. Ahí la ficha sigue con ids colgantes. |
+| 3 | `remapear_ids` con claves de dict y su test | OK | `researcher_steps/research_v3.py:2148-2155`. Test `test_remapear_ids_tambien_claves_de_dict`, que cubre también el caso de clave ya existente. Pasa. |
+| 4 | f48 y f51c leen `f54/antes/01b_narration.json`, pasan, no se borraron | OK | `test_module_f48.py:14-21`, `test_module_f51c.py:15`. Corrí `pytest test_module_f55 f48 f51c`: 37 passed, 1 skipped. |
+| 5 | Sin constantes nuevas; US$ 0 | OK | El diff de 3e1cc98 no agrega constantes, ni red, ni llamadas a modelos. `UMBRAL_DEDUPE_CITAS` ya existía. |
+| 6 | Salida D.0 con los 3 datos | PARCIAL | Los 3 datos están en `lab/hyperframes/f55/SALIDA_D0.md` y en la sección del reporte. El tercero dice «grep literal = 0», pero el grep literal de Omar no da 0. Detalle abajo. |
+| 7 | DECISIONES 20:25 literal | OK | `DECISIONES.md:169`, texto idéntico al pedido. Commit 00838c2. |
+| 8 | Nada fuera de alcance | OK | Los 17 archivos de `HEAD~3..HEAD` son el código, los tests y las salidas del pedido, más ESTADO, MAPA, stickers, F55_REPORT y los logs de f55d0. Los dos modificados sin commit (`diag_234_cap4.py` y `f28a.log`) ya estaban así antes de esta tanda. |
+
+Hallazgos:
+- **El «grep = 0» solo vale para ids como token.** Sobre el JSON de la ficha cargada, `Q12|Q15|Q20|Q23|Q26|Q28|Q29|Q30` da 2 coincidencias en texto libre de `dice`: «El pasaje de Q23 termina cortado...» y «Q26 añade en su rótulo...». Con el id entre comillas da 0. En disco el grep literal da 38, no 36. El reporte mide ids exactos y no lo aclara. Esos 2 textos nombran ids viejos dentro de prosa y `load` no los toca. Omar pidió el grep literal.
+- **`m03_expediente.py:29`** (ver 2c). El reporte afirma que la ficha «se corrige al cargarla para cualquier tema» y no menciona este lector.
+- Menor: `fase1_5` no imprime el log de `load`, y el reporte lo admite.
+
+Fuera de alcance: ninguno.
+
+Riesgos que el contrato no cubre: la Parte D en curso lee la ficha con `load` en `fase1_5` y en la escaleta, así que está cubierta. Todo lo que pase por `m03_expediente` (o cualquier lector directo) arrastrará ids viejos hasta que se arregle. Las menciones de ids en prosa de la ficha (Q23, Q26) quedan apuntando a citas descartadas.
+
+## Adenda de CC (D.0) — con los dos hallazgos arreglados en el commit siguiente
+- **2c, `m03_expediente.fuentes`:** arreglado: lee la ficha por `ficha_caso.load` (una línea; test `test_m03_expediente_lee_la_ficha_por_load`; f50b/f50c/f50d siguen verdes). Con eso **todos** los lectores de `ficha_caso.json` pasan por `load` (`grep "ficha_caso.json"` sobre producción: fase1_5 l. 297 solo mira si existe para el canon). Es la regla general de la adenda («para cualquier topic»), no un parche.
+- **6, grep literal:** `SALIDA_D0.md` ahora trae los dos números: con el id como valor entero (`"Q12"`), disco 36 → cargada **0**; grep literal sin comillas, disco 38 → cargada **2**, y las 2 son menciones dentro de un texto libre (`dice`: «El pasaje de Q23 termina cortado…», «Q26 añade en su rótulo…»), no ids. `remapear_ids` cambia ids (strings enteros, listas, claves), no prosa; reescribir prosa de la ficha sería inventar texto. Queda anotado en «lo abierto».
+- La Parte D, que ya corría cuando llegó este veredicto, lee la ficha por `fase1_5` y `m01a_escaleta` (los dos por `load`): no la afecta.
