@@ -302,3 +302,108 @@ Riesgos que el contrato no cubre: `bloqueantes` modifica `parrafos` en el lugar 
 - **Clave `"que"` en las altas:** dice qué pago o cierre confirmó Sonnet (para la Salida A y el reporte); no la lee ningún otro módulo. Si el analista la quiere fuera, es una línea.
 - **Test real:** lo corrí yo una vez con `F55_REAL=1` (pasa: D10 confirmado en la oración con «Colonial», 1 llamada); el revisor no lo repitió a propósito.
 - **`with_ids` conserva el orden** (recorre `parrafos` en orden y devuelve una lista nueva del mismo largo): el índice de párrafo de la alta es el mismo en `ps_ids` y en `parrafos`.
+
+
+---
+
+# Parte B — dedupe de citas del pool · PARADA B
+
+**Gasto Parte B: US$ 0** (sin API). Acumulado F55: ≈ US$ 0,012. Confirmación de Omar: `527040a` (0,7 + mismo autor, 19:30).
+
+## Para Omar, en corto
+- Dos citas del mismo autor que dicen lo mismo con palabras casi iguales ahora son una sola en el pool: queda la que tiene más fuentes (o la más larga) y la otra queda anotada como descartada apuntando a la que queda.
+- En Wittenoom: 58 citas → 50, los 8 pares que había encontrado el analista (Q12/Q25 incluido, el que el guionista dijo dos veces), ninguno de más.
+- El pool de Wittenoom ya está deduplicado en disco; la escaleta, el guion y el papel viejos siguen apuntando a 8 ids que ya no existen (22 referencias): la Parte D los regenera.
+
+## Commits
+| commit | qué |
+|---|---|
+| `551ab8f` | `research_v3._similitud_citas` / `_dedupe_citas` / `remapear_ids` + llamada en `build_pool`; `dedupe_pool.py` aplicado; `SALIDA_B.md`; tests; sticker; MAPA |
+| (este) | reporte (esta sección), ESTADO, logs |
+
+## Módulos: antes → después
+| módulo | antes | después |
+|---|---|---|
+| `researcher_steps/research_v3.py` | las citas iban al pool tal cual | `UMBRAL_DEDUPE_CITAS = 0.7` (DECISIONES 19:30); `_similitud_citas(a, b)` = `|Ca∩Cb| / min(|Ca|,|Cb|)` con `C = evidence._content(texto)`, solo si los dos autores existen y son iguales tras `evidence.norm` (igualdad exacta, sin parcial; sin autor → None); `_dedupe_citas(pool, log)`: queda la de más `n_fuentes` (empate: la más larga; empate total: la primera), los ids no se renumeran, los `docs` de la que sale se suman a la que queda y `n_fuentes` se recalcula, la descartada va a `pool["_descartados"]` como `{"kind": "citas", "id", "duplicado_de", "similitud", "motivo": "cita duplicada", "autor", "texto"}`; se llama en `build_pool` después de `verify_pool` y antes del segundo `person_stats` (así `n_citas` de los personajes ya cuenta sin duplicados) y antes de `add_fragments` y del digest; `remapear_ids(obj, pool)`: copia de `obj` con cada id descartado → su `duplicado_de` en listas de ids e ids sueltos (dos ids iguales en una lista quedan uno) |
+| `lab/hyperframes/f55/dedupe_pool.py` (nuevo, lab) | — | aplica `_dedupe_citas` al pool de Wittenoom sin volver a investigar: lee `data/topics_db.json`, respalda `data/topics_db.pre_f55_dedupe.json`, escribe el pool en `topics_db.json` y en `_steps/<id>/01_facts_sources.json` (los dos tenían el mismo pool, byte a byte); lista las referencias a ids descartados en escaleta, skeleton, `ids_usados` y papel de F54 (de `f55/antes/`, idénticos a `_steps`) → `SALIDA_B.md`. `--seco` no escribe |
+
+Tests (`test_module_f55.py`, +5 → 22): el umbral; los 8 pares de Wittenoom con la función de producción dan exactamente 0,94 · 0,92 · 0,90 · 0,89 · 0,88 · 0,88 · 0,73 · 0,71, Q19/Q32 = 0,50 (no se deduplica), Q30/Q36 y Q18/Q36 no se comparan (autores distintos), 58 → 50 sin renumerar; más fuentes gana a más larga y los `docs` se suman (`n_fuentes` 2 → 3); empate en fuentes → la más larga; sin autor y otro autor no se comparan; `remapear_ids` (listas, ids sueltos, strings que no son id, copia, sin descartados devuelve igual).
+
+## Decisiones de CC (Parte B)
+1. **Dónde se llama en `build_pool`:** después de `verify_pool` (así el `n_fuentes`/`verificacion` de cada cita ya está) y antes del segundo `person_stats`, de `add_fragments` y del digest, para que nada río abajo vea las descartadas. El handoff decía «al cerrar el pool»; este es el último punto antes de que el pool se use.
+2. **Empate total** (mismas fuentes, mismo largo): queda la primera del pool (id menor). No pasó en Wittenoom.
+3. **La descartada guarda también `autor` y `texto`** además de los 4 campos del handoff, para que la lista de descartados se lea sola (como las demás entradas de `_descartados`, que llevan `texto`).
+4. **El script escribe en los dos lugares** donde vive el pool de Wittenoom (`topics_db.json`, que lee `fase1_5`, y `01_facts_sources.json`), con respaldo del primero; `data/` está fuera de git. No recalculé `person_stats` (`n_citas` por persona) sobre el pool deduplicado: se recalcula solo en un research nuevo; anotado.
+5. **Qué pasa con `01e_pantalla.json`:** las 2 referencias están en `descartados[].pool_id` (citas que el papel ya había descartado), no en fichas vivas.
+6. **(g) «cita repetida»** sigue mirando ids: queda en «lo abierto» («con el dedupe ya no debería hacer falta»), como pide el handoff.
+
+## Salida B (texto; entera en `lab/hyperframes/f55/SALIDA_B.md`)
+
+## 1. Los pares: cuál quedó y por qué
+
+| sale | queda | similitud | autor | n_fuentes (sale → queda) | por qué queda | texto que sale | texto que queda |
+|---|---|---|---|---|---|---|---|
+| Q12 | Q25 | 0.88 | María Bernal | 1 → 2 (docs ['F08', 'F07']) | más larga (empate en fuentes) | Iba pegadita a mi marido, como una niña. Pero estaba orgullosa. Me había enamorado de aque | Me pegué a mi marido, como una niña pequeña. Pero estaba orgullosa. Me había enamorado de  |
+| Q26 | Q14 | 0.88 | Víctor Calvo | 1 → 2 (docs ['F07', 'F08']) | más larga (empate en fuentes) | Salimos de Málaga y tardamos más de 20 días en barco en llegar a Australia. Pasamos por el | Salimos de Málaga y tardamos más de 20 días en llegar en barco a Australia. Pasamos por el |
+| Q15 | Q27 | 0.9 | Víctor Calvo | 1 → 2 (docs ['F08', 'F07']) | más larga (empate en fuentes) | El avión era pequeño, de hélices, y se movía muchísimo. Aterrizamos en una pista en medio  | El avión era pequeño, de hélice, y se movía mucho. Aterrizamos en una pista en medio de un |
+| Q28 | Q16 | 0.89 | Daniel Écija (hijo) | 1 → 2 (docs ['F07', 'F08']) | más larga (empate en fuentes) | El primer día de trabajo de nuestro padre hubo una explosión y murieron varias personas. C | El primer día de trabajo de nuestro padre hubo una explosión y murieron varias personas. Y |
+| Q29 | Q17 | 0.73 | Víctor Calvo | 1 → 2 (docs ['F07', 'F08']) | más larga (empate en fuentes) | Apenas había medidas de seguridad. Había muchos accidentes y las ambulancias venían todo e | No tenían apenas medidas de seguridad. Había muchos accidentes y cada dos por tres aparecí |
+| Q30 | Q18 | 0.92 | Daniel Écija (hijo) | 1 → 2 (docs ['F07', 'F08']) | más larga (empate en fuentes) | Mi padre describía Wittenoom como un lugar sin ley. Un pueblo con una vida bastante primit | Mi padre nos habló de Wittenoom como un lugar sin ley. Un pueblo con una vida bastante pri |
+| Q20 | Q33 | 0.94 | Melita Markey | 1 → 2 (docs ['F08', 'F07']) | más larga (empate en fuentes) | El Gobierno dejó de contar en 2.000, pero ahora se calcula que la cifra puede ser superior | El gobierno dejó de contar en 2000, pero ahora se estima que la cifra puede ser superior a |
+| Q23 | Q35 | 0.71 | Daniel Écija (hijo) | 1 → 2 (docs ['F08', 'F07']) | más larga (empate en fuentes) | Ese sitio nos cambió la vida para siempre. Nosotros nos quedamos sin padre, y mi madre sin | Ese lugar cambió nuestras vidas para siempre. Perdimos a nuestro padre, y mi madre perdió  |
+
+Pares que NO se deduplican (control del handoff §4):
+
+- Q30/Q36: similitud no se compara (autores distintos o sin autor) · autores «Daniel Écija (hijo)» / «Un oficial de policía»
+- Q18/Q36: similitud no se compara (autores distintos o sin autor) · autores «Daniel Écija (hijo)» / «Un oficial de policía»
+- Q19/Q32: similitud 0.50 · autores «Víctor Calvo» / «Víctor Calvo»
+
+### 2. Qué apunta hoy a ids descartados (solo listar; la Parte D regenera todo desde la escaleta)
+
+| archivo | dónde | id | debería ser |
+|---|---|---|---|
+| 01a_escaleta.json | beats[1].datos_apoyo[2] | Q12 | Q25 |
+| 01a_escaleta.json | beats[2].datos_apoyo[0] | Q15 | Q27 |
+| 01a_escaleta.json | beats[8].datos_apoyo[1] | Q23 | Q35 |
+| 01a_escaleta.json | beats[12].datos_apoyo[2] | Q20 | Q33 |
+| 01a_escaleta.json | caps[1].evidence_ids[3] | Q12 | Q25 |
+| 01a_escaleta.json | caps[1].evidence_ids[8] | Q15 | Q27 |
+| 01a_escaleta.json | caps[4].evidence_ids[9] | Q23 | Q35 |
+| 01a_escaleta.json | caps[6].evidence_ids[10] | Q20 | Q33 |
+| 01a_skeleton.json | chapters[1].evidence_ids[3] | Q12 | Q25 |
+| 01a_skeleton.json | chapters[1].evidence_ids[8] | Q15 | Q27 |
+| 01a_skeleton.json | chapters[4].evidence_ids[9] | Q23 | Q35 |
+| 01a_skeleton.json | chapters[6].evidence_ids[10] | Q20 | Q33 |
+| 01b_guionista_v4.json | parrafos[1].ids_usados[5] | Q12 | Q25 |
+| 01b_guionista_v4.json | parrafos[12].ids_usados[0] | Q23 | Q35 |
+| 01b_guionista_v4.json | reparacion.parrafos[1].ids_usados[5] | Q12 | Q25 |
+| 01b_guionista_v4.json | reparacion.parrafos[12].ids_usados[0] | Q23 | Q35 |
+| 01b_narration.json | chapters[1].datos_usados[5] | Q12 | Q25 |
+| 01b_narration.json | chapters[1].ids_usados[5] | Q12 | Q25 |
+| 01b_narration.json | chapters[4].datos_usados[6] | Q23 | Q35 |
+| 01b_narration.json | chapters[4].ids_usados[6] | Q23 | Q35 |
+| 01e_pantalla.json | descartados[5].pool_id | Q15 | Q27 |
+| 01e_pantalla.json | descartados[12].pool_id | Q23 | Q35 |
+
+Total de referencias a ids descartados: 22.
+
+Log:
+
+    [dedupe citas] Q12 → Q25 (0.88); Q26 → Q14 (0.88); Q15 → Q27 (0.9); Q28 → Q16 (0.89); Q29 → Q17 (0.73); Q30 → Q18 (0.92); Q20 → Q33 (0.94); Q23 → Q35 (0.71)
+
+Escrito: `C:\CLAUDE_PROJECTS\automatization_videos\data\topics_db.json` (respaldo `topics_db.pre_f55_dedupe.json`) y `C:\CLAUDE_PROJECTS\automatization_videos\data\scripts\_steps\123bbb64-9fca-4395-8bf4-57d60e219ef1\01_facts_sources.json`.
+
+## Suite
+`bash lab/hyperframes/f41/verificar.sh f55b` (logs en `lab/hyperframes/f41/f55b/`, corrida sobre el commit `551ab8f`): ch02 md5 `f792f3d483a1fa42daed5f7f0e054f46`; rápida **55 passed**; amplia **1113 passed** + 7 fallas: las 4 previas (`m03_merge_timing` ×2, `gfx_lab` ×2) y las 3 de `f51c`/`f48` clavadas a la narración vieja de Wittenoom (ver Parte A); `mapa_modulos.py --check`: 0 fallas (158).
+
+## Lo que queda abierto (Parte B)
+1. (g) «cita repetida» mira ids: con el dedupe ya no debería hacer falta; se decide después de la Parte D.
+2. `person_stats` (`n_citas` por persona) del pool de Wittenoom no se recalculó tras el dedupe (solo lo hace un research nuevo).
+3. Las 22 referencias a ids descartados en la escaleta/guion/papel de F54: las regenera la Parte D; hasta entonces `01a_escaleta.json` de `_steps` apunta a Q12, Q15, Q20 y Q23.
+4. Pools de otros temas (Vajont, Kyshtym, Orleans) no se deduplicaron: solo con un research nuevo o corriendo `dedupe_pool.py` adaptado.
+
+**PARADA B.**
+
+## Veredicto de revisor-handoff (Parte B, íntegro)
+
+(se pega abajo)

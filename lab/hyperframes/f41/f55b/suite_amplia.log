@@ -1,0 +1,172 @@
+bringing up nodes...
+bringing up nodes...
+
+...s.............s................sss...........................s....... [  6%]
+......ss........................................................ss...... [ 12%]
+..s..s........s............................................ss.....s..... [ 18%]
+................................s..........s..s......................... [ 25%]
+......................................................................ss [ 31%]
+s.................................s..............................s..s... [ 37%]
+........................................................................ [ 43%]
+.............FF......................................................... [ 50%]
+................................................s....................... [ 56%]
+................s.s.............s......s................................ [ 62%]
+........................................................................ [ 68%]
+........................................................................ [ 75%]
+........................................................................ [ 81%]
+........F............................................................... [ 87%]
+........................................................................ [ 93%]
+.....F.F.................................................F.F..s........  [100%]
+================================== FAILURES ===================================
+______ test_f51c_corte_veo_real_de_wittenoom[1-start-paredes de chapa.] _______
+[gw14] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+n = 1, pos = 'start', termina = 'paredes de chapa.'
+
+    @pytest.mark.parametrize("n, pos, termina", [(1, "start", "paredes de chapa."), (7, "end", "seguridad pública».")])
+    def test_f51c_corte_veo_real_de_wittenoom(n, pos, termina):
+        t, vz = _caps_reales()[n]
+        vlo, vhi, slo, shi = m3._carve_veo_zones(t, pos, vz)
+        if pos == "start":
+>           assert (vlo, slo, shi) == (0, vhi, len(t)) and t[:vhi].endswith(termina)
+E           AssertionError: assert ((0, 75, 887) == (0, 75, 887)
+E             
+E             Use -v to get more diff and False)
+E            +  where False = <built-in method endswith of str object at 0x000002753E2C4FB0>('paredes de chapa.')
+E            +    where <built-in method endswith of str object at 0x000002753E2C4FB0> = 'Un hombre joven posa de pie para un retrato, con un pie envuelto en vendas.'.endswith
+
+test_module_f51c.py:47: AssertionError
+___ test_f51c_corte_veo_real_de_wittenoom[7-end-seguridad p\xfablica\xbb.] ____
+[gw14] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+n = 7, pos = 'end', termina = 'seguridad pública».'
+
+    @pytest.mark.parametrize("n, pos, termina", [(1, "start", "paredes de chapa."), (7, "end", "seguridad pública».")])
+    def test_f51c_corte_veo_real_de_wittenoom(n, pos, termina):
+        t, vz = _caps_reales()[n]
+        vlo, vhi, slo, shi = m3._carve_veo_zones(t, pos, vz)
+        if pos == "start":
+            assert (vlo, slo, shi) == (0, vhi, len(t)) and t[:vhi].endswith(termina)
+            assert t[slo:].startswith(" En el retrato")
+            cut = vhi
+        else:
+>           assert (vhi, slo, shi) == (len(t), 0, vlo) and t[:shi].endswith(termina)
+E           AssertionError: assert ((1511, 0, 1387) == (1511, 0, 1387)
+E             
+E             Use -v to get more diff and False)
+E            +  where False = <built-in method endswith of str object at 0x0000027516B94880>('seguridad pública».')
+E            +    where <built-in method endswith of str object at 0x0000027516B94880> = 'Se llamaba Maitland Parker y era un anciano Banjima, el pueblo dueño de esa tierra. En dos mil veintitrés, el relator....\n\nEn mil novecientos ochenta y cinco, un policía toma la documentación de Daniel Écija. «Así que de Wittenoom, ¿eh?'.endswith
+
+test_module_f51c.py:51: AssertionError
+__________________________ test_geo_era_de_wittenoom __________________________
+[gw12] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+    @pytest.mark.skipif(not (_W / "_perfil.json").exists() or not (_W / "01b_narration.json").exists(),
+                        reason="sin el research de Wittenoom en _steps/")
+    def test_geo_era_de_wittenoom():
+        narr = json.loads((_W / "01b_narration.json").read_text(encoding="utf-8"))
+        ge = m3._geo_era(WITTENOOM, narr)
+>       assert ge == {"canonical_geo": "Wittenoom", "canonical_era": "1943–2024"}   # el perfil dice anio_fin 2007: no se usa
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: assert {'canonical_g...: '1943–2026'} == {'canonical_g...: '1943–2024'}
+E         
+E         Omitting 1 identical items, use -vv to show
+E         Differing items:
+E         [0m{[33m'[39;49;00m[33mcanonical_era[39;49;00m[33m'[39;49;00m: [33m'[39;49;00m[33m1943–2026[39;49;00m[33m'[39;49;00m}[90m[39;49;00m != [0m{[33m'[39;49;00m[33mcanonical_era[39;49;00m[33m'[39;49;00m: [33m'[39;49;00m[33m1943–2024[39;49;00m[33m'[39;49;00m}[90m[39;49;00m
+E         Use -v to get more diff
+
+test_module_f48.py:18: AssertionError
+___________________________ test_c_guarda_de_minimo ___________________________
+[gw16] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+    def test_c_guarda_de_minimo():
+        """Aunque haya gaps apretados, NO baja del mínimo."""
+        # 4 items, todos apretados; min_count=4 → no debe fusionar ninguno.
+        words = _words(("a", 0.0), ("b", 0.3), ("c", 0.6), ("d", 0.9))
+        plan = _flux_plan("a", "b", "c", "d")
+        out, dropped = m._reconcile_anchor_timing(plan, "flux", words, min_count=4, cap_number=1)
+        assert dropped == 0
+        assert len(out["anchors"]) == 4
+        # min_count=3 → fusiona hasta quedar exactamente en 3, no menos.
+        plan2 = _flux_plan("a", "b", "c", "d")
+        out2, dropped2 = m._reconcile_anchor_timing(plan2, "flux", words, min_count=3, cap_number=1)
+>       assert len(out2["anchors"]) == 3
+E       AssertionError: assert 4 == 3
+E        +  where 4 = len([{'anchor': 'a', 'pos': 0, 'end': 1}, {'anchor': 'b', 'pos': 1, 'end': 2}, {'anchor': 'c', 'pos': 2, 'end': 3}, {'anchor': 'd', 'pos': 3, 'end': 4}])
+
+test_module_m03_merge_timing.py:88: AssertionError
+---------------------------- Captured stdout call -----------------------------
+  [03][audit] cap 1: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
+  [03][audit] cap 1: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
+____________________ test_c_veo_path_y_veo_anchor_intacto _____________________
+[gw13] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+    def test_c_veo_path_y_veo_anchor_intacto():
+        """La fusión corre también para veo (supplementals); el veo_anchor NO se toca."""
+        words = _words(("uno", 0.0), ("dos", 0.4), ("tres", 5.0), ("cuatro", 10.0),
+                       ("cinco", 15.0))
+        plan = _veo_plan("uno", "dos", "tres", "cuatro", "cinco")
+        out, dropped = m._reconcile_anchor_timing(plan, "veo", words, min_count=4, cap_number=7)
+>       assert dropped == 1                                  # 'dos' (gap 0.4) fuera
+        ^^^^^^^^^^^^^^^^^^^
+E       assert 0 == 1
+
+test_module_m03_merge_timing.py:98: AssertionError
+---------------------------- Captured stdout call -----------------------------
+  [03][audit] cap 7: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
+___________________ test_preview_usa_las_plantillas_reales ____________________
+[gw4] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+server = (<gfx_lab_server.LabSession object at 0x000001C17F48A5D0>, 'http://127.0.0.1:64058')
+
+    @needs_data
+    def test_preview_usa_las_plantillas_reales(server):
+        """El preview es write_project (mismo templater que el render) + el runtime inyectado."""
+        session, url = server
+        plan = session.director_plan()
+        r = _post(url + "/preview", {"plan": plan})
+        assert r["src"].startswith("/composition/index.html?v=")
+>       assert any(c["block"] == "title_card" for c in r["cues"])
+E       assert False
+E        +  where False = any(<generator object test_preview_usa_las_plantillas_reales.<locals>.<genexpr> at 0x000001C17EE85B10>)
+
+test_module_gfx_lab.py:148: AssertionError
+_____________________ test_cues_sin_escribir_el_proyecto ______________________
+[gw8] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+server = (<gfx_lab_server.LabSession object at 0x00000231D2A0DD10>, 'http://127.0.0.1:64063')
+
+    @needs_data
+    def test_cues_sin_escribir_el_proyecto(server):
+        session, url = server
+        before = (session.project / "index.html").stat().st_mtime_ns
+        r = _post(url + "/cues", {"plan": session.director_plan(), "tokens": {}})
+>       assert any(c["block"] == "archive_clipping" for c in r["cues"]) and r["rejected"] == []
+E       AssertionError: assert (True and [{'block': 't...ta Perfecta'}] == []
+E        +  where True = any(<generator object test_cues_sin_escribir_el_proyecto.<locals>.<genexpr> at 0x00000231D2B18D40>)
+E         
+E         Left contains one more item: [0m{[33m'[39;49;00m[33mblock[39;49;00m[33m'[39;49;00m: [33m'[39;49;00m[33mtitle_card[39;49;00m[33m'[39;49;00m, [33m'[39;49;00m[33mfield[39;49;00m[33m'[39;49;00m: [33m'[39;49;00m[33mtitle[39;49;00m[33m'[39;49;00m, [33m'[39;49;00m[33mtext[39;49;00m[33m'[39;49;00m: [33m'[39;49;00m[33mLa Tormenta Perfecta[39;49;00m[33m'[39;49;00m}[90m[39;49;00m
+E         Use -v to get more diff)
+
+test_module_gfx_lab.py:372: AssertionError
+============================== warnings summary ===============================
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+  C:\CLAUDE_PROJECTS\automatization_videos\script_engine\image_grade.py:83: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+    luma = list(im.convert("L").getdata())
+
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+  C:\CLAUDE_PROJECTS\automatization_videos\script_engine\image_grade.py:85: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+    s = [sv for sv, lv in zip(hsv.getdata(band=1), luma) if lv > 24] or [0]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED test_module_f51c.py::test_f51c_corte_veo_real_de_wittenoom[1-start-paredes de chapa.]
+FAILED test_module_f51c.py::test_f51c_corte_veo_real_de_wittenoom[7-end-seguridad p\xfablica\xbb.]
+FAILED test_module_f48.py::test_geo_era_de_wittenoom - AssertionError: assert...
+FAILED test_module_m03_merge_timing.py::test_c_guarda_de_minimo - AssertionEr...
+FAILED test_module_m03_merge_timing.py::test_c_veo_path_y_veo_anchor_intacto
+FAILED test_module_gfx_lab.py::test_preview_usa_las_plantillas_reales - asser...
+FAILED test_module_gfx_lab.py::test_cues_sin_escribir_el_proyecto - Assertion...
+7 failed, 1113 passed, 31 skipped, 4 warnings in 79.11s (0:01:19)

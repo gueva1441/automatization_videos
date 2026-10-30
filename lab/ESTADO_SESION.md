@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 21:05 (F55 Parte A: evidence.regla_dicho A1/A2 + dicho_verificador (Sonnet) en (f)/(h); Wittenoom viejo y nuevo pasan de 1 y 3 bloqueantes f/h a 0; US$ 0,012; PARADA A) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 21:40 (F55 Parte B: dedupe de citas del pool, Wittenoom 58 → 50 citas, los 8 pares del handoff; US$ 0; PARADA B) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,15 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F55 Parte B, PARADA B): las citas repetidas del pool ya son una sola.
+- Wittenoom: 58 → 50 citas, los 8 pares que vio el analista (Q12/Q25 incluido); queda la de más fuentes o la más larga, y la otra queda anotada. El pool en disco ya está deduplicado (respaldo `data/topics_db.pre_f55_dedupe.json`).
+- La escaleta, el guion y el papel de F54 todavía apuntan a 8 ids que ya no existen (22 referencias): los regenera la Parte D.
+- **Sigue:** Parte C (promesa de una oración; se borran las 6 versiones viejas del prompt de la escaleta, opción (ii)), US$ 0.
+
+## F55 — Parte B (handoff 19:50) — PARADA B
+- Commits: `551ab8f` (research_v3, dedupe_pool.py, SALIDA_B.md, tests, sticker, MAPA); el siguiente es el del reporte (sección «Parte B»).
+- Pool de Wittenoom deduplicado en `data/topics_db.json` y `_steps/<id>/01_facts_sources.json` (fuera de git). `lab/hyperframes/f55/antes/01_facts_sources.json` conserva el de 58 citas (los tests de A lo usan).
 
 ## 👀 Para Omar (F55 Parte A, PARADA A): el detector ya ve los datos sin cifra, y Sonnet da la segunda opinión en el cierre y los pagos.
 - Sobre los dos guiones de Wittenoom, los frenos falsos de F54 desaparecen: viejo 1 → 0, nuevo 3 → 0. Sonnet confirmó D42 (cap 7 viejo), D21 (cap 3) y D10 (cap 6). US$ 0,009.
