@@ -52,10 +52,10 @@ def test_indice_por_tandas(tmp_path, monkeypatch):
 
 
 def test_credito_en_la_descripcion():
-    from script_engine.m09_packaging import ICON_CREDIT, _normalize_metadata
-    d = _normalize_metadata({"titulos": ["t"], "overlays": ["o"], "descripcion": "Un caso real.", "tags": ["x"]})
+    from script_engine.m09_packaging import ICON_CREDIT, normalizar_paquetes          # F58: paquetes, no títulos sueltos
+    d = normalizar_paquetes({"paquetes": [], "descripcion": "Un caso real.", "tags": ["x"]})
     assert d["descripcion"].endswith(ICON_CREDIT) and "game-icons.net (CC BY 3.0)" in ICON_CREDIT
-    assert _normalize_metadata({"descripcion": d["descripcion"]})["descripcion"].count(ICON_CREDIT) == 1
+    assert normalizar_paquetes({"descripcion": d["descripcion"]})["descripcion"].count(ICON_CREDIT) == 1
 
 
 def test_flash_elige_entre_candidatos_o_ninguno(tmp_path, monkeypatch):

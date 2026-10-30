@@ -621,13 +621,14 @@ def frase_cartel(tii: dict) -> str:
 _PROSA = ("subject", "action", "setting", "lighting", "camera_angle", "lens_technique")
 
 
-def armar(it: dict, anio: str, grupos: dict[str, dict] | None = None) -> dict:
+def armar(it: dict, anio: str, grupos: dict[str, dict] | None = None, composicion: str = "") -> dict:
     """F51a: el armado C de F50h, en el orden de la guía de fal: sujeto/acción → aspecto → lugar + año (sin «, año» si
     el setting ya trae año o década) → cartel → luz (solo `lighting`) → plano/ángulo/lente → estilo (`ESTILO_C` con el
     año; F51b: sin año, sin «taken in») → 16:9 (+ sin texto si no hay cartel). Sin mirada, objeto ni paleta. F50g-A: `aspecto` = la oración
     `appearance` de cada grupo de `people_group` del canon, en el orden del casillero; sin grupo o sin `appearance`,
     nada. F50b: antes de armar salen las cláusulas negadas de cada casillero de prosa (un casillero que queda vacío se
-    omite) y lo que va en mitad de oración baja a minúscula."""
+    omite) y lo que va en mitad de oración baja a minúscula. F58: `composicion` (una oración, la de la miniatura) va
+    después de la técnica y antes del estilo; vacía, el prompt es byte-idéntico."""
     from engine_profiles import select_profile
     it = {**it, **{k: _sin_negadas(it.get(k)) for k in _PROSA if isinstance(it.get(k), str)}}   # F50b arreglo 2
     tii = it.get("text_in_image") or {}
@@ -646,6 +647,7 @@ def armar(it: dict, anio: str, grupos: dict[str, dict] | None = None) -> dict:
         "texto": texto,
         "luz": oracion(it.get("lighting")),
         "tecnica": oracion(plano),
+        "composicion": oracion(composicion) if composicion else "",     # F58: la miniatura
         "estilo": ESTILO_C.format(anio=anio) if anio else ESTILO_C.replace(" taken in {anio}", ""),   # F51b: sin año
         "cierre": f"{select_profile('seedream').aspect_ratio_text}" + ("" if texto else f" {NO_TEXT}"),
     }

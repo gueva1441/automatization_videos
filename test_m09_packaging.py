@@ -1,11 +1,14 @@
 """
-test_m09_packaging.py — Tests SIN red de m09a packaging (chat 56).
+test_m09_packaging.py — Tests SIN red de m09a packaging (chat 56, adaptado a F58: paquetes).
 
-Cubre la lógica local: shortlist del audit_map, overlay Pillow, normalización de
-metadata (títulos ≤90, tags ≤450). Las llamadas Gemini/Flux las dispara Omar.
+Cubre la lógica local: overlay Pillow (mitad izquierda, esquina inf-DER libre), normalización de los paquetes
+(títulos ≤90, tags ≤450, texto MAYÚSCULAS), `_truncate_tags`, `_fit_cover`, `_resolve_mode`, `--fill`,
+`run_compose --paquete N`, `compose_and_package` y el ruteo de la foto por el productor (`_generate_image_raw`).
+Lo que pide el handoff F58 (A1–A7) vive en test_module_f58.py.
 """
 from __future__ import annotations
 
+import json
 import sys
 import tempfile
 from pathlib import Path
@@ -18,37 +21,16 @@ from script_engine import m09_packaging as m
 def _section(t): print("\n" + "─" * 68 + f"\n{t}")
 
 
-def test_shortlist():
-    _section("1· shortlist_existing (filtra + ordena)")
-    csv_text = (
-        "cap,img,filename,verdict_r1,punch_total_r1,foco,zoom_judge_category\n"
-        "ch02,1,ch02_img_01,fiel,8,2,\n"            # candidato fuerte
-        "ch03,2,ch03_img_02,fiel,7,2,\n"
-        "ch04,3,ch04_img_03,fiel,8,1,\n"            # punch 8 pero foco 1 (desempate)
-        "ch05,4,ch05_img_04,sujeto_agregado,8,2,\n"  # divergente → excluido
-        "ch06,5,ch06_img_05,fiel,8,2,superficie_plana\n"  # superficie_plana → excluido
-        "ch02,6,ch02_img_06,fiel,5,2,\n"
-    )
-    tmp = Path(tempfile.mkdtemp()) / "audit.csv"
-    tmp.write_text(csv_text, encoding="utf-8")
-    sl = m.shortlist_existing(tmp, n=4)
-    names = [r["filename"] for r in sl]
-    ok = True
-    if "ch05_img_04" in names:
-        ok = False; print("  ✗ no excluyó el divergente")
-    if "ch06_img_05" in names:
-        ok = False; print("  ✗ no excluyó superficie_plana")
-    # orden: punch desc, desempate foco desc → img_01(8,2), img_03(8,1), img_02(7,2), img_06(5,2)
-    expected = ["ch02_img_01", "ch04_img_03", "ch03_img_02", "ch02_img_06"]
-    if names != expected:
-        ok = False; print(f"  ✗ orden: {names}\n     esperado: {expected}")
-    else:
-        print(f"  ✓ shortlist correcta: {names}")
-    return ok
+def _meta_paquetes():
+    return {"topic_id": "TID", "stage": "candidates", "descripcion": "d", "tags": ["a"], "avisos": [],
+            "paquetes": [{"n": i, "estrategia": i, "titulo": f"Título {['uno', 'dos', 'tres'][i-1]}",
+                          "dato_ids": ["D01"], "datos": {"D01": "x"}, "texto": "TEXTO", "cap_que_paga": 3,
+                          "ancla": "A.", "avisos": [], "foto": "paquete_01_base.png", "base": "paquete_01_base.png",
+                          "miniatura": None, "motivo_sin_foto": None} for i in (1, 2, 3)]}
 
 
 def test_overlay():
-    _section("2· compose_thumbnail (1280×720, <2MB, texto, esquina inf-DER libre)")
+    _section("1· compose_thumbnail (1280×720, <2MB, texto, esquina inf-DER libre)")
     tmpd = Path(tempfile.mkdtemp())
     base = tmpd / "base.png"
     Image.new("RGB", (1080, 1920), (60, 60, 70)).save(base)  # fuente 9:16 → cover-crop
@@ -71,65 +53,59 @@ def test_overlay():
     import numpy as np
     a_txt = np.asarray(Image.open(p_txt).convert("RGB"), dtype=int)
     a_emp = np.asarray(Image.open(p_empty).convert("RGB"), dtype=int)
-    # texto presente: difieren globalmente
     if int(np.abs(a_txt - a_emp).sum()) == 0:
         ok = False; print("  ✗ el texto no se dibujó (idéntico al vacío)")
     else:
         print("  ✓ texto dibujado (difiere del base sin texto)")
-    # esquina inferior-DERECHA libre (YouTube pinta duración): sin cambios ahí
-    br = np.abs(a_txt[m.THUMB_H-120:, m.THUMB_W-260:] - a_emp[m.THUMB_H-120:, m.THUMB_W-260:]).sum()
+    # F58: la mitad DERECHA entera queda intacta (el texto vive en la mitad izquierda)
+    br = np.abs(a_txt[:, m.THUMB_W // 2 + m.THUMB_STROKE_PX:] - a_emp[:, m.THUMB_W // 2 + m.THUMB_STROKE_PX:]).sum()
     if br != 0:
-        ok = False; print(f"  ✗ texto invadió la esquina inferior-derecha (Δ={br})")
+        ok = False; print(f"  ✗ texto invadió la mitad derecha (Δ={br})")
     else:
-        print("  ✓ esquina inferior-derecha intacta")
-    # el texto cayó en el tercio inferior-izquierdo (hay cambios ahí)
-    bl = np.abs(a_txt[m.THUMB_H-260:, :m.THUMB_W//2] - a_emp[m.THUMB_H-260:, :m.THUMB_W//2]).sum()
+        print("  ✓ mitad derecha intacta (esquina inferior-derecha libre)")
+    bl = np.abs(a_txt[m.THUMB_H-300:, :m.THUMB_W//2] - a_emp[m.THUMB_H-300:, :m.THUMB_W//2]).sum()
     if bl == 0:
-        ok = False; print("  ✗ no hay texto en el tercio inferior-izquierdo")
+        ok = False; print("  ✗ no hay texto abajo a la izquierda")
     else:
-        print("  ✓ texto en tercio inferior-izquierdo")
+        print("  ✓ texto abajo a la izquierda")
     return ok
 
 
-def test_metadata_norm():
-    _section("3· normalización metadata (títulos ≤90, tags ≤450, 3 títulos, 3 overlays MAYÚS)")
+def test_normalizar_paquetes():
+    _section("2· normalizar_paquetes (títulos ≤90, tags ≤450, texto MAYÚS, descripción con crédito)")
     ok = True
-    long_title = "x" * 120
     tags = [f"tag{i}aaaaaaaaaa" for i in range(60)]  # muchos → debe truncar
-    data = {"titulos": [long_title, "b", "c", "d"],
-            "overlays": ["  muerte en x  ", "tensión cruda", "¿quién fue?", "sobrante"],
+    data = {"paquetes": [{"estrategia": 1, "titulo": "x" * 120, "dato_ids": ["D01"], "texto": "  muerte en x  ",
+                          "cap_que_paga": 2, "ancla": "A.  B."}],
             "descripcion": "  hola  ", "tags": tags}
-    norm = m._normalize_metadata(data)
-    if len(norm["titulos"]) != 3:
-        ok = False; print(f"  ✗ títulos={len(norm['titulos'])} (esperaba 3)")
-    else:
-        print("  ✓ exactamente 3 títulos")
-    if len(norm["overlays"]) != 3:
-        ok = False; print(f"  ✗ overlays={len(norm['overlays'])} (esperaba 3)")
-    elif not all(o == o.upper() for o in norm["overlays"]):
-        ok = False; print(f"  ✗ overlays no en MAYÚSCULAS: {norm['overlays']}")
-    elif norm["overlays"][0] != "MUERTE EN X":
-        ok = False; print(f"  ✗ overlay no strip+upper: {norm['overlays'][0]!r}")
-    else:
-        print(f"  ✓ 3 overlays en MAYÚSCULAS (strip): {norm['overlays']}")
-    if len(norm["titulos"][0]) > m.MAX_TITLE_CHARS:
-        ok = False; print(f"  ✗ título sin truncar: {len(norm['titulos'][0])}")
+    norm = m.normalizar_paquetes(data)
+    p = norm["paquetes"][0]
+    if len(p["titulo"]) > m.MAX_TITLE_CHARS:
+        ok = False; print(f"  ✗ título sin truncar: {len(p['titulo'])}")
     else:
         print(f"  ✓ título truncado a ≤{m.MAX_TITLE_CHARS}")
+    if p["texto"] != "MUERTE EN X":
+        ok = False; print(f"  ✗ texto no strip+upper: {p['texto']!r}")
+    else:
+        print("  ✓ texto en MAYÚSCULAS (strip)")
+    if p["ancla"] != "A. B.":
+        ok = False; print(f"  ✗ ancla sin normalizar espacios: {p['ancla']!r}")
+    else:
+        print("  ✓ ancla con espacios normalizados")
     total = sum(len(t) for t in norm["tags"]) + max(0, len(norm["tags"]) - 1)
     if total > m.MAX_TAGS_CHARS:
         ok = False; print(f"  ✗ tags={total} > {m.MAX_TAGS_CHARS}")
     else:
         print(f"  ✓ tags ≤{m.MAX_TAGS_CHARS} ({total} chars)")
-    if norm["descripcion"] != "hola":
+    if not norm["descripcion"].startswith("hola") or m.ICON_CREDIT not in norm["descripcion"]:
         ok = False; print(f"  ✗ descripción no normalizada: {norm['descripcion']!r}")
     else:
-        print("  ✓ descripción strip")
+        print("  ✓ descripción strip + crédito de íconos")
     return ok
 
 
 def test_truncate_tags():
-    _section("4· _truncate_tags (corte exacto a 450)")
+    _section("3· _truncate_tags (corte exacto a 450)")
     tags = [f"palabra{i:02d}" for i in range(100)]
     out = m._truncate_tags(tags, m.MAX_TAGS_CHARS)
     total = sum(len(t) for t in out) + max(0, len(out) - 1)
@@ -139,16 +115,15 @@ def test_truncate_tags():
 
 
 def test_focus_crop():
-    _section("5· _fit_cover --focus (top preserva tercio superior de fuente vertical)")
+    _section("4· _fit_cover --focus (top preserva tercio superior de fuente vertical)")
     import numpy as np
-    # Fuente vertical 1080×1920: banda ROJA en el tope (cara alta), resto oscuro
     src = Image.new("RGB", (1080, 1920), (20, 20, 20))
     for y in range(0, 220):
         for x in range(1080):
             src.putpixel((x, y), (220, 30, 30))
     def red_in_top(im):
         a = np.asarray(im.convert("RGB"), dtype=int)
-        top = a[:140]  # franja superior del thumb 1280×720
+        top = a[:140]
         return int(((top[..., 0] > 150) & (top[..., 1] < 90)).sum())
     top_img = m._fit_cover(src, m.THUMB_W, m.THUMB_H, "top")
     ctr_img = m._fit_cover(src, m.THUMB_W, m.THUMB_H, "center")
@@ -163,51 +138,23 @@ def test_focus_crop():
     if rc != 0:
         ok = False; print(f"  ✗ focus=center mostró la banda superior (rojo={rc}, debería decapitarla)")
     else:
-        print("  ✓ focus=center NO muestra el tope (crop centrado, como el bug de existing_02)")
+        print("  ✓ focus=center NO muestra el tope (crop centrado)")
     if rt <= rc:
         ok = False; print("  ✗ top no preserva más tope que center")
     return ok
 
 
-def test_hero_user_prompt():
-    _section("7· hero user prompt incluye la narración + personaje (PASO 1)")
-    canonical = {
-        "video_title": "La Antigua Cárcel",
-        "canonical_subject_description": "una vieja cárcel de piedra",
-        "chapters": [
-            {"chapter_number": 1, "narration": "Una historia oscura comienza."},
-            {"chapter_number": 3, "narration": "La novia espectral Lavinia Fisher recorre los pasillos al anochecer."},
-            {"chapter_number": 7, "narration": "Z" * 2000},  # para probar el truncado por cap
-        ],
-    }
-    u = m._hero_user_prompt(canonical)
-    ok = True
-    checks = [
-        ("Lavinia Fisher" in u, "incluye el personaje de la narración"),
-        ("NARRACIÓN COMPLETA" in u and "PASO 1" in u, "instruye PASO 1 con la narración"),
-        ("[Cap 3]" in u, "narración por capítulo"),
-        ("[…]" in u and u.count("Z") <= m.HERO_NARRATION_PER_CAP, "trunca cap largo al tope"),
-    ]
-    for cond, label in checks:
-        if not cond:
-            ok = False; print(f"  ✗ {label}")
-        else:
-            print(f"  ✓ {label}")
-    return ok
-
-
 def test_resolve_mode():
-    _section("8· _resolve_mode (--review solo válido; combos inválidos fallan)")
+    _section("5· _resolve_mode (--review solo válido; combos inválidos fallan)")
     ok = True
-    # (candidates, compose, review) → modo esperado | None si debe lanzar ValueError
     cases = [
         ((True, False, False), "candidates"),
-        ((True, False, True), "candidates"),   # --review acompaña a --candidates
+        ((True, False, True), "candidates"),
         ((False, True, False), "compose"),
-        ((False, False, True), "review"),      # --review SOLO (el bug)
-        ((True, True, False), None),           # candidates + compose inválido
-        ((False, True, True), None),           # compose + review inválido
-        ((False, False, False), None),         # nada
+        ((False, False, True), "review"),
+        ((True, True, False), None),
+        ((False, True, True), None),
+        ((False, False, False), None),
     ]
     for (c, co, r), exp in cases:
         try:
@@ -227,7 +174,7 @@ def test_resolve_mode():
 
 
 def test_fill_color():
-    _section("9· compose --fill (blanco / amarillo / rojo)")
+    _section("6· compose --fill (blanco / amarillo / rojo)")
     import numpy as np
     tmpd = Path(tempfile.mkdtemp())
     base = tmpd / "base.png"
@@ -238,13 +185,12 @@ def test_fill_color():
         out = tmpd / f"{name}.png"
         m.compose_thumbnail(base, "TEXTO COLOR", out, fill=name)
         a = np.asarray(Image.open(out).convert("RGB"), dtype=int)
-        region = a[m.THUMB_H - 260:, :m.THUMB_W // 2]   # tercio inferior-izquierdo
+        region = a[m.THUMB_H - 300:, :m.THUMB_W // 2]
         hits = int((np.abs(region - np.array(tgt)).sum(axis=2) < 60).sum())
         if hits < 50:
             ok = False; print(f"  ✗ {name}: solo {hits} px ≈ {tgt}")
         else:
             print(f"  ✓ {name}: {hits} px del color {tgt}")
-    # default = blanco
     if m.THUMB_FILL_DEFAULT != "blanco":
         ok = False; print("  ✗ default no es blanco")
     else:
@@ -252,153 +198,126 @@ def test_fill_color():
     return ok
 
 
-def test_run_compose_title_idx():
-    _section("10· run_compose: --title N → string (N fuera de rango → SystemExit)")
-    orig = (m._publish_dir, m._candidates_dir, m._final_mp4)
+def test_run_compose_paquete():
+    _section("7· run_compose: --paquete N → título/texto/base del paquete (N inexistente → SystemExit)")
+    orig = (m._publish_dir, m._candidates_dir, m._final_mp4, m._assets_dir)
     tmp = Path(tempfile.mkdtemp())
     ok = True
     try:
         pub = tmp / "publish"; cand = pub / "thumb_candidates"; cand.mkdir(parents=True)
         m._publish_dir = lambda tid: pub
         m._candidates_dir = lambda tid: cand
+        m._assets_dir = lambda tid: tmp / "assets"
         m._final_mp4 = lambda tid: tmp / "v.mp4"
-        Image.new("RGB", (1280, 720), (20, 20, 20)).save(cand / "fresh_01.png")
-        (pub / "metadata.json").write_text(
-            '{"titulos": ["Título uno", "Título dos", "Título tres"], "descripcion": "d", "tags": ["a"]}',
-            encoding="utf-8")
-        # N válido → resuelve el string y compone; metadata final guarda el título elegido
-        m.run_compose("TID", "fresh_01.png", "TEXTO", 2, video_path="/x/v.mp4")
-        import json as _json
-        meta = _json.loads((pub / "metadata.json").read_text(encoding="utf-8"))
-        if meta.get("titulo_elegido") != "Título dos":
-            ok = False; print(f"  ✗ título elegido mal: {meta.get('titulo_elegido')!r}")
+        Image.new("RGB", (1280, 720), (20, 20, 20)).save(cand / "paquete_01_base.png")
+        (pub / "metadata.json").write_text(json.dumps(_meta_paquetes(), ensure_ascii=False), encoding="utf-8")
+        m.run_compose("TID", 2, video_path="/x/v.mp4")
+        meta = json.loads((pub / "metadata.json").read_text(encoding="utf-8"))
+        if meta.get("titulo_elegido") != "Título dos" or meta.get("base_thumb") != "paquete_01_base.png":
+            ok = False; print(f"  ✗ paquete 2 mal resuelto: {meta.get('titulo_elegido')!r} {meta.get('base_thumb')!r}")
         else:
-            print("  ✓ --title 2 → 'Título dos' (índice resuelto a string)")
-        # N fuera de rango → SystemExit
+            print("  ✓ --paquete 2 → 'Título dos' + su base")
         try:
-            m.run_compose("TID", "fresh_01.png", "TEXTO", 9, video_path="/x/v.mp4")
-            ok = False; print("  ✗ --title 9 no lanzó SystemExit")
+            m.run_compose("TID", 9, video_path="/x/v.mp4")
+            ok = False; print("  ✗ --paquete 9 no lanzó SystemExit")
         except SystemExit as e:
             if "fuera de rango" not in str(e):
                 ok = False; print(f"  ✗ SystemExit con mensaje raro: {e}")
             else:
-                print("  ✓ --title 9 (fuera de rango) → SystemExit")
+                print("  ✓ --paquete 9 (inexistente) → SystemExit")
     finally:
-        m._publish_dir, m._candidates_dir, m._final_mp4 = orig
+        m._publish_dir, m._candidates_dir, m._final_mp4, m._assets_dir = orig
     return ok
 
 
 def test_compose_title_string():
-    _section("11· compose_and_package: title STRING (libre / vacío → ValueError)")
-    orig = (m._publish_dir, m._candidates_dir, m._final_mp4)
+    _section("8· compose_and_package: title STRING (libre / vacío → ValueError)")
+    orig = (m._publish_dir, m._candidates_dir, m._final_mp4, m._assets_dir)
     tmp = Path(tempfile.mkdtemp())
     ok = True
     try:
         pub = tmp / "publish"; cand = pub / "thumb_candidates"; cand.mkdir(parents=True)
         m._publish_dir = lambda tid: pub
         m._candidates_dir = lambda tid: cand
+        m._assets_dir = lambda tid: tmp / "assets"
         m._final_mp4 = lambda tid: tmp / "v.mp4"
-        Image.new("RGB", (1280, 720), (20, 20, 20)).save(cand / "fresh_01.png")
-        (pub / "metadata.json").write_text('{"titulos": ["A"], "descripcion": "d", "tags": ["a"]}',
-                                           encoding="utf-8")
-        # título escrito a mano (NO está en titulos) → se acepta tal cual
-        written = m.compose_and_package("TID", "fresh_01.png", "TEXTO", "Título a mano",
+        Image.new("RGB", (1280, 720), (20, 20, 20)).save(cand / "paquete_01_base.png")
+        (pub / "metadata.json").write_text(json.dumps(_meta_paquetes()), encoding="utf-8")
+        written = m.compose_and_package("TID", "paquete_01_base.png", "TEXTO", "Título a mano",
                                         out_name="thumb_final.png", video_path="/x/v.mp4")
-        import json as _json
-        meta = _json.loads((pub / "metadata.json").read_text(encoding="utf-8"))
+        meta = json.loads((pub / "metadata.json").read_text(encoding="utf-8"))
         if meta.get("titulo_elegido") != "Título a mano" or not written.exists():
             ok = False; print(f"  ✗ título libre no se guardó: {meta.get('titulo_elegido')!r}")
         else:
-            print("  ✓ título escrito a mano se acepta (combobox editable)")
-        # título vacío → ValueError
+            print("  ✓ título escrito a mano se acepta")
         try:
-            m.compose_and_package("TID", "fresh_01.png", "TEXTO", "   ", video_path="/x/v.mp4")
+            m.compose_and_package("TID", "paquete_01_base.png", "TEXTO", "   ", video_path="/x/v.mp4")
             ok = False; print("  ✗ título vacío no lanzó ValueError")
         except ValueError:
             print("  ✓ título vacío → ValueError")
     finally:
-        m._publish_dir, m._candidates_dir, m._final_mp4 = orig
+        m._publish_dir, m._candidates_dir, m._final_mp4, m._assets_dir = orig
     return ok
 
 
-def test_render_fresh_routes_to_producer():
-    _section("12· _render_fresh_from_hero rutea por el productor (seedream), NO por el clon Flux")
+def test_foto_paquete_routes_to_producer():
+    _section("9· foto_paquete rutea por el productor (seedream, use_ultra=False); fallo → motivo literal")
     import asset_manager as am
     ok = True
     calls = []
 
-    def fake_raw(prompt, output_path, use_ultra, seed=None):
+    def fake_raw(prompt, output_path, use_ultra, seed=None, foto_madre_data_uris=None):
         calls.append({"prompt": prompt, "out": output_path, "use_ultra": use_ultra})
-        Image.new("RGB", (2560, 1440), (10, 10, 10)).save(output_path)  # seedream 16:9
+        Image.new("RGB", (2560, 1440), (10, 10, 10)).save(output_path)
         return {"endpoint": "seedream/v4.5/t2i"}
 
     orig = am._generate_image_raw
     am._generate_image_raw = fake_raw
     try:
-        # ── caso feliz: llama al productor con (hero, out, use_ultra=False) y ESCRIBE ──
         cand = Path(tempfile.mkdtemp())
-        lines, files = m._render_fresh_from_hero("HERO PROMPT", cand, count=2, start_idx=1)
-        if len(calls) != 2:
-            ok = False; print(f"  ✗ se esperaban 2 llamadas al productor, hubo {len(calls)}")
-        elif any(c["prompt"] != "HERO PROMPT" or c["use_ultra"] is not False for c in calls):
-            ok = False; print(f"  ✗ args al productor mal: {calls}")
+        err = m.foto_paquete("PROSA", cand / "paquete_01_base.png")
+        if err is not None or len(calls) != 1 or calls[0]["use_ultra"] is not False or calls[0]["prompt"] != "PROSA":
+            ok = False; print(f"  ✗ args al productor mal: {calls} err={err}")
+        elif not (cand / "paquete_01_base.png").exists():
+            ok = False; print("  ✗ no escribió la foto")
         else:
-            print("  ✓ productor llamado con (hero, out, use_ultra=False)")
-        if files != ["fresh_01.png", "fresh_02.png"] or not all((cand / f).exists() for f in files):
-            ok = False; print(f"  ✗ no escribió las frescas: {files}")
-        else:
-            print("  ✓ escribió fresh_01/02.png en cand_dir")
-        if not all("✓" in ln for ln in lines):
-            ok = False; print(f"  ✗ líneas .md sin ✓: {lines}")
-        else:
-            print("  ✓ líneas .md marcan ✓")
+            print("  ✓ productor llamado con (prompt, out, use_ultra=False) y escribió la foto")
     finally:
         am._generate_image_raw = orig
 
-    # ── el clon murió: ni el módulo ni el path del thumbnail referencian el wiring Flux ──
     src = Path(m.__file__).read_text(encoding="utf-8")
-    if "_flux_16x9" in src:
-        ok = False; print("  ✗ _flux_16x9 sigue vivo en el módulo")
-    elif "fal_image_model" in src or "track_flux_pro" in src:
-        ok = False; print("  ✗ quedó api.fal_image_model / track_flux_pro en el módulo")
+    if "_flux_16x9" in src or "fal_image_model" in src or "track_flux_pro" in src or "gemini_client" in src:
+        ok = False; print("  ✗ quedó wiring viejo (flux/gemini) en el módulo")
     else:
-        print("  ✓ _flux_16x9 / fal_image_model / track_flux_pro eliminados del módulo")
+        print("  ✓ sin wiring Flux/Gemini en el módulo")
 
-    # ── caso de fallo: el productor levanta Exception → '✗' y '⚠ render falló en todas' ──
-    def fake_boom(prompt, output_path, use_ultra, seed=None):
+    def fake_boom(prompt, output_path, use_ultra, seed=None, foto_madre_data_uris=None):
         raise RuntimeError("boom")
 
     am._generate_image_raw = fake_boom
     try:
-        cand2 = Path(tempfile.mkdtemp())
-        lines2, files2 = m._render_fresh_from_hero("HERO", cand2, count=2, start_idx=1)
+        err2 = m.foto_paquete("PROSA", Path(tempfile.mkdtemp()) / "paquete_01_base.png")
     finally:
         am._generate_image_raw = orig
-    if files2:
-        ok = False; print(f"  ✗ no debía escribir nada en fallo: {files2}")
-    elif not any("✗" in ln for ln in lines2):
-        ok = False; print("  ✗ no marcó '✗' en fallo")
-    elif not any("render falló en todas" in ln for ln in lines2):
-        ok = False; print("  ✗ no apareció '⚠ render falló en todas'")
+    if err2 != "RuntimeError: boom":
+        ok = False; print(f"  ✗ el motivo no es literal: {err2!r}")
     else:
-        print("  ✓ fallo → '✗' + '⚠ render falló en todas' (resiliencia preservada)")
+        print("  ✓ fallo → motivo literal 'RuntimeError: boom' (el paquete queda sin foto, sin excepción)")
     return ok
 
 
 def main() -> int:
     print("=" * 68 + "\n  TESTS m09a packaging (sin red)\n" + "=" * 68)
     results = {
-        "shortlist": test_shortlist(),
         "overlay": test_overlay(),
-        "metadata_norm": test_metadata_norm(),
+        "normalizar_paquetes": test_normalizar_paquetes(),
         "truncate_tags": test_truncate_tags(),
         "focus_crop": test_focus_crop(),
-        "hero_user_prompt": test_hero_user_prompt(),
         "resolve_mode": test_resolve_mode(),
         "fill_color": test_fill_color(),
-        "run_compose_title_idx": test_run_compose_title_idx(),
+        "run_compose_paquete": test_run_compose_paquete(),
         "compose_title_string": test_compose_title_string(),
-        "render_fresh_routes_to_producer": test_render_fresh_routes_to_producer(),
+        "foto_paquete_routes_to_producer": test_foto_paquete_routes_to_producer(),
     }
     print("\n" + "=" * 68)
     for k, v in results.items():

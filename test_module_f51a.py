@@ -18,7 +18,7 @@ GRUPOS = {"miners": {"id": "miners", "appearance": "Lean men with sun-darkened s
 
 def test_f51a_orden_c_con_cartel_y_un_grupo():
     a = v3.armar(SLOTS, "1962", GRUPOS)
-    assert list(a["partes"]) == ["sujeto", "aspecto", "lugar_anio", "texto", "luz", "tecnica", "estilo", "cierre"]
+    assert list(a["partes"]) == ["sujeto", "aspecto", "lugar_anio", "texto", "luz", "tecnica", "composicion", "estilo", "cierre"]   # F58: composicion (vacía)
     assert a["prompt"] == (
         "A miner. Loading ore. Lean men with sun-darkened skin. The mill yard, 1962. "
         'The word "DANGER" is written on the gate in clear crisp stencil lettering. Harsh noon. '

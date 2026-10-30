@@ -675,7 +675,8 @@ def _ssim(a: Path, b: Path) -> float | None:
 def foto_final_del_clip(foto_inicial: Path, image_prompt: str, voz_clip: str, video_prompt_aprobado: str,
                         out_path: Path, *, use_ultra: bool = False) -> dict[str, Any]:
     """F57 (DECISIONES 2026-10-29 21:10 y 21:17): la foto final del clip, un EDIT de la inicial. Opus escribe la
-    instrucción (`video_prompt.escribir_final`: foto, image_prompt, voz del clip, movimiento aprobado) y Seedream la
+    instrucción (`video_prompt.escribir_final`: foto, image_prompt, voz del clip; desde F58 A8, DECISIONES 23:10, la
+    instrucción de edit no mira el movimiento: `video_prompt_aprobado` se sigue recibiendo pero no se usa) y Seedream la
     aplica por `/edit` con la inicial como referencia (`_generate_image_raw` con `foto_madre_data_uris`, el tipo leído
     de los bytes). Si `out_path` ya existe se reusa (no se paga de nuevo; solo se mide). Devuelve {path | None, ssim |
     None, instruccion, motivo}: un rechazo de contenido o un error del edit deja `path` None con el motivo literal, y
@@ -687,7 +688,7 @@ def foto_final_del_clip(foto_inicial: Path, image_prompt: str, voz_clip: str, vi
     instruccion = None
     try:
         instruccion = video_prompt.escribir_final(foto_inicial, image_prompt or video_prompt.SIN_DATO, voz_clip,
-                                                  video_prompt_aprobado, description=f"{out_path.stem}: instruccion")
+                                                  description=f"{out_path.stem}: instruccion")
         _generate_image_raw(instruccion, out_path, use_ultra, foto_madre_data_uris=[_path_to_data_uri(foto_inicial)])
     except ContentRejectedError as e:
         error_handler.log_warning(PipelineStage.IMAGE, f"[foto final] {out_path.name}: rechazada — {str(e)[:300]}")

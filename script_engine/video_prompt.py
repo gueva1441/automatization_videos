@@ -11,6 +11,8 @@ costo por `claude_helpers._track` → cost_tracker. Reintentos como `claude_help
 errores de stream de sobrecarga hasta MAX_ATTEMPTS con backoff; otro 4xx o `stop_reason: refusal` → ClaudeError.
 F57 (Parte A4): foto final opcional del clip — con `foto_final` el pedido es PEDIDO_CON_FINAL (dos imágenes, primer y
 último cuadro) y `escribir_final` escribe con PEDIDO_FINAL la instrucción de edit que convierte la foto inicial en la final.
+F58 (A8, DECISIONES 2026-10-29 23:10): PEDIDO_FINAL ya no lleva el movimiento aprobado; la instrucción de edit sale de la
+foto, el `image_prompt` y la voz del clip, nada más.
 """
 from __future__ import annotations
 
@@ -57,14 +59,13 @@ Clip length: {segundos} seconds, one continuous shot, no cuts, no dialogue, no m
 Return only the prompt text."""
 
 # F57 Parte A4: la instrucción de edit (modelo de edición de imagen) que convierte la foto inicial en el último cuadro.
+# F58 A8 (DECISIONES 2026-10-29 23:10): sin el bloque APPROVED MOTION; solo foto, prompt de la foto y voz del clip.
 PEDIDO_FINAL = """You write an edit instruction for an image-editing model. The attached image is the first frame of a {segundos}-second continuous documentary shot. Write the instruction that turns it into the last frame of that same shot.
-The last frame keeps the same place, the same people with the same faces, bodies and clothes, the same light and the same photographic style; it changes only what changes during those seconds, following the narration and the approved motion.
+The last frame keeps the same place, the same people with the same faces, bodies and clothes, the same light and the same photographic style; it changes only what changes during those seconds, following the narration.
 STILL IMAGE PROMPT (what the first frame was asked to show):
 {prompt_foto}
 NARRATION DURING THE SHOT (Spanish; the last frame shows the moment at its end):
 {voz_clip}
-APPROVED MOTION (where the camera ends up):
-{video_prompt_vivo}
 Return only the edit instruction: one paragraph of plain English prose describing the last frame."""
 
 SIN_DATO = "(none)"                    # ancla o video_prompt ausente, como en F53a (`f53a/moderacion.py`)
@@ -123,12 +124,10 @@ def armar_body(perfil: VideoProfile, foto: bytes | Path, image_prompt: str, ancl
     return _body(contenido)
 
 
-def armar_body_final(foto: bytes | Path, image_prompt: str, voz_clip: str | None,
-                     video_prompt_aprobado: str | None) -> dict[str, Any]:
-    """F57: el body que pide la instrucción de edit de la foto final: la foto inicial y PEDIDO_FINAL (voz del clip y
-    movimiento aprobado vacíos → «(none)»); mismo modelo, max_tokens y effort que `armar_body`."""
-    texto = PEDIDO_FINAL.format(prompt_foto=image_prompt, voz_clip=voz_clip or SIN_DATO,
-                                video_prompt_vivo=video_prompt_aprobado or SIN_DATO, segundos=_segundos())
+def armar_body_final(foto: bytes | Path, image_prompt: str, voz_clip: str | None) -> dict[str, Any]:
+    """F57/F58: el body que pide la instrucción de edit de la foto final: la foto inicial y PEDIDO_FINAL (voz del clip
+    vacía → «(none)»; desde F58 sin el movimiento aprobado); mismo modelo, max_tokens y effort que `armar_body`."""
+    texto = PEDIDO_FINAL.format(prompt_foto=image_prompt, voz_clip=voz_clip or SIN_DATO, segundos=_segundos())
     return _body([_bloque_imagen(foto), {"type": "text", "text": texto}])
 
 
@@ -180,10 +179,10 @@ def escribir(perfil: VideoProfile, foto: bytes | Path, image_prompt: str, ancla:
     return _llamar(body, description or f"video_prompt:{perfil.engine_key}", post)
 
 
-def escribir_final(foto: bytes | Path, image_prompt: str, voz_clip: str | None, video_prompt_aprobado: str | None,
+def escribir_final(foto: bytes | Path, image_prompt: str, voz_clip: str | None,
                    *, post: Callable[[dict], dict] | None = None, description: str | None = None) -> str:
-    """F57: la instrucción de edit (texto, strip) que convierte la foto inicial del clip en su último cuadro, con
-    PEDIDO_FINAL sobre la foto, el `image_prompt`, la voz del clip y el movimiento aprobado. Reintentos y errores como
-    `_llamar`; costo con la descripción «video_prompt:final» por defecto."""
-    body = armar_body_final(foto, image_prompt, voz_clip, video_prompt_aprobado)
+    """F57/F58: la instrucción de edit (texto, strip) que convierte la foto inicial del clip en su último cuadro, con
+    PEDIDO_FINAL sobre la foto, el `image_prompt` y la voz del clip (desde F58 no mira el movimiento aprobado).
+    Reintentos y errores como `_llamar`; costo con la descripción «video_prompt:final» por defecto."""
+    body = armar_body_final(foto, image_prompt, voz_clip)
     return _llamar(body, description or "video_prompt:final", post)

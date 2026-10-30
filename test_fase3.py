@@ -119,11 +119,11 @@ def test_headless_argv():
     else:
         print("  ✓ argv incluye -m m09, topic, --video-path y el passthrough en orden")
     # candidates passthrough
-    a2 = fase3._build_m09_argv("T", "/v.mp4", ["--candidates", "--only-fresh"])
-    if a2[:5] != ["-m", "script_engine.m09_packaging", "T", "--video-path", "/v.mp4"] or a2[5:] != ["--candidates", "--only-fresh"]:
+    a2 = fase3._build_m09_argv("T", "/v.mp4", ["--candidates", "--review"])
+    if a2[:5] != ["-m", "script_engine.m09_packaging", "T", "--video-path", "/v.mp4"] or a2[5:] != ["--candidates", "--review"]:
         ok = False; print(f"  ✗ candidates argv: {a2}")
     else:
-        print("  ✓ --candidates --only-fresh pasan tal cual")
+        print("  ✓ --candidates --review pasan tal cual")
     return ok
 
 

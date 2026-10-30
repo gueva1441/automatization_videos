@@ -303,20 +303,5 @@ def test_metricas_traen_las_dos_y_no_frenan():
     assert g4.bloqueantes(t11.TOPIC, esc, ps) == []
 
 
-# ═══════════════════════════════════════════════════════════════
-#  B.4: el hero y la metadata reciben el GANCHO (cap 1 entero) primero
-# ═══════════════════════════════════════════════════════════════
-
-def test_m09_gancho_primero_y_cap_1_sin_truncar():
-    from script_engine import m09_packaging as m9
-    cap1 = "Un hombre joven posa con el pie vendado. " * 60                    # > HERO_NARRATION_PER_CAP
-    canonical = {"video_title": "W", "canonical_subject_description": "s", "verified_facts": [{"fact": "f"}],
-                 "chapters": [{"chapter_number": 1, "narration": cap1},
-                              {"chapter_number": 7, "narration": "Z" * 2000}]}
-    for u in (m9._hero_user_prompt(canonical), m9._meta_user_prompt(canonical)):
-        assert u.startswith("GANCHO (la narración del cap 1 entera; " + m9.GANCHO_INSTRUCCION + "):\n" + cap1.strip())
-        assert "la primera oración del título y el sujeto de la miniatura salen del GANCHO" in u
-    hero = m9._hero_user_prompt(canonical)
-    assert hero.count(cap1.strip()) == 2                                       # en el GANCHO y en [Cap 1], entero
-    assert "[Cap 1] " + cap1.strip() in hero and "[Cap 7] " + "Z" * m9.HERO_NARRATION_PER_CAP + " […]" in hero
-    assert m9._meta_user_prompt(canonical).count("NARRACIÓN COMPLETA") == 1
+# B.4 (el hero y la metadata reciben el GANCHO primero) se borró en F58: ese camino (Gemini 6+6 + hero) ya no existe;
+# el GANCHO entero primero en el pedido de paquetes lo cubre test_module_f58.py (A2).

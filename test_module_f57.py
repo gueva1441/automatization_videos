@@ -130,13 +130,11 @@ Clip length: {segundos} seconds, one continuous shot, no cuts, no dialogue, no m
 Return only the prompt text."""
 
 PEDIDO_FINAL = """You write an edit instruction for an image-editing model. The attached image is the first frame of a {segundos}-second continuous documentary shot. Write the instruction that turns it into the last frame of that same shot.
-The last frame keeps the same place, the same people with the same faces, bodies and clothes, the same light and the same photographic style; it changes only what changes during those seconds, following the narration and the approved motion.
+The last frame keeps the same place, the same people with the same faces, bodies and clothes, the same light and the same photographic style; it changes only what changes during those seconds, following the narration.
 STILL IMAGE PROMPT (what the first frame was asked to show):
 {prompt_foto}
 NARRATION DURING THE SHOT (Spanish; the last frame shows the moment at its end):
 {voz_clip}
-APPROVED MOTION (where the camera ends up):
-{video_prompt_vivo}
 Return only the edit instruction: one paragraph of plain English prose describing the last frame."""
 
 
@@ -149,9 +147,9 @@ def test_pedidos_nuevos_integros_con_segundos():
     assert f"Clip length: {seg} seconds" in t and "{segundos}" not in t
     assert vp.armar_pedido(ep.PERFIL_VIDEO_G, "P", "la voz", "mov") == vp.PEDIDO.format(
         ficha=ep.PERFIL_VIDEO_G.ficha, prompt_foto="P", ancla="la voz", video_prompt_vivo="mov")
-    b = vp.armar_body_final(JPEG, "P", "la voz", "mov")
-    assert b["messages"][0]["content"][1]["text"] == PEDIDO_FINAL.format(prompt_foto="P", voz_clip="la voz",
-                                                                         video_prompt_vivo="mov", segundos=seg)
+    b = vp.armar_body_final(JPEG, "P", "la voz")
+    assert b["messages"][0]["content"][1]["text"] == PEDIDO_FINAL.format(prompt_foto="P", voz_clip="la voz", segundos=seg)
+    assert "APPROVED MOTION" not in b["messages"][0]["content"][1]["text"]            # F58 A8: sin el movimiento
     assert b["messages"][0]["content"][1]["text"].startswith(f"You write an edit instruction for an image-editing model. "
                                                               f"The attached image is the first frame of a {seg}-second")
 
@@ -176,7 +174,7 @@ def test_escribir_final_misma_llamada_que_escribir(monkeypatch):
     monkeypatch.setattr(claude_helpers, "_track", lambda m, u, d: tracks.append(d) or 0.0)
     resp = {"model": "claude-opus-5-5", "stop_reason": "end_turn", "usage": {},
             "content": [{"type": "text", "text": "  the last frame shows…  "}]}
-    out = vp.escribir_final(JPEG, "P", "la voz", "mov", post=lambda b: bodies.append(b) or resp)
+    out = vp.escribir_final(JPEG, "P", "la voz", post=lambda b: bodies.append(b) or resp)
     assert out == "the last frame shows…" and tracks == ["video_prompt:final"]
     assert [x["type"] for x in bodies[0]["messages"][0]["content"]] == ["image", "text"]
     assert bodies[0]["model"] == vp.MODELO_CASILLEROS
@@ -274,8 +272,8 @@ def test_foto_final_reusa_la_existente_sin_llamar_a_nada(monkeypatch, tmp_path):
 def test_foto_final_edit_con_la_inicial_de_referencia(monkeypatch, tmp_path):
     visto = {}
 
-    def escribir_final(foto, image_prompt, voz_clip, video_prompt_aprobado, *, post=None, description=None):
-        visto.update(foto=foto, ip=image_prompt, voz=voz_clip, mov=video_prompt_aprobado)
+    def escribir_final(foto, image_prompt, voz_clip, *, post=None, description=None):          # F58 A8: sin movimiento
+        visto.update(foto=foto, ip=image_prompt, voz=voz_clip)
         return "the last frame: he lowers the bandaged foot"
 
     def raw(prompt, out_path, use_ultra, seed=None, foto_madre_data_uris=None):
@@ -289,7 +287,7 @@ def test_foto_final_edit_con_la_inicial_de_referencia(monkeypatch, tmp_path):
     ini.write_bytes(JPEG)
     out = am.foto_final_del_clip(ini, "ip", "la voz", "mov", fin, use_ultra=True)
     assert out == {"path": fin, "ssim": 0.87, "instruccion": "the last frame: he lowers the bandaged foot", "motivo": None}
-    assert (visto["foto"], visto["ip"], visto["voz"], visto["mov"]) == (ini, "ip", "la voz", "mov")
+    assert (visto["foto"], visto["ip"], visto["voz"]) == (ini, "ip", "la voz") and "mov" not in visto
     assert visto["prompt"] == out["instruccion"] and visto["use_ultra"] is True
     assert visto["uris"] == ["data:image/jpeg;base64," + base64.b64encode(JPEG).decode()]    # el tipo de los bytes
     assert fin.exists()

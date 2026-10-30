@@ -536,9 +536,10 @@ Bias the shot_scale, lighting and mood of these images toward:
 
 
 def _build_seedream_prompt_step2(topic, cap_data, narration_text, anchors, extra_block: str = "",
-                                 anios=None) -> str:
+                                 anios=None, clip_apertura: bool = True) -> str:
     """User-prompt del skeleton seedream: canon 2-capas + facts + anchors → pedir
-    N slot-sets (uno por fragmento). El LLM elige hard_fact_ids; NO escribe cifras."""
+    N slot-sets (uno por fragmento). El LLM elige hard_fact_ids; NO escribe cifras.
+    F58: con `clip_apertura=False` no entra el bloque OPENING MOTION CLIP aunque el cap sea el hook."""
     cap_n = cap_data["chapter_number"]
     role = cap_data.get("role") or "development"
     cap_title = cap_data.get("title") or "(sin título)"
@@ -551,7 +552,7 @@ def _build_seedream_prompt_step2(topic, cap_data, narration_text, anchors, extra
     # que ve el espectador). Regla dura: close/medium sobre el detalle, NUNCA establishing/aéreo/wide.
     # El hook es siempre el cap veo (cap1); ningún cap flux tiene narrative_intent=="hook".
     opening_clip_rule = ""
-    if cap_data.get("narrative_intent") == "hook":
+    if clip_apertura and cap_data.get("narrative_intent") == "hook":
         opening_clip_rule = (
             "\nOPENING MOTION CLIP — SOLO el item [1]: es lo PRIMERO que ve el espectador. DEBE ser "
             "un plano close o medium sobre el ÚNICO detalle cargado de su anchor. Un plano "
@@ -619,11 +620,14 @@ def _apply_place_exterior_filter(image_prompts, is_place: bool) -> None:
             it["foto_madre_ref"] = [r for r in refs if r != "__subject__"]
 
 
-def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number):
+def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number, composicion: str = "",
+                             sin_cartel: bool = False, clip_apertura: bool = True):
     """F50 B — paso 2 de las fotos: Opus llena los casilleros de cada ancla con su expediente (año, lugar, párrafo,
     escenas, hechos, citas, personas y los grupos del canon); el código arma la prosa (`v3img.armar`) y F8 la revisa
     (`v3img.f8_backstop`: si queda un problema se saca la frase, sin re-tejido); la pasada 1 del filtro de texto
-    legible queda de backstop que saca la frase. Devuelve el mismo shape de fase2a (image_prompts con su prompt)."""
+    legible queda de backstop que saca la frase. Devuelve el mismo shape de fase2a (image_prompts con su prompt).
+    F58 (la foto de un paquete): `composicion` va a `armar`, `sin_cartel` apaga `text_in_image` antes de armar y
+    `clip_apertura` va a `_build_seedream_prompt_step2`; con los defaults, byte-idéntico."""
     import claude_helpers
     anchors = [a["anchor"] for a in plan["anchors"]]
     n = len(anchors)
@@ -644,7 +648,7 @@ def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number):
     anios = [e.get("anio_ancla") or (e.get("respaldo") or ("",))[0] for e in exps]
     if not f8.get("refill"):
         print(f"  [03] {_log_sin_period(topic, anios, cap_number)}")     # F50f: medida, no freno
-    prompt = _build_seedream_prompt_step2(topic, cap_data, narration, anchors, extra, anios)
+    prompt = _build_seedream_prompt_step2(topic, cap_data, narration, anchors, extra, anios, clip_apertura=clip_apertura)
 
     def _validator(parsed):
         items = parsed.get("image_prompts") if isinstance(parsed, dict) else None
@@ -688,7 +692,9 @@ def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number):
     by_n = {b["n"]: b for b in cap_beats}
     for it, e in zip(slots_out["image_prompts"], exps):
         anio, fuente = v3img.anio_final(e, it)
-        armado = v3img.armar(it, anio, grupos)
+        if sin_cartel:                                 # F58: sin cartel → sin frase_cartel, cierre con NO_TEXT
+            it["text_in_image"] = {**(it.get("text_in_image") or {}), "present": False}
+        armado = v3img.armar(it, anio, grupos, composicion=composicion)
         prose, notas = v3img.f8_backstop(armado["prompt"], it, bool((by_n.get(it.get("beat")) or {}).get("escala")))
         tii = it.get("text_in_image") or {}
         prose, fuera = _sacar_frases_con_texto(prose, (tii.get("text") or "") if tii.get("present") else "")
