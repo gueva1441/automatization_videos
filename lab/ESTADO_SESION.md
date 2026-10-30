@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 22:50 (F55 D.0: las 3 copias del pool de Wittenoom deduplicadas e iguales; ficha_caso.load remapea ids descartados en memoria (36 → 0); f48/f51c a la narración congelada; US$ 0; sigue la Parte D) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 23:30 (F55 Parte D: Wittenoom en texto con detector + dedupe + promesa; escaleta f55-1 con promesa de 1 oración y 2 loops pagados; guion con 3 bloqueantes, 2 falsos por el texto de una cita duplicada; US$ 3,93; PARADA D) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,16 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F55 Parte D, PARADA D): Wittenoom tiene escaleta, guion y papel nuevos; la promesa salió en una oración y los loops se pagan.
+- El guion frena con 3 cosas: la vieja del cap 3 y **2 falsas nuevas**: la voz citó una cita con las palabras de la versión que el dedupe sacó (Q15), y los jueces la toman por inventada y por de otro caso. Arreglo general en un handoff aparte.
+- El detector de F55 no frenó nada (cierre y pagos con ancla; 0 llamadas a Sonnet). El re-gancho se declaró y la voz no lo dijo.
+- Ningún id descartado en lo regenerado; el `digest` del pool se corrigió en las 3 copias.
+- **Gasto:** US$ 3,93 (F55 total ≈ 3,94). Cero fotos, cero voz. **Decidís con el analista:** nota 1–10 y si pasa a fotos.
+
+## F55 — Parte D (handoff 19:50; D.0 20:25) — PARADA D
+- Commits: `ea8ae11` (salida_d.py, SALIDA_D.md, MEDIDA_RETENCION_D.md, d_run.log, dedupe_pool.py con el digest); el siguiente es el del reporte (sección «Parte D»).
+- Wittenoom en `_steps`: escaleta `f55-1`, guion `f54-2` (4 → 3 bloqueantes, PARADA del guion), papel 13 fichas · 6 sellos · 3 relojes. Lo de F54 en `lab/hyperframes/f55/antes/`.
 
 ## 👀 Para Omar (F55 D.0, pasó): el pool deduplicado ya lo ven todos, y la ficha se corrige al cargarla.
 - Las tres copias del pool de Wittenoom tienen las mismas 50 citas y los mismos 8 descartados; la ficha en disco apuntaba 36 veces a citas borradas y cargada apunta 0 (el archivo no se toca; sirve para cualquier tema).
