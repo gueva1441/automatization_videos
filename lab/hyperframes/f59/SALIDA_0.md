@@ -53,7 +53,7 @@ Script `lab/hyperframes/f59/copia_lab.py` (idempotente: borra `base/` y la rehac
 | 6 | 1712 | 2186 | 407dc929 | 3c7af1b0 |
 | 7 | 1266 | 1233 | 7ea3bf10 | 7933696e |
 
-Comprobación de CC: las anclas de `03_visual.json` (5 + 16 + 16 + 14 + 16 + 16 + 13) están **todas** en la narración del guion vivo (96/96) y casi ninguna en el 01b del 29-oct (3/96): el 03_visual del 29-oct 13:00 (F51d-A/F51f) se armó sobre la narración del 28. La copia es coherente (anclas ↔ narración).
+Comprobación de CC: las anclas de `03_visual.json` (5 + 16 + 16 + 14 + 16 + 16 + 13) están **todas** en la narración del guion vivo (96/96 normalizando espacios; 95/96 literal: ch03 ítem 16 lleva un espacio donde la narración tiene «\n\n» antes de «dijo McNulty») y casi ninguna en el 01b del 29-oct (3/96): el 03_visual del 29-oct 13:00 (F51d-A/F51f) se armó sobre la narración del 28. La copia es coherente (anclas ↔ narración).
 
 **`voz_clip`** (sobre la narración del guion vivo):
 
@@ -103,3 +103,40 @@ Otros `medium` + `people_group` (de espaldas o cara oculta): ch03/10, ch04/2, ch
 2. El guion vivo tiene claves que fase2 agregó después del ensamble (pesa 1 079 664 bytes; la copia 1 019 230): la copia es la de m06 «limpia» + narración del vivo + `voz_clip`.
 3. Chascada propuesta (no F59): filtrar los `_graded.png` en `_flux_imgs`/`_supp_imgs`; con eso vuelven el orden, las anclas y el sync (efectos 1–3 del §2).
 4. Nada de la Etapa 0 pidió gastar: US$ 0.
+
+## Veredicto de revisor-handoff — Etapa 0 (íntegro)
+
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | 6 líneas en DECISIONES = handoff (l. 19-24) | OK | El blob de e5b1dbf tiene las 6 líneas sin CR y su md5 es igual al de las l. 19-24 del handoff (c090493f…). El archivo de trabajo tiene CRLF, que es autocrlf y no está en el commit. Handoff md5 9325c5ee… verificado. |
+| 2 | Tabla §2 contra disco | OK | Medido en assets/chNN_flux: crudos/graded = 4/4, 16/16, 16/16, 14/14, 16/16, 16/16, 12/12 (ch01..ch07). Los totales 8/32/32/28/32/32/24 coinciden con la tabla. |
+| 2b | Líneas citadas de qa_studio_server.py y qa_studio.html | OK | Verificadas una por una: _IMG_NAME_RE en l. 76; _img_idx en 181-183; _flux_imgs y _supp_imgs en 185-195; resolve_image en 215-232 (rechazo por regex en 218); `len(anchors)==n` en 321; _seg en 356-365 (anchors[i] en 360); /img en 1834-1836; _send_file 404 en 1760-1762; imgSrc en html 317-318; el grid en html 493-499. m09_packaging 575-584 usa los graded y image_grade.py:31 define SUFFIX="_graded". |
+| 3 | copia_lab.py no escribe en data/, output/ ni script_engine/ | OK | Solo lee de producción. Todas las escrituras van a BASE (rmtree, dump, copyfile, copytree con destino BASE). m6.SCRIPTS_DIR se redirige y se restaura en `finally` (l. 99-110). Hay asserts de md5 del vivo y de los _steps (l. 109, 207-210). |
+| 3b | m06 sin LLM, narración del vivo, voz_clip como f57/clip_b.py l. 62-64 | OK | La fórmula de ventana (l. 78-83) es idéntica a clip_b.py:62-64. Usa m3.voz_del_clip y la narración del vivo (l. 127). No importa ningún módulo LLM. |
+| 3c | base/data/scripts/<tid>.json | OK | voz_clip presente solo en caps 1 (105 chars) y 7 (116 chars). Los 7 caps tienen la misma narración que el vivo (comparado en Python). check-ignore confirma que base/ está ignorada. |
+| 3d | Guion vivo md5 f762dc48… | OK | md5sum de data/scripts/123bbb64….json = f762dc482027e9a65ccd7fa38316510e. |
+| 4 | Anclas 96/96 en el vivo, 3/96 en 01b | PARCIAL | Los totales por cap (5+16+16+14+16+16+13 = 96) y 3/96 en 01b son exactos. En el vivo, literalmente, son 95/96. La excepción es ch03 image_prompts[15]: el ancla lleva un espacio antes de «dijo McNulty» y la narración lleva "\n\n". Es un desajuste de espacios y no de contenido, pero «96/96» no es literal. |
+| 5 | Sin código de producción tocado | OK | `git show --stat`: e5b1dbf toca DECISIONES.md y el handoff. e612b70 toca ESTADO_SESION.md, SALIDA_0.md y copia_lab.py. No hay nada en script_engine/, qa_studio* ni data/. |
+| 5b | Sin gasto | OK | El último timestamp de data/cost_history.json es 2026-10-30T04:41:38 (el Seedream de f58 parte B, total 0,3953). No hay entradas posteriores. cost_history.json no está modificado en git status. |
+| 6 | Salida en texto y ESTADO al día | OK | SALIDA_0.md incluye tabla, causa, árbol y candidatos B2. ESTADO_SESION.md l. 3 (fecha y hito) y el bloque «Para Omar (F59, PARADA 0)» en l. 17-24 están actualizados. |
+| 7 | B2: ch03_img_08 es medium con people_group no vacío | OK | 03_visual.json, cap 3, image_prompts[7]: shot_scale "medium", people_group [company_owners_and_managers, unions_and_labour_arbitration], subject «The employer's advocate…». El manifest tiene ch03_img_08 y su graded. |
+| 8 | Reglas fijas (no tocar prompts, sin números nuevos) | OK | Ningún prompt de producción cambió. Los números de la Etapa 0 son mediciones. |
+
+Fuera de alcance: ninguno. Los demás archivos sin trackear y los dos modificados (diag_234_cap4.py, f28a.log) ya estaban en el status inicial y no son de esta tanda.
+
+Observaciones:
+- «96/96» debe leerse como 95/96 literal y 96/96 normalizando espacios (fila 4).
+- No verifiqué por separado las afirmaciones de SALIDA_0 sobre las fotos en disco: el hallazgo de que los PNG del 28-oct no coinciden con 03_visual, el «visto» de las imágenes y el conteo 0/16 en el manifest de ch03. Sí encontré ch03_img_08 y su graded en el manifest.
+- Los pesos de 629,9 MB y los 230 archivos no se re-midieron.
+
+Riesgos que el contrato no cubre:
+- Sobre la copia de lab, QA Studio mostrará los PNG del 28-oct bajo los ítems de 03_visual del 29-oct. La Etapa B2 solo es coherente si primero regenera la foto «antes», lo que implica gasto.
+- La copia de m06 pesa 1,02 MB frente a 1,08 MB del vivo: le faltan claves que agregó fase2.
+
+### Adenda de CC
+- **Fila 4:** corregido en §3: 96/96 normalizando espacios, 95/96 literal (el ítem 16 de ch03 tiene un espacio donde la narración trae un salto de párrafo; `norm` de mi comprobación colapsaba espacios).
+- **Observación 2:** el conteo 0/16 del manifest de ch03 contra 03_visual y el «visto» de las imágenes son del subagente de la Etapa 0 (vio los graded con la herramienta de imagen); las fechas de archivo (PNG 28-oct 00:20–00:34, 03_visual 29-oct 13:00) las comprobé yo con `ls`.
+- **Riesgo 1:** es lo que pide B2 (foto «antes» desde los casilleros con la misma semilla, ≈ US$ 0,035), ya previsto en el handoff.
+- **Riesgo 2:** §5.2 lo declara; QAState solo lee `chapters` (anclas, narración, render_engine), que la copia tiene entero.

@@ -22,6 +22,7 @@
 ## F59 — QA Studio arregla con la máquina de producción (handoff del analista 08:22) — PARADA 0
 - Commits: `e5b1dbf` (DECISIONES ×6 + handoff md5 9325c5ee…); el siguiente: `SALIDA_0.md`, `copia_lab.py`, ESTADO.
 - Etapa 0: §2 tabla de cuadros vacíos por cap (ch02 16/32, ch01 4/8) + causa en qa_studio_server.py:76/181-195/215-232 + 3 efectos más (orden, anclas corridas, `sync_approx` en los 7 caps); §3 copia de lab (m06 sin LLM con SCRIPTS_DIR redirigido; narración del vivo; `voz_clip` cap 1 «Un hombre joven posa…» y cap 7 «…la primera palada de esa tierra?»; anclas de 03_visual 96/96 en el vivo); §4 candidatos B2 (ch03_img_08 recomendado).
+- Revisor Etapa 0: CUMPLE CON OBSERVACIONES (anclas 95/96 literal, 96/96 sin espacios; veredicto íntegro en SALIDA_0.md).
 - Pendiente: OK del analista → Etapa A (A1 armar_item, A2 editor de foto, A3 editor de clip, A4 front, A5 chascadas, A6 suites) → PARADA A → Etapa B con OK.
 
 ## 👀 Para Omar (F58, PARADA B): los 3 paquetes de Wittenoom ya están hechos y cuestan US$ 0,40.
