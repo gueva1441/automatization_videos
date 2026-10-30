@@ -154,7 +154,7 @@
   "_parte": "orquestador_c"
  },
  "asset_manager.py": {
-  "sticker": "Es el que genera las fotos (y los clips de video, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, desde F53b cada clip sale de Gemini Omni Flash y, si Google lo rechaza por contenido, de Kling 4.0 (el prompt de cada motor lo escribe Opus mirando la foto, sin suavizar; 8 s, 1080p, la pista de audio se quita, y el costo sale de los segundos reales), y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió.",
+  "sticker": "Es el que genera las fotos (y los clips de video, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, desde F53b cada clip sale de Gemini Omni Flash y, si Google lo rechaza por contenido, de Kling 4.0 (el prompt de cada motor lo escribe Opus mirando la foto, sin suavizar; 8 s, 1080p, la pista de audio se quita, y el costo sale de los segundos reales); desde F57 cada clip lleva también una foto final, que es un edit de la inicial hecho por Seedream con la instrucción que escribe Opus a partir de la voz entera del clip (`voz_clip`) y el movimiento aprobado: el motor recibe las dos fotos y el clip va de una a la otra; el parecido entre las dos (SSIM) se mide y se anota, sin frenar; si el edit falla o lo rechazan, el clip sale solo con la inicial y el motivo queda anotado, y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió.",
   "recibe": "El guion canónico con image_prompts/video_prompts por capítulo y foto_madre_registry (data/scripts/<id>.json), el sync_map de voz (output/<id>/audio/sync_map.json, opcional) y las fotos madre en disco (rutas del registry).",
   "entrega": "output/<id>/assets/<capNN>_flux/<capNN>_img_NN.png (y _supp_NN.png, _graded.png), output/<id>/assets/<capNN>_veo/<capNN>_clip_NN.mp4 y output/<id>/assets/assets_manifest.json. Además, otros módulos le piden la función de imagen cruda (foto_madre.py, m09_packaging).",
   "modelo": [
@@ -178,7 +178,7 @@
   "estado": "vivo",
   "estado_prueba": "fase2a.py:55 importa process_script como asset_process y lo corre en la etapa assets (run_pipeline.py:340-342 lanza fase2a.py --topic); m09_packaging.py:489 lo usa para las miniaturas",
   "funciones_muertas": [],
-  "md5": "08b8b6e31d6f825d483f10aacf74e611",
+  "md5": "2ddc47a1b6771804fddb61c9599cff51",
   "_parte": "orquestador_b"
  },
  "claude_helpers.py": {
@@ -709,9 +709,9 @@
   "_parte": "orquestador_a"
  },
  "script_engine/video_prompt.py": {
-  "sticker": "Escribe el prompt de movimiento de un clip de video para un motor de clips (F53b): le manda a Claude Opus la foto real del primer cuadro (con su tipo leído de los bytes) y el pedido de F52b con la ficha de guía del motor, el prompt de la foto, la frase de la voz y el movimiento ya aprobado, y devuelve el texto. No suaviza nada ni agrega reglas.",
-  "recibe": "El VideoProfile del motor (engine_profiles), la foto (bytes o ruta), el image_prompt, el ancla de narración y el video_prompt del 03_visual (o nada).",
-  "entrega": "El texto del prompt de video, en memoria; el costo de la llamada va a cost_tracker.",
+  "sticker": "Escribe el prompt de movimiento de un clip de video para un motor de clips (F53b): le manda a Claude Opus la foto real del primer cuadro (con su tipo leído de los bytes) y el pedido de F52b con la ficha de guía del motor, el prompt de la foto, la voz del clip y el movimiento ya aprobado, y devuelve el texto. Desde F57, si el clip tiene foto final, manda las dos fotos (primer y último cuadro) con un pedido que dice que el plano va de una a la otra; y escribe, con otro pedido, la instrucción de edit que convierte la foto inicial en la final (misma gente, misma luz, cambia solo lo que pasa en esos segundos según la voz y el movimiento). No suaviza nada ni agrega reglas.",
+  "recibe": "El VideoProfile del motor (engine_profiles), la foto inicial (bytes o ruta), la foto final si la hay, el image_prompt, la voz del clip (voz_clip) y el video_prompt del 03_visual (o nada).",
+  "entrega": "El texto del prompt de video, o la instrucción de edit de la foto final, en memoria; el costo de cada llamada va a cost_tracker.",
   "modelo": [
    {
     "modelo": "claude-opus-5-5, effort high (MODELO_CASILLEROS; claude_helpers._post)",
@@ -724,6 +724,6 @@
   "estado": "vivo",
   "estado_prueba": "asset_manager._generate_clip lo llama por cada motor de la cadena (F53b Parte B); _generate_clip lo llaman _process_veo_chapter (asset_manager.process_script, etapa assets: fase2a) y qa_studio_server._clipfix_core.",
   "funciones_muertas": [],
-  "md5": "64acb78b20c245eb5c2a5896980636cf"
+  "md5": "f3ef83f32f43be0d043a679f5987ac9d"
  }
 }

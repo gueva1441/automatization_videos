@@ -72,13 +72,19 @@ def test_f50c_a_ya_no_busca_en_el_pool_por_nombre():
 def test_f50c_a_fotos_testigo_de_wittenoom():
     """Las 8 fotos testigo del handoff con los datos reales de Wittenoom (en seco: la llamada a Opus se corta). Las
     anclas son las de F50c, congeladas en `lab/hyperframes/f50f/antes/03_visual.json` (F50f: m03 re-planea las anclas
-    en cada corrida, así que el 03_visual.json vivo ya no tiene las mismas frases en las mismas posiciones)."""
+    en cada corrida, así que el 03_visual.json vivo ya no tiene las mismas frases en las mismas posiciones).
+    F57: el skeleton, la narración y los párrafos v3 salen de la copia congelada `lab/hyperframes/f54/antes/` (la
+    narración anterior a F55 D / F56 C, que regeneraron la viva en `_steps`: con la viva, «Se llama Eric Saint» ya no
+    está en ningún párrafo y el arrastre de la foto 3/7 da nadie). La copia de F55 no sirve: ya es la narración
+    reescrita de F55 D, y las anclas de F50c no caen en sus párrafos (los testigos salen por el párrafo del beat)."""
     anclas = ROOT / "lab" / "hyperframes" / "f50f" / "antes" / "03_visual.json"
-    if not (ROOT / "data" / "scripts" / "_steps" / "123bbb64-9fca-4395-8bf4-57d60e219ef1").exists() or not anclas.exists():
+    antes = ROOT / "lab" / "hyperframes" / "f54" / "antes"
+    if (not (ROOT / "data" / "scripts" / "_steps" / "123bbb64-9fca-4395-8bf4-57d60e219ef1").exists()
+            or not anclas.exists() or not (antes / "01b_narracion_v3.json").exists()):
         pytest.skip("sin los datos de Wittenoom")
     sys.path.insert(0, str(ROOT / "lab" / "hyperframes" / "f50c"))
     import expedientes_f50c as ex
-    topic, skel, narr_ch = ex.preparar()
+    topic, skel, narr_ch = ex.preparar(antes)
     v = json.loads(anclas.read_text(encoding="utf-8"))
     for (cap, foto), (nombres, fuente) in ex.TESTIGOS.items():
         c = next(x for x in v["chapters"] if x["chapter_number"] == cap)

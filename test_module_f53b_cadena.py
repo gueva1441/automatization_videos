@@ -85,7 +85,7 @@ def entorno(monkeypatch, tmp_path):
     monkeypatch.setattr(am.api, "fal_api_key", "test-falsa", raising=False)
     escritos, costos, sleeps = [], [], []
 
-    def escribir(perfil, foto, image_prompt, ancla, intento, *, post=None, description=None):
+    def escribir(perfil, foto, image_prompt, ancla, intento, *, foto_final=None, post=None, description=None):
         escritos.append({"perfil": perfil.engine_key, "foto": foto, "image_prompt": image_prompt, "ancla": ancla,
                          "intento": intento, "description": description})
         return f"PROMPT escrito con el perfil {perfil.engine_key}"

@@ -8,6 +8,8 @@ CAMBIO MAYOR (Fase 2A Evolución Final):
 ARQUITECTURA:
   render_engine del guion ahora es uno de:
     - "veo"  → clips de video (F53b: Gemini Omni Flash 1.1 → Kling 4.0 si rechaza; `_generate_clip`)
+      F57: foto final = edit de la inicial (`foto_final_del_clip`, Seedream /edit + SSIM) y el motor recibe las 2 fotos;
+      el prompt del motor y la foto final salen de la voz entera del clip (`voz_clip`, de m03; sin la clave, PARA)
     - "flux" → imágenes con fal.ai Flux Pro v1.1
 
   El capítulo "ch01" (gancho) usa automáticamente Flux Ultra para máxima
@@ -288,10 +290,12 @@ def _seedream_edit_payload_for(
     return payload
 
 
-def _path_to_data_uri(path: str) -> str:
-    """Foto madre local (PNG) → data-URI base64 (fal acepta data-URIs; NO la URL de fal)."""
-    b64 = base64.b64encode(Path(path).read_bytes()).decode("ascii")
-    return f"data:image/png;base64,{b64}"
+def _path_to_data_uri(path: str | Path) -> str:
+    """Foto local → data-URI base64 (fal acepta data-URIs; NO la URL de fal). F57 (chascada 2): el tipo se lee de los
+    bytes (`video_prompt.tipo_imagen`: Seedream entrega JPEG con extensión .png), antes fijaba image/png."""
+    from script_engine.video_prompt import tipo_imagen
+    datos = Path(path).read_bytes()
+    return f"data:{tipo_imagen(datos)};base64,{base64.b64encode(datos).decode('ascii')}"
 
 
 # ── Lookup por engine_key (el "selector" del 5º dispatch — NO elif disperso) ──
@@ -585,19 +589,20 @@ def _clip_poll(status_url: str, response_url: str, timeout: int = CLIP_POLL_TIME
     raise TimeoutError(f"fal.ai timeout tras {timeout}s")
 
 
-def _clip_payload(perfil, foto: Path, prompt: str, duracion_s: float) -> dict[str, Any]:
+def _clip_payload(perfil, foto: Path, prompt: str, duracion_s: float, foto_final: Path | None = None) -> dict[str, Any]:
     """El payload del motor: la foto como data URI con el tipo leído de los bytes (Seedream entrega JPEG con extensión
-    .png: F52b), la duración en el rango del perfil y la resolución de config; audio apagado solo si el schema lo deja."""
-    from script_engine.video_prompt import tipo_imagen
-    datos = foto.read_bytes()
+    .png: F52b), la duración en el rango del perfil y la resolución de config; audio apagado solo si el schema lo deja.
+    F57: con `foto_final`, también la foto final en `perfil.campo_imagen_final` (`end_image_url`), mismo data URI."""
     if not perfil.duracion_min <= duracion_s <= perfil.duracion_max:
         raise ValueError(f"{perfil.engine_key}: {duracion_s} s fuera de {perfil.duracion_min}–{perfil.duracion_max}")
     payload: dict[str, Any] = {
         "prompt": prompt,
-        perfil.campo_imagen: f"data:{tipo_imagen(datos)};base64,{base64.b64encode(datos).decode()}",
+        perfil.campo_imagen: _path_to_data_uri(foto),
         "duration": str(int(duracion_s)) if perfil.duracion_como_texto else int(duracion_s),
         "resolution": getattr(api, "video_resolution", perfil.resolucion),
     }
+    if foto_final is not None:
+        payload[perfil.campo_imagen_final] = _path_to_data_uri(foto_final)
     if perfil.campo_audio:
         payload[perfil.campo_audio] = False
     return payload
@@ -626,12 +631,13 @@ def _quitar_audio(path: Path) -> None:
     tmp.unlink()
 
 
-def _call_clip_once(perfil, foto: Path, prompt: str, output_path: Path, duracion_s: float) -> dict[str, Any]:
+def _call_clip_once(perfil, foto: Path, prompt: str, output_path: Path, duracion_s: float,
+                    foto_final: Path | None = None) -> dict[str, Any]:
     """Una llamada al motor por la cola de fal: pide, espera, baja el mp4, le quita el audio si hace falta."""
     submit_url = f"{api.fal_base_url}/{perfil.endpoint}"
     try:
-        resp = requests.post(submit_url, headers=_fal_headers(), json=_clip_payload(perfil, foto, prompt, duracion_s),
-                             timeout=60)
+        resp = requests.post(submit_url, headers=_fal_headers(),
+                             json=_clip_payload(perfil, foto, prompt, duracion_s, foto_final), timeout=60)
         resp.raise_for_status()
     except requests.HTTPError as e:
         body = e.response.text if e.response is not None else str(e)
@@ -655,28 +661,71 @@ def _call_clip_once(perfil, foto: Path, prompt: str, output_path: Path, duracion
     return med
 
 
+def _ssim(a: Path, b: Path) -> float | None:
+    """F57: parecido entre dos fotos con el filtro `ssim` de ffmpeg (`All`), escalando `b` al tamaño de `a` si difiere
+    (`scale2ref`). None si ffmpeg falla o no imprime el valor: se informa, no frena."""
+    import re  # noqa: PLC0415
+    import subprocess  # noqa: PLC0415
+    r = subprocess.run(["ffmpeg", "-hide_banner", "-i", str(b), "-i", str(a), "-filter_complex",
+                        "[0:v][1:v]scale2ref[b][a];[a][b]ssim", "-f", "null", "-"], capture_output=True, text=True)
+    m = re.search(r"All:([\d.]+)", r.stderr or "")
+    return float(m.group(1)) if m else None
+
+
+def foto_final_del_clip(foto_inicial: Path, image_prompt: str, voz_clip: str, video_prompt_aprobado: str,
+                        out_path: Path, *, use_ultra: bool = False) -> dict[str, Any]:
+    """F57 (DECISIONES 2026-10-29 21:10 y 21:17): la foto final del clip, un EDIT de la inicial. Opus escribe la
+    instrucción (`video_prompt.escribir_final`: foto, image_prompt, voz del clip, movimiento aprobado) y Seedream la
+    aplica por `/edit` con la inicial como referencia (`_generate_image_raw` con `foto_madre_data_uris`, el tipo leído
+    de los bytes). Si `out_path` ya existe se reusa (no se paga de nuevo; solo se mide). Devuelve {path | None, ssim |
+    None, instruccion, motivo}: un rechazo de contenido o un error del edit deja `path` None con el motivo literal, y
+    el clip sale sin foto final. El SSIM inicial/final se mide y se informa; no hay umbral."""
+    from script_engine import video_prompt
+    if out_path.exists():
+        return {"path": out_path, "ssim": _ssim(foto_inicial, out_path), "instruccion": None,
+                "motivo": "reusada: ya existía"}
+    instruccion = None
+    try:
+        instruccion = video_prompt.escribir_final(foto_inicial, image_prompt or video_prompt.SIN_DATO, voz_clip,
+                                                  video_prompt_aprobado, description=f"{out_path.stem}: instruccion")
+        _generate_image_raw(instruccion, out_path, use_ultra, foto_madre_data_uris=[_path_to_data_uri(foto_inicial)])
+    except ContentRejectedError as e:
+        error_handler.log_warning(PipelineStage.IMAGE, f"[foto final] {out_path.name}: rechazada — {str(e)[:300]}")
+        return {"path": None, "ssim": None, "instruccion": instruccion, "motivo": f"rechazo: {e}"[:600]}
+    except Exception as e:  # noqa: BLE001 — el clip sale sin foto final; el motivo se informa tal cual
+        error_handler.log_warning(PipelineStage.IMAGE, f"[foto final] {out_path.name}: falló — {str(e)[:300]}")
+        return {"path": None, "ssim": None, "instruccion": instruccion,
+                "motivo": f"{type(e).__name__}: {e}"[:600]}
+    return {"path": out_path, "ssim": _ssim(foto_inicial, out_path), "instruccion": instruccion, "motivo": None}
+
+
 def _generate_clip(foto: Path, intento_movimiento: str, output_path: Path, *, image_prompt: str = "",
-                   ancla: str = "", log: list | None = None) -> Path:
+                   ancla: str = "", foto_final: Path | None = None, log: list | None = None) -> Path:
     """F53b: el clip de un cap con clip. Recorre la cadena de motores (`api.video_engines`: Gemini Omni Flash 1.1 →
     Kling 4.0). Por cada motor, Opus escribe el prompt con su ficha mirando la foto (`script_engine.video_prompt`,
     `intento_movimiento` = el `video_prompt` aprobado) y se llama al motor. Si el motor rechaza por contenido, pasa al
     siguiente (no se suaviza el prompt); los errores de red/429/5xx reintentan el mismo motor y no saltan de motor. El
     costo va por `cost_tracker.track_video` con los segundos reales. Cada paso queda en `log` (motor, rechazo literal,
-    segundos, costo) si se pasa una lista, y en el log del pipeline."""
+    segundos, costo) si se pasa una lista, y en el log del pipeline.
+    F57: `ancla` es la voz entera del clip (`voz_clip`); con `foto_final`, Opus mira las dos fotos (PEDIDO_CON_FINAL) y
+    el motor recibe las dos (`end_image_url`): el clip va de una a la otra. Si un motor rechaza, el siguiente recibe las
+    mismas dos fotos."""
     from script_engine import video_prompt
     from script_engine.m03_visual import VEO_CLIP_DURATION_SEC
     rechazos: list[str] = []
     for engine_key in api.video_engines:
         perfil = select_video_profile(engine_key)
         prompt = video_prompt.escribir(perfil, foto, image_prompt or video_prompt.SIN_DATO, ancla,
-                                       intento_movimiento, description=f"{output_path.stem}: prompt {engine_key}")
+                                       intento_movimiento, foto_final=foto_final,
+                                       description=f"{output_path.stem}: prompt {engine_key}")
         for attempt in range(1, CLIP_MAX_ATTEMPTS_NON_REJECTION + 1):
             try:
-                med = _call_clip_once(perfil, foto, prompt, output_path, VEO_CLIP_DURATION_SEC)
+                med = _call_clip_once(perfil, foto, prompt, output_path, VEO_CLIP_DURATION_SEC, foto_final)
                 cost_tracker.track_video(perfil, med["segundos"], med["ancho"], med["alto"],
                                          description=f"{output_path.stem}: {engine_key}")
                 fila = {"clip": output_path.name, "motor": engine_key, "rechazos": rechazos, **med,
-                        "usd": perfil.costo(med["segundos"], med["ancho"], med["alto"]), "prompt": prompt}
+                        "usd": perfil.costo(med["segundos"], med["ancho"], med["alto"]), "prompt": prompt,
+                        "foto_final": foto_final.name if foto_final else None}
                 error_handler.log_info(PipelineStage.VIDEO, f"[clip] {output_path.name}: {engine_key} · "
                                                             f"{med['segundos']:.2f} s · US$ {fila['usd']:.4f}"
                                                             + (f" · rechazos previos: {len(rechazos)}" if rechazos else ""))
@@ -1093,6 +1142,10 @@ def _process_veo_chapter(
             f"[{chapter_id}] len(video_prompts)={len(video_prompts)} != "
             f"len(image_prompts)={len(raw_image_prompts)}"
         )
+    # F57: la voz entera del clip viene de m03 (`voz_clip`); un guion viejo sin la clave PARA (no hay respaldo al ancla)
+    voz_clip: str = (chapter.get("voz_clip") or "").strip()
+    if not voz_clip:
+        raise ValueError(f"[{chapter_id}] cap sin voz_clip: correr m03 de nuevo")
 
     veo_dir = _chapter_dir(video_id, chapter_id, "veo")
     fallback_dir = _chapter_dir(video_id, chapter_id, "flux")
@@ -1151,14 +1204,21 @@ def _process_veo_chapter(
                 })
                 continue
 
-        error_handler.log_info(PipelineStage.VIDEO, f"[{chapter_id}] clip {idx}...")
+        # F57: la foto final (edit de la inicial) antes del clip; sin ella (rechazo/error) el clip sale solo con la inicial
+        final_img_path = veo_dir / f"{base_img_path.stem}_final{base_img_path.suffix}"
+        final = foto_final_del_clip(base_img_path, raw_img_prompt, voz_clip, vid_prompt, final_img_path,
+                                    use_ultra=use_ultra)
+        error_handler.log_info(PipelineStage.VIDEO, f"[{chapter_id}] clip {idx}"
+                               + (f" (foto final, ssim {final['ssim']})" if final["path"] else " (sin foto final)") + "...")
         try:
             _generate_clip(base_img_path, vid_prompt, clip_path, image_prompt=raw_img_prompt,
-                           ancla=chapter.get("narration_anchor") or "")
+                           ancla=voz_clip, foto_final=final["path"])
             clip_results.append({
                 "index": idx, "video_prompt": vid_prompt, "image_prompt": raw_img_prompt,
                 "path": str(clip_path.relative_to(OUTPUT_DIR)),
                 "status": "ok", "fallback_type": None,
+                "foto_final": str(final["path"].relative_to(OUTPUT_DIR)) if final["path"] else None,
+                "ssim": final["ssim"], "motivo_sin_final": None if final["path"] else final["motivo"],
             })
             continue
 

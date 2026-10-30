@@ -1933,11 +1933,28 @@ _SEEDREAM_MOTION_SCHEMA = {"type": "OBJECT",
                           "required": ["video_prompt"]}
 
 
-def _seedream_video_prompt(image_prompt: str, anchor: str, label: str, max_attempts: int = 3) -> str:
+def voz_del_clip(narracion: str, veo_position: str, ventana_chars: int) -> str:
+    """F57 A1: las palabras de la narración que la voz dice durante el clip (sin LLM). `start` → las palabras (\\S+)
+    que EMPIEZAN antes del carácter `ventana_chars`; `end` → las que TERMINAN después de `len − ventana_chars`. Corte
+    por palabra, texto original tal cual (sin agregar ni quitar nada); ventana ≥ narración → la narración entera."""
+    palabras = list(re.finditer(r"\S+", narracion))
+    if not palabras:
+        return ""
+    if veo_position == "end":
+        dentro = [m for m in palabras if m.end() > len(narracion) - ventana_chars]
+    else:
+        dentro = [m for m in palabras if m.start() < ventana_chars]
+    if not dentro:
+        return ""
+    return narracion[dentro[0].start():dentro[-1].end()]
+
+
+def _seedream_video_prompt(image_prompt: str, voz_clip: str, label: str, max_attempts: int = 3) -> str:
     """El video_prompt (movimiento) de la foto Veo: Opus (MODELO_CASILLEROS) con el sistema de F50 C, sembrado por la
-    prosa del primer cuadro y la frase de la voz. Reintenta si el largo cae fuera de 120–700."""
+    prosa del primer cuadro y la voz entera del clip (F57: `voz_clip`, antes el ancla). Reintenta si el largo cae
+    fuera de 120–700."""
     import claude_helpers
-    user = (f"FIRST FRAME (final):\n{image_prompt}\n\nNARRATOR OVER THIS CLIP (Spanish, context only): «{anchor}»\n\n"
+    user = (f"FIRST FRAME (final):\n{image_prompt}\n\nNARRATOR OVER THIS CLIP (Spanish, context only): «{voz_clip}»\n\n"
             f"CLIP LENGTH: {VEO_CLIP_DURATION_SEC:g} seconds.")
     last = ""
     for attempt in range(1, max_attempts + 1):
@@ -1966,13 +1983,16 @@ CLAVES_F8_PAPEL = ("anio", "anio_fuente", "people_group", "shot_scale", "camera_
                    "_f8_problemas", "_f8_slots_scrub", "_f8_texto_fuera", "_f8_rehecha")
 
 
-def _render_prompts_seedream_veo(topic, cap_data, narration, plan, veo_position, cap_number):
+def _render_prompts_seedream_veo(topic, cap_data, narration, plan, veo_position, cap_number, veo_zone_chars):
     """Paso 2 VEO bajo seedream. Reusa el skeleton de caps flux para TODAS las fotos
     vía un plan sintético [veo_anchor]+supplementals → resultado[0]=foto Veo
     (image_prompt), resultado[1..N]=stills DepthFlow (supplementals). El video_prompt
-    (motion de la foto Veo) sale de una call dedicada. Devuelve el MISMO shape
-    de fase2a (contrato intacto)."""
+    (motion de la foto Veo) sale de una call dedicada, sembrada por `voz_clip` (F57: las
+    palabras de la voz en los 8 s del clip, `voz_del_clip` con la ventana en caracteres que
+    ya calcula `_process_one_cap`); la foto inicial sigue saliendo del `veo_anchor`.
+    Devuelve el MISMO shape de fase2a + `voz_clip`."""
     veo_anchor = plan["veo_anchor"]["anchor"]
+    voz_clip = voz_del_clip(narration, veo_position, veo_zone_chars)
     supp_anchors = [s["anchor"] for s in plan["supplementals"]]
 
     # Plan sintético: la foto Veo PRIMERO, luego las N stills. El skeleton trata a
@@ -1985,9 +2005,9 @@ def _render_prompts_seedream_veo(topic, cap_data, narration, plan, veo_position,
     image_item = items[0]
     supp_items = items[1:]
 
-    # video_prompt (motion) de la foto Veo — call dedicada, sembrada por el first-frame.
+    # video_prompt (motion) de la foto Veo — call dedicada, sembrada por el first-frame y la voz del clip (F57).
     video_prompt = _seedream_video_prompt(
-        image_item["prompt"], veo_anchor, f"cap {cap_number} (veo-seedream) video_prompt")
+        image_item["prompt"], voz_clip, f"cap {cap_number} (veo-seedream) video_prompt")
 
     return {
         "chapter_number": cap_number,
@@ -2001,6 +2021,7 @@ def _render_prompts_seedream_veo(topic, cap_data, narration, plan, veo_position,
                         or ("detail" if veo_position == "start" else "establishing_shot")),
         "art_profile": "",
         "narration_anchor": veo_anchor,
+        "voz_clip": voz_clip,
         "veo_position": veo_position,
         "supplemental_image_prompts": [
             {"prompt": it["prompt"],
@@ -2207,7 +2228,8 @@ def assign_visual_prompts(
                     plan, "veo", words_ts, MIN_FLUX_EXTRAS, cap_n)
             # chat 117: motor único seedream. Las fotos del cap veo (foto Veo + N stills)
             # van por el skeleton; el motion por call dedicada. Prosa FINAL → sin tail-bake.
-            cap_out = _render_prompts_seedream_veo(topic, sch, narration_text, plan, veo_position, cap_n)
+            cap_out = _render_prompts_seedream_veo(topic, sch, narration_text, plan, veo_position, cap_n,
+                                                   veo_zone_chars)
             # No-op desde chat 19 (catálogo desconectado): el prompt ya
             # viene completo del LLM. Llamada preservada por compat.
             cap_out = _stitch_zone2_into_cap_veo(cap_out)

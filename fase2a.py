@@ -141,8 +141,9 @@ def _normalize_long(script: dict) -> dict:
                 ch.get("supplemental_image_prompts") or []
             )
             norm_ch["veo_position"] = ch.get("veo_position", "start")
-            # F53b: la frase de la voz del clip, para el prompt de video que Opus escribe mirando la foto
-            norm_ch["narration_anchor"] = ch.get("narration_anchor", "")
+            # F57: la voz entera del clip (las palabras de los 8 s; antes el ancla, F53b), para la foto final y el
+            # prompt del motor que Opus escribe mirando las fotos. Sin la clave, asset_manager PARA.
+            norm_ch["voz_clip"] = ch.get("voz_clip", "")
         normalized_chapters.append(norm_ch)
 
     return {

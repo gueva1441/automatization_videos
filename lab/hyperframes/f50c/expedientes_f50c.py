@@ -62,14 +62,22 @@ def _anclas(cap: dict) -> tuple[list[str], list]:
     return [it["narration_anchor"] for it in its], [it.get("beat") for it in its]
 
 
-def preparar():
+def preparar(antes: Path | None = None):
+    """`antes`: directorio con una copia congelada de donde leer el skeleton (`01a_skeleton.json`), la narración
+    (`01b_narration.json`) y los párrafos v3 (`01b_narracion_v3.json`, los que usa el arrastre del expediente para saber
+    en qué párrafo cae cada ancla) en vez de los `_steps` vivos (F57: F55 D / F56 C regeneraron la narración viva de
+    Wittenoom). El resto (topic, geo/era, escaleta, beats, ficha) sigue saliendo de `_steps` como hoy."""
     import fase1_5
     from script_engine import m03_expediente as mexp
     from script_engine import m03_imagenes_v3 as v3img
     from script_engine import m03_visual as m03
     from script_engine.topics_db import get_topic_by_id
-    narr = fase1_5._load_narration(TID)
-    skel = fase1_5._load_skeleton(TID)
+    if antes is not None:
+        narr = json.loads((antes / "01b_narration.json").read_text(encoding="utf-8"))
+        skel = json.loads((antes / "01a_skeleton.json").read_text(encoding="utf-8"))
+    else:
+        narr = fase1_5._load_narration(TID)
+        skel = fase1_5._load_skeleton(TID)
     topic = get_topic_by_id(TID)
     topic = {**topic, **m03._geo_era(TID, narr)}
     beats = v3img.load_beats(topic, m03.STEPS_DIR)
@@ -77,6 +85,9 @@ def preparar():
     topic["_f8"] = {"beats": beats, "year": v3img.topic_year(topic, beats), "lang": v3img.place_language(topic),
                     "fuentes": mexp.fuentes(TID, m03.STEPS_DIR),
                     "anio_prev": {n: mexp.anio_previo(narr_ch, n) for n in range(1, 8)}}
+    if antes is not None:
+        topic["_f8"]["fuentes"]["parrafos"] = json.loads(
+            (antes / "01b_narracion_v3.json").read_text(encoding="utf-8")).get("parrafos") or []
     return topic, skel, narr_ch
 
 

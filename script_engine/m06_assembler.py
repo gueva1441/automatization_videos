@@ -105,6 +105,8 @@ def assemble_final_script(topic_id: str) -> Path:
             # recibirían el canonical sin supps y el branch híbrido NO se
             # activaría. Fix runtime BACKLOG #208).
             cap_out["narration_anchor"] = vis.get("narration_anchor", "")
+            # F57: la voz entera del clip (las palabras de los 8 s), para la foto final y el prompt del motor
+            cap_out["voz_clip"] = vis.get("voz_clip", "")
             cap_out["veo_position"] = vis.get("veo_position", "start")
             cap_out["supplemental_image_prompts"] = (
                 vis.get("supplemental_image_prompts") or []

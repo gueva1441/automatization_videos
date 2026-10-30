@@ -710,7 +710,7 @@
   "asset_manager.py": {
    "archivo": "asset_manager.py",
    "zona": "orquestador",
-   "sticker": "Es el que genera las fotos (y los clips de video, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, desde F53b cada clip sale de Gemini Omni Flash y, si Google lo rechaza por contenido, de Kling 4.0 (el prompt de cada motor lo escribe Opus mirando la foto, sin suavizar; 8 s, 1080p, la pista de audio se quita, y el costo sale de los segundos reales), y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió.",
+   "sticker": "Es el que genera las fotos (y los clips de video, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, desde F53b cada clip sale de Gemini Omni Flash y, si Google lo rechaza por contenido, de Kling 4.0 (el prompt de cada motor lo escribe Opus mirando la foto, sin suavizar; 8 s, 1080p, la pista de audio se quita, y el costo sale de los segundos reales); desde F57 cada clip lleva también una foto final, que es un edit de la inicial hecho por Seedream con la instrucción que escribe Opus a partir de la voz entera del clip (`voz_clip`) y el movimiento aprobado: el motor recibe las dos fotos y el clip va de una a la otra; el parecido entre las dos (SSIM) se mide y se anota, sin frenar; si el edit falla o lo rechazan, el clip sale solo con la inicial y el motivo queda anotado, y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió.",
    "recibe": "El guion canónico con image_prompts/video_prompts por capítulo y foto_madre_registry (data/scripts/<id>.json), el sync_map de voz (output/<id>/audio/sync_map.json, opcional) y las fotos madre en disco (rutas del registry).",
    "entrega": "output/<id>/assets/<capNN>_flux/<capNN>_img_NN.png (y _supp_NN.png, _graded.png), output/<id>/assets/<capNN>_veo/<capNN>_clip_NN.mp4 y output/<id>/assets/assets_manifest.json. Además, otros módulos le piden la función de imagen cruda (foto_madre.py, m09_packaging).",
    "modelo": [
@@ -757,7 +757,7 @@
     "qa_studio_server.py",
     "script_engine/m09_packaging.py"
    ],
-   "tests": 7,
+   "tests": 8,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "4fda044 2026-10-29 (F53b)",
    "estado_a": "vivo",
@@ -766,7 +766,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "08b8b6e31d6f825d483f10aacf74e611",
+   "md5": "2ddc47a1b6771804fddb61c9599cff51",
    "sticker_al_dia": true
   },
   "audio_config.py": {
@@ -978,7 +978,7 @@
     "script_engine/m03_visual.py",
     "script_engine/video_prompt.py"
    ],
-   "tests": 12,
+   "tests": 13,
    "nacio": "cd5fde5 2026-10-24 (F22b)",
    "ultimo": "b2db299 2026-10-25 (F25a)",
    "estado_a": "vivo",
@@ -1251,7 +1251,7 @@
   "engine_profiles.py": {
    "archivo": "engine_profiles.py",
    "zona": "fase2a",
-   "sticker": "Describe cada motor de imagen (Kling y Seedream) como una ficha: qué modelo llamar, dirección, tamaño de imagen, costo y, para Seedream, el orden de las piezas del prompt. Con la clave del motor activo devuelve su ficha, así cambiar de motor es cambiar de ficha y no de código. Desde F53b también describe los motores de clips de video (Gemini Omni Flash 1.1 y, de respaldo, Kling 4.0): endpoint de fal, campo de la foto, rango de duración, resolución, si deja apagar el audio, la ficha de guía en inglés para Opus y el costo por segundo medido en el panel de fal.",
+   "sticker": "Describe cada motor de imagen (Kling y Seedream) como una ficha: qué modelo llamar, dirección, tamaño de imagen, costo y, para Seedream, el orden de las piezas del prompt. Con la clave del motor activo devuelve su ficha, así cambiar de motor es cambiar de ficha y no de código. Desde F53b también describe los motores de clips de video (Gemini Omni Flash 1.1 y, de respaldo, Kling 4.0): endpoint de fal, campo de la foto, rango de duración, resolución, si deja apagar el audio, la ficha de guía en inglés para Opus y el costo por segundo medido en el panel de fal. Desde F57 cada perfil de video trae además el campo de la foto final (`end_image_url` en los dos).",
    "recibe": "api.image_engine y datos de config (nombres de modelo, ancho y alto de imagen)",
    "entrega": "El EngineProfile del motor pedido (o None para flux), que leen asset_manager y m03_visual; desde F53b, el VideoProfile de un motor de clips (select_video_profile), que leen script_engine/video_prompt.py, cost_tracker.track_video y config.py (estimaciones)",
    "modelo": [
@@ -1292,7 +1292,7 @@
     "script_engine/m03_visual.py",
     "script_engine/video_prompt.py"
    ],
-   "tests": 4,
+   "tests": 5,
    "nacio": "c0b85bc 2026-06-22",
    "ultimo": "7986ff7 2026-10-29 (F53b)",
    "estado_a": "vivo",
@@ -1301,7 +1301,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "62e28804e43ddf2d3f5e6bed849f2f1a",
+   "md5": "2a8d5a4b01fa3905a456a6a5a569371d",
    "sticker_al_dia": true
   },
   "error_handler.py": {
@@ -1505,7 +1505,7 @@
   "fase2a.py": {
    "archivo": "fase2a.py",
    "zona": "fase2a",
-   "sticker": "Es la etapa «assets» del form: toma el guion ensamblado del video, lo traduce al formato que esperan los gestores, comprueba que la voz ya esté hecha, reintenta la foto madre si faltó y manda a generar las imágenes de cada capítulo (y los clips de video: desde F53b, Gemini Omni Flash → Kling 4.0). Al terminar marca el tema como «assets_rendered». No arma el video: eso lo hace fase2b.",
+   "sticker": "Es la etapa «assets» del form: toma el guion ensamblado del video, lo traduce al formato que esperan los gestores, comprueba que la voz ya esté hecha, reintenta la foto madre si faltó y manda a generar las imágenes de cada capítulo (y los clips de video: desde F53b, Gemini Omni Flash → Kling 4.0). Al terminar marca el tema como «assets_rendered». No arma el video: eso lo hace fase2b. Desde F57 a los caps con clip les pasa la voz entera del clip (`voz_clip`) en lugar del ancla; un guion viejo sin esa clave hace parar a asset_manager («correr m03 de nuevo»).",
    "recibe": "data/scripts/<id>.json (contrato que deja fase1_5), output/audio/<id>/sync_map.json (en LONG), data/topics_db (estado del tema), data/fase1_review.csv (solo si se corre sin --topic)",
    "entrega": "output/<id>/assets/assets_manifest.json (vía asset_manager), foto madre en output/<id>/foto_madre/ si faltaba, topic con status='assets_rendered' en la base de temas",
    "modelo": [
@@ -1543,7 +1543,7 @@
    "lo_llaman": [
     "run_pipeline.py"
    ],
-   "tests": 0,
+   "tests": 1,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "4fda044 2026-10-29 (F53b)",
    "estado_a": "vivo",
@@ -1552,7 +1552,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "8d2e7821c99ff6716134f78589da9caf",
+   "md5": "10218afd595eef272773566b8671f1e3",
    "sticker_al_dia": true
   },
   "fase2b.py": {
@@ -2390,7 +2390,7 @@
    ],
    "compartido": false,
    "lo_llaman": [],
-   "tests": 6,
+   "tests": 7,
    "nacio": "3d684a2 2026-06-14",
    "ultimo": "4fda044 2026-10-29 (F53b)",
    "estado_a": "vivo",
@@ -2582,7 +2582,7 @@
    ],
    "tests": 16,
    "nacio": "b204868 2026-10-23 (F12)",
-   "ultimo": "3e1cc98 2026-10-29 (F55)",
+   "ultimo": "46a1d8a 2026-10-29 (F56)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py:386 (run_escaleta_v3 → asegurar_ficha) genera la ficha si falta; fase1_5.py:395 y :425 la cargan; run_escaleta_v3 se llama en fase1_5.py:501 dentro de la etapa guion",
@@ -4106,7 +4106,7 @@
     "script_engine/m03_visual.py",
     "script_engine/video_prompt.py"
    ],
-   "tests": 18,
+   "tests": 19,
    "nacio": "6264058 2026-10-23 (F11)",
    "ultimo": "090b1eb 2026-10-29 (F55)",
    "estado_a": "vivo",
@@ -4537,7 +4537,7 @@
    ],
    "tests": 8,
    "nacio": "317c5f1 2026-10-22 (F10)",
-   "ultimo": "fc59a76 2026-10-27 (F41)",
+   "ultimo": "46a1d8a 2026-10-29 (F56)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py:432 (run_guion_v4 llama md.particionar con md.editor_shorten); guion_v4.py:1151 llama md.regenerate_cap_v3",
@@ -4733,7 +4733,7 @@
   "script_engine/m03_visual.py": {
    "archivo": "script_engine/m03_visual.py",
    "zona": "fase2a",
-   "sticker": "Escribe, para cada capítulo del documental, la descripción de cada imagen que después pinta el generador (Seedream). Le pasa al modelo el lugar principal del caso y el tramo de años que dice la narración (GEO y ERA). Elige qué frase de la narración ilustra cada imagen (Gemini Flash) y, desde F50, le pide a Claude Opus que llene la ficha de cada escena (casilleros) con un expediente por foto: año dicho, lugar, párrafo de la voz, escenas de la ficha, hechos, citas, personas y los grupos de gente del canon. Desde F50d, la época del canon (ropa, tecnología, vehículos, interiores) entra por tramo: los tramos que cruzan los años de las fotos del capítulo, o el más cercano si ninguno cruza (desde F50f deja una línea de log por capítulo con las fotos que no cruzan ningún tramo). El código arma la frase en un orden fijo y la revisa (desde F51c ya no borra nombres de personas; sin conteos ni izquierda/derecha, sin manos, sangre o texto suelto: si queda un problema, saca la frase). Rehace las fotos que no cumplen las reglas del capítulo y del video por el mismo camino. En los capítulos 1 y 7 además Opus redacta el movimiento del clip de video con el orden de la guía de Google; la parte de la voz que acompaña al clip de 8 s se corta, desde F51c, en el final de oración más cercano (sin oración, en el espacio más cercano; empate → la zona del clip más corta).",
+   "sticker": "Escribe, para cada capítulo del documental, la descripción de cada imagen que después pinta el generador (Seedream). Le pasa al modelo el lugar principal del caso y el tramo de años que dice la narración (GEO y ERA). Elige qué frase de la narración ilustra cada imagen (Gemini Flash) y, desde F50, le pide a Claude Opus que llene la ficha de cada escena (casilleros) con un expediente por foto: año dicho, lugar, párrafo de la voz, escenas de la ficha, hechos, citas, personas y los grupos de gente del canon. Desde F50d, la época del canon (ropa, tecnología, vehículos, interiores) entra por tramo: los tramos que cruzan los años de las fotos del capítulo, o el más cercano si ninguno cruza (desde F50f deja una línea de log por capítulo con las fotos que no cruzan ningún tramo). El código arma la frase en un orden fijo y la revisa (desde F51c ya no borra nombres de personas; sin conteos ni izquierda/derecha, sin manos, sangre o texto suelto: si queda un problema, saca la frase). Rehace las fotos que no cumplen las reglas del capítulo y del video por el mismo camino. En los capítulos 1 y 7 además Opus redacta el movimiento del clip de video con el orden de la guía de Google; la parte de la voz que acompaña al clip de 8 s se corta, desde F51c, en el final de oración más cercano (sin oración, en el espacio más cercano; empate → la zona del clip más corta). Desde F57 guarda también la voz entera del clip (`voz_clip`: las palabras que la voz dice en los 8 s, cortadas por palabra con la ventana en caracteres que ya calculaba; sin LLM) y el movimiento del clip se escribe con esa voz, no solo con el ancla.",
    "recibe": "El tema ya armado (data/topics_db.json: canon visual con people_groups que arma fase1_5.asegurar_canon desde la ficha, personas y objetos documentados, evidence_pool), el perfil del research (data/scripts/_steps/<id>/_perfil.json: lugar_principal), el esqueleto y la narración (data/scripts/_steps/<id>/01a_*.json y 01b_*.json), la escaleta, la ficha y los párrafos v3 para el expediente (01a_escaleta.json, ficha_caso.json, 01b_narracion_v3.json), el mapa de sincronía del audio (output/audio/<id>/sync_map.json) y los tiempos por palabra (output/audio/<id>/chNN_timestamps.json).",
    "entrega": "data/scripts/_steps/<id>/03_visual.json (por capítulo: image_prompts con prompt final, casilleros crudos, año y de dónde salió, ancla de narración, rango emocional, foto_madre_ref, notas F8; en caps 1 y 7: image_prompt con su image_f8 (año, grupo, plano, notas F8), video_prompt y supplemental_image_prompts con las mismas claves); lo devuelve también como dict a fase1_5.py, que lo ensambla al contrato data/scripts/<id>.json. Sus constantes DOCTRINE_* las reutiliza m09_packaging.",
    "modelo": [
@@ -4775,7 +4775,7 @@
     "script_engine/m09_packaging.py",
     "script_engine/video_prompt.py"
    ],
-   "tests": 17,
+   "tests": 18,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "57f6aaf 2026-10-29 (F51c)",
    "estado_a": "vivo",
@@ -4798,7 +4798,7 @@
     "_format_bullets",
     "_format_visual_canon_block"
    ],
-   "md5": "a433dd4561eda086371145a7040bffe4",
+   "md5": "956c5ba263e60f47de217f9f0bd294fd",
    "sticker_al_dia": true
   },
   "script_engine/m05_judge.py": {
@@ -4879,7 +4879,7 @@
    ],
    "tests": 12,
    "nacio": "fc955ef 2026-10-20 (F5)",
-   "ultimo": "03370af 2026-10-24 (F23)",
+   "ultimo": "46a1d8a 2026-10-29 (F56)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py:418 y :435 (run_guion_v4 → judge_narration); script_engine/guion_v4.py:794, :952, :1238; gfx_peak.py:52 y gfx_pool.py:92 (adjectives) en la capa gráfica",
@@ -4892,7 +4892,7 @@
   "script_engine/m06_assembler.py": {
    "archivo": "script_engine/m06_assembler.py",
    "zona": "fase2a",
-   "sticker": "Arma el archivo final del guion de un video (el «contrato» que leen los assets y el render): junta la narración, los prompts visuales y la foto madre del sujeto, marca los capítulos 1 y 7 para Veo y el resto para Flux.",
+   "sticker": "Arma el archivo final del guion de un video (el «contrato» que leen los assets y el render): junta la narración, los prompts visuales y la foto madre del sujeto, marca los capítulos 1 y 7 para Veo y el resto para Flux. Desde F57 pasa también la voz entera del clip (`voz_clip`) de los caps con clip; el ancla (`narration_anchor`) se queda porque la leen QA Studio y m05.",
    "recibe": "data/scripts/_steps/<id>/01b_narration.json y 03_visual.json, y el topic en data/topics_db.json (foto madre, hechos, evidence_pool, fuentes).",
    "entrega": "data/scripts/<id>.json (capítulos, foto_madre_registry, evidence_pool, verified_facts, contadores veo/flux).",
    "modelo": [],
@@ -4917,7 +4917,7 @@
     "fase1_5.py",
     "script_engine/m06_classifier.py"
    ],
-   "tests": 0,
+   "tests": 1,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "66ee44b 2026-10-20 (F5)",
    "estado_a": "vivo",
@@ -4926,7 +4926,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "24220fd709df1e260832503835d91c00",
+   "md5": "ed900333646c7fb743374582581cacf3",
    "sticker_al_dia": true
   },
   "script_engine/m06_classifier.py": {
@@ -5873,9 +5873,9 @@
   "script_engine/video_prompt.py": {
    "archivo": "script_engine/video_prompt.py",
    "zona": "orquestador",
-   "sticker": "Escribe el prompt de movimiento de un clip de video para un motor de clips (F53b): le manda a Claude Opus la foto real del primer cuadro (con su tipo leído de los bytes) y el pedido de F52b con la ficha de guía del motor, el prompt de la foto, la frase de la voz y el movimiento ya aprobado, y devuelve el texto. No suaviza nada ni agrega reglas.",
-   "recibe": "El VideoProfile del motor (engine_profiles), la foto (bytes o ruta), el image_prompt, el ancla de narración y el video_prompt del 03_visual (o nada).",
-   "entrega": "El texto del prompt de video, en memoria; el costo de la llamada va a cost_tracker.",
+   "sticker": "Escribe el prompt de movimiento de un clip de video para un motor de clips (F53b): le manda a Claude Opus la foto real del primer cuadro (con su tipo leído de los bytes) y el pedido de F52b con la ficha de guía del motor, el prompt de la foto, la voz del clip y el movimiento ya aprobado, y devuelve el texto. Desde F57, si el clip tiene foto final, manda las dos fotos (primer y último cuadro) con un pedido que dice que el plano va de una a la otra; y escribe, con otro pedido, la instrucción de edit que convierte la foto inicial en la final (misma gente, misma luz, cambia solo lo que pasa en esos segundos según la voz y el movimiento). No suaviza nada ni agrega reglas.",
+   "recibe": "El VideoProfile del motor (engine_profiles), la foto inicial (bytes o ruta), la foto final si la hay, el image_prompt, la voz del clip (voz_clip) y el video_prompt del 03_visual (o nada).",
+   "entrega": "El texto del prompt de video, o la instrucción de edit de la foto final, en memoria; el costo de cada llamada va a cost_tracker.",
    "modelo": [
     {
      "modelo": "claude-opus-5-5, effort high (MODELO_CASILLEROS; claude_helpers._post)",
@@ -5904,7 +5904,7 @@
    "lo_llaman": [
     "asset_manager.py"
    ],
-   "tests": 2,
+   "tests": 3,
    "nacio": "7986ff7 2026-10-29 (F53b)",
    "ultimo": "7986ff7 2026-10-29 (F53b)",
    "estado_a": "vivo",
@@ -5913,7 +5913,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "64acb78b20c245eb5c2a5896980636cf",
+   "md5": "f3ef83f32f43be0d043a679f5987ac9d",
    "sticker_al_dia": true
   },
   "script_engine/vision_validator.py": {

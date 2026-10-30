@@ -121,6 +121,7 @@ class VideoProfile:
     engine_key: str
     endpoint: str                 # id de fal (queue)
     campo_imagen: str             # el campo de la foto inicial («image_url» | «start_image_url»)
+    campo_imagen_final: str       # F57: el campo de la foto final («end_image_url» en G y K; SCHEMAS_F52 l.18 y l.72)
     duracion_min: int             # rango del schema, en segundos
     duracion_max: int
     duracion_como_texto: bool     # el schema pide `duration` como string (Seedance) o como entero (G, K)
@@ -141,6 +142,7 @@ PERFIL_VIDEO_G = VideoProfile(
     engine_key="gemini_omni_flash",
     endpoint="google/gemini-omni-flash/v1.1/image-to-video",
     campo_imagen="image_url",
+    campo_imagen_final="end_image_url",
     duracion_min=3,
     duracion_max=10,
     duracion_como_texto=False,
@@ -156,6 +158,7 @@ PERFIL_VIDEO_K = VideoProfile(
     engine_key="kling_4",
     endpoint="kling/v4/image-to-video",
     campo_imagen="start_image_url",
+    campo_imagen_final="end_image_url",
     duracion_min=3,
     duracion_max=30,
     duracion_como_texto=False,
