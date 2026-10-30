@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 22:10 (F55 Parte C: promesa de una oración en esquema, ejemplo y validate; fuera las 6 versiones viejas del prompt de la escaleta; prompt f55-1; US$ 0; PARADA C; la D espera el OK del analista) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 22:50 (F55 D.0: las 3 copias del pool de Wittenoom deduplicadas e iguales; ficha_caso.load remapea ids descartados en memoria (36 → 0); f48/f51c a la narración congelada; US$ 0; sigue la Parte D) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,16 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F55 D.0, pasó): el pool deduplicado ya lo ven todos, y la ficha se corrige al cargarla.
+- Las tres copias del pool de Wittenoom tienen las mismas 50 citas y los mismos 8 descartados; la ficha en disco apuntaba 36 veces a citas borradas y cargada apunta 0 (el archivo no se toca; sirve para cualquier tema).
+- Los 3 tests viejos (F51c, F48) vuelven a verde leyendo la narración congelada de F54.
+- DECISIONES 20:25: las 6 constantes de la escaleta se quedan borradas (incluida F16).
+- **Sigue:** Parte D (Wittenoom en texto, combinada), ya lanzada.
+
+## F55 — D.0 (adenda del analista 20:25) — pasó
+- Commits: `00838c2` (DECISIONES), `3e1cc98` (código, tests, SALIDA_D0); el siguiente es el del reporte (sección «Adenda D.0»).
+- Suites: ch02 md5 `f792f3d483a1fa42daed5f7f0e054f46`; rápida **53 passed**, 3 skipped; amplia **1118 passed** + **solo las 4 fallas previas** (`m03_merge_timing` ×2, `gfx_lab` ×2)
 
 ## 👀 Para Omar (F55 Parte C, PARADA C): la promesa del gancho es una oración y el prompt de la escaleta vive en una sola versión.
 - El esquema le dice al modelo «una sola oración», el ejemplo del prompt ya tiene una, y si vienen dos el código se queda con la primera (sin gastar).

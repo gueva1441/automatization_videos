@@ -518,3 +518,75 @@ Observaciones, riesgos y pendientes que el contrato no cubre:
 ## Adenda de CC (Parte C)
 - **Fila 1b:** confirmado y dicho con todas las letras acá: el esquema (`SCHEMA_FICHA`, con la `description`) viaja **por la API** como `response_schema` → `output_config.format` (`claude_helpers.call_json` l. 174–175) / `response_schema` de Gemini; no es texto del prompt.
 - **Abreviaturas en `_sentences`:** cierto; es el mismo cortador que usa todo el pipeline (guion, medida, (f)/(h)). Una promesa con «Dr.» quedaría cortada; el aviso queda en `rep` y se ve en el reporte de la escaleta. A la lista, sin número nuevo.
+
+
+---
+
+# Adenda D.0 — el pool deduplicado llega a todos los que lo leen · PASÓ (sin PARADA)
+
+Adenda: `lab/hyperframes/f55/ADENDA_F55_D0.md` (md5 `86eb19a7729dd6aa34b63b12eacf3c9e`, verificado). **Gasto: US$ 0.** DECISIONES 20:25 escrita (`00838c2`): las 6 constantes de la escaleta se quedan borradas, incluida la de F16.
+
+## Para Omar, en corto
+- El analista encontró que el pool de Wittenoom vive en tres copias y el dedupe había escrito dos; y que la ficha del caso (que la Parte D no regenera) apuntaba 36 veces a citas que ya no existen.
+- Ahora las tres copias son iguales (50 citas, los mismos 8 descartados) y la ficha se corrige **al cargarla**, en memoria, para cualquier tema que tenga citas descartadas: 36 → 0 ids colgantes. El archivo de la ficha no se toca.
+- Los 3 tests viejos que fallaban desde F54 B.5 vuelven a verde leyendo la narración congelada para la que se escribieron.
+
+## Commits
+| commit | qué |
+|---|---|
+| `00838c2` | DECISIONES 20:25 |
+| `3e1cc98` | `dedupe_pool.py` (3 copias), `ficha_caso.load` + `ids_remapeados`, `remapear_ids` con claves, tests f48/f51c a la copia congelada, tests D.0, `SALIDA_D0.md`, `SALIDA_B.md` §3, stickers, MAPA |
+| (este) | reporte (esta sección), ESTADO, logs |
+
+## Módulos: antes → después
+| módulo | antes | después |
+|---|---|---|
+| `lab/hyperframes/f55/dedupe_pool.py` | escribía `topics_db.json` y `01_facts_sources.json` | también `_steps/<id>/00_pool_v3.json` (lo leen `ficha_caso` y `m01e_pantalla`); el dedupe es idempotente (sobre un pool ya deduplicado da 0 pares), así que se corre sobre las 3 copias y se comparan ids de citas y descartados (§3 de `SALIDA_B.md`); las tablas de pares se arman desde el pool de antes (`f55/antes/01_facts_sources.json`, 58) |
+| `researcher_steps/ficha_caso.py` → `load(topic_id, steps_dir=None, log=None)` | leía el JSON tal cual | si `_steps/<id>/00_pool_v3.json` trae citas descartadas (`kind == "citas"` con `duplicado_de`), devuelve la ficha pasada por `research_v3.remapear_ids`, en memoria; `log` dice cuántos ids cambiaron (`ids_remapeados`, función nueva que cuenta ids sueltos, en listas y como claves); sin descartados, sin pool o con pool ilegible, la ficha tal cual. Lo usan `fase1_5` (ficha, escaleta, guion, columna) y `m01a_escaleta`: todos pasan por `load` |
+| `researcher_steps/research_v3.py` → `remapear_ids` | listas e ids sueltos | también claves de dict que son ids; si la clave nueva ya existe, queda la existente |
+| `test_module_f48.py`, `test_module_f51c.py` | leían `_steps/<Wittenoom>/01b_narration.json` (regenerado en F54 B.5 → 3 rojos) | leen `lab/hyperframes/f54/antes/01b_narration.json`, la copia congelada para la que se escribieron; no se borran |
+
+Tests (`test_module_f55.py`, +3 → 29): `remapear_ids` con claves (y la clave nueva que ya existe); `ficha_caso.load` con pool con descartados (2 ids remapeados, log, el archivo no cambia), sin descartados (tal cual, sin log), sin pool y sin ficha; la ficha de Wittenoom cargada no contiene ninguno de los 8 ids descartados del pool de `_steps`.
+
+## Decisiones de CC (D.0)
+1. **La ficha en disco no tenía ids como claves de dict** (0); la extensión de `remapear_ids` a claves es general y queda probada con un caso sintético.
+2. **`load` cuenta antes de remapear** (`ids_remapeados`) y solo remapea si hay algo que cambiar: una ficha sin ids colgantes vuelve el mismo objeto, sin copia ni log.
+3. **El `log` de `load` es opcional** (firma compatible con todos los llamadores de hoy, que no lo pasan): el conteo aparece en el reporte por `SALIDA_D0.md`; en producción, `fase1_5` no lo imprime todavía (una línea cuando el analista la quiera).
+4. **Los tests de f48/f51c no se borran**, como pide la adenda; apuntan a la narración congelada. La Parte D volverá a regenerar `_steps` sin tocarlos.
+
+## Salida D.0 (texto)
+
+## 1. Ids de citas en las tres copias del pool
+
+Ver `SALIDA_B.md` §3 (corrida de `dedupe_pool.py` de D.0): `topics_db.json`, `01_facts_sources.json` y `00_pool_v3.json` tienen las mismas 50 citas y los mismos 8 descartados (Q12, Q15, Q20, Q23, Q26, Q28, Q29, Q30).
+
+### 2. La ficha cargada (`ficha_caso.load`)
+
+- ids descartados en `ficha_caso.json` **en disco**: 36 apariciones ({'Q15': 5, 'Q12': 7, 'Q20': 7, 'Q23': 11, 'Q26': 4, 'Q28': 2}); `ids_remapeados` = 36.
+- log de `load`: ['  [ficha] 36 id(s) de citas duplicadas remapeados al cargar (el archivo no cambia)']
+- `grep` de `Q12|Q15|Q20|Q23|Q26|Q28|Q29|Q30` sobre el JSON de la ficha **cargada**: **0**.
+- el archivo en disco no cambia (md5 igual antes y después de `load`).
+
+### 3. Las tres copias del pool (D.0)
+
+| copia | citas | ids de citas | descartados (citas) |
+|---|---|---|---|
+| topics_db.json | 50 | Q01, Q02, Q03, Q04, Q05, Q06, Q07, Q08, Q09, Q10, Q11, Q13, Q14, Q16, Q17, Q18, Q19, Q21, Q22, Q24, Q25, Q27, Q31, Q32, Q33, Q34, Q35, Q36, Q37, Q38, Q39, Q40, Q41, Q42, Q43, Q44, Q45, Q46, Q47, Q48, Q49, Q50, Q51, Q52, Q53, Q54, Q55, Q56, Q57, Q58 | Q12, Q15, Q20, Q23, Q26, Q28, Q29, Q30 |
+| 01_facts_sources.json | 50 | Q01, Q02, Q03, Q04, Q05, Q06, Q07, Q08, Q09, Q10, Q11, Q13, Q14, Q16, Q17, Q18, Q19, Q21, Q22, Q24, Q25, Q27, Q31, Q32, Q33, Q34, Q35, Q36, Q37, Q38, Q39, Q40, Q41, Q42, Q43, Q44, Q45, Q46, Q47, Q48, Q49, Q50, Q51, Q52, Q53, Q54, Q55, Q56, Q57, Q58 | Q12, Q15, Q20, Q23, Q26, Q28, Q29, Q30 |
+| 00_pool_v3.json | 50 | Q01, Q02, Q03, Q04, Q05, Q06, Q07, Q08, Q09, Q10, Q11, Q13, Q14, Q16, Q17, Q18, Q19, Q21, Q22, Q24, Q25, Q27, Q31, Q32, Q33, Q34, Q35, Q36, Q37, Q38, Q39, Q40, Q41, Q42, Q43, Q44, Q45, Q46, Q47, Q48, Q49, Q50, Q51, Q52, Q53, Q54, Q55, Q56, Q57, Q58 | Q12, Q15, Q20, Q23, Q26, Q28, Q29, Q30 |
+
+Las tres copias tienen los MISMOS ids de citas y los mismos descartados.
+
+
+## Suite
+`bash lab/hyperframes/f41/verificar.sh f55d0` (logs en `lab/hyperframes/f41/f55d0/`, sobre `3e1cc98`): ch02 md5 `f792f3d483a1fa42daed5f7f0e054f46`; rápida **53 passed**, 3 skipped; amplia **1118 passed** + **solo las 4 fallas previas** (`m03_merge_timing` ×2, `gfx_lab` ×2): los 3 de f51c/f48 volvieron a verde; `mapa_modulos.py --check`: 0 fallas (158).
+
+## Lo que queda abierto (D.0)
+1. `fase1_5` no imprime el log del remapeo de la ficha (la firma lo admite).
+2. `person_stats` del pool de Wittenoom sigue sin recalcular tras el dedupe (de la Parte B).
+
+**D.0 pasó entera → sigue la Parte D sin esperar** (pedido de Omar).
+
+## Veredicto de revisor-handoff (D.0, íntegro)
+
+(se pega abajo)
