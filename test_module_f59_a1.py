@@ -153,6 +153,7 @@ def _old(path: str, name: str):
 def test_render_prompts_seedream_byte_identico_a_antes(monkeypatch, kw):
     topic, cap, narracion = _wittenoom()
     old = _old("script_engine/m03_visual.py", "_f59_old_m3")
+    monkeypatch.setattr(old, "_format_seedream_canon_block", m3._format_seedream_canon_block)   # F60 A: el canon lleva el nombre (declarado)
     anclas = re.split(r"(?<=[.!?])\s+", narracion)[:len(VARIANTES)]
     plan = {"anchors": [{"anchor": a} for a in anclas]}
     t = {**topic, "_f8": dict(topic["_f8"], refill=True)}        # refill=True: sin _f8_fix_cap (que llamaría a Opus)

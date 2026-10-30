@@ -118,9 +118,10 @@ def test_armar_con_grupos_reales_byte_identico():
         assert v3.armar(slots, anio, grupos)["prompt"] == v3.armar(slots, anio, grupos, composicion="")["prompt"]
 
 
-def test_step2_sin_el_kwarg_es_byte_identico_a_hoy():
+def test_step2_sin_el_kwarg_es_byte_identico_a_hoy(monkeypatch):
     topic, cap1, gancho = _wittenoom()
     old = _old("script_engine/m03_visual.py", "_f58_old_m3")
+    monkeypatch.setattr(old, "_format_seedream_canon_block", m3._format_seedream_canon_block)   # F60 A: el canon lleva el nombre (declarado)
     assert "clip_apertura" not in old._build_seedream_prompt_step2.__code__.co_varnames
     anclas = _anclas(gancho)
     hoy = old._build_seedream_prompt_step2(topic, cap1, gancho, anclas, "EXTRA", ["1962", "1962", "1962"])
@@ -133,6 +134,7 @@ def test_step2_sin_el_kwarg_es_byte_identico_a_hoy():
 def test_render_sin_los_kwargs_es_byte_identico_a_hoy(monkeypatch):
     topic, cap1, gancho = _wittenoom()
     old = _old("script_engine/m03_visual.py", "_f58_old_m3")
+    monkeypatch.setattr(old, "_format_seedream_canon_block", m3._format_seedream_canon_block)   # F60 A: el canon lleva el nombre (declarado)
     plan = {"anchors": [{"anchor": a} for a in _anclas(gancho)]}
     t = {**topic, "_f8": dict(topic["_f8"], refill=True)}
     s_old, s_new = {}, {}

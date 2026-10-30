@@ -111,9 +111,10 @@ def test_pedido_de_casilleros():
     si = m3.SYSTEM_INSTRUCTION_CASILLEROS
     i = si.index("- foto_madre_ref:")
     resto = si[si.index("\n", i) + 1:]
-    assert resto.startswith(m3.TEXTO_2_PEOPLE_GROUP + "\n" + m3.TEXTO_S4_YEAR + "\n")
+    assert resto.startswith(m3.TEXTO_2_PEOPLE_GROUP + "\n" + m3.TEXTO_S4_YEAR + "\n" + m3.TEXTO_PERSONA + "\n")
     s = m3._casilleros_schema(3)
-    assert s["items"]["required"][-2:] == ["year", "people_group"] and "mood" in s["items"]["properties"]
+    assert s["items"]["required"][-3:] == ["year", "people_group", "persona"] and "mood" in s["items"]["properties"]
+    assert s["items"]["properties"]["persona"] == {"type": "ARRAY", "items": {"type": "STRING"}}   # F60 A
     assert m3.MODELO_CASILLEROS == "claude-opus-5-5"
 
 

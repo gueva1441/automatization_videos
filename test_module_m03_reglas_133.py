@@ -7,7 +7,7 @@ bloque de contexto. NO llama a Gemini ni a fal: solo inspecciona strings.
 
 Nota de alcance (HANDOFF_133): m03 SOLO soporta image_engine='seedream' (guard duro en
 assign_visual_prompts; los paths flux/kling/veo-old fueron removidos en chat 117). El
-"builder viejo" `_format_visual_canon_block` NO tiene callers → dead code → no se toca.
+"builder viejo" `_format_visual_canon_block` se borró en F60 A (no tenía callers).
 
 USO:
     python test_module_m03_reglas_133.py
@@ -63,12 +63,6 @@ def main() -> int:
         _check(token in si, f"LEY1/R6 falta {token!r} en la system-instruction", fails)
     _check("the emotional tone," not in si,
            "LEY1/R6: el slot mood TODAVÍA dice 'the emotional tone,' (forma vieja)", fails)
-
-    # ── ALCANCE: el builder viejo sigue sin callers (dead code, no lo tocamos) ──
-    import inspect
-    src = inspect.getsource(m03)
-    _check(src.count("_format_visual_canon_block(") == 1,
-           "el builder viejo ahora TIENE un caller — revisar alcance", fails)
 
     if fails:
         print(f"[FAIL] {len(fails)} assert(s):")

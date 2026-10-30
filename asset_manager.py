@@ -808,11 +808,14 @@ def _iter_image_items(
             profile = raw.get("art_profile") or default_profile or ""
             subject = raw.get("subject_ref") if "subject_ref" in raw else default_subject
             foto_madre_refs = _norm_foto_madre_refs(raw.get("foto_madre_ref"))
+            persona = [s for s in (raw.get("persona") or []) if isinstance(s, str) and s.strip()] \
+                if isinstance(raw.get("persona"), list) else []   # F60 A: ruteo (nadie lo consume hasta la Etapa B)
         else:
             prompt_text = str(raw or "").strip()
             profile = default_profile or ""
             subject = default_subject
             foto_madre_refs = []   # legacy list[str] de PROMPTS → sin ancla
+            persona = []
 
         if not prompt_text:
             continue
@@ -823,6 +826,7 @@ def _iter_image_items(
             "art_profile": profile,
             "subject_ref": subject if subject else None,
             "foto_madre_refs": foto_madre_refs,   # HANDOFF_131: 0..2 refs → /edit; [] → t2i
+            "persona": persona,                   # F60 A: nombres del canon (ruteo)
             # F8 §1 E: marca de contenido sensible de m03 v3 (None = guion v2, sin marca)
             "sensible": raw.get("sensible") if isinstance(raw, dict) else None,
         })

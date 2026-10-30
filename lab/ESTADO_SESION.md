@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-30 (F60 Etapa 0b: secuencia por la COLA de fal + madre con ropa limpia, en lab sobre f60/base — madre 37,8 s con camisa clara limpia; lotes 6+3 en paralelo por queue.fal.run con `_clip_poll` (600 s): 6/6 en 283 s y 3/3 en 145,7 s, pared 286,1 s; cara de la madre 8–10 de frente, contagio solo en ch02_img_05 (1), la mancha ya no se arrastra; mineros de espaldas en ch04_img_09; US$ 0,35 · PARADA 0b. Siguiente: OK del analista y de Omar para la Etapa A.)
+Última actualización: 2026-10-30 (F60 Etapa A: casillero de ruteo `persona` en m03 — input del canon con el nombre, TEXTO_PERSONA byte a byte, esquema ARRAY/required, CLAVES_F8_PAPEL, _iter_image_items; `_format_visual_canon_block` borrado; m03 sobre la copia f60/base: las 96 fotos traen `persona` sin nombres en la prosa, pero Daniel sale en 4 (≈ 9 esperadas: «mi marido», «se casan», «los Écija» no disparan); PARÁ del grep: 2 «Court» como sustantivo; hallazgo: `_steps` tiene un guion nuevo del 29-oct 20:55 distinto del 03_visual y del audio; US$ 4,83 · PARADA A. Siguiente: analista decide grep «Court», texto del casillero para «la pareja/los Écija» y el guion desalineado; después Etapa B.)
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,20 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F60, PARADA A): el casillero `persona` ya sale de m03, pero Opus deja a Daniel fuera cuando la voz no lo nombra.
+- m03 ahora devuelve por foto `persona`: la lista de nombres del canon de quién sale (solo ruteo, no va a la foto). Las 96 fotos de Wittenoom lo traen y ningún nombre se coló en la prosa.
+- Lo que falla: Daniel Écija aparece en 4 fotos (se esperaban ≈ 9). Donde la voz dice «se casan», «van juntos», «mi marido», «los Écija», Opus pone solo a María o nada. Donde la voz nombra a alguien (María, Ramón, Víctor, Milagros), lo pone. Hay que ajustar el texto del casillero antes de la Etapa B (o aceptar que la madre de Daniel cubra menos fotos).
+- PARÁ por la regla del grep: 2 fotos traen «Court» en el prompt, pero es la palabra «court» (sala del tribunal), no el apellido del gobernador. Decidir si cuenta.
+- Hallazgo aparte: en `_steps` de Wittenoom hay un guion nuevo (29-oct 20:55) que no es el del audio ni el del 03_visual; si se corre m03 en producción hoy, las fotos no cuadran con la voz. Para la prueba se usó el guion anterior (respaldo de f54/antes).
+- Gasto US$ 4,83 (dos corridas de m03: la primera con el guion nuevo, descartada para la tabla). Reporte: `lab/hyperframes/f60/F60_REPORT.md` §Etapa A; `SALIDA_A.md`.
+
+## F60 Etapa A — casillero `persona` — PARADA A
+- m03_visual: `_format_seedream_canon_block` con `name` primero y encabezado nuevo; `TEXTO_PERSONA` (byte a byte) tras `TEXTO_S4_YEAR` en `_si_casilleros`; `_casilleros_schema` + `persona` ARRAY/STRING required tras `people_group`; `CLAVES_F8_PAPEL` + persona; `_format_visual_canon_block` borrado (0 llamadores). asset_manager `_iter_image_items` + `persona`. `CASILLEROS_EDITABLES` sin persona. Tests: f50b (SI y required), 133 (sin la verificación del builder; su falla del fixture es previa), f59_a1 + f58_a3 (5 byte-idénticos toman el canon del módulo nuevo). Stickers ×2, MAPA 0 fallas. Suites: ch02 f792f3d4, rápida 53, amplia 1294 + 4 previas + gfx_lab candado flaky.
+- Prueba (copia f60/base, cero fotos): corrida 2 con entradas de `f54/antes` + pool `f44/B` (96/96 anclas del 03_visual anterior) 134,8 s US$ 2,25; corrida 1 con `_steps` actual (guion 29-oct 20:55, 3/96 anclas) US$ 2,58, guardada en `a/corrida1_*`. Tabla de verdad: 6 desacuerdos/parciales (falta Daniel), 7 acuerdos, 3 escenas cambiadas; m03 re-elige anclas (8/16 índices se movieron) → comparación por ancla. Grep: 2 «Court» (sustantivo) → PARÁ reportado. Diff de 5 ítems con `persona` nueva, prosa sin nombres.
+- Revisor Etapa A: CUMPLE CON OBSERVACIONES (grep «Court» = PARÁ bien aplicado, decisión del analista; Daniel en 4 de ≈ 9 es hallazgo de fondo, no incumplimiento; tabla comparada por ancla con 3 filas n/a; adaptación de 5 tests declarada; nada de producción fuera de m03_visual y asset_manager); veredicto íntegro + adenda en F60_REPORT.md §Etapa A.
+- Abiertos: grep «Court/Major/Wright»; Daniel sub-ruteado (texto del casillero); orden principal-primero; anclas no estables entre corridas; guion nuevo en `_steps`; Ramón vs Daniel con dos nombres en una ancla; gfx_lab candado flaky; byte-idénticos con el canon del módulo nuevo.
+- PARADA A: no se pasa a la Etapa B sin OK del analista y de Omar.
 
 ## 👀 Para Omar (F60, PARADA 0b): por la cola de fal el lote de 6 entra (283 s) y la madre con ropa limpia ya no mancha las escenas.
 - Madre nueva de Daniel (Seedream v5 Lite, 37,8 s, US$ 0,035): camisa clara lisa, limpia, sin manchas (`lab/hyperframes/f60/e0b/madre_daniel_ecija.png`). Prompt byte a byte igual al del handoff.

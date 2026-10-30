@@ -711,7 +711,7 @@
    "archivo": "asset_manager.py",
    "zona": "orquestador",
    "sticker": "Es el que genera las fotos (y los clips de video, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, desde F53b cada clip sale de Gemini Omni Flash y, si Google lo rechaza por contenido, de Kling 4.0 (el prompt de cada motor lo escribe Opus mirando la foto, sin suavizar; 8 s, 1080p, la pista de audio se quita, y el costo sale de los segundos reales); desde F57 cada clip lleva también una foto final, que es un edit de la inicial hecho por Seedream con la instrucción que escribe Opus a partir de la voz entera del clip (`voz_clip`; desde F58 sin el movimiento aprobado): el motor recibe las dos fotos y el clip va de una a la otra; el parecido entre las dos (SSIM) se mide y se anota, sin frenar; si el edit falla o lo rechazan, el clip sale solo con la inicial y el motivo queda anotado, y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió.",
-   "recibe": "El guion canónico con image_prompts/video_prompts por capítulo y foto_madre_registry (data/scripts/<id>.json), el sync_map de voz (output/<id>/audio/sync_map.json, opcional) y las fotos madre en disco (rutas del registry).",
+   "recibe": "El guion canónico con image_prompts/video_prompts por capítulo y foto_madre_registry (data/scripts/<id>.json; desde F60 A cada foto trae también `persona`, que _iter_image_items lee y nadie consume todavía), el sync_map de voz (output/<id>/audio/sync_map.json, opcional) y las fotos madre en disco (rutas del registry).",
    "entrega": "output/<id>/assets/<capNN>_flux/<capNN>_img_NN.png (y _supp_NN.png, _graded.png), output/<id>/assets/<capNN>_veo/<capNN>_clip_NN.mp4 y output/<id>/assets/assets_manifest.json. Además, otros módulos le piden la función de imagen cruda (foto_madre.py, m09_packaging).",
    "modelo": [
     {
@@ -759,14 +759,14 @@
    ],
    "tests": 9,
    "nacio": "e33f84a 2026-05-28",
-   "ultimo": "13d2690 2026-10-30 (F58)",
+   "ultimo": "10f08c0 2026-10-30 (F59)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase2a.py:55 importa process_script como asset_process y lo corre en la etapa assets (run_pipeline.py:340-342 lanza fase2a.py --topic); m09_packaging.py:489 lo usa para las miniaturas",
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "4da7b31aa15d794bf08b265ed5d3d44a",
+   "md5": "9552adc25763b4fea711cde8db8f140e",
    "sticker_al_dia": true
   },
   "audio_config.py": {
@@ -2401,7 +2401,7 @@
    "lo_llaman": [],
    "tests": 5,
    "nacio": "3d684a2 2026-06-14",
-   "ultimo": "4fda044 2026-10-29 (F53b)",
+   "ultimo": "10f08c0 2026-10-30 (F59)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "qa_studio_server.py:1522 lanza run_pipeline.py --research --video-type long --batch y :1527 lo retoma con --topic; :2080 es el main que Omar corre a mano",
@@ -4729,7 +4729,7 @@
    ],
    "tests": 14,
    "nacio": "73e3613 2026-10-22 (F8)",
-   "ultimo": "13d2690 2026-10-30 (F58)",
+   "ultimo": "10f08c0 2026-10-30 (F59)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "script_engine/m03_visual.py:107 lo importa (v3img) y lo usa en m03_visual.py:561-629 (armado, F8, año) y 2037-2168; m03_visual corre dentro de fase1_5.py:671 (etapa voz).",
@@ -4744,7 +4744,7 @@
    "zona": "fase2a",
    "sticker": "Escribe, para cada capítulo del documental, la descripción de cada imagen que después pinta el generador (Seedream). Le pasa al modelo el lugar principal del caso y el tramo de años que dice la narración (GEO y ERA). Elige qué frase de la narración ilustra cada imagen (Gemini Flash) y, desde F50, le pide a Claude Opus que llene la ficha de cada escena (casilleros) con un expediente por foto: año dicho, lugar, párrafo de la voz, escenas de la ficha, hechos, citas, personas y los grupos de gente del canon. Desde F50d, la época del canon (ropa, tecnología, vehículos, interiores) entra por tramo: los tramos que cruzan los años de las fotos del capítulo, o el más cercano si ninguno cruza (desde F50f deja una línea de log por capítulo con las fotos que no cruzan ningún tramo). El código arma la frase en un orden fijo y la revisa (desde F51c ya no borra nombres de personas; sin conteos ni izquierda/derecha, sin manos, sangre o texto suelto: si queda un problema, saca la frase). Rehace las fotos que no cumplen las reglas del capítulo y del video por el mismo camino. En los capítulos 1 y 7 además Opus redacta el movimiento del clip de video con el orden de la guía de Google; la parte de la voz que acompaña al clip de 8 s se corta, desde F51c, en el final de oración más cercano (sin oración, en el espacio más cercano; empate → la zona del clip más corta). Desde F57 guarda también la voz entera del clip (`voz_clip`: las palabras que la voz dice en los 8 s, cortadas por palabra con la ventana en caracteres que ya calculaba; sin LLM) y el movimiento del clip se escribe con esa voz, no solo con el ancla. Desde F58 el paso de casilleros acepta tres llaves con default idéntico a producción (sin el bloque del clip de apertura, sin cartel, con una oración de composición) para que m09 pida las fotos de las miniaturas por el mismo camino. Desde F59 el armado de cada ítem (limpieza de casilleros, cartel, armado C, revisión F8, prompt final, año, sensible y motivos) es una función aparte, `armar_item`, la misma que QA Studio usa para rehacer una foto desde sus casilleros editados.",
    "recibe": "El tema ya armado (data/topics_db.json: canon visual con people_groups que arma fase1_5.asegurar_canon desde la ficha, personas y objetos documentados, evidence_pool), el perfil del research (data/scripts/_steps/<id>/_perfil.json: lugar_principal), el esqueleto y la narración (data/scripts/_steps/<id>/01a_*.json y 01b_*.json), la escaleta, la ficha y los párrafos v3 para el expediente (01a_escaleta.json, ficha_caso.json, 01b_narracion_v3.json), el mapa de sincronía del audio (output/audio/<id>/sync_map.json) y los tiempos por palabra (output/audio/<id>/chNN_timestamps.json).",
-   "entrega": "data/scripts/_steps/<id>/03_visual.json (por capítulo: image_prompts con prompt final, casilleros crudos, año y de dónde salió, ancla de narración, rango emocional, foto_madre_ref, notas F8; en caps 1 y 7: image_prompt con su image_f8 (año, grupo, plano, notas F8), video_prompt y supplemental_image_prompts con las mismas claves); lo devuelve también como dict a fase1_5.py, que lo ensambla al contrato data/scripts/<id>.json. Sus constantes DOCTRINE_* las reutiliza m09_packaging.",
+   "entrega": "data/scripts/_steps/<id>/03_visual.json (por capítulo: image_prompts con prompt final, casilleros crudos, año y de dónde salió, ancla de narración, rango emocional, foto_madre_ref, persona (F60 A: nombres del canon de quién sale, solo ruteo; nadie lo consume hasta la Etapa B), notas F8; en caps 1 y 7: image_prompt con su image_f8 (año, grupo, plano, notas F8), video_prompt y supplemental_image_prompts con las mismas claves); lo devuelve también como dict a fase1_5.py, que lo ensambla al contrato data/scripts/<id>.json. Sus constantes DOCTRINE_* las reutiliza m09_packaging.",
    "modelo": [
     {
      "modelo": "claude-opus-5-5, effort high (MODELO_CASILLEROS; claude_helpers.call_json)",
@@ -4796,19 +4796,13 @@
      "nombre": "_format_bullets",
      "linea": 919,
      "por_que": "nadie la nombra en todo el repo; solo su definición"
-    },
-    {
-     "nombre": "_format_visual_canon_block",
-     "linea": 925,
-     "por_que": "sin llamadores; solo la nombran un comentario/docstring y test_module_m03_reglas_133.py, que cuenta su texto en el fuente (la declara 'dead code') sin ejecutarla"
     }
    ],
    "imports_rotos": [],
    "sin_llamador_a": [
-    "_format_bullets",
-    "_format_visual_canon_block"
+    "_format_bullets"
    ],
-   "md5": "e72eaed9e81912dbb326af675e0b362e",
+   "md5": "7da291a3f95b98b95937d6eb4d16bad6",
    "sticker_al_dia": true
   },
   "script_engine/m05_judge.py": {
@@ -5081,7 +5075,7 @@
    ],
    "tests": 9,
    "nacio": "1720d01 2026-06-11",
-   "ultimo": "13d2690 2026-10-30 (F58)",
+   "ultimo": "10f08c0 2026-10-30 (F59)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase3.py:64 arma el comando python -m script_engine.m09_packaging (etapa packaging, run_pipeline.py:430 lanza fase3.py); qa_studio_server.py:1490 lo lanza con --review --auto-first",
@@ -6721,7 +6715,7 @@
    ],
    "tests": 0,
    "nacio": "3d684a2 2026-06-14",
-   "ultimo": "7c0b2e5 2026-10-21 (F5e)",
+   "ultimo": "10f08c0 2026-10-30 (F59)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "qa_studio_server.py:72 define HTML_PATH y :1828-1829 lo sirve en / (el form lo abre en el gate del visor, qa_form.html:349)",

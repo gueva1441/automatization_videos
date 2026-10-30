@@ -278,26 +278,30 @@ TEXTO_2_PEOPLE_GROUP = ("- people_group: a LIST of ids from PEOPLE GROUPS whose 
 TEXTO_S4_YEAR = ("- year: the year (YYYY) in which THIS image's scene takes place, read from the narration fragment, its "
                  "paragraph and the case file (a year said earlier in the paragraph, «ten years before» a stated year, "
                  "«now» = the most recent year in the case file). Routing only — not rendered as text.")
+# F60 A: casillero de ruteo `persona` (nombre exacto de PERSONAS DOCUMENTADAS; nada lo consume hasta la Etapa B)
+TEXTO_PERSONA = ("- persona: a LIST with the exact name, as written in PERSONAS DOCUMENTADAS, of each documented person who is recognisably shown in THIS image (even from behind), at the same age and condition the canon describes — the main one first, at most TWO; [] if none, if only a body part is shown, if they appear inside a photograph or picture within the scene, or if unsure. Routing only — not rendered as text.")
 
 
 def _si_casilleros() -> str:
-    """El SI v3 con `people_group` y `year` después de la línea `- foto_madre_ref:`."""
+    """El SI v3 con `people_group`, `year` y `persona` (F60 A) después de la línea `- foto_madre_ref:`."""
     si = SYSTEM_INSTRUCTION_VISUAL_SEEDREAM_V3
     fin = si.index("\n", si.index("- foto_madre_ref:"))
-    return si[:fin] + "\n" + TEXTO_2_PEOPLE_GROUP + "\n" + TEXTO_S4_YEAR + si[fin:]
+    return si[:fin] + "\n" + TEXTO_2_PEOPLE_GROUP + "\n" + TEXTO_S4_YEAR + "\n" + TEXTO_PERSONA + si[fin:]
 
 
 SYSTEM_INSTRUCTION_CASILLEROS = _si_casilleros()
 
 
 def _casilleros_schema(n: int) -> dict:
-    """El esquema de los slots + `year` + `people_group` (en ese orden en `required`, como se midió). `mood`, `style`
+    """El esquema de los slots + `year` + `people_group` + `persona` (F60 A; en ese orden en `required`, como se midió). `mood`, `style`
     y `hard_fact_ids` se siguen pidiendo aunque el armado no los use (así se midió)."""
     s = _seedream_slots_schema(n)
     s["items"]["properties"]["year"] = {"type": "STRING"}
     s["items"]["required"].append("year")
     s["items"]["properties"]["people_group"] = {"type": "ARRAY", "items": {"type": "STRING"}}
     s["items"]["required"].append("people_group")
+    s["items"]["properties"]["persona"] = {"type": "ARRAY", "items": {"type": "STRING"}}
+    s["items"]["required"].append("persona")
     return s
 
 
@@ -415,7 +419,7 @@ def _log_sin_period(topic: dict, anios, cap_number) -> str:
 def _format_seedream_canon_block(topic: dict, anios=None) -> str:
     """Canon de 2 CAPAS para el user-prompt del skeleton (eslabón 3b cablea el 2).
 
-    Espejo de _format_visual_canon_block PERO extendido con la capa SOURCED del
+    Era espejo del builder viejo `_format_visual_canon_block` (borrado en F60 A, sin llamadores), extendido con la capa SOURCED del
     sujeto puntual (eslabón 2): materials_textures, color_palette, scale_dimensions,
     distinctive_features, demographics, condition_evolution (HANDOFF_133 R4:
     visual_reference_availability ya NO se surfacea — meta-info de research inútil
@@ -454,11 +458,12 @@ def _format_seedream_canon_block(topic: dict, anios=None) -> str:
                      "y canonical_subject_description.")
 
     if people:
-        plines = ["PERSONAS DOCUMENTADAS (usar appearance_canon, NUNCA el nombre):"]
+        plines = ["PERSONAS DOCUMENTADAS (el nombre es solo para el casillero persona; en la prosa usar appearance_canon, NUNCA el nombre):"]
         for p in people:
             age = p.get("age_at_event")
             age_str = f"age {age}" if age is not None else "age unknown"
-            plines.append(f"  • role: {p.get('role','?')} | {age_str} | era: {p.get('era','?')}")
+            # F60 A: el nombre va primero, como dato de ruteo para `persona`
+            plines.append(f"  • {p.get('name','?')} | role: {p.get('role','?')} | {age_str} | era: {p.get('era','?')}")
             plines.append(f"    appearance_canon: {p.get('appearance_canon','')}")
         people_block = "\n".join(plines)
     else:
@@ -1018,93 +1023,6 @@ def _format_bullets(bullets: list) -> str:
     if not bullets:
         return "      (sin bullets)"
     return "\n".join(f"      - {b}" for b in bullets)
-
-
-def _format_visual_canon_block(topic: dict) -> str:
-    """Bloque DATOS VISUALES CANÓNICOS — verdad sellada del topic (4e).
-
-    Lee era_visual_canon, documented_people y anachronism_blocklist del
-    topic (poblados por step_4e_visual_canon en el módulo 00). Si los
-    campos vienen vacíos (topic viejo no migrado, o Flash falló en el 4e),
-    el bloque emite una nota de fallback que le dice al modelo que derive
-    de verified_facts y canonical, manteniendo las reglas 4/5/11 inviolables.
-
-    Returns:
-        str: bloque listo para inyectar entre topic_block y rules_block.
-    """
-    era = topic.get("era_visual_canon") or {}
-    people = topic.get("documented_people") or []
-    blocklist = topic.get("anachronism_blocklist") or []
-
-    has_era = bool(era.get("primary_decade"))
-    has_people = bool(people)
-    has_blocklist = bool(blocklist)
-
-    # ─── ERA VISUAL ───
-    if has_era:
-        era_lines = [
-            f"  primary_decade        : {era.get('primary_decade', '')}",
-            f"  spans                 : {era.get('spans', '')}",
-            f"  clothing              : {era.get('clothing', '')}",
-            f"  technology            : {era.get('technology', '')}",
-            f"  vehicles_machinery    : {era.get('vehicles_machinery', '')}",
-            f"  interiors             : {era.get('interiors', '')}",
-            f"  forbidden_anachronisms: {era.get('forbidden_anachronisms', '')}",
-        ]
-        era_block = "ERA VISUAL (cómo se ve el mundo del tema):\n" + "\n".join(era_lines)
-    else:
-        era_block = (
-            "ERA VISUAL: (vacío — no disponible en este topic)\n"
-            "  Inferí la era de verified_facts y canonical_subject_description."
-        )
-
-    # ─── PERSONAS DOCUMENTADAS ───
-    if has_people:
-        people_lines = ["PERSONAS DOCUMENTADAS (usar appearance_canon, NUNCA el nombre):"]
-        for p in people:
-            role = p.get("role", "?")
-            age = p.get("age_at_event")
-            era_p = p.get("era", "?")
-            appearance = p.get("appearance_canon", "")
-            age_str = f"age {age}" if age is not None else "age unknown"
-            people_lines.append(f"  • role: {role}  |  {age_str}  |  era: {era_p}")
-            people_lines.append(f"    appearance_canon: {appearance}")
-        people_block = "\n".join(people_lines)
-    else:
-        people_block = (
-            "PERSONAS DOCUMENTADAS: (vacío — no hay lista canónica)\n"
-            "  Si la narración menciona a alguien por nombre, describilo por\n"
-            "  rol+aspecto+era genérico (NUNCA por nombre — ver regla 4)."
-        )
-
-    # ─── BLOCKLIST DE ANACRONISMOS ───
-    if has_blocklist:
-        blocklist_lines = ["ANACRONISMOS PROHIBIDOS (jamás aparecen en los prompts):"]
-        for item in blocklist:
-            blocklist_lines.append(f"  - {item}")
-        blocklist_block = "\n".join(blocklist_lines)
-    else:
-        blocklist_block = (
-            "ANACRONISMOS PROHIBIDOS: (vacío — sin lista específica)\n"
-            "  Las reglas 4 y 11 + el negative prompt de Flux son la defensa."
-        )
-
-    # ─── NOTA DE USO ───
-    usage_note = (
-        "USO: Estos datos son VERDAD SELLADA del topic. NO los re-inferir.\n"
-        "Reutilizá clothing/technology/vehicles_machinery/interiors textualmente\n"
-        "en los prompts cuando aporten anclaje visual. Reutilizá appearance_canon\n"
-        "de PERSONAS DOCUMENTADAS sin modificar para personajes mencionados.\n"
-        "Si algún campo viene vacío, las reglas 4, 5 y 11 siguen siendo inviolables."
-    )
-
-    return f"""{era_block}
-
-{people_block}
-
-{blocklist_block}
-
-{usage_note}"""
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -2000,7 +1918,7 @@ def _seedream_video_prompt(image_prompt: str, voz_clip: str, label: str, max_att
 
 
 # F50 D: lo que el papel de fotos necesita de cada foto de un cap Veo (los caps flux guardan el ítem entero)
-CLAVES_F8_PAPEL = ("anio", "anio_fuente", "people_group", "shot_scale", "camera_angle", "lens_technique",
+CLAVES_F8_PAPEL = ("anio", "anio_fuente", "people_group", "persona", "shot_scale", "camera_angle", "lens_technique",
                    "_f8_problemas", "_f8_slots_scrub", "_f8_texto_fuera", "_f8_rehecha")
 
 
