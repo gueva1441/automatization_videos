@@ -176,7 +176,7 @@
   "_parte": "research_c"
  },
  "researcher_steps/research_v3.py": {
-  "sticker": "Es el investigador de documentos del video: dado el tema, busca en Google las páginas y PDF originales (informes, fallos, prensa de la época), los baja, los lee con el modelo y se queda solo con lo que puede probar con una frase copiada literal del documento. Con eso arma el pool de evidencia (datos, cronología, lugares, citas, personajes), marca qué citas están verificadas, calcula las cifras oficiales y un resumen para la escaleta, y pasa la compuerta del pool.",
+  "sticker": "Es el investigador de documentos del video: dado el tema, busca en Google las páginas y PDF originales (informes, fallos, prensa de la época), los baja, los lee con el modelo y se queda solo con lo que puede probar con una frase copiada literal del documento. Con eso arma el pool de evidencia (datos, cronología, lugares, citas, personajes), marca qué citas están verificadas, junta en una sola las citas repetidas del mismo autor (desde F55: 70 % de palabras en común; la descartada queda anotada), calcula las cifras oficiales y un resumen para la escaleta, y pasa la compuerta del pool.",
   "recibe": "El seed del tema (seed_title, idiomas, etc., desde topic_researcher) y data/_steps/<id>/ con lo que ya haya de corridas anteriores: _perfil.json, fuentes.json (registro de fuentes), fuentes/manifest.json y fuentes/*.txt, _r1_cache.json, _r3_cache/, 00_pool_v3*.json. Por red: Google Search vía Gemini, las páginas y PDF de las fuentes, la Wayback Machine. Más data/geocode_cache.json.",
   "entrega": "En data/_steps/<id>/: _perfil.json, fuentes.json (registro), fuentes_r1.json, fuentes/<slug>.pdf|html|txt + manifest.json, _r1_cache.json, _r3_cache/r3_*.json, 00_pool_v3.json (evidence_pool con digest y _research_v3) y POOL_GATE.md (vía pool_gate). Devuelve (pool, 4 bloques angulares para 4a-4e, resultado de la compuerta). Además, durante el guion otros módulos le piden el vocabulario del caso (set_vocabulario, vocabulario, caso).",
   "modelo": [
@@ -215,7 +215,7 @@
     "por_que": "en producción nadie la llama (en fase2b.py y depth_probe.py 'metrics' es una variable local, no esta función); solo test_module_f7.py:333 y el script de laboratorio lab/hyperframes/f7/f7b_pool_orleans.py:90"
    }
   ],
-  "md5": "2a4b42478b64231fe6f228c4113c6a16",
+  "md5": "f5fb9f90276b7ac3bd3bf47c25d17c8f",
   "_parte": "research_a"
  },
  "researcher_steps/step_4a_facts.py": {

@@ -24,6 +24,7 @@ F7d: v3 es el default de `topic_researcher._research_seed_deep` para seeds nuevo
 from __future__ import annotations
 
 import hashlib
+import copy
 import json
 import os
 import re
@@ -36,6 +37,7 @@ from pathlib import Path
 from typing import Any, Callable
 from urllib.parse import urlparse
 
+from script_engine import evidence as ev
 from script_engine import nombres
 
 PROMPT_VERSION_R1 = "f7a-1"
@@ -2062,6 +2064,7 @@ def build_pool(per_doc: dict[str, dict], docs: list[dict], texts: dict[str, DocT
         texts_es = [d["texto"] for d in pool["datos"]] + [c["evento"] for c in pool["cronologia"]]
         geocode(pool["lugares"], geocode_cache, fetch=fetch, log=log, anchor=anchor_place(pool["lugares"], texts_es))
     verify_pool(pool, texts, docs, log)
+    _dedupe_citas(pool, log)                              # F55 B.1: la misma cita con dos ids → queda una
     person_stats(pool, event_year, anio_fin)              # F7c: otra vez, ya con las citas verificadas
     add_fragments(pool)                                   # F7c-2: lo que la voz cita literal (≤ 25 palabras)
     pool["digest"] = build_digest(pool, docs, event_year=event_year, anio_fin=anio_fin)   # F7c: lo que lee la escaleta
@@ -2069,6 +2072,82 @@ def build_pool(per_doc: dict[str, dict], docs: list[dict], texts: dict[str, DocT
                             "documentos": [{k: d.get(k) for k in ("id", "titulo", "tipo", "anio", "url", "txt",
                                                                   "caracteres", "idioma")} for d in docs]}
     return pool
+
+
+UMBRAL_DEDUPE_CITAS = 0.7       # DECISIONES: 2026-10-29 19:30 (mismo autor + 70 % de palabras de contenido en común)
+
+
+def _similitud_citas(a: dict[str, Any], b: dict[str, Any]) -> float | None:
+    """|Ca∩Cb| / min(|Ca|,|Cb|) con C = evidence._content(texto); None si falta autor, si los autores no son iguales
+    (igualdad exacta tras evidence.norm, sin parcial) o si alguna cita no tiene palabras de contenido."""
+    if not a.get("autor") or not b.get("autor") or ev.norm(a["autor"]) != ev.norm(b["autor"]):
+        return None
+    ca, cb = ev._content(a.get("texto") or ""), ev._content(b.get("texto") or "")
+    if not ca or not cb:
+        return None
+    return len(ca & cb) / min(len(ca), len(cb))
+
+
+def _dedupe_citas(pool: dict[str, Any], log: list[str] | None = None) -> list[dict[str, Any]]:
+    """F55 B.1 (DECISIONES 2026-10-29 19:30): dos citas del mismo autor con ≥ UMBRAL_DEDUPE_CITAS de palabras de
+    contenido en común son la misma cita. Queda la de más `n_fuentes` (empate: la más larga); los ids no se renumeran;
+    los `docs` de la descartada se suman a la que queda (`n_fuentes` recalculado); la descartada va a
+    `pool["_descartados"]` como {"kind": "citas", "id", "duplicado_de", "similitud", "motivo": "cita duplicada"}.
+    Devuelve las descartadas."""
+    citas = list(pool.get("citas") or [])
+    fuera: dict[str, dict[str, Any]] = {}
+    for i in range(len(citas)):
+        a = citas[i]
+        if a["id"] in fuera:
+            continue
+        for j in range(i + 1, len(citas)):
+            b = citas[j]
+            if b["id"] in fuera:
+                continue
+            s = _similitud_citas(a, b)
+            if s is None or s < UMBRAL_DEDUPE_CITAS:
+                continue
+            na, nb = int(a.get("n_fuentes") or len(a.get("docs") or []) or 0), int(b.get("n_fuentes") or len(b.get("docs") or []) or 0)
+            queda, sale = (a, b) if (na, len(a.get("texto") or "")) >= (nb, len(b.get("texto") or "")) else (b, a)
+            docs = list(dict.fromkeys([*(queda.get("docs") or []), *(sale.get("docs") or []),
+                                       *([sale["doc_id"]] if sale.get("doc_id") else [])]))
+            queda["docs"] = docs
+            queda["n_fuentes"] = max(len(docs), int(queda.get("n_fuentes") or 0))
+            fuera[sale["id"]] = {"kind": "citas", "id": sale["id"], "duplicado_de": queda["id"], "similitud": round(s, 2),
+                                 "motivo": "cita duplicada", "autor": sale.get("autor"), "texto": sale.get("texto")}
+            if sale is a:
+                break
+    if fuera:
+        pool["citas"] = [q for q in citas if q["id"] not in fuera]
+        pool.setdefault("_descartados", []).extend(fuera.values())
+        if log is not None:
+            log.append("  [dedupe citas] " + "; ".join(f"{d['id']} → {d['duplicado_de']} ({d['similitud']})" for d in fuera.values()))
+    return list(fuera.values())
+
+
+def remapear_ids(obj: Any, pool: dict[str, Any]) -> Any:
+    """F55 B.1: reemplaza, en listas de ids (y en strings que son un id) de `obj`, cada cita descartada por su
+    `duplicado_de` (sin repetir dentro de una lista). Recorre dicts y listas; devuelve una copia."""
+    mapa = {d["id"]: d["duplicado_de"] for d in pool.get("_descartados") or []
+            if d.get("kind") == "citas" and d.get("duplicado_de")}
+    if not mapa:
+        return copy.deepcopy(obj)
+
+    def _r(x: Any) -> Any:
+        if isinstance(x, str):
+            return mapa.get(x, x)
+        if isinstance(x, list):
+            out: list[Any] = []
+            for v in x:
+                nv = _r(v)
+                if isinstance(nv, str) and re.fullmatch(r"[A-Z]\d+", nv) and nv in out:
+                    continue                                 # dos ids iguales en la misma lista: uno
+                out.append(nv)
+            return out
+        if isinstance(x, dict):
+            return {k: _r(v) for k, v in x.items()}
+        return x
+    return _r(obj)
 
 
 def metrics(pool: dict[str, Any]) -> dict[str, Any]:

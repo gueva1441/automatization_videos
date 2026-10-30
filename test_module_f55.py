@@ -244,3 +244,76 @@ def test_sonnet_real_d10_cap_6_nuevo():
     ors = ev._sentences(caps[6])
     n = dv.verificar(its["D10"]["texto"], ors, id="D10")
     assert n is not None and "colonial" in ev.norm(ors[n - 1]) and dv.estado()["llamadas"] == 1
+
+
+# ═══════════════════════════════════════════════════════════════
+#  Parte B: dedupe de citas del pool (DECISIONES 2026-10-29 19:30: mismo autor + 0,7)
+# ═══════════════════════════════════════════════════════════════
+
+from researcher_steps import research_v3 as r3  # noqa: E402
+
+
+def _pool_antes() -> dict:
+    """El pool de Wittenoom ANTES del dedupe (f55/antes/01_facts_sources.json, copia de F54 B.5: 58 citas)."""
+    p = json.loads((NUEVO / "01_facts_sources.json").read_text(encoding="utf-8"))
+    return p.get("evidence_pool", p)
+
+
+def test_umbral_dedupe():
+    assert r3.UMBRAL_DEDUPE_CITAS == 0.7
+
+
+@hay
+def test_los_8_pares_de_wittenoom_con_la_funcion_de_produccion():
+    pool = _pool_antes()
+    its = ev.items(pool)
+    esperado = {("Q20", "Q33"): 0.94, ("Q18", "Q30"): 0.92, ("Q15", "Q27"): 0.90, ("Q16", "Q28"): 0.89,
+                ("Q14", "Q26"): 0.88, ("Q12", "Q25"): 0.88, ("Q17", "Q29"): 0.73, ("Q23", "Q35"): 0.71}
+    for (a, b), s in esperado.items():
+        assert round(r3._similitud_citas(its[a], its[b]), 2) == s, (a, b)
+    assert r3._similitud_citas(its["Q30"], its["Q36"]) is None and r3._similitud_citas(its["Q18"], its["Q36"]) is None
+    assert round(r3._similitud_citas(its["Q19"], its["Q32"]), 2) == 0.50          # mismo autor, no duplicado
+    fuera = r3._dedupe_citas(pool)
+    pares = {frozenset((d["id"], d["duplicado_de"])) for d in fuera}
+    assert pares == {frozenset(p) for p in esperado} and len(pool["citas"]) == 50
+    assert all(d["kind"] == "citas" and d["motivo"] == "cita duplicada" and d["similitud"] >= 0.7 for d in fuera)
+    assert {d["id"] for d in fuera} & {q["id"] for q in pool["citas"]} == set()
+    ids = [q["id"] for q in pool["citas"]]
+    assert ids == sorted(ids, key=lambda x: int(x[1:])) and "Q25" in ids and "Q12" not in ids   # sin renumerar
+
+
+def _cita(i, autor, texto, n=1, docs=None):
+    return {"id": i, "autor": autor, "texto": texto, "n_fuentes": n, "docs": docs or [f"F{i[1:]}"]}
+
+
+def test_queda_la_de_mas_fuentes_y_suma_docs():
+    pool = {"citas": [_cita("Q1", "Ana López", "Nadie nos dijo nada del polvo que había en el pueblo", 1, ["F01"]),
+                      _cita("Q2", "Ana Lopez", "Nadie nos dijo nada del polvo del pueblo", 2, ["F02", "F03"])],
+            "_descartados": []}
+    fuera = r3._dedupe_citas(pool)
+    assert [d["id"] for d in fuera] == ["Q1"] and fuera[0]["duplicado_de"] == "Q2"      # más fuentes gana a más larga
+    q2 = pool["citas"][0]
+    assert q2["id"] == "Q2" and q2["docs"] == ["F02", "F03", "F01"] and q2["n_fuentes"] == 3
+    assert pool["_descartados"][0]["kind"] == "citas" and pool["_descartados"][0]["similitud"] >= 0.7
+
+
+def test_empate_en_fuentes_queda_la_mas_larga_y_no_compara_sin_autor():
+    pool = {"citas": [_cita("Q1", "Ana López", "Nadie nos dijo nada del polvo"),
+                      _cita("Q2", "Ana López", "Nadie nos dijo nada del polvo que había en el pueblo entero"),
+                      _cita("Q3", None, "Nadie nos dijo nada del polvo que había en el pueblo entero"),
+                      _cita("Q4", "Pedro Ruiz", "Nadie nos dijo nada del polvo que había en el pueblo entero")]}
+    fuera = r3._dedupe_citas(pool)
+    assert [(d["id"], d["duplicado_de"]) for d in fuera] == [("Q1", "Q2")]              # Q3 sin autor, Q4 otro autor
+    assert [q["id"] for q in pool["citas"]] == ["Q2", "Q3", "Q4"]
+
+
+def test_remapear_ids():
+    pool = {"_descartados": [{"kind": "citas", "id": "Q12", "duplicado_de": "Q25"},
+                             {"kind": "datos", "id": "D9", "texto": "x"}]}
+    obj = {"beats": [{"dato_central": "Q12", "datos_apoyo": ["Q12", "Q25", "D3"], "cierre": "Q12 no es un id acá"}],
+           "a_pantalla": [{"id": "Q12", "cap": 2}], "ids": ["D9", "Q12"]}
+    out = r3.remapear_ids(obj, pool)
+    assert out["beats"][0]["dato_central"] == "Q25" and out["beats"][0]["datos_apoyo"] == ["Q25", "D3"]
+    assert out["a_pantalla"][0]["id"] == "Q25" and out["ids"] == ["D9", "Q25"]
+    assert out["beats"][0]["cierre"] == "Q12 no es un id acá" and obj["beats"][0]["dato_central"] == "Q12"   # copia
+    assert r3.remapear_ids(obj, {"_descartados": []}) == obj

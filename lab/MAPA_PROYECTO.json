@@ -2637,7 +2637,7 @@
   "researcher_steps/research_v3.py": {
    "archivo": "researcher_steps/research_v3.py",
    "zona": "research",
-   "sticker": "Es el investigador de documentos del video: dado el tema, busca en Google las páginas y PDF originales (informes, fallos, prensa de la época), los baja, los lee con el modelo y se queda solo con lo que puede probar con una frase copiada literal del documento. Con eso arma el pool de evidencia (datos, cronología, lugares, citas, personajes), marca qué citas están verificadas, calcula las cifras oficiales y un resumen para la escaleta, y pasa la compuerta del pool.",
+   "sticker": "Es el investigador de documentos del video: dado el tema, busca en Google las páginas y PDF originales (informes, fallos, prensa de la época), los baja, los lee con el modelo y se queda solo con lo que puede probar con una frase copiada literal del documento. Con eso arma el pool de evidencia (datos, cronología, lugares, citas, personajes), marca qué citas están verificadas, junta en una sola las citas repetidas del mismo autor (desde F55: 70 % de palabras en común; la descartada queda anotada), calcula las cifras oficiales y un resumen para la escaleta, y pasa la compuerta del pool.",
    "recibe": "El seed del tema (seed_title, idiomas, etc., desde topic_researcher) y data/_steps/<id>/ con lo que ya haya de corridas anteriores: _perfil.json, fuentes.json (registro de fuentes), fuentes/manifest.json y fuentes/*.txt, _r1_cache.json, _r3_cache/, 00_pool_v3*.json. Por red: Google Search vía Gemini, las páginas y PDF de las fuentes, la Wayback Machine. Más data/geocode_cache.json.",
    "entrega": "En data/_steps/<id>/: _perfil.json, fuentes.json (registro), fuentes_r1.json, fuentes/<slug>.pdf|html|txt + manifest.json, _r1_cache.json, _r3_cache/r3_*.json, 00_pool_v3.json (evidence_pool con digest y _research_v3) y POOL_GATE.md (vía pool_gate). Devuelve (pool, 4 bloques angulares para 4a-4e, resultado de la compuerta). Además, durante el guion otros módulos le piden el vocabulario del caso (set_vocabulario, vocabulario, caso).",
    "modelo": [
@@ -2687,7 +2687,7 @@
     "script_engine/m05_narrative.py",
     "topic_researcher.py"
    ],
-   "tests": 12,
+   "tests": 13,
    "nacio": "74fffa9 2026-10-21 (F7a)",
    "ultimo": "16def01 2026-10-25 (F26c)",
    "estado_a": "vivo",
@@ -2708,9 +2708,10 @@
    "imports_rotos": [],
    "sin_llamador_a": [
     "rebuild_texts",
+    "remapear_ids",
     "metrics"
    ],
-   "md5": "2a4b42478b64231fe6f228c4113c6a16",
+   "md5": "f5fb9f90276b7ac3bd3bf47c25d17c8f",
    "sticker_al_dia": true
   },
   "researcher_steps/step_4a_facts.py": {
@@ -3229,8 +3230,8 @@
     "script_engine/guion_v4.py"
    ],
    "tests": 1,
-   "nacio": "(fuera de git)",
-   "ultimo": "(fuera de git)",
+   "nacio": "090b1eb 2026-10-29 (F55)",
+   "ultimo": "090b1eb 2026-10-29 (F55)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "guion_v4.py (bloqueantes → cierre_no_dicho / pago_no_dicho lo importan)",
@@ -3272,6 +3273,7 @@
    "lo_llaman": [
     "fase2b.py",
     "researcher_steps/ficha_caso.py",
+    "researcher_steps/research_v3.py",
     "script_engine/dicho_verificador.py",
     "script_engine/gfx_guion.py",
     "script_engine/gfx_pool.py",
@@ -3295,7 +3297,7 @@
    ],
    "tests": 8,
    "nacio": "2be6c11 2026-10-20 (F5)",
-   "ultimo": "03370af 2026-10-24 (F23)",
+   "ultimo": "090b1eb 2026-10-29 (F55)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "lo importan guion_v4.py:36 y m01a_escaleta (etapa guion), voz_utils.py:14 y voz_datos (etapa voz), fase2b.py:3161 y pantalla_entrada (guion_pantalla), gfx_pool.py:42 vía gfx_layer.py:266 (render)",
@@ -4105,7 +4107,7 @@
    ],
    "tests": 17,
    "nacio": "6264058 2026-10-23 (F11)",
-   "ultimo": "0c4eaa4 2026-10-29 (F55)",
+   "ultimo": "090b1eb 2026-10-29 (F55)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py:424-430 (run_guion_v4 llama g4.call_for, g4.write, g4.reparar y g4.metricas); fase1_5.py:512 lo corre desde process_topic; fase1_5.py:430 también g4.nota_b",
