@@ -954,4 +954,33 @@ Totales: 13 fichas · 6 sellos · 3 relojes · 64 descartados
 
 ## Veredicto de revisor-handoff (Parte D, íntegro)
 
-(se pega abajo)
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | Invocación del handoff, llegó a 01e, sin fotos ni voz | OK | d_run.log: "Modo: 1 topic… desde m01a", pasos 01a/01b/01d/m01e, exit 0. 0 menciones a fotos, voz, m02 o m03. 01e_pantalla.md existe. `fase1_5.py` no fue tocado. |
+| 2 | Gasto US$ 3,93 | OK | d_run.log: TOTAL US$ 3.9277. Sumé las entradas de data/cost_history.json de 20:21 a 20:40 del topic y dio 3.9277, igual al log. |
+| 3 | SALIDA_D.md completa | OK | §1 tabla A/B por cap (F54 y F55, con bloqueantes de ambos). §2 promesa y oración 2. §3 loops con regla_dicho. §4 los 7 títulos. §5 medida de retención. §6 grep. §7 papel. Recalculé el grep de los 8 ids (Q12, Q15, Q20, Q23, Q26, Q28, Q29, Q30) en 01a_escaleta, 01a_skeleton, 01b_guionista_v4, 01b_narration, 01b_narracion_v3, 01e_pantalla (md, json y raw): 0 en todos. Fuera de `_descartados` hay 0 en las copias del pool: `00_pool_v3.json`, `01_facts_sources.json` y `topics_db.json`. Los ids siguen solo en ficha_caso.json, FICHA md, `ficha_respuesta_cruda`, los PDF y `_descartados`, que es lo permitido. |
+| 4 | Diagnóstico de los 3 bloqueantes | OK | `01b_guionista_v4.json` `reparacion.bloqueantes_despues` trae (a) «Aterrizamos en una pista…», (d) «El avión era pequeño…» y (d) «Defensor del empleador». En `00_pool_v3.json` `_descartados`, Q15 figura como duplicada de Q27 (0,90) y el texto de Q27 coincide con la frase. La (d) del defensor es la previa de F54. `metricas.verificador` = {llamadas 0, cache 0, usd 0.0}. F55_REPORT.md (~l.677) dice que Sonnet confirmó 0. |
+| 5 | Promesa de 1 oración y loops pagados | OK | SALIDA_D §2: `promesa_oraciones` 1, y el texto de la promesa es una sola oración. §3: L1 (T64) y L2 (T98) pagados, y también los pagos de los beats 10 y 13. |
+| 6 | Remapeo del digest declarado, 3 copias limpias | OK | `dedupe_pool.py:63-70` remapea todo lo del pool que no sea `citas` ni `_descartados`, en las 3 copias. Está declarado en el reporte (Decisión 2). Recalculado: 0 fuera de `_descartados` en las 3 copias. |
+| 7 | Nada fuera de alcance | OK | `git diff --name-only HEAD~2 HEAD` toca solo lab/hyperframes/f55/*, ESTADO_SESION.md y F55_REPORT. No toca script_engine/, researcher_steps/ ni `fase1_5.py`. |
+| 8 | "Lo que queda abierto" incluye el hallazgo dedupe vs. jueces (a)/(d) | OK | F55_REPORT.md:945, ítem 1 de "Lo que queda abierto (Parte D)". El hallazgo está además desarrollado en el reporte, con opciones y sin tocar los jueces (Decisión 3). |
+
+`python -m pytest -q test_module_f55.py`: 29 passed, 1 skipped.
+
+Observaciones, ninguna bloqueante:
+- El guion nuevo queda en PARADA (3 bloqueantes). Dos son falsos del dedupe y uno es la (d) previa. Está declarado, pero la Parte D no entrega un guion limpio.
+- El commit "lab" modificó también SALIDA_B.md, que es de una parte ya revisada: borró una línea de log duplicada. Es trivial, pero no figura entre los cambios que el mensaje de commit anuncia.
+- La corrida usó el digest viejo del pool, antes de corregirlo en `dedupe_pool.py`. El reporte lo declara y el grep da 0 en lo regenerado, pero la escaleta se corrió con un pool que después se corrigió.
+- Los datos regenerados (`data/scripts/_steps/…`, `topics_db.json`) no van en los commits. Las pruebas viven en `lab/.../f55/antes` y en los .md.
+
+Fuera de alcance: ninguno.
+
+Riesgos que el contrato no cubre: el guion que cita la versión de Q15 depende de que la ficha conserve los textos de las duplicadas, así que cualquier regeneración futura repite los dos frenos falsos hasta que se arregle el hallazgo. El verificador de Sonnet no se ejercitó en esta corrida (0 llamadas), de modo que su comportamiento con las duplicadas no está medido.
+
+## Adenda de CC (Parte D)
+- **SALIDA_B.md en el commit lab:** `dedupe_pool.py` regenera ese archivo cada vez que corre (D.0 y D lo corrieron); el cambio es una línea de log duplicada menos. Lo digo acá, ya que el mensaje del commit no lo nombra.
+- **Digest viejo durante la corrida:** la escaleta v2 arma su prompt con la ficha, no con `pool["digest"]` (F16/F39), y lo regenerado dio 0 ids descartados; igual queda dicho que la corrección del digest llegó después de la corrida.
+- **Verificador sin ejercitar en D:** en la Salida A sí se ejercitó (3 llamadas reales: D42, D21, D10) y en el test real; acá no hizo falta porque el cierre y los pagos tenían ancla.
+- **El guion no queda limpio:** 2 frenos son del hallazgo dedupe vs. jueces (handoff aparte) y 1 es la (d) previa que Omar pidió no tocar.
