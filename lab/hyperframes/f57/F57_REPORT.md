@@ -190,7 +190,7 @@ Clip: lab\hyperframes\f57\clip\cap01_clip_01.mp4 · {"segundos": 8.0, "ancho": 1
 
 Sin errores.
 
-Lo que se ve (CC, mirando `lado_a_lado.jpg` y `hoja_contactos.jpg`): la foto final es el mismo hombre con la misma cara, pelo, camisa manchada, pantalón, bota y venda, misma pared y luz; cambia una bruma baja de polvo rojo que cruza el patio detrás de las piernas y el encuadre apenas más cerrado. En el clip el polvo se levanta a partir de los 4 s y el último cuadro coincide con la foto final; el hombre no se mueve de la pose. Duración 8,000 s, 1920×1080, sin audio.
+Lo que se ve (CC, mirando `lado_a_lado.jpg` y `hoja_contactos.jpg`): la foto final es el mismo hombre con la misma cara, pelo, camisa manchada, pantalón, bota y venda, misma pared y luz; cambia una bruma baja de polvo rojo que cruza el patio detrás de las piernas; el encuadre es el mismo (Seedream no obedeció el «push the framing in» de la instrucción; el cierre del plano lo hace el clip). En el clip el polvo se levanta a partir de los 4 s y el último cuadro coincide con la foto final; el hombre no se mueve de la pose. Duración 8,000 s, 1920×1080, sin audio.
 
 ## Suites
 Parte A (`bash lab/hyperframes/f41/verificar.sh f57`, sobre el árbol de `bdbc6a5`): ch02 md5 **`f792f3d483a1fa42daed5f7f0e054f46`**; rápida **53 passed**; amplia **1153 passed** + 4 fallas previas (`m03_merge_timing` ×2, `gfx_lab` ×2); `test_module_f50c` vuelve a verde. `mapa_modulos.py --check`: 158 · 0 fallas. La Parte B no toca código.
@@ -199,7 +199,7 @@ Parte A (`bash lab/hyperframes/f41/verificar.sh f57`, sobre el árbol de `bdbc6a
 1. **La narración F56 no tiene voz** (lo sabe el analista): en producción la ventana sale del `sync_map` real; el de Wittenoom es del 28-oct (cap 1: 4,9 palabras/s, imposible). m03 de producción (paso d) necesita la voz nueva primero. `clip_b.py` y los tests usan 2,4 palabras/s solo por eso.
 2. **`_VEO_MOTION_SYSTEM`** sigue nombrando «Google Veo» y un negative prompt que G/K no reciben: tandas (c)/(d).
 3. **QA Studio `_clipfix_core`** regenera el clip sin foto final (`generate_veo_fn(first_frame, video_prompt, out_clip)` → `foto_final=None`): se rehace en la tanda (c). Sigue leyendo `narration_anchor` del guion canónico (m06 lo conserva).
-4. **SSIM 0,78 sin umbral** (Omar 21:17). Decide Omar si el nivel de cambio de esta foto final (bruma de polvo, encuadre apenas más cerrado) es lo que quiere o si la instrucción debe pedir más/menos.
+4. **SSIM 0,78 sin umbral** (Omar 21:17). Decide Omar si el nivel de cambio de esta foto final (solo la bruma de polvo; el edit no cerró el encuadre que pedía la instrucción) es lo que quiere o si la instrucción debe pedir más/menos.
 5. **Dos llamadas de movimiento** en B (reintento por largo del bucle vigente de `_seedream_video_prompt`): US$ 0,01 de más por clip cuando pasa; no es de F57.
 6. **`_path_to_data_uri` con un formato que no sea JPEG/PNG levanta `ValueError`** (decisión 3): antes mentía `image/png`.
 7. **f50c** sigue leyendo escaleta, beats, ficha y `_perfil.json` de `_steps` vivos (hoy no cambia el resultado; `f54/antes` no tiene ficha ni perfil).
@@ -208,4 +208,49 @@ Parte A (`bash lab/hyperframes/f41/verificar.sh f57`, sobre el árbol de `bdbc6a
 
 ## Veredicto de revisor-handoff (íntegro)
 
-(se pega abajo)
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 0 | Handoff md5 60ae081a… | OK | `md5sum` coincide |
+| A0 | Copia congelada de la narración, con md5 en el reporte | OK | `f57/antes/01b_narration.json` md5 31efee2d… = el de `_steps/123bbb64…`. El commit f7aa5a8 trae solo DECISIONES, handoff y A0 |
+| DEC | Decisiones 21:10 y 21:17 en DECISIONES.md en el primer commit | OK | `DECISIONES.md` +2 líneas en f7aa5a8 |
+| A1 | `voz_del_clip` pura, sin LLM, corte por palabra | OK | `m03_visual.py:1936`; `_process_one_cap` pasa `veo_zone_chars` ya recortado (l.2207 → 2231); `voz_clip` guardado en l.2024 |
+| A1 | Camino de la clave con archivo:línea | OK | m03:2024 → m06:109 → fase2a:146 → `asset_manager.py:1146-1148`, 1209, 1215. Todas las líneas las comprobé con grep |
+| A1 | Guion sin `voz_clip` → PARA, sin respaldo al ancla | OK | `asset_manager.py:1148` |
+| A1 | Tabla de los 2 voz_clip | OK | SALIDA_A los reproduce idénticos a los del handoff. `test_voz_del_clip_los_dos_de_la_tabla` pasa |
+| A2 | `_seedream_video_prompt(image_prompt, voz_clip, label)` con la etiqueta «NARRATOR OVER THIS CLIP»; `_VEO_MOTION_SYSTEM` sin tocar | OK | `m03_visual.py` diff; el system no aparece en el diff |
+| A3 | `campo_imagen_final` = `end_image_url` en G y K; el payload lo agrega solo si hay foto final; el data-URI lleva el tipo leído de los bytes | OK | `engine_profiles.py:145,161`; `asset_manager.py` `_clip_payload` |
+| A4 | `PEDIDO` sin cambios; `PEDIDO_CON_FINAL` y `PEDIDO_FINAL` íntegros | OK | Comparé con Python los dos bloques ``` del handoff contra las constantes: ambos True. En el diff de `video_prompt.py` `PEDIDO` no tiene líneas -/+ |
+| A4 | `armar_body` y `escribir` con `foto_final`; `escribir_final` con Opus y effort de ESFUERZO; bucle `_llamar` factorizado | OK | `video_prompt.py` diff |
+| A5 | `foto_final_del_clip` con reuso, Opus, `/edit` con la inicial de referencia, SSIM y rechazo → path None con motivo literal | OK | `asset_manager.py:675-713` |
+| A5 | `_process_veo_chapter` con las 2 fotos, K con las mismas si G rechaza, `clip_results` con `foto_final`/`ssim`/`motivo_sin_final` | OK | `asset_manager.py:1204-1222` y `_generate_clip` |
+| A5 | Lectura del ancla borrada | OK | `grep narration_anchor` en `asset_manager.py` y `fase2a.py`: no queda ninguna lectura del clip. Los demás hits son de los items de fotos y un comentario |
+| A5 | Chascada 1 (f50c) | OK | Probó f54 y f55; usa `f54/antes` y congeló también los párrafos v3. Lo informa con la tabla en el reporte. `test_module_f50c` pasa. Valor esperado sin tocar |
+| A5 | Chascada 2 (`_path_to_data_uri` por bytes) | OK | `asset_manager.py:293` |
+| A6 | Tests nuevos y adaptaciones | OK | `test_module_f57.py` (20), falso `escribir` de `f53b_cadena` con `foto_final`. Yo corrí la lista pedida: 112 passed |
+| A6 | Suite rápida, amplia, ch02 y MAPA `--check` | NO VERIFICABLE | Solo están los logs de CC (`f41/f57/*.log`): rápida 53, amplia 1153 + 4 previas, ch02 f792f3d4, MAPA 0 fallas. No los reproduje |
+| Salida A | Contenido pedido | OK | `SALIDA_A.md` y reporte §1-§5 |
+| B | `clip_b.py` con `cost_tracker.start_video/end_video`, funciones de producción, foto F52, voz_clip por A0 a 2,4 palabras/s | OK | `clip_b.py` leído. El gasto sale de `cost_tracker` |
+| B | Movimiento viejo y nuevo, instrucción de edit entera, prompt del motor entero | OK | `SALIDA_B.md` l.9-35 |
+| B | SSIM, motor y rechazos, gasto | OK | SSIM 0,7848; G sin rechazo; US$ 1,3409 desglosado |
+| B | Clip y fotos en disco con los nombres del contrato | OK | `clip/cap01_clip_01.mp4` (ffprobe: 8,000 s, 1920×1080, sin audio), `cap01_img_01.png`, `cap01_img_01_final.png`, `lado_a_lado.jpg`, `hoja_contactos.jpg` |
+| B | Lado a lado | OK | Lo miré: mismo hombre, ropa, pose y pared; en la final hay bruma de polvo rojo |
+| B | No se corrió Cap 7, m03, ni se tocó `_steps` y `output` | OK | Diff sin esas rutas; `git status` de `data` y `output` limpio |
+| Rep | Módulos antes → después, decisiones de CC (8), «lo que queda abierto» (9 puntos) | OK | `F57_REPORT.md` |
+| Rep | Veredicto de revisor-handoff íntegro en el reporte | PARCIAL | El reporte termina en «(se pega abajo)». Es esperable porque este veredicto es el que falta pegar. Hay que pegarlo antes de entregar a Omar |
+
+Fuera de alcance: ninguno. El diff f7aa5a8~1..24c947a trae 27 archivos, todos dentro del alcance declarado. Incluye `lab/ESTADO_SESION.md`, MAPA, stickers y los logs `f41/f57`, que son artefactos de procedimiento. `diag_234_cap4.py` y `f28a.log` figuran modificados en el árbol de trabajo, pero ya estaban así antes de la tanda y no están en los commits.
+
+Observaciones:
+1. En el reporte, «el encuadre apenas más cerrado» no se ve en el lado a lado. Las dos fotos tienen el mismo encuadre y solo se suma la bruma. La instrucción de edit pedía empujar el encuadre y Seedream no lo hizo. Es el mismo punto que el abierto 4, y la decisión de Omar.
+2. El prompt final del motor incluye una línea «Sound: …» aunque el audio se quita. Viene de la ficha y no es de F57.
+3. La Parte B necesitó 2 llamadas `m03:motion` (la primera cayó fuera de 120–700 caracteres). CC lo declaró.
+
+Riesgos que el contrato no cubre: (1) La prueba real es un solo clip y un solo cap, así que la tasa de rechazo del edit/G en producción y el efecto del SSIM sin umbral no están medidos. (2) `ventana_chars` en producción depende de un `sync_map` que hoy no es válido; los tests y `clip_b.py` usan 2,4 palabras/s. (3) QA Studio regenera clips sin foto final, y `_path_to_data_uri` ahora levanta `ValueError` con formatos distintos de JPEG/PNG.
+
+## Adenda de CC
+- **Observación 1 (encuadre):** tiene razón el revisor; corregí la frase del reporte: la foto final tiene el mismo encuadre y solo suma la bruma de polvo. Seedream no obedeció el «push the framing in» de la instrucción; el movimiento de cámara lo hace el clip (Gemini sí cerró un poco el plano). Queda en el abierto 4 para Omar.
+- **Observación 2 («Sound: …»):** la ficha de G (F52b) pide «look and sound»; el motor genera audio y `_quitar_audio` lo saca. No es de F57; queda anotado para la tanda (c)/(d) junto con `_VEO_MOTION_SYSTEM`.
+- **Fila A6 «NO VERIFICABLE»:** las suites las corrí yo con `verificar.sh f57`; los logs están en `lab/hyperframes/f41/f57/` (commit `bdbc6a5`).
+- **Riesgo (1):** correcto: la Parte B es un solo clip; la tasa de rechazo del edit y de G se va a ver recién en el m03/fotos de producción (paso d), que espera la voz nueva.
