@@ -167,3 +167,5 @@ Motivo: retención + costo de sostener; 19 componentes con 7 tipos de texto prod
 - 2026-10-29 19:16 · segunda opinión del detector con Sonnet 5.5 solo sobre lo que el código marcó “no dicho” · Omar
 - 2026-10-29 19:15 · `promesa_gancho` de la escaleta = una oración · Omar
 - 2026-10-29 20:25 · F55 C: también se borra SYSTEM_V2_F16_1 (queda solo la vigente) · Omar
+- 2026-10-29 21:10 · **F57:** la foto final del clip va en TODOS los clips («todos»): el motor (Gemini Omni Flash 1.1 → Kling 4.0) recibe la foto inicial y la final (`end_image_url`) y el clip va de una a la otra; el movimiento y la foto final salen de la voz entera del clip (`voz_clip`, las palabras de los 8 s), no solo del ancla · Omar · F57
+- 2026-10-29 21:17 · **F57:** la foto final es un EDIT de la inicial (Seedream /edit con la inicial como referencia; la instrucción la escribe Opus), no una foto independiente; el parecido inicial/final (SSIM) se mide y se informa, sin umbral ni freno · Omar · F57
