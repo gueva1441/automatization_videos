@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-30 (F60 Etapa 0: prueba de secuencia en lab sobre la copia f60/base — madre de Daniel Écija con Seedream v5 Lite t2i OK; lote de 6 fotos /edit agotó el timeout existente de 240 s (PARÁ: falta el número), lote de 3 salió 3/3 en 142,5 s con la cara de la madre 8/10 y contagio; US$ 0,14 confirmado (+0,21 probable) · PARADA 0. Siguiente: el analista decide el timeout para N fotos; después Etapa A.)
+Última actualización: 2026-10-30 (F60 Etapa 0b: secuencia por la COLA de fal + madre con ropa limpia, en lab sobre f60/base — madre 37,8 s con camisa clara limpia; lotes 6+3 en paralelo por queue.fal.run con `_clip_poll` (600 s): 6/6 en 283 s y 3/3 en 145,7 s, pared 286,1 s; cara de la madre 8–10 de frente, contagio solo en ch02_img_05 (1), la mancha ya no se arrastra; mineros de espaldas en ch04_img_09; US$ 0,35 · PARADA 0b. Siguiente: OK del analista y de Omar para la Etapa A.)
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,20 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F60, PARADA 0b): por la cola de fal el lote de 6 entra (283 s) y la madre con ropa limpia ya no mancha las escenas.
+- Madre nueva de Daniel (Seedream v5 Lite, 37,8 s, US$ 0,035): camisa clara lisa, limpia, sin manchas (`lab/hyperframes/f60/e0b/madre_daniel_ecija.png`). Prompt byte a byte igual al del handoff.
+- Los 2 lotes a la vez por `queue.fal.run` con `request_id` guardado antes de esperar: lote 1 (6 fotos) 6/6 en 283,0 s, lote 2 (3) 3/3 en 145,7 s; pared 286,1 s. Sin timeouts, sin rechazos, sin reintentos. Con `CLIP_POLL_TIMEOUT` (600 s) sobra.
+- Las 9 fotos: identidad 8–10 cuando la cara se ve de frente (cubierta, hospital, bocamina); contagio solo en la veranda (el otro marido se le parece); en la bocamina esta vez los mineros están de espaldas y Daniel aparte. La ropa de cada escena pisa a la de la madre (traje, sombrero, mameluco, chaqueta); la camisa clara queda de base donde la escena no impone otra (cubierta «shirtsleeves», bajo el mameluco).
+- Lo que falla es de escena, no de madre: avión jet con hélice en ch03_img_16; reloj moderno y aparato/buzón modernos en ch02_img_05 y ch05_img_05; varios «wide» salieron como plano medio.
+- Gasto US$ 0,35 (10 imágenes a 0,035). Nada de producción tocado (de `asset_manager` solo se importa). Reporte: `lab/hyperframes/f60/F60_REPORT.md` §Etapa 0b; `SALIDA_0b.md`; hoja `e0b/hoja_madre_0b.jpg`.
+
+## F60 Etapa 0b — cola de fal + madre limpia — PARADA 0b
+- Handoff `HANDOFF_F60_0b_cola_y_madre_limpia.md` (md5 30a632c5…). Runner `etapa0b_secuencia.py` = `etapa0_secuencia.py` + 4 cambios: cola (`api.fal_base_url`, submit timeout 60, `request_id`/`status_url`/`response_url` a `e0b/etapa0b_pedidos.json` antes de esperar, `asset_manager._clip_poll` importado; reanuda sin re-pedir si el json ya tiene el request_id), madre sola → 2 lotes a la vez (`ThreadPoolExecutor(min(2, FLUX_MAX_WORKERS))`), `{canon_sin}, {ROPA_MADRE}.` en el prompt, salidas en `e0b/`. `e0/` y `etapa0_secuencia.py` intactos.
+- Resultados: madre request `01a18ed4-d49e…` 37,8 s seed 460661449; lote 1 `01a18ed5-6dfa…` 283,0 s (47,2 s/foto) seed 1780408611; lote 2 `01a18ed5-6dff…` 145,7 s (48,6 s/foto) seed 1200455859; pared 286,1 s; `has_nsfw_concepts` no viene en v5 Lite (None). Dos miradas por foto (CC + subagente sin ver e0/) íntegras en SALIDA_0b §0b.3. DECISIONES: 2 líneas del handoff tal cual (CRLF).
+- Revisor Etapa 0b: CUMPLE CON OBSERVACIONES (obs. CRLF no reproducida: el archivo está en CRLF, 190/190; línea de resumen corregida: la camisa clara de la madre sigue de base donde la escena no impone otra prenda; miradas discrepan en 4 fotos por planos cerrados/pose; `medido_pil` agregado al json; n=1 por lote, sin réplica); veredicto íntegro + adenda en F60_REPORT.md §Etapa 0b.
+- Abiertos: `has_nsfw_concepts` ausente; avión anacrónico (ch03_img_16); contagio débil (ch02_img_05); camisa de la madre de base bajo mameluco/«shirtsleeves»; composición de ch04_img_09 (de espaldas) sin saber si fue ropa, seed o azar; detalles modernos en ch05_img_05; hospital de 2 plantas; 0,21 probable de la Etapa 0 sin confirmar; «miner» en el canon (B.1).
+- Imágenes y hojas fuera de git (paths explícitos en el commit). PARADA 0b: no se pasa a la Etapa A sin OK del analista y de Omar.
 
 ## 👀 Para Omar (F60, PARADA 0): la madre por persona + /edit en secuencia funciona, pero 6 fotos por llamada no entran en el timeout de hoy.
 - Madre de Daniel Écija (Seedream v5 Lite, 27 s, US$ 0,035): retrato frontal, fondo gris, sale bien (`lab/hyperframes/f60/e0/madre_daniel_ecija.png`).

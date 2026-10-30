@@ -186,3 +186,5 @@ Motivo: retención + costo de sostener; 19 componentes con 7 tipos de texto prod
 - 15:45 — Omar: OK al casillero de ruteo `persona` en m03.
 - 16:14 — Omar: v5 Lite (el modelo de producción) funciona igual o mejor que 4.5 en secuencia → se usa v5 Lite.
 - 16:14 — Omar («sigamos», sobre el voto del analista): «sale la persona» = reconocible aunque sea de espaldas, misma edad y estado que el canon; plano de solo una parte del cuerpo (pie, mano) o foto dentro de otra foto → sin persona. Caps con clip (hoy 1 y 7) entran en una Etapa C aparte.
+- 2026-10-30 17:48 · **F60 0b:** la llamada de secuencia va por la cola de fal (`queue.fal.run`: pedir → `request_id` guardado en disco al instante → esperar con poll), no por `fal.run` síncrono; límite de espera = `CLIP_POLL_TIMEOUT` (600 s, existente desde F53b); si la espera se corta, el resultado se recupera después con el `request_id` en vez de perderse · Omar · F60
+- 2026-10-30 17:48 · **F60 0b:** la foto madre de una persona lleva ropa neutra y limpia fija en el prompt (la ropa de cada escena la pone la escena); se repiten los lotes 6+3 de Daniel con la madre nueva antes de la Etapa A · Omar · F60

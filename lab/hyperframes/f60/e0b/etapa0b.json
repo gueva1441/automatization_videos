@@ -1,0 +1,438 @@
+{
+ "tid": "123bbb64-9fca-4395-8bf4-57d60e219ef1",
+ "persona": "Daniel Écija",
+ "model_t2i": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
+ "model_edit": "fal-ai/bytedance/seedream/v5/lite/edit",
+ "cola": "https://queue.fal.run",
+ "image_size": {
+  "width": 2560,
+  "height": 1440
+ },
+ "aspecto": "The image has a 16:9 aspect ratio.",
+ "no_text": "No readable text, no signage, no labels.",
+ "submit_timeout_s": 60,
+ "poll_timeout_s": 600,
+ "flux_max_workers": 20,
+ "fotos_por_llamada": 6,
+ "ropa_madre": "wearing a plain, clean, light-coloured shirt",
+ "precio_t2i": {
+  "prices": [
+   {
+    "endpoint_id": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
+    "unit_price": 0.035,
+    "unit": "images",
+    "currency": "USD"
+   }
+  ],
+  "next_cursor": null,
+  "has_more": false
+ },
+ "precio_edit": {
+  "prices": [
+   {
+    "endpoint_id": "fal-ai/bytedance/seedream/v5/lite/edit",
+    "unit_price": 0.035,
+    "unit": "images",
+    "currency": "USD"
+   }
+  ],
+  "next_cursor": null,
+  "has_more": false
+ },
+ "people_group_cuenta": {
+  "spanish_migrant_families": 8,
+  "mine_and_mill_workers": 1
+ },
+ "people_group_madre": "spanish_migrant_families",
+ "canon_daniel": {
+  "name": "Daniel Écija",
+  "role": "Spanish migrant miner in Wittenoom who injured his foot and later died of mesothelioma",
+  "age_at_event": null,
+  "era": "1962-1963",
+  "appearance_canon": "a young adult Spanish migrant miner in work clothes, one foot visibly bandaged"
+ },
+ "anio_madre": "1962",
+ "appearance_canon": "a young adult Spanish migrant miner in work clothes, one foot visibly bandaged",
+ "appearance_canon_recortado": "a young adult Spanish migrant miner",
+ "prompt_madre": "Head-and-shoulders portrait of a young adult Spanish migrant miner, wearing a plain, clean, light-coloured shirt. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+ "prompt_madre_igual_al_handoff": true,
+ "payload_madre": {
+  "prompt": "Head-and-shoulders portrait of a young adult Spanish migrant miner, wearing a plain, clean, light-coloured shirt. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+  "image_size": {
+   "width": 2560,
+   "height": 1440
+  },
+  "num_images": 1,
+  "enable_safety_checker": true
+ },
+ "madre": {
+  "path": "lab\\hyperframes\\f60\\e0b\\madre_daniel_ecija.png",
+  "segundos": 37.8,
+  "seed": 460661449,
+  "request_id": "01a18ed4-d49e-7fb2-a5df-3b83d8972901",
+  "width": null,
+  "height": null,
+  "md5": "41e8c58c5e1cbc1272c5129ab22be8b5",
+  "usd": 0.035,
+  "nsfw": null,
+  "url_fal": "https://v3b.fal.media/files/b/0ab081fa/D1umEmcFW8onUNGT5KrKZ_c18bc6a0a9e6402d9c34ff8c7836188a.jpg",
+  "medido_pil": [
+   2560,
+   1440
+  ]
+ },
+ "lotes": [
+  {
+   "n": 1,
+   "pedidas": 6,
+   "files": [
+    "ch02_img_01.png",
+    "ch02_img_02.png",
+    "ch02_img_04.png",
+    "ch02_img_05.png",
+    "ch03_img_16.png",
+    "ch04_img_07.png"
+   ],
+   "prompt_secuencia": "A series of 6 separate photographs of the same man shown in the reference image. Each image is a different scene:\nImage 1: A young Spanish couple in their mid-twenties, olive skin, dark hair; he lean in a dark narrow-lapel suit, she slim in a knee-length 1961 cotton-satin dress with neatly set hair. The pair meet at the edge of the dance floor amid swirling couples, his head inclined toward her as the music starts. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Ballroom of the Círculo de Bellas Artes, Madrid, 1961: ornate high ceiling, crystal chandeliers, gilded mouldings, polished parquet crowded with dancing couples. Warm tungsten chandelier light, soft glow on faces. Wide shot, eye-level from the edge of the dance floor, 35mm lens, moderate depth of field, dancers softly blurred in motion. A grainy 35mm documentary photograph taken in 1961, with muted colors and slight underexposure, in a dark-history realist style.\nImage 2: The same young Spanish newlywed couple, mid-twenties, olive skin; he in a pressed suit and hat, she in a modest cotton dress and light coat, carrying cardboard suitcases. The newlyweds walk along the quay toward the gangway of a waiting ocean liner, four days after their wedding. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Busy Spanish Mediterranean port quay, 1962, crowds of departing emigrants and relatives, cranes and luggage carts. Clear Mediterranean morning daylight. Wide shot, low angle emphasizing the scale of the liner, 28mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style.\nImage 3: A young Spanish wife, mid-twenties, slight build, olive skin, dark set hair, in a modest cotton dress, pressed against her lean dark-haired husband in shirtsleeves. She walks the deck glued to his side, her shoulder tucked under his arm. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Promenade deck of a migrant liner, 1962, other passengers soft in the background. Soft afternoon sea light. Medium shot, eye-level, three-quarter front, 85mm lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style.\nImage 4: Two young Spanish couples from Madrid, olive skin, dark hair: the men lean in dust-coated work shirts, the women in modest cotton dresses. The two couples share an evening together on a small veranda, chairs drawn close. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Veranda of a company house of corrugated iron and fibro sheeting on red earth, Wittenoom, 1962. Dusk with warm lamp glow. Wide shot, eye-level from the yard, 35mm lens, moderate depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style.\nImage 5: A young Spanish migrant couple of Mediterranean origin: a lean dark-haired man in his twenties in work shirt and trousers, and a slim young woman in a modest knee-length cotton dress. Stepping down from a small propeller aircraft onto the airstrip. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. The Wittenoom airstrip in 1962, surfaced with crumbly blue-grey tailings, low tin and fibro houses beyond, a dust plume over the gorge. Harsh midday desert sun, heat shimmer and haze. Wide shot, low angle from the airstrip surface, 50mm, moderate depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style.\nImage 6: A young Spanish migrant miner, mid-20s, lean, olive skin, dust in his work shirt, standing alone. Waiting outside the small town hospital as night falls on the June day of the birth. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Wittenoom hospital, June 1963, low fibro-cement building on a tailings-surfaced street. Low-key dusk, single warm window light. Wide shot, eye-level from across the street, deep depth of field, 35mm. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style.\nEvery image: The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "payload_sin_uri": {
+    "prompt": "A series of 6 separate photographs of the same man shown in the reference image. Each image is a different scene:\nImage 1: A young Spanish couple in their mid-twenties, olive skin, dark hair; he lean in a dark narrow-lapel suit, she slim in a knee-length 1961 cotton-satin dress with neatly set hair. The pair meet at the edge of the dance floor amid swirling couples, his head inclined toward her as the music starts. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Ballroom of the Círculo de Bellas Artes, Madrid, 1961: ornate high ceiling, crystal chandeliers, gilded mouldings, polished parquet crowded with dancing couples. Warm tungsten chandelier light, soft glow on faces. Wide shot, eye-level from the edge of the dance floor, 35mm lens, moderate depth of field, dancers softly blurred in motion. A grainy 35mm documentary photograph taken in 1961, with muted colors and slight underexposure, in a dark-history realist style.\nImage 2: The same young Spanish newlywed couple, mid-twenties, olive skin; he in a pressed suit and hat, she in a modest cotton dress and light coat, carrying cardboard suitcases. The newlyweds walk along the quay toward the gangway of a waiting ocean liner, four days after their wedding. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Busy Spanish Mediterranean port quay, 1962, crowds of departing emigrants and relatives, cranes and luggage carts. Clear Mediterranean morning daylight. Wide shot, low angle emphasizing the scale of the liner, 28mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style.\nImage 3: A young Spanish wife, mid-twenties, slight build, olive skin, dark set hair, in a modest cotton dress, pressed against her lean dark-haired husband in shirtsleeves. She walks the deck glued to his side, her shoulder tucked under his arm. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Promenade deck of a migrant liner, 1962, other passengers soft in the background. Soft afternoon sea light. Medium shot, eye-level, three-quarter front, 85mm lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style.\nImage 4: Two young Spanish couples from Madrid, olive skin, dark hair: the men lean in dust-coated work shirts, the women in modest cotton dresses. The two couples share an evening together on a small veranda, chairs drawn close. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Veranda of a company house of corrugated iron and fibro sheeting on red earth, Wittenoom, 1962. Dusk with warm lamp glow. Wide shot, eye-level from the yard, 35mm lens, moderate depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style.\nImage 5: A young Spanish migrant couple of Mediterranean origin: a lean dark-haired man in his twenties in work shirt and trousers, and a slim young woman in a modest knee-length cotton dress. Stepping down from a small propeller aircraft onto the airstrip. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. The Wittenoom airstrip in 1962, surfaced with crumbly blue-grey tailings, low tin and fibro houses beyond, a dust plume over the gorge. Harsh midday desert sun, heat shimmer and haze. Wide shot, low angle from the airstrip surface, 50mm, moderate depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style.\nImage 6: A young Spanish migrant miner, mid-20s, lean, olive skin, dust in his work shirt, standing alone. Waiting outside the small town hospital as night falls on the June day of the birth. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Wittenoom hospital, June 1963, low fibro-cement building on a tailings-surfaced street. Low-key dusk, single warm window light. Wide shot, eye-level from across the street, deep depth of field, 35mm. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style.\nEvery image: The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+    "image_urls": [
+     "<data-uri madre>"
+    ],
+    "image_size": {
+     "width": 2560,
+     "height": 1440
+    },
+    "num_images": 1,
+    "max_images": 6,
+    "sequential_image_generation": "auto",
+    "enable_safety_checker": true
+   },
+   "fotos": [
+    {
+     "pos": 1,
+     "esperada": "ch02_img_01.png",
+     "path": "lab\\hyperframes\\f60\\e0b\\lote1\\01_ch02_img_01.png",
+     "width": null,
+     "height": null,
+     "md5": "32d302da503a1574f01cec7e2a9ba6cd",
+     "url_fal": "https://v3b.fal.media/files/b/0ab08217/dFP7Z5pP0D9goQ73BLElt_c360a18bcd4241668bd2f97cc65f3dab.jpg",
+     "etapa0_path": null,
+     "medido_pil": [
+      2560,
+      1440
+     ]
+    },
+    {
+     "pos": 2,
+     "esperada": "ch02_img_02.png",
+     "path": "lab\\hyperframes\\f60\\e0b\\lote1\\02_ch02_img_02.png",
+     "width": null,
+     "height": null,
+     "md5": "bf69529d415c9f847a03def6a632e134",
+     "url_fal": "https://v3b.fal.media/files/b/0ab08217/3DHiMx-MsRWgn7Rs2D36U_d7affebfa5394c0aafec941ce907da07.jpg",
+     "etapa0_path": null,
+     "medido_pil": [
+      2560,
+      1440
+     ]
+    },
+    {
+     "pos": 3,
+     "esperada": "ch02_img_04.png",
+     "path": "lab\\hyperframes\\f60\\e0b\\lote1\\03_ch02_img_04.png",
+     "width": null,
+     "height": null,
+     "md5": "776a657c927a37963dd3c27615ad1dc4",
+     "url_fal": "https://v3b.fal.media/files/b/0ab08217/5hN0mlkAtXtyHm2PHQ5cd_ae1d04e1086641979f88b08169e78f48.jpg",
+     "etapa0_path": null,
+     "medido_pil": [
+      2560,
+      1440
+     ]
+    },
+    {
+     "pos": 4,
+     "esperada": "ch02_img_05.png",
+     "path": "lab\\hyperframes\\f60\\e0b\\lote1\\04_ch02_img_05.png",
+     "width": null,
+     "height": null,
+     "md5": "16373c75df470315420ca7ea2739d5b1",
+     "url_fal": "https://v3b.fal.media/files/b/0ab08217/LyBjtyDZVkvnR7MVAoFkE_7d68e863763e4d58b556ca77a04cab9d.jpg",
+     "etapa0_path": null,
+     "medido_pil": [
+      2560,
+      1440
+     ]
+    },
+    {
+     "pos": 5,
+     "esperada": "ch03_img_16.png",
+     "path": "lab\\hyperframes\\f60\\e0b\\lote1\\05_ch03_img_16.png",
+     "width": null,
+     "height": null,
+     "md5": "bb64d71687feb2edd97712135a51cc67",
+     "url_fal": "https://v3b.fal.media/files/b/0ab08217/g5St0iO7obpC4jQlWGE-R_408797c8a2f04b37bdf48a260edab922.jpg",
+     "etapa0_path": null,
+     "medido_pil": [
+      2560,
+      1440
+     ]
+    },
+    {
+     "pos": 6,
+     "esperada": "ch04_img_07.png",
+     "path": "lab\\hyperframes\\f60\\e0b\\lote1\\06_ch04_img_07.png",
+     "width": null,
+     "height": null,
+     "md5": "77f985991a3a6dfd760a54f30da7b5db",
+     "url_fal": "https://v3b.fal.media/files/b/0ab08217/Qd7HI7uYpYql6cY5zeNiC_cb15ae2f89ff4801981383a89f4edbf6.jpg",
+     "etapa0_path": null,
+     "medido_pil": [
+      2560,
+      1440
+     ]
+    }
+   ],
+   "devueltas": 6,
+   "segundos": 283.0,
+   "segundos_por_foto": 47.2,
+   "request_id": "01a18ed5-6dfa-7ee0-ade6-d38eed7886dd",
+   "seed": 1780408611,
+   "nsfw": null,
+   "usd": 0.21,
+   "usd_por_imagen": 0.035
+  },
+  {
+   "n": 2,
+   "pedidas": 3,
+   "files": [
+    "ch04_img_09.png",
+    "ch04_img_14.png",
+    "ch05_img_05.png"
+   ],
+   "prompt_secuencia": "A series of 3 separate photographs of the same man shown in the reference image. Each image is a different scene:\nImage 1: Dust-covered miners of European origin, mostly seen from behind, and one young Spanish miner, mid-20s, standing apart. Gathered outside the mine adit after the blast, a thick dust cloud still hanging over the entrance. Adult men of European origin (Anglo-Australian, Central and Eastern European, Southern European including Spanish), with fair to olive skin, dark to light hair and lean working builds. Wittenoom Gorge mine entrance, 1962, red rock walls, timber portal, tailings below. Harsh daylight dimmed by suspended dust. Wide shot, eye-level from the gorge floor, deep depth of field, 35mm. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style.\nImage 2: A young Spanish migrant family, the man mid-20s lean in a work shirt, the woman in a cotton dress holding a swaddled infant, seen from behind. Walking across the tailings-surfaced airstrip toward a small propeller aircraft with their suitcases. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Wittenoom airstrip, July 1963, blue-grey strip, red plain, gorge on the horizon. Golden hour, long shadows stretching back toward the town. Wide shot, low angle from the strip surface, deep depth of field, 35mm. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style.\nImage 3: A young Spanish family seen from behind: a lean olive-skinned man about thirty in a late-1960s jacket and trousers, a dark-haired woman in her late twenties in skirt and blouse, a small boy holding her hand. The family steps through the street doorway of a modest Madrid apartment block, entering their home. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Working-class Madrid street of brick apartment blocks with iron balconies, 1966. Soft overcast Madrid daylight. Wide shot, eye-level from across the narrow street, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1966, with muted colors and slight underexposure, in a dark-history realist style.\nEvery image: The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "payload_sin_uri": {
+    "prompt": "A series of 3 separate photographs of the same man shown in the reference image. Each image is a different scene:\nImage 1: Dust-covered miners of European origin, mostly seen from behind, and one young Spanish miner, mid-20s, standing apart. Gathered outside the mine adit after the blast, a thick dust cloud still hanging over the entrance. Adult men of European origin (Anglo-Australian, Central and Eastern European, Southern European including Spanish), with fair to olive skin, dark to light hair and lean working builds. Wittenoom Gorge mine entrance, 1962, red rock walls, timber portal, tailings below. Harsh daylight dimmed by suspended dust. Wide shot, eye-level from the gorge floor, deep depth of field, 35mm. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style.\nImage 2: A young Spanish migrant family, the man mid-20s lean in a work shirt, the woman in a cotton dress holding a swaddled infant, seen from behind. Walking across the tailings-surfaced airstrip toward a small propeller aircraft with their suitcases. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Wittenoom airstrip, July 1963, blue-grey strip, red plain, gorge on the horizon. Golden hour, long shadows stretching back toward the town. Wide shot, low angle from the strip surface, deep depth of field, 35mm. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style.\nImage 3: A young Spanish family seen from behind: a lean olive-skinned man about thirty in a late-1960s jacket and trousers, a dark-haired woman in her late twenties in skirt and blouse, a small boy holding her hand. The family steps through the street doorway of a modest Madrid apartment block, entering their home. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Working-class Madrid street of brick apartment blocks with iron balconies, 1966. Soft overcast Madrid daylight. Wide shot, eye-level from across the narrow street, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1966, with muted colors and slight underexposure, in a dark-history realist style.\nEvery image: The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+    "image_urls": [
+     "<data-uri madre>"
+    ],
+    "image_size": {
+     "width": 2560,
+     "height": 1440
+    },
+    "num_images": 1,
+    "max_images": 3,
+    "sequential_image_generation": "auto",
+    "enable_safety_checker": true
+   },
+   "fotos": [
+    {
+     "pos": 1,
+     "esperada": "ch04_img_09.png",
+     "path": "lab\\hyperframes\\f60\\e0b\\lote2\\01_ch04_img_09.png",
+     "width": null,
+     "height": null,
+     "md5": "142850e2f8fcd93f6051b709927d996e",
+     "url_fal": "https://v3b.fal.media/files/b/0ab08209/klWL2hF87t_eb7l8snAOB_4b290640e5034cea86553b2a6a824660.jpg",
+     "etapa0_path": "lab\\hyperframes\\f60\\e0\\lote2\\01_ch04_img_09.png",
+     "medido_pil": [
+      2560,
+      1440
+     ]
+    },
+    {
+     "pos": 2,
+     "esperada": "ch04_img_14.png",
+     "path": "lab\\hyperframes\\f60\\e0b\\lote2\\02_ch04_img_14.png",
+     "width": null,
+     "height": null,
+     "md5": "48a84b4de1bf3b316785d4fddf8b82bb",
+     "url_fal": "https://v3b.fal.media/files/b/0ab08209/e55a9Gdh0V0N0CeiR5zJI_c2244278c93242fbb0524d3a2cba0af8.jpg",
+     "etapa0_path": "lab\\hyperframes\\f60\\e0\\lote2\\02_ch04_img_14.png",
+     "medido_pil": [
+      2560,
+      1440
+     ]
+    },
+    {
+     "pos": 3,
+     "esperada": "ch05_img_05.png",
+     "path": "lab\\hyperframes\\f60\\e0b\\lote2\\03_ch05_img_05.png",
+     "width": null,
+     "height": null,
+     "md5": "f317c44584a0bcc9ceb0922ab6e98394",
+     "url_fal": "https://v3b.fal.media/files/b/0ab08209/oRhepGwjULy256Gk3EppN_0cebbdd0fc654db09efa3867ad3851c9.jpg",
+     "etapa0_path": "lab\\hyperframes\\f60\\e0\\lote2\\03_ch05_img_05.png",
+     "medido_pil": [
+      2560,
+      1440
+     ]
+    }
+   ],
+   "devueltas": 3,
+   "segundos": 145.7,
+   "segundos_por_foto": 48.6,
+   "request_id": "01a18ed5-6dff-7282-addd-f57d7bd862db",
+   "seed": 1200455859,
+   "nsfw": null,
+   "usd": 0.105,
+   "usd_por_imagen": 0.035
+  }
+ ],
+ "segundos_pared_lotes": 286.1,
+ "hoja": "lab\\hyperframes\\f60\\e0b\\hoja_madre_0b.jpg",
+ "usd_total": 0.35,
+ "items": [
+  {
+   "k": 1,
+   "i": 0,
+   "cap": 2,
+   "file": "ch02_img_01.png",
+   "prompt": "A young Spanish couple in their mid-twenties, olive skin, dark hair; he lean in a dark narrow-lapel suit, she slim in a knee-length 1961 cotton-satin dress with neatly set hair. The pair meet at the edge of the dance floor amid swirling couples, his head inclined toward her as the music starts. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Ballroom of the Círculo de Bellas Artes, Madrid, 1961: ornate high ceiling, crystal chandeliers, gilded mouldings, polished parquet crowded with dancing couples. Warm tungsten chandelier light, soft glow on faces. Wide shot, eye-level from the edge of the dance floor, 35mm lens, moderate depth of field, dancers softly blurred in motion. A grainy 35mm documentary photograph taken in 1961, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "year": "1961",
+   "people_group": [
+    "spanish_migrant_families"
+   ],
+   "shot_scale": "wide",
+   "anchor": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal.",
+   "text_present": false,
+   "prompt_escena": "A young Spanish couple in their mid-twenties, olive skin, dark hair; he lean in a dark narrow-lapel suit, she slim in a knee-length 1961 cotton-satin dress with neatly set hair. The pair meet at the edge of the dance floor amid swirling couples, his head inclined toward her as the music starts. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Ballroom of the Círculo de Bellas Artes, Madrid, 1961: ornate high ceiling, crystal chandeliers, gilded mouldings, polished parquet crowded with dancing couples. Warm tungsten chandelier light, soft glow on faces. Wide shot, eye-level from the edge of the dance floor, 35mm lens, moderate depth of field, dancers softly blurred in motion. A grainy 35mm documentary photograph taken in 1961, with muted colors and slight underexposure, in a dark-history realist style."
+  },
+  {
+   "k": 1,
+   "i": 1,
+   "cap": 2,
+   "file": "ch02_img_02.png",
+   "prompt": "The same young Spanish newlywed couple, mid-twenties, olive skin; he in a pressed suit and hat, she in a modest cotton dress and light coat, carrying cardboard suitcases. The newlyweds walk along the quay toward the gangway of a waiting ocean liner, four days after their wedding. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Busy Spanish Mediterranean port quay, 1962, crowds of departing emigrants and relatives, cranes and luggage carts. Clear Mediterranean morning daylight. Wide shot, low angle emphasizing the scale of the liner, 28mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "year": "1962",
+   "people_group": [
+    "spanish_migrant_families"
+   ],
+   "shot_scale": "wide",
+   "anchor": "Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos. Cuatro días más tarde ya están en el barco.",
+   "text_present": false,
+   "prompt_escena": "The same young Spanish newlywed couple, mid-twenties, olive skin; he in a pressed suit and hat, she in a modest cotton dress and light coat, carrying cardboard suitcases. The newlyweds walk along the quay toward the gangway of a waiting ocean liner, four days after their wedding. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Busy Spanish Mediterranean port quay, 1962, crowds of departing emigrants and relatives, cranes and luggage carts. Clear Mediterranean morning daylight. Wide shot, low angle emphasizing the scale of the liner, 28mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style."
+  },
+  {
+   "k": 1,
+   "i": 3,
+   "cap": 2,
+   "file": "ch02_img_04.png",
+   "prompt": "A young Spanish wife, mid-twenties, slight build, olive skin, dark set hair, in a modest cotton dress, pressed against her lean dark-haired husband in shirtsleeves. She walks the deck glued to his side, her shoulder tucked under his arm. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Promenade deck of a migrant liner, 1962, other passengers soft in the background. Soft afternoon sea light. Medium shot, eye-level, three-quarter front, 85mm lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "year": "1962",
+   "people_group": [
+    "spanish_migrant_families"
+   ],
+   "shot_scale": "medium",
+   "anchor": "De Wittenoom no saben nada; saben que hay trabajo y que van juntos. «Iba pegadita a mi marido, como una niña», recuerda su mujer.",
+   "text_present": false,
+   "prompt_escena": "A young Spanish wife, mid-twenties, slight build, olive skin, dark set hair, in a modest cotton dress, pressed against her lean dark-haired husband in shirtsleeves. She walks the deck glued to his side, her shoulder tucked under his arm. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Promenade deck of a migrant liner, 1962, other passengers soft in the background. Soft afternoon sea light. Medium shot, eye-level, three-quarter front, 85mm lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style."
+  },
+  {
+   "k": 1,
+   "i": 4,
+   "cap": 2,
+   "file": "ch02_img_05.png",
+   "prompt": "Two young Spanish couples from Madrid, olive skin, dark hair: the men lean in dust-coated work shirts, the women in modest cotton dresses. The two couples share an evening together on a small veranda, chairs drawn close. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Veranda of a company house of corrugated iron and fibro sheeting on red earth, Wittenoom, 1962. Dusk with warm lamp glow. Wide shot, eye-level from the yard, 35mm lens, moderate depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "year": "1962",
+   "people_group": [
+    "spanish_migrant_families"
+   ],
+   "shot_scale": "wide",
+   "anchor": "Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan.",
+   "text_present": false,
+   "prompt_escena": "Two young Spanish couples from Madrid, olive skin, dark hair: the men lean in dust-coated work shirts, the women in modest cotton dresses. The two couples share an evening together on a small veranda, chairs drawn close. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Veranda of a company house of corrugated iron and fibro sheeting on red earth, Wittenoom, 1962. Dusk with warm lamp glow. Wide shot, eye-level from the yard, 35mm lens, moderate depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style."
+  },
+  {
+   "k": 2,
+   "i": 15,
+   "cap": 3,
+   "file": "ch03_img_16.png",
+   "prompt": "A young Spanish migrant couple of Mediterranean origin: a lean dark-haired man in his twenties in work shirt and trousers, and a slim young woman in a modest knee-length cotton dress. Stepping down from a small propeller aircraft onto the airstrip. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. The Wittenoom airstrip in 1962, surfaced with crumbly blue-grey tailings, low tin and fibro houses beyond, a dust plume over the gorge. Harsh midday desert sun, heat shimmer and haze. Wide shot, low angle from the airstrip surface, 50mm, moderate depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "year": "1962",
+   "people_group": [
+    "spanish_migrant_families"
+   ],
+   "shot_scale": "wide",
+   "anchor": "«porque estaban acostumbrados; lo esperaban», dijo McNulty. En mil novecientos sesenta y uno la producción subió. Al año siguiente, los Écija bajaban de aquel avión.",
+   "text_present": false,
+   "prompt_escena": "A young Spanish migrant couple of Mediterranean origin: a lean dark-haired man in his twenties in work shirt and trousers, and a slim young woman in a modest knee-length cotton dress. Stepping down from a small propeller aircraft onto the airstrip. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. The Wittenoom airstrip in 1962, surfaced with crumbly blue-grey tailings, low tin and fibro houses beyond, a dust plume over the gorge. Harsh midday desert sun, heat shimmer and haze. Wide shot, low angle from the airstrip surface, 50mm, moderate depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style."
+  },
+  {
+   "k": 3,
+   "i": 6,
+   "cap": 4,
+   "file": "ch04_img_07.png",
+   "prompt": "A young Spanish migrant miner, mid-20s, lean, olive skin, dust in his work shirt, standing alone. Waiting outside the small town hospital as night falls on the June day of the birth. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Wittenoom hospital, June 1963, low fibro-cement building on a tailings-surfaced street. Low-key dusk, single warm window light. Wide shot, eye-level from across the street, deep depth of field, 35mm. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "year": "1963",
+   "people_group": [
+    "spanish_migrant_families"
+   ],
+   "shot_scale": "wide",
+   "anchor": "Y en ese pueblo, en junio de mil novecientos sesenta y tres, nació un niño.",
+   "text_present": false,
+   "prompt_escena": "A young Spanish migrant miner, mid-20s, lean, olive skin, dust in his work shirt, standing alone. Waiting outside the small town hospital as night falls on the June day of the birth. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Wittenoom hospital, June 1963, low fibro-cement building on a tailings-surfaced street. Low-key dusk, single warm window light. Wide shot, eye-level from across the street, deep depth of field, 35mm. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style."
+  },
+  {
+   "k": 3,
+   "i": 8,
+   "cap": 4,
+   "file": "ch04_img_09.png",
+   "prompt": "Dust-covered miners of European origin, mostly seen from behind, and one young Spanish miner, mid-20s, standing apart. Gathered outside the mine adit after the blast, a thick dust cloud still hanging over the entrance. Adult men of European origin (Anglo-Australian, Central and Eastern European, Southern European including Spanish), with fair to olive skin, dark to light hair and lean working builds. Wittenoom Gorge mine entrance, 1962, red rock walls, timber portal, tailings below. Harsh daylight dimmed by suspended dust. Wide shot, eye-level from the gorge floor, deep depth of field, 35mm. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "year": "1962",
+   "people_group": [
+    "mine_and_mill_workers"
+   ],
+   "shot_scale": "wide",
+   "anchor": "Uno de los hijos de Daniel cuenta que el primer día de trabajo de su padre hubo una explosión y murió gente.",
+   "text_present": false,
+   "prompt_escena": "Dust-covered miners of European origin, mostly seen from behind, and one young Spanish miner, mid-20s, standing apart. Gathered outside the mine adit after the blast, a thick dust cloud still hanging over the entrance. Adult men of European origin (Anglo-Australian, Central and Eastern European, Southern European including Spanish), with fair to olive skin, dark to light hair and lean working builds. Wittenoom Gorge mine entrance, 1962, red rock walls, timber portal, tailings below. Harsh daylight dimmed by suspended dust. Wide shot, eye-level from the gorge floor, deep depth of field, 35mm. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style."
+  },
+  {
+   "k": 3,
+   "i": 13,
+   "cap": 4,
+   "file": "ch04_img_14.png",
+   "prompt": "A young Spanish migrant family, the man mid-20s lean in a work shirt, the woman in a cotton dress holding a swaddled infant, seen from behind. Walking across the tailings-surfaced airstrip toward a small propeller aircraft with their suitcases. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Wittenoom airstrip, July 1963, blue-grey strip, red plain, gorge on the horizon. Golden hour, long shadows stretching back toward the town. Wide shot, low angle from the strip surface, deep depth of field, 35mm. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "year": "1963",
+   "people_group": [
+    "spanish_migrant_families"
+   ],
+   "shot_scale": "wide",
+   "anchor": "Se fueron antes de que nadie les dijera nada. Nadie les había dicho nada.",
+   "text_present": false,
+   "prompt_escena": "A young Spanish migrant family, the man mid-20s lean in a work shirt, the woman in a cotton dress holding a swaddled infant, seen from behind. Walking across the tailings-surfaced airstrip toward a small propeller aircraft with their suitcases. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Wittenoom airstrip, July 1963, blue-grey strip, red plain, gorge on the horizon. Golden hour, long shadows stretching back toward the town. Wide shot, low angle from the strip surface, deep depth of field, 35mm. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style."
+  },
+  {
+   "k": 4,
+   "i": 4,
+   "cap": 5,
+   "file": "ch05_img_05.png",
+   "prompt": "A young Spanish family seen from behind: a lean olive-skinned man about thirty in a late-1960s jacket and trousers, a dark-haired woman in her late twenties in skirt and blouse, a small boy holding her hand. The family steps through the street doorway of a modest Madrid apartment block, entering their home. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Working-class Madrid street of brick apartment blocks with iron balconies, 1966. Soft overcast Madrid daylight. Wide shot, eye-level from across the narrow street, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1966, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "year": "1966",
+   "people_group": [
+    "spanish_migrant_families"
+   ],
+   "shot_scale": "wide",
+   "anchor": "Ese mismo año, los Écija entran a su casa en Madrid.",
+   "text_present": false,
+   "prompt_escena": "A young Spanish family seen from behind: a lean olive-skinned man about thirty in a late-1960s jacket and trousers, a dark-haired woman in her late twenties in skirt and blouse, a small boy holding her hand. The family steps through the street doorway of a modest Madrid apartment block, entering their home. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Working-class Madrid street of brick apartment blocks with iron balconies, 1966. Soft overcast Madrid daylight. Wide shot, eye-level from across the narrow street, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1966, with muted colors and slight underexposure, in a dark-history realist style."
+  }
+ ],
+ "log": [
+  "cola https://queue.fal.run · submit timeout 60 s · poll CLIP_POLL_TIMEOUT 600 s · FLUX_MAX_WORKERS 20",
+  "precio fal: t2i 0.035 US$/images · edit 0.035 US$/images",
+  "\nPROMPT MADRE (byte a byte contra el handoff: igual):\nHead-and-shoulders portrait of a young adult Spanish migrant miner, wearing a plain, clean, light-coloured shirt. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.\n",
+  "[madre] submit HTTP 200 · request_id 01a18ed4-d49e-7fb2-a5df-3b83d8972901 · status_url https://queue.fal.run/fal-ai/bytedance/requests/01a18ed4-d49e-7fb2-a5df-3b83d8972901/status",
+  "[madre] 37.8 s · seed 460661449 · nsfw None · US$ 0.035 · lab\\hyperframes\\f60\\e0b\\madre_daniel_ecija.png",
+  "[lote 1] 6 fotos: ['ch02_img_01.png', 'ch02_img_02.png', 'ch02_img_04.png', 'ch02_img_05.png', 'ch03_img_16.png', 'ch04_img_07.png'] · prompt 4608 chars",
+  "[lote 2] 3 fotos: ['ch04_img_09.png', 'ch04_img_14.png', 'ch05_img_05.png'] · prompt 2405 chars",
+  "[lote2] submit HTTP 200 · request_id 01a18ed5-6dff-7282-addd-f57d7bd862db · status_url https://queue.fal.run/fal-ai/bytedance/requests/01a18ed5-6dff-7282-addd-f57d7bd862db/status",
+  "[lote1] submit HTTP 200 · request_id 01a18ed5-6dfa-7ee0-ade6-d38eed7886dd · status_url https://queue.fal.run/fal-ai/bytedance/requests/01a18ed5-6dfa-7ee0-ade6-d38eed7886dd/status",
+  "[lote 2] devueltas 3/3 · 145.7 s (48.6 s/foto) · seed 1200455859 · nsfw None · US$ 0.105 (0.035 × 3)",
+  "[lote 1] devueltas 6/6 · 283.0 s (47.2 s/foto) · seed 1780408611 · nsfw None · US$ 0.21 (0.035 × 6)",
+  "\ntiempo de pared de los 2 lotes en paralelo: 286.1 s",
+  "\nTOTAL US$ 0.35 · hoja lab\\hyperframes\\f60\\e0b\\hoja_madre_0b.jpg"
+ ]
+}
