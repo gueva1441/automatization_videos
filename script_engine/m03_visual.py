@@ -675,45 +675,60 @@ def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number, compo
         raise CasillerosParada(f"cap {cap_number}: {MODELO_CASILLEROS} no llenó los casilleros: {e}") from e
     for k, it in enumerate(slots_out["image_prompts"]):
         it["beat"], it["cerrada"] = assign[k]["beat"], assign[k]["cerrada"]
-        gone = v3img.scrub_slots(it)                   # D2–D3, E: clichés y prohibidas fuera ANTES de armar
-        why = v3img.fix_text_slot(it, f8.get("lang") or "en")   # F8b §2.3: idioma del lugar, ≤ 3 palabras
-        if why:
-            gone.append(f"text_in_image: {why}")
-        if gone:
-            it["_f8_slots_scrub"] = gone
 
     # RUTA B (HANDOFF_134d): kind=place ancla la madre-establecimiento SOLO en exteriores.
     _apply_place_exterior_filter(
         slots_out["image_prompts"],
         (topic.get("central_subject") or {}).get("kind") == "place")
 
-    # ── armado por código + F8 (backstop: se saca la frase) ──
+    # ── scrub + armado por código + F8 (backstop: se saca la frase): `armar_item` (F59 A1) ──
     grupos = {g["id"]: g for g in topic.get("people_groups") or [] if isinstance(g, dict) and g.get("id")}
     by_n = {b["n"]: b for b in cap_beats}
     for it, e in zip(slots_out["image_prompts"], exps):
-        anio, fuente = v3img.anio_final(e, it)
-        if sin_cartel:                                 # F58: sin cartel → sin frase_cartel, cierre con NO_TEXT
-            it["text_in_image"] = {**(it.get("text_in_image") or {}), "present": False}
-        armado = v3img.armar(it, anio, grupos, composicion=composicion)
-        prose, notas = v3img.f8_backstop(armado["prompt"], it, bool((by_n.get(it.get("beat")) or {}).get("escala")))
-        tii = it.get("text_in_image") or {}
-        prose, fuera = _sacar_frases_con_texto(prose, (tii.get("text") or "") if tii.get("present") else "")
-        # raw_llm_prompt = los casilleros crudos (auditoría)
-        it["raw_llm_prompt"] = json.dumps(
-            {k: it.get(k) for k in (*SEEDREAM_SLOT_KEYS, "text_in_image", "hard_fact_ids", "people_group", "year")},
-            ensure_ascii=False)
-        it["prompt"], it["art_profile"] = prose, ""
-        it["anio"], it["anio_fuente"] = anio, fuente
-        if notas:
-            it["_f8_problemas"] = notas
-        if fuera:
-            it["_f8_texto_fuera"] = fuera
-        it["sensible"] = v3img.is_body(prose)
-        it["motivos"] = sorted(v3img.motifs_of(prose))
+        anio, fuente = v3img.anio_final(e, it)        # solo lee `year`: el scrub (adentro de armar_item) no lo toca
+        armar_item(it, anio, grupos, bool((by_n.get(it.get("beat")) or {}).get("escala")), f8.get("lang") or "en",
+                   composicion=composicion, sin_cartel=sin_cartel, anio_fuente=fuente)
     slots_out["chapter_number"] = cap_number
     if not f8.get("refill"):
         _f8_fix_cap(topic, cap_data, narration, slots_out["image_prompts"], cap_number)
     return slots_out
+
+
+def armar_item(it: dict, anio: str, grupos: dict, escala: bool, lang: str, composicion: str = "",
+               sin_cartel: bool = False, anio_fuente: str = "") -> dict:
+    """F59 A1: el armado de UN ítem a partir de sus casilleros, la misma función que usa m03 (`_render_prompts_seedream`)
+    y que QA Studio (F59, editor de foto) llama con los casilleros editados. Muta y devuelve el mismo `it`:
+    `scrub_slots` + `fix_text_slot` (deja `_f8_slots_scrub` si sacó algo y `texto_en_imagen`), `sin_cartel` apaga
+    `text_in_image.present`, `v3img.armar` → `f8_backstop` → `_sacar_frases_con_texto`, y deja `raw_llm_prompt` (los
+    casilleros crudos, auditoría), `prompt`, `art_profile`, `anio`, `anio_fuente`, `_f8_problemas`/`_f8_texto_fuera`
+    (solo si hay), `sensible`, `motivos`. `anio`/`anio_fuente` vienen del que llama (`v3img.anio_final(e, it)` en m03,
+    que necesita el expediente); se escriben acá, en su lugar de siempre, para que el orden de claves (y el JSON
+    persistido) quede byte-idéntico."""
+    gone = v3img.scrub_slots(it)                       # D2–D3, E: clichés y prohibidas fuera ANTES de armar
+    why = v3img.fix_text_slot(it, lang)                # F8b §2.3: idioma del lugar, ≤ 3 palabras
+    if why:
+        gone.append(f"text_in_image: {why}")
+    if gone:
+        it["_f8_slots_scrub"] = gone
+    if sin_cartel:                                     # F58: sin cartel → sin frase_cartel, cierre con NO_TEXT
+        it["text_in_image"] = {**(it.get("text_in_image") or {}), "present": False}
+    armado = v3img.armar(it, anio, grupos, composicion=composicion)
+    prose, notas = v3img.f8_backstop(armado["prompt"], it, escala)
+    tii = it.get("text_in_image") or {}
+    prose, fuera = _sacar_frases_con_texto(prose, (tii.get("text") or "") if tii.get("present") else "")
+    # raw_llm_prompt = los casilleros crudos (auditoría)
+    it["raw_llm_prompt"] = json.dumps(
+        {k: it.get(k) for k in (*SEEDREAM_SLOT_KEYS, "text_in_image", "hard_fact_ids", "people_group", "year")},
+        ensure_ascii=False)
+    it["prompt"], it["art_profile"] = prose, ""
+    it["anio"], it["anio_fuente"] = anio, anio_fuente
+    if notas:
+        it["_f8_problemas"] = notas
+    if fuera:
+        it["_f8_texto_fuera"] = fuera
+    it["sensible"] = v3img.is_body(prose)
+    it["motivos"] = sorted(v3img.motifs_of(prose))
+    return it
 
 
 def _sacar_frases_con_texto(prose: str, intentional_text: str) -> tuple[str, list[str]]:
