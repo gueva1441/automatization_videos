@@ -276,6 +276,7 @@ Por rubro: **m09:paquetes** US$ 0.16794 · **casilleros** US$ 0.12233 · **fotos
 5. **`--auto-first` de QA Studio** con un `metadata.json` viejo (sin `paquetes`): `candidates_ready` da False y genera; en Wittenoom el `metadata.json` nuevo ya tiene los 3 paquetes.
 6. **El `anio_fuente` del ítem** se guarda tal cual lo devuelve m03 («(1) el casillero `year` del modelo») y así se imprime en la Salida B: es texto de producción, no se tocó.
 7. **`parte_b.py` corre el comando vía `main()` con el argv del handoff** (dentro de `cost_tracker.start_video`), no como proceso aparte: es la única forma de que el gasto quede desglosado por servicio. El primer intento tenía mal el argv (quedaba `-m` en la lista) y `argparse` salió con código 2 antes de llamar a nada: US$ 0, se corrigió y se volvió a correr.
+8. **Coherencia dentro del paquete** (observación 2 del revisor): nadie coteja que el texto salga de los `dato_ids` citados ni que la ancla se relacione con el título; en el paquete 02 el texto «LO LLAMARON ALBOROTADOR» viene de la cita Q46 (no citada) y la ancla es la herida del pie. Lo decide el analista.
 
 ## Veredicto de revisor-handoff — Parte A (íntegro)
 
@@ -326,4 +327,40 @@ Nota de mi parte: creé y borré un archivo temporal `_rev_tmp_a3.py` en la raí
 
 ## Veredicto de revisor-handoff — Parte B (íntegro)
 
-(se pega abajo)
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | Requisito (handoff B / pedido) | Estado | Evidencia |
+|---|---|---|---|
+| 1 | Comando `m09_packaging 123bbb64-… --candidates` con cost_tracker | OK | parte_b.py:48-55 (start_video, `sys.argv` con el argv del handoff, `m09.main()`, end_video); parte_b.log exit=0. Corre vía `main()` y no como proceso aparte, y el reporte lo declara (abierto #7). |
+| 2 | 3 paquetes enteros con texto de cada dato_ids y avisos | OK | SALIDA_B.md:5-51. Coincide con `publish/metadata.json`: títulos, textos, cap_que_paga, dato_ids, avisos `[]`, estrategias 1/3/4. |
+| 3 | Anclas = oraciones literales del gancho | OK | Las 3 están dentro del cap 1 de `01b_narration.json` (verificado por código). |
+| 4 | dato_ids existen en el pool | OK | Los 13 ids están en `00_pool_v3.json` (verificado por código). |
+| 5 | 3 prompts de foto armados, enteros | OK | SALIDA_B.md:53-83, idénticos a `metadata.json` (`prompt` y `raw_llm_prompt`). |
+| 6 | Medida de nombres de documented_people | OK | Yo rearmé las formas desde `ficha_caso.json` y `02_canonical.json`: salieron 121, no 126, porque deduplico distinto. Busqué palabra entera, sin distinguir mayúsculas, en los 6 textos (3 prompts y 3 raw_llm_prompt): 0 coincidencias. Coincide con SALIDA_B:89. |
+| 7 | Hoja con las 3 miniaturas lado a lado | OK | `lab/hyperframes/f58/hoja_paquetes.jpg`, 86 KB, 1920x360. La vi: tres miniaturas con el texto a la izquierda. |
+| 8 | Descripción y tags | OK | SALIDA_B:95-104; `metadata.json` tiene 1502 caracteres y 23 tags. |
+| 9 | Gasto desglosado y si asegurar_canon llama a Flash | OK | `data/cost_history.json`: video `f58_parte_b` (04:38:18) suma 0.395264 con 5 entradas (m09:paquetes, m03:casilleros, 3 Seedream). Coincide con SALIDA_B:109-117. El log dice «[canon] ya armado… se usa», o sea que no hubo Flash. |
+| 10 | Imágenes no van a git | OK | `git show --stat 14e5557` lista solo 6 archivos (ESTADO, REPORT, SALIDA_B, parte_b.json/.log/.py). La hoja y los PNG no están en git. |
+| 11 | Sin código de producción tocado | OK | El stat solo tiene `lab/` (parte_b.py es nuevo, de lab). |
+| 12 | Reporte con Salida B y «lo que queda abierto» | OK | F58_REPORT.md:146 y 271-277. |
+| 13 | ESTADO al día (bloque de arriba y línea 3) | OK | ESTADO_SESION.md línea 3 y los bloques «Para Omar» y «Parte B». |
+| 14 | Veredicto íntegro de revisor-handoff | PARCIAL | F58_REPORT.md:327-329 tiene el placeholder «(se pega abajo)». Es lo esperado antes de este veredicto, pero queda pendiente pegarlo. |
+| 15 | Entregables en disco | OK | `thumb_candidates/` tiene paquete_01..03.png y los 3 `_base.png`, todos con tamaño no nulo. |
+
+Fuera de alcance: ninguno. En `git status` hay sin trackear `lab/hyperframes/f58/ENTRADA_ANALISTA_2026-10-30.md` y `hoja_paquetes.jpg`; no entraron al commit y no son código.
+
+Observaciones:
+1. Los prompts de los paquetes 02 (detalle del pie) y 03 (paisaje aéreo sin persona) llevan la oración «The person fills the right half… face and torso large». Contradice el casillero, y la hoja muestra una cara en el 03 y una cara grande en el 02. CC lo declara como abierto #1. Es defecto de producto, no incumplimiento del handoff.
+2. En el paquete 02 el texto «LO LLAMARON ALBOROTADOR» no se apoya en sus dato_ids (D19, D89, D92, T19). La cita de Saint «alborotador» está en el pool (Q46) y en la narración, pero no entre los ids citados. Además la ancla (herida del pie) no tiene relación con el título (polvo desde 1944) ni con el texto. El script no lo marca como aviso, porque solo coteja cifras.
+3. En SALIDA_B el renglón «Foto» sale como «año 1963 (1) el casillero `year` del modelo)». Es el texto crudo de m03 y CC lo declara (abierto #6).
+4. `cost_history.json` tiene dos entradas `f58_parte_b`. La primera (04:37:52) vale US$ 0 y es el intento con el argv mal, declarado en abierto #7. El total real es 0.3953.
+5. Pendiente de proceso: pegar este veredicto en F58_REPORT.md.
+
+Riesgos que el contrato no cubre: la medida de nombres solo mira los prompts, no la imagen que genera Seedream (los rostros que aparecen en el 02 y el 03 no se evalúan). Tampoco hay chequeo de coherencia título/texto/ancla/dato_ids. Un paquete cuyos tres elementos no se relacionan pasa sin aviso.
+
+## Adenda de CC (Parte B)
+- **Fila 14 / observación 5:** este commit pega el veredicto; no queda nada pendiente de proceso.
+- **Observación 2 (para el analista):** es cierto y el handoff no lo pide: la validación por código coteja n, campos, estrategias, anclas y cifras (A2 y A4), no la relación título/texto/ancla/dato_ids. En el paquete 02 el texto se apoya en la cita Q46 («alborotador», Saint), que está en el pool y en la narración pero no en los `dato_ids` que Opus citó; la ancla (la herida del pie) no sostiene ni el título ni el texto. Queda como abierto 8 (abajo), sin tocar nada.
+- **Observación 4:** la entrada `f58_parte_b` de US$ 0 (04:37:52) es el intento con el argv mal (abierto 7); el gasto real es la segunda (04:38:18), US$ 0,3953.
+- **Fila 6:** 126 formas contadas por el script contra 121 del revisor es solo la forma de deduplicar (el script cuenta las claves del dict antes de unir ficha y canon); el resultado es el mismo: 0 coincidencias.
+- **Abierto 8 (nuevo):** chequeo de coherencia título/texto/ancla/`dato_ids` dentro de cada paquete: no existe; el paquete 02 pasó sin aviso con un texto que sale de una cita que no citó y con una ancla que no se relaciona con el título. Decide el analista si es regla nueva (iría por handoff) o se deja a la pantalla de revisión.

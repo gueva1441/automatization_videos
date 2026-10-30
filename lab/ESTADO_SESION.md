@@ -21,7 +21,7 @@
 
 ## F58 Parte B — corrida real en Wittenoom — PARADA B
 - `lab/hyperframes/f58/parte_b.py` (el comando del handoff vía `main()` dentro de `cost_tracker`), `SALIDA_B.md`, `parte_b.json/.log`, `hoja_paquetes.jpg` (no va a git). Imágenes en `output/123bbb64-…/publish/thumb_candidates/paquete_NN(_base).png`; `publish/metadata.json` con los 3 paquetes, descripción (1502 caracteres) y 23 tags.
-- Abierto: la oración de composición en prompts sin persona; A8 sin clip nuevo; fila xfail de A5.
+- Revisor: CUMPLE CON OBSERVACIONES (veredicto íntegro en F58_REPORT). Abierto: la oración de composición en prompts sin persona; coherencia título/texto/ancla/dato_ids dentro del paquete (el 02 pasó sin aviso); A8 sin clip nuevo; fila xfail de A5.
 
 ## 👀 Para Omar (F58, PARADA A): las miniaturas salen como 3 paquetes y la foto de cada uno la hace la máquina de producción.
 - Opus escribe en una llamada 3 paquetes (título + texto + la oración del gancho que muestra la foto), estrategias distintas, leyendo el gancho entero, la narración y el pool; las cifras se cotejan por código (aviso). La foto: casilleros del cap 1 con esa oración + armado + canon, sin cartel, persona en la mitad derecha; el texto en la mitad izquierda, partido por ancho y achicado hasta caber.
