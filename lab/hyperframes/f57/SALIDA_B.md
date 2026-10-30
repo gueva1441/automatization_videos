@@ -1,0 +1,58 @@
+# F57 — Salida B (texto)
+
+Foto inicial: `lab\hyperframes\f52\fotos\cap01.png` (JPEG 2560×1440, F52). Narración: copia A0 (`lab/hyperframes/f57/antes/01b_narration.json`), cap 1, 834 caracteres, 161 palabras; ventana 99 caracteres (2,4 palabras/s, solo acá).
+
+**voz_clip** (20 palabras): «Un hombre joven posa para un retrato con el pie vendado. Ese pie va a cerrar; lo que respira mientras»
+
+Ancla vieja (03_visual.json vivo): «Un hombre joven posa para una foto con el pie envuelto en una venda blanca.»
+
+## 1. Movimiento viejo y nuevo
+
+**Viejo (03_visual.json, con el ancla):**
+
+    A slow, somber documentary shot on grainy 35mm film from the early sixties, muted colors and slight underexposure. The camera makes a very slow push-in, starting on a medium shot of the young miner against the corrugated iron wall and ending slightly closer, the white bandaged foot still sharp in the lower frame. First, fine red dust drifts low across the ochre earth, then his short shirt sleeves stir faintly in a light breeze as he breathes slowly. Hard, cold midday light under a pale washed-out sky keeps short sharp shadows steady in the dusty yard. He stays in place, posed stiffly with his weight off the bandaged foot, face and body steady.
+
+**Nuevo (`_seedream_video_prompt` con voz_clip):**
+
+    A slow, somber documentary shot on grainy 35mm film, muted colors and slight underexposure. The camera holds a locked-off medium shot at eye level with a subtle drift, easing in slightly so the framing ends a touch tighter on the man and his bandaged foot. First, fine red dust lifts from the ochre earth and drifts across the yard, then the loose cloth of his shirt stirs faintly as he breathes slowly, chest rising and falling. Hard cold midday light under a pale washed-out sky keeps short sharp shadows against the grey corrugated iron wall. He stays in place, posed stiffly, face and body steady, weight held off the bandaged foot.
+
+## 2. Instrucción de edit (foto final)
+
+    Push the framing in slightly so it ends a touch tighter on the same young man, centered at eye level, with a little less of the corrugated wall and red yard visible at the edges. Keep his head near the top of the frame and his bandaged foot and boot still fully in view in the lower frame, with the white bandage sharp. Keep him exactly the same: same face and steady, unsmiling stare into the lens, same short dark hair, same lean build, and the same dust-stained tan shirt with rolled sleeves, open collar and two chest pockets. Keep the same dark, red-dusted trousers and worn boot. He holds the same stiff pose, arms hanging at his sides, weight kept off the bandaged foot, which rests lightly on its toes. Show his chest slightly risen mid-breath, with the loose shirt cloth gently shifted and a few soft folds moved across the front and pockets. Add a thin, low haze of fine red-ochre dust lifting from the ground and drifting sideways across the yard behind and around his legs and feet. The haze should slightly soften the base of the grey corrugated iron wall without hiding him. Keep the hard, cold midday light, the pale washed-out sky, the short sharp shadows on the red earth, and the grainy, muted, slightly underexposed 1962 35mm documentary look. Add no text, signage or labels.
+
+Resultado: foto final lab\hyperframes\f57\clip\cap01_img_01_final.png · **SSIM inicial/final: 0.784829** (se informa; sin umbral) · motivo: None
+
+## 3. Prompt del motor y motor que lo hizo
+
+Motor: **gemini_omni_flash** · rechazos: ninguno
+
+    Grainy 35mm documentary footage from 1962, muted colors, slight underexposure, somber and still. A young Spanish miner stands stiffly in the red-ochre yard of a company house, posed for a family photograph, weight held off his white-bandaged foot, staring into the lens. Keep his face, short dark hair, dust-stained short-sleeved shirt with rolled sleeves, dark dusty trousers, worn boot, bright white bandage, grey corrugated iron wall and pale washed-out sky exactly as in the image.
+
+Locked-off medium shot at eye level with a very slow push-in, ending a touch tighter on the man and his bandaged foot. Fine red dust lifts from the ground and drifts across the yard behind him, building into a soft haze along the base of the wall. His shirt stirs faintly as he breathes slowly, chest rising and falling. He does not move from his pose. Hard cold midday light holds short sharp shadows.
+
+Sound: dry wind across the yard, the faint hiss of blowing dust, a distant tick of corrugated iron in the heat. No dialogue, no music.
+
+One continuous 8-second shot, no cuts, no on-screen text, no captions.
+
+Clip: lab\hyperframes\f57\clip\cap01_clip_01.mp4 · {"segundos": 8.0, "ancho": 1920, "alto": 1080, "audio": false, "usd": 1.2, "foto_final": "cap01_img_01_final.png"}
+
+## 4. Gasto
+
+| servicio | descripción | US$ |
+|---|---|---|
+| Anthropic claude-opus-5-5 | m03:motion | 0.00981 |
+| Anthropic claude-opus-5-5 | m03:motion | 0.00924 |
+| Anthropic claude-opus-5-5 | cap01_img_01_final: instruccion | 0.03354 |
+| fal.ai Seedream 5.0 Lite (edit) | cap01_img_01_final: Push the framing in slightly so it ends a touch tighter on t... | 0.035 |
+| Anthropic claude-opus-5-5 | cap01_clip_01: prompt gemini_omni_flash | 0.05327 |
+| fal google/gemini-omni-flash/v1.1/image-to-video | cap01_clip_01: gemini_omni_flash | 1.2 |
+
+**Total US$ 1.3409** · 156.5 s de reloj.
+
+## 5. Archivos
+
+- `clip/cap01_img_01.png` (inicial, copia de F52) · `clip/cap01_img_01_final.png` (final)
+- `clip/lado_a_lado.jpg` (las 2 fotos lado a lado) · `clip/hoja_contactos.jpg` (cuadros 0, 2, 4, 6, 8 s)
+- `clip/cap01_clip_01.mp4` · `clip_b.json` (todo, con el log del clip y ffprobe)
+
+Sin errores.

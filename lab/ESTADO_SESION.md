@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-30 00:20 (F56: los 3 frenos falsos del guion de Wittenoom ya no frenan (jueces (a)/(d) y ficha), el reparto protege el re-gancho; Wittenoom con 0 bloqueantes sin volver a escribir el guion; US$ 0,75; PARADA C) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-30 (F57: foto final en todos los clips (edit de la inicial por Seedream, instrucción de Opus) + la voz entera del clip (voz_clip); Parte A en 6 módulos + 20 tests, suite limpia; Parte B: clip real del cap 1 de Wittenoom con Gemini, SSIM 0,78, US$ 1,34; PARADA B) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,16 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F57, PARADA B): cada clip va a llevar una foto final (edit de la inicial) y el motor mira la voz entera de los 8 s.
+- Parte A (US$ 0): `voz_clip` por código, `PEDIDO_CON_FINAL` y `PEDIDO_FINAL` tal cual el handoff, `foto_final_del_clip` (Opus → Seedream /edit → SSIM), el motor recibe las dos fotos (`end_image_url` en G y K); un guion viejo sin `voz_clip` PARA.
+- Parte B: cap 1 de Wittenoom con la foto de F52: Gemini sin rechazo, 8 s 1080p, **SSIM 0,78**; la foto final es el mismo hombre con una bruma de polvo rojo; el clip termina en ella. **Gasto US$ 1,34.** Fotos lado a lado y hoja de contactos en `lab/hyperframes/f57/clip/`.
+- Decidís si el nivel de cambio de la foto final es el que querés (sin umbral, 21:17). La narración F56 sigue sin voz: m03 de producción espera la voz nueva.
+
+## F57 — foto final en todos los clips + voz entera del clip (handoff del analista 21:10/21:17) — PARADA B
+- Commits: `f7aa5a8` (DECISIONES + A0), `bdbc6a5` (Parte A: m03_visual, video_prompt, asset_manager, engine_profiles, m06_assembler, fase2a; test_module_f57 20; f50c a f54/antes; clip_b.py; stickers; MAPA); el siguiente es el de la Parte B + reporte (`lab/hyperframes/f57/F57_REPORT.md`, SALIDA_A.md, SALIDA_B.md).
+- Suites: rápida 53; amplia 1153 + 4 previas (f50c vuelve a verde); ch02 `f792f3d4…`; MAPA --check 0.
+- Abierto: voz nueva antes de m03 (d); `_VEO_MOTION_SYSTEM` nombra Veo (c/d); QA Studio clipfix sin foto final (c).
 
 ## 👀 Para Omar (F56, PARADA C): el guion de Wittenoom quedó con 0 bloqueantes sin volver a escribirlo, y el re-gancho volvió al cap 3.
 - Los 3 frenos eran falsos: citas duplicadas y rótulos sin nombre ya no cuentan como «de otro caso» ni como «cita inventada»; la ficha cargada trae el texto de la cita que quedó.
