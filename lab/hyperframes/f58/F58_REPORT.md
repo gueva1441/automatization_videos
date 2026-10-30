@@ -30,7 +30,7 @@ Handoff: `lab/hyperframes/f58/HANDOFF_F58_miniaturas_paquetes.md` (md5 `9534c077
 
 ## Salida A (entera en `lab/hyperframes/f58/SALIDA_A.md`)
 
-## §A3 — el camino de la foto de un paquete (escrito ANTES de programar A3)
+## §A3 — el camino de la foto de un paquete (escrito ANTES de programar A3; los números de línea son los de `efbe36e`, antes de los kwargs)
 
 La foto de cada paquete sale del cap 1 por `_render_prompts_seedream` con las 3 anclas (las oraciones literales del gancho que eligió Opus) en UNA llamada de casilleros, igual que producción, con tres diferencias pedidas: sin el bloque del clip de apertura, sin cartel y con una oración de composición. Todo entra por kwargs con default byte-idéntico; **no hace falta cambiar producción más allá de eso → no hay PARADA A3**.
 
@@ -128,7 +128,7 @@ Return only the edit instruction: one paragraph of plain English prose describin
 
 ### 5. Lo viejo de Wittenoom
 
-`output/123bbb64-…/publish/`: `metadata.json`, `metadata_candidatos.md`, `hero_iterations.json`, `thumb_final_01.png`, `thumb_final_02.png` y `_qa_backups/` **movidos** a `publish/_antes_f58/` (no borrados). Quedan `CHECKLIST_PUBLICACION.md` y `thumb_candidates/` (con las `existing_*`/`fresh_*` viejas, que la página nueva no lista).
+`output/123bbb64-…/publish/`: `metadata.json`, `metadata_candidatos.md`, `hero_iterations.json`, `thumb_final_01.png`, `thumb_final_02.png` y `_qa_backups/` **movidos** a `publish/_antes_f58/` (no borrados). Quedan `CHECKLIST_PUBLICACION.md` y `thumb_candidates/` vacío (las `existing_*`/`fresh_*` viejas ya estaban en `_qa_backups/`, que se movió entero).
 
 ### 6. Suites
 
@@ -146,9 +146,52 @@ Ver §6 de la Salida A: ch02 `f792f3d4…`, rápida 53, amplia 1194 + 1 xfail + 
 3. **`asegurar_canon` dentro de `topic_produccion`** es el de producción: si Wittenoom tiene el canon al día no gasta.
 4. **Casilleros que fallan** (`CasillerosParada`, o sin beats) → PARADA de `--candidates` después de escribir los paquetes en `metadata.json`.
 5. **A8 cambia la foto final de los clips de producción** (la instrucción ya no ve el movimiento); no hay clip nuevo corrido con esto.
-6. **`thumb_candidates/` de Wittenoom** conserva las `existing_*`/`fresh_*` viejas (el handoff no las lista para mover); la página nueva no las muestra.
+6. **`thumb_candidates/` de Wittenoom** queda vacío (las candidatas viejas estaban en `_qa_backups/`, movido a `_antes_f58/`).
 7. **`--auto-first` de QA Studio** con un `metadata.json` viejo (sin `paquetes`): `candidates_ready` da False y genera; en Wittenoom el viejo ya está en `_antes_f58/`.
 
 ## Veredicto de revisor-handoff (íntegro)
 
-(se pega abajo)
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 0 | Handoff md5 9534c077… | OK | `md5sum` coincide |
+| 1 | Etapa 0: las 5 líneas tal cual en DECISIONES (commit propio) | OK | Comparé con Python cada línea del .md contra DECISIONES.md: 5/5 presentes, commit efbe36e |
+| 2 | A1 entradas, PARADA si falta, bloque POOL (D/T/citas/P/L, ids tal cual, cifras al final) | OK | m09_packaging.py:171-242; Wittenoom: 362 líneas (D155·T98·Q50·P35·L24), `cifras_canonicas` vacío. Cita en el POOL con `Q01: ` (decisión 5 de CC, el handoff no daba el separador) |
+| 3 | A2 `PEDIDO_PAQUETES`, `COMPOSICION_MINIATURA` y `PEDIDO_FINAL` byte a byte | OK | Extraje los 3 bloques ``` del .md y los comparé con las constantes: True/True/True |
+| 4 | A2 llamada con kwargs exactos, esquema, validación y reintentos, normalización | OK | m09:332-363 (model, system_instruction=None, response_schema, effort, description="m09:paquetes"); validar_paquetes m09:262-293; normalizar m09:314. Bucle propio con `MAX_RETRY_ATTEMPTS` (decisión 7 de CC) |
+| 5 | A2 borrados completos | OK | grep de cada nombre listado en m09_packaging y m09_review_server: 0 resultados. `_wrap_lines` solo sobrevive en gfx_project.py, que es otra función sin relación. Un test los fija |
+| 6 | A3 camino en SALIDA_A §A3 con archivo:línea | PARCIAL | Existe y es completo, pero los números de línea son de antes de editar: están corridos 2-8 líneas (p. ej. `armar` composicion en m03_imagenes_v3:650, no 648; `MAX_RETRY_ATTEMPTS` ya no está en m03_visual:867) |
+| 7 | A3 kwargs con default byte-idéntico | OK | `git diff efbe36e 13d2690` sobre m03_visual y m03_imagenes_v3: todo va detrás de `clip_apertura and…`, `sin_cartel`, `if composicion`. Corrí `test_module_f58_a3` con `HEAD` reemplazado por `efbe36e`: 9 passed |
+| 8 | A3 excepción LR_RE fijada por test | OK | `test_composicion_en_su_lugar_y_f8_la_deja`; LR_RE en m03_imagenes_v3:267-269 no matchea la oración |
+| 9 | A3 foto por `_generate_image_raw(..., use_ultra=False)` con motivo literal; si falla, los otros siguen | OK | m09:441-450; `test_a3_rechazo_deja_paquete_sin_foto_y_siguen` |
+| 10 | A4 cifras por código, aviso sin freno | OK | m09:369-393; `test_a4_cifras` (46.840 = 46,840). `numeros_pool` ignora los ids (decisión 6 de CC) |
+| 11 | A5 tabla (líneas y px exactos, anchos ±1), fila xfail | OK | Reproduje las 7 filas: líneas y px idénticos. Anchos ±1 en 6 filas. «¿QUIÉN SABÍA…» da 550/499 contra 553/501 del handoff. Es xfail(strict) declarado, sin tolerancia inventada |
+| 12 | A6 bases: borrados y servidor acotado | OK | `bases_del_video`, `_resolve_base`, `resolve_image` limitan a assets/, thumb_candidates/ y publish/ |
+| 13 | A7 CLI, página, `candidates_ready`, firma de `run_candidates`, acumula con índice global, `--compose --paquete`, `--auto-first`, `test_fase3` | OK | m09:638, 692-731, 866, 905-947; m09_review_server.py:213-240 (cuenta de caracteres, `id: texto`, `cap_que_paga`, ancla, avisos). test_fase3 pasa a `--review` |
+| 14 | A7 lo viejo de Wittenoom movido a `_antes_f58/`, no borrado | OK | Están metadata.json, metadata_candidatos.md, hero_iterations.json, thumb_final_01/02.png y `_qa_backups/` (con 12 imágenes) |
+| 15 | A8 `PEDIDO_FINAL` íntegro; parámetro fuera de `armar_body_final`, `escribir_final` y la llamada | PARCIAL | video_prompt.py y la llamada en asset_manager.py:690 limpios. `foto_final_del_clip` conserva el parámetro `video_prompt_aprobado`, muerto y declarado. El handoff dice «de su llamador (asset_manager:689)», lo que se puede leer de las dos maneras |
+| 16 | A9 tests y adaptaciones | OK | test_module_f58 (31 + 1 xfail) cubre A1-A7; adaptados f57, f51a, f54, gfx_auto_icons, m09_*, fase3. Se borró un test viejo de f54 (B.4), con nota |
+| 17 | Salida A completa | OK | Módulos, camino A3, usuario A2, tabla A5, A8 antes/después y suites. Los 59 008 caracteres son exactos: reconstruí `armar_pedido` y coincide con `pedido_paquetes_wittenoom.txt` (que agrega una línea de pie `[59008 caracteres]`) |
+| 18 | Parte B no corrida | OK | No hay `publish/metadata.json` ni `paquete_*.png` en Wittenoom (solo `_antes_f58/metadata.json`) |
+| 19 | Suites verdes | PARCIAL | Corrí las 8 suites pedidas: 113 passed, 1 xfailed, **2 failed**. `mapa --check`: 0 fallas. ch02 md5 f792f3d4… solo lo leí del log, no lo regeneré. Las suites rápida y amplia las leí de los logs, no las corrí |
+| 20 | Reporte: decisiones de CC y «lo que queda abierto» | OK | F58_REPORT.md:18-29 y 143-150. El veredicto del revisor figura como «(se pega abajo)», pendiente |
+
+Fuera de alcance: ninguno. `git diff efbe36e~1 HEAD --stat` son 28 archivos, todos de la tanda; los dos modificados sin commit (`diag_234_cap4.py`, `f28a.log`) son previos y no son de F58.
+
+Observaciones:
+1. **Falla en HEAD (grave):** `test_module_f58_a3.py::test_armar_sin_el_kwarg_es_byte_identico_a_hoy` y `::test_step2_sin_el_kwarg_es_byte_identico_a_hoy` fallan hoy. Comparan contra `git show HEAD:`, y después del commit 13d2690 HEAD ya trae los kwargs nuevos. El «1194 passed» del reporte fue cierto solo antes de commitear. Esos dos tests quedaron rotos de forma permanente y la prueba durable de «producción byte-idéntica» no existe. Yo la rehice contra efbe36e y da 9/9, y el diff también lo confirma.
+2. SALIDA_A §5 y el reporte (abierto 6) dicen que `thumb_candidates/` conserva las `existing_*`/`fresh_*` viejas. Está vacío: esos archivos están en `_antes_f58/_qa_backups/`. La afirmación es falsa, sin mayor consecuencia.
+3. Hay números fuera de la tabla del handoff, pero solo en mensajes y logs: `[:60]`, `[:90]`, `[:120]`. No afectan la lógica.
+4. Las dos decisiones de CC fuera del handoff (tests de A3 en un archivo aparte, `clip_apertura` también en `_render_prompts_seedream`) están declaradas.
+
+Riesgos que el contrato no cubre: (a) A8 cambia la foto final de los clips de producción y ningún clip nuevo lo valida. (b) La Parte B depende de `asegurar_canon` (puede llamar a Flash) y de la validación de anclas literales: si Opus parte una oración distinto a `oraciones()`, caerá en PARADA tras 3 intentos. (c) Los anchos de Pillow cambian entre máquinas (fila xfail), así que «cabe o no cabe» puede variar en el caso límite.
+
+Nota de mi parte: creé y borré un archivo temporal `_rev_tmp_a3.py` en la raíz para la comprobación contra efbe36e. El repo quedó igual que lo encontré.
+
+## Adenda de CC
+- **Observación 1 (grave, corregida en este commit):** los dos tests «byte-idéntico» de `test_module_f58_a3.py` comparaban contra `git show HEAD:`; con los kwargs ya en HEAD se rompían solos. Ahora cargan `efbe36e` (la Etapa 0, último commit con m03 sin los kwargs; constante `ANTES_F58`): 9/9. La amplia volvió a correr con ese arreglo sobre el árbol de este commit: **1194 passed + 1 xfail + las 4 previas** (`lab/hyperframes/f41/f58/suite_amplia_2.log`).
+- **Observación 2 (corregida):** `thumb_candidates/` de Wittenoom está vacío; las candidatas viejas estaban en `_qa_backups/`, que se movió entero a `_antes_f58/`. Salida A §5 y abierto 6 lo dicen así ahora.
+- **Fila 6 (números de línea de §A3):** son los de `efbe36e`, antes de los kwargs (se escribió antes de programar, como pide el handoff); queda anotado en el título de la sección.
+- **Fila 15 (`foto_final_del_clip`):** el parámetro queda a propósito para no cambiar la firma de producción en una chascada (el handoff nombra `armar_body_final`, `escribir_final` y «su llamador», que es la llamada en asset_manager:690, ya sin el argumento); está declarado en el docstring.
+- **Observación 3:** `[:60]`, `[:90]`, `[:120]` son recortes de mensajes de log/error, como los que ya había en m09 y asset_manager; no entran a la lógica.

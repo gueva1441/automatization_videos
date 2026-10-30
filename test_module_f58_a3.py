@@ -1,7 +1,7 @@
 """F58 A3 — la foto de un paquete sale por `_render_prompts_seedream` del cap 1 con tres kwargs nuevos de default
 byte-idéntico: `clip_apertura` (sin el bloque OPENING MOTION CLIP), `sin_cartel` (text_in_image apagado antes de armar)
 y `composicion` (una oración después de la técnica, antes del estilo). Sin red: Opus falso; los casos reales leen
-`_steps/123bbb64…` (Wittenoom) con skip si no está. La comparación «a hoy» carga las versiones de HEAD con `git show`."""
+`_steps/123bbb64…` (Wittenoom) con skip si no está. La comparación «a hoy» carga las versiones de ANTES de F58 (commit efbe36e, la Etapa 0) con `git show`."""
 import json
 import re
 import subprocess
@@ -16,6 +16,7 @@ from script_engine import m03_imagenes_v3 as v3
 from script_engine import m03_visual as m3
 
 ROOT = Path(__file__).resolve().parent
+ANTES_F58 = "efbe36e"          # la Etapa 0 de F58: el último commit con m03 sin los kwargs (contra ese se mide «byte-idéntico»)
 TID = "123bbb64-9fca-4395-8bf4-57d60e219ef1"
 STEPS = m3.STEPS_DIR / TID
 COMPOSICION = ("The person fills the right half of the frame, face and torso large; the left half is dark, "
@@ -83,16 +84,16 @@ def _fake(seen: dict):
 
 
 def _old(path: str, name: str):
-    """La versión de HEAD («hoy») del módulo, cargada como módulo aparte; sin git, skip."""
+    """La versión de ANTES de F58 (commit efbe36e, producción sin los kwargs) del módulo, cargada como módulo aparte; sin git, skip."""
     try:
-        src = subprocess.run(["git", "show", f"HEAD:{path}"], capture_output=True, check=True, cwd=ROOT).stdout
+        src = subprocess.run(["git", "show", f"{ANTES_F58}:{path}"], capture_output=True, check=True, cwd=ROOT).stdout
     except Exception as e:                                                   # noqa: BLE001
         pytest.skip(f"sin git show: {e}")
     mod = types.ModuleType(name)
     mod.__file__ = str(ROOT / path)
     sys.modules[name] = mod
     try:
-        exec(compile(src.decode("utf-8"), f"HEAD:{path}", "exec"), mod.__dict__)
+        exec(compile(src.decode("utf-8"), f"{ANTES_F58}:{path}", "exec"), mod.__dict__)
     finally:
         sys.modules.pop(name, None)
     return mod

@@ -2,7 +2,7 @@
 
 Handoff `lab/hyperframes/f58/HANDOFF_F58_miniaturas_paquetes.md` (md5 `9534c07710504f9270b8ba7ba33ea09c`, verificado; la primera copia en disco, md5 `1d93a6da…`, era una versión vieja por error de copia y se repuso antes de empezar). US$ 0.
 
-## §A3 — el camino de la foto de un paquete (escrito ANTES de programar A3)
+## §A3 — el camino de la foto de un paquete (escrito ANTES de programar A3; los números de línea son los de `efbe36e`, antes de los kwargs)
 
 La foto de cada paquete sale del cap 1 por `_render_prompts_seedream` con las 3 anclas (las oraciones literales del gancho que eligió Opus) en UNA llamada de casilleros, igual que producción, con tres diferencias pedidas: sin el bloque del clip de apertura, sin cartel y con una oración de composición. Todo entra por kwargs con default byte-idéntico; **no hace falta cambiar producción más allá de eso → no hay PARADA A3**.
 
@@ -100,7 +100,7 @@ Return only the edit instruction: one paragraph of plain English prose describin
 
 ## 5. Lo viejo de Wittenoom
 
-`output/123bbb64-…/publish/`: `metadata.json`, `metadata_candidatos.md`, `hero_iterations.json`, `thumb_final_01.png`, `thumb_final_02.png` y `_qa_backups/` **movidos** a `publish/_antes_f58/` (no borrados). Quedan `CHECKLIST_PUBLICACION.md` y `thumb_candidates/` (con las `existing_*`/`fresh_*` viejas, que la página nueva no lista).
+`output/123bbb64-…/publish/`: `metadata.json`, `metadata_candidatos.md`, `hero_iterations.json`, `thumb_final_01.png`, `thumb_final_02.png` y `_qa_backups/` **movidos** a `publish/_antes_f58/` (no borrados). Quedan `CHECKLIST_PUBLICACION.md` y `thumb_candidates/` vacío (las `existing_*`/`fresh_*` viejas ya estaban en `_qa_backups/`, que se movió entero).
 
 ## 6. Suites
 
