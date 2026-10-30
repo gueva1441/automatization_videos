@@ -77,7 +77,7 @@ def main() -> int:
         mov = m3._seedream_video_prompt(image_prompt, voz_clip, "f57 cap 1 (clip_b) video_prompt")
         res["movimiento_nuevo"] = mov
         res["pasos"].append("movimiento (Opus) ok")
-        final = am.foto_final_del_clip(foto, image_prompt, voz_clip, mov, CLIP / "cap01_img_01_final.png")
+        final = am.foto_final_del_clip(foto, image_prompt, voz_clip, CLIP / "cap01_img_01_final.png")
         res["foto_final"] = {**final, "path": str(final["path"].relative_to(ROOT)) if final["path"] else None}
         res["pasos"].append(f"foto final: {'ok' if final['path'] else 'sin final'} · ssim {final['ssim']} · {final['motivo']}")
         salida = CLIP / "cap01_clip_01.mp4"

@@ -73,10 +73,10 @@ MAX_TITLE_CHARS = 90
 MAX_TAGS_CHARS = 450
 N_PAQUETES = 3          # F58 (Omar 23:23): 3 paquetes por tanda (reemplaza a la cantidad de frescas, = 3)
 
-# F58 A3 (origen: la CAPA CTR del hero viejo + la mitad de la decisión 23:23). Excepción declarada a D4 (LR_RE no la
+# F59 chascadas (DECISIONES 2026-10-30 08:22; reemplaza la oración de F58 A3 / 23:23, que exigía persona, cara y torso):
+# el sujeto principal a la derecha, sirve también para prompts sin persona. Excepción declarada a D4 (LR_RE no la
 # toca: «fills the right half of the frame» / «the left half is dark» no matchean sus alternativas).
-COMPOSICION_MINIATURA = ("The person fills the right half of the frame, face and torso large; "
-                         "the left half is dark, uncluttered negative space.")
+COMPOSICION_MINIATURA = "The main subject fills the right half of the frame; the left half is dark, uncluttered negative space."
 
 # F58 A2: el pedido de paquetes, íntegro como el handoff ({n} = N_PAQUETES).
 PEDIDO_PAQUETES = """Armás el empaquetado de un video documental de historia oscura en español neutro-latino: el título de YouTube, el texto que va sobre la miniatura y la oración del gancho que muestra la foto de la miniatura. Todo sale del material de abajo: un dato que no está en el POOL no existe.

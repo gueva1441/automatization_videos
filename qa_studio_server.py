@@ -186,13 +186,15 @@ class QAState:
         d = self.assets_dir / f"{cid}_flux"
         if not d.exists():
             return []
-        return sorted(d.glob(f"{cid}_img_*.png"), key=self._img_idx)
+        # F59 A5 (DECISIONES 2026-10-30, SALIDA_0 §2): solo los crudos que pasan _IMG_NAME_RE; los `*_graded.png`
+        # de image_grade no son cuadros (entraban al glob con idx 0: cuadros vacíos, anclas corridas, sync perdido).
+        return sorted((p for p in d.glob(f"{cid}_img_*.png") if _IMG_NAME_RE.match(p.name)), key=self._img_idx)
 
     def _supp_imgs(self, cid: str) -> list[Path]:
         d = self.assets_dir / f"{cid}_flux"
         if not d.exists():
             return []
-        return sorted(d.glob(f"{cid}_supp_*.png"), key=self._img_idx)
+        return sorted((p for p in d.glob(f"{cid}_supp_*.png") if _IMG_NAME_RE.match(p.name)), key=self._img_idx)
 
     def resolve_clip(self, cid: str) -> Path | None:
         d = self.assets_dir / f"{cid}_veo"
@@ -549,10 +551,25 @@ class QAState:
             anchor = ""
         if not prompt:
             return None
+        # F59 A2.1: SOLO agrega claves (lo de arriba lo usan _reseed_core y sus tests). `casilleros` = el
+        # `raw_llm_prompt` parseado (los casilleros crudos de m03); None si el guion es viejo o no parsea.
+        casilleros = None
+        if isinstance(rawi, dict):
+            try:
+                c = json.loads(rawi.get("raw_llm_prompt") or "")
+                casilleros = c if isinstance(c, dict) else None
+            except (TypeError, ValueError):
+                casilleros = None
+        d = rawi if isinstance(rawi, dict) else {}
         return {
             "cap": cid, "img_name": img_name, "kind": kind, "idx": idx,
             "prompt": prompt, "art_profile": art_profile,
             "subject_ref": subject_ref or None, "narration_anchor": anchor,
+            "casilleros": casilleros,
+            "anio": (str(d.get("anio")).strip() or None) if d.get("anio") else None,
+            "anio_fuente": d.get("anio_fuente") or None,
+            "beat": d.get("beat"),
+            "foto_madre_ref": d.get("foto_madre_ref") if d.get("foto_madre_ref") else None,
         }
 
     def resolve_clip_entry(self, cap: str) -> dict | None:
@@ -595,6 +612,8 @@ class QAState:
         frames = sorted(veo_dir.glob(f"{cap}_img_*.png")) if veo_dir.exists() else []
         first_frame = frames[0] if frames else (veo_dir / f"{cap}_img_01.png")
         out_clip = self.resolve_clip(cap) or (veo_dir / f"{cap}_clip_01.mp4")
+        # F59 A3.1: la foto final de producción (`<stem>_final<sufijo>`, asset_manager._process_veo_chapter) si ya existe.
+        final_path = _foto_final_path(first_frame)
         return {
             "cap": cap,
             "video_prompt": video_prompt,
@@ -603,10 +622,11 @@ class QAState:
             "first_frame": str(first_frame),
             "out_clip": str(out_clip),
             "clip_name": Path(out_clip).name,
-            # art_profile/subject_ref del cap (los necesita el clip-regen para regenerar la
-            # still del primer frame, igual que resolve_fix_entry).
             "art_profile": chap.get("art_profile") or "",
             "subject_ref": chap.get("subject_ref") or None,
+            # F59 A3.1: solo AGREGA. voz_clip (F57) = lo que se oye durante el clip; "" si el guion es viejo.
+            "voz_clip": str(chap.get("voz_clip") or "").strip(),
+            "_final": str(final_path) if final_path.exists() else None,
         }
 
     def topic_info(self) -> dict:
@@ -692,82 +712,45 @@ def _assemble_status(tail: int = 60) -> dict:
 
 
 # ═════════════════════════════════════════════════════════════════
-#  ZONA 1 — FIX DE FOTO (/fix_image) · regenera 1 imagen sola
-#  (clona el molde threaded de _ASM; reusa asset_manager + gemini, read-only)
+#  ZONA 1 — FIX DE FOTO (/fix_image) · rehace 1 foto con la máquina de producción
+#  F59 (DECISIONES 2026-10-30 08:22): Opus (MODELO_CASILLEROS) edita los CASILLEROS del ítem
+#  (solo CASILLEROS_EDITABLES), el código rearma con m03_visual.armar_item (scrub + armado C +
+#  backstops: la misma función que m03), Seedream con foto madre si el ítem la trae, grade
+#  (`_graded.png`, el que usa el video) y se guarda en 03_visual.json y en el guion vivo.
+#  Un solo regen a la vez (_FIX, compartido con el fix de clip y el de narración).
 # ═════════════════════════════════════════════════════════════════
 
-# Instrucción DEDICADA del rewrite (NO la de m03, que es traductor). Embebe las
-# reglas de MODEL_PROMPTING_RULES §1 (Flux) y §1.8 (content-safety). El gate es Omar
-# mirando la IMAGEN; este LLM solo aplica el cambio que pide, en inglés, cuidando las
-# reglas. NUNCA se le muestra el prompt a Omar para aprobar.
-_FIX_REWRITE_INSTRUCTION = """\
-Sos un editor de prompts de imagen para Seedream 4.5 (documental 16:9, canal de
-dark-history). Te paso un PROMPT ACTUAL en inglés (ya generado por el pipeline, con toda su
-estructura y disciplina), su narration_anchor (lo que la imagen DEBE ilustrar), y un CAMBIO
-que pide el usuario en español coloquial.
+# Pedido del editor de foto — HANDOFF_F59 §«PEDIDO_EDITAR_CASILLEROS», byte a byte (placeholders de str.format).
+PEDIDO_EDITAR_CASILLEROS = """Editás los casilleros de una foto de un video documental de historia oscura. Los CASILLEROS son un JSON en inglés que después arma el código en el prompt de la foto. El ANCLA es la oración de la narración que la foto muestra. Omar pide un cambio en español.
 
-Tu tarea: aplicar EXCLUSIVAMENTE el cambio pedido y devolver el prompt con TODO LO DEMÁS
-INTACTO — mismas frases, mismo orden, misma estructura. NO reescribas, NO reordenes, NO lo
-achiques, NO lo "naturalices". Editás IN-PLACE: tocás solo lo que el cambio pide; el resto se
-copia palabra por palabra. El prompt ya viene en la forma correcta de seedream — preservala.
+Devolvé el mismo JSON, con las mismas claves. Cambiá solo los casilleros que el pedido toca; los demás van copiados tal cual. Escribí lo que se ve, en inglés: si el pedido saca algo, nombrá qué ocupa su lugar. Si el pedido es una emoción, escribila como gesto visible. Si el pedido choca con el ANCLA, hacé lo más cercano que el ANCLA permita.
 
-El narration_anchor es la VERDAD de lo que la toma debe mostrar — no te alejes de él.
+ANCLA:
+{ancla}
 
-RECETARIO DE TRADUCCIÓN (cómo convertir el pedido coloquial en edición que el motor obedece):
-A. REEMPLAZO POSITIVO: si el usuario pide QUITAR algo, NUNCA dejes solo la negación (el motor
-   dibuja lo que lee, aun negado). Nombrá qué ocupa su lugar Y matá la FORMA y el COLOR del
-   objeto quitado. Ej: "sacale la esponja" → "his hands are EMPTY, both gripping the bars,
-   no object, nothing white in the frame". Ej: "eliminá la mierda del agua" → "the water
-   carries only soaked papers and unrecognizable small debris; no organic waste, no brown
-   floating lumps".
-B. PINTOR-NO-ACTOR (R6): si el pedido trae emociones o estados internos ("que llore", "más
-   desesperado", "con miedo"), traducilos a 2-3 señales FÍSICAS pintables — musculatura
-   facial (ceño, mandíbula), ojos (enrojecidos, muy abiertos), boca (entreabierta,
-   temblorosa), postura, y señales involuntarias (lágrimas surcando la mugre, manos
-   temblando). NUNCA la palabra abstracta sola. UNA emoción dominante por cara, jamás
-   mezclas triples.
-C. EL CUERPO CARGA LA SITUACIÓN: preservá (y si el pedido lo amerita, reforzá) las marcas de
-   la condición narrada — empapado, pelo pegado, mugre, hollín, agotamiento. Cara seca y
-   prolija en una escena de desastre es un error de continuidad.
-D. GEOMETRÍA RELATIVA A CÁMARA: toda dirección de mirada o de cuerpo se escribe relativa a
-   la cámara ("looking directly toward the camera" / "looking away from the camera, toward
-   the window"), nunca ambigua.
-E. CAMBIOS QUIRÚRGICOS: si el pedido nombra a UNA persona/zona ("el del centro", "los ojos"),
-   la edición nombra esa parte exacta y declara explícitamente que el resto de esa figura no
-   cambia (misma expresión, mismo encuadre).
+CASILLEROS:
+{casilleros}
 
-GUARDRAILS (el prompt resultante DEBE cumplirlos; si el cambio del usuario empuja a violar
-uno, cumplí el ESPÍRITU del pedido sin romperlo):
-1. PERSONAS GENÉRICAS — los sujetos son personas genéricas period-correct: NUNCA el parecido
-   de una persona real identificable ni un nombre propio. Las caras SÍ pueden verse nítidas y
-   al frente (doctrina R1/LEY 1 vigente): lo prohibido es la identidad real, no el rostro.
-2. SIN NOMBRES PROPIOS — describí por apariencia/rol, nunca el nombre de una persona.
-3. MOOD CEILING (HARD CAP, no ablandar) — el terror se construye con escala + luz + aparato
-   vacío + caras VIVAS cargadas; NUNCA cuerpos sin vida, sangre gráfica fresca, ni el momento
-   del daño. Nada gratuitamente repugnante en primer plano (desechos orgánicos explícitos,
-   vísceras): el asco vive en la textura del agua/la mugre, no en el objeto reconocible.
-   Mostrá el resultado / el espacio vacío cargado, nunca el mecanismo centrado. Muerte →
-   calma previa. Aparato de ejecución → espacio cargado vacío + UN objeto que implica (una
-   soga sola, un banco volcado), nunca el mecanismo entero.
-4. TEXTO en español únicamente, y solo si la escena legítimamente lo lleva — nunca un nombre
-   propio. Seedream renderiza el texto entre comillas legible — permitido e intencional.
+PEDIDO DE OMAR:
+{pedido}"""
 
-Devolvé SOLO el JSON {"new_prompt": "<prompt editado en inglés>"}. Sin markdown.
-"""
+# Pedido del editor de movimiento — HANDOFF_F59 §«PEDIDO_EDITAR_MOVIMIENTO», byte a byte. {segundos} =
+# VEO_CLIP_DURATION_SEC formateado por video_prompt._segundos().
+PEDIDO_EDITAR_MOVIMIENTO = """Editás el movimiento de un clip de {segundos} segundos de un video documental de historia oscura. El MOVIMIENTO aprobado está en inglés; la VOZ es lo que se oye durante el clip. Omar pide un cambio en español.
+
+Devolvé el MOVIMIENTO con el cambio aplicado, en inglés y de largo parecido; lo que el pedido no toca va igual. Escribí lo que pasa en cámara y en la escena (si el pedido dice que algo no se mueva, escribí que queda quieto).
+
+VOZ:
+{voz_clip}
+
+MOVIMIENTO:
+{movimiento}
+
+PEDIDO DE OMAR:
+{pedido}"""
 
 _FIX: dict = {"running": False, "done": False, "ok": None, "reason": None, "img_name": None}
 _FIX_LOCK = threading.Lock()
-
-
-def _build_fix_user_prompt(entry: dict, feedback: str) -> str:
-    return (
-        f"PROMPT ACTUAL (inglés, seedream):\n{entry['prompt']}\n\n"
-        f"narration_anchor (lo que la imagen DEBE ilustrar): "
-        f"{entry.get('narration_anchor') or '(sin anchor)'}\n\n"
-        f"CAMBIO QUE PIDE EL USUARIO (español): {feedback}\n\n"
-        "Reescribí el prompt en inglés aplicando ese cambio, manteniendo todo lo demás "
-        "y respetando las reglas. Devolvé solo {\"new_prompt\": ...}."
-    )
 
 
 def _invalidate_baked(state, topic_id: str, cap: str) -> None:
@@ -848,82 +831,297 @@ def _reseed_core(state: "QAState", topic_id: str, cap: str, img_name: str, *, at
     return True, None, seed
 
 
+# ─── helpers compartidos por los editores de foto y de clip (F59) ───
+
+def _steps_dir(state: "QAState") -> Path:
+    """`data/scripts/_steps` RELATIVO a state.base (en producción base = raíz del repo; la copia de lab de F59 trae
+    `base/data/scripts/_steps/<tid>/03_visual.json`)."""
+    return state.base / "data" / "scripts" / "_steps"
+
+
+def _visual_path(state: "QAState", topic_id: str) -> Path:
+    """03_visual.json: la fuente que m06 vuelve a copiar (decisión b del analista, F59)."""
+    return _steps_dir(state) / topic_id / "03_visual.json"
+
+
+def _foto_final_path(first_frame: Path) -> Path:
+    """`<stem>_final<sufijo>` al lado de la inicial, como asset_manager._process_veo_chapter."""
+    return first_frame.with_name(f"{first_frame.stem}_final{first_frame.suffix}")
+
+
+def _read_json(p: Path) -> dict | None:
+    try:
+        d = json.loads(p.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    return d if isinstance(d, dict) else None
+
+
+def _write_json(p: Path, data: dict) -> None:
+    """Como m03_visual (l. ~2072) y m06_assembler (l. ~145): ensure_ascii=False, indent=2."""
+    p.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def _chapter_of(raw: dict | None, cap: str) -> dict | None:
+    if not raw:
+        return None
+    return next((c for c in raw.get("chapters", [])
+                 if isinstance(c, dict) and c.get("chapter_number") == int(cap[2:])), None)
+
+
+def _item_of(chap: dict | None, kind: str, idx: int) -> dict | None:
+    """El ítem idx (1-indexed) de image_prompts | supplemental_image_prompts de un cap; None si no es dict."""
+    if not chap:
+        return None
+    items = chap.get("supplemental_image_prompts" if kind == "supp" else "image_prompts") or []
+    if not isinstance(items, list) or not (1 <= idx <= len(items)) or not isinstance(items[idx - 1], dict):
+        return None
+    return items[idx - 1]
+
+
+def _backup(state: "QAState", src: Path, ts: str) -> None:
+    """Copia `src` a assets/_qa_backups/<nombre>.<ts>.bak<sufijo> si existe (mismo molde que _reseed_core)."""
+    if not src.exists():
+        return
+    bdir = state.assets_dir / "_qa_backups"
+    bdir.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(src, bdir / f"{src.name}.{ts}.bak{src.suffix}")
+
+
+def _refs_madre(v) -> list[str]:
+    """foto_madre_ref → lista de refs no vacíos (str o lista), como asset_manager._norm_foto_madre_refs."""
+    if isinstance(v, str):
+        v = [v]
+    if not isinstance(v, (list, tuple)):
+        return []
+    out: list[str] = []
+    for r in v:
+        s = str(r or "").strip()
+        if s and s not in out:
+            out.append(s)
+    return out
+
+
+def _editar_con_opus(prompt: str, validator_fn, cap_number: int, response_schema: dict, description: str, *,
+                     retry_fn=None, llamar_fn=None) -> dict:
+    """El editor de QA (foto y clip): MODELO_CASILLEROS vía m03_visual._llamar_casilleros, con el MISMO reintento de
+    los casilleros de m03 (`_call_with_validation_retry`: MAX_RETRY_ATTEMPTS, checklist vacío). Deja pasar
+    VisualValidationError (agotó los intentos) y claude_helpers.ClaudeError (Opus no respondió)."""
+    if retry_fn is None or llamar_fn is None:
+        from script_engine import m03_visual  # noqa: PLC0415 — import pesado, solo al pedir un fix
+        retry_fn = retry_fn or m03_visual._call_with_validation_retry
+        llamar_fn = llamar_fn or m03_visual._llamar_casilleros
+    return retry_fn(prompt, validator_fn, cap_number, checklist="", response_schema=response_schema,
+                    caller=llamar_fn, description=description)
+
+
+def _esquema_casilleros(claves: list[str]) -> dict:
+    """Esquema de salida del editor de foto: objeto con EXACTAMENTE las claves editables presentes en el ítem; los tipos
+    como `_seedream_slots_schema` de m03_visual (shot_scale con su enum, text_in_image objeto, el resto STRING)."""
+    from script_engine.m03_visual import VALID_SHOT_SCALES  # noqa: PLC0415
+    tipos = {
+        "shot_scale": {"type": "STRING", "enum": sorted(VALID_SHOT_SCALES)},
+        "text_in_image": {
+            "type": "OBJECT",
+            "properties": {"present": {"type": "BOOLEAN"}, "text": {"type": "STRING"},
+                           "font": {"type": "STRING"}, "location": {"type": "STRING"}},
+            "required": ["present", "text", "font", "location"],
+        },
+    }
+    return {"type": "OBJECT", "properties": {k: tipos.get(k, {"type": "STRING"}) for k in claves},
+            "required": list(claves)}
+
+
+def _grade_como_produccion(src: Path) -> Path | None:
+    """El grade de post igual que asset_manager._apply_grade: `image_grade.grade(src, image_grade.params())` →
+    `<stem>_graded.png` (pisando el viejo: es el que usa el video). None si el grade está apagado."""
+    from script_engine import image_grade  # noqa: PLC0415
+    prm = image_grade.params()
+    if not prm.get("enabled", True):
+        return None
+    return image_grade.grade(src, prm, overwrite=True)
+
+
+def _informe_scrub(it: dict, cambiados: list[str]) -> str:
+    """A2.8: texto llano para Omar — qué casilleros cambió Opus y qué sacó el scrub de producción del ítem rearmado
+    (`_f8_slots_scrub`, `_f8_problemas`, `_f8_texto_fuera`), sin tocar el scrub."""
+    sacado = [str(x) for k in ("_f8_slots_scrub", "_f8_problemas", "_f8_texto_fuera") for x in (it.get(k) or [])]
+    txt = f"foto rehecha; casilleros editados: {', '.join(cambiados) or 'ninguno'}."
+    if sacado:
+        txt += " El filtro de producción sacó: " + "; ".join(sacado) + "."
+    else:
+        txt += " El filtro de producción no sacó nada."
+    return txt
+
+
 def _fix_core(
     state: "QAState",
     topic_id: str,
     cap: str,
     img_name: str,
-    feedback: str,
+    pedido: str,
     *,
-    rewrite_fn=None,        # (system_instruction, user_prompt) -> {"new_prompt": str}
+    llamar_fn=None,         # (prompt, system_instruction=, response_schema=, description=) -> dict  (Opus; m03_visual._llamar_casilleros)
+    retry_fn=None,          # m03_visual._call_with_validation_retry (reintento con validador)
+    armar_item_fn=None,     # m03_visual.armar_item(it, anio, grupos, escala, lang, composicion="", sin_cartel=False, anio_fuente="") -> it
+    topic_fn=None,          # (topic_id) -> topic dict  (fase1_5._load_topic_by_id; sin asegurar_canon)
     seed_fn=None,           # (video_id, subject_ref) -> int | None
-    generate_fn=None,       # (prompt, art_profile, out_path, use_ultra, seed) -> dict
+    generate_fn=None,       # (prompt, art_profile, out_path, use_ultra, seed, foto_madre_data_uris) -> dict
+    grade_fn=None,          # (src_png) -> graded_png | None
     is_hook_fn=None,        # (cap) -> bool
+    data_uri_fn=None,       # (path) -> data URI de la foto madre
     content_rejected_exc=None,
     now_ts: str | None = None,
 ) -> tuple[bool, str | None]:
-    """Lógica del fix, TESTEABLE con deps inyectadas (sin red ni Flux real).
-    Devuelve (ok, reason). En producción las deps se resuelven lazy desde
-    asset_manager + gemini_helpers (import pesado → solo al pedir un fix, no al boot)."""
+    """F59 A2 — «rehacer foto» con la máquina de producción. Devuelve (ok, texto para Omar).
+    pedido de Omar → Opus edita SOLO los casilleros de CASILLEROS_EDITABLES que el ítem tiene (PEDIDO_EDITAR_CASILLEROS,
+    reintento de m03) → casilleros finales = los del ítem con los editados encima (`people_group` y el resto por código)
+    → `anio_final` (regla de producción) → contexto sin LLM (topic de topics_db, grupos, escala del beat, idioma del
+    lugar) → `armar_item` (scrub + armado C + backstops) → backups → Seedream (foto madre si el ítem la trae) → grade
+    → se guarda el ítem en 03_visual.json y en el guion vivo → `_invalidate_baked`. Sin generar si Opus no pasa el
+    validador. Testeable con deps inyectadas (sin red)."""
+    from script_engine import m03_imagenes_v3 as v3img  # noqa: PLC0415
+    from script_engine.m03_visual import VisualValidationError  # noqa: PLC0415
+    import claude_helpers  # noqa: PLC0415
+
     # ── deps reales (lazy; los tests pasan TODAS para no importar pesado) ──
-    if rewrite_fn is None:
-        from gemini_helpers import call_flash_json, types  # noqa: PLC0415
-        _schema = types.Schema(
-            type=types.Type.OBJECT, required=["new_prompt"],
-            properties={"new_prompt": types.Schema(type=types.Type.STRING)},
-        )
-        rewrite_fn = lambda si, up: call_flash_json(  # noqa: E731
-            prompt=up, system_instruction=si, response_schema=_schema)
-    if seed_fn is None or generate_fn is None or is_hook_fn is None or content_rejected_exc is None:
+    if armar_item_fn is None:
+        from script_engine.m03_visual import armar_item  # noqa: PLC0415
+        armar_item_fn = armar_item
+    if topic_fn is None:
+        import fase1_5  # noqa: PLC0415
+        topic_fn = fase1_5._load_topic_by_id
+    if (seed_fn is None or generate_fn is None or is_hook_fn is None or data_uri_fn is None
+            or content_rejected_exc is None):
         import asset_manager as am  # noqa: PLC0415
         seed_fn = seed_fn or am._seed_for_subject
         generate_fn = generate_fn or am._generate_flux_image_at
         is_hook_fn = is_hook_fn or am._is_hook_chapter
+        data_uri_fn = data_uri_fn or am._path_to_data_uri
         content_rejected_exc = content_rejected_exc or am.ContentRejectedError
+    grade_fn = grade_fn or _grade_como_produccion
 
-    # 1. Resolver la entrada en el script (fresco).
+    # 1. Entrada fresca del guion vivo; sin casilleros o sin año → guion viejo.
     entry = state.resolve_fix_entry(img_name)
     if not entry:
         return False, "no se pudo resolver la entrada del prompt en el script"
+    casilleros = entry.get("casilleros")
+    if not isinstance(casilleros, dict) or not entry.get("anio"):
+        return False, "guion viejo: correr m03 de nuevo"
+    claves = [k for k in v3img.CASILLEROS_EDITABLES if k in casilleros]
+    if not claves:
+        return False, "guion viejo: correr m03 de nuevo"
 
-    # 2. Rewrite del prompt (editor in-place seedream + guardrails faceless/mood/texto).
+    # 2. Opus edita los casilleros (solo las claves editables que el ítem tiene; esquema = esas mismas claves).
+    prompt = PEDIDO_EDITAR_CASILLEROS.format(
+        ancla=entry.get("narration_anchor") or "",
+        casilleros=json.dumps({k: casilleros[k] for k in claves}, ensure_ascii=False, indent=2),
+        pedido=pedido,
+    )
+
+    def _validador(raw):
+        if not isinstance(raw, dict):
+            raise VisualValidationError("la salida no es un objeto JSON")
+        faltan = [k for k in claves if k not in raw]
+        sobran = [k for k in raw if k not in claves]
+        if faltan or sobran:
+            raise VisualValidationError(f"claves: faltan {faltan}, sobran {sobran}; tienen que ser exactamente {claves}")
+        vacios = [k for k in v3img._PROSA if k in claves and not str(raw.get(k) or "").strip()]
+        if vacios:
+            raise VisualValidationError(f"casillero de prosa vacío: {vacios}")
+        return raw
+
     try:
-        res = rewrite_fn(_FIX_REWRITE_INSTRUCTION, _build_fix_user_prompt(entry, feedback))
-        new_prompt = str((res or {}).get("new_prompt", "")).strip()
-        if not new_prompt:
-            return False, "el rewrite devolvió un prompt vacío"
+        editados = _editar_con_opus(prompt, _validador, int(cap[2:]), _esquema_casilleros(claves),
+                                    f"qa:fix_foto {img_name}", retry_fn=retry_fn, llamar_fn=llamar_fn)
+    except claude_helpers.ClaudeError as e:
+        return False, f"Opus no editó los casilleros: {str(e)[:200]}"
+    except VisualValidationError as e:
+        return False, f"el editor no devolvió casilleros válidos: {str(e)[:200]}"
+
+    # 3. Casilleros finales: los del ítem con los editados encima (people_group y el resto, tal cual por código).
+    casilleros_nuevos = {**casilleros, **editados}
+    cambiados = [k for k in claves if editados.get(k) != casilleros.get(k)]
+
+    # 4. Año con la regla de producción (valida 4 dígitos y cae al del ítem).
+    anio, fuente = v3img.anio_final({"respaldo": (entry["anio"], entry.get("anio_fuente") or "")}, casilleros_nuevos)
+
+    # 5. Contexto sin LLM y sin asegurar_canon.
+    try:
+        topic = topic_fn(topic_id)
     except Exception as e:  # noqa: BLE001
-        return False, f"rewrite falló: {type(e).__name__}: {str(e)[:140]}"
+        return False, f"no se pudo cargar el topic: {type(e).__name__}: {str(e)[:160]}"
+    grupos = {g["id"]: g for g in topic.get("people_groups") or [] if isinstance(g, dict) and g.get("id")}
+    beats = v3img.load_beats(topic, _steps_dir(state)) or {}
+    by_n = {b.get("n"): b for b in beats.get(int(cap[2:])) or []}
+    escala = bool((by_n.get(entry.get("beat")) or {}).get("escala"))
+    lang = v3img.place_language(topic)
 
-    # 3. Resolver el path real (el que el visor ya renderiza) + backup ANTES de pisar.
-    out_path = state.resolve_image(cap, img_name)
-    if out_path is None:
-        out_path = state.assets_dir / f"{cap}_flux" / img_name
+    # 6. El ítem en 03_visual.json y en el guion vivo (frescos) → armar_item.
+    vpath = _visual_path(state, topic_id)
+    visual = _read_json(vpath)
+    script = _read_json(state.script_path)
+    item03 = _item_of(_chapter_of(visual, cap), entry["kind"], entry["idx"])
+    item_vivo = _item_of(_chapter_of(script, cap), entry["kind"], entry["idx"])
+    if item03 is None or item_vivo is None or script is None or visual is None:
+        return False, "no se encontró el ítem en 03_visual.json o en el guion vivo"
+    it = {k: v for k, v in item03.items() if not k.startswith("_f8_")}
+    it.update(casilleros_nuevos)
     try:
-        if out_path.exists():
-            bdir = state.assets_dir / "_qa_backups"
-            bdir.mkdir(parents=True, exist_ok=True)
-            ts = now_ts or datetime.now().strftime("%Y%m%d_%H%M%S")
-            shutil.copy2(out_path, bdir / f"{img_name}.{ts}.bak.png")
+        it = armar_item_fn(it, anio, grupos, escala, lang, anio_fuente=fuente)   # escribe it["anio"]/["anio_fuente"]
+    except Exception as e:  # noqa: BLE001
+        return False, f"armar_item falló: {type(e).__name__}: {str(e)[:160]}"
+    prompt_final = str(it.get("prompt") or "").strip()
+    if not prompt_final:
+        return False, "el armado dejó el prompt vacío"
+
+    # 7. Backups ANTES de pisar: PNG crudo, _graded.png, 03_visual.json y el guion vivo.
+    out_path = state.resolve_image(cap, img_name) or (state.assets_dir / f"{cap}_flux" / img_name)
+    graded = out_path.with_name(f"{out_path.stem}_graded{out_path.suffix}")
+    ts = now_ts or datetime.now().strftime("%Y%m%d_%H%M%S")
+    try:
+        for p in (out_path, graded, vpath, state.script_path):
+            _backup(state, p, ts)
     except OSError as e:
         return False, f"backup falló: {e}"
 
-    # 4. seed por sujeto (consistencia de personaje) + 5. generar (pisa el mismo nombre).
-    seed = seed_fn(topic_id, entry.get("subject_ref"))
+    # 8. Seedream: semilla por sujeto + foto madre resuelta contra foto_madre_registry (asset_manager ~861–870).
+    registry = script.get("foto_madre_registry") or {}
+    uris: list[str] = []
+    for r in _refs_madre(entry.get("foto_madre_ref")):
+        p = registry.get(r)
+        if p and Path(p).exists():
+            uris.append(data_uri_fn(p))
+    seed = seed_fn(topic_id, item03.get("subject_ref") or entry.get("subject_ref"))
     try:
-        # ⚠ use_ultra: flux_config tiene ultra_model == standard_model (flux-2-pro) →
-        #   use_ultra es cosmético hoy (mismo modelo). Respetamos _is_hook_chapter igual.
-        generate_fn(new_prompt, entry.get("art_profile", ""), out_path,
-                    use_ultra=is_hook_fn(cap), seed=seed)
+        generate_fn(prompt_final, "", out_path, use_ultra=is_hook_fn(cap), seed=seed,
+                    foto_madre_data_uris=uris or None)
     except content_rejected_exc as e:
         return False, f"filtro: {str(e)[:160]}"
     except Exception as e:  # noqa: BLE001
         return False, f"{type(e).__name__}: {str(e)[:160]}"
 
+    # 9. Grade como producción → <stem>_graded.png (lo que el video usa).
+    try:
+        grade_fn(out_path)
+    except Exception as e:  # noqa: BLE001
+        return False, (f"grade falló: {type(e).__name__}: {str(e)[:160]} "
+                       "(la foto cruda quedó nueva; el guion no se tocó)")
+
+    # 10. Guardar el ítem (casilleros, raw_llm_prompt, prompt, anio, anio_fuente, _f8_*) en los dos archivos.
+    for dst in (item03, item_vivo):
+        for k in [k for k in dst if k.startswith("_f8_")]:
+            dst.pop(k)
+        dst.update(it)
+    try:
+        _write_json(vpath, visual)
+        _write_json(state.script_path, script)
+    except OSError as e:
+        return False, f"guardar falló: {e}"
+
     # Invalidar el baked → ENSAMBLAR re-renderiza el cap desde el PNG nuevo.
     _invalidate_baked(state, topic_id, cap)
-
-    return True, None
+    return True, _informe_scrub(it, cambiados)
 
 
 def _fix_worker(cap: str, img_name: str, feedback: str) -> None:
@@ -934,7 +1132,7 @@ def _fix_worker(cap: str, img_name: str, feedback: str) -> None:
         ok, reason = False, f"{type(e).__name__}: {e}"
     with _FIX_LOCK:
         _FIX.update(running=False, done=True, ok=ok, reason=reason)
-    tag = "✓ ok" if ok else f"✗ {reason}"
+    tag = f"✓ ok · {reason}" if ok else f"✗ {reason}"
     print(f"  ✎ fix {img_name}: {tag}")
 
 
@@ -959,165 +1157,128 @@ def _fix_status() -> dict:
 
 
 # ═════════════════════════════════════════════════════════════════
-#  ZONA 1.5 — FIX DE CLIP (/fix_clip) · regenera el video de un cap veo
-#  "regenerar video" = MISMA animación (video_prompt INTACTO) + FOTO nueva (primer frame
-#  regenerado con el rewriter seedream in-place de A) + Veo i2v sobre la foto nueva.
-#  Reusa el estado _FIX + _FIX_LOCK (un solo regen a la vez: foto O clip).
+#  ZONA 1.5 — FIX DE CLIP (/fix_clip) · rehace el clip de un cap con clip
+#  F59 (DECISIONES 2026-10-30 08:22): «rehacer clip» toca SOLO el movimiento: Opus lo edita
+#  (PEDIDO_EDITAR_MOVIMIENTO) y el clip sale por la cadena de producción (foto final F57 +
+#  asset_manager._generate_clip, G → K). La foto inicial no se toca. El movimiento nuevo se
+#  guarda en 03_visual.json y en el guion vivo. Reusa _FIX + _FIX_LOCK (un regen a la vez).
 # ═════════════════════════════════════════════════════════════════
-
-# ⚠ DORMIDO (HANDOFF clip-regen, chat 113): el clip-regen ahora regenera la FOTO y reusa el
-# video_prompt INTACTO → este rewriter de MOVIMIENTO ya NO se usa. Se conserva (NO borrar sin
-# decisión de Omar) por si se agrega un 2do botón "editar solo el movimiento". Junto con
-# _build_clipfix_user_prompt, quedan sin call-site activo.
-# Instrucción DEDICADA del rewrite del clip (NO la de foto). Embebe MODEL_PROMPTING_RULES
-# §2 (Veo) y §2.3 (content-safety). Edita SOLO el movimiento/cámara; el primer frame (la
-# imagen Flux) no se toca acá.
-_FIX_CLIP_REWRITE_INSTRUCTION = """\
-Sos un editor de prompts de VIDEO para Veo 3.1 (image-to-video, clip de 8s en 16:9).
-Te paso el VIDEO_PROMPT ACTUAL en inglés (describe el MOVIMIENTO y la cámara sobre un
-primer frame fijo), el IMAGE_PROMPT del primer frame (CONTEXTO, NO lo repitas), el
-narration_anchor (lo que el clip ilustra) y un CAMBIO que pide el usuario en español
-sobre el MOVIMIENTO / la cámara. Devolvé el video_prompt reescrito EN INGLÉS aplicando
-ESE cambio y manteniendo el resto. El primer frame NO cambia: editás cómo se mueve la
-cámara y qué cambia en el tiempo, no qué se ve en el cuadro.
-
-REGLAS DE VEO (inviolables — el prompt resultante DEBE cumplirlas):
-1. Cinematografía AL INICIO: empezá con shot type + camera movement (Veo genera movimiento
-   y el movimiento empieza por la cámara).
-2. Vocabulario cinematográfico específico: dolly shot, tracking shot, crane shot, aerial
-   view, slow pan, POV shot; wide shot, close-up, low angle; shallow depth of field, etc.
-3. Describí MOVIMIENTO + temporalidad, NO repitas la descripción visual del primer frame
-   (eso ya está en el image_prompt → redundancia = ruido).
-4. SIN audio: en este pipeline NO usamos audio de Veo. NO incluyas diálogo entre comillas,
-   NI 'SFX:', NI 'Ambient noise:'. Solo cámara y movimiento.
-5. SIN negativos: describí en positivo ("a desolate landscape with no buildings", no "no
-   buildings").
-6. Longitud objetivo 100–200 palabras. Clip de 8s fijos — NO menciones duración en el prompt.
-- REEMPLAZO DE VERBO: el motor SIEMPRE anima algo. Si el pedido QUITA un movimiento ("que no
-  haga fuerza"), entregá el movimiento sustituto explícito (respiración pesada y lenta, el
-  agua ondulando apenas, la cámara acercándose muy despacio) — nunca dejes al sujeto sin
-  verbo, porque el motor le inventa uno.
-- SÓLIDOS: los objetos rígidos (barrotes, paredes, vidrios) son SÓLIDOS: ningún cuerpo ni
-  cara los atraviesa. La cámara se DETIENE antes de cruzar cualquier sólido. Cuando el pedido
-  lo amerite, fijá distancias concretas ("la cabeza queda siempre detrás de los barrotes, a
-  una mano de distancia").
-
-CONTENT-SAFETY (§2.3 — Veo es MUY estricto, devuelve 422 y rechaza):
-- Muerte → calma previa. Evitá "motionless", "abandoned", "eerie", "deep night", "no human
-  figures" y cualquier referencia a muerte/destrucción humana. La narración hace el horror;
-  el clip muestra la calma viva anterior (aldea al atardecer, luz de lámpara, brisa suave).
-
-Devolvé SOLO el JSON {"new_video_prompt": "<video_prompt reescrito en inglés>"}. Sin markdown.
-"""
-
-
-def _build_clipfix_user_prompt(entry: dict, feedback: str) -> str:
-    return (
-        f"VIDEO_PROMPT ACTUAL (inglés — movimiento/cámara):\n{entry['video_prompt']}\n\n"
-        f"IMAGE_PROMPT del primer frame (CONTEXTO, no lo repitas):\n"
-        f"{entry.get('image_prompt') or '(n/d)'}\n\n"
-        f"narration_anchor (lo que el clip ilustra): "
-        f"{entry.get('base_anchor') or '(sin anchor)'}\n\n"
-        f"CAMBIO QUE PIDE EL USUARIO sobre el MOVIMIENTO/cámara (español): {feedback}\n\n"
-        "Reescribí el video_prompt en inglés aplicando ese cambio, manteniendo el resto y "
-        "respetando las reglas. Devolvé solo {\"new_video_prompt\": ...}."
-    )
-
 
 def _clipfix_core(
     state: "QAState",
     topic_id: str,
     cap: str,
-    feedback: str,
+    pedido: str,
     *,
-    rewrite_fn=None,          # (system_instruction, user_prompt) -> {"new_prompt": str}  (rewriter de A)
-    seed_fn=None,             # (video_id, subject_ref) -> int | None
-    generate_fn=None,         # (prompt, art_profile, out_path, use_ultra, seed) -> dict  (still seedream)
+    llamar_fn=None,           # Opus con la firma de call_flash_json (m03_visual._llamar_casilleros)
+    retry_fn=None,            # m03_visual._call_with_validation_retry
+    foto_final_fn=None,       # asset_manager.foto_final_del_clip(foto_inicial, image_prompt, voz_clip, out_path, *, use_ultra)
+    generate_clip_fn=None,    # asset_manager._generate_clip(foto, movimiento, out_clip, *, image_prompt, ancla, foto_final, log)
     is_hook_fn=None,          # (cap) -> bool
-    generate_veo_fn=None,     # (image_path: Path, prompt: str, out_path: Path) -> Path  (Veo i2v)
     content_rejected_exc=None,
     now_ts: str | None = None,
 ) -> tuple[bool, str | None]:
-    """Regenera el clip Veo de un cap veo (HANDOFF clip-regen, DEPENDE de b432446).
-    "regenerar video" = MISMA animación (video_prompt INTACTO) + FOTO nueva (primer frame
-    regenerado con el rewriter seedream in-place de A) + Veo i2v sobre la foto nueva. Misma
-    forma testeable que _fix_core (deps inyectadas, imports lazy)."""
-    # ── deps reales (lazy; los tests pasan TODAS para no importar pesado) ──
-    if rewrite_fn is None:
-        from gemini_helpers import call_flash_json, types  # noqa: PLC0415
-        _schema = types.Schema(
-            type=types.Type.OBJECT, required=["new_prompt"],
-            properties={"new_prompt": types.Schema(type=types.Type.STRING)},
-        )
-        rewrite_fn = lambda si, up: call_flash_json(  # noqa: E731
-            prompt=up, system_instruction=si, response_schema=_schema)
-    if (seed_fn is None or generate_fn is None or is_hook_fn is None
-            or generate_veo_fn is None or content_rejected_exc is None):
+    """F59 A3 — «rehacer clip». Devuelve (ok, texto para Omar).
+    pedido de Omar → Opus edita el MOVIMIENTO aprobado (esquema {"movimiento": string}, reintento de m03) → foto final
+    de producción (`foto_final_del_clip`; se reusa si `_final` ya existe) → backup del mp4 → `_generate_clip` (G → K)
+    con el movimiento nuevo, `ancla=voz_clip` y la foto final → se guarda `video_prompt` en 03_visual.json y en el
+    guion vivo → `_invalidate_baked`. Sin `voz_clip` (guion viejo) no se hace nada. Si G y K rechazan, el mp4 viejo
+    queda intacto y el motivo lleva los rechazos literales."""
+    from script_engine.m03_visual import VisualValidationError  # noqa: PLC0415
+    from script_engine.video_prompt import _segundos  # noqa: PLC0415
+    import claude_helpers  # noqa: PLC0415
+
+    if (foto_final_fn is None or generate_clip_fn is None or is_hook_fn is None
+            or content_rejected_exc is None):
         import asset_manager as am  # noqa: PLC0415
-        seed_fn = seed_fn or am._seed_for_subject
-        generate_fn = generate_fn or am._generate_flux_image_at
+        foto_final_fn = foto_final_fn or am.foto_final_del_clip
+        generate_clip_fn = generate_clip_fn or am._generate_clip
         is_hook_fn = is_hook_fn or am._is_hook_chapter
-        generate_veo_fn = generate_veo_fn or am._generate_clip           # F53b: G → K (sale Veo)
         content_rejected_exc = content_rejected_exc or am.ContentRejectedError
 
-    # 1. Resolver la entrada (video_prompt + image_prompt + primer frame + clip + profile/subject).
+    # 1. Entrada fresca; sin voz_clip → guion viejo (el 400 de /fix_clip queda solo para caps sin clip).
     entry = state.resolve_clip_entry(cap)
     if not entry:
         return False, "no se pudo resolver el clip del cap en el script"
+    voz_clip = entry.get("voz_clip") or ""
+    if not voz_clip:
+        return False, "guion viejo: correr m03 de nuevo"
     first_frame = Path(entry["first_frame"])
     out_clip = Path(entry["out_clip"])
     if not first_frame.exists():
-        return False, f"falta el primer frame del clip: {first_frame.name}"
+        return False, f"falta la foto inicial del clip: {first_frame.name}"
 
-    # 2. Rewrite del IMAGE_PROMPT (la FOTO) con el rewriter seedream in-place de A — NO el de
-    #    movimiento. anchor = base_anchor del cap veo. El video_prompt NO se toca.
-    try:
-        photo_entry = {"prompt": entry["image_prompt"],
-                       "narration_anchor": entry.get("base_anchor", "")}
-        res = rewrite_fn(_FIX_REWRITE_INSTRUCTION, _build_fix_user_prompt(photo_entry, feedback))
-        new_image_prompt = str((res or {}).get("new_prompt", "")).strip()
-        if not new_image_prompt:
-            return False, "el rewrite devolvió un image_prompt vacío"
-    except Exception as e:  # noqa: BLE001
-        return False, f"rewrite falló: {type(e).__name__}: {str(e)[:140]}"
+    # 2. Opus edita el movimiento.
+    prompt = PEDIDO_EDITAR_MOVIMIENTO.format(segundos=_segundos(), voz_clip=voz_clip,
+                                             movimiento=entry["video_prompt"], pedido=pedido)
 
-    # 3. Backups de la still vieja Y el clip viejo ANTES de pisar.
+    def _validador(raw):
+        if not isinstance(raw, dict):
+            raise VisualValidationError("la salida no es un objeto JSON")
+        if list(raw.keys()) != ["movimiento"]:
+            raise VisualValidationError(f"claves {list(raw.keys())}; tiene que ser exactamente ['movimiento']")
+        mov = re.sub(r"\s+", " ", str(raw.get("movimiento") or "")).strip()
+        if not mov:
+            raise VisualValidationError("movimiento vacío")
+        return {"movimiento": mov}
+
     try:
-        bdir = state.assets_dir / "_qa_backups"
-        ts = now_ts or datetime.now().strftime("%Y%m%d_%H%M%S")
-        if first_frame.exists():
-            bdir.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(first_frame, bdir / f"{first_frame.name}.{ts}.bak.png")
-        if out_clip.exists():
-            bdir.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(out_clip, bdir / f"{entry['clip_name']}.{ts}.bak.mp4")
+        res = _editar_con_opus(prompt, _validador, int(cap[2:]),
+                               {"type": "OBJECT", "properties": {"movimiento": {"type": "STRING"}},
+                                "required": ["movimiento"]},
+                               f"qa:fix_clip {cap}", retry_fn=retry_fn, llamar_fn=llamar_fn)
+    except claude_helpers.ClaudeError as e:
+        return False, f"Opus no editó el movimiento: {str(e)[:200]}"
+    except VisualValidationError as e:
+        return False, f"el editor no devolvió un movimiento válido: {str(e)[:200]}"
+    movimiento = res["movimiento"]
+
+    # 3. Foto final de producción (reusa si existe).
+    final = foto_final_fn(first_frame, entry.get("image_prompt") or "", voz_clip, _foto_final_path(first_frame),
+                          use_ultra=is_hook_fn(cap))
+
+    # 4. Backup del mp4 y clip por la cadena de producción (G → K) con el movimiento nuevo.
+    ts = now_ts or datetime.now().strftime("%Y%m%d_%H%M%S")
+    try:
+        _backup(state, out_clip, ts)
     except OSError as e:
         return False, f"backup falló: {e}"
-
-    # 4. Regenerar el PRIMER FRAME (still) con el image_prompt nuevo → render seedream
-    #    (profile-driven). seed por subject_ref = consistencia de personaje; la foto cambia
-    #    porque cambió el prompt. Pisa el mismo filename (conteo intacto).
+    log: list[dict] = []
     try:
-        seed = seed_fn(topic_id, entry.get("subject_ref"))
-        generate_fn(new_image_prompt, entry.get("art_profile", ""), first_frame,
-                    use_ultra=is_hook_fn(cap), seed=seed)
+        generate_clip_fn(first_frame, movimiento, out_clip, image_prompt=entry.get("image_prompt") or "",
+                         ancla=voz_clip, foto_final=final.get("path"), log=log)
     except content_rejected_exc as e:
-        return False, f"filtro (still): {str(e)[:160]}"
+        return False, f"filtro: {str(e)[:600]}"
     except Exception as e:  # noqa: BLE001
-        return False, f"still {type(e).__name__}: {str(e)[:160]}"
+        return False, f"{type(e).__name__}: {str(e)[:160]}"
 
-    # 5. Re-correr Veo i2v sobre la still NUEVA, con el video_prompt SIN TOCAR (verbatim).
+    # 5. Guardar el movimiento nuevo en 03_visual.json y en el guion vivo (con backups).
+    vpath = _visual_path(state, topic_id)
+    visual = _read_json(vpath)
+    script = _read_json(state.script_path)
+    cap03 = _chapter_of(visual, cap)
+    cap_vivo = _chapter_of(script, cap)
+    if cap03 is None or cap_vivo is None:
+        return False, "clip rehecho, pero no se encontró el cap en 03_visual.json o en el guion vivo para guardar el movimiento"
     try:
-        generate_veo_fn(first_frame, entry["video_prompt"], out_clip)
-    except content_rejected_exc as e:
-        return False, f"filtro (veo): {str(e)[:160]}"
-    except Exception as e:  # noqa: BLE001
-        return False, f"veo {type(e).__name__}: {str(e)[:160]}"
+        _backup(state, vpath, ts)
+        _backup(state, state.script_path, ts)
+        cap03["video_prompt"] = movimiento
+        cap_vivo["video_prompt"] = movimiento
+        _write_json(vpath, visual)
+        _write_json(state.script_path, script)
+    except OSError as e:
+        return False, f"guardar falló: {e}"
 
     # Invalidar el baked → ENSAMBLAR re-concatena el cap desde el clip nuevo.
     _invalidate_baked(state, topic_id, cap)
-
-    return True, None
+    motor = next((f.get("motor") for f in log if f.get("motor")), None)
+    txt = "clip rehecho con el movimiento nuevo"
+    if motor:
+        txt += f" (motor: {motor})"
+    if final.get("path") is None and final.get("motivo"):
+        txt += f"; sin foto final: {final['motivo']}"
+    return True, txt
 
 
 def _clipfix_worker(cap: str, feedback: str) -> None:
@@ -1127,7 +1288,7 @@ def _clipfix_worker(cap: str, feedback: str) -> None:
         ok, reason = False, f"{type(e).__name__}: {e}"
     with _FIX_LOCK:
         _FIX.update(running=False, done=True, ok=ok, reason=reason)
-    print(f"  ✎ clip-fix {cap}: {'✓ ok' if ok else '✗ ' + str(reason)}")
+    print(f"  ✎ clip-fix {cap}: {'✓ ok · ' + str(reason) if ok else '✗ ' + str(reason)}")
 
 
 def _start_clipfix(cap: str, feedback: str) -> dict:

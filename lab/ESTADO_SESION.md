@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-30 (F59 Etapa 0: 6 decisiones en DECISIONES; cuadros vacíos de QA Studio confirmados (los *_graded.png entran al glob y resolve_image los rechaza: la mitad de los cuadros, primero en el orden, anclas corridas y sync perdido); copia de lab de Wittenoom en lab/hyperframes/f59/base/ (629,9 MB, ignorada por git) con narración del guion vivo y voz_clip en caps 1 y 7; candidato B2 ch03_img_08; US$ 0; PARADA 0) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-30 (F59 Etapa A: QA Studio arregla con la máquina de producción — armar_item sacado de m03 (96/96 byte-idéntico), editor de foto (Opus edita casilleros → armar_item → Seedream con madre → grade → 03_visual + guion vivo) y de clip (Opus edita el movimiento → foto final F57 → G→K), hints, galería sin *_graded.png, COMPOSICION_MINIATURA nueva, foto_final_del_clip sin el parámetro muerto; US$ 0; PARADA A, la B espera el OK del analista) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,16 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F59, PARADA A): el «rehacer foto» y el «rehacer clip» de QA Studio ya usan la máquina de producción; falta el OK para probarlo en Wittenoom.
+- Foto: tu pedido → Opus edita solo los casilleros que toca → el código rearma el prompt con la misma función que m03 (`armar_item`), con foto madre y grade → se guarda en 03_visual y en el guion vivo; lo que el filtro saca de tu pedido («jaw clenched», manos/caras) te lo dice en pantalla. Clip: Opus edita solo el movimiento; foto final de F57 y Gemini → Kling; la foto inicial no se toca.
+- Los cuadros del fix traen el hint que aprobaste; la galería ya no muestra cuadros vacíos (los `_graded.png` quedan fuera). La oración de composición de la miniatura es la nueva («the main subject…»).
+- **US$ 0.** Suites verdes (amplia 1295 + las 4 fallas previas), candado ch02 intacto. Salida A en `lab/hyperframes/f59/SALIDA_A.md`.
+
+## F59 Etapa A — código — PARADA A
+- Commits: `724c948` (A1: `armar_item` + fixture de 96 ítems), y el de A2–A5 (qa_studio_server, qa_studio.html, m03_imagenes_v3 `CASILLEROS_EDITABLES`, m09 `COMPOSICION_MINIATURA`, asset_manager `foto_final_del_clip`, clip_b, tests; `test_module_137c_fix_recetario.py` borrado; stickers; MAPA; SALIDA_A).
+- Decisiones de CC: kwarg `anio_fuente` en `armar_item` (orden de claves byte-idéntico); grade que falla → fix falla sin guardar; el front muestra `reason` cuando el fix sale bien (A2.8); test viejo de F57 del clipfix borrado con nota.
+- Pendiente: OK del analista → Etapa B (B1 composición de los 3 paquetes F58 sin LLM ≈ US$ 0,105; B2 ch03_img_08 «que mire hacia la cámara, con el ceño fruncido»; B3 clip ch01 «cámara quieta, solo sube el polvo, lento») sobre la copia de lab, con cost_tracker.
 
 ## 👀 Para Omar (F59, PARADA 0): la Etapa 0 (solo lectura) está; falta tu OK para programar la A.
 - Las 6 decisiones del handoff están en DECISIONES. Los cuadros vacíos de QA Studio: confirmado, los `*_graded.png` entran al glob de la galería y `/img` los rechaza (la mitad de los cuadros, y además van primero, se llevan las anclas y rompen el sync); no se arregla en F59.

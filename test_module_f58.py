@@ -250,7 +250,8 @@ def test_a3_prompts_paquetes_kwargs(dirs, monkeypatch):
     assert seen["composicion"] == m.COMPOSICION_MINIATURA and seen["sin_cartel"] is True and seen["clip_apertura"] is False
     f8 = seen["topic"]["_f8"]
     assert f8["refill"] is True and [a["beat"] for a in f8["force_assign"]] == [1, 2]
-    assert m.COMPOSICION_MINIATURA == ("The person fills the right half of the frame, face and torso large; "
+    # F59 chascadas (DECISIONES 2026-10-30 08:22): la oración nueva, literal; reemplaza a la de F58 23:23.
+    assert m.COMPOSICION_MINIATURA == ("The main subject fills the right half of the frame; "
                                        "the left half is dark, uncluttered negative space.")
 
 

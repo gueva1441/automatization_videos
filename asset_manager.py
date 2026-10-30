@@ -672,11 +672,11 @@ def _ssim(a: Path, b: Path) -> float | None:
     return float(m.group(1)) if m else None
 
 
-def foto_final_del_clip(foto_inicial: Path, image_prompt: str, voz_clip: str, video_prompt_aprobado: str,
+def foto_final_del_clip(foto_inicial: Path, image_prompt: str, voz_clip: str,
                         out_path: Path, *, use_ultra: bool = False) -> dict[str, Any]:
     """F57 (DECISIONES 2026-10-29 21:10 y 21:17): la foto final del clip, un EDIT de la inicial. Opus escribe la
     instrucción (`video_prompt.escribir_final`: foto, image_prompt, voz del clip; desde F58 A8, DECISIONES 23:10, la
-    instrucción de edit no mira el movimiento: `video_prompt_aprobado` se sigue recibiendo pero no se usa) y Seedream la
+    instrucción de edit no mira el movimiento; F59 chascadas, DECISIONES 2026-10-30 08:22: ya no se recibe) y Seedream la
     aplica por `/edit` con la inicial como referencia (`_generate_image_raw` con `foto_madre_data_uris`, el tipo leído
     de los bytes). Si `out_path` ya existe se reusa (no se paga de nuevo; solo se mide). Devuelve {path | None, ssim |
     None, instruccion, motivo}: un rechazo de contenido o un error del edit deja `path` None con el motivo literal, y
@@ -1207,7 +1207,7 @@ def _process_veo_chapter(
 
         # F57: la foto final (edit de la inicial) antes del clip; sin ella (rechazo/error) el clip sale solo con la inicial
         final_img_path = veo_dir / f"{base_img_path.stem}_final{base_img_path.suffix}"
-        final = foto_final_del_clip(base_img_path, raw_img_prompt, voz_clip, vid_prompt, final_img_path,
+        final = foto_final_del_clip(base_img_path, raw_img_prompt, voz_clip, final_img_path,
                                     use_ultra=use_ultra)
         error_handler.log_info(PipelineStage.VIDEO, f"[{chapter_id}] clip {idx}"
                                + (f" (foto final, ssim {final['ssim']})" if final["path"] else " (sin foto final)") + "...")

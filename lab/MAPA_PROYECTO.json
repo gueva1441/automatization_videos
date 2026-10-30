@@ -759,14 +759,14 @@
    ],
    "tests": 9,
    "nacio": "e33f84a 2026-05-28",
-   "ultimo": "bdbc6a5 2026-10-29 (F57)",
+   "ultimo": "13d2690 2026-10-30 (F58)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase2a.py:55 importa process_script como asset_process y lo corre en la etapa assets (run_pipeline.py:340-342 lanza fase2a.py --topic); m09_packaging.py:489 lo usa para las miniaturas",
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "b7c160f9bf93bdd33973ce2c824a717a",
+   "md5": "4da7b31aa15d794bf08b265ed5d3d44a",
    "sticker_al_dia": true
   },
   "audio_config.py": {
@@ -969,6 +969,7 @@
    ],
    "compartido": true,
    "lo_llaman": [
+    "qa_studio_server.py",
     "researcher_steps/ficha_caso.py",
     "researcher_steps/step_4e_visual_canon.py",
     "script_engine/dicho_verificador.py",
@@ -979,7 +980,7 @@
     "script_engine/m09_packaging.py",
     "script_engine/video_prompt.py"
    ],
-   "tests": 14,
+   "tests": 15,
    "nacio": "cd5fde5 2026-10-24 (F22b)",
    "ultimo": "b2db299 2026-10-25 (F25a)",
    "estado_a": "vivo",
@@ -1488,6 +1489,7 @@
    "compartido": true,
    "lo_llaman": [
     "fase1.py",
+    "qa_studio_server.py",
     "researcher_steps/ficha_caso.py",
     "run_pipeline.py",
     "script_engine/m09_packaging.py"
@@ -2356,21 +2358,25 @@
   "qa_studio_server.py": {
    "archivo": "qa_studio_server.py",
    "zona": "orquestador",
-   "sticker": "Es el servidor local que Omar levanta a mano para producir un video con botones: sirve la pantalla del form y la del visor de capítulos, lanza el orquestador (run_pipeline) como proceso hijo y le pasa las respuestas de Omar. También deja arreglar a mano una foto, un clip o una pronunciación de un capítulo y armar el video con el botón ENSAMBLAR.",
+   "sticker": "Es el servidor local que Omar levanta a mano para producir un video con botones: sirve la pantalla del form y la del visor de capítulos, lanza el orquestador (run_pipeline) como proceso hijo y le pasa las respuestas de Omar. También deja arreglar a mano una foto, un clip o una pronunciación de un capítulo (desde F59 con la máquina de producción: para la foto, Claude Opus edita solo los casilleros que el pedido toca y el código rearma el prompt con la misma función que m03, con foto madre y grade; para el clip, Opus edita solo el movimiento aprobado y el clip sale por la cadena de producción con su foto final; lo editado se guarda en 03_visual.json y en el guion vivo; lo que el filtro de producción saca del pedido se le informa a Omar) y armar el video con el botón ENSAMBLAR.",
    "recibe": "Pedidos HTTP del navegador (form y visor); data/scripts/<id>.json, output/audio/<id>/chNN.mp3 y chNN_timestamps.json, output/<id>/assets/chNN_flux/*.png y chNN_veo/*.mp4, data/topics_db.json (lista de retomar), data/scripts/_steps/<id>/01b_narration_normalized.json; las líneas @@QAFORM@@ y @@QAFORM_COST@@ que imprime run_pipeline.",
-   "entrega": "Las páginas qa_form.html y qa_studio.html; JSON de estado del form (fase, costo Gemini en vivo, diálogo pendiente); líneas por stdin al hijo; imágenes y clips regenerados en output/<id>/assets/ con copia en _qa_backups/; output/<id>/assets/_qa_marks.json (fotos marcadas); data/normalizer_custom_dict.json; el audio del capítulo re-hecho; levanta fase2b, run_pipeline y el servidor de miniaturas de m09 como subprocesos.",
+   "entrega": "Las páginas qa_form.html y qa_studio.html; JSON de estado del form (fase, costo Gemini en vivo, diálogo pendiente); líneas por stdin al hijo; imágenes (cruda y _graded.png) y clips regenerados en output/<id>/assets/ con copia en _qa_backups/; el ítem editado (casilleros, prompt, año) o el movimiento nuevo guardados en data/scripts/_steps/<id>/03_visual.json y en data/scripts/<id>.json (con backups); output/<id>/assets/_qa_marks.json (fotos marcadas); data/normalizer_custom_dict.json; el audio del capítulo re-hecho; levanta fase2b, run_pipeline y el servidor de miniaturas de m09 como subprocesos.",
    "modelo": [
     {
+     "modelo": "Claude Opus (script_engine.m03_visual.MODELO_CASILLEROS, vía m03_visual._llamar_casilleros con el reintento de m03)",
+     "para": "editar los casilleros de una foto (PEDIDO_EDITAR_CASILLEROS, _fix_core) o el movimiento de un clip (PEDIDO_EDITAR_MOVIMIENTO, _clipfix_core) con el cambio que pide Omar"
+    },
+    {
      "modelo": "Gemini (config api.gemini_model, vía gemini_helpers.call_flash_json)",
-     "para": "reescribir el prompt de una foto con el cambio que pide Omar (_fix_core, _clipfix_core) y detectar qué palabra se pronuncia mal (_narrfix_core)"
+     "para": "detectar qué palabra se pronuncia mal (_narrfix_core)"
     },
     {
-     "modelo": "imagen (config api.fal_image_model, vía asset_manager._generate_flux_image_at)",
-     "para": "regenerar una foto suelta (fix de foto, fix de clip y marcar para regenerar)"
+     "modelo": "imagen (config api.fal_image_model, vía asset_manager._generate_flux_image_at, con la foto madre del ítem si la tiene; después image_grade como producción)",
+     "para": "regenerar una foto suelta desde sus casilleros editados (fix de foto) y marcar para regenerar"
     },
     {
-     "modelo": "Gemini Omni Flash 1.1 (google/gemini-omni-flash/v1.1/image-to-video) y, si rechaza por contenido, Kling 4.0 (kling/v4/image-to-video), vía asset_manager._generate_clip (api.video_engines); el prompt de cada motor lo escribe claude-opus-5-5 mirando la foto (script_engine/video_prompt.py)",
-     "para": "regenerar el clip de un cap con clip (_clipfix_core)"
+     "modelo": "Seedream edit (asset_manager.foto_final_del_clip) + Gemini Omni Flash 1.1 (google/gemini-omni-flash/v1.1/image-to-video) y, si rechaza por contenido, Kling 4.0 (kling/v4/image-to-video), vía asset_manager._generate_clip (api.video_engines); el prompt de cada motor lo escribe claude-opus-5-5 mirando la foto (script_engine/video_prompt.py)",
+     "para": "regenerar el clip de un cap con clip con el movimiento editado (_clipfix_core); la foto inicial no se toca"
     },
     {
      "modelo": "ElevenLabs (vía audio_manager.process_script)",
@@ -2381,6 +2387,7 @@
     "Gemini Flash",
     "Flux (fal)",
     "Claude Opus",
+    "Seedream (fal)",
     "Kling (fal)",
     "ElevenLabs TTS"
    ],
@@ -2392,7 +2399,7 @@
    ],
    "compartido": false,
    "lo_llaman": [],
-   "tests": 7,
+   "tests": 5,
    "nacio": "3d684a2 2026-06-14",
    "ultimo": "4fda044 2026-10-29 (F53b)",
    "estado_a": "vivo",
@@ -2403,22 +2410,16 @@
      "nombre": "_reseed_core",
      "linea": 819,
      "por_que": "ninguna ruta del servidor ni del form la llama (el POST /mark solo marca, no regenera); solo la nombran test_module_f5e.py y la herramienta manual lab/hyperframes/f5/regen_marcadas.py"
-    },
-    {
-     "nombre": "_build_clipfix_user_prompt",
-     "linea": 1014,
-     "por_que": "nadie la llama; el propio archivo (L968-971) dice que el rewriter de movimiento quedó DORMIDO desde el chat 113 y esta función y _FIX_CLIP_REWRITE_INSTRUCTION no tienen call-site"
     }
    ],
    "imports_rotos": [],
    "sin_llamador_a": [
     "_reseed_core",
-    "_build_clipfix_user_prompt",
     "Handler.log_message",
     "Handler.do_GET",
     "Handler.do_POST"
    ],
-   "md5": "ec730e1395a90655b02019b20a7f7b44",
+   "md5": "6f410abbc24f80b4f7d33695c29b8c59",
    "sticker_al_dia": true
   },
   "report_foto_madre_edits.py": {
@@ -4146,7 +4147,8 @@
    ],
    "compartido": true,
    "lo_llaman": [
-    "asset_manager.py"
+    "asset_manager.py",
+    "qa_studio_server.py"
    ],
    "tests": 1,
    "nacio": "d56bf14 2026-10-22 (F8b)",
@@ -4683,7 +4685,7 @@
     "script_engine/m03_visual.py",
     "script_engine/m09_packaging.py"
    ],
-   "tests": 6,
+   "tests": 7,
    "nacio": "dcea932 2026-10-28 (F50)",
    "ultimo": "d8fa213 2026-10-29 (F55)",
    "estado_a": "vivo",
@@ -4698,7 +4700,7 @@
   "script_engine/m03_imagenes_v3.py": {
    "archivo": "script_engine/m03_imagenes_v3.py",
    "zona": "fase2a",
-   "sticker": "Reglas de las imágenes del guion v3: reparte los beats de la escaleta entre las imágenes de cada capítulo, arma la frase de cada imagen desde sus casilleros (antes saca de cada casillero las cláusulas negadas, como «with no figure anywhere», salvo «No. 4» o «nothing but», y baja a minúscula lo que queda en mitad de una oración) en un orden fijo (desde F51a el armado C de F50h, en el orden de la guía de fal: sujeto, aspecto del grupo de gente del canon —la oración appearance de cada grupo de la foto—, lugar y año, cartel con sujeto —desde F51f «… in clear crisp {font} lettering», y «The word … is» con una sola palabra—, luz, plano, una oración de estilo de foto documental granulada con el año —sin año, sin «taken in»—, 16:9 y sin texto; sin mirada, objeto ni paleta), elige el año de la foto (el que propone el modelo y, si no es válido, el de respaldo; desde F51c ya no manda el año dicho en la frase de la voz) y detecta o limpia lo que no puede llevar una imagen (manos y caras en primer plano, armas, sangre, menores en daño, conteos exactos, izquierda/derecha, texto en el idioma equivocado): si queda un problema, saca la frase. También audita el video entero (motivos repetidos, cuerpos, planos medios) y propone re-encuadres. Todo es determinista, sin llamar a ningún modelo. Desde F58 el armado acepta una oración de composición opcional (la de la miniatura), que va después del plano y antes del estilo; vacía, el prompt es el mismo.",
+   "sticker": "Reglas de las imágenes del guion v3: reparte los beats de la escaleta entre las imágenes de cada capítulo, arma la frase de cada imagen desde sus casilleros (antes saca de cada casillero las cláusulas negadas, como «with no figure anywhere», salvo «No. 4» o «nothing but», y baja a minúscula lo que queda en mitad de una oración) en un orden fijo (desde F51a el armado C de F50h, en el orden de la guía de fal: sujeto, aspecto del grupo de gente del canon —la oración appearance de cada grupo de la foto—, lugar y año, cartel con sujeto —desde F51f «… in clear crisp {font} lettering», y «The word … is» con una sola palabra—, luz, plano, una oración de estilo de foto documental granulada con el año —sin año, sin «taken in»—, 16:9 y sin texto; sin mirada, objeto ni paleta), elige el año de la foto (el que propone el modelo y, si no es válido, el de respaldo; desde F51c ya no manda el año dicho en la frase de la voz) y detecta o limpia lo que no puede llevar una imagen (manos y caras en primer plano, armas, sangre, menores en daño, conteos exactos, izquierda/derecha, texto en el idioma equivocado): si queda un problema, saca la frase. También audita el video entero (motivos repetidos, cuerpos, planos medios) y propone re-encuadres. Todo es determinista, sin llamar a ningún modelo. Desde F58 el armado acepta una oración de composición opcional (la de la miniatura), que va después del plano y antes del estilo; vacía, el prompt es el mismo. Desde F59 publica la lista de casilleros que QA Studio deja editar (las claves que lee el armado más el año; el grupo de gente no).",
    "recibe": "La escaleta y la narración v3 del tema (data/scripts/_steps/<id>/01a_escaleta.json y 01b_narracion_v3.json, o topic['escaleta'] / topic['parrafos_v3']), el evidence_pool del tema, y las anclas, slots y prosa que le pasa m03_visual.",
    "entrega": "Datos en memoria para m03_visual: beats por capítulo, asignación beat-imagen, prosa armada y corregida, año de cada foto con su fuente, marcas sensible/motivos por imagen y reporte de auditoría (se guardan dentro de data/scripts/_steps/<id>/03_visual.json como _f8_imagenes y reencuadres_propuestos). No escribe archivos propios.",
    "modelo": [],
@@ -4720,26 +4722,27 @@
    ],
    "compartido": true,
    "lo_llaman": [
+    "qa_studio_server.py",
     "script_engine/m03_expediente.py",
     "script_engine/m03_visual.py",
     "script_engine/m09_packaging.py"
    ],
-   "tests": 12,
+   "tests": 14,
    "nacio": "73e3613 2026-10-22 (F8)",
-   "ultimo": "ee908b5 2026-10-29 (F51f)",
+   "ultimo": "13d2690 2026-10-30 (F58)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "script_engine/m03_visual.py:107 lo importa (v3img) y lo usa en m03_visual.py:561-629 (armado, F8, año) y 2037-2168; m03_visual corre dentro de fase1_5.py:671 (etapa voz).",
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "fea9fffead975775d40a501a312d98a8",
+   "md5": "e284e64284a6b9733da6ba42ed4e606e",
    "sticker_al_dia": true
   },
   "script_engine/m03_visual.py": {
    "archivo": "script_engine/m03_visual.py",
    "zona": "fase2a",
-   "sticker": "Escribe, para cada capítulo del documental, la descripción de cada imagen que después pinta el generador (Seedream). Le pasa al modelo el lugar principal del caso y el tramo de años que dice la narración (GEO y ERA). Elige qué frase de la narración ilustra cada imagen (Gemini Flash) y, desde F50, le pide a Claude Opus que llene la ficha de cada escena (casilleros) con un expediente por foto: año dicho, lugar, párrafo de la voz, escenas de la ficha, hechos, citas, personas y los grupos de gente del canon. Desde F50d, la época del canon (ropa, tecnología, vehículos, interiores) entra por tramo: los tramos que cruzan los años de las fotos del capítulo, o el más cercano si ninguno cruza (desde F50f deja una línea de log por capítulo con las fotos que no cruzan ningún tramo). El código arma la frase en un orden fijo y la revisa (desde F51c ya no borra nombres de personas; sin conteos ni izquierda/derecha, sin manos, sangre o texto suelto: si queda un problema, saca la frase). Rehace las fotos que no cumplen las reglas del capítulo y del video por el mismo camino. En los capítulos 1 y 7 además Opus redacta el movimiento del clip de video con el orden de la guía de Google; la parte de la voz que acompaña al clip de 8 s se corta, desde F51c, en el final de oración más cercano (sin oración, en el espacio más cercano; empate → la zona del clip más corta). Desde F57 guarda también la voz entera del clip (`voz_clip`: las palabras que la voz dice en los 8 s, cortadas por palabra con la ventana en caracteres que ya calculaba; sin LLM) y el movimiento del clip se escribe con esa voz, no solo con el ancla. Desde F58 el paso de casilleros acepta tres llaves con default idéntico a producción (sin el bloque del clip de apertura, sin cartel, con una oración de composición) para que m09 pida las fotos de las miniaturas por el mismo camino.",
+   "sticker": "Escribe, para cada capítulo del documental, la descripción de cada imagen que después pinta el generador (Seedream). Le pasa al modelo el lugar principal del caso y el tramo de años que dice la narración (GEO y ERA). Elige qué frase de la narración ilustra cada imagen (Gemini Flash) y, desde F50, le pide a Claude Opus que llene la ficha de cada escena (casilleros) con un expediente por foto: año dicho, lugar, párrafo de la voz, escenas de la ficha, hechos, citas, personas y los grupos de gente del canon. Desde F50d, la época del canon (ropa, tecnología, vehículos, interiores) entra por tramo: los tramos que cruzan los años de las fotos del capítulo, o el más cercano si ninguno cruza (desde F50f deja una línea de log por capítulo con las fotos que no cruzan ningún tramo). El código arma la frase en un orden fijo y la revisa (desde F51c ya no borra nombres de personas; sin conteos ni izquierda/derecha, sin manos, sangre o texto suelto: si queda un problema, saca la frase). Rehace las fotos que no cumplen las reglas del capítulo y del video por el mismo camino. En los capítulos 1 y 7 además Opus redacta el movimiento del clip de video con el orden de la guía de Google; la parte de la voz que acompaña al clip de 8 s se corta, desde F51c, en el final de oración más cercano (sin oración, en el espacio más cercano; empate → la zona del clip más corta). Desde F57 guarda también la voz entera del clip (`voz_clip`: las palabras que la voz dice en los 8 s, cortadas por palabra con la ventana en caracteres que ya calculaba; sin LLM) y el movimiento del clip se escribe con esa voz, no solo con el ancla. Desde F58 el paso de casilleros acepta tres llaves con default idéntico a producción (sin el bloque del clip de apertura, sin cartel, con una oración de composición) para que m09 pida las fotos de las miniaturas por el mismo camino. Desde F59 el armado de cada ítem (limpieza de casilleros, cartel, armado C, revisión F8, prompt final, año, sensible y motivos) es una función aparte, `armar_item`, la misma que QA Studio usa para rehacer una foto desde sus casilleros editados.",
    "recibe": "El tema ya armado (data/topics_db.json: canon visual con people_groups que arma fase1_5.asegurar_canon desde la ficha, personas y objetos documentados, evidence_pool), el perfil del research (data/scripts/_steps/<id>/_perfil.json: lugar_principal), el esqueleto y la narración (data/scripts/_steps/<id>/01a_*.json y 01b_*.json), la escaleta, la ficha y los párrafos v3 para el expediente (01a_escaleta.json, ficha_caso.json, 01b_narracion_v3.json), el mapa de sincronía del audio (output/audio/<id>/sync_map.json) y los tiempos por palabra (output/audio/<id>/chNN_timestamps.json).",
    "entrega": "data/scripts/_steps/<id>/03_visual.json (por capítulo: image_prompts con prompt final, casilleros crudos, año y de dónde salió, ancla de narración, rango emocional, foto_madre_ref, notas F8; en caps 1 y 7: image_prompt con su image_f8 (año, grupo, plano, notas F8), video_prompt y supplemental_image_prompts con las mismas claves); lo devuelve también como dict a fase1_5.py, que lo ensambla al contrato data/scripts/<id>.json. Sus constantes DOCTRINE_* las reutiliza m09_packaging.",
    "modelo": [
@@ -4778,12 +4781,13 @@
     "asset_manager.py",
     "config.py",
     "fase1_5.py",
+    "qa_studio_server.py",
     "script_engine/m09_packaging.py",
     "script_engine/video_prompt.py"
    ],
-   "tests": 20,
+   "tests": 22,
    "nacio": "e33f84a 2026-05-28",
-   "ultimo": "bdbc6a5 2026-10-29 (F57)",
+   "ultimo": "724c948 2026-10-30 (F59)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py:671 llama assign_visual_prompts dentro de process_topic (tramo audio -> m07 -> m03 que corre con --from normalizer_gate, el comando de la etapa voz en run_pipeline; también --only m03); script_engine/m09_packaging.py:40 importa DOCTRINE_* en tiempo de carga (fase3, etapa packaging).",
@@ -4804,7 +4808,7 @@
     "_format_bullets",
     "_format_visual_canon_block"
    ],
-   "md5": "7b758c30f6300a6b843397c6600d9e58",
+   "md5": "e72eaed9e81912dbb326af675e0b362e",
    "sticker_al_dia": true
   },
   "script_engine/m05_judge.py": {
@@ -5046,7 +5050,7 @@
   "script_engine/m09_packaging.py": {
    "archivo": "script_engine/m09_packaging.py",
    "zona": "orquestador",
-   "sticker": "Arma el paquete de publicación de YouTube. Desde F58 le pide a Claude Opus, en una sola llamada, 3 PAQUETES (título + texto de miniatura + la oración del gancho que muestra la foto), cada uno con una estrategia distinta, leyendo el gancho (cap 1 entero), la narración de los caps 2 a 7 y el pool completo (la única fuente de cifras, fechas y nombres); valida por código (3 paquetes, estrategias distintas, anclas literales del gancho) con reintentos y coteja cada cifra del título y del texto contra el pool (aviso, no freno). La foto de cada paquete sale de la máquina de fotos de producción (casilleros Opus del cap 1 con esa ancla, armado C, canon) más una oración de composición (la persona en la mitad derecha) y sin cartel. Compone la miniatura con el texto en la mitad izquierda, partiendo las líneas por ancho medido y achicando la letra hasta que quepa (tope 2 líneas), y deja el checklist para subir a mano. Se puede correr por pasos (candidatas, componer un paquete) o abriendo el formulario web de revisión.",
+   "sticker": "Arma el paquete de publicación de YouTube. Desde F58 le pide a Claude Opus, en una sola llamada, 3 PAQUETES (título + texto de miniatura + la oración del gancho que muestra la foto), cada uno con una estrategia distinta, leyendo el gancho (cap 1 entero), la narración de los caps 2 a 7 y el pool completo (la única fuente de cifras, fechas y nombres); valida por código (3 paquetes, estrategias distintas, anclas literales del gancho) con reintentos y coteja cada cifra del título y del texto contra el pool (aviso, no freno). La foto de cada paquete sale de la máquina de fotos de producción (casilleros Opus del cap 1 con esa ancla, armado C, canon) más una oración de composición (desde F59: el sujeto principal en la mitad derecha, sirva o no para prompts sin persona) y sin cartel. Compone la miniatura con el texto en la mitad izquierda, partiendo las líneas por ancho medido y achicando la letra hasta que quepa (tope 2 líneas), y deja el checklist para subir a mano. Se puede correr por pasos (candidatas, componer un paquete) o abriendo el formulario web de revisión.",
    "recibe": "data/scripts/_steps/<id>/01b_narration.json, 00_pool_v3.json y 01a_skeleton.json, el topic de data/topics_db.json con su canon (fase1_5._load_topic_by_id + asegurar_canon), las fotos *_graded.png de output/<id>/assets/ como bases alternativas, la fuente script_engine/fonts/Anton-Regular.ttf y la ruta del MP4 final (--video-path).",
    "entrega": "output/<id>/publish/metadata.json (paquetes acumulados con índice global, descripcion, tags, avisos), thumb_candidates/paquete_NN_base.png y paquete_NN.png, thumb_final_NN.png (o .jpg si pesa más de 2 MB) y CHECKLIST_PUBLICACION.md.",
    "modelo": [
@@ -5075,16 +5079,16 @@
     "qa_studio_server.py",
     "script_engine/m09_review_server.py"
    ],
-   "tests": 10,
+   "tests": 9,
    "nacio": "1720d01 2026-06-11",
-   "ultimo": "8935ef2 2026-10-29 (F54)",
+   "ultimo": "13d2690 2026-10-30 (F58)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase3.py:64 arma el comando python -m script_engine.m09_packaging (etapa packaging, run_pipeline.py:430 lanza fase3.py); qa_studio_server.py:1490 lo lanza con --review --auto-first",
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "5d2db86f349b5ba3352c1f10d29997bb",
+   "md5": "24e89e46b7bb71faa50dd78740020de2",
    "sticker_al_dia": true
   },
   "script_engine/m09_review_server.py": {
@@ -5107,7 +5111,7 @@
    ],
    "tests": 2,
    "nacio": "4205175 2026-06-11",
-   "ultimo": "dcbcaff 2026-07-05",
+   "ultimo": "13d2690 2026-10-30 (F58)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "m09_packaging.py:717-720 run_review lo importa y llama a serve() (CLI --review, fase3.py:64 y qa_studio_server.py:1490)",
@@ -5909,11 +5913,12 @@
    ],
    "compartido": true,
    "lo_llaman": [
-    "asset_manager.py"
+    "asset_manager.py",
+    "qa_studio_server.py"
    ],
    "tests": 3,
    "nacio": "7986ff7 2026-10-29 (F53b)",
-   "ultimo": "bdbc6a5 2026-10-29 (F57)",
+   "ultimo": "13d2690 2026-10-30 (F58)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "asset_manager._generate_clip lo llama por cada motor de la cadena (F53b Parte B); _generate_clip lo llaman _process_veo_chapter (asset_manager.process_script, etapa assets: fase2a) y qa_studio_server._clipfix_core.",
@@ -6699,7 +6704,7 @@
   "qa_studio.html": {
    "archivo": "qa_studio.html",
    "zona": "orquestador",
-   "sticker": "Es la pantalla del visor por capítulo: muestra la línea de tiempo de cada capítulo con sus fotos y clips, deja escuchar la narración tramo por tramo, marcar fotos para regenerar, pedir un fix de foto o de clip, corregir una pronunciación y lanzar ENSAMBLAR VIDEO. También embebe el formulario de miniaturas.",
+   "sticker": "Es la pantalla del visor por capítulo: muestra la línea de tiempo de cada capítulo con sus fotos y clips, deja escuchar la narración tramo por tramo, marcar fotos para regenerar, pedir un fix de foto o de clip, corregir una pronunciación y lanzar ENSAMBLAR VIDEO. También embebe el formulario de miniaturas. Desde F59 los cuadros de texto del fix traen el hint aprobado por Omar (qué ver, una cosa por vez, emociones como gesto; para el clip: cámara, velocidad y qué se mueve) y, si el fix sale bien, muestran lo que el filtro de producción sacó del pedido.",
    "recibe": "Del servidor: /topic, /caps, /cap?cap=chNN (segmentos con tiempos y anchors), /img, /clip y /audio del capítulo, /marks, /fix_status, /assemble_status, /thumbs_status.",
    "entrega": "Pedidos al servidor: POST /mark, /fix_image, /fix_clip, /fix_narration, /assemble y /thumbs_start.",
    "modelo": [],
@@ -6723,7 +6728,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "d9741576cb884c5e000361738611f928",
+   "md5": "8eaa7969b235af7f011a3c031149af7e",
    "sticker_al_dia": true
   },
   "script_engine/gfx_templates/archive_clipping.html.tmpl": {
@@ -8102,9 +8107,7 @@
   },
   {
    "test": "test_module_137c_fix_recetario.py",
-   "importa": [
-    "qa_studio_server"
-   ],
+   "importa": [],
    "colecta": 0,
    "error": "",
    "imports_rotos": [],
@@ -9446,8 +9449,7 @@
    "error": "",
    "imports_rotos": [
     "script_engine/gfx_icons/icon_svg.py",
-    "script_engine/gfx_icons/scoped_svg.py",
-    "script_engine/m09_packaging.py:_normalize_metadata"
+    "script_engine/gfx_icons/scoped_svg.py"
    ],
    "clase": "vivo"
   },
@@ -9780,8 +9782,11 @@
   {
    "test": "test_qa_studio.py",
    "importa": [
+    "claude_helpers",
     "fase1",
-    "qa_studio_server"
+    "qa_studio_server",
+    "m03_imagenes_v3",
+    "m03_visual"
    ],
    "colecta": 32,
    "error": "",

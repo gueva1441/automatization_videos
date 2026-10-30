@@ -265,7 +265,7 @@ def test_foto_final_reusa_la_existente_sin_llamar_a_nada(monkeypatch, tmp_path):
     ini, fin = tmp_path / "ch01_img_01.png", tmp_path / "ch01_img_01_final.png"
     ini.write_bytes(JPEG)
     fin.write_bytes(PNG)
-    out = am.foto_final_del_clip(ini, "ip", "la voz", "mov", fin)
+    out = am.foto_final_del_clip(ini, "ip", "la voz", fin)
     assert out == {"path": fin, "ssim": 0.91, "instruccion": None, "motivo": "reusada: ya existía"}
 
 
@@ -285,7 +285,7 @@ def test_foto_final_edit_con_la_inicial_de_referencia(monkeypatch, tmp_path):
     monkeypatch.setattr(am, "_ssim", lambda a, b: 0.87)
     ini, fin = tmp_path / "ch01_img_01.png", tmp_path / "ch01_img_01_final.png"
     ini.write_bytes(JPEG)
-    out = am.foto_final_del_clip(ini, "ip", "la voz", "mov", fin, use_ultra=True)
+    out = am.foto_final_del_clip(ini, "ip", "la voz", fin, use_ultra=True)
     assert out == {"path": fin, "ssim": 0.87, "instruccion": "the last frame: he lowers the bandaged foot", "motivo": None}
     assert (visto["foto"], visto["ip"], visto["voz"]) == (ini, "ip", "la voz") and "mov" not in visto
     assert visto["prompt"] == out["instruccion"] and visto["use_ultra"] is True
@@ -301,7 +301,7 @@ def test_foto_final_rechazada_clip_sin_final_y_motivo(monkeypatch, tmp_path):
     monkeypatch.setattr(am, "_generate_image_raw", raw)
     ini, fin = tmp_path / "ch01_img_01.png", tmp_path / "ch01_img_01_final.png"
     ini.write_bytes(JPEG)
-    out = am.foto_final_del_clip(ini, "ip", "la voz", "mov", fin)
+    out = am.foto_final_del_clip(ini, "ip", "la voz", fin)
     assert out["path"] is None and out["ssim"] is None and out["instruccion"] == "instr"
     assert out["motivo"] == "rechazo: seedream rechazó prompt: content_policy_violation"     # literal, sin suavizar
     assert not fin.exists()
@@ -323,7 +323,7 @@ def test_proceso_veo_foto_final_antes_del_clip_y_clip_results(monkeypatch, tmp_p
     monkeypatch.setattr(am, "_generate_flux_image_at", lambda p, a, path, u: path.write_bytes(JPEG))
     monkeypatch.setattr(am, "_generate_supplementals_for_veo_chapter", lambda *a: [])
 
-    def final(ini, ip, voz, mov, out, *, use_ultra=False):
+    def final(ini, ip, voz, out, *, use_ultra=False):
         llamadas.append(("final", ini.name, voz, out.name, use_ultra))
         out.write_bytes(PNG)
         return {"path": out, "ssim": 0.9, "instruccion": "i", "motivo": None}
@@ -367,12 +367,6 @@ def test_proceso_veo_sin_final_el_clip_sale_con_la_inicial(monkeypatch, tmp_path
     assert (c["status"], c["foto_final"], c["ssim"], c["motivo_sin_final"]) == ("ok", None, None, "rechazo: x")
 
 
-def test_clipfix_core_sigue_con_3_posicionales_y_sin_final(tmp_path):
-    """QA Studio llama `generate_veo_fn(first_frame, video_prompt, out_clip)`: `_generate_clip` lo acepta con
-    `foto_final=None` por defecto (el clip de QA Studio sale sin foto final hasta la tanda (c))."""
-    import qa_studio_server as qa
-    from test_qa_studio import _clipfix_deps, _Rejected  # noqa: F401
-    sig = inspect.signature(am._generate_clip)
-    assert [p.name for p in sig.parameters.values() if p.default is inspect.Parameter.empty] == ["foto", "intento_movimiento", "output_path"]
-    assert sig.parameters["foto_final"].default is None and sig.parameters["foto_final"].kind is inspect.Parameter.KEYWORD_ONLY
-    assert "generate_veo_fn(first_frame, entry[\"video_prompt\"], out_clip)" in inspect.getsource(qa._clipfix_core)
+# F59 A3: QA Studio ya no llama `generate_veo_fn(first_frame, video_prompt, out_clip)`: `_clipfix_core` edita el movimiento con
+# Opus y pasa `foto_final` y `ancla=voz_clip` a `_generate_clip` (lo cubre test_qa_studio.py). El test «sigue con 3 posicionales
+# y sin final» se borró con el camino viejo (lo viejo se borra con sus tests).

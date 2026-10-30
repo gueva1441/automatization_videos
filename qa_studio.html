@@ -505,7 +505,7 @@ function renderTimeline(c){
       <div class="fixpanel" id="fixpanel-${i}" style="display:none">
         <div class="top">
           <span class="tag"><span class="d"></span>${isClip?'REGENERAR CLIP · mismo primer frame, cambia el MOVIMIENTO/cámara':'FIX LOCAL · regenera solo esta imagen'}</span>
-          <textarea id="fixtext-${i}" placeholder="${isClip?'Describí qué cambiar del MOVIMIENTO / la cámara (en español)…':'Describí qué cambiar en esta foto (en español)…'}"></textarea>
+          <textarea id="fixtext-${i}" placeholder="${isClip?'Decí el movimiento: cámara (se acerca, paneo a la derecha, quieta), velocidad (lento) y qué se mueve en la escena (sube el polvo). Lo que no querés, decilo como lo que sí pasa (&quot;cámara quieta&quot;, no &quot;que no se mueva&quot;).':'Decí qué querés VER (mejor &quot;manos vacías en la reja&quot; que &quot;sin esponja&quot;) · una cosa por vez · decí quién o dónde (el del centro, al fondo a la izquierda) · las emociones como gesto (ceño, boca abierta, lágrimas). El editor lo pasa a inglés y no toca lo demás.'}"></textarea>
           <div class="row">
             <button class="btn-regen" id="fixbtn-${i}">${isClip?'⟳ Regenerar clip':'⟳ Regenerar imagen'}</button>
             <span class="fixcancel" data-cancel="${i}">Cancelar</span>
@@ -789,7 +789,7 @@ function pollFix(img_name, st, btn, onReload){
     if(!document.body.contains(st)){ if(fixPoll){clearInterval(fixPoll);fixPoll=null;} return; } // cambió de cap
     if(!s.running && s.done && s.img_name===img_name){
       clearInterval(fixPoll); fixPoll=null; if(btn) btn.disabled=false;
-      if(s.ok){ st.className='fixstatus ok'; st.textContent='✅ lista'; onReload(); toast('Imagen regenerada · solo esta foto'); }
+      if(s.ok){ st.className='fixstatus ok'; st.textContent='✅ lista'+(s.reason?' · '+s.reason:''); onReload(); toast('Regenerado · solo esta foto o clip'); }  // F59 A2.8: el informe del scrub viene en reason
       else { st.className='fixstatus err'; st.textContent='⚠ '+(s.reason||'falló'); }
     }
   }).catch(()=>{});
@@ -800,7 +800,7 @@ function submitFix(cap, img_name, i){
   startFix(cap, img_name, (ta?ta.value:'').trim(), $('fixstatus-'+i), $('fixbtn-'+i), ()=>reloadImage(i));
 }
 
-// ── fix de CLIP (Zona 1.5) — reescribe el video_prompt, regenera con Veo ──
+// ── fix de CLIP (Zona 1.5) — Opus edita el movimiento, regenera el clip con la cadena de producción (F59) ──
 function startClipFix(cap, feedback, st, btn, onReload){
   if(!feedback){ st.className='fixstatus err'; st.textContent='describí el cambio de movimiento'; return; }
   if(btn) btn.disabled=true; st.className='fixstatus work'; st.textContent='enviando…';
@@ -811,9 +811,9 @@ function startClipFix(cap, feedback, st, btn, onReload){
       const j=await r.json().catch(()=>({}));
       if(!r.ok){ throw new Error(j.error||r.statusText); }
       const mk=j.marker || (cap+'_clip_01.mp4');
-      st.textContent='regenerando clip… (Veo, puede tardar)';
+      st.textContent='regenerando clip… (puede tardar)';
       if(fixPoll) clearInterval(fixPoll);
-      fixPoll=setInterval(()=>pollFix(mk, st, btn, onReload), 2500);  // Veo es lento
+      fixPoll=setInterval(()=>pollFix(mk, st, btn, onReload), 2500);  // el clip es lento
    })
    .catch(e=>{ st.className='fixstatus err'; st.textContent='⚠ '+e.message; if(btn) btn.disabled=false; });
 }

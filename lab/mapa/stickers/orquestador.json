@@ -178,7 +178,7 @@
   "estado": "vivo",
   "estado_prueba": "fase2a.py:55 importa process_script como asset_process y lo corre en la etapa assets (run_pipeline.py:340-342 lanza fase2a.py --topic); m09_packaging.py:489 lo usa para las miniaturas",
   "funciones_muertas": [],
-  "md5": "b7c160f9bf93bdd33973ce2c824a717a",
+  "md5": "4da7b31aa15d794bf08b265ed5d3d44a",
   "_parte": "orquestador_b"
  },
  "claude_helpers.py": {
@@ -532,7 +532,7 @@
   "_parte": "orquestador_c"
  },
  "qa_studio.html": {
-  "sticker": "Es la pantalla del visor por capítulo: muestra la línea de tiempo de cada capítulo con sus fotos y clips, deja escuchar la narración tramo por tramo, marcar fotos para regenerar, pedir un fix de foto o de clip, corregir una pronunciación y lanzar ENSAMBLAR VIDEO. También embebe el formulario de miniaturas.",
+  "sticker": "Es la pantalla del visor por capítulo: muestra la línea de tiempo de cada capítulo con sus fotos y clips, deja escuchar la narración tramo por tramo, marcar fotos para regenerar, pedir un fix de foto o de clip, corregir una pronunciación y lanzar ENSAMBLAR VIDEO. También embebe el formulario de miniaturas. Desde F59 los cuadros de texto del fix traen el hint aprobado por Omar (qué ver, una cosa por vez, emociones como gesto; para el clip: cámara, velocidad y qué se mueve) y, si el fix sale bien, muestran lo que el filtro de producción sacó del pedido.",
   "recibe": "Del servidor: /topic, /caps, /cap?cap=chNN (segmentos con tiempos y anchors), /img, /clip y /audio del capítulo, /marks, /fix_status, /assemble_status, /thumbs_status.",
   "entrega": "Pedidos al servidor: POST /mark, /fix_image, /fix_clip, /fix_narration, /assemble y /thumbs_start.",
   "modelo": [],
@@ -542,25 +542,29 @@
   "estado": "vivo",
   "estado_prueba": "qa_studio_server.py:72 define HTML_PATH y :1828-1829 lo sirve en / (el form lo abre en el gate del visor, qa_form.html:349)",
   "funciones_muertas": [],
-  "md5": "d9741576cb884c5e000361738611f928",
+  "md5": "8eaa7969b235af7f011a3c031149af7e",
   "_parte": "orquestador_a"
  },
  "qa_studio_server.py": {
-  "sticker": "Es el servidor local que Omar levanta a mano para producir un video con botones: sirve la pantalla del form y la del visor de capítulos, lanza el orquestador (run_pipeline) como proceso hijo y le pasa las respuestas de Omar. También deja arreglar a mano una foto, un clip o una pronunciación de un capítulo y armar el video con el botón ENSAMBLAR.",
+  "sticker": "Es el servidor local que Omar levanta a mano para producir un video con botones: sirve la pantalla del form y la del visor de capítulos, lanza el orquestador (run_pipeline) como proceso hijo y le pasa las respuestas de Omar. También deja arreglar a mano una foto, un clip o una pronunciación de un capítulo (desde F59 con la máquina de producción: para la foto, Claude Opus edita solo los casilleros que el pedido toca y el código rearma el prompt con la misma función que m03, con foto madre y grade; para el clip, Opus edita solo el movimiento aprobado y el clip sale por la cadena de producción con su foto final; lo editado se guarda en 03_visual.json y en el guion vivo; lo que el filtro de producción saca del pedido se le informa a Omar) y armar el video con el botón ENSAMBLAR.",
   "recibe": "Pedidos HTTP del navegador (form y visor); data/scripts/<id>.json, output/audio/<id>/chNN.mp3 y chNN_timestamps.json, output/<id>/assets/chNN_flux/*.png y chNN_veo/*.mp4, data/topics_db.json (lista de retomar), data/scripts/_steps/<id>/01b_narration_normalized.json; las líneas @@QAFORM@@ y @@QAFORM_COST@@ que imprime run_pipeline.",
-  "entrega": "Las páginas qa_form.html y qa_studio.html; JSON de estado del form (fase, costo Gemini en vivo, diálogo pendiente); líneas por stdin al hijo; imágenes y clips regenerados en output/<id>/assets/ con copia en _qa_backups/; output/<id>/assets/_qa_marks.json (fotos marcadas); data/normalizer_custom_dict.json; el audio del capítulo re-hecho; levanta fase2b, run_pipeline y el servidor de miniaturas de m09 como subprocesos.",
+  "entrega": "Las páginas qa_form.html y qa_studio.html; JSON de estado del form (fase, costo Gemini en vivo, diálogo pendiente); líneas por stdin al hijo; imágenes (cruda y _graded.png) y clips regenerados en output/<id>/assets/ con copia en _qa_backups/; el ítem editado (casilleros, prompt, año) o el movimiento nuevo guardados en data/scripts/_steps/<id>/03_visual.json y en data/scripts/<id>.json (con backups); output/<id>/assets/_qa_marks.json (fotos marcadas); data/normalizer_custom_dict.json; el audio del capítulo re-hecho; levanta fase2b, run_pipeline y el servidor de miniaturas de m09 como subprocesos.",
   "modelo": [
    {
+    "modelo": "Claude Opus (script_engine.m03_visual.MODELO_CASILLEROS, vía m03_visual._llamar_casilleros con el reintento de m03)",
+    "para": "editar los casilleros de una foto (PEDIDO_EDITAR_CASILLEROS, _fix_core) o el movimiento de un clip (PEDIDO_EDITAR_MOVIMIENTO, _clipfix_core) con el cambio que pide Omar"
+   },
+   {
     "modelo": "Gemini (config api.gemini_model, vía gemini_helpers.call_flash_json)",
-    "para": "reescribir el prompt de una foto con el cambio que pide Omar (_fix_core, _clipfix_core) y detectar qué palabra se pronuncia mal (_narrfix_core)"
+    "para": "detectar qué palabra se pronuncia mal (_narrfix_core)"
    },
    {
-    "modelo": "imagen (config api.fal_image_model, vía asset_manager._generate_flux_image_at)",
-    "para": "regenerar una foto suelta (fix de foto, fix de clip y marcar para regenerar)"
+    "modelo": "imagen (config api.fal_image_model, vía asset_manager._generate_flux_image_at, con la foto madre del ítem si la tiene; después image_grade como producción)",
+    "para": "regenerar una foto suelta desde sus casilleros editados (fix de foto) y marcar para regenerar"
    },
    {
-    "modelo": "Gemini Omni Flash 1.1 (google/gemini-omni-flash/v1.1/image-to-video) y, si rechaza por contenido, Kling 4.0 (kling/v4/image-to-video), vía asset_manager._generate_clip (api.video_engines); el prompt de cada motor lo escribe claude-opus-5-5 mirando la foto (script_engine/video_prompt.py)",
-    "para": "regenerar el clip de un cap con clip (_clipfix_core)"
+    "modelo": "Seedream edit (asset_manager.foto_final_del_clip) + Gemini Omni Flash 1.1 (google/gemini-omni-flash/v1.1/image-to-video) y, si rechaza por contenido, Kling 4.0 (kling/v4/image-to-video), vía asset_manager._generate_clip (api.video_engines); el prompt de cada motor lo escribe claude-opus-5-5 mirando la foto (script_engine/video_prompt.py)",
+    "para": "regenerar el clip de un cap con clip con el movimiento editado (_clipfix_core); la foto inicial no se toca"
    },
    {
     "modelo": "ElevenLabs (vía audio_manager.process_script)",
@@ -577,14 +581,9 @@
     "nombre": "_reseed_core",
     "linea": 819,
     "por_que": "ninguna ruta del servidor ni del form la llama (el POST /mark solo marca, no regenera); solo la nombran test_module_f5e.py y la herramienta manual lab/hyperframes/f5/regen_marcadas.py"
-   },
-   {
-    "nombre": "_build_clipfix_user_prompt",
-    "linea": 1014,
-    "por_que": "nadie la llama; el propio archivo (L968-971) dice que el rewriter de movimiento quedó DORMIDO desde el chat 113 y esta función y _FIX_CLIP_REWRITE_INSTRUCTION no tienen call-site"
    }
   ],
-  "md5": "ec730e1395a90655b02019b20a7f7b44",
+  "md5": "6f410abbc24f80b4f7d33695c29b8c59",
   "_parte": "orquestador_a"
  },
  "report_foto_madre_edits.py": {
@@ -630,7 +629,7 @@
   "_parte": "orquestador_a"
  },
  "script_engine/m09_packaging.py": {
-  "sticker": "Arma el paquete de publicación de YouTube. Desde F58 le pide a Claude Opus, en una sola llamada, 3 PAQUETES (título + texto de miniatura + la oración del gancho que muestra la foto), cada uno con una estrategia distinta, leyendo el gancho (cap 1 entero), la narración de los caps 2 a 7 y el pool completo (la única fuente de cifras, fechas y nombres); valida por código (3 paquetes, estrategias distintas, anclas literales del gancho) con reintentos y coteja cada cifra del título y del texto contra el pool (aviso, no freno). La foto de cada paquete sale de la máquina de fotos de producción (casilleros Opus del cap 1 con esa ancla, armado C, canon) más una oración de composición (la persona en la mitad derecha) y sin cartel. Compone la miniatura con el texto en la mitad izquierda, partiendo las líneas por ancho medido y achicando la letra hasta que quepa (tope 2 líneas), y deja el checklist para subir a mano. Se puede correr por pasos (candidatas, componer un paquete) o abriendo el formulario web de revisión.",
+  "sticker": "Arma el paquete de publicación de YouTube. Desde F58 le pide a Claude Opus, en una sola llamada, 3 PAQUETES (título + texto de miniatura + la oración del gancho que muestra la foto), cada uno con una estrategia distinta, leyendo el gancho (cap 1 entero), la narración de los caps 2 a 7 y el pool completo (la única fuente de cifras, fechas y nombres); valida por código (3 paquetes, estrategias distintas, anclas literales del gancho) con reintentos y coteja cada cifra del título y del texto contra el pool (aviso, no freno). La foto de cada paquete sale de la máquina de fotos de producción (casilleros Opus del cap 1 con esa ancla, armado C, canon) más una oración de composición (desde F59: el sujeto principal en la mitad derecha, sirva o no para prompts sin persona) y sin cartel. Compone la miniatura con el texto en la mitad izquierda, partiendo las líneas por ancho medido y achicando la letra hasta que quepa (tope 2 líneas), y deja el checklist para subir a mano. Se puede correr por pasos (candidatas, componer un paquete) o abriendo el formulario web de revisión.",
   "recibe": "data/scripts/_steps/<id>/01b_narration.json, 00_pool_v3.json y 01a_skeleton.json, el topic de data/topics_db.json con su canon (fase1_5._load_topic_by_id + asegurar_canon), las fotos *_graded.png de output/<id>/assets/ como bases alternativas, la fuente script_engine/fonts/Anton-Regular.ttf y la ruta del MP4 final (--video-path).",
   "entrega": "output/<id>/publish/metadata.json (paquetes acumulados con índice global, descripcion, tags, avisos), thumb_candidates/paquete_NN_base.png y paquete_NN.png, thumb_final_NN.png (o .jpg si pesa más de 2 MB) y CHECKLIST_PUBLICACION.md.",
   "modelo": [
@@ -649,7 +648,7 @@
   "estado": "vivo",
   "estado_prueba": "fase3.py:64 arma el comando python -m script_engine.m09_packaging (etapa packaging, run_pipeline.py:430 lanza fase3.py); qa_studio_server.py:1490 lo lanza con --review --auto-first",
   "funciones_muertas": [],
-  "md5": "5d2db86f349b5ba3352c1f10d29997bb",
+  "md5": "24e89e46b7bb71faa50dd78740020de2",
   "_parte": "orquestador_b"
  },
  "script_engine/m09_review_server.py": {

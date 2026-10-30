@@ -619,6 +619,8 @@ def frase_cartel(tii: dict) -> str:
 
 # los casilleros de prosa del armado (F50b: de estos salen las cláusulas negadas)
 _PROSA = ("subject", "action", "setting", "lighting", "camera_angle", "lens_technique")
+# F59 (DECISIONES 2026-10-30 08:22, decisión c): lo que QA Studio deja editar a Opus = las claves que `armar`/`f8_backstop` leen + `year` (`anio_final`); `people_group` fuera (el aspecto sale del canon).
+CASILLEROS_EDITABLES = (*_PROSA, "shot_scale", "text_in_image", "year")
 
 
 def armar(it: dict, anio: str, grupos: dict[str, dict] | None = None, composicion: str = "") -> dict:
