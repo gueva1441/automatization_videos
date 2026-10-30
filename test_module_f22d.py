@@ -50,6 +50,6 @@ def test_prompts_sin_cambios():
         return hashlib.md5(s.encode("utf-8")).hexdigest()
     # F23: ficha v2.2 y guion v5.3 en test_module_f23; acá, los de F22 con su versión
     # F24: la escaleta f22-2 con su versión (la de hoy, f24-1, en test_module_f24)
-    assert [m(fc.system("f22-1")), m(mc.SYSTEM), m(me.SYSTEM_V2_F22_2), m(g4.system("f22-1"))] == [
-        "7d3599dc6e4123a3bb883fc15a541e71", "f294cf6b1220983903ce339f5b21cb27", "22cfd68b7cee4734e95bb3ee27bb96b2",
-        "743e4f0a7ff9e58d86762bbd43679952"]                                     # F22e: escaleta 22cfd68b
+    assert [m(fc.system("f22-1")), m(mc.SYSTEM), m(g4.system("f22-1"))] == [
+        "7d3599dc6e4123a3bb883fc15a541e71", "f294cf6b1220983903ce339f5b21cb27",
+        "743e4f0a7ff9e58d86762bbd43679952"]                 # F55 C.0 (ii): la escaleta f22-2 ya no vive en el código

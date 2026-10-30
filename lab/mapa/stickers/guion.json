@@ -112,7 +112,7 @@
   "_parte": "guion_a"
  },
  "script_engine/m01a_escaleta.py": {
-  "sticker": "Decide la historia del video antes de escribirla: elige a quién seguimos, el momento más fuerte, y reparte el caso en 7 capítulos con sus escenas, datos y la pregunta que va en pantalla; declara además 1–2 loops (la pregunta que el video deja abierta, dónde se abre y dónde se paga), qué pregunta anterior paga cada beat y el re-gancho al cierre del cap 3. Revisa el resultado con reglas mecánicas (cantidad de escenas, orden, que los datos existan, que los loops se paguen después de abrirse) y, si falla, lo repite una sola vez; si vuelve a fallar, frena sin seguir gastando. Sin la ficha del caso v2 también frena sin llamar a ningún modelo.",
+  "sticker": "Decide la historia del video antes de escribirla: elige a quién seguimos, el momento más fuerte, y reparte el caso en 7 capítulos con sus escenas, datos y la pregunta que va en pantalla; declara además 1–2 loops (la pregunta que el video deja abierta, dónde se abre y dónde se paga), qué pregunta anterior paga cada beat y el re-gancho al cierre del cap 3; la promesa del gancho es una sola oración (si vienen dos, se queda la primera). Revisa el resultado con reglas mecánicas (cantidad de escenas, orden, que los datos existan, que los loops se paguen después de abrirse) y, si falla, lo repite una sola vez; si vuelve a fallar, frena sin seguir gastando. Sin la ficha del caso v2 también frena sin llamar a ningún modelo. Desde F55 el prompt vive en una sola versión (f55-1); las anteriores quedan como .md en lab/.",
   "recibe": "data/scripts/_steps/<id>/ficha_caso.json (ficha v2 con historia), el pool de evidencia del topic (data/scripts/topics_db.json → evidence_pool), el título/ángulo del topic y la compuerta del pool (researcher_steps/pool_gate.py)",
   "entrega": "data/scripts/_steps/<id>/01a_escaleta.json (o 01a_escaleta_rechazada.json si falla dos veces) y POOL_GATE.md; esa escaleta la leen el guion v4, la partición y la capa gráfica",
   "modelo": [
@@ -137,7 +137,7 @@
     "por_que": "nadie la llama en producción ni en tests; solo la usan scripts viejos de lab/hyperframes (f6, f7, f10…); el docstring del módulo (línea 14) todavía la anuncia"
    }
   ],
-  "md5": "f4f9e2e1a8ef628effd6a55627c3baf5",
+  "md5": "2c3d3235160139c59b4fd11e011cc7ef",
   "_parte": "guion_a"
  },
  "script_engine/m01a_skeleton.py": {

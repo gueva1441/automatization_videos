@@ -173,18 +173,6 @@ def test_kyshtym_el_articulo_de_osetrov_figura_con_su_aporte():
 #  B. Beats repartidos
 # ═══════════════════════════════════════════════════════════════
 
-def test_prompt_escaleta_f24_literal_y_una_sola_linea():
-    # F25c: la escaleta de hoy es la f25-1 (test_module_f25c); la f24-1 queda con su versión
-    assert me.SYSTEM_V2_F24_1 == _sistema(F24 / "PROMPT_ESCALETA_v2_1_f24.md") and me.PROMPT_VERSION_V2_F24_1 == "f24-1"
-    assert me.SYSTEM_V2_F22_2 == _sistema(F22 / "PROMPT_ESCALETA_v2_1.md")
-    assert _md5(me.SYSTEM_V2_F22_2) == "22cfd68b7cee4734e95bb3ee27bb96b2"
-    a, b = me.SYSTEM_V2_F22_2.split("\n"), me.SYSTEM_V2_F24_1.split("\n")
-    dif = [(x, y) for x, y in zip(a, b) if x != y]
-    assert len(a) == len(b) and dif == [(
-        "- Repartir el material parejo para llenar siete caps. Un cap puede tener dos beats densos y otro uno solo.",
-        "- Meter seis beats en un cap y uno en los demás. Cada cap lleva entre uno y tres beats; el material que no "
-        "cabe se deja afuera, no se apila.")]
-    assert _md5(me.SYSTEM_V2_F24_1) == "006a195f0ce4be014df34d71644aedb1"
 
 
 def test_mas_de_tres_beats_en_un_cap_es_bloqueante():

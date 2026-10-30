@@ -51,10 +51,10 @@ NUEVO_P = ("La promesa dice qué va a entender el espectador si se queda: puede 
 
 
 def test_escaleta_f54_1_literal_y_un_solo_cambio():
-    assert me.SYSTEM_V2 == _sistema(F54 / "PROMPT_ESCALETA_f54_1.md") and me.PROMPT_VERSION_V2 == "f54-1"
-    assert me.PROMPT_VERSION_COLUMNA == "f54-1" and me.PROMPT_VERSION_V2_F26_1 == "f26-1"
-    assert _md5(me.SYSTEM_V2_F26_1) == "2e67791cedbfa7492f8b6de1268b7b30"
-    (viejo, nuevo), = _dif(me.SYSTEM_V2_F26_1, me.SYSTEM_V2)
+    # F55 C: la escaleta de hoy es la f55-1 (test_module_f55); f54-1 y f26-1 se comparan por sus .md (C.0 ii)
+    f54_1, f26_1 = _sistema(F54 / "PROMPT_ESCALETA_f54_1.md"), _sistema(ROOT / "lab" / "hyperframes" / "f26" / "PROMPT_ESCALETA_f26_1.md")
+    assert _md5(f26_1) == "2e67791cedbfa7492f8b6de1268b7b30"
+    (viejo, nuevo), = _dif(f26_1, f54_1)
     assert VIEJO_P in viejo and viejo.replace(VIEJO_P, NUEVO_P) == nuevo
     assert "Sin contexto, sin año, sin cifras: lo que se ve." in nuevo          # R1 (la imagen del gancho) se queda
     assert nuevo.count("La promesa") == 1                                      # chascada: una sola oración sobre la promesa

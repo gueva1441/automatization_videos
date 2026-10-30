@@ -78,16 +78,14 @@ def test_los_cuatro_sistemas_byte_identicos_al_handoff():
     # F23: la ficha v2.1 y el guion v5.2 quedan con su versión (f22-1); los de hoy, en test_module_f23
     assert fc.system("f22-1") == fc.SYSTEM_F22_1 == _sistema("PROMPT_FICHA_v2_1.md")
     assert mc.SYSTEM == _sistema("PROMPT_COLUMNA_v1_1.md")
-    assert me.SYSTEM_V2_F22_2 == _sistema("PROMPT_ESCALETA_v2_1.md")   # F24: la f22-2, con su versión
     assert g4.system("f22-1") == g4.SYSTEM_V5_2 == _sistema("PROMPT_GUIONISTA_v5_2.md")
-    assert [_md5(x) for x in (fc.system("f22-1"), mc.SYSTEM, me.SYSTEM_V2_F22_2, g4.system("f22-1"))] == [
+    # F55 C.0 (ii): las versiones viejas de la escaleta ya no viven en el código; su .md sigue siendo el de F22e
+    assert [_md5(x) for x in (fc.system("f22-1"), mc.SYSTEM, _sistema("PROMPT_ESCALETA_v2_1.md"), g4.system("f22-1"))] == [
         "7d3599dc6e4123a3bb883fc15a541e71", "f294cf6b1220983903ce339f5b21cb27", "22cfd68b7cee4734e95bb3ee27bb96b2",
         "743e4f0a7ff9e58d86762bbd43679952"]                                     # F22e: escaleta 22cfd68b
-    assert _md5(me.SYSTEM_V2_F22_1) == "7ea18a6aa1ca91c5ad0dfb7cc9b239a8"     # la v2.1 de F22, con su versión
     for s in (fc.system(), mc.SYSTEM, me.SYSTEM_V2, g4.system()):
         assert "## SISTEMA" not in s and "Para CC" not in s and s.startswith("<rol>")
     assert (fc.PROMPT_VERSION_F22, mc.PROMPT_VERSION, g4.PROMPT_VERSION_V5_2) == ("f22-1",) * 3
-    assert (me.PROMPT_VERSION_V2_F22_2, me.PROMPT_VERSION_V2_F22) == ("f22-2", "f22-1")   # F24: hoy f24-1 (test_module_f24)
 
 
 def test_tarea_de_la_columna_literal_y_las_otras_sin_cambios():
@@ -107,7 +105,6 @@ def test_tarea_de_la_columna_literal_y_las_otras_sin_cambios():
 def test_los_viejos_quedan_con_su_version():
     assert _md5(fc.system("f15-1")) == "2e151732da47e09acf0cb48eb7089fcb"
     assert _md5(mc.SYSTEM_F17_1) == "1408569c5c9de22ec406a10ba0cd9b13"
-    assert _md5(me.SYSTEM_V2_F16_1) == "49ed74d941def064cdda077212629ff1"
     assert _md5(g4.system("f15b-1")) == "cdce609abea95ee36d0eb4f44d74dda8"
     assert g4.system("f15-1") == g4.SYSTEM_V5 and g4.VERSIONES_V5 == ("f54-2", "f25-1", "f23-1", "f22-1", "f15b-1", "f15-1")
 

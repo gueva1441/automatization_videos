@@ -51,7 +51,7 @@ def _sistema_md() -> tuple[str, str]:
 def test_sistema_v2_byte_identico_al_archivo():
     sis, tarea = _sistema_md()
     # F22: la v2 de F16 queda con su versión, byte-idéntica (la v2.1 en test_module_f22)
-    assert me.SYSTEM_V2_F16_1 == sis and me.TAREA_V2 == tarea and me.PROMPT_VERSION_V2_F16 == "f16-1"
+    assert me.TAREA_V2 == tarea                       # F55 C.0 (ii): la constante SYSTEM_V2_F16_1 se borró; el .md queda
     assert sis.startswith("<rol>\nSos el guionista jefe") and sis.endswith("</errores>")
 
 

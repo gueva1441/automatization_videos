@@ -333,7 +333,7 @@ def test_prompts_f23_literales():
     assert fc.system() == fc.SYSTEM_F23_1 == _sistema("PROMPT_FICHA_v2_2.md") and fc.PROMPT_VERSION == "f23-1"
     assert [_md5(g4.system("f23-1")), _md5(fc.system())] == ["8ca9aa494e3a0b9b4a99f60e6006c5f8",
                                                       "070b75dff58aecfa407fac3d62020ce4"]
-    assert [_md5(me.SYSTEM_V2_F22_2), _md5(mc.SYSTEM)] == ["22cfd68b7cee4734e95bb3ee27bb96b2", "f294cf6b1220983903ce339f5b21cb27"]
+    assert _md5(mc.SYSTEM) == "f294cf6b1220983903ce339f5b21cb27"      # F55 C.0 (ii): la escaleta f22-2 se borró del código
     assert _md5(g4.system("f22-1")) == "743e4f0a7ff9e58d86762bbd43679952"
     assert _md5(fc.system("f22-1")) == "7d3599dc6e4123a3bb883fc15a541e71"
 

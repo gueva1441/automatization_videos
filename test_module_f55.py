@@ -317,3 +317,58 @@ def test_remapear_ids():
     assert out["a_pantalla"][0]["id"] == "Q25" and out["ids"] == ["D9", "Q25"]
     assert out["beats"][0]["cierre"] == "Q12 no es un id acá" and obj["beats"][0]["dato_central"] == "Q12"   # copia
     assert r3.remapear_ids(obj, {"_descartados": []}) == obj
+
+
+# ═══════════════════════════════════════════════════════════════
+#  Parte C: promesa de una oración (DECISIONES 2026-10-29 19:15) · C.0 (ii): fuera las versiones viejas
+# ═══════════════════════════════════════════════════════════════
+
+from script_engine import m01a_escaleta as me  # noqa: E402
+
+F55 = ROOT / "lab" / "hyperframes" / "f55"
+
+
+def _sistema(p: Path) -> str:
+    md = p.read_text(encoding="utf-8").replace("\r\n", "\n")
+    i = md.index("\n## SISTEMA\n\n") + len("\n## SISTEMA\n\n")
+    return md[i:md.index("\n\n---\n", i)]
+
+
+def test_escaleta_f55_1_literal_y_una_sola_linea():
+    assert me.SYSTEM_V2 == _sistema(F55 / "PROMPT_ESCALETA_f55_1.md") and me.PROMPT_VERSION_V2 == "f55-1"
+    assert me.PROMPT_VERSION_COLUMNA == "f55-1"
+    f54_1 = _sistema(ROOT / "lab" / "hyperframes" / "f54" / "PROMPT_ESCALETA_f54_1.md")
+    a, b = f54_1.split("\n"), me.SYSTEM_V2.split("\n")
+    assert len(a) == len(b)
+    dif = [(x, y) for x, y in zip(a, b) if x != y]
+    assert dif == [("promesa_gancho: «Once personas esperaron veintitrés días un barco que no llegó. Esta es la historia "
+                    "de quién decidió que no llegara.»",
+                    "promesa_gancho: «Once personas esperaron veintitrés días un barco que alguien había decidido que no "
+                    "llegara.»")]
+
+
+def test_las_versiones_viejas_de_la_escaleta_se_borraron():
+    for n in ("SYSTEM_V2_F26_1", "SYSTEM_V2_F25_1", "SYSTEM_V2_F24_1", "SYSTEM_V2_F22_2", "SYSTEM_V2_F22_1", "SYSTEM_V2_F16_1",
+              "PROMPT_VERSION_V2_F26_1", "PROMPT_VERSION_V2_F25_1", "PROMPT_VERSION_V2_F24_1", "PROMPT_VERSION_V2_F22_2",
+              "PROMPT_VERSION_V2_F22", "PROMPT_VERSION_V2_F16"):
+        assert not hasattr(me, n), n
+    assert me.SYSTEM_V2.count("<rol>") == 1
+
+
+def test_esquema_promesa_con_descripcion():
+    for s in (me.SCHEMA, me.SCHEMA_FICHA):
+        assert s["properties"]["promesa_gancho"] == {"type": "STRING", "description": "Una sola oración: lo que está en juego."}
+
+
+def test_promesa_de_dos_oraciones_se_repara_por_codigo():
+    import test_module_f6b as t6
+    e = t6.good()
+    e["promesa_gancho"] = "Daniel vivió diez meses en Wittenoom. Murió de eso casi treinta años después."
+    esc, hard, rep, _ = me.validate(e, t6.POOL)
+    assert esc["promesa_gancho"] == "Daniel vivió diez meses en Wittenoom." and esc["_promesa_oraciones"] == 2
+    assert any(r.startswith("promesa_gancho: 2 oraciones") for r in rep) and not any("promesa" in h for h in hard)
+    e = t6.good()
+    esc, hard, rep, _ = me.validate(e, t6.POOL)
+    assert esc["_promesa_oraciones"] == 1 and not any("promesa" in r for r in rep)
+    import test_module_f16 as t16
+    assert me.metricas_escaleta(esc, t16.POOL, t16.FICHA, [])["promesa_oraciones"] == 1

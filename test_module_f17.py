@@ -177,7 +177,7 @@ def test_columna_usa_sol_high(monkeypatch, tmp_path):
 
 def test_tarea_columna_literal():
     assert me.TAREA_COLUMNA == "<tarea>\n" + _sistema_md()[2] + "\n</tarea>"
-    assert me.PROMPT_VERSION_COLUMNA_F17 == "f17-1" and me.PROMPT_VERSION_COLUMNA == "f54-1"   # F22e; F24; F25c; F26; F54
+    assert me.PROMPT_VERSION_COLUMNA_F17 == "f17-1" and me.PROMPT_VERSION_COLUMNA == "f55-1"   # F22e; F24; F25c; F26; F54; F55
 
 
 def test_escaleta_con_columna_antes_de_la_ficha():
@@ -203,7 +203,6 @@ def test_escaleta_sin_columna_byte_identica_a_f16():
     assert _md5(me.build_prompt_v2(TOPIC, POOL, FICHA16)) == ESC_V2_MD5["sin_fb"]
     assert _md5(me.build_prompt_v2(TOPIC, POOL, FICHA16, ["a"])) == ESC_V2_MD5["fb"]
     assert me.build_prompt_v2(TOPIC, POOL, FICHA16, columna=None) == me.build_prompt_v2(TOPIC, POOL, FICHA16)
-    assert _md5(me.SYSTEM_V2_F16_1) == F16_REAL["sistema"]                 # F22: la v2 de F16, con su versión
 
 
 @pytest.mark.parametrize("tema", ["ycua", "orl"])
