@@ -1,0 +1,38 @@
+[14:48:42] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f59_parte_b
+[14:51:10] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=956889816 → ch03_img_08.png
+[14:52:45] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=956889816 → ch03_img_08.png
+[14:53:37] INFO     | viral_pipeline | [image_generator] [/edit] seedream anclando 1 foto(s) madre → ch01_img_01_final.png
+[14:55:17] WARNING  | viral_pipeline | [video_generator] ⚠ [clip] ch01_clip_01.mp4: gemini_omni_flash rechazó por contenido — {"detail":[{"loc":["body","prompt"],"msg":"Unable to show the generated video. The output contains dangerous content that violates Google's Responsible AI practices. Try rephrasing the prompt. If you think this was an error, send feedback.","type":"content_policy_violation","url":"https://docs.fal.a
+[14:58:59] WARNING  | viral_pipeline | [video_generator] ⚠ [clip] ch01_clip_01.mp4: kling_4 rechazó por contenido — {"detail":[{"loc":["body"],"msg":"The content could not be processed because it contained material flagged by a content checker.","type":"content_policy_violation","url":"https://docs.fal.ai/errors#content_policy_violation","input":"","categories":["model_moderated"]}]}
+[14:59:02] INFO     | viral_pipeline | [cost_tracker] Video f59_parte_b — Costo total: $0.3840
+{
+ "errores": [],
+ "usd_total": 0.384,
+ "segundos": 620.1,
+ "b1": [
+  [
+   1,
+   true,
+   null
+  ],
+  [
+   2,
+   true,
+   null
+  ],
+  [
+   3,
+   true,
+   null
+  ]
+ ],
+ "b2": [
+  true,
+  "foto rehecha; casilleros editados: action. El filtro de producción no sacó nada."
+ ],
+ "b3": [
+  false,
+  "filtro: gemini_omni_flash: {\"detail\":[{\"loc\":[\"body\",\"prompt\"],\"msg\":\"Unable to show the generated video. The output contains dangerous content that violates Google's Responsible AI practices. Try rephrasing the prompt. If you think this was an error, send feedback.\",\"type\":\"content_policy_violation\",\"url\":\"https://docs.fal.ai/errors#content_policy_violation\",\"input\":{\"prompt\":\"Slow, somber documentary shot on grainy early-sixties 35mm film, muted colors, slight underexposure. Close on a man's bare foot wrapped in a frayed white bandage stained red, planted on red-ochre earth beside a worn black leath"
+ ]
+}
+exit=0

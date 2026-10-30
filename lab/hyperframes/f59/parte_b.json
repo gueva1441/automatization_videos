@@ -1,0 +1,470 @@
+{
+ "tid": "123bbb64-9fca-4395-8bf4-57d60e219ef1",
+ "base": "lab/hyperframes/f59/base",
+ "b1": {
+  "lang": "en",
+  "composicion_f58": "The person fills the right half of the frame, face and torso large; the left half is dark, uncluttered negative space.",
+  "composicion_f59": "The main subject fills the right half of the frame; the left half is dark, uncluttered negative space.",
+  "paquetes": [
+   {
+    "n": 1,
+    "estrategia": 1,
+    "titulo": "Vivió 10 meses junto a una mina de amianto azul y murió a los 55",
+    "texto": "¿QUÉ RESPIRÓ ALLÍ?",
+    "anio": "1963",
+    "anio_fuente": "1) el casillero `year` del modelo",
+    "casilleros": {
+     "subject": "A young adult Spanish migrant miner, olive skin, short dark early-1960s hair, lean work-hardened build, sun-weathered face, in a dust-coated short-sleeved work shirt and drill trousers, one foot wrapped in a pale bandage and the other in a heavy work boot",
+     "action": "Stands posing stiffly for a family portrait, weight shifted onto his good leg, the bandaged foot set forward on the ground",
+     "gaze_interaction": "Face and eyes square to the camera, shoulders slightly drawn up, a guarded half-smile, arms hanging straight at his sides",
+     "setting": "Wittenoom company town, 1963: in front of a low corrugated-iron and fibro-cement company house, its yard surfaced with crumbly blue-grey crocidolite tailings",
+     "color_palette": "Desaturated black-and-white tonality with a cold blue-grey cast; pale grey fibro walls, dull grey corrugated iron, washed-out red-ochre earth",
+     "props_detail": "The pale bandage around his foot, its edges greyed by a fine fibrous dust",
+     "shot_scale": "medium",
+     "camera_angle": "eye-level, frontal like a period box camera",
+     "lens_technique": "50mm lens, moderate depth of field, slightly soft period film grain",
+     "lighting": "Hard cold overcast desert light, flat and shadowless, isolating the figure against the pale wall",
+     "mood": "A lone figure pinned under flat white sky, fine dust hanging in the air, a stiff pose held a beat too long",
+     "style": "Documentary photographic realism, dark-history, faceless channel look, aged 1960s family snapshot",
+     "text_in_image": {
+      "present": false,
+      "text": "",
+      "font": "",
+      "location": ""
+     },
+     "hard_fact_ids": [],
+     "people_group": [
+      "spanish_migrant_families"
+     ],
+     "year": "1963"
+    },
+    "prompt_f58": "A young adult Spanish migrant miner, olive skin, short dark early-1960s hair, lean work-hardened build, sun-weathered face, in a dust-coated short-sleeved work shirt and drill trousers, one foot wrapped in a pale bandage and the other in a heavy work boot. Stands posing stiffly for a family portrait, weight shifted onto his good leg, the bandaged foot set forward on the ground. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Wittenoom company town, 1963: in front of a low corrugated-iron and fibro-cement company house, its yard surfaced with crumbly blue-grey crocidolite tailings. Hard cold overcast desert light, flat and shadowless, isolating the figure against the pale wall. Medium shot, eye-level, frontal like a period box camera, 50mm lens, moderate depth of field, slightly soft period film grain. The person fills the right half of the frame, face and torso large; the left half is dark, uncluttered negative space. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+    "prompt_viejo_rearmado": "A young adult Spanish migrant miner, olive skin, short dark early-1960s hair, lean work-hardened build, sun-weathered face, in a dust-coated short-sleeved work shirt and drill trousers, one foot wrapped in a pale bandage and the other in a heavy work boot. Stands posing stiffly for a family portrait, weight shifted onto his good leg, the bandaged foot set forward on the ground. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Wittenoom company town, 1963: in front of a low corrugated-iron and fibro-cement company house, its yard surfaced with crumbly blue-grey crocidolite tailings. Hard cold overcast desert light, flat and shadowless, isolating the figure against the pale wall. Medium shot, eye-level, frontal like a period box camera, 50mm lens, moderate depth of field, slightly soft period film grain. The person fills the right half of the frame, face and torso large; the left half is dark, uncluttered negative space. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+    "byte_identico_con_oracion_vieja": true,
+    "prompt_f59": "A young adult Spanish migrant miner, olive skin, short dark early-1960s hair, lean work-hardened build, sun-weathered face, in a dust-coated short-sleeved work shirt and drill trousers, one foot wrapped in a pale bandage and the other in a heavy work boot. Stands posing stiffly for a family portrait, weight shifted onto his good leg, the bandaged foot set forward on the ground. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Wittenoom company town, 1963: in front of a low corrugated-iron and fibro-cement company house, its yard surfaced with crumbly blue-grey crocidolite tailings. Hard cold overcast desert light, flat and shadowless, isolating the figure against the pale wall. Medium shot, eye-level, frontal like a period box camera, 50mm lens, moderate depth of field, slightly soft period film grain. The main subject fills the right half of the frame; the left half is dark, uncluttered negative space. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+    "diff": [
+     "-The person fills the right half of the frame, face and torso large; the left half is dark, uncluttered negative space.",
+     "+The main subject fills the right half of the frame; the left half is dark, uncluttered negative space."
+    ],
+    "_f8_problemas": null,
+    "_f8_slots_scrub": null,
+    "_f8_texto_fuera": null,
+    "motivo_sin_foto": null,
+    "segundos_foto": 49.1,
+    "base_f59": "lab/hyperframes/f59/b1/paquete_01_base_f59.png",
+    "compuesta_f59": "lab/hyperframes/f59/b1/paquete_01_f59.png",
+    "compuesta_f58": "output/123bbb64-9fca-4395-8bf4-57d60e219ef1/publish/thumb_candidates/paquete_01.png"
+   },
+   {
+    "n": 2,
+    "estrategia": 3,
+    "titulo": "Sabían del polvo desde 1944: la mina que mató a Daniel Écija",
+    "texto": "LO LLAMARON ALBOROTADOR",
+    "anio": "1963",
+    "anio_fuente": "1) el casillero `year` del modelo",
+    "casilleros": {
+     "subject": "The bandaged foot of a young Spanish migrant miner resting on tailings-surfaced ground, a dusty trouser cuff above it, a jagged fragment of blue crocidolite asbestos lying beside it",
+     "action": "The foot rests motionless while the loose fibrous fragment sheds fine threads and powder onto the bandage",
+     "gaze_interaction": "Focal direction drawn down to the pale bandage and the frayed blue-grey mineral fragment beside it",
+     "setting": "A Wittenoom house yard, 1963, the ground compacted with loose blue-grey crocidolite tailings and red-ochre dust",
+     "color_palette": "Cold blue-grey crocidolite tones, off-white greyed bandage, muted red-ochre dust, desaturated documentary grade",
+     "props_detail": "A frayed chunk of raw blue asbestos unravelling into fine fibrous threads",
+     "shot_scale": "detail",
+     "camera_angle": "high angle looking down",
+     "lens_technique": "macro-leaning 100mm lens, shallow depth of field, fibres sharp, background soft",
+     "lighting": "Hard cold directional overcast light raking across the fibres",
+     "mood": "Fine fibrous powder settling on the cloth, a dull stain spreading through the bandage weave, utter stillness",
+     "style": "Documentary photographic realism, dark-history, faceless channel look",
+     "text_in_image": {
+      "present": false,
+      "text": "",
+      "font": "",
+      "location": ""
+     },
+     "hard_fact_ids": [],
+     "people_group": [
+      "spanish_migrant_families"
+     ],
+     "year": "1963"
+    },
+    "prompt_f58": "The bandaged foot of a young Spanish migrant miner resting on tailings-surfaced ground, a dusty trouser cuff above it, a jagged fragment of blue crocidolite asbestos lying beside it. The foot rests motionless while the loose fibrous fragment sheds fine threads and powder onto the bandage. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. A Wittenoom house yard, 1963, the ground compacted with loose blue-grey crocidolite tailings and red-ochre dust. Hard cold directional overcast light raking across the fibres. Detail shot, high angle looking down, macro-leaning 100mm lens, shallow depth of field, fibres sharp, background soft. The person fills the right half of the frame, face and torso large; the left half is dark, uncluttered negative space. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+    "prompt_viejo_rearmado": "The bandaged foot of a young Spanish migrant miner resting on tailings-surfaced ground, a dusty trouser cuff above it, a jagged fragment of blue crocidolite asbestos lying beside it. The foot rests motionless while the loose fibrous fragment sheds fine threads and powder onto the bandage. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. A Wittenoom house yard, 1963, the ground compacted with loose blue-grey crocidolite tailings and red-ochre dust. Hard cold directional overcast light raking across the fibres. Detail shot, high angle looking down, macro-leaning 100mm lens, shallow depth of field, fibres sharp, background soft. The person fills the right half of the frame, face and torso large; the left half is dark, uncluttered negative space. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+    "byte_identico_con_oracion_vieja": true,
+    "prompt_f59": "The bandaged foot of a young Spanish migrant miner resting on tailings-surfaced ground, a dusty trouser cuff above it, a jagged fragment of blue crocidolite asbestos lying beside it. The foot rests motionless while the loose fibrous fragment sheds fine threads and powder onto the bandage. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. A Wittenoom house yard, 1963, the ground compacted with loose blue-grey crocidolite tailings and red-ochre dust. Hard cold directional overcast light raking across the fibres. Detail shot, high angle looking down, macro-leaning 100mm lens, shallow depth of field, fibres sharp, background soft. The main subject fills the right half of the frame; the left half is dark, uncluttered negative space. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+    "diff": [
+     "-The person fills the right half of the frame, face and torso large; the left half is dark, uncluttered negative space.",
+     "+The main subject fills the right half of the frame; the left half is dark, uncluttered negative space."
+    ],
+    "_f8_problemas": null,
+    "_f8_slots_scrub": null,
+    "_f8_texto_fuera": null,
+    "motivo_sin_foto": null,
+    "segundos_foto": 61.6,
+    "base_f59": "lab/hyperframes/f59/b1/paquete_02_base_f59.png",
+    "compuesta_f59": "lab/hyperframes/f59/b1/paquete_02_f59.png",
+    "compuesta_f58": "output/123bbb64-9fca-4395-8bf4-57d60e219ef1/publish/thumb_candidates/paquete_02.png"
+   },
+   {
+    "n": 3,
+    "estrategia": 4,
+    "titulo": "Wittenoom, 1963: el pueblo de amianto que borraron de los mapas",
+    "texto": "NADIE SACÓ UNA PALADA",
+    "anio": "2026",
+    "anio_fuente": "1) el casillero `year` del modelo",
+    "casilleros": {
+     "subject": "Vast abandoned blue-grey asbestos tailings dumps spilling down the rocky red walls of a Pilbara gorge where the erased mining town once stood",
+     "action": "The tailings lie exactly where they were dumped, eroding in slow streaks toward a dry creek bed, the empty town site beyond reduced to bare cleared ground",
+     "gaze_interaction": "Focal direction pulls from the pale tailings slopes down the gorge toward the empty flat where the town stood",
+     "setting": "Wittenoom gorge in the present day: demolished, emptied town site, no buildings, a permanent barricade across the old road entrance, sparse spinifex",
+     "color_palette": "Desaturated red-ochre rock and earth, blue-grey crocidolite tailings, bleached grey sky, cold documentary grade",
+     "props_detail": "A long scar of loose blue-grey tailings washing into a dry creek bed",
+     "shot_scale": "extreme_wide",
+     "camera_angle": "high angle aerial view",
+     "lens_technique": "wide-angle lens, deep depth of field",
+     "lighting": "Cold overcast daylight, flat and colourless over the gorge",
+     "mood": "An immense silent landscape, wind lifting faint dust off the dumps, no living figure anywhere",
+     "style": "Documentary photographic realism, dark-history, faceless channel look",
+     "text_in_image": {
+      "present": false,
+      "text": "",
+      "font": "",
+      "location": ""
+     },
+     "hard_fact_ids": [
+      "F02"
+     ],
+     "people_group": [],
+     "year": "2026"
+    },
+    "prompt_f58": "Vast abandoned blue-grey asbestos tailings dumps spilling down the rocky red walls of a Pilbara gorge where the erased mining town once stood. The tailings lie exactly where they were dumped, eroding in slow streaks toward a dry creek bed, the empty town site beyond reduced to bare cleared ground. Wittenoom gorge in the present day: demolished, emptied town site, a permanent barricade across the old road entrance, sparse spinifex, 2026. Cold overcast daylight, flat and colourless over the gorge. Extreme wide shot, high angle aerial view, wide-angle lens, deep depth of field. The person fills the right half of the frame, face and torso large; the left half is dark, uncluttered negative space. A grainy 35mm documentary photograph taken in 2026, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+    "prompt_viejo_rearmado": "Vast abandoned blue-grey asbestos tailings dumps spilling down the rocky red walls of a Pilbara gorge where the erased mining town once stood. The tailings lie exactly where they were dumped, eroding in slow streaks toward a dry creek bed, the empty town site beyond reduced to bare cleared ground. Wittenoom gorge in the present day: demolished, emptied town site, a permanent barricade across the old road entrance, sparse spinifex, 2026. Cold overcast daylight, flat and colourless over the gorge. Extreme wide shot, high angle aerial view, wide-angle lens, deep depth of field. The person fills the right half of the frame, face and torso large; the left half is dark, uncluttered negative space. A grainy 35mm documentary photograph taken in 2026, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+    "byte_identico_con_oracion_vieja": true,
+    "prompt_f59": "Vast abandoned blue-grey asbestos tailings dumps spilling down the rocky red walls of a Pilbara gorge where the erased mining town once stood. The tailings lie exactly where they were dumped, eroding in slow streaks toward a dry creek bed, the empty town site beyond reduced to bare cleared ground. Wittenoom gorge in the present day: demolished, emptied town site, a permanent barricade across the old road entrance, sparse spinifex, 2026. Cold overcast daylight, flat and colourless over the gorge. Extreme wide shot, high angle aerial view, wide-angle lens, deep depth of field. The main subject fills the right half of the frame; the left half is dark, uncluttered negative space. A grainy 35mm documentary photograph taken in 2026, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+    "diff": [
+     "-The person fills the right half of the frame, face and torso large; the left half is dark, uncluttered negative space.",
+     "+The main subject fills the right half of the frame; the left half is dark, uncluttered negative space."
+    ],
+    "_f8_problemas": null,
+    "_f8_slots_scrub": null,
+    "_f8_texto_fuera": null,
+    "motivo_sin_foto": null,
+    "segundos_foto": 36.5,
+    "base_f59": "lab/hyperframes/f59/b1/paquete_03_base_f59.png",
+    "compuesta_f59": "lab/hyperframes/f59/b1/paquete_03_f59.png",
+    "compuesta_f58": "output/123bbb64-9fca-4395-8bf4-57d60e219ef1/publish/thumb_candidates/paquete_03.png"
+   }
+  ],
+  "hoja_f59": "lab/hyperframes/f59/hoja_paquetes_f59.jpg",
+  "hoja_f58_vs_f59": "lab/hyperframes/f59/hoja_paquetes_f58_vs_f59.jpg"
+ },
+ "b2": {
+  "entry_antes": {
+   "cap": "ch03",
+   "img_name": "ch03_img_08.png",
+   "kind": "img",
+   "idx": 8,
+   "prompt": "The employer's advocate, a middle-aged Anglo-Australian man, heavy build, in a dark double-breasted suit. Standing at the head of the table, one palm open as he dismisses the dust clouds. Adult Anglo-Australian men of European descent with fair to sun-weathered skin and short hair. Adult Australian men of European descent with fair to tanned skin. The same 1949 arbitration room, tall window behind him, files stacked on the table. Overcast window light, same as the hearing. Medium shot, eye-level over the shoulders of seated listeners, 85mm, shallow depth of field, listeners' shoulders out of focus. A grainy 35mm documentary photograph taken in 1949, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "art_profile": "",
+   "subject_ref": "main_subject",
+   "narration_anchor": "«El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso», dijo el defensor del empleador.",
+   "anio": "1949",
+   "anio_fuente": "1) el casillero `year` del modelo",
+   "beat": 4,
+   "foto_madre_ref": null
+  },
+  "casilleros_antes": {
+   "subject": "The employer's advocate, a middle-aged Anglo-Australian man, heavy build, in a dark double-breasted suit",
+   "action": "standing at the head of the table, one palm open as he dismisses the dust clouds",
+   "gaze_interaction": "facing the union men, seen over their shoulders, his gaze level and unhurried; dust motes drift in the window beam beside him",
+   "setting": "the same 1949 arbitration room, tall window behind him, files stacked on the table",
+   "color_palette": "charcoal suit, varnished timber, pale window glare, floating grey dust motes",
+   "props_detail": "a beam of window light thick with drifting dust motes beside the speaker",
+   "shot_scale": "medium",
+   "camera_angle": "eye-level over the shoulders of seated listeners",
+   "lens_technique": "85mm, shallow depth of field, listeners' shoulders out of focus",
+   "lighting": "overcast window light, same as the hearing",
+   "mood": "a calm upright figure framed by visible floating dust, listeners' shoulders stiff and still",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "people_group": [
+    "company_owners_and_managers",
+    "unions_and_labour_arbitration"
+   ],
+   "year": "1949"
+  },
+  "prompt_antes": "The employer's advocate, a middle-aged Anglo-Australian man, heavy build, in a dark double-breasted suit. Standing at the head of the table, one palm open as he dismisses the dust clouds. Adult Anglo-Australian men of European descent with fair to sun-weathered skin and short hair. Adult Australian men of European descent with fair to tanned skin. The same 1949 arbitration room, tall window behind him, files stacked on the table. Overcast window light, same as the hearing. Medium shot, eye-level over the shoulders of seated listeners, 85mm, shallow depth of field, listeners' shoulders out of focus. A grainy 35mm documentary photograph taken in 1949, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+  "anio_antes": [
+   "1949",
+   "1) el casillero `year` del modelo"
+  ],
+  "ancla": "«El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso», dijo el defensor del empleador.",
+  "foto_28oct": "lab/hyperframes/f59/b2/ch03_img_08_28oct.png",
+  "foto_28oct_graded": "lab/hyperframes/f59/b2/ch03_img_08_28oct_graded.png",
+  "seed": 956889816,
+  "subject_ref": "main_subject",
+  "segundos_antes": 89.0,
+  "antes": "lab/hyperframes/f59/b2/antes.png",
+  "antes_graded": "lab/hyperframes/f59/b2/antes_graded.png",
+  "segundos_fix": 42.0,
+  "ok": true,
+  "reason": "foto rehecha; casilleros editados: action. El filtro de producción no sacó nada.",
+  "opus": [
+   {
+    "description": "qa:fix_foto ch03_img_08.png",
+    "prompt": "Editás los casilleros de una foto de un video documental de historia oscura. Los CASILLEROS son un JSON en inglés que después arma el código en el prompt de la foto. El ANCLA es la oración de la narración que la foto muestra. Omar pide un cambio en español.\n\nDevolvé el mismo JSON, con las mismas claves. Cambiá solo los casilleros que el pedido toca; los demás van copiados tal cual. Escribí lo que se ve, en inglés: si el pedido saca algo, nombrá qué ocupa su lugar. Si el pedido es una emoción, escribila como gesto visible. Si el pedido choca con el ANCLA, hacé lo más cercano que el ANCLA permita.\n\nANCLA:\n«El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso», dijo el defensor del empleador.\n\nCASILLEROS:\n{\n  \"subject\": \"The employer's advocate, a middle-aged Anglo-Australian man, heavy build, in a dark double-breasted suit\",\n  \"action\": \"standing at the head of the table, one palm open as he dismisses the dust clouds\",\n  \"setting\": \"the same 1949 arbitration room, tall window behind him, files stacked on the table\",\n  \"lighting\": \"overcast window light, same as the hearing\",\n  \"camera_angle\": \"eye-level over the shoulders of seated listeners\",\n  \"lens_technique\": \"85mm, shallow depth of field, listeners' shoulders out of focus\",\n  \"shot_scale\": \"medium\",\n  \"text_in_image\": {\n    \"present\": false,\n    \"text\": \"\",\n    \"font\": \"\",\n    \"location\": \"\"\n  },\n  \"year\": \"1949\"\n}\n\nPEDIDO DE OMAR:\nque mire hacia la cámara, con el ceño fruncido",
+    "salida": {
+     "subject": "The employer's advocate, a middle-aged Anglo-Australian man, heavy build, in a dark double-breasted suit",
+     "action": "standing at the head of the table, looking directly into the camera with a furrowed brow, one palm open as he dismisses the dust clouds",
+     "setting": "the same 1949 arbitration room, tall window behind him, files stacked on the table",
+     "lighting": "overcast window light, same as the hearing",
+     "camera_angle": "eye-level over the shoulders of seated listeners",
+     "lens_technique": "85mm, shallow depth of field, listeners' shoulders out of focus",
+     "shot_scale": "medium",
+     "text_in_image": {
+      "present": false,
+      "text": "",
+      "font": "",
+      "location": ""
+     },
+     "year": "1949"
+    },
+    "segundos": 5.9
+   }
+  ],
+  "casilleros_despues": {
+   "subject": "The employer's advocate, a middle-aged Anglo-Australian man, heavy build, in a dark double-breasted suit",
+   "action": "standing at the head of the table, looking directly into the camera with a furrowed brow, one palm open as he dismisses the dust clouds",
+   "gaze_interaction": "facing the union men, seen over their shoulders, his gaze level and unhurried; dust motes drift in the window beam beside him",
+   "setting": "the same 1949 arbitration room, tall window behind him, files stacked on the table",
+   "color_palette": "charcoal suit, varnished timber, pale window glare, floating grey dust motes",
+   "props_detail": "a beam of window light thick with drifting dust motes beside the speaker",
+   "shot_scale": "medium",
+   "camera_angle": "eye-level over the shoulders of seated listeners",
+   "lens_technique": "85mm, shallow depth of field, listeners' shoulders out of focus",
+   "lighting": "overcast window light, same as the hearing",
+   "mood": "a calm upright figure framed by visible floating dust, listeners' shoulders stiff and still",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "people_group": [
+    "company_owners_and_managers",
+    "unions_and_labour_arbitration"
+   ],
+   "year": "1949"
+  },
+  "prompt_despues": "The employer's advocate, a middle-aged Anglo-Australian man, heavy build, in a dark double-breasted suit. Standing at the head of the table, looking directly into the camera with a furrowed brow, one palm open as he dismisses the dust clouds. Adult Anglo-Australian men of European descent with fair to sun-weathered skin and short hair. Adult Australian men of European descent with fair to tanned skin. The same 1949 arbitration room, tall window behind him, files stacked on the table. Overcast window light, same as the hearing. Medium shot, eye-level over the shoulders of seated listeners, 85mm, shallow depth of field, listeners' shoulders out of focus. A grainy 35mm documentary photograph taken in 1949, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+  "anio_despues": [
+   "1949",
+   "1) el casillero `year` del modelo"
+  ],
+  "casilleros_cambiados": {
+   "action": {
+    "antes": "standing at the head of the table, one palm open as he dismisses the dust clouds",
+    "despues": "standing at the head of the table, looking directly into the camera with a furrowed brow, one palm open as he dismisses the dust clouds"
+   }
+  },
+  "casilleros_quitados": [],
+  "diff_prompt": [
+   "-Standing at the head of the table, one palm open as he dismisses the dust clouds.",
+   "+Standing at the head of the table, looking directly into the camera with a furrowed brow, one palm open as he dismisses the dust clouds."
+  ],
+  "_f8_slots_scrub": null,
+  "_f8_problemas": null,
+  "_f8_texto_fuera": null,
+  "vivo_igual_a_03": true,
+  "despues": "lab/hyperframes/f59/b2/despues.png",
+  "despues_graded": "lab/hyperframes/f59/b2/despues_graded.png",
+  "backups": [
+   "03_visual.json.20261030_145245.bak.json",
+   "123bbb64-9fca-4395-8bf4-57d60e219ef1.json.20261030_145245.bak.json",
+   "ch03_img_08.png.20261030_145245.bak.png",
+   "ch03_img_08_graded.png.20261030_145245.bak.png"
+  ],
+  "hoja": "lab/hyperframes/f59/b2/hoja_b2.jpg"
+ },
+ "b3": {
+  "entry": {
+   "cap": "ch01",
+   "video_prompt": "A slow, somber documentary shot on grainy 35mm film from the early sixties, muted colors and slight underexposure. The camera makes a very slow push-in, starting on a medium shot of the young miner against the corrugated iron wall and ending slightly closer, the white bandaged foot still sharp in the lower frame. First, fine red dust drifts low across the ochre earth, then his short shirt sleeves stir faintly in a light breeze as he breathes slowly. Hard, cold midday light under a pale washed-out sky keeps short sharp shadows steady in the dusty yard. He stays in place, posed stiffly with his weight off the bandaged foot, face and body steady.",
+   "image_prompt": "A young adult Spanish migrant miner, olive skin, short dark early-1960s hair, lean wiry build, in a dust-coated short-sleeved work shirt and drill trousers, one foot wrapped in a white bandage. Stands stiffly posing for a family photograph, weight shifted off the bandaged foot. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Yard of a Wittenoom company house in 1962, red-ochre earth underfoot, dull grey corrugated iron wall behind. Hard cold midday light under a pale washed-out sky, short sharp shadows. Medium shot, eye-level, as a family snapshot camera, 50mm lens, moderate depth of field, bandage sharp in lower frame. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "base_anchor": "Un hombre joven posa para una foto con el pie envuelto en una venda blanca.",
+   "first_frame": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f59\\base\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch01_veo\\ch01_img_01.png",
+   "out_clip": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f59\\base\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch01_veo\\ch01_clip_01.mp4",
+   "clip_name": "ch01_clip_01.mp4",
+   "art_profile": "",
+   "subject_ref": null,
+   "voz_clip": "Un hombre joven posa para una foto con el pie envuelto en una venda blanca. Detrás, tierra roja y paredes",
+   "_final": null
+  },
+  "movimiento_antes": "A slow, somber documentary shot on grainy 35mm film from the early sixties, muted colors and slight underexposure. The camera makes a very slow push-in, starting on a medium shot of the young miner against the corrugated iron wall and ending slightly closer, the white bandaged foot still sharp in the lower frame. First, fine red dust drifts low across the ochre earth, then his short shirt sleeves stir faintly in a light breeze as he breathes slowly. Hard, cold midday light under a pale washed-out sky keeps short sharp shadows steady in the dusty yard. He stays in place, posed stiffly with his weight off the bandaged foot, face and body steady.",
+  "clip_antes": "lab/hyperframes/f59/b3/antes.mp4",
+  "dur_antes": 8.0,
+  "foto_inicial_md5_antes": "5078cb32181b5e2ef86bba4e80aa9823",
+  "segundos_total": 337.8,
+  "ok": false,
+  "reason": "filtro: gemini_omni_flash: {\"detail\":[{\"loc\":[\"body\",\"prompt\"],\"msg\":\"Unable to show the generated video. The output contains dangerous content that violates Google's Responsible AI practices. Try rephrasing the prompt. If you think this was an error, send feedback.\",\"type\":\"content_policy_violation\",\"url\":\"https://docs.fal.ai/errors#content_policy_violation\",\"input\":{\"prompt\":\"Slow, somber documentary shot on grainy early-sixties 35mm film, muted colors, slight underexposure. Close on a man's bare foot wrapped in a frayed white bandage stained red, planted on red-ochre earth beside a worn black leath",
+  "opus": [
+   {
+    "description": "qa:fix_clip ch01",
+    "prompt": "Editás el movimiento de un clip de 8 segundos de un video documental de historia oscura. El MOVIMIENTO aprobado está en inglés; la VOZ es lo que se oye durante el clip. Omar pide un cambio en español.\n\nDevolvé el MOVIMIENTO con el cambio aplicado, en inglés y de largo parecido; lo que el pedido no toca va igual. Escribí lo que pasa en cámara y en la escena (si el pedido dice que algo no se mueva, escribí que queda quieto).\n\nVOZ:\nUn hombre joven posa para una foto con el pie envuelto en una venda blanca. Detrás, tierra roja y paredes\n\nMOVIMIENTO:\nA slow, somber documentary shot on grainy 35mm film from the early sixties, muted colors and slight underexposure. The camera makes a very slow push-in, starting on a medium shot of the young miner against the corrugated iron wall and ending slightly closer, the white bandaged foot still sharp in the lower frame. First, fine red dust drifts low across the ochre earth, then his short shirt sleeves stir faintly in a light breeze as he breathes slowly. Hard, cold midday light under a pale washed-out sky keeps short sharp shadows steady in the dusty yard. He stays in place, posed stiffly with his weight off the bandaged foot, face and body steady.\n\nPEDIDO DE OMAR:\ncámara quieta, solo sube el polvo, lento",
+    "salida": {
+     "movimiento": "A slow, somber documentary shot on grainy 35mm film from the early sixties, muted colors and slight underexposure. The camera stays completely still, locked off on a medium shot of the young miner against the corrugated iron wall, the white bandaged foot sharp in the lower frame. Only fine red dust moves, rising slowly from the ochre earth in thin wisps and lifting gently upward through the frame. Hard, cold midday light under a pale washed-out sky keeps short sharp shadows steady in the dusty yard. He stays completely still, posed stiffly with his weight off the bandaged foot, his face, body and short shirt sleeves motionless."
+    },
+    "segundos": 7.7
+   }
+  ],
+  "foto_final": {
+   "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f59\\base\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch01_veo\\ch01_img_01_final.png",
+   "ssim": 0.516317,
+   "instruccion": "Pull the camera slowly back and tilt it slightly up so the frame widens. The bandaged bare foot and the dusty black boot with its folded leather cuff and metal snap now sit smaller in the lower third, still sharp. Above them, more of the red-ochre earth stretches back toward the dull grey corrugated iron wall, which now fills the upper half of the frame with its vertical ridges more clearly defined. The bottom edge of the dark drill trouser leg appears above the boot. The man has eased his weight a little further onto the booted foot, so the bandaged foot rests more lightly, its toes barely pressing into the red dust. Keep the same white bandage with its rust-red stains and frayed edges, the same dust-covered toes, the same scattered red and grey grit on the ground, and the same hard cold midday light with short sharp shadows. Preserve the grainy, muted, slightly underexposed 1962 35mm documentary look, the 16:9 framing, and the absence of any text or signage.",
+   "motivo": null,
+   "segundos": 48.7,
+   "use_ultra": true
+  },
+  "clip_log": [
+   {
+    "clip": "ch01_clip_01.mp4",
+    "motor": null,
+    "rechazos": [
+     "gemini_omni_flash: {\"detail\":[{\"loc\":[\"body\",\"prompt\"],\"msg\":\"Unable to show the generated video. The output contains dangerous content that violates Google's Responsible AI practices. Try rephrasing the prompt. If you think this was an error, send feedback.\",\"type\":\"content_policy_violation\",\"url\":\"https://docs.fal.ai/errors#content_policy_violation\",\"input\":{\"prompt\":\"Slow, somber documentary shot on grainy early-sixties 35mm film, muted colors, slight underexposure. Close on a man's bare foot wrapped in a frayed white bandage stained red, planted on red-ochre earth beside a worn black leather trouser cuff wit",
+     "kling_4: {\"detail\":[{\"loc\":[\"body\"],\"msg\":\"The content could not be processed because it contained material flagged by a content checker.\",\"type\":\"content_policy_violation\",\"url\":\"https://docs.fal.ai/errors#content_policy_violation\",\"input\":\"\",\"categories\":[\"model_moderated\"]}]}"
+    ],
+    "segundos_reloj": 281.3
+   }
+  ],
+  "movimiento_despues": "A slow, somber documentary shot on grainy 35mm film from the early sixties, muted colors and slight underexposure. The camera makes a very slow push-in, starting on a medium shot of the young miner against the corrugated iron wall and ending slightly closer, the white bandaged foot still sharp in the lower frame. First, fine red dust drifts low across the ochre earth, then his short shirt sleeves stir faintly in a light breeze as he breathes slowly. Hard, cold midday light under a pale washed-out sky keeps short sharp shadows steady in the dusty yard. He stays in place, posed stiffly with his weight off the bandaged foot, face and body steady.",
+  "movimiento_03_visual": "A slow, somber documentary shot on grainy 35mm film from the early sixties, muted colors and slight underexposure. The camera makes a very slow push-in, starting on a medium shot of the young miner against the corrugated iron wall and ending slightly closer, the white bandaged foot still sharp in the lower frame. First, fine red dust drifts low across the ochre earth, then his short shirt sleeves stir faintly in a light breeze as he breathes slowly. Hard, cold midday light under a pale washed-out sky keeps short sharp shadows steady in the dusty yard. He stays in place, posed stiffly with his weight off the bandaged foot, face and body steady.",
+  "foto_inicial_md5_despues": "5078cb32181b5e2ef86bba4e80aa9823",
+  "clip_despues": "lab/hyperframes/f59/b3/despues.mp4",
+  "dur_despues": 8.0,
+  "foto_final_copia": "lab/hyperframes/f59/b3/ch01_img_01_final.png",
+  "foto_inicial_copia": "lab/hyperframes/f59/b3/ch01_img_01.png",
+  "tira_antes": "lab/hyperframes/f59/b3/tira_antes.jpg",
+  "tira_despues": "lab/hyperframes/f59/b3/tira_despues.jpg",
+  "ssim_clip": {
+   "primer_cuadro_vs_inicial": 0.751338,
+   "ultimo_cuadro_vs_final": 0.543362,
+   "ultimo_cuadro_vs_inicial": 0.661295
+  },
+  "backups": [
+   "03_visual.json.20261030_145245.bak.json",
+   "123bbb64-9fca-4395-8bf4-57d60e219ef1.json.20261030_145245.bak.json",
+   "ch01_clip_01.mp4.20261030_145418.bak.mp4",
+   "ch03_img_08.png.20261030_145245.bak.png",
+   "ch03_img_08_graded.png.20261030_145245.bak.png"
+  ]
+ },
+ "errores": [],
+ "segundos_reloj": 620.1,
+ "cost_tracker": [
+  {
+   "servicio": "fal.ai Seedream 5.0 Lite (t2i)",
+   "descripcion": "paquete_01_base_f59: A young adult Spanish migrant miner, olive skin, short dark ...",
+   "usd": 0.035,
+   "stage": "image_generator"
+  },
+  {
+   "servicio": "fal.ai Seedream 5.0 Lite (t2i)",
+   "descripcion": "paquete_02_base_f59: The bandaged foot of a young Spanish migrant miner resting o...",
+   "usd": 0.035,
+   "stage": "image_generator"
+  },
+  {
+   "servicio": "fal.ai Seedream 5.0 Lite (t2i)",
+   "descripcion": "paquete_03_base_f59: Vast abandoned blue-grey asbestos tailings dumps spilling do...",
+   "usd": 0.035,
+   "stage": "image_generator"
+  },
+  {
+   "servicio": "fal.ai Seedream 5.0 Lite (t2i)",
+   "descripcion": "ch03_img_08: The employer's advocate, a middle-aged Anglo-Australian man,...",
+   "usd": 0.035,
+   "stage": "image_generator"
+  },
+  {
+   "servicio": "Anthropic claude-opus-5-5",
+   "descripcion": "qa:fix_foto ch03_img_08.png",
+   "usd": 0.0106,
+   "stage": "script_generator"
+  },
+  {
+   "servicio": "fal.ai Seedream 5.0 Lite (t2i)",
+   "descripcion": "ch03_img_08: The employer's advocate, a middle-aged Anglo-Australian man,...",
+   "usd": 0.035,
+   "stage": "image_generator"
+  },
+  {
+   "servicio": "Anthropic claude-opus-5-5",
+   "descripcion": "qa:fix_clip ch01",
+   "usd": 0.01376,
+   "stage": "script_generator"
+  },
+  {
+   "servicio": "Anthropic claude-opus-5-5",
+   "descripcion": "ch01_img_01_final: instruccion",
+   "usd": 0.03254,
+   "stage": "script_generator"
+  },
+  {
+   "servicio": "fal.ai Seedream 5.0 Lite (edit)",
+   "descripcion": "ch01_img_01_final: Pull the camera slowly back and tilt it slightly up so the f...",
+   "usd": 0.035,
+   "stage": "image_generator"
+  },
+  {
+   "servicio": "Anthropic claude-opus-5-5",
+   "descripcion": "ch01_clip_01: prompt gemini_omni_flash",
+   "usd": 0.0553,
+   "stage": "script_generator"
+  },
+  {
+   "servicio": "Anthropic claude-opus-5-5",
+   "descripcion": "ch01_clip_01: prompt kling_4",
+   "usd": 0.06184,
+   "stage": "script_generator"
+  }
+ ],
+ "usd_total": 0.384,
+ "opus_calls": [
+  {
+   "description": "qa:fix_foto ch03_img_08.png",
+   "prompt": "Editás los casilleros de una foto de un video documental de historia oscura. Los CASILLEROS son un JSON en inglés que después arma el código en el prompt de la foto. El ANCLA es la oración de la narración que la foto muestra. Omar pide un cambio en español.\n\nDevolvé el mismo JSON, con las mismas claves. Cambiá solo los casilleros que el pedido toca; los demás van copiados tal cual. Escribí lo que se ve, en inglés: si el pedido saca algo, nombrá qué ocupa su lugar. Si el pedido es una emoción, escribila como gesto visible. Si el pedido choca con el ANCLA, hacé lo más cercano que el ANCLA permita.\n\nANCLA:\n«El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso», dijo el defensor del empleador.\n\nCASILLEROS:\n{\n  \"subject\": \"The employer's advocate, a middle-aged Anglo-Australian man, heavy build, in a dark double-breasted suit\",\n  \"action\": \"standing at the head of the table, one palm open as he dismisses the dust clouds\",\n  \"setting\": \"the same 1949 arbitration room, tall window behind him, files stacked on the table\",\n  \"lighting\": \"overcast window light, same as the hearing\",\n  \"camera_angle\": \"eye-level over the shoulders of seated listeners\",\n  \"lens_technique\": \"85mm, shallow depth of field, listeners' shoulders out of focus\",\n  \"shot_scale\": \"medium\",\n  \"text_in_image\": {\n    \"present\": false,\n    \"text\": \"\",\n    \"font\": \"\",\n    \"location\": \"\"\n  },\n  \"year\": \"1949\"\n}\n\nPEDIDO DE OMAR:\nque mire hacia la cámara, con el ceño fruncido",
+   "salida": {
+    "subject": "The employer's advocate, a middle-aged Anglo-Australian man, heavy build, in a dark double-breasted suit",
+    "action": "standing at the head of the table, looking directly into the camera with a furrowed brow, one palm open as he dismisses the dust clouds",
+    "setting": "the same 1949 arbitration room, tall window behind him, files stacked on the table",
+    "lighting": "overcast window light, same as the hearing",
+    "camera_angle": "eye-level over the shoulders of seated listeners",
+    "lens_technique": "85mm, shallow depth of field, listeners' shoulders out of focus",
+    "shot_scale": "medium",
+    "text_in_image": {
+     "present": false,
+     "text": "",
+     "font": "",
+     "location": ""
+    },
+    "year": "1949"
+   },
+   "segundos": 5.9
+  },
+  {
+   "description": "qa:fix_clip ch01",
+   "prompt": "Editás el movimiento de un clip de 8 segundos de un video documental de historia oscura. El MOVIMIENTO aprobado está en inglés; la VOZ es lo que se oye durante el clip. Omar pide un cambio en español.\n\nDevolvé el MOVIMIENTO con el cambio aplicado, en inglés y de largo parecido; lo que el pedido no toca va igual. Escribí lo que pasa en cámara y en la escena (si el pedido dice que algo no se mueva, escribí que queda quieto).\n\nVOZ:\nUn hombre joven posa para una foto con el pie envuelto en una venda blanca. Detrás, tierra roja y paredes\n\nMOVIMIENTO:\nA slow, somber documentary shot on grainy 35mm film from the early sixties, muted colors and slight underexposure. The camera makes a very slow push-in, starting on a medium shot of the young miner against the corrugated iron wall and ending slightly closer, the white bandaged foot still sharp in the lower frame. First, fine red dust drifts low across the ochre earth, then his short shirt sleeves stir faintly in a light breeze as he breathes slowly. Hard, cold midday light under a pale washed-out sky keeps short sharp shadows steady in the dusty yard. He stays in place, posed stiffly with his weight off the bandaged foot, face and body steady.\n\nPEDIDO DE OMAR:\ncámara quieta, solo sube el polvo, lento",
+   "salida": {
+    "movimiento": "A slow, somber documentary shot on grainy 35mm film from the early sixties, muted colors and slight underexposure. The camera stays completely still, locked off on a medium shot of the young miner against the corrugated iron wall, the white bandaged foot sharp in the lower frame. Only fine red dust moves, rising slowly from the ochre earth in thin wisps and lifting gently upward through the frame. Hard, cold midday light under a pale washed-out sky keeps short sharp shadows steady in the dusty yard. He stays completely still, posed stiffly with his weight off the bandaged foot, his face, body and short shirt sleeves motionless."
+   },
+   "segundos": 7.7
+  }
+ ]
+}

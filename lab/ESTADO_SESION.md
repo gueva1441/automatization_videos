@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-30 (F59 Etapa A: QA Studio arregla con la máquina de producción — armar_item sacado de m03 (96/96 byte-idéntico), editor de foto (Opus edita casilleros → armar_item → Seedream con madre → grade → 03_visual + guion vivo) y de clip (Opus edita el movimiento → foto final F57 → G→K), hints, galería sin *_graded.png, COMPOSICION_MINIATURA nueva, foto_final_del_clip sin el parámetro muerto; US$ 0; PARADA A, la B espera el OK del analista) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-30 (F59 Etapa B: prueba real en Wittenoom sobre la copia de lab — B1 3 paquetes con la composición nueva (byte-identidad con F58 probada), B2 ch03_img_08 rehecha por `_fix_core` (Opus cambió solo `action`, scrub sin quitar nada), B3 `_clipfix_core` ch01: Opus editó el movimiento pero Gemini y Kling rechazaron por la foto vieja del 28-oct (venda manchada), mp4 intacto; US$ 0,384 · PARADA B. Siguiente: lo que diga el analista.)
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,18 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F59, PARADA B): probado en Wittenoom (copia de lab): el «rehacer foto» funciona de punta a punta; el «rehacer clip» hizo todo bien hasta el motor, y el motor rechazó por la foto vieja.
+- Foto (ch03, el abogado del empleador): tu pedido «que mire hacia la cámara, con el ceño fruncido» → Opus cambió solo la acción («looking directly into the camera with a furrowed brow»), el filtro no sacó nada, y la foto nueva lo muestra mirando a cámara con el ceño fruncido. Antes/después en `lab/hyperframes/f59/b2/hoja_b2.jpg`.
+- Clip (ch01): «cámara quieta, solo sube el polvo, lento» → Opus escribió el movimiento quieto con el polvo subiendo; la foto final salió; pero Gemini y Kling rechazaron el clip porque la foto inicial de la copia es la vieja del 28-oct (primer plano de un pie con la venda manchada de rojo). El clip viejo quedó intacto y el mensaje a QA trae los dos rechazos literales. Con fotos del guion nuevo (plano medio del minero) no pasaría.
+- Las 3 miniaturas de F58 con la oración nueva: `lab/hyperframes/f59/hoja_paquetes_f58_vs_f59.jpg` (arriba F58, abajo F59): sin caras inventadas en las 02 y 03.
+- **US$ 0,384** (Seedream 0,21 · Opus 0,174). Nada de producción tocado. Reporte: `lab/hyperframes/f59/F59_REPORT.md`.
+
+## F59 Etapa B — prueba real — PARADA B
+- Runner `lab/hyperframes/f59/parte_b.py` (`QAState(tid, base_dir=base)`, `_fix_core`/`_clipfix_core` directo, wrappers que solo observan) → `parte_b.json`, `parte_b.log`, `SALIDA_B.md`; `F59_REPORT.md` con la Salida B íntegra, el hallazgo de B3, «lo que queda abierto» 1–7 y el veredicto del revisor. Imágenes/mp4 en `b1/ b2/ b3/` y las hojas: no van a git. La copia `base/` quedó con la foto nueva de ch03_img_08, la foto final de ch01 y backups en `_qa_backups/`.
+- B1: byte-identidad con la oración vieja 3/3 (US$ 0) → 3 fotos con la nueva (3 × 0,035). B2: antes (prompt de 03_visual, seed 956889816) + fix ok (Opus 0,0106 + 0,035). B3: Opus 0,0138 + foto final (0,0325 + 0,035) + prompts de motor (0,0553 + 0,0618); G «dangerous content», K «model_moderated»; md5 del mp4 y de la foto inicial iguales antes/después; movimiento aprobado intacto.
+- Revisor Etapa B: CUMPLE CON OBSERVACIONES (B3 sin clip nuevo: solo hasta el rechazo; causa «foto vieja» es inferencia sin control; SSIM sobre el clip viejo; imágenes no ignoradas por git, fuera del commit por paths); veredicto íntegro + adenda en F59_REPORT.md.
+- Abiertos: ver F59_REPORT.md (B3 sin clip nuevo por la foto vieja; prompt del motor solo queda en el log si el motor acepta; SSIM medido sobre el clip viejo; los 6 de la Etapa A).
 
 ## 👀 Para Omar (F59, PARADA A): el «rehacer foto» y el «rehacer clip» de QA Studio ya usan la máquina de producción; falta el OK para probarlo en Wittenoom.
 - Foto: tu pedido → Opus edita solo los casilleros que toca → el código rearma el prompt con la misma función que m03 (`armar_item`), con foto madre y grade → se guarda en 03_visual y en el guion vivo; lo que el filtro saca de tu pedido («jaw clenched», manos/caras) te lo dice en pantalla. Clip: Opus edita solo el movimiento; foto final de F57 y Gemini → Kling; la foto inicial no se toca.
