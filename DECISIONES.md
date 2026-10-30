@@ -166,3 +166,4 @@ Motivo: retención + costo de sostener; 19 componentes con 7 tipos de texto prod
 - 2026-10-29 19:07 · se borra la constante v5.5 del guionista (`SYSTEM_V5_5`) con su test: lo viejo se borra, no se apaga · Omar
 - 2026-10-29 19:16 · segunda opinión del detector con Sonnet 5.5 solo sobre lo que el código marcó “no dicho” · Omar
 - 2026-10-29 19:15 · `promesa_gancho` de la escaleta = una oración · Omar
+- 2026-10-29 20:25 · F55 C: también se borra SYSTEM_V2_F16_1 (queda solo la vigente) · Omar
