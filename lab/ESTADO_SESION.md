@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-29 21:40 (F55 Parte B: dedupe de citas del pool, Wittenoom 58 → 50 citas, los 8 pares del handoff; US$ 0; PARADA B) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-29 22:10 (F55 Parte C: promesa de una oración en esquema, ejemplo y validate; fuera las 6 versiones viejas del prompt de la escaleta; prompt f55-1; US$ 0; PARADA C; la D espera el OK del analista) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,15 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F55 Parte C, PARADA C): la promesa del gancho es una oración y el prompt de la escaleta vive en una sola versión.
+- El esquema le dice al modelo «una sola oración», el ejemplo del prompt ya tiene una, y si vienen dos el código se queda con la primera (sin gastar).
+- Se borraron las 6 versiones viejas del prompt de la escaleta con sus tests (opción ii); el vigente es `f55-1`. Tu línea nombraba 5: borré también la de F16 para que quede solo la vigente (reporte, decisión 1).
+- **Sigue:** Parte D (Wittenoom en texto, ≈ US$ 3 + verificador) **solo con el OK del analista**.
+
+## F55 — Parte C (handoff 19:50) — PARADA C
+- Commits: `c7dfb7f` (m01a_escaleta, tests, PROMPT_ESCALETA_f55_1.md, sticker, MAPA); el siguiente es el del reporte (sección «Parte C»).
+- Suites: ch02 md5 `f792f3d483a1fa42daed5f7f0e054f46`; rápida **53 passed** (55 − 2: los tests de f24 y f25c que solo comparaban constantes viejas), 3 skipped; amplia **1
 
 ## 👀 Para Omar (F55 Parte B, PARADA B): las citas repetidas del pool ya son una sola.
 - Wittenoom: 58 → 50 citas, los 8 pares que vio el analista (Q12/Q25 incluido); queda la de más fuentes o la más larga, y la otra queda anotada. El pool en disco ya está deduplicado (respaldo `data/topics_db.pre_f55_dedupe.json`).

@@ -438,3 +438,58 @@ Riesgos que el contrato no cubre:
 ## Adenda de CC (Parte B)
 - **`remapear_ids` sin llamador:** el handoff la pide como función con test («reemplaza ids descartados por su duplicado_de en listas de ids (con test)») y deja la regeneración a la Parte D; si la Parte D arranca desde una escaleta vieja (`--from m01b`), ahí es donde debería llamarse. Anotado en «lo abierto».
 - **`data/` fuera de git:** el pool deduplicado se prueba por disco (50 citas, 8 descartadas) y por el respaldo `topics_db.pre_f55_dedupe.json`; el pool de antes (58) está versionado en `lab/hyperframes/f55/antes/01_facts_sources.json`.
+
+
+---
+
+# Parte C — promesa de una oración · C.0 opción (ii) · PARADA C
+
+**Gasto Parte C: US$ 0.** Acumulado F55: ≈ US$ 0,012. Decisiones de Omar: 19:15 (promesa = una oración) y 19:30 (C.0 opción ii).
+
+## Para Omar, en corto
+- La promesa del gancho es una sola oración: el esquema se lo dice al modelo, el ejemplo del prompt ahora tiene una, y si igual vienen dos, el código se queda con la primera y lo anota (sin gastar).
+- Como pediste, las 6 versiones viejas del prompt de la escaleta se fueron del código con sus tests (quedan sus `.md` en `lab/` como historia); el prompt vigente pasa a `f55-1`.
+
+## Commits
+| commit | qué |
+|---|---|
+| `c7dfb7f` | `m01a_escaleta` (esquema, ejemplo, validate, métrica, fuera las 6 versiones viejas), tests, `PROMPT_ESCALETA_f55_1.md`, sticker, MAPA |
+| (este) | reporte (esta sección), ESTADO, logs |
+
+## Módulos: antes → después
+| módulo | antes | después |
+|---|---|---|
+| `script_engine/m01a_escaleta.py` | `promesa_gancho: _S` en el esquema; `<ejemplo>` con la promesa en dos oraciones; `SYSTEM_V2` + 6 constantes viejas (`SYSTEM_V2_F26_1`, `F25_1`, `F24_1`, `F22_2`, `F22_1`, `F16_1`) con sus `PROMPT_VERSION_V2_*`; prompt `f54-1` | `promesa_gancho: {"type": "STRING", "description": "Una sola oración: lo que está en juego."}` en `SCHEMA` y `SCHEMA_FICHA` (**confirmado:** el esquema viaja por la API como `output_config.format` / `response_schema`, no dentro del texto del prompt: `claude_helpers.call_json` l. 174–175); `<ejemplo>`: una sola línea cambia (abajo); `validate`: `len(evidence._sentences(promesa)) > 1` → reparación por código (se queda la primera) + aviso en `rep`, `esc["_promesa_oraciones"]` y métrica `promesa_oraciones`; **fuera las 6 constantes viejas y sus 6 `PROMPT_VERSION_V2_*`** (1708 → 1448 líneas); `PROMPT_VERSION_V2 = PROMPT_VERSION_COLUMNA = "f55-1"` |
+
+Tests: borrados los que solo comparaban constantes viejas: `test_module_f26.py` entero (3 tests: f26-1 contra su .md, f25-1 con su versión, los tres agregados), `test_module_f24.py::test_prompt_escaleta_f24_literal_y_una_sola_linea`, `test_module_f25c.py::test_escaleta_f25_1_literal_y_un_solo_cambio`; ajustados: `f16` (solo `TAREA_V2`), `f17` (fuera la línea del md5 de F16_1; columna `f55-1`), `f21`/`f22`/`f22d`/`f23` (el md5 de la escaleta f22-2 se lee del `.md` o sale de la lista), `f54` (f26-1 → f54-1 comparados por sus `.md`); nuevos en `test_module_f55.py` (+4 → 26): f55-1 literal contra su `.md` y una sola línea distinta de f54-1; las 12 constantes ya no existen y `SYSTEM_V2` tiene un solo `<rol>`; esquema con la descripción; promesa de dos oraciones → se queda la primera, aviso, métrica.
+
+## Decisiones de CC (Parte C)
+1. **Se borraron 6 constantes, no 5.** La línea de DECISIONES nombra 5 (`F26_1, F25_1, F24_1, F22_2, F22_1`) y dice «queda solo la vigente»; el handoff C.0 (ii) dice `SYSTEM_V2_F26_1…F16_1`. Borré también `SYSTEM_V2_F16_1`/`PROMPT_VERSION_V2_F16`: era la única forma de que quede solo la vigente. Si Omar quería conservar la de F16, es un `git revert` parcial.
+2. **Los tests de tandas cerradas que comparaban constantes viejas se borran** (f26 entero, una función en f24 y otra en f25c): «lo viejo se borra». Los que además chequeaban otra cosa se ajustaron para leer el `.md` histórico (los `.md` de F16, F22, F24, F25c, F26 y F54 siguen en `lab/`).
+3. **La reparación por código de la promesa** va en `rep` (reparaciones), no en `hard`: el handoff pide «aviso + reparación por código». La métrica `promesa_oraciones` cuenta las oraciones que vinieron.
+4. **La versión sube a `f55-1`** (handoff C.0 ii: «la vigente, que pasa a f55-1»); `PROMPT_VERSION_COLUMNA` acompaña como siempre.
+5. `lab/mapa/tests_collect.json` / `tests_lab.json` (digests de tests, los regenera otro proceso) siguen nombrando `test_module_f26.py`; `MAPA --check` da 0. Anotado.
+
+## Salida C (texto): diff completo del prompt de la escaleta antes (f54-1) → después (f55-1)
+65 líneas en los dos; 64 iguales; 1 distinta(s):
+
+```diff
+- promesa_gancho: «Once personas esperaron veintitrés días un barco que no llegó. Esta es la historia de quién decidió que no llegara.»
++ promesa_gancho: «Once personas esperaron veintitrés días un barco que alguien había decidido que no llegara.»
+```
+
+Y lo que no es texto del prompt pero el modelo recibe: el esquema de salida (`SCHEMA_FICHA`), donde `promesa_gancho` pasa de `{"type": "STRING"}` a `{"type": "STRING", "description": "Una sola oración: lo que está en juego."}`.
+
+## Suite
+`bash lab/hyperframes/f41/verificar.sh f55c` (logs en `lab/hyperframes/f41/f55c/`, sobre `c7dfb7f`): ch02 md5 `f792f3d483a1fa42daed5f7f0e054f46`; rápida **53 passed** (55 − 2: los tests de f24 y f25c que solo comparaban constantes viejas), 3 skipped; amplia **1112 passed** + 7 fallas: las 4 previas (`m03_merge_timing` ×2, `gfx_lab` ×2) y las 3 de `f51c`/`f48` clavadas a la narración vieja de Wittenoom (ver Parte A); `mapa_modulos.py --check`: 0 fallas (158).
+
+## Lo que queda abierto (Parte C)
+1. Decisión 1 (6 constantes y no 5): confirmar.
+2. Los digests de tests del mapa (`tests_collect.json`, `tests_lab.json`) listan `test_module_f26.py` hasta que se regeneren.
+3. `lab/hyperframes/f54/salida_a.py` (ya roto por v5.5) ahora también por `SYSTEM_V2_F26_1`.
+
+**PARADA C.** La Parte D (Wittenoom en texto, combinada) solo con el OK del analista.
+
+## Veredicto de revisor-handoff (Parte C, íntegro)
+
+(se pega abajo)
