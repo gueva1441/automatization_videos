@@ -441,7 +441,7 @@
   "_parte": "fase2a_b"
  },
  "script_engine/m05_narrative.py": {
-  "sticker": "Juez de la narración, sin IA: mide cada capítulo del guion contra los datos del research (densidad de datos, repeticiones, adjetivos, cifras inventadas, fechas mezcladas, citas falsas, datos reservados para pantalla) y deja un reporte. También presta sus detectores al guionista v4 y a la capa gráfica.",
+  "sticker": "Juez de la narración, sin IA: mide cada capítulo del guion contra los datos del research (densidad de datos, repeticiones, adjetivos, cifras inventadas, fechas mezcladas, citas falsas, datos reservados para pantalla) y deja un reporte. También presta sus detectores al guionista v4 y a la capa gráfica. Desde F56, una cita que el pool descartó por duplicada vale como la que quedó (ni «cita falsa» ni «de otro caso»), y los rótulos sin nombre propio descartados del research no cuentan como contaminación.",
   "recibe": "Texto de la narración + evidence_pool del topic (data/scripts/_steps/<id>/01_facts_sources.json, 01a_skeleton.json, 01b_narration.json).",
   "entrega": "data/scripts/_steps/<id>/06_judge_narrative.json y listas de problemas en memoria para guion_v4, pantalla_colocar y gfx_layer.",
   "modelo": [],
@@ -453,7 +453,7 @@
   "estado": "vivo",
   "estado_prueba": "fase1_5.py:418 y :435 (run_guion_v4 → judge_narration); script_engine/guion_v4.py:794, :952, :1238; gfx_peak.py:52 y gfx_pool.py:92 (adjectives) en la capa gráfica",
   "funciones_muertas": [],
-  "md5": "9359e89077137ff050bddc691c489803",
+  "md5": "1c4f5453dc593e29b22fb23a374a49f2",
   "_parte": "fase2a_b"
  },
  "script_engine/m06_assembler.py": {

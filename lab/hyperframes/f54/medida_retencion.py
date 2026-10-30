@@ -1,7 +1,7 @@
 """F54 adenda 2026-10-29 18:30 (1) — medida de retención por código, sin LLM: los ingredientes, viejo | nuevo, cap por cap.
 Por guion (escaleta + narración + pool): segundos hasta la primera apuesta (primera oración que dice el dato del pico o
 del `paga_beat` del loop principal, a PALABRAS_POR_SEG); loops abiertos / pagados y si el pago es la primera oración del
-cap; re-gancho (sí/no, minuto: la oración de `recuerda_loop` dicha en su cap); años/cap y datos/min (guion_v3_reglas);
+cap; re-gancho (sí/no, minuto, en qué cap cayó: la oración de `recuerda_loop` buscada en todos los caps); años/cap y datos/min (guion_v3_reglas);
 el cierre vuelve a la imagen del gancho (el `dato_central` del beat cierre dicho en el cap 7). Informa, no frena.
 Uso: python lab/hyperframes/f54/medida_retencion.py [--viejo DIR] [--nuevo DIR] [--salida MD]
 """
@@ -164,16 +164,17 @@ def re_gancho(esc: dict, caps: list[dict]) -> dict:
         return {"declarado": False, "dicho": False, "minuto": None}
     beats = {b["n"]: b for b in esc["beats"]}
     cap = beats.get(int(rl.get("beat") or 0), {}).get("cap")
-    seg, mejor = 0.0, (0.0, None, None)
+    # F56 B: se busca en TODOS los caps (el reparto puede haber movido el párrafo) y se dice en cuál cayó
+    seg, mejor = 0.0, (0.0, None, None, None)
     for c in caps:
         for s in sentences_of(c["narration"]):
-            if c["chapter_number"] == cap:
-                r = SequenceMatcher(None, ev.norm(s), ev.norm(rl["oracion"])).ratio()
-                if r > mejor[0]:
-                    mejor = (r, round(seg / 60, 2), s)
+            r = SequenceMatcher(None, ev.norm(s), ev.norm(rl["oracion"])).ratio()
+            if r > mejor[0]:
+                mejor = (r, round(seg / 60, 2), s, c["chapter_number"])
             seg += _wc(s) / PPS
-    return {"declarado": True, "beat": rl.get("beat"), "cap": cap, "oracion": rl["oracion"],
-            "dicho": mejor[0] >= 0.6, "parecido": round(mejor[0], 2), "minuto": mejor[1], "oracion_dicha": mejor[2]}
+    return {"declarado": True, "beat": rl.get("beat"), "cap": cap, "cap_declarado": cap, "cap_dicho": mejor[3],
+            "oracion": rl["oracion"], "dicho": mejor[0] >= 0.6, "parecido": round(mejor[0], 2), "minuto": mejor[1],
+            "oracion_dicha": mejor[2]}
 
 
 def cierre_vuelve(esc: dict, caps: list[dict], its: dict) -> dict:
@@ -215,8 +216,8 @@ def tabla(v: dict, n: dict) -> str:
                                 for x in m["loops"]) if m["loops"] else f"{m['loops_declarados']} declarado(s)")
     L.append(f"| loops abiertos / pagados | {lp(v)} | {lp(n)} |")
     rg = lambda m: ("no declarado" if not m["re_gancho"]["declarado"] else
-                    f"{'sí' if m['re_gancho']['dicho'] else 'declarado pero no dicho'} (cap {m['re_gancho']['cap']}, "
-                    f"min {m['re_gancho']['minuto']}, parecido {m['re_gancho']['parecido']})")
+                    f"{'sí' if m['re_gancho']['dicho'] else 'declarado pero no dicho'} (declarado cap {m['re_gancho']['cap_declarado']}, "
+                    f"dicho en cap {m['re_gancho']['cap_dicho']}, min {m['re_gancho']['minuto']}, parecido {m['re_gancho']['parecido']})")
     L.append(f"| re-gancho | {rg(v)} | {rg(n)} |")
     ci = lambda m: f"{'sí' if m['cierre']['dicho'] else 'NO'} ({m['cierre']['dato']} en el cap {m['cierre']['cap']})"
     L.append(f"| el cierre vuelve a la imagen del gancho | {ci(v)} | {ci(n)} |")

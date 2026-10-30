@@ -412,7 +412,9 @@ def contamination(text: str, pool: dict[str, Any] | None, facts: list[Any] | Non
     t = ev.norm(text)
     out = list(silent_names(text, pool))
     for d in (pool or {}).get("_descartados") or []:
-        if d.get("kind") == "personajes":
+        if str(d.get("kind") or "").startswith("personajes"):      # F56 A: también personajes_r3 (rótulos sin nombre)
+            continue
+        if d.get("kind") == "citas" and d.get("duplicado_de"):       # F56 A: una duplicada es la cita que quedó
             continue
         dt = str(d.get("texto") or "")
         if d.get("kind") == "lugares":
@@ -518,6 +520,9 @@ def false_quotes(text: str, pool: dict[str, Any] | None) -> list[str]:
     declaró…») no es una cita: va sin comillas. Se permiten nombres o términos cortos entre comillas (≤ 3 palabras:
     «Templeman III»)."""
     cits = [ev.norm(q["texto"]) for q in (pool or {}).get("citas") or []]
+    # F56 A: una cita descartada por duplicada (`duplicado_de`) es la misma cita que quedó: sus palabras también valen
+    cits += [ev.norm(d["texto"]) for d in (pool or {}).get("_descartados") or []
+             if d.get("kind") == "citas" and d.get("duplicado_de") and d.get("texto")]
     out = []
     for m in _QUOTED.finditer(text):
         q = m.group(1).strip()

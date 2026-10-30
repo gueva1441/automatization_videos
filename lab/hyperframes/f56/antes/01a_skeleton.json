@@ -1,0 +1,263 @@
+{
+  "topic_id": "123bbb64-9fca-4395-8bf4-57d60e219ef1",
+  "chapters": [
+    {
+      "chapter_number": 1,
+      "title": "Herida que no cierra",
+      "role": "hook",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "hook",
+      "bullets": [
+        "Un retrato familiar en blanco y negro: un hombre joven posa con el pie vendado; el relato dice que le cayó un trozo de amianto y la herida no cerraba. · Daniel Écija padre se hirió el pie con un trozo de amianto y la herida no se cerraba."
+      ],
+      "evidence_ids": [
+        "D85"
+      ],
+      "cliffhanger": "T34",
+      "pantalla_ids": []
+    },
+    {
+      "chapter_number": 2,
+      "title": "Un viaje incierto",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "setup",
+      "bullets": [
+        "Un salón de baile en Madrid, 16 de septiembre de 1961: una pareja que se conoce en el Círculo de Bellas Artes; ella recuerda que iba muy cerca de su marido y confiaba en el futuro. · María Bernal y Daniel Écija se conocieron en un baile.",
+        "Cubierta de un barco en el canal de Suez: calor espeso, mareos, un niño que no sabe adónde va. Más de veinte días de travesía desde Málaga. · Daniel Écija y María Bernal emigraron a Australia."
+      ],
+      "evidence_ids": [
+        "T34",
+        "Q25",
+        "Q13",
+        "T37",
+        "T38",
+        "Q14",
+        "T36",
+        "D83",
+        "T24"
+      ],
+      "cliffhanger": "Q27",
+      "pantalla_ids": [
+        "T28",
+        "D103"
+      ]
+    },
+    {
+      "chapter_number": 3,
+      "title": "El aire que respiran",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "rising_tension",
+      "bullets": [
+        "Un avión de hélices que se sacude, una pista en medio de tierra roja, polvo por todas partes; casas de chapa, madera y uralita. Patios y accesos recubiertos de relaves que la empresa descargaba a pedido de los vecinos. · El avión era pequeño, de hélice, y se movía mucho. Aterrizamos en una pista en medio de una tierra muy, muy roja. Había polvo por todas partes. Nunca había visto tanto polvo. Nos llevaron a casas de chapa, madera y fibrocemento. Ese lugar estaba extremadamente aislado, el desierto de los desiertos.",
+        "Una carta mecanografiada de 1948 de un médico que llega en avión: 'la cosecha más abundante y letal de asbestosis de la literatura mundial'. · En 1948, el doctor Eric Saint advirtió por escrito que los niveles de polvo en Wittenoom eran extremadamente peligrosos.",
+        "Obreros cubiertos de polvo de pies a cabeza y una nube espesa suspendida alrededor del molino, tal como la describe la Junta de Referencia en 1957. · La producción minera en Wittenoom se incrementó en 1961 a pesar de la evidencia de los riesgos."
+      ],
+      "evidence_ids": [
+        "Q27",
+        "D82",
+        "D03",
+        "Q44",
+        "D129",
+        "D92",
+        "Q45",
+        "T06",
+        "D19",
+        "T13",
+        "Q53",
+        "Q46",
+        "D21",
+        "Q54",
+        "T27",
+        "D20",
+        "T35",
+        "Q49"
+      ],
+      "cliffhanger": "Q19",
+      "pantalla_ids": [
+        "D01",
+        "T14"
+      ]
+    },
+    {
+      "chapter_number": 4,
+      "title": "Infancia entre fibras",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "rising_tension",
+      "bullets": [
+        "Niños que deshilachan fibras azules con los dedos y se las llevan a la boca; el material se deshace y suelta un polvillo fino que se pega a todo. Hombres que vuelven tras turnos de dieciséis horas. · En Wittenoom, un pueblo levantado de la nada, se había utilizado muchísimo. Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo. Estábamos rodeados de amianto azul, pero no nos daba miedo. Nadie nos avisó de nada.",
+        "Un parto con fórceps, un bebé muy grande, una madre debilitada por una infección renal; semanas después, la foto del bautizo del 7 de julio de 1963 con el niño que lleva el nombre del padre. · La familia Écija-Bernal bautizó a su hijo Daniel y poco después abandonó Wittenoom."
+      ],
+      "evidence_ids": [
+        "Q19",
+        "Q16",
+        "D104",
+        "T41",
+        "T40",
+        "T39",
+        "D87"
+      ],
+      "cliffhanger": "T49",
+      "pantalla_ids": [
+        "D124"
+      ]
+    },
+    {
+      "chapter_number": 5,
+      "title": "Un mal oculto",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "shock",
+      "bullets": [
+        "Diciembre de 1966: la mina cierra; en el anuncio no aparece la palabra salud, aparece la palabra costos. Los Écija vuelven a Madrid ese mismo año; los De Juan, en 1971. · CSR cierra las operaciones en la mina y planta de Wittenoom debido a problemas económicos, de suministro y costos laborales.",
+        "María rodeada de fotografías en sepia: el baile, el barco, el pie vendado, el bautizo. En 1991 el diagnóstico dice mesotelioma. Nueve meses después, Daniel muere a los 55 años. · Daniel Écija padre fue diagnosticado con mesotelioma y murió nueve meses después."
+      ],
+      "evidence_ids": [
+        "T49",
+        "T47",
+        "D88",
+        "T51",
+        "D27",
+        "D93",
+        "T56",
+        "T64",
+        "D89",
+        "Q35"
+      ],
+      "cliffhanger": "Q24",
+      "pantalla_ids": [
+        "D51",
+        "D23"
+      ]
+    },
+    {
+      "chapter_number": 6,
+      "title": "El rastro persiste",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "resolution",
+      "bullets": [
+        "Un control de aeropuerto: el policía lee el pasaporte, baja la cabeza, vuelve a mirar. 'Así que de Wittenoom, ¿eh? Un sitio terrorífico.' Mercedes, cada tanto, un escáner y una prueba de pulmón. · Así que de Wittenoom, ¿eh? Un sitio terrorífico.",
+        "Señales de carretera arrancadas, un nombre borrado del mapa en 2007; y abajo, en los lechos de los arroyos y las pozas hasta el Fortescue, el agua arrastrando asbesto que seguirá bajando durante cientos de años. · El Ministro de Desarrollo Regional, Hon Jon Ford MLC, anunció que el pueblo había sido oficialmente abolido."
+      ],
+      "evidence_ids": [
+        "Q24",
+        "Q21",
+        "Q33",
+        "T80",
+        "Q07",
+        "Q03",
+        "D02",
+        "D10",
+        "T90",
+        "D59"
+      ],
+      "cliffhanger": "T98",
+      "pantalla_ids": [
+        "D40",
+        "D34"
+      ]
+    },
+    {
+      "chapter_number": 7,
+      "title": "La herida abierta",
+      "role": "reveal_outro",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "outro",
+      "bullets": [
+        "Barricadas permanentes cortando la entrada al desfiladero. Un anciano Banjima que dice que todavía llora por su territorio y no puede alejarse; muere de mesotelioma en 2024. Al final, otra vez el retrato: el pie vendado, la herida que no cerraba. · Gordon Legal inicia un proceso legal en el Tribunal Federal contra el Estado de Australia Occidental en nombre de BNTAC."
+      ],
+      "evidence_ids": [
+        "T98",
+        "Q10",
+        "T92",
+        "T96",
+        "D95",
+        "D70",
+        "Q34"
+      ],
+      "cliffhanger": "",
+      "pantalla_ids": [
+        "D61",
+        "D154"
+      ]
+    }
+  ],
+  "personajes": [
+    {
+      "id": "P16",
+      "nombre": "María Bernal",
+      "rol": "Esposa del minero Daniel Écija y residente de Wittenoom.",
+      "antagonista": false,
+      "entra_en_cap": 1
+    },
+    {
+      "id": "",
+      "nombre": "CSR",
+      "rol": "institución",
+      "tipo": "institucion",
+      "variantes": [
+        "CSR Ltd.",
+        "CSR Limited",
+        "Colonial Sugar Refining Company"
+      ],
+      "antagonista": true,
+      "entra_en_cap": 1
+    }
+  ],
+  "_pool_plan": {
+    "cifras_canonicas": [],
+    "pantalla": [
+      "cap 2: pantalla ['T28', 'D103']",
+      "cap 3: pantalla ['T14', 'T19']",
+      "cap 4: pantalla ['D124']",
+      "cap 5: pantalla ['T50', 'T55']",
+      "cap 6: pantalla ['D31', 'T58']",
+      "cap 7: pantalla ['D154', 'D155']"
+    ]
+  },
+  "_v3": {
+    "escaleta": "01a_escaleta.json",
+    "prompt_version": "f55-1",
+    "humano": {
+      "id": "P16",
+      "nombre": "María Bernal",
+      "rol": "Minero emigrante español, esposo de María Bernal",
+      "por_que": "Es el único candidato con entrada, daño y salida documentados: se casa en Madrid, emigra cuatro días después, trabaja diez meses en Wittenoom, aparece con el pie vendado en el retrato familiar, se va tras el bautizo del hijo, vuelve a Madrid y muere de mesotelioma a los 55 años, nueve meses después del diagnóstico de 1991. No tiene citas propias verificadas; su voz la ponen María Bernal (Q25, Q35 sin verificar) y el hijo (Q16), y el guionista no le atribuirá frases.",
+      "colectivo": false,
+      "fuente": "D89"
+    },
+    "antagonista": {
+      "tipo": "institucion",
+      "id": "T48",
+      "nombre": "CSR",
+      "por_que": "Es la matriz de ABA desde 1943, vierte los relaves en los desfiladeros entre 1948 y 1966, recluta en Europa desde 1950, aumenta la producción en 1961 pese a las advertencias de Saint y de los inspectores, y cierra en 1966 por razones económicas, no sanitarias. Un juez determinó en 1988 su desprecio continuo y consciente por la salud de los trabajadores.",
+      "variantes": [
+        "CSR Ltd.",
+        "CSR Limited",
+        "Colonial Sugar Refining Company"
+      ]
+    },
+    "pico": {
+      "beat": 10,
+      "id": "T64",
+      "por_que": "Es el pico que marca la ficha y no hay razón mejor: la familia salió de Wittenoom creyendo que había escapado, y la exposición los alcanza en Madrid veintiocho años después. Convierte la 'salida' del cap 4 en una ilusión y da sentido a todo lo que viene después sobre el territorio que tampoco puede irse."
+    },
+    "particion": {
+      "notas": [
+        "cap 3: 3056 caracteres > 2242 → el último párrafo (beat 6) pasa al cap 4",
+        "cap 7: 1378 caracteres > 1255 → el editor acortó el último párrafo (304 → 160)"
+      ],
+      "titulos": "flash"
+    }
+  }
+}

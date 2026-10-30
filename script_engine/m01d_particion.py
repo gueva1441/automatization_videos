@@ -25,6 +25,7 @@ import re
 from pathlib import Path
 from typing import Any, Callable
 
+from script_engine import evidence as ev
 from script_engine import m01b_guionista as mg
 from script_engine.m01a_skeleton import CHAPTER_SCHEMA, DEFAULT_INTENT_BY_CAP, STEPS_DIR
 
@@ -56,6 +57,11 @@ def rebalance(esc: dict, parrafos: list[dict], *, shorten: Callable[[str, int], 
     ps = [dict(p) for p in parrafos]
     roles = {c["chapter_number"]: c["role"] for c in CHAPTER_SCHEMA}
     pico = int((esc.get("pico") or {}).get("beat") or 0)
+    # F56 B: el párrafo del re-gancho (`recuerda_loop`) se protege como el del pico: no se mueve de cap y, si se acorta,
+    # su oración tiene que seguir entera
+    rl = esc.get("recuerda_loop") or {}
+    rl_beat = int(rl.get("beat") or 0) if isinstance(rl, dict) else 0
+    rl_oracion = str(rl.get("oracion") or "") if isinstance(rl, dict) else ""
     notes: list[str] = []
     for n in range(1, 8):
         caps = _caps_of(ps)
@@ -63,7 +69,7 @@ def rebalance(esc: dict, parrafos: list[dict], *, shorten: Callable[[str, int], 
         if _cap_len(caps[n]) <= hi:
             continue
         last = caps[n][-1] if caps[n] else None
-        if (last and n < 7 and last["beat"] != pico and len(caps[n]) > 1
+        if (last and n < 7 and last["beat"] != pico and (not rl_beat or last["beat"] != rl_beat) and len(caps[n]) > 1
                 and _cap_len(caps[n + 1]) + len(last["texto"]) + 2 <= len_range(roles[n + 1])[1]):
             last["cap"] = n + 1
             notes.append(f"cap {n}: {_cap_len(caps[n])} caracteres > {hi} → el último párrafo (beat {last['beat']}) "
@@ -73,6 +79,11 @@ def rebalance(esc: dict, parrafos: list[dict], *, shorten: Callable[[str, int], 
             over = _cap_len(caps[n]) - hi
             target = max(200, len(last["texto"]) - over - 40)
             new = shorten(last["texto"], target)
+            if (new and rl_beat and last["beat"] == rl_beat and rl_oracion
+                    and ev.norm(rl_oracion) not in ev.norm(new)):
+                notes.append(f"cap {n}: el acortado del último párrafo (beat {last['beat']}) perdía la oración del "
+                             f"re-gancho → se deja el original")
+                new = ""
             if new and len(new) < len(last["texto"]):
                 notes.append(f"cap {n}: {_cap_len(caps[n])} caracteres > {hi} → el editor acortó el último párrafo "
                              f"({len(last['texto'])} → {len(new)})")

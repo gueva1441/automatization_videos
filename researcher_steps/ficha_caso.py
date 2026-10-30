@@ -771,10 +771,28 @@ def load(topic_id: str, steps_dir: Path | None = None, log: list[str] | None = N
     if not n:
         return ficha
     from researcher_steps.research_v3 import remapear_ids
+    gone = {d["id"] for d in pool.get("_descartados") or [] if d.get("kind") == "citas" and d.get("duplicado_de")}
+    con_duplicada = [k for k, c in enumerate(ficha.get("citas") or []) if set(c.get("ids") or []) & gone]
     out = remapear_ids(ficha, pool)
+    nt = textos_de_la_cita_que_quedo(out, pool, con_duplicada)
     if log is not None:
-        log.append(f"  [ficha] {n} id(s) de citas duplicadas remapeados al cargar (el archivo no cambia)")
+        log.append(f"  [ficha] {n} id(s) de citas duplicadas remapeados al cargar (el archivo no cambia)"
+                   + (f"; {nt} texto(s) de cita pasan al de la cita que quedó" if nt else ""))
     return out
+
+
+def textos_de_la_cita_que_quedo(ficha: dict, pool: dict, indices: list[int]) -> int:
+    """F56 A: en `ficha["citas"][k]` (k en `indices`: entradas que traían el id de una duplicada), el `texto` pasa a ser
+    el de la cita del pool que quedó (el primer id Q de la entrada ya remapeado). Devuelve cuántos cambiaron."""
+    citas = {q["id"]: q for q in pool.get("citas") or []}
+    n = 0
+    for k in indices:
+        c = (ficha.get("citas") or [])[k]
+        qid = next((i for i in c.get("ids") or [] if str(i).startswith("Q") and i in citas), None)
+        if qid and citas[qid].get("texto") and c.get("texto") != citas[qid]["texto"]:
+            c["texto"] = citas[qid]["texto"]
+            n += 1
+    return n
 
 
 def ids_remapeados(obj: Any, pool: dict) -> int:

@@ -1,0 +1,4169 @@
+{
+ "topic": "123bbb64-9fca-4395-8bf4-57d60e219ef1",
+ "titulo": "Wittenoom ciudad fantasma contaminada Australia",
+ "modelo": "gpt-6.1-sol",
+ "esfuerzo": "high",
+ "prompt_version": "f23-1",
+ "pool_md5": "3eef2b448a82cfefa4abd4574341c985",
+ "conteos_crudo": {
+  "humanos_candidatos": 4,
+  "giros": 6,
+  "pico": 1,
+  "pregunta_final": 1,
+  "escenas": 11,
+  "contradicciones": 5,
+  "decisiones": 17,
+  "versiones": 2,
+  "personas": 56,
+  "personas_descartadas": 11,
+  "cifras": 34,
+  "cronologia": 72,
+  "hechos": 65,
+  "citas": 25,
+  "descartados": 16
+ },
+ "conteos": {
+  "humanos_candidatos": 4,
+  "giros": 6,
+  "pico": 1,
+  "pregunta_final": 1,
+  "escenas": 11,
+  "contradicciones": 5,
+  "decisiones": 16,
+  "versiones": 2,
+  "personas": 56,
+  "personas_descartadas": 9,
+  "cifras": 30,
+  "cronologia": 71,
+  "hechos": 65,
+  "citas": 21,
+  "descartados": 28
+ },
+ "sacados": 13,
+ "usd": 0.3533,
+ "escenas": [
+  {
+   "donde": "Barco desde Málaga hacia Australia, durante el viaje de la familia De Juan-Barroso.",
+   "quien": "Víctor Calvo y su familia.",
+   "que_pasa": "Víctor recuerda el paso por el canal de Suez y la incertidumbre de no saber cómo vivirían al llegar.",
+   "sentidos": "Calor intenso y mareos durante la travesía.",
+   "ids": [
+    "Q14",
+    "T36"
+   ]
+  },
+  {
+   "donde": "Pista de aterrizaje y acceso a las viviendas de Wittenoom.",
+   "quien": "Víctor Calvo y su familia recién llegada.",
+   "que_pasa": "El avión pequeño de hélices se sacude antes de aterrizar y después llevan a la familia a las casas.",
+   "sentidos": "Movimiento del avión, tierra muy roja, polvo por todas partes y viviendas de chapa, madera y uralita.",
+   "ids": [
+    "Q15",
+    "Q27"
+   ]
+  },
+  {
+   "donde": "Wittenoom, durante la infancia de Víctor Calvo.",
+   "quien": "Víctor y otros niños incluidos en su recuerdo colectivo.",
+   "que_pasa": "Los niños juegan con el amianto, lo deshilachan y se lo meten en la boca.",
+   "sentidos": "El material se deshace al tocarlo y suelta un polvo fino que lo impregna todo.",
+   "ids": [
+    "Q19",
+    "Q32"
+   ]
+  },
+  {
+   "donde": "Molino y sus inmediaciones.",
+   "quien": "Trabajadores del molino observados por la Junta de Referencia.",
+   "que_pasa": "La Junta documenta las condiciones laborales extremadamente polvorientas.",
+   "sentidos": "Obreros cubiertos de polvo y una espesa nube suspendida cerca del molino.",
+   "ids": [
+    "T26",
+    "Q54"
+   ]
+  },
+  {
+   "donde": "Patios, accesos y espacios públicos del pueblo.",
+   "quien": "Un antiguo trabajador describe las entregas de la compañía a los vecinos.",
+   "que_pasa": "Según su testimonio, quien quería arreglar un acceso o un patio pedía relaves y la empresa descargaba allí una carga.",
+   "sentidos": "Relaves extendidos como superficie visible de patios y accesos; el testigo también los recuerda en escuelas, jardín de infantes e iglesias.",
+   "ids": [
+    "Q44",
+    "D129"
+   ]
+  },
+  {
+   "donde": "Lugar no precisado de un retrato familiar tomado durante la estancia en Wittenoom.",
+   "quien": "Daniel Écija padre.",
+   "que_pasa": "El relato señala que se hirió al caerle un trozo de amianto en el pie y que la herida no cerraba.",
+   "sentidos": "En el retrato aparece el pie vendado.",
+   "ids": [
+    "D85"
+   ]
+  },
+  {
+   "donde": "Hospital de Wittenoom, en el parto de María Bernal.",
+   "quien": "María y el bebé que recibirá el nombre de Daniel.",
+   "que_pasa": "El documento describe un parto complicado, con un bebé muy grande y uso de fórceps después de una infección renal de la madre.",
+   "sentidos": "El tamaño del bebé, la debilidad física de María y la intervención con fórceps son los detalles corporales documentados.",
+   "ids": [
+    "T40"
+   ]
+  },
+  {
+   "donde": "Puesto de control de un aeropuerto australiano.",
+   "quien": "Daniel Écija hijo y un policía.",
+   "que_pasa": "El agente lee su documentación, baja la cabeza hacia el documento y vuelve a mirarlo antes de reconocer su lugar de nacimiento.",
+   "sentidos": "El movimiento de la mirada y la frase audible: «Así que de Wittenoom, ¿eh? Un sitio terrorífico».",
+   "ids": [
+    "T57",
+    "Q24"
+   ]
+  },
+  {
+   "donde": "Lugar de la entrevista de María Bernal, no precisado en el pasaje.",
+   "quien": "María Bernal.",
+   "que_pasa": "María recuerda que iba muy cerca de su marido al emigrar y que confiaba en el futuro.",
+   "sentidos": "La entrevista la muestra rodeada de fotografías familiares de tono sepia.",
+   "ids": [
+    "Q12",
+    "Q25"
+   ]
+  },
+  {
+   "donde": "Cauces, pozas y llanuras de inundación hasta el río Fortescue.",
+   "quien": "Observadores del estudio ambiental.",
+   "que_pasa": "El informe registra material de asbesto transportado y depositado por el agua.",
+   "sentidos": "Depósitos observados en lechos de arroyos, pozas y llanuras aluviales.",
+   "ids": [
+    "L06",
+    "D09",
+    "D10"
+   ]
+  },
+  {
+   "donde": "Entradas del antiguo pueblo y de Wittenoom Gorge.",
+   "quien": "Las personas que pudieran intentar entrar; el documento no identifica visitantes concretos.",
+   "que_pasa": "La descripción oficial informa que se instalaron bloqueos permanentes porque el área no es segura.",
+   "sentidos": "Barricadas permanentes que cortan físicamente los accesos.",
+   "ids": [
+    "D42"
+   ]
+  }
+ ],
+ "contradicciones": [
+  {
+   "tema": "Antigüedad del conocimiento estatal del peligro: la afirmación retrospectiva de F12 no encaja con las advertencias documentadas anteriores.",
+   "versiones": [
+    {
+     "dice": "El comunicado de 2026 dice que habían pasado cuarenta años desde que el Estado conoció las consecuencias mortales del asbesto; no explica qué hito de conocimiento está usando.",
+     "doc_id": "F12",
+     "offset": 833,
+     "ids": [
+      "D67",
+      "D66",
+      "T60"
+     ]
+    },
+    {
+     "dice": "El documento oficial sitúa informes de funcionarios estatales sobre el problema del polvo ya en 1944.",
+     "doc_id": "F05",
+     "offset": 56576,
+     "ids": [
+      "D19",
+      "T09"
+     ]
+    },
+    {
+     "dice": "La crónica recoge una advertencia escrita de Eric Saint sobre niveles extremadamente peligrosos en 1948.",
+     "doc_id": "F07",
+     "offset": 18071,
+     "ids": [
+      "D92"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Formas del nombre de McNulty: se conserva la discrepancia documental sin convertirla en personas diferentes.",
+   "versiones": [
+    {
+     "dice": "Dr J McNulty.",
+     "doc_id": "F04",
+     "offset": 1855,
+     "ids": [
+      "P07",
+      "D50"
+     ]
+    },
+    {
+     "dice": "Dr. Jim McNulty.",
+     "doc_id": "F09",
+     "offset": 36151,
+     "ids": [
+      "P07"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Formas del nombre del hijo nacido en Wittenoom en la familia De Juan-Barroso.",
+   "versiones": [
+    {
+     "dice": "El nacimiento se relata con el nombre John Patrick.",
+     "doc_id": "F07",
+     "offset": 12298,
+     "ids": [
+      "P23",
+      "T39"
+     ]
+    },
+    {
+     "dice": "La declaración del adulto se atribuye a John; el rótulo del ítem lo identifica como John de Juan.",
+     "doc_id": "F07",
+     "offset": 21867,
+     "ids": [
+      "Q22"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Distancia a Perth: los pasajes no usan una modalidad de trayecto común y no permiten fijar una única distancia.",
+   "versiones": [
+    {
+     "dice": "Unos 1.400 kilómetros, sin especificar modalidad de desplazamiento.",
+     "doc_id": "F07",
+     "offset": 699,
+     "ids": [
+      "D82"
+     ]
+    },
+    {
+     "dice": "Aproximadamente 1.600 kilómetros por carretera o 1.100 kilómetros por aire.",
+     "doc_id": "F09",
+     "offset": 3706,
+     "ids": [
+      "D113"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Alcance exacto del primer diagnóstico y del primer reporte de mesotelioma: no consta si ambos pasajes describen el mismo acto médico.",
+   "versiones": [
+    {
+     "dice": "McNulty diagnosticó el primer caso originado en Wittenoom en un paciente que había trabajado allí durante dos años a finales de la década de 1940; el pasaje no incluye el año del diagnóstico.",
+     "doc_id": "F04",
+     "offset": 1855,
+     "ids": [
+      "D50",
+      "T32"
+     ]
+    },
+    {
+     "dice": "McNulty comunicó en 1962 un caso en un antiguo trabajador del molino, presentado como el primero comunicado fuera de Sudáfrica.",
+     "doc_id": "F09",
+     "offset": 36887,
+     "ids": [
+      "T35",
+      "D130"
+     ]
+    }
+   ]
+  }
+ ],
+ "decisiones": [
+  {
+   "tema": "Confusión entre Daniel Écija padre e hijo en P17.",
+   "criterio": 1,
+   "decision": "Se crean dos personas: el productor nacido en Wittenoom es el hijo, mientras que las jornadas laborales junto a Ramón de Juan corresponden al padre.",
+   "ids": [
+    "P17",
+    "D102",
+    "T40",
+    "D89"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "P17 encabeza como Daniel Écija padre un perfil cuyo primer pasaje describe al hijo productor.",
+     "doc_id": "F07",
+     "offset": 4844,
+     "ids": [
+      "P17"
+     ]
+    },
+    {
+     "dice": "El mismo ítem agrega el pasaje sobre el trabajador Daniel Écija y su amistad con Ramón de Juan.",
+     "doc_id": "F07",
+     "offset": 8847,
+     "ids": [
+      "P17"
+     ]
+    },
+    {
+     "dice": "La versión inglesa reproduce el pasaje del trabajador dentro del mismo perfil mezclado.",
+     "doc_id": "F08",
+     "offset": 8103,
+     "ids": [
+      "P17"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Variantes de nombres personales.",
+   "criterio": 2,
+   "decision": "Se usan Lang Hancock, Peter Wright y Sir James Vernon como formas documentales completas, conservando las iniciales y los tratamientos como variantes; las formas Jim y J. McNulty quedan además visibles en contradicciones.",
+   "ids": [
+    "P05",
+    "P06",
+    "P07",
+    "P08",
+    "P38"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "L G Hancock y P Wright.",
+     "doc_id": "F04",
+     "offset": 585,
+     "ids": [
+      "P05",
+      "P06"
+     ]
+    },
+    {
+     "dice": "Lang Hancock y Peter Wright.",
+     "doc_id": "F09",
+     "offset": 3125,
+     "ids": [
+      "P05",
+      "P06"
+     ]
+    },
+    {
+     "dice": "Sir James Vernon.",
+     "doc_id": "F04",
+     "offset": 2215,
+     "ids": [
+      "P08"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Denominación de la agencia ambiental.",
+   "criterio": 2,
+   "decision": "Se adopta Department of Water and Environment Regulation, forma desarrollada en F11, y se conserva la variante Environmental usada por F13.",
+   "ids": [
+    "T81",
+    "T90"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Department of Water and Environmental Regulation.",
+     "doc_id": "F13",
+     "offset": 6181,
+     "ids": [
+      "T90"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Fechas de precisión artificial en los rótulos.",
+   "criterio": 1,
+   "decision": "Se eliminan los días y meses añadidos por extracción y se conserva solo el año o el período expresado por cada pasaje.",
+   "ids": [
+    "D107",
+    "D109",
+    "D111",
+    "D114",
+    "D115",
+    "D128",
+    "D130",
+    "D131"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "D107 rotula un día inicial del año, pero el pasaje solo dice 1937.",
+     "doc_id": "F09",
+     "offset": 121,
+     "ids": [
+      "D107"
+     ]
+    },
+    {
+     "dice": "D114 rotula un día inicial del año, pero el pasaje solo dice 1943.",
+     "doc_id": "F09",
+     "offset": 5368,
+     "ids": [
+      "D114"
+     ]
+    },
+    {
+     "dice": "D115 rotula un día inicial del año, pero el pasaje solo dice 1962.",
+     "doc_id": "F09",
+     "offset": 6126,
+     "ids": [
+      "D115"
+     ]
+    },
+    {
+     "dice": "D128 rotula un día inicial del año, pero el pasaje solo sitúa el cierre en 1966.",
+     "doc_id": "F09",
+     "offset": 25767,
+     "ids": [
+      "D128"
+     ]
+    },
+    {
+     "dice": "D130 rotula un día inicial del año, pero el pasaje solo dice 1962.",
+     "doc_id": "F09",
+     "offset": 36887,
+     "ids": [
+      "D130"
+     ]
+    },
+    {
+     "dice": "D131 rotula un día inicial del año, pero el pasaje solo dice 1959.",
+     "doc_id": "F09",
+     "offset": 42802,
+     "ids": [
+      "D131"
+     ]
+    },
+    {
+     "dice": "D109 añade un día final del año; la evidencia dice finales de 1986.",
+     "doc_id": "F09",
+     "offset": 610,
+     "ids": [
+      "D109"
+     ]
+    },
+    {
+     "dice": "D111 añade un día final del año; la evidencia solo dice cierre en 1966.",
+     "doc_id": "F09",
+     "offset": 3450,
+     "ids": [
+      "D111"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Décadas convertidas indebidamente en años puntuales.",
+   "criterio": 1,
+   "decision": "Se conservan década de 1930, mediados de la década de 1950 y finales de la década de 1970 donde el pasaje usa esos períodos, sin convertirlos en años exactos.",
+   "ids": [
+    "T01",
+    "T25",
+    "D78",
+    "T50"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "T01 rotula 1930; el pasaje dice desde la década de 1930 hasta la de 1960.",
+     "doc_id": "F05",
+     "offset": 56228,
+     "ids": [
+      "T01"
+     ]
+    },
+    {
+     "dice": "T25 y D78 rotulan 1955; el pasaje dice mediados de la década de 1950.",
+     "doc_id": "F03",
+     "offset": 2722,
+     "ids": [
+      "T25",
+      "D78"
+     ]
+    },
+    {
+     "dice": "T50 rotula 1970; el pasaje dice finales de la década de 1970.",
+     "doc_id": "F01",
+     "offset": 1163,
+     "ids": [
+      "T50"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Fechas no visibles en los pasajes aislados.",
+   "criterio": 1,
+   "decision": "No se fijan como fechas verificadas los años que solo aparecen en el rótulo de extracción, incluidos la proclamación inicial del pueblo, la solicitud del experto y el primer diagnóstico de mesotelioma.",
+   "ids": [
+    "T15",
+    "T18",
+    "T30",
+    "T32",
+    "T42"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "T15 asigna 1947 a una frase que solo declara la creación oficial del pueblo.",
+     "doc_id": "F04",
+     "offset": 1191,
+     "ids": [
+      "T15"
+     ]
+    },
+    {
+     "dice": "T18 asigna 1948 a la adquisición de acciones, sin año visible en su pasaje.",
+     "doc_id": "F04",
+     "offset": 1042,
+     "ids": [
+      "T18"
+     ]
+    },
+    {
+     "dice": "T30 asigna 1959 a una investigación cuyo pasaje no incluye el año.",
+     "doc_id": "F04",
+     "offset": 1519,
+     "ids": [
+      "T30"
+     ]
+    },
+    {
+     "dice": "T32 asigna 1960 al primer diagnóstico, sin año visible en su pasaje.",
+     "doc_id": "F04",
+     "offset": 1855,
+     "ids": [
+      "T32"
+     ]
+    },
+    {
+     "dice": "T42 asigna 1964 a la solicitud de un experto, sin año visible en su pasaje.",
+     "doc_id": "F04",
+     "offset": 2055,
+     "ids": [
+      "T42"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Fecha de emigración de los Écija-Bernal.",
+   "criterio": 1,
+   "decision": "Se conserva la expresión cuatro días después de la boda, sin presentar como fecha escrita en la fuente el día calendario calculado por T38.",
+   "ids": [
+    "T37",
+    "T38"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "T38 rotula 1962-09-24, pero el pasaje dice únicamente cuatro días más tarde.",
+     "doc_id": "F07",
+     "offset": 4121,
+     "ids": [
+      "T38"
+     ]
+    },
+    {
+     "dice": "La traducción también dice únicamente cuatro días después.",
+     "doc_id": "F08",
+     "offset": 3776,
+     "ids": [
+      "T38"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Fotografía del bautizo y salida de Wittenoom.",
+   "criterio": 1,
+   "decision": "La fecha 7 de julio de 1963 se atribuye a la fotografía conservada; la partida se sitúa después del bautizo, sin afirmar que ocurrió ese mismo día.",
+   "ids": [
+    "T41",
+    "D87"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "T41 concentra bautizo y abandono del pueblo bajo una única fecha, aunque el pasaje solo fecha expresamente la fotografía.",
+     "doc_id": "F08",
+     "offset": 13041,
+     "ids": [
+      "T41"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Año de muerte de Daniel Écija padre.",
+   "criterio": 1,
+   "decision": "Se fecha el diagnóstico en 1991 y la muerte nueve meses después, sin fijar el año civil de fallecimiento.",
+   "ids": [
+    "T64",
+    "D89"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "T64 y D89 agrupan diagnóstico y muerte bajo 1991; el pasaje fecha el diagnóstico y da después un intervalo.",
+     "doc_id": "F07",
+     "offset": 15654,
+     "ids": [
+      "T64"
+     ]
+    },
+    {
+     "dice": "El pasaje de la muerte solo dice nueve meses después y edad de 55 años.",
+     "doc_id": "F07",
+     "offset": 15948,
+     "ids": [
+      "D89"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Años inferidos desde el comunicado de 2026.",
+   "criterio": 1,
+   "decision": "Las expresiones cuarenta años y diez años se mantienen como afirmaciones retrospectivas de Gordon Legal y no como fechas históricas expresamente documentadas.",
+   "ids": [
+    "T60",
+    "T86",
+    "D66",
+    "D67",
+    "D68"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "T60 convierte cuarenta años de conocimiento estatal en el año 1986, que no está escrito en el pasaje.",
+     "doc_id": "F12",
+     "offset": 833,
+     "ids": [
+      "T60",
+      "D67"
+     ]
+    },
+    {
+     "dice": "T86 convierte diez años desde el aviso sobre incidencia Banjima en el año 2016, que no está escrito en el pasaje.",
+     "doc_id": "F12",
+     "offset": 914,
+     "ids": [
+      "T86",
+      "D68"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Lectura de 2.000 como conteo y no como año.",
+   "criterio": 1,
+   "decision": "La declaración de Markey se refiere a personas fallecidas contabilizadas, no al año en que habría dejado de contarse.",
+   "ids": [
+    "Q20",
+    "Q33",
+    "D90"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El rótulo español de Q33 elimina el separador de miles y deja una formulación que podría leerse como año; la evidencia inglesa dice at 2,000.",
+     "doc_id": "F08",
+     "offset": 15658,
+     "ids": [
+      "Q33"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Citas traducidas, truncadas o presentadas como discurso directo más amplio que el pasaje.",
+   "criterio": 1,
+   "decision": "Se cita el idioma original del documento y solo el tramo visible; las traducciones van aparte y las paráfrasis no se convierten en palabras literales del autor.",
+   "ids": [
+    "Q19",
+    "Q23",
+    "Q26",
+    "Q27",
+    "Q33",
+    "Q34",
+    "Q58"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El pasaje de Q19 termina cortado durante la última oración.",
+     "doc_id": "F07",
+     "offset": 13352,
+     "ids": [
+      "Q19"
+     ]
+    },
+    {
+     "dice": "El pasaje de Q23 termina cortado antes del final del texto presentado por el ítem.",
+     "doc_id": "F07",
+     "offset": 22324,
+     "ids": [
+      "Q23"
+     ]
+    },
+    {
+     "dice": "Q26 añade en su rótulo español una conclusión no visible en el extracto inglés.",
+     "doc_id": "F08",
+     "offset": 6657,
+     "ids": [
+      "Q26"
+     ]
+    },
+    {
+     "dice": "Q27 añade en el rótulo una frase sobre aislamiento que no figura en el extracto inglés.",
+     "doc_id": "F08",
+     "offset": 7320,
+     "ids": [
+      "Q27"
+     ]
+    },
+    {
+     "dice": "Q33 extiende el rótulo más allá del fragmento inglés mostrado.",
+     "doc_id": "F08",
+     "offset": 15658,
+     "ids": [
+      "Q33"
+     ]
+    },
+    {
+     "dice": "Q34 contiene una respuesta referida en estilo indirecto y solo entrecomilla una expresión breve.",
+     "doc_id": "F08",
+     "offset": 18619,
+     "ids": [
+      "Q34"
+     ]
+    },
+    {
+     "dice": "Q58 procede de una entrada de cronología que refiere lo dicho por Wyatt, no de una cita directa entrecomillada.",
+     "doc_id": "F13",
+     "offset": 6085,
+     "ids": [
+      "Q58"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Balance acumulado de muertes.",
+   "criterio": 3,
+   "decision": "Se adopta la formulación oficial miles de muertes sin inventar un total exacto; las cifras periodísticas y la estimación de Markey quedan como otras versiones, y el recuento de 1989 permanece separado por su fecha.",
+   "ids": [
+    "D34",
+    "D41",
+    "D23",
+    "D79",
+    "D90"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Más de 2.000 antiguos trabajadores y residentes fallecidos.",
+     "doc_id": "F03",
+     "offset": 2988,
+     "ids": [
+      "D79"
+     ]
+    },
+    {
+     "dice": "Más de 2.000 trabajadores y residentes fallecidos.",
+     "doc_id": "F07",
+     "offset": 2313,
+     "ids": [
+      "D79"
+     ]
+    },
+    {
+     "dice": "Markey estima que pueden ser más de 4.000.",
+     "doc_id": "F07",
+     "offset": 17241,
+     "ids": [
+      "D90",
+      "Q20"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Superficie de WAMA.",
+   "criterio": 3,
+   "decision": "Se adopta la cifra oficial de 46.840 hectáreas y se conservan las variantes periodísticas, sin equiparar esta delimitación con el área de residuos del informe técnico.",
+   "ids": [
+    "D40",
+    "D26",
+    "D04",
+    "D148",
+    "D153"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "46.480 hectáreas.",
+     "doc_id": "F13",
+     "offset": 5171,
+     "ids": [
+      "D153"
+     ]
+    },
+    {
+     "dice": "47.000 hectáreas.",
+     "doc_id": "F13",
+     "offset": 1453,
+     "ids": [
+      "D148"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Salida de los últimos residentes.",
+   "criterio": 5,
+   "decision": "Se usa 2022 por coincidencia de varias fuentes, con aproximada en true por la versión que sitúa la salida final en 2023.",
+   "ids": [
+    "T91",
+    "T93"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El último residente se mudó en 2023.",
+     "doc_id": "F03",
+     "offset": 3128,
+     "ids": [
+      "T93"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Demolición final del pueblo.",
+   "criterio": 5,
+   "decision": "No hay una fecha coincidente suficiente: se conserva el intervalo 2022–2023 como aproximado, sin elegir un año.",
+   "ids": [
+    "T91"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Los residentes fueron desalojados en 2022 antes de la demolición de 2023.",
+     "doc_id": "F04",
+     "offset": 6127,
+     "ids": [
+      "T91"
+     ]
+    },
+    {
+     "dice": "La entrada de 2022 incluye el desalojo y la demolición de las estructuras restantes.",
+     "doc_id": "F13",
+     "offset": 6345,
+     "ids": [
+      "T91"
+     ]
+    }
+   ]
+  }
+ ],
+ "versiones": [
+  {
+   "tema": "Negación empresarial de la peligrosidad del polvo frente a las advertencias sanitarias; se conserva quién sostuvo cada posición sin presentar como incierto el daño sanitario documentado.",
+   "versiones": [
+    {
+     "dice": "En el arbitraje de 1949, el defensor empresarial sostuvo que la compañía no admitía que el polvo fuera peligroso y que las nubes de polvo no demostraban su peligrosidad.",
+     "doc_id": "F09",
+     "offset": 65619,
+     "ids": [
+      "Q53"
+     ]
+    },
+    {
+     "dice": "Saint advirtió por escrito que los niveles de polvo eran extremadamente peligrosos.",
+     "doc_id": "F07",
+     "offset": 18071,
+     "ids": [
+      "D92",
+      "T19"
+     ]
+    },
+    {
+     "dice": "Saint afirmó retrospectivamente que sus advertencias fueron desestimadas y que no lo escucharon.",
+     "doc_id": "F09",
+     "offset": 41198,
+     "ids": [
+      "Q46"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Si el cierre del pueblo puso fin al episodio de daño.",
+   "versiones": [
+    {
+     "dice": "El Gobierno presentó la medida como el fin de un período oscuro de la historia estatal.",
+     "doc_id": "F04",
+     "offset": 6229,
+     "ids": [
+      "Q07"
+     ]
+    },
+    {
+     "dice": "El Subcomité señaló que la contaminación se había extendido y que los informes sobre su alcance ya no eran aplicables.",
+     "doc_id": "F04",
+     "offset": 6827,
+     "ids": [
+      "Q08",
+      "D61"
+     ]
+    },
+    {
+     "dice": "La representación jurídica Banjima inició un proceso por la devastación cultural y ambiental causada por la mina.",
+     "doc_id": "F12",
+     "offset": 39,
+     "ids": [
+      "D62"
+     ]
+    }
+   ]
+  }
+ ],
+ "personas": [
+  {
+   "nombre": "Lang Hancock",
+   "rol": "Prospector y socio de la explotación inicial de asbesto.",
+   "variantes": [
+    "L G Hancock"
+   ],
+   "ids": [
+    "P05",
+    "T06",
+    "D47"
+   ]
+  },
+  {
+   "nombre": "Peter Wright",
+   "rol": "Socio de Hancock en la explotación inicial.",
+   "variantes": [
+    "P Wright"
+   ],
+   "ids": [
+    "P06",
+    "T06",
+    "D47"
+   ]
+  },
+  {
+   "nombre": "Daniel Écija (padre)",
+   "rol": "Minero español, esposo de María Bernal; murió de mesotelioma después de abandonar Wittenoom.",
+   "variantes": [
+    "Daniel Écija",
+    "Daniel"
+   ],
+   "ids": [
+    "P16",
+    "P17",
+    "T37",
+    "D85",
+    "D89"
+   ]
+  },
+  {
+   "nombre": "Daniel Écija (hijo)",
+   "rol": "Hijo del minero y de María Bernal, nacido en Wittenoom; productor de televisión y transmisor de la memoria familiar.",
+   "variantes": [
+    "Daniel Écija",
+    "Daniel junior",
+    "Daniel Écija Bernal"
+   ],
+   "ids": [
+    "P17",
+    "T40",
+    "D102",
+    "Q16",
+    "Q23"
+   ]
+  },
+  {
+   "nombre": "María Bernal",
+   "rol": "Esposa del minero Daniel Écija, madre de Daniel y Arantxa; emigrante y residente de Wittenoom.",
+   "variantes": [
+    "María"
+   ],
+   "ids": [
+    "P16",
+    "T34",
+    "T37",
+    "T40",
+    "Q12",
+    "Q13"
+   ]
+  },
+  {
+   "nombre": "Arantxa Écija",
+   "rol": "Hija del minero Daniel Écija y de María Bernal; directora y productora que conserva la memoria familiar.",
+   "variantes": [
+    "Arantxa"
+   ],
+   "ids": [
+    "P18",
+    "Q23"
+   ]
+  },
+  {
+   "nombre": "Milagros Barroso",
+   "rol": "Esposa de Ramón de Juan, madre de Víctor Calvo y residente de Wittenoom.",
+   "variantes": [
+    "Milagros"
+   ],
+   "ids": [
+    "P19",
+    "P21",
+    "T39"
+   ]
+  },
+  {
+   "nombre": "Ramón de Juan",
+   "rol": "Minero español, esposo de Milagros Barroso y amigo de Daniel Écija.",
+   "variantes": [
+    "Ramón"
+   ],
+   "ids": [
+    "P20",
+    "P17",
+    "D104",
+    "D88"
+   ]
+  },
+  {
+   "nombre": "Víctor Calvo",
+   "rol": "Hijo de Milagros Barroso e hijastro de Ramón de Juan; llegó a Wittenoom de niño y testimonia sobre la exposición infantil.",
+   "variantes": [
+    "Víctor"
+   ],
+   "ids": [
+    "P21",
+    "T36",
+    "Q14",
+    "Q15",
+    "Q19",
+    "Q32"
+   ]
+  },
+  {
+   "nombre": "Mercedes de Juan",
+   "rol": "Hija de Ramón de Juan; vivió en Wittenoom de niña, permaneció en Australia y relata sus controles médicos.",
+   "variantes": [
+    "Mercedes"
+   ],
+   "ids": [
+    "P22",
+    "T51",
+    "Q21",
+    "Q31"
+   ]
+  },
+  {
+   "nombre": "John Patrick de Juan",
+   "rol": "Hijo de Milagros Barroso y Ramón de Juan, nacido en Wittenoom.",
+   "variantes": [
+    "John Patrick",
+    "John de Juan",
+    "John",
+    "John Patrick de Juan Barroso"
+   ],
+   "ids": [
+    "P23",
+    "T39",
+    "Q22"
+   ]
+  },
+  {
+   "nombre": "Maitland Parker",
+   "rol": "Anciano Banjima que denunció el daño a su territorio, habló con el relator de la ONU y murió de mesotelioma.",
+   "variantes": [
+    "Uncle Maitland Parker"
+   ],
+   "ids": [
+    "P13",
+    "Q10",
+    "T92",
+    "T96"
+   ]
+  },
+  {
+   "nombre": "Johnnell Parker",
+   "rol": "Vicepresidente de BNTAC y dueño tradicional Banjima; expresa la continuidad de la lucha por sanear el territorio.",
+   "variantes": [],
+   "ids": [
+    "P14",
+    "Q09",
+    "Q11"
+   ]
+  },
+  {
+   "nombre": "Jim McNulty",
+   "rol": "Médico de salud pública que diagnosticó y comunicó casos relacionados con Wittenoom.",
+   "variantes": [
+    "J. McNulty",
+    "Dr J McNulty",
+    "Dr. Jim McNulty",
+    "McNulty"
+   ],
+   "ids": [
+    "P07",
+    "D50",
+    "D130",
+    "Q48",
+    "Q49"
+   ]
+  },
+  {
+   "nombre": "Eric Saint",
+   "rol": "Médico que atendía Wittenoom como médico aéreo y advirtió sobre el polvo y la asbestosis.",
+   "variantes": [],
+   "ids": [
+    "P25",
+    "T19",
+    "T20",
+    "Q45",
+    "Q46"
+   ]
+  },
+  {
+   "nombre": "Sir James Vernon",
+   "rol": "Presidente de CSR que anunció el cierre por razones económicas.",
+   "variantes": [
+    "James Vernon"
+   ],
+   "ids": [
+    "P08",
+    "P38",
+    "T48",
+    "Q04"
+   ]
+  },
+  {
+   "nombre": "Chifley",
+   "rol": "Primer ministro de Australia que describió como prácticamente ilimitada la vida de la mina.",
+   "variantes": [
+    "Prime Minister Chifley",
+    "Ben Chifley"
+   ],
+   "ids": [
+    "P26",
+    "P40",
+    "T16",
+    "Q37"
+   ]
+  },
+  {
+   "nombre": "Mark Nevill",
+   "rol": "Responsable, junto con Alan Rogers, de la investigación parlamentaria sobre Wittenoom; defendió la limpieza de los relaves.",
+   "variantes": [],
+   "ids": [
+    "P09",
+    "T65",
+    "D54",
+    "Q55",
+    "Q57"
+   ]
+  },
+  {
+   "nombre": "Alan Rogers",
+   "rol": "Corresponsable de la investigación parlamentaria sobre el asbesto en Wittenoom.",
+   "variantes": [],
+   "ids": [
+    "T65",
+    "D54"
+   ]
+  },
+  {
+   "nombre": "Larry Graham",
+   "rol": "Presidente del comité parlamentario sobre Wittenoom; denunció la contaminación y la transferencia de los relaves al Estado.",
+   "variantes": [],
+   "ids": [
+    "P11",
+    "T68",
+    "Q05"
+   ]
+  },
+  {
+   "nombre": "Melita Markey",
+   "rol": "CEO de la Asbestos Diseases Society of Australia; aporta una estimación de mortalidad superior al recuento periodístico más repetido.",
+   "variantes": [],
+   "ids": [
+    "P24",
+    "Q20",
+    "Q33",
+    "D90"
+   ]
+  },
+  {
+   "nombre": "Peter Gordon",
+   "rol": "Abogado de Gordon Legal que obtuvo un veredicto sobre Wittenoom y representó a trabajadores enfermos.",
+   "variantes": [],
+   "ids": [
+    "T61",
+    "D72",
+    "D73"
+   ]
+  },
+  {
+   "nombre": "Marcos Orellana",
+   "rol": "Relator especial de la ONU sobre sustancias tóxicas y derechos humanos; visitó Australia y entrevistó a Maitland Parker.",
+   "variantes": [
+    "Dr. Marcos Orellana"
+   ],
+   "ids": [
+    "T92",
+    "P13"
+   ]
+  },
+  {
+   "nombre": "Jon Ford",
+   "rol": "Ministro de Desarrollo Regional que anunció la abolición oficial del pueblo.",
+   "variantes": [
+    "Hon Jon Ford MLC"
+   ],
+   "ids": [
+    "T80"
+   ]
+  },
+  {
+   "nombre": "Ben Wyatt",
+   "rol": "Ministro de Tierras que sostuvo que las empresas responsables debían pagar la remediación.",
+   "variantes": [],
+   "ids": [
+    "P36",
+    "T88",
+    "Q58"
+   ]
+  },
+  {
+   "nombre": "Thomas Martindale",
+   "rol": "Minero que prestó testimonio para el Australian Workers’ Union.",
+   "variantes": [],
+   "ids": [
+    "P27"
+   ]
+  },
+  {
+   "nombre": "Broadhurst",
+   "rol": "Gerente de ABA que declaró sobre las pérdidas asociadas a la rotación de trabajadores.",
+   "variantes": [],
+   "ids": [
+    "P28"
+   ]
+  },
+  {
+   "nombre": "Dennis Morgan",
+   "rol": "Trabajador migrante que pasó del mantenimiento subterráneo al taller mecánico.",
+   "variantes": [],
+   "ids": [
+    "P29",
+    "Q39"
+   ]
+  },
+  {
+   "nombre": "Cec Reem",
+   "rol": "Ensacador del molino que vivía separado de su familia por el costo de trasladarla.",
+   "variantes": [],
+   "ids": [
+    "P30",
+    "Q41"
+   ]
+  },
+  {
+   "nombre": "Colin McAvan",
+   "rol": "Ajustador del molino que explicó su regreso a Wittenoom por falta de trabajo y presión económica.",
+   "variantes": [],
+   "ids": [
+    "P31",
+    "Q42"
+   ]
+  },
+  {
+   "nombre": "W. S. Davidson",
+   "rol": "Comisionado de Salud Pública que cuestionó el uso de relaves en la escuela y el supuesto desconocimiento del consejo local.",
+   "variantes": [
+    "Dr. W. S. Davidson"
+   ],
+   "ids": [
+    "P33",
+    "Q47"
+   ]
+  },
+  {
+   "nombre": "Major",
+   "rol": "Higienista industrial citado por sus mediciones y su descripción de las deficiencias del proceso; el pedido de un experto identifica a Gersh Major.",
+   "variantes": [
+    "Gersh Major"
+   ],
+   "ids": [
+    "P34",
+    "T42",
+    "D136"
+   ]
+  },
+  {
+   "nombre": "Inspector de Minas",
+   "rol": "Funcionario no identificado por nombre que informó sobre el problema del polvo.",
+   "variantes": [
+    "Mines Inspector"
+   ],
+   "ids": [
+    "P01",
+    "T09",
+    "D19"
+   ]
+  },
+  {
+   "nombre": "Ingeniero de Minas Adjunto del Estado",
+   "rol": "Funcionario no identificado por nombre que también informó sobre el problema del polvo.",
+   "variantes": [
+    "Assistant State Mining Engineer"
+   ],
+   "ids": [
+    "T09",
+    "D19"
+   ]
+  },
+  {
+   "nombre": "Inspector de Salud Regional",
+   "rol": "Funcionario no identificado por nombre que describió las condiciones de alojamiento.",
+   "variantes": [
+    "Regional Health Inspector"
+   ],
+   "ids": [
+    "P41",
+    "D126",
+    "Q38"
+   ]
+  },
+  {
+   "nombre": "Policía del aeropuerto",
+   "rol": "Agente no identificado que reconoció Wittenoom en la documentación de Daniel Écija hijo.",
+   "variantes": [
+    "Un policía",
+    "Un oficial de policía"
+   ],
+   "ids": [
+    "T57",
+    "Q24",
+    "Q36"
+   ]
+  },
+  {
+   "nombre": "Gobierno de Australia Occidental",
+   "rol": "Gobierno estatal que impulsó el cierre del pueblo, restringe el acceso y es demandado por BNTAC; incluye al Gabinete y al gobierno de Court mencionados en las decisiones sobre remediación.",
+   "variantes": [
+    "State Government",
+    "W.A. Government",
+    "WA Government",
+    "State of Western Australia"
+   ],
+   "ids": [
+    "P37",
+    "T52",
+    "T66",
+    "T76",
+    "D62",
+    "Q34"
+   ]
+  },
+  {
+   "nombre": "Australian Blue Asbestos Ltd.",
+   "rol": "Empresa operadora de la explotación, filial de CSR.",
+   "variantes": [
+    "ABA",
+    "Australian Blue Asbestos"
+   ],
+   "ids": [
+    "T06",
+    "D47",
+    "D84",
+    "D99",
+    "D111"
+   ]
+  },
+  {
+   "nombre": "CSR",
+   "rol": "Empresa matriz de ABA; participó en la explotación, anunció el cierre, creó un fondo de asistencia y pagó indemnizaciones.",
+   "variantes": [
+    "CSR Ltd.",
+    "CSR Limited",
+    "Colonial Sugar Refining Company"
+   ],
+   "ids": [
+    "T06",
+    "T18",
+    "T48",
+    "T54",
+    "D94"
+   ]
+  },
+  {
+   "nombre": "Hancock Prospecting",
+   "rol": "Empresa a la que un comité parlamentario recomendó exigir la remediación, junto con CSR.",
+   "variantes": [],
+   "ids": [
+    "T69"
+   ]
+  },
+  {
+   "nombre": "Departamento de Minas",
+   "rol": "Organismo regulador que recibió o emitió advertencias y cuestionó la gestión de ABA.",
+   "variantes": [
+    "Mines Department",
+    "Western Australia Mines Department"
+   ],
+   "ids": [
+    "T11",
+    "D91",
+    "D114",
+    "D135"
+   ]
+  },
+  {
+   "nombre": "Departamento de Salud Pública de Australia Occidental",
+   "rol": "Organismo que investigó enfermedades, solicitó mediciones y participó en la declaración de que el área no era apta para uso humano.",
+   "variantes": [
+    "Public Health Department",
+    "Public Health Department of WA",
+    "State Department of Health",
+    "Department of Health"
+   ],
+   "ids": [
+    "P07",
+    "T30",
+    "T42",
+    "D49",
+    "Q03",
+    "Q47"
+   ]
+  },
+  {
+   "nombre": "Department of Water and Environment Regulation",
+   "rol": "Agencia ambiental que clasificó el área contaminada y, con Salud, la declaró no apta para ocupación o uso del suelo.",
+   "variantes": [
+    "DWER",
+    "Department of Water and Environmental Regulation"
+   ],
+   "ids": [
+    "T81",
+    "T90",
+    "Q03"
+   ]
+  },
+  {
+   "nombre": "Departamento de Tierras",
+   "rol": "Organismo que lideró el equipo estatal sobre los riesgos humanos y emitió una nota sobre el costo de la remediación.",
+   "variantes": [
+    "Department of Lands",
+    "Dept of Lands"
+   ],
+   "ids": [
+    "D33",
+    "T87"
+   ]
+  },
+  {
+   "nombre": "Departamento de Planificación, Tierras y Patrimonio",
+   "rol": "Organismo que reconoció la dispersión fuera del área contaminada y recomendó investigar su extensión.",
+   "variantes": [
+    "Department of Planning, Lands and Heritage",
+    "Dept of Planning, Lands and Heritage"
+   ],
+   "ids": [
+    "T94"
+   ]
+  },
+  {
+   "nombre": "Comité Directivo de Wittenoom",
+   "rol": "Órgano integrado por representantes gubernamentales y Dueños Tradicionales.",
+   "variantes": [
+    "Wittenoom Steering Committee"
+   ],
+   "ids": [
+    "P04",
+    "D43"
+   ]
+  },
+  {
+   "nombre": "Subcomité de Wittenoom",
+   "rol": "Organismo que señaló que los informes sobre la extensión de la contaminación habían quedado desactualizados.",
+   "variantes": [
+    "Wittenoom Subcommittee"
+   ],
+   "ids": [
+    "P39",
+    "D61",
+    "Q08"
+   ]
+  },
+  {
+   "nombre": "Dueños Tradicionales",
+   "rol": "Representación indígena que integra el Comité Directivo de Wittenoom.",
+   "variantes": [
+    "Traditional Owners"
+   ],
+   "ids": [
+    "P04",
+    "D43"
+   ]
+  },
+  {
+   "nombre": "Australian Workers’ Union",
+   "rol": "Sindicato que reclamó un suplemento salarial por el polvo y llevó testimonios de trabajadores al arbitraje.",
+   "variantes": [
+    "AWU"
+   ],
+   "ids": [
+    "T14",
+    "T17",
+    "P27",
+    "D143",
+    "Q52"
+   ]
+  },
+  {
+   "nombre": "Junta de Referencia",
+   "rol": "Órgano de arbitraje laboral que constató las condiciones polvorientas del molino.",
+   "variantes": [
+    "Board of Reference"
+   ],
+   "ids": [
+    "P42",
+    "T23",
+    "T26",
+    "Q54"
+   ]
+  },
+  {
+   "nombre": "Comités parlamentarios de Australia Occidental sobre Wittenoom",
+   "rol": "Órganos que investigaron el caso y recomendaron limpiar los relaves y exigir responsabilidades empresariales.",
+   "variantes": [
+    "WA Parliamentary Inquiry into asbestos issues at Wittenoom",
+    "Select Committee into Wittenoom"
+   ],
+   "ids": [
+    "T65",
+    "T68",
+    "T69",
+    "D54"
+   ]
+  },
+  {
+   "nombre": "Banjima Native Title Aboriginal Corporation",
+   "rol": "Corporación Banjima cuya junta decidió impulsar acciones legales para obtener la limpieza y que demanda al Estado.",
+   "variantes": [
+    "BNTAC"
+   ],
+   "ids": [
+    "P14",
+    "T95",
+    "T97",
+    "D62"
+   ]
+  },
+  {
+   "nombre": "Gordon Legal",
+   "rol": "Estudio jurídico que inició el proceso contra Australia Occidental en representación de BNTAC; es también fuente de afirmaciones de la parte demandante.",
+   "variantes": [],
+   "ids": [
+    "T98",
+    "D62",
+    "D69",
+    "D70",
+    "D71"
+   ]
+  },
+  {
+   "nombre": "Tribunal Federal",
+   "rol": "Órgano judicial ante el que se presentó el proceso de BNTAC; el pool no contiene una sentencia sobre esa demanda.",
+   "variantes": [
+    "Federal Court"
+   ],
+   "ids": [
+    "T98",
+    "D62"
+   ]
+  },
+  {
+   "nombre": "Asbestos Diseases Society of Australia",
+   "rol": "Organización de afectados constituida para impulsar reclamos y revelar documentación sobre los riesgos.",
+   "variantes": [
+    "Asbestos Deseases Society of Australia"
+   ],
+   "ids": [
+    "T56",
+    "P24",
+    "Q20",
+    "Q33"
+   ]
+  },
+  {
+   "nombre": "GHD / Parsons Brinckerhoff",
+   "rol": "Consultoras que evaluaron la dispersión y las opciones de manejo; GHD también elaboró propuestas y costos de encapsulación.",
+   "variantes": [
+    "GHD/PB",
+    "GHD/Parsons Brinckerhoff",
+    "GHD"
+   ],
+   "ids": [
+    "T70",
+    "T75",
+    "T84",
+    "T85",
+    "D154",
+    "D155"
+   ]
+  }
+ ],
+ "personas_descartadas": [
+  {
+   "nombre": "Department of Water and Environment Regulation",
+   "rol": "Agencia ambiental.",
+   "motivo": "Clasifica el sitio y participa en la declaración de que no es apto para uso humano.",
+   "ids": [
+    "T81",
+    "T90",
+    "Q03"
+   ]
+  },
+  {
+   "nombre": "Department of Health",
+   "rol": "Agencia sanitaria.",
+   "motivo": "Es coautora de la declaración sobre la imposibilidad de ocupar o usar el área.",
+   "ids": [
+    "Q03"
+   ]
+  },
+  {
+   "nombre": "Jon Ford",
+   "rol": "Ministro de Desarrollo Regional.",
+   "motivo": "Sí realiza una acción documentada: anuncia la abolición oficial del pueblo.",
+   "ids": [
+    "T80"
+   ]
+  },
+  {
+   "nombre": "Alan Rogers",
+   "rol": "Corresponsable de la investigación parlamentaria.",
+   "motivo": "Permite atribuir correctamente la investigación y sus recomendaciones sin adjudicarlas solo a Nevill.",
+   "ids": [
+    "T65",
+    "D54"
+   ]
+  },
+  {
+   "nombre": "Marcos Orellana",
+   "rol": "Relator especial de la ONU.",
+   "motivo": "Su entrevista conecta la experiencia de Maitland Parker con la denuncia internacional del daño persistente.",
+   "ids": [
+    "T92",
+    "P13"
+   ]
+  },
+  {
+   "nombre": "Peter Gordon",
+   "rol": "Abogado de afectados y miembro de Gordon Legal.",
+   "motivo": "Enlaza el primer veredicto laboral con la representación jurídica que aparece en la fase actual del caso.",
+   "ids": [
+    "T61",
+    "D72",
+    "D62"
+   ]
+  },
+  {
+   "nombre": "Defensor del empleador no identificado",
+   "rol": "Representante empresarial en el arbitraje.",
+   "motivo": "Su negación del peligro es una posición empresarial concreta que la historia necesita atribuir sin inventar un nombre.",
+   "ids": [
+    "Q53"
+   ]
+  },
+  {
+   "nombre": "Ajustador no identificado",
+   "rol": "Trabajador que también fue jefe de turno y dibujante.",
+   "motivo": "Aporta una explicación testimonial de las deficiencias de gestión y del intento de aplicar conocimientos de la industria azucarera a la trituración de mineral.",
+   "ids": [
+    "Q50"
+   ]
+  },
+  {
+   "nombre": "Oficial metalúrgico no identificado",
+   "rol": "Trabajador y capataz subterráneo.",
+   "motivo": "Aporta la comparación testimonial entre la formación de seguridad de Mount Isa y la de Wittenoom.",
+   "ids": [
+    "Q51"
+   ]
+  }
+ ],
+ "cifras": [
+  {
+   "que": "Asbesto comercial extraído de las tres minas",
+   "valor": "Aproximadamente 150.000",
+   "unidad": "toneladas («tonnes» en el documento)",
+   "fuente": "F01@369; total de Yampire, Wittenoom y Colonial entre 1937 y 1966.",
+   "ids": [
+    "D01"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Producción atribuida a la mina de Wittenoom por el presidente de CSR",
+   "valor": "131.000",
+   "unidad": "toneladas («tons» en el documento, sin conversión)",
+   "fuente": "F04@2352; declaración atribuida a Sir James Vernon; no se equipara al total de las tres minas.",
+   "ids": [
+    "D51",
+    "Q04"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Relaves remanentes de la explotación",
+   "valor": "Más de 3.000.000",
+   "unidad": "toneladas («tonnes» en F01)",
+   "fuente": "F01@593; estimación técnica.",
+   "ids": [
+    "D02"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "Aproximadamente 3.000.000",
+     "unidad": "toneladas («tonnes»)",
+     "fuente": "F13@294; vertidos principalmente por CSR entre 1948 y 1966.",
+     "ids": [
+      "D147"
+     ]
+    },
+    {
+     "valor": "Más de 3.000.000",
+     "unidad": "toneladas («tons», sin conversión)",
+     "fuente": "F12@316; comunicado de Gordon Legal.",
+     "ids": [
+      "D63"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Contenido residual posible de asbesto en los relaves",
+   "valor": "Alrededor de 5",
+   "unidad": "porcentaje del material",
+   "fuente": "F01@593.",
+   "ids": [
+    "D02"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Superficie de WAMA",
+   "valor": "46.840",
+   "unidad": "hectáreas",
+   "fuente": "F11@10442, corroborado por F05@57485.",
+   "ids": [
+    "D40",
+    "D26"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "46.480",
+     "unidad": "hectáreas",
+     "fuente": "F13@5171.",
+     "ids": [
+      "D153",
+      "T83"
+     ]
+    },
+    {
+     "valor": "47.000",
+     "unidad": "hectáreas",
+     "fuente": "F13@1453; cifra redondeada de la zona declarada.",
+     "ids": [
+      "D148"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Área cubierta por residuos según el estudio técnico de 2006",
+   "valor": "Aproximadamente 10",
+   "unidad": "kilómetros cuadrados",
+   "fuente": "F01@852; superficie de residuos dispersos, no superficie administrativa de WAMA.",
+   "ids": [
+    "D04",
+    "T74"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Muertes acumuladas atribuidas a Wittenoom en las fuentes oficiales actuales del pool",
+   "valor": "Miles, sin total exacto",
+   "unidad": "personas fallecidas",
+   "fuente": "F06@2398 y F11@11754; incluyen mineros, residentes y visitantes.",
+   "ids": [
+    "D34",
+    "D41"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "Más de 2.000",
+     "unidad": "personas fallecidas",
+     "fuente": "F03@2988, F07@2313 y F08@65; antiguos trabajadores y residentes.",
+     "ids": [
+      "D79"
+     ]
+    },
+    {
+     "valor": "Puede superar las 4.000",
+     "unidad": "personas fallecidas",
+     "fuente": "F07@17241 y F08@15745; estimación atribuida a Melita Markey, no recuento oficial.",
+     "ids": [
+      "D90",
+      "Q20"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Muertes acumuladas hasta 1989",
+   "valor": "Más de 500",
+   "unidad": "antiguos trabajadores y residentes fallecidos",
+   "fuente": "F05@57270; corte histórico, no versión alternativa del total actual.",
+   "ids": [
+    "D23"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Trabajadores de ABA a lo largo de la explotación",
+   "valor": "Aproximadamente 7.000",
+   "unidad": "personas trabajadoras",
+   "fuente": "F09@15520.",
+   "ids": [
+    "D121"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "Alrededor de 6.500 hombres y 500 mujeres",
+     "unidad": "personas trabajadoras, desglosadas por sexo",
+     "fuente": "F07@13909 y F08@12734; desglose compatible con el total aproximado.",
+     "ids": [
+      "D86"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Trabajadores que habían partido dentro de los seis meses",
+   "valor": "59",
+   "unidad": "porcentaje de trabajadores",
+   "fuente": "F09@15845.",
+   "ids": [
+    "D122"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Personas desplazadas asignadas por el gobierno federal",
+   "valor": "134",
+   "unidad": "personas",
+   "fuente": "F09@13075; asignaciones entre 1948 y 1951.",
+   "ids": [
+    "D118"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Participación de Hancock y Wright en ABA",
+   "valor": "49",
+   "unidad": "porcentaje de participación",
+   "fuente": "F04@845.",
+   "ids": [
+    "D47"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Participación de CSR en ABA",
+   "valor": "51",
+   "unidad": "porcentaje de participación",
+   "fuente": "F04@845.",
+   "ids": [
+    "D47"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Emigrantes españoles del acuerdo migratorio",
+   "valor": "Cerca de 8.000",
+   "unidad": "personas",
+   "fuente": "F07@1402 y F08@1234.",
+   "ids": [
+    "D83",
+    "D97"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Duración frecuente de las jornadas de Ramón de Juan",
+   "valor": "16",
+   "unidad": "horas por jornada",
+   "fuente": "F08@8142.",
+   "ids": [
+    "D104"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Estancia de los Écija-Bernal en Wittenoom",
+   "valor": "Unos 10",
+   "unidad": "meses",
+   "fuente": "F07@14150.",
+   "ids": [
+    "D87"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Estancia de los De Juan-Barroso en Wittenoom",
+   "valor": "Unos dos años y medio",
+   "unidad": "años",
+   "fuente": "F07@14584; el mismo pasaje la sitúa entre 1962 y 1964.",
+   "ids": [
+    "D88"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Edad de Daniel Écija padre al morir",
+   "valor": "55",
+   "unidad": "años de edad",
+   "fuente": "F07@15948 y F08@14629.",
+   "ids": [
+    "D89"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Intervalo entre diagnóstico y muerte de Daniel Écija padre",
+   "valor": "9",
+   "unidad": "meses",
+   "fuente": "F07@15948 y F08@14629.",
+   "ids": [
+    "D89"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Indemnización del acuerdo de CSR de 1989",
+   "valor": "18,3 millones",
+   "unidad": "dólares australianos",
+   "fuente": "F07@19413 y F08@17563.",
+   "ids": [
+    "D94"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Residentes que quedaban en octubre de 2006",
+   "valor": "8",
+   "unidad": "personas residentes",
+   "fuente": "F01@1259.",
+   "ids": [
+    "D06"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Estimación de limpieza de 1985",
+   "valor": "22 a 35 millones",
+   "unidad": "dólares ($; el pasaje no desarrolla la denominación monetaria)",
+   "fuente": "F13@4320; informe Hawthorne & Associates.",
+   "ids": [
+    "D152"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Estimación general de encapsulación en 2015",
+   "valor": "Aproximadamente 150 millones",
+   "unidad": "dólares ($; denominación no desarrollada en el pasaje)",
+   "fuente": "F04@5106; resumen general, no presupuesto de una modalidad específica.",
+   "ids": [
+    "D58"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Presupuesto de remediación bajo dirección estatal",
+   "valor": "145 millones",
+   "unidad": "dólares ($; denominación no desarrollada en el pasaje)",
+   "fuente": "F13@5699; opción de diciembre de 2015.",
+   "ids": [
+    "D154"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Duración de la opción de remediación estatal",
+   "valor": "10",
+   "unidad": "años",
+   "fuente": "F13@5699.",
+   "ids": [
+    "D154"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Presupuesto de remediación mediante contratación externa",
+   "valor": "153 millones",
+   "unidad": "dólares ($; denominación no desarrollada en el pasaje)",
+   "fuente": "F13@5835; opción identificada como preferida.",
+   "ids": [
+    "D155"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Duración de la opción de contratación externa",
+   "valor": "8",
+   "unidad": "años",
+   "fuente": "F13@5835.",
+   "ids": [
+    "D155"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Monto de la reclamación Banjima referido por la prensa",
+   "valor": "1.500 millones",
+   "unidad": "dólares australianos",
+   "fuente": "F07@20378 y F08@18418; monto reclamado, no indemnización concedida.",
+   "ids": [
+    "D95"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Cohorte del estudio de enfermedades",
+   "valor": "6.912",
+   "unidad": "antiguos mineros y trabajadores del molino",
+   "fuente": "F09@610; cohorte de estudio, no censo completo de trabajadores.",
+   "ids": [
+    "D109"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Mesoteliomas registrados en la cohorte hasta finales de 1986",
+   "valor": "94",
+   "unidad": "casos registrados",
+   "fuente": "F09@610.",
+   "ids": [
+    "D109"
+   ],
+   "otras_versiones": []
+  }
+ ],
+ "cronologia": [
+  {
+   "fecha": "Década de 1930",
+   "hora": "",
+   "evento": "Se desarrollaron operaciones de asbesto azul en el área de Wittenoom.",
+   "aproximada": false,
+   "ids": [
+    "T01",
+    "D17"
+   ]
+  },
+  {
+   "fecha": "1937",
+   "hora": "",
+   "evento": "Comenzó la industria de crocidolita con una llegada de prospectores a Wittenoom Gorge.",
+   "aproximada": false,
+   "ids": [
+    "T05",
+    "D107"
+   ]
+  },
+  {
+   "fecha": "1937–1938",
+   "hora": "",
+   "evento": "Los altos precios atrajeron prospectores a las Hamersley Ranges.",
+   "aproximada": false,
+   "ids": [
+    "T04"
+   ]
+  },
+  {
+   "fecha": "1943",
+   "hora": "",
+   "evento": "ABA, filial de CSR, tomó los intereses de Hancock y Wright.",
+   "aproximada": false,
+   "ids": [
+    "T06",
+    "T07",
+    "D47"
+   ]
+  },
+  {
+   "fecha": "1944",
+   "hora": "",
+   "evento": "El Inspector de Minas y el Ingeniero de Minas Adjunto del Estado informaron sobre el polvo.",
+   "aproximada": false,
+   "ids": [
+    "T09",
+    "T10",
+    "D19"
+   ]
+  },
+  {
+   "fecha": "1944",
+   "hora": "",
+   "evento": "El Departamento de Minas comenzó a calificar de aficionados a los responsables de ABA.",
+   "aproximada": false,
+   "ids": [
+    "T11",
+    "D135"
+   ]
+  },
+  {
+   "fecha": "1946",
+   "hora": "",
+   "evento": "Cerró la mina Yampire.",
+   "aproximada": false,
+   "ids": [
+    "T12",
+    "D46"
+   ]
+  },
+  {
+   "fecha": "1946",
+   "hora": "",
+   "evento": "Ya se había diagnosticado asbestosis y un inspector describió condiciones laborales terroríficas.",
+   "aproximada": false,
+   "ids": [
+    "T13",
+    "D91"
+   ]
+  },
+  {
+   "fecha": "1946",
+   "hora": "",
+   "evento": "El AWU reclamó un suplemento por el polvo durante la negociación del primer laudo.",
+   "aproximada": false,
+   "ids": [
+    "T14",
+    "Q52"
+   ]
+  },
+  {
+   "fecha": "1947",
+   "hora": "",
+   "evento": "Chifley describió la vida de la mina como prácticamente ilimitada.",
+   "aproximada": false,
+   "ids": [
+    "T16",
+    "Q37"
+   ]
+  },
+  {
+   "fecha": "1947",
+   "hora": "",
+   "evento": "El primer laudo no concedió el suplemento por polvo y exigió evitarlo hasta donde fuera razonablemente practicable.",
+   "aproximada": false,
+   "ids": [
+    "T17"
+   ]
+  },
+  {
+   "fecha": "1948",
+   "hora": "",
+   "evento": "Eric Saint advirtió por escrito sobre niveles de polvo extremadamente peligrosos.",
+   "aproximada": false,
+   "ids": [
+    "T19",
+    "D92"
+   ]
+  },
+  {
+   "fecha": "1948–1951",
+   "hora": "",
+   "evento": "El gobierno federal asignó personas desplazadas a contratos de trabajo en Wittenoom.",
+   "aproximada": false,
+   "ids": [
+    "D118"
+   ]
+  },
+  {
+   "fecha": "1948–1966",
+   "hora": "",
+   "evento": "Se vertieron relaves, principalmente por CSR, en los desfiladeros alrededor de Wittenoom.",
+   "aproximada": false,
+   "ids": [
+    "T21",
+    "D147"
+   ]
+  },
+  {
+   "fecha": "1949",
+   "hora": "",
+   "evento": "El laudo incorporó la posibilidad de un suplemento por polvo si lo recomendaba una Junta de Referencia.",
+   "aproximada": false,
+   "ids": [
+    "T23"
+   ]
+  },
+  {
+   "fecha": "1949",
+   "hora": "",
+   "evento": "El representante del empleador negó que la presencia de nubes de polvo demostrara su peligrosidad.",
+   "aproximada": false,
+   "ids": [
+    "Q53"
+   ]
+  },
+  {
+   "fecha": "1950",
+   "hora": "",
+   "evento": "CSR realizó su primer viaje privado de reclutamiento en Europa.",
+   "aproximada": false,
+   "ids": [
+    "T24"
+   ]
+  },
+  {
+   "fecha": "Mediados de la década de 1950",
+   "hora": "",
+   "evento": "El documento F03 sitúa en este período el reconocimiento de los peligros cancerígenos del mineral.",
+   "aproximada": false,
+   "ids": [
+    "T25",
+    "D78"
+   ]
+  },
+  {
+   "fecha": "1957",
+   "hora": "",
+   "evento": "Una Junta de Referencia constató condiciones extremadamente polvorientas en el molino.",
+   "aproximada": false,
+   "ids": [
+    "T26",
+    "Q54"
+   ]
+  },
+  {
+   "fecha": "Siete meses después de la constatación de la Junta de Referencia",
+   "hora": "",
+   "evento": "Tras instalarse equipos reductores de polvo, se redujo y restringió el suplemento salarial.",
+   "aproximada": false,
+   "ids": [
+    "T26",
+    "T27"
+   ]
+  },
+  {
+   "fecha": "1958",
+   "hora": "",
+   "evento": "Comenzó el acuerdo migratorio entre España y Australia conocido como Operación Canguro.",
+   "aproximada": false,
+   "ids": [
+    "T28",
+    "D83"
+   ]
+  },
+  {
+   "fecha": "1958",
+   "hora": "",
+   "evento": "Otro inspector describió la situación de la mina como una tragedia.",
+   "aproximada": false,
+   "ids": [
+    "T29"
+   ]
+  },
+  {
+   "fecha": "1959",
+   "hora": "",
+   "evento": "Se rechazó un intento sindical de aumentar el suplemento por polvo.",
+   "aproximada": false,
+   "ids": [
+    "T31"
+   ]
+  },
+  {
+   "fecha": "1961",
+   "hora": "",
+   "evento": "La producción aumentó pese a la evidencia de los riesgos para la salud.",
+   "aproximada": false,
+   "ids": [
+    "T33",
+    "D21"
+   ]
+  },
+  {
+   "fecha": "1961-09-16",
+   "hora": "",
+   "evento": "María Bernal y Daniel Écija se conocieron en el baile del Círculo de Bellas Artes de Madrid.",
+   "aproximada": false,
+   "ids": [
+    "T34"
+   ]
+  },
+  {
+   "fecha": "1962",
+   "hora": "",
+   "evento": "McNulty comunicó un caso de mesotelioma en un antiguo trabajador del molino, presentado por F09 como el primero comunicado fuera de Sudáfrica.",
+   "aproximada": false,
+   "ids": [
+    "T35",
+    "D130"
+   ]
+  },
+  {
+   "fecha": "1962-08",
+   "hora": "",
+   "evento": "La familia De Juan-Barroso llegó a Australia.",
+   "aproximada": false,
+   "ids": [
+    "T36"
+   ]
+  },
+  {
+   "fecha": "1962-09-20",
+   "hora": "",
+   "evento": "Daniel Écija y María Bernal se casaron.",
+   "aproximada": false,
+   "ids": [
+    "T37"
+   ]
+  },
+  {
+   "fecha": "Cuatro días después de su boda",
+   "hora": "",
+   "evento": "Daniel Écija y María Bernal emigraron a Australia.",
+   "aproximada": false,
+   "ids": [
+    "T37",
+    "T38"
+   ]
+  },
+  {
+   "fecha": "1963-03",
+   "hora": "",
+   "evento": "Milagros Barroso dio a luz a John Patrick en Wittenoom.",
+   "aproximada": false,
+   "ids": [
+    "T39"
+   ]
+  },
+  {
+   "fecha": "Junio, poco después del nacimiento de marzo de 1963",
+   "hora": "",
+   "evento": "María Bernal tuvo un parto complicado y nació Daniel, llamado como su padre.",
+   "aproximada": false,
+   "ids": [
+    "T39",
+    "T40"
+   ]
+  },
+  {
+   "fecha": "1963-07-07",
+   "hora": "",
+   "evento": "La familia conserva una fotografía vinculada al bautizo de Daniel fechada ese día; abandonó Wittenoom después del bautizo.",
+   "aproximada": false,
+   "ids": [
+    "T41",
+    "D87"
+   ]
+  },
+  {
+   "fecha": "1962–1964",
+   "hora": "",
+   "evento": "El relato familiar sitúa en este intervalo la estancia de los De Juan-Barroso, descrita como de unos dos años y medio.",
+   "aproximada": false,
+   "ids": [
+    "D88"
+   ]
+  },
+  {
+   "fecha": "1965",
+   "hora": "",
+   "evento": "Davidson reprendió al director escolar por cubrir el patio con relaves.",
+   "aproximada": false,
+   "ids": [
+    "P33"
+   ]
+  },
+  {
+   "fecha": "1966",
+   "hora": "",
+   "evento": "El higienista industrial Major describió derrames, fugas y modificaciones deficientes en la maquinaria.",
+   "aproximada": false,
+   "ids": [
+    "D136"
+   ]
+  },
+  {
+   "fecha": "1966",
+   "hora": "",
+   "evento": "La familia Écija-Bernal regresó a Madrid.",
+   "aproximada": false,
+   "ids": [
+    "T47"
+   ]
+  },
+  {
+   "fecha": "1966-12",
+   "hora": "",
+   "evento": "CSR cerró las operaciones por razones económicas; James Vernon anunció el cierre.",
+   "aproximada": false,
+   "ids": [
+    "T44",
+    "T48",
+    "T49",
+    "D22"
+   ]
+  },
+  {
+   "fecha": "1971",
+   "hora": "",
+   "evento": "La familia De Juan-Barroso regresó a Madrid, mientras Mercedes permaneció en Australia.",
+   "aproximada": false,
+   "ids": [
+    "T51"
+   ]
+  },
+  {
+   "fecha": "1978",
+   "hora": "",
+   "evento": "El Gobierno estatal comenzó a reducir el pueblo y a promover la reubicación de sus residentes por los riesgos sanitarios.",
+   "aproximada": false,
+   "ids": [
+    "T52",
+    "T53",
+    "T55"
+   ]
+  },
+  {
+   "fecha": "1979",
+   "hora": "",
+   "evento": "Los afectados constituyeron la Asbestos Diseases Society of Australia.",
+   "aproximada": false,
+   "ids": [
+    "T56"
+   ]
+  },
+  {
+   "fecha": "1985",
+   "hora": "",
+   "evento": "Un policía de un aeropuerto australiano reconoció Wittenoom en la documentación de Daniel Écija hijo y lo llamó un sitio terrorífico.",
+   "aproximada": false,
+   "ids": [
+    "T57",
+    "Q24"
+   ]
+  },
+  {
+   "fecha": "1985",
+   "hora": "",
+   "evento": "Hawthorne & Associates estimó el costo de la limpieza.",
+   "aproximada": false,
+   "ids": [
+    "T58",
+    "D152"
+   ]
+  },
+  {
+   "fecha": "1986–1992",
+   "hora": "",
+   "evento": "Se demolieron edificios y cerraron la escuela, el puesto de enfermería y la comisaría.",
+   "aproximada": false,
+   "ids": [
+    "T59",
+    "D28"
+   ]
+  },
+  {
+   "fecha": "Finales de 1986",
+   "hora": "",
+   "evento": "El estudio histórico registra enfermedades y reclamos de compensación en una cohorte de antiguos mineros y trabajadores del molino.",
+   "aproximada": false,
+   "ids": [
+    "D109"
+   ]
+  },
+  {
+   "fecha": "1988",
+   "hora": "",
+   "evento": "Peter Gordon obtuvo un veredicto sobre Wittenoom y un juez condenó el desprecio de la compañía por la salud de sus trabajadores.",
+   "aproximada": false,
+   "ids": [
+    "T61",
+    "T62",
+    "D93"
+   ]
+  },
+  {
+   "fecha": "1989",
+   "hora": "",
+   "evento": "CSR acordó indemnizaciones con afectados.",
+   "aproximada": false,
+   "ids": [
+    "D94"
+   ]
+  },
+  {
+   "fecha": "1989",
+   "hora": "",
+   "evento": "Un documento oficial registra que ya habían muerto más de quinientos antiguos trabajadores y residentes.",
+   "aproximada": false,
+   "ids": [
+    "T63",
+    "D23"
+   ]
+  },
+  {
+   "fecha": "1991",
+   "hora": "",
+   "evento": "Daniel Écija padre recibió el diagnóstico de mesotelioma.",
+   "aproximada": false,
+   "ids": [
+    "T64"
+   ]
+  },
+  {
+   "fecha": "Nueve meses después del diagnóstico de 1991",
+   "hora": "",
+   "evento": "Murió Daniel Écija padre; el pasaje no permite fijar el año civil de la muerte.",
+   "aproximada": false,
+   "ids": [
+    "T64",
+    "D89"
+   ]
+  },
+  {
+   "fecha": "1992-09",
+   "hora": "",
+   "evento": "Una investigación parlamentaria recomendó un programa de limpieza; el pool señala que el gobierno de Court rechazó el informe.",
+   "aproximada": false,
+   "ids": [
+    "T66",
+    "D54",
+    "D55"
+   ]
+  },
+  {
+   "fecha": "1993",
+   "hora": "",
+   "evento": "Cerró oficialmente el aeropuerto.",
+   "aproximada": false,
+   "ids": [
+    "T67",
+    "D29"
+   ]
+  },
+  {
+   "fecha": "1994-08",
+   "hora": "",
+   "evento": "Un comité parlamentario recomendó exigir a CSR y Hancock Prospecting que remediaran los relaves.",
+   "aproximada": false,
+   "ids": [
+    "T69"
+   ]
+  },
+  {
+   "fecha": "2006-10",
+   "hora": "",
+   "evento": "Quedaban residentes y ya se había tomado la decisión de cerrar el pueblo.",
+   "aproximada": false,
+   "ids": [
+    "T73",
+    "D06"
+   ]
+  },
+  {
+   "fecha": "2006-11",
+   "hora": "",
+   "evento": "El informe GHD/Parsons Brinckerhoff advirtió que el aporte de asbesto hacia la cuenca del Fortescue continuaría durante cientos de años sin intervención.",
+   "aproximada": false,
+   "ids": [
+    "T74",
+    "T75",
+    "D10"
+   ]
+  },
+  {
+   "fecha": "2006-12",
+   "hora": "",
+   "evento": "El Gobierno desconectó la red eléctrica; esa misma fuente también sitúa allí una retirada del estatus oficial, discrepante con la abolición formal fechada después.",
+   "aproximada": false,
+   "ids": [
+    "T76",
+    "D30"
+   ]
+  },
+  {
+   "fecha": "2007-06",
+   "hora": "",
+   "evento": "Se abolió oficialmente el pueblo y se retiró su nombre de mapas y señales; otras referencias lo sitúan en 2006.",
+   "aproximada": true,
+   "ids": [
+    "T79",
+    "T80",
+    "D31",
+    "T71",
+    "T76"
+   ]
+  },
+  {
+   "fecha": "2008",
+   "hora": "",
+   "evento": "El área fue clasificada como sitio contaminado que requiere remediación.",
+   "aproximada": false,
+   "ids": [
+    "T81",
+    "T82",
+    "D25",
+    "D32"
+   ]
+  },
+  {
+   "fecha": "2013",
+   "hora": "",
+   "evento": "GHD propuso encapsular relaves en varios emplazamientos mineros.",
+   "aproximada": false,
+   "ids": [
+    "T84"
+   ]
+  },
+  {
+   "fecha": "2015-10",
+   "hora": "",
+   "evento": "GHD recomendó emplazamientos excavados en las paredes del desfiladero para colocar y encapsular los relaves.",
+   "aproximada": false,
+   "ids": [
+    "T85"
+   ]
+  },
+  {
+   "fecha": "2015-12",
+   "hora": "",
+   "evento": "GHD presupuestó modalidades de ejecución estatal y de contratación externa para la remediación.",
+   "aproximada": false,
+   "ids": [
+    "D154",
+    "D155"
+   ]
+  },
+  {
+   "fecha": "2016",
+   "hora": "",
+   "evento": "Una nota del Departamento de Tierras aconsejó desistir de la remediación por su costo y restringir el acceso humano.",
+   "aproximada": false,
+   "ids": [
+    "T87",
+    "D59"
+   ]
+  },
+  {
+   "fecha": "2019",
+   "hora": "",
+   "evento": "Ben Wyatt sostuvo que las empresas responsables debían pagar la remediación.",
+   "aproximada": false,
+   "ids": [
+    "T88"
+   ]
+  },
+  {
+   "fecha": "2021",
+   "hora": "",
+   "evento": "Una nota ambiental registró fibras en canales de arroyos fuera de la zona de contaminación.",
+   "aproximada": false,
+   "ids": [
+    "T90",
+    "D149"
+   ]
+  },
+  {
+   "fecha": "2022",
+   "hora": "",
+   "evento": "Se sitúa la salida o desalojo de los últimos residentes, aunque F03 lo fecha en 2023.",
+   "aproximada": true,
+   "ids": [
+    "T91",
+    "T93"
+   ]
+  },
+  {
+   "fecha": "2022–2023; año sin resolver",
+   "hora": "",
+   "evento": "Las fuentes discrepan sobre el año de la demolición final de las estructuras.",
+   "aproximada": true,
+   "ids": [
+    "T91"
+   ]
+  },
+  {
+   "fecha": "2023",
+   "hora": "",
+   "evento": "Marcos Orellana visitó Australia y entrevistó a Maitland Parker sobre la contaminación y el daño persistente.",
+   "aproximada": false,
+   "ids": [
+    "T92"
+   ]
+  },
+  {
+   "fecha": "2023-08",
+   "hora": "",
+   "evento": "Planificación, Tierras y Patrimonio reconoció que los estudios previos habían quedado desactualizados y recomendó investigar la extensión de la contaminación.",
+   "aproximada": false,
+   "ids": [
+    "T94",
+    "D61"
+   ]
+  },
+  {
+   "fecha": "2023-10",
+   "hora": "",
+   "evento": "La junta de BNTAC votó impulsar acciones legales para limpiar Wittenoom.",
+   "aproximada": false,
+   "ids": [
+    "T95"
+   ]
+  },
+  {
+   "fecha": "2024",
+   "hora": "",
+   "evento": "Maitland Parker murió de mesotelioma.",
+   "aproximada": false,
+   "ids": [
+    "T96"
+   ]
+  },
+  {
+   "fecha": "2025-10",
+   "hora": "",
+   "evento": "BNTAC dio al Estado un mes para decidir si mediaba sobre la remediación o afrontaba un proceso judicial.",
+   "aproximada": false,
+   "ids": [
+    "T97"
+   ]
+  },
+  {
+   "fecha": "2026",
+   "hora": "",
+   "evento": "Gordon Legal anunció la presentación de un proceso en el Tribunal Federal contra Australia Occidental en nombre de BNTAC.",
+   "aproximada": false,
+   "ids": [
+    "T98",
+    "D62",
+    "D66"
+   ]
+  }
+ ],
+ "hechos": [
+  {
+   "texto": "Wittenoom se encontraba en una zona desértica de Pilbara, en Australia Occidental.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D82"
+   ]
+  },
+  {
+   "texto": "La explotación extraía crocidolita, conocida como asbesto azul.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D35",
+    "D100"
+   ]
+  },
+  {
+   "texto": "La exposición a fibras de asbesto puede causar mesotelioma, asbestosis y cáncer de pulmón.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D36"
+   ]
+  },
+  {
+   "texto": "El mineral se valoraba por su resistencia al calor y su durabilidad.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D76"
+   ]
+  },
+  {
+   "texto": "La industria de crocidolita comenzó en Wittenoom Gorge en 1937.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D107"
+   ]
+  },
+  {
+   "texto": "ABA, filial de CSR, tomó los intereses de Hancock y Wright en 1943.",
+   "nivel": 1,
+   "sirve_para": "contexto",
+   "ids": [
+    "T06"
+   ]
+  },
+  {
+   "texto": "La participación inicial indicada para ABA era del 49% para Hancock y Wright y del 51% para CSR.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D47"
+   ]
+  },
+  {
+   "texto": "CSR tenía muy poca experiencia minera y procedía de la industria azucarera.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D132"
+   ]
+  },
+  {
+   "texto": "El Inspector de Minas y el Ingeniero de Minas Adjunto del Estado informaron sobre el problema del polvo en 1944.",
+   "nivel": 1,
+   "sirve_para": "escalada",
+   "ids": [
+    "D19"
+   ]
+  },
+  {
+   "texto": "Un caso de asbestosis ya había sido diagnosticado en 1946.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T13"
+   ]
+  },
+  {
+   "texto": "Eric Saint advirtió por escrito en 1948 que los niveles de polvo eran extremadamente peligrosos.",
+   "nivel": 1,
+   "sirve_para": "escalada",
+   "ids": [
+    "D92"
+   ]
+  },
+  {
+   "texto": "Saint afirmó que sus advertencias fueron desestimadas y que lo trataron de alborotador.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "Q46"
+   ]
+  },
+  {
+   "texto": "El documento oficial F05 señala que los reguladores hicieron poco más que emitir advertencias y pedir equipos reductores de polvo.",
+   "nivel": 1,
+   "sirve_para": "escalada",
+   "ids": [
+    "D20"
+   ]
+  },
+  {
+   "texto": "La Junta de Referencia constató en 1957 que los trabajadores y el entorno del molino estaban cubiertos de polvo.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T26",
+    "Q54"
+   ]
+  },
+  {
+   "texto": "El AWU reclamó inicialmente una compensación económica por el polvo y lo consideró principalmente una incomodidad.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "T14",
+    "D143"
+   ]
+  },
+  {
+   "texto": "El suplemento por polvo fue reducido después de instalarse equipos para disminuirlo.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T27"
+   ]
+  },
+  {
+   "texto": "La alta rotación de trabajadores debilitaba la organización sindical local.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D145"
+   ]
+  },
+  {
+   "texto": "El 59% de los trabajadores había abandonado Wittenoom en seis meses.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D122"
+   ]
+  },
+  {
+   "texto": "El gobierno federal asignó 134 personas desplazadas a contratos de trabajo en Wittenoom entre 1948 y 1951.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D118"
+   ]
+  },
+  {
+   "texto": "CSR comenzó sus viajes privados de reclutamiento europeo en 1950.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "T24"
+   ]
+  },
+  {
+   "texto": "La producción aumentó en 1961 pese a la evidencia de los riesgos sanitarios.",
+   "nivel": 1,
+   "sirve_para": "giro",
+   "ids": [
+    "D21"
+   ]
+  },
+  {
+   "texto": "El acuerdo migratorio entre España y Australia comenzó en 1958 y llevó a cerca de 8.000 españoles al país.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D83"
+   ]
+  },
+  {
+   "texto": "La familia De Juan-Barroso llegó a Australia en agosto de 1962 y Daniel Écija y María Bernal emigraron después de casarse en septiembre de ese año.",
+   "nivel": 1,
+   "sirve_para": "contexto",
+   "ids": [
+    "T36",
+    "T37",
+    "T38"
+   ]
+  },
+  {
+   "texto": "Víctor Calvo recuerda que llegó en un avión pequeño a una pista rodeada de tierra roja y polvo.",
+   "nivel": 2,
+   "sirve_para": "gancho",
+   "ids": [
+    "Q15"
+   ]
+  },
+  {
+   "texto": "María Bernal recordó que ella y Daniel se hicieron íntimos amigos de Milagros Barroso y Ramón de Juan.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "Q13"
+   ]
+  },
+  {
+   "texto": "Daniel Écija hijo relata una explosión mortal durante el primer día de trabajo de su padre, sin corroboración documental independiente en el pool.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "Q16",
+    "Q28"
+   ]
+  },
+  {
+   "texto": "Ramón de Juan trabajaba muchos días turnos de 16 horas.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D104"
+   ]
+  },
+  {
+   "texto": "Daniel Écija padre sufrió una herida en el pie y aparece vendado en un retrato familiar.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D85"
+   ]
+  },
+  {
+   "texto": "Los relaves se utilizaron para construir el pueblo, la pista de aterrizaje y otras instalaciones.",
+   "nivel": 1,
+   "sirve_para": "escalada",
+   "ids": [
+    "D03"
+   ]
+  },
+  {
+   "texto": "Víctor Calvo recuerda que los niños deshilachaban el amianto, se lo llevaban a la boca y veían desprenderse el polvo.",
+   "nivel": 1,
+   "sirve_para": "gancho",
+   "ids": [
+    "Q19",
+    "Q32"
+   ]
+  },
+  {
+   "texto": "Los relaves también se extendían como superficie de carreteras, patios y espacios públicos.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D39",
+    "D129"
+   ]
+  },
+  {
+   "texto": "Davidson reprendió en 1965 al director de la escuela por cubrir el patio con relaves.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "P33"
+   ]
+  },
+  {
+   "texto": "María Bernal tuvo un parto complicado y su hijo recibió el nombre de Daniel, como su padre.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "T40"
+   ]
+  },
+  {
+   "texto": "Los Écija-Bernal abandonaron Wittenoom después del bautizo de su hijo y tras una estancia de unos diez meses.",
+   "nivel": 1,
+   "sirve_para": "giro",
+   "ids": [
+    "T41",
+    "D87"
+   ]
+  },
+  {
+   "texto": "Los De Juan-Barroso permanecieron unos dos años y medio y Ramón se fue antes de completar su contrato.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D88"
+   ]
+  },
+  {
+   "texto": "Los Écija-Bernal volvieron a Madrid en 1966 y los De Juan-Barroso en 1971.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T47",
+    "T51"
+   ]
+  },
+  {
+   "texto": "La minería terminó en diciembre de 1966 por razones económicas.",
+   "nivel": 1,
+   "sirve_para": "giro",
+   "ids": [
+    "T49",
+    "D22"
+   ]
+  },
+  {
+   "texto": "Las tres minas produjeron aproximadamente 150.000 toneladas de asbesto comercial entre 1937 y 1966.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D01"
+   ]
+  },
+  {
+   "texto": "El informe técnico estimó que habían quedado más de tres millones de toneladas de relaves.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D02"
+   ]
+  },
+  {
+   "texto": "El viento y el agua dispersaron los residuos mineros y el material utilizado en el pueblo.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D18"
+   ]
+  },
+  {
+   "texto": "El Gobierno estatal comenzó en 1978 a reducir el pueblo y alentar la reubicación por el riesgo de fibras en el aire.",
+   "nivel": 1,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D27"
+   ]
+  },
+  {
+   "texto": "Los afectados formaron la Asbestos Diseases Society of Australia en 1979 y obtuvieron documentos y resultados judiciales sobre el conocimiento empresarial de los riesgos.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T56"
+   ]
+  },
+  {
+   "texto": "Un juez determinó en 1988 que la compañía había mostrado un desprecio continuo, consciente y contumaz por la seguridad y la salud de sus trabajadores.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D93"
+   ]
+  },
+  {
+   "texto": "CSR acordó en 1989 pagar 18,3 millones de dólares australianos a 200 afectados.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D94"
+   ]
+  },
+  {
+   "texto": "Para 1989, un documento oficial registra más de 500 muertes entre antiguos trabajadores y residentes.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D23"
+   ]
+  },
+  {
+   "texto": "Daniel Écija padre murió a los 55 años, nueve meses después de recibir un diagnóstico de mesotelioma en 1991.",
+   "nivel": 1,
+   "sirve_para": "pico",
+   "ids": [
+    "T64",
+    "D89"
+   ]
+  },
+  {
+   "texto": "Las fuentes gubernamentales actuales del pool atribuyen miles de muertes a las fibras de Wittenoom.",
+   "nivel": 1,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D34",
+    "D41"
+   ]
+  },
+  {
+   "texto": "Melita Markey estima que la cifra de muertes puede superar las 4.000 y afirma que continúa aumentando.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "Q20",
+    "D90"
+   ]
+  },
+  {
+   "texto": "La investigación parlamentaria recomendó limpiar los relaves y sus recomendaciones fueron rechazadas por el Gobierno.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D54",
+    "D55",
+    "T66"
+   ]
+  },
+  {
+   "texto": "Entre 1986 y 1992 se demolieron edificios y cerraron servicios básicos del pueblo.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D28"
+   ]
+  },
+  {
+   "texto": "El pueblo fue abolido formalmente y retirado de mapas y señales en junio de 2007 según las fuentes coincidentes, aunque otras referencias lo sitúan en 2006.",
+   "nivel": 1,
+   "sirve_para": "giro",
+   "ids": [
+    "D31",
+    "T80",
+    "T71",
+    "D30"
+   ]
+  },
+  {
+   "texto": "En 2008 el área fue clasificada como contaminada y necesitada de remediación.",
+   "nivel": 1,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D25",
+    "D32"
+   ]
+  },
+  {
+   "texto": "La superficie oficial del Área de Gestión del Asbesto de Wittenoom es de 46.840 hectáreas.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D40"
+   ]
+  },
+  {
+   "texto": "DWER y Salud declararon el área no apta para ninguna forma de ocupación humana o uso del suelo.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "Q03"
+   ]
+  },
+  {
+   "texto": "El informe técnico identificó la erosión por agua del vertedero de Colonial como la principal fuente y vía de migración del asbesto.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D09"
+   ]
+  },
+  {
+   "texto": "El mismo informe advirtió que el aporte de asbesto a la cuenca del Fortescue podía continuar durante cientos de años sin intervención.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "D10"
+   ]
+  },
+  {
+   "texto": "Una nota ambiental de 2021 reconoció fibras en canales situados fuera de la zona de contaminación.",
+   "nivel": 1,
+   "sirve_para": "giro",
+   "ids": [
+    "T90"
+   ]
+  },
+  {
+   "texto": "El Fortescue alimenta el acuífero Millstream, una fuente municipal de agua para Karratha.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D150"
+   ]
+  },
+  {
+   "texto": "Los documentos citados sobre 2016 atribuyen la falta de aseguramiento de los relaves al costo y no a la imposibilidad técnica.",
+   "nivel": 1,
+   "sirve_para": "escalada",
+   "ids": [
+    "D59",
+    "T87"
+   ]
+  },
+  {
+   "texto": "Los estudios estatales anteriores sobre la extensión de la contaminación fueron considerados desactualizados en 2023.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "T94",
+    "D61"
+   ]
+  },
+  {
+   "texto": "Maitland Parker habló con el relator de la ONU sobre el daño persistente y murió de mesotelioma en 2024.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T92",
+    "T96"
+   ]
+  },
+  {
+   "texto": "Gordon Legal anunció en 2026 una demanda de BNTAC contra Australia Occidental ante el Tribunal Federal.",
+   "nivel": 1,
+   "sirve_para": "cierre",
+   "ids": [
+    "D62",
+    "D66",
+    "T98"
+   ]
+  },
+  {
+   "texto": "Gordon Legal afirma que el Estado no ha gastado dinero en remediar el sitio y que no se ha retirado una sola palada de asbesto de la tierra Banjima.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "D70",
+    "D71"
+   ]
+  },
+  {
+   "texto": "El Gobierno declaró a EL PAÍS que conoce el grave problema de salud y seguridad y sigue trabajando en opciones de largo plazo.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "Q34"
+   ]
+  },
+  {
+   "texto": "Se instalaron bloqueos permanentes en los accesos al antiguo pueblo y al desfiladero porque el área no es segura.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "D42"
+   ]
+  }
+ ],
+ "citas": [
+  {
+   "autor": "DWER y Department of Health",
+   "rol": "Agencias gubernamentales.",
+   "verificacion": "verificada; formulación citada por el documento",
+   "texto": "not suitable for any form of human occupation or land use",
+   "original": "",
+   "traduccion": "no apta para ninguna forma de ocupación humana o uso del suelo",
+   "ids": [
+    "Q03"
+   ]
+  },
+  {
+   "autor": "Larry Graham",
+   "rol": "Presidente del comité parlamentario sobre Wittenoom.",
+   "verificacion": "verificada",
+   "texto": "Mining in the Gorges has left contamination that can only be described as disgraceful, even by the standards of the day. It is almost unbelievable that ownership of the tailings dumps has transferred, by default, to the State Government.",
+   "original": "",
+   "traduccion": "La minería en los desfiladeros ha dejado una contaminación que solo puede describirse como vergonzosa, incluso para los estándares de la época. Es casi increíble que la propiedad de los depósitos de relaves se haya transferido, por defecto, al Gobierno estatal.",
+   "ids": [
+    "Q05"
+   ]
+  },
+  {
+   "autor": "Gobierno de Australia Occidental",
+   "rol": "Gobierno estatal.",
+   "verificacion": "verificada como declaración atribuida por F04",
+   "texto": "an end to a dark period in our State's history.",
+   "original": "",
+   "traduccion": "el fin de un período oscuro en la historia de nuestro Estado.",
+   "ids": [
+    "Q07"
+   ]
+  },
+  {
+   "autor": "Maitland Parker",
+   "rol": "Anciano y dueño tradicional Banjima.",
+   "verificacion": "verificada; reproducida por Johnnell Parker",
+   "texto": "I still cry for Country, but that’s imbedded in me I just can’t walk away from it.",
+   "original": "",
+   "traduccion": "Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él.",
+   "ids": [
+    "Q10"
+   ]
+  },
+  {
+   "autor": "Johnnell Parker",
+   "rol": "Vicepresidente de BNTAC y dueño tradicional Banjima.",
+   "verificacion": "verificada",
+   "texto": "Despite the damage, our Elders have raised us to be strong and resilient. We carry in our hearts their strength as we continue the fight, to heal our Country, to protect it, and to ensure future generations can stand on healthy land and remain connected to who they are.",
+   "original": "",
+   "traduccion": "A pesar del daño, nuestros Ancianos nos han criado para ser fuertes y resilientes. Llevamos su fuerza en nuestros corazones mientras continuamos la lucha para sanar nuestro territorio, protegerlo y asegurar que las futuras generaciones puedan estar en una tierra sana y seguir conectadas con quienes son.",
+   "ids": [
+    "Q11"
+   ]
+  },
+  {
+   "autor": "Víctor Calvo",
+   "rol": "Antiguo residente que llegó de niño.",
+   "verificacion": "verificada",
+   "texto": "Salimos de Málaga y tardamos más de 20 días en llegar en barco a Australia. Pasamos por el canal de Suez… Puf, el calor que hacía allí. Recuerdo los mareos. La incertidumbre. Aquella sensación de no saber muy bien adónde íbamos ni cómo viviríamos.",
+   "original": "",
+   "traduccion": "",
+   "ids": [
+    "Q14"
+   ]
+  },
+  {
+   "autor": "Víctor Calvo",
+   "rol": "Antiguo residente que llegó de niño.",
+   "verificacion": "verificada_parcial en el pool",
+   "texto": "El avión era pequeño, de hélices, y se movía muchísimo. Aterrizamos en una pista en medio de una tierra muy muy roja. Había polvo por todas partes. Nunca había visto tanto polvo. Nos llevaron a las casas, de chapa, madera y uralita.",
+   "original": "",
+   "traduccion": "",
+   "ids": [
+    "Q15"
+   ]
+  },
+  {
+   "autor": "Víctor Calvo",
+   "rol": "Testigo de la exposición infantil.",
+   "verificacion": "verificada para este extracto; se excluye el final cortado del pasaje",
+   "texto": "Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo. Estábamos rodeados de amianto azul, pero no nos daba miedo.",
+   "original": "",
+   "traduccion": "",
+   "ids": [
+    "Q19"
+   ]
+  },
+  {
+   "autor": "Melita Markey",
+   "rol": "CEO de la Asbestos Diseases Society of Australia.",
+   "verificacion": "verificada como declaración; sus cifras son estimaciones atribuidas",
+   "texto": "El Gobierno dejó de contar en 2.000, pero ahora se calcula que la cifra puede ser superior a los 4.000. Y sigue aumentando. Hay hijos de funcionarios que trabajaban en el pueblo, como policías o maestros, que están ahora enfermando.",
+   "original": "",
+   "traduccion": "",
+   "ids": [
+    "Q20"
+   ]
+  },
+  {
+   "autor": "Mercedes de Juan",
+   "rol": "Antigua residente de Wittenoom.",
+   "verificacion": "verificada",
+   "texto": "Nos hacen un escáner y una prueba de función pulmonar.",
+   "original": "",
+   "traduccion": "",
+   "ids": [
+    "Q21"
+   ]
+  },
+  {
+   "autor": "Policía del aeropuerto",
+   "rol": "Agente no identificado.",
+   "verificacion": "verificada como recuerdo relatado en la crónica, no como grabación del intercambio",
+   "texto": "Así que de Wittenoom, ¿eh? Un sitio terrorífico.",
+   "original": "",
+   "traduccion": "",
+   "ids": [
+    "Q24"
+   ]
+  },
+  {
+   "autor": "Gobierno de Australia Occidental",
+   "rol": "Respuesta por correo electrónico a EL PAÍS.",
+   "verificacion": "verificada únicamente para el fragmento entrecomillado del pasaje",
+   "texto": "serious public health and safety problem",
+   "original": "",
+   "traduccion": "grave problema de salud y seguridad pública",
+   "ids": [
+    "Q34"
+   ]
+  },
+  {
+   "autor": "Chifley",
+   "rol": "Primer ministro de Australia.",
+   "verificacion": "verificada; corregida puntuación evidentemente defectuosa",
+   "texto": "for all practical purposes, the life of the [Wittenoom] mine is unlimited.",
+   "original": "for all. practical purposes, the life of the [Wittenoom] mine is unlimited.",
+   "traduccion": "a todos los efectos prácticos, la vida de la mina [de Wittenoom] es ilimitada.",
+   "ids": [
+    "Q37"
+   ]
+  },
+  {
+   "autor": "Eric Saint",
+   "rol": "Médico aéreo.",
+   "verificacion": "verificada_parcial en el pool; texto visible en la evidencia",
+   "texto": "In a year or two ABA will produce the richest and most lethal crop of cases of asbestosis in the world’s literature . . . Naturally I think some of these chests should be looked into.",
+   "original": "",
+   "traduccion": "En un año o dos, ABA producirá la cosecha más abundante y letal de casos de asbestosis de la literatura mundial… Naturalmente, creo que habría que examinar algunos de estos tórax.",
+   "ids": [
+    "Q45"
+   ]
+  },
+  {
+   "autor": "Eric Saint",
+   "rol": "Médico que denunció los riesgos.",
+   "verificacion": "verificada; extracto de su declaración retrospectiva",
+   "texto": "They pooh-poohed me and in fact they labeled me as a troublemaker.",
+   "original": "",
+   "traduccion": "Me desestimaron y, de hecho, me tildaron de alborotador.",
+   "ids": [
+    "Q46"
+   ]
+  },
+  {
+   "autor": "Jim McNulty",
+   "rol": "Médico.",
+   "verificacion": "verificada",
+   "texto": "If there were no signs of clinical disease, one could not advise them to leave.",
+   "original": "",
+   "traduccion": "Si no había signos de enfermedad clínica, no se les podía aconsejar que se fueran.",
+   "ids": [
+    "Q48"
+   ]
+  },
+  {
+   "autor": "Jim McNulty",
+   "rol": "Médico de salud ocupacional.",
+   "verificacion": "verificada",
+   "texto": "When Cassandras . . . advised that dust was a problem and predicted the development of disease [at Wittenoom] it didn't ring any alarm bells in the people concerned in the mining industry because they were used to it; they expected it.",
+   "original": "",
+   "traduccion": "Cuando las Casandras… advirtieron que el polvo era un problema y predijeron la aparición de enfermedades [en Wittenoom], no se encendieron las alarmas entre los involucrados en la industria minera porque estaban acostumbrados; lo esperaban.",
+   "ids": [
+    "Q49"
+   ]
+  },
+  {
+   "autor": "Australian Workers’ Union",
+   "rol": "Sindicato de trabajadores.",
+   "verificacion": "verificada",
+   "texto": "Very often when men are working in the dust they have to wear respirators to keep the dust from clogging their mouth and nose, and if they have to wear something it is very uncomfortable.",
+   "original": "",
+   "traduccion": "Muy a menudo, cuando los hombres trabajan entre el polvo, tienen que usar respiradores para evitar que les obstruya la boca y la nariz, y tener que llevarlos resulta muy incómodo.",
+   "ids": [
+    "Q52"
+   ]
+  },
+  {
+   "autor": "Defensor del empleador",
+   "rol": "Representante no identificado de la parte empresarial.",
+   "verificacion": "verificada; extracto literal sin el tramo con OCR defectuoso",
+   "texto": "Merely because there are clouds of dust, it does not mean that that dust is dangerous.",
+   "original": "",
+   "traduccion": "El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso.",
+   "ids": [
+    "Q53"
+   ]
+  },
+  {
+   "autor": "Junta de Referencia",
+   "rol": "Órgano de arbitraje laboral.",
+   "verificacion": "verificada",
+   "texto": "Conditions within the mill were extremely dusty and . . . mill workers were begrimed with dust ... A thick pall of dust was present in the near vicinity of the mill.",
+   "original": "",
+   "traduccion": "Las condiciones dentro del molino eran extremadamente polvorientas y… sus trabajadores estaban cubiertos de polvo… Una espesa nube de polvo estaba presente en las inmediaciones del molino.",
+   "ids": [
+    "Q54"
+   ]
+  },
+  {
+   "autor": "Mark Nevill",
+   "rol": "Autor del informe parlamentario y exparlamentario.",
+   "verificacion": "verificada",
+   "texto": "We have a duty to prevent the further spread of asbestos tailings to reduce the risk of mesothelioma to residents, current visitors and future generations,",
+   "original": "",
+   "traduccion": "Tenemos el deber de impedir una mayor dispersión de los relaves de asbesto para reducir el riesgo de mesotelioma para los residentes, los visitantes actuales y las generaciones futuras.",
+   "ids": [
+    "Q55"
+   ]
+  }
+ ],
+ "descartados": [
+  {
+   "que": "[decisiones] Abolición oficial del pueblo.",
+   "motivo": "no respaldado: cifra 2007",
+   "ids": [
+    "T79",
+    "T80",
+    "D31",
+    "T71",
+    "T76",
+    "D30"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] Gobierno de Australia Occidental",
+   "motivo": "no respaldado: «Gobierno de Australia Occidental» no está entre los descartados del pool",
+   "ids": [
+    "T52",
+    "T76",
+    "T98",
+    "Q34"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] Ingeniero de Minas Adjunto del Estado",
+   "motivo": "no respaldado: «Ingeniero de Minas Adjunto del Estado» no está entre los descartados del pool",
+   "ids": [
+    "T09",
+    "D19"
+   ]
+  },
+  {
+   "que": "[cifras] Afectados incluidos en el acuerdo de CSR de 1989",
+   "motivo": "no respaldado: cifra 1989200",
+   "ids": [
+    "D94"
+   ]
+  },
+  {
+   "que": "[cifras] Gasto estatal en remediación según Gordon Legal",
+   "motivo": "no respaldado: cifra 0",
+   "ids": [
+    "D70"
+   ]
+  },
+  {
+   "que": "[cifras] Cánceres de pulmón registrados en la cohorte hasta finales de 1986",
+   "motivo": "no respaldado: cifra 1986141",
+   "ids": [
+    "D109"
+   ]
+  },
+  {
+   "que": "[cifras] Reclamos exitosos de compensación por asbestosis hasta finales de 1986",
+   "motivo": "no respaldado: cifra 1986356",
+   "ids": [
+    "D109"
+   ]
+  },
+  {
+   "que": "[cronologia] Orellana presentó el informe mencionado por la cronología documental Banjima.",
+   "motivo": "no respaldado: fecha 2024-07",
+   "ids": [
+    "P13"
+   ]
+  },
+  {
+   "que": "[citas] Iba pegadita a mi marido, como una niña. […] Pero estaba orgullosa. Me había enamorado de aquel hombre y confiaba en el futuro…, aunque estu",
+   "motivo": "no respaldado: el texto de la cita no está en sus ids",
+   "ids": [
+    "Q12"
+   ]
+  },
+  {
+   "que": "[citas] El primer día de trabajo de nuestro padre hubo una explosión y murieron varias personas. […] Yo creo que cuando él vio todo eso pensó que te",
+   "motivo": "no respaldado: el texto de la cita no está en sus ids",
+   "ids": [
+    "Q16"
+   ]
+  },
+  {
+   "que": "[citas] Ese sitio nos cambió la vida para siempre. […] Nosotros nos quedamos sin padre, y mi madre sin marido",
+   "motivo": "no respaldado: el texto de la cita no está en sus ids",
+   "ids": [
+    "Q23"
+   ]
+  },
+  {
+   "que": "[citas] If you wanted tailings in town to make a driveway or for the backyard to look nice, you ask the company and they dump a load of tailings in ",
+   "motivo": "no respaldado: cita corregida a 7 caracteres de su original (máximo 3)",
+   "ids": [
+    "Q44"
+   ]
+  },
+  {
+   "que": "[descartados] D. Letham y Tom Zaunmayr como personajes de la ficha.",
+   "motivo": "no respaldado: sin ids",
+   "ids": []
+  },
+  {
+   "que": "Mineros, residentes y visitantes como personas individuales.",
+   "motivo": "Se conservan como colectivos afectados y denominadores de las cifras, no como identidades personales inventadas.",
+   "ids": [
+    "D34",
+    "D41"
+   ]
+  },
+  {
+   "que": "Explosión del primer día como hecho independiente demostrado.",
+   "motivo": "Solo consta el relato familiar de Daniel hijo y su traducción; no hay registro del accidente ni recuento corroborado de víctimas.",
+   "ids": [
+    "Q16",
+    "Q28"
+   ]
+  },
+  {
+   "que": "Conclusiones médicas o mecánicas sobre la herida del pie.",
+   "motivo": "El relato permite describir la herida y el vendaje, pero no atribuir su falta de cicatrización a un mecanismo tóxico determinado.",
+   "ids": [
+    "D85"
+   ]
+  },
+  {
+   "que": "Predicciones de enfermedades como casos efectivamente ocurridos.",
+   "motivo": "Las cifras futuras del estudio son pronósticos y el pool no contiene su verificación posterior.",
+   "ids": [
+    "D110"
+   ]
+  },
+  {
+   "que": "Contaminación demostrada del agua potable de Karratha o daño sanitario por esa vía.",
+   "motivo": "El pool documenta el vínculo hidrográfico con Millstream, pero no aporta análisis del agua municipal ni prueba de exposición de sus consumidores.",
+   "ids": [
+    "D149",
+    "D150"
+   ]
+  },
+  {
+   "que": "Sumar mesoteliomas, cánceres de pulmón y reclamos por asbestosis como un total de víctimas únicas.",
+   "motivo": "Son categorías diferentes y el pool no permite excluir superposiciones entre personas.",
+   "ids": [
+    "D109"
+   ]
+  },
+  {
+   "que": "Equiparar el total comercial de las tres minas con la producción declarada para Wittenoom.",
+   "motivo": "Los pasajes tienen alcances distintos y usan tonnes y tons sin permitir una conversión segura.",
+   "ids": [
+    "D01",
+    "D51"
+   ]
+  },
+  {
+   "que": "Usar los diez kilómetros cuadrados del informe técnico como versión rival de la superficie de WAMA.",
+   "motivo": "Una cifra describe residuos dispersos y la otra una delimitación administrativa de gestión.",
+   "ids": [
+    "D04",
+    "D40"
+   ]
+  },
+  {
+   "que": "Regalías mineras de Pilbara como demostración de responsabilidad o solvencia específica por Wittenoom.",
+   "motivo": "La cifra procede de la parte demandante y se refiere a la minería regional, no a ingresos identificados de esta explotación.",
+   "ids": [
+    "D69"
+   ]
+  },
+  {
+   "que": "Comparación del volumen de residuos con el Melbourne Cricket Ground.",
+   "motivo": "Es una equivalencia retórica de la representación jurídica; se prefiere la masa de residuos expresamente documentada.",
+   "ids": [
+    "D63",
+    "D64"
+   ]
+  },
+  {
+   "que": "Apodo Chernobyl australiano como descripción técnica del caso.",
+   "motivo": "Es una comparación atribuida a afectados y no identifica el mecanismo ni la extensión de la contaminación.",
+   "ids": [
+    "D101"
+   ]
+  },
+  {
+   "que": "Q01 como cita de una persona o declaración decisoria del caso.",
+   "motivo": "Es una descripción de lo que contiene otro informe, no una intervención humana ni una decisión sobre Wittenoom.",
+   "ids": [
+    "Q01"
+   ]
+  },
+  {
+   "que": "Atribuir carácter de sentencia a las afirmaciones de Gordon Legal sobre gasto, remediación y daño cultural.",
+   "motivo": "F12 es una fuente de parte y el pool no contiene una resolución judicial de la demanda actual.",
+   "ids": [
+    "D62",
+    "D70",
+    "D71",
+    "D74"
+   ]
+  },
+  {
+   "que": "Contar F07 y F08 como testimonios humanos independientes.",
+   "motivo": "Reproducen los mismos relatos en español e inglés; las citas verificadas de los candidatos se cuentan por declaración distinta, no por traducción.",
+   "ids": [
+    "Q12",
+    "Q25",
+    "Q14",
+    "Q26",
+    "Q19",
+    "Q32",
+    "Q23",
+    "Q35"
+   ]
+  },
+  {
+   "que": "Finales de citas ausentes en los pasajes recortados.",
+   "motivo": "No se completan las frases por contexto ni por el texto ampliado del rótulo de extracción.",
+   "ids": [
+    "Q19",
+    "Q23",
+    "Q26",
+    "Q27",
+    "Q33"
+   ]
+  }
+ ],
+ "historia": {
+  "humanos_candidatos": [
+   {
+    "nombre": "Daniel Écija (padre)",
+    "rol": "Minero emigrante español.",
+    "arco": "Entra como recién casado que emigra con María, trabaja en Wittenoom y abandona el pueblo con su familia, pero después del regreso a Madrid recibe un diagnóstico de mesotelioma y muere; no tiene citas propias verificadas en el pool.",
+    "ids": [
+     "T37",
+     "T38",
+     "D85",
+     "T41",
+     "T47",
+     "T64",
+     "D89"
+    ],
+    "citas_verificadas": 0
+   },
+   {
+    "nombre": "María Bernal",
+    "rol": "Esposa del minero y madre de un niño nacido en Wittenoom.",
+    "arco": "Entra enamorada y confiada en el futuro, atraviesa la emigración y un parto complicado, deja Wittenoom con su familia y termina viuda conservando sus recuerdos; sus declaraciones están marcadas como verificadas parcialmente.",
+    "ids": [
+     "Q12",
+     "T38",
+     "T40",
+     "T41",
+     "T47",
+     "D89",
+     "Q23"
+    ],
+    "citas_verificadas": 0
+   },
+   {
+    "nombre": "Víctor Calvo",
+    "rol": "Niño emigrante y testigo adulto de la exposición cotidiana.",
+    "arco": "Entra como niño que recuerda el viaje y la llegada entre polvo, juega con amianto sin reconocer el peligro, regresa después a Madrid y sale como testigo adulto capaz de describir aquella exposición.",
+    "ids": [
+     "T36",
+     "Q14",
+     "Q15",
+     "Q19",
+     "Q32",
+     "T51"
+    ],
+    "citas_verificadas": 2
+   },
+   {
+    "nombre": "Maitland Parker",
+    "rol": "Anciano Banjima y víctima de mesotelioma.",
+    "arco": "Entra como dueño tradicional que no puede apartarse de su territorio dañado, lleva esa denuncia al relator de la ONU y al documental que co-crea, y muere de mesotelioma mientras la contaminación persiste.",
+    "ids": [
+     "Q10",
+     "T92",
+     "T96",
+     "D61"
+    ],
+    "citas_verificadas": 1
+   }
+  ],
+  "giros": [
+   {
+    "orden": 1,
+    "que_cambia": "Las advertencias dejan de ser generales: Eric Saint denuncia por escrito el peligro del polvo y anticipa una cosecha letal de asbestosis.",
+    "ids": [
+     "T09",
+     "T19",
+     "Q45"
+    ]
+   },
+   {
+    "orden": 2,
+    "que_cambia": "La producción aumenta pese a la evidencia sanitaria, antes de la llegada documentada de las familias españolas.",
+    "ids": [
+     "T33",
+     "T36",
+     "T38"
+    ]
+   },
+   {
+    "orden": 3,
+    "que_cambia": "La mina finalmente cierra, pero por razones económicas, no porque se haya eliminado la contaminación.",
+    "ids": [
+     "T44",
+     "T49",
+     "D18"
+    ]
+   },
+   {
+    "orden": 4,
+    "que_cambia": "La salida del pueblo no cierra el daño: Daniel Écija padre recibe un diagnóstico de mesotelioma y muere después.",
+    "ids": [
+     "T41",
+     "T47",
+     "T64",
+     "D89"
+    ]
+   },
+   {
+    "orden": 5,
+    "que_cambia": "Se elimina oficialmente el pueblo, pero la declaración posterior exige remediar un territorio que sigue contaminado.",
+    "ids": [
+     "T79",
+     "T80",
+     "T81",
+     "Q03"
+    ]
+   },
+   {
+    "orden": 6,
+    "que_cambia": "La dispersión fuera del área reconocida y la falta de una solución desembocan en la demanda de BNTAC contra el Estado.",
+    "ids": [
+     "T90",
+     "T94",
+     "T95",
+     "T97",
+     "T98"
+    ]
+   }
+  ],
+  "pico": {
+   "que": "Daniel Écija padre muere de mesotelioma a los 55 años, nueve meses después del diagnóstico.",
+   "por_que": "Es el pico humano del relato: después de haber abandonado Wittenoom y vuelto a Madrid, la exposición alcanza a la familia y convierte la aparente salida del peligro en la pérdida del padre y del marido.",
+   "ids": [
+    "T41",
+    "T47",
+    "T64",
+    "D89",
+    "Q23"
+   ]
+  },
+  "pregunta_final": {
+   "pregunta": "¿Quién asumirá y ejecutará una remediación efectiva del territorio Banjima, cuya extensión contaminada ya no queda delimitada por los estudios anteriores?",
+   "ids": [
+    "D59",
+    "T94",
+    "D61",
+    "D62",
+    "Q34"
+   ]
+  }
+ },
+ "chequeo": {
+  "sacados": [
+   {
+    "que": "[decisiones] Abolición oficial del pueblo.",
+    "motivo": "no respaldado: cifra 2007",
+    "ids": [
+     "T79",
+     "T80",
+     "D31",
+     "T71",
+     "T76",
+     "D30"
+    ],
+    "seccion": "decisiones",
+    "item": {
+     "tema": "Abolición oficial del pueblo.",
+     "criterio": 5,
+     "decision": "Se usa junio de 2007 porque coincide en F06 y F11, pero se marca aproximada por las referencias discrepantes a 2006 y se distingue del corte eléctrico.",
+     "ids": [
+      "T79",
+      "T80",
+      "D31",
+      "T71",
+      "T76"
+     ],
+     "otras_versiones": [
+      {
+       "dice": "La cronología sitúa la desclasificación oficial en 2006.",
+       "doc_id": "F04",
+       "offset": 4185,
+       "ids": [
+        "T71"
+       ]
+      },
+      {
+       "dice": "El mismo documento que fecha la desclasificación en junio de 2007 también dice que el estatus oficial se retiró en diciembre de 2006.",
+       "doc_id": "F06",
+       "offset": 484,
+       "ids": [
+        "T76",
+        "D30"
+       ]
+      }
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] Gobierno de Australia Occidental",
+    "motivo": "no respaldado: «Gobierno de Australia Occidental» no está entre los descartados del pool",
+    "ids": [
+     "T52",
+     "T76",
+     "T98",
+     "Q34"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "Gobierno de Australia Occidental",
+     "rol": "Gobierno estatal y demandado.",
+     "motivo": "Es indispensable para nombrar las decisiones de cierre, las restricciones y la parte demandada; no puede excluirse por no ser una persona física.",
+     "ids": [
+      "T52",
+      "T76",
+      "T98",
+      "Q34"
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] Ingeniero de Minas Adjunto del Estado",
+    "motivo": "no respaldado: «Ingeniero de Minas Adjunto del Estado» no está entre los descartados del pool",
+    "ids": [
+     "T09",
+     "D19"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "Ingeniero de Minas Adjunto del Estado",
+     "rol": "Funcionario técnico no identificado por nombre.",
+     "motivo": "Sí realiza una acción documentada: informa sobre el polvo junto con el Inspector de Minas.",
+     "ids": [
+      "T09",
+      "D19"
+     ]
+    }
+   },
+   {
+    "que": "[cifras] Afectados incluidos en el acuerdo de CSR de 1989",
+    "motivo": "no respaldado: cifra 1989200",
+    "ids": [
+     "D94"
+    ],
+    "seccion": "cifras",
+    "item": {
+     "que": "Afectados incluidos en el acuerdo de CSR de 1989",
+     "valor": "200",
+     "unidad": "personas afectadas",
+     "fuente": "F07@19413 y F08@17563.",
+     "ids": [
+      "D94"
+     ],
+     "otras_versiones": []
+    }
+   },
+   {
+    "que": "[cifras] Gasto estatal en remediación según Gordon Legal",
+    "motivo": "no respaldado: cifra 0",
+    "ids": [
+     "D70"
+    ],
+    "seccion": "cifras",
+    "item": {
+     "que": "Gasto estatal en remediación según Gordon Legal",
+     "valor": "0",
+     "unidad": "dólares ($) destinados a remediación",
+     "fuente": "F12@1211; afirmación de la representación de la parte demandante, no conclusión judicial.",
+     "ids": [
+      "D70"
+     ],
+     "otras_versiones": []
+    }
+   },
+   {
+    "que": "[cifras] Cánceres de pulmón registrados en la cohorte hasta finales de 1986",
+    "motivo": "no respaldado: cifra 1986141",
+    "ids": [
+     "D109"
+    ],
+    "seccion": "cifras",
+    "item": {
+     "que": "Cánceres de pulmón registrados en la cohorte hasta finales de 1986",
+     "valor": "141",
+     "unidad": "casos registrados",
+     "fuente": "F09@610.",
+     "ids": [
+      "D109"
+     ],
+     "otras_versiones": []
+    }
+   },
+   {
+    "que": "[cifras] Reclamos exitosos de compensación por asbestosis hasta finales de 1986",
+    "motivo": "no respaldado: cifra 1986356",
+    "ids": [
+     "D109"
+    ],
+    "seccion": "cifras",
+    "item": {
+     "que": "Reclamos exitosos de compensación por asbestosis hasta finales de 1986",
+     "valor": "356",
+     "unidad": "reclamos exitosos de compensación",
+     "fuente": "F09@610; no se presenta como un recuento de todos los casos de asbestosis.",
+     "ids": [
+      "D109"
+     ],
+     "otras_versiones": []
+    }
+   },
+   {
+    "que": "[cronologia] Orellana presentó el informe mencionado por la cronología documental Banjima.",
+    "motivo": "no respaldado: fecha 2024-07",
+    "ids": [
+     "P13"
+    ],
+    "seccion": "cronologia",
+    "item": {
+     "fecha": "2024-07",
+     "hora": "",
+     "evento": "Orellana presentó el informe mencionado por la cronología documental Banjima.",
+     "aproximada": false,
+     "ids": [
+      "P13"
+     ]
+    }
+   },
+   {
+    "que": "[citas] Iba pegadita a mi marido, como una niña. […] Pero estaba orgullosa. Me había enamorado de aquel hombre y confiaba en el futuro…, aunque estu",
+    "motivo": "no respaldado: el texto de la cita no está en sus ids",
+    "ids": [
+     "Q12"
+    ],
+    "seccion": "citas",
+    "item": {
+     "autor": "María Bernal",
+     "rol": "Esposa de minero y antigua residente.",
+     "verificacion": "verificada_parcial en el pool; el pasaje muestra los fragmentos citados",
+     "texto": "Iba pegadita a mi marido, como una niña. […] Pero estaba orgullosa. Me había enamorado de aquel hombre y confiaba en el futuro…, aunque estuviera tan lejos. En España no teníamos nada ninguno de los dos.",
+     "original": "",
+     "traduccion": "",
+     "ids": [
+      "Q12"
+     ]
+    }
+   },
+   {
+    "que": "[citas] El primer día de trabajo de nuestro padre hubo una explosión y murieron varias personas. […] Yo creo que cuando él vio todo eso pensó que te",
+    "motivo": "no respaldado: el texto de la cita no está en sus ids",
+    "ids": [
+     "Q16"
+    ],
+    "seccion": "citas",
+    "item": {
+     "autor": "Daniel Écija (hijo)",
+     "rol": "Hijo del minero; transmite un relato familiar, no un recuerdo presencial.",
+     "verificacion": "verificada_parcial; explosión no corroborada de manera independiente en el pool",
+     "texto": "El primer día de trabajo de nuestro padre hubo una explosión y murieron varias personas. […] Yo creo que cuando él vio todo eso pensó que tenía que salir de allí cuanto antes, pero mi madre estaba embarazada y no tenían dinero, así que se quedaron unos meses.",
+     "original": "",
+     "traduccion": "",
+     "ids": [
+      "Q16"
+     ]
+    }
+   },
+   {
+    "que": "[citas] Ese sitio nos cambió la vida para siempre. […] Nosotros nos quedamos sin padre, y mi madre sin marido",
+    "motivo": "no respaldado: el texto de la cita no está en sus ids",
+    "ids": [
+     "Q23"
+    ],
+    "seccion": "citas",
+    "item": {
+     "autor": "Daniel Écija (hijo)",
+     "rol": "Hijo del minero fallecido.",
+     "verificacion": "verificada_parcial; extracto limitado al tramo visible completo",
+     "texto": "Ese sitio nos cambió la vida para siempre. […] Nosotros nos quedamos sin padre, y mi madre sin marido",
+     "original": "",
+     "traduccion": "",
+     "ids": [
+      "Q23"
+     ]
+    }
+   },
+   {
+    "que": "[citas] If you wanted tailings in town to make a driveway or for the backyard to look nice, you ask the company and they dump a load of tailings in ",
+    "motivo": "no respaldado: cita corregida a 7 caracteres de su original (máximo 3)",
+    "ids": [
+     "Q44"
+    ],
+    "seccion": "citas",
+    "item": {
+     "autor": "Antiguo trabajador de la mina",
+     "rol": "Testigo no identificado.",
+     "verificacion": "verificada; corregidos errores evidentes de OCR",
+     "texto": "If you wanted tailings in town to make a driveway or for the backyard to look nice, you ask the company and they dump a load of tailings in your backyard. The schools and the kindergarten, churches, everybody had it nice with tailings there. It’s handy.",
+     "original": "If you wanted tailings in town to make a driveway or for the backyard to look nice, you ask die company and they dump a load of tailings in your backyard. Hie schools and die kindergarten, churches, everybody had it nice with tailings there. It’s handy.*",
+     "traduccion": "Si querías relaves en el pueblo para hacer un acceso o para que el patio trasero quedara bonito, se los pedías a la compañía y te descargaban una carga en el patio. Las escuelas, el jardín de infantes, las iglesias: todos lo tenían arreglado con relaves. Es práctico.",
+     "ids": [
+      "Q44"
+     ]
+    }
+   },
+   {
+    "que": "[descartados] D. Letham y Tom Zaunmayr como personajes de la ficha.",
+    "motivo": "no respaldado: sin ids",
+    "ids": [],
+    "seccion": "descartados",
+    "item": {
+     "que": "D. Letham y Tom Zaunmayr como personajes de la ficha.",
+     "motivo": "Aparecen en la lista de descartados, pero ningún ítem con evidencia del pool les atribuye una intervención utilizable.",
+     "ids": []
+    }
+   }
+  ]
+ }
+}

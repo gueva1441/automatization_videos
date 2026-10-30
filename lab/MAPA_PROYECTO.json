@@ -1490,7 +1490,7 @@
     "researcher_steps/ficha_caso.py",
     "run_pipeline.py"
    ],
-   "tests": 16,
+   "tests": 17,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "e4bb427 2026-10-28 (F50f)",
    "estado_a": "vivo",
@@ -2542,7 +2542,7 @@
   "researcher_steps/ficha_caso.py": {
    "archivo": "researcher_steps/ficha_caso.py",
    "zona": "research",
-   "sticker": "Arma la ficha del caso: una sola llamada a un modelo que lee todo el research del tema (el pool) y devuelve las personas, la cronología, la historia (quién la sufre, los giros, el pico), las escenas, los hechos, las cifras, las citas y las contradicciones. Después un control sin IA revisa que cada cifra, hora, fecha y cita esté de verdad en el texto de los ids que cita, y lo que no está lo manda a «descartados». Es la única fuente de la escaleta y del guion. Desde F44 puede recibir además el ángulo, el misterio y la revelación del video (`caso`, prompt f44-1); sin eso el pedido es el mismo de siempre (f23-1), que es lo que corre en producción. Desde F55, al cargar la ficha de un topic cuyo pool tiene citas descartadas por duplicadas, los ids de la ficha se cambian en memoria por la cita que quedó (el archivo no se toca).",
+   "sticker": "Arma la ficha del caso: una sola llamada a un modelo que lee todo el research del tema (el pool) y devuelve las personas, la cronología, la historia (quién la sufre, los giros, el pico), las escenas, los hechos, las cifras, las citas y las contradicciones. Después un control sin IA revisa que cada cifra, hora, fecha y cita esté de verdad en el texto de los ids que cita, y lo que no está lo manda a «descartados». Es la única fuente de la escaleta y del guion. Desde F44 puede recibir además el ángulo, el misterio y la revelación del video (`caso`, prompt f44-1); sin eso el pedido es el mismo de siempre (f23-1), que es lo que corre en producción. Desde F55, al cargar la ficha de un topic cuyo pool tiene citas descartadas por duplicadas, los ids de la ficha se cambian en memoria por la cita que quedó y (F56) su texto pasa a ser el de esa cita (el archivo no se toca).",
    "recibe": "data/scripts/_steps/<topic>/00_pool_v3.json (el pool de research, solo lectura) y el título del topic",
    "entrega": "data/scripts/_steps/<topic>/ficha_caso.json y FICHA_<tag>.md (más ficha_respuesta_cruda.json con la respuesta tal cual de la API); la leen la escaleta y el guion v4 (load / id_texts)",
    "modelo": [
@@ -2580,7 +2580,7 @@
     "script_engine/m01a_escaleta.py",
     "script_engine/m03_expediente.py"
    ],
-   "tests": 15,
+   "tests": 16,
    "nacio": "b204868 2026-10-23 (F12)",
    "ultimo": "3e1cc98 2026-10-29 (F55)",
    "estado_a": "vivo",
@@ -2589,7 +2589,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "34063a3a54b93ab6d06dfcb76c05928f",
+   "md5": "51a22b7603a673525fb87c0e6f70a380",
    "sticker_al_dia": true
   },
   "researcher_steps/pool_gate.py": {
@@ -3296,7 +3296,7 @@
     "script_engine/voz_datos.py",
     "script_engine/voz_utils.py"
    ],
-   "tests": 8,
+   "tests": 9,
    "nacio": "2be6c11 2026-10-20 (F5)",
    "ultimo": "090b1eb 2026-10-29 (F55)",
    "estado_a": "vivo",
@@ -4106,7 +4106,7 @@
     "script_engine/m03_visual.py",
     "script_engine/video_prompt.py"
    ],
-   "tests": 17,
+   "tests": 18,
    "nacio": "6264058 2026-10-23 (F11)",
    "ultimo": "090b1eb 2026-10-29 (F55)",
    "estado_a": "vivo",
@@ -4363,7 +4363,7 @@
     "script_engine/m01e_pantalla.py",
     "script_engine/tts_tags.py"
    ],
-   "tests": 5,
+   "tests": 6,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "fc59a76 2026-10-27 (F41)",
    "estado_a": "vivo",
@@ -4498,7 +4498,7 @@
   "script_engine/m01d_particion.py": {
    "archivo": "script_engine/m01d_particion.py",
    "zona": "guion",
-   "sticker": "Reparte los párrafos del guion en los 7 capítulos con su largo en caracteres (mueve o acorta el último párrafo de un cap que se pasa), le pone título a cada capítulo con una llamada corta a Gemini (con título de respaldo si falla) y arma el contrato de 7 caps con etiquetas de voz que lee todo lo de río abajo. También trae el retoque quirúrgico de un cap (regenerate_cap_v3) que usa la reparación del guion v4.",
+   "sticker": "Reparte los párrafos del guion en los 7 capítulos con su largo en caracteres (mueve o acorta el último párrafo de un cap que se pasa; desde F56 el párrafo del re-gancho no se mueve de cap y, si se acorta, su oración tiene que quedar entera, como ya pasaba con el pico), le pone título a cada capítulo con una llamada corta a Gemini (con título de respaldo si falla) y arma el contrato de 7 caps con etiquetas de voz que lee todo lo de río abajo. También trae el retoque quirúrgico de un cap (regenerate_cap_v3) que usa la reparación del guion v4.",
    "recibe": "los párrafos del guion v4 ya reparados, la escaleta (01a_escaleta), el evidence_pool del topic",
    "entrega": "data/scripts/_steps/<id>/01a_skeleton.json, 01b_narration.json y 01b_narracion_v3.json (narración por cap y por beat, títulos, narration_tts)",
    "modelo": [
@@ -4535,7 +4535,7 @@
     "fase1_5.py",
     "script_engine/guion_v4.py"
    ],
-   "tests": 7,
+   "tests": 8,
    "nacio": "317c5f1 2026-10-22 (F10)",
    "ultimo": "fc59a76 2026-10-27 (F41)",
    "estado_a": "vivo",
@@ -4552,7 +4552,7 @@
    "sin_llamador_a": [
     "cut_phrases"
    ],
-   "md5": "255d5b2d6e6f2635a5770a8fe4632c4c",
+   "md5": "fb9a47d8d6e8bc59b8c40ed7bf755b0f",
    "sticker_al_dia": true
   },
   "script_engine/m01e_pantalla.py": {
@@ -4680,7 +4680,7 @@
    ],
    "tests": 5,
    "nacio": "dcea932 2026-10-28 (F50)",
-   "ultimo": "7b6b112 2026-10-29 (F51d)",
+   "ultimo": "d8fa213 2026-10-29 (F55)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "script_engine/m03_visual.py lo importa (mexp) y lo usa en _render_prompts_seedream (m03_visual.py:563-568) y en assign_visual_prompts (2041-2042); m03_visual corre dentro de fase1_5.py:671 (etapa voz).",
@@ -4845,7 +4845,7 @@
   "script_engine/m05_narrative.py": {
    "archivo": "script_engine/m05_narrative.py",
    "zona": "fase2a",
-   "sticker": "Juez de la narración, sin IA: mide cada capítulo del guion contra los datos del research (densidad de datos, repeticiones, adjetivos, cifras inventadas, fechas mezcladas, citas falsas, datos reservados para pantalla) y deja un reporte. También presta sus detectores al guionista v4 y a la capa gráfica.",
+   "sticker": "Juez de la narración, sin IA: mide cada capítulo del guion contra los datos del research (densidad de datos, repeticiones, adjetivos, cifras inventadas, fechas mezcladas, citas falsas, datos reservados para pantalla) y deja un reporte. También presta sus detectores al guionista v4 y a la capa gráfica. Desde F56, una cita que el pool descartó por duplicada vale como la que quedó (ni «cita falsa» ni «de otro caso»), y los rótulos sin nombre propio descartados del research no cuentan como contaminación.",
    "recibe": "Texto de la narración + evidence_pool del topic (data/scripts/_steps/<id>/01_facts_sources.json, 01a_skeleton.json, 01b_narration.json).",
    "entrega": "data/scripts/_steps/<id>/06_judge_narrative.json y listas de problemas en memoria para guion_v4, pantalla_colocar y gfx_layer.",
    "modelo": [],
@@ -4877,7 +4877,7 @@
     "script_engine/m01b_narrator.py",
     "script_engine/m01c_editor.py"
    ],
-   "tests": 11,
+   "tests": 12,
    "nacio": "fc955ef 2026-10-20 (F5)",
    "ultimo": "03370af 2026-10-24 (F23)",
    "estado_a": "vivo",
@@ -4886,7 +4886,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "9359e89077137ff050bddc691c489803",
+   "md5": "1c4f5453dc593e29b22fb23a374a49f2",
    "sticker_al_dia": true
   },
   "script_engine/m06_assembler.py": {

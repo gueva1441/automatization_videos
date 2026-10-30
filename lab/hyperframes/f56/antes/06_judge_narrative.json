@@ -1,0 +1,260 @@
+{
+ "caps": [
+  {
+   "palabras": 161,
+   "datos_usados": [],
+   "densidad": 0.0,
+   "adjetivos": 2,
+   "adj_100": 1.24,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 0.0,
+   "densidad_regex": 1.24,
+   "declarados_no_literales": [],
+   "trigramas_repetidos": 0.0361
+  },
+  {
+   "palabras": 220,
+   "datos_usados": [
+    "T34",
+    "T37",
+    "Q25",
+    "D83",
+    "T24",
+    "T36"
+   ],
+   "densidad": 2.73,
+   "adjetivos": 1,
+   "adj_100": 0.45,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 2.73,
+   "densidad_regex": 3.64,
+   "declarados_no_literales": [],
+   "trigramas_repetidos": 0.0
+  },
+  {
+   "palabras": 433,
+   "datos_usados": [
+    "Q44",
+    "T06",
+    "T13",
+    "Q54"
+   ],
+   "densidad": 0.92,
+   "adjetivos": 6,
+   "adj_100": 1.39,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 0.92,
+   "densidad_regex": 3.23,
+   "declarados_no_literales": [
+    "D19"
+   ],
+   "trigramas_repetidos": 0.0
+  },
+  {
+   "palabras": 322,
+   "datos_usados": [
+    "T35",
+    "D104",
+    "T40",
+    "D87",
+    "T41"
+   ],
+   "densidad": 1.55,
+   "adjetivos": 1,
+   "adj_100": 0.31,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 1.55,
+   "densidad_regex": 2.48,
+   "declarados_no_literales": [
+    "D21"
+   ],
+   "trigramas_repetidos": 0.0
+  },
+  {
+   "palabras": 292,
+   "datos_usados": [
+    "T49",
+    "T51",
+    "T56",
+    "D89",
+    "T64",
+    "Q35"
+   ],
+   "densidad": 2.05,
+   "adjetivos": 3,
+   "adj_100": 1.03,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 2.05,
+   "densidad_regex": 6.16,
+   "declarados_no_literales": [
+    "D27"
+   ],
+   "trigramas_repetidos": 0.0178
+  },
+  {
+   "palabras": 297,
+   "datos_usados": [
+    "Q24",
+    "Q21",
+    "T80",
+    "D02",
+    "T90",
+    "Q03"
+   ],
+   "densidad": 2.02,
+   "adjetivos": 2,
+   "adj_100": 0.67,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 2.02,
+   "densidad_regex": 6.73,
+   "declarados_no_literales": [],
+   "trigramas_repetidos": 0.024
+  },
+  {
+   "palabras": 210,
+   "datos_usados": [
+    "T92",
+    "T96",
+    "D95",
+    "T98"
+   ],
+   "densidad": 1.9,
+   "adjetivos": 1,
+   "adj_100": 0.48,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [
+    "Marcos Orellana",
+    "Peter Gordon"
+   ],
+   "densidad_hechos": 1.9,
+   "densidad_regex": 4.76,
+   "declarados_no_literales": [],
+   "trigramas_repetidos": 0.0242
+  }
+ ],
+ "video": {
+  "densidad": 1.6,
+  "adj_100": 0.83,
+  "trigramas_repetidos": 0.012,
+  "datos_en_mas_de_2_caps": {},
+  "antagonista_nombrado": true,
+  "antagonista": "James Vernon",
+  "cliffhangers": [
+   {
+    "cap": 1,
+    "id": "T34",
+    "texto": "María Bernal y Daniel Écija se conocieron en un baile.",
+    "ok": false,
+    "en_cierre": []
+   },
+   {
+    "cap": 2,
+    "id": "Q27",
+    "texto": "El avión era pequeño, de hélice, y se movía mucho. Aterrizamos en una pista en medio de una tierra muy, muy roja. Había polvo por todas partes. Nunca había visto tanto polvo. Nos llevaron a casas de chapa, madera y fibrocemento. Ese lugar estaba extremadamente aislado, el desierto de los desiertos.",
+    "ok": true,
+    "en_cierre": [
+     "Había",
+     "pequeño"
+    ]
+   },
+   {
+    "cap": 3,
+    "id": "Q19",
+    "texto": "En Wittenoom, un pueblo levantado de la nada, se había utilizado muchísimo. Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo. Estábamos rodeados de amianto azul, pero no nos daba miedo. Nadie nos avisó de nada.",
+    "ok": false,
+    "en_cierre": []
+   },
+   {
+    "cap": 4,
+    "id": "T49",
+    "texto": "CSR cierra las operaciones en la mina y planta de Wittenoom debido a problemas económicos, de suministro y costos laborales.",
+    "ok": true,
+    "en_cierre": [
+     "Wittenoom"
+    ]
+   },
+   {
+    "cap": 5,
+    "id": "Q24",
+    "texto": "Así que de Wittenoom, ¿eh? Un sitio terrorífico.",
+    "ok": true,
+    "en_cierre": [
+     "Wittenoom"
+    ]
+   },
+   {
+    "cap": 6,
+    "id": "T98",
+    "texto": "Gordon Legal inicia un proceso legal en el Tribunal Federal contra el Estado de Australia Occidental en nombre de BNTAC.",
+    "ok": false,
+    "en_cierre": []
+   }
+  ],
+  "datos_distintos": 31,
+  "palabras": 1935,
+  "conteo": "por_id",
+  "caps_con_repetidos_en_cap": [],
+  "caps_fuera_de_adjetivos": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ],
+  "nombres_sin_accion": [
+   "Marcos Orellana",
+   "Peter Gordon"
+  ],
+  "cifras_no_canonicas": [],
+  "problemas_de_fechas": 0,
+  "pantalla_dichos": [],
+  "densidad_hechos": 1.6,
+  "densidad_regex": 4.13,
+  "umbral": {
+   "densidad": false,
+   "repeticion": true,
+   "adjetivacion": false,
+   "repeticion_en_cap": true,
+   "nombres": false,
+   "antagonista": true,
+   "cliffhanger": false
+  }
+ },
+ "umbrales": {
+  "densidad_min": 2.0,
+  "max_caps_por_dato": 2,
+  "trigramas_max": 0.05,
+  "adj_100_min": 2.0,
+  "adj_100_max": 4.0
+ },
+ "violaciones_narrador": {}
+}

@@ -199,7 +199,7 @@
   "_parte": "guion_b"
  },
  "script_engine/m01d_particion.py": {
-  "sticker": "Reparte los párrafos del guion en los 7 capítulos con su largo en caracteres (mueve o acorta el último párrafo de un cap que se pasa), le pone título a cada capítulo con una llamada corta a Gemini (con título de respaldo si falla) y arma el contrato de 7 caps con etiquetas de voz que lee todo lo de río abajo. También trae el retoque quirúrgico de un cap (regenerate_cap_v3) que usa la reparación del guion v4.",
+  "sticker": "Reparte los párrafos del guion en los 7 capítulos con su largo en caracteres (mueve o acorta el último párrafo de un cap que se pasa; desde F56 el párrafo del re-gancho no se mueve de cap y, si se acorta, su oración tiene que quedar entera, como ya pasaba con el pico), le pone título a cada capítulo con una llamada corta a Gemini (con título de respaldo si falla) y arma el contrato de 7 caps con etiquetas de voz que lee todo lo de río abajo. También trae el retoque quirúrgico de un cap (regenerate_cap_v3) que usa la reparación del guion v4.",
   "recibe": "los párrafos del guion v4 ya reparados, la escaleta (01a_escaleta), el evidence_pool del topic",
   "entrega": "data/scripts/_steps/<id>/01a_skeleton.json, 01b_narration.json y 01b_narracion_v3.json (narración por cap y por beat, títulos, narration_tts)",
   "modelo": [
@@ -224,7 +224,7 @@
     "por_que": "nadie la llama: guion_v4.py:16 y :1022 solo la nombran en comentarios («patrón de m01d.cut_phrases») y ningún test ni string de producción la usa"
    }
   ],
-  "md5": "255d5b2d6e6f2635a5770a8fe4632c4c",
+  "md5": "fb9a47d8d6e8bc59b8c40ed7bf755b0f",
   "_parte": "guion_b"
  },
  "script_engine/m01e_pantalla.py": {
