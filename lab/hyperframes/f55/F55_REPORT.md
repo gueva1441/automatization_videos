@@ -401,9 +401,40 @@ Escrito: `C:\CLAUDE_PROJECTS\automatization_videos\data\topics_db.json` (respald
 2. `person_stats` (`n_citas` por persona) del pool de Wittenoom no se recalculó tras el dedupe (solo lo hace un research nuevo).
 3. Las 22 referencias a ids descartados en la escaleta/guion/papel de F54: las regenera la Parte D; hasta entonces `01a_escaleta.json` de `_steps` apunta a Q12, Q15, Q20 y Q23.
 4. Pools de otros temas (Vajont, Kyshtym, Orleans) no se deduplicaron: solo con un research nuevo o corriendo `dedupe_pool.py` adaptado.
+5. `remapear_ids` no tiene llamador en producción (el handoff la pide con test; la Parte D regenera desde la escaleta). Si alguna vez se reanuda desde `--from m01b` con una escaleta vieja, habría que llamarla ahí.
 
 **PARADA B.**
 
 ## Veredicto de revisor-handoff (Parte B, íntegro)
 
-(se pega abajo)
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | Requisito | Estado | Evidencia |
+|---|---|---|---|
+| 1 | `_similitud_citas` = |Ca∩Cb|/min, C = `ev._content`; autor igual tras `ev.norm` (exacto); sin autor → no se compara | OK | researcher_steps/research_v3.py (551ab8f), `_similitud_citas`. Devuelve None si falta autor o difieren, y también si alguna cita no tiene palabras de contenido (guarda extra, sin número nuevo). |
+| 2a | `_dedupe_citas`: umbral 0,7 como constante propia | OK | `UMBRAL_DEDUPE_CITAS = 0.7`, con comentario a DECISIONES 19:30. La línea existe en DECISIONES.md:163. |
+| 2b | Queda la de más n_fuentes (empate: la más larga); ids sin renumerar; docs sumados; n_fuentes recalculado | OK | Compara la tupla (n_fuentes, len(texto)). Une docs sin duplicados e incluye el doc_id de la descartada. |
+| 2c | Descartada a pool["_descartados"] con kind, id, duplicado_de, similitud, motivo | OK | Agrega autor y texto, como se declaró. |
+| 2d | Llamada en build_pool | OK | Va tras verify_pool y antes del segundo person_stats, add_fragments y build_digest. Es razonable: digest y fragmentos se arman sobre el pool deduplicado. |
+| 3 | `remapear_ids(obj, pool)` con test | OK | Devuelve copia, reemplaza en listas y strings sueltos, no repite ids en una lista. Corrí `python -m pytest -q test_module_f55.py -k "dedupe or pares or remapear or fuentes or empate"`: 5 passed. |
+| 4a | dedupe_pool.py sin API ni tocar fase1_5 | OK | Solo importa fase1_5 para leer la constante TOPICS_DB; imports sin SDK de modelos. fase1_5.py no está en el diff de 551ab8f. |
+| 4b | 58 → 50 y similitudes de los 8 pares | OK | Recalculé con la función de producción sobre f55/antes/01_facts_sources.json (58 citas): Q12/Q25 0,875; Q26/Q14 0,88; Q20/Q33 0,94; Q23/Q35 0,706; Q17/Q29 0,727; Q19/Q32 0,50. Coinciden con §4 del handoff. |
+| 4c | Escritura con respaldo | OK | data/topics_db.json: 50 citas y 8 descartadas kind=citas. _steps/123bbb64.../01_facts_sources.json: 50 citas. data/topics_db.pre_f55_dedupe.json existe. |
+| 5 | B.3: referencias solo listadas; (g) a «lo abierto» | OK | SALIDA_B.md lista 22 referencias (escaleta, skeleton, ids_usados, papel) sin tocarlas. F55_REPORT.md:338 y :400 dejan (g) en lo abierto con la nota «con el dedupe ya no debería hacer falta». |
+| 6 | Salida B en el reporte | OK | Tiene los 8 pares con cuál quedó y por qué, los controles Q30/Q36, Q18/Q36 y Q19/Q32, y la lista de 22 referencias. |
+| 7 | Nada fuera de alcance en 551ab8f | OK | Archivos: research_v3, test_module_f55, dedupe_pool.py, SALIDA_B.md, sticker research.json, MAPA json y md. Todo es de B o su documentación obligatoria. |
+
+Fuera de alcance: ninguno (no revisé los cambios sin commitear de la Parte C, como se pidió).
+
+Observaciones:
+- En los 8 pares la razón de «queda» es «más larga (empate en fuentes)»: todas tenían 1 fuente, así que el criterio de más n_fuentes nunca decide en Wittenoom. Es correcto según el contrato, pero ese criterio solo está probado con test sintético, no con datos reales.
+- Los 22 ids colgantes siguen en escaleta, ids_usados y papel. El handoff lo acepta hasta la Parte D; mientras tanto la escaleta apunta a ids que ya no están en el pool.
+- data/topics_db.json no figura como modificado en git (probablemente ignorado), así que el pool dedupeado se verifica solo por estado en disco, no por commit.
+
+Riesgos que el contrato no cubre:
+- `_content` compara conjuntos de palabras: dos citas del mismo autor con vocabulario parecido pero distinto sentido podrían fusionarse. Con 58 citas dio 0 falsos; con pools nuevos no hay garantía.
+- Nada llama a `remapear_ids` en el flujo de producción; solo existe y está testeada. La Parte D depende de que la escaleta se regenere sobre el pool nuevo.
+
+## Adenda de CC (Parte B)
+- **`remapear_ids` sin llamador:** el handoff la pide como función con test («reemplaza ids descartados por su duplicado_de en listas de ids (con test)») y deja la regeneración a la Parte D; si la Parte D arranca desde una escaleta vieja (`--from m01b`), ahí es donde debería llamarse. Anotado en «lo abierto».
+- **`data/` fuera de git:** el pool deduplicado se prueba por disco (50 citas, 8 descartadas) y por el respaldo `topics_db.pre_f55_dedupe.json`; el pool de antes (58) está versionado en `lab/hyperframes/f55/antes/01_facts_sources.json`.
