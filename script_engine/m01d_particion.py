@@ -239,11 +239,12 @@ def build_contract(topic: dict, esc: dict, parrafos: list[dict], pool: dict, *, 
 
 def particionar(topic: dict, esc: dict, parrafos: list[dict], pool: dict, *, persist: bool = True,
                 call_titles: Callable[..., dict] | None = None, shorten: Callable[[str, int], str] | None = None,
-                log: list[str] | None = None) -> dict[str, Any]:
-    """Rebalance + títulos + contrato; persiste los 3 archivos. Devuelve {skeleton, narration, narracion_v3, notas}."""
+                log: list[str] | None = None, title_list: list[str] | None = None) -> dict[str, Any]:
+    """Rebalance + títulos + contrato; persiste los 3 archivos. Devuelve {skeleton, narration, narracion_v3, notas}.
+    F66: con `title_list` no se llama a `titles` (la re-partición después de corregir una oración conserva los títulos)."""
     log = log if log is not None else []
     ps, notes = rebalance(esc, copy.deepcopy(parrafos), shorten=shorten)
-    tl, src = titles(esc, call=call_titles)
+    tl, src = (title_list, "los de la partición anterior") if title_list else titles(esc, call=call_titles)
     sk, na, n3 = build_contract(topic, esc, ps, pool, title_list=tl)
     sk["_v3"]["particion"] = {"notas": notes, "titulos": src}
     for x in notes:

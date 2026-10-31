@@ -19,8 +19,10 @@ from __future__ import annotations
 import json
 import time
 from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
 from typing import Any, Callable
 
+ARCHIVO = "01b_verificacion"   # 01b_verificacion.json / .md, en el directorio del topic (los escribe fase1_5.run_verificacion)
 MODELO = "claude-opus-5-5"     # F63 B (medido) · DECISIONES 2026-10-31 14:20: el mismo de pantalla_verificador
 EFFORT = "medium"
 INTENTOS = 2                   # como llamar_modelo de F63: excepción de API o sin JSON → un reintento de la misma llamada
@@ -49,6 +51,23 @@ def user_b(cap: dict, archivo: list[dict], disputas: dict) -> str:
     u = {"cap": cap["cap"], "oraciones": [{"idx": s["idx"], "texto": s["texto"]} for s in cap["oraciones"]],
          "archivo": archivo, "disputas": disputas}
     return json.dumps(u, ensure_ascii=False) + "\n\nFormato de salida: " + FORMATO_B
+
+
+def leer_quedan(topic_dir: Any) -> list[dict[str, Any]]:
+    """Los «contradice» que quedaron sin resolver en 01b_verificacion.json del topic ([] si no hubo verificación): el
+    aviso que leen el papel (`m01e_pantalla.generar`) y la compuerta (`fase1_5.parada_del_papel`)."""
+    f = Path(topic_dir) / f"{ARCHIVO}.json"
+    try:
+        return list(json.loads(f.read_text(encoding="utf-8")).get("quedan") or []) if f.exists() else []
+    except (OSError, ValueError):
+        return []
+
+
+def aviso_txt(quedan: list[dict[str, Any]]) -> str:
+    """La línea de aviso: la cadena sigue, Omar lo lee donde ya mira."""
+    return (f"⚠ la narración sigue contradiciendo el archivo en {len(quedan)} punto(s): "
+            + "; ".join(f"{q.get('cap')} «{str(q.get('texto') or '')[:60]}» ({', '.join(q.get('ids') or [])})" for q in quedan)
+            + f". Detalle en {ARCHIVO}.md")
 
 
 def _llamar_cap(cap: dict, archivo: list[dict], disputas: dict, post: Callable[[dict], dict] | None, log: list[str]

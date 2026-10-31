@@ -4,7 +4,7 @@ fase1_5.py — Orchestrator del motor de guion (m01a → m03 → assemble)
 F41 (DECISIONES 2026-10-27 20:59): UNA sola cadena, la de F39 con guion v4, para todo topic (sin flags ni
 `guion_version` que la elijan):
   m01a  compuerta del pool → ficha si falta → escaleta
-  m01b  guion v4 → reparación → partición (caps y títulos) → papel (m01e) → juez m05
+  m01b  guion v4 → reparación → partición (caps y títulos) → verificación de la narración (F66) → papel (m01e) → juez m05
   PARADA del papel salvo `--aprobar-papel` vigente
   normalizer_gate → audio → m07 → m03 → foto madre → assemble (data/scripts/<topic_id>.json, el contrato que lee
   fase2a)
@@ -29,6 +29,9 @@ Uso:
                                                  caps → papel) y PARADA del papel
   python fase1_5.py --topic <id> --aprobar-papel "Omar <fecha>"
                                                  F39: aprueba el papel (md5); recién ahí sigue a la voz
+  python fase1_5.py --topic <id> --verificar-narracion
+                                                 F66: verificador + corrección + papel nuevo sobre la narración ya
+                                                 escrita, sin volver a llamar al guionista
 
 Flags:
   --topic <id>      Procesar solo el topic con este UUID (default: todos los aprobados del CSV).
@@ -372,10 +375,13 @@ def aprobar_papel(topic_id: str, quien_fecha: str) -> dict:
 
 def parada_del_papel(topic_id: str) -> str:
     """El mensaje de la PARADA del papel: por qué, dónde leerlo y el comando para aprobarlo."""
+    from script_engine.narracion_verificador import aviso_txt, leer_quedan
     _, motivo = estado_papel(topic_id)
     md = STEPS_DIR / topic_id / "01e_pantalla.md"
+    quedan = leer_quedan(STEPS_DIR / topic_id)
     return (f"PARADA del papel: {motivo}.\n"
             + (f"     Leer: {md}\n" if md.exists() else "")
+            + (f"     {aviso_txt(quedan)}\n" if quedan else "")                # F66: la cadena siguió con esto
             + f"     Aprobar: python fase1_5.py --topic {topic_id} --aprobar-papel \"Omar <fecha>\"")
 
 
@@ -453,10 +459,181 @@ def run_escaleta_v3(topic_id: str, columna: bool = False, modelo: str | None = N
     return esc
 
 
+def _parrafo_de(x: dict, ps: list[dict]) -> int | None:
+    """F66: el párrafo de una oración marcada, por texto (como `reparar`); el beat solo desempata."""
+    from script_engine import evidence as ev
+    if not x.get("texto"):
+        return None
+    cap = int(str(x["cap"]).replace("ch", ""))
+    cand = [k for k, p in enumerate(ps) if int(p["cap"]) == cap and ev.norm(x["texto"]) in ev.norm(p["texto"])]
+    return next((k for k in cand if int(ps[k].get("beat") or 0) == int(x.get("beat") or -1)), cand[0] if cand else None)
+
+
+def _verificacion_md(res: dict) -> str:
+    """01b_verificacion.md: una fila por «contradice» con qué se hizo, los que quedan y lo que no tiene respaldo."""
+    def c(t: object) -> str:
+        return str(t if t is not None else "—").replace("|", "/").replace("\n", " ")
+    L = ["# Verificación de la narración", "",
+         f"Narración antes `{res['narracion_md5_antes']}` · después `{res['narracion_md5_despues']}` · caps re-verificados: "
+         f"{res['caps_cambiados'] or '—'} · US$ {res['usd_verificador']:.4f} del verificador · {len(res['quedan'])} sin resolver", "",
+         "| cap | oración | afirmación | ids | fragmento | qué se hizo | después |", "|---|---|---|---|---|---|---|"]
+    L += [f"| {f['cap']} | [{c(f['oracion'])}] {c(f['texto'])} | {c(f['afirmacion'])} | {', '.join(f['ids'])} | {c(f['fragmento'])} | "
+          f"{c(f['hecho'])} | {c(f.get('despues'))} |" for f in res["filas"]] or ["| — | — | — | — | — | nada que corregir | — |"]
+    for x in res.get("nuevas") or []:
+        L.append(f"| {x['cap']} | [{c(x['oracion'])}] {c(x['texto'])} | {c(x['afirmacion'])} | {', '.join(x['ids'])} | {c(x['fragmento'])} | "
+                 f"nueva en la re-verificación ⚠ (una ronda: queda como aviso) | — |")
+    malos = [f"{k} ({v['error']})" for k, v in res["primera"]["por_cap"].items() if v.get("error")]
+    if malos:
+        L += ["", f"⚠ caps sin verificar: {'; '.join(malos)}"]
+    sr = res["primera"]["sin_respaldo"]
+    L += ["", f"## Sin respaldo en el archivo ({len(sr)}; no se corrige)", ""]
+    L += [f"- {x['cap']} [{c(x['oracion'])}] {c(x['afirmacion'])}" for x in sr] or ["- (nada)"]
+    return "\n".join(L) + "\n"
+
+
+def run_verificacion(topic_id: str, parrafos: list[dict], topic: dict, esc: dict, pool: dict, *, call,
+                     log: list[str], post=None) -> dict:
+    """F66 (HANDOFF_F66 §2.2; DECISIONES 2026-10-31 16:13): el verificador de la narración después de la partición y antes
+    del papel. (1) `verificar_caps` sobre lo que el espectador oye (01b_narracion_v3; `parrafos`, los de la reparación,
+    solo dicen qué acortó la partición); (2) cada «contradice» se ubica por texto en su párrafo y es un problema «v» con el
+    fragmento del archivo como motivo; (3) una ronda de `edit_sentences` por párrafo, con REGEN_GUARD y las cifras (`texto`
+    y `fecha`) de los ids del problema; (4) si algo cambió, re-partición con los mismos títulos y sin acortar (el acortado
+    ya está hecho: otro pasaría por una llamada más y cortaría texto que nadie marcó); (5) re-verificación solo de los caps
+    cuyo texto final cambió; (6) 01b_verificacion.json/.md y `verificacion` en 01b_guionista_v4.json. Nunca vuelve a llamar
+    al guionista. Lo que no se corrige es aviso (`quedan`, en el .md del papel y en `parada_del_papel`): la cadena sigue.
+    Devuelve {particion (la nueva o None), filas, quedan, …}. `post` (tests) va al verificador."""
+    import hashlib
+    from script_engine import evidence as ev
+    from script_engine import guion_v4 as g4
+    from script_engine import m01d_particion as md
+    from script_engine import m01e_pantalla as mp
+    from script_engine import narracion_verificador as nv
+    from script_engine.clima import vocabulario_clima
+    from script_engine.voz_utils import oraciones_de_texto
+    d = STEPS_DIR / topic_id
+    f3 = d / "01b_narracion_v3.json"
+
+    def _textos(e: dict) -> dict[str, str]:
+        return {c["cap"]: " ".join(s["texto"] for s in c["oraciones"]) for c in e["caps"]}
+
+    def _md5() -> str:
+        return hashlib.md5(f3.read_bytes()).hexdigest()
+    md5_antes = _md5()
+    carga = mp.cargar(topic_id, STEPS_DIR, pool)
+    ent = mp.entrada(carga, vocabulario_clima())
+    antes = _textos(ent)
+    archivo = nv.archivo_b(ent)
+    arch = {x["id"]: x for x in archivo}
+    v1 = nv.verificar_caps(ent["caps"], archivo, ent["disputas"], post=post, log=log)
+    log.append(f"  [verificación] {len(v1['contradice'])} contradice · {len(v1['sin_respaldo'])} sin respaldo · US$ {v1['usd']:.4f}")
+    ps = [dict(p) for p in carga["parrafos"]]
+    filas, por_par = [], {}
+    for x in v1["contradice"]:
+        k = _parrafo_de(x, ps)
+        fila = {**x, "parrafo": k, "despues": None, "hecho": None if k is not None else "no se ubicó la oración ⚠"}
+        filas.append(fila)
+        if k is not None:
+            por_par.setdefault(k, []).append(fila)
+    ediciones = []
+    for k, fs in sorted(por_par.items()):
+        p = ps[k]
+        problemas = [{"codigo": "v", "frase": f["texto"], "ids": f["ids"],
+                      "motivo": f"el archivo dice otra cosa ({', '.join(f['ids'])}): «{f['fragmento']}»"} for f in fs]
+        cifras = " ".join(f"{arch[i]['texto']} {arch[i].get('fecha') or ''}" for f in fs for i in f["ids"] if i in arch)
+        try:
+            new, why = g4.edit_sentences(p, problemas, call=call, guard=g4.REGEN_GUARD, cifras_ok=cifras)
+        except Exception as e:  # noqa: BLE001 — lo que no se corrige es aviso: la cadena sigue
+            new, why = p["texto"], f"error de la edición ({type(e).__name__}: {str(e)[:120]})"
+        ok = not why and new != p["texto"]
+        ediciones.append({"parrafo": k, "cap": p["cap"], "beat": p["beat"], "problemas": problemas, "antes": p["texto"],
+                          "despues": new if ok else p["texto"], "aceptada": ok, "motivo_rechazo": why})
+        log.append(f"  [verificación] cap {p['cap']} beat {p['beat']}: {'aceptada' if ok else 'rechazada (' + why + ')'}")
+        if ok:
+            viejas = oraciones_de_texto(p["texto"])
+            nuevas = [s for s in oraciones_de_texto(new) if s not in viejas]
+            for f in fs:
+                f["despues"] = " ".join(nuevas) or "(oración sacada)"
+            ps[k] = g4.with_ids([{**p, "texto": new}], pool, esc)[0]
+        else:
+            for f in fs:
+                f["hecho"] = f"rechazada: {why} ⚠"
+    part, v2, cambiados, nuevas_v2 = None, None, [], []
+    if any(e["aceptada"] for e in ediciones):
+        sk = json.loads((d / "01a_skeleton.json").read_text(encoding="utf-8"))
+        part = md.particionar(topic, esc, ps, pool, log=log, title_list=[c["title"] for c in sk["chapters"]])
+        ent2 = mp.entrada(mp.cargar(topic_id, STEPS_DIR, pool), vocabulario_clima())
+        despues = _textos(ent2)
+        caps2 = [c for c in ent2["caps"] if despues[c["cap"]] != antes.get(c["cap"])]
+        cambiados = [c["cap"] for c in caps2]
+        v2 = nv.verificar_caps(caps2, nv.archivo_b(ent2), ent2["disputas"], post=post, log=log)
+        log.append(f"  [verificación] re-verificados {cambiados}: {len(v2['contradice'])} contradice · US$ {v2['usd']:.4f}")
+        finales = part["narracion_v3"]["parrafos"]
+        ya = set()
+        for f in filas:
+            if f["hecho"] is not None:                  # rechazada o sin ubicar: el texto no cambió
+                ya |= {ev.norm(y["texto"]) for y in v2["contradice"] if y.get("texto") and ev.norm(y["texto"]) == ev.norm(f["texto"] or "")}
+                continue
+            txt = ev.norm(" ".join(p["texto"] for p in finales if int(p["cap"]) == int(f["cap"].replace("ch", ""))))
+            sigue = [y for y in v2["contradice"] if y["cap"] == f["cap"] and y.get("texto") and ev.norm(y["texto"]) in txt
+                     and set(y["ids"]) & set(f["ids"])]
+            sin_verificar = bool((v2["por_cap"].get(f["cap"]) or {}).get("error"))
+            f["hecho"] = ("corregida; la re-verificación falló ⚠" if sin_verificar else
+                          "sigue contradiciendo ⚠" if sigue else "corregida ✔")
+            f["sigue"] = sigue
+            ya |= {ev.norm(y["texto"]) for y in sigue}
+        nuevas_v2 = [y for y in v2["contradice"] if ev.norm(y.get("texto") or "") not in ya]
+    quedan = []
+    for f in filas:
+        if "✔" in str(f["hecho"]):
+            continue
+        for y in f.get("sigue") or [f]:
+            quedan.append({k: y.get(k) for k in ("cap", "oracion", "texto", "afirmacion", "ids", "fragmento")})
+    quedan += [{k: y.get(k) for k in ("cap", "oracion", "texto", "afirmacion", "ids", "fragmento")} for y in nuevas_v2]
+    finales = part["narracion_v3"]["parrafos"] if part else ps
+    acortados = [p["beat"] for p, q in zip(parrafos or [], carga["parrafos"]) if p.get("texto") != q.get("texto")]
+    res = {"narracion_md5_antes": md5_antes, "narracion_md5_despues": _md5(), "primera": v1, "ediciones": ediciones, "filas": filas,
+           "caps_cambiados": cambiados, "re_verificacion": v2, "nuevas": nuevas_v2, "quedan": quedan,
+           "acortados_por_la_particion": acortados, "usd_verificador": round(v1["usd"] + ((v2 or {}).get("usd") or 0.0), 5)}
+    (d / "01b_verificacion.json").write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
+    (d / "01b_verificacion.md").write_text(_verificacion_md(res), encoding="utf-8")
+    fg = d / "01b_guionista_v4.json"
+    if fg.exists():
+        g = json.loads(fg.read_text(encoding="utf-8"))
+        g["verificacion"] = {"parrafos": finales, "filas": filas, "quedan": quedan}
+        fg.write_text(json.dumps(g, ensure_ascii=False, indent=2), encoding="utf-8")
+    if quedan:
+        aviso = nv.aviso_txt(quedan)
+        log.append(f"  [verificación] {aviso}")
+        print(f"  [v4] {aviso}")
+    return {**res, "particion": part}
+
+
+def verificar_narracion(topic_id: str) -> int:
+    """F66 `--verificar-narracion`: `run_verificacion` + `run_pantalla` sobre la narración ya escrita, sin volver a llamar
+    al guionista (el camino para un topic viejo). El juez m05 no corre acá. Devuelve el exit code; termina en la PARADA del
+    papel."""
+    from script_engine import guion_v4 as g4
+    f = STEPS_DIR / topic_id / "01b_guionista_v4.json"
+    if not f.exists():
+        raise Parada(f"{topic_id}: no hay guion ({f}): --verificar-narracion corre sobre una narración ya escrita")
+    parrafos = (json.loads(f.read_text(encoding="utf-8")).get("reparacion") or {}).get("parrafos") or []
+    topic = _topic_v3(topic_id)
+    pool = topic["evidence_pool"]
+    esc = _load_step_output(topic_id, "01a_escaleta.json")
+    call = g4.call_for(g4.DEFAULT_MODELO_GUION)
+    log: list[str] = []
+    _step_cost(topic_id, "verificacion", lambda: run_verificacion(topic_id, parrafos, topic, esc, pool, call=call, log=log))
+    run_pantalla(topic_id, pool, log)
+    print("\n".join(log))
+    print(f"\n  ⏸  {parada_del_papel(topic_id)}")
+    return 0
+
+
 def run_guion_v4(topic_id: str, modelo: str | None = None, editor: bool = False) -> dict:
     """F11: m01b v4: guionista v4 (UNA llamada) → reparación (una ronda: cap, oración, fechas, editor) → m01d_particion
-    → juez m05. Escribe 01b_guionista_v4 (texto, bloqueantes antes/después, pasos), 01a_skeleton, 01b_narration,
-    01b_narracion_v3 y 06_judge_narrative. Si quedan bloqueantes, se reportan (no hay segunda ronda).
+    → verificación de la narración (F66) → papel → juez m05. Escribe 01b_guionista_v4 (texto, bloqueantes antes/después,
+    pasos), 01a_skeleton, 01b_narration, 01b_narracion_v3, 01b_verificacion y 06_judge_narrative. Si quedan bloqueantes,
+    se reportan (no hay segunda ronda).
     F11b: `modelo` (`--modelo`) = el de toda la cadena v4 (guionista + reparación); la partición y el juez, los de
     siempre.
     F27: `editor` (`--editor`) = la pasada del editor m01c en la reparación (fuera del camino por defecto)."""
@@ -478,6 +655,10 @@ def run_guion_v4(topic_id: str, modelo: str | None = None, editor: bool = False)
     (d / "01b_guionista_v4.json").write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
     part = _step_cost(topic_id, "particion", lambda: md.particionar(topic, esc, r["parrafos"], pool, log=log,
                                                                      shorten=md.editor_shorten()))
+    # F66: el papel ancla por oración: tiene que ver la narración final; el juez también recibe la partición final
+    verif = _step_cost(topic_id, "verificacion", lambda: run_verificacion(topic_id, r["parrafos"], topic, esc, pool, call=call,
+                                                                          log=log))
+    part = verif["particion"] or part
     pantalla = run_pantalla(topic_id, pool, log)                 # F36 §C: después de la partición, antes de la voz
     judge = judge_narration(topic_id, pool=pool, narration=part["narration"], skeleton=part["skeleton"])
     print("\n".join(log[-12:]))
@@ -485,7 +666,7 @@ def run_guion_v4(topic_id: str, modelo: str | None = None, editor: bool = False)
         print(f"  [v4] {out['nota_b']}")
     if r["parada"]:
         print(f"  [v4] quedan {len(r['bloqueantes_despues'])} bloqueante(s) después de la ronda única: PARADA")
-    return {"guionista": g, "reparacion": r, "particion": part, "pantalla": pantalla, "juez": judge}
+    return {"guionista": g, "reparacion": r, "particion": part, "verificacion": verif, "pantalla": pantalla, "juez": judge}
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -930,7 +1111,18 @@ def main():
     parser.add_argument("--aprobar-papel", dest="aprobar_papel", type=str, default=None, metavar='"QUIÉN FECHA"',
                         help="F39 §A.4: escribe `aprobado: {por, fecha, md5}` en _steps/<id>/01e_pantalla.json (la "
                              "compuerta antes de la voz: sin eso, nada corre después de m01b) y no corre nada más")
+    parser.add_argument("--verificar-narracion", dest="verificar_narracion", action="store_true",
+                        help="F66: verificador de la narración + corrección + papel nuevo sobre la narración ya escrita de "
+                             "--topic, sin volver a llamar al guionista; termina en la PARADA del papel")
     args = parser.parse_args()
+    if args.verificar_narracion:                            # F66: un camino propio, no arrastra la cadena
+        if not args.topic:
+            parser.error("--verificar-narracion necesita --topic")
+        try:
+            sys.exit(verificar_narracion(args.topic))
+        except Parada as e:
+            print(f"  ⏸  {e}")
+            sys.exit(2)
     if args.aprobar_papel is not None:                      # F39 §A.4: solo aprueba
         if not args.topic:
             parser.error("--aprobar-papel necesita --topic")

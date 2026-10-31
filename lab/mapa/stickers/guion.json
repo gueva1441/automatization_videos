@@ -1,7 +1,7 @@
 {
  "_nota": "F42 §B: stickers de la zona guion, escritos por los workers (Sonnet) que leyeron cada archivo entero; `md5` = el del archivo leído (`mapa_modulos.py --check` avisa si cambió). `_parte` = el worker.",
  "fase1_5.py": {
-  "sticker": "Es el director de la Fase 1: de un tema con el research hecho arma, en orden, la compuerta del pool, la ficha del caso, el canon visual desde la ficha (F50), la escaleta, el guion v4 con su reparación, la partición en 7 capítulos y el guion de pantalla en papel, y se detiene en la PARADA del papel hasta que Omar lo aprueba (`--aprobar-papel`, con md5). Ya aprobado, sigue con la normalización de la voz, la voz, la música, el canon visual si la ficha cambió, los prompts de imagen, la foto madre y el ensamblado del contrato data/scripts/<id>.json que lee la Fase 2.",
+  "sticker": "Es el director de la Fase 1: de un tema con el research hecho arma, en orden, la compuerta del pool, la ficha del caso, el canon visual desde la ficha (F50), la escaleta, el guion v4 con su reparación, la partición en 7 capítulos y el guion de pantalla en papel, y se detiene en la PARADA del papel hasta que Omar lo aprueba (`--aprobar-papel`, con md5). Ya aprobado, sigue con la normalización de la voz, la voz, la música, el canon visual si la ficha cambió, los prompts de imagen, la foto madre y el ensamblado del contrato data/scripts/<id>.json que lee la Fase 2. F66: después de la partición y antes del papel, la verificación de la narración (run_verificacion: el verificador por cap, una ronda de corrección de lo que contradice el archivo, re-partición y re-verificación de los caps cambiados); lo que no se corrige es aviso y la cadena sigue. `--verificar-narracion` la corre sobre una narración ya escrita, sin llamar al guionista.",
   "recibe": "data/topics_db.json (topic con evidence_pool v3), data/scripts/_steps/<id>/ (_perfil.json, escaleta_notas.md, ficha_caso.json, 01a_escaleta.json, 01e_pantalla.json), data/seeds_archive.json (título de la semilla), una semilla .json con --semilla, output/audio/<id>/sync_map.json al reanudar",
   "entrega": "data/scripts/_steps/<id>/ (01a_escaleta, 01b_guionista_v4, 01a_skeleton, 01b_narration, 01b_narracion_v3, 06_judge_narrative, 01e_pantalla.json/.md, 01_v3_costos.json con los pasos ficha, canon y m03, 05_visual_canon.json, aprobado con md5 dentro de 01e_pantalla.json); el canon visual con canon_ficha_md5 (md5 de ficha + pedido del canon + modelo + esfuerzo, F50f; Parada si el canon no sale o trae años de tramo ilegibles) en topics_db; audio y sync_map de la voz (output/audio/<id>/), music_map, prompts de imagen de m03, la foto madre en topics_db y data/scripts/<id>.json",
   "modelo": [
@@ -42,7 +42,7 @@
   "estado": "vivo",
   "estado_prueba": "run_pipeline.py:301 lo lanza en guion (--batch), :325 en papel (--aprobar-papel) y :334 en voz (--from normalizer_gate --batch)",
   "funciones_muertas": [],
-  "md5": "0a95b2107f558e112a904ca4cae730ef",
+  "md5": "dd3ded0089db1e9f2d6fdbb1c6e6f900",
   "_parte": "guion_b"
  },
  "script_engine/guion_v3_reglas.py": {
@@ -60,7 +60,7 @@
   "_parte": "guion_a"
  },
  "script_engine/guion_v4.py": {
-  "sticker": "Escribe la narración del video: manda a un modelo la escaleta (con los loops declarados y qué pregunta paga cada beat) y los datos de cada capítulo y recibe los párrafos de voz. Después revisa lo que escribió (cifras o citas inventadas, rol equivocado de quien habla, contaminación de otros casos, capítulos vacíos, el dato del cierre que el cap 7 no dice, una misma cita dicha en dos capítulos, un pago declarado que la voz no dice; para un dato sin cifra ni fecha, la segunda opinión la da Sonnet por dicho_verificador y, si dice que sí, el dato entra a los ids del párrafo), repara en una sola ronda corrigiendo solo las frases con problema y reemplaza las fechas repetidas por «ese día». Al final calcula métricas de lectura que nunca rechazan (entre ellas, años dichos, datos por minuto, lo que confirmó Sonnet y lo que costó).",
+  "sticker": "Escribe la narración del video: manda a un modelo la escaleta (con los loops declarados y qué pregunta paga cada beat) y los datos de cada capítulo y recibe los párrafos de voz. Después revisa lo que escribió (cifras o citas inventadas, rol equivocado de quien habla, contaminación de otros casos, capítulos vacíos, el dato del cierre que el cap 7 no dice, una misma cita dicha en dos capítulos, un pago declarado que la voz no dice; para un dato sin cifra ni fecha, la segunda opinión la da Sonnet por dicho_verificador y, si dice que sí, el dato entra a los ids del párrafo), repara en una sola ronda corrigiendo solo las frases con problema y reemplaza las fechas repetidas por «ese día». Al final calcula métricas de lectura que nunca rechazan (entre ellas, años dichos, datos por minuto, lo que confirmó Sonnet y lo que costó). F66: `edit_sentences` acepta `guard` y `cifras_ok` para la corrección de lo que contradice el archivo (por defecto, la guardia de siempre).",
   "recibe": "data/scripts/_steps/<id>/01a_escaleta.json, el pool de evidencia del topic y data/scripts/_steps/<id>/ficha_caso.json (el texto de cada dato sale de la ficha)",
   "entrega": "los párrafos del guion con sus ids y la lista de bloqueantes antes/después de reparar (fase1_5 los guarda en data/scripts/_steps/<id>/01b_guionista_v4.json); de ahí salen la partición en capítulos, el papel, la voz y la pantalla",
   "modelo": [
@@ -83,7 +83,7 @@
   "estado": "vivo",
   "estado_prueba": "fase1_5.py:424-430 (run_guion_v4 llama g4.call_for, g4.write, g4.reparar y g4.metricas); fase1_5.py:512 lo corre desde process_topic; fase1_5.py:430 también g4.nota_b",
   "funciones_muertas": [],
-  "md5": "819d8f8ecd78a4ed244c0e1a42452359",
+  "md5": "e77a1a90c716b1298868a130ccfca141",
   "_parte": "guion_a"
  },
  "script_engine/m01a_columna.py": {
@@ -199,7 +199,7 @@
   "_parte": "guion_b"
  },
  "script_engine/m01d_particion.py": {
-  "sticker": "Reparte los párrafos del guion en los 7 capítulos con su largo en caracteres (mueve o acorta el último párrafo de un cap que se pasa; desde F56 el párrafo del re-gancho no se mueve de cap y, si se acorta, su oración tiene que quedar entera, como ya pasaba con el pico), le pone título a cada capítulo con una llamada corta a Gemini (con título de respaldo si falla) y arma el contrato de 7 caps con etiquetas de voz que lee todo lo de río abajo. También trae el retoque quirúrgico de un cap (regenerate_cap_v3) que usa la reparación del guion v4.",
+  "sticker": "Reparte los párrafos del guion en los 7 capítulos con su largo en caracteres (mueve o acorta el último párrafo de un cap que se pasa; desde F56 el párrafo del re-gancho no se mueve de cap y, si se acorta, su oración tiene que quedar entera, como ya pasaba con el pico), le pone título a cada capítulo con una llamada corta a Gemini (con título de respaldo si falla) y arma el contrato de 7 caps con etiquetas de voz que lee todo lo de río abajo. También trae el retoque quirúrgico de un cap (regenerate_cap_v3) que usa la reparación del guion v4. F66: `particionar(title_list=…)` conserva los títulos en la re-partición.",
   "recibe": "los párrafos del guion v4 ya reparados, la escaleta (01a_escaleta), el evidence_pool del topic",
   "entrega": "data/scripts/_steps/<id>/01a_skeleton.json, 01b_narration.json y 01b_narracion_v3.json (narración por cap y por beat, títulos, narration_tts)",
   "modelo": [
@@ -224,13 +224,13 @@
     "por_que": "nadie la llama: guion_v4.py:16 y :1022 solo la nombran en comentarios («patrón de m01d.cut_phrases») y ningún test ni string de producción la usa"
    }
   ],
-  "md5": "fb9a47d8d6e8bc59b8c40ed7bf755b0f",
+  "md5": "94fa8939fb2fdb006f16511e42d6c956",
   "_parte": "guion_b"
  },
  "script_engine/m01e_pantalla.py": {
   "sticker": "Escribe el guion de pantalla en papel: para cada beat del video decide qué ficha de texto (un dato, una cita, un nombre o un lugar del archivo del caso) y qué palabra de clima aparecen en pantalla y sobre qué oración de la voz, más los relojes de fechas. Una sola llamada a Claude Opus con toda la narración, la escaleta (con la promesa del gancho y las disputas de la ficha del caso) y el archivo entero con el fragmento original de cada fuente; después el código valida en papel lo mecánico (candado de cifras y nombres, respaldo literal, que quepa, una por beat) y, F64, cada coincidencia con la voz (la voz ya lo dice, lo adelanta, lo contradice, fecha posterior al relato) va como marca a UNA llamada a un verificador (pantalla_verificador) que decide hecho por hecho; lo que cae vuelve al autor en vueltas de reintento parcial hasta que no hay motivos nuevos (sin tope en dólares). Deja el papel para que Omar lo apruebe antes de pagar la voz; la Fase 2 lo consume.",
   "recibe": "data/scripts/_steps/<id>/01a_escaleta.json, 01b_narracion_v3.json (párrafos por cap y beat), 01a_skeleton.json (títulos de cap), 00_pool_v3.json (el pool entero: D, T, Q, P y L), ficha_caso.json (versiones y contradicciones → disputas; opcional); voces ya generadas del narrador (segundos por palabra); vocabulario de clima",
-  "entrega": "data/scripts/_steps/<id>/01e_pantalla.json (el papel, que luego se aprueba con md5; las fichas que el verificador salvó llevan juicio_verificador), 01e_pantalla.md (para que lo lea Omar: fichas, lo que cayó, sección Verificador, vueltas y cierre), 01e_pantalla.raw.json (caché: respuestas del autor y cada pedido/respuesta del verificador por pedido_md5); suma su costo (autor + verificador) al 01_v3_costos.json (paso «pantalla») vía fase1_5.run_pantalla",
+  "entrega": "data/scripts/_steps/<id>/01e_pantalla.json (el papel, que luego se aprueba con md5; las fichas que el verificador salvó llevan juicio_verificador), 01e_pantalla.md (para que lo lea Omar: fichas, lo que cayó, sección Verificador, vueltas y cierre), 01e_pantalla.raw.json (caché: respuestas del autor y cada pedido/respuesta del verificador por pedido_md5); suma su costo (autor + verificador) al 01_v3_costos.json (paso «pantalla») vía fase1_5.run_pantalla · F66: si la verificación de la narración dejó contradicciones sin resolver, `aviso_narracion` en el papel y al final del .md",
   "modelo": [
    {
     "modelo": "claude-opus-5-5 (constante MODELO, esfuerzo medium; Messages API de Anthropic vía claude_helpers._post) — F64 Etapa 0, antes Sonnet 5.5",
@@ -249,7 +249,7 @@
   "estado": "vivo",
   "estado_prueba": "fase1_5.py:236 (run_pantalla llama mp.generar, dentro de run_guion_v4); la Fase 2 lo lee por script_engine/pantalla_entrada.py (_texto_item, TIPO_DE_ESTILO, cargar_papel) y fase2b.py usa editar (--plan-edit, a mano); validar/llamar llaman a script_engine/pantalla_verificador.verificar (F64)",
   "funciones_muertas": [],
-  "md5": "46fa44b50cbc4c13906e5060f7c7d4d6",
+  "md5": "49536323025d5f36d6ab48f2d80c792d",
   "_parte": "guion_b"
  },
  "script_engine/name_matching.py": {

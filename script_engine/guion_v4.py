@@ -1229,10 +1229,14 @@ PEDIDO_E = ("La cita va SIN el nombre: reemplazá el nombre por su rol como vien
             "un ingeniero) o por «alguien que estuvo ahí». No saques la oración.")   # F27 §A.2
 
 
-def edit_sentences(p: dict, problems: list[dict], *, call: Callable[..., dict]) -> tuple[str, str]:
+def edit_sentences(p: dict, problems: list[dict], *, call: Callable[..., dict], guard: tuple[str, ...] | None = None,
+                   cifras_ok: str | None = None) -> tuple[str, str]:
     """Edición sobre las oraciones con bloqueante (patrón de m01d.cut_phrases): sacar o corregir esas frases, nada
-    más. Devuelve (texto nuevo o el mismo, motivo si no se aceptó)."""
-    from script_engine.m01c_editor import lexical_guard
+    más. Devuelve (texto nuevo o el mismo, motivo si no se aceptó).
+    F66 §2.3: `guard` = lo que mide la guardia léxica (por defecto, todo: la reparación no cambia) y `cifras_ok` = un
+    texto cuyas cifras no cuentan como nuevas (por defecto, ninguno). La corrección de lo que contradice el archivo usa
+    REGEN_GUARD (sin adjetivos) y las cifras de los datos del problema."""
+    from script_engine.m01c_editor import GUARD_ALL, lexical_guard
     # F27 §A.2: con el motivo (e) (cita sin verificar con nombre) se quita el nombre y la oración se queda
     lines = "\n".join(f"- «{x['frase']}» → {x['motivo']}" + (f" {PEDIDO_E}" if x.get("codigo") == "e" else "")
                       for x in problems)
@@ -1249,7 +1253,9 @@ PÁRRAFO:
     new = ev.fix_glued_caps(str(raw.get("texto") or "").strip())
     if not new or new == p["texto"]:
         return p["texto"], "sin cambio"
-    lg = lexical_guard(p["texto"], new)
+    checks = GUARD_ALL if guard is None else tuple(guard)
+    lg = lexical_guard(f"{p['texto']} {cifras_ok}" if cifras_ok else p["texto"], new, ("cifras",)) if "cifras" in checks else []
+    lg += lexical_guard(p["texto"], new, tuple(c for c in checks if c != "cifras"))
     if lg:
         return p["texto"], "guardia léxica: " + "; ".join(lg)
     targets = {ev.norm(x["frase"]) for x in problems}

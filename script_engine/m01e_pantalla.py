@@ -1203,6 +1203,11 @@ def a_markdown(p: dict[str, Any]) -> str:
               + (f" — **{d['verificado']}**" if d.get("verificado") else "")
               + (f" — verificador: {d['verificador']}" if d.get("verificador") else "")
               for d in p["descartados"] if d.get("quien") == "modelo"] or ["- (ninguno)"]
+    if p.get("aviso_narracion"):                      # F66: al final, donde Omar ya lee: la cadena siguió con esto
+        from script_engine.narracion_verificador import aviso_txt
+        lines += ["", "## ⚠ Aviso de la verificación de la narración", "", aviso_txt(p["aviso_narracion"]), ""]
+        lines += [f"- {q.get('cap')} [{q.get('oracion')}] «{q.get('texto')}»: {q.get('afirmacion')} · {', '.join(q.get('ids') or [])}"
+                  f" · «{q.get('fragmento')}»" for q in p["aviso_narracion"]]
     return "\n".join(lines) + "\n"
 
 
@@ -1218,6 +1223,10 @@ def generar(topic_id: str, steps_dir: Path | None = None, *, pool: dict | None =
     ent["_pool"] = carga["pool"]
     res = llamar(ent, carga["dir"], post=post, log=log)
     papel = armar(ent, res)
+    from script_engine.narracion_verificador import leer_quedan   # F66: lo que la narración sigue contradiciendo
+    quedan = leer_quedan(carga["dir"])
+    if quedan:
+        papel["aviso_narracion"] = quedan
     (carga["dir"] / f"{ARCHIVO}.json").write_text(json.dumps(papel, ensure_ascii=False, indent=1), encoding="utf-8")
     (carga["dir"] / f"{ARCHIVO}.md").write_text(a_markdown(papel), encoding="utf-8")
     log.append(f"  m01e: {sum(1 for b in papel['beats'] if b['ficha'])} fichas · "
