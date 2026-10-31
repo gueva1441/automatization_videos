@@ -64,6 +64,48 @@
   .btn-assemble:hover:not(:disabled){filter:brightness(1.07);} .btn-assemble:active{transform:scale(.98);}
   .btn-assemble:disabled{opacity:.55;cursor:wait;}
 
+
+  /* ── F65b: el QA del papel ── */
+  .btn-papel{font-weight:700;font-size:14px;letter-spacing:.04em;white-space:nowrap;color:var(--ink2);background:rgba(255,255,255,.06);
+    padding:13px 20px;border-radius:13px;cursor:pointer;border:1px solid rgba(255,255,255,.16);font-family:var(--display);}
+  .btn-papel:hover{border-color:var(--cyan);} .btn-papel.on{border-color:var(--cyan);background:rgba(34,211,238,.12);}
+  .pp-head{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;margin:22px 0 8px;padding:16px 18px;
+    border-radius:14px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);}
+  .pp-estado{font-family:var(--display);font-weight:700;font-size:16px;} .pp-estado.ok{color:var(--teal);} .pp-estado.no{color:var(--amber);}
+  .pp-meta{font-family:var(--mono);font-size:11.5px;color:var(--dim);margin-top:5px;}
+  .pp-aprobar{display:flex;gap:8px;align-items:center;}
+  .pp-in{background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.16);border-radius:8px;color:var(--ink2);font-size:13px;padding:7px 10px;font-family:inherit;}
+  .pp-in.ancho{width:100%;box-sizing:border-box;margin-bottom:6px;}
+  .pp-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:8px;color:var(--ink);font-size:12px;padding:6px 11px;cursor:pointer;font-family:var(--mono);}
+  .pp-btn:hover:not(:disabled){border-color:var(--cyan);} .pp-btn:disabled{opacity:.5;cursor:wait;}
+  .pp-btn.pri{background:var(--grad);color:#0a0a12;font-weight:700;border:none;} .pp-btn.on{border-color:var(--teal);color:var(--teal);}
+  .pp-btn.mal{border-color:var(--red);color:var(--red);}
+  .pp-aviso{margin:10px 0;padding:11px 14px;border-radius:10px;border:1px solid rgba(245,165,36,.45);background:rgba(245,165,36,.08);color:var(--amber);font-size:12.5px;line-height:1.5;}
+  .pp-cap{font-family:var(--display);font-weight:700;font-size:18px;color:var(--ink2);margin:26px 0 10px;}
+  .pp-cap small{font-family:var(--mono);font-weight:400;font-size:11px;color:var(--dim2);margin-right:8px;}
+  .pp-beat{padding:14px 16px;border-radius:13px;background:rgba(255,255,255,.028);border:1px solid rgba(255,255,255,.07);margin-bottom:10px;}
+  .pp-beat.rev{border-color:rgba(45,212,191,.42);}
+  .pp-bh{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.03em;margin-bottom:8px;}
+  .pp-or{font-family:var(--serif);font-size:15px;line-height:1.5;color:var(--ink);margin-bottom:10px;}
+  .pp-or mark{background:rgba(34,211,238,.26);color:var(--ink2);padding:0 3px;border-radius:3px;}
+  .pp-rojo{color:var(--red);font-family:var(--mono);font-size:11.5px;margin-bottom:8px;}
+  .pp-ficha{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;padding:12px 14px;border-left:3px solid var(--violet);background:rgba(0,0,0,.28);border-radius:0 10px 10px 0;margin-bottom:8px;}
+  .pp-et{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--cyan);margin-bottom:4px;}
+  .pp-tx{font-family:var(--display);font-weight:700;font-size:19px;line-height:1.25;color:var(--ink2);}
+  .pp-au{font-size:12px;color:var(--dim);margin-top:4px;}
+  .pp-med{font-family:var(--mono);font-size:11px;color:var(--dim);text-align:right;white-space:nowrap;}
+  .pp-med b{color:var(--teal);font-weight:600;} .pp-med b.mal{color:var(--red);}
+  .pp-ap{font-size:12.5px;font-style:italic;color:var(--dim);margin:4px 0;}
+  .pp-jv{font-size:12px;color:var(--teal);margin:4px 0;} .pp-sello{font-family:var(--mono);font-size:11.5px;color:var(--amber);margin:4px 0;}
+  .pp-sello span{color:var(--dim);}
+  .pp-acc{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-top:10px;}
+  .pp-desc{margin-top:9px;font-size:12px;color:var(--dim);} .pp-desc summary{cursor:pointer;font-family:var(--mono);font-size:11px;}
+  .pp-desc li{margin:5px 0;line-height:1.45;} .pp-desc code{color:var(--cyan);font-family:var(--mono);font-size:11px;}
+  .pp-alts{margin-top:10px;padding:11px 13px;border-radius:10px;border:1px dashed rgba(34,211,238,.4);}
+  .pp-alts h5{margin:0 0 8px;font-family:var(--mono);font-size:11px;font-weight:500;color:var(--cyan);}
+  .pp-caida{opacity:.5;font-size:12px;margin:6px 0;line-height:1.4;}
+  .pp-rel{font-family:var(--mono);font-size:11px;color:var(--dim2);margin:8px 2px 0;}
+
   /* ── rail ── */
   .rail{display:flex;gap:11px;margin-top:20px;overflow-x:auto;padding-bottom:4px;}
   .pill{flex:0 0 138px;cursor:pointer;padding:14px 16px;border-radius:16px;transition:all .18s;
@@ -255,6 +297,7 @@
     </div>
     <div class="asm-side">
       <div class="asm-sub" id="asmSub">gate fase 2.5</div>
+      <button class="btn-papel" id="papelBtn" onclick="showPapel()">📄 PAPEL</button>
       <button class="btn-assemble" id="asmBtn"><span style="font-size:13px">▶</span>&nbsp;&nbsp;ENSAMBLAR VIDEO</button>
     </div>
   </div>
@@ -331,6 +374,7 @@ async function boot(){
     $('capsSummary').textContent = CAPS.length+' capítulos';
     renderRail();
     if(CAPS.length) selectCap(CAPS[0].cap);
+    else showPapel();                        // F65b: el papel se aprueba antes de la voz: sin caps todavía, se abre el papel
   }catch(e){ $('view').innerHTML=`<div class="err">No pude cargar /caps: ${e.message}</div>`; }
 }
 
@@ -357,6 +401,7 @@ function renderRail(){
 function markActive(cap){ document.querySelectorAll('.pill').forEach(p=>p.classList.toggle('active',p.dataset.cap===cap)); }
 
 async function selectCap(cap){
+  papelOn(false);
   // HANDOFF_135 — card MINIATURAS: no es un cap real → panel embebido, sin fetch /cap ni audio.
   if(cap==='__thumbs__'){
     stopPlayback(); curCap=cap; markActive(cap);
@@ -884,6 +929,139 @@ async function pollAssemble(){
   }catch(e){/* reintenta */}
 }
 function toast(msg){ const t=$('toast'); t.innerHTML=`<div class="toast">✓ ${esc(msg)}</div>`; setTimeout(()=>t.innerHTML='',3200); }
+
+/* ════════ F65b: EL QA DEL PAPEL ════════
+   La verdad es el disco: después de cada acción la vista se recarga de GET /papel. Lo único en memoria: el formulario abierto,
+   la confirmación de «quitar» y las alternativas de «sugerir» que Omar todavía no eligió. */
+let PAPEL=null, ppSug={}, ppEdit=null, ppQuitar=null, ppPoll=null, ppError='';
+const ppK=(cap,beat)=>cap+'|'+beat;
+function papelOn(on){ $('papelBtn').classList.toggle('on',on); }
+async function showPapel(){
+  if(typeof stopPlayback==='function') stopPlayback();
+  curCap='__papel__'; markActive('__papel__'); papelOn(true);
+  await ppCargar();
+}
+async function ppCargar(){
+  try{ PAPEL=await (await fetch('/papel')).json(); }
+  catch(e){ $('view').innerHTML=`<div class="err">No pude cargar /papel: ${esc(e.message)}</div>`; return; }
+  if(curCap==='__papel__') ppRender();
+}
+async function ppPost(ruta,body){
+  const r=await fetch(ruta,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const j=await r.json().catch(()=>({}));
+  if(!r.ok) throw new Error(j.error||('HTTP '+r.status));
+  return j;
+}
+async function ppAccion(ruta,body){
+  ppError='';
+  try{ const j=await ppPost(ruta,body); await ppCargar(); return j; }
+  catch(e){ ppError=e.message; ppRender(); }
+}
+function ppResaltar(oracion,palabra){
+  const t=String(oracion||''), w=String(palabra||'').trim();
+  if(!w) return esc(t);
+  const i=t.toLowerCase().indexOf(w.toLowerCase());
+  return i<0 ? esc(t) : esc(t.slice(0,i))+'<mark>'+esc(t.slice(i,i+w.length))+'</mark>'+esc(t.slice(i+w.length));
+}
+function ppFichaHtml(f){
+  const car=f.caracteres, cab=f.caben, mal=(car!=null&&cab!=null&&car>cab);
+  const jv=f.juicio_verificador;
+  return `<div class="pp-ficha"><div>
+      <div class="pp-et">${esc(f.etiqueta)}</div><div class="pp-tx">${esc(f.texto)}</div>
+      ${f.autor?`<div class="pp-au">— ${esc(f.autor)}</div>`:''}
+    </div><div class="pp-med"><b class="${mal?'mal':''}">${car==null?'—':car} / ${cab==null?'—':cab}</b><br>${esc(f.estilo||'')}<br>${esc(f.pool_id)}${f.editado?'<br>editada':''}</div></div>
+    ${f.aporta?`<div class="pp-ap">${esc(f.aporta)}</div>`:''}
+    ${jv?`<div class="pp-jv">✔ verificador: ${esc(jv.motivo||'')}</div>`:''}`;
+}
+function ppAltsHtml(b){
+  const k=ppK(b.cap,b.beat), st=ppSug[k];
+  if(!st) return '';
+  if(st.running) return `<div class="pp-alts"><h5>💡 sugiriendo… (≈ US$ 0,14 a 0,47; el costo real al terminar)</h5></div>`;
+  if(st.error) return `<div class="pp-alts"><div class="err" style="padding:0">${esc(st.error)}</div><div class="pp-acc"><button class="pp-btn" onclick="ppNinguna('${b.cap}',${b.beat})">Cerrar</button></div></div>`;
+  const r=st.result, alts=r.alternativas||[], cae=r.descartadas||[];
+  return `<div class="pp-alts"><h5>💡 ${alts.length} alternativa(s) · US$ ${(r.usd||0).toFixed(4)} (autor ${(r.usd_autor||0).toFixed(4)} + verificador ${(r.usd_verificador||0).toFixed(4)})${r.error?' · '+esc(r.error):''}</h5>
+    ${alts.map((f,i)=>`<div class="pp-or">${ppResaltar(f.oracion,f.palabra)}</div>${ppFichaHtml(f)}
+      <div class="pp-acc" style="margin:0 0 14px"><button class="pp-btn pri" onclick="ppUsar('${b.cap}',${b.beat},${i})">Usar esta</button></div>`).join('')}
+    ${cae.map(d=>`<div class="pp-caida">✕ ${esc((d.ficha||{}).pool_id)} «${esc((d.ficha||{}).etiqueta)} · ${esc((d.ficha||{}).texto)}»: ${esc(d.motivo)}</div>`).join('')}
+    <div class="pp-acc"><button class="pp-btn" onclick="ppNinguna('${b.cap}',${b.beat})">Ninguna</button></div></div>`;
+}
+function ppBeatHtml(b){
+  const f=b.ficha, k=ppK(b.cap,b.beat), corriendo=Object.values(ppSug).some(x=>x&&x.running);
+  let cuerpo;
+  if(!f) cuerpo='<div class="pp-rojo" style="color:var(--dim)">sin ficha</div>';
+  else if(ppEdit===k) cuerpo=`<div class="pp-or">${ppResaltar(f.oracion,f.palabra)}</div>
+      <input class="pp-in ancho" id="ppEt" value="${esc(f.etiqueta)}" placeholder="etiqueta"><input class="pp-in ancho" id="ppTx" value="${esc(f.texto)}" placeholder="dato">
+      ${f.autor?`<input class="pp-in ancho" id="ppAu" value="${esc(f.autor)}" placeholder="autor">`:''}
+      <div class="pp-acc"><button class="pp-btn pri" onclick="ppGuardar('${b.cap}',${b.beat})">Guardar</button><button class="pp-btn" onclick="ppEdit=null;ppRender()">Cancelar</button></div>`;
+  else cuerpo=`<div class="pp-or">${ppResaltar(f.oracion,f.palabra)}</div>
+      ${f.palabra_en_oracion===false?`<div class="pp-rojo">⚠ la palabra «${esc(f.palabra)}» no está en la oración</div>`:''}${ppFichaHtml(f)}`;
+  const sello=b.sello?`<div class="pp-sello">sello <b>${esc(b.sello.palabra)}</b> <span>en «${esc(b.sello.oracion)}»</span></div>`:'';
+  const vacio=(b.a_pantalla_vacio||[]).map(x=>`<div class="pp-aviso" style="margin:6px 0">⚠ sin su a_pantalla ${esc(x.id)}: ${esc(x.por_que)}</div>`).join('');
+  const desc=b.descartes||[];
+  const quitar=ppQuitar===k?`<span class="pp-rojo" style="margin:0">¿Quitar esta ficha?</span><button class="pp-btn mal" onclick="ppQuitarSi('${b.cap}',${b.beat})">Sí, quitar</button><button class="pp-btn" onclick="ppQuitar=null;ppRender()">No</button>`
+    :`<button class="pp-btn" onclick="ppQuitar='${k}';ppRender()">✕ Quitar</button>`;
+  const acc=f&&ppEdit!==k?`<button class="pp-btn ${b.revisado?'on':''}" onclick="ppAccion('/papel/revisar',{cap:'${b.cap}',beat:${b.beat},on:${!b.revisado}})">✓ ${b.revisado?'Revisada':'Aprobar ficha'}</button>
+      <button class="pp-btn" onclick="ppEdit='${k}';ppRender()">✎ Editar texto</button>${quitar}`:'';
+  return `<div class="pp-beat ${b.revisado?'rev':''}" id="beat-${b.cap}-${b.beat}">
+    <div class="pp-bh">beat ${b.beat} · ${esc(b.funcion)}${b.pico?' · ⚡ pico':''}${b.revisado?' · ✓ revisada':''}</div>
+    ${cuerpo}${sello}${vacio}
+    <div class="pp-acc">${acc}<button class="pp-btn" ${corriendo?'disabled':''} onclick="ppSugerir('${b.cap}',${b.beat})">💡 Sugerir</button></div>
+    ${ppAltsHtml(b)}
+    ${desc.length?`<details class="pp-desc"><summary>descartes del autor en este beat (${desc.length})</summary><ul>${desc.map(d=>`<li><code>${esc(d.pool_id)}</code> ${esc(d.texto)} · <i>${esc(d.tipo)}</i> · ${esc(d.motivo)}</li>`).join('')}</ul></details>`:''}
+  </div>`;
+}
+function ppRender(){
+  const p=PAPEL;
+  if(!p||p.sin_papel){ $('view').innerHTML='<div class="empty">Este topic no tiene guion de pantalla en papel todavía.</div>'; return; }
+  const ap=p.aprobado_por, ok=p.estado.aprobado;
+  const avisos=(p.aviso_narracion||[]);
+  const quien=$('ppQuien')?$('ppQuien').value:((ap&&ap.por)||'');
+  $('view').innerHTML=`<div class="pp-head"><div>
+      <div class="pp-estado ${ok?'ok':'no'}">${ok?`✓ Aprobado por ${esc(ap.por)} (${esc(ap.fecha)})`:(ap?'⚠ Aprobación invalidada':'Sin aprobar')}</div>
+      <div class="pp-meta">${esc(ok?('md5 '+p.md5.slice(0,8)+'…'):p.estado.motivo)}</div>
+      <div class="pp-meta">${esc(p.modelo||'')} ${esc(p.prompt_version||'')} · US$ ${(p.usd||0).toFixed(4)} · cierre: ${esc(p.cierre||'—')} · ${p.revisadas} de ${p.fichas} fichas revisadas</div>
+    </div><div class="pp-aprobar"><input class="pp-in" id="ppQuien" placeholder="quién aprueba" value="${esc(quien)}"><button class="pp-btn pri" onclick="ppAprobar()">Aprobar papel</button></div></div>
+    ${ppError?`<div class="err">${esc(ppError)}</div>`:''}
+    ${avisos.length?`<div class="pp-aviso"><b>⚠ La narración sigue contradiciendo el archivo:</b><br>${avisos.map(q=>`${esc(q.cap)} [${esc(String(q.oracion))}] «${esc(q.texto)}»: ${esc(q.afirmacion)} (${esc((q.ids||[]).join(', '))})`).join('<br>')}</div>`:''}
+    ${(p.caps||[]).map(c=>`<div class="pp-cap"><small>${esc(c.cap)}</small>${esc(c.titulo)}</div>
+      ${p.beats.filter(b=>b.cap===c.cap).map(ppBeatHtml).join('')}
+      ${(()=>{const r=(p.relojes||[]).filter(x=>x.cap===c.cap);return r.length?`<div class="pp-rel">🕑 ${r.map(x=>`${esc(x.fecha)} · ${esc(x.oracion||'')}`).join('<br>🕑 ')}</div>`:'';})()}`).join('')}
+    ${(p.sin_beat||[]).length?`<details class="pp-desc" style="margin-top:20px"><summary>descartes del autor sin beat (${p.sin_beat.length})</summary><ul>${p.sin_beat.map(d=>`<li><code>${esc(d.pool_id)}</code> ${esc(d.texto)} · <i>${esc(d.tipo)}</i> · ${esc(d.motivo)}</li>`).join('')}</ul></details>`:''}`;
+}
+async function ppAprobar(){
+  const por=($('ppQuien').value||'').trim();
+  if(!por){ ppError='Falta quién aprueba.'; ppRender(); return; }
+  await ppAccion('/papel/aprobar',{por});
+  if(!ppError) toast('Papel aprobado. Nada más corrió: ni voz ni fotos.');
+}
+async function ppGuardar(cap,beat){
+  const b=PAPEL.beats.find(x=>x.cap===cap&&x.beat===beat), f=b.ficha;
+  const ficha={pool_id:f.pool_id,sentence_idx:f.sentence_idx,palabra:f.palabra,etiqueta:$('ppEt').value.trim(),texto:$('ppTx').value.trim()};
+  if($('ppAu')) ficha.autor=$('ppAu').value.trim();
+  ppEdit=null;
+  await ppAccion('/papel/editar',{cap,beat,ficha});
+}
+async function ppQuitarSi(cap,beat){ ppQuitar=null; await ppAccion('/papel/editar',{cap,beat,ficha:null}); }
+function ppNinguna(cap,beat){ delete ppSug[ppK(cap,beat)]; ppRender(); }
+async function ppUsar(cap,beat,i){
+  const k=ppK(cap,beat), ficha=ppSug[k].result.alternativas[i];
+  delete ppSug[k];
+  await ppAccion('/papel/editar',{cap,beat,ficha});
+}
+async function ppSugerir(cap,beat){
+  const k=ppK(cap,beat);
+  ppError='';
+  try{ await ppPost('/papel/sugerir',{cap,beat}); }catch(e){ ppError=e.message; ppRender(); return; }
+  ppSug[k]={running:true}; ppRender();
+  if(ppPoll) clearInterval(ppPoll);
+  ppPoll=setInterval(async()=>{
+    let s; try{ s=await (await fetch('/papel/sugerir_status')).json(); }catch(e){ return; }
+    if(s.running) return;
+    clearInterval(ppPoll); ppPoll=null;
+    ppSug[k]=s.error?{error:s.error}:{result:s.result};
+    if(curCap==='__papel__') ppRender();
+  },1500);
+}
 
 boot();
 </script>
