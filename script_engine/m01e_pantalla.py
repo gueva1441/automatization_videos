@@ -35,7 +35,9 @@ costo en 01_v3_costos.json como los demás pasos) o suelto: `python -m script_en
                muestra si sus nombres propios están en el archivo (`autor_mostrado`, `autor_origen`), si no el del archivo.
     validar    (§C.3, sin tiempos ni fotos, con los filtros de pantalla_filtros) por ficha: anclaje (cap, beat, ítem y
                oración que existen; la oración es del beat), formato (etiqueta en 1 línea y dato en 2, gfx_project.
-               ficha_medida), F37 §A.1b fecha del relato (el año del ítem contra el último año que dijo la voz) y §A.1c
+               ficha_medida), F37 §A.1b fecha del relato (el año del ítem contra el año del relato: F64 Etapa 2, el
+               máximo que la voz dijo en el cap hasta la oración, sin los beats flash-forward; heredado del cap anterior
+               mientras el cap no dijo ninguno) y §A.1c
                cita sin fecha (su autor en la oración o una vecina), candado (números, nombres y años literales en el
                texto del ítem; en el gancho vale la voz de todo el video), no dicho (oración ancla ± 1; en el gancho,
                una cifra del dato que la voz dice en cualquier oración del video: F40 §A, ya no corta en seco) y
@@ -224,7 +226,8 @@ def entrada(carga: dict[str, Any], vocabulario: list[str], seg: dict[str, Any] |
               "pico": int(b["n"]) == picos.get(int(b["cap"])), "dato_central": str(b.get("dato_central") or ""),
               "apoyo": [str(x) for x in b.get("datos_apoyo") or []], "cierre": str(b.get("cierre") or "").strip(),
               "emocion": b.get("emocion"), "imagen_sensorial": b.get("imagen_sensorial"),
-              "pregunta_abierta": b.get("pregunta_abierta"), "paga": b.get("paga")}
+              "pregunta_abierta": b.get("pregunta_abierta"), "paga": b.get("paga"),
+              "flash_forward": bool(b.get("flash_forward"))}      # F64 Etapa 2: lo lee `momentos`; el autor no lo ve
              for b in beats_esc]
     cuentan: dict[str, list[int]] = {}
     for b in beats:
@@ -270,11 +273,13 @@ def entrada(carga: dict[str, Any], vocabulario: list[str], seg: dict[str, Any] |
 
 
 def _para_modelo(ent: dict[str, Any]) -> dict[str, Any]:
-    """Lo que ve el autor: caps, beats, archivo, clima y (F64 Etapa 0) `escaleta_video` y `disputas`, en ese orden."""
+    """Lo que ve el autor: caps, beats (sin `flash_forward`, que es del código), archivo, clima y (F64 Etapa 0)
+    `escaleta_video` y `disputas`, en ese orden (el md5 del USER depende del orden)."""
     return {"caps": [{"cap": c["cap"], "titulo": c["titulo"],
                       "oraciones": [{k: s[k] for k in ("idx", "beat", "texto", "caben")} for s in c["oraciones"]]}
                      for c in ent["caps"]],
-            "beats": ent["beats"], "archivo": ent["archivo"], "clima": ent["clima"],
+            "beats": [{k: v for k, v in b.items() if k != "flash_forward"} for b in ent["beats"]],
+            "archivo": ent["archivo"], "clima": ent["clima"],
             "escaleta_video": ent.get("escaleta_video") or {}, "disputas": ent.get("disputas") or {}}
 
 
@@ -304,19 +309,33 @@ def _voz_video(ent: dict[str, Any]) -> list[str]:
     return [s["texto"] for c in ent["caps"] for s in c["oraciones"]]
 
 
-def momentos(ent: dict[str, Any]) -> dict[tuple[str, int], int | None]:
-    """F37 §A.1b: el momento del relato en cada oración = el último año que la voz dijo en el video hasta ella (incluida;
-    arrastra de los caps anteriores; años en cifras o en letras, voz_utils.anios_dichos). Por año: las fechas relativas
-    («tres días después») no se parsean. None mientras la voz no dijo ningún año."""
-    out: dict[tuple[str, int], int | None] = {}
-    ultimo = None
+def momentos_detalle(ent: dict[str, Any]) -> dict[tuple[str, int], dict[str, Any]]:
+    """F64 Etapa 2 (HANDOFF_F64 §Etapa 2; reemplaza «el último año que dijo la voz» de F37 §A.1b): el año del relato en
+    cada oración = el MÁXIMO año que la voz dijo en ese cap hasta la oración (incluida), sin contar las oraciones de
+    los beats con `flash_forward: true` de la escaleta (el gancho que salta al final); mientras el cap no dijo ninguno,
+    el valor del cap anterior, heredado, que NO entra al máximo (en cuanto el cap dice su primer año, el relato es el
+    máximo de los años de ese cap solamente). Años en cifras o en letras (voz_utils.anios_dichos); las fechas relativas
+    («tres días después») no se parsean. Por oración: {anio (None mientras nadie dijo ninguno), cap, idx (la oración
+    donde la voz dijo ese año máximo; la del cap anterior si es heredado), heredado}."""
+    ff = {b["n"] for b in ent["beats"] if b.get("flash_forward")}
+    out: dict[tuple[str, int], dict[str, Any]] = {}
+    heredado: dict[str, Any] = {"anio": None, "cap": None, "idx": None}
     for c in ent["caps"]:
+        mejor: dict[str, Any] | None = None
         for s in c["oraciones"]:
-            ys = anios_dichos(s["texto"], ent.get("anios"))
-            if ys:
-                ultimo = ys[-1]
-            out[(c["cap"], s["idx"])] = ultimo
+            if s["beat"] not in ff:
+                for y in anios_dichos(s["texto"], ent.get("anios")):
+                    if mejor is None or y > mejor["anio"]:
+                        mejor = {"anio": y, "cap": c["cap"], "idx": s["idx"]}
+            out[(c["cap"], s["idx"])] = {**(mejor or heredado), "heredado": mejor is None}
+        if mejor is not None:
+            heredado = mejor
     return out
+
+
+def momentos(ent: dict[str, Any]) -> dict[tuple[str, int], int | None]:
+    """El año del relato por oración (F64 Etapa 2, `momentos_detalle`): {(cap, idx): año | None}."""
+    return {k: v["anio"] for k, v in momentos_detalle(ent).items()}
 
 
 def autor_en(autor: str, rol: str, texto: str) -> bool:
@@ -632,8 +651,8 @@ def _validar_ficha(fi: dict, cap: str, nb: int | None, b: dict | None, slot: dic
     anio, ahora = anio_de((it or {}).get("fecha")), mom.get((cap, si))
     testimonio = bool((it or {}).get("testimonio"))
     if anio and ahora and anio > ahora and not testimonio and not dice_anio(anio, vecinas, ent.get("anios")):
-        return (f"{pid} es de {anio} y en la oración [{si}] el relato va por {ahora} (el último año que dijo la voz); "
-                f"ni la oración ni sus vecinas lo sitúan después", "fecha_relato", None)
+        return (f"{pid} es de {anio} y en la oración [{si}] el relato va por {ahora} (el año más alto que la voz dijo en "
+                f"el cap hasta ahí); ni la oración ni sus vecinas lo sitúan después", "fecha_relato", None)
     # F37 §A.1c: una cita sin fecha (y que no es testimonio) vale solo si su autor está en la oración o en una vecina
     if x["id"][:1] == "Q" and not anio and not testimonio and not autor_en(autor_arch, x.get("rol") or "", vecinas):
         return (f"cita sin fecha: su autor («{autor_arch}», {x.get('rol') or 'sin rol'}) no aparece en la oración "

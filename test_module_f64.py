@@ -7,6 +7,8 @@ producción.
              de m01e-6 con la oración 2 de F63 A.2 (md5 85d094be…); Opus medium, m01e-7.
     Etapa 1  sin tope en dólares: no quedan TopePantalla, tope_usd, _peor_usd ni «tope» en el raw/.json/.md; gfx_config
              ya no acepta la clave `costos`; chascada: importar error_handler en un proceso nuevo no crea logs/*.log.
+    Etapa 2  (d) `momentos` por máximo del cap: un recuerdo de un año anterior no baja el relato; el cap sin año hereda
+             el del anterior; el heredado no entra al máximo; las oraciones del beat flash-forward no cuentan.
 Sin API. Un video chico armado acá (nada de data/).
 """
 from __future__ import annotations
@@ -87,7 +89,8 @@ def test_e1_todo_el_pool_entra_al_archivo_con_contexto_fuente_al_final(ent):
 def test_e2_beats_escaleta_video_y_disputas_en_orden(ent):
     b1 = ent["beats"][0]
     assert list(b1) == ["n", "cap", "funcion", "pico", "dato_central", "apoyo", "cierre", "emocion", "imagen_sensorial",
-                        "pregunta_abierta", "paga"]                    # (b) después de `cierre`, en ese orden
+                        "pregunta_abierta", "paga", "flash_forward"]   # (b) después de `cierre`, en ese orden (+ Etapa 2)
+    assert b1["flash_forward"] is True and ent["beats"][1]["flash_forward"] is False
     assert (b1["emocion"], b1["paga"]) == ("vértigo", "beat 2") and ent["beats"][1]["paga"] is None
     pm = mp._para_modelo(ent)
     assert list(pm) == ["caps", "beats", "archivo", "clima", "escaleta_video", "disputas"]      # (c)
@@ -186,3 +189,60 @@ def test_e1_chascada_importar_error_handler_no_crea_log(tmp_path):
     out = r.stdout.strip().splitlines()
     assert out[0] == "NUEVOS [] TMP []", out                          # ni el import ni construir el handler crean archivos
     assert out[1].startswith("ESCRITO ['pipeline_"), out              # y cuando sí escribe, el archivo existe
+
+
+# ═══════════════════════ Etapa 2 (d): el año del relato ═══════════════════════
+
+def _ent_anios() -> dict:
+    """Cuatro caps: ch01 gancho flash-forward (dice 2024); ch02 1961, 1962, recuerda 1950; ch03 sin año (hereda);
+    ch04 hereda 1962 y después dice 1943 (el heredado no entra al máximo)."""
+    pool = {"datos": [{"id": "D1", "texto": "La presa mide 266 metros.", "fuente": "F", "fecha": "1930"},
+                      {"id": "D2", "texto": "Murieron 2000 personas.", "fuente": "F", "fecha": "2026"}],
+            "cronologia": [], "personajes": [], "lugares": [], "citas": []}
+    beats = [{"n": 1, "cap": 1, "funcion": "gancho", "dato_central": "", "datos_apoyo": [], "flash_forward": True},
+             {"n": 2, "cap": 2, "funcion": "planteo", "dato_central": "", "datos_apoyo": []},
+             {"n": 3, "cap": 3, "funcion": "escalada", "dato_central": "", "datos_apoyo": []},
+             {"n": 4, "cap": 4, "funcion": "giro", "dato_central": "", "datos_apoyo": []}]
+    pars = [{"cap": 1, "beat": 1, "texto": "Hoy, en 2024, el valle sigue vacío. Nadie volvió."},
+            {"cap": 2, "beat": 2, "texto": "El baile fue en 1961. Se casaron en 1962. El acuerdo venía desde 1950. "
+                                           "Cruzaron el mar."},
+            {"cap": 3, "beat": 3, "texto": "El agua sube. La montaña se mueve."},
+            {"cap": 4, "beat": 4, "texto": "Nadie miraba. En 1943 la empresa compró la mina. En 1948 llegó un médico."}]
+    carga = {"topic_id": "t", "dir": Path("."), "titulos": {1: "", 2: "", 3: "", 4: ""}, "pool": pool, "ficha_caso": None,
+             "escaleta": {"pico": {"beat": 4}, "a_pantalla": [], "beats": beats}, "parrafos": pars}
+    e = mp.entrada(carga, CLIMA, SEG)
+    e["_pool"] = pool
+    return e
+
+
+def test_d1_momentos_maximo_del_cap_herencia_y_flash_forward():
+    e = _ent_anios()
+    assert [b["flash_forward"] for b in e["beats"]] == [True, False, False, False]
+    m = mp.momentos(e)
+    assert m[("ch01", 0)] is None and m[("ch01", 1)] is None            # el 2024 del gancho flash-forward no cuenta
+    assert m[("ch02", 0)] == 1961 and m[("ch02", 1)] == 1962
+    assert m[("ch02", 2)] == 1962                                       # el recuerdo de 1950 no baja el relato (máximo)
+    assert m[("ch02", 3)] == 1962
+    assert m[("ch03", 0)] == 1962 and m[("ch03", 1)] == 1962            # hereda mientras no dice ninguno
+    assert m[("ch04", 0)] == 1962                                       # heredado…
+    assert m[("ch04", 1)] == 1943                                       # …que NO entra al máximo: el cap manda
+    assert m[("ch04", 2)] == 1948
+    d = mp.momentos_detalle(e)
+    assert d[("ch03", 0)] == {"anio": 1962, "cap": "ch02", "idx": 1, "heredado": True}
+    assert d[("ch02", 2)] == {"anio": 1962, "cap": "ch02", "idx": 1, "heredado": False}
+    assert d[("ch01", 0)] == {"anio": None, "cap": None, "idx": None, "heredado": True}
+
+
+def test_d2_fecha_relato_usa_el_maximo_y_el_gancho_queda_libre():
+    e = _ent_anios()
+    # D2 (2026) en el gancho: sin año de relato → el filtro no actúa (el gancho puede traer cualquier dato)
+    g = {"beats": [{"cap": "ch01", "beat": 1, "ficha": {"pool_id": "D2", "sentence_idx": 1, "palabra": "Nadie",
+                                                        "etiqueta": "HOY", "texto": "2000 muertos", "respaldo": "2000 personas",
+                                                        "autor": None, "aporta": "x"}, "sello": None}]}
+    v = mp.validar(g, e)
+    assert not [d for d in v["descartados"] if d.get("regla") == "fecha_relato"]
+    # D2 (2026) en ch02 [3]: relato 1962 → cae por fecha_relato, y el motivo dice la regla nueva
+    f = {"beats": [{"cap": "ch02", "beat": 2, "ficha": {**g["beats"][0]["ficha"], "sentence_idx": 3, "palabra": "mar"},
+                    "sello": None}]}
+    d = next(d for d in mp.validar(f, e)["descartados"] if d.get("pool_id") == "D2")
+    assert d["regla"] == "fecha_relato" and "1962" in d["motivo"] and "año más alto" in d["motivo"]
