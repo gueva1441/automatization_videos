@@ -1,0 +1,520 @@
+{
+ "cap": "ch07",
+ "corrida": 1,
+ "modelo": "claude-opus-5-5",
+ "effort": "medium",
+ "system_md5": "ce31cc515a077d74da72479e9693296e",
+ "user_md5": "fc17fdc6b9b3c17e65cd0f4ab5252855",
+ "oraciones": [
+  {
+   "idx": 0,
+   "texto": "Maitland Parker era Banjima, y esa tierra era la suya."
+  },
+  {
+   "idx": 1,
+   "texto": "En 2023, Marcos Orellana visitó Australia y lo entrevistó sobre la contaminación y el daño que no se iba."
+  },
+  {
+   "idx": 2,
+   "texto": "«Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él», dijo Parker."
+  },
+  {
+   "idx": 3,
+   "texto": "Las barricadas que cortan la entrada al desfiladero siguen puestas."
+  },
+  {
+   "idx": 4,
+   "texto": "Maitland Parker murió de mesotelioma en 2024."
+  },
+  {
+   "idx": 5,
+   "texto": "En 2026, Gordon Legal anunció un proceso ante el Tribunal Federal contra Australia Occidental en nombre de BNTAC, por la tierra Banjima."
+  },
+  {
+   "idx": 6,
+   "texto": "La prensa habla de una reclamación de mil quinientos millones de dólares australianos."
+  },
+  {
+   "idx": 7,
+   "texto": "Los abogados sostienen que el Estado no ha gastado dinero en remediar el sitio y que no se ha retirado una sola palada de asbesto de la tierra Banjima."
+  },
+  {
+   "idx": 8,
+   "texto": "El gobierno de Australia Occidental habla de un «grave problema de salud y seguridad pública»."
+  },
+  {
+   "idx": 9,
+   "texto": "Quién sabía está escrito: dos inspectores en 1944, un médico al que llamaron alborotador en 1948, un tribunal que entró al molino en 1957."
+  },
+  {
+   "idx": 10,
+   "texto": "La mina siguió hasta que dejó de dar dinero."
+  },
+  {
+   "idx": 11,
+   "texto": "La palada, todavía nadie."
+  },
+  {
+   "idx": 12,
+   "texto": "Daniel Écija vivió diez meses en Wittenoom."
+  },
+  {
+   "idx": 13,
+   "texto": "Nadie en su familia sabe decir qué respiró allí."
+  },
+  {
+   "idx": 14,
+   "texto": "Wittenoom ya no está en el mapa."
+  },
+  {
+   "idx": 15,
+   "texto": "¿Qué respiró en diez meses que tardó casi treinta años en matarlo?"
+  }
+ ],
+ "intentos": [
+  {
+   "texto": "```json\n{\"cap\": \"ch07\", \"afirmaciones\": [\n{\"oracion\": 0, \"afirmacion\": \"Maitland Parker era Banjima.\", \"estado\": \"respaldada\", \"ids\": [\"T92\", \"P13\"], \"fragmento\": null},\n{\"oracion\": 0, \"afirmacion\": \"La tierra de Wittenoom era tierra Banjima, la de Parker.\", \"estado\": \"respaldada\", \"ids\": [\"D52\", \"L14\"], \"fragmento\": null},\n{\"oracion\": 1, \"afirmacion\": \"En 2023 Marcos Orellana visitó Australia.\", \"estado\": \"respaldada\", \"ids\": [\"T92\"], \"fragmento\": null},\n{\"oracion\": 1, \"afirmacion\": \"Orellana entrevistó a Parker sobre la contaminación y el daño continuo en Wittenoom.\", \"estado\": \"respaldada\", \"ids\": [\"T92\"], \"fragmento\": null},\n{\"oracion\": 2, \"afirmacion\": \"Parker dijo: «Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él».\", \"estado\": \"respaldada\", \"ids\": [\"Q10\"], \"fragmento\": null},\n{\"oracion\": 3, \"afirmacion\": \"Hay barricadas permanentes que cortan la entrada al desfiladero de Wittenoom.\", \"estado\": \"respaldada\", \"ids\": [\"D42\"], \"fragmento\": null},\n{\"oracion\": 4, \"afirmacion\": \"Maitland Parker murió de mesotelioma en 2024.\", \"estado\": \"respaldada\", \"ids\": [\"T96\"], \"fragmento\": null},\n{\"oracion\": 5, \"afirmacion\": \"En 2026 Gordon Legal inició un proceso ante el Tribunal Federal contra Australia Occidental en nombre de BNTAC.\", \"estado\": \"respaldada\", \"ids\": [\"T98\", \"D62\"], \"fragmento\": null},\n{\"oracion\": 5, \"afirmacion\": \"El proceso se refiere al daño causado a la tierra Banjima.\", \"estado\": \"respaldada\", \"ids\": [\"D62\", \"D74\"], \"fragmento\": null},\n{\"oracion\": 6, \"afirmacion\": \"La prensa informa de una reclamación de 1.500 millones de dólares australianos.\", \"estado\": \"respaldada\", \"ids\": [\"D95\"], \"fragmento\": null},\n{\"oracion\": 7, \"afirmacion\": \"Los abogados sostienen que el Estado no ha gastado dinero en remediar el sitio.\", \"estado\": \"respaldada\", \"ids\": [\"D70\"], \"fragmento\": null},\n{\"oracion\": 7, \"afirmacion\": \"Los abogados sostienen que no se ha retirado una sola palada de asbesto de la tierra Banjima.\", \"estado\": \"respaldada\", \"ids\": [\"D71\"], \"fragmento\": null},\n{\"oracion\": 8, \"afirmacion\": \"El gobierno de Australia Occidental habla de un «grave problema de salud y seguridad pública» en torno a Wittenoom.\", \"estado\": \"respaldada\", \"ids\": [\"Q34\"], \"fragmento\": null},\n{\"oracion\": 9, \"afirmacion\": \"En 1944 dos inspectores informaron sobre el problema del polvo.\", \"estado\": \"contradice\", \"ids\": [\"D19\", \"T09\"], \"fragmento\": \"the Mines Inspector and the Assistant State Mining Engineer reported on the dust issue as early as 1944\"},\n{\"oracion\": 9, \"afirmacion\": \"En 1948 a un médico que advirtió del peligro lo llamaron alborotador.\", \"estado\": \"respaldada\", \"ids\": [\"Q46\", \"D92\", \"T19\"], \"fragmento\": null},\n{\"oracion\": 9, \"afirmacion\": \"En 1957 un tribunal constató las condiciones dentro del molino.\", \"estado\": \"respaldada\", \"ids\": [\"T26\", \"Q54\"], \"fragmento\": null},\n{\"oracion\": 10, \"afirmacion\": \"La mina funcionó hasta que cerró por razones económicas.\", \"estado\": \"respaldada\", \"ids\": [\"D22\", \"T44\"], \"fragmento\": null},\n{\"oracion\": 11, \"afirmacion\": \"Todavía no se ha retirado ninguna palada de asbesto.\", \"estado\": \"respaldada\", \"ids\": [\"D71\"], \"fragmento\": null},\n{\"oracion\": 12, \"afirmacion\": \"Daniel Écija vivió unos diez meses en Wittenoom.\", \"estado\": \"respaldada\", \"ids\": [\"D87\"], \"fragmento\": null},\n{\"oracion\": 13, \"afirmacion\": \"Nadie en la familia de Daniel Écija sabe decir qué respiró en Wittenoom.\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null},\n{\"oracion\": 14, \"afirmacion\": \"Wittenoom fue eliminado de los mapas oficiales.\", \"estado\": \"respaldada\", \"ids\": [\"D31\", \"D81\"], \"fragmento\": null}\n]}\n```",
+   "respuesta": {
+    "cap": "ch07",
+    "afirmaciones": [
+     {
+      "oracion": 0,
+      "afirmacion": "Maitland Parker era Banjima.",
+      "estado": "respaldada",
+      "ids": [
+       "T92",
+       "P13"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 0,
+      "afirmacion": "La tierra de Wittenoom era tierra Banjima, la de Parker.",
+      "estado": "respaldada",
+      "ids": [
+       "D52",
+       "L14"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "En 2023 Marcos Orellana visitó Australia.",
+      "estado": "respaldada",
+      "ids": [
+       "T92"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "Orellana entrevistó a Parker sobre la contaminación y el daño continuo en Wittenoom.",
+      "estado": "respaldada",
+      "ids": [
+       "T92"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "Parker dijo: «Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él».",
+      "estado": "respaldada",
+      "ids": [
+       "Q10"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "Hay barricadas permanentes que cortan la entrada al desfiladero de Wittenoom.",
+      "estado": "respaldada",
+      "ids": [
+       "D42"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "Maitland Parker murió de mesotelioma en 2024.",
+      "estado": "respaldada",
+      "ids": [
+       "T96"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "En 2026 Gordon Legal inició un proceso ante el Tribunal Federal contra Australia Occidental en nombre de BNTAC.",
+      "estado": "respaldada",
+      "ids": [
+       "T98",
+       "D62"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "El proceso se refiere al daño causado a la tierra Banjima.",
+      "estado": "respaldada",
+      "ids": [
+       "D62",
+       "D74"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 6,
+      "afirmacion": "La prensa informa de una reclamación de 1.500 millones de dólares australianos.",
+      "estado": "respaldada",
+      "ids": [
+       "D95"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "Los abogados sostienen que el Estado no ha gastado dinero en remediar el sitio.",
+      "estado": "respaldada",
+      "ids": [
+       "D70"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "Los abogados sostienen que no se ha retirado una sola palada de asbesto de la tierra Banjima.",
+      "estado": "respaldada",
+      "ids": [
+       "D71"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "El gobierno de Australia Occidental habla de un «grave problema de salud y seguridad pública» en torno a Wittenoom.",
+      "estado": "respaldada",
+      "ids": [
+       "Q34"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "En 1944 dos inspectores informaron sobre el problema del polvo.",
+      "estado": "contradice",
+      "ids": [
+       "D19",
+       "T09"
+      ],
+      "fragmento": "the Mines Inspector and the Assistant State Mining Engineer reported on the dust issue as early as 1944"
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "En 1948 a un médico que advirtió del peligro lo llamaron alborotador.",
+      "estado": "respaldada",
+      "ids": [
+       "Q46",
+       "D92",
+       "T19"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "En 1957 un tribunal constató las condiciones dentro del molino.",
+      "estado": "respaldada",
+      "ids": [
+       "T26",
+       "Q54"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 10,
+      "afirmacion": "La mina funcionó hasta que cerró por razones económicas.",
+      "estado": "respaldada",
+      "ids": [
+       "D22",
+       "T44"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 11,
+      "afirmacion": "Todavía no se ha retirado ninguna palada de asbesto.",
+      "estado": "respaldada",
+      "ids": [
+       "D71"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 12,
+      "afirmacion": "Daniel Écija vivió unos diez meses en Wittenoom.",
+      "estado": "respaldada",
+      "ids": [
+       "D87"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 13,
+      "afirmacion": "Nadie en la familia de Daniel Écija sabe decir qué respiró en Wittenoom.",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 14,
+      "afirmacion": "Wittenoom fue eliminado de los mapas oficiales.",
+      "estado": "respaldada",
+      "ids": [
+       "D31",
+       "D81"
+      ],
+      "fragmento": null
+     }
+    ]
+   },
+   "usage": {
+    "input_tokens": 66136,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 3394,
+    "service_tier": "standard",
+    "inference_geo": "global",
+    "speed": "standard",
+    "output_tokens_details": {
+     "thinking_tokens": 1685
+    }
+   },
+   "stop": "end_turn",
+   "usd": 0.33242,
+   "segundos": 30.3
+  }
+ ],
+ "respuesta": {
+  "cap": "ch07",
+  "afirmaciones": [
+   {
+    "oracion": 0,
+    "afirmacion": "Maitland Parker era Banjima.",
+    "estado": "respaldada",
+    "ids": [
+     "T92",
+     "P13"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 0,
+    "afirmacion": "La tierra de Wittenoom era tierra Banjima, la de Parker.",
+    "estado": "respaldada",
+    "ids": [
+     "D52",
+     "L14"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 1,
+    "afirmacion": "En 2023 Marcos Orellana visitó Australia.",
+    "estado": "respaldada",
+    "ids": [
+     "T92"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 1,
+    "afirmacion": "Orellana entrevistó a Parker sobre la contaminación y el daño continuo en Wittenoom.",
+    "estado": "respaldada",
+    "ids": [
+     "T92"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 2,
+    "afirmacion": "Parker dijo: «Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él».",
+    "estado": "respaldada",
+    "ids": [
+     "Q10"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 3,
+    "afirmacion": "Hay barricadas permanentes que cortan la entrada al desfiladero de Wittenoom.",
+    "estado": "respaldada",
+    "ids": [
+     "D42"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 4,
+    "afirmacion": "Maitland Parker murió de mesotelioma en 2024.",
+    "estado": "respaldada",
+    "ids": [
+     "T96"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 5,
+    "afirmacion": "En 2026 Gordon Legal inició un proceso ante el Tribunal Federal contra Australia Occidental en nombre de BNTAC.",
+    "estado": "respaldada",
+    "ids": [
+     "T98",
+     "D62"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 5,
+    "afirmacion": "El proceso se refiere al daño causado a la tierra Banjima.",
+    "estado": "respaldada",
+    "ids": [
+     "D62",
+     "D74"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 6,
+    "afirmacion": "La prensa informa de una reclamación de 1.500 millones de dólares australianos.",
+    "estado": "respaldada",
+    "ids": [
+     "D95"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 7,
+    "afirmacion": "Los abogados sostienen que el Estado no ha gastado dinero en remediar el sitio.",
+    "estado": "respaldada",
+    "ids": [
+     "D70"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 7,
+    "afirmacion": "Los abogados sostienen que no se ha retirado una sola palada de asbesto de la tierra Banjima.",
+    "estado": "respaldada",
+    "ids": [
+     "D71"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 8,
+    "afirmacion": "El gobierno de Australia Occidental habla de un «grave problema de salud y seguridad pública» en torno a Wittenoom.",
+    "estado": "respaldada",
+    "ids": [
+     "Q34"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 9,
+    "afirmacion": "En 1944 dos inspectores informaron sobre el problema del polvo.",
+    "estado": "contradice",
+    "ids": [
+     "D19",
+     "T09"
+    ],
+    "fragmento": "the Mines Inspector and the Assistant State Mining Engineer reported on the dust issue as early as 1944"
+   },
+   {
+    "oracion": 9,
+    "afirmacion": "En 1948 a un médico que advirtió del peligro lo llamaron alborotador.",
+    "estado": "respaldada",
+    "ids": [
+     "Q46",
+     "D92",
+     "T19"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 9,
+    "afirmacion": "En 1957 un tribunal constató las condiciones dentro del molino.",
+    "estado": "respaldada",
+    "ids": [
+     "T26",
+     "Q54"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 10,
+    "afirmacion": "La mina funcionó hasta que cerró por razones económicas.",
+    "estado": "respaldada",
+    "ids": [
+     "D22",
+     "T44"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 11,
+    "afirmacion": "Todavía no se ha retirado ninguna palada de asbesto.",
+    "estado": "respaldada",
+    "ids": [
+     "D71"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 12,
+    "afirmacion": "Daniel Écija vivió unos diez meses en Wittenoom.",
+    "estado": "respaldada",
+    "ids": [
+     "D87"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 13,
+    "afirmacion": "Nadie en la familia de Daniel Écija sabe decir qué respiró en Wittenoom.",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "oracion": 14,
+    "afirmacion": "Wittenoom fue eliminado de los mapas oficiales.",
+    "estado": "respaldada",
+    "ids": [
+     "D31",
+     "D81"
+    ],
+    "fragmento": null
+   }
+  ]
+ },
+ "usage": {
+  "input_tokens": 66136,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "cache_creation": {
+   "ephemeral_5m_input_tokens": 0,
+   "ephemeral_1h_input_tokens": 0
+  },
+  "output_tokens": 3394,
+  "service_tier": "standard",
+  "inference_geo": "global",
+  "speed": "standard",
+  "output_tokens_details": {
+   "thinking_tokens": 1685
+  }
+ },
+ "usd": 0.33242,
+ "segundos": 30.3
+}

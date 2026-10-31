@@ -1,0 +1,431 @@
+{
+ "narracion_md5": "c7badfbe260f5eb24a47e780b40406b5",
+ "system_b_md5": "ce31cc515a077d74da72479e9693296e",
+ "archivo_items": 362,
+ "contrato": [
+  {
+   "cap": "ch01",
+   "idx_handoff": 1,
+   "idx_real": 1,
+   "oracion": "Ese pie va a cerrar; lo que respira mientras espera que cierre va a tardar casi treinta años en matarlo, y lo va a alcanzar a miles de kilómetros de aquí.",
+   "cuenta_como_encontrada": "contradice D85 («no se cerraba»)",
+   "corridas": {
+    "1": [
+     {
+      "afirmacion": "La herida del pie llegó a cerrar",
+      "estado": "contradice",
+      "ids": [
+       "D85"
+      ],
+      "fragmento": "Se le cayó un trozo de amianto en el pie y, extrañamente, fue una herida que no se cerraba nunca."
+     },
+     {
+      "afirmacion": "Lo que respiró en Wittenoom lo mató casi treinta años después",
+      "estado": "respaldada",
+      "ids": [
+       "T64",
+       "D89",
+       "D87"
+      ],
+      "fragmento": null
+     },
+     {
+      "afirmacion": "La enfermedad lo alcanzó a miles de kilómetros de Wittenoom",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     }
+    ],
+    "2": [
+     {
+      "afirmacion": "La herida del pie llegó a cerrar",
+      "estado": "contradice",
+      "ids": [
+       "D85"
+      ],
+      "fragmento": "Se le cayó un trozo de amianto en el pie y, extrañamente, fue una herida que no se cerraba nunca."
+     },
+     {
+      "afirmacion": "Lo que respiró en Wittenoom tardó casi treinta años en matarlo",
+      "estado": "respaldada",
+      "ids": [
+       "D87",
+       "T64",
+       "D89"
+      ],
+      "fragmento": null
+     },
+     {
+      "afirmacion": "Murió a miles de kilómetros de Wittenoom",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     }
+    ]
+   }
+  },
+  {
+   "cap": "ch01",
+   "idx_handoff": 2,
+   "idx_real": 2,
+   "oracion": "La foto es en blanco y negro.",
+   "cuenta_como_encontrada": "contradice Q25 (contexto_fuente «sepia family photos») o sin_respaldo",
+   "corridas": {
+    "1": [
+     {
+      "afirmacion": "La foto es en blanco y negro",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     }
+    ],
+    "2": [
+     {
+      "afirmacion": "La foto es en blanco y negro",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     }
+    ]
+   }
+  },
+  {
+   "cap": "ch06",
+   "idx_handoff": 10,
+   "idx_real": 10,
+   "oracion": "Hacia junio de 2007, según otras referencias en 2006, Wittenoom fue abolido oficialmente.",
+   "cuenta_como_encontrada": "respaldada con D31 o D30 en ids",
+   "corridas": {
+    "1": [
+     {
+      "afirmacion": "Wittenoom fue abolido oficialmente hacia junio de 2007; según otras referencias, en 2006.",
+      "estado": "respaldada",
+      "ids": [
+       "T80",
+       "D31",
+       "T71",
+       "D30"
+      ],
+      "fragmento": null
+     }
+    ],
+    "2": [
+     {
+      "afirmacion": "Wittenoom fue abolido oficialmente hacia junio de 2007; según otras referencias, en 2006.",
+      "estado": "respaldada",
+      "ids": [
+       "D31",
+       "T80",
+       "D30",
+       "T71"
+      ],
+      "fragmento": null
+     }
+    ]
+   }
+  },
+  {
+   "cap": "ch06",
+   "idx_handoff": 12,
+   "idx_real": 12,
+   "oracion": "El gobierno de Australia Occidental lo llamó «el fin de un período oscuro en la historia de nuestro Estado».",
+   "cuenta_como_encontrada": "contradice Q07 (fecha 2022)",
+   "corridas": {
+    "1": [
+     {
+      "afirmacion": "El gobierno de Australia Occidental llamó a la abolición del pueblo «el fin de un período oscuro en la historia de nuestro Estado».",
+      "estado": "contradice",
+      "ids": [
+       "Q07",
+       "T91"
+      ],
+      "fragmento": "Q07 (fecha 2022): \"The W.A. Government declared this was “an end to a dark period in our State's history.”\"; T91: \"In 2022, the last remaining residents of Wittenoom town were evicted ahead of its demolition in 2023.\""
+     }
+    ],
+    "2": [
+     {
+      "afirmacion": "El gobierno de Australia Occidental calificó la abolición del pueblo como «el fin de un período oscuro en la historia de nuestro Estado».",
+      "estado": "contradice",
+      "ids": [
+       "Q07",
+       "T91"
+      ],
+      "fragmento": "Q07 (fecha 2022): \"The W.A. Government declared this was “an end to a dark period in our State's history.”\"; T91: \"In 2022, the last remaining residents of Wittenoom town were evicted ahead of its demolition in 2023.\""
+     }
+    ]
+   }
+  }
+ ],
+ "contradice_en_ambas": [
+  {
+   "cap": "ch01",
+   "oracion": 1,
+   "ids": [
+    "D85"
+   ],
+   "corrida_1": "La herida del pie llegó a cerrar",
+   "corrida_2": "La herida del pie llegó a cerrar"
+  },
+  {
+   "cap": "ch01",
+   "oracion": 9,
+   "ids": [
+    "D149",
+    "D04"
+   ],
+   "corrida_1": "Los residuos siguen en el mismo lugar donde se depositaron",
+   "corrida_2": "Los residuos de la mina siguen en el mismo lugar donde se dejaron"
+  },
+  {
+   "cap": "ch03",
+   "oracion": 14,
+   "ids": [
+    "T13",
+    "D91"
+   ],
+   "corrida_1": "En 1946 ya había diagnósticos (plural) de asbestosis",
+   "corrida_2": "En 1946 ya había diagnósticos (varios) de asbestosis"
+  },
+  {
+   "cap": "ch04",
+   "oracion": 1,
+   "ids": [
+    "Q16"
+   ],
+   "corrida_1": "El hijo cuenta que en esa explosión murió alguien",
+   "corrida_2": "El hijo cuenta que en esa explosión murió alguien (una persona)"
+  },
+  {
+   "cap": "ch06",
+   "oracion": 12,
+   "ids": [
+    "Q07",
+    "T91"
+   ],
+   "corrida_1": "El gobierno de Australia Occidental llamó a la abolición del pueblo «el fin de un período oscuro en la historia de nuestro Estado».",
+   "corrida_2": "El gobierno de Australia Occidental calificó la abolición del pueblo como «el fin de un período oscuro en la historia de nuestro Estado»."
+  },
+  {
+   "cap": "ch07",
+   "oracion": 9,
+   "ids": [
+    "D19",
+    "T09"
+   ],
+   "ids_corrida_2": [
+    "D19"
+   ],
+   "corrida_1": "En 1944 dos inspectores informaron sobre el problema del polvo.",
+   "corrida_2": "En 1944 dos inspectores informaron sobre el
+[
+ {
+  "cap": "ch01",
+  "corrida": 1,
+  "json": true,
+  "afirmaciones": 18,
+  "respaldadas": 13,
+  "contradice": 2,
+  "sin_respaldo": 3,
+  "otros_estados": {},
+  "tokens_in": 65908,
+  "tokens_out": 3400,
+  "usd": 0.33163,
+  "segundos": 30.3,
+  "intentos": 1
+ },
+ {
+  "cap": "ch01",
+  "corrida": 2,
+  "json": true,
+  "afirmaciones": 16,
+  "respaldadas": 12,
+  "contradice": 2,
+  "sin_respaldo": 2,
+  "otros_estados": {},
+  "tokens_in": 65908,
+  "tokens_out": 2985,
+  "usd": 0.32333,
+  "segundos": 27.2,
+  "intentos": 1
+ },
+ {
+  "cap": "ch02",
+  "corrida": 1,
+  "json": true,
+  "afirmaciones": 26,
+  "respaldadas": 24,
+  "contradice": 0,
+  "sin_respaldo": 2,
+  "otros_estados": {},
+  "tokens_in": 66158,
+  "tokens_out": 3694,
+  "usd": 0.33851,
+  "segundos": 29.9,
+  "intentos": 1
+ },
+ {
+  "cap": "ch02",
+  "corrida": 2,
+  "json": true,
+  "afirmaciones": 26,
+  "respaldadas": 24,
+  "contradice": 0,
+  "sin_respaldo": 2,
+  "otros_estados": {},
+  "tokens_in": 66158,
+  "tokens_out": 3304,
+  "usd": 0.33071,
+  "segundos": 26.3,
+  "intentos": 1
+ },
+ {
+  "cap": "ch03",
+  "corrida": 1,
+  "json": true,
+  "afirmaciones": 35,
+  "respaldadas": 30,
+  "contradice": 1,
+  "sin_respaldo": 4,
+  "otros_estados": {},
+  "tokens_in": 67080,
+  "tokens_out": 7069,
+  "usd": 0.4097,
+  "segundos": 57.5,
+  "intentos": 1
+ },
+ {
+  "cap": "ch03",
+  "corrida": 2,
+  "json": true,
+  "afirmaciones": 42,
+  "respaldadas": 35,
+  "contradice": 2,
+  "sin_respaldo": 5,
+  "otros_estados": {},
+  "tokens_in": 67080,
+  "tokens_out": 7089,
+  "usd": 0.4101,
+  "segundos": 57.8,
+  "intentos": 1
+ },
+ {
+  "cap": "ch04",
+  "corrida": 1,
+  "json": true,
+  "afirmaciones": 27,
+  "respaldadas": 19,
+  "contradice": 1,
+  "sin_respaldo": 7,
+  "otros_estados": {},
+  "tokens_in": 66188,
+  "tokens_out": 4329,
+  "usd": 0.35133,
+  "segundos": 39.1,
+  "intentos": 1
+ },
+ {
+  "cap": "ch04",
+  "corrida": 2,
+  "json": true,
+  "afirmaciones": 28,
+  "respaldadas": 18,
+  "contradice": 1,
+  "sin_respaldo": 9,
+  "otros_estados": {},
+  "tokens_in": 66188,
+  "tokens_out": 4069,
+  "usd": 0.34613,
+  "segundos": 33.7,
+  "intentos": 1
+ },
+ {
+  "cap": "ch05",
+  "corrida": 1,
+  "json": true,
+  "afirmaciones": 31,
+  "respaldadas": 30,
+  "contradice": 0,
+  "sin_respaldo": 1,
+  "otros_estados": {},
+  "tokens_in": 66450,
+  "tokens_out": 5995,
+  "usd": 0.3857,
+  "segundos": 50.7,
+  "intentos": 1
+ },
+ {
+  "cap": "ch05",
+  "corrida": 2,
+  "json": true,
+  "afirmaciones": 30,
+  "respaldadas": 27,
+  "contradice": 0,
+  "sin_respaldo": 3,
+  "otros_estados": {},
+  "tokens_in": 66450,
+  "tokens_out": 4909,
+  "usd": 0.36398,
+  "segundos": 40.4,
+  "intentos": 1
+ },
+ {
+  "cap": "ch06",
+  "corrida": 1,
+  "json": true,
+  "afirmaciones": 24,
+  "respaldadas": 19,
+  "contradice": 1,
+  "sin_respaldo": 4,
+  "otros_estados": {},
+  "tokens_in": 66379,
+  "tokens_out": 3858,
+  "usd": 0.34268,
+  "segundos": 31.4,
+  "intentos": 1
+ },
+ {
+  "cap": "ch06",
+  "corrida": 2,
+  "json": true,
+  "afirmaciones": 25,
+  "respaldadas": 20,
+  "contradice": 1,
+  "sin_respaldo": 4,
+  "otros_estados": {},
+  "tokens_in": 66379,
+  "tokens_out": 4684,
+  "usd": 0.3592,
+  "segundos": 38.2,
+  "intentos": 1
+ },
+ {
+  "cap": "ch07",
+  "corrida": 1,
+  "json": true,
+  "afirmaciones": 21,
+  "respaldadas": 19,
+  "contradice": 1,
+  "sin_respaldo": 1,
+  "otros_estados": {},
+  "tokens_in": 66136,
+  "tokens_out": 3394,
+  "usd": 0.33242,
+  "segundos": 30.3,
+  "intentos": 1
+ },
+ {
+  "cap": "ch07",
+  "corrida": 2,
+  "json": true,
+  "afirmaciones": 22,
+  "respaldadas": 20,
+  "contradice": 1,
+  "sin_respaldo": 1,
+  "otros_estados": {},
+  "tokens_in": 66136,
+  "tokens_out": 3564,
+  "usd": 0.33582,
+  "segundos": 31.1,
+  "intentos": 1
+ }
+]

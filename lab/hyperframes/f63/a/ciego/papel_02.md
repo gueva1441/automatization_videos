@@ -1,0 +1,144 @@
+# Guion de pantalla en papel — 123bbb64-9fca-4395-8bf4-57d60e219ef1
+
+(encabezado quitado: copia a ciegas)
+
+(encabezado quitado: copia a ciegas)
+
+Totales: 8 fichas · 8 sellos · 3 relojes · 72 descartados
+
+## ch01 — La herida que no cerraba
+
+- beat 1 · gancho · PICO · ficha — ⚠ pico sin ficha · sello **AMENAZA** en [1]
+  - propuesta **D26** «LO QUE QUEDÓ DEL PUEBLO · El sitio contaminado más grande del hemisferio sur» en [7] → cortaría: **caben** — etiqueta 23 + dato 50 = 73 caracteres y en la oración [7] caben 71; en este beat caben como máximo 90 (oración [1])
+- relojes: —
+
+## ch02 — A la tierra roja
+
+- beat 2 · planteo · ficha — · sello **CALMA** en [4]
+  - propuesta **Q25** «POR QUÉ SE FUERON · En España no teníamos nada, ninguno de los dos.» en [2] → cortaría: **spoiler** — la voz lo dice en una oración posterior del cap o de un cap siguiente: ['2']
+- beat 3 · planteo · PICO · ficha **D83** [normal] «EL PACTO CON EL FRANQUISMO · Operación Canguro, en marcha desde 1958» en [7] sobre «acuerdo» (65/90 car.) · respaldo: «Un acuerdo migratorio entre el franquismo y Australia iniciado en 1958, llamado Operación Canguro» · año 1958 / relato 1950 · aporta: El nombre del acuerdo, su año de inicio y que lo firmó el franquismo. · sello —
+  - propuesta **D83** «EL PACTO CON EL FRANQUISMO · Operación Canguro, en marcha desde 1958» en [7] → pasa
+- relojes: 16 SEP 1961 en [0], 20 SEP 1962 en [4]
+
+## ch03 — Ignorar el veneno
+
+- beat 4 · planteo · ficha **D82** [normal] «LEJOS DE TODO · A unos 1.400 km de Perth» en [1] sobre «Pilbara» (37/40 car.) · respaldo: «a unos 1.400 kilómetros de Perth» · año — / relato 1962 · aporta: Qué tan aislado estaba el pueblo, en una distancia concreta. · sello —
+  - propuesta **D82** «LEJOS DE TODO · A unos 1.400 km de Perth» en [1] → pasa
+- beat 5 · escalada · PICO · ficha **D44** [normal] «SE SABÍA DESDE ANTES · 1930: el amianto causa asbestosis» en [11] sobre «informes» (53/61 car.) · respaldo: «de 1930 estableció que la asbestosis era una enfermedad consecuente a la exposición al asbesto» · año 1930 / relato 1962 · aporta: El vínculo entre amianto y asbestosis estaba establecido desde 1930, antes incluso de que abriera la mina. · sello **AVISO** en [17] · ⚠ sin su a_pantalla: D01 (el autor lo descartó [otro]: Cifra técnica de contexto; no había beat donde sumara más que lo elegido.)
+  - propuesta **D44** «SE SABÍA DESDE ANTES · 1930: el amianto causa asbestosis» en [11] → pasa
+- beat 6 · giro · ficha **D115** [normal] «1962: RÉCORD DE ASBESTO · El 95% salía de Wittenoom» en [31] sobre «año» (48/90 car.) · respaldo: «En 1962, el año de máxima producción australiana de asbesto, se extrajeron 18416 toneladas cortas, de las cuales el 95% era crocidolita de Wittenoom.» · año 1962 / relato 1962 · aporta: Daniel llegó en el año de máxima producción de asbesto del país, que salía casi entero de esa mina. · sello **SILENCIO** en [30]
+  - propuesta **D115** «1962: RÉCORD DE ASBESTO · El 95% salía de Wittenoom» en [31] → pasa
+- relojes: —
+
+## ch04 — El juego peligroso
+
+- beat 7 · escalada · PICO · ficha — ⚠ pico sin ficha · sello **INMINENTE** en [7]
+  - propuesta **Q19** «NI UN AVISO · Nadie nos avisó de nada.» en [9] → cortaría: **caben** — etiqueta 11 + dato 24 + autor 12 (con comillas y raya) = 52 caracteres y en la oración [9] caben 51; en este beat caben como máximo 90 (oración [0])
+- beat 8 · giro · ficha **D102** [normal] «ESE BEBÉ, HOY · Productor de televisión en España» en [13] sobre «Daniel» (46/51 car.) · respaldo: «es un conocido productor de televisión en España» · año — / relato 1963 · aporta: Quién es hoy el bebé nacido en Wittenoom. · sello —
+  - propuesta **D102** «ESE BEBÉ, HOY · Productor de televisión en España» en [13] → pasa
+- relojes: 7 JUL 1963 en [15]
+
+## ch05 — Wittenoom por dentro
+
+- beat 9 · escalada · ficha — · sello **RABIA** en [9] · ⚠ sin su a_pantalla: D51 (el autor lo descartó [otro]: Cifra de producción menos relevante que la indemnización de D94.)
+  - propuesta **D94** «LO QUE PAGÓ CSR EN 1989 · 18,3 millones de dólares australianos a 200 afectados» en [8] → cortaría: **fecha_relato** — D94 es de 1989 y en la oración [8] el relato va por 1988 (el último año que dijo la voz); ni la oración ni sus vecinas lo sitúan después
+- beat 10 · pico · PICO · ficha — ⚠ pico sin ficha · sello **MEMORIA** en [17] · ⚠ sin su a_pantalla: D23 (lo puso y cayó: contradice: la cifra contradice la voz: 500 personas vs 30 («Nueve meses después del diagnóstico, Daniel Écija murió en Madrid, a m»); 500 personas vs 2024 («Maitland Parker murió de mesotelioma en 2024.»))
+  - propuesta **D23** «NO ERA EL PRIMERO · Para 1989, más de 500 muertos de Wittenoom» en [12] → cortaría: **contradice** — la cifra contradice la voz: 500 personas vs 30 («Nueve meses después del diagnóstico, Daniel Écija murió en Madrid, a m»); 500 personas vs 2024 («Maitland Parker murió de mesotelioma en 2024.»)
+- relojes: —
+
+## ch06 — El polvo viaja
+
+- beat 11 · respiro · ficha **Q22** [cita] «MUERTOS SIN HABER VIVIDO ALLÍ · solo fueron en una excursión del colegio» — John de Juan (autor: modelo) en [8] sobre «enfermando» (86/90 car.) · respaldo: «que solo fueron en una excursión del colegio» · año — / relato 2000 · aporta: Murió gente que solo pasó por Wittenoom en una excursión escolar. · sello **ALARMA** en [8]
+  - propuesta **Q22** «MUERTOS SIN HABER VIVIDO ALLÍ · solo fueron en una excursión del colegio» en [8] → pasa
+- beat 12 · revelacion · PICO · ficha **D58** [normal] «LO QUE COSTABA LIMPIAR · Unos $150 millones» en [17] sobre «relaves» (40/51 car.) · respaldo: «estimó el costo de remediar el sitio mediante encapsulación en aproximadamente $150 millones» · año 2015 / relato 2016 · aporta: Pone cifra a lo que «salía caro». · sello — · ⚠ sin su a_pantalla: D40 (el autor lo descartó [otro]: Superficie administrativa poco clara; pesa menos que el costo de limpiar.)
+  - propuesta **D58** «LO QUE COSTABA LIMPIAR · Unos $150 millones» en [17] → pasa
+- relojes: —
+
+## ch07 — La herida ancestral
+
+- beat 13 · cierre · PICO · ficha **D69** [normal] «LO QUE EL ESTADO SÍ COBRÓ · Más de 70.000 millones en regalías mineras de Pilbara» en [7] sobre «dinero» (78/90 car.) · respaldo: «El gobierno de Australia Occidental ha extraído más de 70.000 millones de dólares en regalías de la minería en Pilbara.» · año — / relato 2026 · aporta: Frente a la limpieza que no se pagó, lo que el Estado cobró en regalías mineras de esa misma región. · sello — · ⚠ sin su a_pantalla: D61 (el autor lo descartó [otro]: Documento técnico menos claro que D69 para el cierre.)
+  - propuesta **D69** «LO QUE EL ESTADO SÍ COBRÓ · Más de 70.000 millones en regalías mineras de Pilbara» en [7] → pasa
+- relojes: —
+
+## Lo que cayó
+
+- ch01 beat 1 · ficha D26 «LO QUE QUEDÓ DEL PUEBLO · El sitio contaminado más grande del hemisferio sur» en [7] → **caben**: etiqueta 23 + dato 50 = 73 caracteres y en la oración [7] caben 71; en este beat caben como máximo 90 (oración [1])
+- ch02 beat 2 · ficha Q25 «POR QUÉ SE FUERON · En España no teníamos nada, ninguno de los dos.» en [2] → **spoiler**: la voz lo dice en una oración posterior del cap o de un cap siguiente: ['2']
+- ch04 beat 7 · ficha Q19 «NI UN AVISO · Nadie nos avisó de nada.» en [9] → **caben**: etiqueta 11 + dato 24 + autor 12 (con comillas y raya) = 52 caracteres y en la oración [9] caben 51; en este beat caben como máximo 90 (oración [0])
+- ch05 beat 9 · ficha D94 «LO QUE PAGÓ CSR EN 1989 · 18,3 millones de dólares australianos a 200 afectados» en [8] → **fecha_relato**: D94 es de 1989 y en la oración [8] el relato va por 1988 (el último año que dijo la voz); ni la oración ni sus vecinas lo sitúan después
+- ch05 beat 10 · ficha D23 «NO ERA EL PRIMERO · Para 1989, más de 500 muertos de Wittenoom» en [12] → **contradice**: la cifra contradice la voz: 500 personas vs 30 («Nueve meses después del diagnóstico, Daniel Écija murió en Madrid, a m»); 500 personas vs 2024 («Maitland Parker murió de mesotelioma en 2024.»)
+
+## Cierre del reintento
+
+- cerró por: **solo intento 1 (F63: sin vueltas)** (después de 0 vueltas)
+- cortado al cerrar, sin preguntarle al autor: (nada)
+
+## Descartados por el modelo
+
+- D85 [otro]: Dato central del gancho que no existe en el archivo; se usó D26.
+- D03 [otro]: No está en el archivo.
+- D129 [otro]: No está en el archivo.
+- D10 [otro]: No está en el archivo.
+- D20 [otro]: No está en el archivo.
+- D70 [otro]: No está en el archivo.
+- T34 [voz_lo_dice]: La voz da el baile con fecha y lugar.
+- T37 [voz_lo_dice]: La voz da la fecha de la boda.
+- Q13 [voz_lo_dice]: La voz cuenta la amistad con Milagros y Ramón.
+- T38 [voz_lo_dice]: «Cuatro días después estaban en un barco» ya fija la partida.
+- T36 [voz_lo_dice]: La voz dice que llegaron en agosto de 1962.
+- Q14 [voz_lo_dice]: El testimonio de Calvo se cita casi entero.
+- T24 [voz_lo_dice]: La voz menciona los viajes de reclutamiento desde 1950.
+- D97 [repetido]: Mismo hecho que D83, ya usado.
+- Q27 [voz_lo_dice]: La voz cita casi todo el testimonio de la llegada.
+- Q44 [voz_lo_dice]: La voz cuenta los relaves a pedido y cita la frase de las escuelas.
+- D92 [voz_lo_dice]: La oración 19 del cap. 3 dice el dato completo.
+- Q45 [voz_lo_dice]: La voz cita la carta de Saint.
+- Q46 [otro]: La voz cita lo central; el resto pesaba menos que D44.
+- T06 [voz_lo_dice]: La voz cuenta lo de ABA en 1943.
+- D19 [voz_lo_dice]: La voz dice el informe de 1944.
+- T13 [voz_lo_dice]: La voz dice los diagnósticos de 1946. — **falso: la voz no dice ['Wittenoom']**
+- D91 [voz_lo_dice]: La voz dice «terroríficas».
+- Q53 [voz_lo_dice]: La voz cita al defensor del empleador.
+- D21 [voz_lo_dice]: «En 1961 la producción subió»; se sumó D115 en su lugar. — **falso: la voz no dice ['Wittenoom']**
+- Q54 [voz_lo_dice]: La voz cita el acta de la Junta.
+- T27 [otro]: La voz cuenta el recorte; los peniques no se entienden solos.
+- T35 [voz_lo_dice]: La voz cuenta el primer caso fuera de Sudáfrica.
+- Q49 [voz_lo_dice]: La voz cita a McNulty.
+- Q16 [voz_lo_dice]: La voz cuenta la explosión del primer día.
+- D104 [voz_lo_dice]: La voz dice las jornadas de 16 horas.
+- T41 [voz_lo_dice]: La voz da la fecha del bautizo y la partida.
+- T40 [voz_lo_dice]: La voz cuenta el nacimiento en junio de 1963.
+- T39 [voz_lo_dice]: La voz cuenta el nacimiento de John Patrick.
+- D87 [voz_lo_dice]: La voz dice los diez meses.
+- T49 [voz_lo_dice]: La voz cuenta el cierre por costos.
+- D51 [otro]: Cifra de producción menos relevante que la indemnización de D94.
+- T47 [voz_lo_dice]: La voz dice la vuelta a Madrid en 1966.
+- D88 [voz_lo_dice]: La voz dice los dos años y medio.
+- T51 [voz_lo_dice]: La voz dice el regreso en 1971.
+- D27 [voz_lo_dice]: La voz cuenta la reducción del pueblo en 1978.
+- D93 [voz_lo_dice]: La voz cita el fallo de 1988.
+- T56 [voz_lo_dice]: La voz nombra la sociedad de 1979.
+- T64 [voz_lo_dice]: La voz cuenta el diagnóstico y la muerte.
+- D89 [voz_lo_dice]: La voz dice los 55 años y los nueve meses.
+- Q35 [otro]: Lo que la voz no dice no cabe en 71 caracteres.
+- Q24 [voz_lo_dice]: La voz cita al policía.
+- Q36 [repetido]: Otra traducción de Q24.
+- Q21 [voz_lo_dice]: La voz cita a Mercedes.
+- Q33 [voz_lo_dice]: La voz cuenta lo que dice Markey.
+- D90 [voz_lo_dice]: La voz dice más de cuatro mil.
+- T80 [voz_lo_dice]: La voz cuenta la abolición de junio de 2007. — **falso: la voz no dice ['Ministro', 'Desarrollo', 'Regional', 'Hon', 'Jon', 'Ford', 'MLC']**
+- Q07 [voz_lo_dice]: La voz cita «un período oscuro».
+- Q03 [voz_lo_dice]: La voz cita «no apta».
+- D02 [voz_lo_dice]: La voz dice más de tres millones de toneladas.
+- T90 [voz_lo_dice]: La voz cuenta las fibras fuera de la zona en 2021.
+- D59 [voz_lo_dice]: La voz cuenta el documento de 2016.
+- D40 [otro]: Superficie administrativa poco clara; pesa menos que el costo de limpiar.
+- Q10 [voz_lo_dice]: La voz cita a Parker.
+- T92 [voz_lo_dice]: La voz cuenta la visita de Orellana en 2023.
+- T96 [voz_lo_dice]: La voz dice que Parker murió en 2024.
+- T98 [voz_lo_dice]: La voz cuenta el proceso de Gordon Legal.
+- D95 [voz_lo_dice]: La voz dice los 1.500 millones. — **falso: la voz no dice ['1.500']**
+- Q34 [voz_lo_dice]: La voz cita «grave problema de salud y seguridad pública».
+- D68 [otro]: No cabía en las oraciones de Parker; se prefirió D69.
+- D61 [otro]: Documento técnico menos claro que D69 para el cierre.
+- D01 [otro]: Cifra técnica de contexto; no había beat donde sumara más que lo elegido.

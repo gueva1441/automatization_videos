@@ -1,0 +1,1039 @@
+{
+ "entrada_md5_hoy": "a2b19d01f425b58b959b455d2e691c89",
+ "system_md5_hoy": "7d2ccdd28055d6e621d1d251a0fe8bb7",
+ "system_md5_o2o3": "85d094bed6090b14d1802ca97433d982",
+ "user_md5_completa": "018f9cc1b939e2afdcfad5eb5ebcc36f",
+ "chars_user_hoy": 105922,
+ "chars_user_completa": 199691,
+ "archivo_hoy": 292,
+ "archivo_completa": 362,
+ "pool": 362,
+ "seg_por_palabra": {
+  "valor": 0.34,
+  "oraciones": 347,
+  "caps": 16,
+  "voz": "N9Z5MLTIaHFLflaLtbDi",
+  "origen": "mediana de 347 oraciones de 16 caps del narrador N9Z5MLTIaHFLflaLtbDi"
+ }
+}
+{
+ "cabecera": {
+  "entrada_md5_hoy": "a2b19d01f425b58b959b455d2e691c89",
+  "system_md5_hoy": "7d2ccdd28055d6e621d1d251a0fe8bb7",
+  "system_md5_o2o3": "85d094bed6090b14d1802ca97433d982",
+  "user_md5_completa": "018f9cc1b939e2afdcfad5eb5ebcc36f",
+  "chars_user_hoy": 105922,
+  "chars_user_completa": 199691,
+  "archivo_hoy": 292,
+  "archivo_completa": 362,
+  "pool": 362,
+  "seg_por_palabra": {
+   "valor": 0.34,
+   "oraciones": 347,
+   "caps": 16,
+   "voz": "N9Z5MLTIaHFLflaLtbDi",
+   "origen": "mediana de 347 oraciones de 16 caps del narrador N9Z5MLTIaHFLflaLtbDi"
+  }
+ },
+ "metricas": [
+  {
+   "brazo": "S",
+   "corrida": 1,
+   "modelo": "claude-sonnet-5-5",
+   "effort": "medium",
+   "entrada": "hoy",
+   "json": true,
+   "fichas_propuestas": 12,
+   "fichas_pasan": 6,
+   "cortadas_por_regla": {
+    "no_dicho": 2,
+    "spoiler": 2,
+    "fecha_relato": 1,
+    "candado": 1
+   },
+   "gancho_ficha": null,
+   "picos_con_ficha": "3/7",
+   "picos_vacios": [
+    {
+     "cap": "ch01",
+     "beat": 1
+    },
+    {
+     "cap": "ch04",
+     "beat": 7
+    },
+    {
+     "cap": "ch05",
+     "beat": 10
+    },
+    {
+     "cap": "ch06",
+     "beat": 12
+    }
+   ],
+   "a_pantalla_cubiertos": "0/6",
+   "a_pantalla_ids": [],
+   "a_pantalla_vacios": [
+    {
+     "cap": "ch03",
+     "beat": 5,
+     "ids": [
+      {
+       "id": "D01",
+       "por_que": "150.000 toneladas de asbesto comercial entre 1937 y 1966: cifra técnica de contexto."
+      }
+     ]
+    },
+    {
+     "cap": "ch05",
+     "beat": 9,
+     "ids": [
+      {
+       "id": "D51",
+       "por_que": "Producción atribuida por Vernon a la mina de Wittenoom, 131.000 toneladas, en el anuncio del cierre."
+      }
+     ]
+    },
+    {
+     "cap": "ch05",
+     "beat": 10,
+     "ids": [
+      {
+       "id": "D23",
+       "por_que": "Recuento oficial de más de 500 muertos hasta 1989: corte histórico, va como documento."
+      }
+     ]
+    },
+    {
+     "cap": "ch06",
+     "beat": 12,
+     "ids": [
+      {
+       "id": "D40",
+       "por_que": "Superficie oficial de WAMA: 46.840 hectáreas; cifra administrativa con versiones en disputa, mejor leída que dicha."
+      }
+     ]
+    },
+    {
+     "cap": "ch07",
+     "beat": 13,
+     "ids": [
+      {
+       "id": "D61",
+       "por_que": "Reconocimiento oficial de 2023 de que los estudios sobre la extensión quedaron desactualizados; va como documento fechado."
+      }
+     ]
+    }
+   ],
+   "ids_escaleta_usados": [
+    "D82"
+   ],
+   "ids_fuera_escaleta": [
+    "D102",
+    "D115",
+    "D122",
+    "D44",
+    "T86"
+   ],
+   "ids_pasan_por_beat": {
+    "ch02 b3": "D122",
+    "ch03 b4": "D82",
+    "ch03 b5": "D44",
+    "ch03 b6": "D115",
+    "ch04 b8": "D102",
+    "ch07 b13": "T86"
+   },
+   "sellos": 7,
+   "sellos_cortados": 0,
+   "relojes": 3,
+   "relojes_con_error": 0,
+   "descartados_modelo": 71,
+   "tokens_in": 51365,
+   "tokens_out": 19676,
+   "usd": 0.29949,
+   "segundos": 132.5,
+   "intentos": 1
+  },
+  {
+   "brazo": "S",
+   "corrida": 2,
+   "modelo": "claude-sonnet-5-5",
+   "effort": "medium",
+   "entrada": "hoy",
+   "json": true,
+   "fichas_propuestas": 13,
+   "fichas_pasan": 9,
+   "cortadas_por_regla": {
+    "no_dicho": 1,
+    "candado": 1,
+    "spoiler": 1,
+    "fecha_relato": 1
+   },
+   "gancho_ficha": null,
+   "picos_con_ficha": "6/7",
+   "picos_vacios": [
+    {
+     "cap": "ch01",
+     "beat": 1
+    }
+   ],
+   "a_pantalla_cubiertos": "0/6",
+   "a_pantalla_ids": [],
+   "a_pantalla_vacios": [
+    {
+     "cap": "ch03",
+     "beat": 5,
+     "ids": [
+      {
+       "id": "D01",
+       "por_que": "150.000 toneladas de asbesto comercial entre 1937 y 1966: cifra técnica de contexto."
+      }
+     ]
+    },
+    {
+     "cap": "ch05",
+     "beat": 9,
+     "ids": [
+      {
+       "id": "D51",
+       "por_que": "Producción atribuida por Vernon a la mina de Wittenoom, 131.000 toneladas, en el anuncio del cierre."
+      }
+     ]
+    },
+    {
+     "cap": "ch05",
+     "beat": 10,
+     "ids": [
+      {
+       "id": "D23",
+       "por_que": "Recuento oficial de más de 500 muertos hasta 1989: corte histórico, va como documento."
+      }
+     ]
+    },
+    {
+     "cap": "ch06",
+     "beat": 12,
+     "ids": [
+      {
+       "id": "D40",
+       "por_que": "Superficie oficial de WAMA: 46.840 hectáreas; cifra administrativa con versiones en disputa, mejor leída que dicha."
+      }
+     ]
+    },
+    {
+     "cap": "ch07",
+     "beat": 13,
+     "ids": [
+      {
+       "id": "D61",
+       "por_que": "Reconocimiento oficial de 2023 de que los estudios sobre la extensión quedaron desactualizados; va como documento fechado."
+      }
+     ]
+    }
+   ],
+   "ids_escaleta_usados": [
+    "D82",
+    "D83",
+    "Q19",
+    "Q25",
+    "Q35",
+    "T80"
+   ],
+   "ids_fuera_escaleta": [
+    "D102",
+    "D135",
+    "T86"
+   ],
+   "ids_pasan_por_beat": {
+    "ch02 b2": "Q25",
+    "ch02 b3": "D83",
+    "ch03 b4": "D82",
+    "ch03 b5": "D135",
+    "ch04 b7": "Q19",
+    "ch04 b8": "D102",
+    "ch05 b10": "Q35",
+    "ch06 b12": "T80",
+    "ch07 b13": "T86"
+   },
+   "sellos": 9,
+   "sellos_cortados": 0,
+   "relojes": 3,
+   "relojes_con_error": 0,
+   "descartados_modelo": 23,
+   "tokens_in": 51365,
+   "tokens_out": 19075,
+   "usd": 0.29348,
+   "segundos": 135.2,
+   "intentos": 1
+  },
+  {
+   "brazo": "O1",
+   "corrida": 1,
+   "modelo": "claude-opus-5-5",
+   "effort": "medium",
+   "entrada": "hoy",
+   "json": true,
+   "fichas_propuestas": 13,
+   "fichas_pasan": 8,
+   "cortadas_por_regla": {
+    "caben": 2,
+    "spoiler": 1,
+    "fecha_relato": 1,
+    "contradice": 1
+   },
+   "gancho_ficha": null,
+   "picos_con_ficha": "4/7",
+   "picos_vacios": [
+    {
+     "cap": "ch01",
+     "beat": 1
+    },
+    {
+     "cap": "ch04",
+     "beat": 7
+    },
+    {
+     "cap": "ch05",
+     "beat": 10
+    }
+   ],
+   "a_pantalla_cubiertos": "0/6",
+   "a_pantalla_ids": [],
+   "a_pantalla_vacios": [
+    {
+     "cap": "ch03",
+     "beat": 5,
+     "ids": [
+      {
+       "id": "D01",
+       "por_que": "150.000 toneladas de asbesto comercial entre 1937 y 1966: cifra técnica de contexto."
+      }
+     ]
+    },
+    {
+     "cap": "ch05",
+     "beat": 9,
+     "ids": [
+      {
+       "id": "D51",
+       "por_que": "Producción atribuida por Vernon a la mina de Wittenoom, 131.000 toneladas, en el anuncio del cierre."
+      }
+     ]
+    },
+    {
+     "cap": "ch05",
+     "beat": 10,
+     "ids": [
+      {
+       "id": "D23",
+       "por_que": "Recuento oficial de más de 500 muertos hasta 1989: corte histórico, va como documento."
+      }
+     ]
+    },
+    {
+     "cap": "ch06",
+     "beat": 12,
+     "ids": [
+      {
+       "id": "D40",
+       "por_que": "Superficie oficial de WAMA: 46.840 hectáreas; cifra administrativa con versiones en disputa, mejor leída que dicha."
+      }
+     ]
+    },
+    {
+     "cap": "ch07",
+     "beat": 13,
+     "ids": [
+      {
+       "id": "D61",
+       "por_que": "Reconocimiento oficial de 2023 de que los estudios sobre la extensión quedaron desactualizados; va como documento fechado."
+      }
+     ]
+    }
+   ],
+   "ids_escaleta_usados": [
+    "D82",
+    "D83"
+   ],
+   "ids_fuera_escaleta": [
+    "D102",
+    "D115",
+    "D44",
+    "D58",
+    "D69",
+    "Q22"
+   ],
+   "ids_pasan_por_beat": {
+    "ch02 b3": "D83",
+    "ch03 b4": "D82",
+    "ch03 b5": "D44",
+    "ch03 b6": "D115",
+    "ch04 b8": "D102",
+    "ch06 b11": "Q22",
+    "ch06 b12": "D58",
+    "ch07 b13": "D69"
+   },
+   "sellos": 8,
+   "sellos_cortados": 0,
+   "relojes": 3,
+   "relojes_con_error": 0,
+   "descartados_modelo": 67,
+   "tokens_in": 51365,
+   "tokens_out": 16034,
+   "usd": 0.52614,
+   "segundos": 138.6,
+   "intentos": 1
+  },
+  {
+   "brazo": "O1",
+   "corrida": 2,
+   "modelo": "claude-opus-5-5",
+   "effort": "medium",
+   "entrada": "hoy",
+   "json": true,
+   "fichas_propuestas": 13,
+   "fichas_pasan": 8,
+   "cortadas_por_regla": {
+    "spoiler": 2,
+    "fecha_relato": 3
+   },
+   "gancho_ficha": "D26",
+   "picos_con_ficha": "5/7",
+   "picos_vacios": [
+    {
+     "cap": "ch02",
+     "beat": 3
+    },
+    {
+     "cap": "ch05",
+     "beat": 10
+    }
+   ],
+   "a_pantalla_cubiertos": "0/6",
+   "a_pantalla_ids": [],
+   "a_pantalla_vacios": [
+    {
+     "cap": "ch03",
+     "beat": 5,
+     "ids": [
+      {
+       "id": "D01",
+       "por_que": "150.000 toneladas de asbesto comercial entre 1937 y 1966: cifra técnica de contexto."
+      }
+     ]
+    },
+    {
+     "cap": "ch05",
+     "beat": 9,
+     "ids": [
+      {
+       "id": "D51",
+       "por_que": "Producción atribuida por Vernon a la mina de Wittenoom, 131.000 toneladas, en el anuncio del cierre."
+      }
+     ]
+    },
+    {
+     "cap": "ch05",
+     "beat": 10,
+     "ids": [
+      {
+       "id": "D23",
+       "por_que": "Recuento oficial de más de 500 muertos hasta 1989: corte histórico, va como documento."
+      }
+     ]
+    },
+    {
+     "cap": "ch06",
+     "beat": 12,
+     "ids": [
+      {
+       "id": "D40",
+       "por_que": "Superficie oficial de WAMA: 46.840 hectáreas; cifra administrativa con versiones en disputa, mejor leída que dicha."
+      }
+     ]
+    },
+    {
+     "cap": "ch07",
+     "beat": 13,
+     "ids": [
+      {
+       "id": "D61",
+       "por_que": "Reconocimiento oficial de 2023 de que los estudios sobre la extensión quedaron desactualizados; va como documento fechado."
+      }
+     ]
+    }
+   ],
+   "ids_escaleta_usados": [
+    "D82",
+    "Q19",
+    "T80"
+   ],
+   "ids_fuera_escaleta": [
+    "D102",
+    "D115",
+    "D26",
+    "D44",
+    "D68"
+   ],
+   "ids_pasan_por_beat": {
+    "ch01 b1": "D26",
+    "ch03 b4": "D82",
+    "ch03 b5": "D44",
+    "ch03 b6": "D115",
+    "ch04 b7": "Q19",
+    "ch04 b8": "D102",
+    "ch06 b12": "T80",
+    "ch07 b13": "D68"
+   },
+   "sellos": 9,
+   "sellos_cortados": 0,
+   "relojes": 3,
+   "relojes_con_error": 0,
+   "descartados_modelo": 32,
+   "tokens_in": 51365,
+   "tokens_out": 16637,
+   "usd": 0.5382,
+   "segundos": 149.2,
+   "intentos": 1
+  },
+  {
+   "brazo": "O2",
+   "corrida": 1,
+   "modelo": "claude-opus-5-5",
+   "effort": "medium",
+   "entrada": "completa",
+   "json": true,
+   "fichas_propuestas": 13,
+   "fichas_pasan": 10,
+   "cortadas_por_regla": {
+    "no_dicho": 2,
+    "fecha_relato": 1
+   },
+   "gancho_ficha": null,
+   "picos_con_ficha": "5/7",
+   "picos_vacios": [
+    {
+     "cap": "ch01",
+     "beat": 1
+    },
+    {
+     "cap": "ch02",
+     "beat": 3
+    }
+   ],
+   "a_pantalla_cubiertos": "1/6",
+   "a_pantalla_ids": [
+    "D23"
+   ],
+   "a_pantalla_vacios": [
+    {
+     "cap": "ch03",
+     "beat": 5,
+     "ids": [
+      {
+       "id": "D01",
+       "por_que": "150.000 toneladas de asbesto comercial entre 1937 y 1966: cifra técnica de contexto."
+      }
+     ]
+    },
+    {
+     "cap": "ch05",
+     "beat": 9,
+     "ids": [
+      {
+       "id": "D51",
+       "por_que": "Producción atribuida por Vernon a la mina de Wittenoom, 131.000 toneladas, en el anuncio del cierre."
+      }
+     ]
+    },
+    {
+     "cap": "ch06",
+     "beat": 11,
+     "ids": [
+      {
+       "id": "D34",
+       "por_que": "Fuentes gubernamentales actuales: 'miles' de muertes sin total; se muestra junto a la estimación de Markey que sí dice la voz."
+      }
+     ]
+    },
+    {
+     "cap": "ch06",
+     "beat": 12,
+     "ids": [
+      {
+       "id": "D40",
+       "por_que": "Superficie oficial de WAMA: 46.840 hectáreas; cifra administrativa con versiones en disputa, mejor leída que dicha."
+      }
+     ]
+    },
+    {
+     "cap": "ch07",
+     "beat": 13,
+     "ids": [
+      {
+       "id": "D61",
+       "por_que": "Reconocimiento oficial de 2023 de que los estudios sobre la extensión quedaron desactualizados; va como documento fechado."
+      }
+     ]
+    }
+   ],
+   "ids_escaleta_usados": [
+    "D02",
+    "D23",
+    "Q19",
+    "Q25",
+    "T80"
+   ],
+   "ids_fuera_escaleta": [
+    "D102",
+    "D115",
+    "D44",
+    "D68",
+    "Q22"
+   ],
+   "ids_pasan_por_beat": {
+    "ch02 b2": "Q25",
+    "ch03 b4": "D02",
+    "ch03 b5": "D44",
+    "ch03 b6": "D115",
+    "ch04 b7": "Q19",
+    "ch04 b8": "D102",
+    "ch05 b10": "D23",
+    "ch06 b11": "Q22",
+    "ch06 b12": "T80",
+    "ch07 b13": "D68"
+   },
+   "sellos": 8,
+   "sellos_cortados": 0,
+   "relojes": 3,
+   "relojes_con_error": 0,
+   "descartados_modelo": 66,
+   "tokens_in": 88647,
+   "tokens_out": 19220,
+   "usd": 0.73899,
+   "segundos": 165.9,
+   "intentos": 1
+  },
+  {
+   "brazo": "O2",
+   "corrida": 2,
+   "modelo": "claude-opus-5-5",
+   "effort": "medium",
+   "entrada": "completa",
+   "json": true,
+   "fichas_propuestas": 13,
+   "fichas_pasan": 8,
+   "cortadas_por_regla": {
+    "no_dicho": 1,
+    "spoiler": 1,
+    "fecha_relato": 2,
+    "candado": 1
+   },
+   "gancho_ficha": null,
+   "picos_con_ficha": "4/7",
+   "picos_vacios": [
+    {
+     "cap": "ch01",
+     "beat": 1
+    },
+    {
+     "cap": "ch05",
+     "beat": 10
+    },
+    {
+     "cap": "ch07",
+     "beat": 13
+    }
+   ],
+   "a_pantalla_cubiertos": "0/6",
+   "a_pantalla_ids": [],
+   "a_pantalla_vacios": [
+    {
+     "cap": "ch03",
+     "beat": 5,
+     "ids": [
+      {
+       "id": "D01",
+       "por_que": "150.000 toneladas de asbesto comercial entre 1937 y 1966: cifra técnica de contexto."
+      }
+     ]
+    },
+    {
+     "cap": "ch05",
+     "beat": 9,
+     "ids": [
+      {
+       "id": "D51",
+       "por_que": "Producción atribuida por Vernon a la mina de Wittenoom, 131.000 toneladas, en el anuncio del cierre."
+      }
+     ]
+    },
+    {
+     "cap": "ch05",
+     "beat": 10,
+     "ids": [
+      {
+       "id": "D23",
+       "por_que": "Recuento oficial de más de 500 muertos hasta 1989: corte histórico, va como documento."
+      }
+     ]
+    },
+    {
+     "cap": "ch06",
+     "beat": 11,
+     "ids": [
+      {
+       "id": "D34",
+       "por_que": "Fuentes gubernamentales actuales: 'miles' de muertes sin total; se muestra junto a la estimación de Markey que sí dice la voz."
+      }
+     ]
+    },
+    {
+     "cap": "ch06",
+     "beat": 12,
+     "ids": [
+      {
+       "id": "D40",
+       "por_que": "Superficie oficial de WAMA: 46.840 hectáreas; cifra administrativa con versiones en disputa, mejor leída que dicha."
+      }
+     ]
+    },
+    {
+     "cap": "ch07",
+     "beat": 13,
+     "ids": [
+      {
+       "id": "D61",
+       "por_que": "Reconocimiento oficial de 2023 de que los estudios sobre la extensión quedaron desactualizados; va como documento fechado."
+      }
+     ]
+    }
+   ],
+   "ids_escaleta_usados": [
+    "D02",
+    "D83",
+    "Q19",
+    "T80"
+   ],
+   "ids_fuera_escaleta": [
+    "D102",
+    "D115",
+    "D44",
+    "Q22"
+   ],
+   "ids_pasan_por_beat": {
+    "ch02 b3": "D83",
+    "ch03 b4": "D02",
+    "ch03 b5": "D44",
+    "ch03 b6": "D115",
+    "ch04 b7": "Q19",
+    "ch04 b8": "D102",
+    "ch06 b11": "Q22",
+    "ch06 b12": "T80"
+   },
+   "sellos": 8,
+   "sellos_cortados": 0,
+   "relojes": 3,
+   "relojes_con_error": 0,
+   "descartados_modelo": 17,
+   "tokens_in": 88647,
+   "tokens_out": 17292,
+   "usd": 0.70043,
+   "segundos": 154.6,
+   "intentos": 1
+  },
+  {
+   "brazo": "O3",
+   "corrida": 1,
+   "modelo": "claude-opus-5-5",
+   "effort": "high",
+   "entrada": "completa",
+   "json": true,
+   "fichas_propuestas": 13,
+   "fichas_pasan": 8,
+   "cortadas_por_regla": {
+    "no_dicho": 1,
+    "spoiler": 2,
+    "fecha_relato": 2
+   },
+   "gancho_ficha": null,
+   "picos_con_ficha": "5/7",
+   "picos_vacios": [
+    {
+     "cap": "ch01",
+     "beat": 1
+    },
+    {
+     "cap": "ch02",
+     "beat": 3
+    }
+   ],
+   "a_pantalla_cubiertos": "0/6",
+   "a_pantalla_ids": [],
+   "a_pantalla_vacios": [
+    {
+     "cap": "ch03",
+     "beat": 5,
+     "ids": [
+      {
+       "id": "D01",
+       "por_que": "150.000 toneladas de asbesto comercial entre 1937 y 1966: cifra técnica de contexto."
+      }
+     ]
+    },
+    {
+     "cap": "ch05",
+     "beat": 9,
+     "ids": [
+      {
+       "id": "D51",
+       "por_que": "Producción atribuida por Vernon a la mina de Wittenoom, 131.000 toneladas, en el anuncio del cierre."
+      }
+     ]
+    },
+    {
+     "cap": "ch05",
+     "beat": 10,
+     "ids": [
+      {
+       "id": "D23",
+       "por_que": "Recuento oficial de más de 500 muertos hasta 1989: corte histórico, va como documento."
+      }
+     ]
+    },
+    {
+     "cap": "ch06",
+     "beat": 11,
+     "ids": [
+      {
+       "id": "D34",
+       "por_que": "Fuentes gubernamentales actuales: 'miles' de muertes sin total; se muestra junto a la estimación de Markey que sí dice la voz."
+      }
+     ]
+    },
+    {
+     "cap": "ch06",
+     "beat": 12,
+     "ids": [
+      {
+       "id": "D40",
+       "por_que": "Superficie oficial de WAMA: 46.840 hectáreas; cifra administrativa con versiones en disputa, mejor leída que dicha."
+      }
+     ]
+    },
+    {
+     "cap": "ch07",
+     "beat": 13,
+     "ids": [
+      {
+       "id": "D61",
+       "por_que": "Reconocimiento oficial de 2023 de que los estudios sobre la extensión quedaron desactualizados; va como documento fechado."
+      }
+     ]
+    }
+   ],
+   "ids_escaleta_usados": [
+    "D02",
+    "Q19",
+    "T80"
+   ],
+   "ids_fuera_escaleta": [
+    "D102",
+    "D115",
+    "D35",
+    "D44",
+    "D69"
+   ],
+   "ids_pasan_por_beat": {
+    "ch03 b4": "D02",
+    "ch03 b5": "D44",
+    "ch03 b6": "D115",
+    "ch04 b7": "Q19",
+    "ch04 b8": "D102",
+    "ch05 b10": "D35",
+    "ch06 b12": "T80",
+    "ch07 b13": "D69"
+   },
+   "sellos": 8,
+   "sellos_cortados": 0,
+   "relojes": 3,
+   "relojes_con_error": 0,
+   "descartados_modelo": 68,
+   "tokens_in": 88647,
+   "tokens_out": 28436,
+   "usd": 0.92331,
+   "segundos": 246.9,
+   "intentos": 1
+  },
+  {
+   "brazo": "O3",
+   "corrida": 2,
+   "modelo": "claude-opus-5-5",
+   "effort": "high",
+   "entrada": "completa",
+   "json": true,
+   "fichas_propuestas": 13,
+   "fichas_pasan": 9,
+   "cortadas_por_regla": {
+    "spoiler": 1,
+    "candado": 2,
+    "fecha_relato": 1
+   },
+   "gancho_ficha": "D80",
+   "picos_con_ficha": "7/7",
+   "picos_vacios": [],
+   "a_pantalla_cubiertos": "0/6",
+   "a_pantalla_ids": [],
+   "a_pantalla_vacios": [
+    {
+     "cap": "ch03",
+     "beat": 5,
+     "ids": [
+      {
+       "id": "D01",
+       "por_que": "150.000 toneladas de asbesto comercial entre 1937 y 1966: cifra técnica de contexto."
+      }
+     ]
+    },
+    {
+     "cap": "ch05",
+     "beat": 9,
+     "ids": [
+      {
+       "id": "D51",
+       "por_que": "Producción atribuida por Vernon a la mina de Wittenoom, 131.000 toneladas, en el anuncio del cierre."
+      }
+     ]
+    },
+    {
+     "cap": "ch05",
+     "beat": 10,
+     "ids": [
+      {
+       "id": "D23",
+       "por_que": "Recuento oficial de más de 500 muertos hasta 1989: corte histórico, va como documento."
+      }
+     ]
+    },
+    {
+     "cap": "ch06",
+     "beat": 11,
+     "ids": [
+      {
+       "id": "D34",
+       "por_que": "Fuentes gubernamentales actuales: 'miles' de muertes sin total; se muestra junto a la estimación de Markey que sí dice la voz."
+      }
+     ]
+    },
+    {
+     "cap": "ch06",
+     "beat": 12,
+     "ids": [
+      {
+       "id": "D40",
+       "por_que": "Superficie oficial de WAMA: 46.840 hectáreas; cifra administrativa con versiones en disputa, mejor leída que dicha."
+      }
+     ]
+    },
+    {
+     "cap": "ch07",
+     "beat": 13,
+     "ids": [
+      {
+       "id": "D61",
+       "por_que": "Reconocimiento oficial de 2023 de que los estudios sobre la extensión quedaron desactualizados; va como documento fechado."
+      }
+     ]
+    }
+   ],
+   "ids_escaleta_usados": [
+    "D83",
+    "Q19",
+    "Q27",
+    "T80"
+   ],
+   "ids_fuera_escaleta": [
+    "D35",
+    "D44",
+    "D68",
+    "D80",
+    "Q22"
+   ],
+   "ids_pasan_por_beat": {
+    "ch01 b1": "D80",
+    "ch02 b3": "D83",
+    "ch03 b4": "Q27",
+    "ch03 b5": "D44",
+    "ch04 b7": "Q19",
+    "ch05 b10": "D35",
+    "ch06 b11": "Q22",
+    "ch06 b12": "T80",
+    "ch07 b13": "D68"
+   },
+   "sellos": 8,
+   "sellos_cortados": 0,
+   "relojes": 3,
+   "relojes_con_error": 0,
+   "descartados_modelo": 68,
+   "tokens_in": 88647,
+   "tokens_out": 26121,
+   "usd": 0.87701,
+   "segundos": 228.1,
+   "intentos": 1
+  }
+ ],
+ "coincidencia": {
+  "S": {
+   "beats_mismo_id": [
+    "ch03 b4",
+    "ch04 b8",
+    "ch07 b13"
+   ],
+   "n": 3,
+   "de": 13,
+   "valor": 0.231,
+   "beats_ambos_sin_ficha": 3
+  },
+  "O1": {
+   "beats_mismo_id": [
+    "ch03 b4",
+    "ch03 b5",
+    "ch03 b6",
+    "ch04 b8"
+   ],
+   "n": 4,
+   "de": 13,
+   "valor": 0.308,
+   "beats_ambos_sin_ficha": 3
+  },
+  "O2": {
+   "beats_mismo_id": [
+    "ch03 b4",
+    "ch03 b5",
+    "ch03 b6",
+    "ch04 b7",
+    "ch04 b8",
+    "ch06 b11",
+    "ch06 b12"
+   ],
+   "n": 7,
+   "de": 13,
+   "valor": 0.538,
+   "beats_ambos_sin_ficha": 2
+  },
+  "O3": {
+   "beats_mismo_id": [
+    "ch03 b5",
+    "ch04 b7",
+    "ch05 b10",
+    "ch06 b12"
+   ],
+   "n": 4,
+   "de": 13,
+   "valor": 0.308,
+   "beats_ambos_sin_ficha": 2
+  }
+ },
+ "usd_total": 4.8971,
+ "segundos_total": 249.3
+}

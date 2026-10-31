@@ -1,0 +1,598 @@
+{
+ "cap": "ch06",
+ "corrida": 1,
+ "modelo": "claude-opus-5-5",
+ "effort": "medium",
+ "system_md5": "ce31cc515a077d74da72479e9693296e",
+ "user_md5": "dd20fedb3a92572d4e90ca39f72c79ee",
+ "oraciones": [
+  {
+   "idx": 0,
+   "texto": "A los que pasaron por Wittenoom, el nombre los sigue."
+  },
+  {
+   "idx": 1,
+   "texto": "Los que nacieron allí lo llevan escrito en el pasaporte."
+  },
+  {
+   "idx": 2,
+   "texto": "En un control de aeropuerto, el policía lee la página, baja la cabeza, vuelve a mirar."
+  },
+  {
+   "idx": 3,
+   "texto": "«Así que de Wittenoom, ¿eh?"
+  },
+  {
+   "idx": 4,
+   "texto": "Un sitio terrorífico», dice el policía."
+  },
+  {
+   "idx": 5,
+   "texto": "Mercedes de Juan se quedó en Australia y vive con una cita que se repite."
+  },
+  {
+   "idx": 6,
+   "texto": "«Nos hacen un escáner y una prueba de función pulmonar», dice ella."
+  },
+  {
+   "idx": 7,
+   "texto": "Melita Markey sigue contando lo que el gobierno dejó de contar en dos mil; otras estimaciones, dice, hablan de más de cuatro mil, y la cifra sube."
+  },
+  {
+   "idx": 8,
+   "texto": "Markey dice que hay hijos de funcionarios que trabajaban en el pueblo, como policías o maestros, que están ahora enfermando."
+  },
+  {
+   "idx": 9,
+   "texto": "El pueblo, mientras tanto, dejó de existir en los papeles."
+  },
+  {
+   "idx": 10,
+   "texto": "Hacia junio de 2007, según otras referencias en 2006, Wittenoom fue abolido oficialmente."
+  },
+  {
+   "idx": 11,
+   "texto": "Le quitaron el nombre de los mapas y arrancaron las señales de la carretera."
+  },
+  {
+   "idx": 12,
+   "texto": "El gobierno de Australia Occidental lo llamó «el fin de un período oscuro en la historia de nuestro Estado»."
+  },
+  {
+   "idx": 13,
+   "texto": "El DWER y el Department of Health declararon la zona «no apta para ninguna forma de ocupación humana o uso del suelo»."
+  },
+  {
+   "idx": 14,
+   "texto": "Lo que no se puede abolir son los relaves: más de tres millones de toneladas que siguen donde las dejaron."
+  },
+  {
+   "idx": 15,
+   "texto": "El agua baja por los lechos de los arroyos y las pozas hasta el Fortescue arrastrando asbesto, y un informe advirtió que podía seguir bajando durante cientos de años si nadie intervenía."
+  },
+  {
+   "idx": 16,
+   "texto": "En 2021, una nota ambiental registró fibras en canales de arroyos fuera de la zona marcada como contaminada."
+  },
+  {
+   "idx": 17,
+   "texto": "En 2016 un documento estatal aconsejó no asegurar los relaves."
+  },
+  {
+   "idx": 18,
+   "texto": "No porque fuera técnicamente imposible."
+  },
+  {
+   "idx": 19,
+   "texto": "Porque salía caro."
+  },
+  {
+   "idx": 20,
+   "texto": "En esa tierra vivía un hombre que no podía irse."
+  }
+ ],
+ "intentos": [
+  {
+   "texto": "```json\n{\"cap\": \"ch06\", \"afirmaciones\": [\n{\"oracion\": 1, \"afirmacion\": \"Los nacidos en Wittenoom llevan el nombre del pueblo escrito en el pasaporte.\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null},\n{\"oracion\": 2, \"afirmacion\": \"En un control de aeropuerto, un policía leyó el documento, bajó la cabeza y volvió a mirar.\", \"estado\": \"respaldada\", \"ids\": [\"T57\"], \"fragmento\": null},\n{\"oracion\": 3, \"afirmacion\": \"El policía dijo «Así que de Wittenoom, ¿eh? Un sitio terrorífico».\", \"estado\": \"respaldada\", \"ids\": [\"Q24\", \"T57\"], \"fragmento\": null},\n{\"oracion\": 5, \"afirmacion\": \"Mercedes de Juan se quedó en Australia.\", \"estado\": \"respaldada\", \"ids\": [\"T51\"], \"fragmento\": null},\n{\"oracion\": 5, \"afirmacion\": \"Mercedes de Juan se somete a una revisión médica que se repite periódicamente.\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null},\n{\"oracion\": 6, \"afirmacion\": \"Mercedes de Juan dice: «Nos hacen un escáner y una prueba de función pulmonar».\", \"estado\": \"respaldada\", \"ids\": [\"Q21\"], \"fragmento\": null},\n{\"oracion\": 7, \"afirmacion\": \"Melita Markey sigue contando las muertes por su cuenta.\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null},\n{\"oracion\": 7, \"afirmacion\": \"El gobierno dejó de contar las muertes en dos mil.\", \"estado\": \"respaldada\", \"ids\": [\"Q33\", \"D90\", \"P24\"], \"fragmento\": null},\n{\"oracion\": 7, \"afirmacion\": \"Según Markey, otras estimaciones hablan de más de cuatro mil muertes y la cifra sigue subiendo.\", \"estado\": \"respaldada\", \"ids\": [\"Q33\", \"D90\"], \"fragmento\": null},\n{\"oracion\": 8, \"afirmacion\": \"Markey dice que hijos de funcionarios que trabajaron en el pueblo, como policías o maestros, están enfermando ahora.\", \"estado\": \"respaldada\", \"ids\": [\"Q33\"], \"fragmento\": null},\n{\"oracion\": 9, \"afirmacion\": \"El pueblo perdió su existencia oficial.\", \"estado\": \"respaldada\", \"ids\": [\"D30\", \"T76\"], \"fragmento\": null},\n{\"oracion\": 10, \"afirmacion\": \"Wittenoom fue abolido oficialmente hacia junio de 2007; según otras referencias, en 2006.\", \"estado\": \"respaldada\", \"ids\": [\"T80\", \"D31\", \"T71\", \"D30\"], \"fragmento\": null},\n{\"oracion\": 11, \"afirmacion\": \"El nombre de Wittenoom se eliminó de los mapas y de las señales de la carretera.\", \"estado\": \"respaldada\", \"ids\": [\"D31\", \"T79\"], \"fragmento\": null},\n{\"oracion\": 12, \"afirmacion\": \"El gobierno de Australia Occidental llamó a la abolición del pueblo «el fin de un período oscuro en la historia de nuestro Estado».\", \"estado\": \"contradice\", \"ids\": [\"Q07\", \"T91\"], \"fragmento\": \"Q07 (fecha 2022): \\\"The W.A. Government declared this was “an end to a dark period in our State's history.”\\\"; T91: \\\"In 2022, the last remaining residents of Wittenoom town were evicted ahead of its demolition in 2023.\\\"\"},\n{\"oracion\": 13, \"afirmacion\": \"El DWER y el Department of Health declararon la zona «no apta para ninguna forma de ocupación humana o uso del suelo».\", \"estado\": \"respaldada\", \"ids\": [\"Q03\"], \"fragmento\": null},\n{\"oracion\": 14, \"afirmacion\": \"Los relaves superan los tres millones de toneladas.\", \"estado\": \"respaldada\", \"ids\": [\"D02\", \"D63\", \"D147\"], \"fragmento\": null},\n{\"oracion\": 14, \"afirmacion\": \"Los relaves siguen donde los dejaron.\", \"estado\": \"respaldada\", \"ids\": [\"D147\", \"D71\"], \"fragmento\": null},\n{\"oracion\": 15, \"afirmacion\": \"El agua arrastra asbesto por los lechos de los arroyos y las pozas hasta el Fortescue.\", \"estado\": \"respaldada\", \"ids\": [\"L06\", \"D10\"], \"fragmento\": null},\n{\"oracion\": 15, \"afirmacion\": \"Un informe advirtió que el asbesto podía seguir bajando durante cientos de años si no se intervenía.\", \"estado\": \"respaldada\", \"ids\": [\"D10\", \"D57\", \"T75\"], \"fragmento\": null},\n{\"oracion\": 16, \"afirmacion\": \"En 2021 una nota ambiental registró fibras de asbesto en canales de arroyos fuera de la zona contaminada.\", \"estado\": \"respaldada\", \"ids\": [\"T90\"], \"fragmento\": null},\n{\"oracion\": 17, \"afirmacion\": \"En 2016 un documento estatal aconsejó no asegurar los relaves.\", \"estado\": \"respaldada\", \"ids\": [\"T87\", \"D59\"], \"fragmento\": null},\n{\"oracion\": 18, \"afirmacion\": \"La decisión de no asegurar los relaves no se debió a que fuera técnicamente imposible.\", \"estado\": \"respaldada\", \"ids\": [\"D59\"], \"fragmento\": null},\n{\"oracion\": 19, \"afirmacion\": \"La decisión de no asegurar los relaves se debió a su costo.\", \"estado\": \"respaldada\", \"ids\": [\"D59\", \"T87\"], \"fragmento\": null},\n{\"oracion\": 20, \"afirmacion\": \"En esa tierra vivía un hombre que no podía irse.\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null}\n]}\n```",
+   "respuesta": {
+    "cap": "ch06",
+    "afirmaciones": [
+     {
+      "oracion": 1,
+      "afirmacion": "Los nacidos en Wittenoom llevan el nombre del pueblo escrito en el pasaporte.",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "En un control de aeropuerto, un policía leyó el documento, bajó la cabeza y volvió a mirar.",
+      "estado": "respaldada",
+      "ids": [
+       "T57"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "El policía dijo «Así que de Wittenoom, ¿eh? Un sitio terrorífico».",
+      "estado": "respaldada",
+      "ids": [
+       "Q24",
+       "T57"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "Mercedes de Juan se quedó en Australia.",
+      "estado": "respaldada",
+      "ids": [
+       "T51"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "Mercedes de Juan se somete a una revisión médica que se repite periódicamente.",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 6,
+      "afirmacion": "Mercedes de Juan dice: «Nos hacen un escáner y una prueba de función pulmonar».",
+      "estado": "respaldada",
+      "ids": [
+       "Q21"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "Melita Markey sigue contando las muertes por su cuenta.",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "El gobierno dejó de contar las muertes en dos mil.",
+      "estado": "respaldada",
+      "ids": [
+       "Q33",
+       "D90",
+       "P24"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "Según Markey, otras estimaciones hablan de más de cuatro mil muertes y la cifra sigue subiendo.",
+      "estado": "respaldada",
+      "ids": [
+       "Q33",
+       "D90"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "Markey dice que hijos de funcionarios que trabajaron en el pueblo, como policías o maestros, están enfermando ahora.",
+      "estado": "respaldada",
+      "ids": [
+       "Q33"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "El pueblo perdió su existencia oficial.",
+      "estado": "respaldada",
+      "ids": [
+       "D30",
+       "T76"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 10,
+      "afirmacion": "Wittenoom fue abolido oficialmente hacia junio de 2007; según otras referencias, en 2006.",
+      "estado": "respaldada",
+      "ids": [
+       "T80",
+       "D31",
+       "T71",
+       "D30"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 11,
+      "afirmacion": "El nombre de Wittenoom se eliminó de los mapas y de las señales de la carretera.",
+      "estado": "respaldada",
+      "ids": [
+       "D31",
+       "T79"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 12,
+      "afirmacion": "El gobierno de Australia Occidental llamó a la abolición del pueblo «el fin de un período oscuro en la historia de nuestro Estado».",
+      "estado": "contradice",
+      "ids": [
+       "Q07",
+       "T91"
+      ],
+      "fragmento": "Q07 (fecha 2022): \"The W.A. Government declared this was “an end to a dark period in our State's history.”\"; T91: \"In 2022, the last remaining residents of Wittenoom town were evicted ahead of its demolition in 2023.\""
+     },
+     {
+      "oracion": 13,
+      "afirmacion": "El DWER y el Department of Health declararon la zona «no apta para ninguna forma de ocupación humana o uso del suelo».",
+      "estado": "respaldada",
+      "ids": [
+       "Q03"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 14,
+      "afirmacion": "Los relaves superan los tres millones de toneladas.",
+      "estado": "respaldada",
+      "ids": [
+       "D02",
+       "D63",
+       "D147"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 14,
+      "afirmacion": "Los relaves siguen donde los dejaron.",
+      "estado": "respaldada",
+      "ids": [
+       "D147",
+       "D71"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 15,
+      "afirmacion": "El agua arrastra asbesto por los lechos de los arroyos y las pozas hasta el Fortescue.",
+      "estado": "respaldada",
+      "ids": [
+       "L06",
+       "D10"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 15,
+      "afirmacion": "Un informe advirtió que el asbesto podía seguir bajando durante cientos de años si no se intervenía.",
+      "estado": "respaldada",
+      "ids": [
+       "D10",
+       "D57",
+       "T75"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 16,
+      "afirmacion": "En 2021 una nota ambiental registró fibras de asbesto en canales de arroyos fuera de la zona contaminada.",
+      "estado": "respaldada",
+      "ids": [
+       "T90"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 17,
+      "afirmacion": "En 2016 un documento estatal aconsejó no asegurar los relaves.",
+      "estado": "respaldada",
+      "ids": [
+       "T87",
+       "D59"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 18,
+      "afirmacion": "La decisión de no asegurar los relaves no se debió a que fuera técnicamente imposible.",
+      "estado": "respaldada",
+      "ids": [
+       "D59"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 19,
+      "afirmacion": "La decisión de no asegurar los relaves se debió a su costo.",
+      "estado": "respaldada",
+      "ids": [
+       "D59",
+       "T87"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 20,
+      "afirmacion": "En esa tierra vivía un hombre que no podía irse.",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     }
+    ]
+   },
+   "usage": {
+    "input_tokens": 66379,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 3858,
+    "service_tier": "standard",
+    "inference_geo": "global",
+    "speed": "standard",
+    "output_tokens_details": {
+     "thinking_tokens": 1790
+    }
+   },
+   "stop": "end_turn",
+   "usd": 0.34268,
+   "segundos": 31.4
+  }
+ ],
+ "respuesta": {
+  "cap": "ch06",
+  "afirmaciones": [
+   {
+    "oracion": 1,
+    "afirmacion": "Los nacidos en Wittenoom llevan el nombre del pueblo escrito en el pasaporte.",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "oracion": 2,
+    "afirmacion": "En un control de aeropuerto, un policía leyó el documento, bajó la cabeza y volvió a mirar.",
+    "estado": "respaldada",
+    "ids": [
+     "T57"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 3,
+    "afirmacion": "El policía dijo «Así que de Wittenoom, ¿eh? Un sitio terrorífico».",
+    "estado": "respaldada",
+    "ids": [
+     "Q24",
+     "T57"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 5,
+    "afirmacion": "Mercedes de Juan se quedó en Australia.",
+    "estado": "respaldada",
+    "ids": [
+     "T51"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 5,
+    "afirmacion": "Mercedes de Juan se somete a una revisión médica que se repite periódicamente.",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "oracion": 6,
+    "afirmacion": "Mercedes de Juan dice: «Nos hacen un escáner y una prueba de función pulmonar».",
+    "estado": "respaldada",
+    "ids": [
+     "Q21"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 7,
+    "afirmacion": "Melita Markey sigue contando las muertes por su cuenta.",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "oracion": 7,
+    "afirmacion": "El gobierno dejó de contar las muertes en dos mil.",
+    "estado": "respaldada",
+    "ids": [
+     "Q33",
+     "D90",
+     "P24"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 7,
+    "afirmacion": "Según Markey, otras estimaciones hablan de más de cuatro mil muertes y la cifra sigue subiendo.",
+    "estado": "respaldada",
+    "ids": [
+     "Q33",
+     "D90"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 8,
+    "afirmacion": "Markey dice que hijos de funcionarios que trabajaron en el pueblo, como policías o maestros, están enfermando ahora.",
+    "estado": "respaldada",
+    "ids": [
+     "Q33"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 9,
+    "afirmacion": "El pueblo perdió su existencia oficial.",
+    "estado": "respaldada",
+    "ids": [
+     "D30",
+     "T76"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 10,
+    "afirmacion": "Wittenoom fue abolido oficialmente hacia junio de 2007; según otras referencias, en 2006.",
+    "estado": "respaldada",
+    "ids": [
+     "T80",
+     "D31",
+     "T71",
+     "D30"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 11,
+    "afirmacion": "El nombre de Wittenoom se eliminó de los mapas y de las señales de la carretera.",
+    "estado": "respaldada",
+    "ids": [
+     "D31",
+     "T79"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 12,
+    "afirmacion": "El gobierno de Australia Occidental llamó a la abolición del pueblo «el fin de un período oscuro en la historia de nuestro Estado».",
+    "estado": "contradice",
+    "ids": [
+     "Q07",
+     "T91"
+    ],
+    "fragmento": "Q07 (fecha 2022): \"The W.A. Government declared this was “an end to a dark period in our State's history.”\"; T91: \"In 2022, the last remaining residents of Wittenoom town were evicted ahead of its demolition in 2023.\""
+   },
+   {
+    "oracion": 13,
+    "afirmacion": "El DWER y el Department of Health declararon la zona «no apta para ninguna forma de ocupación humana o uso del suelo».",
+    "estado": "respaldada",
+    "ids": [
+     "Q03"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 14,
+    "afirmacion": "Los relaves superan los tres millones de toneladas.",
+    "estado": "respaldada",
+    "ids": [
+     "D02",
+     "D63",
+     "D147"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 14,
+    "afirmacion": "Los relaves siguen donde los dejaron.",
+    "estado": "respaldada",
+    "ids": [
+     "D147",
+     "D71"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 15,
+    "afirmacion": "El agua arrastra asbesto por los lechos de los arroyos y las pozas hasta el Fortescue.",
+    "estado": "respaldada",
+    "ids": [
+     "L06",
+     "D10"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 15,
+    "afirmacion": "Un informe advirtió que el asbesto podía seguir bajando durante cientos de años si no se intervenía.",
+    "estado": "respaldada",
+    "ids": [
+     "D10",
+     "D57",
+     "T75"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 16,
+    "afirmacion": "En 2021 una nota ambiental registró fibras de asbesto en canales de arroyos fuera de la zona contaminada.",
+    "estado": "respaldada",
+    "ids": [
+     "T90"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 17,
+    "afirmacion": "En 2016 un documento estatal aconsejó no asegurar los relaves.",
+    "estado": "respaldada",
+    "ids": [
+     "T87",
+     "D59"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 18,
+    "afirmacion": "La decisión de no asegurar los relaves no se debió a que fuera técnicamente imposible.",
+    "estado": "respaldada",
+    "ids": [
+     "D59"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 19,
+    "afirmacion": "La decisión de no asegurar los relaves se debió a su costo.",
+    "estado": "respaldada",
+    "ids": [
+     "D59",
+     "T87"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 20,
+    "afirmacion": "En esa tierra vivía un hombre que no podía irse.",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   }
+  ]
+ },
+ "usage": {
+  "input_tokens": 66379,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "cache_creation": {
+   "ephemeral_5m_input_tokens": 0,
+   "ephemeral_1h_input_tokens": 0
+  },
+  "output_tokens": 3858,
+  "service_tier": "standard",
+  "inference_geo": "global",
+  "speed": "standard",
+  "output_tokens_details": {
+   "thinking_tokens": 1790
+  }
+ },
+ "usd": 0.34268,
+ "segundos": 31.4
+}

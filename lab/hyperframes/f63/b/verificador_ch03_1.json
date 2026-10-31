@@ -1,0 +1,848 @@
+{
+ "cap": "ch03",
+ "corrida": 1,
+ "modelo": "claude-opus-5-5",
+ "effort": "medium",
+ "system_md5": "ce31cc515a077d74da72479e9693296e",
+ "user_md5": "4ded4c34dd26136f7e1b69ba48f41b84",
+ "oraciones": [
+  {
+   "idx": 0,
+   "texto": "El avión era pequeño, de hélices, y se movía muchísimo."
+  },
+  {
+   "idx": 1,
+   "texto": "Abajo, el desierto de Pilbara, en Australia Occidental."
+  },
+  {
+   "idx": 2,
+   "texto": "«Aterrizamos en una pista en medio de una tierra muy muy roja."
+  },
+  {
+   "idx": 3,
+   "texto": "Había polvo por todas partes."
+  },
+  {
+   "idx": 4,
+   "texto": "Nunca había visto tanto polvo», recuerda uno de los chicos que bajaron de ese avión."
+  },
+  {
+   "idx": 5,
+   "texto": "Los llevaron a las casas: chapa, madera y uralita."
+  },
+  {
+   "idx": 6,
+   "texto": "La pista donde aterrizaron estaba hecha con relaves de la mina, con lo que quedaba después de sacar la fibra."
+  },
+  {
+   "idx": 7,
+   "texto": "Con lo mismo se hicieron las carreteras, los patios y los espacios públicos del pueblo, y la empresa descargaba los relaves a pedido de los vecinos."
+  },
+  {
+   "idx": 8,
+   "texto": "«Las escuelas y el jardín de infantes, las iglesias, todos lo tenían bonito con relaves allí», dijo un antiguo trabajador de la mina."
+  },
+  {
+   "idx": 9,
+   "texto": "El pueblo entero, la pista, los patios, la escuela: todo estaba hecho con lo que sobraba de la mina."
+  },
+  {
+   "idx": 10,
+   "texto": "Y lo que sobraba de la mina ya tenía nombre en los informes."
+  },
+  {
+   "idx": 11,
+   "texto": "Los informes eran anteriores a la boda, al barco y al avión."
+  },
+  {
+   "idx": 12,
+   "texto": "En 1943, ABA, una filial de CSR, se quedó con los intereses de Hancock y Wright en la mina."
+  },
+  {
+   "idx": 13,
+   "texto": "En 1944, el inspector de minas y el ingeniero de minas Adjunto del Estado informaron sobre el problema del polvo."
+  },
+  {
+   "idx": 14,
+   "texto": "En 1946 ya había diagnósticos de asbestosis, y un inspector describió las condiciones de trabajo como terroríficas."
+  },
+  {
+   "idx": 15,
+   "texto": "El defensor del empleador tenía otra lectura: «El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso»."
+  },
+  {
+   "idx": 16,
+   "texto": "En 1948, un médico llegó en avión y puso por escrito lo que encontró."
+  },
+  {
+   "idx": 17,
+   "texto": "«En un año o dos, ABA producirá la cosecha más abundante y letal de casos de asbestosis de la literatura mundial», dice la carta de ese médico."
+  },
+  {
+   "idx": 18,
+   "texto": "Pedía, naturalmente, examinar algunos de esos tórax."
+  },
+  {
+   "idx": 19,
+   "texto": "Eric Saint, médico, fue quien advirtió por escrito ese año que los niveles de polvo eran extremadamente peligrosos."
+  },
+  {
+   "idx": 20,
+   "texto": "La respuesta la contó él: «Me desestimaron y, de hecho, me tildaron de alborotador», dijo Saint."
+  },
+  {
+   "idx": 21,
+   "texto": "Nueve años después, un tribunal laboral fue a ver el molino con sus propios ojos."
+  },
+  {
+   "idx": 22,
+   "texto": "La Junta de Referencia entró al molino en 1957 y escribió lo que vio."
+  },
+  {
+   "idx": 23,
+   "texto": "«Las condiciones dentro del molino eran extremadamente polvorientas y…"
+  },
+  {
+   "idx": 24,
+   "texto": "sus trabajadores estaban cubiertos de polvo», dice el acta."
+  },
+  {
+   "idx": 25,
+   "texto": "Una nube espesa flotaba alrededor del edificio."
+  },
+  {
+   "idx": 26,
+   "texto": "Siete meses después se instalaron equipos para reducir el polvo, y con los equipos se recortó y se restringió el suplemento salarial que los hombres cobraban por ese polvo."
+  },
+  {
+   "idx": 27,
+   "texto": "Un documento oficial lo resume así: los reguladores hicieron poco más que emitir advertencias y pedir equipos."
+  },
+  {
+   "idx": 28,
+   "texto": "En 1961 la producción subió."
+  },
+  {
+   "idx": 29,
+   "texto": "En 1962, Jim McNulty comunicó un caso de mesotelioma en un antiguo trabajador del molino; una fuente lo presenta como el primero comunicado fuera de Sudáfrica."
+  },
+  {
+   "idx": 30,
+   "texto": "Según McNulty, los que habían advertido sobre el polvo y predicho las enfermedades no sorprendieron a nadie: «no se encendieron las alarmas entre los involucrados en la industria minera porque estaban acostumbrados; lo esperaban»."
+  },
+  {
+   "idx": 31,
+   "texto": "El año en que McNulty escribió ese primer caso, un recién casado de Madrid se bajaba de un avión en esa misma pista de polvo."
+  }
+ ],
+ "intentos": [
+  {
+   "texto": "```json\n{\"cap\": \"ch03\", \"afirmaciones\": [\n{\"oracion\": 0, \"afirmacion\": \"El avión era pequeño, de hélices, y se movía mucho\", \"estado\": \"respaldada\", \"ids\": [\"Q27\"], \"fragmento\": null},\n{\"oracion\": 1, \"afirmacion\": \"El lugar estaba en el desierto de Pilbara, en Australia Occidental\", \"estado\": \"respaldada\", \"ids\": [\"D82\", \"L07\"], \"fragmento\": null},\n{\"oracion\": 2, \"afirmacion\": \"Aterrizaron en una pista en medio de una tierra muy roja\", \"estado\": \"respaldada\", \"ids\": [\"Q27\"], \"fragmento\": null},\n{\"oracion\": 3, \"afirmacion\": \"Había polvo por todas partes\", \"estado\": \"respaldada\", \"ids\": [\"Q27\"], \"fragmento\": null},\n{\"oracion\": 4, \"afirmacion\": \"El testigo nunca había visto tanto polvo\", \"estado\": \"respaldada\", \"ids\": [\"Q27\"], \"fragmento\": null},\n{\"oracion\": 4, \"afirmacion\": \"Quien lo recuerda es uno de los chicos que bajaron de ese avión\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null},\n{\"oracion\": 5, \"afirmacion\": \"Los llevaron a casas de chapa, madera y uralita (fibrocemento)\", \"estado\": \"respaldada\", \"ids\": [\"Q27\"], \"fragmento\": null},\n{\"oracion\": 6, \"afirmacion\": \"La pista de aterrizaje estaba hecha con relaves de la mina, el residuo que quedaba tras extraer la fibra\", \"estado\": \"respaldada\", \"ids\": [\"D03\", \"D02\"], \"fragmento\": null},\n{\"oracion\": 7, \"afirmacion\": \"Con relaves se hicieron las carreteras, los patios y los espacios públicos del pueblo\", \"estado\": \"respaldada\", \"ids\": [\"D129\", \"D39\"], \"fragmento\": null},\n{\"oracion\": 7, \"afirmacion\": \"La empresa descargaba relaves a pedido de los vecinos\", \"estado\": \"respaldada\", \"ids\": [\"Q44\"], \"fragmento\": null},\n{\"oracion\": 8, \"afirmacion\": \"Cita: «Las escuelas y el jardín de infantes, las iglesias, todos lo tenían bonito con relaves allí»\", \"estado\": \"respaldada\", \"ids\": [\"Q44\"], \"fragmento\": null},\n{\"oracion\": 8, \"afirmacion\": \"La cita es de un antiguo trabajador de la mina\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null},\n{\"oracion\": 9, \"afirmacion\": \"El pueblo, la pista, los patios y la escuela estaban hechos con los relaves de la mina\", \"estado\": \"respaldada\", \"ids\": [\"D03\", \"D129\", \"Q44\"], \"fragmento\": null},\n{\"oracion\": 11, \"afirmacion\": \"Los informes sobre el polvo eran anteriores a la boda de 1962\", \"estado\": \"respaldada\", \"ids\": [\"D19\", \"T37\"], \"fragmento\": null},\n{\"oracion\": 12, \"afirmacion\": \"En 1943 ABA, filial de CSR, se quedó con los intereses de Hancock y Wright en la mina\", \"estado\": \"respaldada\", \"ids\": [\"T06\", \"D47\", \"D84\"], \"fragmento\": null},\n{\"oracion\": 13, \"afirmacion\": \"En 1944 el inspector de minas y el ingeniero de minas adjunto del Estado informaron sobre el problema del polvo\", \"estado\": \"respaldada\", \"ids\": [\"D19\", \"T09\"], \"fragmento\": null},\n{\"oracion\": 14, \"afirmacion\": \"En 1946 ya había diagnósticos (plural) de asbestosis\", \"estado\": \"contradice\", \"ids\": [\"T13\", \"D91\"], \"fragmento\": \"cómo en 1946 ya se había diagnosticado un caso de asbestosis\"},\n{\"oracion\": 14, \"afirmacion\": \"En 1946 un inspector describió las condiciones de trabajo como terroríficas\", \"estado\": \"respaldada\", \"ids\": [\"D91\"], \"fragmento\": null},\n{\"oracion\": 15, \"afirmacion\": \"El defensor del empleador dijo: «El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso»\", \"estado\": \"respaldada\", \"ids\": [\"Q53\"], \"fragmento\": null},\n{\"oracion\": 16, \"afirmacion\": \"En 1948 un médico visitó Wittenoom (médico aéreo) y puso por escrito lo que encontró\", \"estado\": \"respaldada\", \"ids\": [\"T20\", \"D92\", \"Q46\"], \"fragmento\": null},\n{\"oracion\": 17, \"afirmacion\": \"La carta del médico decía que en un año o dos ABA produciría la cosecha más abundante y letal de casos de asbestosis de la literatura mundial\", \"estado\": \"respaldada\", \"ids\": [\"Q45\", \"T20\"], \"fragmento\": null},\n{\"oracion\": 18, \"afirmacion\": \"El médico pedía examinar algunos de esos tórax\", \"estado\": \"respaldada\", \"ids\": [\"Q45\"], \"fragmento\": null},\n{\"oracion\": 19, \"afirmacion\": \"En 1948 el médico Eric Saint advirtió por escrito que los niveles de polvo eran extremadamente peligrosos\", \"estado\": \"respaldada\", \"ids\": [\"D92\", \"T19\"], \"fragmento\": null},\n{\"oracion\": 20, \"afirmacion\": \"Saint contó que lo desestimaron y lo tildaron de alborotador\", \"estado\": \"respaldada\", \"ids\": [\"Q46\"], \"fragmento\": null},\n{\"oracion\": 21, \"afirmacion\": \"En 1957, nueve años después, intervino un organismo de arbitraje laboral (la Junta de Referencia)\", \"estado\": \"respaldada\", \"ids\": [\"T26\", \"P42\"], \"fragmento\": null},\n{\"oracion\": 22, \"afirmacion\": \"La Junta de Referencia entró al molino y escribió lo que vio con sus propios ojos\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null},\n{\"oracion\": 23, \"afirmacion\": \"El acta dice que las condiciones dentro del molino eran extremadamente polvorientas y que sus trabajadores estaban cubiertos de polvo\", \"estado\": \"respaldada\", \"ids\": [\"Q54\", \"T26\"], \"fragmento\": null},\n{\"oracion\": 25, \"afirmacion\": \"Una nube espesa de polvo flotaba alrededor del molino\", \"estado\": \"respaldada\", \"ids\": [\"Q54\"], \"fragmento\": null},\n{\"oracion\": 26, \"afirmacion\": \"Siete meses después se instalaron equipos para reducir el polvo y el suplemento salarial por polvo se recortó y se restringió\", \"estado\": \"respaldada\", \"ids\": [\"T27\"], \"fragmento\": null},\n{\"oracion\": 27, \"afirmacion\": \"Un documento oficial dice que los reguladores hicieron poco más que emitir advertencias y pedir equipos para reducir el polvo\", \"estado\": \"respaldada\", \"ids\": [\"D20\"], \"fragmento\": null},\n{\"oracion\": 28, \"afirmacion\": \"En 1961 la producción subió\", \"estado\": \"respaldada\", \"ids\": [\"D21\", \"T33\"], \"fragmento\": null},\n{\"oracion\": 29, \"afirmacion\": \"En 1962 Jim McNulty comunicó un caso de mesotelioma en un antiguo trabajador del molino, presentado por una fuente como el primero comunicado fuera de Sudáfrica\", \"estado\": \"respaldada\", \"ids\": [\"D130\", \"T35\", \"P07\"], \"fragmento\": null},\n{\"oracion\": 30, \"afirmacion\": \"Cita: «no se encendieron las alarmas entre los involucrados en la industria minera porque estaban acostumbrados; lo esperaban»\", \"estado\": \"respaldada\", \"ids\": [\"Q49\"], \"fragmento\": null},\n{\"oracion\": 30, \"afirmacion\": \"La cita es de McNulty\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null},\n{\"oracion\": 31, \"afirmacion\": \"En 1962 un recién casado de Madrid llegó a Wittenoom\", \"estado\": \"respaldada\", \"ids\": [\"T37\", \"T38\", \"D87\", \"L17\"], \"fragmento\": null}\n]}\n```",
+   "respuesta": {
+    "cap": "ch03",
+    "afirmaciones": [
+     {
+      "oracion": 0,
+      "afirmacion": "El avión era pequeño, de hélices, y se movía mucho",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "El lugar estaba en el desierto de Pilbara, en Australia Occidental",
+      "estado": "respaldada",
+      "ids": [
+       "D82",
+       "L07"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "Aterrizaron en una pista en medio de una tierra muy roja",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "Había polvo por todas partes",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "El testigo nunca había visto tanto polvo",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "Quien lo recuerda es uno de los chicos que bajaron de ese avión",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "Los llevaron a casas de chapa, madera y uralita (fibrocemento)",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 6,
+      "afirmacion": "La pista de aterrizaje estaba hecha con relaves de la mina, el residuo que quedaba tras extraer la fibra",
+      "estado": "respaldada",
+      "ids": [
+       "D03",
+       "D02"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "Con relaves se hicieron las carreteras, los patios y los espacios públicos del pueblo",
+      "estado": "respaldada",
+      "ids": [
+       "D129",
+       "D39"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "La empresa descargaba relaves a pedido de los vecinos",
+      "estado": "respaldada",
+      "ids": [
+       "Q44"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "Cita: «Las escuelas y el jardín de infantes, las iglesias, todos lo tenían bonito con relaves allí»",
+      "estado": "respaldada",
+      "ids": [
+       "Q44"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "La cita es de un antiguo trabajador de la mina",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "El pueblo, la pista, los patios y la escuela estaban hechos con los relaves de la mina",
+      "estado": "respaldada",
+      "ids": [
+       "D03",
+       "D129",
+       "Q44"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 11,
+      "afirmacion": "Los informes sobre el polvo eran anteriores a la boda de 1962",
+      "estado": "respaldada",
+      "ids": [
+       "D19",
+       "T37"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 12,
+      "afirmacion": "En 1943 ABA, filial de CSR, se quedó con los intereses de Hancock y Wright en la mina",
+      "estado": "respaldada",
+      "ids": [
+       "T06",
+       "D47",
+       "D84"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 13,
+      "afirmacion": "En 1944 el inspector de minas y el ingeniero de minas adjunto del Estado informaron sobre el problema del polvo",
+      "estado": "respaldada",
+      "ids": [
+       "D19",
+       "T09"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 14,
+      "afirmacion": "En 1946 ya había diagnósticos (plural) de asbestosis",
+      "estado": "contradice",
+      "ids": [
+       "T13",
+       "D91"
+      ],
+      "fragmento": "cómo en 1946 ya se había diagnosticado un caso de asbestosis"
+     },
+     {
+      "oracion": 14,
+      "afirmacion": "En 1946 un inspector describió las condiciones de trabajo como terroríficas",
+      "estado": "respaldada",
+      "ids": [
+       "D91"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 15,
+      "afirmacion": "El defensor del empleador dijo: «El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso»",
+      "estado": "respaldada",
+      "ids": [
+       "Q53"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 16,
+      "afirmacion": "En 1948 un médico visitó Wittenoom (médico aéreo) y puso por escrito lo que encontró",
+      "estado": "respaldada",
+      "ids": [
+       "T20",
+       "D92",
+       "Q46"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 17,
+      "afirmacion": "La carta del médico decía que en un año o dos ABA produciría la cosecha más abundante y letal de casos de asbestosis de la literatura mundial",
+      "estado": "respaldada",
+      "ids": [
+       "Q45",
+       "T20"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 18,
+      "afirmacion": "El médico pedía examinar algunos de esos tórax",
+      "estado": "respaldada",
+      "ids": [
+       "Q45"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 19,
+      "afirmacion": "En 1948 el médico Eric Saint advirtió por escrito que los niveles de polvo eran extremadamente peligrosos",
+      "estado": "respaldada",
+      "ids": [
+       "D92",
+       "T19"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 20,
+      "afirmacion": "Saint contó que lo desestimaron y lo tildaron de alborotador",
+      "estado": "respaldada",
+      "ids": [
+       "Q46"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 21,
+      "afirmacion": "En 1957, nueve años después, intervino un organismo de arbitraje laboral (la Junta de Referencia)",
+      "estado": "respaldada",
+      "ids": [
+       "T26",
+       "P42"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 22,
+      "afirmacion": "La Junta de Referencia entró al molino y escribió lo que vio con sus propios ojos",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 23,
+      "afirmacion": "El acta dice que las condiciones dentro del molino eran extremadamente polvorientas y que sus trabajadores estaban cubiertos de polvo",
+      "estado": "respaldada",
+      "ids": [
+       "Q54",
+       "T26"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 25,
+      "afirmacion": "Una nube espesa de polvo flotaba alrededor del molino",
+      "estado": "respaldada",
+      "ids": [
+       "Q54"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 26,
+      "afirmacion": "Siete meses después se instalaron equipos para reducir el polvo y el suplemento salarial por polvo se recortó y se restringió",
+      "estado": "respaldada",
+      "ids": [
+       "T27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 27,
+      "afirmacion": "Un documento oficial dice que los reguladores hicieron poco más que emitir advertencias y pedir equipos para reducir el polvo",
+      "estado": "respaldada",
+      "ids": [
+       "D20"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 28,
+      "afirmacion": "En 1961 la producción subió",
+      "estado": "respaldada",
+      "ids": [
+       "D21",
+       "T33"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 29,
+      "afirmacion": "En 1962 Jim McNulty comunicó un caso de mesotelioma en un antiguo trabajador del molino, presentado por una fuente como el primero comunicado fuera de Sudáfrica",
+      "estado": "respaldada",
+      "ids": [
+       "D130",
+       "T35",
+       "P07"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 30,
+      "afirmacion": "Cita: «no se encendieron las alarmas entre los involucrados en la industria minera porque estaban acostumbrados; lo esperaban»",
+      "estado": "respaldada",
+      "ids": [
+       "Q49"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 30,
+      "afirmacion": "La cita es de McNulty",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 31,
+      "afirmacion": "En 1962 un recién casado de Madrid llegó a Wittenoom",
+      "estado": "respaldada",
+      "ids": [
+       "T37",
+       "T38",
+       "D87",
+       "L17"
+      ],
+      "fragmento": null
+     }
+    ]
+   },
+   "usage": {
+    "input_tokens": 67080,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 7069,
+    "service_tier": "standard",
+    "inference_geo": "global",
+    "speed": "standard",
+    "output_tokens_details": {
+     "thinking_tokens": 4159
+    }
+   },
+   "stop": "end_turn",
+   "usd": 0.4097,
+   "segundos": 57.5
+  }
+ ],
+ "respuesta": {
+  "cap": "ch03",
+  "afirmaciones": [
+   {
+    "oracion": 0,
+    "afirmacion": "El avión era pequeño, de hélices, y se movía mucho",
+    "estado": "respaldada",
+    "ids": [
+     "Q27"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 1,
+    "afirmacion": "El lugar estaba en el desierto de Pilbara, en Australia Occidental",
+    "estado": "respaldada",
+    "ids": [
+     "D82",
+     "L07"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 2,
+    "afirmacion": "Aterrizaron en una pista en medio de una tierra muy roja",
+    "estado": "respaldada",
+    "ids": [
+     "Q27"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 3,
+    "afirmacion": "Había polvo por todas partes",
+    "estado": "respaldada",
+    "ids": [
+     "Q27"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 4,
+    "afirmacion": "El testigo nunca había visto tanto polvo",
+    "estado": "respaldada",
+    "ids": [
+     "Q27"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 4,
+    "afirmacion": "Quien lo recuerda es uno de los chicos que bajaron de ese avión",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "oracion": 5,
+    "afirmacion": "Los llevaron a casas de chapa, madera y uralita (fibrocemento)",
+    "estado": "respaldada",
+    "ids": [
+     "Q27"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 6,
+    "afirmacion": "La pista de aterrizaje estaba hecha con relaves de la mina, el residuo que quedaba tras extraer la fibra",
+    "estado": "respaldada",
+    "ids": [
+     "D03",
+     "D02"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 7,
+    "afirmacion": "Con relaves se hicieron las carreteras, los patios y los espacios públicos del pueblo",
+    "estado": "respaldada",
+    "ids": [
+     "D129",
+     "D39"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 7,
+    "afirmacion": "La empresa descargaba relaves a pedido de los vecinos",
+    "estado": "respaldada",
+    "ids": [
+     "Q44"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 8,
+    "afirmacion": "Cita: «Las escuelas y el jardín de infantes, las iglesias, todos lo tenían bonito con relaves allí»",
+    "estado": "respaldada",
+    "ids": [
+     "Q44"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 8,
+    "afirmacion": "La cita es de un antiguo trabajador de la mina",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "oracion": 9,
+    "afirmacion": "El pueblo, la pista, los patios y la escuela estaban hechos con los relaves de la mina",
+    "estado": "respaldada",
+    "ids": [
+     "D03",
+     "D129",
+     "Q44"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 11,
+    "afirmacion": "Los informes sobre el polvo eran anteriores a la boda de 1962",
+    "estado": "respaldada",
+    "ids": [
+     "D19",
+     "T37"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 12,
+    "afirmacion": "En 1943 ABA, filial de CSR, se quedó con los intereses de Hancock y Wright en la mina",
+    "estado": "respaldada",
+    "ids": [
+     "T06",
+     "D47",
+     "D84"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 13,
+    "afirmacion": "En 1944 el inspector de minas y el ingeniero de minas adjunto del Estado informaron sobre el problema del polvo",
+    "estado": "respaldada",
+    "ids": [
+     "D19",
+     "T09"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 14,
+    "afirmacion": "En 1946 ya había diagnósticos (plural) de asbestosis",
+    "estado": "contradice",
+    "ids": [
+     "T13",
+     "D91"
+    ],
+    "fragmento": "cómo en 1946 ya se había diagnosticado un caso de asbestosis"
+   },
+   {
+    "oracion": 14,
+    "afirmacion": "En 1946 un inspector describió las condiciones de trabajo como terroríficas",
+    "estado": "respaldada",
+    "ids": [
+     "D91"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 15,
+    "afirmacion": "El defensor del empleador dijo: «El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso»",
+    "estado": "respaldada",
+    "ids": [
+     "Q53"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 16,
+    "afirmacion": "En 1948 un médico visitó Wittenoom (médico aéreo) y puso por escrito lo que encontró",
+    "estado": "respaldada",
+    "ids": [
+     "T20",
+     "D92",
+     "Q46"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 17,
+    "afirmacion": "La carta del médico decía que en un año o dos ABA produciría la cosecha más abundante y letal de casos de asbestosis de la literatura mundial",
+    "estado": "respaldada",
+    "ids": [
+     "Q45",
+     "T20"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 18,
+    "afirmacion": "El médico pedía examinar algunos de esos tórax",
+    "estado": "respaldada",
+    "ids": [
+     "Q45"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 19,
+    "afirmacion": "En 1948 el médico Eric Saint advirtió por escrito que los niveles de polvo eran extremadamente peligrosos",
+    "estado": "respaldada",
+    "ids": [
+     "D92",
+     "T19"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 20,
+    "afirmacion": "Saint contó que lo desestimaron y lo tildaron de alborotador",
+    "estado": "respaldada",
+    "ids": [
+     "Q46"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 21,
+    "afirmacion": "En 1957, nueve años después, intervino un organismo de arbitraje laboral (la Junta de Referencia)",
+    "estado": "respaldada",
+    "ids": [
+     "T26",
+     "P42"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 22,
+    "afirmacion": "La Junta de Referencia entró al molino y escribió lo que vio con sus propios ojos",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "oracion": 23,
+    "afirmacion": "El acta dice que las condiciones dentro del molino eran extremadamente polvorientas y que sus trabajadores estaban cubiertos de polvo",
+    "estado": "respaldada",
+    "ids": [
+     "Q54",
+     "T26"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 25,
+    "afirmacion": "Una nube espesa de polvo flotaba alrededor del molino",
+    "estado": "respaldada",
+    "ids": [
+     "Q54"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 26,
+    "afirmacion": "Siete meses después se instalaron equipos para reducir el polvo y el suplemento salarial por polvo se recortó y se restringió",
+    "estado": "respaldada",
+    "ids": [
+     "T27"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 27,
+    "afirmacion": "Un documento oficial dice que los reguladores hicieron poco más que emitir advertencias y pedir equipos para reducir el polvo",
+    "estado": "respaldada",
+    "ids": [
+     "D20"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 28,
+    "afirmacion": "En 1961 la producción subió",
+    "estado": "respaldada",
+    "ids": [
+     "D21",
+     "T33"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 29,
+    "afirmacion": "En 1962 Jim McNulty comunicó un caso de mesotelioma en un antiguo trabajador del molino, presentado por una fuente como el primero comunicado fuera de Sudáfrica",
+    "estado": "respaldada",
+    "ids": [
+     "D130",
+     "T35",
+     "P07"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 30,
+    "afirmacion": "Cita: «no se encendieron las alarmas entre los involucrados en la industria minera porque estaban acostumbrados; lo esperaban»",
+    "estado": "respaldada",
+    "ids": [
+     "Q49"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 30,
+    "afirmacion": "La cita es de McNulty",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "oracion": 31,
+    "afirmacion": "En 1962 un recién casado de Madrid llegó a Wittenoom",
+    "estado": "respaldada",
+    "ids": [
+     "T37",
+     "T38",
+     "D87",
+     "L17"
+    ],
+    "fragmento": null
+   }
+  ]
+ },
+ "usage": {
+  "input_tokens": 67080,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "cache_creation": {
+   "ephemeral_5m_input_tokens": 0,
+   "ephemeral_1h_input_tokens": 0
+  },
+  "output_tokens": 7069,
+  "service_tier": "standard",
+  "inference_geo": "global",
+  "speed": "standard",
+  "output_tokens_details": {
+   "thinking_tokens": 4159
+  }
+ },
+ "usd": 0.4097,
+ "segundos": 57.5
+}

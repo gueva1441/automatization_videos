@@ -1,0 +1,614 @@
+{
+ "cap": "ch02",
+ "corrida": 1,
+ "modelo": "claude-opus-5-5",
+ "effort": "medium",
+ "system_md5": "ce31cc515a077d74da72479e9693296e",
+ "user_md5": "661d94e5e4defb0c18bb60fc87e2d892",
+ "oraciones": [
+  {
+   "idx": 0,
+   "texto": "El baile fue en el Círculo de Bellas Artes, el 16 de septiembre de 1961."
+  },
+  {
+   "idx": 1,
+   "texto": "Allí María Bernal conoció a Daniel."
+  },
+  {
+   "idx": 2,
+   "texto": "De esa noche y de lo que vino después, ella no cuenta la música ni el vestido; cuenta que iba muy cerca de él y que confiaba en lo que venía."
+  },
+  {
+   "idx": 3,
+   "texto": "«Me pegué a mi marido, como una niña pequeña», dice ella, muchos años después."
+  },
+  {
+   "idx": 4,
+   "texto": "Se casaron un año más tarde, el 20 de septiembre de 1962."
+  },
+  {
+   "idx": 5,
+   "texto": "Cuatro días después estaban en un barco."
+  },
+  {
+   "idx": 6,
+   "texto": "El barco los llevaba a Australia."
+  },
+  {
+   "idx": 7,
+   "texto": "No iban solos: cerca de ocho mil españoles cruzaron por un acuerdo entre los dos gobiernos, y CSR, la compañía dueña de la mina, venía haciendo viajes privados a Europa para reclutar gente desde 1950."
+  },
+  {
+   "idx": 8,
+   "texto": "Allá los esperaban ya Ramón de Juan y Milagros Barroso, otro matrimonio que había llegado en agosto de 1962; con ellos, recuerda ella, se harían íntimos amigos."
+  },
+  {
+   "idx": 9,
+   "texto": "Víctor Calvo hizo esa travesía de niño."
+  },
+  {
+   "idx": 10,
+   "texto": "Salieron de Málaga y tardaron más de veinte días en llegar."
+  },
+  {
+   "idx": 11,
+   "texto": "Pasaron por el canal de Suez."
+  },
+  {
+   "idx": 12,
+   "texto": "«Puf, el calor que hacía allí."
+  },
+  {
+   "idx": 13,
+   "texto": "Recuerdo los mareos."
+  },
+  {
+   "idx": 14,
+   "texto": "La incertidumbre», dice Calvo."
+  },
+  {
+   "idx": 15,
+   "texto": "Nadie sabía bien adónde iban ni cómo iban a vivir."
+  },
+  {
+   "idx": 16,
+   "texto": "Del barco, a un avión pequeño."
+  },
+  {
+   "idx": 17,
+   "texto": "Del avión, a la tierra más roja que Víctor había visto en su vida."
+  }
+ ],
+ "intentos": [
+  {
+   "texto": "```json\n{\"cap\": \"ch02\", \"afirmaciones\": [\n{\"oracion\": 0, \"afirmacion\": \"El baile fue en el Círculo de Bellas Artes\", \"estado\": \"respaldada\", \"ids\": [\"T34\", \"L18\"], \"fragmento\": null},\n{\"oracion\": 0, \"afirmacion\": \"El baile fue el 16 de septiembre de 1961\", \"estado\": \"respaldada\", \"ids\": [\"T34\"], \"fragmento\": null},\n{\"oracion\": 1, \"afirmacion\": \"María Bernal conoció a Daniel en ese baile\", \"estado\": \"respaldada\", \"ids\": [\"T34\", \"L18\"], \"fragmento\": null},\n{\"oracion\": 2, \"afirmacion\": \"María cuenta que iba muy cerca de él y que confiaba en lo que venía\", \"estado\": \"respaldada\", \"ids\": [\"Q25\"], \"fragmento\": null},\n{\"oracion\": 3, \"afirmacion\": \"María Bernal dice, muchos años después: «Me pegué a mi marido, como una niña pequeña»\", \"estado\": \"respaldada\", \"ids\": [\"Q25\"], \"fragmento\": null},\n{\"oracion\": 4, \"afirmacion\": \"María Bernal y Daniel Écija se casaron el 20 de septiembre de 1962, un año después de conocerse\", \"estado\": \"respaldada\", \"ids\": [\"T37\"], \"fragmento\": null},\n{\"oracion\": 5, \"afirmacion\": \"Cuatro días después de la boda partieron hacia Australia\", \"estado\": \"respaldada\", \"ids\": [\"T38\"], \"fragmento\": null},\n{\"oracion\": 5, \"afirmacion\": \"Hicieron ese viaje en barco\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null},\n{\"oracion\": 6, \"afirmacion\": \"El destino del viaje era Australia\", \"estado\": \"respaldada\", \"ids\": [\"T38\"], \"fragmento\": null},\n{\"oracion\": 7, \"afirmacion\": \"Cerca de ocho mil españoles llegaron a Australia por un acuerdo entre los gobiernos de España y Australia\", \"estado\": \"respaldada\", \"ids\": [\"D83\", \"D97\", \"T28\"], \"fragmento\": null},\n{\"oracion\": 7, \"afirmacion\": \"CSR era la compañía dueña de la mina, a través de su filial Australian Blue Asbestos\", \"estado\": \"respaldada\", \"ids\": [\"D84\", \"D99\", \"T18\"], \"fragmento\": null},\n{\"oracion\": 7, \"afirmacion\": \"CSR hacía viajes privados a Europa para reclutar trabajadores desde 1950\", \"estado\": \"respaldada\", \"ids\": [\"T24\"], \"fragmento\": null},\n{\"oracion\": 8, \"afirmacion\": \"Ramón de Juan y Milagros Barroso eran un matrimonio\", \"estado\": \"respaldada\", \"ids\": [\"Q13\", \"P19\", \"P20\"], \"fragmento\": null},\n{\"oracion\": 8, \"afirmacion\": \"La familia De Juan-Barroso había llegado a Australia en agosto de 1962\", \"estado\": \"respaldada\", \"ids\": [\"T36\"], \"fragmento\": null},\n{\"oracion\": 8, \"afirmacion\": \"María recuerda que se hicieron íntimos amigos de ellos\", \"estado\": \"respaldada\", \"ids\": [\"Q13\"], \"fragmento\": null},\n{\"oracion\": 9, \"afirmacion\": \"Víctor Calvo hizo la travesía a Australia de niño\", \"estado\": \"respaldada\", \"ids\": [\"T36\", \"P21\"], \"fragmento\": null},\n{\"oracion\": 10, \"afirmacion\": \"Salieron de Málaga\", \"estado\": \"respaldada\", \"ids\": [\"Q14\"], \"fragmento\": null},\n{\"oracion\": 10, \"afirmacion\": \"Tardaron más de veinte días en llegar\", \"estado\": \"respaldada\", \"ids\": [\"Q14\"], \"fragmento\": null},\n{\"oracion\": 11, \"afirmacion\": \"Pasaron por el canal de Suez\", \"estado\": \"respaldada\", \"ids\": [\"Q14\"], \"fragmento\": null},\n{\"oracion\": 12, \"afirmacion\": \"Calvo dice: «Puf, el calor que hacía allí»\", \"estado\": \"respaldada\", \"ids\": [\"Q14\", \"T36\"], \"fragmento\": null},\n{\"oracion\": 13, \"afirmacion\": \"Calvo dice: «Recuerdo los mareos»\", \"estado\": \"respaldada\", \"ids\": [\"Q14\"], \"fragmento\": null},\n{\"oracion\": 14, \"afirmacion\": \"Calvo dice: «La incertidumbre»\", \"estado\": \"respaldada\", \"ids\": [\"Q14\"], \"fragmento\": null},\n{\"oracion\": 15, \"afirmacion\": \"No sabían bien adónde iban ni cómo iban a vivir\", \"estado\": \"respaldada\", \"ids\": [\"Q14\"], \"fragmento\": null},\n{\"oracion\": 16, \"afirmacion\": \"Después del barco siguieron el viaje en un avión pequeño\", \"estado\": \"respaldada\", \"ids\": [\"Q27\"], \"fragmento\": null},\n{\"oracion\": 17, \"afirmacion\": \"El avión aterrizó en una tierra muy roja\", \"estado\": \"respaldada\", \"ids\": [\"Q27\"], \"fragmento\": null},\n{\"oracion\": 17, \"afirmacion\": \"Era la tierra más roja que Víctor había visto en su vida\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null}\n]}\n```",
+   "respuesta": {
+    "cap": "ch02",
+    "afirmaciones": [
+     {
+      "oracion": 0,
+      "afirmacion": "El baile fue en el Círculo de Bellas Artes",
+      "estado": "respaldada",
+      "ids": [
+       "T34",
+       "L18"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 0,
+      "afirmacion": "El baile fue el 16 de septiembre de 1961",
+      "estado": "respaldada",
+      "ids": [
+       "T34"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "María Bernal conoció a Daniel en ese baile",
+      "estado": "respaldada",
+      "ids": [
+       "T34",
+       "L18"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "María cuenta que iba muy cerca de él y que confiaba en lo que venía",
+      "estado": "respaldada",
+      "ids": [
+       "Q25"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "María Bernal dice, muchos años después: «Me pegué a mi marido, como una niña pequeña»",
+      "estado": "respaldada",
+      "ids": [
+       "Q25"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "María Bernal y Daniel Écija se casaron el 20 de septiembre de 1962, un año después de conocerse",
+      "estado": "respaldada",
+      "ids": [
+       "T37"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "Cuatro días después de la boda partieron hacia Australia",
+      "estado": "respaldada",
+      "ids": [
+       "T38"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "Hicieron ese viaje en barco",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 6,
+      "afirmacion": "El destino del viaje era Australia",
+      "estado": "respaldada",
+      "ids": [
+       "T38"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "Cerca de ocho mil españoles llegaron a Australia por un acuerdo entre los gobiernos de España y Australia",
+      "estado": "respaldada",
+      "ids": [
+       "D83",
+       "D97",
+       "T28"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "CSR era la compañía dueña de la mina, a través de su filial Australian Blue Asbestos",
+      "estado": "respaldada",
+      "ids": [
+       "D84",
+       "D99",
+       "T18"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "CSR hacía viajes privados a Europa para reclutar trabajadores desde 1950",
+      "estado": "respaldada",
+      "ids": [
+       "T24"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "Ramón de Juan y Milagros Barroso eran un matrimonio",
+      "estado": "respaldada",
+      "ids": [
+       "Q13",
+       "P19",
+       "P20"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "La familia De Juan-Barroso había llegado a Australia en agosto de 1962",
+      "estado": "respaldada",
+      "ids": [
+       "T36"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "María recuerda que se hicieron íntimos amigos de ellos",
+      "estado": "respaldada",
+      "ids": [
+       "Q13"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "Víctor Calvo hizo la travesía a Australia de niño",
+      "estado": "respaldada",
+      "ids": [
+       "T36",
+       "P21"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 10,
+      "afirmacion": "Salieron de Málaga",
+      "estado": "respaldada",
+      "ids": [
+       "Q14"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 10,
+      "afirmacion": "Tardaron más de veinte días en llegar",
+      "estado": "respaldada",
+      "ids": [
+       "Q14"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 11,
+      "afirmacion": "Pasaron por el canal de Suez",
+      "estado": "respaldada",
+      "ids": [
+       "Q14"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 12,
+      "afirmacion": "Calvo dice: «Puf, el calor que hacía allí»",
+      "estado": "respaldada",
+      "ids": [
+       "Q14",
+       "T36"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 13,
+      "afirmacion": "Calvo dice: «Recuerdo los mareos»",
+      "estado": "respaldada",
+      "ids": [
+       "Q14"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 14,
+      "afirmacion": "Calvo dice: «La incertidumbre»",
+      "estado": "respaldada",
+      "ids": [
+       "Q14"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 15,
+      "afirmacion": "No sabían bien adónde iban ni cómo iban a vivir",
+      "estado": "respaldada",
+      "ids": [
+       "Q14"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 16,
+      "afirmacion": "Después del barco siguieron el viaje en un avión pequeño",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 17,
+      "afirmacion": "El avión aterrizó en una tierra muy roja",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 17,
+      "afirmacion": "Era la tierra más roja que Víctor había visto en su vida",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     }
+    ]
+   },
+   "usage": {
+    "input_tokens": 66158,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 3694,
+    "service_tier": "standard",
+    "inference_geo": "global",
+    "speed": "standard",
+    "output_tokens_details": {
+     "thinking_tokens": 1815
+    }
+   },
+   "stop": "end_turn",
+   "usd": 0.33851,
+   "segundos": 29.9
+  }
+ ],
+ "respuesta": {
+  "cap": "ch02",
+  "afirmaciones": [
+   {
+    "oracion": 0,
+    "afirmacion": "El baile fue en el Círculo de Bellas Artes",
+    "estado": "respaldada",
+    "ids": [
+     "T34",
+     "L18"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 0,
+    "afirmacion": "El baile fue el 16 de septiembre de 1961",
+    "estado": "respaldada",
+    "ids": [
+     "T34"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 1,
+    "afirmacion": "María Bernal conoció a Daniel en ese baile",
+    "estado": "respaldada",
+    "ids": [
+     "T34",
+     "L18"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 2,
+    "afirmacion": "María cuenta que iba muy cerca de él y que confiaba en lo que venía",
+    "estado": "respaldada",
+    "ids": [
+     "Q25"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 3,
+    "afirmacion": "María Bernal dice, muchos años después: «Me pegué a mi marido, como una niña pequeña»",
+    "estado": "respaldada",
+    "ids": [
+     "Q25"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 4,
+    "afirmacion": "María Bernal y Daniel Écija se casaron el 20 de septiembre de 1962, un año después de conocerse",
+    "estado": "respaldada",
+    "ids": [
+     "T37"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 5,
+    "afirmacion": "Cuatro días después de la boda partieron hacia Australia",
+    "estado": "respaldada",
+    "ids": [
+     "T38"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 5,
+    "afirmacion": "Hicieron ese viaje en barco",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "oracion": 6,
+    "afirmacion": "El destino del viaje era Australia",
+    "estado": "respaldada",
+    "ids": [
+     "T38"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 7,
+    "afirmacion": "Cerca de ocho mil españoles llegaron a Australia por un acuerdo entre los gobiernos de España y Australia",
+    "estado": "respaldada",
+    "ids": [
+     "D83",
+     "D97",
+     "T28"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 7,
+    "afirmacion": "CSR era la compañía dueña de la mina, a través de su filial Australian Blue Asbestos",
+    "estado": "respaldada",
+    "ids": [
+     "D84",
+     "D99",
+     "T18"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 7,
+    "afirmacion": "CSR hacía viajes privados a Europa para reclutar trabajadores desde 1950",
+    "estado": "respaldada",
+    "ids": [
+     "T24"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 8,
+    "afirmacion": "Ramón de Juan y Milagros Barroso eran un matrimonio",
+    "estado": "respaldada",
+    "ids": [
+     "Q13",
+     "P19",
+     "P20"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 8,
+    "afirmacion": "La familia De Juan-Barroso había llegado a Australia en agosto de 1962",
+    "estado": "respaldada",
+    "ids": [
+     "T36"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 8,
+    "afirmacion": "María recuerda que se hicieron íntimos amigos de ellos",
+    "estado": "respaldada",
+    "ids": [
+     "Q13"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 9,
+    "afirmacion": "Víctor Calvo hizo la travesía a Australia de niño",
+    "estado": "respaldada",
+    "ids": [
+     "T36",
+     "P21"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 10,
+    "afirmacion": "Salieron de Málaga",
+    "estado": "respaldada",
+    "ids": [
+     "Q14"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 10,
+    "afirmacion": "Tardaron más de veinte días en llegar",
+    "estado": "respaldada",
+    "ids": [
+     "Q14"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 11,
+    "afirmacion": "Pasaron por el canal de Suez",
+    "estado": "respaldada",
+    "ids": [
+     "Q14"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 12,
+    "afirmacion": "Calvo dice: «Puf, el calor que hacía allí»",
+    "estado": "respaldada",
+    "ids": [
+     "Q14",
+     "T36"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 13,
+    "afirmacion": "Calvo dice: «Recuerdo los mareos»",
+    "estado": "respaldada",
+    "ids": [
+     "Q14"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 14,
+    "afirmacion": "Calvo dice: «La incertidumbre»",
+    "estado": "respaldada",
+    "ids": [
+     "Q14"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 15,
+    "afirmacion": "No sabían bien adónde iban ni cómo iban a vivir",
+    "estado": "respaldada",
+    "ids": [
+     "Q14"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 16,
+    "afirmacion": "Después del barco siguieron el viaje en un avión pequeño",
+    "estado": "respaldada",
+    "ids": [
+     "Q27"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 17,
+    "afirmacion": "El avión aterrizó en una tierra muy roja",
+    "estado": "respaldada",
+    "ids": [
+     "Q27"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 17,
+    "afirmacion": "Era la tierra más roja que Víctor había visto en su vida",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   }
+  ]
+ },
+ "usage": {
+  "input_tokens": 66158,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "cache_creation": {
+   "ephemeral_5m_input_tokens": 0,
+   "ephemeral_1h_input_tokens": 0
+  },
+  "output_tokens": 3694,
+  "service_tier": "standard",
+  "inference_geo": "global",
+  "speed": "standard",
+  "output_tokens_details": {
+   "thinking_tokens": 1815
+  }
+ },
+ "usd": 0.33851,
+ "segundos": 29.9
+}

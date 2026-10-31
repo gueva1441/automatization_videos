@@ -1,0 +1,616 @@
+{
+ "cap": "ch04",
+ "corrida": 2,
+ "modelo": "claude-opus-5-5",
+ "effort": "medium",
+ "system_md5": "ce31cc515a077d74da72479e9693296e",
+ "user_md5": "939975d661f2f8bd3b9d4951b55055c7",
+ "oraciones": [
+  {
+   "idx": 0,
+   "texto": "Daniel Écija bajó a esa pista semanas después de su boda y entró a trabajar en la mina."
+  },
+  {
+   "idx": 1,
+   "texto": "El hijo cuenta que el primer día de trabajo de su padre hubo una explosión y que alguien murió; no hay otro documento que lo confirme."
+  },
+  {
+   "idx": 2,
+   "texto": "Ramón de Juan, el amigo, hacía con frecuencia jornadas de dieciséis horas."
+  },
+  {
+   "idx": 3,
+   "texto": "Los hombres volvían a las casas de chapa con el polvo encima, y en los patios hechos de relaves jugaban los chicos."
+  },
+  {
+   "idx": 4,
+   "texto": "Víctor Calvo era uno de esos chicos."
+  },
+  {
+   "idx": 5,
+   "texto": "El amianto azul se deshacía entre los dedos."
+  },
+  {
+   "idx": 6,
+   "texto": "«Nosotros jugábamos con él y lo íbamos deshilachando."
+  },
+  {
+   "idx": 7,
+   "texto": "Nos lo metíamos en la boca."
+  },
+  {
+   "idx": 8,
+   "texto": "Cuando lo tocábamos salía un polvillo que lo impregnaba todo», dice Calvo."
+  },
+  {
+   "idx": 9,
+   "texto": "Estaban rodeados de amianto azul y no les daba miedo."
+  },
+  {
+   "idx": 10,
+   "texto": "En ese pueblo, en junio de 1963, María entró al hospital a dar a luz."
+  },
+  {
+   "idx": 11,
+   "texto": "El parto fue con fórceps."
+  },
+  {
+   "idx": 12,
+   "texto": "El bebé era muy grande y María venía debilitada por una infección renal."
+  },
+  {
+   "idx": 13,
+   "texto": "Nació un varón y le pusieron Daniel, como el padre."
+  },
+  {
+   "idx": 14,
+   "texto": "Tres meses antes, en marzo, Milagros Barroso había dado a luz en el mismo pueblo a John Patrick."
+  },
+  {
+   "idx": 15,
+   "texto": "El 7 de julio de 1963 bautizaron al niño; la familia conserva una fotografía de ese día."
+  },
+  {
+   "idx": 16,
+   "texto": "Después del bautizo, los Écija se fueron de Wittenoom."
+  },
+  {
+   "idx": 17,
+   "texto": "Habían estado unos diez meses."
+  },
+  {
+   "idx": 18,
+   "texto": "Creyeron que se llevaban de Wittenoom un hijo y nada más."
+  }
+ ],
+ "intentos": [
+  {
+   "texto": "```json\n{\"cap\": \"ch04\", \"afirmaciones\": [\n{\"oracion\": 0, \"afirmacion\": \"Daniel Écija llegó a la pista de Wittenoom semanas después de su boda\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null},\n{\"oracion\": 0, \"afirmacion\": \"Daniel Écija entró a trabajar en la mina\", \"estado\": \"respaldada\", \"ids\": [\"Q16\"], \"fragmento\": null},\n{\"oracion\": 1, \"afirmacion\": \"El hijo cuenta que el primer día de trabajo de su padre hubo una explosión\", \"estado\": \"respaldada\", \"ids\": [\"Q16\"], \"fragmento\": null},\n{\"oracion\": 1, \"afirmacion\": \"El hijo cuenta que en esa explosión murió alguien (una persona)\", \"estado\": \"contradice\", \"ids\": [\"Q16\"], \"fragmento\": \"El primer día de trabajo de nuestro padre hubo una explosión y murieron varias personas\"},\n{\"oracion\": 1, \"afirmacion\": \"Ningún otro documento confirma la explosión\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null},\n{\"oracion\": 2, \"afirmacion\": \"Ramón de Juan era amigo de Daniel Écija\", \"estado\": \"respaldada\", \"ids\": [\"Q13\", \"D104\"], \"fragmento\": null},\n{\"oracion\": 2, \"afirmacion\": \"Ramón de Juan hacía con frecuencia jornadas de dieciséis horas\", \"estado\": \"respaldada\", \"ids\": [\"D104\"], \"fragmento\": null},\n{\"oracion\": 3, \"afirmacion\": \"Los mineros vivían en casas de chapa\", \"estado\": \"respaldada\", \"ids\": [\"Q27\"], \"fragmento\": null},\n{\"oracion\": 3, \"afirmacion\": \"Los hombres volvían a las casas con el polvo encima\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null},\n{\"oracion\": 3, \"afirmacion\": \"Los patios de las casas estaban hechos de relaves\", \"estado\": \"respaldada\", \"ids\": [\"D129\", \"Q44\"], \"fragmento\": null},\n{\"oracion\": 3, \"afirmacion\": \"Los chicos jugaban en esos patios de relaves\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null},\n{\"oracion\": 4, \"afirmacion\": \"Víctor Calvo era uno de los chicos que vivían en Wittenoom\", \"estado\": \"respaldada\", \"ids\": [\"P21\", \"T36\"], \"fragmento\": null},\n{\"oracion\": 5, \"afirmacion\": \"El amianto azul se deshacía entre los dedos\", \"estado\": \"respaldada\", \"ids\": [\"Q19\"], \"fragmento\": null},\n{\"oracion\": 6, \"afirmacion\": \"Calvo dice: «Nosotros jugábamos con él y lo íbamos deshilachando»\", \"estado\": \"respaldada\", \"ids\": [\"Q19\"], \"fragmento\": null},\n{\"oracion\": 7, \"afirmacion\": \"Calvo dice: «Nos lo metíamos en la boca»\", \"estado\": \"respaldada\", \"ids\": [\"Q19\"], \"fragmento\": null},\n{\"oracion\": 8, \"afirmacion\": \"Calvo dice: «Cuando lo tocábamos salía un polvillo que lo impregnaba todo»\", \"estado\": \"respaldada\", \"ids\": [\"Q19\"], \"fragmento\": null},\n{\"oracion\": 9, \"afirmacion\": \"Los chicos estaban rodeados de amianto azul y no les daba miedo\", \"estado\": \"respaldada\", \"ids\": [\"Q19\"], \"fragmento\": null},\n{\"oracion\": 10, \"afirmacion\": \"En junio de 1963 María entró al hospital de Wittenoom a dar a luz\", \"estado\": \"respaldada\", \"ids\": [\"T40\"], \"fragmento\": null},\n{\"oracion\": 11, \"afirmacion\": \"El parto fue con fórceps\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null},\n{\"oracion\": 12, \"afirmacion\": \"El bebé era muy grande\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null},\n{\"oracion\": 12, \"afirmacion\": \"María venía debilitada por una infección renal\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null},\n{\"oracion\": 13, \"afirmacion\": \"Nació un varón al que llamaron Daniel, como el padre\", \"estado\": \"respaldada\", \"ids\": [\"T40\", \"D102\"], \"fragmento\": null},\n{\"oracion\": 14, \"afirmacion\": \"En marzo de 1963 Milagros Barroso dio a luz a John Patrick en Wittenoom\", \"estado\": \"respaldada\", \"ids\": [\"T39\"], \"fragmento\": null},\n{\"oracion\": 15, \"afirmacion\": \"El niño fue bautizado el 7 de julio de 1963\", \"estado\": \"respaldada\", \"ids\": [\"T41\"], \"fragmento\": null},\n{\"oracion\": 15, \"afirmacion\": \"La familia conserva una fotografía del día del bautizo\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null},\n{\"oracion\": 16, \"afirmacion\": \"Después del bautizo los Écija se fueron de Wittenoom\", \"estado\": \"respaldada\", \"ids\": [\"T41\", \"D87\"], \"fragmento\": null},\n{\"oracion\": 17, \"afirmacion\": \"Los Écija estuvieron en Wittenoom unos diez meses\", \"estado\": \"respaldada\", \"ids\": [\"D87\"], \"fragmento\": null},\n{\"oracion\": 18, \"afirmacion\": \"Los Écija creyeron que de Wittenoom se llevaban solo un hijo\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null}\n]}\n```",
+   "respuesta": {
+    "cap": "ch04",
+    "afirmaciones": [
+     {
+      "oracion": 0,
+      "afirmacion": "Daniel Écija llegó a la pista de Wittenoom semanas después de su boda",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 0,
+      "afirmacion": "Daniel Écija entró a trabajar en la mina",
+      "estado": "respaldada",
+      "ids": [
+       "Q16"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "El hijo cuenta que el primer día de trabajo de su padre hubo una explosión",
+      "estado": "respaldada",
+      "ids": [
+       "Q16"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "El hijo cuenta que en esa explosión murió alguien (una persona)",
+      "estado": "contradice",
+      "ids": [
+       "Q16"
+      ],
+      "fragmento": "El primer día de trabajo de nuestro padre hubo una explosión y murieron varias personas"
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "Ningún otro documento confirma la explosión",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "Ramón de Juan era amigo de Daniel Écija",
+      "estado": "respaldada",
+      "ids": [
+       "Q13",
+       "D104"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "Ramón de Juan hacía con frecuencia jornadas de dieciséis horas",
+      "estado": "respaldada",
+      "ids": [
+       "D104"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "Los mineros vivían en casas de chapa",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "Los hombres volvían a las casas con el polvo encima",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "Los patios de las casas estaban hechos de relaves",
+      "estado": "respaldada",
+      "ids": [
+       "D129",
+       "Q44"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "Los chicos jugaban en esos patios de relaves",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "Víctor Calvo era uno de los chicos que vivían en Wittenoom",
+      "estado": "respaldada",
+      "ids": [
+       "P21",
+       "T36"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "El amianto azul se deshacía entre los dedos",
+      "estado": "respaldada",
+      "ids": [
+       "Q19"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 6,
+      "afirmacion": "Calvo dice: «Nosotros jugábamos con él y lo íbamos deshilachando»",
+      "estado": "respaldada",
+      "ids": [
+       "Q19"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "Calvo dice: «Nos lo metíamos en la boca»",
+      "estado": "respaldada",
+      "ids": [
+       "Q19"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "Calvo dice: «Cuando lo tocábamos salía un polvillo que lo impregnaba todo»",
+      "estado": "respaldada",
+      "ids": [
+       "Q19"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "Los chicos estaban rodeados de amianto azul y no les daba miedo",
+      "estado": "respaldada",
+      "ids": [
+       "Q19"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 10,
+      "afirmacion": "En junio de 1963 María entró al hospital de Wittenoom a dar a luz",
+      "estado": "respaldada",
+      "ids": [
+       "T40"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 11,
+      "afirmacion": "El parto fue con fórceps",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 12,
+      "afirmacion": "El bebé era muy grande",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 12,
+      "afirmacion": "María venía debilitada por una infección renal",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 13,
+      "afirmacion": "Nació un varón al que llamaron Daniel, como el padre",
+      "estado": "respaldada",
+      "ids": [
+       "T40",
+       "D102"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 14,
+      "afirmacion": "En marzo de 1963 Milagros Barroso dio a luz a John Patrick en Wittenoom",
+      "estado": "respaldada",
+      "ids": [
+       "T39"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 15,
+      "afirmacion": "El niño fue bautizado el 7 de julio de 1963",
+      "estado": "respaldada",
+      "ids": [
+       "T41"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 15,
+      "afirmacion": "La familia conserva una fotografía del día del bautizo",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 16,
+      "afirmacion": "Después del bautizo los Écija se fueron de Wittenoom",
+      "estado": "respaldada",
+      "ids": [
+       "T41",
+       "D87"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 17,
+      "afirmacion": "Los Écija estuvieron en Wittenoom unos diez meses",
+      "estado": "respaldada",
+      "ids": [
+       "D87"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 18,
+      "afirmacion": "Los Écija creyeron que de Wittenoom se llevaban solo un hijo",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     }
+    ]
+   },
+   "usage": {
+    "input_tokens": 66188,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 4069,
+    "service_tier": "standard",
+    "inference_geo": "global",
+    "speed": "standard",
+    "output_tokens_details": {
+     "thinking_tokens": 2047
+    }
+   },
+   "stop": "end_turn",
+   "usd": 0.34613,
+   "segundos": 33.7
+  }
+ ],
+ "respuesta": {
+  "cap": "ch04",
+  "afirmaciones": [
+   {
+    "oracion": 0,
+    "afirmacion": "Daniel Écija llegó a la pista de Wittenoom semanas después de su boda",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "oracion": 0,
+    "afirmacion": "Daniel Écija entró a trabajar en la mina",
+    "estado": "respaldada",
+    "ids": [
+     "Q16"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 1,
+    "afirmacion": "El hijo cuenta que el primer día de trabajo de su padre hubo una explosión",
+    "estado": "respaldada",
+    "ids": [
+     "Q16"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 1,
+    "afirmacion": "El hijo cuenta que en esa explosión murió alguien (una persona)",
+    "estado": "contradice",
+    "ids": [
+     "Q16"
+    ],
+    "fragmento": "El primer día de trabajo de nuestro padre hubo una explosión y murieron varias personas"
+   },
+   {
+    "oracion": 1,
+    "afirmacion": "Ningún otro documento confirma la explosión",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "oracion": 2,
+    "afirmacion": "Ramón de Juan era amigo de Daniel Écija",
+    "estado": "respaldada",
+    "ids": [
+     "Q13",
+     "D104"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 2,
+    "afirmacion": "Ramón de Juan hacía con frecuencia jornadas de dieciséis horas",
+    "estado": "respaldada",
+    "ids": [
+     "D104"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 3,
+    "afirmacion": "Los mineros vivían en casas de chapa",
+    "estado": "respaldada",
+    "ids": [
+     "Q27"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 3,
+    "afirmacion": "Los hombres volvían a las casas con el polvo encima",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "oracion": 3,
+    "afirmacion": "Los patios de las casas estaban hechos de relaves",
+    "estado": "respaldada",
+    "ids": [
+     "D129",
+     "Q44"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 3,
+    "afirmacion": "Los chicos jugaban en esos patios de relaves",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "oracion": 4,
+    "afirmacion": "Víctor Calvo era uno de los chicos que vivían en Wittenoom",
+    "estado": "respaldada",
+    "ids": [
+     "P21",
+     "T36"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 5,
+    "afirmacion": "El amianto azul se deshacía entre los dedos",
+    "estado": "respaldada",
+    "ids": [
+     "Q19"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 6,
+    "afirmacion": "Calvo dice: «Nosotros jugábamos con él y lo íbamos deshilachando»",
+    "estado": "respaldada",
+    "ids": [
+     "Q19"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 7,
+    "afirmacion": "Calvo dice: «Nos lo metíamos en la boca»",
+    "estado": "respaldada",
+    "ids": [
+     "Q19"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 8,
+    "afirmacion": "Calvo dice: «Cuando lo tocábamos salía un polvillo que lo impregnaba todo»",
+    "estado": "respaldada",
+    "ids": [
+     "Q19"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 9,
+    "afirmacion": "Los chicos estaban rodeados de amianto azul y no les daba miedo",
+    "estado": "respaldada",
+    "ids": [
+     "Q19"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 10,
+    "afirmacion": "En junio de 1963 María entró al hospital de Wittenoom a dar a luz",
+    "estado": "respaldada",
+    "ids": [
+     "T40"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 11,
+    "afirmacion": "El parto fue con fórceps",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "oracion": 12,
+    "afirmacion": "El bebé era muy grande",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "oracion": 12,
+    "afirmacion": "María venía debilitada por una infección renal",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "oracion": 13,
+    "afirmacion": "Nació un varón al que llamaron Daniel, como el padre",
+    "estado": "respaldada",
+    "ids": [
+     "T40",
+     "D102"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 14,
+    "afirmacion": "En marzo de 1963 Milagros Barroso dio a luz a John Patrick en Wittenoom",
+    "estado": "respaldada",
+    "ids": [
+     "T39"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 15,
+    "afirmacion": "El niño fue bautizado el 7 de julio de 1963",
+    "estado": "respaldada",
+    "ids": [
+     "T41"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 15,
+    "afirmacion": "La familia conserva una fotografía del día del bautizo",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "oracion": 16,
+    "afirmacion": "Después del bautizo los Écija se fueron de Wittenoom",
+    "estado": "respaldada",
+    "ids": [
+     "T41",
+     "D87"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 17,
+    "afirmacion": "Los Écija estuvieron en Wittenoom unos diez meses",
+    "estado": "respaldada",
+    "ids": [
+     "D87"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 18,
+    "afirmacion": "Los Écija creyeron que de Wittenoom se llevaban solo un hijo",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   }
+  ]
+ },
+ "usage": {
+  "input_tokens": 66188,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "cache_creation": {
+   "ephemeral_5m_input_tokens": 0,
+   "ephemeral_1h_input_tokens": 0
+  },
+  "output_tokens": 4069,
+  "service_tier": "standard",
+  "inference_geo": "global",
+  "speed": "standard",
+  "output_tokens_details": {
+   "thinking_tokens": 2047
+  }
+ },
+ "usd": 0.34613,
+ "segundos": 33.7
+}

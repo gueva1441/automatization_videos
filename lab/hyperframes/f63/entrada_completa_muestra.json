@@ -1,0 +1,311 @@
+{
+ "escaleta_video": {
+  "promesa_gancho": "Un minero español vivió diez meses en un pueblo construido con polvo de asbesto azul y tardó casi treinta años en morir de eso; el pueblo ya no existe en los mapas, pero tres millones de toneladas de relaves siguen donde las dejaron.",
+  "loops": [
+   {
+    "id": "L1",
+    "pregunta": "¿Qué le hizo Wittenoom a Daniel en diez meses, si el pueblo ya estaba a miles de kilómetros cuando lo alcanzó?",
+    "abre_beat": 1,
+    "paga_beat": 10
+   },
+   {
+    "id": "L2",
+    "pregunta": "¿Quién sabía que el polvo mataba, desde cuándo, y quién va a limpiar lo que quedó?",
+    "abre_beat": 5,
+    "paga_beat": 13
+   }
+  ],
+  "recuerda_loop": {
+   "beat": 6,
+   "oracion": "Un año después de que McNulty escribiera ese primer caso, un recién casado de Madrid se bajaba de un avión en esa misma pista de polvo."
+  },
+  "pico": {
+   "beat": 10,
+   "id": "T64",
+   "por_que": "Es el pico que marca la ficha y no hay razón mejor: la familia salió de Wittenoom creyendo que había escapado, y la exposición los alcanza en Madrid veintiocho años después. Convierte la 'salida' del cap 4 en una ilusión y da sentido a todo lo que viene después sobre el territorio que tampoco puede irse."
+  },
+  "humano": {
+   "id": "P16",
+   "nombre": "María Bernal",
+   "rol": "Minero emigrante español, esposo de María Bernal",
+   "por_que": "Es el único candidato con entrada, daño y salida documentados: se casa en Madrid, emigra cuatro días después, trabaja diez meses en Wittenoom, aparece con el pie vendado en el retrato familiar, se va tras el bautizo del hijo, vuelve a Madrid y muere de mesotelioma a los 55 años, nueve meses después del diagnóstico de 1991. No tiene citas propias verificadas; su voz la ponen María Bernal (Q25, Q35 sin verificar) y el hijo (Q16), y el guionista no le atribuirá frases.",
+   "colectivo": false,
+   "fuente": "D89"
+  },
+  "antagonista": {
+   "tipo": "institucion",
+   "id": "T48",
+   "nombre": "CSR",
+   "por_que": "Es la matriz de ABA desde 1943, vierte los relaves en los desfiladeros entre 1948 y 1966, recluta en Europa desde 1950, aumenta la producción en 1961 pese a las advertencias de Saint y de los inspectores, y cierra en 1966 por razones económicas, no sanitarias. Un juez determinó en 1988 su desprecio continuo y consciente por la salud de los trabajadores.",
+   "variantes": [
+    "CSR Ltd.",
+    "CSR Limited",
+    "Colonial Sugar Refining Company"
+   ]
+  },
+  "cierre_humano": "Vuelve a Daniel sin ponerle palabras: el retrato con el pie vendado, la herida que no cerraba, y la pregunta que nadie de la ficha responde: ¿qué respiró en diez meses que tardó casi treinta años en matarlo?"
+ },
+ "disputas": {
+  "versiones": [
+   {
+    "tema": "Negación empresarial de la peligrosidad del polvo frente a las advertencias sanitarias; se conserva quién sostuvo cada posición sin presentar como incierto el daño sanitario documentado.",
+    "versiones": [
+     {
+      "dice": "En el arbitraje de 1949, el defensor empresarial sostuvo que la compañía no admitía que el polvo fuera peligroso y que las nubes de polvo no demostraban su peligrosidad.",
+      "doc_id": "F09",
+      "offset": 65619,
+      "ids": [
+       "Q53"
+      ]
+     },
+     {
+      "dice": "Saint advirtió por escrito que los niveles de polvo eran extremadamente peligrosos.",
+      "doc_id": "F07",
+      "offset": 18071,
+      "ids": [
+       "D92",
+       "T19"
+      ]
+     },
+     {
+      "dice": "Saint afirmó retrospectivamente que sus advertencias fueron desestimadas y que no lo escucharon.",
+      "doc_id": "F09",
+      "offset": 41198,
+      "ids": [
+       "Q46"
+      ]
+     }
+    ]
+   },
+   {
+    "tema": "Si el cierre del pueblo puso fin al episodio de daño.",
+    "versiones": [
+     {
+      "dice": "El Gobierno presentó la medida como el fin de un período oscuro de la historia estatal.",
+      "doc_id": "F04",
+      "offset": 6229,
+      "ids": [
+       "Q07"
+      ]
+     },
+     {
+      "dice": "El Subcomité señaló que la contaminación se había extendido y que los informes sobre su alcance ya no eran aplicables.",
+      "doc_id": "F04",
+      "offset": 6827,
+      "ids": [
+       "Q08",
+       "D61"
+      ]
+     },
+     {
+      "dice": "La representación jurídica Banjima inició un proceso por la devastación cultural y ambiental causada por la mina.",
+      "doc_id": "F12",
+      "offset": 39,
+      "ids": [
+       "D62"
+      ]
+     }
+    ]
+   }
+  ],
+  "contradicciones": [
+   {
+    "tema": "Antigüedad del conocimiento estatal del peligro: la afirmación retrospectiva de F12 no encaja con las advertencias documentadas anteriores.",
+    "versiones": [
+     {
+      "dice": "El comunicado de 2026 dice que habían pasado cuarenta años desde que el Estado conoció las consecuencias mortales del asbesto; no explica qué hito de conocimiento está usando.",
+      "doc_id": "F12",
+      "offset": 833,
+      "ids": [
+       "D67",
+       "D66",
+       "T60"
+      ]
+     },
+     {
+      "dice": "El documento oficial sitúa informes de funcionarios estatales sobre el problema del polvo ya en 1944.",
+      "doc_id": "F05",
+      "offset": 56576,
+      "ids": [
+       "D19",
+       "T09"
+      ]
+     },
+     {
+      "dice": "La crónica recoge una advertencia escrita de Eric Saint sobre niveles extremadamente peligrosos en 1948.",
+      "doc_id": "F07",
+      "offset": 18071,
+      "ids": [
+       "D92"
+      ]
+     }
+    ]
+   },
+   {
+    "tema": "Formas del nombre de McNulty: se conserva la discrepancia documental sin convertirla en personas diferentes.",
+    "versiones": [
+     {
+      "dice": "Dr J McNulty.",
+      "doc_id": "F04",
+      "offset": 1855,
+      "ids": [
+       "P07",
+       "D50"
+      ]
+     },
+     {
+      "dice": "Dr. Jim McNulty.",
+      "doc_id": "F09",
+      "offset": 36151,
+      "ids": [
+       "P07"
+      ]
+     }
+    ]
+   },
+   {
+    "tema": "Formas del nombre del hijo nacido en Wittenoom en la familia De Juan-Barroso.",
+    "versiones": [
+     {
+      "dice": "El nacimiento se relata con el nombre John Patrick.",
+      "doc_id": "F07",
+      "offset": 12298,
+      "ids": [
+       "P23",
+       "T39"
+      ]
+     },
+     {
+      "dice": "La declaración del adulto se atribuye a John; el rótulo del ítem lo identifica como John de Juan.",
+      "doc_id": "F07",
+      "offset": 21867,
+      "ids": [
+       "Q22"
+      ]
+     }
+    ]
+   },
+   {
+    "tema": "Distancia a Perth: los pasajes no usan una modalidad de trayecto común y no permiten fijar una única distancia.",
+    "versiones": [
+     {
+      "dice": "Unos 1.400 kilómetros, sin especificar modalidad de desplazamiento.",
+      "doc_id": "F07",
+      "offset": 699,
+      "ids": [
+       "D82"
+      ]
+     },
+     {
+      "dice": "Aproximadamente 1.600 kilómetros por carretera o 1.100 kilómetros por aire.",
+      "doc_id": "F09",
+      "offset": 3706,
+      "ids": [
+       "D113"
+      ]
+     }
+    ]
+   },
+   {
+    "tema": "Alcance exacto del primer diagnóstico y del primer reporte de mesotelioma: no consta si ambos pasajes describen el mismo acto médico.",
+    "versiones": [
+     {
+      "dice": "McNulty diagnosticó el primer caso originado en Wittenoom en un paciente que había trabajado allí durante dos años a finales de la década de 1940; el pasaje no incluye el año del diagnóstico.",
+      "doc_id": "F04",
+      "offset": 1855,
+      "ids": [
+       "D50",
+       "T32"
+      ]
+     },
+     {
+      "dice": "McNulty comunicó en 1962 un caso en un antiguo trabajador del molino, presentado como el primero comunicado fuera de Sudáfrica.",
+      "doc_id": "F09",
+      "offset": 36887,
+      "ids": [
+       "T35",
+       "D130"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "beats": [
+  {
+   "n": 1,
+   "cap": "ch01",
+   "funcion": "gancho",
+   "pico": true,
+   "dato_central": "D85",
+   "apoyo": [],
+   "cierre": "Esa foto se tomó en un pueblo que hoy no figura en ningún mapa. Antes de que lo borraran, alguien tuvo que llevarlo hasta allí.",
+   "emocion": "inquietud",
+   "imagen_sensorial": "Un retrato familiar en blanco y negro: un hombre joven posa con el pie vendado; el relato dice que le cayó un trozo de amianto y la herida no cerraba.",
+   "pregunta_abierta": "¿Por qué una herida hecha por un pedazo de mineral no cierra? ¿Qué hay en ese polvo?",
+   "paga": null
+  },
+  {
+   "n": 2,
+   "cap": "ch02",
+   "funcion": "planteo",
+   "pico": false,
+   "dato_central": "T34",
+   "apoyo": [
+    "Q25",
+    "Q13",
+    "T37"
+   ],
+   "cierre": "Se casaron el 20 de septiembre de 1962. Cuatro días después estaban en un barco.",
+   "emocion": "ternura",
+   "imagen_sensorial": "Un salón de baile en Madrid, 16 de septiembre de 1961: una pareja que se conoce en el Círculo de Bellas Artes; ella recuerda que iba muy cerca de su marido y confiaba en el futuro.",
+   "pregunta_abierta": "¿Qué lleva a dos recién casados a cruzar medio mundo?",
+   "paga": null
+  }
+ ],
+ "archivo_muestra": [
+  {
+   "id": "D34",
+   "texto": "Los restos de amianto de las operaciones mineras en Wittenoom han provocado miles de muertes entre mineros, residentes y visitantes.",
+   "fuente": "Wittenoom: Information on the former town of Wittenoom, 2021",
+   "fecha": "desconocida",
+   "beats_que_lo_cuentan": [],
+   "a_pantalla": {
+    "beat": 11,
+    "por_que": "Fuentes gubernamentales actuales: 'miles' de muertes sin total; se muestra junto a la estimación de Markey que sí dice la voz."
+   },
+   "contexto_fuente": "Asbestos remnants from past mining operations in Wittenoom have already resulted in thousands of fatalities among miners, residents and visitors to the town."
+  },
+  {
+   "id": "D85",
+   "texto": "Daniel Écija padre se hirió el pie con un trozo de amianto y la herida no se cerraba.",
+   "fuente": "Wittenoom: españoles en el ‘Chernóbil’ australiano, 2026",
+   "fecha": "desconocida",
+   "beats_que_lo_cuentan": [
+    1
+   ],
+   "contexto_fuente": "Se le cayó un trozo de amianto en el pie y, extrañamente, fue una herida que no se cerraba nunca. En uno de los retratos familiares de aquella época aparece Daniel con el pie vendado."
+  },
+  {
+   "id": "Q25",
+   "texto": "Me pegué a mi marido, como una niña pequeña. Pero estaba orgullosa. Me había enamorado de ese hombre y confiaba en el futuro… aunque estuviera tan lejos. En España no teníamos nada, ninguno de los dos.",
+   "fuente": "Wittenoom: The Spaniards caught up in the ‘Australian Chernobyl’, 2026",
+   "fecha": "desconocida",
+   "beats_que_lo_cuentan": [
+    2
+   ],
+   "autor": "María Bernal",
+   "rol": "Esposa de minero y residente de Wittenoom",
+   "testimonio": "sí",
+   "contexto_fuente": "“I stuck close to my husband, like a little girl,” María says, surrounded by sepia family photos from those years. “But I was proud. I had fallen in love with that man and trusted the future… even though it was so far away. In Spain we had nothing, neither of us.”"
+  },
+  {
+   "id": "L01",
+   "texto": "Yampire Mine — Una de las tres minas de donde se extrajo asbesto comercialmente.",
+   "fuente": "Management of Asbestos Contamination in Wittenoom: Non Technical Summary, 2006",
+   "fecha": "desconocida",
+   "beats_que_lo_cuentan": [],
+   "contexto_fuente": "Approximately 150,000 tonnes of asbestos was extracted commercially from three mines (Yampire, Wittenoom and Colonial) between 1937 and 1966"
+  }
+ ]
+}

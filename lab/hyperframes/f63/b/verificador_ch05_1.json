@@ -1,0 +1,748 @@
+{
+ "cap": "ch05",
+ "corrida": 1,
+ "modelo": "claude-opus-5-5",
+ "effort": "medium",
+ "system_md5": "ce31cc515a077d74da72479e9693296e",
+ "user_md5": "083d196f074ef491a44d970bcfe0d88b",
+ "oraciones": [
+  {
+   "idx": 0,
+   "texto": "Lo que dejaban atrás siguió moliendo tres años más."
+  },
+  {
+   "idx": 1,
+   "texto": "En diciembre de 1966, James Vernon, de CSR, anunció el cierre de las operaciones."
+  },
+  {
+   "idx": 2,
+   "texto": "Las razones del anuncio eran económicas: no la palabra salud, la palabra costos."
+  },
+  {
+   "idx": 3,
+   "texto": "Ese mismo año los Écija volvieron a Madrid."
+  },
+  {
+   "idx": 4,
+   "texto": "Los de Juan estuvieron en Wittenoom unos dos años y medio y regresaron a Madrid en 1971; Mercedes de Juan se quedó en Australia."
+  },
+  {
+   "idx": 5,
+   "texto": "Con la mina cerrada, el suelo del pueblo seguía siendo el mismo."
+  },
+  {
+   "idx": 6,
+   "texto": "En 1978 el gobierno del Estado empezó a reducir Wittenoom y a alentar a la gente a irse, por el riesgo de fibras en el aire."
+  },
+  {
+   "idx": 7,
+   "texto": "En 1979 los afectados formaron la Asbestos Diseases Society of Australia."
+  },
+  {
+   "idx": 8,
+   "texto": "Y en 1988 un juez determinó que la compañía había mostrado un desprecio continuo, consciente y contumaz por la seguridad y la salud de sus trabajadores."
+  },
+  {
+   "idx": 9,
+   "texto": "Veintidós años después del cierre."
+  },
+  {
+   "idx": 10,
+   "texto": "Para entonces, en Madrid, a Daniel le quedaban tres años."
+  },
+  {
+   "idx": 11,
+   "texto": "María guarda las fotografías en sepia: el baile, el barco, el pie vendado, el bautizo."
+  },
+  {
+   "idx": 12,
+   "texto": "En 1991, en Madrid, un diagnóstico puso nombre a lo que Daniel llevaba adentro: mesotelioma."
+  },
+  {
+   "idx": 13,
+   "texto": "La misma palabra que McNulty había escrito en 1962 sobre un trabajador del molino, el año en que Daniel bajó del avión."
+  },
+  {
+   "idx": 14,
+   "texto": "Eso había en el polvo."
+  },
+  {
+   "idx": 15,
+   "texto": "Eso respiraba mientras esperaba que le cerrara el pie."
+  },
+  {
+   "idx": 16,
+   "texto": "Daniel tenía cincuenta y cinco años."
+  },
+  {
+   "idx": 17,
+   "texto": "María tenía las fotos."
+  },
+  {
+   "idx": 18,
+   "texto": "Nueve meses después del diagnóstico, Daniel Écija murió en Madrid, a miles de kilómetros de la pista roja, casi treinta años después de haberse ido de ella."
+  },
+  {
+   "idx": 19,
+   "texto": "Lo alcanzó."
+  },
+  {
+   "idx": 20,
+   "texto": "«Ese lugar cambió nuestras vidas para siempre», dice el hijo, el niño del bautizo."
+  },
+  {
+   "idx": 21,
+   "texto": "Fueron nueve meses."
+  },
+  {
+   "idx": 22,
+   "texto": "El mismo tiempo que un embarazo."
+  },
+  {
+   "idx": 23,
+   "texto": "Daniel había estado en Wittenoom diez."
+  }
+ ],
+ "intentos": [
+  {
+   "texto": "```json\n{\"cap\": \"ch05\", \"afirmaciones\": [\n{\"oracion\": 0, \"afirmacion\": \"La mina que los Écija dejaron en 1963 siguió operando unos tres años más, hasta 1966\", \"estado\": \"respaldada\", \"ids\": [\"T41\", \"T48\"], \"fragmento\": null},\n{\"oracion\": 1, \"afirmacion\": \"En diciembre de 1966 James Vernon, de CSR, anunció el cierre de las operaciones\", \"estado\": \"respaldada\", \"ids\": [\"T48\", \"P08\"], \"fragmento\": null},\n{\"oracion\": 2, \"afirmacion\": \"El cierre se anunció por razones económicas, de costos\", \"estado\": \"respaldada\", \"ids\": [\"T48\", \"D22\", \"T49\"], \"fragmento\": null},\n{\"oracion\": 3, \"afirmacion\": \"Los Écija volvieron a Madrid en 1966\", \"estado\": \"respaldada\", \"ids\": [\"T47\"], \"fragmento\": null},\n{\"oracion\": 4, \"afirmacion\": \"Los de Juan estuvieron en Wittenoom unos dos años y medio\", \"estado\": \"respaldada\", \"ids\": [\"D88\"], \"fragmento\": null},\n{\"oracion\": 4, \"afirmacion\": \"Los de Juan regresaron a Madrid en 1971\", \"estado\": \"respaldada\", \"ids\": [\"T51\"], \"fragmento\": null},\n{\"oracion\": 4, \"afirmacion\": \"Mercedes de Juan se quedó en Australia\", \"estado\": \"respaldada\", \"ids\": [\"T51\"], \"fragmento\": null},\n{\"oracion\": 5, \"afirmacion\": \"Tras el cierre de la mina, el suelo del pueblo seguía con los relaves de asbesto usados como relleno\", \"estado\": \"respaldada\", \"ids\": [\"D39\", \"D129\"], \"fragmento\": null},\n{\"oracion\": 6, \"afirmacion\": \"En 1978 el gobierno del Estado empezó a reducir Wittenoom y a alentar a los residentes a irse por el riesgo de fibras de asbesto en el aire\", \"estado\": \"respaldada\", \"ids\": [\"T52\", \"D27\"], \"fragmento\": null},\n{\"oracion\": 7, \"afirmacion\": \"En 1979 los afectados formaron la Asbestos Diseases Society of Australia\", \"estado\": \"respaldada\", \"ids\": [\"T56\"], \"fragmento\": null},\n{\"oracion\": 8, \"afirmacion\": \"En 1988 un juez determinó que la compañía mostró un desprecio continuo, consciente y contumaz por la seguridad y la salud de sus trabajadores\", \"estado\": \"respaldada\", \"ids\": [\"D93\", \"T62\"], \"fragmento\": null},\n{\"oracion\": 9, \"afirmacion\": \"El fallo de 1988 llegó veintidós años después del cierre de 1966\", \"estado\": \"respaldada\", \"ids\": [\"D93\", \"T48\"], \"fragmento\": null},\n{\"oracion\": 10, \"afirmacion\": \"En 1988 Daniel vivía en Madrid y le quedaban tres años de vida, hasta su muerte en 1991\", \"estado\": \"respaldada\", \"ids\": [\"T47\", \"T64\", \"D89\"], \"fragmento\": null},\n{\"oracion\": 11, \"afirmacion\": \"María conserva fotografías familiares en sepia de aquellos años\", \"estado\": \"respaldada\", \"ids\": [\"Q25\"], \"fragmento\": null},\n{\"oracion\": 11, \"afirmacion\": \"Entre las fotografías hay una de Daniel con el pie vendado\", \"estado\": \"respaldada\", \"ids\": [\"D85\"], \"fragmento\": null},\n{\"oracion\": 11, \"afirmacion\": \"Entre las fotografías hay imágenes del baile, del barco y del bautizo\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null},\n{\"oracion\": 12, \"afirmacion\": \"En 1991 Daniel fue diagnosticado de mesotelioma\", \"estado\": \"respaldada\", \"ids\": [\"T64\", \"D89\"], \"fragmento\": null},\n{\"oracion\": 13, \"afirmacion\": \"McNulty reportó en 1962 un caso de mesotelioma en un ex trabajador del molino de Wittenoom\", \"estado\": \"respaldada\", \"ids\": [\"D130\", \"T35\"], \"fragmento\": null},\n{\"oracion\": 13, \"afirmacion\": \"Daniel llegó en avión a Wittenoom en 1962\", \"estado\": \"respaldada\", \"ids\": [\"T38\", \"Q27\", \"D87\"], \"fragmento\": null},\n{\"oracion\": 14, \"afirmacion\": \"El polvo de Wittenoom contenía asbesto\", \"estado\": \"respaldada\", \"ids\": [\"D18\", \"D36\"], \"fragmento\": null},\n{\"oracion\": 15, \"afirmacion\": \"Daniel tuvo una herida en el pie que no cerraba\", \"estado\": \"respaldada\", \"ids\": [\"D85\"], \"fragmento\": null},\n{\"oracion\": 16, \"afirmacion\": \"Daniel tenía 55 años\", \"estado\": \"respaldada\", \"ids\": [\"D89\"], \"fragmento\": null},\n{\"oracion\": 17, \"afirmacion\": \"María conserva las fotos\", \"estado\": \"respaldada\", \"ids\": [\"Q25\"], \"fragmento\": null},\n{\"oracion\": 18, \"afirmacion\": \"Daniel Écija murió nueve meses después del diagnóstico\", \"estado\": \"respaldada\", \"ids\": [\"D89\", \"T64\"], \"fragmento\": null},\n{\"oracion\": 18, \"afirmacion\": \"Murió en Madrid\", \"estado\": \"respaldada\", \"ids\": [\"T47\"], \"fragmento\": null},\n{\"oracion\": 18, \"afirmacion\": \"Murió casi treinta años después de haberse ido de Wittenoom en 1963\", \"estado\": \"respaldada\", \"ids\": [\"T41\", \"D89\"], \"fragmento\": null},\n{\"oracion\": 18, \"afirmacion\": \"Wittenoom tenía una pista de aterrizaje en tierra roja\", \"estado\": \"respaldada\", \"ids\": [\"Q27\"], \"fragmento\": null},\n{\"oracion\": 20, \"afirmacion\": \"El hijo, Daniel, dice «Ese lugar cambió nuestras vidas para siempre»\", \"estado\": \"respaldada\", \"ids\": [\"Q35\"], \"fragmento\": null},\n{\"oracion\": 20, \"afirmacion\": \"Ese hijo es el niño bautizado en Wittenoom\", \"estado\": \"respaldada\", \"ids\": [\"T41\", \"T40\"], \"fragmento\": null},\n{\"oracion\": 21, \"afirmacion\": \"Entre el diagnóstico y la muerte pasaron nueve meses\", \"estado\": \"respaldada\", \"ids\": [\"D89\"], \"fragmento\": null},\n{\"oracion\": 23, \"afirmacion\": \"Daniel estuvo en Wittenoom unos diez meses\", \"estado\": \"respaldada\", \"ids\": [\"D87\"], \"fragmento\": null}\n]}\n```",
+   "respuesta": {
+    "cap": "ch05",
+    "afirmaciones": [
+     {
+      "oracion": 0,
+      "afirmacion": "La mina que los Écija dejaron en 1963 siguió operando unos tres años más, hasta 1966",
+      "estado": "respaldada",
+      "ids": [
+       "T41",
+       "T48"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "En diciembre de 1966 James Vernon, de CSR, anunció el cierre de las operaciones",
+      "estado": "respaldada",
+      "ids": [
+       "T48",
+       "P08"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "El cierre se anunció por razones económicas, de costos",
+      "estado": "respaldada",
+      "ids": [
+       "T48",
+       "D22",
+       "T49"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "Los Écija volvieron a Madrid en 1966",
+      "estado": "respaldada",
+      "ids": [
+       "T47"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "Los de Juan estuvieron en Wittenoom unos dos años y medio",
+      "estado": "respaldada",
+      "ids": [
+       "D88"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "Los de Juan regresaron a Madrid en 1971",
+      "estado": "respaldada",
+      "ids": [
+       "T51"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "Mercedes de Juan se quedó en Australia",
+      "estado": "respaldada",
+      "ids": [
+       "T51"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "Tras el cierre de la mina, el suelo del pueblo seguía con los relaves de asbesto usados como relleno",
+      "estado": "respaldada",
+      "ids": [
+       "D39",
+       "D129"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 6,
+      "afirmacion": "En 1978 el gobierno del Estado empezó a reducir Wittenoom y a alentar a los residentes a irse por el riesgo de fibras de asbesto en el aire",
+      "estado": "respaldada",
+      "ids": [
+       "T52",
+       "D27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "En 1979 los afectados formaron la Asbestos Diseases Society of Australia",
+      "estado": "respaldada",
+      "ids": [
+       "T56"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "En 1988 un juez determinó que la compañía mostró un desprecio continuo, consciente y contumaz por la seguridad y la salud de sus trabajadores",
+      "estado": "respaldada",
+      "ids": [
+       "D93",
+       "T62"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "El fallo de 1988 llegó veintidós años después del cierre de 1966",
+      "estado": "respaldada",
+      "ids": [
+       "D93",
+       "T48"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 10,
+      "afirmacion": "En 1988 Daniel vivía en Madrid y le quedaban tres años de vida, hasta su muerte en 1991",
+      "estado": "respaldada",
+      "ids": [
+       "T47",
+       "T64",
+       "D89"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 11,
+      "afirmacion": "María conserva fotografías familiares en sepia de aquellos años",
+      "estado": "respaldada",
+      "ids": [
+       "Q25"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 11,
+      "afirmacion": "Entre las fotografías hay una de Daniel con el pie vendado",
+      "estado": "respaldada",
+      "ids": [
+       "D85"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 11,
+      "afirmacion": "Entre las fotografías hay imágenes del baile, del barco y del bautizo",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 12,
+      "afirmacion": "En 1991 Daniel fue diagnosticado de mesotelioma",
+      "estado": "respaldada",
+      "ids": [
+       "T64",
+       "D89"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 13,
+      "afirmacion": "McNulty reportó en 1962 un caso de mesotelioma en un ex trabajador del molino de Wittenoom",
+      "estado": "respaldada",
+      "ids": [
+       "D130",
+       "T35"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 13,
+      "afirmacion": "Daniel llegó en avión a Wittenoom en 1962",
+      "estado": "respaldada",
+      "ids": [
+       "T38",
+       "Q27",
+       "D87"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 14,
+      "afirmacion": "El polvo de Wittenoom contenía asbesto",
+      "estado": "respaldada",
+      "ids": [
+       "D18",
+       "D36"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 15,
+      "afirmacion": "Daniel tuvo una herida en el pie que no cerraba",
+      "estado": "respaldada",
+      "ids": [
+       "D85"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 16,
+      "afirmacion": "Daniel tenía 55 años",
+      "estado": "respaldada",
+      "ids": [
+       "D89"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 17,
+      "afirmacion": "María conserva las fotos",
+      "estado": "respaldada",
+      "ids": [
+       "Q25"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 18,
+      "afirmacion": "Daniel Écija murió nueve meses después del diagnóstico",
+      "estado": "respaldada",
+      "ids": [
+       "D89",
+       "T64"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 18,
+      "afirmacion": "Murió en Madrid",
+      "estado": "respaldada",
+      "ids": [
+       "T47"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 18,
+      "afirmacion": "Murió casi treinta años después de haberse ido de Wittenoom en 1963",
+      "estado": "respaldada",
+      "ids": [
+       "T41",
+       "D89"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 18,
+      "afirmacion": "Wittenoom tenía una pista de aterrizaje en tierra roja",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 20,
+      "afirmacion": "El hijo, Daniel, dice «Ese lugar cambió nuestras vidas para siempre»",
+      "estado": "respaldada",
+      "ids": [
+       "Q35"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 20,
+      "afirmacion": "Ese hijo es el niño bautizado en Wittenoom",
+      "estado": "respaldada",
+      "ids": [
+       "T41",
+       "T40"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 21,
+      "afirmacion": "Entre el diagnóstico y la muerte pasaron nueve meses",
+      "estado": "respaldada",
+      "ids": [
+       "D89"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 23,
+      "afirmacion": "Daniel estuvo en Wittenoom unos diez meses",
+      "estado": "respaldada",
+      "ids": [
+       "D87"
+      ],
+      "fragmento": null
+     }
+    ]
+   },
+   "usage": {
+    "input_tokens": 66450,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 5995,
+    "service_tier": "standard",
+    "inference_geo": "global",
+    "speed": "standard",
+    "output_tokens_details": {
+     "thinking_tokens": 3622
+    }
+   },
+   "stop": "end_turn",
+   "usd": 0.3857,
+   "segundos": 50.7
+  }
+ ],
+ "respuesta": {
+  "cap": "ch05",
+  "afirmaciones": [
+   {
+    "oracion": 0,
+    "afirmacion": "La mina que los Écija dejaron en 1963 siguió operando unos tres años más, hasta 1966",
+    "estado": "respaldada",
+    "ids": [
+     "T41",
+     "T48"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 1,
+    "afirmacion": "En diciembre de 1966 James Vernon, de CSR, anunció el cierre de las operaciones",
+    "estado": "respaldada",
+    "ids": [
+     "T48",
+     "P08"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 2,
+    "afirmacion": "El cierre se anunció por razones económicas, de costos",
+    "estado": "respaldada",
+    "ids": [
+     "T48",
+     "D22",
+     "T49"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 3,
+    "afirmacion": "Los Écija volvieron a Madrid en 1966",
+    "estado": "respaldada",
+    "ids": [
+     "T47"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 4,
+    "afirmacion": "Los de Juan estuvieron en Wittenoom unos dos años y medio",
+    "estado": "respaldada",
+    "ids": [
+     "D88"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 4,
+    "afirmacion": "Los de Juan regresaron a Madrid en 1971",
+    "estado": "respaldada",
+    "ids": [
+     "T51"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 4,
+    "afirmacion": "Mercedes de Juan se quedó en Australia",
+    "estado": "respaldada",
+    "ids": [
+     "T51"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 5,
+    "afirmacion": "Tras el cierre de la mina, el suelo del pueblo seguía con los relaves de asbesto usados como relleno",
+    "estado": "respaldada",
+    "ids": [
+     "D39",
+     "D129"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 6,
+    "afirmacion": "En 1978 el gobierno del Estado empezó a reducir Wittenoom y a alentar a los residentes a irse por el riesgo de fibras de asbesto en el aire",
+    "estado": "respaldada",
+    "ids": [
+     "T52",
+     "D27"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 7,
+    "afirmacion": "En 1979 los afectados formaron la Asbestos Diseases Society of Australia",
+    "estado": "respaldada",
+    "ids": [
+     "T56"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 8,
+    "afirmacion": "En 1988 un juez determinó que la compañía mostró un desprecio continuo, consciente y contumaz por la seguridad y la salud de sus trabajadores",
+    "estado": "respaldada",
+    "ids": [
+     "D93",
+     "T62"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 9,
+    "afirmacion": "El fallo de 1988 llegó veintidós años después del cierre de 1966",
+    "estado": "respaldada",
+    "ids": [
+     "D93",
+     "T48"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 10,
+    "afirmacion": "En 1988 Daniel vivía en Madrid y le quedaban tres años de vida, hasta su muerte en 1991",
+    "estado": "respaldada",
+    "ids": [
+     "T47",
+     "T64",
+     "D89"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 11,
+    "afirmacion": "María conserva fotografías familiares en sepia de aquellos años",
+    "estado": "respaldada",
+    "ids": [
+     "Q25"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 11,
+    "afirmacion": "Entre las fotografías hay una de Daniel con el pie vendado",
+    "estado": "respaldada",
+    "ids": [
+     "D85"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 11,
+    "afirmacion": "Entre las fotografías hay imágenes del baile, del barco y del bautizo",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "oracion": 12,
+    "afirmacion": "En 1991 Daniel fue diagnosticado de mesotelioma",
+    "estado": "respaldada",
+    "ids": [
+     "T64",
+     "D89"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 13,
+    "afirmacion": "McNulty reportó en 1962 un caso de mesotelioma en un ex trabajador del molino de Wittenoom",
+    "estado": "respaldada",
+    "ids": [
+     "D130",
+     "T35"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 13,
+    "afirmacion": "Daniel llegó en avión a Wittenoom en 1962",
+    "estado": "respaldada",
+    "ids": [
+     "T38",
+     "Q27",
+     "D87"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 14,
+    "afirmacion": "El polvo de Wittenoom contenía asbesto",
+    "estado": "respaldada",
+    "ids": [
+     "D18",
+     "D36"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 15,
+    "afirmacion": "Daniel tuvo una herida en el pie que no cerraba",
+    "estado": "respaldada",
+    "ids": [
+     "D85"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 16,
+    "afirmacion": "Daniel tenía 55 años",
+    "estado": "respaldada",
+    "ids": [
+     "D89"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 17,
+    "afirmacion": "María conserva las fotos",
+    "estado": "respaldada",
+    "ids": [
+     "Q25"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 18,
+    "afirmacion": "Daniel Écija murió nueve meses después del diagnóstico",
+    "estado": "respaldada",
+    "ids": [
+     "D89",
+     "T64"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 18,
+    "afirmacion": "Murió en Madrid",
+    "estado": "respaldada",
+    "ids": [
+     "T47"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 18,
+    "afirmacion": "Murió casi treinta años después de haberse ido de Wittenoom en 1963",
+    "estado": "respaldada",
+    "ids": [
+     "T41",
+     "D89"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 18,
+    "afirmacion": "Wittenoom tenía una pista de aterrizaje en tierra roja",
+    "estado": "respaldada",
+    "ids": [
+     "Q27"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 20,
+    "afirmacion": "El hijo, Daniel, dice «Ese lugar cambió nuestras vidas para siempre»",
+    "estado": "respaldada",
+    "ids": [
+     "Q35"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 20,
+    "afirmacion": "Ese hijo es el niño bautizado en Wittenoom",
+    "estado": "respaldada",
+    "ids": [
+     "T41",
+     "T40"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 21,
+    "afirmacion": "Entre el diagnóstico y la muerte pasaron nueve meses",
+    "estado": "respaldada",
+    "ids": [
+     "D89"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 23,
+    "afirmacion": "Daniel estuvo en Wittenoom unos diez meses",
+    "estado": "respaldada",
+    "ids": [
+     "D87"
+    ],
+    "fragmento": null
+   }
+  ]
+ },
+ "usage": {
+  "input_tokens": 66450,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "cache_creation": {
+   "ephemeral_5m_input_tokens": 0,
+   "ephemeral_1h_input_tokens": 0
+  },
+  "output_tokens": 5995,
+  "service_tier": "standard",
+  "inference_geo": "global",
+  "speed": "standard",
+  "output_tokens_details": {
+   "thinking_tokens": 3622
+  }
+ },
+ "usd": 0.3857,
+ "segundos": 50.7
+}

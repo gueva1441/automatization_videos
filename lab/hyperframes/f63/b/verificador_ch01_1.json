@@ -1,0 +1,444 @@
+{
+ "cap": "ch01",
+ "corrida": 1,
+ "modelo": "claude-opus-5-5",
+ "effort": "medium",
+ "system_md5": "ce31cc515a077d74da72479e9693296e",
+ "user_md5": "9f2dfc976d9b3e8e71f0e14a77bd55aa",
+ "oraciones": [
+  {
+   "idx": 0,
+   "texto": "Un hombre joven posa para un retrato con el pie vendado."
+  },
+  {
+   "idx": 1,
+   "texto": "Ese pie va a cerrar; lo que respira mientras espera que cierre va a tardar casi treinta años en matarlo, y lo va a alcanzar a miles de kilómetros de aquí."
+  },
+  {
+   "idx": 2,
+   "texto": "La foto es en blanco y negro."
+  },
+  {
+   "idx": 3,
+   "texto": "La familia que la guarda cuenta que le cayó encima un trozo de amianto y que la herida no cerraba."
+  },
+  {
+   "idx": 4,
+   "texto": "Una herida hecha por un pedazo de mineral que no cierra."
+  },
+  {
+   "idx": 5,
+   "texto": "El hombre se llama Daniel Écija, es minero, y llegó de Madrid hace unos meses."
+  },
+  {
+   "idx": 6,
+   "texto": "Wittenoom, Australia Occidental, 1963."
+  },
+  {
+   "idx": 7,
+   "texto": "Esa foto se tomó en un pueblo que hoy no figura en ningún mapa."
+  },
+  {
+   "idx": 8,
+   "texto": "Arrancaron las señales de la carretera y borraron el nombre."
+  },
+  {
+   "idx": 9,
+   "texto": "Lo que sobró de la mina, en cambio, sigue donde lo dejaron."
+  },
+  {
+   "idx": 10,
+   "texto": "Pero antes de que lo borraran, alguien tuvo que llevar a ese hombre hasta allí."
+  },
+  {
+   "idx": 11,
+   "texto": "Dos años antes de la foto, en Madrid, hubo un baile."
+  }
+ ],
+ "intentos": [
+  {
+   "texto": "```json\n{\"cap\": \"ch01\", \"afirmaciones\": [\n{\"oracion\": 0, \"afirmacion\": \"Hay un retrato de un hombre con el pie vendado\", \"estado\": \"respaldada\", \"ids\": [\"D85\"], \"fragmento\": null},\n{\"oracion\": 0, \"afirmacion\": \"El hombre del retrato era joven\", \"estado\": \"respaldada\", \"ids\": [\"P16\"], \"fragmento\": null},\n{\"oracion\": 1, \"afirmacion\": \"La herida del pie llegó a cerrar\", \"estado\": \"contradice\", \"ids\": [\"D85\"], \"fragmento\": \"Se le cayó un trozo de amianto en el pie y, extrañamente, fue una herida que no se cerraba nunca.\"},\n{\"oracion\": 1, \"afirmacion\": \"Lo que respiró en Wittenoom lo mató casi treinta años después\", \"estado\": \"respaldada\", \"ids\": [\"T64\", \"D89\", \"D87\"], \"fragmento\": null},\n{\"oracion\": 1, \"afirmacion\": \"La enfermedad lo alcanzó a miles de kilómetros de Wittenoom\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null},\n{\"oracion\": 2, \"afirmacion\": \"La foto es en blanco y negro\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null},\n{\"oracion\": 3, \"afirmacion\": \"La familia cuenta que le cayó encima un trozo de amianto y que la herida no cerraba\", \"estado\": \"respaldada\", \"ids\": [\"D85\"], \"fragmento\": null},\n{\"oracion\": 4, \"afirmacion\": \"La herida, hecha por un pedazo de mineral, no cerraba\", \"estado\": \"respaldada\", \"ids\": [\"D85\"], \"fragmento\": null},\n{\"oracion\": 5, \"afirmacion\": \"El hombre se llama Daniel Écija\", \"estado\": \"respaldada\", \"ids\": [\"D85\", \"P16\"], \"fragmento\": null},\n{\"oracion\": 5, \"afirmacion\": \"Daniel Écija era minero\", \"estado\": \"respaldada\", \"ids\": [\"P16\"], \"fragmento\": null},\n{\"oracion\": 5, \"afirmacion\": \"Había llegado de Madrid unos meses antes\", \"estado\": \"respaldada\", \"ids\": [\"T38\", \"L17\", \"D87\"], \"fragmento\": null},\n{\"oracion\": 6, \"afirmacion\": \"La escena ocurre en Wittenoom, Australia Occidental, en 1963\", \"estado\": \"respaldada\", \"ids\": [\"D87\", \"D82\", \"D85\"], \"fragmento\": null},\n{\"oracion\": 7, \"afirmacion\": \"Wittenoom hoy no figura en los mapas\", \"estado\": \"respaldada\", \"ids\": [\"D31\", \"D81\"], \"fragmento\": null},\n{\"oracion\": 8, \"afirmacion\": \"Arrancaron las señales de la carretera\", \"estado\": \"sin_respaldo\", \"ids\": [], \"fragmento\": null},\n{\"oracion\": 8, \"afirmacion\": \"Borraron el nombre del pueblo de mapas y señales\", \"estado\": \"respaldada\", \"ids\": [\"D31\"], \"fragmento\": null},\n{\"oracion\": 9, \"afirmacion\": \"Los residuos de la mina no se han retirado\", \"estado\": \"respaldada\", \"ids\": [\"D147\", \"D71\"], \"fragmento\": null},\n{\"oracion\": 9, \"afirmacion\": \"Los residuos siguen en el mismo lugar donde se depositaron\", \"estado\": \"contradice\", \"ids\": [\"D149\", \"D04\"], \"fragmento\": \"asbestos from Wittenoom's tailings piles had spread out beyond the contamination zone and into the Fortescue River.\"},\n{\"oracion\": 11, \"afirmacion\": \"Dos años antes de la foto, en 1961, hubo un baile en Madrid\", \"estado\": \"respaldada\", \"ids\": [\"T34\", \"L18\"], \"fragmento\": null}\n]}\n```",
+   "respuesta": {
+    "cap": "ch01",
+    "afirmaciones": [
+     {
+      "oracion": 0,
+      "afirmacion": "Hay un retrato de un hombre con el pie vendado",
+      "estado": "respaldada",
+      "ids": [
+       "D85"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 0,
+      "afirmacion": "El hombre del retrato era joven",
+      "estado": "respaldada",
+      "ids": [
+       "P16"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "La herida del pie llegó a cerrar",
+      "estado": "contradice",
+      "ids": [
+       "D85"
+      ],
+      "fragmento": "Se le cayó un trozo de amianto en el pie y, extrañamente, fue una herida que no se cerraba nunca."
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "Lo que respiró en Wittenoom lo mató casi treinta años después",
+      "estado": "respaldada",
+      "ids": [
+       "T64",
+       "D89",
+       "D87"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "La enfermedad lo alcanzó a miles de kilómetros de Wittenoom",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "La foto es en blanco y negro",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "La familia cuenta que le cayó encima un trozo de amianto y que la herida no cerraba",
+      "estado": "respaldada",
+      "ids": [
+       "D85"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "La herida, hecha por un pedazo de mineral, no cerraba",
+      "estado": "respaldada",
+      "ids": [
+       "D85"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "El hombre se llama Daniel Écija",
+      "estado": "respaldada",
+      "ids": [
+       "D85",
+       "P16"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "Daniel Écija era minero",
+      "estado": "respaldada",
+      "ids": [
+       "P16"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "Había llegado de Madrid unos meses antes",
+      "estado": "respaldada",
+      "ids": [
+       "T38",
+       "L17",
+       "D87"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 6,
+      "afirmacion": "La escena ocurre en Wittenoom, Australia Occidental, en 1963",
+      "estado": "respaldada",
+      "ids": [
+       "D87",
+       "D82",
+       "D85"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "Wittenoom hoy no figura en los mapas",
+      "estado": "respaldada",
+      "ids": [
+       "D31",
+       "D81"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "Arrancaron las señales de la carretera",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "Borraron el nombre del pueblo de mapas y señales",
+      "estado": "respaldada",
+      "ids": [
+       "D31"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "Los residuos de la mina no se han retirado",
+      "estado": "respaldada",
+      "ids": [
+       "D147",
+       "D71"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "Los residuos siguen en el mismo lugar donde se depositaron",
+      "estado": "contradice",
+      "ids": [
+       "D149",
+       "D04"
+      ],
+      "fragmento": "asbestos from Wittenoom's tailings piles had spread out beyond the contamination zone and into the Fortescue River."
+     },
+     {
+      "oracion": 11,
+      "afirmacion": "Dos años antes de la foto, en 1961, hubo un baile en Madrid",
+      "estado": "respaldada",
+      "ids": [
+       "T34",
+       "L18"
+      ],
+      "fragmento": null
+     }
+    ]
+   },
+   "usage": {
+    "input_tokens": 65908,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 3400,
+    "service_tier": "standard",
+    "inference_geo": "global",
+    "speed": "standard",
+    "output_tokens_details": {
+     "thinking_tokens": 2057
+    }
+   },
+   "stop": "end_turn",
+   "usd": 0.33163,
+   "segundos": 30.3
+  }
+ ],
+ "respuesta": {
+  "cap": "ch01",
+  "afirmaciones": [
+   {
+    "oracion": 0,
+    "afirmacion": "Hay un retrato de un hombre con el pie vendado",
+    "estado": "respaldada",
+    "ids": [
+     "D85"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 0,
+    "afirmacion": "El hombre del retrato era joven",
+    "estado": "respaldada",
+    "ids": [
+     "P16"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 1,
+    "afirmacion": "La herida del pie llegó a cerrar",
+    "estado": "contradice",
+    "ids": [
+     "D85"
+    ],
+    "fragmento": "Se le cayó un trozo de amianto en el pie y, extrañamente, fue una herida que no se cerraba nunca."
+   },
+   {
+    "oracion": 1,
+    "afirmacion": "Lo que respiró en Wittenoom lo mató casi treinta años después",
+    "estado": "respaldada",
+    "ids": [
+     "T64",
+     "D89",
+     "D87"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 1,
+    "afirmacion": "La enfermedad lo alcanzó a miles de kilómetros de Wittenoom",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "oracion": 2,
+    "afirmacion": "La foto es en blanco y negro",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "oracion": 3,
+    "afirmacion": "La familia cuenta que le cayó encima un trozo de amianto y que la herida no cerraba",
+    "estado": "respaldada",
+    "ids": [
+     "D85"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 4,
+    "afirmacion": "La herida, hecha por un pedazo de mineral, no cerraba",
+    "estado": "respaldada",
+    "ids": [
+     "D85"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 5,
+    "afirmacion": "El hombre se llama Daniel Écija",
+    "estado": "respaldada",
+    "ids": [
+     "D85",
+     "P16"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 5,
+    "afirmacion": "Daniel Écija era minero",
+    "estado": "respaldada",
+    "ids": [
+     "P16"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 5,
+    "afirmacion": "Había llegado de Madrid unos meses antes",
+    "estado": "respaldada",
+    "ids": [
+     "T38",
+     "L17",
+     "D87"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 6,
+    "afirmacion": "La escena ocurre en Wittenoom, Australia Occidental, en 1963",
+    "estado": "respaldada",
+    "ids": [
+     "D87",
+     "D82",
+     "D85"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 7,
+    "afirmacion": "Wittenoom hoy no figura en los mapas",
+    "estado": "respaldada",
+    "ids": [
+     "D31",
+     "D81"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 8,
+    "afirmacion": "Arrancaron las señales de la carretera",
+    "estado": "sin_respaldo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "oracion": 8,
+    "afirmacion": "Borraron el nombre del pueblo de mapas y señales",
+    "estado": "respaldada",
+    "ids": [
+     "D31"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 9,
+    "afirmacion": "Los residuos de la mina no se han retirado",
+    "estado": "respaldada",
+    "ids": [
+     "D147",
+     "D71"
+    ],
+    "fragmento": null
+   },
+   {
+    "oracion": 9,
+    "afirmacion": "Los residuos siguen en el mismo lugar donde se depositaron",
+    "estado": "contradice",
+    "ids": [
+     "D149",
+     "D04"
+    ],
+    "fragmento": "asbestos from Wittenoom's tailings piles had spread out beyond the contamination zone and into the Fortescue River."
+   },
+   {
+    "oracion": 11,
+    "afirmacion": "Dos años antes de la foto, en 1961, hubo un baile en Madrid",
+    "estado": "respaldada",
+    "ids": [
+     "T34",
+     "L18"
+    ],
+    "fragmento": null
+   }
+  ]
+ },
+ "usage": {
+  "input_tokens": 65908,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "cache_creation": {
+   "ephemeral_5m_input_tokens": 0,
+   "ephemeral_1h_input_tokens": 0
+  },
+  "output_tokens": 3400,
+  "service_tier": "standard",
+  "inference_geo": "global",
+  "speed": "standard",
+  "output_tokens_details": {
+   "thinking_tokens": 2057
+  }
+ },
+ "usd": 0.33163,
+ "segundos": 30.3
+}

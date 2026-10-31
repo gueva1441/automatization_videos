@@ -1,0 +1,109 @@
+# Guion de pantalla en papel — 123bbb64-9fca-4395-8bf4-57d60e219ef1
+
+(encabezado quitado: copia a ciegas)
+
+(encabezado quitado: copia a ciegas)
+
+Totales: 8 fichas · 9 sellos · 3 relojes · 37 descartados
+
+## ch01 — La herida que no cerraba
+
+- beat 1 · gancho · PICO · ficha **D26** [normal] «ESE PUEBLO, HOY · El sitio contaminado más grande del hemisferio sur» en [7] sobre «pueblo» (65/71 car.) · respaldo: «Wittenoom es el sitio contaminado más grande del hemisferio sur» · año — / relato 1963 · aporta: La magnitud de lo que quedó en el pueblo borrado, algo que la voz nunca dice en todo el video. · sello **SILENCIO** en [8]
+  - propuesta **D26** «ESE PUEBLO, HOY · El sitio contaminado más grande del hemisferio sur» en [7] → pasa
+- relojes: —
+
+## ch02 — A la tierra roja
+
+- beat 2 · planteo · ficha — · sello **CALMA** en [4]
+  - propuesta **Q25** «POR QUÉ SE FUERON · «En España no teníamos nada, ninguno de los dos.»» en [2] → cortaría: **spoiler** — la voz lo dice en una oración posterior del cap o de un cap siguiente: ['2']
+- beat 3 · planteo · PICO · ficha — ⚠ pico sin ficha · sello —
+  - propuesta **T38** «ZARPARON · 24 sep. 1962» en [6] → cortaría: **spoiler** — la voz lo dice en una oración posterior del cap o de un cap siguiente: ['1962']
+- relojes: 16 SEP 1961 en [0], 20 SEP 1962 en [4]
+
+## ch03 — Ignorar el veneno
+
+- beat 4 · planteo · ficha **D82** [normal] «LEJOS DE TODO · A unos 1.400 km de Perth» en [1] sobre «desierto» (37/40 car.) · respaldo: «a unos 1.400 kilómetros de Perth» · año — / relato 1962 · aporta: Cuán aislado estaba el pueblo; la voz no da ninguna distancia. · sello **AMENAZA** en [9]
+  - propuesta **D82** «LEJOS DE TODO · A unos 1.400 km de Perth» en [1] → pasa
+- beat 5 · escalada · PICO · ficha **D44** [normal] «YA SE SABÍA EN 1930 · Un informe ligó asbestosis y asbesto» en [11] sobre «informes» (55/61 car.) · respaldo: «El informe de Merryweather y Price de 1930 estableció que la asbestosis era una enfermedad consecuente a la exposición al asbesto» · año 1930 / relato 1962 · aporta: El vínculo entre el amianto y la enfermedad era conocido trece años antes de la mina de ABA. · sello **AVISO** en [17] · ⚠ sin su a_pantalla: D01 (el autor lo descartó [otro]: Cifra de toneladas que suena a informe técnico.)
+  - propuesta **D44** «YA SE SABÍA EN 1930 · Un informe ligó asbestosis y asbesto» en [11] → pasa
+- beat 6 · giro · ficha **D115** [normal] «1962, AÑO RÉCORD · El 95% del asbesto australiano era de Wittenoom» en [31] sobre «año» (63/90 car.) · respaldo: «En 1962, el año de máxima producción australiana de asbesto, se extrajeron 18416 toneladas cortas, de las cuales el 95% era crocidolita de Wittenoom» · año 1962 / relato 1962 · aporta: Daniel llegó justo el año de máxima producción, con casi todo saliendo de ese pueblo. · sello **INMINENTE** en [31]
+  - propuesta **D115** «1962, AÑO RÉCORD · El 95% del asbesto australiano era de Wittenoom» en [31] → pasa
+- relojes: —
+
+## ch04 — El juego peligroso
+
+- beat 7 · escalada · PICO · ficha **Q19** [cita] «LO QUE NO HUBO · Nadie nos avisó de nada.» — Víctor Calvo (autor: modelo) en [8] sobre «polvillo» (55/61 car.) · respaldo: «Nadie nos avisó de nada.» · año — / relato 1962 · aporta: La frase final del testimonio, que la voz no lee: a los chicos nadie les advirtió. · sello —
+  - propuesta **Q19** «LO QUE NO HUBO · «Nadie nos avisó de nada.»» en [8] → pasa
+- beat 8 · giro · ficha **D102** [normal] «ESE BEBÉ, HOY · Productor de televisión en España» en [13] sobre «Daniel» (46/51 car.) · respaldo: «es un conocido productor de televisión en España» · año — / relato 1963 · aporta: Quién es hoy el niño nacido en Wittenoom; la voz nunca lo dice. · sello —
+  - propuesta **D102** «ESE BEBÉ, HOY · Productor de televisión en España» en [13] → pasa
+- relojes: 7 JUL 1963 en [15]
+
+## ch05 — Wittenoom por dentro
+
+- beat 9 · escalada · ficha — · sello **RABIA** en [9] · ⚠ sin su a_pantalla: D51 (el autor lo descartó [otro]: Cifra de producción técnica; D94 importa más junto a la condena.)
+  - propuesta **D94** «EN 1989, CSR PAGÓ · 18,3 millones de dólares australianos a 200 afectados» en [8] → cortaría: **fecha_relato** — D94 es de 1989 y en la oración [8] el relato va por 1988 (el último año que dijo la voz); ni la oración ni sus vecinas lo sitúan después
+- beat 10 · pico · PICO · ficha — ⚠ pico sin ficha · sello **MEMORIA** en [11] · ⚠ sin su a_pantalla: D23 (lo puso y cayó: fecha_relato: D23 es de 1989 y en la oración [18] el relato va por 1962 (el último año que dijo la voz); ni la oración ni sus vecinas lo sitúan después)
+  - propuesta **D23** «NO FUE EL ÚNICO · Para 1989 ya habían muerto más de 500 de Wittenoom» en [18] → cortaría: **fecha_relato** — D23 es de 1989 y en la oración [18] el relato va por 1962 (el último año que dijo la voz); ni la oración ni sus vecinas lo sitúan después
+- relojes: —
+
+## ch06 — El polvo viaja
+
+- beat 11 · respiro · ficha — · sello **ALARMA** en [7]
+  - propuesta **T57** «A QUIÉN SE LO DIJO · A Daniel Écija hijo, en 1985» en [2] → cortaría: **fecha_relato** — T57 es de 1985 y en la oración [2] el relato va por 1962 (el último año que dijo la voz); ni la oración ni sus vecinas lo sitúan después
+- beat 12 · revelacion · PICO · ficha **T80** [normal] «LO ANUNCIÓ · Jon Ford, ministro de Desarrollo Regional» en [10] sobre «abolido» (51/66 car.) · respaldo: «El Ministro de Desarrollo Regional, Hon Jon Ford MLC, anunció que el pueblo había sido oficialmente abolido.» · año 2007 / relato 2006 · aporta: Quién firmó el final del pueblo; la voz no lo nombra. · sello **COLAPSO** en [10] · ⚠ sin su a_pantalla: D40 (el autor lo descartó [otro]: Superficie administrativa en hectáreas: suena a informe y la cifra está en disputa.)
+  - propuesta **T80** «LO ANUNCIÓ · Jon Ford, ministro de Desarrollo Regional» en [10] → pasa
+- relojes: —
+
+## ch07 — La herida ancestral
+
+- beat 13 · cierre · PICO · ficha **D68** [normal] «SU PUEBLO · Mayor tasa de cáncer por asbesto del mundo» en [0] sobre «Banjima» (51/51 car.) · respaldo: «el pueblo Banjima tiene la mayor incidencia de cáncer por asbesto per cápita del mundo» · año — / relato 2016 · aporta: Lo que el amianto le hizo al pueblo de Parker, en una sola línea. · sello — · ⚠ sin su a_pantalla: D61 (el autor lo descartó [otro]: Documento fechado que suena técnico; una ficha por beat.)
+  - propuesta **D68** «SU PUEBLO · Mayor tasa de cáncer por asbesto del mundo» en [0] → pasa
+- relojes: —
+
+## Lo que cayó
+
+- ch02 beat 2 · ficha Q25 «POR QUÉ SE FUERON · «En España no teníamos nada, ninguno de los dos.»» en [2] → **spoiler**: la voz lo dice en una oración posterior del cap o de un cap siguiente: ['2']
+- ch02 beat 3 · ficha T38 «ZARPARON · 24 sep. 1962» en [6] → **spoiler**: la voz lo dice en una oración posterior del cap o de un cap siguiente: ['1962']
+- ch05 beat 9 · ficha D94 «EN 1989, CSR PAGÓ · 18,3 millones de dólares australianos a 200 afectados» en [8] → **fecha_relato**: D94 es de 1989 y en la oración [8] el relato va por 1988 (el último año que dijo la voz); ni la oración ni sus vecinas lo sitúan después
+- ch05 beat 10 · ficha D23 «NO FUE EL ÚNICO · Para 1989 ya habían muerto más de 500 de Wittenoom» en [18] → **fecha_relato**: D23 es de 1989 y en la oración [18] el relato va por 1962 (el último año que dijo la voz); ni la oración ni sus vecinas lo sitúan después
+- ch06 beat 11 · ficha T57 «A QUIÉN SE LO DIJO · A Daniel Écija hijo, en 1985» en [2] → **fecha_relato**: T57 es de 1985 y en la oración [2] el relato va por 1962 (el último año que dijo la voz); ni la oración ni sus vecinas lo sitúan después
+
+## Cierre del reintento
+
+- cerró por: **solo intento 1 (F63: sin vueltas)** (después de 0 vueltas)
+- cortado al cerrar, sin preguntarle al autor: (nada)
+
+## Descartados por el modelo
+
+- D85 [otro]: Es el dato central del gancho, pero no existe en el archivo; se reemplazó por D26.
+- T34 [voz_lo_dice]: La voz dice el baile y la fecha.
+- T37 [voz_lo_dice]: La voz dice la fecha de la boda.
+- Q13 [voz_lo_dice]: La voz cuenta la amistad con los De Juan.
+- Q14 [voz_lo_dice]: La voz cita el testimonio casi entero.
+- D83 [otro]: El nombre «Operación Canguro» sumaba, pero en el pico se priorizó el dato central T38.
+- Q27 [voz_lo_dice]: La voz lo cita casi entero; el resto no cabía con el autor.
+- Q44 [voz_lo_dice]: La voz cita y parafrasea el testimonio.
+- D92 [voz_lo_dice]: La voz dice el dato completo en la oración 19; se usó otro dato del mismo pico.
+- Q46 [otro]: «Era solo un joven médico aéreo» sumaba menos que el informe de 1930.
+- D01 [otro]: Cifra de toneladas que suena a informe técnico.
+- D21 [voz_lo_dice]: La voz dice que la producción subió en 1961. — **falso: la voz no dice ['Wittenoom']**
+- T27 [otro]: La rebaja del plus a 3 o 4 peniques sumaba, pero se eligió D115, que se entiende mejor; una ficha por beat.
+- Q16 [otro]: Una ficha por beat; la cita de Calvo pesa más en el pico.
+- D104 [voz_lo_dice]: La voz dice las jornadas de 16 horas.
+- T41 [voz_lo_dice]: La voz dice la fecha del bautizo y la partida.
+- D122 [otro]: Sumaba menos que D102; una ficha por beat.
+- D51 [otro]: Cifra de producción técnica; D94 importa más junto a la condena.
+- T64 [voz_lo_dice]: La voz dice el diagnóstico y los nueve meses.
+- Q35 [otro]: La parte que la voz no dice no cabía en la oración ancla.
+- Q24 [voz_lo_dice]: La voz cita la frase del policía.
+- Q33 [voz_lo_dice]: La voz parafrasea la cita completa.
+- D90 [voz_lo_dice]: La voz dice «más de cuatro mil».
+- Q22 [otro]: No cabía recortado en ninguna oración del beat.
+- D40 [otro]: Superficie administrativa en hectáreas: suena a informe y la cifra está en disputa.
+- D64 [otro]: La comparación era buena, pero en el pico se priorizó el dato central T80.
+- D59 [voz_lo_dice]: La voz dice que en 2016 se descartó asegurar los relaves por costo.
+- T98 [voz_lo_dice]: La voz cuenta la demanda completa.
+- D95 [voz_lo_dice]: La voz dice los 1.500 millones. — **falso: la voz no dice ['1.500']**
+- T92 [otro]: El cargo de Orellana (relator de la ONU) sumaba menos que D68.
+- D69 [otro]: Fuerte contraste, pero se eligió D68; una ficha por beat.
+- D61 [otro]: Documento fechado que suena técnico; una ficha por beat.
