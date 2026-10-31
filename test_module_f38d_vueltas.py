@@ -1,14 +1,17 @@
 """
 test_module_f38d_vueltas.py — F38d §A (HANDOFF_F38d_vueltas_y_caben), los tests del commit A:
-    §A.1  vueltas de reintento parcial: lo nuevo que aparece después de una vuelta (una coincidencia `contradice`,
-          `no_dicho`, `spoiler`) no corta: es una pregunta de la vuelta siguiente; hay otra vuelta mientras haya
-          motivos y los motivos no sean iguales a los de la vuelta anterior («sin progreso»); al cerrar, la validación
-          final de hoy (lo que sigue sin preguntar corta) y el .md dice por qué cerró. F64 Etapa 1: el tope se borró
-          (DECISIONES 2026-10-31 13:07) y con él el test 3;
+    §A.1  vueltas de reintento parcial: hay otra vuelta mientras haya motivos y las CLAVES de los motivos (F64 Etapa
+          3: regla, pool_id, cap, beat, token; no el texto) no se repitan («sin progreso»); el .md dice por qué cerró.
+          F64 Etapa 1: el tope se borró (DECISIONES 2026-10-31 13:07) y con él el test 3. F64 Etapa 3 (DECISIONES
+          2026-10-31 14:20): una coincidencia `contradice`/`no_dicho`/`spoiler` ya no es pregunta al autor ni corta
+          al cerrar: es una marca que juzga pantalla_verificador en una llamada; test_1 se reescribió (D241 llega como
+          marca `contradice` y con un juez que la pasa queda con `juicio_verificador`; con uno que la corta cae con
+          quien «verificador»); se borraron `confirmados`, `juicio_autor`, `cortados_al_cierre`, la «validación final»
+          y el chequeo 5 con juicio (helpers _cortados, _seccion_sin_pregunta, _chequeo5, PREGUNTA_D241, PREGUNTAS);
     §A.2  «caben» igual en el prompt, en el motivo y en el código: la línea del prompt (m01e-5, literal) y el motivo
           con el desglose (etiqueta + dato + autor con comillas y raya; el máximo del beat).
-Sin API: el autor va con POST falsos. La entrada de Fase 1 de Vajont y el papel de F38c se leen de sus copias
-congeladas en lab/ (nunca data/).
+Sin API: el autor va con POST falsos y el verificador es JUEZ_PASA. La entrada de Fase 1 de Vajont y el papel de F38c
+se leen de sus copias congeladas en lab/ (nunca data/).
 """
 from __future__ import annotations
 
@@ -21,8 +24,30 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from script_engine import gfx_guion as gg  # noqa: E402
 from script_engine import m01e_pantalla as mp  # noqa: E402
+from script_engine import pantalla_verificador as pv  # noqa: E402
+
+
+def JUEZ_PASA(marcas: list[dict], caps: list[dict]) -> dict:
+    """F64 Etapa 3: el verificador falso de los tests: «pasa» toda ficha marcada y «no_dicho» todo descarte dudoso."""
+    return {"veredictos_fichas": [{"pool_id": m["pool_id"], "cap": m["cap"], "beat": m["beat"], "veredicto": "pasa",
+                                   "motivo": "test", "oracion": None} for m in marcas if m.get("que") != "descarte"],
+            "veredictos_descartes": [{"pool_id": m["pool_id"], "veredicto": "no_dicho", "motivo": "test", "oracion": None}
+                                     for m in marcas if m.get("que") == "descarte"],
+            "usage": None, "usd": 0.0, "segundos": 0.0, "pedido_md5": "test", "intentos": 0}
+
+
+@pytest.fixture(scope="module", autouse=True)
+def _sin_verificador_real():
+    """F64 Etapa 3: ningún test de este archivo llama al verificador real (gasta API). `validar` sin `juez` toma
+    `_juez_por_defecto` → JUEZ_PASA; `llamar` sin `juez` toma `pantalla_verificador.verificar` con el POST falso, que
+    también se reemplaza por JUEZ_PASA para que la llamada del verificador no consuma las respuestas en orden del POST."""
+    m = pytest.MonkeyPatch()
+    m.setattr(mp, "_juez_por_defecto", lambda: JUEZ_PASA)
+    m.setattr(pv, "verificar", lambda marcas, caps, **kw: JUEZ_PASA(marcas, caps))
+    yield
+    m.undo()
+
 
 ROOT = Path(__file__).resolve().parent
 VAJONT = "f8s3-vajont"
@@ -38,14 +63,9 @@ NUEVA = ("Etiqueta + dato —y en una cita, también el autor tal como viene en 
          "raya— no pueden pasar de los caracteres que caben en la oración ancla (`caben`); si no caben, elegí otra "
          "oración o un dato más corto.")
 MD5_M01E_4 = "163e1fd195238696d9e66871983d5ac5"
-# la pregunta de D241 (la cota del proyecto, 723) que en F38c se cortó sin preguntar
-PREGUNTA_D241 = ("D241 (ch04 beat 7, oración [13]) «COTA DEL PROYECTO · 723 metros»: la voz dice «715» para lo mismo, "
-                 "en la oración ancla o en una vecina en ch04 [13] («La cota autorizada fue de setecientos quince.»); "
-                 "¿es el mismo hecho? si no, mantenelo")
 # §A.2.2 + test 4: el motivo de Q50 (la del reintento de F38c, 109 car.)
 MOTIVO_Q50 = ("etiqueta 21 + dato 42 + autor 41 (con comillas y raya) = 109 caracteres y en la oración [3] caben 77; "
               "en este beat caben como máximo 90 (oración [0])")
-PREGUNTAS = ("no_dicho", "spoiler", "contradice")
 hay_vajont = pytest.mark.skipif(not RAW_F38C.exists() or not (FASE1 / VAJONT).exists(), reason="sin Vajont (F38c)")
 
 
@@ -110,51 +130,12 @@ def _post_seq(resps: list[dict], pedidos: list[dict], salidas: list[int] | None 
     return post
 
 
-def _vuelta2_la_mantiene(r2: dict) -> dict:
-    """La vuelta 2: el autor mantiene D241 (la misma ficha: «otro hecho») y recorta la cita Q50 como permite el prompt,
-    en la oración [2] del beat (caben 90): «CARTA DE ERTO Y CASSO» 21 + «continua aprensión» 18 + 46 = 85."""
-    q50 = dict(_cambio(r2, "ch05", 8)["ficha"])
-    q50.update({"sentence_idx": 2, "palabra": "avisos", "texto": "continua aprensión"})
-    return {"cambios": [{"cap": "ch04", "beat": 7, "ficha": _cambio(r2, "ch04", 7)["ficha"]},
-                        {"cap": "ch05", "beat": 8, "ficha": q50}]}
-
-
 def _tuplas(bs) -> list[tuple[str, int]]:
     return [(str(c), int(b)) for c, b in bs]
 
 
 def _vueltas(res: dict) -> list[dict]:
     return res["reintento"]["vueltas"]
-
-
-def _cortados(res: dict) -> list[str]:
-    return [str(d.get("pool_id")) for d in res["reintento"]["cortados_al_cierre"]]
-
-
-def _seccion_sin_pregunta(md: str) -> str:
-    """Lo que el .md lista como cortado al cerrar sin pregunta (desde esa línea hasta la sección siguiente)."""
-    lns = md.splitlines()
-    i = next((k for k, ln in enumerate(lns) if "sin pregunt" in ln.lower() and "cortado" in ln.lower()), None)
-    if i is None:
-        return ""
-    fin = next((k for k in range(i + 1, len(lns)) if lns[k].startswith("#")), len(lns))
-    return "\n".join(lns[i:fin])
-
-
-def _chequeo5(ent: dict, ficha: dict, cap: str, beat: int) -> dict:
-    """El chequeo 5 de gfx_guion sobre el evento de la ficha (con su juicio, como lo lleva pantalla_colocar)."""
-    c = next(c for c in ent["caps"] if c["cap"] == cap)
-    ors = [s["texto"] for s in c["oraciones"]]
-    si = ficha["sentence_idx"]
-    voz_video = [s["texto"] for cc in ent["caps"] for s in cc["oraciones"]]
-    e = {"t": 1.0, "t_mp4": 1.0, "cap": cap, "beat": beat, "funcion": "", "tipo": "ficha", "queda": True,
-         "etiqueta": ficha["etiqueta"], "texto": ficha["texto"], "dur": 3.0, "lectura_min": None, "escena": None,
-         "escena_t0": None, "escena_t1": None, "voz_prev": ors[si - 1], "voz_ancla": ors[si],
-         "voz_next": ors[si + 1] if si + 1 < len(ors) else "", "pool_id": ficha["pool_id"],
-         "juicio_autor": ficha.get("juicio_autor")}
-    capd = {"cap": cap, "eventos": [e], "a_pantalla": [], "plan": {}, "resumen": [], "seg_dur": 10.0}
-    out = gg.chequeos([capd], title_dur=3.0, fps=30, mezcla=None, voz_video=voz_video)
-    return next(r for r in out if r["nombre"] == "cifra que contradice la voz")
 
 
 # ═══════════════════════ los datos de F38c (lo que los tests dan por sentado) ═══════════════════════
@@ -172,78 +153,69 @@ def test_datos_f38c(r1, r2):
 # ═══════════════════════ §A.1 vueltas ═══════════════════════
 
 @hay_vajont
-def test_1_d241_se_pregunta_en_la_vuelta_2_y_el_autor_la_mantiene(ent, r1, r2, tmp_path):
-    pedidos: list[dict] = []
-    res = mp.llamar(ent, tmp_path, post=_post_seq([r1, r2, _vuelta2_la_mantiene(r2)], pedidos))
-    vs = _vueltas(res)
-    assert len(vs) >= 2
-    assert len(pedidos) == 1 + len(vs)                       # cada llamada: intento 1, vuelta 1, vuelta 2…
-    assert [v["vuelta"] for v in vs] == list(range(1, len(vs) + 1))
-    # vuelta 1 = el reintento de F38c: los motivos del intento 1, D241 entra en ch04 b7
-    assert ("ch04", 7) in _tuplas(vs[0]["beats"]) and ("ch05", 8) in _tuplas(vs[0]["beats"])
-    assert any(a["cap"] == "ch04" and a["beat"] == 7 for a in vs[0]["aplicados"])
-    # la validación de la vuelta 1 pregunta por D241 (contradice) y NO la corta: la pregunta va en la vuelta 2
-    assert PREGUNTA_D241 in vs[1]["motivos"]
-    assert PREGUNTA_D241 in pedidos[2]["messages"][0]["content"]
-    assert ("ch04", 7) in _tuplas(vs[1]["beats"])
-    # lo que ya se preguntó en la vuelta 1 (T39 «50», D47 «2», D105 «1962») no se vuelve a preguntar
-    assert not any(m.startswith(("T39 (", "D47 (", "D105 (")) and "¿es el mismo hecho?" in m for m in vs[1]["motivos"])
-    # los confirmados se acumulan, nunca se pisan
-    conf = res["confirmados"]
-    assert conf["D105"] == {"no_dicho": ["1962"]} and conf["T39"] == {"spoiler": ["50"]}
-    assert conf["D47"] == {"spoiler": ["2"]} and conf["D241"] == {"contradice": ["715"]}
-    # vuelta 2: el autor la mantuvo → queda con su juicio; Q50 recortada entra; no quedan motivos
-    fin = res["validacion"]
-    s7 = next(b for b in fin["beats"] if b["cap"] == "ch04" and b["beat"] == 7)
-    assert s7["ficha"]["pool_id"] == "D241"
-    assert s7["ficha"]["juicio_autor"]["contradice"] == ["715"]
-    assert not any(d.get("pool_id") == "D241" for d in fin["descartados"] if d.get("quien") == "validación")
-    s8 = next(b for b in fin["beats"] if b["cap"] == "ch05" and b["beat"] == 8)
-    assert s8["ficha"] and s8["ficha"]["pool_id"] == "Q50"
-    assert len(vs) == 2 and res["reintento"]["cierre"] == "sin motivos"
-    assert res["reintento"]["cortados_al_cierre"] == []
-    # chequeo 5 de Fase 2: ✓ con el juicio del autor (sin juicio, ✗)
-    assert _chequeo5(ent, s7["ficha"], "ch04", 7)["ok"] is True
-    assert _chequeo5(ent, {**s7["ficha"], "juicio_autor": None}, "ch04", 7)["ok"] is False
-    # el raw guarda las vueltas; el .md las muestra y dice por qué cerró
-    raw = json.loads((tmp_path / f"{mp.ARCHIVO}.raw.json").read_text(encoding="utf-8"))
-    assert [v["vuelta"] for v in raw["reintento"]["vueltas"]] == [1, 2]
-    assert raw["reintento"]["cierre"] == "sin motivos"
-    for v in raw["reintento"]["vueltas"]:
-        assert {"vuelta", "beats", "motivos", "aplicados", "ignorados", "usd"} <= set(v)
-    md = mp.a_markdown(mp.armar(ent, res)).lower()
-    assert "vuelta 1" in md and "vuelta 2" in md and "sin motivos" in md
+def test_1_d241_llega_como_marca_contradice_y_el_verificador_decide(ent, r1, r2):
+    """F64 Etapa 3: D241 (la cota del proyecto, 723, en ch04 b7 [13] «La cota autorizada fue de setecientos quince»)
+    ya no se pregunta ni se corta en el código: es una marca `contradice` («715») para el verificador; con un juez que la
+    pasa queda con `juicio_verificador`; con uno que la corta cae con quien «verificador», su regla y su motivo."""
+    fus, _, _ = mp.fusionar(r1, r2, [("ch04", 7), ("ch05", 8)])           # el reintento de F38c: D241 entra en ch04 b7
+    assert _fila(fus, "ch04", 7)["ficha"]["pool_id"] == "D241"
+    v = mp.validar(fus, ent)                                              # JUEZ_PASA
+    ms = [m for m in v["marcas"] if m["pool_id"] == "D241"]
+    assert [(m["regla"], m["cap"], m["beat"], m["coincidencia"]["token"]) for m in ms] == [("contradice", "ch04", 7, "715")]
+    assert (ms[0]["coincidencia"]["cap"], ms[0]["coincidencia"]["idx"]) == ("ch04", 13)
+    assert ms[0]["coincidencia"]["oracion"] == ms[0]["oracion_ancla"] == "La cota autorizada fue de setecientos quince."
+    assert (ms[0]["etiqueta"], ms[0]["texto"]) == ("COTA DEL PROYECTO", "723 metros")
+    s7 = next(b for b in v["beats"] if b["cap"] == "ch04" and b["beat"] == 7)
+    assert s7["ficha"]["pool_id"] == "D241" and s7["ficha"]["juicio_verificador"]["tokens"] == {"contradice": ["715"]}
+    assert not any("D241" in m for m in v["motivos"])
+    # las otras marcas del papel (T39 «50», D47 «2») también pasan, sin motivo (D105 ya no está: D241 la reemplazó)
+    assert {m["pool_id"] for m in v["marcas"]} == {"D241", "T39", "D47"}
+    assert not [d for d in v["descartados"] if d.get("quien") == "verificador"]
+
+    def corta(marcas, caps):
+        return {"veredictos_fichas": [{"pool_id": "D241", "cap": "ch04", "beat": 7, "veredicto": "corta",
+                                       "motivo": "la misma cota", "oracion": {"cap": "ch04", "idx": 13}}],
+                "veredictos_descartes": []}
+    vc = mp.validar(fus, ent, juez=corta)
+    d = next(d for d in vc["descartados"] if d.get("pool_id") == "D241")
+    assert d["quien"] == "verificador" and d["regla"] == "contradice" and d["tokens"] == {"contradice": ["715"]}
+    assert d["motivo"] == "la misma cota (ch04 [13])"
+    assert next(b for b in vc["beats"] if b["cap"] == "ch04" and b["beat"] == 7)["ficha"] is None
+    assert "D241 (ch04 beat 7) «COTA DEL PROYECTO · 723 metros»: contradice: la misma cota (ch04 [13])" in vc["motivos"]
+    assert ("contradice", "D241", "ch04", 7, "715") in vc["claves"]
+    md = mp.a_markdown(mp.armar(ent, {"validacion": vc, "modelo": "m", "effort": "e", "intentos": []}))
+    assert "## Lo que cayó" in md and any("D241" in ln and "(verificador" in ln for ln in md.splitlines())
 
 
 @hay_vajont
 def test_2_sin_progreso_cierra(ent, r1, r2, tmp_path):
-    # vuelta 1: solo la Q50 de 109 (sigue sin caber); vuelta 2: lo mismo → los motivos quedan iguales
+    """F64 Etapa 3: el cierre es por CLAVES (regla, pool_id, cap, beat, token), no por el texto de los motivos: la
+    vuelta 1 cambia la Q50 de 118 a 109 caracteres (sigue sin caber) → el texto del motivo cambia, la clave
+    («caben», Q50, ch05, 8) no, y con ella el pico y el `a_pantalla` del beat 8 → cierra «sin progreso»."""
     solo_q50 = {"cambios": [_copia(_cambio(r2, "ch05", 8))]}
     pedidos: list[dict] = []
     res = mp.llamar(ent, tmp_path, post=_post_seq([r1, solo_q50, solo_q50], pedidos))
     rt = res["reintento"]
     assert rt["cierre"] == "sin progreso"
     vs = _vueltas(res)
-    assert len(vs) == 2 and len(pedidos) == 3                 # no se manda una tercera vuelta
-    assert vs[0]["motivos"] != vs[1]["motivos"]              # la vuelta 1 llevó los del intento 1 (con preguntas)
+    assert len(vs) == 1 and len(pedidos) == 2                 # no se manda una segunda vuelta
+    assert _tuplas(vs[0]["beats"]) == [("ch05", 8)]           # las marcas de D47/T39/D105 no son motivo: solo el beat 8
     fin = res["validacion"]
-    assert fin["motivos"] == vs[1]["motivos"]                # después de la vuelta 2, los mismos: sin progreso
+    assert vs[0]["motivos"] != fin["motivos"]                 # el texto cambió (Q50 de 118 → 109 car.)…
+    assert sorted(map(tuple, vs[0]["claves"])) == sorted(map(tuple, fin["claves"]))   # …las claves no
+    assert {tuple(c) for c in fin["claves"]} == {("caben", "Q50", "ch05", 8, None), ("pico", "ch05", 8),
+                                                 ("a_pantalla", "ch05", 8)}
     assert any("Q50" in m and "109" in m for m in fin["motivos"])
-    # la validación final de hoy: Q50 cae por caben; lo preguntado y mantenido (D105, T39, D47) queda con su juicio
     assert any(d.get("pool_id") == "Q50" and d["regla"] == "caben"
                for d in fin["descartados"] if d.get("quien") == "validación")
+    # las fichas marcadas (D105 «1962», T39 «50», D47 «2») quedan con el juicio del verificador (JUEZ_PASA)
     for cap, beat, pid in (("ch04", 7, "D105"), ("ch04", 6, "T39"), ("ch02", 3, "D47")):
         s = next(b for b in fin["beats"] if b["cap"] == cap and b["beat"] == beat)
-        assert s["ficha"] and s["ficha"]["pool_id"] == pid and s["ficha"].get("juicio_autor")
-    # lo cortado sin pregunta: cada uno es un descarte de la validación final por una regla que pregunta y que el
-    # autor nunca vio (con motivos iguales a la vuelta anterior no puede quedar una pregunta sin hacer: lista vacía)
-    for d in rt["cortados_al_cierre"]:
-        assert d["regla"] in PREGUNTAS and d.get("pool_id") not in res["confirmados"]
-    assert rt["cortados_al_cierre"] == []
+        assert s["ficha"] and s["ficha"]["pool_id"] == pid and s["ficha"]["juicio_verificador"]["tokens"]
+    assert not [d for d in fin["descartados"] if d.get("quien") == "verificador"]
+    assert "cortados_al_cierre" not in rt and "confirmados" not in res
     md = mp.a_markdown(mp.armar(ent, res))
-    assert "sin progreso" in md.lower()
-    sec = _seccion_sin_pregunta(md)
-    assert sec and not any(pid in sec for pid in ("Q50", "D105", "T39", "D47"))    # el .md dice qué cortó: nada
+    assert "cerró por: **sin progreso**" in md and "## Cierre del reintento" in md
 
 
 # ═══════════════════════ §A.2 «caben» ═══════════════════════
@@ -252,11 +224,11 @@ def test_2_sin_progreso_cierra(ent, r1, r2, tmp_path):
 def test_4_motivo_de_caben_de_q50(ent, r1, r2):
     v1 = mp.validar(r1, ent)
     fus, _, _ = mp.fusionar(r1, r2, mp.beats_con_motivo(v1["motivos_beat"]))
-    for v in (mp.validar(fus, ent), mp.validar(fus, ent, mp._confirmar(v1["preguntas"]))):
-        d = next(d for d in v["descartados"] if d.get("pool_id") == "Q50" and d.get("quien") == "validación")
-        assert d["regla"] == "caben"
-        assert d["motivo"] == MOTIVO_Q50
-        assert any(m.startswith("Q50 (ch05 beat 8)") and m.endswith(MOTIVO_Q50) for m in v["motivos"])
+    v = mp.validar(fus, ent)
+    d = next(d for d in v["descartados"] if d.get("pool_id") == "Q50" and d.get("quien") == "validación")
+    assert d["regla"] == "caben"
+    assert d["motivo"] == MOTIVO_Q50
+    assert any(m.startswith("Q50 (ch05 beat 8)") and m.endswith(MOTIVO_Q50) for m in v["motivos"])
     # los números del motivo son los de la entrada (data, no regla)
     c5 = next(c for c in ent["caps"] if c["cap"] == "ch05")
     b8 = [s for s in c5["oraciones"] if s["beat"] == 8]

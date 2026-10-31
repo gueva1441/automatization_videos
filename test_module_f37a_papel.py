@@ -3,13 +3,17 @@ test_module_f37a_papel.py — F37 §A (HANDOFF_F37_papel_y_colocar): el autor de
 que el pool sabe y se corrige solo. Un test por punto, con el caso real de Vajont cuando hace falta (data/ está fuera de
 git: sin Vajont en disco esos se saltean).
     §A.1c  Q43 (cita sin fecha, autor «Ingeniero jefe (sucesor de Semenza)») cae: su autor no está en la voz;
-    §A.1b  un ítem con año posterior al relato cae; un testimonio no; el año dicho en dos cifras lo sitúa (D47 «cincuenta»);
+    §A.1b  un ítem con año posterior al relato deja una marca `fecha_relato` (F64 Etapa 3: ya no corta el código; la
+           ficha cae solo si el verificador dice «corta»); un testimonio no la deja; el año dicho en dos cifras lo
+           sitúa (D47 «cincuenta»);
     §A.2   T39 «la voz lo dice» es falso (la voz no dice «50 millones») → vuelve en el reintento;
     §A.3a  el reemplazo literal del prompt (m01e-2) y el `tipo` del descarte en el formato;
     §A.3b  un pico sin ficha dispara el reintento;
-    §A.4   D47 llega al reintento como pregunta, no como corte; si el autor lo mantiene queda juzgado y Fase 2 respeta el
-           juicio;
-    §0     SEG_POR_PALABRA se deriva de los tiempos de palabra existentes; TOPE_USD se lee del perfil.
+    §0     SEG_POR_PALABRA se deriva de los tiempos de palabra existentes (el tope en dólares se borró en F64 Etapa 1).
+Borrado por F64 Etapa 3 (DECISIONES 2026-10-31 14:20): test_a4_d47_llega_como_pregunta_y_el_juicio_del_autor_es_final
+(la pregunta al autor «¿es el mismo hecho? si no, mantenelo», `preguntas`, `juicio_autor` y el `juicio` de
+pantalla_filtros.spoiler ya no existen: las coincidencias son marcas que juzga pantalla_verificador en una llamada).
+Ningún test llama al verificador real: ver JUEZ_PASA.
 """
 from __future__ import annotations
 
@@ -22,12 +26,38 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from script_engine import m01e_pantalla as mp  # noqa: E402
+from script_engine import pantalla_verificador as pv  # noqa: E402
+
+
+def JUEZ_PASA(marcas: list[dict], caps: list[dict]) -> dict:
+    """F64 Etapa 3: el verificador falso de los tests: «pasa» toda ficha marcada y «no_dicho» todo descarte dudoso."""
+    return {"veredictos_fichas": [{"pool_id": m["pool_id"], "cap": m["cap"], "beat": m["beat"], "veredicto": "pasa",
+                                   "motivo": "test", "oracion": None} for m in marcas if m.get("que") != "descarte"],
+            "veredictos_descartes": [{"pool_id": m["pool_id"], "veredicto": "no_dicho", "motivo": "test", "oracion": None}
+                                     for m in marcas if m.get("que") == "descarte"],
+            "usage": None, "usd": 0.0, "segundos": 0.0, "pedido_md5": "test", "intentos": 0}
+
+
+@pytest.fixture(scope="module", autouse=True)
+def _sin_verificador_real():
+    """F64 Etapa 3: ningún test de este archivo llama al verificador real (gasta API). `validar` sin `juez` toma
+    `_juez_por_defecto` → JUEZ_PASA; `llamar` sin `juez` toma `pantalla_verificador.verificar` con el POST falso, que
+    también se reemplaza por JUEZ_PASA para que la llamada del verificador no consuma las respuestas en orden del POST."""
+    m = pytest.MonkeyPatch()
+    m.setattr(mp, "_juez_por_defecto", lambda: JUEZ_PASA)
+    m.setattr(pv, "verificar", lambda marcas, caps, **kw: JUEZ_PASA(marcas, caps))
+    yield
+    m.undo()
+
 
 ROOT = Path(__file__).resolve().parent
 VAJONT = "f8s3-vajont"
 STEPS = ROOT / "data" / "scripts" / "_steps"
 CLIMA = ["PÁNICO", "CALMA", "AMENAZA", "AVISO", "ALARMA", "INMINENTE", "COLAPSO", "SILENCIO", "RABIA", "MEMORIA"]
 SEG = {"valor": 0.3459, "oraciones": 200, "caps": 9, "voz": "prueba"}
+# F64 Etapa 3: en el video chico las oraciones son cortas (caben 25 con SEG) y una ficha que no cabe cae por `caben` sin
+# dejar marcas; para ver la marca `fecha_relato` la ficha tiene que caber: ancho, como en f38e_c
+SEG_ANCHO = {"valor": 1.0, "oraciones": 10, "caps": 2, "voz": "prueba"}
 hay_vajont = pytest.mark.skipif(not (STEPS / VAJONT / "01a_escaleta.json").exists(), reason="sin Vajont en disco")
 
 
@@ -82,7 +112,7 @@ def _chico(fecha_d2: str | None = "1970", testimonio: bool = False) -> dict:
                                                         "oscuras. El valle duerme."},
                           {"cap": 2, "beat": 2, "texto": "El agua sube cada día. La montaña se mueve despacio. Nadie "
                                                         "quiere mirar la ladera."}]}
-    ent = mp.entrada(carga, CLIMA, SEG)
+    ent = mp.entrada(carga, CLIMA, SEG_ANCHO)
     ent["_pool"] = pool
     return ent
 
@@ -101,18 +131,36 @@ def test_a1c_q43_cita_sin_fecha_cae_porque_su_autor_no_esta_en_la_voz(vajont):
 
 
 def test_a1b_item_posterior_al_relato_cae_y_un_testimonio_no():
+    """F64 Etapa 3: `fecha_relato` no corta: es una marca; la ficha cae solo si el verificador dice «corta»."""
     ent = _chico()
-    v = mp.validar(_con_respaldo({"beats": [_ficha("ch02", 2, "D2", 1, "CONDENAS DEL JUICIO", "11 condenas")]}, ent), ent)
-    d = next(d for d in v["descartados"] if d.get("pool_id") == "D2")
-    assert d["regla"] == "fecha_relato" and "1970" in d["motivo"] and "1963" in d["motivo"]
-    # la cita de 1990 es testimonio: se cuenta después, pasa la fecha del relato
+    resp = _con_respaldo({"beats": [_ficha("ch02", 2, "D2", 1, "CONDENAS DEL JUICIO", "11 condenas")]}, ent)
+    v = mp.validar(resp, ent)                                  # JUEZ_PASA: la marca queda, la ficha también
+    assert not [d for d in v["descartados"] if d.get("pool_id") == "D2"]
+    m = next(m for m in v["marcas"] if m["pool_id"] == "D2")
+    assert m["regla"] == "fecha_relato" and m["que"] == "ficha" and (m["cap"], m["beat"]) == ("ch02", 2)
+    assert m["coincidencia"]["token"] == "1970" and m["coincidencia"]["relato"] == 1963
+    f = next(b["ficha"] for b in v["beats"] if b["cap"] == "ch02" and b["beat"] == 2)
+    assert f["pool_id"] == "D2" and f["juicio_verificador"]["tokens"] == {"fecha_relato": ["1970"]}
+
+    def corta(marcas, caps):
+        return {"veredictos_fichas": [{"pool_id": "D2", "cap": "ch02", "beat": 2, "veredicto": "corta",
+                                       "motivo": "el juicio es posterior al relato", "oracion": None}],
+                "veredictos_descartes": []}
+    vc = mp.validar(resp, ent, juez=corta)
+    d = next(d for d in vc["descartados"] if d.get("pool_id") == "D2")
+    assert d["quien"] == "verificador" and d["regla"] == "fecha_relato" and d["tokens"] == {"fecha_relato": ["1970"]}
+    assert "posterior al relato" in d["motivo"]
+    assert next(b for b in vc["beats"] if b["cap"] == "ch02" and b["beat"] == 2)["ficha"] is None
+    assert any(m.startswith("D2 (ch02 beat 2)") and "fecha_relato" in m for m in vc["motivos"])
+    # la cita de 1990 es testimonio: se cuenta después, no deja marca de fecha del relato
     ent_t = _chico(testimonio=True)
     q1 = {"beats": [_ficha("ch02", 2, "Q1", 1, "UN SOBREVIVIENTE", "Nadie nos avisó nunca")]}
     v2 = mp.validar(_con_respaldo(q1, ent_t), ent_t)
+    assert not [m for m in v2["marcas"] if m["regla"] == "fecha_relato"]
     assert not [d for d in v2["descartados"] if d.get("regla") == "fecha_relato"]
     ent_n = _chico(testimonio=False)
     v3 = mp.validar(_con_respaldo(q1, ent_n), ent_n)
-    assert [d for d in v3["descartados"] if d.get("regla") == "fecha_relato"]
+    assert [m for m in v3["marcas"] if m["regla"] == "fecha_relato" and m["pool_id"] == "Q1"]
 
 
 @hay_vajont
@@ -162,30 +210,6 @@ def test_a3b_pico_sin_ficha_dispara_el_reintento(tmp_path):
     papel = mp.armar(ent, res)
     assert {"cap": "ch02", "beat": 2} in papel["picos_vacios"]          # (y el gancho: el único beat de ch01 es su pico)
     assert "⚠ pico sin ficha" in mp.a_markdown(papel)
-
-
-# ═══════════════════════ §A.4 la coincidencia se pregunta, no corta ═══════════════════════
-
-@hay_vajont
-def test_a4_d47_llega_como_pregunta_y_el_juicio_del_autor_es_final(vajont, tmp_path):
-    f47 = _con_respaldo({"beats": [_ficha("ch02", 3, "D47", 11, "DESMORONAMIENTO DEL TOC",
-                                          "2 km de frente y 600 m de desarrollo vertical")]}, vajont)["beats"][0]
-    v = mp.validar({"beats": [f47]}, vajont)
-    assert not [d for d in v["descartados"] if d.get("pool_id") == "D47"]                 # no corta
-    q = next(q for q in v["preguntas"] if q["pool_id"] == "D47")
-    assert q["regla"] == "spoiler" and q["donde"][0] == "ch03"
-    assert any(m.startswith("D47") and "¿es el mismo hecho? si no, mantenelo" in m for m in v["motivos"])
-    # el reintento lo mantiene → otro hecho, juzgado; Fase 2 no lo vuelve a cortar
-    pedidos: list[dict] = []
-    res = mp.llamar(vajont, tmp_path, post=_post_seq([{"beats": [f47]}, {"beats": [f47]}], pedidos))
-    papel = mp.armar(vajont, res)
-    b = next(b for b in papel["beats"] if b["cap"] == "ch02" and b["beat"] == 3)
-    assert b["ficha"]["pool_id"] == "D47" and b["ficha"]["juicio_autor"] == {"spoiler": ["2"]}
-    from script_engine.pantalla_filtros import spoiler
-    ctx = {"sents": [{"texto": "El Toc se desmorona."}, {"texto": "Una fisura de dos kilómetros."}], "si": 0,
-           "nums": ["2"], "nms": [], "juicio": b["ficha"]["juicio_autor"]}
-    assert spoiler({}, {}, ctx) is None
-    assert spoiler({}, {}, {**ctx, "juicio": {}}) is not None
 
 
 # ═══════════════════════ §0 constantes que salen del código ═══════════════════════

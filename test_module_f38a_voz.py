@@ -19,6 +19,29 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from script_engine import evidence as ev  # noqa: E402
 from script_engine import m01e_pantalla as mp  # noqa: E402
 from script_engine import voz_utils as vu  # noqa: E402
+from script_engine import pantalla_verificador as pv  # noqa: E402
+
+
+def JUEZ_PASA(marcas: list[dict], caps: list[dict]) -> dict:
+    """F64 Etapa 3: el verificador falso de los tests: «pasa» toda ficha marcada y «no_dicho» todo descarte dudoso."""
+    return {"veredictos_fichas": [{"pool_id": m["pool_id"], "cap": m["cap"], "beat": m["beat"], "veredicto": "pasa",
+                                   "motivo": "test", "oracion": None} for m in marcas if m.get("que") != "descarte"],
+            "veredictos_descartes": [{"pool_id": m["pool_id"], "veredicto": "no_dicho", "motivo": "test", "oracion": None}
+                                     for m in marcas if m.get("que") == "descarte"],
+            "usage": None, "usd": 0.0, "segundos": 0.0, "pedido_md5": "test", "intentos": 0}
+
+
+@pytest.fixture(scope="module", autouse=True)
+def _sin_verificador_real():
+    """F64 Etapa 3: ningún test de este archivo llama al verificador real (gasta API). `validar` sin `juez` toma
+    `_juez_por_defecto` → JUEZ_PASA; `llamar` sin `juez` toma `pantalla_verificador.verificar` con el POST falso, que
+    también se reemplaza por JUEZ_PASA para que la llamada del verificador no consuma las respuestas en orden del POST."""
+    m = pytest.MonkeyPatch()
+    m.setattr(mp, "_juez_por_defecto", lambda: JUEZ_PASA)
+    m.setattr(pv, "verificar", lambda marcas, caps, **kw: JUEZ_PASA(marcas, caps))
+    yield
+    m.undo()
+
 
 ROOT = Path(__file__).resolve().parent
 VAJONT = "f8s3-vajont"

@@ -4,9 +4,15 @@ test_module_f38c_papel.py — F38c §A.1 y §A.2 (HANDOFF_F38c_marcas_contradice
           `beats_que_lo_cuentan`; un beat sin ninguno de sus `a_pantalla` es motivo del reintento (y ⚠ en el .md); si
           lleva uno, los demás de ese beat no son motivo; un `a_pantalla` descartado «voz_lo_dice» se verifica contra
           todo el video;
-    §A.2  la cifra que contradice la voz es una pregunta al autor (regla `contradice`, token = la cifra de la voz); lo
-          que el autor mantiene queda en `juicio_autor["contradice"]` y el chequeo 5 de gfx_guion lo respeta.
-Sin API. Las entradas de Fase 1 de Vajont y el papel de F38b se leen de sus copias congeladas (lab/hyperframes/f38/b2).
+    §A.2  la cifra que contradice la voz (regla `contradice`, token = la cifra de la voz): F64 Etapa 3, es una MARCA
+          para el verificador (pantalla_verificador), no una pregunta al autor; con un juez que la pasa la ficha queda
+          con `juicio_verificador`.
+Borrado por F64 Etapa 3 (DECISIONES 2026-10-31 14:20): test_a2_d40_pregunta_literal (reescrito como
+test_a2_d40_marca_contradice: la misma coincidencia, ahora marca), test_a2_confirmada_queda_juzgada_y_el_chequeo_5_no_la_marca
+(`_confirmar`, `confirmados`, `juicio_autor` y el `juicio_autor` del chequeo 5 de gfx_guion no existen) y
+test_a2_contradice_nueva_tras_el_reintento_corta (el código ya no corta por `contradice`: corta el verificador).
+Sin API: el verificador es JUEZ_PASA. Las entradas de Fase 1 de Vajont y el papel de F38b se leen de sus copias
+congeladas (lab/hyperframes/f38/b2).
 """
 from __future__ import annotations
 
@@ -18,9 +24,31 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from script_engine import gfx_guion as gg  # noqa: E402
 from script_engine import m01e_pantalla as mp  # noqa: E402
 from script_engine import pantalla_filtros as pf  # noqa: E402
+from script_engine import pantalla_verificador as pv  # noqa: E402
+
+
+def JUEZ_PASA(marcas: list[dict], caps: list[dict]) -> dict:
+    """F64 Etapa 3: el verificador falso de los tests: «pasa» toda ficha marcada y «no_dicho» todo descarte dudoso."""
+    return {"veredictos_fichas": [{"pool_id": m["pool_id"], "cap": m["cap"], "beat": m["beat"], "veredicto": "pasa",
+                                   "motivo": "test", "oracion": None} for m in marcas if m.get("que") != "descarte"],
+            "veredictos_descartes": [{"pool_id": m["pool_id"], "veredicto": "no_dicho", "motivo": "test", "oracion": None}
+                                     for m in marcas if m.get("que") == "descarte"],
+            "usage": None, "usd": 0.0, "segundos": 0.0, "pedido_md5": "test", "intentos": 0}
+
+
+@pytest.fixture(scope="module", autouse=True)
+def _sin_verificador_real():
+    """F64 Etapa 3: ningún test de este archivo llama al verificador real (gasta API). `validar` sin `juez` toma
+    `_juez_por_defecto` → JUEZ_PASA; `llamar` sin `juez` toma `pantalla_verificador.verificar` con el POST falso, que
+    también se reemplaza por JUEZ_PASA para que la llamada del verificador no consuma las respuestas en orden del POST."""
+    m = pytest.MonkeyPatch()
+    m.setattr(mp, "_juez_por_defecto", lambda: JUEZ_PASA)
+    m.setattr(pv, "verificar", lambda marcas, caps, **kw: JUEZ_PASA(marcas, caps))
+    yield
+    m.undo()
+
 
 ROOT = Path(__file__).resolve().parent
 VAJONT = "f8s3-vajont"
@@ -29,9 +57,6 @@ FASE1 = B2 / "fase1"
 RAW_F38B = B2 / "01e_pantalla.raw.json"
 CLIMA = ["PÁNICO", "CALMA", "AMENAZA", "AVISO", "ALARMA", "INMINENTE", "COLAPSO", "SILENCIO", "RABIA", "MEMORIA"]
 SEG = {"valor": 0.3459, "oraciones": 200, "caps": 9, "voz": "prueba"}
-PREGUNTA_D40 = ("D40 (ch04 beat 7, oración [13]) «COTA MÁXIMA · 722.50 metros»: la voz dice «715» para lo mismo, en la "
-                "oración ancla o en una vecina en ch04 [13] («La cota autorizada fue de setecientos quince.»); ¿es el "
-                "mismo hecho? si no, mantenelo")
 hay_vajont = pytest.mark.skipif(not RAW_F38B.exists() or not (FASE1 / VAJONT).exists(), reason="sin Vajont (F38b)")
 
 
@@ -152,46 +177,18 @@ def test_a1_a_pantalla_descartado_voz_lo_dice_contra_todo_el_video(ent, papel):
 # ═══════════════════════ §A.2 ═══════════════════════
 
 @hay_vajont
-def test_a2_d40_pregunta_literal(val1):
-    qs = [q for q in val1["preguntas"] if q["regla"] == "contradice"]
-    assert [(q["pool_id"], q["token"]) for q in qs] == [("D40", "715")]      # las otras 11 fichas no preguntan
-    assert PREGUNTA_D40 in val1["motivos"]
-    i = val1["motivos"].index(PREGUNTA_D40)
-    assert val1["motivos_beat"][i] == [("ch04", 7)]
-
-
-@hay_vajont
-def test_a2_confirmada_queda_juzgada_y_el_chequeo_5_no_la_marca(ent, papel, val1):
-    conf = mp._confirmar(val1["preguntas"])
-    assert conf["D40"] == {"contradice": ["715"]}
-    v2 = mp.validar(papel, ent, conf)                          # el autor la mantuvo (la misma ficha)
-    s7 = next(b for b in v2["beats"] if b["cap"] == "ch04" and b["beat"] == 7)
-    assert s7["ficha"]["pool_id"] == "D40"
-    assert s7["ficha"]["juicio_autor"]["contradice"] == ["715"]
-    assert not [q for q in v2["preguntas"] if q["regla"] == "contradice"]
-    # chequeo 5 de gfx_guion: el evento de la ficha con su juicio (como lo lleva pantalla_colocar → eventos_cap)
-    c4 = next(c for c in ent["caps"] if c["cap"] == "ch04")
-    si = s7["ficha"]["sentence_idx"]
-    ors = [s["texto"] for s in c4["oraciones"]]
-    voz_video = [s["texto"] for c in ent["caps"] for s in c["oraciones"]]
-
-    def chequeo5(juicio):
-        e = {"t": 1.0, "t_mp4": 1.0, "cap": "ch04", "beat": 7, "funcion": "", "tipo": "ficha", "queda": True,
-             "etiqueta": s7["ficha"]["etiqueta"], "texto": s7["ficha"]["texto"], "dur": 3.0, "lectura_min": None,
-             "escena": None, "escena_t0": None, "escena_t1": None, "voz_prev": ors[si - 1], "voz_ancla": ors[si],
-             "voz_next": ors[si + 1], "pool_id": "D40", "juicio_autor": juicio}
-        cap = {"cap": "ch04", "eventos": [e], "a_pantalla": [], "plan": {}, "resumen": [], "seg_dur": 10.0}
-        out = gg.chequeos([cap], title_dur=3.0, fps=30, mezcla=None, voz_video=voz_video)
-        return next(r for r in out if r["nombre"] == "cifra que contradice la voz")
-    assert chequeo5(None)["ok"] is False                       # sin juicio: ✗ como en F38b
-    assert chequeo5(s7["ficha"]["juicio_autor"])["ok"] is True
-
-
-@hay_vajont
-def test_a2_contradice_nueva_tras_el_reintento_corta(ent, papel):
-    v = mp.validar(papel, ent, {})                             # confirmados sin la pregunta: la coincidencia corta
-    d = next(d for d in v["descartados"] if d.get("pool_id") == "D40" and d.get("quien") == "validación")
-    assert d["regla"] == "contradice"
+def test_a2_d40_marca_contradice(val1):
+    """F64 Etapa 3: la única marca `contradice` de las 12 fichas es D40 «715» (ch04 [13]); no es motivo ni corta."""
+    ms = [m for m in val1["marcas"] if m["regla"] == "contradice"]
+    assert [(m["pool_id"], m["cap"], m["beat"], m["coincidencia"]["token"]) for m in ms] == [("D40", "ch04", 7, "715")]
+    assert (ms[0]["coincidencia"]["cap"], ms[0]["coincidencia"]["idx"]) == ("ch04", 13)
+    assert ms[0]["coincidencia"]["oracion"] == "La cota autorizada fue de setecientos quince."
+    assert ms[0]["etiqueta"] == "COTA MÁXIMA" and ms[0]["texto"] == "722.50 metros"
+    assert not any("D40" in m for m in val1["motivos"])
+    assert not [d for d in val1["descartados"] if d.get("pool_id") == "D40"]
+    s7 = next(b for b in val1["beats"] if b["cap"] == "ch04" and b["beat"] == 7)
+    assert s7["ficha"]["pool_id"] == "D40" and s7["ficha"]["juicio_verificador"]["tokens"] == {"contradice": ["715"]}
+    assert val1["verificador"]["veredictos_fichas"]                  # el juez (falso) se llamó una vez con las marcas
 
 
 def test_a2_contradicciones_estructura_y_frases():
@@ -199,5 +196,4 @@ def test_a2_contradicciones_estructura_y_frases():
     cs = pf.contradicciones_de("COTA MÁXIMA 720 m", voz, cerca=voz)
     assert [(c["bloque"], c["voz"], c["token"], c["oracion"]) for c in cs] == [(720, 715, "715", voz[0])]
     assert pf.contradicciones("COTA MÁXIMA 720 m", voz, cerca=voz) == [pf.frase_contradiccion(cs[0])]
-    assert pf.contradicciones("COTA MÁXIMA 720 m", voz, cerca=voz, juicio={"contradice": ["715"]}) == []
-    assert pf.contradicciones("COTA MÁXIMA 720 m", voz, cerca=voz, juicio={"no_dicho": ["715"]})   # otra regla
+    assert not hasattr(pf, "_sin_juicio")                       # F64 Etapa 3: sin `juicio`

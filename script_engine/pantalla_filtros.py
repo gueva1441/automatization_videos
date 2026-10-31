@@ -30,8 +30,7 @@ def _palabras_mag(texto: str) -> set[str]:
     return {w for t in re.findall(r"[^\W\d_]+", ev.norm(texto or "")) for w in PALABRAS_LOCALES if t.startswith(w)}
 
 
-def contradicciones_de(bloque: str, voz: list[str], cerca: list[str] | None = None,
-                       juicio: dict[str, list[str]] | None = None) -> list[dict[str, Any]]:
+def contradicciones_de(bloque: str, voz: list[str], cerca: list[str] | None = None) -> list[dict[str, Any]]:
     """§A.4: cada cifra del bloque con unidad contra las cifras de la voz de todo el video. Lectura declarada de «misma
     unidad o misma magnitud nombrada en la oración»: la cifra de la voz se compara si (1) tiene la misma unidad y la
     oración nombra la misma magnitud que el bloque («setecientos metros sobre el nivel del mar» contra «Nivel del
@@ -44,9 +43,8 @@ def contradicciones_de(bloque: str, voz: list[str], cerca: list[str] | None = No
     de 1960 o «no pasar de los setecientos metros sobre el nivel del mar», la vecina). Lectura declarada (F36_REPORT).
     Los muertos se siguen comparando con todo el video.
     F38c §A.2: devuelve la estructura, una por coincidencia: {bloque (la cifra del bloque), unidad, voz (la cifra de la
-    voz), unidad_voz, token (la cifra de la voz como texto: lo que juzga el autor), oracion}; con `juicio` (el
-    `juicio_autor` de la ficha) las que el autor mantuvo como otro hecho (`contradice`, por la cifra de la voz, no por
-    la oración: vale aunque Fase 2 mueva la ficha) no cuentan (`_sin_juicio`, como no_dicho y spoiler)."""
+    voz), unidad_voz, token (la cifra de la voz como texto: lo que juzga el verificador, F64 Etapa 3), oracion}. F64
+    Etapa 3: sin `juicio` (el juicio del autor de F37 §A.4 se borró; en el papel juzga pantalla_verificador)."""
     nb, mb = _analiza(bloque)
     mags_b = {m for m, _ in mb}
     out = []
@@ -67,12 +65,11 @@ def contradicciones_de(bloque: str, voz: list[str], cerca: list[str] | None = No
                 if comunes and abs(w - v) > 1e-9:
                     out.append({"bloque": v, "unidad": u, "voz": w, "unidad_voz": uw, "token": _fmt(w),
                                 "oracion": s.strip()})
-    ok = set(_sin_juicio({"juicio": juicio}, "contradice", [c["token"] for c in out]))
     vistas: set[str] = set()
     res = []
     for c in out:                                  # una por frase (la misma oración en la voz y en la vecindad)
         f = frase_contradiccion(c)
-        if c["token"] in ok and f not in vistas:
+        if f not in vistas:
             vistas.add(f)
             res.append(c)
     return res
@@ -83,11 +80,9 @@ def frase_contradiccion(c: dict[str, Any]) -> str:
     return f"{_fmt(c['bloque'])} {c['unidad']} vs {_fmt(c['voz'])}{' ' + c['unidad_voz'] if c['unidad_voz'] else ''} "         f"(«{c['oracion'][:70]}»)"
 
 
-def contradicciones(bloque: str, voz: list[str], cerca: list[str] | None = None,
-                    juicio: dict[str, list[str]] | None = None) -> list[str]:
-    """§A.4: las frases de `contradicciones_de` (F38c §A.2: una sola lógica; el chequeo 5 de gfx_guion las lee, con el
-    `juicio_autor` del bloque)."""
-    return [frase_contradiccion(c) for c in contradicciones_de(bloque, voz, cerca, juicio)]
+def contradicciones(bloque: str, voz: list[str], cerca: list[str] | None = None) -> list[str]:
+    """§A.4: las frases de `contradicciones_de` (F38c §A.2: una sola lógica; el chequeo 5 de gfx_guion las lee)."""
+    return [frase_contradiccion(c) for c in contradicciones_de(bloque, voz, cerca)]
 
 
 _DOC = re.compile(r"\b(carta|acta|informe|documento)s?\b")
@@ -136,19 +131,12 @@ def candado(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> str 
     return None
 
 
-def _sin_juicio(ctx: dict[str, Any], regla_: str, toks: list[str]) -> list[str]:
-    """F37 §A.4: las coincidencias que el autor ya juzgó «otro hecho» en el reintento del papel (`juicio_autor` de la
-    ficha) no vuelven a cortar, ni en papel ni en Fase 2."""
-    ya = {str(t) for t in ((ctx.get("juicio") or {}).get(regla_) or [])}
-    return [t for t in toks if str(t) not in ya]
-
-
 def no_dicho(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> str | None:
     """§A.3 no dicho (oración ancla ± 1), sobre el dato. F34 §A.2.2: antes que la lectura (D237 «cuatrocientos» caía
     por lectura y no por repetir la voz); los números en letras de la voz se comparan por valor (numeros/numero_en, con
-    el conversor de num_es). F37 §A.4: las coincidencias quedan en ctx["dichos"] (el papel se las pregunta al autor) y
-    las que el autor juzgó otro hecho no cuentan. F40 §A: en el gancho, una cifra del dato que la voz dice en cualquier
-    oración del video es una coincidencia más (la pregunta al autor; ya no la corta `gancho_dicho`)."""
+    el conversor de num_es). F37 §A.4 / F64 Etapa 3: las coincidencias quedan en ctx["dichos"] (en el papel son marcas
+    que juzga el verificador). F40 §A: en el gancho, una cifra del dato que la voz dice en cualquier oración del video
+    es una coincidencia más (ya no la corta `gancho_dicho`)."""
     sents, si, x, txt = ctx["sents"], ctx["si"], ctx["x"], ctx["txt"]
     vecinas = " ".join(ss["texto"] for ss in sents[max(0, si - 1):si + 2])
     nums = numeros(txt)
@@ -159,7 +147,7 @@ def no_dicho(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> str
     lejos = []
     if x.get("gancho"):                    # §A.1: el dato del gancho no lo dice la voz en todo el video
         lejos = [n for n in nums if n not in dichos and numero_en(n, " ".join(ctx["voz_video"]))]
-    dichos = _sin_juicio(ctx, "no_dicho", dichos + lejos)
+    dichos = dichos + lejos
     ctx["dichos"] = dichos
     if dichos:                             # F40 §A: la del gancho la dice la voz en otro cap u oración del video
         donde = "en otra oración del video (gancho)" if set(dichos) & set(lejos) else "en la oración ancla o en una vecina"
@@ -169,14 +157,13 @@ def no_dicho(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> str
 
 def spoiler(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> str | None:
     """§A.3 spoiler (oraciones posteriores del cap). §A.2.3: un nombre que la voz ya dijo antes en el cap o en un cap
-    anterior no es spoiler. F37 §A.4: las coincidencias quedan en ctx["spoil"] y las que el autor juzgó otro hecho no
-    cuentan."""
+    anterior no es spoiler. F37 §A.4 / F64 Etapa 3: las coincidencias quedan en ctx["spoil"] (en el papel son marcas
+    que juzga el verificador)."""
     sents, si = ctx["sents"], ctx["si"]
     despues = " ".join(ss["texto"] for ss in sents[si + 1:])
     antes = " ".join(ss["texto"] for ss in sents[:si + 1]) + " " + str(ent.get("voz_antes") or "")
     spoil = [n for n in ctx["nums"] if numero_en(n, despues)] + \
             [n for n in ctx["nms"] if _palabra_en(n, despues) and not _palabra_en(n, antes)]
-    spoil = _sin_juicio(ctx, "spoiler", spoil)
     ctx["spoil"] = spoil
     if spoil:
         return f"la voz lo dice en una oración posterior del cap: {spoil}"
@@ -238,8 +225,7 @@ def ancla_papel(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> 
         txt = re.sub(r"^[«\"“]+|[»\"”]+$", "", txt).strip()
     et = re.sub(r"\s+", " ", str(b.get("etiqueta") or "")).strip() or None
     b["texto"], b["etiqueta"] = txt, et
-    ctx.update(pid=pid, x=x, si=si, s=ctx["sents"][si], wi=wi, tipo=tipo, txt=txt, et=et, forzado=None,
-               juicio=b.get("juicio_autor") or {})                    # F37 §A.4: lo que el autor ya juzgó
+    ctx.update(pid=pid, x=x, si=si, s=ctx["sents"][si], wi=wi, tipo=tipo, txt=txt, et=et, forzado=None)
     return None
 
 

@@ -297,7 +297,7 @@
     "por_que": "nadie la nombra: ni producción ni tests ni strings; el chequeo «dos bloques al mismo tiempo» (línea 444 en adelante) calcula el solape directo y ya no la usa"
    }
   ],
-  "md5": "6483bab081dd950377d317c520f69934",
+  "md5": "f854c4835c93ae0c104be1b6639cecec",
   "_parte": "fase2b_gfx_b"
  },
  "script_engine/gfx_intensity.py": {
@@ -626,7 +626,7 @@
   "estado": "vivo",
   "estado_prueba": "gfx_layer.py:699-702 (pesos, colocar), :773-775 (hasta_el_corte, repartir); m01e_pantalla.py:191/407/1156 importa LECTURA_CPS y caracteres en Fase 1",
   "funciones_muertas": [],
-  "md5": "e0dedaacc31ae94efbda1961f15dd4e7",
+  "md5": "5fe6e5bbf58afda4bec66c261d90c9fc",
   "_parte": "fase2b_gfx_d"
  },
  "script_engine/pantalla_entrada.py": {
@@ -641,11 +641,11 @@
   "estado": "vivo",
   "estado_prueba": "gfx_layer.py:637-638 llama preparar_cap; fase2b.py:3160 importa voz_del_video en --plan-only",
   "funciones_muertas": [],
-  "md5": "473106ef0103c73f763306b486338e4f",
+  "md5": "c8527201f730dc766a1c56eb7171558f",
   "_parte": "fase2b_gfx_d"
  },
  "script_engine/pantalla_filtros.py": {
-  "sticker": "Los filtros que deciden si un texto del guion en papel sale o no, en un orden fijo: anclar a la voz, candado de lo literal, que la voz no lo diga ya, que no adelante lo que viene, y que haya dónde leerlo. Además compara cifras del bloque contra las de la voz para el chequeo del guion.",
+  "sticker": "Los filtros que deciden si un texto del guion en papel sale o no, en un orden fijo: anclar a la voz, candado de lo literal, que la voz no lo diga ya, que no adelante lo que viene, y que haya dónde leerlo. Además compara cifras del bloque contra las de la voz para el chequeo del guion. F64: ya no reciben `juicio` (el juicio del autor de F37 se borró): en el papel las coincidencias de no_dicho/spoiler/contradice las juzga pantalla_verificador; en Fase 2 estos filtros vuelven a correr por tokens, sin ese juicio.",
   "recibe": "bloques del papel (anclados a oración y palabra), entrada del cap (ent: ítems del pool, oraciones, beats, voz del video), palabras con tiempos y escenas",
   "entrega": "bloques que pasan con sus tiempos e intentos, rechazos con la regla y el motivo, y los a_pantalla que faltan (en memoria, para pantalla_colocar.colocar)",
   "modelo": [],
@@ -657,7 +657,7 @@
   "estado": "vivo",
   "estado_prueba": "pantalla_colocar.py:173-178 llama validar_papel; m01e_pantalla.py:274/570 usa pide_documento, candado, no_dicho, spoiler, contradicciones_de en Fase 1; gfx_guion.py:442 contradicciones",
   "funciones_muertas": [],
-  "md5": "375f50013234f10dd16df526b11ad5c8",
+  "md5": "b5aa02a3fb8ec1db8a8eae802665e458",
   "_parte": "fase2b_gfx_d"
  },
  "script_engine/transition_applier.py": {
@@ -716,5 +716,25 @@
   ],
   "md5": "e4c6afc5b1b033d3355ad2eaec947dad",
   "_parte": "fase2b_gfx_c"
+ },
+ "script_engine/pantalla_verificador.py": {
+  "sticker": "El verificador de las fichas del guion de pantalla en papel (F64, DECISIONES 2026-10-31 14:20): el código marca en cada ficha propuesta las coincidencias con la voz (una palabra o cifra que la voz también dice, una cifra distinta para algo parecido, una fecha posterior al relato) y los descartes «la voz lo dice» de los que duda; este módulo manda TODAS las marcas de una validación en una sola llamada a Claude Opus con la narración entera y lee un veredicto por ficha (pasa/corta) y por descarte (dicho/no_dicho). Nunca propone fichas: solo juzga el hecho. Si el modelo no devuelve JSON en dos intentos, todo queda «pasa» con motivo «sin veredicto» y el papel sigue (no se corta a ciegas).",
+  "recibe": "marcas de m01e_pantalla.validar (pool_id, cap, beat, sentence_idx, oracion_ancla, etiqueta, texto, respaldo, dato_archivo —en una cita la frase mostrada + cita_completa—, regla, coincidencia {token, cap, idx, oracion}; descartes con motivo_del_autor y caps_que_lo_cuentan) y los caps de la entrada (cap, oraciones idx/texto); SYSTEM_V y FORMATO_V literales de HANDOFF_F64",
+  "entrega": "{veredictos_fichas, veredictos_descartes, ignorados, sin_veredicto, usage, usd, segundos, pedido_md5, intentos, error} a m01e_pantalla.validar (que corta o deja la ficha con juicio_verificador y decide si el descarte vuelve); el costo al cost_tracker como «m01e_verificador»; m01e guarda cada pedido/respuesta en 01e_pantalla.raw.json por pedido_md5 (caché)",
+  "modelo": [
+   {
+    "modelo": "claude-opus-5-5 (constante MODELO, esfuerzo medium, hx.MAX_TOKENS; 1 reintento sin JSON)",
+    "para": "juzgar hecho por hecho si la voz dice, adelanta o contradice cada ficha marcada, y si un descarte «la voz lo dice» es cierto"
+   }
+  ],
+  "etapa": [
+   "guion",
+   "guion_pantalla"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "script_engine/m01e_pantalla.py: _juez_por_defecto() devuelve verificar y llamar() lo usa como juez por defecto (functools.partial con post y log); lab/hyperframes/f64/sim_verificador.py lo corre sobre los 8 papeles de F63; test_module_f64.py (a)(b)(c)(f)(g)",
+  "funciones_muertas": [],
+  "md5": "382239c81063b4c94948d951bf4241ed",
+  "_parte": "fase2b_gfx_d"
  }
 }

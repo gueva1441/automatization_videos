@@ -1,0 +1,875 @@
+{
+ "papel": "O1_2",
+ "marcas": [
+  {
+   "que": "ficha",
+   "pool_id": "Q25",
+   "cap": "ch02",
+   "beat": 2,
+   "sentence_idx": 2,
+   "oracion_ancla": "De esa noche y de lo que vino después, ella no cuenta la música ni el vestido; cuenta que iba muy cerca de él y que confiaba en lo que venía.",
+   "etiqueta": "POR QUÉ SE FUERON",
+   "texto": "En España no teníamos nada, ninguno de los dos.",
+   "respaldo": "En España no teníamos nada, ninguno de los dos.",
+   "dato_archivo": "En España no teníamos nada, ninguno de los dos.",
+   "cita_completa": "Me pegué a mi marido, como una niña pequeña. Pero estaba orgullosa. Me había enamorado de ese hombre y confiaba en el futuro… aunque estuviera tan lejos. En España no teníamos nada, ninguno de los dos.",
+   "regla": "spoiler",
+   "coincidencia": {
+    "token": "2",
+    "cap": "ch02",
+    "idx": 7,
+    "oracion": "No iban solos: cerca de ocho mil españoles cruzaron por un acuerdo entre los dos gobiernos, y CSR, la compañía dueña de la mina, venía haciendo viajes privados a Europa para reclutar gente desde 1950."
+   }
+  },
+  {
+   "que": "ficha",
+   "pool_id": "T38",
+   "cap": "ch02",
+   "beat": 3,
+   "sentence_idx": 6,
+   "oracion_ancla": "El barco los llevaba a Australia.",
+   "etiqueta": "ZARPARON",
+   "texto": "24 sep. 1962",
+   "respaldo": "Daniel Écija y María Bernal emigraron a Australia. (fecha 1962-09-24)",
+   "dato_archivo": "Daniel Écija y María Bernal emigraron a Australia. (fecha 1962-09-24)",
+   "regla": "spoiler",
+   "coincidencia": {
+    "token": "1962",
+    "cap": "ch02",
+    "idx": 8,
+    "oracion": "Allá los esperaban ya Ramón de Juan y Milagros Barroso, otro matrimonio que había llegado en agosto de 1962; con ellos, recuerda ella, se harían íntimos amigos."
+   }
+  },
+  {
+   "que": "ficha",
+   "pool_id": "D94",
+   "cap": "ch05",
+   "beat": 9,
+   "sentence_idx": 8,
+   "oracion_ancla": "Y en 1988 un juez determinó que la compañía había mostrado un desprecio continuo, consciente y contumaz por la seguridad y la salud de sus trabajadores.",
+   "etiqueta": "EN 1989, CSR PAGÓ",
+   "texto": "18,3 millones de dólares australianos a 200 afectados",
+   "respaldo": "En 1989, la empresa CSR pagó 18,3 millones de dólares australianos en indemnizaciones a 200 afectados",
+   "dato_archivo": "En 1989, la empresa CSR pagó 18,3 millones de dólares australianos en indemnizaciones a 200 afectados.",
+   "regla": "fecha_relato",
+   "coincidencia": {
+    "token": "1989",
+    "relato": 1988,
+    "cap": "ch05",
+    "idx": 8,
+    "oracion": "Y en 1988 un juez determinó que la compañía había mostrado un desprecio continuo, consciente y contumaz por la seguridad y la salud de sus trabajadores."
+   }
+  },
+  {
+   "que": "descarte",
+   "regla": "voz_lo_dice",
+   "pool_id": "D21",
+   "dato_archivo": "La producción minera en Wittenoom se incrementó en 1961 a pesar de la evidencia de los riesgos.",
+   "motivo_del_autor": "La voz dice que la producción subió en 1961.",
+   "caps_que_lo_cuentan": [
+    "ch03"
+   ],
+   "falta": [
+    "Wittenoom"
+   ]
+  },
+  {
+   "que": "descarte",
+   "regla": "voz_lo_dice",
+   "pool_id": "D95",
+   "dato_archivo": "El pueblo aborigen banjima reclama 1.500 millones de dólares australianos al Ejecutivo por la contaminación.",
+   "motivo_del_autor": "La voz dice los 1.500 millones.",
+   "caps_que_lo_cuentan": [
+    "ch07"
+   ],
+   "falta": [
+    "1.500"
+   ]
+  }
+ ],
+ "filas": [
+  {
+   "que": "ficha",
+   "pool_id": "Q25",
+   "regla": "spoiler",
+   "token": "2",
+   "donde": "ch02 [7]",
+   "cap": "ch02",
+   "beat": 2,
+   "veredicto": "pasa",
+   "motivo": "La voz cuenta que ella confiaba en lo que venía y cita «me pegué a mi marido», pero nunca dice que en España no tuvieran nada.",
+   "oracion": null,
+   "dato": "POR QUÉ SE FUERON · En España no teníamos nada, ninguno de los dos."
+  },
+  {
+   "que": "ficha",
+   "pool_id": "T38",
+   "regla": "spoiler",
+   "token": "1962",
+   "donde": "ch02 [8]",
+   "cap": "ch02",
+   "beat": 3,
+   "veredicto": "corta",
+   "motivo": "La voz ya da la fecha en la vecina: boda el 20 de septiembre de 1962 y «cuatro días después estaban en un barco», es decir, el 24.",
+   "oracion": {
+    "cap": "ch02",
+    "idx": 5
+   },
+   "dato": "ZARPARON · 24 sep. 1962"
+  },
+  {
+   "que": "ficha",
+   "pool_id": "D94",
+   "regla": "fecha_relato",
+   "token": "1989",
+   "donde": "ch05 [8]",
+   "cap": "ch05",
+   "beat": 9,
+   "veredicto": "pasa",
+   "motivo": "La voz habla del fallo de 1988, pero nunca menciona el pago de 18,3 millones a 200 afectados en 1989.",
+   "oracion": null,
+   "dato": "EN 1989, CSR PAGÓ · 18,3 millones de dólares australianos a 200 afectados"
+  },
+  {
+   "que": "descarte",
+   "pool_id": "D21",
+   "regla": "voz_lo_dice",
+   "token": "Wittenoom",
+   "cap": null,
+   "beat": null,
+   "veredicto": "dicho",
+   "motivo": "La voz dice «En 1961 la producción subió», justo después de enumerar las advertencias.",
+   "oracion": {
+    "cap": "ch03",
+    "idx": 28
+   },
+   "dato": "La producción minera en Wittenoom se incrementó en 1961 a pesar de la evidencia de los riesgos."
+  },
+  {
+   "que": "descarte",
+   "pool_id": "D95",
+   "regla": "voz_lo_dice",
+   "token": "1.500",
+   "cap": null,
+   "beat": null,
+   "veredicto": "dicho",
+   "motivo": "La voz menciona la reclamación de 1.500 millones de dólares australianos por la tierra Banjima contra Australia Occidental.",
+   "oracion": {
+    "cap": "ch07",
+    "idx": 6
+   },
+   "dato": "El pueblo aborigen banjima reclama 1.500 millones de dólares australianos al Ejecutivo por la contaminación."
+  }
+ ],
+ "verificador": {
+  "veredictos_fichas": [
+   {
+    "pool_id": "Q25",
+    "cap": "ch02",
+    "beat": 2,
+    "veredicto": "pasa",
+    "motivo": "La voz cuenta que ella confiaba en lo que venía y cita «me pegué a mi marido», pero nunca dice que en España no tuvieran nada.",
+    "oracion": null
+   },
+   {
+    "pool_id": "T38",
+    "cap": "ch02",
+    "beat": 3,
+    "veredicto": "corta",
+    "motivo": "La voz ya da la fecha en la vecina: boda el 20 de septiembre de 1962 y «cuatro días después estaban en un barco», es decir, el 24.",
+    "oracion": {
+     "cap": "ch02",
+     "idx": 5
+    }
+   },
+   {
+    "pool_id": "D94",
+    "cap": "ch05",
+    "beat": 9,
+    "veredicto": "pasa",
+    "motivo": "La voz habla del fallo de 1988, pero nunca menciona el pago de 18,3 millones a 200 afectados en 1989.",
+    "oracion": null
+   }
+  ],
+  "veredictos_descartes": [
+   {
+    "pool_id": "D21",
+    "veredicto": "dicho",
+    "motivo": "La voz dice «En 1961 la producción subió», justo después de enumerar las advertencias.",
+    "oracion": {
+     "cap": "ch03",
+     "idx": 28
+    }
+   },
+   {
+    "pool_id": "D95",
+    "veredicto": "dicho",
+    "motivo": "La voz menciona la reclamación de 1.500 millones de dólares australianos por la tierra Banjima contra Australia Occidental.",
+    "oracion": {
+     "cap": "ch07",
+     "idx": 6
+    }
+   }
+  ],
+  "ignorados": [],
+  "sin_veredicto": [],
+  "usage": {
+   "input_tokens": 9306,
+   "output_tokens": 804
+  },
+  "usd": 0.0533,
+  "segundos": 7.1,
+  "pedido_md5": "1a78ce28cdcb55a46b848b4974c29575",
+  "intentos": 1,
+  "error": null,
+  "modelo": "claude-opus-5-5",
+  "effort": "medium"
+ },
+ "log": [],
+ "segundos_total": 10.0,
+ "descartados": [
+  {
+   "pool_id": "D85",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Es el dato central del gancho, pero no existe en el archivo; se reemplazó por D26.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T34",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice el baile y la fecha.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T37",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice la fecha de la boda.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q13",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta la amistad con los De Juan.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q14",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita el testimonio casi entero.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D83",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "El nombre «Operación Canguro» sumaba, pero en el pico se priorizó el dato central T38.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q27",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz lo cita casi entero; el resto no cabía con el autor.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q44",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita y parafrasea el testimonio.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D92",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice el dato completo en la oración 19; se usó otro dato del mismo pico.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q46",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "«Era solo un joven médico aéreo» sumaba menos que el informe de 1930.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D01",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Cifra de toneladas que suena a informe técnico.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D21",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que la producción subió en 1961.",
+   "quien": "modelo",
+   "verificador": "dicho: La voz dice «En 1961 la producción subió», justo después de enumerar las advertencias."
+  },
+  {
+   "pool_id": "T27",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "La rebaja del plus a 3 o 4 peniques sumaba, pero se eligió D115, que se entiende mejor; una ficha por beat.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q16",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Una ficha por beat; la cita de Calvo pesa más en el pico.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D104",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice las jornadas de 16 horas.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T41",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice la fecha del bautizo y la partida.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D122",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Sumaba menos que D102; una ficha por beat.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D51",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Cifra de producción técnica; D94 importa más junto a la condena.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T64",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice el diagnóstico y los nueve meses.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q35",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "La parte que la voz no dice no cabía en la oración ancla.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q24",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita la frase del policía.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q33",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz parafrasea la cita completa.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D90",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice «más de cuatro mil».",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q22",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "No cabía recortado en ninguna oración del beat.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D40",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Superficie administrativa en hectáreas: suena a informe y la cifra está en disputa.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D64",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "La comparación era buena, pero en el pico se priorizó el dato central T80.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D59",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que en 2016 se descartó asegurar los relaves por costo.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T98",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta la demanda completa.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D95",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice los 1.500 millones.",
+   "quien": "modelo",
+   "verificador": "dicho: La voz menciona la reclamación de 1.500 millones de dólares australianos por la tierra Banjima contra Australia Occidental."
+  },
+  {
+   "pool_id": "T92",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "El cargo de Orellana (relator de la ONU) sumaba menos que D68.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D69",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Fuerte contraste, pero se eligió D68; una ficha por beat.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D61",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Documento fechado que suena técnico; una ficha por beat.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T38",
+   "cap": "ch02",
+   "beat": 3,
+   "que": "ficha",
+   "etiqueta": "ZARPARON",
+   "texto": "24 sep. 1962",
+   "sentence_idx": 6,
+   "regla": "spoiler",
+   "reglas": [
+    "spoiler"
+   ],
+   "tokens": {
+    "spoiler": [
+     "1962"
+    ]
+   },
+   "motivo": "La voz ya da la fecha en la vecina: boda el 20 de septiembre de 1962 y «cuatro días después estaban en un barco», es decir, el 24. (ch02 [5])",
+   "quien": "verificador"
+  }
+ ],
+ "beats": [
+  {
+   "cap": "ch01",
+   "beat": 1,
+   "funcion": "gancho",
+   "pico": true,
+   "ficha": {
+    "pool_id": "D26",
+    "sentence_idx": 7,
+    "palabra": "pueblo",
+    "palabra_en_oracion": true,
+    "etiqueta": "ESE PUEBLO, HOY",
+    "texto": "El sitio contaminado más grande del hemisferio sur",
+    "respaldo": "Wittenoom es el sitio contaminado más grande del hemisferio sur",
+    "estilo": "normal",
+    "aporta": "La magnitud de lo que quedó en el pueblo borrado, algo que la voz nunca dice en todo el video.",
+    "oracion": "Esa foto se tomó en un pueblo que hoy no figura en ningún mapa.",
+    "caracteres": 65,
+    "caben": 71,
+    "anio": null,
+    "relato": null
+   },
+   "sello": {
+    "palabra": "SILENCIO",
+    "sentence_idx": 8,
+    "oracion": "Arrancaron las señales de la carretera y borraron el nombre."
+   }
+  },
+  {
+   "cap": "ch02",
+   "beat": 2,
+   "funcion": "planteo",
+   "pico": false,
+   "ficha": {
+    "pool_id": "Q25",
+    "sentence_idx": 2,
+    "palabra": "confiaba",
+    "palabra_en_oracion": true,
+    "etiqueta": "POR QUÉ SE FUERON",
+    "texto": "En España no teníamos nada, ninguno de los dos.",
+    "respaldo": "En España no teníamos nada, ninguno de los dos.",
+    "estilo": "cita",
+    "autor": "María Bernal",
+    "autor_origen": "modelo",
+    "aporta": "Por qué se fueron: no tenían nada. La voz cuenta la confianza de María, pero no la pobreza.",
+    "oracion": "De esa noche y de lo que vino después, ella no cuenta la música ni el vestido; cuenta que iba muy cerca de él y que confiaba en lo que venía.",
+    "caracteres": 81,
+    "caben": 90,
+    "anio": null,
+    "relato": 1961,
+    "juicio_verificador": {
+     "regla": [
+      "spoiler"
+     ],
+     "motivo": "La voz cuenta que ella confiaba en lo que venía y cita «me pegué a mi marido», pero nunca dice que en España no tuvieran nada.",
+     "tokens": {
+      "spoiler": [
+       "2"
+      ]
+     }
+    }
+   },
+   "sello": {
+    "palabra": "CALMA",
+    "sentence_idx": 4,
+    "oracion": "Se casaron un año más tarde, el 20 de septiembre de 1962."
+   }
+  },
+  {
+   "cap": "ch02",
+   "beat": 3,
+   "funcion": "planteo",
+   "pico": true,
+   "ficha": null,
+   "sello": null
+  },
+  {
+   "cap": "ch03",
+   "beat": 4,
+   "funcion": "planteo",
+   "pico": false,
+   "ficha": {
+    "pool_id": "D82",
+    "sentence_idx": 1,
+    "palabra": "desierto",
+    "palabra_en_oracion": true,
+    "etiqueta": "LEJOS DE TODO",
+    "texto": "A unos 1.400 km de Perth",
+    "respaldo": "a unos 1.400 kilómetros de Perth",
+    "estilo": "normal",
+    "aporta": "Cuán aislado estaba el pueblo; la voz no da ninguna distancia.",
+    "oracion": "Abajo, el desierto de Pilbara, en Australia Occidental.",
+    "caracteres": 37,
+    "caben": 40,
+    "anio": null,
+    "relato": 1962
+   },
+   "sello": {
+    "palabra": "AMENAZA",
+    "sentence_idx": 9,
+    "oracion": "El pueblo entero, la pista, los patios, la escuela: todo estaba hecho con lo que sobraba de la mina."
+   }
+  },
+  {
+   "cap": "ch03",
+   "beat": 5,
+   "funcion": "escalada",
+   "pico": true,
+   "ficha": {
+    "pool_id": "D44",
+    "sentence_idx": 11,
+    "palabra": "informes",
+    "palabra_en_oracion": true,
+    "etiqueta": "YA SE SABÍA EN 1930",
+    "texto": "Un informe ligó asbestosis y asbesto",
+    "respaldo": "El informe de Merryweather y Price de 1930 estableció que la asbestosis era una enfermedad consecuente a la exposición al asbesto",
+    "estilo": "normal",
+    "aporta": "El vínculo entre el amianto y la enfermedad era conocido trece años antes de la mina de ABA.",
+    "oracion": "Los informes eran anteriores a la boda, al barco y al avión.",
+    "caracteres": 55,
+    "caben": 61,
+    "anio": 1930,
+    "relato": 1962
+   },
+   "sello": {
+    "palabra": "AVISO",
+    "sentence_idx": 17,
+    "oracion": "«En un año o dos, ABA producirá la cosecha más abundante y letal de casos de asbestosis de la literatura mundial», dice la carta de ese médico."
+   }
+  },
+  {
+   "cap": "ch03",
+   "beat": 6,
+   "funcion": "giro",
+   "pico": false,
+   "ficha": {
+    "pool_id": "D115",
+    "sentence_idx": 31,
+    "palabra": "año",
+    "palabra_en_oracion": true,
+    "etiqueta": "1962, AÑO RÉCORD",
+    "texto": "El 95% del asbesto australiano era de Wittenoom",
+    "respaldo": "En 1962, el año de máxima producción australiana de asbesto, se extrajeron 18416 toneladas cortas, de las cuales el 95% era crocidolita de Wittenoom",
+    "estilo": "normal",
+    "aporta": "Daniel llegó justo el año de máxima producción, con casi todo saliendo de ese pueblo.",
+    "oracion": "El año en que McNulty escribió ese primer caso, un recién casado de Madrid se bajaba de un avión en esa misma pista de polvo.",
+    "caracteres": 63,
+    "caben": 90,
+    "anio": 1962,
+    "relato": 1962
+   },
+   "sello": {
+    "palabra": "INMINENTE",
+    "sentence_idx": 31,
+    "oracion": "El año en que McNulty escribió ese primer caso, un recién casado de Madrid se bajaba de un avión en esa misma pista de polvo."
+   }
+  },
+  {
+   "cap": "ch04",
+   "beat": 7,
+   "funcion": "escalada",
+   "pico": true,
+   "ficha": {
+    "pool_id": "Q19",
+    "sentence_idx": 8,
+    "palabra": "polvillo",
+    "palabra_en_oracion": true,
+    "etiqueta": "LO QUE NO HUBO",
+    "texto": "Nadie nos avisó de nada.",
+    "respaldo": "Nadie nos avisó de nada.",
+    "estilo": "cita",
+    "autor": "Víctor Calvo",
+    "autor_origen": "modelo",
+    "aporta": "La frase final del testimonio, que la voz no lee: a los chicos nadie les advirtió.",
+    "oracion": "Cuando lo tocábamos salía un polvillo que lo impregnaba todo», dice Calvo.",
+    "caracteres": 55,
+    "caben": 61,
+    "anio": null,
+    "relato": 1962
+   },
+   "sello": null
+  },
+  {
+   "cap": "ch04",
+   "beat": 8,
+   "funcion": "giro",
+   "pico": false,
+   "ficha": {
+    "pool_id": "D102",
+    "sentence_idx": 13,
+    "palabra": "Daniel",
+    "palabra_en_oracion": true,
+    "etiqueta": "ESE BEBÉ, HOY",
+    "texto": "Productor de televisión en España",
+    "respaldo": "es un conocido productor de televisión en España",
+    "estilo": "normal",
+    "aporta": "Quién es hoy el niño nacido en Wittenoom; la voz nunca lo dice.",
+    "oracion": "Nació un varón y le pusieron Daniel, como el padre.",
+    "caracteres": 46,
+    "caben": 51,
+    "anio": null,
+    "relato": 1963
+   },
+   "sello": null
+  },
+  {
+   "cap": "ch05",
+   "beat": 9,
+   "funcion": "escalada",
+   "pico": false,
+   "ficha": {
+    "pool_id": "D94",
+    "sentence_idx": 8,
+    "palabra": "juez",
+    "palabra_en_oracion": true,
+    "etiqueta": "EN 1989, CSR PAGÓ",
+    "texto": "18,3 millones de dólares australianos a 200 afectados",
+    "respaldo": "En 1989, la empresa CSR pagó 18,3 millones de dólares australianos en indemnizaciones a 200 afectados",
+    "estilo": "normal",
+    "aporta": "Qué costó a la empresa la condena del juez, en cifra y en número de afectados.",
+    "oracion": "Y en 1988 un juez determinó que la compañía había mostrado un desprecio continuo, consciente y contumaz por la seguridad y la salud de sus trabajadores.",
+    "caracteres": 70,
+    "caben": 90,
+    "anio": 1989,
+    "relato": 1988,
+    "juicio_verificador": {
+     "regla": [
+      "fecha_relato"
+     ],
+     "motivo": "La voz habla del fallo de 1988, pero nunca menciona el pago de 18,3 millones a 200 afectados en 1989.",
+     "tokens": {
+      "fecha_relato": [
+       "1989"
+      ]
+     }
+    }
+   },
+   "sello": {
+    "palabra": "RABIA",
+    "sentence_idx": 9,
+    "oracion": "Veintidós años después del cierre."
+   }
+  },
+  {
+   "cap": "ch05",
+   "beat": 10,
+   "funcion": "pico",
+   "pico": true,
+   "ficha": {
+    "pool_id": "D23",
+    "sentence_idx": 18,
+    "palabra": "murió",
+    "palabra_en_oracion": true,
+    "etiqueta": "NO FUE EL ÚNICO",
+    "texto": "Para 1989 ya habían muerto más de 500 de Wittenoom",
+    "respaldo": "Para 1989, más de 500 antiguos trabajadores y residentes de Wittenoom habían muerto",
+    "estilo": "papel",
+    "aporta": "Pone la muerte de Daniel dentro de un recuento: no fue un caso aislado.",
+    "oracion": "Nueve meses después del diagnóstico, Daniel Écija murió en Madrid, a miles de kilómetros de la pista roja, casi treinta años después de haberse ido de ella.",
+    "caracteres": 65,
+    "caben": 90,
+    "anio": 1989,
+    "relato": 1991
+   },
+   "sello": {
+    "palabra": "MEMORIA",
+    "sentence_idx": 11,
+    "oracion": "María guarda las fotografías en sepia: el baile, el barco, el pie vendado, el bautizo."
+   }
+  },
+  {
+   "cap": "ch06",
+   "beat": 11,
+   "funcion": "respiro",
+   "pico": false,
+   "ficha": {
+    "pool_id": "T57",
+    "sentence_idx": 2,
+    "palabra": "policía",
+    "palabra_en_oracion": true,
+    "etiqueta": "A QUIÉN SE LO DIJO",
+    "texto": "A Daniel Écija hijo, en 1985",
+    "respaldo": "Un policía en un aeropuerto australiano identificó a Daniel Écija hijo como procedente de Wittenoom, llamándolo un 'sitio terrorífico'. (fecha 1985)",
+    "estilo": "normal",
+    "aporta": "A quién y cuándo le pasó la escena del aeropuerto, que la voz cuenta sin nombre ni fecha.",
+    "oracion": "En un control de aeropuerto, el policía lee la página, baja la cabeza, vuelve a mirar.",
+    "caracteres": 46,
+    "caben": 81,
+    "anio": 1985,
+    "relato": 1991
+   },
+   "sello": {
+    "palabra": "ALARMA",
+    "sentence_idx": 7,
+    "oracion": "Melita Markey sigue contando lo que el gobierno dejó de contar en dos mil; otras estimaciones, dice, hablan de más de cuatro mil, y la cifra sube."
+   }
+  },
+  {
+   "cap": "ch06",
+   "beat": 12,
+   "funcion": "revelacion",
+   "pico": true,
+   "ficha": {
+    "pool_id": "T80",
+    "sentence_idx": 10,
+    "palabra": "abolido",
+    "palabra_en_oracion": true,
+    "etiqueta": "LO ANUNCIÓ",
+    "texto": "Jon Ford, ministro de Desarrollo Regional",
+    "respaldo": "El Ministro de Desarrollo Regional, Hon Jon Ford MLC, anunció que el pueblo había sido oficialmente abolido.",
+    "estilo": "normal",
+    "aporta": "Quién firmó el final del pueblo; la voz no lo nombra.",
+    "oracion": "Hacia junio de 2007, según otras referencias en 2006, Wittenoom fue abolido oficialmente.",
+    "caracteres": 51,
+    "caben": 66,
+    "anio": 2007,
+    "relato": 2007
+   },
+   "sello": {
+    "palabra": "COLAPSO",
+    "sentence_idx": 10,
+    "oracion": "Hacia junio de 2007, según otras referencias en 2006, Wittenoom fue abolido oficialmente."
+   }
+  },
+  {
+   "cap": "ch07",
+   "beat": 13,
+   "funcion": "cierre",
+   "pico": true,
+   "ficha": {
+    "pool_id": "D68",
+    "sentence_idx": 0,
+    "palabra": "Banjima",
+    "palabra_en_oracion": true,
+    "etiqueta": "SU PUEBLO",
+    "texto": "Mayor tasa de cáncer por asbesto del mundo",
+    "respaldo": "el pueblo Banjima tiene la mayor incidencia de cáncer por asbesto per cápita del mundo",
+    "estilo": "normal",
+    "aporta": "Lo que el amianto le hizo al pueblo de Parker, en una sola línea.",
+    "oracion": "Maitland Parker era Banjima, y esa tierra era la suya.",
+    "caracteres": 51,
+    "caben": 51,
+    "anio": null,
+    "relato": 2021
+   },
+   "sello": null
+  }
+ ],
+ "vuelven": [],
+ "motivos": [
+  "T38 (ch02 beat 3) «ZARPARON · 24 sep. 1962»: spoiler: La voz ya da la fecha en la vecina: boda el 20 de septiembre de 1962 y «cuatro días después estaban en un barco», es decir, el 24. (ch02 [5])",
+  "el beat 3 de ch02 es pico y quedó sin ficha",
+  "el beat 5 de ch03 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D01 («150.000 toneladas de asbesto comercial entre 1937 y 1966: cifra técnica de contexto.»)",
+  "el beat 9 de ch05 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D51 («Producción atribuida por Vernon a la mina de Wittenoom, 131.000 toneladas, en el anuncio del cierre.»)",
+  "el beat 11 de ch06 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D34 («Fuentes gubernamentales actuales: 'miles' de muertes sin total; se muestra junto a la estimación de Markey que sí dice la voz.»)",
+  "el beat 12 de ch06 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D40 («Superficie oficial de WAMA: 46.840 hectáreas; cifra administrativa con versiones en disputa, mejor leída que dicha.»)",
+  "el beat 13 de ch07 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D61 («Reconocimiento oficial de 2023 de que los estudios sobre la extensión quedaron desactualizados; va como documento fechado.»)"
+ ],
+ "claves": [
+  [
+   "spoiler",
+   "T38",
+   "ch02",
+   3,
+   "1962"
+  ],
+  [
+   "pico",
+   "ch02",
+   3
+  ],
+  [
+   "a_pantalla",
+   "ch03",
+   5
+  ],
+  [
+   "a_pantalla",
+   "ch05",
+   9
+  ],
+  [
+   "a_pantalla",
+   "ch06",
+   11
+  ],
+  [
+   "a_pantalla",
+   "ch06",
+   12
+  ],
+  [
+   "a_pantalla",
+   "ch07",
+   13
+  ]
+ ]
+}

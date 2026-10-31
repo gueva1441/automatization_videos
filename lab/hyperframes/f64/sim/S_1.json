@@ -1,0 +1,1436 @@
+{
+ "papel": "S_1",
+ "marcas": [
+  {
+   "que": "ficha",
+   "pool_id": "D79",
+   "cap": "ch01",
+   "beat": 1,
+   "sentence_idx": 7,
+   "oracion_ancla": "Esa foto se tomó en un pueblo que hoy no figura en ningún mapa.",
+   "etiqueta": "CUÁNTOS MURIERON",
+   "texto": "Más de 2000 mineros y vecinos muertos por el asbesto",
+   "respaldo": "Más de 2000 antiguos trabajadores de la mina y residentes de Wittenoom han muerto por enfermedades relacionadas con el asbesto.",
+   "dato_archivo": "Más de 2000 antiguos trabajadores de la mina y residentes de Wittenoom han muerto por enfermedades relacionadas con el asbesto.",
+   "regla": "no_dicho",
+   "coincidencia": {
+    "token": "2000",
+    "cap": "ch06",
+    "idx": 7,
+    "oracion": "Melita Markey sigue contando lo que el gobierno dejó de contar en dos mil; otras estimaciones, dice, hablan de más de cuatro mil, y la cifra sube."
+   }
+  },
+  {
+   "que": "ficha",
+   "pool_id": "D79",
+   "cap": "ch01",
+   "beat": 1,
+   "sentence_idx": 7,
+   "oracion_ancla": "Esa foto se tomó en un pueblo que hoy no figura en ningún mapa.",
+   "etiqueta": "CUÁNTOS MURIERON",
+   "texto": "Más de 2000 mineros y vecinos muertos por el asbesto",
+   "respaldo": "Más de 2000 antiguos trabajadores de la mina y residentes de Wittenoom han muerto por enfermedades relacionadas con el asbesto.",
+   "dato_archivo": "Más de 2000 antiguos trabajadores de la mina y residentes de Wittenoom han muerto por enfermedades relacionadas con el asbesto.",
+   "regla": "spoiler",
+   "coincidencia": {
+    "token": "2000",
+    "cap": "ch06",
+    "idx": 7,
+    "oracion": "Melita Markey sigue contando lo que el gobierno dejó de contar en dos mil; otras estimaciones, dice, hablan de más de cuatro mil, y la cifra sube."
+   }
+  },
+  {
+   "que": "ficha",
+   "pool_id": "Q17",
+   "cap": "ch04",
+   "beat": 7,
+   "sentence_idx": 1,
+   "oracion_ancla": "El hijo cuenta que el primer día de trabajo de su padre hubo una explosión y que alguien murió; no hay otro documento que lo confirme.",
+   "etiqueta": "LA VIDA EN LA MINA",
+   "texto": "cada dos por tres aparecían ambulancias",
+   "respaldo": "cada dos por tres aparecían ambulancias",
+   "dato_archivo": "cada dos por tres aparecían ambulancias",
+   "cita_completa": "No tenían apenas medidas de seguridad. Había muchos accidentes y cada dos por tres aparecían ambulancias. Por eso había un hospital en el poblado.",
+   "regla": "spoiler",
+   "coincidencia": {
+    "token": "2",
+    "cap": "ch05",
+    "idx": 4,
+    "oracion": "Los de Juan estuvieron en Wittenoom unos dos años y medio y regresaron a Madrid en 1971; Mercedes de Juan se quedó en Australia."
+   }
+  },
+  {
+   "que": "ficha",
+   "pool_id": "Q17",
+   "cap": "ch04",
+   "beat": 7,
+   "sentence_idx": 1,
+   "oracion_ancla": "El hijo cuenta que el primer día de trabajo de su padre hubo una explosión y que alguien murió; no hay otro documento que lo confirme.",
+   "etiqueta": "LA VIDA EN LA MINA",
+   "texto": "cada dos por tres aparecían ambulancias",
+   "respaldo": "cada dos por tres aparecían ambulancias",
+   "dato_archivo": "cada dos por tres aparecían ambulancias",
+   "cita_completa": "No tenían apenas medidas de seguridad. Había muchos accidentes y cada dos por tres aparecían ambulancias. Por eso había un hospital en el poblado.",
+   "regla": "spoiler",
+   "coincidencia": {
+    "token": "3",
+    "cap": "ch04",
+    "idx": 14,
+    "oracion": "Tres meses antes, en marzo, Milagros Barroso había dado a luz en el mismo pueblo a John Patrick."
+   }
+  },
+  {
+   "que": "ficha",
+   "pool_id": "D94",
+   "cap": "ch05",
+   "beat": 9,
+   "sentence_idx": 8,
+   "oracion_ancla": "Y en 1988 un juez determinó que la compañía había mostrado un desprecio continuo, consciente y contumaz por la seguridad y la salud de sus trabajadores.",
+   "etiqueta": "INDEMNIZACIÓN DE CSR, 1989",
+   "texto": "18,3 millones de dólares a 200 afectados",
+   "respaldo": "En 1989, la empresa CSR pagó 18,3 millones de dólares australianos en indemnizaciones a 200 afectados.",
+   "dato_archivo": "En 1989, la empresa CSR pagó 18,3 millones de dólares australianos en indemnizaciones a 200 afectados.",
+   "regla": "fecha_relato",
+   "coincidencia": {
+    "token": "1989",
+    "relato": 1988,
+    "cap": "ch05",
+    "idx": 8,
+    "oracion": "Y en 1988 un juez determinó que la compañía había mostrado un desprecio continuo, consciente y contumaz por la seguridad y la salud de sus trabajadores."
+   }
+  },
+  {
+   "que": "ficha",
+   "pool_id": "D73",
+   "cap": "ch06",
+   "beat": 11,
+   "sentence_idx": 7,
+   "oracion_ancla": "Melita Markey sigue contando lo que el gobierno dejó de contar en dos mil; otras estimaciones, dice, hablan de más de cuatro mil, y la cifra sube.",
+   "etiqueta": "UN SOLO ABOGADO",
+   "texto": "Representó a más de 2.000 enfermos de mesotelioma",
+   "respaldo": "Peter Gordon ha representado a más de 2.000 enfermos de mesotelioma.",
+   "dato_archivo": "Peter Gordon ha representado a más de 2.000 enfermos de mesotelioma.",
+   "regla": "no_dicho",
+   "coincidencia": {
+    "token": "2.000",
+    "cap": "ch06",
+    "idx": 7,
+    "oracion": "Melita Markey sigue contando lo que el gobierno dejó de contar en dos mil; otras estimaciones, dice, hablan de más de cuatro mil, y la cifra sube."
+   }
+  },
+  {
+   "que": "ficha",
+   "pool_id": "D64",
+   "cap": "ch06",
+   "beat": 12,
+   "sentence_idx": 14,
+   "oracion_ancla": "Lo que no se puede abolir son los relaves: más de tres millones de toneladas que siguen donde las dejaron.",
+   "etiqueta": "SI LOS JUNTARAS",
+   "texto": "Llenarían dos veces el Melbourne Cricket Ground",
+   "respaldo": "El volumen de residuos de asbesto es suficiente para llenar el Melbourne Cricket Ground dos veces.",
+   "dato_archivo": "El volumen de residuos de asbesto es suficiente para llenar el Melbourne Cricket Ground dos veces.",
+   "regla": "spoiler",
+   "coincidencia": {
+    "token": "2",
+    "cap": "ch07",
+    "idx": 9,
+    "oracion": "Quién sabía está escrito: dos inspectores en 1944, un médico al que llamaron alborotador en 1948, un tribunal que entró al molino en 1957."
+   }
+  },
+  {
+   "que": "descarte",
+   "regla": "voz_lo_dice",
+   "pool_id": "T13",
+   "dato_archivo": "Se diagnosticó un primer caso de asbestosis en Wittenoom. (fecha 1946)",
+   "motivo_del_autor": "La voz dice los diagnósticos de 1946.",
+   "caps_que_lo_cuentan": [
+    "ch03"
+   ],
+   "falta": [
+    "Wittenoom"
+   ]
+  },
+  {
+   "que": "descarte",
+   "regla": "voz_lo_dice",
+   "pool_id": "D21",
+   "dato_archivo": "La producción minera en Wittenoom se incrementó en 1961 a pesar de la evidencia de los riesgos.",
+   "motivo_del_autor": "La voz dice 'En 1961 la producción subió'.",
+   "caps_que_lo_cuentan": [
+    "ch03"
+   ],
+   "falta": [
+    "Wittenoom"
+   ]
+  },
+  {
+   "que": "descarte",
+   "regla": "voz_lo_dice",
+   "pool_id": "T27",
+   "dato_archivo": "El subsidio por polvo se redujo a 3 o 4 peniques y se restringió a ciertas áreas, tras la instalación de equipo para reducir el polvo. (fecha 1957)",
+   "motivo_del_autor": "La voz cuenta el recorte del suplemento.",
+   "caps_que_lo_cuentan": [
+    "ch03"
+   ],
+   "falta": [
+    "3",
+    "4"
+   ]
+  },
+  {
+   "que": "descarte",
+   "regla": "voz_lo_dice",
+   "pool_id": "T80",
+   "dato_archivo": "El Ministro de Desarrollo Regional, Hon Jon Ford MLC, anunció que el pueblo había sido oficialmente abolido. (fecha 2007-06)",
+   "motivo_del_autor": "La voz dice que el pueblo fue abolido en junio de 2007.",
+   "caps_que_lo_cuentan": [
+    "ch06"
+   ],
+   "falta": [
+    "Ministro",
+    "Desarrollo",
+    "Regional",
+    "Hon",
+    "Jon",
+    "Ford",
+    "MLC"
+   ]
+  },
+  {
+   "que": "descarte",
+   "regla": "voz_lo_dice",
+   "pool_id": "D95",
+   "dato_archivo": "El pueblo aborigen banjima reclama 1.500 millones de dólares australianos al Ejecutivo por la contaminación.",
+   "motivo_del_autor": "La voz dice los mil quinientos millones.",
+   "caps_que_lo_cuentan": [
+    "ch07"
+   ],
+   "falta": [
+    "1.500"
+   ]
+  }
+ ],
+ "filas": [
+  {
+   "que": "ficha",
+   "pool_id": "D79",
+   "regla": "no_dicho",
+   "token": "2000",
+   "donde": "ch06 [7]",
+   "cap": "ch01",
+   "beat": 1,
+   "veredicto": "corta",
+   "motivo": "La voz da más adelante el recuento de muertos (el gobierno dejó de contar en dos mil, otras estimaciones más de cuatro mil); la ficha lo adelantaría con otra versión.",
+   "oracion": {
+    "cap": "ch06",
+    "idx": 7
+   },
+   "dato": "CUÁNTOS MURIERON · Más de 2000 mineros y vecinos muertos por el asbesto"
+  },
+  {
+   "que": "ficha",
+   "pool_id": "D79",
+   "regla": "spoiler",
+   "token": "2000",
+   "donde": "ch06 [7]",
+   "cap": "ch01",
+   "beat": 1,
+   "veredicto": "corta",
+   "motivo": "La voz da más adelante el recuento de muertos (el gobierno dejó de contar en dos mil, otras estimaciones más de cuatro mil); la ficha lo adelantaría con otra versión.",
+   "oracion": {
+    "cap": "ch06",
+    "idx": 7
+   },
+   "dato": "CUÁNTOS MURIERON · Más de 2000 mineros y vecinos muertos por el asbesto"
+  },
+  {
+   "que": "ficha",
+   "pool_id": "Q17",
+   "regla": "spoiler",
+   "token": "2",
+   "donde": "ch05 [4]",
+   "cap": "ch04",
+   "beat": 7,
+   "veredicto": "pasa",
+   "motivo": "La voz cuenta una explosión el primer día, pero nunca dice que las ambulancias fueran frecuentes; el «dos» y el «tres» coinciden hablando de otra cosa.",
+   "oracion": null,
+   "dato": "LA VIDA EN LA MINA · cada dos por tres aparecían ambulancias"
+  },
+  {
+   "que": "ficha",
+   "pool_id": "Q17",
+   "regla": "spoiler",
+   "token": "3",
+   "donde": "ch04 [14]",
+   "cap": "ch04",
+   "beat": 7,
+   "veredicto": "pasa",
+   "motivo": "La voz cuenta una explosión el primer día, pero nunca dice que las ambulancias fueran frecuentes; el «dos» y el «tres» coinciden hablando de otra cosa.",
+   "oracion": null,
+   "dato": "LA VIDA EN LA MINA · cada dos por tres aparecían ambulancias"
+  },
+  {
+   "que": "ficha",
+   "pool_id": "D94",
+   "regla": "fecha_relato",
+   "token": "1989",
+   "donde": "ch05 [8]",
+   "cap": "ch05",
+   "beat": 9,
+   "veredicto": "pasa",
+   "motivo": "La voz cuenta el fallo de 1988, pero no la indemnización de 1989 de 18,3 millones a 200 afectados.",
+   "oracion": null,
+   "dato": "INDEMNIZACIÓN DE CSR, 1989 · 18,3 millones de dólares a 200 afectados"
+  },
+  {
+   "que": "ficha",
+   "pool_id": "D73",
+   "regla": "no_dicho",
+   "token": "2.000",
+   "donde": "ch06 [7]",
+   "cap": "ch06",
+   "beat": 11,
+   "veredicto": "pasa",
+   "motivo": "Los dos mil de la voz son el recuento oficial de muertos; los clientes de Peter Gordon no se mencionan.",
+   "oracion": null,
+   "dato": "UN SOLO ABOGADO · Representó a más de 2.000 enfermos de mesotelioma"
+  },
+  {
+   "que": "ficha",
+   "pool_id": "D64",
+   "regla": "spoiler",
+   "token": "2",
+   "donde": "ch07 [9]",
+   "cap": "ch06",
+   "beat": 12,
+   "veredicto": "pasa",
+   "motivo": "La voz da tres millones de toneladas, pero no la comparación con el Melbourne Cricket Ground; la ficha la suma.",
+   "oracion": null,
+   "dato": "SI LOS JUNTARAS · Llenarían dos veces el Melbourne Cricket Ground"
+  },
+  {
+   "que": "descarte",
+   "pool_id": "T13",
+   "regla": "voz_lo_dice",
+   "token": "Wittenoom",
+   "cap": null,
+   "beat": null,
+   "veredicto": "dicho",
+   "motivo": "La voz dice que en 1946 ya había diagnósticos de asbestosis.",
+   "oracion": {
+    "cap": "ch03",
+    "idx": 14
+   },
+   "dato": "Se diagnosticó un primer caso de asbestosis en Wittenoom. (fecha 1946)"
+  },
+  {
+   "que": "descarte",
+   "pool_id": "D21",
+   "regla": "voz_lo_dice",
+   "token": "Wittenoom",
+   "cap": null,
+   "beat": null,
+   "veredicto": "dicho",
+   "motivo": "La voz dice «En 1961 la producción subió», después de las advertencias.",
+   "oracion": {
+    "cap": "ch03",
+    "idx": 28
+   },
+   "dato": "La producción minera en Wittenoom se incrementó en 1961 a pesar de la evidencia de los riesgos."
+  },
+  {
+   "que": "descarte",
+   "pool_id": "T27",
+   "regla": "voz_lo_dice",
+   "token": "3, 4",
+   "cap": null,
+   "beat": null,
+   "veredicto": "dicho",
+   "motivo": "La voz cuenta que, con los equipos contra el polvo, se recortó y restringió el suplemento salarial; solo omite los peniques.",
+   "oracion": {
+    "cap": "ch03",
+    "idx": 26
+   },
+   "dato": "El subsidio por polvo se redujo a 3 o 4 peniques y se restringió a ciertas áreas, tras la instalación de equipo para reducir el polvo. (fecha 1957)"
+  },
+  {
+   "que": "descarte",
+   "pool_id": "T80",
+   "regla": "voz_lo_dice",
+   "token": "Ministro, Desarrollo, Regional, Hon, Jon, Ford, MLC",
+   "cap": null,
+   "beat": null,
+   "veredicto": "dicho",
+   "motivo": "La voz dice que hacia junio de 2007 Wittenoom fue abolido oficialmente; solo omite quién lo anunció.",
+   "oracion": {
+    "cap": "ch06",
+    "idx": 10
+   },
+   "dato": "El Ministro de Desarrollo Regional, Hon Jon Ford MLC, anunció que el pueblo había sido oficialmente abolido. (fecha 2007-06)"
+  },
+  {
+   "que": "descarte",
+   "pool_id": "D95",
+   "regla": "voz_lo_dice",
+   "token": "1.500",
+   "cap": null,
+   "beat": null,
+   "veredicto": "dicho",
+   "motivo": "La voz dice que la reclamación por la tierra Banjima es de mil quinientos millones de dólares australianos.",
+   "oracion": {
+    "cap": "ch07",
+    "idx": 6
+   },
+   "dato": "El pueblo aborigen banjima reclama 1.500 millones de dólares australianos al Ejecutivo por la contaminación."
+  }
+ ],
+ "verificador": {
+  "veredictos_fichas": [
+   {
+    "pool_id": "D79",
+    "cap": "ch01",
+    "beat": 1,
+    "veredicto": "corta",
+    "motivo": "La voz da más adelante el recuento de muertos (el gobierno dejó de contar en dos mil, otras estimaciones más de cuatro mil); la ficha lo adelantaría con otra versión.",
+    "oracion": {
+     "cap": "ch06",
+     "idx": 7
+    }
+   },
+   {
+    "pool_id": "Q17",
+    "cap": "ch04",
+    "beat": 7,
+    "veredicto": "pasa",
+    "motivo": "La voz cuenta una explosión el primer día, pero nunca dice que las ambulancias fueran frecuentes; el «dos» y el «tres» coinciden hablando de otra cosa.",
+    "oracion": null
+   },
+   {
+    "pool_id": "D94",
+    "cap": "ch05",
+    "beat": 9,
+    "veredicto": "pasa",
+    "motivo": "La voz cuenta el fallo de 1988, pero no la indemnización de 1989 de 18,3 millones a 200 afectados.",
+    "oracion": null
+   },
+   {
+    "pool_id": "D73",
+    "cap": "ch06",
+    "beat": 11,
+    "veredicto": "pasa",
+    "motivo": "Los dos mil de la voz son el recuento oficial de muertos; los clientes de Peter Gordon no se mencionan.",
+    "oracion": null
+   },
+   {
+    "pool_id": "D64",
+    "cap": "ch06",
+    "beat": 12,
+    "veredicto": "pasa",
+    "motivo": "La voz da tres millones de toneladas, pero no la comparación con el Melbourne Cricket Ground; la ficha la suma.",
+    "oracion": null
+   }
+  ],
+  "veredictos_descartes": [
+   {
+    "pool_id": "T13",
+    "veredicto": "dicho",
+    "motivo": "La voz dice que en 1946 ya había diagnósticos de asbestosis.",
+    "oracion": {
+     "cap": "ch03",
+     "idx": 14
+    }
+   },
+   {
+    "pool_id": "D21",
+    "veredicto": "dicho",
+    "motivo": "La voz dice «En 1961 la producción subió», después de las advertencias.",
+    "oracion": {
+     "cap": "ch03",
+     "idx": 28
+    }
+   },
+   {
+    "pool_id": "T27",
+    "veredicto": "dicho",
+    "motivo": "La voz cuenta que, con los equipos contra el polvo, se recortó y restringió el suplemento salarial; solo omite los peniques.",
+    "oracion": {
+     "cap": "ch03",
+     "idx": 26
+    }
+   },
+   {
+    "pool_id": "T80",
+    "veredicto": "dicho",
+    "motivo": "La voz dice que hacia junio de 2007 Wittenoom fue abolido oficialmente; solo omite quién lo anunció.",
+    "oracion": {
+     "cap": "ch06",
+     "idx": 10
+    }
+   },
+   {
+    "pool_id": "D95",
+    "veredicto": "dicho",
+    "motivo": "La voz dice que la reclamación por la tierra Banjima es de mil quinientos millones de dólares australianos.",
+    "oracion": {
+     "cap": "ch07",
+     "idx": 6
+    }
+   }
+  ],
+  "ignorados": [],
+  "sin_veredicto": [],
+  "usage": {
+   "input_tokens": 11117,
+   "output_tokens": 1822
+  },
+  "usd": 0.08091,
+  "segundos": 15.1,
+  "pedido_md5": "f6f10880bfaae05bdfc3855e366b16af",
+  "intentos": 1,
+  "error": null,
+  "modelo": "claude-opus-5-5",
+  "effort": "medium"
+ },
+ "log": [],
+ "segundos_total": 18.0,
+ "descartados": [
+  {
+   "pool_id": "D85",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Dato central del gancho que no figura en el archivo; se eligió D79 para el gancho.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T34",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "El baile del 16 de septiembre de 1961 lo dice la voz.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q25",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita la frase de María.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q13",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz ya cuenta la amistad con Milagros y Ramón.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T37",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice la fecha de la boda.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T38",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz ya dice 'cuatro días después estaban en un barco'; la ficha no sumaba nada.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q14",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz recita casi toda la cita de Calvo.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D83",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice 'cerca de ocho mil españoles'.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T36",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que llegaron en agosto de 1962.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T24",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que CSR reclutaba desde 1950.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q27",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz recita la cita del avión y la tierra roja.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D03",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "No está en el archivo.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q44",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita lo de los relaves en las escuelas.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D129",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "No está en el archivo.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D92",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta la advertencia de Saint en 1948.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q45",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita la carta del médico.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q46",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita la respuesta de Saint.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q53",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita al defensor del empleador.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T06",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice lo de ABA en 1943.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D19",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice lo de los inspectores en 1944.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T13",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice los diagnósticos de 1946.",
+   "quien": "modelo",
+   "verificador": "dicho: La voz dice que en 1946 ya había diagnósticos de asbestosis."
+  },
+  {
+   "pool_id": "D21",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice 'En 1961 la producción subió'.",
+   "quien": "modelo",
+   "verificador": "dicho: La voz dice «En 1961 la producción subió», después de las advertencias."
+  },
+  {
+   "pool_id": "Q54",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita el acta de la Junta.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T27",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta el recorte del suplemento.",
+   "quien": "modelo",
+   "verificador": "dicho: La voz cuenta que, con los equipos contra el polvo, se recortó y restringió el suplemento salarial; solo omite los peniques."
+  },
+  {
+   "pool_id": "D20",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "No está en el archivo.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T35",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta el caso de McNulty de 1962.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q49",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita a McNulty.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q19",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz recita la cita de Calvo sobre el amianto.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q16",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta la explosión del primer día.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D104",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice las jornadas de dieciséis horas.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T41",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice el bautizo del 7 de julio de 1963.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T40",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta el nacimiento del hijo.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T39",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta el nacimiento de John Patrick.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D87",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice 'unos diez meses'.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T49",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice el cierre de diciembre de 1966 y que fue por costos.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T47",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que los Écija volvieron a Madrid ese año.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D88",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice los dos años y medio de los De Juan.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T51",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice el regreso de 1971.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D27",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice lo de 1978.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D93",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita la sentencia de 1988.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T56",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice lo de la sociedad de 1979.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T64",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta el diagnóstico y los nueve meses.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D89",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice la edad y los nueve meses.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q35",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita 'Ese lugar cambió nuestras vidas para siempre'.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D23",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Los 'más de 500 muertos hasta 1989' pisan la cifra del gancho.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q24",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita al policía.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q21",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita a Mercedes de Juan.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q33",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta lo de Markey.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T80",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que el pueblo fue abolido en junio de 2007.",
+   "quien": "modelo",
+   "verificador": "dicho: La voz dice que hacia junio de 2007 Wittenoom fue abolido oficialmente; solo omite quién lo anunció."
+  },
+  {
+   "pool_id": "Q07",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita 'el fin de un período oscuro'.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q03",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita 'no apta para ninguna forma de ocupación humana'.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D02",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice 'más de tres millones de toneladas'.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D10",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "No está en el archivo.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T90",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta las fibras de 2021 en los arroyos.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D59",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta el documento de 2016.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D58",
+   "regla": "modelo",
+   "tipo": "spoiler",
+   "motivo": "Pondría los $150 millones antes del 'porque salía caro' de la voz.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T98",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta el proceso de 2026.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q10",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita a Parker.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T92",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cuenta la visita de Orellana.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "T96",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice que Parker murió en 2024.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D95",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice los mil quinientos millones.",
+   "quien": "modelo",
+   "verificador": "dicho: La voz dice que la reclamación por la tierra Banjima es de mil quinientos millones de dólares australianos."
+  },
+  {
+   "pool_id": "D70",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "No está en el archivo.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "Q34",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz cita 'grave problema de salud y seguridad pública'.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D91",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice lo de las condiciones 'terroríficas' de 1946.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D135",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Quedó fuera: D44 era más fuerte en el pico del capítulo.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D90",
+   "regla": "modelo",
+   "tipo": "voz_lo_dice",
+   "motivo": "La voz dice 'más de cuatro mil'.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D82",
+   "regla": "modelo",
+   "tipo": "repetido",
+   "motivo": "Usado una sola vez, en el beat 4; D113 queda fuera para no mostrar dos distancias distintas a Perth.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D113",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Su cifra (1600 km) chocaría con la de D82 (1.400 km).",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D06",
+   "regla": "modelo",
+   "tipo": "spoiler",
+   "motivo": "Los 8 residentes de 2006 adelantan el final del pueblo.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D68",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Se usó T86, que trae el año 2016 explícito.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D104b",
+   "regla": "modelo",
+   "tipo": "otro",
+   "motivo": "Sin uso.",
+   "quien": "modelo"
+  },
+  {
+   "pool_id": "D109",
+   "cap": "ch05",
+   "beat": 10,
+   "que": "ficha",
+   "etiqueta": "MESOTELIOMA, FINES DE 1986",
+   "texto": "94 casos entre 6912 ex trabajadores",
+   "sentence_idx": 12,
+   "regla": "candado",
+   "motivo": "no están en el texto fuente de D109: ['1986']",
+   "quien": "validación"
+  },
+  {
+   "pool_id": "D79",
+   "cap": "ch01",
+   "beat": 1,
+   "que": "ficha",
+   "etiqueta": "CUÁNTOS MURIERON",
+   "texto": "Más de 2000 mineros y vecinos muertos por el asbesto",
+   "sentence_idx": 7,
+   "regla": "no_dicho",
+   "reglas": [
+    "no_dicho",
+    "spoiler"
+   ],
+   "tokens": {
+    "no_dicho": [
+     "2000"
+    ],
+    "spoiler": [
+     "2000"
+    ]
+   },
+   "motivo": "La voz da más adelante el recuento de muertos (el gobierno dejó de contar en dos mil, otras estimaciones más de cuatro mil); la ficha lo adelantaría con otra versión. (ch06 [7])",
+   "quien": "verificador"
+  }
+ ],
+ "beats": [
+  {
+   "cap": "ch01",
+   "beat": 1,
+   "funcion": "gancho",
+   "pico": true,
+   "ficha": null,
+   "sello": {
+    "palabra": "SILENCIO",
+    "sentence_idx": 8,
+    "oracion": "Arrancaron las señales de la carretera y borraron el nombre."
+   }
+  },
+  {
+   "cap": "ch02",
+   "beat": 2,
+   "funcion": "planteo",
+   "pico": false,
+   "ficha": null,
+   "sello": {
+    "palabra": "CALMA",
+    "sentence_idx": 3,
+    "oracion": "«Me pegué a mi marido, como una niña pequeña», dice ella, muchos años después."
+   }
+  },
+  {
+   "cap": "ch02",
+   "beat": 3,
+   "funcion": "planteo",
+   "pico": true,
+   "ficha": {
+    "pool_id": "D122",
+    "sentence_idx": 7,
+    "palabra": "reclutar",
+    "palabra_en_oracion": true,
+    "etiqueta": "LOS QUE LLEGABAN",
+    "texto": "El 59% de los trabajadores se fue en 6 meses o menos",
+    "respaldo": "El 59% de los trabajadores de Wittenoom se había ido en 6 meses o menos.",
+    "estilo": "normal",
+    "aporta": "Muestra cuánta gente huía del lugar poco después de llegar; la voz no lo menciona.",
+    "oracion": "No iban solos: cerca de ocho mil españoles cruzaron por un acuerdo entre los dos gobiernos, y CSR, la compañía dueña de la mina, venía haciendo viajes privados a Europa para reclutar gente desde 1950.",
+    "caracteres": 68,
+    "caben": 90,
+    "anio": null,
+    "relato": 1962
+   },
+   "sello": null
+  },
+  {
+   "cap": "ch03",
+   "beat": 4,
+   "funcion": "planteo",
+   "pico": false,
+   "ficha": {
+    "pool_id": "D82",
+    "sentence_idx": 1,
+    "palabra": "Pilbara",
+    "palabra_en_oracion": true,
+    "etiqueta": "DISTANCIA A PERTH",
+    "texto": "1.400 km",
+    "respaldo": "a unos 1.400 kilómetros de Perth",
+    "estilo": "normal",
+    "aporta": "Pone en una cifra el aislamiento del lugar.",
+    "oracion": "Abajo, el desierto de Pilbara, en Australia Occidental.",
+    "caracteres": 25,
+    "caben": 40,
+    "anio": null,
+    "relato": 1962
+   },
+   "sello": {
+    "palabra": "AMENAZA",
+    "sentence_idx": 10,
+    "oracion": "Y lo que sobraba de la mina ya tenía nombre en los informes."
+   }
+  },
+  {
+   "cap": "ch03",
+   "beat": 5,
+   "funcion": "escalada",
+   "pico": true,
+   "ficha": {
+    "pool_id": "D44",
+    "sentence_idx": 11,
+    "palabra": "informes",
+    "palabra_en_oracion": true,
+    "etiqueta": "LA CIENCIA YA LO DECÍA",
+    "texto": "1930: el asbesto causa asbestosis",
+    "respaldo": "El informe de Merryweather y Price de 1930 estableció que la asbestosis era una enfermedad consecuente a la exposición al asbesto.",
+    "estilo": "normal",
+    "aporta": "Informe de 1930 que ya vinculaba el asbesto con la enfermedad, mucho antes de lo que la voz cuenta.",
+    "oracion": "Los informes eran anteriores a la boda, al barco y al avión.",
+    "caracteres": 55,
+    "caben": 61,
+    "anio": 1930,
+    "relato": 1962
+   },
+   "sello": {
+    "palabra": "RABIA",
+    "sentence_idx": 20,
+    "oracion": "La respuesta la contó él: «Me desestimaron y, de hecho, me tildaron de alborotador», dijo Saint."
+   }
+  },
+  {
+   "cap": "ch03",
+   "beat": 6,
+   "funcion": "giro",
+   "pico": false,
+   "ficha": {
+    "pool_id": "D115",
+    "sentence_idx": 29,
+    "palabra": "mesotelioma",
+    "palabra_en_oracion": true,
+    "etiqueta": "MÁXIMO DE ASBESTO EN AUSTRALIA, 1962",
+    "texto": "95% salió de Wittenoom",
+    "respaldo": "el año de máxima producción australiana de asbesto, se extrajeron 18416 toneladas cortas, de las cuales el 95% era crocidolita de Wittenoom",
+    "estilo": "normal",
+    "aporta": "Dice cuánto pesaba esa mina en todo el asbesto del país el año del primer caso.",
+    "oracion": "En 1962, Jim McNulty comunicó un caso de mesotelioma en un antiguo trabajador del molino; una fuente lo presenta como el primero comunicado fuera de Sudáfrica.",
+    "caracteres": 58,
+    "caben": 90,
+    "anio": 1962,
+    "relato": 1962
+   },
+   "sello": {
+    "palabra": "INMINENTE",
+    "sentence_idx": 31,
+    "oracion": "El año en que McNulty escribió ese primer caso, un recién casado de Madrid se bajaba de un avión en esa misma pista de polvo."
+   }
+  },
+  {
+   "cap": "ch04",
+   "beat": 7,
+   "funcion": "escalada",
+   "pico": true,
+   "ficha": {
+    "pool_id": "Q17",
+    "sentence_idx": 1,
+    "palabra": "explosión",
+    "palabra_en_oracion": true,
+    "etiqueta": "LA VIDA EN LA MINA",
+    "texto": "cada dos por tres aparecían ambulancias",
+    "respaldo": "cada dos por tres aparecían ambulancias",
+    "estilo": "cita",
+    "autor": "Víctor Calvo",
+    "autor_origen": "modelo",
+    "aporta": "Testimonio de los accidentes constantes, que la voz no cuenta.",
+    "oracion": "El hijo cuenta que el primer día de trabajo de su padre hubo una explosión y que alguien murió; no hay otro documento que lo confirme.",
+    "caracteres": 74,
+    "caben": 90,
+    "anio": null,
+    "relato": 1962,
+    "juicio_verificador": {
+     "regla": [
+      "spoiler"
+     ],
+     "motivo": "La voz cuenta una explosión el primer día, pero nunca dice que las ambulancias fueran frecuentes; el «dos» y el «tres» coinciden hablando de otra cosa.",
+     "tokens": {
+      "spoiler": [
+       "2",
+       "3"
+      ]
+     }
+    }
+   },
+   "sello": {
+    "palabra": "AVISO",
+    "sentence_idx": 9,
+    "oracion": "Estaban rodeados de amianto azul y no les daba miedo."
+   }
+  },
+  {
+   "cap": "ch04",
+   "beat": 8,
+   "funcion": "giro",
+   "pico": false,
+   "ficha": {
+    "pool_id": "D102",
+    "sentence_idx": 13,
+    "palabra": "Daniel",
+    "palabra_en_oracion": true,
+    "etiqueta": "EL BEBÉ, HOY",
+    "texto": "Productor de televisión en España",
+    "respaldo": "es un conocido productor de televisión en España",
+    "estilo": "normal",
+    "aporta": "Dice qué fue del bebé nacido en el pueblo; la voz no lo cuenta.",
+    "oracion": "Nació un varón y le pusieron Daniel, como el padre.",
+    "caracteres": 45,
+    "caben": 51,
+    "anio": null,
+    "relato": 1963
+   },
+   "sello": null
+  },
+  {
+   "cap": "ch05",
+   "beat": 9,
+   "funcion": "escalada",
+   "pico": false,
+   "ficha": {
+    "pool_id": "D94",
+    "sentence_idx": 8,
+    "palabra": "juez",
+    "palabra_en_oracion": true,
+    "etiqueta": "INDEMNIZACIÓN DE CSR, 1989",
+    "texto": "18,3 millones de dólares a 200 afectados",
+    "respaldo": "En 1989, la empresa CSR pagó 18,3 millones de dólares australianos en indemnizaciones a 200 afectados.",
+    "estilo": "normal",
+    "aporta": "Muestra cuánto pagó la empresa tras la sentencia; la voz no lo dice.",
+    "oracion": "Y en 1988 un juez determinó que la compañía había mostrado un desprecio continuo, consciente y contumaz por la seguridad y la salud de sus trabajadores.",
+    "caracteres": 66,
+    "caben": 90,
+    "anio": 1989,
+    "relato": 1988,
+    "juicio_verificador": {
+     "regla": [
+      "fecha_relato"
+     ],
+     "motivo": "La voz cuenta el fallo de 1988, pero no la indemnización de 1989 de 18,3 millones a 200 afectados.",
+     "tokens": {
+      "fecha_relato": [
+       "1989"
+      ]
+     }
+    }
+   },
+   "sello": null
+  },
+  {
+   "cap": "ch05",
+   "beat": 10,
+   "funcion": "pico",
+   "pico": true,
+   "ficha": null,
+   "sello": {
+    "palabra": "MEMORIA",
+    "sentence_idx": 11,
+    "oracion": "María guarda las fotografías en sepia: el baile, el barco, el pie vendado, el bautizo."
+   }
+  },
+  {
+   "cap": "ch06",
+   "beat": 11,
+   "funcion": "respiro",
+   "pico": false,
+   "ficha": {
+    "pool_id": "D73",
+    "sentence_idx": 7,
+    "palabra": "cifra",
+    "palabra_en_oracion": true,
+    "etiqueta": "UN SOLO ABOGADO",
+    "texto": "Representó a más de 2.000 enfermos de mesotelioma",
+    "respaldo": "Peter Gordon ha representado a más de 2.000 enfermos de mesotelioma.",
+    "estilo": "normal",
+    "aporta": "Pone en una cifra cuánta gente enferma pasó por un solo despacho.",
+    "oracion": "Melita Markey sigue contando lo que el gobierno dejó de contar en dos mil; otras estimaciones, dice, hablan de más de cuatro mil, y la cifra sube.",
+    "caracteres": 64,
+    "caben": 90,
+    "anio": null,
+    "relato": 2000,
+    "juicio_verificador": {
+     "regla": [
+      "no_dicho"
+     ],
+     "motivo": "Los dos mil de la voz son el recuento oficial de muertos; los clientes de Peter Gordon no se mencionan.",
+     "tokens": {
+      "no_dicho": [
+       "2.000"
+      ]
+     }
+    }
+   },
+   "sello": null
+  },
+  {
+   "cap": "ch06",
+   "beat": 12,
+   "funcion": "revelacion",
+   "pico": true,
+   "ficha": {
+    "pool_id": "D64",
+    "sentence_idx": 14,
+    "palabra": "relaves",
+    "palabra_en_oracion": true,
+    "etiqueta": "SI LOS JUNTARAS",
+    "texto": "Llenarían dos veces el Melbourne Cricket Ground",
+    "respaldo": "El volumen de residuos de asbesto es suficiente para llenar el Melbourne Cricket Ground dos veces.",
+    "estilo": "normal",
+    "aporta": "Convierte las toneladas de relaves en una imagen concreta que la voz no da.",
+    "oracion": "Lo que no se puede abolir son los relaves: más de tres millones de toneladas que siguen donde las dejaron.",
+    "caracteres": 62,
+    "caben": 90,
+    "anio": null,
+    "relato": 2007,
+    "juicio_verificador": {
+     "regla": [
+      "spoiler"
+     ],
+     "motivo": "La voz da tres millones de toneladas, pero no la comparación con el Melbourne Cricket Ground; la ficha la suma.",
+     "tokens": {
+      "spoiler": [
+       "2"
+      ]
+     }
+    }
+   },
+   "sello": null
+  },
+  {
+   "cap": "ch07",
+   "beat": 13,
+   "funcion": "cierre",
+   "pico": true,
+   "ficha": {
+    "pool_id": "T86",
+    "sentence_idx": 7,
+    "palabra": "Estado",
+    "palabra_en_oracion": true,
+    "etiqueta": "SE LO DIJERON EN 2016",
+    "texto": "Banjima: mayor tasa de cáncer por asbesto del mundo",
+    "respaldo": "El gobierno de Australia Occidental es informado de que el pueblo Banjima sufre la mayor incidencia per cápita de cáncer por asbesto del mundo. (fecha 2016)",
+    "estilo": "normal",
+    "aporta": "Dato que la voz no dice: el gobierno fue informado de la tasa de cáncer del pueblo Banjima.",
+    "oracion": "Los abogados sostienen que el Estado no ha gastado dinero en remediar el sitio y que no se ha retirado una sola palada de asbesto de la tierra Banjima.",
+    "caracteres": 72,
+    "caben": 90,
+    "anio": 2016,
+    "relato": 2026
+   },
+   "sello": null
+  }
+ ],
+ "vuelven": [],
+ "motivos": [
+  "D109 (ch05 beat 10) «MESOTELIOMA, FINES DE 1986 · 94 casos entre 6912 ex trabajadores»: candado: no están en el texto fuente de D109: ['1986']",
+  "D79 (ch01 beat 1) «CUÁNTOS MURIERON · Más de 2000 mineros y vecinos muertos por el asbesto»: no_dicho: La voz da más adelante el recuento de muertos (el gobierno dejó de contar en dos mil, otras estimaciones más de cuatro mil); la ficha lo adelantaría con otra versión. (ch06 [7])",
+  "el beat 1 de ch01 es pico y quedó sin ficha",
+  "el beat 10 de ch05 es pico y quedó sin ficha",
+  "el beat 5 de ch03 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D01 («150.000 toneladas de asbesto comercial entre 1937 y 1966: cifra técnica de contexto.»)",
+  "el beat 9 de ch05 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D51 («Producción atribuida por Vernon a la mina de Wittenoom, 131.000 toneladas, en el anuncio del cierre.»)",
+  "el beat 10 de ch05 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D23 («Recuento oficial de más de 500 muertos hasta 1989: corte histórico, va como documento.»)",
+  "el beat 11 de ch06 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D34 («Fuentes gubernamentales actuales: 'miles' de muertes sin total; se muestra junto a la estimación de Markey que sí dice la voz.»)",
+  "el beat 12 de ch06 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D40 («Superficie oficial de WAMA: 46.840 hectáreas; cifra administrativa con versiones en disputa, mejor leída que dicha.»)",
+  "el beat 13 de ch07 quedó sin ninguno de los datos que la escaleta dejó para la pantalla porque la voz no los dice: D61 («Reconocimiento oficial de 2023 de que los estudios sobre la extensión quedaron desactualizados; va como documento fechado.»)"
+ ],
+ "claves": [
+  [
+   "candado",
+   "D109",
+   "ch05",
+   10,
+   null
+  ],
+  [
+   "no_dicho",
+   "D79",
+   "ch01",
+   1,
+   "2000"
+  ],
+  [
+   "pico",
+   "ch01",
+   1
+  ],
+  [
+   "pico",
+   "ch05",
+   10
+  ],
+  [
+   "a_pantalla",
+   "ch03",
+   5
+  ],
+  [
+   "a_pantalla",
+   "ch05",
+   9
+  ],
+  [
+   "a_pantalla",
+   "ch05",
+   10
+  ],
+  [
+   "a_pantalla",
+   "ch06",
+   11
+  ],
+  [
+   "a_pantalla",
+   "ch06",
+   12
+  ],
+  [
+   "a_pantalla",
+   "ch07",
+   13
+  ]
+ ]
+}

@@ -6,8 +6,13 @@ test_module_f38a_m01e.py — F38 §A (HANDOFF_F38_reintento_tarjeta_juez), la pa
           (el autor lo descartó ahí: «una sola ficha, se eligió T85»): no hay nada que sobreviva;
     §A.2  (F38e §D: la fecha-hora del segundo 0 se borró del código; sus dos tests también);
     F38b  (HANDOFF_F38b_quitar_juez) el juez de §A.3 se borró con sus tests y su grabación; la línea del gancho vuelve
-          a la de m01e-1 (m01e-4) y nada en script_engine llama a un juez.
-Sin API: el autor va con POST falsos. El papel de F37 se lee de su copia congelada (lab/hyperframes/f37/c).
+          a la de m01e-1 (m01e-4) y nada en script_engine llama a ESE juez (el de anclaje de F38). F64 Etapa 3 trae
+          `juez` = el verificador de fichas (pantalla_verificador, el parámetro `juez` de validar/llamar): es otro.
+    F64 Etapa 3: las coincidencias `spoiler`/`no_dicho`/`contradice` del intento 1 de F37 (D47, T15, T39, D105, D161) ya
+          no son preguntas al autor ni motivos: son marcas que el verificador juzga; con JUEZ_PASA quedan y los beats
+          con motivo son solo los de los `a_pantalla` vacíos (ch05 b8, ch07 b13) más el descarte Q15 que vuelve.
+Sin API: el autor va con POST falsos; el verificador es JUEZ_PASA. El papel de F37 se lee de su copia congelada
+(lab/hyperframes/f37/c).
 """
 from __future__ import annotations
 
@@ -20,6 +25,29 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from script_engine import m01e_pantalla as mp  # noqa: E402
+from script_engine import pantalla_verificador as pv  # noqa: E402
+
+
+def JUEZ_PASA(marcas: list[dict], caps: list[dict]) -> dict:
+    """F64 Etapa 3: el verificador falso de los tests: «pasa» toda ficha marcada y «no_dicho» todo descarte dudoso."""
+    return {"veredictos_fichas": [{"pool_id": m["pool_id"], "cap": m["cap"], "beat": m["beat"], "veredicto": "pasa",
+                                   "motivo": "test", "oracion": None} for m in marcas if m.get("que") != "descarte"],
+            "veredictos_descartes": [{"pool_id": m["pool_id"], "veredicto": "no_dicho", "motivo": "test", "oracion": None}
+                                     for m in marcas if m.get("que") == "descarte"],
+            "usage": None, "usd": 0.0, "segundos": 0.0, "pedido_md5": "test", "intentos": 0}
+
+
+@pytest.fixture(scope="module", autouse=True)
+def _sin_verificador_real():
+    """F64 Etapa 3: ningún test de este archivo llama al verificador real (gasta API). `validar` sin `juez` toma
+    `_juez_por_defecto` → JUEZ_PASA; `llamar` sin `juez` toma `pantalla_verificador.verificar` con el POST falso, que
+    también se reemplaza por JUEZ_PASA para que la llamada del verificador no consuma las respuestas en orden del POST."""
+    m = pytest.MonkeyPatch()
+    m.setattr(mp, "_juez_por_defecto", lambda: JUEZ_PASA)
+    m.setattr(pv, "verificar", lambda marcas, caps, **kw: JUEZ_PASA(marcas, caps))
+    yield
+    m.undo()
+
 
 ROOT = Path(__file__).resolve().parent
 VAJONT = "f8s3-vajont"
@@ -72,10 +100,12 @@ def _cambios_desde_f37(raw37: dict, beats_m: list[tuple[str, int]]) -> dict:
     (ch06 b11 D228 en lugar de D128, SIN motivo, y ch07 b13 D245 + MEMORIA en lugar de T92 + ALARMA: F38c §A.1, ese
     beat ahora tiene motivo porque quedó sin su `a_pantalla` D245)."""
     r2 = raw37["intentos"][1]["respuesta"]
-    cambios = [{"cap": c, "beat": b, "ficha": _fila(r2, c, b)["ficha"]} for c, b in beats_m]
-    cambios += [{"cap": "ch06", "beat": 11, "ficha": _fila(r2, "ch06", 11)["ficha"], "sello": None},
-                {"cap": "ch07", "beat": 13, "ficha": _fila(r2, "ch07", 13)["ficha"],
-                 "sello": _fila(r2, "ch07", 13)["sello"]}]
+    cambios = [{"cap": c, "beat": b, "ficha": _fila(r2, c, b)["ficha"],
+                **({"sello": _fila(r2, c, b)["sello"]} if (c, b) == ("ch07", 13) else {})} for c, b in beats_m]
+    cambios += [{"cap": "ch06", "beat": 11, "ficha": _fila(r2, "ch06", 11)["ficha"], "sello": None}]
+    if ("ch07", 13) not in beats_m:
+        cambios += [{"cap": "ch07", "beat": 13, "ficha": _fila(r2, "ch07", 13)["ficha"],
+                     "sello": _fila(r2, "ch07", 13)["sello"]}]
     return {"cambios": cambios}
 
 
@@ -93,21 +123,32 @@ def test_a1_lo_del_intento_1_sobrevive_al_reintento_parcial(vajont, raw37, tmp_p
     assert any(d.get("pool_id") == "Q14" for d in r1["descartados"])
     v1 = mp.validar(r1, vajont)
     beats_m = mp.beats_con_motivo(v1["motivos_beat"])
-    assert len(v1["motivos_beat"]) == len(v1["motivos"])
-    # F38c §A.1: ch07 b13 (T92, sin su `a_pantalla` D245) tiene motivo; ch05 b8 ya lo tenía (y además le falta Q50)
-    assert beats_m == [("ch02", 3), ("ch03", 4), ("ch04", 6), ("ch04", 7), ("ch05", 8), ("ch07", 13)]
+    assert len(v1["motivos_beat"]) == len(v1["motivos"]) == len(v1["claves"])
+    # F64 Etapa 3: las coincidencias del intento 1 son marcas para el verificador, no motivos (con JUEZ_PASA quedan)
+    assert {(m["regla"], m["pool_id"], m["cap"], m["beat"], m["coincidencia"]["token"])
+            for m in v1["marcas"] if m["que"] == "ficha"} == {("spoiler", "D47", "ch02", 3, "2"),
+                                                               ("spoiler", "T15", "ch03", 4, "3"),
+                                                               ("spoiler", "T39", "ch04", 6, "50"),
+                                                               ("no_dicho", "D105", "ch04", 7, "1962"),
+                                                               ("spoiler", "D161", "ch05", 8, "2")}
+    assert all(_fila(v1, c, b)["ficha"]["juicio_verificador"]["tokens"] for c, b in
+               (("ch02", 3), ("ch03", 4), ("ch04", 6), ("ch04", 7), ("ch05", 8)))
+    assert not [d for d in v1["descartados"] if d.get("quien") == "verificador"]
+    # F38c §A.1: ch07 b13 (T92, sin su `a_pantalla` D245) tiene motivo; ch05 b8 también (sin su `a_pantalla` Q50)
+    assert beats_m == [("ch05", 8), ("ch07", 13)]
     vuelve = [mb for m, mb in zip(v1["motivos"], v1["motivos_beat"]) if "vuelve a ser candidato" in m]
-    assert vuelve and all(mb == [] for mb in vuelve)                      # D68: sin beat
+    assert vuelve and all(mb == [] for mb in vuelve)                      # Q15: sin beat
     # por llamar: el reintento ve el papel entero como contexto y pide solo los cambios de esos beats
     pedidos: list[dict] = []
     res = mp.llamar(vajont, tmp_path,
                     post=_post_seq([r1, _cambios_desde_f37(raw37, beats_m)], pedidos))
-    # F38d §A.1: la vuelta 1 deja motivos nuevos (Q15 vuelve y ch05 b8 sigue sin Q50) → vuelta 2 con solo ch05 b8; el
-    # POST repite la misma respuesta, los motivos quedan iguales → cierra «sin progreso» (3 llamadas)
+    # F38d §A.1 / F64: después de la vuelta 1 quedan motivos (Q15 vuelve y ch05 b8 sigue sin Q50) con claves distintas
+    # (ch07 b13 ya tiene D245) → vuelta 2 con solo ch05 b8; el POST repite la misma respuesta, las claves se repiten →
+    # cierra «sin progreso» (3 llamadas del autor; el verificador no pasa por el POST)
     assert len(pedidos) == 3
     p2 = pedidos[1]["messages"][0]["content"]
     assert "TU RESPUESTA ANTERIOR (el papel completo, como contexto)" in p2 and mp.FORMATO_REINTENTO in p2
-    assert "ch02 beat 3, ch03 beat 4, ch04 beat 6, ch04 beat 7, ch05 beat 8, ch07 beat 13" in p2
+    assert "ch05 beat 8, ch07 beat 13" in p2 and "ch02 beat 3" not in p2
     rt = res["reintento"]
     assert rt["tipo"] == "parcial"
     # F38d: el reintento único de F38 es la vuelta 1 (lo de `rt` es la unión de las vueltas)
@@ -170,8 +211,9 @@ def test_f38b_gancho_literal_de_m01e_1_sin_las_primeras_oraciones():
 
 
 def test_f38b_nada_llama_a_un_juez():
-    # el juez de anclaje de F38 §A.3 (el parámetro `juez` del crítico «¿estorba?» de pantalla_colocar/clima es otro)
-    assert "juez" not in (ROOT / "script_engine" / "m01e_pantalla.py").read_text(encoding="utf-8").lower()
+    """El juez de anclaje de F38 §A.3 no está (sus nombres). F64 Etapa 3: la palabra `juez` SÍ está en m01e_pantalla
+    (el parámetro `juez` de validar/llamar = el verificador de fichas de pantalla_verificador) y el crítico «¿estorba?»
+    de pantalla_colocar/clima también se llama `juez`: son otros; lo que se mira son los nombres del de F38."""
     for f in (ROOT / "script_engine").glob("*.py"):
         txt = f.read_text(encoding="utf-8", errors="replace")
         assert not any(n in txt for n in ("JUEZ_SYSTEM", "JUEZ_VERSION", "juzgar(", "01e_juez", "juez_post",

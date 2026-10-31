@@ -10,7 +10,8 @@ test_module_f38e_c.py — F38e §C (HANDOFF_F38e_lo_que_rompe_cualquier_video): 
           cortar; `caracteres` cuenta el que se muestra; el papel guarda `autor` y `autor_origen` y el .md lo dice;
     §C.5  la respuesta real de la prueba 1 (lab/hyperframes/f38/prueba1) y la corrida de esta parte (lab/hyperframes/
           f38e/c) pasan por `validar` sin ninguna caída por `respaldo`.
-Sin API: el autor va con POST falsos. Nada de data/.
+Sin API: el autor va con POST falsos y el verificador es JUEZ_PASA (F64 Etapa 3: `validar` ya no lleva `final` ni
+`confirmados`; `reintento` ya no trae `cortados_al_cierre`). Nada de data/.
 """
 from __future__ import annotations
 
@@ -25,6 +26,29 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from script_engine import m01e_pantalla as mp  # noqa: E402
 from script_engine.pantalla_colocar import caracteres  # noqa: E402
+from script_engine import pantalla_verificador as pv  # noqa: E402
+
+
+def JUEZ_PASA(marcas: list[dict], caps: list[dict]) -> dict:
+    """F64 Etapa 3: el verificador falso de los tests: «pasa» toda ficha marcada y «no_dicho» todo descarte dudoso."""
+    return {"veredictos_fichas": [{"pool_id": m["pool_id"], "cap": m["cap"], "beat": m["beat"], "veredicto": "pasa",
+                                   "motivo": "test", "oracion": None} for m in marcas if m.get("que") != "descarte"],
+            "veredictos_descartes": [{"pool_id": m["pool_id"], "veredicto": "no_dicho", "motivo": "test", "oracion": None}
+                                     for m in marcas if m.get("que") == "descarte"],
+            "usage": None, "usd": 0.0, "segundos": 0.0, "pedido_md5": "test", "intentos": 0}
+
+
+@pytest.fixture(scope="module", autouse=True)
+def _sin_verificador_real():
+    """F64 Etapa 3: ningún test de este archivo llama al verificador real (gasta API). `validar` sin `juez` toma
+    `_juez_por_defecto` → JUEZ_PASA; `llamar` sin `juez` toma `pantalla_verificador.verificar` con el POST falso, que
+    también se reemplaza por JUEZ_PASA para que la llamada del verificador no consuma las respuestas en orden del POST."""
+    m = pytest.MonkeyPatch()
+    m.setattr(mp, "_juez_por_defecto", lambda: JUEZ_PASA)
+    m.setattr(pv, "verificar", lambda marcas, caps, **kw: JUEZ_PASA(marcas, caps))
+    yield
+    m.undo()
+
 
 ROOT = Path(__file__).resolve().parent
 F38 = ROOT / "lab" / "hyperframes" / "f38"
@@ -201,7 +225,7 @@ def test_c3_respaldo_invalido_es_motivo_de_la_vuelta_y_la_vuelta_lo_arregla(tmp_
     assert len(pedidos) == 2
     p2 = pedidos[1]["messages"][0]["content"]
     assert "respaldo: la ficha no trae `respaldo`" in p2 and "ch02 beat 2" in p2 and mp.FORMATO_REINTENTO in p2
-    assert res["reintento"]["cierre"] == "sin motivos" and res["reintento"]["cortados_al_cierre"] == []
+    assert res["reintento"]["cierre"] == "sin motivos" and "cortados_al_cierre" not in res["reintento"]
     q = _queda(res["validacion"], "ch02", 2)
     assert q and q["pool_id"] == "D1" and q["respaldo"] == "190 de largo"
     # si la vuelta no lo arregla (misma respuesta), cierra sin progreso y D1 queda caída por `respaldo`
@@ -279,7 +303,7 @@ def vajont() -> dict:
 @hay_prueba1
 def test_c5_la_respuesta_de_la_prueba_1_no_cae_por_respaldo(vajont):
     resp = json.loads(RAW_PRUEBA1.read_text(encoding="utf-8"))["respuesta"]
-    v = mp.validar(resp, vajont, final=False)
+    v = mp.validar(resp, vajont)
     assert not [d for d in v["descartados"] if d.get("regla") == "respaldo"]
     quedan = [b["ficha"] for b in v["beats"] if b["ficha"]]
     assert len(quedan) == 9 and all(f["respaldo"] for f in quedan)
@@ -292,7 +316,7 @@ def test_c5_la_respuesta_de_la_prueba_1_no_cae_por_respaldo(vajont):
         fi = b.get("ficha")
         if fi and str(fi["pool_id"]).startswith("Q") and " — " in fi["texto"]:
             fi["texto"], fi["autor"] = fi["texto"].split(" — ", 1)
-    v2 = mp.validar(r2, vajont, final=False)
+    v2 = mp.validar(r2, vajont)
     q50 = _queda(v2, "ch05", 8)
     assert q50 and q50["pool_id"] == "Q50" and q50["autor"] == "Municipio de Erto y Casso" and q50["autor_origen"] == "modelo"
     assert q50["caracteres"] == 13 + 42 + 25 + 5 <= q50["caben"]

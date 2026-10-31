@@ -2,15 +2,23 @@
 test_module_f40_gancho.py — F40 §A (HANDOFF_F40_gancho_subs_kyshtym §6; DECISIONES 2026-10-27 18:30): el gancho deja de
 cortar por una cifra suelta en cualquier parte de la voz. Se borró `pantalla_filtros.gancho_dicho` (y su lugar en
 `ORDEN`) y `dice_voz` (m01e_pantalla, pantalla_entrada); la coincidencia de una cifra del dato del gancho con la voz de
-todo el video es de `no_dicho` y se le PREGUNTA al autor (F37 §A.4 / F38c / F38d): la pregunta dice dónde la dice la
-voz (cap, oración y la oración), con el formato del spoiler; lo que el autor mantiene queda `juicio_autor`.
-    1  D03 «Nivel 6 de 7» (Kyshtym, la ficha del intento 1 de F39) con «Seis de octubre…» en ch05 → pregunta con cap,
-       oración y texto; el autor la mantiene («otro hecho») → queda, con juicio_autor;
+todo el video es de `no_dicho`. F64 Etapa 3 (DECISIONES 2026-10-31 14:20): ya no se le PREGUNTA al autor: es una MARCA
+(con dónde la dice la voz: cap, oración y la oración) que juzga pantalla_verificador en una llamada; «pasa» → la ficha
+queda con `juicio_verificador`; «corta» → cae con quien «verificador».
+    1  D03 «Nivel 6 de 7» (Kyshtym, la ficha del intento 1 de F39) con «Seis de octubre…» en ch05 → marca `no_dicho`
+       con cap, oración y texto (no corta en seco); con JUEZ_PASA queda, con juicio_verificador;
     2  un gancho cuya cifra la voz dice de verdad con el mismo hecho (D91 «Más de 5000 personas»; la voz: «Más de cinco
-       mil personas estaban en el sitio industrial…» en ch04 [11], la única vez) → pregunta; el autor la saca → sale;
-    3  Vajont v6 D195 «1.269 de 1.328» → pasa sin pregunta (sin cambio);
-    4  lo borrado no está; Fase 2 (validar_papel → no_dicho) respeta el juicio del autor en el gancho.
-Sin API (POST falso). Los datos reales se leen de sus copias congeladas en lab/hyperframes/f40/a/ (nunca de data/).
+       mil personas estaban en el sitio industrial…» en ch04 [11], la única vez) → marca; con un juez que la corta cae
+       con quien «verificador» y el autor, en la vuelta, la saca → sale;
+    3  Vajont v6 D195 «1.269 de 1.328» → sin marcas, sin juez, sin juicio_verificador (sin cambio);
+    4  lo borrado no está; Fase 2 (validar_papel → no_dicho) deja la coincidencia en ctx["dichos"] sin `juicio`.
+Borrado por F64 Etapa 3: test_1_d03_pregunta_con_cap_oracion_y_texto y test_1_d03_el_autor_la_mantiene_otro_hecho_queda
+(reescritos en test_1_d03_llega_como_marca_no_dicho_con_cap_oracion_y_texto), test_2_mismo_hecho_el_autor_la_saca_sale
+(reescrito en test_2_mismo_hecho_el_verificador_la_corta_y_el_autor_la_saca), test_2_sin_preguntar_al_cierre_corta_como_no_dicho
+(ya no hay cierre que corte sin preguntar) y test_4_fase2_no_dicho_en_el_gancho_respeta_el_juicio_del_autor (sin `juicio`
+en pantalla_filtros); `preguntas`, `juicio_autor`, `cortados_al_cierre` y «¿es el mismo hecho? si no, mantenelo» no existen.
+Sin API (POST falso; el verificador es JUEZ_PASA). Los datos reales se leen de sus copias congeladas en
+lab/hyperframes/f40/a/ (nunca de data/).
 """
 from __future__ import annotations
 
@@ -25,13 +33,34 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from script_engine import m01e_pantalla as mp  # noqa: E402
 from script_engine import pantalla_entrada as pe  # noqa: E402
 from script_engine import pantalla_filtros as pf  # noqa: E402
+from script_engine import pantalla_verificador as pv  # noqa: E402
+
+
+def JUEZ_PASA(marcas: list[dict], caps: list[dict]) -> dict:
+    """F64 Etapa 3: el verificador falso de los tests: «pasa» toda ficha marcada y «no_dicho» todo descarte dudoso."""
+    return {"veredictos_fichas": [{"pool_id": m["pool_id"], "cap": m["cap"], "beat": m["beat"], "veredicto": "pasa",
+                                   "motivo": "test", "oracion": None} for m in marcas if m.get("que") != "descarte"],
+            "veredictos_descartes": [{"pool_id": m["pool_id"], "veredicto": "no_dicho", "motivo": "test", "oracion": None}
+                                     for m in marcas if m.get("que") == "descarte"],
+            "usage": None, "usd": 0.0, "segundos": 0.0, "pedido_md5": "test", "intentos": 0}
+
+
+@pytest.fixture(scope="module", autouse=True)
+def _sin_verificador_real():
+    """F64 Etapa 3: ningún test de este archivo llama al verificador real (gasta API). `validar` sin `juez` toma
+    `_juez_por_defecto` → JUEZ_PASA; `llamar` sin `juez` toma `pantalla_verificador.verificar` con el POST falso, que
+    también se reemplaza por JUEZ_PASA para que la llamada del verificador no consuma las respuestas en orden del POST."""
+    m = pytest.MonkeyPatch()
+    m.setattr(mp, "_juez_por_defecto", lambda: JUEZ_PASA)
+    m.setattr(pv, "verificar", lambda marcas, caps, **kw: JUEZ_PASA(marcas, caps))
+    yield
+    m.undo()
+
 
 ROOT = Path(__file__).resolve().parent
 A = ROOT / "lab" / "hyperframes" / "f40" / "a"
 GANCHO = ("ch01", 1)
 SEIS = "Seis de octubre de mil novecientos cincuenta y siete."
-PREGUNTA_D03_6 = ("D03 (ch01 beat 1, oración [5]) «ESCALA DE ACCIDENTES NUCLEARES · Nivel 6 de 7»: la voz dice «6» en "
-                  f"ch05 [12] («{SEIS}»); ¿es el mismo hecho? si no, mantenelo")
 hay = pytest.mark.skipif(not (A / "kyshtym" / "01e_pantalla.raw.json").exists()
                          or not (A / "vajont" / "01e_pantalla.raw.json").exists(), reason="sin las copias de F40 §A")
 
@@ -86,56 +115,53 @@ def _ficha_final(res: dict) -> dict | None:
     return next((s["ficha"] for s in res["validacion"]["beats"] if (s["cap"], s["beat"]) == GANCHO), None)
 
 
-# ═══════════════════════ 1. D03 con «seis de octubre» en otro cap: pregunta → otro hecho → queda ═══════════════════════
+# ═══════════════════════ 1. D03 con «seis de octubre» en otro cap: marca no_dicho con dónde → el verificador ═══════════════════════
 
 @hay
-def test_1_d03_pregunta_con_cap_oracion_y_texto(ky, d03):
-    v = mp.validar(_resp(d03), ky)
-    assert not [d for d in v["descartados"] if d.get("que") == "ficha"]          # antes: no_dicho «(gancho)», en seco
-    nd = [q for q in v["preguntas"] if q["regla"] == "no_dicho"]
-    assert [(q["token"], q["donde"][:2]) for q in nd] == [("6", ("ch05", 12)), ("7", ("ch04", 14))]
-    assert all(q.get("video") for q in nd)                       # fuera de la oración ancla y sus vecinas
-    assert nd[0]["donde"][2] == SEIS
-    assert PREGUNTA_D03_6 in v["motivos"]                         # el formato del spoiler: cap [oración] («…»)
-    assert not any("D03" in m and "no_dicho" in m and "(gancho)" in m for m in v["motivos"])
+def test_1_d03_llega_como_marca_no_dicho_con_cap_oracion_y_texto(ky, d03):
+    v = mp.validar(_resp(d03), ky)                                              # JUEZ_PASA
+    assert not [d for d in v["descartados"] if d.get("que") == "ficha"]          # antes de F40: no_dicho «(gancho)», en seco
+    nd = [m for m in v["marcas"] if m["regla"] == "no_dicho"]
+    assert [(m["pool_id"], m["cap"], m["beat"], m["sentence_idx"]) for m in nd] == [("D03", "ch01", 1, 5)] * 2
+    assert [(m["coincidencia"]["token"], m["coincidencia"]["cap"], m["coincidencia"]["idx"]) for m in nd] == \
+        [("6", "ch05", 12), ("7", "ch04", 14)]                                  # fuera de la oración ancla y sus vecinas
+    assert nd[0]["coincidencia"]["oracion"] == SEIS
+    assert nd[0]["etiqueta"] == "ESCALA DE ACCIDENTES NUCLEARES" and nd[0]["texto"] == "Nivel 6 de 7"
+    assert not any("D03" in m for m in v["motivos"])                            # no es motivo: lo juzga el verificador
+    f = next(s["ficha"] for s in v["beats"] if (s["cap"], s["beat"]) == GANCHO)
+    assert f["pool_id"] == "D03" and f["juicio_verificador"]["tokens"]["no_dicho"] == ["6", "7"]
+    assert "juicio_autor" not in f and "preguntas" not in v
 
+
+# ═══════════════════════ 2. la voz dice la cifra con el mismo hecho: el verificador la corta; el autor la saca ═══════════════════════
 
 @hay
-def test_1_d03_el_autor_la_mantiene_otro_hecho_queda(ky, d03, tmp_path):
+def test_2_mismo_hecho_el_verificador_la_corta_y_el_autor_la_saca(ky, tmp_path):
+    v = mp.validar(_resp(D91), ky)                                              # JUEZ_PASA: marca, no corta
+    nd = [m for m in v["marcas"] if m["regla"] == "no_dicho"]
+    assert [(m["coincidencia"]["token"], m["coincidencia"]["cap"], m["coincidencia"]["idx"]) for m in nd] == [("5000", "ch04", 11)]
+    assert nd[0]["coincidencia"]["oracion"].startswith("Más de cinco mil personas estaban en el sitio industrial")
+    assert not [d for d in v["descartados"] if d.get("pool_id") == "D91"]
+
+    def corta(marcas, caps):                                                    # el verificador: el mismo hecho
+        return {"veredictos_fichas": [{"pool_id": "D91", "cap": "ch01", "beat": 1, "veredicto": "corta",
+                                       "motivo": "la voz cuenta el mismo hecho", "oracion": {"cap": "ch04", "idx": 11}}],
+                "veredictos_descartes": []}
+    vc = mp.validar(_resp(D91), ky, juez=corta)
+    d = next(d for d in vc["descartados"] if d.get("pool_id") == "D91")
+    assert d["quien"] == "verificador" and d["regla"] == "no_dicho" and d["motivo"] == "la voz cuenta el mismo hecho (ch04 [11])"
+    assert next(s["ficha"] for s in vc["beats"] if (s["cap"], s["beat"]) == GANCHO) is None
+    motivo = ("D91 (ch01 beat 1) «EN LA ZONA INDUSTRIAL · Más de 5000 personas expuestas»: no_dicho: la voz cuenta el "
+              "mismo hecho (ch04 [11])")
+    assert motivo in vc["motivos"]
+    # por llamar: el motivo del verificador va a la vuelta 1 y el autor saca la ficha → sale
     pedidos: list[dict] = []
-    res = mp.llamar(ky, tmp_path, post=_post_seq([_resp(d03), {"cambios": []}], pedidos))
-    assert PREGUNTA_D03_6 in res["reintento"]["vueltas"][0]["motivos"]          # se le preguntó en la vuelta 1
-    assert PREGUNTA_D03_6 in pedidos[1]["messages"][0]["content"]
-    f = _ficha_final(res)                                                        # no la cambió: «otro hecho»
-    assert f is not None and f["pool_id"] == "D03"
-    assert set(f["juicio_autor"]["no_dicho"]) == {"6", "7"}
-    assert not [d for d in res["validacion"]["descartados"] if d.get("pool_id") == "D03"]
-    assert not res["reintento"]["cortados_al_cierre"]
-
-
-# ═══════════════════════ 2. la voz dice la cifra con el mismo hecho: el autor la saca → sale ═══════════════════════
-
-@hay
-def test_2_mismo_hecho_el_autor_la_saca_sale(ky, tmp_path):
-    v = mp.validar(_resp(D91), ky)
-    nd = [q for q in v["preguntas"] if q["regla"] == "no_dicho"]
-    assert [(q["token"], q["donde"][:2]) for q in nd] == [("5000", ("ch04", 11))]
-    assert nd[0]["donde"][2].startswith("Más de cinco mil personas estaban en el sitio industrial")
-    assert (f"D91 (ch01 beat 1, oración [5]) «EN LA ZONA INDUSTRIAL · Más de 5000 personas expuestas»: la voz dice "
-            f"«5000» en ch04 [11] («{nd[0]['donde'][2]}»); ¿es el mismo hecho? si no, mantenelo") in v["motivos"]
-    pedidos: list[dict] = []
-    saca = {"cambios": [{"cap": GANCHO[0], "beat": GANCHO[1], "ficha": None}]}   # «mismo hecho»: la saca
-    res = mp.llamar(ky, tmp_path, post=_post_seq([_resp(D91), saca], pedidos))
+    saca = {"cambios": [{"cap": GANCHO[0], "beat": GANCHO[1], "ficha": None}]}
+    res = mp.llamar(ky, tmp_path, post=_post_seq([_resp(D91), saca], pedidos), juez=corta)
+    assert motivo in res["reintento"]["vueltas"][0]["motivos"] and motivo in pedidos[1]["messages"][0]["content"]
     assert _ficha_final(res) is None
     assert "D91" not in json.dumps(res["final"], ensure_ascii=False)
-
-
-@hay
-def test_2_sin_preguntar_al_cierre_corta_como_no_dicho(ky):
-    """F38d §A.1: una coincidencia que el autor no contestó corta al cerrar (regla no_dicho, con dónde: otro cap)."""
-    v = mp.validar(_resp(D91), ky, {}, final=True)
-    d = next(d for d in v["descartados"] if d.get("pool_id") == "D91")
-    assert d["regla"] == "no_dicho" and "en otra oración del video (gancho)" in d["motivo"]
+    assert len(res["verificador"]) == 1 and res["usd_verificador"] == 0.0     # una llamada al juez (la del intento 1)
 
 
 # ═══════════════════════ 3. Vajont v6 D195: sin cambio ═══════════════════════
@@ -148,9 +174,9 @@ def test_3_vajont_d195_pasa_sin_pregunta():
             "autor": None, "aporta": "x"}
     v = mp.validar(_resp(d195), ent)
     assert not [d for d in v["descartados"] if d.get("que") == "ficha"]
-    assert not [q for q in v["preguntas"] if q["pool_id"] == "D195"]
+    assert not [m for m in v["marcas"] if m["pool_id"] == "D195"] and v["verificador"] is None   # sin marcas no hay juez
     f = next(s["ficha"] for s in v["beats"] if (s["cap"], s["beat"]) == GANCHO)
-    assert f["pool_id"] == "D195" and "pregunta" not in f and "juicio_autor" not in f
+    assert f["pool_id"] == "D195" and "juicio_verificador" not in f and "juicio_autor" not in f
 
 
 # ═══════════════════════ 4. lo borrado y Fase 2 ═══════════════════════
@@ -166,25 +192,25 @@ def test_4_gancho_dicho_y_dice_voz_borrados():
     assert x["gancho"] is True and "dice_voz" not in x
 
 
-def _ctx_gancho(juicio: dict | None) -> dict:
+def _ctx_gancho() -> dict:
     sents = [{"texto": "Una columna de humo sube sobre la planta."}, {"texto": "Nadie dijo nada."},
              {"texto": "Esa noche cenaron temprano."}, {"texto": "Seis de octubre de mil novecientos cincuenta y siete."}]
     return {"sents": sents, "si": 0, "x": {"gancho": True}, "txt": "Nivel 6 de 7", "tipo": "hecho",
-            "voz_video": [s["texto"] for s in sents], "juicio": juicio or {}}
+            "voz_video": [s["texto"] for s in sents]}
 
 
-def test_4_fase2_no_dicho_en_el_gancho_respeta_el_juicio_del_autor():
-    ctx = _ctx_gancho(None)
+def test_4_no_dicho_en_el_gancho_deja_la_coincidencia_en_dichos():
+    """F64 Etapa 3: sin `juicio`; la coincidencia del gancho queda en ctx["dichos"] (en el papel es la marca)."""
+    ctx = _ctx_gancho()
     mot = pf.no_dicho({}, {}, ctx)
     assert mot == "la voz lo dice en otra oración del video (gancho): ['6']" and ctx["dichos"] == ["6"]
-    ctx = _ctx_gancho({"no_dicho": ["6"]})                     # el autor la mantuvo en el papel: otro hecho
-    assert pf.no_dicho({}, {}, ctx) is None and ctx["dichos"] == []
+    assert "juicio" not in pf.no_dicho.__code__.co_consts and "juicio" not in pf.spoiler.__code__.co_consts
 
 
 def test_4_fuera_del_gancho_no_dicho_igual_que_antes():
-    ctx = {**_ctx_gancho(None), "x": {"gancho": False}}
+    ctx = {**_ctx_gancho(), "x": {"gancho": False}}
     assert pf.no_dicho({}, {}, ctx) is None                    # la oración [3] no es vecina de la [0]
-    ctx = {**_ctx_gancho(None), "x": {"gancho": False}, "si": 2}
+    ctx = {**_ctx_gancho(), "x": {"gancho": False}, "si": 2}
     assert pf.no_dicho({}, {}, ctx) == "la voz lo dice en la oración ancla o en una vecina: ['6']"
 
 
