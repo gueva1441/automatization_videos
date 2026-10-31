@@ -34,7 +34,18 @@ RAW_PRUEBA1 = F38 / "prueba1" / "prueba1.raw.json"
 PAPEL_B4 = F38 / "b4" / "01e_pantalla.json"
 FASE1 = F38 / "b2" / "fase1"
 VAJONT = "f8s3-vajont"
-MD5_SYSTEM = "7d2ccdd28055d6e621d1d251a0fe8bb7"      # F38e §C.1 (medido en F38e-0)
+MD5_SYSTEM = "85d094bed6090b14d1802ca97433d982"      # F64 Etapa 0: el de F38e §C.1 (7d2ccdd2…) con la oración 2 de F63 A.2
+# F64 Etapa 0 (F63 A.2): la oración 2 del primer párrafo del bloque del md, y la que la reemplaza en PANTALLA_SYSTEM
+ORACION2_MD = ("Recibís la narración completa de un video (7 capítulos, oraciones numeradas), la escaleta (qué cuenta "
+               "cada beat y cuál es el pico de cada capítulo), el archivo del caso (datos con cifra, fecha, cita o "
+               "persona, con su fuente) y una lista de palabras de clima.")
+ORACION2_F64 = ("Recibís la narración completa de un video (7 capítulos, oraciones numeradas), la escaleta (qué cuenta "
+                "cada beat y cuál es el pico de cada capítulo; en `escaleta_video`, la promesa del gancho, las "
+                "preguntas que el video deja abiertas y dónde las paga, y el pico del video), el archivo del caso "
+                "(todo lo que encontró la investigación: datos, fechas, citas, personas y lugares, cada uno con su "
+                "fuente y, en `contexto_fuente`, el fragmento original de la fuente), las versiones en disputa del "
+                "caso (`disputas`) y una lista de palabras de clima. El `respaldo` se copia siempre del `texto` del "
+                "dato, nunca de `contexto_fuente`.")
 CLIMA = ["PÁNICO", "CALMA", "AMENAZA", "AVISO", "ALARMA", "INMINENTE", "COLAPSO", "SILENCIO", "RABIA", "MEMORIA"]
 SEG = {"valor": 1.0, "oraciones": 10, "caps": 2, "voz": "prueba"}      # ancho: las oraciones del video chico son cortas
 INSERTO = '"texto": "Más de 1 metro", "respaldo": "…", "autor": "…" | null, "aporta": "…"'
@@ -104,10 +115,14 @@ def _system_del_md() -> str:
 # ═══════════════════════ §C.1 / §C.2 prompt y formato ═══════════════════════
 
 def test_c1_prompt_es_el_bloque_del_md_letra_por_letra():
-    assert mp.PROMPT_VERSION == "m01e-6"
+    """F64 Etapa 0: el bloque del md con su oración 2 reemplazada por la de F63 A.2, y nada más."""
+    assert mp.PROMPT_VERSION == "m01e-7"
     assert hashlib.md5(mp.PANTALLA_SYSTEM.encode("utf-8")).hexdigest() == MD5_SYSTEM
+    assert mp.PANTALLA_SYSTEM.count(ORACION2_F64) == 1 and ORACION2_MD not in mp.PANTALLA_SYSTEM
     if PROMPT_MD.exists():
-        assert mp.PANTALLA_SYSTEM == _system_del_md()
+        md = _system_del_md()
+        assert md.count(ORACION2_MD) == 1 and hashlib.md5(md.encode("utf-8")).hexdigest() == "7d2ccdd28055d6e621d1d251a0fe8bb7"
+        assert mp.PANTALLA_SYSTEM == md.replace(ORACION2_MD, ORACION2_F64)
     # lo que la prueba 1 cambió está, y lo de m01e-5 que reemplazó no
     assert "(d) se entiende solo, en 3 segundos" in mp.PANTALLA_SYSTEM
     assert "`respaldo`" in mp.PANTALLA_SYSTEM and "el autor va en español" in mp.PANTALLA_SYSTEM
@@ -291,7 +306,7 @@ def test_c5_la_respuesta_de_la_prueba_1_no_cae_por_respaldo(vajont):
 def test_c5_la_corrida_de_f38e_c_es_del_formato_nuevo():
     from script_engine import evidence as ev
     p = json.loads((F38E_C / "01e_pantalla.json").read_text(encoding="utf-8"))
-    assert p["prompt_version"] == "m01e-6" and p["prompt_md5"] == mp.prompt_md5()
+    assert p["prompt_version"] == "m01e-6" and p["prompt_md5"] == "3b98aef1d8595124967ac7a85b75bab7"   # la corrida es de m01e-6 (F64: hoy m01e-7)
     arch = {x["id"]: x for x in json.loads((F38E_C / "01e_pantalla.raw.json").read_text(encoding="utf-8"))["entrada"]["archivo"]}
     for b in p["beats"]:
         f = b.get("ficha")

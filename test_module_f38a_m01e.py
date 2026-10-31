@@ -155,7 +155,7 @@ def test_a1_motivos_sin_beat_no_abren_beats():
 
 def test_a1_formatos_literales():
     assert mp.FORMATO_REINTENTO.startswith('{"cambios": [{"cap": "ch03", "beat": 5, "ficha":')
-    assert mp.PROMPT_VERSION == "m01e-6"          # F38b: + el gancho de m01e-1 · F38d §A.2 · F38e §C.1: el de la prueba 1
+    assert mp.PROMPT_VERSION == "m01e-7"          # F38b: + el gancho de m01e-1 · F38d §A.2 · F38e §C.1: el de la prueba 1 · F64 Etapa 0
 
 
 # ═══════════════════════ F38b: la línea del gancho de m01e-1, sin juez ═══════════════════════
@@ -166,7 +166,7 @@ def test_f38b_gancho_literal_de_m01e_1_sin_las_primeras_oraciones():
              "nunca queda sin ficha.")
     assert linea in h and linea in mp.PANTALLA_SYSTEM
     assert "primeras oraciones" not in mp.PANTALLA_SYSTEM
-    assert mp.PROMPT_VERSION == "m01e-6"                      # F38d §A.2 · F38e §C.1 (la línea del gancho sigue igual)
+    assert mp.PROMPT_VERSION == "m01e-7"                      # F38d §A.2 · F38e §C.1 · F64 Etapa 0 (la línea del gancho sigue igual)
 
 
 def test_f38b_nada_llama_a_un_juez():

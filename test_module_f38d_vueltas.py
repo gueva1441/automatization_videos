@@ -318,7 +318,7 @@ def test_5_el_prompt_dice_lo_que_mide_el_codigo_para_caben():
     comillas y raya cuentan en «caben». Lo que ya no se puede medir (el diff de una línea contra m01e-4) se saca."""
     h = HANDOFF.read_text(encoding="utf-8")
     assert VIEJA in h and NUEVA in h                          # literal del handoff de F38d
-    assert mp.PROMPT_VERSION == "m01e-6"
+    assert mp.PROMPT_VERSION == "m01e-7"                     # F64 Etapa 0
     hoy = mp.PANTALLA_SYSTEM
     assert VIEJA not in hoy and NUEVA not in hoy              # m01e-6 lo dice con sus palabras (las de la prueba 1)
     assert ("Etiqueta + dato —y en una cita, también el autor y 5 caracteres de comillas y raya— no pueden pasar de los "

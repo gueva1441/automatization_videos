@@ -192,8 +192,8 @@ def test_prompt_no_cambia():
     import hashlib
     md5 = {k: hashlib.md5(getattr(mp, k).encode("utf-8")).hexdigest()
            for k in ("PANTALLA_SYSTEM", "FORMATO_SALIDA", "FORMATO_REINTENTO", "REINTENTO_PARCIAL")}
-    assert md5 == {"PANTALLA_SYSTEM": "7d2ccdd28055d6e621d1d251a0fe8bb7",
+    assert md5 == {"PANTALLA_SYSTEM": "85d094bed6090b14d1802ca97433d982",      # F64 Etapa 0 (antes 7d2ccdd2…)
                    "FORMATO_SALIDA": "f63ad89ad721f319370fe2ebb8b539b5",
                    "FORMATO_REINTENTO": "07cd8ad0fb3f3e31b46dcd2a6641fa23",
                    "REINTENTO_PARCIAL": "29deed051c1440eb4ea8c2b5e7b776e8"}
-    assert mp.prompt_md5() == "3b98aef1d8595124967ac7a85b75bab7" and mp.PROMPT_VERSION == "m01e-6"
+    assert mp.prompt_md5() == "f2bfdf2044a4c77a59fc62ebe93966c2" and mp.PROMPT_VERSION == "m01e-7"

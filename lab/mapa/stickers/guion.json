@@ -229,12 +229,12 @@
  },
  "script_engine/m01e_pantalla.py": {
   "sticker": "Escribe el guion de pantalla en papel: para cada beat del video decide qué ficha de texto (un dato, una cita o un nombre del archivo del caso) y qué palabra de clima aparecen en pantalla y sobre qué oración de la voz, más los relojes de fechas. Una sola llamada a Claude con toda la narración, la escaleta y el archivo del caso; después el código valida todo en papel (candado de cifras y nombres, que la voz no lo diga ya, que no adelante nada, que quepa) y le devuelve al autor los motivos para reintentar solo los beats con problema. Deja el papel para que Omar lo apruebe antes de pagar la voz; la Fase 2 lo consume.",
-  "recibe": "data/scripts/_steps/<id>/01a_escaleta.json, 01b_narracion_v3.json (párrafos por cap y beat), 01a_skeleton.json (títulos de cap), 00_pool_v3.json (el pool); perfil gfx (clave costos.m01e_tope_usd); voces ya generadas del narrador (segundos por palabra); vocabulario de clima",
+  "recibe": "data/scripts/_steps/<id>/01a_escaleta.json, 01b_narracion_v3.json (párrafos por cap y beat), 01a_skeleton.json (títulos de cap), 00_pool_v3.json (el pool entero: D, T, Q, P y L), ficha_caso.json (versiones y contradicciones → disputas; opcional); perfil gfx (clave costos.m01e_tope_usd); voces ya generadas del narrador (segundos por palabra); vocabulario de clima",
   "entrega": "data/scripts/_steps/<id>/01e_pantalla.json (el papel, que luego se aprueba con md5), 01e_pantalla.md (para que lo lea Omar), 01e_pantalla.raw.json (caché y respuesta cruda); suma su costo al 01_v3_costos.json (paso «pantalla») vía fase1_5.run_pantalla",
   "modelo": [
    {
-    "modelo": "claude-sonnet-5-5 (constante MODELO, esfuerzo medium; Messages API de Anthropic vía claude_helpers._post)",
-    "para": "autor de las fichas y sellos del guion de pantalla: una llamada y hasta varias vueltas de reintento parcial, dentro del tope de costo del perfil"
+    "modelo": "claude-opus-5-5 (constante MODELO, esfuerzo medium; Messages API de Anthropic vía claude_helpers._post) — F64 Etapa 0, antes Sonnet 5.5",
+    "para": "autor de las fichas y sellos del guion de pantalla: una llamada con la entrada completa (todo el pool con contexto_fuente, escaleta_video, disputas) y hasta varias vueltas de reintento parcial, dentro del tope de costo del perfil"
    }
   ],
   "etapa": [
@@ -245,7 +245,7 @@
   "estado": "vivo",
   "estado_prueba": "fase1_5.py:236 (run_pantalla llama mp.generar, dentro de run_guion_v4:434); la Fase 2 lo lee por script_engine/pantalla_entrada.py:83 y :100 (_texto_item, TIPO_DE_ESTILO, cargar_papel) y fase2b.py:3738 usa editar (--plan-edit, a mano)",
   "funciones_muertas": [],
-  "md5": "e9bb6f55164a60a21b7724b5b4f6cc9c",
+  "md5": "8faf4b2d940fa8a9184ad3b6eedd1300",
   "_parte": "guion_b"
  },
  "script_engine/name_matching.py": {

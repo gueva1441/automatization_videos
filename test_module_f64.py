@@ -1,0 +1,131 @@
+"""
+test_module_f64.py — F64 (HANDOFF_F64_papel_a_produccion; DECISIONES 2026-10-31 13:07, 14:16, 14:20): el papel a
+producción.
+    Etapa 0  (e) la entrada completa: todo el pool entra al archivo (D con o sin cifra, T, Q, P, L), cada ítem con
+             `contexto_fuente` al final, los beats con emoción/imagen/pregunta/paga, `escaleta_video` y `disputas`; un
+             `ficha_caso.json` ausente no rompe (disputas {}); un L propuesto como ficha sale `normal`; el SYSTEM es el
+             de m01e-6 con la oración 2 de F63 A.2 (md5 85d094be…); Opus medium, m01e-7.
+Sin API. Un video chico armado acá (nada de data/).
+"""
+from __future__ import annotations
+
+import hashlib
+import json
+import sys
+from pathlib import Path
+
+import pytest
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from script_engine import m01e_pantalla as mp  # noqa: E402
+
+CLIMA = ["PÁNICO", "CALMA", "AMENAZA", "AVISO", "ALARMA", "INMINENTE", "COLAPSO", "SILENCIO", "RABIA", "MEMORIA"]
+SEG = {"valor": 0.3459, "oraciones": 200, "caps": 9, "voz": "prueba"}
+MD5_SYSTEM_F64 = "85d094bed6090b14d1802ca97433d982"      # F63 A.2, medido (HANDOFF_F64 Constantes)
+
+
+def _pool() -> dict:
+    return {"datos": [{"id": "D1", "texto": "La presa mide 266 metros de alto.", "fuente": "F", "fecha": "1960",
+                       "cita_literal": "the dam is  266 m high"},
+                      {"id": "D2", "texto": "El valle quedó vacío.", "fuente": "F", "fecha": "1964",
+                       "evidencia": [{"doc_id": "x", "offset": 3, "cita_literal": "the valley was left empty"}]}],
+            "cronologia": [{"id": "T1", "texto": "Se llena el embalse.", "fecha": "1962", "fuente": "F"}],
+            "personajes": [{"id": "P1", "nombre": "Carlo Semenza", "rol": "ingeniero jefe", "fuente": "F"}],
+            "lugares": [{"id": "L1", "nombre": "Monte Toc", "rol": "La montaña que se vino abajo.", "fuente": "F"}],
+            "citas": [{"id": "Q1", "texto": "Nadie nos avisó nunca", "autor": "Un sobreviviente", "rol": "vecino",
+                       "fecha": "1990", "testimonio": True, "fuente": "F"}]}
+
+
+def _carga(ficha: dict | None) -> dict:
+    """Un video de dos caps y dos beats, con (o sin) ficha del caso."""
+    return {"topic_id": "t", "dir": Path("."), "titulos": {1: "Uno", 2: "Dos"}, "pool": _pool(), "ficha_caso": ficha,
+            "escaleta": {"pico": {"beat": 2}, "a_pantalla": [], "promesa_gancho": "¿qué cayó?", "loops": ["la carta"],
+                         "recuerda_loop": None, "humano": "Tina", "antagonista": "SADE", "cierre_humano": "vuelve",
+                         "beats": [{"n": 1, "cap": 1, "funcion": "gancho", "dato_central": "", "datos_apoyo": [],
+                                    "emocion": "vértigo", "imagen_sensorial": "el agua negra",
+                                    "pregunta_abierta": "¿quién sabía?", "paga": "beat 2", "flash_forward": True},
+                                   {"n": 2, "cap": 2, "funcion": "escalada", "dato_central": "D1", "datos_apoyo": ["T1"],
+                                    "emocion": "miedo"}]},
+            "parrafos": [{"cap": 1, "beat": 1, "texto": "Era el año mil novecientos sesenta y tres. La casa está a "
+                                                       "oscuras. El valle duerme."},
+                         {"cap": 2, "beat": 2, "texto": "El agua sube cada día. La montaña se mueve despacio. Nadie "
+                                                       "quiere mirar la ladera."}]}
+
+
+@pytest.fixture(scope="module")
+def ent() -> dict:
+    e = mp.entrada(_carga({"versiones": [{"a": 1}], "contradicciones": [{"b": 2}], "otra": "cosa"}), CLIMA, SEG)
+    e["_pool"] = _pool()
+    return e
+
+
+# ═══════════════════════ Etapa 0 (e): la entrada completa ═══════════════════════
+
+def test_e0_modelo_effort_version_y_system():
+    assert (mp.MODELO, mp.EFFORT, mp.PROMPT_VERSION) == ("claude-opus-5-5", "medium", "m01e-7")
+    assert hashlib.md5(mp.PANTALLA_SYSTEM.encode("utf-8")).hexdigest() == MD5_SYSTEM_F64
+    assert "`contexto_fuente`" in mp.PANTALLA_SYSTEM and "`disputas`" in mp.PANTALLA_SYSTEM
+    assert mp.PANTALLA_SYSTEM.count("Recibís la narración completa") == 1
+
+
+def test_e1_todo_el_pool_entra_al_archivo_con_contexto_fuente_al_final(ent):
+    ids = [x["id"] for x in ent["archivo"]]
+    assert set(ids) == {"D1", "D2", "T1", "P1", "L1", "Q1"}            # D2 sin cifra y L1 también (antes no entraban)
+    for x in ent["archivo"]:
+        assert list(x)[-1] == "contexto_fuente"                        # (a) al final del ítem
+    arch = {x["id"]: x for x in ent["archivo"]}
+    assert arch["D1"]["contexto_fuente"] == "the dam is 266 m high"     # cita_literal, espacios normalizados
+    assert arch["D2"]["contexto_fuente"] == "the valley was left empty" # la de la primera evidencia
+    assert arch["T1"]["contexto_fuente"] == "" and arch["L1"]["texto"] == "Monte Toc — La montaña que se vino abajo."
+    assert arch["P1"]["texto"] == "Carlo Semenza — ingeniero jefe"
+    assert list(arch["Q1"])[:8] == ["id", "texto", "fuente", "fecha", "beats_que_lo_cuentan", "autor", "rol", "testimonio"]
+
+
+def test_e2_beats_escaleta_video_y_disputas_en_orden(ent):
+    b1 = ent["beats"][0]
+    assert list(b1) == ["n", "cap", "funcion", "pico", "dato_central", "apoyo", "cierre", "emocion", "imagen_sensorial",
+                        "pregunta_abierta", "paga"]                    # (b) después de `cierre`, en ese orden
+    assert (b1["emocion"], b1["paga"]) == ("vértigo", "beat 2") and ent["beats"][1]["paga"] is None
+    pm = mp._para_modelo(ent)
+    assert list(pm) == ["caps", "beats", "archivo", "clima", "escaleta_video", "disputas"]      # (c)
+    assert list(pm["escaleta_video"]) == ["promesa_gancho", "loops", "recuerda_loop", "pico", "humano", "antagonista",
+                                          "cierre_humano"]              # (d) los 7, None donde falte
+    assert pm["escaleta_video"]["recuerda_loop"] is None and pm["escaleta_video"]["pico"] == {"beat": 2}
+    assert pm["disputas"] == {"versiones": [{"a": 1}], "contradicciones": [{"b": 2}]}   # solo esas dos claves
+    assert "flash_forward" not in json.dumps(pm)                        # lo que el autor no ve
+
+
+def test_e3_sin_ficha_caso_no_rompe_y_cargar_lo_anota(tmp_path):
+    e = mp.entrada(_carga(None), CLIMA, SEG)
+    assert e["disputas"] == {} and mp._para_modelo(e)["disputas"] == {}
+    # `cargar` sobre un topic sin ficha_caso.json: None + una línea en el log
+    sd = tmp_path / "t"
+    sd.mkdir()
+    c = _carga(None)
+    (sd / "01a_skeleton.json").write_text(json.dumps({"chapters": [{"chapter_number": 1, "title": "Uno"}]}), encoding="utf-8")
+    (sd / "01a_escaleta.json").write_text(json.dumps(c["escaleta"]), encoding="utf-8")
+    (sd / "01b_narracion_v3.json").write_text(json.dumps({"parrafos": c["parrafos"]}), encoding="utf-8")
+    (sd / "00_pool_v3.json").write_text(json.dumps(_pool()), encoding="utf-8")
+    log: list[str] = []
+    carga = mp.cargar("t", tmp_path, log=log)
+    assert carga["ficha_caso"] is None and len(log) == 1 and "ficha_caso.json" in log[0] and "disputas" in log[0]
+    (sd / "ficha_caso.json").write_text(json.dumps({"versiones": [], "contradicciones": [1]}), encoding="utf-8")
+    assert mp.cargar("t", tmp_path)["ficha_caso"] == {"versiones": [], "contradicciones": [1]}
+
+
+def test_e4_un_lugar_propuesto_como_ficha_sale_normal(ent):
+    assert mp.estilo_de("L1", "LA MONTAÑA") == "normal" and mp.estilo_de("L1", "EL INFORME DEL MONTE") == "papel"
+    resp = {"beats": [{"cap": "ch02", "beat": 2, "ficha": {"pool_id": "L1", "sentence_idx": 1, "palabra": "montaña",
+                                                           "etiqueta": "LA MONTAÑA", "texto": "Monte Toc",
+                                                           "respaldo": "Monte Toc", "autor": None, "aporta": "x"},
+                       "sello": None}]}
+    v = mp.validar(resp, ent)
+    s = next(b for b in v["beats"] if b["cap"] == "ch02" and b["beat"] == 2)
+    assert s["ficha"] and s["ficha"]["pool_id"] == "L1" and s["ficha"]["estilo"] == "normal"
+    assert not [d for d in v["descartados"] if d.get("pool_id") == "L1"]
+    # voz_no_lo_dice tolera un L (sin cifras: por sus nombres)
+    it = next(i for i in _pool()["lugares"] if i["id"] == "L1")
+    it["_kind"] = "lugares"
+    assert mp.voz_no_lo_dice(it, "la montaña se mueve", ent.get("anios")) == ["Toc"]   # `nombres` no ve el que abre
+    assert mp.voz_no_lo_dice(it, "el Monte Toc se mueve", ent.get("anios")) is None

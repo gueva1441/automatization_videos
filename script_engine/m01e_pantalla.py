@@ -8,13 +8,17 @@ costo en 01_v3_costos.json como los demás pasos) o suelto: `python -m script_en
                con su beat y `caben` (palabras × segundos por palabra del narrador —F37: derivado de sus voces,
                voz_utils.seg_por_palabra— × 15 cps, sin pasar de callout_dur_max: una estimación; la medida real es
                de Fase 2);
-               los beats de la escaleta (n, función, pico sí/no, dato central, apoyo, cierre); el archivo = el pool
-               completo con cifra, fecha o cita (D con número, T, Q) y las personas (P), cada ítem con id, texto, fuente,
-               fecha (F37 §A.1a; «desconocida» si no tiene), las citas autor, rol y testimonio, y `beats_que_lo_cuentan`
-               (los beats cuyo dato central o de apoyo es el ítem); F38c §A.1: el que la escaleta dejó para la pantalla
-               lleva además `a_pantalla` {beat, por_que} (campo propio, no entra en `beats_que_lo_cuentan`);
-               el vocabulario `sellos_clima` del perfil.
-    llamada    UNA a Sonnet 5.5 (medium) con el prompt literal de §C.2 (PANTALLA_SYSTEM; F37: el gancho en las primeras
+               los beats de la escaleta (n, función, pico sí/no, dato central, apoyo, cierre y, F64 Etapa 0, emoción,
+               imagen sensorial, pregunta abierta y paga); el archivo = TODO el pool (F64 Etapa 0, DECISIONES 2026-10-31
+               14:16: D con o sin cifra, T, Q, P y L; antes solo D con número, T, Q, P), cada ítem con id, texto, fuente,
+               fecha (F37 §A.1a; «desconocida» si no tiene), las citas autor, rol y testimonio, `beats_que_lo_cuentan`
+               (los beats cuyo dato central o de apoyo es el ítem) y al final `contexto_fuente` (el fragmento original
+               de la fuente); F38c §A.1: el que la escaleta dejó para la pantalla lleva además `a_pantalla` {beat,
+               por_que} (campo propio, no entra en `beats_que_lo_cuentan`); el vocabulario `sellos_clima` del perfil;
+               F64 Etapa 0: `escaleta_video` (promesa del gancho, loops, pico, humano, antagonista, cierre humano) y
+               `disputas` (versiones y contradicciones de ficha_caso.json).
+    llamada    UNA a Claude Opus 5.5 (medium; F64 Etapa 0, antes Sonnet 5.5) con el prompt literal de §C.2
+               (PANTALLA_SYSTEM, m01e-7: el de la prueba 1 con la oración 2 de F63 A.2; F37: el gancho en las primeras
                oraciones, m01e-2; el USER = el JSON de entrada + «Formato de salida: …», con el `tipo` de cada descarte),
                tope del perfil (`costos.m01e_tope_usd`, tope_usd) contando las dos llamadas, caché por md5 de la entrada
                y la versión del prompt. F37 §A.5: un reintento si el JSON no parsea o si la validación deja algún motivo
@@ -63,9 +67,9 @@ from script_engine.voz_utils import (_analiza, _PARTICULAS, _palabra_en, _raiz_e
                                      anios_dichos, dice_anio, misma_cifra, nombre_inicial, nombres, numero_en, numeros,
                                      oraciones_de_texto, palabras, palabras_de_contenido, seg_por_palabra)
 
-PROMPT_VERSION = "m01e-6"       # F38e §C.1: el SYSTEM es el bloque «Prompt nuevo (m01e-6-prueba), entero» de lab/hyperframes/f38/PRUEBA1_prompt_rotulos.md, letra por letra (md5 7d2ccdd28055d6e621d1d251a0fe8bb7, medido en F38e-0; lo escribió lab/hyperframes/f38e/c/c1_prompt_del_md.py); §C.2: `respaldo` y `autor` en el formato · antes m01e-5 (F38d §A.2: «caben» con el autor de la cita)
-MODELO = "claude-sonnet-5-5"
-EFFORT = "medium"
+PROMPT_VERSION = "m01e-7"       # F64 Etapa 0: el SYSTEM de m01e-6 (lab/hyperframes/f38/PRUEBA1_prompt_rotulos.md, md5 7d2ccdd2…) con la oración 2 del primer párrafo reemplazada por la de F63 A.2 (entrada completa; md5 del SYSTEM 85d094bed6090b14d1802ca97433d982, medido en F63) · antes m01e-6 (F38e §C.1: `respaldo` y `autor` en el formato)
+MODELO = "claude-opus-5-5"      # DECISIONES 2026-10-31 14:16 (F63 a ciegas: Opus medium con la entrada completa 8,8; Sonnet 6,3) · antes claude-sonnet-5-5
+EFFORT = "medium"               # DECISIONES 2026-10-31 14:16 (high no suma)
 TOPE_USD_RESPALDO = 1.00        # DECISIONES: pedido de Omar F37 («TOPE_USD sale al perfil con valor 1.00»); el valor vive en el perfil (costos.m01e_tope_usd)
 SEG_POR_PALABRA_RESPALDO = 0.35  # medido: Vajont ch04 (F36); solo si no hay ninguna voz del narrador (F37 §0: se deriva, voz_utils.seg_por_palabra)
 OUT_TOKENS_PEOR = 16_000        # derivado: el peor caso de salida del rotulista de gfx (razonamiento + JSON); en el reintento, la salida real del primero si fue más
@@ -92,9 +96,9 @@ def velocidad(seg: dict[str, Any] | None = None) -> dict[str, Any]:
     return {"valor": SEG_POR_PALABRA_RESPALDO, "origen": "respaldo (no hay voces generadas del narrador)"}
 
 
-# ═══════════════════════ prompt (F38e §C.1: PRUEBA1_prompt_rotulos.md, literal; antes HANDOFF_F36_C_D §C.2) ═══════════════════════
+# ═══════════════════════ prompt (F38e §C.1: PRUEBA1_prompt_rotulos.md, literal, con la oración 2 de F63 A.2 [F64 Etapa 0]; antes HANDOFF_F36_C_D §C.2) ═══════════════════════
 
-PANTALLA_SYSTEM = """Sos el rotulista de un documental de historia oscura en español. Recibís la narración completa de un video (7 capítulos, oraciones numeradas), la escaleta (qué cuenta cada beat y cuál es el pico de cada capítulo), el archivo del caso (datos con cifra, fecha, cita o persona, con su fuente) y una lista de palabras de clima. Escribís lo que va en pantalla para todo el video, de una vez.
+PANTALLA_SYSTEM = """Sos el rotulista de un documental de historia oscura en español. Recibís la narración completa de un video (7 capítulos, oraciones numeradas), la escaleta (qué cuenta cada beat y cuál es el pico de cada capítulo; en `escaleta_video`, la promesa del gancho, las preguntas que el video deja abiertas y dónde las paga, y el pico del video), el archivo del caso (todo lo que encontró la investigación: datos, fechas, citas, personas y lugares, cada uno con su fuente y, en `contexto_fuente`, el fragmento original de la fuente), las versiones en disputa del caso (`disputas`) y una lista de palabras de clima. El `respaldo` se copia siempre del `texto` del dato, nunca de `contexto_fuente`. Escribís lo que va en pantalla para todo el video, de una vez.
 
 Reglas de todo texto en pantalla:
 (a) suma o aclara lo que la voz cuenta en esa oración: un hecho del archivo que la voz no dice, o lo que la voz cuenta puesto en una cifra, una persona o una consecuencia; nunca repite la frase de la voz;
@@ -156,31 +160,45 @@ def _texto_item(it: dict[str, Any]) -> str:
     if k == "cronologia":
         cuando = str(it.get("fecha") or "") + (f", hora {it['hora']}" if it.get("hora") else "")
         return f"{ev.text_of(it)} (fecha {cuando})" if cuando else ev.text_of(it)
-    if k == "personajes":
+    if k in ("personajes", "lugares"):          # F64 Etapa 0: un L se escribe como una P, «nombre — rol»
         return f"{it.get('nombre') or ''} — {it.get('rol') or ''}".strip(" —")
     return re.sub(r"\s+", " ", ev.text_of(it)).strip()
 
 
 def _tipo(it: dict[str, Any]) -> str | None:
-    """D con número, T, Q, P (§C.1); el resto del pool (lugares, D sin cifra) no entra al archivo."""
-    k = it["_kind"]
-    if k == "datos":
-        return "D" if numeros(ev.text_of(it)) else None
-    return {"cronologia": "T", "citas": "Q", "personajes": "P"}.get(k)
+    """F64 Etapa 0 (DECISIONES 2026-10-31 14:16, la entrada completa de F63 A.1): TODO ítem del pool entra al archivo,
+    por su `_kind`: D (con o sin cifra), T, Q, P y L. Antes (§C.1) solo D con número, T, Q y P: la condición
+    `numeros(...)` escondía D85, D34, D03, D129, D10, D20 y D70 de Wittenoom."""
+    return {"datos": "D", "cronologia": "T", "citas": "Q", "personajes": "P", "lugares": "L"}.get(it["_kind"])
 
 
-def cargar(topic_id: str, steps_dir: Path, pool: dict | None = None) -> dict[str, Any]:
+def contexto_fuente(it: dict[str, Any]) -> str:
+    """F64 Etapa 0 (F63 A.1): el fragmento original de la fuente que respalda el ítem: su `cita_literal` o, si no la
+    tiene, la de su primera `evidencia`; espacios normalizados. Vacío si no hay."""
+    cl = it.get("cita_literal")
+    if not cl:
+        evd = it.get("evidencia") or []
+        cl = (evd[0] or {}).get("cita_literal") if evd else ""
+    return re.sub(r"\s+", " ", str(cl or "")).strip()
+
+
+def cargar(topic_id: str, steps_dir: Path, pool: dict | None = None, log: list[str] | None = None) -> dict[str, Any]:
     """Los archivos de Fase 1 del topic (aclaración 1: los que leen gfx_realizador y el rotulista): escaleta, párrafos
-    por cap y beat (01b_narracion_v3), títulos de la partición (01a_skeleton) y el pool (00_pool_v3, o el que se pasa)."""
+    por cap y beat (01b_narracion_v3), títulos de la partición (01a_skeleton), el pool (00_pool_v3, o el que se pasa)
+    y, F64 Etapa 0, la ficha del caso (ficha_caso.json: sus `versiones` y `contradicciones` son las `disputas` de la
+    entrada); si no existe, `ficha_caso` None (disputas = {}) y una línea en el log."""
     sd = Path(steps_dir) / topic_id
 
     def lee(nombre: str) -> dict:
         return json.loads((sd / nombre).read_text(encoding="utf-8"))
     sk = lee("01a_skeleton.json")
+    ficha = lee("ficha_caso.json") if (sd / "ficha_caso.json").exists() else None
+    if ficha is None and log is not None:
+        log.append(f"  m01e: {sd / 'ficha_caso.json'} no existe → la entrada va sin `disputas`")
     return {"topic_id": topic_id, "dir": sd, "escaleta": lee("01a_escaleta.json"),
             "parrafos": lee("01b_narracion_v3.json").get("parrafos") or [],
             "titulos": {int(c["chapter_number"]): str(c.get("title") or "") for c in sk.get("chapters") or []},
-            "pool": pool if pool is not None else lee("00_pool_v3.json")}
+            "pool": pool if pool is not None else lee("00_pool_v3.json"), "ficha_caso": ficha}
 
 
 def caben_en(texto: str, seg: float) -> int:
@@ -213,9 +231,12 @@ def entrada(carga: dict[str, Any], vocabulario: list[str], seg: dict[str, Any] |
     for n in {int(b["cap"]) for b in beats_esc}:
         bc = [b for b in beats_esc if int(b["cap"]) == n]
         picos[n] = beat_pico_de_cap(bc, (esc.get("pico") or {}).get("beat"))
+    # F64 Etapa 0 (F63 A.1): después de `cierre`, los cuatro campos de la escaleta que el autor también ve, tal cual
     beats = [{"n": int(b["n"]), "cap": cap_id(b["cap"]), "funcion": str(b.get("funcion") or ""),
               "pico": int(b["n"]) == picos.get(int(b["cap"])), "dato_central": str(b.get("dato_central") or ""),
-              "apoyo": [str(x) for x in b.get("datos_apoyo") or []], "cierre": str(b.get("cierre") or "").strip()}
+              "apoyo": [str(x) for x in b.get("datos_apoyo") or []], "cierre": str(b.get("cierre") or "").strip(),
+              "emocion": b.get("emocion"), "imagen_sensorial": b.get("imagen_sensorial"),
+              "pregunta_abierta": b.get("pregunta_abierta"), "paga": b.get("paga")}
              for b in beats_esc]
     cuentan: dict[str, list[int]] = {}
     for b in beats:
@@ -247,18 +268,26 @@ def entrada(carga: dict[str, Any], vocabulario: list[str], seg: dict[str, Any] |
             x["testimonio"] = "sí" if it.get("testimonio") else "no"
         if i in a_pant:                                   # F38c §A.1: data del ítem, no regla (el prompt no cambia)
             x["a_pantalla"] = dict(a_pant[i])
+        x["contexto_fuente"] = contexto_fuente(it)         # F64 Etapa 0: al final del ítem (el md5 del USER depende del orden)
         archivo.append(x)
+    # F64 Etapa 0 (F63 A.1): la escaleta del video (7 campos, None donde falte) y las disputas de la ficha del caso
+    escaleta_video = {k: esc.get(k) for k in ("promesa_gancho", "loops", "recuerda_loop", "pico", "humano",
+                                             "antagonista", "cierre_humano")}
+    fc = carga.get("ficha_caso")
+    disputas = {"versiones": fc.get("versiones"), "contradicciones": fc.get("contradicciones")} if fc else {}
     return {"topic_id": carga["topic_id"], "caps": caps, "beats": beats, "archivo": archivo,
-            "clima": list(vocabulario), "a_pantalla": {str(a.get("id")): str(a.get("por_que") or "")
-                                                       for a in esc.get("a_pantalla") or []},
+            "clima": list(vocabulario), "escaleta_video": escaleta_video, "disputas": disputas,
+            "a_pantalla": {str(a.get("id")): str(a.get("por_que") or "") for a in esc.get("a_pantalla") or []},
             "seg_por_palabra": vel, "anios": anios_de([x.get("fecha") for x in todos.values()])}
 
 
 def _para_modelo(ent: dict[str, Any]) -> dict[str, Any]:
+    """Lo que ve el autor: caps, beats, archivo, clima y (F64 Etapa 0) `escaleta_video` y `disputas`, en ese orden."""
     return {"caps": [{"cap": c["cap"], "titulo": c["titulo"],
                       "oraciones": [{k: s[k] for k in ("idx", "beat", "texto", "caben")} for s in c["oraciones"]]}
                      for c in ent["caps"]],
-            "beats": ent["beats"], "archivo": ent["archivo"], "clima": ent["clima"]}
+            "beats": ent["beats"], "archivo": ent["archivo"], "clima": ent["clima"],
+            "escaleta_video": ent.get("escaleta_video") or {}, "disputas": ent.get("disputas") or {}}
 
 
 def entrada_md5(ent: dict[str, Any]) -> str:
