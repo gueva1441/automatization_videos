@@ -532,7 +532,7 @@
   "_parte": "orquestador_c"
  },
  "qa_studio.html": {
-  "sticker": "Es la pantalla del visor por capítulo: muestra la línea de tiempo de cada capítulo con sus fotos y clips, deja escuchar la narración tramo por tramo, marcar fotos para regenerar, pedir un fix de foto o de clip, corregir una pronunciación y lanzar ENSAMBLAR VIDEO. También embebe el formulario de miniaturas. Desde F59 los cuadros de texto del fix traen el hint aprobado por Omar (qué ver, una cosa por vez, emociones como gesto; para el clip: cámara, velocidad y qué se mueve) y, si el fix sale bien, muestran lo que el filtro de producción sacó del pedido.",
+  "sticker": "Es la pantalla del visor por capítulo: muestra la línea de tiempo de cada capítulo con sus fotos y clips, deja escuchar la narración tramo por tramo, marcar fotos para regenerar, pedir un fix de foto o de clip, corregir una pronunciación y lanzar ENSAMBLAR VIDEO. También embebe el formulario de miniaturas. Desde F59 los cuadros de texto del fix traen el hint aprobado por Omar (qué ver, una cosa por vez, emociones como gesto; para el clip: cámara, velocidad y qué se mueve) y, si el fix sale bien, muestran lo que el filtro de producción sacó del pedido. F65b: botón 📄 PAPEL: el QA del papel (ver cada ficha sobre su oración, aprobar ficha, editar, quitar, sugerir, aprobar papel).",
   "recibe": "Del servidor: /topic, /caps, /cap?cap=chNN (segmentos con tiempos y anchors), /img, /clip y /audio del capítulo, /marks, /fix_status, /assemble_status, /thumbs_status.",
   "entrega": "Pedidos al servidor: POST /mark, /fix_image, /fix_clip, /fix_narration, /assemble y /thumbs_start.",
   "modelo": [],
@@ -542,7 +542,7 @@
   "estado": "vivo",
   "estado_prueba": "qa_studio_server.py:72 define HTML_PATH y :1828-1829 lo sirve en / (el form lo abre en el gate del visor, qa_form.html:349)",
   "funciones_muertas": [],
-  "md5": "8eaa7969b235af7f011a3c031149af7e",
+  "md5": "f9b8e83015875733e4853e0e31dcf8d3",
   "_parte": "orquestador_a"
  },
  "qa_studio_server.py": {
