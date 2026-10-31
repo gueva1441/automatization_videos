@@ -1,0 +1,38 @@
+canon A3 inyectado al topic (['era_visual_canon', 'documented_people', 'anachronism_blocklist', 'documented_props', 'central_subject', 'people_groups']); Daniel: appearance «a mid-20s Spanish man» · condition [{'years': '1962-1963', 'condition': 'His foot is bandaged over a non-healing wound caused by a falling chunk of asbestos.'}, {'years': '1991-1992', 'condition': 'He is terminally ill with mesothelioma and gaunt in the final months of life.'}]
+TEXTO_PERSONA: - persona: a LIST with the exact name, as written in PERSONAS DOCUMENTADAS, of each documented person who is recognisably shown in THIS image (even from behind), at the age the canon describes — the main one first, at most TWO; [] if none, if only a body part is shown, or if they appear inside a photograph or picture within the scene. Routing only — not rendered as text.
+bloque PERSONAS (según _format_seedream_canon_block):
+PERSONAS DOCUMENTADAS (el nombre es solo para el casillero persona; en la prosa usar appearance_canon, NUNCA el nombre):
+    condition 1962-1964: His hands and mouth are dusted with fine asbestos powder from playing with frayed fibre.
+    condition 1962-1964: He is worn down by frequent 16-hour shifts and covered in mine dust.
+    condition 1963-1963: She is in the late stage of pregnancy and then recovering after giving birth in Wittenoom.
+  • Daniel Écija | role: Spanish miner in Wittenoom (father) | age 25 | era: 1962-1963
+    condition 1962-1963: His foot is bandaged over a non-healing wound caused by a falling chunk of asbestos.
+    condition 1991-1992: He is terminally ill with mesothelioma and gaunt in the final months of life.
+  • María Bernal | role: Wife of the miner Daniel Écija and resident of Wittenoom | age unknown | era: 1962-1963
+    condition 1963-1963: She is physically weakened by a kidney infection and a complicated forceps delivery of a very large baby.
+  • Daniel Écija hijo | role: Son of a Spanish miner, born in Wittenoom, later a television producer | age 22 | era: 1985
+    condition 2023-2024: He is visibly ill and frail with mesothelioma, which caused his death in 2024.
+m03 7 caps: 125.6 s · US$ 2.2811 (cost_tracker) · caps con _plan_anchors real (n distinto): []
+prompts de casilleros capturados: 10 · el bloque PERSONAS del prompt trae «condition»: True · Daniel con appearance nuevo: True
+pares por ancla con la referencia: 96/96 · sin par: 0 (anclas movidas por _reconcile_anchor_timing o conteo distinto)
+[b] baile: A [('chapters[1].img[0]', [])] · A2 [('chapters[1].img[0]', ['María Bernal'])] · A3 [('chapters[1].img[0]', ['Daniel Écija', 'María Bernal'])]
+[b] boda: A [('chapters[1].img[1]', ['María Bernal'])] · A2 [('chapters[1].img[1]', ['María Bernal'])] · A3 [('chapters[1].img[1]', ['Daniel Écija', 'María Bernal'])]
+[b] barco: A [('chapters[1].img[3]', ['María Bernal'])] · A2 [('chapters[1].img[2]', [])] · A3 [('chapters[1].img[3]', ['Daniel Écija', 'María Bernal'])]
+[b] mi marido: A [('chapters[1].img[4]', ['María Bernal']), ('chapters[4].img[14]', [])] · A2 [('chapters[1].img[3]', ['María Bernal']), ('chapters[4].img[14]', [])] · A3 [('chapters[1].img[4]', ['María Bernal', 'Daniel Écija']), ('chapters[4].img[14]', [])]
+[b] dos parejas: A [('chapters[1].img[5]', ['Milagros Barroso', 'Ramón de Juan'])] · A2 [('chapters[1].img[4]', ['Milagros Barroso', 'Ramón de Juan'])] · A3 [('chapters[1].img[5]', ['Milagros Barroso', 'Ramón de Juan'])]
+[b] pista: A [('chapters[2].img[15]', [])] · A2 [('chapters[2].img[15]', ['María Bernal'])] · A3 [('chapters[2].img[15]', ['Daniel Écija', 'María Bernal'])]
+[b] mina (Daniel trabajaba): A [('chapters[3].img[8]', ['Ramón de Juan'])] · A2 [('chapters[3].img[8]', ['Ramón de Juan'])] · A3 [('chapters[3].img[8]', ['Daniel Écija', 'Ramón de Juan'])]
+[b] mina (primer día): A [('chapters[3].img[9]', [])] · A2 [('chapters[3].img[9]', [])] · A3 [('chapters[3].img[9]', ['Daniel Écija'])]
+[b] fórceps / bautizo: A [('chapters[3].img[12]', ['María Bernal', 'Daniel Écija'])] · A2 [('chapters[3].img[12]', [])] · A3 [('chapters[3].img[12]', ['María Bernal', 'Daniel Écija'])]
+[b] se fueron: A [('chapters[3].img[13]', ['María Bernal', 'Daniel Écija'])] · A2 [('chapters[3].img[13]', ['María Bernal'])] · A3 [('chapters[3].img[13]', [])]
+[b] Madrid 1966: A [('chapters[4].img[4]', [])] · A2 [('chapters[4].img[4]', [])] · A3 [('chapters[4].img[4]', ['Daniel Écija', 'María Bernal'])]
+[b] 1991 médico: A [('chapters[4].img[12]', [])] · A2 [('chapters[4].img[12]', [])] · A3 [('chapters[4].img[12]', ['Daniel Écija'])]
+[b] muere 55: A [('chapters[4].img[13]', [])] · A2 [('chapters[4].img[13]', [])] · A3 [('chapters[4].img[13]', [])]
+[b] retrato pie: A [('chapters[0].supp[0]', ['Daniel Écija'])] · A2 [('chapters[0].supp[0]', ['Daniel Écija'])] · A3 [('chapters[0].supp[0]', ['Daniel Écija', 'María Bernal'])]
+[b] clip pie: A [('chapters[0].image_prompt', [])] · A2 [('chapters[0].image_prompt', [])] · A3 [('chapters[0].image_prompt', ['Daniel Écija'])]
+[b] se llama Daniel: A [('chapters[0].supp[1]', ['Daniel Écija'])] · A2 [('chapters[0].supp[1]', ['Daniel Écija'])] · A3 [('chapters[0].supp[1]', ['Daniel Écija'])]
+[c/d] fotos con Daniel en A3: 13 · con venda/cojera: 5 · años ['1962', '1962', '1962', '1961', '1962', '1962', '1962', '1962', '1962', '1962', '1963', '1966', '1991']
+[e] María: 9 · Daniel hijo: 1 · Víctor Calvo: 6 (años ['1962', '1962', '1962', '1962', '1963', '1963'])
+[f] control de nombres: PARÁ 0 · revisar 1
+    revisar chapters[6].supp[9]: «Court» (Court)
+[g] cap 1: venda en image_prompt True · en video_prompt True · persona ['Daniel Écija']

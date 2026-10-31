@@ -1,0 +1,2187 @@
+{
+ "tid": "123bbb64-9fca-4395-8bf4-57d60e219ef1",
+ "segundos": 125.6,
+ "usd": 2.2811,
+ "usado_plan_real": [],
+ "personas_en_prompt": "PERSONAS DOCUMENTADAS (el nombre es solo para el casillero persona; en la prosa usar appearance_canon, NUNCA el nombre):\n  • Eric Saint | role: Public health doctor who warned in writing that dust levels were extremely dangerous | age unknown | era: 1948\n    appearance_canon: a middle-aged Australian man\n  • Hancock | role: Prospector and mine owner whose interests were taken over by ABA | age unknown | era: 1937-1943\n    appearance_canon: an adult Australian man\n  • Wright | role: Prospector and mine partner whose interests were taken over by ABA | age unknown | era: 1937-1943\n    appearance_canon: an adult Australian man\n  • Chifley | role: Prime Minister of Australia who called the mine's life practically unlimited | age unknown | era: 1947\n    appearance_canon: an older Australian man\n  • McNulty | role: Public health doctor who reported a mesothelioma case in a former mill worker | age unknown | era: 1962\n    appearance_canon: a middle-aged Australian man\n  • Víctor Calvo | role: Child of a Spanish migrant family who lived in Wittenoom | age unknown | era: 1962-1964\n    appearance_canon: a young Spanish boy\n    condition 1962-1964: His hands and mouth are dusted with fine asbestos powder from playing with frayed fibre.\n  • Ramón de Juan | role: Spanish miner in Wittenoom | age unknown | era: 1962-1964\n    appearance_canon: an adult Spanish man\n    condition 1962-1964: He is worn down by frequent 16-hour shifts and covered in mine dust.\n  • Milagros Barroso | role: Wife of a Spanish miner and resident of Wittenoom | age unknown | era: 1962-1964\n    appearance_canon: a young adult Spanish woman\n    condition 1963-1963: She is in the late stage of pregnancy and then recovering after giving birth in Wittenoom.\n  • Mercedes | role: Daughter of Ramón de Juan who lived in Wittenoom as a child and later stayed in Australia | age unknown | era: 1962-1971\n    appearance_canon: a young Spanish girl\n  • John Patrick | role: Son of Milagros Barroso, born in Wittenoom | age 0 | era: 1963\n    appearance_canon: a newborn infant of Spanish parentage\n  • Daniel Écija | role: Spanish miner in Wittenoom (father) | age 25 | era: 1962-1963\n    appearance_canon: a mid-20s Spanish man\n    condition 1962-1963: His foot is bandaged over a non-healing wound caused by a falling chunk of asbestos.\n    condition 1991-1992: He is terminally ill with mesothelioma and gaunt in the final months of life.\n  • María Bernal | role: Wife of the miner Daniel Écija and resident of Wittenoom | age unknown | era: 1962-1963\n    appearance_canon: a young adult Spanish woman\n    condition 1963-",
+ "n_prompts": 10,
+ "pares": [
+  {
+   "ref_a3": "chapters[0].image_prompt",
+   "ref_A": "chapters[0].image_prompt",
+   "ancla": "con el pie envuelto en una venda blanca",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": [
+    "Daniel Écija"
+   ]
+  },
+  {
+   "ref_a3": "chapters[0].supp[0]",
+   "ref_A": "chapters[0].supp[0]",
+   "ancla": "En el retrato de familia todos miran a cámara menos el pie: está vendado, y la herida que le hizo un trozo de amianto no cierra.",
+   "persona_A": [
+    "Daniel Écija"
+   ],
+   "persona_A2": [
+    "Daniel Écija"
+   ],
+   "persona_A3": [
+    "Daniel Écija",
+    "María Bernal"
+   ]
+  },
+  {
+   "ref_a3": "chapters[0].supp[1]",
+   "ref_A": "chapters[0].supp[1]",
+   "ancla": "El hombre se llama Daniel Écija y es minero.",
+   "persona_A": [
+    "Daniel Écija"
+   ],
+   "persona_A2": [
+    "Daniel Écija"
+   ],
+   "persona_A3": [
+    "Daniel Écija"
+   ]
+  },
+  {
+   "ref_a3": "chapters[0].supp[2]",
+   "ref_A": "chapters[0].supp[2]",
+   "ancla": "Vino de Madrid. Wittenoom, Australia Occidental, mil novecientos sesenta y dos.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[0].supp[3]",
+   "ref_A": "chapters[0].supp[3]",
+   "ancla": "Para entender ese pie hay que volver a un baile en Madrid, un año antes de la foto.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[1].img[0]",
+   "ref_A": "chapters[1].img[0]",
+   "ancla": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal.",
+   "persona_A": [],
+   "persona_A2": [
+    "María Bernal"
+   ],
+   "persona_A3": [
+    "Daniel Écija",
+    "María Bernal"
+   ]
+  },
+  {
+   "ref_a3": "chapters[1].img[1]",
+   "ref_A": "chapters[1].img[1]",
+   "ancla": "Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos.",
+   "persona_A": [
+    "María Bernal"
+   ],
+   "persona_A2": "(sin par en A2)",
+   "persona_A3": [
+    "Daniel Écija",
+    "María Bernal"
+   ]
+  },
+  {
+   "ref_a3": "chapters[1].img[2]",
+   "ref_A": "chapters[1].img[2]",
+   "ancla": "Cuatro días más tarde ya están en el barco. Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles.",
+   "persona_A": [],
+   "persona_A2": "(sin par en A2)",
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[1].img[3]",
+   "ref_A": "chapters[1].img[3]",
+   "ancla": "De Wittenoom no saben nada; saben que hay trabajo y que van juntos.",
+   "persona_A": [
+    "María Bernal"
+   ],
+   "persona_A2": "(sin par en A2)",
+   "persona_A3": [
+    "Daniel Écija",
+    "María Bernal"
+   ]
+  },
+  {
+   "ref_a3": "chapters[1].img[4]",
+   "ref_A": "chapters[1].img[4]",
+   "ancla": "«Iba pegadita a mi marido, como una niña», recuerda su mujer.",
+   "persona_A": [
+    "María Bernal"
+   ],
+   "persona_A2": [
+    "María Bernal"
+   ],
+   "persona_A3": [
+    "María Bernal",
+    "Daniel Écija"
+   ]
+  },
+  {
+   "ref_a3": "chapters[1].img[5]",
+   "ref_A": "chapters[1].img[5]",
+   "ancla": "Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan.",
+   "persona_A": [
+    "Milagros Barroso",
+    "Ramón de Juan"
+   ],
+   "persona_A2": [
+    "Milagros Barroso",
+    "Ramón de Juan"
+   ],
+   "persona_A3": [
+    "Milagros Barroso",
+    "Ramón de Juan"
+   ]
+  },
+  {
+   "ref_a3": "chapters[1].img[6]",
+   "ref_A": "chapters[1].img[6]",
+   "ancla": "Esa familia madrileña había hecho el mismo viaje un mes antes.",
+   "persona_A": [
+    "Milagros Barroso",
+    "Víctor Calvo"
+   ],
+   "persona_A2": [],
+   "persona_A3": [
+    "Milagros Barroso",
+    "Ramón de Juan"
+   ]
+  },
+  {
+   "ref_a3": "chapters[1].img[7]",
+   "ref_A": "chapters[1].img[7]",
+   "ancla": "Un niño que hizo ese viaje todavía recuerda el calor. Víctor Calvo era un niño cuando subió a ese barco.",
+   "persona_A": [
+    "Víctor Calvo"
+   ],
+   "persona_A2": "(sin par en A2)",
+   "persona_A3": [
+    "Víctor Calvo"
+   ]
+  },
+  {
+   "ref_a3": "chapters[1].img[8]",
+   "ref_A": "chapters[1].img[8]",
+   "ancla": "«Salimos de Málaga y tardamos más de 20 días en llegar en barco a Australia», dice Calvo.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[1].img[9]",
+   "ref_A": "chapters[1].img[9]",
+   "ancla": "Recuerda el canal de Suez y el calor que hacía ahí, un calor que todavía lo hace resoplar cuando lo cuenta.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": [
+    "Víctor Calvo"
+   ]
+  },
+  {
+   "ref_a3": "chapters[1].img[10]",
+   "ref_A": "chapters[1].img[10]",
+   "ancla": "Recuerda los mareos. Y la incertidumbre: no saber muy bien adónde iban ni cómo iban a vivir.",
+   "persona_A": [
+    "Víctor Calvo",
+    "Milagros Barroso"
+   ],
+   "persona_A2": [
+    "Víctor Calvo",
+    "Milagros Barroso"
+   ],
+   "persona_A3": [
+    "Víctor Calvo",
+    "Milagros Barroso"
+   ]
+  },
+  {
+   "ref_a3": "chapters[1].img[11]",
+   "ref_A": "chapters[1].img[11]",
+   "ancla": "Después del barco, un avión pequeño, de hélices, que se sacude durante todo el vuelo.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[1].img[12]",
+   "ref_A": "chapters[1].img[12]",
+   "ancla": "Aterriza en una pista en medio de una tierra muy roja, en el desierto de Pilbara, en Australia Occidental.",
+   "persona_A": [],
+   "persona_A2": "(sin par en A2)",
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[1].img[13]",
+   "ref_A": "chapters[1].img[13]",
+   "ancla": "Hay polvo por todas partes. Ese niño cuenta que nunca había visto tanto polvo.",
+   "persona_A": [
+    "Víctor Calvo"
+   ],
+   "persona_A2": "(sin par en A2)",
+   "persona_A3": [
+    "Víctor Calvo"
+   ]
+  },
+  {
+   "ref_a3": "chapters[1].img[14]",
+   "ref_A": "chapters[1].img[14]",
+   "ancla": "Los llevan a las casas: chapa, madera y uralita. La familia de Juan-Barroso había llegado en agosto de mil novecientos sesenta y dos.",
+   "persona_A": [],
+   "persona_A2": "(sin par en A2)",
+   "persona_A3": [
+    "Ramón de Juan",
+    "Milagros Barroso"
+   ]
+  },
+  {
+   "ref_a3": "chapters[1].img[15]",
+   "ref_A": "chapters[1].img[15]",
+   "ancla": "De esa tierra sacan crocidolita, el asbesto azul, un mineral que se paga bien porque aguanta el calor y no se gasta. Nadie les dijo qué era el polvo. La compañía lo sabía desde hacía dieciocho años.",
+   "persona_A": [],
+   "persona_A2": "(sin par en A2)",
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[2].img[0]",
+   "ref_A": "chapters[2].img[0]",
+   "ancla": "En mil novecientos cuarenta y cuatro, el inspector de minas y el ingeniero de minas Adjunto del Estado ya habían informado sobre el problema del polvo.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[2].img[1]",
+   "ref_A": "chapters[2].img[1]",
+   "ancla": "En mil novecientos cuarenta y seis ya había diagnósticos de asbestosis, y un inspector describió las condiciones de trabajo como terroríficas.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[2].img[2]",
+   "ref_A": "chapters[2].img[2]",
+   "ancla": "La mina era entonces de ABA, una filial de CSR que en mil novecientos cuarenta y tres había tomado los intereses de Hancock y Wright.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": [
+    "Hancock",
+    "Wright"
+   ]
+  },
+  {
+   "ref_a3": "chapters[2].img[3]",
+   "ref_A": "chapters[2].img[3]",
+   "ancla": "Mil novecientos cuarenta y ocho. Un médico llega en avión y escribe una carta a máquina: los niveles de polvo son extremadamente peligrosos.",
+   "persona_A": [
+    "Eric Saint"
+   ],
+   "persona_A2": [
+    "Eric Saint"
+   ],
+   "persona_A3": [
+    "Eric Saint"
+   ]
+  },
+  {
+   "ref_a3": "chapters[2].img[4]",
+   "ref_A": "chapters[2].img[4]",
+   "ancla": "El médico escribe que en un año o dos ABA va a producir la cosecha más abundante y letal de casos de asbestosis de la literatura mundial",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[2].img[5]",
+   "ref_A": "chapters[2].img[5]",
+   "ancla": "Se llama Eric Saint. Lo que pasó con la carta lo contó él mismo: «Me desestimaron y, de hecho, me tildaron de alborotador», dijo Saint.",
+   "persona_A": [
+    "Eric Saint"
+   ],
+   "persona_A2": "(sin par en A2)",
+   "persona_A3": [
+    "Eric Saint"
+   ]
+  },
+  {
+   "ref_a3": "chapters[2].img[6]",
+   "ref_A": "chapters[2].img[6]",
+   "ancla": "Un año después, en una sala de arbitraje, la empresa contestó a los que hablaban del polvo.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[2].img[7]",
+   "ref_A": "chapters[2].img[7]",
+   "ancla": "«El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso», dijo el defensor del empleador.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[2].img[8]",
+   "ref_A": "chapters[2].img[8]",
+   "ancla": "Nueve años después, otro organismo entró al molino y escribió lo que vio.",
+   "persona_A": [],
+   "persona_A2": "(sin par en A2)",
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[2].img[9]",
+   "ref_A": "chapters[2].img[9]",
+   "ancla": "Mil novecientos cincuenta y siete. La Junta de Referencia entra al molino y deja constancia: condiciones extremadamente polvorientas",
+   "persona_A": [],
+   "persona_A2": "(sin par en A2)",
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[2].img[10]",
+   "ref_A": "chapters[2].img[10]",
+   "ancla": "trabajadores cubiertos de polvo de pies a cabeza. «Una espesa nube de polvo estaba presente en las inmediaciones del molino», escribió la Junta.",
+   "persona_A": [],
+   "persona_A2": "(sin par en A2)",
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[2].img[11]",
+   "ref_A": "chapters[2].img[11]",
+   "ancla": "Siete meses después, con unos equipos reductores de polvo ya instalados, el suplemento salarial por polvo se redujo y se restringió.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[2].img[12]",
+   "ref_A": "chapters[2].img[12]",
+   "ancla": "CSR venía de la industria azucarera y tenía muy poca experiencia en minas.",
+   "persona_A": [],
+   "persona_A2": "(sin par en A2)",
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[2].img[13]",
+   "ref_A": "chapters[2].img[13]",
+   "ancla": "Los reguladores del Estado hicieron poco más que emitir advertencias y pedir equipos para el polvo.",
+   "persona_A": [],
+   "persona_A2": "(sin par en A2)",
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[2].img[14]",
+   "ref_A": "chapters[2].img[14]",
+   "ancla": "cuando las Casandras advirtieron que el polvo era un problema y predijeron la enfermedad, en la industria minera no se encendieron las alarmas",
+   "persona_A": [],
+   "persona_A2": "(sin par en A2)",
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[2].img[15]",
+   "ref_A": "chapters[2].img[15]",
+   "ancla": "En mil novecientos sesenta y uno la producción subió. Al año siguiente, los Écija bajaban de aquel avión.",
+   "persona_A": [],
+   "persona_A2": "(sin par en A2)",
+   "persona_A3": [
+    "Daniel Écija",
+    "María Bernal"
+   ]
+  },
+  {
+   "ref_a3": "chapters[3].img[0]",
+   "ref_A": "chapters[3].img[0]",
+   "ancla": "Los chicos del pueblo juegan con el mineral.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[3].img[1]",
+   "ref_A": "chapters[3].img[1]",
+   "ancla": "Víctor Calvo lo cuenta: «Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo».",
+   "persona_A": [
+    "Víctor Calvo"
+   ],
+   "persona_A2": "(sin par en A2)",
+   "persona_A3": [
+    "Víctor Calvo"
+   ]
+  },
+  {
+   "ref_a3": "chapters[3].img[2]",
+   "ref_A": "chapters[3].img[2]",
+   "ancla": "Estaban rodeados de amianto azul y no les daba miedo.",
+   "persona_A": [],
+   "persona_A2": "(sin par en A2)",
+   "persona_A3": [
+    "Víctor Calvo",
+    "Mercedes"
+   ]
+  },
+  {
+   "ref_a3": "chapters[3].img[3]",
+   "ref_A": "chapters[3].img[3]",
+   "ancla": "Tampoco había dónde no estar rodeados.",
+   "persona_A": [],
+   "persona_A2": "(sin par en A2)",
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[3].img[4]",
+   "ref_A": "chapters[3].img[4]",
+   "ancla": "Los relaves del molino se usaron para construir el pueblo y la pista de aterrizaje.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[3].img[5]",
+   "ref_A": "chapters[3].img[5]",
+   "ancla": "Se extendieron como suelo en las carreteras, en los patios, en los espacios públicos: el acceso a la escuela, el jardín de infantes, la iglesia.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[3].img[6]",
+   "ref_A": "chapters[3].img[6]",
+   "ancla": "El pueblo entero estaba hecho de eso.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[3].img[7]",
+   "ref_A": "chapters[3].img[7]",
+   "ancla": "Y en ese pueblo, en junio de mil novecientos sesenta y tres, nació un niño.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[3].img[8]",
+   "ref_A": "chapters[3].img[8]",
+   "ancla": "Daniel trabajaba en la mina. Ramón de Juan, el amigo, hacía jornadas de dieciséis horas.",
+   "persona_A": [
+    "Ramón de Juan"
+   ],
+   "persona_A2": [
+    "Ramón de Juan"
+   ],
+   "persona_A3": [
+    "Daniel Écija",
+    "Ramón de Juan"
+   ]
+  },
+  {
+   "ref_a3": "chapters[3].img[9]",
+   "ref_A": "chapters[3].img[9]",
+   "ancla": "Uno de los hijos de Daniel cuenta que el primer día de trabajo de su padre hubo una explosión y murió gente.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": [
+    "Daniel Écija"
+   ]
+  },
+  {
+   "ref_a3": "chapters[3].img[10]",
+   "ref_A": "chapters[3].img[10]",
+   "ancla": "En marzo de mil novecientos sesenta y tres, Milagros Barroso dio a luz en Wittenoom a John Patrick.",
+   "persona_A": [
+    "Milagros Barroso",
+    "John Patrick"
+   ],
+   "persona_A2": [
+    "Milagros Barroso",
+    "John Patrick"
+   ],
+   "persona_A3": [
+    "Milagros Barroso",
+    "John Patrick"
+   ]
+  },
+  {
+   "ref_a3": "chapters[3].img[11]",
+   "ref_A": "chapters[3].img[11]",
+   "ancla": "Tres meses después le tocó a María. Llegó al hospital de Wittenoom debilitada por una infección renal.",
+   "persona_A": [
+    "María Bernal"
+   ],
+   "persona_A2": "(sin par en A2)",
+   "persona_A3": [
+    "María Bernal"
+   ]
+  },
+  {
+   "ref_a3": "chapters[3].img[12]",
+   "ref_A": "chapters[3].img[12]",
+   "ancla": "El bebé era muy grande. Lo sacaron con fórceps. Le pusieron Daniel, como el padre. Hay una foto del bautizo: siete de julio de mil novecientos sesenta y tres.",
+   "persona_A": [
+    "María Bernal",
+    "Daniel Écija"
+   ],
+   "persona_A2": "(sin par en A2)",
+   "persona_A3": [
+    "María Bernal",
+    "Daniel Écija"
+   ]
+  },
+  {
+   "ref_a3": "chapters[3].img[13]",
+   "ref_A": "chapters[3].img[13]",
+   "ancla": "Después de esa foto, las maletas. Diez meses en Wittenoom. Se fueron antes de que nadie les dijera nada. Nadie les había dicho nada.",
+   "persona_A": [
+    "María Bernal",
+    "Daniel Écija"
+   ],
+   "persona_A2": "(sin par en A2)",
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[4].img[0]",
+   "ref_A": "chapters[4].img[0]",
+   "ancla": "Diciembre de mil novecientos sesenta y seis. James Vernon anuncia que CSR cierra Wittenoom. No lo cierra el polvo: lo cierra el dinero.",
+   "persona_A": [
+    "James Vernon"
+   ],
+   "persona_A2": [
+    "James Vernon"
+   ],
+   "persona_A3": [
+    "James Vernon"
+   ]
+  },
+  {
+   "ref_a3": "chapters[4].img[1]",
+   "ref_A": "chapters[4].img[1]",
+   "ancla": "El molino se apaga y el polvo se asienta sobre las cintas.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[4].img[2]",
+   "ref_A": "chapters[4].img[2]",
+   "ancla": "Afuera, en los desfiladeros, quedan más de tres millones de toneladas de relaves. Nadie los mueve.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[4].img[3]",
+   "ref_A": "chapters[4].img[3]",
+   "ancla": "De los hombres que habían pasado por la mina, cincuenta y nueve de cada cien se habían ido antes de cumplir seis meses.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[4].img[4]",
+   "ref_A": "chapters[4].img[4]",
+   "ancla": "Ese mismo año, los Écija entran a su casa en Madrid.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": [
+    "Daniel Écija",
+    "María Bernal"
+   ]
+  },
+  {
+   "ref_a3": "chapters[4].img[5]",
+   "ref_A": "chapters[4].img[5]",
+   "ancla": "Los de Juan-Barroso estuvieron unos dos años y medio en el pueblo y volvieron a Madrid en mil novecientos setenta y uno; Mercedes de Juan se quedó en Australia.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": [
+    "Mercedes"
+   ]
+  },
+  {
+   "ref_a3": "chapters[4].img[6]",
+   "ref_A": "chapters[4].img[6]",
+   "ancla": "Cerró la mina. Nadie cerró el polvo. Veinte años después, un policía iba a reconocer el nombre del pueblo en un pasaporte.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[4].img[7]",
+   "ref_A": "chapters[4].img[7]",
+   "ancla": "Mil novecientos ochenta y cinco. Un aeropuerto australiano, un puesto de control. El agente abre el documento de Daniel Écija hijo, lee el lugar de nacimiento, baja la cabeza hacia el papel",
+   "persona_A": [
+    "Daniel Écija hijo"
+   ],
+   "persona_A2": [
+    "Daniel Écija hijo"
+   ],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[4].img[8]",
+   "ref_A": "chapters[4].img[8]",
+   "ancla": "«Así que de Wittenoom, ¿eh? Un sitio terrorífico», dijo el policía.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": [
+    "Daniel Écija hijo"
+   ]
+  },
+  {
+   "ref_a3": "chapters[4].img[9]",
+   "ref_A": "chapters[4].img[9]",
+   "ancla": "Para entonces, desde mil novecientos setenta y ocho, el gobierno del Estado venía reduciendo el pueblo y empujando a la gente a irse, por las fibras en el aire.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[4].img[10]",
+   "ref_A": "chapters[4].img[10]",
+   "ancla": "Entre mil novecientos ochenta y seis y mil novecientos noventa y dos demolieron edificios y cerraron los servicios básicos.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[4].img[11]",
+   "ref_A": "chapters[4].img[11]",
+   "ancla": "En mil novecientos noventa y tres cerró el aeropuerto. Seis años después de aquel control, su padre fue al médico.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[4].img[12]",
+   "ref_A": "chapters[4].img[12]",
+   "ancla": "Madrid, mil novecientos noventa y uno. Daniel Écija va al médico. Le hacen pruebas. La palabra es mesotelioma.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": [
+    "Daniel Écija"
+   ]
+  },
+  {
+   "ref_a3": "chapters[4].img[13]",
+   "ref_A": "chapters[4].img[13]",
+   "ancla": "Nueve meses. Daniel muere a los cincuenta y cinco años, veintiocho años después de la foto del bautizo.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[4].img[14]",
+   "ref_A": "chapters[4].img[14]",
+   "ancla": "Décadas más tarde, María está en una habitación rodeada de fotografías en sepia. Entre ellas, la del pie vendado. «Me pegué a mi marido, como una niña pequeña»",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[4].img[15]",
+   "ref_A": "chapters[4].img[15]",
+   "ancla": "Uno de los hijos dice que ese sitio les cambió la vida para siempre. Daniel no fue el primero. Para entonces, el Estado ya tenía un número.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[5].img[0]",
+   "ref_A": "chapters[5].img[0]",
+   "ancla": "En mil novecientos ochenta y nueve ya habían muerto más de quinientos antiguos trabajadores y residentes de Wittenoom.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[5].img[1]",
+   "ref_A": "chapters[5].img[1]",
+   "ancla": "la compañía había mostrado un desprecio continuo, consciente y contumaz por la seguridad y la salud de sus trabajadores.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[5].img[2]",
+   "ref_A": "chapters[5].img[2]",
+   "ancla": "Mercedes de Juan, que se quedó en Australia, entra en un escáner y después sopla en un tubo. «Nos hacen un escáner y una prueba de función pulmonar», dice Mercedes.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[5].img[3]",
+   "ref_A": "chapters[5].img[3]",
+   "ancla": "Las fibras pueden causar mesotelioma, asbestosis y cáncer de pulmón.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[5].img[4]",
+   "ref_A": "chapters[5].img[4]",
+   "ancla": "La cuenta oficial se detuvo. «El gobierno dejó de contar en 2.000, pero ahora se calcula que la cifra puede ser superior a los 4.000. Y sigue aumentando», dice Melita Markey.",
+   "persona_A": [
+    "Melita Markey"
+   ],
+   "persona_A2": [
+    "Melita Markey"
+   ],
+   "persona_A3": [
+    "Melita Markey"
+   ]
+  },
+  {
+   "ref_a3": "chapters[5].img[5]",
+   "ref_A": "chapters[5].img[5]",
+   "ancla": "Están enfermando hijos de policías y de maestros que trabajaron en el pueblo.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[5].img[6]",
+   "ref_A": "chapters[5].img[6]",
+   "ancla": "Mientras los enfermos se contaban a sí mismos, el Estado decidió qué hacer con el pueblo: borrarlo.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[5].img[7]",
+   "ref_A": "chapters[5].img[7]",
+   "ancla": "Junio de dos mil siete; otras fuentes dicen dos mil seis. Wittenoom es abolido formalmente.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[5].img[8]",
+   "ref_A": "chapters[5].img[8]",
+   "ancla": "Le quitan el nombre a las señales de la carretera y lo sacan de los mapas.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[5].img[9]",
+   "ref_A": "chapters[5].img[9]",
+   "ancla": "El gobierno de Australia Occidental habla de «el fin de un período oscuro en la historia de nuestro Estado».",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[5].img[10]",
+   "ref_A": "chapters[5].img[10]",
+   "ancla": "Quince años antes, en mil novecientos noventa y dos, una investigación parlamentaria había recomendado limpiar los relaves. El gobierno rechazó esas recomendaciones.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[5].img[11]",
+   "ref_A": "chapters[5].img[11]",
+   "ancla": "«La minería en los desfiladeros ha dejado una contaminación que solo puede describirse como vergonzosa, incluso para los estándares de la época», dijo Larry Graham.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[5].img[12]",
+   "ref_A": "chapters[5].img[12]",
+   "ancla": "Le parecía casi increíble que la propiedad de los depósitos de relaves hubiera pasado, por defecto, al gobierno estatal.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[5].img[13]",
+   "ref_A": "chapters[5].img[13]",
+   "ancla": "«Tenemos el deber de impedir una mayor dispersión de los relaves de asbesto», dijo Mark Nevill, por los residentes, por los visitantes, por las generaciones futuras.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[5].img[14]",
+   "ref_A": "chapters[5].img[14]",
+   "ancla": "En dos mil dieciséis, los documentos dicen por qué los relaves siguen donde están: no porque no se pueda, sino por lo que cuesta.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[5].img[15]",
+   "ref_A": "chapters[5].img[15]",
+   "ancla": "En dos mil veintitrés, los estudios del Estado sobre hasta dónde llega la contaminación ya estaban desactualizados. Borraron el nombre del mapa. El polvo no leía mapas.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[6].image_prompt",
+   "ref_A": "chapters[6].image_prompt",
+   "ancla": "No se ha retirado una sola palada de asbesto. ¿Quién va a sacar la primera palada de esa tierra?",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[6].supp[0]",
+   "ref_A": "chapters[6].supp[0]",
+   "ancla": "Los relaves del vertedero de Colonial se van con el agua.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[6].supp[1]",
+   "ref_A": "chapters[6].supp[1]",
+   "ancla": "Un informe técnico lo marcó como la fuente principal y la vía del asbesto:",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[6].supp[2]",
+   "ref_A": "chapters[6].supp[2]",
+   "ancla": "la erosión, los lechos de arroyo, las pozas, las llanuras de inundación hacia el río Fortescue.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[6].supp[3]",
+   "ref_A": "chapters[6].supp[3]",
+   "ancla": "Fibras azules que el agua deja donde se seca.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[6].supp[4]",
+   "ref_A": "chapters[6].supp[4]",
+   "ancla": "En dos mil veintiuno, una nota ambiental registró fibras en canales de arroyos fuera de la zona marcada como contaminada.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[6].supp[5]",
+   "ref_A": "chapters[6].supp[5]",
+   "ancla": "El mismo informe advirtió que, sin intervención, el aporte de asbesto a la cuenca del Fortescue puede seguir durante cientos de años.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[6].supp[6]",
+   "ref_A": "chapters[6].supp[6]",
+   "ancla": "Es tierra Banjima. En dos mil veintitrés, Marcos Orellana visitó Australia y se sentó con Maitland Parker, un anciano Banjima.",
+   "persona_A": [
+    "Maitland Parker",
+    "Marcos Orellana"
+   ],
+   "persona_A2": [
+    "Maitland Parker",
+    "Marcos Orellana"
+   ],
+   "persona_A3": [
+    "Maitland Parker",
+    "Marcos Orellana"
+   ]
+  },
+  {
+   "ref_a3": "chapters[6].supp[7]",
+   "ref_A": "chapters[6].supp[7]",
+   "ancla": "«Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él», dijo Parker.",
+   "persona_A": [
+    "Maitland Parker"
+   ],
+   "persona_A2": [
+    "Maitland Parker"
+   ],
+   "persona_A3": [
+    "Maitland Parker"
+   ]
+  },
+  {
+   "ref_a3": "chapters[6].supp[8]",
+   "ref_A": "chapters[6].supp[8]",
+   "ancla": "Maitland Parker murió de mesotelioma en dos mil veinticuatro.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[6].supp[9]",
+   "ref_A": "chapters[6].supp[9]",
+   "ancla": "Dos años después, Gordon Legal presentó en nombre de BNTAC un proceso contra Australia Occidental en el Tribunal Federal.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[6].supp[10]",
+   "ref_A": "chapters[6].supp[10]",
+   "ancla": "Nadie ha empezado a limpiar. En los accesos al pueblo y desfiladero hay bloqueos.",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  },
+  {
+   "ref_a3": "chapters[6].supp[11]",
+   "ref_A": "chapters[6].supp[11]",
+   "ancla": "El gobierno de Australia Occidental habla de un «grave problema de salud y seguridad pública».",
+   "persona_A": [],
+   "persona_A2": [],
+   "persona_A3": []
+  }
+ ],
+ "sin_par": [],
+ "escenas": [
+  {
+   "escena": "baile",
+   "frag": "Dieciséis de septiembre",
+   "A": [
+    [
+     "chapters[1].img[0]",
+     []
+    ]
+   ],
+   "A2": [
+    [
+     "chapters[1].img[0]",
+     [
+      "María Bernal"
+     ]
+    ]
+   ],
+   "A3": [
+    [
+     "chapters[1].img[0]",
+     [
+      "Daniel Écija",
+      "María Bernal"
+     ]
+    ]
+   ],
+   "tabla_verdad": [
+    [
+     "chapters[1].img[0]",
+     null
+    ]
+   ]
+  },
+  {
+   "escena": "boda",
+   "frag": "se casan",
+   "A": [
+    [
+     "chapters[1].img[1]",
+     [
+      "María Bernal"
+     ]
+    ]
+   ],
+   "A2": [
+    [
+     "chapters[1].img[1]",
+     [
+      "María Bernal"
+     ]
+    ]
+   ],
+   "A3": [
+    [
+     "chapters[1].img[1]",
+     [
+      "Daniel Écija",
+      "María Bernal"
+     ]
+    ]
+   ],
+   "tabla_verdad": [
+    [
+     "chapters[1].img[1]",
+     null
+    ]
+   ]
+  },
+  {
+   "escena": "barco",
+   "frag": "van juntos",
+   "A": [
+    [
+     "chapters[1].img[3]",
+     [
+      "María Bernal"
+     ]
+    ]
+   ],
+   "A2": [
+    [
+     "chapters[1].img[2]",
+     []
+    ]
+   ],
+   "A3": [
+    [
+     "chapters[1].img[3]",
+     [
+      "Daniel Écija",
+      "María Bernal"
+     ]
+    ]
+   ],
+   "tabla_verdad": [
+    [
+     "chapters[1].img[3]",
+     null
+    ]
+   ]
+  },
+  {
+   "escena": "mi marido",
+   "frag": "mi marido",
+   "A": [
+    [
+     "chapters[1].img[4]",
+     [
+      "María Bernal"
+     ]
+    ],
+    [
+     "chapters[4].img[14]",
+     []
+    ]
+   ],
+   "A2": [
+    [
+     "chapters[1].img[3]",
+     [
+      "María Bernal"
+     ]
+    ],
+    [
+     "chapters[4].img[14]",
+     []
+    ]
+   ],
+   "A3": [
+    [
+     "chapters[1].img[4]",
+     [
+      "María Bernal",
+      "Daniel Écija"
+     ]
+    ],
+    [
+     "chapters[4].img[14]",
+     []
+    ]
+   ],
+   "tabla_verdad": [
+    [
+     "chapters[1].img[3]",
+     null
+    ]
+   ]
+  },
+  {
+   "escena": "dos parejas",
+   "frag": "amigos íntimos de otra pareja",
+   "A": [
+    [
+     "chapters[1].img[5]",
+     [
+      "Milagros Barroso",
+      "Ramón de Juan"
+     ]
+    ]
+   ],
+   "A2": [
+    [
+     "chapters[1].img[4]",
+     [
+      "Milagros Barroso",
+      "Ramón de Juan"
+     ]
+    ]
+   ],
+   "A3": [
+    [
+     "chapters[1].img[5]",
+     [
+      "Milagros Barroso",
+      "Ramón de Juan"
+     ]
+    ]
+   ],
+   "tabla_verdad": [
+    [
+     "chapters[1].img[4]",
+     null
+    ]
+   ]
+  },
+  {
+   "escena": "pista",
+   "frag": "los Écija bajaban",
+   "A": [
+    [
+     "chapters[2].img[15]",
+     []
+    ]
+   ],
+   "A2": [
+    [
+     "chapters[2].img[15]",
+     [
+      "María Bernal"
+     ]
+    ]
+   ],
+   "A3": [
+    [
+     "chapters[2].img[15]",
+     [
+      "Daniel Écija",
+      "María Bernal"
+     ]
+    ]
+   ],
+   "tabla_verdad": [
+    [
+     "chapters[2].img[15]",
+     null
+    ]
+   ]
+  },
+  {
+   "escena": "mina (Daniel trabajaba)",
+   "frag": "Daniel trabajaba en la mina",
+   "A": [
+    [
+     "chapters[3].img[8]",
+     [
+      "Ramón de Juan"
+     ]
+    ]
+   ],
+   "A2": [
+    [
+     "chapters[3].img[8]",
+     [
+      "Ramón de Juan"
+     ]
+    ]
+   ],
+   "A3": [
+    [
+     "chapters[3].img[8]",
+     [
+      "Daniel Écija",
+      "Ramón de Juan"
+     ]
+    ]
+   ],
+   "tabla_verdad": [
+    [
+     "chapters[3].img[7]",
+     null
+    ]
+   ]
+  },
+  {
+   "escena": "mina (primer día)",
+   "frag": "primer día de trabajo de su padre",
+   "A": [
+    [
+     "chapters[3].img[9]",
+     []
+    ]
+   ],
+   "A2": [
+    [
+     "chapters[3].img[9]",
+     []
+    ]
+   ],
+   "A3": [
+    [
+     "chapters[3].img[9]",
+     [
+      "Daniel Écija"
+     ]
+    ]
+   ],
+   "tabla_verdad": [
+    [
+     "chapters[3].img[8]",
+     null
+    ]
+   ]
+  },
+  {
+   "escena": "fórceps / bautizo",
+   "frag": "Le pusieron Daniel",
+   "A": [
+    [
+     "chapters[3].img[12]",
+     [
+      "María Bernal",
+      "Daniel Écija"
+     ]
+    ]
+   ],
+   "A2": [
+    [
+     "chapters[3].img[12]",
+     []
+    ]
+   ],
+   "A3": [
+    [
+     "chapters[3].img[12]",
+     [
+      "María Bernal",
+      "Daniel Écija"
+     ]
+    ]
+   ],
+   "tabla_verdad": [
+    [
+     "chapters[3].img[11]",
+     null
+    ]
+   ]
+  },
+  {
+   "escena": "se fueron",
+   "frag": "Se fueron antes de que nadie",
+   "A": [
+    [
+     "chapters[3].img[13]",
+     [
+      "María Bernal",
+      "Daniel Écija"
+     ]
+    ]
+   ],
+   "A2": [
+    [
+     "chapters[3].img[13]",
+     [
+      "María Bernal"
+     ]
+    ]
+   ],
+   "A3": [
+    [
+     "chapters[3].img[13]",
+     []
+    ]
+   ],
+   "tabla_verdad": [
+    [
+     "chapters[3].img[13]",
+     null
+    ]
+   ]
+  },
+  {
+   "escena": "Madrid 1966",
+   "frag": "entran a su casa en Madrid",
+   "A": [
+    [
+     "chapters[4].img[4]",
+     []
+    ]
+   ],
+   "A2": [
+    [
+     "chapters[4].img[4]",
+     []
+    ]
+   ],
+   "A3": [
+    [
+     "chapters[4].img[4]",
+     [
+      "Daniel Écija",
+      "María Bernal"
+     ]
+    ]
+   ],
+   "tabla_verdad": [
+    [
+     "chapters[4].img[4]",
+     null
+    ]
+   ]
+  },
+  {
+   "escena": "1991 médico",
+   "frag": "Daniel Écija va al médico",
+   "A": [
+    [
+     "chapters[4].img[12]",
+     []
+    ]
+   ],
+   "A2": [
+    [
+     "chapters[4].img[12]",
+     []
+    ]
+   ],
+   "A3": [
+    [
+     "chapters[4].img[12]",
+     [
+      "Daniel Écija"
+     ]
+    ]
+   ],
+   "tabla_verdad": [
+    [
+     "chapters[4].img[13]",
+     null
+    ]
+   ]
+  },
+  {
+   "escena": "muere 55",
+   "frag": "Daniel muere a los cincuenta y cinco",
+   "A": [
+    [
+     "chapters[4].img[13]",
+     []
+    ]
+   ],
+   "A2": [
+    [
+     "chapters[4].img[13]",
+     []
+    ]
+   ],
+   "A3": [
+    [
+     "chapters[4].img[13]",
+     []
+    ]
+   ],
+   "tabla_verdad": [
+    [
+     "chapters[4].img[14]",
+     null
+    ]
+   ]
+  },
+  {
+   "escena": "retrato pie",
+   "frag": "todos miran a cámara menos el pie",
+   "A": [
+    [
+     "chapters[0].supp[0]",
+     [
+      "Daniel Écija"
+     ]
+    ]
+   ],
+   "A2": [
+    [
+     "chapters[0].supp[0]",
+     [
+      "Daniel Écija"
+     ]
+    ]
+   ],
+   "A3": [
+    [
+     "chapters[0].supp[0]",
+     [
+      "Daniel Écija",
+      "María Bernal"
+     ]
+    ]
+   ],
+   "tabla_verdad": [
+    [
+     "chapters[0].supp[0]",
+     null
+    ]
+   ]
+  },
+  {
+   "escena": "clip pie",
+   "frag": "pie envuelto en una venda",
+   "A": [
+    [
+     "chapters[0].image_prompt",
+     []
+    ]
+   ],
+   "A2": [
+    [
+     "chapters[0].image_prompt",
+     []
+    ]
+   ],
+   "A3": [
+    [
+     "chapters[0].image_prompt",
+     [
+      "Daniel Écija"
+     ]
+    ]
+   ],
+   "tabla_verdad": [
+    [
+     "chapters[0].image_prompt",
+     null
+    ]
+   ]
+  },
+  {
+   "escena": "se llama Daniel",
+   "frag": "El hombre se llama Daniel",
+   "A": [
+    [
+     "chapters[0].supp[1]",
+     [
+      "Daniel Écija"
+     ]
+    ]
+   ],
+   "A2": [
+    [
+     "chapters[0].supp[1]",
+     [
+      "Daniel Écija"
+     ]
+    ]
+   ],
+   "A3": [
+    [
+     "chapters[0].supp[1]",
+     [
+      "Daniel Écija"
+     ]
+    ]
+   ],
+   "tabla_verdad": [
+    [
+     "chapters[0].supp[1]",
+     null
+    ]
+   ]
+  }
+ ],
+ "daniel": [
+  {
+   "ref": "chapters[0].image_prompt",
+   "persona": [
+    "Daniel Écija"
+   ],
+   "year": "1962",
+   "ancla": "con el pie envuelto en una venda blanca",
+   "venda": true,
+   "prompt": "The bandaged foot of a slim mid-20s Spanish miner with tanned olive skin, a red-dusted work boot set aside beside it. The young miner stands still for a family photograph, weight shifted off the bandaged foot onto the other leg. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Bare compacted ground outside a company house in an operating Pilbara mining town, 1962, red earth scattered with bluish fibrous grit, base of a corrugated iron wall behind. Hard cold overcast daylight, flat and directional. Close shot, low angle at ground level, shallow depth of field, 85mm lens, corrugated wall soft behind. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Un hombre joven posa para una foto con el pie envuelto en una venda blanca. Detrás, tierra roja y paredes de chapa. En el retrato de familia todos miran a cámara menos el pie: está vendado, y la herida que le hizo un trozo de amianto no cierra. El hombre se llama Daniel Écija y es minero. Vino de Madrid. Wittenoom, Australia Occidental, mil novecientos sesenta y dos. Para entender ese pie hay que volver a un baile en Madrid, un año antes de la foto."
+  },
+  {
+   "ref": "chapters[0].supp[0]",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "year": "1962",
+   "ancla": "En el retrato de familia todos miran a cámara menos el pie: está vendado, y la herida que le hizo un trozo de amianto no cierra.",
+   "venda": true,
+   "prompt": "A Spanish migrant family posing for a portrait: a slim mid-20s Spanish miner with dark wavy hair in a dusty cotton work shirt, foot bandaged white, beside a young adult Spanish woman in a cotton print dress and cardigan. The family stands in a stiff row facing the camera while the man's bandaged foot rests forward on the red ground. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Front yard of a corrugated iron and fibro company house in Wittenoom, 1962, yard surfaced with grey-blue tailings over red earth. Hard cold overcast daylight. Wide shot, eye-level, like a period roll-film snapshot, deep depth of field, slightly soft period focus. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Un hombre joven posa para una foto con el pie envuelto en una venda blanca. Detrás, tierra roja y paredes de chapa. En el retrato de familia todos miran a cámara menos el pie: está vendado, y la herida que le hizo un trozo de amianto no cierra. El hombre se llama Daniel Écija y es minero. Vino de Madrid. Wittenoom, Australia Occidental, mil novecientos sesenta y dos. Para entender ese pie hay que volver a un baile en Madrid, un año antes de la foto."
+  },
+  {
+   "ref": "chapters[0].supp[1]",
+   "persona": [
+    "Daniel Écija"
+   ],
+   "year": "1962",
+   "ancla": "El hombre se llama Daniel Écija y es minero.",
+   "venda": true,
+   "prompt": "A slim mid-20s Spanish miner with tanned olive skin and dark hair, dust-coated cotton work shirt and trousers, sweat tracks through red dust on his neck and forearms. He stands after a shift, one foot bandaged white, shoulders slumped, turned toward the dust-shrouded mine. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Edge of the mining town, 1962, red earth road surfaced with blue tailings, corrugated iron walls and the gorge beyond. Hard cold overcast daylight. Medium shot, eye-level from behind, 50mm lens, moderate depth of field, mill haze soft in distance. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Un hombre joven posa para una foto con el pie envuelto en una venda blanca. Detrás, tierra roja y paredes de chapa. En el retrato de familia todos miran a cámara menos el pie: está vendado, y la herida que le hizo un trozo de amianto no cierra. El hombre se llama Daniel Écija y es minero. Vino de Madrid. Wittenoom, Australia Occidental, mil novecientos sesenta y dos. Para entender ese pie hay que volver a un baile en Madrid, un año antes de la foto."
+  },
+  {
+   "ref": "chapters[1].img[0]",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "year": "1961",
+   "ancla": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal.",
+   "venda": false,
+   "prompt": "Young Spanish couple meeting at a dance: a slim mid-20s Spanish man with olive skin and dark combed hair in a dark suit, and a slender young Spanish woman with dark wavy hair in a modest full-skirted dress. The couple first meet at the edge of a crowded dance floor while other couples waltz around them. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Ballroom of the Círculo de Bellas Artes in Madrid, 1961, with marble columns, painted ceiling, gilded mouldings and polished parquet. Warm evening chandelier light with soft amber spill. Wide shot, slightly high angle from a balcony, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1961, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal. Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos. Cuatro días más tarde ya están en el barco. Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles. De Wittenoom no saben nada; saben que hay trabajo y que van juntos. «Iba pegadita a mi marido, como una niña», recuerda su mujer. Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan. Esa familia madrileña había hecho el mismo viaje un mes antes. Un niño que hizo ese viaje todavía recuerda el calor."
+  },
+  {
+   "ref": "chapters[1].img[1]",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "year": "1962",
+   "ancla": "Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos.",
+   "venda": false,
+   "prompt": "Newlywed Spanish couple: a slim mid-20s Spanish man in a dark wedding suit and a young Spanish woman in a simple white veil and dress. The couple walk down the stone steps of a Madrid parish church after the Thursday wedding as a few guests follow. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Stone church portal on a Madrid street, September 1962, with a few period cars parked at the kerb. Soft late-September morning daylight. Wide shot, low angle from the street, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal. Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos. Cuatro días más tarde ya están en el barco. Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles. De Wittenoom no saben nada; saben que hay trabajo y que van juntos. «Iba pegadita a mi marido, como una niña», recuerda su mujer. Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan. Esa familia madrileña había hecho el mismo viaje un mes antes. Un niño que hizo ese viaje todavía recuerda el calor."
+  },
+  {
+   "ref": "chapters[1].img[3]",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "year": "1962",
+   "ancla": "De Wittenoom no saben nada; saben que hay trabajo y que van juntos.",
+   "venda": false,
+   "prompt": "Young Spanish couple on a liner deck: a slim mid-20s Spanish man in a white shirt and a young Spanish woman in a cotton print dress and cardigan. The couple stand side by side at the stern rail as the coast of Spain falls away. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Open stern deck of a 1960s migrant liner, wooden planking, white-painted railings. Bright open-sea daylight. Wide shot, eye-level from behind, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal. Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos. Cuatro días más tarde ya están en el barco. Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles. De Wittenoom no saben nada; saben que hay trabajo y que van juntos. «Iba pegadita a mi marido, como una niña», recuerda su mujer. Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan. Esa familia madrileña había hecho el mismo viaje un mes antes. Un niño que hizo ese viaje todavía recuerda el calor."
+  },
+  {
+   "ref": "chapters[1].img[4]",
+   "persona": [
+    "María Bernal",
+    "Daniel Écija"
+   ],
+   "year": "1962",
+   "ancla": "«Iba pegadita a mi marido, como una niña», recuerda su mujer.",
+   "venda": false,
+   "prompt": "Young Spanish wife, slender with dark wavy hair and a headscarf, pressed close against her slim mid-20s Spanish husband. She holds tight to his arm, her shoulder tucked under his, as they walk along the deck. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Promenade deck of a 1960s migrant liner crowded with deckchairs. Bright open-sea daylight. Medium shot, eye-level, shallow depth of field, 85mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal. Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos. Cuatro días más tarde ya están en el barco. Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles. De Wittenoom no saben nada; saben que hay trabajo y que van juntos. «Iba pegadita a mi marido, como una niña», recuerda su mujer. Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan. Esa familia madrileña había hecho el mismo viaje un mes antes. Un niño que hizo ese viaje todavía recuerda el calor."
+  },
+  {
+   "ref": "chapters[2].img[15]",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "year": "1962",
+   "ancla": "En mil novecientos sesenta y uno la producción subió. Al año siguiente, los Écija bajaban de aquel avión.",
+   "venda": false,
+   "prompt": "A young Spanish couple: a slim mid-20s man with dark wavy hair in modest Sunday best, and a slim young woman in a cotton print dress and cardigan. Descending the steps of a small propeller aircraft onto the airstrip, suitcase in hand. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Wittenoom dirt airstrip surfaced with blue tailings, 1962, red plain and ranges, mill haze on the horizon. Golden hour, long shadows reaching across the tailings. Wide shot, low angle from the airstrip surface, 35mm, deep depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "En mil novecientos sesenta y uno la producción subió. Al año siguiente, los Écija bajaban de aquel avión."
+  },
+  {
+   "ref": "chapters[3].img[8]",
+   "persona": [
+    "Daniel Écija",
+    "Ramón de Juan"
+   ],
+   "year": "1962",
+   "ancla": "Daniel trabajaba en la mina. Ramón de Juan, el amigo, hacía jornadas de dieciséis horas.",
+   "venda": true,
+   "prompt": "A slim mid-20s Spanish miner with one foot bandaged and a worn adult Spanish miner, both dust-caked in cotton work shirts and trousers. Stooping and hauling ore through a low gallery near the end of a sixteen-hour shift. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. A cramped asbestos mine gallery with a low rock ceiling, blue fibre seams in the walls, 1962. Low-key, yellow cap lamps cutting through thick suspended dust. Wide shot, low angle, wide lens, deep depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Daniel trabajaba en la mina. Ramón de Juan, el amigo, hacía jornadas de dieciséis horas. Uno de los hijos de Daniel cuenta que el primer día de trabajo de su padre hubo una explosión y murió gente. En marzo de mil novecientos sesenta y tres, Milagros Barroso dio a luz en Wittenoom a John Patrick. Tres meses después le tocó a María. Llegó al hospital de Wittenoom debilitada por una infección renal. El bebé era muy grande. Lo sacaron con fórceps. Le pusieron Daniel, como el padre. Hay una foto del bautizo: siete de julio de mil novecientos sesenta y tres. Después de esa foto, las maletas. Diez meses en Wittenoom. Se fueron antes de que nadie les dijera nada. Nadie les había dicho nada."
+  },
+  {
+   "ref": "chapters[3].img[9]",
+   "persona": [
+    "Daniel Écija"
+   ],
+   "year": "1962",
+   "ancla": "Uno de los hijos de Daniel cuenta que el primer día de trabajo de su padre hubo una explosión y murió gente.",
+   "venda": false,
+   "prompt": "A slim mid-20s Spanish miner and dust-coated mine workers on the gorge slope. A column of red and blue dust billowing from a mine entrance after a blast as workers stop and stand back. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. The steep red rock wall of the Wittenoom gorge with a timbered mine entrance and spoil heaps, 1962. Harsh flat noon sun dimmed by the rising dust. Extreme wide shot, low angle, telephoto, deep depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Daniel trabajaba en la mina. Ramón de Juan, el amigo, hacía jornadas de dieciséis horas. Uno de los hijos de Daniel cuenta que el primer día de trabajo de su padre hubo una explosión y murió gente. En marzo de mil novecientos sesenta y tres, Milagros Barroso dio a luz en Wittenoom a John Patrick. Tres meses después le tocó a María. Llegó al hospital de Wittenoom debilitada por una infección renal. El bebé era muy grande. Lo sacaron con fórceps. Le pusieron Daniel, como el padre. Hay una foto del bautizo: siete de julio de mil novecientos sesenta y tres. Después de esa foto, las maletas. Diez meses en Wittenoom. Se fueron antes de que nadie les dijera nada. Nadie les había dicho nada."
+  },
+  {
+   "ref": "chapters[3].img[12]",
+   "persona": [
+    "María Bernal",
+    "Daniel Écija"
+   ],
+   "year": "1963",
+   "ancla": "El bebé era muy grande. Lo sacaron con fórceps. Le pusieron Daniel, como el padre. Hay una foto del bautizo: siete de julio de mil novecientos sesenta y tres.",
+   "venda": true,
+   "prompt": "A young Spanish couple in modest Sunday best: a thin pale woman holding a very large infant in a white christening gown, a slim mid-20s man in a borrowed suit with one foot bandaged. Posing for a christening snapshot on the tailings ground outside the small church while a few migrant friends gather behind. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. The steps of the small Wittenoom church, ground surfaced with blue-grey tailings, red hills beyond, 1963. Bright clear winter morning sun with a faint dust haze. Wide shot, eye-level, 35mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Daniel trabajaba en la mina. Ramón de Juan, el amigo, hacía jornadas de dieciséis horas. Uno de los hijos de Daniel cuenta que el primer día de trabajo de su padre hubo una explosión y murió gente. En marzo de mil novecientos sesenta y tres, Milagros Barroso dio a luz en Wittenoom a John Patrick. Tres meses después le tocó a María. Llegó al hospital de Wittenoom debilitada por una infección renal. El bebé era muy grande. Lo sacaron con fórceps. Le pusieron Daniel, como el padre. Hay una foto del bautizo: siete de julio de mil novecientos sesenta y tres. Después de esa foto, las maletas. Diez meses en Wittenoom. Se fueron antes de que nadie les dijera nada. Nadie les había dicho nada."
+  },
+  {
+   "ref": "chapters[4].img[4]",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "year": "1966",
+   "ancla": "Ese mismo año, los Écija entran a su casa en Madrid.",
+   "venda": false,
+   "prompt": "A young Spanish migrant couple, around 30, slim builds, dark hair, in modest Sunday best, with a small child. The family steps through the doorway of a modest Madrid apartment block with their luggage. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Working-class Madrid street of brick apartment blocks, 1966. Flat overcast winter daylight. Wide shot, eye-level from across the street, deep depth of field. A grainy 35mm documentary photograph taken in 1966, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Diciembre de mil novecientos sesenta y seis. James Vernon anuncia que CSR cierra Wittenoom. No lo cierra el polvo: lo cierra el dinero. El molino se apaga y el polvo se asienta sobre las cintas. Afuera, en los desfiladeros, quedan más de tres millones de toneladas de relaves. Nadie los mueve. De los hombres que habían pasado por la mina, cincuenta y nueve de cada cien se habían ido antes de cumplir seis meses. Ese mismo año, los Écija entran a su casa en Madrid. Los de Juan-Barroso estuvieron unos dos años y medio en el pueblo y volvieron a Madrid en mil novecientos setenta y uno; Mercedes de Juan se quedó en Australia. Cerró la mina. Nadie cerró el polvo. Veinte años después, un policía iba a reconocer el nombre del pueblo en un pasaporte."
+  },
+  {
+   "ref": "chapters[4].img[12]",
+   "persona": [
+    "Daniel Écija"
+   ],
+   "year": "1991",
+   "ancla": "Madrid, mil novecientos noventa y uno. Daniel Écija va al médico. Le hacen pruebas. La palabra es mesotelioma.",
+   "venda": false,
+   "prompt": "A gaunt Spanish man in his mid-fifties, thin frame, greying dark hair, in an open early-1990s shirt; a Spanish doctor in a white coat beside a lightbox. The doctor clips a chest X-ray to the lightbox as the man sits waiting on the examination couch. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Madrid clinic consulting room, 1991, tiled walls and metal furniture. Hard cold light from the X-ray lightbox and a high window, high contrast. Medium shot, eye-level from behind the patient, shallow depth of field, 85mm lens. A grainy 35mm documentary photograph taken in 1991, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Madrid, mil novecientos noventa y uno. Daniel Écija va al médico. Le hacen pruebas. La palabra es mesotelioma. Nueve meses. Daniel muere a los cincuenta y cinco años, veintiocho años después de la foto del bautizo. Décadas más tarde, María está en una habitación rodeada de fotografías en sepia. Entre ellas, la del pie vendado. «Me pegué a mi marido, como una niña pequeña», dice la viuda."
+  }
+ ],
+ "maria": [
+  {
+   "ref": "chapters[0].supp[0]",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "year": "1962",
+   "ancla": "En el retrato de familia todos miran a cámara menos el pie: está vendado, y la herida que le hizo un trozo de amianto no cierra.",
+   "venda": true,
+   "prompt": "A Spanish migrant family posing for a portrait: a slim mid-20s Spanish miner with dark wavy hair in a dusty cotton work shirt, foot bandaged white, beside a young adult Spanish woman in a cotton print dress and cardigan. The family stands in a stiff row facing the camera while the man's bandaged foot rests forward on the red ground. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Front yard of a corrugated iron and fibro company house in Wittenoom, 1962, yard surfaced with grey-blue tailings over red earth. Hard cold overcast daylight. Wide shot, eye-level, like a period roll-film snapshot, deep depth of field, slightly soft period focus. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Un hombre joven posa para una foto con el pie envuelto en una venda blanca. Detrás, tierra roja y paredes de chapa. En el retrato de familia todos miran a cámara menos el pie: está vendado, y la herida que le hizo un trozo de amianto no cierra. El hombre se llama Daniel Écija y es minero. Vino de Madrid. Wittenoom, Australia Occidental, mil novecientos sesenta y dos. Para entender ese pie hay que volver a un baile en Madrid, un año antes de la foto."
+  },
+  {
+   "ref": "chapters[1].img[0]",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "year": "1961",
+   "ancla": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal.",
+   "venda": false,
+   "prompt": "Young Spanish couple meeting at a dance: a slim mid-20s Spanish man with olive skin and dark combed hair in a dark suit, and a slender young Spanish woman with dark wavy hair in a modest full-skirted dress. The couple first meet at the edge of a crowded dance floor while other couples waltz around them. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Ballroom of the Círculo de Bellas Artes in Madrid, 1961, with marble columns, painted ceiling, gilded mouldings and polished parquet. Warm evening chandelier light with soft amber spill. Wide shot, slightly high angle from a balcony, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1961, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal. Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos. Cuatro días más tarde ya están en el barco. Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles. De Wittenoom no saben nada; saben que hay trabajo y que van juntos. «Iba pegadita a mi marido, como una niña», recuerda su mujer. Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan. Esa familia madrileña había hecho el mismo viaje un mes antes. Un niño que hizo ese viaje todavía recuerda el calor."
+  },
+  {
+   "ref": "chapters[1].img[1]",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "year": "1962",
+   "ancla": "Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos.",
+   "venda": false,
+   "prompt": "Newlywed Spanish couple: a slim mid-20s Spanish man in a dark wedding suit and a young Spanish woman in a simple white veil and dress. The couple walk down the stone steps of a Madrid parish church after the Thursday wedding as a few guests follow. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Stone church portal on a Madrid street, September 1962, with a few period cars parked at the kerb. Soft late-September morning daylight. Wide shot, low angle from the street, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal. Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos. Cuatro días más tarde ya están en el barco. Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles. De Wittenoom no saben nada; saben que hay trabajo y que van juntos. «Iba pegadita a mi marido, como una niña», recuerda su mujer. Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan. Esa familia madrileña había hecho el mismo viaje un mes antes. Un niño que hizo ese viaje todavía recuerda el calor."
+  },
+  {
+   "ref": "chapters[1].img[3]",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "year": "1962",
+   "ancla": "De Wittenoom no saben nada; saben que hay trabajo y que van juntos.",
+   "venda": false,
+   "prompt": "Young Spanish couple on a liner deck: a slim mid-20s Spanish man in a white shirt and a young Spanish woman in a cotton print dress and cardigan. The couple stand side by side at the stern rail as the coast of Spain falls away. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Open stern deck of a 1960s migrant liner, wooden planking, white-painted railings. Bright open-sea daylight. Wide shot, eye-level from behind, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal. Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos. Cuatro días más tarde ya están en el barco. Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles. De Wittenoom no saben nada; saben que hay trabajo y que van juntos. «Iba pegadita a mi marido, como una niña», recuerda su mujer. Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan. Esa familia madrileña había hecho el mismo viaje un mes antes. Un niño que hizo ese viaje todavía recuerda el calor."
+  },
+  {
+   "ref": "chapters[1].img[4]",
+   "persona": [
+    "María Bernal",
+    "Daniel Écija"
+   ],
+   "year": "1962",
+   "ancla": "«Iba pegadita a mi marido, como una niña», recuerda su mujer.",
+   "venda": false,
+   "prompt": "Young Spanish wife, slender with dark wavy hair and a headscarf, pressed close against her slim mid-20s Spanish husband. She holds tight to his arm, her shoulder tucked under his, as they walk along the deck. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Promenade deck of a 1960s migrant liner crowded with deckchairs. Bright open-sea daylight. Medium shot, eye-level, shallow depth of field, 85mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal. Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos. Cuatro días más tarde ya están en el barco. Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles. De Wittenoom no saben nada; saben que hay trabajo y que van juntos. «Iba pegadita a mi marido, como una niña», recuerda su mujer. Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan. Esa familia madrileña había hecho el mismo viaje un mes antes. Un niño que hizo ese viaje todavía recuerda el calor."
+  },
+  {
+   "ref": "chapters[2].img[15]",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "year": "1962",
+   "ancla": "En mil novecientos sesenta y uno la producción subió. Al año siguiente, los Écija bajaban de aquel avión.",
+   "venda": false,
+   "prompt": "A young Spanish couple: a slim mid-20s man with dark wavy hair in modest Sunday best, and a slim young woman in a cotton print dress and cardigan. Descending the steps of a small propeller aircraft onto the airstrip, suitcase in hand. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Wittenoom dirt airstrip surfaced with blue tailings, 1962, red plain and ranges, mill haze on the horizon. Golden hour, long shadows reaching across the tailings. Wide shot, low angle from the airstrip surface, 35mm, deep depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "En mil novecientos sesenta y uno la producción subió. Al año siguiente, los Écija bajaban de aquel avión."
+  },
+  {
+   "ref": "chapters[3].img[11]",
+   "persona": [
+    "María Bernal"
+   ],
+   "year": "1963",
+   "ancla": "Tres meses después le tocó a María. Llegó al hospital de Wittenoom debilitada por una infección renal.",
+   "venda": false,
+   "prompt": "A heavily pregnant young adult Spanish woman, slim, in a sweat-damp cotton print dress, with a middle-aged Anglo-Australian nurse in a white uniform. Arriving at the ward and sinking onto the edge of an iron bed while the nurse steadies her shoulder. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. The same small Wittenoom hospital ward, iron beds, fibro walls, louvred window, 1963. Dim interior, slanted daylight through louvres striping the bed. Wide shot, eye-level, 35mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Daniel trabajaba en la mina. Ramón de Juan, el amigo, hacía jornadas de dieciséis horas. Uno de los hijos de Daniel cuenta que el primer día de trabajo de su padre hubo una explosión y murió gente. En marzo de mil novecientos sesenta y tres, Milagros Barroso dio a luz en Wittenoom a John Patrick. Tres meses después le tocó a María. Llegó al hospital de Wittenoom debilitada por una infección renal. El bebé era muy grande. Lo sacaron con fórceps. Le pusieron Daniel, como el padre. Hay una foto del bautizo: siete de julio de mil novecientos sesenta y tres. Después de esa foto, las maletas. Diez meses en Wittenoom. Se fueron antes de que nadie les dijera nada. Nadie les había dicho nada."
+  },
+  {
+   "ref": "chapters[3].img[12]",
+   "persona": [
+    "María Bernal",
+    "Daniel Écija"
+   ],
+   "year": "1963",
+   "ancla": "El bebé era muy grande. Lo sacaron con fórceps. Le pusieron Daniel, como el padre. Hay una foto del bautizo: siete de julio de mil novecientos sesenta y tres.",
+   "venda": true,
+   "prompt": "A young Spanish couple in modest Sunday best: a thin pale woman holding a very large infant in a white christening gown, a slim mid-20s man in a borrowed suit with one foot bandaged. Posing for a christening snapshot on the tailings ground outside the small church while a few migrant friends gather behind. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. The steps of the small Wittenoom church, ground surfaced with blue-grey tailings, red hills beyond, 1963. Bright clear winter morning sun with a faint dust haze. Wide shot, eye-level, 35mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Daniel trabajaba en la mina. Ramón de Juan, el amigo, hacía jornadas de dieciséis horas. Uno de los hijos de Daniel cuenta que el primer día de trabajo de su padre hubo una explosión y murió gente. En marzo de mil novecientos sesenta y tres, Milagros Barroso dio a luz en Wittenoom a John Patrick. Tres meses después le tocó a María. Llegó al hospital de Wittenoom debilitada por una infección renal. El bebé era muy grande. Lo sacaron con fórceps. Le pusieron Daniel, como el padre. Hay una foto del bautizo: siete de julio de mil novecientos sesenta y tres. Después de esa foto, las maletas. Diez meses en Wittenoom. Se fueron antes de que nadie les dijera nada. Nadie les había dicho nada."
+  },
+  {
+   "ref": "chapters[4].img[4]",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "year": "1966",
+   "ancla": "Ese mismo año, los Écija entran a su casa en Madrid.",
+   "venda": false,
+   "prompt": "A young Spanish migrant couple, around 30, slim builds, dark hair, in modest Sunday best, with a small child. The family steps through the doorway of a modest Madrid apartment block with their luggage. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Working-class Madrid street of brick apartment blocks, 1966. Flat overcast winter daylight. Wide shot, eye-level from across the street, deep depth of field. A grainy 35mm documentary photograph taken in 1966, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Diciembre de mil novecientos sesenta y seis. James Vernon anuncia que CSR cierra Wittenoom. No lo cierra el polvo: lo cierra el dinero. El molino se apaga y el polvo se asienta sobre las cintas. Afuera, en los desfiladeros, quedan más de tres millones de toneladas de relaves. Nadie los mueve. De los hombres que habían pasado por la mina, cincuenta y nueve de cada cien se habían ido antes de cumplir seis meses. Ese mismo año, los Écija entran a su casa en Madrid. Los de Juan-Barroso estuvieron unos dos años y medio en el pueblo y volvieron a Madrid en mil novecientos setenta y uno; Mercedes de Juan se quedó en Australia. Cerró la mina. Nadie cerró el polvo. Veinte años después, un policía iba a reconocer el nombre del pueblo en un pasaporte."
+  }
+ ],
+ "hijo": [
+  {
+   "ref": "chapters[4].img[8]",
+   "persona": [
+    "Daniel Écija hijo"
+   ],
+   "year": "1985",
+   "ancla": "«Así que de Wittenoom, ¿eh? Un sitio terrorífico», dijo el policía.",
+   "venda": false,
+   "prompt": "A middle-aged Anglo-Australian police officer in a 1980s uniform and peaked cap behind the counter; an early-20s Spanish man, slim, dark hair, in 1980s civilian clothes, seen over his shoulder. The officer lifts his head from the passport and looks back up at the young man as he speaks. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Australian airport passport checkpoint booth, 1985. Hard overhead fluorescent light, high contrast. Medium shot, over-the-shoulder eye-level, shallow depth of field, 85mm lens. A grainy 35mm documentary photograph taken in 1985, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Mil novecientos ochenta y cinco. Un aeropuerto australiano, un puesto de control. El agente abre el documento de Daniel Écija hijo, lee el lugar de nacimiento, baja la cabeza hacia el papel, vuelve a mirarlo. «Así que de Wittenoom, ¿eh? Un sitio terrorífico», dijo el policía. Para entonces, desde mil novecientos setenta y ocho, el gobierno del Estado venía reduciendo el pueblo y empujando a la gente a irse, por las fibras en el aire. Entre mil novecientos ochenta y seis y mil novecientos noventa y dos demolieron edificios y cerraron los servicios básicos. En mil novecientos noventa y tres cerró el aeropuerto. Seis años después de aquel control, su padre fue al médico."
+  }
+ ],
+ "victor": [
+  {
+   "ref": "chapters[1].img[7]",
+   "persona": [
+    "Víctor Calvo"
+   ],
+   "year": "1962",
+   "ancla": "Un niño que hizo ese viaje todavía recuerda el calor. Víctor Calvo era un niño cuando subió a ese barco.",
+   "venda": false,
+   "prompt": "Young Spanish boy, slim with dark hair, in shorts, simple shirt and sandals, beside his mother in a cotton print dress. The boy climbs the steep gangway up the side of the liner among other boarding emigrants. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Málaga port quay, 1962, steel liner hull rising above the gangway. Bright Mediterranean daylight, hard shadows on the hull. Wide shot, low angle from the quay, deep depth of field, 28mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal. Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos. Cuatro días más tarde ya están en el barco. Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles. De Wittenoom no saben nada; saben que hay trabajo y que van juntos. «Iba pegadita a mi marido, como una niña», recuerda su mujer. Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan. Esa familia madrileña había hecho el mismo viaje un mes antes. Un niño que hizo ese viaje todavía recuerda el calor."
+  },
+  {
+   "ref": "chapters[1].img[9]",
+   "persona": [
+    "Víctor Calvo"
+   ],
+   "year": "1962",
+   "ancla": "Recuerda el canal de Suez y el calor que hacía ahí, un calor que todavía lo hace resoplar cuando lo cuenta.",
+   "venda": false,
+   "prompt": "Spanish emigrant passengers on deck in the Suez Canal, among them a young Spanish boy in a sweat-damp shirt and shorts. The liner glides slowly through the canal as passengers crowd under canvas awnings, fanning themselves. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Suez Canal, 1962, flat sand banks and desert stretching to a white-hot horizon. Harsh overhead desert sun, heat haze shimmering over the sand. Wide shot, eye-level along the deck, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Víctor Calvo era un niño cuando subió a ese barco. «Salimos de Málaga y tardamos más de 20 días en llegar en barco a Australia», dice Calvo. Recuerda el canal de Suez y el calor que hacía ahí, un calor que todavía lo hace resoplar cuando lo cuenta. Recuerda los mareos. Y la incertidumbre: no saber muy bien adónde iban ni cómo iban a vivir."
+  },
+  {
+   "ref": "chapters[1].img[10]",
+   "persona": [
+    "Víctor Calvo",
+    "Milagros Barroso"
+   ],
+   "year": "1962",
+   "ancla": "Recuerda los mareos. Y la incertidumbre: no saber muy bien adónde iban ni cómo iban a vivir.",
+   "venda": false,
+   "prompt": "Young Spanish boy, slim with dark hair, pale and sweat-damp, beside his mother in a cotton print dress. The boy lies curled on a narrow berth in a cramped cabin as the ship rolls, his mother sitting on the edge. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Cramped lower-deck cabin of a 1960s migrant liner, steel bunks, small round porthole. Dim cabin light with a single shaft through the porthole. Medium shot, slightly high angle, shallow depth of field, 50mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Víctor Calvo era un niño cuando subió a ese barco. «Salimos de Málaga y tardamos más de 20 días en llegar en barco a Australia», dice Calvo. Recuerda el canal de Suez y el calor que hacía ahí, un calor que todavía lo hace resoplar cuando lo cuenta. Recuerda los mareos. Y la incertidumbre: no saber muy bien adónde iban ni cómo iban a vivir."
+  },
+  {
+   "ref": "chapters[1].img[13]",
+   "persona": [
+    "Víctor Calvo"
+   ],
+   "year": "1962",
+   "ancla": "Hay polvo por todas partes. Ese niño cuenta que nunca había visto tanto polvo.",
+   "venda": false,
+   "prompt": "Young Spanish boy, slim with dark hair, in shorts and sandals, beside his family's suitcases. The boy stands at the edge of the airstrip as a gust drives fine red and blue-grey dust across the ground. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Edge of the Wittenoom airstrip, 1962, tailings-surfaced ground, red ranges behind. Harsh midday Pilbara sun through dust haze. Wide shot, eye-level, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Después del barco, un avión pequeño, de hélices, que se sacude durante todo el vuelo. Aterriza en una pista en medio de una tierra muy roja, en el desierto de Pilbara, en Australia Occidental. Hay polvo por todas partes. Ese niño cuenta que nunca había visto tanto polvo. Los llevan a las casas: chapa, madera y uralita. La familia de Juan-Barroso había llegado en agosto de mil novecientos sesenta y dos. De esa tierra sacan crocidolita, el asbesto azul, un mineral que se paga bien porque aguanta el calor y no se gasta. Nadie les dijo qué era el polvo. La compañía lo sabía desde hacía dieciocho años."
+  },
+  {
+   "ref": "chapters[3].img[1]",
+   "persona": [
+    "Víctor Calvo"
+   ],
+   "year": "1963",
+   "ancla": "Víctor Calvo lo cuenta: «Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo».",
+   "venda": false,
+   "prompt": "A young Spanish boy, about eight, slim, olive skin, dark tousled hair, cotton shirt and shorts, hands and mouth dusted with pale blue powder. Teasing apart a strand of blue fibre, a puff of fine powder rising over his shirt and knees. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. The tailings-surfaced edge of a dirt street beside company houses, 1963. Low late-afternoon sun raking through suspended red and blue dust. Medium shot, eye-level, 50mm lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Los chicos del pueblo juegan con el mineral. Víctor Calvo lo cuenta: «Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo». Estaban rodeados de amianto azul y no les daba miedo. Tampoco había dónde no estar rodeados. Los relaves del molino se usaron para construir el pueblo y la pista de aterrizaje. Se extendieron como suelo en las carreteras, en los patios, en los espacios públicos: el acceso a la escuela, el jardín de infantes, la iglesia. El pueblo entero estaba hecho de eso. Y en ese pueblo, en junio de mil novecientos sesenta y tres, nació un niño."
+  },
+  {
+   "ref": "chapters[3].img[2]",
+   "persona": [
+    "Víctor Calvo",
+    "Mercedes"
+   ],
+   "year": "1963",
+   "ancla": "Estaban rodeados de amianto azul y no les daba miedo.",
+   "venda": false,
+   "prompt": "Migrant children on a dumped heap of blue tailings: a Spanish girl about seven in a cotton print dress and a Spanish boy about nine in shorts facing front, others seen from behind. Sliding down and digging into the heap, flinging handfuls that burst into dust clouds. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. An open lot between corrugated iron houses where a company truck has just unloaded tailings, red hills behind, 1963. Low late-afternoon sun raking through suspended red and blue dust. Wide shot, low angle, 28mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parrafo": "Los chicos del pueblo juegan con el mineral. Víctor Calvo lo cuenta: «Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo». Estaban rodeados de amianto azul y no les daba miedo. Tampoco había dónde no estar rodeados. Los relaves del molino se usaron para construir el pueblo y la pista de aterrizaje. Se extendieron como suelo en las carreteras, en los patios, en los espacios públicos: el acceso a la escuela, el jardín de infantes, la iglesia. El pueblo entero estaba hecho de eso. Y en ese pueblo, en junio de mil novecientos sesenta y tres, nació un niño."
+  }
+ ],
+ "control_para": [],
+ "control_revisar": [
+  {
+   "ref": "chapters[6].supp[9]",
+   "nombre_canon": "Court",
+   "token": "Court",
+   "prompt": "Banjima representatives, Aboriginal Australian men and women of mixed ages in smart casual clothing, with white Australian lawyers in dark business suits, seen from behind. The group walks up the wide steps into the Federal Court building to lodge the case. Aboriginal Australian features, with dark brown skin, dark wavy to curly hair, brown eyes, and broad facial features. Exterior of the Federal Court of Australia building in Perth, 2026. Flat overcast daylight. Wide shot, low angle from the foot of the steps, deep depth of field, 28mm lens. A grainy 35mm documentary photograph taken in 2026, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+  }
+ ],
+ "cap1": {
+  "image_prompt": "The bandaged foot of a slim mid-20s Spanish miner with tanned olive skin, a red-dusted work boot set aside beside it. The young miner stands still for a family photograph, weight shifted off the bandaged foot onto the other leg. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Bare compacted ground outside a company house in an operating Pilbara mining town, 1962, red earth scattered with bluish fibrous grit, base of a corrugated iron wall behind. Hard cold overcast daylight, flat and directional. Close shot, low angle at ground level, shallow depth of field, 85mm lens, corrugated wall soft behind. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+  "video_prompt": "A slow, somber documentary close shot on grainy 35mm film, muted colors and slight underexposure in a dark-history realist style. The camera makes a slow push-in at ground level over eight seconds, starting on the bandaged foot and the red-dusted boot beside it and ending a little tighter on the white bandage. First, fine red dust and bluish fibrous grit drift lightly across the compacted earth, then the frayed edge of the bandage stirs faintly in the breeze. Hard, cold overcast daylight stays flat and directional, with the corrugated iron wall soft and blurred behind. The miner stays planted in place, weight on the other leg, body steady.",
+  "persona_image_f8": [
+   "Daniel Écija"
+  ],
+  "venda_en_image_prompt": true,
+  "venda_en_video_prompt": true
+ },
+ "personas_todas": [
+  {
+   "ref": "chapters[0].image_prompt",
+   "persona": [
+    "Daniel Écija"
+   ],
+   "year": "1962",
+   "ancla": "con el pie envuelto en una venda blanca"
+  },
+  {
+   "ref": "chapters[0].supp[0]",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "year": "1962",
+   "ancla": "En el retrato de familia todos miran a cámara menos el pie: está vendado, y la herida que le hizo un trozo de amianto no cierra."
+  },
+  {
+   "ref": "chapters[0].supp[1]",
+   "persona": [
+    "Daniel Écija"
+   ],
+   "year": "1962",
+   "ancla": "El hombre se llama Daniel Écija y es minero."
+  },
+  {
+   "ref": "chapters[1].img[0]",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "year": "1961",
+   "ancla": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal."
+  },
+  {
+   "ref": "chapters[1].img[1]",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "year": "1962",
+   "ancla": "Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos."
+  },
+  {
+   "ref": "chapters[1].img[3]",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "year": "1962",
+   "ancla": "De Wittenoom no saben nada; saben que hay trabajo y que van juntos."
+  },
+  {
+   "ref": "chapters[1].img[4]",
+   "persona": [
+    "María Bernal",
+    "Daniel Écija"
+   ],
+   "year": "1962",
+   "ancla": "«Iba pegadita a mi marido, como una niña», recuerda su mujer."
+  },
+  {
+   "ref": "chapters[1].img[5]",
+   "persona": [
+    "Milagros Barroso",
+    "Ramón de Juan"
+   ],
+   "year": "1962",
+   "ancla": "Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan."
+  },
+  {
+   "ref": "chapters[1].img[6]",
+   "persona": [
+    "Milagros Barroso",
+    "Ramón de Juan"
+   ],
+   "year": "1962",
+   "ancla": "Esa familia madrileña había hecho el mismo viaje un mes antes."
+  },
+  {
+   "ref": "chapters[1].img[7]",
+   "persona": [
+    "Víctor Calvo"
+   ],
+   "year": "1962",
+   "ancla": "Un niño que hizo ese viaje todavía recuerda el calor. Víctor Calvo era un niño cuando subió a ese barco."
+  },
+  {
+   "ref": "chapters[1].img[9]",
+   "persona": [
+    "Víctor Calvo"
+   ],
+   "year": "1962",
+   "ancla": "Recuerda el canal de Suez y el calor que hacía ahí, un calor que todavía lo hace resoplar cuando lo cuenta."
+  },
+  {
+   "ref": "chapters[1].img[10]",
+   "persona": [
+    "Víctor Calvo",
+    "Milagros Barroso"
+   ],
+   "year": "1962",
+   "ancla": "Recuerda los mareos. Y la incertidumbre: no saber muy bien adónde iban ni cómo iban a vivir."
+  },
+  {
+   "ref": "chapters[1].img[13]",
+   "persona": [
+    "Víctor Calvo"
+   ],
+   "year": "1962",
+   "ancla": "Hay polvo por todas partes. Ese niño cuenta que nunca había visto tanto polvo."
+  },
+  {
+   "ref": "chapters[1].img[14]",
+   "persona": [
+    "Ramón de Juan",
+    "Milagros Barroso"
+   ],
+   "year": "1962",
+   "ancla": "Los llevan a las casas: chapa, madera y uralita. La familia de Juan-Barroso había llegado en agosto de mil novecientos sesenta y dos."
+  },
+  {
+   "ref": "chapters[2].img[2]",
+   "persona": [
+    "Hancock",
+    "Wright"
+   ],
+   "year": "1943",
+   "ancla": "La mina era entonces de ABA, una filial de CSR que en mil novecientos cuarenta y tres había tomado los intereses de Hancock y Wright."
+  },
+  {
+   "ref": "chapters[2].img[3]",
+   "persona": [
+    "Eric Saint"
+   ],
+   "year": "1948",
+   "ancla": "Mil novecientos cuarenta y ocho. Un médico llega en avión y escribe una carta a máquina: los niveles de polvo son extremadamente peligrosos."
+  },
+  {
+   "ref": "chapters[2].img[5]",
+   "persona": [
+    "Eric Saint"
+   ],
+   "year": "1948",
+   "ancla": "Se llama Eric Saint. Lo que pasó con la carta lo contó él mismo: «Me desestimaron y, de hecho, me tildaron de alborotador», dijo Saint."
+  },
+  {
+   "ref": "chapters[2].img[15]",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "year": "1962",
+   "ancla": "En mil novecientos sesenta y uno la producción subió. Al año siguiente, los Écija bajaban de aquel avión."
+  },
+  {
+   "ref": "chapters[3].img[1]",
+   "persona": [
+    "Víctor Calvo"
+   ],
+   "year": "1963",
+   "ancla": "Víctor Calvo lo cuenta: «Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo»."
+  },
+  {
+   "ref": "chapters[3].img[2]",
+   "persona": [
+    "Víctor Calvo",
+    "Mercedes"
+   ],
+   "year": "1963",
+   "ancla": "Estaban rodeados de amianto azul y no les daba miedo."
+  },
+  {
+   "ref": "chapters[3].img[8]",
+   "persona": [
+    "Daniel Écija",
+    "Ramón de Juan"
+   ],
+   "year": "1962",
+   "ancla": "Daniel trabajaba en la mina. Ramón de Juan, el amigo, hacía jornadas de dieciséis horas."
+  },
+  {
+   "ref": "chapters[3].img[9]",
+   "persona": [
+    "Daniel Écija"
+   ],
+   "year": "1962",
+   "ancla": "Uno de los hijos de Daniel cuenta que el primer día de trabajo de su padre hubo una explosión y murió gente."
+  },
+  {
+   "ref": "chapters[3].img[10]",
+   "persona": [
+    "Milagros Barroso",
+    "John Patrick"
+   ],
+   "year": "1963",
+   "ancla": "En marzo de mil novecientos sesenta y tres, Milagros Barroso dio a luz en Wittenoom a John Patrick."
+  },
+  {
+   "ref": "chapters[3].img[11]",
+   "persona": [
+    "María Bernal"
+   ],
+   "year": "1963",
+   "ancla": "Tres meses después le tocó a María. Llegó al hospital de Wittenoom debilitada por una infección renal."
+  },
+  {
+   "ref": "chapters[3].img[12]",
+   "persona": [
+    "María Bernal",
+    "Daniel Écija"
+   ],
+   "year": "1963",
+   "ancla": "El bebé era muy grande. Lo sacaron con fórceps. Le pusieron Daniel, como el padre. Hay una foto del bautizo: siete de julio de mil novecientos sesenta y tres."
+  },
+  {
+   "ref": "chapters[4].img[0]",
+   "persona": [
+    "James Vernon"
+   ],
+   "year": "1966",
+   "ancla": "Diciembre de mil novecientos sesenta y seis. James Vernon anuncia que CSR cierra Wittenoom. No lo cierra el polvo: lo cierra el dinero."
+  },
+  {
+   "ref": "chapters[4].img[4]",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "year": "1966",
+   "ancla": "Ese mismo año, los Écija entran a su casa en Madrid."
+  },
+  {
+   "ref": "chapters[4].img[5]",
+   "persona": [
+    "Mercedes"
+   ],
+   "year": "1971",
+   "ancla": "Los de Juan-Barroso estuvieron unos dos años y medio en el pueblo y volvieron a Madrid en mil novecientos setenta y uno; Mercedes de Juan se quedó en Australia."
+  },
+  {
+   "ref": "chapters[4].img[8]",
+   "persona": [
+    "Daniel Écija hijo"
+   ],
+   "year": "1985",
+   "ancla": "«Así que de Wittenoom, ¿eh? Un sitio terrorífico», dijo el policía."
+  },
+  {
+   "ref": "chapters[4].img[12]",
+   "persona": [
+    "Daniel Écija"
+   ],
+   "year": "1991",
+   "ancla": "Madrid, mil novecientos noventa y uno. Daniel Écija va al médico. Le hacen pruebas. La palabra es mesotelioma."
+  },
+  {
+   "ref": "chapters[5].img[4]",
+   "persona": [
+    "Melita Markey"
+   ],
+   "year": "2023",
+   "ancla": "La cuenta oficial se detuvo. «El gobierno dejó de contar en 2.000, pero ahora se calcula que la cifra puede ser superior a los 4.000. Y sigue aumentando», dice Melita Markey."
+  },
+  {
+   "ref": "chapters[6].supp[6]",
+   "persona": [
+    "Maitland Parker",
+    "Marcos Orellana"
+   ],
+   "year": "2023",
+   "ancla": "Es tierra Banjima. En dos mil veintitrés, Marcos Orellana visitó Australia y se sentó con Maitland Parker, un anciano Banjima."
+  },
+  {
+   "ref": "chapters[6].supp[7]",
+   "persona": [
+    "Maitland Parker"
+   ],
+   "year": "2023",
+   "ancla": "«Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él», dijo Parker."
+  }
+ ],
+ "nombres_canon": [
+  "Eric Saint",
+  "Hancock",
+  "Wright",
+  "Chifley",
+  "McNulty",
+  "Víctor Calvo",
+  "Ramón de Juan",
+  "Milagros Barroso",
+  "Mercedes",
+  "John Patrick",
+  "Daniel Écija",
+  "María Bernal",
+  "Daniel Écija hijo",
+  "Davidson",
+  "Major",
+  "James Vernon",
+  "Peter Gordon",
+  "Court",
+  "Ben Wyatt",
+  "Marcos Orellana",
+  "Maitland Parker",
+  "Melita Markey"
+ ],
+ "log": [
+  "canon A3 inyectado al topic (['era_visual_canon', 'documented_people', 'anachronism_blocklist', 'documented_props', 'central_subject', 'people_groups']); Daniel: appearance «a mid-20s Spanish man» · condition [{'years': '1962-1963', 'condition': 'His foot is bandaged over a non-healing wound caused by a falling chunk of asbestos.'}, {'years': '1991-1992', 'condition': 'He is terminally ill with mesothelioma and gaunt in the final months of life.'}]",
+  "TEXTO_PERSONA: - persona: a LIST with the exact name, as written in PERSONAS DOCUMENTADAS, of each documented person who is recognisably shown in THIS image (even from behind), at the age the canon describes — the main one first, at most TWO; [] if none, if only a body part is shown, or if they appear inside a photograph or picture within the scene. Routing only — not rendered as text.",
+  "bloque PERSONAS (según _format_seedream_canon_block):\nPERSONAS DOCUMENTADAS (el nombre es solo para el casillero persona; en la prosa usar appearance_canon, NUNCA el nombre):\n    condition 1962-1964: His hands and mouth are dusted with fine asbestos powder from playing with frayed fibre.\n    condition 1962-1964: He is worn down by frequent 16-hour shifts and covered in mine dust.\n    condition 1963-1963: She is in the late stage of pregnancy and then recovering after giving birth in Wittenoom.\n  • Daniel Écija | role: Spanish miner in Wittenoom (father) | age 25 | era: 1962-1963\n    condition 1962-1963: His foot is bandaged over a non-healing wound caused by a falling chunk of asbestos.\n    condition 1991-1992: He is terminally ill with mesothelioma and gaunt in the final months of life.\n  • María Bernal | role: Wife of the miner Daniel Écija and resident of Wittenoom | age unknown | era: 1962-1963\n    condition 1963-1963: She is physically weakened by a kidney infection and a complicated forceps delivery of a very large baby.\n  • Daniel Écija hijo | role: Son of a Spanish miner, born in Wittenoom, later a television producer | age 22 | era: 1985\n    condition 2023-2024: He is visibly ill and frail with mesothelioma, which caused his death in 2024.",
+  "m03 7 caps: 125.6 s · US$ 2.2811 (cost_tracker) · caps con _plan_anchors real (n distinto): []",
+  "prompts de casilleros capturados: 10 · el bloque PERSONAS del prompt trae «condition»: True · Daniel con appearance nuevo: True",
+  "pares por ancla con la referencia: 96/96 · sin par: 0 (anclas movidas por _reconcile_anchor_timing o conteo distinto)",
+  "[b] baile: A [('chapters[1].img[0]', [])] · A2 [('chapters[1].img[0]', ['María Bernal'])] · A3 [('chapters[1].img[0]', ['Daniel Écija', 'María Bernal'])]",
+  "[b] boda: A [('chapters[1].img[1]', ['María Bernal'])] · A2 [('chapters[1].img[1]', ['María Bernal'])] · A3 [('chapters[1].img[1]', ['Daniel Écija', 'María Bernal'])]",
+  "[b] barco: A [('chapters[1].img[3]', ['María Bernal'])] · A2 [('chapters[1].img[2]', [])] · A3 [('chapters[1].img[3]', ['Daniel Écija', 'María Bernal'])]",
+  "[b] mi marido: A [('chapters[1].img[4]', ['María Bernal']), ('chapters[4].img[14]', [])] · A2 [('chapters[1].img[3]', ['María Bernal']), ('chapters[4].img[14]', [])] · A3 [('chapters[1].img[4]', ['María Bernal', 'Daniel Écija']), ('chapters[4].img[14]', [])]",
+  "[b] dos parejas: A [('chapters[1].img[5]', ['Milagros Barroso', 'Ramón de Juan'])] · A2 [('chapters[1].img[4]', ['Milagros Barroso', 'Ramón de Juan'])] · A3 [('chapters[1].img[5]', ['Milagros Barroso', 'Ramón de Juan'])]",
+  "[b] pista: A [('chapters[2].img[15]', [])] · A2 [('chapters[2].img[15]', ['María Bernal'])] · A3 [('chapters[2].img[15]', ['Daniel Écija', 'María Bernal'])]",
+  "[b] mina (Daniel trabajaba): A [('chapters[3].img[8]', ['Ramón de Juan'])] · A2 [('chapters[3].img[8]', ['Ramón de Juan'])] · A3 [('chapters[3].img[8]', ['Daniel Écija', 'Ramón de Juan'])]",
+  "[b] mina (primer día): A [('chapters[3].img[9]', [])] · A2 [('chapters[3].img[9]', [])] · A3 [('chapters[3].img[9]', ['Daniel Écija'])]",
+  "[b] fórceps / bautizo: A [('chapters[3].img[12]', ['María Bernal', 'Daniel Écija'])] · A2 [('chapters[3].img[12]', [])] · A3 [('chapters[3].img[12]', ['María Bernal', 'Daniel Écija'])]",
+  "[b] se fueron: A [('chapters[3].img[13]', ['María Bernal', 'Daniel Écija'])] · A2 [('chapters[3].img[13]', ['María Bernal'])] · A3 [('chapters[3].img[13]', [])]",
+  "[b] Madrid 1966: A [('chapters[4].img[4]', [])] · A2 [('chapters[4].img[4]', [])] · A3 [('chapters[4].img[4]', ['Daniel Écija', 'María Bernal'])]",
+  "[b] 1991 médico: A [('chapters[4].img[12]', [])] · A2 [('chapters[4].img[12]', [])] · A3 [('chapters[4].img[12]', ['Daniel Écija'])]",
+  "[b] muere 55: A [('chapters[4].img[13]', [])] · A2 [('chapters[4].img[13]', [])] · A3 [('chapters[4].img[13]', [])]",
+  "[b] retrato pie: A [('chapters[0].supp[0]', ['Daniel Écija'])] · A2 [('chapters[0].supp[0]', ['Daniel Écija'])] · A3 [('chapters[0].supp[0]', ['Daniel Écija', 'María Bernal'])]",
+  "[b] clip pie: A [('chapters[0].image_prompt', [])] · A2 [('chapters[0].image_prompt', [])] · A3 [('chapters[0].image_prompt', ['Daniel Écija'])]",
+  "[b] se llama Daniel: A [('chapters[0].supp[1]', ['Daniel Écija'])] · A2 [('chapters[0].supp[1]', ['Daniel Écija'])] · A3 [('chapters[0].supp[1]', ['Daniel Écija'])]",
+  "[c/d] fotos con Daniel en A3: 13 · con venda/cojera: 5 · años ['1962', '1962', '1962', '1961', '1962', '1962', '1962', '1962', '1962', '1962', '1963', '1966', '1991']",
+  "[e] María: 9 · Daniel hijo: 1 · Víctor Calvo: 6 (años ['1962', '1962', '1962', '1962', '1963', '1963'])",
+  "[f] control de nombres: PARÁ 0 · revisar 1",
+  "    revisar chapters[6].supp[9]: «Court» (Court)",
+  "[g] cap 1: venda en image_prompt True · en video_prompt True · persona ['Daniel Écija']"
+ ]
+}

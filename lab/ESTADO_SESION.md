@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-30 (F60 Etapa A2: `TEXTO_PERSONA` sin «or if unsure»; m03 caps 2-4 sobre la copia: Daniel pasa de 2 a 0 fotos en esos caps, María entra en baile y pista; diagnóstico: «same age and condition» + canon «one foot visibly bandaged» excluye a Daniel en toda escena sin venda (10/10 fotos con Daniel en 3 corridas tienen venda o cojera); control de nombres 0 PARÁ, 1 revisar («Court»); US$ 1,08 · PARADA A2. Siguiente: analista/Omar deciden la cláusula de condición o el canon; después Etapa B.)
+Última actualización: 2026-10-30 (F60 Etapa A3: el canon de cada persona separa aspecto fijo (`appearance_canon`) de estado (`condition_by_period`), m03 lo muestra como dato y el casillero `persona` pide solo la edad; probado en la copia f60/base con canon nuevo de Opus y anclas fijas: Daniel entra en 13 fotos (A: 4, A2: 2), venda solo en Wittenoom 1962-1963, sin falsos positivos; a mirar: Daniel a los 55 (1991) y en el detalle del pie del clip; US$ 2,62 · PARADA A3. Siguiente: OK del analista y de Omar para la Etapa B.)
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,20 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F60, PARADA A3): con el canon separado en aspecto fijo + estado, Daniel ya sale en sus fotos.
+- El canon de cada persona ahora dice solo cómo es (edad, origen, contextura) y aparte qué le pasa y cuándo (la venda 1962-1963, la enfermedad 1991-1992). El casillero pide la persona «a la edad del canon», sin «condición».
+- Probado en Wittenoom (copia, cero fotos, US$ 2,62): Daniel entra en 13 fotos (antes 4 y 2): baile, boda, barco, «mi marido», pista, mina, bautizo, Madrid 1966, cap 1. La venda aparece solo en las fotos de Wittenoom 1962-1963 (5 de 13). Ninguna foto de la familia Calvo ni de Milagros/Ramón trae a Daniel; padre e hijo no se confunden.
+- A mirar antes de la Etapa B: Daniel aparece también a los 55 años (1991, por el tramo 1991-1992 del canon) y en el detalle del pie del clip (regla «solo una parte del cuerpo»); «se fueron» (familia de espaldas) perdió a los dos en esta corrida.
+- Control de nombres: 0 PARÁ, 1 revisar («Court»). Suites limpias. Efecto declarado: el pedido del canon cambió, así que cada tema rehace su canon (≈ US$ 0,35–1) en su próxima corrida. Reporte: `lab/hyperframes/f60/F60_REPORT.md` §Etapa A3; `SALIDA_A3.md`.
+
+## F60 Etapa A3 — canon de persona fijo + condition_by_period — PARADA A3
+- step_4e_visual_canon: BLOQUE 2 (appearance_canon = aspecto fijo; + condition_by_period), ejemplos y JSON de ejemplo, docstring; `_clean_person` devuelve `condition_by_period` (dicts con years/condition no vacíos, nombre quitado por tokens, sin strip C5). m03_visual: línea `    condition {years}: {condition}` por entrada en PERSONAS DOCUMENTADAS; `TEXTO_PERSONA` «at the age the canon describes». Tests `test_module_f60_a3.py` (6). Stickers ×2, MAPA 0. Suites: ch02 f792f3d4 (fase2b no importa m03), rápida 53, amplia 1301 + 4 previas. DECISIONES ×2 (20:00) CRLF.
+- A3.2: canon nuevo con Opus sobre la copia (`etapa_a3_canon.py`, sin asegurar_canon; 129,8 s, US$ 0,34; `a3/05_visual_canon_a3.json`): 22 personas, ningún appearance con oficio/ropa/herida/ánimo/acción; Daniel «a mid-20s Spanish man» + condition 1962-1963 (venda) y 1991-1992 (terminal). Opus rehizo también grupos (8 nuevos / 8 idos / 4 cambian) y era (tramos 1967-1992 / 1993-2026). m03 7 caps (`etapa_a3_m03.py`: canon inyectado con CANON_KEYS, anclas fijas de a/03_visual_despues.json vía envoltura de `_plan_anchors`, pass-through de `_llamar_casilleros` que confirma el bloque PERSONAS nuevo en el prompt): 125,6 s, US$ 2,28, 96/96 pares por ancla.
+- Resultados: Daniel 13 fotos (7 de las 9 escenas de la tabla; faltan «dos parejas» y «se fueron»); venda 5/13 solo Wittenoom 1962-1963; 0 falsos positivos; Daniel hijo 1 (1985); Víctor solo 1962-1963; Daniel a los 55 (`chapters[4].img[12]`) y en el detalle del pie del clip (`chapters[0].image_prompt`); video_prompt del cap 1 conserva la venda; control de nombres 0 PARÁ / 1 revisar.
+- Revisor Etapa A3: CUMPLE CON OBSERVACIONES (sustituciones palabra por palabra; canon sin PARÁ verificado por el revisor; 96/96 pares; obs.: Daniel a los 55 por el tramo 1991-1992, detalle del pie con persona, «se fueron»/«dos parejas», ids de grupos nuevos, inferencias de Opus en el canon, m05/m06 sin prueba con el campo nuevo); veredicto íntegro + adenda en F60_REPORT.md §Etapa A3.
+- Abiertos: Daniel a los 55 por el tramo 1991-1992; detalle del pie con persona; «se fueron» perdido (n=1); «dos parejas» sin los Écija; ids de grupos nuevos en la próxima corrida de producción; variaciones de Opus en el canon (Saint, Orellana); «Court» en revisar.
+- PARADA A3: no se pasa a la Etapa B sin OK del analista y de Omar.
 
 ## 👀 Para Omar (F60, PARADA A2): sacar «or if unsure» no trajo a Daniel; lo que lo deja afuera es la venda del canon.
 - Probado en caps 2-4 (una corrida, US$ 1,08): Daniel pasa de 2 fotos a 0; María entra en el baile y en la pista. Ningún falso positivo.

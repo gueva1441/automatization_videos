@@ -280,7 +280,7 @@ TEXTO_S4_YEAR = ("- year: the year (YYYY) in which THIS image's scene takes plac
                  "«now» = the most recent year in the case file). Routing only — not rendered as text.")
 # F60 A: casillero de ruteo `persona` (nombre exacto de PERSONAS DOCUMENTADAS; nada lo consume hasta la Etapa B).
 # F60 A2: sin «or if unsure» (Opus dejaba a Daniel afuera cuando la voz no lo nombraba en la misma oración).
-TEXTO_PERSONA = ("- persona: a LIST with the exact name, as written in PERSONAS DOCUMENTADAS, of each documented person who is recognisably shown in THIS image (even from behind), at the same age and condition the canon describes — the main one first, at most TWO; [] if none, if only a body part is shown, or if they appear inside a photograph or picture within the scene. Routing only — not rendered as text.")
+TEXTO_PERSONA = ("- persona: a LIST with the exact name, as written in PERSONAS DOCUMENTADAS, of each documented person who is recognisably shown in THIS image (even from behind), at the age the canon describes — the main one first, at most TWO; [] if none, if only a body part is shown, or if they appear inside a photograph or picture within the scene. Routing only — not rendered as text.")
 
 
 def _si_casilleros() -> str:
@@ -466,6 +466,9 @@ def _format_seedream_canon_block(topic: dict, anios=None) -> str:
             # F60 A: el nombre va primero, como dato de ruteo para `persona`
             plines.append(f"  • {p.get('name','?')} | role: {p.get('role','?')} | {age_str} | era: {p.get('era','?')}")
             plines.append(f"    appearance_canon: {p.get('appearance_canon','')}")
+            for c in p.get("condition_by_period") or []:          # F60 A3: el estado documentado, como dato
+                if isinstance(c, dict) and c.get("years") and c.get("condition"):
+                    plines.append(f"    condition {c['years']}: {c['condition']}")
         people_block = "\n".join(plines)
     else:
         people_block = ("PERSONAS DOCUMENTADAS: (vacío) — si la narración nombra a alguien, "

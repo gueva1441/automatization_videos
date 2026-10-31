@@ -55,7 +55,7 @@ OUTPUT: {
   },
   "documented_people": [
     {"name": str, "role": str, "age_at_event": int|None, "era": str,
-     "appearance_canon": str},
+     "appearance_canon": str, "condition_by_period": [{"years": str, "condition": str}]},
     ...
   ],
   "anachronism_blocklist": [str, ...],
@@ -247,10 +247,18 @@ Cada entrada:
 - role: rol/profesión en el evento.
 - age_at_event: número entero. Si los facts no lo dicen, dejá null.
 - era: año o década del evento que los involucra.
-- appearance_canon: 1-2 frases EN describiendo aspecto físico genérico
-  (edad aparente + nacionalidad/etnia + rol + atuendo de época). PROHIBIDO
-  mencionar el nombre real. PROHIBIDO mencionar rasgos específicos como
-  "tall", "blue eyes", "scar" — solo descriptores ampliamente verificables.
+- appearance_canon: 1 frase EN con solo el aspecto físico fijo de la persona
+  (edad aparente en los años de era + nacionalidad/etnia + contextura si el
+  material la documenta). Nada que cambie según dónde esté, qué haga o qué
+  le pase (ropa, oficio, heridas, enfermedad, ánimo, acción): el oficio va
+  en role, la ropa en era_visual_canon y el estado físico documentado en
+  condition_by_period. PROHIBIDO mencionar el nombre real. PROHIBIDO
+  mencionar rasgos específicos como "tall", "blue eyes", "scar" — solo
+  descriptores ampliamente verificables.
+- condition_by_period: una entrada por cada tramo de años en que el material
+  documenta un estado físico de esa persona (heridas, enfermedad, desgaste);
+  years "AAAA-AAAA" y condition (EN, una frase). Si el material no documenta
+  ningún estado, lista vacía.
 
 REGLAS CRÍTICAS de documented_people:
 1. Si age_at_event tiene valor → appearance_canon DEBE usar el descriptor
@@ -281,7 +289,7 @@ REGLAS CRÍTICAS de documented_people:
    combinar persona + era sin redundancia ni contradicción.
 
    ✗ MAL: "a mid-30s American naval officer in 1960s service uniform"
-   ✓ BIEN: "a mid-30s American naval officer with focused demeanor"
+   ✓ BIEN: "a mid-30s American man of medium build"
 
 ✗ MAL appearance_canon: "Francis Slattery, a 36-year-old American naval
                           officer with focused gaze"
@@ -290,10 +298,9 @@ REGLAS CRÍTICAS de documented_people:
                           service uniform, focused authoritative demeanor"
                           (incluye era textual "1960s service uniform" — la era
                           va separada en era_visual_canon.clothing, NO acá)
-✓ BIEN appearance_canon: "a mid-30s American naval officer with focused
-                           authoritative demeanor"
-                           (solo rol + edad + nacionalidad + actitud, sin era;
-                           la era se infiere del era_visual_canon del topic)
+✓ BIEN appearance_canon: "a mid-30s American man of medium build"
+                           (solo edad + nacionalidad + contextura, sin era;
+                           el oficio va en role, la ropa en era_visual_canon)
 
 ═══ BLOQUE 3: anachronism_blocklist ═══
 
@@ -400,7 +407,8 @@ FORMATO DE SALIDA — JSON puro, sin markdown:
       "role": "USS Scorpion submarine commander",
       "age_at_event": 36,
       "era": "1968",
-      "appearance_canon": "a mid-30s American naval officer with focused authoritative demeanor"
+      "appearance_canon": "a mid-30s American man of medium build",
+      "condition_by_period": []
     }}
   ],
   "anachronism_blocklist": [
@@ -597,12 +605,31 @@ def _clean_person(raw: dict) -> dict | None:
     if era_hit:
         print(f"       [4e/C5] era/ropa removida de appearance de '{name}'")
 
+    # F60 A3: el estado físico documentado va aparte, por tramo de años (m03 lo ve como dato; el armado no lo pega).
+    # Determinista: solo dicts con years y condition no vacíos; el nombre se quita de `condition` por tokens, como en
+    # appearance; el strip C5 de era NO se aplica. Ausente o no-lista → [].
+    condition_by_period = []
+    raw_cbp = raw.get("condition_by_period")
+    for entry in (raw_cbp if isinstance(raw_cbp, list) else []):
+        if not isinstance(entry, dict):
+            continue
+        years = str(entry.get("years", "") or "").strip()
+        condition = str(entry.get("condition", "") or "").strip()
+        if not (years and condition):
+            continue
+        if name.lower() in condition.lower():
+            for token in name.split():
+                condition = condition.replace(token, "").replace("  ", " ").strip()
+            condition = condition.lstrip(",. ")
+        condition_by_period.append({"years": years, "condition": condition})
+
     return {
         "name": name,
         "role": role,
         "age_at_event": age,
         "era": era,
         "appearance_canon": appearance,
+        "condition_by_period": condition_by_period,
     }
 
 

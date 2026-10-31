@@ -1,0 +1,184 @@
+{
+ "grupos": [
+  [
+   "airport_border_police",
+   "nuevo",
+   ""
+  ],
+  [
+   "asbestos_victims_advocates_and_lawyers",
+   "cambia: who, where_when, condition_by_period, clothing_by_period",
+   ""
+  ],
+  [
+   "australian_airport_police",
+   "desaparece",
+   ""
+  ],
+  [
+   "australian_politicians",
+   "desaparece",
+   ""
+  ],
+  [
+   "banjima_traditional_owners",
+   "cambia: who, where_when, appearance, condition_by_period, clothing_by_period",
+   "Aboriginal Australian features, with dark brown skin, dark wavy to curly hair, brown eyes, and broad facial features."
+  ],
+  [
+   "company_executives_managers",
+   "nuevo",
+   ""
+  ],
+  [
+   "company_owners_and_managers",
+   "desaparece",
+   ""
+  ],
+  [
+   "environmental_assessors",
+   "desaparece",
+   ""
+  ],
+  [
+   "european_recruited_workers",
+   "nuevo",
+   "Varied European features, with fair to olive skin, light to dark hair, and medium working builds."
+  ],
+  [
+   "government_mines_and_health_officials",
+   "desaparece",
+   ""
+  ],
+  [
+   "health_and_mines_officials",
+   "nuevo",
+   ""
+  ],
+  [
+   "international_human_rights_observers",
+   "desaparece",
+   ""
+  ],
+  [
+   "mine_and_mill_workers",
+   "cambia: who, where_when, appearance, condition_by_period, clothing_by_period",
+   ""
+  ],
+  [
+   "politicians_and_government",
+   "nuevo",
+   ""
+  ],
+  [
+   "prospectors_and_mine_owners",
+   "nuevo",
+   ""
+  ],
+  [
+   "spanish_migrant_families",
+   "cambia: who, where_when, appearance, condition_by_period, clothing_by_period",
+   "Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds."
+  ],
+  [
+   "union_and_arbitration_bodies",
+   "nuevo",
+   ""
+  ],
+  [
+   "unions_and_labour_arbitration",
+   "desaparece",
+   ""
+  ],
+  [
+   "wittenoom_residents_and_children",
+   "nuevo",
+   ""
+  ],
+  [
+   "wittenoom_town_residents",
+   "desaparece",
+   ""
+  ]
+ ],
+ "props": [],
+ "era": [
+  [
+   "clothing",
+   "cambia",
+   "Mining-era miners and mill hands wear sweat-stained cotton work shirts, khaki or denim work trousers, leather work boots and felt hats or cloth caps, with no me"
+  ],
+  [
+   "color_palette",
+   "cambia",
+   "Exterior: intense red earth and red dust, blue crocidolite tailings on roads and yards, silver-grey corrugated iron and pale fibro walls; interior: undocumented"
+  ],
+  [
+   "condition_evolution",
+   "cambia",
+   "{'at_event': 'Wittenoom is an operating mining town: the mill is shrouded in a thick dust cloud, workers are coated in dust, the houses are inhabited, freshly d"
+  ],
+  [
+   "demographics",
+   "cambia",
+   "The residents were Australian and European migrant miners and mill workers, including post-war displaced persons in 1948-1951, CSR European recruits from 1950, "
+  ],
+  [
+   "distinctive_features",
+   "cambia",
+   "A remote Pilbara mining town on intense red earth whose roads, yards, airstrip and school playground were literally surfaced with blue asbestos tailings under a"
+  ],
+  [
+   "forbidden_anachronisms",
+   "cambia",
+   "No smartphones, digital screens, modern hi-vis vests, disposable respirators or modern hazmat suits in 1937-1966 scenes. No sealed asphalt roads with modern lin"
+  ],
+  [
+   "interiors",
+   "cambia",
+   "Sparse company houses built of corrugated iron, timber and fibro sheeting, with simple mid-century furniture and fine dust settling on surfaces. A small town ho"
+  ],
+  [
+   "materials_textures",
+   "cambia",
+   "Houses are built of corrugated iron, timber and fibro sheeting. Loose, friable fibrous asbestos tailings are spread as a compacted gravelly surface on roads, ya"
+  ],
+  [
+   "periods",
+   "cambia: tramos antes ['1937-1949', '1950-1966', '1967-2007', '2008-2026'] → ahora ['1937-1949', '1950-1966', '1967-1992', '1993-2026']",
+   ""
+  ],
+  [
+   "primary_decade",
+   "igual",
+   ""
+  ],
+  [
+   "scale_dimensions",
+   "cambia",
+   "The Wittenoom Asbestos Management Area covers 46,840 hectares, and more than three million tonnes of tailings remain on site; individual building dimensions are"
+  ],
+  [
+   "spans",
+   "igual",
+   ""
+  ],
+  [
+   "technology",
+   "cambia",
+   "Mechanical ore crushing and fibre milling, belt conveyors, jute or hessian fibre sacks, dial telephones, manual typewriters, valve radios, and box or roll-film "
+  ],
+  [
+   "vehicles_machinery",
+   "cambia",
+   "Small propeller aircraft landing on a dirt airstrip, mid-century flatbed and tipper trucks hauling tailings, utility trucks and early four-wheel-drives, crushin"
+  ],
+  [
+   "visual_reference_availability",
+   "cambia",
+   "No [VISUAL] research block was supplied, so all place details come from TEXT sources: oral testimony of Spanish migrant families, the 1957 Board of Reference wr"
+  ]
+ ],
+ "central_subject": "igual",
+ "blocklist": "cambia (12 → 11)"
+}
