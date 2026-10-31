@@ -36,6 +36,12 @@ TRIGRAM_MAX = 0.05
 ADJ_MIN = 2.0
 ADJ_MAX = 4.0
 FILLER_RUN_MAX = 2                     # oraciones seguidas que califican sin dato
+# F67 A (retencion): se reportan, sin umbral (DECISIONES 2026-10-31 18:43: nada bloquea hasta tener 2–3 videos)
+VENTANA_GANCHO_S = 30                  # SYSTEM de F67a, criterio 1 («primeros 30 segundos»); analista (Omar puede cambiarlo)
+ORACIONES_TRAS_PICO = 3                # DECISIONES 2026-10-31 18:43 («personaje en las 3 oraciones tras el pico»); Omar
+RE_ANIO = re.compile(r"\b(1[89]\d\d|20\d\d)\b")   # F67a §1 (límite aceptado: «2000» como cantidad cuenta como año)
+RE_CIFRA = re.compile(r"\d+(?:[.,]\d+)*")         # F67a §6.3; se normaliza con cifra_norm
+_RE_PALABRA = re.compile(r"[A-Za-zÁÉÍÓÚÑÜáéíóúñü]+|\d[\d.,]*")
 
 FORBIDDEN_FILLER = ("imaginen", "una eternidad de", "cámara de tortura", "coloso de", "manto oscuro",
                     "infierno personal", "eco fantasmal", "sombra inalcanzable", "tragedia íntima",
@@ -81,7 +87,7 @@ mentes ente entes simiente serpiente serpientes pendiente pendientes vertiente d
 
 
 def words_of(text: str) -> list[str]:
-    return re.findall(r"[A-Za-zÁÉÍÓÚÑÜáéíóúñü]+|\d[\d.,]*", str(text))
+    return _RE_PALABRA.findall(str(text))
 
 
 def adjectives(text: str) -> list[str]:
@@ -317,11 +323,124 @@ def video_metrics(narrations: list[Any], pool: dict[str, Any] | None, skeleton: 
     return {"caps": caps, "video": v}
 
 
+def cifra_norm(c: str) -> str:
+    """Una cifra sin `.` ni `,`: «1.941» y «1941» son la misma (F67a §6.3)."""
+    return re.sub(r"[.,]", "", c)
+
+
+def _persona_de(skeleton: dict[str, Any] | None, escaleta: dict[str, Any]) -> tuple[dict[str, Any] | None, str | None]:
+    """El personaje del video: `escaleta.humano.id` en `skeleton.personajes` (F67 §2). (persona, None) o (None, motivo)."""
+    pid = str((escaleta.get("humano") or {}).get("id") or "")
+    if not pid:
+        return None, "la escaleta no tiene humano con id"
+    p = next((x for x in (skeleton or {}).get("personajes") or [] if str(x.get("id") or "") == pid), None)
+    if p is None:
+        return None, f"{pid} no está en los personajes del skeleton"
+    if p.get("tipo") == "institucion":
+        return None, f"{pid} es una institución"
+    return p, None
+
+
+def _promesa(escaleta: dict[str, Any], texto_gancho: str, seg: float) -> dict[str, Any]:
+    """Las cifras en dígitos de la promesa y cuáles suenan en los primeros VENTANA_GANCHO_S segundos de ch01."""
+    texto = escaleta.get("promesa_gancho")
+    if not texto:
+        return {"texto": None, "cifras": [], "cifras_en_gancho": [], "faltan": [], "motivo": "la escaleta no tiene promesa_gancho"}
+    cifras = list(dict.fromkeys(cifra_norm(c) for c in RE_CIFRA.findall(str(texto))))
+    tokens = list(_RE_PALABRA.finditer(texto_gancho))[:round(VENTANA_GANCHO_S / seg)]
+    prefijo = texto_gancho[:tokens[-1].end()] if tokens else ""
+    dichas = {cifra_norm(c) for c in RE_CIFRA.findall(prefijo)}
+    return {"texto": texto, "cifras": cifras, "cifras_en_gancho": [c for c in cifras if c in dichas],
+            "faltan": [c for c in cifras if c not in dichas], "motivo": None if cifras else "sin cifras en dígitos"}
+
+
+def retencion(parrafos: list[dict[str, Any]], skeleton: dict[str, Any] | None, escaleta: dict[str, Any] | None,
+              pool: dict[str, Any] | None, seg: float) -> dict[str, Any]:
+    """F67 A (DECISIONES 2026-10-31 18:43): las métricas de retención, sin umbral: por cap palabras, segundos, %, años/min y
+    racha de oraciones sin el personaje; del video, el cap más humano, el pico y la promesa. Mismo corte y `idx` por cap que
+    `m01e_pantalla.entrada` (voz_utils.oraciones_de_texto). «Por acción» no se detecta acá: lo hace el crítico. Sin personaje
+    o sin pico, sus campos van null con su motivo."""
+    from script_engine import nombres
+    from script_engine.voz_utils import oraciones_de_texto
+    esc = escaleta or {}
+    people = (pool or {}).get("personajes") or []
+    persona, motivo_p = _persona_de(skeleton, esc)
+    titulos = {int(c["chapter_number"]): str(c.get("title") or "") for c in (skeleton or {}).get("chapters") or []}
+    ors: list[dict[str, Any]] = []                      # todas las oraciones del video, en orden de narración
+    por_cap: dict[int, list[dict[str, Any]]] = {}
+    for n in sorted({int(p["cap"]) for p in parrafos}):
+        por_cap[n] = []
+        for i, p in enumerate(parrafos):
+            if int(p["cap"]) != n:
+                continue
+            for t in oraciones_de_texto(p["texto"]):
+                o = {"cap": n, "idx": len(por_cap[n]), "parrafo": i, "beat": int(p.get("beat") or 0), "texto": t,
+                     "palabras": len(words_of(t)),
+                     "con_personaje": nombres.nombra(t, persona, people) if persona else None}
+                por_cap[n].append(o)
+                ors.append(o)
+    total = sum(o["palabras"] for o in ors)
+    caps, acum = [], 0
+    for n, os_ in por_cap.items():
+        k = sum(o["palabras"] for o in os_)
+        acum += k
+        s = round(k * seg)
+        anios = len(set(RE_ANIO.findall(" ".join(o["texto"] for o in os_))))
+        c = {"cap": f"ch{n:02d}", "titulo": titulos.get(n, ""), "oraciones": len(os_), "palabras": k, "segundos": s,
+             "pct": round(100 * k / total) if total else 0, "pct_acumulado": round(100 * acum / total) if total else 0,
+             "anios_distintos": anios, "anios_por_min": round(anios / (s / 60), 2) if s else None,
+             "oraciones_con_personaje": None, "personaje_en_voz": None, "racha_max_sin_personaje": None, "racha_desde_hasta": None}
+        if persona:
+            racha, desde = 0, 0
+            c["racha_max_sin_personaje"] = 0
+            for o in os_:
+                racha = 0 if o["con_personaje"] else racha + 1
+                desde = o["idx"] if racha == 1 else desde
+                if racha > c["racha_max_sin_personaje"]:
+                    c["racha_max_sin_personaje"], c["racha_desde_hasta"] = racha, [desde, o["idx"]]
+            c["oraciones_con_personaje"] = sum(1 for o in os_ if o["con_personaje"])
+            c["personaje_en_voz"] = c["oraciones_con_personaje"] > 0
+        caps.append(c)
+    if caps:
+        caps[-1]["pct_acumulado"] = 100
+    # el cap más humano: menor racha; empate → mayor proporción de oraciones con él; empate persistente → el primero
+    con_datos = [c for c in caps if persona and c["oraciones"]]
+    humano = min(con_datos, key=lambda c: (c["racha_max_sin_personaje"], -c["oraciones_con_personaje"] / c["oraciones"]),
+                 default=None)
+    base = humano["anios_por_min"] if humano else None
+    pico, motivo_pico = None, None
+    beat = (esc.get("pico") or {}).get("beat")
+    if beat is None:
+        motivo_pico = "la escaleta no tiene pico"
+    else:
+        del_beat = [k for k, o in enumerate(ors) if o["beat"] == int(beat)]
+        if not del_beat:
+            motivo_pico = f"ninguna oración es del beat {beat}"
+        else:
+            g = del_beat[-1]                            # última oración del último párrafo con ese beat
+            sig = ors[g + 1:g + 1 + ORACIONES_TRAS_PICO]
+            pico = {"beat": int(beat), "cap": f"ch{ors[g]['cap']:02d}", "idx_ultima_oracion": ors[g]["idx"],
+                    "pct_acumulado": round(100 * sum(o["palabras"] for o in ors[:g + 1]) / total),
+                    "segundos_despues": round(sum(o["palabras"] for o in ors[g + 1:]) * seg),
+                    "personaje_en_siguientes": any(o["con_personaje"] for o in sig) if persona else None,
+                    "n_siguientes": ORACIONES_TRAS_PICO, "oraciones_siguientes": [o["texto"] for o in sig]}
+    return {"seg_por_palabra": seg, "total_palabras": total, "total_min": round(total * seg / 60, 1), "caps": caps,
+            "personaje": {"id": persona.get("id"), "nombre": persona.get("nombre"),
+                          "terminos": nombres.terminos(persona, people)} if persona else None,
+            "personaje_motivo": motivo_p, "cap_mas_humano": humano["cap"] if humano else None,
+            "anios_por_min_vs_mas_humano": {c["cap"]: (round(c["anios_por_min"] / base, 2) if base and c["anios_por_min"] is not None
+                                                       else None) for c in caps} if humano else None,
+            "pico": pico, "pico_motivo": motivo_pico,
+            "promesa": _promesa(esc, " ".join(o["texto"] for o in por_cap.get(1) or []), seg)}
+
+
 def judge_narration(topic_id: str, *, steps_dir: Any = None, pool: dict[str, Any] | None = None,
                     narration: dict[str, Any] | None = None, skeleton: dict[str, Any] | None = None,
-                    out_name: str = "06_judge_narrative.json") -> dict[str, Any]:
+                    out_name: str = "06_judge_narrative.json", parrafos: list[dict[str, Any]] | None = None,
+                    escaleta: dict[str, Any] | None = None) -> dict[str, Any]:
     """Reporte del juez narrativo de un topic: métricas por cap y por video + umbrales → _steps/<id>/06_….json.
-    Lee de disco lo que no se pase (01_facts_sources / 01a_skeleton / 01b_narration)."""
+    Lee de disco lo que no se pase (01_facts_sources / 01a_skeleton / 01b_narration; F67 A: 01b_narracion_v3 / 01a_escaleta).
+    F67 A: `retencion` (None si el topic no tiene los párrafos v3)."""
     import json
     from pathlib import Path
     if steps_dir is None:
@@ -340,6 +459,13 @@ def judge_narration(topic_id: str, *, steps_dir: Any = None, pool: dict[str, Any
     rep["umbrales"] = {"densidad_min": DENSITY_MIN, "max_caps_por_dato": MAX_DATO_CAPS, "trigramas_max": TRIGRAM_MAX,
                        "adj_100_min": ADJ_MIN, "adj_100_max": ADJ_MAX}
     rep["violaciones_narrador"] = narration.get("_f5_violations") or {}
+    parrafos = parrafos if parrafos is not None else _load("01b_narracion_v3.json").get("parrafos")
+    if parrafos:
+        from script_engine.m01e_pantalla import velocidad
+        escaleta = escaleta if escaleta is not None else _load("01a_escaleta.json")
+        rep["retencion"] = retencion(parrafos, skeleton, escaleta, pool, velocidad()["valor"])
+    else:
+        rep["retencion"] = None
     d.mkdir(parents=True, exist_ok=True)
     (d / out_name).write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
     return rep
