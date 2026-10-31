@@ -724,5 +724,24 @@
   "estado_prueba": "asset_manager._generate_clip lo llama por cada motor de la cadena (F53b Parte B); _generate_clip lo llaman _process_veo_chapter (asset_manager.process_script, etapa assets: fase2a) y qa_studio_server._clipfix_core.",
   "funciones_muertas": [],
   "md5": "0942cd6fc362682880472f7ae8f63850"
+ },
+ "script_engine/narracion_verificador.py": {
+  "sticker": "El verificador de hechos de la narración (F63 B a producción, F66): una llamada por capítulo, todas a la vez, a Claude Opus con el archivo entero del caso y las versiones en disputa. Por oración separa las afirmaciones de hecho y dice si están respaldadas, si contradicen el archivo o si no tienen respaldo. No corrige: la corrección la hace fase1_5.run_verificacion.",
+  "recibe": "caps de m01e_pantalla.entrada (oraciones por cap), archivo_b (id, texto, fecha, fuente, contexto_fuente de todo el pool), disputas de ficha_caso.json",
+  "entrega": "{por_cap, contradice, sin_respaldo, usd, segundos} a fase1_5.run_verificacion (que lo escribe en 01b_verificacion.json/.md); el costo al cost_tracker como «m01b_verificador»",
+  "modelo": [
+   {
+    "modelo": "claude-opus-5-5 (constante MODELO, esfuerzo medium, hx.MAX_TOKENS; 2 intentos por cap)",
+    "para": "verificar las afirmaciones de hecho de la narración contra el archivo"
+   }
+  ],
+  "etapa": [
+   "guion"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.run_verificacion (F66 Etapa B) lo llama tras la partición; test_module_f66.py",
+  "funciones_muertas": [],
+  "md5": "93bd75a3b344e1e84afdf8a447e37bd5",
+  "_parte": "orquestador"
  }
 }
