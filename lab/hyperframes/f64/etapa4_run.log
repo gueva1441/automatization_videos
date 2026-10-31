@@ -1,0 +1,10 @@
+[15:31:57] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: 123bbb64-9fca-4395-8bf4-57d60e219ef1
+[15:35:28] INFO     | viral_pipeline | [cost_tracker] Video 123bbb64-9fca-4395-8bf4-57d60e219ef1 — Costo total: $1.3004
+  m01e intento 1: in 88647 · out 17944 · US$ 0.7135 · JSON
+  m01e verificador: 10 marca(s) → corta 0 · pasa 3 · dicho 6 · no_dicho 0 · US$ 0.0685
+  m01e intento 1 validado: fichas fuera 1 · marcas 10 · cortadas por el verificador 0 · vuelven 0 · picos vacíos 0
+  m01e intento 2: in 95768 · out 3051 · US$ 0.4441 · JSON
+  m01e verificador: 11 marca(s) → corta 0 · pasa 4 · dicho 6 · no_dicho 0 · US$ 0.0743
+  m01e vuelta 1 validada: fichas fuera 0 · marcas 11 · cortadas por el verificador 0 · vuelven 0 · picos vacíos 0
+  m01e: 13 fichas · 8 sellos · 3 relojes → C:\CLAUDE_PROJECTS\automatization_videos\data\scripts\_steps\123bbb64-9fca-4395-8bf4-57d60e219ef1\01e_pantalla.md
+exit 0
