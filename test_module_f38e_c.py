@@ -197,7 +197,7 @@ def test_c3_respaldo_invalido_es_motivo_de_la_vuelta_y_la_vuelta_lo_arregla(tmp_
     sin = {"beats": [gancho, _ficha("ch02", 2, "D1", 1, "LARGO DE LA PRESA", "190 metros", None)]}
     con = {"cambios": [_ficha("ch02", 2, "D1", 1, "LARGO DE LA PRESA", "190 metros", "190 de largo")]}
     pedidos: list[dict] = []
-    res = mp.llamar(ent, tmp_path / "a", tope=100.0, post=_post_seq([sin, con], pedidos))
+    res = mp.llamar(ent, tmp_path / "a", post=_post_seq([sin, con], pedidos))
     assert len(pedidos) == 2
     p2 = pedidos[1]["messages"][0]["content"]
     assert "respaldo: la ficha no trae `respaldo`" in p2 and "ch02 beat 2" in p2 and mp.FORMATO_REINTENTO in p2
@@ -206,7 +206,7 @@ def test_c3_respaldo_invalido_es_motivo_de_la_vuelta_y_la_vuelta_lo_arregla(tmp_
     assert q and q["pool_id"] == "D1" and q["respaldo"] == "190 de largo"
     # si la vuelta no lo arregla (misma respuesta), cierra sin progreso y D1 queda caída por `respaldo`
     pedidos2: list[dict] = []
-    res2 = mp.llamar(ent, tmp_path / "b", tope=100.0,
+    res2 = mp.llamar(ent, tmp_path / "b",
                      post=_post_seq([sin, {"cambios": [sin["beats"][1]]}], pedidos2))
     assert len(pedidos2) == 2 and res2["reintento"]["cierre"] == "sin progreso"
     assert _corte(res2["validacion"], "D1")["regla"] == "respaldo"

@@ -229,12 +229,13 @@ def _step_cost(topic_id: str, label: str, fn):
 
 def run_pantalla(topic_id: str, pool: dict | None, log: list[str]) -> dict | None:
     """F36 §C (DECISIONES 2026-10-26 19:54): m01e_pantalla, el guion de pantalla en papel, después de la partición y
-    antes de la voz (una llamada a Sonnet por video, con su costo en 01_v3_costos.json como paso «pantalla»). Si no da
-    JSON en dos intentos o el tope no alcanza, avisa y Fase 1 sigue: el papel se revisa a mano antes de la voz."""
+    antes de la voz (una llamada a Claude por video, con su costo en 01_v3_costos.json como paso «pantalla»; sin tope en
+    dólares desde F64 Etapa 1). Si no da JSON en dos intentos, avisa y Fase 1 sigue: el papel se revisa a mano antes de
+    la voz."""
     from script_engine import m01e_pantalla as mp
     try:
         return _step_cost(topic_id, "pantalla", lambda: mp.generar(topic_id, STEPS_DIR, pool=pool, log=log))
-    except (mp.SinJSON, mp.TopePantalla) as e:
+    except mp.SinJSON as e:
         print(f"  [m01e] PARADA del guion en papel: {e}")
         return None
 

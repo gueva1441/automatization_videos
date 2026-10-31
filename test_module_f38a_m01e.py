@@ -100,7 +100,7 @@ def test_a1_lo_del_intento_1_sobrevive_al_reintento_parcial(vajont, raw37, tmp_p
     assert vuelve and all(mb == [] for mb in vuelve)                      # D68: sin beat
     # por llamar: el reintento ve el papel entero como contexto y pide solo los cambios de esos beats
     pedidos: list[dict] = []
-    res = mp.llamar(vajont, tmp_path, tope=100.0,
+    res = mp.llamar(vajont, tmp_path,
                     post=_post_seq([r1, _cambios_desde_f37(raw37, beats_m)], pedidos))
     # F38d §A.1: la vuelta 1 deja motivos nuevos (Q15 vuelve y ch05 b8 sigue sin Q50) → vuelta 2 con solo ch05 b8; el
     # POST repite la misma respuesta, los motivos quedan iguales → cierra «sin progreso» (3 llamadas)

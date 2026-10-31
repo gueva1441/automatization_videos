@@ -308,7 +308,7 @@
  "error_handler.py": {
   "sticker": "Es el encargado de avisar cuando algo sale mal y de insistir: escribe el diario del pipeline (archivo y consola), y ofrece el decorador que repite una llamada a una API si falla (más veces y esperando más cuando el servidor está saturado). Si todo falla, corta con un error que dice en qué etapa pasó.",
   "recibe": "Mensajes y excepciones de casi todos los módulos (log_info, log_error, log_warning, log_success) y funciones envueltas con @error_handler.retry(PipelineStage.X); LOGS_DIR, max_retries y retry_delay_seconds de config.py.",
-  "entrega": "logs/pipeline_<fecha>.log (se crea al importar el módulo), líneas por consola, y PipelineError cuando se agotan los reintentos.",
+  "entrega": "logs/pipeline_<fecha>.log (F64: el FileHandler se crea con delay=True, el archivo aparece en el primer mensaje escrito, no al importar), líneas por consola, y PipelineError cuando se agotan los reintentos.",
   "modelo": [],
   "etapa": [
    "research",
@@ -335,7 +335,7 @@
     "por_que": "nadie la llama: solo se define; no hay llamador en producción ni en tests."
    }
   ],
-  "md5": "68799ed1b8303793f3c900fd4f4f9e84",
+  "md5": "db4c0a532e8b4824ed227930e38c796b",
   "_parte": "orquestador_c"
  },
  "fase3.py": {

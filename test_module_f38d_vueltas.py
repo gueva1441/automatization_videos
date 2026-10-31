@@ -2,8 +2,9 @@
 test_module_f38d_vueltas.py — F38d §A (HANDOFF_F38d_vueltas_y_caben), los tests del commit A:
     §A.1  vueltas de reintento parcial: lo nuevo que aparece después de una vuelta (una coincidencia `contradice`,
           `no_dicho`, `spoiler`) no corta: es una pregunta de la vuelta siguiente; hay otra vuelta mientras haya
-          motivos, los motivos no sean iguales a los de la vuelta anterior («sin progreso») y la vuelta entre en el
-          tope; al cerrar, la validación final de hoy (lo que sigue sin preguntar corta) y el .md dice por qué cerró;
+          motivos y los motivos no sean iguales a los de la vuelta anterior («sin progreso»); al cerrar, la validación
+          final de hoy (lo que sigue sin preguntar corta) y el .md dice por qué cerró. F64 Etapa 1: el tope se borró
+          (DECISIONES 2026-10-31 13:07) y con él el test 3;
     §A.2  «caben» igual en el prompt, en el motivo y en el código: la línea del prompt (m01e-5, literal) y el motivo
           con el desglose (etiqueta + dato + autor con comillas y raya; el máximo del beat).
 Sin API: el autor va con POST falsos. La entrada de Fase 1 de Vajont y el papel de F38c se leen de sus copias
@@ -173,7 +174,7 @@ def test_datos_f38c(r1, r2):
 @hay_vajont
 def test_1_d241_se_pregunta_en_la_vuelta_2_y_el_autor_la_mantiene(ent, r1, r2, tmp_path):
     pedidos: list[dict] = []
-    res = mp.llamar(ent, tmp_path, tope=100.0, post=_post_seq([r1, r2, _vuelta2_la_mantiene(r2)], pedidos))
+    res = mp.llamar(ent, tmp_path, post=_post_seq([r1, r2, _vuelta2_la_mantiene(r2)], pedidos))
     vs = _vueltas(res)
     assert len(vs) >= 2
     assert len(pedidos) == 1 + len(vs)                       # cada llamada: intento 1, vuelta 1, vuelta 2…
@@ -219,7 +220,7 @@ def test_2_sin_progreso_cierra(ent, r1, r2, tmp_path):
     # vuelta 1: solo la Q50 de 109 (sigue sin caber); vuelta 2: lo mismo → los motivos quedan iguales
     solo_q50 = {"cambios": [_copia(_cambio(r2, "ch05", 8))]}
     pedidos: list[dict] = []
-    res = mp.llamar(ent, tmp_path, tope=100.0, post=_post_seq([r1, solo_q50, solo_q50], pedidos))
+    res = mp.llamar(ent, tmp_path, post=_post_seq([r1, solo_q50, solo_q50], pedidos))
     rt = res["reintento"]
     assert rt["cierre"] == "sin progreso"
     vs = _vueltas(res)
@@ -243,55 +244,6 @@ def test_2_sin_progreso_cierra(ent, r1, r2, tmp_path):
     assert "sin progreso" in md.lower()
     sec = _seccion_sin_pregunta(md)
     assert sec and not any(pid in sec for pid in ("Q50", "D105", "T39", "D47"))    # el .md dice qué cortó: nada
-
-
-def _peor(body: dict, salida: int) -> float:
-    import claude_helpers as hx
-    pin, pout = hx.PRICES.get(hx._base(mp.MODELO), (0.0, 0.0))
-    return mp._peor_usd(len(json.dumps(body, ensure_ascii=False)), salida, pin, pout)
-
-
-def _usd(salida: int) -> float:
-    import claude_helpers as hx
-    return round(hx.cost_of(mp.MODELO, {"input_tokens": 1000, "output_tokens": salida}), 5)
-
-
-@hay_vajont
-def test_3_tope_cierra_antes_de_la_vuelta_que_no_entra(ent, r1, r2, tmp_path):
-    seq, salidas = [r1, r2, _vuelta2_la_mantiene(r2)], [200, 20_000, 200]
-    # corrida de medida (tope holgado): los pedidos de cada llamada
-    pedidos: list[dict] = []
-    mp.llamar(ent, tmp_path / "medida", tope=100.0, post=_post_seq(seq, pedidos, salidas))
-    assert len(pedidos) >= 3
-    peor0 = _peor(pedidos[0], mp.OUT_TOKENS_PEOR)
-    peor1 = _peor(pedidos[1], mp.OUT_TOKENS_PEOR)
-    peor2 = _peor(pedidos[2], max(mp.OUT_TOKENS_PEOR, salidas[1]))   # la salida peor: la mayor vista
-    g1, g2 = _usd(salidas[0]), _usd(salidas[0]) + _usd(salidas[1])
-
-    # (a) entra el intento 1 y no la vuelta 1: queda el intento 1, final, como hoy (lo que preguntaba, corta)
-    tope_a = (peor0 + g1 + peor1) / 2
-    assert peor0 <= tope_a < g1 + peor1
-    ped_a: list[dict] = []
-    res_a = mp.llamar(ent, tmp_path / "a", tope=tope_a, post=_post_seq(seq, ped_a, salidas))
-    assert len(ped_a) == 1 and _vueltas(res_a) == [] and res_a["reintento"]["cierre"] == "tope"
-    assert "tope" in (res_a.get("error") or "")
-    assert res_a["validacion"]["motivos"] == mp.validar(r1, ent, {})["motivos"]
-    assert {"D105", "T39", "D47"} <= set(_cortados(res_a))
-    assert "tope" in mp.a_markdown(mp.armar(ent, res_a)).lower()
-
-    # (b) entra la vuelta 1 y no la vuelta 2: la pregunta de D241 queda sin hacer → al cierre corta
-    tope_b = g2 + peor2 - 1e-4
-    assert g1 + peor1 <= tope_b, "la vuelta 2 no es más cara que la 1: el escenario (b) no se puede armar"
-    ped_b: list[dict] = []
-    res_b = mp.llamar(ent, tmp_path / "b", tope=tope_b, post=_post_seq(seq, ped_b, salidas))
-    assert len(ped_b) == 2 and len(_vueltas(res_b)) == 1 and res_b["reintento"]["cierre"] == "tope"
-    fin = res_b["validacion"]
-    d = next(d for d in fin["descartados"] if d.get("pool_id") == "D241" and d.get("quien") == "validación")
-    assert d["regla"] == "contradice"
-    assert "D241" in _cortados(res_b)
-    md = mp.a_markdown(mp.armar(ent, res_b))
-    assert "tope" in md.lower()
-    assert "D241" in _seccion_sin_pregunta(md), "el .md no dice que D241 se cortó sin pregunta"
 
 
 # ═══════════════════════ §A.2 «caben» ═══════════════════════

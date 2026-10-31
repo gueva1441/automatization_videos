@@ -134,7 +134,7 @@ def test_a2_t39_la_voz_no_dice_50_millones_y_vuelve_en_el_reintento(vajont, tmp_
     t39 = next(x for x in v["vuelven"] if x["pool_id"] == "T39")
     assert "50" in t39["falta"]
     pedidos: list[dict] = []
-    mp.llamar(vajont, tmp_path, post=_post_seq([r1, {"beats": []}], pedidos), tope=100.0)
+    mp.llamar(vajont, tmp_path, post=_post_seq([r1, {"beats": []}], pedidos))
     assert len(pedidos) == 2
     assert "T39: dijiste que la voz lo dice" in pedidos[1]["messages"][0]["content"]
     assert "«50»" in pedidos[1]["messages"][0]["content"]
@@ -157,7 +157,7 @@ def test_a3a_reemplazo_literal_del_prompt_y_tipo_del_descarte():
 def test_a3b_pico_sin_ficha_dispara_el_reintento(tmp_path):
     ent = _chico()
     pedidos: list[dict] = []
-    res = mp.llamar(ent, tmp_path, post=_post_seq([{"beats": []}, {"beats": []}], pedidos), tope=100.0)
+    res = mp.llamar(ent, tmp_path, post=_post_seq([{"beats": []}, {"beats": []}], pedidos))
     assert len(pedidos) == 2 and "el beat 2 de ch02 es pico y quedó sin ficha" in pedidos[1]["messages"][0]["content"]
     papel = mp.armar(ent, res)
     assert {"cap": "ch02", "beat": 2} in papel["picos_vacios"]          # (y el gancho: el único beat de ch01 es su pico)
@@ -177,7 +177,7 @@ def test_a4_d47_llega_como_pregunta_y_el_juicio_del_autor_es_final(vajont, tmp_p
     assert any(m.startswith("D47") and "¿es el mismo hecho? si no, mantenelo" in m for m in v["motivos"])
     # el reintento lo mantiene → otro hecho, juzgado; Fase 2 no lo vuelve a cortar
     pedidos: list[dict] = []
-    res = mp.llamar(vajont, tmp_path, post=_post_seq([{"beats": [f47]}, {"beats": [f47]}], pedidos), tope=100.0)
+    res = mp.llamar(vajont, tmp_path, post=_post_seq([{"beats": [f47]}, {"beats": [f47]}], pedidos))
     papel = mp.armar(vajont, res)
     b = next(b for b in papel["beats"] if b["cap"] == "ch02" and b["beat"] == 3)
     assert b["ficha"]["pool_id"] == "D47" and b["ficha"]["juicio_autor"] == {"spoiler": ["2"]}
@@ -207,12 +207,3 @@ def test_0_seg_por_palabra_se_deriva_de_los_tiempos_existentes(tmp_path):
     assert 0.2 < s["valor"] < 0.4
     assert seg_por_palabra("NADIE", tmp_path) is None
     assert mp.velocidad({"valor": 0}) ["valor"] == mp.SEG_POR_PALABRA_RESPALDO    # sin voces: respaldo, anotado
-
-
-def test_0_tope_usd_se_lee_del_perfil(monkeypatch):
-    import gfx_config
-    monkeypatch.setitem(gfx_config.ACTIVE_PROFILE, "costos", {"m01e_tope_usd": 0.75})
-    assert mp.tope_usd() == (0.75, "perfil (costos.m01e_tope_usd)")
-    monkeypatch.delitem(gfx_config.ACTIVE_PROFILE, "costos")
-    v, de = mp.tope_usd()
-    assert v == mp.TOPE_USD_RESPALDO and de.startswith("respaldo")

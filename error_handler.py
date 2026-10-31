@@ -66,7 +66,9 @@ class ErrorHandler:
 
         # Archivo de log (todo)
         log_file = self.log_dir / f"pipeline_{datetime.now():%Y%m%d_%H%M%S}.log"
-        fh = logging.FileHandler(log_file, encoding="utf-8")
+        # F64 chascada: `delay=True` → el archivo se crea en el primer emit, no al importar (pytest, lab y la revisión
+        # dejaban un logs/pipeline_*.log vacío por proceso)
+        fh = logging.FileHandler(log_file, encoding="utf-8", delay=True)
         fh.setLevel(logging.DEBUG)
 
         # Consola (info+)

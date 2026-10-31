@@ -20,14 +20,14 @@ costo en 01_v3_costos.json como los demás pasos) o suelto: `python -m script_en
     llamada    UNA a Claude Opus 5.5 (medium; F64 Etapa 0, antes Sonnet 5.5) con el prompt literal de §C.2
                (PANTALLA_SYSTEM, m01e-7: el de la prueba 1 con la oración 2 de F63 A.2; F37: el gancho en las primeras
                oraciones, m01e-2; el USER = el JSON de entrada + «Formato de salida: …», con el `tipo` de cada descarte),
-               tope del perfil (`costos.m01e_tope_usd`, tope_usd) contando las dos llamadas, caché por md5 de la entrada
-               y la versión del prompt. F37 §A.5: un reintento si el JSON no parsea o si la validación deja algún motivo
+               sin tope en dólares (F64 Etapa 1, DECISIONES 2026-10-31 13:07: el costo se informa, no frena), caché por
+               md5 de la entrada y la versión del prompt. F37 §A.5: un reintento si el JSON no parsea o si la validación deja algún motivo
                (ficha caída, pregunta al autor, descarte «la voz lo dice» falso, pico sin ficha), con todos juntos. Dos
                respuestas sin JSON → PARADA (la cruda queda en 01e_pantalla.raw.json).
                F38 §A.1: el reintento es PARCIAL: ve el papel completo del intento 1 como contexto, pero devuelve solo
                `cambios` de los beats con motivo; el código los fusiona por (cap, beat) y lo demás queda congelado.
-               F38d §A.1: el reintento parcial da VUELTAS mientras haya motivos, no sean los mismos de la vuelta
-               anterior y entre en el tope; lo nuevo que aparece en una vuelta se pregunta en la siguiente y solo al
+               F38d §A.1: el reintento parcial da VUELTAS mientras haya motivos y no sean los mismos de la vuelta
+               anterior; lo nuevo que aparece en una vuelta se pregunta en la siguiente y solo al
                cerrar corta lo que siga sin preguntar (`reintento.vueltas`, `cierre`, `cortados_al_cierre`).
     respaldo   F38e §C: prompt m01e-6 (el de la prueba 1, letra por letra: el dato con las palabras del autor; los hechos
                en un `respaldo` literal del ítem); el respaldo tiene que ser fragmento del texto del ítem (regla
@@ -70,22 +70,10 @@ from script_engine.voz_utils import (_analiza, _PARTICULAS, _palabra_en, _raiz_e
 PROMPT_VERSION = "m01e-7"       # F64 Etapa 0: el SYSTEM de m01e-6 (lab/hyperframes/f38/PRUEBA1_prompt_rotulos.md, md5 7d2ccdd2…) con la oración 2 del primer párrafo reemplazada por la de F63 A.2 (entrada completa; md5 del SYSTEM 85d094bed6090b14d1802ca97433d982, medido en F63) · antes m01e-6 (F38e §C.1: `respaldo` y `autor` en el formato)
 MODELO = "claude-opus-5-5"      # DECISIONES 2026-10-31 14:16 (F63 a ciegas: Opus medium con la entrada completa 8,8; Sonnet 6,3) · antes claude-sonnet-5-5
 EFFORT = "medium"               # DECISIONES 2026-10-31 14:16 (high no suma)
-TOPE_USD_RESPALDO = 1.00        # DECISIONES: pedido de Omar F37 («TOPE_USD sale al perfil con valor 1.00»); el valor vive en el perfil (costos.m01e_tope_usd)
 SEG_POR_PALABRA_RESPALDO = 0.35  # medido: Vajont ch04 (F36); solo si no hay ninguna voz del narrador (F37 §0: se deriva, voz_utils.seg_por_palabra)
-OUT_TOKENS_PEOR = 16_000        # derivado: el peor caso de salida del rotulista de gfx (razonamiento + JSON); en el reintento, la salida real del primero si fue más
 ARCHIVO = "01e_pantalla"
 ESTILOS = ("normal", "papel", "cita", "nombre")
 TIPOS_DESCARTE = ("voz_lo_dice", "spoiler", "repetido", "otro")      # F37 §A.2 (formato)
-
-
-def tope_usd() -> tuple[float, str]:
-    """F37 §0: el tope de la llamada (con su reintento) es del perfil del canal, `costos.m01e_tope_usd` (gfx_profiles,
-    fuera de git: la clave la agrega Omar); sin la clave, el respaldo del pedido de Omar. (valor, de dónde)."""
-    from gfx_config import ACTIVE_PROFILE
-    v = (ACTIVE_PROFILE.get("costos") or {}).get("m01e_tope_usd")
-    if isinstance(v, (int, float)) and v > 0:
-        return float(v), "perfil (costos.m01e_tope_usd)"
-    return TOPE_USD_RESPALDO, "respaldo (el perfil no trae costos.m01e_tope_usd)"
 
 
 def velocidad(seg: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -724,10 +712,6 @@ def _validar_ficha(fi: dict, cap: str, nb: int | None, b: dict | None, slot: dic
 
 # ═══════════════════════ llamada (§C.2) ═══════════════════════
 
-class TopePantalla(RuntimeError):
-    """El tope de US$ no alcanza para otra llamada."""
-
-
 class SinJSON(RuntimeError):
     """Dos respuestas sin JSON válido: PARADA (HANDOFF_F36_C_D, Frenos)."""
 
@@ -743,12 +727,6 @@ def primer_json(txt: str) -> dict | None:
         if isinstance(obj, dict):
             return obj
     return None
-
-
-def _peor_usd(chars: int, salida_tokens: int, pin: float, pout: float) -> float:
-    """La estimación del peor caso de una llamada (la de siempre de §C.2: los caracteres del pedido a tokens, y la
-    salida peor), en US$ con las tarifas por millón."""
-    return chars / 2.5 / 1e6 * pin + salida_tokens / 1e6 * pout
 
 
 def _reintento(user: str, errores: list[str]) -> str:
@@ -826,25 +804,25 @@ def fusionar(base: dict[str, Any], resp: Any, permitidos: list[tuple[str, int]]
 
 
 def llamar(ent: dict[str, Any], out_dir: Path, *, post: Callable[[dict], dict] | None = None,
-           tope: float | None = None, log: list[str] | None = None) -> dict[str, Any]:
-    """La llamada con caché, tope y las vueltas de reintento. Devuelve {clave, intentos, final, validacion, usd,
-    tokens_in, tope, motivos, motivos_beat, confirmados, reintento}. `post` (tests) reemplaza al POST de la API: recibe
+           log: list[str] | None = None) -> dict[str, Any]:
+    """La llamada con caché y las vueltas de reintento, sin tope en dólares (F64 Etapa 1, DECISIONES 2026-10-31 13:07:
+    el costo se informa en el raw, el .json y el .md; nunca frena). Devuelve {clave, intentos, final, validacion, usd,
+    tokens_in, motivos, motivos_beat, confirmados, reintento}. `post` (tests) reemplaza al POST de la API: recibe
     el body y devuelve el mensaje {content, usage, stop_reason}; cada llamada al POST es un intento, en orden.
     F37 §A.5: los motivos van juntos (fichas caídas, preguntas al autor, descartes «la voz lo dice» falsos, picos sin
-      ficha), dentro del tope del perfil (`tope_usd`). F38 §A.1: el reintento es parcial (`fusionar`): solo los beats
+      ficha). F38 §A.1: el reintento es parcial (`fusionar`): solo los beats
       con motivo (`beats_con_motivo`). El JSON que no parsea sigue con el reintento de JSON completo de siempre (no es
       parcial) y esa respuesta es final (F38d §A.1.6). F38b: los motivos son solo los de la validación en papel.
     F38d §A.1: VUELTAS. Después de cada vuelta, el papel fusionado se valida con los `confirmados` acumulados
       (`_acumular`, nunca se pisan) y sin cortar: una coincidencia nueva (no_dicho, spoiler, contradice) es una pregunta
-      de la vuelta siguiente. Hay otra vuelta mientras haya motivos, no sean iguales a los de la vuelta anterior y la
-      vuelta entre en el tope. Al cerrar (`reintento.cierre`: «sin motivos», «sin progreso», «tope», «sin JSON», «sin
-      beat») la validación final de siempre: lo que sigue sin preguntar corta (`reintento.cortados_al_cierre`). Las
-      preguntas de una vuelta que no volvió (tope, sin JSON) no quedan confirmadas: el autor no las contestó.
+      de la vuelta siguiente. Hay otra vuelta mientras haya motivos y no sean iguales a los de la vuelta anterior.
+      Al cerrar (`reintento.cierre`: «sin motivos», «sin progreso», «sin JSON», «sin beat») la validación final de
+      siempre: lo que sigue sin preguntar corta (`reintento.cortados_al_cierre`). Las preguntas de una vuelta que no
+      volvió (sin JSON) no quedan confirmadas: el autor no las contestó.
       `reintento.vueltas`: por vuelta {vuelta, beats, motivos, aplicados, ignorados, usd}; `beats`, `aplicados` e
       `ignorados` de `reintento` son la unión de todas las vueltas (para los lectores de antes)."""
     import claude_helpers as hx
     log = log if log is not None else []
-    tope_v, tope_de = (float(tope), "argumento") if tope is not None else tope_usd()
     user = pedido(ent)
     clave = hashlib.md5(f"{PROMPT_VERSION}|{MODELO}|{EFFORT}|{PANTALLA_SYSTEM}|{user}".encode("utf-8")).hexdigest()
     raw_f = Path(out_dir) / f"{ARCHIVO}.raw.json"
@@ -858,25 +836,15 @@ def llamar(ent: dict[str, Any], out_dir: Path, *, post: Callable[[dict], dict] |
         return {**prev, "cache": True}
     out: dict[str, Any] = {"clave": clave, "modelo": MODELO, "effort": EFFORT, "prompt_version": PROMPT_VERSION,
                            "prompt_md5": prompt_md5(), "entrada_md5": entrada_md5(ent), "intentos": [], "final": None,
-                           "validacion": None, "usd": 0.0, "tope": {"usd": tope_v, "de": tope_de}, "motivos": [],
+                           "validacion": None, "usd": 0.0, "motivos": [],
                            "motivos_beat": [], "confirmados": {},
                            "reintento": {"tipo": None, "beats": [], "aplicados": [], "ignorados": [], "sin_beat": [],
                                          "vueltas": [], "cierre": None, "cortados_al_cierre": []}}
-    pin, pout = hx.PRICES.get(hx._base(MODELO), (0.0, 0.0))
-    salida_peor = [OUT_TOKENS_PEOR]
 
-    def autor(pedido_k: str, k: int) -> tuple[bool, dict | None]:
-        """Una llamada del autor: (hubo llamada, respuesta JSON o None). Sin lugar en el tope: (False, None)."""
+    def autor(pedido_k: str, k: int) -> dict | None:
+        """Una llamada del autor: la respuesta JSON o None (sin tope: F64 Etapa 1)."""
         body = {"model": MODELO, "max_tokens": hx.MAX_TOKENS, "system": PANTALLA_SYSTEM,
                 "messages": [{"role": "user", "content": pedido_k}], "output_config": {"effort": EFFORT}}
-        peor = _peor_usd(len(json.dumps(body, ensure_ascii=False)), salida_peor[0], pin, pout)
-        if out["usd"] + peor > tope_v:
-            msg = (f"tope US$ {tope_v:.2f} ({tope_de}): gastado {out['usd']:.4f} + esta llamada hasta {peor:.4f}")
-            out["error"] = msg
-            log.append(f"  m01e: {msg} → sin {'reintento' if k else 'llamada'}")
-            if k == 0:
-                raise TopePantalla(msg)
-            return False, None
         t0 = time.time()
         r = (post or hx._post)(body)
         u = r.get("usage") or {}
@@ -885,7 +853,6 @@ def llamar(ent: dict[str, Any], out_dir: Path, *, post: Callable[[dict], dict] |
             hx._track(r.get("model") or MODELO, u, "m01e_pantalla")    # al cost_tracker (el ledger del paso)
         out["usd"] = round(out["usd"] + usd, 5)
         out["tokens_in"] = out.get("tokens_in") or u.get("input_tokens")
-        salida_peor[0] = max(salida_peor[0], int(u.get("output_tokens") or 0))
         txt = "".join(c.get("text") or "" for c in r.get("content") or [] if c.get("type") == "text")
         resp = primer_json(txt)
         out["intentos"].append({"pedido": pedido_k if k else "(el USER de entrada)", "texto": txt, "respuesta": resp,
@@ -893,7 +860,7 @@ def llamar(ent: dict[str, Any], out_dir: Path, *, post: Callable[[dict], dict] |
                                 "segundos": round(time.time() - t0, 1)})
         log.append(f"  m01e intento {k + 1}: in {u.get('input_tokens')} · out {u.get('output_tokens')} · "
                    f"US$ {usd:.4f} · {'JSON' if resp is not None else 'SIN JSON'}")
-        return True, resp
+        return resp
 
     def cerrar(val: dict[str, Any]) -> dict[str, Any]:
         """La validación final (escribe el raw)."""
@@ -919,11 +886,11 @@ def llamar(ent: dict[str, Any], out_dir: Path, *, post: Callable[[dict], dict] |
         out["final"] = papel
         return cerrar(fin)
 
-    _, resp = autor(user, 0)
+    resp = autor(user, 0)
     if resp is None:                                  # JSON inválido: el reintento de JSON completo de siempre
         out["reintento"]["tipo"] = "json"
         stop = out["intentos"][-1].get("stop")
-        _, resp = autor(_reintento(user, [f"la respuesta no es JSON válido (stop_reason {stop})"]), 1)
+        resp = autor(_reintento(user, [f"la respuesta no es JSON válido (stop_reason {stop})"]), 1)
         if resp is None:
             raw_f.parent.mkdir(parents=True, exist_ok=True)
             raw_f.write_text(json.dumps({**out, "entrada": _para_modelo(ent)}, ensure_ascii=False, indent=1),
@@ -954,10 +921,8 @@ def llamar(ent: dict[str, Any], out_dir: Path, *, post: Callable[[dict], dict] |
             return cierre_final(papel, val, "sin beat")
         k += 1
         rt["tipo"] = "parcial"
-        hubo, r = autor(_reintento_parcial(user, papel, motivos, beats_m), k)
-        if r is None:                                 # sin lugar en el tope o sin JSON: queda la vuelta anterior
-            if not hubo:
-                return cierre_final(papel, val, "tope")
+        r = autor(_reintento_parcial(user, papel, motivos, beats_m), k)
+        if r is None:                                 # sin JSON: queda la vuelta anterior
             rt["vueltas"].append({"vuelta": k, "beats": beats_m, "motivos": motivos, "aplicados": [], "ignorados": [],
                                   "usd": out["intentos"][-1]["usd"], "sin_json": True})
             rt["beats"] = _union_beats(rt["beats"], beats_m)
@@ -1013,7 +978,7 @@ def armar(ent: dict[str, Any], res: dict[str, Any]) -> dict[str, Any]:
             "beats": v["beats"], "relojes": v["relojes"],
             "descartados": v["descartados"],
             # F37: de dónde salen las medidas y qué pasó en el reintento (motivos enviados, preguntas y su respuesta)
-            "seg_por_palabra": ent.get("seg_por_palabra"), "tope": res.get("tope"), "error": res.get("error"),
+            "seg_por_palabra": ent.get("seg_por_palabra"), "error": res.get("error"),
             "por_intento": [{"tokens_in": (i.get("usage") or {}).get("input_tokens"),
                              "tokens_out": (i.get("usage") or {}).get("output_tokens"), "usd": i.get("usd"),
                              "segundos": i.get("segundos")} for i in res.get("intentos") or []],
@@ -1057,15 +1022,15 @@ def a_markdown(p: dict[str, Any]) -> str:
     ficha y el momento del relato, los picos sin ficha (⚠), el reintento (motivos enviados y respuestas del autor).
     F38c §A.1: el beat que después del reintento sigue sin ninguno de sus `a_pantalla` lleva ⚠, con el descarte del
     autor si lo hay (o lo que lo sacó en la validación) o «el autor no lo puso»: no se fuerza ni se corta nada."""
-    sp, tp = p.get("seg_por_palabra") or {}, p.get("tope") or {}
+    sp = p.get("seg_por_palabra") or {}
     pi = " · ".join(f"intento {k + 1}: in {i.get('tokens_in')} · out {i.get('tokens_out')} · US$ {i.get('usd') or 0:.4f}"
                     for k, i in enumerate(p.get("por_intento") or []))
     lines = [f"# Guion de pantalla en papel — {p['topic_id']}", "",
              f"`m01e_pantalla` {p['prompt_version']} (md5 del prompt `{p['prompt_md5']}`) · {p['modelo']} {p['effort']} · "
              f"{p['intentos']} intento(s) · US$ {p['usd']:.4f} · tokens de entrada {p.get('tokens_in')}", ""]
-    if sp or tp or pi:
-        lines += [f"Segundos por palabra {sp.get('valor')} ({sp.get('origen')}) · tope US$ {tp.get('usd')} "
-                  f"({tp.get('de')}){' · ' + pi if pi else ''}" + (f" · **{p['error']}**" if p.get("error") else ""), ""]
+    if sp or pi:
+        lines += [f"Segundos por palabra {sp.get('valor')} ({sp.get('origen')}){' · ' + pi if pi else ''}"
+                  + (f" · **{p['error']}**" if p.get("error") else ""), ""]
     fichas = sum(1 for b in p["beats"] if b["ficha"])
     sellos = sum(1 for b in p["beats"] if b["sello"])
     lines += [f"Totales: {fichas} fichas · {sellos} sellos · {len(p['relojes'])} relojes · "
@@ -1235,7 +1200,7 @@ def main(argv: list[str] | None = None) -> int:
     rc = 0
     try:
         generar(topic_id, log=log)
-    except (SinJSON, TopePantalla) as e:
+    except SinJSON as e:
         log.append(f"  m01e: PARADA — {e}")
         rc = 2
     finally:

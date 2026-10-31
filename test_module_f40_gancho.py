@@ -103,7 +103,7 @@ def test_1_d03_pregunta_con_cap_oracion_y_texto(ky, d03):
 @hay
 def test_1_d03_el_autor_la_mantiene_otro_hecho_queda(ky, d03, tmp_path):
     pedidos: list[dict] = []
-    res = mp.llamar(ky, tmp_path, tope=100.0, post=_post_seq([_resp(d03), {"cambios": []}], pedidos))
+    res = mp.llamar(ky, tmp_path, post=_post_seq([_resp(d03), {"cambios": []}], pedidos))
     assert PREGUNTA_D03_6 in res["reintento"]["vueltas"][0]["motivos"]          # se le preguntó en la vuelta 1
     assert PREGUNTA_D03_6 in pedidos[1]["messages"][0]["content"]
     f = _ficha_final(res)                                                        # no la cambió: «otro hecho»
@@ -125,7 +125,7 @@ def test_2_mismo_hecho_el_autor_la_saca_sale(ky, tmp_path):
             f"«5000» en ch04 [11] («{nd[0]['donde'][2]}»); ¿es el mismo hecho? si no, mantenelo") in v["motivos"]
     pedidos: list[dict] = []
     saca = {"cambios": [{"cap": GANCHO[0], "beat": GANCHO[1], "ficha": None}]}   # «mismo hecho»: la saca
-    res = mp.llamar(ky, tmp_path, tope=100.0, post=_post_seq([_resp(D91), saca], pedidos))
+    res = mp.llamar(ky, tmp_path, post=_post_seq([_resp(D91), saca], pedidos))
     assert _ficha_final(res) is None
     assert "D91" not in json.dumps(res["final"], ensure_ascii=False)
 

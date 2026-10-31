@@ -5,6 +5,8 @@ producción.
              `contexto_fuente` al final, los beats con emoción/imagen/pregunta/paga, `escaleta_video` y `disputas`; un
              `ficha_caso.json` ausente no rompe (disputas {}); un L propuesto como ficha sale `normal`; el SYSTEM es el
              de m01e-6 con la oración 2 de F63 A.2 (md5 85d094be…); Opus medium, m01e-7.
+    Etapa 1  sin tope en dólares: no quedan TopePantalla, tope_usd, _peor_usd ni «tope» en el raw/.json/.md; gfx_config
+             ya no acepta la clave `costos`; chascada: importar error_handler en un proceso nuevo no crea logs/*.log.
 Sin API. Un video chico armado acá (nada de data/).
 """
 from __future__ import annotations
@@ -129,3 +131,58 @@ def test_e4_un_lugar_propuesto_como_ficha_sale_normal(ent):
     it["_kind"] = "lugares"
     assert mp.voz_no_lo_dice(it, "la montaña se mueve", ent.get("anios")) == ["Toc"]   # `nombres` no ve el que abre
     assert mp.voz_no_lo_dice(it, "el Monte Toc se mueve", ent.get("anios")) is None
+
+
+# ═══════════════════════ Etapa 1: sin tope ═══════════════════════
+
+def _post_seq(resps: list[dict], pedidos: list[dict]):
+    """POST falso: la llamada k devuelve resps[k] (la última se repite)."""
+    def post(body: dict) -> dict:
+        pedidos.append(body)
+        r = resps[min(len(pedidos) - 1, len(resps) - 1)]
+        return {"content": [{"type": "text", "text": json.dumps(r, ensure_ascii=False)}],
+                "usage": {"input_tokens": 1000, "output_tokens": 200}, "stop_reason": "end_turn"}
+    return post
+
+
+def test_e1_sin_tope_en_el_codigo_ni_en_la_salida(ent, tmp_path):
+    for n in ("TopePantalla", "tope_usd", "TOPE_USD_RESPALDO", "_peor_usd", "OUT_TOKENS_PEOR"):
+        assert not hasattr(mp, n), n
+    assert "tope" not in mp.llamar.__code__.co_varnames
+    pedidos: list[dict] = []
+    res = mp.llamar(ent, tmp_path, post=_post_seq([{"beats": []}], pedidos))
+    assert "tope" not in res and "tope" not in (res.get("error") or "")
+    p = mp.armar(ent, res)
+    assert "tope" not in p
+    assert "tope" not in mp.a_markdown(p).lower()
+    raw = json.loads((tmp_path / f"{mp.ARCHIVO}.raw.json").read_text(encoding="utf-8"))
+    assert "tope" not in raw and raw["usd"] > 0                      # el costo se informa, no frena
+
+
+def test_e1_gfx_config_sin_la_clave_costos():
+    import gfx_config
+    assert "costos" not in gfx_config._PROFILE_KEYS
+    src = Path(gfx_config.__file__).read_text(encoding="utf-8")
+    assert "m01e_tope_usd" not in src.split("F64 Etapa 1")[0] and 'bad.add("costos' not in src
+
+
+def test_e1_fase1_5_solo_atrapa_sin_json():
+    src = Path(__file__).resolve().parent.joinpath("fase1_5.py").read_text(encoding="utf-8")
+    assert "TopePantalla" not in src and "except mp.SinJSON as e:" in src
+
+
+def test_e1_chascada_importar_error_handler_no_crea_log(tmp_path):
+    import subprocess
+    import sys as _sys
+    root = Path(__file__).resolve().parent
+    tmp = tmp_path.as_posix()
+    code = ("import sys, pathlib; sys.path.insert(0, %r); import config; antes = set(config.LOGS_DIR.glob('*.log')); "
+            "import error_handler as eh; tmp = pathlib.Path(%r); h = eh.ErrorHandler(log_dir=tmp); "
+            "print('NUEVOS', sorted(p.name for p in set(config.LOGS_DIR.glob('*.log')) - antes), "
+            "'TMP', sorted(p.name for p in tmp.glob('*.log'))); "
+            "h.logger.info('hola'); print('ESCRITO', sorted(p.name for p in tmp.glob('*.log')))") % (str(root), tmp)
+    r = subprocess.run([_sys.executable, "-c", code], capture_output=True, text=True, encoding="utf-8", cwd=str(root))
+    assert r.returncode == 0, r.stderr
+    out = r.stdout.strip().splitlines()
+    assert out[0] == "NUEVOS [] TMP []", out                          # ni el import ni construir el handler crean archivos
+    assert out[1].startswith("ESCRITO ['pipeline_"), out              # y cuando sí escribe, el archivo existe
