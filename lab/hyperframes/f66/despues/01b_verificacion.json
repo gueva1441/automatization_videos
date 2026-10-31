@@ -1,0 +1,3863 @@
+{
+ "narracion_md5_antes": "c7badfbe260f5eb24a47e780b40406b5",
+ "narracion_md5_despues": "b079e130deb67d92ec6eeae11ad2c700",
+ "primera": {
+  "por_cap": {
+   "ch01": {
+    "afirmaciones": [
+     {
+      "oracion": 0,
+      "afirmacion": "Existe un retrato de Daniel Écija con el pie vendado.",
+      "estado": "respaldada",
+      "ids": [
+       "D85"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "La herida del pie va a cerrar.",
+      "estado": "contradice",
+      "ids": [
+       "D85"
+      ],
+      "fragmento": "Se le cayó un trozo de amianto en el pie y, extrañamente, fue una herida que no se cerraba nunca."
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "Lo que respiró en Wittenoom lo mató casi treinta años después.",
+      "estado": "respaldada",
+      "ids": [
+       "T64",
+       "D89"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "La muerte lo alcanzó a miles de kilómetros de Wittenoom.",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "La foto es en blanco y negro.",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "Según la familia, le cayó un trozo de amianto y la herida no cerraba.",
+      "estado": "respaldada",
+      "ids": [
+       "D85"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "La herida, hecha por un pedazo de mineral, no cerraba.",
+      "estado": "respaldada",
+      "ids": [
+       "D85"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "El hombre se llama Daniel Écija.",
+      "estado": "respaldada",
+      "ids": [
+       "D85"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "Daniel Écija es minero.",
+      "estado": "respaldada",
+      "ids": [
+       "P16"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "Daniel Écija llegó de Madrid unos meses antes de la foto.",
+      "estado": "respaldada",
+      "ids": [
+       "T38",
+       "D87",
+       "L17"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 6,
+      "afirmacion": "La foto se tomó en Wittenoom, Australia Occidental.",
+      "estado": "respaldada",
+      "ids": [
+       "D82",
+       "D87"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 6,
+      "afirmacion": "La foto es de 1963.",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "El pueblo donde se tomó la foto hoy no figura en los mapas.",
+      "estado": "respaldada",
+      "ids": [
+       "D31",
+       "D81"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "Quitaron el nombre del pueblo de las señales de la carretera y de los mapas.",
+      "estado": "respaldada",
+      "ids": [
+       "D31",
+       "D81"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "Los residuos de la mina siguen donde los dejaron.",
+      "estado": "contradice",
+      "ids": [
+       "D04",
+       "D149"
+      ],
+      "fragmento": "The natural forces of wind and water have also spread the asbestos wastes, such that they now cover an area of approximately 10 square kilometres. / asbestos from Wittenoom's tailings piles had spread out beyond the contamination zone and into the Fortescue River."
+     },
+     {
+      "oracion": 11,
+      "afirmacion": "Hubo un baile en Madrid dos años antes de la foto.",
+      "estado": "respaldada",
+      "ids": [
+       "T34",
+       "L18"
+      ],
+      "fragmento": null
+     }
+    ],
+    "usage": {
+     "input_tokens": 65908,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "output_tokens": 3500,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard",
+     "output_tokens_details": {
+      "thinking_tokens": 2229
+     }
+    },
+    "usd": 0.33363,
+    "segundos": 32.0,
+    "intentos": 1,
+    "error": null
+   },
+   "ch02": {
+    "afirmaciones": [
+     {
+      "oracion": 0,
+      "afirmacion": "El baile fue en el Círculo de Bellas Artes",
+      "estado": "respaldada",
+      "ids": [
+       "T34",
+       "L18"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 0,
+      "afirmacion": "El baile fue el 16 de septiembre de 1961",
+      "estado": "respaldada",
+      "ids": [
+       "T34"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "En ese baile María Bernal conoció a Daniel",
+      "estado": "respaldada",
+      "ids": [
+       "T34",
+       "L18"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "María cuenta que iba muy cerca de él y que confiaba en lo que venía",
+      "estado": "respaldada",
+      "ids": [
+       "Q25"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "María Bernal dice, muchos años después: «Me pegué a mi marido, como una niña pequeña»",
+      "estado": "respaldada",
+      "ids": [
+       "Q25"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "María Bernal y Daniel Écija se casaron un año después del baile",
+      "estado": "respaldada",
+      "ids": [
+       "T37"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "Se casaron el 20 de septiembre de 1962",
+      "estado": "respaldada",
+      "ids": [
+       "T37"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "Partieron cuatro días después de la boda",
+      "estado": "respaldada",
+      "ids": [
+       "T38"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "El matrimonio Écija-Bernal viajó en barco",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 6,
+      "afirmacion": "El matrimonio viajaba a Australia",
+      "estado": "respaldada",
+      "ids": [
+       "T38"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "Cerca de ocho mil españoles fueron a Australia por un acuerdo entre los dos gobiernos",
+      "estado": "respaldada",
+      "ids": [
+       "D83",
+       "D97",
+       "T28"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "CSR era la compañía dueña de la mina",
+      "estado": "respaldada",
+      "ids": [
+       "D84",
+       "D99",
+       "T18"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "CSR hacía viajes privados de reclutamiento a Europa desde 1950",
+      "estado": "respaldada",
+      "ids": [
+       "T24"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "Ramón de Juan y Milagros Barroso eran otro matrimonio que ya estaba en Australia",
+      "estado": "respaldada",
+      "ids": [
+       "Q13",
+       "P19",
+       "P20"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "Ramón de Juan y Milagros Barroso habían llegado en agosto de 1962",
+      "estado": "respaldada",
+      "ids": [
+       "T36"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "María recuerda que con ellos se hicieron íntimos amigos",
+      "estado": "respaldada",
+      "ids": [
+       "Q13"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "Víctor Calvo hizo la travesía a Australia de niño",
+      "estado": "respaldada",
+      "ids": [
+       "T36",
+       "P21"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 10,
+      "afirmacion": "Salieron de Málaga",
+      "estado": "respaldada",
+      "ids": [
+       "Q14"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 10,
+      "afirmacion": "Tardaron más de veinte días en llegar",
+      "estado": "respaldada",
+      "ids": [
+       "Q14"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 11,
+      "afirmacion": "Pasaron por el canal de Suez",
+      "estado": "respaldada",
+      "ids": [
+       "Q14"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 12,
+      "afirmacion": "Víctor Calvo dice: «Puf, el calor que hacía allí. Recuerdo los mareos. La incertidumbre»",
+      "estado": "respaldada",
+      "ids": [
+       "Q14"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 15,
+      "afirmacion": "No sabían bien adónde iban ni cómo iban a vivir",
+      "estado": "respaldada",
+      "ids": [
+       "Q14"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 16,
+      "afirmacion": "Del barco pasaron a un avión pequeño",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 17,
+      "afirmacion": "El avión aterrizó en una tierra muy roja",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 17,
+      "afirmacion": "Era la tierra más roja que Víctor había visto en su vida",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     }
+    ],
+    "usage": {
+     "input_tokens": 66158,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "output_tokens": 3895,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard",
+     "output_tokens_details": {
+      "thinking_tokens": 2093
+     }
+    },
+    "usd": 0.34253,
+    "segundos": 31.0,
+    "intentos": 1,
+    "error": null
+   },
+   "ch03": {
+    "afirmaciones": [
+     {
+      "oracion": 0,
+      "afirmacion": "El avión era pequeño, de hélice, y se movía mucho",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "El lugar está en la región desértica de Pilbara, en Australia Occidental",
+      "estado": "respaldada",
+      "ids": [
+       "D82",
+       "L07"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "Aterrizaron en una pista en medio de una tierra muy roja",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "Había polvo por todas partes",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "El testimonio dice que nunca había visto tanto polvo",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "El testimonio es de uno de los chicos que bajaron de ese avión",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "Los llevaron a casas de chapa, madera y fibrocemento (uralita)",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 6,
+      "afirmacion": "La pista de aterrizaje estaba hecha con relaves de la mina, el residuo que queda tras extraer la fibra",
+      "estado": "respaldada",
+      "ids": [
+       "D03",
+       "D02"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "Con relaves se hicieron las carreteras, los patios y los espacios públicos del pueblo",
+      "estado": "respaldada",
+      "ids": [
+       "D129",
+       "D39"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "La empresa descargaba relaves a pedido de los vecinos",
+      "estado": "respaldada",
+      "ids": [
+       "Q44"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "Cita: «Las escuelas y el jardín de infantes, las iglesias, todos lo tenían bonito con relaves allí»",
+      "estado": "respaldada",
+      "ids": [
+       "Q44"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "La cita es de un antiguo trabajador de la mina",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "El pueblo, la pista, los patios y la escuela estaban hechos o cubiertos con relaves de la mina",
+      "estado": "respaldada",
+      "ids": [
+       "D03",
+       "D129",
+       "Q44"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 11,
+      "afirmacion": "Los informes sobre el polvo eran anteriores a la boda y al viaje de 1962",
+      "estado": "respaldada",
+      "ids": [
+       "D19",
+       "T37",
+       "T38"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 12,
+      "afirmacion": "En 1943, ABA, filial de CSR, se quedó con los intereses de Hancock y Wright en la mina",
+      "estado": "respaldada",
+      "ids": [
+       "T06",
+       "D47",
+       "D84"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 13,
+      "afirmacion": "En 1944 el Inspector de Minas y el Ingeniero de Minas Adjunto del Estado informaron sobre el problema del polvo",
+      "estado": "respaldada",
+      "ids": [
+       "D19",
+       "T09"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 14,
+      "afirmacion": "En 1946 ya había diagnósticos (en plural) de asbestosis",
+      "estado": "contradice",
+      "ids": [
+       "T13",
+       "D91"
+      ],
+      "fragmento": "cómo en 1946 ya se había diagnosticado un caso de asbestosis"
+     },
+     {
+      "oracion": 14,
+      "afirmacion": "En 1946 un inspector describió las condiciones de trabajo como terroríficas",
+      "estado": "respaldada",
+      "ids": [
+       "D91"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 15,
+      "afirmacion": "El defensor del empleador dijo: «El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso»",
+      "estado": "respaldada",
+      "ids": [
+       "Q53"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 16,
+      "afirmacion": "En 1948 un médico visitó Wittenoom y puso por escrito lo que encontró",
+      "estado": "respaldada",
+      "ids": [
+       "T20"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 16,
+      "afirmacion": "El médico llegó en avión",
+      "estado": "respaldada",
+      "ids": [
+       "Q46"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 17,
+      "afirmacion": "La carta del médico decía: «En un año o dos, ABA producirá la cosecha más abundante y letal de casos de asbestosis de la literatura mundial»",
+      "estado": "respaldada",
+      "ids": [
+       "Q45",
+       "T20"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 18,
+      "afirmacion": "El médico pedía, naturalmente, examinar algunos de esos tórax",
+      "estado": "respaldada",
+      "ids": [
+       "Q45"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 19,
+      "afirmacion": "En 1948 Eric Saint, médico, advirtió por escrito que los niveles de polvo eran extremadamente peligrosos",
+      "estado": "respaldada",
+      "ids": [
+       "D92",
+       "T19"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 20,
+      "afirmacion": "Saint dijo que lo desestimaron y lo tildaron de alborotador",
+      "estado": "respaldada",
+      "ids": [
+       "Q46"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 21,
+      "afirmacion": "Nueve años después (1957) intervino un tribunal laboral, la Junta de Referencia",
+      "estado": "respaldada",
+      "ids": [
+       "T26",
+       "P42"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 21,
+      "afirmacion": "El tribunal fue a ver el molino en persona",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 22,
+      "afirmacion": "La Junta de Referencia entró al molino en 1957 y dejó constancia por escrito",
+      "estado": "respaldada",
+      "ids": [
+       "T26"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 23,
+      "afirmacion": "El acta dice que las condiciones dentro del molino eran extremadamente polvorientas y que los trabajadores estaban cubiertos de polvo",
+      "estado": "respaldada",
+      "ids": [
+       "Q54",
+       "T26"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 25,
+      "afirmacion": "Una nube espesa de polvo había alrededor del molino",
+      "estado": "respaldada",
+      "ids": [
+       "Q54"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 26,
+      "afirmacion": "Siete meses después, tras instalarse equipos para reducir el polvo, se redujo y restringió el suplemento salarial por polvo",
+      "estado": "respaldada",
+      "ids": [
+       "T27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 27,
+      "afirmacion": "Un documento oficial dice que los reguladores hicieron poco más que emitir advertencias y pedir equipos para reducir el polvo",
+      "estado": "respaldada",
+      "ids": [
+       "D20"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 28,
+      "afirmacion": "En 1961 la producción aumentó",
+      "estado": "respaldada",
+      "ids": [
+       "D21",
+       "T33"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 29,
+      "afirmacion": "En 1962 Jim McNulty comunicó un caso de mesotelioma en un antiguo trabajador del molino, presentado por una fuente como el primero fuera de Sudáfrica",
+      "estado": "respaldada",
+      "ids": [
+       "D130",
+       "T35",
+       "P07"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 30,
+      "afirmacion": "Cita: «no se encendieron las alarmas entre los involucrados en la industria minera porque estaban acostumbrados; lo esperaban»",
+      "estado": "respaldada",
+      "ids": [
+       "Q49"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 30,
+      "afirmacion": "La cita es de McNulty",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 31,
+      "afirmacion": "McNulty escribió el primer caso de mesotelioma en 1962",
+      "estado": "contradice",
+      "ids": [
+       "D50",
+       "T32",
+       "D130"
+      ],
+      "fragmento": "Dr J McNulty of the Public Health Department diagnosed the first mesothelioma case arising from Wittenoom. / The first case of mesothelioma outside South Africa—in an ex-Wittenoom mill worker—was reported by McNulty in 1962."
+     },
+     {
+      "oracion": 31,
+      "afirmacion": "En 1962 un recién casado de Madrid llegó a Wittenoom",
+      "estado": "respaldada",
+      "ids": [
+       "T37",
+       "T38",
+       "D87",
+       "L17"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 31,
+      "afirmacion": "Ese recién casado llegó en avión a la pista de Wittenoom",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     }
+    ],
+    "usage": {
+     "input_tokens": 67080,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "output_tokens": 7100,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard",
+     "output_tokens_details": {
+      "thinking_tokens": 3836
+     }
+    },
+    "usd": 0.41032,
+    "segundos": 57.3,
+    "intentos": 1,
+    "error": null
+   },
+   "ch04": {
+    "afirmaciones": [
+     {
+      "oracion": 0,
+      "afirmacion": "Daniel Écija llegó a Wittenoom aterrizando en una pista",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 0,
+      "afirmacion": "Daniel Écija llegó a Wittenoom semanas después de su boda",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 0,
+      "afirmacion": "Daniel Écija trabajó en la mina de Wittenoom",
+      "estado": "respaldada",
+      "ids": [
+       "P16",
+       "Q16"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "Según el hijo, el primer día de trabajo de su padre hubo una explosión",
+      "estado": "respaldada",
+      "ids": [
+       "Q16"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "Según el hijo, en esa explosión murió alguien",
+      "estado": "contradice",
+      "ids": [
+       "Q16"
+      ],
+      "fragmento": "El primer día de trabajo de nuestro padre hubo una explosión y murieron varias personas"
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "No hay otro documento que confirme la explosión",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "Ramón de Juan era amigo de Daniel Écija",
+      "estado": "respaldada",
+      "ids": [
+       "Q13",
+       "D104"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "Ramón de Juan hacía con frecuencia jornadas de dieciséis horas",
+      "estado": "respaldada",
+      "ids": [
+       "D104"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "Las casas de los trabajadores eran de chapa",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "Los hombres volvían a casa con el polvo encima",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "Los patios estaban hechos con relaves",
+      "estado": "respaldada",
+      "ids": [
+       "D129",
+       "Q44"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "Los chicos jugaban en esos patios",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "Víctor Calvo vivió de niño en Wittenoom",
+      "estado": "respaldada",
+      "ids": [
+       "P21",
+       "T36"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "El amianto azul se deshacía al tocarlo",
+      "estado": "respaldada",
+      "ids": [
+       "Q19",
+       "Q32"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 6,
+      "afirmacion": "Calvo dice que jugaban con el amianto y lo iban deshilachando",
+      "estado": "respaldada",
+      "ids": [
+       "Q19"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "Calvo dice que se metían el amianto en la boca",
+      "estado": "respaldada",
+      "ids": [
+       "Q19"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "Calvo dice que al tocarlo salía un polvillo que lo impregnaba todo",
+      "estado": "respaldada",
+      "ids": [
+       "Q19"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "Los chicos estaban rodeados de amianto azul y no les daba miedo",
+      "estado": "respaldada",
+      "ids": [
+       "Q19"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 10,
+      "afirmacion": "En junio de 1963 María dio a luz en el hospital de Wittenoom",
+      "estado": "respaldada",
+      "ids": [
+       "T40"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 11,
+      "afirmacion": "El parto fue con fórceps",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 12,
+      "afirmacion": "El bebé era muy grande",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 12,
+      "afirmacion": "María venía debilitada por una infección renal",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 13,
+      "afirmacion": "Nació un varón al que llamaron Daniel, como el padre",
+      "estado": "respaldada",
+      "ids": [
+       "T40",
+       "D102"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 14,
+      "afirmacion": "En marzo de 1963 Milagros Barroso dio a luz en Wittenoom a John Patrick",
+      "estado": "respaldada",
+      "ids": [
+       "T39"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 15,
+      "afirmacion": "El niño fue bautizado el 7 de julio de 1963",
+      "estado": "respaldada",
+      "ids": [
+       "T41",
+       "D87"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 15,
+      "afirmacion": "La familia conserva una fotografía del día del bautizo",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 16,
+      "afirmacion": "Después del bautizo los Écija se fueron de Wittenoom",
+      "estado": "respaldada",
+      "ids": [
+       "T41"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 17,
+      "afirmacion": "Los Écija estuvieron unos diez meses en Wittenoom",
+      "estado": "respaldada",
+      "ids": [
+       "D87"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 18,
+      "afirmacion": "Los Écija creyeron que de Wittenoom se llevaban solo un hijo",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     }
+    ],
+    "usage": {
+     "input_tokens": 66188,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "output_tokens": 3853,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard",
+     "output_tokens_details": {
+      "thinking_tokens": 1790
+     }
+    },
+    "usd": 0.34181,
+    "segundos": 32.7,
+    "intentos": 1,
+    "error": null
+   },
+   "ch05": {
+    "afirmaciones": [
+     {
+      "oracion": 0,
+      "afirmacion": "La mina de Wittenoom siguió operando unos tres años después de que los Écija se fueran (julio de 1963 a 1966)",
+      "estado": "respaldada",
+      "ids": [
+       "T41",
+       "D22",
+       "T48"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "En diciembre de 1966, James Vernon, de CSR, anunció el cierre de las operaciones",
+      "estado": "respaldada",
+      "ids": [
+       "T48",
+       "P08"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "El cierre se anunció por razones económicas y de costos",
+      "estado": "respaldada",
+      "ids": [
+       "T48",
+       "D22",
+       "T49"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "Los Écija volvieron a Madrid en 1966",
+      "estado": "respaldada",
+      "ids": [
+       "T47"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "Los De Juan estuvieron en Wittenoom unos dos años y medio",
+      "estado": "respaldada",
+      "ids": [
+       "D88"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "Los De Juan regresaron a Madrid en 1971",
+      "estado": "respaldada",
+      "ids": [
+       "T51"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "Mercedes de Juan se quedó en Australia",
+      "estado": "respaldada",
+      "ids": [
+       "T51"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 6,
+      "afirmacion": "En 1978 el gobierno del Estado empezó a reducir Wittenoom y a alentar a los residentes a irse por el riesgo de fibras de asbesto en el aire",
+      "estado": "respaldada",
+      "ids": [
+       "T52",
+       "D27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "En 1979 los afectados formaron la Asbestos Diseases Society of Australia",
+      "estado": "respaldada",
+      "ids": [
+       "T56"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "En 1988 un juez determinó que la compañía había mostrado un desprecio continuo, consciente y contumaz por la seguridad y la salud de sus trabajadores",
+      "estado": "respaldada",
+      "ids": [
+       "D93",
+       "T62"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "El fallo de 1988 llegó veintidós años después del cierre de 1966",
+      "estado": "respaldada",
+      "ids": [
+       "D93",
+       "D22"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 10,
+      "afirmacion": "En 1988 a Daniel Écija, que vivía en Madrid, le quedaban unos tres años de vida",
+      "estado": "respaldada",
+      "ids": [
+       "T64",
+       "D89",
+       "T47"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 11,
+      "afirmacion": "María guarda fotografías familiares en sepia de aquellos años",
+      "estado": "respaldada",
+      "ids": [
+       "Q25"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 11,
+      "afirmacion": "Entre las fotos hay una de Daniel con el pie vendado",
+      "estado": "respaldada",
+      "ids": [
+       "D85"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 11,
+      "afirmacion": "Entre las fotos hay una del baile, una del barco y una del bautizo",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 12,
+      "afirmacion": "En 1991 Daniel Écija fue diagnosticado de mesotelioma en Madrid",
+      "estado": "respaldada",
+      "ids": [
+       "T64"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 13,
+      "afirmacion": "McNulty reportó en 1962 un caso de mesotelioma en un extrabajador del molino de Wittenoom",
+      "estado": "respaldada",
+      "ids": [
+       "D130",
+       "T35"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 13,
+      "afirmacion": "Daniel llegó a Wittenoom en avión en 1962",
+      "estado": "respaldada",
+      "ids": [
+       "T38",
+       "D87",
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 15,
+      "afirmacion": "Daniel tuvo una herida en el pie que no se cerraba",
+      "estado": "respaldada",
+      "ids": [
+       "D85"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 16,
+      "afirmacion": "Daniel tenía cincuenta y cinco años",
+      "estado": "respaldada",
+      "ids": [
+       "D89"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 17,
+      "afirmacion": "María conservaba las fotos",
+      "estado": "respaldada",
+      "ids": [
+       "Q25"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 18,
+      "afirmacion": "Daniel Écija murió en Madrid nueve meses después del diagnóstico",
+      "estado": "respaldada",
+      "ids": [
+       "D89",
+       "T64"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 18,
+      "afirmacion": "Murió casi treinta años después de haberse ido de Wittenoom (1963)",
+      "estado": "respaldada",
+      "ids": [
+       "T41",
+       "T64"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 18,
+      "afirmacion": "Wittenoom tenía una pista de aterrizaje en tierra roja",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 20,
+      "afirmacion": "El hijo, Daniel, el niño bautizado en Wittenoom, dice: «Ese lugar cambió nuestras vidas para siempre»",
+      "estado": "respaldada",
+      "ids": [
+       "Q35",
+       "T41"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 21,
+      "afirmacion": "Entre el diagnóstico y la muerte pasaron nueve meses",
+      "estado": "respaldada",
+      "ids": [
+       "D89"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 23,
+      "afirmacion": "Daniel estuvo en Wittenoom unos diez meses",
+      "estado": "respaldada",
+      "ids": [
+       "D87"
+      ],
+      "fragmento": null
+     }
+    ],
+    "usage": {
+     "input_tokens": 66450,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "output_tokens": 3995,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard",
+     "output_tokens_details": {
+      "thinking_tokens": 1865
+     }
+    },
+    "usd": 0.3457,
+    "segundos": 33.3,
+    "intentos": 1,
+    "error": null
+   },
+   "ch06": {
+    "afirmaciones": [
+     {
+      "oracion": 1,
+      "afirmacion": "Quienes nacieron en Wittenoom tienen el nombre del lugar escrito en el pasaporte.",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "En un control de aeropuerto, un policía leyó el documento, bajó la cabeza y volvió a mirar a quien había nacido en Wittenoom.",
+      "estado": "respaldada",
+      "ids": [
+       "T57"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "El policía dijo: «Así que de Wittenoom, ¿eh? Un sitio terrorífico».",
+      "estado": "respaldada",
+      "ids": [
+       "Q24",
+       "T57"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "Mercedes de Juan se quedó en Australia.",
+      "estado": "respaldada",
+      "ids": [
+       "T51"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "Mercedes de Juan tiene controles médicos que se repiten.",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 6,
+      "afirmacion": "Mercedes de Juan dice: «Nos hacen un escáner y una prueba de función pulmonar».",
+      "estado": "respaldada",
+      "ids": [
+       "Q21"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "Según Melita Markey, el gobierno dejó de contar las muertes al llegar a 2.000.",
+      "estado": "respaldada",
+      "ids": [
+       "Q33",
+       "D90",
+       "P24"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "Según Melita Markey, otras estimaciones hablan de más de 4.000 muertes y la cifra sigue aumentando.",
+      "estado": "respaldada",
+      "ids": [
+       "Q33",
+       "D90"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "Según Markey, están enfermando ahora hijos de funcionarios que trabajaban en el pueblo, como policías o maestros.",
+      "estado": "respaldada",
+      "ids": [
+       "Q33"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "Wittenoom dejó de existir oficialmente como pueblo.",
+      "estado": "respaldada",
+      "ids": [
+       "D30",
+       "D31"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 10,
+      "afirmacion": "Wittenoom fue abolido oficialmente hacia junio de 2007; según otras referencias, en 2006.",
+      "estado": "respaldada",
+      "ids": [
+       "T80",
+       "D31",
+       "T71",
+       "D30"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 11,
+      "afirmacion": "El nombre de Wittenoom se eliminó de los mapas oficiales y de las señales de la carretera.",
+      "estado": "respaldada",
+      "ids": [
+       "D31",
+       "T79"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 12,
+      "afirmacion": "El gobierno de Australia Occidental llamó a la abolición del pueblo «el fin de un período oscuro en la historia de nuestro Estado».",
+      "estado": "contradice",
+      "ids": [
+       "Q07",
+       "T91"
+      ],
+      "fragmento": "Q07 (fecha 2022): \"The W.A. Government declared this was “an end to a dark period in our State's history.”\" — la cita está fechada en 2022, ligada al desalojo de los últimos residentes antes de la demolición (\"In 2022, the last remaining residents of Wittenoom town were evicted ahead of its demolition in 2023\"), no a la abolición de 2006-2007."
+     },
+     {
+      "oracion": 13,
+      "afirmacion": "El DWER y el Department of Health declararon la zona «no apta para ninguna forma de ocupación humana o uso del suelo».",
+      "estado": "respaldada",
+      "ids": [
+       "Q03"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 14,
+      "afirmacion": "Los relaves suman más de tres millones de toneladas y siguen donde se dejaron, sin contener.",
+      "estado": "respaldada",
+      "ids": [
+       "D02",
+       "D147"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 15,
+      "afirmacion": "El agua arrastra asbesto por los lechos de los arroyos y las pozas hasta el río Fortescue.",
+      "estado": "respaldada",
+      "ids": [
+       "L06",
+       "D10"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 15,
+      "afirmacion": "Un informe advirtió que el asbesto podía seguir llegando al río durante cientos de años si nadie intervenía.",
+      "estado": "respaldada",
+      "ids": [
+       "T75",
+       "D10",
+       "D57"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 16,
+      "afirmacion": "En 2021, una nota ambiental registró fibras de asbesto en canales de arroyos fuera de la zona contaminada.",
+      "estado": "respaldada",
+      "ids": [
+       "T90"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 17,
+      "afirmacion": "En 2016, un documento estatal aconsejó no asegurar los relaves.",
+      "estado": "respaldada",
+      "ids": [
+       "T87",
+       "D59"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 18,
+      "afirmacion": "No se aseguraron los relaves aunque era técnicamente posible.",
+      "estado": "respaldada",
+      "ids": [
+       "D59"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 19,
+      "afirmacion": "Los relaves no se aseguraron por el costo.",
+      "estado": "respaldada",
+      "ids": [
+       "D59",
+       "T87"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 20,
+      "afirmacion": "En esa tierra vivía un hombre que no podía irse.",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     }
+    ],
+    "usage": {
+     "input_tokens": 66379,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "output_tokens": 3514,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard",
+     "output_tokens_details": {
+      "thinking_tokens": 1496
+     }
+    },
+    "usd": 0.3358,
+    "segundos": 28.4,
+    "intentos": 1,
+    "error": null
+   },
+   "ch07": {
+    "afirmaciones": [
+     {
+      "oracion": 0,
+      "afirmacion": "Maitland Parker era Banjima",
+      "estado": "respaldada",
+      "ids": [
+       "T92",
+       "P13"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 0,
+      "afirmacion": "La tierra de Wittenoom era tierra de Parker, como Banjima",
+      "estado": "respaldada",
+      "ids": [
+       "D52",
+       "L14"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "En 2023 Marcos Orellana visitó Australia",
+      "estado": "respaldada",
+      "ids": [
+       "T92"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "Orellana entrevistó a Parker sobre la contaminación y el daño persistente",
+      "estado": "respaldada",
+      "ids": [
+       "T92"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "Parker dijo «Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él»",
+      "estado": "respaldada",
+      "ids": [
+       "Q10"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "Hay barricadas que cortan la entrada al desfiladero y siguen puestas",
+      "estado": "respaldada",
+      "ids": [
+       "D42"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "Maitland Parker murió de mesotelioma en 2024",
+      "estado": "respaldada",
+      "ids": [
+       "T96"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "En 2026 Gordon Legal inició un proceso ante el Tribunal Federal contra Australia Occidental en nombre de BNTAC",
+      "estado": "respaldada",
+      "ids": [
+       "T98",
+       "D62"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 6,
+      "afirmacion": "La prensa informa de una reclamación de 1.500 millones de dólares australianos",
+      "estado": "respaldada",
+      "ids": [
+       "D95"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "Los abogados sostienen que el Estado no ha gastado dinero en remediar el sitio",
+      "estado": "respaldada",
+      "ids": [
+       "D70"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "Los abogados sostienen que no se ha retirado una sola palada de asbesto de la tierra Banjima",
+      "estado": "respaldada",
+      "ids": [
+       "D71"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "El gobierno de Australia Occidental habla de un «grave problema de salud y seguridad pública»",
+      "estado": "respaldada",
+      "ids": [
+       "Q34"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "Dos inspectores advirtieron sobre el polvo en 1944",
+      "estado": "contradice",
+      "ids": [
+       "D19"
+      ],
+      "fragmento": "the Mines Inspector and the Assistant State Mining Engineer reported on the dust issue as early as 1944"
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "Un médico que advirtió sobre el polvo fue tildado de alborotador en 1948",
+      "estado": "respaldada",
+      "ids": [
+       "Q46",
+       "D92",
+       "T20"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "Un tribunal entró al molino en 1957 y constató sus condiciones",
+      "estado": "respaldada",
+      "ids": [
+       "T26",
+       "Q54"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 10,
+      "afirmacion": "La mina siguió operando hasta que cerró por razones económicas",
+      "estado": "respaldada",
+      "ids": [
+       "D22",
+       "T44"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 11,
+      "afirmacion": "Todavía no se ha retirado ninguna palada de asbesto",
+      "estado": "respaldada",
+      "ids": [
+       "D71"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 12,
+      "afirmacion": "Daniel Écija vivió unos diez meses en Wittenoom",
+      "estado": "respaldada",
+      "ids": [
+       "D87"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 13,
+      "afirmacion": "Nadie en la familia de Daniel Écija sabe decir qué respiró en Wittenoom",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 14,
+      "afirmacion": "Wittenoom fue eliminado de los mapas oficiales",
+      "estado": "respaldada",
+      "ids": [
+       "D31",
+       "D81"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 15,
+      "afirmacion": "Daniel Écija murió casi treinta años después de su estancia de diez meses en Wittenoom",
+      "estado": "respaldada",
+      "ids": [
+       "T64",
+       "D89",
+       "D87"
+      ],
+      "fragmento": null
+     }
+    ],
+    "usage": {
+     "input_tokens": 66136,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "output_tokens": 3324,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard",
+     "output_tokens_details": {
+      "thinking_tokens": 1642
+     }
+    },
+    "usd": 0.33102,
+    "segundos": 28.6,
+    "intentos": 1,
+    "error": null
+   }
+  },
+  "contradice": [
+   {
+    "cap": "ch01",
+    "oracion": 1,
+    "texto": "Ese pie va a cerrar; lo que respira mientras espera que cierre va a tardar casi treinta años en matarlo, y lo va a alcanzar a miles de kilómetros de aquí.",
+    "beat": 1,
+    "afirmacion": "La herida del pie va a cerrar.",
+    "ids": [
+     "D85"
+    ],
+    "fragmento": "Se le cayó un trozo de amianto en el pie y, extrañamente, fue una herida que no se cerraba nunca."
+   },
+   {
+    "cap": "ch01",
+    "oracion": 9,
+    "texto": "Lo que sobró de la mina, en cambio, sigue donde lo dejaron.",
+    "beat": 1,
+    "afirmacion": "Los residuos de la mina siguen donde los dejaron.",
+    "ids": [
+     "D04",
+     "D149"
+    ],
+    "fragmento": "The natural forces of wind and water have also spread the asbestos wastes, such that they now cover an area of approximately 10 square kilometres. / asbestos from Wittenoom's tailings piles had spread out beyond the contamination zone and into the Fortescue River."
+   },
+   {
+    "cap": "ch03",
+    "oracion": 14,
+    "texto": "En 1946 ya había diagnósticos de asbestosis, y un inspector describió las condiciones de trabajo como terroríficas.",
+    "beat": 5,
+    "afirmacion": "En 1946 ya había diagnósticos (en plural) de asbestosis",
+    "ids": [
+     "T13",
+     "D91"
+    ],
+    "fragmento": "cómo en 1946 ya se había diagnosticado un caso de asbestosis"
+   },
+   {
+    "cap": "ch03",
+    "oracion": 31,
+    "texto": "El año en que McNulty escribió ese primer caso, un recién casado de Madrid se bajaba de un avión en esa misma pista de polvo.",
+    "beat": 6,
+    "afirmacion": "McNulty escribió el primer caso de mesotelioma en 1962",
+    "ids": [
+     "D50",
+     "T32",
+     "D130"
+    ],
+    "fragmento": "Dr J McNulty of the Public Health Department diagnosed the first mesothelioma case arising from Wittenoom. / The first case of mesothelioma outside South Africa—in an ex-Wittenoom mill worker—was reported by McNulty in 1962."
+   },
+   {
+    "cap": "ch04",
+    "oracion": 1,
+    "texto": "El hijo cuenta que el primer día de trabajo de su padre hubo una explosión y que alguien murió; no hay otro documento que lo confirme.",
+    "beat": 7,
+    "afirmacion": "Según el hijo, en esa explosión murió alguien",
+    "ids": [
+     "Q16"
+    ],
+    "fragmento": "El primer día de trabajo de nuestro padre hubo una explosión y murieron varias personas"
+   },
+   {
+    "cap": "ch06",
+    "oracion": 12,
+    "texto": "El gobierno de Australia Occidental lo llamó «el fin de un período oscuro en la historia de nuestro Estado».",
+    "beat": 12,
+    "afirmacion": "El gobierno de Australia Occidental llamó a la abolición del pueblo «el fin de un período oscuro en la historia de nuestro Estado».",
+    "ids": [
+     "Q07",
+     "T91"
+    ],
+    "fragmento": "Q07 (fecha 2022): \"The W.A. Government declared this was “an end to a dark period in our State's history.”\" — la cita está fechada en 2022, ligada al desalojo de los últimos residentes antes de la demolición (\"In 2022, the last remaining residents of Wittenoom town were evicted ahead of its demolition in 2023\"), no a la abolición de 2006-2007."
+   },
+   {
+    "cap": "ch07",
+    "oracion": 9,
+    "texto": "Quién sabía está escrito: dos inspectores en 1944, un médico al que llamaron alborotador en 1948, un tribunal que entró al molino en 1957.",
+    "beat": 13,
+    "afirmacion": "Dos inspectores advirtieron sobre el polvo en 1944",
+    "ids": [
+     "D19"
+    ],
+    "fragmento": "the Mines Inspector and the Assistant State Mining Engineer reported on the dust issue as early as 1944"
+   }
+  ],
+  "sin_respaldo": [
+   {
+    "cap": "ch01",
+    "oracion": 1,
+    "texto": "Ese pie va a cerrar; lo que respira mientras espera que cierre va a tardar casi treinta años en matarlo, y lo va a alcanzar a miles de kilómetros de aquí.",
+    "beat": 1,
+    "afirmacion": "La muerte lo alcanzó a miles de kilómetros de Wittenoom.",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch01",
+    "oracion": 2,
+    "texto": "La foto es en blanco y negro.",
+    "beat": 1,
+    "afirmacion": "La foto es en blanco y negro.",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch01",
+    "oracion": 6,
+    "texto": "Wittenoom, Australia Occidental, 1963.",
+    "beat": 1,
+    "afirmacion": "La foto es de 1963.",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch02",
+    "oracion": 5,
+    "texto": "Cuatro días después estaban en un barco.",
+    "beat": 2,
+    "afirmacion": "El matrimonio Écija-Bernal viajó en barco",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch02",
+    "oracion": 17,
+    "texto": "Del avión, a la tierra más roja que Víctor había visto en su vida.",
+    "beat": 3,
+    "afirmacion": "Era la tierra más roja que Víctor había visto en su vida",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch03",
+    "oracion": 4,
+    "texto": "Nunca había visto tanto polvo», recuerda uno de los chicos que bajaron de ese avión.",
+    "beat": 4,
+    "afirmacion": "El testimonio es de uno de los chicos que bajaron de ese avión",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch03",
+    "oracion": 8,
+    "texto": "«Las escuelas y el jardín de infantes, las iglesias, todos lo tenían bonito con relaves allí», dijo un antiguo trabajador de la mina.",
+    "beat": 4,
+    "afirmacion": "La cita es de un antiguo trabajador de la mina",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch03",
+    "oracion": 21,
+    "texto": "Nueve años después, un tribunal laboral fue a ver el molino con sus propios ojos.",
+    "beat": 5,
+    "afirmacion": "El tribunal fue a ver el molino en persona",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch03",
+    "oracion": 30,
+    "texto": "Según McNulty, los que habían advertido sobre el polvo y predicho las enfermedades no sorprendieron a nadie: «no se encendieron las alarmas entre los involucrados en la industria minera porque estaban acostumbrados; lo esperaban».",
+    "beat": 6,
+    "afirmacion": "La cita es de McNulty",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch03",
+    "oracion": 31,
+    "texto": "El año en que McNulty escribió ese primer caso, un recién casado de Madrid se bajaba de un avión en esa misma pista de polvo.",
+    "beat": 6,
+    "afirmacion": "Ese recién casado llegó en avión a la pista de Wittenoom",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch04",
+    "oracion": 0,
+    "texto": "Daniel Écija bajó a esa pista semanas después de su boda y entró a trabajar en la mina.",
+    "beat": 7,
+    "afirmacion": "Daniel Écija llegó a Wittenoom semanas después de su boda",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch04",
+    "oracion": 1,
+    "texto": "El hijo cuenta que el primer día de trabajo de su padre hubo una explosión y que alguien murió; no hay otro documento que lo confirme.",
+    "beat": 7,
+    "afirmacion": "No hay otro documento que confirme la explosión",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch04",
+    "oracion": 3,
+    "texto": "Los hombres volvían a las casas de chapa con el polvo encima, y en los patios hechos de relaves jugaban los chicos.",
+    "beat": 7,
+    "afirmacion": "Los hombres volvían a casa con el polvo encima",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch04",
+    "oracion": 3,
+    "texto": "Los hombres volvían a las casas de chapa con el polvo encima, y en los patios hechos de relaves jugaban los chicos.",
+    "beat": 7,
+    "afirmacion": "Los chicos jugaban en esos patios",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch04",
+    "oracion": 11,
+    "texto": "El parto fue con fórceps.",
+    "beat": 8,
+    "afirmacion": "El parto fue con fórceps",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch04",
+    "oracion": 12,
+    "texto": "El bebé era muy grande y María venía debilitada por una infección renal.",
+    "beat": 8,
+    "afirmacion": "El bebé era muy grande",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch04",
+    "oracion": 12,
+    "texto": "El bebé era muy grande y María venía debilitada por una infección renal.",
+    "beat": 8,
+    "afirmacion": "María venía debilitada por una infección renal",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch04",
+    "oracion": 15,
+    "texto": "El 7 de julio de 1963 bautizaron al niño; la familia conserva una fotografía de ese día.",
+    "beat": 8,
+    "afirmacion": "La familia conserva una fotografía del día del bautizo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch04",
+    "oracion": 18,
+    "texto": "Creyeron que se llevaban de Wittenoom un hijo y nada más.",
+    "beat": 8,
+    "afirmacion": "Los Écija creyeron que de Wittenoom se llevaban solo un hijo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch05",
+    "oracion": 11,
+    "texto": "María guarda las fotografías en sepia: el baile, el barco, el pie vendado, el bautizo.",
+    "beat": 10,
+    "afirmacion": "Entre las fotos hay una del baile, una del barco y una del bautizo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch06",
+    "oracion": 1,
+    "texto": "Los que nacieron allí lo llevan escrito en el pasaporte.",
+    "beat": 11,
+    "afirmacion": "Quienes nacieron en Wittenoom tienen el nombre del lugar escrito en el pasaporte.",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch06",
+    "oracion": 5,
+    "texto": "Mercedes de Juan se quedó en Australia y vive con una cita que se repite.",
+    "beat": 11,
+    "afirmacion": "Mercedes de Juan tiene controles médicos que se repiten.",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch06",
+    "oracion": 20,
+    "texto": "En esa tierra vivía un hombre que no podía irse.",
+    "beat": 12,
+    "afirmacion": "En esa tierra vivía un hombre que no podía irse.",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch07",
+    "oracion": 13,
+    "texto": "Nadie en su familia sabe decir qué respiró allí.",
+    "beat": 13,
+    "afirmacion": "Nadie en la familia de Daniel Écija sabe decir qué respiró en Wittenoom",
+    "ids": [],
+    "fragmento": null
+   }
+  ],
+  "usd": 2.44081,
+  "segundos": 57.3
+ },
+ "ediciones": [
+  {
+   "parrafo": 0,
+   "cap": 1,
+   "beat": 1,
+   "problemas": [
+    {
+     "codigo": "v",
+     "frase": "Ese pie va a cerrar; lo que respira mientras espera que cierre va a tardar casi treinta años en matarlo, y lo va a alcanzar a miles de kilómetros de aquí.",
+     "ids": [
+      "D85"
+     ],
+     "motivo": "el archivo dice otra cosa (D85): «Se le cayó un trozo de amianto en el pie y, extrañamente, fue una herida que no se cerraba nunca.»"
+    }
+   ],
+   "antes": "Un hombre joven posa para un retrato con el pie vendado. Ese pie va a cerrar; lo que respira mientras espera que cierre va a tardar casi treinta años en matarlo, y lo va a alcanzar a miles de kilómetros de aquí. La foto es en blanco y negro. La familia que la guarda cuenta que le cayó encima un trozo de amianto y que la herida no cerraba. Una herida hecha por un pedazo de mineral que no cierra. El hombre se llama Daniel Écija, es minero, y llegó de Madrid hace unos meses. Wittenoom, Australia Occidental, 1963.",
+   "despues": "Un hombre joven posa para un retrato con el pie vendado. La foto es en blanco y negro. La familia que la guarda cuenta que le cayó encima un trozo de amianto y que la herida no cerraba. Una herida hecha por un pedazo de mineral que no cierra. El hombre se llama Daniel Écija, es minero, y llegó de Madrid hace unos meses. Wittenoom, Australia Occidental, 1963.",
+   "aceptada": true,
+   "motivo_rechazo": ""
+  },
+  {
+   "parrafo": 1,
+   "cap": 1,
+   "beat": 1,
+   "problemas": [
+    {
+     "codigo": "v",
+     "frase": "Lo que sobró de la mina, en cambio, sigue donde lo dejaron.",
+     "ids": [
+      "D04",
+      "D149"
+     ],
+     "motivo": "el archivo dice otra cosa (D04, D149): «The natural forces of wind and water have also spread the asbestos wastes, such that they now cover an area of approximately 10 square kilometres. / asbestos from Wittenoom's tailings piles had spread out beyond the contamination zone and into the Fortescue River.»"
+    }
+   ],
+   "antes": "Esa foto se tomó en un pueblo que hoy no figura en ningún mapa. Arrancaron las señales de la carretera y borraron el nombre. Lo que sobró de la mina, en cambio, sigue donde lo dejaron. Pero antes de que lo borraran, alguien tuvo que llevar a ese hombre hasta allí. Dos años antes de la foto, en Madrid, hubo un baile.",
+   "despues": "Esa foto se tomó en un pueblo que hoy no figura en ningún mapa. Arrancaron las señales de la carretera y borraron el nombre. Pero antes de que lo borraran, alguien tuvo que llevar a ese hombre hasta allí. Dos años antes de la foto, en Madrid, hubo un baile.",
+   "aceptada": true,
+   "motivo_rechazo": ""
+  },
+  {
+   "parrafo": 7,
+   "cap": 3,
+   "beat": 5,
+   "problemas": [
+    {
+     "codigo": "v",
+     "frase": "En 1946 ya había diagnósticos de asbestosis, y un inspector describió las condiciones de trabajo como terroríficas.",
+     "ids": [
+      "T13",
+      "D91"
+     ],
+     "motivo": "el archivo dice otra cosa (T13, D91): «cómo en 1946 ya se había diagnosticado un caso de asbestosis»"
+    }
+   ],
+   "antes": "Los informes eran anteriores a la boda, al barco y al avión. En 1943, ABA, una filial de CSR, se quedó con los intereses de Hancock y Wright en la mina. En 1944, el inspector de minas y el ingeniero de minas Adjunto del Estado informaron sobre el problema del polvo. En 1946 ya había diagnósticos de asbestosis, y un inspector describió las condiciones de trabajo como terroríficas. El defensor del empleador tenía otra lectura: «El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso».",
+   "despues": "Los informes eran anteriores a la boda, al barco y al avión. En 1943, ABA, una filial de CSR, se quedó con los intereses de Hancock y Wright en la mina. En 1944, el inspector de minas y el ingeniero de minas Adjunto del Estado informaron sobre el problema del polvo. En 1946 ya había un diagnóstico de asbestosis. El defensor del empleador tenía otra lectura: «El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso».",
+   "aceptada": true,
+   "motivo_rechazo": ""
+  },
+  {
+   "parrafo": 11,
+   "cap": 3,
+   "beat": 6,
+   "problemas": [
+    {
+     "codigo": "v",
+     "frase": "El año en que McNulty escribió ese primer caso, un recién casado de Madrid se bajaba de un avión en esa misma pista de polvo.",
+     "ids": [
+      "D50",
+      "T32",
+      "D130"
+     ],
+     "motivo": "el archivo dice otra cosa (D50, T32, D130): «Dr J McNulty of the Public Health Department diagnosed the first mesothelioma case arising from Wittenoom. / The first case of mesothelioma outside South Africa—in an ex-Wittenoom mill worker—was reported by McNulty in 1962.»"
+    }
+   ],
+   "antes": "En 1961 la producción subió. En 1962, Jim McNulty comunicó un caso de mesotelioma en un antiguo trabajador del molino; una fuente lo presenta como el primero comunicado fuera de Sudáfrica. Según McNulty, los que habían advertido sobre el polvo y predicho las enfermedades no sorprendieron a nadie: «no se encendieron las alarmas entre los involucrados en la industria minera porque estaban acostumbrados; lo esperaban». El año en que McNulty escribió ese primer caso, un recién casado de Madrid se bajaba de un avión en esa misma pista de polvo.",
+   "despues": "En 1961 la producción subió. En 1962, Jim McNulty comunicó un caso de mesotelioma en un antiguo trabajador del molino; una fuente lo presenta como el primero comunicado fuera de Sudáfrica. Según McNulty, los que habían advertido sobre el polvo y predicho las enfermedades no sorprendieron a nadie: «no se encendieron las alarmas entre los involucrados en la industria minera porque estaban acostumbrados; lo esperaban».",
+   "aceptada": true,
+   "motivo_rechazo": ""
+  },
+  {
+   "parrafo": 12,
+   "cap": 4,
+   "beat": 7,
+   "problemas": [
+    {
+     "codigo": "v",
+     "frase": "El hijo cuenta que el primer día de trabajo de su padre hubo una explosión y que alguien murió; no hay otro documento que lo confirme.",
+     "ids": [
+      "Q16"
+     ],
+     "motivo": "el archivo dice otra cosa (Q16): «El primer día de trabajo de nuestro padre hubo una explosión y murieron varias personas»"
+    }
+   ],
+   "antes": "Daniel Écija bajó a esa pista semanas después de su boda y entró a trabajar en la mina. El hijo cuenta que el primer día de trabajo de su padre hubo una explosión y que alguien murió; no hay otro documento que lo confirme. Ramón de Juan, el amigo, hacía con frecuencia jornadas de dieciséis horas. Los hombres volvían a las casas de chapa con el polvo encima, y en los patios hechos de relaves jugaban los chicos.",
+   "despues": "Daniel Écija bajó a esa pista semanas después de su boda y entró a trabajar en la mina. El hijo cuenta que el primer día de trabajo de su padre hubo una explosión; no hay otro documento que lo confirme. Ramón de Juan, el amigo, hacía con frecuencia jornadas de dieciséis horas. Los hombres volvían a las casas de chapa con el polvo encima, y en los patios hechos de relaves jugaban los chicos.",
+   "aceptada": true,
+   "motivo_rechazo": ""
+  },
+  {
+   "parrafo": 22,
+   "cap": 6,
+   "beat": 12,
+   "problemas": [
+    {
+     "codigo": "v",
+     "frase": "El gobierno de Australia Occidental lo llamó «el fin de un período oscuro en la historia de nuestro Estado».",
+     "ids": [
+      "Q07",
+      "T91"
+     ],
+     "motivo": "el archivo dice otra cosa (Q07, T91): «Q07 (fecha 2022): \"The W.A. Government declared this was “an end to a dark period in our State's history.”\" — la cita está fechada en 2022, ligada al desalojo de los últimos residentes antes de la demolición (\"In 2022, the last remaining residents of Wittenoom town were evicted ahead of its demolition in 2023\"), no a la abolición de 2006-2007.»"
+    }
+   ],
+   "antes": "Hacia junio de 2007, según otras referencias en 2006, Wittenoom fue abolido oficialmente. Le quitaron el nombre de los mapas y arrancaron las señales de la carretera. El gobierno de Australia Occidental lo llamó «el fin de un período oscuro en la historia de nuestro Estado».",
+   "despues": "Hacia junio de 2007, según otras referencias en 2006, Wittenoom fue abolido oficialmente. Le quitaron el nombre de los mapas y arrancaron las señales de la carretera.",
+   "aceptada": true,
+   "motivo_rechazo": ""
+  },
+  {
+   "parrafo": 26,
+   "cap": 7,
+   "beat": 13,
+   "problemas": [
+    {
+     "codigo": "v",
+     "frase": "Quién sabía está escrito: dos inspectores en 1944, un médico al que llamaron alborotador en 1948, un tribunal que entró al molino en 1957.",
+     "ids": [
+      "D19"
+     ],
+     "motivo": "el archivo dice otra cosa (D19): «the Mines Inspector and the Assistant State Mining Engineer reported on the dust issue as early as 1944»"
+    }
+   ],
+   "antes": "En 2026, Gordon Legal anunció un proceso ante el Tribunal Federal contra Australia Occidental en nombre de BNTAC, por la tierra Banjima. La prensa habla de una reclamación de mil quinientos millones de dólares australianos. Los abogados sostienen que el Estado no ha gastado dinero en remediar el sitio y que no se ha retirado una sola palada de asbesto de la tierra Banjima. El gobierno de Australia Occidental habla de un «grave problema de salud y seguridad pública». Quién sabía está escrito: dos inspectores en 1944, un médico al que llamaron alborotador en 1948, un tribunal que entró al molino en 1957. La mina siguió hasta que dejó de dar dinero. La palada, todavía nadie.",
+   "despues": "En 2026, Gordon Legal anunció un proceso ante el Tribunal Federal contra Australia Occidental en nombre de BNTAC, por la tierra Banjima. La prensa habla de una reclamación de mil quinientos millones de dólares australianos. Los abogados sostienen que el Estado no ha gastado dinero en remediar el sitio y que no se ha retirado una sola palada de asbesto de la tierra Banjima. El gobierno de Australia Occidental habla de un «grave problema de salud y seguridad pública». Quién sabía está escrito: un médico al que llamaron alborotador en 1948, un tribunal que entró al molino en 1957. La mina siguió hasta que dejó de dar dinero. La palada, todavía nadie.",
+   "aceptada": true,
+   "motivo_rechazo": ""
+  }
+ ],
+ "filas": [
+  {
+   "cap": "ch01",
+   "oracion": 1,
+   "texto": "Ese pie va a cerrar; lo que respira mientras espera que cierre va a tardar casi treinta años en matarlo, y lo va a alcanzar a miles de kilómetros de aquí.",
+   "beat": 1,
+   "afirmacion": "La herida del pie va a cerrar.",
+   "ids": [
+    "D85"
+   ],
+   "fragmento": "Se le cayó un trozo de amianto en el pie y, extrañamente, fue una herida que no se cerraba nunca.",
+   "parrafo": 0,
+   "despues": "(oración sacada)",
+   "hecho": "corregida ✔",
+   "sigue": []
+  },
+  {
+   "cap": "ch01",
+   "oracion": 9,
+   "texto": "Lo que sobró de la mina, en cambio, sigue donde lo dejaron.",
+   "beat": 1,
+   "afirmacion": "Los residuos de la mina siguen donde los dejaron.",
+   "ids": [
+    "D04",
+    "D149"
+   ],
+   "fragmento": "The natural forces of wind and water have also spread the asbestos wastes, such that they now cover an area of approximately 10 square kilometres. / asbestos from Wittenoom's tailings piles had spread out beyond the contamination zone and into the Fortescue River.",
+   "parrafo": 1,
+   "despues": "(oración sacada)",
+   "hecho": "corregida ✔",
+   "sigue": []
+  },
+  {
+   "cap": "ch03",
+   "oracion": 14,
+   "texto": "En 1946 ya había diagnósticos de asbestosis, y un inspector describió las condiciones de trabajo como terroríficas.",
+   "beat": 5,
+   "afirmacion": "En 1946 ya había diagnósticos (en plural) de asbestosis",
+   "ids": [
+    "T13",
+    "D91"
+   ],
+   "fragmento": "cómo en 1946 ya se había diagnosticado un caso de asbestosis",
+   "parrafo": 7,
+   "despues": "En 1946 ya había un diagnóstico de asbestosis.",
+   "hecho": "corregida ✔",
+   "sigue": []
+  },
+  {
+   "cap": "ch03",
+   "oracion": 31,
+   "texto": "El año en que McNulty escribió ese primer caso, un recién casado de Madrid se bajaba de un avión en esa misma pista de polvo.",
+   "beat": 6,
+   "afirmacion": "McNulty escribió el primer caso de mesotelioma en 1962",
+   "ids": [
+    "D50",
+    "T32",
+    "D130"
+   ],
+   "fragmento": "Dr J McNulty of the Public Health Department diagnosed the first mesothelioma case arising from Wittenoom. / The first case of mesothelioma outside South Africa—in an ex-Wittenoom mill worker—was reported by McNulty in 1962.",
+   "parrafo": 11,
+   "despues": "(oración sacada)",
+   "hecho": "corregida ✔",
+   "sigue": []
+  },
+  {
+   "cap": "ch04",
+   "oracion": 1,
+   "texto": "El hijo cuenta que el primer día de trabajo de su padre hubo una explosión y que alguien murió; no hay otro documento que lo confirme.",
+   "beat": 7,
+   "afirmacion": "Según el hijo, en esa explosión murió alguien",
+   "ids": [
+    "Q16"
+   ],
+   "fragmento": "El primer día de trabajo de nuestro padre hubo una explosión y murieron varias personas",
+   "parrafo": 12,
+   "despues": "El hijo cuenta que el primer día de trabajo de su padre hubo una explosión; no hay otro documento que lo confirme.",
+   "hecho": "corregida ✔",
+   "sigue": []
+  },
+  {
+   "cap": "ch06",
+   "oracion": 12,
+   "texto": "El gobierno de Australia Occidental lo llamó «el fin de un período oscuro en la historia de nuestro Estado».",
+   "beat": 12,
+   "afirmacion": "El gobierno de Australia Occidental llamó a la abolición del pueblo «el fin de un período oscuro en la historia de nuestro Estado».",
+   "ids": [
+    "Q07",
+    "T91"
+   ],
+   "fragmento": "Q07 (fecha 2022): \"The W.A. Government declared this was “an end to a dark period in our State's history.”\" — la cita está fechada en 2022, ligada al desalojo de los últimos residentes antes de la demolición (\"In 2022, the last remaining residents of Wittenoom town were evicted ahead of its demolition in 2023\"), no a la abolición de 2006-2007.",
+   "parrafo": 22,
+   "despues": "(oración sacada)",
+   "hecho": "corregida ✔",
+   "sigue": []
+  },
+  {
+   "cap": "ch07",
+   "oracion": 9,
+   "texto": "Quién sabía está escrito: dos inspectores en 1944, un médico al que llamaron alborotador en 1948, un tribunal que entró al molino en 1957.",
+   "beat": 13,
+   "afirmacion": "Dos inspectores advirtieron sobre el polvo en 1944",
+   "ids": [
+    "D19"
+   ],
+   "fragmento": "the Mines Inspector and the Assistant State Mining Engineer reported on the dust issue as early as 1944",
+   "parrafo": 26,
+   "despues": "Quién sabía está escrito: un médico al que llamaron alborotador en 1948, un tribunal que entró al molino en 1957.",
+   "hecho": "corregida ✔",
+   "sigue": []
+  }
+ ],
+ "caps_cambiados": [
+  "ch01",
+  "ch03",
+  "ch04",
+  "ch06",
+  "ch07"
+ ],
+ "re_verificacion": {
+  "por_cap": {
+   "ch01": {
+    "afirmaciones": [
+     {
+      "oracion": 0,
+      "afirmacion": "Un hombre joven posó para un retrato con el pie vendado.",
+      "estado": "respaldada",
+      "ids": [
+       "D85",
+       "P16"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "La foto del hombre con el pie vendado es en blanco y negro.",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "La familia conserva ese retrato.",
+      "estado": "respaldada",
+      "ids": [
+       "D85"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "Según la familia, al hombre le cayó encima un trozo de amianto.",
+      "estado": "respaldada",
+      "ids": [
+       "D85"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "Según la familia, la herida no cerraba.",
+      "estado": "respaldada",
+      "ids": [
+       "D85"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "La herida la causó un pedazo de mineral y no cerraba.",
+      "estado": "respaldada",
+      "ids": [
+       "D85"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "El hombre del retrato se llama Daniel Écija.",
+      "estado": "respaldada",
+      "ids": [
+       "D85"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "Daniel Écija era minero.",
+      "estado": "respaldada",
+      "ids": [
+       "P16"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "Daniel Écija había llegado de Madrid unos meses antes.",
+      "estado": "respaldada",
+      "ids": [
+       "T38",
+       "L17",
+       "D87"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "La foto se tomó en Wittenoom, Australia Occidental.",
+      "estado": "respaldada",
+      "ids": [
+       "D85",
+       "D82",
+       "D87"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "La foto se tomó en 1963.",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 6,
+      "afirmacion": "El pueblo donde se tomó la foto hoy no figura en los mapas.",
+      "estado": "respaldada",
+      "ids": [
+       "D81",
+       "D31"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "Se retiró el nombre del pueblo de las señales de la carretera.",
+      "estado": "respaldada",
+      "ids": [
+       "D31",
+       "D81"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "Se borró el nombre del pueblo de los mapas.",
+      "estado": "respaldada",
+      "ids": [
+       "D31",
+       "T79"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "Dos años antes de la foto hubo un baile en Madrid.",
+      "estado": "respaldada",
+      "ids": [
+       "T34",
+       "L18"
+      ],
+      "fragmento": null
+     }
+    ],
+    "usage": {
+     "input_tokens": 65782,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "output_tokens": 2556,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard",
+     "output_tokens_details": {
+      "thinking_tokens": 1490
+     }
+    },
+    "usd": 0.31425,
+    "segundos": 23.9,
+    "intentos": 1,
+    "error": null
+   },
+   "ch03": {
+    "afirmaciones": [
+     {
+      "oracion": 0,
+      "afirmacion": "El avión que los llevó era pequeño, de hélices, y se movía mucho.",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "El destino estaba en la zona desértica de Pilbara, en Australia Occidental.",
+      "estado": "respaldada",
+      "ids": [
+       "D82",
+       "L07"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "Aterrizaron en una pista en medio de una tierra muy, muy roja.",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "Había polvo por todas partes.",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "El testigo nunca había visto tanto polvo.",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "Ese testimonio es de uno de los chicos que bajaron de ese avión.",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "Los llevaron a casas de chapa, madera y uralita (fibrocemento).",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 6,
+      "afirmacion": "La pista de aterrizaje estaba hecha con relaves de la mina, el residuo que quedaba tras extraer la fibra.",
+      "estado": "respaldada",
+      "ids": [
+       "D03",
+       "D02"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "Con relaves se hicieron las carreteras, los patios y los espacios públicos del pueblo.",
+      "estado": "respaldada",
+      "ids": [
+       "D129",
+       "D39"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "La empresa descargaba relaves a pedido de los vecinos.",
+      "estado": "respaldada",
+      "ids": [
+       "Q44"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "Las escuelas, el jardín de infantes y las iglesias tenían relaves para que se vieran bonitos.",
+      "estado": "respaldada",
+      "ids": [
+       "Q44"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "Esa cita es de un antiguo trabajador de la mina.",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "El pueblo, la pista, los patios y la escuela estaban hechos con los residuos de la mina.",
+      "estado": "respaldada",
+      "ids": [
+       "D03",
+       "D129",
+       "Q44"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 10,
+      "afirmacion": "El problema del polvo de la mina ya figuraba en informes oficiales.",
+      "estado": "respaldada",
+      "ids": [
+       "D19"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 11,
+      "afirmacion": "Esos informes eran anteriores a la boda (1962) y al viaje a Australia.",
+      "estado": "respaldada",
+      "ids": [
+       "D19",
+       "T37",
+       "T38"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 12,
+      "afirmacion": "En 1943 ABA, filial de CSR, se hizo cargo de los intereses de Hancock y Wright en la mina.",
+      "estado": "respaldada",
+      "ids": [
+       "T06",
+       "D47",
+       "D84"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 13,
+      "afirmacion": "En 1944 el inspector de minas y el ingeniero de minas adjunto del Estado informaron sobre el problema del polvo.",
+      "estado": "respaldada",
+      "ids": [
+       "D19",
+       "T09"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 14,
+      "afirmacion": "En 1946 ya se había diagnosticado un caso de asbestosis.",
+      "estado": "respaldada",
+      "ids": [
+       "T13",
+       "D91"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 15,
+      "afirmacion": "El defensor del empleador dijo: «El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso».",
+      "estado": "respaldada",
+      "ids": [
+       "Q53"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 15,
+      "afirmacion": "Esa postura se presenta, por el orden del relato, como respuesta al diagnóstico de 1946 y anterior a 1948.",
+      "estado": "contradice",
+      "ids": [
+       "Q53"
+      ],
+      "fragmento": "En el arbitraje de 1949, el defensor empresarial sostuvo que la compañía no admitía que el polvo fuera peligroso"
+     },
+     {
+      "oracion": 16,
+      "afirmacion": "En 1948 un médico llegó en avión a Wittenoom y puso por escrito lo que encontró.",
+      "estado": "respaldada",
+      "ids": [
+       "T20",
+       "Q46",
+       "D92"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 17,
+      "afirmacion": "La carta del médico decía que en un año o dos ABA produciría la cosecha más abundante y letal de casos de asbestosis de la literatura mundial.",
+      "estado": "respaldada",
+      "ids": [
+       "Q45",
+       "T20"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 18,
+      "afirmacion": "El médico pedía examinar algunos de esos tórax.",
+      "estado": "respaldada",
+      "ids": [
+       "Q45"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 19,
+      "afirmacion": "El médico Eric Saint advirtió por escrito en 1948 que los niveles de polvo eran extremadamente peligrosos.",
+      "estado": "respaldada",
+      "ids": [
+       "D92",
+       "T19"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 20,
+      "afirmacion": "Saint dijo que lo desestimaron y lo tildaron de alborotador.",
+      "estado": "respaldada",
+      "ids": [
+       "Q46"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 21,
+      "afirmacion": "En 1957, nueve años después, intervino un organismo de arbitraje laboral (Junta de Referencia) sobre el molino.",
+      "estado": "respaldada",
+      "ids": [
+       "T26",
+       "P42"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 21,
+      "afirmacion": "El tribunal fue en persona a ver el molino.",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 22,
+      "afirmacion": "La Junta de Referencia entró al molino en 1957 y dejó por escrito lo que vio.",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 24,
+      "afirmacion": "El acta dice que las condiciones dentro del molino eran extremadamente polvorientas y que sus trabajadores estaban cubiertos de polvo.",
+      "estado": "respaldada",
+      "ids": [
+       "Q54",
+       "T26"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 25,
+      "afirmacion": "Una espesa nube de polvo estaba presente alrededor del molino.",
+      "estado": "respaldada",
+      "ids": [
+       "Q54"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 26,
+      "afirmacion": "Siete meses después, con equipos para reducir el polvo ya instalados, se recortó el suplemento salarial por polvo.",
+      "estado": "respaldada",
+      "ids": [
+       "T27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 26,
+      "afirmacion": "El suplemento se restringió a ciertas áreas.",
+      "estado": "respaldada",
+      "ids": [
+       "T27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 27,
+      "afirmacion": "Un documento oficial afirma que los reguladores hicieron poco más que emitir advertencias y pedir equipos para reducir el polvo.",
+      "estado": "respaldada",
+      "ids": [
+       "D20"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 28,
+      "afirmacion": "En 1961 la producción aumentó.",
+      "estado": "respaldada",
+      "ids": [
+       "D21",
+       "T33"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 29,
+      "afirmacion": "En 1962 Jim McNulty comunicó un caso de mesotelioma en un antiguo trabajador del molino de Wittenoom.",
+      "estado": "respaldada",
+      "ids": [
+       "D130",
+       "T35",
+       "P07"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 29,
+      "afirmacion": "Una fuente presenta ese caso como el primero comunicado fuera de Sudáfrica.",
+      "estado": "respaldada",
+      "ids": [
+       "D130"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 30,
+      "afirmacion": "Las advertencias sobre el polvo no encendieron las alarmas en la industria minera porque estaban acostumbrados y lo esperaban.",
+      "estado": "respaldada",
+      "ids": [
+       "Q49"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 30,
+      "afirmacion": "Esa cita es de McNulty.",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     }
+    ],
+    "usage": {
+     "input_tokens": 66993,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "output_tokens": 7340,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard",
+     "output_tokens_details": {
+      "thinking_tokens": 4170
+     }
+    },
+    "usd": 0.41477,
+    "segundos": 60.3,
+    "intentos": 1,
+    "error": null
+   },
+   "ch04": {
+    "afirmaciones": [
+     {
+      "oracion": 0,
+      "afirmacion": "Daniel Écija llegó a Wittenoom aterrizando en una pista",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 0,
+      "afirmacion": "Llegó semanas después de su boda",
+      "estado": "respaldada",
+      "ids": [
+       "T37",
+       "T38",
+       "D87"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 0,
+      "afirmacion": "Daniel Écija entró a trabajar en la mina",
+      "estado": "respaldada",
+      "ids": [
+       "Q16",
+       "D85"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "El hijo cuenta que el primer día de trabajo de su padre hubo una explosión",
+      "estado": "respaldada",
+      "ids": [
+       "Q16"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "No hay otro documento que confirme la explosión",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "Ramón de Juan era amigo de Daniel Écija",
+      "estado": "respaldada",
+      "ids": [
+       "Q13",
+       "D104"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "Ramón de Juan hacía con frecuencia jornadas de dieciséis horas",
+      "estado": "respaldada",
+      "ids": [
+       "D104"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "Las casas de los trabajadores eran de chapa",
+      "estado": "respaldada",
+      "ids": [
+       "Q27"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "Los hombres volvían a casa con el polvo encima",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "Los patios de las casas estaban hechos de relaves",
+      "estado": "respaldada",
+      "ids": [
+       "D129",
+       "Q44"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "Los chicos jugaban en esos patios",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "Víctor Calvo era uno de los niños que vivían en Wittenoom",
+      "estado": "respaldada",
+      "ids": [
+       "P21",
+       "T36"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "El amianto azul se deshacía entre los dedos",
+      "estado": "respaldada",
+      "ids": [
+       "Q19",
+       "Q32"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 6,
+      "afirmacion": "Calvo dice que jugaban con el amianto y lo iban deshilachando",
+      "estado": "respaldada",
+      "ids": [
+       "Q19"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "Calvo dice que se metían el amianto en la boca",
+      "estado": "respaldada",
+      "ids": [
+       "Q19"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "Calvo dice que al tocar el amianto salía un polvillo que lo impregnaba todo",
+      "estado": "respaldada",
+      "ids": [
+       "Q19"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "Los niños estaban rodeados de amianto azul y no les daba miedo",
+      "estado": "respaldada",
+      "ids": [
+       "Q19"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 10,
+      "afirmacion": "En junio de 1963 María entró al hospital de Wittenoom a dar a luz",
+      "estado": "respaldada",
+      "ids": [
+       "T40"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 11,
+      "afirmacion": "El parto fue con fórceps",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 12,
+      "afirmacion": "El bebé era muy grande",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 12,
+      "afirmacion": "María venía debilitada por una infección renal",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 13,
+      "afirmacion": "Nació un varón al que llamaron Daniel, como el padre",
+      "estado": "respaldada",
+      "ids": [
+       "T40",
+       "D102"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 14,
+      "afirmacion": "En marzo de 1963 Milagros Barroso dio a luz en Wittenoom a John Patrick",
+      "estado": "respaldada",
+      "ids": [
+       "T39"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 15,
+      "afirmacion": "El niño fue bautizado el 7 de julio de 1963",
+      "estado": "respaldada",
+      "ids": [
+       "T41",
+       "D87"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 15,
+      "afirmacion": "La familia conserva una fotografía del día del bautizo",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 16,
+      "afirmacion": "Después del bautizo, los Écija se fueron de Wittenoom",
+      "estado": "respaldada",
+      "ids": [
+       "T41"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 17,
+      "afirmacion": "Los Écija estuvieron en Wittenoom unos diez meses",
+      "estado": "respaldada",
+      "ids": [
+       "D87"
+      ],
+      "fragmento": null
+     }
+    ],
+    "usage": {
+     "input_tokens": 66181,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "output_tokens": 3794,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard",
+     "output_tokens_details": {
+      "thinking_tokens": 1895
+     }
+    },
+    "usd": 0.3406,
+    "segundos": 32.7,
+    "intentos": 1,
+    "error": null
+   },
+   "ch06": {
+    "afirmaciones": [
+     {
+      "oracion": 1,
+      "afirmacion": "Los nacidos en Wittenoom llevan el nombre del pueblo escrito en el pasaporte",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "En un control de aeropuerto, un policía leyó el documento, bajó la cabeza y volvió a mirar",
+      "estado": "respaldada",
+      "ids": [
+       "T57"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "El policía dijo «Así que de Wittenoom, ¿eh? Un sitio terrorífico»",
+      "estado": "respaldada",
+      "ids": [
+       "Q24",
+       "T57",
+       "Q36"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "Mercedes de Juan se quedó en Australia",
+      "estado": "respaldada",
+      "ids": [
+       "T51"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "Mercedes de Juan tiene una cita médica que se repite periódicamente",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 6,
+      "afirmacion": "Mercedes de Juan dice: «Nos hacen un escáner y una prueba de función pulmonar»",
+      "estado": "respaldada",
+      "ids": [
+       "Q21"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "Según Melita Markey, el gobierno dejó de contar las muertes en 2.000",
+      "estado": "respaldada",
+      "ids": [
+       "Q33",
+       "D90",
+       "P24"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "Según Melita Markey, otras estimaciones hablan de más de 4.000 muertes y la cifra sigue subiendo",
+      "estado": "respaldada",
+      "ids": [
+       "Q33",
+       "D90"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "Según Markey, hijos de funcionarios que trabajaron en el pueblo, como policías o maestros, están enfermando ahora",
+      "estado": "respaldada",
+      "ids": [
+       "Q33"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "El pueblo dejó de existir oficialmente",
+      "estado": "respaldada",
+      "ids": [
+       "D30",
+       "D31"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 10,
+      "afirmacion": "Wittenoom fue abolido oficialmente hacia junio de 2007, o en 2006 según otras referencias",
+      "estado": "respaldada",
+      "ids": [
+       "D31",
+       "T80",
+       "T71",
+       "D30"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 11,
+      "afirmacion": "El nombre de Wittenoom fue retirado de los mapas y de las señales de la carretera",
+      "estado": "respaldada",
+      "ids": [
+       "D31",
+       "T79",
+       "D81"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 12,
+      "afirmacion": "El DWER y el Department of Health declararon la zona «no apta para ninguna forma de ocupación humana o uso del suelo»",
+      "estado": "respaldada",
+      "ids": [
+       "Q03"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 13,
+      "afirmacion": "Los relaves suman más de tres millones de toneladas",
+      "estado": "respaldada",
+      "ids": [
+       "D02",
+       "D63",
+       "D147"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 13,
+      "afirmacion": "Los relaves siguen donde fueron dejados",
+      "estado": "respaldada",
+      "ids": [
+       "D147",
+       "D71"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 14,
+      "afirmacion": "El agua arrastra asbesto por los lechos de los arroyos y las pozas hasta el Fortescue",
+      "estado": "respaldada",
+      "ids": [
+       "L06",
+       "D10"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 14,
+      "afirmacion": "Un informe advirtió que el arrastre podía continuar durante cientos de años si no se intervenía",
+      "estado": "respaldada",
+      "ids": [
+       "D10",
+       "D57",
+       "T75"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 15,
+      "afirmacion": "En 2021, una nota ambiental registró fibras de asbesto en canales de arroyos fuera de la zona contaminada",
+      "estado": "respaldada",
+      "ids": [
+       "T90"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 16,
+      "afirmacion": "En 2016 un documento estatal aconsejó no asegurar ni remediar los relaves",
+      "estado": "respaldada",
+      "ids": [
+       "T87",
+       "D59"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 17,
+      "afirmacion": "Esa decisión no se debió a que asegurar los relaves fuera técnicamente imposible",
+      "estado": "respaldada",
+      "ids": [
+       "D59"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 18,
+      "afirmacion": "Esa decisión se debió al costo",
+      "estado": "respaldada",
+      "ids": [
+       "D59",
+       "T87"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 19,
+      "afirmacion": "En esa tierra vivía un hombre que no podía irse",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     }
+    ],
+    "usage": {
+     "input_tokens": 66321,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "output_tokens": 3090,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard",
+     "output_tokens_details": {
+      "thinking_tokens": 1282
+     }
+    },
+    "usd": 0.32708,
+    "segundos": 24.3,
+    "intentos": 1,
+    "error": null
+   },
+   "ch07": {
+    "afirmaciones": [
+     {
+      "oracion": 0,
+      "afirmacion": "Maitland Parker era Banjima.",
+      "estado": "respaldada",
+      "ids": [
+       "T92",
+       "P13"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 0,
+      "afirmacion": "La tierra afectada era tierra Banjima, la de Parker.",
+      "estado": "respaldada",
+      "ids": [
+       "D52",
+       "L14"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "En 2023 Marcos Orellana visitó Australia.",
+      "estado": "respaldada",
+      "ids": [
+       "T92"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 1,
+      "afirmacion": "Orellana entrevistó a Maitland Parker sobre la contaminación y el daño continuado en Wittenoom.",
+      "estado": "respaldada",
+      "ids": [
+       "T92"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 2,
+      "afirmacion": "Parker dijo: «Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él».",
+      "estado": "respaldada",
+      "ids": [
+       "Q10"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 3,
+      "afirmacion": "Hay barricadas que cortan la entrada al desfiladero y siguen puestas.",
+      "estado": "respaldada",
+      "ids": [
+       "D42"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 4,
+      "afirmacion": "Maitland Parker murió de mesotelioma en 2024.",
+      "estado": "respaldada",
+      "ids": [
+       "T96"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "En 2026 Gordon Legal inició un proceso ante el Tribunal Federal contra el Estado de Australia Occidental en nombre de BNTAC.",
+      "estado": "respaldada",
+      "ids": [
+       "T98",
+       "D62"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 5,
+      "afirmacion": "El proceso es por el daño a la tierra Banjima.",
+      "estado": "respaldada",
+      "ids": [
+       "D62",
+       "D74"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 6,
+      "afirmacion": "La prensa informa de una reclamación de 1.500 millones de dólares australianos.",
+      "estado": "respaldada",
+      "ids": [
+       "D95"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "Los abogados sostienen que el Estado no ha gastado dinero en remediar el sitio.",
+      "estado": "respaldada",
+      "ids": [
+       "D70"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 7,
+      "afirmacion": "Los abogados sostienen que no se ha retirado una sola palada de asbesto de la tierra Banjima.",
+      "estado": "respaldada",
+      "ids": [
+       "D71"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 8,
+      "afirmacion": "El gobierno de Australia Occidental habla de un «grave problema de salud y seguridad pública» en torno a Wittenoom.",
+      "estado": "respaldada",
+      "ids": [
+       "Q34"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "En 1948 un médico, Eric Saint, advirtió del peligro y fue tachado de alborotador.",
+      "estado": "respaldada",
+      "ids": [
+       "Q46",
+       "T19",
+       "T20"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 9,
+      "afirmacion": "En 1957 un organismo de arbitraje (Junta de Referencia) constató las condiciones dentro del molino.",
+      "estado": "respaldada",
+      "ids": [
+       "T26",
+       "Q54"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 10,
+      "afirmacion": "La mina siguió operando hasta que cerró por razones económicas.",
+      "estado": "respaldada",
+      "ids": [
+       "D22",
+       "T44"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 11,
+      "afirmacion": "Todavía nadie ha retirado una sola palada de asbesto.",
+      "estado": "respaldada",
+      "ids": [
+       "D71"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 12,
+      "afirmacion": "Daniel Écija vivió unos diez meses en Wittenoom.",
+      "estado": "respaldada",
+      "ids": [
+       "D87"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 13,
+      "afirmacion": "Nadie en la familia Écija sabe decir qué respiró allí.",
+      "estado": "sin_respaldo",
+      "ids": [],
+      "fragmento": null
+     },
+     {
+      "oracion": 14,
+      "afirmacion": "Wittenoom ya no aparece en los mapas oficiales.",
+      "estado": "respaldada",
+      "ids": [
+       "D31",
+       "D81",
+       "T79"
+      ],
+      "fragmento": null
+     },
+     {
+      "oracion": 15,
+      "afirmacion": "Daniel Écija murió casi treinta años después de su estancia en Wittenoom.",
+      "estado": "respaldada",
+      "ids": [
+       "T38",
+       "T64",
+       "D89"
+      ],
+      "fragmento": null
+     }
+    ],
+    "usage": {
+     "input_tokens": 66125,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "output_tokens": 3216,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard",
+     "output_tokens_details": {
+      "thinking_tokens": 1521
+     }
+    },
+    "usd": 0.32882,
+    "segundos": 27.2,
+    "intentos": 1,
+    "error": null
+   }
+  },
+  "contradice": [
+   {
+    "cap": "ch03",
+    "oracion": 15,
+    "texto": "El defensor del empleador tenía otra lectura: «El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso».",
+    "beat": 5,
+    "afirmacion": "Esa postura se presenta, por el orden del relato, como respuesta al diagnóstico de 1946 y anterior a 1948.",
+    "ids": [
+     "Q53"
+    ],
+    "fragmento": "En el arbitraje de 1949, el defensor empresarial sostuvo que la compañía no admitía que el polvo fuera peligroso"
+   }
+  ],
+  "sin_respaldo": [
+   {
+    "cap": "ch01",
+    "oracion": 1,
+    "texto": "La foto es en blanco y negro.",
+    "beat": 1,
+    "afirmacion": "La foto del hombre con el pie vendado es en blanco y negro.",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch01",
+    "oracion": 5,
+    "texto": "Wittenoom, Australia Occidental, 1963.",
+    "beat": 1,
+    "afirmacion": "La foto se tomó en 1963.",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch03",
+    "oracion": 4,
+    "texto": "Nunca había visto tanto polvo», recuerda uno de los chicos que bajaron de ese avión.",
+    "beat": 4,
+    "afirmacion": "Ese testimonio es de uno de los chicos que bajaron de ese avión.",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch03",
+    "oracion": 8,
+    "texto": "«Las escuelas y el jardín de infantes, las iglesias, todos lo tenían bonito con relaves allí», dijo un antiguo trabajador de la mina.",
+    "beat": 4,
+    "afirmacion": "Esa cita es de un antiguo trabajador de la mina.",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch03",
+    "oracion": 21,
+    "texto": "Nueve años después, un tribunal laboral fue a ver el molino con sus propios ojos.",
+    "beat": 5,
+    "afirmacion": "El tribunal fue en persona a ver el molino.",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch03",
+    "oracion": 22,
+    "texto": "La Junta de Referencia entró al molino en 1957 y escribió lo que vio.",
+    "beat": 6,
+    "afirmacion": "La Junta de Referencia entró al molino en 1957 y dejó por escrito lo que vio.",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch03",
+    "oracion": 30,
+    "texto": "Según McNulty, los que habían advertido sobre el polvo y predicho las enfermedades no sorprendieron a nadie: «no se encendieron las alarmas entre los involucrados en la industria minera porque estaban acostumbrados; lo esperaban».",
+    "beat": 6,
+    "afirmacion": "Esa cita es de McNulty.",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch04",
+    "oracion": 1,
+    "texto": "El hijo cuenta que el primer día de trabajo de su padre hubo una explosión; no hay otro documento que lo confirme.",
+    "beat": 7,
+    "afirmacion": "No hay otro documento que confirme la explosión",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch04",
+    "oracion": 3,
+    "texto": "Los hombres volvían a las casas de chapa con el polvo encima, y en los patios hechos de relaves jugaban los chicos.",
+    "beat": 7,
+    "afirmacion": "Los hombres volvían a casa con el polvo encima",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch04",
+    "oracion": 3,
+    "texto": "Los hombres volvían a las casas de chapa con el polvo encima, y en los patios hechos de relaves jugaban los chicos.",
+    "beat": 7,
+    "afirmacion": "Los chicos jugaban en esos patios",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch04",
+    "oracion": 11,
+    "texto": "El parto fue con fórceps.",
+    "beat": 8,
+    "afirmacion": "El parto fue con fórceps",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch04",
+    "oracion": 12,
+    "texto": "El bebé era muy grande y María venía debilitada por una infección renal.",
+    "beat": 8,
+    "afirmacion": "El bebé era muy grande",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch04",
+    "oracion": 12,
+    "texto": "El bebé era muy grande y María venía debilitada por una infección renal.",
+    "beat": 8,
+    "afirmacion": "María venía debilitada por una infección renal",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch04",
+    "oracion": 15,
+    "texto": "El 7 de julio de 1963 bautizaron al niño; la familia conserva una fotografía de ese día.",
+    "beat": 8,
+    "afirmacion": "La familia conserva una fotografía del día del bautizo",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch06",
+    "oracion": 1,
+    "texto": "Los que nacieron allí lo llevan escrito en el pasaporte.",
+    "beat": 11,
+    "afirmacion": "Los nacidos en Wittenoom llevan el nombre del pueblo escrito en el pasaporte",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch06",
+    "oracion": 5,
+    "texto": "Mercedes de Juan se quedó en Australia y vive con una cita que se repite.",
+    "beat": 11,
+    "afirmacion": "Mercedes de Juan tiene una cita médica que se repite periódicamente",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch06",
+    "oracion": 19,
+    "texto": "En esa tierra vivía un hombre que no podía irse.",
+    "beat": 12,
+    "afirmacion": "En esa tierra vivía un hombre que no podía irse",
+    "ids": [],
+    "fragmento": null
+   },
+   {
+    "cap": "ch07",
+    "oracion": 13,
+    "texto": "Nadie en su familia sabe decir qué respiró allí.",
+    "beat": 13,
+    "afirmacion": "Nadie en la familia Écija sabe decir qué respiró allí.",
+    "ids": [],
+    "fragmento": null
+   }
+  ],
+  "usd": 1.72552,
+  "segundos": 60.3
+ },
+ "nuevas": [
+  {
+   "cap": "ch03",
+   "oracion": 15,
+   "texto": "El defensor del empleador tenía otra lectura: «El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso».",
+   "beat": 5,
+   "afirmacion": "Esa postura se presenta, por el orden del relato, como respuesta al diagnóstico de 1946 y anterior a 1948.",
+   "ids": [
+    "Q53"
+   ],
+   "fragmento": "En el arbitraje de 1949, el defensor empresarial sostuvo que la compañía no admitía que el polvo fuera peligroso"
+  }
+ ],
+ "quedan": [
+  {
+   "cap": "ch03",
+   "oracion": 15,
+   "texto": "El defensor del empleador tenía otra lectura: «El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso».",
+   "afirmacion": "Esa postura se presenta, por el orden del relato, como respuesta al diagnóstico de 1946 y anterior a 1948.",
+   "ids": [
+    "Q53"
+   ],
+   "fragmento": "En el arbitraje de 1949, el defensor empresarial sostuvo que la compañía no admitía que el polvo fuera peligroso"
+  }
+ ],
+ "acortados_por_la_particion": [
+  13
+ ],
+ "usd_verificador": 4.16633
+}

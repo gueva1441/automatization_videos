@@ -1,0 +1,41 @@
+[16:50:25] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: 123bbb64-9fca-4395-8bf4-57d60e219ef1
+[16:53:10] INFO     | viral_pipeline | [cost_tracker] Video 123bbb64-9fca-4395-8bf4-57d60e219ef1 — Costo total: $4.3712
+[16:53:10] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: 123bbb64-9fca-4395-8bf4-57d60e219ef1
+[16:56:18] INFO     | viral_pipeline | [cost_tracker] Video 123bbb64-9fca-4395-8bf4-57d60e219ef1 — Costo total: $1.2309
+  [v4] ⚠ la narración sigue contradiciendo el archivo en 1 punto(s): ch03 «El defensor del empleador tenía otra lectura: «El mero hecho» (Q53). Detalle en 01b_verificacion.md
+  verificador narración ch06 intento 1: in 66379 · out 3514 · US$ 0.3358 · JSON
+  verificador narración ch07 intento 1: in 66136 · out 3324 · US$ 0.3310 · JSON
+  verificador narración ch02 intento 1: in 66158 · out 3895 · US$ 0.3425 · JSON
+  verificador narración ch01 intento 1: in 65908 · out 3500 · US$ 0.3336 · JSON
+  verificador narración ch04 intento 1: in 66188 · out 3853 · US$ 0.3418 · JSON
+  verificador narración ch05 intento 1: in 66450 · out 3995 · US$ 0.3457 · JSON
+  verificador narración ch03 intento 1: in 67080 · out 7100 · US$ 0.4103 · JSON
+  [verificación] 7 contradice · 24 sin respaldo · US$ 2.4408
+  [verificación] cap 1 beat 1: aceptada
+  [verificación] cap 1 beat 1: aceptada
+  [verificación] cap 3 beat 5: aceptada
+  [verificación] cap 3 beat 6: aceptada
+  [verificación] cap 4 beat 7: aceptada
+  [verificación] cap 6 beat 12: aceptada
+  [verificación] cap 7 beat 13: aceptada
+  [01d] cap 3: 2861 caracteres > 2242 y no se pudo mover ni acortar (aviso)
+  verificador narración ch01 intento 1: in 65782 · out 2556 · US$ 0.3142 · JSON
+  verificador narración ch06 intento 1: in 66321 · out 3090 · US$ 0.3271 · JSON
+  verificador narración ch07 intento 1: in 66125 · out 3216 · US$ 0.3288 · JSON
+  verificador narración ch04 intento 1: in 66181 · out 3794 · US$ 0.3406 · JSON
+  verificador narración ch03 intento 1: in 66993 · out 7340 · US$ 0.4148 · JSON
+  [verificación] re-verificados ['ch01', 'ch03', 'ch04', 'ch06', 'ch07']: 1 contradice · US$ 1.7255
+  [verificación] ⚠ la narración sigue contradiciendo el archivo en 1 punto(s): ch03 «El defensor del empleador tenía otra lectura: «El mero hecho» (Q53). Detalle en 01b_verificacion.md
+  m01e intento 1: in 88303 · out 17659 · US$ 0.7064 · JSON
+  m01e verificador: 9 marca(s) → corta 1 · pasa 3 · dicho 5 · no_dicho 0 · US$ 0.0633
+  m01e intento 1 validado: fichas fuera 1 · marcas 9 · cortadas por el verificador 1 · vuelven 0 · picos vacíos 1
+  m01e intento 2: in 94705 · out 1125 · US$ 0.4013 · JSON
+  m01e verificador: 8 marca(s) → corta 0 · pasa 3 · dicho 5 · no_dicho 0 · US$ 0.0599
+  m01e vuelta 1 validada: fichas fuera 0 · marcas 8 · cortadas por el verificador 0 · vuelven 0 · picos vacíos 0
+  m01e: 13 fichas · 8 sellos · 3 relojes → C:\CLAUDE_PROJECTS\automatization_videos\data\scripts\_steps\123bbb64-9fca-4395-8bf4-57d60e219ef1\01e_pantalla.md
+
+  ⏸  PARADA del papel: el papel no está aprobado.
+     Leer: C:\CLAUDE_PROJECTS\automatization_videos\data\scripts\_steps\123bbb64-9fca-4395-8bf4-57d60e219ef1\01e_pantalla.md
+     ⚠ la narración sigue contradiciendo el archivo en 1 punto(s): ch03 «El defensor del empleador tenía otra lectura: «El mero hecho» (Q53). Detalle en 01b_verificacion.md
+     Aprobar: python fase1_5.py --topic 123bbb64-9fca-4395-8bf4-57d60e219ef1 --aprobar-papel "Omar <fecha>"
+exit 0
