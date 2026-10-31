@@ -3,7 +3,8 @@ script_engine/narracion_verificador.py — F66 (F63 B a producción; DECISIONES 
 narración. Una llamada por cap, todas a la vez, a Claude Opus 5.5 medium, con el archivo del caso entero (cada dato con
 su `contexto_fuente`) y las versiones en disputa: por oración separa las afirmaciones de hecho y dice si están
 respaldadas, si contradicen el archivo o si no tienen respaldo. Encuentra lo que ningún filtro de palabras ve (la voz
-dice lo contrario del archivo). No corrige nada: `fase1_5.run_verificacion` corrige lo que contradice.
+dice lo contrario del archivo). No corrige nada: `fase1_5.run_verificacion` deja lo que contradice como aviso (F66b,
+DECISIONES 2026-10-31 17:25: la corrección automática se rediseña).
 
     SYSTEM_B, FORMATO_B, archivo_b, user_b   literales de lab/hyperframes/f63/etapa_b_verificador.py (md5 del SYSTEM
                                              ce31cc515a077d74da72479e9693296e, candado en test_module_f66).

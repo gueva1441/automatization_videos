@@ -726,7 +726,7 @@
   "md5": "0942cd6fc362682880472f7ae8f63850"
  },
  "script_engine/narracion_verificador.py": {
-  "sticker": "El verificador de hechos de la narración (F63 B a producción, F66): una llamada por capítulo, todas a la vez, a Claude Opus con el archivo entero del caso y las versiones en disputa. Por oración separa las afirmaciones de hecho y dice si están respaldadas, si contradicen el archivo o si no tienen respaldo. No corrige: la corrección la hace fase1_5.run_verificacion.",
+  "sticker": "El verificador de hechos de la narración (F63 B a producción, F66): una llamada por capítulo, todas a la vez, a Claude Opus con el archivo entero del caso y las versiones en disputa. Por oración separa las afirmaciones de hecho y dice si están respaldadas, si contradicen el archivo o si no tienen respaldo. No corrige: fase1_5.run_verificacion deja lo que contradice como aviso.",
   "recibe": "caps de m01e_pantalla.entrada (oraciones por cap), archivo_b (id, texto, fecha, fuente, contexto_fuente de todo el pool), disputas de ficha_caso.json",
   "entrega": "{por_cap, contradice, sin_respaldo, usd, segundos} a fase1_5.run_verificacion (que lo escribe en 01b_verificacion.json/.md); el costo al cost_tracker como «m01b_verificador»",
   "modelo": [
@@ -741,7 +741,7 @@
   "estado": "vivo",
   "estado_prueba": "fase1_5.run_verificacion (F66 Etapa B) lo llama tras la partición; test_module_f66.py",
   "funciones_muertas": [],
-  "md5": "489bad29a7614a4d876bbc648817709d",
+  "md5": "2a6f1b29cf89609abd4cc71b11b41dec",
   "_parte": "orquestador"
  }
 }

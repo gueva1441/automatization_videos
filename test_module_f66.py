@@ -2,16 +2,15 @@
 test_module_f66.py — F66 (HANDOFF_F66_verificador_narracion): el verificador de la narración a producción.
     Etapa A  narracion_verificador: SYSTEM_B/FORMATO_B literales del lab (md5), user_b, parseo, 1 reintento (sin JSON o
              excepción de API), paralelismo con 7 caps, un cap que falla dos veces no frena.
-    Etapa B  edit_sentences sin parámetros nuevos = la guardia de hoy; con guard/cifras_ok, sin adjetivos y con las cifras
-             de los datos; particionar sin title_list = igual, con title_list no llama a titles; run_verificacion:
-             contradice → edición aceptada → re-partición → re-verifica solo el cap cambiado; la guardia rechaza → aviso y
-             la cadena sigue; sigue contradiciendo y nuevas; aviso en el papel y en la PARADA; --verificar-narracion no
-             llama al guionista; orden de run_guion_v4.
+    Etapa B  run_verificacion (F66b: solo verifica): cada contradice queda como aviso, sin editar ni re-particionar; aviso en el
+             papel y en la PARADA; --verificar-narracion no llama al guionista; orden de run_guion_v4; edit_sentences y
+             particionar volvieron a su firma.
 Sin API: toda llamada va con `post` falso y `claude_helpers._post` explota si alguien lo alcanza (fixture autouse).
 """
 from __future__ import annotations
 
 import hashlib
+import inspect
 import json
 import sys
 import threading
@@ -150,55 +149,7 @@ def test_a7_sin_caps_no_llama():
     assert nv.verificar_caps([], ARCHIVO, DISPUTAS, post=post)["usd"] == 0.0
 
 
-# ═══════════════════════ Etapa B: edit_sentences y particionar ═══════════════════════
-
-PARRAFO = {"cap": 4, "beat": 10, "texto": "Nadie miraba. En ese pueblo murió alguien. El polvo seguía."}
-PROB = {"codigo": "v", "frase": "En ese pueblo murió alguien.", "ids": ["Q16"],
-        "motivo": "el archivo dice otra cosa (Q16): «murieron varias personas»"}
-
-
-def _edita(nuevo: str, **kw) -> tuple[str, str]:
-    return g4.edit_sentences(PARRAFO, [PROB], call=lambda pr, **k: {"texto": nuevo}, **kw)
-
-
-def test_b1_sin_parametros_la_guardia_es_la_de_hoy(monkeypatch):
-    from script_engine import m05_narrative as m5
-    from script_engine.m01c_editor import lexical_guard
-    monkeypatch.setattr(m5, "adjectives", lambda t: ["terrible"] if "terrible" in t else [])
-    casos = ["Nadie miraba. En 1999 en ese pueblo murieron varios. El polvo seguía.",
-             "Nadie miraba. En ese pueblo terrible murieron varios. El polvo seguía.",
-             "Nadie miraba. En ese pueblo Kuleshov murió. El polvo seguía.",
-             "Nadie miraba. Dijo «algo que nadie dijo». El polvo seguía."]
-    for nuevo in casos:
-        lg = lexical_guard(PARRAFO["texto"], nuevo)
-        assert lg, nuevo
-        assert _edita(nuevo) == (PARRAFO["texto"], "guardia léxica: " + "; ".join(lg))
-    ok = "Nadie miraba. En ese pueblo murieron varios. El polvo seguía."
-    assert _edita(ok) == (ok, "")
-    assert _edita(PARRAFO["texto"]) == (PARRAFO["texto"], "sin cambio")
-    assert _edita("Otra cosa. En ese pueblo murieron varios.")[1] == "tocó otras frases del párrafo"
-    pedidos: list[str] = []
-    g4.edit_sentences(PARRAFO, [PROB], call=lambda pr, **k: pedidos.append(pr) or {"texto": ok})
-    assert "Sacá esas frases o corregilas para que el\nproblema desaparezca" in pedidos[0]
-    assert "«En ese pueblo murió alguien.» → el archivo dice otra cosa (Q16): «murieron varias personas»" in pedidos[0]
-    assert g4.PEDIDO_E not in pedidos[0]
-
-
-def test_b2_guard_sin_adjetivos_y_cifras_ok_de_los_datos(monkeypatch):
-    from script_engine import m05_narrative as m5
-    monkeypatch.setattr(m5, "adjectives", lambda t: ["varios"] if "varios" in t else [])
-    conAdj = "Nadie miraba. En ese pueblo murieron varios. El polvo seguía."
-    assert _edita(conAdj)[1].startswith("guardia léxica: adjetivos nuevos")     # la de hoy lo rechaza
-    assert _edita(conAdj, guard=g4.REGEN_GUARD) == (conAdj, "")                 # F66: sin adjetivos pasa
-    con2022 = "Nadie miraba. En 2022 en ese pueblo murió alguien. El polvo seguía."
-    assert "cifras nuevas" in _edita(con2022, guard=g4.REGEN_GUARD)[1]
-    assert _edita(con2022, guard=g4.REGEN_GUARD, cifras_ok="un fin a un período oscuro 2022") == (con2022, "")
-    # otra cifra sigue cayendo y los nombres del texto de los datos NO se aceptan por cifras_ok
-    assert "cifras nuevas ['1999']" in _edita("Nadie miraba. En 1999 murió alguien. El polvo seguía.", guard=g4.REGEN_GUARD,
-                                              cifras_ok="2022")[1]
-    assert "nombres nuevos" in _edita("Nadie miraba. Murió alguien en Roldán. El polvo seguía.", guard=g4.REGEN_GUARD,
-                                      cifras_ok="Roldán 2022")[1]
-
+# ═══════════════════════ Etapa B (F66b): verifica y avisa, no edita ═══════════════════════
 
 def _esc() -> dict:
     beats = [{"n": n, "cap": n, "funcion": "gancho" if n == 1 else "pico" if n == 3 else "escalada", "dato_central": f"D{n}",
@@ -211,11 +162,10 @@ def _esc() -> dict:
             "a_pantalla": [], "_pool_plan": {"pantalla": {}}, "prompt_version": "x"}
 
 
-POOL = {"datos": [{"id": f"D{k}", "texto": f"dato numero {k}", "fuente": "F", "fecha": "2022" if k == 2 else None,
-                   "cita_literal": f"fuente {k}"} for k in range(1, 9)], "cronologia": [], "citas": [], "lugares": [],
+POOL = {"datos": [{"id": f"D{k}", "texto": f"dato numero {k}", "fuente": "F", "cita_literal": f"fuente {k}"} for k in range(1, 9)],
+        "cronologia": [], "citas": [], "lugares": [],
         "personajes": [{"id": "P01", "nombre": "Ana Roldan", "rol": "vecina"}, {"id": "P02", "nombre": "Juan Paiva", "rol": "dueño"}]}
 ORACION = "El pie va a cerrar."
-TITULOS = [f"Titulo {n}" for n in range(1, 8)]
 
 
 def _parrafos() -> list[dict]:
@@ -232,141 +182,74 @@ def env(tmp_path, monkeypatch):
     d = tmp_path / "t"
     d.mkdir()
     (d / "01a_escaleta.json").write_text(json.dumps(esc, ensure_ascii=False), encoding="utf-8")
-    topic = {"id": "t", "evidence_pool": POOL}
-    md.particionar(topic, esc, _parrafos(), POOL, title_list=TITULOS)
-    (d / "01b_guionista_v4.json").write_text(json.dumps({"reparacion": {"parrafos": _parrafos()}}), encoding="utf-8")
-    return {"d": d, "esc": esc, "topic": topic}
+    md.particionar({"id": "t"}, esc, _parrafos(), POOL, call_titles=lambda p, **k: {"titulos": []})
+    return {"d": d, "esc": esc, "topic": {"id": "t", "evidence_pool": POOL}}
 
 
-def _post_verif(contradice: dict[str, list[dict]], pedidos: list[str] | None = None, despues: dict | None = None):
-    """El verificador falso: la primera vez que ve un cap devuelve `contradice[cap]`; la segunda, `despues[cap]`."""
-    vistos: dict[str, int] = {}
+def _post_verif(contradice: dict[str, list[dict]], pedidos: list[str] | None = None):
     lock = threading.Lock()
 
     def post(body):
         cap = json.loads(body["messages"][0]["content"].split("\n\nFormato de salida: ")[0])["cap"]
-        with lock:
-            vistos[cap] = vistos.get(cap, 0) + 1
-            if pedidos is not None:
+        if pedidos is not None:
+            with lock:
                 pedidos.append(cap)
-            k = vistos[cap]
-        fuente = contradice if k == 1 else (despues or {})
-        return _msg({"cap": cap, "afirmaciones": fuente.get(cap) or []})
+        return _msg({"cap": cap, "afirmaciones": contradice.get(cap) or []})
     return post
 
 
 AFIRMA = {"oracion": 0, "afirmacion": "la herida va a cerrar", "estado": "contradice", "ids": ["D2"], "fragmento": "no cerraba nunca"}
+SIN_RESPALDO = {"oracion": 1, "afirmacion": "el valle dormía", "estado": "sin_respaldo", "ids": [], "fragmento": None}
 
 
-def _corre(env, post, call, log=None):
-    log = log if log is not None else []
-    return f15.run_verificacion("t", _parrafos(), env["topic"], env["esc"], POOL, call=call, log=log, post=post)
+def _corre(env, post, log=None):
+    return f15.run_verificacion("t", POOL, log=log if log is not None else [], post=post)
 
 
-def test_b3_particionar_sin_title_list_igual_y_con_title_list_no_llama(tmp_path, monkeypatch):
-    monkeypatch.setattr(md, "STEPS_DIR", tmp_path)
-    esc = _esc()
-    llamadas = []
-    r = md.particionar({"id": "a"}, esc, _parrafos(), POOL, call_titles=lambda p, **k: llamadas.append(p) or {"titulos": []})
-    assert llamadas and r["skeleton"]["_v3"]["particion"]["titulos"] == "respaldo"
-
-    def no_llamar(p, **k):
-        raise AssertionError("no debe pedir títulos")
-    r2 = md.particionar({"id": "b"}, esc, _parrafos(), POOL, call_titles=no_llamar, title_list=TITULOS)
-    assert [c["title"] for c in r2["skeleton"]["chapters"]] == TITULOS
-    assert r2["skeleton"]["_v3"]["particion"]["titulos"] == "los de la partición anterior"
-    assert r2["narration"] == md.particionar({"id": "b"}, esc, _parrafos(), POOL, call_titles=lambda p, **k: {"titulos": []})["narration"]
+def test_b1_el_camino_de_edicion_no_existe():
+    """F66b: sin flag: edit_sentences y particionar vuelven a su firma y run_verificacion no recibe `call`."""
+    assert list(inspect.signature(g4.edit_sentences).parameters) == ["p", "problems", "call"]
+    assert "title_list" not in inspect.signature(md.particionar).parameters
+    assert list(inspect.signature(f15.run_verificacion).parameters) == ["topic_id", "pool", "log", "post"]
+    assert not hasattr(f15, "_parrafo_de")
+    src = inspect.getsource(f15.run_verificacion) + inspect.getsource(f15.verificar_narracion)
+    assert "edit_sentences(" not in src and "particionar(" not in src and "call_for" not in src
 
 
-def test_b4_contradice_edicion_aceptada_reparticion_y_solo_el_cap_cambiado(env, monkeypatch):
-    def no_llamar(*a, **k):
-        raise AssertionError("no se piden títulos ni se acorta")
-    monkeypatch.setattr(md, "titles", no_llamar)
-    monkeypatch.setattr(md, "editor_shorten", no_llamar)
+def test_b2_contradice_queda_como_aviso_sin_editar_ni_reparticionar(env, monkeypatch, capsys):
+    def explota(*a, **k):
+        raise AssertionError("F66b: no se edita ni se re-particiona")
+    monkeypatch.setattr(g4, "edit_sentences", explota)
+    monkeypatch.setattr(md, "particionar", explota)
+    n3, sk = (env["d"] / "01b_narracion_v3.json").read_bytes(), (env["d"] / "01a_skeleton.json").read_bytes()
     pedidos: list[str] = []
-    n3_antes = (env["d"] / "01b_narracion_v3.json").read_bytes()
-
-    def call(pr, **k):
-        assert "«El pie va a cerrar.» → el archivo dice otra cosa (D2): «no cerraba nunca»" in pr
-        return {"texto": "El pie no cerraba. El valle del cap 2 dormía."}
-    r = _corre(env, _post_verif({"ch02": [AFIRMA]}, pedidos), call)
-    assert sorted(pedidos) == sorted([f"ch{n:02d}" for n in range(1, 8)] + ["ch02"])          # 7 + solo el cap cambiado
-    assert r["caps_cambiados"] == ["ch02"] and r["quedan"] == [] and r["nuevas"] == []
-    f = r["filas"][0]
-    assert (f["hecho"], f["despues"], f["parrafo"]) == ("corregida ✔", "El pie no cerraba.", 1)
-    assert r["particion"] is not None
-    n3 = json.loads((env["d"] / "01b_narracion_v3.json").read_text(encoding="utf-8"))
-    assert (env["d"] / "01b_narracion_v3.json").read_bytes() != n3_antes
-    assert n3["parrafos"][1]["texto"].startswith("El pie no cerraba.")
-    assert "va a cerrar" not in (env["d"] / "01b_narration.json").read_text(encoding="utf-8")
-    sk = json.loads((env["d"] / "01a_skeleton.json").read_text(encoding="utf-8"))
-    assert [c["title"] for c in sk["chapters"]] == TITULOS
-    v = json.loads((env["d"] / "01b_verificacion.json").read_text(encoding="utf-8"))
-    assert v["narracion_md5_antes"] != v["narracion_md5_despues"] and v["re_verificacion"]["por_cap"].keys() == {"ch02"}
-    md_txt = (env["d"] / "01b_verificacion.md").read_text(encoding="utf-8")
-    assert "corregida ✔" in md_txt and "| ch02 | [0] El pie va a cerrar." in md_txt and "El pie no cerraba." in md_txt
-    g = json.loads((env["d"] / "01b_guionista_v4.json").read_text(encoding="utf-8"))
-    assert g["verificacion"]["parrafos"][1]["texto"].startswith("El pie no cerraba.")
-    assert g["reparacion"]["parrafos"][1]["texto"].startswith(ORACION)                       # lo de la reparación no se toca
-    assert nv.leer_quedan(env["d"]) == []
-
-
-def test_b5_el_parrafo_se_ubica_por_texto_y_el_beat_desempata():
-    ps = [{"cap": 2, "beat": 2, "texto": "Uno. La frase."}, {"cap": 2, "beat": 3, "texto": "Dos. La frase."},
-          {"cap": 3, "beat": 4, "texto": "Tres."}]
-    assert f15._parrafo_de({"cap": "ch02", "texto": "La frase.", "beat": 3}, ps) == 1
-    assert f15._parrafo_de({"cap": "ch02", "texto": "La frase.", "beat": 9}, ps) == 0
-    assert f15._parrafo_de({"cap": "ch02", "texto": "Tres.", "beat": 4}, ps) is None        # otro cap
-    assert f15._parrafo_de({"cap": "ch02", "texto": None, "beat": 2}, ps) is None
-
-
-def test_b6_la_guardia_rechaza_queda_como_aviso_y_la_cadena_sigue(env, capsys):
-    pedidos: list[str] = []
-    r = _corre(env, _post_verif({"ch02": [AFIRMA]}, pedidos), lambda pr, **k: {"texto": "En 1999 no cerraba. El valle del cap 2 dormía."})
-    assert len(pedidos) == 7 and r["particion"] is None and r["caps_cambiados"] == [] and r["re_verificacion"] is None
-    assert "rechazada: guardia léxica: cifras nuevas ['1999'] ⚠" == r["filas"][0]["hecho"]
-    assert len(r["quedan"]) == 1 and r["quedan"][0]["ids"] == ["D2"] and r["quedan"][0]["texto"] == ORACION
-    assert r["narracion_md5_antes"] == r["narracion_md5_despues"]
+    r = _corre(env, _post_verif({"ch02": [AFIRMA, SIN_RESPALDO]}, pedidos))
+    assert sorted(pedidos) == [f"ch{n:02d}" for n in range(1, 8)]                              # 7, sin re-verificación
+    assert r["quedan"] == [{"cap": "ch02", "oracion": 0, "texto": ORACION, "afirmacion": "la herida va a cerrar", "ids": ["D2"],
+                            "fragmento": "no cerraba nunca"}]
+    assert (env["d"] / "01b_narracion_v3.json").read_bytes() == n3 and (env["d"] / "01a_skeleton.json").read_bytes() == sk
+    assert r["narracion_md5"] == hashlib.md5(n3).hexdigest() and r["usd_verificador"] > 0
+    assert nv.leer_quedan(env["d"]) == r["quedan"]
+    txt = (env["d"] / "01b_verificacion.md").read_text(encoding="utf-8")
+    assert "| ch02 | [0] El pie va a cerrar. | la herida va a cerrar | D2 | no cerraba nunca |" in txt
+    assert "| cap | oración | afirmación | ids | fragmento |" in txt and "1 «contradice» como aviso" in txt
+    assert "corregida" not in txt and "qué se hizo" not in txt and "después" not in txt
+    assert "- ch02 [1] el valle dormía" in txt
     assert "⚠ la narración sigue contradiciendo el archivo en 1 punto(s)" in capsys.readouterr().out
-    assert nv.leer_quedan(env["d"])[0]["cap"] == "ch02"
     assert "⚠ la narración sigue contradiciendo" in f15.parada_del_papel("t")
 
 
-def test_b7_la_cifra_de_la_fecha_del_dato_se_acepta(env):
-    r = _corre(env, _post_verif({"ch02": [AFIRMA]}), lambda pr, **k: {"texto": "En 2022 no cerraba. El valle del cap 2 dormía."})
-    assert r["filas"][0]["hecho"] == "corregida ✔"                                             # D2 trae fecha 2022
+def test_b3_sin_contradice_no_hay_aviso(env):
+    r = _corre(env, _post_verif({}))
+    assert r["quedan"] == [] and "nada contradice el archivo" in (env["d"] / "01b_verificacion.md").read_text(encoding="utf-8")
+    assert "⚠ la narración" not in f15.parada_del_papel("t")
 
 
-def test_b8_error_de_la_edicion_es_aviso(env):
-    def call(pr, **k):
-        raise TimeoutError("api")
-    r = _corre(env, _post_verif({"ch02": [AFIRMA]}), call)
-    assert "TimeoutError" in r["filas"][0]["hecho"] and len(r["quedan"]) == 1
-
-
-def test_b9_sigue_contradiciendo_y_nueva_quedan_como_aviso(env):
-    segunda = {"ch02": [{**AFIRMA, "oracion": 0, "afirmacion": "todavía"},
-                        {"oracion": 1, "afirmacion": "otra cosa", "estado": "contradice", "ids": ["D3"], "fragmento": "x"}]}
-    r = _corre(env, _post_verif({"ch02": [AFIRMA]}, despues=segunda), lambda pr, **k: {"texto": "El pie no cerraba. El valle del cap 2 dormía."})
-    assert r["filas"][0]["hecho"] == "sigue contradiciendo ⚠"
-    assert [x["afirmacion"] for x in r["quedan"]] == ["todavía", "otra cosa"] and [x["ids"] for x in r["nuevas"]] == [["D3"]]
-    assert "nueva en la re-verificación ⚠" in (env["d"] / "01b_verificacion.md").read_text(encoding="utf-8")
-
-
-def test_b10_sin_contradice_no_edita_ni_reparte(env):
-    def call(pr, **k):
-        raise AssertionError("no hay nada que editar")
-    pedidos: list[str] = []
-    r = _corre(env, _post_verif({}, pedidos), call)
-    assert len(pedidos) == 7 and r["particion"] is None and r["filas"] == [] and r["quedan"] == []
-    assert "nada que corregir" in (env["d"] / "01b_verificacion.md").read_text(encoding="utf-8")
-
-
-def test_b11_un_cap_sin_verificar_se_avisa_en_el_md(env):
+def test_b4_un_cap_sin_verificar_se_avisa_en_el_md(env):
     def post(body):
         raise TimeoutError("api caída")
-    r = _corre(env, post, lambda pr, **k: {"texto": ""})
-    assert r["filas"] == [] and all(v["error"] for v in r["primera"]["por_cap"].values())
+    r = _corre(env, post)
+    assert r["quedan"] == [] and all(v["error"] for v in r["primera"]["por_cap"].values())
     assert "⚠ caps sin verificar" in (env["d"] / "01b_verificacion.md").read_text(encoding="utf-8")
 
 
@@ -374,7 +257,7 @@ def _msg_papel(resp: dict) -> dict:
     return _msg(resp, {"input_tokens": 1000, "output_tokens": 200})
 
 
-def test_b12_el_aviso_va_al_final_del_papel_y_a_la_parada(env):
+def test_b5_el_aviso_va_al_final_del_papel_y_a_la_parada(env):
     (env["d"] / "01b_verificacion.json").write_text(json.dumps({"quedan": [
         {"cap": "ch02", "oracion": 0, "texto": ORACION, "afirmacion": "va a cerrar", "ids": ["D2"], "fragmento": "no cerraba"}]},
         ensure_ascii=False), encoding="utf-8")
@@ -390,39 +273,39 @@ def test_b12_el_aviso_va_al_final_del_papel_y_a_la_parada(env):
     assert "aviso_narracion" not in p2 and "⚠ la narración" not in f15.parada_del_papel("t")
 
 
-def test_b13_prompts_del_papel_no_cambian():
+def test_b6_prompts_no_cambian():
     assert mp.prompt_md5() == "f2bfdf2044a4c77a59fc62ebe93966c2" and mp.PROMPT_VERSION == "m01e-7"
     assert hashlib.md5(mp.PANTALLA_SYSTEM.encode("utf-8")).hexdigest() == "85d094bed6090b14d1802ca97433d982"
+    assert hashlib.md5(nv.SYSTEM_B.encode("utf-8")).hexdigest() == MD5_SYSTEM_B
 
 
-def test_b14_verificar_narracion_no_llama_al_guionista(env, monkeypatch, capsys):
+def test_b7_verificar_narracion_no_llama_al_guionista(env, monkeypatch, capsys):
     def explota(*a, **k):
-        raise AssertionError("no se vuelve a llamar al guionista")
-    monkeypatch.setattr(g4, "write", explota)
-    monkeypatch.setattr(g4, "reparar", explota)
+        raise AssertionError("no se vuelve a llamar al guionista ni se edita")
+    for n in ("write", "reparar", "call_for", "edit_sentences"):
+        monkeypatch.setattr(g4, n, explota)
     monkeypatch.setattr(f15, "_topic_v3", lambda tid: env["topic"])
-    monkeypatch.setattr(g4, "call_for", lambda m: (lambda pr, **k: {"texto": "El pie no cerraba. El valle del cap 2 dormía."}))
-    monkeypatch.setattr(f15, "_step_cost", lambda tid, label, fn: pasos.append(label) or fn())
     pasos: list[str] = []
     orden: list[str] = []
+    monkeypatch.setattr(f15, "_step_cost", lambda tid, label, fn: pasos.append(label) or fn())
     real = f15.run_verificacion
     monkeypatch.setattr(f15, "run_verificacion", lambda *a, **k: orden.append("verificacion") or real(*a, post=_post_verif({"ch02": [AFIRMA]}), **k))
     monkeypatch.setattr(f15, "run_pantalla", lambda tid, pool, log: orden.append("pantalla") or {})
+    n3 = (env["d"] / "01b_narracion_v3.json").read_bytes()
     assert f15.verificar_narracion("t") == 0
     assert orden == ["verificacion", "pantalla"] and pasos == ["verificacion"]
     out = capsys.readouterr().out
-    assert "PARADA del papel" in out and "Aprobar:" in out
-    n3 = json.loads((env["d"] / "01b_narracion_v3.json").read_text(encoding="utf-8"))
-    assert n3["parrafos"][1]["texto"].startswith("El pie no cerraba.")
+    assert "PARADA del papel" in out and "Aprobar:" in out and "⚠ la narración sigue contradiciendo" in out
+    assert (env["d"] / "01b_narracion_v3.json").read_bytes() == n3
 
 
-def test_b15_verificar_narracion_sin_guion_para(env):
-    (env["d"] / "01b_guionista_v4.json").unlink()
-    with pytest.raises(f15.Parada, match="no hay guion"):
+def test_b8_verificar_narracion_sin_narracion_para(env):
+    (env["d"] / "01b_narracion_v3.json").unlink()
+    with pytest.raises(f15.Parada, match="no hay narración"):
         f15.verificar_narracion("t")
 
 
-def test_b16_orden_de_run_guion_v4_y_el_juez_recibe_la_particion_final(env, monkeypatch):
+def test_b9_orden_de_run_guion_v4_y_el_juez_recibe_la_particion(env, monkeypatch):
     from script_engine import m05_narrative as m5
     orden: list[str] = []
     monkeypatch.setattr(f15, "_topic_v3", lambda tid: env["topic"])
@@ -433,8 +316,8 @@ def test_b16_orden_de_run_guion_v4_y_el_juez_recibe_la_particion_final(env, monk
     monkeypatch.setattr(g4, "reparar", lambda *a, **k: orden.append("reparar") or {"parrafos": _parrafos(), "parada": False, "bloqueantes_despues": []})
     monkeypatch.setattr(g4, "metricas", lambda *a, **k: {})
     monkeypatch.setattr(g4, "nota_b", lambda: "")
-    monkeypatch.setattr(md, "particionar", lambda *a, **k: orden.append("particionar") or {"narration": "vieja", "skeleton": "sk"})
-    monkeypatch.setattr(f15, "run_verificacion", lambda *a, **k: orden.append("verificacion") or {"particion": {"narration": "final", "skeleton": "sk2"}})
+    monkeypatch.setattr(md, "particionar", lambda *a, **k: orden.append("particionar") or {"narration": "la de la partición", "skeleton": "sk"})
+    monkeypatch.setattr(f15, "run_verificacion", lambda *a, **k: orden.append("verificacion") or {"quedan": []})
     monkeypatch.setattr(f15, "run_pantalla", lambda *a, **k: orden.append("pantalla") or {})
     vio = {}
     monkeypatch.setattr(m5, "judge_narration", lambda tid, **k: orden.append("juez") or vio.update(k) or {})
@@ -442,8 +325,4 @@ def test_b16_orden_de_run_guion_v4_y_el_juez_recibe_la_particion_final(env, monk
     monkeypatch.setattr(ficha_caso, "load", lambda *a, **k: None)
     r = f15.run_guion_v4("t")
     assert orden == ["guionista", "reparar", "particionar", "verificacion", "pantalla", "juez"]
-    assert vio["narration"] == "final" and r["particion"]["narration"] == "final"
-    # sin correcciones: la partición de antes
-    orden.clear()
-    monkeypatch.setattr(f15, "run_verificacion", lambda *a, **k: {"particion": None})
-    assert f15.run_guion_v4("t")["particion"]["narration"] == "vieja"
+    assert vio["narration"] == "la de la partición" and r["particion"]["narration"] == "la de la partición"
