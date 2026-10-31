@@ -79,6 +79,15 @@ def assemble_final_script(topic_id: str) -> Path:
     for prop in (topic.get("documented_props") or []):
         if prop.get("anclado") == "si" and prop.get("foto_madre") and prop.get("nombre"):
             foto_madre_registry[prop["nombre"]] = prop["foto_madre"]
+    # F60 B: madres por PERSONA (foto_madre.py las genera para las personas del canon con ≥ 2 fotos): {nombre: path}
+    # al mismo registry (la clave es el `name` exacto del canon, el que m03 escribe en `persona`), y aparte lo que
+    # asset_manager necesita para el filtro por era de la regla única (era + condition_by_period), sin leer topics_db.
+    foto_madre_personas: dict[str, dict] = {}
+    for per in (topic.get("documented_people") or []):
+        if isinstance(per, dict) and per.get("foto_madre") and per.get("name"):
+            foto_madre_registry[per["name"]] = per["foto_madre"]
+            foto_madre_personas[per["name"]] = {"era": per.get("era") or "",
+                                                 "condition_by_period": per.get("condition_by_period") or []}
 
     narration_by_cap = {c["chapter_number"]: c for c in narration.get("chapters", [])}
     visual_by_cap = {c["chapter_number"]: c for c in visual.get("chapters", [])}
@@ -111,6 +120,10 @@ def assemble_final_script(topic_id: str) -> Path:
             cap_out["supplemental_image_prompts"] = (
                 vis.get("supplemental_image_prompts") or []
             )
+            # F60 C: `persona`/`anio` de la foto del clip (m03 los deja en image_f8; antes solo viajaba image_prompt) →
+            # la foto inicial del clip lleva las madres de la regla única en asset_manager.
+            if isinstance(vis.get("image_f8"), dict):
+                cap_out["image_f8"] = vis["image_f8"]
         else:
             # cap-level art_profile = "" (catálogo desconectado en chat 19;
             # backward compat con consumidores que esperan la key).
@@ -127,6 +140,7 @@ def assemble_final_script(topic_id: str) -> Path:
         "video_title":               topic.get("video_title", ""),
         "chapters":                  chapters_final,
         "foto_madre_registry":       foto_madre_registry,
+        "foto_madre_personas":       foto_madre_personas,   # F60 B: {nombre: {era, condition_by_period}} de las personas con madre
         "humanizer_phrases":         narration.get("humanizer_phrases", []),
         # metadata trazable:
         "verified_facts":            topic.get("verified_facts", []),

@@ -1,0 +1,100 @@
+{
+ "model_edit": "fal-ai/bytedance/seedream/v5/lite/edit",
+ "image_size": {
+  "width": 2560,
+  "height": 1440
+ },
+ "madre": "lab\\hyperframes\\f60\\e0b\\madre_daniel_ecija.png",
+ "madre_md5": "41e8c58c5e1cbc1272c5129ab22be8b5",
+ "poll_func": "_clip_poll",
+ "usd_por_imagen": 0.035,
+ "semilla": "Seedream v5 Lite /edit no acepta `seed` de entrada: no se puede reusar la semilla de 0b",
+ "fotos": [
+  {
+   "id": "ch03_img_16",
+   "path_0b": "lab\\hyperframes\\f60\\e0b\\lote1\\05_ch03_img_16.png",
+   "prompt_antes": "A young Spanish migrant couple of Mediterranean origin: a lean dark-haired man in his twenties in work shirt and trousers, and a slim young woman in a modest knee-length cotton dress. Stepping down from a small propeller aircraft onto the airstrip. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. The Wittenoom airstrip in 1962, surfaced with crumbly blue-grey tailings, low tin and fibro houses beyond, a dust plume over the gorge. Harsh midday desert sun, heat shimmer and haze. Wide shot, low angle from the airstrip surface, 50mm, moderate depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "prompt_despues": "A young Spanish migrant couple of Mediterranean origin: a lean dark-haired man in his twenties in work shirt and trousers, and a slim young woman in a modest knee-length cotton dress. Stepping down from a twin-engine Douglas DC-3 propeller airliner, tail wheel resting on the strip, onto the airstrip. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. The Wittenoom airstrip in 1962, surfaced with crumbly blue-grey tailings, low tin and fibro houses beyond, a dust plume over the gorge. Harsh midday desert sun, heat shimmer and haze. Wide shot, low angle from the airstrip surface, 50mm, moderate depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "frase_antes": "Stepping down from a small propeller aircraft onto the airstrip.",
+   "frase_despues": "Stepping down from a twin-engine Douglas DC-3 propeller airliner, tail wheel resting on the strip, onto the airstrip.",
+   "payload_sin_uri": {
+    "prompt": "A young Spanish migrant couple of Mediterranean origin: a lean dark-haired man in his twenties in work shirt and trousers, and a slim young woman in a modest knee-length cotton dress. Stepping down from a twin-engine Douglas DC-3 propeller airliner, tail wheel resting on the strip, onto the airstrip. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. The Wittenoom airstrip in 1962, surfaced with crumbly blue-grey tailings, low tin and fibro houses beyond, a dust plume over the gorge. Harsh midday desert sun, heat shimmer and haze. Wide shot, low angle from the airstrip surface, 50mm, moderate depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+    "image_urls": [
+     "<data-uri madre>"
+    ],
+    "image_size": {
+     "width": 2560,
+     "height": 1440
+    },
+    "num_images": 1,
+    "enable_safety_checker": true
+   },
+   "segundos": 48.5,
+   "request_id": "01a18fa9-f7eb-7160-a532-f8347958c7bc",
+   "path_x": "lab\\hyperframes\\f60\\x\\x_ch03_img_16.png",
+   "md5": "9fcfa7055f075fe8bf0c4ace0c9489ac",
+   "url_fal": "https://v3b.fal.media/files/b/0ab08770/22R8-PTxE6L-jqOQfWqhH_3745fa5848944652811bdfe8327c673a.jpg",
+   "seed_devuelta": 386697505,
+   "nsfw": null,
+   "usd": 0.035
+  },
+  {
+   "id": "ch02_img_05",
+   "path_0b": "lab\\hyperframes\\f60\\e0b\\lote1\\04_ch02_img_05.png",
+   "prompt_antes": "Two young Spanish couples from Madrid, olive skin, dark hair: the men lean in dust-coated work shirts, the women in modest cotton dresses. The two couples share an evening together on a small veranda, chairs drawn close. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Veranda of a company house of corrugated iron and fibro sheeting on red earth, Wittenoom, 1962. Dusk with warm lamp glow. Wide shot, eye-level from the yard, 35mm lens, moderate depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "prompt_despues": "Two young Spanish couples from Madrid, olive skin, dark hair: the men lean in dust-coated work shirts, the women in modest cotton dresses. One of the men wears a small round early-1960s steel wristwatch with a plain pale dial on a thin brown leather strap. The two couples share an evening together on a small veranda, chairs drawn close. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Veranda of a company house of corrugated iron and fibro sheeting on red earth, Wittenoom, 1962. Dusk with warm lamp glow. Wide shot, eye-level from the yard, 35mm lens, moderate depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "frase_antes": "the women in modest cotton dresses.",
+   "frase_despues": "the women in modest cotton dresses. One of the men wears a small round early-1960s steel wristwatch with a plain pale dial on a thin brown leather strap.",
+   "payload_sin_uri": {
+    "prompt": "Two young Spanish couples from Madrid, olive skin, dark hair: the men lean in dust-coated work shirts, the women in modest cotton dresses. One of the men wears a small round early-1960s steel wristwatch with a plain pale dial on a thin brown leather strap. The two couples share an evening together on a small veranda, chairs drawn close. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Veranda of a company house of corrugated iron and fibro sheeting on red earth, Wittenoom, 1962. Dusk with warm lamp glow. Wide shot, eye-level from the yard, 35mm lens, moderate depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+    "image_urls": [
+     "<data-uri madre>"
+    ],
+    "image_size": {
+     "width": 2560,
+     "height": 1440
+    },
+    "num_images": 1,
+    "enable_safety_checker": true
+   },
+   "segundos": 49.0,
+   "request_id": "01a18faa-b8ff-7390-a14b-14cda3859916",
+   "path_x": "lab\\hyperframes\\f60\\x\\x_ch02_img_05.png",
+   "md5": "5804658b98b8c5bff113b126b4488f00",
+   "url_fal": "https://v3b.fal.media/files/b/0ab08775/mwSifODw4aHAw44a6wK8n_73bc84bd3592462dbae1a68e59e317a2.jpg",
+   "seed_devuelta": 466224935,
+   "nsfw": null,
+   "usd": 0.035
+  },
+  {
+   "id": "ch05_img_05",
+   "path_0b": "lab\\hyperframes\\f60\\e0b\\lote2\\03_ch05_img_05.png",
+   "prompt_antes": "A young Spanish family seen from behind: a lean olive-skinned man about thirty in a late-1960s jacket and trousers, a dark-haired woman in her late twenties in skirt and blouse, a small boy holding her hand. The family steps through the street doorway of a modest Madrid apartment block, entering their home. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Working-class Madrid street of brick apartment blocks with iron balconies, 1966. Soft overcast Madrid daylight. Wide shot, eye-level from across the narrow street, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1966, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "prompt_despues": "A young Spanish family seen from behind: a lean olive-skinned man about thirty in a late-1960s jacket and trousers, a dark-haired woman in her late twenties in skirt and blouse, a small boy holding her hand. The family steps through the street doorway of a modest Madrid apartment block, entering their home. Beside the doorway only a small brass letter slot set into the wooden street door and a round brass bell push, as in 1960s Madrid; no electronic intercom panel, no camera and no metal mailbox on the facade. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Working-class Madrid street of brick apartment blocks with iron balconies, 1966. Soft overcast Madrid daylight. Wide shot, eye-level from across the narrow street, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1966, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "frase_antes": "entering their home.",
+   "frase_despues": "entering their home. Beside the doorway only a small brass letter slot set into the wooden street door and a round brass bell push, as in 1960s Madrid; no electronic intercom panel, no camera and no metal mailbox on the facade.",
+   "payload_sin_uri": {
+    "prompt": "A young Spanish family seen from behind: a lean olive-skinned man about thirty in a late-1960s jacket and trousers, a dark-haired woman in her late twenties in skirt and blouse, a small boy holding her hand. The family steps through the street doorway of a modest Madrid apartment block, entering their home. Beside the doorway only a small brass letter slot set into the wooden street door and a round brass bell push, as in 1960s Madrid; no electronic intercom panel, no camera and no metal mailbox on the facade. Spanish people of Mediterranean European origin with olive to light skin, dark brown to black hair and dark eyes. Working-class Madrid street of brick apartment blocks with iron balconies, 1966. Soft overcast Madrid daylight. Wide shot, eye-level from across the narrow street, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1966, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+    "image_urls": [
+     "<data-uri madre>"
+    ],
+    "image_size": {
+     "width": 2560,
+     "height": 1440
+    },
+    "num_images": 1,
+    "enable_safety_checker": true
+   },
+   "segundos": 48.6,
+   "request_id": "01a18fab-788d-7c50-8df2-8d8a1a9734ac",
+   "path_x": "lab\\hyperframes\\f60\\x\\x_ch05_img_05.png",
+   "md5": "dc2a756bc9c93e8b64791568f3c65050",
+   "url_fal": "https://v3b.fal.media/files/b/0ab0877a/_CT5rdNF6slOD4CNFlCWy_9ef35bcd1dd947baa2c835bc3b5ecafa.jpg",
+   "seed_devuelta": 182242202,
+   "nsfw": null,
+   "usd": 0.035
+  }
+ ],
+ "usd_total": 0.105,
+ "hoja": "lab/hyperframes/f60/x/hoja_x.jpg"
+}

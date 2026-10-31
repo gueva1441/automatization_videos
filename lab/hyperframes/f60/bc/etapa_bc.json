@@ -1,0 +1,1557 @@
+{
+ "tid": "123bbb64-9fca-4395-8bf4-57d60e219ef1",
+ "hora": "2026-10-30T22:10:54",
+ "fotos_por_llamada": 6,
+ "submit_timeout_s": 60,
+ "poll_timeout_s": 600,
+ "flux_max_workers": 20,
+ "ropa_madre": "wearing a plain, clean, light-coloured shirt",
+ "madres": {
+  "Eric Saint": {
+   "fotos": 2,
+   "fotos_ids": [
+    "ch03_img_04",
+    "ch03_img_06"
+   ],
+   "dest": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\eric_saint.png",
+   "prompt": "Head-and-shoulders portrait of a middle-aged Australian man, wearing a plain, clean, light-coloured shirt. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1948, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+   "estado": "ok",
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
+   "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\eric_saint.png",
+   "seed": 508750774,
+   "nsfw": null,
+   "request_id": "01a18fb9-66cb-7d92-bdbf-383c4be5af3f"
+  },
+  "Hancock": {
+   "fotos": 1,
+   "fotos_ids": [
+    "ch03_img_03"
+   ],
+   "estado": "sin madre: 1 foto(s) con persona dentro de su era"
+  },
+  "Wright": {
+   "fotos": 1,
+   "fotos_ids": [
+    "ch03_img_03"
+   ],
+   "estado": "sin madre: 1 foto(s) con persona dentro de su era"
+  },
+  "Chifley": {
+   "fotos": 0,
+   "fotos_ids": [],
+   "estado": "sin madre: 0 foto(s) con persona dentro de su era"
+  },
+  "McNulty": {
+   "fotos": 0,
+   "fotos_ids": [],
+   "estado": "sin madre: 0 foto(s) con persona dentro de su era"
+  },
+  "Víctor Calvo": {
+   "fotos": 6,
+   "fotos_ids": [
+    "ch02_img_08",
+    "ch02_img_10",
+    "ch02_img_11",
+    "ch02_img_14",
+    "ch04_img_02",
+    "ch04_img_03"
+   ],
+   "dest": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\v_ctor_calvo.png",
+   "prompt": "Head-and-shoulders portrait of a young Spanish boy, wearing a plain, clean, light-coloured shirt. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+   "estado": "ok",
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
+   "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\v_ctor_calvo.png",
+   "seed": 1301895338,
+   "nsfw": null,
+   "request_id": "01a18fb9-66e4-7782-8966-fd5ee59817e7"
+  },
+  "Ramón de Juan": {
+   "fotos": 4,
+   "fotos_ids": [
+    "ch02_img_06",
+    "ch02_img_07",
+    "ch02_img_15",
+    "ch04_img_09"
+   ],
+   "dest": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\ram_n_de_juan.png",
+   "prompt": "Head-and-shoulders portrait of an adult Spanish man, wearing a plain, clean, light-coloured shirt. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+   "estado": "ok",
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
+   "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\ram_n_de_juan.png",
+   "seed": 636897749,
+   "nsfw": null,
+   "request_id": "01a18fb9-66c9-7ad1-9f10-f9386b6992cf"
+  },
+  "Milagros Barroso": {
+   "fotos": 5,
+   "fotos_ids": [
+    "ch02_img_06",
+    "ch02_img_07",
+    "ch02_img_11",
+    "ch02_img_15",
+    "ch04_img_11"
+   ],
+   "dest": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\milagros_barroso.png",
+   "prompt": "Head-and-shoulders portrait of a young adult Spanish woman, wearing a plain, clean, light-coloured shirt. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+   "estado": "ok",
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
+   "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\milagros_barroso.png",
+   "seed": 227030098,
+   "nsfw": null,
+   "request_id": "01a18fb9-66ec-76c2-ae39-c88882b6d3d8"
+  },
+  "Mercedes": {
+   "fotos": 2,
+   "fotos_ids": [
+    "ch04_img_03",
+    "ch05_img_06"
+   ],
+   "dest": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\mercedes.png",
+   "prompt": "Head-and-shoulders portrait of a young Spanish girl, wearing a plain, clean, light-coloured shirt. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+   "estado": "ok",
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
+   "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\mercedes.png",
+   "seed": 562046190,
+   "nsfw": null,
+   "request_id": "01a18fb9-66c8-7792-8faa-14ecef648d25"
+  },
+  "John Patrick": {
+   "fotos": 1,
+   "fotos_ids": [
+    "ch04_img_11"
+   ],
+   "estado": "sin madre: 1 foto(s) con persona dentro de su era"
+  },
+  "Daniel Écija": {
+   "fotos": 12,
+   "fotos_ids": [
+    "ch01_f8_01",
+    "ch01_supp_01",
+    "ch01_supp_02",
+    "ch02_img_01",
+    "ch02_img_02",
+    "ch02_img_04",
+    "ch02_img_05",
+    "ch03_img_16",
+    "ch04_img_09",
+    "ch04_img_10",
+    "ch04_img_13",
+    "ch05_img_05"
+   ],
+   "dest": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\daniel_cija.png",
+   "prompt": "Head-and-shoulders portrait of a mid-20s Spanish man, wearing a plain, clean, light-coloured shirt. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+   "estado": "ok",
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
+   "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\daniel_cija.png",
+   "seed": 1007004299,
+   "nsfw": null,
+   "request_id": "01a18fb9-66e4-7890-ad83-2c43dc9a65ea"
+  },
+  "María Bernal": {
+   "fotos": 9,
+   "fotos_ids": [
+    "ch01_supp_01",
+    "ch02_img_01",
+    "ch02_img_02",
+    "ch02_img_04",
+    "ch02_img_05",
+    "ch03_img_16",
+    "ch04_img_12",
+    "ch04_img_13",
+    "ch05_img_05"
+   ],
+   "dest": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\mar_a_bernal.png",
+   "prompt": "Head-and-shoulders portrait of a young adult Spanish woman, wearing a plain, clean, light-coloured shirt. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+   "estado": "ok",
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
+   "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\mar_a_bernal.png",
+   "seed": 2073433428,
+   "nsfw": null,
+   "request_id": "01a18fb9-66ba-71d0-8486-2f3a6ccb6173"
+  },
+  "Daniel Écija hijo": {
+   "fotos": 1,
+   "fotos_ids": [
+    "ch05_img_09"
+   ],
+   "estado": "sin madre: 1 foto(s) con persona dentro de su era"
+  },
+  "Davidson": {
+   "fotos": 0,
+   "fotos_ids": [],
+   "estado": "sin madre: 0 foto(s) con persona dentro de su era"
+  },
+  "Major": {
+   "fotos": 0,
+   "fotos_ids": [],
+   "estado": "sin madre: 0 foto(s) con persona dentro de su era"
+  },
+  "James Vernon": {
+   "fotos": 1,
+   "fotos_ids": [
+    "ch05_img_01"
+   ],
+   "estado": "sin madre: 1 foto(s) con persona dentro de su era"
+  },
+  "Peter Gordon": {
+   "fotos": 0,
+   "fotos_ids": [],
+   "estado": "sin madre: 0 foto(s) con persona dentro de su era"
+  },
+  "Court": {
+   "fotos": 0,
+   "fotos_ids": [],
+   "estado": "sin madre: 0 foto(s) con persona dentro de su era"
+  },
+  "Ben Wyatt": {
+   "fotos": 0,
+   "fotos_ids": [],
+   "estado": "sin madre: 0 foto(s) con persona dentro de su era"
+  },
+  "Marcos Orellana": {
+   "fotos": 1,
+   "fotos_ids": [
+    "ch07_supp_07"
+   ],
+   "estado": "sin madre: 1 foto(s) con persona dentro de su era"
+  },
+  "Maitland Parker": {
+   "fotos": 2,
+   "fotos_ids": [
+    "ch07_supp_07",
+    "ch07_supp_08"
+   ],
+   "dest": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\maitland_parker.png",
+   "prompt": "Head-and-shoulders portrait of an elderly Aboriginal Australian man, wearing a plain, clean, light-coloured shirt. Aboriginal Australian features, with dark brown skin, dark wavy to curly hair, brown eyes, and broad facial features. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 2023, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+   "estado": "ok",
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
+   "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\maitland_parker.png",
+   "seed": 1027519968,
+   "nsfw": null,
+   "request_id": "01a18fb9-66c9-7ad1-9f10-f941bb9729d2"
+  },
+  "Melita Markey": {
+   "fotos": 1,
+   "fotos_ids": [
+    "ch06_img_05"
+   ],
+   "estado": "sin madre: 1 foto(s) con persona dentro de su era"
+  }
+ },
+ "segundos_madres": 53.1,
+ "registry": {
+  "Eric Saint": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\eric_saint.png",
+  "Víctor Calvo": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\v_ctor_calvo.png",
+  "Ramón de Juan": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\ram_n_de_juan.png",
+  "Milagros Barroso": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\milagros_barroso.png",
+  "Mercedes": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\mercedes.png",
+  "Daniel Écija": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\daniel_cija.png",
+  "María Bernal": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\mar_a_bernal.png",
+  "Maitland Parker": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\maitland_parker.png"
+ },
+ "foto_madre_personas": {
+  "Eric Saint": {
+   "era": "1948",
+   "condition_by_period": []
+  },
+  "Víctor Calvo": {
+   "era": "1962-1964",
+   "condition_by_period": [
+    {
+     "years": "1962-1964",
+     "condition": "His hands and mouth are dusted with fine asbestos powder from playing with frayed fibre."
+    }
+   ]
+  },
+  "Ramón de Juan": {
+   "era": "1962-1964",
+   "condition_by_period": [
+    {
+     "years": "1962-1964",
+     "condition": "He is worn down by frequent 16-hour shifts and covered in mine dust."
+    }
+   ]
+  },
+  "Milagros Barroso": {
+   "era": "1962-1964",
+   "condition_by_period": [
+    {
+     "years": "1963-1963",
+     "condition": "She is in the late stage of pregnancy and then recovering after giving birth in Wittenoom."
+    }
+   ]
+  },
+  "Mercedes": {
+   "era": "1962-1971",
+   "condition_by_period": []
+  },
+  "Daniel Écija": {
+   "era": "1962-1963",
+   "condition_by_period": [
+    {
+     "years": "1962-1963",
+     "condition": "His foot is bandaged over a non-healing wound caused by a falling chunk of asbestos."
+    },
+    {
+     "years": "1991-1992",
+     "condition": "He is terminally ill with mesothelioma and gaunt in the final months of life."
+    }
+   ]
+  },
+  "María Bernal": {
+   "era": "1962-1963",
+   "condition_by_period": [
+    {
+     "years": "1963-1963",
+     "condition": "She is physically weakened by a kidney infection and a complicated forceps delivery of a very large baby."
+    }
+   ]
+  },
+  "Maitland Parker": {
+   "era": "2023",
+   "condition_by_period": [
+    {
+     "years": "2023-2024",
+     "condition": "He is visibly ill and frail with mesothelioma, which caused his death in 2024."
+    }
+   ]
+  }
+ },
+ "segundos_pre_paso": 180.3,
+ "pedidos": {
+  "dfa064e658050ceec6c9c24bdb65a5d6": {
+   "request_id": "01a18fba-3670-7e73-8b89-a800cbc32a0b",
+   "status_url": "https://queue.fal.run/fal-ai/bytedance/requests/01a18fba-3670-7e73-8b89-a800cbc32a0b/status",
+   "response_url": "https://queue.fal.run/fal-ai/bytedance/requests/01a18fba-3670-7e73-8b89-a800cbc32a0b",
+   "hora_submit": "2026-10-30T22:11:48",
+   "n": 2,
+   "refs": [
+    "Daniel Écija"
+   ],
+   "fotos": [
+    "ch01_supp_02.png",
+    "ch04_img_10.png"
+   ],
+   "devueltas": 2,
+   "segundos": 118.6,
+   "hora_vuelta": "2026-10-30T22:13:45",
+   "seed": 1454817400
+  },
+  "e32f177997a249495426cc7b4f17e080": {
+   "request_id": "01a18fba-3b72-7e20-b210-0a827d23ab6c",
+   "status_url": "https://queue.fal.run/fal-ai/bytedance/requests/01a18fba-3b72-7e20-b210-0a827d23ab6c/status",
+   "response_url": "https://queue.fal.run/fal-ai/bytedance/requests/01a18fba-3b72-7e20-b210-0a827d23ab6c",
+   "hora_submit": "2026-10-30T22:11:49",
+   "n": 2,
+   "refs": [
+    "Eric Saint"
+   ],
+   "fotos": [
+    "ch03_img_04.png",
+    "ch03_img_06.png"
+   ],
+   "devueltas": 2,
+   "segundos": 140.9,
+   "hora_vuelta": "2026-10-30T22:14:08",
+   "seed": 58605258
+  },
+  "bc542fd370b0ad9e96325403a74a8512": {
+   "request_id": "01a18fba-3be4-78c3-becc-14a7559af20d",
+   "status_url": "https://queue.fal.run/fal-ai/bytedance/requests/01a18fba-3be4-78c3-becc-14a7559af20d/status",
+   "response_url": "https://queue.fal.run/fal-ai/bytedance/requests/01a18fba-3be4-78c3-becc-14a7559af20d",
+   "hora_submit": "2026-10-30T22:11:49",
+   "n": 4,
+   "refs": [
+    "Víctor Calvo"
+   ],
+   "fotos": [
+    "ch02_img_08.png",
+    "ch02_img_10.png",
+    "ch02_img_14.png",
+    "ch04_img_02.png"
+   ],
+   "devueltas": 4,
+   "segundos": 180.3,
+   "hora_vuelta": "2026-10-30T22:14:47",
+   "seed": 2099955130
+  }
+ },
+ "segundos_pared_una_foto": 88.6,
+ "costo": {
+  "total_usd": 1.435,
+  "entradas": [
+   {
+    "service": "fal.ai Seedream 5.0 Lite (t2i)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "foto madre persona daniel_cija"
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (t2i)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "foto madre persona mercedes"
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (t2i)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "foto madre persona v_ctor_calvo"
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (t2i)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "foto madre persona eric_saint"
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (t2i)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "foto madre persona milagros_barroso"
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (t2i)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "foto madre persona mar_a_bernal"
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (t2i)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "foto madre persona maitland_parker"
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (t2i)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "foto madre persona ram_n_de_juan"
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (edit)",
+    "units": 2,
+    "cost": 0.07,
+    "desc": "secuencia dfa064e6 ['Daniel Écija']: 2 fotos"
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (edit)",
+    "units": 2,
+    "cost": 0.07,
+    "desc": "secuencia e32f1779 ['Eric Saint']: 2 fotos"
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (edit)",
+    "units": 4,
+    "cost": 0.14,
+    "desc": "secuencia bc542fd3 ['Víctor Calvo']: 4 fotos"
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (t2i)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch03_img_03: Two weathered Anglo-Australian prospectors in their forties,..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (t2i)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch05_img_01: A middle-aged Anglo-Australian company chairman in a dark 19..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (edit)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch04_img_11: A young adult Spanish woman, olive skin, dark hair loose on ..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (edit)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch01_img_01: The bandaged foot of a slim mid-20s Spanish miner with tanne..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (edit)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch02_img_01: Young Spanish couple meeting at a dance: a slim mid-20s Span..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (edit)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch02_img_02: Newlywed Spanish couple: a slim mid-20s Spanish man in a dar..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (edit)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch02_img_05: Young Spanish wife, slender with dark wavy hair and a headsc..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (edit)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch02_img_04: Young Spanish couple on a liner deck: a slim mid-20s Spanish..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (edit)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch05_img_06: A young Spanish girl with dark wavy hair, slim, in a plain e..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (edit)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch04_img_09: A slim mid-20s Spanish miner with one foot bandaged and a wo..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (edit)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch01_supp_01: A Spanish migrant family posing for a portrait: a slim mid-2..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (edit)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch02_img_07: Madrid family on a migrant liner: a Spanish man in a white s..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (edit)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch02_img_11: Young Spanish boy, slim with dark hair, pale and sweat-damp,..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (edit)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch05_img_05: A young Spanish migrant couple, around 30, slim builds, dark..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (edit)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch02_img_06: Two young Spanish couples sharing an evening: a dust-coated ..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (edit)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch03_img_16: A young Spanish couple: a slim mid-20s man with dark wavy ha..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (edit)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch04_img_12: A heavily pregnant young adult Spanish woman, slim, in a swe..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (edit)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch02_img_15: Row of Wittenoom company houses with a newly arrived Spanish..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (edit)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch04_img_13: A young Spanish couple in modest Sunday best: a thin pale wo..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (t2i)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch06_img_05: A middle-aged Australian woman, medium build, fair skin, sho..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (edit)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch04_img_03: Migrant children on a dumped heap of blue tailings: a Spanis..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (t2i)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch05_img_13: A gaunt Spanish man in his mid-fifties, thin frame, greying ..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (edit)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch07_supp_08: An elderly Aboriginal Australian man, dark brown skin, gaunt..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (t2i)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch05_img_09: A middle-aged Anglo-Australian police officer in a 1980s uni..."
+   },
+   {
+    "service": "fal.ai Seedream 5.0 Lite (edit)",
+    "units": 1,
+    "cost": 0.035,
+    "desc": "ch07_supp_07: An elderly Aboriginal Australian man, dark brown skin, thin ..."
+   }
+  ]
+ },
+ "fotos": [
+  {
+   "clave": [
+    "ch01",
+    "f8",
+    1
+   ],
+   "file": "ch01_img_01.png",
+   "persona": [
+    "Daniel Écija"
+   ],
+   "anio": "1962",
+   "madres": [
+    "Daniel Écija"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch01_veo\\ch01_img_01.png",
+   "prompt": "The bandaged foot of a slim mid-20s Spanish miner with tanned olive skin, a red-dusted work boot set aside beside it. The young miner stands still for a family photograph, weight shifted off the bandaged foot onto the other leg. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Bare compacted ground outside a company house in an operating Pilbara mining town, 1962, red earth scattered with bluish fibrous grit, base of a corrugated iron wall behind. Hard cold overcast daylight, flat and directional. Close shot, low angle at ground level, shallow depth of field, 85mm lens, corrugated wall soft behind. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": true,
+   "seed": null,
+   "camino": "una foto (/edit)",
+   "segundos": 41.8,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch01",
+    "supp",
+    1
+   ],
+   "file": "ch01_supp_01.png",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "anio": "1962",
+   "madres": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch01_flux\\ch01_supp_01.png",
+   "prompt": "A Spanish migrant family posing for a portrait: a slim mid-20s Spanish miner with dark wavy hair in a dusty cotton work shirt, foot bandaged white, beside a young adult Spanish woman in a cotton print dress and cardigan. The family stands in a stiff row facing the camera while the man's bandaged foot rests forward on the red ground. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Front yard of a corrugated iron and fibro company house in Wittenoom, 1962, yard surfaced with grey-blue tailings over red earth. Hard cold overcast daylight. Wide shot, eye-level, like a period roll-film snapshot, deep depth of field, slightly soft period focus. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": true,
+   "seed": null,
+   "camino": "una foto (/edit)",
+   "segundos": 49.9,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch01",
+    "supp",
+    2
+   ],
+   "file": "ch01_supp_02.png",
+   "persona": [
+    "Daniel Écija"
+   ],
+   "anio": "1962",
+   "madres": [
+    "Daniel Écija"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch01_flux\\ch01_supp_02.png",
+   "prompt": "A slim mid-20s Spanish miner with tanned olive skin and dark hair, dust-coated cotton work shirt and trousers, sweat tracks through red dust on his neck and forearms. He stands after a shift, one foot bandaged white, shoulders slumped, turned toward the dust-shrouded mine. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Edge of the mining town, 1962, red earth road surfaced with blue tailings, corrugated iron walls and the gorge beyond. Hard cold overcast daylight. Medium shot, eye-level from behind, 50mm lens, moderate depth of field, mill haze soft in distance. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": true,
+   "seed": null,
+   "camino": "secuencia",
+   "lote": "Daniel Écija#1",
+   "segundos": 118.6,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch02",
+    "img",
+    1
+   ],
+   "file": "ch02_img_01.png",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "anio": "1961",
+   "madres": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch02_flux\\ch02_img_01.png",
+   "prompt": "Young Spanish couple meeting at a dance: a slim mid-20s Spanish man with olive skin and dark combed hair in a dark suit, and a slender young Spanish woman with dark wavy hair in a modest full-skirted dress. The couple first meet at the edge of a crowded dance floor while other couples waltz around them. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Ballroom of the Círculo de Bellas Artes in Madrid, 1961, with marble columns, painted ceiling, gilded mouldings and polished parquet. Warm evening chandelier light with soft amber spill. Wide shot, slightly high angle from a balcony, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1961, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "una foto (/edit)",
+   "segundos": 43.2,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch02",
+    "img",
+    2
+   ],
+   "file": "ch02_img_02.png",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "anio": "1962",
+   "madres": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch02_flux\\ch02_img_02.png",
+   "prompt": "Newlywed Spanish couple: a slim mid-20s Spanish man in a dark wedding suit and a young Spanish woman in a simple white veil and dress. The couple walk down the stone steps of a Madrid parish church after the Thursday wedding as a few guests follow. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Stone church portal on a Madrid street, September 1962, with a few period cars parked at the kerb. Soft late-September morning daylight. Wide shot, low angle from the street, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "una foto (/edit)",
+   "segundos": 43.4,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch02",
+    "img",
+    4
+   ],
+   "file": "ch02_img_04.png",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "anio": "1962",
+   "madres": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch02_flux\\ch02_img_04.png",
+   "prompt": "Young Spanish couple on a liner deck: a slim mid-20s Spanish man in a white shirt and a young Spanish woman in a cotton print dress and cardigan. The couple stand side by side at the stern rail as the coast of Spain falls away. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Open stern deck of a 1960s migrant liner, wooden planking, white-painted railings. Bright open-sea daylight. Wide shot, eye-level from behind, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "una foto (/edit)",
+   "segundos": 45.9,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch02",
+    "img",
+    5
+   ],
+   "file": "ch02_img_05.png",
+   "persona": [
+    "María Bernal",
+    "Daniel Écija"
+   ],
+   "anio": "1962",
+   "madres": [
+    "María Bernal",
+    "Daniel Écija"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch02_flux\\ch02_img_05.png",
+   "prompt": "Young Spanish wife, slender with dark wavy hair and a headscarf, pressed close against her slim mid-20s Spanish husband. She holds tight to his arm, her shoulder tucked under his, as they walk along the deck. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Promenade deck of a 1960s migrant liner crowded with deckchairs. Bright open-sea daylight. Medium shot, eye-level, shallow depth of field, 85mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "una foto (/edit)",
+   "segundos": 44.1,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch02",
+    "img",
+    6
+   ],
+   "file": "ch02_img_06.png",
+   "persona": [
+    "Milagros Barroso",
+    "Ramón de Juan"
+   ],
+   "anio": "1962",
+   "madres": [
+    "Milagros Barroso",
+    "Ramón de Juan"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch02_flux\\ch02_img_06.png",
+   "prompt": "Two young Spanish couples sharing an evening: a dust-coated Spanish miner, his young Spanish wife in a cotton print dress, and another slim Spanish couple. The two couples sit together on a veranda outside a company house, sharing a meal and talk after a shift. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Veranda of a corrugated iron and fibro company house in Wittenoom, 1962, red earth yard beyond. Late dusk with warm lamplight against a fading orange sky. Wide shot, eye-level from the yard, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "una foto (/edit)",
+   "segundos": 52.3,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch02",
+    "img",
+    7
+   ],
+   "file": "ch02_img_07.png",
+   "persona": [
+    "Milagros Barroso",
+    "Ramón de Juan"
+   ],
+   "anio": "1962",
+   "madres": [
+    "Milagros Barroso",
+    "Ramón de Juan"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch02_flux\\ch02_img_07.png",
+   "prompt": "Madrid family on a migrant liner: a Spanish man in a white shirt, a young Spanish woman in a cardigan and headscarf, and a young Spanish boy in shorts. The family stand together at the stern as the ship's white wake trails back toward the Spanish coast. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Stern deck of a 1960s ocean liner, mid-1962, Mediterranean Sea. Bright midday Mediterranean light. Wide shot, high angle from the upper deck, deep depth of field, 28mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "una foto (/edit)",
+   "segundos": 50.0,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch02",
+    "img",
+    8
+   ],
+   "file": "ch02_img_08.png",
+   "persona": [
+    "Víctor Calvo"
+   ],
+   "anio": "1962",
+   "madres": [
+    "Víctor Calvo"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch02_flux\\ch02_img_08.png",
+   "prompt": "Young Spanish boy, slim with dark hair, in shorts, simple shirt and sandals, beside his mother in a cotton print dress. The boy climbs the steep gangway up the side of the liner among other boarding emigrants. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Málaga port quay, 1962, steel liner hull rising above the gangway. Bright Mediterranean daylight, hard shadows on the hull. Wide shot, low angle from the quay, deep depth of field, 28mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "secuencia",
+   "lote": "Víctor Calvo#1",
+   "segundos": 180.3,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch02",
+    "img",
+    10
+   ],
+   "file": "ch02_img_10.png",
+   "persona": [
+    "Víctor Calvo"
+   ],
+   "anio": "1962",
+   "madres": [
+    "Víctor Calvo"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch02_flux\\ch02_img_10.png",
+   "prompt": "Spanish emigrant passengers on deck in the Suez Canal, among them a young Spanish boy in a sweat-damp shirt and shorts. The liner glides slowly through the canal as passengers crowd under canvas awnings, fanning themselves. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Suez Canal, 1962, flat sand banks and desert stretching to a white-hot horizon. Harsh overhead desert sun, heat haze shimmering over the sand. Wide shot, eye-level along the deck, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "secuencia",
+   "lote": "Víctor Calvo#1",
+   "segundos": 180.3,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch02",
+    "img",
+    11
+   ],
+   "file": "ch02_img_11.png",
+   "persona": [
+    "Víctor Calvo",
+    "Milagros Barroso"
+   ],
+   "anio": "1962",
+   "madres": [
+    "Víctor Calvo",
+    "Milagros Barroso"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch02_flux\\ch02_img_11.png",
+   "prompt": "Young Spanish boy, slim with dark hair, pale and sweat-damp, beside his mother in a cotton print dress. The boy lies curled on a narrow berth in a cramped cabin as the ship rolls, his mother sitting on the edge. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Cramped lower-deck cabin of a 1960s migrant liner, steel bunks, small round porthole. Dim cabin light with a single shaft through the porthole. Medium shot, slightly high angle, shallow depth of field, 50mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "una foto (/edit)",
+   "segundos": 50.6,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch02",
+    "img",
+    14
+   ],
+   "file": "ch02_img_14.png",
+   "persona": [
+    "Víctor Calvo"
+   ],
+   "anio": "1962",
+   "madres": [
+    "Víctor Calvo"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch02_flux\\ch02_img_14.png",
+   "prompt": "Young Spanish boy, slim with dark hair, in shorts and sandals, beside his family's suitcases. The boy stands at the edge of the airstrip as a gust drives fine red and blue-grey dust across the ground. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Edge of the Wittenoom airstrip, 1962, tailings-surfaced ground, red ranges behind. Harsh midday Pilbara sun through dust haze. Wide shot, eye-level, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "secuencia",
+   "lote": "Víctor Calvo#1",
+   "segundos": 180.3,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch02",
+    "img",
+    15
+   ],
+   "file": "ch02_img_15.png",
+   "persona": [
+    "Ramón de Juan",
+    "Milagros Barroso"
+   ],
+   "anio": "1962",
+   "madres": [
+    "Ramón de Juan",
+    "Milagros Barroso"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch02_flux\\ch02_img_15.png",
+   "prompt": "Row of Wittenoom company houses with a newly arrived Spanish family: a man in a white shirt, a young woman in a cotton print dress, and a boy. A utility truck drops the family and their suitcases in front of a company house. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Wittenoom street, August 1962, houses of corrugated iron, timber and fibro, yards and road surfaced with blue tailings. Harsh midday Pilbara sun through dust haze. Wide shot, eye-level from down the street, deep depth of field, 28mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 1103799154,
+   "camino": "una foto (/edit)",
+   "segundos": 53.2,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch03",
+    "img",
+    3
+   ],
+   "file": "ch03_img_03.png",
+   "persona": [
+    "Hancock",
+    "Wright"
+   ],
+   "anio": "1943",
+   "madres": [],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch03_flux\\ch03_img_03.png",
+   "prompt": "Two weathered Anglo-Australian prospectors in their forties, rangy builds, in rough outback shirts and wide felt hats, beside a suited company manager. The prospectors watching as a company truck pulls into their gorge camp and a manager steps down to take over the workings. A rough mining camp in the Hamersley gorges, 1943, corrugated-iron huts, hand-tool racks, a dirt track. Flat hot afternoon light, short hard shadows. Wide shot, eye-level from behind the prospectors, deep depth of field, 35mm. A grainy 35mm documentary photograph taken in 1943, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "una foto sin madre (sin madre en registry)",
+   "segundos": 40.0,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch03",
+    "img",
+    4
+   ],
+   "file": "ch03_img_04.png",
+   "persona": [
+    "Eric Saint"
+   ],
+   "anio": "1948",
+   "madres": [
+    "Eric Saint"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch03_flux\\ch03_img_04.png",
+   "prompt": "A middle-aged Australian doctor, medium build, in a light post-war suit and hat, carrying a leather medical bag. Stepping down from a small propeller aircraft onto the red dirt airstrip as the props kick up dust. Wittenoom dirt airstrip, 1948, scrubby red plain, ranges behind, a tin windsock shed. Harsh midday sun, red dust haze around the plane. Wide shot, low angle beside the aircraft wheel, deep depth of field, 28mm. A grainy 35mm documentary photograph taken in 1948, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "secuencia",
+   "lote": "Eric Saint#1",
+   "segundos": 140.9,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch03",
+    "img",
+    6
+   ],
+   "file": "ch03_img_06.png",
+   "persona": [
+    "Eric Saint"
+   ],
+   "anio": "1948",
+   "madres": [
+    "Eric Saint"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch03_flux\\ch03_img_06.png",
+   "prompt": "A middle-aged Australian doctor, medium build, in a dusty light suit, hat held at his side. Sitting alone on a timber bench outside a company office after being dismissed. The verandah of a corrugated-iron company office in Wittenoom, 1948, a closed screen door behind. Harsh sun cut by the verandah roof, half his body in deep shadow. Medium shot, eye-level, off-centre framing, 85mm lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1948, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "secuencia",
+   "lote": "Eric Saint#1",
+   "segundos": 140.9,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch03",
+    "img",
+    16
+   ],
+   "file": "ch03_img_16.png",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "anio": "1962",
+   "madres": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch03_flux\\ch03_img_16.png",
+   "prompt": "A young Spanish couple: a slim mid-20s man with dark wavy hair in modest Sunday best, and a slim young woman in a cotton print dress and cardigan. Descending the steps of a small propeller aircraft onto the airstrip, suitcase in hand. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Wittenoom dirt airstrip surfaced with blue tailings, 1962, red plain and ranges, mill haze on the horizon. Golden hour, long shadows reaching across the tailings. Wide shot, low angle from the airstrip surface, 35mm, deep depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "una foto (/edit)",
+   "segundos": 52.5,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch04",
+    "img",
+    2
+   ],
+   "file": "ch04_img_02.png",
+   "persona": [
+    "Víctor Calvo"
+   ],
+   "anio": "1963",
+   "madres": [
+    "Víctor Calvo"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch04_flux\\ch04_img_02.png",
+   "prompt": "A young Spanish boy, about eight, slim, olive skin, dark tousled hair, cotton shirt and shorts, hands and mouth dusted with pale blue powder. Teasing apart a strand of blue fibre, a puff of fine powder rising over his shirt and knees. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. The tailings-surfaced edge of a dirt street beside company houses, 1963. Low late-afternoon sun raking through suspended red and blue dust. Medium shot, eye-level, 50mm lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "secuencia",
+   "lote": "Víctor Calvo#1",
+   "segundos": 180.3,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch04",
+    "img",
+    3
+   ],
+   "file": "ch04_img_03.png",
+   "persona": [
+    "Víctor Calvo",
+    "Mercedes"
+   ],
+   "anio": "1963",
+   "madres": [
+    "Víctor Calvo",
+    "Mercedes"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch04_flux\\ch04_img_03.png",
+   "prompt": "Migrant children on a dumped heap of blue tailings: a Spanish girl about seven in a cotton print dress and a Spanish boy about nine in shorts facing front, others seen from behind. Sliding down and digging into the heap, flinging handfuls that burst into dust clouds. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. An open lot between corrugated iron houses where a company truck has just unloaded tailings, red hills behind, 1963. Low late-afternoon sun raking through suspended red and blue dust. Wide shot, low angle, 28mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "una foto (/edit)",
+   "segundos": 73.2,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch04",
+    "img",
+    9
+   ],
+   "file": "ch04_img_09.png",
+   "persona": [
+    "Daniel Écija",
+    "Ramón de Juan"
+   ],
+   "anio": "1962",
+   "madres": [
+    "Daniel Écija",
+    "Ramón de Juan"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch04_flux\\ch04_img_09.png",
+   "prompt": "A slim mid-20s Spanish miner with one foot bandaged and a worn adult Spanish miner, both dust-caked in cotton work shirts and trousers. Stooping and hauling ore through a low gallery near the end of a sixteen-hour shift. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. A cramped asbestos mine gallery with a low rock ceiling, blue fibre seams in the walls, 1962. Low-key, yellow cap lamps cutting through thick suspended dust. Wide shot, low angle, wide lens, deep depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "una foto (/edit)",
+   "segundos": 47.4,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch04",
+    "img",
+    10
+   ],
+   "file": "ch04_img_10.png",
+   "persona": [
+    "Daniel Écija"
+   ],
+   "anio": "1962",
+   "madres": [
+    "Daniel Écija"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch04_flux\\ch04_img_10.png",
+   "prompt": "A slim mid-20s Spanish miner and dust-coated mine workers on the gorge slope. A column of red and blue dust billowing from a mine entrance after a blast as workers stop and stand back. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. The steep red rock wall of the Wittenoom gorge with a timbered mine entrance and spoil heaps, 1962. Harsh flat noon sun dimmed by the rising dust. Extreme wide shot, low angle, telephoto, deep depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "secuencia",
+   "lote": "Daniel Écija#1",
+   "segundos": 118.6,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch04",
+    "img",
+    11
+   ],
+   "file": "ch04_img_11.png",
+   "persona": [
+    "Milagros Barroso",
+    "John Patrick"
+   ],
+   "anio": "1963",
+   "madres": [
+    "Milagros Barroso"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch04_flux\\ch04_img_11.png",
+   "prompt": "A young adult Spanish woman, olive skin, dark hair loose on the pillow, cotton nightgown, and a swaddled newborn. Lying back in an iron hospital bed holding the newborn against her chest after giving birth. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. A small hospital ward with iron beds, fibro walls and a louvred window with red dust on the sill, 1963. Dim interior, slanted daylight through louvres striping the bed. Medium shot, eye-level, 50mm lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "una foto (/edit)",
+   "segundos": 41.3,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch04",
+    "img",
+    12
+   ],
+   "file": "ch04_img_12.png",
+   "persona": [
+    "María Bernal"
+   ],
+   "anio": "1963",
+   "madres": [
+    "María Bernal"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch04_flux\\ch04_img_12.png",
+   "prompt": "A heavily pregnant young adult Spanish woman, slim, in a sweat-damp cotton print dress, with a middle-aged Anglo-Australian nurse in a white uniform. Arriving at the ward and sinking onto the edge of an iron bed while the nurse steadies her shoulder. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. The same small Wittenoom hospital ward, iron beds, fibro walls, louvred window, 1963. Dim interior, slanted daylight through louvres striping the bed. Wide shot, eye-level, 35mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "una foto (/edit)",
+   "segundos": 52.9,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch04",
+    "img",
+    13
+   ],
+   "file": "ch04_img_13.png",
+   "persona": [
+    "María Bernal",
+    "Daniel Écija"
+   ],
+   "anio": "1963",
+   "madres": [
+    "María Bernal",
+    "Daniel Écija"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch04_flux\\ch04_img_13.png",
+   "prompt": "A young Spanish couple in modest Sunday best: a thin pale woman holding a very large infant in a white christening gown, a slim mid-20s man in a borrowed suit with one foot bandaged. Posing for a christening snapshot on the tailings ground outside the small church while a few migrant friends gather behind. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. The steps of the small Wittenoom church, ground surfaced with blue-grey tailings, red hills beyond, 1963. Bright clear winter morning sun with a faint dust haze. Wide shot, eye-level, 35mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "una foto (/edit)",
+   "segundos": 68.3,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch05",
+    "img",
+    1
+   ],
+   "file": "ch05_img_01.png",
+   "persona": [
+    "James Vernon"
+   ],
+   "anio": "1966",
+   "madres": [],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch05_flux\\ch05_img_01.png",
+   "prompt": "A middle-aged Anglo-Australian company chairman in a dark 1960s suit and white shirt, standing small at the head of a long boardroom table; seated Anglo-Australian executives in charcoal suits seen from behind. The chairman reads the typed closure statement aloud as the executives sit motionless. Wood-panelled company boardroom in Sydney, December 1966, venetian blinds half drawn. Hard summer daylight cut into bars by venetian blinds, high contrast. Wide shot, eye-level from the far end of the table, deep depth of field, long table receding. A grainy 35mm documentary photograph taken in 1966, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "una foto sin madre (sin madre en registry)",
+   "segundos": 40.2,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch05",
+    "img",
+    5
+   ],
+   "file": "ch05_img_05.png",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "anio": "1966",
+   "madres": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch05_flux\\ch05_img_05.png",
+   "prompt": "A young Spanish migrant couple, around 30, slim builds, dark hair, in modest Sunday best, with a small child. The family steps through the doorway of a modest Madrid apartment block with their luggage. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Working-class Madrid street of brick apartment blocks, 1966. Flat overcast winter daylight. Wide shot, eye-level from across the street, deep depth of field. A grainy 35mm documentary photograph taken in 1966, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "una foto (/edit)",
+   "segundos": 50.6,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch05",
+    "img",
+    6
+   ],
+   "file": "ch05_img_06.png",
+   "persona": [
+    "Mercedes"
+   ],
+   "anio": "1971",
+   "madres": [
+    "Mercedes"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch05_flux\\ch05_img_06.png",
+   "prompt": "A young Spanish girl with dark wavy hair, slim, in a plain early-1970s cotton dress, standing alone on a harbour wharf. She stays on the wharf as an ocean liner carrying her family pulls away. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Fremantle harbour wharf, Western Australia, 1971. Hard late-afternoon sun, long shadows. Wide shot, eye-level from behind the girl, deep depth of field, liner small on the horizon. A grainy 35mm documentary photograph taken in 1971, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "una foto (/edit)",
+   "segundos": 46.6,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch05",
+    "img",
+    9
+   ],
+   "file": "ch05_img_09.png",
+   "persona": [
+    "Daniel Écija hijo"
+   ],
+   "anio": "1985",
+   "madres": [],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch05_flux\\ch05_img_09.png",
+   "prompt": "A middle-aged Anglo-Australian police officer in a 1980s uniform and peaked cap behind the counter; an early-20s Spanish man, slim, dark hair, in 1980s civilian clothes, seen over his shoulder. The officer lifts his head from the passport and looks back up at the young man as he speaks. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Australian airport passport checkpoint booth, 1985. Hard overhead fluorescent light, high contrast. Medium shot, over-the-shoulder eye-level, shallow depth of field, 85mm lens. A grainy 35mm documentary photograph taken in 1985, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "una foto sin madre (sin madre en registry)",
+   "segundos": 38.8,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch05",
+    "img",
+    13
+   ],
+   "file": "ch05_img_13.png",
+   "persona": [
+    "Daniel Écija"
+   ],
+   "anio": "1991",
+   "madres": [],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch05_flux\\ch05_img_13.png",
+   "prompt": "A gaunt Spanish man in his mid-fifties, thin frame, greying dark hair, in an open early-1990s shirt; a Spanish doctor in a white coat beside a lightbox. The doctor clips a chest X-ray to the lightbox as the man sits waiting on the examination couch. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Madrid clinic consulting room, 1991, tiled walls and metal furniture. Hard cold light from the X-ray lightbox and a high window, high contrast. Medium shot, eye-level from behind the patient, shallow depth of field, 85mm lens. A grainy 35mm documentary photograph taken in 1991, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "una foto sin madre por era",
+   "segundos": 36.6,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch06",
+    "img",
+    5
+   ],
+   "file": "ch06_img_05.png",
+   "persona": [
+    "Melita Markey"
+   ],
+   "anio": "2023",
+   "madres": [],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch06_flux\\ch06_img_05.png",
+   "prompt": "A middle-aged Australian woman, medium build, fair skin, shoulder-length brown hair, in contemporary business clothing. She stands beside shelves of case-file boxes, one box open as she adds a new folder. A modest office of an asbestos victims' society in Perth, 2020s. Soft overcast window light. Medium shot, eye-level, shallow depth of field, 50mm lens. A grainy 35mm documentary photograph taken in 2023, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": 956889816,
+   "camino": "una foto sin madre (sin madre en registry)",
+   "segundos": 27.2,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch07",
+    "supp",
+    7
+   ],
+   "file": "ch07_supp_07.png",
+   "persona": [
+    "Maitland Parker",
+    "Marcos Orellana"
+   ],
+   "anio": "2023",
+   "madres": [
+    "Maitland Parker"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch07_flux\\ch07_supp_07.png",
+   "prompt": "An elderly Aboriginal Australian man, dark brown skin, thin and frail, in a collared shirt and wide-brim hat, seated beside a middle-aged visiting man in a contemporary open-collar shirt. A couple of men sit together on folding chairs on red earth, the elder speaking while the visitor listens leaning forward. Aboriginal Australian features, with dark brown skin, dark wavy to curly hair, brown eyes, and broad facial features. Banjima country near Wittenoom Gorge, shade of a white-barked gum, 2023. Warm low late-afternoon golden light. Wide shot, eye-level, deep depth of field, 50mm lens. A grainy 35mm documentary photograph taken in 2023, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": null,
+   "camino": "una foto (/edit)",
+   "segundos": 46.8,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "nsfw": false,
+   "existe": true
+  },
+  {
+   "clave": [
+    "ch07",
+    "supp",
+    8
+   ],
+   "file": "ch07_supp_08.png",
+   "persona": [
+    "Maitland Parker"
+   ],
+   "anio": "2023",
+   "madres": [
+    "Maitland Parker"
+   ],
+   "path": "lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch07_flux\\ch07_supp_08.png",
+   "prompt": "An elderly Aboriginal Australian man, dark brown skin, gaunt and frail, grey curly hair under a wide-brim hat, contemporary collared shirt hanging loose. He stands rooted at the edge of a creek bed on his country, refusing to turn away. Aboriginal Australian features, with dark brown skin, dark wavy to curly hair, brown eyes, and broad facial features. Creek bank on Banjima land near Wittenoom Gorge, 2023. Warm low late-afternoon golden light. Medium shot, eye-level, shallow depth of field, 85mm lens. A grainy 35mm documentary photograph taken in 2023, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "use_ultra": false,
+   "seed": null,
+   "camino": "una foto (/edit)",
+   "segundos": 34.2,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "nsfw": false,
+   "existe": true
+  }
+ ],
+ "hojas": {
+  "Eric Saint": "lab\\hyperframes\\f60\\bc\\hoja_eric_saint.jpg",
+  "Víctor Calvo": "lab\\hyperframes\\f60\\bc\\hoja_v_ctor_calvo.jpg",
+  "Ramón de Juan": "lab\\hyperframes\\f60\\bc\\hoja_ram_n_de_juan.jpg",
+  "Milagros Barroso": "lab\\hyperframes\\f60\\bc\\hoja_milagros_barroso.jpg",
+  "Mercedes": "lab\\hyperframes\\f60\\bc\\hoja_mercedes.jpg",
+  "Daniel Écija": "lab\\hyperframes\\f60\\bc\\hoja_daniel_cija.jpg",
+  "María Bernal": "lab\\hyperframes\\f60\\bc\\hoja_mar_a_bernal.jpg",
+  "Maitland Parker": "lab\\hyperframes\\f60\\bc\\hoja_maitland_parker.jpg"
+ },
+ "mtimes_antes": {
+  "C:\\CLAUDE_PROJECTS\\automatization_videos\\data\\topics_db.json": [
+   1,
+   1793320735.434795
+  ],
+  "C:\\CLAUDE_PROJECTS\\automatization_videos\\data\\scripts\\123bbb64-9fca-4395-8bf4-57d60e219ef1.json": [
+   1,
+   1793160824.4798603
+  ],
+  "C:\\CLAUDE_PROJECTS\\automatization_videos\\data\\scripts\\_steps\\123bbb64-9fca-4395-8bf4-57d60e219ef1": [
+   74,
+   1793321904.3999534
+  ],
+  "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1": [
+   243,
+   1793349698.5322182
+  ]
+ },
+ "mtimes_despues": {
+  "C:\\CLAUDE_PROJECTS\\automatization_videos\\data\\topics_db.json": [
+   1,
+   1793320735.434795
+  ],
+  "C:\\CLAUDE_PROJECTS\\automatization_videos\\data\\scripts\\123bbb64-9fca-4395-8bf4-57d60e219ef1.json": [
+   1,
+   1793160824.4798603
+  ],
+  "C:\\CLAUDE_PROJECTS\\automatization_videos\\data\\scripts\\_steps\\123bbb64-9fca-4395-8bf4-57d60e219ef1": [
+   74,
+   1793321904.3999534
+  ],
+  "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1": [
+   243,
+   1793349698.5322182
+  ]
+ },
+ "produccion_intacta": true,
+ "log": [
+  "topic 123bbb64-9fca-4395-8bf4-57d60e219ef1 con el canon A3 inyectado (['era_visual_canon', 'documented_people', 'anachronism_blocklist', 'documented_props', 'central_subject', 'people_groups']); central_subject kind='place'",
+  "\nMADRES (53.1 s de pared):",
+  "  Eric Saint: 2 fotos ['ch03_img_04', 'ch03_img_06'] → ok · eric_saint.png",
+  "  Hancock: 1 fotos ['ch03_img_03'] → sin madre: 1 foto(s) con persona dentro de su era",
+  "  Wright: 1 fotos ['ch03_img_03'] → sin madre: 1 foto(s) con persona dentro de su era",
+  "  Chifley: 0 fotos [] → sin madre: 0 foto(s) con persona dentro de su era",
+  "  McNulty: 0 fotos [] → sin madre: 0 foto(s) con persona dentro de su era",
+  "  Víctor Calvo: 6 fotos ['ch02_img_08', 'ch02_img_10', 'ch02_img_11', 'ch02_img_14', 'ch04_img_02', 'ch04_img_03'] → ok · v_ctor_calvo.png",
+  "  Ramón de Juan: 4 fotos ['ch02_img_06', 'ch02_img_07', 'ch02_img_15', 'ch04_img_09'] → ok · ram_n_de_juan.png",
+  "  Milagros Barroso: 5 fotos ['ch02_img_06', 'ch02_img_07', 'ch02_img_11', 'ch02_img_15', 'ch04_img_11'] → ok · milagros_barroso.png",
+  "  Mercedes: 2 fotos ['ch04_img_03', 'ch05_img_06'] → ok · mercedes.png",
+  "  John Patrick: 1 fotos ['ch04_img_11'] → sin madre: 1 foto(s) con persona dentro de su era",
+  "  Daniel Écija: 12 fotos ['ch01_f8_01', 'ch01_supp_01', 'ch01_supp_02', 'ch02_img_01', 'ch02_img_02', 'ch02_img_04', 'ch02_img_05', 'ch03_img_16', 'ch04_img_09', 'ch04_img_10', 'ch04_img_13', 'ch05_img_05'] → ok · daniel_cija.png",
+  "  María Bernal: 9 fotos ['ch01_supp_01', 'ch02_img_01', 'ch02_img_02', 'ch02_img_04', 'ch02_img_05', 'ch03_img_16', 'ch04_img_12', 'ch04_img_13', 'ch05_img_05'] → ok · mar_a_bernal.png",
+  "  Daniel Écija hijo: 1 fotos ['ch05_img_09'] → sin madre: 1 foto(s) con persona dentro de su era",
+  "  Davidson: 0 fotos [] → sin madre: 0 foto(s) con persona dentro de su era",
+  "  Major: 0 fotos [] → sin madre: 0 foto(s) con persona dentro de su era",
+  "  James Vernon: 1 fotos ['ch05_img_01'] → sin madre: 1 foto(s) con persona dentro de su era",
+  "  Peter Gordon: 0 fotos [] → sin madre: 0 foto(s) con persona dentro de su era",
+  "  Court: 0 fotos [] → sin madre: 0 foto(s) con persona dentro de su era",
+  "  Ben Wyatt: 0 fotos [] → sin madre: 0 foto(s) con persona dentro de su era",
+  "  Marcos Orellana: 1 fotos ['ch07_supp_07'] → sin madre: 1 foto(s) con persona dentro de su era",
+  "  Maitland Parker: 2 fotos ['ch07_supp_07', 'ch07_supp_08'] → ok · maitland_parker.png",
+  "  Melita Markey: 1 fotos ['ch06_img_05'] → sin madre: 1 foto(s) con persona dentro de su era",
+  "\nPROMPT MADRE Eric Saint:\nHead-and-shoulders portrait of a middle-aged Australian man, wearing a plain, clean, light-coloured shirt. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1948, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+  "\nPROMPT MADRE Víctor Calvo:\nHead-and-shoulders portrait of a young Spanish boy, wearing a plain, clean, light-coloured shirt. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+  "\nPROMPT MADRE Ramón de Juan:\nHead-and-shoulders portrait of an adult Spanish man, wearing a plain, clean, light-coloured shirt. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+  "\nPROMPT MADRE Milagros Barroso:\nHead-and-shoulders portrait of a young adult Spanish woman, wearing a plain, clean, light-coloured shirt. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+  "\nPROMPT MADRE Mercedes:\nHead-and-shoulders portrait of a young Spanish girl, wearing a plain, clean, light-coloured shirt. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+  "\nPROMPT MADRE Daniel Écija:\nHead-and-shoulders portrait of a mid-20s Spanish man, wearing a plain, clean, light-coloured shirt. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+  "\nPROMPT MADRE María Bernal:\nHead-and-shoulders portrait of a young adult Spanish woman, wearing a plain, clean, light-coloured shirt. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+  "\nPROMPT MADRE Maitland Parker:\nHead-and-shoulders portrait of an elderly Aboriginal Australian man, wearing a plain, clean, light-coloured shirt. Aboriginal Australian features, with dark brown skin, dark wavy to curly hair, brown eyes, and broad facial features. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 2023, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+  "\nm06 → lab\\hyperframes\\f60\\base\\data\\scripts\\123bbb64-9fca-4395-8bf4-57d60e219ef1.json · registry ['Eric Saint', 'Víctor Calvo', 'Ramón de Juan', 'Milagros Barroso', 'Mercedes', 'Daniel Écija', 'María Bernal', 'Maitland Parker'] · image_f8 en caps [1, 7]",
+  "\nPRE-PASO: 8 fotos por secuencia en 180.3 s de pared · 3 lote(s) pedidos",
+  "  lote dfa064e6 ['Daniel Écija']: 2 pedidas / 2 devueltas · 118.6 s · ['ch01_supp_02.png', 'ch04_img_10.png']",
+  "  lote e32f1779 ['Eric Saint']: 2 pedidas / 2 devueltas · 140.9 s · ['ch03_img_04.png', 'ch03_img_06.png']",
+  "  lote bc542fd3 ['Víctor Calvo']: 4 pedidas / 4 devueltas · 180.3 s · ['ch02_img_08.png', 'ch02_img_10.png', 'ch02_img_14.png', 'ch04_img_02.png']",
+  "\nCAMINO DE UNA FOTO: 25 fotos a pedir (de 33 con persona)",
+  "  ✓ ch03_img_03.png una foto sin madre (sin madre en registry) madres=[] · 40.0 s · fal-ai/bytedance/seedream/v5/lite/text-to-image",
+  "  ✓ ch05_img_01.png una foto sin madre (sin madre en registry) madres=[] · 40.2 s · fal-ai/bytedance/seedream/v5/lite/text-to-image",
+  "  ✓ ch04_img_11.png una foto (/edit) madres=['Milagros Barroso'] · 41.3 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ ch01_img_01.png una foto (/edit) madres=['Daniel Écija'] · 41.8 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ ch02_img_01.png una foto (/edit) madres=['Daniel Écija', 'María Bernal'] · 43.2 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ ch02_img_02.png una foto (/edit) madres=['Daniel Écija', 'María Bernal'] · 43.4 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ ch02_img_05.png una foto (/edit) madres=['María Bernal', 'Daniel Écija'] · 44.1 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ ch02_img_04.png una foto (/edit) madres=['Daniel Écija', 'María Bernal'] · 45.9 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ ch05_img_06.png una foto (/edit) madres=['Mercedes'] · 46.6 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ ch04_img_09.png una foto (/edit) madres=['Daniel Écija', 'Ramón de Juan'] · 47.4 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ ch01_supp_01.png una foto (/edit) madres=['Daniel Écija', 'María Bernal'] · 49.9 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ ch02_img_07.png una foto (/edit) madres=['Milagros Barroso', 'Ramón de Juan'] · 50.0 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ ch02_img_11.png una foto (/edit) madres=['Víctor Calvo', 'Milagros Barroso'] · 50.6 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ ch05_img_05.png una foto (/edit) madres=['Daniel Écija', 'María Bernal'] · 50.6 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ ch02_img_06.png una foto (/edit) madres=['Milagros Barroso', 'Ramón de Juan'] · 52.3 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ ch03_img_16.png una foto (/edit) madres=['Daniel Écija', 'María Bernal'] · 52.5 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ ch04_img_12.png una foto (/edit) madres=['María Bernal'] · 52.9 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ ch02_img_15.png una foto (/edit) madres=['Ramón de Juan', 'Milagros Barroso'] · 53.2 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ ch04_img_13.png una foto (/edit) madres=['María Bernal', 'Daniel Écija'] · 68.3 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ ch06_img_05.png una foto sin madre (sin madre en registry) madres=[] · 27.2 s · fal-ai/bytedance/seedream/v5/lite/text-to-image",
+  "  ✓ ch04_img_03.png una foto (/edit) madres=['Víctor Calvo', 'Mercedes'] · 73.2 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ ch05_img_13.png una foto sin madre por era madres=[] · 36.6 s · fal-ai/bytedance/seedream/v5/lite/text-to-image",
+  "  ✓ ch07_supp_08.png una foto (/edit) madres=['Maitland Parker'] · 34.2 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ ch05_img_09.png una foto sin madre (sin madre en registry) madres=[] · 38.8 s · fal-ai/bytedance/seedream/v5/lite/text-to-image",
+  "  ✓ ch07_supp_07.png una foto (/edit) madres=['Maitland Parker'] · 46.8 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "\nCOSTO cost_tracker: US$ 1.435 (36 entradas)",
+  "\nTABLA foto → camino → lote → s",
+  "  ch01_img_01.png      ['Daniel Écija']                           1962   una foto (/edit)               -                      41.8  OK",
+  "  ch01_supp_01.png     ['Daniel Écija', 'María Bernal']           1962   una foto (/edit)               -                      49.9  OK",
+  "  ch01_supp_02.png     ['Daniel Écija']                           1962   secuencia                      Daniel Écija#1         118.6  OK",
+  "  ch02_img_01.png      ['Daniel Écija', 'María Bernal']           1961   una foto (/edit)               -                      43.2  OK",
+  "  ch02_img_02.png      ['Daniel Écija', 'María Bernal']           1962   una foto (/edit)               -                      43.4  OK",
+  "  ch02_img_04.png      ['Daniel Écija', 'María Bernal']           1962   una foto (/edit)               -                      45.9  OK",
+  "  ch02_img_05.png      ['María Bernal', 'Daniel Écija']           1962   una foto (/edit)               -                      44.1  OK",
+  "  ch02_img_06.png      ['Milagros Barroso', 'Ramón de Juan']      1962   una foto (/edit)               -                      52.3  OK",
+  "  ch02_img_07.png      ['Milagros Barroso', 'Ramón de Juan']      1962   una foto (/edit)               -                      50.0  OK",
+  "  ch02_img_08.png      ['Víctor Calvo']                           1962   secuencia                      Víctor Calvo#1         180.3  OK",
+  "  ch02_img_10.png      ['Víctor Calvo']                           1962   secuencia                      Víctor Calvo#1         180.3  OK",
+  "  ch02_img_11.png      ['Víctor Calvo', 'Milagros Barroso']       1962   una foto (/edit)               -                      50.6  OK",
+  "  ch02_img_14.png      ['Víctor Calvo']                           1962   secuencia                      Víctor Calvo#1         180.3  OK",
+  "  ch02_img_15.png      ['Ramón de Juan', 'Milagros Barroso']      1962   una foto (/edit)               -                      53.2  OK",
+  "  ch03_img_03.png      ['Hancock', 'Wright']                      1943   una foto sin madre (sin madre en registry) -                      40.0  OK",
+  "  ch03_img_04.png      ['Eric Saint']                             1948   secuencia                      Eric Saint#1           140.9  OK",
+  "  ch03_img_06.png      ['Eric Saint']                             1948   secuencia                      Eric Saint#1           140.9  OK",
+  "  ch03_img_16.png      ['Daniel Écija', 'María Bernal']           1962   una foto (/edit)               -                      52.5  OK",
+  "  ch04_img_02.png      ['Víctor Calvo']                           1963   secuencia                      Víctor Calvo#1         180.3  OK",
+  "  ch04_img_03.png      ['Víctor Calvo', 'Mercedes']               1963   una foto (/edit)               -                      73.2  OK",
+  "  ch04_img_09.png      ['Daniel Écija', 'Ramón de Juan']          1962   una foto (/edit)               -                      47.4  OK",
+  "  ch04_img_10.png      ['Daniel Écija']                           1962   secuencia                      Daniel Écija#1         118.6  OK",
+  "  ch04_img_11.png      ['Milagros Barroso', 'John Patrick']       1963   una foto (/edit)               -                      41.3  OK",
+  "  ch04_img_12.png      ['María Bernal']                           1963   una foto (/edit)               -                      52.9  OK",
+  "  ch04_img_13.png      ['María Bernal', 'Daniel Écija']           1963   una foto (/edit)               -                      68.3  OK",
+  "  ch05_img_01.png      ['James Vernon']                           1966   una foto sin madre (sin madre en registry) -                      40.2  OK",
+  "  ch05_img_05.png      ['Daniel Écija', 'María Bernal']           1966   una foto (/edit)               -                      50.6  OK",
+  "  ch05_img_06.png      ['Mercedes']                               1971   una foto (/edit)               -                      46.6  OK",
+  "  ch05_img_09.png      ['Daniel Écija hijo']                      1985   una foto sin madre (sin madre en registry) -                      38.8  OK",
+  "  ch05_img_13.png      ['Daniel Écija']                           1991   una foto sin madre por era     -                      36.6  OK",
+  "  ch06_img_05.png      ['Melita Markey']                          2023   una foto sin madre (sin madre en registry) -                      27.2  OK",
+  "  ch07_supp_07.png     ['Maitland Parker', 'Marcos Orellana']     2023   una foto (/edit)               -                      46.8  OK",
+  "  ch07_supp_08.png     ['Maitland Parker']                        2023   una foto (/edit)               -                      34.2  OK",
+  "\nHOJAS: ['lab\\\\hyperframes\\\\f60\\\\bc\\\\hoja_eric_saint.jpg', 'lab\\\\hyperframes\\\\f60\\\\bc\\\\hoja_v_ctor_calvo.jpg', 'lab\\\\hyperframes\\\\f60\\\\bc\\\\hoja_ram_n_de_juan.jpg', 'lab\\\\hyperframes\\\\f60\\\\bc\\\\hoja_milagros_barroso.jpg', 'lab\\\\hyperframes\\\\f60\\\\bc\\\\hoja_mercedes.jpg', 'lab\\\\hyperframes\\\\f60\\\\bc\\\\hoja_daniel_cija.jpg', 'lab\\\\hyperframes\\\\f60\\\\bc\\\\hoja_mar_a_bernal.jpg', 'lab\\\\hyperframes\\\\f60\\\\bc\\\\hoja_maitland_parker.jpg']",
+  "\nPRODUCCIÓN INTACTA (mtimes iguales): True"
+ ]
+}

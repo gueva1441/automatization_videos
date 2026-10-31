@@ -710,7 +710,7 @@
   "asset_manager.py": {
    "archivo": "asset_manager.py",
    "zona": "orquestador",
-   "sticker": "Es el que genera las fotos (y los clips de video, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, desde F53b cada clip sale de Gemini Omni Flash y, si Google lo rechaza por contenido, de Kling 4.0 (el prompt de cada motor lo escribe Opus mirando la foto, sin suavizar; 8 s, 1080p, la pista de audio se quita, y el costo sale de los segundos reales); desde F57 cada clip lleva también una foto final, que es un edit de la inicial hecho por Seedream con la instrucción que escribe Opus a partir de la voz entera del clip (`voz_clip`; desde F58 sin el movimiento aprobado): el motor recibe las dos fotos y el clip va de una a la otra; el parecido entre las dos (SSIM) se mide y se anota, sin frenar; si el edit falla o lo rechazan, el clip sale solo con la inicial y el motivo queda anotado, y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió.",
+   "sticker": "Es el que genera las fotos (y los clips de video, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, desde F53b cada clip sale de Gemini Omni Flash y, si Google lo rechaza por contenido, de Kling 4.0 (el prompt de cada motor lo escribe Opus mirando la foto, sin suavizar; 8 s, 1080p, la pista de audio se quita, y el costo sale de los segundos reales); desde F57 cada clip lleva también una foto final, que es un edit de la inicial hecho por Seedream con la instrucción que escribe Opus a partir de la voz entera del clip (`voz_clip`; desde F58 sin el movimiento aprobado): el motor recibe las dos fotos y el clip va de una a la otra; el parecido entre las dos (SSIM) se mide y se anota, sin frenar; si el edit falla o lo rechazan, el clip sale solo con la inicial y el motivo queda anotado, y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió. Desde F60 B/C: antes del bucle de caps corre UNA vez el pre-paso de secuencia (las fotos de una sola persona con madre, agrupadas por persona en lotes de 6, salen de una llamada Seedream /edit por la cola de fal, con el pedido guardado en output/<id>/_secuencia/pedidos.json antes de esperar y reanudable); el resto (fotos de dos personas, con cartel, con foto madre de objeto, la foto inicial del clip, QA) usa la regla única de madres: las de `persona` en orden más la del objeto, tope 2, y una persona no aporta su madre a una foto fuera de su época si cae en un estado posterior (p. ej. enfermo en 1991). `_clip_poll` pasó a `_fal_queue_poll`.",
    "recibe": "El guion canónico con image_prompts/video_prompts por capítulo y foto_madre_registry (data/scripts/<id>.json; desde F60 A cada foto trae también `persona`, que _iter_image_items lee y nadie consume todavía), el sync_map de voz (output/<id>/audio/sync_map.json, opcional) y las fotos madre en disco (rutas del registry).",
    "entrega": "output/<id>/assets/<capNN>_flux/<capNN>_img_NN.png (y _supp_NN.png, _graded.png), output/<id>/assets/<capNN>_veo/<capNN>_clip_NN.mp4 y output/<id>/assets/assets_manifest.json. Además, otros módulos le piden la función de imagen cruda (foto_madre.py, m09_packaging).",
    "modelo": [
@@ -757,7 +757,7 @@
     "qa_studio_server.py",
     "script_engine/m09_packaging.py"
    ],
-   "tests": 9,
+   "tests": 10,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "a2e32f3 2026-10-30 (F60)",
    "estado_a": "vivo",
@@ -766,7 +766,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "9552adc25763b4fea711cde8db8f140e",
+   "md5": "effb38b86fd2c207438bbc5b3f2ceb85",
    "sticker_al_dia": true
   },
   "audio_config.py": {
@@ -1139,6 +1139,7 @@
     "fase1_5.py",
     "fase2a.py",
     "fase2b.py",
+    "foto_madre.py",
     "gemini_helpers.py",
     "gpt_helpers.py",
     "niche_discoverer.py",
@@ -1290,11 +1291,12 @@
    "lo_llaman": [
     "asset_manager.py",
     "config.py",
+    "foto_madre.py",
     "script_engine/m03_imagenes_v3.py",
     "script_engine/m03_visual.py",
     "script_engine/video_prompt.py"
    ],
-   "tests": 5,
+   "tests": 6,
    "nacio": "c0b85bc 2026-06-22",
    "ultimo": "bdbc6a5 2026-10-29 (F57)",
    "estado_a": "vivo",
@@ -1509,7 +1511,7 @@
   "fase2a.py": {
    "archivo": "fase2a.py",
    "zona": "fase2a",
-   "sticker": "Es la etapa «assets» del form: toma el guion ensamblado del video, lo traduce al formato que esperan los gestores, comprueba que la voz ya esté hecha, reintenta la foto madre si faltó y manda a generar las imágenes de cada capítulo (y los clips de video: desde F53b, Gemini Omni Flash → Kling 4.0). Al terminar marca el tema como «assets_rendered». No arma el video: eso lo hace fase2b. Desde F57 a los caps con clip les pasa la voz entera del clip (`voz_clip`) en lugar del ancla; un guion viejo sin esa clave hace parar a asset_manager («correr m03 de nuevo»).",
+   "sticker": "Es la etapa «assets» del form: toma el guion ensamblado del video, lo traduce al formato que esperan los gestores, comprueba que la voz ya esté hecha, reintenta la foto madre si faltó y manda a generar las imágenes de cada capítulo (y los clips de video: desde F53b, Gemini Omni Flash → Kling 4.0). Al terminar marca el tema como «assets_rendered». No arma el video: eso lo hace fase2b. Desde F57 a los caps con clip les pasa la voz entera del clip (`voz_clip`) en lugar del ancla; un guion viejo sin esa clave hace parar a asset_manager («correr m03 de nuevo»). Desde F60 C el adaptador al asset_manager conserva `image_f8` de los caps con clip y `foto_madre_personas`.",
    "recibe": "data/scripts/<id>.json (contrato que deja fase1_5), output/audio/<id>/sync_map.json (en LONG), data/topics_db (estado del tema), data/fase1_review.csv (solo si se corre sin --topic)",
    "entrega": "output/<id>/assets/assets_manifest.json (vía asset_manager), foto madre en output/<id>/foto_madre/ si faltaba, topic con status='assets_rendered' en la base de temas",
    "modelo": [
@@ -1547,7 +1549,7 @@
    "lo_llaman": [
     "run_pipeline.py"
    ],
-   "tests": 1,
+   "tests": 2,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "bdbc6a5 2026-10-29 (F57)",
    "estado_a": "vivo",
@@ -1556,7 +1558,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "10218afd595eef272773566b8671f1e3",
+   "md5": "193642b0da25f98aaaffdc2757e91cef",
    "sticker_al_dia": true
   },
   "fase2b.py": {
@@ -1731,7 +1733,7 @@
   "foto_madre.py": {
    "archivo": "foto_madre.py",
    "zona": "fase2a",
-   "sticker": "Genera la «foto madre» del video: una imagen de referencia limpia del sujeto principal (objeto o lugar) y de cada objeto clave anclado, para que después todas las imágenes de capítulo mantengan el mismo aspecto. Usa GPT Image 2 y, si falla, el motor de imagen activo; si ya hay un archivo (o Omar dejó uno a mano) lo reutiliza en vez de generar.",
+   "sticker": "Genera la «foto madre» del video: una imagen de referencia limpia del sujeto principal (objeto o lugar) y de cada objeto clave anclado, para que después todas las imágenes de capítulo mantengan el mismo aspecto. Usa GPT Image 2 y, si falla, el motor de imagen activo; si ya hay un archivo (o Omar dejó uno a mano) lo reutiliza en vez de generar. Desde F60 B también genera la madre de cada PERSONA del canon que sale en 2 o más fotos dentro de su época (lee `persona` de 03_visual.json, por eso corre después de m03): retrato neutro con Seedream por la cola de fal, ropa limpia fija (ROPA_MADRE), sin GPT de respaldo; el path va a documented_people[i].foto_madre.",
    "recibe": "El topic de la base de temas (central_subject, era_visual_canon, documented_props, anachronism_blocklist) y el video_id",
    "entrega": "output/<id>/foto_madre/<nombre>.png y el path absoluto guardado en topic[...]['foto_madre'] (el que llama persiste con save_db)",
    "modelo": [
@@ -1768,7 +1770,7 @@
     "fase1_5.py",
     "fase2a.py"
    ],
-   "tests": 2,
+   "tests": 3,
    "nacio": "8361059 2026-07-02",
    "ultimo": "51997cf 2026-07-08",
    "estado_a": "vivo",
@@ -1777,7 +1779,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "c3e6507527742723fc21c8ecb83a5288",
+   "md5": "f8c65ca84f74747f2fd1b5090189a63f",
    "sticker_al_dia": true
   },
   "gemini_helpers.py": {
@@ -2358,7 +2360,7 @@
   "qa_studio_server.py": {
    "archivo": "qa_studio_server.py",
    "zona": "orquestador",
-   "sticker": "Es el servidor local que Omar levanta a mano para producir un video con botones: sirve la pantalla del form y la del visor de capítulos, lanza el orquestador (run_pipeline) como proceso hijo y le pasa las respuestas de Omar. También deja arreglar a mano una foto, un clip o una pronunciación de un capítulo (desde F59 con la máquina de producción: para la foto, Claude Opus edita solo los casilleros que el pedido toca y el código rearma el prompt con la misma función que m03, con foto madre y grade; para el clip, Opus edita solo el movimiento aprobado y el clip sale por la cadena de producción con su foto final; lo editado se guarda en 03_visual.json y en el guion vivo; lo que el filtro de producción saca del pedido se le informa a Omar) y armar el video con el botón ENSAMBLAR.",
+   "sticker": "Es el servidor local que Omar levanta a mano para producir un video con botones: sirve la pantalla del form y la del visor de capítulos, lanza el orquestador (run_pipeline) como proceso hijo y le pasa las respuestas de Omar. También deja arreglar a mano una foto, un clip o una pronunciación de un capítulo (desde F59 con la máquina de producción: para la foto, Claude Opus edita solo los casilleros que el pedido toca y el código rearma el prompt con la misma función que m03, con foto madre y grade; para el clip, Opus edita solo el movimiento aprobado y el clip sale por la cadena de producción con su foto final; lo editado se guarda en 03_visual.json y en el guion vivo; lo que el filtro de producción saca del pedido se le informa a Omar) y armar el video con el botón ENSAMBLAR. Desde F60 B el fix y la nueva semilla de una foto usan la misma regla única de madres que producción (persona en orden + objeto, filtro por era); `persona` no es editable y se le dice a Omar a qué madre quedó anclada la foto.",
    "recibe": "Pedidos HTTP del navegador (form y visor); data/scripts/<id>.json, output/audio/<id>/chNN.mp3 y chNN_timestamps.json, output/<id>/assets/chNN_flux/*.png y chNN_veo/*.mp4, data/topics_db.json (lista de retomar), data/scripts/_steps/<id>/01b_narration_normalized.json; las líneas @@QAFORM@@ y @@QAFORM_COST@@ que imprime run_pipeline.",
    "entrega": "Las páginas qa_form.html y qa_studio.html; JSON de estado del form (fase, costo Gemini en vivo, diálogo pendiente); líneas por stdin al hijo; imágenes (cruda y _graded.png) y clips regenerados en output/<id>/assets/ con copia en _qa_backups/; el ítem editado (casilleros, prompt, año) o el movimiento nuevo guardados en data/scripts/_steps/<id>/03_visual.json y en data/scripts/<id>.json (con backups); output/<id>/assets/_qa_marks.json (fotos marcadas); data/normalizer_custom_dict.json; el audio del capítulo re-hecho; levanta fase2b, run_pipeline y el servidor de miniaturas de m09 como subprocesos.",
    "modelo": [
@@ -2399,7 +2401,7 @@
    ],
    "compartido": false,
    "lo_llaman": [],
-   "tests": 5,
+   "tests": 6,
    "nacio": "3d684a2 2026-06-14",
    "ultimo": "10f08c0 2026-10-30 (F59)",
    "estado_a": "vivo",
@@ -2419,7 +2421,7 @@
     "Handler.do_GET",
     "Handler.do_POST"
    ],
-   "md5": "6f410abbc24f80b4f7d33695c29b8c59",
+   "md5": "68e9c1f6171f89fb1c241773664560ae",
    "sticker_al_dia": true
   },
   "report_foto_madre_edits.py": {
@@ -2939,7 +2941,7 @@
    ],
    "tests": 5,
    "nacio": "21f2e10 2026-06-21",
-   "ultimo": "d2b443c 2026-10-29 (F51b)",
+   "ultimo": "99a0834 2026-10-30 (F60)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.asegurar_canon llama a canon_desde_ficha después de la ficha (run_escaleta_v3) y antes de m03 (process_topic); el research ya no lo llama (F50 A).",
@@ -4722,12 +4724,14 @@
    ],
    "compartido": true,
    "lo_llaman": [
+    "asset_manager.py",
+    "foto_madre.py",
     "qa_studio_server.py",
     "script_engine/m03_expediente.py",
     "script_engine/m03_visual.py",
     "script_engine/m09_packaging.py"
    ],
-   "tests": 14,
+   "tests": 15,
    "nacio": "73e3613 2026-10-22 (F8)",
    "ultimo": "10f08c0 2026-10-30 (F59)",
    "estado_a": "vivo",
@@ -4787,7 +4791,7 @@
    ],
    "tests": 23,
    "nacio": "e33f84a 2026-05-28",
-   "ultimo": "9f4d121 2026-10-30 (F60)",
+   "ultimo": "99a0834 2026-10-30 (F60)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py:671 llama assign_visual_prompts dentro de process_topic (tramo audio -> m07 -> m03 que corre con --from normalizer_gate, el comando de la etapa voz en run_pipeline; también --only m03); script_engine/m09_packaging.py:40 importa DOCTRINE_* en tiempo de carga (fase3, etapa packaging).",
@@ -4896,7 +4900,7 @@
   "script_engine/m06_assembler.py": {
    "archivo": "script_engine/m06_assembler.py",
    "zona": "fase2a",
-   "sticker": "Arma el archivo final del guion de un video (el «contrato» que leen los assets y el render): junta la narración, los prompts visuales y la foto madre del sujeto, marca los capítulos 1 y 7 para Veo y el resto para Flux. Desde F57 pasa también la voz entera del clip (`voz_clip`) de los caps con clip; el ancla (`narration_anchor`) se queda porque la leen QA Studio y m05.",
+   "sticker": "Arma el archivo final del guion de un video (el «contrato» que leen los assets y el render): junta la narración, los prompts visuales y la foto madre del sujeto, marca los capítulos 1 y 7 para Veo y el resto para Flux. Desde F57 pasa también la voz entera del clip (`voz_clip`) de los caps con clip; el ancla (`narration_anchor`) se queda porque la leen QA Studio y m05. Desde F60 B el registry lleva también las madres por persona ({nombre: foto}) y un `foto_madre_personas` con la época y los estados de cada una (para el filtro por era de asset_manager); en los caps con clip pasa `image_f8` (persona y año de la foto del clip).",
    "recibe": "data/scripts/_steps/<id>/01b_narration.json y 03_visual.json, y el topic en data/topics_db.json (foto madre, hechos, evidence_pool, fuentes).",
    "entrega": "data/scripts/<id>.json (capítulos, foto_madre_registry, evidence_pool, verified_facts, contadores veo/flux).",
    "modelo": [],
@@ -4921,7 +4925,7 @@
     "fase1_5.py",
     "script_engine/m06_classifier.py"
    ],
-   "tests": 1,
+   "tests": 2,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "bdbc6a5 2026-10-29 (F57)",
    "estado_a": "vivo",
@@ -4930,7 +4934,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "ed900333646c7fb743374582581cacf3",
+   "md5": "47b95a4ef16f1d983c1a6e8ba9bd58d5",
    "sticker_al_dia": true
   },
   "script_engine/m06_classifier.py": {

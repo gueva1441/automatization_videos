@@ -163,7 +163,7 @@
   "_parte": "fase2a_d"
  },
  "fase2a.py": {
-  "sticker": "Es la etapa «assets» del form: toma el guion ensamblado del video, lo traduce al formato que esperan los gestores, comprueba que la voz ya esté hecha, reintenta la foto madre si faltó y manda a generar las imágenes de cada capítulo (y los clips de video: desde F53b, Gemini Omni Flash → Kling 4.0). Al terminar marca el tema como «assets_rendered». No arma el video: eso lo hace fase2b. Desde F57 a los caps con clip les pasa la voz entera del clip (`voz_clip`) en lugar del ancla; un guion viejo sin esa clave hace parar a asset_manager («correr m03 de nuevo»).",
+  "sticker": "Es la etapa «assets» del form: toma el guion ensamblado del video, lo traduce al formato que esperan los gestores, comprueba que la voz ya esté hecha, reintenta la foto madre si faltó y manda a generar las imágenes de cada capítulo (y los clips de video: desde F53b, Gemini Omni Flash → Kling 4.0). Al terminar marca el tema como «assets_rendered». No arma el video: eso lo hace fase2b. Desde F57 a los caps con clip les pasa la voz entera del clip (`voz_clip`) en lugar del ancla; un guion viejo sin esa clave hace parar a asset_manager («correr m03 de nuevo»). Desde F60 C el adaptador al asset_manager conserva `image_f8` de los caps con clip y `foto_madre_personas`.",
   "recibe": "data/scripts/<id>.json (contrato que deja fase1_5), output/audio/<id>/sync_map.json (en LONG), data/topics_db (estado del tema), data/fase1_review.csv (solo si se corre sin --topic)",
   "entrega": "output/<id>/assets/assets_manifest.json (vía asset_manager), foto madre en output/<id>/foto_madre/ si faltaba, topic con status='assets_rendered' en la base de temas",
   "modelo": [
@@ -190,7 +190,7 @@
   "estado": "vivo",
   "estado_prueba": "run_pipeline.py:342 lo lanza como cmd ['fase2a.py','--topic',tid] en la etapa assets",
   "funciones_muertas": [],
-  "md5": "10218afd595eef272773566b8671f1e3",
+  "md5": "193642b0da25f98aaaffdc2757e91cef",
   "_parte": "fase2a_d"
  },
  "flow_config.py": {
@@ -222,7 +222,7 @@
   "_parte": "fase2a_b"
  },
  "foto_madre.py": {
-  "sticker": "Genera la «foto madre» del video: una imagen de referencia limpia del sujeto principal (objeto o lugar) y de cada objeto clave anclado, para que después todas las imágenes de capítulo mantengan el mismo aspecto. Usa GPT Image 2 y, si falla, el motor de imagen activo; si ya hay un archivo (o Omar dejó uno a mano) lo reutiliza en vez de generar.",
+  "sticker": "Genera la «foto madre» del video: una imagen de referencia limpia del sujeto principal (objeto o lugar) y de cada objeto clave anclado, para que después todas las imágenes de capítulo mantengan el mismo aspecto. Usa GPT Image 2 y, si falla, el motor de imagen activo; si ya hay un archivo (o Omar dejó uno a mano) lo reutiliza en vez de generar. Desde F60 B también genera la madre de cada PERSONA del canon que sale en 2 o más fotos dentro de su época (lee `persona` de 03_visual.json, por eso corre después de m03): retrato neutro con Seedream por la cola de fal, ropa limpia fija (ROPA_MADRE), sin GPT de respaldo; el path va a documented_people[i].foto_madre.",
   "recibe": "El topic de la base de temas (central_subject, era_visual_canon, documented_props, anachronism_blocklist) y el video_id",
   "entrega": "output/<id>/foto_madre/<nombre>.png y el path absoluto guardado en topic[...]['foto_madre'] (el que llama persiste con save_db)",
   "modelo": [
@@ -242,7 +242,7 @@
   "estado": "vivo",
   "estado_prueba": "fase1_5.py:647 lo llama (paso0, tras m03, dentro del comando de voz) y fase2a.py:337 como reintento",
   "funciones_muertas": [],
-  "md5": "c3e6507527742723fc21c8ecb83a5288",
+  "md5": "f8c65ca84f74747f2fd1b5090189a63f",
   "_parte": "fase2a_d"
  },
  "music_config.py": {
@@ -452,7 +452,7 @@
   "_parte": "fase2a_b"
  },
  "script_engine/m06_assembler.py": {
-  "sticker": "Arma el archivo final del guion de un video (el «contrato» que leen los assets y el render): junta la narración, los prompts visuales y la foto madre del sujeto, marca los capítulos 1 y 7 para Veo y el resto para Flux. Desde F57 pasa también la voz entera del clip (`voz_clip`) de los caps con clip; el ancla (`narration_anchor`) se queda porque la leen QA Studio y m05.",
+  "sticker": "Arma el archivo final del guion de un video (el «contrato» que leen los assets y el render): junta la narración, los prompts visuales y la foto madre del sujeto, marca los capítulos 1 y 7 para Veo y el resto para Flux. Desde F57 pasa también la voz entera del clip (`voz_clip`) de los caps con clip; el ancla (`narration_anchor`) se queda porque la leen QA Studio y m05. Desde F60 B el registry lleva también las madres por persona ({nombre: foto}) y un `foto_madre_personas` con la época y los estados de cada una (para el filtro por era de asset_manager); en los caps con clip pasa `image_f8` (persona y año de la foto del clip).",
   "recibe": "data/scripts/_steps/<id>/01b_narration.json y 03_visual.json, y el topic en data/topics_db.json (foto madre, hechos, evidence_pool, fuentes).",
   "entrega": "data/scripts/<id>.json (capítulos, foto_madre_registry, evidence_pool, verified_facts, contadores veo/flux).",
   "modelo": [],
@@ -462,7 +462,7 @@
   "estado": "vivo",
   "estado_prueba": "fase1_5.py:68 (import) y :657 (process_topic, paso assemble tras m03 cuando corre desde normalizer_gate = etapa voz de run_pipeline._paso_voz)",
   "funciones_muertas": [],
-  "md5": "ed900333646c7fb743374582581cacf3",
+  "md5": "47b95a4ef16f1d983c1a6e8ba9bd58d5",
   "_parte": "fase2a_b"
  },
  "script_engine/m06_classifier.py": {

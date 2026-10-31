@@ -570,6 +570,9 @@ class QAState:
             "anio_fuente": d.get("anio_fuente") or None,
             "beat": d.get("beat"),
             "foto_madre_ref": d.get("foto_madre_ref") if d.get("foto_madre_ref") else None,
+            # F60 B: `persona` (ruteo de m03) para la regla única de madres; NO es editable (el pedido de Omar no la cambia)
+            "persona": [s.strip() for s in d.get("persona") if isinstance(s, str) and s.strip()]
+            if isinstance(d.get("persona"), list) else [],
         }
 
     def resolve_clip_entry(self, cap: str) -> dict | None:
@@ -800,7 +803,8 @@ def set_mark(state: "QAState", cap: str, img_name: str, on: bool) -> dict:
 
 
 def _reseed_core(state: "QAState", topic_id: str, cap: str, img_name: str, *, attempt: int = 1,
-                 seed_fn=None, generate_fn=None, is_hook_fn=None, now_ts: str | None = None) -> tuple[bool, str | None, int | None]:
+                 seed_fn=None, generate_fn=None, is_hook_fn=None, now_ts: str | None = None,
+                 madres_fn=None, data_uri_fn=None) -> tuple[bool, str | None, int | None]:
     """Regenera UNA foto con el MISMO prompt del script y otra semilla (la del sujeto + attempt × RESEED_STEP). Sin
     reescritura ni validador de visión. Backup en _qa_backups e invalidación del clip horneado del cap, como el fix.
     Devuelve (ok, motivo, semilla)."""
@@ -823,8 +827,12 @@ def _reseed_core(state: "QAState", topic_id: str, cap: str, img_name: str, *, at
     if base is None:
         base = zlib.crc32(f"{topic_id}:{img_name}".encode("utf-8"))
     seed = (int(base) + attempt * RESEED_STEP) % (2 ** 32)
+    # F60 B: madres con la REGLA ÚNICA (persona + foto_madre_ref, filtro por era) contra el guion vivo; solo en `entry`.
+    # Antes el reseed salía siempre t2i aunque el ítem tuviera foto_madre_ref (declarado en SALIDA_BC).
+    uris = _uris_madres(state, entry, madres_fn=madres_fn, data_uri_fn=data_uri_fn)
+    kw = {"foto_madre_data_uris": uris} if uris else {}
     try:
-        generate_fn(entry["prompt"], entry.get("art_profile", ""), out_path, use_ultra=is_hook_fn(cap), seed=seed)
+        generate_fn(entry["prompt"], entry.get("art_profile", ""), out_path, use_ultra=is_hook_fn(cap), seed=seed, **kw)
     except Exception as e:  # noqa: BLE001
         return False, f"{type(e).__name__}: {str(e)[:160]}", seed
     _invalidate_baked(state, topic_id, cap)
@@ -886,6 +894,24 @@ def _backup(state: "QAState", src: Path, ts: str) -> None:
     bdir = state.assets_dir / "_qa_backups"
     bdir.mkdir(parents=True, exist_ok=True)
     shutil.copy2(src, bdir / f"{src.name}.{ts}.bak{src.suffix}")
+
+
+def _uris_madres(state: "QAState", entry: dict, *, madres_fn=None, data_uri_fn=None, script: dict | None = None) -> list[str]:
+    """F60 B: data URIs de las madres de un ítem con la REGLA ÚNICA de asset_manager (`_madres_para_item`: `persona` en
+    orden + `foto_madre_ref`, filtro por era, tope 2) contra `foto_madre_registry`/`foto_madre_personas` del guion vivo.
+    Solo lee `entry`; `persona` no se guarda ni se edita. Sin guion vivo → []."""
+    if script is None:
+        sp = getattr(state, "script_path", None)
+        script = _read_json(sp) if sp else None
+    if not script:
+        return []
+    if madres_fn is None or data_uri_fn is None:
+        import asset_manager as am  # noqa: PLC0415
+        madres_fn = madres_fn or am._madres_para_item
+        data_uri_fn = data_uri_fn or am._path_to_data_uri
+    madres = madres_fn(entry.get("persona") or [], _refs_madre(entry.get("foto_madre_ref")), entry.get("anio"),
+                       script.get("foto_madre_registry") or {}, script.get("foto_madre_personas") or {})
+    return [data_uri_fn(p) for _, p in madres]
 
 
 def _refs_madre(v) -> list[str]:
@@ -970,6 +996,7 @@ def _fix_core(
     grade_fn=None,          # (src_png) -> graded_png | None
     is_hook_fn=None,        # (cap) -> bool
     data_uri_fn=None,       # (path) -> data URI de la foto madre
+    madres_fn=None,         # F60 B: asset_manager._madres_para_item (regla única: persona + foto_madre_ref, filtro por era)
     content_rejected_exc=None,
     now_ts: str | None = None,
 ) -> tuple[bool, str | None]:
@@ -1085,13 +1112,10 @@ def _fix_core(
     except OSError as e:
         return False, f"backup falló: {e}"
 
-    # 8. Seedream: semilla por sujeto + foto madre resuelta contra foto_madre_registry (asset_manager ~861–870).
-    registry = script.get("foto_madre_registry") or {}
-    uris: list[str] = []
-    for r in _refs_madre(entry.get("foto_madre_ref")):
-        p = registry.get(r)
-        if p and Path(p).exists():
-            uris.append(data_uri_fn(p))
+    # 8. Seedream: semilla por sujeto + madres con la REGLA ÚNICA (F60 B: `persona` en orden + foto_madre_ref, tope 2,
+    #    filtro por era) contra foto_madre_registry/foto_madre_personas del guion vivo. Solo en `entry`: `persona` no se
+    #    guarda ni se edita (si el pedido de Omar cambia quién sale, la madre sigue siendo la de `persona`: se le dice).
+    uris = _uris_madres(state, entry, madres_fn=madres_fn, data_uri_fn=data_uri_fn, script=script)
     seed = seed_fn(topic_id, item03.get("subject_ref") or entry.get("subject_ref"))
     try:
         generate_fn(prompt_final, "", out_path, use_ultra=is_hook_fn(cap), seed=seed,
@@ -1121,7 +1145,10 @@ def _fix_core(
 
     # Invalidar el baked → ENSAMBLAR re-renderiza el cap desde el PNG nuevo.
     _invalidate_baked(state, topic_id, cap)
-    return True, _informe_scrub(it, cambiados)
+    personas_madre = [p for p in (entry.get("persona") or []) if p in (script.get("foto_madre_registry") or {})]
+    nota = (f" Foto anclada a la madre de {', '.join(personas_madre)} (casillero persona: no cambia con el pedido)."
+            if personas_madre and uris else "")
+    return True, _informe_scrub(it, cambiados) + nota
 
 
 def _fix_worker(cap: str, img_name: str, feedback: str) -> None:

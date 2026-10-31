@@ -144,6 +144,8 @@ def _normalize_long(script: dict) -> dict:
             # F57: la voz entera del clip (las palabras de los 8 s; antes el ancla, F53b), para la foto final y el
             # prompt del motor que Opus escribe mirando las fotos. Sin la clave, asset_manager PARA.
             norm_ch["voz_clip"] = ch.get("voz_clip", "")
+            # F60 C: persona/anio de la foto del clip (regla única de madres en la foto inicial)
+            norm_ch["image_f8"] = ch.get("image_f8") or {}
         normalized_chapters.append(norm_ch)
 
     return {
@@ -155,6 +157,7 @@ def _normalize_long(script: dict) -> dict:
         # HANDOFF_129: pasar el registry del contrato al manager (sin esto el whitelist
         # de normalize lo tiraría — mismo seam que central_subject en el 128).
         "foto_madre_registry": script.get("foto_madre_registry", {}),
+        "foto_madre_personas": script.get("foto_madre_personas", {}),   # F60 B: filtro por era de la regla única
         "humanizer_phrases": script.get("humanizer_phrases", []),
     }
 
