@@ -180,7 +180,7 @@ Definition of each slot (what goes in each casillero — this is the craft, mode
 - setting: the place, period-correct (R4, anti-medieval), dressed/placed by the narration of THIS beat, not by cliché (R10). No striped prison uniforms.
 - color_palette: the palette of the era AND of THIS specific place (from the visual canon provided — era layer + sourced place layer).
 - props_detail: ONE loaded focal prop, never an empty plate (R8). — never restate the form of an object already in foto_madre_ref.
-- shot_scale: one of extreme_wide|wide|medium|close|detail. WIDE/EXTREME_WIDE dominates for establishing/architecture/scale/mass events; medium/close ONLY for one human emotion or one texture detail (R7).
+- shot_scale: one of extreme_wide|wide|medium|close|detail, following the VISUAL ARC OF THIS CAP block when it is present.
 - camera_angle: e.g. low angle for scale, eye-level, high angle (R7).
 - lens_technique: e.g. deep depth of field, shallow depth of field, 85mm lens.
 - lighting: light by the EVENT (R12) — beats of the SAME event share ONE light. overcast daylight, golden hour, low-key night, etc.
@@ -216,7 +216,8 @@ JSON only. No markdown. No preamble."""
 
 
 # F8 §1 C–E (guion v3): la doctrina R6 sin los clichés de cara (jaw clenched, pupils dilated…) + reglas de composición
-# y de contenido sensible. El SI de arriba (v2 y m09) no cambia.
+# y de contenido sensible. El SI v2 de arriba no cambia; m09 (miniaturas, `prompts_paquetes`) entra por
+# `_render_prompts_seedream` y hereda el SI de casilleros (F61: el comentario viejo «v2 y m09 no cambia» estaba desactualizado).
 SYSTEM_INSTRUCTION_VISUAL_SEEDREAM_V3 = (
     SYSTEM_INSTRUCTION_VISUAL_SEEDREAM.replace(DOCTRINE_R6_PHYSICAL_TRANSLATION, v3img.DOCTRINE_R6_V3)
     # F8b §2.3 y §2.5: el texto va en el idioma del lugar (no en español) y el cuerpo no lleva clichés de cara
@@ -798,7 +799,7 @@ def _f8_fix_cap(topic: dict, cap_data: dict, narration: str, items: list[dict], 
 
 
 def _f8_fix_video(topic: dict, skel_by_n: dict, narr_by_n: dict, items_by_cap: dict[int, list[dict]]) -> dict:
-    """Arreglos del video entero (D1 motivos, E cuerpos, D5 humanos en plano medio): hasta F8_FIX_PASSES pasadas de
+    """Arreglos del video entero (D1 motivos, E cuerpos): hasta F8_FIX_PASSES pasadas de
     re-hechura por imagen en exceso (cada nota junta todos sus motivos y avisa los motivos ya saturados) y una
     auditoría final. En los caps Veo no se rehace la imagen 0 (el primer cuadro del clip: su movimiento ya está escrito);
     el que llama vuelve a coser los supplementals."""
@@ -814,9 +815,6 @@ def _f8_fix_video(topic: dict, skel_by_n: dict, narr_by_n: dict, items_by_cap: d
             notes.setdefault((cap, i), []).append(f"do NOT show the motif «{m}» (already used twice in this video)")
         for cap, i in cur["exceso_cuerpos"]:
             notes.setdefault((cap, i), []).append("NO dead bodies: show what they left — objects, water, empty space")
-        for cap, i in cur["exceso_humano_medio"]:
-            notes.setdefault((cap, i), []).append("NO person in medium shot: a wide shot of the place, people small, "
-                                                  "far or absent")
         notes = {k: v for k, v in notes.items() if not (k[0] in VEO_CHAPTERS and k[1] == 0)}
         if not notes:
             break
@@ -833,7 +831,7 @@ def _f8_fix_video(topic: dict, skel_by_n: dict, narr_by_n: dict, items_by_cap: d
     def _brief(a: dict) -> dict:
         return {"total": a["total"], "motivos": {k: len(v) for k, v in a["motivos"].items()},
                 "exceso_motivos": a["exceso_motivos"], "cuerpos": a["cuerpos"], "exceso_cuerpos": a["exceso_cuerpos"],
-                "humano_medio": len(a["humano_medio"]), "caps_sin_establecimiento": a["caps_sin_establecimiento"]}
+                "caps_sin_establecimiento": a["caps_sin_establecimiento"]}
     return {"antes": _brief(before), "rehechas": rehechas, "despues": _brief(after)}
 
 

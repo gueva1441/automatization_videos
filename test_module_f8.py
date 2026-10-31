@@ -328,7 +328,7 @@ def test_pasada_de_video_rehace_excesos_menos_el_cuadro_veo(monkeypatch):
         return {"prompt": p, "shot_scale": "medium", "subject": "a man", "subject_ref": "interior_scene",
                 "narration_anchor": "x"}
     items = {1: [it("A long corridor."), it("A corridor.")], 2: [it("A corridor again."), it("A hallway.")],
-             3: [], 4: [], 5: [], 6: [], 7: [it("A corridor at night.")]}
+             3: [], 4: [], 5: [], 6: [], 7: [it("A yard at night.")]}   # F61: sin pasillo en el cuadro Veo del cap 7 (nunca se rehace); antes lo salvaba el bucle D5 borrado
     topic = {"_f8": {"beats": {}}}
     rep = m3._f8_fix_video(topic, {n: {} for n in range(1, 8)}, {n: {"narration": ""} for n in range(1, 8)}, items)
     assert rep["despues"]["exceso_motivos"] == [] and calls

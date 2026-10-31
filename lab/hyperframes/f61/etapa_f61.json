@@ -1,0 +1,1387 @@
+{
+ "tid": "123bbb64-9fca-4395-8bf4-57d60e219ef1",
+ "segundos": 135.6,
+ "usd": 2.3101,
+ "usado_plan_real": [],
+ "n_prompts": 12,
+ "arc_en_prompts": 8,
+ "si_ok": [
+  true,
+  false
+ ],
+ "intents": {
+  "1": "hook",
+  "2": "setup",
+  "3": "rising_tension",
+  "4": "rising_tension",
+  "5": "shock",
+  "6": "resolution",
+  "7": "outro"
+ },
+ "antes": {
+  "total": 96,
+  "shot_scale": {
+   "close": 3,
+   "wide": 57,
+   "medium": 13,
+   "extreme_wide": 15,
+   "detail": 8
+  },
+  "por_cap": {
+   "1": {
+    "close": 1,
+    "wide": 1,
+    "medium": 1,
+    "extreme_wide": 1,
+    "detail": 1
+   },
+   "2": {
+    "wide": 12,
+    "medium": 2,
+    "extreme_wide": 2
+   },
+   "3": {
+    "wide": 11,
+    "detail": 1,
+    "medium": 3,
+    "extreme_wide": 1
+   },
+   "4": {
+    "wide": 8,
+    "medium": 2,
+    "extreme_wide": 3,
+    "close": 1
+   },
+   "5": {
+    "wide": 7,
+    "detail": 4,
+    "extreme_wide": 2,
+    "medium": 2,
+    "close": 1
+   },
+   "6": {
+    "wide": 11,
+    "medium": 2,
+    "extreme_wide": 2,
+    "detail": 1
+   },
+   "7": {
+    "wide": 7,
+    "extreme_wide": 4,
+    "detail": 1,
+    "medium": 1
+   }
+  },
+  "persona_shot_scale": {
+   "close": 1,
+   "wide": 21,
+   "medium": 10,
+   "extreme_wide": 1
+  },
+  "camera_angle_top6": [
+   [
+    "eye-level",
+    14
+   ],
+   [
+    "low angle",
+    6
+   ],
+   [
+    "high aerial angle",
+    5
+   ],
+   [
+    "eye-level from behind",
+    2
+   ],
+   [
+    "high angle from a ridge",
+    2
+   ],
+   [
+    "high angle looking down",
+    2
+   ]
+  ],
+  "caps_sin_establecimiento": [],
+  "rehechas_video": [],
+  "rehechas_cap": {},
+  "f8_antes": {
+   "total": 96,
+   "motivos": {
+    "documento en escritorio": 1
+   },
+   "exceso_motivos": [],
+   "cuerpos": [],
+   "exceso_cuerpos": [],
+   "humano_medio": 10,
+   "caps_sin_establecimiento": []
+  },
+  "f8_despues": {
+   "total": 96,
+   "motivos": {
+    "documento en escritorio": 1
+   },
+   "exceso_motivos": [],
+   "cuerpos": [],
+   "exceso_cuerpos": [],
+   "humano_medio": 10,
+   "caps_sin_establecimiento": []
+  }
+ },
+ "despues": {
+  "total": 96,
+  "shot_scale": {
+   "close": 7,
+   "medium": 37,
+   "wide": 35,
+   "detail": 5,
+   "extreme_wide": 12
+  },
+  "por_cap": {
+   "1": {
+    "close": 1,
+    "medium": 2,
+    "wide": 1,
+    "detail": 1
+   },
+   "2": {
+    "wide": 7,
+    "medium": 7,
+    "extreme_wide": 2
+   },
+   "3": {
+    "medium": 8,
+    "wide": 3,
+    "detail": 2,
+    "close": 1,
+    "extreme_wide": 2
+   },
+   "4": {
+    "wide": 6,
+    "medium": 7,
+    "extreme_wide": 1
+   },
+   "5": {
+    "medium": 7,
+    "close": 5,
+    "extreme_wide": 1,
+    "wide": 3
+   },
+   "6": {
+    "wide": 8,
+    "medium": 4,
+    "extreme_wide": 3,
+    "detail": 1
+   },
+   "7": {
+    "wide": 7,
+    "medium": 2,
+    "extreme_wide": 3,
+    "detail": 1
+   }
+  },
+  "persona_shot_scale": {
+   "medium": 24,
+   "wide": 11,
+   "close": 2
+  },
+  "camera_angle_top6": [
+   [
+    "eye-level",
+    20
+   ],
+   [
+    "low angle for scale",
+    3
+   ],
+   [
+    "high aerial angle",
+    3
+   ],
+   [
+    "low angle at ground level",
+    2
+   ],
+   [
+    "slightly low angle",
+    2
+   ],
+   [
+    "eye-level from behind",
+    2
+   ]
+  ],
+  "caps_sin_establecimiento": [],
+  "rehechas_video": [],
+  "rehechas_cap": {
+   "TIGHTEST framing of the cap (shot_scale close or detail) on ": 1
+  },
+  "f8_antes": {
+   "total": 96,
+   "motivos": {
+    "pasillo": 2,
+    "documento en escritorio": 1
+   },
+   "exceso_motivos": [],
+   "cuerpos": [],
+   "exceso_cuerpos": [],
+   "caps_sin_establecimiento": []
+  },
+  "f8_despues": {
+   "total": 96,
+   "motivos": {
+    "pasillo": 2,
+    "documento en escritorio": 1
+   },
+   "exceso_motivos": [],
+   "cuerpos": [],
+   "exceso_cuerpos": [],
+   "caps_sin_establecimiento": []
+  }
+ },
+ "pares": [
+  {
+   "ref": "chapters[0].image_prompt",
+   "cap": 1,
+   "ancla": "con el pie envuelto en una venda blanca",
+   "antes": "close",
+   "despues": "close",
+   "persona": [],
+   "emotional_rank": null
+  },
+  {
+   "ref": "chapters[0].supp[0]",
+   "cap": 1,
+   "ancla": "En el retrato de familia todos miran a cámara menos el pie: está vendado, y la herida que le hizo un trozo de amianto no cierra.",
+   "antes": "wide",
+   "despues": "medium",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "emotional_rank": null
+  },
+  {
+   "ref": "chapters[0].supp[1]",
+   "cap": 1,
+   "ancla": "El hombre se llama Daniel Écija y es minero.",
+   "antes": "medium",
+   "despues": "medium",
+   "persona": [
+    "Daniel Écija"
+   ],
+   "emotional_rank": null
+  },
+  {
+   "ref": "chapters[0].supp[2]",
+   "cap": 1,
+   "ancla": "Vino de Madrid. Wittenoom, Australia Occidental, mil novecientos sesenta y dos.",
+   "antes": "extreme_wide",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": null
+  },
+  {
+   "ref": "chapters[0].supp[3]",
+   "cap": 1,
+   "ancla": "Para entender ese pie hay que volver a un baile en Madrid, un año antes de la foto.",
+   "antes": "detail",
+   "despues": "detail",
+   "persona": [],
+   "emotional_rank": null
+  },
+  {
+   "ref": "chapters[1].img[0]",
+   "cap": 2,
+   "ancla": "Dieciséis de septiembre de mil novecientos sesenta y uno. En el salón de baile del Círculo de Bellas Artes de Madrid, Daniel Écija conoce a María Bernal.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[1].img[1]",
+   "cap": 2,
+   "ancla": "Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos.",
+   "antes": "wide",
+   "despues": "medium",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[1].img[2]",
+   "cap": 2,
+   "ancla": "Cuatro días más tarde ya están en el barco. Van a Australia con el acuerdo migratorio por el que pasaron cerca de ocho mil españoles.",
+   "antes": "wide",
+   "despues": "extreme_wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[1].img[3]",
+   "cap": 2,
+   "ancla": "De Wittenoom no saben nada; saben que hay trabajo y que van juntos.",
+   "antes": "wide",
+   "despues": "medium",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[1].img[4]",
+   "cap": 2,
+   "ancla": "«Iba pegadita a mi marido, como una niña», recuerda su mujer.",
+   "antes": "medium",
+   "despues": "medium",
+   "persona": [
+    "María Bernal",
+    "Daniel Écija"
+   ],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[1].img[5]",
+   "cap": 2,
+   "ancla": "Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan.",
+   "antes": "wide",
+   "despues": "medium",
+   "persona": [
+    "Milagros Barroso",
+    "Ramón de Juan"
+   ],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[1].img[6]",
+   "cap": 2,
+   "ancla": "Esa familia madrileña había hecho el mismo viaje un mes antes.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [
+    "Milagros Barroso",
+    "Ramón de Juan"
+   ],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[1].img[7]",
+   "cap": 2,
+   "ancla": "Un niño que hizo ese viaje todavía recuerda el calor. Víctor Calvo era un niño cuando subió a ese barco.",
+   "antes": "wide",
+   "despues": "medium",
+   "persona": [
+    "Víctor Calvo"
+   ],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[1].img[8]",
+   "cap": 2,
+   "ancla": "«Salimos de Málaga y tardamos más de 20 días en llegar en barco a Australia», dice Calvo.",
+   "antes": "extreme_wide",
+   "despues": "wide",
+   "persona": [
+    "Víctor Calvo"
+   ],
+   "emotional_rank": "R2"
+  },
+  {
+   "ref": "chapters[1].img[9]",
+   "cap": 2,
+   "ancla": "Recuerda el canal de Suez y el calor que hacía ahí, un calor que todavía lo hace resoplar cuando lo cuenta.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [
+    "Víctor Calvo"
+   ],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[1].img[10]",
+   "cap": 2,
+   "ancla": "Recuerda los mareos. Y la incertidumbre: no saber muy bien adónde iban ni cómo iban a vivir.",
+   "antes": "medium",
+   "despues": "medium",
+   "persona": [
+    "Víctor Calvo",
+    "Milagros Barroso"
+   ],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[1].img[11]",
+   "cap": 2,
+   "ancla": "Después del barco, un avión pequeño, de hélices, que se sacude durante todo el vuelo.",
+   "antes": "wide",
+   "despues": "medium",
+   "persona": [
+    "Víctor Calvo"
+   ],
+   "emotional_rank": "R2"
+  },
+  {
+   "ref": "chapters[1].img[12]",
+   "cap": 2,
+   "ancla": "Aterriza en una pista en medio de una tierra muy roja, en el desierto de Pilbara, en Australia Occidental.",
+   "antes": "extreme_wide",
+   "despues": "extreme_wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[1].img[13]",
+   "cap": 2,
+   "ancla": "Hay polvo por todas partes. Ese niño cuenta que nunca había visto tanto polvo.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [
+    "Víctor Calvo"
+   ],
+   "emotional_rank": "R1"
+  },
+  {
+   "ref": "chapters[1].img[14]",
+   "cap": 2,
+   "ancla": "Los llevan a las casas: chapa, madera y uralita. La familia de Juan-Barroso había llegado en agosto de mil novecientos sesenta y dos.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [
+    "Milagros Barroso",
+    "Víctor Calvo"
+   ],
+   "emotional_rank": "R2"
+  },
+  {
+   "ref": "chapters[1].img[15]",
+   "cap": 2,
+   "ancla": "De esa tierra sacan crocidolita, el asbesto azul, un mineral que se paga bien porque aguanta el calor y no se gasta. Nadie les dijo qué era el polvo. La compañía lo sabía desde hacía dieciocho años.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": "R1"
+  },
+  {
+   "ref": "chapters[2].img[0]",
+   "cap": 3,
+   "ancla": "En mil novecientos cuarenta y cuatro, el inspector de minas y el ingeniero de minas Adjunto del Estado ya habían informado sobre el problema del polvo.",
+   "antes": "wide",
+   "despues": "medium",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[2].img[1]",
+   "cap": 3,
+   "ancla": "En mil novecientos cuarenta y seis ya había diagnósticos de asbestosis, y un inspector describió las condiciones de trabajo como terroríficas.",
+   "antes": "wide",
+   "despues": "medium",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[2].img[2]",
+   "cap": 3,
+   "ancla": "La mina era entonces de ABA, una filial de CSR que en mil novecientos cuarenta y tres había tomado los intereses de Hancock y Wright.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [
+    "Hancock",
+    "Wright"
+   ],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[2].img[3]",
+   "cap": 3,
+   "ancla": "Mil novecientos cuarenta y ocho. Un médico llega en avión y escribe una carta a máquina: los niveles de polvo son extremadamente peligrosos.",
+   "antes": "wide",
+   "despues": "medium",
+   "persona": [
+    "Eric Saint"
+   ],
+   "emotional_rank": "R2"
+  },
+  {
+   "ref": "chapters[2].img[4]",
+   "cap": 3,
+   "ancla": "El médico escribe que en un año o dos ABA va a producir la cosecha más abundante y letal de casos de asbestosis de la literatura mundial",
+   "antes": "detail",
+   "despues": "detail",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[2].img[5]",
+   "cap": 3,
+   "ancla": "Se llama Eric Saint. Lo que pasó con la carta lo contó él mismo: «Me desestimaron y, de hecho, me tildaron de alborotador», dijo Saint.",
+   "antes": "medium",
+   "despues": "close",
+   "persona": [
+    "Eric Saint"
+   ],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[2].img[6]",
+   "cap": 3,
+   "ancla": "Un año después, en una sala de arbitraje, la empresa contestó a los que hablaban del polvo.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[2].img[7]",
+   "cap": 3,
+   "ancla": "«El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso», dijo el defensor del empleador.",
+   "antes": "medium",
+   "despues": "medium",
+   "persona": [],
+   "emotional_rank": "R2"
+  },
+  {
+   "ref": "chapters[2].img[8]",
+   "cap": 3,
+   "ancla": "Nueve años después, otro organismo entró al molino y escribió lo que vio.",
+   "antes": "wide",
+   "despues": "extreme_wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[2].img[9]",
+   "cap": 3,
+   "ancla": "Mil novecientos cincuenta y siete. La Junta de Referencia entra al molino y deja constancia: condiciones extremadamente polvorientas",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[2].img[10]",
+   "cap": 3,
+   "ancla": "trabajadores cubiertos de polvo de pies a cabeza. «Una espesa nube de polvo estaba presente en las inmediaciones del molino», escribió la Junta.",
+   "antes": "medium",
+   "despues": "medium",
+   "persona": [],
+   "emotional_rank": "R1"
+  },
+  {
+   "ref": "chapters[2].img[11]",
+   "cap": 3,
+   "ancla": "Siete meses después, con unos equipos reductores de polvo ya instalados, el suplemento salarial por polvo se redujo y se restringió.",
+   "antes": "wide",
+   "despues": "detail",
+   "persona": [],
+   "emotional_rank": "R2"
+  },
+  {
+   "ref": "chapters[2].img[12]",
+   "cap": 3,
+   "ancla": "CSR venía de la industria azucarera y tenía muy poca experiencia en minas.",
+   "antes": "wide",
+   "despues": "medium",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[2].img[13]",
+   "cap": 3,
+   "ancla": "Los reguladores del Estado hicieron poco más que emitir advertencias y pedir equipos para el polvo.",
+   "antes": "wide",
+   "despues": "medium",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[2].img[14]",
+   "cap": 3,
+   "ancla": "cuando las Casandras advirtieron que el polvo era un problema y predijeron la enfermedad, en la industria minera no se encendieron las alarmas",
+   "antes": "extreme_wide",
+   "despues": "extreme_wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[2].img[15]",
+   "cap": 3,
+   "ancla": "En mil novecientos sesenta y uno la producción subió. Al año siguiente, los Écija bajaban de aquel avión.",
+   "antes": "wide",
+   "despues": "medium",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "emotional_rank": "R1"
+  },
+  {
+   "ref": "chapters[3].img[0]",
+   "cap": 4,
+   "ancla": "Los chicos del pueblo juegan con el mineral.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[3].img[1]",
+   "cap": 4,
+   "ancla": "Víctor Calvo lo cuenta: «Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo».",
+   "antes": "medium",
+   "despues": "medium",
+   "persona": [
+    "Víctor Calvo"
+   ],
+   "emotional_rank": "R1"
+  },
+  {
+   "ref": "chapters[3].img[2]",
+   "cap": 4,
+   "ancla": "Estaban rodeados de amianto azul y no les daba miedo.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[3].img[3]",
+   "cap": 4,
+   "ancla": "Tampoco había dónde no estar rodeados.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[3].img[4]",
+   "cap": 4,
+   "ancla": "Los relaves del molino se usaron para construir el pueblo y la pista de aterrizaje.",
+   "antes": "extreme_wide",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[3].img[5]",
+   "cap": 4,
+   "ancla": "Se extendieron como suelo en las carreteras, en los patios, en los espacios públicos: el acceso a la escuela, el jardín de infantes, la iglesia.",
+   "antes": "wide",
+   "despues": "medium",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[3].img[6]",
+   "cap": 4,
+   "ancla": "El pueblo entero estaba hecho de eso.",
+   "antes": "extreme_wide",
+   "despues": "extreme_wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[3].img[7]",
+   "cap": 4,
+   "ancla": "Y en ese pueblo, en junio de mil novecientos sesenta y tres, nació un niño.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[3].img[8]",
+   "cap": 4,
+   "ancla": "Daniel trabajaba en la mina. Ramón de Juan, el amigo, hacía jornadas de dieciséis horas.",
+   "antes": "wide",
+   "despues": "medium",
+   "persona": [
+    "Daniel Écija",
+    "Ramón de Juan"
+   ],
+   "emotional_rank": "R2"
+  },
+  {
+   "ref": "chapters[3].img[9]",
+   "cap": 4,
+   "ancla": "Uno de los hijos de Daniel cuenta que el primer día de trabajo de su padre hubo una explosión y murió gente.",
+   "antes": "extreme_wide",
+   "despues": "medium",
+   "persona": [
+    "Daniel Écija"
+   ],
+   "emotional_rank": "R2"
+  },
+  {
+   "ref": "chapters[3].img[10]",
+   "cap": 4,
+   "ancla": "En marzo de mil novecientos sesenta y tres, Milagros Barroso dio a luz en Wittenoom a John Patrick.",
+   "antes": "medium",
+   "despues": "medium",
+   "persona": [
+    "Milagros Barroso",
+    "John Patrick"
+   ],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[3].img[11]",
+   "cap": 4,
+   "ancla": "Tres meses después le tocó a María. Llegó al hospital de Wittenoom debilitada por una infección renal.",
+   "antes": "wide",
+   "despues": "medium",
+   "persona": [
+    "María Bernal",
+    "Daniel Écija"
+   ],
+   "emotional_rank": "R2"
+  },
+  {
+   "ref": "chapters[3].img[12]",
+   "cap": 4,
+   "ancla": "El bebé era muy grande. Lo sacaron con fórceps. Le pusieron Daniel, como el padre. Hay una foto del bautizo: siete de julio de mil novecientos sesenta y tres.",
+   "antes": "wide",
+   "despues": "medium",
+   "persona": [
+    "María Bernal",
+    "Daniel Écija"
+   ],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[3].img[13]",
+   "cap": 4,
+   "ancla": "Después de esa foto, las maletas. Diez meses en Wittenoom. Se fueron antes de que nadie les dijera nada. Nadie les había dicho nada.",
+   "antes": "close",
+   "despues": "wide",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "emotional_rank": "R1"
+  },
+  {
+   "ref": "chapters[4].img[0]",
+   "cap": 5,
+   "ancla": "Diciembre de mil novecientos sesenta y seis. James Vernon anuncia que CSR cierra Wittenoom. No lo cierra el polvo: lo cierra el dinero.",
+   "antes": "wide",
+   "despues": "medium",
+   "persona": [
+    "James Vernon"
+   ],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[4].img[1]",
+   "cap": 5,
+   "ancla": "El molino se apaga y el polvo se asienta sobre las cintas.",
+   "antes": "detail",
+   "despues": "close",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[4].img[2]",
+   "cap": 5,
+   "ancla": "Afuera, en los desfiladeros, quedan más de tres millones de toneladas de relaves. Nadie los mueve.",
+   "antes": "extreme_wide",
+   "despues": "extreme_wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[4].img[3]",
+   "cap": 5,
+   "ancla": "De los hombres que habían pasado por la mina, cincuenta y nueve de cada cien se habían ido antes de cumplir seis meses.",
+   "antes": "wide",
+   "despues": "medium",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[4].img[4]",
+   "cap": 5,
+   "ancla": "Ese mismo año, los Écija entran a su casa en Madrid.",
+   "antes": "wide",
+   "despues": "medium",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[4].img[5]",
+   "cap": 5,
+   "ancla": "Los de Juan-Barroso estuvieron unos dos años y medio en el pueblo y volvieron a Madrid en mil novecientos setenta y uno; Mercedes de Juan se quedó en Australia.",
+   "antes": "wide",
+   "despues": "medium",
+   "persona": [
+    "Mercedes"
+   ],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[4].img[6]",
+   "cap": 5,
+   "ancla": "Cerró la mina. Nadie cerró el polvo. Veinte años después, un policía iba a reconocer el nombre del pueblo en un pasaporte.",
+   "antes": "extreme_wide",
+   "despues": "close",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[4].img[7]",
+   "cap": 5,
+   "ancla": "Mil novecientos ochenta y cinco. Un aeropuerto australiano, un puesto de control. El agente abre el documento de Daniel Écija hijo, lee el lugar de nacimiento, baja la cabeza hacia el papel",
+   "antes": "detail",
+   "despues": "close",
+   "persona": [
+    "Daniel Écija hijo"
+   ],
+   "emotional_rank": "R2"
+  },
+  {
+   "ref": "chapters[4].img[8]",
+   "cap": 5,
+   "ancla": "«Así que de Wittenoom, ¿eh? Un sitio terrorífico», dijo el policía.",
+   "antes": "medium",
+   "despues": "medium",
+   "persona": [
+    "Daniel Écija hijo"
+   ],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[4].img[9]",
+   "cap": 5,
+   "ancla": "Para entonces, desde mil novecientos setenta y ocho, el gobierno del Estado venía reduciendo el pueblo y empujando a la gente a irse, por las fibras en el aire.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[4].img[10]",
+   "cap": 5,
+   "ancla": "Entre mil novecientos ochenta y seis y mil novecientos noventa y dos demolieron edificios y cerraron los servicios básicos.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[4].img[11]",
+   "cap": 5,
+   "ancla": "En mil novecientos noventa y tres cerró el aeropuerto. Seis años después de aquel control, su padre fue al médico.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[4].img[12]",
+   "cap": 5,
+   "ancla": "Madrid, mil novecientos noventa y uno. Daniel Écija va al médico. Le hacen pruebas. La palabra es mesotelioma.",
+   "antes": "medium",
+   "despues": "medium",
+   "persona": [
+    "Daniel Écija"
+   ],
+   "emotional_rank": "R2"
+  },
+  {
+   "ref": "chapters[4].img[13]",
+   "cap": 5,
+   "ancla": "Nueve meses. Daniel muere a los cincuenta y cinco años, veintiocho años después de la foto del bautizo.",
+   "antes": "detail",
+   "despues": "close",
+   "persona": [],
+   "emotional_rank": "R2"
+  },
+  {
+   "ref": "chapters[4].img[14]",
+   "cap": 5,
+   "ancla": "Décadas más tarde, María está en una habitación rodeada de fotografías en sepia. Entre ellas, la del pie vendado. «Me pegué a mi marido, como una niña pequeña»",
+   "antes": "detail",
+   "despues": "medium",
+   "persona": [],
+   "emotional_rank": "R1"
+  },
+  {
+   "ref": "chapters[4].img[15]",
+   "cap": 5,
+   "ancla": "Uno de los hijos dice que ese sitio les cambió la vida para siempre. Daniel no fue el primero. Para entonces, el Estado ya tenía un número.",
+   "antes": "close",
+   "despues": "close",
+   "persona": [],
+   "emotional_rank": "R1"
+  },
+  {
+   "ref": "chapters[5].img[0]",
+   "cap": 6,
+   "ancla": "En mil novecientos ochenta y nueve ya habían muerto más de quinientos antiguos trabajadores y residentes de Wittenoom.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[5].img[1]",
+   "cap": 6,
+   "ancla": "la compañía había mostrado un desprecio continuo, consciente y contumaz por la seguridad y la salud de sus trabajadores.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [
+    "Peter Gordon"
+   ],
+   "emotional_rank": "R2"
+  },
+  {
+   "ref": "chapters[5].img[2]",
+   "cap": 6,
+   "ancla": "Mercedes de Juan, que se quedó en Australia, entra en un escáner y después sopla en un tubo. «Nos hacen un escáner y una prueba de función pulmonar», dice Mercedes.",
+   "antes": "wide",
+   "despues": "medium",
+   "persona": [],
+   "emotional_rank": "R1"
+  },
+  {
+   "ref": "chapters[5].img[3]",
+   "cap": 6,
+   "ancla": "Las fibras pueden causar mesotelioma, asbestosis y cáncer de pulmón.",
+   "antes": "medium",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[5].img[4]",
+   "cap": 6,
+   "ancla": "La cuenta oficial se detuvo. «El gobierno dejó de contar en 2.000, pero ahora se calcula que la cifra puede ser superior a los 4.000. Y sigue aumentando», dice Melita Markey.",
+   "antes": "medium",
+   "despues": "medium",
+   "persona": [
+    "Melita Markey"
+   ],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[5].img[5]",
+   "cap": 6,
+   "ancla": "Están enfermando hijos de policías y de maestros que trabajaron en el pueblo.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[5].img[6]",
+   "cap": 6,
+   "ancla": "Mientras los enfermos se contaban a sí mismos, el Estado decidió qué hacer con el pueblo: borrarlo.",
+   "antes": "wide",
+   "despues": "extreme_wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[5].img[7]",
+   "cap": 6,
+   "ancla": "Junio de dos mil siete; otras fuentes dicen dos mil seis. Wittenoom es abolido formalmente.",
+   "antes": "extreme_wide",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[5].img[8]",
+   "cap": 6,
+   "ancla": "Le quitan el nombre a las señales de la carretera y lo sacan de los mapas.",
+   "antes": "wide",
+   "despues": "medium",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[5].img[9]",
+   "cap": 6,
+   "ancla": "El gobierno de Australia Occidental habla de «el fin de un período oscuro en la historia de nuestro Estado».",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[5].img[10]",
+   "cap": 6,
+   "ancla": "Quince años antes, en mil novecientos noventa y dos, una investigación parlamentaria había recomendado limpiar los relaves. El gobierno rechazó esas recomendaciones.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [
+    "Court"
+   ],
+   "emotional_rank": "R2"
+  },
+  {
+   "ref": "chapters[5].img[11]",
+   "cap": 6,
+   "ancla": "«La minería en los desfiladeros ha dejado una contaminación que solo puede describirse como vergonzosa, incluso para los estándares de la época», dijo Larry Graham.",
+   "antes": "extreme_wide",
+   "despues": "extreme_wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[5].img[12]",
+   "cap": 6,
+   "ancla": "Le parecía casi increíble que la propiedad de los depósitos de relaves hubiera pasado, por defecto, al gobierno estatal.",
+   "antes": "wide",
+   "despues": "medium",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[5].img[13]",
+   "cap": 6,
+   "ancla": "«Tenemos el deber de impedir una mayor dispersión de los relaves de asbesto», dijo Mark Nevill, por los residentes, por los visitantes, por las generaciones futuras.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[5].img[14]",
+   "cap": 6,
+   "ancla": "En dos mil dieciséis, los documentos dicen por qué los relaves siguen donde están: no porque no se pueda, sino por lo que cuesta.",
+   "antes": "detail",
+   "despues": "detail",
+   "persona": [],
+   "emotional_rank": "R3"
+  },
+  {
+   "ref": "chapters[5].img[15]",
+   "cap": 6,
+   "ancla": "En dos mil veintitrés, los estudios del Estado sobre hasta dónde llega la contaminación ya estaban desactualizados. Borraron el nombre del mapa. El polvo no leía mapas.",
+   "antes": "wide",
+   "despues": "extreme_wide",
+   "persona": [],
+   "emotional_rank": "R2"
+  },
+  {
+   "ref": "chapters[6].image_prompt",
+   "cap": 7,
+   "ancla": "No se ha retirado una sola palada de asbesto. ¿Quién va a sacar la primera palada de esa tierra?",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": null
+  },
+  {
+   "ref": "chapters[6].supp[0]",
+   "cap": 7,
+   "ancla": "Los relaves del vertedero de Colonial se van con el agua.",
+   "antes": "extreme_wide",
+   "despues": "medium",
+   "persona": [],
+   "emotional_rank": null
+  },
+  {
+   "ref": "chapters[6].supp[1]",
+   "cap": 7,
+   "ancla": "Un informe técnico lo marcó como la fuente principal y la vía del asbesto:",
+   "antes": "wide",
+   "despues": "extreme_wide",
+   "persona": [],
+   "emotional_rank": null
+  },
+  {
+   "ref": "chapters[6].supp[2]",
+   "cap": 7,
+   "ancla": "la erosión, los lechos de arroyo, las pozas, las llanuras de inundación hacia el río Fortescue.",
+   "antes": "extreme_wide",
+   "despues": "extreme_wide",
+   "persona": [],
+   "emotional_rank": null
+  },
+  {
+   "ref": "chapters[6].supp[3]",
+   "cap": 7,
+   "ancla": "Fibras azules que el agua deja donde se seca.",
+   "antes": "detail",
+   "despues": "detail",
+   "persona": [],
+   "emotional_rank": null
+  },
+  {
+   "ref": "chapters[6].supp[4]",
+   "cap": 7,
+   "ancla": "En dos mil veintiuno, una nota ambiental registró fibras en canales de arroyos fuera de la zona marcada como contaminada.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": null
+  },
+  {
+   "ref": "chapters[6].supp[5]",
+   "cap": 7,
+   "ancla": "El mismo informe advirtió que, sin intervención, el aporte de asbesto a la cuenca del Fortescue puede seguir durante cientos de años.",
+   "antes": "extreme_wide",
+   "despues": "extreme_wide",
+   "persona": [],
+   "emotional_rank": null
+  },
+  {
+   "ref": "chapters[6].supp[6]",
+   "cap": 7,
+   "ancla": "Es tierra Banjima. En dos mil veintitrés, Marcos Orellana visitó Australia y se sentó con Maitland Parker, un anciano Banjima.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [
+    "Maitland Parker",
+    "Marcos Orellana"
+   ],
+   "emotional_rank": null
+  },
+  {
+   "ref": "chapters[6].supp[7]",
+   "cap": 7,
+   "ancla": "«Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él», dijo Parker.",
+   "antes": "medium",
+   "despues": "medium",
+   "persona": [
+    "Maitland Parker"
+   ],
+   "emotional_rank": null
+  },
+  {
+   "ref": "chapters[6].supp[8]",
+   "cap": 7,
+   "ancla": "Maitland Parker murió de mesotelioma en dos mil veinticuatro.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": null
+  },
+  {
+   "ref": "chapters[6].supp[9]",
+   "cap": 7,
+   "ancla": "Dos años después, Gordon Legal presentó en nombre de BNTAC un proceso contra Australia Occidental en el Tribunal Federal.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": null
+  },
+  {
+   "ref": "chapters[6].supp[10]",
+   "cap": 7,
+   "ancla": "Nadie ha empezado a limpiar. En los accesos al pueblo y desfiladero hay bloqueos.",
+   "antes": "wide",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": null
+  },
+  {
+   "ref": "chapters[6].supp[11]",
+   "cap": 7,
+   "ancla": "El gobierno de Australia Occidental habla de un «grave problema de salud y seguridad pública».",
+   "antes": "extreme_wide",
+   "despues": "wide",
+   "persona": [],
+   "emotional_rank": null
+  }
+ ],
+ "cambios": {
+  "close→close": 2,
+  "wide→medium": 23,
+  "medium→medium": 11,
+  "extreme_wide→wide": 5,
+  "detail→detail": 4,
+  "wide→wide": 28,
+  "wide→extreme_wide": 5,
+  "extreme_wide→extreme_wide": 7,
+  "medium→close": 1,
+  "wide→detail": 1,
+  "extreme_wide→medium": 2,
+  "close→wide": 1,
+  "detail→close": 3,
+  "extreme_wide→close": 1,
+  "detail→medium": 1,
+  "medium→wide": 1
+ },
+ "prompts10": [
+  {
+   "grupo": "close/detail de mayor emotional_rank",
+   "ref": "chapters[4].img[15]",
+   "cap": 5,
+   "shot_scale": "close",
+   "camera_angle": "Eye-level over-the-shoulder, slightly behind her",
+   "emotional_rank": "R1",
+   "persona": [],
+   "anio": "2022",
+   "ancla": "Uno de los hijos dice que ese sitio les cambió la vida para siempre. Daniel no fue el primero. Para entonces, el Estado ya tenía un número.",
+   "prompt": "An elderly Spanish widow in her eighties, slight frail build, silver hair pinned back, light olive weathered skin, wearing a dark wool cardigan over a plain blouse, seen from over her shoulder. She sits very still, bent toward a crowded cluster of old sepia family photographs, her body leaning toward one small print of a young miner's bandaged foot. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. A modest Madrid apartment sitting room decades after the mine, an old sideboard and wall densely covered with framed and loose sepia prints from the Wittenoom years, 2022. Hard high-contrast side light from a single narrow window, deep shadows swallowing the rest of the room. Close shot, eye-level over-the-shoulder, slightly behind her, 85mm lens, shallow depth of field, the bandaged-foot print sharp and her silhouette softly in focus. A grainy 35mm documentary photograph taken in 2022, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+  },
+  {
+   "grupo": "close/detail de mayor emotional_rank",
+   "ref": "chapters[2].img[11]",
+   "cap": 3,
+   "shot_scale": "detail",
+   "camera_angle": "high angle over the counter",
+   "emotional_rank": "R2",
+   "persona": [],
+   "anio": "1958",
+   "ancla": "Siete meses después, con unos equipos reductores de polvo ya instalados, el suplemento salarial por polvo se redujo y se restringió.",
+   "prompt": "An open company pay ledger on a pay-office counter, a newly fitted dust extractor fan visible through the window. The dust-allowance column freshly cut down, pencil figures crossed through. Company pay office at Wittenoom, 1958, timber counter, corrugated-iron walls. The column header of the open ledger reads \"DUST ALLOWANCE\" in clear crisp typed serif ledger heading lettering. Hard slanting window light, deep shadow across half the ledger. Detail shot, high angle over the counter, macro lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1958, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio."
+  },
+  {
+   "grupo": "close/detail de mayor emotional_rank",
+   "ref": "chapters[4].img[7]",
+   "cap": 5,
+   "shot_scale": "close",
+   "camera_angle": "Over-the-shoulder, slightly high angle onto the document",
+   "emotional_rank": "R2",
+   "persona": [
+    "Daniel Écija hijo"
+   ],
+   "anio": "1985",
+   "ancla": "Mil novecientos ochenta y cinco. Un aeropuerto australiano, un puesto de control. El agente abre el documento de Daniel Écija hijo, lee el lugar de nacimiento, baja la cabeza hacia el papel",
+   "prompt": "A fair-skinned Anglo-Australian police officer in his 40s, medium build, in 1980s police uniform and peaked cap; an early-20s Spanish man with olive skin and dark hair across the counter, out of focus. The officer opens the passport, reads the birthplace and lowers his head toward the page. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. 1985 Australian airport passport checkpoint, laminate counter, glass booth. The birthplace line of the open passport reads \"WITTENOOM\" in clear crisp typed block capitals lettering. Hard overhead fluorescent light, high contrast shadows. Close shot, over-the-shoulder, slightly high angle onto the document, shallow depth of field, passport sharp, traveller soft. A grainy 35mm documentary photograph taken in 1985, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio."
+  },
+  {
+   "grupo": "medium con persona",
+   "ref": "chapters[0].supp[0]",
+   "cap": 1,
+   "shot_scale": "medium",
+   "camera_angle": "eye-level, like a family roll-film snapshot",
+   "emotional_rank": null,
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "anio": "1962",
+   "ancla": "En el retrato de familia todos miran a cámara menos el pie: está vendado, y la herida que le hizo un trozo de amianto no cierra.",
+   "prompt": "Spanish migrant family posing outdoors: a mid-20s Spanish man, slim, dark wavy hair, dust-coated cotton work shirt and trousers, one foot bandaged white; a young adult Spanish woman, slim, dark hair, cotton print dress and cardigan, standing close at his shoulder. The family stands still for a portrait, everyone facing the camera while the man's bandaged foot sits forward on the red ground. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Front of a corrugated iron and fibro company house in Wittenoom, 1962, red dirt yard surfaced with blue-grey tailings. Hard cold overcast daylight, flat and shadowless. Medium shot, eye-level, like a family roll-film snapshot, deep depth of field, 50mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+  },
+  {
+   "grupo": "medium con persona",
+   "ref": "chapters[0].supp[1]",
+   "cap": 1,
+   "shot_scale": "medium",
+   "camera_angle": "eye-level, frontal",
+   "emotional_rank": null,
+   "persona": [
+    "Daniel Écija"
+   ],
+   "anio": "1962",
+   "ancla": "El hombre se llama Daniel Écija y es minero.",
+   "prompt": "A mid-20s Spanish miner, light olive tanned skin, slim build, dark wavy hair, dust-coated cotton work shirt with sleeves rolled, work trousers, one boot on and one foot wrapped in a white bandage. He stands posing against a corrugated iron wall, shoulders squared, the bandaged foot planted slightly forward. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Red earth yard beside a corrugated iron company house, Wittenoom mining town, 1962. Hard cold overcast daylight, flat and shadowless. Medium shot, eye-level, frontal, 85mm lens, shallow depth of field isolating the man from the iron wall. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+  },
+  {
+   "grupo": "medium con persona",
+   "ref": "chapters[1].img[1]",
+   "cap": 2,
+   "shot_scale": "medium",
+   "camera_angle": "slightly low angle",
+   "emotional_rank": "R3",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "anio": "1962",
+   "ancla": "Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos.",
+   "prompt": "A slim mid-20s Spanish groom in a dark suit and a young adult Spanish bride in a modest white dress and veil, with family behind. The newlyweds step out of a church door onto stone steps after the Thursday wedding. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Stone steps of a Madrid parish church, September 1962, plain baroque doorway. Soft overcast September daylight. Medium shot, slightly low angle, shallow depth of field, 50mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+  },
+  {
+   "grupo": "cap 5 (shock)",
+   "ref": "chapters[4].img[14]",
+   "cap": 5,
+   "shot_scale": "medium",
+   "camera_angle": "Eye-level",
+   "emotional_rank": "R1",
+   "persona": [],
+   "anio": "2023",
+   "ancla": "Décadas más tarde, María está en una habitación rodeada de fotografías en sepia. Entre ellas, la del pie vendado. «Me pegué a mi marido, como una niña pequeña»",
+   "prompt": "An elderly Spanish widow in her 80s, olive skin lined and weathered, white hair, small frail build, in a plain dark cardigan. Sits in a room surrounded by sepia family photographs, speaking of clinging to her husband. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Present-day Madrid home interior crowded with framed sepia family photographs, 2023. Hard single window light, high contrast across the photographs. Medium shot, eye-level, 50mm lens, moderate depth of field. A grainy 35mm documentary photograph taken in 2023, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+  },
+  {
+   "grupo": "cap 5 (shock)",
+   "ref": "chapters[4].img[12]",
+   "cap": 5,
+   "shot_scale": "medium",
+   "camera_angle": "Eye-level",
+   "emotional_rank": "R2",
+   "persona": [
+    "Daniel Écija"
+   ],
+   "anio": "1991",
+   "ancla": "Madrid, mil novecientos noventa y uno. Daniel Écija va al médico. Le hacen pruebas. La palabra es mesotelioma.",
+   "prompt": "A gaunt Spanish man in his mid-50s, olive skin, greying dark hair, thin frame, in a 1990s cardigan, beside a Spanish doctor in a white coat. Sits on the edge of the examination couch as the diagnosis of mesothelioma is spoken. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Madrid clinic consulting room, 1991, beige walls, steel furniture. Hard light from a single window plus the cold lightbox glow. Medium shot, eye-level, 50mm lens, moderate depth of field. A grainy 35mm documentary photograph taken in 1991, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+  },
+  {
+   "grupo": "cap 2 (setup)",
+   "ref": "chapters[1].img[13]",
+   "cap": 2,
+   "shot_scale": "wide",
+   "camera_angle": "eye-level at child height",
+   "emotional_rank": "R1",
+   "persona": [
+    "Víctor Calvo"
+   ],
+   "anio": "1962",
+   "ancla": "Hay polvo por todas partes. Ese niño cuenta que nunca había visto tanto polvo.",
+   "prompt": "A slim young Spanish boy, around eight, in shorts and sandals, red dust coating his legs and hair. The boy stands on the airstrip as a gust swirls dust around the arriving passengers. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Pilbara mining-town airstrip, 1962, parked propeller plane and adults with suitcases behind. Harsh midday Pilbara sun diffused by airborne dust. Wide shot, eye-level at child height, shallow depth of field, 50mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+  },
+  {
+   "grupo": "cap 2 (setup)",
+   "ref": "chapters[1].img[15]",
+   "cap": 2,
+   "shot_scale": "wide",
+   "camera_angle": "eye-level",
+   "emotional_rank": "R1",
+   "persona": [],
+   "anio": "1962",
+   "ancla": "De esa tierra sacan crocidolita, el asbesto azul, un mineral que se paga bien porque aguanta el calor y no se gasta. Nadie les dijo qué era el polvo. La compañía lo sabía desde hacía dieciocho años.",
+   "prompt": "A 1960s tipper truck in a mining-town street, a young adult Spanish woman in a cotton print dress watching from a doorway. The truck dumps blue asbestos tailings across the road as a fine dust drifts toward the houses. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Residential street of an operating Pilbara asbestos town, 1962, mill dust cloud on the ridge. Harsh midday Pilbara sun through hanging dust. Wide shot, eye-level, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+  }
+ ],
+ "log": [
+  "canon A3 inyectado (['era_visual_canon', 'documented_people', 'anachronism_blocklist', 'documented_props', 'central_subject', 'people_groups']) · intents {1: 'hook', 2: 'setup', 3: 'rising_tension', 4: 'rising_tension', 5: 'shock', 6: 'resolution', 7: 'outro'}",
+  "m03 7 caps: 135.6 s · US$ 2.3101 (cost_tracker) · caps con _plan_anchors real: []",
+  "prompts de casilleros: 12 (con bloque VISUAL ARC: 8) · SI distintos: 2 · SI sin R7/QUARTER y con VISUAL ARC: [True, False]",
+  "\nB.2 shot_scale TOTAL — antes (96): extreme_wide 15 · wide 57 · medium 13 · close 3 · detail 8",
+  "                      después (96): extreme_wide 12 · wide 35 · medium 37 · close 7 · detail 5",
+  "  cap 1 (hook): antes extreme_wide 1 · wide 1 · medium 1 · close 1 · detail 1 | después extreme_wide 0 · wide 1 · medium 2 · close 1 · detail 1",
+  "  cap 2 (setup): antes extreme_wide 2 · wide 12 · medium 2 · close 0 · detail 0 | después extreme_wide 2 · wide 7 · medium 7 · close 0 · detail 0",
+  "  cap 3 (rising_tension): antes extreme_wide 1 · wide 11 · medium 3 · close 0 · detail 1 | después extreme_wide 2 · wide 3 · medium 8 · close 1 · detail 2",
+  "  cap 4 (rising_tension): antes extreme_wide 3 · wide 8 · medium 2 · close 1 · detail 0 | después extreme_wide 1 · wide 6 · medium 7 · close 0 · detail 0",
+  "  cap 5 (shock): antes extreme_wide 2 · wide 7 · medium 2 · close 1 · detail 4 | después extreme_wide 1 · wide 3 · medium 7 · close 5 · detail 0",
+  "  cap 6 (resolution): antes extreme_wide 2 · wide 11 · medium 2 · close 0 · detail 1 | después extreme_wide 3 · wide 8 · medium 4 · close 0 · detail 1",
+  "  cap 7 (outro): antes extreme_wide 4 · wide 7 · medium 1 · close 0 · detail 1 | después extreme_wide 3 · wide 7 · medium 2 · close 0 · detail 1",
+  "  con persona — antes: extreme_wide 1 · wide 21 · medium 10 · close 1 · detail 0 | después: extreme_wide 0 · wide 11 · medium 24 · close 2 · detail 0",
+  "  camera_angle top 6 — antes: [('eye-level', 14), ('low angle', 6), ('high aerial angle', 5), ('eye-level from behind', 2), ('high angle from a ridge', 2), ('high angle looking down', 2)] | después: [('eye-level', 20), ('low angle for scale', 3), ('high aerial angle', 3), ('low angle at ground level', 2), ('slightly low angle', 2), ('eye-level from behind', 2)]",
+  "  caps_sin_establecimiento — antes: [] | después: []",
+  "  re-hechuras del video — antes: [] | después: []",
+  "  re-hechuras por cap (_f8_rehecha) — antes: {} | después: {'TIGHTEST framing of the cap (shot_scale close or detail) on ': 1}",
+  "  _f8 antes/después (después): {'total': 96, 'motivos': {'pasillo': 2, 'documento en escritorio': 1}, 'exceso_motivos': [], 'cuerpos': [], 'exceso_cuerpos': [], 'caps_sin_establecimiento': []} → {'total': 96, 'motivos': {'pasillo': 2, 'documento en escritorio': 1}, 'exceso_motivos': [], 'cuerpos': [], 'exceso_cuerpos': [], 'caps_sin_establecimiento': []}",
+  "  pares por ancla: 96/96 · cambios de shot_scale: {'wide→wide': 28, 'wide→medium': 23, 'medium→medium': 11, 'extreme_wide→extreme_wide': 7, 'extreme_wide→wide': 5, 'wide→extreme_wide': 5, 'detail→detail': 4, 'detail→close': 3, 'close→close': 2, 'extreme_wide→medium': 2, 'medium→close': 1, 'wide→detail': 1, 'close→wide': 1, 'extreme_wide→close': 1, 'detail→medium': 1, 'medium→wide': 1}",
+  "\nB.3 [close/detail de mayor emotional_rank] chapters[4].img[15] cap 5 · close · Eye-level over-the-shoulder, slightly behind her · R1 · persona []\nAn elderly Spanish widow in her eighties, slight frail build, silver hair pinned back, light olive weathered skin, wearing a dark wool cardigan over a plain blouse, seen from over her shoulder. She sits very still, bent toward a crowded cluster of old sepia family photographs, her body leaning toward one small print of a young miner's bandaged foot. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. A modest Madrid apartment sitting room decades after the mine, an old sideboard and wall densely covered with framed and loose sepia prints from the Wittenoom years, 2022. Hard high-contrast side light from a single narrow window, deep shadows swallowing the rest of the room. Close shot, eye-level over-the-shoulder, slightly behind her, 85mm lens, shallow depth of field, the bandaged-foot print sharp and her silhouette softly in focus. A grainy 35mm documentary photograph taken in 2022, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+  "\nB.3 [close/detail de mayor emotional_rank] chapters[2].img[11] cap 3 · detail · high angle over the counter · R2 · persona []\nAn open company pay ledger on a pay-office counter, a newly fitted dust extractor fan visible through the window. The dust-allowance column freshly cut down, pencil figures crossed through. Company pay office at Wittenoom, 1958, timber counter, corrugated-iron walls. The column header of the open ledger reads \"DUST ALLOWANCE\" in clear crisp typed serif ledger heading lettering. Hard slanting window light, deep shadow across half the ledger. Detail shot, high angle over the counter, macro lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1958, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio.",
+  "\nB.3 [close/detail de mayor emotional_rank] chapters[4].img[7] cap 5 · close · Over-the-shoulder, slightly high angle onto the document · R2 · persona ['Daniel Écija hijo']\nA fair-skinned Anglo-Australian police officer in his 40s, medium build, in 1980s police uniform and peaked cap; an early-20s Spanish man with olive skin and dark hair across the counter, out of focus. The officer opens the passport, reads the birthplace and lowers his head toward the page. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. 1985 Australian airport passport checkpoint, laminate counter, glass booth. The birthplace line of the open passport reads \"WITTENOOM\" in clear crisp typed block capitals lettering. Hard overhead fluorescent light, high contrast shadows. Close shot, over-the-shoulder, slightly high angle onto the document, shallow depth of field, passport sharp, traveller soft. A grainy 35mm documentary photograph taken in 1985, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio.",
+  "\nB.3 [medium con persona] chapters[0].supp[0] cap 1 · medium · eye-level, like a family roll-film snapshot · None · persona ['Daniel Écija', 'María Bernal']\nSpanish migrant family posing outdoors: a mid-20s Spanish man, slim, dark wavy hair, dust-coated cotton work shirt and trousers, one foot bandaged white; a young adult Spanish woman, slim, dark hair, cotton print dress and cardigan, standing close at his shoulder. The family stands still for a portrait, everyone facing the camera while the man's bandaged foot sits forward on the red ground. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Front of a corrugated iron and fibro company house in Wittenoom, 1962, red dirt yard surfaced with blue-grey tailings. Hard cold overcast daylight, flat and shadowless. Medium shot, eye-level, like a family roll-film snapshot, deep depth of field, 50mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+  "\nB.3 [medium con persona] chapters[0].supp[1] cap 1 · medium · eye-level, frontal · None · persona ['Daniel Écija']\nA mid-20s Spanish miner, light olive tanned skin, slim build, dark wavy hair, dust-coated cotton work shirt with sleeves rolled, work trousers, one boot on and one foot wrapped in a white bandage. He stands posing against a corrugated iron wall, shoulders squared, the bandaged foot planted slightly forward. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Red earth yard beside a corrugated iron company house, Wittenoom mining town, 1962. Hard cold overcast daylight, flat and shadowless. Medium shot, eye-level, frontal, 85mm lens, shallow depth of field isolating the man from the iron wall. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+  "\nB.3 [medium con persona] chapters[1].img[1] cap 2 · medium · slightly low angle · R3 · persona ['Daniel Écija', 'María Bernal']\nA slim mid-20s Spanish groom in a dark suit and a young adult Spanish bride in a modest white dress and veil, with family behind. The newlyweds step out of a church door onto stone steps after the Thursday wedding. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Stone steps of a Madrid parish church, September 1962, plain baroque doorway. Soft overcast September daylight. Medium shot, slightly low angle, shallow depth of field, 50mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+  "\nB.3 [cap 5 (shock)] chapters[4].img[14] cap 5 · medium · Eye-level · R1 · persona []\nAn elderly Spanish widow in her 80s, olive skin lined and weathered, white hair, small frail build, in a plain dark cardigan. Sits in a room surrounded by sepia family photographs, speaking of clinging to her husband. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Present-day Madrid home interior crowded with framed sepia family photographs, 2023. Hard single window light, high contrast across the photographs. Medium shot, eye-level, 50mm lens, moderate depth of field. A grainy 35mm documentary photograph taken in 2023, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+  "\nB.3 [cap 5 (shock)] chapters[4].img[12] cap 5 · medium · Eye-level · R2 · persona ['Daniel Écija']\nA gaunt Spanish man in his mid-50s, olive skin, greying dark hair, thin frame, in a 1990s cardigan, beside a Spanish doctor in a white coat. Sits on the edge of the examination couch as the diagnosis of mesothelioma is spoken. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Madrid clinic consulting room, 1991, beige walls, steel furniture. Hard light from a single window plus the cold lightbox glow. Medium shot, eye-level, 50mm lens, moderate depth of field. A grainy 35mm documentary photograph taken in 1991, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+  "\nB.3 [cap 2 (setup)] chapters[1].img[13] cap 2 · wide · eye-level at child height · R1 · persona ['Víctor Calvo']\nA slim young Spanish boy, around eight, in shorts and sandals, red dust coating his legs and hair. The boy stands on the airstrip as a gust swirls dust around the arriving passengers. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Pilbara mining-town airstrip, 1962, parked propeller plane and adults with suitcases behind. Harsh midday Pilbara sun diffused by airborne dust. Wide shot, eye-level at child height, shallow depth of field, 50mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+  "\nB.3 [cap 2 (setup)] chapters[1].img[15] cap 2 · wide · eye-level · R1 · persona []\nA 1960s tipper truck in a mining-town street, a young adult Spanish woman in a cotton print dress watching from a doorway. The truck dumps blue asbestos tailings across the road as a fine dust drifts toward the houses. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Residential street of an operating Pilbara asbestos town, 1962, mill dust cloud on the ridge. Harsh midday Pilbara sun through hanging dust. Wide shot, eye-level, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+ ]
+}

@@ -454,11 +454,6 @@ def is_body(text: str) -> bool:
                for s in re.split(r"(?<=[.!?])\s+", text or ""))
 
 
-def human_medium(item: dict) -> bool:
-    """Humano en plano medio (D5): shot_scale medium/close con una persona como sujeto."""
-    return (item.get("shot_scale") in ("medium", "close")) and bool(re.search(HUMAN, item.get("subject") or "", re.I))
-
-
 def establishing(item: dict) -> bool:
     return item.get("subject_ref") == "establishing_shot" or item.get("shot_scale") == "extreme_wide" or \
         (item.get("shot_scale") == "wide" and bool(re.search(r"\b(exterior|outside|aerial|facade|from above|skyline|"
@@ -482,8 +477,7 @@ COMPOSITION_RULES_V3 = """COMPOSITION RULES (v3 — HARD, the prompt is validate
 2. FACES: no facial macro, no extreme close-up of a face. Emotion through posture, light and action.
 3. NO exact counts of people and NO left/right as a requirement ("three men on the left"): use absolute references
    ("toward the window", "beside the podium", "a few men").
-4. At most a QUARTER of the images show a person in medium shot; prefer places, objects, distance and silhouettes.
-   Every cap has at least ONE establishing / exterior image (the place seen from outside or from above).
+4. Every cap has at least ONE establishing / exterior image (the place seen from outside or from above).
 5. WEAPONS: never a muzzle flash, never a weapon in first person, never framed from the shooter. When a beat is
    about shooting, the SHOOTER NEVER APPEARS (not even far away or as a silhouette): the image is the REACTION of
    the victims or the witness (crouching in the water, faces turned up, watching from a terrace).
@@ -503,13 +497,14 @@ SENSITIVE CONTENT (YouTube, HARD):
 
 
 def video_audit(caps: list[list[dict]], beats_by_cap: dict[int, list[dict]] | None = None) -> dict[str, Any]:
-    """Auditoría del video entero (D1, D5, E) sobre los ítems finales de cada cap (en orden de cap). Cada ítem: dict
-    con slots + `prompt`. Devuelve {"motivos": {motivo: [(cap, i)]}, "exceso_motivos": [(cap, i, motivo)],
-    "cuerpos": [(cap, i)], "exceso_cuerpos": [(cap, i)], "humano_medio": [(cap, i)], "exceso_humano_medio": [...],
-    "caps_sin_establecimiento": [cap]}. Un motivo que la imagen sensorial del beat nombra no cuenta para el tope."""
+    """Auditoría del video entero (D1 motivos y E cuerpos para las personas; D5 solo el establecimiento por cap) sobre los
+    ítems finales de cada cap (en orden de cap). Cada ítem: dict con slots + `prompt`. Devuelve {"motivos": {motivo:
+    [(cap, i)]}, "exceso_motivos": [(cap, i, motivo)], "cuerpos": [(cap, i)], "exceso_cuerpos": [(cap, i)],
+    "caps_sin_establecimiento": [cap]}. Un motivo que la imagen sensorial del beat nombra no cuenta para el tope.
+    F61: sin `humano_medio` ni el tope del 25 % (el encuadre lo decide VISUAL ARC OF THIS CAP)."""
     beats_by_cap = beats_by_cap or {}
     seen: dict[str, list[tuple[int, int]]] = {}
-    exceso_m, cuerpos, hm, sin_est = [], [], [], []
+    exceso_m, cuerpos, sin_est = [], [], []
     total = 0
     for cap, items in enumerate(caps, start=1):
         bs = {b["n"]: b for b in beats_by_cap.get(cap) or []}
@@ -526,13 +521,9 @@ def video_audit(caps: list[list[dict]], beats_by_cap: dict[int, list[dict]] | No
                     exceso_m.append((cap, i, m))
             if is_body(text):
                 cuerpos.append((cap, i))
-            if human_medium(it):
-                hm.append((cap, i))
     exceso_c = [c for c in cuerpos if c[0] == 1] + [c for c in cuerpos if c[0] != 1][2:]
-    lim = int(0.25 * total)
     return {"total": total, "motivos": seen, "exceso_motivos": exceso_m, "cuerpos": cuerpos,
-            "exceso_cuerpos": exceso_c, "humano_medio": hm, "exceso_humano_medio": hm[lim:] if len(hm) > lim else [],
-            "caps_sin_establecimiento": sin_est}
+            "exceso_cuerpos": exceso_c, "caps_sin_establecimiento": sin_est}
 
 
 # ═══════════════════════════════════════════════════════════════
