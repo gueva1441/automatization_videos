@@ -1,0 +1,221 @@
+{
+ "a": {
+  "cap": "ch01",
+  "beat": 1,
+  "alternativas": [
+   {
+    "pool_id": "D35",
+    "sentence_idx": 3,
+    "palabra": "mineral",
+    "palabra_en_oracion": true,
+    "etiqueta": "ESE MINERAL",
+    "texto": "El más mortal de todos los asbestos",
+    "respaldo": "El asbesto azul (crocidolita), el tipo que se extraía en Wittenoom, es el más mortal de todos los tipos de asbesto.",
+    "estilo": "normal",
+    "aporta": "Dice que el mineral que lo hirió era el tipo de asbesto más mortal, algo que la voz nunca dice en todo el video.",
+    "oracion": "Una herida hecha por un pedazo de mineral que no cierra.",
+    "caracteres": 46,
+    "caben": 56,
+    "anio": null,
+    "relato": null
+   },
+   {
+    "pool_id": "D80",
+    "sentence_idx": 6,
+    "palabra": "mapa",
+    "palabra_en_oracion": true,
+    "etiqueta": "HOY, ESE PUEBLO",
+    "texto": "La mayor zona contaminada del hemisferio sur",
+    "respaldo": "El pueblo fantasma de Wittenoom es la mayor zona contaminada del hemisferio sur.",
+    "estilo": "normal",
+    "aporta": "Muestra en qué se convirtió el pueblo borrado del mapa, una escala que la voz no da en ningún momento.",
+    "oracion": "Esa foto se tomó en un pueblo que hoy no figura en ningún mapa.",
+    "caracteres": 59,
+    "caben": 71,
+    "anio": null,
+    "relato": null
+   },
+   {
+    "pool_id": "D101",
+    "sentence_idx": 7,
+    "palabra": "nombre",
+    "palabra_en_oracion": true,
+    "etiqueta": "ASÍ LO LLAMAN LOS AFECTADOS",
+    "texto": "El Chernobyl australiano",
+    "respaldo": "La tragedia de Wittenoom es llamada por muchos afectados el 'Chernobyl australiano'.",
+    "estilo": "normal",
+    "aporta": "Muestra el nombre con que los afectados recuerdan el pueblo cuyo nombre se borró. La voz nunca lo menciona.",
+    "oracion": "Arrancaron las señales de la carretera y borraron el nombre.",
+    "caracteres": 51,
+    "caben": 51,
+    "anio": null,
+    "relato": null
+   }
+  ],
+  "descartadas": [],
+  "excluidos": [
+   "D02",
+   "D102",
+   "D108",
+   "D138",
+   "D34",
+   "D44",
+   "D69",
+   "D83",
+   "D94",
+   "Q19",
+   "Q25",
+   "Q35",
+   "T80"
+  ],
+  "usd": 0.50494,
+  "usd_autor": 0.50494,
+  "usd_verificador": 0.0,
+  "segundos": 23.5,
+  "tokens_in": 94666,
+  "usage": [
+   {
+    "input_tokens": 6367,
+    "cache_creation_input_tokens": 88299,
+    "cache_read_input_tokens": 0,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 88299,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 1899,
+    "service_tier": "standard",
+    "inference_geo": "global",
+    "speed": "standard",
+    "output_tokens_details": {
+     "thinking_tokens": 1339
+    }
+   }
+  ],
+  "verificador": null
+ },
+ "b": {
+  "cap": "ch02",
+  "beat": 2,
+  "alternativas": [
+   {
+    "pool_id": "D105",
+    "sentence_idx": 2,
+    "palabra": "venía",
+    "palabra_en_oracion": true,
+    "etiqueta": "LO QUE LOS ESPERABA",
+    "texto": "Un solo súper y un camión de víveres cada 15 días",
+    "respaldo": "Un camión traía suministros al único supermercado de Wittenoom cada 15 días.",
+    "estilo": "normal",
+    "aporta": "Muestra qué tan aislada era la vida que ella imaginaba con confianza: un único súper que recibía víveres cada quince días.",
+    "oracion": "De esa noche y de lo que vino después, ella no cuenta la música ni el vestido; cuenta que iba muy cerca de él y que confiaba en lo que venía.",
+    "caracteres": 68,
+    "caben": 90,
+    "anio": null,
+    "relato": 1961
+   },
+   {
+    "pool_id": "D125",
+    "sentence_idx": 3,
+    "palabra": "marido",
+    "palabra_en_oracion": true,
+    "etiqueta": "UN PUEBLO DE HOMBRES",
+    "texto": "Unos 2 hombres por cada mujer",
+    "respaldo": "La proporción de hombres y mujeres en Wittenoom era de aproximadamente 2 a 1.",
+    "estilo": "normal",
+    "aporta": "Muestra el pueblo al que ella llegaba pegada a su marido: un lugar con el doble de hombres que de mujeres.",
+    "oracion": "«Me pegué a mi marido, como una niña pequeña», dice ella, muchos años después.",
+    "caracteres": 49,
+    "caben": 71,
+    "anio": null,
+    "relato": 1961,
+    "juicio_verificador": {
+     "regla": [
+      "spoiler"
+     ],
+     "motivo": "La voz nunca da la proporción de hombres y mujeres en Wittenoom; el «2» marcado no está como cifra en la oración de los españoles y los viajes de CSR, que habla de otra cosa.",
+     "tokens": {
+      "spoiler": [
+       "2"
+      ]
+     }
+    }
+   },
+   {
+    "pool_id": "D124",
+    "sentence_idx": 4,
+    "palabra": "casaron",
+    "palabra_en_oracion": true,
+    "etiqueta": "MINA DE JÓVENES",
+    "texto": "57% de los trabajadores, menores de 30",
+    "respaldo": "El 57% de la fuerza laboral de Wittenoom tenía menos de 30 años",
+    "estilo": "normal",
+    "aporta": "Muestra que la mina a la que iba el recién casado estaba llena de hombres jóvenes como él.",
+    "oracion": "Se casaron un año más tarde, el 20 de septiembre de 1962.",
+    "caracteres": 53,
+    "caben": 61,
+    "anio": null,
+    "relato": 1962,
+    "juicio_verificador": {
+     "regla": [
+      "spoiler"
+     ],
+     "motivo": "La voz no da la edad de la fuerza laboral; el «treinta» marcado son los años entre la salida de Daniel y su muerte, otro hecho.",
+     "tokens": {
+      "spoiler": [
+       "30"
+      ]
+     }
+    }
+   }
+  ],
+  "descartadas": [],
+  "excluidos": [
+   "D02",
+   "D102",
+   "D108",
+   "D138",
+   "D34",
+   "D44",
+   "D69",
+   "D83",
+   "D94",
+   "Q19",
+   "Q25",
+   "Q35",
+   "T80"
+  ],
+  "usd": 0.14772,
+  "usd_autor": 0.10947,
+  "usd_verificador": 0.03825,
+  "segundos": 30.7,
+  "tokens_in": 94666,
+  "usage": [
+   {
+    "input_tokens": 6367,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 88299,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 2434,
+    "service_tier": "standard",
+    "inference_geo": "global",
+    "speed": "standard",
+    "output_tokens_details": {
+     "thinking_tokens": 1904
+    }
+   }
+  ],
+  "verificador": {
+   "usage": {
+    "input_tokens": 8342,
+    "output_tokens": 244
+   },
+   "usd": 0.03825,
+   "segundos": 3.9,
+   "pedido_md5": "d3fd2176340f2282c1a5184ede42c2e3",
+   "error": null
+  }
+ }
+}

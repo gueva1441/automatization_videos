@@ -207,7 +207,7 @@
   "estado": "vivo",
   "estado_prueba": "script_engine/m01e_pantalla.py:816 importa claude_helpers; script_engine/guion_v4.py:820-821 y m01a_escaleta.py:761 arman el call con make_call.",
   "funciones_muertas": [],
-  "md5": "1ea9bf2914389592eba47042f3d2b6f1",
+  "md5": "5a5afcdf5810e3c2ec2dd5978123c4b9",
   "_parte": "orquestador_c"
  },
  "config.py": {

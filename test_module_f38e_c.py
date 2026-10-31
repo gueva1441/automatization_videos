@@ -29,6 +29,13 @@ from script_engine.pantalla_colocar import caracteres  # noqa: E402
 from script_engine import pantalla_verificador as pv  # noqa: E402
 
 
+
+def _txt(body: dict) -> str:
+    """F65b: el USER del autor va en bloques (caché); el texto entero."""
+    c = body["messages"][0]["content"]
+    return c if isinstance(c, str) else "".join(b["text"] for b in c)
+
+
 def JUEZ_PASA(marcas: list[dict], caps: list[dict]) -> dict:
     """F64 Etapa 3: el verificador falso de los tests: «pasa» toda ficha marcada y «no_dicho» todo descarte dudoso."""
     return {"veredictos_fichas": [{"pool_id": m["pool_id"], "cap": m["cap"], "beat": m["beat"], "veredicto": "pasa",
@@ -223,7 +230,7 @@ def test_c3_respaldo_invalido_es_motivo_de_la_vuelta_y_la_vuelta_lo_arregla(tmp_
     pedidos: list[dict] = []
     res = mp.llamar(ent, tmp_path / "a", post=_post_seq([sin, con], pedidos))
     assert len(pedidos) == 2
-    p2 = pedidos[1]["messages"][0]["content"]
+    p2 = _txt(pedidos[1])
     assert "respaldo: la ficha no trae `respaldo`" in p2 and "ch02 beat 2" in p2 and mp.FORMATO_REINTENTO in p2
     assert res["reintento"]["cierre"] == "sin motivos" and "cortados_al_cierre" not in res["reintento"]
     q = _queda(res["validacion"], "ch02", 2)

@@ -40,6 +40,13 @@ SEG = {"valor": 0.3459, "oraciones": 200, "caps": 9, "voz": "prueba"}
 MD5_SYSTEM_F64 = "85d094bed6090b14d1802ca97433d982"      # F63 A.2, medido (HANDOFF_F64 Constantes)
 
 
+
+def _txt(body: dict) -> str:
+    """F65b: el USER del autor va en bloques (caché); el texto entero."""
+    c = body["messages"][0]["content"]
+    return c if isinstance(c, str) else "".join(b["text"] for b in c)
+
+
 def _pool() -> dict:
     return {"datos": [{"id": "D1", "texto": "La presa mide 266 metros de alto.", "fuente": "F", "fecha": "1960",
                        "cita_literal": "the dam is  266 m high"},
@@ -490,7 +497,7 @@ def test_f_llamar_cierres_y_una_llamada_del_verificador_por_validacion(tmp_path)
     assert vs[0]["motivos"] != res2["validacion"]["motivos"]                 # el texto cambió («texto 1» → «texto 2»)…
     assert vs[0]["claves"] == [["no_dicho", "D3", "ch02", 2, "8000"]]        # …las claves no: cierra
     assert res2["validacion"]["claves"] == [("no_dicho", "D3", "ch02", 2, "8000")]
-    assert "texto 1" in pedidos[1]["messages"][0]["content"]                 # el motivo del verificador se le mandó al autor
+    assert "texto 1" in _txt(pedidos[1])                 # el motivo del verificador se le mandó al autor
     md = mp.a_markdown(mp.armar(e, res2))
     assert "sin progreso" in md and "claves:" in md
     # (3) ciclo A→B→A: D3 (corta) → D2 en b2 (fecha_relato, corta) → D3 otra vez → las claves A ya se vieron: cierra

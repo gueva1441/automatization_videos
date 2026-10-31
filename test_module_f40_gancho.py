@@ -40,6 +40,13 @@ from script_engine import pantalla_filtros as pf  # noqa: E402
 from script_engine import pantalla_verificador as pv  # noqa: E402
 
 
+
+def _txt(body: dict) -> str:
+    """F65b: el USER del autor va en bloques (caché); el texto entero."""
+    c = body["messages"][0]["content"]
+    return c if isinstance(c, str) else "".join(b["text"] for b in c)
+
+
 def JUEZ_PASA(marcas: list[dict], caps: list[dict]) -> dict:
     """F64 Etapa 3: el verificador falso de los tests: «pasa» toda ficha marcada y «no_dicho» todo descarte dudoso."""
     return {"veredictos_fichas": [{"pool_id": m["pool_id"], "cap": m["cap"], "beat": m["beat"], "veredicto": "pasa",
@@ -162,7 +169,7 @@ def test_2_mismo_hecho_el_verificador_la_corta_y_el_autor_la_saca(ky, tmp_path):
     pedidos: list[dict] = []
     saca = {"cambios": [{"cap": GANCHO[0], "beat": GANCHO[1], "ficha": None}]}
     res = mp.llamar(ky, tmp_path, post=_post_seq([_resp(D91), saca], pedidos), juez=corta)
-    assert motivo in res["reintento"]["vueltas"][0]["motivos"] and motivo in pedidos[1]["messages"][0]["content"]
+    assert motivo in res["reintento"]["vueltas"][0]["motivos"] and motivo in _txt(pedidos[1])
     assert _ficha_final(res) is None
     assert "D91" not in json.dumps(res["final"], ensure_ascii=False)
     assert len(res["verificador"]) == 1 and res["usd_verificador"] == 0.0     # una llamada al juez (la del intento 1)

@@ -139,6 +139,23 @@ def _base(model: str) -> str:
     return next((m for m in PRICES if model.startswith(m)), model)
 
 
+def body_cacheado(system: str, user: str, model: str, effort: str, resto: str | None = None) -> dict:
+    """F65b §2.4 (voto del analista, confirmado en el pedido de la tanda): el body con `cache_control: ephemeral` en el
+    SYSTEM y en el primer bloque del USER (el prefijo cacheable, 5 minutos); `resto` va en un segundo bloque sin marcar. No
+    cambia ninguna salida: baja el costo de una vuelta del autor o de un «sugerir» dentro de los 5 minutos."""
+    content: list[dict] = [{"type": "text", "text": user, "cache_control": {"type": "ephemeral"}}]
+    if resto:
+        content.append({"type": "text", "text": resto})
+    return {"model": model, "max_tokens": MAX_TOKENS,
+            "system": [{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
+            "messages": [{"role": "user", "content": content}], "output_config": {"effort": effort}}
+
+
+def tokens_entrada(usage: dict) -> int:
+    """Los tokens de entrada de verdad con caché: `input_tokens` no cuenta los escritos ni los leídos del caché."""
+    return sum(int(usage.get(k) or 0) for k in ("input_tokens", "cache_creation_input_tokens", "cache_read_input_tokens"))
+
+
 def cost_of(model: str, usage: dict) -> float:
     pin, pout = PRICES.get(_base(model)) or (0.0, 0.0)
     tin = (usage.get("input_tokens") or 0) + (usage.get("cache_creation_input_tokens") or 0) * 1.25 \

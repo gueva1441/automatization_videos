@@ -135,6 +135,17 @@ FORMATO_REINTENTO = ('{"cambios": [{"cap": "ch03", "beat": 5, "ficha": {"pool_id
 REINTENTO_PARCIAL = ("Devolvé solo JSON con `cambios` para los beats de esta lista: {beats}. Cada cambio nombra su cap y "
                      "su beat; `ficha` o `sello` con valor la reemplazan, con null la borran, y si no la cambiás no la "
                      "pongas. Todo lo demás de tu respuesta anterior queda como está: un cambio en otro beat se ignora.")
+# F65b §3 A: el botón «sugerir» del QA del papel. Textos del handoff tal cual. NO entran a prompt_md5() ni a PROMPT_VERSION:
+# la `clave` de caché de `llamar` no cambia y la próxima corrida del autor no se paga de nuevo.
+SUGERIR_N = 3                    # hasta 3 alternativas por clic: DECISIONES 2026-10-31 16:13
+SUGERIR_USER = ("\n\nOmar revisó el papel y quiere OTRAS opciones para {cap} beat {beat}. Proponé hasta {n} fichas "
+                "alternativas para ESE beat, con las mismas reglas que el papel completo: cada una ancla en una oración "
+                "de ese beat, su `respaldo` se copia del `texto` del dato, y dice algo que la voz NO dice en ese momento. "
+                "No repitas estos pool_id (ya están en pantalla en este video): {excluidos}. Ordenalas de la que más "
+                "aporta a la que menos. Si no hay ninguna que valga la pena, devolvé la lista vacía.")
+FORMATO_SUGERIR = ('{"alternativas": [{"pool_id": "D49", "sentence_idx": 17, "palabra": "fisura", '
+                   '"etiqueta": "ANCHO DE LA FISURA", "texto": "Más de 1 metro", "respaldo": "…", "autor": "…" | null, '
+                   '"aporta": "…"}]}')
 
 
 def prompt_md5() -> str:
@@ -549,27 +560,12 @@ def validar(resp: Any, ent: dict[str, Any], *, juez: Callable[[list[dict], list[
         vd = {str(v.get("pool_id")): v for v in ver.get("veredictos_descartes") or []}
         for slot in out_beats:
             fi = slot["ficha"]
-            if not fi:
-                continue
-            mf = [m for m in marcas if m.get("que") != "descarte"
-                  and (m["pool_id"], m["cap"], m["beat"]) == (fi["pool_id"], slot["cap"], slot["beat"])]
-            if not mf:
-                continue
-            v = vf.get((fi["pool_id"], slot["cap"], slot["beat"])) or {"veredicto": "pasa", "motivo": "sin veredicto"}
-            reglas = sorted({m["regla"] for m in mf})
-            tokens = {r: [str(m["coincidencia"]["token"]) for m in mf if m["regla"] == r] for r in reglas}
-            if v.get("veredicto") == "corta":
+            caida = aplicar_veredicto(fi, slot["cap"], slot["beat"], marcas, vf) if fi else None
+            if caida:
                 slot["ficha"] = None
                 usados_ids.discard(fi["pool_id"])
                 fichas_fuera += 1
-                o = v.get("oracion") or {}
-                donde = f" ({o.get('cap')} [{o.get('idx')}])" if isinstance(o, dict) and o.get("cap") is not None else ""
-                desc.append({"pool_id": fi["pool_id"], "cap": slot["cap"], "beat": slot["beat"], "que": "ficha",
-                             "etiqueta": fi["etiqueta"], "texto": fi["texto"], "sentence_idx": fi["sentence_idx"],
-                             "regla": mf[0]["regla"], "reglas": reglas, "tokens": tokens,
-                             "motivo": f"{v.get('motivo') or ''}{donde}", "quien": "verificador"})
-            else:
-                fi["juicio_verificador"] = {"regla": reglas, "motivo": v.get("motivo"), "tokens": tokens}
+                desc.append(caida)
         dichos = {pid for pid, v in vd.items() if v.get("veredicto") == "dicho"}
         vuelven = [v for v in vuelven if v["pool_id"] not in dichos]
         for pid, d in dudas.items():
@@ -620,6 +616,27 @@ def validar(resp: Any, ent: dict[str, Any], *, juez: Callable[[list[dict], list[
             "descartados": desc, "fichas_fuera": fichas_fuera, "marcas": marcas, "verificador": ver, "vuelven": vuelven,
             "picos_vacios": picos_vacios, "a_pantalla_vacios": a_pantalla_vacios, "motivos": motivos,
             "motivos_beat": motivos_beat, "claves": claves}
+
+
+def aplicar_veredicto(fi: dict[str, Any], cap: str, beat: int | None, marcas: list[dict[str, Any]], vf: dict[tuple, dict]
+                      ) -> dict[str, Any] | None:
+    """El veredicto del verificador sobre UNA ficha validada (lo usan `validar` y `sugerir`, F65b §3 A.4). `vf` = veredictos
+    por (pool_id, cap, beat). Sin marcas no hace nada; «pasa» (o sin veredicto) deja `juicio_verificador` en la ficha y
+    devuelve None; «corta» devuelve el descarte (`quien: "verificador"`, con la regla original): sacarla es del que llama."""
+    mf = [m for m in marcas if m.get("que") != "descarte" and (m["pool_id"], m["cap"], m["beat"]) == (fi["pool_id"], cap, beat)]
+    if not mf:
+        return None
+    v = vf.get((fi["pool_id"], cap, beat)) or {"veredicto": "pasa", "motivo": "sin veredicto"}
+    reglas = sorted({m["regla"] for m in mf})
+    tokens = {r: [str(m["coincidencia"]["token"]) for m in mf if m["regla"] == r] for r in reglas}
+    if v.get("veredicto") == "corta":
+        o = v.get("oracion") or {}
+        donde = f" ({o.get('cap')} [{o.get('idx')}])" if isinstance(o, dict) and o.get("cap") is not None else ""
+        return {"pool_id": fi["pool_id"], "cap": cap, "beat": beat, "que": "ficha", "etiqueta": fi["etiqueta"],
+                "texto": fi["texto"], "sentence_idx": fi["sentence_idx"], "regla": mf[0]["regla"], "reglas": reglas,
+                "tokens": tokens, "motivo": f"{v.get('motivo') or ''}{donde}", "quien": "verificador"}
+    fi["juicio_verificador"] = {"regla": reglas, "motivo": v.get("motivo"), "tokens": tokens}
+    return None
 
 
 def _juez_por_defecto() -> Callable[[list[dict], list[dict]], dict]:
@@ -947,9 +964,10 @@ def llamar(ent: dict[str, Any], out_dir: Path, *, post: Callable[[dict], dict] |
         return v
 
     def autor(pedido_k: str, k: int) -> dict | None:
-        """Una llamada del autor: la respuesta JSON o None (sin tope: F64 Etapa 1)."""
-        body = {"model": MODELO, "max_tokens": hx.MAX_TOKENS, "system": PANTALLA_SYSTEM,
-                "messages": [{"role": "user", "content": pedido_k}], "output_config": {"effort": EFFORT}}
+        """Una llamada del autor: la respuesta JSON o None (sin tope: F64 Etapa 1). F65b §2.4: con caché (SYSTEM + USER de
+        entrada; lo que sigue de una vuelta va en un segundo bloque)."""
+        resto = pedido_k[len(user):] if pedido_k.startswith(user) else None
+        body = hx.body_cacheado(PANTALLA_SYSTEM, user if resto is not None else pedido_k, MODELO, EFFORT, resto=resto)
         t0 = time.time()
         r = (post or hx._post)(body)
         u = r.get("usage") or {}
@@ -958,13 +976,14 @@ def llamar(ent: dict[str, Any], out_dir: Path, *, post: Callable[[dict], dict] |
             hx._track(r.get("model") or MODELO, u, "m01e_pantalla")    # al cost_tracker (el ledger del paso)
         out["usd_autor"] = round(out["usd_autor"] + usd, 5)
         out["usd"] = round(out["usd_autor"] + out["usd_verificador"], 5)
-        out["tokens_in"] = out.get("tokens_in") or u.get("input_tokens")
+        out["tokens_in"] = out.get("tokens_in") or hx.tokens_entrada(u)
         txt = "".join(c.get("text") or "" for c in r.get("content") or [] if c.get("type") == "text")
         resp = primer_json(txt)
         out["intentos"].append({"pedido": pedido_k if k else "(el USER de entrada)", "texto": txt, "respuesta": resp,
                                 "usage": u, "stop": r.get("stop_reason"), "usd": usd,
                                 "segundos": round(time.time() - t0, 1)})
-        log.append(f"  m01e intento {k + 1}: in {u.get('input_tokens')} · out {u.get('output_tokens')} · "
+        log.append(f"  m01e intento {k + 1}: in {hx.tokens_entrada(u)} (caché: escrito {u.get('cache_creation_input_tokens') or 0}, "
+                   f"leído {u.get('cache_read_input_tokens') or 0}) · out {u.get('output_tokens')} · "
                    f"US$ {usd:.4f} · {'JSON' if resp is not None else 'SIN JSON'}")
         return resp
 
@@ -1065,7 +1084,8 @@ def armar(ent: dict[str, Any], res: dict[str, Any]) -> dict[str, Any]:
             "descartados": v["descartados"],
             # F37: de dónde salen las medidas y qué pasó en el reintento (motivos enviados, por vuelta, por qué cerró)
             "seg_por_palabra": ent.get("seg_por_palabra"), "error": res.get("error"),
-            "por_intento": [{"tokens_in": (i.get("usage") or {}).get("input_tokens"),
+            "por_intento": [{"tokens_in": sum(int((i.get("usage") or {}).get(k) or 0) for k in
+                                              ("input_tokens", "cache_creation_input_tokens", "cache_read_input_tokens")),
                              "tokens_out": (i.get("usage") or {}).get("output_tokens"), "usd": i.get("usd"),
                              "segundos": i.get("segundos")} for i in res.get("intentos") or []],
             "reintento": {"motivos": res.get("motivos") or [],
@@ -1209,6 +1229,130 @@ def a_markdown(p: dict[str, Any]) -> str:
         lines += [f"- {q.get('cap')} [{q.get('oracion')}] «{q.get('texto')}»: {q.get('afirmacion')} · {', '.join(q.get('ids') or [])}"
                   f" · «{q.get('fragmento')}»" for q in p["aviso_narracion"]]
     return "\n".join(lines) + "\n"
+
+
+def sugerir(topic_id: str, cap: str, beat: int, n: int = SUGERIR_N, *, steps_dir: Path | None = None,
+            post: Callable[[dict], dict] | None = None, juez: Callable[[list[dict], list[dict]], dict] | None = None,
+            log: list[str] | None = None) -> dict[str, Any]:
+    """F65b §3 A (DECISIONES 2026-10-31 16:13): hasta `n` fichas alternativas para UN beat, del mismo autor (MODELO, EFFORT,
+    PANTALLA_SYSTEM) con la misma entrada, ya pasadas por los candados de `validar` y por UNA llamada al verificador. No toca
+    el papel; deja el pedido y la respuesta en 01e_sugerir.log.jsonl. Candado: la entrada del autor del raw tiene que ser la
+    del papel (ValueError si no). Para validar hace falta lo que el raw no guarda (el pool, `a_pantalla`, `anios`,
+    `flash_forward`): se rearma con `cargar`/`entrada` y tiene que dar el mismo md5, si no ValueError. Devuelve {cap, beat,
+    alternativas (fichas validadas), descartadas [{ficha, motivo, regla, quien}], excluidos, usd, usd_autor, usd_verificador,
+    segundos, tokens_in, usage, error}. `post`/`juez` (tests) reemplazan al POST y al verificador."""
+    import copy
+    import functools
+
+    import claude_helpers as hx
+    from script_engine import pantalla_verificador as pv
+    from script_engine.m01a_skeleton import STEPS_DIR
+    log = log if log is not None else []
+    sd = Path(steps_dir or STEPS_DIR)
+    d = sd / topic_id
+    papel = cargar_papel(topic_id, sd)
+    raw_f = d / f"{ARCHIVO}.raw.json"
+    if papel is None or not raw_f.exists():
+        raise ValueError(f"{topic_id}: no hay papel ni raw para sugerir")
+    raw = json.loads(raw_f.read_text(encoding="utf-8"))
+    nb = _int(beat)
+    if not any(b["cap"] == cap and b["beat"] == nb for b in papel["beats"]):
+        raise ValueError(f"no hay beat {beat} en {cap}")
+    h = entrada_md5(raw["entrada"])
+    if h != papel.get("entrada_md5"):
+        raise ValueError(f"el raw no es de este papel: entrada {h} ≠ {papel.get('entrada_md5')}")
+    carga = cargar(topic_id, sd)
+    ent = entrada(carga, raw["entrada"]["clima"], papel.get("seg_por_palabra"))
+    ent["_pool"] = carga["pool"]
+    if entrada_md5(ent) != h:
+        raise ValueError(f"la entrada de hoy no es la del papel ({entrada_md5(ent)} ≠ {h}): la narración o el pool cambiaron")
+    excluidos = sorted({b["ficha"]["pool_id"] for b in papel["beats"] if b.get("ficha")})
+    user = pedido(raw["entrada"])
+    resto = ("\n\nTU RESPUESTA ANTERIOR (el papel completo, como contexto):\n" + json.dumps(raw["final"], ensure_ascii=False)
+             + SUGERIR_USER.format(cap=cap, beat=nb, n=n, excluidos=", ".join(excluidos))
+             + "\n\nFormato de salida: " + FORMATO_SUGERIR)
+    t0 = time.time()
+    usd_autor = 0.0
+    usos: list[dict] = []
+    crudos: list[str] = []
+    resp, stop = None, None
+    for k in range(2):                                # sin JSON → 1 reintento, como el autor
+        r = (post or hx._post)(hx.body_cacheado(PANTALLA_SYSTEM, user, MODELO, EFFORT, resto=(
+            resto if k == 0 else _reintento(resto, [f"la respuesta no es JSON válido (stop_reason {stop})"]))))
+        u = r.get("usage") or {}
+        usos.append(u)
+        usd_autor = round(usd_autor + hx.cost_of(MODELO, u), 5)
+        if post is None:
+            hx._track(r.get("model") or MODELO, u, "m01e_sugerir")
+        stop = r.get("stop_reason")
+        txt = "".join(c.get("text") or "" for c in r.get("content") or [] if c.get("type") == "text")
+        crudos.append(txt)
+        resp = primer_json(txt)
+        log.append(f"  sugerir {cap} beat {nb} intento {k + 1}: in {hx.tokens_entrada(u)} (caché: escrito "
+                   f"{u.get('cache_creation_input_tokens') or 0}, leído {u.get('cache_read_input_tokens') or 0}) · out "
+                   f"{u.get('output_tokens')} · US$ {hx.cost_of(MODELO, u):.4f} · {'JSON' if resp is not None else 'SIN JSON'}")
+        if resp is not None:
+            break
+    propuestas = [a for a in (resp or {}).get("alternativas") or [] if isinstance(a, dict)][:n]
+    descartadas: list[dict[str, Any]] = []
+    candidatas: list[dict[str, Any]] = []
+    marcas: list[dict[str, Any]] = []
+    vistos: set[str] = set()
+    for fi in propuestas:
+        pid = str(fi.get("pool_id") or "")
+        if pid in excluidos or pid in vistos:         # en código, antes de `validar`: ver §3 A.2 (una_vez no alcanza)
+            descartadas.append({"ficha": fi, "motivo": "ya está en pantalla" if pid in excluidos else "repetida en la lista",
+                                "regla": "una_vez", "quien": "código"})
+            continue
+        vistos.add(pid)
+        resp_k = copy.deepcopy(raw["final"])
+        filas = [f for f in resp_k.get("beats") or [] if isinstance(f, dict)]
+        fila = next((f for f in filas if str(f.get("cap")) == cap and _int(f.get("beat")) == nb), None)
+        if fila is None:
+            fila = {"cap": cap, "beat": nb, "sello": None}
+            filas.append(fila)
+        fila["ficha"] = fi
+        resp_k["beats"] = filas
+        acum: list[dict[str, Any]] = []
+
+        def juez_k(ms: list[dict], caps: list[dict], _acum: list = acum) -> dict:
+            # `validar` re-marca el papel entero: lo de los otros beats ya está juzgado, no va al verificador
+            _acum.extend(m for m in ms if m.get("que") != "descarte" and (m.get("cap"), m.get("beat")) == (cap, nb))
+            return {}
+        v = validar(resp_k, ent, juez=juez_k)
+        caida = next((x for x in v["descartados"] if x.get("que") == "ficha" and x.get("cap") == cap and x.get("beat") == nb
+                      and str(x.get("pool_id")) == pid), None)
+        slot = next((s for s in v["beats"] if s["cap"] == cap and s["beat"] == nb), None)
+        if caida or not slot or not slot.get("ficha"):
+            descartadas.append({"ficha": fi, "motivo": f"{(caida or {}).get('regla', 'validación')}: {(caida or {}).get('motivo', 'sin ficha')}",
+                                "regla": (caida or {}).get("regla"), "quien": "validación"})
+            continue
+        ficha = slot["ficha"]
+        ficha.pop("juicio_verificador", None)         # el «sin veredicto» del juez que no llama: el real va abajo
+        candidatas.append(ficha)
+        marcas += acum
+    usd_v, ver = 0.0, None
+    if marcas:                                        # UNA llamada al verificador por clic
+        ver = (juez or functools.partial(pv.verificar, post=post, log=log))(marcas, ent["caps"])
+        usd_v = float(ver.get("usd") or 0.0)
+    vf = {(str(x.get("pool_id")), str(x.get("cap")), _int(x.get("beat"))): x for x in (ver or {}).get("veredictos_fichas") or []}
+    alternativas: list[dict[str, Any]] = []
+    for ficha in candidatas:
+        caida = aplicar_veredicto(ficha, cap, nb, marcas, vf)
+        if caida:
+            descartadas.append({"ficha": ficha, "motivo": f"verificador ({caida['regla']}): {caida['motivo']}",
+                                "regla": caida["regla"], "quien": "verificador"})
+        else:
+            alternativas.append(ficha)
+    out = {"cap": cap, "beat": nb, "alternativas": alternativas, "descartadas": descartadas, "excluidos": excluidos,
+           "usd": round(usd_autor + usd_v, 5), "usd_autor": usd_autor, "usd_verificador": round(usd_v, 5),
+           "segundos": round(time.time() - t0, 1), "tokens_in": hx.tokens_entrada(usos[-1]) if usos else 0, "usage": usos,
+           "verificador": {k: (ver or {}).get(k) for k in ("usage", "usd", "segundos", "pedido_md5", "error")} if ver else None,
+           **({"error": "sin JSON"} if resp is None else {})}
+    with (d / "01e_sugerir.log.jsonl").open("a", encoding="utf-8") as fl:
+        fl.write(json.dumps({"ts": time.strftime("%Y-%m-%dT%H:%M:%S"), "cap": cap, "beat": nb, "n": n, "user_md5": hashlib.md5(user.encode("utf-8")).hexdigest(),
+                             "pedido": resto, "respuesta_cruda": crudos, "resultado": out}, ensure_ascii=False) + "\n")
+    return out
 
 
 def generar(topic_id: str, steps_dir: Path | None = None, *, pool: dict | None = None,

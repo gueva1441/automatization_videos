@@ -29,6 +29,13 @@ from script_engine import m01e_pantalla as mp  # noqa: E402
 from script_engine import pantalla_verificador as pv  # noqa: E402
 
 
+
+def _txt(body: dict) -> str:
+    """F65b: el USER del autor va en bloques (caché); el texto entero."""
+    c = body["messages"][0]["content"]
+    return c if isinstance(c, str) else "".join(b["text"] for b in c)
+
+
 def JUEZ_PASA(marcas: list[dict], caps: list[dict]) -> dict:
     """F64 Etapa 3: el verificador falso de los tests: «pasa» toda ficha marcada y «no_dicho» todo descarte dudoso."""
     return {"veredictos_fichas": [{"pool_id": m["pool_id"], "cap": m["cap"], "beat": m["beat"], "veredicto": "pasa",
@@ -184,8 +191,8 @@ def test_a2_t39_la_voz_no_dice_50_millones_y_vuelve_en_el_reintento(vajont, tmp_
     pedidos: list[dict] = []
     mp.llamar(vajont, tmp_path, post=_post_seq([r1, {"beats": []}], pedidos))
     assert len(pedidos) == 2
-    assert "T39: dijiste que la voz lo dice" in pedidos[1]["messages"][0]["content"]
-    assert "«50»" in pedidos[1]["messages"][0]["content"]
+    assert "T39: dijiste que la voz lo dice" in _txt(pedidos[1])
+    assert "«50»" in _txt(pedidos[1])
 
 
 # ═══════════════════════ §A.3 prompt y pico sin ficha ═══════════════════════
@@ -206,7 +213,7 @@ def test_a3b_pico_sin_ficha_dispara_el_reintento(tmp_path):
     ent = _chico()
     pedidos: list[dict] = []
     res = mp.llamar(ent, tmp_path, post=_post_seq([{"beats": []}, {"beats": []}], pedidos))
-    assert len(pedidos) == 2 and "el beat 2 de ch02 es pico y quedó sin ficha" in pedidos[1]["messages"][0]["content"]
+    assert len(pedidos) == 2 and "el beat 2 de ch02 es pico y quedó sin ficha" in _txt(pedidos[1])
     papel = mp.armar(ent, res)
     assert {"cap": "ch02", "beat": 2} in papel["picos_vacios"]          # (y el gancho: el único beat de ch01 es su pico)
     assert "⚠ pico sin ficha" in mp.a_markdown(papel)
