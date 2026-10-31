@@ -385,6 +385,45 @@ def parada_del_papel(topic_id: str) -> str:
             + f"     Aprobar: python fase1_5.py --topic {topic_id} --aprobar-papel \"Omar <fecha>\"")
 
 
+# ═══════════════════════ F67: la PARADA de narración (la compuerta se completa en la Etapa C) ═══════════════════════
+
+def _sd(steps_dir: Path | None) -> Path:
+    return Path(steps_dir) if steps_dir is not None else STEPS_DIR
+
+
+def estado_narracion(topic_id: str, steps_dir: Path | None = None) -> tuple[bool, str]:
+    """(aprobada y vigente, por qué). Sin narración no hay nada que aprobar: no pasa."""
+    from script_engine.m01d_particion import md5_narracion
+    f = _sd(steps_dir) / topic_id / "01b_narracion_v3.json"
+    if not f.exists():
+        return False, f"no hay narración ({f})"
+    n3 = json.loads(f.read_text(encoding="utf-8"))
+    ap = n3.get("aprobado")
+    if not ap:
+        return False, "la narración no está aprobada"
+    if ap.get("md5") != md5_narracion(n3):
+        return False, (f"la narración cambió después de la aprobación de {ap.get('por')} ({ap.get('fecha')}): md5 "
+                       f"{str(ap.get('md5'))[:8]}… → {md5_narracion(n3)[:8]}…")
+    return True, f"narración aprobada por {ap.get('por')} ({ap.get('fecha')}), md5 {str(ap.get('md5'))[:8]}…"
+
+
+def parada_de_narracion(topic_id: str, steps_dir: Path | None = None) -> str:
+    """El mensaje de la PARADA de narración: por qué, dónde leer la crítica, el aviso del verificador y el comando."""
+    from script_engine import m01f_critico as mf
+    from script_engine.narracion_verificador import aviso_txt, leer_quedan
+    d = _sd(steps_dir) / topic_id
+    _, motivo = estado_narracion(topic_id, steps_dir)
+    md = d / f"{mf.ARCHIVO}.md"
+    crit = mf.cargar_critica(topic_id, steps_dir)
+    quedan = leer_quedan(d)
+    sin_critico = None if crit and crit.get("respuesta") else (crit or {}).get("error") or "no hay 01f_critico.json"
+    return (f"PARADA de narración: {motivo}.\n"
+            + (f"     Leer: {md} (o QA Studio → NARRACIÓN)\n" if md.exists() else "")
+            + (f"     ⚠ sin crítica: {sin_critico}\n" if sin_critico else "")
+            + (f"     {aviso_txt(quedan)}\n" if quedan else "")
+            + f"     Aprobar: python fase1_5.py --topic {topic_id} --aprobar-narracion \"Omar <fecha>\"")
+
+
 # ═══════════════════════ F39 §A.3: arrancar desde una semilla ═══════════════════════
 
 def leer_semilla(path: Path) -> dict:
@@ -479,22 +518,22 @@ def _verificacion_md(res: dict) -> str:
 
 
 def run_verificacion(topic_id: str, pool: dict, *, log: list[str], post=None) -> dict:
-    """F66 (DECISIONES 2026-10-31 16:13): el verificador de la narración después de la partición y antes del papel, sobre lo
-    que el espectador oye (01b_narracion_v3). F66b (DECISIONES 2026-10-31 17:25): solo verifica. No edita ni re-particiona: la
-    corrección automática se rediseña (corregir con el dato, nunca sacar, y proteger promesa y re-gancho). Escribe
-    01b_verificacion.json/.md; cada «contradice» queda como aviso (`quedan`, en el .md del papel y en `parada_del_papel`) y
-    la cadena sigue. Nunca vuelve a llamar al guionista. `post` (tests) va al verificador."""
-    import hashlib
+    """F66 (DECISIONES 2026-10-31 16:13): el verificador de la narración después de la partición (F67: y del juez) y antes del
+    crítico, sobre lo que el espectador oye (01b_narracion_v3). F66b (DECISIONES 2026-10-31 17:25): solo verifica. No edita ni
+    re-particiona: la corrección automática se rediseña (corregir con el dato, nunca sacar, y proteger promesa y re-gancho).
+    Escribe 01b_verificacion.json/.md; cada «contradice» queda como aviso (`quedan`, en las PARADAS de narración y del papel y en
+    el .md del papel) y la cadena sigue. Nunca vuelve a llamar al guionista. `post` (tests) va al verificador."""
     from script_engine import m01e_pantalla as mp
     from script_engine import narracion_verificador as nv
     from script_engine.clima import vocabulario_clima
+    from script_engine.m01d_particion import md5_narracion
     d = STEPS_DIR / topic_id
     ent = mp.entrada(mp.cargar(topic_id, STEPS_DIR, pool), vocabulario_clima())
     v = nv.verificar_caps(ent["caps"], nv.archivo_b(ent), ent["disputas"], post=post, log=log)
     log.append(f"  [verificación] {len(v['contradice'])} contradice · {len(v['sin_respaldo'])} sin respaldo · US$ {v['usd']:.4f}")
     quedan = [{k: x.get(k) for k in ("cap", "oracion", "texto", "afirmacion", "ids", "fragmento")} for x in v["contradice"]]
-    res = {"narracion_md5": hashlib.md5((d / "01b_narracion_v3.json").read_bytes()).hexdigest(), "primera": v, "quedan": quedan,
-           "usd_verificador": v["usd"]}
+    res = {"narracion_md5": md5_narracion(json.loads((d / "01b_narracion_v3.json").read_text(encoding="utf-8"))), "primera": v,
+           "quedan": quedan, "usd_verificador": v["usd"]}
     (d / f"{nv.ARCHIVO}.json").write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
     (d / f"{nv.ARCHIVO}.md").write_text(_verificacion_md(res), encoding="utf-8")
     if quedan:
@@ -504,26 +543,36 @@ def run_verificacion(topic_id: str, pool: dict, *, log: list[str], post=None) ->
     return res
 
 
+def run_critico(topic_id: str, pool: dict | None, log: list[str]) -> dict:
+    """F67 B: el crítico de retención (m01f; una llamada, con su costo en 01_v3_costos.json como paso «critico»). Sin JSON no
+    aborta: 01f_critico lleva `error` y la cadena sigue a la PARADA de narración."""
+    from script_engine import m01f_critico as mf
+    return _step_cost(topic_id, "critico", lambda: mf.generar(topic_id, STEPS_DIR, pool=pool, log=log))
+
+
 def verificar_narracion(topic_id: str) -> int:
-    """F66 `--verificar-narracion`: `run_verificacion` + `run_pantalla` sobre la narración ya escrita, sin volver a llamar
-    al guionista (el camino para un topic viejo). El juez m05 no corre acá. Devuelve el exit code; termina en la PARADA del
-    papel."""
+    """F66 `--verificar-narracion`: juez m05 + `run_verificacion` + crítico (F67 B) sobre la narración ya escrita, sin volver a
+    llamar al guionista (el camino para un topic viejo). Devuelve el exit code; termina en la PARADA de narración."""
+    from script_engine.m05_narrative import judge_narration
     f = STEPS_DIR / topic_id / "01b_narracion_v3.json"
     if not f.exists():
         raise Parada(f"{topic_id}: no hay narración ({f}): --verificar-narracion corre sobre una narración ya escrita")
     pool = _topic_v3(topic_id)["evidence_pool"]
     log: list[str] = []
+    judge_narration(topic_id, steps_dir=STEPS_DIR, pool=pool, narration=_load_step_output(topic_id, "01b_narration.json"),
+                    skeleton=_load_step_output(topic_id, "01a_skeleton.json"))
     _step_cost(topic_id, "verificacion", lambda: run_verificacion(topic_id, pool, log=log))
-    run_pantalla(topic_id, pool, log)
+    run_critico(topic_id, pool, log)
     print("\n".join(log))
-    print(f"\n  ⏸  {parada_del_papel(topic_id)}")
+    print(f"\n  ⏸  {parada_de_narracion(topic_id)}")
     return 0
 
 
 def run_guion_v4(topic_id: str, modelo: str | None = None, editor: bool = False) -> dict:
     """F11: m01b v4: guionista v4 (UNA llamada) → reparación (una ronda: cap, oración, fechas, editor) → m01d_particion
-    → verificación de la narración (F66) → papel → juez m05. Escribe 01b_guionista_v4 (texto, bloqueantes antes/después,
-    pasos), 01a_skeleton, 01b_narration, 01b_narracion_v3, 01b_verificacion y 06_judge_narrative. Si quedan bloqueantes,
+    → juez m05 → verificación de la narración (F66) → crítico (F67 B). Escribe 01b_guionista_v4 (texto, bloqueantes
+    antes/después, pasos), 01a_skeleton, 01b_narration, 01b_narracion_v3, 06_judge_narrative, 01b_verificacion y 01f_critico.
+    F67: el papel ya no corre acá: corre una vez, después del OK de Omar en la compuerta de narración. Si quedan bloqueantes,
     se reportan (no hay segunda ronda).
     F11b: `modelo` (`--modelo`) = el de toda la cadena v4 (guionista + reparación); la partición y el juez, los de
     siempre.
@@ -546,16 +595,17 @@ def run_guion_v4(topic_id: str, modelo: str | None = None, editor: bool = False)
     (d / "01b_guionista_v4.json").write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
     part = _step_cost(topic_id, "particion", lambda: md.particionar(topic, esc, r["parrafos"], pool, log=log,
                                                                      shorten=md.editor_shorten()))
-    # F66: lo que contradice el archivo queda como aviso en el papel (F66b: no se corrige solo)
+    judge = judge_narration(topic_id, steps_dir=STEPS_DIR, pool=pool, narration=part["narration"], skeleton=part["skeleton"],
+                            parrafos=part["narracion_v3"]["parrafos"], escaleta=esc)
+    # F66: lo que contradice el archivo queda como aviso (F66b: no se corrige solo)
     verif = _step_cost(topic_id, "verificacion", lambda: run_verificacion(topic_id, pool, log=log))
-    pantalla = run_pantalla(topic_id, pool, log)                 # F36 §C: después de la partición, antes de la voz
-    judge = judge_narration(topic_id, pool=pool, narration=part["narration"], skeleton=part["skeleton"])
+    critico = run_critico(topic_id, pool, log)                   # F67 B: consume las métricas del juez y la tabla del verificador
     print("\n".join(log[-12:]))
     if out["nota_b"]:
         print(f"  [v4] {out['nota_b']}")
     if r["parada"]:
         print(f"  [v4] quedan {len(r['bloqueantes_despues'])} bloqueante(s) después de la ronda única: PARADA")
-    return {"guionista": g, "reparacion": r, "particion": part, "verificacion": verif, "pantalla": pantalla, "juez": judge}
+    return {"guionista": g, "reparacion": r, "particion": part, "verificacion": verif, "critico": critico, "juez": judge}
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -574,7 +624,8 @@ def process_topic(
     editor: bool = False,
 ) -> dict:
     """Corre LA cadena (F41: la única) para 1 topic, reanudando desde from_step: m01a (compuerta → ficha → escaleta)
-    → m01b (guion v4 → partición → papel → juez) → PARADA del papel salvo aprobado → normalizer_gate → audio → m07 →
+    → m01b (guion v4 → partición → juez → verificación → crítico) → PARADA de narración salvo aprobada (F67; el papel corre con
+    `--papel`) → PARADA del papel salvo aprobado → normalizer_gate → audio → m07 →
     m03 → foto madre → assemble. Un topic sin evidence_pool v3 → PARADA antes de gastar, desde cualquier paso.
 
     Chat 119: el juez (m05 + m06) fue DESCONECTADO — tras m03 se ensambla directo el
@@ -622,9 +673,9 @@ def process_topic(
                 print(f"\n  ✅ Topic {topic_id} OK (stop after m01a) — pasos: {result['steps_completed']}")
                 return result
 
-        # m01b — guion v4 → reparación (una ronda) → partición (caps y títulos) → papel (m01e) → juez
+        # m01b — guion v4 → reparación (una ronda) → partición (caps y títulos) → juez → verificación → crítico
         if from_step in ("m01a", "m01b"):
-            print(f"  [01b] Guion v4 → reparación (una ronda) → partición → papel → juez...")
+            print(f"  [01b] Guion v4 → reparación (una ronda) → partición → juez → verificación → crítico...")
             ed = {"editor": True} if editor else {}          # F27: sin --editor, la llamada de siempre
             out = run_guion_v4(topic_id, modelo=modelo, **ed) if modelo else run_guion_v4(topic_id, **ed)
             topic = _topic_v3(topic_id)
@@ -995,14 +1046,14 @@ def main():
     parser.add_argument("--semilla", type=str, default=None, metavar="ARCHIVO.json",
                         help="F39 §A.3: con --topic <id> nuevo, investiga primero esa semilla en ese topic (research v3 + "
                              "4a–4e, registro en topics_db con respaldo topics_db.pre_<id>.json) y sigue la cadena: "
-                             "compuerta → ficha si falta → escaleta → guion → caps y títulos → papel → PARADA del papel. "
+                             "compuerta → ficha si falta → escaleta → guion → caps y títulos → juez → verificación → crítico → PARADA de narración. "
                              "Si _steps/<id>/ o el id ya existen, PARADA (no pisa nada)")
     parser.add_argument("--aprobar-papel", dest="aprobar_papel", type=str, default=None, metavar='"QUIÉN FECHA"',
                         help="F39 §A.4: escribe `aprobado: {por, fecha, md5}` en _steps/<id>/01e_pantalla.json (la "
                              "compuerta antes de la voz: sin eso, nada corre después de m01b) y no corre nada más")
     parser.add_argument("--verificar-narracion", dest="verificar_narracion", action="store_true",
-                        help="F66: verificador de la narración (lo que contradice queda como aviso) + papel nuevo sobre la narración ya escrita de "
-                             "--topic, sin volver a llamar al guionista; termina en la PARADA del papel")
+                        help="F66/F67: juez m05 + verificador de la narración (lo que contradice queda como aviso) + crítico sobre la narración ya "
+                             "escrita de --topic, sin volver a llamar al guionista; termina en la PARADA de narración")
     args = parser.parse_args()
     if args.verificar_narracion:                            # F66: un camino propio, no arrastra la cadena
         if not args.topic:

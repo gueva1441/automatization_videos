@@ -1,0 +1,32 @@
+# F67 Etapa B — validación del crítico en producción (Wittenoom)
+
+exit 0 · narración bytes `c7badfbe260f5eb24a47e780b40406b5` → `c7badfbe260f5eb24a47e780b40406b5` · `narracion_md5` 778d3e1dcd4ca545453f7a29b6a92bb3 · SYSTEM `fb3e5a9e734ff730a3b5184d88e7f38a` · USER `6c2591ad1f37cf9331a4ba88b93de1c3`
+
+Entrada contra `a/user.json` del lab: {'caps': True, 'beats': True, 'escaleta_video': True, 'archivo': True, 'disputas': True, 'metricas': False, 'verificacion': True}
+
+Claves de `metricas` del lab: ['caps', 'seg_por_palabra', 'total_min', 'total_palabras']; caps ['anios_distintos', 'cap', 'oraciones', 'palabras', 'pct', 'pct_acumulado', 'segundos', 'titulo']
+
+Claves de `metricas` del juez: ['anios_por_min_vs_mas_humano', 'cap_mas_humano', 'caps', 'personaje', 'personaje_motivo', 'pico', 'pico_motivo', 'promesa', 'seg_por_palabra', 'total_min', 'total_palabras']; caps ['anios_distintos', 'anios_por_min', 'cap', 'oraciones', 'oraciones_con_personaje', 'palabras', 'pct', 'pct_acumulado', 'personaje_en_voz', 'racha_desde_hasta', 'racha_max_sin_personaje', 'segundos', 'titulo']
+
+| nota | n DEBERÍA | ids inválidos | oraciones inválidas | cifras sin respaldo | marcas | US$ crítico | s | US$ verificador | «contradice» |
+|---|---|---|---|---|---|---|---|---|---|
+| 6.5 | 7 | — | — | — | — | 0.7203 | 166.7 | 2.4575 | 7 |
+
+| k | cap | oraciones | palabras antes → después |
+|---|---|---|---|
+| 1 | ch01 | [1] | 31 → 49 |
+| 2 | ch03 | [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31] | 363 → 216 |
+| 3 | ch05 | [4, 7] | 35 → 72 |
+| 4 | ch06 | [1, 2, 3, 4] | 37 → 49 |
+| 5 | ch06 | [10, 11, 12, 13, 14, 15, 16, 17, 18, 19] | 156 → 112 |
+| 6 | ch07 | [5, 6, 7, 8] | 79 → 45 |
+| 7 | ch07 | [12, 13, 14, 15] | 35 → 56 |
+
+Archivos del topic que cambiaron (md5):
+
+- 01_v3_costos.json: 2d800876 → 77283ace
+- 01b_verificacion.json: 00a95fee → 688c28b1
+- 01b_verificacion.md: fa7e2a9d → 7c315644
+- 01f_critico.json: — → 5af2d447
+- 01f_critico.md: — → aea41c5e
+- 06_judge_narrative.json: 75735829 → 75735829

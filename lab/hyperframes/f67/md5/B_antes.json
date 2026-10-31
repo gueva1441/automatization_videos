@@ -1,0 +1,310 @@
+{
+"00_pool_etiquetado.json": [
+"ef22437f16dc3cc78b8d2e23117efb66",
+1793158623571531300
+],
+"00_pool_v3.json": [
+"4e622cadb0a1354cd64e3c705fbc53d4",
+1793320735458064900
+],
+"01_facts_sources.json": [
+"ce10cc4aa3e60f87bdfe3bbd8ba0e77d",
+1793320735447925100
+],
+"01_v3_costos.json": [
+"2d80087644c8f4e74482fb9dbf246539",
+1793482309927572800
+],
+"01a_escaleta.json": [
+"b37cb3c76b82f47c00364734a0423458",
+1793319970113879500
+],
+"01a_skeleton.json": [
+"8af187c690e79b243b4ef79f0a2cb525",
+1793321716255518800
+],
+"01b_guionista_v4.json": [
+"54f8007f3fa460d902b75e9f3bbe8f93",
+1793321904399953400
+],
+"01b_narracion_v3.json": [
+"c7badfbe260f5eb24a47e780b40406b5",
+1793321716256563700
+],
+"01b_narration.json": [
+"31efee2de1549b3cf7bc2afbb7715deb",
+1793321716255518800
+],
+"01b_narration_normalized.json": [
+"9d9101566294d03d45a3bdd258329f7b",
+1793160304492980300
+],
+"01b_verificacion.json": [
+"00a95fee1dfae7b2ee62989ea0d2c4e7",
+1793482121935534500
+],
+"01b_verificacion.md": [
+"fa7e2a9dd2e00e09e0c29a523da9155a",
+1793482121935534500
+],
+"01e_pantalla.json": [
+"cc6ceca97aaebcbe2b8fbe8321dc4a02",
+1793482309873462600
+],
+"01e_pantalla.md": [
+"349633593373fa9212d8e1333a6d0b7e",
+1793482309873462600
+],
+"01e_pantalla.raw.json": [
+"4ddb8dbbcc46ff388ee7638419e108f7",
+1793482309867936400
+],
+"01e_sugerir.log.jsonl": [
+"aae78163dab0389b0d73427184ae85bb",
+1793480715293828500
+],
+"02_canonical.json": [
+"ddd42b5d509e243923af7ffa1f04d179",
+1793158652622492200
+],
+"03_meta.json": [
+"b91ac1b81eaea9aaec43902f90036214",
+1793158667196677500
+],
+"03_visual.json": [
+"0d57b6bad197cae073c9c88596ed6130",
+1793293252686734300
+],
+"04_summary.json": [
+"b6e9b831d41442160fadad60aa85cddd",
+1793158697441372000
+],
+"05_visual_canon.json": [
+"ea34ba68776982a671acdfaf3ea2ffd5",
+1793260912368077700
+],
+"06_judge_narrative.json": [
+"75735829a7b0ccee277144a054e641d6",
+1793489051112830300
+],
+"_perfil.json": [
+"5cf54ac0791036722ef9aebfbb915c90",
+1793158341972697700
+],
+"_r1_cache.json": [
+"41cdc56ed7c760ab2e6bd594224a587d",
+1793158332381618500
+],
+"_r3_cache/r3_F01.json": [
+"eeb06b49b474264514ae3b0587abcd24",
+1793158429009940600
+],
+"_r3_cache/r3_F03.json": [
+"598a674f777ebca7585e2772514db807",
+1793158407726355600
+],
+"_r3_cache/r3_F04.json": [
+"852d06c607c9b341f1c48d3bbe213a2c",
+1793158442228035000
+],
+"_r3_cache/r3_F05.json": [
+"c4b54d89b284a966877d2f96ff3631c3",
+1793158489645803900
+],
+"_r3_cache/r3_F06.json": [
+"0d5981be5b9adb6eeeb3c62075ca9064",
+1793158418203600900
+],
+"_r3_cache/r3_F07.json": [
+"510cad6298ab4b3cbdc0447446526874",
+1793158466313056000
+],
+"_r3_cache/r3_F08.json": [
+"7b881589b8ec20eab2f008fd7f619c37",
+1793158458751934600
+],
+"_r3_cache/r3_F09.json": [
+"950a37e48e5822dcebfa917dad8e9f1e",
+1793158516548524000
+],
+"_r3_cache/r3_F11.json": [
+"2f4fdc30cde8508a6201c4ed7eeb914f",
+1793158441951577200
+],
+"_r3_cache/r3_F12.json": [
+"dada5bdbd45c2aaf9a503bd0a1744f44",
+1793158455129789800
+],
+"_r3_cache/r3_F13.json": [
+"ff2b017a4fc6000465d1f6991f0373e4",
+1793158476164661100
+],
+"_r3_cache/r3_txt_0c5da32b2c11cfb2.json": [
+"c2c9b34ca532b1260a84eb15a408aa89",
+1793158418205616600
+],
+"_r3_cache/r3_txt_19d399e678d02cc5.json": [
+"cddcf2bbe11c5896b40d04e73e8b9d1d",
+1793158455131800600
+],
+"_r3_cache/r3_txt_28f3fd7779721378.json": [
+"7e088a22eb0683fed4ecbc2665448cb2",
+1793158407729258000
+],
+"_r3_cache/r3_txt_5157a3d83fef1546.json": [
+"a4b6eabe05dc1b9cd4a9d63afdd3518e",
+1793158516551531700
+],
+"_r3_cache/r3_txt_5fbc7fe77e52ef65.json": [
+"3eab97a2922beb06f17a51b7dcdf6855",
+1793158466317145100
+],
+"_r3_cache/r3_txt_84e4dab87963cde1.json": [
+"5b560b99f24b939d88b0d55f26b2e9a9",
+1793158476165698300
+],
+"_r3_cache/r3_txt_ba8aad6543a58d14.json": [
+"f3048a59a41e512b37e355c0053ee460",
+1793158489648806900
+],
+"_r3_cache/r3_txt_d1c4610c92f34b5f.json": [
+"39033485835a2bc836dd5c1f25d9e078",
+1793158429011843400
+],
+"_r3_cache/r3_txt_e07cd02ef1b9f472.json": [
+"af335cd9575a491c44338e21cfa268f3",
+1793158442230768700
+],
+"_r3_cache/r3_txt_e5728acef158a211.json": [
+"5013ab6c0ef6bfd689dabaeaad47dbff",
+1793158458754933000
+],
+"_r3_cache/r3_txt_ff6acf73cc17144c.json": [
+"01bea3bd107456b81f6716cafb8c4d14",
+1793158441953479200
+],
+"FICHA_123bbb64-9fca-4395-8bf4-57d60e219ef1.md": [
+"d3cf8760de6ac1e81a07c93b3fcdbc72",
+1793159126761071500
+],
+"ficha_caso.json": [
+"b02aa6f88586f5e0c8a87a80d2ccb067",
+1793159126758465600
+],
+"ficha_respuesta_cruda.json": [
+"324209174c1caccdac74c7f9dd429807",
+1793159126366041000
+],
+"fuentes/cleanupwittenoom_documentos_secretos_revelan_el_dilema-F13.html": [
+"b54d377044539ff13662a048b87fd24a",
+1793158370173014700
+],
+"fuentes/cleanupwittenoom_documentos_secretos_revelan_el_dilema-F13.txt": [
+"1b37f9f3b5d9c88f69f11caadb82e009",
+1793158370281199800
+],
+"fuentes/cleanupwittenoom_history_clean_up_wittenoom-F04.html": [
+"8ef7879b0ecb58130ef5c4d524473c33",
+1793158343927794000
+],
+"fuentes/cleanupwittenoom_history_clean_up_wittenoom-F04.txt": [
+"ae13c3742682bfab984f98c6bd65f2ab",
+1793158344920385000
+],
+"fuentes/edu_2011_untold_stories_of_wittenoom-F10.html": [
+"83103f8a35a3bdb4487ee592279df828",
+1793158348501307700
+],
+"fuentes/elpais_2026_wittenoom_espanoles_en_el_chernobil-F07.html": [
+"c1001ec45da0206ae1bc024acb165756",
+1793158352107121500
+],
+"fuentes/elpais_2026_wittenoom_espanoles_en_el_chernobil-F07.txt": [
+"daf092e3ffcdf301476eff2e73329d14",
+1793158360049094000
+],
+"fuentes/elpais_2026_wittenoom_the_spaniards_caught_up-F08.html": [
+"3539c42c4b9a17d4c3b5a87cb00300f3",
+1793158343902881600
+],
+"fuentes/elpais_2026_wittenoom_the_spaniards_caught_up-F08.txt": [
+"34319c8b3f8a85c24de96f74bf0853bd",
+1793158344694349600
+],
+"fuentes/gov_2006_management_of_asbestos_contamination_in-F01.pdf": [
+"be506042afbdae973c6a2d57f4746a5e",
+1793158345609518900
+],
+"fuentes/gov_2006_management_of_asbestos_contamination_in-F01.txt": [
+"0e5e5655d5bb0a38a8095192bda965e0",
+1793158353103209400
+],
+"fuentes/gov_2021_informacion_oficial_sobre_la_antigua-F06.pdf": [
+"d3971e5a61dec5817c08c52e66941dc1",
+1793158347637778900
+],
+"fuentes/gov_2021_informacion_oficial_sobre_la_antigua-F06.txt": [
+"de49405f6dbf1d0f5f1668c491847d4b",
+1793158355164552800
+],
+"fuentes/gov_2022_report_11_compliance_with_mining-F05.pdf": [
+"a9c6a849f43ca598d19950a73be2b674",
+1793158347478212800
+],
+"fuentes/gov_2022_report_11_compliance_with_mining-F05.txt": [
+"a37943ebe62343665c71878d2325e6b1",
+1793158361057079900
+],
+"fuentes/gov_2025_state_land_hazards_and_contaminated-F11.html": [
+"b9875e26e539eb72f556ac3f0c87275b",
+1793158349938172300
+],
+"fuentes/gov_2025_state_land_hazards_and_contaminated-F11.txt": [
+"757b830eb4a2e4f6d8d7a22353cd65fd",
+1793158360156509000
+],
+"fuentes/gov_wittenoom_gorge_the_legacy_of-F03.html": [
+"5d8232a4dd0d176727b13979c9b02847",
+1793158346541657400
+],
+"fuentes/gov_wittenoom_gorge_the_legacy_of-F03.txt": [
+"0f080f3e55cbfe589f95c89e4ec9c883",
+1793158359782577600
+],
+"fuentes/manifest.json": [
+"f2857368db1e3fdab00f6b8bd4ead7be",
+1793158387063641000
+],
+"fuentes/org_consequences_of_wittenoom-F02.pdf": [
+"ab1510f2929f0b55995a125e39bf017f",
+1793158347951761200
+],
+"fuentes/org_informacion_de_la_corporacion_aborigen-F12.html": [
+"9348b89c8f0e681bfeb8b31520cdd41d",
+1793158371411357900
+],
+"fuentes/org_informacion_de_la_corporacion_aborigen-F12.txt": [
+"106da56221b9232b4fe03773f9f65c13",
+1793158371444490300
+],
+"fuentes/toxicdocs_documento_sobre_wittenoom_de_toxicdocs-F09.pdf": [
+"c5771a606a14bdb5885e92714aeda2a8",
+1793158343976895100
+],
+"fuentes/toxicdocs_documento_sobre_wittenoom_de_toxicdocs-F09.txt": [
+"a657fa684fc98e8b0db7f37c446100f0",
+1793158350483693100
+],
+"fuentes.json": [
+"99c68139aa0bf3e3a7c32b31d5fe5fb0",
+1793158623558816200
+],
+"fuentes_r1.json": [
+"01a1201ae5dea81bfa00879734d0093a",
+1793158332395078600
+],
+"POOL_GATE.md": [
+"96c3cf82aa69037718743b7445c972b8",
+1793319684813173400
+]
+}

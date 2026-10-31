@@ -33,6 +33,15 @@ LEN_TOL = 0.15
 TITLE_MAX_WORDS = 5
 
 
+def md5_narracion(n3: dict) -> str:
+    """F67: el md5 del contenido de 01b_narracion_v3 sin `aprobado`, claves ordenadas (molde `fase1_5.md5_papel`): una narración
+    editada cambia su md5 y queda sin aprobar; aprobarla no lo cambia. La única definición: fase1_5, m01e, m01f y el verificador
+    la importan."""
+    import hashlib
+    sin = {k: v for k, v in n3.items() if k != "aprobado"}
+    return hashlib.md5(json.dumps(sin, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()
+
+
 def len_range(role: str) -> tuple[int, int]:
     """Rango de caracteres del cap: el de m01b_narrator ±15 % (F10 §2)."""
     from script_engine.m01b_narrator import _len_range

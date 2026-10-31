@@ -1,0 +1,13 @@
+{"nota_total": <número 1-10, un decimal>,
+ "resumen": ["<máx. 3 líneas: qué retiene, dónde se pierde al espectador, qué harías primero>"],
+ "gancho": {"promesa_cumplida": <true|false>, "comentario": "<1 línea>"},
+ "caps": [{"cap": "<chNN>", "nota": <número 1-10>, "personaje_en_voz": <true|false>,
+           "oraciones_seguidas_sin_personaje": <entero>, "fuerte": "<1 línea>", "debil": "<1 línea>",
+           "reengancho": "<1 línea: cómo termina y si promete algo del siguiente>"}],
+ "loops": [{"pregunta": "<…>", "abre": "<chNN:idx>", "paga": "<chNN:idx | null>", "se_recuerda": <true|false>}],
+ "pico": {"cap": "<chNN>", "pct_acumulado": <entero>, "segundos_despues": <entero>, "comentario": "<1 línea>"},
+ "cierre": "<1 línea: si vuelve al gancho y lo paga>",
+ "deberia": [{"cap": "<chNN>", "oraciones": [<idx>, …], "que_sale": "<1 línea>", "por_que_se_van": "<1 línea>",
+              "deberia_texto": "<el texto nuevo completo del tramo, con la voz del canal>", "ids": ["<id>", …]}],
+ "reglas_generales_candidatas": [{"regla": "<1 línea, para cualquier tema>", "medible_como": "<qué cuenta el código>", "por_que": "<1 línea>"}],
+ "riesgos": ["<qué no tocar o qué se pierde si se aplica un DEBERÍA>"]}

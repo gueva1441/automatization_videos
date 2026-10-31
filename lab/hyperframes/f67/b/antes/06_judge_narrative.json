@@ -1,0 +1,435 @@
+{
+ "caps": [
+  {
+   "palabras": 161,
+   "datos_usados": [],
+   "densidad": 0.0,
+   "adjetivos": 2,
+   "adj_100": 1.24,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 0.0,
+   "densidad_regex": 1.24,
+   "declarados_no_literales": [],
+   "trigramas_repetidos": 0.0361
+  },
+  {
+   "palabras": 220,
+   "datos_usados": [
+    "T34",
+    "T37",
+    "Q25",
+    "D83",
+    "T24",
+    "T36"
+   ],
+   "densidad": 2.73,
+   "adjetivos": 1,
+   "adj_100": 0.45,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 2.73,
+   "densidad_regex": 3.64,
+   "declarados_no_literales": [],
+   "trigramas_repetidos": 0.0
+  },
+  {
+   "palabras": 523,
+   "datos_usados": [
+    "Q44",
+    "T06",
+    "T13",
+    "Q54",
+    "T35"
+   ],
+   "densidad": 0.96,
+   "adjetivos": 6,
+   "adj_100": 1.15,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 0.96,
+   "densidad_regex": 3.06,
+   "declarados_no_literales": [
+    "D19",
+    "D21"
+   ],
+   "trigramas_repetidos": 0.0
+  },
+  {
+   "palabras": 232,
+   "datos_usados": [
+    "D104",
+    "T40",
+    "D87",
+    "T41"
+   ],
+   "densidad": 1.72,
+   "adjetivos": 1,
+   "adj_100": 0.43,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 1.72,
+   "densidad_regex": 2.59,
+   "declarados_no_literales": [],
+   "trigramas_repetidos": 0.0
+  },
+  {
+   "palabras": 292,
+   "datos_usados": [
+    "T49",
+    "T51",
+    "T56",
+    "D89",
+    "T64",
+    "Q35"
+   ],
+   "densidad": 2.05,
+   "adjetivos": 3,
+   "adj_100": 1.03,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 2.05,
+   "densidad_regex": 6.16,
+   "declarados_no_literales": [
+    "D27"
+   ],
+   "trigramas_repetidos": 0.0178
+  },
+  {
+   "palabras": 297,
+   "datos_usados": [
+    "Q24",
+    "Q21",
+    "T80",
+    "D02",
+    "T90",
+    "Q03"
+   ],
+   "densidad": 2.02,
+   "adjetivos": 2,
+   "adj_100": 0.67,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 2.02,
+   "densidad_regex": 6.73,
+   "declarados_no_literales": [],
+   "trigramas_repetidos": 0.024
+  },
+  {
+   "palabras": 216,
+   "datos_usados": [
+    "T92",
+    "T96",
+    "D95",
+    "T98"
+   ],
+   "densidad": 1.85,
+   "adjetivos": 1,
+   "adj_100": 0.46,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [
+    "Marcos Orellana",
+    "Peter Gordon"
+   ],
+   "densidad_hechos": 1.85,
+   "densidad_regex": 4.63,
+   "declarados_no_literales": [],
+   "trigramas_repetidos": 0.0233
+  }
+ ],
+ "video": {
+  "densidad": 1.6,
+  "adj_100": 0.82,
+  "trigramas_repetidos": 0.0119,
+  "datos_en_mas_de_2_caps": {},
+  "antagonista_nombrado": true,
+  "antagonista": "James Vernon",
+  "cliffhangers": [
+   {
+    "cap": 1,
+    "id": "T34",
+    "texto": "María Bernal y Daniel Écija se conocieron en un baile.",
+    "ok": false,
+    "en_cierre": []
+   },
+   {
+    "cap": 2,
+    "id": "Q27",
+    "texto": "El avión era pequeño, de hélice, y se movía mucho. Aterrizamos en una pista en medio de una tierra muy, muy roja. Había polvo por todas partes. Nunca había visto tanto polvo. Nos llevaron a casas de chapa, madera y fibrocemento. Ese lugar estaba extremadamente aislado, el desierto de los desiertos.",
+    "ok": true,
+    "en_cierre": [
+     "Había",
+     "pequeño"
+    ]
+   },
+   {
+    "cap": 3,
+    "id": "Q19",
+    "texto": "En Wittenoom, un pueblo levantado de la nada, se había utilizado muchísimo. Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo. Estábamos rodeados de amianto azul, pero no nos daba miedo. Nadie nos avisó de nada.",
+    "ok": true,
+    "en_cierre": [
+     "Nadie"
+    ]
+   },
+   {
+    "cap": 4,
+    "id": "T49",
+    "texto": "CSR cierra las operaciones en la mina y planta de Wittenoom debido a problemas económicos, de suministro y costos laborales.",
+    "ok": true,
+    "en_cierre": [
+     "Wittenoom"
+    ]
+   },
+   {
+    "cap": 5,
+    "id": "Q24",
+    "texto": "Así que de Wittenoom, ¿eh? Un sitio terrorífico.",
+    "ok": true,
+    "en_cierre": [
+     "Wittenoom"
+    ]
+   },
+   {
+    "cap": 6,
+    "id": "T98",
+    "texto": "Gordon Legal inicia un proceso legal en el Tribunal Federal contra el Estado de Australia Occidental en nombre de BNTAC.",
+    "ok": false,
+    "en_cierre": []
+   }
+  ],
+  "datos_distintos": 31,
+  "palabras": 1941,
+  "conteo": "por_id",
+  "caps_con_repetidos_en_cap": [],
+  "caps_fuera_de_adjetivos": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ],
+  "nombres_sin_accion": [
+   "Marcos Orellana",
+   "Peter Gordon"
+  ],
+  "cifras_no_canonicas": [],
+  "problemas_de_fechas": 0,
+  "pantalla_dichos": [],
+  "densidad_hechos": 1.6,
+  "densidad_regex": 4.12,
+  "umbral": {
+   "densidad": false,
+   "repeticion": true,
+   "adjetivacion": false,
+   "repeticion_en_cap": true,
+   "nombres": false,
+   "antagonista": true,
+   "cliffhanger": false
+  }
+ },
+ "umbrales": {
+  "densidad_min": 2.0,
+  "max_caps_por_dato": 2,
+  "trigramas_max": 0.05,
+  "adj_100_min": 2.0,
+  "adj_100_max": 4.0
+ },
+ "violaciones_narrador": {},
+ "retencion": {
+  "seg_por_palabra": 0.34,
+  "total_palabras": 1941,
+  "total_min": 11.0,
+  "caps": [
+   {
+    "cap": "ch01",
+    "titulo": "La herida que no cerraba",
+    "oraciones": 12,
+    "palabras": 161,
+    "segundos": 55,
+    "pct": 8,
+    "pct_acumulado": 8,
+    "anios_distintos": 1,
+    "anios_por_min": 1.09,
+    "oraciones_con_personaje": 0,
+    "personaje_en_voz": false,
+    "racha_max_sin_personaje": 12,
+    "racha_desde_hasta": [
+     0,
+     11
+    ]
+   },
+   {
+    "cap": "ch02",
+    "titulo": "A la tierra roja",
+    "oraciones": 18,
+    "palabras": 220,
+    "segundos": 75,
+    "pct": 11,
+    "pct_acumulado": 20,
+    "anios_distintos": 3,
+    "anios_por_min": 2.4,
+    "oraciones_con_personaje": 1,
+    "personaje_en_voz": true,
+    "racha_max_sin_personaje": 16,
+    "racha_desde_hasta": [
+     2,
+     17
+    ]
+   },
+   {
+    "cap": "ch03",
+    "titulo": "Ignorar el veneno",
+    "oraciones": 32,
+    "palabras": 523,
+    "segundos": 178,
+    "pct": 27,
+    "pct_acumulado": 47,
+    "anios_distintos": 7,
+    "anios_por_min": 2.36,
+    "oraciones_con_personaje": 0,
+    "personaje_en_voz": false,
+    "racha_max_sin_personaje": 32,
+    "racha_desde_hasta": [
+     0,
+     31
+    ]
+   },
+   {
+    "cap": "ch04",
+    "titulo": "El juego peligroso",
+    "oraciones": 19,
+    "palabras": 232,
+    "segundos": 79,
+    "pct": 12,
+    "pct_acumulado": 59,
+    "anios_distintos": 1,
+    "anios_por_min": 0.76,
+    "oraciones_con_personaje": 0,
+    "personaje_en_voz": false,
+    "racha_max_sin_personaje": 19,
+    "racha_desde_hasta": [
+     0,
+     18
+    ]
+   },
+   {
+    "cap": "ch05",
+    "titulo": "Wittenoom por dentro",
+    "oraciones": 24,
+    "palabras": 292,
+    "segundos": 99,
+    "pct": 15,
+    "pct_acumulado": 74,
+    "anios_distintos": 7,
+    "anios_por_min": 4.24,
+    "oraciones_con_personaje": 0,
+    "personaje_en_voz": false,
+    "racha_max_sin_personaje": 24,
+    "racha_desde_hasta": [
+     0,
+     23
+    ]
+   },
+   {
+    "cap": "ch06",
+    "titulo": "El polvo viaja",
+    "oraciones": 21,
+    "palabras": 297,
+    "segundos": 101,
+    "pct": 15,
+    "pct_acumulado": 89,
+    "anios_distintos": 4,
+    "anios_por_min": 2.38,
+    "oraciones_con_personaje": 0,
+    "personaje_en_voz": false,
+    "racha_max_sin_personaje": 21,
+    "racha_desde_hasta": [
+     0,
+     20
+    ]
+   },
+   {
+    "cap": "ch07",
+    "titulo": "La herida ancestral",
+    "oraciones": 16,
+    "palabras": 216,
+    "segundos": 73,
+    "pct": 11,
+    "pct_acumulado": 100,
+    "anios_distintos": 6,
+    "anios_por_min": 4.93,
+    "oraciones_con_personaje": 0,
+    "personaje_en_voz": false,
+    "racha_max_sin_personaje": 16,
+    "racha_desde_hasta": [
+     0,
+     15
+    ]
+   }
+  ],
+  "personaje": {
+   "id": "P16",
+   "nombre": "María Bernal",
+   "terminos": [
+    "maria bernal",
+    "bernal"
+   ]
+  },
+  "personaje_motivo": null,
+  "cap_mas_humano": "ch01",
+  "anios_por_min_vs_mas_humano": {
+   "ch01": 1.0,
+   "ch02": 2.2,
+   "ch03": 2.17,
+   "ch04": 0.7,
+   "ch05": 3.89,
+   "ch06": 2.18,
+   "ch07": 4.52
+  },
+  "pico": {
+   "beat": 10,
+   "cap": "ch05",
+   "idx_ultima_oracion": 23,
+   "pct_acumulado": 74,
+   "segundos_despues": 174,
+   "personaje_en_siguientes": false,
+   "n_siguientes": 3,
+   "oraciones_siguientes": [
+    "A los que pasaron por Wittenoom, el nombre los sigue.",
+    "Los que nacieron allí lo llevan escrito en el pasaporte.",
+    "En un control de aeropuerto, el policía lee la página, baja la cabeza, vuelve a mirar."
+   ]
+  },
+  "pico_motivo": null,
+  "promesa": {
+   "texto": "Un minero español vivió diez meses en un pueblo construido con polvo de asbesto azul y tardó casi treinta años en morir de eso; el pueblo ya no existe en los mapas, pero tres millones de toneladas de relaves siguen donde las dejaron.",
+   "cifras": [],
+   "cifras_en_gancho": [],
+   "faltan": [],
+   "motivo": "sin cifras en dígitos"
+  }
+ }
+}

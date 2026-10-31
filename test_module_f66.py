@@ -228,7 +228,7 @@ def test_b2_contradice_queda_como_aviso_sin_editar_ni_reparticionar(env, monkeyp
     assert r["quedan"] == [{"cap": "ch02", "oracion": 0, "texto": ORACION, "afirmacion": "la herida va a cerrar", "ids": ["D2"],
                             "fragmento": "no cerraba nunca"}]
     assert (env["d"] / "01b_narracion_v3.json").read_bytes() == n3 and (env["d"] / "01a_skeleton.json").read_bytes() == sk
-    assert r["narracion_md5"] == hashlib.md5(n3).hexdigest() and r["usd_verificador"] > 0
+    assert r["narracion_md5"] == md.md5_narracion(json.loads(n3)) and r["usd_verificador"] > 0       # F67: una sola definición
     assert nv.leer_quedan(env["d"]) == r["quedan"]
     txt = (env["d"] / "01b_verificacion.md").read_text(encoding="utf-8")
     assert "| ch02 | [0] El pie va a cerrar. | la herida va a cerrar | D2 | no cerraba nunca |" in txt
@@ -290,13 +290,14 @@ def test_b7_verificar_narracion_no_llama_al_guionista(env, monkeypatch, capsys):
     monkeypatch.setattr(f15, "_step_cost", lambda tid, label, fn: pasos.append(label) or fn())
     real = f15.run_verificacion
     monkeypatch.setattr(f15, "run_verificacion", lambda *a, **k: orden.append("verificacion") or real(*a, post=_post_verif({"ch02": [AFIRMA]}), **k))
-    monkeypatch.setattr(f15, "run_pantalla", lambda tid, pool, log: orden.append("pantalla") or {})
+    monkeypatch.setattr(f15, "run_pantalla", lambda tid, pool, log: pytest.fail("F67: el papel no corre acá"))
+    monkeypatch.setattr(f15, "run_critico", lambda tid, pool, log: orden.append("critico") or {})
     n3 = (env["d"] / "01b_narracion_v3.json").read_bytes()
     assert f15.verificar_narracion("t") == 0
-    assert orden == ["verificacion", "pantalla"] and pasos == ["verificacion"]
+    assert orden == ["verificacion", "critico"] and pasos == ["verificacion"]
     out = capsys.readouterr().out
-    assert "PARADA del papel" in out and "Aprobar:" in out and "⚠ la narración sigue contradiciendo" in out
-    assert (env["d"] / "01b_narracion_v3.json").read_bytes() == n3
+    assert "PARADA de narración" in out and "--aprobar-narracion" in out and "⚠ la narración sigue contradiciendo" in out
+    assert (env["d"] / "06_judge_narrative.json").exists() and (env["d"] / "01b_narracion_v3.json").read_bytes() == n3
 
 
 def test_b8_verificar_narracion_sin_narracion_para(env):
@@ -316,13 +317,16 @@ def test_b9_orden_de_run_guion_v4_y_el_juez_recibe_la_particion(env, monkeypatch
     monkeypatch.setattr(g4, "reparar", lambda *a, **k: orden.append("reparar") or {"parrafos": _parrafos(), "parada": False, "bloqueantes_despues": []})
     monkeypatch.setattr(g4, "metricas", lambda *a, **k: {})
     monkeypatch.setattr(g4, "nota_b", lambda: "")
-    monkeypatch.setattr(md, "particionar", lambda *a, **k: orden.append("particionar") or {"narration": "la de la partición", "skeleton": "sk"})
+    monkeypatch.setattr(md, "particionar", lambda *a, **k: orden.append("particionar") or {"narration": "la de la partición", "skeleton": "sk",
+                                                                                           "narracion_v3": {"parrafos": ["p"]}})
     monkeypatch.setattr(f15, "run_verificacion", lambda *a, **k: orden.append("verificacion") or {"quedan": []})
-    monkeypatch.setattr(f15, "run_pantalla", lambda *a, **k: orden.append("pantalla") or {})
+    monkeypatch.setattr(f15, "run_critico", lambda *a, **k: orden.append("critico") or {})
+    monkeypatch.setattr(f15, "run_pantalla", lambda *a, **k: pytest.fail("F67: el papel salió de run_guion_v4"))
     vio = {}
     monkeypatch.setattr(m5, "judge_narration", lambda tid, **k: orden.append("juez") or vio.update(k) or {})
     from researcher_steps import ficha_caso
     monkeypatch.setattr(ficha_caso, "load", lambda *a, **k: None)
     r = f15.run_guion_v4("t")
-    assert orden == ["guionista", "reparar", "particionar", "verificacion", "pantalla", "juez"]
+    assert orden == ["guionista", "reparar", "particionar", "juez", "verificacion", "critico"]         # F67 §1
     assert vio["narration"] == "la de la partición" and r["particion"]["narration"] == "la de la partición"
+    assert vio["parrafos"] == ["p"] and vio["escaleta"] == env["esc"]
