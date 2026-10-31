@@ -9,8 +9,13 @@ test_module_f38a_m01e.py — F38 §A (HANDOFF_F38_reintento_tarjeta_juez), la pa
           a la de m01e-1 (m01e-4) y nada en script_engine llama a ESE juez (el de anclaje de F38). F64 Etapa 3 trae
           `juez` = el verificador de fichas (pantalla_verificador, el parámetro `juez` de validar/llamar): es otro.
     F64 Etapa 3: las coincidencias `spoiler`/`no_dicho`/`contradice` del intento 1 de F37 (D47, T15, T39, D105, D161) ya
-          no son preguntas al autor ni motivos: son marcas que el verificador juzga; con JUEZ_PASA quedan y los beats
-          con motivo son solo los de los `a_pantalla` vacíos (ch05 b8, ch07 b13) más el descarte Q15 que vuelve.
+          no son preguntas al autor ni motivos: son marcas que el verificador juzga; con JUEZ_PASA quedan.
+    F65a Etapa A (DECISIONES 2026-10-31 15:49): un beat sin su `a_pantalla` (ch05 b8 sin Q50, ch07 b13 sin D245) ya no
+          es motivo ni clave: queda en `a_pantalla_vacios`. Con eso el ÚNICO motivo del intento 1 de F37 es el descarte
+          Q15 que vuelve (sin beat) → `beats_con_motivo` vacío → `llamar` cierra «sin beat» con 1 POST y sin vueltas.
+          La fusión parcial (lo del intento 1 sobrevive, el cambio en un beat sin motivo se ignora) se mide con
+          `fusionar` + `validar` directo sobre los beats que hasta F64 tenían motivo (el camino por `llamar` ya no pasa
+          por ahí con estos datos).
 Sin API: el autor va con POST falsos; el verificador es JUEZ_PASA. El papel de F37 se lee de su copia congelada
 (lab/hyperframes/f37/c).
 """
@@ -134,40 +139,40 @@ def test_a1_lo_del_intento_1_sobrevive_al_reintento_parcial(vajont, raw37, tmp_p
     assert all(_fila(v1, c, b)["ficha"]["juicio_verificador"]["tokens"] for c, b in
                (("ch02", 3), ("ch03", 4), ("ch04", 6), ("ch04", 7), ("ch05", 8)))
     assert not [d for d in v1["descartados"] if d.get("quien") == "verificador"]
-    # F38c §A.1: ch07 b13 (T92, sin su `a_pantalla` D245) tiene motivo; ch05 b8 también (sin su `a_pantalla` Q50)
-    assert beats_m == [("ch05", 8), ("ch07", 13)]
+    # F65a Etapa A: ch05 b8 (sin su `a_pantalla` Q50) y ch07 b13 (T92, sin D245) ya no son motivo: solo aviso
+    assert [(a["cap"], a["beat"]) for a in v1["a_pantalla_vacios"]] == [("ch05", 8), ("ch07", 13)]
+    assert not any(str(c[0]) == "a_pantalla" for c in v1["claves"])
     vuelve = [mb for m, mb in zip(v1["motivos"], v1["motivos_beat"]) if "vuelve a ser candidato" in m]
     assert vuelve and all(mb == [] for mb in vuelve)                      # Q15: sin beat
-    # por llamar: el reintento ve el papel entero como contexto y pide solo los cambios de esos beats
-    pedidos: list[dict] = []
-    res = mp.llamar(vajont, tmp_path,
-                    post=_post_seq([r1, _cambios_desde_f37(raw37, beats_m)], pedidos))
-    # F38d §A.1 / F64: después de la vuelta 1 quedan motivos (Q15 vuelve y ch05 b8 sigue sin Q50) con claves distintas
-    # (ch07 b13 ya tiene D245) → vuelta 2 con solo ch05 b8; el POST repite la misma respuesta, las claves se repiten →
-    # cierra «sin progreso» (3 llamadas del autor; el verificador no pasa por el POST)
-    assert len(pedidos) == 3
-    p2 = pedidos[1]["messages"][0]["content"]
-    assert "TU RESPUESTA ANTERIOR (el papel completo, como contexto)" in p2 and mp.FORMATO_REINTENTO in p2
-    assert "ch05 beat 8, ch07 beat 13" in p2 and "ch02 beat 3" not in p2
-    rt = res["reintento"]
-    assert rt["tipo"] == "parcial"
-    # F38d: el reintento único de F38 es la vuelta 1 (lo de `rt` es la unión de las vueltas)
-    v1r = rt["vueltas"][0]
-    assert {(i["cap"], i["beat"]) for i in v1r["ignorados"]} == {("ch06", 11)}
-    assert all(i["motivo"] == "el beat no tiene motivo" for i in rt["ignorados"])
-    assert [v["vuelta"] for v in rt["vueltas"]] == [1, 2] and rt["vueltas"][1]["beats"] == [("ch05", 8)]
-    assert "ch05 beat 8." in pedidos[2]["messages"][0]["content"] and rt["cierre"] == "sin progreso"
-    fin = res["validacion"]
+    assert len(v1["motivos"]) == 1 and v1["claves"] == [("voz_lo_dice", "Q15")] and beats_m == []
+    # la fusión parcial, directa (los beats que hasta F64 tenían motivo): lo del intento 1 sobrevive, el cambio de ch06
+    # b11 (sin motivo) se ignora y se anota, el de ch07 b13 entra (D245; su sello MEMORIA cae: ya salió en ch06 b11)
+    bm = [("ch05", 8), ("ch07", 13)]
+    fus, aplicados, ignorados = mp.fusionar(r1, _cambios_desde_f37(raw37, bm), bm)
+    assert [(a["cap"], a["beat"], a["partes"]) for a in aplicados] == [("ch05", 8, ["ficha"]), ("ch07", 13, ["ficha", "sello"])]
+    assert [(i["cap"], i["beat"], i["motivo"]) for i in ignorados] == [("ch06", 11, "el beat no tiene motivo")]
+    fin = mp.validar(fus, vajont)
     assert _fila(fin, "ch06", 11)["ficha"]["pool_id"] == "D128" and _fila(fin, "ch06", 11)["sello"]["palabra"] == "MEMORIA"
     assert _fila(fin, "ch03", 4)["sello"]["palabra"] == "AVISO"
-    # F38c §A.1: el cambio de ch07 b13 se aplica (tiene motivo): entra D245; su sello MEMORIA cae (ya salió en ch06 b11)
     assert _fila(fin, "ch07", 13)["ficha"]["pool_id"] == "D245" and _fila(fin, "ch07", 13)["sello"] is None
     assert any(d.get("cap") == "ch07" and d.get("beat") == 13 and d["que"] == "sello" and d["texto"] == "MEMORIA"
                for d in fin["descartados"] if d.get("quien") == "validación")
-    # lo cambiado con motivo sí entra (D131 de ch01 no tenía motivo: queda en [15], como el intento 1)
-    assert _fila(res["final"], "ch01", 1)["ficha"]["sentence_idx"] == 15
-    papel = mp.armar(vajont, res)
-    assert papel["reintento"]["ignorados"] and "### Reintento parcial" in mp.a_markdown(papel)
+    assert [(a["cap"], a["beat"]) for a in fin["a_pantalla_vacios"]] == [("ch05", 8)]   # D245 ya está en ch07 b13
+    assert _fila(fus, "ch01", 1)["ficha"]["sentence_idx"] == 15                       # D131 sin motivo: queda en [15]
+    # por llamar: el único motivo (Q15) no tiene beat → no hay reintento: cierra «sin beat» con 1 POST (el del intento 1)
+    pedidos: list[dict] = []
+    res = mp.llamar(vajont, tmp_path, post=_post_seq([r1, _cambios_desde_f37(raw37, bm)], pedidos))
+    rt = res["reintento"]
+    assert len(pedidos) == 1 and rt["cierre"] == "sin beat" and rt["vueltas"] == [] and rt.get("tipo") is None
+    assert rt["sin_beat"] == v1["motivos"] and res["claves"] == [["voz_lo_dice", "Q15"]]
+    assert _fila(res["final"], "ch06", 11)["ficha"]["pool_id"] == "D128"               # el intento 1, tal cual
+    assert _fila(res["final"], "ch07", 13)["ficha"]["pool_id"] == "T92"
+    assert (tmp_path / f"{mp.ARCHIVO}.raw.json").exists()
+    raw = json.loads((tmp_path / f"{mp.ARCHIVO}.raw.json").read_text(encoding="utf-8"))
+    assert len(raw["intentos"]) == 1 and raw["reintento"]["cierre"] == "sin beat"
+    md = mp.a_markdown(mp.armar(vajont, res))
+    assert "### Motivos sin beat (no hubo reintento)" in md and "cerró por: **sin beat**" in md
+    assert "### Reintento parcial" not in md
 
 
 def test_a1_fusionar_null_borra_ausente_no_cambia_y_beat_sin_motivo_se_ignora():

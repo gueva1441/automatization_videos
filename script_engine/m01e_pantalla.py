@@ -433,7 +433,8 @@ def validar(resp: Any, ent: dict[str, Any], *, juez: Callable[[list[dict], list[
     a_pantalla_vacios, motivos, motivos_beat, claves}. F38 §A.1: `motivos_beat` = por motivo, los (cap, beat) que el
     reintento parcial puede cambiar; F64 Etapa 3: `claves` = por motivo, la clave estable (regla, pool_id, cap, beat,
     token) con la que `llamar` mide el progreso.
-    F37 §A.1b fecha del relato y §A.1c cita sin fecha; F38c §A.1 `a_pantalla_vacios`; F38e §C.3 `respaldo`; §C.4 `autor`.
+    F37 §A.1b fecha del relato y §A.1c cita sin fecha; F38c §A.1 `a_pantalla_vacios` (F65a Etapa A: aviso en el JSON y
+    el .md, ya no motivo de vuelta ni clave); F38e §C.3 `respaldo`; §C.4 `autor`.
     F64 Etapa 3 (DECISIONES 2026-10-31 14:20): `no_dicho`, `spoiler`, `contradice` y `fecha_relato` no cortan: cada
     coincidencia es una marca (pool_id, cap, beat, sentence_idx, oracion_ancla, etiqueta, texto, respaldo,
     dato_archivo, regla, coincidencia {token, cap, idx, oracion}); los descartes «voz_lo_dice» que `voz_no_lo_dice`
@@ -578,7 +579,7 @@ def validar(resp: Any, ent: dict[str, Any], *, juez: Callable[[list[dict], list[
         dudas[v["pool_id"]]["verificado"] = f"falso: la voz no dice {v['falta']}"
     picos_vacios = [{"cap": s["cap"], "beat": s["beat"]} for s in out_beats if s["pico"] and not s["ficha"]]
     # F38c §A.1: el beat que tiene `a_pantalla` y cuya ficha no es ninguno de ellos (vacía u otro id); si lleva uno, los
-    # demás de ese beat no cuentan («como máximo una ficha por beat» del prompt)
+    # demás de ese beat no cuentan («como máximo una ficha por beat» del prompt). F65a: solo aviso, no motivo
     a_pantalla_vacios = []
     for s in out_beats:
         ids = [x for x in ent["archivo"] if (x.get("a_pantalla") or {}).get("beat") == s["beat"]
@@ -589,6 +590,7 @@ def validar(resp: Any, ent: dict[str, Any], *, juez: Callable[[list[dict], list[
     # F38 §A.1: cada motivo con los beats que puede cambiar el reintento (`motivos_beat`, lista paralela a `motivos`):
     # la ficha caída → su beat (y, si la oración existe y es de otro beat, también ese: ahí puede ir); el pico vacío →
     # su beat; el descarte que vuelve → [] (no tiene beat: va en cualquier beat con motivo). F64 Etapa 3: `claves`.
+    # F65a Etapa A: el beat sin su `a_pantalla` ya no es motivo.
     motivos, motivos_beat, claves = [], [], []
     for d in desc:
         if d.get("que") != "ficha":
@@ -612,12 +614,8 @@ def validar(resp: Any, ent: dict[str, Any], *, juez: Callable[[list[dict], list[
         motivos.append(f"el beat {p['beat']} de {p['cap']} es pico y quedó sin ficha")
         motivos_beat.append([(p["cap"], p["beat"])])
         claves.append(("pico", p["cap"], p["beat"]))
-    for a in a_pantalla_vacios:                             # F38c §A.1
-        motivos.append(f"el beat {a['beat']} de {a['cap']} quedó sin ninguno de los datos que la escaleta dejó para la "
-                       f"pantalla porque la voz no los dice: "
-                       + ", ".join(f"{x['id']} («{x['por_que']}»)" for x in a["ids"]))
-        motivos_beat.append([(a["cap"], a["beat"])])
-        claves.append(("a_pantalla", a["cap"], a["beat"]))
+    # F65a Etapa A (DECISIONES 2026-10-31 15:49): un beat sin su `a_pantalla` ya NO es motivo de vuelta ni clave; queda
+    # en `a_pantalla_vacios` (JSON, ⚠ en el .md). Reemplaza la parte «motivo de reintento» de F38c §A.1.
     return {"beats": out_beats, "relojes": relojes,
             "descartados": desc, "fichas_fuera": fichas_fuera, "marcas": marcas, "verificador": ver, "vuelven": vuelven,
             "picos_vacios": picos_vacios, "a_pantalla_vacios": a_pantalla_vacios, "motivos": motivos,
@@ -866,12 +864,12 @@ def llamar(ent: dict[str, Any], out_dir: Path, *, post: Callable[[dict], dict] |
     stop_reason}; cada llamada al POST es un intento, en orden. `juez` (tests) reemplaza al verificador; por defecto
     `pantalla_verificador.verificar` con el mismo `post` y `log` (F64 Etapa 3).
     F37 §A.5: los motivos van juntos (fichas caídas por el código y por el verificador, descartes «la voz lo dice» que
-      vuelven, picos sin ficha, `a_pantalla` vacíos). F38 §A.1: el reintento es parcial (`fusionar`): solo los beats
+      vuelven, picos sin ficha; F65a: ya no los `a_pantalla` vacíos, que quedan como aviso). F38 §A.1: el reintento es parcial (`fusionar`): solo los beats
       con motivo (`beats_con_motivo`). El JSON que no parsea sigue con el reintento de JSON completo de siempre (no es
       parcial) y esa respuesta es final (F38d §A.1.6). F38b: los motivos son solo los de la validación en papel.
     F38d §A.1 / F64 Etapa 3: VUELTAS. Hay otra vuelta mientras haya motivos y el conjunto de sus CLAVES
       (regla, pool_id, cap, beat, token; el descarte que vuelve ("voz_lo_dice", pool_id); pico ("pico", cap, beat);
-      a_pantalla ("a_pantalla", cap, beat)) no sea igual al de NINGUNA vuelta anterior (no solo la inmediata: evita el
+      F65a: el beat sin su a_pantalla ya no es motivo ni clave) no sea igual al de NINGUNA vuelta anterior (no solo la inmediata: evita el
       ciclo A→B→A); el texto con el motivo del verificador se le manda al autor igual. Cierres (`reintento.cierre`):
       «sin motivos», «sin progreso», «sin JSON», «sin beat»; `cerrar` guarda el papel y SU validación: ya no hay una
       validación distinta al cerrar. `reintento.vueltas`: por vuelta {vuelta, beats, motivos, claves, aplicados,

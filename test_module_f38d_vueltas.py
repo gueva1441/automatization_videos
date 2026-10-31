@@ -7,7 +7,9 @@ test_module_f38d_vueltas.py — F38d §A (HANDOFF_F38d_vueltas_y_caben), los tes
           al cerrar: es una marca que juzga pantalla_verificador en una llamada; test_1 se reescribió (D241 llega como
           marca `contradice` y con un juez que la pasa queda con `juicio_verificador`; con uno que la corta cae con
           quien «verificador»); se borraron `confirmados`, `juicio_autor`, `cortados_al_cierre`, la «validación final»
-          y el chequeo 5 con juicio (helpers _cortados, _seccion_sin_pregunta, _chequeo5, PREGUNTA_D241, PREGUNTAS);
+          y el chequeo 5 con juicio (helpers _cortados, _seccion_sin_pregunta, _chequeo5, PREGUNTA_D241, PREGUNTAS).
+          F65a Etapa A (DECISIONES 2026-10-31 15:49): el beat sin su `a_pantalla` ya no es motivo ni clave (test_2: las
+          claves del beat 8 son «caben» Q50 y «pico»; la de `a_pantalla` no existe más);
     §A.2  «caben» igual en el prompt, en el motivo y en el código: la línea del prompt (m01e-5, literal) y el motivo
           con el desglose (etiqueta + dato + autor con comillas y raya; el máximo del beat).
 Sin API: el autor va con POST falsos y el verificador es JUEZ_PASA. La entrada de Fase 1 de Vajont y el papel de F38c
@@ -191,7 +193,8 @@ def test_1_d241_llega_como_marca_contradice_y_el_verificador_decide(ent, r1, r2)
 def test_2_sin_progreso_cierra(ent, r1, r2, tmp_path):
     """F64 Etapa 3: el cierre es por CLAVES (regla, pool_id, cap, beat, token), no por el texto de los motivos: la
     vuelta 1 cambia la Q50 de 118 a 109 caracteres (sigue sin caber) → el texto del motivo cambia, la clave
-    («caben», Q50, ch05, 8) no, y con ella el pico y el `a_pantalla` del beat 8 → cierra «sin progreso»."""
+    («caben», Q50, ch05, 8) no, y con ella el pico del beat 8 → cierra «sin progreso». F65a Etapa A: el beat 8 sin su
+    `a_pantalla` Q50 sigue en `a_pantalla_vacios` pero ya no es clave."""
     solo_q50 = {"cambios": [_copia(_cambio(r2, "ch05", 8))]}
     pedidos: list[dict] = []
     res = mp.llamar(ent, tmp_path, post=_post_seq([r1, solo_q50, solo_q50], pedidos))
@@ -203,8 +206,8 @@ def test_2_sin_progreso_cierra(ent, r1, r2, tmp_path):
     fin = res["validacion"]
     assert vs[0]["motivos"] != fin["motivos"]                 # el texto cambió (Q50 de 118 → 109 car.)…
     assert sorted(map(tuple, vs[0]["claves"])) == sorted(map(tuple, fin["claves"]))   # …las claves no
-    assert {tuple(c) for c in fin["claves"]} == {("caben", "Q50", "ch05", 8, None), ("pico", "ch05", 8),
-                                                 ("a_pantalla", "ch05", 8)}
+    assert {tuple(c) for c in fin["claves"]} == {("caben", "Q50", "ch05", 8, None), ("pico", "ch05", 8)}
+    assert [(a["cap"], a["beat"]) for a in fin["a_pantalla_vacios"]] == [("ch05", 8)]    # aviso, no clave (F65a)
     assert any("Q50" in m and "109" in m for m in fin["motivos"])
     assert any(d.get("pool_id") == "Q50" and d["regla"] == "caben"
                for d in fin["descartados"] if d.get("quien") == "validación")
