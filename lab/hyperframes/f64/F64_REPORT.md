@@ -1,6 +1,6 @@
 # F64_REPORT — El papel a producción: Opus + entrada completa, sin tope, y el verificador decide los cortes
 
-Handoff `lab/hyperframes/f64/HANDOFF_F64_papel_a_produccion.md` (md5 8e02950969854ba7bee830e102aec980) · rama `f11-guion-v4` · base `b9979f6` · 2026-10-31 · CC Opus medium. Commits: `0e849f4` (Etapa 0) · `f82f35b` (Etapa 1) · `4ec3102` (Etapa 2) · `7b48ebf` (Etapa 3) · Etapa 4 + reporte: el commit de cierre.
+Handoff `lab/hyperframes/f64/HANDOFF_F64_papel_a_produccion.md` (md5 8e02950969854ba7bee830e102aec980) · rama `f11-guion-v4` · base `b9979f6` · 2026-10-31 · CC Opus medium. Commits: `0e849f4` (Etapa 0) · `f82f35b` (Etapa 1) · `4ec3102` (Etapa 2) · `7b48ebf` (Etapa 3) · `43eba23` (Etapa 4 + reporte).
 
 ## 0. Antes de tocar nada: los llamadores de `m01e_pantalla` (§2.5)
 
