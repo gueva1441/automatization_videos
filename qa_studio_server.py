@@ -2073,7 +2073,8 @@ def narracion_vista(state: "QAState") -> dict:
         deberia = [{"k": k, "oraciones": x.get("oraciones"), "que_sale": x.get("que_sale"), "por_que_se_van": x.get("por_que_se_van"),
                     "deberia_texto": x.get("deberia_texto"), "ids": x.get("ids"),
                     **{c: filas.get(k, {}).get(c) for c in ("palabras_antes", "palabras_despues", "cifras_sin_respaldo", "marcas")},
-                    "aplica": bool(filas.get(k)) and mf.aplica(filas[k], pars)}
+                    "aplica": bool(filas.get(k)) and mf.aplica(filas[k], pars),
+                    "oraciones_actuales": mf.oraciones_actuales(filas[k], pars) if k in filas else []}
                    for k, x in enumerate(deb, start=1) if x.get("cap") == cid]
         caps.append({"cap": cid, "titulo": titulos.get(n), "nota": cc.get("nota"), "fuerte": cc.get("fuerte"), "debil": cc.get("debil"),
                      "reengancho": cc.get("reengancho"), "personaje_en_voz": cc.get("personaje_en_voz"),

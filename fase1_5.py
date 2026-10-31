@@ -4,8 +4,9 @@ fase1_5.py — Orchestrator del motor de guion (m01a → m03 → assemble)
 F41 (DECISIONES 2026-10-27 20:59): UNA sola cadena, la de F39 con guion v4, para todo topic (sin flags ni
 `guion_version` que la elijan):
   m01a  compuerta del pool → ficha si falta → escaleta
-  m01b  guion v4 → reparación → partición (caps y títulos) → verificación de la narración (F66) → papel (m01e) → juez m05
-  PARADA del papel salvo `--aprobar-papel` vigente
+  m01b  guion v4 → reparación → partición (caps y títulos) → juez m05 → verificación de la narración (F66) → crítico (F67)
+  PARADA de narración salvo `--aprobar-narracion` vigente
+  papel (m01e, `--papel`, una vez sobre la narración aprobada) → PARADA del papel salvo `--aprobar-papel` vigente
   normalizer_gate → audio → m07 → m03 → foto madre → assemble (data/scripts/<topic_id>.json, el contrato que lee
   fase2a)
 Un topic sin evidence_pool v3 (`_research_v3`, el research v3) para antes de gastar, con su motivo. La cadena vieja
@@ -19,18 +20,21 @@ Cada módulo persiste su output en data/scripts/_steps/<topic_id>/.
 
 Uso:
   python fase1_5.py                              menú: elegir 1 topic validado y correr la cadena desde m01a
-  python fase1_5.py --topic <id> --batch         corre la cadena de 1 topic (hasta la PARADA del papel)
+  python fase1_5.py --topic <id> --batch         corre la cadena de 1 topic (hasta la PARADA de narración)
   python fase1_5.py --topic <id> --from normalizer_gate --batch
                                                  con el papel aprobado: voz, música, m03, foto madre y assemble
   python fase1_5.py --topic <id> --only m03      corre SOLO m03 y corta (sin arrastrar la cadena)
   python fase1_5.py --topic <id> --only m01b     corre SOLO m01b y corta
   python fase1_5.py --semilla <s.json> --topic <id_nuevo> --batch
-                                                 F39: de la semilla al papel (research → ficha → escaleta → guion →
-                                                 caps → papel) y PARADA del papel
+                                                 F39: de la semilla a la narración (research → ficha → escaleta → guion →
+                                                 caps → juez → verificación → crítico) y PARADA de narración
+  python fase1_5.py --topic <id> --aprobar-narracion "Omar <fecha>"
+                                                 F67: aprueba la narración (md5); no corre nada más
+  python fase1_5.py --topic <id> --papel         F67: el papel, una vez, sobre la narración aprobada; PARADA del papel
   python fase1_5.py --topic <id> --aprobar-papel "Omar <fecha>"
                                                  F39: aprueba el papel (md5); recién ahí sigue a la voz
   python fase1_5.py --topic <id> --verificar-narracion
-                                                 F66: verificador (lo que contradice queda como aviso) + papel nuevo
+                                                 F66/F67: juez + verificador (lo que contradice queda como aviso) + crítico
                                                  sobre la narración ya escrita, sin volver a llamar al guionista
 
 Flags:
@@ -175,7 +179,7 @@ def _load_narration(topic_id: str) -> dict:
 
 
 # ═══════════════════════════════════════════════════════════════
-#  LA CADENA (F39/F41): compuerta → ficha → escaleta → guion v4 → partición → papel → juez
+#  LA CADENA (F39/F41/F67): compuerta → ficha → escaleta → guion v4 → partición → juez → verificación → crítico → PARADA
 # ═══════════════════════════════════════════════════════════════
 
 def pool_v3(topic: dict) -> bool:
@@ -743,6 +747,12 @@ def process_topic(
             result.update(status="PARADA", parada="narracion", motivo=motivo)
             return result
         print(f"  [narración] {motivo}")
+        # F67 C: un papel que salió de otra narración no pasa, aunque esté aprobado (--from no mira `etapa_de`)
+        falta = papel_falta(topic_id)
+        if falta:
+            print(f"\n  ⏸  PARADA del papel: {falta}. Correr: python fase1_5.py --topic {topic_id} --papel")
+            result.update(status="PARADA", parada="papel", motivo=falta)
+            return result
 
         # F39 §A.4 (DECISIONES 2026-10-26 19:54): nada después de m01b (la voz se paga) sin el papel aprobado y vigente;
         # vale también al reanudar (--from normalizer_gate / audio / m07 / m03).

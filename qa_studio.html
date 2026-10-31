@@ -1109,7 +1109,7 @@ function nnParrafo(p,marcadas){
 }
 function nnDeberia(d){
   const lista=v=>(v&&v.length)?v.map(x=>esc(x)).join(', '):'—';
-  return `<div class="nn-deb ${d.aplica?'':'muerta'}"><div class="nn-h">DEBERÍA ${d.k} · oraciones ${esc((d.oraciones||[]).join(', '))} · ${d.palabras_antes??'—'} → ${d.palabras_despues??'—'} palabras</div>
+  return `<div class="nn-deb ${d.aplica?'':'muerta'}"><div class="nn-h">DEBERÍA ${d.k} · oraciones ${esc(((d.aplica?d.oraciones_actuales:d.oraciones)||[]).join(', '))} · ${d.palabras_antes??'—'} → ${d.palabras_despues??'—'} palabras</div>
     <div class="pp-ap"><b>Sale:</b> ${esc(d.que_sale)}</div><div class="pp-ap"><b>Por qué se van:</b> ${esc(d.por_que_se_van)}</div>
     <div class="nn-tx">${esc(d.deberia_texto)}</div>
     <div class="pp-meta">ids ${lista(d.ids)} · cifras sin respaldo ${lista(d.cifras_sin_respaldo)} · marcas ${lista(d.marcas)}</div>
@@ -1143,7 +1143,7 @@ function nnRender(){
     ${r.riesgos?nnPlegado(`riesgos (${r.riesgos.length})`,`<ul>${r.riesgos.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`):''}
     ${r.reglas_generales_candidatas?nnPlegado(`reglas candidatas (${r.reglas_generales_candidatas.length})`,`<ul>${r.reglas_generales_candidatas.map(x=>`<li>${esc(x.regla)} · <i>medible:</i> ${esc(x.medible_como)} · <i>por qué:</i> ${esc(x.por_que)}</li>`).join('')}</ul>`):''}
     ${(n.caps||[]).map(cp=>{
-      const t=cp.metricas||{}, marcadas=new Set(cp.deberia.filter(d=>d.aplica).flatMap(d=>d.oraciones||[]));
+      const t=cp.metricas||{}, marcadas=new Set(cp.deberia.flatMap(d=>d.oraciones_actuales||[]));
       return `<div class="pp-cap"><small>${esc(cp.cap)}</small>${esc(cp.titulo||'')}${cp.nota!=null?` · ${esc(String(cp.nota))}`:''}</div>
       <div class="nn-met">${t.palabras??'—'} palabras · ${t.segundos??'—'} s · ${t.pct??'—'} % · ${t.anios_por_min??'—'} años/min · racha sin personaje ${cp.racha_max_sin_personaje??'—'} · personaje en voz (crítico) ${nnSi(cp.personaje_en_voz)}
         ${cp.fuerte?`<br><b>Fuerte:</b> ${esc(cp.fuerte)}`:''}${cp.debil?`<br><b>Débil:</b> ${esc(cp.debil)}`:''}${cp.reengancho?`<br><b>Re-enganche:</b> ${esc(cp.reengancho)}`:''}</div>

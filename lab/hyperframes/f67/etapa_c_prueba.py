@@ -23,8 +23,11 @@ import steps_md5  # noqa: E402
 TID, D, C = steps_md5.TID, steps_md5.STEPS, AQUI / "c"
 
 
+VENV = Path(r"C:\CLAUDE_PROJECTS\viral-video-pipeline\.venv\Scripts\python.exe")   # el Python con el que corre la cadena: `dependencias` frena a los otros
+
+
 def correr_pipeline() -> str:
-    p = subprocess.run([sys.executable, "run_pipeline.py", "--topic", TID, "--batch"], cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace",
+    p = subprocess.run([str(VENV), "run_pipeline.py", "--topic", TID, "--batch"], cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace",
                        env={**__import__("os").environ, "PYTHONIOENCODING": "utf-8"})
     return f"exit {p.returncode}\n" + "\n".join(x for x in p.stdout.splitlines() if "viral_pipeline" not in x)
 
@@ -155,7 +158,7 @@ def main() -> None:
          "## 3. Prueba sobre la copia (`lab/hyperframes/f67/c/<tid>/`)", ""] + copia + [f"Archivos del topic REAL que cambiaron durante la prueba: {cambio3 or 'ninguno'}", ""]
     (C / "SALIDA_C.md").write_text("\n".join(L), encoding="utf-8", newline="\n")
     print("\n".join(L))
-    assert not cambio1 and not cambio2 and not cambio3 and not errores
+    assert not cambio1 and not cambio2 and not cambio3 and not errores and "exit 0" in salida and "Frenó en: NARRACION" in salida
 
 
 if __name__ == "__main__":

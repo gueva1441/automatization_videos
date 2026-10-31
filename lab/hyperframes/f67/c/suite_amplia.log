@@ -1,31 +1,49 @@
 bringing up nodes...
 bringing up nodes...
 
-...........s.....s........s......s.........s............................ [  4%]
-................................................s........s.s....s.s..... [  9%]
-..........................s............................................. [ 14%]
-....................................s...s............................... [ 18%]
-..............s.s.s..s.................................................. [ 23%]
-........................................................................ [ 28%]
-..................................................ss..s................. [ 32%]
-...............s.......s.............................s.................. [ 37%]
-......s................................................................. [ 42%]
+....ss.......s...........s.....s......s....s............................ [  4%]
+...................................................................s..s. [  9%]
+.............................s.....................ss..s.s.............. [ 13%]
+........................................................................ [ 18%]
+....................................................s..ss............... [ 23%]
+................s....................................................... [ 27%]
+.........................................................s...s.....ss... [ 32%]
+....s........................................................s......s... [ 37%]
+........................................................................ [ 41%]
 ........................................................................ [ 46%]
-...............ss.............s......................................... [ 51%]
-........................................................................ [ 56%]
+..........................................................s............. [ 51%]
+..................ss.................................................... [ 55%]
 ........................................................................ [ 60%]
 ........................................................................ [ 65%]
-........................................................................ [ 70%]
-........................................................................ [ 74%]
-....x...........x....................................................... [ 79%]
-........................................................................ [ 84%]
+........................................................................ [ 69%]
+....................................x..x................................ [ 74%]
+........................................................................ [ 79%]
+........................................................................ [ 83%]
 ........................................................................ [ 88%]
 ........................................................................ [ 93%]
-......................................s.F.........F.........x........... [ 98%]
-.........F.F....s...s.........                                           [100%]
+.......................s........F..F..........F.....x................... [ 97%]
+.................F..........s...                                         [100%]
 ================================== FAILURES ===================================
+_____________________ test_cues_sin_escribir_el_proyecto ______________________
+[gw12] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+server = (<gfx_lab_server.LabSession object at 0x000001879A077190>, 'http://127.0.0.1:60270')
+
+    @needs_data
+    def test_cues_sin_escribir_el_proyecto(server):
+        session, url = server
+        before = (session.project / "index.html").stat().st_mtime_ns
+        r = _post(url + "/cues", {"plan": session.director_plan(), "tokens": {}})
+>       assert any(c["block"] == "archive_clipping" for c in r["cues"]) and r["rejected"] == []
+E       AssertionError: assert (True and [{'block': 't...ta Perfecta'}] == []
+E        +  where True = any(<generator object test_cues_sin_escribir_el_proyecto.<locals>.<genexpr> at 0x000001879A2CA670>)
+E         
+E         Left contains one more item: [0m{[33m'[39;49;00m[33mblock[39;49;00m[33m'[39;49;00m: [33m'[39;49;00m[33mtitle_card[39;49;00m[33m'[39;49;00m, [33m'[39;49;00m[33mfield[39;49;00m[33m'[39;49;00m: [33m'[39;49;00m[33mtitle[39;49;00m[33m'[39;49;00m, [33m'[39;49;00m[33mtext[39;49;00m[33m'[39;49;00m: [33m'[39;49;00m[33mLa Tormenta Perfecta[39;49;00m[33m'[39;49;00m}[90m[39;49;00m
+E         Use -v to get more diff)
+
+test_module_gfx_lab.py:372: AssertionError
 ___________________________ test_c_guarda_de_minimo ___________________________
-[gw19] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+[gw9] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
 
     def test_c_guarda_de_minimo():
         """Aunque haya gaps apretados, NO baja del mínimo."""
@@ -47,7 +65,7 @@ test_module_m03_merge_timing.py:88: AssertionError
   [03][audit] cap 1: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
   [03][audit] cap 1: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
 ____________________ test_c_veo_path_y_veo_anchor_intacto _____________________
-[gw12] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+[gw4] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
 
     def test_c_veo_path_y_veo_anchor_intacto():
         """La fusión corre también para veo (supplementals); el veo_anchor NO se toca."""
@@ -63,9 +81,9 @@ test_module_m03_merge_timing.py:98: AssertionError
 ---------------------------- Captured stdout call -----------------------------
   [03][audit] cap 7: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
 ___________________ test_preview_usa_las_plantillas_reales ____________________
-[gw10] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+[gw1] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
 
-server = (<gfx_lab_server.LabSession object at 0x000001ED1FC52350>, 'http://127.0.0.1:57294')
+server = (<gfx_lab_server.LabSession object at 0x0000025534F9A450>, 'http://127.0.0.1:60231')
 
     @needs_data
     def test_preview_usa_las_plantillas_reales(server):
@@ -76,27 +94,9 @@ server = (<gfx_lab_server.LabSession object at 0x000001ED1FC52350>, 'http://127.
         assert r["src"].startswith("/composition/index.html?v=")
 >       assert any(c["block"] == "title_card" for c in r["cues"])
 E       assert False
-E        +  where False = any(<generator object test_preview_usa_las_plantillas_reales.<locals>.<genexpr> at 0x000001ED4ABFC520>)
+E        +  where False = any(<generator object test_preview_usa_las_plantillas_reales.<locals>.<genexpr> at 0x0000025534F34E10>)
 
 test_module_gfx_lab.py:148: AssertionError
-_____________________ test_cues_sin_escribir_el_proyecto ______________________
-[gw4] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
-
-server = (<gfx_lab_server.LabSession object at 0x0000021276FE5210>, 'http://127.0.0.1:57300')
-
-    @needs_data
-    def test_cues_sin_escribir_el_proyecto(server):
-        session, url = server
-        before = (session.project / "index.html").stat().st_mtime_ns
-        r = _post(url + "/cues", {"plan": session.director_plan(), "tokens": {}})
->       assert any(c["block"] == "archive_clipping" for c in r["cues"]) and r["rejected"] == []
-E       AssertionError: assert (True and [{'block': 't...ta Perfecta'}] == []
-E        +  where True = any(<generator object test_cues_sin_escribir_el_proyecto.<locals>.<genexpr> at 0x000002124FCAB510>)
-E         
-E         Left contains one more item: [0m{[33m'[39;49;00m[33mblock[39;49;00m[33m'[39;49;00m: [33m'[39;49;00m[33mtitle_card[39;49;00m[33m'[39;49;00m, [33m'[39;49;00m[33mfield[39;49;00m[33m'[39;49;00m: [33m'[39;49;00m[33mtitle[39;49;00m[33m'[39;49;00m, [33m'[39;49;00m[33mtext[39;49;00m[33m'[39;49;00m: [33m'[39;49;00m[33mLa Tormenta Perfecta[39;49;00m[33m'[39;49;00m}[90m[39;49;00m
-E         Use -v to get more diff)
-
-test_module_gfx_lab.py:372: AssertionError
 ============================== warnings summary ===============================
 test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
 test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
@@ -110,8 +110,8 @@ test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 =========================== short test summary info ===========================
+FAILED test_module_gfx_lab.py::test_cues_sin_escribir_el_proyecto - Assertion...
 FAILED test_module_m03_merge_timing.py::test_c_guarda_de_minimo - AssertionEr...
 FAILED test_module_m03_merge_timing.py::test_c_veo_path_y_veo_anchor_intacto
 FAILED test_module_gfx_lab.py::test_preview_usa_las_plantillas_reales - asser...
-FAILED test_module_gfx_lab.py::test_cues_sin_escribir_el_proyecto - Assertion...
-4 failed, 1505 passed, 30 skipped, 3 xfailed, 4 warnings in 74.54s (0:01:14)
+4 failed, 1507 passed, 30 skipped, 3 xfailed, 4 warnings in 72.95s (0:01:12)

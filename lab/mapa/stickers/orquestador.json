@@ -542,7 +542,7 @@
   "estado": "vivo",
   "estado_prueba": "qa_studio_server.py:72 define HTML_PATH y :1828-1829 lo sirve en / (el form lo abre en el gate del visor, qa_form.html:349)",
   "funciones_muertas": [],
-  "md5": "e7b385001358bfe225cd95b5c79b847c",
+  "md5": "10ea74a1339b3c15ebbb08d3d72415c0",
   "_parte": "orquestador_a"
  },
  "qa_studio_server.py": {
@@ -583,7 +583,7 @@
     "por_que": "ninguna ruta del servidor ni del form la llama (el POST /mark solo marca, no regenera); solo la nombran test_module_f5e.py y la herramienta manual lab/hyperframes/f5/regen_marcadas.py"
    }
   ],
-  "md5": "a58f26446e6314c8755ab31c977ddf4c",
+  "md5": "b8952e20c9944718321b0090be44d93b",
   "_parte": "orquestador_a"
  },
  "report_foto_madre_edits.py": {

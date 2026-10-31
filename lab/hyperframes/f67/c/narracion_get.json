@@ -686,7 +686,10 @@
      "palabras_despues": 49,
      "cifras_sin_respaldo": [],
      "marcas": [],
-     "aplica": true
+     "aplica": true,
+     "oraciones_actuales": [
+      1
+     ]
     }
    ]
   },
@@ -1069,7 +1072,30 @@
      "palabras_despues": 216,
      "cifras_sin_respaldo": [],
      "marcas": [],
-     "aplica": true
+     "aplica": true,
+     "oraciones_actuales": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+     ]
     }
    ]
   },
@@ -1373,7 +1399,8 @@
      "palabras_despues": 72,
      "cifras_sin_respaldo": [],
      "marcas": [],
-     "aplica": false
+     "aplica": false,
+     "oraciones_actuales": []
     }
    ]
   },
@@ -1553,7 +1580,13 @@
      "palabras_despues": 49,
      "cifras_sin_respaldo": [],
      "marcas": [],
-     "aplica": true
+     "aplica": true,
+     "oraciones_actuales": [
+      1,
+      2,
+      3,
+      4
+     ]
     },
     {
      "k": 5,
@@ -1587,7 +1620,19 @@
      "palabras_despues": 112,
      "cifras_sin_respaldo": [],
      "marcas": [],
-     "aplica": true
+     "aplica": true,
+     "oraciones_actuales": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+     ]
     }
    ]
   },
@@ -1727,7 +1772,13 @@
      "palabras_despues": 45,
      "cifras_sin_respaldo": [],
      "marcas": [],
-     "aplica": true
+     "aplica": true,
+     "oraciones_actuales": [
+      5,
+      6,
+      7,
+      8
+     ]
     },
     {
      "k": 7,
@@ -1752,7 +1803,13 @@
      "palabras_despues": 56,
      "cifras_sin_respaldo": [],
      "marcas": [],
-     "aplica": true
+     "aplica": true,
+     "oraciones_actuales": [
+      12,
+      13,
+      14,
+      15
+     ]
     }
    ]
   }

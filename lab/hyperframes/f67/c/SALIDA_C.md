@@ -3,13 +3,24 @@
 ## 1. La PARADA (`run_pipeline --topic <tid> --batch`)
 
 ```
-exit 1
+exit 0
+
+  ⏵ 123bbb64-9fca-4395-8bf4-57d60e219ef1: arranca en «narracion» — la narración no está aprobada
+
+────────────────────────────────────────────────────────────
+  ▶ NARRACION (compuerta de narración) — 123bbb64-9fca-4395-8bf4-57d60e219ef1
+────────────────────────────────────────────────────────────
 
 ════════════════════════════════════════════════════════════
-  ⛔ PARADA antes de gastar: a este Python le faltan librerías que la cadena necesita
-     Python: C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
-     - faster_whisper: audio_manager.py:120
-  ➡  Instalalas y retomá: "C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe" -m pip install -r requirements.txt
+  📊 RUN_PIPELINE — 123bbb64-9fca-4395-8bf4-57d60e219ef1
+════════════════════════════════════════════════════════════
+  Fases corridas: narracion
+  ⛔ Frenó en: NARRACION
+     Motivo: la narración no está aprobada (la compuerta no se aprueba sola: sin el form la aprueba Omar a mano)
+  ➡  Próximos comandos:
+       leer:    QA Studio → NARRACIÓN (o C:/CLAUDE_PROJECTS/automatization_videos/data/scripts/_steps/123bbb64-9fca-4395-8bf4-57d60e219ef1/01f_critico.md)
+       aprobar: python fase1_5.py --topic 123bbb64-9fca-4395-8bf4-57d60e219ef1 --aprobar-narracion "Omar <fecha>"
+       retomar: python run_pipeline.py --topic 123bbb64-9fca-4395-8bf4-57d60e219ef1
 ════════════════════════════════════════════════════════════
 
 ```

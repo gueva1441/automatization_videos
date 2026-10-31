@@ -416,6 +416,28 @@ def test_get_narracion(env, monkeypatch):
     assert qa.narracion_vista(st)["critico"]["vigente"] is False     # no se re-critica sola
 
 
+def test_get_narracion_oraciones_actuales_tras_aceptar_otro(env, monkeypatch):
+    """El `idx` del crítico se corre al aceptar otro DEBERÍA del cap: la pestaña resalta los de hoy."""
+    qa, st = _qa(env, monkeypatch)
+    _generar(env, _deb(oraciones=(0,), texto="Una. Dos. Tres."), _deb(oraciones=(3,), texto="Silencio."))
+    assert [d["oraciones_actuales"] for d in qa.narracion_vista(st)["caps"][1]["deberia"]] == [[0], [3]]
+    mf.aceptar_deberia(TID, 1, env["sd"])
+    d1, d2 = qa.narracion_vista(st)["caps"][1]["deberia"]
+    assert d1["aplica"] is False and d1["oraciones_actuales"] == []
+    assert d2["aplica"] is True and d2["oraciones"] == [3] and d2["oraciones_actuales"] == [5]
+
+
+def test_papel_de_otra_narracion_no_pasa_aunque_este_aprobado(env, monkeypatch, capsys):
+    monkeypatch.setattr(f15, "_load_topic_by_id", lambda tid: {"id": tid, "evidence_pool": {"datos": [], "_research_v3": True}})
+    f15.aprobar_narracion(TID, "Omar 2026-10-31")
+    (env["d"] / "01e_pantalla.json").write_text(json.dumps({"narracion_md5": "otra", "beats": []}), encoding="utf-8")
+    f15.aprobar_papel(TID, "Omar 2026-10-31")
+    assert f15.estado_papel(TID)[0]
+    r = f15.process_topic(TID, from_step="normalizer_gate", gate_interactive=False, music_gate_interactive=False)
+    assert r["status"] == "PARADA" and r["parada"] == "papel" and "otra narración" in r["motivo"]
+    assert "--papel" in capsys.readouterr().out
+
+
 def test_get_narracion_sin_critico_muestra_parrafos(env, monkeypatch):
     qa, st = _qa(env, monkeypatch)
     v = qa.narracion_vista(st)

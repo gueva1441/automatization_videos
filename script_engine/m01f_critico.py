@@ -329,6 +329,13 @@ def aplica(fila: dict[str, Any], parrafos: list[dict[str, Any]]) -> bool:
     return _ubicar(_oraciones_cap(parrafos, int(str(fila["cap"])[2:])), fila.get("texto_original") or []) is not None
 
 
+def oraciones_actuales(fila: dict[str, Any], parrafos: list[dict[str, Any]]) -> list[int]:
+    """Los `idx` de hoy del tramo (la pestaña resalta estos: el `idx` del crítico se corre al aceptar otro DEBERÍA). [] si no aplica."""
+    original = fila.get("texto_original") or []
+    j = _ubicar(_oraciones_cap(parrafos, int(str(fila["cap"])[2:])), original)
+    return [] if j is None else list(range(j, j + len(original)))
+
+
 def aceptar_deberia(topic_id: str, k: int, steps_dir: Path | None = None) -> dict[str, Any]:
     """Aplica el DEBERÍA `k` de 01f_critico.json: el tramo se reemplaza por `deberia_texto` limpio. Primer párrafo = lo previo al
     tramo + el texto nuevo; último = lo posterior; los del medio quedan sin texto. Los `ids` válidos se suman al primero. Un párrafo

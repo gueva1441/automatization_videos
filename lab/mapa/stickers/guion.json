@@ -42,7 +42,7 @@
   "estado": "vivo",
   "estado_prueba": "run_pipeline.py:301 lo lanza en guion (--batch), :325 en papel (--aprobar-papel) y :334 en voz (--from normalizer_gate --batch)",
   "funciones_muertas": [],
-  "md5": "e19b8a22347f7206105fd1af37dfe661",
+  "md5": "f74c5229d3491f01975493f35db6e34b",
   "_parte": "guion_b"
  },
  "script_engine/guion_v3_reglas.py": {
@@ -373,7 +373,7 @@
   "estado": "vivo",
   "estado_prueba": "fase1_5.py (run_critico), qa_studio_server.py (narracion_vista, narracion_post)",
   "funciones_muertas": [],
-  "md5": "56bc5fae458ab2c082baf06f2593fdec",
+  "md5": "ba28233b15fd315fab1a4fbf9b2967f8",
   "_parte": "guion_f67"
  }
 }
