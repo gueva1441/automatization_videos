@@ -4,6 +4,9 @@ test_module_f65b.py — F65b (HANDOFF_F65b_qa_del_papel; DECISIONES 2026-10-31 1
              código, candados por validar, UNA llamada al verificador solo con las marcas del beat, «corta»/«pasa», sin JSON,
              candado de la entrada; aplicar_veredicto compartido; md5 de los prompts sin cambios; editar conserva
              juicio_verificador.
+    Etapa B  rutas del servidor (por HTTP, en un puerto local): GET /papel con descartes por beat, /revisar fuera del papel, /editar
+             (null, alternativa con juicio_verificador, invalida la aprobación), /sugerir en un hilo con 409 y status, /aprobar
+             (400 sin quién, md5 + fecha, nada más corre), preflight con solo el papel y visor con 0 caps.
 Sin API: toda llamada va con `post`/`juez` falsos y `claude_helpers._post` explota si alguien lo alcanza (fixture autouse).
 """
 from __future__ import annotations
@@ -239,3 +242,186 @@ def test_a13_aplicar_veredicto():
     assert mp.aplicar_veredicto(f2, "ch01", 1, [m], {}) is None and f2["juicio_verificador"]["motivo"] == "sin veredicto"
     d = mp.aplicar_veredicto(dict(fi), "ch01", 1, [m], {("D1", "ch01", 1): {"veredicto": "corta", "motivo": "x", "oracion": {"cap": "ch02", "idx": 3}}})
     assert (d["quien"], d["regla"], d["motivo"], d["tokens"]) == ("verificador", "spoiler", "x (ch02 [3])", {"spoiler": ["2"]})
+
+
+# ═══════════════════════ Etapa B: rutas del servidor ═══════════════════════
+
+@pytest.fixture
+def srv(env, tmp_path, monkeypatch):
+    """Un QA Studio de verdad en un puerto local, sobre el topic de `env` (base = tmp, steps en base/data/scripts/_steps)."""
+    import shutil
+    import threading
+    from http.server import ThreadingHTTPServer
+
+    import fase1_5 as f15
+    import qa_studio_server as qa
+    base = tmp_path / "base"
+    sd = base / "data" / "scripts" / "_steps"
+    sd.mkdir(parents=True)
+    shutil.copytree(env["dir"], sd / TID)
+    monkeypatch.setattr(f15, "STEPS_DIR", sd)
+    st = qa.QAState(TID, base)
+    monkeypatch.setattr(qa, "STATE", st)
+    monkeypatch.setattr(qa, "TOPIC_ID", TID)
+    qa._SUG.update(running=False, result=None, error=None, cap=None, beat=None)
+    http = ThreadingHTTPServer(("127.0.0.1", 0), qa.Handler)
+    threading.Thread(target=http.serve_forever, daemon=True).start()
+    yield {"url": f"http://127.0.0.1:{http.server_address[1]}", "sd": sd, "dir": sd / TID, "qa": qa, "f15": f15, "state": st}
+    http.shutdown()
+
+
+def _get(srv, ruta: str) -> tuple[int, dict]:
+    import urllib.error
+    import urllib.request
+    try:
+        with urllib.request.urlopen(srv["url"] + ruta) as r:
+            return r.status, json.loads(r.read())
+    except urllib.error.HTTPError as e:
+        return e.code, json.loads(e.read())
+
+
+def _post(srv, ruta: str, body: dict) -> tuple[int, dict]:
+    import urllib.error
+    import urllib.request
+    req = urllib.request.Request(srv["url"] + ruta, data=json.dumps(body).encode("utf-8"), method="POST",
+                                 headers={"Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req) as r:
+            return r.status, json.loads(r.read())
+    except urllib.error.HTTPError as e:
+        return e.code, json.loads(e.read())
+
+
+def _papel(srv) -> dict:
+    return json.loads((srv["dir"] / "01e_pantalla.json").read_text(encoding="utf-8"))
+
+
+def test_b1_get_papel_con_descartes_por_beat(srv):
+    f = srv["dir"] / "01e_pantalla.json"
+    p = _papel(srv)
+    p["descartados"] = [{"pool_id": "D4", "tipo": "voz_lo_dice", "motivo": "ya lo dice", "quien": "modelo"},       # beat 2 (dato central)
+                        {"pool_id": "D3", "tipo": "otro", "motivo": "no suma", "quien": "modelo"},                  # sin beat
+                        {"pool_id": "D5", "cap": "ch02", "beat": 3, "que": "ficha", "regla": "caben", "motivo": "x", "quien": "validación"}]
+    f.write_text(json.dumps(p, ensure_ascii=False), encoding="utf-8")
+    st, v = _get(srv, "/papel")
+    assert st == 200 and v["estado"] == {"aprobado": False, "motivo": "el papel no está aprobado"}
+    assert v["md5"] == srv["f15"].md5_papel(p) and v["fichas"] == 3 and v["revisadas"] == 0 and v["caps"][1]["titulo"] == "Dos"
+    b1, b2, b3 = v["beats"]
+    assert (b1["cap"], b1["beat"], b1["funcion"], b1["revisado"]) == ("ch01", 1, "gancho", False)
+    assert b1["ficha"]["pool_id"] == "D4" and b1["ficha"]["oracion"].startswith("Hoy")
+    assert [d["pool_id"] for d in b2["descartes"]] == ["D4"] and b2["descartes"][0]["texto"] == "El acuerdo se firmó en 1958."
+    assert (b3["descartes"][0]["pool_id"], b3["descartes"][0]["tipo"], b3["descartes"][0]["quien"]) == ("D5", "caben", "validación")
+    assert [d["pool_id"] for d in v["sin_beat"]] == ["D3"]
+
+
+def test_b2_revisar_va_fuera_del_papel_y_no_invalida(srv):
+    antes = (srv["dir"] / "01e_pantalla.json").read_bytes()
+    st, r = _post(srv, "/papel/revisar", {"cap": "ch02", "beat": 2, "on": True})
+    assert st == 200 and r["revisados"] == [["ch02", 2]]
+    assert (srv["dir"] / "01e_pantalla.json").read_bytes() == antes
+    assert json.loads((srv["dir"] / "01e_pantalla.revision.json").read_text(encoding="utf-8")) == {"revisados": [["ch02", 2]]}
+    v = _get(srv, "/papel")[1]
+    assert v["revisadas"] == 1 and v["beats"][1]["revisado"] is True
+    assert _post(srv, "/papel/revisar", {"cap": "ch02", "beat": 2, "on": False})[1]["revisados"] == []
+    assert _post(srv, "/papel/revisar", {"cap": "../x", "beat": 2, "on": True})[0] == 400
+    assert _post(srv, "/papel/revisar", {"cap": "ch02", "beat": "2", "on": True})[0] == 400
+
+
+def test_b3_editar_null_alternativa_y_la_aprobacion_se_invalida(srv):
+    assert _post(srv, "/papel/aprobar", {"por": "Omar"})[0] == 200
+    v = _get(srv, "/papel")[1]
+    assert v["estado"]["aprobado"] is True and v["aprobado_por"]["por"] == "Omar"
+    assert _post(srv, "/papel/revisar", {"cap": "ch02", "beat": 2, "on": True})[0] == 200
+    assert _get(srv, "/papel")[1]["estado"]["aprobado"] is True                # el ✓ no invalida
+    assert _post(srv, "/papel/editar", {"cap": "ch02", "beat": 2, "ficha": None})[0] == 200
+    v = _get(srv, "/papel")[1]
+    assert v["beats"][1]["ficha"] is None and v["estado"]["aprobado"] is False and "cambió después de la aprobación" in v["estado"]["motivo"]
+    assert (srv["dir"] / "01e_pantalla.antes_de_edicion.json").exists() and "ediciones" in _papel(srv)
+    # una alternativa de «sugerir» se guarda con su juicio y su aporta; la mano, con «(edición a mano)»
+    alt = {**F_D3, "juicio_verificador": {"regla": ["no_dicho"], "motivo": "m", "tokens": {"no_dicho": ["8000"]}}}
+    assert _post(srv, "/papel/editar", {"cap": "ch02", "beat": 2, "ficha": alt})[0] == 200
+    f = _get(srv, "/papel")[1]["beats"][1]["ficha"]
+    assert f["juicio_verificador"]["tokens"] == {"no_dicho": ["8000"]} and f["aporta"] == "suma" and f["caben"] and f["caracteres"]
+    mano = {"pool_id": "D3", "sentence_idx": 2, "palabra": "españoles", "etiqueta": "OTRA", "texto": "Otro texto"}
+    assert _post(srv, "/papel/editar", {"cap": "ch02", "beat": 2, "ficha": mano})[0] == 200
+    f = _get(srv, "/papel")[1]["beats"][1]["ficha"]
+    assert f["aporta"] == "(edición a mano)" and f["editado"] is True and f["texto"] == "Otro texto"
+    assert _post(srv, "/papel/editar", {"cap": "ch02", "beat": 2})[0] == 400        # sin la clave ficha
+    assert _post(srv, "/papel/editar", {"cap": "ch09", "beat": 2, "ficha": None})[0] == 400
+
+
+def test_b4_sugerir_en_un_hilo_409_y_status(srv, monkeypatch):
+    import threading
+    import time as _t
+    suelta = threading.Event()
+    llamadas = []
+
+    def falso(tid, cap, beat, n, *, steps_dir=None, **k):
+        llamadas.append((tid, cap, beat, n, steps_dir))
+        suelta.wait(10)
+        return {"cap": cap, "beat": beat, "alternativas": [{"pool_id": "D3"}], "descartadas": [], "usd": 0.14}
+    monkeypatch.setattr(mp, "sugerir", falso)
+    assert _post(srv, "/papel/sugerir", {"cap": "ch02", "beat": 2}) == (200, {"started": True})
+    assert _post(srv, "/papel/sugerir", {"cap": "ch02", "beat": 3})[0] == 409
+    assert _get(srv, "/papel/sugerir_status")[1]["running"] is True
+    suelta.set()
+    for _ in range(100):
+        s = _get(srv, "/papel/sugerir_status")[1]
+        if not s["running"]:
+            break
+        _t.sleep(0.05)
+    assert s["result"]["alternativas"] == [{"pool_id": "D3"}] and s["error"] is None and (s["cap"], s["beat"]) == ("ch02", 2)
+    assert llamadas == [(TID, "ch02", 2, 3, srv["sd"])]
+    monkeypatch.setattr(mp, "sugerir", lambda *a, **k: (_ for _ in ()).throw(ValueError("el raw no es de este papel")))
+    assert _post(srv, "/papel/sugerir", {"cap": "ch02", "beat": 2})[0] == 200
+    for _ in range(100):
+        s = _get(srv, "/papel/sugerir_status")[1]
+        if not s["running"]:
+            break
+        _t.sleep(0.05)
+    assert "el raw no es de este papel" in s["error"] and s["result"] is None
+
+
+def test_b5_aprobar_y_nada_mas_corre(srv, monkeypatch):
+    def explota(*a, **k):
+        raise AssertionError("aprobar no corre nada más")
+    monkeypatch.setattr(srv["f15"], "process_topic", explota)
+    assert _post(srv, "/papel/aprobar", {"por": "  "})[0] == 400
+    assert _post(srv, "/papel/aprobar", {})[0] == 400
+    assert "aprobado" not in _papel(srv)
+    st, r = _post(srv, "/papel/aprobar", {"por": "Omar Guevara"})
+    assert st == 200 and r["aprobado"]["por"] == "Omar Guevara" and "T" in r["aprobado"]["fecha"] and " " not in r["aprobado"]["fecha"]
+    p = _papel(srv)
+    assert p["aprobado"]["md5"] == srv["f15"].md5_papel(p) and srv["f15"].estado_papel(TID)[0] is True
+
+
+def test_b6_preflight_con_solo_el_papel_y_visor_con_cero_caps(srv, tmp_path):
+    qa = srv["qa"]
+    assert qa._preflight(srv["state"]) == [] and srv["state"].caps() == []
+    assert _get(srv, "/caps") == (200, [])
+    assert _get(srv, "/topic")[0] == 200
+    vacio = qa.QAState("otro", tmp_path / "vacia")
+    assert any("no tiene assets, audio ni papel" in x for x in qa._preflight(vacio))
+
+
+def test_b7_sin_papel_el_get_no_rompe(srv):
+    (srv["dir"] / "01e_pantalla.json").unlink()
+    st, v = _get(srv, "/papel")
+    assert st == 200 and v["sin_papel"] is True and v["beats"] == []
+    assert _post(srv, "/papel/aprobar", {"por": "Omar"})[0] == 400
+
+
+def test_b8_el_servidor_no_escribe_el_json_del_papel():
+    src = (Path(__file__).resolve().parent / "qa_studio_server.py").read_text(encoding="utf-8")
+    zona = src[src.index("ZONA PAPEL"):src.index("class Handler(BaseHTTPRequestHandler)")]
+    assert "_write_json" not in zona and "write_text" not in zona and "open(" not in zona
+
+
+def test_b9_un_papel_nuevo_borra_la_revision_y_la_cache_no(env):
+    mp.marcar_revisado(TID, "ch02", 2, True, env["steps"])
+    assert mp.revisados(TID, env["steps"]) == [["ch02", 2]]
+    mp.generar(TID, env["steps"], vocabulario=["CALMA"], post=lambda b: _msg(RESP), log=[])     # caché: misma clave
+    assert mp.revisados(TID, env["steps"]) == [["ch02", 2]]
+    (env["dir"] / "01e_pantalla.raw.json").unlink()
+    mp.generar(TID, env["steps"], vocabulario=["CALMA"], post=lambda b: _msg(RESP), log=[])
+    assert mp.revisados(TID, env["steps"]) == []

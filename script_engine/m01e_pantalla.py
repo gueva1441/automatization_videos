@@ -1373,6 +1373,8 @@ def generar(topic_id: str, steps_dir: Path | None = None, *, pool: dict | None =
         papel["aviso_narracion"] = quedan
     (carga["dir"] / f"{ARCHIVO}.json").write_text(json.dumps(papel, ensure_ascii=False, indent=1), encoding="utf-8")
     (carga["dir"] / f"{ARCHIVO}.md").write_text(a_markdown(papel), encoding="utf-8")
+    if not res.get("cache"):                          # F65b: un papel nuevo no está revisado
+        (carga["dir"] / f"{ARCHIVO}.revision.json").unlink(missing_ok=True)
     log.append(f"  m01e: {sum(1 for b in papel['beats'] if b['ficha'])} fichas · "
                f"{sum(1 for b in papel['beats'] if b['sello'])} sellos · {len(papel['relojes'])} relojes → "
                f"{carga['dir'] / (ARCHIVO + '.md')}")
@@ -1391,6 +1393,29 @@ def cargar_papel(topic_id: str, steps_dir: Path | None = None) -> dict[str, Any]
         return json.loads(f.read_text(encoding="utf-8")) if f.exists() else None
     except (OSError, ValueError):
         return None
+
+
+def _revision_path(topic_id: str, steps_dir: Path | None = None) -> Path:
+    return ruta(topic_id, steps_dir).with_name(f"{ARCHIVO}.revision.json")
+
+
+def revisados(topic_id: str, steps_dir: Path | None = None) -> list[list]:
+    """F65b §3 B: los [cap, beat] que Omar marcó revisados en el QA del papel ([] si ninguno)."""
+    f = _revision_path(topic_id, steps_dir)
+    try:
+        return list(json.loads(f.read_text(encoding="utf-8")).get("revisados") or []) if f.exists() else []
+    except (OSError, ValueError):
+        return []
+
+
+def marcar_revisado(topic_id: str, cap: str, beat: int, on: bool, steps_dir: Path | None = None) -> list[list]:
+    """F65b §3 B: el ✓ del QA va en 01e_pantalla.revision.json, NO en el papel (`md5_papel` excluye solo `aprobado`: un ✓
+    adentro lo dejaría «cambió después de la aprobación»). Informativo: no bloquea nada. Devuelve la lista."""
+    r = [x for x in revisados(topic_id, steps_dir) if list(x) != [cap, int(beat)]]
+    if on:
+        r.append([cap, int(beat)])
+    _revision_path(topic_id, steps_dir).write_text(json.dumps({"revisados": r}, ensure_ascii=False, indent=1), encoding="utf-8")
+    return r
 
 
 def editar(topic_id: str, ediciones: list[dict[str, Any]], steps_dir: Path | None = None) -> Path:

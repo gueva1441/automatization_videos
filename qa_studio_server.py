@@ -1908,6 +1908,123 @@ def _form_state(tail: int = 200) -> dict:
 STATE: QAState | None = None  # seteado en main()
 
 
+# ═════════════════════════════════════════════════════════════════
+#  ZONA PAPEL — F65b (DECISIONES 2026-10-31 15:49 y 16:13): el QA del papel. El servidor no escribe el JSON del papel: lee y
+#  escribe SOLO vía m01e_pantalla (cargar_papel, editar, sugerir, marcar_revisado) y fase1_5 (aprobar_papel, estado_papel,
+#  md5_papel). «Aprobar» hace lo de --aprobar-papel y nada más corre.
+# ═════════════════════════════════════════════════════════════════
+
+_SUG_LOCK = threading.Lock()
+_SUG: dict = {"running": False, "result": None, "error": None, "cap": None, "beat": None}
+
+
+def papel_vista(state: "QAState") -> dict:
+    """GET /papel: {estado {aprobado, motivo}, aprobado_por, md5, usd, modelo, caps, beats [{cap, beat, funcion, pico, revisado,
+    ficha, sello, descartes, a_pantalla_vacio}], relojes, sin_beat, a_pantalla_vacios, aviso_narracion, revisadas, fichas}. Los
+    descartes del autor se atribuyen por el archivo (`a_pantalla.beat` o `beats_que_lo_cuentan`); los de la validación y del
+    verificador traen su beat."""
+    import fase1_5 as f15
+    from script_engine import m01e_pantalla as mp
+    sd, tid = _steps_dir(state), state.topic_id
+    p = mp.cargar_papel(tid, sd)
+    if p is None:
+        return {"sin_papel": True, "estado": {"aprobado": False, "motivo": "no hay papel"}, "beats": [], "caps": []}
+    raw = _read_json(sd / tid / f"{mp.ARCHIVO}.raw.json") or {}
+    archivo = {x["id"]: x for x in (raw.get("entrada") or {}).get("archivo") or []}
+    ok, motivo = f15.estado_papel(tid)
+    por_beat: dict[int, list[dict]] = {}
+    sin_beat: list[dict] = []
+    for d in p.get("descartados") or []:
+        x = archivo.get(str(d.get("pool_id")))
+        fila = {"pool_id": d.get("pool_id"), "texto": (x or {}).get("texto") or d.get("texto"), "tipo": d.get("tipo") or d.get("regla"),
+                "motivo": d.get("motivo"), "quien": d.get("quien"), "que": d.get("que")}
+        if d.get("beat") is not None:
+            beats = {d["beat"]}
+        else:
+            ap = ((x or {}).get("a_pantalla") or {}).get("beat")
+            beats = set((x or {}).get("beats_que_lo_cuentan") or []) | ({ap} if ap else set())
+        for n in beats:
+            por_beat.setdefault(n, []).append(fila)
+        if not beats:
+            sin_beat.append(fila)
+    rev = {(c, int(b)) for c, b in mp.revisados(tid, sd)}
+    vacios = {(a["cap"], a["beat"]): a["ids"] for a in p.get("a_pantalla_vacios") or []}
+    beats = [{"cap": b["cap"], "beat": b["beat"], "funcion": b.get("funcion"), "pico": bool(b.get("pico")),
+              "revisado": (b["cap"], b["beat"]) in rev, "ficha": b.get("ficha"), "sello": b.get("sello"),
+              "descartes": por_beat.get(b["beat"]) or [], "a_pantalla_vacio": vacios.get((b["cap"], b["beat"])) or []}
+             for b in p.get("beats") or []]
+    return {"estado": {"aprobado": ok, "motivo": motivo}, "aprobado_por": p.get("aprobado"), "md5": f15.md5_papel(p),
+            "usd": p.get("usd"), "modelo": p.get("modelo"), "prompt_version": p.get("prompt_version"), "caps": p.get("caps") or [],
+            "beats": beats, "relojes": p.get("relojes") or [], "sin_beat": sin_beat, "a_pantalla_vacios": p.get("a_pantalla_vacios") or [],
+            "aviso_narracion": p.get("aviso_narracion") or [], "cierre": (p.get("reintento") or {}).get("cierre"),
+            "fichas": sum(1 for b in beats if b["ficha"]), "revisadas": sum(1 for b in beats if b["revisado"] and b["ficha"])}
+
+
+def _papel_beat(body: dict) -> tuple[str, int]:
+    cap, beat = body.get("cap"), body.get("beat")
+    if not isinstance(cap, str) or not _CAP_RE.match(cap) or not isinstance(beat, int) or isinstance(beat, bool):
+        raise ValueError("falta cap (chNN) o beat (entero)")
+    return cap, beat
+
+
+def _sugerir_worker(state: "QAState", cap: str, beat: int) -> None:
+    from script_engine import m01e_pantalla as mp
+    try:
+        res = mp.sugerir(state.topic_id, cap, beat, mp.SUGERIR_N, steps_dir=_steps_dir(state))
+        with _SUG_LOCK:
+            _SUG.update(running=False, result=res, error=None)
+    except Exception as e:  # noqa: BLE001
+        with _SUG_LOCK:
+            _SUG.update(running=False, result=None, error=f"{type(e).__name__}: {e}")
+
+
+def _start_sugerir(state: "QAState", cap: str, beat: int) -> dict:
+    with _SUG_LOCK:
+        if _SUG["running"]:
+            return {"conflict": True}
+        _SUG.update(running=True, result=None, error=None, cap=cap, beat=beat)
+    threading.Thread(target=_sugerir_worker, args=(state, cap, beat), daemon=True).start()
+    return {"started": True}
+
+
+def _sugerir_status() -> dict:
+    with _SUG_LOCK:
+        return {k: _SUG[k] for k in ("running", "result", "error", "cap", "beat")}
+
+
+def papel_post(state: "QAState", route: str, body: dict) -> tuple[dict, int]:
+    """Las rutas POST del papel: (json, status). Errores de lo que manda el navegador → 400."""
+    from script_engine import m01e_pantalla as mp
+    sd, tid = _steps_dir(state), state.topic_id
+    try:
+        if route == "/papel/aprobar":
+            import time
+
+            import fase1_5 as f15
+            por = str(body.get("por") or "").strip()
+            if not por:
+                raise ValueError("falta quién aprueba")
+            try:                                       # solo aprueba: ni voz ni fotos corren
+                ap = f15.aprobar_papel(tid, f"{por} {time.strftime('%Y-%m-%dT%H:%M')}")
+            except f15.Parada as e:
+                raise ValueError(str(e)) from e
+            return {"aprobado": ap}, 200
+        cap, beat = _papel_beat(body)
+        if route == "/papel/revisar":
+            return {"revisados": mp.marcar_revisado(tid, cap, beat, bool(body.get("on")), sd)}, 200
+        if route == "/papel/editar":
+            if "ficha" not in body:
+                raise ValueError("falta ficha (null la quita)")
+            mp.editar(tid, [{"cap": cap, "beat": beat, "ficha": body["ficha"]}], sd)
+            return {"ok": True}, 200
+        if route == "/papel/sugerir":
+            res = _start_sugerir(state, cap, beat)
+            return ({"error": "ya hay un «sugerir» en curso"}, 409) if res.get("conflict") else (res, 200)
+    except (ValueError, KeyError, IndexError, TypeError) as e:
+        return {"error": f"{type(e).__name__}: {e}"}, 400
+    return {"error": "ruta no encontrada"}, 404
+
+
 class Handler(BaseHTTPRequestHandler):
     def log_message(self, fmt, *args):  # silenciar el log ruidoso por request
         sys.stderr.write("  " + (fmt % args) + "\n")
@@ -2045,6 +2162,10 @@ class Handler(BaseHTTPRequestHandler):
                 self._send_json(_thumbs_status())   # HANDOFF_135
             elif route == "/marks":
                 self._send_json(load_marks(STATE))  # F5e: fotos marcadas para regenerar
+            elif route == "/papel":
+                self._send_json(papel_vista(STATE))   # F65b
+            elif route == "/papel/sugerir_status":
+                self._send_json(_sugerir_status())    # F65b
             else:
                 self._send_json({"error": "ruta no encontrada"}, status=404)
         except Exception as e:  # noqa: BLE001
@@ -2053,7 +2174,11 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         try:
             route = urlparse(self.path).path
-            if route == "/assemble":
+            if route.startswith("/papel/"):            # F65b: el QA del papel
+                length = int(self.headers.get("Content-Length", 0))
+                obj, status = papel_post(STATE, route, json.loads(self.rfile.read(length) or b"{}"))
+                self._send_json(obj, status=status)
+            elif route == "/assemble":
                 res = _start_assemble()
                 if res.get("conflict"):
                     self._send_json({"error": "ya hay un ensamble en curso"}, status=409)
@@ -2201,9 +2326,11 @@ def _preflight(state: QAState) -> list[str]:
     problems = []
     if not HTML_PATH.exists():
         problems.append(f"qa_studio.html no existe: {HTML_PATH}")
-    if not state.audio_dir.exists() and not state.assets_dir.exists():
+    # F65b: el papel se aprueba ANTES de la voz: con el papel solo también arranca (la vista PAPEL; el visor queda con 0 caps)
+    if not state.audio_dir.exists() and not state.assets_dir.exists() \
+            and not (_steps_dir(state) / state.topic_id / "01e_pantalla.json").exists():
         problems.append(
-            f"el topic {state.topic_id} no tiene assets ni audio "
+            f"el topic {state.topic_id} no tiene assets, audio ni papel "
             f"(esperaba {state.audio_dir} / {state.assets_dir})"
         )
     return problems
