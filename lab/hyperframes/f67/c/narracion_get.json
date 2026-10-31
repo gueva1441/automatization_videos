@@ -1,0 +1,1760 @@
+{
+ "estado": {
+  "aprobado": false,
+  "motivo": "la narración no está aprobada"
+ },
+ "aprobado_por": null,
+ "md5": "778d3e1dcd4ca545453f7a29b6a92bb3",
+ "critico": {
+  "nota_total": 6.5,
+  "resumen": [
+   "Retiene bien: el gancho del pie vendado, la travesía, los chicos que juegan con amianto y el pico de los nueve meses (ch04-ch05) sostienen al espectador.",
+   "Se pierde en ch03 idx 11-30: tres minutos de informes, siglas y años con Daniel ausente durante 31 oraciones, entre el 20% y el 47% del video. Después del pico (74%), el ch06 corre 21 oraciones sin la familia y el ch07 cierra con la mayor densidad del video.",
+   "Primero reescribiría el bloque documental de ch03 anclándolo al calendario de Daniel. Después nombraría al hijo en la escena del pasaporte, justo detrás del pico."
+  ],
+  "gancho": {
+   "promesa_cumplida": true,
+   "comentario": "Están el minero de Madrid, los casi treinta años, el pueblo borrado y lo que sobró de la mina. Faltan los «diez meses», que es el contraste que hace funcionar la promesa, e idx 1 dice que el pie «va a cerrar», lo que contradice idx 3 y el archivo (D85)."
+  },
+  "caps": [
+   {
+    "cap": "ch01",
+    "nota": 8,
+    "personaje_en_voz": true,
+    "oraciones_seguidas_sin_personaje": 4,
+    "fuerte": "Imagen concreta (retrato, pie vendado), muerte anunciada a futuro y un pueblo borrado: tres preguntas en 55 s con 1,09 años/min.",
+    "debil": "Idx 1 («ese pie va a cerrar») choca con idx 3 («la herida no cerraba») y confunde la pregunta central. No dice cuánto tiempo estuvo.",
+    "reengancho": "«Dos años antes de la foto, en Madrid, hubo un baile»: salto temporal que promete el origen. Fuerte."
+   },
+   {
+    "cap": "ch02",
+    "nota": 7,
+    "personaje_en_voz": true,
+    "oraciones_seguidas_sin_personaje": 9,
+    "fuerte": "La ternura del baile y la cita de María, y la travesía de Víctor contada con el cuerpo (calor, mareos).",
+    "debil": "Idx 7 junta en una oración el acuerdo, los ocho mil, CSR y 1950. Desde idx 9 la pareja desaparece y Víctor carga solo el capítulo.",
+    "reengancho": "«Del avión, a la tierra más roja…»: imagen que empuja a la llegada. Correcto."
+   },
+   {
+    "cap": "ch03",
+    "nota": 4.5,
+    "personaje_en_voz": true,
+    "oraciones_seguidas_sin_personaje": 31,
+    "fuerte": "Idx 0-10: la pista, los patios y la escuela hechos de relaves, con la cita del extrabajador. La revelación del suelo es muy buena.",
+    "debil": "Es el valle del video: el 27% del total, siete años distintos, ABA, CSR, inspector, ingeniero adjunto, Junta de Referencia y suplemento salarial, sin Daniel ni María hasta la última oración. El chico de idx 4 queda sin nombre aunque el cap anterior terminó con Víctor.",
+    "reengancho": "«Un recién casado de Madrid se bajaba de un avión en esa misma pista»: excelente, devuelve al humano. Llega tarde."
+   },
+   {
+    "cap": "ch04",
+    "nota": 8,
+    "personaje_en_voz": true,
+    "oraciones_seguidas_sin_personaje": 8,
+    "fuerte": "Densidad mínima (0,76 años/min): los niños que se meten el amianto en la boca, el parto y el bautizo. Es el capítulo más físico.",
+    "debil": "Idx 2-9 cede la escena a Ramón y Víctor. Funciona porque es sensorial.",
+    "reengancho": "«Creyeron que se llevaban de Wittenoom un hijo y nada más»: ironía dramática que obliga a seguir. Fuerte."
+   },
+   {
+    "cap": "ch05",
+    "nota": 8,
+    "personaje_en_voz": true,
+    "oraciones_seguidas_sin_personaje": 6,
+    "fuerte": "El pico: «eso respiraba mientras esperaba que le cerrara el pie», «Lo alcanzó», nueve meses contra diez. Paga el gancho.",
+    "debil": "Idx 0-10 sube a 4,24 años/min justo antes del pico (1966, 1971, 1978, 1979, 1988). El dato de los De Juan y la Asbestos Diseases Society son carga muerta en ese tramo.",
+    "reengancho": "«Daniel había estado en Wittenoom diez»: cierra con fuerza pero no promete nada. Todo el empuje hacia ch06 depende de su primera oración."
+   },
+   {
+    "cap": "ch06",
+    "nota": 5.5,
+    "personaje_en_voz": false,
+    "oraciones_seguidas_sin_personaje": 21,
+    "fuerte": "La escena del pasaporte y el remate «No porque fuera técnicamente imposible. Porque salía caro».",
+    "debil": "El pasaporte es del hijo (T57) pero la voz lo vuelve anónimo. Además: cifras de Markey enredadas, fecha con duda («hacia junio de 2007, según otras referencias en 2006»), sigla DWER y 2021 antes que 2016.",
+    "reengancho": "«En esa tierra vivía un hombre que no podía irse»: promete un personaje nuevo. Fuerte."
+   },
+   {
+    "cap": "ch07",
+    "nota": 6,
+    "personaje_en_voz": true,
+    "oraciones_seguidas_sin_personaje": 12,
+    "fuerte": "Maitland Parker y su cita, su muerte en 2024 y la palada que nadie sacó como imagen de cierre del loop institucional.",
+    "debil": "Es el capítulo más denso del video (4,93 años/min): Gordon Legal, BNTAC, Tribunal Federal, mil quinientos millones y una recapitulación con tres años en los últimos 73 s. La pregunta final repite una que ch05 ya respondió.",
+    "reengancho": "Termina con una pregunta retórica sobre Daniel. Vuelve al humano pero no a la imagen del gancho (la foto, el pie)."
+   }
+  ],
+  "loops": [
+   {
+    "pregunta": "¿Qué le hizo Wittenoom a Daniel, si lo alcanzó a miles de kilómetros y casi treinta años después?",
+    "abre": "ch01:1",
+    "paga": "ch05:18",
+    "se_recuerda": true
+   },
+   {
+    "pregunta": "¿Quién lo llevó hasta allí?",
+    "abre": "ch01:10",
+    "paga": "ch02:7",
+    "se_recuerda": true
+   },
+   {
+    "pregunta": "¿Qué nombre tenía en los informes lo que sobraba de la mina? ¿Quién sabía y quién va a limpiar?",
+    "abre": "ch03:10",
+    "paga": "ch07:11",
+    "se_recuerda": true
+   },
+   {
+    "pregunta": "¿Se llevaron de Wittenoom solo un hijo?",
+    "abre": "ch04:18",
+    "paga": "ch05:12",
+    "se_recuerda": true
+   },
+   {
+    "pregunta": "¿Quién es el hombre que no podía irse de esa tierra?",
+    "abre": "ch06:20",
+    "paga": "ch07:2",
+    "se_recuerda": true
+   }
+  ],
+  "pico": {
+   "cap": "ch05",
+   "pct_acumulado": 74,
+   "segundos_despues": 174,
+   "comentario": "El pico está bien colocado y paga el gancho, pero sus casi tres minutos de cola corren sin la familia: el pasaporte es anónimo y el resto es administración y siglas. Nombrar al hijo en la primera escena de ch06 sostendría la caída emocional."
+  },
+  "cierre": "Vuelve a Daniel y a los diez meses, pero no a la foto del pie vendado. Termina en una pregunta que ch05:12-14 ya respondió, así que la promesa queda pagada a medias.",
+  "deberia": [
+   {
+    "cap": "ch01",
+    "oraciones": [
+     1
+    ],
+    "que_sale": "«Ese pie va a cerrar», que contradice idx 3 y el archivo.",
+    "por_que_se_van": "El espectador oye que la herida cierra y dos oraciones después que no cerraba: la pregunta central del gancho se desarma en los primeros 15 s.",
+    "deberia_texto": "Va a pasar diez meses en este lugar. Esa herida no va a cerrar, pero no es el pie lo que lo va a matar: lo que respira mientras espera que cierre va a tardar casi treinta años, y lo va a alcanzar a miles de kilómetros de aquí.",
+    "ids": [
+     "D85",
+     "D87",
+     "D89"
+    ]
+   },
+   {
+    "cap": "ch03",
+    "oraciones": [
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21,
+     22,
+     23,
+     24,
+     25,
+     26,
+     27,
+     28,
+     29,
+     30,
+     31
+    ],
+    "que_sale": "La toma de ABA en 1943, los diagnósticos de 1946, el suplemento salarial, la frase repetida de Saint, la cita larga de McNulty y la mitad de las siglas. Se conservan 1944, 1948, 1957, 1961 y 1962, que necesitan ch05:13 y ch07:9.",
+    "por_que_se_van": "Son 20 oraciones de expediente con años, siglas e instituciones y ningún rostro conocido. Es el tramo de 20%-47% donde el espectador decide si el video es sobre Daniel o un informe.",
+    "deberia_texto": "Los informes eran anteriores a la boda, al barco y al avión. En 1944, el inspector de minas y el ingeniero de minas adjunto del Estado ya informaban sobre el problema del polvo. En 1948, un médico joven llegó en avión, vio el molino y escribió a Perth: «En un año o dos, ABA producirá la cosecha más abundante y letal de casos de asbestosis de la literatura mundial». Se llamaba Eric Saint. La respuesta la contó él: «Me desestimaron y, de hecho, me tildaron de alborotador». La empresa tenía otra lectura: «El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso». Faltaban catorce años para que Daniel Écija bajara de ese avión. En 1957, un tribunal laboral entró al molino y escribió lo que vio: «Las condiciones dentro del molino eran extremadamente polvorientas y… sus trabajadores estaban cubiertos de polvo». Faltaban cinco años. Los reguladores hicieron poco más que emitir advertencias y pedir equipos. En 1961, el año en que Daniel y María se conocieron en un baile de Madrid, la producción subió. En 1962, un médico, Jim McNulty, comunicó un caso de mesotelioma en un antiguo trabajador del molino. Ese mismo año, un recién casado de Madrid se bajaba de un avión en esa misma pista de polvo.",
+    "ids": [
+     "D19",
+     "Q45",
+     "T20",
+     "Q46",
+     "D92",
+     "Q53",
+     "Q54",
+     "T26",
+     "D20",
+     "D21",
+     "T34",
+     "D130",
+     "T35",
+     "T38"
+    ]
+   },
+   {
+    "cap": "ch05",
+    "oraciones": [
+     4,
+     7
+    ],
+    "que_sale": "La estadía y el regreso de los De Juan en 1971 y la fundación de la Asbestos Diseases Society en 1979.",
+    "por_que_se_van": "Son dos años y un nombre en inglés más en el tramo de mayor densidad, justo antes del pico. El espectador quiere saber qué le pasa a Daniel, no a los vecinos.",
+    "deberia_texto": "Ese mismo año los Écija volvieron a Madrid. Con la mina cerrada, el suelo del pueblo seguía siendo el mismo. En 1978 el gobierno del Estado empezó a reducir Wittenoom y a alentar a la gente a irse, por el riesgo de fibras en el aire. Y en 1988 un juez determinó que la compañía había mostrado un desprecio continuo, consciente y contumaz por la seguridad y la salud de sus trabajadores.",
+    "ids": [
+     "T47",
+     "D27",
+     "D93"
+    ]
+   },
+   {
+    "cap": "ch06",
+    "oraciones": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "que_sale": "La versión anónima del pasaporte («los que nacieron allí», «el policía»). Se conserva idx 0 como re-gancho.",
+    "por_que_se_van": "Justo después del pico, la voz suelta a la familia que acaba de hacer llorar al espectador. La escena es del hijo, el niño del bautizo, y nombrarlo mantiene el hilo humano.",
+    "deberia_texto": "Daniel, el hijo, el niño del bautizo, volvió a Australia de adulto por primera vez en 1985. Lo llevaba escrito en el pasaporte. En el control del aeropuerto, el policía leyó la página, bajó la cabeza, volvió a mirar. «Así que de Wittenoom, ¿eh? Un sitio terrorífico», le dijo.",
+    "ids": [
+     "T57",
+     "Q24",
+     "D102"
+    ]
+   },
+   {
+    "cap": "ch06",
+    "oraciones": [
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19
+    ],
+    "que_sale": "La fecha con duda, la sigla DWER, la cita del «período oscuro» mal fechada y el desorden 2021/2016. Se conservan el borrado del mapa, los tres millones de toneladas, el Fortescue, «salía caro» y las fibras fuera de la zona.",
+    "por_que_se_van": "La voz duda de su propia fecha, salta de 2021 a 2016 y mete organismos en inglés: el espectador pierde el hilo justo cuando el capítulo debería escalar.",
+    "deberia_texto": "En junio de 2007, Wittenoom fue abolido oficialmente. Le quitaron el nombre de los mapas y arrancaron las señales de la carretera. La zona quedó declarada «no apta para ninguna forma de ocupación humana o uso del suelo». Lo que no se puede abolir son los relaves: más de tres millones de toneladas, sin cubrir. El agua los arrastra por los arroyos hasta el río Fortescue, y un informe advirtió que podía seguir así durante cientos de años si nadie intervenía. En 2016, un documento estatal aconsejó no asegurarlos. No porque fuera técnicamente imposible. Porque salía caro. Cinco años después, se encontraron fibras en arroyos fuera de la zona marcada como contaminada.",
+    "ids": [
+     "D31",
+     "T79",
+     "Q03",
+     "D02",
+     "D147",
+     "D10",
+     "T75",
+     "D59",
+     "T90"
+    ]
+   },
+   {
+    "cap": "ch07",
+    "oraciones": [
+     5,
+     6,
+     7,
+     8
+    ],
+    "que_sale": "Gordon Legal, BNTAC, la cifra de mil quinientos millones y la respuesta del gobierno. Se conserva la palada, que necesita idx 11.",
+    "por_que_se_van": "Es el capítulo más denso del video (4,93 años/min) cayendo en el último minuto. Las siglas jurídicas enfrían el duelo de Parker.",
+    "deberia_texto": "En 2026, el pueblo Banjima llevó al Estado de Australia Occidental ante el Tribunal Federal. Sus abogados sostienen que el Estado no ha gastado un dólar en remediar el sitio y que no se ha retirado una sola palada de asbesto de la tierra Banjima.",
+    "ids": [
+     "T98",
+     "D62",
+     "D70",
+     "D71"
+    ]
+   },
+   {
+    "cap": "ch07",
+    "oraciones": [
+     12,
+     13,
+     14,
+     15
+    ],
+    "que_sale": "La pregunta final que repite lo ya respondido en ch05.",
+    "por_que_se_van": "El cierre no vuelve a la imagen del gancho. Pregunta algo que el espectador ya sabe (mesotelioma, el polvo) y el final se siente plano en vez de circular.",
+    "deberia_texto": "Daniel Écija vivió diez meses en Wittenoom. María todavía guarda la foto: un hombre joven, el pie vendado, una herida que no cerraba. Nadie en su familia sabe decir qué respiró allí, en diez meses, que tardó casi treinta años en matarlo. Wittenoom ya no está en el mapa. Lo que sobró de la mina, sí.",
+    "ids": [
+     "D87",
+     "D85",
+     "Q25",
+     "D89",
+     "D31",
+     "D02"
+    ]
+   }
+  ],
+  "reglas_generales_candidatas": [
+   {
+    "regla": "Ningún tramo pasa más de 10 oraciones seguidas sin el protagonista (por nombre o acción).",
+    "medible_como": "racha_max_sin_personaje ≤ 10 por capítulo, con los terminos del personaje tomados del humano real de la escaleta.",
+    "por_que": "Las rachas largas sin rostro (ch03: 31, ch06: 21) coinciden con los tramos expositivos donde el espectador abandona."
+   },
+   {
+    "regla": "Un capítulo de contexto documental no puede superar el doble de años por minuto del capítulo más humano si ocupa más del 15% del video.",
+    "medible_como": "Marcar si anios_por_min_vs_mas_humano > 2,0 y pct > 15.",
+    "por_que": "ch03 (2,17x, 27% del video) es el valle principal."
+   },
+   {
+    "regla": "Cada capítulo con 4 o más años distintos debe anclar al menos un año al calendario del protagonista.",
+    "medible_como": "Si anios_distintos ≥ 4, exigir al menos una oración que contenga un año y un término del personaje.",
+    "por_que": "Convierte la cronología institucional en cuenta regresiva hacia el humano en lugar de expediente."
+   },
+   {
+    "regla": "El protagonista o su familia aparecen en las primeras 3 oraciones después del pico.",
+    "medible_como": "pico.personaje_en_siguientes == true.",
+    "por_que": "Tras la descarga emocional el espectador se va si la voz cambia de sujeto. Aquí quedaban 174 s sin la familia."
+   },
+   {
+    "regla": "El último capítulo no puede ser más denso que el capítulo del pico.",
+    "medible_como": "anios_por_min del último cap ≤ anios_por_min del cap del pico.",
+    "por_que": "ch07 (4,93) supera a ch05 (4,24): el cierre se recarga de datos justo cuando debería volver a la imagen del gancho."
+   }
+  ],
+  "riesgos": [
+   "Toco el gancho en ch01 idx 1: agrego «diez meses» y saco «va a cerrar» para alinear con D85. La promesa no cambia, solo se refuerza.",
+   "Las métricas buscan a «María Bernal» porque la escaleta tiene el nombre equivocado en humano (el rol y la fuente son de Daniel Écija). Conté las rachas con Daniel; si el código sigue con esos términos, todos los capítulos van a aparecer sin personaje.",
+   "El DEBERÍA de ch03 elimina la toma de ABA en 1943, los diagnósticos de 1946 (además sobredimensionados en plural), el recorte del suplemento salarial y la cita de McNulty «lo esperaban», apoyo del beat 6. Conserva 1944, 1948, 1957 y McNulty 1962, que son los que retoman ch05:13 y ch07:9.",
+   "Al sacar ch05 idx 4, ch06 idx 5 debería presentar a Mercedes como «la hija de Ramón de Juan» para no quedar huérfana.",
+   "El DEBERÍA de ch06 quita la cita «el fin de un período oscuro» (Q07), que es el ancla de la pregunta del beat 12. Si se quiere conservar, debe ir fechada en 2022 con el desalojo de los últimos vecinos (T91), no con la abolición.",
+   "El DEBERÍA de ch07 quita la respuesta del gobierno (Q34) y la cifra reclamada (D95). Se pierde la versión del Estado: decidirlo con quien revisa equilibrio.",
+   "Los re-ganchos ch01:11, ch03:31, ch04:18, ch06:9, ch06:0 y ch06:20 y el bloque del pico ch05:11-23 no se tocan. ch01 idx 9 y la promesa dicen que los relaves «siguen donde los dejaron», cuando el archivo dice que se dispersan (D04, D61): la reescritura de ch06 usa «sin cubrir» (D147) para no contradecir el arrastre por el agua."
+  ],
+  "usd": 0.72028,
+  "modelo": "claude-opus-5-5",
+  "prompt_version": "m01f-1",
+  "vigente": true,
+  "n_deberia": 7,
+  "error": null
+ },
+ "sin_critico": false,
+ "metricas": {
+  "seg_por_palabra": 0.34,
+  "total_palabras": 1941,
+  "total_min": 11,
+  "caps": [
+   {
+    "cap": "ch01",
+    "titulo": "La herida que no cerraba",
+    "oraciones": 12,
+    "palabras": 161,
+    "segundos": 55,
+    "pct": 8,
+    "pct_acumulado": 8,
+    "anios_distintos": 1,
+    "anios_por_min": 1.09,
+    "oraciones_con_personaje": 0,
+    "personaje_en_voz": false,
+    "racha_max_sin_personaje": 12,
+    "racha_desde_hasta": [
+     0,
+     11
+    ]
+   },
+   {
+    "cap": "ch02",
+    "titulo": "A la tierra roja",
+    "oraciones": 18,
+    "palabras": 220,
+    "segundos": 75,
+    "pct": 11,
+    "pct_acumulado": 20,
+    "anios_distintos": 3,
+    "anios_por_min": 2.4,
+    "oraciones_con_personaje": 1,
+    "personaje_en_voz": true,
+    "racha_max_sin_personaje": 16,
+    "racha_desde_hasta": [
+     2,
+     17
+    ]
+   },
+   {
+    "cap": "ch03",
+    "titulo": "Ignorar el veneno",
+    "oraciones": 32,
+    "palabras": 523,
+    "segundos": 178,
+    "pct": 27,
+    "pct_acumulado": 47,
+    "anios_distintos": 7,
+    "anios_por_min": 2.36,
+    "oraciones_con_personaje": 0,
+    "personaje_en_voz": false,
+    "racha_max_sin_personaje": 32,
+    "racha_desde_hasta": [
+     0,
+     31
+    ]
+   },
+   {
+    "cap": "ch04",
+    "titulo": "El juego peligroso",
+    "oraciones": 19,
+    "palabras": 232,
+    "segundos": 79,
+    "pct": 12,
+    "pct_acumulado": 59,
+    "anios_distintos": 1,
+    "anios_por_min": 0.76,
+    "oraciones_con_personaje": 0,
+    "personaje_en_voz": false,
+    "racha_max_sin_personaje": 19,
+    "racha_desde_hasta": [
+     0,
+     18
+    ]
+   },
+   {
+    "cap": "ch05",
+    "titulo": "Wittenoom por dentro",
+    "oraciones": 24,
+    "palabras": 292,
+    "segundos": 99,
+    "pct": 15,
+    "pct_acumulado": 74,
+    "anios_distintos": 7,
+    "anios_por_min": 4.24,
+    "oraciones_con_personaje": 0,
+    "personaje_en_voz": false,
+    "racha_max_sin_personaje": 24,
+    "racha_desde_hasta": [
+     0,
+     23
+    ]
+   },
+   {
+    "cap": "ch06",
+    "titulo": "El polvo viaja",
+    "oraciones": 21,
+    "palabras": 297,
+    "segundos": 101,
+    "pct": 15,
+    "pct_acumulado": 89,
+    "anios_distintos": 4,
+    "anios_por_min": 2.38,
+    "oraciones_con_personaje": 0,
+    "personaje_en_voz": false,
+    "racha_max_sin_personaje": 21,
+    "racha_desde_hasta": [
+     0,
+     20
+    ]
+   },
+   {
+    "cap": "ch07",
+    "titulo": "La herida ancestral",
+    "oraciones": 16,
+    "palabras": 216,
+    "segundos": 73,
+    "pct": 11,
+    "pct_acumulado": 100,
+    "anios_distintos": 6,
+    "anios_por_min": 4.93,
+    "oraciones_con_personaje": 0,
+    "personaje_en_voz": false,
+    "racha_max_sin_personaje": 16,
+    "racha_desde_hasta": [
+     0,
+     15
+    ]
+   }
+  ],
+  "personaje": {
+   "id": "P16",
+   "nombre": "María Bernal",
+   "terminos": [
+    "maria bernal",
+    "bernal"
+   ]
+  },
+  "personaje_motivo": null,
+  "cap_mas_humano": "ch01",
+  "anios_por_min_vs_mas_humano": {
+   "ch01": 1,
+   "ch02": 2.2,
+   "ch03": 2.17,
+   "ch04": 0.7,
+   "ch05": 3.89,
+   "ch06": 2.18,
+   "ch07": 4.52
+  },
+  "pico": {
+   "beat": 10,
+   "cap": "ch05",
+   "idx_ultima_oracion": 23,
+   "pct_acumulado": 74,
+   "segundos_despues": 174,
+   "personaje_en_siguientes": false,
+   "n_siguientes": 3,
+   "oraciones_siguientes": [
+    "A los que pasaron por Wittenoom, el nombre los sigue.",
+    "Los que nacieron allí lo llevan escrito en el pasaporte.",
+    "En un control de aeropuerto, el policía lee la página, baja la cabeza, vuelve a mirar."
+   ]
+  },
+  "pico_motivo": null,
+  "promesa": {
+   "texto": "Un minero español vivió diez meses en un pueblo construido con polvo de asbesto azul y tardó casi treinta años en morir de eso; el pueblo ya no existe en los mapas, pero tres millones de toneladas de relaves siguen donde las dejaron.",
+   "cifras": [],
+   "cifras_en_gancho": [],
+   "faltan": [],
+   "motivo": "sin cifras en dígitos"
+  }
+ },
+ "verificacion": {
+  "quedan": [
+   {
+    "cap": "ch01",
+    "oracion": 1,
+    "texto": "Ese pie va a cerrar; lo que respira mientras espera que cierre va a tardar casi treinta años en matarlo, y lo va a alcanzar a miles de kilómetros de aquí.",
+    "afirmacion": "La herida del pie va a cerrar.",
+    "ids": [
+     "D85"
+    ],
+    "fragmento": "Se le cayó un trozo de amianto en el pie y, extrañamente, fue una herida que no se cerraba nunca."
+   },
+   {
+    "cap": "ch01",
+    "oracion": 9,
+    "texto": "Lo que sobró de la mina, en cambio, sigue donde lo dejaron.",
+    "afirmacion": "Los residuos de la mina siguen en el mismo lugar donde los dejaron.",
+    "ids": [
+     "D04",
+     "D61"
+    ],
+    "fragmento": "The natural forces of wind and water have also spread the asbestos wastes, such that they now cover an area of approximately 10 square kilometres. / all reports on the extent of the contamination are no longer applicable and the contamination has spread."
+   },
+   {
+    "cap": "ch03",
+    "oracion": 14,
+    "texto": "En 1946 ya había diagnósticos de asbestosis, y un inspector describió las condiciones de trabajo como terroríficas.",
+    "afirmacion": "En 1946 ya había diagnósticos (en plural) de asbestosis.",
+    "ids": [
+     "T13"
+    ],
+    "fragmento": "cómo en 1946 ya se había diagnosticado un caso de asbestosis"
+   },
+   {
+    "cap": "ch03",
+    "oracion": 31,
+    "texto": "El año en que McNulty escribió ese primer caso, un recién casado de Madrid se bajaba de un avión en esa misma pista de polvo.",
+    "afirmacion": "El primer caso de mesotelioma de McNulty fue escrito en 1962.",
+    "ids": [
+     "D50",
+     "D130"
+    ],
+    "fragmento": "Dr J McNulty of the Public Health Department diagnosed the first mesothelioma case arising from Wittenoom. / The first case of mesothelioma outside South Africa—in an ex-Wittenoom mill worker—was reported by McNulty in 1962."
+   },
+   {
+    "cap": "ch04",
+    "oracion": 1,
+    "texto": "El hijo cuenta que el primer día de trabajo de su padre hubo una explosión y que alguien murió; no hay otro documento que lo confirme.",
+    "afirmacion": "El hijo cuenta que en esa explosión murió alguien",
+    "ids": [
+     "Q16"
+    ],
+    "fragmento": "“El primer día de trabajo de nuestro padre hubo una explosión y murieron varias personas”, relata Daniel hijo."
+   },
+   {
+    "cap": "ch06",
+    "oracion": 12,
+    "texto": "El gobierno de Australia Occidental lo llamó «el fin de un período oscuro en la historia de nuestro Estado».",
+    "afirmacion": "El gobierno de Australia Occidental llamó a la abolición del pueblo «el fin de un período oscuro en la historia de nuestro Estado»",
+    "ids": [
+     "Q07",
+     "T91"
+    ],
+    "fragmento": "Q07 (fecha 2022): «The W.A. Government declared this was “an end to a dark period in our State's history.”»; T91: «In 2022, the last remaining residents of Wittenoom town were evicted ahead of its demolition in 2023.» La cita está fechada en 2022 y no en la abolición de 2006-2007."
+   },
+   {
+    "cap": "ch07",
+    "oracion": 9,
+    "texto": "Quién sabía está escrito: dos inspectores en 1944, un médico al que llamaron alborotador en 1948, un tribunal que entró al molino en 1957.",
+    "afirmacion": "En 1944 dos inspectores informaron sobre el problema del polvo.",
+    "ids": [
+     "D19"
+    ],
+    "fragmento": "the Mines Inspector and the Assistant State Mining Engineer reported on the dust issue as early as 1944"
+   }
+  ],
+  "vigente": true
+ },
+ "caps": [
+  {
+   "cap": "ch01",
+   "titulo": "La herida que no cerraba",
+   "nota": 8,
+   "fuerte": "Imagen concreta (retrato, pie vendado), muerte anunciada a futuro y un pueblo borrado: tres preguntas en 55 s con 1,09 años/min.",
+   "debil": "Idx 1 («ese pie va a cerrar») choca con idx 3 («la herida no cerraba») y confunde la pregunta central. No dice cuánto tiempo estuvo.",
+   "reengancho": "«Dos años antes de la foto, en Madrid, hubo un baile»: salto temporal que promete el origen. Fuerte.",
+   "personaje_en_voz": true,
+   "racha_max_sin_personaje": 12,
+   "metricas": {
+    "cap": "ch01",
+    "titulo": "La herida que no cerraba",
+    "oraciones": 12,
+    "palabras": 161,
+    "segundos": 55,
+    "pct": 8,
+    "pct_acumulado": 8,
+    "anios_distintos": 1,
+    "anios_por_min": 1.09,
+    "oraciones_con_personaje": 0,
+    "personaje_en_voz": false,
+    "racha_max_sin_personaje": 12,
+    "racha_desde_hasta": [
+     0,
+     11
+    ]
+   },
+   "parrafos": [
+    {
+     "i": 0,
+     "beat": 1,
+     "texto": "Un hombre joven posa para un retrato con el pie vendado. Ese pie va a cerrar; lo que respira mientras espera que cierre va a tardar casi treinta años en matarlo, y lo va a alcanzar a miles de kilómetros de aquí. La foto es en blanco y negro. La familia que la guarda cuenta que le cayó encima un trozo de amianto y que la herida no cerraba. Una herida hecha por un pedazo de mineral que no cierra. El hombre se llama Daniel Écija, es minero, y llegó de Madrid hace unos meses. Wittenoom, Australia Occidental, 1963.",
+     "oraciones": [
+      {
+       "idx": 0,
+       "texto": "Un hombre joven posa para un retrato con el pie vendado."
+      },
+      {
+       "idx": 1,
+       "texto": "Ese pie va a cerrar; lo que respira mientras espera que cierre va a tardar casi treinta años en matarlo, y lo va a alcanzar a miles de kilómetros de aquí."
+      },
+      {
+       "idx": 2,
+       "texto": "La foto es en blanco y negro."
+      },
+      {
+       "idx": 3,
+       "texto": "La familia que la guarda cuenta que le cayó encima un trozo de amianto y que la herida no cerraba."
+      },
+      {
+       "idx": 4,
+       "texto": "Una herida hecha por un pedazo de mineral que no cierra."
+      },
+      {
+       "idx": 5,
+       "texto": "El hombre se llama Daniel Écija, es minero, y llegó de Madrid hace unos meses."
+      },
+      {
+       "idx": 6,
+       "texto": "Wittenoom, Australia Occidental, 1963."
+      }
+     ]
+    },
+    {
+     "i": 1,
+     "beat": 1,
+     "texto": "Esa foto se tomó en un pueblo que hoy no figura en ningún mapa. Arrancaron las señales de la carretera y borraron el nombre. Lo que sobró de la mina, en cambio, sigue donde lo dejaron. Pero antes de que lo borraran, alguien tuvo que llevar a ese hombre hasta allí. Dos años antes de la foto, en Madrid, hubo un baile.",
+     "oraciones": [
+      {
+       "idx": 7,
+       "texto": "Esa foto se tomó en un pueblo que hoy no figura en ningún mapa."
+      },
+      {
+       "idx": 8,
+       "texto": "Arrancaron las señales de la carretera y borraron el nombre."
+      },
+      {
+       "idx": 9,
+       "texto": "Lo que sobró de la mina, en cambio, sigue donde lo dejaron."
+      },
+      {
+       "idx": 10,
+       "texto": "Pero antes de que lo borraran, alguien tuvo que llevar a ese hombre hasta allí."
+      },
+      {
+       "idx": 11,
+       "texto": "Dos años antes de la foto, en Madrid, hubo un baile."
+      }
+     ]
+    }
+   ],
+   "deberia": [
+    {
+     "k": 1,
+     "oraciones": [
+      1
+     ],
+     "que_sale": "«Ese pie va a cerrar», que contradice idx 3 y el archivo.",
+     "por_que_se_van": "El espectador oye que la herida cierra y dos oraciones después que no cerraba: la pregunta central del gancho se desarma en los primeros 15 s.",
+     "deberia_texto": "Va a pasar diez meses en este lugar. Esa herida no va a cerrar, pero no es el pie lo que lo va a matar: lo que respira mientras espera que cierre va a tardar casi treinta años, y lo va a alcanzar a miles de kilómetros de aquí.",
+     "ids": [
+      "D85",
+      "D87",
+      "D89"
+     ],
+     "palabras_antes": 31,
+     "palabras_despues": 49,
+     "cifras_sin_respaldo": [],
+     "marcas": [],
+     "aplica": true
+    }
+   ]
+  },
+  {
+   "cap": "ch02",
+   "titulo": "A la tierra roja",
+   "nota": 7,
+   "fuerte": "La ternura del baile y la cita de María, y la travesía de Víctor contada con el cuerpo (calor, mareos).",
+   "debil": "Idx 7 junta en una oración el acuerdo, los ocho mil, CSR y 1950. Desde idx 9 la pareja desaparece y Víctor carga solo el capítulo.",
+   "reengancho": "«Del avión, a la tierra más roja…»: imagen que empuja a la llegada. Correcto.",
+   "personaje_en_voz": true,
+   "racha_max_sin_personaje": 16,
+   "metricas": {
+    "cap": "ch02",
+    "titulo": "A la tierra roja",
+    "oraciones": 18,
+    "palabras": 220,
+    "segundos": 75,
+    "pct": 11,
+    "pct_acumulado": 20,
+    "anios_distintos": 3,
+    "anios_por_min": 2.4,
+    "oraciones_con_personaje": 1,
+    "personaje_en_voz": true,
+    "racha_max_sin_personaje": 16,
+    "racha_desde_hasta": [
+     2,
+     17
+    ]
+   },
+   "parrafos": [
+    {
+     "i": 2,
+     "beat": 2,
+     "texto": "El baile fue en el Círculo de Bellas Artes, el 16 de septiembre de 1961. Allí María Bernal conoció a Daniel. De esa noche y de lo que vino después, ella no cuenta la música ni el vestido; cuenta que iba muy cerca de él y que confiaba en lo que venía. «Me pegué a mi marido, como una niña pequeña», dice ella, muchos años después. Se casaron un año más tarde, el 20 de septiembre de 1962. Cuatro días después estaban en un barco.",
+     "oraciones": [
+      {
+       "idx": 0,
+       "texto": "El baile fue en el Círculo de Bellas Artes, el 16 de septiembre de 1961."
+      },
+      {
+       "idx": 1,
+       "texto": "Allí María Bernal conoció a Daniel."
+      },
+      {
+       "idx": 2,
+       "texto": "De esa noche y de lo que vino después, ella no cuenta la música ni el vestido; cuenta que iba muy cerca de él y que confiaba en lo que venía."
+      },
+      {
+       "idx": 3,
+       "texto": "«Me pegué a mi marido, como una niña pequeña», dice ella, muchos años después."
+      },
+      {
+       "idx": 4,
+       "texto": "Se casaron un año más tarde, el 20 de septiembre de 1962."
+      },
+      {
+       "idx": 5,
+       "texto": "Cuatro días después estaban en un barco."
+      }
+     ]
+    },
+    {
+     "i": 3,
+     "beat": 3,
+     "texto": "El barco los llevaba a Australia. No iban solos: cerca de ocho mil españoles cruzaron por un acuerdo entre los dos gobiernos, y CSR, la compañía dueña de la mina, venía haciendo viajes privados a Europa para reclutar gente desde 1950. Allá los esperaban ya Ramón de Juan y Milagros Barroso, otro matrimonio que había llegado en agosto de 1962; con ellos, recuerda ella, se harían íntimos amigos.",
+     "oraciones": [
+      {
+       "idx": 6,
+       "texto": "El barco los llevaba a Australia."
+      },
+      {
+       "idx": 7,
+       "texto": "No iban solos: cerca de ocho mil españoles cruzaron por un acuerdo entre los dos gobiernos, y CSR, la compañía dueña de la mina, venía haciendo viajes privados a Europa para reclutar gente desde 1950."
+      },
+      {
+       "idx": 8,
+       "texto": "Allá los esperaban ya Ramón de Juan y Milagros Barroso, otro matrimonio que había llegado en agosto de 1962; con ellos, recuerda ella, se harían íntimos amigos."
+      }
+     ]
+    },
+    {
+     "i": 4,
+     "beat": 3,
+     "texto": "Víctor Calvo hizo esa travesía de niño. Salieron de Málaga y tardaron más de veinte días en llegar. Pasaron por el canal de Suez. «Puf, el calor que hacía allí. Recuerdo los mareos. La incertidumbre», dice Calvo. Nadie sabía bien adónde iban ni cómo iban a vivir. Del barco, a un avión pequeño. Del avión, a la tierra más roja que Víctor había visto en su vida.",
+     "oraciones": [
+      {
+       "idx": 9,
+       "texto": "Víctor Calvo hizo esa travesía de niño."
+      },
+      {
+       "idx": 10,
+       "texto": "Salieron de Málaga y tardaron más de veinte días en llegar."
+      },
+      {
+       "idx": 11,
+       "texto": "Pasaron por el canal de Suez."
+      },
+      {
+       "idx": 12,
+       "texto": "«Puf, el calor que hacía allí."
+      },
+      {
+       "idx": 13,
+       "texto": "Recuerdo los mareos."
+      },
+      {
+       "idx": 14,
+       "texto": "La incertidumbre», dice Calvo."
+      },
+      {
+       "idx": 15,
+       "texto": "Nadie sabía bien adónde iban ni cómo iban a vivir."
+      },
+      {
+       "idx": 16,
+       "texto": "Del barco, a un avión pequeño."
+      },
+      {
+       "idx": 17,
+       "texto": "Del avión, a la tierra más roja que Víctor había visto en su vida."
+      }
+     ]
+    }
+   ],
+   "deberia": []
+  },
+  {
+   "cap": "ch03",
+   "titulo": "Ignorar el veneno",
+   "nota": 4.5,
+   "fuerte": "Idx 0-10: la pista, los patios y la escuela hechos de relaves, con la cita del extrabajador. La revelación del suelo es muy buena.",
+   "debil": "Es el valle del video: el 27% del total, siete años distintos, ABA, CSR, inspector, ingeniero adjunto, Junta de Referencia y suplemento salarial, sin Daniel ni María hasta la última oración. El chico de idx 4 queda sin nombre aunque el cap anterior terminó con Víctor.",
+   "reengancho": "«Un recién casado de Madrid se bajaba de un avión en esa misma pista»: excelente, devuelve al humano. Llega tarde.",
+   "personaje_en_voz": true,
+   "racha_max_sin_personaje": 32,
+   "metricas": {
+    "cap": "ch03",
+    "titulo": "Ignorar el veneno",
+    "oraciones": 32,
+    "palabras": 523,
+    "segundos": 178,
+    "pct": 27,
+    "pct_acumulado": 47,
+    "anios_distintos": 7,
+    "anios_por_min": 2.36,
+    "oraciones_con_personaje": 0,
+    "personaje_en_voz": false,
+    "racha_max_sin_personaje": 32,
+    "racha_desde_hasta": [
+     0,
+     31
+    ]
+   },
+   "parrafos": [
+    {
+     "i": 5,
+     "beat": 4,
+     "texto": "El avión era pequeño, de hélices, y se movía muchísimo. Abajo, el desierto de Pilbara, en Australia Occidental. «Aterrizamos en una pista en medio de una tierra muy muy roja. Había polvo por todas partes. Nunca había visto tanto polvo», recuerda uno de los chicos que bajaron de ese avión. Los llevaron a las casas: chapa, madera y uralita.",
+     "oraciones": [
+      {
+       "idx": 0,
+       "texto": "El avión era pequeño, de hélices, y se movía muchísimo."
+      },
+      {
+       "idx": 1,
+       "texto": "Abajo, el desierto de Pilbara, en Australia Occidental."
+      },
+      {
+       "idx": 2,
+       "texto": "«Aterrizamos en una pista en medio de una tierra muy muy roja."
+      },
+      {
+       "idx": 3,
+       "texto": "Había polvo por todas partes."
+      },
+      {
+       "idx": 4,
+       "texto": "Nunca había visto tanto polvo», recuerda uno de los chicos que bajaron de ese avión."
+      },
+      {
+       "idx": 5,
+       "texto": "Los llevaron a las casas: chapa, madera y uralita."
+      }
+     ]
+    },
+    {
+     "i": 6,
+     "beat": 4,
+     "texto": "La pista donde aterrizaron estaba hecha con relaves de la mina, con lo que quedaba después de sacar la fibra. Con lo mismo se hicieron las carreteras, los patios y los espacios públicos del pueblo, y la empresa descargaba los relaves a pedido de los vecinos. «Las escuelas y el jardín de infantes, las iglesias, todos lo tenían bonito con relaves allí», dijo un antiguo trabajador de la mina. El pueblo entero, la pista, los patios, la escuela: todo estaba hecho con lo que sobraba de la mina. Y lo que sobraba de la mina ya tenía nombre en los informes.",
+     "oraciones": [
+      {
+       "idx": 6,
+       "texto": "La pista donde aterrizaron estaba hecha con relaves de la mina, con lo que quedaba después de sacar la fibra."
+      },
+      {
+       "idx": 7,
+       "texto": "Con lo mismo se hicieron las carreteras, los patios y los espacios públicos del pueblo, y la empresa descargaba los relaves a pedido de los vecinos."
+      },
+      {
+       "idx": 8,
+       "texto": "«Las escuelas y el jardín de infantes, las iglesias, todos lo tenían bonito con relaves allí», dijo un antiguo trabajador de la mina."
+      },
+      {
+       "idx": 9,
+       "texto": "El pueblo entero, la pista, los patios, la escuela: todo estaba hecho con lo que sobraba de la mina."
+      },
+      {
+       "idx": 10,
+       "texto": "Y lo que sobraba de la mina ya tenía nombre en los informes."
+      }
+     ]
+    },
+    {
+     "i": 7,
+     "beat": 5,
+     "texto": "Los informes eran anteriores a la boda, al barco y al avión. En 1943, ABA, una filial de CSR, se quedó con los intereses de Hancock y Wright en la mina. En 1944, el inspector de minas y el ingeniero de minas Adjunto del Estado informaron sobre el problema del polvo. En 1946 ya había diagnósticos de asbestosis, y un inspector describió las condiciones de trabajo como terroríficas. El defensor del empleador tenía otra lectura: «El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso».",
+     "oraciones": [
+      {
+       "idx": 11,
+       "texto": "Los informes eran anteriores a la boda, al barco y al avión."
+      },
+      {
+       "idx": 12,
+       "texto": "En 1943, ABA, una filial de CSR, se quedó con los intereses de Hancock y Wright en la mina."
+      },
+      {
+       "idx": 13,
+       "texto": "En 1944, el inspector de minas y el ingeniero de minas Adjunto del Estado informaron sobre el problema del polvo."
+      },
+      {
+       "idx": 14,
+       "texto": "En 1946 ya había diagnósticos de asbestosis, y un inspector describió las condiciones de trabajo como terroríficas."
+      },
+      {
+       "idx": 15,
+       "texto": "El defensor del empleador tenía otra lectura: «El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso»."
+      }
+     ]
+    },
+    {
+     "i": 8,
+     "beat": 5,
+     "texto": "En 1948, un médico llegó en avión y puso por escrito lo que encontró. «En un año o dos, ABA producirá la cosecha más abundante y letal de casos de asbestosis de la literatura mundial», dice la carta de ese médico. Pedía, naturalmente, examinar algunos de esos tórax.",
+     "oraciones": [
+      {
+       "idx": 16,
+       "texto": "En 1948, un médico llegó en avión y puso por escrito lo que encontró."
+      },
+      {
+       "idx": 17,
+       "texto": "«En un año o dos, ABA producirá la cosecha más abundante y letal de casos de asbestosis de la literatura mundial», dice la carta de ese médico."
+      },
+      {
+       "idx": 18,
+       "texto": "Pedía, naturalmente, examinar algunos de esos tórax."
+      }
+     ]
+    },
+    {
+     "i": 9,
+     "beat": 5,
+     "texto": "Eric Saint, médico, fue quien advirtió por escrito ese año que los niveles de polvo eran extremadamente peligrosos. La respuesta la contó él: «Me desestimaron y, de hecho, me tildaron de alborotador», dijo Saint. Nueve años después, un tribunal laboral fue a ver el molino con sus propios ojos.",
+     "oraciones": [
+      {
+       "idx": 19,
+       "texto": "Eric Saint, médico, fue quien advirtió por escrito ese año que los niveles de polvo eran extremadamente peligrosos."
+      },
+      {
+       "idx": 20,
+       "texto": "La respuesta la contó él: «Me desestimaron y, de hecho, me tildaron de alborotador», dijo Saint."
+      },
+      {
+       "idx": 21,
+       "texto": "Nueve años después, un tribunal laboral fue a ver el molino con sus propios ojos."
+      }
+     ]
+    },
+    {
+     "i": 10,
+     "beat": 6,
+     "texto": "La Junta de Referencia entró al molino en 1957 y escribió lo que vio. «Las condiciones dentro del molino eran extremadamente polvorientas y… sus trabajadores estaban cubiertos de polvo», dice el acta. Una nube espesa flotaba alrededor del edificio. Siete meses después se instalaron equipos para reducir el polvo, y con los equipos se recortó y se restringió el suplemento salarial que los hombres cobraban por ese polvo. Un documento oficial lo resume así: los reguladores hicieron poco más que emitir advertencias y pedir equipos.",
+     "oraciones": [
+      {
+       "idx": 22,
+       "texto": "La Junta de Referencia entró al molino en 1957 y escribió lo que vio."
+      },
+      {
+       "idx": 23,
+       "texto": "«Las condiciones dentro del molino eran extremadamente polvorientas y…"
+      },
+      {
+       "idx": 24,
+       "texto": "sus trabajadores estaban cubiertos de polvo», dice el acta."
+      },
+      {
+       "idx": 25,
+       "texto": "Una nube espesa flotaba alrededor del edificio."
+      },
+      {
+       "idx": 26,
+       "texto": "Siete meses después se instalaron equipos para reducir el polvo, y con los equipos se recortó y se restringió el suplemento salarial que los hombres cobraban por ese polvo."
+      },
+      {
+       "idx": 27,
+       "texto": "Un documento oficial lo resume así: los reguladores hicieron poco más que emitir advertencias y pedir equipos."
+      }
+     ]
+    },
+    {
+     "i": 11,
+     "beat": 6,
+     "texto": "En 1961 la producción subió. En 1962, Jim McNulty comunicó un caso de mesotelioma en un antiguo trabajador del molino; una fuente lo presenta como el primero comunicado fuera de Sudáfrica. Según McNulty, los que habían advertido sobre el polvo y predicho las enfermedades no sorprendieron a nadie: «no se encendieron las alarmas entre los involucrados en la industria minera porque estaban acostumbrados; lo esperaban». El año en que McNulty escribió ese primer caso, un recién casado de Madrid se bajaba de un avión en esa misma pista de polvo.",
+     "oraciones": [
+      {
+       "idx": 28,
+       "texto": "En 1961 la producción subió."
+      },
+      {
+       "idx": 29,
+       "texto": "En 1962, Jim McNulty comunicó un caso de mesotelioma en un antiguo trabajador del molino; una fuente lo presenta como el primero comunicado fuera de Sudáfrica."
+      },
+      {
+       "idx": 30,
+       "texto": "Según McNulty, los que habían advertido sobre el polvo y predicho las enfermedades no sorprendieron a nadie: «no se encendieron las alarmas entre los involucrados en la industria minera porque estaban acostumbrados; lo esperaban»."
+      },
+      {
+       "idx": 31,
+       "texto": "El año en que McNulty escribió ese primer caso, un recién casado de Madrid se bajaba de un avión en esa misma pista de polvo."
+      }
+     ]
+    }
+   ],
+   "deberia": [
+    {
+     "k": 2,
+     "oraciones": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+     ],
+     "que_sale": "La toma de ABA en 1943, los diagnósticos de 1946, el suplemento salarial, la frase repetida de Saint, la cita larga de McNulty y la mitad de las siglas. Se conservan 1944, 1948, 1957, 1961 y 1962, que necesitan ch05:13 y ch07:9.",
+     "por_que_se_van": "Son 20 oraciones de expediente con años, siglas e instituciones y ningún rostro conocido. Es el tramo de 20%-47% donde el espectador decide si el video es sobre Daniel o un informe.",
+     "deberia_texto": "Los informes eran anteriores a la boda, al barco y al avión. En 1944, el inspector de minas y el ingeniero de minas adjunto del Estado ya informaban sobre el problema del polvo. En 1948, un médico joven llegó en avión, vio el molino y escribió a Perth: «En un año o dos, ABA producirá la cosecha más abundante y letal de casos de asbestosis de la literatura mundial». Se llamaba Eric Saint. La respuesta la contó él: «Me desestimaron y, de hecho, me tildaron de alborotador». La empresa tenía otra lectura: «El mero hecho de que haya nubes de polvo no significa que ese polvo sea peligroso». Faltaban catorce años para que Daniel Écija bajara de ese avión. En 1957, un tribunal laboral entró al molino y escribió lo que vio: «Las condiciones dentro del molino eran extremadamente polvorientas y… sus trabajadores estaban cubiertos de polvo». Faltaban cinco años. Los reguladores hicieron poco más que emitir advertencias y pedir equipos. En 1961, el año en que Daniel y María se conocieron en un baile de Madrid, la producción subió. En 1962, un médico, Jim McNulty, comunicó un caso de mesotelioma en un antiguo trabajador del molino. Ese mismo año, un recién casado de Madrid se bajaba de un avión en esa misma pista de polvo.",
+     "ids": [
+      "D19",
+      "Q45",
+      "T20",
+      "Q46",
+      "D92",
+      "Q53",
+      "Q54",
+      "T26",
+      "D20",
+      "D21",
+      "T34",
+      "D130",
+      "T35",
+      "T38"
+     ],
+     "palabras_antes": 363,
+     "palabras_despues": 216,
+     "cifras_sin_respaldo": [],
+     "marcas": [],
+     "aplica": true
+    }
+   ]
+  },
+  {
+   "cap": "ch04",
+   "titulo": "El juego peligroso",
+   "nota": 8,
+   "fuerte": "Densidad mínima (0,76 años/min): los niños que se meten el amianto en la boca, el parto y el bautizo. Es el capítulo más físico.",
+   "debil": "Idx 2-9 cede la escena a Ramón y Víctor. Funciona porque es sensorial.",
+   "reengancho": "«Creyeron que se llevaban de Wittenoom un hijo y nada más»: ironía dramática que obliga a seguir. Fuerte.",
+   "personaje_en_voz": true,
+   "racha_max_sin_personaje": 19,
+   "metricas": {
+    "cap": "ch04",
+    "titulo": "El juego peligroso",
+    "oraciones": 19,
+    "palabras": 232,
+    "segundos": 79,
+    "pct": 12,
+    "pct_acumulado": 59,
+    "anios_distintos": 1,
+    "anios_por_min": 0.76,
+    "oraciones_con_personaje": 0,
+    "personaje_en_voz": false,
+    "racha_max_sin_personaje": 19,
+    "racha_desde_hasta": [
+     0,
+     18
+    ]
+   },
+   "parrafos": [
+    {
+     "i": 12,
+     "beat": 7,
+     "texto": "Daniel Écija bajó a esa pista semanas después de su boda y entró a trabajar en la mina. El hijo cuenta que el primer día de trabajo de su padre hubo una explosión y que alguien murió; no hay otro documento que lo confirme. Ramón de Juan, el amigo, hacía con frecuencia jornadas de dieciséis horas. Los hombres volvían a las casas de chapa con el polvo encima, y en los patios hechos de relaves jugaban los chicos.",
+     "oraciones": [
+      {
+       "idx": 0,
+       "texto": "Daniel Écija bajó a esa pista semanas después de su boda y entró a trabajar en la mina."
+      },
+      {
+       "idx": 1,
+       "texto": "El hijo cuenta que el primer día de trabajo de su padre hubo una explosión y que alguien murió; no hay otro documento que lo confirme."
+      },
+      {
+       "idx": 2,
+       "texto": "Ramón de Juan, el amigo, hacía con frecuencia jornadas de dieciséis horas."
+      },
+      {
+       "idx": 3,
+       "texto": "Los hombres volvían a las casas de chapa con el polvo encima, y en los patios hechos de relaves jugaban los chicos."
+      }
+     ]
+    },
+    {
+     "i": 13,
+     "beat": 7,
+     "texto": "Víctor Calvo era uno de esos chicos. El amianto azul se deshacía entre los dedos. «Nosotros jugábamos con él y lo íbamos deshilachando. Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo», dice Calvo. Estaban rodeados de amianto azul y no les daba miedo. En ese pueblo, en junio de 1963, María entró al hospital a dar a luz.",
+     "oraciones": [
+      {
+       "idx": 4,
+       "texto": "Víctor Calvo era uno de esos chicos."
+      },
+      {
+       "idx": 5,
+       "texto": "El amianto azul se deshacía entre los dedos."
+      },
+      {
+       "idx": 6,
+       "texto": "«Nosotros jugábamos con él y lo íbamos deshilachando."
+      },
+      {
+       "idx": 7,
+       "texto": "Nos lo metíamos en la boca."
+      },
+      {
+       "idx": 8,
+       "texto": "Cuando lo tocábamos salía un polvillo que lo impregnaba todo», dice Calvo."
+      },
+      {
+       "idx": 9,
+       "texto": "Estaban rodeados de amianto azul y no les daba miedo."
+      },
+      {
+       "idx": 10,
+       "texto": "En ese pueblo, en junio de 1963, María entró al hospital a dar a luz."
+      }
+     ]
+    },
+    {
+     "i": 14,
+     "beat": 8,
+     "texto": "El parto fue con fórceps. El bebé era muy grande y María venía debilitada por una infección renal. Nació un varón y le pusieron Daniel, como el padre. Tres meses antes, en marzo, Milagros Barroso había dado a luz en el mismo pueblo a John Patrick. El 7 de julio de 1963 bautizaron al niño; la familia conserva una fotografía de ese día. Después del bautizo, los Écija se fueron de Wittenoom. Habían estado unos diez meses. Creyeron que se llevaban de Wittenoom un hijo y nada más.",
+     "oraciones": [
+      {
+       "idx": 11,
+       "texto": "El parto fue con fórceps."
+      },
+      {
+       "idx": 12,
+       "texto": "El bebé era muy grande y María venía debilitada por una infección renal."
+      },
+      {
+       "idx": 13,
+       "texto": "Nació un varón y le pusieron Daniel, como el padre."
+      },
+      {
+       "idx": 14,
+       "texto": "Tres meses antes, en marzo, Milagros Barroso había dado a luz en el mismo pueblo a John Patrick."
+      },
+      {
+       "idx": 15,
+       "texto": "El 7 de julio de 1963 bautizaron al niño; la familia conserva una fotografía de ese día."
+      },
+      {
+       "idx": 16,
+       "texto": "Después del bautizo, los Écija se fueron de Wittenoom."
+      },
+      {
+       "idx": 17,
+       "texto": "Habían estado unos diez meses."
+      },
+      {
+       "idx": 18,
+       "texto": "Creyeron que se llevaban de Wittenoom un hijo y nada más."
+      }
+     ]
+    }
+   ],
+   "deberia": []
+  },
+  {
+   "cap": "ch05",
+   "titulo": "Wittenoom por dentro",
+   "nota": 8,
+   "fuerte": "El pico: «eso respiraba mientras esperaba que le cerrara el pie», «Lo alcanzó», nueve meses contra diez. Paga el gancho.",
+   "debil": "Idx 0-10 sube a 4,24 años/min justo antes del pico (1966, 1971, 1978, 1979, 1988). El dato de los De Juan y la Asbestos Diseases Society son carga muerta en ese tramo.",
+   "reengancho": "«Daniel había estado en Wittenoom diez»: cierra con fuerza pero no promete nada. Todo el empuje hacia ch06 depende de su primera oración.",
+   "personaje_en_voz": true,
+   "racha_max_sin_personaje": 24,
+   "metricas": {
+    "cap": "ch05",
+    "titulo": "Wittenoom por dentro",
+    "oraciones": 24,
+    "palabras": 292,
+    "segundos": 99,
+    "pct": 15,
+    "pct_acumulado": 74,
+    "anios_distintos": 7,
+    "anios_por_min": 4.24,
+    "oraciones_con_personaje": 0,
+    "personaje_en_voz": false,
+    "racha_max_sin_personaje": 24,
+    "racha_desde_hasta": [
+     0,
+     23
+    ]
+   },
+   "parrafos": [
+    {
+     "i": 15,
+     "beat": 9,
+     "texto": "Lo que dejaban atrás siguió moliendo tres años más. En diciembre de 1966, James Vernon, de CSR, anunció el cierre de las operaciones. Las razones del anuncio eran económicas: no la palabra salud, la palabra costos. Ese mismo año los Écija volvieron a Madrid. Los de Juan estuvieron en Wittenoom unos dos años y medio y regresaron a Madrid en 1971; Mercedes de Juan se quedó en Australia.",
+     "oraciones": [
+      {
+       "idx": 0,
+       "texto": "Lo que dejaban atrás siguió moliendo tres años más."
+      },
+      {
+       "idx": 1,
+       "texto": "En diciembre de 1966, James Vernon, de CSR, anunció el cierre de las operaciones."
+      },
+      {
+       "idx": 2,
+       "texto": "Las razones del anuncio eran económicas: no la palabra salud, la palabra costos."
+      },
+      {
+       "idx": 3,
+       "texto": "Ese mismo año los Écija volvieron a Madrid."
+      },
+      {
+       "idx": 4,
+       "texto": "Los de Juan estuvieron en Wittenoom unos dos años y medio y regresaron a Madrid en 1971; Mercedes de Juan se quedó en Australia."
+      }
+     ]
+    },
+    {
+     "i": 16,
+     "beat": 9,
+     "texto": "Con la mina cerrada, el suelo del pueblo seguía siendo el mismo. En 1978 el gobierno del Estado empezó a reducir Wittenoom y a alentar a la gente a irse, por el riesgo de fibras en el aire. En 1979 los afectados formaron la Asbestos Diseases Society of Australia. Y en 1988 un juez determinó que la compañía había mostrado un desprecio continuo, consciente y contumaz por la seguridad y la salud de sus trabajadores. Veintidós años después del cierre. Para entonces, en Madrid, a Daniel le quedaban tres años.",
+     "oraciones": [
+      {
+       "idx": 5,
+       "texto": "Con la mina cerrada, el suelo del pueblo seguía siendo el mismo."
+      },
+      {
+       "idx": 6,
+       "texto": "En 1978 el gobierno del Estado empezó a reducir Wittenoom y a alentar a la gente a irse, por el riesgo de fibras en el aire."
+      },
+      {
+       "idx": 7,
+       "texto": "En 1979 los afectados formaron la Asbestos Diseases Society of Australia."
+      },
+      {
+       "idx": 8,
+       "texto": "Y en 1988 un juez determinó que la compañía había mostrado un desprecio continuo, consciente y contumaz por la seguridad y la salud de sus trabajadores."
+      },
+      {
+       "idx": 9,
+       "texto": "Veintidós años después del cierre."
+      },
+      {
+       "idx": 10,
+       "texto": "Para entonces, en Madrid, a Daniel le quedaban tres años."
+      }
+     ]
+    },
+    {
+     "i": 17,
+     "beat": 10,
+     "texto": "María guarda las fotografías en sepia: el baile, el barco, el pie vendado, el bautizo. En 1991, en Madrid, un diagnóstico puso nombre a lo que Daniel llevaba adentro: mesotelioma. La misma palabra que McNulty había escrito en 1962 sobre un trabajador del molino, el año en que Daniel bajó del avión. Eso había en el polvo. Eso respiraba mientras esperaba que le cerrara el pie. Daniel tenía cincuenta y cinco años. María tenía las fotos. Nueve meses después del diagnóstico, Daniel Écija murió en Madrid, a miles de kilómetros de la pista roja, casi treinta años después de haberse ido de ella. Lo alcanzó.",
+     "oraciones": [
+      {
+       "idx": 11,
+       "texto": "María guarda las fotografías en sepia: el baile, el barco, el pie vendado, el bautizo."
+      },
+      {
+       "idx": 12,
+       "texto": "En 1991, en Madrid, un diagnóstico puso nombre a lo que Daniel llevaba adentro: mesotelioma."
+      },
+      {
+       "idx": 13,
+       "texto": "La misma palabra que McNulty había escrito en 1962 sobre un trabajador del molino, el año en que Daniel bajó del avión."
+      },
+      {
+       "idx": 14,
+       "texto": "Eso había en el polvo."
+      },
+      {
+       "idx": 15,
+       "texto": "Eso respiraba mientras esperaba que le cerrara el pie."
+      },
+      {
+       "idx": 16,
+       "texto": "Daniel tenía cincuenta y cinco años."
+      },
+      {
+       "idx": 17,
+       "texto": "María tenía las fotos."
+      },
+      {
+       "idx": 18,
+       "texto": "Nueve meses después del diagnóstico, Daniel Écija murió en Madrid, a miles de kilómetros de la pista roja, casi treinta años después de haberse ido de ella."
+      },
+      {
+       "idx": 19,
+       "texto": "Lo alcanzó."
+      }
+     ]
+    },
+    {
+     "i": 18,
+     "beat": 10,
+     "texto": "«Ese lugar cambió nuestras vidas para siempre», dice el hijo, el niño del bautizo. Fueron nueve meses. El mismo tiempo que un embarazo. Daniel había estado en Wittenoom diez.",
+     "oraciones": [
+      {
+       "idx": 20,
+       "texto": "«Ese lugar cambió nuestras vidas para siempre», dice el hijo, el niño del bautizo."
+      },
+      {
+       "idx": 21,
+       "texto": "Fueron nueve meses."
+      },
+      {
+       "idx": 22,
+       "texto": "El mismo tiempo que un embarazo."
+      },
+      {
+       "idx": 23,
+       "texto": "Daniel había estado en Wittenoom diez."
+      }
+     ]
+    }
+   ],
+   "deberia": [
+    {
+     "k": 3,
+     "oraciones": [
+      4,
+      7
+     ],
+     "que_sale": "La estadía y el regreso de los De Juan en 1971 y la fundación de la Asbestos Diseases Society en 1979.",
+     "por_que_se_van": "Son dos años y un nombre en inglés más en el tramo de mayor densidad, justo antes del pico. El espectador quiere saber qué le pasa a Daniel, no a los vecinos.",
+     "deberia_texto": "Ese mismo año los Écija volvieron a Madrid. Con la mina cerrada, el suelo del pueblo seguía siendo el mismo. En 1978 el gobierno del Estado empezó a reducir Wittenoom y a alentar a la gente a irse, por el riesgo de fibras en el aire. Y en 1988 un juez determinó que la compañía había mostrado un desprecio continuo, consciente y contumaz por la seguridad y la salud de sus trabajadores.",
+     "ids": [
+      "T47",
+      "D27",
+      "D93"
+     ],
+     "palabras_antes": 35,
+     "palabras_despues": 72,
+     "cifras_sin_respaldo": [],
+     "marcas": [],
+     "aplica": false
+    }
+   ]
+  },
+  {
+   "cap": "ch06",
+   "titulo": "El polvo viaja",
+   "nota": 5.5,
+   "fuerte": "La escena del pasaporte y el remate «No porque fuera técnicamente imposible. Porque salía caro».",
+   "debil": "El pasaporte es del hijo (T57) pero la voz lo vuelve anónimo. Además: cifras de Markey enredadas, fecha con duda («hacia junio de 2007, según otras referencias en 2006»), sigla DWER y 2021 antes que 2016.",
+   "reengancho": "«En esa tierra vivía un hombre que no podía irse»: promete un personaje nuevo. Fuerte.",
+   "personaje_en_voz": false,
+   "racha_max_sin_personaje": 21,
+   "metricas": {
+    "cap": "ch06",
+    "titulo": "El polvo viaja",
+    "oraciones": 21,
+    "palabras": 297,
+    "segundos": 101,
+    "pct": 15,
+    "pct_acumulado": 89,
+    "anios_distintos": 4,
+    "anios_por_min": 2.38,
+    "oraciones_con_personaje": 0,
+    "personaje_en_voz": false,
+    "racha_max_sin_personaje": 21,
+    "racha_desde_hasta": [
+     0,
+     20
+    ]
+   },
+   "parrafos": [
+    {
+     "i": 19,
+     "beat": 11,
+     "texto": "A los que pasaron por Wittenoom, el nombre los sigue. Los que nacieron allí lo llevan escrito en el pasaporte. En un control de aeropuerto, el policía lee la página, baja la cabeza, vuelve a mirar. «Así que de Wittenoom, ¿eh? Un sitio terrorífico», dice el policía.",
+     "oraciones": [
+      {
+       "idx": 0,
+       "texto": "A los que pasaron por Wittenoom, el nombre los sigue."
+      },
+      {
+       "idx": 1,
+       "texto": "Los que nacieron allí lo llevan escrito en el pasaporte."
+      },
+      {
+       "idx": 2,
+       "texto": "En un control de aeropuerto, el policía lee la página, baja la cabeza, vuelve a mirar."
+      },
+      {
+       "idx": 3,
+       "texto": "«Así que de Wittenoom, ¿eh?"
+      },
+      {
+       "idx": 4,
+       "texto": "Un sitio terrorífico», dice el policía."
+      }
+     ]
+    },
+    {
+     "i": 20,
+     "beat": 11,
+     "texto": "Mercedes de Juan se quedó en Australia y vive con una cita que se repite. «Nos hacen un escáner y una prueba de función pulmonar», dice ella.",
+     "oraciones": [
+      {
+       "idx": 5,
+       "texto": "Mercedes de Juan se quedó en Australia y vive con una cita que se repite."
+      },
+      {
+       "idx": 6,
+       "texto": "«Nos hacen un escáner y una prueba de función pulmonar», dice ella."
+      }
+     ]
+    },
+    {
+     "i": 21,
+     "beat": 11,
+     "texto": "Melita Markey sigue contando lo que el gobierno dejó de contar en dos mil; otras estimaciones, dice, hablan de más de cuatro mil, y la cifra sube. Markey dice que hay hijos de funcionarios que trabajaban en el pueblo, como policías o maestros, que están ahora enfermando. El pueblo, mientras tanto, dejó de existir en los papeles.",
+     "oraciones": [
+      {
+       "idx": 7,
+       "texto": "Melita Markey sigue contando lo que el gobierno dejó de contar en dos mil; otras estimaciones, dice, hablan de más de cuatro mil, y la cifra sube."
+      },
+      {
+       "idx": 8,
+       "texto": "Markey dice que hay hijos de funcionarios que trabajaban en el pueblo, como policías o maestros, que están ahora enfermando."
+      },
+      {
+       "idx": 9,
+       "texto": "El pueblo, mientras tanto, dejó de existir en los papeles."
+      }
+     ]
+    },
+    {
+     "i": 22,
+     "beat": 12,
+     "texto": "Hacia junio de 2007, según otras referencias en 2006, Wittenoom fue abolido oficialmente. Le quitaron el nombre de los mapas y arrancaron las señales de la carretera. El gobierno de Australia Occidental lo llamó «el fin de un período oscuro en la historia de nuestro Estado».",
+     "oraciones": [
+      {
+       "idx": 10,
+       "texto": "Hacia junio de 2007, según otras referencias en 2006, Wittenoom fue abolido oficialmente."
+      },
+      {
+       "idx": 11,
+       "texto": "Le quitaron el nombre de los mapas y arrancaron las señales de la carretera."
+      },
+      {
+       "idx": 12,
+       "texto": "El gobierno de Australia Occidental lo llamó «el fin de un período oscuro en la historia de nuestro Estado»."
+      }
+     ]
+    },
+    {
+     "i": 23,
+     "beat": 12,
+     "texto": "El DWER y el Department of Health declararon la zona «no apta para ninguna forma de ocupación humana o uso del suelo». Lo que no se puede abolir son los relaves: más de tres millones de toneladas que siguen donde las dejaron. El agua baja por los lechos de los arroyos y las pozas hasta el Fortescue arrastrando asbesto, y un informe advirtió que podía seguir bajando durante cientos de años si nadie intervenía. En 2021, una nota ambiental registró fibras en canales de arroyos fuera de la zona marcada como contaminada.",
+     "oraciones": [
+      {
+       "idx": 13,
+       "texto": "El DWER y el Department of Health declararon la zona «no apta para ninguna forma de ocupación humana o uso del suelo»."
+      },
+      {
+       "idx": 14,
+       "texto": "Lo que no se puede abolir son los relaves: más de tres millones de toneladas que siguen donde las dejaron."
+      },
+      {
+       "idx": 15,
+       "texto": "El agua baja por los lechos de los arroyos y las pozas hasta el Fortescue arrastrando asbesto, y un informe advirtió que podía seguir bajando durante cientos de años si nadie intervenía."
+      },
+      {
+       "idx": 16,
+       "texto": "En 2021, una nota ambiental registró fibras en canales de arroyos fuera de la zona marcada como contaminada."
+      }
+     ]
+    },
+    {
+     "i": 24,
+     "beat": 12,
+     "texto": "En 2016 un documento estatal aconsejó no asegurar los relaves. No porque fuera técnicamente imposible. Porque salía caro. En esa tierra vivía un hombre que no podía irse.",
+     "oraciones": [
+      {
+       "idx": 17,
+       "texto": "En 2016 un documento estatal aconsejó no asegurar los relaves."
+      },
+      {
+       "idx": 18,
+       "texto": "No porque fuera técnicamente imposible."
+      },
+      {
+       "idx": 19,
+       "texto": "Porque salía caro."
+      },
+      {
+       "idx": 20,
+       "texto": "En esa tierra vivía un hombre que no podía irse."
+      }
+     ]
+    }
+   ],
+   "deberia": [
+    {
+     "k": 4,
+     "oraciones": [
+      1,
+      2,
+      3,
+      4
+     ],
+     "que_sale": "La versión anónima del pasaporte («los que nacieron allí», «el policía»). Se conserva idx 0 como re-gancho.",
+     "por_que_se_van": "Justo después del pico, la voz suelta a la familia que acaba de hacer llorar al espectador. La escena es del hijo, el niño del bautizo, y nombrarlo mantiene el hilo humano.",
+     "deberia_texto": "Daniel, el hijo, el niño del bautizo, volvió a Australia de adulto por primera vez en 1985. Lo llevaba escrito en el pasaporte. En el control del aeropuerto, el policía leyó la página, bajó la cabeza, volvió a mirar. «Así que de Wittenoom, ¿eh? Un sitio terrorífico», le dijo.",
+     "ids": [
+      "T57",
+      "Q24",
+      "D102"
+     ],
+     "palabras_antes": 37,
+     "palabras_despues": 49,
+     "cifras_sin_respaldo": [],
+     "marcas": [],
+     "aplica": true
+    },
+    {
+     "k": 5,
+     "oraciones": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+     ],
+     "que_sale": "La fecha con duda, la sigla DWER, la cita del «período oscuro» mal fechada y el desorden 2021/2016. Se conservan el borrado del mapa, los tres millones de toneladas, el Fortescue, «salía caro» y las fibras fuera de la zona.",
+     "por_que_se_van": "La voz duda de su propia fecha, salta de 2021 a 2016 y mete organismos en inglés: el espectador pierde el hilo justo cuando el capítulo debería escalar.",
+     "deberia_texto": "En junio de 2007, Wittenoom fue abolido oficialmente. Le quitaron el nombre de los mapas y arrancaron las señales de la carretera. La zona quedó declarada «no apta para ninguna forma de ocupación humana o uso del suelo». Lo que no se puede abolir son los relaves: más de tres millones de toneladas, sin cubrir. El agua los arrastra por los arroyos hasta el río Fortescue, y un informe advirtió que podía seguir así durante cientos de años si nadie intervenía. En 2016, un documento estatal aconsejó no asegurarlos. No porque fuera técnicamente imposible. Porque salía caro. Cinco años después, se encontraron fibras en arroyos fuera de la zona marcada como contaminada.",
+     "ids": [
+      "D31",
+      "T79",
+      "Q03",
+      "D02",
+      "D147",
+      "D10",
+      "T75",
+      "D59",
+      "T90"
+     ],
+     "palabras_antes": 156,
+     "palabras_despues": 112,
+     "cifras_sin_respaldo": [],
+     "marcas": [],
+     "aplica": true
+    }
+   ]
+  },
+  {
+   "cap": "ch07",
+   "titulo": "La herida ancestral",
+   "nota": 6,
+   "fuerte": "Maitland Parker y su cita, su muerte en 2024 y la palada que nadie sacó como imagen de cierre del loop institucional.",
+   "debil": "Es el capítulo más denso del video (4,93 años/min): Gordon Legal, BNTAC, Tribunal Federal, mil quinientos millones y una recapitulación con tres años en los últimos 73 s. La pregunta final repite una que ch05 ya respondió.",
+   "reengancho": "Termina con una pregunta retórica sobre Daniel. Vuelve al humano pero no a la imagen del gancho (la foto, el pie).",
+   "personaje_en_voz": true,
+   "racha_max_sin_personaje": 16,
+   "metricas": {
+    "cap": "ch07",
+    "titulo": "La herida ancestral",
+    "oraciones": 16,
+    "palabras": 216,
+    "segundos": 73,
+    "pct": 11,
+    "pct_acumulado": 100,
+    "anios_distintos": 6,
+    "anios_por_min": 4.93,
+    "oraciones_con_personaje": 0,
+    "personaje_en_voz": false,
+    "racha_max_sin_personaje": 16,
+    "racha_desde_hasta": [
+     0,
+     15
+    ]
+   },
+   "parrafos": [
+    {
+     "i": 25,
+     "beat": 13,
+     "texto": "Maitland Parker era Banjima, y esa tierra era la suya. En 2023, Marcos Orellana visitó Australia y lo entrevistó sobre la contaminación y el daño que no se iba. «Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él», dijo Parker. Las barricadas que cortan la entrada al desfiladero siguen puestas. Maitland Parker murió de mesotelioma en 2024.",
+     "oraciones": [
+      {
+       "idx": 0,
+       "texto": "Maitland Parker era Banjima, y esa tierra era la suya."
+      },
+      {
+       "idx": 1,
+       "texto": "En 2023, Marcos Orellana visitó Australia y lo entrevistó sobre la contaminación y el daño que no se iba."
+      },
+      {
+       "idx": 2,
+       "texto": "«Todavía lloro por mi territorio, pero eso está arraigado en mí; simplemente no puedo alejarme de él», dijo Parker."
+      },
+      {
+       "idx": 3,
+       "texto": "Las barricadas que cortan la entrada al desfiladero siguen puestas."
+      },
+      {
+       "idx": 4,
+       "texto": "Maitland Parker murió de mesotelioma en 2024."
+      }
+     ]
+    },
+    {
+     "i": 26,
+     "beat": 13,
+     "texto": "En 2026, Gordon Legal anunció un proceso ante el Tribunal Federal contra Australia Occidental en nombre de BNTAC, por la tierra Banjima. La prensa habla de una reclamación de mil quinientos millones de dólares australianos. Los abogados sostienen que el Estado no ha gastado dinero en remediar el sitio y que no se ha retirado una sola palada de asbesto de la tierra Banjima. El gobierno de Australia Occidental habla de un «grave problema de salud y seguridad pública». Quién sabía está escrito: dos inspectores en 1944, un médico al que llamaron alborotador en 1948, un tribunal que entró al molino en 1957. La mina siguió hasta que dejó de dar dinero. La palada, todavía nadie.",
+     "oraciones": [
+      {
+       "idx": 5,
+       "texto": "En 2026, Gordon Legal anunció un proceso ante el Tribunal Federal contra Australia Occidental en nombre de BNTAC, por la tierra Banjima."
+      },
+      {
+       "idx": 6,
+       "texto": "La prensa habla de una reclamación de mil quinientos millones de dólares australianos."
+      },
+      {
+       "idx": 7,
+       "texto": "Los abogados sostienen que el Estado no ha gastado dinero en remediar el sitio y que no se ha retirado una sola palada de asbesto de la tierra Banjima."
+      },
+      {
+       "idx": 8,
+       "texto": "El gobierno de Australia Occidental habla de un «grave problema de salud y seguridad pública»."
+      },
+      {
+       "idx": 9,
+       "texto": "Quién sabía está escrito: dos inspectores en 1944, un médico al que llamaron alborotador en 1948, un tribunal que entró al molino en 1957."
+      },
+      {
+       "idx": 10,
+       "texto": "La mina siguió hasta que dejó de dar dinero."
+      },
+      {
+       "idx": 11,
+       "texto": "La palada, todavía nadie."
+      }
+     ]
+    },
+    {
+     "i": 27,
+     "beat": 13,
+     "texto": "Daniel Écija vivió diez meses en Wittenoom. Nadie en su familia sabe decir qué respiró allí. Wittenoom ya no está en el mapa. ¿Qué respiró en diez meses que tardó casi treinta años en matarlo?",
+     "oraciones": [
+      {
+       "idx": 12,
+       "texto": "Daniel Écija vivió diez meses en Wittenoom."
+      },
+      {
+       "idx": 13,
+       "texto": "Nadie en su familia sabe decir qué respiró allí."
+      },
+      {
+       "idx": 14,
+       "texto": "Wittenoom ya no está en el mapa."
+      },
+      {
+       "idx": 15,
+       "texto": "¿Qué respiró en diez meses que tardó casi treinta años en matarlo?"
+      }
+     ]
+    }
+   ],
+   "deberia": [
+    {
+     "k": 6,
+     "oraciones": [
+      5,
+      6,
+      7,
+      8
+     ],
+     "que_sale": "Gordon Legal, BNTAC, la cifra de mil quinientos millones y la respuesta del gobierno. Se conserva la palada, que necesita idx 11.",
+     "por_que_se_van": "Es el capítulo más denso del video (4,93 años/min) cayendo en el último minuto. Las siglas jurídicas enfrían el duelo de Parker.",
+     "deberia_texto": "En 2026, el pueblo Banjima llevó al Estado de Australia Occidental ante el Tribunal Federal. Sus abogados sostienen que el Estado no ha gastado un dólar en remediar el sitio y que no se ha retirado una sola palada de asbesto de la tierra Banjima.",
+     "ids": [
+      "T98",
+      "D62",
+      "D70",
+      "D71"
+     ],
+     "palabras_antes": 79,
+     "palabras_despues": 45,
+     "cifras_sin_respaldo": [],
+     "marcas": [],
+     "aplica": true
+    },
+    {
+     "k": 7,
+     "oraciones": [
+      12,
+      13,
+      14,
+      15
+     ],
+     "que_sale": "La pregunta final que repite lo ya respondido en ch05.",
+     "por_que_se_van": "El cierre no vuelve a la imagen del gancho. Pregunta algo que el espectador ya sabe (mesotelioma, el polvo) y el final se siente plano en vez de circular.",
+     "deberia_texto": "Daniel Écija vivió diez meses en Wittenoom. María todavía guarda la foto: un hombre joven, el pie vendado, una herida que no cerraba. Nadie en su familia sabe decir qué respiró allí, en diez meses, que tardó casi treinta años en matarlo. Wittenoom ya no está en el mapa. Lo que sobró de la mina, sí.",
+     "ids": [
+      "D87",
+      "D85",
+      "Q25",
+      "D89",
+      "D31",
+      "D02"
+     ],
+     "palabras_antes": 35,
+     "palabras_despues": 56,
+     "cifras_sin_respaldo": [],
+     "marcas": [],
+     "aplica": true
+    }
+   ]
+  }
+ ]
+}

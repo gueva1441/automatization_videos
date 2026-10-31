@@ -439,7 +439,7 @@
   "_parte": "orquestador_c"
  },
  "qa_form.html": {
-  "sticker": "Es la pantalla del form de producción asistida: muestra una barra con las fases del pipeline, el costo de Gemini en vivo y, cuando el pipeline necesita una decisión de Omar, abre el diálogo (elegir tema, aprobar el papel, aprobar el guion de pantalla, ir al visor). También deja retomar un tema que quedó a medias.",
+  "sticker": "Es la pantalla del form de producción asistida: muestra una barra con las fases del pipeline, el costo de Gemini en vivo y, cuando el pipeline necesita una decisión de Omar, abre el diálogo (elegir tema, aprobar el papel, aprobar el guion de pantalla, ir al visor). También deja retomar un tema que quedó a medias. F67 C: la compuerta narracion_gate, con la crítica entera.",
   "recibe": "Del servidor: /form_state (fase activa, costo, marcador pendiente, últimas líneas de consola), /form_topics (lista de topics de data/topics_db.json) y los diálogos de qa_choice.html, qa_gallery.html, qa_multi.html y qa_judge.html por /form_menu.",
   "entrega": "Respuestas al servidor: POST /form_launch, /form_resume?topic=<id>, /form_answer con la tecla elegida (A, P, C, número de seed…) y /form_shutdown.",
   "modelo": [],
@@ -449,7 +449,7 @@
   "estado": "vivo",
   "estado_prueba": "qa_studio_server.py:1384 define HTML_FORM_PATH y :1847-1848 lo sirve en /form (serve() lo abre en el navegador, :2052)",
   "funciones_muertas": [],
-  "md5": "3b9c06656eef9e62d0035cc3a099b0ed",
+  "md5": "0330154c56aa1d77facd9e63a6bf0f0a",
   "_parte": "orquestador_a"
  },
  "qa_form_markers.py": {
@@ -532,7 +532,7 @@
   "_parte": "orquestador_c"
  },
  "qa_studio.html": {
-  "sticker": "Es la pantalla del visor por capítulo: muestra la línea de tiempo de cada capítulo con sus fotos y clips, deja escuchar la narración tramo por tramo, marcar fotos para regenerar, pedir un fix de foto o de clip, corregir una pronunciación y lanzar ENSAMBLAR VIDEO. También embebe el formulario de miniaturas. Desde F59 los cuadros de texto del fix traen el hint aprobado por Omar (qué ver, una cosa por vez, emociones como gesto; para el clip: cámara, velocidad y qué se mueve) y, si el fix sale bien, muestran lo que el filtro de producción sacó del pedido. F65b: botón 📄 PAPEL: el QA del papel (ver cada ficha sobre su oración, aprobar ficha, editar, quitar, sugerir, aprobar papel).",
+  "sticker": "Es la pantalla del visor por capítulo: muestra la línea de tiempo de cada capítulo con sus fotos y clips, deja escuchar la narración tramo por tramo, marcar fotos para regenerar, pedir un fix de foto o de clip, corregir una pronunciación y lanzar ENSAMBLAR VIDEO. También embebe el formulario de miniaturas. Desde F59 los cuadros de texto del fix traen el hint aprobado por Omar (qué ver, una cosa por vez, emociones como gesto; para el clip: cámara, velocidad y qué se mueve) y, si el fix sale bien, muestran lo que el filtro de producción sacó del pedido. F65b: botón 📄 PAPEL: el QA del papel (ver cada ficha sobre su oración, aprobar ficha, editar, quitar, sugerir, aprobar papel). F67 C: botón 🎙 NARRACIÓN: la crítica, las métricas y cada DEBERÍA al lado del tramo que toca, con editar párrafo, aceptar DEBERÍA y aprobar narración.",
   "recibe": "Del servidor: /topic, /caps, /cap?cap=chNN (segmentos con tiempos y anchors), /img, /clip y /audio del capítulo, /marks, /fix_status, /assemble_status, /thumbs_status.",
   "entrega": "Pedidos al servidor: POST /mark, /fix_image, /fix_clip, /fix_narration, /assemble y /thumbs_start.",
   "modelo": [],
@@ -542,11 +542,11 @@
   "estado": "vivo",
   "estado_prueba": "qa_studio_server.py:72 define HTML_PATH y :1828-1829 lo sirve en / (el form lo abre en el gate del visor, qa_form.html:349)",
   "funciones_muertas": [],
-  "md5": "f9b8e83015875733e4853e0e31dcf8d3",
+  "md5": "e7b385001358bfe225cd95b5c79b847c",
   "_parte": "orquestador_a"
  },
  "qa_studio_server.py": {
-  "sticker": "Es el servidor local que Omar levanta a mano para producir un video con botones: sirve la pantalla del form y la del visor de capítulos, lanza el orquestador (run_pipeline) como proceso hijo y le pasa las respuestas de Omar. También deja arreglar a mano una foto, un clip o una pronunciación de un capítulo (desde F59 con la máquina de producción: para la foto, Claude Opus edita solo los casilleros que el pedido toca y el código rearma el prompt con la misma función que m03, con foto madre y grade; para el clip, Opus edita solo el movimiento aprobado y el clip sale por la cadena de producción con su foto final; lo editado se guarda en 03_visual.json y en el guion vivo; lo que el filtro de producción saca del pedido se le informa a Omar) y armar el video con el botón ENSAMBLAR. Desde F60 B el fix y la nueva semilla de una foto usan la misma regla única de madres que producción (persona en orden + objeto, filtro por era); `persona` no es editable y se le dice a Omar a qué madre quedó anclada la foto. F65b: rutas /papel* del QA del papel (ver, revisar, editar, sugerir, aprobar), siempre vía m01e_pantalla y fase1_5.",
+  "sticker": "Es el servidor local que Omar levanta a mano para producir un video con botones: sirve la pantalla del form y la del visor de capítulos, lanza el orquestador (run_pipeline) como proceso hijo y le pasa las respuestas de Omar. También deja arreglar a mano una foto, un clip o una pronunciación de un capítulo (desde F59 con la máquina de producción: para la foto, Claude Opus edita solo los casilleros que el pedido toca y el código rearma el prompt con la misma función que m03, con foto madre y grade; para el clip, Opus edita solo el movimiento aprobado y el clip sale por la cadena de producción con su foto final; lo editado se guarda en 03_visual.json y en el guion vivo; lo que el filtro de producción saca del pedido se le informa a Omar) y armar el video con el botón ENSAMBLAR. Desde F60 B el fix y la nueva semilla de una foto usan la misma regla única de madres que producción (persona en orden + objeto, filtro por era); `persona` no es editable y se le dice a Omar a qué madre quedó anclada la foto. F65b: rutas /papel* del QA del papel (ver, revisar, editar, sugerir, aprobar), siempre vía m01e_pantalla y fase1_5. F67 C: rutas /narracion* de la compuerta de narración (ver, editar párrafo, aceptar DEBERÍA, aprobar), siempre vía m01f_critico y fase1_5.",
   "recibe": "Pedidos HTTP del navegador (form y visor); data/scripts/<id>.json, output/audio/<id>/chNN.mp3 y chNN_timestamps.json, output/<id>/assets/chNN_flux/*.png y chNN_veo/*.mp4, data/topics_db.json (lista de retomar), data/scripts/_steps/<id>/01b_narration_normalized.json; las líneas @@QAFORM@@ y @@QAFORM_COST@@ que imprime run_pipeline.",
   "entrega": "Las páginas qa_form.html y qa_studio.html; JSON de estado del form (fase, costo Gemini en vivo, diálogo pendiente); líneas por stdin al hijo; imágenes (cruda y _graded.png) y clips regenerados en output/<id>/assets/ con copia en _qa_backups/; el ítem editado (casilleros, prompt, año) o el movimiento nuevo guardados en data/scripts/_steps/<id>/03_visual.json y en data/scripts/<id>.json (con backups); output/<id>/assets/_qa_marks.json (fotos marcadas); data/normalizer_custom_dict.json; el audio del capítulo re-hecho; levanta fase2b, run_pipeline y el servidor de miniaturas de m09 como subprocesos.",
   "modelo": [
@@ -583,7 +583,7 @@
     "por_que": "ninguna ruta del servidor ni del form la llama (el POST /mark solo marca, no regenera); solo la nombran test_module_f5e.py y la herramienta manual lab/hyperframes/f5/regen_marcadas.py"
    }
   ],
-  "md5": "aad2418922c0b30687970ace6813b69d",
+  "md5": "a58f26446e6314c8755ab31c977ddf4c",
   "_parte": "orquestador_a"
  },
  "report_foto_madre_edits.py": {
@@ -601,7 +601,7 @@
   "_parte": "orquestador_b"
  },
  "run_pipeline.py": {
-  "sticker": "Es el director de orquesta: toma un tema y corre una tras otra las etapas (guion, papel, voz, assets, fondos, guion de pantalla, aprobar guion, render, packaging), cada una como programa aparte. Antes de cada paso mira qué archivos ya existen en disco y arranca donde quedó; frena en las dos compuertas donde Omar tiene que aprobar y nunca aprueba solo. Antes de cualquier etapa (F42b) revisa que este Python tenga las librerías que la cadena importa: si falta una requerida, para sin gastar y da el comando de pip.",
+  "sticker": "Es el director de orquesta: toma un tema y corre una tras otra las etapas (guion, compuerta de narración, papel nuevo, compuerta del papel, voz, assets, fondos, guion de pantalla, aprobar guion, render, packaging), cada una como programa aparte. Antes de cada paso mira qué archivos ya existen en disco y arranca donde quedó; frena en las dos compuertas donde Omar tiene que aprobar y nunca aprueba solo. Antes de cualquier etapa (F42b) revisa que este Python tenga las librerías que la cadena importa: si falta una requerida, para sin gastar y da el comando de pip.",
   "recibe": "--topic <id> (o --research para elegir tema nuevo con fase1); data/scripts/_steps/<id>/01e_pantalla.md, data/scripts/<id>.json, output/<id>/assets/assets_manifest.json, output/<id>/_fase2b_work/*, output/<id>/GUION_PANTALLA.json, output/<id>/<id>_final_gfx.mp4, data/topics_db.json, data/_last_research.json; la tecla A/P/C que manda el form por stdin.",
   "entrega": "No escribe archivos de producción: lanza fase1.py, fase1_5.py, fase2a.py, fase2b.py y fase3.py como subprocesos; imprime los encabezados de fase y los marcadores @@QAFORM@@ para el form, y el reporte final con el comando para retomar.",
   "modelo": [],
@@ -611,7 +611,7 @@
   "estado": "vivo",
   "estado_prueba": "qa_studio_server.py:1522 y :1527 lo lanzan; run_pipeline.py:553 es el main",
   "funciones_muertas": [],
-  "md5": "747839adba2d6237d44d263e29e9e5e1",
+  "md5": "b43032e68b578627d6861067cd7e081f",
   "_parte": "orquestador_a · F42b C (CC)"
  },
  "script_engine/__init__.py": {

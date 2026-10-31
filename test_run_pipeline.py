@@ -27,7 +27,7 @@ MARKER = "@@QAFORM@@ "
 
 # Lo que corre cada etapa, en orden (etiquetas de FakePipeline.etiqueta). PRODUCTOR[i] deja lo que hace pasar de
 # ETAPAS[i] a ETAPAS[i + 1].
-PRODUCTOR = ["guion", "aprobar-papel", "voz", "assets", "fondos", "plan-only", "aprobar-guion", "render", "fase3"]
+PRODUCTOR = ["guion", "aprobar-narracion", "papel-nuevo", "aprobar-papel", "voz", "assets", "fondos", "plan-only", "aprobar-guion", "render", "fase3"]
 
 
 class FakePipeline:
@@ -39,6 +39,7 @@ class FakePipeline:
         self.rc = rc or {}                     # {etiqueta: returncode}
         self.sin = sin_artefacto or set()      # etiquetas que salen con 0 pero no dejan su artefacto
         self.calls: list[list[str]] = []
+        self.narr_ok = False
         self.papel_ok = False
         self.guion_ok = False
         self.packaged = False
@@ -54,6 +55,10 @@ class FakePipeline:
         setattr_(rp, "_estado_papel",
                  lambda t: (True, "papel aprobado por Omar (stub)") if self.papel_ok
                  else (False, "el papel no está aprobado"))
+        setattr_(rp, "_estado_narracion",
+                 lambda t: (True, "narración aprobada por Omar (stub)") if self.narr_ok
+                 else (False, "la narración no está aprobada"))
+        setattr_(rp, "_papel_falta", lambda t: None if rp._papel_md_path(t).exists() else "no hay papel")
         setattr_(rp, "_estado_guion",
                  lambda t: (True, "guion aprobado por Omar (stub)") if self.guion_ok
                  else (False, f"el guion de {t} no está aprobado"))
@@ -68,6 +73,10 @@ class FakePipeline:
         if s == "fase1_5.py":
             if "--aprobar-papel" in cmd:
                 return "aprobar-papel"
+            if "--aprobar-narracion" in cmd:
+                return "aprobar-narracion"
+            if "--papel" in cmd:
+                return "papel-nuevo"
             return "voz" if "--from" in cmd else "guion"
         if s == "fase2b.py":
             if "--plan-only" in cmd:
@@ -87,6 +96,12 @@ class FakePipeline:
         if et == "research":
             self._w(rp.RESEARCH_SENTINEL, json.dumps({"tids": [t]}))
         elif et == "guion":
+            for n in ("01b_narracion_v3.json", "01b_verificacion.json"):
+                self._w(rp._steps_path(t, n))
+            self._w(rp._steps_path(t, "01f_critico.md"), f"# Crítica de {t}\n\n**Nota total:** 6.5\n")
+        elif et == "aprobar-narracion":
+            self.narr_ok = True
+        elif et == "papel-nuevo":
             self._w(rp._papel_md_path(t), f"# Papel de {t}\n\nch01 · beat 1 · ficha: nada\nch01 · beat 2 · sello\n")
         elif et == "aprobar-papel":
             self.papel_ok = True
@@ -165,15 +180,15 @@ def respuestas(monkeypatch):
 # ═══════════════════════ tests existentes, ajustados a la secuencia de F41 ═══════════════════════
 
 def test_order_and_tid(fake, form, respuestas, capsys):
-    """Cadena entera con el form y A en las dos compuertas: el orden nuevo y el tid en cada comando."""
+    """Cadena entera con el form y A en las tres compuertas: el orden nuevo y el tid en cada comando."""
     form(True)
-    respuestas(["A", "C", "A"])            # papel · visor · guion de pantalla
+    respuestas(["A", "A", "C", "A"])       # narración · papel · visor · guion de pantalla
     rc = rp.sequence(TID, batch=False)
     assert rc == 0
     assert fake.etiquetas() == PRODUCTOR
     assert all(TID in c for c in fake.calls)
     assert fake.calls[0] == ["fase1_5.py", "--topic", TID, "--batch"]
-    assert [m["menu"] for m in markers(capsys.readouterr().out)] == ["papel_gate", "visor_gate", "guion_gate"]
+    assert [m["menu"] for m in markers(capsys.readouterr().out)] == ["narracion_gate", "papel_gate", "visor_gate", "guion_gate"]
 
 
 def test_stop_on_nonzero(fake, form):
@@ -212,14 +227,14 @@ def test_batch_skips_fase3(fake, form, capsys):
 
 
 def test_research_runs_fase1_then_sequences(fake, form, monkeypatch, capsys):
-    """--research → fase1.py --no-chain primero, después la secuencia con el tid del sentinel (para en el papel)."""
+    """--research → fase1.py --no-chain primero, después la secuencia con el tid del sentinel (para en la narración)."""
     monkeypatch.setattr(sys, "argv", ["run_pipeline.py", "--research", "--video-type", "long", "--batch"])
     rc = rp.main()
     assert fake.calls[0][:2] == ["fase1.py", "--no-chain"]
     assert fake.etiquetas() == ["research", "guion"]
     assert fake.calls[1] == ["fase1_5.py", "--topic", TID, "--batch"]
     assert rc == 0
-    assert "Frenó en: PAPEL" in capsys.readouterr().out
+    assert "Frenó en: NARRACION" in capsys.readouterr().out
 
 
 def test_research_fase1_fails_no_sequence(fake, form, monkeypatch):
@@ -232,17 +247,39 @@ def test_research_fase1_fails_no_sequence(fake, form, monkeypatch):
 
 # ═══════════════════════ B.1–B.2: GUION y la compuerta del papel ═══════════════════════
 
-def test_papel_terminal_para_con_comando(fake, form, respuestas, capsys):
-    """Sin QA_FORM: GUION corre, el papel no se aprueba solo; para e imprime aprobar + retomar, sin preguntar."""
+def test_narracion_terminal_para_con_comando(fake, form, respuestas, capsys):
+    """Sin QA_FORM: GUION corre, la narración no se aprueba sola; para e imprime aprobar + retomar, sin preguntar."""
     pedidas = respuestas([])
     rc = rp.sequence(TID)
     out = capsys.readouterr().out
     assert rc == 0
     assert fake.etiquetas() == ["guion"]
-    assert not fake.papel_ok and pedidas == []
+    assert not fake.narr_ok and pedidas == []
     assert markers(out) == []
-    assert f'python fase1_5.py --topic {TID} --aprobar-papel "Omar <fecha>"' in out
+    assert f'python fase1_5.py --topic {TID} --aprobar-narracion "Omar <fecha>"' in out and "NARRACIÓN" in out
     assert f"python run_pipeline.py --topic {TID}" in out
+
+
+def test_narracion_form_A_aprueba_y_sigue_al_papel_una_vez(fake, form, respuestas, capsys):
+    """Con el form y A: la crítica entera, --aprobar-narracion "Omar <hoy>", --papel --batch y para en la compuerta del papel."""
+    form(True)
+    respuestas(["A", "P"])
+    fake.hasta("narracion")
+    assert rp.sequence(TID) == 0
+    assert fake.calls == [["fase1_5.py", "--topic", TID, "--aprobar-narracion", f"Omar {HOY}"],
+                          ["fase1_5.py", "--topic", TID, "--papel", "--batch"]]
+    m = markers(capsys.readouterr().out)
+    assert [x["menu"] for x in m] == ["narracion_gate", "papel_gate"] and [o["key"] for o in m[0]["options"]] == ["A", "P"]
+    assert m[0]["body"] == rp._steps_path(TID, "01f_critico.md").read_text(encoding="utf-8")
+
+
+@pytest.mark.parametrize("lineas", [["P"], [], [""], ["aprobar"]])
+def test_narracion_nunca_se_aprueba_sola(fake, form, respuestas, lineas):
+    form(True)
+    respuestas(lineas)
+    fake.hasta("narracion")
+    assert rp.sequence(TID) == 0
+    assert fake.calls == [] and not fake.narr_ok
 
 
 def test_papel_form_A_aprueba_y_sigue_from_normalizer_gate(fake, form, respuestas, capsys):
@@ -458,7 +495,7 @@ def test_etapa_de_es_de_solo_lectura(fake):
 def test_retomar_nunca_recorre_una_etapa_hecha(fake, form, respuestas, monkeypatch, etapa):
     """run_pipeline --topic X --batch (lo que lanza «retomar») desde cada etapa: corre solo lo que falta."""
     form(True)
-    respuestas(["A"] * 5)                  # A en las compuertas; el visor acepta cualquier línea
+    respuestas(["A"] * 6)                  # A en las compuertas; el visor acepta cualquier línea
     fake.hasta(etapa)
     monkeypatch.setattr(sys, "argv", ["run_pipeline.py", "--topic", TID, "--batch"])
     assert rp.main() == 0
@@ -500,10 +537,10 @@ def _fase_del_server(linea: str):
 def test_headers_mapean_a_las_fases_del_form(fake, form, respuestas, capsys):
     """Cada header de run_pipeline cae en su fase del form (ningún nombre contiene a otro)."""
     form(True)
-    respuestas(["A", "C", "A"])
+    respuestas(["A", "A", "C", "A"])
     rp.sequence(TID, batch=False)
     fases = [_fase_del_server(l) for l in capsys.readouterr().out.splitlines() if "  ▶ " in l]
-    assert fases == ["GUION", "PAPEL", "VOZ", "ASSETS", "FONDOS", "PANTALLA", "PANTALLA", "RENDER", "PACKAGING"]
+    assert fases == ["GUION", "NARRACION", "PAPEL", "PAPEL", "VOZ", "ASSETS", "FONDOS", "PANTALLA", "PANTALLA", "RENDER", "PACKAGING"]
 
 
 def test_form_resume_lanza_run_pipeline_topic(monkeypatch, tmp_path):

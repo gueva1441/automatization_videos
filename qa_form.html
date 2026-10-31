@@ -266,7 +266,7 @@ function handleMarker(m){
       // Gates: NO abren diálogo de una → plantan el banner ámbar con botón(es).
       else if(m.menu==='judge_action' || m.menu==='visor_gate' || m.menu==='remeasure_pick'){ showGate(m); }
       // F41: compuertas con documento (papel / guion de pantalla) → el documento entero + A/P.
-      else if(m.menu==='papel_gate' || m.menu==='guion_gate'){ showDocGate(m); }
+      else if(m.menu==='narracion_gate' || m.menu==='papel_gate' || m.menu==='guion_gate'){ showDocGate(m); }
       else showDialog(m);
     }
   } else if(curMarkerKey!==null){ curMarkerKey=null; hideDialog(); hideGate(); }
@@ -307,7 +307,7 @@ function showDocGate(m){
   setPaused(true);
   const area=$('dialog'); area.style.display='block'; area.innerHTML='';
   const box=document.createElement('div'); box.className='docgate';
-  const tag=m.menu==='papel_gate'?'📄 COMPUERTA · PAPEL':'🎬 COMPUERTA · GUION DE PANTALLA';
+  const tag=m.menu==='narracion_gate'?'🎙 COMPUERTA · NARRACIÓN':m.menu==='papel_gate'?'📄 COMPUERTA · PAPEL':'🎬 COMPUERTA · GUION DE PANTALLA';
   const p=m.payload||{};
   box.innerHTML='<span class="tag">'+tag+'</span><div class="dprompt">'+esc(m.prompt||'')+'</div>'+
     '<div class="dmeta">'+esc((p.topic_id||'')+' · '+(p.doc||'')+(p.motivo?(' · '+p.motivo):''))+'</div>';

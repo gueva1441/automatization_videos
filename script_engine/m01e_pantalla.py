@@ -1,7 +1,8 @@
 """
 script_engine/m01e_pantalla.py — F36 §C: el guion de pantalla EN PAPEL (DECISIONES 2026-10-26 19:54: «el autor de la
-pantalla va a Fase 1»). Corre en Fase 1 después de m01d_particion y antes de la voz (fase1_5.run_guion_v4, con su
-costo en 01_v3_costos.json como los demás pasos) o suelto: `python -m script_engine.m01e_pantalla <topic>`.
+pantalla va a Fase 1»). Corre en Fase 1 después del OK de Omar en la compuerta de narración y antes de la voz (F67:
+fase1_5.run_papel_aprobado, con su costo en 01_v3_costos.json como los demás pasos) o suelto:
+`python -m script_engine.m01e_pantalla <topic>`.
 
     entrada    (§C.1, una para todo el video) por cap el título (01a_skeleton) y sus oraciones numeradas, partidas con
                el mismo corte de la voz (voz_utils.oraciones_de_texto) desde los párrafos de 01b_narracion_v3, cada una
@@ -1371,6 +1372,8 @@ def generar(topic_id: str, steps_dir: Path | None = None, *, pool: dict | None =
     quedan = leer_quedan(carga["dir"])
     if quedan:
         papel["aviso_narracion"] = quedan
+    from script_engine.m01d_particion import md5_narracion          # F67 C: de qué narración salió este papel
+    papel["narracion_md5"] = md5_narracion(json.loads((carga["dir"] / "01b_narracion_v3.json").read_text(encoding="utf-8")))
     (carga["dir"] / f"{ARCHIVO}.json").write_text(json.dumps(papel, ensure_ascii=False, indent=1), encoding="utf-8")
     (carga["dir"] / f"{ARCHIVO}.md").write_text(a_markdown(papel), encoding="utf-8")
     if not res.get("cache"):                          # F65b: un papel nuevo no está revisado

@@ -1602,7 +1602,7 @@ def _form_apply_cost(gc: dict, marker: dict, phase) -> None:
     md["calls"] += 1
 # F41: las fases de run_pipeline (el header «  ▶ <FASE> (…) — <tid>»; gana la primera de la lista que aparece en la
 # línea, así que ningún nombre contiene a otro).
-_FORM_PHASES = ["RESEARCH", "GUION", "PAPEL", "VOZ", "ASSETS", "FONDOS", "PANTALLA", "RENDER", "PACKAGING"]
+_FORM_PHASES = ["RESEARCH", "GUION", "NARRACION", "PAPEL", "VOZ", "ASSETS", "FONDOS", "PANTALLA", "RENDER", "PACKAGING"]
 _FORM_CONSOLE_MAX = 600
 # HTML por menú. __choice__ = diálogo genérico de botones (accept='key': video_type, …).
 # El host elige cuál según marker.accept. HANDOFF 65a: seed_pick y reuse_seeds van ambos a
@@ -2025,6 +2025,97 @@ def papel_post(state: "QAState", route: str, body: dict) -> tuple[dict, int]:
     return {"error": "ruta no encontrada"}, 404
 
 
+# ═════════════════════════════════════════════════════════════════
+#  ZONA NARRACIÓN — F67 C (DECISIONES 2026-10-31 18:43): la compuerta de narración. Misma regla que la zona PAPEL: el servidor no
+#  escribe JSON: lee y escribe SOLO vía m01f_critico (editar_parrafo, aceptar_deberia) y fase1_5 (aprobar_narracion, estado_narracion).
+#  «Aprobar» hace lo de --aprobar-narracion y nada más corre. No se re-critica sola: el aviso dice que la crítica no es vigente.
+# ═════════════════════════════════════════════════════════════════
+
+def narracion_vista(state: "QAState") -> dict:
+    """GET /narracion: {estado {aprobado, motivo}, aprobado_por, md5, critico {claves de la respuesta, usd, modelo, prompt_version,
+    vigente, n_deberia, error}, sin_critico, metricas (`retencion` del juez), verificacion {quedan, vigente}, caps [{cap, titulo, nota,
+    fuerte, debil, reengancho, personaje_en_voz, racha_max_sin_personaje, metricas, parrafos [{i, beat, texto, oraciones [{idx, texto}]}],
+    deberia [{k, oraciones, que_sale, por_que_se_van, deberia_texto, ids, palabras_antes, palabras_despues, cifras_sin_respaldo,
+    marcas, aplica}]}]}. Sin 01f_critico.json los párrafos se muestran igual y se pueden editar y aprobar."""
+    import fase1_5 as f15
+    from script_engine import m01e_pantalla as mp
+    from script_engine import m01f_critico as mf
+    from script_engine import narracion_verificador as nv
+    from script_engine.m01d_particion import md5_narracion
+    sd, tid = _steps_dir(state), state.topic_id
+    d = sd / tid
+    n3 = _read_json(d / "01b_narracion_v3.json")
+    ok, motivo = f15.estado_narracion(tid, sd)
+    if n3 is None:
+        return {"sin_narracion": True, "estado": {"aprobado": False, "motivo": motivo}, "caps": [], "sin_critico": True}
+    md5 = md5_narracion(n3)
+    crit = mf.cargar_critica(tid, sd)
+    resp = (crit or {}).get("respuesta")
+    filas = {f["k"]: f for f in ((crit or {}).get("validacion") or {}).get("deberia") or []}
+    verif = _read_json(d / f"{nv.ARCHIVO}.json") or {}
+    judge = _read_json(d / "06_judge_narrative.json") or {}
+    met = judge.get("retencion") or {}
+    pars = n3.get("parrafos") or []
+    deb = [x for x in (resp or {}).get("deberia") or [] if isinstance(x, dict)]
+    titulos = {int(c["chapter_number"]): c.get("title") for c in (_read_json(d / "01a_skeleton.json") or {}).get("chapters") or []}
+    caps = []
+    for n in sorted({int(p["cap"]) for p in pars}):
+        cid = mp.cap_id(n)
+        cc = next((c for c in (resp or {}).get("caps") or [] if c.get("cap") == cid), {})
+        mc = next((c for c in met.get("caps") or [] if c.get("cap") == cid), {})
+        parrafos, idx = [], 0
+        for i, p in enumerate(pars):
+            if int(p["cap"]) != n:
+                continue
+            ors = [{"idx": idx + j, "texto": t} for j, t in enumerate(mp.oraciones_de_texto(p["texto"]))]
+            idx += len(ors)
+            parrafos.append({"i": i, "beat": p.get("beat"), "texto": p["texto"], "oraciones": ors})
+        deberia = [{"k": k, "oraciones": x.get("oraciones"), "que_sale": x.get("que_sale"), "por_que_se_van": x.get("por_que_se_van"),
+                    "deberia_texto": x.get("deberia_texto"), "ids": x.get("ids"),
+                    **{c: filas.get(k, {}).get(c) for c in ("palabras_antes", "palabras_despues", "cifras_sin_respaldo", "marcas")},
+                    "aplica": bool(filas.get(k)) and mf.aplica(filas[k], pars)}
+                   for k, x in enumerate(deb, start=1) if x.get("cap") == cid]
+        caps.append({"cap": cid, "titulo": titulos.get(n), "nota": cc.get("nota"), "fuerte": cc.get("fuerte"), "debil": cc.get("debil"),
+                     "reengancho": cc.get("reengancho"), "personaje_en_voz": cc.get("personaje_en_voz"),
+                     "racha_max_sin_personaje": mc.get("racha_max_sin_personaje"), "metricas": mc, "parrafos": parrafos, "deberia": deberia})
+    critico = None
+    if crit:
+        critico = {**(resp or {}), "usd": crit.get("usd"), "modelo": crit.get("modelo"), "prompt_version": crit.get("prompt_version"),
+                   "vigente": crit.get("narracion_md5") == md5, "n_deberia": crit.get("n_deberia"), "error": crit.get("error")}
+    return {"estado": {"aprobado": ok, "motivo": motivo}, "aprobado_por": n3.get("aprobado"), "md5": md5, "critico": critico,
+            "sin_critico": not resp, "metricas": met,
+            "verificacion": {"quedan": verif.get("quedan") or [], "vigente": verif.get("narracion_md5") == md5}, "caps": caps}
+
+
+def narracion_post(state: "QAState", route: str, body: dict) -> tuple[dict, int]:
+    """Las rutas POST de la narración: (json, status). Errores de lo que manda el navegador → 400."""
+    from script_engine import m01f_critico as mf
+    sd, tid = _steps_dir(state), state.topic_id
+    try:
+        if route == "/narracion/aprobar":
+            import time
+
+            import fase1_5 as f15
+            por = str(body.get("por") or "").strip()
+            if not por:
+                raise ValueError("falta quién aprueba")
+            try:                                       # solo aprueba: ni el papel ni la voz corren
+                ap = f15.aprobar_narracion(tid, f"{por} {time.strftime('%Y-%m-%dT%H:%M')}", sd)
+            except f15.Parada as e:
+                raise ValueError(str(e)) from e
+            return {"aprobado": ap}, 200
+        if route == "/narracion/editar":
+            return mf.editar_parrafo(tid, body.get("i"), body.get("texto"), sd), 200
+        if route == "/narracion/aceptar":
+            k = body.get("k")
+            if not isinstance(k, int) or isinstance(k, bool):
+                raise ValueError("falta k (entero)")
+            return mf.aceptar_deberia(tid, k, sd), 200
+    except (ValueError, KeyError, IndexError, TypeError) as e:
+        return {"error": f"{e}" if isinstance(e, ValueError) else f"{type(e).__name__}: {e}"}, 400
+    return {"error": "ruta no encontrada"}, 404
+
+
 class Handler(BaseHTTPRequestHandler):
     def log_message(self, fmt, *args):  # silenciar el log ruidoso por request
         sys.stderr.write("  " + (fmt % args) + "\n")
@@ -2162,6 +2253,8 @@ class Handler(BaseHTTPRequestHandler):
                 self._send_json(_thumbs_status())   # HANDOFF_135
             elif route == "/marks":
                 self._send_json(load_marks(STATE))  # F5e: fotos marcadas para regenerar
+            elif route == "/narracion":
+                self._send_json(narracion_vista(STATE))   # F67 C
             elif route == "/papel":
                 self._send_json(papel_vista(STATE))   # F65b
             elif route == "/papel/sugerir_status":
@@ -2177,6 +2270,10 @@ class Handler(BaseHTTPRequestHandler):
             if route.startswith("/papel/"):            # F65b: el QA del papel
                 length = int(self.headers.get("Content-Length", 0))
                 obj, status = papel_post(STATE, route, json.loads(self.rfile.read(length) or b"{}"))
+                self._send_json(obj, status=status)
+            elif route.startswith("/narracion/"):      # F67 C: la compuerta de narración
+                length = int(self.headers.get("Content-Length", 0))
+                obj, status = narracion_post(STATE, route, json.loads(self.rfile.read(length) or b"{}"))
                 self._send_json(obj, status=status)
             elif route == "/assemble":
                 res = _start_assemble()
@@ -2327,8 +2424,10 @@ def _preflight(state: QAState) -> list[str]:
     if not HTML_PATH.exists():
         problems.append(f"qa_studio.html no existe: {HTML_PATH}")
     # F65b: el papel se aprueba ANTES de la voz: con el papel solo también arranca (la vista PAPEL; el visor queda con 0 caps)
+    # F67 C: y la narración antes del papel: con la narración sola también
     if not state.audio_dir.exists() and not state.assets_dir.exists() \
-            and not (_steps_dir(state) / state.topic_id / "01e_pantalla.json").exists():
+            and not (_steps_dir(state) / state.topic_id / "01e_pantalla.json").exists() \
+            and not (_steps_dir(state) / state.topic_id / "01b_narracion_v3.json").exists():
         problems.append(
             f"el topic {state.topic_id} no tiene assets, audio ni papel "
             f"(esperaba {state.audio_dir} / {state.assets_dir})"

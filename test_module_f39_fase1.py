@@ -81,6 +81,7 @@ def env(tmp_path, monkeypatch):
         d = steps / topic_id
         (d / "01e_pantalla.json").write_text(json.dumps({"topic_id": topic_id, "beats": []}), encoding="utf-8")
         (d / "01e_pantalla.md").write_text("# papel", encoding="utf-8")
+        (d / "01b_narracion_v3.json").write_text(json.dumps({"topic_id": topic_id, "parrafos": []}), encoding="utf-8")
         return {"particion": {"skeleton": {}, "narration": {}}}
     monkeypatch.setattr(f15, "run_guion_v4", guion_v4)
     monkeypatch.setattr(f15, "_topic_v3", lambda tid: topic_por_id(tid))
@@ -101,15 +102,15 @@ def _cadena(env, capsys):
     return r, capsys.readouterr().out
 
 
-def test_a3_de_la_semilla_al_papel_en_orden_y_para_en_el_papel(env, capsys):
+def test_a3_de_la_semilla_a_la_narracion_en_orden_y_para_ahi(env, capsys):
     r, out = _cadena(env, capsys)
     with capsys.disabled():                       # A.5 (b): con `pytest -s` la salida queda a la vista
         print("\n── pasos:", " → ".join(env["pasos"]), "\n" + out)
     assert env["pasos"] ==["research", "compuerta", "ficha «Un desastre de prueba»", "canon", "escaleta",
                             "guion → caps → papel"]
-    assert r["status"] == "PARADA" and r["parada"] == "papel" and r["steps_completed"] == ["m01a", "m01b"]
-    assert "PARADA del papel: el papel no está aprobado" in out
-    assert f"--topic {TID} --aprobar-papel" in out and "01e_pantalla.md" in out
+    assert r["status"] == "PARADA" and r["parada"] == "narracion" and r["steps_completed"] == ["m01a", "m01b"]   # F67 C
+    assert "PARADA de narración: la narración no está aprobada" in out
+    assert f"--topic {TID} --aprobar-narracion" in out
     assert (env["tmp"] / f"topics_db.pre_{TID}.json").exists()                      # respaldo antes de registrar
     costos = json.loads((env["steps"] / TID / "01_v3_costos.json").read_text(encoding="utf-8"))["_corridas"]
     assert [c["paso"] for c in costos] == ["research", "ficha", "escaleta"]          # el guion es falso: sin costo
@@ -184,6 +185,10 @@ def test_a4_reanudar_despues_de_m01b_mira_el_papel(env, capsys):
     _cadena(env, capsys)
     r = f15.process_topic(TID, from_step="audio", gate_interactive=False,
                           music_gate_interactive=False)
+    assert r["status"] == "PARADA" and r["parada"] == "narracion"       # F67 C: antes del papel, la narración
+    f15.aprobar_narracion(TID, "Omar 2026-10-27")
+    r = f15.process_topic(TID, from_step="audio", gate_interactive=False,
+                          music_gate_interactive=False)
     assert r["status"] == "PARADA" and r["parada"] == "papel"
 
 
@@ -197,6 +202,7 @@ def test_a4_sin_papel_no_hay_nada_que_aprobar(env):
 
 def test_a4_papel_aprobado_deja_seguir(env, capsys):
     _cadena(env, capsys)
+    f15.aprobar_narracion(TID, "Omar 2026-10-27")
     f15.aprobar_papel(TID, "Omar 2026-10-27")
     r = f15.process_topic(TID, from_step="normalizer_gate", gate_interactive=False,
                           music_gate_interactive=False)

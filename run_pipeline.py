@@ -19,15 +19,16 @@ USO:
     python run_pipeline.py --topic <id> --batch    # igual, y PACKAGING no levanta el form
 
 Secuencia (F41, DECISIONES 2026-10-27 20:59) — una sola cadena:
-    GUION (fase1_5 --batch: la cadena de F39 hasta el papel) → PAPEL (compuerta) →
+    GUION (fase1_5 --batch: la cadena de F39 hasta el crítico) → NARRACION (compuerta, F67) →
+    PAPEL (fase1_5 --papel, una vez sobre la narración aprobada; compuerta) →
     VOZ (fase1_5 --from normalizer_gate: voz, música, m03, foto madre, assemble) →
     ASSETS (fase2a) → VISOR (solo form) → FONDOS (fase2b sin gfx) →
     PANTALLA (fase2b --plan-only + compuerta del guion de pantalla) →
     RENDER (fase2b --reuse-visuals --keep-segments --gfx --gfx-sparse) → PACKAGING (fase3).
 
 Retomar: cada corrida arranca en la primera etapa que falta según los artefactos en disco
-(`etapa_de`); una etapa hecha no se vuelve a correr. Las dos compuertas (papel y guion de
-pantalla) NUNCA se aprueban solas: con el form (QA_FORM) Omar elige A (aprobar) o P (parar);
+(`etapa_de`); una etapa hecha no se vuelve a correr. Las tres compuertas (narración, papel y guion
+de pantalla) NUNCA se aprueban solas: con el form (QA_FORM) Omar elige A (aprobar) o P (parar);
 sin el form la corrida para ahí e imprime los comandos para aprobar y retomar.
 
 Modo --batch: PACKAGING NO levanta el form — solo reporta `python fase3.py <id>`.
@@ -123,6 +124,22 @@ def _estado_papel(tid: str) -> tuple[bool, str]:
     return estado_papel(tid)
 
 
+def _estado_narracion(tid: str) -> tuple[bool, str]:
+    """(narración aprobada y vigente, motivo) — el de fase1_5 (F67 C)."""
+    from fase1_5 import estado_narracion
+    return estado_narracion(tid)
+
+
+def _papel_falta(tid: str) -> str | None:
+    """Por qué hay que correr el papel con la narración aprobada; None si el que hay vale — el de fase1_5 (F67 C)."""
+    from fase1_5 import papel_falta
+    return papel_falta(tid)
+
+
+def _steps_path(tid: str, nombre: str) -> Path:
+    return DATA_DIR / "scripts" / "_steps" / tid / nombre
+
+
 def _estado_guion(tid: str) -> tuple[bool, str]:
     """(guion de pantalla aprobado y vigente, motivo) — el de script_engine.aprobacion (F33)."""
     return aprobacion.estado(OUTPUT_DIR / tid)
@@ -145,7 +162,7 @@ def _mtime(p: Path) -> float | None:
 # ═══════════════════════════════════════════════════════════════
 #  Retomar: en qué etapa está un topic (SOLO LECTURA)
 # ═══════════════════════════════════════════════════════════════
-ETAPAS = ("guion", "papel", "voz", "assets", "fondos", "guion_pantalla", "aprobar_guion", "render",
+ETAPAS = ("guion", "narracion", "papel_nuevo", "papel", "voz", "assets", "fondos", "guion_pantalla", "aprobar_guion", "render",
           "packaging", "listo")
 CADENA_VIEJA = "cadena_vieja"   # sin papel pero con artefactos de después: no se retoma (no se re-paga nada)
 
@@ -153,8 +170,11 @@ CADENA_VIEJA = "cadena_vieja"   # sin papel pero con artefactos de después: no 
 def etapa_de(tid: str) -> tuple[str, str]:
     """La primera etapa que le falta a `tid`, mirando solo artefactos en disco. No escribe nada.
 
-    guion           no hay papel (`_steps/<id>/01e_pantalla.md`) ni nada de después
-    papel           hay papel pero `fase1_5.estado_papel` no lo da aprobado (o cambió después de aprobado)
+    guion           falta `_steps/<id>/01b_narracion_v3.json` o `01b_verificacion.json`
+    narracion       hay narración y `fase1_5.estado_narracion` no la da aprobada (con o sin 01f_critico: la compuerta funciona
+                    sin crítica)
+    papel_nuevo     narración aprobada y `fase1_5.papel_falta`: no hay papel, salió de otra narración o no lo dice y no está aprobado
+    papel           hay papel de esa narración pero `fase1_5.estado_papel` no lo da aprobado (o cambió después de aprobado)
     voz             papel aprobado, falta `data/scripts/<id>.json`
     assets          falta `output/<id>/assets/assets_manifest.json`
     fondos          falta `output/<id>/<id>_final.mp4` (fase2b sin gfx) y a algún cap del manifest le falta su
@@ -168,9 +188,7 @@ def etapa_de(tid: str) -> tuple[str, str]:
                     borrada; no se corre nada
     """
     papel_ok, motivo = _estado_papel(tid)
-    if not papel_ok:
-        if _papel_md_path(tid).exists():
-            return "papel", motivo
+    if not papel_ok and not _papel_md_path(tid).exists():
         hechos = [p.name for p in (_script_path(tid), _manifest_path(tid), _fondos_path(tid), _render_path(tid))
                   if p.exists()]
         if _video_hecho(tid):
@@ -178,7 +196,17 @@ def etapa_de(tid: str) -> tuple[str, str]:
         if hechos:
             return CADENA_VIEJA, (f"sin papel pero con {', '.join(hechos)}: topic de la cadena borrada "
                                   f"(DECISIONES 2026-10-27 20:59); no se retoma para no volver a pagar lo hecho")
-        return "guion", motivo
+    faltan = [n for n in ("01b_narracion_v3.json", "01b_verificacion.json") if not _steps_path(tid, n).exists()]
+    if faltan:
+        return "guion", f"falta {', '.join(faltan)}"
+    nar_ok, nar_motivo = _estado_narracion(tid)
+    if not nar_ok:
+        return "narracion", nar_motivo
+    falta = _papel_falta(tid)
+    if falta:
+        return "papel_nuevo", falta
+    if not papel_ok:
+        return "papel", motivo
     if not _script_path(tid).exists():
         return "voz", f"{motivo}; falta {_script_path(tid).as_posix()}"
     if not _manifest_path(tid).exists():
@@ -295,13 +323,48 @@ def _compuerta(menu: str, tid: str, doc: Path, *, prompt: str, ok_label: str, mo
 
 
 def _paso_guion(tid: str, ran: list[str], batch: bool) -> int | None:
-    """GUION: la única cadena de fase1_5 (research v3 → ficha → escaleta → guion v4 → partición y títulos → papel);
-    termina en la PARADA del papel con exit 0."""
+    """GUION: la única cadena de fase1_5 (research v3 → ficha → escaleta → guion v4 → partición y títulos → juez → verificación →
+    crítico); termina en la PARADA de narración con exit 0."""
     _phase_header("GUION (fase1_5)", tid)
     ran.append("guion")
     cmd = ["fase1_5.py", "--topic", tid, "--batch"]
     rc = _run(cmd)
     return _fallo(tid, ran, "GUION", cmd, rc) if rc != 0 else None
+
+
+def _paso_narracion(tid: str, ran: list[str], batch: bool) -> int | None:
+    """NARRACION: la compuerta de narración (01f_critico.md; editar y aceptar DEBERÍA es en QA Studio). Con el form: A aprueba y
+    sigue al papel; P para. Sin el form: para."""
+    _phase_header("NARRACION (compuerta de narración)", tid)
+    ran.append("narracion")
+    md = _steps_path(tid, "01f_critico.md")
+    _, motivo = _estado_narracion(tid)
+    comandos = [f"leer:    QA Studio → NARRACIÓN (o {md.as_posix()})",
+                f"aprobar: python fase1_5.py --topic {tid} --aprobar-narracion \"Omar <fecha>\"",
+                f"retomar: {_retomar_cmd(tid)}"]
+    if not QA_FORM:
+        _report(tid, ran, stopped_at="NARRACION", next_cmd=comandos,
+                why=f"{motivo} (la compuerta no se aprueba sola: sin el form la aprueba Omar a mano)")
+        return 0
+    resp = _compuerta("narracion_gate", tid, md, motivo=motivo,
+                      prompt="Leé la crítica en QA Studio → NARRACIÓN (o 01f_critico.md); A = aprobar tal cual y seguir al papel "
+                             "(se paga); P = parar y editar en QA Studio.",
+                      ok_label="Aprobar la narración -> papel")
+    if resp != "A":
+        _report(tid, ran, stopped_at="NARRACION", why=f"{motivo}; Omar paró en la compuerta de narración", next_cmd=comandos)
+        return 0
+    cmd = ["fase1_5.py", "--topic", tid, "--aprobar-narracion", f"Omar {_hoy()}"]
+    rc = _run(cmd)
+    return _fallo(tid, ran, "NARRACION", cmd, rc) if rc != 0 else None
+
+
+def _paso_papel_nuevo(tid: str, ran: list[str], batch: bool) -> int | None:
+    """PAPEL: m01e, una vez, sobre la narración aprobada."""
+    _phase_header("PAPEL (fase1_5 --papel)", tid)
+    ran.append("papel nuevo")
+    cmd = ["fase1_5.py", "--topic", tid, "--papel", "--batch"]
+    rc = _run(cmd)
+    return _fallo(tid, ran, "PAPEL", cmd, rc) if rc != 0 else None
 
 
 def _paso_papel(tid: str, ran: list[str], batch: bool) -> int | None:
@@ -436,14 +499,15 @@ def _paso_packaging(tid: str, ran: list[str], batch: bool) -> int:
     return 0
 
 
-_PASOS = {"guion": _paso_guion, "papel": _paso_papel, "voz": _paso_voz, "assets": _paso_assets,
+_PASOS = {"guion": _paso_guion, "narracion": _paso_narracion, "papel_nuevo": _paso_papel_nuevo, "papel": _paso_papel, "voz": _paso_voz,
+          "assets": _paso_assets,
           "fondos": _paso_fondos, "guion_pantalla": _paso_guion_pantalla, "aprobar_guion": _paso_aprobar_guion,
           "render": _paso_render, "packaging": _paso_packaging}
 
 
 def sequence(tid: str, *, batch: bool = False) -> int:
     """Corre la cadena para `tid` desde la primera etapa que falta (etapa_de). Devuelve el exit code: 0 = cadena
-    completa o PARADA en una compuerta (papel / guion de pantalla); 1 = falla o artefacto faltante.
+    completa o PARADA en una compuerta (narración / papel / guion de pantalla); 1 = falla o artefacto faltante.
 
     Después de cada etapa vuelve a mirar el disco: si la etapa no avanzó, para (nunca corre dos veces lo mismo).
     `batch`: en PACKAGING no levanta el form, solo reporta el comando de fase3.
@@ -534,8 +598,8 @@ def main() -> int:
                          "S/L. Sin esto, fase1 pregunta igual que hoy. Lo usa el form.")
     ap.add_argument("--batch", action="store_true",
                     help="El PACKAGING no levanta el form (solo reporta el comando de fase3). "
-                         "fase1_5 corre siempre con --batch. Las compuertas del papel y del guion "
-                         "de pantalla NO se saltean. Convive con --research (el pick de seed "
+                         "fase1_5 corre siempre con --batch. Las compuertas de narración, del papel y del "
+                         "guion de pantalla NO se saltean. Convive con --research (el pick de seed "
                          "SIEMPRE es interactivo).")
     args = ap.parse_args()
 

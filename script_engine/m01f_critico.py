@@ -265,3 +265,104 @@ def cargar_critica(topic_id: str, steps_dir: Path | None = None) -> dict[str, An
         return json.loads(f.read_text(encoding="utf-8")) if f.exists() else None
     except (OSError, ValueError):
         return None
+
+
+# ═══════════════════════ F67 C.2: la edición de la compuerta. Nada corre solo: Omar edita o acepta, el código reconstruye ═══════════════════════
+
+def _carga(topic_id: str, steps_dir: Path | None) -> dict[str, Any]:
+    """Topic (el cargador de `verificar_narracion`), escaleta, párrafos, pool y títulos vigentes (m01e.cargar)."""
+    from fase1_5 import _topic_v3
+    from script_engine import m01e_pantalla as mp
+    topic = _topic_v3(topic_id)
+    c = mp.cargar(topic_id, _dir(steps_dir), topic.get("evidence_pool"))
+    return {"topic": topic, "esc": c["escaleta"], "parrafos": c["parrafos"], "pool": c["pool"],
+            "titulos": [c["titulos"][n] for n in sorted(c["titulos"])]}
+
+
+def _aplicar(topic_id: str, c: dict[str, Any], steps_dir: Path | None) -> str:
+    """Reconstruye el contrato y corre el juez (US$ 0: `metricas` sigue vigente). Devuelve el md5 nuevo."""
+    from script_engine.m01d_particion import md5_narracion, reconstruir
+    from script_engine.m05_narrative import judge_narration
+    r = reconstruir(c["topic"], c["esc"], c["parrafos"], c["pool"], c["titulos"], steps_dir=_dir(steps_dir))
+    judge_narration(topic_id, steps_dir=_dir(steps_dir), pool=c["pool"])
+    return md5_narracion(r["narracion_v3"])
+
+
+def editar_parrafo(topic_id: str, i: int, texto: str, steps_dir: Path | None = None) -> dict[str, Any]:
+    """`i` = índice del párrafo en 01b_narracion_v3.parrafos ((cap, beat) no es único). Invalida la aprobación por md5."""
+    c = _carga(topic_id, steps_dir)
+    if not isinstance(i, int) or isinstance(i, bool) or not 0 <= i < len(c["parrafos"]):
+        raise ValueError(f"no hay párrafo {i}")
+    if not isinstance(texto, str) or not texto.strip():
+        raise ValueError("el párrafo no puede quedar vacío")
+    c["parrafos"][i] = {**c["parrafos"][i], "texto": texto.strip()}
+    return {"i": i, "beat": c["parrafos"][i].get("beat"), "md5": _aplicar(topic_id, c, steps_dir)}
+
+
+def _oraciones_cap(parrafos: list[dict[str, Any]], n: int) -> list[dict[str, Any]]:
+    """Las oraciones actuales del cap, con su párrafo y su posición en el texto del párrafo (el corte de la voz junta las palabras
+    con un espacio: la posición se busca, no se calcula)."""
+    from script_engine.voz_utils import oraciones_de_texto
+    out = []
+    for i, p in enumerate(parrafos):
+        if int(p["cap"]) != n:
+            continue
+        pos = 0
+        for t in oraciones_de_texto(p["texto"]):
+            m = re.compile(r"\s+".join(re.escape(w) for w in t.split())).search(p["texto"], pos)
+            out.append({"parrafo": i, "beat": int(p.get("beat") or 0), "texto": t, "ini": m.start(), "fin": m.end()})
+            pos = m.end()
+    return out
+
+
+def _ubicar(ors: list[dict[str, Any]], original: list[str]) -> int | None:
+    """Dónde está el tramo: `aplica` ⇔ la secuencia aparece exactamente una vez, contigua. Nunca por `idx`, que se corre al aceptar
+    otro DEBERÍA del mismo cap."""
+    if not original:
+        return None
+    textos = [o["texto"] for o in ors]
+    hits = [j for j in range(len(textos) - len(original) + 1) if textos[j:j + len(original)] == original]
+    return hits[0] if len(hits) == 1 else None
+
+
+def aplica(fila: dict[str, Any], parrafos: list[dict[str, Any]]) -> bool:
+    return _ubicar(_oraciones_cap(parrafos, int(str(fila["cap"])[2:])), fila.get("texto_original") or []) is not None
+
+
+def aceptar_deberia(topic_id: str, k: int, steps_dir: Path | None = None) -> dict[str, Any]:
+    """Aplica el DEBERÍA `k` de 01f_critico.json: el tramo se reemplaza por `deberia_texto` limpio. Primer párrafo = lo previo al
+    tramo + el texto nuevo; último = lo posterior; los del medio quedan sin texto. Los `ids` válidos se suman al primero. Un párrafo
+    sin texto se ELIMINA: `tts_tags.tag_cap` saltea los vacíos y sus `intensities`/`pico_par` (índices de párrafo) se correrían; el
+    POST responde qué beats cambiaron y cuáles quedaron sin texto. Reconstruye y corre el juez."""
+    crit = cargar_critica(topic_id, steps_dir) or {}
+    filas = (crit.get("validacion") or {}).get("deberia") or []
+    fila = next((f for f in filas if f.get("k") == k), None)
+    if fila is None:
+        raise ValueError(f"no hay DEBERÍA {k}")
+    d = [x for x in (crit.get("respuesta") or {}).get("deberia") or [] if isinstance(x, dict)][k - 1]
+    c = _carga(topic_id, steps_dir)
+    ps = [dict(p) for p in c["parrafos"]]
+    ors = _oraciones_cap(ps, int(str(fila["cap"])[2:]))
+    j = _ubicar(ors, fila.get("texto_original") or [])
+    if j is None:
+        raise ValueError(f"DEBERÍA {k} ya no aplica (el texto cambió)")
+    a, b = ors[j], ors[j + len(fila["texto_original"]) - 1]
+    nuevo = limpiar(d.get("deberia_texto"))
+    espacios = lambda t: re.sub(r"[ \t]{2,}", " ", t).strip()  # noqa: E731
+    pa, pb = a["parrafo"], b["parrafo"]
+    cambiados = sorted({pa, pb} | set(range(pa, pb + 1)))
+    if pa == pb:
+        t = ps[pa]["texto"]
+        ps[pa]["texto"] = espacios(t[:a["ini"]] + nuevo + t[b["fin"]:])
+    else:
+        ps[pa]["texto"] = espacios(ps[pa]["texto"][:a["ini"]] + nuevo)
+        ps[pb]["texto"] = espacios(ps[pb]["texto"][b["fin"]:])
+        for m in range(pa + 1, pb):
+            ps[m]["texto"] = ""
+    malos = set(fila.get("ids_invalidos") or [])
+    ps[pa]["ids_usados"] = list(dict.fromkeys(list(ps[pa].get("ids_usados") or []) + [str(i) for i in d.get("ids") or [] if str(i) not in malos]))
+    beats = sorted({int(ps[m].get("beat") or 0) for m in cambiados})
+    c["parrafos"] = [p for p in ps if p["texto"].strip()]
+    vivos = {int(p.get("beat") or 0) for p in c["parrafos"] if int(p["cap"]) == int(str(fila["cap"])[2:])}
+    return {"k": k, "cap": fila["cap"], "beats_cambiados": beats, "beats_sin_texto": [x for x in beats if x not in vivos],
+            "md5": _aplicar(topic_id, c, steps_dir)}

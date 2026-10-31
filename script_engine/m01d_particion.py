@@ -273,6 +273,28 @@ class ParticionError(ValueError):
     """La partición dejó un cap sin narración: la cadena no puede seguir a audio."""
 
 
+def reconstruir(topic: dict, esc: dict, parrafos: list[dict], pool: dict, titulos: list[str],
+                steps_dir: Any = None) -> dict[str, Any]:
+    """F67 C.2: el contrato con los párrafos editados, SIN rebalance ni Flash: `build_contract` con los títulos vigentes y los 3
+    archivos de `particionar`. 01b_narracion_v3 va sin `aprobado`, a propósito: toda edición invalida la aprobación. Lleva la
+    nota de la partición del skeleton anterior. Borra 01b_narration_normalized.json: audio_manager lo lee antes que la
+    narración, y sería el texto viejo. Con un cap vacío no escribe nada (ParticionError)."""
+    d = Path(steps_dir or STEPS_DIR) / str(topic.get("id") or topic.get("topic_id"))
+    sk, na, n3 = build_contract(topic, esc, parrafos, pool, title_list=titulos)
+    empty = [c["chapter_number"] for c in na["chapters"] if not c["narration"].strip()]
+    if empty:
+        raise ParticionError(f"caps sin narración: {empty}: la edición dejaría un cap sin texto; no se escribe nada")
+    f_sk = d / "01a_skeleton.json"
+    viejo = json.loads(f_sk.read_text(encoding="utf-8")) if f_sk.exists() else {}
+    part = (viejo.get("_v3") or {}).get("particion")
+    if part is not None:
+        sk["_v3"]["particion"] = part
+    for name, obj in (("01a_skeleton.json", sk), ("01b_narration.json", na), ("01b_narracion_v3.json", n3)):
+        (d / name).write_text(json.dumps(obj, ensure_ascii=False, indent=2), encoding="utf-8")
+    (d / "01b_narration_normalized.json").unlink(missing_ok=True)
+    return {"skeleton": sk, "narration": na, "narracion_v3": n3}
+
+
 # ═══════════════════════════════════════════════════════════════
 #  regenerate_caps v3 con datos permitidos (F10, arreglos quirúrgicos de Omar)
 # ═══════════════════════════════════════════════════════════════

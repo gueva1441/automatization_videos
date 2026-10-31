@@ -1,7 +1,7 @@
 {
  "_nota": "F42 §B: stickers de la zona guion, escritos por los workers (Sonnet) que leyeron cada archivo entero; `md5` = el del archivo leído (`mapa_modulos.py --check` avisa si cambió). `_parte` = el worker.",
  "fase1_5.py": {
-  "sticker": "Es el director de la Fase 1: de un tema con el research hecho arma, en orden, la compuerta del pool, la ficha del caso, el canon visual desde la ficha (F50), la escaleta, el guion v4 con su reparación, la partición en 7 capítulos y el guion de pantalla en papel, y se detiene en la PARADA del papel hasta que Omar lo aprueba (`--aprobar-papel`, con md5). Ya aprobado, sigue con la normalización de la voz, la voz, la música, el canon visual si la ficha cambió, los prompts de imagen, la foto madre y el ensamblado del contrato data/scripts/<id>.json que lee la Fase 2. F66/F66b: después de la partición y antes del papel, la verificación de la narración (run_verificacion: el verificador por cap); lo que contradice el archivo queda como aviso y la cadena sigue, no se corrige solo. `--verificar-narracion` la corre sobre una narración ya escrita, sin llamar al guionista.",
+  "sticker": "Es el director de la Fase 1: de un tema con el research hecho arma, en orden, la compuerta del pool, la ficha del caso, el canon visual desde la ficha (F50), la escaleta, el guion v4 con su reparación, la partición en 7 capítulos, el juez, la verificación y el crítico de la narración, y se detiene en la PARADA de narración hasta que Omar la aprueba (`--aprobar-narracion`, con md5, F67); después el papel una vez sobre esa narración (`--papel`) y la PARADA del papel hasta que Omar lo aprueba (`--aprobar-papel`, con md5). Ya aprobado, sigue con la normalización de la voz, la voz, la música, el canon visual si la ficha cambió, los prompts de imagen, la foto madre y el ensamblado del contrato data/scripts/<id>.json que lee la Fase 2. F66/F66b: después de la partición, la verificación de la narración (run_verificacion: el verificador por cap); lo que contradice el archivo queda como aviso y la cadena sigue, no se corrige solo. `--verificar-narracion` la corre sobre una narración ya escrita, sin llamar al guionista.",
   "recibe": "data/topics_db.json (topic con evidence_pool v3), data/scripts/_steps/<id>/ (_perfil.json, escaleta_notas.md, ficha_caso.json, 01a_escaleta.json, 01e_pantalla.json), data/seeds_archive.json (título de la semilla), una semilla .json con --semilla, output/audio/<id>/sync_map.json al reanudar",
   "entrega": "data/scripts/_steps/<id>/ (01a_escaleta, 01b_guionista_v4, 01a_skeleton, 01b_narration, 01b_narracion_v3, 06_judge_narrative, 01e_pantalla.json/.md, 01_v3_costos.json con los pasos ficha, canon y m03, 05_visual_canon.json, aprobado con md5 dentro de 01e_pantalla.json); el canon visual con canon_ficha_md5 (md5 de ficha + pedido del canon + modelo + esfuerzo, F50f; Parada si el canon no sale o trae años de tramo ilegibles) en topics_db; audio y sync_map de la voz (output/audio/<id>/), music_map, prompts de imagen de m03, la foto madre en topics_db y data/scripts/<id>.json",
   "modelo": [
@@ -42,7 +42,7 @@
   "estado": "vivo",
   "estado_prueba": "run_pipeline.py:301 lo lanza en guion (--batch), :325 en papel (--aprobar-papel) y :334 en voz (--from normalizer_gate --batch)",
   "funciones_muertas": [],
-  "md5": "0692ade06241856eddc8d6652371ef5d",
+  "md5": "e19b8a22347f7206105fd1af37dfe661",
   "_parte": "guion_b"
  },
  "script_engine/guion_v3_reglas.py": {
@@ -199,7 +199,7 @@
   "_parte": "guion_b"
  },
  "script_engine/m01d_particion.py": {
-  "sticker": "Reparte los párrafos del guion en los 7 capítulos con su largo en caracteres (mueve o acorta el último párrafo de un cap que se pasa; desde F56 el párrafo del re-gancho no se mueve de cap y, si se acorta, su oración tiene que quedar entera, como ya pasaba con el pico), le pone título a cada capítulo con una llamada corta a Gemini (con título de respaldo si falla) y arma el contrato de 7 caps con etiquetas de voz que lee todo lo de río abajo. También trae el retoque quirúrgico de un cap (regenerate_cap_v3) que usa la reparación del guion v4.",
+  "sticker": "Reparte los párrafos del guion en los 7 capítulos con su largo en caracteres (mueve o acorta el último párrafo de un cap que se pasa; desde F56 el párrafo del re-gancho no se mueve de cap y, si se acorta, su oración tiene que quedar entera, como ya pasaba con el pico), le pone título a cada capítulo con una llamada corta a Gemini (con título de respaldo si falla) y arma el contrato de 7 caps con etiquetas de voz que lee todo lo de río abajo. También trae el retoque quirúrgico de un cap (regenerate_cap_v3) que usa la reparación del guion v4. F67: `md5_narracion`, la única definición del md5 de la narración, y `reconstruir`: el contrato con los párrafos editados en la compuerta, sin rebalance ni títulos nuevos.",
   "recibe": "los párrafos del guion v4 ya reparados, la escaleta (01a_escaleta), el evidence_pool del topic",
   "entrega": "data/scripts/_steps/<id>/01a_skeleton.json, 01b_narration.json y 01b_narracion_v3.json (narración por cap y por beat, títulos, narration_tts)",
   "modelo": [
@@ -224,11 +224,11 @@
     "por_que": "nadie la llama: guion_v4.py:16 y :1022 solo la nombran en comentarios («patrón de m01d.cut_phrases») y ningún test ni string de producción la usa"
    }
   ],
-  "md5": "fb9a47d8d6e8bc59b8c40ed7bf755b0f",
+  "md5": "78951fafaa6e15171d141cce8c2a6c52",
   "_parte": "guion_b"
  },
  "script_engine/m01e_pantalla.py": {
-  "sticker": "Escribe el guion de pantalla en papel: para cada beat del video decide qué ficha de texto (un dato, una cita, un nombre o un lugar del archivo del caso) y qué palabra de clima aparecen en pantalla y sobre qué oración de la voz, más los relojes de fechas. Una sola llamada a Claude Opus con toda la narración, la escaleta (con la promesa del gancho y las disputas de la ficha del caso) y el archivo entero con el fragmento original de cada fuente; después el código valida en papel lo mecánico (candado de cifras y nombres, respaldo literal, que quepa, una por beat) y, F64, cada coincidencia con la voz (la voz ya lo dice, lo adelanta, lo contradice, fecha posterior al relato) va como marca a UNA llamada a un verificador (pantalla_verificador) que decide hecho por hecho; lo que cae vuelve al autor en vueltas de reintento parcial hasta que no hay motivos nuevos (sin tope en dólares). Deja el papel para que Omar lo apruebe antes de pagar la voz; la Fase 2 lo consume. F65b: sugerir propone hasta 3 fichas alternativas para un beat (el QA del papel), sin tocar el papel.",
+  "sticker": "Escribe el guion de pantalla en papel: para cada beat del video decide qué ficha de texto (un dato, una cita, un nombre o un lugar del archivo del caso) y qué palabra de clima aparecen en pantalla y sobre qué oración de la voz, más los relojes de fechas. Una sola llamada a Claude Opus con toda la narración, la escaleta (con la promesa del gancho y las disputas de la ficha del caso) y el archivo entero con el fragmento original de cada fuente; después el código valida en papel lo mecánico (candado de cifras y nombres, respaldo literal, que quepa, una por beat) y, F64, cada coincidencia con la voz (la voz ya lo dice, lo adelanta, lo contradice, fecha posterior al relato) va como marca a UNA llamada a un verificador (pantalla_verificador) que decide hecho por hecho; lo que cae vuelve al autor en vueltas de reintento parcial hasta que no hay motivos nuevos (sin tope en dólares). Deja el papel para que Omar lo apruebe antes de pagar la voz; la Fase 2 lo consume. F65b: sugerir propone hasta 3 fichas alternativas para un beat (el QA del papel), sin tocar el papel. F67 C: corre después del OK de la narración y anota de qué narración salió (`narracion_md5`).",
   "recibe": "data/scripts/_steps/<id>/01a_escaleta.json, 01b_narracion_v3.json (párrafos por cap y beat), 01a_skeleton.json (títulos de cap), 00_pool_v3.json (el pool entero: D, T, Q, P y L), ficha_caso.json (versiones y contradicciones → disputas; opcional); voces ya generadas del narrador (segundos por palabra); vocabulario de clima",
   "entrega": "data/scripts/_steps/<id>/01e_pantalla.json (el papel, que luego se aprueba con md5; las fichas que el verificador salvó llevan juicio_verificador), 01e_pantalla.md (para que lo lea Omar: fichas, lo que cayó, sección Verificador, vueltas y cierre), 01e_pantalla.raw.json (caché: respuestas del autor y cada pedido/respuesta del verificador por pedido_md5); suma su costo (autor + verificador) al 01_v3_costos.json (paso «pantalla») vía fase1_5.run_pantalla · F66: si la verificación de la narración dejó contradicciones sin resolver, `aviso_narracion` en el papel y al final del .md",
   "modelo": [
@@ -249,7 +249,7 @@
   "estado": "vivo",
   "estado_prueba": "fase1_5.py:236 (run_pantalla llama mp.generar, dentro de run_guion_v4); la Fase 2 lo lee por script_engine/pantalla_entrada.py (_texto_item, TIPO_DE_ESTILO, cargar_papel) y fase2b.py usa editar (--plan-edit, a mano); validar/llamar llaman a script_engine/pantalla_verificador.verificar (F64)",
   "funciones_muertas": [],
-  "md5": "2a0f57de7b20080a56038c0419d66a61",
+  "md5": "a270d736331c123771182f4d5796c2ed",
   "_parte": "guion_b"
  },
  "script_engine/name_matching.py": {
@@ -354,5 +354,26 @@
   "estado_prueba": "guion_v4.py (bloqueantes → cierre_no_dicho / pago_no_dicho lo importan)",
   "md5": "09f2906f604c4efebf2570240e9355ef",
   "_parte": "guion_a"
+ },
+ "script_engine/m01f_critico.py": {
+  "sticker": "El crítico de retención de la narración (F67, Fase 1 del lazo escritor → crítico → corrector): una llamada a Opus medium con la narración por oraciones, la escaleta, el archivo del caso, las métricas del juez y la tabla del verificador; devuelve nota, valles y DEBERÍA con texto e ids. Solo propone: valida en código ids, oraciones, palabras, cifras y marcas, y deja la crítica para la compuerta de narración de QA Studio. También aplica lo que Omar decide allí: editar un párrafo o aceptar un DEBERÍA, ubicando el tramo por su texto y reconstruyendo el contrato.",
+  "recibe": "data/scripts/_steps/<id>/ (01a_escaleta.json, 01a_skeleton.json, 01b_narracion_v3.json, 00_pool_v3.json o el pool del topic, ficha_caso.json, 06_judge_narrative.json, 01b_verificacion.md), script_engine/m01f_prompts/SYSTEM.txt y FORMATO.txt",
+  "entrega": "data/scripts/_steps/<id>/01f_critico.json y 01f_critico.md; al editar, los 3 archivos del contrato vía m01d_particion.reconstruir y 06_judge_narrative.json",
+  "modelo": [
+   {
+    "modelo": "claude-opus-5-5",
+    "esfuerzo": "medium",
+    "para": "crítica de retención"
+   }
+  ],
+  "etapa": [
+   "guion",
+   "narracion"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase1_5.py (run_critico), qa_studio_server.py (narracion_vista, narracion_post)",
+  "funciones_muertas": [],
+  "md5": "56bc5fae458ab2c082baf06f2593fdec",
+  "_parte": "guion_f67"
  }
 }

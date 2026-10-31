@@ -105,6 +105,20 @@
   .pp-alts h5{margin:0 0 8px;font-family:var(--mono);font-size:11px;font-weight:500;color:var(--cyan);}
   .pp-caida{opacity:.5;font-size:12px;margin:6px 0;line-height:1.4;}
   .pp-rel{font-family:var(--mono);font-size:11px;color:var(--dim2);margin:8px 2px 0;}
+  /* ── F67 C: la compuerta de narración ── */
+  .nn-res{font-size:13.5px;line-height:1.5;color:var(--ink);margin:6px 0 0;padding-left:18px;}
+  .nn-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:start;margin-bottom:12px;}
+  @media (max-width:980px){.nn-grid{grid-template-columns:minmax(0,1fr);}}
+  .nn-par{padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.028);border:1px solid rgba(255,255,255,.07);margin-bottom:9px;}
+  .nn-or{font-family:var(--serif);font-size:15px;line-height:1.5;color:var(--ink);}
+  .nn-or small{font-family:var(--mono);font-size:10px;color:var(--dim2);margin-right:3px;}
+  .nn-or.marcada{background:rgba(245,165,36,.16);border-radius:3px;}
+  .nn-ta{width:100%;box-sizing:border-box;min-height:120px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.16);border-radius:8px;color:var(--ink2);font-size:14px;line-height:1.5;padding:8px 10px;font-family:var(--serif);}
+  .nn-deb{padding:12px 14px;border-radius:12px;border:1px solid rgba(34,211,238,.32);background:rgba(34,211,238,.04);margin-bottom:9px;}
+  .nn-deb.muerta{opacity:.55;border-style:dashed;}
+  .nn-h{font-family:var(--mono);font-size:11px;color:var(--cyan);margin-bottom:6px;}
+  .nn-tx{font-family:var(--serif);font-size:14.5px;line-height:1.5;color:var(--ink2);border-left:3px solid var(--violet);padding-left:10px;margin:8px 0;}
+  .nn-met{font-family:var(--mono);font-size:11.5px;color:var(--dim);margin:0 0 10px;line-height:1.6;}
 
   /* ── rail ── */
   .rail{display:flex;gap:11px;margin-top:20px;overflow-x:auto;padding-bottom:4px;}
@@ -297,6 +311,7 @@
     </div>
     <div class="asm-side">
       <div class="asm-sub" id="asmSub">gate fase 2.5</div>
+      <button class="btn-papel" id="narrBtn" onclick="showNarracion()">🎙 NARRACIÓN</button>
       <button class="btn-papel" id="papelBtn" onclick="showPapel()">📄 PAPEL</button>
       <button class="btn-assemble" id="asmBtn"><span style="font-size:13px">▶</span>&nbsp;&nbsp;ENSAMBLAR VIDEO</button>
     </div>
@@ -374,7 +389,7 @@ async function boot(){
     $('capsSummary').textContent = CAPS.length+' capítulos';
     renderRail();
     if(CAPS.length) selectCap(CAPS[0].cap);
-    else showPapel();                        // F65b: el papel se aprueba antes de la voz: sin caps todavía, se abre el papel
+    else showNarracion();                    // F67 C: la narración se aprueba antes del papel y de la voz: sin caps todavía, se abre la compuerta
   }catch(e){ $('view').innerHTML=`<div class="err">No pude cargar /caps: ${e.message}</div>`; }
 }
 
@@ -401,7 +416,7 @@ function renderRail(){
 function markActive(cap){ document.querySelectorAll('.pill').forEach(p=>p.classList.toggle('active',p.dataset.cap===cap)); }
 
 async function selectCap(cap){
-  papelOn(false);
+  papelOn(false); narrOn(false);
   // HANDOFF_135 — card MINIATURAS: no es un cap real → panel embebido, sin fetch /cap ni audio.
   if(cap==='__thumbs__'){
     stopPlayback(); curCap=cap; markActive(cap);
@@ -938,7 +953,7 @@ const ppK=(cap,beat)=>cap+'|'+beat;
 function papelOn(on){ $('papelBtn').classList.toggle('on',on); }
 async function showPapel(){
   if(typeof stopPlayback==='function') stopPlayback();
-  curCap='__papel__'; markActive('__papel__'); papelOn(true);
+  curCap='__papel__'; markActive('__papel__'); papelOn(true); narrOn(false);
   await ppCargar();
 }
 async function ppCargar(){
@@ -1061,6 +1076,94 @@ async function ppSugerir(cap,beat){
     ppSug[k]=s.error?{error:s.error}:{result:s.result};
     if(curCap==='__papel__') ppRender();
   },1500);
+}
+
+/* ════════ F67 C: LA COMPUERTA DE NARRACIÓN ════════
+   Misma regla que PAPEL: la verdad es el disco; después de cada acción la vista se recarga de GET /narracion. En memoria solo el
+   párrafo que se está editando. La crítica nunca se rehace sola: si la narración cambió, el aviso lo dice. */
+let NARR=null, nnEdit=null, nnError='', nnNota='';
+function narrOn(on){ $('narrBtn').classList.toggle('on',on); }
+async function showNarracion(){
+  if(typeof stopPlayback==='function') stopPlayback();
+  curCap='__narracion__'; markActive('__narracion__'); narrOn(true); papelOn(false);
+  await nnCargar();
+}
+async function nnCargar(){
+  try{ NARR=await (await fetch('/narracion')).json(); }
+  catch(e){ $('view').innerHTML=`<div class="err">No pude cargar /narracion: ${esc(e.message)}</div>`; return; }
+  if(curCap==='__narracion__') nnRender();
+}
+async function nnAccion(ruta,body){
+  nnError=''; nnNota='';
+  try{ const j=await ppPost(ruta,body); await nnCargar(); return j; }
+  catch(e){ nnError=e.message; nnRender(); }
+}
+function nnSi(v){ return v===true?'sí':v===false?'no':'—'; }
+function nnParrafo(p,marcadas){
+  const orac=(p.oraciones||[]).map(o=>`<span class="nn-or ${marcadas.has(o.idx)?'marcada':''}"><small>[${o.idx}]</small>${esc(o.texto)}</span>`).join(' ');
+  if(nnEdit===p.i) return `<div class="nn-par"><div class="pp-bh">párrafo ${p.i} · beat ${p.beat}</div>
+    <textarea class="nn-ta" id="nnTa">${esc(p.texto)}</textarea>
+    <div class="pp-acc"><button class="pp-btn pri" onclick="nnGuardar(${p.i})">Guardar</button><button class="pp-btn" onclick="nnEdit=null;nnRender()">Cancelar</button></div></div>`;
+  return `<div class="nn-par"><div class="pp-bh">párrafo ${p.i} · beat ${p.beat}</div>${orac}
+    <div class="pp-acc"><button class="pp-btn" onclick="nnEdit=${p.i};nnRender()">✎ Editar</button></div></div>`;
+}
+function nnDeberia(d){
+  const lista=v=>(v&&v.length)?v.map(x=>esc(x)).join(', '):'—';
+  return `<div class="nn-deb ${d.aplica?'':'muerta'}"><div class="nn-h">DEBERÍA ${d.k} · oraciones ${esc((d.oraciones||[]).join(', '))} · ${d.palabras_antes??'—'} → ${d.palabras_despues??'—'} palabras</div>
+    <div class="pp-ap"><b>Sale:</b> ${esc(d.que_sale)}</div><div class="pp-ap"><b>Por qué se van:</b> ${esc(d.por_que_se_van)}</div>
+    <div class="nn-tx">${esc(d.deberia_texto)}</div>
+    <div class="pp-meta">ids ${lista(d.ids)} · cifras sin respaldo ${lista(d.cifras_sin_respaldo)} · marcas ${lista(d.marcas)}</div>
+    <div class="pp-acc"><button class="pp-btn pri" ${d.aplica?'':'disabled'} onclick="nnAceptar(${d.k})">Aceptar DEBERÍA</button>${d.aplica?'':'<span class="pp-rojo" style="margin:0">ya no aplica</span>'}</div></div>`;
+}
+function nnPlegado(titulo,cuerpo){ return `<details class="pp-desc"><summary>${titulo}</summary>${cuerpo}</details>`; }
+function nnRender(){
+  const n=NARR;
+  if(!n||n.sin_narracion){ $('view').innerHTML='<div class="empty">Este topic no tiene narración todavía.</div>'; return; }
+  const ok=n.estado.aprobado, ap=n.aprobado_por, c=n.critico, m=n.metricas||{}, pc=m.pico, r=c||{}, quedan=(n.verificacion||{}).quedan||[];
+  const quien=$('nnQuien')?$('nnQuien').value:'Omar';
+  const nd=c&&c.n_deberia!=null?c.n_deberia:0;
+  $('view').innerHTML=`<div class="pp-head"><div>
+      <div class="pp-estado ${ok?'ok':'no'}">${ok?`✓ Aprobada por ${esc(ap.por)} (${esc(ap.fecha)})`:(ap?'⚠ Aprobación invalidada':'Sin aprobar')}</div>
+      <div class="pp-meta">${esc(ok?('md5 '+n.md5.slice(0,8)+'…'):n.estado.motivo)}</div>
+      ${c?`<div class="pp-meta">${esc(c.modelo||'')} ${esc(c.prompt_version||'')} · US$ ${(c.usd||0).toFixed(4)} · ${nd} DEBERÍA${nd>8?' (el formato pide hasta 8: se muestran todos)':''}</div>`:''}
+    </div><div class="pp-aprobar"><input class="pp-in" id="nnQuien" placeholder="quién aprueba" value="${esc(quien)}"><button class="pp-btn pri" onclick="nnAprobar()">Aprobar narración</button></div></div>
+    ${nnError?`<div class="err" style="margin:10px 0">${esc(nnError)}</div>`:''}
+    ${nnNota?`<div class="pp-aviso" style="color:var(--teal);border-color:rgba(45,212,191,.42);background:rgba(45,212,191,.07)">${esc(nnNota)}</div>`:''}
+    ${n.sin_critico?`<div class="pp-aviso"><b>⚠ Sin crítica.</b> ${esc((c&&c.error)||'No hay 01f_critico.json.')} Podés editar y aprobar igual.</div>`:''}
+    ${c&&!c.vigente?`<div class="pp-aviso"><b>⚠ La narración cambió desde la crítica.</b> No se re-critica sola: las notas y los DEBERÍA son de la narración anterior.</div>`:''}
+    ${r.nota_total!=null?`<div class="pp-cap"><small>nota</small>${esc(String(r.nota_total))} / 10</div><ul class="nn-res">${(r.resumen||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}
+    <div class="nn-met" style="margin-top:12px">
+      ${r.gancho?`Gancho: promesa cumplida ${nnSi(r.gancho.promesa_cumplida)} · ${esc(r.gancho.comentario)}<br>`:''}
+      ${pc?`Pico (código): ${esc(pc.cap)} · ${pc.pct_acumulado} % acumulado · ${pc.segundos_despues} s después · personaje en las ${pc.n_siguientes} siguientes: ${nnSi(pc.personaje_en_siguientes)}`:`Pico: ${esc(m.pico_motivo||'—')}`}
+      ${m.personaje?`<br>Personaje según la escaleta: ${esc(m.personaje.id)} ${esc(m.personaje.nombre)}`:(m.personaje_motivo?`<br>Sin personaje: ${esc(m.personaje_motivo)}`:'')}
+    </div>
+    ${quedan.length?nnPlegado(`⚠ aviso del verificador: ${quedan.length} «contradice»${n.verificacion.vigente?'':' · desactualizado'}`,`<ul>${quedan.map(q=>`<li>${esc(q.cap)} [${esc(String(q.oracion))}] «${esc(q.texto)}»: ${esc(q.afirmacion)} (${esc((q.ids||[]).join(', '))})</li>`).join('')}</ul>`):''}
+    ${r.loops?nnPlegado(`loops (${r.loops.length})`,`<ul>${r.loops.map(x=>`<li>${esc(x.pregunta)} · abre ${esc(x.abre)} · paga ${esc(x.paga)} · se recuerda ${nnSi(x.se_recuerda)}</li>`).join('')}</ul>`):''}
+    ${r.cierre?nnPlegado('cierre',`<div class="pp-ap">${esc(r.cierre)}</div>`):''}
+    ${r.riesgos?nnPlegado(`riesgos (${r.riesgos.length})`,`<ul>${r.riesgos.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`):''}
+    ${r.reglas_generales_candidatas?nnPlegado(`reglas candidatas (${r.reglas_generales_candidatas.length})`,`<ul>${r.reglas_generales_candidatas.map(x=>`<li>${esc(x.regla)} · <i>medible:</i> ${esc(x.medible_como)} · <i>por qué:</i> ${esc(x.por_que)}</li>`).join('')}</ul>`):''}
+    ${(n.caps||[]).map(cp=>{
+      const t=cp.metricas||{}, marcadas=new Set(cp.deberia.filter(d=>d.aplica).flatMap(d=>d.oraciones||[]));
+      return `<div class="pp-cap"><small>${esc(cp.cap)}</small>${esc(cp.titulo||'')}${cp.nota!=null?` · ${esc(String(cp.nota))}`:''}</div>
+      <div class="nn-met">${t.palabras??'—'} palabras · ${t.segundos??'—'} s · ${t.pct??'—'} % · ${t.anios_por_min??'—'} años/min · racha sin personaje ${cp.racha_max_sin_personaje??'—'} · personaje en voz (crítico) ${nnSi(cp.personaje_en_voz)}
+        ${cp.fuerte?`<br><b>Fuerte:</b> ${esc(cp.fuerte)}`:''}${cp.debil?`<br><b>Débil:</b> ${esc(cp.debil)}`:''}${cp.reengancho?`<br><b>Re-enganche:</b> ${esc(cp.reengancho)}`:''}</div>
+      <div class="nn-grid"><div>${cp.parrafos.map(p=>nnParrafo(p,marcadas)).join('')}</div><div>${cp.deberia.map(nnDeberia).join('')||'<div class="pp-rel">sin DEBERÍA en este capítulo</div>'}</div></div>`;}).join('')}`;
+}
+async function nnGuardar(i){
+  const texto=$('nnTa').value;
+  nnEdit=null;
+  const j=await nnAccion('/narracion/editar',{i,texto});
+  if(j){ nnNota='Párrafo guardado. Si estaba aprobada, la aprobación cayó.'; nnRender(); }
+}
+async function nnAceptar(k){
+  const j=await nnAccion('/narracion/aceptar',{k});
+  if(j){ nnNota=`DEBERÍA ${k} aceptado · beats cambiados: ${j.beats_cambiados.join(', ')}`+(j.beats_sin_texto.length?` · sin texto: ${j.beats_sin_texto.join(', ')}`:''); nnRender(); }
+}
+async function nnAprobar(){
+  const por=($('nnQuien').value||'').trim();
+  if(!por){ nnError='Falta quién aprueba.'; nnRender(); return; }
+  await nnAccion('/narracion/aprobar',{por});
+  if(!nnError) toast('Narración aprobada. Nada más corrió: ni papel ni voz.');
 }
 
 boot();

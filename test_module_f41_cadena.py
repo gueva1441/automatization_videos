@@ -123,8 +123,8 @@ def test_pool_v3_sin_guion_version_corre_la_cadena_unica(cadena, capsys):
     (cadena["steps"] / TID).mkdir()
     r = f15.process_topic(TID, gate_interactive=False, music_gate_interactive=False)
     assert cadena["pasos"] == ["compuerta", "ficha", "canon", "escaleta", "guion v4 → caps → papel"]
-    assert r["status"] == "PARADA" and r["parada"] == "papel" and r["steps_completed"] == ["m01a", "m01b"]
-    assert "PARADA del papel" in capsys.readouterr().out
+    assert r["status"] == "PARADA" and r["parada"] == "narracion" and r["steps_completed"] == ["m01a", "m01b"]   # F67 C
+    assert "PARADA de narración" in capsys.readouterr().out
     assert "guion_version" not in topic                       # nadie lo escribe: no elige nada
 
 

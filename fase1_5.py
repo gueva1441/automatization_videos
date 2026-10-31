@@ -385,7 +385,7 @@ def parada_del_papel(topic_id: str) -> str:
             + f"     Aprobar: python fase1_5.py --topic {topic_id} --aprobar-papel \"Omar <fecha>\"")
 
 
-# ═══════════════════════ F67: la PARADA de narración (la compuerta se completa en la Etapa C) ═══════════════════════
+# ═══════════════════════ F67 C: la compuerta de narración (molde de la del papel) ═══════════════════════
 
 def _sd(steps_dir: Path | None) -> Path:
     return Path(steps_dir) if steps_dir is not None else STEPS_DIR
@@ -407,6 +407,22 @@ def estado_narracion(topic_id: str, steps_dir: Path | None = None) -> tuple[bool
     return True, f"narración aprobada por {ap.get('por')} ({ap.get('fecha')}), md5 {str(ap.get('md5'))[:8]}…"
 
 
+def aprobar_narracion(topic_id: str, quien_fecha: str, steps_dir: Path | None = None) -> dict:
+    """`--aprobar-narracion "QUIÉN FECHA"`: escribe `aprobado: {por, fecha, md5}` en 01b_narracion_v3.json; no corre nada más.
+    Con el crítico no vigente o la verificación vieja aprueba igual (GET /narracion lo avisa)."""
+    from script_engine.m01d_particion import md5_narracion
+    f = _sd(steps_dir) / topic_id / "01b_narracion_v3.json"
+    if not f.exists():
+        raise Parada(f"{topic_id}: no hay narración que aprobar ({f})")
+    n3 = json.loads(f.read_text(encoding="utf-8"))
+    partes = quien_fecha.split()
+    por, fecha = (" ".join(partes[:-1]), partes[-1]) if len(partes) > 1 else (quien_fecha, None)
+    import time as _time
+    n3["aprobado"] = {"por": por, "fecha": fecha or _time.strftime("%Y-%m-%d %H:%M"), "md5": md5_narracion(n3)}
+    f.write_text(json.dumps(n3, ensure_ascii=False, indent=2), encoding="utf-8")
+    return n3["aprobado"]
+
+
 def parada_de_narracion(topic_id: str, steps_dir: Path | None = None) -> str:
     """El mensaje de la PARADA de narración: por qué, dónde leer la crítica, el aviso del verificador y el comando."""
     from script_engine import m01f_critico as mf
@@ -422,6 +438,39 @@ def parada_de_narracion(topic_id: str, steps_dir: Path | None = None) -> str:
             + (f"     ⚠ sin crítica: {sin_critico}\n" if sin_critico else "")
             + (f"     {aviso_txt(quedan)}\n" if quedan else "")
             + f"     Aprobar: python fase1_5.py --topic {topic_id} --aprobar-narracion \"Omar <fecha>\"")
+
+
+def papel_falta(topic_id: str, steps_dir: Path | None = None) -> str | None:
+    """F67: por qué hay que correr el papel con la narración aprobada; None si el que hay vale. Falta si no hay papel, si salió
+    de otra narración, o si no dice de cuál y no está aprobado (uno aprobado sin ese campo se respeta)."""
+    d = _sd(steps_dir) / topic_id
+    f = d / "01e_pantalla.json"
+    if not f.exists():
+        return "no hay papel"
+    papel = json.loads(f.read_text(encoding="utf-8"))
+    n3 = json.loads((d / "01b_narracion_v3.json").read_text(encoding="utf-8"))
+    aprobado = (n3.get("aprobado") or {}).get("md5")
+    de = papel.get("narracion_md5")
+    if de is None:
+        return None if papel.get("aprobado") else "el papel no dice de qué narración salió y no está aprobado"
+    return None if de == aprobado else f"el papel salió de otra narración ({str(de)[:8]}… ≠ {str(aprobado)[:8]}…)"
+
+
+def run_papel_aprobado(topic_id: str) -> int:
+    """F67 `--papel`: el papel, UNA vez, sobre la narración aprobada (si no, se pagaría sobre un texto que se va a tocar). Sin
+    narración aprobada imprime su PARADA y no corre; con un papel vigente no lo re-paga. Termina en la PARADA del papel."""
+    ok, _ = estado_narracion(topic_id)
+    if not ok:
+        print(f"\n  ⏸  {parada_de_narracion(topic_id)}")
+        return 0
+    falta = papel_falta(topic_id)
+    if falta:
+        log: list[str] = []
+        print(f"  [papel] {falta}: corre m01e")
+        run_pantalla(topic_id, _topic_v3(topic_id)["evidence_pool"], log)
+        print("\n".join(log))
+    print(f"\n  ⏸  {parada_del_papel(topic_id)}")
+    return 0
 
 
 # ═══════════════════════ F39 §A.3: arrancar desde una semilla ═══════════════════════
@@ -685,6 +734,15 @@ def process_topic(
                 result["status"] = "PASS"
                 print(f"\n  ✅ Topic {topic_id} OK (stop after m01b) — pasos: {result['steps_completed']}")
                 return result
+
+        # F67 C (DECISIONES 2026-10-31 18:43): nada río abajo de la narración sin su OK. Al reanudar (--from ≠ m01a/m01b) el
+        # guion no vuelve a correr: lo decide el `if from_step in ("m01a", "m01b")` de arriba.
+        ok, motivo = estado_narracion(topic_id)
+        if not ok:
+            print(f"\n  ⏸  {parada_de_narracion(topic_id)}")
+            result.update(status="PARADA", parada="narracion", motivo=motivo)
+            return result
+        print(f"  [narración] {motivo}")
 
         # F39 §A.4 (DECISIONES 2026-10-26 19:54): nada después de m01b (la voz se paga) sin el papel aprobado y vigente;
         # vale también al reanudar (--from normalizer_gate / audio / m07 / m03).
@@ -1051,6 +1109,11 @@ def main():
     parser.add_argument("--aprobar-papel", dest="aprobar_papel", type=str, default=None, metavar='"QUIÉN FECHA"',
                         help="F39 §A.4: escribe `aprobado: {por, fecha, md5}` en _steps/<id>/01e_pantalla.json (la "
                              "compuerta antes de la voz: sin eso, nada corre después de m01b) y no corre nada más")
+    parser.add_argument("--aprobar-narracion", dest="aprobar_narracion", type=str, default=None, metavar='"QUIÉN FECHA"',
+                        help="F67: escribe `aprobado: {por, fecha, md5}` en _steps/<id>/01b_narracion_v3.json (sin eso, nada corre "
+                             "río abajo de la narración) y no corre nada más")
+    parser.add_argument("--papel", action="store_true",
+                        help="F67: el papel (m01e), una vez, sobre la narración aprobada de --topic; termina en la PARADA del papel")
     parser.add_argument("--verificar-narracion", dest="verificar_narracion", action="store_true",
                         help="F66/F67: juez m05 + verificador de la narración (lo que contradice queda como aviso) + crítico sobre la narración ya "
                              "escrita de --topic, sin volver a llamar al guionista; termina en la PARADA de narración")
@@ -1063,6 +1126,20 @@ def main():
         except Parada as e:
             print(f"  ⏸  {e}")
             sys.exit(2)
+    if args.aprobar_narracion is not None:                  # F67 C: solo aprueba
+        if not args.topic:
+            parser.error("--aprobar-narracion necesita --topic")
+        try:
+            ap = aprobar_narracion(args.topic, args.aprobar_narracion)
+        except Parada as e:
+            print(f"  ⏸  {e}")
+            sys.exit(2)
+        print(f"  ✓ narración de {args.topic} aprobada por {ap['por']} ({ap['fecha']}) · md5 {ap['md5']}")
+        sys.exit(0)
+    if args.papel:                                          # F67 C: solo ese paso
+        if not args.topic:
+            parser.error("--papel necesita --topic")
+        sys.exit(run_papel_aprobado(args.topic))
     if args.aprobar_papel is not None:                      # F39 §A.4: solo aprueba
         if not args.topic:
             parser.error("--aprobar-papel necesita --topic")
@@ -1154,8 +1231,8 @@ def main():
 
     print()
     _print_gemini_cost()
-    # F39: la PARADA del papel es el final esperado de Fase 1 (0); otra PARADA, 2; una falla, 1
-    otra_parada = any(r["status"] == "PARADA" and r.get("parada") != "papel" for r in results)
+    # F39: las PARADAS de narración (F67) y del papel son el final esperado de Fase 1 (0); otra PARADA, 2; una falla, 1
+    otra_parada = any(r["status"] == "PARADA" and r.get("parada") not in ("papel", "narracion") for r in results)
     sys.exit(1 if n_fail else 2 if otra_parada else 0)
 
 

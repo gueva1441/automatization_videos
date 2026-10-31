@@ -7,7 +7,7 @@
     "etapa": "research",
     "orden": 0,
     "funcion": "main (--research)",
-    "linea": 553,
+    "linea": 617,
     "encabezado": "RESEARCH (fase1)",
     "comandos": [
      {
@@ -15,7 +15,7 @@
        "fase1.py",
        "--no-chain"
       ],
-      "linea": 553,
+      "linea": 617,
       "script": "fase1.py"
      }
     ],
@@ -25,7 +25,7 @@
    },
    {
     "funcion": "_paso_guion",
-    "linea": 297,
+    "linea": 325,
     "encabezado": "GUION (fase1_5)",
     "comandos": [
      {
@@ -35,19 +35,71 @@
        "<tid>",
        "--batch"
       ],
-      "linea": 302,
+      "linea": 330,
       "script": "fase1_5.py"
      }
     ],
     "compuertas": [],
     "sin_form": "",
-    "doc": "GUION: la única cadena de fase1_5 (research v3 → ficha → escaleta → guion v4 → partición y títulos → papel); termina en la PARADA del papel con exit 0.",
+    "doc": "GUION: la única cadena de fase1_5 (research v3 → ficha → escaleta → guion v4 → partición y títulos → juez → verificación → crítico); termina en la PARADA de narración con exit 0.",
     "etapa": "guion",
     "orden": 1
    },
    {
+    "funcion": "_paso_narracion",
+    "linea": 335,
+    "encabezado": "NARRACION (compuerta de narración)",
+    "comandos": [
+     {
+      "argv": [
+       "fase1_5.py",
+       "--topic",
+       "<tid>",
+       "--aprobar-narracion",
+       "Omar <…>"
+      ],
+      "linea": 356,
+      "script": "fase1_5.py"
+     }
+    ],
+    "compuertas": [
+     {
+      "menu": "narracion_gate",
+      "linea": 349,
+      "solo_con_form": true
+     }
+    ],
+    "sin_form": "para y reporta el comando (la compuerta no se aprueba sola)",
+    "doc": "NARRACION: la compuerta de narración (01f_critico.md; editar y aceptar DEBERÍA es en QA Studio). Con el form: A aprueba y sigue al papel; P para. Sin el form: para.",
+    "etapa": "narracion",
+    "orden": 2
+   },
+   {
+    "funcion": "_paso_papel_nuevo",
+    "linea": 361,
+    "encabezado": "PAPEL (fase1_5 --papel)",
+    "comandos": [
+     {
+      "argv": [
+       "fase1_5.py",
+       "--topic",
+       "<tid>",
+       "--papel",
+       "--batch"
+      ],
+      "linea": 365,
+      "script": "fase1_5.py"
+     }
+    ],
+    "compuertas": [],
+    "sin_form": "",
+    "doc": "PAPEL: m01e, una vez, sobre la narración aprobada.",
+    "etapa": "papel_nuevo",
+    "orden": 3
+   },
+   {
     "funcion": "_paso_papel",
-    "linea": 307,
+    "linea": 370,
     "encabezado": "PAPEL (compuerta del papel)",
     "comandos": [
      {
@@ -58,25 +110,25 @@
        "--aprobar-papel",
        "Omar <…>"
       ],
-      "linea": 326,
+      "linea": 389,
       "script": "fase1_5.py"
      }
     ],
     "compuertas": [
      {
       "menu": "papel_gate",
-      "linea": 320,
+      "linea": 383,
       "solo_con_form": true
      }
     ],
     "sin_form": "para y reporta el comando (la compuerta no se aprueba sola)",
     "doc": "PAPEL: la compuerta del papel (01e_pantalla.md). Con el form: A aprueba y sigue; P para. Sin el form: para.",
     "etapa": "papel",
-    "orden": 2
+    "orden": 4
    },
    {
     "funcion": "_paso_voz",
-    "linea": 331,
+    "linea": 394,
     "encabezado": "VOZ (fase1_5 --from normalizer_gate)",
     "comandos": [
      {
@@ -88,7 +140,7 @@
        "normalizer_gate",
        "--batch"
       ],
-      "linea": 335,
+      "linea": 398,
       "script": "fase1_5.py"
      }
     ],
@@ -96,11 +148,11 @@
     "sin_form": "",
     "doc": "VOZ: con el papel aprobado, fase1_5 desde normalizer_gate (voz, música, m03, foto madre, assemble).",
     "etapa": "voz",
-    "orden": 3
+    "orden": 5
    },
    {
     "funcion": "_paso_assets",
-    "linea": 340,
+    "linea": 403,
     "encabezado": "ASSETS (fase2a)",
     "comandos": [
      {
@@ -109,7 +161,7 @@
        "--topic",
        "<tid>"
       ],
-      "linea": 343,
+      "linea": 406,
       "script": "fase2a.py"
      }
     ],
@@ -117,11 +169,11 @@
     "sin_form": "",
     "doc": "",
     "etapa": "assets",
-    "orden": 4
+    "orden": 6
    },
    {
     "funcion": "_paso_fondos",
-    "linea": 348,
+    "linea": 411,
     "encabezado": "FONDOS (fase2b sin gfx)",
     "comandos": [
      {
@@ -129,25 +181,25 @@
        "fase2b.py",
        "<tid>"
       ],
-      "linea": 366,
+      "linea": 429,
       "script": "fase2b.py"
      }
     ],
     "compuertas": [
      {
       "menu": "visor_gate",
-      "linea": 358,
+      "linea": 421,
       "solo_con_form": true
      }
     ],
     "sin_form": "",
     "doc": "FONDOS: fase2b sin gfx (cuece los visuales base y deja el mp4 de preview). Antes, con el form, el VISOR.",
     "etapa": "fondos",
-    "orden": 5
+    "orden": 7
    },
    {
     "funcion": "_paso_guion_pantalla",
-    "linea": 371,
+    "linea": 434,
     "encabezado": "PANTALLA (fase2b --plan-only)",
     "comandos": [
      {
@@ -156,7 +208,7 @@
        "<tid>",
        "--plan-only"
       ],
-      "linea": 375,
+      "linea": 438,
       "script": "fase2b.py"
      }
     ],
@@ -164,11 +216,11 @@
     "sin_form": "",
     "doc": "El guion de pantalla (fase2b --plan-only, sobre los visuales base ya cocidos).",
     "etapa": "guion_pantalla",
-    "orden": 6
+    "orden": 8
    },
    {
     "funcion": "_paso_aprobar_guion",
-    "linea": 380,
+    "linea": 443,
     "encabezado": "PANTALLA (compuerta del guion de pantalla)",
     "comandos": [
      {
@@ -178,25 +230,25 @@
        "--aprobar-guion",
        "Omar <…>"
       ],
-      "linea": 403,
+      "linea": 466,
       "script": "fase2b.py"
      }
     ],
     "compuertas": [
      {
       "menu": "guion_gate",
-      "linea": 395,
+      "linea": 458,
       "solo_con_form": true
      }
     ],
     "sin_form": "para y reporta el comando (la compuerta no se aprueba sola)",
     "doc": "La compuerta del guion de pantalla (GUION_PANTALLA.md). P es el camino normal cuando el analista lo revisa y aplica --plan-edit; después se retoma. A: --aprobar-guion y sigue al render. Sin el form: para.",
     "etapa": "aprobar_guion",
-    "orden": 7
+    "orden": 9
    },
    {
     "funcion": "_paso_render",
-    "linea": 408,
+    "linea": 471,
     "encabezado": "RENDER (fase2b --gfx --gfx-sparse)",
     "comandos": [
      {
@@ -208,7 +260,7 @@
        "--gfx",
        "--gfx-sparse"
       ],
-      "linea": 413,
+      "linea": 476,
       "script": "fase2b.py"
      }
     ],
@@ -216,11 +268,11 @@
     "sin_form": "",
     "doc": "RENDER con gfx. Sin chequeo de RAM (Omar lo sacó el 2026-10-27, después de F41). El orquestador no cierra ningún programa de Omar.",
     "etapa": "render",
-    "orden": 8
+    "orden": 10
    },
    {
     "funcion": "_paso_packaging",
-    "linea": 422,
+    "linea": 485,
     "encabezado": "PACKAGING (fase3, form)",
     "comandos": [
      {
@@ -228,7 +280,7 @@
        "fase3.py",
        "<tid>"
       ],
-      "linea": 431,
+      "linea": 494,
       "script": "fase3.py"
      }
     ],
@@ -236,11 +288,11 @@
     "sin_form": "",
     "doc": "",
     "etapa": "packaging",
-    "orden": 9
+    "orden": 11
    },
    {
     "etapa": "listo",
-    "orden": 10,
+    "orden": 12,
     "funcion": null,
     "encabezado": "",
     "comandos": [],
@@ -251,6 +303,8 @@
   ],
   "ETAPAS": [
    "guion",
+   "narracion",
+   "papel_nuevo",
    "papel",
    "voz",
    "assets",
@@ -263,6 +317,8 @@
   ],
   "_PASOS": {
    "guion": "_paso_guion",
+   "narracion": "_paso_narracion",
+   "papel_nuevo": "_paso_papel_nuevo",
    "papel": "_paso_papel",
    "voz": "_paso_voz",
    "assets": "_paso_assets",
@@ -346,8 +402,38 @@
    "es_compuerta": false
   },
   {
-   "etapa": "papel",
+   "etapa": "narracion",
    "orden": 2,
+   "encabezado": "NARRACION (compuerta de narración)",
+   "funcion": "_paso_narracion",
+   "comandos": [
+    "python fase1_5.py --topic <tid> --aprobar-narracion Omar <…>"
+   ],
+   "compuertas": [
+    "narracion_gate"
+   ],
+   "sin_form": "para y reporta el comando (la compuerta no se aprueba sola)",
+   "propios": [],
+   "modelos": [],
+   "es_compuerta": true
+  },
+  {
+   "etapa": "papel_nuevo",
+   "orden": 3,
+   "encabezado": "PAPEL (fase1_5 --papel)",
+   "funcion": "_paso_papel_nuevo",
+   "comandos": [
+    "python fase1_5.py --topic <tid> --papel --batch"
+   ],
+   "compuertas": [],
+   "sin_form": "",
+   "propios": [],
+   "modelos": [],
+   "es_compuerta": false
+  },
+  {
+   "etapa": "papel",
+   "orden": 4,
    "encabezado": "PAPEL (compuerta del papel)",
    "funcion": "_paso_papel",
    "comandos": [
@@ -363,7 +449,7 @@
   },
   {
    "etapa": "voz",
-   "orden": 3,
+   "orden": 5,
    "encabezado": "VOZ (fase1_5 --from normalizer_gate)",
    "funcion": "_paso_voz",
    "comandos": [
@@ -396,7 +482,7 @@
   },
   {
    "etapa": "assets",
-   "orden": 4,
+   "orden": 6,
    "encabezado": "ASSETS (fase2a)",
    "funcion": "_paso_assets",
    "comandos": [
@@ -423,7 +509,7 @@
   },
   {
    "etapa": "fondos",
-   "orden": 5,
+   "orden": 7,
    "encabezado": "FONDOS (fase2b sin gfx)",
    "funcion": "_paso_fondos",
    "comandos": [
@@ -446,7 +532,7 @@
   },
   {
    "etapa": "guion_pantalla",
-   "orden": 6,
+   "orden": 8,
    "encabezado": "PANTALLA (fase2b --plan-only)",
    "funcion": "_paso_guion_pantalla",
    "comandos": [
@@ -468,7 +554,7 @@
   },
   {
    "etapa": "aprobar_guion",
-   "orden": 7,
+   "orden": 9,
    "encabezado": "PANTALLA (compuerta del guion de pantalla)",
    "funcion": "_paso_aprobar_guion",
    "comandos": [
@@ -484,7 +570,7 @@
   },
   {
    "etapa": "render",
-   "orden": 8,
+   "orden": 10,
    "encabezado": "RENDER (fase2b --gfx --gfx-sparse)",
    "funcion": "_paso_render",
    "comandos": [
@@ -512,7 +598,7 @@
   },
   {
    "etapa": "packaging",
-   "orden": 9,
+   "orden": 11,
    "encabezado": "PACKAGING (fase3, form)",
    "funcion": "_paso_packaging",
    "comandos": [
@@ -571,7 +657,7 @@
   "topic_validator.py"
  ],
  "conteo": {
-  "vivo": 136,
+  "vivo": 137,
   "solo herramienta manual": 13,
   "huérfano": 11,
   "roto": 0,
@@ -589,6 +675,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -738,6 +826,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -781,6 +871,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -837,6 +929,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -893,6 +987,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -954,6 +1050,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -977,6 +1075,7 @@
     "script_engine/guion_v4.py",
     "script_engine/m01a_escaleta.py",
     "script_engine/m01e_pantalla.py",
+    "script_engine/m01f_critico.py",
     "script_engine/m03_visual.py",
     "script_engine/m09_packaging.py",
     "script_engine/narracion_verificador.py",
@@ -1011,6 +1110,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -1113,6 +1214,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -1195,6 +1298,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -1277,6 +1382,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -1322,6 +1429,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -1432,7 +1541,7 @@
   "fase1_5.py": {
    "archivo": "fase1_5.py",
    "zona": "guion",
-   "sticker": "Es el director de la Fase 1: de un tema con el research hecho arma, en orden, la compuerta del pool, la ficha del caso, el canon visual desde la ficha (F50), la escaleta, el guion v4 con su reparación, la partición en 7 capítulos y el guion de pantalla en papel, y se detiene en la PARADA del papel hasta que Omar lo aprueba (`--aprobar-papel`, con md5). Ya aprobado, sigue con la normalización de la voz, la voz, la música, el canon visual si la ficha cambió, los prompts de imagen, la foto madre y el ensamblado del contrato data/scripts/<id>.json que lee la Fase 2. F66/F66b: después de la partición y antes del papel, la verificación de la narración (run_verificacion: el verificador por cap); lo que contradice el archivo queda como aviso y la cadena sigue, no se corrige solo. `--verificar-narracion` la corre sobre una narración ya escrita, sin llamar al guionista.",
+   "sticker": "Es el director de la Fase 1: de un tema con el research hecho arma, en orden, la compuerta del pool, la ficha del caso, el canon visual desde la ficha (F50), la escaleta, el guion v4 con su reparación, la partición en 7 capítulos, el juez, la verificación y el crítico de la narración, y se detiene en la PARADA de narración hasta que Omar la aprueba (`--aprobar-narracion`, con md5, F67); después el papel una vez sobre esa narración (`--papel`) y la PARADA del papel hasta que Omar lo aprueba (`--aprobar-papel`, con md5). Ya aprobado, sigue con la normalización de la voz, la voz, la música, el canon visual si la ficha cambió, los prompts de imagen, la foto madre y el ensamblado del contrato data/scripts/<id>.json que lee la Fase 2. F66/F66b: después de la partición, la verificación de la narración (run_verificacion: el verificador por cap); lo que contradice el archivo queda como aviso y la cadena sigue, no se corrige solo. `--verificar-narracion` la corre sobre una narración ya escrita, sin llamar al guionista.",
    "recibe": "data/topics_db.json (topic con evidence_pool v3), data/scripts/_steps/<id>/ (_perfil.json, escaleta_notas.md, ficha_caso.json, 01a_escaleta.json, 01e_pantalla.json), data/seeds_archive.json (título de la semilla), una semilla .json con --semilla, output/audio/<id>/sync_map.json al reanudar",
    "entrega": "data/scripts/_steps/<id>/ (01a_escaleta, 01b_guionista_v4, 01a_skeleton, 01b_narration, 01b_narracion_v3, 06_judge_narrative, 01e_pantalla.json/.md, 01_v3_costos.json con los pasos ficha, canon y m03, 05_visual_canon.json, aprobado con md5 dentro de 01e_pantalla.json); el canon visual con canon_ficha_md5 (md5 de ficha + pedido del canon + modelo + esfuerzo, F50f; Parada si el canon no sale o trae años de tramo ilegibles) en topics_db; audio y sync_map de la voz (output/audio/<id>/), music_map, prompts de imagen de m03, la foto madre en topics_db y data/scripts/<id>.json",
    "modelo": [
@@ -1477,6 +1586,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -1497,18 +1608,19 @@
     "qa_studio_server.py",
     "researcher_steps/ficha_caso.py",
     "run_pipeline.py",
+    "script_engine/m01f_critico.py",
     "script_engine/m09_packaging.py"
    ],
    "tests": 19,
    "nacio": "e33f84a 2026-05-28",
-   "ultimo": "c98617d 2026-10-31 (F66b)",
+   "ultimo": "46102e5 2026-10-31 (F67)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "run_pipeline.py:301 lo lanza en guion (--batch), :325 en papel (--aprobar-papel) y :334 en voz (--from normalizer_gate --batch)",
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "0692ade06241856eddc8d6652371ef5d",
+   "md5": "e19b8a22347f7206105fd1af37dfe661",
    "sticker_al_dia": true
   },
   "fase2a.py": {
@@ -1755,6 +1867,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -1812,6 +1926,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -1875,6 +1991,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -2013,6 +2131,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -2109,6 +2229,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -2201,6 +2323,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -2321,6 +2445,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -2363,7 +2489,7 @@
   "qa_studio_server.py": {
    "archivo": "qa_studio_server.py",
    "zona": "orquestador",
-   "sticker": "Es el servidor local que Omar levanta a mano para producir un video con botones: sirve la pantalla del form y la del visor de capítulos, lanza el orquestador (run_pipeline) como proceso hijo y le pasa las respuestas de Omar. También deja arreglar a mano una foto, un clip o una pronunciación de un capítulo (desde F59 con la máquina de producción: para la foto, Claude Opus edita solo los casilleros que el pedido toca y el código rearma el prompt con la misma función que m03, con foto madre y grade; para el clip, Opus edita solo el movimiento aprobado y el clip sale por la cadena de producción con su foto final; lo editado se guarda en 03_visual.json y en el guion vivo; lo que el filtro de producción saca del pedido se le informa a Omar) y armar el video con el botón ENSAMBLAR. Desde F60 B el fix y la nueva semilla de una foto usan la misma regla única de madres que producción (persona en orden + objeto, filtro por era); `persona` no es editable y se le dice a Omar a qué madre quedó anclada la foto. F65b: rutas /papel* del QA del papel (ver, revisar, editar, sugerir, aprobar), siempre vía m01e_pantalla y fase1_5.",
+   "sticker": "Es el servidor local que Omar levanta a mano para producir un video con botones: sirve la pantalla del form y la del visor de capítulos, lanza el orquestador (run_pipeline) como proceso hijo y le pasa las respuestas de Omar. También deja arreglar a mano una foto, un clip o una pronunciación de un capítulo (desde F59 con la máquina de producción: para la foto, Claude Opus edita solo los casilleros que el pedido toca y el código rearma el prompt con la misma función que m03, con foto madre y grade; para el clip, Opus edita solo el movimiento aprobado y el clip sale por la cadena de producción con su foto final; lo editado se guarda en 03_visual.json y en el guion vivo; lo que el filtro de producción saca del pedido se le informa a Omar) y armar el video con el botón ENSAMBLAR. Desde F60 B el fix y la nueva semilla de una foto usan la misma regla única de madres que producción (persona en orden + objeto, filtro por era); `persona` no es editable y se le dice a Omar a qué madre quedó anclada la foto. F65b: rutas /papel* del QA del papel (ver, revisar, editar, sugerir, aprobar), siempre vía m01e_pantalla y fase1_5. F67 C: rutas /narracion* de la compuerta de narración (ver, editar párrafo, aceptar DEBERÍA, aprobar), siempre vía m01f_critico y fase1_5.",
    "recibe": "Pedidos HTTP del navegador (form y visor); data/scripts/<id>.json, output/audio/<id>/chNN.mp3 y chNN_timestamps.json, output/<id>/assets/chNN_flux/*.png y chNN_veo/*.mp4, data/topics_db.json (lista de retomar), data/scripts/_steps/<id>/01b_narration_normalized.json; las líneas @@QAFORM@@ y @@QAFORM_COST@@ que imprime run_pipeline.",
    "entrega": "Las páginas qa_form.html y qa_studio.html; JSON de estado del form (fase, costo Gemini en vivo, diálogo pendiente); líneas por stdin al hijo; imágenes (cruda y _graded.png) y clips regenerados en output/<id>/assets/ con copia en _qa_backups/; el ítem editado (casilleros, prompt, año) o el movimiento nuevo guardados en data/scripts/_steps/<id>/03_visual.json y en data/scripts/<id>.json (con backups); output/<id>/assets/_qa_marks.json (fotos marcadas); data/normalizer_custom_dict.json; el audio del capítulo re-hecho; levanta fase2b, run_pipeline y el servidor de miniaturas de m09 como subprocesos.",
    "modelo": [
@@ -2424,7 +2550,7 @@
     "Handler.do_GET",
     "Handler.do_POST"
    ],
-   "md5": "aad2418922c0b30687970ace6813b69d",
+   "md5": "a58f26446e6314c8755ab31c977ddf4c",
    "sticker_al_dia": true
   },
   "report_foto_madre_edits.py": {
@@ -2464,6 +2590,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -2509,6 +2637,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -2569,6 +2699,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -2611,6 +2743,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -2674,6 +2808,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -2741,6 +2877,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -2787,6 +2925,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -2833,6 +2973,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -2879,6 +3021,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -2925,6 +3069,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -2972,6 +3118,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -3019,7 +3167,7 @@
   "run_pipeline.py": {
    "archivo": "run_pipeline.py",
    "zona": "orquestador",
-   "sticker": "Es el director de orquesta: toma un tema y corre una tras otra las etapas (guion, papel, voz, assets, fondos, guion de pantalla, aprobar guion, render, packaging), cada una como programa aparte. Antes de cada paso mira qué archivos ya existen en disco y arranca donde quedó; frena en las dos compuertas donde Omar tiene que aprobar y nunca aprueba solo. Antes de cualquier etapa (F42b) revisa que este Python tenga las librerías que la cadena importa: si falta una requerida, para sin gastar y da el comando de pip.",
+   "sticker": "Es el director de orquesta: toma un tema y corre una tras otra las etapas (guion, compuerta de narración, papel nuevo, compuerta del papel, voz, assets, fondos, guion de pantalla, aprobar guion, render, packaging), cada una como programa aparte. Antes de cada paso mira qué archivos ya existen en disco y arranca donde quedó; frena en las dos compuertas donde Omar tiene que aprobar y nunca aprueba solo. Antes de cualquier etapa (F42b) revisa que este Python tenga las librerías que la cadena importa: si falta una requerida, para sin gastar y da el comando de pip.",
    "recibe": "--topic <id> (o --research para elegir tema nuevo con fase1); data/scripts/_steps/<id>/01e_pantalla.md, data/scripts/<id>.json, output/<id>/assets/assets_manifest.json, output/<id>/_fase2b_work/*, output/<id>/GUION_PANTALLA.json, output/<id>/<id>_final_gfx.mp4, data/topics_db.json, data/_last_research.json; la tecla A/P/C que manda el form por stdin.",
    "entrega": "No escribe archivos de producción: lanza fase1.py, fase1_5.py, fase2a.py, fase2b.py y fase3.py como subprocesos; imprime los encabezados de fase y los marcadores @@QAFORM@@ para el form, y el reporte final con el comando para retomar.",
    "modelo": [],
@@ -3043,7 +3191,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "747839adba2d6237d44d263e29e9e5e1",
+   "md5": "b43032e68b578627d6861067cd7e081f",
    "sticker_al_dia": true
   },
   "script_engine/__init__.py": {
@@ -3057,6 +3205,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -3132,6 +3282,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -3151,6 +3303,7 @@
     "fase1_5.py",
     "script_engine/gfx_layer.py",
     "script_engine/m01e_pantalla.py",
+    "script_engine/m01f_critico.py",
     "script_engine/pantalla_colocar.py"
    ],
    "tests": 4,
@@ -3223,6 +3376,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -3264,6 +3419,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -3643,6 +3800,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -3690,6 +3849,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -3751,6 +3912,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -3797,6 +3960,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -3949,6 +4114,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -4036,6 +4203,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -4095,6 +4264,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -4139,6 +4310,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -4242,6 +4415,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -4299,6 +4474,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -4351,6 +4528,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -4372,6 +4551,7 @@
     "script_engine/m01a_escaleta.py",
     "script_engine/m01d_particion.py",
     "script_engine/m01e_pantalla.py",
+    "script_engine/m01f_critico.py",
     "script_engine/m09_packaging.py",
     "script_engine/tts_tags.py"
    ],
@@ -4398,6 +4578,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -4438,6 +4620,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -4478,6 +4662,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -4510,7 +4696,7 @@
   "script_engine/m01d_particion.py": {
    "archivo": "script_engine/m01d_particion.py",
    "zona": "guion",
-   "sticker": "Reparte los párrafos del guion en los 7 capítulos con su largo en caracteres (mueve o acorta el último párrafo de un cap que se pasa; desde F56 el párrafo del re-gancho no se mueve de cap y, si se acorta, su oración tiene que quedar entera, como ya pasaba con el pico), le pone título a cada capítulo con una llamada corta a Gemini (con título de respaldo si falla) y arma el contrato de 7 caps con etiquetas de voz que lee todo lo de río abajo. También trae el retoque quirúrgico de un cap (regenerate_cap_v3) que usa la reparación del guion v4.",
+   "sticker": "Reparte los párrafos del guion en los 7 capítulos con su largo en caracteres (mueve o acorta el último párrafo de un cap que se pasa; desde F56 el párrafo del re-gancho no se mueve de cap y, si se acorta, su oración tiene que quedar entera, como ya pasaba con el pico), le pone título a cada capítulo con una llamada corta a Gemini (con título de respaldo si falla) y arma el contrato de 7 caps con etiquetas de voz que lee todo lo de río abajo. También trae el retoque quirúrgico de un cap (regenerate_cap_v3) que usa la reparación del guion v4. F67: `md5_narracion`, la única definición del md5 de la narración, y `reconstruir`: el contrato con los párrafos editados en la compuerta, sin rebalance ni títulos nuevos.",
    "recibe": "los párrafos del guion v4 ya reparados, la escaleta (01a_escaleta), el evidence_pool del topic",
    "entrega": "data/scripts/_steps/<id>/01a_skeleton.json, 01b_narration.json y 01b_narracion_v3.json (narración por cap y por beat, títulos, narration_tts)",
    "modelo": [
@@ -4530,6 +4716,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -4545,11 +4733,14 @@
    "compartido": true,
    "lo_llaman": [
     "fase1_5.py",
-    "script_engine/guion_v4.py"
+    "qa_studio_server.py",
+    "script_engine/guion_v4.py",
+    "script_engine/m01e_pantalla.py",
+    "script_engine/m01f_critico.py"
    ],
    "tests": 9,
    "nacio": "317c5f1 2026-10-22 (F10)",
-   "ultimo": "c98617d 2026-10-31 (F66b)",
+   "ultimo": "46102e5 2026-10-31 (F67)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py:432 (run_guion_v4 llama md.particionar con md.editor_shorten); guion_v4.py:1151 llama md.regenerate_cap_v3",
@@ -4564,13 +4755,13 @@
    "sin_llamador_a": [
     "cut_phrases"
    ],
-   "md5": "fb9a47d8d6e8bc59b8c40ed7bf755b0f",
+   "md5": "78951fafaa6e15171d141cce8c2a6c52",
    "sticker_al_dia": true
   },
   "script_engine/m01e_pantalla.py": {
    "archivo": "script_engine/m01e_pantalla.py",
    "zona": "guion",
-   "sticker": "Escribe el guion de pantalla en papel: para cada beat del video decide qué ficha de texto (un dato, una cita, un nombre o un lugar del archivo del caso) y qué palabra de clima aparecen en pantalla y sobre qué oración de la voz, más los relojes de fechas. Una sola llamada a Claude Opus con toda la narración, la escaleta (con la promesa del gancho y las disputas de la ficha del caso) y el archivo entero con el fragmento original de cada fuente; después el código valida en papel lo mecánico (candado de cifras y nombres, respaldo literal, que quepa, una por beat) y, F64, cada coincidencia con la voz (la voz ya lo dice, lo adelanta, lo contradice, fecha posterior al relato) va como marca a UNA llamada a un verificador (pantalla_verificador) que decide hecho por hecho; lo que cae vuelve al autor en vueltas de reintento parcial hasta que no hay motivos nuevos (sin tope en dólares). Deja el papel para que Omar lo apruebe antes de pagar la voz; la Fase 2 lo consume. F65b: sugerir propone hasta 3 fichas alternativas para un beat (el QA del papel), sin tocar el papel.",
+   "sticker": "Escribe el guion de pantalla en papel: para cada beat del video decide qué ficha de texto (un dato, una cita, un nombre o un lugar del archivo del caso) y qué palabra de clima aparecen en pantalla y sobre qué oración de la voz, más los relojes de fechas. Una sola llamada a Claude Opus con toda la narración, la escaleta (con la promesa del gancho y las disputas de la ficha del caso) y el archivo entero con el fragmento original de cada fuente; después el código valida en papel lo mecánico (candado de cifras y nombres, respaldo literal, que quepa, una por beat) y, F64, cada coincidencia con la voz (la voz ya lo dice, lo adelanta, lo contradice, fecha posterior al relato) va como marca a UNA llamada a un verificador (pantalla_verificador) que decide hecho por hecho; lo que cae vuelve al autor en vueltas de reintento parcial hasta que no hay motivos nuevos (sin tope en dólares). Deja el papel para que Omar lo apruebe antes de pagar la voz; la Fase 2 lo consume. F65b: sugerir propone hasta 3 fichas alternativas para un beat (el QA del papel), sin tocar el papel. F67 C: corre después del OK de la narración y anota de qué narración salió (`narracion_md5`).",
    "recibe": "data/scripts/_steps/<id>/01a_escaleta.json, 01b_narracion_v3.json (párrafos por cap y beat), 01a_skeleton.json (títulos de cap), 00_pool_v3.json (el pool entero: D, T, Q, P y L), ficha_caso.json (versiones y contradicciones → disputas; opcional); voces ya generadas del narrador (segundos por palabra); vocabulario de clima",
    "entrega": "data/scripts/_steps/<id>/01e_pantalla.json (el papel, que luego se aprueba con md5; las fichas que el verificador salvó llevan juicio_verificador), 01e_pantalla.md (para que lo lea Omar: fichas, lo que cayó, sección Verificador, vueltas y cierre), 01e_pantalla.raw.json (caché: respuestas del autor y cada pedido/respuesta del verificador por pedido_md5); suma su costo (autor + verificador) al 01_v3_costos.json (paso «pantalla») vía fase1_5.run_pantalla · F66: si la verificación de la narración dejó contradicciones sin resolver, `aviso_narracion` en el papel y al final del .md",
    "modelo": [
@@ -4589,6 +4780,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -4608,6 +4801,7 @@
     "fase1_5.py",
     "fase2b.py",
     "qa_studio_server.py",
+    "script_engine/m01f_critico.py",
     "script_engine/m05_narrative.py",
     "script_engine/narracion_verificador.py",
     "script_engine/pantalla_entrada.py",
@@ -4624,7 +4818,58 @@
    "sin_llamador_a": [
     "momentos"
    ],
-   "md5": "2a0f57de7b20080a56038c0419d66a61",
+   "md5": "a270d736331c123771182f4d5796c2ed",
+   "sticker_al_dia": true
+  },
+  "script_engine/m01f_critico.py": {
+   "archivo": "script_engine/m01f_critico.py",
+   "zona": "orquestador",
+   "sticker": "El crítico de retención de la narración (F67, Fase 1 del lazo escritor → crítico → corrector): una llamada a Opus medium con la narración por oraciones, la escaleta, el archivo del caso, las métricas del juez y la tabla del verificador; devuelve nota, valles y DEBERÍA con texto e ids. Solo propone: valida en código ids, oraciones, palabras, cifras y marcas, y deja la crítica para la compuerta de narración de QA Studio. También aplica lo que Omar decide allí: editar un párrafo o aceptar un DEBERÍA, ubicando el tramo por su texto y reconstruyendo el contrato.",
+   "recibe": "data/scripts/_steps/<id>/ (01a_escaleta.json, 01a_skeleton.json, 01b_narracion_v3.json, 00_pool_v3.json o el pool del topic, ficha_caso.json, 06_judge_narrative.json, 01b_verificacion.md), script_engine/m01f_prompts/SYSTEM.txt y FORMATO.txt",
+   "entrega": "data/scripts/_steps/<id>/01f_critico.json y 01f_critico.md; al editar, los 3 archivos del contrato vía m01d_particion.reconstruir y 06_judge_narrative.json",
+   "modelo": [
+    {
+     "modelo": "claude-opus-5-5",
+     "esfuerzo": "medium",
+     "para": "crítica de retención"
+    }
+   ],
+   "modelos": [
+    "Claude Opus"
+   ],
+   "etapas_a": [
+    "research",
+    "guion",
+    "narracion",
+    "papel_nuevo",
+    "papel",
+    "voz",
+    "assets",
+    "fondos",
+    "guion_pantalla",
+    "aprobar_guion",
+    "render",
+    "packaging"
+   ],
+   "etapas_sticker": [
+    "guion",
+    "narracion"
+   ],
+   "compartido": true,
+   "lo_llaman": [
+    "fase1_5.py",
+    "qa_studio_server.py"
+   ],
+   "tests": 0,
+   "nacio": "46102e5 2026-10-31 (F67)",
+   "ultimo": "46102e5 2026-10-31 (F67)",
+   "estado_a": "vivo",
+   "estado": "vivo",
+   "estado_prueba": "fase1_5.py (run_critico), qa_studio_server.py (narracion_vista, narracion_post)",
+   "funciones_muertas": [],
+   "imports_rotos": [],
+   "sin_llamador_a": [],
+   "md5": "56bc5fae458ab2c082baf06f2593fdec",
    "sticker_al_dia": true
   },
   "script_engine/m02_5_normalizer_gate.py": {
@@ -4645,6 +4890,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -4684,6 +4931,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -4724,6 +4973,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -4781,6 +5032,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -4875,6 +5128,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -4897,11 +5152,12 @@
     "script_engine/guion_v4.py",
     "script_engine/m01b_guionista.py",
     "script_engine/m01b_narrator.py",
-    "script_engine/m01c_editor.py"
+    "script_engine/m01c_editor.py",
+    "script_engine/m01f_critico.py"
    ],
    "tests": 13,
    "nacio": "fc955ef 2026-10-20 (F5)",
-   "ultimo": "46a1d8a 2026-10-29 (F56)",
+   "ultimo": "37c3261 2026-10-31 (F67)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py:418 y :435 (run_guion_v4 → judge_narration); script_engine/guion_v4.py:794, :952, :1238; gfx_peak.py:52 y gfx_pool.py:92 (adjectives) en la capa gráfica",
@@ -4922,6 +5178,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -5016,6 +5274,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -5185,6 +5445,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -5265,6 +5527,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -5280,6 +5544,7 @@
    "compartido": true,
    "lo_llaman": [
     "fase1_5.py",
+    "qa_studio_server.py",
     "script_engine/m01e_pantalla.py"
    ],
    "tests": 1,
@@ -5305,6 +5570,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -5359,6 +5626,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -5405,6 +5674,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -5484,6 +5755,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -5534,6 +5807,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -5771,6 +6046,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -5902,6 +6179,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -5951,6 +6230,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -6005,6 +6286,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -6052,6 +6335,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -6091,6 +6376,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -6133,6 +6420,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -6152,6 +6441,7 @@
     "script_engine/gfx_layer.py",
     "script_engine/gfx_realizador.py",
     "script_engine/m01e_pantalla.py",
+    "script_engine/m01f_critico.py",
     "script_engine/m03_expediente.py",
     "script_engine/m03_visual.py",
     "script_engine/m05_narrative.py",
@@ -6368,6 +6658,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -6539,6 +6831,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -6661,7 +6955,7 @@
   "qa_form.html": {
    "archivo": "qa_form.html",
    "zona": "orquestador",
-   "sticker": "Es la pantalla del form de producción asistida: muestra una barra con las fases del pipeline, el costo de Gemini en vivo y, cuando el pipeline necesita una decisión de Omar, abre el diálogo (elegir tema, aprobar el papel, aprobar el guion de pantalla, ir al visor). También deja retomar un tema que quedó a medias.",
+   "sticker": "Es la pantalla del form de producción asistida: muestra una barra con las fases del pipeline, el costo de Gemini en vivo y, cuando el pipeline necesita una decisión de Omar, abre el diálogo (elegir tema, aprobar el papel, aprobar el guion de pantalla, ir al visor). También deja retomar un tema que quedó a medias. F67 C: la compuerta narracion_gate, con la crítica entera.",
    "recibe": "Del servidor: /form_state (fase activa, costo, marcador pendiente, últimas líneas de consola), /form_topics (lista de topics de data/topics_db.json) y los diálogos de qa_choice.html, qa_gallery.html, qa_multi.html y qa_judge.html por /form_menu.",
    "entrega": "Respuestas al servidor: POST /form_launch, /form_resume?topic=<id>, /form_answer con la tecla elegida (A, P, C, número de seed…) y /form_shutdown.",
    "modelo": [],
@@ -6685,7 +6979,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "3b9c06656eef9e62d0035cc3a099b0ed",
+   "md5": "0330154c56aa1d77facd9e63a6bf0f0a",
    "sticker_al_dia": true
   },
   "qa_gallery.html": {
@@ -6811,7 +7105,7 @@
   "qa_studio.html": {
    "archivo": "qa_studio.html",
    "zona": "orquestador",
-   "sticker": "Es la pantalla del visor por capítulo: muestra la línea de tiempo de cada capítulo con sus fotos y clips, deja escuchar la narración tramo por tramo, marcar fotos para regenerar, pedir un fix de foto o de clip, corregir una pronunciación y lanzar ENSAMBLAR VIDEO. También embebe el formulario de miniaturas. Desde F59 los cuadros de texto del fix traen el hint aprobado por Omar (qué ver, una cosa por vez, emociones como gesto; para el clip: cámara, velocidad y qué se mueve) y, si el fix sale bien, muestran lo que el filtro de producción sacó del pedido. F65b: botón 📄 PAPEL: el QA del papel (ver cada ficha sobre su oración, aprobar ficha, editar, quitar, sugerir, aprobar papel).",
+   "sticker": "Es la pantalla del visor por capítulo: muestra la línea de tiempo de cada capítulo con sus fotos y clips, deja escuchar la narración tramo por tramo, marcar fotos para regenerar, pedir un fix de foto o de clip, corregir una pronunciación y lanzar ENSAMBLAR VIDEO. También embebe el formulario de miniaturas. Desde F59 los cuadros de texto del fix traen el hint aprobado por Omar (qué ver, una cosa por vez, emociones como gesto; para el clip: cámara, velocidad y qué se mueve) y, si el fix sale bien, muestran lo que el filtro de producción sacó del pedido. F65b: botón 📄 PAPEL: el QA del papel (ver cada ficha sobre su oración, aprobar ficha, editar, quitar, sugerir, aprobar papel). F67 C: botón 🎙 NARRACIÓN: la crítica, las métricas y cada DEBERÍA al lado del tramo que toca, con editar párrafo, aceptar DEBERÍA y aprobar narración.",
    "recibe": "Del servidor: /topic, /caps, /cap?cap=chNN (segmentos con tiempos y anchors), /img, /clip y /audio del capítulo, /marks, /fix_status, /assemble_status, /thumbs_status.",
    "entrega": "Pedidos al servidor: POST /mark, /fix_image, /fix_clip, /fix_narration, /assemble y /thumbs_start.",
    "modelo": [],
@@ -6835,7 +7129,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "f9b8e83015875733e4853e0e31dcf8d3",
+   "md5": "e7b385001358bfe225cd95b5c79b847c",
    "sticker_al_dia": true
   },
   "script_engine/gfx_templates/archive_clipping.html.tmpl": {
@@ -6849,6 +7143,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -6888,6 +7184,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -6927,6 +7225,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -6993,6 +7293,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -7032,6 +7334,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -7071,6 +7375,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -7110,6 +7416,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -7155,6 +7463,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -7196,6 +7506,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -7241,6 +7553,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
@@ -7282,6 +7596,8 @@
    "etapas_a": [
     "research",
     "guion",
+    "narracion",
+    "papel_nuevo",
     "papel",
     "voz",
     "assets",
