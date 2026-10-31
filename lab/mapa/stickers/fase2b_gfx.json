@@ -297,7 +297,7 @@
     "por_que": "nadie la nombra: ni producción ni tests ni strings; el chequeo «dos bloques al mismo tiempo» (línea 444 en adelante) calcula el solape directo y ya no la usa"
    }
   ],
-  "md5": "f854c4835c93ae0c104be1b6639cecec",
+  "md5": "bd8195e41c2808701e0ac23ff3e2d4dd",
   "_parte": "fase2b_gfx_b"
  },
  "script_engine/gfx_intensity.py": {
@@ -626,7 +626,7 @@
   "estado": "vivo",
   "estado_prueba": "gfx_layer.py:699-702 (pesos, colocar), :773-775 (hasta_el_corte, repartir); m01e_pantalla.py:191/407/1156 importa LECTURA_CPS y caracteres en Fase 1",
   "funciones_muertas": [],
-  "md5": "5fe6e5bbf58afda4bec66c261d90c9fc",
+  "md5": "03e6621f011a224264ba9f544ba794fa",
   "_parte": "fase2b_gfx_d"
  },
  "script_engine/pantalla_entrada.py": {
@@ -641,11 +641,11 @@
   "estado": "vivo",
   "estado_prueba": "gfx_layer.py:637-638 llama preparar_cap; fase2b.py:3160 importa voz_del_video en --plan-only",
   "funciones_muertas": [],
-  "md5": "c8527201f730dc766a1c56eb7171558f",
+  "md5": "e67eb91c26cf95e92471d11fcba9670a",
   "_parte": "fase2b_gfx_d"
  },
  "script_engine/pantalla_filtros.py": {
-  "sticker": "Los filtros que deciden si un texto del guion en papel sale o no, en un orden fijo: anclar a la voz, candado de lo literal, que la voz no lo diga ya, que no adelante lo que viene, y que haya dónde leerlo. Además compara cifras del bloque contra las de la voz para el chequeo del guion. F64: ya no reciben `juicio` (el juicio del autor de F37 se borró): en el papel las coincidencias de no_dicho/spoiler/contradice las juzga pantalla_verificador; en Fase 2 estos filtros vuelven a correr por tokens, sin ese juicio.",
+  "sticker": "Los filtros que deciden si un texto del guion en papel sale o no, en un orden fijo: anclar a la voz, candado de lo literal, que la voz no lo diga ya, que no adelante lo que viene, y que haya dónde leerlo. Además compara cifras del bloque contra las de la voz para el chequeo del guion. F64/F65a: en el papel las coincidencias de no_dicho/spoiler/contradice las juzga pantalla_verificador; en Fase 2 estos filtros vuelven a correr por tokens pero respetan los `tokens` de `juicio_verificador` de la ficha (ctx[\"juicio\"], `_sin_juicio`): una coincidencia ya juzgada «pasa» no corta.",
   "recibe": "bloques del papel (anclados a oración y palabra), entrada del cap (ent: ítems del pool, oraciones, beats, voz del video), palabras con tiempos y escenas",
   "entrega": "bloques que pasan con sus tiempos e intentos, rechazos con la regla y el motivo, y los a_pantalla que faltan (en memoria, para pantalla_colocar.colocar)",
   "modelo": [],
@@ -657,7 +657,7 @@
   "estado": "vivo",
   "estado_prueba": "pantalla_colocar.py:173-178 llama validar_papel; m01e_pantalla.py:274/570 usa pide_documento, candado, no_dicho, spoiler, contradicciones_de en Fase 1; gfx_guion.py:442 contradicciones",
   "funciones_muertas": [],
-  "md5": "b5aa02a3fb8ec1db8a8eae802665e458",
+  "md5": "eb3d4b4db58a1f2c3e82f46451ac46ef",
   "_parte": "fase2b_gfx_d"
  },
  "script_engine/transition_applier.py": {

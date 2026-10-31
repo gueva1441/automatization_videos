@@ -11,12 +11,16 @@ queda con `juicio_verificador`; «corta» → cae con quien «verificador».
        mil personas estaban en el sitio industrial…» en ch04 [11], la única vez) → marca; con un juez que la corta cae
        con quien «verificador» y el autor, en la vuelta, la saca → sale;
     3  Vajont v6 D195 «1.269 de 1.328» → sin marcas, sin juez, sin juicio_verificador (sin cambio);
-    4  lo borrado no está; Fase 2 (validar_papel → no_dicho) deja la coincidencia en ctx["dichos"] sin `juicio`.
+    4  lo borrado no está; Fase 2 (validar_papel → no_dicho) deja la coincidencia en ctx["dichos"]; F65a Etapa B
+       (DECISIONES 2026-10-31 15:49): `pantalla_filtros._sin_juicio` volvió y con ctx["juicio"] (los `tokens` del
+       `juicio_verificador` de la ficha del papel) la coincidencia que el verificador ya pasó no cuenta.
 Borrado por F64 Etapa 3: test_1_d03_pregunta_con_cap_oracion_y_texto y test_1_d03_el_autor_la_mantiene_otro_hecho_queda
 (reescritos en test_1_d03_llega_como_marca_no_dicho_con_cap_oracion_y_texto), test_2_mismo_hecho_el_autor_la_saca_sale
 (reescrito en test_2_mismo_hecho_el_verificador_la_corta_y_el_autor_la_saca), test_2_sin_preguntar_al_cierre_corta_como_no_dicho
-(ya no hay cierre que corte sin preguntar) y test_4_fase2_no_dicho_en_el_gancho_respeta_el_juicio_del_autor (sin `juicio`
-en pantalla_filtros); `preguntas`, `juicio_autor`, `cortados_al_cierre` y «¿es el mismo hecho? si no, mantenelo» no existen.
+(ya no hay cierre que corte sin preguntar) y test_4_fase2_no_dicho_en_el_gancho_respeta_el_juicio_del_autor (F64 borró
+`juicio` de pantalla_filtros; F65a Etapa B lo trae de vuelta con el juicio del VERIFICADOR:
+test_4_no_dicho_en_el_gancho_respeta_el_juicio_del_verificador reemplaza a test_4_no_dicho_en_el_gancho_deja_la_coincidencia_en_dichos);
+`preguntas`, `juicio_autor`, `cortados_al_cierre` y «¿es el mismo hecho? si no, mantenelo» no existen.
 Sin API (POST falso; el verificador es JUEZ_PASA). Los datos reales se leen de sus copias congeladas en
 lab/hyperframes/f40/a/ (nunca de data/).
 """
@@ -199,12 +203,19 @@ def _ctx_gancho() -> dict:
             "voz_video": [s["texto"] for s in sents]}
 
 
-def test_4_no_dicho_en_el_gancho_deja_la_coincidencia_en_dichos():
-    """F64 Etapa 3: sin `juicio`; la coincidencia del gancho queda en ctx["dichos"] (en el papel es la marca)."""
+def test_4_no_dicho_en_el_gancho_respeta_el_juicio_del_verificador():
+    """F65a Etapa B: sin juicio la coincidencia del gancho es motivo y queda en ctx["dichos"] (en el papel es la marca);
+    con ctx["juicio"] = los `tokens` del `juicio_verificador` («pasa» el «6») el mismo ctx no corta y «6» sale de
+    `dichos`; un juicio de otra regla no la salva."""
     ctx = _ctx_gancho()
     mot = pf.no_dicho({}, {}, ctx)
     assert mot == "la voz lo dice en otra oración del video (gancho): ['6']" and ctx["dichos"] == ["6"]
-    assert "juicio" not in pf.no_dicho.__code__.co_consts and "juicio" not in pf.spoiler.__code__.co_consts
+    ctx = {**_ctx_gancho(), "juicio": {"no_dicho": ["6"]}}
+    assert pf.no_dicho({}, {}, ctx) is None and ctx["dichos"] == []
+    ctx = {**_ctx_gancho(), "juicio": {"spoiler": ["6"]}}
+    assert pf.no_dicho({}, {}, ctx) == "la voz lo dice en otra oración del video (gancho): ['6']"
+    assert pf._sin_juicio({"juicio": {"no_dicho": ["6", 7]}}, "no_dicho", ["6", "7", "8"]) == ["8"]
+    assert pf._sin_juicio({}, "no_dicho", ["6"]) == ["6"]
 
 
 def test_4_fuera_del_gancho_no_dicho_igual_que_antes():

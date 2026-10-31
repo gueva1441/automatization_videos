@@ -139,6 +139,7 @@ def preparar_cap(cap: int, cap_id: str, real: dict, ctx: dict[str, Any], words: 
                     "tipo": TIPO_DE_ESTILO.get(f.get("estilo") or "normal", "hecho"), "estilo": f.get("estilo"),
                     "etiqueta": f.get("etiqueta"), "texto": f.get("texto"), "aporta": f.get("aporta"), "papel": True,
                     "palabra_papel": f.get("palabra"), "ancla_palabra": como,
+                    **({"juicio_verificador": f["juicio_verificador"]} if f.get("juicio_verificador") else {}),  # F65a
                     **({"sin_alinear": a} if not a["exacta"] else {}), **({"editado": True} if f.get("editado") else {})})
             if se:
                 a = voz_de.get(int(se["sentence_idx"]))

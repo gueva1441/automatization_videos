@@ -16,7 +16,11 @@ producción.
              tope, cierres «sin motivos» y «sin progreso» por claves (mismas claves con motivo de texto distinto; ciclo
              A→B→A), el verificador una vez por validación con marcas, el juez por defecto usa el `post` falso; (g) hit de
              caché con `pedido_md5` guardado: el juez real no se llama; caché parcial sí.
-Sin API: todo `validar`/`llamar` de este archivo pasa un `juez` falso (sin él se llamaría al verificador real). Un video chico armado acá (nada de data/).
+    F65a Etapa B (DECISIONES 2026-10-31 15:49; HANDOFF §2.3) Fase 2 respeta al verificador: `pantalla_filtros.validar_papel`
+             no corta una ficha cuyo `juicio_verificador.tokens[regla]` trae la coincidencia (`no_dicho` «Australia»),
+             la misma ficha sin juicio cae con regla `no_dicho`; `contradicciones(..., juicio=tokens)` no marca la
+             cifra que el verificador pasó (COTA 720 m vs «setecientos quince metros» con «715» juzgado → []).
+Sin API: todo `validar`/`llamar` de este archivo pasa un `juez` falso (sin él se llamaría al verificador real). Un video chico armado acá (nada de data/); el de la Etapa B va con palabras con tiempos como en test_module_f37b_colocar.
 """
 from __future__ import annotations
 
@@ -536,3 +540,60 @@ def test_g_cache_con_pedido_md5_guardado_no_llama_al_juez(tmp_path):
     assert len(json.loads(raw_f.read_text(encoding="utf-8"))["verificador"]) == 1   # el raw se completó
     res4 = mp.llamar(e, tmp_path, post=_post_seq([_resp()], pedidos), juez=juez_prohibido)
     assert res4["cache"] is True
+
+
+# ═══════════════════════ F65a Etapa B: Fase 2 respeta el juicio del verificador ═══════════════════════
+
+def _voz_palabras(frases: list[tuple[float, float, str]]) -> list[dict]:
+    """Palabras con tiempos (como test_module_f37b_colocar._voz): cada frase reparte su tiempo entre sus palabras."""
+    words = []
+    for a, b, txt in frases:
+        ws = txt.split()
+        d = (b - a) / len(ws)
+        words += [{"word": w, "start": round(a + i * d, 3), "end": round(a + (i + 1) * d - 0.02, 3)} for i, w in enumerate(ws)]
+    return words
+
+
+def _ent_fase2(words: list[dict], items: list[dict]) -> dict:
+    """La entrada de un cap de Fase 2 (pantalla_entrada.preparar_cap): oraciones, un beat, ítems con la forma de
+    pantalla_entrada._item, voz del video y voz anterior."""
+    from script_engine.voz_utils import oraciones
+    sents = oraciones(words)
+    for s in sents:
+        s["beat"] = 1
+    return {"oraciones": sents, "beats": [{"n": 1, "funcion": "gancho", "t0": 0.0, "t1": 10.0, "cierre": "",
+                                           "dato_central": "", "datos_apoyo": []}],
+            "items": items, "voz_video": [s["texto"] for s in sents], "voz_antes": ""}
+
+
+def test_b_fase2_respeta_juicio_verificador():
+    from script_engine import pantalla_filtros as pf
+    words = _voz_palabras([(0.0, 5.0, "Wittenoom, Australia Occidental, mil novecientos sesenta y tres."),
+                           (5.2, 8.0, "Esa foto se tomó en un pueblo.")])
+    ent = _ent_fase2(words, [{"id": "D1", "a_pantalla": False, "por_que": "", "beats": [1], "tipo": "D", "kind": "datos",
+                              "texto": "considerado el peor desastre industrial en la historia de Australia",
+                              "fuente": "f", "autor": "", "gancho": False}])
+    assert ent["voz_video"][0].startswith("Wittenoom, Australia") and len(ent["oraciones"]) == 2
+    # la ficha anclada a la oración [1], vecina de la [0] que dice «Australia»
+    ficha = {"pool_id": "D1", "sentence_idx": 1, "word_idx": 2, "tipo": "hecho", "etiqueta": "LO QUE PASÓ",
+             "texto": "El peor desastre industrial de Australia"}
+    jv = {"regla": ["no_dicho"], "motivo": "x", "tokens": {"no_dicho": ["Australia"]}}
+    # sin juicio_verificador: cae por no_dicho («Australia» en la vecina)
+    sin = pf.validar_papel([dict(ficha)], ent, words, 0.0)
+    assert sin["bloques"] == [] and [(r["pool_id"], r["regla"]) for r in sin["rechazos"]] == [("D1", "no_dicho")]
+    assert sin["rechazos"][0]["motivo"] == "la voz lo dice en la oración ancla o en una vecina: ['Australia']"
+    # la MISMA ficha con el juicio del verificador («pasa» Australia): entra, con el juicio en el bloque
+    con = pf.validar_papel([{**ficha, "juicio_verificador": jv}], ent, words, 0.0)
+    assert con["rechazos"] == [] and [b["pool_id"] for b in con["bloques"]] == ["D1"]
+    assert con["bloques"][0]["juicio_verificador"] == jv and con["bloques"][0]["sentence_idx"] == 1
+    # un juicio de otra regla no la salva
+    otra = pf.validar_papel([{**ficha, "juicio_verificador": {**jv, "tokens": {"spoiler": ["Australia"]}}}], ent, words, 0.0)
+    assert [(r["pool_id"], r["regla"]) for r in otra["rechazos"]] == [("D1", "no_dicho")]
+    # contradicciones (el chequeo 5 de gfx_guion): sin juicio marca; con el token que el verificador pasó, no; otra regla sí
+    assert pf.contradicciones("LO QUE PASÓ El peor desastre industrial de Australia", ent["voz_video"], juicio=jv["tokens"]) == []
+    voz = ["La cota autorizada fue de setecientos quince metros."]
+    frase = "720 m vs 715 m («" + voz[0] + "»)"
+    assert pf.contradicciones("COTA 720 metros", voz, cerca=voz) == [frase]
+    assert pf.contradicciones("COTA 720 metros", voz, cerca=voz, juicio={"contradice": ["715"]}) == []
+    assert pf.contradicciones_de("COTA 720 metros", voz, cerca=voz, juicio={"contradice": ["715"]}) == []
+    assert pf.contradicciones("COTA 720 metros", voz, cerca=voz, juicio={"no_dicho": ["715"]}) == [frase]

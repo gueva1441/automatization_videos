@@ -1,8 +1,9 @@
 """
 test_module_f38c_papel.py — F38c §A.1 y §A.2 (HANDOFF_F38c_marcas_contradice_decimales), la parte del papel:
     §A.1  dos marcas distintas: el `a_pantalla` de la escaleta va en un campo propio del ítem ({beat, por_que}) y no en
-          `beats_que_lo_cuentan`; un beat sin ninguno de sus `a_pantalla` es motivo del reintento (y ⚠ en el .md); si
-          lleva uno, los demás de ese beat no son motivo; un `a_pantalla` descartado «voz_lo_dice» se verifica contra
+          `beats_que_lo_cuentan`; un beat sin ninguno de sus `a_pantalla` queda en `a_pantalla_vacios` (JSON y ⚠ en el
+          .md); F65a Etapa A (DECISIONES 2026-10-31 15:49): ya NO es motivo del reintento ni clave (hasta F64 lo era);
+          si lleva uno, los demás de ese beat no cuentan; un `a_pantalla` descartado «voz_lo_dice» se verifica contra
           todo el video;
     §A.2  la cifra que contradice la voz (regla `contradice`, token = la cifra de la voz): F64 Etapa 3, es una MARCA
           para el verificador (pantalla_verificador), no una pregunta al autor; con un juez que la pasa la ficha queda
@@ -11,6 +12,12 @@ Borrado por F64 Etapa 3 (DECISIONES 2026-10-31 14:20): test_a2_d40_pregunta_lite
 test_a2_d40_marca_contradice: la misma coincidencia, ahora marca), test_a2_confirmada_queda_juzgada_y_el_chequeo_5_no_la_marca
 (`_confirmar`, `confirmados`, `juicio_autor` y el `juicio_autor` del chequeo 5 de gfx_guion no existen) y
 test_a2_contradice_nueva_tras_el_reintento_corta (el código ya no corta por `contradice`: corta el verificador).
+Borrado por F65a Etapa A: test_a1_papel_f38b_da_dos_motivos (el motivo «quedó sin ninguno de los datos que la escaleta
+dejó para la pantalla» no existe más; lo que sigue vivo —`a_pantalla_vacios`— va en
+test_a1_a_pantalla_vacios_sigue_en_la_salida_sin_ser_motivo); test_a1_d128_en_b11_no_da_motivo_por_d192 adaptado (sin
+motivos de a_pantalla: D128 queda en b11, nada nombra a D192, `a_pantalla_vacios` solo ch07 b13). F65a Etapa B:
+`pantalla_filtros._sin_juicio` existe otra vez (Fase 2 respeta el `juicio_verificador` del papel) y
+test_a2_contradicciones_estructura_y_frases lo asevera al revés que en F64.
 Sin API: el verificador es JUEZ_PASA. Las entradas de Fase 1 de Vajont y el papel de F38b se leen de sus copias
 congeladas (lab/hyperframes/f38/b2).
 """
@@ -95,11 +102,6 @@ def _x(ent: dict, pid: str) -> dict:
     return next(x for x in ent["archivo"] if x["id"] == pid)
 
 
-def _a_pantalla_motivos(v: dict) -> list[tuple[str, list]]:
-    return [(m, b) for m, b in zip(v["motivos"], v["motivos_beat"])
-            if "datos que la escaleta dejó para la pantalla" in m]
-
-
 def test_prompt_no_cambia():
     # F38c no cambió el prompt (163e1fd1…); F38d §A.2.1 cambió solo la línea de «caben» (m01e-5, 76f1de7a…); F38e §C.1
     # lo reemplazó por el de la prueba 1 (m01e-6) y sumó `respaldo` y `autor` a los formatos (3b98aef1…); F64 Etapa 0
@@ -127,15 +129,14 @@ def test_a1_a_pantalla_en_campo_propio(ent):
 
 
 @hay_vajont
-def test_a1_papel_f38b_da_dos_motivos(val1):
-    ms = _a_pantalla_motivos(val1)
-    assert [b for _, b in ms] == [[("ch06", 11)], [("ch07", 13)]]
-    assert ms[0][0].startswith("el beat 11 de ch06 quedó sin ninguno de los datos que la escaleta dejó para la "
-                               "pantalla porque la voz no los dice: D128 («")
-    assert "), D192 («" in ms[0][0]
-    assert ms[1][0].startswith("el beat 13 de ch07 quedó sin ninguno de los datos que la escaleta dejó para la "
-                               "pantalla porque la voz no los dice: D245 («")
+def test_a1_a_pantalla_vacios_sigue_en_la_salida_sin_ser_motivo(val1):
+    """F65a Etapa A: los dos beats sin su `a_pantalla` del papel de F38b siguen en `a_pantalla_vacios` (con sus ids),
+    pero ya no son motivo de vuelta ni clave."""
     assert [(a["cap"], a["beat"]) for a in val1["a_pantalla_vacios"]] == [("ch06", 11), ("ch07", 13)]
+    assert [[i["id"] for i in a["ids"]] for a in val1["a_pantalla_vacios"]] == [["D128", "D192"], ["D245"]]
+    assert not any("datos que la escaleta dejó para la pantalla" in m for m in val1["motivos"])
+    assert not any(str(c[0]) == "a_pantalla" for c in val1["claves"])
+    assert len(val1["motivos"]) == len(val1["motivos_beat"]) == len(val1["claves"])
 
 
 @hay_vajont
@@ -159,8 +160,10 @@ def test_a1_d128_en_b11_no_da_motivo_por_d192(ent, papel):
     v = mp.validar(resp, ent)
     s11 = next(b for b in v["beats"] if b["cap"] == "ch06" and b["beat"] == 11)
     assert s11["ficha"] and s11["ficha"]["pool_id"] == "D128"
-    assert [b for _, b in _a_pantalla_motivos(v)] == [[("ch07", 13)]]
+    # F65a Etapa A: con D128 puesto, el beat 11 sale de `a_pantalla_vacios` (queda solo ch07 b13); nada nombra a D192
+    assert [(a["cap"], a["beat"]) for a in v["a_pantalla_vacios"]] == [("ch07", 13)]
     assert not any("D192" in m for m in v["motivos"])
+    assert not any("datos que la escaleta dejó para la pantalla" in m for m in v["motivos"])
 
 
 @hay_vajont
@@ -196,4 +199,7 @@ def test_a2_contradicciones_estructura_y_frases():
     cs = pf.contradicciones_de("COTA MÁXIMA 720 m", voz, cerca=voz)
     assert [(c["bloque"], c["voz"], c["token"], c["oracion"]) for c in cs] == [(720, 715, "715", voz[0])]
     assert pf.contradicciones("COTA MÁXIMA 720 m", voz, cerca=voz) == [pf.frase_contradiccion(cs[0])]
-    assert not hasattr(pf, "_sin_juicio")                       # F64 Etapa 3: sin `juicio`
+    # F65a Etapa B: `_sin_juicio` volvió (F64 Etapa 3 lo había borrado); con el token juzgado «pasa» no hay contradicción
+    assert hasattr(pf, "_sin_juicio")
+    assert pf.contradicciones("COTA MÁXIMA 720 m", voz, cerca=voz, juicio={"contradice": ["715"]}) == []
+    assert pf.contradicciones_de("COTA MÁXIMA 720 m", voz, cerca=voz, juicio={"no_dicho": ["715"]}) == cs   # otra regla no
