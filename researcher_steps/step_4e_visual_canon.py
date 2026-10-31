@@ -163,10 +163,10 @@ anachronism_blocklist, documented_props, central_subject. Strings en INGLÉS (lo
 
 ═══ BLOQUE 1: era_visual_canon ═══
 
-DOS CAPAS, no las mezcles. La capa ÉPOCA es genérica de la década; la capa
+DOS CAPAS, no las mezcles. La capa ÉPOCA es de la década; la capa
 SUJETO PUNTUAL es específica y documentada (sale de [VISUAL]).
 
-Sub-campos de ÉPOCA (genéricos de la década, derivados de los facts/contexto):
+Sub-campos de ÉPOCA (de la década, derivados de los facts/contexto; vehículos y aparatos con modelo concreto, ver regla 2):
 - primary_decade: década dominante del evento principal, formato "1960s",
   "1940s", "early 20th century". Derivá de las fechas en verified_facts.
 - spans: rango temporal del tema, formato "1937-2007" o "1968" si es puntual.
@@ -174,7 +174,7 @@ Sub-campos de ÉPOCA (genéricos de la década, derivados de los facts/contexto)
 - clothing: string EN, ropa de época para personas en este tema. Mencioná
   roles relevantes (oficial naval, minero, civil) con su atuendo de la era.
 - technology: string EN, tecnología de la época + lo que NO existía aún.
-  Ej: "analog gauges, vacuum tubes, rotary dials. NO LEDs, NO digital displays."
+  Ej: "black Bakelite rotary-dial telephones, valve radios, analog gauges. NO LEDs, NO digital displays."
 - vehicles_machinery: string EN, vehículos y maquinaria de época.
 - interiors: string EN, interiores característicos (oficinas, salas, casas).
 - periods: una entrada por cada tramo del material en que cambian la ropa, la tecnología, los vehículos o los interiores; years "AAAA-AAAA" y esos 4 campos para ese tramo (EN). Si el tema es de una sola época, una sola entrada.
@@ -220,10 +220,16 @@ REGLAS de era_visual_canon:
    building"). Genérico SOLO como fallback honesto cuando no hay fuente, marcado
    como tal en visual_reference_availability.
 2. CAPA ÉPOCA-GENÉRICA (clothing, technology, vehicles, interiors) y CUALQUIER
-   persona: mantené genérico y ampliamente documentado. NO inventes un detalle
-   específico no verificable (ej: "the captain wore a Rolex"). Si dudás entre 2
-   versiones, el más genérico. El detalle de un individuo nombrable vive en
-   documented_people, NO acá.
+   persona: lo ampliamente documentado de la época. NO inventes un detalle de un
+   individuo no verificable (ej: "the captain wore a Rolex"); el detalle de un
+   individuo nombrable vive en documented_people, NO acá. En technology y
+   vehicles_machinery (también los de cada period), cada vehículo, máquina o
+   aparato va con el modelo o tipo concreto de uso común donde ocurre la escena
+   (si el tramo tiene escenas en más de un país, uno por país) y en ESE tramo,
+   con el rasgo visible que lo fecha (ej: "black Bakelite rotary-dial telephone",
+   NO "a telephone"; "Bedford OB coach with a rounded bonnet", NO "a bus"): el
+   tipo genérico solo, el motor de imágenes lo pinta moderno. Sin logotipos ni
+   texto pintado.
 3. Por CADA afirmación de la capa lugar/objeto, el campo
    visual_reference_availability debe permitir rastrear si viene de FUENTE REAL
    (photo/plan/footage/archive) o de INFERENCIA/TEXTO.

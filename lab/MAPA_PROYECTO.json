@@ -2907,7 +2907,7 @@
   "researcher_steps/step_4e_visual_canon.py": {
    "archivo": "researcher_steps/step_4e_visual_canon.py",
    "zona": "research",
-   "sticker": "Arma el canon visual del tema en una llamada a Claude Opus 5.5 (effort high, sin esquema: la API de Claude no acepta el esquema del canon; desde F50f, antes Flash): cómo se ve el mundo del tema (ropa, tecnología, vehículos, colores, materiales de la época), qué personas con nombre hay y cómo se ven sin nombre, qué anacronismos prohibir, cuál es el objeto o sujeto central y, desde F50, los grupos de personas que muestra el material (people_groups: quiénes son, dónde y cuándo, cómo se ven —desde F51b, solo los rasgos fijos según su origen; el estado documentado, como polvo o enfermedad, va aparte por tramo de años en condition_by_period, que no se pega en la foto— y cómo se visten en cada tramo de años). Desde F50d la época también viene por tramo de años (periods: ropa, tecnología, vehículos e interiores de cada tramo), además de la descripción única. Desde F50 los hechos salen de la ficha del caso (hechos, cronología y escenas) y al final del pedido van los personajes del pool (rol · lugar · años, sin nombres). Después limpia la respuesta con reglas fijas (saca el nombre y la época del aspecto de cada persona, normaliza los objetos). Si la llamada falla o la respuesta no trae los tramos de época (periods) y los grupos de gente, corta con un error (no hay canon vacío de respaldo). La marca del canon (md5 de la ficha, del texto del pedido, del modelo y del esfuerzo) la calcula acá `marca_canon`.",
+   "sticker": "Arma el canon visual del tema en una llamada a Claude Opus 5.5 (effort high, sin esquema: la API de Claude no acepta el esquema del canon; desde F50f, antes Flash): cómo se ve el mundo del tema (ropa, tecnología, vehículos, colores, materiales de la época), qué personas con nombre hay y cómo se ven sin nombre, qué anacronismos prohibir, cuál es el objeto o sujeto central y, desde F50, los grupos de personas que muestra el material (people_groups: quiénes son, dónde y cuándo, cómo se ven —desde F51b, solo los rasgos fijos según su origen; el estado documentado, como polvo o enfermedad, va aparte por tramo de años en condition_by_period, que no se pega en la foto— y cómo se visten en cada tramo de años). Desde F50d la época también viene por tramo de años (periods: ropa, tecnología, vehículos e interiores de cada tramo), además de la descripción única. Desde F50 los hechos salen de la ficha del caso (hechos, cronología y escenas) y al final del pedido van los personajes del pool (rol · lugar · años, sin nombres). Después limpia la respuesta con reglas fijas (saca el nombre y la época del aspecto de cada persona, normaliza los objetos). Si la llamada falla o la respuesta no trae los tramos de época (periods) y los grupos de gente, corta con un error (no hay canon vacío de respaldo). La marca del canon (md5 de la ficha, del texto del pedido, del modelo y del esfuerzo) la calcula acá `marca_canon`. Desde F62 el pedido ya no pide lo genérico en vehículos, máquinas y aparatos: cada uno va con el modelo o tipo concreto de uso común en ese lugar y tramo, con el rasgo visible que lo fecha (sin logotipos ni texto), para que el motor de imágenes no lo pinte moderno.",
    "recibe": "El topic (video_title, canonical_subject_description, evidence_pool.personajes) y la ficha del caso (data/scripts/_steps/<id>/ficha_caso.json); los pasa fase1_5.asegurar_canon.",
    "entrega": "dict con era_visual_canon, documented_people (desde F60 A3 cada persona trae appearance_canon solo con el aspecto fijo y condition_by_period con el estado documentado por tramo de años), anachronism_blocklist, documented_props, central_subject y people_groups; fase1_5.asegurar_canon lo guarda en el topic de data/topics_db.json y en data/scripts/_steps/<id>/05_visual_canon.json.",
    "modelo": [
@@ -2939,7 +2939,7 @@
    "lo_llaman": [
     "fase1_5.py"
    ],
-   "tests": 5,
+   "tests": 6,
    "nacio": "21f2e10 2026-06-21",
    "ultimo": "99a0834 2026-10-30 (F60)",
    "estado_a": "vivo",
@@ -2948,7 +2948,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "a749b8379c5f880e77c8d8112c340539",
+   "md5": "7f8faeab862697ee6f9b3504a08f5d56",
    "sticker_al_dia": true
   },
   "researcher_steps/verify_quotes.py": {
@@ -4733,7 +4733,7 @@
    ],
    "tests": 16,
    "nacio": "73e3613 2026-10-22 (F8)",
-   "ultimo": "10f08c0 2026-10-30 (F59)",
+   "ultimo": "990e8f0 2026-10-30 (F61)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "script_engine/m03_visual.py:107 lo importa (v3img) y lo usa en m03_visual.py:561-629 (armado, F8, año) y 2037-2168; m03_visual corre dentro de fase1_5.py:671 (etapa voz).",
@@ -4791,7 +4791,7 @@
    ],
    "tests": 23,
    "nacio": "e33f84a 2026-05-28",
-   "ultimo": "99a0834 2026-10-30 (F60)",
+   "ultimo": "990e8f0 2026-10-30 (F61)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py:671 llama assign_visual_prompts dentro de process_topic (tramo audio -> m07 -> m03 que corre con --from normalizer_gate, el comando de la etapa voz en run_pipeline; también --only m03); script_engine/m09_packaging.py:40 importa DOCTRINE_* en tiempo de carga (fase3, etapa packaging).",
