@@ -1,0 +1,23 @@
+madres F60 B+C: ['Daniel Écija', 'Eric Saint', 'Maitland Parker', 'María Bernal', 'Mercedes', 'Milagros Barroso', 'Ramón de Juan', 'Víctor Calvo']
+#1 chapters[0].supplemental_image_prompts[0] medium ['Daniel Écija', 'María Bernal'] 1962 → madres ['Daniel Écija', 'María Bernal']
+#2 chapters[0].supplemental_image_prompts[1] medium ['Daniel Écija'] 1962 → madres ['Daniel Écija']
+#3 chapters[1].image_prompts[1] medium ['Daniel Écija', 'María Bernal'] 1962 → madres ['Daniel Écija', 'María Bernal']
+#4 chapters[1].image_prompts[5] medium ['Milagros Barroso', 'Ramón de Juan'] 1962 → madres ['Milagros Barroso', 'Ramón de Juan']
+#5 chapters[1].image_prompts[7] medium ['Víctor Calvo'] 1962 → madres ['Víctor Calvo']
+#6 chapters[2].image_prompts[5] close ['Eric Saint'] 1948 → madres ['Eric Saint']
+#7 chapters[3].image_prompts[9] medium ['Daniel Écija'] 1962 → madres ['Daniel Écija']
+#8 chapters[3].image_prompts[12] medium ['María Bernal', 'Daniel Écija'] 1963 → madres ['María Bernal', 'Daniel Écija']
+#9 chapters[4].image_prompts[12] medium ['Daniel Écija'] 1991 → madres []
+#10 chapters[4].image_prompts[7] close ['Daniel Écija hijo'] 1985 → madres []
+  ✓ f61b_10.png · 38.6 s · fal-ai/bytedance/seedream/v5/lite/text-to-image
+  ✓ f61b_09.png · 45.9 s · fal-ai/bytedance/seedream/v5/lite/text-to-image
+  ✓ f61b_02.png · 46.2 s · fal-ai/bytedance/seedream/v5/lite/edit
+  ✓ f61b_06.png · 46.6 s · fal-ai/bytedance/seedream/v5/lite/edit
+  ✓ f61b_05.png · 48.5 s · fal-ai/bytedance/seedream/v5/lite/edit
+  ✓ f61b_08.png · 53.3 s · fal-ai/bytedance/seedream/v5/lite/edit
+  ✓ f61b_07.png · 56.0 s · fal-ai/bytedance/seedream/v5/lite/edit
+  ✓ f61b_03.png · 56.6 s · fal-ai/bytedance/seedream/v5/lite/edit
+  ✓ f61b_01.png · 61.3 s · fal-ai/bytedance/seedream/v5/lite/edit
+  ✓ f61b_04.png · 63.0 s · fal-ai/bytedance/seedream/v5/lite/edit
+pared 63.0 s · costo cost_tracker US$ 0.35 (10 entradas)
+PRODUCCIÓN INTACTA: True

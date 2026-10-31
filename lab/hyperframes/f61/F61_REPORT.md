@@ -238,3 +238,121 @@ El md5 del handoff coincide (9892c940…). Recontando los dos json, todas las ci
 
 ## PARADA B
 Nada de fotos ni producción. El analista lee la tabla B.2 y los 10 prompts de B.3 y le dice a Omar si sale sano o se fue al otro extremo.
+
+## F61b — 10 fotos de los planos medios con persona: ¿vivas o posadas? (PARADA)
+Handoff `HANDOFF_F61b_fotos_medio.md` (md5 62d3fcccf25b5b02c15ad90da872c1d5, verificado) · runner `lab/hyperframes/f61/etapa_f61b_fotos.py` (ningún módulo de producción tocado) · prompts **tal cual** de `03_visual_f61.json` (los 10 ítems verificados contra la tabla: plano, persona y año coinciden; sin PARÁ) · madres de F60 B+C (`f60/bc/output/<tid>/foto_madre/`, 8; ninguna nueva) · regla única `asset_manager._madres_para_item` (con `persona_aporta_madre` adentro: #9 Daniel 1991 sin madre por era; #10 Daniel Écija hijo sin madre en el registry) · una foto por llamada, las 10 a la vez (`FLUX_MAX_WORKERS`), `_generate_flux_image_at` (Seedream /edit con madres o t2i) · `cost_tracker.start_video("lab_f61b")` · producción intacta (mtimes antes = después de topics_db, guion vivo, `_steps`, `output/<tid>`). Salidas en `f61/b/`: `f61b_01..10.png`, `hoja_f61b.jpg`, `etapa_f61b.json/.log`, `MIRADA_F61b.md`.
+
+### Tabla de las 10 (pared 63.0 s; costo total **US$ 0.35** = 10 × 0,035; 8 /edit + 2 t2i)
+| # | ítem | plano | persona | año | madres usadas | camino | s | US$ |
+|---|---|---|---|---|---|---|---|---|
+| 1 | `chapters[0].supplemental_image_prompts[0]` → `f61b_01.png` | medium | Daniel Écija, María Bernal | 1962 | Daniel Écija, María Bernal | /edit | 61.3 | 0.035 |
+| 2 | `chapters[0].supplemental_image_prompts[1]` → `f61b_02.png` | medium | Daniel Écija | 1962 | Daniel Écija | /edit | 46.2 | 0.035 |
+| 3 | `chapters[1].image_prompts[1]` → `f61b_03.png` | medium | Daniel Écija, María Bernal | 1962 | Daniel Écija, María Bernal | /edit | 56.6 | 0.035 |
+| 4 | `chapters[1].image_prompts[5]` → `f61b_04.png` | medium | Milagros Barroso, Ramón de Juan | 1962 | Milagros Barroso, Ramón de Juan | /edit | 63.0 | 0.035 |
+| 5 | `chapters[1].image_prompts[7]` → `f61b_05.png` | medium | Víctor Calvo | 1962 | Víctor Calvo | /edit | 48.5 | 0.035 |
+| 6 | `chapters[2].image_prompts[5]` → `f61b_06.png` | close | Eric Saint | 1948 | Eric Saint | /edit | 46.6 | 0.035 |
+| 7 | `chapters[3].image_prompts[9]` → `f61b_07.png` | medium | Daniel Écija | 1962 | Daniel Écija | /edit | 56.0 | 0.035 |
+| 8 | `chapters[3].image_prompts[12]` → `f61b_08.png` | medium | María Bernal, Daniel Écija | 1963 | María Bernal, Daniel Écija | /edit | 53.3 | 0.035 |
+| 9 | `chapters[4].image_prompts[12]` → `f61b_09.png` | medium | Daniel Écija | 1991 | — (sin madre por era) | t2i | 45.9 | 0.035 |
+| 10 | `chapters[4].image_prompts[7]` → `f61b_10.png` | close | Daniel Écija hijo | 1985 | — (sin madre en registry) | t2i | 38.6 | 0.035 |
+
+### Mirada de CC (antes de leer la ciega)
+| # | viva / posada | plano real vs pedido | cara | parecido a la madre |
+|---|---|---|---|---|
+| 1 | **posada** (familia quieta a cámara, pie vendado adelante; el prompt dice «posing… everyone facing the camera») | medium-wide (cuerpo entero) vs medium: algo más abierto | sí | Daniel 8 · María 7 |
+| 2 | **posada** (Daniel contra la chapa, quieto, venda al pie; el prompt dice «stands posing») | wide (cuerpo entero, casa al fondo) vs medium: **no coincide** | sí | Daniel 8 |
+| 3 | **posada** (novios parados en la escalinata mirando a cámara, familia detrás; el prompt dice «step out» pero salió quieta) | medium ✓ | sí | Daniel 8 · María 8 |
+| 4 | **viva** (dos parejas a la mesa, tazas, charla, miradas cruzadas) | medium ✓ | sí (perfiles) | Milagros 6 · Ramón 6; el hombre de la derecha parece Daniel (contagio del tipo) |
+| 5 | **viva** (Víctor subiendo la escalerilla del barco, de espaldas/perfil) | wide (persona chica, barco entero) vs medium: **no coincide** | apenas (perfil lejano) | no juzgable |
+| 6 | **viva** (Eric Saint mirando a lo lejos, sombra larga) | close/medium (cabeza y hombros, de tres cuartos atrás) ✓ | perfil | 7 |
+| 7 | **viva** (grupo de mineros caminando entre el polvo, Daniel tosiendo con la mano en la boca) | medium ✓ (grupo) | sí | Daniel 8 |
+| 8 | **posada** (bautizo: los dos quietos con el bebé mirando a cámara) | medium ✓ | sí | María 8 · Daniel 8 |
+| 9 | **viva** (el médico examinando, el paciente sentado) | medium ✓ | sí (hombre mayor ≈ 65) | sin madre (correcto por era) |
+| 10 | **viva** (el policía leyendo el pasaporte, el joven detrás) | close ✓ (pasaporte con «WITTENOOM» legible: text_in_image del prompt) | sí | sin madre |
+
+Posadas: 4 de 10 (#1, #2, #3, #8) — las cuatro tienen en el prompt «posing» / «portrait» / «facing the camera» o una acción que el motor congeló (#3 «step out»). Vivas: 6. Plano distinto al pedido: 2 (#2 y #5 salieron wide). Caras: Daniel y María anclan 8 donde la cara es frontal; Milagros/Ramón 6 con contagio del tipo masculino. Lectura: el motor hace lo que dice la acción del prompt; donde m03 escribió «posing», posó. Es la causa que el handoff anticipa (la acción que escribe m03), otra tanda.
+
+### Mirada ciega (subagente que solo vio `hoja_f61b.jpg` y la lista de planos pedidos) — íntegra (`f61/b/MIRADA_F61b.md`)
+# MIRADA F61b — revisión visual a ciegas
+
+Fuente: solo `hoja_f61b.jpg` (+ `f61b_05.png`, `f61b_07.png`, `f61b_10.png` abiertas en grande). Sin leer handoff, prompts ni json.
+
+Planos pedidos: #1–#5 medium · #6 close · #7–#9 medium · #10 close.
+
+| # | viva o posada | plano real (vs pedido) | cara visible | parecido a la madre |
+|---|---|---|---|---|
+| 1 | **3** — pareja parada frente a la casa de chapa, los dos a cámara, brazos caídos; foto de familia quieta (coherente con el ancla, pero posada). | **wide** (cuerpo entero, casa y terreno rojo dominan) — **3**, no coincide con medium. | sí, ambos de frente. | Daniel 8 · Marta 8 (rasgos, pelo y piel muy fieles). |
+| 2 | **2** — hombre de pie en medio del camino, quieto, mirando al fotógrafo; carnet de cuerpo entero (botas/medias blancas visibles). | **wide** (cuerpo entero chico contra el galpón de chapa) — **3**, no coincide con medium. | sí, de frente. | Daniel 7 (misma cara, algo más flaco y con el pelo más corto). |
+| 3 | **3** — novios en la escalinata de la iglesia, ambos a cámara con la familia detrás, nadie hace nada; retrato de boda clásico. | **medium** (de la cintura para arriba, familia en segundo plano) — **9**, coincide. | sí, ambos de frente. | Daniel 8 · Marta 8 (velo no la tapa; es ella). |
+| 4 | **8** — cuatro personas a la mesa con tazas, se miran entre ellos y hablan; se lee la charla. | **medium** (mesa a la cintura) — **9**, coincide. | sí; la mujer izquierda y el hombre derecho de 3/4-perfil, los del centro de frente. | Milagros 6 (mujer de la izquierda: pelo ondulado y cara parecidas, un poco más mayor) · Ramón 5 (hombre de la derecha, de perfil: pelo y contextura sí, la cara se confirma poco). |
+| 5 | **8** — niño subiendo la escalerilla del barco de la mano de la madre, mira hacia arriba; momento real, con dirección. | **wide** (cuerpo entero, barco entero de fondo) — **3**, no coincide con medium. | sí, de 3/4 (mirando hacia arriba); la madre de espaldas. | Víctor 6 (mismo pelo y cejas, pero se ve bastante más chico que el retrato madre). |
+| 6 | **7** — hombre de espaldas-3/4 mirando hacia la mina, sombra larga; no hay acción pero sí mirada y tensión. | **medium close** (hombros y cabeza, algo de torso) — **7**, casi close; aceptable. | parcial, de perfil, mirando lejos. | Eric 5 (pelo castaño y peinado coinciden; se ve más joven y más flaco que la madre, y la cara apenas se ve). |
+| 7 | **7** — mineros saliendo del túnel entre polvo; el protagonista con la mano en la boca (tos), mira a cámara; los demás caminan cabizbajos. Acción clara, aunque el protagonista «sabe» que lo fotografían. | **medium** sobre el protagonista (cintura arriba), grupo en wide — **7**, coincide en lo esencial. | sí, de frente. | Daniel 8 (muy reconocible; es el único de la fila que parece el retrato). |
+| 8 | **3** — pareja con el bebé en brazos frente a la casa, los tres a cámara, inmóviles; foto de bautismo posada. | **medium** (muslos para arriba) — **8**, coincide. | sí, ambos de frente. | Marta 8 · Daniel 8. |
+| 9 | **7** — hombre mayor sentado en la camilla, el médico de pie le habla/examina; se lee consulta. | **medium** (los dos de la cintura para arriba) — **9**, coincide. | sí, ambos de perfil-3/4. | sin madre (t2i). |
+| 10 | **8** — oficial de aduana inclinado leyendo el pasaporte («BIRTHPLACE: WITTENOOM»), joven desenfocado detrás esperando; hay acción y tensión. | **close** (cabeza del oficial + detalle del pasaporte) — **9**, coincide. | oficial de perfil mirando abajo; el joven de frente pero desenfocado. | sin madre (t2i). |
+
+#### Totales
+
+- Promedio «viva»: **5,6 / 10** (3+2+3+8+8+7+7+3+7+8 = 56).
+- Posadas (viva ≤ 4): **4** (#1, #2, #3, #8) — todas las fotos de Daniel+Marta en Wittenoom/boda/bautismo salen como foto de carnet.
+- Plano distinto al pedido: **3** (#1, #2, #5: pedían medium y salieron wide de cuerpo entero). #6 queda en medium-close, lo doy por aceptable.
+
+#### Conclusión
+
+1. El parecido con la madre está resuelto: Daniel y Marta se reconocen en 8/10 en todas sus fotos (#1, #2, #3, #7, #8); las madres secundarias (Milagros, Ramón, Víctor, Eric) llegan a 5–6 porque el motor cambia edad o muestra la cara de perfil.
+2. El problema es la pose: cuando hay madre y gente «presentada» (pareja, boda, bautismo, el minero solo), el motor devuelve retrato quieto a cámara (4 de 10 posadas); las fotos vivas son las que tienen una acción concreta en el ancla (tomar café, subir la escalera, toser, consulta, leer el pasaporte).
+3. El plano medium se respeta solo cuando la escena tiene mesa, camilla o escalinata que corta a la cintura; en exteriores abiertos (casa de chapa, camino, barco) el motor abre a wide y la persona queda chica (3 de 10), lo contrario de lo que se pidió.
+
+**Las dos miradas coinciden** en las 4 posadas (#1, #2, #3, #8: las que el prompt escribe «posing» / «portrait» / «facing the camera» o una acción que el motor congeló) y en que Daniel y María anclan 8 en todas sus fotos; la ciega cuenta 3 fotos más abiertas que el medium pedido (#1, #2, #5) y CC 2 (#2, #5). Costo total F61b: **US$ 0,35**.
+
+### Veredicto de revisor-handoff — F61b (íntegro)
+
+**VEREDICTO: CUMPLE CON OBSERVACIONES**
+
+Verifiqué en solo lectura: no corrí fal ni LLM, y vi la hoja con Read.
+
+| # | Requisito | Estado | Evidencia |
+|---|---|---|---|
+| 1 | md5 del handoff | OK | `md5sum` = 62d3fcccf25b5b02c15ad90da872c1d5 |
+| 2 | Los 10 ítems existen y coinciden en plano/persona/año (PARÁ si no) | OK | El runner los verifica en TABLA (líneas ~55-62) y devuelve PARÁ si no. Recontrolé contra `03_visual_f61.json`: los 10 coinciden. El log no tiene PARÁ. |
+| 3 | Prompts tal cual | OK | Comparación `==` de los 10 prompts de `etapa_f61b.json` contra el json: 10/10 True. |
+| 4 | Una foto por llamada con `_madres_para_item` / `persona_aporta_madre` de producción | OK | El runner llama a `am._madres_para_item(...)` y `am._generate_flux_image_at` con una foto por futuro. `persona_aporta_madre` está dentro de `_madres_para_item`; no la llama directo, pero lo declara. |
+| 5 | Madres de `f60/bc/output/<tid>/foto_madre/`, sin generar nuevas | OK | `MADRES_DIR` apunta a esa carpeta y el registry sale de `glob("*.png")`. No hay llamadas a `fm.generate`. El log lista 8 madres. |
+| 6 | Las 10 a la vez, tope FLUX_MAX_WORKERS | OK | `ThreadPoolExecutor(max_workers=min(len(fotos), am.FLUX_MAX_WORKERS))`. Pared 63,0 s con tiempos individuales de 38-63 s, o sea en paralelo. |
+| 7 | `cost_tracker.start_video("lab_f61b")` | OK | Runner: `start_video(video_id=VIDEO_ID_COSTO)` con `"lab_f61b"`. El json tiene `video_id_costo: lab_f61b`. |
+| 8 | Producción intacta por mtimes | OK | El json dice `produccion_intacta: true` y el log "PRODUCCIÓN INTACTA: True". Los paths controlados son topics_db, guion vivo, `_steps/<tid>` y `output/<tid>`. |
+| 9 | Salidas en `f61/b`: 10 png, hoja, MIRADA | OK | Existen `f61b_01..10.png` (347-710 KB), `hoja_f61b.jpg`, `MIRADA_F61b.md`, y también json y log. |
+| 10 | Hoja: madres + foto + pie «#, plano, persona, ancla (12 palabras)» | OK | La vi: madres a la izquierda, foto a la derecha y pie con #, plano, personas, año y ancla. Los acentos salen rotos en las fuentes de PIL, pero se lee. |
+| 11 | Mirada ciega con 4 juicios por foto, íntegra en el reporte | OK | `MIRADA_F61b.md` tiene viva/posada, plano real, cara y parecido para las 10 fotos. Está pegada íntegra en `F61_REPORT.md` §F61b. La ceguera del subagente no se puede comprobar; el archivo declara solo hoja y lista de planos. |
+| 12 | Tabla de las 10 (archivo, madres, segundos, costo) | OK | Está en el reporte. Segundos y madres coinciden con el json. |
+| 13 | Costo total 10 × 0,035 = 0,35 | OK | `usd_total` = 0.35 en el json, 10 entradas de 0.035 cada una (8 /edit, 2 t2i). El reporte dice 0,35. |
+| 14 | Ningún módulo de producción tocado | OK | `git status` y `git diff --stat` solo muestran `diag_234_cap4.py`, `f28a.log` y `F61_REPORT.md`. Nada de asset_manager, foto_madre, m03 ni cost_tracker. |
+| 15 | Veredicto del revisor en el reporte y ESTADO actualizado | PARCIAL | Este veredicto todavía no está en el reporte. `lab/ESTADO_SESION.md` sin modificar en git y sin mención de F61b. Ambos quedan pendientes de CC. |
+
+**Lectura de CC («4 posadas = las que el prompt escribe posing»): fiel en el conteo, imprecisa en la causa.** Grep sobre los 10 prompts:
+- «posing», «portrait» y «facing the camera» aparecen en #1 (los tres). «Posing» aparece en #2 y #8.
+- #3 no tiene ninguno de los tres; solo tiene «step out». CC ya lo dice: «o una acción que el motor congeló».
+- Las 4 posadas de la ciega (#1, #2, #3, #8) son las mismas 4 de CC. Las otras 6 no contienen esos términos.
+- El reporte escribe «las cuatro tienen en el prompt posing/portrait/facing the camera o una acción congelada». Es correcto con esa salvedad, pero el titular «donde m03 escribió posing, posó» solo se sostiene para 3 de 4.
+
+**Fuera de alcance:** ninguno. Los dos archivos modificados no tienen relación con F61b: `diag_234_cap4.py` y `f28a.log`.
+
+**Observaciones**
+1. La divergencia en plano real entre las dos miradas está bien declarada. La ciega cuenta 3 wide (#1, #2, #5); CC cuenta 2 (#2, #5) y dice «medium-wide» en #1. En la hoja #1 es cuerpo entero, así que la ciega tiene la razón y la cifra de CC subestima.
+2. Hay un solo promedio de «viva» (5,6/10), de la ciega. La mirada de CC no lleva puntaje. Es consistente con el handoff, que no lo pide.
+3. Costo por foto: `usd` = total/10, no medido por foto. El total sí es medido por cost_tracker.
+4. En #4 CC anota que el hombre de la derecha «parece Daniel» (contagio del tipo) y la ciega dice Ramón 5. Es lectura subjetiva; la hoja no la desmiente.
+5. #10 «Daniel Écija hijo» sale sin madre porque no está en el registry. El reporte lo declara.
+6. Una sola corrida por foto, sin varianza.
+
+**Riesgos que el contrato no cubre:** el parecido se juzga con una sola mirada ciega (sin segunda opinión) y por foto sola. El contrato no mide si las posadas se deben al prompt o al motor, y tampoco un A/B con el prompt sin «posing».
+
+#### Adenda de CC
+- **Causa de las posadas:** correcto: «posing» está en 3 de las 4 (#1, #2, #8); #3 («step out of a church door… after the wedding») salió quieta sin que el prompt lo pida. La lectura queda: 3 posadas por la acción escrita por m03 y 1 que el motor congeló; en las 6 vivas la acción del ancla es concreta (tomar café, subir, toser, examinar, leer). Separar prompt de motor (A/B sin «posing») es la tanda que el handoff deja para después.
+- **Obs. 1:** acepto la cuenta de la ciega: 3 fotos más abiertas que el medium pedido (#1, #2, #5), todas en exteriores abiertos.
+- **Obs. 5:** Daniel Écija hijo tiene 1 sola foto en Wittenoom → sin madre por la regla «≥ 2» de F60 (no por era).
+- **Fila 15:** ESTADO y commit van ahora, después del veredicto.
+
+## PARADA F61b
+Nada más. El analista mira la hoja con Omar; la causa de las posadas (la acción que escribe m03) es otra tanda.

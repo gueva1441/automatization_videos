@@ -1,0 +1,376 @@
+{
+ "hora": "2026-10-30T23:11:15",
+ "video_id_costo": "lab_f61b",
+ "registry": {
+  "Eric Saint": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\eric_saint.png",
+  "Víctor Calvo": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\v_ctor_calvo.png",
+  "Ramón de Juan": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\ram_n_de_juan.png",
+  "Milagros Barroso": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\milagros_barroso.png",
+  "Mercedes": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\mercedes.png",
+  "Daniel Écija": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\daniel_cija.png",
+  "María Bernal": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\mar_a_bernal.png",
+  "Maitland Parker": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\maitland_parker.png"
+ },
+ "fotos": [
+  {
+   "n": 1,
+   "ref": "chapters[0].supplemental_image_prompts[0]",
+   "file": "f61b_01.png",
+   "plano": "medium",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "anio": "1962",
+   "ancla": "En el retrato de familia todos miran a cámara menos el pie: está vendado, y la herida que le hizo un trozo de amianto no cierra.",
+   "prompt": "Spanish migrant family posing outdoors: a mid-20s Spanish man, slim, dark wavy hair, dust-coated cotton work shirt and trousers, one foot bandaged white; a young adult Spanish woman, slim, dark hair, cotton print dress and cardigan, standing close at his shoulder. The family stands still for a portrait, everyone facing the camera while the man's bandaged foot sits forward on the red ground. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Front of a corrugated iron and fibro company house in Wittenoom, 1962, red dirt yard surfaced with blue-grey tailings. Hard cold overcast daylight, flat and shadowless. Medium shot, eye-level, like a family roll-film snapshot, deep depth of field, 50mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "madres": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "madres_paths": [
+    "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\daniel_cija.png",
+    "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\mar_a_bernal.png"
+   ],
+   "cap": 1,
+   "use_ultra": true,
+   "seed": null,
+   "segundos": 61.3,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "usd": 0.035
+  },
+  {
+   "n": 2,
+   "ref": "chapters[0].supplemental_image_prompts[1]",
+   "file": "f61b_02.png",
+   "plano": "medium",
+   "persona": [
+    "Daniel Écija"
+   ],
+   "anio": "1962",
+   "ancla": "El hombre se llama Daniel Écija y es minero.",
+   "prompt": "A mid-20s Spanish miner, light olive tanned skin, slim build, dark wavy hair, dust-coated cotton work shirt with sleeves rolled, work trousers, one boot on and one foot wrapped in a white bandage. He stands posing against a corrugated iron wall, shoulders squared, the bandaged foot planted slightly forward. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Red earth yard beside a corrugated iron company house, Wittenoom mining town, 1962. Hard cold overcast daylight, flat and shadowless. Medium shot, eye-level, frontal, 85mm lens, shallow depth of field isolating the man from the iron wall. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "madres": [
+    "Daniel Écija"
+   ],
+   "madres_paths": [
+    "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\daniel_cija.png"
+   ],
+   "cap": 1,
+   "use_ultra": true,
+   "seed": null,
+   "segundos": 46.2,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "usd": 0.035
+  },
+  {
+   "n": 3,
+   "ref": "chapters[1].image_prompts[1]",
+   "file": "f61b_03.png",
+   "plano": "medium",
+   "persona": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "anio": "1962",
+   "ancla": "Un año después se casan: el jueves veinte de septiembre de mil novecientos sesenta y dos.",
+   "prompt": "A slim mid-20s Spanish groom in a dark suit and a young adult Spanish bride in a modest white dress and veil, with family behind. The newlyweds step out of a church door onto stone steps after the Thursday wedding. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Stone steps of a Madrid parish church, September 1962, plain baroque doorway. Soft overcast September daylight. Medium shot, slightly low angle, shallow depth of field, 50mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "madres": [
+    "Daniel Écija",
+    "María Bernal"
+   ],
+   "madres_paths": [
+    "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\daniel_cija.png",
+    "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\mar_a_bernal.png"
+   ],
+   "cap": 2,
+   "use_ultra": false,
+   "seed": 956889816,
+   "segundos": 56.6,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "usd": 0.035
+  },
+  {
+   "n": 4,
+   "ref": "chapters[1].image_prompts[5]",
+   "file": "f61b_04.png",
+   "plano": "medium",
+   "persona": [
+    "Milagros Barroso",
+    "Ramón de Juan"
+   ],
+   "anio": "1962",
+   "ancla": "Con el tiempo se hicieron amigos íntimos de otra pareja, Milagros Barroso y Ramón de Juan.",
+   "prompt": "A young adult Spanish woman in a cotton print dress and a lean adult Spanish miner in a dust-coated work shirt, sitting with another young Spanish couple. The couples share coffee and talk on a small porch at dusk after a shift. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Porch of a corrugated iron and fibro company house in a Pilbara mining town, 1962. Warm low evening sun, long shadows. Medium shot, eye-level, shallow depth of field, 50mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "madres": [
+    "Milagros Barroso",
+    "Ramón de Juan"
+   ],
+   "madres_paths": [
+    "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\milagros_barroso.png",
+    "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\ram_n_de_juan.png"
+   ],
+   "cap": 2,
+   "use_ultra": false,
+   "seed": 956889816,
+   "segundos": 63.0,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "usd": 0.035
+  },
+  {
+   "n": 5,
+   "ref": "chapters[1].image_prompts[7]",
+   "file": "f61b_05.png",
+   "plano": "medium",
+   "persona": [
+    "Víctor Calvo"
+   ],
+   "anio": "1962",
+   "ancla": "Un niño que hizo ese viaje todavía recuerda el calor. Víctor Calvo era un niño cuando subió a ese barco.",
+   "prompt": "A slim young Spanish boy, around eight, in shorts, simple shirt and sandals, with his mother in a cotton dress. The boy climbs the gangway of the liner holding his mother's skirt. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Málaga port quay, 1962, gangway rising to a large liner. Clear early morning harbour light. Medium shot, low angle for scale, deep depth of field, 28mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "madres": [
+    "Víctor Calvo"
+   ],
+   "madres_paths": [
+    "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\v_ctor_calvo.png"
+   ],
+   "cap": 2,
+   "use_ultra": false,
+   "seed": 956889816,
+   "segundos": 48.5,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "usd": 0.035
+  },
+  {
+   "n": 6,
+   "ref": "chapters[2].image_prompts[5]",
+   "file": "f61b_06.png",
+   "plano": "close",
+   "persona": [
+    "Eric Saint"
+   ],
+   "anio": "1948",
+   "ancla": "Se llama Eric Saint. Lo que pasó con la carta lo contó él mismo: «Me desestimaron y, de hecho, me tildaron de alborotador», dijo Saint.",
+   "prompt": "The same middle-aged Anglo-Australian doctor in his rumpled light suit. Standing alone outside the company office after being dismissed, the door shut behind him. Outside a corrugated-iron company office in Wittenoom, 1948, blue tailings yard, mill dust on the horizon. Hard window-hour sun turning low, his shadow stretched long across the yard. Close shot, eye-level, from behind his shoulder, 85mm lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1948, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "madres": [
+    "Eric Saint"
+   ],
+   "madres_paths": [
+    "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\eric_saint.png"
+   ],
+   "cap": 3,
+   "use_ultra": false,
+   "seed": 956889816,
+   "segundos": 46.6,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "usd": 0.035
+  },
+  {
+   "n": 7,
+   "ref": "chapters[3].image_prompts[9]",
+   "file": "f61b_07.png",
+   "plano": "medium",
+   "persona": [
+    "Daniel Écija"
+   ],
+   "anio": "1962",
+   "ancla": "Uno de los hijos de Daniel cuenta que el primer día de trabajo de su padre hubo una explosión y murió gente.",
+   "prompt": "A mid-20s Spanish miner, slim, olive skin, dark hair, new work shirt already grey with dust, among other European miners in dust-coated shirts. Stumbling out of the mine entrance as a dense dust cloud billows from the adit after the blast, men bent over coughing. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Varied European features, with fair to olive skin, light to dark hair, and medium working builds. Mine entrance in a red Wittenoom gorge in 1962, timber-framed portal, rubble and blue tailings. Dust-choked daylight, sun reduced to a dim glow. Medium shot, eye-level, moderate depth of field, 50mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "madres": [
+    "Daniel Écija"
+   ],
+   "madres_paths": [
+    "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\daniel_cija.png"
+   ],
+   "cap": 4,
+   "use_ultra": false,
+   "seed": 956889816,
+   "segundos": 56.0,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "usd": 0.035
+  },
+  {
+   "n": 8,
+   "ref": "chapters[3].image_prompts[12]",
+   "file": "f61b_08.png",
+   "plano": "medium",
+   "persona": [
+    "María Bernal",
+    "Daniel Écija"
+   ],
+   "anio": "1963",
+   "ancla": "El bebé era muy grande. Lo sacaron con fórceps. Le pusieron Daniel, como el padre. Hay una foto del bautizo: siete de julio de mil novecientos sesenta y tres.",
+   "prompt": "A young Spanish couple in modest Sunday best: the mother thin and pale, the father mid-20s, slim, olive skin, holding a very large baby in a white christening gown. Posing stiffly for a christening photograph at the small church entrance. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Small Wittenoom church on 7 July 1963, timber and fibro facade, forecourt surfaced with blue tailings. Soft clear winter morning light. Medium shot, eye-level from the photographer's position, shallow depth of field, 50mm lens. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "madres": [
+    "María Bernal",
+    "Daniel Écija"
+   ],
+   "madres_paths": [
+    "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\mar_a_bernal.png",
+    "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f60\\bc\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\foto_madre\\daniel_cija.png"
+   ],
+   "cap": 4,
+   "use_ultra": false,
+   "seed": 956889816,
+   "segundos": 53.3,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+   "usd": 0.035
+  },
+  {
+   "n": 9,
+   "ref": "chapters[4].image_prompts[12]",
+   "file": "f61b_09.png",
+   "plano": "medium",
+   "persona": [
+    "Daniel Écija"
+   ],
+   "anio": "1991",
+   "ancla": "Madrid, mil novecientos noventa y uno. Daniel Écija va al médico. Le hacen pruebas. La palabra es mesotelioma.",
+   "prompt": "A gaunt Spanish man in his mid-50s, olive skin, greying dark hair, thin frame, in a 1990s cardigan, beside a Spanish doctor in a white coat. Sits on the edge of the examination couch as the diagnosis of mesothelioma is spoken. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. Madrid clinic consulting room, 1991, beige walls, steel furniture. Hard light from a single window plus the cold lightbox glow. Medium shot, eye-level, 50mm lens, moderate depth of field. A grainy 35mm documentary photograph taken in 1991, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "madres": [],
+   "madres_paths": [],
+   "cap": 5,
+   "use_ultra": false,
+   "seed": 956889816,
+   "segundos": 45.9,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
+   "usd": 0.035
+  },
+  {
+   "n": 10,
+   "ref": "chapters[4].image_prompts[7]",
+   "file": "f61b_10.png",
+   "plano": "close",
+   "persona": [
+    "Daniel Écija hijo"
+   ],
+   "anio": "1985",
+   "ancla": "Mil novecientos ochenta y cinco. Un aeropuerto australiano, un puesto de control. El agente abre el documento de Daniel Écija hijo, lee el lugar de nacimiento, baja la cabeza hacia el papel",
+   "prompt": "A fair-skinned Anglo-Australian police officer in his 40s, medium build, in 1980s police uniform and peaked cap; an early-20s Spanish man with olive skin and dark hair across the counter, out of focus. The officer opens the passport, reads the birthplace and lowers his head toward the page. Southern European features, with light olive to tanned skin, dark brown or black hair that is straight to wavy, brown eyes, and slim to medium builds. 1985 Australian airport passport checkpoint, laminate counter, glass booth. The birthplace line of the open passport reads \"WITTENOOM\" in clear crisp typed block capitals lettering. Hard overhead fluorescent light, high contrast shadows. Close shot, over-the-shoulder, slightly high angle onto the document, shallow depth of field, passport sharp, traveller soft. A grainy 35mm documentary photograph taken in 1985, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio.",
+   "madres": [],
+   "madres_paths": [],
+   "cap": 5,
+   "use_ultra": false,
+   "seed": 956889816,
+   "segundos": 38.6,
+   "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
+   "usd": 0.035
+  }
+ ],
+ "segundos_pared": 63.0,
+ "usd_total": 0.35,
+ "entradas": [
+  {
+   "service": "fal.ai Seedream 5.0 Lite (t2i)",
+   "units": 1,
+   "cost": 0.035
+  },
+  {
+   "service": "fal.ai Seedream 5.0 Lite (t2i)",
+   "units": 1,
+   "cost": 0.035
+  },
+  {
+   "service": "fal.ai Seedream 5.0 Lite (edit)",
+   "units": 1,
+   "cost": 0.035
+  },
+  {
+   "service": "fal.ai Seedream 5.0 Lite (edit)",
+   "units": 1,
+   "cost": 0.035
+  },
+  {
+   "service": "fal.ai Seedream 5.0 Lite (edit)",
+   "units": 1,
+   "cost": 0.035
+  },
+  {
+   "service": "fal.ai Seedream 5.0 Lite (edit)",
+   "units": 1,
+   "cost": 0.035
+  },
+  {
+   "service": "fal.ai Seedream 5.0 Lite (edit)",
+   "units": 1,
+   "cost": 0.035
+  },
+  {
+   "service": "fal.ai Seedream 5.0 Lite (edit)",
+   "units": 1,
+   "cost": 0.035
+  },
+  {
+   "service": "fal.ai Seedream 5.0 Lite (edit)",
+   "units": 1,
+   "cost": 0.035
+  },
+  {
+   "service": "fal.ai Seedream 5.0 Lite (edit)",
+   "units": 1,
+   "cost": 0.035
+  }
+ ],
+ "produccion_intacta": true,
+ "mtimes_antes": {
+  "C:\\CLAUDE_PROJECTS\\automatization_videos\\data\\topics_db.json": [
+   1,
+   1793320735.434795
+  ],
+  "C:\\CLAUDE_PROJECTS\\automatization_videos\\data\\scripts\\123bbb64-9fca-4395-8bf4-57d60e219ef1.json": [
+   1,
+   1793160824.4798603
+  ],
+  "C:\\CLAUDE_PROJECTS\\automatization_videos\\data\\scripts\\_steps\\123bbb64-9fca-4395-8bf4-57d60e219ef1": [
+   74,
+   1793321904.3999534
+  ],
+  "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1": [
+   243,
+   1793349698.5322182
+  ]
+ },
+ "mtimes_despues": {
+  "C:\\CLAUDE_PROJECTS\\automatization_videos\\data\\topics_db.json": [
+   1,
+   1793320735.434795
+  ],
+  "C:\\CLAUDE_PROJECTS\\automatization_videos\\data\\scripts\\123bbb64-9fca-4395-8bf4-57d60e219ef1.json": [
+   1,
+   1793160824.4798603
+  ],
+  "C:\\CLAUDE_PROJECTS\\automatization_videos\\data\\scripts\\_steps\\123bbb64-9fca-4395-8bf4-57d60e219ef1": [
+   74,
+   1793321904.3999534
+  ],
+  "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1": [
+   243,
+   1793349698.5322182
+  ]
+ },
+ "log": [
+  "madres F60 B+C: ['Daniel Écija', 'Eric Saint', 'Maitland Parker', 'María Bernal', 'Mercedes', 'Milagros Barroso', 'Ramón de Juan', 'Víctor Calvo']",
+  "#1 chapters[0].supplemental_image_prompts[0] medium ['Daniel Écija', 'María Bernal'] 1962 → madres ['Daniel Écija', 'María Bernal']",
+  "#2 chapters[0].supplemental_image_prompts[1] medium ['Daniel Écija'] 1962 → madres ['Daniel Écija']",
+  "#3 chapters[1].image_prompts[1] medium ['Daniel Écija', 'María Bernal'] 1962 → madres ['Daniel Écija', 'María Bernal']",
+  "#4 chapters[1].image_prompts[5] medium ['Milagros Barroso', 'Ramón de Juan'] 1962 → madres ['Milagros Barroso', 'Ramón de Juan']",
+  "#5 chapters[1].image_prompts[7] medium ['Víctor Calvo'] 1962 → madres ['Víctor Calvo']",
+  "#6 chapters[2].image_prompts[5] close ['Eric Saint'] 1948 → madres ['Eric Saint']",
+  "#7 chapters[3].image_prompts[9] medium ['Daniel Écija'] 1962 → madres ['Daniel Écija']",
+  "#8 chapters[3].image_prompts[12] medium ['María Bernal', 'Daniel Écija'] 1963 → madres ['María Bernal', 'Daniel Écija']",
+  "#9 chapters[4].image_prompts[12] medium ['Daniel Écija'] 1991 → madres []",
+  "#10 chapters[4].image_prompts[7] close ['Daniel Écija hijo'] 1985 → madres []",
+  "  ✓ f61b_10.png · 38.6 s · fal-ai/bytedance/seedream/v5/lite/text-to-image",
+  "  ✓ f61b_09.png · 45.9 s · fal-ai/bytedance/seedream/v5/lite/text-to-image",
+  "  ✓ f61b_02.png · 46.2 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ f61b_06.png · 46.6 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ f61b_05.png · 48.5 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ f61b_08.png · 53.3 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ f61b_07.png · 56.0 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ f61b_03.png · 56.6 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ f61b_01.png · 61.3 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "  ✓ f61b_04.png · 63.0 s · fal-ai/bytedance/seedream/v5/lite/edit",
+  "pared 63.0 s · costo cost_tracker US$ 0.35 (10 entradas)",
+  "PRODUCCIÓN INTACTA: True"
+ ]
+}

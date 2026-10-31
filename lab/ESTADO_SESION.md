@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-30 (F61: fuera de m03 la regla R7 (plano general domina), la oración «a lo sumo un cuarto en plano medio» y el tope en código del 25 % con su re-hechura; el encuadre lo decide VISUAL ARC OF THIS CAP. Medido en texto sobre Wittenoom (copia de lab, US$ 2,31): plano general 75 % → 49 %, medium 13 → 37, close 3 → 7; caps sin establecimiento 0; cero re-hechuras del video · PARADA B. Siguiente: el analista lee la tabla y los 10 prompts y le dice a Omar si sale sano.)
+Última actualización: 2026-10-30 (F61b: 10 fotos de los planos medios con persona de la medición F61, prompts tal cual, madres de F60 B+C, una por llamada (US$ 0,35): 4 posadas (las que el prompt escribe «posing»/«portrait») y 6 vivas; 2 salieron más abiertas que el medium pedido; caras ancladas 8 donde son frontales · PARADA. Siguiente: el analista mira la hoja con Omar; la causa de las posadas es la acción que escribe m03 (otra tanda).)
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -13,6 +13,18 @@
   - 364 tests verdes en las suites de guion y gfx (histórico). Las 3 fallas de `test_module_01b_pauses.py` eran previas a F5 (borradas en F41).
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## 👀 Para Omar (F61b, PARADA): las 10 fotos de plano medio están en la hoja; 6 vivas y 4 posadas.
+- Se generaron las 10 fotos elegidas por el analista con los prompts nuevos de F61 tal cual y las madres de F60 (US$ 0,35, sin madres nuevas, producción intacta). Hoja: `lab/hyperframes/f61/b/hoja_f61b.jpg` (madre + foto + pie).
+- Dos miradas (CC y un subagente ciego que solo vio la hoja): 4 posadas (retrato de familia, Daniel contra la chapa, los novios, el bautizo) y 6 vivas (la mesa de las dos parejas, el niño subiendo al barco, Eric Saint mirando el polvo, los mineros entre el polvo, el médico, el pasaporte). Las posadas son exactamente las que el prompt de m03 escribe «posing» / «portrait» / «facing the camera»: el motor hace lo que dice la acción. Dos fotos salieron más abiertas que el plano medio pedido.
+- Las caras anclan bien donde son frontales (Daniel y María 8); en la mesa de las dos parejas el segundo hombre se parece a Daniel (madres del mismo tipo, ya anotado en F60).
+- Nada más en esta tanda. La causa de las posadas está en la acción que escribe m03: otra tanda.
+
+## F61b — 10 fotos de los planos medios con persona (¿vivas o posadas?) — PARADA
+- Runner `lab/hyperframes/f61/etapa_f61b_fotos.py` (lab, ningún módulo de producción): los 10 ítems de la tabla verificados contra `03_visual_f61.json` (plano/persona/año), prompts tal cual, `_madres_para_item` (persona_aporta_madre adentro: #9 Daniel 1991 sin madre por era, #10 Daniel hijo sin madre), madres de `f60/bc/output/<tid>/foto_madre/`, `_generate_flux_image_at` una por llamada, las 10 a la vez; `cost_tracker.start_video("lab_f61b")`; mtimes de producción iguales. 8 /edit + 2 t2i, pared 63,0 s, US$ 0,35. Salidas `f61/b/` (fotos, hoja, json/log, MIRADA_F61b.md).
+- Dos miradas (CC + subagente ciego que solo vio la hoja): posadas #1, #2, #3, #8 (viva ≤ 4; promedio «viva» 5,6/10), vivas #4, #5, #6, #7, #9, #10; 3 más abiertas que el medium pedido (#1, #2, #5, exteriores abiertos); cara visible 10/10; Daniel y María 8/10 en todas sus fotos, Milagros 6, Ramón 5, Víctor 6 (más chico que la madre), Eric 5 (perfil). Causa: «posing» en el prompt de 3 de las 4 posadas (#1, #2, #8), #3 congelada por el motor; en las vivas el ancla trae una acción concreta.
+- Revisor F61b: CUMPLE CON OBSERVACIONES (14 requisitos OK, el 15 —veredicto en reporte y ESTADO— pendiente por diseño; lectura «posadas = posing» fiel en el conteo, 3 de 4 por el prompt y 1 congelada por el motor; obs.: la ciega cuenta 3 más abiertas (CC 2), costo por foto prorrateado, una sola corrida; riesgo: sin A/B prompt sin «posing»); veredicto íntegro + adenda en F61_REPORT.md §F61b.
+- PARADA: nada más; el analista mira la hoja con Omar.
 
 ## 👀 Para Omar (F61, PARADA B): m03 ya no empuja todo a plano general; las fotos se acercan según el tipo de cap.
 - Se quitaron de m03 las tres cosas que empujaban a lejos: la regla R7 del director («el plano general domina»), la oración «a lo sumo un cuarto de fotos con persona en plano medio» y el tope en código del 25 % que rehacía los planos medios como planos generales. Lo que manda ahora es la tabla por tipo de cap que ya existía (setup abierto, tensión cerrando, shock en primer plano, outro abierto).
