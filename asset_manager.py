@@ -1082,19 +1082,37 @@ def _norm_persona(v: Any) -> list[str]:
     return [s.strip() for s in v if isinstance(s, str) and s.strip()]
 
 
+def _nombres_en_prompt(prompt: str, registry: dict[str, str] | None) -> list[str]:
+    """F71b: los nombres del registry que aparecen enteros en el prompt, en orden de aparición. Gana el más largo: «Daniel Écija
+    hijo» no cuenta como «Daniel Écija». Las claves `__…` no son personas."""
+    texto, hallados = prompt or "", []
+    for nombre in sorted((k for k in registry or {} if k and not k.startswith("__")), key=len, reverse=True):
+        patron = re.compile(rf"(?<!\w){re.escape(nombre)}(?!\w)")
+        posiciones = [m.start() for m in patron.finditer(texto)]
+        if posiciones:
+            hallados.append((posiciones[0], nombre))
+            texto = patron.sub(lambda m: " " * len(m.group(0)), texto)   # lo tapa, sin correr las posiciones de los que siguen
+    return [n for _, n in sorted(hallados)]
+
+
 def _madres_para_item(persona: list[str], foto_madre_refs: list[str], anio: Any,
-                      registry: dict[str, str] | None, personas_canon: dict[str, dict] | None) -> list[tuple[str, str]]:
+                      registry: dict[str, str] | None, personas_canon: dict[str, dict] | None,
+                      prompt: str = "") -> list[tuple[str, str]]:
     """F60 B: REGLA ÚNICA de madres para todos los caminos (secuencia, una foto, caps con clip, QA): refs = madres de
     `persona` (en orden, la principal primero; solo las que aportan por era y tienen foto en el registry) + `foto_madre_ref`
     (objeto/lugar), sin repetir, tope 2 (el de `_norm_foto_madre_refs`). Devuelve [(ref, path)] de las que EXISTEN en disco;
     `personas_canon` = {nombre: {era, condition_by_period}} del contrato (m06); sin canon la persona aporta.
-    F68: con `madres_solo_persona` en el perfil activo, `foto_madre_ref` no entra (foto sin persona = sin referencia)."""
+    F68: con `madres_solo_persona` en el perfil activo, `foto_madre_ref` no entra (foto sin persona = sin referencia).
+    F71b: también cuentan las personas del registry que `prompt` nombra y no están en `persona` (después de ellas, mismo filtro de
+    era). Se deriva cada vez: `persona` no se toca."""
     registry = registry or {}
     personas_canon = personas_canon or {}
     out: list[tuple[str, str]] = []
     perfil = select_profile(api.image_engine)
     refs = [] if perfil is not None and perfil.render.madres_solo_persona else list(foto_madre_refs or [])
-    candidatos = [p for p in (persona or []) if persona_aporta_madre(personas_canon.get(p), anio)] + refs
+    personas = list(persona or [])
+    personas += [n for n in _nombres_en_prompt(prompt, registry) if n not in personas]
+    candidatos = [p for p in personas if persona_aporta_madre(personas_canon.get(p), anio)] + refs
     for ref in candidatos:
         p = registry.get(ref)
         if p and Path(p).exists() and ref not in [r for r, _ in out]:
@@ -1394,7 +1412,7 @@ def _process_flux_chapter(
         # F60 B: regla única — madres de `persona` (en orden, filtro por era) + foto_madre_ref, tope 2.
         sec = secuencia.get((chapter_id, "img", item["idx"]))
         madres = _madres_para_item(item.get("persona") or [], item.get("foto_madre_refs") or [], item.get("anio"),
-                                   registry, personas_canon)
+                                   registry, personas_canon, item.get("prompt") or "")
         needs = not out_path.exists() and sec is None
         plan.append({
             "idx": item["idx"],
@@ -1652,7 +1670,7 @@ def _generate_supplementals_for_veo_chapter(
             }
 
         madres = _madres_para_item(_norm_persona(item.get("persona")), _norm_foto_madre_refs(item.get("foto_madre_ref")),
-                                   item.get("anio"), registry, personas_canon)
+                                   item.get("anio"), registry, personas_canon, prompt)
         kw = {"foto_madre_data_uris": [_path_to_data_uri(p) for _, p in madres]} if madres else {}
         try:
             meta = _generate_flux_image_at(prompt, art_profile, img_path, use_ultra, **kw)
@@ -1718,7 +1736,7 @@ def _process_veo_chapter(
 
     f8 = chapter.get("image_f8") if isinstance(chapter.get("image_f8"), dict) else {}
     madres_f8 = _madres_para_item(_norm_persona(f8.get("persona")), _norm_foto_madre_refs(f8.get("foto_madre_ref")),
-                                  f8.get("anio"), registry, personas_canon)
+                                  f8.get("anio"), registry, personas_canon, raw_image_prompts[0] if raw_image_prompts else "")
 
     clip_results: list[dict] = []
 

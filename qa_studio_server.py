@@ -930,22 +930,30 @@ def _backup(state: "QAState", src: Path, ts: str) -> None:
     shutil.copy2(src, bdir / f"{src.name}.{ts}.bak{src.suffix}")
 
 
-def _uris_madres(state: "QAState", entry: dict, *, madres_fn=None, data_uri_fn=None, script: dict | None = None) -> list[str]:
-    """F60 B: data URIs de las madres de un ítem con la REGLA ÚNICA de asset_manager (`_madres_para_item`: `persona` en
-    orden + `foto_madre_ref`, filtro por era, tope 2) contra `foto_madre_registry`/`foto_madre_personas` del guion vivo.
-    Solo lee `entry`; `persona` no se guarda ni se edita. Sin guion vivo → []."""
+def _madres_de_entrada(state: "QAState", entry: dict, *, madres_fn=None, script: dict | None = None,
+                       prompt: str | None = None) -> list[tuple[str, str]]:
+    """F60 B: [(ref, path)] de las madres de un ítem con la REGLA ÚNICA de asset_manager (`_madres_para_item`: `persona` en
+    orden + F71b: las personas que `prompt` nombra, por defecto el del ítem + `foto_madre_ref`, filtro por era, tope 2) contra
+    `foto_madre_registry`/`foto_madre_personas` del guion vivo. Solo lee `entry`; `persona` no se guarda ni se edita. Sin guion vivo → []."""
     if script is None:
         sp = getattr(state, "script_path", None)
         script = _read_json(sp) if sp else None
     if not script:
         return []
-    if madres_fn is None or data_uri_fn is None:
+    if madres_fn is None:
         import asset_manager as am  # noqa: PLC0415
-        madres_fn = madres_fn or am._madres_para_item
-        data_uri_fn = data_uri_fn or am._path_to_data_uri
-    madres = madres_fn(entry.get("persona") or [], _refs_madre(entry.get("foto_madre_ref")), entry.get("anio"),
-                       script.get("foto_madre_registry") or {}, script.get("foto_madre_personas") or {})
-    return [data_uri_fn(p) for _, p in madres]
+        madres_fn = am._madres_para_item
+    return madres_fn(entry.get("persona") or [], _refs_madre(entry.get("foto_madre_ref")), entry.get("anio"),
+                     script.get("foto_madre_registry") or {}, script.get("foto_madre_personas") or {},
+                     entry.get("prompt") or "" if prompt is None else prompt)
+
+
+def _uris_madres(state: "QAState", entry: dict, *, madres_fn=None, data_uri_fn=None, script: dict | None = None) -> list[str]:
+    """Los data URIs de `_madres_de_entrada`."""
+    if data_uri_fn is None:
+        import asset_manager as am  # noqa: PLC0415
+        data_uri_fn = am._path_to_data_uri
+    return [data_uri_fn(p) for _, p in _madres_de_entrada(state, entry, madres_fn=madres_fn, script=script)]
 
 
 def _refs_madre(v) -> list[str]:
@@ -1145,7 +1153,8 @@ def _fix_core(
     graded = out_path.with_name(f"{out_path.stem}_graded{out_path.suffix}")
     ts = now_ts or datetime.now().strftime("%Y%m%d_%H%M%S")
     try:
-        for p in (out_path, graded, vpath, state.script_path):
+        for p in (out_path, graded, out_path.with_name(f"{out_path.stem}_native.png"),      # F71b: el motor también pisa estos dos
+                  out_path.with_name(f"{out_path.stem}.llamada.json"), vpath, state.script_path):
             _backup(state, p, ts)
     except OSError as e:
         return False, f"backup falló: {e}"
@@ -1153,7 +1162,8 @@ def _fix_core(
     # 8. Seedream: semilla por sujeto + madres con la REGLA ÚNICA (F60 B: `persona` en orden + foto_madre_ref, tope 2,
     #    filtro por era) contra foto_madre_registry/foto_madre_personas del guion vivo. Solo en `entry`: `persona` no se
     #    guarda ni se edita (si el pedido de Omar cambia quién sale, la madre sigue siendo la de `persona`: se le dice).
-    uris = _uris_madres(state, entry, madres_fn=madres_fn, data_uri_fn=data_uri_fn, script=script)
+    madres = _madres_de_entrada(state, entry, madres_fn=madres_fn, script=script, prompt=prompt_final)   # F71b: el prompt re-armado
+    uris = [data_uri_fn(p) for _, p in madres]
     seed = seed_fn(topic_id, item03.get("subject_ref") or entry.get("subject_ref"))
     try:
         generate_fn(prompt_final, "", out_path, use_ultra=is_hook_fn(cap), seed=seed,
@@ -1186,7 +1196,7 @@ def _fix_core(
 
     # Invalidar el baked → ENSAMBLAR re-renderiza el cap desde el PNG nuevo.
     _invalidate_baked(state, topic_id, cap)
-    personas_madre = [p for p in (entry.get("persona") or []) if p in (script.get("foto_madre_registry") or {})]
+    personas_madre = [r for r, _ in madres if not r.startswith("__")]
     nota = (f" Foto anclada a la madre de {', '.join(personas_madre)} (casillero persona: no cambia con el pedido)."
             if personas_madre and uris else "")
     return True, _informe_scrub(it, cambiados) + nota
