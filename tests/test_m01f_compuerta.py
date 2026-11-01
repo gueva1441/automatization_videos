@@ -283,7 +283,7 @@ def test_process_topic_para_en_narracion_antes_del_papel_y_al_reanudar(env, monk
     assert r["parada"] == "papel" and guion == []
 
 
-# ═══════════════════════ C.2: reconstruir, editar, aceptar ═══════════════════════
+# ═══════════════════════ C.2 y F67d: reconstruir y el borrador ═══════════════════════
 
 ARCHIVOS = ("01a_skeleton.json", "01b_narration.json", "01b_narracion_v3.json")
 
@@ -312,40 +312,82 @@ def test_reconstruir_cap_vacio_no_escribe(env):
     assert _bytes(env) == antes
 
 
-def test_editar_parrafo_invalida_la_aprobacion(env):
+def _editar(env, i: int, texto: str) -> str:
+    """Una edición guardada en disco, sin pasar por la página (lo que queda después de un borrador aprobado)."""
+    c = mf._carga(TID, env["sd"])
+    c["parrafos"][i] = {**c["parrafos"][i], "texto": texto}
+    return mf._aplicar(TID, c, env["sd"])
+
+
+def _borr(env, decisiones=None, ediciones=None) -> dict:
+    return mf.borrador(_n3(env)["parrafos"], mf.cargar_critica(TID, env["sd"]), decisiones, ediciones)
+
+
+def _textos_cap(ps, n=2) -> list[str]:
+    return [p["texto"] for p in ps if p["cap"] == n]
+
+
+ACEPTAR = {"accion": "aceptar"}
+RECHAZAR = {"accion": "rechazar"}
+
+
+def test_editar_invalida_la_aprobacion(env):
     f15.aprobar_narracion(TID, "Omar 2026-10-31")
     assert f15.estado_narracion(TID)[0]
-    r = mf.editar_parrafo(TID, 0, "Ana Roldan volvió al valle.", env["sd"])
+    r = mf.guardar_y_aprobar(TID, {}, [{"i": 0, "texto": "Ana Roldan volvió al valle."}], "Omar", env["sd"])
     n = _n3(env)
-    assert n["parrafos"][0]["texto"] == "Ana Roldan volvió al valle." and "aprobado" not in n and r["md5"] == md.md5_narracion(n)
-    assert not f15.estado_narracion(TID)[0]
+    assert n["parrafos"][0]["texto"] == "Ana Roldan volvió al valle." and r["cambio"] is True and n["aprobado"]["por"] == "Omar"
     assert "Ana Roldan volvió al valle." in (env["d"] / "01b_narration.json").read_text(encoding="utf-8")
-    for malo, texto in ((99, "x"), (0, "  "), ("0", "x")):
+    _editar(env, 0, "Otra vez.")
+    assert "aprobado" not in _n3(env) and not f15.estado_narracion(TID)[0]
+
+
+@pytest.mark.parametrize("ediciones", [[{"i": 99, "texto": "x"}], [{"i": 0, "texto": "  "}], [{"i": "0", "texto": "x"}]])
+def test_ediciones_invalidas(env, ediciones):
+    with pytest.raises(ValueError):
+        _borr(env, None, ediciones)
+
+
+def test_decisiones_invalidas(env):
+    _generar(env, _deb(oraciones=(1, 2)))
+    for mala in ({"1": {"accion": "borrar"}}, {"1": "aceptar"}, {"9": ACEPTAR}, {"1": {"accion": "editar", "texto": "  "}}):
         with pytest.raises(ValueError):
-            mf.editar_parrafo(TID, malo, texto, env["sd"])
+            _borr(env, mala)
 
 
-def test_aceptar_deberia_que_cruza_dos_parrafos(env):
+def test_borrador_es_puro_y_llega_con_claves_de_json(env, monkeypatch):
+    """Sin disco y sin juez: ni reconstruye ni escribe; las claves de `decisiones` llegan como texto."""
+    _generar(env, _deb(oraciones=(1, 2), texto="Un texto nuevo."))
+
+    def explota(*a, **k):
+        raise AssertionError("el borrador no toca el disco")
+    monkeypatch.setattr(mf, "_aplicar", explota)
+    antes = _bytes(env)
+    ps = _n3(env)["parrafos"]
+    copia = json.loads(json.dumps(ps))
+    b = mf.borrador(ps, mf.cargar_critica(TID, env["sd"]), {"1": ACEPTAR}, [])
+    assert b["por_k"][1]["estado"] == "aplicado" and b["cambio"] is True and b["pendientes"] == []
+    assert ps == copia and _bytes(env) == antes
+
+
+def test_deberia_que_cruza_dos_parrafos(env):
     # ch02: [0] Ana llegó. [1] La casa… (párrafo A) · [2] El valle dormía. [3] Nadie hablaba. (párrafo B)
-    _generar(env, _deb(oraciones=(1, 2), texto="[idx1] Un texto  nuevo. […]", ids=("D2", "NOPE")))
-    f15.aprobar_narracion(TID, "Omar 2026-10-31")
-    r = mf.aceptar_deberia(TID, 1, env["sd"])
-    n = _n3(env)
-    a, b = [p for p in n["parrafos"] if p["cap"] == 2]
-    assert a["texto"] == "Ana Roldan llegó al cap 2. Un texto nuevo." and b["texto"] == "Nadie hablaba."
-    assert "D2" in a["ids_usados"] and "NOPE" not in a["ids_usados"] and b["ids_usados"] == ["D8"]
-    assert r["beats_cambiados"] == [2] and r["beats_sin_texto"] == [] and "aprobado" not in n
-    assert json.loads((env["d"] / "06_judge_narrative.json").read_text(encoding="utf-8"))["retencion"]["total_palabras"] > 0
+    _generar(env, _deb(oraciones=(1, 2), texto="[idx1] Un texto  nuevo.", ids=("D2", "NOPE")))
+    b = _borr(env, {1: ACEPTAR})
+    a, c = [p for p in b["parrafos"] if p["cap"] == 2]
+    assert a["texto"] == "Ana Roldan llegó al cap 2. Un texto nuevo." and c["texto"] == "Nadie hablaba."
+    assert "D2" in a["ids_usados"] and "NOPE" not in a["ids_usados"] and c["ids_usados"] == ["D8"]
+    assert b["por_k"][1]["beats"] == [2] and b["por_k"][1]["beats_sin_texto"] == []
 
 
-def test_aceptar_deberia_de_tres_parrafos_elimina_el_del_medio(env):
+def test_deberia_de_tres_parrafos_elimina_el_del_medio_y_mantiene_el_i_del_disco(env):
     ps = sorted(_parrafos() + [{"cap": 2, "beat": 2, "texto": "Hubo un ruido. Cayó el techo.", "ids_usados": []}], key=lambda p: p["cap"])
     md.particionar({"id": TID}, env["esc"], ps, POOL, call_titles=lambda p, **k: {"titulos": []})
-    assert len([p for p in _n3(env)["parrafos"] if p["cap"] == 2]) == 3
     _generar(env, _deb(oraciones=(1, 2, 3, 4), texto="Reemplazo."))     # de la última del 1.º a la primera del 3.º
-    mf.aceptar_deberia(TID, 1, env["sd"])
-    q = [p["texto"] for p in _n3(env)["parrafos"] if p["cap"] == 2]
-    assert q == ["Ana Roldan llegó al cap 2. Reemplazo.", "Cayó el techo."]   # el del medio se eliminó: tag_cap correría los índices
+    b = _borr(env, {1: ACEPTAR})
+    assert _textos_cap(b["parrafos"]) == ["Ana Roldan llegó al cap 2. Reemplazo.", "Cayó el techo."]   # tag_cap correría los índices
+    disco = [i for i, p in enumerate(_n3(env)["parrafos"]) if p["cap"] == 2]
+    assert [i for i, p in zip(b["indices"], b["parrafos"]) if p["cap"] == 2] == [disco[0], disco[2]]    # nunca sobre la vista previa
 
 
 def test_los_vacios_correrian_el_pico_de_tag_cap():
@@ -356,33 +398,136 @@ def test_los_vacios_correrian_el_pico_de_tag_cap():
     assert con_vacio != sin_vacio
 
 
-def test_ya_no_aplica(env):
+def test_el_deberia_que_contiene_su_original_se_aplica_una_sola_vez(env):
+    """El bug de ch03 de Wittenoom: el texto contiene el original y lo agrega después; aceptar otra vez no lo repite."""
+    original = "La casa estaba a oscuras."
+    _generar(env, _deb(oraciones=(1,), texto=f"{original} Y no fue la única."))
+    b = _borr(env, {1: ACEPTAR})
+    assert b["por_k"][1]["estado"] == "aplicado"
+    assert _textos_cap(b["parrafos"])[0].count("Y no fue la única.") == 1
+    r = mf.guardar_y_aprobar(TID, {"1": ACEPTAR}, [], "Omar", env["sd"])
+    assert r["cambio"] is True
+    md5 = _n3(env)["aprobado"]["md5"]
+    b2 = _borr(env, {1: ACEPTAR})                                       # la original sigue ubicable: no se vuelve a aplicar
+    assert b2["por_k"][1]["estado"] == "ya_aplicado" and b2["cambio"] is False
+    r2 = mf.guardar_y_aprobar(TID, {"1": ACEPTAR}, [], "Omar", env["sd"])
+    assert r2["cambio"] is False and _n3(env)["aprobado"]["md5"] == md5
+    assert _textos_cap(_n3(env)["parrafos"])[0].count("Y no fue la única.") == 1
+
+
+def test_parte_contenida_en_su_original_no_cuenta_como_ya_aplicada(env):
+    """Acortar: la parte está en el texto porque está dentro del original, y hay que aplicarla."""
+    _generar(env, _deb(oraciones=(1,), texto="La casa"))
+    assert _borr(env, {1: ACEPTAR})["por_k"][1]["estado"] == "aplicado"
+
+
+def test_partes_con_el_separador_por_tramos(env):
+    # ch02: [0] [1] · [2] [3]: dos tramos separados
+    _generar(env, _deb(oraciones=(0, 3), texto="[idx 0] Primero nuevo. […] [idx 3] Segundo nuevo."))
+    b = _borr(env, {1: ACEPTAR})
+    assert b["por_k"][1]["estado"] == "aplicado" and b["por_k"][1]["partes_ya_aplicadas"] == 0
+    assert _textos_cap(b["parrafos"]) == ["Primero nuevo. La casa estaba a oscuras.", "El valle dormía. Segundo nuevo."]
+
+
+def test_partes_distintas_de_tramos_no_se_adivina(env):
+    """k=5 de Wittenoom: 2 tramos y 1 parte."""
+    _generar(env, _deb(oraciones=(0, 3), texto="Un solo texto."))
+    p = _borr(env)
+    assert p["por_k"][1]["estado"] == "pendiente" and p["por_k"][1]["aplica"] == "no_aplica" and "editar a mano" in p["por_k"][1]["motivo"]
+    b = _borr(env, {1: ACEPTAR})
+    assert b["por_k"][1]["estado"] == "no_aplica" and b["pendientes"] == [1] and b["cambio"] is False
+
+
+def test_no_aplica_se_decide_rechazando_o_editando(env):
+    _generar(env, _deb(oraciones=(0, 3), texto="Un solo texto."))
+    assert _borr(env, {1: RECHAZAR})["pendientes"] == []
+    assert _borr(env, {1: {"accion": "editar"}})["por_k"][1]["estado"] == "editado_a_mano"   # lo resolvió en los párrafos
+    assert _borr(env, {1: {"accion": "editar"}})["pendientes"] == []
+    assert _borr(env, {1: {"accion": "editar", "texto": "Sigue siendo uno."}})["pendientes"] == [1]
+    b = _borr(env, {1: {"accion": "editar", "texto": "Uno. […] Dos."}})
+    assert b["por_k"][1]["estado"] == "aplicado" and b["pendientes"] == []
+
+
+def test_una_parte_ya_aplicada_y_otra_no(env):
+    _generar(env, _deb(oraciones=(0, 3), texto="El valle dormía. […] Segundo nuevo."))
+    b = _borr(env, {1: ACEPTAR})
+    assert b["por_k"][1]["estado"] == "aplicado" and b["por_k"][1]["partes_ya_aplicadas"] == 1
+    assert _textos_cap(b["parrafos"]) == ["Ana Roldan llegó al cap 2. La casa estaba a oscuras.", "El valle dormía. Segundo nuevo."]
+
+
+def test_la_edicion_va_primero_y_si_toca_el_tramo_lo_deja_no_aplica(env):
+    _generar(env, _deb(oraciones=(1,), texto="Oscuro."), _deb(cap="ch03", oraciones=(0,), texto="Otro."))
+    i = [j for j, p in enumerate(_n3(env)["parrafos"]) if p["cap"] == 2][0]
+    b = _borr(env, {1: ACEPTAR, 2: ACEPTAR}, [{"i": i, "texto": "Ana Roldan cambió todo."}])
+    assert b["por_k"][1] == {"estado": "no_aplica", "motivo": "editado a mano", "oraciones_actuales": []}
+    assert b["por_k"][2]["estado"] == "aplicado" and b["pendientes"] == [1]
+    assert _textos_cap(b["parrafos"])[0] == "Ana Roldan cambió todo."
+    igual = _n3(env)["parrafos"][i]["texto"]
+    assert _borr(env, {1: ACEPTAR}, [{"i": i, "texto": igual}])["por_k"][1]["estado"] == "aplicado"   # dejar el texto igual no es editar
+
+
+def test_ya_no_aplica_si_cambio_el_texto(env):
     _generar(env, _deb(oraciones=(1, 2)))
-    mf.editar_parrafo(TID, [i for i, p in enumerate(_n3(env)["parrafos"]) if p["cap"] == 2][0], "Ana Roldan cambió todo.", env["sd"])
-    fila = mf.cargar_critica(TID, env["sd"])["validacion"]["deberia"][0]
-    assert mf.aplica(fila, _n3(env)["parrafos"]) is False
-    with pytest.raises(ValueError, match="ya no aplica"):
-        mf.aceptar_deberia(TID, 1, env["sd"])
-    with pytest.raises(ValueError, match="no hay DEBERÍA"):
-        mf.aceptar_deberia(TID, 9, env["sd"])
-
-
-def test_no_contigua_o_vacia_no_aplica(env):
-    _generar(env, _deb(oraciones=(0, 3)), _deb(cap="ch03", oraciones=(1,)))
-    filas = mf.cargar_critica(TID, env["sd"])["validacion"]["deberia"]
-    n = _n3(env)["parrafos"]
-    assert mf.aplica(filas[0], n) is False and mf.aplica(filas[1], n) is True
-    assert mf.aplica({"cap": "ch03", "texto_original": []}, n) is False
+    _editar(env, [i for i, p in enumerate(_n3(env)["parrafos"]) if p["cap"] == 2][0], "Ana Roldan cambió todo.")
+    r = _borr(env, {1: ACEPTAR})["por_k"][1]
+    assert r["estado"] == "no_aplica" and "ya no está" in r["motivo"]
 
 
 def test_dos_deberia_del_mismo_cap_en_orden(env):
     """El segundo se ubica por texto: el `idx` ya se corrió."""
     _generar(env, _deb(oraciones=(0,), texto="Una. Dos. Tres."), _deb(oraciones=(3,), texto="Silencio.", ids=("D3",)))
-    mf.aceptar_deberia(TID, 1, env["sd"])
-    r = mf.aceptar_deberia(TID, 2, env["sd"])
-    a, b = [p for p in _n3(env)["parrafos"] if p["cap"] == 2]
-    assert a["texto"] == "Una. Dos. Tres. La casa estaba a oscuras." and b["texto"] == "El valle dormía. Silencio."
-    assert "D3" in b["ids_usados"] and r["beats_cambiados"] == [2]
+    b = _borr(env, {1: ACEPTAR, 2: ACEPTAR})
+    a, c = [p for p in b["parrafos"] if p["cap"] == 2]
+    assert a["texto"] == "Una. Dos. Tres. La casa estaba a oscuras." and c["texto"] == "El valle dormía. Silencio."
+    assert "D3" in c["ids_usados"] and b["por_k"][2]["beats"] == [2]
+
+
+def test_aprobar_con_decisiones_pendientes_no_escribe(env):
+    _generar(env, _deb(oraciones=(1,), texto="Uno."), _deb(cap="ch03", oraciones=(0,), texto="Dos."))
+    antes = _bytes(env)
+    with pytest.raises(ValueError, match=r"falta decidir DEBERÍA \[2\]"):
+        mf.guardar_y_aprobar(TID, {"1": ACEPTAR}, [], "Omar", env["sd"])
+    assert _bytes(env) == antes and "aprobado" not in _n3(env)
+    with pytest.raises(ValueError, match="falta quién"):
+        mf.guardar_y_aprobar(TID, {"1": ACEPTAR, "2": ACEPTAR}, [], " ", env["sd"])
+    assert _bytes(env) == antes
+
+
+def test_aprobar_aplica_todo_junto_con_una_sola_reconstruccion_y_un_juez(env, monkeypatch):
+    from script_engine import m05_narrative as m5
+    _generar(env, _deb(oraciones=(1,), texto="Uno."), _deb(cap="ch03", oraciones=(0,), texto="Dos."))
+    cuenta = {"r": 0, "j": 0}
+    rec, jue = md.reconstruir, m5.judge_narration
+
+    def r(*a, **k):
+        cuenta["r"] += 1
+        return rec(*a, **k)
+
+    def j(*a, **k):
+        cuenta["j"] += 1
+        return jue(*a, **k)
+    monkeypatch.setattr(md, "reconstruir", r)
+    monkeypatch.setattr(m5, "judge_narration", j)
+    res = mf.guardar_y_aprobar(TID, {"1": ACEPTAR, "2": ACEPTAR}, [], "Omar", env["sd"])
+    assert cuenta == {"r": 1, "j": 1} and res["aprobado"]["por"] == "Omar"
+    n = _n3(env)
+    assert f15.estado_narracion(TID)[0] and n["aprobado"]["md5"] == md.md5_narracion(n)
+    assert json.loads((env["d"] / "06_judge_narrative.json").read_text(encoding="utf-8"))["retencion"]["total_palabras"] > 0
+
+
+def test_rechazar_todo_no_reconstruye_y_el_md5_no_cambia(env, monkeypatch):
+    _generar(env, _deb(oraciones=(1,), texto="Uno."))
+    md5 = md.md5_narracion(_n3(env))
+
+    def explota(*a, **k):
+        raise AssertionError("sin cambios no se reconstruye")
+    monkeypatch.setattr(mf, "_aplicar", explota)
+    r = mf.guardar_y_aprobar(TID, {"1": RECHAZAR}, [], "Omar", env["sd"])
+    assert r["cambio"] is False and _n3(env)["aprobado"]["md5"] == md5
+
+
+def test_las_funciones_viejas_se_borraron():
+    assert not any(hasattr(mf, x) for x in ("aceptar_deberia", "editar_parrafo", "aplica", "oraciones_actuales"))
 
 
 # ═══════════════════════ C.3: QA Studio y run_pipeline ═══════════════════════
@@ -408,21 +553,22 @@ def test_get_narracion(env, monkeypatch):
     assert [o["idx"] for p in c2["parrafos"] for o in p["oraciones"]] == [0, 1, 2, 3]
     assert c2["nota"] == 7 and c2["racha_max_sin_personaje"] is not None and c2["parrafos"][0]["i"] == 1
     d = c2["deberia"][0]
-    assert d["k"] == 1 and d["aplica"] is True and d["palabras_antes"] == 8 and d["cifras_sin_respaldo"] == [] and d["marcas"] == []
-    assert c3["deberia"][0]["k"] == 2 and c3["deberia"][0]["aplica"] is True
-    mf.editar_parrafo(TID, 0, "Ana Roldan cambió.", env["sd"])
+    assert d["k"] == 1 and d["palabras_antes"] == 8 and d["cifras_sin_respaldo"] == [] and d["marcas"] == []
+    assert c3["deberia"][0]["k"] == 2
+    assert v["borrador"]["por_k"][1]["aplica"] == "aplica" and v["borrador"]["pendientes"] == [1, 2] and v["borrador"]["cambio"] is False
+    _editar(env, 0, "Ana Roldan cambió.")
     assert qa.narracion_vista(st)["critico"]["vigente"] is False     # no se re-critica sola
 
 
-def test_get_narracion_oraciones_actuales_tras_aceptar_otro(env, monkeypatch):
+def test_borrador_oraciones_actuales_tras_aceptar_otro(env, monkeypatch):
     """El `idx` del crítico se corre al aceptar otro DEBERÍA del cap: la pestaña resalta los de hoy."""
     qa, st = _qa(env, monkeypatch)
     _generar(env, _deb(oraciones=(0,), texto="Una. Dos. Tres."), _deb(oraciones=(3,), texto="Silencio."))
-    assert [d["oraciones_actuales"] for d in qa.narracion_vista(st)["caps"][1]["deberia"]] == [[0], [3]]
-    mf.aceptar_deberia(TID, 1, env["sd"])
-    d1, d2 = qa.narracion_vista(st)["caps"][1]["deberia"]
-    assert d1["aplica"] is False and d1["oraciones_actuales"] == []
-    assert d2["aplica"] is True and d2["oraciones"] == [3] and d2["oraciones_actuales"] == [5]
+    b = qa.narracion_vista(st)["borrador"]
+    assert [b["por_k"][k]["oraciones_actuales"] for k in (1, 2)] == [[0], [3]]
+    b, s = qa.narracion_post(st, "/narracion/borrador", {"decisiones": {"1": ACEPTAR}})
+    assert s == 200 and b["por_k"][1]["oraciones_actuales"] == [] and b["por_k"][2]["oraciones_actuales"] == [5]
+    assert [o["texto"] for p in b["caps"][1]["parrafos"] for o in p["oraciones"]][:3] == ["Una.", "Dos.", "Tres."]
 
 
 def test_papel_de_otra_narracion_no_pasa_aunque_este_aprobado(env, monkeypatch, capsys):
@@ -450,26 +596,35 @@ def test_verificacion_vigente_por_md5(env, monkeypatch):
     assert v["vigente"] is True and len(v["quedan"]) == 1
     f15.aprobar_narracion(TID, "Omar 2026-10-31")                     # aprobar no invalida: el md5 no mira `aprobado`
     assert qa.narracion_vista(st)["verificacion"]["vigente"] is True
-    mf.editar_parrafo(TID, 0, "Otro.", env["sd"])
+    _editar(env, 0, "Otro.")
     assert qa.narracion_vista(st)["verificacion"]["vigente"] is False
 
 
 def test_post_narracion(env, monkeypatch):
     qa, st = _qa(env, monkeypatch)
     _generar(env, _deb(oraciones=(1, 2)))
-    assert qa.narracion_post(st, "/narracion/aprobar", {})[1] == 400
-    assert qa.narracion_post(st, "/narracion/aceptar", {"k": "1"})[1] == 400
-    assert qa.narracion_post(st, "/narracion/aceptar", {"k": 9})[1] == 400
-    assert qa.narracion_post(st, "/narracion/editar", {"i": 99, "texto": "x"})[1] == 400
+    assert qa.narracion_post(st, "/narracion/aprobar", {"decisiones": {"1": RECHAZAR}})[1] == 400         # falta quién
+    assert qa.narracion_post(st, "/narracion/aprobar", {"por": "Omar"})[1] == 400                          # falta decidir
+    assert "aprobado" not in _n3(env)
+    assert qa.narracion_post(st, "/narracion/borrador", {"decisiones": {"9": ACEPTAR}})[1] == 400
+    assert qa.narracion_post(st, "/narracion/borrador", {"ediciones": [{"i": 99, "texto": "x"}]})[1] == 400
     assert qa.narracion_post(st, "/narracion/otra", {})[1] == 404
-    r, s = qa.narracion_post(st, "/narracion/aceptar", {"k": 1})
-    assert s == 200 and r["beats_cambiados"] == [2]
-    assert qa.narracion_post(st, "/narracion/aceptar", {"k": 1})[1] == 400         # ya no aplica
-    r, s = qa.narracion_post(st, "/narracion/aprobar", {"por": "Omar"})
+    for vieja in ("/narracion/aceptar", "/narracion/editar"):                                              # se borraron
+        assert qa.narracion_post(st, vieja, {"k": 1, "i": 0, "texto": "x"})[1] == 404
+    antes = _bytes(env)
+    b, s = qa.narracion_post(st, "/narracion/borrador", {"decisiones": {"1": ACEPTAR}})
+    assert s == 200 and b["por_k"]["1" if "1" in b["por_k"] else 1]["estado"] == "aplicado" and _bytes(env) == antes   # no escribe
+    r, s = qa.narracion_post(st, "/narracion/aprobar", {"por": "Omar", "decisiones": {"1": ACEPTAR}})
     assert s == 200 and r["aprobado"]["por"] == "Omar"
-    assert f15.estado_narracion(TID, env["sd"])[0]
-    assert qa.narracion_post(st, "/narracion/editar", {"i": 0, "texto": "Nuevo."})[1] == 200
+    assert f15.estado_narracion(TID, env["sd"])[0] and "Un texto nuevo de 1949." in json.dumps(_n3(env)["parrafos"], ensure_ascii=False)
+    _editar(env, 0, "Nuevo.")
     assert not f15.estado_narracion(TID, env["sd"])[0]
+
+
+def test_la_pagina_solo_manda_decisiones_y_el_boton_se_apaga():
+    s = (ROOT / "qa_studio.html").read_text(encoding="utf-8")
+    assert "/narracion/aceptar" not in s and "/narracion/editar" not in s
+    assert "nnBusy||pend.length?'disabled':''" in s and "guardando…" in s and "/narracion/borrador" in s
 
 
 @pytest.fixture
@@ -506,7 +661,7 @@ def test_etapa_de_guion_narracion_papel_nuevo_papel(env, rp_env):
     assert rp.etapa_de(TID)[0] == "papel_nuevo"                       # sin el campo y sin aprobar
     _papel(env, narracion_md5=_n3(env)["aprobado"]["md5"])
     assert rp.etapa_de(TID)[0] == "papel"
-    mf.editar_parrafo(TID, 0, "Otro.", env["sd"])                     # editar devuelve a la compuerta
+    _editar(env, 0, "Otro.")                     # editar devuelve a la compuerta
     assert rp.etapa_de(TID)[0] == "narracion"
 
 
@@ -520,7 +675,7 @@ def test_el_form_conoce_la_compuerta():
     assert qa._FORM_PHASES[:4] == ["RESEARCH", "GUION", "NARRACION", "PAPEL"]
     assert "narracion_gate" in (ROOT / "qa_form.html").read_text(encoding="utf-8")
     s = (ROOT / "qa_studio.html").read_text(encoding="utf-8")
-    assert s.index('id="narrBtn"') < s.index('id="papelBtn"') and all(f"/narracion/{x}" in s for x in ("aceptar", "editar", "aprobar"))
+    assert s.index('id="narrBtn"') < s.index('id="papelBtn"') and all(f"/narracion/{x}" in s for x in ("borrador", "aprobar"))
 
 
 # ═══════════════════════ F67b: cierre de la compuerta ═══════════════════════
@@ -558,7 +713,7 @@ def test_f67b_aprobar_papel_409(env, monkeypatch):
     f15.aprobar_narracion(TID, "Omar 2026-10-31")
     assert qa.papel_vista(st)["bloqueo_aprobar"] is None
     assert qa.papel_post(st, "/papel/aprobar", {"por": "Omar"})[1] == 200
-    mf.editar_parrafo(TID, 0, "Otro.", env["sd"])                     # editar cae la aprobación de la narración
+    _editar(env, 0, "Otro.")                     # editar cae la aprobación de la narración
     f15.aprobar_narracion(TID, "Omar 2026-10-31")
     r, s = qa.papel_post(st, "/papel/aprobar", {"por": "Omar"})
     assert (s, r["error"]) == (409, "el papel es de otra narración")

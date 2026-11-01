@@ -2041,16 +2041,31 @@ def papel_post(state: "QAState", route: str, body: dict) -> tuple[dict, int]:
 
 # ═════════════════════════════════════════════════════════════════
 #  ZONA NARRACIÓN — F67 C (DECISIONES 2026-10-31 18:43): la compuerta de narración. Misma regla que la zona PAPEL: el servidor no
-#  escribe JSON: lee y escribe SOLO vía m01f_critico (editar_parrafo, aceptar_deberia) y fase1_5 (aprobar_narracion, estado_narracion).
-#  «Aprobar» hace lo de --aprobar-narracion y nada más corre. No se re-critica sola: el aviso dice que la crítica no es vigente.
+#  escribe JSON: lee y escribe SOLO vía m01f_critico (borrador, guardar_y_aprobar) y fase1_5 (estado_narracion). F67d (DECISIONES
+#  2026-10-31 noche): el borrador vive en la página; `/narracion/borrador` es una vista previa pura y `/narracion/aprobar` aplica todo
+#  junto y aprueba. Nada más corre. No se re-critica sola: el aviso dice que la crítica no es vigente.
 # ═════════════════════════════════════════════════════════════════
+
+def _parrafos_de_cap(pars: list[dict], n: int, indices: list[int] | None = None) -> list[dict]:
+    """Los párrafos del cap para la vista, con sus oraciones. `i` es siempre el índice del disco (en el borrador, `indices`)."""
+    from script_engine import m01e_pantalla as mp
+    out, idx = [], 0
+    for pos, p in enumerate(pars):
+        if int(p["cap"]) != n:
+            continue
+        ors = [{"idx": idx + j, "texto": t} for j, t in enumerate(mp.oraciones_de_texto(p["texto"]))]
+        idx += len(ors)
+        out.append({"i": indices[pos] if indices else pos, "beat": p.get("beat"), "texto": p["texto"], "oraciones": ors})
+    return out
+
 
 def narracion_vista(state: "QAState") -> dict:
     """GET /narracion: {estado {aprobado, motivo}, aprobado_por, md5, critico {claves de la respuesta, usd, modelo, prompt_version,
     vigente, n_deberia, error}, sin_critico, metricas (`retencion` del juez), verificacion {quedan, vigente}, caps [{cap, titulo, nota,
     fuerte, debil, reengancho, personaje_en_voz, racha_max_sin_personaje, metricas, parrafos [{i, beat, texto, oraciones [{idx, texto}]}],
     deberia [{k, oraciones, que_sale, por_que_se_van, deberia_texto, ids, palabras_antes, palabras_despues, cifras_sin_respaldo,
-    marcas, aplica}]}]}. Sin 01f_critico.json los párrafos se muestran igual y se pueden editar y aprobar."""
+    marcas}]}], borrador (el de `/narracion/borrador` sin decisiones)}. Sin 01f_critico.json los párrafos se muestran igual y se pueden
+    editar y aprobar."""
     import fase1_5 as f15
     from script_engine import m01e_pantalla as mp
     from script_engine import m01f_critico as mf
@@ -2077,18 +2092,10 @@ def narracion_vista(state: "QAState") -> dict:
         cid = mp.cap_id(n)
         cc = next((c for c in (resp or {}).get("caps") or [] if c.get("cap") == cid), {})
         mc = next((c for c in met.get("caps") or [] if c.get("cap") == cid), {})
-        parrafos, idx = [], 0
-        for i, p in enumerate(pars):
-            if int(p["cap"]) != n:
-                continue
-            ors = [{"idx": idx + j, "texto": t} for j, t in enumerate(mp.oraciones_de_texto(p["texto"]))]
-            idx += len(ors)
-            parrafos.append({"i": i, "beat": p.get("beat"), "texto": p["texto"], "oraciones": ors})
+        parrafos = _parrafos_de_cap(pars, n)
         deberia = [{"k": k, "oraciones": x.get("oraciones"), "que_sale": x.get("que_sale"), "por_que_se_van": x.get("por_que_se_van"),
                     "deberia_texto": x.get("deberia_texto"), "ids": x.get("ids"),
-                    **{c: filas.get(k, {}).get(c) for c in ("palabras_antes", "palabras_despues", "cifras_sin_respaldo", "marcas")},
-                    "aplica": bool(filas.get(k)) and mf.aplica(filas[k], pars),
-                    "oraciones_actuales": mf.oraciones_actuales(filas[k], pars) if k in filas else []}
+                    **{c: filas.get(k, {}).get(c) for c in ("palabras_antes", "palabras_despues", "cifras_sin_respaldo", "marcas")}}
                    for k, x in enumerate(deb, start=1) if x.get("cap") == cid]
         caps.append({"cap": cid, "titulo": titulos.get(n), "nota": cc.get("nota"), "fuerte": cc.get("fuerte"), "debil": cc.get("debil"),
                      "reengancho": cc.get("reengancho"), "personaje_en_voz": cc.get("personaje_en_voz"),
@@ -2099,33 +2106,32 @@ def narracion_vista(state: "QAState") -> dict:
                    "vigente": crit.get("narracion_md5") == md5, "n_deberia": crit.get("n_deberia"), "error": crit.get("error")}
     return {"estado": {"aprobado": ok, "motivo": motivo}, "aprobado_por": n3.get("aprobado"), "md5": md5, "critico": critico,
             "sin_critico": not resp, "metricas": met,
-            "verificacion": {"quedan": verif.get("quedan") or [], "vigente": verif.get("narracion_md5") == md5}, "caps": caps}
+            "verificacion": {"quedan": verif.get("quedan") or [], "vigente": verif.get("narracion_md5") == md5}, "caps": caps,
+            "borrador": _borrador_vista(pars, crit, None, None)}
+
+
+def _borrador_vista(pars: list[dict], crit: dict | None, decisiones, ediciones) -> dict:
+    """{por_k, pendientes, cambio, caps [{cap, parrafos}]}: lo que la página repinta. Pura."""
+    from script_engine import m01e_pantalla as mp
+    from script_engine import m01f_critico as mf
+    b = mf.borrador(pars, crit, decisiones, ediciones)
+    caps = [{"cap": mp.cap_id(n), "parrafos": _parrafos_de_cap(b["parrafos"], n, b["indices"])} for n in sorted({int(p["cap"]) for p in pars})]
+    return {"por_k": b["por_k"], "pendientes": b["pendientes"], "cambio": b["cambio"], "caps": caps}
 
 
 def narracion_post(state: "QAState", route: str, body: dict) -> tuple[dict, int]:
-    """Las rutas POST de la narración: (json, status). Errores de lo que manda el navegador → 400."""
+    """Las rutas POST de la narración: (json, status). Errores de lo que manda el navegador → 400. La página solo manda `decisiones` y
+    `ediciones`, nunca párrafos."""
     from script_engine import m01f_critico as mf
     sd, tid = _steps_dir(state), state.topic_id
     try:
-        if route == "/narracion/aprobar":
-            import time
-
-            import fase1_5 as f15
-            por = str(body.get("por") or "").strip()
-            if not por:
-                raise ValueError("falta quién aprueba")
-            try:                                       # solo aprueba: ni el papel ni la voz corren
-                ap = f15.aprobar_narracion(tid, f"{por} {time.strftime('%Y-%m-%dT%H:%M')}", sd)
-            except f15.Parada as e:
-                raise ValueError(str(e)) from e
-            return {"aprobado": ap}, 200
-        if route == "/narracion/editar":
-            return mf.editar_parrafo(tid, body.get("i"), body.get("texto"), sd), 200
-        if route == "/narracion/aceptar":
-            k = body.get("k")
-            if not isinstance(k, int) or isinstance(k, bool):
-                raise ValueError("falta k (entero)")
-            return mf.aceptar_deberia(tid, k, sd), 200
+        if route == "/narracion/borrador":             # vista previa: no escribe nada
+            n3 = _read_json(sd / tid / "01b_narracion_v3.json")
+            if n3 is None:
+                raise ValueError("no hay narración")
+            return _borrador_vista(n3.get("parrafos") or [], mf.cargar_critica(tid, sd), body.get("decisiones"), body.get("ediciones")), 200
+        if route == "/narracion/aprobar":              # aplica todo junto y aprueba: ni el papel ni la voz corren
+            return mf.guardar_y_aprobar(tid, body.get("decisiones"), body.get("ediciones"), body.get("por"), sd), 200
     except (ValueError, KeyError, IndexError, TypeError) as e:
         return {"error": f"{e}" if isinstance(e, ValueError) else f"{type(e).__name__}: {e}"}, 400
     return {"error": "ruta no encontrada"}, 404

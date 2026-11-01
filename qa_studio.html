@@ -1079,10 +1079,11 @@ async function ppSugerir(cap,beat){
   },1500);
 }
 
-/* ════════ F67 C: LA COMPUERTA DE NARRACIÓN ════════
-   Misma regla que PAPEL: la verdad es el disco; después de cada acción la vista se recarga de GET /narracion. En memoria solo el
-   párrafo que se está editando. La crítica nunca se rehace sola: si la narración cambió, el aviso lo dice. */
-let NARR=null, nnEdit=null, nnError='', nnNota='';
+/* ════════ F67 C + F67d: LA COMPUERTA DE NARRACIÓN ════════
+   La verdad es el disco; el borrador vive en la página: `nnDec` (k → {accion, texto?}) y `nnEdits` (i del disco → texto). Cada acción pide
+   /narracion/borrador, que no escribe, y repinta. «Aprobar narración» manda las decisiones y aplica todo junto. La página nunca manda
+   párrafos. La crítica nunca se rehace sola: si la narración cambió, el aviso lo dice. */
+let NARR=null, NNB=null, nnDec={}, nnEdits={}, nnEdit=null, nnDebEdit=null, nnBusy=false, nnError='', nnNota='';
 function narrOn(on){ $('narrBtn').classList.toggle('on',on); }
 async function showNarracion(){
   if(typeof stopPlayback==='function') stopPlayback();
@@ -1092,29 +1093,48 @@ async function showNarracion(){
 async function nnCargar(){
   try{ NARR=await (await fetch('/narracion')).json(); }
   catch(e){ $('view').innerHTML=`<div class="err">No pude cargar /narracion: ${esc(e.message)}</div>`; return; }
+  NNB=NARR.borrador||null; nnDec={}; nnEdits={}; nnEdit=null; nnDebEdit=null;
   if(curCap==='__narracion__') nnRender();
 }
-async function nnAccion(ruta,body){
-  nnError=''; nnNota='';
-  try{ const j=await ppPost(ruta,body); await nnCargar(); return j; }
-  catch(e){ nnError=e.message; nnRender(); }
+function nnCuerpo(){ return {decisiones:nnDec, ediciones:Object.entries(nnEdits).map(([i,texto])=>({i:+i,texto}))}; }
+async function nnPrevia(){
+  nnError=''; nnNota=''; nnBusy=true;
+  try{ NNB=await ppPost('/narracion/borrador',nnCuerpo()); }
+  catch(e){ nnError=e.message; }
+  nnBusy=false; nnRender();
 }
+function nnDecidir(k,accion,texto){ nnDec[k]=texto==null?{accion}:{accion,texto}; nnDebEdit=null; nnPrevia(); }
+function nnDeshacer(k){ delete nnDec[k]; nnPrevia(); }
+function nnDis(){ return nnBusy?'disabled':''; }
 function nnSi(v){ return v===true?'sí':v===false?'no':'—'; }
+function nnDisco(i){ for(const c of NARR.caps||[]) for(const p of c.parrafos) if(p.i===i) return p.texto; return ''; }
 function nnParrafo(p,marcadas){
   const orac=(p.oraciones||[]).map(o=>`<span class="nn-or ${marcadas.has(o.idx)?'marcada':''}"><small>[${o.idx}]</small>${esc(o.texto)}</span>`).join(' ');
+  const editado=nnEdits[p.i]!=null;
   if(nnEdit===p.i) return `<div class="nn-par"><div class="pp-bh">párrafo ${p.i} · beat ${p.beat}</div>
-    <textarea class="nn-ta" id="nnTa">${esc(p.texto)}</textarea>
-    <div class="pp-acc"><button class="pp-btn pri" onclick="nnGuardar(${p.i})">Guardar</button><button class="pp-btn" onclick="nnEdit=null;nnRender()">Cancelar</button></div></div>`;
-  return `<div class="nn-par"><div class="pp-bh">párrafo ${p.i} · beat ${p.beat}</div>${orac}
-    <div class="pp-acc"><button class="pp-btn" onclick="nnEdit=${p.i};nnRender()">✎ Editar</button></div></div>`;
+    <textarea class="nn-ta" id="nnTa">${esc(editado?nnEdits[p.i]:nnDisco(p.i))}</textarea>
+    <div class="pp-acc"><button class="pp-btn pri" ${nnDis()} onclick="nnGuardar(${p.i})">Listo</button><button class="pp-btn" ${nnDis()} onclick="nnEdit=null;nnRender()">Cancelar</button></div></div>`;
+  return `<div class="nn-par"><div class="pp-bh">párrafo ${p.i} · beat ${p.beat}${editado?' · <b>editado en el borrador</b>':''}</div>${orac}
+    <div class="pp-acc"><button class="pp-btn" ${nnDis()} onclick="nnEdit=${p.i};nnRender()">✎ Editar</button>${editado?`<button class="pp-btn" ${nnDis()} onclick="delete nnEdits[${p.i}];nnPrevia()">Deshacer</button>`:''}</div></div>`;
 }
+const NN_MARCA={aplicado:'✓ aceptado',ya_aplicado:'✓ ya estaba aplicado',rechazado:'✗ rechazado',editado_a_mano:'✎ resuelto a mano',no_aplica:'⚠ no aplica',pendiente:'sin decidir'};
 function nnDeberia(d){
   const lista=v=>(v&&v.length)?v.map(x=>esc(x)).join(', '):'—';
-  return `<div class="nn-deb ${d.aplica?'':'muerta'}"><div class="nn-h">DEBERÍA ${d.k} · oraciones ${esc(((d.aplica?d.oraciones_actuales:d.oraciones)||[]).join(', '))} · ${d.palabras_antes??'—'} → ${d.palabras_despues??'—'} palabras</div>
+  const r=(NNB&&NNB.por_k&&NNB.por_k[d.k])||{estado:'pendiente'}, dec=nnDec[d.k];
+  const muerta=(r.estado==='pendiente'&&r.aplica==='no_aplica')||r.estado==='no_aplica';
+  const previa=r.estado==='pendiente'?(r.aplica==='aplica'?'':r.aplica==='ya_aplicado'?' · ya está en el texto':' · no aplica'):'';
+  const motivo=r.motivo?`<span class="pp-rojo" style="margin:0">${esc(r.motivo)}</span>`:'';
+  const texto=dec&&dec.texto!=null?dec.texto:d.deberia_texto;
+  let acc;
+  if(nnDebEdit===d.k) acc=`<textarea class="nn-ta" id="nnDebTa">${esc(texto)}</textarea><div class="pp-meta">Si el DEBERÍA toca tramos separados, separá las partes con […]. «Resuelto a mano»: lo arreglaste editando los párrafos.</div>
+    <div class="pp-acc"><button class="pp-btn pri" ${nnDis()} onclick="nnDecidir(${d.k},'editar',$('nnDebTa').value)">Usar este texto</button><button class="pp-btn" ${nnDis()} onclick="nnDecidir(${d.k},'editar')">Resuelto a mano</button><button class="pp-btn" ${nnDis()} onclick="nnDebEdit=null;nnRender()">Cancelar</button></div>`;
+  else if(dec) acc=`<div class="pp-acc"><button class="pp-btn" ${nnDis()} onclick="nnDeshacer(${d.k})">↶ Deshacer</button>${motivo}</div>`;
+  else acc=`<div class="pp-acc"><button class="pp-btn pri" ${nnDis()} ${muerta?'disabled':''} onclick="nnDecidir(${d.k},'aceptar')">Aceptar</button><button class="pp-btn" ${nnDis()} onclick="nnDebEdit=${d.k};nnRender()">Editar</button><button class="pp-btn" ${nnDis()} onclick="nnDecidir(${d.k},'rechazar')">Rechazar</button>${motivo}</div>`;
+  return `<div class="nn-deb ${muerta?'muerta':''}"><div class="nn-h">DEBERÍA ${d.k} · <b class="nn-marca">${NN_MARCA[r.estado]||r.estado}${previa}</b> · oraciones ${esc(((r.oraciones_actuales&&r.oraciones_actuales.length?r.oraciones_actuales:d.oraciones)||[]).join(', '))} · ${d.palabras_antes??'—'} → ${d.palabras_despues??'—'} palabras</div>
     <div class="pp-ap"><b>Sale:</b> ${esc(d.que_sale)}</div><div class="pp-ap"><b>Por qué se van:</b> ${esc(d.por_que_se_van)}</div>
-    <div class="nn-tx">${esc(d.deberia_texto)}</div>
+    <div class="nn-tx">${esc(texto)}</div>
     <div class="pp-meta">ids ${lista(d.ids)} · cifras sin respaldo ${lista(d.cifras_sin_respaldo)} · marcas ${lista(d.marcas)}</div>
-    <div class="pp-acc"><button class="pp-btn pri" ${d.aplica?'':'disabled'} onclick="nnAceptar(${d.k})">Aceptar DEBERÍA</button>${d.aplica?'':'<span class="pp-rojo" style="margin:0">ya no aplica</span>'}</div></div>`;
+    ${acc}</div>`;
 }
 function nnPlegado(titulo,cuerpo){ return `<details class="pp-desc"><summary>${titulo}</summary>${cuerpo}</details>`; }
 function nnRender(){
@@ -1123,11 +1143,13 @@ function nnRender(){
   const ok=n.estado.aprobado, ap=n.aprobado_por, c=n.critico, m=n.metricas||{}, pc=m.pico, r=c||{}, quedan=(n.verificacion||{}).quedan||[];
   const quien=$('nnQuien')?$('nnQuien').value:'Omar';
   const nd=c&&c.n_deberia!=null?c.n_deberia:0;
+  const pend=(NNB&&NNB.pendientes)||[], cambio=NNB&&NNB.cambio, previa=(NNB&&NNB.caps)||[], porK=(NNB&&NNB.por_k)||{};
+  const faltan=pend.length?`Falta decidir DEBERÍA ${pend.join(', ')}.`:(cambio?'Al aprobar se aplica todo junto.':'Sin cambios en el texto.');
   $('view').innerHTML=`<div class="pp-head"><div>
       <div class="pp-estado ${ok?'ok':'no'}">${ok?`✓ Aprobada por ${esc(ap.por)} (${esc(ap.fecha)})`:(ap?'⚠ Aprobación invalidada':'Sin aprobar')}</div>
       <div class="pp-meta">${esc(ok?('md5 '+n.md5.slice(0,8)+'…'):n.estado.motivo)}</div>
       ${c?`<div class="pp-meta">${esc(c.modelo||'')} ${esc(c.prompt_version||'')} · US$ ${(c.usd||0).toFixed(4)} · ${nd} DEBERÍA${nd>8?' (el formato pide hasta 8: se muestran todos)':''}</div>`:''}
-    </div><div class="pp-aprobar"><input class="pp-in" id="nnQuien" placeholder="quién aprueba" value="${esc(quien)}"><button class="pp-btn pri" onclick="nnAprobar()">Aprobar narración</button></div></div>
+    </div><div class="pp-aprobar"><input class="pp-in" id="nnQuien" placeholder="quién aprueba" value="${esc(quien)}" ${nnDis()}><button class="pp-btn pri" id="nnAprobarBtn" ${nnBusy||pend.length?'disabled':''} onclick="nnAprobar()">${nnBusy?'guardando…':'Aprobar narración'}</button><div class="pp-meta" id="nnFaltan">${esc(faltan)}</div></div></div>
     ${nnError?`<div class="err" style="margin:10px 0">${esc(nnError)}</div>`:''}
     ${nnNota?`<div class="pp-aviso" style="color:var(--teal);border-color:rgba(45,212,191,.42);background:rgba(45,212,191,.07)">${esc(nnNota)}</div>`:''}
     ${n.sin_critico?`<div class="pp-aviso"><b>⚠ Sin crítica.</b> ${esc((c&&c.error)||'No hay 01f_critico.json.')} Podés editar y aprobar igual.</div>`:''}
@@ -1144,27 +1166,27 @@ function nnRender(){
     ${r.riesgos?nnPlegado(`riesgos (${r.riesgos.length})`,`<ul>${r.riesgos.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`):''}
     ${r.reglas_generales_candidatas?nnPlegado(`reglas candidatas (${r.reglas_generales_candidatas.length})`,`<ul>${r.reglas_generales_candidatas.map(x=>`<li>${esc(x.regla)} · <i>medible:</i> ${esc(x.medible_como)} · <i>por qué:</i> ${esc(x.por_que)}</li>`).join('')}</ul>`):''}
     ${(n.caps||[]).map(cp=>{
-      const t=cp.metricas||{}, marcadas=new Set(cp.deberia.flatMap(d=>d.oraciones_actuales||[]));
+      const t=cp.metricas||{}, marcadas=new Set(cp.deberia.flatMap(d=>(porK[d.k]||{}).oraciones_actuales||[])), pars=(previa.find(x=>x.cap===cp.cap)||cp).parrafos;
       return `<div class="pp-cap"><small>${esc(cp.cap)}</small>${esc(cp.titulo||'')}${cp.nota!=null?` · ${esc(String(cp.nota))}`:''}</div>
       <div class="nn-met">${t.palabras??'—'} palabras · ${t.segundos??'—'} s · ${t.pct??'—'} % · ${t.anios_por_min??'—'} años/min · racha sin personaje ${cp.racha_max_sin_personaje??'—'} · personaje en voz (crítico) ${nnSi(cp.personaje_en_voz)}
         ${cp.fuerte?`<br><b>Fuerte:</b> ${esc(cp.fuerte)}`:''}${cp.debil?`<br><b>Débil:</b> ${esc(cp.debil)}`:''}${cp.reengancho?`<br><b>Re-enganche:</b> ${esc(cp.reengancho)}`:''}</div>
-      <div class="nn-grid"><div>${cp.parrafos.map(p=>nnParrafo(p,marcadas)).join('')}</div><div>${cp.deberia.map(nnDeberia).join('')||'<div class="pp-rel">sin DEBERÍA en este capítulo</div>'}</div></div>`;}).join('')}`;
+      <div class="nn-grid"><div>${pars.map(p=>nnParrafo(p,marcadas)).join('')}</div><div>${cp.deberia.map(nnDeberia).join('')||'<div class="pp-rel">sin DEBERÍA en este capítulo</div>'}</div></div>`;}).join('')}`;
 }
-async function nnGuardar(i){
+function nnGuardar(i){
   const texto=$('nnTa').value;
   nnEdit=null;
-  const j=await nnAccion('/narracion/editar',{i,texto});
-  if(j){ nnNota='Párrafo guardado. Si estaba aprobada, la aprobación cayó.'; nnRender(); }
-}
-async function nnAceptar(k){
-  const j=await nnAccion('/narracion/aceptar',{k});
-  if(j){ nnNota=`DEBERÍA ${k} aceptado · beats cambiados: ${j.beats_cambiados.join(', ')}`+(j.beats_sin_texto.length?` · sin texto: ${j.beats_sin_texto.join(', ')}`:''); nnRender(); }
+  if(texto.trim()===nnDisco(i)) delete nnEdits[i]; else nnEdits[i]=texto;
+  nnPrevia();
 }
 async function nnAprobar(){
   const por=($('nnQuien').value||'').trim();
   if(!por){ nnError='Falta quién aprueba.'; nnRender(); return; }
-  await nnAccion('/narracion/aprobar',{por});
-  if(!nnError) toast('Narración aprobada. Nada más corrió: ni papel ni voz.');
+  nnError=''; nnNota=''; nnBusy=true; nnRender();
+  try{
+    await ppPost('/narracion/aprobar',{por,...nnCuerpo()});
+    nnBusy=false; await nnCargar();
+    toast('Narración aprobada. Nada más corrió: ni papel ni voz.');
+  }catch(e){ nnBusy=false; nnError=e.message; nnRender(); }
 }
 
 boot();

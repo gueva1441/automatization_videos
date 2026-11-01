@@ -33,6 +33,8 @@ ARCHIVO = "01f_critico"
 _PROMPTS = Path(__file__).resolve().parent / "m01f_prompts"
 SYSTEM = (_PROMPTS / "SYSTEM.txt").read_text(encoding="utf-8")
 FORMATO = (_PROMPTS / "FORMATO.txt").read_text(encoding="utf-8")
+SEPARADOR = "[…]"                 # F67d: salida real de m01f-1; separa las partes de un DEBERÍA no contiguo
+ACCIONES = ("aceptar", "editar", "rechazar")
 RE_MARCA = re.compile(r"\[[^\]]*\]")   # F67a abierto 3: `[idx1]`, `[…]`; la narración nunca lleva corchetes: va a TTS
 
 
@@ -267,7 +269,7 @@ def cargar_critica(topic_id: str, steps_dir: Path | None = None) -> dict[str, An
         return None
 
 
-# ═══════════════════════ F67 C.2: la edición de la compuerta. Nada corre solo: Omar edita o acepta, el código reconstruye ═══════════════════════
+# ═══════════════════════ F67 C.2: la edición de la compuerta. Nada corre solo: Omar decide, el código reconstruye ═══════════════════════
 
 def _carga(topic_id: str, steps_dir: Path | None) -> dict[str, Any]:
     """Topic (el cargador de `verificar_narracion`), escaleta, párrafos, pool y títulos vigentes (m01e.cargar)."""
@@ -288,17 +290,6 @@ def _aplicar(topic_id: str, c: dict[str, Any], steps_dir: Path | None) -> str:
     return md5_narracion(r["narracion_v3"])
 
 
-def editar_parrafo(topic_id: str, i: int, texto: str, steps_dir: Path | None = None) -> dict[str, Any]:
-    """`i` = índice del párrafo en 01b_narracion_v3.parrafos ((cap, beat) no es único). Invalida la aprobación por md5."""
-    c = _carga(topic_id, steps_dir)
-    if not isinstance(i, int) or isinstance(i, bool) or not 0 <= i < len(c["parrafos"]):
-        raise ValueError(f"no hay párrafo {i}")
-    if not isinstance(texto, str) or not texto.strip():
-        raise ValueError("el párrafo no puede quedar vacío")
-    c["parrafos"][i] = {**c["parrafos"][i], "texto": texto.strip()}
-    return {"i": i, "beat": c["parrafos"][i].get("beat"), "md5": _aplicar(topic_id, c, steps_dir)}
-
-
 def _oraciones_cap(parrafos: list[dict[str, Any]], n: int) -> list[dict[str, Any]]:
     """Las oraciones actuales del cap, con su párrafo y su posición en el texto del párrafo (el corte de la voz junta las palabras
     con un espacio: la posición se busca, no se calcula)."""
@@ -316,8 +307,8 @@ def _oraciones_cap(parrafos: list[dict[str, Any]], n: int) -> list[dict[str, Any
 
 
 def _ubicar(ors: list[dict[str, Any]], original: list[str]) -> int | None:
-    """Dónde está el tramo: `aplica` ⇔ la secuencia aparece exactamente una vez, contigua. Nunca por `idx`, que se corre al aceptar
-    otro DEBERÍA del mismo cap."""
+    """Dónde está el tramo: la secuencia aparece exactamente una vez, contigua. Nunca por `idx`, que se corre al aplicar otro DEBERÍA
+    del mismo cap."""
     if not original:
         return None
     textos = [o["texto"] for o in ors]
@@ -325,39 +316,38 @@ def _ubicar(ors: list[dict[str, Any]], original: list[str]) -> int | None:
     return hits[0] if len(hits) == 1 else None
 
 
-def aplica(fila: dict[str, Any], parrafos: list[dict[str, Any]]) -> bool:
-    return _ubicar(_oraciones_cap(parrafos, int(str(fila["cap"])[2:])), fila.get("texto_original") or []) is not None
+# ═══════════════════════ F67d: el borrador. Aceptar, editar o rechazar no escribe; aprobar aplica todo junto, una vez ═══════════════════════
+
+def _partes(crudo: Any) -> list[str]:
+    """Las partes del `deberia_texto`: se corta por SEPARADOR en crudo, porque `limpiar` lo borra; después se limpia cada una."""
+    return [t for t in (limpiar(x) for x in str(crudo or "").split(SEPARADOR)) if t]
 
 
-def oraciones_actuales(fila: dict[str, Any], parrafos: list[dict[str, Any]]) -> list[int]:
-    """Los `idx` de hoy del tramo (la pestaña resalta estos: el `idx` del crítico se corre al aceptar otro DEBERÍA). [] si no aplica."""
-    original = fila.get("texto_original") or []
-    j = _ubicar(_oraciones_cap(parrafos, int(str(fila["cap"])[2:])), original)
-    return [] if j is None else list(range(j, j + len(original)))
+def _tramos(fila: dict[str, Any]) -> list[list[str]] | None:
+    """Los tramos contiguos de oraciones del DEBERÍA; None si algún `idx` no existía cuando se validó."""
+    idx, original = fila.get("idx") or [], fila.get("texto_original") or []
+    if not original or len(idx) != len(original):
+        return None
+    out: list[list[str]] = []
+    for pos, t in enumerate(original):
+        if pos and idx[pos] == idx[pos - 1] + 1:
+            out[-1].append(t)
+        else:
+            out.append([t])
+    return out
 
 
-def aceptar_deberia(topic_id: str, k: int, steps_dir: Path | None = None) -> dict[str, Any]:
-    """Aplica el DEBERÍA `k` de 01f_critico.json: el tramo se reemplaza por `deberia_texto` limpio. Primer párrafo = lo previo al
-    tramo + el texto nuevo; último = lo posterior; los del medio quedan sin texto. Los `ids` válidos se suman al primero. Un párrafo
-    sin texto se ELIMINA: `tts_tags.tag_cap` saltea los vacíos y sus `intensities`/`pico_par` (índices de párrafo) se correrían; el
-    POST responde qué beats cambiaron y cuáles quedaron sin texto. Reconstruye y corre el juez."""
-    crit = cargar_critica(topic_id, steps_dir) or {}
-    filas = (crit.get("validacion") or {}).get("deberia") or []
-    fila = next((f for f in filas if f.get("k") == k), None)
-    if fila is None:
-        raise ValueError(f"no hay DEBERÍA {k}")
-    d = [x for x in (crit.get("respuesta") or {}).get("deberia") or [] if isinstance(x, dict)][k - 1]
-    c = _carga(topic_id, steps_dir)
-    ps = [dict(p) for p in c["parrafos"]]
-    ors = _oraciones_cap(ps, int(str(fila["cap"])[2:]))
-    j = _ubicar(ors, fila.get("texto_original") or [])
-    if j is None:
-        raise ValueError(f"DEBERÍA {k} ya no aplica (el texto cambió)")
-    a, b = ors[j], ors[j + len(fila["texto_original"]) - 1]
-    nuevo = limpiar(d.get("deberia_texto"))
+def _sin_espacios(t: str) -> str:
+    return " ".join(t.split())
+
+
+def _reemplazar(ps: list[dict[str, Any]], ors: list[dict[str, Any]], j: int, n: int, nuevo: str) -> list[int]:
+    """El tramo de `n` oraciones desde `j` pasa a ser `nuevo`: primer párrafo = lo previo + el texto nuevo; último = lo posterior; los del
+    medio quedan sin texto. Un párrafo sin texto se ELIMINA al final de `borrador`: `tts_tags.tag_cap` saltea los vacíos y sus
+    `intensities`/`pico_par` (índices de párrafo) se correrían. Devuelve los párrafos tocados."""
+    a, b = ors[j], ors[j + n - 1]
     espacios = lambda t: re.sub(r"[ \t]{2,}", " ", t).strip()  # noqa: E731
     pa, pb = a["parrafo"], b["parrafo"]
-    cambiados = sorted({pa, pb} | set(range(pa, pb + 1)))
     if pa == pb:
         t = ps[pa]["texto"]
         ps[pa]["texto"] = espacios(t[:a["ini"]] + nuevo + t[b["fin"]:])
@@ -366,10 +356,139 @@ def aceptar_deberia(topic_id: str, k: int, steps_dir: Path | None = None) -> dic
         ps[pb]["texto"] = espacios(ps[pb]["texto"][b["fin"]:])
         for m in range(pa + 1, pb):
             ps[m]["texto"] = ""
-    malos = set(fila.get("ids_invalidos") or [])
-    ps[pa]["ids_usados"] = list(dict.fromkeys(list(ps[pa].get("ids_usados") or []) + [str(i) for i in d.get("ids") or [] if str(i) not in malos]))
-    beats = sorted({int(ps[m].get("beat") or 0) for m in cambiados})
-    c["parrafos"] = [p for p in ps if p["texto"].strip()]
-    vivos = {int(p.get("beat") or 0) for p in c["parrafos"] if int(p["cap"]) == int(str(fila["cap"])[2:])}
-    return {"k": k, "cap": fila["cap"], "beats_cambiados": beats, "beats_sin_texto": [x for x in beats if x not in vivos],
-            "md5": _aplicar(topic_id, c, steps_dir)}
+    return list(range(pa, pb + 1))
+
+
+def _aplicar_deberia(ps: list[dict[str, Any]], fila: dict[str, Any], crudo: Any, ids: list[str]) -> dict[str, Any]:
+    """Aplica un DEBERÍA sobre `ps`, entero o nada. Cada parte va con su tramo; si no coinciden en número no se adivina. Ya aplicada =
+    la parte está en el texto del cap y no está contenida en su tramo original (el original puede seguir ubicable)."""
+    n = int(str(fila["cap"])[2:])
+    tramos, partes = _tramos(fila), _partes(crudo)
+    if tramos is None:
+        return {"estado": "no_aplica", "motivo": "el crítico citó oraciones que no existían"}
+    if len(partes) != len(tramos):
+        return {"estado": "no_aplica", "motivo": f"{len(partes)} parte(s) en el texto y {len(tramos)} tramo(s) en la narración: editar a mano"}
+    copia = [{**p} for p in ps]
+    tocados: list[int] = []
+    ya = 0
+    for parte, tramo in zip(partes, tramos):
+        cap = _sin_espacios(" ".join(p["texto"] for p in copia if int(p["cap"]) == n))
+        if _sin_espacios(parte) in cap and _sin_espacios(parte) not in _sin_espacios(" ".join(tramo)):
+            ya += 1
+            continue
+        ors = _oraciones_cap(copia, n)
+        j = _ubicar(ors, tramo)
+        if j is None:
+            return {"estado": "no_aplica", "motivo": "el texto cambió: ya no está el tramo"}
+        tocados += _reemplazar(copia, ors, j, len(tramo), parte)
+    if ya == len(partes):
+        return {"estado": "ya_aplicado"}
+    if ids:
+        p = copia[tocados[0]]
+        p["ids_usados"] = list(dict.fromkeys(list(p.get("ids_usados") or []) + ids))
+    ps[:] = copia
+    return {"estado": "aplicado", "beats": sorted({int(ps[m].get("beat") or 0) for m in tocados}), "partes_ya_aplicadas": ya}
+
+
+def _decisiones(decisiones: Any) -> dict[int, dict[str, Any]]:
+    """k → {accion, texto?}. JSON manda las claves como texto."""
+    out: dict[int, dict[str, Any]] = {}
+    for k, d in (decisiones or {}).items():
+        if not isinstance(d, dict) or d.get("accion") not in ACCIONES:
+            raise ValueError(f"DEBERÍA {k}: la acción tiene que ser una de {ACCIONES}")
+        if d.get("texto") is not None and (not isinstance(d["texto"], str) or not d["texto"].strip()):
+            raise ValueError(f"DEBERÍA {k}: el texto no puede quedar vacío")
+        out[int(k)] = d
+    return out
+
+
+def _ediciones(parrafos: list[dict[str, Any]], ediciones: Any) -> dict[int, str]:
+    """i → texto, `i` indexado sobre los párrafos del disco. Las que dejan el texto igual no son ediciones."""
+    out: dict[int, str] = {}
+    for e in ediciones or []:
+        i, texto = e.get("i"), e.get("texto")
+        if not isinstance(i, int) or isinstance(i, bool) or not 0 <= i < len(parrafos):
+            raise ValueError(f"no hay párrafo {i}")
+        if not isinstance(texto, str) or not texto.strip():
+            raise ValueError("el párrafo no puede quedar vacío")
+        if texto.strip() != parrafos[i]["texto"]:
+            out[i] = texto.strip()
+    return out
+
+
+def borrador(parrafos: list[dict[str, Any]], critica: dict[str, Any] | None, decisiones: Any = None, ediciones: Any = None) -> dict[str, Any]:
+    """Pura: sin disco y sin juez. Siempre parte de los párrafos del disco: primero las ediciones libres, después cada DEBERÍA aceptado o
+    editado una sola vez (`decisiones` es un mapa k → acción). Una edición que toca el tramo de un k lo deja «no aplica».
+    {parrafos, indices (el `i` del disco de cada uno), por_k {k: {estado, motivo?, beats?, ...}}, pendientes, cambio}. Estados: pendiente
+    (con `aplica`: lo que pasaría al aceptarlo), aplicado, ya_aplicado, no_aplica, rechazado, editado_a_mano."""
+    dec = _decisiones(decisiones)
+    ed = _ediciones(parrafos, ediciones)
+    filas = {f["k"]: f for f in ((critica or {}).get("validacion") or {}).get("deberia") or []}
+    deb = [x for x in ((critica or {}).get("respuesta") or {}).get("deberia") or [] if isinstance(x, dict)]
+    if set(dec) - set(filas):
+        raise ValueError(f"no hay DEBERÍA {sorted(set(dec) - set(filas))}")
+    tocado_a_mano: set[int] = set()
+    for k, f in filas.items():                       # sobre el disco, antes de las ediciones
+        ors = _oraciones_cap(parrafos, int(str(f["cap"])[2:]))
+        for tramo in _tramos(f) or []:
+            j = _ubicar(ors, tramo)
+            if j is not None and any(ors[m]["parrafo"] in ed for m in range(j, j + len(tramo))):
+                tocado_a_mano.add(k)
+    ps = [{**p, "_i": i, **({"texto": ed[i]} if i in ed else {})} for i, p in enumerate(parrafos)]
+    por_k: dict[int, dict[str, Any]] = {}
+    for k in sorted(filas):
+        f, d = filas[k], dec.get(k)
+        x = deb[k - 1]
+        malos = set(f.get("ids_invalidos") or [])
+        ids = [str(i) for i in x.get("ids") or [] if str(i) not in malos]
+        crudo = (d or {}).get("texto") if (d or {}).get("texto") is not None else x.get("deberia_texto")
+        a_mano = {"estado": "no_aplica", "motivo": "editado a mano"} if k in tocado_a_mano else None
+        if d is None:
+            prueba = a_mano or _aplicar_deberia([{**p} for p in ps], f, crudo, ids)
+            por_k[k] = {"estado": "pendiente", "aplica": "aplica" if prueba["estado"] == "aplicado" else prueba["estado"],
+                        **({"motivo": prueba["motivo"]} if "motivo" in prueba else {})}
+        elif d["accion"] == "rechazar":
+            por_k[k] = {"estado": "rechazado"}
+        elif d["accion"] == "editar" and d.get("texto") is None:
+            por_k[k] = {"estado": "editado_a_mano"}
+        else:
+            por_k[k] = a_mano or _aplicar_deberia(ps, f, crudo, ids)
+    vivos_ps = [p for p in ps if p["texto"].strip()]
+    vivos = {(int(p["cap"]), int(p.get("beat") or 0)) for p in vivos_ps}
+    for k, r in por_k.items():
+        n = int(str(filas[k]["cap"])[2:])
+        if r.get("beats"):
+            r["beats_sin_texto"] = [b for b in r["beats"] if (n, b) not in vivos]
+        ors = _oraciones_cap(vivos_ps, n)
+        actuales: list[int] = []
+        for tramo in _tramos(filas[k]) or []:
+            j = _ubicar(ors, tramo)
+            if j is not None:
+                actuales += list(range(j, j + len(tramo)))
+        r["oraciones_actuales"] = actuales
+    limpios = [{c: v for c, v in p.items() if c != "_i"} for p in vivos_ps]
+    return {"parrafos": limpios, "indices": [p["_i"] for p in vivos_ps], "por_k": por_k,
+            "pendientes": [k for k, r in por_k.items() if r["estado"] in ("pendiente", "no_aplica")], "cambio": limpios != parrafos}
+
+
+def guardar_y_aprobar(topic_id: str, decisiones: Any, ediciones: Any, por: str, steps_dir: Path | None = None) -> dict[str, Any]:
+    """«Aprobar narración»: `borrador` → 1 `_aplicar` (reconstrucción + juez) → `aprobar_narracion`. Con decisiones pendientes no escribe nada.
+    Si el borrador deja el texto igual no reconstruye: el md5 no cambia y el papel sigue vigente."""
+    import time
+
+    import fase1_5 as f15
+    por = str(por or "").strip()
+    if not por:
+        raise ValueError("falta quién aprueba")
+    c = _carga(topic_id, steps_dir)
+    b = borrador(c["parrafos"], cargar_critica(topic_id, steps_dir), decisiones, ediciones)
+    if b["pendientes"]:
+        raise ValueError(f"falta decidir DEBERÍA {b['pendientes']}: aceptar, editar o rechazar (los que no aplican: rechazar o editar)")
+    if b["cambio"]:
+        c["parrafos"] = b["parrafos"]
+        _aplicar(topic_id, c, steps_dir)
+    try:
+        ap = f15.aprobar_narracion(topic_id, f"{por} {time.strftime('%Y-%m-%dT%H:%M')}", steps_dir)
+    except f15.Parada as e:
+        raise ValueError(str(e)) from e
+    return {"aprobado": ap, "por_k": b["por_k"], "cambio": b["cambio"]}
