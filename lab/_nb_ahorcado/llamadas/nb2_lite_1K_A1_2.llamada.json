@@ -1,0 +1,23 @@
+{
+ "foto": "nb2_lite_1K_A1_2.png",
+ "llamadas": {
+  "nb2_lite_1K": {
+   "motor": "nb2_lite_1K",
+   "endpoint": "google/nano-banana-2-lite",
+   "firma": "6fef1d0371a2c0644aff43c333c4f12e",
+   "texto": "The body of an executed prisoner hangs motionless from a wooden gallows in a prison yard, a white cloth hood over his head, the rope taut, his hands bound behind his back, his boots a few feet above the trapdoor that has just dropped open. Two uniformed prison guards stand at attention below the platform and a priest in a black cassock holds a closed prayer book, head bowed. Men of European descent with fair to olive skin, light to dark brown or black hair, varied eye colour and lean, labour-hardened builds. Stone-walled prison yard 1924, raw timber gallows with thirteen steps, high walls topped with iron spikes, muddy ground. Grey overcast morning light, flat and cold. Wide shot, eye-level, 35mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1924, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parametros": {
+    "aspect_ratio": "16:9",
+    "safety_tolerance": "6",
+    "num_images": 1
+   },
+   "referencias_md5": [],
+   "hora": "2026-11-01T14:36:38",
+   "estado": "ok",
+   "request_id": "01a1989d-2f1e-7422-b583-426410203c66",
+   "status_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a1989d-2f1e-7422-b583-426410203c66/status",
+   "response_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a1989d-2f1e-7422-b583-426410203c66",
+   "segundos": 10.3
+  }
+ }
+}

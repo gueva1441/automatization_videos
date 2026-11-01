@@ -1,0 +1,419 @@
+{
+ "llamadas": {
+  "nb2_1K_A3_2": {
+   "modelo": "fal-ai/nano-banana-2",
+   "resolucion_pedida": "1K",
+   "prompt_id": "A3",
+   "corrida": 2,
+   "request_id": "01a1989d-2f39-7613-a9b4-62c134f8a8b8",
+   "estado": "BLOQUEADO",
+   "type": "no_media_generated",
+   "msg": "The model did not generate the expected output for this prompt. This may occur for several reasons, including unsafe content, a prompt that is incompatible with the selected media type (e.g., prompting an image model to generate audio), references to missing attachments, or other cases where the input cannot be processed as the requested output type. Please review your inputs and try again. If the issue persists, contact support.",
+   "segundos": 3.5,
+   "resolucion_devuelta": null,
+   "categories": null,
+   "costo_usd": null,
+   "costo_origen": "sin imagen; se asume que no cobra, no verificado",
+   "precio_lista_usd": 0.08
+  },
+  "nb2_lite_1K_A2_3": {
+   "modelo": "google/nano-banana-2-lite",
+   "resolucion_pedida": "no se manda: fija 1K según la ficha",
+   "prompt_id": "A2",
+   "corrida": 3,
+   "request_id": "01a1989d-2f16-7e61-bf54-e5e004dd2020",
+   "estado": "BLOQUEADO",
+   "type": "content_policy_violation",
+   "msg": "The content could not be processed because it contained material flagged by a content checker.",
+   "segundos": 10.1,
+   "resolucion_devuelta": null,
+   "categories": [
+    "model_moderated"
+   ],
+   "costo_usd": null,
+   "costo_origen": "por tokens, sin medir",
+   "precio_lista_usd": "por tokens, sin medir"
+  },
+  "nb2_lite_1K_A1_3": {
+   "modelo": "google/nano-banana-2-lite",
+   "resolucion_pedida": "no se manda: fija 1K según la ficha",
+   "prompt_id": "A1",
+   "corrida": 3,
+   "request_id": "01a1989d-2f15-7642-8c89-346885317b4b",
+   "estado": "BLOQUEADO",
+   "type": "content_policy_violation",
+   "msg": "The content could not be processed because it contained material flagged by a content checker.",
+   "segundos": 10.3,
+   "resolucion_devuelta": null,
+   "categories": [
+    "model_moderated"
+   ],
+   "costo_usd": null,
+   "costo_origen": "por tokens, sin medir",
+   "precio_lista_usd": "por tokens, sin medir"
+  },
+  "nb2_lite_1K_A2_1": {
+   "modelo": "google/nano-banana-2-lite",
+   "resolucion_pedida": "no se manda: fija 1K según la ficha",
+   "prompt_id": "A2",
+   "corrida": 1,
+   "request_id": "01a1989d-2f22-73b0-89e5-cd17e6ac16e8",
+   "estado": "BLOQUEADO",
+   "type": "content_policy_violation",
+   "msg": "The content could not be processed because it contained material flagged by a content checker.",
+   "segundos": 10.3,
+   "resolucion_devuelta": null,
+   "categories": [
+    "model_moderated"
+   ],
+   "costo_usd": null,
+   "costo_origen": "por tokens, sin medir",
+   "precio_lista_usd": "por tokens, sin medir"
+  },
+  "nb2_lite_1K_A2_2": {
+   "modelo": "google/nano-banana-2-lite",
+   "resolucion_pedida": "no se manda: fija 1K según la ficha",
+   "prompt_id": "A2",
+   "corrida": 2,
+   "request_id": "01a1989d-2f16-7c23-9793-a624c49fca20",
+   "estado": "BLOQUEADO",
+   "type": "content_policy_violation",
+   "msg": "The content could not be processed because it contained material flagged by a content checker.",
+   "segundos": 10.3,
+   "resolucion_devuelta": null,
+   "categories": [
+    "model_moderated"
+   ],
+   "costo_usd": null,
+   "costo_origen": "por tokens, sin medir",
+   "precio_lista_usd": "por tokens, sin medir"
+  },
+  "nb2_lite_1K_A3_1": {
+   "modelo": "google/nano-banana-2-lite",
+   "resolucion_pedida": "no se manda: fija 1K según la ficha",
+   "prompt_id": "A3",
+   "corrida": 1,
+   "request_id": "01a1989d-2efd-7a61-a297-a50f3c893cba",
+   "estado": "OK",
+   "type": null,
+   "msg": null,
+   "segundos": 10.7,
+   "resolucion_devuelta": "1376x768",
+   "negra": false,
+   "respuesta_sin_imagen": {
+    "description": ""
+   },
+   "costo_usd": null,
+   "costo_origen": "por tokens, sin medir",
+   "precio_lista_usd": "por tokens, sin medir"
+  },
+  "nb2_lite_1K_A3_2": {
+   "modelo": "google/nano-banana-2-lite",
+   "resolucion_pedida": "no se manda: fija 1K según la ficha",
+   "prompt_id": "A3",
+   "corrida": 2,
+   "request_id": "01a1989d-2f1e-7e11-be26-64f373e0b1b6",
+   "estado": "OK",
+   "type": null,
+   "msg": null,
+   "segundos": 10.9,
+   "resolucion_devuelta": "1376x768",
+   "negra": false,
+   "respuesta_sin_imagen": {
+    "description": ""
+   },
+   "costo_usd": null,
+   "costo_origen": "por tokens, sin medir",
+   "precio_lista_usd": "por tokens, sin medir"
+  },
+  "nb2_lite_1K_A3_3": {
+   "modelo": "google/nano-banana-2-lite",
+   "resolucion_pedida": "no se manda: fija 1K según la ficha",
+   "prompt_id": "A3",
+   "corrida": 3,
+   "request_id": "01a1989d-2f37-7452-82d3-4e0bd4b86c8e",
+   "estado": "OK",
+   "type": null,
+   "msg": null,
+   "segundos": 11.0,
+   "resolucion_devuelta": "1376x768",
+   "negra": false,
+   "respuesta_sin_imagen": {
+    "description": ""
+   },
+   "costo_usd": null,
+   "costo_origen": "por tokens, sin medir",
+   "precio_lista_usd": "por tokens, sin medir"
+  },
+  "nb2_lite_1K_A1_2": {
+   "modelo": "google/nano-banana-2-lite",
+   "resolucion_pedida": "no se manda: fija 1K según la ficha",
+   "prompt_id": "A1",
+   "corrida": 2,
+   "request_id": "01a1989d-2f1e-7422-b583-426410203c66",
+   "estado": "OK",
+   "type": null,
+   "msg": null,
+   "segundos": 11.1,
+   "resolucion_devuelta": "1376x768",
+   "negra": false,
+   "respuesta_sin_imagen": {
+    "description": ""
+   },
+   "costo_usd": null,
+   "costo_origen": "por tokens, sin medir",
+   "precio_lista_usd": "por tokens, sin medir"
+  },
+  "nb2_lite_1K_A1_1": {
+   "modelo": "google/nano-banana-2-lite",
+   "resolucion_pedida": "no se manda: fija 1K según la ficha",
+   "prompt_id": "A1",
+   "corrida": 1,
+   "request_id": "01a1989d-2f31-70a2-b8ef-38270285eda2",
+   "estado": "OK",
+   "type": null,
+   "msg": null,
+   "segundos": 11.1,
+   "resolucion_devuelta": "1376x768",
+   "negra": false,
+   "respuesta_sin_imagen": {
+    "description": ""
+   },
+   "costo_usd": null,
+   "costo_origen": "por tokens, sin medir",
+   "precio_lista_usd": "por tokens, sin medir"
+  },
+  "nb2_1K_A1_2": {
+   "modelo": "fal-ai/nano-banana-2",
+   "resolucion_pedida": "1K",
+   "prompt_id": "A1",
+   "corrida": 2,
+   "request_id": "01a1989d-2f35-7d22-b803-2d4839dacf72",
+   "estado": "BLOQUEADO",
+   "type": "content_policy_violation",
+   "msg": "The content could not be processed because it contained material flagged by a content checker.",
+   "segundos": 15.9,
+   "resolucion_devuelta": null,
+   "categories": [
+    "model_moderated"
+   ],
+   "costo_usd": null,
+   "costo_origen": "sin imagen; se asume que no cobra, no verificado",
+   "precio_lista_usd": 0.08
+  },
+  "nb2_1K_A1_1": {
+   "modelo": "fal-ai/nano-banana-2",
+   "resolucion_pedida": "1K",
+   "prompt_id": "A1",
+   "corrida": 1,
+   "request_id": "01a1989d-2f34-7bf1-85f5-db452d4b0344",
+   "estado": "BLOQUEADO",
+   "type": "content_policy_violation",
+   "msg": "The content could not be processed because it contained material flagged by a content checker.",
+   "segundos": 16.1,
+   "resolucion_devuelta": null,
+   "categories": [
+    "model_moderated"
+   ],
+   "costo_usd": null,
+   "costo_origen": "sin imagen; se asume que no cobra, no verificado",
+   "precio_lista_usd": 0.08
+  },
+  "nb2_1K_A3_1": {
+   "modelo": "fal-ai/nano-banana-2",
+   "resolucion_pedida": "1K",
+   "prompt_id": "A3",
+   "corrida": 1,
+   "request_id": "01a1989d-2f37-7362-bf9f-bed7c9013278",
+   "estado": "BLOQUEADO",
+   "type": "content_policy_violation",
+   "msg": "The content could not be processed because it contained material flagged by a content checker.",
+   "segundos": 16.1,
+   "resolucion_devuelta": null,
+   "categories": [
+    "model_moderated"
+   ],
+   "costo_usd": null,
+   "costo_origen": "sin imagen; se asume que no cobra, no verificado",
+   "precio_lista_usd": 0.08
+  },
+  "nb2_1K_A3_3": {
+   "modelo": "fal-ai/nano-banana-2",
+   "resolucion_pedida": "1K",
+   "prompt_id": "A3",
+   "corrida": 3,
+   "request_id": "01a1989d-2f4a-79e1-986d-a5c2d682ce69",
+   "estado": "BLOQUEADO",
+   "type": "content_policy_violation",
+   "msg": "The content could not be processed because it contained material flagged by a content checker.",
+   "segundos": 16.1,
+   "resolucion_devuelta": null,
+   "categories": [
+    "model_moderated"
+   ],
+   "costo_usd": null,
+   "costo_origen": "sin imagen; se asume que no cobra, no verificado",
+   "precio_lista_usd": 0.08
+  },
+  "nb2_1K_A2_1": {
+   "modelo": "fal-ai/nano-banana-2",
+   "resolucion_pedida": "1K",
+   "prompt_id": "A2",
+   "corrida": 1,
+   "request_id": "01a1989d-2f31-7ea1-bdd3-54c2bef774d4",
+   "estado": "BLOQUEADO",
+   "type": "content_policy_violation",
+   "msg": "The content could not be processed because it contained material flagged by a content checker.",
+   "segundos": 16.1,
+   "resolucion_devuelta": null,
+   "categories": [
+    "model_moderated"
+   ],
+   "costo_usd": null,
+   "costo_origen": "sin imagen; se asume que no cobra, no verificado",
+   "precio_lista_usd": 0.08
+  },
+  "nb2_1K_A2_3": {
+   "modelo": "fal-ai/nano-banana-2",
+   "resolucion_pedida": "1K",
+   "prompt_id": "A2",
+   "corrida": 3,
+   "request_id": "01a1989d-2f4a-7551-98c8-fbaf9637ddb9",
+   "estado": "BLOQUEADO",
+   "type": "content_policy_violation",
+   "msg": "The content could not be processed because it contained material flagged by a content checker.",
+   "segundos": 16.1,
+   "resolucion_devuelta": null,
+   "categories": [
+    "model_moderated"
+   ],
+   "costo_usd": null,
+   "costo_origen": "sin imagen; se asume que no cobra, no verificado",
+   "precio_lista_usd": 0.08
+  },
+  "nb2_1K_A1_3": {
+   "modelo": "fal-ai/nano-banana-2",
+   "resolucion_pedida": "1K",
+   "prompt_id": "A1",
+   "corrida": 3,
+   "request_id": "01a1989d-2f48-7691-a973-cbc11255d85c",
+   "estado": "BLOQUEADO",
+   "type": "content_policy_violation",
+   "msg": "The content could not be processed because it contained material flagged by a content checker.",
+   "segundos": 16.1,
+   "resolucion_devuelta": null,
+   "categories": [
+    "model_moderated"
+   ],
+   "costo_usd": null,
+   "costo_origen": "sin imagen; se asume que no cobra, no verificado",
+   "precio_lista_usd": 0.08
+  },
+  "nb2_1K_A2_2": {
+   "modelo": "fal-ai/nano-banana-2",
+   "resolucion_pedida": "1K",
+   "prompt_id": "A2",
+   "corrida": 2,
+   "request_id": "01a1989d-2f36-7c11-a9cd-d9032829a073",
+   "estado": "BLOQUEADO",
+   "type": "content_policy_violation",
+   "msg": "The content could not be processed because it contained material flagged by a content checker.",
+   "segundos": 16.1,
+   "resolucion_devuelta": null,
+   "categories": [
+    "model_moderated"
+   ],
+   "costo_usd": null,
+   "costo_origen": "sin imagen; se asume que no cobra, no verificado",
+   "precio_lista_usd": 0.08
+  },
+  "nb2_2K_A3_1": {
+   "modelo": "fal-ai/nano-banana-2",
+   "resolucion_pedida": "2K",
+   "prompt_id": "A3",
+   "corrida": 1,
+   "request_id": "01a1989d-2f37-7362-bf9f-bee19a5f5be5",
+   "estado": "BLOQUEADO",
+   "type": "content_policy_violation",
+   "msg": "The content could not be processed because it contained material flagged by a content checker.",
+   "segundos": 21.1,
+   "resolucion_devuelta": null,
+   "categories": [
+    "model_moderated"
+   ],
+   "costo_usd": null,
+   "costo_origen": "sin imagen; se asume que no cobra, no verificado",
+   "precio_lista_usd": 0.12
+  },
+  "nb2_2K_A1_1": {
+   "modelo": "fal-ai/nano-banana-2",
+   "resolucion_pedida": "2K",
+   "prompt_id": "A1",
+   "corrida": 1,
+   "request_id": "01a1989d-2f4a-73d3-b5ec-80ca2abc0f45",
+   "estado": "BLOQUEADO",
+   "type": "content_policy_violation",
+   "msg": "The content could not be processed because it contained material flagged by a content checker.",
+   "segundos": 21.2,
+   "resolucion_devuelta": null,
+   "categories": [
+    "model_moderated"
+   ],
+   "costo_usd": null,
+   "costo_origen": "sin imagen; se asume que no cobra, no verificado",
+   "precio_lista_usd": 0.12
+  },
+  "nb2_2K_A2_1": {
+   "modelo": "fal-ai/nano-banana-2",
+   "resolucion_pedida": "2K",
+   "prompt_id": "A2",
+   "corrida": 1,
+   "request_id": "01a1989d-2f47-7640-b495-031f032ca196",
+   "estado": "BLOQUEADO",
+   "type": "content_policy_violation",
+   "msg": "The content could not be processed because it contained material flagged by a content checker.",
+   "segundos": 21.3,
+   "resolucion_devuelta": null,
+   "categories": [
+    "model_moderated"
+   ],
+   "costo_usd": null,
+   "costo_origen": "sin imagen; se asume que no cobra, no verificado",
+   "precio_lista_usd": 0.12
+  }
+ },
+ "desde": "2026-11-01T19:36:38+00:00",
+ "openapi_vivo": {
+  "fecha": "2026-11-01",
+  "google/nano-banana-2-lite": {
+   "safety_tolerance": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6"
+   ],
+   "resolution": [],
+   "16:9": true
+  },
+  "fal-ai/nano-banana-2": {
+   "safety_tolerance": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6"
+   ],
+   "resolution": [
+    "0.5K",
+    "1K",
+    "2K",
+    "4K"
+   ],
+   "16:9": true
+  }
+ },
+ "hasta": "2026-11-01T19:37:00+00:00"
+}

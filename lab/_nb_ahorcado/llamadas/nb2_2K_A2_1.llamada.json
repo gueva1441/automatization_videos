@@ -1,0 +1,25 @@
+{
+ "foto": "nb2_2K_A2_1.png",
+ "llamadas": {
+  "nb2_2K": {
+   "motor": "nb2_2K",
+   "endpoint": "fal-ai/nano-banana-2",
+   "firma": "8569a26ad3d0e55a54aeb319512154d4",
+   "texto": "A miner in a dust-covered work shirt and drill trousers hangs from a rope tied to a rafter inside an abandoned corrugated-iron shed, his body still, head slumped forward, a wooden crate tipped over on its side beneath his boots. A second miner stands frozen in the open doorway, one hand on the frame, staring at him. Men of European descent with fair to olive skin, dark hair and lean, labour-hardened builds. Derelict mining-camp shed in the Australian outback 1966, rusted iron walls, a broken window, blue-grey tailings dust on the floor. Harsh afternoon sun cutting through gaps in the iron in hard diagonal shafts, the interior in deep shadow. Medium-wide shot, eye-level from the doorway, 35mm lens, moderate depth of field. A grainy 35mm documentary photograph taken in 1966, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parametros": {
+    "aspect_ratio": "16:9",
+    "safety_tolerance": "6",
+    "num_images": 1,
+    "resolution": "2K"
+   },
+   "referencias_md5": [],
+   "hora": "2026-11-01T14:36:38",
+   "estado": "error",
+   "request_id": "01a1989d-2f47-7640-b495-031f032ca196",
+   "status_url": "https://queue.fal.run/fal-ai/nano-banana-2/requests/01a1989d-2f47-7640-b495-031f032ca196/status",
+   "response_url": "https://queue.fal.run/fal-ai/nano-banana-2/requests/01a1989d-2f47-7640-b495-031f032ca196",
+   "mensaje": "{\"msg\": \"The content could not be processed because it contained material flagged by a content checker.\", \"type\": \"content_policy_violation\", \"categories\": [\"model_moderated\"]}",
+   "segundos": 21.3
+  }
+ }
+}

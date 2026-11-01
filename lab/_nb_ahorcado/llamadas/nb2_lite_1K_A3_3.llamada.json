@@ -1,0 +1,23 @@
+{
+ "foto": "nb2_lite_1K_A3_3.png",
+ "llamadas": {
+  "nb2_lite_1K": {
+   "motor": "nb2_lite_1K",
+   "endpoint": "google/nano-banana-2-lite",
+   "firma": "a272952ed2d7da1e74e47f8e6bada7e0",
+   "texto": "A distant figure hangs from the thick branch of a lone dead tree at the edge of a frontier town, seen in silhouette against the dawn sky, the rope a thin dark line, the body turning slightly in the wind. In the foreground, a small crowd of townspeople in long coats and wide-brimmed hats stands in silence with their backs to the camera, a horse-drawn wagon stopped on the dirt road beside them. Men and women of European descent with fair skin and weathered faces. Dusty frontier settlement 1893, timber storefronts, a dirt main road, dry scrubland beyond. Cold blue pre-dawn light with a thin orange line on the horizon, long soft shadows. Wide shot, eye-level, 50mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1893, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parametros": {
+    "aspect_ratio": "16:9",
+    "safety_tolerance": "6",
+    "num_images": 1
+   },
+   "referencias_md5": [],
+   "hora": "2026-11-01T14:36:38",
+   "estado": "ok",
+   "request_id": "01a1989d-2f37-7452-82d3-4e0bd4b86c8e",
+   "status_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a1989d-2f37-7452-82d3-4e0bd4b86c8e/status",
+   "response_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a1989d-2f37-7452-82d3-4e0bd4b86c8e",
+   "segundos": 10.3
+  }
+ }
+}
