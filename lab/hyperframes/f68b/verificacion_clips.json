@@ -1,0 +1,38 @@
+{
+ "ch01": {
+  "clip_nuevo": {
+   "segundos": 8.0,
+   "ancho": 1920,
+   "alto": 1080,
+   "audio": false
+  },
+  "clip_viejo": {
+   "segundos": 8.0,
+   "ancho": 1920,
+   "alto": 1080,
+   "audio": false
+  },
+  "ssim_nuevo_vs_foto_nueva": 0.774478,
+  "ssim_viejo_vs_foto_nueva": 0.140491,
+  "ssim_viejo_vs_foto_vieja": 0.878261,
+  "ssim_ultimo_nuevo_vs_foto_final": 0.836849
+ },
+ "ch07": {
+  "clip_nuevo": {
+   "segundos": 8.0,
+   "ancho": 1920,
+   "alto": 1080,
+   "audio": false
+  },
+  "clip_viejo": {
+   "segundos": 8.0,
+   "ancho": 1920,
+   "alto": 1080,
+   "audio": false
+  },
+  "ssim_nuevo_vs_foto_nueva": 0.721283,
+  "ssim_viejo_vs_foto_nueva": 0.292947,
+  "ssim_viejo_vs_foto_vieja": 0.754993,
+  "ssim_ultimo_nuevo_vs_foto_final": 0.707009
+ }
+}

@@ -1,0 +1,88 @@
+{
+ "resultados": [
+  {
+   "cap": "ch01",
+   "ok": true,
+   "log": [
+    {
+     "clip": "ch01_clip_01.mp4",
+     "motor": "gemini_omni_flash",
+     "rechazos": [],
+     "segundos": 8.0,
+     "ancho": 1920,
+     "alto": 1080,
+     "audio": false,
+     "usd": 1.2,
+     "prompt": "Slow push-in, one continuous 8-second shot on grainy 35mm documentary film, muted colors, slight underexposure, stark realist look. Start on the medium group shot of the young Spanish miner seated outside the corrugated-iron company house. Keep his face, short black hair, dusty khaki work shirt and drill trousers, the children around him, the house and the blue-grey tailings ground exactly as in the image.\n\nThe camera pushes in slowly toward the miner. The crate and his bandaged foot sink out of the bottom of the frame, and the outer children slide off the edges until only the boy in the grey cardigan on the left and the boy in the red shirt on the right remain, half-cropped. End on a closer frame of his face, torso and knees, his hands resting on his thighs.\n\nFine dust drifts low over the gravel, and his shirt stirs faintly as he breathes. Near the end, the girl in white behind him turns her head to the left into profile, and his lips part slightly as he exhales. He otherwise holds his stiff portrait pose and steady stare into the lens. The hard, cold midday light stays flat and unchanged.\n\nSound: faint wind across the tailings and a soft scrape of gravel. No music, no dialogue.\n\nNo captions.",
+     "foto_final": "ch01_img_01_final.png"
+    }
+   ]
+  },
+  {
+   "cap": "ch07",
+   "ok": true,
+   "log": [
+    {
+     "clip": "ch07_clip_01.mp4",
+     "motor": "gemini_omni_flash",
+     "rechazos": [],
+     "segundos": 8.0,
+     "ancho": 1920,
+     "alto": 1080,
+     "audio": false,
+     "usd": 1.2,
+     "prompt": "Slow, somber aerial documentary shot over the abandoned Wittenoom townsite at pre-dawn, grainy 35mm film look with muted colors and slight underexposure. Keep the empty dirt street grid, the cracked concrete slabs, the blue-grey asbestos tailings mounds on red earth, and the Hamersley Range with the low sun breaking over it.\n\nCamera: a very slow, steady drone push-in that eases slightly lower and tilts gently down. Large blue-grey tailings mounds rise to fill the lower foreground. The horizon and range ride higher in frame. The shot ends closer on the cracked slabs and the curving red roads at the center of the grid.\n\nAction: a faint pale haze lifts off the tailings and drifts slowly across the bare grid on the wind. It thickens into a soft dust veil over the middle distance. Cool light holds steady and the sun stays just above the ridge throughout.\n\nSound: low desert wind and faint grit hiss, no music, no dialogue.\n\nOne continuous 8-second shot, no cuts, no captions.",
+     "foto_final": "ch07_img_01_final.png"
+    }
+   ]
+  }
+ ],
+ "costos": [
+  {
+   "servicio": "Anthropic claude-opus-5-5",
+   "descripcion": "ch07_clip_01: prompt gemini_omni_flash",
+   "usd": 0.056952,
+   "unidades": 11254,
+   "tokens_in": 10508,
+   "tokens_out": 746
+  },
+  {
+   "servicio": "Anthropic claude-opus-5-5",
+   "descripcion": "ch01_clip_01: prompt gemini_omni_flash",
+   "usd": 0.056116,
+   "unidades": 11241,
+   "tokens_in": 10544,
+   "tokens_out": 697
+  },
+  {
+   "servicio": "fal google/gemini-omni-flash/v1.1/image-to-video",
+   "descripcion": "ch01_clip_01: gemini_omni_flash",
+   "usd": 1.2,
+   "unidades": 8.0,
+   "tokens_in": 0,
+   "tokens_out": 0
+  },
+  {
+   "servicio": "fal google/gemini-omni-flash/v1.1/image-to-video",
+   "descripcion": "ch07_clip_01: gemini_omni_flash",
+   "usd": 1.2,
+   "unidades": 8.0,
+   "tokens_in": 0,
+   "tokens_out": 0
+  }
+ ],
+ "usd_total": 2.5130679999999996,
+ "fotos_antes": {
+  "ch01_img_01.png": "5f3170e1329fb8c4f1edc47baf30e0d5",
+  "ch01_img_01_final.png": "914e951b79cfaa48582a7ae97c893a34",
+  "ch07_img_01.png": "1edad6913d4ba87cae2783244f435d27",
+  "ch07_img_01_final.png": "d0b71ed99c952864ed28d594c17ff141"
+ },
+ "fotos_despues": {
+  "ch01_img_01.png": "5f3170e1329fb8c4f1edc47baf30e0d5",
+  "ch01_img_01_final.png": "914e951b79cfaa48582a7ae97c893a34",
+  "ch07_img_01.png": "1edad6913d4ba87cae2783244f435d27",
+  "ch07_img_01_final.png": "d0b71ed99c952864ed28d594c17ff141"
+ },
+ "fotos_iguales": true
+}
