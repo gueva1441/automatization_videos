@@ -799,7 +799,7 @@
   "asset_manager.py": {
    "archivo": "asset_manager.py",
    "zona": "orquestador",
-   "sticker": "Es el que genera las fotos (y los clips de video, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, desde F53b cada clip sale de Gemini Omni Flash y, si Google lo rechaza por contenido, de Kling 4.0 (el prompt de cada motor lo escribe Opus mirando la foto, sin suavizar; 8 s, 1080p, la pista de audio se quita, y el costo sale de los segundos reales); desde F57 cada clip lleva también una foto final, que es un edit de la inicial hecho por Seedream con la instrucción que escribe Opus a partir de la voz entera del clip (`voz_clip`; desde F58 sin el movimiento aprobado): el motor recibe las dos fotos y el clip va de una a la otra; el parecido entre las dos (SSIM) se mide y se anota, sin frenar; si el edit falla o lo rechazan, el clip sale solo con la inicial y el motivo queda anotado, y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió. Desde F60 B/C: antes del bucle de caps corre UNA vez el pre-paso de secuencia (las fotos de una sola persona con madre, agrupadas por persona en lotes de 6, salen de una llamada Seedream /edit por la cola de fal, con el pedido guardado en output/<id>/_secuencia/pedidos.json antes de esperar y reanudable); el resto (fotos de dos personas, con cartel, con foto madre de objeto, la foto inicial del clip, QA) usa la regla única de madres: las de `persona` en orden más la del objeto, tope 2, y una persona no aporta su madre a una foto fuera de su época si cae en un estado posterior (p. ej. enfermo en 1991). `_clip_poll` pasó a `_fal_queue_poll`. F67c: copia `papel_md5` al manifest; fotos y clips de otro papel o sin sello se mueven a assets/_desfasado_* y se regeneran; un guion largo sin sello no paga fotos.",
+   "sticker": "Es el que genera las fotos (y los clips de video, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, desde F53b cada clip sale de Gemini Omni Flash y, si Google lo rechaza por contenido, de Kling 4.0 (el prompt de cada motor lo escribe Opus mirando la foto, sin suavizar; 8 s, 1080p, la pista de audio se quita, y el costo sale de los segundos reales); desde F57 cada clip lleva también una foto final, que es un edit de la inicial hecho por Seedream con la instrucción que escribe Opus a partir de la voz entera del clip (`voz_clip`; desde F58 sin el movimiento aprobado): el motor recibe las dos fotos y el clip va de una a la otra; el parecido entre las dos (SSIM) se mide y se anota, sin frenar; si el edit falla o lo rechazan, el clip sale solo con la inicial y el motivo queda anotado, y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió. Desde F60 B/C: antes del bucle de caps corre UNA vez el pre-paso de secuencia (las fotos de una sola persona con madre, agrupadas por persona en lotes de 6, salen de una llamada Seedream /edit por la cola de fal, con el pedido guardado en output/<id>/_secuencia/pedidos.json antes de esperar y reanudable); el resto (fotos de dos personas, con cartel, con foto madre de objeto, la foto inicial del clip, QA) usa la regla única de madres: las de `persona` en orden más la del objeto, tope 2, y una persona no aporta su madre a una foto fuera de su época si cae en un estado posterior (p. ej. enfermo en 1991). `_clip_poll` pasó a `_fal_queue_poll`. F67c: copia `papel_md5` al manifest; fotos y clips de otro papel o sin sello se mueven a assets/_desfasado_* y se regeneran; un guion largo sin sello no paga fotos. Desde F68 el motor principal es Nano Banana 2 Lite: una foto por llamada por la cola de fal, con request_id en disco antes de esperar (`<foto>.llamada.json`, junto al texto exacto, modelo y parámetros), sin secuencia y sin `foto_madre_ref` (foto sin persona = sin referencia); si fal rechaza va a Seedream 4.5 con el mismo texto y las mismas madres (motor=seedream45_respaldo en el manifest). Guarda `*_native.png` y escala a 2560×1440. Con el clip ya hecho rehace sus fotos si faltan y no toca el clip.",
    "recibe": "El guion canónico con image_prompts/video_prompts por capítulo y foto_madre_registry (data/scripts/<id>.json; desde F60 A cada foto trae también `persona`, que _iter_image_items lee y nadie consume todavía), el sync_map de voz (output/<id>/audio/sync_map.json, opcional) y las fotos madre en disco (rutas del registry).",
    "entrega": "output/<id>/assets/<capNN>_flux/<capNN>_img_NN.png (y _supp_NN.png, _graded.png), output/<id>/assets/<capNN>_veo/<capNN>_clip_NN.mp4 y output/<id>/assets/assets_manifest.json. Además, otros módulos le piden la función de imagen cruda (foto_madre.py, m09_packaging).",
    "modelo": [
@@ -848,7 +848,7 @@
     "qa_studio_server.py",
     "script_engine/m09_packaging.py"
    ],
-   "tests": 11,
+   "tests": 12,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "69cb84b 2026-10-31 (F67c)",
    "estado_a": "vivo",
@@ -857,7 +857,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "a79335a77c0dabbf81675482d2530747",
+   "md5": "9dad93500965f3f09cd4b1adfc4f225a",
    "sticker_al_dia": true
   },
   "audio_config.py": {
@@ -1097,7 +1097,7 @@
   "config.py": {
    "archivo": "config.py",
    "zona": "orquestador",
-   "sticker": "Es el panel de control central: rutas del proyecto, endpoints y modelos de cada servicio, parámetros del video (resolución, fps, concurrencia de imágenes), precios por llamada, largos objetivo del video largo (desde F53b la estimación del costo por video usa el costo de un clip de Gemini Omni Flash a 8 s, del perfil de engine_profiles) y umbrales del validador de temas. También crea el cliente de Gemini que comparten todos los módulos.",
+   "sticker": "Es el panel de control central: rutas del proyecto, endpoints y modelos de cada servicio, parámetros del video (resolución, fps, concurrencia de imágenes), precios por llamada, largos objetivo del video largo (desde F53b la estimación del costo por video usa el costo de un clip de Gemini Omni Flash a 8 s, del perfil de engine_profiles) y umbrales del validador de temas. También crea el cliente de Gemini que comparten todos los módulos. Desde F68 `image_engine` es nb2_lite y `costs` trae nb2_lite_per_image; seedream_per_image pasa a 0,04.",
    "recibe": "Nada de archivos: son constantes y dataclasses en el propio archivo; al importarse crea las carpetas output/, logs/ y data/ si faltan.",
    "entrega": "Los objetos api, pipeline, long_video, short_video, apuesta_viral, validator_strictness y gemini_client, las rutas BASE_DIR/OUTPUT_DIR/LOGS_DIR/DATA_DIR y la función estimated_cost_for.",
    "modelo": [
@@ -1183,7 +1183,7 @@
     "topic_validator.py",
     "tts_normalizer.py"
    ],
-   "tests": 22,
+   "tests": 24,
    "nacio": "(fuera de git)",
    "ultimo": "(fuera de git)",
    "estado_a": "vivo",
@@ -1200,13 +1200,13 @@
    "sin_llamador_a": [
     "get_video_config"
    ],
-   "md5": "f213f5dfd9c4bff27aa7dd6159765f5d",
+   "md5": "10ddf19f86e44d1cc77cc786ea3fa7ca",
    "sticker_al_dia": true
   },
   "cost_tracker.py": {
    "archivo": "cost_tracker.py",
    "zona": "orquestador",
-   "sticker": "Es la caja registradora del pipeline: cada vez que un módulo gasta plata en una API (Gemini, Flux, Kling, Seedream, clips de video, ElevenLabs, y también Claude y GPT por la puerta de atrás) anota cuánto, en qué etapa y para qué video. Desde F53b, el costo de un clip de video sale del perfil del motor (track_video: segundos × precio por segundo medido). Al cerrar el video guarda el total en el historial y, en la corrida del form, avisa el gasto de Gemini en vivo.",
+   "sticker": "Es la caja registradora del pipeline: cada vez que un módulo gasta plata en una API (Gemini, Flux, Kling, Seedream, clips de video, ElevenLabs, y también Claude y GPT por la puerta de atrás) anota cuánto, en qué etapa y para qué video. Desde F53b, el costo de un clip de video sale del perfil del motor (track_video: segundos × precio por segundo medido). Al cerrar el video guarda el total en el historial y, en la corrida del form, avisa el gasto de Gemini en vivo. Desde F68 `track_nb2_lite` (0,042 US$/foto, estimado) y Seedream se etiqueta 4.5 a 0,04.",
    "recibe": "Llamadas de los demás módulos (track_gemini_response, track_flux_pro, track_kling, track_seedream, track_video, track_elevenlabs, _add_entry desde claude_helpers/gpt_helpers) y las tarifas de config.py (pipeline.costs: gemini_per_call, gemini_vision_per_call, flux_pro_per_image, flux_pro_ultra_per_image, kling_per_image, seedream_per_image, leonardo_per_image, elevenlabs_per_char, gemini_rates_per_1m). Lee data/cost_history.json.",
    "entrega": "data/cost_history.json (un reporte por video, se agrega al cerrar con end_video; bajo pytest no escribe), data/session_report_<fecha>.json (save_session_report, lo llama fase1.py), resúmenes impresos en consola (print_summary / print_gemini_report) y el marcador de costo en vivo para el form (qa_form_markers.emit_cost_marker, solo Gemini).",
    "modelo": [],
@@ -1284,7 +1284,7 @@
     "CostTracker.track_leonardo",
     "CostTracker.track_custom"
    ],
-   "md5": "415d8c677bdabf09aaee4cc64277da2d",
+   "md5": "5a5c479bb953c154b3aa788643dbf898",
    "sticker_al_dia": true
   },
   "csv_exporter.py": {
@@ -1362,7 +1362,7 @@
   "engine_profiles.py": {
    "archivo": "engine_profiles.py",
    "zona": "fase2a",
-   "sticker": "Describe cada motor de imagen (Kling y Seedream) como una ficha: qué modelo llamar, dirección, tamaño de imagen, costo y, para Seedream, el orden de las piezas del prompt. Con la clave del motor activo devuelve su ficha, así cambiar de motor es cambiar de ficha y no de código. Desde F53b también describe los motores de clips de video (Gemini Omni Flash 1.1 y, de respaldo, Kling 4.0): endpoint de fal, campo de la foto, rango de duración, resolución, si deja apagar el audio, la ficha de guía en inglés para Opus y el costo por segundo medido en el panel de fal. Desde F57 cada perfil de video trae además el campo de la foto final (`end_image_url` en los dos).",
+   "sticker": "Describe cada motor de imagen (Kling y Seedream) como una ficha: qué modelo llamar, dirección, tamaño de imagen, costo y, para Seedream, el orden de las piezas del prompt. Con la clave del motor activo devuelve su ficha, así cambiar de motor es cambiar de ficha y no de código. Desde F53b también describe los motores de clips de video (Gemini Omni Flash 1.1 y, de respaldo, Kling 4.0): endpoint de fal, campo de la foto, rango de duración, resolución, si deja apagar el audio, la ficha de guía en inglés para Opus y el costo por segundo medido en el panel de fal. Desde F57 cada perfil de video trae además el campo de la foto final (`end_image_url` en los dos). Desde F68 PERFIL_NB2_LITE es el principal (id de /edit propio, sin secuencia, safety_tolerance 6, 16:9) y PERFIL_SEEDREAM pasa a 4.5, solo respaldo y madres de persona nuevas; su frase de aspecto sigue siendo la que usa m03.",
    "recibe": "api.image_engine y datos de config (nombres de modelo, ancho y alto de imagen)",
    "entrega": "El EngineProfile del motor pedido (o None para flux), que leen asset_manager y m03_visual; desde F53b, el VideoProfile de un motor de clips (select_video_profile), que leen script_engine/video_prompt.py, cost_tracker.track_video y config.py (estimaciones)",
    "modelo": [
@@ -1406,7 +1406,7 @@
     "script_engine/m03_visual.py",
     "script_engine/video_prompt.py"
    ],
-   "tests": 6,
+   "tests": 7,
    "nacio": "c0b85bc 2026-06-22",
    "ultimo": "bdbc6a5 2026-10-29 (F57)",
    "estado_a": "vivo",
@@ -1415,7 +1415,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "2a8d5a4b01fa3905a456a6a5a569371d",
+   "md5": "b637d6ccb50920b2961cdefbccf686d8",
    "sticker_al_dia": true
   },
   "error_handler.py": {
@@ -1849,7 +1849,7 @@
   "foto_madre.py": {
    "archivo": "foto_madre.py",
    "zona": "fase2a",
-   "sticker": "Genera la «foto madre» del video: una imagen de referencia limpia del sujeto principal (objeto o lugar) y de cada objeto clave anclado, para que después todas las imágenes de capítulo mantengan el mismo aspecto. Usa GPT Image 2 y, si falla, el motor de imagen activo; si ya hay un archivo (o Omar dejó uno a mano) lo reutiliza en vez de generar. Desde F60 B también genera la madre de cada PERSONA del canon que sale en 2 o más fotos dentro de su época (lee `persona` de 03_visual.json, por eso corre después de m03): retrato neutro con Seedream por la cola de fal, ropa limpia fija (ROPA_MADRE), sin GPT de respaldo; el path va a documented_people[i].foto_madre.",
+   "sticker": "Genera la «foto madre» del video: una imagen de referencia limpia del sujeto principal (objeto o lugar) y de cada objeto clave anclado, para que después todas las imágenes de capítulo mantengan el mismo aspecto. Usa GPT Image 2 y, si falla, el motor de imagen activo; si ya hay un archivo (o Omar dejó uno a mano) lo reutiliza en vez de generar. Desde F60 B también genera la madre de cada PERSONA del canon que sale en 2 o más fotos dentro de su época (lee `persona` de 03_visual.json, por eso corre después de m03): retrato neutro con Seedream por la cola de fal, ropa limpia fija (ROPA_MADRE), sin GPT de respaldo; el path va a documented_people[i].foto_madre. Desde F68 escribe el prompt de cada madre nueva en `<slug>.prompt.txt` y la madre de persona sigue saliendo de Seedream (4.5) con Nano Banana como motor activo.",
    "recibe": "El topic de la base de temas (central_subject, era_visual_canon, documented_props, anachronism_blocklist) y el video_id",
    "entrega": "output/<id>/foto_madre/<nombre>.png y el path absoluto guardado en topic[...]['foto_madre'] (el que llama persiste con save_db)",
    "modelo": [
@@ -1888,7 +1888,7 @@
     "fase1_5.py",
     "fase2a.py"
    ],
-   "tests": 3,
+   "tests": 4,
    "nacio": "8361059 2026-07-02",
    "ultimo": "8e6f7e4 2026-10-30 (F60)",
    "estado_a": "vivo",
@@ -1897,7 +1897,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "f8c65ca84f74747f2fd1b5090189a63f",
+   "md5": "db3b2594f4598e17643bc6c046cbc6bf",
    "sticker_al_dia": true
   },
   "gemini_helpers.py": {
@@ -2533,7 +2533,7 @@
    "lo_llaman": [],
    "tests": 7,
    "nacio": "3d684a2 2026-06-14",
-   "ultimo": "25ac783 2026-10-31 (F67b)",
+   "ultimo": "6f60c23 2026-10-31 (F67d)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "qa_studio_server.py:1522 lanza run_pipeline.py --research --video-type long --batch y :1527 lo retoma con --topic; :2080 es el main que Omar corre a mano",
@@ -4863,7 +4863,7 @@
    ],
    "tests": 0,
    "nacio": "46102e5 2026-10-31 (F67)",
-   "ultimo": "25ac783 2026-10-31 (F67b)",
+   "ultimo": "6f60c23 2026-10-31 (F67d)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py (run_critico), qa_studio_server.py (narracion_vista, narracion_post)",
@@ -5012,7 +5012,7 @@
   "script_engine/m03_visual.py": {
    "archivo": "script_engine/m03_visual.py",
    "zona": "fase2a",
-   "sticker": "Escribe, para cada capítulo del documental, la descripción de cada imagen que después pinta el generador (Seedream). Le pasa al modelo el lugar principal del caso y el tramo de años que dice la narración (GEO y ERA). Elige qué frase de la narración ilustra cada imagen (Gemini Flash) y, desde F50, le pide a Claude Opus que llene la ficha de cada escena (casilleros) con un expediente por foto: año dicho, lugar, párrafo de la voz, escenas de la ficha, hechos, citas, personas y los grupos de gente del canon. Desde F50d, la época del canon (ropa, tecnología, vehículos, interiores) entra por tramo: los tramos que cruzan los años de las fotos del capítulo, o el más cercano si ninguno cruza (desde F50f deja una línea de log por capítulo con las fotos que no cruzan ningún tramo). El código arma la frase en un orden fijo y la revisa (desde F51c ya no borra nombres de personas; sin conteos ni izquierda/derecha, sin manos, sangre o texto suelto: si queda un problema, saca la frase). Rehace las fotos que no cumplen las reglas del capítulo y del video por el mismo camino. En los capítulos 1 y 7 además Opus redacta el movimiento del clip de video con el orden de la guía de Google; la parte de la voz que acompaña al clip de 8 s se corta, desde F51c, en el final de oración más cercano (sin oración, en el espacio más cercano; empate → la zona del clip más corta). Desde F57 guarda también la voz entera del clip (`voz_clip`: las palabras que la voz dice en los 8 s, cortadas por palabra con la ventana en caracteres que ya calculaba; sin LLM) y el movimiento del clip se escribe con esa voz, no solo con el ancla. Desde F58 el paso de casilleros acepta tres llaves con default idéntico a producción (sin el bloque del clip de apertura, sin cartel, con una oración de composición) para que m09 pida las fotos de las miniaturas por el mismo camino. Desde F59 el armado de cada ítem (limpieza de casilleros, cartel, armado C, revisión F8, prompt final, año, sensible y motivos) es una función aparte, `armar_item`, la misma que QA Studio usa para rehacer una foto desde sus casilleros editados. Desde F61 el system instruction ya no empuja al plano general (se quitó la regla R7 de shot_scale) ni rehace las fotos con persona en plano medio: el encuadre lo decide el bloque VISUAL ARC OF THIS CAP según el tipo de cap.",
+   "sticker": "Escribe, para cada capítulo del documental, la descripción de cada imagen que después pinta el generador (Seedream). Le pasa al modelo el lugar principal del caso y el tramo de años que dice la narración (GEO y ERA). Elige qué frase de la narración ilustra cada imagen (Gemini Flash) y, desde F50, le pide a Claude Opus que llene la ficha de cada escena (casilleros) con un expediente por foto: año dicho, lugar, párrafo de la voz, escenas de la ficha, hechos, citas, personas y los grupos de gente del canon. Desde F50d, la época del canon (ropa, tecnología, vehículos, interiores) entra por tramo: los tramos que cruzan los años de las fotos del capítulo, o el más cercano si ninguno cruza (desde F50f deja una línea de log por capítulo con las fotos que no cruzan ningún tramo). El código arma la frase en un orden fijo y la revisa (desde F51c ya no borra nombres de personas; sin conteos ni izquierda/derecha, sin manos, sangre o texto suelto: si queda un problema, saca la frase). Rehace las fotos que no cumplen las reglas del capítulo y del video por el mismo camino. En los capítulos 1 y 7 además Opus redacta el movimiento del clip de video con el orden de la guía de Google; la parte de la voz que acompaña al clip de 8 s se corta, desde F51c, en el final de oración más cercano (sin oración, en el espacio más cercano; empate → la zona del clip más corta). Desde F57 guarda también la voz entera del clip (`voz_clip`: las palabras que la voz dice en los 8 s, cortadas por palabra con la ventana en caracteres que ya calculaba; sin LLM) y el movimiento del clip se escribe con esa voz, no solo con el ancla. Desde F58 el paso de casilleros acepta tres llaves con default idéntico a producción (sin el bloque del clip de apertura, sin cartel, con una oración de composición) para que m09 pida las fotos de las miniaturas por el mismo camino. Desde F59 el armado de cada ítem (limpieza de casilleros, cartel, armado C, revisión F8, prompt final, año, sensible y motivos) es una función aparte, `armar_item`, la misma que QA Studio usa para rehacer una foto desde sus casilleros editados. Desde F61 el system instruction ya no empuja al plano general (se quitó la regla R7 de shot_scale) ni rehace las fotos con persona en plano medio: el encuadre lo decide el bloque VISUAL ARC OF THIS CAP según el tipo de cap. Desde F68 acepta image_engine nb2_lite (mismo texto de foto).",
    "recibe": "El tema ya armado (data/topics_db.json: canon visual con people_groups que arma fase1_5.asegurar_canon desde la ficha, personas y objetos documentados, evidence_pool), el perfil del research (data/scripts/_steps/<id>/_perfil.json: lugar_principal), el esqueleto y la narración (data/scripts/_steps/<id>/01a_*.json y 01b_*.json), la escaleta, la ficha y los párrafos v3 para el expediente (01a_escaleta.json, ficha_caso.json, 01b_narracion_v3.json), el mapa de sincronía del audio (output/audio/<id>/sync_map.json) y los tiempos por palabra (output/audio/<id>/chNN_timestamps.json).",
    "entrega": "data/scripts/_steps/<id>/03_visual.json (por capítulo: image_prompts con prompt final, casilleros crudos, año y de dónde salió, ancla de narración, rango emocional, foto_madre_ref, persona (F60 A: nombres del canon de quién sale, solo ruteo; nadie lo consume hasta la Etapa B), notas F8; en caps 1 y 7: image_prompt con su image_f8 (año, grupo, plano, notas F8), video_prompt y supplemental_image_prompts con las mismas claves); lo devuelve también como dict a fase1_5.py, que lo ensambla al contrato data/scripts/<id>.json. Sus constantes DOCTRINE_* las reutiliza m09_packaging.",
    "modelo": [
@@ -5074,7 +5074,7 @@
    "sin_llamador_a": [
     "_format_bullets"
    ],
-   "md5": "feb7e45ff5a5444885ff73143e83e672",
+   "md5": "3336767c8df2ad334f8ebb41365e7012",
    "sticker_al_dia": true
   },
   "script_engine/m05_judge.py": {
@@ -5323,7 +5323,7 @@
   "script_engine/m09_packaging.py": {
    "archivo": "script_engine/m09_packaging.py",
    "zona": "orquestador",
-   "sticker": "Arma el paquete de publicación de YouTube. Desde F58 le pide a Claude Opus, en una sola llamada, 3 PAQUETES (título + texto de miniatura + la oración del gancho que muestra la foto), cada uno con una estrategia distinta, leyendo el gancho (cap 1 entero), la narración de los caps 2 a 7 y el pool completo (la única fuente de cifras, fechas y nombres); valida por código (3 paquetes, estrategias distintas, anclas literales del gancho) con reintentos y coteja cada cifra del título y del texto contra el pool (aviso, no freno). La foto de cada paquete sale de la máquina de fotos de producción (casilleros Opus del cap 1 con esa ancla, armado C, canon) más una oración de composición (desde F59: el sujeto principal en la mitad derecha, sirva o no para prompts sin persona) y sin cartel. Compone la miniatura con el texto en la mitad izquierda, partiendo las líneas por ancho medido y achicando la letra hasta que quepa (tope 2 líneas), y deja el checklist para subir a mano. Se puede correr por pasos (candidatas, componer un paquete) o abriendo el formulario web de revisión.",
+   "sticker": "Arma el paquete de publicación de YouTube. Desde F58 le pide a Claude Opus, en una sola llamada, 3 PAQUETES (título + texto de miniatura + la oración del gancho que muestra la foto), cada uno con una estrategia distinta, leyendo el gancho (cap 1 entero), la narración de los caps 2 a 7 y el pool completo (la única fuente de cifras, fechas y nombres); valida por código (3 paquetes, estrategias distintas, anclas literales del gancho) con reintentos y coteja cada cifra del título y del texto contra el pool (aviso, no freno). La foto de cada paquete sale de la máquina de fotos de producción (casilleros Opus del cap 1 con esa ancla, armado C, canon) más una oración de composición (desde F59: el sujeto principal en la mitad derecha, sirva o no para prompts sin persona) y sin cartel. Compone la miniatura con el texto en la mitad izquierda, partiendo las líneas por ancho medido y achicando la letra hasta que quepa (tope 2 líneas), y deja el checklist para subir a mano. Se puede correr por pasos (candidatas, componer un paquete) o abriendo el formulario web de revisión. Desde F68 los `*_native.png` no salen como bases de miniatura.",
    "recibe": "data/scripts/_steps/<id>/01b_narration.json, 00_pool_v3.json y 01a_skeleton.json, el topic de data/topics_db.json con su canon (fase1_5._load_topic_by_id + asegurar_canon), las fotos *_graded.png de output/<id>/assets/ como bases alternativas, la fuente script_engine/fonts/Anton-Regular.ttf y la ruta del MP4 final (--video-path).",
    "entrega": "output/<id>/publish/metadata.json (paquetes acumulados con índice global, descripcion, tags, avisos), thumb_candidates/paquete_NN_base.png y paquete_NN.png, thumb_final_NN.png (o .jpg si pesa más de 2 MB) y CHECKLIST_PUBLICACION.md.",
    "modelo": [
@@ -5361,7 +5361,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "24e89e46b7bb71faa50dd78740020de2",
+   "md5": "46c33211d28b9ce1b3c99283f10d2fda",
    "sticker_al_dia": true
   },
   "script_engine/m09_review_server.py": {
@@ -7123,7 +7123,7 @@
    ],
    "tests": 0,
    "nacio": "3d684a2 2026-06-14",
-   "ultimo": "25ac783 2026-10-31 (F67b)",
+   "ultimo": "6f60c23 2026-10-31 (F67d)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "qa_studio_server.py:72 define HTML_PATH y :1828-1829 lo sirve en / (el form lo abre en el gate del visor, qa_form.html:349)",
@@ -10202,6 +10202,7 @@
    "test": "test_qa_studio.py",
    "importa": [
     "claude_helpers",
+    "config",
     "fase1",
     "qa_studio_server",
     "m03_imagenes_v3",
