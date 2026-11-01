@@ -1,0 +1,23 @@
+{
+ "foto": "ch06_img_11.png",
+ "llamadas": {
+  "nb2_lite": {
+   "motor": "nb2_lite",
+   "endpoint": "google/nano-banana-2-lite",
+   "firma": "4559c41e14161cc4c7c968552d70e7fb",
+   "texto": "An uprooted green town-name road sign with its torn steel posts. Lies face-up in the red dirt beside the outback highway after being pulled out. Pilbara highway turn-off in 2007, red earth verge, spinifex, empty road. Soft low late-afternoon light. Medium shot, low angle near the ground, shallow depth of field, 35mm lens. A grainy 35mm documentary photograph in the style of 2007, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio.",
+   "parametros": {
+    "aspect_ratio": "16:9",
+    "safety_tolerance": "6",
+    "num_images": 1
+   },
+   "referencias_md5": [],
+   "hora": "2026-11-01T14:51:47",
+   "estado": "ok",
+   "request_id": "01a198ab-0ac0-7421-91f3-5709285b9e8b",
+   "status_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-0ac0-7421-91f3-5709285b9e8b/status",
+   "response_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-0ac0-7421-91f3-5709285b9e8b",
+   "segundos": 12.9
+  }
+ }
+}

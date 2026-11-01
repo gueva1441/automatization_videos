@@ -1,0 +1,25 @@
+{
+ "foto": "ch03_img_08.png",
+ "llamadas": {
+  "nb2_lite": {
+   "motor": "nb2_lite",
+   "endpoint": "google/nano-banana-2-lite/edit",
+   "firma": "d6bf05be7d1f590c7807ec630d1d2731",
+   "texto": "A photograph of the same person shown in the reference image. The same young fair-skinned doctor in shirt sleeves, tie loosened, slim build. He types the warning letter to Perth on a black manual typewriter. Australian men of predominantly British-descended appearance with fair skin. 1948 bare timber-and-corrugated-iron office, wooden desk, filing cabinet, Bakelite telephone, window onto dust haze. Hard late-afternoon light through a dusty window. Medium shot, over-the-shoulder eye-level, 85mm lens, shallow depth of field focused on the sheet. A grainy 35mm documentary photograph in the style of 1948, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio.",
+   "parametros": {
+    "aspect_ratio": "16:9",
+    "safety_tolerance": "6",
+    "num_images": 1
+   },
+   "referencias_md5": [
+    "7cd8be6fef2ccd891357f2d28844b2b5"
+   ],
+   "hora": "2026-11-01T14:51:47",
+   "estado": "ok",
+   "request_id": "01a198ab-0c36-77c2-9cc0-5d566fabf115",
+   "status_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-0c36-77c2-9cc0-5d566fabf115/status",
+   "response_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-0c36-77c2-9cc0-5d566fabf115",
+   "segundos": 13.4
+  }
+ }
+}

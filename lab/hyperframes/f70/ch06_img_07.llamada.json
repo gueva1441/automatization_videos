@@ -1,0 +1,25 @@
+{
+ "foto": "ch06_img_07.png",
+ "llamadas": {
+  "nb2_lite": {
+   "motor": "nb2_lite",
+   "endpoint": "google/nano-banana-2-lite/edit",
+   "firma": "f32d5dedf610a1aecf029cd69ed14d7d",
+   "texto": "A photograph of the same person shown in the reference image. A middle-aged Australian woman of European descent, fair skin, medium build, in a contemporary blazer. Stands in the advocacy society's office going through case folders. Present-day Perth office of an asbestos victims' advocacy society, filing cabinets, framed photographs of members, 2023. Soft overcast window light. Medium shot, eye-level, shallow depth of field, 50mm lens. A grainy 35mm documentary photograph in the style of 2023, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parametros": {
+    "aspect_ratio": "16:9",
+    "safety_tolerance": "6",
+    "num_images": 1
+   },
+   "referencias_md5": [
+    "18526f08994d1352926b84bc4c90a411"
+   ],
+   "hora": "2026-11-01T14:51:47",
+   "estado": "ok",
+   "request_id": "01a198ab-1295-7ac0-9918-b408c389978a",
+   "status_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-1295-7ac0-9918-b408c389978a/status",
+   "response_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-1295-7ac0-9918-b408c389978a",
+   "segundos": 20.0
+  }
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "foto": "ch07_supp_04.png",
+ "llamadas": {
+  "nb2_lite": {
+   "motor": "nb2_lite",
+   "endpoint": "google/nano-banana-2-lite",
+   "firma": "9e1febd187719f22179f4b97b1fd4871",
+   "texto": "Concrete jersey barriers and a steel gate blocking the red dirt road into Wittenoom Gorge. The barricade stands across the empty road, dust drifting against its base. Gorge access road between red ironstone cliffs, blue-grey tailings at the roadside, 2026. Cool dawn light, long shadows of the barriers across the road. Wide shot, low angle from road level, deep depth of field, 24mm lens. A grainy 35mm documentary photograph in the style of 2026, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio.",
+   "parametros": {
+    "aspect_ratio": "16:9",
+    "safety_tolerance": "6",
+    "num_images": 1
+   },
+   "referencias_md5": [],
+   "hora": "2026-11-01T14:51:47",
+   "estado": "ok",
+   "request_id": "01a198ab-0af6-7412-8042-df51f8e035d3",
+   "status_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-0af6-7412-8042-df51f8e035d3/status",
+   "response_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-0af6-7412-8042-df51f8e035d3",
+   "segundos": 12.9
+  }
+ }
+}

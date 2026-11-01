@@ -1,0 +1,26 @@
+{
+ "foto": "ch02_img_04.png",
+ "llamadas": {
+  "nb2_lite": {
+   "motor": "nb2_lite",
+   "endpoint": "google/nano-banana-2-lite/edit",
+   "firma": "16f2931c723209b5b9881d0955ef0038",
+   "texto": "A photograph of the same people shown in the reference images. The young Spanish bride in a modest white dress and the mid-20s Spanish groom in a dark suit, with family guests in dark wool clothing. The newlyweds step out of a church door onto the street as relatives gather. Spanish people with olive to fair Mediterranean skin, dark brown to black hair and brown eyes. Stone church entrance on a Madrid street, September 1962, a SEAT 600 parked at the kerb. Soft late-summer afternoon daylight. Wide shot, eye-level, deep depth of field, 35mm lens. A grainy 35mm documentary photograph in the style of 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parametros": {
+    "aspect_ratio": "16:9",
+    "safety_tolerance": "6",
+    "num_images": 1
+   },
+   "referencias_md5": [
+    "f365ba2a69df9cb7b2aa11333864c653",
+    "ae577008ad569f90426ebbb8303df37b"
+   ],
+   "hora": "2026-11-01T14:51:47",
+   "estado": "ok",
+   "request_id": "01a198ab-0c92-7272-b095-94d0bde87868",
+   "status_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-0c92-7272-b095-94d0bde87868/status",
+   "response_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-0c92-7272-b095-94d0bde87868",
+   "segundos": 13.4
+  }
+ }
+}

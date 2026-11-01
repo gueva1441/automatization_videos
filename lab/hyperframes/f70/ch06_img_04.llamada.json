@@ -1,0 +1,25 @@
+{
+ "foto": "ch06_img_04.png",
+ "llamadas": {
+  "nb2_lite": {
+   "motor": "nb2_lite",
+   "endpoint": "google/nano-banana-2-lite/edit",
+   "firma": "aeeadf7eb13075d1d353744303dcc477",
+   "texto": "A photograph of the same person shown in the reference image. The fair-skinned Australian airport police officer, about 40, stocky, light-blue uniform shirt and peaked cap, looking across at the young Spanish traveller seen from behind. The officer raises his eyes from the passport and looks again at the traveller as he speaks. Spanish people with olive to fair Mediterranean skin, dark brown to black hair and brown eyes. 1985 Australian airport passport-control counter with wood-veneer panelling. Even overhead fluorescent airport light, soft and flat. Close shot, over-the-shoulder, eye-level, shallow depth of field, 85mm lens. A grainy 35mm documentary photograph in the style of 1985, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parametros": {
+    "aspect_ratio": "16:9",
+    "safety_tolerance": "6",
+    "num_images": 1
+   },
+   "referencias_md5": [
+    "dd7dfc15b5c59f887f40b91f5177815f"
+   ],
+   "hora": "2026-11-01T14:51:47",
+   "estado": "ok",
+   "request_id": "01a198ab-12dc-7d10-8ab6-feb1175dcb5f",
+   "status_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-12dc-7d10-8ab6-feb1175dcb5f/status",
+   "response_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-12dc-7d10-8ab6-feb1175dcb5f",
+   "segundos": 20.1
+  }
+ }
+}

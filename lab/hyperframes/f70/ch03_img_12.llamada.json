@@ -1,0 +1,23 @@
+{
+ "foto": "ch03_img_12.png",
+ "llamadas": {
+  "nb2_lite": {
+   "motor": "nb2_lite",
+   "endpoint": "google/nano-banana-2-lite",
+   "firma": "fa1ba6b92eb800c9f3d677089dc31f48",
+   "texto": "A few Board of Reference members, fair-skinned Australian men in their forties and fifties in short-sleeved shirts, ties and felt hats; lean European-migrant mill workers in singlets coated grey from head to boot. The inspecting men pause mid-stride inside the mill as dust falls from a conveyor, one jotting notes. Men of European descent with fair to olive skin, light to dark brown or black hair, varied eye colour and lean, labour-hardened builds. 1957 Wittenoom mill interior: belt-driven machinery, conveyors, newly added dust ducting, corrugated-iron walls. Hard sun shafts through roof gaps, beams thick with dust. Medium shot, eye-level, 35mm lens, moderate depth of field. A grainy 35mm documentary photograph in the style of 1957, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parametros": {
+    "aspect_ratio": "16:9",
+    "safety_tolerance": "6",
+    "num_images": 1
+   },
+   "referencias_md5": [],
+   "hora": "2026-11-01T14:51:47",
+   "estado": "ok",
+   "request_id": "01a198ab-0aa4-78a3-8674-73b318f1a9b4",
+   "status_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-0aa4-78a3-8674-73b318f1a9b4/status",
+   "response_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-0aa4-78a3-8674-73b318f1a9b4",
+   "segundos": 12.8
+  }
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "foto": "ch05_img_03.png",
+ "llamadas": {
+  "nb2_lite": {
+   "motor": "nb2_lite",
+   "endpoint": "google/nano-banana-2-lite",
+   "firma": "b03fb859afe9b7345b48dd4777f9a977",
+   "texto": "A folded 1966 Australian newspaper reporting the mine closure. The newspaper lies open on a kitchen table, a fine film of blue-grey dust settling across its front page. A Wittenoom company house kitchen, asbestos-cement walls, laminex table, linoleum floor, 1966. Hard high-contrast side light from a small window. Detail shot, high angle looking down on the table, macro detail, shallow depth of field. A grainy 35mm documentary photograph in the style of 1966, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio.",
+   "parametros": {
+    "aspect_ratio": "16:9",
+    "safety_tolerance": "6",
+    "num_images": 1
+   },
+   "referencias_md5": [],
+   "hora": "2026-11-01T14:51:47",
+   "estado": "ok",
+   "request_id": "01a198ab-0b24-7261-b654-ed8642b6a26f",
+   "status_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-0b24-7261-b654-ed8642b6a26f/status",
+   "response_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-0b24-7261-b654-ed8642b6a26f",
+   "segundos": 13.1
+  }
+ }
+}

@@ -1,0 +1,25 @@
+{
+ "foto": "ch07_supp_02.png",
+ "llamadas": {
+  "nb2_lite": {
+   "motor": "nb2_lite",
+   "endpoint": "google/nano-banana-2-lite/edit",
+   "firma": "87f6ba659982485eeaf16f997e885c4e",
+   "texto": "A photograph of the same person shown in the reference image. An elderly Aboriginal Australian man, gaunt and frail, seated beside a middle-aged South American man in a pale collared shirt holding a notebook. The visitor leans in listening as the elder gestures out toward the contaminated creek. Aboriginal Australian people with dark brown skin, dark wavy to curly hair and dark eyes. Shade of a white-trunked ghost gum on Banjima country near the barricaded gorge, red dirt underfoot, 2023. Soft early-morning light filtering through gum leaves. Wide shot, eye-level, moderate depth of field, 50mm lens. A grainy 35mm documentary photograph in the style of 2023, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parametros": {
+    "aspect_ratio": "16:9",
+    "safety_tolerance": "6",
+    "num_images": 1
+   },
+   "referencias_md5": [
+    "54c45cd5e411538c0e7163338534cb72"
+   ],
+   "hora": "2026-11-01T14:51:47",
+   "estado": "ok",
+   "request_id": "01a198ab-0f41-7252-801d-a2a69989bf0e",
+   "status_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-0f41-7252-801d-a2a69989bf0e/status",
+   "response_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-0f41-7252-801d-a2a69989bf0e",
+   "segundos": 18.9
+  }
+ }
+}

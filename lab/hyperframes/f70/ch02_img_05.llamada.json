@@ -1,0 +1,26 @@
+{
+ "foto": "ch02_img_05.png",
+ "llamadas": {
+  "nb2_lite": {
+   "motor": "nb2_lite",
+   "endpoint": "google/nano-banana-2-lite/edit",
+   "firma": "478255ce0eee4a28a96cb74a52e1f9cb",
+   "texto": "A photograph of the same people shown in the reference images. The young Spanish woman in a tailored travelling dress and headscarf beside the mid-20s Spanish man in a shirt and jacket, at the rail of a post-war ocean liner. The couple stand pressed together at the rail as the liner pulls away from the quay. Spanish people with olive to fair Mediterranean skin, dark brown to black hair and brown eyes. Promenade deck of a post-war ocean liner leaving port, September 1962. Bright Mediterranean morning daylight. Medium shot, eye-level, moderate depth of field, 50mm lens. A grainy 35mm documentary photograph in the style of 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parametros": {
+    "aspect_ratio": "16:9",
+    "safety_tolerance": "6",
+    "num_images": 1
+   },
+   "referencias_md5": [
+    "f365ba2a69df9cb7b2aa11333864c653",
+    "ae577008ad569f90426ebbb8303df37b"
+   ],
+   "hora": "2026-11-01T14:51:47",
+   "estado": "ok",
+   "request_id": "01a198ab-0fd2-7380-aa3f-b2342e8dedb1",
+   "status_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-0fd2-7380-aa3f-b2342e8dedb1/status",
+   "response_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-0fd2-7380-aa3f-b2342e8dedb1",
+   "segundos": 19.1
+  }
+ }
+}

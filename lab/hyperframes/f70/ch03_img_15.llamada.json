@@ -1,0 +1,23 @@
+{
+ "foto": "ch03_img_15.png",
+ "llamadas": {
+  "nb2_lite": {
+   "motor": "nb2_lite",
+   "endpoint": "google/nano-banana-2-lite",
+   "firma": "aaa6d4e7203e149d3d082afe5b7fe0eb",
+   "texto": "A middle-aged Australian public health doctor, fair skin, greying hair, solid build, white coat over shirt and tie. He holds a former mill worker's chest X-ray against a lit viewing box, reading it. Australian men of predominantly British-descended appearance with fair skin. 1962 Western Australian public health office, wooden desk, Bakelite telephone, filing cabinets. Low-key, the light box the only source. Medium shot, eye-level, 85mm lens, shallow depth of field. A grainy 35mm documentary photograph in the style of 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio.",
+   "parametros": {
+    "aspect_ratio": "16:9",
+    "safety_tolerance": "6",
+    "num_images": 1
+   },
+   "referencias_md5": [],
+   "hora": "2026-11-01T14:51:47",
+   "estado": "ok",
+   "request_id": "01a198ab-0b0f-7092-b893-d240920aa443",
+   "status_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-0b0f-7092-b893-d240920aa443/status",
+   "response_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-0b0f-7092-b893-d240920aa443",
+   "segundos": 7.4
+  }
+ }
+}

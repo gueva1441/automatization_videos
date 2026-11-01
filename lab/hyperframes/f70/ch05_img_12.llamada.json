@@ -1,0 +1,25 @@
+{
+ "foto": "ch05_img_12.png",
+ "llamadas": {
+  "nb2_lite": {
+   "motor": "nb2_lite",
+   "endpoint": "google/nano-banana-2-lite/edit",
+   "firma": "ed4733f2de186eacbf293fc97233e653",
+   "texto": "A photograph of the same person shown in the reference image. A mid-20s Spanish man, olive skin, black hair, lean build, in a dust-coated singlet and shorts, one foot bandaged. He sits on the step of a corrugated-iron house, waiting, as fine mill dust drifts through the air around him. Spanish people with olive to fair Mediterranean skin, dark brown to black hair and brown eyes. A Wittenoom house yard in 1963, blue tailings ground, red earth, mill haze over the gorge. Hard backlit afternoon sun making the airborne dust glitter. Close shot, eye-level, slightly low, shallow depth of field, 85mm lens, dust particles in focus. A grainy 35mm documentary photograph in the style of 1963, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parametros": {
+    "aspect_ratio": "16:9",
+    "safety_tolerance": "6",
+    "num_images": 1
+   },
+   "referencias_md5": [
+    "ae577008ad569f90426ebbb8303df37b"
+   ],
+   "hora": "2026-11-01T14:51:47",
+   "estado": "ok",
+   "request_id": "01a198ab-1238-7f71-b695-ec12076879c7",
+   "status_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-1238-7f71-b695-ec12076879c7/status",
+   "response_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a198ab-1238-7f71-b695-ec12076879c7",
+   "segundos": 19.8
+  }
+ }
+}
