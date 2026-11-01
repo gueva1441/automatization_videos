@@ -1,0 +1,573 @@
+{
+ "nb_lite_P2": {
+  "endpoint": "google/nano-banana-lite",
+  "prompt_id": "P2",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": null
+  },
+  "request_id": "01a19597-d234-7d61-929d-f86a628febcd",
+  "status_url": "https://queue.fal.run/google/nano-banana-lite/requests/01a19597-d234-7d61-929d-f86a628febcd/status",
+  "response_url": "https://queue.fal.run/google/nano-banana-lite/requests/01a19597-d234-7d61-929d-f86a628febcd",
+  "estado": "OK",
+  "segundos": 11.4,
+  "resolucion": "1376x768",
+  "formato": "PNG",
+  "respuesta_sin_imagen": {
+   "description": ""
+  },
+  "costo_usd": null,
+  "costo_origen": "sin medir: precio por tokens"
+ },
+ "nb_lite_P4": {
+  "endpoint": "google/nano-banana-lite/edit",
+  "prompt_id": "P4",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": [
+    "C:/CLAUDE_PROJECTS/automatization_videos/output/123bbb64-9fca-4395-8bf4-57d60e219ef1/foto_madre/daniel_cija.png"
+   ]
+  },
+  "request_id": "01a19597-d36c-7d71-a66e-65e24f342903",
+  "status_url": "https://queue.fal.run/google/nano-banana-lite/requests/01a19597-d36c-7d71-a66e-65e24f342903/status",
+  "response_url": "https://queue.fal.run/google/nano-banana-lite/requests/01a19597-d36c-7d71-a66e-65e24f342903",
+  "estado": "OK",
+  "segundos": 11.6,
+  "resolucion": "1376x768",
+  "formato": "PNG",
+  "respuesta_sin_imagen": {
+   "description": ""
+  },
+  "costo_usd": null,
+  "costo_origen": "sin medir: precio por tokens"
+ },
+ "nb_lite_P5": {
+  "endpoint": "google/nano-banana-lite/edit",
+  "prompt_id": "P5",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": [
+    "C:/CLAUDE_PROJECTS/automatization_videos/output/123bbb64-9fca-4395-8bf4-57d60e219ef1/foto_madre/daniel_cija.png"
+   ]
+  },
+  "request_id": "01a19597-d3ed-7e50-a687-f9b9bf9ac78c",
+  "status_url": "https://queue.fal.run/google/nano-banana-lite/requests/01a19597-d3ed-7e50-a687-f9b9bf9ac78c/status",
+  "response_url": "https://queue.fal.run/google/nano-banana-lite/requests/01a19597-d3ed-7e50-a687-f9b9bf9ac78c",
+  "estado": "OK",
+  "segundos": 11.6,
+  "resolucion": "1376x768",
+  "formato": "PNG",
+  "respuesta_sin_imagen": {
+   "description": ""
+  },
+  "costo_usd": null,
+  "costo_origen": "sin medir: precio por tokens"
+ },
+ "nb2_lite_P1": {
+  "endpoint": "google/nano-banana-2-lite",
+  "prompt_id": "P1",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": null
+  },
+  "request_id": "01a19597-d242-7df2-b6cc-106e0ca1d92b",
+  "status_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a19597-d242-7df2-b6cc-106e0ca1d92b/status",
+  "response_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a19597-d242-7df2-b6cc-106e0ca1d92b",
+  "estado": "BLOQUEADO",
+  "segundos": 10.6,
+  "http": 422,
+  "mensaje": "{\"detail\":[{\"loc\":[\"body\"],\"msg\":\"The content could not be processed because it contained material flagged by a content checker.\",\"type\":\"content_policy_violation\",\"url\":\"https://docs.fal.ai/errors#content_policy_violation\",\"input\":\"\",\"categories\":[\"model_moderated\"]}]}",
+  "costo_usd": null,
+  "costo_origen": "sin medir: precio por tokens"
+ },
+ "nb2_lite_P2": {
+  "endpoint": "google/nano-banana-2-lite",
+  "prompt_id": "P2",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": null
+  },
+  "request_id": "01a19597-d1fa-7802-bda2-18f07bb84b0b",
+  "status_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a19597-d1fa-7802-bda2-18f07bb84b0b/status",
+  "response_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a19597-d1fa-7802-bda2-18f07bb84b0b",
+  "estado": "OK",
+  "segundos": 11.0,
+  "resolucion": "1376x768",
+  "formato": "PNG",
+  "respuesta_sin_imagen": {
+   "description": ""
+  },
+  "costo_usd": null,
+  "costo_origen": "sin medir: precio por tokens"
+ },
+ "nb2_lite_P3": {
+  "endpoint": "google/nano-banana-2-lite",
+  "prompt_id": "P3",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": null
+  },
+  "request_id": "01a19597-d236-7582-9cc9-f3d4099fc3be",
+  "status_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a19597-d236-7582-9cc9-f3d4099fc3be/status",
+  "response_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a19597-d236-7582-9cc9-f3d4099fc3be",
+  "estado": "OK",
+  "segundos": 11.4,
+  "resolucion": "1376x768",
+  "formato": "PNG",
+  "respuesta_sin_imagen": {
+   "description": ""
+  },
+  "costo_usd": null,
+  "costo_origen": "sin medir: precio por tokens"
+ },
+ "nb2_lite_P5": {
+  "endpoint": "google/nano-banana-2-lite/edit",
+  "prompt_id": "P5",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": [
+    "C:/CLAUDE_PROJECTS/automatization_videos/output/123bbb64-9fca-4395-8bf4-57d60e219ef1/foto_madre/daniel_cija.png"
+   ]
+  },
+  "request_id": "01a19597-d417-7c91-9cd8-4f7598b7d1c2",
+  "status_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a19597-d417-7c91-9cd8-4f7598b7d1c2/status",
+  "response_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a19597-d417-7c91-9cd8-4f7598b7d1c2",
+  "estado": "OK",
+  "segundos": 16.9,
+  "resolucion": "1376x768",
+  "formato": "PNG",
+  "respuesta_sin_imagen": {
+   "description": ""
+  },
+  "costo_usd": null,
+  "costo_origen": "sin medir: precio por tokens"
+ },
+ "nb2_P1": {
+  "endpoint": "fal-ai/nano-banana-2",
+  "prompt_id": "P1",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": null
+  },
+  "request_id": "01a19597-d23c-7802-afdd-e5c847d6c20f",
+  "status_url": "https://queue.fal.run/fal-ai/nano-banana-2/requests/01a19597-d23c-7802-afdd-e5c847d6c20f/status",
+  "response_url": "https://queue.fal.run/fal-ai/nano-banana-2/requests/01a19597-d23c-7802-afdd-e5c847d6c20f",
+  "estado": "OK",
+  "segundos": 22.5,
+  "resolucion": "1376x768",
+  "formato": "PNG",
+  "respuesta_sin_imagen": {
+   "description": "",
+   "conversations": [],
+   "grounding_metadata": []
+  },
+  "costo_usd": 0.08,
+  "costo_origen": "precio de lista"
+ },
+ "nb2_lite_P4": {
+  "endpoint": "google/nano-banana-2-lite/edit",
+  "prompt_id": "P4",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": [
+    "C:/CLAUDE_PROJECTS/automatization_videos/output/123bbb64-9fca-4395-8bf4-57d60e219ef1/foto_madre/daniel_cija.png"
+   ]
+  },
+  "request_id": "01a19597-db81-7d93-acd6-9d8ef08ef3b3",
+  "status_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a19597-db81-7d93-acd6-9d8ef08ef3b3/status",
+  "response_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a19597-db81-7d93-acd6-9d8ef08ef3b3",
+  "estado": "OK",
+  "segundos": 17.1,
+  "resolucion": "1376x768",
+  "formato": "PNG",
+  "respuesta_sin_imagen": {
+   "description": ""
+  },
+  "costo_usd": null,
+  "costo_origen": "sin medir: precio por tokens"
+ },
+ "nb2_P3": {
+  "endpoint": "fal-ai/nano-banana-2",
+  "prompt_id": "P3",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": null
+  },
+  "request_id": "01a19597-d252-7662-91f9-848e98700501",
+  "status_url": "https://queue.fal.run/fal-ai/nano-banana-2/requests/01a19597-d252-7662-91f9-848e98700501/status",
+  "response_url": "https://queue.fal.run/fal-ai/nano-banana-2/requests/01a19597-d252-7662-91f9-848e98700501",
+  "estado": "BLOQUEADO",
+  "segundos": 10.6,
+  "http": 422,
+  "mensaje": "{\"detail\":[{\"loc\":[\"body\"],\"msg\":\"The model did not generate the expected output for this prompt. This may occur for several reasons, including unsafe content, a prompt that is incompatible with the selected media type (e.g., prompting an image model to generate audio), references to missing attachments, or other cases where the input cannot be processed as the requested output type. Please review your inputs and try again. If the issue persists, contact support.\",\"type\":\"no_media_generated\",\"url\":\"https://docs.fal.ai/errors#no_media_generated\",\"input\":{\"history\":[],\"context\":[],\"return_history\":false,\"thinking_level\":null,\"image_passthrough\":false,\"include_thoughts\":null,\"temperature\":null,\"top_p\":null,\"max_output_tokens\":null,\"prompt\":\"A dead asbestos miner in his 50s lies naked on a steel morgue table under a sheet folded back to his waist, emaciated, ribs showing, skin grey-blue, eyes closed, a paper tag tied to his big toe. A pathologist in a white coat and rubber apron stands beside him holding a pair of shrunken, grey-scarred lungs in a steel dish, examining them under the lamp. Men of European descent with fair to olive skin, light to dark brown or black hair, varied eye colour and lean, labour-hardened builds. Perth hospital morgue 1968, white-tiled walls, enamel sink, instrument tray, a single hanging lamp. Hard overhead lamp light, deep shadows at the edges of the room. Medium shot, eye-level, 50mm lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1968, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.\",\"num_images\":1,\"seed\":null,\"aspect_ratio\":\"16:9\",\"output_format\":\"png\",\"safety_tolerance\":6,\"sync_mode\":false,\"system_prompt\":\"\",\"resolution\":\"1K\",\"limit_generations\":true,\"enable_web_search\":false,\"enable_image_search\":false}}]}",
+  "costo_usd": null,
+  "costo_origen": "sin imagen"
+ },
+ "nb2_P2": {
+  "endpoint": "fal-ai/nano-banana-2",
+  "prompt_id": "P2",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": null
+  },
+  "request_id": "01a19597-d234-7473-842c-dc8857996504",
+  "status_url": "https://queue.fal.run/fal-ai/nano-banana-2/requests/01a19597-d234-7473-842c-dc8857996504/status",
+  "response_url": "https://queue.fal.run/fal-ai/nano-banana-2/requests/01a19597-d234-7473-842c-dc8857996504",
+  "estado": "OK",
+  "segundos": 21.8,
+  "resolucion": "1376x768",
+  "formato": "PNG",
+  "respuesta_sin_imagen": {
+   "description": "",
+   "conversations": [],
+   "grounding_metadata": []
+  },
+  "costo_usd": 0.08,
+  "costo_origen": "precio de lista"
+ },
+ "nb21_P2": {
+  "endpoint": "google/nano-banana-2.1",
+  "prompt_id": "P2",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": null
+  },
+  "request_id": "01a19597-d256-7da0-b790-231c16cd02a3",
+  "status_url": "https://queue.fal.run/google/nano-banana-2.1/requests/01a19597-d256-7da0-b790-231c16cd02a3/status",
+  "response_url": "https://queue.fal.run/google/nano-banana-2.1/requests/01a19597-d256-7da0-b790-231c16cd02a3",
+  "estado": "OK",
+  "segundos": 23.1,
+  "resolucion": "1376x768",
+  "formato": "PNG",
+  "respuesta_sin_imagen": {
+   "description": ""
+  },
+  "costo_usd": null,
+  "costo_origen": "sin medir: precio por tokens"
+ },
+ "nb21_P1": {
+  "endpoint": "google/nano-banana-2.1",
+  "prompt_id": "P1",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": null
+  },
+  "request_id": "01a19597-d238-7af3-84f5-caaa974ae5ee",
+  "status_url": "https://queue.fal.run/google/nano-banana-2.1/requests/01a19597-d238-7af3-84f5-caaa974ae5ee/status",
+  "response_url": "https://queue.fal.run/google/nano-banana-2.1/requests/01a19597-d238-7af3-84f5-caaa974ae5ee",
+  "estado": "BLOQUEADO",
+  "segundos": 21.7,
+  "http": 422,
+  "mensaje": "{\"detail\":[{\"loc\":[\"body\"],\"msg\":\"The content could not be processed because it contained material flagged by a content checker.\",\"type\":\"content_policy_violation\",\"url\":\"https://docs.fal.ai/errors#content_policy_violation\",\"input\":\"\",\"categories\":[\"model_moderated\"]}]}",
+  "costo_usd": null,
+  "costo_origen": "sin medir: precio por tokens"
+ },
+ "nb2_P4": {
+  "endpoint": "fal-ai/nano-banana-2/edit",
+  "prompt_id": "P4",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": [
+    "C:/CLAUDE_PROJECTS/automatization_videos/output/123bbb64-9fca-4395-8bf4-57d60e219ef1/foto_madre/daniel_cija.png"
+   ]
+  },
+  "request_id": "01a19597-d34e-7283-8d64-602a1fdecc2f",
+  "status_url": "https://queue.fal.run/fal-ai/nano-banana-2/requests/01a19597-d34e-7283-8d64-602a1fdecc2f/status",
+  "response_url": "https://queue.fal.run/fal-ai/nano-banana-2/requests/01a19597-d34e-7283-8d64-602a1fdecc2f",
+  "estado": "OK",
+  "segundos": 23.2,
+  "resolucion": "1376x768",
+  "formato": "PNG",
+  "respuesta_sin_imagen": {
+   "description": "",
+   "conversations": [],
+   "grounding_metadata": []
+  },
+  "costo_usd": 0.08,
+  "costo_origen": "precio de lista"
+ },
+ "nb2_P5": {
+  "endpoint": "fal-ai/nano-banana-2/edit",
+  "prompt_id": "P5",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": [
+    "C:/CLAUDE_PROJECTS/automatization_videos/output/123bbb64-9fca-4395-8bf4-57d60e219ef1/foto_madre/daniel_cija.png"
+   ]
+  },
+  "request_id": "01a19597-d475-7031-81f6-5f202597240c",
+  "status_url": "https://queue.fal.run/fal-ai/nano-banana-2/requests/01a19597-d475-7031-81f6-5f202597240c/status",
+  "response_url": "https://queue.fal.run/fal-ai/nano-banana-2/requests/01a19597-d475-7031-81f6-5f202597240c",
+  "estado": "OK",
+  "segundos": 23.3,
+  "resolucion": "1376x768",
+  "formato": "PNG",
+  "respuesta_sin_imagen": {
+   "description": "",
+   "conversations": [],
+   "grounding_metadata": []
+  },
+  "costo_usd": 0.08,
+  "costo_origen": "precio de lista"
+ },
+ "nb21_P3": {
+  "endpoint": "google/nano-banana-2.1",
+  "prompt_id": "P3",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": null
+  },
+  "request_id": "01a19597-d223-7833-a3a7-816f86006002",
+  "status_url": "https://queue.fal.run/google/nano-banana-2.1/requests/01a19597-d223-7833-a3a7-816f86006002/status",
+  "response_url": "https://queue.fal.run/google/nano-banana-2.1/requests/01a19597-d223-7833-a3a7-816f86006002",
+  "estado": "OK",
+  "segundos": 20.5,
+  "resolucion": "1376x768",
+  "formato": "PNG",
+  "respuesta_sin_imagen": {
+   "description": ""
+  },
+  "costo_usd": null,
+  "costo_origen": "sin medir: precio por tokens"
+ },
+ "nb21_P4": {
+  "endpoint": "google/nano-banana-2.1/edit",
+  "prompt_id": "P4",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": [
+    "C:/CLAUDE_PROJECTS/automatization_videos/output/123bbb64-9fca-4395-8bf4-57d60e219ef1/foto_madre/daniel_cija.png"
+   ]
+  },
+  "request_id": "01a19597-d418-7b40-a668-12154254202c",
+  "status_url": "https://queue.fal.run/google/nano-banana-2.1/requests/01a19597-d418-7b40-a668-12154254202c/status",
+  "response_url": "https://queue.fal.run/google/nano-banana-2.1/requests/01a19597-d418-7b40-a668-12154254202c",
+  "estado": "OK",
+  "segundos": 23.3,
+  "resolucion": "1376x768",
+  "formato": "PNG",
+  "respuesta_sin_imagen": {
+   "description": ""
+  },
+  "costo_usd": null,
+  "costo_origen": "sin medir: precio por tokens"
+ },
+ "nb21_P5": {
+  "endpoint": "google/nano-banana-2.1/edit",
+  "prompt_id": "P5",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": [
+    "C:/CLAUDE_PROJECTS/automatization_videos/output/123bbb64-9fca-4395-8bf4-57d60e219ef1/foto_madre/daniel_cija.png"
+   ]
+  },
+  "request_id": "01a19597-d456-7572-aabc-7fb67001a119",
+  "status_url": "https://queue.fal.run/google/nano-banana-2.1/requests/01a19597-d456-7572-aabc-7fb67001a119/status",
+  "response_url": "https://queue.fal.run/google/nano-banana-2.1/requests/01a19597-d456-7572-aabc-7fb67001a119",
+  "estado": "OK",
+  "segundos": 28.0,
+  "resolucion": "1376x768",
+  "formato": "PNG",
+  "respuesta_sin_imagen": {
+   "description": ""
+  },
+  "costo_usd": null,
+  "costo_origen": "sin medir: precio por tokens"
+ },
+ "nbpro_P1": {
+  "endpoint": "fal-ai/nano-banana-pro",
+  "prompt_id": "P1",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": null
+  },
+  "request_id": "01a19597-d240-7a23-b22a-f48e45eedf15",
+  "status_url": "https://queue.fal.run/fal-ai/nano-banana-pro/requests/01a19597-d240-7a23-b22a-f48e45eedf15/status",
+  "response_url": "https://queue.fal.run/fal-ai/nano-banana-pro/requests/01a19597-d240-7a23-b22a-f48e45eedf15",
+  "estado": "BLOQUEADO",
+  "segundos": 22.2,
+  "http": 422,
+  "mensaje": "{\"detail\":[{\"loc\":[\"body\"],\"msg\":\"The content could not be processed because it contained material flagged by a content checker.\",\"type\":\"content_policy_violation\",\"url\":\"https://docs.fal.ai/errors#content_policy_violation\",\"input\":\"\",\"categories\":[\"model_moderated\"]}]}",
+  "costo_usd": null,
+  "costo_origen": "sin imagen"
+ },
+ "nbpro_P2": {
+  "endpoint": "fal-ai/nano-banana-pro",
+  "prompt_id": "P2",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": null
+  },
+  "request_id": "01a19597-d24f-7422-89cf-000c148d3566",
+  "status_url": "https://queue.fal.run/fal-ai/nano-banana-pro/requests/01a19597-d24f-7422-89cf-000c148d3566/status",
+  "response_url": "https://queue.fal.run/fal-ai/nano-banana-pro/requests/01a19597-d24f-7422-89cf-000c148d3566",
+  "estado": "OK",
+  "segundos": 23.0,
+  "resolucion": "1376x768",
+  "formato": "PNG",
+  "respuesta_sin_imagen": {
+   "description": "",
+   "conversations": [],
+   "grounding_metadata": []
+  },
+  "costo_usd": 0.15,
+  "costo_origen": "precio de lista"
+ },
+ "nbpro_P3": {
+  "endpoint": "fal-ai/nano-banana-pro",
+  "prompt_id": "P3",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": null
+  },
+  "request_id": "01a19597-d237-7d10-9aec-1b92f0654b0b",
+  "status_url": "https://queue.fal.run/fal-ai/nano-banana-pro/requests/01a19597-d237-7d10-9aec-1b92f0654b0b/status",
+  "response_url": "https://queue.fal.run/fal-ai/nano-banana-pro/requests/01a19597-d237-7d10-9aec-1b92f0654b0b",
+  "estado": "OK",
+  "segundos": 22.9,
+  "resolucion": "1376x768",
+  "formato": "PNG",
+  "respuesta_sin_imagen": {
+   "description": "",
+   "conversations": [],
+   "grounding_metadata": []
+  },
+  "costo_usd": 0.15,
+  "costo_origen": "precio de lista"
+ },
+ "nbpro_P4": {
+  "endpoint": "fal-ai/nano-banana-pro/edit",
+  "prompt_id": "P4",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": [
+    "C:/CLAUDE_PROJECTS/automatization_videos/output/123bbb64-9fca-4395-8bf4-57d60e219ef1/foto_madre/daniel_cija.png"
+   ]
+  },
+  "request_id": "01a19597-d337-7d33-a6c3-3e2c8cab196b",
+  "status_url": "https://queue.fal.run/fal-ai/nano-banana-pro/requests/01a19597-d337-7d33-a6c3-3e2c8cab196b/status",
+  "response_url": "https://queue.fal.run/fal-ai/nano-banana-pro/requests/01a19597-d337-7d33-a6c3-3e2c8cab196b",
+  "estado": "OK",
+  "segundos": 23.4,
+  "resolucion": "1376x768",
+  "formato": "PNG",
+  "respuesta_sin_imagen": {
+   "description": "",
+   "conversations": [],
+   "grounding_metadata": []
+  },
+  "costo_usd": 0.15,
+  "costo_origen": "precio de lista"
+ },
+ "nbpro_P5": {
+  "endpoint": "fal-ai/nano-banana-pro/edit",
+  "prompt_id": "P5",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": [
+    "C:/CLAUDE_PROJECTS/automatization_videos/output/123bbb64-9fca-4395-8bf4-57d60e219ef1/foto_madre/daniel_cija.png"
+   ]
+  },
+  "request_id": "01a19597-d359-71e3-ac25-529d677da073",
+  "status_url": "https://queue.fal.run/fal-ai/nano-banana-pro/requests/01a19597-d359-71e3-ac25-529d677da073/status",
+  "response_url": "https://queue.fal.run/fal-ai/nano-banana-pro/requests/01a19597-d359-71e3-ac25-529d677da073",
+  "estado": "OK",
+  "segundos": 23.3,
+  "resolucion": "1376x768",
+  "formato": "PNG",
+  "respuesta_sin_imagen": {
+   "description": "",
+   "conversations": [],
+   "grounding_metadata": []
+  },
+  "costo_usd": 0.15,
+  "costo_origen": "precio de lista"
+ },
+ "nb_lite_P1": {
+  "endpoint": "google/nano-banana-lite",
+  "prompt_id": "P1",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": null
+  },
+  "request_id": "01a19598-86f1-7582-bf94-f883122e09e9",
+  "status_url": "https://queue.fal.run/google/nano-banana-lite/requests/01a19598-86f1-7582-bf94-f883122e09e9/status",
+  "response_url": "https://queue.fal.run/google/nano-banana-lite/requests/01a19598-86f1-7582-bf94-f883122e09e9",
+  "estado": "BLOQUEADO",
+  "segundos": 6.2,
+  "http": 422,
+  "mensaje": "{\"detail\":[{\"loc\":[\"body\"],\"msg\":\"The content could not be processed because it contained material flagged by a content checker.\",\"type\":\"content_policy_violation\",\"url\":\"https://docs.fal.ai/errors#content_policy_violation\",\"input\":\"\",\"categories\":[\"model_moderated\"]}]}",
+  "costo_usd": null,
+  "costo_origen": "sin medir: precio por tokens"
+ },
+ "nb_lite_P3": {
+  "endpoint": "google/nano-banana-lite",
+  "prompt_id": "P3",
+  "parametros": {
+   "aspect_ratio": "16:9",
+   "safety_tolerance": "6",
+   "num_images": 1,
+   "image_urls": null
+  },
+  "request_id": "01a19598-86fd-7ba2-9d76-ffb6b092f365",
+  "status_url": "https://queue.fal.run/google/nano-banana-lite/requests/01a19598-86fd-7ba2-9d76-ffb6b092f365/status",
+  "response_url": "https://queue.fal.run/google/nano-banana-lite/requests/01a19598-86fd-7ba2-9d76-ffb6b092f365",
+  "estado": "OK",
+  "segundos": 12.2,
+  "resolucion": "1376x768",
+  "formato": "PNG",
+  "respuesta_sin_imagen": {
+   "description": ""
+  },
+  "costo_usd": null,
+  "costo_origen": "sin medir: precio por tokens"
+ }
+}
