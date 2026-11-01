@@ -1,0 +1,267 @@
+{
+ "modelo": "claude-opus-5-5",
+ "effort": "medium",
+ "system_md5": "da15cabeb304278db8d992c2b87c301c",
+ "user_md5": "7877de7c37c01492f1cee1ccefda7a0b",
+ "intentos": [
+  {
+   "texto": "```json\n{\"nota_total\": 6.5,\n \"resumen\": [\"Las fichas están bien elegidas: diez de doce dan un dato que la voz no dice (1930, Operación Canguro, 5%, el 95% de 1962, los 18,3 millones, los 70.000 millones) y casi todas caen en su palabra.\", \"Los siete sellos son etiquetas de emoción (INMINENTE, AMENAZA, CALMA, ALARMA, MEMORIA, RABIA, SILENCIO) que le dicen al espectador qué sentir sin darle nada; INMINENTE además contradice los treinta años de la voz.\", \"El pico pierde fuerza con una estadística de 500 muertos justo en el diagnóstico de Daniel, el beat 12 gasta su ficha en un nombre de ministro, y los relojes repiten fechas que la voz ya dice.\"],\n \"beats\": [\n  {\"cap\": \"ch01\", \"beat\": 1, \"ficha_suma\": true, \"ficha_por_que\": \"La voz dice que lo que sobró 'sigue' allí; la ficha agrega la escala: es el mayor sitio contaminado del hemisferio sur.\", \"sello_suma\": false, \"sello_por_que\": \"INMINENTE no da ningún dato y choca con 'casi treinta años'; el gancho necesita el otro término de la promesa, los diez meses, que ch01 no dice.\", \"momento\": \"justo\", \"se_lee\": true, \"compite\": false, \"que_pondria\": null, \"sello_pondria\": \"10 MESES\"},\n  {\"cap\": \"ch02\", \"beat\": 2, \"ficha_suma\": true, \"ficha_por_que\": \"La voz cuenta que ella confiaba en lo que venía; la ficha da el motivo de irse, que no tenían nada, y eso la voz no lo dice.\", \"sello_suma\": null, \"sello_por_que\": \"Sin sello.\", \"momento\": \"justo\", \"se_lee\": true, \"compite\": false, \"que_pondria\": null, \"sello_pondria\": null},\n  {\"cap\": \"ch02\", \"beat\": 3, \"ficha_suma\": true, \"ficha_por_que\": \"La voz dice 'un acuerdo entre los dos gobiernos'; la ficha pone nombre, régimen y año en la misma palabra.\", \"sello_suma\": null, \"sello_por_que\": \"Sin sello.\", \"momento\": \"justo\", \"se_lee\": true, \"compite\": false, \"que_pondria\": null, \"sello_pondria\": null},\n  {\"cap\": \"ch03\", \"beat\": 4, \"ficha_suma\": true, \"ficha_por_que\": \"La voz insiste en que todo se hizo con lo que sobraba; el 5% de asbesto convierte ese suelo en una cifra.\", \"sello_suma\": null, \"sello_por_que\": \"Sin sello.\", \"momento\": \"justo\", \"se_lee\": true, \"compite\": false, \"que_pondria\": null, \"sello_pondria\": null},\n  {\"cap\": \"ch03\", \"beat\": 5, \"ficha_suma\": true, \"ficha_por_que\": \"Sobre 'los informes eran anteriores', 1930 lleva el saber más atrás que cualquier fecha que da la voz.\", \"sello_suma\": false, \"sello_por_que\": \"AVISO repite lo que la oración dice con 'advirtió por escrito' y no agrega nada; la oración dice 'ese año' sin decir cuál, y el sello puede darlo.\", \"momento\": \"justo\", \"se_lee\": true, \"compite\": true, \"que_pondria\": null, \"sello_pondria\": \"1948\"},\n  {\"cap\": \"ch03\", \"beat\": 6, \"ficha_suma\": true, \"ficha_por_que\": \"Ata la llegada de Daniel al año récord y al 95% de Wittenoom; la voz no lo dice y le da peso al recuerdo del loop.\", \"sello_suma\": null, \"sello_por_que\": \"Sin sello.\", \"momento\": \"justo\", \"se_lee\": true, \"compite\": false, \"que_pondria\": null, \"sello_pondria\": null},\n  {\"cap\": \"ch04\", \"beat\": 7, \"ficha_suma\": true, \"ficha_por_que\": \"Es la frase de Calvo que la voz corta: la voz dice 'no les daba miedo' y la ficha completa con 'nadie nos avisó'.\", \"sello_suma\": false, \"sello_por_que\": \"AMENAZA es un adjetivo de editor sobre 'se deshacía entre los dedos'; mejor nombrar el mineral que los chicos tocaban.\", \"momento\": \"justo\", \"se_lee\": true, \"compite\": false, \"que_pondria\": null, \"sello_pondria\": \"CROCIDOLITA\"},\n  {\"cap\": \"ch04\", \"beat\": 8, \"ficha_suma\": true, \"ficha_por_que\": \"Quién es hoy el bebé no está en la voz y engancha al público español (P17 permite el más fuerte 'creador de Médico de familia y Los Serrano').\", \"sello_suma\": false, \"sello_por_que\": \"CALMA explica la ironía de 'un hijo y nada más' y la apaga; esa línea funciona mejor sola: quitar el sello.\", \"momento\": \"justo\", \"se_lee\": true, \"compite\": false, \"que_pondria\": null, \"sello_pondria\": null},\n  {\"cap\": \"ch05\", \"beat\": 9, \"ficha_suma\": true, \"ficha_por_que\": \"Después del fallo, la cifra y los 200 afectados son la consecuencia concreta, y la voz no la da.\", \"sello_suma\": false, \"sello_por_que\": \"ALARMA no agrega nada sobre 1978; la distancia desde el cierre sigue el patrón de 'veintidós años después' que la voz usa tres oraciones más abajo.\", \"momento\": \"justo\", \"se_lee\": true, \"compite\": false, \"que_pondria\": null, \"sello_pondria\": \"12 AÑOS DESPUÉS\"},\n  {\"cap\": \"ch05\", \"beat\": 10, \"ficha_suma\": false, \"ficha_por_que\": \"Es un dato nuevo, pero en el diagnóstico de Daniel una estadística de 500 muertos lleva la mirada a la masa en el momento más íntimo del video.\", \"sello_suma\": false, \"sello_por_que\": \"MEMORIA sobre 'María tenía las fotos' subraya lo obvio; quitar el sello y dejar la pausa.\", \"momento\": \"justo\", \"se_lee\": true, \"compite\": false, \"que_pondria\": {\"id\": \"D35\", \"texto\": \"El asbesto azul: el más mortal de todos\", \"etiqueta\": \"LO QUE HABÍA EN EL POLVO\", \"autor\": null, \"por_que\": \"Anclada en 'polvo' (idx14), responde al loop L1, qué respiró, sin sacar a Daniel del centro.\"}, \"sello_pondria\": null},\n  {\"cap\": \"ch06\", \"beat\": 11, \"ficha_suma\": true, \"ficha_por_que\": \"Gente que murió por una excursión escolar sube la apuesta sobre los hijos de funcionarios que cuenta la voz.\", \"sello_suma\": null, \"sello_por_que\": \"Sin sello.\", \"momento\": \"justo\", \"se_lee\": true, \"compite\": false, \"que_pondria\": null, \"sello_pondria\": null},\n  {\"cap\": \"ch06\", \"beat\": 12, \"ficha_suma\": false, \"ficha_por_que\": \"El nombre de un ministro regional no le dice nada a este público y gasta la ficha del beat de revelación.\", \"sello_suma\": false, \"sello_por_que\": \"RABIA le ordena al espectador qué sentir; sobre 'Porque salía caro' lo que falta es cuánto, y una cifra se lee en tres palabras.\", \"momento\": \"justo\", \"se_lee\": true, \"compite\": false, \"que_pondria\": {\"id\": \"D150\", \"texto\": \"El Fortescue alimenta el agua de Karratha\", \"etiqueta\": \"ADÓNDE VA ESE RÍO\", \"autor\": null, \"por_que\": \"Anclada en 'Fortescue' (idx15), muestra que el asbesto llega al agua de una ciudad, algo que la voz no dice.\"}, \"sello_pondria\": \"150 MILLONES\"},\n  {\"cap\": \"ch07\", \"beat\": 13, \"ficha_suma\": true, \"ficha_por_que\": \"Frente a 'no ha gastado dinero', los 70.000 millones cobrados dan el contraste, y más aún después de los 150 millones del beat 12.\", \"sello_suma\": false, \"sello_por_que\": \"SILENCIO pisa el cierre; la pregunta final tiene que llegar limpia: quitar el sello.\", \"momento\": \"justo\", \"se_lee\": true, \"compite\": false, \"que_pondria\": null, \"sello_pondria\": null}\n ],\n \"huecos\": [\n  {\"cap\": \"ch03\", \"beat\": 6, \"id\": \"D138\", \"texto\": \"ABA limpiaba el molino antes de cada visita oficial\", \"etiqueta\": \"ANTES DE LA INSPECCIÓN\", \"autor\": null, \"por_que\": \"En idx22, cuando la Junta entra al molino: lo que vio ya era la versión limpia, y nada en pantalla cubre idx22-30.\"},\n  {\"cap\": \"ch07\", \"beat\": 13, \"id\": \"D68\", \"texto\": \"La mayor tasa per cápita de cáncer por asbesto del mundo\", \"etiqueta\": \"LOS BANJIMA\", \"autor\": \"Gordon Legal\", \"por_que\": \"En idx4, la muerte de Parker deja de ser un caso aislado; la voz no lo dice y el tramo idx0-6 está vacío.\"}\n ],\n \"relojes\": \"Los tres repiten fechas que la voz dice textuales; sobran donde están, y faltan en los saltos que desorientan: la vuelta a 1943 en ch03 idx11 y el salto a 1991 en ch05 idx12.\",\n \"gancho_y_pico\": \"El gancho tiene buena ficha, pero INMINENTE contradice la espera de treinta años; con 10 MESES queda la promesa entera. El pico se diluye con los 500 muertos y MEMORIA: va mejor con el asbesto azul sobre 'polvo' y sin sello.\",\n \"riesgos\": [\"No tocar la ficha de 1930 en el beat 5: es la que sostiene el loop de quién sabía.\", \"No mover el 95% de 1962 del beat 6: ata a Daniel con el año récord en la oración del recuerdo.\", \"No cambiar 'Nadie nos avisó de nada' de Calvo ni los 70.000 millones del cierre; cada uno completa exactamente lo que la voz deja abierto.\", \"Si entra 150 MILLONES en el beat 12, no repetir la cifra de remediación en el beat 13, para que el contraste con las regalías quede limpio.\"]}\n```",
+   "json": true,
+   "usage": {
+    "input_tokens": 81659,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 13549,
+    "service_tier": "standard",
+    "inference_geo": "global",
+    "speed": "standard",
+    "output_tokens_details": {
+     "thinking_tokens": 9861
+    }
+   },
+   "stop": "end_turn",
+   "usd": 0.59762
+  }
+ ],
+ "respuesta": {
+  "nota_total": 6.5,
+  "resumen": [
+   "Las fichas están bien elegidas: diez de doce dan un dato que la voz no dice (1930, Operación Canguro, 5%, el 95% de 1962, los 18,3 millones, los 70.000 millones) y casi todas caen en su palabra.",
+   "Los siete sellos son etiquetas de emoción (INMINENTE, AMENAZA, CALMA, ALARMA, MEMORIA, RABIA, SILENCIO) que le dicen al espectador qué sentir sin darle nada; INMINENTE además contradice los treinta años de la voz.",
+   "El pico pierde fuerza con una estadística de 500 muertos justo en el diagnóstico de Daniel, el beat 12 gasta su ficha en un nombre de ministro, y los relojes repiten fechas que la voz ya dice."
+  ],
+  "beats": [
+   {
+    "cap": "ch01",
+    "beat": 1,
+    "ficha_suma": true,
+    "ficha_por_que": "La voz dice que lo que sobró 'sigue' allí; la ficha agrega la escala: es el mayor sitio contaminado del hemisferio sur.",
+    "sello_suma": false,
+    "sello_por_que": "INMINENTE no da ningún dato y choca con 'casi treinta años'; el gancho necesita el otro término de la promesa, los diez meses, que ch01 no dice.",
+    "momento": "justo",
+    "se_lee": true,
+    "compite": false,
+    "que_pondria": null,
+    "sello_pondria": "10 MESES"
+   },
+   {
+    "cap": "ch02",
+    "beat": 2,
+    "ficha_suma": true,
+    "ficha_por_que": "La voz cuenta que ella confiaba en lo que venía; la ficha da el motivo de irse, que no tenían nada, y eso la voz no lo dice.",
+    "sello_suma": null,
+    "sello_por_que": "Sin sello.",
+    "momento": "justo",
+    "se_lee": true,
+    "compite": false,
+    "que_pondria": null,
+    "sello_pondria": null
+   },
+   {
+    "cap": "ch02",
+    "beat": 3,
+    "ficha_suma": true,
+    "ficha_por_que": "La voz dice 'un acuerdo entre los dos gobiernos'; la ficha pone nombre, régimen y año en la misma palabra.",
+    "sello_suma": null,
+    "sello_por_que": "Sin sello.",
+    "momento": "justo",
+    "se_lee": true,
+    "compite": false,
+    "que_pondria": null,
+    "sello_pondria": null
+   },
+   {
+    "cap": "ch03",
+    "beat": 4,
+    "ficha_suma": true,
+    "ficha_por_que": "La voz insiste en que todo se hizo con lo que sobraba; el 5% de asbesto convierte ese suelo en una cifra.",
+    "sello_suma": null,
+    "sello_por_que": "Sin sello.",
+    "momento": "justo",
+    "se_lee": true,
+    "compite": false,
+    "que_pondria": null,
+    "sello_pondria": null
+   },
+   {
+    "cap": "ch03",
+    "beat": 5,
+    "ficha_suma": true,
+    "ficha_por_que": "Sobre 'los informes eran anteriores', 1930 lleva el saber más atrás que cualquier fecha que da la voz.",
+    "sello_suma": false,
+    "sello_por_que": "AVISO repite lo que la oración dice con 'advirtió por escrito' y no agrega nada; la oración dice 'ese año' sin decir cuál, y el sello puede darlo.",
+    "momento": "justo",
+    "se_lee": true,
+    "compite": true,
+    "que_pondria": null,
+    "sello_pondria": "1948"
+   },
+   {
+    "cap": "ch03",
+    "beat": 6,
+    "ficha_suma": true,
+    "ficha_por_que": "Ata la llegada de Daniel al año récord y al 95% de Wittenoom; la voz no lo dice y le da peso al recuerdo del loop.",
+    "sello_suma": null,
+    "sello_por_que": "Sin sello.",
+    "momento": "justo",
+    "se_lee": true,
+    "compite": false,
+    "que_pondria": null,
+    "sello_pondria": null
+   },
+   {
+    "cap": "ch04",
+    "beat": 7,
+    "ficha_suma": true,
+    "ficha_por_que": "Es la frase de Calvo que la voz corta: la voz dice 'no les daba miedo' y la ficha completa con 'nadie nos avisó'.",
+    "sello_suma": false,
+    "sello_por_que": "AMENAZA es un adjetivo de editor sobre 'se deshacía entre los dedos'; mejor nombrar el mineral que los chicos tocaban.",
+    "momento": "justo",
+    "se_lee": true,
+    "compite": false,
+    "que_pondria": null,
+    "sello_pondria": "CROCIDOLITA"
+   },
+   {
+    "cap": "ch04",
+    "beat": 8,
+    "ficha_suma": true,
+    "ficha_por_que": "Quién es hoy el bebé no está en la voz y engancha al público español (P17 permite el más fuerte 'creador de Médico de familia y Los Serrano').",
+    "sello_suma": false,
+    "sello_por_que": "CALMA explica la ironía de 'un hijo y nada más' y la apaga; esa línea funciona mejor sola: quitar el sello.",
+    "momento": "justo",
+    "se_lee": true,
+    "compite": false,
+    "que_pondria": null,
+    "sello_pondria": null
+   },
+   {
+    "cap": "ch05",
+    "beat": 9,
+    "ficha_suma": true,
+    "ficha_por_que": "Después del fallo, la cifra y los 200 afectados son la consecuencia concreta, y la voz no la da.",
+    "sello_suma": false,
+    "sello_por_que": "ALARMA no agrega nada sobre 1978; la distancia desde el cierre sigue el patrón de 'veintidós años después' que la voz usa tres oraciones más abajo.",
+    "momento": "justo",
+    "se_lee": true,
+    "compite": false,
+    "que_pondria": null,
+    "sello_pondria": "12 AÑOS DESPUÉS"
+   },
+   {
+    "cap": "ch05",
+    "beat": 10,
+    "ficha_suma": false,
+    "ficha_por_que": "Es un dato nuevo, pero en el diagnóstico de Daniel una estadística de 500 muertos lleva la mirada a la masa en el momento más íntimo del video.",
+    "sello_suma": false,
+    "sello_por_que": "MEMORIA sobre 'María tenía las fotos' subraya lo obvio; quitar el sello y dejar la pausa.",
+    "momento": "justo",
+    "se_lee": true,
+    "compite": false,
+    "que_pondria": {
+     "id": "D35",
+     "texto": "El asbesto azul: el más mortal de todos",
+     "etiqueta": "LO QUE HABÍA EN EL POLVO",
+     "autor": null,
+     "por_que": "Anclada en 'polvo' (idx14), responde al loop L1, qué respiró, sin sacar a Daniel del centro."
+    },
+    "sello_pondria": null
+   },
+   {
+    "cap": "ch06",
+    "beat": 11,
+    "ficha_suma": true,
+    "ficha_por_que": "Gente que murió por una excursión escolar sube la apuesta sobre los hijos de funcionarios que cuenta la voz.",
+    "sello_suma": null,
+    "sello_por_que": "Sin sello.",
+    "momento": "justo",
+    "se_lee": true,
+    "compite": false,
+    "que_pondria": null,
+    "sello_pondria": null
+   },
+   {
+    "cap": "ch06",
+    "beat": 12,
+    "ficha_suma": false,
+    "ficha_por_que": "El nombre de un ministro regional no le dice nada a este público y gasta la ficha del beat de revelación.",
+    "sello_suma": false,
+    "sello_por_que": "RABIA le ordena al espectador qué sentir; sobre 'Porque salía caro' lo que falta es cuánto, y una cifra se lee en tres palabras.",
+    "momento": "justo",
+    "se_lee": true,
+    "compite": false,
+    "que_pondria": {
+     "id": "D150",
+     "texto": "El Fortescue alimenta el agua de Karratha",
+     "etiqueta": "ADÓNDE VA ESE RÍO",
+     "autor": null,
+     "por_que": "Anclada en 'Fortescue' (idx15), muestra que el asbesto llega al agua de una ciudad, algo que la voz no dice."
+    },
+    "sello_pondria": "150 MILLONES"
+   },
+   {
+    "cap": "ch07",
+    "beat": 13,
+    "ficha_suma": true,
+    "ficha_por_que": "Frente a 'no ha gastado dinero', los 70.000 millones cobrados dan el contraste, y más aún después de los 150 millones del beat 12.",
+    "sello_suma": false,
+    "sello_por_que": "SILENCIO pisa el cierre; la pregunta final tiene que llegar limpia: quitar el sello.",
+    "momento": "justo",
+    "se_lee": true,
+    "compite": false,
+    "que_pondria": null,
+    "sello_pondria": null
+   }
+  ],
+  "huecos": [
+   {
+    "cap": "ch03",
+    "beat": 6,
+    "id": "D138",
+    "texto": "ABA limpiaba el molino antes de cada visita oficial",
+    "etiqueta": "ANTES DE LA INSPECCIÓN",
+    "autor": null,
+    "por_que": "En idx22, cuando la Junta entra al molino: lo que vio ya era la versión limpia, y nada en pantalla cubre idx22-30."
+   },
+   {
+    "cap": "ch07",
+    "beat": 13,
+    "id": "D68",
+    "texto": "La mayor tasa per cápita de cáncer por asbesto del mundo",
+    "etiqueta": "LOS BANJIMA",
+    "autor": "Gordon Legal",
+    "por_que": "En idx4, la muerte de Parker deja de ser un caso aislado; la voz no lo dice y el tramo idx0-6 está vacío."
+   }
+  ],
+  "relojes": "Los tres repiten fechas que la voz dice textuales; sobran donde están, y faltan en los saltos que desorientan: la vuelta a 1943 en ch03 idx11 y el salto a 1991 en ch05 idx12.",
+  "gancho_y_pico": "El gancho tiene buena ficha, pero INMINENTE contradice la espera de treinta años; con 10 MESES queda la promesa entera. El pico se diluye con los 500 muertos y MEMORIA: va mejor con el asbesto azul sobre 'polvo' y sin sello.",
+  "riesgos": [
+   "No tocar la ficha de 1930 en el beat 5: es la que sostiene el loop de quién sabía.",
+   "No mover el 95% de 1962 del beat 6: ata a Daniel con el año récord en la oración del recuerdo.",
+   "No cambiar 'Nadie nos avisó de nada' de Calvo ni los 70.000 millones del cierre; cada uno completa exactamente lo que la voz deja abierto.",
+   "Si entra 150 MILLONES en el beat 12, no repetir la cifra de remediación en el beat 13, para que el contraste con las regalías quede limpio."
+  ]
+ },
+ "usage": {
+  "input_tokens": 81659,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "cache_creation": {
+   "ephemeral_5m_input_tokens": 0,
+   "ephemeral_1h_input_tokens": 0
+  },
+  "output_tokens": 13549,
+  "service_tier": "standard",
+  "inference_geo": "global",
+  "speed": "standard",
+  "output_tokens_details": {
+   "thinking_tokens": 9861
+  }
+ },
+ "usd": 0.59762,
+ "segundos": 131.8
+}

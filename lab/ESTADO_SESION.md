@@ -1,6 +1,12 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-31 (F66b hecha, decisión de Omar 17:25: narración de antes de F66 restaurada (c7badfbe…), papel m01e-7 re-escrito sobre ella, 13/13, US$ 0,98, SIN aprobar; el verificador de narración queda cableado pero solo avisa: la corrección automática se borró y se rediseña antes del tema 2. PARADA: voz y fotos sin correr. Reporte lab/hyperframes/f66/F66b_REPORT.md.)
+Última actualización: 2026-10-31 (F67 hecha, commits `37c3261` A, `46102e5` B, `da63ddc` C, `c7c7f3a` arreglos + D: flujo nuevo guion → juez m05 con `retencion` → verificador → crítico m01f → **PARADA de narración** → papel una vez (`--papel`) → PARADA del papel. Wittenoom: nota 6,5, 7 DEBERÍA (`01f_critico.md`), narración c7badfbe… sin tocar y sin aprobar, papel m01e-7 viejo en disco sin aprobar. US$ 3,78. PARADA: voz, fotos y papel sin correr; el analista lee `lab/hyperframes/f67/F67_REPORT.md`. Antes: F67a hecha, commit `969673c`: lab del crítico de retención por API, 4 corridas O/F medium, US$ 5,02, producción intacta. PARADA: el analista lee `lab/hyperframes/f67/a/ciego/` y Omar decide si entra a la compuerta F67; voz y fotos sin correr. Reporte lab/hyperframes/f67/F67a_REPORT.md. Antes: F66b hecha, decisión de Omar 17:25: narración de antes de F66 restaurada (c7badfbe…), papel m01e-7 re-escrito sobre ella, 13/13, US$ 0,98, SIN aprobar; el verificador de narración queda cableado pero solo avisa: la corrección automática se borró y se rediseña antes del tema 2. PARADA: voz y fotos sin correr. Reporte lab/hyperframes/f66/F66b_REPORT.md.)
+
+## Tanda F67 — compuerta de narración (leer antes de tocar Fase 1)
+- **Orden nuevo:** `run_guion_v4` termina en el crítico; `process_topic` para en narración, después en el papel. `run_pipeline`: guion → narracion → papel_nuevo → papel → voz. Aprobar: `--aprobar-narracion` o QA Studio → 🎙 NARRACIÓN. Editar o aceptar un DEBERÍA invalida la aprobación por md5.
+- **Correr run_pipeline con** `viral-video-pipeline/.venv`: el `python` global frena en dependencias (`faster_whisper`).
+- **No aprobar el papel m01e-7 de Wittenoom antes que la narración** (abierto 9 de F67_REPORT): un papel aprobado sin `narracion_md5` se respeta.
+- **Esperan a Omar (§9):** escala de nota; DEBERÍA sin truncar a 8 (implementado, pendiente); botón volver a criticar (no entra). `humano` de la escaleta de Wittenoom sigue en P16: las rachas no sirven para fijar reglas.
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
