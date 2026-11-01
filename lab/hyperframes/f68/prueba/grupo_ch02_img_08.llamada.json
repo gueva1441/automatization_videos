@@ -1,0 +1,26 @@
+{
+ "foto": "grupo_ch02_img_08.png",
+ "llamadas": {
+  "nb2_lite": {
+   "motor": "nb2_lite",
+   "endpoint": "google/nano-banana-2-lite/edit",
+   "firma": "69d219e1b14f6e8623c7d0907793a378",
+   "texto": "A photograph of the same people shown in the reference images. An adult Spanish man in a cotton work shirt and an adult Spanish woman in a cotton print dress and headscarf, with a young Spanish boy in shorts. The family stands at the rail as the liner nears the Australian coast. Spanish people with olive to fair Mediterranean skin, dark brown to black hair and brown eyes. Liner deck approaching the Western Australian coast, August 1962. Clear soft winter daylight. Medium shot, eye-level, moderate depth of field, 50mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parametros": {
+    "aspect_ratio": "16:9",
+    "safety_tolerance": "6",
+    "num_images": 1
+   },
+   "referencias_md5": [
+    "f9857ea5e050b907009349a9a2cbe54c",
+    "2966c4cce8150f70f19d7697ec14b326"
+   ],
+   "hora": "2026-11-01T01:59:25",
+   "estado": "ok",
+   "request_id": "01a195b0-f9ab-7070-b29c-483c3034b4b3",
+   "status_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a195b0-f9ab-7070-b29c-483c3034b4b3/status",
+   "response_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a195b0-f9ab-7070-b29c-483c3034b4b3",
+   "segundos": 11.8
+  }
+ }
+}

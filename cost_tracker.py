@@ -237,21 +237,32 @@ class CostTracker:
         )
 
     def track_seedream(self, description: str, images: int = 1, mode: str = "t2i") -> None:
-        """Registra costo de generación con Seedream 4.5 (fal.run, SYNC).
+        """Registra costo de generación con Seedream 4.5 (F68: solo respaldo y madres de persona).
 
         mode ∈ {"t2i","edit"} (HANDOFF_133): SOLO cambia la etiqueta del service para que
         el costo del /edit anclado no se disfrace de t2i. La TARIFA queda 0.04 para ambos
         modos — la real del /edit se confirma por delta dashboard (no inventar precio).
         El campo de costo NO viene en la respuesta de fal, igual que Kling.
         """
-        cost_per = pipeline.costs.get("seedream_per_image", 0.035)     # F8: Seedream 5.0 Lite
+        cost_per = pipeline.costs.get("seedream_per_image", 0.04)
         self._add_entry(
             stage=PipelineStage.IMAGE.value,
-            service=f"fal.ai Seedream 5.0 Lite ({mode})",
+            service=f"fal.ai Seedream 4.5 ({mode})",
             description=description,
             units=images,
             unit_label="images",
             cost_per_unit=cost_per,
+        )
+
+    def track_nb2_lite(self, description: str, images: int = 1, mode: str = "t2i") -> None:
+        """F68: Nano Banana 2 Lite. Cobra por tokens y fal no los devuelve: la tarifa es la ESTIMADA del panel de fal."""
+        self._add_entry(
+            stage=PipelineStage.IMAGE.value,
+            service=f"fal.ai Nano Banana 2 Lite ({mode}, estimado)",
+            description=description,
+            units=images,
+            unit_label="images",
+            cost_per_unit=pipeline.costs.get("nb2_lite_per_image", 0.042),
         )
 
     def track_leonardo(self, description: str, images: int = 1) -> None:

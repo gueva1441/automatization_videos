@@ -276,7 +276,8 @@ def test_foto_final_edit_con_la_inicial_de_referencia(monkeypatch, tmp_path):
         visto.update(foto=foto, ip=image_prompt, voz=voz_clip)
         return "the last frame: he lowers the bandaged foot"
 
-    def raw(prompt, out_path, use_ultra, seed=None, foto_madre_data_uris=None):
+    def raw(prompt, out_path, use_ultra, seed=None, foto_madre_data_uris=None, frase_de_madres=True):
+        assert frase_de_madres is False           # F68: la referencia es la foto inicial, no una madre
         visto.update(prompt=prompt, use_ultra=use_ultra, uris=foto_madre_data_uris)
         out_path.write_bytes(PNG)
         return {"endpoint": "fal-ai/bytedance/seedream/v5/lite/edit"}
@@ -296,7 +297,7 @@ def test_foto_final_edit_con_la_inicial_de_referencia(monkeypatch, tmp_path):
 def test_foto_final_rechazada_clip_sin_final_y_motivo(monkeypatch, tmp_path):
     monkeypatch.setattr(vp, "escribir_final", lambda *a, **k: "instr")
 
-    def raw(prompt, out_path, use_ultra, seed=None, foto_madre_data_uris=None):
+    def raw(prompt, out_path, use_ultra, seed=None, foto_madre_data_uris=None, frase_de_madres=True):
         raise am.ContentRejectedError("seedream rechazó prompt: content_policy_violation")
     monkeypatch.setattr(am, "_generate_image_raw", raw)
     ini, fin = tmp_path / "ch01_img_01.png", tmp_path / "ch01_img_01_final.png"

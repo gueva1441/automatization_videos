@@ -2066,10 +2066,10 @@ def assign_visual_prompts(
 
     # chat 117: m03 solo soporta seedream. Los paths flux/kling/veo-old fueron removidos
     # → un misconfig futuro falla RUIDOSO acá, no contra código borrado.
-    if api.image_engine != "seedream":
+    if api.image_engine not in ("seedream", "nb2_lite"):   # F68: nb2_lite usa el mismo texto de foto
         raise ValueError(
-            "m03 solo soporta image_engine='seedream'. Los paths flux/kling/veo-old "
-            "fueron removidos en chat 117. Ajustá config.image_engine='seedream'.")
+            "m03 solo soporta image_engine='seedream' o 'nb2_lite'. Los paths flux/kling/veo-old "
+            "fueron removidos en chat 117. Ajustá config.image_engine.")
 
     # Chat 54: video_id para resolver los chXX_timestamps.json (timing-aware merge).
     # En este pipeline video_id == topic_id; el sync_map lo trae explícito.

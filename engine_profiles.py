@@ -33,6 +33,11 @@ class RenderProfile:
     image_size: str | dict | None   # enum ("landscape_16_9") | {"width","height"} | None (Kling usa resolution+aspect)
     cost_usd: float
     accepts_seed: bool = True       # F8: Seedream 5.0 Lite no tiene `seed` de entrada (solo lo devuelve)
+    edit_model_id: str | None = None   # F68: el id de /edit cuando no sale de reemplazar «text-to-image» en model_id
+    secuencia: bool = True          # F68: con False el pre-paso de secuencia no corre (una foto = una llamada)
+    madres_solo_persona: bool = False   # F68: con True `foto_madre_ref` (objeto/lugar) no entra a la regla única de madres
+    aspect_ratio: str | None = None     # F68: motores que piden aspect_ratio en vez de image_size
+    safety_tolerance: str | None = None # F68: enum "1".."6" de los endpoints Nano Banana
 
 
 @dataclass(frozen=True)
@@ -65,19 +70,18 @@ PERFIL_KLING = EngineProfile(
 )
 
 # Seedream (SEEDREAM_4.5_REFERENCIA §1-2): SYNC, sin guidance_scale ni negative_prompt.
-# F8 §1A: motor → Seedream 5.0 Lite (probado por Omar: 10/12 y 9/12 en obediencia, $0.035). El /edit de la foto madre
-# sale del mismo id (text-to-image → edit; acepta `image_urls`, hasta 10). v5 Lite NO acepta `seed` de entrada.
-# Volver a 4.5: SEEDREAM_45_MODEL_ID + accepts_seed=True + cost_usd 0.04.
+# F68: Seedream 4.5 (propuesta del analista, 2026-11-01), solo respaldo de Nano Banana 2 Lite y madres de persona nuevas. El
+# /edit sale del mismo id (text-to-image → edit; acepta `image_urls`). 5.0 Lite salió por deformar caras (lab NB-TOL6).
 SEEDREAM_45_MODEL_ID = "fal-ai/bytedance/seedream/v4.5/text-to-image"
 SEEDREAM_V5_LITE_MODEL_ID = "fal-ai/bytedance/seedream/v5/lite/text-to-image"
 PERFIL_SEEDREAM = EngineProfile(
     engine_key="seedream",
     render=RenderProfile(
-        model_id=SEEDREAM_V5_LITE_MODEL_ID,
+        model_id=SEEDREAM_45_MODEL_ID,
         base_url="https://fal.run",
         image_size={"width": pipeline.image_width, "height": pipeline.image_height},   # 2560×1440 fijo (no «auto_2K»)
-        cost_usd=0.035,
-        accepts_seed=False,
+        cost_usd=0.04,
+        accepts_seed=True,
     ),
     # ── mitad PROMPT (3b — DOC_SKELETON §3): orden oficial del ensamblador ──
     formula=(
@@ -97,9 +101,29 @@ PERFIL_SEEDREAM = EngineProfile(
 )
 
 
+# F68: motor principal de fotos (elección de Omar, 2026-11-01, lab NB-TOL6 hoja_P4). Cola de fal, una foto por llamada, salida
+# nativa fija 1K (1376×768); asset_manager guarda el nativo y lo lleva a pipeline.image_*. Tarifa por tokens: cost_usd es la
+# medida por Omar en el panel de fal, estimada. La mitad PROMPT no se usa: m03 lee la de PERFIL_SEEDREAM.
+PERFIL_NB2_LITE = EngineProfile(
+    engine_key="nb2_lite",
+    render=RenderProfile(
+        model_id="google/nano-banana-2-lite",
+        base_url=api.fal_base_url,
+        image_size=None,
+        cost_usd=0.042,
+        edit_model_id="google/nano-banana-2-lite/edit",
+        secuencia=False,
+        madres_solo_persona=True,
+        aspect_ratio="16:9",
+        safety_tolerance="6",
+    ),
+)
+
+
 _PROFILES: dict[str, EngineProfile] = {
     PERFIL_KLING.engine_key: PERFIL_KLING,
     PERFIL_SEEDREAM.engine_key: PERFIL_SEEDREAM,
+    PERFIL_NB2_LITE.engine_key: PERFIL_NB2_LITE,
 }
 
 

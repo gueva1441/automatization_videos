@@ -1,0 +1,23 @@
+{
+ "foto": "sin_persona_ch02_img_06.png",
+ "llamadas": {
+  "nb2_lite": {
+   "motor": "nb2_lite",
+   "endpoint": "google/nano-banana-2-lite",
+   "firma": "8a104fe945b617dc6af04c23f15d1af9",
+   "texto": "Hundreds of Spanish migrants with olive skin and dark hair, men in shirtsleeves, women in cotton print dresses and headscarves, children in shorts, filling the frame. The crowd packs the open decks of the liner, sitting on luggage and leaning on rails. Spanish people with olive to fair Mediterranean skin, dark brown to black hair and brown eyes. Crowded open decks of a migrant liner at sea, 1962. Harsh midday sun at sea. Wide shot, high angle, deep depth of field, 28mm lens. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parametros": {
+    "aspect_ratio": "16:9",
+    "safety_tolerance": "6",
+    "num_images": 1
+   },
+   "referencias_md5": [],
+   "hora": "2026-11-01T01:59:38",
+   "estado": "ok",
+   "request_id": "01a195b1-2aeb-7e32-9f59-cb10d64044ed",
+   "status_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a195b1-2aeb-7e32-9f59-cb10d64044ed/status",
+   "response_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a195b1-2aeb-7e32-9f59-cb10d64044ed",
+   "segundos": 6.1
+  }
+ }
+}

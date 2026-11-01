@@ -303,6 +303,204 @@ def _path_to_data_uri(path: str | Path) -> str:
     return f"data:{tipo_imagen(datos)};base64,{base64.b64encode(datos).decode('ascii')}"
 
 
+# ═══════════════════════════════════════════
+#  F68 — Nano Banana 2 Lite: una foto = una llamada por la cola de fal; respaldo Seedream 4.5
+# ═══════════════════════════════════════════
+
+MOTOR_PRINCIPAL = "nb2_lite"
+MOTOR_RESPALDO = "seedream45_respaldo"       # handoff F68, regla 3: la marca del manifest
+RECHAZOS_RESPALDO = ("content_policy_violation", "no_media_generated")   # handoff F68, regla 3
+FRASE_EDIT_UNA = "A photograph of the same person shown in the reference image."       # la del lab NB-TOL6 (handoff F68, regla 2)
+FRASE_EDIT_VARIAS = "A photograph of the same people shown in the reference images."
+LLAMADA_SUFIJO = ".llamada.json"             # junto a la foto: texto exacto, modelo, parámetros, request_id
+NATIVO_SUFIJO = "_native"                    # junto a la foto: lo que devolvió el motor, sin escalar
+
+
+def _motivo_rechazo(body: str) -> str | None:
+    """El mensaje exacto de un rechazo que dispara el respaldo, sin el `input` que fal repite (trae el prompt y las fotos); None si
+    es otro error. Se lee el `type` de fal y no las palabras clave: `no_media_generated` no las trae, y un 422 cualquiera sí trae
+    «safety» porque fal repite `safety_tolerance`."""
+    try:
+        detalle = json.loads(body).get("detail")
+    except (ValueError, AttributeError):
+        return None
+    for d in detalle if isinstance(detalle, list) else []:
+        if isinstance(d, dict) and d.get("type") in RECHAZOS_RESPALDO:
+            return json.dumps({k: d[k] for k in ("msg", "type", "categories") if k in d}, ensure_ascii=False)
+    return None
+
+
+def _esperar_cola(status_url: str, response_url: str, timeout: int = CLIP_POLL_TIMEOUT) -> dict[str, Any]:
+    """La espera de `_fal_queue_poll`, pero un error de la respuesta sube como HTTPError con el cuerpo entero (F68: el `type` de
+    fal llega después del `msg`, y `_fal_queue_poll` lo corta a 600 caracteres)."""
+    start = time.time()
+    while time.time() - start < timeout:
+        resp = requests.get(status_url, headers=_fal_headers(), timeout=15)
+        resp.raise_for_status()
+        data = resp.json()
+        status = data.get("status", "").upper()
+        if status == "COMPLETED":
+            res = requests.get(response_url, headers=_fal_headers(), timeout=60)
+            res.raise_for_status()
+            return res.json()
+        if status in ("FAILED", "ERROR"):
+            raise RuntimeError(f"fal.ai tarea falló: {json.dumps(data)[:300]}")
+        time.sleep(5)
+    raise TimeoutError(f"fal.ai timeout tras {timeout}s")
+
+
+def _leer_llamadas(f: Path) -> dict[str, Any]:
+    try:
+        return json.loads(f.read_text(encoding="utf-8")) if f.exists() else {}
+    except (OSError, ValueError):
+        return {}
+
+
+def _llamada_cola(motor: str, endpoint: str, payload: dict[str, Any], out_path: Path) -> dict[str, Any]:
+    """Una llamada por la cola de fal, con el registro junto a la foto (`<stem>.llamada.json`): texto exacto, modelo y parámetros
+    van a disco antes de pedir y el request_id antes de esperar. Si el registro de ese motor tiene un pedido en curso con el mismo
+    endpoint y payload, lo recupera sin volver a pedir; un pedido que ya terminó no se reusa (rehacer una foto paga de nuevo)."""
+    f = out_path.with_name(out_path.stem + LLAMADA_SUFIJO)
+    f.parent.mkdir(parents=True, exist_ok=True)
+    registro = _leer_llamadas(f)
+    registro["foto"] = out_path.name
+    firma = hashlib.md5(json.dumps([endpoint, payload], sort_keys=True).encode("utf-8")).hexdigest()
+    previa = (registro.get("llamadas") or {}).get(motor) or {}
+    fila: dict[str, Any] = {
+        "motor": motor, "endpoint": endpoint, "firma": firma, "texto": payload.get("prompt"),
+        "parametros": {k: v for k, v in payload.items() if k not in ("prompt", "image_urls")},
+        "referencias_md5": [hashlib.md5(u.encode("utf-8")).hexdigest() for u in payload.get("image_urls") or []],
+        "hora": datetime.now().isoformat(timespec="seconds"), "estado": "pedido",
+    }
+
+    def guardar() -> None:
+        registro.setdefault("llamadas", {})[motor] = fila
+        f.write_text(json.dumps(registro, ensure_ascii=False, indent=1), encoding="utf-8")
+
+    t0 = time.time()
+    try:
+        if previa.get("estado") == "en_cola" and previa.get("firma") == firma:
+            fila.update({k: previa[k] for k in ("request_id", "status_url", "response_url")})
+            fila["estado"] = "en_cola"
+            error_handler.log_info(PipelineStage.IMAGE, f"[cola] {out_path.name}: {motor} reanudado desde request_id "
+                                                        f"{fila['request_id']} (sin re-pedir)")
+        else:
+            guardar()
+            resp = requests.post(f"{api.fal_base_url}/{endpoint}", headers=_fal_headers(), json=payload,
+                                 timeout=FAL_SUBMIT_TIMEOUT_S)
+            resp.raise_for_status()
+            sub = resp.json()
+            fila.update({"request_id": sub.get("request_id"), "status_url": sub.get("status_url"),
+                         "response_url": sub.get("response_url"), "estado": "en_cola"})
+        guardar()                                    # en disco ANTES de esperar
+        data = _esperar_cola(fila["status_url"], fila["response_url"])
+    except Exception as e:
+        body = getattr(getattr(e, "response", None), "text", None) or str(e)
+        fila["estado"] = "error"                     # el pedido no se reanuda: el reintento pide de nuevo
+        fila["mensaje"] = _motivo_rechazo(body) or body[:600]
+        fila["segundos"] = round(time.time() - t0, 1)
+        guardar()
+        raise
+    fila["estado"] = "ok"
+    fila["segundos"] = round(time.time() - t0, 1)
+    guardar()
+    return data
+
+
+def _bajar_foto(data: dict[str, Any], out_path: Path) -> tuple[int, int]:
+    """Baja images[0]: el original como `<stem>_native.png` y la foto en `out_path` a pipeline.image_* con ffmpeg lanczos. El
+    motor da 1376×768 (1,792) y el canal es 16:9 (1,778): se escala para cubrir y se recorta al centro (0,8 % de ancho) en vez de
+    estirar la cara. Una foto que ya tiene el tamaño va tal cual. Devuelve el tamaño del original."""
+    import io  # noqa: PLC0415
+    import subprocess  # noqa: PLC0415
+    from PIL import Image  # noqa: PLC0415
+    r = requests.get(data["images"][0]["url"], timeout=120)
+    r.raise_for_status()
+    nativo = out_path.with_name(out_path.stem + NATIVO_SUFIJO + ".png")
+    nativo.parent.mkdir(parents=True, exist_ok=True)
+    with Image.open(io.BytesIO(r.content)) as im:
+        tam = im.size
+        im.convert("RGB").save(nativo, format="PNG")  # Seedream entrega JPEG aunque la URL diga otra cosa
+    w, h = pipeline.image_width, pipeline.image_height
+    if tam == (w, h):
+        out_path.write_bytes(nativo.read_bytes())
+        return tam
+    vf = f"scale={w}:{h}:force_original_aspect_ratio=increase:flags=lanczos,crop={w}:{h}"
+    tmp = out_path.with_name(out_path.stem + "_tmp.png")
+    p = subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-i", str(nativo), "-vf", vf, str(tmp)],
+                       capture_output=True, text=True)
+    if p.returncode:
+        tmp.unlink(missing_ok=True)
+        raise RuntimeError(f"ffmpeg lanczos falló en {nativo.name}: {p.stderr[-300:]}")
+    tmp.replace(out_path)
+    return tam
+
+
+def _generar_nb2(prompt: str, output_path: Path, seed: int | None, data_uris: list[str] | None,
+                 frase_de_madres: bool) -> dict[str, Any]:
+    """Una foto con Nano Banana 2 Lite: con referencias /edit, sin ellas text-to-image. Si fal la rechaza
+    (`RECHAZOS_RESPALDO`), misma foto, mismo texto y mismas referencias por Seedream 4.5 (`MOTOR_RESPALDO`, con el mensaje exacto).
+    `frase_de_madres`: antepone la frase del lab cuando las referencias son fotos madre; la foto final del clip va sin ella (su
+    referencia es la foto inicial y su instrucción ya es de edit). Un rechazo del respaldo es ContentRejectedError."""
+    perfil = select_profile(MOTOR_PRINCIPAL)
+    uris = list(data_uris or [])
+    texto = prompt
+    if uris and frase_de_madres:
+        texto = f"{FRASE_EDIT_UNA if len(uris) == 1 else FRASE_EDIT_VARIAS} {prompt}"
+    payload: dict[str, Any] = {"prompt": texto, "aspect_ratio": perfil.render.aspect_ratio,
+                               "safety_tolerance": perfil.render.safety_tolerance, "num_images": 1}
+    if uris:
+        payload["image_urls"] = uris
+    endpoint = perfil.render.edit_model_id if uris else perfil.render.model_id
+    t0 = time.time()
+    motor, motivo = MOTOR_PRINCIPAL, None
+    data: dict[str, Any] | None = None
+    try:
+        data = _llamada_cola(MOTOR_PRINCIPAL, endpoint, payload, output_path)
+        if not data.get("images"):
+            motivo = f"sin imágenes: {json.dumps(data, ensure_ascii=False)[:600]}"
+    except requests.HTTPError as e:
+        motivo = _motivo_rechazo(e.response.text if e.response is not None else "")
+        if motivo is None:
+            raise
+    if motivo:
+        motor = MOTOR_RESPALDO
+        error_handler.log_warning(PipelineStage.IMAGE, f"[{output_path.name}] Nano Banana rechazó → Seedream 4.5: {motivo[:300]}")
+        perfil_r = select_profile("seedream")
+        endpoint = perfil_r.render.model_id.replace("text-to-image", "edit") if uris else perfil_r.render.model_id
+        pay_r = _seedream_edit_payload_for(texto, uris, seed) if uris else _seedream_payload_for(texto, seed)
+        try:
+            data = _llamada_cola(MOTOR_RESPALDO, endpoint, pay_r, output_path)
+        except requests.HTTPError as e:
+            body = e.response.text if e.response is not None else str(e)
+            if _is_content_rejection(body):
+                raise ContentRejectedError(f"Nano Banana: {motivo} | Seedream 4.5: {_motivo_rechazo(body) or body[:300]}")
+            raise
+        if not data.get("images"):
+            raise RuntimeError(f"seedream sin imágenes: {json.dumps(data)[:300]}")
+    tam = _bajar_foto(data, output_path)
+    desc = f"{output_path.stem}: {prompt[:60]}..."
+    modo = "edit" if uris else "t2i"
+    if motor == MOTOR_RESPALDO:
+        cost_tracker.track_seedream(description=desc, images=1, mode=modo)
+        usd = pipeline.costs["seedream_per_image"]
+    else:
+        cost_tracker.track_nb2_lite(description=desc, images=1, mode=modo)
+        usd = pipeline.costs["nb2_lite_per_image"]
+    nsfw = data.get("has_nsfw_concepts") or [False]
+    return {
+        "endpoint": endpoint, "ms": int((time.time() - t0) * 1000), "width": tam[0], "height": tam[1], "seed": data.get("seed"),
+        "nsfw_flag": nsfw[0] if nsfw else False, "motor": motor, "respaldo_motivo": motivo,
+        "segundos": round(time.time() - t0, 1), "usd": usd, "n_referencias": len(uris),
+    }
+
+
+def _campos_motor(meta: dict[str, Any] | None) -> dict[str, Any]:
+    """F68: lo que el manifest dice del motor de una foto (motor, motivo del respaldo, segundos, US$), si lo hay."""
+    fm = (meta or {}).get("flux_meta") or {}
+    return {k: fm[k] for k in ("motor", "respaldo_motivo", "segundos", "usd") if k in fm}
+
+
 # ── Lookup por engine_key (el "selector" del 5º dispatch — NO elif disperso) ──
 # Builders y cost trackers de los motores SYNC (kling/seedream). El path "flux"
 # (queue) NO es de perfil y queda en su rama legacy.
@@ -324,9 +522,12 @@ def _generate_image_raw(
     use_ultra: bool,
     seed: int | None = None,
     foto_madre_data_uris: list[str] | None = None,
+    frase_de_madres: bool = True,
 ) -> dict[str, Any]:
     """Llamada cruda al motor de imagen activo (api.image_engine), sin validación de visión.
 
+    F68: "nb2_lite" va por la cola con respaldo Seedream 4.5 (`_generar_nb2`). El rechazo de los dos motores vuelve a este
+    decorador: 3 vueltas en total y después PipelineError (el camino de falla de siempre, handoff F68 adenda 4).
     Motores SYNC (perfil): "kling" | "seedream" → fal.run, status 200 → images[0].url,
       SIN poll. El selector (engine_profiles.select_profile) elige el perfil; la URL y
       el payload salen del perfil + el lookup por engine_key. use_ultra queda inerte
@@ -336,6 +537,8 @@ def _generate_image_raw(
     El manejo de 422 (ContentRejectedError) es idéntico en todos los motores.
     """
     profile = select_profile(api.image_engine)
+    if profile is not None and profile.engine_key == MOTOR_PRINCIPAL:
+        return _generar_nb2(prompt, output_path, seed, foto_madre_data_uris, frase_de_madres)
     if profile is not None:
         # ── Motores SYNC de perfil (kling/seedream) ──
         engine = profile.engine_key
@@ -695,7 +898,8 @@ def foto_final_del_clip(foto_inicial: Path, image_prompt: str, voz_clip: str,
     try:
         instruccion = video_prompt.escribir_final(foto_inicial, image_prompt or video_prompt.SIN_DATO, voz_clip,
                                                   description=f"{out_path.stem}: instruccion")
-        _generate_image_raw(instruccion, out_path, use_ultra, foto_madre_data_uris=[_path_to_data_uri(foto_inicial)])
+        _generate_image_raw(instruccion, out_path, use_ultra, foto_madre_data_uris=[_path_to_data_uri(foto_inicial)],
+                            frase_de_madres=False)
     except ContentRejectedError as e:
         error_handler.log_warning(PipelineStage.IMAGE, f"[foto final] {out_path.name}: rechazada — {str(e)[:300]}")
         return {"path": None, "ssim": None, "instruccion": instruccion, "motivo": f"rechazo: {e}"[:600]}
@@ -828,11 +1032,14 @@ def _madres_para_item(persona: list[str], foto_madre_refs: list[str], anio: Any,
     """F60 B: REGLA ÚNICA de madres para todos los caminos (secuencia, una foto, caps con clip, QA): refs = madres de
     `persona` (en orden, la principal primero; solo las que aportan por era y tienen foto en el registry) + `foto_madre_ref`
     (objeto/lugar), sin repetir, tope 2 (el de `_norm_foto_madre_refs`). Devuelve [(ref, path)] de las que EXISTEN en disco;
-    `personas_canon` = {nombre: {era, condition_by_period}} del contrato (m06); sin canon la persona aporta."""
+    `personas_canon` = {nombre: {era, condition_by_period}} del contrato (m06); sin canon la persona aporta.
+    F68: con `madres_solo_persona` en el perfil activo, `foto_madre_ref` no entra (foto sin persona = sin referencia)."""
     registry = registry or {}
     personas_canon = personas_canon or {}
     out: list[tuple[str, str]] = []
-    candidatos = [p for p in (persona or []) if persona_aporta_madre(personas_canon.get(p), anio)] + list(foto_madre_refs or [])
+    perfil = select_profile(api.image_engine)
+    refs = [] if perfil is not None and perfil.render.madres_solo_persona else list(foto_madre_refs or [])
+    candidatos = [p for p in (persona or []) if persona_aporta_madre(personas_canon.get(p), anio)] + refs
     for ref in candidatos:
         p = registry.get(ref)
         if p and Path(p).exists() and ref not in [r for r, _ in out]:
@@ -1218,6 +1425,7 @@ def _process_flux_chapter(
                         "vision_reason": meta["last_verdict"].get("reason", ""),
                         "model_used": meta["model_used"],
                         "flux_meta": meta.get("flux_meta", {}),
+                        **_campos_motor(meta),
                     }
                 except Exception as e:
                     error_handler.log_error(
@@ -1352,7 +1560,7 @@ def _generate_supplementals_for_veo_chapter(
     art_profile = _extract_art_profile(chapter)
     results: list[dict] = []
 
-    for idx, item in enumerate(supplementals, start=1):
+    def una(idx: int, item: dict) -> dict:
         prompt = (item.get("prompt") or "").strip()
         anchor = (item.get("narration_anchor") or "").strip()
         img_path = supp_dir / f"{chapter_id}_supp_{idx:02d}.png"
@@ -1360,7 +1568,7 @@ def _generate_supplementals_for_veo_chapter(
 
         sec = (secuencia or {}).get((chapter_id, "supp", idx))
         if sec:
-            results.append({
+            return {
                 "index": idx,
                 "prompt": prompt,
                 "narration_anchor": anchor,
@@ -1370,30 +1578,28 @@ def _generate_supplementals_for_veo_chapter(
                 "persona": [sec["persona"]],
                 "foto_madre_refs": sec["foto_madre_refs"],
                 "lote": sec["lote"],
-            })
-            continue
+            }
 
         if img_path.exists():
             error_handler.log_info(
                 PipelineStage.IMAGE,
                 f"[{chapter_id}] supp {idx} ya existe — skip",
             )
-            results.append({
+            return {
                 "index": idx,
                 "prompt": prompt,
                 "narration_anchor": anchor,
                 "path": rel_path,
                 "status": "skipped_exists",
                 "art_profile": "",
-            })
-            continue
+            }
 
         madres = _madres_para_item(_norm_persona(item.get("persona")), _norm_foto_madre_refs(item.get("foto_madre_ref")),
                                    item.get("anio"), registry, personas_canon)
         kw = {"foto_madre_data_uris": [_path_to_data_uri(p) for _, p in madres]} if madres else {}
         try:
-            _generate_flux_image_at(prompt, art_profile, img_path, use_ultra, **kw)
-            results.append({
+            meta = _generate_flux_image_at(prompt, art_profile, img_path, use_ultra, **kw)
+            return {
                 "index": idx,
                 "prompt": prompt,
                 "narration_anchor": anchor,
@@ -1401,13 +1607,14 @@ def _generate_supplementals_for_veo_chapter(
                 "status": "ok",
                 "art_profile": "",
                 "foto_madre_refs": [r for r, _ in madres],
-            })
+                **_campos_motor(meta),
+            }
         except Exception as e:
             error_handler.log_error(
                 PipelineStage.IMAGE, e,
                 context={"chapter": chapter_id, "supp_idx": idx, "stage": "supplemental"},
             )
-            results.append({
+            return {
                 "index": idx,
                 "prompt": prompt,
                 "narration_anchor": anchor,
@@ -1415,7 +1622,11 @@ def _generate_supplementals_for_veo_chapter(
                 "status": "failed",
                 "art_profile": "",
                 "error": str(e)[:200],
-            })
+            }
+
+    # F68: en paralelo, como las fotos de los caps flux (regla de Omar); el orden del manifest no cambia
+    with ThreadPoolExecutor(max_workers=FLUX_MAX_WORKERS) as ex:
+        results = list(ex.map(lambda t: una(*t), enumerate(supplementals, start=1)))
 
     return results
 
@@ -1466,11 +1677,28 @@ def _process_veo_chapter(
                 PipelineStage.VIDEO,
                 f"[{chapter_id}] Clip {idx} ya existe — skip",
             )
-            clip_results.append({
+            fila = {
                 "index": idx, "video_prompt": vid_prompt, "image_prompt": raw_img_prompt,
                 "path": str(clip_path.relative_to(OUTPUT_DIR)),
                 "status": "skipped_exists", "fallback_type": None,
-            })
+            }
+            # F68: el clip no se paga de nuevo, pero sus fotos sí se rehacen si no están; ese clip queda con otra foto de arranque
+            if not base_img_path.exists():
+                kw = ({"foto_madre_data_uris": [_path_to_data_uri(p) for _, p in madres_f8]}
+                      if madres_f8 and idx == 1 else {})
+                try:
+                    meta = _generate_flux_image_at(raw_img_prompt, art_profile, base_img_path, use_ultra, **kw)
+                    final = foto_final_del_clip(base_img_path, raw_img_prompt, voz_clip,
+                                                veo_dir / f"{base_img_path.stem}_final{base_img_path.suffix}", use_ultra=use_ultra)
+                    fila.update({"foto_de_arranque_cambio": True, "foto_arranque": str(base_img_path.relative_to(OUTPUT_DIR)),
+                                 "foto_final": str(final["path"].relative_to(OUTPUT_DIR)) if final["path"] else None,
+                                 "ssim": final["ssim"], "motivo_sin_final": None if final["path"] else final["motivo"],
+                                 "foto_madre_refs": [r for r, _ in madres_f8], **_campos_motor(meta)})
+                except Exception as e:  # noqa: BLE001 — el clip sigue; la foto queda marcada
+                    error_handler.log_error(PipelineStage.IMAGE, e,
+                                            context={"chapter": chapter_id, "clip_idx": idx, "stage": "base_image"})
+                    fila["foto_arranque_error"] = str(e)[:300]
+            clip_results.append(fila)
             continue
 
         if fallback_img_path.exists() and not clip_path.exists():
@@ -1745,7 +1973,11 @@ def process_script(
     )
 
     # F60 B/C: pre-paso de secuencia UNA vez, antes del bucle de caps (los lotes cruzan caps y entran supps de caps con clip)
-    secuencia = _pre_paso_secuencia(chapters, video_id, foto_madre_registry, foto_madre_personas)
+    # F68: con Nano Banana cada foto es una llamada; el camino de secuencia queda sin uso (regla 5 del handoff) y sus pedidos.json no se leen
+    perfil_activo = select_profile(api.image_engine)
+    secuencia = {}
+    if perfil_activo is None or perfil_activo.render.secuencia:
+        secuencia = _pre_paso_secuencia(chapters, video_id, foto_madre_registry, foto_madre_personas)
 
     chapter_results: list[dict] = []
 

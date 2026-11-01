@@ -74,15 +74,15 @@ from script_engine import m03_imagenes_v3 as v3  # noqa: E402
 from script_engine import m03_visual as m3  # noqa: E402
 
 
-def test_perfil_seedream_v5_lite():
+def test_perfil_seedream_v4_5():   # F68: Seedream 4.5, solo respaldo
     r = ep.PERFIL_SEEDREAM.render
-    assert r.model_id == "fal-ai/bytedance/seedream/v5/lite/text-to-image"
-    assert r.cost_usd == 0.035 and r.accepts_seed is False
+    assert r.model_id == "fal-ai/bytedance/seedream/v4.5/text-to-image"
+    assert r.cost_usd == 0.04 and r.accepts_seed is True
     assert r.image_size == {"width": 2560, "height": 1440}
     p = am._seedream_payload_for("x", seed=123)
-    assert "seed" not in p and p["image_size"] == {"width": 2560, "height": 1440}
+    assert p["seed"] == 123 and p["image_size"] == {"width": 2560, "height": 1440}
     e = am._seedream_edit_payload_for("x", ["data:image/png;base64,AA"], seed=5)
-    assert e["image_urls"] == ["data:image/png;base64,AA"] and "seed" not in e
+    assert e["image_urls"] == ["data:image/png;base64,AA"] and e["seed"] == 5
     assert am.FLUX_MAX_WORKERS == 20
 
 
@@ -116,8 +116,8 @@ def test_429_reintenta_tres_veces_y_mide_ms(monkeypatch, tmp_path):
     monkeypatch.setattr(requests, "post", post)
     monkeypatch.setattr(requests, "get", lambda url, **k: _Resp(200))
     out = am._generate_image_raw("prompt", tmp_path / "a.png", False)
-    assert len(calls) == 3 and calls[0].endswith("seedream/v5/lite/text-to-image")
-    assert out["endpoint"] == "fal-ai/bytedance/seedream/v5/lite/text-to-image" and isinstance(out["ms"], int)
+    assert len(calls) == 3 and calls[0].endswith("seedream/v4.5/text-to-image")
+    assert out["endpoint"] == "fal-ai/bytedance/seedream/v4.5/text-to-image" and isinstance(out["ms"], int)
     calls.clear()
     monkeypatch.setattr(requests, "post", lambda url, **k: (calls.append(url), _Resp(503))[1])
     with pytest.raises(Exception):
@@ -126,7 +126,7 @@ def test_429_reintenta_tres_veces_y_mide_ms(monkeypatch, tmp_path):
     calls.clear()
     monkeypatch.setattr(requests, "post", post)
     out = am._generate_image_raw("p", tmp_path / "c.png", False, foto_madre_data_uris=["data:image/png;base64,AA"])
-    assert out["endpoint"].endswith("seedream/v5/lite/edit")
+    assert out["endpoint"].endswith("seedream/v4.5/edit")
 
 
 # ═══════════════════════════════════════════════════════════════

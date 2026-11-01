@@ -154,7 +154,7 @@
   "_parte": "orquestador_c"
  },
  "asset_manager.py": {
-  "sticker": "Es el que genera las fotos (y los clips de video, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, desde F53b cada clip sale de Gemini Omni Flash y, si Google lo rechaza por contenido, de Kling 4.0 (el prompt de cada motor lo escribe Opus mirando la foto, sin suavizar; 8 s, 1080p, la pista de audio se quita, y el costo sale de los segundos reales); desde F57 cada clip lleva también una foto final, que es un edit de la inicial hecho por Seedream con la instrucción que escribe Opus a partir de la voz entera del clip (`voz_clip`; desde F58 sin el movimiento aprobado): el motor recibe las dos fotos y el clip va de una a la otra; el parecido entre las dos (SSIM) se mide y se anota, sin frenar; si el edit falla o lo rechazan, el clip sale solo con la inicial y el motivo queda anotado, y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió. Desde F60 B/C: antes del bucle de caps corre UNA vez el pre-paso de secuencia (las fotos de una sola persona con madre, agrupadas por persona en lotes de 6, salen de una llamada Seedream /edit por la cola de fal, con el pedido guardado en output/<id>/_secuencia/pedidos.json antes de esperar y reanudable); el resto (fotos de dos personas, con cartel, con foto madre de objeto, la foto inicial del clip, QA) usa la regla única de madres: las de `persona` en orden más la del objeto, tope 2, y una persona no aporta su madre a una foto fuera de su época si cae en un estado posterior (p. ej. enfermo en 1991). `_clip_poll` pasó a `_fal_queue_poll`. F67c: copia `papel_md5` al manifest; fotos y clips de otro papel o sin sello se mueven a assets/_desfasado_* y se regeneran; un guion largo sin sello no paga fotos.",
+  "sticker": "Es el que genera las fotos (y los clips de video, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, desde F53b cada clip sale de Gemini Omni Flash y, si Google lo rechaza por contenido, de Kling 4.0 (el prompt de cada motor lo escribe Opus mirando la foto, sin suavizar; 8 s, 1080p, la pista de audio se quita, y el costo sale de los segundos reales); desde F57 cada clip lleva también una foto final, que es un edit de la inicial hecho por Seedream con la instrucción que escribe Opus a partir de la voz entera del clip (`voz_clip`; desde F58 sin el movimiento aprobado): el motor recibe las dos fotos y el clip va de una a la otra; el parecido entre las dos (SSIM) se mide y se anota, sin frenar; si el edit falla o lo rechazan, el clip sale solo con la inicial y el motivo queda anotado, y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió. Desde F60 B/C: antes del bucle de caps corre UNA vez el pre-paso de secuencia (las fotos de una sola persona con madre, agrupadas por persona en lotes de 6, salen de una llamada Seedream /edit por la cola de fal, con el pedido guardado en output/<id>/_secuencia/pedidos.json antes de esperar y reanudable); el resto (fotos de dos personas, con cartel, con foto madre de objeto, la foto inicial del clip, QA) usa la regla única de madres: las de `persona` en orden más la del objeto, tope 2, y una persona no aporta su madre a una foto fuera de su época si cae en un estado posterior (p. ej. enfermo en 1991). `_clip_poll` pasó a `_fal_queue_poll`. F67c: copia `papel_md5` al manifest; fotos y clips de otro papel o sin sello se mueven a assets/_desfasado_* y se regeneran; un guion largo sin sello no paga fotos. Desde F68 el motor principal es Nano Banana 2 Lite: una foto por llamada por la cola de fal, con request_id en disco antes de esperar (`<foto>.llamada.json`, junto al texto exacto, modelo y parámetros), sin secuencia y sin `foto_madre_ref` (foto sin persona = sin referencia); si fal rechaza va a Seedream 4.5 con el mismo texto y las mismas madres (motor=seedream45_respaldo en el manifest). Guarda `*_native.png` y escala a 2560×1440. Con el clip ya hecho rehace sus fotos si faltan y no toca el clip.",
   "recibe": "El guion canónico con image_prompts/video_prompts por capítulo y foto_madre_registry (data/scripts/<id>.json; desde F60 A cada foto trae también `persona`, que _iter_image_items lee y nadie consume todavía), el sync_map de voz (output/<id>/audio/sync_map.json, opcional) y las fotos madre en disco (rutas del registry).",
   "entrega": "output/<id>/assets/<capNN>_flux/<capNN>_img_NN.png (y _supp_NN.png, _graded.png), output/<id>/assets/<capNN>_veo/<capNN>_clip_NN.mp4 y output/<id>/assets/assets_manifest.json. Además, otros módulos le piden la función de imagen cruda (foto_madre.py, m09_packaging).",
   "modelo": [
@@ -178,7 +178,7 @@
   "estado": "vivo",
   "estado_prueba": "fase2a.py:55 importa process_script como asset_process y lo corre en la etapa assets (run_pipeline.py:340-342 lanza fase2a.py --topic); m09_packaging.py:489 lo usa para las miniaturas",
   "funciones_muertas": [],
-  "md5": "a79335a77c0dabbf81675482d2530747",
+  "md5": "9dad93500965f3f09cd4b1adfc4f225a",
   "_parte": "orquestador_b"
  },
  "claude_helpers.py": {
@@ -211,7 +211,7 @@
   "_parte": "orquestador_c"
  },
  "config.py": {
-  "sticker": "Es el panel de control central: rutas del proyecto, endpoints y modelos de cada servicio, parámetros del video (resolución, fps, concurrencia de imágenes), precios por llamada, largos objetivo del video largo (desde F53b la estimación del costo por video usa el costo de un clip de Gemini Omni Flash a 8 s, del perfil de engine_profiles) y umbrales del validador de temas. También crea el cliente de Gemini que comparten todos los módulos.",
+  "sticker": "Es el panel de control central: rutas del proyecto, endpoints y modelos de cada servicio, parámetros del video (resolución, fps, concurrencia de imágenes), precios por llamada, largos objetivo del video largo (desde F53b la estimación del costo por video usa el costo de un clip de Gemini Omni Flash a 8 s, del perfil de engine_profiles) y umbrales del validador de temas. También crea el cliente de Gemini que comparten todos los módulos. Desde F68 `image_engine` es nb2_lite y `costs` trae nb2_lite_per_image; seedream_per_image pasa a 0,04.",
   "recibe": "Nada de archivos: son constantes y dataclasses en el propio archivo; al importarse crea las carpetas output/, logs/ y data/ si faltan.",
   "entrega": "Los objetos api, pipeline, long_video, short_video, apuesta_viral, validator_strictness y gemini_client, las rutas BASE_DIR/OUTPUT_DIR/LOGS_DIR/DATA_DIR y la función estimated_cost_for.",
   "modelo": [
@@ -241,11 +241,11 @@
     "por_que": "solo la nombra el docstring de config.py:9; ningún .py del repo la llama (ni producción ni tests)"
    }
   ],
-  "md5": "f213f5dfd9c4bff27aa7dd6159765f5d",
+  "md5": "10ddf19f86e44d1cc77cc786ea3fa7ca",
   "_parte": "orquestador_b"
  },
  "cost_tracker.py": {
-  "sticker": "Es la caja registradora del pipeline: cada vez que un módulo gasta plata en una API (Gemini, Flux, Kling, Seedream, clips de video, ElevenLabs, y también Claude y GPT por la puerta de atrás) anota cuánto, en qué etapa y para qué video. Desde F53b, el costo de un clip de video sale del perfil del motor (track_video: segundos × precio por segundo medido). Al cerrar el video guarda el total en el historial y, en la corrida del form, avisa el gasto de Gemini en vivo.",
+  "sticker": "Es la caja registradora del pipeline: cada vez que un módulo gasta plata en una API (Gemini, Flux, Kling, Seedream, clips de video, ElevenLabs, y también Claude y GPT por la puerta de atrás) anota cuánto, en qué etapa y para qué video. Desde F53b, el costo de un clip de video sale del perfil del motor (track_video: segundos × precio por segundo medido). Al cerrar el video guarda el total en el historial y, en la corrida del form, avisa el gasto de Gemini en vivo. Desde F68 `track_nb2_lite` (0,042 US$/foto, estimado) y Seedream se etiqueta 4.5 a 0,04.",
   "recibe": "Llamadas de los demás módulos (track_gemini_response, track_flux_pro, track_kling, track_seedream, track_video, track_elevenlabs, _add_entry desde claude_helpers/gpt_helpers) y las tarifas de config.py (pipeline.costs: gemini_per_call, gemini_vision_per_call, flux_pro_per_image, flux_pro_ultra_per_image, kling_per_image, seedream_per_image, leonardo_per_image, elevenlabs_per_char, gemini_rates_per_1m). Lee data/cost_history.json.",
   "entrega": "data/cost_history.json (un reporte por video, se agrega al cerrar con end_video; bajo pytest no escribe), data/session_report_<fecha>.json (save_session_report, lo llama fase1.py), resúmenes impresos en consola (print_summary / print_gemini_report) y el marcador de costo en vivo para el form (qa_form_markers.emit_cost_marker, solo Gemini).",
   "modelo": [],
@@ -274,7 +274,7 @@
     "por_que": "ningún módulo de producción la llama; solo test_module_f26c.py:138 (prueba del lock de hilos)."
    }
   ],
-  "md5": "415d8c677bdabf09aaee4cc64277da2d",
+  "md5": "5a5c479bb953c154b3aa788643dbf898",
   "_parte": "orquestador_c"
  },
  "csv_exporter.py": {
@@ -629,7 +629,7 @@
   "_parte": "orquestador_a"
  },
  "script_engine/m09_packaging.py": {
-  "sticker": "Arma el paquete de publicación de YouTube. Desde F58 le pide a Claude Opus, en una sola llamada, 3 PAQUETES (título + texto de miniatura + la oración del gancho que muestra la foto), cada uno con una estrategia distinta, leyendo el gancho (cap 1 entero), la narración de los caps 2 a 7 y el pool completo (la única fuente de cifras, fechas y nombres); valida por código (3 paquetes, estrategias distintas, anclas literales del gancho) con reintentos y coteja cada cifra del título y del texto contra el pool (aviso, no freno). La foto de cada paquete sale de la máquina de fotos de producción (casilleros Opus del cap 1 con esa ancla, armado C, canon) más una oración de composición (desde F59: el sujeto principal en la mitad derecha, sirva o no para prompts sin persona) y sin cartel. Compone la miniatura con el texto en la mitad izquierda, partiendo las líneas por ancho medido y achicando la letra hasta que quepa (tope 2 líneas), y deja el checklist para subir a mano. Se puede correr por pasos (candidatas, componer un paquete) o abriendo el formulario web de revisión.",
+  "sticker": "Arma el paquete de publicación de YouTube. Desde F58 le pide a Claude Opus, en una sola llamada, 3 PAQUETES (título + texto de miniatura + la oración del gancho que muestra la foto), cada uno con una estrategia distinta, leyendo el gancho (cap 1 entero), la narración de los caps 2 a 7 y el pool completo (la única fuente de cifras, fechas y nombres); valida por código (3 paquetes, estrategias distintas, anclas literales del gancho) con reintentos y coteja cada cifra del título y del texto contra el pool (aviso, no freno). La foto de cada paquete sale de la máquina de fotos de producción (casilleros Opus del cap 1 con esa ancla, armado C, canon) más una oración de composición (desde F59: el sujeto principal en la mitad derecha, sirva o no para prompts sin persona) y sin cartel. Compone la miniatura con el texto en la mitad izquierda, partiendo las líneas por ancho medido y achicando la letra hasta que quepa (tope 2 líneas), y deja el checklist para subir a mano. Se puede correr por pasos (candidatas, componer un paquete) o abriendo el formulario web de revisión. Desde F68 los `*_native.png` no salen como bases de miniatura.",
   "recibe": "data/scripts/_steps/<id>/01b_narration.json, 00_pool_v3.json y 01a_skeleton.json, el topic de data/topics_db.json con su canon (fase1_5._load_topic_by_id + asegurar_canon), las fotos *_graded.png de output/<id>/assets/ como bases alternativas, la fuente script_engine/fonts/Anton-Regular.ttf y la ruta del MP4 final (--video-path).",
   "entrega": "output/<id>/publish/metadata.json (paquetes acumulados con índice global, descripcion, tags, avisos), thumb_candidates/paquete_NN_base.png y paquete_NN.png, thumb_final_NN.png (o .jpg si pesa más de 2 MB) y CHECKLIST_PUBLICACION.md.",
   "modelo": [
@@ -648,7 +648,7 @@
   "estado": "vivo",
   "estado_prueba": "fase3.py:64 arma el comando python -m script_engine.m09_packaging (etapa packaging, run_pipeline.py:430 lanza fase3.py); qa_studio_server.py:1490 lo lanza con --review --auto-first",
   "funciones_muertas": [],
-  "md5": "24e89e46b7bb71faa50dd78740020de2",
+  "md5": "46c33211d28b9ce1b3c99283f10d2fda",
   "_parte": "orquestador_b"
  },
  "script_engine/m09_review_server.py": {

@@ -646,7 +646,9 @@ def test_fix_core_sin_scrub_informa_igual(tmp_path):
     assert ok is True and reason == "foto rehecha; casilleros editados: setting. El filtro de producción no sacó nada."
 
 
-def test_fix_core_foto_madre_resuelta_contra_registry(tmp_path):
+def test_fix_core_foto_madre_resuelta_contra_registry(tmp_path, monkeypatch):
+    from config import api
+    monkeypatch.setattr(api, "image_engine", "seedream")   # F68: `foto_madre_ref` solo entra con Seedream
     build_topic(tmp_path)
     st = qa.QAState(TID, base_dir=tmp_path)
     seen = {}

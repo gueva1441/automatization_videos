@@ -583,6 +583,8 @@ def bases_del_video(tid: str) -> list[str]:
     for p in pngs:
         if not p.stem.endswith("_graded") and p in graded:
             continue                                   # tiene graded → va la graded
+        if p.stem.endswith("_native"):
+            continue                                   # F68: el original sin escalar, no es otra foto
         out.append("assets/" + p.relative_to(adir).as_posix())
     return out
 

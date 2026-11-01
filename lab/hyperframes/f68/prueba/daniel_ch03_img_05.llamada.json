@@ -1,0 +1,25 @@
+{
+ "foto": "daniel_ch03_img_05.png",
+ "llamadas": {
+  "nb2_lite": {
+   "motor": "nb2_lite",
+   "endpoint": "google/nano-banana-2-lite/edit",
+   "firma": "7a210999723deac7f7c8325e7c421c16",
+   "texto": "A photograph of the same person shown in the reference image. A Spanish man in his mid-20s, olive skin, short-cropped dark hair, lean labour-hardened build, in a dust-covered cotton work shirt and drill trousers, one foot wrapped in grimy gauze. He sits on the step of a company house, resting the bandaged foot on the tailings-covered yard. Spanish people with olive to fair Mediterranean skin, dark brown to black hair and brown eyes. 1962 Wittenoom company house of corrugated iron and asbestos-cement sheeting, yard surfaced with blue-grey tailings, red earth beyond. Low late-afternoon sun, the house's long shadow crossing the yard. Medium shot, slightly high angle, 50mm lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+   "parametros": {
+    "aspect_ratio": "16:9",
+    "safety_tolerance": "6",
+    "num_images": 1
+   },
+   "referencias_md5": [
+    "ae577008ad569f90426ebbb8303df37b"
+   ],
+   "hora": "2026-11-01T01:59:12",
+   "estado": "ok",
+   "request_id": "01a195b0-c6a5-70e0-b306-1d4c5fd90f69",
+   "status_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a195b0-c6a5-70e0-b306-1d4c5fd90f69/status",
+   "response_url": "https://queue.fal.run/google/nano-banana-2-lite/requests/01a195b0-c6a5-70e0-b306-1d4c5fd90f69",
+   "segundos": 11.7
+  }
+ }
+}

@@ -86,6 +86,12 @@ def _ensure_real_png(path: Path) -> None:
     print(f"     [foto_madre] re-encodada a PNG real: {path.name}")
 
 
+def _guardar_prompt_madre(dest: Path, prompt: str, modelo: str) -> None:
+    """F68: el prompt de la madre queda junto a ella (`<slug>.prompt.txt`), antes de pedirla."""
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.with_suffix(".prompt.txt").write_text(f"modelo: {modelo}\n\n{prompt}\n", encoding="utf-8")
+
+
 def _generate_madre_gpt(prompt: str, dest: Path) -> dict:
     """Genera una foto madre con GPT Image 2 (fal `openai/gpt-image-2`, t2i) y la deja en
     `dest` como PNG real. Mismo cliente/patrón fal que asset_manager (misma FAL_KEY, misma
@@ -311,6 +317,7 @@ def _generate_madre_seedream(prompt: str, dest: Path) -> dict:
     secuencia), baja el PNG, lo deja real y registra 1 imagen en el costo. Rechazo → ContentRejectedError; NO cae a GPT."""
     profile = select_profile("seedream")
     payload = _seedream_payload_for(prompt)
+    _guardar_prompt_madre(dest, prompt, profile.render.model_id)
     try:
         resp = requests.post(f"{api.fal_base_url}/{profile.render.model_id}", headers=_fal_headers(), json=payload,
                              timeout=FAL_SUBMIT_TIMEOUT_S)
@@ -381,7 +388,7 @@ def generate_fotos_madre_personas(topic: dict, video_id: str, visual: dict | Non
             est["estado"] = "ADOPTADA manual"
             print(f"     [foto_madre] ADOPTADA manual: {name}")
             continue
-        if api.image_engine != "seedream":
+        if api.image_engine not in ("seedream", "nb2_lite"):   # F68: con Nano Banana la madre sigue saliendo de Seedream 4.5
             est["estado"] = f"sin madre: motor activo {api.image_engine} ≠ seedream"
             error_handler.log_warning(PipelineStage.VIDEO,
                                       f"foto_madre persona {name}: motor activo {api.image_engine!r} ≠ seedream → sin madre de persona")
@@ -463,6 +470,7 @@ def generate_foto_madre_for_topic(topic: dict, video_id: str) -> dict:
         # GENERAR: motor GPT Image 2, con FALLBACK al motor activo (seedream/kling/flux) si
         # GPT falla por lo que sea (error API o content-reject). La madre NUNCA bloquea el topic.
         try:
+            _guardar_prompt_madre(dest, prompt, MADRE_IMAGE_MODEL)
             try:
                 _generate_madre_gpt(prompt, dest)
                 motor = MADRE_IMAGE_MODEL

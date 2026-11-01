@@ -26,6 +26,12 @@ MARIA = {"name": "María Bernal", "era": "1962-1963", "appearance_canon": "a you
          "condition_by_period": [{"years": "1963-1963", "condition": "weakened"}]}
 
 
+@pytest.fixture(autouse=True)
+def _motor_seedream(monkeypatch):
+    """F68: el camino de secuencia y `foto_madre_ref` siguen vivos con Seedream; el motor activo es otro (test_module_f68)."""
+    monkeypatch.setattr(am.api, "image_engine", "seedream")
+
+
 def _dir(p: Path) -> Path:
     p.mkdir(parents=True, exist_ok=True)
     return p
@@ -288,7 +294,7 @@ def test_supps_entran_a_secuencia_o_llevan_las_madres_de_persona(tmp_path, monke
     assert [r["status"] for r in res] == ["ok_secuencia", "ok", "ok"]
     assert res[0]["lote"] == "Daniel Écija#1" and res[0]["persona"] == ["Daniel Écija"]
     assert res[1]["foto_madre_refs"] == ["Daniel Écija"] and res[2]["foto_madre_refs"] == []   # María sin madre en el registry
-    assert vistos == [("s2", ["uri:daniel_cija.png"]), ("s3", None)]                            # s1 no se pidió
+    assert sorted(vistos, key=lambda v: v[0]) == [("s2", ["uri:daniel_cija.png"]), ("s3", None)]                            # s1 no se pidió
     # el pre-paso ve las supps de caps con clip (lista cruda): entra la de UNA persona que aporta, no las demás
     items = am._items_para_secuencia([ch], "v")
     assert [(i["clave"], i["persona"]) for i in items] == [(("ch01", "supp", 1), ["Daniel Écija"]),
@@ -542,7 +548,7 @@ def test_rename_fal_queue_poll_y_constantes():
     assert am.FAL_SUBMIT_TIMEOUT_S == 60 and am.FOTOS_POR_LLAMADA == 6 and am.CLIP_POLL_TIMEOUT == 600
     assert fm.ROPA_MADRE == "wearing a plain, clean, light-coloured shirt" and fm.MADRE_PERSONA_MIN_FOTOS == 2
     assert "_flux_poll" in inspect.getsource(am._generate_image_raw)          # _flux_poll no se toca
-    assert "_pre_paso_secuencia(chapters, video_id, foto_madre_registry, foto_madre_personas)" in inspect.getsource(am.process_script)
+    assert "secuencia = _pre_paso_secuencia(chapters, video_id, foto_madre_registry, foto_madre_personas)" in inspect.getsource(am.process_script)
 
 
 def test_iter_image_items_lleva_anio_y_cartel():

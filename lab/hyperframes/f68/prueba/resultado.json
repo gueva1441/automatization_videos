@@ -1,0 +1,88 @@
+{
+ "daniel": {
+  "foto": "daniel_ch03_img_05.png",
+  "persona": [
+   "Daniel Écija"
+  ],
+  "madres": [
+   "Daniel Écija"
+  ],
+  "motor": "nb2_lite",
+  "respaldo_motivo": null,
+  "segundos": 12.9,
+  "usd": 0.042,
+  "endpoint": "google/nano-banana-2-lite/edit",
+  "nativo": 1376
+ },
+ "grupo": {
+  "foto": "grupo_ch02_img_08.png",
+  "persona": [
+   "Ramón de Juan",
+   "Milagros Barroso"
+  ],
+  "madres": [
+   "Ramón de Juan",
+   "Milagros Barroso"
+  ],
+  "motor": "nb2_lite",
+  "respaldo_motivo": null,
+  "segundos": 13.1,
+  "usd": 0.042,
+  "endpoint": "google/nano-banana-2-lite/edit",
+  "nativo": 1376
+ },
+ "sin_persona": {
+  "foto": "sin_persona_ch02_img_06.png",
+  "persona": [],
+  "madres": [],
+  "motor": "nb2_lite",
+  "respaldo_motivo": null,
+  "segundos": 7.2,
+  "usd": 0.042,
+  "endpoint": "google/nano-banana-2-lite",
+  "nativo": 1376
+ },
+ "respaldo_P1": {
+  "foto": "respaldo_P1.png",
+  "motor": "seedream45_respaldo",
+  "respaldo_motivo": "{\"msg\": \"The content could not be processed because it contained material flagged by a content checker.\", \"type\": \"content_policy_violation\", \"categories\": [\"model_moderated\"]}",
+  "segundos": 23.7,
+  "usd": 0.04,
+  "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+  "nsfw": false
+ },
+ "tam": {
+  "daniel_ch03_img_05.png": [
+   2560,
+   1440
+  ],
+  "daniel_ch03_img_05_native.png": [
+   1376,
+   768
+  ],
+  "grupo_ch02_img_08.png": [
+   2560,
+   1440
+  ],
+  "grupo_ch02_img_08_native.png": [
+   1376,
+   768
+  ],
+  "respaldo_P1.png": [
+   2560,
+   1440
+  ],
+  "respaldo_P1_native.png": [
+   2560,
+   1440
+  ],
+  "sin_persona_ch02_img_06.png": [
+   2560,
+   1440
+  ],
+  "sin_persona_ch02_img_06_native.png": [
+   1376,
+   768
+  ]
+ }
+}
