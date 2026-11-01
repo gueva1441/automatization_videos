@@ -48,7 +48,7 @@ from typing import Any
 
 import requests
 
-from config import api, pipeline, OUTPUT_DIR
+from config import api, pipeline, DATA_DIR, OUTPUT_DIR
 from error_handler import error_handler, PipelineStage
 from cost_tracker import cost_tracker
 from engine_profiles import select_profile, select_video_profile
@@ -1654,6 +1654,55 @@ def _ensure_cost_tracking(video_id: str) -> None:
         cost_tracker.start_video(video_id=video_id)
 
 
+SELLO_EN_CURSO = "assets_en_curso.json"     # F67c: el sello de una corrida que todavía no escribió el manifest
+
+
+def _sello_del_script(script: dict[str, Any]) -> str | None:
+    """F67c: el `papel_md5` del contrato. fase2a le pasa el script normalizado (lista blanca, sin la clave): se lee del archivo."""
+    if script.get("papel_md5"):
+        return script["papel_md5"]
+    f = DATA_DIR / "scripts" / f"{script['video_id']}.json"
+    try:
+        return json.loads(f.read_text(encoding="utf-8")).get("papel_md5")
+    except (OSError, ValueError):
+        return None
+
+
+def _sello_en_disco(assets_dir: Path) -> str | None:
+    """El del manifest; sin manifest, el de la corrida cortada a la mitad (sus fotos ya son de ese papel: no se re-pagan)."""
+    for nombre in ("assets_manifest.json", SELLO_EN_CURSO):
+        f = assets_dir / nombre
+        if f.exists():
+            try:
+                return json.loads(f.read_text(encoding="utf-8")).get("papel_md5")
+            except (OSError, ValueError):
+                return None
+    return None
+
+
+def _archivar_si_desfasado(video_id: str, sello: str) -> Path | None:
+    """F67c: las fotos, clips, `_graded`, fallbacks y el manifest solo se reusan si el manifest en disco tiene este mismo sello.
+    Si no, los caps y el manifest se mueven a `assets/_desfasado_*`: todos los `exists()` de este módulo dejan de verlos de una
+    sola vez y lo pagado no se borra. Devuelve la carpeta o None."""
+    assets_dir = _assets_dir(video_id)
+    assets_dir.mkdir(parents=True, exist_ok=True)
+    viejo = _sello_en_disco(assets_dir)
+    if viejo == sello:
+        return None
+    mover = [d for d in assets_dir.iterdir() if d.is_dir() and re.fullmatch(r"ch\d+_(flux|veo)", d.name)]
+    mover += [f for f in (assets_dir / "assets_manifest.json",) if f.exists()]
+    destino = None
+    if mover:
+        destino = assets_dir / f"_desfasado_{viejo[:8] if viejo else 'sin_sello'}_{datetime.now():%Y%m%d_%H%M%S}"
+        destino.mkdir()
+        for p in mover:
+            p.rename(destino / p.name)
+        error_handler.log_warning(PipelineStage.IMAGE, f"[{video_id}] assets de otro papel ({viejo[:8] if viejo else 'sin sello'}): "
+                                                       f"{len(mover)} movidos a {destino.name}; se regeneran")
+    (assets_dir / SELLO_EN_CURSO).write_text(json.dumps({"papel_md5": sello}), encoding="utf-8")
+    return destino
+
+
 def process_script(
     script: dict[str, Any],
     sync_map_path: Path | None = None,
@@ -1664,6 +1713,12 @@ def process_script(
     """
     video_id: str = script["video_id"]
     chapters: list[dict] = script["chapters"]
+    # F67c: un LONG sin sello no paga fotos: no se sabe de qué papel saldrían
+    papel_md5 = _sello_del_script(script)
+    if script.get("video_type", "long") == "long":
+        if not papel_md5:
+            raise ValueError(f"[{video_id}] data/scripts/{video_id}.json sin sello: correr fase1_5 --from normalizer_gate")
+        _archivar_si_desfasado(video_id, papel_md5)
     # HANDOFF_129 (Consumo-B): registry {ref → path de foto madre} del contrato sagrado.
     foto_madre_registry: dict[str, str] = script.get("foto_madre_registry", {}) or {}
     # F60 B: {nombre: {era, condition_by_period}} de las personas con madre (m06) → filtro por era de la regla única.
@@ -1736,6 +1791,7 @@ def process_script(
 
     manifest = {
         "video_id": video_id,
+        "papel_md5": papel_md5,              # F67c
         "generated_at": datetime.now().isoformat(),
         "prompt_protocol_version": script.get("prompt_protocol_version", "v2"),
         "image_engine": "fal.ai Flux 1.1 Pro",
@@ -1770,6 +1826,7 @@ def process_script(
         json.dumps(manifest, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
+    (assets_dir / SELLO_EN_CURSO).unlink(missing_ok=True)
 
     total_images = sum(len(c.get("images", [])) for c in chapter_results)
     total_ok_clips = sum(

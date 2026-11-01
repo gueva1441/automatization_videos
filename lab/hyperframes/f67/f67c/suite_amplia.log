@@ -1,0 +1,155 @@
+bringing up nodes...
+bringing up nodes...
+
+........................................................................ [  4%]
+.....s....s.....s...............s...............s...s................... [  8%]
+..............................................s...s..s..s..s.sss..s..... [ 13%]
+..........................s..........s.................................. [ 17%]
+...............s....................................................sss. [ 22%]
+s.................s.s................................................... [ 26%]
+........................................................................ [ 31%]
+....................................F..........F........................ [ 35%]
+........................................ss.....................s........ [ 40%]
+........................................................................ [ 44%]
+........................................................................ [ 49%]
+........................................................................ [ 53%]
+........................................................................ [ 57%]
+........................................................................ [ 62%]
+........................x.....x......................................... [ 66%]
+........................................................................ [ 71%]
+........................................................................ [ 75%]
+........................................................................ [ 80%]
+.................................................................s...... [ 84%]
+................F....................................................... [ 89%]
+..F........F............................................................ [ 93%]
+........................................................x......F.......s [ 98%]
+..s............................                                          [100%]
+================================== FAILURES ===================================
+_______________________________ test_check_da_0 _______________________________
+[gw8] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+    def test_check_da_0():
+        r = subprocess.run([sys.executable, str(ROOT / "lab" / "tools" / "mapa_modulos.py"), "--check"], cwd=ROOT,
+                           capture_output=True, text=True, encoding="utf-8", errors="replace")
+>       assert r.returncode == 0, r.stdout[-2000:] + r.stderr[-2000:]
+E       AssertionError: ✗ sticker viejo: asset_manager.py (md5 del sticker effb38b8… ≠ archivo a79335a7…; releer el archivo y reescribir su sticker en orquestador.json)
+E         ✗ sticker viejo: fase2b.py (md5 del sticker c81d7e20… ≠ archivo 280fe78d…; releer el archivo y reescribir su sticker en fase2b_gfx.json)
+E         ✗ sticker viejo: run_pipeline.py (md5 del sticker 6c127bfb… ≠ archivo 4f4de416…; releer el archivo y reescribir su sticker en orquestador.json)
+E         ✗ sticker viejo: script_engine/m06_assembler.py (md5 del sticker 47b95a4e… ≠ archivo d68d4d11…; releer el archivo y reescribir su sticker en fase2a.json)
+E         mapa --check: 161 archivos de producción · 4 fallas
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['C:\\Users\\Canada\\AppData\\Local\\Programs\\Python\\Python311\\python.exe', 'C:\\CLAUDE_PROJE... el archivo y reescribir su sticker en fase2a.json)\nmapa --check: 161 archivos de producción · 4 fallas\n', stderr='').returncode
+
+test_module_f42_mapa.py:29: AssertionError
+_______________ test_guard_mapa_avisa_si_tocan_gfx_sin_el_mapa ________________
+[gw17] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+tmp_path = WindowsPath('C:/Users/Canada/AppData/Local/Temp/pytest-of-guevara41/pytest-1574/popen-gw17/test_guard_mapa_avisa_si_tocan0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001EED01CBA10>
+
+    def test_guard_mapa_avisa_si_tocan_gfx_sin_el_mapa(tmp_path, monkeypatch):
+        """F42 (antes F33 §D.3, MAPA_MODULOS): avisa si el commit toca un archivo de producción con sticker viejo; con el
+        sticker al día no dice nada."""
+        gm = _hook("guard_mapa")
+        import mapa_modulos as mm
+>       assert gm.aviso(["script_engine/pantalla_entrada.py", "fase2b.py"]) is None     # el mapa de hoy está al día
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: assert 'guard_mapa: el commit toca archivos de producción con sticker viejo o sin sticker — sticker viejo: fase2b.py (md5 del... mapa (`python lab/tools/mapa_modulos.py`), o decir en el reporte por qué no cambió. (`--check` da 4 fallas en total.)' is None
+E        +  where 'guard_mapa: el commit toca archivos de producción con sticker viejo o sin sticker — sticker viejo: fase2b.py (md5 del... mapa (`python lab/tools/mapa_modulos.py`), o decir en el reporte por qué no cambió. (`--check` da 4 fallas en total.)' = <function aviso at 0x000001EECD09C220>(['script_engine/pantalla_entrada.py', 'fase2b.py'])
+E        +    where <function aviso at 0x000001EECD09C220> = <module 'guard_mapa' from 'C:\\CLAUDE_PROJECTS\\automatization_videos\\.claude\\hooks\\guard_mapa.py'>.aviso
+
+test_module_f33.py:148: AssertionError
+_____________________ test_cues_sin_escribir_el_proyecto ______________________
+[gw14] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+server = (<gfx_lab_server.LabSession object at 0x0000024A653B7B10>, 'http://127.0.0.1:56256')
+
+    @needs_data
+    def test_cues_sin_escribir_el_proyecto(server):
+        session, url = server
+        before = (session.project / "index.html").stat().st_mtime_ns
+        r = _post(url + "/cues", {"plan": session.director_plan(), "tokens": {}})
+>       assert any(c["block"] == "archive_clipping" for c in r["cues"]) and r["rejected"] == []
+E       AssertionError: assert (True and [{'block': 't...ta Perfecta'}] == []
+E        +  where True = any(<generator object test_cues_sin_escribir_el_proyecto.<locals>.<genexpr> at 0x0000024A6563E5A0>)
+E         
+E         Left contains one more item: [0m{[33m'[39;49;00m[33mblock[39;49;00m[33m'[39;49;00m: [33m'[39;49;00m[33mtitle_card[39;49;00m[33m'[39;49;00m, [33m'[39;49;00m[33mfield[39;49;00m[33m'[39;49;00m: [33m'[39;49;00m[33mtitle[39;49;00m[33m'[39;49;00m, [33m'[39;49;00m[33mtext[39;49;00m[33m'[39;49;00m: [33m'[39;49;00m[33mLa Tormenta Perfecta[39;49;00m[33m'[39;49;00m}[90m[39;49;00m
+E         Use -v to get more diff)
+
+test_module_gfx_lab.py:372: AssertionError
+___________________________ test_c_guarda_de_minimo ___________________________
+[gw15] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+    def test_c_guarda_de_minimo():
+        """Aunque haya gaps apretados, NO baja del mínimo."""
+        # 4 items, todos apretados; min_count=4 → no debe fusionar ninguno.
+        words = _words(("a", 0.0), ("b", 0.3), ("c", 0.6), ("d", 0.9))
+        plan = _flux_plan("a", "b", "c", "d")
+        out, dropped = m._reconcile_anchor_timing(plan, "flux", words, min_count=4, cap_number=1)
+        assert dropped == 0
+        assert len(out["anchors"]) == 4
+        # min_count=3 → fusiona hasta quedar exactamente en 3, no menos.
+        plan2 = _flux_plan("a", "b", "c", "d")
+        out2, dropped2 = m._reconcile_anchor_timing(plan2, "flux", words, min_count=3, cap_number=1)
+>       assert len(out2["anchors"]) == 3
+E       AssertionError: assert 4 == 3
+E        +  where 4 = len([{'anchor': 'a', 'pos': 0, 'end': 1}, {'anchor': 'b', 'pos': 1, 'end': 2}, {'anchor': 'c', 'pos': 2, 'end': 3}, {'anchor': 'd', 'pos': 3, 'end': 4}])
+
+test_module_m03_merge_timing.py:88: AssertionError
+---------------------------- Captured stdout call -----------------------------
+  [03][audit] cap 1: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
+  [03][audit] cap 1: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
+____________________ test_c_veo_path_y_veo_anchor_intacto _____________________
+[gw15] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+    def test_c_veo_path_y_veo_anchor_intacto():
+        """La fusión corre también para veo (supplementals); el veo_anchor NO se toca."""
+        words = _words(("uno", 0.0), ("dos", 0.4), ("tres", 5.0), ("cuatro", 10.0),
+                       ("cinco", 15.0))
+        plan = _veo_plan("uno", "dos", "tres", "cuatro", "cinco")
+        out, dropped = m._reconcile_anchor_timing(plan, "veo", words, min_count=4, cap_number=7)
+>       assert dropped == 1                                  # 'dos' (gap 0.4) fuera
+        ^^^^^^^^^^^^^^^^^^^
+E       assert 0 == 1
+
+test_module_m03_merge_timing.py:98: AssertionError
+---------------------------- Captured stdout call -----------------------------
+  [03][audit] cap 7: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
+___________________ test_preview_usa_las_plantillas_reales ____________________
+[gw4] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+server = (<gfx_lab_server.LabSession object at 0x0000010A6396DB90>, 'http://127.0.0.1:56226')
+
+    @needs_data
+    def test_preview_usa_las_plantillas_reales(server):
+        """El preview es write_project (mismo templater que el render) + el runtime inyectado."""
+        session, url = server
+        plan = session.director_plan()
+        r = _post(url + "/preview", {"plan": plan})
+        assert r["src"].startswith("/composition/index.html?v=")
+>       assert any(c["block"] == "title_card" for c in r["cues"])
+E       assert False
+E        +  where False = any(<generator object test_preview_usa_las_plantillas_reales.<locals>.<genexpr> at 0x0000010A63848380>)
+
+test_module_gfx_lab.py:148: AssertionError
+============================== warnings summary ===============================
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+  C:\CLAUDE_PROJECTS\automatization_videos\script_engine\image_grade.py:83: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+    luma = list(im.convert("L").getdata())
+
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+  C:\CLAUDE_PROJECTS\automatization_videos\script_engine\image_grade.py:85: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+    s = [sv for sv, lv in zip(hsv.getdata(band=1), luma) if lv > 24] or [0]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED test_module_f42_mapa.py::test_check_da_0 - AssertionError: ✗ sticker v...
+FAILED test_module_f33.py::test_guard_mapa_avisa_si_tocan_gfx_sin_el_mapa - A...
+FAILED test_module_gfx_lab.py::test_cues_sin_escribir_el_proyecto - Assertion...
+FAILED test_module_m03_merge_timing.py::test_c_guarda_de_minimo - AssertionEr...
+FAILED test_module_m03_merge_timing.py::test_c_veo_path_y_veo_anchor_intacto
+FAILED test_module_gfx_lab.py::test_preview_usa_las_plantillas_reales - asser...
+6 failed, 1576 passed, 30 skipped, 3 xfailed, 4 warnings in 72.04s (0:01:12)

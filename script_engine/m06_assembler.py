@@ -48,6 +48,29 @@ def _mode_art_profile(image_prompts: list) -> str:
     return ""
 
 
+def sello_vigente(topic_id: str) -> str:
+    """F67c: el `aprobado.md5` del papel aprobado y vigente (`estado_papel` + `papel_falta`, que `estado_papel` no compara
+    `narracion_md5`). Sin eso, ValueError: nada río abajo se escribe. También exige que 01b_narration.json (lo que lee la voz)
+    salga de la 01b_narracion_v3 aprobada: 01b_narration no lleva md5, así que se compara el texto de cada cap."""
+    import fase1_5 as f15
+    ok, motivo = f15.estado_papel(topic_id)
+    if not ok:
+        raise ValueError(f"m06_assembler: sin papel aprobado vigente: {motivo}")
+    falta = f15.papel_falta(topic_id)
+    if falta:
+        raise ValueError(f"m06_assembler: sin papel aprobado vigente: {falta}")
+    ok, motivo = f15.estado_narracion(topic_id)
+    if not ok:
+        raise ValueError(f"m06_assembler: {motivo}")
+    n3 = _load_step(topic_id, "01b_narracion_v3.json")
+    aprobada = {c["chapter_number"]: c.get("narration") for c in n3.get("caps") or []}
+    voz = {c["chapter_number"]: c.get("narration") for c in _load_step(topic_id, "01b_narration.json").get("chapters") or []}
+    if voz != aprobada:
+        distintos = sorted(n for n in set(voz) | set(aprobada) if voz.get(n) != aprobada.get(n))
+        raise ValueError(f"m06_assembler: 01b_narration.json no viene de la narración aprobada (caps {distintos})")
+    return _load_step(topic_id, "01e_pantalla.json")["aprobado"]["md5"]
+
+
 def assemble_final_script(topic_id: str) -> Path:
     """Ensambla data/scripts/<topic_id>.json siguiendo el contrato sagrado.
 
@@ -56,7 +79,9 @@ def assemble_final_script(topic_id: str) -> Path:
 
     Raises:
       FileNotFoundError: si falta algún input de _steps/.
+      ValueError: F67c, sin papel aprobado vigente o con una narración que no es la aprobada (`sello_vigente`): no escribe.
     """
+    papel_md5 = sello_vigente(topic_id)
     topic = _load_topic(topic_id)
     narration = _load_step(topic_id, "01b_narration.json")
     visual = _load_step(topic_id, "03_visual.json")
@@ -135,6 +160,7 @@ def assemble_final_script(topic_id: str) -> Path:
 
     final = {
         "topic_id":                  topic_id,
+        "papel_md5":                 papel_md5,             # F67c: de qué papel aprobado sale todo lo de abajo
         "video_type":                "long",
         "prompt_protocol_version":   "v2",
         "video_title":               topic.get("video_title", ""),

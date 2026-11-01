@@ -3109,8 +3109,40 @@ def _medir_inicio_musica(plans: list[Any], pista: Path, work_dir: Path, seg_dur:
     return out
 
 
+def _fondos_sidecar(video_id: str) -> Path:
+    return OUTPUT_DIR / video_id / "_fase2b_work" / "fondos.json"
+
+
+def _fondos_vigentes(video_id: str, sello: str | None) -> bool:
+    """F67c: los fondos en disco salieron del mismo papel que el manifest. Sin sello = desfasados."""
+    f = _fondos_sidecar(video_id)
+    try:
+        return bool(sello) and json.loads(f.read_text(encoding="utf-8")).get("papel_md5") == sello
+    except (OSError, ValueError):
+        return False
+
+
+def _archivar_fondos_desfasados(video_id: str) -> Path | None:
+    """F67c: antes de cocer fondos de otro papel, `_fase2b_work` entero y los cachés por nombre de foto (flow_specs, depth_metrics,
+    zoom_verdicts: una foto nueva con el mismo nombre heredaría el veredicto) se mueven a `_fase2b_work_desfasado_*`. Ahí están la
+    capa `_gfx.mp4`, los planes congelados, `.kenburns.json`, sfx, pausas, escenas y beats: lo de abajo no puede reusar nada viejo."""
+    work_dir = OUTPUT_DIR / video_id / "_fase2b_work"
+    assets = OUTPUT_DIR / video_id / "assets"
+    cache = [assets / n for n in ("flow_specs.json", "depth_metrics.json", "zoom_verdicts.json") if (assets / n).exists()]
+    if not work_dir.exists() and not cache:
+        return None
+    destino = OUTPUT_DIR / video_id / f"_fase2b_work_desfasado_{datetime.now():%Y%m%d_%H%M%S}"
+    if work_dir.exists():
+        work_dir.rename(destino)
+    destino.mkdir(exist_ok=True)
+    for f in cache:
+        f.rename(destino / f.name)
+    print(f"  📦 fondos de otro papel: movidos a {destino.name}")
+    return destino
+
+
 def _solo_plan(plans: list[Any], video_id: str, work_dir: Path, *, hook: str | None, sync_map: dict,
-               safe_by_cap: dict[str, dict[int, dict[str, Any]]], t_inicio: float) -> int:
+               safe_by_cap: dict[str, dict[int, dict[str, Any]]], t_inicio: float, papel_md5: str | None = None) -> int:
     """F32 §A: papel + reglas + crítico de los caps (sin navegador ni render) → GUION_PANTALLA.md/.json
     en output/<id>/ + mezcla_preview.wav en _fase2b_work. El -g30 de los caps va en paralelo; el plan, en fila (cada
     cap mira lo que ya mostraron los anteriores)."""
@@ -3198,6 +3230,7 @@ def _solo_plan(plans: list[Any], video_id: str, work_dir: Path, *, hook: str | N
     g = gg.armar(caps_in, title_dur=float(_gr.title_dur), dip_frames=int(_gr.dip_frames), fps=fps,
                  intro=mezcla["intro"], mezcla=mezcla, voz_video=voz_video, topic=video_id,
                  extra={"costos": costos, "tiempos_s": {**tiempos, "total": round(time.time() - t_inicio, 1)}})
+    g["papel_md5"] = papel_md5                                     # F67c: de qué papel aprobado sale este guion
     md, js = gg.escribir(g, OUTPUT_DIR / video_id)
     print(f"\n  📝 guion de pantalla: {md}\n                       {js}")
     for ch in g["chequeos"]:
@@ -3241,6 +3274,7 @@ def _assemble_one_video(
 
     sync_map = json.loads(sync_map_path.read_text(encoding="utf-8"))
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    papel_md5: str | None = manifest.get("papel_md5")                  # F67c
     script_lookup = _load_script_lookup(video_id)
 
     plans = _build_plans(sync_map, manifest, video_id, audio_dir, script_lookup)
@@ -3275,6 +3309,18 @@ def _assemble_one_video(
     if dry_run:
         print(f"\n  🧪 DRY RUN — nada se ejecutó.\n")
         return 0, None
+
+    # F67c: los visuales base, los flow_specs y lo que cuelga de ellos solo se reusan con el sello del manifest. --only-cap es el
+    # banco del candado de ch02: no deja video ni sidecar, avisa y sigue.
+    if not _fondos_vigentes(video_id, papel_md5):
+        if only_cap:
+            if reuse_visuals:
+                print(f"  ⚠  --only-cap: reusa visuales de otro papel o sin sello (no sale video)")
+        elif reuse_visuals or plan_only:
+            print(f"❌ [{video_id}] los fondos no son del papel {str(papel_md5)[:8]}…: correr `fase2b {video_id}` (fondos) antes")
+            return 2, None
+        else:
+            _archivar_fondos_desfasados(video_id)
 
     t_inicio = time.time()
     # ─── cost_tracker (Gemini Flash del flow_director) ───
@@ -3381,7 +3427,7 @@ def _assemble_one_video(
     if plan_only:                                                       # F32 §A: el guion de pantalla, sin render
         try:
             rc = _solo_plan([p for p in plans if not only_cap or p.chapter_id == only_cap], video_id, work_dir,
-                            hook=hook, sync_map=sync_map, safe_by_cap=safe_by_cap, t_inicio=t_inicio)
+                            hook=hook, sync_map=sync_map, safe_by_cap=safe_by_cap, t_inicio=t_inicio, papel_md5=papel_md5)
         except Exception as e:  # noqa: BLE001
             print(f"     ❌ --plan-only: {type(e).__name__}: {e}")
             rc = 2
@@ -3624,6 +3670,10 @@ def _assemble_one_video(
         report = cost_tracker.end_video()
         if report:
             fase_cost = report.total_cost
+
+    if papel_md5 and not reuse_visuals:                # F67c: los fondos quedaron cocidos de este papel
+        _fondos_sidecar(video_id).parent.mkdir(parents=True, exist_ok=True)
+        _fondos_sidecar(video_id).write_text(json.dumps({"papel_md5": papel_md5}), encoding="utf-8")
 
     print(f"\n  ✅ {final_path.name} — {final_dur:.1f}s · {final_size_mb:.1f}MB · ${fase_cost:.4f}")
     return 0, final_path

@@ -7,7 +7,7 @@
     "etapa": "research",
     "orden": 0,
     "funcion": "main (--research)",
-    "linea": 617,
+    "linea": 616,
     "encabezado": "RESEARCH (fase1)",
     "comandos": [
      {
@@ -15,7 +15,7 @@
        "fase1.py",
        "--no-chain"
       ],
-      "linea": 617,
+      "linea": 616,
       "script": "fase1.py"
      }
     ],
@@ -25,7 +25,7 @@
    },
    {
     "funcion": "_paso_guion",
-    "linea": 325,
+    "linea": 324,
     "encabezado": "GUION (fase1_5)",
     "comandos": [
      {
@@ -35,7 +35,7 @@
        "<tid>",
        "--batch"
       ],
-      "linea": 330,
+      "linea": 329,
       "script": "fase1_5.py"
      }
     ],
@@ -47,7 +47,7 @@
    },
    {
     "funcion": "_paso_narracion",
-    "linea": 335,
+    "linea": 334,
     "encabezado": "NARRACION (compuerta de narración)",
     "comandos": [
      {
@@ -58,14 +58,14 @@
        "--aprobar-narracion",
        "Omar <…>"
       ],
-      "linea": 356,
+      "linea": 355,
       "script": "fase1_5.py"
      }
     ],
     "compuertas": [
      {
       "menu": "narracion_gate",
-      "linea": 349,
+      "linea": 348,
       "solo_con_form": true
      }
     ],
@@ -76,7 +76,7 @@
    },
    {
     "funcion": "_paso_papel_nuevo",
-    "linea": 361,
+    "linea": 360,
     "encabezado": "PAPEL (fase1_5 --papel)",
     "comandos": [
      {
@@ -87,7 +87,7 @@
        "--papel",
        "--batch"
       ],
-      "linea": 365,
+      "linea": 364,
       "script": "fase1_5.py"
      }
     ],
@@ -99,7 +99,7 @@
    },
    {
     "funcion": "_paso_papel",
-    "linea": 370,
+    "linea": 369,
     "encabezado": "PAPEL (compuerta del papel)",
     "comandos": [
      {
@@ -110,14 +110,14 @@
        "--aprobar-papel",
        "Omar <…>"
       ],
-      "linea": 389,
+      "linea": 388,
       "script": "fase1_5.py"
      }
     ],
     "compuertas": [
      {
       "menu": "papel_gate",
-      "linea": 383,
+      "linea": 382,
       "solo_con_form": true
      }
     ],
@@ -128,7 +128,7 @@
    },
    {
     "funcion": "_paso_voz",
-    "linea": 394,
+    "linea": 393,
     "encabezado": "VOZ (fase1_5 --from normalizer_gate)",
     "comandos": [
      {
@@ -140,7 +140,7 @@
        "normalizer_gate",
        "--batch"
       ],
-      "linea": 398,
+      "linea": 397,
       "script": "fase1_5.py"
      }
     ],
@@ -152,7 +152,7 @@
    },
    {
     "funcion": "_paso_assets",
-    "linea": 403,
+    "linea": 402,
     "encabezado": "ASSETS (fase2a)",
     "comandos": [
      {
@@ -161,7 +161,7 @@
        "--topic",
        "<tid>"
       ],
-      "linea": 406,
+      "linea": 405,
       "script": "fase2a.py"
      }
     ],
@@ -173,7 +173,7 @@
    },
    {
     "funcion": "_paso_fondos",
-    "linea": 411,
+    "linea": 410,
     "encabezado": "FONDOS (fase2b sin gfx)",
     "comandos": [
      {
@@ -181,14 +181,14 @@
        "fase2b.py",
        "<tid>"
       ],
-      "linea": 429,
+      "linea": 428,
       "script": "fase2b.py"
      }
     ],
     "compuertas": [
      {
       "menu": "visor_gate",
-      "linea": 421,
+      "linea": 420,
       "solo_con_form": true
      }
     ],
@@ -199,7 +199,7 @@
    },
    {
     "funcion": "_paso_guion_pantalla",
-    "linea": 434,
+    "linea": 433,
     "encabezado": "PANTALLA (fase2b --plan-only)",
     "comandos": [
      {
@@ -208,7 +208,7 @@
        "<tid>",
        "--plan-only"
       ],
-      "linea": 438,
+      "linea": 437,
       "script": "fase2b.py"
      }
     ],
@@ -220,7 +220,7 @@
    },
    {
     "funcion": "_paso_aprobar_guion",
-    "linea": 443,
+    "linea": 442,
     "encabezado": "PANTALLA (compuerta del guion de pantalla)",
     "comandos": [
      {
@@ -230,14 +230,14 @@
        "--aprobar-guion",
        "Omar <…>"
       ],
-      "linea": 466,
+      "linea": 465,
       "script": "fase2b.py"
      }
     ],
     "compuertas": [
      {
       "menu": "guion_gate",
-      "linea": 458,
+      "linea": 457,
       "solo_con_form": true
      }
     ],
@@ -248,7 +248,7 @@
    },
    {
     "funcion": "_paso_render",
-    "linea": 471,
+    "linea": 470,
     "encabezado": "RENDER (fase2b --gfx --gfx-sparse)",
     "comandos": [
      {
@@ -260,7 +260,7 @@
        "--gfx",
        "--gfx-sparse"
       ],
-      "linea": 476,
+      "linea": 475,
       "script": "fase2b.py"
      }
     ],
@@ -272,7 +272,7 @@
    },
    {
     "funcion": "_paso_packaging",
-    "linea": 485,
+    "linea": 484,
     "encabezado": "PACKAGING (fase3, form)",
     "comandos": [
      {
@@ -280,7 +280,7 @@
        "fase3.py",
        "<tid>"
       ],
-      "linea": 494,
+      "linea": 493,
       "script": "fase3.py"
      }
     ],
@@ -799,7 +799,7 @@
   "asset_manager.py": {
    "archivo": "asset_manager.py",
    "zona": "orquestador",
-   "sticker": "Es el que genera las fotos (y los clips de video, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, desde F53b cada clip sale de Gemini Omni Flash y, si Google lo rechaza por contenido, de Kling 4.0 (el prompt de cada motor lo escribe Opus mirando la foto, sin suavizar; 8 s, 1080p, la pista de audio se quita, y el costo sale de los segundos reales); desde F57 cada clip lleva también una foto final, que es un edit de la inicial hecho por Seedream con la instrucción que escribe Opus a partir de la voz entera del clip (`voz_clip`; desde F58 sin el movimiento aprobado): el motor recibe las dos fotos y el clip va de una a la otra; el parecido entre las dos (SSIM) se mide y se anota, sin frenar; si el edit falla o lo rechazan, el clip sale solo con la inicial y el motivo queda anotado, y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió. Desde F60 B/C: antes del bucle de caps corre UNA vez el pre-paso de secuencia (las fotos de una sola persona con madre, agrupadas por persona en lotes de 6, salen de una llamada Seedream /edit por la cola de fal, con el pedido guardado en output/<id>/_secuencia/pedidos.json antes de esperar y reanudable); el resto (fotos de dos personas, con cartel, con foto madre de objeto, la foto inicial del clip, QA) usa la regla única de madres: las de `persona` en orden más la del objeto, tope 2, y una persona no aporta su madre a una foto fuera de su época si cae en un estado posterior (p. ej. enfermo en 1991). `_clip_poll` pasó a `_fal_queue_poll`.",
+   "sticker": "Es el que genera las fotos (y los clips de video, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, desde F53b cada clip sale de Gemini Omni Flash y, si Google lo rechaza por contenido, de Kling 4.0 (el prompt de cada motor lo escribe Opus mirando la foto, sin suavizar; 8 s, 1080p, la pista de audio se quita, y el costo sale de los segundos reales); desde F57 cada clip lleva también una foto final, que es un edit de la inicial hecho por Seedream con la instrucción que escribe Opus a partir de la voz entera del clip (`voz_clip`; desde F58 sin el movimiento aprobado): el motor recibe las dos fotos y el clip va de una a la otra; el parecido entre las dos (SSIM) se mide y se anota, sin frenar; si el edit falla o lo rechazan, el clip sale solo con la inicial y el motivo queda anotado, y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió. Desde F60 B/C: antes del bucle de caps corre UNA vez el pre-paso de secuencia (las fotos de una sola persona con madre, agrupadas por persona en lotes de 6, salen de una llamada Seedream /edit por la cola de fal, con el pedido guardado en output/<id>/_secuencia/pedidos.json antes de esperar y reanudable); el resto (fotos de dos personas, con cartel, con foto madre de objeto, la foto inicial del clip, QA) usa la regla única de madres: las de `persona` en orden más la del objeto, tope 2, y una persona no aporta su madre a una foto fuera de su época si cae en un estado posterior (p. ej. enfermo en 1991). `_clip_poll` pasó a `_fal_queue_poll`. F67c: copia `papel_md5` al manifest; fotos y clips de otro papel o sin sello se mueven a assets/_desfasado_* y se regeneran; un guion largo sin sello no paga fotos.",
    "recibe": "El guion canónico con image_prompts/video_prompts por capítulo y foto_madre_registry (data/scripts/<id>.json; desde F60 A cada foto trae también `persona`, que _iter_image_items lee y nadie consume todavía), el sync_map de voz (output/<id>/audio/sync_map.json, opcional) y las fotos madre en disco (rutas del registry).",
    "entrega": "output/<id>/assets/<capNN>_flux/<capNN>_img_NN.png (y _supp_NN.png, _graded.png), output/<id>/assets/<capNN>_veo/<capNN>_clip_NN.mp4 y output/<id>/assets/assets_manifest.json. Además, otros módulos le piden la función de imagen cruda (foto_madre.py, m09_packaging).",
    "modelo": [
@@ -848,7 +848,7 @@
     "qa_studio_server.py",
     "script_engine/m09_packaging.py"
    ],
-   "tests": 10,
+   "tests": 11,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "8e6f7e4 2026-10-30 (F60)",
    "estado_a": "vivo",
@@ -857,7 +857,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "effb38b86fd2c207438bbc5b3f2ceb85",
+   "md5": "a79335a77c0dabbf81675482d2530747",
    "sticker_al_dia": true
   },
   "audio_config.py": {
@@ -950,7 +950,7 @@
     "fase2a.py",
     "qa_studio_server.py"
    ],
-   "tests": 1,
+   "tests": 2,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "d2bb714 2026-10-22 (F9)",
    "estado_a": "vivo",
@@ -1609,11 +1609,12 @@
     "researcher_steps/ficha_caso.py",
     "run_pipeline.py",
     "script_engine/m01f_critico.py",
+    "script_engine/m06_assembler.py",
     "script_engine/m09_packaging.py"
    ],
-   "tests": 19,
+   "tests": 20,
    "nacio": "e33f84a 2026-05-28",
-   "ultimo": "c7c7f3a 2026-10-31 (F67)",
+   "ultimo": "25ac783 2026-10-31 (F67b)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "run_pipeline.py:301 lo lanza en guion (--batch), :325 en papel (--aprobar-papel) y :334 en voz (--from normalizer_gate --batch)",
@@ -1679,7 +1680,7 @@
   "fase2b.py": {
    "archivo": "fase2b.py",
    "zona": "fase2b_gfx",
-   "sticker": "Arma el video final a partir de lo que ya dejaron la voz y las imágenes: anima cada imagen, le pone la capa gráfica (títulos, fichas, sellos) cuando se pide, quema los subtítulos, pega la voz, encadena los capítulos con corte a negro y mezcla la música por debajo de la voz. También genera el guion de pantalla (--plan-only) que Omar lee antes de aprobar, y escribe la aprobación (--aprobar-guion).",
+   "sticker": "Arma el video final a partir de lo que ya dejaron la voz y las imágenes: anima cada imagen, le pone la capa gráfica (títulos, fichas, sellos) cuando se pide, quema los subtítulos, pega la voz, encadena los capítulos con corte a negro y mezcla la música por debajo de la voz. También genera el guion de pantalla (--plan-only) que Omar lee antes de aprobar, y escribe la aprobación (--aprobar-guion). F67c: `_fase2b_work/fondos.json` con `papel_md5` al terminar los fondos; fondos de otro papel se mueven a `_fase2b_work_desfasado_*` antes de cocer, y --plan-only y --reuse-visuals no los reusan (--only-cap avisa y sigue); GUION_PANTALLA.json lleva `papel_md5`.",
    "recibe": "output/audio/<id>/sync_map.json + chNN.mp3 + chNN_timestamps.json (+ chNN_alignment.json); output/<id>/assets/assets_manifest.json + imágenes/clips por capítulo; data/scripts/<id>.json (narración, prompts, anchors, video_type); output/audio/<id>/music_map.json; data/scripts/_steps/<id>/01a_escaleta.json, 01b_narracion_v3.json, 00_pool_v3.json y 01e_pantalla.json (guion en papel); output/<id>/_fase2b_work/ (visuales base ya cocidos, planes gfx_plan_chNN.resolved.json); output/<id>/assets/flow_specs.json, depth_metrics.json y zoom_verdicts.json (cachés).",
    "entrega": "output/<id>/<id>_final.mp4 (sin --gfx) o <id>_final_gfx.mp4 (con --gfx) y el respaldo *_no_music.mp4; output/<id>/_fase2b_work/ (seg_NN_chNN.mp4, chNN_flux_visual.mp4, chNN_hybrid_visual.mp4, chNN_subs.ass, segments_manifest.json, mezcla_preview.wav); output/<id>/flow_plan.json; output/audio/<id>/intensity_map.json; output/<id>/GUION_PANTALLA.md/.json (--plan-only); el bloque aprobado dentro de GUION_PANTALLA.json (--aprobar-guion); estado video_generated en topics_db.",
    "modelo": [
@@ -1714,7 +1715,7 @@
     "qa_studio_server.py",
     "run_pipeline.py"
    ],
-   "tests": 25,
+   "tests": 26,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "598c65b 2026-10-27 (F40)",
    "estado_a": "vivo",
@@ -1742,7 +1743,7 @@
     "_chars_to_syllables",
     "_build_ass_from_syllables"
    ],
-   "md5": "c81d7e20bf844a7f51435c548c9058d2",
+   "md5": "280fe78dd3172cc5c2b9415b25dc56b9",
    "sticker_al_dia": true
   },
   "fase3.py": {
@@ -2532,7 +2533,7 @@
    "lo_llaman": [],
    "tests": 7,
    "nacio": "3d684a2 2026-06-14",
-   "ultimo": "c7c7f3a 2026-10-31 (F67)",
+   "ultimo": "25ac783 2026-10-31 (F67b)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "qa_studio_server.py:1522 lanza run_pipeline.py --research --video-type long --batch y :1527 lo retoma con --topic; :2080 es el main que Omar corre a mano",
@@ -3167,7 +3168,7 @@
   "run_pipeline.py": {
    "archivo": "run_pipeline.py",
    "zona": "orquestador",
-   "sticker": "Es el director de orquesta: toma un tema y corre una tras otra las etapas (guion, compuerta de narración, papel nuevo, compuerta del papel, voz, assets, fondos, guion de pantalla, aprobar guion, render, packaging), cada una como programa aparte. Antes de cada paso mira qué archivos ya existen en disco y arranca donde quedó; frena en las dos compuertas donde Omar tiene que aprobar y nunca aprueba solo. Antes de cualquier etapa (F42b) revisa que este Python tenga las librerías que la cadena importa: si falta una requerida, para sin gastar y da el comando de pip.",
+   "sticker": "Es el director de orquesta: toma un tema y corre una tras otra las etapas (guion, compuerta de narración, papel nuevo, compuerta del papel, voz, assets, fondos, guion de pantalla, aprobar guion, render, packaging), cada una como programa aparte. Antes de cada paso mira qué archivos ya existen en disco y arranca donde quedó; frena en las dos compuertas donde Omar tiene que aprobar y nunca aprueba solo. Antes de cualquier etapa (F42b) revisa que este Python tenga las librerías que la cadena importa: si falta una requerida, para sin gastar y da el comando de pip. F67c: voz, assets, fondos y guion de pantalla corren si su artefacto falta o tiene otro sello que el papel aprobado (en cascada).",
    "recibe": "--topic <id> (o --research para elegir tema nuevo con fase1); data/scripts/_steps/<id>/01e_pantalla.md, data/scripts/<id>.json, output/<id>/assets/assets_manifest.json, output/<id>/_fase2b_work/*, output/<id>/GUION_PANTALLA.json, output/<id>/<id>_final_gfx.mp4, data/topics_db.json, data/_last_research.json; la tecla A/P/C que manda el form por stdin.",
    "entrega": "No escribe archivos de producción: lanza fase1.py, fase1_5.py, fase2a.py, fase2b.py y fase3.py como subprocesos; imprime los encabezados de fase y los marcadores @@QAFORM@@ para el form, y el reporte final con el comando para retomar.",
    "modelo": [],
@@ -3182,16 +3183,16 @@
    "lo_llaman": [
     "qa_studio_server.py"
    ],
-   "tests": 2,
+   "tests": 3,
    "nacio": "1127427 2026-06-13",
-   "ultimo": "da63ddc 2026-10-31 (F67)",
+   "ultimo": "25ac783 2026-10-31 (F67b)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "qa_studio_server.py:1522 y :1527 lo lanzan; run_pipeline.py:553 es el main",
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "6c127bfb9ddf2934a47e543acccf063f",
+   "md5": "4f4de4167de259a2bacb9fe7472819f7",
    "sticker_al_dia": true
   },
   "script_engine/__init__.py": {
@@ -3259,7 +3260,7 @@
     "run_pipeline.py",
     "script_engine/gfx_layer.py"
    ],
-   "tests": 2,
+   "tests": 3,
    "nacio": "f97c6f1 2026-10-26 (F33)",
    "ultimo": "f39c28f 2026-10-27 (F37)",
    "estado_a": "vivo",
@@ -3647,7 +3648,7 @@
    "lo_llaman": [
     "fase2b.py"
    ],
-   "tests": 2,
+   "tests": 3,
    "nacio": "308032a 2026-10-26 (F32)",
    "ultimo": "f54d4ba 2026-10-31 (F65a)",
    "estado_a": "vivo",
@@ -4738,7 +4739,7 @@
     "script_engine/m01e_pantalla.py",
     "script_engine/m01f_critico.py"
    ],
-   "tests": 10,
+   "tests": 11,
    "nacio": "317c5f1 2026-10-22 (F10)",
    "ultimo": "da63ddc 2026-10-31 (F67)",
    "estado_a": "vivo",
@@ -4862,7 +4863,7 @@
    ],
    "tests": 0,
    "nacio": "46102e5 2026-10-31 (F67)",
-   "ultimo": "c7c7f3a 2026-10-31 (F67)",
+   "ultimo": "25ac783 2026-10-31 (F67b)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py (run_critico), qa_studio_server.py (narracion_vista, narracion_post)",
@@ -5170,7 +5171,7 @@
   "script_engine/m06_assembler.py": {
    "archivo": "script_engine/m06_assembler.py",
    "zona": "fase2a",
-   "sticker": "Arma el archivo final del guion de un video (el «contrato» que leen los assets y el render): junta la narración, los prompts visuales y la foto madre del sujeto, marca los capítulos 1 y 7 para Veo y el resto para Flux. Desde F57 pasa también la voz entera del clip (`voz_clip`) de los caps con clip; el ancla (`narration_anchor`) se queda porque la leen QA Studio y m05. Desde F60 B el registry lleva también las madres por persona ({nombre: foto}) y un `foto_madre_personas` con la época y los estados de cada una (para el filtro por era de asset_manager); en los caps con clip pasa `image_f8` (persona y año de la foto del clip).",
+   "sticker": "Arma el archivo final del guion de un video (el «contrato» que leen los assets y el render): junta la narración, los prompts visuales y la foto madre del sujeto, marca los capítulos 1 y 7 para Veo y el resto para Flux. Desde F57 pasa también la voz entera del clip (`voz_clip`) de los caps con clip; el ancla (`narration_anchor`) se queda porque la leen QA Studio y m05. Desde F60 B el registry lleva también las madres por persona ({nombre: foto}) y un `foto_madre_personas` con la época y los estados de cada una (para el filtro por era de asset_manager); en los caps con clip pasa `image_f8` (persona y año de la foto del clip). F67c: escribe `papel_md5` (el `aprobado.md5` del papel aprobado y vigente) y exige que 01b_narration.json sea la narración aprobada; sin eso no escribe.",
    "recibe": "data/scripts/_steps/<id>/01b_narration.json y 03_visual.json, y el topic en data/topics_db.json (foto madre, hechos, evidence_pool, fuentes).",
    "entrega": "data/scripts/<id>.json (capítulos, foto_madre_registry, evidence_pool, verified_facts, contadores veo/flux).",
    "modelo": [],
@@ -5197,7 +5198,7 @@
     "fase1_5.py",
     "script_engine/m06_classifier.py"
    ],
-   "tests": 2,
+   "tests": 3,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "8e6f7e4 2026-10-30 (F60)",
    "estado_a": "vivo",
@@ -5206,7 +5207,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "47b95a4ef16f1d983c1a6e8ba9bd58d5",
+   "md5": "d68d4d11ad5e328b47d2e9672bd9e960",
    "sticker_al_dia": true
   },
   "script_engine/m06_classifier.py": {
@@ -7122,7 +7123,7 @@
    ],
    "tests": 0,
    "nacio": "3d684a2 2026-06-14",
-   "ultimo": "c7c7f3a 2026-10-31 (F67)",
+   "ultimo": "25ac783 2026-10-31 (F67b)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "qa_studio_server.py:72 define HTML_PATH y :1828-1829 lo sirve en / (el form lo abre en el gate del visor, qa_form.html:349)",

@@ -79,33 +79,35 @@ def _manifest_path(tid: str) -> Path:
 
 
 def _fondos_path(tid: str) -> Path:
-    """output/<id>/<id>_final.mp4 — el mp4 de preview que deja `fase2b <id>` sin gfx después de cocer los visuales
-    base (`_fase2b_work/chNN_flux_visual.mp4` / `_hybrid_visual.mp4`, los que reusan --plan-only y --reuse-visuals)."""
+    """output/<id>/<id>_final.mp4 — el mp4 de preview que deja `fase2b <id>` sin gfx después de cocer los visuales base. Solo
+    para reconocer la cadena vieja: si los fondos valen lo dice `_fondos_sello_path`."""
     return OUTPUT_DIR / tid / f"{tid}_final.mp4"
 
 
-def _visuales_base_faltan(tid: str) -> list[str]:
-    """Los caps del manifest sin su visual base cocido en `output/<id>/_fase2b_work/`: flux → `chNN_flux_visual.mp4`;
-    veo con suplementarias ok → `chNN_hybrid_visual.mp4`; veo solo → su clip (lo deja fase2a, no se cuece). Espejo de
-    fase2b._visual_base_existente (fase2b no se importa: arrastra DepthFlow y Gemini). Sin manifest legible = todos."""
+def _fondos_sello_path(tid: str) -> Path:
+    """output/<id>/_fase2b_work/fondos.json — {papel_md5}, lo deja fase2b al terminar los fondos (F67c)."""
+    return OUTPUT_DIR / tid / "_fase2b_work" / "fondos.json"
+
+
+def _sello_papel(tid: str) -> str | None:
+    """F67c: el `aprobado.md5` del papel; etapa_de lo mira recién con el papel aprobado y vigente."""
     try:
-        caps = json.loads(_manifest_path(tid).read_text(encoding="utf-8")).get("chapters") or []
+        return (json.loads(_steps_path(tid, "01e_pantalla.json").read_text(encoding="utf-8")).get("aprobado") or {}).get("md5")
     except (OSError, ValueError):
-        return ["(manifest ilegible)"]
-    work = OUTPUT_DIR / tid / "_fase2b_work"
-    faltan = []
-    for c in caps:
-        cid, engine = c.get("id"), str(c.get("engine", "")).lower()
-        supp = [s for s in (c.get("supplemental_images") or []) if s.get("status") == "ok" and s.get("path")]
-        if engine == "flux":
-            base = work / f"{cid}_flux_visual.mp4"
-        elif engine == "veo" and supp:
-            base = work / f"{cid}_hybrid_visual.mp4"
-        else:
-            continue
-        if not base.exists():
-            faltan.append(cid)
-    return faltan if caps else ["(manifest sin caps)"]
+        return None
+
+
+def _desfase(p: Path, nombre: str, vigente: str | None) -> str | None:
+    """F67c: por qué el artefacto `p` no sale del papel vigente; None si sí. Falta o ilegible se distinguen de «otro papel»."""
+    if not p.exists():
+        return f"falta {nombre}"
+    try:
+        sello = json.loads(p.read_text(encoding="utf-8")).get("papel_md5")
+    except (OSError, ValueError):
+        sello = None
+    if not sello:
+        return f"{nombre} sin sello"
+    return None if sello == vigente else f"{nombre}: sello {sello[:8]}… de otro papel"
 
 
 def _guion_pantalla_path(tid: str, ext: str = "json") -> Path:
@@ -175,11 +177,11 @@ def etapa_de(tid: str) -> tuple[str, str]:
                     sin crítica)
     papel_nuevo     narración aprobada y `fase1_5.papel_falta`: no hay papel o está desfasado, aprobado o no (F67b)
     papel           hay papel de esa narración pero `fase1_5.estado_papel` no lo da aprobado (o cambió después de aprobado)
-    voz             papel aprobado, falta `data/scripts/<id>.json`
-    assets          falta `output/<id>/assets/assets_manifest.json`
-    fondos          falta `output/<id>/<id>_final.mp4` (fase2b sin gfx) y a algún cap del manifest le falta su
-                    visual base en `_fase2b_work/` (con los visuales cocidos, el preview no hace falta)
-    guion_pantalla  falta `output/<id>/GUION_PANTALLA.json`
+    voz             papel aprobado, `data/scripts/<id>.json` falta o desfasado (F67c: `papel_md5` ≠ el `aprobado.md5` del papel; el
+                    audio se reusa igual por su hash, audio_manager)
+    assets          `output/<id>/assets/assets_manifest.json` falta o desfasado
+    fondos          `output/<id>/_fase2b_work/fondos.json` falta o desfasado
+    guion_pantalla  `output/<id>/GUION_PANTALLA.json` falta o desfasado
     aprobar_guion   hay guion de pantalla pero `aprobacion.estado` no lo da aprobado (o los planes cambiaron)
     render          falta `output/<id>/<id>_final_gfx.mp4` o es más viejo que GUION_PANTALLA.json
     packaging       falta `packaged` en topics_db (fase3)
@@ -207,17 +209,14 @@ def etapa_de(tid: str) -> tuple[str, str]:
         return "papel_nuevo", falta
     if not papel_ok:
         return "papel", motivo
-    if not _script_path(tid).exists():
-        return "voz", f"{motivo}; falta {_script_path(tid).as_posix()}"
-    if not _manifest_path(tid).exists():
-        return "assets", f"falta {_manifest_path(tid).as_posix()}"
-    if not _fondos_path(tid).exists():
-        faltan = _visuales_base_faltan(tid)
-        if faltan:
-            return "fondos", f"falta {_fondos_path(tid).name} y los visuales base de {', '.join(faltan)}"
+    # F67c: en cascada; cada artefacto copia el sello del de arriba, así que un desfase arriba arrastra lo de abajo
     gj = _guion_pantalla_path(tid)
-    if not gj.exists():
-        return "guion_pantalla", f"falta {gj.as_posix()}"
+    sello = _sello_papel(tid)
+    for etapa, p, nombre in (("voz", _script_path(tid), f"data/scripts/{tid}.json"), ("assets", _manifest_path(tid), "assets_manifest.json"),
+                             ("fondos", _fondos_sello_path(tid), "fondos.json"), ("guion_pantalla", gj, gj.name)):
+        desfase = _desfase(p, nombre, sello)
+        if desfase:
+            return etapa, desfase
     guion_ok, motivo = _estado_guion(tid)
     if not guion_ok:
         return "aprobar_guion", motivo

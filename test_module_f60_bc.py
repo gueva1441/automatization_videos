@@ -347,6 +347,7 @@ def test_m06_registry_personas_image_f8_y_adaptador_fase2a(tmp_path, monkeypatch
          "supplemental_image_prompts": [{"prompt": "s", "persona": ["Daniel Écija"], "anio": "1962"}], "image_f8": f8},
         {"chapter_number": 2, "image_prompts": [{"prompt": "p", "persona": ["Daniel Écija"], "anio": "1962"}]},
         {"chapter_number": 7, "image_prompt": "ip7", "video_prompt": "vp7", "voz_clip": "v7", "supplemental_image_prompts": []}]}
+    monkeypatch.setattr(m6, "sello_vigente", lambda tid: "papel-aprobado")     # F67c: el fixture del papel aprobado
     monkeypatch.setattr(m6, "_load_topic", lambda tid: topic)
     monkeypatch.setattr(m6, "_load_step", lambda tid, f: visual if f == "03_visual.json" else {"chapters": []})
     monkeypatch.setattr(m6, "SCRIPTS_DIR", tmp_path / "scripts")

@@ -24,6 +24,8 @@ import run_pipeline as rp
 TID = "top_f41"
 HOY = "2026-10-27"
 MARKER = "@@QAFORM@@ "
+SELLO = "papel0aprobado"                      # F67c: el `aprobado.md5` del papel en estos tests
+SELLADO = json.dumps({"papel_md5": SELLO})
 
 # Lo que corre cada etapa, en orden (etiquetas de FakePipeline.etiqueta). PRODUCTOR[i] deja lo que hace pasar de
 # ETAPAS[i] a ETAPAS[i + 1].
@@ -62,6 +64,7 @@ class FakePipeline:
         setattr_(rp, "_estado_guion",
                  lambda t: (True, "guion aprobado por Omar (stub)") if self.guion_ok
                  else (False, f"el guion de {t} no está aprobado"))
+        setattr_(rp, "_sello_papel", lambda t: SELLO)
         setattr_(rp, "_packaged", lambda t: self.packaged)
         setattr_(rp, "_video_hecho", lambda t: self.video_hecho)
         setattr_(rp, "_hoy", lambda: HOY)
@@ -106,13 +109,14 @@ class FakePipeline:
         elif et == "aprobar-papel":
             self.papel_ok = True
         elif et == "voz":
-            self._w(rp._script_path(t))
+            self._w(rp._script_path(t), SELLADO)
         elif et == "assets":
-            self._w(rp._manifest_path(t))
+            self._w(rp._manifest_path(t), SELLADO)
         elif et == "fondos":
             self._w(rp._fondos_path(t), "")
+            self._w(rp._fondos_sello_path(t), SELLADO)
         elif et == "plan-only":
-            self._w(rp._guion_pantalla_path(t))
+            self._w(rp._guion_pantalla_path(t), SELLADO)
             self._w(rp._guion_pantalla_path(t, "md"), f"# GUION DE PANTALLA — {t}\n\n| cap | beat | ficha |\n|---|---|---|\n")
             self.guion_ok = False
         elif et == "aprobar-guion":
@@ -432,19 +436,38 @@ def test_etapa_de_planes_cambiados_vuelve_a_la_compuerta(fake):
     assert rp.etapa_de(TID)[0] == "aprobar_guion"
 
 
-def test_etapa_de_fondos_por_visuales_base(fake):
-    """Sin el mp4 de preview, los visuales base cocidos de todos los caps del manifest cuentan como FONDOS hechos
-    (flux → _flux_visual; veo con suplementarias → _hybrid_visual; veo solo → su clip, no se cuece)."""
+def test_etapa_de_fondos_por_sello_no_por_existencia(fake):
+    """F67c: el mp4 de preview y los visuales base no alcanzan: FONDOS hecho = fondos.json con el sello del papel."""
     fake.hasta("fondos")
-    FakePipeline._w(rp._manifest_path(TID), json.dumps({"chapters": [
-        {"id": "ch01", "engine": "flux"},
-        {"id": "ch02", "engine": "veo", "supplemental_images": [{"status": "ok", "path": "x.png"}]},
-        {"id": "ch03", "engine": "veo", "supplemental_images": [{"status": "failed", "path": "y.png"}]}]}))
-    work = rp.OUTPUT_DIR / TID / "_fase2b_work"
-    FakePipeline._w(work / "ch01_flux_visual.mp4", "")
-    assert rp.etapa_de(TID)[0] == "fondos"            # falta el híbrido de ch02
-    FakePipeline._w(work / "ch02_hybrid_visual.mp4", "")
+    FakePipeline._w(rp._fondos_path(TID), "")
+    FakePipeline._w(rp.OUTPUT_DIR / TID / "_fase2b_work" / "ch01_flux_visual.mp4", "")
+    assert rp.etapa_de(TID) == ("fondos", "falta fondos.json")
+    FakePipeline._w(rp._fondos_sello_path(TID), SELLADO)
     assert rp.etapa_de(TID)[0] == "guion_pantalla"
+
+
+@pytest.mark.parametrize("artefacto,etapa", [("_script_path", "voz"), ("_manifest_path", "assets"), ("_fondos_sello_path", "fondos"),
+                                             ("_guion_pantalla_path", "guion_pantalla")])
+def test_etapa_de_sin_sello_o_de_otro_papel(fake, artefacto, etapa):
+    """F67c: falta o desfasada ⇒ esa etapa, aunque lo de abajo tenga sello."""
+    fake.hasta("listo")
+    p = getattr(rp, artefacto)(TID)
+    FakePipeline._w(p, "{}")
+    r = rp.etapa_de(TID)
+    assert r[0] == etapa and r[1].endswith("sin sello")
+    FakePipeline._w(p, json.dumps({"papel_md5": "otropapel000"}))
+    r = rp.etapa_de(TID)
+    assert r[0] == etapa and "sello otropape… de otro papel" in r[1]
+    FakePipeline._w(p, "{roto")
+    assert rp.etapa_de(TID)[0] == etapa
+
+
+def test_etapa_de_papel_nuevo_arrastra_todo_desde_la_voz(fake, monkeypatch):
+    """Se aprueba otro papel: todo está sellado con el anterior y arranca en la voz."""
+    fake.hasta("listo")
+    assert rp.etapa_de(TID)[0] == "listo"
+    monkeypatch.setattr(rp, "_sello_papel", lambda t: "otropapel000")
+    assert rp.etapa_de(TID)[0] == "voz"
 
 
 def test_etapa_de_render_mas_viejo_que_el_guion(fake):

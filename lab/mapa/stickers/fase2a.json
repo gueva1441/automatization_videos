@@ -452,7 +452,7 @@
   "_parte": "fase2a_b"
  },
  "script_engine/m06_assembler.py": {
-  "sticker": "Arma el archivo final del guion de un video (el «contrato» que leen los assets y el render): junta la narración, los prompts visuales y la foto madre del sujeto, marca los capítulos 1 y 7 para Veo y el resto para Flux. Desde F57 pasa también la voz entera del clip (`voz_clip`) de los caps con clip; el ancla (`narration_anchor`) se queda porque la leen QA Studio y m05. Desde F60 B el registry lleva también las madres por persona ({nombre: foto}) y un `foto_madre_personas` con la época y los estados de cada una (para el filtro por era de asset_manager); en los caps con clip pasa `image_f8` (persona y año de la foto del clip).",
+  "sticker": "Arma el archivo final del guion de un video (el «contrato» que leen los assets y el render): junta la narración, los prompts visuales y la foto madre del sujeto, marca los capítulos 1 y 7 para Veo y el resto para Flux. Desde F57 pasa también la voz entera del clip (`voz_clip`) de los caps con clip; el ancla (`narration_anchor`) se queda porque la leen QA Studio y m05. Desde F60 B el registry lleva también las madres por persona ({nombre: foto}) y un `foto_madre_personas` con la época y los estados de cada una (para el filtro por era de asset_manager); en los caps con clip pasa `image_f8` (persona y año de la foto del clip). F67c: escribe `papel_md5` (el `aprobado.md5` del papel aprobado y vigente) y exige que 01b_narration.json sea la narración aprobada; sin eso no escribe.",
   "recibe": "data/scripts/_steps/<id>/01b_narration.json y 03_visual.json, y el topic en data/topics_db.json (foto madre, hechos, evidence_pool, fuentes).",
   "entrega": "data/scripts/<id>.json (capítulos, foto_madre_registry, evidence_pool, verified_facts, contadores veo/flux).",
   "modelo": [],
@@ -462,7 +462,7 @@
   "estado": "vivo",
   "estado_prueba": "fase1_5.py:68 (import) y :657 (process_topic, paso assemble tras m03 cuando corre desde normalizer_gate = etapa voz de run_pipeline._paso_voz)",
   "funciones_muertas": [],
-  "md5": "47b95a4ef16f1d983c1a6e8ba9bd58d5",
+  "md5": "d68d4d11ad5e328b47d2e9672bd9e960",
   "_parte": "fase2a_b"
  },
  "script_engine/m06_classifier.py": {

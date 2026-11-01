@@ -601,6 +601,23 @@ def test_fix_core_casilleros_editados_armar_grade_guardado(tmp_path):
     assert not (work / "ch02_flux_visual.mp4").exists()
 
 
+def test_f67c_fix_y_clipfix_conservan_el_sello_del_script(tmp_path):
+    """F67c: el read-modify-write de `_fix_core` no pierde `papel_md5` (lo mira etapa_de); `_clipfix_core` usa el mismo guardado."""
+    import inspect
+    build_topic(tmp_path)
+    st = qa.QAState(TID, base_dir=tmp_path)
+    s = json.loads(st.script_path.read_text(encoding="utf-8"))
+    st.script_path.write_text(json.dumps({**s, "papel_md5": "P1"}, ensure_ascii=False), encoding="utf-8")
+    st = qa.QAState(TID, base_dir=tmp_path)
+
+    def gen(prompt, profile, path, **k):
+        _png(path)
+    (ok, _), _seen = _call_fix(st, "ch02", "ch02_img_03.png", "pedido", _fix_deps(gen))
+    assert ok and json.loads(st.script_path.read_text(encoding="utf-8"))["papel_md5"] == "P1"
+    src = inspect.getsource(qa._clipfix_core)
+    assert "script = _read_json(state.script_path)" in src and "_write_json(state.script_path, script)" in src
+
+
 def test_fix_core_anio_invalido_cae_al_del_item(tmp_path):
     build_topic(tmp_path)
     st = qa.QAState(TID, base_dir=tmp_path)
