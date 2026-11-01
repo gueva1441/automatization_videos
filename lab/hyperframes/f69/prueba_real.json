@@ -1,0 +1,133 @@
+{
+ "pedido": "solo Daniel, sin niños, sin borde de diapositiva",
+ "ok": true,
+ "texto": "foto rehecha; casilleros editados: subject, action, lens_technique. El filtro de producción sacó: lens_technique: full-bleed image running edge to edge with no border or slide mount. Foto anclada a la madre de Daniel Écija (casillero persona: no cambia con el pedido). Foto final y clip rehechos (motor: kling_4).",
+ "casilleros_antes": {
+  "subject": "A lean mid-20s Spanish miner with olive skin and short-cropped black hair, in a dust-dulled cotton work shirt and drill trousers, one foot wrapped in a thick white bandage",
+  "action": "Posing stiffly for a family portrait, the bandaged foot set forward on an upturned crate",
+  "gaze_interaction": "Facing the camera squarely, shoulders slightly drawn up, weight shifted off the bandaged foot",
+  "setting": "Yard of a corrugated-iron and asbestos-cement company house in a 1960s Pilbara mining town, ground of loose blue-grey tailings",
+  "color_palette": "Black-and-white portrait tones, cold silver greys, pale bandage against dark trousers",
+  "props_detail": "one leather work boot left empty beside it",
+  "shot_scale": "medium",
+  "camera_angle": "eye-level",
+  "lens_technique": "50mm lens, moderate depth of field, period box-camera framing",
+  "lighting": "Hard cold midday sun flattening into stark monochrome contrast",
+  "mood": "Stillness of a formal pose, a lone figure squared against a bare tin wall, the bandage the brightest point in frame",
+  "style": "Documentary photographic realism, dark-history, period black-and-white family photograph",
+  "text_in_image": {
+   "present": false,
+   "text": "",
+   "font": "",
+   "location": ""
+  },
+  "hard_fact_ids": [],
+  "people_group": [
+   "spanish_migrant_families"
+  ],
+  "year": "1963"
+ },
+ "casilleros_despues": {
+  "subject": "A lean mid-20s Spanish miner with olive skin and short-cropped black hair, in a dust-dulled cotton work shirt and drill trousers, one foot wrapped in a thick white bandage, the only person in the frame",
+  "action": "Posing stiffly alone for a solo portrait, the bandaged foot set forward on an upturned crate, the yard empty around him",
+  "gaze_interaction": "Facing the camera squarely, shoulders slightly drawn up, weight shifted off the bandaged foot",
+  "setting": "Yard of a corrugated-iron and asbestos-cement company house in a 1960s Pilbara mining town, ground of loose blue-grey tailings",
+  "color_palette": "Black-and-white portrait tones, cold silver greys, pale bandage against dark trousers",
+  "props_detail": "one leather work boot left empty beside it",
+  "shot_scale": "medium",
+  "camera_angle": "eye-level",
+  "lens_technique": "50mm lens, moderate depth of field",
+  "lighting": "Hard cold midday sun flattening into stark monochrome contrast",
+  "mood": "Stillness of a formal pose, a lone figure squared against a bare tin wall, the bandage the brightest point in frame",
+  "style": "Documentary photographic realism, dark-history, period black-and-white family photograph",
+  "text_in_image": {
+   "present": false,
+   "text": "",
+   "font": "",
+   "location": ""
+  },
+  "hard_fact_ids": [],
+  "people_group": [
+   "spanish_migrant_families"
+  ],
+  "year": "1963"
+ },
+ "prompt_antes": "A lean mid-20s Spanish miner with olive skin and short-cropped black hair, in a dust-dulled cotton work shirt and drill trousers, one foot wrapped in a thick white bandage. Posing stiffly for a family portrait, the bandaged foot set forward on an upturned crate. Spanish people with olive to fair Mediterranean skin, dark brown to black hair and brown eyes. Yard of a corrugated-iron and asbestos-cement company house in a 1960s Pilbara mining town, ground of loose blue-grey tailings. Hard cold midday sun flattening into stark monochrome contrast. Medium shot, eye-level, 50mm lens, moderate depth of field, period box-camera framing. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+ "prompt_despues": "A lean mid-20s Spanish miner with olive skin and short-cropped black hair, in a dust-dulled cotton work shirt and drill trousers, one foot wrapped in a thick white bandage, the only person in the frame. Posing stiffly alone for a solo portrait, the bandaged foot set forward on an upturned crate, the yard empty around him. Spanish people with olive to fair Mediterranean skin, dark brown to black hair and brown eyes. Yard of a corrugated-iron and asbestos-cement company house in a 1960s Pilbara mining town, ground of loose blue-grey tailings. Hard cold midday sun flattening into stark monochrome contrast. Medium shot, eye-level, 50mm lens, moderate depth of field. A grainy 35mm documentary photograph taken in 1963, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+ "video_prompt_igual": true,
+ "video_prompt": "A slow, somber documentary shot on grainy 35mm film, muted colors and slight underexposure, in a stark realist style. The camera makes a very slow push-in, starting on a medium shot of Daniel, the young miner, standing alone in the empty yard and ending on a closer medium framing of his torso and the bandaged foot resting on the upturned crate. Daniel is the only person in the entire scene; there are no children and no other people anywhere in the frame, not in the background, not near the house, and not at the edges. First, fine blue-grey dust drifts low across the empty tailings, then his shirt stirs faintly in a light breeze as he breathes slowly. Hard, cold midday sun stays flat and constant over the corrugated-iron house and loose ground. He holds his pose in place, his face and body steady.",
+ "md5_antes": {
+  "ch01_img_01.png": "5f3170e1329fb8c4f1edc47baf30e0d5",
+  "ch01_img_01_final.png": "914e951b79cfaa48582a7ae97c893a34",
+  "ch01_clip_01.mp4": "77a6a80ff622428579ec41e3bb62ba4c"
+ },
+ "md5_despues": {
+  "ch01_img_01.png": "8aa364390ec0bd20aceeccae130a6af0",
+  "ch01_img_01_final.png": "7f773837f23880144be6e8de9ddf3ea1",
+  "ch01_clip_01.mp4": "5aa387cde1f850cc78f97cba112323cd"
+ },
+ "fila_manifest": {
+  "index": 1,
+  "path": "123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch01_veo\\ch01_clip_01.mp4",
+  "status": "ok",
+  "fallback_type": null,
+  "foto_arranque": "123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch01_veo\\ch01_img_01.png",
+  "foto_final": "123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\ch01_veo\\ch01_img_01_final.png",
+  "ssim": 0.494804,
+  "motivo_sin_final": null,
+  "foto_madre_refs": [
+   "Daniel Écija"
+  ],
+  "motor": "nb2_lite",
+  "respaldo_motivo": null,
+  "segundos": 13.0,
+  "usd": 0.042,
+  "foto_arranque_md5": "8aa364390ec0bd20aceeccae130a6af0",
+  "foto_final_md5": "7f773837f23880144be6e8de9ddf3ea1",
+  "clip_motor": "kling_4",
+  "clip_rechazos": [
+   "gemini_omni_flash: {\"detail\":[{\"loc\":[\"body\",\"prompt\"],\"msg\":\"Could not generate a video with the given inputs. Please try again with different inputs.\",\"type\":\"invalid_request\",\"url\":\"https://docs.fal.ai/errors#invalid_request\",\"input\":{\"prompt\":\"Grainy 35mm documentary shot from 1963, muted colors, slight underexposure, stark realist mood. One continuous 8-second take, no cuts.\\n\\nSubject: a lean young Spanish miner with olive skin and short-cropped black hair, in a dust-dulled shirt and red-stained drill trousers. He is the only person in the frame. Keep from the image his face, his clothing, the corrugated-i"
+  ],
+  "clip_segundos": 8.041667,
+  "clip_usd": 1.8938
+ },
+ "manifest_sello_igual": true,
+ "costos": [
+  {
+   "servicio": "Anthropic claude-opus-5-5",
+   "descripcion": "qa:fix_foto ch01_img_01.png",
+   "usd": 0.014892
+  },
+  {
+   "servicio": "fal.ai Nano Banana 2 Lite (edit, estimado)",
+   "descripcion": "ch01_img_01: A lean mid-20s Spanish miner with olive skin and short-cropp...",
+   "usd": 0.042
+  },
+  {
+   "servicio": "Anthropic claude-opus-5-5",
+   "descripcion": "ch01_img_01_final: instruccion",
+   "usd": 0.035188
+  },
+  {
+   "servicio": "fal.ai Nano Banana 2 Lite (edit, estimado)",
+   "descripcion": "ch01_img_01_final: Keep the same yard, the same corrugated-iron and asbestos-ce...",
+   "usd": 0.042
+  },
+  {
+   "servicio": "Anthropic claude-opus-5-5",
+   "descripcion": "ch01_clip_01: prompt gemini_omni_flash",
+   "usd": 0.057432
+  },
+  {
+   "servicio": "Anthropic claude-opus-5-5",
+   "descripcion": "ch01_clip_01: prompt kling_4",
+   "usd": 0.065908
+  },
+  {
+   "servicio": "fal kling/v4/image-to-video",
+   "descripcion": "ch01_clip_01: kling_4",
+   "usd": 1.8938
+  }
+ ],
+ "usd_total": 2.15122
+}

@@ -40,6 +40,7 @@ USO:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -366,6 +367,14 @@ class QAState:
             "url": f"/img?cap={cid}&name={p.name}",
         }
 
+    def _foto_clip_campos(self, cid: str) -> dict:
+        """F69: la foto de arranque del clip (`chNN_img_01.png`, en `chNN_veo`) para el tile del clip: miniatura y «rehacer foto».
+        Va dentro del segmento del clip y no como segmento propio: no ocupa tiempo en el video."""
+        nombre = f"{cid}_img_01.png"
+        if not (self.assets_dir / f"{cid}_veo" / nombre).exists():
+            return {}
+        return {"foto_img_name": nombre, "foto_url": f"/img?cap={cid}&name={nombre}"}
+
     def _cap_veo(self, cid: str, role: str) -> dict:
         """v1.7 — cap veo con veo_position=='start': MISMA estructura timeline que los
         flux y que el cap 7, pero con el CLIP como PRIMER segmento (va primero, ocupa
@@ -397,7 +406,7 @@ class QAState:
             segments.append({
                 "is_clip": True, "img_name": None, "anchor": base_anchor or None,
                 "start": 0.0, "end": round(starts[0], 3), "dur": round(starts[0], 3),
-                "clip_url": clip_url,
+                "clip_url": clip_url, **self._foto_clip_campos(cid),
             })
             for k, p in enumerate(supps):
                 s_start = starts[k]
@@ -411,7 +420,7 @@ class QAState:
             if has_clip:   # clip como tile inicial SIN sync
                 segments.append({
                     "is_clip": True, "img_name": None, "anchor": base_anchor or None,
-                    "start": None, "end": None, "dur": None, "clip_url": clip_url,
+                    "start": None, "end": None, "dur": None, "clip_url": clip_url, **self._foto_clip_campos(cid),
                 })
             seg = (total / n) if n else 0.0
             for k, p in enumerate(supps):
@@ -473,7 +482,7 @@ class QAState:
                     "start": round(cstart, 3),
                     "end": round(total, 3),
                     "dur": round(total - cstart, 3),
-                    "clip_url": f"/clip?cap={cid}" if clip else None,
+                    "clip_url": f"/clip?cap={cid}" if clip else None, **self._foto_clip_campos(cid),
                 })
             if any(s["dur"] <= 0 for s in segments):
                 segments, starts = [], None
@@ -494,7 +503,7 @@ class QAState:
                     "start": None,
                     "end": None,
                     "dur": None,
-                    "clip_url": f"/clip?cap={cid}" if clip else None,
+                    "clip_url": f"/clip?cap={cid}" if clip else None, **self._foto_clip_campos(cid),
                 })
 
         return {
@@ -534,11 +543,12 @@ class QAState:
         )
         if not chap:
             return None
+        foto_clip = _foto_de_clip(chap) if kind == "img" and idx == 1 else None
         key = "supplemental_image_prompts" if kind == "supp" else "image_prompts"
         items = chap.get(key) or []
-        if not isinstance(items, list) or not (1 <= idx <= len(items)):
+        if foto_clip is None and (not isinstance(items, list) or not (1 <= idx <= len(items))):
             return None
-        rawi = items[idx - 1]
+        rawi = foto_clip if foto_clip is not None else items[idx - 1]
         if isinstance(rawi, dict):
             prompt = str(rawi.get("prompt", "") or "").strip()
             art_profile = rawi.get("art_profile") or chap.get("art_profile") or ""
@@ -562,7 +572,7 @@ class QAState:
                 casilleros = None
         d = rawi if isinstance(rawi, dict) else {}
         return {
-            "cap": cid, "img_name": img_name, "kind": kind, "idx": idx,
+            "cap": cid, "img_name": img_name, "kind": kind, "idx": idx, "clip": foto_clip is not None,
             "prompt": prompt, "art_profile": art_profile,
             "subject_ref": subject_ref or None, "narration_anchor": anchor,
             "casilleros": casilleros,
@@ -887,6 +897,26 @@ def _item_of(chap: dict | None, kind: str, idx: int) -> dict | None:
     return items[idx - 1]
 
 
+def _foto_de_clip(chap: dict | None) -> dict | None:
+    """F69: el ítem de la foto de arranque de un cap con clip, con la forma de un ítem de `image_prompts`. Un cap con clip no
+    tiene esa lista: m03 deja el prompt en `image_prompt` y lo demás en `image_f8` (m03_visual, el cap con clip). None si no lo es."""
+    if not chap or not isinstance(chap.get("image_f8"), dict) or not chap.get("image_prompt"):
+        return None
+    it = {**chap["image_f8"], "prompt": chap["image_prompt"], "narration_anchor": chap.get("narration_anchor") or ""}
+    if chap.get("subject_ref"):
+        it["subject_ref"] = chap["subject_ref"]
+    return it
+
+
+def _guardar_foto_de_clip(chap: dict, it: dict) -> None:
+    """F69: el ítem rearmado vuelve a `image_prompt` + `image_f8`, con las mismas claves que escribe m03_visual."""
+    from script_engine.m03_visual import CLAVES_F8_PAPEL  # noqa: PLC0415
+    chap["image_prompt"] = it["prompt"]
+    chap["image_f8"] = {k: it[k] for k in ("beat", "motivos", "raw_llm_prompt", *CLAVES_F8_PAPEL) if k in it}
+    if "image_sensible" in chap:
+        chap["image_sensible"] = it.get("sensible", False)
+
+
 def _backup(state: "QAState", src: Path, ts: str) -> None:
     """Copia `src` a assets/_qa_backups/<nombre>.<ts>.bak<sufijo> si existe (mismo molde que _reseed_core)."""
     if not src.exists():
@@ -1088,8 +1118,12 @@ def _fix_core(
     vpath = _visual_path(state, topic_id)
     visual = _read_json(vpath)
     script = _read_json(state.script_path)
-    item03 = _item_of(_chapter_of(visual, cap), entry["kind"], entry["idx"])
-    item_vivo = _item_of(_chapter_of(script, cap), entry["kind"], entry["idx"])
+    cap03, cap_vivo = _chapter_of(visual, cap), _chapter_of(script, cap)
+    if entry.get("clip"):       # F69: la foto de arranque de un cap con clip
+        item03, item_vivo = _foto_de_clip(cap03), _foto_de_clip(cap_vivo)
+    else:
+        item03 = _item_of(cap03, entry["kind"], entry["idx"])
+        item_vivo = _item_of(cap_vivo, entry["kind"], entry["idx"])
     if item03 is None or item_vivo is None or script is None or visual is None:
         return False, "no se encontró el ítem en 03_visual.json o en el guion vivo"
     it = {k: v for k, v in item03.items() if not k.startswith("_f8_")}
@@ -1103,7 +1137,7 @@ def _fix_core(
         return False, "el armado dejó el prompt vacío"
 
     # 7. Backups ANTES de pisar: PNG crudo, _graded.png, 03_visual.json y el guion vivo.
-    out_path = state.resolve_image(cap, img_name) or (state.assets_dir / f"{cap}_flux" / img_name)
+    out_path = state.resolve_image(cap, img_name) or (state.assets_dir / f"{cap}_{'veo' if entry.get('clip') else 'flux'}" / img_name)
     graded = out_path.with_name(f"{out_path.stem}_graded{out_path.suffix}")
     ts = now_ts or datetime.now().strftime("%Y%m%d_%H%M%S")
     try:
@@ -1137,6 +1171,9 @@ def _fix_core(
         for k in [k for k in dst if k.startswith("_f8_")]:
             dst.pop(k)
         dst.update(it)
+    if entry.get("clip"):
+        _guardar_foto_de_clip(cap03, item03)
+        _guardar_foto_de_clip(cap_vivo, item_vivo)
     try:
         _write_json(vpath, visual)
         _write_json(state.script_path, script)
@@ -1326,6 +1363,140 @@ def _start_clipfix(cap: str, feedback: str) -> dict:
         _FIX.update(running=True, done=False, ok=None, reason=None, img_name=marker)
     threading.Thread(target=_clipfix_worker, args=(cap, feedback), daemon=True).start()
     return {"started": True, "marker": marker}
+
+
+# ═════════════════════════════════════════════════════════════════
+#  ZONA 1.6 — FOTO DE ARRANQUE DEL CLIP (F69) · /fix_image con la foto de un cap con clip
+#  Foto → foto final → clip, de un solo botón: los tres salen de la misma foto. «Rehacer clip» sigue tocando solo el movimiento.
+# ═════════════════════════════════════════════════════════════════
+
+def _md5_de(p: Path) -> str:
+    return hashlib.md5(p.read_bytes()).hexdigest()
+
+
+def _manifest_tras_clip(state: "QAState", cap: str, entry: dict, final: dict, meta: dict | None, log: list[dict], ts: str) -> str:
+    """F69: la fila del clip en assets_manifest.json. Solo esa fila; el sello y la fecha no cambian. Devuelve un aviso o ""."""
+    mpath = state.assets_dir / "assets_manifest.json"
+    man = _read_json(mpath)
+    capm = next((c for c in (man or {}).get("chapters", []) if isinstance(c, dict) and c.get("id") == cap), None)
+    filas = (capm or {}).get("clips") or []
+    if not filas:
+        return " Ojo: el manifest no tiene la fila del clip; no se actualizó."
+    fila, paso = filas[0], next((f for f in log if f.get("motor")), {})
+    fm = (meta or {}).get("flux_meta") or {}
+    fila.pop("foto_de_arranque_cambio", None)
+    fila.update({k: fm[k] for k in ("motor", "respaldo_motivo", "segundos", "usd") if k in fm})
+    fila.update({"status": "ok", "fallback_type": None, "image_prompt": entry.get("image_prompt") or "", "video_prompt": entry["video_prompt"],
+                 "foto_arranque_md5": _md5_de(Path(entry["first_frame"])),
+                 "foto_final_md5": _md5_de(final["path"]) if final.get("path") else None,
+                 "ssim": final.get("ssim"), "motivo_sin_final": None if final.get("path") else final.get("motivo"),
+                 "clip_motor": paso.get("motor"), "clip_rechazos": paso.get("rechazos") or [],
+                 "clip_segundos": paso.get("segundos"), "clip_usd": paso.get("usd")})
+    _backup(state, mpath, ts)
+    _write_json(mpath, man)
+    return ""
+
+
+def _fotoclip_core(
+    state: "QAState",
+    topic_id: str,
+    cap: str,
+    pedido: str,
+    *,
+    foto_final_fn=None,       # asset_manager.foto_final_del_clip(foto_inicial, image_prompt, voz_clip, out_path, *, use_ultra)
+    generate_clip_fn=None,    # asset_manager._generate_clip(foto, movimiento, out_clip, *, image_prompt, ancla, foto_final, log)
+    generate_fn=None,         # el de _fix_core
+    is_hook_fn=None,
+    content_rejected_exc=None,
+    now_ts: str | None = None,
+    **fix_deps,               # el resto de las deps de _fix_core
+) -> tuple[bool, str | None]:
+    """F69 — «rehacer foto» de la foto de arranque. Devuelve (ok, texto para Omar).
+    `_fix_core` (pedido → casilleros → motor activo) sobre `chNN_img_01.png`, sin grade: el video usa el clip, no la foto → backup
+    de `_final` y se rehace con `foto_final_del_clip` → backup del mp4 y `_generate_clip` (G → K) con el `video_prompt` aprobado →
+    fila del manifest con `foto_arranque_md5` nuevo → `_invalidate_baked`. Si la foto falla, no se toca nada más; si G y K
+    rechazan, queda la foto nueva con el mp4 viejo y el texto lo dice."""
+    if foto_final_fn is None or generate_clip_fn is None or generate_fn is None or is_hook_fn is None or content_rejected_exc is None:
+        import asset_manager as am  # noqa: PLC0415
+        foto_final_fn = foto_final_fn or am.foto_final_del_clip
+        generate_clip_fn = generate_clip_fn or am._generate_clip
+        generate_fn = generate_fn or am._generate_flux_image_at
+        is_hook_fn = is_hook_fn or am._is_hook_chapter
+        content_rejected_exc = content_rejected_exc or am.ContentRejectedError
+
+    entry = state.resolve_clip_entry(cap)
+    if not entry:
+        return False, "no se pudo resolver el clip del cap en el script"
+    voz_clip = entry.get("voz_clip") or ""
+    if not voz_clip:
+        return False, "guion viejo: correr m03 de nuevo"
+    foto, out_clip = Path(entry["first_frame"]), Path(entry["out_clip"])
+    if not foto.exists():
+        return False, f"falta la foto inicial del clip: {foto.name}"
+    final_path = _foto_final_path(foto)
+    ts = now_ts or datetime.now().strftime("%Y%m%d_%H%M%S")
+    vecinos = [x.with_name(f"{x.stem}{suf}") for x in (foto, final_path) for suf in ("_native.png", ".llamada.json")]
+    try:                      # lo que `_fix_core` no respalda y el motor pisa
+        for p in (final_path, *vecinos):
+            _backup(state, p, ts)
+    except OSError as e:
+        return False, f"backup falló: {e}"
+
+    meta: dict = {}
+
+    def generar(*a, **k):
+        r = generate_fn(*a, **k)
+        meta.update(r if isinstance(r, dict) else {})
+        return r
+
+    ok, informe = _fix_core(state, topic_id, cap, foto.name, pedido, generate_fn=generar, grade_fn=lambda src: None,
+                            is_hook_fn=is_hook_fn, content_rejected_exc=content_rejected_exc, now_ts=ts, **fix_deps)
+    if not ok:
+        return False, informe
+
+    entry = state.resolve_clip_entry(cap)     # image_prompt recién rearmado
+    final_path.unlink(missing_ok=True)        # con el archivo, `foto_final_del_clip` lo reusa
+    final = foto_final_fn(foto, entry.get("image_prompt") or "", voz_clip, final_path, use_ultra=is_hook_fn(cap))
+    log: list[dict] = []
+    try:
+        _backup(state, out_clip, ts)
+        generate_clip_fn(foto, entry["video_prompt"], out_clip, image_prompt=entry.get("image_prompt") or "",
+                         ancla=voz_clip, foto_final=final.get("path"), log=log)
+    except content_rejected_exc as e:
+        return False, f"foto nueva, pero el clip sigue siendo el viejo. filtro: {str(e)[:600]}"
+    except Exception as e:  # noqa: BLE001
+        return False, f"foto nueva, pero el clip sigue siendo el viejo. {type(e).__name__}: {str(e)[:160]}"
+
+    try:
+        aviso = _manifest_tras_clip(state, cap, entry, final, meta, log, ts)
+    except OSError as e:
+        aviso = f" Ojo: el manifest no se actualizó: {e}."
+    _invalidate_baked(state, topic_id, cap)
+    motor = next((f.get("motor") for f in log if f.get("motor")), None)
+    txt = f"{informe} Foto final y clip rehechos"
+    txt += f" (motor: {motor})." if motor else "."
+    if not final.get("path") and final.get("motivo"):
+        txt += f" Sin foto final: {final['motivo']}"
+    return True, txt + aviso
+
+
+def _fotoclip_worker(cap: str, feedback: str) -> None:
+    try:
+        ok, reason = _fotoclip_core(STATE, TOPIC_ID, cap, feedback)
+    except Exception as e:  # noqa: BLE001
+        ok, reason = False, f"{type(e).__name__}: {e}"
+    with _FIX_LOCK:
+        _FIX.update(running=False, done=True, ok=ok, reason=reason)
+    print(f"  ✎ foto del clip {cap}: {'✓ ok · ' + str(reason) if ok else '✗ ' + str(reason)}")
+
+
+def _start_fotoclip(cap: str, img_name: str, feedback: str) -> dict:
+    with _FIX_LOCK:
+        if _FIX["running"]:
+            return {"conflict": True}
+        _FIX.update(running=True, done=False, ok=None, reason=None, img_name=img_name)
+    threading.Thread(target=_fotoclip_worker, args=(cap, feedback), daemon=True).start()
+    return {"started": True}
 
 
 # ═════════════════════════════════════════════════════════════════
@@ -2334,7 +2505,9 @@ class Handler(BaseHTTPRequestHandler):
                 if "_img_" not in img_name and "_supp_" not in img_name:
                     self._send_json({"error": "solo fotos (_img_/_supp_)"}, status=400)
                     return
-                res = _start_fix(cap, img_name, feedback)
+                # F69: la foto de arranque de un cap con clip arrastra su foto final y su clip
+                es_foto_clip = STATE.resolve_clip_entry(cap) is not None and img_name == f"{cap}_img_01.png"
+                res = _start_fotoclip(cap, img_name, feedback) if es_foto_clip else _start_fix(cap, img_name, feedback)
                 if res.get("conflict"):
                     self._send_json({"error": "ya hay un fix en curso"}, status=409)
                     print("  ✎ fix: rechazado (ya hay uno en curso)")

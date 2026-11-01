@@ -214,6 +214,11 @@
     display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;border:1px solid rgba(255,255,255,.22);
     backdrop-filter:blur(4px);transition:all .15s;z-index:2;}
   .pcard .body{padding:13px 14px 12px;}
+  .fotoclip{display:flex;gap:14px;align-items:center;padding:12px 14px;border-top:1px solid rgba(255,255,255,.07);}
+  .fotoclip .fc-img{width:180px;aspect-ratio:16/9;object-fit:cover;border-radius:8px;display:block;background:#101017;flex:none;}
+  .fotoclip .fc-txt{min-width:0;}
+  .fotoclip .fc-tit{font-family:var(--mono);font-size:11px;color:var(--ink);margin-bottom:5px;overflow-wrap:anywhere;}
+  .fotoclip .fc-sub{font-size:12.5px;color:#a5a5b8;line-height:1.4;margin-bottom:8px;}
   .pcard .anchor{font-family:var(--serif);font-size:14.5px;line-height:1.42;color:#e7e7f0;min-height:62px;}
   .pcard .foot{display:flex;align-items:center;justify-content:space-between;margin-top:11px;padding-top:11px;border-top:1px solid rgba(255,255,255,.07);}
   .pcard .heat{display:flex;align-items:center;gap:7px;}
@@ -573,6 +578,27 @@ function renderTimeline(c){
           </div>
         </div>
       </div>`;
+    // F69: la foto de arranque del clip, con su «rehacer foto» (arrastra la foto final y el clip).
+    const fotoClip = (isClip && s.foto_img_name) ? `
+      <div class="fotoclip">
+        <img class="fc-img" id="fotoclip-${i}" src="${s.foto_url}" loading="lazy" alt="">
+        <div class="fc-txt">
+          <div class="fc-tit">Foto de arranque · ${esc(s.foto_img_name)}</div>
+          <div class="fc-sub">El clip sale de esta foto. Rehacerla rehace también la foto final y el clip (≈ 3 min, ≈ US$ 1,30).</div>
+          <span class="fixlink on" data-fotofix="${i}">✎ rehacer foto</span>
+        </div>
+      </div>
+      <div class="fixpanel" id="fixpanel-f${i}" style="display:none">
+        <div class="top">
+          <span class="tag"><span class="d"></span>REHACER FOTO DE ARRANQUE · foto, foto final y clip</span>
+          <textarea id="fixtext-f${i}" placeholder="Decí qué querés VER en la foto. El movimiento del clip no cambia; para eso está «regenerar clip»."></textarea>
+          <div class="row">
+            <button class="btn-regen" id="fixbtn-f${i}">⟳ Rehacer foto y clip</button>
+            <span class="fixcancel" data-cancelf="${i}">Cancelar</span>
+            <span class="fixstatus" id="fixstatus-f${i}"></span>
+          </div>
+        </div>
+      </div>` : '';
     card.innerHTML=`
       <div class="pimg" data-sel="${i}" style="${isClip?'aspect-ratio:16/9':'aspect-ratio:9/16'}">
         <div class="pidx">${isClip?'CLIP':(i+1)+'/'+photoCount}</div>
@@ -587,13 +613,18 @@ function renderTimeline(c){
             <span class="pv-time">${s.start!=null?fmt(s.start)+'–'+fmt(s.end)+' · '+s.dur+'s':'sin sync'}</span></div>
           <span>${isClip?'':`<label class="regenmark${MARKS[s.img_name]?' on':''}" title="Marcar para regenerar con el mismo prompt y otra semilla"><input type="checkbox" data-mark="${i}"${MARKS[s.img_name]?' checked':''}>↻ regenerar</label>`}${fixCtl}</span>
         </div>
-      </div>${fixPanel}`;
+      </div>${fixPanel}${fotoClip}`;
     card.querySelector('[data-sel]').onclick=()=>setActive(i);
     card.querySelector('[data-play]').onclick=(e)=>{e.stopPropagation();playSeg(i);};
     card.querySelector('[data-cancel]').onclick=()=>closeFixPanel(i);
     if(isClip){
       card.querySelector('[data-clipfix]').onclick=()=>toggleFixPanel(i);
       card.querySelector('#fixbtn-'+i).onclick=()=>submitClipFix(c.cap, i);
+      if(s.foto_img_name){
+        card.querySelector('[data-fotofix]').onclick=()=>toggleFixPanel('f'+i);
+        card.querySelector('[data-cancelf]').onclick=()=>closeFixPanel('f'+i);
+        card.querySelector('#fixbtn-f'+i).onclick=()=>submitFotoClip(c.cap, s, i);
+      }
     }else{
       card.querySelector('[data-fix]').onclick=()=>toggleFixPanel(i);
       card.querySelector('#fixbtn-'+i).onclick=()=>submitFix(c.cap, s.img_name, i);
@@ -830,7 +861,7 @@ document.addEventListener('dblclick', e=>{
 });
 
 // Core genérico (lo usan tarjetas timeline y galería Option A). onReload() corre al ok.
-function startFix(cap, img_name, feedback, st, btn, onReload){
+function startFix(cap, img_name, feedback, st, btn, onReload, enCurso){
   if(!feedback){ st.className='fixstatus err'; st.textContent='describí el cambio'; return; }
   if(btn) btn.disabled=true; st.className='fixstatus work'; st.textContent='enviando…';
   fetch('/fix_image',{method:'POST',headers:{'Content-Type':'application/json'},
@@ -838,7 +869,7 @@ function startFix(cap, img_name, feedback, st, btn, onReload){
    .then(async r=>{
       if(r.status===409){ throw new Error('ya hay un fix en curso'); }
       if(!r.ok){ const e=await r.json().catch(()=>({})); throw new Error(e.error||r.statusText); }
-      st.textContent='regenerando… (~15-40s)';
+      st.textContent=enCurso||'regenerando… (~15-40s)';
       if(fixPoll) clearInterval(fixPoll);
       fixPoll=setInterval(()=>pollFix(img_name, st, btn, onReload), 1500);
    })
@@ -858,6 +889,15 @@ function pollFix(img_name, st, btn, onReload){
 function submitFix(cap, img_name, i){
   const ta=$('fixtext-'+i);
   startFix(cap, img_name, (ta?ta.value:'').trim(), $('fixstatus-'+i), $('fixbtn-'+i), ()=>reloadImage(i));
+}
+
+// F69: foto de arranque → recarga la miniatura y el clip al terminar.
+function submitFotoClip(cap, s, i){
+  const ta=$('fixtext-f'+i);
+  startFix(cap, s.foto_img_name, (ta?ta.value:'').trim(), $('fixstatus-f'+i), $('fixbtn-f'+i), ()=>{
+    const im=$('fotoclip-'+i); if(im) im.src=s.foto_url+'&t='+Date.now();
+    reloadClip(i);
+  }, 'rehaciendo foto, foto final y clip… (~3 min)');
 }
 
 // ── fix de CLIP (Zona 1.5) — Opus edita el movimiento, regenera el clip con la cadena de producción (F59) ──
