@@ -1,0 +1,232 @@
+{
+ "ts": "20261101_154524",
+ "fotos": {
+  "ch03_img_08": {
+   "antes": {
+    "ch03_img_08.png": "80beaefce1ae2081d938c92525ea9551",
+    "ch03_img_08_native.png": "010c7caea821d6c4c0164c03d7c0a896",
+    "ch03_img_08_graded.png": "c89d40aac4ce18d72a0ae3df19f42bf6"
+   },
+   "despues": {
+    "ch03_img_08.png": "bda61effa664a156681c132e7a632423",
+    "ch03_img_08_native.png": "aee500ccb1134814d88b71e48843c3f2",
+    "ch03_img_08_graded.png": "efe680ff9826771f418d189d858b57d4"
+   },
+   "lab": {
+    "png": "bda61effa664a156681c132e7a632423",
+    "native": "aee500ccb1134814d88b71e48843c3f2"
+   },
+   "tam_png": [
+    2560,
+    1440
+   ],
+   "tam_native": [
+    1376,
+    768
+   ],
+   "tam_graded": [
+    2560,
+    1440
+   ],
+   "graded_viejo": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\_qa_backups\\ch03_img_08_graded.png.20261101_154524.bak.png"
+  },
+  "ch03_img_15": {
+   "antes": {
+    "ch03_img_15.png": "cb59c5f4fbca1753fb8305f4869c2b17",
+    "ch03_img_15_native.png": "09a510b77aca2a63ac8b72c00bd70d3d",
+    "ch03_img_15_graded.png": "e6f9c92495ed6af8354e92d5e8fbde30"
+   },
+   "despues": {
+    "ch03_img_15.png": "ac76049d56699832dba461058576ed7b",
+    "ch03_img_15_native.png": "741ea1ebb38f1c10451a956e75213bec",
+    "ch03_img_15_graded.png": "79c236301734c80f02008e454a066889"
+   },
+   "lab": {
+    "png": "ac76049d56699832dba461058576ed7b",
+    "native": "741ea1ebb38f1c10451a956e75213bec"
+   },
+   "tam_png": [
+    2560,
+    1440
+   ],
+   "tam_native": [
+    1376,
+    768
+   ],
+   "tam_graded": [
+    2560,
+    1440
+   ],
+   "graded_viejo": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\_qa_backups\\ch03_img_15_graded.png.20261101_154524.bak.png"
+  },
+  "ch06_img_07": {
+   "antes": {
+    "ch06_img_07.png": "35910e42211481e3de5cc31b4755fbad",
+    "ch06_img_07_native.png": "13dd88663c79f9b572ab995483f2a4ca",
+    "ch06_img_07_graded.png": "7b1057f9bfbe89fe2a2d11d5cc85ec01"
+   },
+   "despues": {
+    "ch06_img_07.png": "b60bafcd2ad2ae4131055eca7b0ae31a",
+    "ch06_img_07_native.png": "e19a6d37fcc9b9f88fedb5178815d682",
+    "ch06_img_07_graded.png": "6ea9c63af0656cc675f3a1900bc324e0"
+   },
+   "lab": {
+    "png": "b60bafcd2ad2ae4131055eca7b0ae31a",
+    "native": "e19a6d37fcc9b9f88fedb5178815d682"
+   },
+   "tam_png": [
+    2560,
+    1440
+   ],
+   "tam_native": [
+    1376,
+    768
+   ],
+   "tam_graded": [
+    2560,
+    1440
+   ],
+   "graded_viejo": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\assets\\_qa_backups\\ch06_img_07_graded.png.20261101_154524.bak.png"
+  }
+ },
+ "manifest_diff": {
+  "ch03_img_08": {
+   "prompt": {
+    "antes": "The same young fair-skinned doctor in shirt sleeves, tie loosened, slim build. He types the warning letter to Perth on a black manual typewriter. Australian men of predominantly British-descended appearance with fair skin. 1948 bare timber-and-corrugated-iron office, wooden desk, filing cabinet, Bakelite telephone, window onto dust haze. The word \"Asbestosis\" is written on the typed sheet in the roller in clear crisp typewriter serif lettering. Hard late-afternoon light through a dusty window. Medium shot, over-the-shoulder eye-level, 85mm lens, shallow depth of field focused on the sheet. A grainy 35mm documentary photograph taken in 1948, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio.",
+    "despues": "A photograph of the same person shown in the reference image. The same young fair-skinned doctor in shirt sleeves, tie loosened, slim build. He types the warning letter to Perth on a black manual typewriter. Australian men of predominantly British-descended appearance with fair skin. 1948 bare timber-and-corrugated-iron office, wooden desk, filing cabinet, Bakelite telephone, window onto dust haze. Hard late-afternoon light through a dusty window. Medium shot, over-the-shoulder eye-level, 85mm lens, shallow depth of field focused on the sheet. A grainy 35mm documentary photograph in the style of 1948, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio."
+   },
+   "flux_meta": {
+    "antes": {
+     "endpoint": "google/nano-banana-2-lite/edit",
+     "ms": 16277,
+     "width": 1376,
+     "height": 768,
+     "seed": null,
+     "nsfw_flag": false,
+     "motor": "nb2_lite",
+     "respaldo_motivo": null,
+     "segundos": 16.3,
+     "usd": 0.042,
+     "n_referencias": 1
+    },
+    "despues": {
+     "endpoint": "google/nano-banana-2-lite/edit",
+     "ms": 16277,
+     "width": 1376,
+     "height": 768,
+     "seed": null,
+     "nsfw_flag": false,
+     "motor": "nb2_lite",
+     "respaldo_motivo": null,
+     "segundos": 13.4,
+     "usd": 0.042,
+     "n_referencias": 1
+    }
+   },
+   "segundos": {
+    "antes": 16.3,
+    "despues": 13.4
+   }
+  },
+  "ch03_img_15": {
+   "prompt": {
+    "antes": "A middle-aged Australian public health doctor, fair skin, greying hair, solid build, white coat over shirt and tie. He holds a former mill worker's chest X-ray against a lit viewing box, reading it. Australian men of predominantly British-descended appearance with fair skin. 1962 Western Australian public health office, wooden desk, Bakelite telephone, filing cabinets. The word \"Mesothelioma\" is written on a typed report card on the desk in clear crisp typewriter serif lettering. Low-key, the light box the only source. Medium shot, eye-level, 85mm lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio.",
+    "despues": "A middle-aged Australian public health doctor, fair skin, greying hair, solid build, white coat over shirt and tie. He holds a former mill worker's chest X-ray against a lit viewing box, reading it. Australian men of predominantly British-descended appearance with fair skin. 1962 Western Australian public health office, wooden desk, Bakelite telephone, filing cabinets. Low-key, the light box the only source. Medium shot, eye-level, 85mm lens, shallow depth of field. A grainy 35mm documentary photograph in the style of 1962, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio."
+   },
+   "flux_meta": {
+    "antes": {
+     "endpoint": "google/nano-banana-2-lite",
+     "ms": 9933,
+     "width": 1376,
+     "height": 768,
+     "seed": null,
+     "nsfw_flag": false,
+     "motor": "nb2_lite",
+     "respaldo_motivo": null,
+     "segundos": 9.9,
+     "usd": 0.042,
+     "n_referencias": 0
+    },
+    "despues": {
+     "endpoint": "google/nano-banana-2-lite",
+     "ms": 9933,
+     "width": 1376,
+     "height": 768,
+     "seed": null,
+     "nsfw_flag": false,
+     "motor": "nb2_lite",
+     "respaldo_motivo": null,
+     "segundos": 7.4,
+     "usd": 0.042,
+     "n_referencias": 0
+    }
+   },
+   "segundos": {
+    "antes": 9.9,
+    "despues": 7.4
+   }
+  },
+  "ch06_img_07": {
+   "prompt": {
+    "antes": "A middle-aged Australian woman of European descent, fair skin, medium build, in a contemporary blazer. Stands in the advocacy society's office going through case folders. Present-day Perth office of an asbestos victims' advocacy society, filing cabinets, framed photographs of members, 2023. Soft overcast window light. Medium shot, eye-level, shallow depth of field, 50mm lens. A grainy 35mm documentary photograph taken in 2023, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+    "despues": "A photograph of the same person shown in the reference image. A middle-aged Australian woman of European descent, fair skin, medium build, in a contemporary blazer. Stands in the advocacy society's office going through case folders. Present-day Perth office of an asbestos victims' advocacy society, filing cabinets, framed photographs of members, 2023. Soft overcast window light. Medium shot, eye-level, shallow depth of field, 50mm lens. A grainy 35mm documentary photograph in the style of 2023, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels."
+   },
+   "flux_meta": {
+    "antes": {
+     "endpoint": "google/nano-banana-2-lite/edit",
+     "ms": 15741,
+     "width": 1376,
+     "height": 768,
+     "seed": null,
+     "nsfw_flag": false,
+     "motor": "nb2_lite",
+     "respaldo_motivo": null,
+     "segundos": 15.7,
+     "usd": 0.042,
+     "n_referencias": 1
+    },
+    "despues": {
+     "endpoint": "google/nano-banana-2-lite/edit",
+     "ms": 15741,
+     "width": 1376,
+     "height": 768,
+     "seed": null,
+     "nsfw_flag": false,
+     "motor": "nb2_lite",
+     "respaldo_motivo": null,
+     "segundos": 20.0,
+     "usd": 0.042,
+     "n_referencias": 1
+    }
+   },
+   "segundos": {
+    "antes": 15.7,
+    "despues": 20.0
+   }
+  }
+ },
+ "resto_del_manifest_identico": true,
+ "papel_md5": {
+  "antes": "39c99927c5d95fad16a3ecf062661f0b",
+  "despues": "39c99927c5d95fad16a3ecf062661f0b"
+ },
+ "etapa_de": {
+  "antes": [
+   "fondos",
+   "falta fondos.json"
+  ],
+  "despues": [
+   "fondos",
+   "falta fondos.json"
+  ]
+ },
+ "guion_md5": {
+  "antes": "2b1903bd1d746116d06ce103003e20de",
+  "despues": "2b1903bd1d746116d06ce103003e20de"
+ },
+ "visual_md5": {
+  "antes": "79fb554d18f759f752f21d923124456d",
+  "despues": "79fb554d18f759f752f21d923124456d"
+ },
+ "horneados_que_quedan": []
+}
