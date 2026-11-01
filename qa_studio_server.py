@@ -1918,6 +1918,17 @@ _SUG_LOCK = threading.Lock()
 _SUG: dict = {"running": False, "result": None, "error": None, "cap": None, "beat": None}
 
 
+def _papel_bloqueo(sd: Path, tid: str) -> str | None:
+    """F67b (DECISIONES 2026-10-31 20:09): por qué el papel no se puede aprobar: la narración no está aprobada o el papel es de
+    otra narración. None si se puede. Sin papel, None: lo responde `aprobar_papel`."""
+    import fase1_5 as f15
+    ok, motivo = f15.estado_narracion(tid, sd)
+    if not ok:
+        return motivo
+    falta = f15.papel_falta(tid, sd)
+    return "el papel es de otra narración" if falta and falta != "no hay papel" else None
+
+
 def papel_vista(state: "QAState") -> dict:
     """GET /papel: {estado {aprobado, motivo}, aprobado_por, md5, usd, modelo, caps, beats [{cap, beat, funcion, pico, revisado,
     ficha, sello, descartes, a_pantalla_vacio}], relojes, sin_beat, a_pantalla_vacios, aviso_narracion, revisadas, fichas}. Los
@@ -1954,7 +1965,7 @@ def papel_vista(state: "QAState") -> dict:
               "descartes": por_beat.get(b["beat"]) or [], "a_pantalla_vacio": vacios.get((b["cap"], b["beat"])) or []}
              for b in p.get("beats") or []]
     return {"estado": {"aprobado": ok, "motivo": motivo}, "aprobado_por": p.get("aprobado"), "md5": f15.md5_papel(p),
-            "usd": p.get("usd"), "modelo": p.get("modelo"), "prompt_version": p.get("prompt_version"), "caps": p.get("caps") or [],
+            "bloqueo_aprobar": _papel_bloqueo(sd, tid), "usd": p.get("usd"), "modelo": p.get("modelo"), "prompt_version": p.get("prompt_version"), "caps": p.get("caps") or [],
             "beats": beats, "relojes": p.get("relojes") or [], "sin_beat": sin_beat, "a_pantalla_vacios": p.get("a_pantalla_vacios") or [],
             "aviso_narracion": p.get("aviso_narracion") or [], "cierre": (p.get("reintento") or {}).get("cierre"),
             "fichas": sum(1 for b in beats if b["ficha"]), "revisadas": sum(1 for b in beats if b["revisado"] and b["ficha"])}
@@ -2004,6 +2015,9 @@ def papel_post(state: "QAState", route: str, body: dict) -> tuple[dict, int]:
             por = str(body.get("por") or "").strip()
             if not por:
                 raise ValueError("falta quién aprueba")
+            bloqueo = _papel_bloqueo(sd, tid)
+            if bloqueo:
+                return {"error": bloqueo}, 409
             try:                                       # solo aprueba: ni voz ni fotos corren
                 ap = f15.aprobar_papel(tid, f"{por} {time.strftime('%Y-%m-%dT%H:%M')}")
             except f15.Parada as e:

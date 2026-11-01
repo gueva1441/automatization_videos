@@ -1035,7 +1035,8 @@ function ppRender(){
       <div class="pp-estado ${ok?'ok':'no'}">${ok?`✓ Aprobado por ${esc(ap.por)} (${esc(ap.fecha)})`:(ap?'⚠ Aprobación invalidada':'Sin aprobar')}</div>
       <div class="pp-meta">${esc(ok?('md5 '+p.md5.slice(0,8)+'…'):p.estado.motivo)}</div>
       <div class="pp-meta">${esc(p.modelo||'')} ${esc(p.prompt_version||'')} · US$ ${(p.usd||0).toFixed(4)} · cierre: ${esc(p.cierre||'—')} · ${p.revisadas} de ${p.fichas} fichas revisadas</div>
-    </div><div class="pp-aprobar"><input class="pp-in" id="ppQuien" placeholder="quién aprueba" value="${esc(quien)}"><button class="pp-btn pri" onclick="ppAprobar()">Aprobar papel</button></div></div>
+    </div><div class="pp-aprobar"><input class="pp-in" id="ppQuien" placeholder="quién aprueba" value="${esc(quien)}"><button class="pp-btn pri" ${p.bloqueo_aprobar?'disabled':''} onclick="ppAprobar()">Aprobar papel</button></div></div>
+    ${p.bloqueo_aprobar?`<div class="pp-aviso" id="ppBloqueo"><b>No se puede aprobar el papel:</b> ${esc(p.bloqueo_aprobar)}.</div>`:''}
     ${ppError?`<div class="err">${esc(ppError)}</div>`:''}
     ${avisos.length?`<div class="pp-aviso"><b>⚠ La narración sigue contradiciendo el archivo:</b><br>${avisos.map(q=>`${esc(q.cap)} [${esc(String(q.oracion))}] «${esc(q.texto)}»: ${esc(q.afirmacion)} (${esc((q.ids||[]).join(', '))})`).join('<br>')}</div>`:''}
     ${(p.caps||[]).map(c=>`<div class="pp-cap"><small>${esc(c.cap)}</small>${esc(c.titulo)}</div>

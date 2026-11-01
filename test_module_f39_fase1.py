@@ -79,9 +79,11 @@ def env(tmp_path, monkeypatch):
     def guion_v4(topic_id, **k):
         pasos.append("guion → caps → papel")
         d = steps / topic_id
-        (d / "01e_pantalla.json").write_text(json.dumps({"topic_id": topic_id, "beats": []}), encoding="utf-8")
+        from script_engine.m01d_particion import md5_narracion
+        n3 = {"topic_id": topic_id, "parrafos": []}
+        (d / "01e_pantalla.json").write_text(json.dumps({"topic_id": topic_id, "beats": [], "narracion_md5": md5_narracion(n3)}), encoding="utf-8")
         (d / "01e_pantalla.md").write_text("# papel", encoding="utf-8")
-        (d / "01b_narracion_v3.json").write_text(json.dumps({"topic_id": topic_id, "parrafos": []}), encoding="utf-8")
+        (d / "01b_narracion_v3.json").write_text(json.dumps(n3), encoding="utf-8")
         return {"particion": {"skeleton": {}, "narration": {}}}
     monkeypatch.setattr(f15, "run_guion_v4", guion_v4)
     monkeypatch.setattr(f15, "_topic_v3", lambda tid: topic_por_id(tid))

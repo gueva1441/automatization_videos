@@ -109,7 +109,7 @@ def entrada(topic_id: str, steps_dir: Path | None = None, *, pool: dict | None =
     if not rep.get("retencion"):
         raise ValueError(f"{topic_id}: el juez no dejó `retencion`: el crítico no tiene métricas")
     v = d / "01b_verificacion.md"
-    verif = tabla_verificacion(v.read_text(encoding="utf-8")) if v.exists() else "(sin verificación)"
+    verif = tabla_verificacion(v.read_text(encoding="utf-8")) if v.exists() else "sin verificación en disco"
     return {"e": e, "metricas": rep["retencion"], "verificacion": verif}
 
 

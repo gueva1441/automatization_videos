@@ -173,7 +173,7 @@ def etapa_de(tid: str) -> tuple[str, str]:
     guion           falta `_steps/<id>/01b_narracion_v3.json` o `01b_verificacion.json`
     narracion       hay narración y `fase1_5.estado_narracion` no la da aprobada (con o sin 01f_critico: la compuerta funciona
                     sin crítica)
-    papel_nuevo     narración aprobada y `fase1_5.papel_falta`: no hay papel, salió de otra narración o no lo dice y no está aprobado
+    papel_nuevo     narración aprobada y `fase1_5.papel_falta`: no hay papel o está desfasado, aprobado o no (F67b)
     papel           hay papel de esa narración pero `fase1_5.estado_papel` no lo da aprobado (o cambió después de aprobado)
     voz             papel aprobado, falta `data/scripts/<id>.json`
     assets          falta `output/<id>/assets/assets_manifest.json`

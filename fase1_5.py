@@ -33,6 +33,7 @@ Uso:
   python fase1_5.py --topic <id> --papel         F67: el papel, una vez, sobre la narración aprobada; PARADA del papel
   python fase1_5.py --topic <id> --aprobar-papel "Omar <fecha>"
                                                  F39: aprueba el papel (md5); recién ahí sigue a la voz
+  python fase1_5.py --topic <id> --criticar      F67b: juez + crítico, sin verificador, sobre la narración ya escrita
   python fase1_5.py --topic <id> --verificar-narracion
                                                  F66/F67: juez + verificador (lo que contradice queda como aviso) + crítico
                                                  sobre la narración ya escrita, sin volver a llamar al guionista
@@ -445,19 +446,45 @@ def parada_de_narracion(topic_id: str, steps_dir: Path | None = None) -> str:
 
 
 def papel_falta(topic_id: str, steps_dir: Path | None = None) -> str | None:
-    """F67: por qué hay que correr el papel con la narración aprobada; None si el que hay vale. Falta si no hay papel, si salió
-    de otra narración, o si no dice de cuál y no está aprobado (uno aprobado sin ese campo se respeta)."""
+    """F67: por qué hay que correr el papel; None si el que hay vale. F67b (DECISIONES 2026-10-31 20:09): desfasado = sin
+    `narracion_md5` o con otro que `md5_narracion` de la actual, aprobado o no."""
+    from script_engine.m01d_particion import md5_narracion
     d = _sd(steps_dir) / topic_id
     f = d / "01e_pantalla.json"
     if not f.exists():
         return "no hay papel"
     papel = json.loads(f.read_text(encoding="utf-8"))
     n3 = json.loads((d / "01b_narracion_v3.json").read_text(encoding="utf-8"))
-    aprobado = (n3.get("aprobado") or {}).get("md5")
-    de = papel.get("narracion_md5")
-    if de is None:
-        return None if papel.get("aprobado") else "el papel no dice de qué narración salió y no está aprobado"
-    return None if de == aprobado else f"el papel salió de otra narración ({str(de)[:8]}… ≠ {str(aprobado)[:8]}…)"
+    return None if papel.get("narracion_md5") == md5_narracion(n3) else "papel de otra narración: se re-escribe"
+
+
+NORMALIZADO = "01b_narration_normalized.json"
+
+
+def normalizado_desfasado(topic_id: str, steps_dir: Path | None = None) -> list[int]:
+    """F67b: los caps de 01b_narration_normalized.json cuyo `narration_original` no es el `narration` actual de 01b_narration.json;
+    [] si no hay normalizado o coincide. `audio_manager._resolve_text_for_tts` lo lee primero, y `normalizer_gate` no compara:
+    lo reescribe siempre con `narration_original` = ese mismo `narration`. Ilegible = todos los caps."""
+    d = _sd(steps_dir) / topic_id
+    f = d / NORMALIZADO
+    if not f.exists():
+        return []
+    actual = {c["chapter_number"]: c.get("narration") for c in json.loads((d / "01b_narration.json").read_text(encoding="utf-8")).get("chapters") or []}
+    try:
+        norm = {c.get("chapter_number"): c.get("narration_original") for c in json.loads(f.read_text(encoding="utf-8")).get("chapters") or []}
+    except (OSError, ValueError):
+        norm = {}
+    return sorted(n for n, t in actual.items() if norm.get(n) != t)
+
+
+def descartar_normalizado(topic_id: str, steps_dir: Path | None = None) -> list[int]:
+    """F67b: antes de la voz, un normalizado desfasado se borra y se avisa (el gate lo regenera; sin él, el audio usa
+    normalize_for_tts). Devuelve los caps distintos."""
+    caps = normalizado_desfasado(topic_id, steps_dir)
+    if caps:
+        print(f"  [normalizado] desfasado: {len(caps)} caps distintos, se borra")
+        (_sd(steps_dir) / topic_id / NORMALIZADO).unlink()
+    return caps
 
 
 def run_papel_aprobado(topic_id: str) -> int:
@@ -470,7 +497,7 @@ def run_papel_aprobado(topic_id: str) -> int:
     falta = papel_falta(topic_id)
     if falta:
         log: list[str] = []
-        print(f"  [papel] {falta}: corre m01e")
+        print(f"  [papel] {falta}")
         run_pantalla(topic_id, _topic_v3(topic_id)["evidence_pool"], log)
         print("\n".join(log))
     print(f"\n  ⏸  {parada_del_papel(topic_id)}")
@@ -596,11 +623,28 @@ def run_verificacion(topic_id: str, pool: dict, *, log: list[str], post=None) ->
     return res
 
 
-def run_critico(topic_id: str, pool: dict | None, log: list[str]) -> dict:
+def run_critico(topic_id: str, pool: dict | None, log: list[str], post=None) -> dict:
     """F67 B: el crítico de retención (m01f; una llamada, con su costo en 01_v3_costos.json como paso «critico»). Sin JSON no
-    aborta: 01f_critico lleva `error` y la cadena sigue a la PARADA de narración."""
+    aborta: 01f_critico lleva `error` y la cadena sigue a la PARADA de narración. `post` (tests) va al crítico."""
     from script_engine import m01f_critico as mf
-    return _step_cost(topic_id, "critico", lambda: mf.generar(topic_id, STEPS_DIR, pool=pool, log=log))
+    return _step_cost(topic_id, "critico", lambda: mf.generar(topic_id, STEPS_DIR, pool=pool, post=post, log=log))
+
+
+def criticar(topic_id: str, post=None) -> int:
+    """F67b `--criticar` (DECISIONES 2026-10-31 20:09): juez m05 + crítico, SIN verificador, para medir una narración ya escrita
+    (usa la tabla de 01b_verificacion.md que haya en disco). No toca la narración ni su aprobación. Devuelve el exit code."""
+    from script_engine.m05_narrative import judge_narration
+    f = STEPS_DIR / topic_id / "01b_narracion_v3.json"
+    if not f.exists():
+        raise Parada(f"{topic_id}: no hay narración ({f}): --criticar corre sobre una narración ya escrita")
+    pool = _topic_v3(topic_id)["evidence_pool"]
+    log: list[str] = []
+    judge_narration(topic_id, steps_dir=STEPS_DIR, pool=pool, narration=_load_step_output(topic_id, "01b_narration.json"),
+                    skeleton=_load_step_output(topic_id, "01a_skeleton.json"))
+    run_critico(topic_id, pool, log, post=post)
+    print("\n".join(log))
+    print(f"  [narración] {estado_narracion(topic_id)[1]}")
+    return 0
 
 
 def verificar_narracion(topic_id: str) -> int:
@@ -762,6 +806,8 @@ def process_topic(
             result.update(status="PARADA", parada="papel", motivo=motivo)
             return result
         print(f"  [papel] {motivo}")
+        if from_step in ("m01a", "m01b", "normalizer_gate", "audio"):
+            descartar_normalizado(topic_id)                 # F67b: la voz no lee un texto de otra narración
 
         # normalizer_gate — gate humano del tts_normalizer (PR 2.0 chat 24).
         # Detecta sospechosos en la narración (siglas/abreviaturas/unidades sin
@@ -1124,10 +1170,21 @@ def main():
                              "río abajo de la narración) y no corre nada más")
     parser.add_argument("--papel", action="store_true",
                         help="F67: el papel (m01e), una vez, sobre la narración aprobada de --topic; termina en la PARADA del papel")
+    parser.add_argument("--criticar", action="store_true",
+                        help="F67b: juez m05 + crítico (≈ US$ 0,8), sin verificador, sobre la narración ya escrita de --topic; "
+                             "usa la tabla de 01b_verificacion.md que haya en disco y no toca la narración ni su aprobación")
     parser.add_argument("--verificar-narracion", dest="verificar_narracion", action="store_true",
                         help="F66/F67: juez m05 + verificador de la narración (lo que contradice queda como aviso) + crítico sobre la narración ya "
                              "escrita de --topic, sin volver a llamar al guionista; termina en la PARADA de narración")
     args = parser.parse_args()
+    if args.criticar:                                       # F67b: solo juez + crítico
+        if not args.topic:
+            parser.error("--criticar necesita --topic")
+        try:
+            sys.exit(criticar(args.topic))
+        except Parada as e:
+            print(f"  ⏸  {e}")
+            sys.exit(2)
     if args.verificar_narracion:                            # F66: un camino propio, no arrastra la cadena
         if not args.topic:
             parser.error("--verificar-narracion necesita --topic")

@@ -260,6 +260,7 @@ def srv(env, tmp_path, monkeypatch):
     sd.mkdir(parents=True)
     shutil.copytree(env["dir"], sd / TID)
     monkeypatch.setattr(f15, "STEPS_DIR", sd)
+    f15.aprobar_narracion(TID, "Omar 2026-10-31")                       # F67b: sin eso, /papel/aprobar responde 409
     st = qa.QAState(TID, base)
     monkeypatch.setattr(qa, "STATE", st)
     monkeypatch.setattr(qa, "TOPIC_ID", TID)

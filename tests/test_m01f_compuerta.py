@@ -245,11 +245,9 @@ def test_papel_falta(env):
     f.write_text(json.dumps({"narracion_md5": md5}), encoding="utf-8")
     assert f15.papel_falta(TID) is None
     f.write_text(json.dumps({"narracion_md5": "otro"}), encoding="utf-8")
-    assert "otra narración" in f15.papel_falta(TID)
+    assert f15.papel_falta(TID) == "papel de otra narración: se re-escribe"
     f.write_text(json.dumps({"beats": []}), encoding="utf-8")
-    assert "no dice" in f15.papel_falta(TID)                          # sin el campo y sin aprobar: se re-corre
-    f.write_text(json.dumps({"aprobado": {"md5": "x"}}), encoding="utf-8")
-    assert f15.papel_falta(TID) is None                               # uno aprobado sin el campo se respeta
+    assert f15.papel_falta(TID) == "papel de otra narración: se re-escribe"
 
 
 def test_run_papel_aprobado_chequea_adentro_y_corre_una_vez(env, monkeypatch, capsys):
@@ -523,3 +521,131 @@ def test_el_form_conoce_la_compuerta():
     assert "narracion_gate" in (ROOT / "qa_form.html").read_text(encoding="utf-8")
     s = (ROOT / "qa_studio.html").read_text(encoding="utf-8")
     assert s.index('id="narrBtn"') < s.index('id="papelBtn"') and all(f"/narracion/{x}" in s for x in ("aceptar", "editar", "aprobar"))
+
+
+# ═══════════════════════ F67b: cierre de la compuerta ═══════════════════════
+
+def _generar_papel(env):
+    return mp.generar(TID, env["sd"], pool=POOL, vocabulario=["CALMA"], post=lambda b: _msg(json.dumps({"beats": []})))
+
+
+def test_f67b_papel_aprobado_sin_narracion_md5_es_papel_nuevo(env, rp_env):
+    (env["d"] / "01b_verificacion.json").write_text("{}", encoding="utf-8")
+    f15.aprobar_narracion(TID, "Omar 2026-10-31")
+    _papel(env, beats=[], aprobado={"por": "Omar", "fecha": "x", "md5": "y"})
+    assert f15.papel_falta(TID) == "papel de otra narración: se re-escribe"
+    assert rp_env.etapa_de(TID)[0] == "papel_nuevo"
+    _papel(env, narracion_md5="otra", aprobado={"por": "Omar", "fecha": "x", "md5": "y"})
+    assert rp_env.etapa_de(TID)[0] == "papel_nuevo"
+
+
+def test_f67b_papel_aprobado_desfasado_se_reescribe(env, monkeypatch, capsys):
+    f15.aprobar_narracion(TID, "Omar 2026-10-31")
+    _papel(env, beats=[], aprobado={"por": "Omar", "fecha": "x", "md5": "y"})
+    corridas = []
+    monkeypatch.setattr(f15, "run_pantalla", lambda tid, pool, log: corridas.append(tid))
+    f15.run_papel_aprobado(TID)
+    assert corridas == [TID] and "papel de otra narración: se re-escribe" in capsys.readouterr().out
+
+
+def test_f67b_aprobar_papel_409(env, monkeypatch):
+    qa, st = _qa(env, monkeypatch)
+    _generar_papel(env)
+    r, s = qa.papel_post(st, "/papel/aprobar", {"por": "Omar"})
+    assert (s, r["error"]) == (409, "la narración no está aprobada")
+    assert qa.papel_vista(st)["bloqueo_aprobar"] == "la narración no está aprobada"
+    assert "aprobado" not in mp.cargar_papel(TID, env["sd"])
+    f15.aprobar_narracion(TID, "Omar 2026-10-31")
+    assert qa.papel_vista(st)["bloqueo_aprobar"] is None
+    assert qa.papel_post(st, "/papel/aprobar", {"por": "Omar"})[1] == 200
+    mf.editar_parrafo(TID, 0, "Otro.", env["sd"])                     # editar cae la aprobación de la narración
+    f15.aprobar_narracion(TID, "Omar 2026-10-31")
+    r, s = qa.papel_post(st, "/papel/aprobar", {"por": "Omar"})
+    assert (s, r["error"]) == (409, "el papel es de otra narración")
+    assert qa.papel_vista(st)["bloqueo_aprobar"] == "el papel es de otra narración"
+
+
+def test_f67b_la_pestana_deshabilita_el_boton():
+    s = (ROOT / "qa_studio.html").read_text(encoding="utf-8")
+    assert "p.bloqueo_aprobar?'disabled':''" in s and 'id="ppBloqueo"' in s
+
+
+def _normalizado(env, textos):
+    (env["d"] / "01b_narration_normalized.json").write_text(json.dumps({"chapters": [
+        {"chapter_number": n, "narration_original": t, "narration_normalized": t} for n, t in textos.items()]}, ensure_ascii=False), encoding="utf-8")
+
+
+def _narr(env) -> dict:
+    return {c["chapter_number"]: c["narration"] for c in json.loads((env["d"] / "01b_narration.json").read_text(encoding="utf-8"))["chapters"]}
+
+
+def test_f67b_normalizado_desfasado_y_vigente(env, capsys):
+    f = env["d"] / "01b_narration_normalized.json"
+    assert f15.descartar_normalizado(TID) == []                       # no hay: nada
+    _normalizado(env, _narr(env))
+    assert f15.descartar_normalizado(TID) == [] and f.exists()        # vigente: se queda
+    t = _narr(env)
+    t[3] = "otro"
+    del t[5]
+    _normalizado(env, t)
+    assert f15.descartar_normalizado(TID) == [3, 5] and not f.exists()
+    assert "desfasado: 2 caps distintos, se borra" in capsys.readouterr().out
+    f.write_text("{no es json", encoding="utf-8")
+    assert len(f15.normalizado_desfasado(TID)) == 7
+
+
+@pytest.mark.parametrize("desde,borra", [("normalizer_gate", True), ("audio", True), ("m03", False)])
+def test_f67b_normalizado_se_borra_antes_de_la_voz(env, monkeypatch, desde, borra):
+    monkeypatch.setattr(f15, "_load_topic_by_id", lambda tid: {"id": tid, "evidence_pool": {"datos": [], "_research_v3": True}})
+    f15.aprobar_narracion(TID, "Omar 2026-10-31")
+    _generar_papel(env)
+    f15.aprobar_papel(TID, "Omar 2026-10-31")
+    _normalizado(env, {n: "viejo" for n in range(1, 8)})
+
+    class Corte(Exception):
+        pass
+
+    def corta(*a, **k):
+        raise Corte
+    monkeypatch.setattr(f15.m02_5_normalizer_gate, "gate_normalizer_for_topic", corta)
+    monkeypatch.setattr(f15, "_build_audio_script", corta)
+    monkeypatch.setattr(f15, "assign_visual_prompts", corta)
+    monkeypatch.setattr(f15, "_load_skeleton", lambda t: {})
+    monkeypatch.setattr(f15, "_load_narration", lambda t: {})
+    f15.process_topic(TID, from_step=desde, gate_interactive=False, music_gate_interactive=False)
+    assert (env["d"] / "01b_narration_normalized.json").exists() is not borra
+
+
+def test_f67b_criticar_no_llama_al_verificador_ni_toca_la_narracion(env, monkeypatch, capsys):
+    from script_engine import narracion_verificador as nv
+
+    def explota(*a, **k):
+        raise AssertionError("--criticar no llama al verificador")
+    monkeypatch.setattr(nv, "verificar_caps", explota)
+    monkeypatch.setattr(f15, "run_verificacion", explota)
+    monkeypatch.setattr(f15, "run_pantalla", explota)
+    monkeypatch.setattr(f15, "_step_cost", lambda tid, label, fn: fn())
+    f15.aprobar_narracion(TID, "Omar 2026-10-31")
+    antes = (env["d"] / "01b_narracion_v3.json").read_bytes()
+    pedidos = []
+
+    def post(body):
+        pedidos.append(body)
+        return _msg(json.dumps(_resp(_deb()), ensure_ascii=False))
+    assert f15.criticar(TID, post=post) == 0
+    assert len(pedidos) == 1 and pedidos[0]["system"] == mf.SYSTEM
+    assert (env["d"] / "01b_narracion_v3.json").read_bytes() == antes and f15.estado_narracion(TID)[0]
+    assert json.loads((env["d"] / "01f_critico.json").read_text(encoding="utf-8"))["n_deberia"] == 1
+    assert (env["d"] / "06_judge_narrative.json").exists() and "narración aprobada" in capsys.readouterr().out
+
+
+def test_f67b_criticar_usa_o_avisa_la_verificacion(env):
+    assert "| ch01 | x | y | D1 | z |" in mf.entrada(TID, env["sd"], pool=POOL)["verificacion"]
+    (env["d"] / "01b_verificacion.md").unlink()
+    assert mf.entrada(TID, env["sd"], pool=POOL)["verificacion"] == "sin verificación en disco"
+
+
+def test_f67b_criticar_sin_narracion_para(env):
+    (env["d"] / "01b_narracion_v3.json").unlink()
+    with pytest.raises(f15.Parada, match="no hay narración"):
+        f15.criticar(TID)

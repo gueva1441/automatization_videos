@@ -1541,7 +1541,7 @@
   "fase1_5.py": {
    "archivo": "fase1_5.py",
    "zona": "guion",
-   "sticker": "Es el director de la Fase 1: de un tema con el research hecho arma, en orden, la compuerta del pool, la ficha del caso, el canon visual desde la ficha (F50), la escaleta, el guion v4 con su reparación, la partición en 7 capítulos, el juez, la verificación y el crítico de la narración, y se detiene en la PARADA de narración hasta que Omar la aprueba (`--aprobar-narracion`, con md5, F67); después el papel una vez sobre esa narración (`--papel`) y la PARADA del papel hasta que Omar lo aprueba (`--aprobar-papel`, con md5). Ya aprobado, sigue con la normalización de la voz, la voz, la música, el canon visual si la ficha cambió, los prompts de imagen, la foto madre y el ensamblado del contrato data/scripts/<id>.json que lee la Fase 2. F66/F66b: después de la partición, la verificación de la narración (run_verificacion: el verificador por cap); lo que contradice el archivo queda como aviso y la cadena sigue, no se corrige solo. `--verificar-narracion` la corre sobre una narración ya escrita, sin llamar al guionista.",
+   "sticker": "Es el director de la Fase 1: de un tema con el research hecho arma, en orden, la compuerta del pool, la ficha del caso, el canon visual desde la ficha (F50), la escaleta, el guion v4 con su reparación, la partición en 7 capítulos, el juez, la verificación y el crítico de la narración, y se detiene en la PARADA de narración hasta que Omar la aprueba (`--aprobar-narracion`, con md5, F67); después el papel una vez sobre esa narración (`--papel`) y la PARADA del papel hasta que Omar lo aprueba (`--aprobar-papel`, con md5). Ya aprobado, sigue con la normalización de la voz, la voz, la música, el canon visual si la ficha cambió, los prompts de imagen, la foto madre y el ensamblado del contrato data/scripts/<id>.json que lee la Fase 2. F66/F66b: después de la partición, la verificación de la narración (run_verificacion: el verificador por cap); lo que contradice el archivo queda como aviso y la cadena sigue, no se corrige solo. `--verificar-narracion` la corre sobre una narración ya escrita, sin llamar al guionista. F67b: el papel desfasado se re-escribe aunque esté aprobado; antes de la voz borra un normalizado de otra narración; `--criticar` = juez + crítico, sin verificador.",
    "recibe": "data/topics_db.json (topic con evidence_pool v3), data/scripts/_steps/<id>/ (_perfil.json, escaleta_notas.md, ficha_caso.json, 01a_escaleta.json, 01e_pantalla.json), data/seeds_archive.json (título de la semilla), una semilla .json con --semilla, output/audio/<id>/sync_map.json al reanudar",
    "entrega": "data/scripts/_steps/<id>/ (01a_escaleta, 01b_guionista_v4, 01a_skeleton, 01b_narration, 01b_narracion_v3, 06_judge_narrative, 01e_pantalla.json/.md, 01_v3_costos.json con los pasos ficha, canon y m03, 05_visual_canon.json, aprobado con md5 dentro de 01e_pantalla.json); el canon visual con canon_ficha_md5 (md5 de ficha + pedido del canon + modelo + esfuerzo, F50f; Parada si el canon no sale o trae años de tramo ilegibles) en topics_db; audio y sync_map de la voz (output/audio/<id>/), music_map, prompts de imagen de m03, la foto madre en topics_db y data/scripts/<id>.json",
    "modelo": [
@@ -1613,14 +1613,14 @@
    ],
    "tests": 19,
    "nacio": "e33f84a 2026-05-28",
-   "ultimo": "da63ddc 2026-10-31 (F67)",
+   "ultimo": "c7c7f3a 2026-10-31 (F67)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "run_pipeline.py:301 lo lanza en guion (--batch), :325 en papel (--aprobar-papel) y :334 en voz (--from normalizer_gate --batch)",
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "f74c5229d3491f01975493f35db6e34b",
+   "md5": "c86482797156cdc002f0a9d4066d0494",
    "sticker_al_dia": true
   },
   "fase2a.py": {
@@ -2489,7 +2489,7 @@
   "qa_studio_server.py": {
    "archivo": "qa_studio_server.py",
    "zona": "orquestador",
-   "sticker": "Es el servidor local que Omar levanta a mano para producir un video con botones: sirve la pantalla del form y la del visor de capítulos, lanza el orquestador (run_pipeline) como proceso hijo y le pasa las respuestas de Omar. También deja arreglar a mano una foto, un clip o una pronunciación de un capítulo (desde F59 con la máquina de producción: para la foto, Claude Opus edita solo los casilleros que el pedido toca y el código rearma el prompt con la misma función que m03, con foto madre y grade; para el clip, Opus edita solo el movimiento aprobado y el clip sale por la cadena de producción con su foto final; lo editado se guarda en 03_visual.json y en el guion vivo; lo que el filtro de producción saca del pedido se le informa a Omar) y armar el video con el botón ENSAMBLAR. Desde F60 B el fix y la nueva semilla de una foto usan la misma regla única de madres que producción (persona en orden + objeto, filtro por era); `persona` no es editable y se le dice a Omar a qué madre quedó anclada la foto. F65b: rutas /papel* del QA del papel (ver, revisar, editar, sugerir, aprobar), siempre vía m01e_pantalla y fase1_5. F67 C: rutas /narracion* de la compuerta de narración (ver, editar párrafo, aceptar DEBERÍA, aprobar), siempre vía m01f_critico y fase1_5.",
+   "sticker": "Es el servidor local que Omar levanta a mano para producir un video con botones: sirve la pantalla del form y la del visor de capítulos, lanza el orquestador (run_pipeline) como proceso hijo y le pasa las respuestas de Omar. También deja arreglar a mano una foto, un clip o una pronunciación de un capítulo (desde F59 con la máquina de producción: para la foto, Claude Opus edita solo los casilleros que el pedido toca y el código rearma el prompt con la misma función que m03, con foto madre y grade; para el clip, Opus edita solo el movimiento aprobado y el clip sale por la cadena de producción con su foto final; lo editado se guarda en 03_visual.json y en el guion vivo; lo que el filtro de producción saca del pedido se le informa a Omar) y armar el video con el botón ENSAMBLAR. Desde F60 B el fix y la nueva semilla de una foto usan la misma regla única de madres que producción (persona en orden + objeto, filtro por era); `persona` no es editable y se le dice a Omar a qué madre quedó anclada la foto. F65b: rutas /papel* del QA del papel (ver, revisar, editar, sugerir, aprobar), siempre vía m01e_pantalla y fase1_5. F67 C: rutas /narracion* de la compuerta de narración (ver, editar párrafo, aceptar DEBERÍA, aprobar), siempre vía m01f_critico y fase1_5. F67b: /papel/aprobar responde 409 si la narración no está aprobada o el papel es de otra.",
    "recibe": "Pedidos HTTP del navegador (form y visor); data/scripts/<id>.json, output/audio/<id>/chNN.mp3 y chNN_timestamps.json, output/<id>/assets/chNN_flux/*.png y chNN_veo/*.mp4, data/topics_db.json (lista de retomar), data/scripts/_steps/<id>/01b_narration_normalized.json; las líneas @@QAFORM@@ y @@QAFORM_COST@@ que imprime run_pipeline.",
    "entrega": "Las páginas qa_form.html y qa_studio.html; JSON de estado del form (fase, costo Gemini en vivo, diálogo pendiente); líneas por stdin al hijo; imágenes (cruda y _graded.png) y clips regenerados en output/<id>/assets/ con copia en _qa_backups/; el ítem editado (casilleros, prompt, año) o el movimiento nuevo guardados en data/scripts/_steps/<id>/03_visual.json y en data/scripts/<id>.json (con backups); output/<id>/assets/_qa_marks.json (fotos marcadas); data/normalizer_custom_dict.json; el audio del capítulo re-hecho; levanta fase2b, run_pipeline y el servidor de miniaturas de m09 como subprocesos.",
    "modelo": [
@@ -2532,7 +2532,7 @@
    "lo_llaman": [],
    "tests": 7,
    "nacio": "3d684a2 2026-06-14",
-   "ultimo": "da63ddc 2026-10-31 (F67)",
+   "ultimo": "c7c7f3a 2026-10-31 (F67)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "qa_studio_server.py:1522 lanza run_pipeline.py --research --video-type long --batch y :1527 lo retoma con --topic; :2080 es el main que Omar corre a mano",
@@ -2550,7 +2550,7 @@
     "Handler.do_GET",
     "Handler.do_POST"
    ],
-   "md5": "b8952e20c9944718321b0090be44d93b",
+   "md5": "5836477fcbbe63d50103b967c0075f7f",
    "sticker_al_dia": true
   },
   "report_foto_madre_edits.py": {
@@ -3191,7 +3191,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "b43032e68b578627d6861067cd7e081f",
+   "md5": "6c127bfb9ddf2934a47e543acccf063f",
    "sticker_al_dia": true
   },
   "script_engine/__init__.py": {
@@ -4738,7 +4738,7 @@
     "script_engine/m01e_pantalla.py",
     "script_engine/m01f_critico.py"
    ],
-   "tests": 9,
+   "tests": 10,
    "nacio": "317c5f1 2026-10-22 (F10)",
    "ultimo": "da63ddc 2026-10-31 (F67)",
    "estado_a": "vivo",
@@ -4862,14 +4862,14 @@
    ],
    "tests": 0,
    "nacio": "46102e5 2026-10-31 (F67)",
-   "ultimo": "da63ddc 2026-10-31 (F67)",
+   "ultimo": "c7c7f3a 2026-10-31 (F67)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py (run_critico), qa_studio_server.py (narracion_vista, narracion_post)",
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "ba28233b15fd315fab1a4fbf9b2967f8",
+   "md5": "5c68ff1c7d1f7d39d742fb28ca8e2e07",
    "sticker_al_dia": true
   },
   "script_engine/m02_5_normalizer_gate.py": {
@@ -7105,7 +7105,7 @@
   "qa_studio.html": {
    "archivo": "qa_studio.html",
    "zona": "orquestador",
-   "sticker": "Es la pantalla del visor por capítulo: muestra la línea de tiempo de cada capítulo con sus fotos y clips, deja escuchar la narración tramo por tramo, marcar fotos para regenerar, pedir un fix de foto o de clip, corregir una pronunciación y lanzar ENSAMBLAR VIDEO. También embebe el formulario de miniaturas. Desde F59 los cuadros de texto del fix traen el hint aprobado por Omar (qué ver, una cosa por vez, emociones como gesto; para el clip: cámara, velocidad y qué se mueve) y, si el fix sale bien, muestran lo que el filtro de producción sacó del pedido. F65b: botón 📄 PAPEL: el QA del papel (ver cada ficha sobre su oración, aprobar ficha, editar, quitar, sugerir, aprobar papel). F67 C: botón 🎙 NARRACIÓN: la crítica, las métricas y cada DEBERÍA al lado del tramo que toca, con editar párrafo, aceptar DEBERÍA y aprobar narración.",
+   "sticker": "Es la pantalla del visor por capítulo: muestra la línea de tiempo de cada capítulo con sus fotos y clips, deja escuchar la narración tramo por tramo, marcar fotos para regenerar, pedir un fix de foto o de clip, corregir una pronunciación y lanzar ENSAMBLAR VIDEO. También embebe el formulario de miniaturas. Desde F59 los cuadros de texto del fix traen el hint aprobado por Omar (qué ver, una cosa por vez, emociones como gesto; para el clip: cámara, velocidad y qué se mueve) y, si el fix sale bien, muestran lo que el filtro de producción sacó del pedido. F65b: botón 📄 PAPEL: el QA del papel (ver cada ficha sobre su oración, aprobar ficha, editar, quitar, sugerir, aprobar papel). F67 C: botón 🎙 NARRACIÓN: la crítica, las métricas y cada DEBERÍA al lado del tramo que toca, con editar párrafo, aceptar DEBERÍA y aprobar narración. F67b: PAPEL deshabilita Aprobar y dice por qué.",
    "recibe": "Del servidor: /topic, /caps, /cap?cap=chNN (segmentos con tiempos y anchors), /img, /clip y /audio del capítulo, /marks, /fix_status, /assemble_status, /thumbs_status.",
    "entrega": "Pedidos al servidor: POST /mark, /fix_image, /fix_clip, /fix_narration, /assemble y /thumbs_start.",
    "modelo": [],
@@ -7122,14 +7122,14 @@
    ],
    "tests": 0,
    "nacio": "3d684a2 2026-06-14",
-   "ultimo": "da63ddc 2026-10-31 (F67)",
+   "ultimo": "c7c7f3a 2026-10-31 (F67)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "qa_studio_server.py:72 define HTML_PATH y :1828-1829 lo sirve en / (el form lo abre en el gate del visor, qa_form.html:349)",
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "10ea74a1339b3c15ebbb08d3d72415c0",
+   "md5": "01963b39160190d18961ad0a14a8c031",
    "sticker_al_dia": true
   },
   "script_engine/gfx_templates/archive_clipping.html.tmpl": {
@@ -9505,6 +9505,7 @@
     "ficha_caso",
     "pool_gate",
     "m01a_escaleta",
+    "m01d_particion",
     "topic_researcher"
    ],
    "colecta": 11,
