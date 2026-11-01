@@ -35,7 +35,7 @@ from gfx_config import (
     hyperframes_cli,
     resolve_node,
 )
-from anchor_timing import compute_anchor_starts
+from anchor_timing import compute_anchor_starts, normalizado_de_timestamps
 from subs_remap import remap_words_to_original
 
 from script_engine.gfx_project import GfxScene, write_project
@@ -140,14 +140,14 @@ def build_scenes(chplan: Any, script_chapter: dict[str, Any], raw_words: list[di
         if chplan.engine == "flux":
             prompts = script_chapter.get("image_prompts") or []
             anchors = chplan.narration_anchors or [p.get("narration_anchor", "") for p in prompts]
-            starts = compute_anchor_starts(anchors, raw_words)
+            starts = compute_anchor_starts(anchors, raw_words, narr_norm=normalizado_de_timestamps(chplan.timestamps_path))
             if not starts or len(starts) != len(prompts):
                 return single
             starts = [0.0] + [s + time_offset for s in starts[1:]]
             meta = [(p.get("emotional_rank") or "R3", _text_in_image(p)) for p in prompts]
         elif chplan.engine == "veo" and chplan.supplemental_paths and chplan.supplemental_anchors:
             veo_dur = _ffprobe_duration(chplan.asset_paths[0])
-            supp = compute_anchor_starts(chplan.supplemental_anchors, raw_words)
+            supp = compute_anchor_starts(chplan.supplemental_anchors, raw_words, narr_norm=normalizado_de_timestamps(chplan.timestamps_path))
             if not supp:
                 return single
             supp = [s + time_offset for s in supp]

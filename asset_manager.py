@@ -86,7 +86,11 @@ CONTENT_REJECTION_KEYWORDS = (
     "safety", "moderation",
     "rejected", "blocked", "violates",
     "prohibited", "nsfw", "safety_checker",
+    "no_media_generated",     # tipo real de fal (lab/_nb_tol6/REPORTE.md, nb2_P3); antes entraba solo por el «safety» del eco del input
 )
+
+BASE64_MIN_CORRIDA = 200     # HANDOFF_F71: corrida de 200 o más = eco de una foto, no un mensaje
+ERRORES_FAL = "_errores_fal"
 
 RATE_LIMIT_KEYWORDS = (
     "429", "resource exhausted", "resource_exhausted",
@@ -98,9 +102,49 @@ class ContentRejectedError(Exception):
     """fal.ai rechazó el prompt por política/safety. NO reintentar."""
 
 
+def _sin_eco_del_input(valor: Any) -> Any:
+    """F71: un JSON de error de fal sin lo que repite del pedido: las claves `input` y los strings `data:`."""
+    if isinstance(valor, dict):
+        return {k: _sin_eco_del_input(v) for k, v in valor.items() if k != "input"}
+    if isinstance(valor, list):
+        return [_sin_eco_del_input(v) for v in valor]
+    return "" if isinstance(valor, str) and valor.startswith("data:") else valor
+
+
 def _is_content_rejection(text: str | Exception) -> bool:
-    s = str(text).lower()
+    """F71: se busca en el mensaje de fal, no en su eco del pedido: las fotos en base64 traen «nsfw» por azar (F69: ch01 saltó a
+    Kling) y `safety_tolerance` trae «safety». JSON: sin claves `input` ni strings `data:`; si no: sin `data:` ni corridas base64."""
+    s = str(text)
+    try:
+        s = json.dumps(_sin_eco_del_input(json.loads(s)), ensure_ascii=False)
+    except ValueError:
+        s = re.sub(r'data:[^"\s]+', "", s)
+        s = re.sub(r"[A-Za-z0-9+/=]{%d,}" % BASE64_MIN_CORRIDA, "", s)
+    s = s.lower()
     return any(kw in s for kw in CONTENT_REJECTION_KEYWORDS)
+
+
+_destino_error = threading.local()
+
+
+def _destino_error_fal(out_path: Path | str) -> None:
+    """F71: de qué archivo es lo que este hilo le pide a fal: de ahí sale el topic donde guardar el cuerpo de un error."""
+    _destino_error.path = Path(out_path)
+
+
+def _guardar_error_fal(cuerpo: Any) -> Path | None:
+    """F71: el cuerpo entero de un error de fal en output/<topic>/assets/_errores_fal/<ts>_<nombre>.json (el log lo corta a
+    300/600 y F69 no se pudo diagnosticar). Puede pesar: trae las fotos que fal repite. Fuera de output/ no guarda; nunca rompe."""
+    origen = getattr(_destino_error, "path", None)
+    try:
+        topic = Path(origen).resolve().relative_to(Path(OUTPUT_DIR).resolve()).parts[0]
+        d = Path(OUTPUT_DIR) / topic / "assets" / ERRORES_FAL
+        d.mkdir(parents=True, exist_ok=True)
+        f = d / f"{datetime.now():%Y%m%d_%H%M%S_%f}_{Path(origen).stem}.json"
+        f.write_text(cuerpo if isinstance(cuerpo, str) else json.dumps(cuerpo, ensure_ascii=False), encoding="utf-8")
+        return f
+    except (TypeError, ValueError, IndexError, OSError):
+        return None
 
 
 def _is_rate_limit(text: str | Exception) -> bool:
@@ -180,6 +224,7 @@ def _flux_poll(status_url: str, response_url: str,
 
         if status in ("FAILED", "ERROR"):
             err_body = json.dumps(data)
+            _guardar_error_fal(err_body)
             if _is_content_rejection(err_body):
                 raise ContentRejectedError(f"Flux rechazó prompt: {err_body[:300]}")
             raise RuntimeError(f"Flux tarea falló: {err_body[:300]}")
@@ -396,6 +441,8 @@ def _llamada_cola(motor: str, endpoint: str, payload: dict[str, Any], out_path: 
         data = _esperar_cola(fila["status_url"], fila["response_url"])
     except Exception as e:
         body = getattr(getattr(e, "response", None), "text", None) or str(e)
+        _destino_error_fal(out_path)
+        _guardar_error_fal(body)
         fila["estado"] = "error"                     # el pedido no se reanuda: el reintento pide de nuevo
         fila["mensaje"] = _motivo_rechazo(body) or body[:600]
         fila["segundos"] = round(time.time() - t0, 1)
@@ -536,6 +583,7 @@ def _generate_image_raw(
     Motor "flux": Flux.2 Pro vía queue.fal.run (path histórico legacy, NO de perfil).
     El manejo de 422 (ContentRejectedError) es idéntico en todos los motores.
     """
+    _destino_error_fal(output_path)
     profile = select_profile(api.image_engine)
     if profile is not None and profile.engine_key == MOTOR_PRINCIPAL:
         return _generar_nb2(prompt, output_path, seed, foto_madre_data_uris, frase_de_madres)
@@ -567,6 +615,7 @@ def _generate_image_raw(
             resp.raise_for_status()
         except requests.HTTPError as e:
             body = e.response.text if e.response is not None else str(e)
+            _guardar_error_fal(body)
             if _is_content_rejection(body):
                 raise ContentRejectedError(
                     f"{engine} rechazó prompt: {body[:300]}"
@@ -613,6 +662,7 @@ def _generate_image_raw(
         resp.raise_for_status()
     except requests.HTTPError as e:
         body = e.response.text if e.response is not None else str(e)
+        _guardar_error_fal(body)
         if _is_content_rejection(body):
             raise ContentRejectedError(
                 f"Flux rechazó prompt en submit: {body[:300]}"
@@ -785,12 +835,15 @@ def _fal_queue_poll(status_url: str, response_url: str, timeout: int = CLIP_POLL
         status = data.get("status", "").upper()
         if status == "COMPLETED":
             res = requests.get(response_url, headers=_fal_headers(), timeout=30)
+            if res.status_code >= 400:
+                _guardar_error_fal(res.text)
             if res.status_code >= 400 and _is_content_rejection(res.text):
                 raise ContentRejectedError(res.text[:600])
             res.raise_for_status()
             return res.json()
         if status in ("FAILED", "ERROR"):
             err_body = json.dumps(data)
+            _guardar_error_fal(err_body)
             if _is_content_rejection(err_body):
                 raise ContentRejectedError(err_body[:600])
             raise RuntimeError(f"fal.ai tarea falló: {err_body[:300]}")
@@ -844,12 +897,14 @@ def _call_clip_once(perfil, foto: Path, prompt: str, output_path: Path, duracion
                     foto_final: Path | None = None) -> dict[str, Any]:
     """Una llamada al motor por la cola de fal: pide, espera, baja el mp4, le quita el audio si hace falta."""
     submit_url = f"{api.fal_base_url}/{perfil.endpoint}"
+    _destino_error_fal(output_path)
     try:
         resp = requests.post(submit_url, headers=_fal_headers(),
                              json=_clip_payload(perfil, foto, prompt, duracion_s, foto_final), timeout=FAL_SUBMIT_TIMEOUT_S)
         resp.raise_for_status()
     except requests.HTTPError as e:
         body = e.response.text if e.response is not None else str(e)
+        _guardar_error_fal(body)
         if _is_content_rejection(body):
             raise ContentRejectedError(body[:600])
         raise
@@ -1165,6 +1220,7 @@ def _llamar_secuencia(video_id: str, prompts: list[str], refs: list[str], madre_
     imagen del perfil, 0,035 US$). request_id/status_url/response_url van a pedidos.json ANTES de esperar; si la clave del
     lote ya tiene request_id se reanuda sin volver a pedir. Devuelve los out_paths escritos (si fal devuelve menos de N, el
     resto va por el camino de una foto)."""
+    _destino_error_fal(out_paths[0])
     profile = select_profile("seedream")
     model_id = profile.render.model_id.replace("text-to-image", "edit")
     prompt = _prompt_secuencia(prompts)
@@ -1185,6 +1241,7 @@ def _llamar_secuencia(video_id: str, prompts: list[str], refs: list[str], madre_
             resp.raise_for_status()
         except requests.HTTPError as e:
             body = e.response.text if e.response is not None else str(e)
+            _guardar_error_fal(body)
             if _is_content_rejection(body):
                 raise ContentRejectedError(f"seedream secuencia rechazó prompt: {body[:300]}")
             raise

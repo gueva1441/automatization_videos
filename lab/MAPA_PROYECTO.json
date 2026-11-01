@@ -667,7 +667,7 @@
   "anchor_timing.py": {
    "archivo": "anchor_timing.py",
    "zona": "fase2a",
-   "sticker": "Dice en qué segundo exacto de la voz empieza cada frase ancla de las imágenes, buscando sus primeras palabras en los tiempos de la voz. Lo comparten el armado de imágenes, la capa gráfica y el reparto de duraciones, para que todos midan igual.",
+   "sticker": "Dice en qué segundo exacto de la voz empieza cada frase ancla de las imágenes, buscando sus primeras palabras en los tiempos de la voz. Lo comparten el armado de imágenes, la capa gráfica y el reparto de duraciones, para que todos midan igual. F71: con el normalizado del cap (`narr_norm`) la aguja sale del mismo texto que leyó la voz: ubica el ancla en `narration_original`, re-aplica los spans como el gate y aplica `normalize_pool_forms`; sin normalizado, `normalize_for_tts` como antes. `cargar_normalizado` y `normalizado_de_timestamps` traen la entrada.",
    "recibe": "lista de anchors (frases del guion) y las palabras con tiempos de output/audio/<id>/chNN_timestamps.json.",
    "entrega": "lista de segundos de inicio, uno por anchor, o None si algún anchor no se encuentra o los tiempos no crecen.",
    "modelo": [],
@@ -700,7 +700,7 @@
     "script_engine/gfx_layer.py",
     "script_engine/m03_visual.py"
    ],
-   "tests": 2,
+   "tests": 3,
    "nacio": "7881e82 2026-06-10",
    "ultimo": "f59d205 2026-07-04",
    "estado_a": "vivo",
@@ -709,7 +709,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "a8be6710815331a61a503795ebe7c0d9",
+   "md5": "de0507648898dd17860f15989490b002",
    "sticker_al_dia": true
   },
   "art_config.py": {
@@ -799,7 +799,7 @@
   "asset_manager.py": {
    "archivo": "asset_manager.py",
    "zona": "orquestador",
-   "sticker": "Es el que genera las fotos (y los clips de video, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, desde F53b cada clip sale de Gemini Omni Flash y, si Google lo rechaza por contenido, de Kling 4.0 (el prompt de cada motor lo escribe Opus mirando la foto, sin suavizar; 8 s, 1080p, la pista de audio se quita, y el costo sale de los segundos reales); desde F57 cada clip lleva también una foto final, que es un edit de la inicial hecho por Seedream con la instrucción que escribe Opus a partir de la voz entera del clip (`voz_clip`; desde F58 sin el movimiento aprobado): el motor recibe las dos fotos y el clip va de una a la otra; el parecido entre las dos (SSIM) se mide y se anota, sin frenar; si el edit falla o lo rechazan, el clip sale solo con la inicial y el motivo queda anotado, y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió. Desde F60 B/C: antes del bucle de caps corre UNA vez el pre-paso de secuencia (las fotos de una sola persona con madre, agrupadas por persona en lotes de 6, salen de una llamada Seedream /edit por la cola de fal, con el pedido guardado en output/<id>/_secuencia/pedidos.json antes de esperar y reanudable); el resto (fotos de dos personas, con cartel, con foto madre de objeto, la foto inicial del clip, QA) usa la regla única de madres: las de `persona` en orden más la del objeto, tope 2, y una persona no aporta su madre a una foto fuera de su época si cae en un estado posterior (p. ej. enfermo en 1991). `_clip_poll` pasó a `_fal_queue_poll`. F67c: copia `papel_md5` al manifest; fotos y clips de otro papel o sin sello se mueven a assets/_desfasado_* y se regeneran; un guion largo sin sello no paga fotos. Desde F68 el motor principal es Nano Banana 2 Lite: una foto por llamada por la cola de fal, con request_id en disco antes de esperar (`<foto>.llamada.json`, junto al texto exacto, modelo y parámetros), sin secuencia y sin `foto_madre_ref` (foto sin persona = sin referencia); si fal rechaza va a Seedream 4.5 con el mismo texto y las mismas madres (motor=seedream45_respaldo en el manifest). Guarda `*_native.png` y escala a 2560×1440. Con el clip ya hecho rehace sus fotos si faltan y no toca el clip.",
+   "sticker": "Es el que genera las fotos (y los clips de video, si el capítulo los pide) de cada capítulo del video. Manda cada prompt de imagen al motor elegido en la configuración (hoy Seedream; Kling y Flux quedan como alternativas), usa la foto madre como ancla cuando el guion lo pide, desde F53b cada clip sale de Gemini Omni Flash y, si Google lo rechaza por contenido, de Kling 4.0 (el prompt de cada motor lo escribe Opus mirando la foto, sin suavizar; 8 s, 1080p, la pista de audio se quita, y el costo sale de los segundos reales); desde F57 cada clip lleva también una foto final, que es un edit de la inicial hecho por Seedream con la instrucción que escribe Opus a partir de la voz entera del clip (`voz_clip`; desde F58 sin el movimiento aprobado): el motor recibe las dos fotos y el clip va de una a la otra; el parecido entre las dos (SSIM) se mide y se anota, sin frenar; si el edit falla o lo rechazan, el clip sale solo con la inicial y el motivo queda anotado, y si una imagen falla copia la vecina del mismo capítulo para no desfasar los tiempos. Al final aplica el grade de color y deja el manifiesto con todo lo que salió. Desde F60 B/C: antes del bucle de caps corre UNA vez el pre-paso de secuencia (las fotos de una sola persona con madre, agrupadas por persona en lotes de 6, salen de una llamada Seedream /edit por la cola de fal, con el pedido guardado en output/<id>/_secuencia/pedidos.json antes de esperar y reanudable); el resto (fotos de dos personas, con cartel, con foto madre de objeto, la foto inicial del clip, QA) usa la regla única de madres: las de `persona` en orden más la del objeto, tope 2, y una persona no aporta su madre a una foto fuera de su época si cae en un estado posterior (p. ej. enfermo en 1991). `_clip_poll` pasó a `_fal_queue_poll`. F67c: copia `papel_md5` al manifest; fotos y clips de otro papel o sin sello se mueven a assets/_desfasado_* y se regeneran; un guion largo sin sello no paga fotos. Desde F68 el motor principal es Nano Banana 2 Lite: una foto por llamada por la cola de fal, con request_id en disco antes de esperar (`<foto>.llamada.json`, junto al texto exacto, modelo y parámetros), sin secuencia y sin `foto_madre_ref` (foto sin persona = sin referencia); si fal rechaza va a Seedream 4.5 con el mismo texto y las mismas madres (motor=seedream45_respaldo en el manifest). Guarda `*_native.png` y escala a 2560×1440. Con el clip ya hecho rehace sus fotos si faltan y no toca el clip. F71: `_is_content_rejection` no mira el eco del pedido (claves `input`, strings `data:`, corridas base64) y `no_media_generated` cuenta como rechazo; el cuerpo entero de cada error de fal va a `assets/_errores_fal/`.",
    "recibe": "El guion canónico con image_prompts/video_prompts por capítulo y foto_madre_registry (data/scripts/<id>.json; desde F60 A cada foto trae también `persona`, que _iter_image_items lee y nadie consume todavía), el sync_map de voz (output/<id>/audio/sync_map.json, opcional) y las fotos madre en disco (rutas del registry).",
    "entrega": "output/<id>/assets/<capNN>_flux/<capNN>_img_NN.png (y _supp_NN.png, _graded.png), output/<id>/assets/<capNN>_veo/<capNN>_clip_NN.mp4 y output/<id>/assets/assets_manifest.json. Además, otros módulos le piden la función de imagen cruda (foto_madre.py, m09_packaging).",
    "modelo": [
@@ -848,7 +848,7 @@
     "qa_studio_server.py",
     "script_engine/m09_packaging.py"
    ],
-   "tests": 12,
+   "tests": 13,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "82d0b38 2026-11-01 (F68)",
    "estado_a": "vivo",
@@ -857,7 +857,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "9dad93500965f3f09cd4b1adfc4f225a",
+   "md5": "c945d49b06461906a17e44a439bcfdb4",
    "sticker_al_dia": true
   },
   "audio_config.py": {
@@ -1680,7 +1680,7 @@
   "fase2b.py": {
    "archivo": "fase2b.py",
    "zona": "fase2b_gfx",
-   "sticker": "Arma el video final a partir de lo que ya dejaron la voz y las imágenes: anima cada imagen, le pone la capa gráfica (títulos, fichas, sellos) cuando se pide, quema los subtítulos, pega la voz, encadena los capítulos con corte a negro y mezcla la música por debajo de la voz. También genera el guion de pantalla (--plan-only) que Omar lee antes de aprobar, y escribe la aprobación (--aprobar-guion). F67c: `_fase2b_work/fondos.json` con `papel_md5` al terminar los fondos; fondos de otro papel se mueven a `_fase2b_work_desfasado_*` antes de cocer, y --plan-only y --reuse-visuals no los reusan (--only-cap avisa y sigue); GUION_PANTALLA.json lleva `papel_md5`.",
+   "sticker": "Arma el video final a partir de lo que ya dejaron la voz y las imágenes: anima cada imagen, le pone la capa gráfica (títulos, fichas, sellos) cuando se pide, quema los subtítulos, pega la voz, encadena los capítulos con corte a negro y mezcla la música por debajo de la voz. También genera el guion de pantalla (--plan-only) que Omar lee antes de aprobar, y escribe la aprobación (--aprobar-guion). F67c: `_fase2b_work/fondos.json` con `papel_md5` al terminar los fondos; fondos de otro papel se mueven a `_fase2b_work_desfasado_*` antes de cocer, y --plan-only y --reuse-visuals no los reusan (--only-cap avisa y sigue); GUION_PANTALLA.json lleva `papel_md5`. F71: el reparto por anclas pasa el normalizado del cap a `compute_anchor_starts`.",
    "recibe": "output/audio/<id>/sync_map.json + chNN.mp3 + chNN_timestamps.json (+ chNN_alignment.json); output/<id>/assets/assets_manifest.json + imágenes/clips por capítulo; data/scripts/<id>.json (narración, prompts, anchors, video_type); output/audio/<id>/music_map.json; data/scripts/_steps/<id>/01a_escaleta.json, 01b_narracion_v3.json, 00_pool_v3.json y 01e_pantalla.json (guion en papel); output/<id>/_fase2b_work/ (visuales base ya cocidos, planes gfx_plan_chNN.resolved.json); output/<id>/assets/flow_specs.json, depth_metrics.json y zoom_verdicts.json (cachés).",
    "entrega": "output/<id>/<id>_final.mp4 (sin --gfx) o <id>_final_gfx.mp4 (con --gfx) y el respaldo *_no_music.mp4; output/<id>/_fase2b_work/ (seg_NN_chNN.mp4, chNN_flux_visual.mp4, chNN_hybrid_visual.mp4, chNN_subs.ass, segments_manifest.json, mezcla_preview.wav); output/<id>/flow_plan.json; output/audio/<id>/intensity_map.json; output/<id>/GUION_PANTALLA.md/.json (--plan-only); el bloque aprobado dentro de GUION_PANTALLA.json (--aprobar-guion); estado video_generated en topics_db.",
    "modelo": [
@@ -1743,7 +1743,7 @@
     "_chars_to_syllables",
     "_build_ass_from_syllables"
    ],
-   "md5": "280fe78dd3172cc5c2b9415b25dc56b9",
+   "md5": "95034fb0f591cbf7527996afc80d5029",
    "sticker_al_dia": true
   },
   "fase3.py": {
@@ -1849,7 +1849,7 @@
   "foto_madre.py": {
    "archivo": "foto_madre.py",
    "zona": "fase2a",
-   "sticker": "Genera la «foto madre» del video: una imagen de referencia limpia del sujeto principal (objeto o lugar) y de cada objeto clave anclado, para que después todas las imágenes de capítulo mantengan el mismo aspecto. Usa GPT Image 2 y, si falla, el motor de imagen activo; si ya hay un archivo (o Omar dejó uno a mano) lo reutiliza en vez de generar. Desde F60 B también genera la madre de cada PERSONA del canon que sale en 2 o más fotos dentro de su época (lee `persona` de 03_visual.json, por eso corre después de m03): retrato neutro con Seedream por la cola de fal, ropa limpia fija (ROPA_MADRE), sin GPT de respaldo; el path va a documented_people[i].foto_madre. Desde F68 escribe el prompt de cada madre nueva en `<slug>.prompt.txt` y la madre de persona sigue saliendo de Seedream (4.5) con Nano Banana como motor activo.",
+   "sticker": "Genera la «foto madre» del video: una imagen de referencia limpia del sujeto principal (objeto o lugar) y de cada objeto clave anclado, para que después todas las imágenes de capítulo mantengan el mismo aspecto. Usa GPT Image 2 y, si falla, el motor de imagen activo; si ya hay un archivo (o Omar dejó uno a mano) lo reutiliza en vez de generar. Desde F60 B también genera la madre de cada PERSONA del canon que sale en 2 o más fotos dentro de su época (lee `persona` de 03_visual.json, por eso corre después de m03): retrato neutro con Seedream por la cola de fal, ropa limpia fija (ROPA_MADRE), sin GPT de respaldo; el path va a documented_people[i].foto_madre. Desde F68 escribe el prompt de cada madre nueva en `<slug>.prompt.txt` y la madre de persona sigue saliendo de Seedream (4.5) con Nano Banana como motor activo. F71: guarda el cuerpo de los errores de fal como asset_manager.",
    "recibe": "El topic de la base de temas (central_subject, era_visual_canon, documented_props, anachronism_blocklist) y el video_id",
    "entrega": "output/<id>/foto_madre/<nombre>.png y el path absoluto guardado en topic[...]['foto_madre'] (el que llama persiste con save_db)",
    "modelo": [
@@ -1897,7 +1897,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "db3b2594f4598e17643bc6c046cbc6bf",
+   "md5": "6a33b76faf234fc975581c1ce528a2d7",
    "sticker_al_dia": true
   },
   "gemini_helpers.py": {
@@ -2490,7 +2490,7 @@
   "qa_studio_server.py": {
    "archivo": "qa_studio_server.py",
    "zona": "orquestador",
-   "sticker": "Es el servidor local que Omar levanta a mano para producir un video con botones: sirve la pantalla del form y la del visor de capítulos, lanza el orquestador (run_pipeline) como proceso hijo y le pasa las respuestas de Omar. También deja arreglar a mano una foto, un clip o una pronunciación de un capítulo (desde F59 con la máquina de producción: para la foto, Claude Opus edita solo los casilleros que el pedido toca y el código rearma el prompt con la misma función que m03, con foto madre y grade; para el clip, Opus edita solo el movimiento aprobado y el clip sale por la cadena de producción con su foto final; lo editado se guarda en 03_visual.json y en el guion vivo; lo que el filtro de producción saca del pedido se le informa a Omar) y armar el video con el botón ENSAMBLAR. Desde F60 B el fix y la nueva semilla de una foto usan la misma regla única de madres que producción (persona en orden + objeto, filtro por era); `persona` no es editable y se le dice a Omar a qué madre quedó anclada la foto. F65b: rutas /papel* del QA del papel (ver, revisar, editar, sugerir, aprobar), siempre vía m01e_pantalla y fase1_5. F67 C: rutas /narracion* de la compuerta de narración (ver, editar párrafo, aceptar DEBERÍA, aprobar), siempre vía m01f_critico y fase1_5. F67b: /papel/aprobar responde 409 si la narración no está aprobada o el papel es de otra. F67d: POST /narracion/borrador (vista previa, no escribe) y /narracion/aprobar con decisiones y ediciones; se borraron /narracion/aceptar y /narracion/editar. F69: en un cap con clip, la foto de arranque es rehacible (`/fix_image` con chNN_img_01.png): `_fotoclip_core` encadena `_fix_core` (sin grade), foto final nueva y clip nuevo con el movimiento aprobado, con backups, y actualiza la fila del clip en el manifest.",
+   "sticker": "Es el servidor local que Omar levanta a mano para producir un video con botones: sirve la pantalla del form y la del visor de capítulos, lanza el orquestador (run_pipeline) como proceso hijo y le pasa las respuestas de Omar. También deja arreglar a mano una foto, un clip o una pronunciación de un capítulo (desde F59 con la máquina de producción: para la foto, Claude Opus edita solo los casilleros que el pedido toca y el código rearma el prompt con la misma función que m03, con foto madre y grade; para el clip, Opus edita solo el movimiento aprobado y el clip sale por la cadena de producción con su foto final; lo editado se guarda en 03_visual.json y en el guion vivo; lo que el filtro de producción saca del pedido se le informa a Omar) y armar el video con el botón ENSAMBLAR. Desde F60 B el fix y la nueva semilla de una foto usan la misma regla única de madres que producción (persona en orden + objeto, filtro por era); `persona` no es editable y se le dice a Omar a qué madre quedó anclada la foto. F65b: rutas /papel* del QA del papel (ver, revisar, editar, sugerir, aprobar), siempre vía m01e_pantalla y fase1_5. F67 C: rutas /narracion* de la compuerta de narración (ver, editar párrafo, aceptar DEBERÍA, aprobar), siempre vía m01f_critico y fase1_5. F67b: /papel/aprobar responde 409 si la narración no está aprobada o el papel es de otra. F67d: POST /narracion/borrador (vista previa, no escribe) y /narracion/aprobar con decisiones y ediciones; se borraron /narracion/aceptar y /narracion/editar. F69: en un cap con clip, la foto de arranque es rehacible (`/fix_image` con chNN_img_01.png): `_fotoclip_core` encadena `_fix_core` (sin grade), foto final nueva y clip nuevo con el movimiento aprobado, con backups, y actualiza la fila del clip en el manifest. F71: la línea de tiempo pasa el normalizado del cap a `compute_anchor_starts`.",
    "recibe": "Pedidos HTTP del navegador (form y visor); data/scripts/<id>.json, output/audio/<id>/chNN.mp3 y chNN_timestamps.json, output/<id>/assets/chNN_flux/*.png y chNN_veo/*.mp4, data/topics_db.json (lista de retomar), data/scripts/_steps/<id>/01b_narration_normalized.json; las líneas @@QAFORM@@ y @@QAFORM_COST@@ que imprime run_pipeline.",
    "entrega": "Las páginas qa_form.html y qa_studio.html; JSON de estado del form (fase, costo Gemini en vivo, diálogo pendiente); líneas por stdin al hijo; imágenes (cruda y _graded.png) y clips regenerados en output/<id>/assets/ con copia en _qa_backups/; el ítem editado (casilleros, prompt, año) o el movimiento nuevo guardados en data/scripts/_steps/<id>/03_visual.json y en data/scripts/<id>.json (con backups); output/<id>/assets/_qa_marks.json (fotos marcadas); data/normalizer_custom_dict.json; el audio del capítulo re-hecho; levanta fase2b, run_pipeline y el servidor de miniaturas de m09 como subprocesos.",
    "modelo": [
@@ -2533,7 +2533,7 @@
    "lo_llaman": [],
    "tests": 8,
    "nacio": "3d684a2 2026-06-14",
-   "ultimo": "6f60c23 2026-10-31 (F67d)",
+   "ultimo": "c2c9188 2026-11-01 (F69)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "qa_studio_server.py:1522 lanza run_pipeline.py --research --video-type long --batch y :1527 lo retoma con --topic; :2080 es el main que Omar corre a mano",
@@ -2551,7 +2551,7 @@
     "Handler.do_GET",
     "Handler.do_POST"
    ],
-   "md5": "931316bc9ffe92c6ad0325ebd02969e8",
+   "md5": "2bb34237c395eca1018b7c5254a21c45",
    "sticker_al_dia": true
   },
   "report_foto_madre_edits.py": {
@@ -3714,7 +3714,7 @@
   "script_engine/gfx_layer.py": {
    "archivo": "script_engine/gfx_layer.py",
    "zona": "fase2b_gfx",
-   "sticker": "Es el director de orquesta de la capa gráfica de un capítulo: parte del clip de fondo ya cocido, arma el plan de lo que se ve (title card, fichas, recortes, sellos, reloj, pregunta de cierre, transiciones), lo pasa por el candado literal y dibuja la capa en HyperFrames. Con el guion de pantalla aprobado dibuja exactamente ese plan (plan congelado); en modo plan-only solo planea y escribe los archivos de cues, escenas y pausa, sin render. Cualquier falla devuelve el clip de fondo sin capa.",
+   "sticker": "Es el director de orquesta de la capa gráfica de un capítulo: parte del clip de fondo ya cocido, arma el plan de lo que se ve (title card, fichas, recortes, sellos, reloj, pregunta de cierre, transiciones), lo pasa por el candado literal y dibuja la capa en HyperFrames. Con el guion de pantalla aprobado dibuja exactamente ese plan (plan congelado); en modo plan-only solo planea y escribe los archivos de cues, escenas y pausa, sin render. Cualquier falla devuelve el clip de fondo sin capa. F71: los cortes por anclas pasan el normalizado del cap a `compute_anchor_starts`.",
    "recibe": "El clip de fondo del cap (data/.../_fase2b_work/chNN_*_visual.mp4), el ChapterPlan de fase2b, los timestamps de la voz, 01a_escaleta.json y el papel del topic (data/scripts/_steps/<id>/), el pool de fuentes, gfx_plan_chNN.resolved.json aprobado (si hay guion aprobado) y los tokens de gfx_config.",
    "entrega": "_fase2b_work/chNN_gfx.mp4 (+ chNN_gfx.plan.md5), gfx_chNN/ (proyecto HyperFrames y base -g30), gfx_plan_chNN.resolved.json, gfx_escenas_chNN.json, gfx_sfx_chNN.json, gfx_pause_chNN.json, gfx_sparse_chNN.json, gfx_safe_bake_chNN.json, gfx_chNN.log, gfx_cues_chNN.md/.json, hoja_contactos_chNN.jpg.",
    "modelo": [],
@@ -3743,7 +3743,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "ea1a0461daa63cce1a6405648d7885ae",
+   "md5": "0690cbb374c757cf45092eb2ba9f2033",
    "sticker_al_dia": true
   },
   "script_engine/gfx_literal_lock.py": {
@@ -6854,7 +6854,7 @@
     "audio_manager.py",
     "script_engine/m02_5_normalizer_gate.py"
    ],
-   "tests": 2,
+   "tests": 3,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "fc955ef 2026-10-20 (F5)",
    "estado_a": "vivo",
@@ -7123,7 +7123,7 @@
    ],
    "tests": 0,
    "nacio": "3d684a2 2026-06-14",
-   "ultimo": "6f60c23 2026-10-31 (F67d)",
+   "ultimo": "c2c9188 2026-11-01 (F69)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "qa_studio_server.py:72 define HTML_PATH y :1828-1829 lo sirve en / (el form lo abre en el gate del visor, qa_form.html:349)",

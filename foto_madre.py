@@ -36,6 +36,8 @@ from asset_manager import (
     _fal_headers,
     _flux_poll,
     _is_content_rejection,
+    _destino_error_fal,
+    _guardar_error_fal,
     _fal_queue_poll,
     _seedream_payload_for,
     _norm_persona,
@@ -99,6 +101,7 @@ def _generate_madre_gpt(prompt: str, dest: Path) -> dict:
     final en PipelineError y se comería el ContentRejectedError; la resiliencia la da el
     fallback del caller (que sí cae en el motor decorado). Levanta ContentRejectedError si fal
     rechaza por content-safety, o la excepción de red/API cruda."""
+    _destino_error_fal(dest)
     payload = {
         "prompt": prompt,
         # HANDOFF_140+ (FIX resolución madre): el preset "landscape_16_9" salía
@@ -117,6 +120,7 @@ def _generate_madre_gpt(prompt: str, dest: Path) -> dict:
         resp.raise_for_status()
     except requests.HTTPError as e:
         body = e.response.text if e.response is not None else str(e)
+        _guardar_error_fal(body)
         if _is_content_rejection(body):
             raise ContentRejectedError(f"{MADRE_IMAGE_MODEL} rechazó prompt: {body[:300]}")
         raise
@@ -318,12 +322,14 @@ def _generate_madre_seedream(prompt: str, dest: Path) -> dict:
     profile = select_profile("seedream")
     payload = _seedream_payload_for(prompt)
     _guardar_prompt_madre(dest, prompt, profile.render.model_id)
+    _destino_error_fal(dest)
     try:
         resp = requests.post(f"{api.fal_base_url}/{profile.render.model_id}", headers=_fal_headers(), json=payload,
                              timeout=FAL_SUBMIT_TIMEOUT_S)
         resp.raise_for_status()
     except requests.HTTPError as e:
         body = e.response.text if e.response is not None else str(e)
+        _guardar_error_fal(body)
         if _is_content_rejection(body):
             raise ContentRejectedError(f"{profile.render.model_id} rechazó prompt: {body[:300]}")
         raise

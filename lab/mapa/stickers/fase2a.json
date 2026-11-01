@@ -1,7 +1,7 @@
 {
  "_nota": "F42 §B: stickers de la zona fase2a, escritos por los workers (Sonnet) que leyeron cada archivo entero; `md5` = el del archivo leído (`mapa_modulos.py --check` avisa si cambió). `_parte` = el worker.",
  "anchor_timing.py": {
-  "sticker": "Dice en qué segundo exacto de la voz empieza cada frase ancla de las imágenes, buscando sus primeras palabras en los tiempos de la voz. Lo comparten el armado de imágenes, la capa gráfica y el reparto de duraciones, para que todos midan igual.",
+  "sticker": "Dice en qué segundo exacto de la voz empieza cada frase ancla de las imágenes, buscando sus primeras palabras en los tiempos de la voz. Lo comparten el armado de imágenes, la capa gráfica y el reparto de duraciones, para que todos midan igual. F71: con el normalizado del cap (`narr_norm`) la aguja sale del mismo texto que leyó la voz: ubica el ancla en `narration_original`, re-aplica los spans como el gate y aplica `normalize_pool_forms`; sin normalizado, `normalize_for_tts` como antes. `cargar_normalizado` y `normalizado_de_timestamps` traen la entrada.",
   "recibe": "lista de anchors (frases del guion) y las palabras con tiempos de output/audio/<id>/chNN_timestamps.json.",
   "entrega": "lista de segundos de inicio, uno por anchor, o None si algún anchor no se encuentra o los tiempos no crecen.",
   "modelo": [],
@@ -14,7 +14,7 @@
   "estado": "vivo",
   "estado_prueba": "script_engine/m03_visual.py:1842 (etapa voz), fase2b.py:796 (fondos y render), script_engine/gfx_layer.py:143 (render) y qa_studio_server.py:322 llaman compute_anchor_starts",
   "funciones_muertas": [],
-  "md5": "a8be6710815331a61a503795ebe7c0d9",
+  "md5": "de0507648898dd17860f15989490b002",
   "_parte": "fase2a_c"
  },
  "art_config.py": {
@@ -222,7 +222,7 @@
   "_parte": "fase2a_b"
  },
  "foto_madre.py": {
-  "sticker": "Genera la «foto madre» del video: una imagen de referencia limpia del sujeto principal (objeto o lugar) y de cada objeto clave anclado, para que después todas las imágenes de capítulo mantengan el mismo aspecto. Usa GPT Image 2 y, si falla, el motor de imagen activo; si ya hay un archivo (o Omar dejó uno a mano) lo reutiliza en vez de generar. Desde F60 B también genera la madre de cada PERSONA del canon que sale en 2 o más fotos dentro de su época (lee `persona` de 03_visual.json, por eso corre después de m03): retrato neutro con Seedream por la cola de fal, ropa limpia fija (ROPA_MADRE), sin GPT de respaldo; el path va a documented_people[i].foto_madre. Desde F68 escribe el prompt de cada madre nueva en `<slug>.prompt.txt` y la madre de persona sigue saliendo de Seedream (4.5) con Nano Banana como motor activo.",
+  "sticker": "Genera la «foto madre» del video: una imagen de referencia limpia del sujeto principal (objeto o lugar) y de cada objeto clave anclado, para que después todas las imágenes de capítulo mantengan el mismo aspecto. Usa GPT Image 2 y, si falla, el motor de imagen activo; si ya hay un archivo (o Omar dejó uno a mano) lo reutiliza en vez de generar. Desde F60 B también genera la madre de cada PERSONA del canon que sale en 2 o más fotos dentro de su época (lee `persona` de 03_visual.json, por eso corre después de m03): retrato neutro con Seedream por la cola de fal, ropa limpia fija (ROPA_MADRE), sin GPT de respaldo; el path va a documented_people[i].foto_madre. Desde F68 escribe el prompt de cada madre nueva en `<slug>.prompt.txt` y la madre de persona sigue saliendo de Seedream (4.5) con Nano Banana como motor activo. F71: guarda el cuerpo de los errores de fal como asset_manager.",
   "recibe": "El topic de la base de temas (central_subject, era_visual_canon, documented_props, anachronism_blocklist) y el video_id",
   "entrega": "output/<id>/foto_madre/<nombre>.png y el path absoluto guardado en topic[...]['foto_madre'] (el que llama persiste con save_db)",
   "modelo": [
@@ -242,7 +242,7 @@
   "estado": "vivo",
   "estado_prueba": "fase1_5.py:647 lo llama (paso0, tras m03, dentro del comando de voz) y fase2a.py:337 como reintento",
   "funciones_muertas": [],
-  "md5": "db3b2594f4598e17643bc6c046cbc6bf",
+  "md5": "6a33b76faf234fc975581c1ce528a2d7",
   "_parte": "fase2a_d"
  },
  "music_config.py": {

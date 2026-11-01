@@ -1,0 +1,138 @@
+bringing up nodes...
+bringing up nodes...
+
+.s...............s.............................s........................ [  4%]
+........................................s...............s............... [  9%]
+........................................................................ [ 14%]
+...........................s..s.s........................ss..s..s.ss.s.s [ 18%]
+........................................................................ [ 23%]
+........................................................................ [ 28%]
+........................................s..s.s.......................... [ 33%]
+......s......s.s........................................................ [ 37%]
+.....F......s...................F...................F................... [ 42%]
+..................................................s..................... [ 47%]
+........................................................................ [ 52%]
+........................................................................ [ 56%]
+................................................................s....x.. [ 61%]
+.x........s...s..ss..................................................... [ 66%]
+........................................................................ [ 71%]
+........................................................................ [ 75%]
+........................................................................ [ 80%]
+.......s...............................................................x [ 85%]
+........................................................................ [ 90%]
+....................................................................F..F [ 94%]
+........................................................................ [ 99%]
+......                                                                   [100%]
+================================== FAILURES ===================================
+_______________ test_guard_mapa_avisa_si_tocan_gfx_sin_el_mapa ________________
+[gw12] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+tmp_path = WindowsPath('C:/Users/Canada/AppData/Local/Temp/pytest-of-guevara41/pytest-1606/popen-gw12/test_guard_mapa_avisa_si_tocan0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002BBFFC837D0>
+
+    def test_guard_mapa_avisa_si_tocan_gfx_sin_el_mapa(tmp_path, monkeypatch):
+        """F42 (antes F33 §D.3, MAPA_MODULOS): avisa si el commit toca un archivo de producción con sticker viejo; con el
+        sticker al día no dice nada."""
+        gm = _hook("guard_mapa")
+        import mapa_modulos as mm
+>       assert gm.aviso(["script_engine/pantalla_entrada.py", "fase2b.py"]) is None     # el mapa de hoy está al día
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: assert 'guard_mapa: el commit toca archivos de producción con sticker viejo o sin sticker — sticker viejo: fase2b.py (md5 del... mapa (`python lab/tools/mapa_modulos.py`), o decir en el reporte por qué no cambió. (`--check` da 6 fallas en total.)' is None
+E        +  where 'guard_mapa: el commit toca archivos de producción con sticker viejo o sin sticker — sticker viejo: fase2b.py (md5 del... mapa (`python lab/tools/mapa_modulos.py`), o decir en el reporte por qué no cambió. (`--check` da 6 fallas en total.)' = <function aviso at 0x000002BBAB42E8E0>(['script_engine/pantalla_entrada.py', 'fase2b.py'])
+E        +    where <function aviso at 0x000002BBAB42E8E0> = <module 'guard_mapa' from 'C:\\CLAUDE_PROJECTS\\automatization_videos\\.claude\\hooks\\guard_mapa.py'>.aviso
+
+test_module_f33.py:148: AssertionError
+______ test_f51c_corte_veo_real_de_wittenoom[1-start-paredes de chapa.] _______
+[gw18] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+n = 1, pos = 'start', termina = 'paredes de chapa.'
+
+    @pytest.mark.parametrize("n, pos, termina", [(1, "start", "paredes de chapa."), (7, "end", "seguridad pública».")])
+    def test_f51c_corte_veo_real_de_wittenoom(n, pos, termina):
+        t, vz = _caps_reales()[n]
+        vlo, vhi, slo, shi = m3._carve_veo_zones(t, pos, vz)
+        if pos == "start":
+>           assert (vlo, slo, shi) == (0, vhi, len(t)) and t[:vhi].endswith(termina)
+E           AssertionError: assert ((0, 75, 453) == (0, 75, 453)
+E             
+E             Use -v to get more diff and False)
+E            +  where False = <built-in method endswith of str object at 0x00000266FEB94830>('paredes de chapa.')
+E            +    where <built-in method endswith of str object at 0x00000266FEB94830> = 'Un hombre joven posa para una foto con el pie envuelto en una venda blanca.'.endswith
+
+test_module_f51c.py:47: AssertionError
+_______________________________ test_check_da_0 _______________________________
+[gw13] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+    def test_check_da_0():
+        r = subprocess.run([sys.executable, str(ROOT / "lab" / "tools" / "mapa_modulos.py"), "--check"], cwd=ROOT,
+                           capture_output=True, text=True, encoding="utf-8", errors="replace")
+>       assert r.returncode == 0, r.stdout[-2000:] + r.stderr[-2000:]
+E       AssertionError: ✗ sticker viejo: anchor_timing.py (md5 del sticker a8be6710… ≠ archivo de050764…; releer el archivo y reescribir su sticker en fase2a.json)
+E         ✗ sticker viejo: asset_manager.py (md5 del sticker 9dad9350… ≠ archivo c945d49b…; releer el archivo y reescribir su sticker en orquestador.json)
+E         ✗ sticker viejo: fase2b.py (md5 del sticker 280fe78d… ≠ archivo 95034fb0…; releer el archivo y reescribir su sticker en fase2b_gfx.json)
+E         ✗ sticker viejo: foto_madre.py (md5 del sticker db3b2594… ≠ archivo 6a33b76f…; releer el archivo y reescribir su sticker en fase2a.json)
+E         ✗ sticker viejo: qa_studio_server.py (md5 del sticker 931316bc… ≠ archivo 2bb34237…; releer el archivo y reescribir su sticker en orquestador.json)
+E         ✗ sticker viejo: script_engine/gfx_layer.py (md5 del sticker ea1a0461… ≠ archivo 0690cbb3…; releer el archivo y reescribir su sticker en fase2b_gfx.json)
+E         mapa --check: 161 archivos de producción · 6 fallas
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['C:\\Users\\Canada\\AppData\\Local\\Programs\\Python\\Python311\\python.exe', 'C:\\CLAUDE_PROJE...archivo y reescribir su sticker en fase2b_gfx.json)\nmapa --check: 161 archivos de producción · 6 fallas\n', stderr='').returncode
+
+test_module_f42_mapa.py:29: AssertionError
+____________________ test_c_veo_path_y_veo_anchor_intacto _____________________
+[gw9] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+    def test_c_veo_path_y_veo_anchor_intacto():
+        """La fusión corre también para veo (supplementals); el veo_anchor NO se toca."""
+        words = _words(("uno", 0.0), ("dos", 0.4), ("tres", 5.0), ("cuatro", 10.0),
+                       ("cinco", 15.0))
+        plan = _veo_plan("uno", "dos", "tres", "cuatro", "cinco")
+        out, dropped = m._reconcile_anchor_timing(plan, "veo", words, min_count=4, cap_number=7)
+>       assert dropped == 1                                  # 'dos' (gap 0.4) fuera
+        ^^^^^^^^^^^^^^^^^^^
+E       assert 0 == 1
+
+test_module_m03_merge_timing.py:98: AssertionError
+---------------------------- Captured stdout call -----------------------------
+  [03][audit] cap 7: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
+___________________________ test_c_guarda_de_minimo ___________________________
+[gw8] win32 -- Python 3.11.9 C:\Users\Canada\AppData\Local\Programs\Python\Python311\python.exe
+
+    def test_c_guarda_de_minimo():
+        """Aunque haya gaps apretados, NO baja del mínimo."""
+        # 4 items, todos apretados; min_count=4 → no debe fusionar ninguno.
+        words = _words(("a", 0.0), ("b", 0.3), ("c", 0.6), ("d", 0.9))
+        plan = _flux_plan("a", "b", "c", "d")
+        out, dropped = m._reconcile_anchor_timing(plan, "flux", words, min_count=4, cap_number=1)
+        assert dropped == 0
+        assert len(out["anchors"]) == 4
+        # min_count=3 → fusiona hasta quedar exactamente en 3, no menos.
+        plan2 = _flux_plan("a", "b", "c", "d")
+        out2, dropped2 = m._reconcile_anchor_timing(plan2, "flux", words, min_count=3, cap_number=1)
+>       assert len(out2["anchors"]) == 3
+E       AssertionError: assert 4 == 3
+E        +  where 4 = len([{'anchor': 'a', 'pos': 0, 'end': 1}, {'anchor': 'b', 'pos': 1, 'end': 2}, {'anchor': 'c', 'pos': 2, 'end': 3}, {'anchor': 'd', 'pos': 3, 'end': 4}])
+
+test_module_m03_merge_timing.py:88: AssertionError
+---------------------------- Captured stdout call -----------------------------
+  [03][audit] cap 1: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
+  [03][audit] cap 1: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
+============================== warnings summary ===============================
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+  C:\CLAUDE_PROJECTS\automatization_videos\script_engine\image_grade.py:83: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+    luma = list(im.convert("L").getdata())
+
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+  C:\CLAUDE_PROJECTS\automatization_videos\script_engine\image_grade.py:85: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+    s = [sv for sv, lv in zip(hsv.getdata(band=1), luma) if lv > 24] or [0]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED test_module_f33.py::test_guard_mapa_avisa_si_tocan_gfx_sin_el_mapa - A...
+FAILED test_module_f51c.py::test_f51c_corte_veo_real_de_wittenoom[1-start-paredes de chapa.]
+FAILED test_module_f42_mapa.py::test_check_da_0 - AssertionError: ✗ sticker v...
+FAILED test_module_m03_merge_timing.py::test_c_veo_path_y_veo_anchor_intacto
+FAILED test_module_m03_merge_timing.py::test_c_guarda_de_minimo - AssertionEr...
+5 failed, 1480 passed, 30 skipped, 3 xfailed, 4 warnings in 75.94s (0:01:15)

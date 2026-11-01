@@ -63,7 +63,7 @@ from script_engine.topics_db import (
 from flow_profiles import FlowSpec
 from script_engine.transition_applier import concat_with_transitions
 from subs_remap import remap_words_to_original
-from anchor_timing import compute_anchor_starts
+from anchor_timing import compute_anchor_starts, normalizado_de_timestamps
 
 # Estados procesables por fase2b
 ASSETS_READY_STATUS: str = "assets_rendered"
@@ -793,7 +793,7 @@ def _compute_durations_from_anchors(
     # para que m03 (timing-aware merge) mida IDÉNTICO. Comportamiento byte-a-byte
     # igual al matcher inline previo (3-tokens → word_norm, fallback primer token,
     # cursor de orden, None si no matchea o starts no crecientes).
-    starts = compute_anchor_starts(anchors, words)
+    starts = compute_anchor_starts(anchors, words, narr_norm=normalizado_de_timestamps(timestamps_path))
     if starts is None:
         return None
 

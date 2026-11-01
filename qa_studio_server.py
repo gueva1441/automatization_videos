@@ -54,7 +54,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
-from anchor_timing import compute_anchor_starts  # data pura, COMPARTIDO con fase2b
+from anchor_timing import cargar_normalizado, compute_anchor_starts  # data pura, COMPARTIDO con fase2b
 
 # Forzar UTF-8 en stdout/stderr (Windows usa cp1252) — igual que mixer_server / fase2b.
 if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
@@ -322,7 +322,7 @@ class QAState:
         # Timing por anchor (MISMO matcher que fase2b) sólo si la cuenta cuadra.
         starts = None
         if anchors and words and len(anchors) == n and n > 0:
-            starts = compute_anchor_starts(anchors, words)
+            starts = compute_anchor_starts(anchors, words, narr_norm=self._narr_norm(cid))
 
         segments: list[dict] = []
         sync_approx = False
@@ -367,6 +367,10 @@ class QAState:
             "url": f"/img?cap={cid}&name={p.name}",
         }
 
+    def _narr_norm(self, cid: str) -> dict | None:
+        """F71: la entrada del cap en 01b_narration_normalized.json: la aguja sale de lo que leyó la voz."""
+        return cargar_normalizado(self.topic_id, self.base).get(int(cid[2:]))
+
     def _foto_clip_campos(self, cid: str) -> dict:
         """F69: la foto de arranque del clip (`chNN_img_01.png`, en `chNN_veo`) para el tile del clip: miniatura y «rehacer foto».
         Va dentro del segmento del clip y no como segmento propio: no ocupa tiempo en el video."""
@@ -396,7 +400,7 @@ class QAState:
 
         starts = None
         if n and words and len(sa[:n]) == n:
-            starts = compute_anchor_starts(list(sa[:n]), words)
+            starts = compute_anchor_starts(list(sa[:n]), words, narr_norm=self._narr_norm(cid))
 
         segments: list[dict] = []
         sync_approx = False
@@ -462,7 +466,7 @@ class QAState:
         expect = n + (1 if has_base else 0)
         starts = None
         if all_anchors and words and len(all_anchors) == expect and expect > 0:
-            starts = compute_anchor_starts(all_anchors, words)
+            starts = compute_anchor_starts(all_anchors, words, narr_norm=self._narr_norm(cid))
 
         segments: list[dict] = []
         sync_approx = False
