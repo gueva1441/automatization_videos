@@ -44,6 +44,21 @@ def emit_choice_marker(menu, prompt, options, *, default=None, body=None, payloa
     print("@@QAFORM@@ " + json.dumps(marker, ensure_ascii=True), flush=True)
 
 
+def emit_text_marker(menu, prompt, *, placeholder=None, body=None):
+    """F74 — marcador de TEXTO LIBRE — accept='text' (qa_text.html). La respuesta es la línea
+    escrita tal cual ('' = enter vacío). Mismo molde que la copia local de niche_discoverer."""
+    if not QA_FORM:
+        return
+    marker = {
+        "menu": menu,
+        "accept": "text",
+        "prompt": prompt,
+        "placeholder": placeholder,
+        "body": body,
+    }
+    print("@@QAFORM@@ " + json.dumps(marker, ensure_ascii=True), flush=True)
+
+
 # ── Marcador de COSTO (HANDOFF_133 · pedido Omar): línea aparte @@QAFORM_COST@@ que el
 # server bucketea por la fase activa (RESEARCH/GUION/…) → el form muestra el $ Gemini
 # sumando por etapa mientras corre. NO es un diálogo (no toca el gate). Solo con QA_FORM. ──

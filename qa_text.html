@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!--
+  qa_text.html — diálogo de TEXTO LIBRE del form asistido (F74, accept='text', modo C manual).
+  Data-driven: el host llama window.renderText(marker) con {menu, prompt, placeholder, body}.
+  Escribís y apretás Enviar (o Enter) → window.qaFormAnswer({menu, action:'choose', value:'<texto>'}).
+  Terminar → lo mismo con value:'' (línea vacía = no hay más).
+  value SIEMPRE es string y NUNCA se manda action:'cancel' (el host lo convierte en 'Q' → seed «Q»).
+  Un solo envío por diálogo: al primero se deshabilitan input y botones (Enter + click no mandan dos).
+  Paleta EXACTA copiada de qa_multi.html / qa_choice.html (Claude Design) — NO inventar colores.
+-->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Escribí el título</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #0f0f12; color: #e8e8ec; font-family: 'Space Grotesk', sans-serif; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 54px 24px 60px; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; color: #5e5e68; }
+  .prompt { font-size: 26px; font-weight: 600; color: #f4f4f6; margin: 12px 0 0; letter-spacing: -.01em; }
+  .body { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; line-height: 1.7; color: #8a8a92;
+          white-space: pre-wrap; background: #16161b; border: 1px solid #262630; border-radius: 10px;
+          padding: 14px 16px; margin-top: 18px; }
+  .field { display: block; width: 100%; margin-top: 26px; background: #222229; border: 1px solid #34343c;
+           border-radius: 12px; padding: 16px 18px; color: #f0f0f3; font-family: 'Space Grotesk', sans-serif;
+           font-size: 15.5px; font-weight: 500; outline: none; transition: background .12s, border-color .12s; }
+  .field::placeholder { color: #5e5e68; }
+  .field:hover { border-color: #2ea043; background: #1d1d24; }
+  .field:focus { border-color: #2ea043; background: #1d1d24; }
+  .field:disabled { opacity: .45; cursor: not-allowed; }
+  .row { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
+  .confirm { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 15px;
+             color: #06140a; background: #2ea043; border: none; padding: 14px 26px; border-radius: 12px;
+             cursor: pointer; box-shadow: 0 8px 26px rgba(46,160,67,.35); }
+  .confirm:hover:not(:disabled) { filter: brightness(1.06); }
+  .confirm:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; }
+  .secondary { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px;
+               color: #e8e8ec; background: #222229; border: 1px solid #34343c; padding: 14px 26px;
+               border-radius: 12px; cursor: pointer; transition: background .12s, border-color .12s; }
+  .secondary:hover:not(:disabled) { border-color: #2ea043; background: #1d1d24; }
+  .secondary:disabled { opacity: .45; cursor: not-allowed; }
+  .hint { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5e5e68; margin-top: 22px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow" id="eyebrow">ESCRIBÍ EL TÍTULO</div>
+    <div class="prompt" id="prompt">…</div>
+    <div class="body" id="body" style="display:none"></div>
+    <input class="field" id="field" type="text" autocomplete="off" spellcheck="false" autofocus>
+    <div class="row">
+      <button class="confirm" id="send">Enviar</button>
+      <button class="secondary" id="done">Terminar</button>
+    </div>
+    <div class="hint">Escribí y apretá Enter o Enviar. «Terminar» cierra sin agregar nada más.</div>
+  </div>
+
+<script>
+(function () {
+  'use strict';
+  var MENU = '';
+  var sent = false;     // un solo envío por diálogo (Enter + click no mandan dos líneas)
+
+  function qaAnswer(p) {
+    try { if (typeof window.qaFormAnswer === 'function') window.qaFormAnswer(p); }
+    catch (e) { /* no romper si el host falla */ }
+  }
+
+  function lock() {
+    document.getElementById('field').disabled = true;
+    document.getElementById('send').disabled = true;
+    document.getElementById('done').disabled = true;
+  }
+  // value SIEMPRE string; NUNCA action:'cancel' (el host lo vuelve 'Q').
+  function sendValue(v) {
+    if (sent) return;
+    sent = true;
+    lock();
+    qaAnswer({ menu: MENU, action: 'choose', value: String(v == null ? '' : v) });
+  }
+  function send() { sendValue(document.getElementById('field').value); }
+  function done() { sendValue(''); }
+
+  function renderText(marker) {
+    marker = marker || {};
+    MENU = marker.menu || '';
+    sent = false;
+    document.getElementById('prompt').textContent = marker.prompt || 'Escribí el texto';
+    var bodyEl = document.getElementById('body');
+    if (marker.body) { bodyEl.textContent = marker.body; bodyEl.style.display = 'block'; }
+    else { bodyEl.style.display = 'none'; }
+
+    var field = document.getElementById('field');
+    field.disabled = false;
+    field.value = '';
+    field.placeholder = marker.placeholder || '';
+    document.getElementById('send').disabled = false;
+    document.getElementById('done').disabled = false;
+    try { field.focus(); } catch (e) { /* sin foco no pasa nada */ }
+  }
+
+  document.getElementById('field').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.isComposing) { e.preventDefault(); send(); }
+  });
+  document.getElementById('send').addEventListener('click', send);
+  document.getElementById('done').addEventListener('click', done);
+  window.renderText = renderText;
+})();
+</script>
+</body>
+</html>

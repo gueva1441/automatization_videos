@@ -1,0 +1,17 @@
+
+  ✏️  INYECCIÓN MANUAL
+     Ingresá temas uno por uno. Enter vacío para terminar.
+
+@@QAFORM@@ {"menu": "manual_title", "accept": "text", "prompt": "Tema (enter vac\u00edo = terminar)", "placeholder": null, "body": null}
+     📌 Tema: <form>
+        Nicho raíz:
+          [1] 🌊 Misterios del Océano
+          [2] 🌌 Datos del Espacio
+          [3] 🏚️ Lugares Abandonados
+          [0] Ninguno / otro
+@@QAFORM@@ {"menu": "manual_root", "accept": "key", "prompt": "Nicho ra\u00edz", "options": [{"key": "1", "label": "\ud83c\udf0a Misterios del Oc\u00e9ano"}, {"key": "2", "label": "\ud83c\udf0c Datos del Espacio"}, {"key": "3", "label": "\ud83c\udfda\ufe0f Lugares Abandonados"}, {"key": "0", "label": "Ninguno / otro"}], "default": "0", "body": "'Palomares 1966'"}
+        👉 <form>
+        ✓ 'Palomares 1966' agregado
+
+@@QAFORM@@ {"menu": "manual_title", "accept": "text", "prompt": "Tema (enter vac\u00edo = terminar)", "placeholder": null, "body": "Temas agregados: 1"}
+     📌 Tema: <form>

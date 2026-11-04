@@ -449,7 +449,7 @@
   "estado": "vivo",
   "estado_prueba": "qa_studio_server.py:1384 define HTML_FORM_PATH y :1847-1848 lo sirve en /form (serve() lo abre en el navegador, :2052)",
   "funciones_muertas": [],
-  "md5": "0330154c56aa1d77facd9e63a6bf0f0a",
+  "md5": "8d5320ffb8a1941c852e14403bd13464",
   "_parte": "orquestador_a"
  },
  "qa_form_markers.py": {
@@ -472,7 +472,7 @@
   "estado": "vivo",
   "estado_prueba": "run_pipeline.py:281, :357 (diálogos de papel, guion de pantalla y visor) y cost_tracker.py:161-162 (costo Gemini de cualquier etapa)",
   "funciones_muertas": [],
-  "md5": "ee12fdaa059f62040c9f81bc9b3e97dd",
+  "md5": "b10c0b025fe822e89c75b3e22d01f132",
   "_parte": "orquestador_a"
  },
  "qa_gallery.html": {
@@ -583,7 +583,7 @@
     "por_que": "ninguna ruta del servidor ni del form la llama (el POST /mark solo marca, no regenera); solo la nombran test_module_f5e.py y la herramienta manual lab/hyperframes/f5/regen_marcadas.py"
    }
   ],
-  "md5": "dbcb139ce1cf4790b0bbaedfabbb5f26",
+  "md5": "17ab96ed047ccc78bde5031b41fb526f",
   "_parte": "orquestador_a"
  },
  "report_foto_madre_edits.py": {
@@ -743,5 +743,19 @@
   "funciones_muertas": [],
   "md5": "2a6f1b29cf89609abd4cc71b11b41dec",
   "_parte": "orquestador"
+ },
+ "qa_text.html": {
+  "sticker": "El diálogo de texto libre del form de Omar (F74): Omar escribe el tema de la inyección manual (modo C) y aprieta Enviar o Enter; Terminar manda línea vacía.",
+  "recibe": "El marcador del form vía window.renderText(marker) (menu, prompt, placeholder, body), con accept 'text'.",
+  "entrega": "El texto escrito por window.qaFormAnswer({menu, action:'choose', value}) — value siempre string ('' = terminar), nunca cancel; un solo envío por diálogo.",
+  "modelo": [],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "qa_studio_server.py la registra como __text__ en _FORM_MENU_HTML; qa_form.html la elige con accept==='text'; test_module_f74.py.",
+  "funciones_muertas": [],
+  "md5": "7eb1a15a26243cfa437eb902ad6fca8b",
+  "_parte": "F74"
  }
 }

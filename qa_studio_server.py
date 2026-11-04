@@ -1859,6 +1859,7 @@ _FORM_MENU_HTML = {
     "__multi__": BASE_DIR / "qa_multi.html",   # accept='keys': submenú de nichos (checkboxes)
     "__gallery__": BASE_DIR / "qa_gallery.html",  # reuse_seeds + seed_pick: galería única de seeds
     "__judge__": BASE_DIR / "qa_judge.html",   # judge_action: lista de issues + V/A/R/S
+    "__text__": BASE_DIR / "qa_text.html",     # accept='text': texto libre, modo C manual (F74)
 }
 
 _FORM: dict = {"running": False, "returncode": None, "console": [], "marker": None,
@@ -2087,13 +2088,22 @@ def _form_answer(line: str) -> dict:
     proc = _FORM_PROC.get("p")
     if proc is None or proc.poll() is not None:
         return {"error": "no hay corrida activa"}
+    # F74: el marcador se limpia ANTES de escribir al stdin, no después. Si se limpiaba
+    # después, con dos marcadores seguidos y nada de trabajo entre ellos (texto libre:
+    # título → «¿otro?») el lector de stdout guardaba el segundo marcador apenas el
+    # subprocess leía la línea, y esta limpieza tardía lo borraba → el form quedaba en
+    # consola esperando un diálogo que nunca aparecía.
+    with _FORM_LOCK:
+        old_marker = _FORM["marker"]
+        _FORM["marker"] = None  # el diálogo ya fue respondido → el form vuelve a consola
     try:
         proc.stdin.write(line + "\n")
         proc.stdin.flush()
     except (BrokenPipeError, OSError) as e:
+        with _FORM_LOCK:
+            if _FORM["marker"] is None:  # solo si nadie plantó uno nuevo mientras tanto
+                _FORM["marker"] = old_marker
         return {"error": f"no pude escribir al subprocess: {e}"}
-    with _FORM_LOCK:
-        _FORM["marker"] = None  # el diálogo ya fue respondido → el form vuelve a consola
     return {"ok": True}
 
 

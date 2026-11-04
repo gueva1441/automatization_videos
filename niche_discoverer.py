@@ -99,6 +99,20 @@ def _emit_qaform_multi_marker(
     print("@@QAFORM@@ " + json.dumps(marker, ensure_ascii=True), flush=True)
 
 
+def _emit_qaform_text_marker(
+    menu: str, prompt: str, *, placeholder: str | None = None, body: str | None = None,
+) -> None:
+    """F74 — marcador de TEXTO LIBRE — accept='text'. El host (qa_text.html) manda la línea
+    escrita tal cual al input() de abajo ('' = enter vacío). Solo con QA_FORM."""
+    if not _QA_FORM:
+        return
+    marker = {
+        "menu": menu, "accept": "text", "prompt": prompt,
+        "placeholder": placeholder, "body": body,
+    }
+    print("@@QAFORM@@ " + json.dumps(marker, ensure_ascii=True), flush=True)
+
+
 # ═══════════════════════════════════════════════════════════════
 #  CONSTANTES
 # ═══════════════════════════════════════════════════════════════
@@ -234,7 +248,8 @@ def _build_seed(
 
     CHAT 52 (B2) — remeasure: receta mínima {es_query, entity, already_es} para que el gate de
     verificación del pick (fase1._verify_pick_es_saturation) pueda re-medir ES n veces con el MISMO
-    insumo que produjo el seed. Solo lo pasan los caminos activos (atómico/fan-out); Mode B no →
+    insumo que produjo el seed. Lo pasan los caminos activos (atómico/fan-out) y, desde F74, el manual
+    (Modo C, already_es=True); Mode B no →
     el seed queda sin la clave y el gate lo saltea (no re-mide lo que no sabe medir)."""
     if tags is None and root_niche and root_niche in ROOT_NICHES:
         tags = ROOT_NICHES[root_niche]["tags"]
@@ -1299,6 +1314,12 @@ def _run_manual() -> list[dict]:
 
     seeds = []
     while True:
+        # F74: un solo camino; con QA_FORM el marcador va antes del MISMO input().
+        if _QA_FORM:
+            _emit_qaform_text_marker(
+                "manual_title", "Tema (enter vacío = terminar)",
+                body=(f"Temas agregados: {len(seeds)}" if seeds else None),
+            )
         title = input("     📌 Tema: ").strip()
         if not title:
             break
@@ -1308,6 +1329,14 @@ def _run_manual() -> list[dict]:
         for i, (key, niche) in enumerate(ROOT_NICHES.items(), 1):
             print(f"          [{i}] {niche['emoji']} {niche['es_name']}")
         print(f"          [0] Ninguno / otro")
+        if _QA_FORM:
+            _emit_qaform_choice_marker(
+                "manual_root", "Nicho raíz",
+                [{"key": str(i), "label": f"{niche['emoji']} {niche['es_name']}"}
+                 for i, niche in enumerate(ROOT_NICHES.values(), 1)]
+                + [{"key": "0", "label": "Ninguno / otro"}],
+                default="0", body=f"'{title}'",
+            )
 
         choice = input("        👉 ").strip()
         niche_keys = list(ROOT_NICHES.keys())
@@ -1321,6 +1350,9 @@ def _run_manual() -> list[dict]:
             title=title,
             mode="manual",
             root_niche=root,
+            # F74: receta para que fase1._verify_pick_es_saturation la re-mida (mismo contrato que el
+            # camino atómico): la semilla se escribe en el form del canal ES → already_es=True.
+            remeasure={"es_query": title, "entity": title, "already_es": True},
             evidence={
                 "user_input": True,
                 "entered_at": datetime.now().isoformat(),
@@ -1470,12 +1502,11 @@ def discover_niches() -> list[dict]:
             print(f"\n  📊 Seeds acumulados en esta sesión: {len(all_seeds)}")
 
         if _QA_FORM:
-            # Modo C (inyección manual) corre de terminal → deshabilitado en el form.
             _emit_qaform_choice_marker(
                 "discovery_mode", "¿Cómo buscar nuevos seeds?",
                 [{"key": "A", "label": "🕵️ Spy-Arbitrage — virales EN, huecos ES"},
                  {"key": "B", "label": "🏛️ Arqueología Digital — misterios 1950-2000 sin competencia ES"},
-                 {"key": "C", "label": "✏️ Inyección manual — desde la terminal", "disabled": True},
+                 {"key": "C", "label": "✏️ Inyección manual — escribí el tema"},
                  {"key": "S", "label": "Cancelar"}],
                 default="A",
                 body=(f"Seeds acumulados en esta sesión: {len(all_seeds)}" if all_seeds else None),

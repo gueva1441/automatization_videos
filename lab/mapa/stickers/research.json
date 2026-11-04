@@ -35,7 +35,7 @@
   "_parte": "research_d"
  },
  "niche_discoverer.py": {
-  "sticker": "Es el buscador de temas nuevos: un menú que, sobre tres nichos fijos (océano, espacio, lugares abandonados), busca videos virales en inglés y mira si en español hay hueco, o le pide a Gemini misterios de 1950-2000 sin competencia en español, o deja escribir un tema a mano. Lo que sale son las semillas de tema que luego se investigan.",
+  "sticker": "Es el buscador de temas nuevos: un menú que, sobre tres nichos fijos (océano, espacio, lugares abandonados), busca videos virales en inglés y mira si en español hay hueco, o le pide a Gemini misterios de 1950-2000 sin competencia en español, o deja escribir un tema a mano. Lo que sale son las semillas de tema que luego se investigan. F74: el tema a mano también se escribe desde el form (marcador de texto libre) y la semilla lleva receta remeasure (already_es=True) para que el gate de saturación ES la re-mida.",
   "recibe": "Las respuestas del menú (por input() o por los marcadores @@QAFORM@@ del form), data/dynamic_queries_cache.json (queries dinámicas de las últimas 24 h), y por red: YouTube vía script_engine/youtube_scanner y subtopic_*, Gemini Flash y Pro.",
   "entrega": "data/selected_seeds.json (lista de seeds con discovery_mode, root_niche, evidence), data/dynamic_queries_cache.json y, con el fan-out activo, data/_steps/dropped_by_cap.jsonl. Devuelve la lista de seeds a fase1.py y escribe los marcadores del form por stdout.",
   "modelo": [
@@ -64,7 +64,7 @@
     "por_que": "nadie llama a esta: fase1.py:85 y topic_researcher.py:786 definen cada uno su propia _load_seeds y usan la suya; los tests tampoco la tocan; solo se define acá (A la contó como usada por esos dos archivos: falso positivo por nombre)"
    }
   ],
-  "md5": "ca8822da2515abf728e3553fef3ba80f",
+  "md5": "7ab8cbe3bca6f069f6908b49eaf4613b",
   "_parte": "research_a"
  },
  "nicho_config.py": {

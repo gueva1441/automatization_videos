@@ -1,0 +1,16 @@
+
+  🔁 Verificando el pick 'Palomares 1966' — re-mido ES 3× (anti-varianza de scrape)...
+      [mock _measure_es] q='Palomares 1966' entity='Palomares 1966' already_es=True
+      corrida 1/3: DISPUTADO (sat=62,000)
+      [mock _measure_es] q='Palomares 1966' entity='Palomares 1966' already_es=True
+      corrida 2/3: DISPUTADO (sat=62,000)
+      [mock _measure_es] q='Palomares 1966' entity='Palomares 1966' already_es=True
+      corrida 3/3: DISPUTADO (sat=62,000)
+      → peor de 3: DISPUTADO (sat=62,000) · el seed decía: —
+
+  ⚠ El pick 'Palomares 1966' FLIPEÓ a DISPUTADO al re-medir — hay competencia real, no es hueco limpio — confirmá antes de gastar.
+@@QAFORM@@ {"menu": "remeasure_pick", "accept": "key", "prompt": "El pick flipe\u00f3 a DISPUTADO al re-medir \u2014 \u00bfqu\u00e9 hac\u00e9s?", "options": [{"key": "P", "label": "Producir igual (bajo tu criterio)"}, {"key": "S", "label": "Sacar este pick del research"}, {"key": "Q", "label": "Salir (no investigar nada)"}], "default": "S", "body": "'Palomares 1966'\n\nEl seed dec\u00eda: \u2014 \u00b7 al re-medir 3x el PEOR fue: DISPUTADO (sat=62,000)\n\nhay competencia real, no es hueco limpio \u2014 confirm\u00e1 antes de gastar", "payload": {"title": "Palomares 1966", "worst_label": "DISPUTADO", "orig_label": "\u2014", "measurements": [{"label": "DISPUTADO", "sat": 62000}, {"label": "DISPUTADO", "sat": 62000}, {"label": "DISPUTADO", "sat": 62000}]}}
+     [P]roducir igual · [S]acar este pick · [Q]salir: P  <form>
+     → producís igual (bajo tu criterio).
+
+[resultado] kept = ['Palomares 1966']
