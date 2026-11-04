@@ -228,8 +228,8 @@ def test_b1_ch01_sin_pre_roll_y_la_musica_arranca_con_el_title_card(tmp_path):
 
 def test_b2_la_pregunta_dura_su_lectura(tmp_path):
     from script_engine import gfx_layer
-    txt = "Tres días después llegó el presidente del Consejo. La gente ya sabía qué pedirle."
-    real = {"beats": [{"n": 11, "cierre": txt}]}
+    txt = "Tres días después llegó el presidente del Consejo y la gente ya sabía qué pedirle."
+    real = {"beats": [{"n": 11, "texto": txt}]}                      # F72b: la pregunta es la última oración de la voz
     resolved: dict = {}
     pausa = gfx_layer.closing_question(resolved, {"realizador": real}, tmp_path, "ch06", 167.8, [])
     q = resolved["chapter_question"]

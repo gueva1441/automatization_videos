@@ -293,14 +293,14 @@ def closing_question(resolved: dict[str, Any], ctx: dict[str, Any], work_dir: Pa
     real = ctx.get("realizador")
     txt, fuente = pregunta_cierre_fuente(real) if real else (None, None)   # F38e §B4: desde la voz, con su fuente
     if not txt:
-        log.append("  pregunta de cierre: no (sin escaleta o el último beat no trae `cierre`)")
+        log.append("  pregunta de cierre: no (sin escaleta o el cap no trae voz)")
         resolved["chapter_question"] = None
         (work_dir / f"gfx_pause_{cap}.json").unlink(missing_ok=True)
         return 0.0
     pause = lectura_pregunta(txt)
     resolved["chapter_question"] = {"text": txt, "start": round(clip_dur, 3), "duration": round(pause, 3),
                                     "keyword": question_keyword(txt), "generated": True, "pause": pause,
-                                    "fuente": fuente}                       # voz-pregunta · voz-alineada · escaleta
+                                    "fuente": fuente}                       # voz-pregunta · voz-final (F72b)
     bh = float(gfx_rules.black_hold_sec)
     resolved["black_hold"] = {"start": round(clip_dur + pause, 3), "duration": round(bh, 3)} if bh > 0 else None
     log.append(f"  pregunta de cierre (beat {real['beats'][-1]['n']}, {fuente}): {txt!r}")

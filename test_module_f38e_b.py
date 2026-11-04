@@ -8,8 +8,8 @@ test_module_f38e_b.py — F38e B (HANDOFF_F38e_lo_que_rompe_cualquier_video §B;
         el nuevo corte lo recorta.
     B3  todo movido declara qué falló en cada intento anterior: un bloque movido al intento 3 tiene 2 fallas; las fallas
         de los filtros (`intentos_fallidos`) se suman en orden de escalera; el reloj movido también las declara.
-    B4  pregunta de cierre desde la voz: (i) voz-pregunta, (ii) voz-alineada (empate: la más tardía; en orden; sin
-        repetir), (iii) escaleta; y la tabla del analista sobre los 7 caps de Vajont (entradas congeladas de lab/).
+    B4  pregunta de cierre desde la voz: (i) voz-pregunta. F72b borró (ii) voz-alineada, (iii) escaleta y la tabla
+        de Vajont; el resto vive en test_module_f72b.
 Lee de lab/ o es sintético; nunca de data/.
 """
 from __future__ import annotations
@@ -223,52 +223,3 @@ def test_b4_i_la_ultima_oracion_de_la_voz_si_es_pregunta_es_el_texto():
     assert gr.pregunta_cierre(real) == "¿Quién decidió que Micaela siguiera durmiendo?"
     real2 = {"beats": [{"n": 1, "cierre": "Algo.", "texto": "Y él preguntó: «¿quién lo decidió?»"}]}
     assert gr.pregunta_cierre_fuente(real2)[1] == "voz-pregunta"          # la comilla de cierre no tapa el «?»
-
-
-def test_b4_ii_las_oraciones_de_la_voz_que_alinean_con_el_cierre_en_orden_sin_repetir_y_empate_a_la_mas_tardia():
-    real = {"beats": [{"n": 1, "cierre": "", "texto": "El dique no cedió nunca en este beat anterior."},
-                      {"n": 2, "cierre": "El dique no cedió esa noche. Lo que llegó a la cama de Micaela vino por encima de él.",
-                       "texto": "Longarone dormía. Pero el dique no cedió esa noche. Lo que llegó a la cama de Micaela vino por encima de él. "
-                                "Y para entender eso hay que volver atrás."}]}
-    txt, fuente = gr.pregunta_cierre_fuente(real)
-    assert fuente == "voz-alineada"
-    assert txt == "Pero el dique no cedió esa noche. Lo que llegó a la cama de Micaela vino por encima de él."
-    # dos oraciones del cierre que alinean con la misma de la voz → una vez; empate → la más tardía
-    real3 = {"beats": [{"n": 2, "cierre": "La montaña caminó primero. La montaña caminó otra vez.",
-                        "texto": "Una montaña caminó primero en el embalse. Pasaron meses. Otra montaña caminó primero."}]}
-    assert gr.pregunta_cierre_fuente(real3) == ("Otra montaña caminó primero.", "voz-alineada")
-    # el orden es el de la voz, no el del cierre
-    real4 = {"beats": [{"n": 2, "cierre": "La gente ya sabía qué pedirle. Tres días después llegó el presidente del Consejo.",
-                        "texto": "Tres días después llegó el presidente del Consejo. La gente ya sabía qué pedirle."}]}
-    assert gr.pregunta_cierre_fuente(real4)[0] == "Tres días después llegó el presidente del Consejo. La gente ya sabía qué pedirle."
-
-
-def test_b4_iii_sin_oracion_alineada_queda_el_cierre_de_la_escaleta_y_sin_nada_none():
-    real = {"beats": [{"n": 2, "cierre": "Algo totalmente distinto aquí.", "texto": "Hablamos de otras cosas ahora."}]}
-    assert gr.pregunta_cierre_fuente(real) == ("Algo totalmente distinto aquí.", "escaleta")
-    assert gr.pregunta_cierre_fuente({"beats": [{"n": 2, "cierre": "Pregunta de la escaleta.", "texto": ""}]}) == ("Pregunta de la escaleta.", "escaleta")
-    assert gr.pregunta_cierre_fuente({"beats": []}) == (None, None)
-    assert gr.pregunta_cierre_fuente({"beats": [{"n": 2, "cierre": "", "texto": "Voz sin pregunta."}]}) == (None, None)
-    assert gr.pregunta_cierre({"beats": [{"n": 11, "cierre": "Como hasta F38d."}]}) == "Como hasta F38d."
-
-
-def test_b4_vajont_los_7_caps_dan_lo_que_simulo_el_analista():
-    esc = json.loads((FASE1 / "01a_escaleta.json").read_text(encoding="utf-8"))
-    pars = json.loads((FASE1 / "01b_narracion_v3.json").read_text(encoding="utf-8"))["parrafos"]
-
-    def real(cap: int) -> dict:
-        bs = []
-        for b in esc["beats"]:
-            if int(b["cap"]) != cap:
-                continue
-            bs.append({"n": int(b["n"]), "cierre": str(b.get("cierre") or "").strip(),
-                       "texto": " ".join(p["texto"] for p in pars if int(p["cap"]) == cap and int(p["beat"]) == int(b["n"]))})
-        return {"beats": bs}
-    assert gr.pregunta_cierre_fuente(real(1)) == (
-        "Pero el dique no cedió esa noche. Lo que llegó a la cama de Micaela vino por encima de él.", "voz-alineada")
-    assert gr.pregunta_cierre_fuente(real(7)) == ("¿Quién decidió que Micaela siguiera durmiendo?", "voz-pregunta")
-    from script_engine.voz_utils import oraciones_de_texto
-    for cap, n in ((2, 1), (3, 1), (5, 1), (4, 2), (6, 2)):     # ch02, ch03, ch05 = su última oración; ch04, ch06 = sus dos últimas
-        r = real(cap)
-        voz = oraciones_de_texto(r["beats"][-1]["texto"])
-        assert gr.pregunta_cierre_fuente(r) == (" ".join(voz[-n:]), "voz-alineada"), cap

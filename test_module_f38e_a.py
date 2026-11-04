@@ -186,7 +186,7 @@ def test_r8_closing_question_y_el_plan_fijo_dan_la_misma_pausa(tmp_path):
     """La misma cuenta en los dos caminos: closing_question devuelve lo que pausa_de_cierre lee del plan que dejó."""
     txt = "¿Quién decidió que siguiera durmiendo?"
     resolved: dict = {}
-    pausa = gl.closing_question(resolved, {"realizador": {"beats": [{"n": 3, "cierre": txt}]}}, tmp_path, "ch02", 10.0, [])
+    pausa = gl.closing_question(resolved, {"realizador": {"beats": [{"n": 3, "texto": txt}]}}, tmp_path, "ch02", 10.0, [])
     assert pausa == gl.pausa_de_cierre(resolved) > resolved["chapter_question"]["pause"]
     assert json.loads((tmp_path / "gfx_pause_ch02.json").read_text(encoding="utf-8"))["pause"] == pausa
 

@@ -2,7 +2,7 @@
 test_module_f29a.py — F29 §A: el gfx obedece a la escaleta (script_engine/gfx_realizador). Con la escaleta, la narración
 por beat, el pool y los timestamps de Vajont (sin red): ventanas por beat; los `a_pantalla` en su beat (D128 en el
 respiro del cap 6, después del pico; D245 en el beat 13; Q50 en el beat 8); ningún bloque fuera de su ventana; ≤ 5 por
-cap; pico con bloque grande en los 7 caps; sellos ≤ 1; la pregunta = `cierre` del último beat; crítico parejo.
+cap; pico con bloque grande en los 7 caps; sellos ≤ 1; crítico parejo (la pregunta de cierre: F72b, test_module_f72b).
 """
 from __future__ import annotations
 
@@ -78,17 +78,3 @@ def _plan_lleno(real):
         "punch_in": [b0["t0"] + 1.5, b0["t0"] + 40],
         "pico": {"t": b0["t0"] + 10, "word": "ola", "block": None},
     }
-
-
-def test_pregunta_es_el_cierre_del_ultimo_beat(tmp_path, monkeypatch):
-    from script_engine import gfx_layer as gl
-    carga, pool = _datos()
-    real, _ = _real(4, carga, pool, tmp_path)
-    resolved: dict = {}
-    ctx = {"realizador": real, "chapter_number": 4, "chapters": []}
-    pause = gl.closing_question(resolved, ctx, tmp_path, "ch04", 100.0, [])
-    cierre = next(b for b in carga["escaleta"]["beats"] if int(b["n"]) == 7)["cierre"]
-    assert resolved["chapter_question"]["text"] == cierre.strip() and pause > 0
-    assert json.loads((tmp_path / "gfx_pause_ch04.json").read_text(encoding="utf-8"))["text"] == cierre.strip()
-
-

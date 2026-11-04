@@ -332,7 +332,7 @@
   "estado": "vivo",
   "estado_prueba": "fase2b.py:1217 llama apply_gfx en _build_chapter_segment (render con --gfx --gfx-sparse, run_pipeline.py:246) y fase2b.py:3147 lo llama con plan_only=True en _solo_plan (fase2b --plan-only, run_pipeline.py:374)",
   "funciones_muertas": [],
-  "md5": "0690cbb374c757cf45092eb2ba9f2033",
+  "md5": "7e0a5dca20813f3875c9fc910995c8ac",
   "_parte": "fase2b_gfx_b"
  },
  "script_engine/gfx_literal_lock.py": {
@@ -416,7 +416,7 @@
   "_parte": "fase2b_gfx_b"
  },
  "script_engine/gfx_realizador.py": {
-  "sticker": "Hace que la pantalla obedezca a la escaleta: calcula la ventana de tiempo de cada beat en la voz, la pregunta de cierre del capítulo (sale de la voz y dice de dónde salió) y el cierre del plan (deja solo los sellos del papel y ningún acercamiento suelto). También ordena el final: reparto, cierre y crítico.",
+  "sticker": "Hace que la pantalla obedezca a la escaleta: calcula la ventana de tiempo de cada beat en la voz, la pregunta de cierre del capítulo (F72b: la última oración de la voz del cap, o su pregunta si termina en «?»; ya no lee el `cierre` de la escaleta) y el cierre del plan (deja solo los sellos del papel y ningún acercamiento suelto). También ordena el final: reparto, cierre y crítico.",
   "recibe": "data/scripts/_steps/<topic_id>/01a_escaleta.json y 01b_narracion_v3.json, pool de evidencia, palabras con tiempos de la voz",
   "entrega": "beats con ventanas y candidatos (en memoria y en output/<id>/work/gfx_beats_<cap>.json), texto y fuente de la pregunta de cierre, plan cerrado (realizador.filas)",
   "modelo": [],
@@ -430,11 +430,11 @@
   "funciones_muertas": [
    {
     "nombre": "pregunta_cierre",
-    "linea": 218,
+    "linea": 199,
     "por_que": "nadie la nombra en producción (gfx_layer usa pregunta_cierre_fuente); solo test_module_f38e_b.py"
    }
   ],
-  "md5": "8ae63ab262594e82263975f1a864656a",
+  "md5": "0a61d19fa8e959720fb89b3a7d3d97fe",
   "_parte": "fase2b_gfx_d"
  },
  "script_engine/gfx_review.py": {
