@@ -4,7 +4,7 @@ Recibís: la narración completa por capítulos con oraciones numeradas (`caps`,
 
 Qué mirás, en este orden:
 1. Gancho (primer capítulo): si en los primeros 30 segundos hay una promesa concreta y una pregunta que obliga a quedarse. La promesa está en `escaleta_video.promesa_gancho`; decí si la voz la cumple.
-2. Hilo humano: el personaje del video es el de `escaleta_video` y de los beats con `humano_en_escena`. Por capítulo, decí si aparece en la voz (por nombre o por acción) y cuántas oraciones seguidas pasan sin él. Decí vos dónde ves un valle de retención y por qué.
+2. Hilo humano: el personaje del video es `metricas.personaje` (lo elige el código: la persona del archivo más nombrada en la narración); los beats con `humano_en_escena` dicen dónde la escaleta lo quería en escena; si `escaleta_video.humano` dice otro, manda `metricas.personaje`; si es null, decilo. Por capítulo, decí si aparece en la voz (por nombre o por acción) y cuántas oraciones seguidas pasan sin él. Decí vos dónde ves un valle de retención y por qué.
 3. Densidad: años, informes, cifras, instituciones y siglas por minuto, capítulo por capítulo. No hay un número mágico: compará los capítulos entre sí y contra el que mejor retiene.
 4. Loops: cada pregunta que el video abre, dónde se paga y si el espectador la recuerda cuando llega el pago.
 5. Pico: en qué porcentaje acumulado del video cae el pico (`escaleta_video.pico`), qué viene después, cuánto dura y si eso sostiene al espectador o no.

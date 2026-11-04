@@ -90,10 +90,22 @@ def _bloque(t: str, titulo: str) -> str:
 
 
 def test_prompts_byte_a_byte_del_lab():
+    """F75 A3: el SYSTEM es el de lab/hyperframes/f75/a (m01f-2); el FORMATO sigue siendo el §5 de F67a."""
     h = (ROOT / "lab/hyperframes/f67/HANDOFF_F67a_critico_por_api.md").read_bytes().decode("utf-8").replace("\r\n", "\n")
-    assert hashlib.md5(mf.SYSTEM.encode("utf-8")).hexdigest() == json.loads((ROOT / "lab/hyperframes/f67/a/md5.json").read_text())["system"]
-    assert mf.SYSTEM == _bloque(h, "## 4. SYSTEM") and mf.FORMATO == _bloque(h, "## 5. FORMATO_SALIDA")
-    assert mf.PROMPT_VERSION == "m01f-1" and (mf.MODELO, mf.EFFORT) == ("claude-opus-5-5", "medium")
+    assert hashlib.md5(mf.SYSTEM.encode("utf-8")).hexdigest() == json.loads((ROOT / "lab/hyperframes/f75/a/md5.json").read_text())["system"]
+    assert mf.SYSTEM == (ROOT / "lab/hyperframes/f75/a/SYSTEM_m01f-2.txt").read_bytes().decode("utf-8")
+    assert mf.FORMATO == _bloque(h, "## 5. FORMATO_SALIDA")
+    assert mf.PROMPT_VERSION == "m01f-2" and (mf.MODELO, mf.EFFORT) == ("claude-opus-5-5", "medium")
+
+
+def test_system_f75_es_una_sola_sustitucion_del_f67a():
+    h = (ROOT / "lab/hyperframes/f67/HANDOFF_F67a_critico_por_api.md").read_bytes().decode("utf-8").replace("\r\n", "\n")
+    antes = ("2. Hilo humano: el personaje del video es el de `escaleta_video` y de los beats con `humano_en_escena`.")
+    despues = ("2. Hilo humano: el personaje del video es `metricas.personaje` (lo elige el código: la persona del archivo más nombrada en la "
+               "narración); los beats con `humano_en_escena` dicen dónde la escaleta lo quería en escena; si `escaleta_video.humano` dice "
+               "otro, manda `metricas.personaje`; si es null, decilo.")
+    viejo = _bloque(h, "## 4. SYSTEM")
+    assert viejo.count(antes) == 1 and mf.SYSTEM == viejo.replace(antes, despues) and antes not in mf.SYSTEM
 
 
 def test_produccion_no_importa_el_lab():
@@ -149,7 +161,7 @@ def test_generar_escribe_json_y_md(env):
     n3 = json.loads((env["d"] / "01b_narracion_v3.json").read_text(encoding="utf-8"))
     assert j["narracion_md5"] == md.md5_narracion(n3)
     t = (env["d"] / "01f_critico.md").read_text(encoding="utf-8")
-    assert "**Nota total:** 6.5" in t and "Personaje según la escaleta: P01 Ana Roldan" in t and "### 1. ch02" in t and "## Riesgos" in t
+    assert "**Nota total:** 6.5" in t and "Personaje según la narración: P01 Ana Roldan" in t and "### 1. ch02" in t and "## Riesgos" in t
 
 
 def test_sin_json_reintenta_una_vez_y_no_aborta(env):

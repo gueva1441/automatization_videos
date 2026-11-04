@@ -1,0 +1,55 @@
+{
+ "seg_por_palabra": 0.34,
+ "tramos": [
+  {
+   "desde": "ch01:2",
+   "hasta": "ch01:5",
+   "segundos": 21,
+   "pregunta_que_abre": "¿Qué le hizo Wittenoom a Daniel en diez meses si lo alcanzó a miles de kilómetros?"
+  },
+  {
+   "desde": "ch01:5",
+   "hasta": "ch01:11",
+   "segundos": 24,
+   "pregunta_que_abre": "¿Por qué no cierra una herida hecha por un mineral? ¿Qué hay en ese polvo?"
+  },
+  {
+   "desde": "ch01:11",
+   "hasta": "ch01:12",
+   "segundos": 2,
+   "pregunta_que_abre": "Los relaves siguen ahí y no se quedan quietos: ¿adónde van?"
+  },
+  {
+   "desde": "ch01:12",
+   "hasta": "ch03:11",
+   "segundos": 139,
+   "pregunta_que_abre": "¿Quién lo llevó hasta allí?"
+  },
+  {
+   "desde": "ch03:11",
+   "hasta": "ch04:18",
+   "segundos": 150,
+   "pregunta_que_abre": "Si estaba escrito desde 1944, ¿quién sabía y quién decidió seguir?"
+  },
+  {
+   "desde": "ch04:18",
+   "hasta": "ch06:20",
+   "segundos": 182,
+   "pregunta_que_abre": "¿Salieron a tiempo?"
+  },
+  {
+   "desde": "ch06:20",
+   "hasta": "fin",
+   "segundos": 81,
+   "pregunta_que_abre": "¿Quién va a sacar la primera palada?"
+  }
+ ],
+ "max_segundos": 182,
+ "max_tramo": {
+  "desde": "ch04:18",
+  "hasta": "ch06:20"
+ },
+ "loops_invalidos": [],
+ "narracion_md5": "cd0fe3bfcc81bf45871f575c3c0077dc",
+ "narracion_md5_critico": "3fc4168d8fc270ba0af8122d8c3799d7"
+}

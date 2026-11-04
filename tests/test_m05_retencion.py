@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """F67 A: `m05_narrative.retencion`, con una narración sintética de 2 caps: racha conocida, pico en el último párrafo del cap 1,
-promesa con 2 cifras (una dentro de la ventana del gancho y otra afuera) y los casos sin pico, sin personaje e institución."""
+promesa con 2 cifras (una dentro de la ventana del gancho y otra afuera) y los casos sin pico y sin personaje. F75 A1: el
+personaje sale de la narración (empates, pila compartido, minúscula)."""
 import json
 
 import pytest
@@ -94,22 +95,67 @@ def test_sin_pico():
     assert r["pico"] is None and "99" in r["pico_motivo"]
 
 
-@pytest.mark.parametrize("sk,esc", [
-    ({**SK, "personajes": []}, ESC),                                                          # no está en el skeleton
-    ({**SK, "personajes": [{**PERSONA, "tipo": "institucion"}]}, ESC),                        # institución
-    (SK, {k: v for k, v in ESC.items() if k != "humano"}),                                    # sin humano
-])
-def test_sin_personaje_o_institucion(sk, esc):
-    r = _r(sk=sk, esc=esc)
-    assert r["personaje"] is None and r["personaje_motivo"] and r["cap_mas_humano"] is None
+def _sin_personaje(r):
+    assert r["personaje"] is None and r["cap_mas_humano"] is None
     assert r["anios_por_min_vs_mas_humano"] is None and r["pico"]["personaje_en_siguientes"] is None
     c = r["caps"][0]
     assert c["personaje_en_voz"] is None and c["racha_max_sin_personaje"] is None and c["racha_desde_hasta"] is None
     assert c["palabras"] > 0                              # lo demás se mide igual
 
 
+def test_nadie_nombrado_null():
+    pars = [{**p, "texto": p["texto"].replace("Ana Pérez", "La minera")} for p in PARS]
+    r = _r(pars)
+    _sin_personaje(r)
+    assert r["personaje_motivo"] == "nadie del pool se nombra en la voz"
+
+
+def _empate(esc):
+    pars = [{"cap": 1, "beat": 1, "texto": "Luis Gómez llegó. Ana Pérez habló. Nadie vino.", "ids_usados": []},
+            {"cap": 1, "beat": 2, "texto": "Ana calló. Luis se fue.", "ids_usados": []}]
+    return _r(pars, esc=esc)["personaje"]
+
+
+def test_empate_gana_la_escaleta():
+    assert _empate(ESC)["id"] == "P1"                     # 2 y 2 oraciones; P1 está entre los empatados
+
+
+def test_empate_sin_escaleta_gana_el_primero():
+    assert _empate({k: v for k, v in ESC.items() if k != "humano"})["id"] == "P2"   # Luis aparece en la oración 0
+    assert _empate({**ESC, "humano": {"id": "P9"}})["id"] == "P2"                    # la escaleta no está entre los empatados
+
+
+def test_pila_compartido_no_cuenta():
+    pool = {"personajes": [PERSONA, {"id": "P2", "nombre": "Ana Gómez"}]}
+    pars = [{"cap": 1, "beat": 1, "texto": "Ana Pérez llegó. Ana habló. Ana calló.", "ids_usados": []}]
+    r = m5.retencion(pars, SK, ESC, pool, SEG)
+    assert r["personaje"]["terminos"] == ["ana perez"] and r["personaje"]["oraciones"] == 1
+    assert r["caps"][0]["oraciones_con_personaje"] == 1
+
+
+def test_el_inspector_con_minuscula_no_cuenta():
+    pool = {"personajes": [{"id": "P5", "nombre": "Inspector de Salud Regional"}]}
+    pars = [{"cap": 1, "beat": 1, "texto": "El inspector de minas llegó. Nadie habló. Llegó el inspector.", "ids_usados": []}]
+    r = m5.retencion(pars, SK, ESC, pool, SEG)
+    assert r["personaje"] is None and r["personaje_motivo"] == "nadie del pool se nombra en la voz"
+    pars[0]["texto"] = "Inspector llegó. Nadie habló."      # con mayúscula sí es el pila
+    assert m5.retencion(pars, SK, ESC, pool, SEG)["personaje"]["oraciones"] == 1
+
+
+def test_apellido_solo_no_cuenta():
+    pars = [{"cap": 1, "beat": 1, "texto": "Pérez llegó. Ana Pérez habló.", "ids_usados": []}]
+    assert _r(pars)["personaje"]["oraciones"] == 1
+
+
 def test_personaje_terminos():
-    assert _r()["personaje"] == {"id": "P1", "nombre": "Ana Pérez", "terminos": ["ana perez", "perez"]}
+    # P1 sale en 2 oraciones (Ana Pérez); P2 en ninguna. La escaleta solo queda como dato
+    assert _r()["personaje"] == {"id": "P1", "nombre": "Ana Pérez", "terminos": ["ana perez", "ana"],
+                                 "elegido_por": "narracion", "oraciones": 2, "escaleta_id": "P1"}
+    assert _r(esc={k: v for k, v in ESC.items() if k != "humano"})["personaje"]["escaleta_id"] is None
+
+
+def test_no_usa_skeleton_personajes():
+    assert _r(sk={**SK, "personajes": []})["personaje"]["id"] == "P1"
 
 
 def test_judge_narration_lee_del_disco_y_guarda_retencion(tmp_path, monkeypatch):

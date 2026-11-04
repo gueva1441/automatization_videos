@@ -328,17 +328,51 @@ def cifra_norm(c: str) -> str:
     return re.sub(r"[.,]", "", c)
 
 
-def _persona_de(skeleton: dict[str, Any] | None, escaleta: dict[str, Any]) -> tuple[dict[str, Any] | None, str | None]:
-    """El personaje del video: `escaleta.humano.id` en `skeleton.personajes` (F67 §2). (persona, None) o (None, motivo)."""
+def terminos_retencion(persona: dict[str, Any], people: list[dict[str, Any]]) -> tuple[list[str], str | None]:
+    """F75 A1: cómo se busca a una persona en la voz, solo para `retencion` (`nombres.terminos` no cambia). (términos con
+    nombre y apellido de `nombres.terminos`, nombre de pila solo o None). El pila solo vale si nadie más del pool lo comparte,
+    y se busca con mayúscula inicial en el texto original (`_nombra_ret`); el apellido solo nunca («Subcomité de Wittenoom»)."""
+    from script_engine import nombres
+    terms = [t for t in nombres.terminos(persona, people) if " " in t]
+    pila = nombres.clave(persona.get("nombre"))[0]
+    if pila and any(q is not persona and nombres.clave(q.get("nombre"))[0] == pila for q in people):
+        pila = ""
+    return terms, pila or None
+
+
+def _nombra_ret(texto: str, terms: list[str], pila: str | None) -> bool:
+    """¿La oración nombra a la persona? Nombre y apellido sobre `norm`; el pila solo, palabra con mayúscula inicial en el
+    texto original («el inspector» no cuenta)."""
+    from script_engine import nombres
+    if any(nombres.menciona(texto, t) for t in terms):
+        return True
+    return bool(pila) and any(w[:1].isupper() and nombres.norm(w) == pila for w in re.findall(r"[^\W\d_]+", texto))
+
+
+def elegir_personaje(textos: list[str], people: list[dict[str, Any]], escaleta: dict[str, Any]) -> dict[str, Any]:
+    """F75 A1: el personaje del video sale de la narración. Candidatos: `pool.personajes` con `nombres.es_persona`; gana el que
+    aparece en más oraciones; empate → `escaleta.humano.id` si está entre los empatados, si no el de la primera oración (índice
+    global). {persona, terminos, pila, oraciones, motivo, candidatos: [{id, nombre, oraciones, primera}]}."""
+    from script_engine import nombres
+    cands = []
+    for q in people:
+        if not nombres.es_persona(q.get("nombre")):
+            continue
+        terms, pila = terminos_retencion(q, people)
+        hits = [k for k, t in enumerate(textos) if _nombra_ret(t, terms, pila)]
+        if hits:
+            cands.append({"p": q, "terminos": terms, "pila": pila, "oraciones": len(hits), "primera": hits[0]})
+    cands.sort(key=lambda c: (-c["oraciones"], c["primera"]))
+    out = {"persona": None, "terminos": [], "pila": None, "oraciones": 0, "motivo": "nadie del pool se nombra en la voz",
+           "candidatos": [{"id": c["p"].get("id"), "nombre": c["p"].get("nombre"), "oraciones": c["oraciones"],
+                           "primera": c["primera"]} for c in cands]}
+    if not cands:
+        return out
+    empatados = [c for c in cands if c["oraciones"] == cands[0]["oraciones"]]
     pid = str((escaleta.get("humano") or {}).get("id") or "")
-    if not pid:
-        return None, "la escaleta no tiene humano con id"
-    p = next((x for x in (skeleton or {}).get("personajes") or [] if str(x.get("id") or "") == pid), None)
-    if p is None:
-        return None, f"{pid} no está en los personajes del skeleton"
-    if p.get("tipo") == "institucion":
-        return None, f"{pid} es una institución"
-    return p, None
+    g = next((c for c in empatados if str(c["p"].get("id") or "") == pid), empatados[0])
+    out.update(persona=g["p"], terminos=g["terminos"], pila=g["pila"], oraciones=g["oraciones"], motivo=None)
+    return out
 
 
 def _promesa(escaleta: dict[str, Any], texto_gancho: str, seg: float) -> dict[str, Any]:
@@ -359,12 +393,11 @@ def retencion(parrafos: list[dict[str, Any]], skeleton: dict[str, Any] | None, e
     """F67 A (DECISIONES 2026-10-31 18:43): las métricas de retención, sin umbral: por cap palabras, segundos, %, años/min y
     racha de oraciones sin el personaje; del video, el cap más humano, el pico y la promesa. Mismo corte y `idx` por cap que
     `m01e_pantalla.entrada` (voz_utils.oraciones_de_texto). «Por acción» no se detecta acá: lo hace el crítico. Sin personaje
-    o sin pico, sus campos van null con su motivo."""
-    from script_engine import nombres
+    o sin pico, sus campos van null con su motivo. F75 A1: el personaje lo elige `elegir_personaje` desde la narración (la
+    escaleta solo desempata y queda como `escaleta_id`); `skeleton` solo aporta los títulos."""
     from script_engine.voz_utils import oraciones_de_texto
     esc = escaleta or {}
     people = (pool or {}).get("personajes") or []
-    persona, motivo_p = _persona_de(skeleton, esc)
     titulos = {int(c["chapter_number"]): str(c.get("title") or "") for c in (skeleton or {}).get("chapters") or []}
     ors: list[dict[str, Any]] = []                      # todas las oraciones del video, en orden de narración
     por_cap: dict[int, list[dict[str, Any]]] = {}
@@ -375,10 +408,14 @@ def retencion(parrafos: list[dict[str, Any]], skeleton: dict[str, Any] | None, e
                 continue
             for t in oraciones_de_texto(p["texto"]):
                 o = {"cap": n, "idx": len(por_cap[n]), "parrafo": i, "beat": int(p.get("beat") or 0), "texto": t,
-                     "palabras": len(words_of(t)),
-                     "con_personaje": nombres.nombra(t, persona, people) if persona else None}
+                     "palabras": len(words_of(t)), "con_personaje": None}
                 por_cap[n].append(o)
                 ors.append(o)
+    el = elegir_personaje([o["texto"] for o in ors], people, esc)   # F75 A1: de la narración, no de la escaleta
+    persona, motivo_p = el["persona"], el["motivo"]
+    if persona:
+        for o in ors:
+            o["con_personaje"] = _nombra_ret(o["texto"], el["terminos"], el["pila"])
     total = sum(o["palabras"] for o in ors)
     caps, acum = [], 0
     for n, os_ in por_cap.items():
@@ -426,7 +463,8 @@ def retencion(parrafos: list[dict[str, Any]], skeleton: dict[str, Any] | None, e
                     "n_siguientes": ORACIONES_TRAS_PICO, "oraciones_siguientes": [o["texto"] for o in sig]}
     return {"seg_por_palabra": seg, "total_palabras": total, "total_min": round(total * seg / 60, 1), "caps": caps,
             "personaje": {"id": persona.get("id"), "nombre": persona.get("nombre"),
-                          "terminos": nombres.terminos(persona, people)} if persona else None,
+                          "terminos": el["terminos"] + ([el["pila"]] if el["pila"] else []), "elegido_por": "narracion",
+                          "oraciones": el["oraciones"], "escaleta_id": (esc.get("humano") or {}).get("id")} if persona else None,
             "personaje_motivo": motivo_p, "cap_mas_humano": humano["cap"] if humano else None,
             "anios_por_min_vs_mas_humano": {c["cap"]: (round(c["anios_por_min"] / base, 2) if base and c["anios_por_min"] is not None
                                                        else None) for c in caps} if humano else None,

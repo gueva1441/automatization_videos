@@ -2318,7 +2318,7 @@ def _parrafos_de_cap(pars: list[dict], n: int, indices: list[int] | None = None)
 
 def narracion_vista(state: "QAState") -> dict:
     """GET /narracion: {estado {aprobado, motivo}, aprobado_por, md5, critico {claves de la respuesta, usd, modelo, prompt_version,
-    vigente, n_deberia, error}, sin_critico, metricas (`retencion` del juez), verificacion {quedan, vigente}, caps [{cap, titulo, nota,
+    vigente, n_deberia, error, entre_promesas}, sin_critico, metricas (`retencion` del juez), verificacion {quedan, vigente}, caps [{cap, titulo, nota,
     fuerte, debil, reengancho, personaje_en_voz, racha_max_sin_personaje, metricas, parrafos [{i, beat, texto, oraciones [{idx, texto}]}],
     deberia [{k, oraciones, que_sale, por_que_se_van, deberia_texto, ids, palabras_antes, palabras_despues, cifras_sin_respaldo,
     marcas}]}], borrador (el de `/narracion/borrador` sin decisiones)}. Sin 01f_critico.json los párrafos se muestran igual y se pueden
@@ -2360,7 +2360,8 @@ def narracion_vista(state: "QAState") -> dict:
     critico = None
     if crit:
         critico = {**(resp or {}), "usd": crit.get("usd"), "modelo": crit.get("modelo"), "prompt_version": crit.get("prompt_version"),
-                   "vigente": crit.get("narracion_md5") == md5, "n_deberia": crit.get("n_deberia"), "error": crit.get("error")}
+                   "vigente": crit.get("narracion_md5") == md5, "n_deberia": crit.get("n_deberia"), "error": crit.get("error"),
+                   "entre_promesas": (crit.get("validacion") or {}).get("entre_promesas")}      # F75 B1: sin umbral, lo lee Omar
     return {"estado": {"aprobado": ok, "motivo": motivo}, "aprobado_por": n3.get("aprobado"), "md5": md5, "critico": critico,
             "sin_critico": not resp, "metricas": met,
             "verificacion": {"quedan": verif.get("quedan") or [], "vigente": verif.get("narracion_md5") == md5}, "caps": caps,

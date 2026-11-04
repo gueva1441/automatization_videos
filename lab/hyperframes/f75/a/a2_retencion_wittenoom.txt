@@ -1,0 +1,31 @@
+seg_por_palabra: 0.34 | oraciones: 139
+retencion.personaje = {"id": "P17", "nombre": "Daniel Écija (padre)", "terminos": ["daniel ecija", "daniel"], "elegido_por": "narracion", "oraciones": 16, "escaleta_id": "P16"}
+retencion.personaje_motivo = None
+
+candidatos (oraciones, primera oración global):
+  P17 Daniel Écija (padre): 16 (primera 6) términos ['daniel ecija', 'daniel']
+  P16 María Bernal: 7 (primera 15) términos ['maria bernal', 'maria']
+  P20 Ramón de Juan: 3 (primera 22) términos ['ramon juan', 'ramon']
+  P21 Víctor Calvo: 3 (primera 23) términos ['victor calvo', 'victor']
+  P19 Milagros Barroso: 2 (primera 22) términos ['milagros barroso', 'milagros']
+  P13 Maitland Parker: 2 (primera 124) términos ['maitland parker', 'maitland']
+  P25 Eric Saint: 1 (primera 48) términos ['eric saint', 'eric']
+  P07 Jim McNulty: 1 (primera 55) términos ['jim mcnulty', 'jim']
+  P23 John Patrick de Juan: 1 (primera 71) términos ['john juan', 'john']
+  P08 James Vernon: 1 (primera 77) términos ['james vernon', 'james']
+  P22 Mercedes de Juan: 1 (primera 106) términos ['mercedes juan', 'mercedes']
+  P24 Melita Markey: 1 (primera 109) términos ['melita markey', 'melita']
+candidatos del contrato: OK | gana: P17 | fuera de la tabla del contrato (todos < 3): {'P19': 2, 'P13': 2, 'P25': 1, 'P07': 1, 'P23': 1, 'P08': 1, 'P22': 1, 'P24': 1}
+
+| cap | oraciones/con/racha | contrato | desde-hasta | |
+|---|---|---|---|---|
+| ch01 | 14/1/7 | 14/1/7 | [7, 13] | OK |
+| ch02 | 18/1/16 | 18/1/16 | [2, 17] | OK |
+| ch03 | 25/3/10 | 25/3/10 | [0, 9] | OK |
+| ch04 | 19/2/12 | 19/2/12 | [1, 12] | OK |
+| ch05 | 23/6/8 | 23/6/8 | [0, 7] | OK |
+| ch06 | 25/2/12 | 25/2/12 | [13, 24] | OK |
+| ch07 | 15/1/10 | 15/1/10 | [0, 9] | OK |
+
+rachas vs contrato: OK
+cap_mas_humano: ch01

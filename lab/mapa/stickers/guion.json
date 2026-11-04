@@ -356,7 +356,7 @@
   "_parte": "guion_a"
  },
  "script_engine/m01f_critico.py": {
-  "sticker": "El crítico de retención de la narración (F67, Fase 1 del lazo escritor → crítico → corrector): una llamada a Opus medium con la narración por oraciones, la escaleta, el archivo del caso, las métricas del juez y la tabla del verificador; devuelve nota, valles y DEBERÍA con texto e ids. Solo propone: valida en código ids, oraciones, palabras, cifras y marcas, y deja la crítica para la compuerta de narración de QA Studio. También aplica lo que Omar decide allí: editar un párrafo o aceptar un DEBERÍA, ubicando el tramo por su texto y reconstruyendo el contrato. F67d: `borrador` (pura, sin disco ni juez) aplica cada DEBERÍA una sola vez, por partes «[…]» y tramos contiguos, y `guardar_y_aprobar` lo guarda con 1 reconstrucción y 1 juez; con decisiones pendientes no escribe.",
+  "sticker": "El crítico de retención de la narración (F67, Fase 1 del lazo escritor → crítico → corrector): una llamada a Opus medium con la narración por oraciones, la escaleta, el archivo del caso, las métricas del juez y la tabla del verificador; devuelve nota, valles y DEBERÍA con texto e ids. Solo propone: valida en código ids, oraciones, palabras, cifras y marcas, y deja la crítica para la compuerta de narración de QA Studio. También aplica lo que Omar decide allí: editar un párrafo o aceptar un DEBERÍA, ubicando el tramo por su texto y reconstruyendo el contrato. F67d: `borrador` (pura, sin disco ni juez) aplica cada DEBERÍA una sola vez, por partes «[…]» y tramos contiguos, y `guardar_y_aprobar` lo guarda con 1 reconstrucción y 1 juez; con decisiones pendientes no escribe. F75: `entre_promesas` (B1, sin umbral) calcula los segundos entre una promesa nueva (`loops[*].abre` del crítico) y la siguiente, estimados por palabra con `metricas[\"seg_por_palabra\"]`; va en `validacion.entre_promesas` y en el .md como «## Promesas nuevas (código)», con aviso si la narración no es la que vio el crítico; `rerender` re-hace el .md desde un 01f_critico.json existente sin API; la línea del personaje dice «según la narración». SYSTEM m01f-2 (A3: el personaje es `metricas.personaje`).",
   "recibe": "data/scripts/_steps/<id>/ (01a_escaleta.json, 01a_skeleton.json, 01b_narracion_v3.json, 00_pool_v3.json o el pool del topic, ficha_caso.json, 06_judge_narrative.json, 01b_verificacion.md), script_engine/m01f_prompts/SYSTEM.txt y FORMATO.txt",
   "entrega": "data/scripts/_steps/<id>/01f_critico.json y 01f_critico.md; al editar, los 3 archivos del contrato vía m01d_particion.reconstruir y 06_judge_narrative.json",
   "modelo": [
@@ -373,7 +373,7 @@
   "estado": "vivo",
   "estado_prueba": "fase1_5.py (run_critico), qa_studio_server.py (narracion_vista, narracion_post)",
   "funciones_muertas": [],
-  "md5": "59724c4c0c87aaf58940ecb066a1711d",
+  "md5": "edd3e710d73d556463e856d98c71f3ac",
   "_parte": "guion_f67"
  }
 }

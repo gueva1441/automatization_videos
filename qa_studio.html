@@ -1207,10 +1207,11 @@ function nnRender(){
     <div class="nn-met" style="margin-top:12px">
       ${r.gancho?`Gancho: promesa cumplida ${nnSi(r.gancho.promesa_cumplida)} · ${esc(r.gancho.comentario)}<br>`:''}
       ${pc?`Pico (código): ${esc(pc.cap)} · ${pc.pct_acumulado} % acumulado · ${pc.segundos_despues} s después · personaje en las ${pc.n_siguientes} siguientes: ${nnSi(pc.personaje_en_siguientes)}`:`Pico: ${esc(m.pico_motivo||'—')}`}
-      ${m.personaje?`<br>Personaje según la escaleta: ${esc(m.personaje.id)} ${esc(m.personaje.nombre)}`:(m.personaje_motivo?`<br>Sin personaje: ${esc(m.personaje_motivo)}`:'')}
+      ${m.personaje?`<br>Personaje según la narración: ${esc(m.personaje.id)} ${esc(m.personaje.nombre)}${m.personaje.oraciones!=null?` · ${m.personaje.oraciones} oraciones`:''}`:(m.personaje_motivo?`<br>Sin personaje: ${esc(m.personaje_motivo)}`:'')}
     </div>
     ${quedan.length?nnPlegado(`⚠ aviso del verificador: ${quedan.length} «contradice»${n.verificacion.vigente?'':' · desactualizado'}`,`<ul>${quedan.map(q=>`<li>${esc(q.cap)} [${esc(String(q.oracion))}] «${esc(q.texto)}»: ${esc(q.afirmacion)} (${esc((q.ids||[]).join(', '))})</li>`).join('')}</ul>`):''}
     ${r.loops?nnPlegado(`loops (${r.loops.length})`,`<ul>${r.loops.map(x=>`<li>${esc(x.pregunta)} · abre ${esc(x.abre)} · paga ${esc(x.paga)} · se recuerda ${nnSi(x.se_recuerda)}</li>`).join('')}</ul>`):''}
+    ${r.entre_promesas&&r.entre_promesas.tramos?`<div class="nn-met" id="nnEntrePromesas">Entre promesas nuevas (código, s estimados): ${r.entre_promesas.tramos.map(t=>`${esc(t.desde)}→${esc(t.hasta)} ${t.segundos}`).join(' · ')}${r.entre_promesas.max_segundos!=null?` · máx. ${r.entre_promesas.max_segundos} s (${esc(r.entre_promesas.max_tramo.desde)}→${esc(r.entre_promesas.max_tramo.hasta)})`:''}${(r.entre_promesas.loops_invalidos||[]).length?` · ${r.entre_promesas.loops_invalidos.length} loop(s) con abre inválido`:''}${r.entre_promesas.narracion_md5&&r.entre_promesas.narracion_md5!==n.md5?' · ⚠ de otra narración':''}</div>`:''}
     ${r.cierre?nnPlegado('cierre',`<div class="pp-ap">${esc(r.cierre)}</div>`):''}
     ${r.riesgos?nnPlegado(`riesgos (${r.riesgos.length})`,`<ul>${r.riesgos.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`):''}
     ${r.reglas_generales_candidatas?nnPlegado(`reglas candidatas (${r.reglas_generales_candidatas.length})`,`<ul>${r.reglas_generales_candidatas.map(x=>`<li>${esc(x.regla)} · <i>medible:</i> ${esc(x.medible_como)} · <i>por qué:</i> ${esc(x.por_que)}</li>`).join('')}</ul>`):''}

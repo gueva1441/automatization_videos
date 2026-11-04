@@ -1,0 +1,208 @@
+# F75 C1 — 123bbb64-9fca-4395-8bf4-57d60e219ef1_final_gfx.mp4
+ffmpeg version 8.1-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers
+
+## 0. alimiter: semántica de limit / level / latency
+limit = 10^(-2.0/20) = 0.7943282347242815 → '0.794328' (amplitud lineal de muestra)
+$ ffmpeg -hide_banner -nostats -f lavfi -i sine=f=440:d=2:sample_rate=44100 -af volume=-6dB,alimiter=level=disabled:limit=0.794328,astats=metadata=0:measure_overall=Peak_level -f null -
+  seno pico −24 dBFS (sine 1/8 = −18, −6 dB) por alimiter level=disabled: pico de salida -24.063921 dBFS
+$ ffmpeg -hide_banner -nostats -f lavfi -i sine=f=440:d=2:sample_rate=44100 -af volume=-6dB,alimiter=level=enabled:limit=0.794328,astats=metadata=0:measure_overall=Peak_level -f null -
+  seno pico −24 dBFS (sine 1/8 = −18, −6 dB) por alimiter level=enabled: pico de salida -22.063919 dBFS
+$ ffmpeg -hide_banner -nostats -f lavfi -i sine=f=440:d=2:sample_rate=44100 -af volume=+20dB,alimiter=level=disabled:limit=0.794328,astats=metadata=0:measure_overall=Peak_level -f null -
+  seno pico +2 dBFS (−18 +20) → alimiter limit=0.794328: pico de salida -2.000003 dBFS
+$ ffmpeg -hide_banner -nostats -y -f lavfi -i aevalsrc='if(eq(n,22050),0.5,0)':s=44100:d=1 -af alimiter=level=disabled:limit=0.794328:latency=0 -f f32le -ac 1 C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\_imp_lat0.raw
+  impulso en muestra 22050, latency=0: sale en muestra 22269 (corrimiento 219 = 4.97 ms), 44100 muestras
+$ ffmpeg -hide_banner -nostats -y -f lavfi -i aevalsrc='if(eq(n,22050),0.5,0)':s=44100:d=1 -af alimiter=level=disabled:limit=0.794328:latency=1 -f f32le -ac 1 C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\_imp_lat1.raw
+  impulso en muestra 22050, latency=1: sale en muestra 22050 (corrimiento 0 = 0.00 ms), 44100 muestras
+
+## 1. extraer audio
+$ ffmpeg -hide_banner -nostats -y -i C:\CLAUDE_PROJECTS\automatization_videos\output\123bbb64-9fca-4395-8bf4-57d60e219ef1\123bbb64-9fca-4395-8bf4-57d60e219ef1_final_gfx.mp4 -vn -map 0:a:0 -c:a pcm_f32le C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\_orig_full.wav
+
+## 2. ebur128 original
+$ ffmpeg -hide_banner -nostats -v verbose -i C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\_orig_full.wav -vn -af ebur128=peak=true:framelog=verbose -f null -
+Summary:
+
+  Integrated loudness:
+    I:         -24.0 LUFS
+    Threshold: -34.3 LUFS
+
+  Loudness range:
+    LRA:         6.6 LU
+    Threshold: -44.3 LUFS
+    LRA low:   -27.9 LUFS
+    LRA high:  -21.4 LUFS
+
+  True peak:
+    Peak:       -6.6 dBFS
+[aost#0:0/pcm_s16le @ 00000203787dcd80] [enc:pcm_s16le @ 00000203787a3640] Encoder thread received EOF
+[aost#0:0/pcm_s16le @ 00000203787dcd80] Terminating thread with return code 0 (success)
+[out#0/null @ 0000020378748500] All streams finished
+[out#0/null @ 0000020378748500] Terminating thread with return code 0 (success)
+[af#0:0 @ 00000203787dd640] Terminating thread with return code 0 (success)
+[out#0/null @ 0000020378748500] Output file #0 (pipe:):
+[out#0/null @ 0000020378748500]   Output stream #0:0 (audio): 7983 frames encoded (35203072 samples); 7983 packets muxed (70406144 bytes); 
+[out#0/null @ 0000020378748500]   Total: 7983 packets (70406144 bytes) muxed
+[out#0/null @ 0000020378748500] video:0KiB audio:68756KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+size=N/A time=00:13:18.25 bitrate=N/A speed= 661x elapsed=0:00:01.20    
+[in#0/wav @ 0000020378747fc0] Input file #0 (C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\_orig_full.wav):
+[in#0/wav @ 0000020378747fc0]   Input stream #0:0 (audio): 8595 packets read (140812288 bytes); 8595 frames decoded; 0 decode errors (35203072 samples); 
+[in#0/wav @ 0000020378747fc0]   Total: 8595 packets (140812288 bytes) demuxed
+[AVIOContext @ 0000020378749080] Statistics: 140812380 bytes read, 0 seeks
+
+Exiting with exit code 0
+ORIGINAL: I=-24.0 LRA=6.6 TP=-6.6  (7982 cuadros M)
+minuto más fuerte (original): 644–704 s, -21.85 LUFS sin compuerta
+gancho 0–60 s (original): -24.33 LUFS sin compuerta
+
+## 3. G = -14.0 - (-24.0) = +10.00 dB → volume=+10.0dB
+
+## 4a. 1.a pasada: -af "volume=+10.0dB,alimiter=level=disabled:limit=0.794328,loudnorm=print_format=json"
+$ ffmpeg -hide_banner -nostats -i C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\_orig_full.wav -af volume=+10.0dB,alimiter=level=disabled:limit=0.794328,loudnorm=print_format=json -f null -
+{
+ "input_i": "-14.50",
+ "input_tp": "-2.00",
+ "input_lra": "5.90",
+ "input_thresh": "-24.75",
+ "output_i": "-24.15",
+ "output_tp": "-8.21",
+ "output_lra": "5.50",
+ "output_thresh": "-34.35",
+ "normalization_type": "dynamic",
+ "target_offset": "0.15"
+}
+
+## 4b. 2.a pasada: -af "volume=+10.0dB,alimiter=level=disabled:limit=0.794328,loudnorm=I=-14:TP=-1.5:LRA=5.90:linear=true:measured_I=-14.50:measured_TP=-2.00:measured_LRA=5.90:measured_thresh=-24.75:offset=0.15:print_format=json" -ar 48000 -c:a aac -b:a 192k
+$ ffmpeg -hide_banner -nostats -y -i C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\_orig_full.wav -af volume=+10.0dB,alimiter=level=disabled:limit=0.794328,loudnorm=I=-14:TP=-1.5:LRA=5.90:linear=true:measured_I=-14.50:measured_TP=-2.00:measured_LRA=5.90:measured_thresh=-24.75:offset=0.15:print_format=json -ar 48000 -c:a aac -b:a 192k C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\master_full.m4a
+{
+ "input_i": "-14.45",
+ "input_tp": "-2.00",
+ "input_lra": "5.90",
+ "input_thresh": "-24.70",
+ "output_i": "-13.95",
+ "output_tp": "-1.50",
+ "output_lra": "5.90",
+ "output_thresh": "-24.20",
+ "normalization_type": "linear",
+ "target_offset": "-0.05"
+}
+normalization_type = linear
+
+## 5. ebur128 master (sobre el m4a AAC)
+$ ffmpeg -hide_banner -nostats -v verbose -i C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\master_full.m4a -vn -af ebur128=peak=true:framelog=verbose -f null -
+Summary:
+
+  Integrated loudness:
+    I:         -14.0 LUFS
+    Threshold: -24.2 LUFS
+
+  Loudness range:
+    LRA:         5.9 LU
+    Threshold: -34.3 LUFS
+    LRA low:   -17.5 LUFS
+    LRA high:  -11.6 LUFS
+
+  True peak:
+    Peak:       -0.9 dBFS
+[aost#0:0/pcm_s16le @ 000001babc4b0700] [enc:pcm_s16le @ 000001babc097f40] Encoder thread received EOF
+[aost#0:0/pcm_s16le @ 000001babc4b0700] Terminating thread with return code 0 (success)
+[out#0/null @ 000001babc0d9a80] All streams finished
+[out#0/null @ 000001babc0d9a80] Terminating thread with return code 0 (success)
+[af#0:0 @ 000001babc83cec0] Terminating thread with return code 0 (success)
+[out#0/null @ 000001babc0d9a80] Output file #0 (pipe:):
+[out#0/null @ 000001babc0d9a80]   Output stream #0:0 (audio): 7983 frames encoded (38317056 samples); 7983 packets muxed (76634112 bytes); 
+[out#0/null @ 000001babc0d9a80]   Total: 7983 packets (76634112 bytes) muxed
+[out#0/null @ 000001babc0d9a80] video:0KiB audio:74838KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+size=N/A time=00:13:18.27 bitrate=N/A speed= 439x elapsed=0:00:01.81    
+[in#0/mov,mp4,m4a,3gp,3g2,mj2 @ 000001babc0d7fc0] Input file #0 (C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\master_full.m4a):
+[in#0/mov,mp4,m4a,3gp,3g2,mj2 @ 000001babc0d7fc0]   Input stream #0:0 (audio): 37420 packets read (19972273 bytes); 37419 frames decoded; 0 decode errors (38317056 samples); 
+[in#0/mov,mp4,m4a,3gp,3g2,mj2 @ 000001babc0d7fc0]   Total: 37420 packets (19972273 bytes) demuxed
+[AVIOContext @ 000001babc0d9080] Statistics: 20171995 bytes read, 2 seeks
+
+Exiting with exit code 0
+MASTER AAC: I=-14.0 LRA=5.9 TP=-0.9
+minuto más fuerte (master): 644–704 s, -12.07 LUFS sin compuerta
+{
+    "programs": [
+
+    ],
+    "stream_groups": [
+
+    ],
+    "streams": [
+        {
+            "codec_name": "aac",
+            "sample_rate": "48000",
+            "channels": 1,
+            "bit_rate": "200153"
+        }
+    ],
+    "format": {
+        "duration": "798.255000",
+        "size": "20123064"
+    }
+}
+
+chequeo: TP -0.9 <= -1.5: False · I -14.0 vs -14.0: Δ +0.0
+
+## 6. extractos de 60 s
+$ ffmpeg -hide_banner -nostats -y -ss 0.000 -t 60 -i C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\_orig_full.wav -c:a pcm_s16le C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\extracto_gancho_0000-0100_original.wav
+$ ffmpeg -hide_banner -nostats -i C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\extracto_gancho_0000-0100_original.wav -vn -af ebur128=peak=true -f null -
+  extracto_gancho_0000-0100_original.wav: I=-23.8 LRA=6.2 TP=-6.6
+$ ffmpeg -hide_banner -nostats -y -ss 0.000 -t 60 -i C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\master_full.m4a -c:a pcm_s16le C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\extracto_gancho_0000-0100_master.wav
+$ ffmpeg -hide_banner -nostats -i C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\extracto_gancho_0000-0100_master.wav -vn -af ebur128=peak=true -f null -
+  extracto_gancho_0000-0100_master.wav: I=-14.3 LRA=4.5 TP=-1.2
+$ ffmpeg -hide_banner -nostats -y -ss 644.000 -t 60 -i C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\_orig_full.wav -c:a pcm_s16le C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\extracto_fuerte_1044-1144_original.wav
+$ ffmpeg -hide_banner -nostats -i C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\extracto_fuerte_1044-1144_original.wav -vn -af ebur128=peak=true -f null -
+  extracto_fuerte_1044-1144_original.wav: I=-21.8 LRA=3.4 TP=-6.8
+$ ffmpeg -hide_banner -nostats -y -ss 644.000 -t 60 -i C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\master_full.m4a -c:a pcm_s16le C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\extracto_fuerte_1044-1144_master.wav
+$ ffmpeg -hide_banner -nostats -i C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\extracto_fuerte_1044-1144_master.wav -vn -af ebur128=peak=true -f null -
+  extracto_fuerte_1044-1144_master.wav: I=-12.0 LRA=2.4 TP=-0.9
+
+{
+ "src": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\123bbb64-9fca-4395-8bf4-57d60e219ef1\\123bbb64-9fca-4395-8bf4-57d60e219ef1_final_gfx.mp4",
+ "limit_lineal": "0.794328",
+ "G_dB": "+10.0dB",
+ "filtro_pass1": "volume=+10.0dB,alimiter=level=disabled:limit=0.794328,loudnorm=print_format=json",
+ "filtro_pass2": "volume=+10.0dB,alimiter=level=disabled:limit=0.794328,loudnorm=I=-14:TP=-1.5:LRA=5.90:linear=true:measured_I=-14.50:measured_TP=-2.00:measured_LRA=5.90:measured_thresh=-24.75:offset=0.15:print_format=json",
+ "ar": "48000",
+ "aac": [
+  "-c:a",
+  "aac",
+  "-b:a",
+  "192k"
+ ],
+ "original": {
+  "I": -24.0,
+  "LRA": 6.6,
+  "TP": -6.6
+ },
+ "master_aac": {
+  "I": -14.0,
+  "LRA": 5.9,
+  "TP": -0.9
+ },
+ "normalization_type": "linear",
+ "minuto_fuerte_s": 644.0,
+ "minuto_fuerte_lufs_sin_compuerta": -21.85,
+ "gancho_lufs_sin_compuerta": -24.33,
+ "extractos": [
+  "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f75\\c\\extracto_gancho_0000-0100_original.wav",
+  "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f75\\c\\extracto_gancho_0000-0100_master.wav",
+  "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f75\\c\\extracto_fuerte_1044-1144_original.wav",
+  "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f75\\c\\extracto_fuerte_1044-1144_master.wav"
+ ]
+}
+
+## 7. diagnóstico: pico de muestra y pico real por etapa
+$ ffmpeg -hide_banner -nostats -y -i C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\_orig_full.wav -af volume=+10.0dB,alimiter=level=disabled:limit=0.794328,loudnorm=I=-14:TP=-1.5:LRA=5.90:linear=true:measured_I=-14.50:measured_TP=-2.00:measured_LRA=5.90:measured_thresh=-24.75:offset=0.15:print_format=json -ar 48000 -c:a pcm_f32le C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\_diag_master_preaac.wav
+$ ffmpeg -hide_banner -nostats -i C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\_orig_full.wav -vn -af volume=+10.0dB,ebur128=peak=true+sample -f null -
+  volume                         I= -14.0 LUFS  sample peak=  3.4 dBFS  true peak=  3.4 dBTP
+$ ffmpeg -hide_banner -nostats -i C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\_orig_full.wav -vn -af volume=+10.0dB,alimiter=level=disabled:limit=0.794328,ebur128=peak=true+sample -f null -
+  volume+alimiter                I= -14.5 LUFS  sample peak= -2.0 dBFS  true peak= -1.4 dBTP
+$ ffmpeg -hide_banner -nostats -i C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\_orig_full.wav -vn -af volume=+10.0dB,alimiter=level=disabled:limit=0.794328:latency=1,ebur128=peak=true+sample -f null -
+  volume+alimiter(latency=1)     I= -14.5 LUFS  sample peak= -2.0 dBFS  true peak= -1.3 dBTP
+$ ffmpeg -hide_banner -nostats -i C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\_diag_master_preaac.wav -vn -af ebur128=peak=true+sample -f null -
+  master pre-AAC (wav 48k)       I= -14.0 LUFS  sample peak= -0.9 dBFS  true peak= -0.9 dBTP
+$ ffmpeg -hide_banner -nostats -i C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f75\c\master_full.m4a -vn -af ebur128=peak=true+sample -f null -
+  master AAC (m4a)               I= -14.0 LUFS  sample peak= -0.9 dBFS  true peak= -0.9 dBTP
+
+borrado _orig_full.wav; master_full.m4a = 20.1 MB

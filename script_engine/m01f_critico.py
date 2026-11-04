@@ -5,13 +5,18 @@ misma entrada que el lab F67a (narración por oraciones, escaleta, archivo, disp
 juez) y `verificacion` (la tabla de 01b_verificacion.md). Solo propone (Fase 1 del lazo): Omar acepta o edita en QA Studio y nada
 se corrige solo. Sin JSON tras el reintento no aborta: 01f_critico lleva `error` y la cadena sigue a la PARADA.
 
-    SYSTEM, FORMATO   m01f_prompts/*.txt, bloques §4 y §5 de lab/hyperframes/f67/HANDOFF_F67a_critico_por_api.md byte a byte
-                      (md5 del SYSTEM en lab/hyperframes/f67/a/md5.json; candado en tests/test_m01f_compuerta.py).
+    SYSTEM, FORMATO   m01f_prompts/*.txt. FORMATO: bloque §5 de lab/hyperframes/f67/HANDOFF_F67a_critico_por_api.md byte a byte.
+                      SYSTEM: el §4 de F67a con la sustitución del punto 2 de HANDOFF_F75 A3 (el personaje es `metricas.personaje`,
+                      elegido por el código desde la narración); copia en lab/hyperframes/f75/a/SYSTEM_m01f-2.txt, md5 en
+                      lab/hyperframes/f75/a/md5.json; candado en tests/test_m01f_compuerta.py.
     entrada           caps sin `caben`, beats con `humano_en_escena` (m01e no lo copia: se repone de la escaleta por `n`, como
                       el lab v3), escaleta_video, archivo, disputas, metricas, verificacion.
     generar           llamada → validación en código → 01f_critico.json/.md en el directorio del topic.
     validar           ids, (cap, idx), palabras antes → después, cifras sin respaldo y marcas `[…]`, por DEBERÍA; se reporta,
                       no se trunca ni se corrige (DEBERÍA sin tope en código: voto del analista, pendiente de Omar, F67 §9.2).
+    entre_promesas    F75 B1: segundos entre una promesa nueva (`loops[*].abre`) y la siguiente, estimados por palabra con
+                      `metricas["seg_por_palabra"]`; sin umbral (no decide nada). Va en `validacion.entre_promesas`.
+    critica_md        el .md desde la respuesta y la validación: lo usa `generar` y re-renderiza desde el JSON sin API.
 Copiado del lab, que producción no importa: armar_user, leer_json, validar, critica_md, tabla_verificacion, faltantes.
 """
 from __future__ import annotations
@@ -25,7 +30,7 @@ from typing import Any, Callable
 
 from script_engine.m05_narrative import RE_CIFRA, cifra_norm
 
-PROMPT_VERSION = "m01f-1"       # F67 B: el SYSTEM y el FORMATO de F67a tal cual
+PROMPT_VERSION = "m01f-2"       # F75 A3: el SYSTEM de F67a con el punto 2 sustituido; el FORMATO de F67a tal cual
 MODELO = "claude-opus-5-5"      # DECISIONES 2026-10-31 18:43 (F67a: 6,5/6,4, Δ 0,1, US$ 0,78)
 EFFORT = "medium"               # DECISIONES 2026-10-31 18:43
 INTENTOS = 2                    # F67a §6.2: 1 reintento idéntico si no hay JSON
@@ -200,16 +205,97 @@ def validar(resp: dict | None, e: dict) -> dict[str, Any]:
     return {"deberia": filas, "ids_invalidos": ids_inv, "oraciones_invalidas": ors_inv}
 
 
+def entre_promesas(loops: Any, caps: list[dict[str, Any]], seg: float, *, narracion_md5: str | None = None,
+                   narracion_md5_critico: str | None = None) -> dict[str, Any]:
+    """F75 B1, sin umbral: los segundos entre una promesa NUEVA y la siguiente. `caps` = `entrada.caps` (mismo corte e `idx` por cap
+    que la voz). Segundo de `chNN:idx` = palabras de todas las oraciones anteriores del video, en orden, × `seg` (el
+    `metricas["seg_por_palabra"]` que vio el crítico); cada tramo se redondea. Dos loops que abren en la misma oración son una sola
+    apertura. Un `abre` que no está en la narración va a `loops_invalidos` y no entra a la cuenta: se reporta, no falla.
+    `narracion_md5` (sobre la que se calcula) y `narracion_md5_critico` (la que vio el crítico) quedan para el aviso del .md."""
+    pos: dict[str, int] = {}
+    total = 0
+    for c in caps:
+        for s in c["oraciones"]:
+            pos[f"{c['cap']}:{s['idx']}"] = total
+            total += palabras(s["texto"])
+    aperturas: dict[str, list[str]] = {}
+    invalidos: list[dict[str, Any]] = []
+    for x in [x for x in loops or [] if isinstance(x, dict)]:
+        a = x.get("abre")
+        if not isinstance(a, str) or a not in pos:
+            invalidos.append({"abre": a, "pregunta": x.get("pregunta")})
+            continue
+        aperturas.setdefault(a, []).append(str(x.get("pregunta") or ""))
+    orden = sorted(aperturas, key=pos.__getitem__)
+    tramos = []
+    for j, a in enumerate(orden):
+        h = orden[j + 1] if j + 1 < len(orden) else "fin"
+        tramos.append({"desde": a, "hasta": h, "segundos": round(((pos[h] if h != "fin" else total) - pos[a]) * seg),
+                       "pregunta_que_abre": " / ".join(aperturas[a])})
+    mx = max(tramos, key=lambda t: t["segundos"], default=None)     # empate → el primero
+    return {"seg_por_palabra": seg, "tramos": tramos, "max_segundos": mx["segundos"] if mx else None,
+            "max_tramo": {"desde": mx["desde"], "hasta": mx["hasta"]} if mx else None, "loops_invalidos": invalidos,
+            "narracion_md5": narracion_md5, "narracion_md5_critico": narracion_md5_critico}
+
+
+AVISO_OTRA_NARRACION = "⚠ calculado sobre la narración actual, no la que vio el crítico"
+
+
+def _promesas_md(ep: dict[str, Any] | None) -> list[str]:
+    """La sección «## Promesas nuevas (código)»: una fila por tramo, el máximo marcado."""
+    if not ep:
+        return []
+    L = ["## Promesas nuevas (código)", ""]
+    if ep.get("narracion_md5") and ep.get("narracion_md5_critico") and ep["narracion_md5"] != ep["narracion_md5_critico"]:
+        L += [AVISO_OTRA_NARRACION + f" (actual `{ep['narracion_md5']}`, crítico `{ep['narracion_md5_critico']}`)", ""]
+    L += ["| desde | hasta | s |", "|---|---|---|"]
+    mx = ep.get("max_tramo") or {}
+    for t in ep.get("tramos") or []:
+        es_max = (t["desde"], t["hasta"]) == (mx.get("desde"), mx.get("hasta"))
+        L.append(f"| {t['desde']} | {t['hasta']} | " + (f"**{t['segundos']} (máx.)**" if es_max else f"{t['segundos']}") + " |")
+    L += ["", f"Segundos estimados por palabra ({ep.get('seg_por_palabra')} s/palabra, sin pausas ni title cards); sin umbral."]
+    if ep.get("loops_invalidos"):
+        L.append("Loops con `abre` que no está en la narración (no cuentan): "
+                 + "; ".join(f"{x.get('abre')} «{x.get('pregunta')}»" for x in ep["loops_invalidos"]))
+    return L + [""]
+
+
+def _personaje_md(metricas: dict) -> str:
+    per = metricas.get("personaje")
+    if not per:
+        return f"Personaje según la narración: ninguno ({metricas.get('personaje_motivo')})"
+    n = per.get("oraciones")
+    return f"Personaje según la narración: {per['id']} {per['nombre']}" + (f" · {n} oraciones" if n is not None else "")
+
+
+def cabecera_de(c: dict[str, Any]) -> str:
+    """La línea de cabecera del .md desde lo que escribe `generar` (el JSON de 01f_critico)."""
+    u = c.get("usage") or {}
+    return (f"`{c.get('prompt_version')}` · {c.get('modelo')} {c.get('effort')} · US$ {float(c.get('usd') or 0):.4f} · tokens in {u.get('input_tokens')} · "
+            f"out {u.get('output_tokens')} · {c.get('segundos')} s · {c.get('intentos')} intento(s) · narración `{c.get('narracion_md5')}`")
+
+
+def rerender(critica: dict[str, Any], caps: list[dict[str, Any]], metricas: dict, narracion_md5: str) -> tuple[dict[str, Any], str]:
+    """F75 B2: el .md desde un 01f_critico.json que ya existe, sin API. Recalcula `entre_promesas` sobre la narración actual (`caps`,
+    `narracion_md5`) con el `seg_por_palabra` de `metricas`; no escribe nada. (validación con entre_promesas, texto del .md)."""
+    resp = critica.get("respuesta")
+    val = dict(critica.get("validacion") or {})
+    if resp is not None:
+        val["entre_promesas"] = entre_promesas(resp.get("loops"), caps, metricas["seg_por_palabra"], narracion_md5=narracion_md5,
+                                               narracion_md5_critico=critica.get("narracion_md5"))
+    return val, critica_md(resp, val, metricas, cabecera_de(critica))
+
+
 def critica_md(resp: dict | None, val: dict, metricas: dict, cabecera: str) -> str:
-    """01f_critico.md: la crítica y sus métricas, con cada DEBERÍA numerado (`k`) y lo que la validación midió."""
+    """01f_critico.md: la crítica y sus métricas, con cada DEBERÍA numerado (`k`) y lo que la validación midió. Pura: con el JSON de
+    01f_critico (`respuesta`, `validacion`) y las métricas re-renderiza sin API (F75 B1)."""
     L = ["# Crítica de la narración", "", cabecera, ""]
     if resp is None:
         return "\n".join(L + ["sin JSON válido", ""])
     g = resp.get("gancho") or {}
     p = resp.get("pico") or {}
-    per = metricas.get("personaje")
     L += [f"**Nota total:** {resp.get('nota_total')}", "", "## Resumen", ""] + [f"- {x}" for x in resp.get("resumen") or []]
-    L += ["", "Personaje según la escaleta: " + (f"{per['id']} {per['nombre']}" if per else f"ninguno ({metricas.get('personaje_motivo')})"), "",
+    L += ["", _personaje_md(metricas), "",
           "## Métricas por cap (código)", "", "| cap | palabras | s | % | % acum. | años/min | racha sin personaje |", "|---|---|---|---|---|---|---|"]
     L += [f"| {c['cap']} | {c['palabras']} | {c['segundos']} | {c['pct']} | {c['pct_acumulado']} | {c['anios_por_min']} | {c['racha_max_sin_personaje']} |"
           for c in metricas.get("caps") or []]
@@ -220,7 +306,8 @@ def critica_md(resp: dict | None, val: dict, metricas: dict, cabecera: str) -> s
     L += ["", "## Loops", "", "| pregunta | abre | paga | se recuerda |", "|---|---|---|---|"]
     for x in resp.get("loops") or []:
         L.append(f"| {x.get('pregunta')} | {x.get('abre')} | {x.get('paga')} | {x.get('se_recuerda')} |")
-    L += ["", "## Pico", "", f"- {p.get('cap')} · acumulado {p.get('pct_acumulado')} % · {p.get('segundos_despues')} s después", f"- {p.get('comentario')}", "",
+    L += [""] + _promesas_md(val.get("entre_promesas"))
+    L += ["## Pico", "", f"- {p.get('cap')} · acumulado {p.get('pct_acumulado')} % · {p.get('segundos_despues')} s después", f"- {p.get('comentario')}", "",
           "## Cierre", "", str(resp.get("cierre")), "", "## DEBERÍA", ""]
     filas = {f["k"]: f for f in val.get("deberia") or []}
     for k, d in enumerate([x for x in resp.get("deberia") or [] if isinstance(x, dict)], start=1):
@@ -246,17 +333,18 @@ def generar(topic_id: str, steps_dir: Path | None = None, *, pool: dict | None =
     user = armar_user(ent["e"], ent["metricas"], ent["verificacion"], FORMATO)
     r = llamar(user, post=post, log=log)
     val = validar(r["respuesta"], ent["e"])
+    n_md5 = md5_narracion(json.loads((d / "01b_narracion_v3.json").read_text(encoding="utf-8")))
+    if r["respuesta"] is not None:                    # F75 B1: el crítico vio esta misma narración
+        val["entre_promesas"] = entre_promesas(r["respuesta"].get("loops"), ent["e"]["caps"], ent["metricas"]["seg_por_palabra"],
+                                               narracion_md5=n_md5, narracion_md5_critico=n_md5)
     out = {"prompt_version": PROMPT_VERSION, "modelo": MODELO, "effort": EFFORT, "system_md5": md5(SYSTEM), "user_md5": md5(user),
-           "narracion_md5": md5_narracion(json.loads((d / "01b_narracion_v3.json").read_text(encoding="utf-8"))),
+           "narracion_md5": n_md5,
            "usd": r["usd"], "segundos": r["segundos"], "intentos": r["intentos"], "usage": r["usage"], "respuesta": r["respuesta"],
            "validacion": val, "n_deberia": len(val["deberia"])}
     if r["respuesta"] is None:
         out.update(error=r["error"], crudo=r["crudo"])
-    u = r["usage"] or {}
-    cab = (f"`{PROMPT_VERSION}` · {MODELO} {EFFORT} · US$ {r['usd']:.4f} · tokens in {u.get('input_tokens')} · out {u.get('output_tokens')} · "
-           f"{r['segundos']} s · {r['intentos']} intento(s) · narración `{out['narracion_md5']}`")
     (d / f"{ARCHIVO}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
-    (d / f"{ARCHIVO}.md").write_text(critica_md(r["respuesta"], val, ent["metricas"], cab), encoding="utf-8")
+    (d / f"{ARCHIVO}.md").write_text(critica_md(r["respuesta"], val, ent["metricas"], cabecera_de(out)), encoding="utf-8")
     log.append(f"  [m01f] nota {(r['respuesta'] or {}).get('nota_total')} · {out['n_deberia']} DEBERÍA · US$ {r['usd']:.4f} → {d / (ARCHIVO + '.md')}")
     return out
 
