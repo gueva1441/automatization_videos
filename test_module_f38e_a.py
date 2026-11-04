@@ -18,13 +18,11 @@ import script_engine.gfx_layer as gl
 
 PLAN = {"chapter_number": 2, "title_card": {"kicker": "CAPÍTULO 2", "title": "T"}, "callouts": [],
         "count_up": None, "archive_clipping": None, "evidence_zoom": None, "punch_in": [],
-        "chapter_question": None, "black_hold": None}
+        "black_hold": None}
 PLAN_B = {**PLAN, "callouts": [{"text": "otro plan", "start": 1.0, "duration": 2.0, "kind": "fact", "side": "left"}]}
-# la pausa (2.0 s) y el negro (1.0 s = black_hold_sec del perfil misterio, identidad F3) van en el plan: el test no
-# inventa un número del sistema, usa los del plan sintético
-PLAN_Q = {**PLAN, "chapter_question": {"text": "¿Quién lo decidió?", "start": 10.0, "duration": 2.0, "pause": 2.0,
-                                       "keyword": "decidió", "generated": True},
-          "black_hold": {"start": 12.0, "duration": 1.0}}
+# el negro (1.0 s = black_hold_sec del perfil misterio, identidad F3) va en el plan: el test no inventa un número del
+# sistema, usa el del plan sintético. F72d: la pregunta de cierre se borró; el negro es toda la pausa del cierre.
+PLAN_N = {**PLAN, "black_hold": {"start": 10.0, "duration": 1.0}}
 
 
 def _plan_a_disco(work: Path, plan: dict) -> Path:
@@ -153,42 +151,45 @@ def test_r1_la_huella_del_segmento_ve_el_plan_resuelto(tmp_path):
 
 # ─── R8: el negro de cierre dentro del segmento ───
 
-def test_r8_pausa_de_cierre_es_pregunta_mas_negro():
+def test_r8_pausa_de_cierre_es_el_negro():
     assert gl.pausa_de_cierre({}) == 0.0
-    assert gl.pausa_de_cierre({"chapter_question": None, "black_hold": {"duration": 1.0}}) == 0.0
-    assert gl.pausa_de_cierre({"chapter_question": {"pause": 6.4}}) == 6.4
-    assert gl.pausa_de_cierre(PLAN_Q) == 3.0
+    assert gl.pausa_de_cierre({"black_hold": None}) == 0.0
+    assert gl.pausa_de_cierre({"black_hold": {"duration": 1.0}}) == 1.0
+    assert gl.pausa_de_cierre(PLAN_N) == 1.0
 
 
 def test_r8_pausa_a_disco_escribe_o_borra_gfx_pause(tmp_path):
     f = tmp_path / "gfx_pause_ch02.json"
-    assert gl.pausa_a_disco(tmp_path, "ch02", PLAN_Q) == 3.0
-    assert json.loads(f.read_text(encoding="utf-8")) == {"pause": 3.0, "text": "¿Quién lo decidió?"}
+    assert gl.pausa_a_disco(tmp_path, "ch02", PLAN_N) == 1.0
+    assert json.loads(f.read_text(encoding="utf-8")) == {"pause": 1.0}
     assert gl.pausa_a_disco(tmp_path, "ch02", PLAN) == 0.0 and not f.exists()
 
 
 def test_r8_plan_congelado_alarga_el_base_con_el_negro(env):
-    """Antes: con el plan fijo se alargaba solo `chapter_question.pause` (2.0) y el black_hold (12.0–13.0) quedaba
-    fuera del clip (10 + 2 = 12.0). Ahora: pregunta + negro (3.0); el clip termina donde termina el negro."""
-    _plan_a_disco(env.work, PLAN_Q)
+    """Con el plan fijo el base se alarga con el negro del plan (1.0) y el negro termina donde termina el clip."""
+    _plan_a_disco(env.work, PLAN_N)
     out = _gfx(env)                                           # sin override: plan congelado desde disco
     assert out == env.work / "ch02_gfx.mp4"
-    assert env.extendido == [3.0]
+    assert env.extendido == [1.0]
     esc = json.loads((env.work / "gfx_escenas_ch02.json").read_text(encoding="utf-8"))
-    assert esc["clip_dur"] == 13.0 and esc["pausa"] == 3.0
-    bh = PLAN_Q["black_hold"]
+    assert esc["clip_dur"] == 11.0 and esc["pausa"] == 1.0
+    bh = PLAN_N["black_hold"]
     assert bh["start"] + bh["duration"] == esc["clip_dur"]       # el negro termina con el clip: está adentro
-    assert json.loads((env.work / "gfx_pause_ch02.json").read_text(encoding="utf-8"))["pause"] == 3.0
-    assert "pausa de cierre (plan fijo): 3.000s = pregunta 2.000 + negro 1.000" in _log(env)
+    assert json.loads((env.work / "gfx_pause_ch02.json").read_text(encoding="utf-8"))["pause"] == 1.0
+    assert "negro de cierre: 1.000s" in _log(env)
 
 
-def test_r8_closing_question_y_el_plan_fijo_dan_la_misma_pausa(tmp_path):
-    """La misma cuenta en los dos caminos: closing_question devuelve lo que pausa_de_cierre lee del plan que dejó."""
-    txt = "¿Quién decidió que siguiera durmiendo?"
+def test_r8_negro_de_cierre_y_el_plan_fijo_dan_la_misma_pausa(tmp_path):
+    """La misma cuenta en los dos caminos: negro_de_cierre devuelve lo que pausa_de_cierre lee del plan que dejó;
+    el negro arranca donde termina la voz (sin pregunta antes)."""
+    from gfx_config import gfx_rules
     resolved: dict = {}
-    pausa = gl.closing_question(resolved, {"realizador": {"beats": [{"n": 3, "texto": txt}]}}, tmp_path, "ch02", 10.0, [])
-    assert pausa == gl.pausa_de_cierre(resolved) > resolved["chapter_question"]["pause"]
-    assert json.loads((tmp_path / "gfx_pause_ch02.json").read_text(encoding="utf-8"))["pause"] == pausa
+    pausa = gl.negro_de_cierre(resolved, tmp_path, "ch02", 10.0)
+    assert pausa == gl.pausa_de_cierre(resolved) == round(float(gfx_rules.black_hold_sec), 3)
+    if pausa > 0:
+        assert resolved["black_hold"] == {"start": 10.0, "duration": pausa}
+        assert json.loads((tmp_path / "gfx_pause_ch02.json").read_text(encoding="utf-8")) == {"pause": pausa}
+    assert "chapter_question" not in resolved
 
 
 # ─── A.3: costuras medidas en el mp4 ───
@@ -242,7 +243,7 @@ def test_a3_medir_cierre_sin_negro(tmp_path):
 def test_a3_lineas_de_costura_contra_el_guion(tmp_path, monkeypatch):
     work = tmp_path / "_fase2b_work"
     work.mkdir()
-    _plan_a_disco(work, PLAN_Q)
+    _plan_a_disco(work, PLAN_N)
     (work / "gfx_escenas_ch02.json").write_text(json.dumps({"cap": "ch02", "clip_dur": 3.0, "time_offset": 0.0,
                                                               "pre_roll": 0.0, "pausa": 3.0, "escenas": []}), encoding="utf-8")
     plan = SimpleNamespace(chapter_id="ch02", audio_duration=0.5, is_first=True)      # is_first: sin pre-roll
@@ -258,9 +259,9 @@ def test_a3_lineas_de_costura_contra_el_guion(tmp_path, monkeypatch):
     assert lineas[1].startswith("✗ costura ch02: negro de 1.00 s") and lineas[1].endswith("ninguno")
     (tmp_path / "GUION_PANTALLA.json").write_text(json.dumps({"caps": [{"cap": "ch02", "seg_dur": 4.0}]}), encoding="utf-8")
     assert fase2b._costura_del_segmento(plan, con, work, hook=None)[0].startswith("✗ costura ch02: segmento 3.000 s vs guion 4.000 s")
-    # sin pregunta en el plan: no hay negro que medir
+    # sin negro en el plan: nada que medir
     _plan_a_disco(work, PLAN)
-    assert "sin negro que medir" in fase2b._costura_del_segmento(plan, con, work, hook=None)[1]
+    assert "sin negro de cierre en el plan" in fase2b._costura_del_segmento(plan, con, work, hook=None)[1]
 
 
 def test_a3_el_chequeo_nunca_tira_el_render(tmp_path):

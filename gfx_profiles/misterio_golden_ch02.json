@@ -69,15 +69,6 @@
    70.659,
    93
   ],
-  "chapter_question": {
-   "text": "Quien fue el culpable?",
-   "start": 97.633,
-   "duration": 3,
-   "keyword": "",
-   "generated": true,
-   "pause": 3,
-   "manual": true
-  },
   "icon_array": null,
   "emphasis": [
    {
@@ -313,10 +304,6 @@
    "auto": true
   },
   "data_callout": {
-   "v": "si",
-   "auto": true
-  },
-  "chapter_question": {
    "v": "si",
    "auto": true
   },

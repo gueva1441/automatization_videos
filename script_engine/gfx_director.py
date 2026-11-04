@@ -1,6 +1,6 @@
 """
 gfx_director.py — El contexto de un capítulo para la capa gráfica (sin modelo): script, skeleton, canonical, las fuentes
-del candado literal, la narración del video y el pool de evidencia. Y la palabra clave de la pregunta de cierre.
+del candado literal, la narración del video y el pool de evidencia.
 
 F37 §B.4 (papel = único camino): se borró el borrador del director (Gemini Flash: un plan por cap con datos, recortes,
 cita, contador, lupa y punch_in; su prompt, su esquema, su validador y su caché `gfx_plan_chNN.json`). El texto de
@@ -11,12 +11,9 @@ etiqueta de fuente, el zoom por visión y las cifras «ya animadas» (eran suyos
 from __future__ import annotations
 
 import json
-import re
 from typing import Any
 
 from config import DATA_DIR
-
-from script_engine.gfx_literal_lock import normalize
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -78,22 +75,7 @@ def load_chapter_context(video_id: str, chplan: Any) -> dict[str, Any]:
         "narration_all": narration_all,
         "facts": facts, "skeleton": skeleton_ch, "canonical": canonical, "sources": sources,
         "next_sources": next_sources,
-        "chapters": script.get("chapters", []),           # F3: pregunta de cierre (cap actual + siguiente)
+        "chapters": script.get("chapters", []),           # F3: narración de los caps (cap actual + siguiente)
         "pool": pool, "skeleton_all": sk if pool else {},   # F5 §2 (None/{} sin pool: todo igual que antes)
     }
 
-
-# ═══════════════════════════════════════════════════════════════
-#  Pregunta de cierre: la palabra que se acentúa
-# ═══════════════════════════════════════════════════════════════
-
-_STOP = {"de", "del", "la", "las", "el", "los", "un", "una", "unos", "unas", "y", "o", "en", "a", "al", "que", "qué",
-         "por", "con", "para", "sin", "se", "su", "sus", "lo", "le", "les", "es", "fue", "era", "cómo", "como", "cuál",
-         "cuáles", "cuánto", "cuántos", "cuántas", "quién", "quiénes", "dónde", "cuándo", "por qué", "más", "muy", "no"}
-
-
-def question_keyword(text: str) -> str:
-    """Palabra clave a acentuar: la palabra de contenido más larga."""
-    words = re.findall(r"[\wáéíóúñü]+", text)
-    cands = [w for w in words if len(w) >= 4 and normalize(w) not in _STOP]
-    return max(cands, key=len) if cands else ""

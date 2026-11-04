@@ -70,7 +70,7 @@ def test_lock_y_cues_y_templater(tmp_path):
 def test_sparse_incluye_y_corre_el_enfasis():
     from script_engine import gfx_sparse as sp
     plan = {"title_card": None, "callouts": [], "count_up": None, "archive_clippings": [], "evidence_zoom": None,
-            "punch_in": [], "chapter_question": None,
+            "punch_in": [],
             "emphasis": [{"word": "agua", "category": "agua", "layer": "agua", "start": 20.0, "duration": 2.5}]}
     scenes = [GfxScene(0, 0.0, 40.0)]
     win = sp.event_windows(plan, scenes, 30, 40.0)

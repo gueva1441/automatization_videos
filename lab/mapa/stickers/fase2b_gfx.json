@@ -39,7 +39,7 @@
     "por_que": "único llamador es fase2b.py:3393 dentro de `if paralelo`, y paralelo exige GFX_PARALELO > 1, constante en 1 (fase2b.py:2647, marcada DESCARTADO); inalcanzable con el código tal cual, solo test_module_f28c.py la ejerce forzando la constante a 2"
    }
   ],
-  "md5": "95034fb0f591cbf7527996afc80d5029",
+  "md5": "e9ea0153e3e1e868a513591d02e2ab15",
   "_parte": "fase2b_gfx_a"
  },
  "gfx_config.py": {
@@ -59,26 +59,26 @@
   "funciones_muertas": [
    {
     "nombre": "GfxRules.zoom_min_scene",
-    "linea": 306,
+    "linea": 296,
     "por_que": "nadie la nombra ni en producción ni en tests; quedó de cuando el borrador del director chequeaba la duración mínima de escena para el zoom"
    },
    {
     "nombre": "GfxRules.css_grade_variant",
-    "linea": 310,
+    "linea": 300,
     "por_que": "alias F1b que nadie lee en producción; solo lo toca test_module_gfx_config.py:45"
    },
    {
     "nombre": "GfxRules.css_grade_opacity",
-    "linea": 318,
+    "linea": 308,
     "por_que": "nadie la nombra ni en producción ni en tests"
    }
   ],
-  "md5": "8b4bf9f68e10601c7f671da3511bdd49",
+  "md5": "23f1182e697ed6bd21335cb11420b57e",
   "_parte": "fase2b_gfx_c"
  },
  "gfx_lab_server.py": {
   "sticker": "Laboratorio de identidad de la capa gráfica: un mini-servidor local donde Omar ve un capítulo ya renderizado, prueba sellos, datos y recortes sobre las fotos y guarda su plan. Solo sirve para diseñar la identidad; el form no lo lanza y no escribe nada de lo que va al video final.",
-  "recibe": "output/audio/<id>/sync_map.json, output/<id>/assets/assets_manifest.json, output/<id>/_fase2b_work/<cap>_flux_visual.mp4 (o gfx_<cap>/public/base.mp4), gfx_plan_<cap>.resolved.json, gfx_question_<cap>.json y flow_specs.json; lab/identidad/ (index.html, catalogo.json, plan_<cap>_lab.json); gfx_profiles/icons/*.svg; script_engine/sfx/*.wav; runtime de hyperframes en script_engine/gfx_runtime/node_modules",
+  "recibe": "output/audio/<id>/sync_map.json, output/<id>/assets/assets_manifest.json, output/<id>/_fase2b_work/<cap>_flux_visual.mp4 (o gfx_<cap>/public/base.mp4), gfx_plan_<cap>.resolved.json y flow_specs.json; lab/identidad/ (index.html, catalogo.json, plan_<cap>_lab.json); gfx_profiles/icons/*.svg; script_engine/sfx/*.wav; runtime de hyperframes en script_engine/gfx_runtime/node_modules",
   "entrega": "Páginas y APIs HTTP en localhost:8765; lab/identidad/plan_<cap>_lab.json (estado guardado por la página); proyectos de preview output/<id>/_fase2b_work/gfx_lab_<cap>/ y gfx_lab_<cap>_solo/ (base.mp4 con cola, lab_scenes.json, miniaturas JPG)",
   "modelo": [],
   "etapa": [
@@ -89,21 +89,21 @@
   "funciones_muertas": [
    {
     "nombre": "LabSession.lab_plan",
-    "linea": 208,
+    "linea": 199,
     "por_que": "nadie la llama: ni producción ni tests; las rutas usan lab_state() directamente"
    },
    {
     "nombre": "LabSession._catalog",
-    "linea": 367,
+    "linea": 345,
     "por_que": "nadie la llama; lee lab/identidad/catalogo.json, que el servidor sirve como estático por /lab/ sin pasar por este método"
    },
    {
     "nombre": "LabSession._sugerencias",
-    "linea": 370,
+    "linea": 348,
     "por_que": "nadie la llama en producción; los tests de sugerencias (test_module_gfx_lab.py:199, 226) leen el archivo sugerencias_<cap>.json a mano"
    }
   ],
-  "md5": "2063ce96af157f1a5ffbfbd7d5e71344",
+  "md5": "d3fe5b8f4c7bb45ed051fbac7d3957d8",
   "_parte": "fase2b_gfx_c"
  },
  "gfx_profiles/finanzas.json": {
@@ -121,7 +121,7 @@
   "estado": "vivo",
   "estado_prueba": "gfx_config.py:366-370 lo lee (junto con los demás .json de la carpeta) para buscar el perfil cuyo `nichos` contenga el nicho activo, y gfx_config.py:409-411 lo cargaría con nicho finanzas o GFX_PROFILE=finanzas; con el nicho dark_history actual no se aplica",
   "funciones_muertas": [],
-  "md5": "8fbe4ad4cf5b5b5393f0e5ea022bffdb",
+  "md5": "a319c00f805f09a0b1f280485784a0bd",
   "_parte": "fase2b_gfx_c"
  },
  "gfx_profiles/lexico_propuestas.json": {
@@ -153,7 +153,7 @@
   "estado": "vivo",
   "estado_prueba": "gfx_config.py:480-484 carga el perfil activo al importar el módulo (nichos = [dark_history]); script_engine/gfx_layer.py:672-683 y m01e_pantalla.py:80 leen ACTIVE_PROFILE",
   "funciones_muertas": [],
-  "md5": "be921562d29ca13c7223724d288b94c1",
+  "md5": "ed62101b90ecdd98d28e22b2cf022a5a",
   "_parte": "fase2b_gfx_c"
  },
  "gfx_profiles/misterio_critico_fewshot.json": {
@@ -181,7 +181,7 @@
   "estado": "huérfano",
   "estado_prueba": "grep del nombre «golden_ch02» solo da menciones en lab/ESTADO_SESION.md:826; ningún .py lo abre salvo el barrido de gfx_config.py:366 que lo recorre buscando `nichos`",
   "funciones_muertas": [],
-  "md5": "3a3ff2d592c9ccec460aaa04c34da8d3",
+  "md5": "638938f7f787322395b968e61543de07",
   "_parte": "fase2b_gfx_c"
  },
  "mixer_server.py": {
@@ -232,7 +232,7 @@
   "_parte": "fase2b_gfx_d"
  },
  "script_engine/freeze_check.py": {
-  "sticker": "Mira un mp4 ya renderizado y avisa si hay tramos donde la imagen queda congelada más de 1,5 segundos, salvo los que son quietos a propósito (pausa de la pregunta de cierre, negro). Se corre a mano sobre los chNN_gfx.mp4; ninguna etapa del form lo usa.",
+  "sticker": "Mira un mp4 ya renderizado y avisa si hay tramos donde la imagen queda congelada más de 1,5 segundos, salvo los que son quietos a propósito (el negro del cierre). Se corre a mano sobre los chNN_gfx.mp4; ninguna etapa del form lo usa.",
   "recibe": "Uno o más mp4 pasados por línea de comandos (p. ej. output/<id>/_fase2b_work/chNN_gfx.mp4); ffmpeg tomado del PATH.",
   "entrega": "Un JSON por pantalla con {archivo, congelados: [(inicio, duración)], ok}; no escribe archivos.",
   "modelo": [],
@@ -242,7 +242,7 @@
   "estado": "solo herramienta manual",
   "estado_prueba": "script_engine/freeze_check.py:42 (__main__, `python -I -m script_engine.freeze_check <mp4>`); el único otro uso es test_module_f10.py:161; ningún script de producción lo importa ni lo lanza",
   "funciones_muertas": [],
-  "md5": "edbec655cb35262d071be3f957685889",
+  "md5": "d6d59349392307a206268e5fdb69e9d0",
   "_parte": "fase2b_gfx_a"
  },
  "script_engine/gfx_critic.py": {
@@ -266,18 +266,18 @@
   "_parte": "fase2b_gfx_d"
  },
  "script_engine/gfx_director.py": {
-  "sticker": "Reúne el contexto de un capítulo para la capa gráfica sin usar modelo: guion, partición, fuentes del candado literal, narración del video y pool de evidencia. También saca la palabra clave de la pregunta de cierre.",
+  "sticker": "Reúne el contexto de un capítulo para la capa gráfica sin usar modelo: guion, partición, fuentes del candado literal, narración del video y pool de evidencia.",
   "recibe": "data/scripts/<id>.json, data/scripts/_steps/<topic_id>/01a_skeleton.json y 02_canonical.json, plan del cap",
-  "entrega": "diccionario de contexto del cap (sources, pool, skeleton, narración, capítulos) y la palabra clave de la pregunta; en memoria",
+  "entrega": "diccionario de contexto del cap (sources, pool, skeleton, narración, capítulos); en memoria",
   "modelo": [],
   "etapa": [
    "guion_pantalla",
    "render"
   ],
   "estado": "vivo",
-  "estado_prueba": "gfx_layer.py:631-632 load_chapter_context y :291 question_keyword; fase2b.py:3158-3172 load_chapter_context en --plan-only",
+  "estado_prueba": "gfx_layer.py:631-632 load_chapter_context; fase2b.py:3158-3172 load_chapter_context en --plan-only",
   "funciones_muertas": [],
-  "md5": "4da6bcbceb97f56ffe6d41762ebe6706",
+  "md5": "1dfd6863d67090ea3fb4ecf90358dd19",
   "_parte": "fase2b_gfx_d"
  },
  "script_engine/gfx_guion.py": {
@@ -293,11 +293,11 @@
   "funciones_muertas": [
    {
     "nombre": "_ocupa",
-    "linea": 431,
+    "linea": 426,
     "por_que": "nadie la nombra: ni producción ni tests ni strings; el chequeo «dos bloques al mismo tiempo» (línea 444 en adelante) calcula el solape directo y ya no la usa"
    }
   ],
-  "md5": "bd8195e41c2808701e0ac23ff3e2d4dd",
+  "md5": "17f7c615f87fc0d3cd96979efdb9c652",
   "_parte": "fase2b_gfx_b"
  },
  "script_engine/gfx_intensity.py": {
@@ -321,7 +321,7 @@
   "_parte": "fase2b_gfx_d"
  },
  "script_engine/gfx_layer.py": {
-  "sticker": "Es el director de orquesta de la capa gráfica de un capítulo: parte del clip de fondo ya cocido, arma el plan de lo que se ve (title card, fichas, recortes, sellos, reloj, pregunta de cierre, transiciones), lo pasa por el candado literal y dibuja la capa en HyperFrames. Con el guion de pantalla aprobado dibuja exactamente ese plan (plan congelado); en modo plan-only solo planea y escribe los archivos de cues, escenas y pausa, sin render. Cualquier falla devuelve el clip de fondo sin capa. F71: los cortes por anclas pasan el normalizado del cap a `compute_anchor_starts`.",
+  "sticker": "Es el director de orquesta de la capa gráfica de un capítulo: parte del clip de fondo ya cocido, arma el plan de lo que se ve (title card, fichas, recortes, sellos, reloj, transiciones, negro del cierre), lo pasa por el candado literal y dibuja la capa en HyperFrames. Con el guion de pantalla aprobado dibuja exactamente ese plan (plan congelado); en modo plan-only solo planea y escribe los archivos de cues, escenas y pausa, sin render. Cualquier falla devuelve el clip de fondo sin capa. F71: los cortes por anclas pasan el normalizado del cap a `compute_anchor_starts`. F72d: sin pregunta de cierre; el cap termina en su última oración y el negro de 1 s alarga el base.",
   "recibe": "El clip de fondo del cap (data/.../_fase2b_work/chNN_*_visual.mp4), el ChapterPlan de fase2b, los timestamps de la voz, 01a_escaleta.json y el papel del topic (data/scripts/_steps/<id>/), el pool de fuentes, gfx_plan_chNN.resolved.json aprobado (si hay guion aprobado) y los tokens de gfx_config.",
   "entrega": "_fase2b_work/chNN_gfx.mp4 (+ chNN_gfx.plan.md5), gfx_chNN/ (proyecto HyperFrames y base -g30), gfx_plan_chNN.resolved.json, gfx_escenas_chNN.json, gfx_sfx_chNN.json, gfx_pause_chNN.json, gfx_sparse_chNN.json, gfx_safe_bake_chNN.json, gfx_chNN.log, gfx_cues_chNN.md/.json, hoja_contactos_chNN.jpg.",
   "modelo": [],
@@ -332,7 +332,7 @@
   "estado": "vivo",
   "estado_prueba": "fase2b.py:1217 llama apply_gfx en _build_chapter_segment (render con --gfx --gfx-sparse, run_pipeline.py:246) y fase2b.py:3147 lo llama con plan_only=True en _solo_plan (fase2b --plan-only, run_pipeline.py:374)",
   "funciones_muertas": [],
-  "md5": "7e0a5dca20813f3875c9fc910995c8ac",
+  "md5": "7994b713275c0bec3f9d49fcab10ff81",
   "_parte": "fase2b_gfx_b"
  },
  "script_engine/gfx_literal_lock.py": {
@@ -349,11 +349,11 @@
   "funciones_muertas": [
    {
     "nombre": "plan_strings",
-    "linea": 90,
+    "linea": 89,
     "por_que": "nadie la nombra en producción; solo test_module_gfx_emphasis.py, test_module_gfx_icons.py y test_module_gfx_lock.py (auditoría y tests)"
    }
   ],
-  "md5": "0dbcfcacb9f49edc78bfae07d4d45231",
+  "md5": "8f3685fa314948b29f060d478b37ecd7",
   "_parte": "fase2b_gfx_d"
  },
  "script_engine/gfx_peak.py": {
@@ -400,7 +400,7 @@
   "_parte": "fase2b_gfx_d"
  },
  "script_engine/gfx_project.py": {
-  "sticker": "Es el armador de las pantallas: recibe el plan ya resuelto (textos literales, tiempos en segundos) y las escenas del cap y escribe el proyecto HyperFrames completo, con el title card, las fichas, los recortes de archivo, los sellos y capas de clima, el reloj de esquina, la pregunta de cierre, el corte a negro y las transiciones. No usa ningún modelo. También mide cuántas líneas ocupa una ficha (lo usa el guion en papel para validar) y lista los eventos del cap para la hoja de cues.",
+  "sticker": "Es el armador de las pantallas: recibe el plan ya resuelto (textos literales, tiempos en segundos) y las escenas del cap y escribe el proyecto HyperFrames completo, con el title card, las fichas, los recortes de archivo, los sellos y capas de clima, el reloj de esquina, el corte a negro y las transiciones. No usa ningún modelo. También mide cuántas líneas ocupa una ficha (lo usa el guion en papel para validar) y lista los eventos del cap para la hoja de cues.",
   "recibe": "Plan resuelto (dict) y lista de GfxScene de gfx_layer, base.mp4 -g30 en gfx_chNN/public/, tipografías y gsap de gfx_config (GFX_FONTS_DIR, gsap_js), plantillas de gfx_templates/, tokens gfx_rules.",
   "entrega": "gfx_chNN/index.html, compositions/scene_NN.html, hyperframes.json, public/fonts, public/cuts/*.jpg (freezes), public/safe/*, vendor/gsap.min.js; en memoria: cue_events, ficha_medida, transitions_of.",
   "modelo": [],
@@ -412,13 +412,13 @@
   "estado": "vivo",
   "estado_prueba": "gfx_layer.py:824 y gfx_layer.py:379 llaman write_project (render); gfx_layer.py:804/839 llaman cue_events (plan-only y render); script_engine/m01e_pantalla.py:406 importa ficha_medida (corre en el paso guion, fase1_5.run_pantalla)",
   "funciones_muertas": [],
-  "md5": "421823742d3dec2ae0f2445a53d8e5fa",
+  "md5": "f7a2cc08130431b3886ab8e152402667",
   "_parte": "fase2b_gfx_b"
  },
  "script_engine/gfx_realizador.py": {
-  "sticker": "Hace que la pantalla obedezca a la escaleta: calcula la ventana de tiempo de cada beat en la voz, la pregunta de cierre del capítulo (F72b: la última oración de la voz del cap, o su pregunta si termina en «?»; ya no lee el `cierre` de la escaleta) y el cierre del plan (deja solo los sellos del papel y ningún acercamiento suelto). También ordena el final: reparto, cierre y crítico.",
+  "sticker": "Hace que la pantalla obedezca a la escaleta: calcula la ventana de tiempo de cada beat en la voz y el cierre del plan (deja solo los sellos del papel y ningún acercamiento suelto). También ordena el final: reparto, cierre y crítico. F72d: la pregunta de cierre se borró.",
   "recibe": "data/scripts/_steps/<topic_id>/01a_escaleta.json y 01b_narracion_v3.json, pool de evidencia, palabras con tiempos de la voz",
-  "entrega": "beats con ventanas y candidatos (en memoria y en output/<id>/work/gfx_beats_<cap>.json), texto y fuente de la pregunta de cierre, plan cerrado (realizador.filas)",
+  "entrega": "beats con ventanas y candidatos (en memoria y en output/<id>/work/gfx_beats_<cap>.json), plan cerrado (realizador.filas)",
   "modelo": [],
   "etapa": [
    "guion",
@@ -426,15 +426,9 @@
    "render"
   ],
   "estado": "vivo",
-  "estado_prueba": "gfx_layer.py:260-268 (cargar, preparar), :292 (pregunta_cierre_fuente), :780 (cerrar); m01e_pantalla.py:199 beat_de_pantalla en Fase 1",
-  "funciones_muertas": [
-   {
-    "nombre": "pregunta_cierre",
-    "linea": 199,
-    "por_que": "nadie la nombra en producción (gfx_layer usa pregunta_cierre_fuente); solo test_module_f38e_b.py"
-   }
-  ],
-  "md5": "0a61d19fa8e959720fb89b3a7d3d97fe",
+  "estado_prueba": "gfx_layer.py:260-268 (cargar, preparar), :780 (cerrar); m01e_pantalla.py:199 beat_de_pantalla en Fase 1",
+  "funciones_muertas": [],
+  "md5": "f2c930831fc10aa3408e6084735349d4",
   "_parte": "fase2b_gfx_d"
  },
  "script_engine/gfx_review.py": {
@@ -477,7 +471,7 @@
   "estado": "vivo",
   "estado_prueba": "gfx_layer.py:336-399 (_render_sparse) llama event_windows, stitch_transitions, compose_sparse, cut_base, vignette_png, grain_png y stitch; se activa con --gfx-sparse (run_pipeline.py:246)",
   "funciones_muertas": [],
-  "md5": "bed5f164e2a46946c73adcf526454c0b",
+  "md5": "7593dd91ec2d478d2e0390a3b34c2613",
   "_parte": "fase2b_gfx_b"
  },
  "script_engine/gfx_style.py": {
@@ -492,7 +486,7 @@
   "estado": "vivo",
   "estado_prueba": "gfx_layer.py:734 (plan_movements), gfx_layer.py:785-788 (transiciones_por_relato, identity_violations); gfx_project.py:400 y gfx_sparse.py:389 importan ZOOM_PUNCH_SCALE",
   "funciones_muertas": [],
-  "md5": "db77fc3a2685692ed242577c4e41d50b",
+  "md5": "4e5a781e35e1a25e6ea44208b40bb8a1",
   "_parte": "fase2b_gfx_b"
  },
  "script_engine/gfx_templates/archive_clipping.html.tmpl": {
@@ -509,22 +503,8 @@
   "md5": "a6bf0b16cca7b3b5413d90ba134a3325",
   "_parte": "fase2b_gfx_b"
  },
- "script_engine/gfx_templates/chapter_question.html.tmpl": {
-  "sticker": "Plantilla de la pregunta de cierre del capítulo: el fondo oscurecido y el texto centrado.",
-  "recibe": "Campos que sustituye gfx_project.write_project: start, duration, text_html.",
-  "entrega": "Un bloque HTML dentro de gfx_chNN/index.html.",
-  "modelo": [],
-  "etapa": [
-   "render"
-  ],
-  "estado": "vivo",
-  "estado_prueba": "gfx_project.py:828 la lee con _tpl('chapter_question.html.tmpl') en write_project",
-  "funciones_muertas": [],
-  "md5": "a20eab8e78013d930d82a15a3091e8bd",
-  "_parte": "fase2b_gfx_b"
- },
  "script_engine/gfx_templates/gfx_common.css": {
-  "sticker": "Hoja de estilos común de la capa gráfica: title card, ficha, pregunta de cierre, recorte de archivo, flash y las capas de grade (viñeta, grano), con los tokens del perfil. Trae también reglas de bloques que ya no se dibujan (dato con lupa, contador, etiqueta de zoom, ícono).",
+  "sticker": "Hoja de estilos común de la capa gráfica: title card, ficha, recorte de archivo, flash y las capas de grade (viñeta, grano), con los tokens del perfil. Trae también reglas de bloques que ya no se dibujan (dato con lupa, contador, etiqueta de zoom, ícono).",
   "recibe": "Tokens de gfx_project.render_css (colores, tipografías, tamaños, escalas) sustituidos con string.Template.",
   "entrega": "El bloque <style> de gfx_chNN/index.html.",
   "modelo": [],
@@ -534,7 +514,7 @@
   "estado": "vivo",
   "estado_prueba": "gfx_project.py:623 la lee en render_css y gfx_project.py:846 la mete en index.html.tmpl",
   "funciones_muertas": [],
-  "md5": "10ac07c66b64c64a6396a9c523777860",
+  "md5": "d7ea9e1a701cc37b8e4f5321a5250331",
   "_parte": "fase2b_gfx_b"
  },
  "script_engine/gfx_templates/gfx_grade.json": {

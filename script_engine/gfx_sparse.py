@@ -3,7 +3,7 @@ gfx_sparse.py — Render DISPERSO de la capa gráfica (F2 §3.1, flag --gfx-spar
 
 En vez de renderizar el cap entero en HyperFrames (captura de Chrome cuadro a cuadro), se
 renderizan solo las VENTANAS con eventos (title card, callouts, count_up, recorte, zoom,
-punch_in hasta el corte, transiciones, chapter_question) y el resto sale del base_g30.
+punch_in hasta el corte, transiciones) y el resto sale del base_g30.
 
 Diseño (sin empalmes visibles):
   1. event_windows(): ventanas de eventos ± margen, fusionadas si están cerca.
@@ -63,9 +63,6 @@ def event_windows(plan: dict[str, Any], scenes: list[GfxScene], fps: int, dur: f
         iv.append((cu["start"], cu["start"] + gfx_rules.count_dur + gfx_rules.count_hold_sec))
     for ar in archive_list(plan):
         iv.append((ar["start"], ar["start"] + ar["duration"]))
-    cq = plan.get("chapter_question")
-    if cq:
-        iv.append((cq["start"], cq["start"] + cq["duration"]))
     for e in plan.get("emphasis", []) or []:                  # F2b §2: capa de mood + sello
         iv.append((e["start"], e["start"] + e["duration"]))
     if plan.get("icon_array"):                                # F2b §3
@@ -201,8 +198,6 @@ def compose_sparse(plan: dict[str, Any], scenes: list[GfxScene], windows: list[t
         p["count_up"]["start"] = m(p["count_up"]["start"])
     for ar in p.get("archive_clippings", []) or []:
         ar["start"] = m(ar["start"])
-    if p.get("chapter_question"):
-        p["chapter_question"]["start"] = m(p["chapter_question"]["start"])
     for e in p.get("emphasis", []) or []:
         e["start"] = m(e["start"])
     p["emphasis"] = [e for e in p.get("emphasis", []) or [] if e["start"] is not None]

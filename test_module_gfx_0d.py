@@ -1,4 +1,4 @@
-"""test_module_gfx_0d.py — F2 §0d: sfx, chapter_question y source_tag.
+"""test_module_gfx_0d.py — F2 §0d: sfx y source_tag (F72d: sin chapter_question).
 Correr: python -m pytest test_module_gfx_0d.py -q
 """
 import sys
@@ -20,18 +20,6 @@ def test_libreria_sfx_existe_y_perfil_la_referencia():
     prof = gc.load_profile("misterio")
     assert {v["file"] for v in prof["sfx"].values()} <= wavs
     assert all(v["gain_db"] <= -18 for v in prof["sfx"].values())          # bajo la voz
-
-
-def test_plantilla_question(tmp_path):
-    (tmp_path / "public").mkdir()
-    (tmp_path / "public" / "base.mp4").write_bytes(b"x")
-    plan = {"chapter_number": 2, "title_card": None, "count_up": None, "archive_clippings": [], "evidence_zoom": None,
-            "punch_in": [], "callouts": [],                  # F36 §D: sin source_tag ni dato suelto
-            "chapter_question": {"text": "¿Por qué fallan los generadores?", "start": 7.5, "duration": 2.3,
-                                 "keyword": "generadores"}}
-    write_project(plan, [GfxScene(0, 0.0, 10.0, "R3", "")], tmp_path, duration=10.0, width=2560, height=1440, fps=30)
-    html = (tmp_path / "index.html").read_text(encoding="utf-8")
-    assert '<span class="kw">generadores</span>' in html and 'id="cq-dim"' in html
 
 
 if __name__ == "__main__":

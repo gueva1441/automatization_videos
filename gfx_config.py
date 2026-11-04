@@ -153,13 +153,6 @@ _ENGINE_INVENTORY: tuple[GfxBlock, ...] = (
         max_per_cap=2, llm_decides=True,
     ),
     GfxBlock(
-        name="chapter_question",
-        description="Tarjeta de 2.0–2.5 s al cierre del cap con la pregunta que responde el capítulo SIGUIENTE (fondo oscurecido 50 %).",
-        params="use (bool), text: una de las bullets del PRÓXIMO CAPÍTULO reformulada como pregunta.",
-        rules="máx 9 palabras; toda palabra de contenido tiene que estar en las bullets o la narración del próximo cap; no en el último cap.",
-        max_per_cap=1, llm_decides=True,
-    ),
-    GfxBlock(
         name="keyword_emphasis",
         description="Palabra de carga de la narración (léxico de moods del perfil) → capa de mood de 1–3 s (CSS, intensidad baja) + sello rojo con la palabra.",
         params="(ninguno: detección por regex sobre la narración con el léxico del perfil)",
@@ -259,12 +252,9 @@ class GfxRules:
     safe_bake: bool = True                   # F30 §A: con --gfx-sparse, las escenas safe las cuece ffmpeg en el base
     safe_bake_workers: int = 3               # F30 §A: escenas cocidas a la vez (perspective ya usa hilos por franjas)
     stitch_transitions: bool = True          # F30 §B: dissolve/dip/flash/cut_punch fuera de ventanas los hace el stitch
-    # chapter_question / source_tag / sfx (F2 §0d)
-    question_dim: float = 0.5
-    question_font_px: int = 96
-    question_auto: bool = False              # F3: pregunta de cierre (F36 §D: el `cierre` del último beat) — el perfil la prende
-    question_pause_sec: float = 3.0          # identidad F3 · F3: silencio real al final del cap mientras se ve la pregunta (alarga el cap)
-    black_hold_sec: float = 0.0              # F3: corte a negro después de la pregunta de cierre (se suma a la pausa)
+    # source_tag / sfx (F2 §0d) · F72d: la pregunta de cierre se borró (question_dim, question_auto, question_pause_sec)
+    question_font_px: int = 96               # tamaño del dato de la ficha (F32 §B.8; nació con la pregunta de cierre)
+    black_hold_sec: float = 0.0              # F3: corte a negro al final del cap, después de su última oración (alarga el cap)
     peak_blocks: bool = False                # F3: pico del cap (gfx_peak): bloque grande + ±5 s libres, zoom con latido, reloj
     # F4 §2: el director aplica la identidad del lab (gfx_style). OFF en el motor = F3 tal cual; misterio lo prende
     identity_rules: bool = False
@@ -373,13 +363,13 @@ def active_profile_name() -> str:
 
 # F36 §D: claves que el borrado de D dejó sin código (catálogo de Omar 18:17). El perfil vive fuera de git y lo
 # limpia Omar; mientras estén, se sacan al cargar (no rompen) y quedan en PERFIL_HUERFANAS (la lista va al reporte).
-HUERFANAS_TOKENS: frozenset[str] = frozenset({"peak_word", "icon_literal_only", "critic_snapshot", "emphasis_base_per_cap", "emphasis_same_cat_gap_sec", "anim_detail_label", "anim_figure", "anim_name_place", "anim_year", "archive_figure_echo_sec", "archive_head_max_words_pool", "archive_min_gap_sec", "callout_no_repeat", "dip_min_t", "doc_clippings", "fast_cut_sec", "fragment_director", "gap_fill", "garantizar_pico", "icon_array_dur", "icon_array_max", "icon_array_px", "icon_fallback_lucide", "icon_px", "icon_stamp_px", "question_max_words_auto", "question_rubric", "quote_dur", "quote_max_words", "quote_min_sec", "quote_min_words", "rotulista_effort", "rotulista_modelo", "rotulista_tope_usd", "source_tag_scale", "ticker_min_times", "zoom_label_margin_px", "zoom_scale",
+HUERFANAS_TOKENS: frozenset[str] = frozenset({"peak_word", "icon_literal_only", "critic_snapshot", "emphasis_base_per_cap", "emphasis_same_cat_gap_sec", "anim_detail_label", "anim_figure", "anim_name_place", "anim_year", "archive_figure_echo_sec", "archive_head_max_words_pool", "archive_min_gap_sec", "callout_no_repeat", "dip_min_t", "doc_clippings", "fast_cut_sec", "fragment_director", "gap_fill", "garantizar_pico", "icon_array_dur", "icon_array_max", "icon_array_px", "icon_fallback_lucide", "icon_px", "icon_stamp_px", "quote_dur", "quote_max_words", "quote_min_sec", "quote_min_words", "rotulista_effort", "rotulista_modelo", "rotulista_tope_usd", "source_tag_scale", "ticker_min_times", "zoom_label_margin_px", "zoom_scale",
                                             # F37 §B.4: las perillas que solo leía el borrador del director
                                             "interrupt_min_sec", "callout_sec_per_word", "callout_base_sec", "zoom_conf_min", "archive_dur", "archive_head_max_words", "archive_body_default", "archive_body_head_max_words", "archive_body_max_words"})
 HUERFANAS_BLOQUES: frozenset[str] = frozenset({"icon_callout", "icon_array", "source_tag"})
 # F36 §D: sfx por bloque salvo el golpe del title card (catálogo 18:17, componente 9)
 HUERFANAS_SFX: frozenset[str] = frozenset({"data_callout", "count_up", "archive_clipping", "evidence_zoom",
-                                           "chapter_question", "keyword_emphasis"})
+                                           "keyword_emphasis"})
 HUERFANAS_CLAVES: frozenset[str] = frozenset({"channel_bug"})
 PERFIL_HUERFANAS: list[str] = []
 

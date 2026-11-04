@@ -99,7 +99,7 @@ def _cuatro():
 
 def test_grafo_del_stitch_4_escenas_cut_dissolve_dip():
     sc, tr = _cuatro()
-    plan = {"transitions": tr, "chapter_question": {"start": 15.0, "duration": 1.0}}
+    plan = {"transitions": tr, "black_hold": {"start": 15.0, "duration": 1.0}}      # F72d: el negro, no la pregunta
     w = sp.event_windows(plan, sc, FPS, 16.0)
     assert w == [(14.5, 16.0)]                                       # las transiciones ya no abren ventana
     trs = sp.stitch_transitions(plan, sc, w)
@@ -149,7 +149,7 @@ def test_stitch_duracion_exacta(tmp_path):
     sc, tr = _cuatro()
     tr["2"] = {"kind": "flash", "frames": 3}
     plan = {"transitions": {**tr, "1": {"kind": "cut_punch", "frames": 0}},
-            "chapter_question": {"start": 15.0, "duration": 1.0}}
+            "black_hold": {"start": 15.0, "duration": 1.0}}
     w = sp.event_windows(plan, sc, FPS, 16.0)
     trs = sp.stitch_transitions(plan, sc, w)
     _, _, _, offs = sp.compose_sparse(plan, sc, w, FPS)

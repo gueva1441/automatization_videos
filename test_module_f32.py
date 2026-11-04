@@ -70,7 +70,6 @@ def _plan_todo(pre: float = 3.0) -> dict:
         "count_up": {"value_text": "1.910", "unit": "personas", "start": pre + 12.0, "duration": 3.7, "pool_id": "D5"},
         "emphasis": [{"word": "agua", "start": pre + 7.5, "duration": 2.5, "category": "agua", "stamp": True}],
         "time_ticker": {"start": pre + 0.5, "duration": 3.0, "day": "9", "month": "OCT", "tail": "1963"},
-        "chapter_question": {"text": "¿Quién firmó?", "start": pre + 30.0, "duration": 3.0, "pause": 3.0},
         "black_hold": {"start": pre + 29.0, "duration": 1.0},
         "transitions": {"1": {"kind": "cut", "why": "corte"}, "2": {"kind": "zoom_punch", "frames": 12, "why": "pico"},
                         "4": {"kind": "dip", "frames": 10, "why": "cierre"}},
@@ -93,7 +92,7 @@ def test_guion_de_un_cap_con_todos_los_tipos():
     ev = g["caps"][0]["eventos"]
     tipos = {e["tipo"] for e in ev}
     for t in ("costura", "title card", "ficha", "persona", "recorte", "cita",      # F37 §B.4: sin lupa, agua ni contador
-              "sello", "reloj", "pregunta de cierre", "transición", "punch", "silencio de voz"):
+              "sello", "reloj", "transición", "punch", "silencio de voz"):          # F72d: sin pregunta de cierre
         assert t in tipos, t
     f = next(e for e in ev if e["tipo"] == "ficha" and e["queda"])
     assert f["t_mp4"] == 107.4 and f["beat"] == 1 and f["escena"] == 1 and f["lectura_min"] == round(21 / 15, 2)
@@ -224,18 +223,6 @@ def test_b1_ch01_sin_pre_roll_y_la_musica_arranca_con_el_title_card(tmp_path):
                        capture_output=True, check=True)
     x = np.abs(np.frombuffer(r.stdout, np.int16).astype(float))
     assert abs(len(x) / 1000 - 7.0) < 0.02 and x[100:2900].mean() > 1000          # suena durante el title card
-
-
-def test_b2_la_pregunta_dura_su_lectura(tmp_path):
-    from script_engine import gfx_layer
-    txt = "Tres días después llegó el presidente del Consejo y la gente ya sabía qué pedirle."
-    real = {"beats": [{"n": 11, "texto": txt}]}                      # F72b: la pregunta es la última oración de la voz
-    resolved: dict = {}
-    pausa = gfx_layer.closing_question(resolved, {"realizador": real}, tmp_path, "ch06", 167.8, [])
-    q = resolved["chapter_question"]
-    assert q["duration"] == round(len(txt) / 15, 3) == q["pause"] and q["start"] == 167.8
-    assert resolved["black_hold"] == {"start": round(167.8 + len(txt) / 15, 3), "duration": 1.0}
-    assert pausa == round(len(txt) / 15, 3) + 1.0
 
 
 def test_b8_ficha_un_escalon_mas_chica_con_placa(tmp_path):

@@ -27,14 +27,14 @@ def test_misterio_reproduce_la_calibracion_0b():
     diffs = {f.name for f in fields(gc.GfxRules) if getattr(rm, f.name) != getattr(engine, f.name)}
     assert diffs == {"interrupt_max_sec", "grain_opacity", "vignette_opacity",   # F37 §B.4: sin interrupt_min_sec (del director)
                      "mood_dark_flicker",                                  # PARADA 1: oscuridad sin parpadeos
-                     "question_auto", "question_dim",                      # F3: pregunta (70 %)
                      "black_hold_sec", "peak_blocks",                      # F3: corte a negro 1 s + pico del cap
                      "accent_hex", "punch_scale", "emphasis_stamp_px", "identity_rules",
                      "intensity_director", "photo_first_zoom", "auto_icons",
                      "visual_critic",                                      # F4e: crítico visual
                      "stamp_nouns_only"}, diffs                            # F5e (F36 §D: sin las perillas borradas)
     assert (rm.interrupt_max_sec, rm.grain_opacity, rm.vignette_opacity) == (18.0, 0.0, 0.15)
-    assert (rm.question_auto, rm.question_dim, rm.question_pause_sec) == (True, 0.7, 3.0)
+    assert rm.black_hold_sec == 1.0                                      # F3: el negro de 1 s se queda (F72d)
+    assert not any(hasattr(rm, k) for k in ("question_auto", "question_dim", "question_pause_sec"))   # F72d
 
 
 def test_perfil_activo_por_nicho_y_por_env(monkeypatch):

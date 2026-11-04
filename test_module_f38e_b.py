@@ -8,8 +8,7 @@ test_module_f38e_b.py — F38e B (HANDOFF_F38e_lo_que_rompe_cualquier_video §B;
         el nuevo corte lo recorta.
     B3  todo movido declara qué falló en cada intento anterior: un bloque movido al intento 3 tiene 2 fallas; las fallas
         de los filtros (`intentos_fallidos`) se suman en orden de escalera; el reloj movido también las declara.
-    B4  pregunta de cierre desde la voz: (i) voz-pregunta. F72b borró (ii) voz-alineada, (iii) escaleta y la tabla
-        de Vajont; el resto vive en test_module_f72b.
+    B4  (pregunta de cierre desde la voz) se borró en F72d con la pregunta.
 Lee de lab/ o es sintético; nunca de data/.
 """
 from __future__ import annotations
@@ -210,16 +209,3 @@ def test_b3_el_bloque_que_no_entra_en_nada_declara_tambien_lo_que_fallo_en_los_f
     filas = pc.repartir(plan, scenes, ent, [])
     fuera = next(f for f in filas if f.get("pool_id") == "T1" and f["accion"] == "fuera")
     assert plan["callouts"] == [] and len(fuera["intentos"]) == 2 and fuera["intentos"][0].startswith("1 · inicio de la oración (10.00 s)")
-
-
-# ═══════════════════════ B4: la pregunta de cierre desde la voz ═══════════════════════
-
-def test_b4_i_la_ultima_oracion_de_la_voz_si_es_pregunta_es_el_texto():
-    real = {"beats": [{"n": 12, "cierre": "El juez no aceptó la palabra imprevisible.",
-                       "texto": "El juez pidió otra pericia y después nombres."},
-                      {"n": 13, "cierre": "La sentencia dice inundación agravada por la previsión del evento. No dice quién decidió que Micaela siguiera durmiendo.",
-                       "texto": "La sentencia habla de inundación agravada. Alguien decidió que Longarone no debía saber. ¿Quién decidió que Micaela siguiera durmiendo?"}]}
-    assert gr.pregunta_cierre_fuente(real) == ("¿Quién decidió que Micaela siguiera durmiendo?", "voz-pregunta")
-    assert gr.pregunta_cierre(real) == "¿Quién decidió que Micaela siguiera durmiendo?"
-    real2 = {"beats": [{"n": 1, "cierre": "Algo.", "texto": "Y él preguntó: «¿quién lo decidió?»"}]}
-    assert gr.pregunta_cierre_fuente(real2)[1] == "voz-pregunta"          # la comilla de cierre no tapa el «?»

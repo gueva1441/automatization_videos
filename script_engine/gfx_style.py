@@ -111,7 +111,7 @@ def transiciones_por_relato(scenes: list[Any], plan: dict[str, Any], beats: list
         1. el corte más cercano a pico.t dentro del beat pico (uno por cap)   → zoom_punch «pico»
         2. la escena entrante es de otro beat que la saliente                → dissolve  «cambio de beat»
         3. arranca el reloj (time_ticker) en la escena entrante               → dissolve  «salto de tiempo»
-        4. la última escena del cap (la de la pregunta de cierre)             → dip       «cierre»
+        4. la última escena del cap (la del cierre)                           → dip       «cierre»
         5. todo lo demás                                                      → cut       «corte»
     Corre sobre el plan final (después del crítico). F36 §D: sin la regla de la lupa (la lupa se borró)."""
     r = gfx_rules

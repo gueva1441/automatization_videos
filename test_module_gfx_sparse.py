@@ -12,7 +12,7 @@ from script_engine.gfx_project import GfxScene
 
 SCENES = [GfxScene(0, 0.0, 10.0, "R3"), GfxScene(1, 10.0, 20.0, "R2"), GfxScene(2, 20.0, 40.0, "R3")]
 PLAN = {"title_card": {"kicker": "CAPÍTULO 2", "title": "x"}, "callouts": [{"text": "a", "start": 25.0, "kind": "figure", "duration": 2.5}],
-        "count_up": None, "archive_clippings": [], "evidence_zoom": None, "punch_in": [33.0], "chapter_question": None}
+        "count_up": None, "archive_clippings": [], "evidence_zoom": None, "punch_in": [33.0]}
 
 
 def test_ventanas_cubren_eventos_cortes_y_punch_hasta_el_corte():

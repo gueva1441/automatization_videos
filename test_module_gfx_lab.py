@@ -239,15 +239,11 @@ def test_candado_en_el_preview(server):
     plan = session.director_plan()
     plan["callouts"] = plan["callouts"] + [{"text": "TEXTO INVENTADO 999", "start": 20.0, "kind": "figure",
                                            "duration": 2.5, "side": "left", "source": ""}]
-    plan["chapter_question"] = {"text": "¿Quién apagó la luz?", "start": 94.0, "duration": 3.0, "keyword": "", "manual": True}
     r = _post(url + "/preview", {"plan": plan, "tokens": {"accent_hex": "#123456"}})
     assert any(x["text"] == "TEXTO INVENTADO 999" for x in r["rejected"])
     assert not any(c["text"] == "TEXTO INVENTADO 999" for c in r["cues"])
-    assert any(c["block"] == "chapter_question" for c in r["cues"])        # manual: fuera del candado
     html = (session.project / "index.html").read_text(encoding="utf-8")
-    assert "#123456" in html and "Quién apagó la luz" in html
-    # F37 §B.4: sin el candado de la pregunta reformulada del director (borrado): la pregunta es el `cierre` de la
-    # escaleta o la manual de Omar
+    assert "#123456" in html                                              # F72d: sin pregunta de cierre (manual o no)
     _post(url + "/preview", {"plan": session.director_plan(), "tokens": {}})
 
 

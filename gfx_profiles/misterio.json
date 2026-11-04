@@ -53,16 +53,12 @@
     "grade_default": "off",
     "grain_opacity": 0.0,
     "vignette_opacity": 0.15,
-    "question_auto": true,
-    "question_pause_sec": 3.0,
-    "question_dim": 0.7,
     "icon_px": 360,
     "black_hold_sec": 1.0,
     "peak_blocks": true,
     "anim_figure": "stamp",
     "emphasis_stamp_px": 84,
     "mood_dur": 2.5,
-    "question_max_words_auto": 8,
     "identity_rules": true,
     "ticker_min_times": 2,
     "intensity_director": true,
@@ -72,7 +68,6 @@
     "peak_word": true,
     "doc_clippings": true, "icon_literal_only": true, "critic_snapshot": true, "stamp_nouns_only": true,
     "callout_no_repeat": true,
-    "question_rubric": true,
     "visual_critic": true
   },
   "sellos_clima": ["PÁNICO", "CALMA", "AMENAZA", "AVISO", "ALARMA", "INMINENTE", "COLAPSO", "SILENCIO", "RABIA", "MEMORIA"],
@@ -93,7 +88,6 @@
     "count_up":         {"file": "tipeo.wav", "gain_db": -20},
     "archive_clipping": {"file": "papel.wav", "gain_db": -18},
     "evidence_zoom":    {"file": "whoosh.wav", "gain_db": -20},
-    "chapter_question": {"file": "drone_subida.wav", "gain_db": -18},
     "keyword_emphasis": {"file": "tic_sordo.wav", "gain_db": -20}
   },
   "blocks": {
@@ -103,7 +97,6 @@
     "evidence_zoom":    {"enabled": true, "max_per_cap": 1, "where": "escenas de ≥ 3.1 s"},
     "count_up":         {"enabled": true, "max_per_cap": 1, "where": "cifras literales del fact"},
     "punch_in":         {"enabled": true, "max_per_cap": 4, "where": "palabras de más peso; 1 por frase, nunca a ±5 s del pico (F4)"},
-    "chapter_question": {"enabled": false, "max_per_cap": 1, "where": "El director NO la elige: la genera gfx_question (Flash) por cap si question_auto (F3)"},
     "keyword_emphasis": {"enabled": true, "max_per_cap": 5, "where": "palabras del léxico de moods dichas por la voz"},
     "icon_callout":     {"enabled": true, "max_per_cap": 3, "where": "énfasis cuya categoría tiene ícono aprobado"},
     "icon_array":       {"enabled": true, "max_per_cap": 1, "where": "facts con afectados/total ≤ 500 que la voz dice"},
@@ -112,5 +105,5 @@
     "grade":            {"enabled": true, "max_per_cap": 1, "where": "todos los caps"}
   },
   "channel_bug": {"enabled": true, "svg": "bug/channel_bug.svg", "height_frac": 0.06, "opacity": 0.7, "corner": {"enabled": false}, "corner_dilate_px": 1, "flame_halo": true, "flame_halo_frac": 0.07, "margin_x_frac": 0.03, "margin_y_frac": 0.035, "flicker_every_sec": 90, "intro_sec": 0.8, "flame_delay_sec": 0.5, "outro_sec": 2.5, "outro_black_sec": 1.0, "outro_height_frac": 0.25, "elegida": "candidata 3 (Omar, 2026-10-20), llama movida al farol"},
-  "identity": {"version": 1, "saved_at": "2026-10-20 01:20:38", "golden_plan": "misterio_golden_ch02.json", "marks": {"icon_callout": {"v": "si", "auto": true}, "vignette": {"v": "si", "auto": true}, "title_card": {"v": "si", "auto": true}, "punch_in": {"v": "si", "auto": true}, "archive_clipping": {"v": "si", "auto": true}, "keyword_stamp": {"v": "si", "auto": true}, "keyword_emphasis": {"v": "si", "auto": true}, "data_callout": {"v": "si", "auto": true}, "chapter_question": {"v": "si", "auto": true}, "black_hold": {"v": "si", "auto": true}}, "anotado": {"ken_burns_in": {"intensidad": 2, "easing": "suave"}, "subs": {"tamano": "M"}, "archive_clipping": {"estilo": "periodico", "rotacion": -2}, "ken_burns_out": {"intensidad": 2}, "pan": {"direccion": "→", "intensidad": 2}, "depthflow": {"preset": "dolly", "intensidad": 2}, "keyword_emphasis": {"intensidad": "baja", "sfx": "auto"}}, "sugerencias": {"S01": "si", "S02": "si", "S04": "si", "S10": "si", "S06": "si", "S11": "si", "S08": "si", "S07": "si"}, "faltan": "", "lab_tokens": {"title_dur": 3, "accent_hex": "#c2302f", "archive_max_w_frac": 0.3, "mood_dur": 2.5, "vignette_opacity": 0.15, "punch_scale": 1.015, "anim_figure": "stamp", "emphasis_stamp_px": 84}}
+  "identity": {"version": 1, "saved_at": "2026-10-20 01:20:38", "golden_plan": "misterio_golden_ch02.json", "marks": {"icon_callout": {"v": "si", "auto": true}, "vignette": {"v": "si", "auto": true}, "title_card": {"v": "si", "auto": true}, "punch_in": {"v": "si", "auto": true}, "archive_clipping": {"v": "si", "auto": true}, "keyword_stamp": {"v": "si", "auto": true}, "keyword_emphasis": {"v": "si", "auto": true}, "data_callout": {"v": "si", "auto": true}, "black_hold": {"v": "si", "auto": true}}, "anotado": {"ken_burns_in": {"intensidad": 2, "easing": "suave"}, "subs": {"tamano": "M"}, "archive_clipping": {"estilo": "periodico", "rotacion": -2}, "ken_burns_out": {"intensidad": 2}, "pan": {"direccion": "→", "intensidad": 2}, "depthflow": {"preset": "dolly", "intensidad": 2}, "keyword_emphasis": {"intensidad": "baja", "sfx": "auto"}}, "sugerencias": {"S01": "si", "S02": "si", "S04": "si", "S10": "si", "S06": "si", "S11": "si", "S08": "si", "S07": "si"}, "faltan": "", "lab_tokens": {"title_dur": 3, "accent_hex": "#c2302f", "archive_max_w_frac": 0.3, "mood_dur": 2.5, "vignette_opacity": 0.15, "punch_scale": 1.015, "anim_figure": "stamp", "emphasis_stamp_px": 84}}
 }

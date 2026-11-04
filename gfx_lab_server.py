@@ -21,7 +21,6 @@ Mini-servidor local (http.server, sin dependencias nuevas) que sirve el lab en h
     POST /preview             {plan, tokens, movimientos?, salidas?, solo?} → candado literal → gfx_project.write_project (plantillas REALES)
                               con los tokens pisando gfx_rules SOLO durante ese write_project → src del player
     GET  /objetos?foto=N      §F: movimiento del pipeline + movimiento sugerido + datos del prompt de la foto N
-    GET  /question            F36 §D: borrado (gfx_question se borró: la pregunta es el `cierre` del último beat)
     /media/icon/<k>.svg       uno de los 12 íconos del set · /media/sfx/<nombre>.wav = SFX del perfil (drone)
     /summary, /save_identity  F36 §D: borrados (gfx_identity salió del pipeline, DECISIONES 16:38)
 
@@ -179,22 +178,14 @@ class LabSession:
         return self.with_defaults(json.loads(f.read_text(encoding="utf-8"))["plan"])
 
     def with_defaults(self, plan: dict[str, Any]) -> dict[str, Any]:
-        """F3: lo que el pipeline agrega por default (si el plan viene de un render anterior): pregunta de cierre
-        (cache) con su pausa y el corte a negro. F36 §D: sin el pico de gfx_peak (plan_peak se borró)."""
+        """F3: lo que el pipeline agrega por default (si el plan viene de un render anterior): el corte a negro al
+        final del cap. F36 §D: sin el pico de gfx_peak (plan_peak se borró). F72d: sin pregunta de cierre."""
         import gfx_config
         rules = gfx_config.gfx_rules
         self.context()
-        q = plan.get("chapter_question")
-        if rules.question_auto and not q:
-            cache = self.work_dir / f"gfx_question_{self.cap}.json"
-            gen = json.loads(cache.read_text(encoding="utf-8")) if cache.exists() else {}
-            if gen.get("text"):
-                from script_engine.gfx_director import question_keyword
-                q = plan["chapter_question"] = {"text": gen["text"], "start": round(self.duration, 3),
-                                                "duration": rules.question_pause_sec, "keyword": question_keyword(gen["text"]),
-                                                "generated": True, "pause": rules.question_pause_sec}
-        if q and q.get("pause") and rules.black_hold_sec > 0 and not plan.get("black_hold"):
-            plan["black_hold"] = {"start": round(q["start"] + q["pause"], 3), "duration": rules.black_hold_sec}
+        plan.pop("chapter_question", None)
+        if rules.black_hold_sec > 0 and not plan.get("black_hold"):
+            plan["black_hold"] = {"start": round(self.duration, 3), "duration": rules.black_hold_sec}
         return plan
 
     def lab_state(self) -> dict[str, Any]:
@@ -270,24 +261,11 @@ class LabSession:
                 fact_icon[i] = lit or cat_icon[cat]
         return {"icon_keys": sorted(ICON_KEYS), "category_icon": cat_icon, "fact_icon": fact_icon}
 
-    def question(self, body: dict[str, Any]) -> dict[str, Any]:
-        """F36 §D: borrado (gfx_question se borró: la pregunta de cierre es el `cierre` del último beat de la escaleta)."""
-        raise RuntimeError("la pregunta generada (gfx_question) se borró en F36 D")
-
     def locked(self, plan: dict[str, Any]) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-        """Candado literal (§6) sobre el plan del lab. La pregunta de cierre escrita por Omar (manual: true)
-        es la ÚNICA excepción: no pasa por question_ok y queda marcada como manual."""
+        """Candado literal (§6) sobre el plan del lab."""
         from script_engine.gfx_literal_lock import lock
         self.context()
-        manual_q = plan.get("chapter_question") if (plan.get("chapter_question") or {}).get("manual") else None
-        p = dict(plan)
-        if manual_q:
-            p["chapter_question"] = None
-        ok, rejected = lock(p, self._ctx["sources"], chapter_number=self._ctx["chapter_number"],
-                            question_sources=self._ctx.get("next_sources"))
-        if manual_q:
-            ok["chapter_question"] = manual_q
-        return ok, rejected
+        return lock(dict(plan), self._ctx["sources"], chapter_number=self._ctx["chapter_number"])
 
     # ── historia
     def story(self) -> dict[str, Any]:
@@ -611,8 +589,6 @@ class LabHandler(BaseHTTPRequestHandler):
             if m:
                 from gfx_config import SFX_DIR
                 return self._file(SFX_DIR / f"{m.group(1)}.wav", "audio/wav")
-            if path == "/question":
-                return self._json(s.question({}))
             if path == "/media/audio":
                 return self._file(Path(s.chplan.audio_path), "audio/mpeg")
             m = re.fullmatch(r"/media/(photo|thumb)/(\d+)", path)
@@ -656,8 +632,6 @@ class LabHandler(BaseHTTPRequestHandler):
                 return self._json(s.preview(plan, tokens, movimientos=body.get("movimientos"),
                                             salidas=body.get("salidas"), solo=body.get("solo"),
                                             pausa=body.get("pausa") or 0.0))
-            if path == "/question":
-                return self._json(s.question(self._body()))
             if path == "/cues":
                 body = self._body()
                 _, rejected, cues = s.cues_for(body["plan"], body.get("tokens") or {})

@@ -41,15 +41,14 @@ def is_literal(text: str, sources: dict[str, str], chapter_number: int) -> bool:
     return find_source(text, sources) is not None
 
 
-def lock(plan: dict[str, Any], sources: dict[str, str], *, chapter_number: int,
-         question_sources: dict[str, str] | None = None) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+def lock(plan: dict[str, Any], sources: dict[str, str], *, chapter_number: int) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     """Filtra un plan RESUELTO. Devuelve (plan_ok, rechazados).
 
     Cada rechazo: {"block", "field", "text"}. Un callout rechazado sale solo; title_card y archive_clipping salen
     enteros si cualquiera de sus strings falla. F37 §B.4: sin las ramas de los bloques borrados (contador, agua, matriz
-    de figuras, etiqueta de fuente, sello por léxico) ni la de la pregunta reformulada por el director: la pregunta es
-    el `cierre` de la escaleta (generada: excepción explícita) y los sellos son de clima (no repiten la voz: no son
-    literales a propósito; corren después del candado). `question_sources` queda por compatibilidad del lab.
+    de figuras, etiqueta de fuente, sello por léxico) ni la de la pregunta reformulada por el director (F72d: la
+    pregunta de cierre se borró); los sellos son de clima (no repiten la voz: no son literales a propósito; corren
+    después del candado).
     """
     ok = copy.deepcopy(plan)
     rejected: list[dict[str, Any]] = []
@@ -96,7 +95,5 @@ def plan_strings(plan: dict[str, Any]) -> list[str]:
     out += [c.get("text", "") for c in plan.get("callouts", []) or []]
     for ar in plan.get("archive_clippings") or []:
         out += [ar.get("kicker", ""), ar.get("headline", ""), ar.get("body", "")]
-    if plan.get("chapter_question"):
-        out.append(plan["chapter_question"].get("text", ""))
     out += [e.get("word", "") for e in plan.get("emphasis", []) or [] if e.get("stamp")]
     return [s for s in out if s]

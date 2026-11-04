@@ -2,7 +2,7 @@
 test_module_f29a.py — F29 §A: el gfx obedece a la escaleta (script_engine/gfx_realizador). Con la escaleta, la narración
 por beat, el pool y los timestamps de Vajont (sin red): ventanas por beat; los `a_pantalla` en su beat (D128 en el
 respiro del cap 6, después del pico; D245 en el beat 13; Q50 en el beat 8); ningún bloque fuera de su ventana; ≤ 5 por
-cap; pico con bloque grande en los 7 caps; sellos ≤ 1; crítico parejo (la pregunta de cierre: F72b, test_module_f72b).
+cap; pico con bloque grande en los 7 caps; sellos ≤ 1; crítico parejo (F72d: sin pregunta de cierre).
 """
 from __future__ import annotations
 

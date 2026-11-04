@@ -235,7 +235,7 @@ def assign_quiet_sides(scenes: list[GfxScene], base: Path) -> list[GfxScene]:
 
 
 def extend_base(base: Path, pause: float, fps: int) -> None:
-    """F3: alarga el base_clip (-g 30) `pause` segundos congelando el último cuadro (pausa de la pregunta de cierre).
+    """F3: alarga el base_clip (-g 30) `pause` segundos congelando el último cuadro (F72d: el negro de cierre).
     Escribe a un archivo nuevo y reemplaza (nunca trunca el original: el lab lo usa por hardlink)."""
     tmp = base.with_name(base.stem + ".pausa.mp4")
     cmd = ["ffmpeg", "-v", "error", "-y", "-i", str(base), "-an", "-vf", f"tpad=stop_mode=clone:stop_duration={pause:.3f}",
@@ -273,63 +273,31 @@ def _realizador(ctx: dict[str, Any], words: list[dict], time_offset: float, work
     return real
 
 
-def lectura_pregunta(txt: str) -> float:
-    """F32 §B.2: lo que dura la pregunta de cierre = su lectura a 15 cps (§0)."""
-    from script_engine.pantalla_colocar import LECTURA_CPS
-    return round(len(txt or "") / LECTURA_CPS, 3)
-
-
-def closing_question(resolved: dict[str, Any], ctx: dict[str, Any], work_dir: Path, cap: str, clip_dur: float,
-                     log: list[str]) -> float:
-    """F3: pregunta de cierre al FINAL del cap, durante una pausa con la voz en silencio. Devuelve la pausa a agregar al
-    base (0 si no hay pregunta). F29 §A.6: la pregunta es el `cierre` del último beat, literal. F32 §B.2: dura su lectura
-    (caracteres ÷ 15 cps, pantalla_entrada.LECTURA_CPS); el negro que sigue (black_hold) como siempre; question_pause_sec
-    queda solo como interruptor (0 = sin pregunta). F36 §D: sin escaleta o sin `cierre`, no hay pregunta (el respaldo
-    generado por Flash, gfx_question, se borró)."""
-    if not gfx_rules.question_auto or gfx_rules.question_pause_sec <= 0:
-        return 0.0
-    from script_engine.gfx_director import question_keyword
-    from script_engine.gfx_realizador import pregunta_cierre_fuente
-    real = ctx.get("realizador")
-    txt, fuente = pregunta_cierre_fuente(real) if real else (None, None)   # F38e §B4: desde la voz, con su fuente
-    if not txt:
-        log.append("  pregunta de cierre: no (sin escaleta o el cap no trae voz)")
-        resolved["chapter_question"] = None
-        (work_dir / f"gfx_pause_{cap}.json").unlink(missing_ok=True)
-        return 0.0
-    pause = lectura_pregunta(txt)
-    resolved["chapter_question"] = {"text": txt, "start": round(clip_dur, 3), "duration": round(pause, 3),
-                                    "keyword": question_keyword(txt), "generated": True, "pause": pause,
-                                    "fuente": fuente}                       # voz-pregunta · voz-final (F72b)
+def negro_de_cierre(resolved: dict[str, Any], work_dir: Path, cap: str, clip_dur: float) -> float:
+    """F3 · F72d: el cap termina en su última oración de voz y, después, el corte a negro (`black_hold`, el
+    `black_hold_sec` del perfil) que alarga el base. La pregunta de cierre (texto + pausa congelada) se borró en F72d
+    (Omar 2026-11-03 22:14). Devuelve lo que el cap dura de más que la voz (el negro; 0 sin negro)."""
     bh = float(gfx_rules.black_hold_sec)
-    resolved["black_hold"] = {"start": round(clip_dur + pause, 3), "duration": round(bh, 3)} if bh > 0 else None
-    log.append(f"  pregunta de cierre (beat {real['beats'][-1]['n']}, {fuente}): {txt!r}")
-    return pausa_a_disco(work_dir, cap, resolved)        # F38e §A R8: una sola cuenta (pregunta + negro) y un archivo
+    resolved["black_hold"] = {"start": round(clip_dur, 3), "duration": round(bh, 3)} if bh > 0 else None
+    return pausa_a_disco(work_dir, cap, resolved)
 
 
 def pausa_de_cierre(resolved: dict[str, Any]) -> float:
-    """F38e §A R8: lo que el cap dura de más que la voz, leído del plan: la pausa de la pregunta de cierre MÁS el
-    negro (`black_hold.duration`, el `black_hold_sec` del perfil). Es la misma cuenta que `closing_question` devuelve
-    (`pause + bh`); con el plan congelado (F34) nadie llamaba a `closing_question` y se tomaba solo
-    `chapter_question.pause`: el base se alargaba sin el negro y el `black_hold`, planeado en `clip_dur + pause`,
-    caía después del final del clip (v6 de Vajont: cada segmento 1,0 s más corto que el guion y sin negro)."""
-    cq = resolved.get("chapter_question") or {}
-    if not cq:
-        return 0.0
+    """F38e §A R8 · F72d: lo que el cap dura de más que la voz, leído del plan: el negro del cierre
+    (`black_hold.duration`). Con el plan congelado (F34) es la misma cuenta que `negro_de_cierre`."""
     bh = resolved.get("black_hold") or {}
-    return round(float(cq.get("pause") or 0.0) + float(bh.get("duration") or 0.0), 3)
+    return round(float(bh.get("duration") or 0.0), 3)
 
 
 def pausa_a_disco(work_dir: Path, cap: str, resolved: dict[str, Any]) -> float:
     """F38e §A R8: `gfx_pause_<cap>.json` (lo lee fase2b._gfx_pauses para la música) sale del plan que se dibuja,
-    también con el plan congelado; sin pregunta no hay archivo. Devuelve la pausa total (pregunta + negro)."""
+    también con el plan congelado; sin negro no hay archivo. Devuelve la pausa total (F72d: solo el negro)."""
     pausa = pausa_de_cierre(resolved)
     f = Path(work_dir) / f"gfx_pause_{cap}.json"
     if pausa <= 0:
         f.unlink(missing_ok=True)
         return 0.0
-    f.write_text(json.dumps({"pause": pausa, "text": (resolved.get("chapter_question") or {}).get("text")},
-                            ensure_ascii=False), encoding="utf-8")
+    f.write_text(json.dumps({"pause": pausa}, ensure_ascii=False), encoding="utf-8")
     return pausa
 
 
@@ -493,7 +461,7 @@ def plan_base(ctx: dict[str, Any]) -> dict[str, Any]:
     return {"chapter_number": n,
             "title_card": {"kicker": f"CAPÍTULO {n}", "title": titulo} if titulo and max_per_cap("title_card") > 0 else None,
             "callouts": [], "archive_clippings": [], "quote_card": None, "punch_in": [], "emphasis": [],
-            "chapter_question": None, "gap_warnings": []}
+            "gap_warnings": []}
 
 
 def plan_congelado(work_dir: Path, cap: str) -> dict[str, Any] | None:
@@ -700,8 +668,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                 resolved["fragmentos"] = pc.colocar(resolved, rot, ent_rot, scenes=scenes, pool=ctx.get("pool"),
                                                      used_before=_used(work_dir, ctx["chapter_number"]), log=log,
                                                      words=words, time_offset=time_offset)
-            resolved, rejected = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
-                                      question_sources=ctx.get("next_sources"))
+            resolved, rejected = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"])
         if gfx_plan_override is None and gfx_rules.peak_blocks:      # F3: pico del cap + reloj
             from gfx_config import active_moods
             if rot_on:                                # F29b §A.1.5/A.5: el pico es el de la escaleta, sin bloque propio
@@ -721,8 +688,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                 log.append(f"  reloj (cronología): {ptk['day']} {ptk['month']} · {ptk['tail']} "
                            f"@ {ptk['start']:.1f}s ({ptk['pool_id']})" if ptk else "  reloj (cronología): no (el cap no avanza de fecha)")
             from script_engine.gfx_literal_lock import lock as _lock2                 # lo nuevo también pasa el candado
-            resolved, rej2 = _lock2(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
-                                    question_sources=ctx.get("next_sources"))
+            resolved, rej2 = _lock2(resolved, ctx["sources"], chapter_number=ctx["chapter_number"])
             rejected += rej2
         if gfx_plan_override is None and rot_on:                     # F36 §C.4: relojes del papel
             tk_v = resolved.get("time_ticker")                       # aclaración 4: el reloj es el de la voz
@@ -736,15 +702,13 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             movs = plan_movements(scenes, plan, prompts, log)
             resolved["punch_in"] = []          # DECISIONES (F32): el único golpe es el zoom_punch del pico (F36 §D)
             resolved["identity"] = {"movimientos": movs}
-        # F3: pregunta de cierre generada + pausa real (alarga el base; fase2b rellena el audio con silencio)
+        # F3 · F72d: el negro del cierre alarga el base (fase2b rellena el audio con silencio); sin pregunta de cierre
         if gfx_plan_override is None:
-            pause = closing_question(resolved, ctx, work_dir, cap, clip_dur, log)
-        else:                      # F38e §A R8: pregunta + negro, como closing_question (antes faltaba el negro)
+            pause = negro_de_cierre(resolved, work_dir, cap, clip_dur)
+        else:                      # F38e §A R8: el plan congelado trae su negro
             pause = pausa_a_disco(work_dir, cap, resolved)
-            if pause > 0:
-                log.append(f"  pausa de cierre (plan fijo): {pause:.3f}s = pregunta "
-                           f"{float((resolved.get('chapter_question') or {}).get('pause') or 0.0):.3f} + negro "
-                           f"{float((resolved.get('black_hold') or {}).get('duration') or 0.0):.3f}")
+        if pause > 0:
+            log.append(f"  negro de cierre: {pause:.3f}s")
         if pause > 0:
             if plan_only:                                     # F32 §A: sin re-codificar; la duración se suma
                 clip_dur = round(clip_dur + pause, 3)

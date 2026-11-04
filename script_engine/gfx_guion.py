@@ -5,12 +5,12 @@ script_engine/gfx_guion.py — F32 §A: el guion de pantalla. Todo lo que se va 
 quedó en `_fase2b_work/` (plan resuelto, escenas, beats, crudas del rotulista) y escribe `output/<topic>/GUION_PANTALLA.md`
 y `GUION_PANTALLA.json` (la misma información; el json es lo que leen después la hoja de cuadros y los chequeos):
     eventos    (§A.1) una línea por evento en el orden del mp4 final (intro y pre-roll ya sumados): title card, ficha,
-               recorte, cita, persona, lupa, sello, reloj, nivel de agua, contador, punch, pregunta de cierre,
+               recorte, cita, persona, lupa, sello, reloj, nivel de agua, contador, punch,
                transición, costura y silencio de voz; también lo que cada filtro cortó, con quién y por qué (✂).
     beats      (§A.2) por beat: función, ventana, escenas, propuestos (director / rotulista), cortados por regla,
                quedan; `⚠ BEAT VACÍO` y `⚠ CAP SIN TEXTO`.
-    chequeos   (§A.3) cada uno ✓/✗ con el dato: dos bloques en una escena, bloque que cruza un corte, texto o pregunta
-               sin lectura, cifra que contradice la voz, `a_pantalla` faltantes, costuras, inicio de voz por cap (sobre
+    chequeos   (§A.3) cada uno ✓/✗ con el dato: dos bloques en una escena, bloque que cruza un corte, texto sin
+               lectura, cifra que contradice la voz, `a_pantalla` faltantes, costuras, inicio de voz por cap (sobre
                la mezcla de audio de previsualización, §A.4).
 Lecturas declaradas (F32_REPORT): «silencio de voz» = hueco entre palabras mayor que la pausa más larga que el propio
 guion marca en ese cap (las `[… pause]` del texto de la voz; sin marcas, la pausa más larga entre oraciones); «voz
@@ -302,11 +302,6 @@ def eventos_cap(c: dict[str, Any], *, title_dur: float, dip_frames: int, fps: in
             dur=float(tk.get("duration", 0)), fuente=tk.get("pool_id"),
             extra={"cambios": [f"{ch.get('day')} {ch.get('month')} @ {float(ch['t']):.1f}" for ch in tk.get("changes") or []],
                    "de_voz": bool(tk.get("de_voz"))})
-    q = plan.get("chapter_question")
-    if q:
-        add(float(q["start"]), "pregunta de cierre", texto=q.get("text", ""), dur=float(q.get("duration", 0)),
-            lectura=round(len(q.get("text", "")) / LECTURA_CPS, 2), k=len(sents) - 1 if sents else None,
-            fuente=q.get("fuente"), extra={"pausa_s": q.get("pause")})
     bh = plan.get("black_hold")
     if bh:
         add(float(bh["start"]), "costura", texto=f"negro {float(bh['duration']):.1f} s al cierre del cap (black hold)",
@@ -410,7 +405,7 @@ def resumen_beats(c: dict[str, Any], eventos: list[dict]) -> list[dict[str, Any]
         evb = [e for e in eventos if e["beat"] == b["n"] and e["tipo"] not in ("costura", "transición", "punch",
                                                                                 "silencio de voz", "title card")]
         dirc = [e for e in evb if e["tipo"] in ("sello", "reloj", "punch_in")]           # director (y el realizador)
-        rotc = [e for e in evb if e not in dirc and e["tipo"] != "pregunta de cierre"]  # rotulista (la pregunta es la escaleta)
+        rotc = [e for e in evb if e not in dirc]                                       # rotulista
         punches = [e for e in eventos if e["beat"] == b["n"] and e["tipo"] == "punch"]
         cort: dict[str, list[str]] = {}
         for e in evb:
@@ -469,8 +464,8 @@ def chequeos(caps: list[dict[str, Any]], *, title_dur: float, fps: int, mezcla: 
                               f"{fin:.2f} s y la escena {e['escena']} corta en {float(e['escena_t1']):.2f} s")
     out.append({"nombre": "bloque que cruza un corte", "ok": ok,
                 "lineas": lineas or ["✓ ningún texto, sello, nivel de agua ni lupa cruza un corte (el reloj de esquina no cuenta)"]})
-    # 3. texto sin lectura · 4. pregunta sin lectura
-    for nombre, tipos in (("texto sin lectura", TEXTOS), ("pregunta de cierre sin lectura", ("pregunta de cierre",))):
+    # 3. texto sin lectura (F72d: el 4, «pregunta de cierre sin lectura», se borró con la pregunta)
+    for nombre, tipos in (("texto sin lectura", TEXTOS),):
         lineas, ok = [], True
         n = 0
         for c in caps:

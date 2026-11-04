@@ -1570,7 +1570,7 @@ def _mapa_intensidad(video_id: str, plans: list[Any], extra_sec: dict[str, float
 
 
 def _gfx_pauses(plans: list[Any], work_dir: Path) -> dict[str, float]:
-    """F3: {cap: segundos de pausa de cierre} que apply_gfx dejó en work_dir/gfx_pause_<cap>.json (solo --gfx)."""
+    """F3 · F72d: {cap: segundos del negro de cierre} que apply_gfx dejó en work_dir/gfx_pause_<cap>.json (solo --gfx)."""
     out: dict[str, float] = {}
     for p in plans:
         f = work_dir / f"gfx_pause_{p.chapter_id}.json"
@@ -1723,8 +1723,8 @@ def _build_continuous_music_track(
         output_filename: chat 39 — nombre del WAV de salida en work_dir. Default
             None → CONTINUOUS_MUSIC_FILENAME. Se pasa distinto en cada llamada
             (ducked vs floor) para que las dos pistas no se pisen.
-        extra_sec: F3 — {chapter_id: segundos} que el segmento dura de más que el audio (pausa de la
-            pregunta de cierre, solo con --gfx). None → largo = audio del cap (comportamiento previo).
+        extra_sec: F3 — {chapter_id: segundos} que el segmento dura de más que el audio (F72d: el negro
+            de cierre, solo con --gfx). None → largo = audio del cap (comportamiento previo).
         segmentos: F34 §A.7.2 (solo con --gfx) — {chapter_id: duración del segmento del cap en el mp4}. La pieza de
             cada cap dura su segmento (+ crossfade_sec si no es la última: el acrossfade se come ese tramo, así la
             pieza siguiente arranca exacto en el corte, con su title card) en vez de audio + pausa; y la pista arranca
@@ -2676,7 +2676,7 @@ def _segment_hash(plan: Any, work_dir: Path, flags: dict[str, Any]) -> str:
     if flags.get("gfx"):
         from gfx_config import ACTIVE_PROFILE
         for name in (f"gfx_plan_{cap}.json", f"gfx_plan_{cap}.resolved.json",     # F38e §A r1: el plan dibujado
-                     f"gfx_zoom_box_{cap}.json", f"gfx_question_{cap}.json"):
+                     f"gfx_zoom_box_{cap}.json"):
             f = work_dir / name
             parts[name] = hashlib.sha256(f.read_bytes()).hexdigest() if f.exists() else None
         parts["profile"] = ACTIVE_PROFILE
@@ -2939,8 +2939,8 @@ def _costura_medida(plan: Any, seg_path: Path, work_dir: Path, *, hook: str | No
     """F38e §A.3: líneas «✓ costura …» / «✗ costura …» para el log del render después de armar un segmento con --gfx.
     La duración esperada es la del cap en el guion de pantalla (`GUION_PANTALLA.json`, `seg_dur`, lo aprobado) y, si
     no hay guion para ese cap, la misma cuenta del guion sobre `gfx_escenas_<cap>.json` (_segmento_de_cap: voz +
-    pausa de la pregunta + negro). El negro esperado es el `black_hold.duration` del plan resuelto (el
-    `black_hold_sec` del perfil); sin pregunta de cierre no hay negro que medir."""
+    negro). El negro esperado es el `black_hold.duration` del plan resuelto (el `black_hold_sec` del perfil); sin
+    negro en el plan no hay negro que medir (F72d: sin pregunta de cierre)."""
     cap = plan.chapter_id
     pre_pad = (HOOK_DURATION if (plan.is_first and hook) else 0.0) + _pre_roll_de(plan, True)
     fps = pipeline.fps
@@ -2970,7 +2970,7 @@ def _costura_medida(plan: Any, seg_path: Path, work_dir: Path, *, hook: str | No
     out = [f"{'✓' if m['duracion_ok'] else '✗'} costura {cap}: segmento {m['duracion_s']:.3f} s vs {fuente} "
            f"{m['esperado_s']:.3f} s (±{m['tolerancia_s']:.4f} s, un cuadro)"]
     if negro <= 0:
-        out.append(f"· costura {cap}: sin pregunta de cierre en el plan → sin negro que medir")
+        out.append(f"· costura {cap}: sin negro de cierre en el plan → nada que medir")
     else:
         det = ", ".join(f"{t['black_start']:.3f}→{t['black_end']:.3f} ({t['black_duration']:.3f} s)"
                         for t in m["negro_detectado"] or []) or "ninguno"
@@ -3580,7 +3580,7 @@ def _assemble_one_video(
         # Construir track continuo de música (paso A) — DOS pistas pre-atenuadas por
         # cap: ducked-source y floor-source. Cada cap entra con su volumen horneado.
         print(f"     paso A: tracks continuos (ducked + floor, vol por-cap)...")
-        pauses = _gfx_pauses(plans, work_dir) if gfx else None    # F3: la pausa de la pregunta alarga el cap
+        pauses = _gfx_pauses(plans, work_dir) if gfx else None    # F3 · F72d: el negro de cierre alarga el cap
         if pauses:
             print(f"     pausas de cierre (gfx): {pauses}")
         intensidad = _mapa_intensidad(video_id, plans, pauses)            # F28 §B.2

@@ -12,8 +12,6 @@ Con `01a_escaleta.json` en `_steps/<topic>/` (y la narración por beat, `01b_nar
                opcionales: `dato_central` (primero, en un giro) y `datos_apoyo` de cada beat que la voz NO dijo en esa
                ventana (mismo número, mismo nombre o la misma cláusula → fuera). Datos duros y citas, como el pool.
     finalizar  F37 §B.4 (el papel es el único camino): solo los sellos del papel y ningún punch_in (ver la función).
-    pregunta   F72b: la última oración de la voz del cap («voz-pregunta» si termina en «?», si no «voz-final»), con su
-               fuente (`pregunta_cierre_fuente`); el `cierre` de la escaleta ya no se lee.
 Sin escaleta (topics viejos, v3) nada de esto corre: gfx_layer sigue por el camino de siempre, con aviso.
 """
 from __future__ import annotations
@@ -170,36 +168,6 @@ def preparar(cap: int, carga: dict, pool: dict | None, words: list[dict], time_o
     (Path(work_dir) / f"gfx_beats_{cap_id}.json").write_text(json.dumps(real, ensure_ascii=False, indent=1),
                                                              encoding="utf-8")
     return real
-
-
-FUENTES_CIERRE = ("voz-pregunta", "voz-final")   # F72b: de dónde salió la pregunta de cierre
-
-
-def _termina_en_pregunta(oracion: str) -> bool:
-    """¿La oración termina en «?» (antes de una comilla o paréntesis de cierre, si lo hay)?"""
-    return re.sub(r"[\"»”')\]]+$", "", str(oracion or "").strip()).endswith("?")
-
-
-def pregunta_cierre_fuente(real: dict) -> tuple[str | None, str | None]:
-    """F72b (REVISION_GUION F72: la escaleta es anterior a los DEBERÍA de la narración): (texto, fuente) de la pregunta
-    de cierre del cap, con la voz del cap = la narración por beat que trae `real["beats"][i]["texto"]`, partida con el
-    mismo corte que la voz (voz_utils.oraciones_de_texto):
-      (i)  si la última oración de la voz del cap termina en «?», esa pregunta → «voz-pregunta»;
-      (ii) si no, la última oración de la voz del cap → «voz-final».
-    El `cierre` de la escaleta ya no se lee (se borraron el emparejamiento y el respaldo literal de F38e B4).
-    (None, None) sin beats o sin voz."""
-    from script_engine.voz_utils import oraciones_de_texto
-    beats = real.get("beats") or []
-    voz_cap = oraciones_de_texto(" ".join(str(b.get("texto") or "") for b in beats))
-    if not voz_cap or not voz_cap[-1].strip():
-        return None, None
-    return voz_cap[-1].strip(), ("voz-pregunta" if _termina_en_pregunta(voz_cap[-1]) else "voz-final")
-
-
-def pregunta_cierre(real: dict) -> str | None:
-    """La pregunta del cap (F38e B4: desde la voz; ver pregunta_cierre_fuente). Solo el texto, para quien no necesita
-    la fuente (gfx_layer.closing_question)."""
-    return pregunta_cierre_fuente(real)[0]
 
 
 # ═══════════════════════ finalizar ═══════════════════════

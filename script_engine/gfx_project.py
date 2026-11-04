@@ -231,7 +231,7 @@ def _forma_v_js(sel: str, st: float, dur: float, v: str) -> tuple[list[str], lis
 def ficha_html(fid: str, c: dict[str, Any], st: float, dur: float, width: int) -> tuple[str, list[str], list[str]]:
     """F29c §A.5: la ficha del rotulista con el componente del title card: kicker = etiqueta, título = dato. Misma
     posición, raya, wipe de entrada y fundido de salida (gfx_rules.title_fade_out); sin #tc-dim (no oscurece la imagen).
-    F32 §B.8: un escalón más chica que el title card: el dato al tamaño de la pregunta de cierre (question_font_px) y la
+    F32 §B.8: un escalón más chica que el title card: el dato a `question_font_px` (el tamaño de la pregunta de cierre, borrada en F72d) y la
     etiqueta (tc_kicker_px) sobre la placa de `.co-text.stamp` (clase `.tc-box.ficha` del CSS); la raya va debajo de la
     última línea del dato (misma cuenta que la del CSS, con el tamaño del dato)."""
     m = tc_metrics()
@@ -516,9 +516,6 @@ def cue_events(plan: dict[str, Any], scenes: list[GfxScene], fps: int) -> list[d
 
     if plan.get("title_card"):
         add(0.0, gfx_rules.title_dur, "title_card", f"{plan['title_card']['kicker']} · {plan['title_card']['title']}")
-    if plan.get("chapter_question"):
-        add(plan["chapter_question"]["start"], plan["chapter_question"]["duration"], "chapter_question",
-            plan["chapter_question"]["text"])
     for c in plan.get("callouts", []):                          # F29c §A.5: todo texto es ficha (F36 §D)
         add(c["start"], c.get("duration", gfx_rules.callout_dur), "ficha", f"{c.get('kicker', '')} · {c['text']}")
     for ar in archive_list(plan):
@@ -609,7 +606,7 @@ FICHA_PLACA_PAD_H = 26          # F32 §B.8: el aire lateral de la placa de `.co
 
 def ficha_medida(kicker: str, title: str, width: int = 2560) -> dict[str, int]:
     """F29c §A.5: líneas del kicker y del dato en la ficha: el kicker en una línea, el dato en mayúsculas al ancho del
-    title card (left/right 180 px). F32 §B.8: el dato al tamaño de la pregunta de cierre y el kicker con su placa."""
+    title card (left/right 180 px). F32 §B.8: el dato a `question_font_px` y el kicker con su placa."""
     m = tc_metrics()
     avail = width - TC_LEFT - TC_RIGHT
     return {"kicker": _wrap_lines(kicker.upper(), m["kicker_px"], avail - 2 * FICHA_PLACA_PAD_H, TC_KICKER_TRACK),
@@ -816,22 +813,6 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
     if bh:                                                     # F3: corte a negro (sin fundido) al final
         overlays.append(f'      <div id="bh" class="clip" data-start="{bh["start"]:.3f}" data-duration="{bh["duration"]:.3f}" '
                         f'style="position:absolute;inset:0;z-index:60;background:#000"></div>')
-
-    # ── chapter_question (F2 §0d): cierre del cap, fondo 50 %, palabra clave en el acento
-    cq = plan.get("chapter_question")
-    if cq:
-        q0, qd = cq["start"], cq["duration"]
-        kw = cq.get("keyword", "")
-        txt = _esc(cq["text"])
-        if kw:
-            txt = re.sub(rf"\b({re.escape(_esc(kw))})\b", r'<span class="kw">\1</span>', txt, count=1)
-        overlays.append(_tpl("chapter_question.html.tmpl").substitute(start=f"{q0:.3f}", duration=f"{qd:.3f}", text_html=txt))
-        # F3: entrada en persiana (el texto sale de detrás del borde de su máscara) sobre el fondo oscurecido
-        init.append('      gsap.set("#cq-dim", { opacity: 0 }); gsap.set("#cq-text .cq-line", { yPercent: 110 });')
-        js.append(f'      tl.to("#cq-dim", {{ opacity: {gfx_rules.question_dim}, duration: .35 }}, {q0:.3f})'
-                  f'.to("#cq-text .cq-line", {{ yPercent: 0, duration: .6, ease: "power4.out" }}, {q0 + .2:.3f})'
-                  + ("" if bh and abs(bh["start"] - (q0 + qd)) < .05 else          # con corte a negro: corte seco, sin fundido
-                     f'.to(["#cq-text", "#cq-dim"], {{ opacity: 0, duration: .3, ease: "power1.in" }}, {q0 + qd - .3:.3f})') + ";")
 
     # ── --gfx-debug: overlay quemado (NUNCA sin el flag)
     if debug:

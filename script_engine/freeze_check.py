@@ -2,7 +2,7 @@
 script_engine/freeze_check.py — F10 B1: validador post-render de cuadro congelado.
 
 Corre `freezedetect` de FFmpeg sobre un cap (o el final) y devuelve los tramos quietos de más de `min_sec`. Los
-tramos que son quietos A PROPÓSITO (pausa de la pregunta de cierre, corte a negro, foto fija con movimiento nulo) se
+tramos que son quietos A PROPÓSITO (corte a negro del cierre, foto fija con movimiento nulo) se
 pasan en `allow` y no cuentan. Uso: después del render de fase2b, sobre cada `_fase2b_work/chNN_gfx.mp4`.
     python -I -m script_engine.freeze_check <mp4> [<mp4> …]
 """
