@@ -542,7 +542,7 @@
   "estado": "vivo",
   "estado_prueba": "qa_studio_server.py:72 define HTML_PATH y :1828-1829 lo sirve en / (el form lo abre en el gate del visor, qa_form.html:349)",
   "funciones_muertas": [],
-  "md5": "33d82e24be95c193b4806d0b76fd8039",
+  "md5": "2b9f63bf0fa693c1e7960c2090c78762",
   "_parte": "orquestador_a"
  },
  "qa_studio_server.py": {
@@ -583,7 +583,7 @@
     "por_que": "ninguna ruta del servidor ni del form la llama (el POST /mark solo marca, no regenera); solo la nombran test_module_f5e.py y la herramienta manual lab/hyperframes/f5/regen_marcadas.py"
    }
   ],
-  "md5": "a8b15660ff9f082d077276dbdb81a53f",
+  "md5": "dbcb139ce1cf4790b0bbaedfabbb5f26",
   "_parte": "orquestador_a"
  },
  "report_foto_madre_edits.py": {
@@ -601,7 +601,7 @@
   "_parte": "orquestador_b"
  },
  "run_pipeline.py": {
-  "sticker": "Es el director de orquesta: toma un tema y corre una tras otra las etapas (guion, compuerta de narración, papel nuevo, compuerta del papel, voz, assets, fondos, guion de pantalla, aprobar guion, render, packaging), cada una como programa aparte. Antes de cada paso mira qué archivos ya existen en disco y arranca donde quedó; frena en las dos compuertas donde Omar tiene que aprobar y nunca aprueba solo. Antes de cualquier etapa (F42b) revisa que este Python tenga las librerías que la cadena importa: si falta una requerida, para sin gastar y da el comando de pip. F67c: voz, assets, fondos y guion de pantalla corren si su artefacto falta o tiene otro sello que el papel aprobado (en cascada).",
+  "sticker": "Es el director de orquesta: toma un tema y corre una tras otra las etapas (guion, compuerta de narración, papel nuevo, compuerta del papel, voz, assets, fondos, guion de pantalla, aprobar guion, render, packaging), cada una como programa aparte. Antes de cada paso mira qué archivos ya existen en disco y arranca donde quedó; frena en las dos compuertas donde Omar tiene que aprobar y nunca aprueba solo. Antes de cualquier etapa (F42b) revisa que este Python tenga las librerías que la cadena importa: si falta una requerida, para sin gastar y da el comando de pip. F67c: voz, assets, fondos y guion de pantalla corren si su artefacto falta o tiene otro sello que el papel aprobado (en cascada). F73: el paso packaging primero mueve a publish/_desfasado_* los paquetes de miniatura que no son de la narración aprobada vigente.",
   "recibe": "--topic <id> (o --research para elegir tema nuevo con fase1); data/scripts/_steps/<id>/01e_pantalla.md, data/scripts/<id>.json, output/<id>/assets/assets_manifest.json, output/<id>/_fase2b_work/*, output/<id>/GUION_PANTALLA.json, output/<id>/<id>_final_gfx.mp4, data/topics_db.json, data/_last_research.json; la tecla A/P/C que manda el form por stdin.",
   "entrega": "No escribe archivos de producción: lanza fase1.py, fase1_5.py, fase2a.py, fase2b.py y fase3.py como subprocesos; imprime los encabezados de fase y los marcadores @@QAFORM@@ para el form, y el reporte final con el comando para retomar.",
   "modelo": [],
@@ -611,7 +611,7 @@
   "estado": "vivo",
   "estado_prueba": "qa_studio_server.py:1522 y :1527 lo lanzan; run_pipeline.py:553 es el main",
   "funciones_muertas": [],
-  "md5": "4f4de4167de259a2bacb9fe7472819f7",
+  "md5": "f45f7293aac072c3abc5a237273ed92f",
   "_parte": "orquestador_a · F42b C (CC)"
  },
  "script_engine/__init__.py": {
@@ -629,8 +629,8 @@
   "_parte": "orquestador_a"
  },
  "script_engine/m09_packaging.py": {
-  "sticker": "Arma el paquete de publicación de YouTube. Desde F58 le pide a Claude Opus, en una sola llamada, 3 PAQUETES (título + texto de miniatura + la oración del gancho que muestra la foto), cada uno con una estrategia distinta, leyendo el gancho (cap 1 entero), la narración de los caps 2 a 7 y el pool completo (la única fuente de cifras, fechas y nombres); valida por código (3 paquetes, estrategias distintas, anclas literales del gancho) con reintentos y coteja cada cifra del título y del texto contra el pool (aviso, no freno). La foto de cada paquete sale de la máquina de fotos de producción (casilleros Opus del cap 1 con esa ancla, armado C, canon) más una oración de composición (desde F59: el sujeto principal en la mitad derecha, sirva o no para prompts sin persona) y sin cartel. Compone la miniatura con el texto en la mitad izquierda, partiendo las líneas por ancho medido y achicando la letra hasta que quepa (tope 2 líneas), y deja el checklist para subir a mano. Se puede correr por pasos (candidatas, componer un paquete) o abriendo el formulario web de revisión. Desde F68 los `*_native.png` no salen como bases de miniatura.",
-  "recibe": "data/scripts/_steps/<id>/01b_narration.json, 00_pool_v3.json y 01a_skeleton.json, el topic de data/topics_db.json con su canon (fase1_5._load_topic_by_id + asegurar_canon), las fotos *_graded.png de output/<id>/assets/ como bases alternativas, la fuente script_engine/fonts/Anton-Regular.ttf y la ruta del MP4 final (--video-path).",
+  "sticker": "Arma el paquete de publicación de YouTube. Desde F58 le pide a Claude Opus, en una sola llamada, 3 PAQUETES (título + texto de miniatura + la oración del gancho que muestra la foto), cada uno con una estrategia distinta, leyendo el gancho (cap 1 entero), la narración de los caps 2 a 7 y el pool completo (la única fuente de cifras, fechas y nombres); valida por código (3 paquetes, estrategias distintas, anclas literales del gancho) con reintentos y coteja cada cifra del título y del texto contra el pool (aviso, no freno). La foto de cada paquete sale de la máquina de fotos de producción (casilleros Opus del cap 1 con esa ancla, armado C, canon) más una oración de composición (desde F59: el sujeto principal en la mitad derecha, sirva o no para prompts sin persona) y sin cartel. Compone la miniatura con el texto en la mitad izquierda, partiendo las líneas por ancho medido y achicando la letra hasta que quepa (tope 2 líneas), y deja el checklist para subir a mano. Se puede correr por pasos (candidatas, componer un paquete) o abriendo el formulario web de revisión. Desde F68 los `*_native.png` no salen como bases de miniatura. F73: la foto del paquete va anclada a las fotos madre con la regla única `_madres_para_item` (los mismos argumentos que QA, guion vivo data/scripts/<id>.json) y el paquete guarda `persona` y `foto_madre_refs`; `metadata.json` lleva el sello `narracion_md5` (el aprobado de 01b_narracion_v3.json): sin narración aprobada no genera, y los paquetes sin sello o de otra narración se mueven a publish/_desfasado_<ts>/ (thumb_candidates, paquetes, thumb_final y CHECKLIST) antes de generar de cero.",
+  "recibe": "data/scripts/_steps/<id>/01b_narration.json, 00_pool_v3.json y 01a_skeleton.json, el topic de data/topics_db.json con su canon (fase1_5._load_topic_by_id + asegurar_canon), las fotos *_graded.png de output/<id>/assets/ como bases alternativas, la fuente script_engine/fonts/Anton-Regular.ttf y la ruta del MP4 final (--video-path). F73: data/scripts/<id>.json (foto_madre_registry, foto_madre_personas), output/<id>/foto_madre/*.png y el `aprobado` de 01b_narracion_v3.json.",
   "entrega": "output/<id>/publish/metadata.json (paquetes acumulados con índice global, descripcion, tags, avisos), thumb_candidates/paquete_NN_base.png y paquete_NN.png, thumb_final_NN.png (o .jpg si pesa más de 2 MB) y CHECKLIST_PUBLICACION.md.",
   "modelo": [
    {
@@ -648,11 +648,11 @@
   "estado": "vivo",
   "estado_prueba": "fase3.py:64 arma el comando python -m script_engine.m09_packaging (etapa packaging, run_pipeline.py:430 lanza fase3.py); qa_studio_server.py:1490 lo lanza con --review --auto-first",
   "funciones_muertas": [],
-  "md5": "46c33211d28b9ce1b3c99283f10d2fda",
+  "md5": "c0ad53a0956e818cb0727b14084289e3",
   "_parte": "orquestador_b"
  },
  "script_engine/m09_review_server.py": {
-  "sticker": "Es la pantalla web local donde Omar revisa los 3 paquetes de miniatura: ve cada miniatura compuesta con su título (y cuántos caracteres tiene), el texto, los datos del pool de donde salió, el cap que lo paga, la oración del gancho y los avisos; puede editar el título y el texto (se recompone sin llamar a nada), elegir otra base (cualquier foto del video), rehacer la foto de un paquete o pedir 3 paquetes nuevos, y componer la final con color y tamaño. Es un servidor chico en 127.0.0.1 que usa el packaging para hacer todo el trabajo y solo sirve imágenes de assets/, thumb_candidates/ y publish/.",
+  "sticker": "Es la pantalla web local donde Omar revisa los 3 paquetes de miniatura: ve cada miniatura compuesta con su título (y cuántos caracteres tiene), el texto, los datos del pool de donde salió, el cap que lo paga, la oración del gancho y los avisos; puede editar el título y el texto (se recompone sin llamar a nada), elegir otra base (cualquier foto del video), rehacer la foto de un paquete o pedir 3 paquetes nuevos, y componer la final con color y tamaño. Es un servidor chico en 127.0.0.1 que usa el packaging para hacer todo el trabajo y solo sirve imágenes de assets/, thumb_candidates/ y publish/. F73: al abrir, si los paquetes no son de la narración aprobada vigente los archiva (publish/_desfasado_*) y avisa: nunca muestra paquetes viejos como vigentes.",
   "recibe": "output/<id>/publish/metadata.json (paquetes), thumb_candidates/*.png, las fotos de output/<id>/assets/ y los clicks de Omar por HTTP (/nuevos, /rehacer_foto, /editar, /compose).",
   "entrega": "Paquetes nuevos o rehechos en metadata.json y thumb_candidates/, thumb_final_NN.png con metadata.json y CHECKLIST_PUBLICACION.md actualizados. Avisa a fase3 con on_compose para marcar el tema como empaquetado.",
   "modelo": [],
@@ -662,7 +662,7 @@
   "estado": "vivo",
   "estado_prueba": "m09_packaging.py:717-720 run_review lo importa y llama a serve() (CLI --review, fase3.py:64 y qa_studio_server.py:1490)",
   "funciones_muertas": [],
-  "md5": "5737055ce70309d6ed602ab2db457ae6",
+  "md5": "441b4e6251314ee765b1ddfd1a49bf1b",
   "_parte": "orquestador_b"
  },
  "tools/build_gemini_validation_prompt.py": {

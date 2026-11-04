@@ -482,6 +482,8 @@ def _paso_render(tid: str, ran: list[str], batch: bool) -> int | None:
 
 
 def _paso_packaging(tid: str, ran: list[str], batch: bool) -> int:
+    from script_engine import m09_packaging as m09
+    m09.archivar_paquetes_desfasados(tid)        # F73 B: paquetes de otra narración → publish/_desfasado_*
     if batch:
         # Batch: NO levantar el form (gate humano). Se reporta y queda listo.
         ran.append("packaging (diferido)")

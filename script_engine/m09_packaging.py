@@ -31,13 +31,14 @@ import os
 import re
 import sys
 import webbrowser
+from datetime import datetime
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
 from PIL import Image, ImageDraw, ImageFont
 
-from config import OUTPUT_DIR
+from config import DATA_DIR, OUTPUT_DIR
 from script_engine.m01a_skeleton import STEPS_DIR
 
 if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
@@ -438,13 +439,39 @@ def prompts_paquetes(tid: str, narracion: dict, anclas: list[str], topic: dict |
     return list(out["image_prompts"])
 
 
-def foto_paquete(prompt: str, out_path: Path) -> str | None:
-    """Genera la foto con el motor de producción (`_generate_image_raw`, use_ultra=False). Devuelve None si salió o el
-    motivo literal (ContentRejectedError u otro error): el paquete queda sin foto y los otros siguen."""
+def _guion_vivo(tid: str) -> dict:
+    """data/scripts/<tid>.json (el guion vivo: `foto_madre_registry`, `foto_madre_personas`); sin guion → {}."""
+    f = DATA_DIR / "scripts" / f"{tid}.json"
+    try:
+        return json.loads(f.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def madres_del_paquete(tid: str, item: dict, script: dict | None = None) -> list[tuple[str, str]]:
+    """F73 A: [(ref, path)] de las madres del ítem con la REGLA ÚNICA `am._madres_para_item` y los mismos argumentos que
+    `qa_studio_server._madres_de_entrada` (persona, foto_madre_ref, anio, registry y personas del guion vivo, prompt).
+    Tope y filtro de era son los de esa regla. Sin guion vivo o sin persona/ref → []."""
+    import asset_manager as am
+    script = _guion_vivo(tid) if script is None else script
+    if not script:
+        return []
+    refs = item.get("foto_madre_ref")
+    refs = [refs] if isinstance(refs, str) else list(refs or [])
+    return am._madres_para_item(list(item.get("persona") or []), [str(r).strip() for r in refs if str(r or "").strip()],
+                                item.get("anio"), script.get("foto_madre_registry") or {},
+                                script.get("foto_madre_personas") or {}, item.get("prompt") or "")
+
+
+def foto_paquete(prompt: str, out_path: Path, madres: list[tuple[str, str]]) -> str | None:
+    """Genera la foto con el motor de producción (`_generate_image_raw`, use_ultra=False) anclada a `madres`
+    (`foto_madre_data_uris`; sin madres = t2i). Devuelve None si salió o el motivo literal (ContentRejectedError u otro
+    error): el paquete queda sin foto y los otros siguen."""
     import asset_manager as am
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    uris = [am._path_to_data_uri(p) for _, p in madres]
     try:
-        am._generate_image_raw(prompt, out_path, use_ultra=False)
+        am._generate_image_raw(prompt, out_path, use_ultra=False, foto_madre_data_uris=uris or None)
         return None
     except Exception as e:  # noqa: BLE001 — el motivo literal va al paquete
         return f"{type(e).__name__}: {e}"
@@ -637,9 +664,52 @@ def _escribir_meta(tid: str, meta: dict) -> None:
     (pub / "metadata.json").write_text(json.dumps(meta, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
+def narracion_vigente(tid: str) -> str | None:
+    """F73 B: el `aprobado.md5` de 01b_narracion_v3.json si la narración está aprobada y vigente
+    (`fase1_5.estado_narracion`); si no, None."""
+    import fase1_5
+    ok, _por_que = fase1_5.estado_narracion(tid, STEPS_DIR)
+    if not ok:
+        return None
+    n3 = json.loads((_steps_dir(tid) / "01b_narracion_v3.json").read_text(encoding="utf-8"))
+    return (n3.get("aprobado") or {}).get("md5")
+
+
+def paquetes_vigentes(meta: dict, vigente: str | None) -> bool:
+    """F73 B: los paquetes de `meta` son de la narración aprobada vigente (sello `narracion_md5` igual)."""
+    return bool(vigente) and meta.get("narracion_md5") == vigente
+
+
+def archivar_paquetes_desfasados(tid: str) -> Path | None:
+    """F73 B: si `metadata.json` trae paquetes sin sello o con el sello de otra narración, `thumb_candidates/`, los
+    `paquetes` de metadata (con su descripción, tags y avisos) y lo compuesto con ellos (`thumb_final*.png`,
+    `CHECKLIST_PUBLICACION.md`) se mueven a `publish/_desfasado_<ts>/` (como `fase2b._archivar_fondos_desfasados`): lo de
+    otra narración no se muestra como vigente y lo de abajo no reusa nada viejo. Devuelve la carpeta o None."""
+    pub = _publish_dir(tid)
+    meta = _leer_meta(tid)
+    if not meta.get("paquetes") or paquetes_vigentes(meta, narracion_vigente(tid)):
+        return None
+    destino = pub / f"_desfasado_{datetime.now():%Y%m%d_%H%M%S}"
+    destino.mkdir(parents=True)
+    cand = _candidates_dir(tid)
+    if cand.exists():
+        cand.rename(destino / cand.name)
+    for f in [*pub.glob("thumb_final*.png"), pub / "CHECKLIST_PUBLICACION.md"]:
+        if f.exists():
+            f.rename(destino / f.name)
+    (destino / "metadata.json").write_text(json.dumps(meta, indent=2, ensure_ascii=False), encoding="utf-8")
+    viejas = ("paquetes", "descripcion", "tags", "avisos", "narracion_md5", "stage", "titulo_elegido",
+              "texto_elegido", "base_thumb", "thumb_final")
+    resto = {k: v for k, v in meta.items() if k not in viejas}
+    (pub / "metadata.json").write_text(json.dumps(resto, indent=2, ensure_ascii=False), encoding="utf-8")
+    print(f"  📦 paquetes de otra narración (sello {str(meta.get('narracion_md5'))[:8]}…): movidos a {destino.name}")
+    return destino
+
+
 def candidates_ready(tid: str) -> bool:
-    """True si metadata.json existe y trae la clave `paquetes` (F58)."""
-    return "paquetes" in _leer_meta(tid)
+    """True si metadata.json trae `paquetes` (F58) sellados con la narración aprobada vigente (F73 B)."""
+    meta = _leer_meta(tid)
+    return "paquetes" in meta and paquetes_vigentes(meta, narracion_vigente(tid))
 
 
 def _nombre_base(n: int) -> str:
@@ -683,7 +753,10 @@ def _foto_del_paquete(tid: str, p: dict, item: dict | None, motivo: str | None =
     for k in ("_f8_problemas", "_f8_texto_fuera"):
         if item.get(k):
             p[k] = item[k]
-    err = foto_paquete(item["prompt"], cand / _nombre_base(p["n"]))
+    p["persona"] = list(item.get("persona") or [])
+    madres = madres_del_paquete(tid, item)
+    p["foto_madre_refs"] = [r for r, _ in madres]                 # F73 A: las madres que anclaron la foto
+    err = foto_paquete(item["prompt"], cand / _nombre_base(p["n"]), madres)
     if err:
         p["motivo_sin_foto"] = err
     else:
@@ -695,6 +768,12 @@ def run_candidates(tid: str, video_path: str | None = None, review: bool = False
     """Paso 1 (F58): N_PAQUETES paquetes de Opus (validados), cifras cotejadas, la foto de cada uno por la máquina de
     producción y la compuesta. `metadata.json.paquetes` acumula con índice global (no pisa números); descripción y
     tags son los de la última tanda."""
+    vigente = narracion_vigente(tid)
+    if not vigente:
+        import fase1_5
+        raise PaquetesParada(f"PARADA: sin narración aprobada vigente no se generan paquetes "
+                             f"({fase1_5.estado_narracion(tid, STEPS_DIR)[1]})")
+    archivar_paquetes_desfasados(tid)
     narracion, pool = cargar_narracion(tid), cargar_pool(tid)
     cand = _candidates_dir(tid)
     cand.mkdir(parents=True, exist_ok=True)
@@ -714,7 +793,7 @@ def run_candidates(tid: str, video_path: str | None = None, review: bool = False
         p["foto"], p["base"], p["miniatura"], p["motivo_sin_foto"] = None, None, None, None
         paquetes.append(p)
     meta.update({"topic_id": tid, "stage": "candidates", "paquetes": previos + paquetes,
-                 "descripcion": nuevo["descripcion"], "tags": nuevo["tags"]})
+                 "descripcion": nuevo["descripcion"], "tags": nuevo["tags"], "narracion_md5": vigente})
     _escribir_meta(tid, meta)        # los paquetes quedan en disco antes de las fotos
 
     print(f"  [m09a] fotos: casilleros + armado (cap 1, {len(paquetes)} anclas)...")

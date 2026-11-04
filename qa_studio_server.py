@@ -78,6 +78,53 @@ _IMG_NAME_RE = re.compile(r"^ch\d{2}_(img|supp)_\d+\.png$")
 _CAP_RE = re.compile(r"^ch\d{2}$")
 
 
+def voz_por_anclas(texto: str, anclas: list, *, primero_desde_inicio: bool = False) -> list:
+    """F73 C: la voz de cada segmento = el texto del guion desde su ancla hasta el ancla siguiente
+    encontrada (el último, hasta el final). Las anclas se buscan en orden, tolerando solo diferencias
+    de espacios en blanco. `primero_desde_inicio`: el primer segmento (clip que va primero) arranca
+    en el inicio del texto. Ancla no encontrada → su voz es solo el ancla (nunca se inventa)."""
+    texto = texto or ""
+    norm_chars: list[str] = []
+    mapa: list[int] = []          # índice en norm → índice en texto
+    en_blanco = False
+    for i, ch in enumerate(texto):
+        if ch.isspace():
+            if norm_chars and not en_blanco:
+                norm_chars.append(" ")
+                mapa.append(i)
+            en_blanco = True
+            continue
+        en_blanco = False
+        norm_chars.append(ch)
+        mapa.append(i)
+    norm = "".join(norm_chars)
+
+    posiciones: list[int | None] = []
+    cursor = 0
+    for k, a in enumerate(anclas):
+        if k == 0 and primero_desde_inicio:
+            posiciones.append(0)
+            continue
+        na = " ".join((a or "").split())
+        p = norm.find(na, cursor) if na else -1
+        if p < 0:
+            posiciones.append(None)
+            continue
+        posiciones.append(p)
+        cursor = p + len(na)
+
+    voces: list = []
+    for k, p in enumerate(posiciones):
+        if p is None:
+            voces.append(anclas[k])
+            continue
+        sig = next((q for q in posiciones[k + 1:] if q is not None), None)
+        ini = mapa[p] if p < len(mapa) else len(texto)
+        fin = mapa[sig] if sig is not None and sig < len(mapa) else len(texto)
+        voces.append(texto[ini:fin].strip())
+    return voces
+
+
 # ═════════════════════════════════════════════════════════════════
 #  QAState — LÓGICA (testeable sin socket)
 # ═════════════════════════════════════════════════════════════════
@@ -308,9 +355,24 @@ class QAState:
         role = self._role(n, n_max)
         if self._is_veo(cid):
             if self._veo_position(cid) == "end":
-                return self._cap_veo_timeline(cid, role)  # v1.1: clip al final → timeline
-            return self._cap_veo(cid, role)               # Option A: clip primero + galería
-        return self._cap_flux(cid, role)
+                out = self._cap_veo_timeline(cid, role)  # v1.1: clip al final → timeline
+            else:
+                out = self._cap_veo(cid, role)           # Option A: clip primero + galería
+        else:
+            out = self._cap_flux(cid, role)
+        return self._poner_voz(cid, out)
+
+    def _poner_voz(self, cid: str, out: dict) -> dict:
+        """F73 C: cada segmento lleva `voz` (texto del guion desde su ancla hasta la siguiente). Solo agrega."""
+        segs = out.get("segments") or []
+        if not segs:
+            return out
+        voces = voz_por_anclas(self._script.get(cid, {}).get("narration", ""),
+                               [s.get("anchor") for s in segs],
+                               primero_desde_inicio=bool(segs[0].get("is_clip")))
+        for s, v in zip(segs, voces):
+            s["voz"] = v
+        return out
 
     def _cap_flux(self, cid: str, role: str) -> dict:
         imgs = self._flux_imgs(cid)

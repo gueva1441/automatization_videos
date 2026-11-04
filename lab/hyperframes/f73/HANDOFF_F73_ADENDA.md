@@ -1,0 +1,8 @@
+# ADENDA F73 (analista, 2026-11-04) — manda sobre HANDOFF_F73.md donde choquen
+
+1. Render vigente = F72e (58915cc, final_gfx 1fb47948…, 798,27 s), no F72c (f072a2f). Guion vigente GUION_PANTALLA.md 433eb3e5… (F72d, aprobado).
+2. D.1/D.2 — los archivos que el handoff da por existentes NO existen: `_medir_inicio_musica` borra cada `_music_piece_<cap>.wav` (fase2b.py, `pieza.unlink`) y `_mix_preview` borra `_preview_music_ducked.wav` (`md.unlink`). En `_fase2b_work/` solo quedan `mezcla_preview.wav`, `_preview_narracion.wav`, `_concat_audio.wav`.
+   Por eso: reconstruir pista + piezas en `lab/hyperframes/f73/d/` llamando `_build_continuous_music_track` con los MISMOS argumentos que `_mix_preview` (plans aprobados congelados, music_map, ducked, pauses, intensidad, prerolls, seg_dur, intro, conservar_piezas=True) y `work_dir` = carpeta del lab. Si la función lee/escribe algo de `_fase2b_work`, copiar solo lo que lea al lab. md5 de todo `_fase2b_work/` antes y después: tiene que dar igual. Si no se puede reconstruir sin escribir en `_fase2b_work`, usar la aproximación de F72b C (música = mezcla − voz) y decirlo.
+   Medir con una copia de la función que NO borre piezas (o llamar la real sobre copias de las piezas).
+3. «Desvío hoy» sale de GUION_PANTALLA.md vigente, no de F72b: ✗ solo ch03 (+6,900 s) y ch07 (+15,809 s); ch01/02/04/05/06 = 0. Esperado con el cambio: ch03 y ch07 ≈ 0 (±1 cuadro), los otros 5 iguales. ch04 ya no es ✗ (el −18,76 del handoff era de un plan anterior).
+4. La máscara: posiciones sin muestras ≠ 0 en la ventana quedan fuera ANTES de dividir (sin división por cero ni warnings; ningún epsilon nuevo).

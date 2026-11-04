@@ -355,6 +355,9 @@ def serve(tid: str, video_path: str | None = None, on_compose=None,
     la primera tanda (N_PAQUETES paquetes + fotos) en background al arrancar — así un click en MINIATURAS del QA
     Studio genera solo. Idempotente: con paquetes ya en disco no dispara (fase3 corre run_candidates ANTES → no se
     ve afectado). El puerto se bindea primero, la generación es en thread → el form responde al toque."""
+    archivado = pkg.archivar_paquetes_desfasados(tid)     # F73 B: lo de otra narración no se muestra como vigente
+    if archivado:
+        print(f"  ⚠ los paquetes no eran de la narración aprobada vigente: archivados en {archivado}")
     Handler.state = ReviewState(tid, video_path=video_path, on_compose=on_compose)
     if port is None:
         port = _free_port()

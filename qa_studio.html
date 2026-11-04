@@ -220,6 +220,7 @@
   .fotoclip .fc-tit{font-family:var(--mono);font-size:11px;color:var(--ink);margin-bottom:5px;overflow-wrap:anywhere;}
   .fotoclip .fc-sub{font-size:12.5px;color:#a5a5b8;line-height:1.4;margin-bottom:8px;}
   .pcard .anchor{font-family:var(--serif);font-size:14.5px;line-height:1.42;color:#e7e7f0;min-height:62px;}
+  .voz-resto{color:#a5a5b8;}
   .pcard .foot{display:flex;align-items:center;justify-content:space-between;margin-top:11px;padding-top:11px;border-top:1px solid rgba(255,255,255,.07);}
   .pcard .heat{display:flex;align-items:center;gap:7px;}
   .fixlink{font-family:var(--mono);font-size:10.5px;color:#6f6f84;cursor:not-allowed;}
@@ -347,6 +348,14 @@ function heat(dur){
 const CLIP_HEAT = {solid:'#22d3ee',soft:'linear-gradient(135deg,rgba(124,92,255,.28),rgba(34,211,238,.20))',mid:'linear-gradient(135deg,rgba(124,92,255,.62),rgba(34,211,238,.5))',glow:'0 0 22px rgba(124,92,255,.6)',border:'rgba(124,92,255,.5)',label:'clip de video'};
 function fmt(s){ if(s==null||isNaN(s))return '—'; s=Math.max(0,s); return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'); }
 function esc(s){ return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+// F73 C: lo que sigue al ancla en `voz` (texto del guion hasta la foto siguiente), en gris debajo del ancla.
+function vozResto(s){
+  const ws=t=>(t||'').split(/\s+/).filter(Boolean).join(' ');
+  const a=ws(s.anchor), v=ws(s.voz);
+  if(!v||v===a) return '';
+  const r=(a&&v.startsWith(a))?v.slice(a.length).trim():v;
+  return r?`<div class="voz-resto">${esc(r)}</div>`:'';
+}
 function roleColor(r){ r=(r||'').toLowerCase();
   if(/hook|gancho/.test(r))return '#c4b5fd';
   if(/reveal|revel/.test(r))return '#f0abfc';
@@ -607,7 +616,7 @@ function renderTimeline(c){
         <div class="ov" data-play="${i}" style="background:rgba(10,10,16,.55)"><span style="font-size:14px;margin-left:2px">▶</span></div>
       </div>
       <div class="body">
-        <div class="anchor">${s.anchor?esc(s.anchor):'<span style="color:#6f6f84;font-style:normal">(sin anchor)</span>'}</div>
+        <div class="anchor">${s.anchor?esc(s.anchor):'<span style="color:#6f6f84;font-style:normal">(sin anchor)</span>'}${vozResto(s)}</div>
         <div class="foot">
           <div class="heat"><span class="heatdot" style="background:${h.solid};box-shadow:0 0 7px ${h.border}"></span>
             <span class="pv-time">${s.start!=null?fmt(s.start)+'–'+fmt(s.end)+' · '+s.dur+'s':'sin sync'}</span></div>
@@ -670,7 +679,7 @@ function setActive(i){
   }
   const photoCount=segs.filter(x=>!x.is_clip).length;
   $('pvIdx').textContent = isClip?'CLIP':(i+1)+'/'+photoCount;
-  $('pvAnchor').innerHTML = s.anchor?esc(s.anchor):'<span style="color:#6f6f84;font-style:normal">(sin anchor)</span>';
+  $('pvAnchor').innerHTML = (s.anchor?esc(s.anchor):'<span style="color:#6f6f84;font-style:normal">(sin anchor)</span>')+vozResto(s);
   $('pvDot').style.background=h.solid; $('pvDot').style.boxShadow='0 0 7px '+h.border;
   $('pvTime').textContent = s.start!=null?fmt(s.start)+'–'+fmt(s.end)+' · '+s.dur+'s':'sin sync';
   $('pvHl').textContent='· '+h.label; $('pvHl').style.color=h.solid;

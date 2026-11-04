@@ -1,0 +1,176 @@
+{
+ "guion": {
+  "ch01": {
+   "cap": "ch01",
+   "title_card_s": 2.5,
+   "medido_s": 2.5,
+   "desvio_s": -0.0,
+   "desvio_cuadros": -0.0,
+   "ok": true
+  },
+  "ch02": {
+   "cap": "ch02",
+   "title_card_s": 69.3,
+   "medido_s": 69.3,
+   "desvio_s": 0.0,
+   "desvio_cuadros": 0.0,
+   "ok": true
+  },
+  "ch03": {
+   "cap": "ch03",
+   "title_card_s": 172.133,
+   "medido_s": 179.033,
+   "desvio_s": 6.9,
+   "desvio_cuadros": 207.01,
+   "ok": false
+  },
+  "ch04": {
+   "cap": "ch04",
+   "title_card_s": 344.833,
+   "medido_s": 344.833,
+   "desvio_s": 0.0,
+   "desvio_cuadros": 0.0,
+   "ok": true
+  },
+  "ch05": {
+   "cap": "ch05",
+   "title_card_s": 444.533,
+   "medido_s": 444.533,
+   "desvio_s": 0.0,
+   "desvio_cuadros": 0.0,
+   "ok": true
+  },
+  "ch06": {
+   "cap": "ch06",
+   "title_card_s": 576.366,
+   "medido_s": 576.366,
+   "desvio_s": 0.0,
+   "desvio_cuadros": 0.0,
+   "ok": true
+  },
+  "ch07": {
+   "cap": "ch07",
+   "title_card_s": 704.866,
+   "medido_s": 720.675,
+   "desvio_s": 15.809,
+   "desvio_cuadros": 474.27,
+   "ok": false
+  }
+ },
+ "hoy": {
+  "ch01": {
+   "cap": "ch01",
+   "title_card_s": 2.5,
+   "medido_s": 2.5,
+   "desvio_s": -0.0,
+   "desvio_cuadros": -0.0,
+   "ok": true
+  },
+  "ch02": {
+   "cap": "ch02",
+   "title_card_s": 69.3,
+   "medido_s": 69.3,
+   "desvio_s": 0.0,
+   "desvio_cuadros": 0.0,
+   "ok": true
+  },
+  "ch03": {
+   "cap": "ch03",
+   "title_card_s": 172.133,
+   "medido_s": 179.033,
+   "desvio_s": 6.9,
+   "desvio_cuadros": 207.01,
+   "ok": false
+  },
+  "ch04": {
+   "cap": "ch04",
+   "title_card_s": 344.833,
+   "medido_s": 344.833,
+   "desvio_s": 0.0,
+   "desvio_cuadros": 0.0,
+   "ok": true
+  },
+  "ch05": {
+   "cap": "ch05",
+   "title_card_s": 444.533,
+   "medido_s": 444.533,
+   "desvio_s": 0.0,
+   "desvio_cuadros": 0.0,
+   "ok": true
+  },
+  "ch06": {
+   "cap": "ch06",
+   "title_card_s": 576.366,
+   "medido_s": 576.366,
+   "desvio_s": 0.0,
+   "desvio_cuadros": 0.0,
+   "ok": true
+  },
+  "ch07": {
+   "cap": "ch07",
+   "title_card_s": 704.866,
+   "medido_s": 720.675,
+   "desvio_s": 15.809,
+   "desvio_cuadros": 474.27,
+   "ok": false
+  }
+ },
+ "cambio": {
+  "ch01": {
+   "cap": "ch01",
+   "title_card_s": 2.5,
+   "medido_s": 2.5,
+   "desvio_s": -0.0,
+   "desvio_cuadros": -0.0,
+   "ok": true
+  },
+  "ch02": {
+   "cap": "ch02",
+   "title_card_s": 69.3,
+   "medido_s": 69.3,
+   "desvio_s": 0.0,
+   "desvio_cuadros": 0.0,
+   "ok": true
+  },
+  "ch03": {
+   "cap": "ch03",
+   "title_card_s": 172.133,
+   "medido_s": 176.733,
+   "desvio_s": 4.6,
+   "desvio_cuadros": 138.01,
+   "ok": false
+  },
+  "ch04": {
+   "cap": "ch04",
+   "title_card_s": 344.833,
+   "medido_s": 344.833,
+   "desvio_s": 0.0,
+   "desvio_cuadros": 0.0,
+   "ok": true
+  },
+  "ch05": {
+   "cap": "ch05",
+   "title_card_s": 444.533,
+   "medido_s": 444.533,
+   "desvio_s": 0.0,
+   "desvio_cuadros": 0.0,
+   "ok": true
+  },
+  "ch06": {
+   "cap": "ch06",
+   "title_card_s": 576.366,
+   "medido_s": 576.366,
+   "desvio_s": 0.0,
+   "desvio_cuadros": 0.0,
+   "ok": true
+  },
+  "ch07": {
+   "cap": "ch07",
+   "title_card_s": 704.866,
+   "medido_s": 718.684,
+   "desvio_s": 13.818,
+   "desvio_cuadros": 414.53,
+   "ok": false
+  }
+ }
+}

@@ -1,0 +1,30 @@
+{
+ "total_usd": 0.4468,
+ "filas": [
+  {
+   "servicio": "Anthropic claude-opus-5-5",
+   "desc": "m09:paquetes",
+   "usd": 0.198
+  },
+  {
+   "servicio": "Anthropic claude-opus-5-5",
+   "desc": "m03:casilleros",
+   "usd": 0.1228
+  },
+  {
+   "servicio": "fal.ai Nano Banana 2 Lite (edit, estimado)",
+   "desc": "paquete_01_base: A mid-20s Spanish migrant miner, olive Mediterranean skin, s...",
+   "usd": 0.042
+  },
+  {
+   "servicio": "fal.ai Nano Banana 2 Lite (edit, estimado)",
+   "desc": "paquete_02_base: The early-1960s asbestos mining town where the portrait was ...",
+   "usd": 0.042
+  },
+  {
+   "servicio": "fal.ai Nano Banana 2 Lite (edit, estimado)",
+   "desc": "paquete_03_base: A mid-20s Spanish migrant miner newly arrived from Madrid, o...",
+   "usd": 0.042
+  }
+ ]
+}

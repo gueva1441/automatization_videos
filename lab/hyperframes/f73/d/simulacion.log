@@ -1,0 +1,18 @@
+C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f73\d\simular_d.py:64: RuntimeWarning: divide by zero encountered in divide
+  return int(validas[np.argmax(c[validas] / np.sqrt(e))])
+     [ch01] reused → hook_f28_b.mp3 (loop a 65.7s)
+     [ch02] reused → setup_f28_b.mp3 (loop a 98.7s)
+     [ch03] reused → rising_tension_f28_a.mp3 (loop a 168.6s)
+     [ch04] reused → rising_tension_f28_a.mp3 (loop a 95.6s)
+     [ch05] reused → shock_f28_a.mp3 (loop a 127.8s)
+     [ch06] reused → consequences_f28_b.mp3 (loop a 124.4s)
+     [ch07] reused → outro_f28_b.mp3 (loop a 89.3s)
+| cap | title card s | desvío guion s | desvío hoy s | desvío cambio s |
+|---|---|---|---|---|
+| ch01 | 2.500 | -0.000 ✓ | -0.000 ✓ | -0.000 ✓ |
+| ch02 | 69.300 | +0.000 ✓ | +0.000 ✓ | +0.000 ✓ |
+| ch03 | 172.133 | +6.900 ✗ | +6.900 ✗ | +4.600 ✗ |
+| ch04 | 344.833 | +0.000 ✓ | +0.000 ✓ | +0.000 ✓ |
+| ch05 | 444.533 | +0.000 ✓ | +0.000 ✓ | +0.000 ✓ |
+| ch06 | 576.366 | +0.000 ✓ | +0.000 ✓ | +0.000 ✓ |
+| ch07 | 704.866 | +15.809 ✗ | +15.809 ✗ | +13.818 ✗ |
