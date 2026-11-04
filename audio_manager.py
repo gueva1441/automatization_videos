@@ -58,7 +58,7 @@ from error_handler import error_handler, PipelineStage
 from cost_tracker import cost_tracker
 
 from tts_normalizer import normalize_for_tts
-from script_engine.audio_master import _perfil as _master_perfil   # F76: techo de pico real del perfil
+from script_engine.audio_master import perfil as _master_perfil   # F76: techo de pico real del perfil
 from anchor_timing import _norm as _anchor_norm  # HANDOFF_135e: filtra entries no-palabra
 
 

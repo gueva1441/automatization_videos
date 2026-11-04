@@ -55,7 +55,7 @@ def run():
     check(r["es_query"] == "Chernóbil", "es_query traducido a 'Chernóbil'")
     check(r["saturation"] == 12_457_285, f"saturación = eff del relevante más pesado [{r['saturation']:,}]")
     check(r["ontopic_count"] == 1, "ontopic_count = relevantes (1, el ruido excluido)")
-    check(r["source"] == "scrapetube+juez", "source marca el camino nuevo")
+    check(r["source"].endswith("+juez"), "source marca el camino con juez (F77: api|scrape+juez)")
 
     # 2. lista cruda vacía → VACIO y el juez NO se llama
     CALLS["filter"] = 0

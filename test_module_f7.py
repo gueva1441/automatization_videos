@@ -76,12 +76,15 @@ def test_r1_discover_drops_memory_answers(tmp_path):
         fuentes = [{"url": GROUND[1]["url"], "titulo": "HRW", "tipo": "informe_oficial", "anio": 2005, "prioridad": 1},
                    {"url": "https://www.toledoblade.com/inventada", "titulo": "Blade", "tipo": "prensa_epoca",
                     "anio": 2005, "prioridad": 1}]
-        chunks = [] if len(calls) == 1 else [{"title": "hrw.org", "uri": GROUND[1]["uri"]}]
+        # F77: la 1.ª ronda de cada foco responde de memoria; con R1_FORCE_SEARCH, busca
+        chunks = [{"title": "hrw.org", "uri": GROUND[1]["uri"]}] if r3.R1_FORCE_SEARCH in prompt else []
         return json.dumps({"fuentes": fuentes}), chunks
 
-    out = r3.discover_sources({"seed_title": "OPP"}, search=search, resolve=lambda u: GROUND[1]["url"],
-                              cache=tmp_path / "c.json", annotate=lambda *a, **k: {"fuentes": []})
-    assert "IMPORTANTE: no respondas de memoria" in calls[1]               # reintento con búsqueda obligatoria
+    out = r3.discover_sources({"seed_title": "OPP"}, search=search, search_alt=lambda p: ("", []),
+                              resolve=lambda u: GROUND[1]["url"], cache=tmp_path / "c.json",
+                              annotate=lambda *a, **k: {"fuentes": []})
+    assert sum("IMPORTANTE: no respondas de memoria" in c for c in calls) == len(r3.DISCOVERY_FOCOS)  # 2.ª ronda
+    assert {f["via"] for f in out["_focos"]} == {"pro"}
     assert [f["url"] for f in out["fuentes"]] == [GROUND[1]["url"]]
     assert any("toledoblade" in f["url"] for f in out["_descartadas"])
 

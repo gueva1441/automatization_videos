@@ -28,7 +28,8 @@ API:
     # T3 (chat 49): el fan-out usa las DOS fases por separado para no pagar el ES caro de los
     # sujetos que el cap K va a tirar. measure() queda como wrapper para quien quiera ambas.
     _measure_en_laxo(search_query, entity=None) -> dict   # demanda EN: busca con search_query, relevancia vs entity
-    _measure_es(search_query, entity=None) -> dict        # saturación ES: busca con search_query, relevancia vs entity
+    _measure_es(search_query, entity=None, already_es=False) -> dict   # saturación ES: busca con search_query, relevancia vs entity
+                                                          # F77: + source api|scrape, quota_units, candidates, search_query_es
 
 CHAT 51 — los medidores separan "con qué busco" (search_query angulado) de "contra qué mido
 relevancia" (entity = nombre canónico). entity opcional → default search_query (compat 1-arg).
@@ -100,13 +101,15 @@ def _measure_es(search_query: str, entity: str | None = None, already_es: bool =
         except Exception:
             es_query, aliases = search_query, []
 
-    # Pieza 2 — lista ES cruda (sin ancla; tolera SSL: None = todas las pasadas cayeron)
+    # Pieza 2 — lista ES cruda (sin ancla). F77: API oficial primero, raspado de respaldo, solo > 180 s.
+    # None = la API y todas las pasadas del raspado cayeron.
     try:
         cands = list_spanish_candidates(es_query)
     except Exception as e:
         return {"label": "ERROR", "error": f"scrape ES: {str(e)[:90]}", "es_query": es_query}
     if cands is None:
-        return {"label": "ERROR", "error": "scrape ES falló (todas las pasadas)", "es_query": es_query}
+        return {"label": "ERROR", "error": "API ES y raspado de respaldo fallaron", "es_query": es_query}
+    quota_units = getattr(cands, "quota_units", 0)
 
     # over-narrow ES: 0 candidatos con la query angulada → red de seguridad con la entidad pelada
     query_fallback = False
@@ -120,6 +123,7 @@ def _measure_es(search_query: str, entity: str | None = None, already_es: bool =
             cands_fb = list_spanish_candidates(es_query_fb)
         except Exception:
             cands_fb = None
+        quota_units += getattr(cands_fb, "quota_units", 0)
         if cands_fb:
             cands, es_query, aliases, query_fallback = cands_fb, es_query_fb, aliases_fb, True
 
@@ -133,6 +137,7 @@ def _measure_es(search_query: str, entity: str | None = None, already_es: bool =
         relevant = []
 
     # saturación = competidor relevante más pesado (misma fórmula y umbrales que score_spanish_saturation)
+    rel_ids = {id(c) for c in relevant}
     best = None
     for c in relevant:
         months = c.get("months")
@@ -140,18 +145,30 @@ def _measure_es(search_query: str, entity: str | None = None, already_es: bool =
         eff = (c.get("views") or 0) * decay
         if best is None or eff > best["eff"]:
             best = {"title": (c.get("title") or "")[:80], "views": c.get("views"),
-                    "months": months, "decay": decay, "eff": eff}
+                    "months": months, "decay": decay, "eff": eff,
+                    "video_id": c.get("video_id"), "duration_s": c.get("duration_s")}
     saturation = best["eff"] if best else 0.0
+    # F77 A: fuente real (api|scrape) y unidades de cuota (las dos búsquedas si hubo red over-narrow)
+    src = getattr(cands, "source", None) or "lista"   # "lista" = un doble de test sin traza
     return {
         "label": _es_saturation_label(saturation),
         "saturation": saturation,
         "heaviest": best,
         "ontopic_count": len(relevant),
         "anchors_used": [es_query],          # ahora = la query ES usada (ya no anclas substring EN)
-        "source": "scrapetube+juez",
+        "source": f"{src}+juez",
         "es_query": es_query,
+        "search_query_es": getattr(cands, "query", None) or es_query,   # A3: lo que se buscó
         "n_cands_es": len(cands),            # CHAT 51: crudo, ANTES del juez (VACÍO auditable)
+        "n_short_es": getattr(cands, "n_short", 0),   # F77: Shorts (≤ SHORTS_MAX_S) que no compiten
+        "quota_units": quota_units,          # F77 A4: 100 × páginas search + 1 × lotes videos (todas las búsquedas)
+        "api_error": getattr(cands, "api_error", None),
         "query_fallback": query_fallback,
+        # F77: todos los candidatos con su peso y si el juez los dio por relevantes (tabla / estante)
+        "candidates": [{"video_id": c.get("video_id"), "title": c.get("title"),
+                        "duration_s": c.get("duration_s"), "views": c.get("views"),
+                        "months": c.get("months"), "peso": _es_age_decay(c.get("months")),
+                        "relevante": id(c) in rel_ids} for c in cands],
     }
 
 

@@ -62,7 +62,7 @@ from script_engine.topics_db import (
 )
 from flow_profiles import FlowSpec
 from script_engine.transition_applier import concat_with_transitions
-from script_engine.audio_master import master_mp4, _perfil as _audio_perfil   # F76: master −14 LUFS del mp4 final
+from script_engine.audio_master import master_mp4, perfil as _audio_perfil   # F76: master −14 LUFS del mp4 final
 from subs_remap import remap_words_to_original
 from anchor_timing import compute_anchor_starts, normalizado_de_timestamps
 

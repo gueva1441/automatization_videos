@@ -27,7 +27,7 @@ import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 
-from script_engine.audio_master import _perfil as _audio_perfil   # F76: aac_bitrate del perfil
+from script_engine.audio_master import perfil as _audio_perfil   # F76: aac_bitrate del perfil
 from transition_config import (
     DEFAULT_TRANSITION,
     get_effect,

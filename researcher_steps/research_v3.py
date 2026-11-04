@@ -179,13 +179,13 @@ def search_pro(prompt: str) -> tuple[str, list[dict[str, str]]]:
     return text, _grounding(resp)
 
 
-R1_RETRIES = 3                           # F8b: 3 reintentos (antes 2) con la misma temperatura 0.7
+R1_RETRIES = 3                           # F77 B2: rondas de la carrera Pro + Flash mientras ninguno trae grounding
 R1_FORCE_SEARCH = ("\n\nIMPORTANTE: no respondas de memoria. Hacé ahora varias búsquedas en Google (una por tipo de "
                    "documento) y listá solo páginas que aparezcan en esos resultados.")
 
 
 def search_flash(prompt: str) -> tuple[str, list[dict[str, str]]]:
-    """F8b: Flash + Google Search → (texto, chunks del grounding): la búsqueda alternativa cuando Pro no busca."""
+    """F8b: Flash + Google Search → (texto, chunks del grounding). F77 B2: corre a la vez que Pro en cada ronda."""
     from google.genai import types
 
     from config import api, gemini_client
@@ -363,72 +363,146 @@ def _dedupe_ground(ground: list[dict]) -> list[dict]:
     return [g for g in ground if not (norm_url(g["url"]) in seen or seen.add(norm_url(g["url"])))]
 
 
+def _una_busqueda(fn: Callable[[str], tuple[str, list[dict]]], prompt: str) -> tuple[str, list[dict], str | None, float]:
+    """Una búsqueda de la carrera: (texto, chunks, error, segundos). Un error (429, red) cuenta como «sin grounding»:
+    la otra búsqueda de la ronda sigue valiendo."""
+    t0 = time.monotonic()
+    try:
+        text, chunks = fn(prompt)
+        return text or "", list(chunks or []), None, round(time.monotonic() - t0, 2)
+    except Exception as e:  # noqa: BLE001
+        return "", [], f"{type(e).__name__}: {str(e)[:200]}", round(time.monotonic() - t0, 2)
+
+
+def r1_carrera(prompt: str, alt_prompt: str, label: str, *, search: Callable[[str], tuple[str, list[dict]]],
+               search_alt: Callable[[str], tuple[str, list[dict]]], log: list[str]) -> dict[str, Any]:
+    """F77 B2: carrera de un foco. En cada ronda, Pro con búsqueda (`prompt`; desde la 2.ª, + R1_FORCE_SEARCH) y Flash
+    con búsqueda (`alt_prompt`) a la vez. Los dos con grounding → se suman los chunks (el dedupe por URL lo hace
+    `_dedupe_ground` sobre las URLs resueltas); uno solo → ese; ninguno → otra ronda, hasta R1_RETRIES rondas.
+    Devuelve la entrada de la caché: {"text", "textos", "chunks", "via": pro|flash|ambos|sin, "rondas": [...]}."""
+    rondas: list[dict[str, Any]] = []
+    with ThreadPoolExecutor(max_workers=2) as ex:
+        for n in range(1, R1_RETRIES + 1):
+            p = prompt if n == 1 else prompt + R1_FORCE_SEARCH
+            t0 = time.monotonic()
+            fp, fa = ex.submit(_una_busqueda, search, p), ex.submit(_una_busqueda, search_alt, alt_prompt)
+            (tp, cp, ep, sp), (ta, ca, ea, sa) = fp.result(), fa.result()
+            rondas.append({"ronda": n, "s": round(time.monotonic() - t0, 2), "pro_s": sp, "flash_s": sa,
+                           "pro_chunks": len(cp), "flash_chunks": len(ca), "pro_error": ep, "flash_error": ea})
+            for quien, err in (("Pro", ep), ("Flash", ea)):
+                if err:
+                    log.append(f"  [R1] {label} ronda {n}: {quien} falló ({err[:100]})")
+            if cp or ca:
+                via = "ambos" if cp and ca else ("pro" if cp else "flash")
+                textos = [t for t, c in ((tp, cp), (ta, ca)) if c]
+                log.append(f"  [R1] {label} ronda {n}: grounding por {via} (Pro {len(cp)} chunks, Flash {len(ca)})")
+                return {"text": "\n\n".join(textos), "textos": textos, "chunks": cp + ca, "via": via, "rondas": rondas}
+            log.append(f"  [R1] {label} ronda {n}: ni Pro ni Flash trajeron grounding (de memoria)"
+                       + (" → otra ronda" if n < R1_RETRIES else f" → sin fuentes tras {R1_RETRIES} rondas"))
+    return {"text": "", "textos": [], "chunks": [], "via": "sin", "rondas": rondas}
+
+
 def discover_sources(seed: dict, *, search: Callable[[str], tuple[str, list[dict]]] | None = None,
                      resolve: Callable[[str], str | None] | None = None, pistas: list[str] | None = None,
                      cache: Path | None = None, log: list[str] | None = None,
                      annotate: Callable[..., dict] | None = None,
-                     search_alt: Callable[[str], tuple[str, list[dict]]] | None = None) -> dict[str, Any]:
-    """R1: 1 llamada Pro + Google Search por foco (DISCOVERY_FOCOS) + 1 Flash para la ficha de las URLs del grounding
-    que el modelo no listó. Devuelve {"fuentes": [...], "_descartadas": [...], "_grounding": [...],
-    "prompt_version"}; caché por prompt."""
+                     search_alt: Callable[[str], tuple[str, list[dict]]] | None = None,
+                     workers: int | None = None) -> dict[str, Any]:
+    """R1: por foco (DISCOVERY_FOCOS), la carrera Pro + Flash con Google Search (`r1_carrera`); F77 B1: los focos en
+    paralelo (`workers`, por defecto WORKERS) y después, también en paralelo, una carrera por cada pista que los focos
+    no trajeron. Al final, 1 Flash para la ficha de las URLs del grounding que el modelo no listó.
+    Devuelve {"fuentes", "_descartadas", "_grounding", "prompt_version", "_focos_grounding" (cuántos focos por vía),
+    "_focos" y "_pistas" (por búsqueda: via, n.º de URLs reales, rondas con segundos), "_tiempos"}; caché por prompt,
+    escrita con candado (un solo escritor)."""
     from researcher_steps.verify_quotes import resolve_redirect
+    t_r1 = time.monotonic()
     log = log if log is not None else []
     resolve = resolve if resolve is not None else resolve_redirect
     search = search or search_pro
     search_alt = search_alt or search_flash
+    w = WORKERS if workers is None else max(1, workers)
     store = json.loads(cache.read_text(encoding="utf-8")) if cache and cache.exists() else {}
-    fuentes, ground_all, notes = [], [], []
-    focos_grounding = {"pro": 0, "flash": 0, "sin": 0}       # F8b: cuántos focos salieron con grounding y por qué vía
+    lock = threading.Lock()                       # F77 B1: candado de la caché (mutar `store` y escribirla)
 
-    def _save() -> None:
+    def _save() -> None:                          # siempre con `lock` tomado: un solo escritor
         if cache:
             cache.parent.mkdir(parents=True, exist_ok=True)
-            cache.write_text(json.dumps(store, ensure_ascii=False, indent=1), encoding="utf-8")
+            tmp = cache.with_name(cache.name + ".tmp")
+            tmp.write_text(json.dumps(store, ensure_ascii=False, indent=1), encoding="utf-8")
+            os.replace(tmp, cache)
 
-    def _run(prompt: str, label: str, alt_prompt: str | None = None) -> None:
+    def _run(prompt: str, label: str, alt_prompt: str) -> tuple[dict[str, Any], dict[str, Any], list[str]]:
+        """Una búsqueda (foco o pista) con su caché: (entrada, resumen para `_focos`/`_pistas`, log propio)."""
+        milog: list[str] = []
+        t0 = time.monotonic()
         key = f"{PROMPT_VERSION_R1}|" + hashlib.sha1(prompt.encode("utf-8")).hexdigest()[:16]
-        if key not in store or not store[key]["chunks"]:
-            text, chunks = search(prompt)
-            for _ in range(R1_RETRIES):                 # sin grounding = respondió de memoria: no sirve
-                if chunks:
-                    break
-                log.append(f"  [R1] {label}: sin grounding (de memoria) → reintento")
-                text, chunks = search(prompt + R1_FORCE_SEARCH)
-            via = "pro"
-            if not chunks and alt_prompt:               # F8b: Flash + búsqueda con las palabras clave del seed
-                log.append(f"  [R1] {label}: Pro sin grounding tras {R1_RETRIES} reintentos → Flash con búsqueda")
-                text, chunks = search_alt(alt_prompt)
-                via = "flash"
-            store[key] = {"text": text, "chunks": chunks, "via": via if chunks else "sin"}
-            _save()
-        entry = store[key]
-        if label.startswith("foco"):
-            focos_grounding[entry.get("via") or ("pro" if entry["chunks"] else "sin")] += 1
-        if "ground" not in entry:
-            entry["ground"] = grounding_urls(entry["chunks"], resolve)
-            _save()
-        raw = [_clean_fuente(f) for f in (_parse_json(entry["text"]).get("fuentes") or []) if isinstance(f, dict)]
-        fuentes.extend(raw)
-        ground_all.extend(entry["ground"])
-        notes.append(entry["text"] or "")
-        log.append(f"  [R1] {label}: {len(raw)} fichas del modelo, {len(entry['ground'])} URLs en el grounding")
+        with lock:
+            entry = store.get(key)
+        en_cache = bool(entry and entry.get("chunks"))
+        if not en_cache:
+            entry = r1_carrera(prompt, alt_prompt, label, search=search, search_alt=search_alt, log=milog)
+        if not en_cache or "ground" not in entry:
+            if "ground" not in entry:
+                entry = {**entry, "ground": _dedupe_ground(grounding_urls(entry["chunks"], resolve))}
+            with lock:
+                store[key] = entry
+                _save()
+        textos = entry.get("textos") or [entry.get("text") or ""]
+        raw = [_clean_fuente(f) for t in textos for f in (_parse_json(t).get("fuentes") or []) if isinstance(f, dict)]
+        via = entry.get("via") or ("pro" if entry["chunks"] else "sin")
+        resumen = {"label": label, "via": via, "n_urls": len(entry["ground"]), "n_fichas": len(raw),
+                   "cache": en_cache, "s": round(time.monotonic() - t0, 2),
+                   "rondas": [] if en_cache else entry.get("rondas") or []}
+        milog.append(f"  [R1] {label}: {len(raw)} fichas del modelo, {len(entry['ground'])} URLs en el grounding"
+                     f" (via {via}{', caché' if en_cache else ''}, {resumen['s']:.1f} s)")
+        return {**entry, "_raw": raw}, resumen, milog
 
-    for n, foco in enumerate(DISCOVERY_FOCOS, start=1):
-        _run(build_discovery_prompt(seed, foco, pistas), f"foco {n}", build_alt_prompt(seed, foco))
+    def _tanda(trabajos: list[tuple[str, str, str]]) -> list[tuple[dict, dict, list[str]]]:
+        if w > 1 and len(trabajos) > 1:
+            with ThreadPoolExecutor(max_workers=w) as ex:
+                return list(ex.map(lambda t: _run(*t), trabajos))
+        return [_run(*t) for t in trabajos]
+
+    fuentes, ground_all, notes = [], [], []
+
+    def _juntar(res: list[tuple[dict, dict, list[str]]]) -> list[dict]:
+        out = []
+        for entry, resumen, milog in res:            # en el orden de los trabajos: el resultado no depende de los hilos
+            log.extend(milog)
+            fuentes.extend(entry["_raw"])
+            ground_all.extend(entry["ground"])
+            notes.append(entry.get("text") or "")
+            out.append(resumen)
+        return out
+
+    t0 = time.monotonic()
+    focos = _juntar(_tanda([(build_discovery_prompt(seed, foco, pistas), f"foco {n}", build_alt_prompt(seed, foco))
+                            for n, foco in enumerate(DISCOVERY_FOCOS, start=1)]))
+    s_focos = round(time.monotonic() - t0, 2)
+    focos_grounding = {k: sum(1 for f in focos if f["via"] == k) for k in ("pro", "flash", "ambos", "sin")}
     log.append(f"  [R1] focos con grounding: {focos_grounding['pro']} por Pro, {focos_grounding['flash']} por Flash, "
-               f"{focos_grounding['sin']} sin grounding (de {len(DISCOVERY_FOCOS)})")
-    # una búsqueda por cada pista del analista que los focos no trajeron (con URL del grounding)
-    for p in pistas or []:
-        ok_now, _, _ = match_grounding(fuentes, _dedupe_ground(ground_all))
-        if not any(pista_covered(p, f) for f in ok_now):
-            _run(build_pista_prompt(seed, p), f"pista «{p[:50]}»")
+               f"{focos_grounding['ambos']} por los dos, {focos_grounding['sin']} sin grounding "
+               f"(de {len(DISCOVERY_FOCOS)}, {s_focos:.1f} s en paralelo)")
+    # una carrera por cada pista del analista que los focos no trajeron (con URL del grounding), en paralelo;
+    # Flash corre el mismo prompt de la pista (la pista no tiene query corta propia)
+    ok_now, _, _ = match_grounding(fuentes, _dedupe_ground(ground_all))
+    faltan = [p for p in pistas or [] if not any(pista_covered(p, f) for f in ok_now)]
+    t0 = time.monotonic()
+    pistas_res = _juntar(_tanda([(build_pista_prompt(seed, p), f"pista «{p[:50]}»", build_pista_prompt(seed, p))
+                                 for p in faltan]))
+    s_pistas = round(time.monotonic() - t0, 2)
     ground_all[:] = _dedupe_ground(ground_all)
     ok, rest, descartadas = match_grounding(fuentes, ground_all)
     akey = "annotate|" + hashlib.sha1("|".join(sorted(norm_url(g["url"]) for g in rest)).encode()).hexdigest()[:16]
-    if akey not in store:
-        store[akey] = annotate_unmatched(seed, rest, "\n".join(notes), call=annotate)
-        _save()
-    flash = store[akey]
+    t0 = time.monotonic()
+    with lock:
+        flash = store.get(akey)
+    if flash is None:
+        flash = annotate_unmatched(seed, rest, "\n".join(notes), call=annotate)
+        with lock:
+            store[akey] = flash
+            _save()
+    s_fichas = round(time.monotonic() - t0, 2)
     log.append(f"  [R1] {len(ground_all)} URLs reales: {len(ok)} con ficha del modelo, {len(flash)} con ficha de "
                f"Flash, {len(rest) - len(flash)} fuera (no relevantes o listados) · {len(descartadas)} fichas del "
                f"modelo sin URL del grounding")
@@ -444,8 +518,10 @@ def discover_sources(seed: dict, *, search: Callable[[str], tuple[str, list[dict
     for i, f in enumerate(out, start=1):
         f["id"] = f"F{i:02d}"
         f["slug"] = slugify(f)
+    tiempos = {"total_s": round(time.monotonic() - t_r1, 2), "focos_s": s_focos, "pistas_s": s_pistas,
+               "fichas_flash_s": s_fichas}
     return {"fuentes": out, "_descartadas": descartadas, "_grounding": ground_all, "prompt_version": PROMPT_VERSION_R1,
-            "_focos_grounding": focos_grounding}
+            "_focos_grounding": focos_grounding, "_focos": focos, "_pistas": pistas_res, "_tiempos": tiempos}
 
 
 def slugify(f: dict) -> str:
@@ -1480,9 +1556,13 @@ def validate_doc_items(raw: dict, doc: dict, dt: DocText, log: list[str]) -> dic
 
 def extract_document(seed: dict, doc: dict, text: str, *, call: Callable[..., dict] | None = None,
                      cache_dir: Path | None = None, log: list[str] | None = None,
-                     place_re: str | None = None, revalidate: bool = False) -> dict[str, list[dict]]:
+                     place_re: str | None = None, revalidate: bool = False, workers: int | None = None,
+                     cupo: threading.Semaphore | None = None) -> dict[str, list[dict]]:
     """R3: 1 llamada Pro por trozo de CHUNK_CHARS (solape CHUNK_OVERLAP); caché cruda por trozo. Las posiciones son
-    siempre las del txt completo (aunque se lean solo ventanas, `focus_text`)."""
+    siempre las del txt completo (aunque se lean solo ventanas, `focus_text`). F77 B3: los trozos que faltan se leen
+    en paralelo (`workers`, por defecto WORKERS; 1 = en fila); `cupo` (opcional) limita las llamadas en vuelo entre
+    todos los documentos (lo pasa `extract_documents`). Log, caché por texto y validación van en el orden de los
+    trozos: el resultado es el mismo que en fila."""
     log = log if log is not None else []
     read, nota = focus_text(text, place_re)
     if nota:
@@ -1514,6 +1594,7 @@ def extract_document(seed: dict, doc: dict, text: str, *, call: Callable[..., di
     tpath = cache_dir / f"r3_txt_{hashlib.sha1(text.encode('utf-8')).hexdigest()[:16]}.json" if cache_dir else None
     tstore: dict[str, Any] = json.loads(tpath.read_text(encoding="utf-8")) if tpath and tpath.exists() else {}
     reusados = 0
+    partes = []                                          # (i, ch, prompt, k, tk)
     for i, (_, ch) in enumerate(chunks, start=1):
         prompt = build_extraction_prompt(seed, doc, ch, (i, len(chunks)))
         k = f"{PROMPT_VERSION_R3}|{hashlib.sha1(prompt.encode('utf-8')).hexdigest()[:16]}"
@@ -1521,27 +1602,52 @@ def extract_document(seed: dict, doc: dict, text: str, *, call: Callable[..., di
         if k not in store and tk in tstore:
             store[k] = tstore[tk]
             reusados += 1
-        if k not in store:
-            res, err = None, None
-            for attempt in range(R3_RETRIES + 1):        # F8b: una caída de Pro no tira el documento
-                try:
+        partes.append((i, ch, prompt, k, tk))
+    lock = threading.Lock()                              # F77 B3: la caché del documento, un solo escritor
+    logs: dict[int, list[str]] = {i: [] for i, *_ in partes}
+    fallas: dict[int, dict] = {}
+
+    def leer(parte: tuple) -> None:
+        """Una parte del documento (1 llamada Pro con reintentos); F77 B3: las partes van en paralelo."""
+        i, _, prompt, k, _ = parte
+        res, err = None, None
+        for attempt in range(R3_RETRIES + 1):            # F8b: una caída de Pro no tira el documento
+            try:
+                if cupo is not None:
+                    with cupo:
+                        res = call(prompt, system_instruction=R3_SYSTEM, response_schema=R3_SCHEMA,
+                                   description=f"R3 {doc['id']} {i}/{len(chunks)}")
+                else:
                     res = call(prompt, system_instruction=R3_SYSTEM, response_schema=R3_SCHEMA,
                                description=f"R3 {doc['id']} {i}/{len(chunks)}")
-                    break
-                except Exception as e:  # noqa: BLE001
-                    err = e
-                    log.append(f"  [R3] {doc['id']} parte {i}: Pro falló ({type(e).__name__}: {str(e)[:100]})"
+                break
+            except Exception as e:  # noqa: BLE001
+                err = e
+                logs[i].append(f"  [R3] {doc['id']} parte {i}: Pro falló ({type(e).__name__}: {str(e)[:100]})"
                                + (f" → reintento {attempt + 1}" if attempt < R3_RETRIES else " → extracción fallida"))
-                    if attempt < R3_RETRIES:
-                        time.sleep(R3_BACKOFF_S * (attempt + 1))
-            if res is None:
-                merged.setdefault("_extraccion_fallida", []).append(
-                    {"parte": i, "de": len(chunks), "error": f"{type(err).__name__}: {str(err)[:200]}"})
-                continue
+                if attempt < R3_RETRIES:
+                    time.sleep(R3_BACKOFF_S * (attempt + 1))
+        if res is None:
+            fallas[i] = {"parte": i, "de": len(chunks), "error": f"{type(err).__name__}: {str(err)[:200]}"}
+            return
+        with lock:
             store[k] = res
             if cpath:
                 cpath.parent.mkdir(parents=True, exist_ok=True)
                 cpath.write_text(json.dumps(store, ensure_ascii=False, indent=1), encoding="utf-8")
+    pendientes = [pt for pt in partes if pt[3] not in store]
+    w = WORKERS if workers is None else max(1, workers)
+    if w > 1 and len(pendientes) > 1:
+        with ThreadPoolExecutor(max_workers=min(w, len(pendientes))) as ex:
+            list(ex.map(leer, pendientes))
+    else:
+        for pt in pendientes:
+            leer(pt)
+    for i, _, _, k, tk in partes:                        # en orden: el resultado es el mismo que en fila
+        log.extend(logs[i])
+        if i in fallas:
+            merged.setdefault("_extraccion_fallida", []).append(fallas[i])
+            continue
         if tpath and tk not in tstore:
             tstore[tk] = store[k]
             tpath.parent.mkdir(parents=True, exist_ok=True)
@@ -1566,12 +1672,16 @@ def _gasto_tracker() -> float:
 def extract_documents(seed: dict, docs: list[dict], texts: dict[str, "DocText"], *, event_year: int,
                       cache_dir: Path | None, place_re: str | None, log: list[str] | None = None,
                       workers: int | None = None, call: Callable[..., dict] | None = None,
-                      tope_usd: float | None = None) -> dict[str, dict[str, list[dict]]]:
+                      tope_usd: float | None = None,
+                      tiempos: list[dict[str, Any]] | None = None) -> dict[str, dict[str, list[dict]]]:
     """R3 de todos los documentos (sin los contaminados). F26 §C: un documento por hilo (`workers`, por defecto
     WORKERS); los que tienen el mismo texto van juntos en el mismo hilo, en orden (la caché por texto de F24 sigue
     sirviendo). Log y `_extraccion_fallida` se juntan en el orden de `docs`: el resultado es el mismo que en fila.
     `tope_usd` (opcional): antes de cada documento se reserva su peor caso con lock contra lo que ya anotó el
-    cost_tracker (el de todos los hilos); si no entra, ese documento no se lee y se anota."""
+    cost_tracker (el de todos los hilos); si no entra, ese documento no se lee y se anota.
+    F77 B3: las partes de un documento también van en paralelo; un cupo de `workers` llamadas en vuelo entre todos
+    los documentos (las mismas que antes con un documento por hilo). F77 B4: `tiempos` (opcional) recibe, en el orden
+    de `docs`, {"doc", "partes", "s"} por documento leído."""
     log = log if log is not None else []
     todo = [d for d in docs if not doc_contamination(d, event_year)]
     grupos: dict[str, list[dict]] = {}
@@ -1581,6 +1691,9 @@ def extract_documents(seed: dict, docs: list[dict], texts: dict[str, "DocText"],
     out: dict[str, dict[str, list[dict]]] = {}
     lock = threading.Lock()
     reservado = {"usd": 0.0}
+    hilos = WORKERS if workers is None else max(1, workers)
+    cupo = threading.BoundedSemaphore(hilos)             # F77 B3: llamadas Pro en vuelo entre todos los documentos
+    reloj: dict[str, dict[str, Any]] = {}
     gasto0 = _gasto_tracker() if tope_usd is not None else 0.0
 
     def peor(d: dict) -> float:
@@ -1601,16 +1714,18 @@ def extract_documents(seed: dict, docs: list[dict], texts: dict[str, "DocText"],
                                          "_extraccion_fallida": [{"parte": 0, "de": 0, "error": "tope de costo"}]}
                         continue
                     reservado["usd"] += w
+            t0 = time.monotonic()
             try:
                 out[d["id"]] = extract_document(seed, d, texts[d["id"]].text, call=call, cache_dir=cache_dir,
-                                                log=logs[d["id"]], place_re=place_re)
+                                                log=logs[d["id"]], place_re=place_re, workers=hilos, cupo=cupo)
             finally:
+                reloj[d["id"]] = {"doc": d["id"], "s": round(time.monotonic() - t0, 2),
+                                  "partes": len(chunk_text(focus_text(texts[d["id"]].text, place_re)[0]))}
                 if w:
                     with lock:
                         reservado["usd"] -= w
-    w = WORKERS if workers is None else workers
-    if w > 1 and len(grupos) > 1:
-        with ThreadPoolExecutor(max_workers=w) as ex:
+    if hilos > 1 and len(grupos) > 1:
+        with ThreadPoolExecutor(max_workers=hilos) as ex:
             list(ex.map(run, grupos.values()))
     else:
         for g in grupos.values():
@@ -1618,6 +1733,11 @@ def extract_documents(seed: dict, docs: list[dict], texts: dict[str, "DocText"],
     per_doc: dict[str, dict[str, list[dict]]] = {}
     for d in todo:
         log.extend(logs[d["id"]])
+        if d["id"] in reloj:
+            r = reloj[d["id"]]
+            log.append(f"  [reloj] R3 {d['id']}: {r['s']:.1f} s ({r['partes']} parte(s))")
+            if tiempos is not None:
+                tiempos.append(r)
         per_doc[d["id"]] = out[d["id"]]
         fail = per_doc[d["id"]].pop("_extraccion_fallida", None)
         if fail:                                         # F8b: el pool sigue; el documento queda marcado
@@ -2637,16 +2757,85 @@ def pool_to_blocks(pool: dict[str, Any]) -> dict[str, str]:
     }
 
 
+# ═══════════════════════════════════════════════════════════════
+#  F77 B4 — reloj por sub-paso del research
+# ═══════════════════════════════════════════════════════════════
+
+RELOJ_PASOS = ("gate_es", "perfil", "R1", "R2", "R3", "pool", "compuerta_pool")
+RELOJ_ARCHIVO = "01_v3_tiempos.json"     # copia propia: `fase1_5._step_cost` reescribe 01_v3_costos.json con lo que
+                                         # leyó antes del paso, así que lo que el research anota ahí adentro se pierde
+
+
+def reloj_nuevo(gate_es_s: float | None = None) -> dict[str, Any]:
+    """El reloj de una corrida: `pasos` (segundos por sub-paso, None = no corrió o no lo midió este módulo), R1 por
+    foco/pista (con sus rondas) y R3 por documento. `gate_es` lo mide quien corre el gate ES (antes del research)."""
+    pasos: dict[str, float | None] = {k: None for k in RELOJ_PASOS}
+    pasos["gate_es"] = round(float(gate_es_s), 2) if gate_es_s is not None else None
+    return {"inicio": time.strftime("%Y-%m-%dT%H:%M:%S"), "_t0": time.monotonic(), "total_s": None, "pasos": pasos,
+            "R1_detalle": None, "R1_focos": [], "R1_pistas": [], "R3_docs": [], "error": None}
+
+
+def reloj_marca(reloj: dict[str, Any], paso: str, t0: float) -> float:
+    """Suma a `paso` los segundos desde `t0`; devuelve el ahora (el `t0` del paso siguiente)."""
+    ahora = time.monotonic()
+    reloj["pasos"][paso] = round((reloj["pasos"].get(paso) or 0.0) + (ahora - t0), 2)
+    return ahora
+
+
+def reloj_cerrar(reloj: dict[str, Any], steps_dir: Path, log: list[str]) -> dict[str, Any]:
+    """Cierra el reloj: una línea en el log y el registro en `steps_dir`/01_v3_costos.json (lista `tiempos_research`,
+    una entrada por corrida, al lado de `_corridas`) y en RELOJ_ARCHIVO (la misma lista)."""
+    rec = {k: v for k, v in reloj.items() if not k.startswith("_")}
+    rec["total_s"] = round(time.monotonic() - reloj["_t0"], 2)
+    p = rec["pasos"]
+    log.append("  [reloj] research: " + " · ".join(f"{k} {p[k]:.1f} s" for k in RELOJ_PASOS if p.get(k) is not None)
+               + f" · total {rec['total_s']:.1f} s" + (f" ({rec['error']})" if rec["error"] else ""))
+    for f in rec["R1_focos"] + rec["R1_pistas"]:
+        rondas = " ".join(f"r{r['ronda']} {r['s']:.1f} s (Pro {r['pro_chunks']}/Flash {r['flash_chunks']})"
+                          for r in f.get("rondas") or [])
+        log.append(f"  [reloj] R1 {f['label']}: {f['s']:.1f} s · via {f['via']} · {f['n_urls']} URLs"
+                   + (" · caché" if f.get("cache") else f" · {rondas}"))
+    try:
+        steps_dir.mkdir(parents=True, exist_ok=True)
+        for nombre in ("01_v3_costos.json", RELOJ_ARCHIVO):
+            path = steps_dir / nombre
+            try:
+                d = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+            except ValueError:
+                d = {}
+            d.setdefault("tiempos_research", []).append(rec)
+            path.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
+    except OSError as e:
+        log.append(f"  [reloj] no se pudo guardar el reloj ({type(e).__name__}: {e})")
+    return rec
+
+
 def run_seed(seed: dict, topic_id: str, steps_dir: Path, *, log: list[str] | None = None,
-             gate: bool = True, workers: int | None = None
+             gate: bool = True, workers: int | None = None, gate_es_s: float | None = None
              ) -> tuple[dict[str, Any], dict[str, str], dict[str, Any] | None]:
     """Research v3 de un seed: perfil → R1 → R2 (+ fichas) → R3 → R4/R5 → compuerta del pool (rojo → PoolGateRed).
     F26 §C: R2 y R3 con `workers` hilos (por defecto WORKERS; 1 = en fila); R4/R5, igual que siempre.
     Deja en `steps_dir`: _perfil.json, fuentes.json (F24: el registro de fuentes del tema), fuentes_r1.json (lo
     que trajo R1 esta vez), fuentes/ (+ manifest), _r3_cache/, 00_pool_v3.json, POOL_GATE.md.
+    F77 B4: reloj por sub-paso (`reloj_research`) en el log y en 01_v3_costos.json / 01_v3_tiempos.json, también si
+    la compuerta del pool sale roja; `gate_es_s` (o `seed["gate_es_s"]`) = los segundos del gate ES, que corre antes y
+    fuera de este módulo (None si quien llama no lo pasa).
     Devuelve (pool, bloques angulares para 4a–4e, gate)."""
-    from config import DATA_DIR
     log = log if log is not None else []
+    reloj = reloj_nuevo(gate_es_s if gate_es_s is not None else seed.get("gate_es_s"))
+    try:
+        return _run_seed(seed, topic_id, steps_dir, log=log, gate=gate, workers=workers, reloj=reloj)
+    except BaseException as e:                           # compuerta roja (PoolGateRed) o falla: el reloj queda igual
+        reloj["error"] = f"{type(e).__name__}: {str(e)[:200]}"
+        raise
+    finally:
+        reloj_cerrar(reloj, steps_dir, log)
+
+
+def _run_seed(seed: dict, topic_id: str, steps_dir: Path, *, log: list[str], gate: bool, workers: int | None,
+              reloj: dict[str, Any]) -> tuple[dict[str, Any], dict[str, str], dict[str, Any] | None]:
+    from config import DATA_DIR
+    t = time.monotonic()
     steps_dir.mkdir(parents=True, exist_ok=True)
     pf = steps_dir / "_perfil.json"
     prof = json.loads(pf.read_text(encoding="utf-8")) if pf.exists() else seed_profile(seed)
@@ -2656,7 +2845,11 @@ def run_seed(seed: dict, topic_id: str, steps_dir: Path, *, log: list[str] | Non
           "idiomas_research": prof.get("idiomas_research") or []}                                 # F23 §1.4
     set_idiomas(prof.get("idiomas_research"))
     registro = cargar_registro(steps_dir)                # F24 §A: lo que el tema ya encontró no se vuelve a perder
-    r1 = discover_sources(s2, cache=steps_dir / "_r1_cache.json", log=log)
+    t = reloj_marca(reloj, "perfil", t)
+    r1 = discover_sources(s2, cache=steps_dir / "_r1_cache.json", log=log, workers=workers)
+    t = reloj_marca(reloj, "R1", t)
+    reloj["R1_focos"], reloj["R1_pistas"] = r1.get("_focos") or [], r1.get("_pistas") or []
+    reloj["R1_detalle"] = r1.get("_tiempos")
     (steps_dir / R1_SALIDA).write_text(json.dumps(r1, ensure_ascii=False, indent=1), encoding="utf-8")
     candidatos = unir_fuentes(r1["fuentes"], registro)
     log.append(f"  [R1] candidatos: {len(r1['fuentes'])} de R1 + "
@@ -2668,11 +2861,13 @@ def run_seed(seed: dict, topic_id: str, steps_dir: Path, *, log: list[str] | Non
     set_vocabulario(prof)
     s2.update({k: prof.get(k) or [] for k in ("roles_testigo", "roles_antagonista")})
     src = steps_dir / "fuentes"
+    t = reloj_marca(reloj, "perfil", t)                  # el vocabulario del caso (1 Flash si falta) suma a «perfil»
     man = download_sources(candidatos, src, place_re=prof["place_re"], log=log,
                            previos=previos_del_registro(registro), workers=workers)
     refine_fichas(man, src, seed, log=log)
     (src / "manifest.json").write_text(json.dumps(man, ensure_ascii=False, indent=1), encoding="utf-8")
     docs = [d for d in man["documentos"] if d.get("ok")]
+    t = reloj_marca(reloj, "R2", t)
     texts, per_doc = {}, {}
     tiempo = tiempo_del_perfil(prof)                     # F23 §1.1: sin año en el perfil, error (no el año actual)
     if not tiempo["anio_inicio"]:
@@ -2681,18 +2876,24 @@ def run_seed(seed: dict, topic_id: str, steps_dir: Path, *, log: list[str] | Non
     for d in docs:
         texts[d["id"]] = DocText(d["id"], (src / d["txt"]).read_text(encoding="utf-8"))
     per_doc = extract_documents(s2, docs, texts, event_year=year, cache_dir=steps_dir / "_r3_cache",
-                                place_re=prof["place_re"], log=log, workers=workers)   # F26 §C: en hilos
+                                place_re=prof["place_re"], log=log, workers=workers,   # F26 §C: en hilos
+                                tiempos=reloj["R3_docs"])
     if any(d.get("extraccion_fallida") for d in docs):
         (src / "manifest.json").write_text(json.dumps(man, ensure_ascii=False, indent=1), encoding="utf-8")
+    t = reloj_marca(reloj, "R3", t)
     pool = build_pool(per_doc, docs, texts, event_year=year, anio_fin=tiempo["anio_fin"],
                       geocode_cache=DATA_DIR / "geocode_cache.json", log=log, subject_re=subject_re_del_perfil(prof))
     pool["_tiempo"] = tiempo                             # F23: lo lee la compuerta (eventos con fecha según el tipo)
     (steps_dir / "00_pool_v3.json").write_text(json.dumps(pool, ensure_ascii=False, indent=1), encoding="utf-8")
     actualizar_registro(registro, candidatos, r1["fuentes"], man, pool, set(per_doc))
     (steps_dir / REGISTRO_FUENTES).write_text(json.dumps(registro, ensure_ascii=False, indent=1), encoding="utf-8")
+    t = reloj_marca(reloj, "pool", t)
     g = None
     if gate:
         from researcher_steps import pool_gate as pg
-        g = pg.check(pool, topic_id, steps_dir)                      # rojo → PoolGateRed (el seed vuelve al inbox)
+        try:
+            g = pg.check(pool, topic_id, steps_dir)                  # rojo → PoolGateRed (el seed vuelve al inbox)
+        finally:
+            reloj_marca(reloj, "compuerta_pool", t)
         pool["_pool_gate"] = {k: g[k] for k in ("color", "metricas", "motivos")}
     return pool, pool_to_blocks(pool), g

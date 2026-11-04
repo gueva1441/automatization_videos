@@ -1,7 +1,7 @@
 {
  "_nota": "F42 §B: stickers de la zona research, escritos por los workers (Sonnet) que leyeron cada archivo entero; `md5` = el del archivo leído (`mapa_modulos.py --check` avisa si cambió). `_parte` = el worker.",
  "fase1.py": {
-  "sticker": "Es la pantalla de arranque del research: descubre temas nuevos (o reusa los guardados), los hace juzgar, deja elegir uno a Omar en el form, re-mide que no esté saturado en español, lo investiga y lo valida. Al final escribe qué tema salió para que run_pipeline siga con el guion. Si el research de una semilla tira un error, lo dice por semilla («sigue en la bandeja») y sale con exit 1 (F42b); soltar el pick o cancelar sigue saliendo con 0.",
+  "sticker": "Es la pantalla de arranque del research: descubre temas nuevos (o reusa los guardados), los hace juzgar, deja elegir uno a Omar en el form, re-mide que no esté saturado en español, lo investiga y lo valida. Al final escribe qué tema salió para que run_pipeline siga con el guion. Si el research de una semilla tira un error, lo dice por semilla («sigue en la bandeja») y sale con exit 1 (F42b); soltar el pick o cancelar sigue saliendo con 0. F77: `measure_pick_es(seed, n)` mide el pick sin preguntar (la usa la tanda del estante); el gate imprime fuente, unidades de API y el competidor más pesado.",
   "recibe": "data/selected_seeds.json (semillas), data/topics_db.json; respuestas de Omar por stdin (marcadores @@QAFORM@@ con QA_FORM); flags --video-type y --no-chain que le manda run_pipeline.py.",
   "entrega": "data/_last_research.json (los tids de esta corrida); data/selected_seeds.json reescrito con el juez; data/seeds_archive.json (seeds borrados); data/fase1_review.csv vía csv_exporter; marcadores del form por stdout.",
   "modelo": [],
@@ -17,7 +17,7 @@
     "por_que": "nadie la nombra: ni producción, ni tests, ni strings; deja SCRIPTS_DIR (fase1.py:78) sin otro uso"
    }
   ],
-  "md5": "44424529e33fe2fab3634b615760301a",
+  "md5": "1905b1ff79ee7ed56267c7ae9dd06619",
   "_parte": "research_b · F42b C (CC)"
  },
  "migrate_4e_into_topics_db.py": {
@@ -35,7 +35,7 @@
   "_parte": "research_d"
  },
  "niche_discoverer.py": {
-  "sticker": "Es el buscador de temas nuevos: un menú que, sobre tres nichos fijos (océano, espacio, lugares abandonados), busca videos virales en inglés y mira si en español hay hueco, o le pide a Gemini misterios de 1950-2000 sin competencia en español, o deja escribir un tema a mano. Lo que sale son las semillas de tema que luego se investigan. F74: el tema a mano también se escribe desde el form (marcador de texto libre) y la semilla lleva receta remeasure (already_es=True) para que el gate de saturación ES la re-mida.",
+  "sticker": "Es el buscador de temas nuevos: un menú que, sobre tres nichos fijos (océano, espacio, lugares abandonados), busca videos virales en inglés y mira si en español hay hueco, o le pide a Gemini misterios de 1950-2000 sin competencia en español, o deja escribir un tema a mano. Lo que sale son las semillas de tema que luego se investigan. F74: el tema a mano también se escribe desde el form (marcador de texto libre) y la semilla lleva receta remeasure (already_es=True) para que el gate de saturación ES la re-mida. F77: modos «D · Tanda de semillas» (varios títulos a la vez hasta la ficha, `estante.correr_tanda`) y «E · Estante (N)» (primero cuando hay temas; elegir uno escribe el sentinel para que run_pipeline siga desde la escaleta); el loop ES va en paralelo.",
   "recibe": "Las respuestas del menú (por input() o por los marcadores @@QAFORM@@ del form), data/dynamic_queries_cache.json (queries dinámicas de las últimas 24 h), y por red: YouTube vía script_engine/youtube_scanner y subtopic_*, Gemini Flash y Pro.",
   "entrega": "data/selected_seeds.json (lista de seeds con discovery_mode, root_niche, evidence), data/dynamic_queries_cache.json y, con el fan-out activo, data/_steps/dropped_by_cap.jsonl. Devuelve la lista de seeds a fase1.py y escribe los marcadores del form por stdout.",
   "modelo": [
@@ -64,7 +64,7 @@
     "por_que": "nadie llama a esta: fase1.py:85 y topic_researcher.py:786 definen cada uno su propia _load_seeds y usan la suya; los tests tampoco la tocan; solo se define acá (A la contó como usada por esos dos archivos: falso positivo por nombre)"
    }
   ],
-  "md5": "7ab8cbe3bca6f069f6908b49eaf4613b",
+  "md5": "1de623aac2a8e7ca5808d3487a80682d",
   "_parte": "research_a"
  },
  "nicho_config.py": {
@@ -176,7 +176,7 @@
   "_parte": "research_c"
  },
  "researcher_steps/research_v3.py": {
-  "sticker": "Es el investigador de documentos del video: dado el tema, busca en Google las páginas y PDF originales (informes, fallos, prensa de la época), los baja, los lee con el modelo y se queda solo con lo que puede probar con una frase copiada literal del documento. Con eso arma el pool de evidencia (datos, cronología, lugares, citas, personajes), marca qué citas están verificadas, junta en una sola las citas repetidas del mismo autor (desde F55: 70 % de palabras en común; la descartada queda anotada), calcula las cifras oficiales y un resumen para la escaleta, y pasa la compuerta del pool.",
+  "sticker": "Es el investigador de documentos del video: dado el tema, busca en Google las páginas y PDF originales (informes, fallos, prensa de la época), los baja, los lee con el modelo y se queda solo con lo que puede probar con una frase copiada literal del documento. Con eso arma el pool de evidencia (datos, cronología, lugares, citas, personajes), marca qué citas están verificadas, junta en una sola las citas repetidas del mismo autor (desde F55: 70 % de palabras en común; la descartada queda anotada), calcula las cifras oficiales y un resumen para la escaleta, y pasa la compuerta del pool. F77: R1 con los 4 focos en paralelo y carrera Pro+Flash por ronda (`via` pro/flash/ambos/sin), R3 con las partes de un documento en paralelo, reloj por sub-paso (`tiempos_research` en 01_v3_costos.json y 01_v3_tiempos.json).",
   "recibe": "El seed del tema (seed_title, idiomas, etc., desde topic_researcher) y data/_steps/<id>/ con lo que ya haya de corridas anteriores: _perfil.json, fuentes.json (registro de fuentes), fuentes/manifest.json y fuentes/*.txt, _r1_cache.json, _r3_cache/, 00_pool_v3*.json. Por red: Google Search vía Gemini, las páginas y PDF de las fuentes, la Wayback Machine. Más data/geocode_cache.json.",
   "entrega": "En data/_steps/<id>/: _perfil.json, fuentes.json (registro), fuentes_r1.json, fuentes/<slug>.pdf|html|txt + manifest.json, _r1_cache.json, _r3_cache/r3_*.json, 00_pool_v3.json (evidence_pool con digest y _research_v3) y POOL_GATE.md (vía pool_gate). Devuelve (pool, 4 bloques angulares para 4a-4e, resultado de la compuerta). Además, durante el guion otros módulos le piden el vocabulario del caso (set_vocabulario, vocabulario, caso).",
   "modelo": [
@@ -215,7 +215,7 @@
     "por_que": "en producción nadie la llama (en fase2b.py y depth_probe.py 'metrics' es una variable local, no esta función); solo test_module_f7.py:333 y el script de laboratorio lab/hyperframes/f7/f7b_pool_orleans.py:90"
    }
   ],
-  "md5": "6ed429b6a79f0a215eb7c2e717ac526e",
+  "md5": "a04ea51809ee67b8ca0686dfae9148d4",
   "_parte": "research_a"
  },
  "researcher_steps/step_4a_facts.py": {
@@ -475,7 +475,7 @@
   "_parte": "research_d"
  },
  "script_engine/subtopic_measurer.py": {
-  "sticker": "Mide si un tema vale la pena: primero cuánta competencia hay en español (traduce el nombre, trae los videos y un juez de IA filtra los que hablan de lo mismo) y, si hay hueco, cuánta demanda tiene en inglés. Es el termómetro del descubrimiento de temas.",
+  "sticker": "Mide si un tema vale la pena: primero cuánta competencia hay en español (traduce el nombre, trae los videos y un juez de IA filtra los que hablan de lo mismo) y, si hay hueco, cuánta demanda tiene en inglés. Es el termómetro del descubrimiento de temas. F77: `_measure_es` trae `source`, `quota_units`, `candidates` (con peso y relevancia) y el competidor más pesado con `video_id` y duración.",
   "recibe": "Una consulta de búsqueda y el nombre de la entidad (texto); resultados de YouTube que trae script_engine/youtube_scanner.py.",
   "entrega": "Diccionarios de medición (label de saturación ES, vistas EN, relevantes, query_fallback) que usan niche_discoverer.py y fase1.py para armar los seeds de data/selected_seeds.json.",
   "modelo": [
@@ -496,7 +496,7 @@
     "por_que": "producción solo llama a _measure_es y _measure_en_laxo por separado (niche_discoverer.py:707 y :730); measure() la usan test_subtopic_measurer.py:29 y test_subtema_fanout_dryrun.py:56. El 'measure' que A le atribuye a researcher_steps/pool_gate.py es otra función homónima"
    }
   ],
-  "md5": "fb2a334dcc3abbdae8ecceec8cd94dcb",
+  "md5": "8443be0319098255063dfcd2e416ce4c",
   "_parte": "research_d"
  },
  "script_engine/topics_db.py": {
@@ -548,7 +548,7 @@
   "_parte": "research_d"
  },
  "script_engine/youtube_scanner.py": {
-  "sticker": "Es el que mira YouTube por todos los demás: cuenta videos en español e inglés para un tema, busca videos virales en inglés, mide cuán saturado está el español y arma la lista de competidores. Lo usan la validación de mercado y el buscador de nichos; no toca el video, solo decide qué temas valen.",
+  "sticker": "Es el que mira YouTube por todos los demás: cuenta videos en español e inglés para un tema, busca videos virales en inglés, mide cuán saturado está el español y arma la lista de competidores. Lo usan la validación de mercado y el buscador de nichos; no toca el video, solo decide qué temas valen. F77: `list_spanish_candidates` busca primero por la API oficial (search.list + videos.list) y solo cuenta videos de más de 180 s; el raspado queda de respaldo con el mismo filtro; registra unidades de cuota.",
   "recibe": "Una búsqueda (palabra clave o título) y parámetros de ventana/vistas; internet por scrapetube con proxy, o la API de YouTube como respaldo (claves y proxy por nombre desde config).",
   "entrega": "Diccionarios y listas en memoria (competencia ES/EN, candidatos virales EN, saturación ES, competidores ES) a topic_validator.py, niche_discoverer.py, script_engine/subtopic_measurer.py y script_engine/transcript_fetch.py; no escribe archivos.",
   "modelo": [],
@@ -564,11 +564,11 @@
     "por_que": "nadie la nombra: ni producción, ni tests, ni strings; fork_views_text y fork_views del mismo bloque sí se usan"
    }
   ],
-  "md5": "f58dbddd5a5a3550f85ec98f7a838639",
+  "md5": "e8065fa70284d2e70e4c19d80f464f2a",
   "_parte": "research_b"
  },
  "topic_researcher.py": {
-  "sticker": "Investiga a fondo el tema elegido antes del guion: le hace a Gemini Pro varias consultas con búsqueda en Google (técnica, humana, misterio, visual), llama al research v3 de documentos y arma el tema completo (título, hechos verificados, resumen). Lo deja guardado en la base de temas. Desde F50 ya no arma el canon visual (lo arma fase1_5 desde la ficha). Una semilla cuyo research tira un error ya no se traga: research_topics la devuelve en `.fallas` con su error y la deja en la bandeja (F42b); la compuerta del pool no cuenta como falla.",
+  "sticker": "Investiga a fondo el tema elegido antes del guion: le hace a Gemini Pro varias consultas con búsqueda en Google (técnica, humana, misterio, visual), llama al research v3 de documentos y arma el tema completo (título, hechos verificados, resumen). Lo deja guardado en la base de temas. Desde F50 ya no arma el canon visual (lo arma fase1_5 desde la ficha). Una semilla cuyo research tira un error ya no se traga: research_topics la devuelve en `.fallas` con su error y la deja en la bandeja (F42b); la compuerta del pool no cuenta como falla. F77: registrar el topic en topics_db va con candado entre procesos y guardado atómico (la tanda corre varios research a la vez).",
   "recibe": "La semilla elegida (dict de data/selected_seeds.json o un archivo de semilla) y video_type; data/topics_db.json para no repetir títulos; los pasos de researcher_steps/ (step_4a a step_4d, research_v3, pool_gate).",
   "entrega": "data/topics_db.json con el topic nuevo (status 'researched'); data/scripts/_steps/<id>/00_pool_etiquetado.json a 04_summary.json; data/seeds_archive.json y selected_seeds.json actualizados (solo research_topics); un topic guardado con id fijo por investigar_semilla (solo fase1_5 --semilla).",
   "modelo": [
@@ -589,7 +589,7 @@
     "por_que": "nadie la llama: ni producción, ni tests, ni strings; solo se define (su helper _build_testimonios_prompt solo se alcanza desde ella)"
    }
   ],
-  "md5": "8d99254e99b94f6aa2ef30ee8c21223f",
+  "md5": "9c867fbb9708fe379738641329225fba",
   "_parte": "research_b · F42b C (CC)"
  },
  "topic_validator.py": {

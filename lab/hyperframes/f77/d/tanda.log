@@ -1,0 +1,31 @@
+      [ES] q='Síndrome del aceite tóxico 1981' fuente=api · 1 pág × 100 + 1 lote × 1 = 101 u · 50 crudos → 12 cortos ≤180s fuera → 32 ES
+      [ES] q='Accidente radiológico de Goiânia 1987' fuente=api · 1 pág × 100 + 1 lote × 1 = 101 u · 50 crudos → 2 cortos ≤180s fuera → 3 ES
+      [ES] q='Palomares 1966: el Proyecto Indalo y los vecinos usados como cobayas' fuente=api · 1 pág × 100 + 0 lote × 1 = 100 u · 0 crudos → 0 cortos ≤180s fuera → 0 ES
+      [ES] q='Tragedia del camping Los Alfaques 1978' fuente=api · 6 pág × 100 + 1 lote × 1 = 601 u · 50 crudos → 8 cortos ≤180s fuera → 33 ES
+      [ES] q='Accidente radiológico de Goiânia 1987' fuente=api · 1 pág × 100 + 1 lote × 1 = 101 u · 50 crudos → 2 cortos ≤180s fuera → 3 ES
+      [ES] q='Síndrome del aceite tóxico 1981' fuente=api · 1 pág × 100 + 1 lote × 1 = 101 u · 50 crudos → 13 cortos ≤180s fuera → 32 ES
+      [ES] q='Palomares 1966: el Proyecto Indalo y los vecinos usados como cobayas' fuente=api · 1 pág × 100 + 0 lote × 1 = 100 u · 0 crudos → 0 cortos ≤180s fuera → 0 ES
+      [ES] q='Accidente radiológico de Goiânia 1987' fuente=api · 1 pág × 100 + 1 lote × 1 = 101 u · 50 crudos → 2 cortos ≤180s fuera → 3 ES
+      [ES] q='Palomares 1966: el Proyecto Indalo y los vecinos usados como cobayas' fuente=api · 1 pág × 100 + 0 lote × 1 = 100 u · 0 crudos → 0 cortos ≤180s fuera → 0 ES
+      [ES] q='Tragedia del camping Los Alfaques 1978' fuente=api · 4 pág × 100 + 1 lote × 1 = 401 u · 50 crudos → 7 cortos ≤180s fuera → 33 ES
+      [ES] q='Síndrome del aceite tóxico 1981' fuente=api · 1 pág × 100 + 1 lote × 1 = 101 u · 50 crudos → 12 cortos ≤180s fuera → 32 ES
+      [ES] q='Tragedia del camping Los Alfaques 1978' fuente=api · 1 pág × 100 + 1 lote × 1 = 101 u · 50 crudos → 12 cortos ≤180s fuera → 26 ES
+  [tanda] «Palomares 1966: el Proyecto Indalo y los vecinos usados como cobayas» → VACIO · 300 u API · tid 1b2a2c5d-9ff3-433a-bd3b-767ca7b44d89
+  [tanda] «Síndrome del aceite tóxico (colza) 1981» → HUECO · más pesado: «El síndrome tóxico» 77560 views, 61 meses · 303 u API · tid c4934b7d-3f54-448f-ba5f-539dc744f0d8
+  [tanda] «Accidente radiológico de Goiânia 1987» → SATURADO · más pesado: «El Robo que Terminó en Desastre Nuclear - El Accidente de Goiania» 1519327 views, 43 meses · 303 u API · tid 2b0472ce-37cb-4d86-8795-687c9e37d587
+  [tanda] «Tragedia del camping Los Alfaques 1978» → SATURADO · más pesado: «El ACCIDENTE de los Alfaques ⚠️ La Tragedia que Conmocionó a España y Europa en » 460919 views, 3 meses · 1103 u API · tid a0f7282c-da75-44c7-b728-23e06102a4d5
+  [tanda] ▶ «Palomares 1966: el Proyecto Indalo y los vecinos usados como cobayas»: research + ficha (log: data/estante/1b2a2c5d-9ff3-433a-bd3b-767ca7b44d89.log)
+  [tanda] ▶ «Síndrome del aceite tóxico (colza) 1981»: research + ficha (log: data/estante/c4934b7d-3f54-448f-ba5f-539dc744f0d8.log)
+  [tanda] ⚠ «Accidente radiológico de Goiânia 1987» SATURADO: queda en el estante sin research
+  [tanda] ⚠ «Tragedia del camping Los Alfaques 1978» SATURADO: queda en el estante sin research
+  [tanda] ⚠ «Palomares 1966: el Proyecto Indalo y los vecinos usados como cobayas» terminó (exit 2)
+  [tanda] ⚠ «Síndrome del aceite tóxico (colza) 1981» terminó (exit 2)
+
+  ⏱ tanda total: 599 s
+| # | título | gate | pool | ficha | US$ |
+|---|---|---|---|---|---|
+| 1 | Palomares 1966: el Proyecto Indalo y los vecinos usados como cobayas ⚠ sin ficha (exit 2; ver data/estante/1b2a2c5d-9ff3-433a-bd3b-767ca7b44d89.log) | VACIO | 189 datos · 34 citas · 43 personas · 102 eventos · 9 humanos · verde | — | 1.52 |
+| 2 | Síndrome del aceite tóxico (colza) 1981 ⚠ sin ficha (exit 2; ver data/estante/c4934b7d-3f54-448f-ba5f-539dc744f0d8.log) | HUECO · «El síndrome tóxico» 77.560 views, 61 meses | 97 datos · 17 citas · 18 personas · 25 eventos · 5 humanos · amarillo | — | 0.86 |
+| 3 | Accidente radiológico de Goiânia 1987 ⚠ SATURADO: sin research | SATURADO · «El Robo que Terminó en Desastre Nuclear - El Accidente de Go» 1.519.327 views, 43 meses | — | — | 0.00 |
+| 4 | Tragedia del camping Los Alfaques 1978 ⚠ SATURADO: sin research | SATURADO · «El ACCIDENTE de los Alfaques ⚠️ La Tragedia que Conmocionó a» 460.919 views, 3 meses | — | — | 0.00 |
+EXIT 0

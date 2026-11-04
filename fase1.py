@@ -50,6 +50,7 @@ from niche_discoverer import discover_niches
 from topic_researcher import research_topics
 from topic_validator import validate_topics
 from script_engine.subtopic_measurer import _measure_es   # CHAT 52 B2: gate de verificación del pick
+from script_engine.youtube_scanner import SHORTS_MAX_S    # F77 A: solo cuentan videos > Short
 
 
 # ─────────────────────────────────────────────────────────────
@@ -372,8 +373,52 @@ def _select_seed_interactive(seeds: list[dict]) -> list[dict] | None:
 _ES_LABEL_RANK = {"VACIO": 0, "HUECO": 1, "DISPUTADO": 2, "SATURADO": 3}
 
 
+def measure_pick_es(seed: dict, n: int = 3) -> dict:
+    """F77 — medida ES de UN pick, SIN preguntas (la usa el gate interactivo y la tanda de semillas).
+    Re-mide `n` veces con la receta `remeasure` del seed (CHAT 52 B2: anti-varianza; desde F77 la
+    búsqueda es por la API oficial y la varianza que queda es la del juez) y se queda con la PEOR.
+
+    Returns:
+        {"title": str, "status": "ok" | "sin_receta" | "error",
+         "label": "VACIO"|"HUECO"|"DISPUTADO"|"SATURADO"|None, "saturation": float|None,
+         "heaviest": {title, views, months, decay, eff, video_id, duration_s} | None,   # de la peor
+         "orig_label": str, "measurements": [{"label","sat","source","quota_units"} | {"error"}],
+         "quota_units": int (suma de las n), "source": "api+juez"|"scrape+juez"|None (de la peor),
+         "worst": dict (el resultado completo de _measure_es de la peor) | None}"""
+    title = seed.get("seed_title") or "(sin título)"
+    orig_lab = ((seed.get("evidence") or {}).get("es_gap") or {}).get("label") or "—"
+    out = {"title": title, "status": "sin_receta", "label": None, "saturation": None,
+           "heaviest": None, "orig_label": orig_lab, "measurements": [], "quota_units": 0,
+           "source": None, "worst": None}
+    recipe = seed.get("remeasure")
+    if not recipe or not recipe.get("es_query"):
+        return out
+    ok: list[dict] = []
+    for _k in range(n):
+        try:
+            r = _measure_es(recipe["es_query"], recipe.get("entity"),
+                            already_es=recipe.get("already_es", False))
+        except Exception as e:
+            out["measurements"].append({"error": f"EXCEPCIÓN ({str(e)[:70]})"})
+            continue
+        out["quota_units"] += int(r.get("quota_units") or 0)
+        if r.get("label") == "ERROR":
+            out["measurements"].append({"error": f"ERROR ({r.get('error')})"})
+            continue
+        out["measurements"].append({"label": r.get("label"), "sat": r.get("saturation") or 0,
+                                    "source": r.get("source"), "quota_units": r.get("quota_units")})
+        ok.append(r)
+    if not ok:
+        out["status"] = "error"
+        return out
+    worst = max(ok, key=lambda r: (_ES_LABEL_RANK.get(r.get("label"), -1), r.get("saturation") or 0))
+    out.update(status="ok", label=worst.get("label"), saturation=worst.get("saturation") or 0,
+               heaviest=worst.get("heaviest"), source=worst.get("source"), worst=worst)
+    return out
+
+
 def _verify_pick_es_saturation(chosen: list[dict], n: int = 3) -> list[dict] | None:
-    """CHAT 52 B2 — gate anti-varianza-de-scrape: re-mide ES `n` veces SOLO el/los pick(s) y se
+    """CHAT 52 B2 — gate del pick: re-mide ES `n` veces SOLO el/los pick(s) (measure_pick_es) y se
     queda con el PEOR label (más saturado), igual que el patrón conservador del discovery
     (saturación del evento = la MÁS ALTA entre variantes). NO toca el discovery masivo.
 
@@ -396,33 +441,29 @@ def _verify_pick_es_saturation(chosen: list[dict], n: int = 3) -> list[dict] | N
             kept.append(seed)
             continue
 
-        print(f"\n  🔁 Verificando el pick '{title}' — re-mido ES {n}× (anti-varianza de scrape)...")
-        measurements: list[tuple[str, float]] = []
-        for k in range(n):
-            try:
-                r = _measure_es(recipe["es_query"], recipe.get("entity"),
-                                already_es=recipe.get("already_es", False))
-            except Exception as e:
-                print(f"      corrida {k + 1}/{n}: EXCEPCIÓN ({str(e)[:70]})")
-                continue
-            lab = r.get("label")
-            if lab == "ERROR":
-                print(f"      corrida {k + 1}/{n}: ERROR ({r.get('error')})")
-                continue
-            sat = r.get("saturation") or 0
-            measurements.append((lab, sat))
-            print(f"      corrida {k + 1}/{n}: {lab} (sat={sat:,.0f})")
+        print(f"\n  🔁 Verificando el pick '{title}' — re-mido ES {n}× "
+              f"(API oficial, solo > {SHORTS_MAX_S} s)...")
+        m = measure_pick_es(seed, n=n)
+        for k, x in enumerate(m["measurements"]):
+            if "error" in x:
+                print(f"      corrida {k + 1}/{n}: {x['error']}")
+            else:
+                print(f"      corrida {k + 1}/{n}: {x['label']} (sat={x['sat']:,.0f}) "
+                      f"· {x.get('source')} · {x.get('quota_units') or 0} u")
 
-        if not measurements:
+        if m["status"] != "ok":
             print(f"      ⚠ todas las corridas fallaron — no se pudo verificar. Conservo el pick.")
             kept.append(seed)
             continue
 
-        worst_lab, worst_sat = max(
-            measurements, key=lambda m: (_ES_LABEL_RANK.get(m[0], -1), m[1]))
-        orig_lab = ((seed.get("evidence") or {}).get("es_gap") or {}).get("label") or "—"
+        measurements = [(x["label"], x["sat"]) for x in m["measurements"] if "error" not in x]
+        worst_lab, worst_sat, orig_lab = m["label"], m["saturation"], m["orig_label"]
+        hv = m["heaviest"] or {}
         print(f"      → peor de {len(measurements)}: {worst_lab} (sat={worst_sat:,.0f}) "
-              f"· el seed decía: {orig_lab}")
+              f"· el seed decía: {orig_lab} · cuota {m['quota_units']} u")
+        if hv:
+            print(f"        competidor más pesado: «{hv.get('title')}» ({hv.get('video_id')}) "
+                  f"{(hv.get('views') or 0):,} v · {hv.get('months')} meses")
 
         if worst_lab not in ("SATURADO", "DISPUTADO"):
             kept.append(seed)

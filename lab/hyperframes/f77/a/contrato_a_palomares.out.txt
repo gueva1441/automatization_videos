@@ -1,0 +1,33 @@
+      [ES] q='Palomares 1966' fuente=api · 1 pág × 100 + 1 lote × 1 = 101 u · 50 crudos → 24 cortos ≤180s fuera → 15 ES
+      [ES] q='Palomares 1966' fuente=api · 1 pág × 100 + 1 lote × 1 = 101 u · 50 crudos → 24 cortos ≤180s fuera → 15 ES
+      [ES] q='Palomares 1966' fuente=api · 1 pág × 100 + 1 lote × 1 = 101 u · 50 crudos → 25 cortos ≤180s fuera → 14 ES
+
+=== Contrato A · «Palomares 1966» · status=ok ===
+  corrida 1: {'label': 'DISPUTADO', 'sat': 37805.4, 'source': 'api+juez', 'quota_units': 101}
+  corrida 2: {'label': 'DISPUTADO', 'sat': 37805.4, 'source': 'api+juez', 'quota_units': 101}
+  corrida 3: {'label': 'DISPUTADO', 'sat': 37805.4, 'source': 'api+juez', 'quota_units': 101}
+
+fuente=api+juez · query buscada='Palomares 1966' · crudos ES > 180 s=15 · Shorts fuera=24 · api_error=None
+
+| # | id | título | dur | views | meses | peso | eff | relevante |
+|---|---|---|---|---|---|---|---|---|
+| 1 | 0d9xjzcx-fc | Accidentes Nucleares en la Guerra Fría: Thule y Palomares | SLICE Iber | 51:08 | 63,009 | 13 | 0.6 | 37,805 | sí |
+| 2 | _dabgyhU3tQ | Palomares: una catástrofe nuclear en España | Megaestructuras franquis | 6:32 | 104,241 | 58 | 0.3 | 31,272 | sí |
+| 3 | xMGCHflg8ok | El incidente de Palomares (parte 1) | Documental en español | La Const | 18:26 | 34,386 | 58 | 0.3 | 10,316 | sí |
+| 4 | vduGqR001KM | Palomares: Episodio 1 - "El día que ardió el cielo" | #0 | 10:17 | 56,631 | 66 | 0.1 | 5,663 | sí |
+| 5 | UnovtMSJ9kA | Preocupación ambiental en Palomares a 57 años del incidente nuclear •  | 16:22 | 15,831 | 37 | 0.3 | 4,749 | sí |
+| 6 | LXOPm7JvLyk | 1966: El INFIERNO CAE sobre PALOMARES (España) (1/2). By TRU | 19:08 | 40,897 | 76 | 0.1 | 4,090 | sí |
+| 7 | zFfSRJF2jno | Las bombas atómicas de Palomares (Almería, 1966) | 24:33 | 27,638 | 164 | 0.1 | 2,764 | sí |
+| 8 | drr1qXpAgNU | Palomares: el incidente nuclear que no se ha cerrado | 3:56 | 1,679 | 19 | 0.6 | 1,007 | sí |
+| 9 | mKm1DCzrLVg | Palomares: El día que cayeron 4 bombas nucleares en España | 17:28 | 642 | 1 | 1.0 | 642 | sí |
+| 10 | yu3onz-WLKY | Palomares 1966: El día que 4 bombas nucleares cayeron sobre España | 21:36 | 881 | 13 | 0.6 | 529 | sí |
+| 11 | wsRSYbGE91E | ¿Hay radioactividad en  Palomares? | 3:59 | 3,362 | 189 | 0.1 | 336 | sí |
+| 12 | O9Qrkd6GOtM | PALOMARES 1966, cuando bombas nucleares cayeron sobre España | 5:11 | 252 | 9 | 1.0 | 252 | sí |
+| 13 | 5ZeE44pHImU | El accidente de La Bomba Nuclear Perdida en España (Palomares 1966) | 7:56 | 64 | 8 | 1.0 | 64 | sí |
+| 14 | uiOL5mFEqFk | 1966 · PALOMARES: cuatro bombas termonucleares cayeron… y ninguna deto | 8:27 | 21 | 1 | 1.0 | 21 | sí |
+| 15 | m9IuCL0AP5w | Palomares 1966: el día que EE.UU. perdió 4 bombas nucleares en España | 11:26 | 5 | 0 | 1.0 | 5 | sí |
+
+LABEL (peor de 3): DISPUTADO (sat=37,805)
+competidor más pesado: 0d9xjzcx-fc «Accidentes Nucleares en la Guerra Fría: Thule y Palomares | SLICE Iberia | DOCUM» 63,009 v · 13 meses · peso 0.6 · 51:08
+unidades de cuota gastadas (3 medidas): 303
+Shorts ['IUpaoH-lvkI', 'Yvo7kps24Fo'] en la tabla: ninguno

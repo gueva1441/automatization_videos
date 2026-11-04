@@ -166,12 +166,15 @@ def _mtime(p: Path) -> float | None:
 # ═══════════════════════════════════════════════════════════════
 ETAPAS = ("guion", "narracion", "papel_nuevo", "papel", "voz", "assets", "fondos", "guion_pantalla", "aprobar_guion", "render",
           "packaging", "listo")
+ESTANTE = "estante"   # F77: research + ficha sin escaleta; corre como «guion» y ocupa su lugar en ETAPAS
 CADENA_VIEJA = "cadena_vieja"   # sin papel pero con artefactos de después: no se retoma (no se re-paga nada)
 
 
 def etapa_de(tid: str) -> tuple[str, str]:
     """La primera etapa que le falta a `tid`, mirando solo artefactos en disco. No escribe nada.
 
+    estante         F77: hay `_steps/<id>/ficha_caso.json` y no `01a_escaleta.json` (research + ficha de una tanda): sigue
+                    como «guion» (fase1_5 desde la escaleta) cuando Omar lo elige
     guion           falta `_steps/<id>/01b_narracion_v3.json` o `01b_verificacion.json`
     narracion       hay narración y `fase1_5.estado_narracion` no la da aprobada (con o sin 01f_critico: la compuerta funciona
                     sin crítica)
@@ -199,6 +202,8 @@ def etapa_de(tid: str) -> tuple[str, str]:
             return CADENA_VIEJA, (f"sin papel pero con {', '.join(hechos)}: topic de la cadena borrada "
                                   f"(DECISIONES 2026-10-27 20:59); no se retoma para no volver a pagar lo hecho")
     faltan = [n for n in ("01b_narracion_v3.json", "01b_verificacion.json") if not _steps_path(tid, n).exists()]
+    if faltan and _steps_path(tid, "ficha_caso.json").exists() and not _steps_path(tid, "01a_escaleta.json").exists():
+        return ESTANTE, "research + ficha hechos (estante); sigue desde la escaleta"
     if faltan:
         return "guion", f"falta {', '.join(faltan)}"
     nar_ok, nar_motivo = _estado_narracion(tid)
@@ -500,10 +505,15 @@ def _paso_packaging(tid: str, ran: list[str], batch: bool) -> int:
     return 0
 
 
-_PASOS = {"guion": _paso_guion, "narracion": _paso_narracion, "papel_nuevo": _paso_papel_nuevo, "papel": _paso_papel, "voz": _paso_voz,
+_PASOS = {ESTANTE: _paso_guion, "guion": _paso_guion, "narracion": _paso_narracion, "papel_nuevo": _paso_papel_nuevo, "papel": _paso_papel, "voz": _paso_voz,
           "assets": _paso_assets,
           "fondos": _paso_fondos, "guion_pantalla": _paso_guion_pantalla, "aprobar_guion": _paso_aprobar_guion,
           "render": _paso_render, "packaging": _paso_packaging}
+
+
+def _orden(etapa: str) -> int:
+    """El lugar de `etapa` en la cadena (F77: el estante ocupa el de «guion»)."""
+    return ETAPAS.index("guion" if etapa == ESTANTE else etapa)
 
 
 def sequence(tid: str, *, batch: bool = False) -> int:
@@ -528,7 +538,7 @@ def sequence(tid: str, *, batch: bool = False) -> int:
         if res is not None:
             return res
         nueva, motivo = etapa_de(tid)
-        if nueva == CADENA_VIEJA or ETAPAS.index(nueva) <= ETAPAS.index(etapa):
+        if nueva == CADENA_VIEJA or _orden(nueva) <= _orden(etapa):
             _report(tid, ran, stopped_at=etapa.upper(), next_cmd=_retomar_cmd(tid),
                     why=f"la etapa terminó sin dejar su artefacto (sigue en «{nueva}»: {motivo})")
             return 1

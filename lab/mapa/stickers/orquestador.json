@@ -601,7 +601,7 @@
   "_parte": "orquestador_b"
  },
  "run_pipeline.py": {
-  "sticker": "Es el director de orquesta: toma un tema y corre una tras otra las etapas (guion, compuerta de narración, papel nuevo, compuerta del papel, voz, assets, fondos, guion de pantalla, aprobar guion, render, packaging), cada una como programa aparte. Antes de cada paso mira qué archivos ya existen en disco y arranca donde quedó; frena en las dos compuertas donde Omar tiene que aprobar y nunca aprueba solo. Antes de cualquier etapa (F42b) revisa que este Python tenga las librerías que la cadena importa: si falta una requerida, para sin gastar y da el comando de pip. F67c: voz, assets, fondos y guion de pantalla corren si su artefacto falta o tiene otro sello que el papel aprobado (en cascada). F73: el paso packaging primero mueve a publish/_desfasado_* los paquetes de miniatura que no son de la narración aprobada vigente.",
+  "sticker": "Es el director de orquesta: toma un tema y corre una tras otra las etapas (guion, compuerta de narración, papel nuevo, compuerta del papel, voz, assets, fondos, guion de pantalla, aprobar guion, render, packaging), cada una como programa aparte. Antes de cada paso mira qué archivos ya existen en disco y arranca donde quedó; frena en las dos compuertas donde Omar tiene que aprobar y nunca aprueba solo. Antes de cualquier etapa (F42b) revisa que este Python tenga las librerías que la cadena importa: si falta una requerida, para sin gastar y da el comando de pip. F67c: voz, assets, fondos y guion de pantalla corren si su artefacto falta o tiene otro sello que el papel aprobado (en cascada). F73: el paso packaging primero mueve a publish/_desfasado_* los paquetes de miniatura que no son de la narración aprobada vigente. F77: `etapa_de` devuelve `estante` (ficha sin escaleta), que corre como «guion».",
   "recibe": "--topic <id> (o --research para elegir tema nuevo con fase1); data/scripts/_steps/<id>/01e_pantalla.md, data/scripts/<id>.json, output/<id>/assets/assets_manifest.json, output/<id>/_fase2b_work/*, output/<id>/GUION_PANTALLA.json, output/<id>/<id>_final_gfx.mp4, data/topics_db.json, data/_last_research.json; la tecla A/P/C que manda el form por stdin.",
   "entrega": "No escribe archivos de producción: lanza fase1.py, fase1_5.py, fase2a.py, fase2b.py y fase3.py como subprocesos; imprime los encabezados de fase y los marcadores @@QAFORM@@ para el form, y el reporte final con el comando para retomar.",
   "modelo": [],
@@ -611,7 +611,7 @@
   "estado": "vivo",
   "estado_prueba": "qa_studio_server.py:1522 y :1527 lo lanzan; run_pipeline.py:553 es el main",
   "funciones_muertas": [],
-  "md5": "f45f7293aac072c3abc5a237273ed92f",
+  "md5": "20f17bac2174e1c1358281981a6b2f44",
   "_parte": "orquestador_a · F42b C (CC)"
  },
  "script_engine/__init__.py": {
@@ -757,5 +757,19 @@
   "funciones_muertas": [],
   "md5": "7eb1a15a26243cfa437eb902ad6fca8b",
   "_parte": "F74"
+ },
+ "estante.py": {
+  "sticker": "El estante de temas (F77): la tanda de semillas (gate ES de todos a la vez, después research + ficha de los que pasan, un subproceso `fase1_5 --hasta-ficha` por tema) y la lista de temas con research + ficha que esperan que Omar elija cuál sigue, deducida del disco y ordenada para el menú E.",
+  "recibe": "Títulos (de la tanda); `fase1.measure_pick_es`; el disco: data/estante/<tid>.json (registro de la tanda), _steps/<tid>/ficha_caso.json, 00_pool_v3.json, POOL_GATE.md, 01_v3_costos.json, 01a_escaleta.json.",
+  "entrega": "data/estante/<tid>.json + .log por tema; subprocesos fase1_5 --semilla --topic --batch --hasta-ficha; `listar()` (temas ordenados) y `body()` (la tabla del menú E).",
+  "modelo": [],
+  "etapa": [
+   "research"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "test_module_f77c.py; lo llaman niche_discoverer._run_tanda / _run_estante.",
+  "funciones_muertas": [],
+  "md5": "3b91f313ca8c8d360361c10ddf77120a",
+  "_parte": "F77 (CC)"
  }
 }

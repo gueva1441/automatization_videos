@@ -14,9 +14,9 @@ sys.path.insert(0, str(R))
 
 from script_engine import audio_master as am  # noqa: E402
 
-LUFS = am._perfil("master_lufs")
-TP = am._perfil("master_tp_dbtp")
-TOL = am._perfil("master_lufs_tol_lu")
+LUFS = am.perfil("master_lufs")
+TP = am.perfil("master_tp_dbtp")
+TOL = am.perfil("master_lufs_tol_lu")
 
 
 def _simulada(medidas):
@@ -98,7 +98,7 @@ def test_falla_es_la_formula_del_handoff():
 def test_cadena_latency_oversample_y_limite_del_techo():
     c = am.cadena(10.0, -2.7)
     assert "latency=1" in c
-    ov = am._perfil("master_oversample")
+    ov = am.perfil("master_oversample")
     assert f"aresample={am.SAMPLE_RATE * ov}" in c and am.SAMPLE_RATE * ov == 176400
     assert c.endswith(f"aresample={am.SAMPLE_RATE}")
     assert f"limit={10 ** (-2.7 / 20):.6f}" in c
@@ -171,7 +171,7 @@ def test_master_mp4_real_video_intacto_y_audio_mas_fuerte(tmp_path):
     subprocess.run([FF, "-v", "error", "-y", "-f", "lavfi", "-i", "testsrc=size=160x120:rate=30:duration=4",
                     "-f", "lavfi", "-i", "sine=frequency=440:sample_rate=44100:duration=4",
                     "-af", "volume=0.1", "-ac", "2", "-c:v", "libx264", "-preset", "ultrafast", "-pix_fmt", "yuv420p",
-                    "-c:a", "aac", "-b:a", am._perfil("aac_bitrate"), "-shortest", str(mp4)],
+                    "-c:a", "aac", "-b:a", am.perfil("aac_bitrate"), "-shortest", str(mp4)],
                    check=True, capture_output=True)
     md5_antes = _md5_video(FF, mp4)
     dur_antes = _dur_audio(mp4)

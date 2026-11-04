@@ -112,28 +112,7 @@ def test_r3_marca_extraccion_fallida_y_sigue(monkeypatch):
     assert any("extracción fallida" in x for x in log)
 
 
-# ═══════════════════════════════════════════════════════════════
-#  §1.4 — R1: reintentos y Flash con búsqueda; focos con grounding
-# ═══════════════════════════════════════════════════════════════
-
-def test_r1_flash_alternativo_y_conteo_de_focos():
-    pro_calls, alt_calls = [], []
-
-    def search(prompt):
-        pro_calls.append(prompt)
-        if "informes completos" in prompt:         # foco 1: Pro sí busca
-            return '{"fuentes": []}', [{"uri": "https://a.org/x", "title": "a"}]
-        return '{"fuentes": []}', []
-
-    def alt(prompt):
-        alt_calls.append(prompt)
-        return '{"fuentes": []}', [{"uri": "https://b.it/y", "title": "b"}] if "fallos" in prompt else []
-    seed = {"seed_title": "Vajont", "lugar_idioma": "italiano", "nombres_lugar": ["Diga del Vajont", "Longarone"]}
-    out = r3.discover_sources(seed, search=search, search_alt=alt, resolve=lambda u: u, annotate=lambda *a, **k: {})
-    fg = out["_focos_grounding"]
-    assert fg == {"pro": 1, "flash": 1, "sin": 2}
-    assert len(pro_calls) == 1 + 3 * (1 + r3.R1_RETRIES) and r3.R1_RETRIES == 3
-    assert len(alt_calls) == 3 and all('"Diga del Vajont"' in p and "italiano" in p for p in alt_calls)
+# §1.4 (R1: Pro ×R1_RETRIES en fila → Flash) lo reemplazó la carrera Pro + Flash de F77 B2: test_module_f77b.py
 
 
 # ═══════════════════════════════════════════════════════════════

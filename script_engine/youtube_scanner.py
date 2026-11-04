@@ -6,7 +6,9 @@ Centraliza la lógica que antes estaba dentro de topic_validator.py para que
 también pueda ser consumida por niche_discoverer.py (Modo SPY-ARBITRAGE y
 Modo ARQUEOLOGÍA DIGITAL).
 
-Arquitectura de 3 niveles (se conserva la regla de oro):
+Arquitectura de 3 niveles (se conserva la regla de oro, SALVO el gate ES):
+  (F77 A: list_spanish_candidates — el gate ES — va al revés: API oficial primero,
+   raspado solo de respaldo, y en ambos solo cuentan videos > SHORTS_MAX_S.)
   1. scrapetube (primario)        — Feed real de YouTube con proxy scrapegw
   2. YouTube Data API v3 (fallback) — Si scrapetube falla, API oficial
   3. Nunca lanza — siempre devuelve estructura válida
@@ -33,6 +35,7 @@ import random
 import re
 import statistics
 import string
+import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta
@@ -78,6 +81,14 @@ YT_LIMIT_DEFAULT: int = 25              # Videos a escanear por búsqueda
 YT_LIMIT_ARBITRAGE: int = 30            # Para Modo SPY-ARBITRAGE (más amplio)
 YT_LIMIT_ARCHAEOLOGY: int = 50          # Para Modo ARQUEOLOGÍA (ventana 24 meses)
 API_MAX_RESULTS: int = 15               # Máximo por llamada a YT Data API v3
+
+# F77 A — gate ES por la API oficial (list_spanish_candidates). Origen de cada número:
+SHORTS_MAX_S: int = 180       # estándar YouTube: un Short dura hasta 3 min (desde oct-2024) → competidor = > 180 s
+YT_API_PAGE_MAX: int = 50     # estándar YouTube Data API v3: maxResults máx. de search.list = ids máx. por videos.list
+YT_UNITS_SEARCH: int = 100    # estándar YouTube Data API v3: costo de cuota de search.list (fórmula F77 A4)
+YT_UNITS_VIDEOS: int = 1      # estándar YouTube Data API v3: costo de cuota de videos.list (fórmula F77 A4)
+ES_GAP_WORKERS: int = 3   # CHAT 44 (vive acá desde F77, niche_discoverer lo re-exporta): techo del proxy scrapegw.
+                          # F77 A2: SOLO limita el respaldo por raspado (_SCRAPE_SLOTS); por API los workers = ítems.
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -1168,39 +1179,146 @@ def score_spanish_saturation(keyword: str, anchors: list[str] | None = None,
     return report
 
 
-def list_spanish_candidates(keyword: str, limit: int = YT_LIMIT_ARCHAEOLOGY) -> list[dict] | None:
-    """Fix saturación ES — Pieza 2 (chat fix Diseño B): devuelve los candidatos ES CRUDOS de una
-    query, SIN el filtro `title_contains_anchor` (ese substring de ancla EN era el bug
-    Chernobyl→"Chernóbil": el ancla inglesa no matchea la grafía española → 0 competidores
-    falsos). La relevancia la decide el juez-LLM aguas arriba, no el regex.
+# ─── F77 A — gate ES: API oficial primero, raspado de respaldo, solo videos > SHORTS_MAX_S ───
 
-    Reusa el MISMO scrape que score_spanish_saturation (ES_SCRAPE_PASSES, _proxies_dict, parsers)
-    — no reescribe el scraper, solo expone la lista que aquél hoy colapsa a "heaviest".
-    Filtra detect_language(title)=="es". NO aplica anclas.
+_SCRAPE_SLOTS = threading.BoundedSemaphore(ES_GAP_WORKERS)   # A2: techo del proxy SOLO para el raspado
+_ISO_DUR = re.compile(r"^P(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?)?$")
 
-    Tolerancia SSL (igual que score_spanish_saturation): si TODAS las pasadas fallaron y no se
-    juntó nada → devuelve None (fallo de scrape, distinto de "0 competidores"). Si al menos una
-    pasada trajo algo (aunque sea 0 videos ES tras el filtro) → devuelve la lista (puede ser []).
 
-    Returns:
-        list[{"title": str, "views": int, "months": int|None, "video_id": str}]  ó  None (fallo).
-    """
+class EsCandidates(list):
+    """Lista de candidatos ES (mismo shape de siempre: title, views, months, video_id + duration_s,
+    source) con la traza de la medida como atributos (una lista común sigue sirviendo a los callers):
+      source          'api' | 'scrape'
+      query           lo que se buscó de verdad (_es_search_query del keyword)
+      quota_units     YT_UNITS_SEARCH × search_pages + YT_UNITS_VIDEOS × video_batches (0 si raspado)
+      search_pages, video_batches, n_raw (ids traídos), n_short (descartados por ≤ SHORTS_MAX_S),
+      api_error       por qué se cayó al raspado (sin la llave), o None."""
+    source: str = "api"
+    query: str = ""
+    quota_units: int = 0
+    search_pages: int = 0
+    video_batches: int = 0
+    n_raw: int = 0
+    n_short: int = 0
+    api_error: str | None = None
+
+
+def _es_search_query(title: str) -> str:
+    """F77 A3: la BÚSQUEDA va sin segmentos entre paréntesis ni puntuación al final (:;,.-).
+    El título del topic no se toca (esto solo arma la query). Si no queda nada, vuelve el título."""
+    q = re.sub(r"\([^)]*\)", " ", title or "")
+    q = re.sub(r"\s+", " ", q).strip().rstrip(":;,.- ").strip()
+    return q or (title or "").strip()
+
+
+def _iso8601_duration_s(text: str | None) -> int | None:
+    """'PT10M47S' → 647. None si falta, no parsea, o es 0 (P0D = en vivo/estreno: duración
+    desconocida → se cuenta, para no esconder competencia)."""
+    m = _ISO_DUR.match(text or "")
+    if not m or not any(m.groups()):
+        return None
+    d, h, mi, se = (int(g or 0) for g in m.groups())
+    secs = ((d * 24 + h) * 60 + mi) * 60 + se
+    return secs or None
+
+
+def _months_since(published_at: str | None, now: datetime | None = None) -> int | None:
+    """Meses calendario completos desde publishedAt (ISO 8601 UTC). None si no parsea."""
+    try:
+        pub = datetime.strptime((published_at or "")[:10], "%Y-%m-%d")
+    except ValueError:
+        return None
+    now = now or datetime.utcnow()
+    months = (now.year - pub.year) * 12 + (now.month - pub.month) - (1 if now.day < pub.day else 0)
+    return max(months, 0)
+
+
+def _redact(text: str) -> str:
+    key = getattr(api, "youtube_api_key", "") or ""
+    return text.replace(key, "***") if key else text
+
+
+def _api_spanish_candidates(query: str, limit: int) -> EsCandidates:
+    """search.list paginado (YT_API_PAGE_MAX por página) hasta `limit` ids, luego videos.list en
+    lotes de YT_API_PAGE_MAX (contentDetails,statistics,snippet). Filtros: relevanceLanguage=es,
+    type=video (los de _api_fallback_*), detect_language(title)=='es' y duración > SHORTS_MAX_S.
+    La llave va en el header X-Goog-Api-Key (nunca en la URL → no aparece en errores). Lanza si falla."""
+    key = getattr(api, "youtube_api_key", "") or ""
+    if not key:
+        raise RuntimeError("sin youtube_api_key en config")
+    headers = {"X-Goog-Api-Key": key}
+    out = EsCandidates()
+    out.source, out.query = "api", query
+    ids: list[str] = []
+    token = None
+    while len(ids) < limit:
+        params = {"part": "id", "q": query, "type": "video", "relevanceLanguage": "es",
+                  "maxResults": min(YT_API_PAGE_MAX, limit - len(ids))}
+        if token:
+            params["pageToken"] = token
+        r = requests.get(f"{api.youtube_base_url}/search", params=params, headers=headers, timeout=15)
+        out.search_pages += 1
+        r.raise_for_status()
+        data = r.json()
+        for it in data.get("items", []):
+            vid = (it.get("id") or {}).get("videoId")
+            if vid and vid not in ids:
+                ids.append(vid)
+        token = data.get("nextPageToken")
+        if not token:
+            break
+    ids = ids[:limit]
+    out.n_raw = len(ids)
+    now = datetime.utcnow()
+    for i in range(0, len(ids), YT_API_PAGE_MAX):
+        r = requests.get(f"{api.youtube_base_url}/videos",
+                         params={"part": "contentDetails,statistics,snippet",
+                                 "id": ",".join(ids[i:i + YT_API_PAGE_MAX])},
+                         headers=headers, timeout=15)
+        out.video_batches += 1
+        r.raise_for_status()
+        for v in r.json().get("items", []):
+            sn = v.get("snippet") or {}
+            title = sn.get("title") or ""
+            if detect_language(title) != "es":
+                continue
+            dur = _iso8601_duration_s((v.get("contentDetails") or {}).get("duration"))
+            if dur is not None and dur <= SHORTS_MAX_S:
+                out.n_short += 1
+                continue
+            out.append({
+                "title": title,
+                "views": int((v.get("statistics") or {}).get("viewCount") or 0),
+                "months": _months_since(sn.get("publishedAt"), now),
+                "video_id": v.get("id", ""),
+                "duration_s": dur,
+                "source": "api",
+            })
+    out.quota_units = YT_UNITS_SEARCH * out.search_pages + YT_UNITS_VIDEOS * out.video_batches
+    return out
+
+
+def _scrape_spanish_candidates(query: str, limit: int) -> EsCandidates | None:
+    """Respaldo (API caída / sin cuota): el raspado de siempre (ES_SCRAPE_PASSES pasadas unidas,
+    proxy rotado), con el MISMO filtro > SHORTS_MAX_S (duración desconocida = se cuenta) y a lo
+    sumo ES_GAP_WORKERS raspados a la vez (_SCRAPE_SLOTS, techo del proxy). None = ninguna pasada
+    trajo nada (fallo, distinto de "0 competidores")."""
     seen: dict[str, dict] = {}
     raised = 0
-    for _ in range(ES_SCRAPE_PASSES):
-        try:
-            for v in scrapetube.get_search(keyword, limit=limit, proxies=_proxies_dict()):
-                vid_id = v.get("videoId")
-                if vid_id and vid_id not in seen:
-                    seen[vid_id] = v
-        except Exception:
-            raised += 1
-            continue
-
+    with _SCRAPE_SLOTS:
+        for _ in range(ES_SCRAPE_PASSES):
+            try:
+                for v in scrapetube.get_search(query, limit=limit, proxies=_proxies_dict()):
+                    vid_id = v.get("videoId")
+                    if vid_id and vid_id not in seen:
+                        seen[vid_id] = v
+            except Exception:
+                raised += 1
+                continue
     if raised == ES_SCRAPE_PASSES and not seen:
-        return None   # ninguna pasada trajo nada → fallo de scrape (no "VACIO" legítimo)
-
-    out: list[dict] = []
+        return None
+    out = EsCandidates()
+    out.source, out.query, out.n_raw = "scrape", query, len(seen)
     for v in seen.values():
         try:
             title = v["title"]["runs"][0]["text"]
@@ -1208,12 +1326,46 @@ def list_spanish_candidates(keyword: str, limit: int = YT_LIMIT_ARCHAEOLOGY) -> 
             continue
         if detect_language(title) != "es":
             continue
+        dur = _parse_length_scrapetube(v)
+        if dur is not None and dur <= SHORTS_MAX_S:
+            out.n_short += 1
+            continue
         out.append({
             "title": title,
             "views": _parse_views_scrapetube(v),
             "months": _parse_date_scrapetube_months_ago(_es_pub_text(v)),
             "video_id": v.get("videoId", ""),
+            "duration_s": dur,
+            "source": "scrape",
         })
+    return out
+
+
+def list_spanish_candidates(keyword: str, limit: int = YT_LIMIT_ARCHAEOLOGY) -> EsCandidates | None:
+    """Candidatos ES CRUDOS de una query (sin ancla: la relevancia la decide el juez-LLM aguas
+    arriba). F77 A1: PRIMERO la API oficial; si falla (403 cuota, red, sin llave) → raspado de
+    respaldo. En los dos caminos solo entran videos > SHORTS_MAX_S (los Shorts no compiten por un
+    documental). La búsqueda usa _es_search_query(keyword) (A3). Loguea fuente y unidades (A4).
+
+    Returns:
+        EsCandidates (list[{"title","views","months","video_id","duration_s","source"}] + traza)
+        ó None si la API falló Y ninguna pasada de raspado trajo nada."""
+    query = _es_search_query(keyword)
+    try:
+        out = _api_spanish_candidates(query, limit)
+    except Exception as e:
+        err = _redact(f"{type(e).__name__}: {e}")[:160]
+        out = _scrape_spanish_candidates(query, limit)
+        if out is None:
+            print(f"      [ES] q='{query}' API falló ({err}) y el raspado también → ERROR")
+            return None
+        out.api_error = err
+        print(f"      [ES] q='{query}' fuente=scrape (API falló: {err}) · 0 u · "
+              f"{out.n_raw} crudos → {out.n_short} cortos ≤{SHORTS_MAX_S}s fuera → {len(out)} ES")
+        return out
+    print(f"      [ES] q='{query}' fuente=api · {out.search_pages} pág × {YT_UNITS_SEARCH} + "
+          f"{out.video_batches} lote × {YT_UNITS_VIDEOS} = {out.quota_units} u · {out.n_raw} crudos "
+          f"→ {out.n_short} cortos ≤{SHORTS_MAX_S}s fuera → {len(out)} ES")
     return out
 
 

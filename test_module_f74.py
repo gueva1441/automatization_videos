@@ -132,6 +132,7 @@ def test_form_answer_acepta_linea_vacia_para_terminar(monkeypatch):
 # ─── Etapa 2: modo C en el form ───
 def test_modo_c_habilitado_en_el_menu(monkeypatch, capsys):
     monkeypatch.setattr(nd, "_QA_FORM", True)
+    monkeypatch.setattr(nd, "_n_estante", lambda: 0)     # F77: el menú lee el estante; el test no toca el disco real
 
     class Corte(Exception):
         pass

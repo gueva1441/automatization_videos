@@ -31,7 +31,7 @@ from audio_profiles import AUDIO_PROFILES
 SAMPLE_RATE = 44100
 
 
-def _perfil(clave: str):
+def perfil(clave: str):
     """Constante del perfil activo; si el perfil no la trae, la del perfil de producción (MISTERIO_ABISAL)."""
     return AUDIO_STYLE.get(clave, AUDIO_PROFILES["MISTERIO_ABISAL"][clave])
 
@@ -56,14 +56,14 @@ def medir(path: Path, ffmpeg: str | None = None) -> dict:
 
 def cadena(g_db: float, techo_dbtp: float, oversample: int | None = None) -> str:
     """El filtro de una pasada (sin números sueltos: todo sale del perfil o de la pasada)."""
-    ov = oversample or _perfil("master_oversample")
+    ov = oversample or perfil("master_oversample")
     return (f"volume={g_db:.2f}dB,aresample={SAMPLE_RATE * ov},"
             f"alimiter=level=disabled:latency=1:limit={10 ** (techo_dbtp / 20):.6f},aresample={SAMPLE_RATE}")
 
 
 def _pasada_ffmpeg(src: Path, out: Path, g_db: float, techo: float, ffmpeg: str | None = None) -> None:
     subprocess.run([ffmpeg or _ffmpeg(), "-y", "-hide_banner", "-loglevel", "error", "-i", str(src), "-vn",
-                    "-af", cadena(g_db, techo), "-c:a", "aac", "-b:a", _perfil("aac_bitrate"), str(out)],
+                    "-af", cadena(g_db, techo), "-c:a", "aac", "-b:a", perfil("aac_bitrate"), str(out)],
                    check=True, capture_output=True)
 
 
@@ -75,9 +75,9 @@ def bucle(medida_original: dict, pasada: Callable[[float, float], dict], *,
           lufs: float | None = None, tp: float | None = None, tol: float | None = None) -> tuple[list[dict], dict, str | None]:
     """El bucle de la receta. `pasada(G, techo)` hace la pasada y devuelve la medida del AAC.
     Devuelve (tabla de pasadas, la elegida, aviso ⚠ o None)."""
-    lufs = _perfil("master_lufs") if lufs is None else lufs
-    tp = _perfil("master_tp_dbtp") if tp is None else tp
-    tol = _perfil("master_lufs_tol_lu") if tol is None else tol
+    lufs = perfil("master_lufs") if lufs is None else lufs
+    tp = perfil("master_tp_dbtp") if tp is None else tp
+    tol = perfil("master_lufs_tol_lu") if tol is None else tol
     g, techo = lufs - medida_original["I"], tp
     tabla: list[dict] = []
     while True:

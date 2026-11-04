@@ -58,6 +58,7 @@ from script_engine.youtube_scanner import (
     compute_ratio,                 # CHAT 50: vistas ÷ mediana
     BASELINE_N,                    # CHAT 50: uploads para la mediana (mismo que el directo)
     EN_OUTLIER_WORKERS,            # CHAT 50: workers paralelos para el fetch de baselines
+    ES_GAP_WORKERS,                # F77 A2: techo del raspado de respaldo del gate ES (vive allá)
 )
 # CHAT 52: matcher ES atómico vía juez-LLM (reemplaza score_spanish_saturation/substring en el
 # camino atómico). Top-level para que _check_gap_es lo use (el fan-out ya lo importa lazy ~L530).
@@ -172,9 +173,9 @@ SPY_TOP_PER_QUERY: int = 3              # Top N virales EN por query
 SPY_ES_WINDOW_MONTHS: int = 3           # Ventana "fresco" ES para hueco de mercado
 SPY_ES_MIN_VIEWS: int = 50_000          # Umbral para contar como competencia
 SPY_MAX_COMPETING_FOR_GAP: int = 1      # ≤1 video ES con ≥50k en 3 meses = hueco
-ES_GAP_WORKERS: int = 3   # CHAT 44: workers del loop del hueco ES. 3 IPs rotadas (_proxies_dict).
-                          # Compensa el 2× del doble-scrape (ES_SCRAPE_PASSES). Score es scrapetube
-                          # puro → sin límite de cuota Gemini.
+# F77 A2: ES_GAP_WORKERS (3) vive en youtube_scanner y SOLO limita el raspado de respaldo; los loops
+# ES corren con workers = cantidad de ítems (la API oficial no tiene el techo del proxy).
+# (importado arriba, junto al resto de youtube_scanner)
 # DEPRECATED chat42: el filtro absoluto se reemplazó por el filtro de unión
 # (youtube_scanner.compute_outlier_filter). Se CONSERVA solo como referencia de
 # comparación ("viejo≥300k") en el dry-run. El tuning del filtro nuevo vive en
@@ -741,8 +742,20 @@ def _try_subtema_fanout(rep_item: dict, root_niche, worst_sat: dict, n_variants:
     # un ganador EN que salga SATURADO en ES cae igual (orden final = EN-cap → ES-gate → seed).
     survivors: list[tuple] = []                       # [(subj, en, es)]
     es_gated = 0
-    for subj, en in capped:
-        es = _measure_es(subj["search_query_en"], subj["nombre_en"])
+    # F77 A2: los ≤K ganadores se miden en paralelo (workers = ítems); el raspado de respaldo
+    # sigue con su techo de ES_GAP_WORKERS (youtube_scanner._SCRAPE_SLOTS). Orden del cap intacto.
+    es_by_idx: dict[int, dict] = {}
+    if capped:
+        with ThreadPoolExecutor(max_workers=len(capped)) as ex:
+            fut_idx = {ex.submit(_measure_es, subj["search_query_en"], subj["nombre_en"]): i
+                       for i, (subj, _en) in enumerate(capped)}
+            for fut in as_completed(fut_idx):
+                try:
+                    es_by_idx[fut_idx[fut]] = fut.result()
+                except Exception as e:
+                    es_by_idx[fut_idx[fut]] = {"label": "ERROR", "error": str(e)[:90]}
+    for i, (subj, en) in enumerate(capped):
+        es = es_by_idx[i]
         if es.get("label") == "ERROR":
             continue                                  # ES_ERROR → no emite
         if es.get("label") == ES_SATURATED_LABEL:
@@ -1019,9 +1032,11 @@ def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dic
         sat = _measure_es(item["spanish_topic"], already_es=True)
         return (item, None, sat)
 
-    print(f"  ⚙ Evaluando {len(translated)} temas con {ES_GAP_WORKERS} workers...\n")
+    # F77 A2: workers = ítems (API oficial); el raspado de respaldo queda con techo ES_GAP_WORKERS.
+    print(f"  ⚙ Evaluando {len(translated)} temas en paralelo "
+          f"(raspado de respaldo: máx. {ES_GAP_WORKERS} a la vez)...\n")
     gap_results = []
-    with ThreadPoolExecutor(max_workers=ES_GAP_WORKERS) as ex:
+    with ThreadPoolExecutor(max_workers=max(1, len(translated))) as ex:
         futures = [ex.submit(_check_gap_es, it) for it in translated]
         for fut in as_completed(futures):
             try:
@@ -1483,6 +1498,68 @@ def _print_seeds_summary(seeds: list[dict]) -> None:
 #  FUNCIÓN PÚBLICA PRINCIPAL
 # ═══════════════════════════════════════════════════════════════
 
+# ═══════════════════════════════════════════════════════════════
+#  F77 — TANDA DE SEMILLAS (D) Y ESTANTE (E)
+# ═══════════════════════════════════════════════════════════════
+def _n_estante() -> int:
+    try:
+        import estante
+        return len(estante.listar())
+    except Exception as e:                      # el estante no tumba el menú
+        print(f"  ⚠ no pude leer el estante: {type(e).__name__}: {e}")
+        return 0
+
+
+def _run_tanda() -> None:
+    """Modo D: varios títulos (separados por «;» o salto de línea) → gate ES de todos a la vez → research + ficha de los
+    que pasan, todos a la vez. Sin preguntas: SATURADO queda en el estante con ⚠ y sin research."""
+    import estante
+    print("\n  🧺  TANDA DE SEMILLAS")
+    print("     Escribí los temas separados por «;». Enter vacío = cancelar.\n")
+    if _QA_FORM:
+        _emit_qaform_text_marker("tanda_titulos", "Temas de la tanda (separados por «;»)",
+                                 placeholder="Tema 1; Tema 2; Tema 3",
+                                 body="Cada tema pasa por el gate ES; los que siguen corren research + ficha a la vez "
+                                      "y quedan en el estante. SATURADO queda en el estante sin research.")
+    titulos = estante.partir_titulos(input("     📌 Temas: "))
+    if not titulos:
+        print("  ⚠ Tanda cancelada (sin temas).")
+        return
+    print(f"  ▶ {len(titulos)} tema(s): gate ES a la vez → research + ficha a la vez (puede tardar)")
+    estante.correr_tanda(titulos)
+    items = estante.listar()
+    print(f"\n  📚 Estante ({len(items)}):\n" + estante.body(items))
+
+
+def _run_estante() -> str | None:
+    """Estante: la tabla ordenada; elegir uno con ficha → sentinel de research para que run_pipeline siga desde la
+    escaleta. Devuelve el tid elegido o None (volver)."""
+    import estante
+    items = estante.listar()
+    elegibles = estante.elegibles(items)
+    tabla = estante.body(items)
+    print(f"\n  📚 ESTANTE ({len(items)})\n" + tabla)
+    for n, i in enumerate(elegibles, 1):
+        print(f"     [{n}] {i['titulo']}")
+    print("     [S] Volver")
+    if _QA_FORM:
+        _emit_qaform_choice_marker(
+            "estante_pick", f"Estante ({len(items)}) — ¿cuál sigue a la escaleta?",
+            [{"key": str(n), "label": i["titulo"]} for n, i in enumerate(elegibles, 1)]
+            + [{"key": "S", "label": "Volver"}],
+            default="S", body=tabla,
+        )
+    ch = input("     👉 ").strip().upper()
+    if not ch.isdigit() or not 1 <= int(ch) <= len(elegibles):
+        return None
+    elegido = elegibles[int(ch) - 1]
+    from fase1 import _write_research_sentinel   # lazy: fase1 importa este módulo
+    _write_research_sentinel([elegido["tid"]])
+    print(f"  ➡  «{elegido['titulo']}» ({elegido['tid']}) sigue desde la escaleta: "
+          f"python run_pipeline.py --topic {elegido['tid']}")
+    return elegido["tid"]
+
+
 def discover_niches() -> list[dict]:
     """
     Dashboard interactivo de descubrimiento.
@@ -1501,14 +1578,21 @@ def discover_niches() -> list[dict]:
         if all_seeds:
             print(f"\n  📊 Seeds acumulados en esta sesión: {len(all_seeds)}")
 
+        n_estante = _n_estante()
+        if n_estante:
+            print(f"  [E] 📚 ESTANTE ({n_estante}) — temas con research + ficha, elegí cuál sigue")
+        print(f"  [D] 🧺 TANDA DE SEMILLAS — varios temas a la vez, hasta la ficha")
         if _QA_FORM:
+            opciones = [{"key": "A", "label": "🕵️ Spy-Arbitrage — virales EN, huecos ES"},
+                        {"key": "B", "label": "🏛️ Arqueología Digital — misterios 1950-2000 sin competencia ES"},
+                        {"key": "C", "label": "✏️ Inyección manual — escribí el tema"},
+                        {"key": "D", "label": "🧺 Tanda de semillas — varios temas a la vez, hasta la ficha"},
+                        {"key": "S", "label": "Cancelar"}]
+            if n_estante:                       # F77 C4: primero en la lista cuando hay temas
+                opciones.insert(0, {"key": "E", "label": f"📚 Estante ({n_estante}) — elegí cuál sigue a la escaleta"})
             _emit_qaform_choice_marker(
-                "discovery_mode", "¿Cómo buscar nuevos seeds?",
-                [{"key": "A", "label": "🕵️ Spy-Arbitrage — virales EN, huecos ES"},
-                 {"key": "B", "label": "🏛️ Arqueología Digital — misterios 1950-2000 sin competencia ES"},
-                 {"key": "C", "label": "✏️ Inyección manual — escribí el tema"},
-                 {"key": "S", "label": "Cancelar"}],
-                default="A",
+                "discovery_mode", "¿Cómo buscar nuevos seeds?", opciones,
+                default="E" if n_estante else "A",
                 body=(f"Seeds acumulados en esta sesión: {len(all_seeds)}" if all_seeds else None),
             )
 
@@ -1555,6 +1639,16 @@ def discover_niches() -> list[dict]:
             new_seeds = _run_manual()
             print(f"\n  ✓ MANUAL generó {len(new_seeds)} seed(s)")
             all_seeds.extend(new_seeds)
+
+        # ─── Modo D (F77): tanda de semillas hasta la ficha ───
+        elif choice == "D":
+            _run_tanda()
+
+        # ─── Estante (F77): elegir cuál sigue a la escaleta ───
+        elif choice == "E":
+            tid = _run_estante()
+            if tid:
+                return []                       # fase1 no investiga nada: run_pipeline sigue con `tid` (sentinel)
 
         # ─── Salir ───
         elif choice == "S":

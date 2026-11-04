@@ -1,0 +1,36 @@
+........................s.....................sss....................... [ 20%]
+.........s.............................................................. [ 40%]
+......ssssssss.................s.......................s.s..s........... [ 61%]
+
+── pasos: research → compuerta → ficha «Un desastre de prueba» → canon → escaleta → guion → caps → papel 
+  [semilla] «Un desastre de prueba» (s-1) → topic t-f39
+  [semilla] topic registrado: 'VT'
+
+════════════════════════════════════════════════════════════
+  📜 Procesando topic t-f39 desde m01a
+════════════════════════════════════════════════════════════
+  [01a] Compuerta del pool + ficha si falta + escaleta...
+  [ficha] sin ficha v2 → ficha_caso.run (gpt-6.1-sol high, prompt f23-1) · título «Un desastre de prueba»
+  [ficha] {} · sacados 0
+
+  [01b] Guion v4 → reparación (una ronda) → partición → juez → verificación → crítico...
+
+  ⏸  PARADA de narración: la narración no está aprobada.
+     ⚠ sin crítica: no hay 01f_critico.json
+     Aprobar: python fase1_5.py --topic t-f39 --aprobar-narracion "Omar <fecha>"
+
+............................................................s........... [ 81%]
+..................................................................       [100%]
+============================== warnings summary ===============================
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+  C:\CLAUDE_PROJECTS\automatization_videos\script_engine\image_grade.py:83: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+    luma = list(im.convert("L").getdata())
+
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+  C:\CLAUDE_PROJECTS\automatization_videos\script_engine\image_grade.py:85: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+    s = [sv for sv, lv in zip(hsv.getdata(band=1), luma) if lv > 24] or [0]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+336 passed, 18 skipped, 4 warnings in 13.06s

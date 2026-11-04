@@ -41,9 +41,11 @@ CONTRATO DE SALIDA (topic en topics_db) — sin canon visual (F50: lo arma fase1
 """
 
 import json
+import os
 import re
 import time
 import uuid
+from contextlib import contextmanager
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from pathlib import Path
@@ -852,10 +854,67 @@ def _load_topics_db() -> dict:
 
 
 def _save_topics_db(db: dict) -> None:
-    TOPICS_DB_FILE.write_text(
-        json.dumps(db, indent=2, ensure_ascii=False),
-        encoding="utf-8",
-    )
+    """F77: escritura atómica (temporal + os.replace): con varias semillas en paralelo, un lector nunca ve el archivo
+    a medio escribir (si lo viera, `_load_topics_db` lo daría por vacío y el guardado siguiente borraría los topics)."""
+    tmp = TOPICS_DB_FILE.with_name(f"{TOPICS_DB_FILE.name}.{os.getpid()}.tmp")
+    tmp.write_text(json.dumps(db, indent=2, ensure_ascii=False), encoding="utf-8")
+    os.replace(tmp, TOPICS_DB_FILE)
+
+
+@contextmanager
+def _topics_db_lock():
+    """F77: candado entre procesos para leer-agregar-guardar topics_db (la tanda corre un research por proceso).
+    Archivo de candado con O_EXCL; espera mientras otro proceso lo tiene. Un candado huérfano (proceso muerto) se
+    reconoce porque su pid ya no existe y se borra."""
+    lock = TOPICS_DB_FILE.with_name(TOPICS_DB_FILE.name + ".lock")
+    while True:
+        try:
+            fd = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+            os.write(fd, str(os.getpid()).encode())
+            os.close(fd)
+            break
+        except (FileExistsError, PermissionError):   # Windows: PermissionError si el candado se está borrando
+            try:
+                pid = int(lock.read_text() or 0)
+            except (OSError, ValueError):
+                pid = 0
+            if pid and not _pid_vivo(pid):
+                _borrar_lock(lock)
+                continue
+            time.sleep(0.2)
+    try:
+        yield
+    finally:
+        _borrar_lock(lock)
+
+
+def _borrar_lock(lock: Path) -> None:
+    """Borra el candado; en Windows, si otro proceso lo tiene abierto para leer su pid, espera y reintenta."""
+    while True:
+        try:
+            lock.unlink(missing_ok=True)
+            return
+        except PermissionError:
+            time.sleep(0.05)
+
+
+def _pid_vivo(pid: int) -> bool:
+    """¿Sigue vivo `pid`? Solo consulta, no manda señales (en Windows `os.kill(pid, 0)` TERMINA el proceso)."""
+    if os.name == "nt":
+        import ctypes
+        k32 = ctypes.windll.kernel32
+        h = k32.OpenProcess(0x1000, False, pid)          # PROCESS_QUERY_LIMITED_INFORMATION
+        if not h:
+            return False
+        code = ctypes.c_ulong()
+        ok = k32.GetExitCodeProcess(h, ctypes.byref(code))
+        k32.CloseHandle(h)
+        return bool(ok) and code.value == 259            # STILL_ACTIVE
+    try:
+        os.kill(pid, 0)
+        return True
+    except OSError:
+        return False
 
 
 def _get_existing_titles(db: dict) -> list[str]:
@@ -937,11 +996,12 @@ def investigar_semilla(seed: dict, topic_id: str) -> dict:
     print(f"\n  🔬 Investigando la semilla «{seed['seed_title']}» en el topic {topic_id} (LONG)...")
     topic_data = _research_seed_deep(seed, _get_existing_titles(_load_topics_db()), topic_id=topic_id)
     topic = {**_enrich_with_seed_metadata(topic_data, seed, video_type="long"), "seed_title": seed["seed_title"]}
-    db = _load_topics_db()                      # releído: el research tarda minutos
-    if _topic_registrado(db, topic_id):
-        raise ValueError(f"{topic_id} apareció en topics_db durante el research: no se pisa")
-    db["topics"].append(topic)
-    _save_topics_db(db)
+    with _topics_db_lock():                     # F77: varias semillas en paralelo (un research por proceso)
+        db = _load_topics_db()                  # releído: el research tarda minutos
+        if _topic_registrado(db, topic_id):
+            raise ValueError(f"{topic_id} apareció en topics_db durante el research: no se pisa")
+        db["topics"].append(topic)
+        _save_topics_db(db)
     print(f"     ✓ {topic_id} registrado · título: {topic['video_title']} · "
           f"fuentes: {len(topic.get('sources', []))} · datos: {len(topic.get('verified_facts', []))}")
     return topic

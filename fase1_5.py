@@ -222,13 +222,14 @@ def _step_cost(topic_id: str, label: str, fn):
     import time as _time
     from cost_tracker import cost_tracker
     f = STEPS_DIR / topic_id / "01_v3_costos.json"
-    costs = json.loads(f.read_text(encoding="utf-8")) if f.exists() else {}
     cost_tracker.start_video(topic_id)
     t0 = _time.time()
     try:
         return fn()
     finally:
         r = cost_tracker.end_video()
+        # F77: se lee DESPUÉS de `fn` (el research escribe `tiempos_research` en este archivo mientras corre)
+        costs = json.loads(f.read_text(encoding="utf-8")) if f.exists() else {}
         costs.setdefault("_corridas", []).append({"paso": label, "usd": round(getattr(r, "total_cost", 0.0) or 0.0, 4),
                                                   "segundos": round(_time.time() - t0, 1)})
         f.parent.mkdir(parents=True, exist_ok=True)
@@ -538,6 +539,24 @@ def research_de_semilla(semilla: Path, topic_id: str) -> dict:
         raise Parada(f"{topic_id}: compuerta del pool ROJA: {'; '.join(e.gate.get('motivos') or [])}") from e
     print(f"  [semilla] topic registrado: {topic.get('video_title')!r}")
     return topic
+
+
+def hasta_ficha(topic_id: str) -> dict:
+    """F77 (estante): compuerta del pool (rojo → Parada, no se paga la ficha) → ficha si falta. Nada más: ni canon ni
+    escaleta (eso lo corre `run_pipeline --topic` cuando Omar elige el tema del estante)."""
+    from script_engine import m01a_escaleta as me
+    from researcher_steps.pool_gate import PoolGateRed
+    topic = _topic_v3(topic_id)
+    if not pool_v3(topic):
+        raise Parada(motivo_sin_pool(topic_id, topic))
+    log: list[str] = []
+    try:
+        me.pool_gate_profile(topic, topic.get("evidence_pool") or {}, log=log)
+    except PoolGateRed as e:
+        raise Parada(f"{topic_id}: compuerta del pool ROJA: {'; '.join(e.gate.get('motivos') or [])}") from e
+    ficha = asegurar_ficha(topic_id, topic, log)
+    print("\n".join(log))
+    return ficha
 
 
 def run_escaleta_v3(topic_id: str, columna: bool = False, modelo: str | None = None) -> dict:
@@ -1151,6 +1170,9 @@ def main():
                         help="Modo batch desatendido: desactiva los gates del medio "
                              "(normalizer_gate + music_gate). Equivale a "
                              "--no-gate --no-music-gate.")
+    parser.add_argument("--hasta-ficha", dest="hasta_ficha", action="store_true",
+                        help="F77 (estante): con --topic (y --semilla para un tema nuevo), corre research v3 → compuerta "
+                             "del pool → ficha y para con exit 0 (nada de escaleta). Compuerta roja = PARADA exit 2")
     parser.add_argument("--editor", action="store_true",
                         help="F27: la pasada del editor m01c en la reparación del guion v4 (fuera del camino desde "
                              "F27; solo para leer)")
@@ -1221,6 +1243,8 @@ def main():
         parser.error("--semilla necesita --topic <id> (un topic nuevo)")
     if args.semilla is not None and (args.from_arg or args.only_step):
         parser.error("--semilla arranca desde el research: no va con --from ni --only")
+    if args.hasta_ficha and (not args.topic or args.from_arg or args.only_step):
+        parser.error("--hasta-ficha necesita --topic <id> y no va con --from ni --only")
     if args.temas:
         sys.exit(run_temas([t.strip() for t in args.temas.split(",") if t.strip()], sys.argv[1:]))
 
@@ -1263,6 +1287,17 @@ def main():
             print(f"\n  ⏸  PARADA en research: {e if isinstance(e, Parada) else f'{type(e).__name__}: {e}'}")
             _print_gemini_cost()
             sys.exit(2)
+
+    if args.hasta_ficha:                                    # F77: el estante para acá (research + ficha)
+        try:
+            hasta_ficha(args.topic)
+        except Exception as e:
+            print(f"\n  ⏸  PARADA antes de la ficha: {e if isinstance(e, Parada) else f'{type(e).__name__}: {e}'}")
+            _print_gemini_cost()
+            sys.exit(2)
+        print(f"\n  📚 {args.topic} en el estante (research + ficha). Sigue con: python run_pipeline.py --topic {args.topic}")
+        _print_gemini_cost()
+        sys.exit(0)
 
     # Procesar cada topic
     results = []

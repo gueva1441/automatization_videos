@@ -1,0 +1,194 @@
+[
+ {
+  "tid": "1b2a2c5d-9ff3-433a-bd3b-767ca7b44d89",
+  "titulo": "Palomares 1966: el Proyecto Indalo y los vecinos usados como cobayas",
+  "seed": {
+   "seed_id": "bfd26a28-0c8a-431d-9791-2ade601a5235",
+   "seed_title": "Palomares 1966: el Proyecto Indalo y los vecinos usados como cobayas",
+   "discovery_mode": "manual",
+   "root_niche": null,
+   "tags": [],
+   "evidence": {
+    "user_input": true,
+    "entered_at": "2026-11-04T16:27:55.844825",
+    "tanda": true,
+    "es_gap": {
+     "label": "VACIO",
+     "heaviest": null
+    }
+   },
+   "created_at": "2026-11-04T16:27:55.844825",
+   "remeasure": {
+    "es_query": "Palomares 1966: el Proyecto Indalo y los vecinos usados como cobayas",
+    "entity": "Palomares 1966: el Proyecto Indalo y los vecinos usados como cobayas",
+    "already_es": true
+   }
+  },
+  "gate": {
+   "status": "ok",
+   "label": "VACIO",
+   "saturation": 0,
+   "heaviest": null,
+   "quota_units": 300,
+   "source": "api+juez",
+   "medido_at": "2026-11-04T16:28:19.177711"
+  },
+  "rc": 2
+ },
+ {
+  "tid": "c4934b7d-3f54-448f-ba5f-539dc744f0d8",
+  "titulo": "Síndrome del aceite tóxico (colza) 1981",
+  "seed": {
+   "seed_id": "179eed95-44e7-4594-a8eb-cc4d3ddb2751",
+   "seed_title": "Síndrome del aceite tóxico (colza) 1981",
+   "discovery_mode": "manual",
+   "root_niche": null,
+   "tags": [],
+   "evidence": {
+    "user_input": true,
+    "entered_at": "2026-11-04T16:27:55.844825",
+    "tanda": true,
+    "es_gap": {
+     "label": "HUECO",
+     "heaviest": {
+      "title": "El síndrome tóxico",
+      "views": 77560,
+      "months": 61,
+      "decay": 0.1,
+      "eff": 7756.0,
+      "video_id": "rjKL9NbUPoE",
+      "duration_s": 7441
+     }
+    }
+   },
+   "created_at": "2026-11-04T16:27:55.844825",
+   "remeasure": {
+    "es_query": "Síndrome del aceite tóxico (colza) 1981",
+    "entity": "Síndrome del aceite tóxico (colza) 1981",
+    "already_es": true
+   }
+  },
+  "gate": {
+   "status": "ok",
+   "label": "HUECO",
+   "saturation": 7756.0,
+   "heaviest": {
+    "title": "El síndrome tóxico",
+    "views": 77560,
+    "months": 61,
+    "decay": 0.1,
+    "eff": 7756.0,
+    "video_id": "rjKL9NbUPoE",
+    "duration_s": 7441
+   },
+   "quota_units": 303,
+   "source": "api+juez",
+   "medido_at": "2026-11-04T16:28:36.039158"
+  },
+  "rc": 2
+ },
+ {
+  "tid": "2b0472ce-37cb-4d86-8795-687c9e37d587",
+  "titulo": "Accidente radiológico de Goiânia 1987",
+  "seed": {
+   "seed_id": "ec4e02f3-e32f-4864-af11-155799e432e5",
+   "seed_title": "Accidente radiológico de Goiânia 1987",
+   "discovery_mode": "manual",
+   "root_niche": null,
+   "tags": [],
+   "evidence": {
+    "user_input": true,
+    "entered_at": "2026-11-04T16:27:55.844825",
+    "tanda": true,
+    "es_gap": {
+     "label": "SATURADO",
+     "heaviest": {
+      "title": "El Robo que Terminó en Desastre Nuclear - El Accidente de Goiania",
+      "views": 1519327,
+      "months": 43,
+      "decay": 0.3,
+      "eff": 455798.1,
+      "video_id": "DSrn0cBP3Xg",
+      "duration_s": 1361
+     }
+    }
+   },
+   "created_at": "2026-11-04T16:27:55.844825",
+   "remeasure": {
+    "es_query": "Accidente radiológico de Goiânia 1987",
+    "entity": "Accidente radiológico de Goiânia 1987",
+    "already_es": true
+   }
+  },
+  "gate": {
+   "status": "ok",
+   "label": "SATURADO",
+   "saturation": 455798.1,
+   "heaviest": {
+    "title": "El Robo que Terminó en Desastre Nuclear - El Accidente de Goiania",
+    "views": 1519327,
+    "months": 43,
+    "decay": 0.3,
+    "eff": 455798.1,
+    "video_id": "DSrn0cBP3Xg",
+    "duration_s": 1361
+   },
+   "quota_units": 303,
+   "source": "api+juez",
+   "medido_at": "2026-11-04T16:28:15.857878"
+  },
+  "rc": null
+ },
+ {
+  "tid": "a0f7282c-da75-44c7-b728-23e06102a4d5",
+  "titulo": "Tragedia del camping Los Alfaques 1978",
+  "seed": {
+   "seed_id": "e772086e-7393-444c-8ae7-54aa25b9f401",
+   "seed_title": "Tragedia del camping Los Alfaques 1978",
+   "discovery_mode": "manual",
+   "root_niche": null,
+   "tags": [],
+   "evidence": {
+    "user_input": true,
+    "entered_at": "2026-11-04T16:27:55.844825",
+    "tanda": true,
+    "es_gap": {
+     "label": "SATURADO",
+     "heaviest": {
+      "title": "El ACCIDENTE de los Alfaques ⚠️ La Tragedia que Conmocionó a España y Europa en ",
+      "views": 460919,
+      "months": 3,
+      "decay": 1.0,
+      "eff": 460919.0,
+      "video_id": "a4gcbna-fmc",
+      "duration_s": 978
+     }
+    }
+   },
+   "created_at": "2026-11-04T16:27:55.844825",
+   "remeasure": {
+    "es_query": "Tragedia del camping Los Alfaques 1978",
+    "entity": "Tragedia del camping Los Alfaques 1978",
+    "already_es": true
+   }
+  },
+  "gate": {
+   "status": "ok",
+   "label": "SATURADO",
+   "saturation": 460919.0,
+   "heaviest": {
+    "title": "El ACCIDENTE de los Alfaques ⚠️ La Tragedia que Conmocionó a España y Europa en ",
+    "views": 460919,
+    "months": 3,
+    "decay": 1.0,
+    "eff": 460919.0,
+    "video_id": "a4gcbna-fmc",
+    "duration_s": 978
+   },
+   "quota_units": 1103,
+   "source": "api+juez",
+   "medido_at": "2026-11-04T16:28:42.459952"
+  },
+  "rc": null
+ }
+]
