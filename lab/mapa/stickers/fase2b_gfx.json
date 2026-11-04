@@ -1,7 +1,7 @@
 {
  "_nota": "F42 §B: stickers de la zona fase2b_gfx, escritos por los workers (Sonnet) que leyeron cada archivo entero; `md5` = el del archivo leído (`mapa_modulos.py --check` avisa si cambió). `_parte` = el worker.",
  "fase2b.py": {
-  "sticker": "Arma el video final a partir de lo que ya dejaron la voz y las imágenes: anima cada imagen, le pone la capa gráfica (títulos, fichas, sellos) cuando se pide, quema los subtítulos, pega la voz, encadena los capítulos con corte a negro y mezcla la música por debajo de la voz. También genera el guion de pantalla (--plan-only) que Omar lee antes de aprobar, y escribe la aprobación (--aprobar-guion). F67c: `_fase2b_work/fondos.json` con `papel_md5` al terminar los fondos; fondos de otro papel se mueven a `_fase2b_work_desfasado_*` antes de cocer, y --plan-only y --reuse-visuals no los reusan (--only-cap avisa y sigue); GUION_PANTALLA.json lleva `papel_md5`. F71: el reparto por anclas pasa el normalizado del cap a `compute_anchor_starts`.",
+  "sticker": "Arma el video final a partir de lo que ya dejaron la voz y las imágenes: anima cada imagen, le pone la capa gráfica (títulos, fichas, sellos) cuando se pide, quema los subtítulos, pega la voz, encadena los capítulos con corte a negro y mezcla la música por debajo de la voz. También genera el guion de pantalla (--plan-only) que Omar lee antes de aprobar, y escribe la aprobación (--aprobar-guion). F67c: `_fase2b_work/fondos.json` con `papel_md5` al terminar los fondos; fondos de otro papel se mueven a `_fase2b_work_desfasado_*` antes de cocer, y --plan-only y --reuse-visuals no los reusan (--only-cap avisa y sigue); GUION_PANTALLA.json lleva `papel_md5`. F71: el reparto por anclas pasa el normalizado del cap a `compute_anchor_starts`. F76: al final del armado, común a los 3 caminos de mezcla, `master_mp4` (script_engine/audio_master.py) lleva el mp4 final a −14 LUFS con pico real ≤ −1,5 dBTP (video -c:v copy); el bitrate AAC sale de `aac_bitrate` del perfil (AAC_BITRATE). *_no_music.mp4 y mezcla_preview.wav siguen a −24.",
   "recibe": "output/audio/<id>/sync_map.json + chNN.mp3 + chNN_timestamps.json (+ chNN_alignment.json); output/<id>/assets/assets_manifest.json + imágenes/clips por capítulo; data/scripts/<id>.json (narración, prompts, anchors, video_type); output/audio/<id>/music_map.json; data/scripts/_steps/<id>/01a_escaleta.json, 01b_narracion_v3.json, 00_pool_v3.json y 01e_pantalla.json (guion en papel); output/<id>/_fase2b_work/ (visuales base ya cocidos, planes gfx_plan_chNN.resolved.json); output/<id>/assets/flow_specs.json, depth_metrics.json y zoom_verdicts.json (cachés).",
   "entrega": "output/<id>/<id>_final.mp4 (sin --gfx) o <id>_final_gfx.mp4 (con --gfx) y el respaldo *_no_music.mp4; output/<id>/_fase2b_work/ (seg_NN_chNN.mp4, chNN_flux_visual.mp4, chNN_hybrid_visual.mp4, chNN_subs.ass, segments_manifest.json, mezcla_preview.wav); output/<id>/flow_plan.json; output/audio/<id>/intensity_map.json; output/<id>/GUION_PANTALLA.md/.json (--plan-only); el bloque aprobado dentro de GUION_PANTALLA.json (--aprobar-guion); estado video_generated en topics_db.",
   "modelo": [
@@ -39,7 +39,7 @@
     "por_que": "único llamador es fase2b.py:3393 dentro de `if paralelo`, y paralelo exige GFX_PARALELO > 1, constante en 1 (fase2b.py:2647, marcada DESCARTADO); inalcanzable con el código tal cual, solo test_module_f28c.py la ejerce forzando la constante a 2"
    }
   ],
-  "md5": "e9ea0153e3e1e868a513591d02e2ab15",
+  "md5": "b7ae1f5b2825b2231556fc00917c9ee5",
   "_parte": "fase2b_gfx_a"
  },
  "gfx_config.py": {
@@ -641,7 +641,7 @@
   "_parte": "fase2b_gfx_d"
  },
  "script_engine/transition_applier.py": {
-  "sticker": "Pega los capítulos uno detrás de otro para armar el video completo. Con la capa gráfica (--gfx) hace un corte a negro y el capítulo siguiente sube desde negro, re-encodeando solo una ventana alrededor de cada unión; sin la capa gráfica usa las transiciones de los perfiles de arte (incluido el flash blanco) o, si algo falla, un corte seco.",
+  "sticker": "Pega los capítulos uno detrás de otro para armar el video completo. Con la capa gráfica (--gfx) hace un corte a negro y el capítulo siguiente sube desde negro, re-encodeando solo una ventana alrededor de cada unión; sin la capa gráfica usa las transiciones de los perfiles de arte (incluido el flash blanco) o, si algo falla, un corte seco. F76: el bitrate AAC del mux final sale de `aac_bitrate` del perfil (mismo 192k).",
   "recibe": "Lista de segmentos mp4 por capítulo (output/<id>/_fase2b_work/chNN_*.mp4), los art_profile de cada cap y los args del encoder (fase2b._venc()); ajustes de transition_config / transition_profiles",
   "entrega": "output/<id>/_fase2b_work/_concat_video.ts y _concat_audio.wav (insumos de la mezcla de música) más el mp4 concatenado sin música (final_path)",
   "modelo": [],
@@ -652,7 +652,7 @@
   "estado": "vivo",
   "estado_prueba": "fase2b.py:2707-2710 llama concat_windowed y fase2b.py:2719-2721 el fallback _concat_demuxer_fallback y concat_with_transitions en _concat_segments (el armado del preview sin gfx corre en fondos; con --gfx en render)",
   "funciones_muertas": [],
-  "md5": "64944830e968e377ce411c451a6ca046",
+  "md5": "b31d1beaf63afc8856596bbd16c335c9",
   "_parte": "fase2b_gfx_c"
  },
  "transition_config.py": {

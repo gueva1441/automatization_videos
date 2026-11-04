@@ -21,6 +21,17 @@ AUDIO_PROFILES: dict[str, dict] = {
         # MS Narrador sale ~8 dB más fuerte que Bill (−15.8 contra −23.9 LUFS medidos en F9): la música por track está
         # calibrada con Bill, así que la voz v4 se lleva al nivel de Bill (loudnorm de ffmpeg, una pasada)
         "voice_lufs_v4": -24.0,
+        # F76 — master del mp4 final (script_engine/audio_master.py), sobre la mezcla terminada (la voz sigue a −24):
+        # sonoridad integrada del master: decisión de Omar, DECISIONES 2026-11-04 (YouTube normaliza a ~−14)
+        "master_lufs": -14.0,
+        # techo de pico real del archivo final (AAC): el que ya usaba el proyecto en audio_manager._normalize_loudness
+        "master_tp_dbtp": -1.5,
+        # sobremuestreo del limitador para que limite el pico real: ITU-R BS.1770-4, anexo 2 (pico real = ×4)
+        "master_oversample": 4,
+        # tolerancia de la sonoridad: EBU R128 (desvío permitido ±0,5 LU donde la normalización exacta es posible)
+        "master_lufs_tol_lu": 0.5,
+        # bitrate AAC del audio final: el literal que ya usaban fase2b y transition_applier (F76 lo nombra, mismo valor)
+        "aac_bitrate": "192k",
         "voice_settings": {
             "stability": 0.45,
             "similarity_boost": 0.8,

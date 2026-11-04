@@ -1,0 +1,37 @@
+{
+  "original": {
+    "I": -24.0,
+    "LRA": 6.6,
+    "pico": -6.6
+  },
+  "pasadas": [
+    {
+      "pasada": 1,
+      "G": 10.0,
+      "techo": -1.5,
+      "I": -14.3,
+      "LRA": 6.0,
+      "pico": -1.2,
+      "falla": 0.3
+    },
+    {
+      "pasada": 2,
+      "G": 10.3,
+      "techo": -1.8,
+      "I": -14.2,
+      "LRA": 5.9,
+      "pico": -1.6,
+      "falla": 0.0
+    }
+  ],
+  "elegida": {
+    "pasada": 2,
+    "G": 10.3,
+    "techo": -1.8,
+    "I": -14.2,
+    "LRA": 5.9,
+    "pico": -1.6,
+    "falla": 0.0
+  },
+  "aviso": null
+}

@@ -88,7 +88,7 @@
   "_parte": "fase2a_c"
  },
  "audio_manager.py": {
-  "sticker": "Le da voz al video: manda el texto de cada capítulo a ElevenLabs, guarda el mp3, mide cuándo suena cada palabra con el alineador de ElevenLabs y arma el sync_map, el índice con duraciones, tiempos y volúmenes que usan todas las etapas siguientes. Si el texto no cambió, reusa el audio ya grabado.",
+  "sticker": "Le da voz al video: manda el texto de cada capítulo a ElevenLabs, guarda el mp3, mide cuándo suena cada palabra con el alineador de ElevenLabs y arma el sync_map, el índice con duraciones, tiempos y volúmenes que usan todas las etapas siguientes. Si el texto no cambió, reusa el audio ya grabado. F76: el techo de pico real del loudnorm de la voz (`TP`) se lee de `master_tp_dbtp` del perfil (mismo −1,5).",
   "recibe": "guion armado por fase1_5 (video_id + capítulos con texto, intención y, si es guion v4, narration_tts); data/scripts/_steps/<id>/01b_narration_normalized.json si existe; perfil de audio de audio_config/audio_profiles.",
   "entrega": "output/audio/<id>/chNN.mp3, chNN_timestamps.json, chNN_alignment.json, chNN.meta.json y output/audio/<id>/sync_map.json.",
   "modelo": [
@@ -119,13 +119,13 @@
     "por_que": "nadie la llama en todo el repo; solo la nombra el docstring de test_module_38_timestamps_lab.py (camino Whisper viejo)"
    }
   ],
-  "md5": "ec793287942671a54ae266ef9addf2ff",
+  "md5": "4c79c195be348e0744c7d53a34bf7365",
   "_parte": "fase2a_c"
  },
  "audio_profiles.py": {
-  "sticker": "Es el catálogo de perfiles de sonido del canal: qué voz usa cada perfil (Bill, MS Narrador v4, George, Daniel), los ajustes de la voz por tipo de momento narrativo y los volúmenes de música y efectos con su ducking. Solo datos.",
+  "sticker": "Es el catálogo de perfiles de sonido del canal: qué voz usa cada perfil (Bill, MS Narrador v4, George, Daniel), los ajustes de la voz por tipo de momento narrativo y los volúmenes de música y efectos con su ducking. Solo datos. F76: el perfil MISTERIO_ABISAL trae las constantes del master del mp4 final (master_lufs −14, master_tp_dbtp −1,5, master_oversample 4, master_lufs_tol_lu 0,5, aac_bitrate 192k), cada una con su origen.",
   "recibe": "nada (diccionarios escritos a mano).",
-  "entrega": "AUDIO_PROFILES, VOICE_SETTINGS_BY_INTENT y VOICE_SETTINGS_BY_INTENT_V4, que importan audio_config, audio_manager y mixer_server.",
+  "entrega": "AUDIO_PROFILES, VOICE_SETTINGS_BY_INTENT y VOICE_SETTINGS_BY_INTENT_V4, que importan audio_config, audio_manager y mixer_server. Desde F76 también las constantes master_* y aac_bitrate que leen script_engine/audio_master.py, fase2b, transition_applier y audio_manager.",
   "modelo": [],
   "etapa": [
    "guion",
@@ -135,7 +135,7 @@
   "estado": "vivo",
   "estado_prueba": "audio_manager.py:56 importa VOICE_SETTINGS_BY_INTENT y _V4; audio_config.py:5 importa AUDIO_PROFILES (usado por fase1_5 vía audio_manager); mixer_server.py:41 lo importa",
   "funciones_muertas": [],
-  "md5": "7ebf9a15fe0bd00df3d8c586581e56d1",
+  "md5": "6473a40f9c4df0e4f1692ae961955238",
   "_parte": "fase2a_c"
  },
  "engine_profiles.py": {
@@ -683,5 +683,20 @@
   "funciones_muertas": [],
   "_parte": "F50 B (CC)",
   "md5": "a0f8253247c68cde3fb15086bec5c3e3"
+ },
+ "script_engine/audio_master.py": {
+  "sticker": "F76: sube el audio del video final a −14 LUFS sin pasar el pico real de −1,5 dBTP, en el mismo archivo y sin tocar el video. Mide el audio, lo pasa por ganancia + limitador sobremuestreado ×4 + AAC, mide el AAC y corrige ganancia y techo pasada a pasada hasta que cumple las dos cosas; si una pasada no mejora, se queda con la mejor que cumple el pico (o la de menor pico) y deja un ⚠ sin frenar el pipeline. Imprime la tabla de pasadas.",
+  "recibe": "La ruta del mp4 final que deja fase2b (output/<id>/<id>_final.mp4 o <id>_final_gfx.mp4) y el binario ffmpeg; constantes master_lufs, master_tp_dbtp, master_oversample, master_lufs_tol_lu y aac_bitrate del perfil de audio (audio_config/audio_profiles).",
+  "entrega": "El mismo mp4 reemplazado (video -c:v copy, audio AAC masterizado) y un dict {original, pasadas, elegida, aviso}; la tabla de pasadas va al log del paso. Temporales en _<stem>_master/ junto al mp4, borrados al terminar. `_perfil` lo usan además fase2b (AAC_BITRATE), transition_applier y audio_manager.",
+  "modelo": [],
+  "etapa": [
+   "fondos",
+   "render"
+  ],
+  "estado": "vivo",
+  "estado_prueba": "fase2b.py:3663 llama master_mp4(final_path) en _assemble_one_video, justo antes de final_dur, común a los 3 caminos de mezcla (el armado corre en fondos sin --gfx y en render con --gfx); test_module_f76.py lo prueba con mediciones simuladas y con ffmpeg real sobre un mp4 sintético.",
+  "funciones_muertas": [],
+  "md5": "2764906e97475c9bb294bd7b58df19f1",
+  "_parte": "F76 E1 (CC)"
  }
 }

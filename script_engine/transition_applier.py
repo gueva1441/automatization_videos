@@ -27,6 +27,7 @@ import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 
+from script_engine.audio_master import _perfil as _audio_perfil   # F76: aac_bitrate del perfil
 from transition_config import (
     DEFAULT_TRANSITION,
     get_effect,
@@ -428,7 +429,7 @@ def concat_windowed(
 
     # final (sin música): video copiado + audio AAC
     r = _run_cmd([ffmpeg, "-v", "error", "-y", "-i", str(video_ts), "-i", str(audio_wav), "-map", "0:v:0", "-map", "1:a:0",
-                  "-c:v", "copy", "-c:a", transition_render.audio_codec, "-b:a", "192k", "-movflags", "+faststart",
+                  "-c:v", "copy", "-c:a", transition_render.audio_codec, "-b:a", _audio_perfil("aac_bitrate"), "-movflags", "+faststart",
                   str(final_path)], timeout=900)
     if r.returncode != 0:
         raise RuntimeError(f"mux final: {r.stderr[-300:]}")

@@ -62,6 +62,7 @@ from script_engine.topics_db import (
 )
 from flow_profiles import FlowSpec
 from script_engine.transition_applier import concat_with_transitions
+from script_engine.audio_master import master_mp4, _perfil as _audio_perfil   # F76: master −14 LUFS del mp4 final
 from subs_remap import remap_words_to_original
 from anchor_timing import compute_anchor_starts, normalizado_de_timestamps
 
@@ -98,6 +99,8 @@ def _find_ffmpeg_binary(name: str) -> str | None:
 
 FFMPEG: str | None = _find_ffmpeg_binary("ffmpeg")
 FFPROBE: str | None = _find_ffmpeg_binary("ffprobe")
+# bitrate AAC del audio final: constante del perfil (audio_profiles.aac_bitrate, F76; mismo valor que el literal viejo)
+AAC_BITRATE: str = _audio_perfil("aac_bitrate")
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -1340,14 +1343,14 @@ def _build_chapter_segment(
             labels.append(f"[s{k}]")
         graph.append(f"{''.join(labels)}amix=inputs={len(labels)}:duration=first:normalize=0[aout]")
         cmd += ["-filter_complex", ";".join(graph), "-map", "0:v:0", "-map", "[aout]",
-                *_venc(), "-c:a", "aac", "-b:a", "192k"]
+                *_venc(), "-c:a", "aac", "-b:a", AAC_BITRATE]
     else:
         cmd += [
             "-map", "0:v:0",
             "-map", "1:a:0",
             *_venc(),
             "-c:a", "aac",
-            "-b:a", "192k",
+            "-b:a", AAC_BITRATE,
         ]
         if af_parts:
             cmd += ["-af", ",".join(af_parts)]
@@ -2038,7 +2041,7 @@ def _mix_music_into_video(
             *_venc(),                   # CHAT 32: tpad re-encodea → ya no podemos copy
             "-pix_fmt", "yuv420p",
             "-c:a", "aac",
-            "-b:a", "192k",
+            "-b:a", AAC_BITRATE,
             "-shortest",
             str(output_path),
         ]
@@ -2080,7 +2083,7 @@ def _mix_music_into_video(
             *_venc(),
             "-pix_fmt", "yuv420p",
             "-c:a", "aac",
-            "-b:a", "192k",
+            "-b:a", AAC_BITRATE,
             "-shortest",
             str(output_path),
         ]
@@ -2168,7 +2171,7 @@ def _mix_music_audio_only(
     graph, inputs = _grafo_musica(audio_wav, music_path, mixing, music_floor_path, intro_sec)
     mixed = work_dir / "_mixed_audio.m4a"
     r = _run_cmd([FFMPEG, "-v", "error", "-y", *inputs, "-filter_complex", graph, "-map", "[mixed]",
-                  "-c:a", "aac", "-b:a", "192k", str(mixed)], timeout=900)
+                  "-c:a", "aac", "-b:a", AAC_BITRATE, str(mixed)], timeout=900)
     if r.returncode != 0:
         raise RuntimeError(f"mezcla de audio falló: {r.stderr[-300:]}")
 
@@ -3654,6 +3657,10 @@ def _assemble_one_video(
         music_floor_path.unlink(missing_ok=True)
         print(f"     ✅ música mezclada en {final_path.name}")
 
+    # F76: master del mp4 final (−14 LUFS, pico real ≤ −1,5 dBTP), común a los 3 caminos (sin música / audio solo /
+    # clásica); el video sale con -c:v copy. _final_gfx_no_music.mp4 y mezcla_preview.wav quedan a −24 (no se publican).
+    print(f"\n  🔊 Master del audio final ({final_path.name})...")
+    master_mp4(final_path, ffmpeg=FFMPEG, log=print)
     final_dur = _get_duration(final_path)
     final_size_mb = final_path.stat().st_size / (1024 * 1024)
 

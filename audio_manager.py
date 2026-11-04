@@ -58,6 +58,7 @@ from error_handler import error_handler, PipelineStage
 from cost_tracker import cost_tracker
 
 from tts_normalizer import normalize_for_tts
+from script_engine.audio_master import _perfil as _master_perfil   # F76: techo de pico real del perfil
 from anchor_timing import _norm as _anchor_norm  # HANDOFF_135e: filtra entries no-palabra
 
 
@@ -457,10 +458,10 @@ def tts_v4_enabled(chapter: dict) -> bool:
 
 
 def _normalize_loudness(path: Path, lufs: float) -> None:
-    """F9: lleva el mp3 a `lufs` LUFS integrados (loudnorm, una pasada; pico real −1.5 dBTP), en el lugar."""
+    """F9: lleva el mp3 a `lufs` LUFS integrados (loudnorm, una pasada; pico real `master_tp_dbtp` del perfil, F76), en el lugar."""
     tmp = path.with_name(f"{path.stem}._norm{path.suffix}")
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(path), "-af",
-                    f"loudnorm=I={lufs}:TP=-1.5:LRA=11", "-ar", "44100", "-c:a", "libmp3lame", "-b:a", "128k",
+                    f"loudnorm=I={lufs}:TP={_master_perfil('master_tp_dbtp')}:LRA=11", "-ar", "44100", "-c:a", "libmp3lame", "-b:a", "128k",
                     str(tmp)], check=True, capture_output=True)
     tmp.replace(path)
 
