@@ -4,7 +4,10 @@
 Sin red: nada llama a fal ni a un LLM."""
 from __future__ import annotations
 
+import hashlib
 import json
+import re
+import sys
 from pathlib import Path
 
 import pytest
@@ -184,16 +187,17 @@ def test_clave_de_foto_tramo_y_edad():
 
 
 def test_prompt_variante_texto_completo():
-    p = fm._prompt_variante(fm.clave_de_foto(CARMEN, "2000"))
-    assert p == ("The same person as in the reference image: same face, same features, same identity. Now a early-30s person. "
-                 "Unable to work, living on a disability pension. Show only what of this would be visible on the body; if nothing "
-                 "is visible, keep the person unchanged. Waist-up portrait framed so that the face and both hands are visible, "
-                 "wearing a plain, clean, light-coloured shirt, plain mid-grey background, soft even light. A grainy 35mm "
+    """F78b: edad exacta en dígitos + estado_visible (no la condition cruda); sin la frase «Show only…» ni el descriptor."""
+    p = fm._prompt_variante(fm.clave_de_foto(CARMEN, "2000"), "")
+    assert p == ("The same person as in the reference image: same face, same features, same identity. The person is now 33 years "
+                 "old; show that age in the face, hair and body. Waist-up portrait framed so that the face and both hands are "
+                 "visible, wearing a plain, clean, light-coloured shirt, plain mid-grey background, soft even light. A grainy 35mm "
                  "documentary photograph taken in 1992, with muted colors and slight underexposure, in a dark-history realist "
                  "style. No readable text, no signage, no labels.")
-    sin_edad = fm._prompt_variante(fm.clave_de_foto(ARCADIO, "1985"))
-    assert "Now a" not in sin_edad and "Deformed hands and upper body with disabling chronic pain. Show only" in sin_edad
-    assert "taken in 1981" in sin_edad
+    con = fm._prompt_variante(fm.clave_de_foto(ARCADIO, "1985"), "fingers curled and rigid with misshapen knuckles.")
+    assert ("same identity. fingers curled and rigid with misshapen knuckles. Waist-up portrait" in con
+            and "years old" not in con and "Deformed" not in con and "Show only" not in con and "taken in 1981" in con)
+    assert "early-30s" not in p and "Show only" not in p
 
 
 def test_prompt_persona_lleva_rasgos():
@@ -228,11 +232,17 @@ def _visual78():
         {"prompt": "f", "persona": ["Jesús Sancho Rof"], "anio": "1981", "people_group": []}]}]}
 
 
+ESTADOS_FAKE: dict[str, str] = {}
+
+
 def _fakes(monkeypatch, tmp_path, llamadas, rasgos_por_nombre):
     monkeypatch.setattr(fm, "OUTPUT_DIR", tmp_path)
     monkeypatch.setattr(fm.api, "image_engine", "nb2_lite", raising=False)
     monkeypatch.setattr(fm, "_llamar_rasgos", lambda entrada: (llamadas.append(("rasgos", [e["name"] for e in entrada])),
                                                                {e["name"]: rasgos_por_nombre[e["name"]] for e in entrada})[1])
+    monkeypatch.setattr(fm, "_llamar_estados", lambda filas: (llamadas.append(("estados", [(f["name"], f["tramo"]) for f in filas])),
+                                                              {(f["name"], f["tramo"]): ESTADOS_FAKE.get(f["tramo"], "gaunt face")
+                                                               for f in filas})[1])
 
     def madre(prompt, dest):
         llamadas.append(("madre", dest.name, prompt))
@@ -271,14 +281,15 @@ def test_madres_con_rasgos_y_variantes_por_clave(tmp_path, monkeypatch):
     llamadas.clear()
     fm.generate_fotos_madre_personas(topic, "vid", _visual78())
     assert llamadas == []
-    # cambian los rasgos de Carmen (entrada nueva): su madre y sus variantes van a _previas_f78a y se regeneran; Sancho Rof no
+    # cambian los rasgos de Carmen (entrada nueva): su madre y sus variantes van a _previas_f78b y se regeneran; Sancho Rof no
     topic["documented_people"][0]["role"] = "otra"
     rasgos["Carmen Cortés"] = "round face, short curly hair"
     fm.generate_fotos_madre_personas(topic, "vid", _visual78())
     assert ("madre", "carmen_cort_s.png") in [c[:2] for c in llamadas] and not [c for c in llamadas if c[1] == "jes_s_sancho_rof.png"]
-    previas = sorted(p.name for p in (tmp_path / "vid" / "foto_madre" / "_previas_f78a").iterdir())
-    assert previas == ["carmen_cort_s.png", "carmen_cort_s@1981-1982.png",
-                       "carmen_cort_s@1981-1982_15.png", "carmen_cort_s@1992-2000_33.png"]
+    previas = sorted(p.name for p in (tmp_path / "vid" / "foto_madre" / "_previas_f78b").iterdir())
+    assert previas == ["carmen_cort_s.png", "carmen_cort_s@1981-1982.png", "carmen_cort_s@1981-1982.prompt.txt",
+                       "carmen_cort_s@1981-1982_15.png", "carmen_cort_s@1981-1982_15.prompt.txt",
+                       "carmen_cort_s@1992-2000_33.png", "carmen_cort_s@1992-2000_33.prompt.txt"]
     assert len([c for c in llamadas if c[0] == "variante"]) == 3
 
 
@@ -291,8 +302,8 @@ def test_madre_de_antes_de_los_rasgos_se_mueve(tmp_path, monkeypatch):
     (d / "jes_s_sancho_rof.prompt.txt").write_text("viejo", encoding="utf-8")
     topic = {"id": "t", "documented_people": [dict(CARMEN), {**SANCHO, "foto_madre": str(d / "jes_s_sancho_rof.png")}]}
     fm.generate_fotos_madre_personas(topic, "vid", _visual78())
-    assert (d / "_previas_f78a" / "jes_s_sancho_rof.png").read_bytes() == PNG78
-    assert (d / "_previas_f78a" / "jes_s_sancho_rof.prompt.txt").read_text(encoding="utf-8") == "viejo"
+    assert (d / "_previas_f78b" / "jes_s_sancho_rof.png").read_bytes() == PNG78
+    assert (d / "_previas_f78b" / "jes_s_sancho_rof.prompt.txt").read_text(encoding="utf-8") == "viejo"
     assert "y face" in (d / "jes_s_sancho_rof.png").read_bytes().decode("latin-1")
 
 
@@ -304,7 +315,7 @@ def test_rasgos_fallan_no_mueve_nada(tmp_path, monkeypatch):
     (d / "jes_s_sancho_rof.png").write_bytes(PNG78)
     topic = {"id": "t", "documented_people": [dict(CARMEN), {**SANCHO, "foto_madre": str(d / "jes_s_sancho_rof.png")}]}
     est = fm.generate_fotos_madre_personas(topic, "vid", _visual78())
-    assert (d / "jes_s_sancho_rof.png").exists() and not (d / "_previas_f78a").exists()
+    assert (d / "jes_s_sancho_rof.png").exists() and not (d / "_previas_f78b").exists()
     assert est["Carmen Cortés"]["estado"].startswith("sin cambios: rasgos fallaron")
 
 
@@ -325,3 +336,154 @@ def test_m06_variantes_dentro_de_la_persona(tmp_path, monkeypatch):
     per = out["foto_madre_personas"]["Carmen Cortés"]
     assert per["age_at_event"] == 14 and per["variantes"] == [vs[0]]                    # solo las que existen
     assert "foto_madre_variantes" not in out
+
+
+# ── F78b: estado visible + edad exacta ──────────────────────────────────────────────────────────────────────────
+LOZANO = {"name": "Jesús Lozano", "role": "child victim", "era": "1981", "age_at_event": 6, "appearance_canon": "a six-year-old Spanish boy",
+          "condition_by_period": [{"years": "1981-1981", "condition": "Hospitalized in a glass-walled room with ten other children."}]}
+
+
+def _visual78b():
+    v = _visual78()
+    v["chapters"][0]["image_prompts"] += [{"prompt": "g", "persona": ["Jesús Lozano"], "anio": "1981", "people_group": []},
+                                          {"prompt": "h", "persona": ["Jesús Lozano"], "anio": "1981", "people_group": []}]
+    return v
+
+
+def test_estados_una_llamada_pares_unicos_y_prompt_nuevo(tmp_path, monkeypatch):
+    llamadas: list = []
+    _fakes(monkeypatch, tmp_path, llamadas, {"Carmen Cortés": "a", "Jesús Sancho Rof": "b", "Jesús Lozano": "c"})
+    monkeypatch.setattr(sys.modules[__name__], "ESTADOS_FAKE", {"1981-1982": "emaciated, hollow cheeks, very thin arms."})
+    topic = {"id": "t", "documented_people": [dict(CARMEN), dict(SANCHO), dict(LOZANO)]}
+    est = fm.generate_fotos_madre_personas(topic, "vid", _visual78b())
+    # UNA llamada; una fila por (persona, tramo) único: Carmen 1981-1982 (dos claves → una fila), Carmen 1992-2000, Lozano
+    assert [c for c in llamadas if c[0] == "estados"] == [("estados", [("Carmen Cortés", "1981-1982"), ("Carmen Cortés", "1992-2000"),
+                                                                       ("Jesús Lozano", "1981-1981")])]
+    prompts = {c[1]: c[3] for c in llamadas if c[0] == "variante"}
+    assert "same identity. emaciated, hollow cheeks, very thin arms. Waist-up" in prompts["carmen_cort_s@1981-1982.png"]
+    assert "now 15 years old; show that age in the face, hair and body. emaciated" in prompts["carmen_cort_s@1981-1982_15.png"]
+    assert "now 33 years old" in prompts["carmen_cort_s@1992-2000_33.png"] and "gaunt face." in prompts["carmen_cort_s@1992-2000_33.png"]
+    ej = json.loads((tmp_path / "vid" / "foto_madre" / "estados.json").read_text(encoding="utf-8"))
+    assert ej["md5_entrada"] and [e["tramo"] for e in ej["estados"]] == ["1981-1982", "1992-2000", "1981-1981"]
+    assert ej["entrada"][0] == {"name": "Carmen Cortés", "tramo": "1981-1982", "condition": "Visibly emaciated"}
+    # la firma queda en el .prompt.txt de la variante
+    txt = (tmp_path / "vid" / "foto_madre" / "carmen_cort_s@1981-1982.prompt.txt").read_text(encoding="utf-8")
+    assert re.search(r"^firma: [0-9a-f]{32}$", txt, re.M) and "emaciated" in txt
+    assert [v["estado"] for v in est["Carmen Cortés"]["variantes"]] == ["ok", "ok", "ok"]
+
+
+def test_sin_estado_visible_y_sin_edad_no_hay_variante(tmp_path, monkeypatch):
+    llamadas: list = []
+    _fakes(monkeypatch, tmp_path, llamadas, {"Carmen Cortés": "a", "Jesús Sancho Rof": "b", "Jesús Lozano": "c"})
+    monkeypatch.setattr(sys.modules[__name__], "ESTADOS_FAKE", {"1981-1981": "", "1992-2000": ""})
+    d = tmp_path / "vid" / "foto_madre"
+    d.mkdir(parents=True)
+    for n in ("jes_s_lozano@1981-1981.png", "jes_s_lozano@1981-1981_native.png"):     # variante vieja (F78a) en disco
+        (d / n).write_bytes(PNG78)
+    (d / "jes_s_lozano@1981-1981.llamada.json").write_text("{}", encoding="utf-8")
+    topic = {"id": "t", "documented_people": [dict(CARMEN), dict(SANCHO), dict(LOZANO)]}
+    est = fm.generate_fotos_madre_personas(topic, "vid", _visual78b())
+    lozano = topic["documented_people"][2]
+    assert lozano["foto_madre_variantes"] == [] and est["Jesús Lozano"]["variantes"][0]["estado"] == "sin variante: sin estado visible"
+    assert not [c for c in llamadas if c[0] == "variante" and c[1].startswith("jes_s_lozano")]
+    assert sorted(x.name for x in (d / "_previas_f78b").iterdir()) == [
+        "jes_s_lozano@1981-1981.llamada.json", "jes_s_lozano@1981-1981.png", "jes_s_lozano@1981-1981_native.png"]
+    # Carmen 1992-2000 sin estado visible pero con edad 33 → variante solo con la edad
+    p33 = next(c[3] for c in llamadas if c[0] == "variante" and c[1] == "carmen_cort_s@1992-2000_33.png")
+    assert "now 33 years old; show that age in the face, hair and body. Waist-up" in p33
+
+
+def test_cache_de_estados_firma_y_rasgos_intactos(tmp_path, monkeypatch):
+    llamadas: list = []
+    _fakes(monkeypatch, tmp_path, llamadas, {"Carmen Cortés": "a", "Jesús Sancho Rof": "b"})
+    estados_fake = {"1981-1982": "thin arms", "1992-2000": ""}
+    monkeypatch.setattr(sys.modules[__name__], "ESTADOS_FAKE", estados_fake)
+    topic = {"id": "t", "documented_people": [dict(CARMEN), dict(SANCHO)]}
+    fm.generate_fotos_madre_personas(topic, "vid", _visual78())
+    d = tmp_path / "vid" / "foto_madre"
+    rasgos_md5 = hashlib.md5((d / "rasgos.json").read_bytes()).hexdigest()
+    madre_md5 = hashlib.md5((d / "carmen_cort_s.png").read_bytes()).hexdigest()
+    llamadas.clear()
+    fm.generate_fotos_madre_personas(topic, "vid", _visual78())        # misma entrada, misma firma → nada
+    assert llamadas == []
+    # cambia la condición de 1981-1982 (entrada de estados nueva): una llamada de estados, solo esas variantes se rehacen
+    topic["documented_people"][0]["condition_by_period"][0]["condition"] = "Lost twenty kilos."
+    estados_fake["1981-1982"] = "very thin, sunken cheeks"
+    fm.generate_fotos_madre_personas(topic, "vid", _visual78())
+    assert [c[0] for c in llamadas].count("estados") == 1 and not [c for c in llamadas if c[0] in ("rasgos", "madre")]
+    rehechas = sorted(c[1] for c in llamadas if c[0] == "variante")
+    assert rehechas == ["carmen_cort_s@1981-1982.png", "carmen_cort_s@1981-1982_15.png"]      # la de 33 tiene la misma firma
+    assert hashlib.md5((d / "rasgos.json").read_bytes()).hexdigest() == rasgos_md5                  # rasgos.json intacto
+    assert hashlib.md5((d / "carmen_cort_s.png").read_bytes()).hexdigest() == madre_md5              # la madre no cambia de cara
+    assert sorted(x.name for x in (d / "_previas_f78b").iterdir() if x.suffix == ".png") == [
+        "carmen_cort_s@1981-1982.png", "carmen_cort_s@1981-1982_15.png"]
+
+
+def test_variante_de_antes_de_la_firma_se_rehace(tmp_path, monkeypatch):
+    llamadas: list = []
+    _fakes(monkeypatch, tmp_path, llamadas, {"Carmen Cortés": "a", "Jesús Sancho Rof": "b"})
+    topic = {"id": "t", "documented_people": [dict(CARMEN), dict(SANCHO)]}
+    fm.generate_fotos_madre_personas(topic, "vid", _visual78())
+    d = tmp_path / "vid" / "foto_madre"
+    pt = d / "carmen_cort_s@1992-2000_33.prompt.txt"
+    pt.write_text("modelo: x\n\nprompt viejo de F78a\n", encoding="utf-8")          # sin firma
+    llamadas.clear()
+    fm.generate_fotos_madre_personas(topic, "vid", _visual78())
+    assert [c[1] for c in llamadas if c[0] == "variante"] == ["carmen_cort_s@1992-2000_33.png"]
+    assert (d / "_previas_f78b" / "carmen_cort_s@1992-2000_33.prompt.txt").read_text(encoding="utf-8").endswith("F78a\n")
+
+
+def test_estados_fallan_no_mueve_ni_genera_variantes(tmp_path, monkeypatch):
+    llamadas: list = []
+    _fakes(monkeypatch, tmp_path, llamadas, {"Carmen Cortés": "a", "Jesús Sancho Rof": "b"})
+    topic = {"id": "t", "documented_people": [dict(CARMEN), dict(SANCHO)]}
+    fm.generate_fotos_madre_personas(topic, "vid", _visual78())
+    vivas = topic["documented_people"][0]["foto_madre_variantes"]
+    topic["documented_people"][0]["condition_by_period"][0]["condition"] = "otra"
+    monkeypatch.setattr(fm, "_llamar_estados", lambda f: (_ for _ in ()).throw(RuntimeError("401")))
+    llamadas.clear()
+    est = fm.generate_fotos_madre_personas(topic, "vid", _visual78())
+    assert est["Carmen Cortés"]["variantes"].startswith("sin cambios: estados fallaron")
+    assert not [c for c in llamadas if c[0] == "variante"] and not (tmp_path / "vid" / "foto_madre" / "_previas_f78b").exists()
+    assert topic["documented_people"][0]["foto_madre_variantes"] == vivas
+
+
+def test_sin_tramos_no_hay_llamada_de_estados(tmp_path, monkeypatch):
+    llamadas: list = []
+    _fakes(monkeypatch, tmp_path, llamadas, {"Carmen Cortés": "a"})
+    sin_estado = {**CARMEN, "condition_by_period": []}
+    visual = {"chapters": [{"chapter_number": 7, "image_prompts": [
+        {"prompt": "a", "persona": ["Carmen Cortés"], "anio": "1990", "people_group": []},
+        {"prompt": "b", "persona": ["Carmen Cortés"], "anio": "1990", "people_group": []}]}]}
+    topic = {"id": "t", "documented_people": [sin_estado]}
+    fm.generate_fotos_madre_personas(topic, "vid", visual)
+    assert not [c for c in llamadas if c[0] == "estados"] and not (tmp_path / "vid" / "foto_madre" / "estados.json").exists()
+    assert [c[1] for c in llamadas if c[0] == "variante"] == ["carmen_cort_s@sin_estado_23.png"]      # solo la edad
+
+
+def test_llamar_estados_schema_y_cruce(monkeypatch):
+    import claude_helpers
+    vistos = []
+
+    def call_json(prompt, **k):
+        vistos.append((prompt, k))
+        return [{"name": "Arcadio Fernandez", "tramo": "1981-1989", "estado_visible": "curled rigid fingers."},
+                {"name": "Arcadio Fernandez", "tramo": "1981-1982", "estado_visible": "cruzado"}]   # par que no está en la entrada
+    monkeypatch.setattr(claude_helpers, "call_json", call_json)
+    filas = [{"name": "Arcadio Fernandez", "tramo": "1981-1989", "condition": "x"},
+             {"name": "Carmen Cortés", "tramo": "1981-1982", "condition": "y"}]
+    assert fm._llamar_estados(filas) == {("Arcadio Fernandez", "1981-1989"): "curled rigid fingers"}
+    (prompt, k), = vistos
+    assert prompt.startswith(fm.PROMPT_ESTADOS) and k["description"] == "foto madre estados" and k["model"] == "claude-opus-5-5"
+    props = k["response_schema"]["items"]["properties"]
+    assert props["name"]["enum"] == ["Arcadio Fernandez", "Carmen Cortés"] and props["tramo"]["enum"] == ["1981-1982", "1981-1989"]
+
+
+def test_a_previas_mueve_todos_los_hermanos(tmp_path):
+    for n in ("v@1.png", "v@1_native.png", "v@1.prompt.txt", "v@1.llamada.json"):
+        (tmp_path / n).write_text(n, encoding="utf-8")
+    assert fm._a_previas(tmp_path / "v@1.png", "_previas_x") == tmp_path / "_previas_x" / "v@1.png"
+    assert sorted(x.name for x in tmp_path.iterdir()) == ["_previas_x"]
+    (tmp_path / "v@1.png").write_text("otra", encoding="utf-8")
+    assert fm._a_previas(tmp_path / "v@1.png", "_previas_x").name == "v@1_2.png"      # nada se pisa
+    assert fm._a_previas(tmp_path / "no.png") is None

@@ -37,8 +37,9 @@ RASGOS_FAKE = "oval face, short dark hair, clean-shaven, no glasses, medium buil
 
 @pytest.fixture(autouse=True)
 def _rasgos_y_variantes_fake(monkeypatch):
-    """F78a: la llamada de rasgos y el /edit de las variantes no salen a la red (se prueban en test_module_f78a)."""
+    """F78a/F78b: las llamadas de rasgos y de estados y el /edit de las variantes no salen a la red (se prueban en test_module_f78a)."""
     monkeypatch.setattr(fm, "_llamar_rasgos", lambda entrada: {e["name"]: RASGOS_FAKE for e in entrada})
+    monkeypatch.setattr(fm, "_llamar_estados", lambda filas: {(f["name"], f["tramo"]): "thin pale arms" for f in filas})
 
     def var(prompt, madre, dest):
         dest.parent.mkdir(parents=True, exist_ok=True)

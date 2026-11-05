@@ -78,7 +78,10 @@ EDAD_EN_PALABRAS = ("one", "two", "three", "four", "five", "six", "seven", "eigh
                     "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen")
 # F78a: los rasgos inventados por persona (una llamada con todas) y la carpeta donde va lo viejo que se reemplaza.
 RASGOS_JSON = "rasgos.json"
-PREVIAS_DIR = "_previas_f78a"
+# F78b: lo visible del estado por (persona, tramo), una llamada con todas las filas; cache aparte de los rasgos.
+ESTADOS_JSON = "estados.json"
+# Carpeta de lo reemplazado = la de la tanda que lo reemplaza (F78a: madres sin rasgos; F78b: variantes con el estado crudo).
+PREVIAS_DIR = "_previas_f78b"
 
 
 def descriptor_edad(n: Any) -> str | None:
@@ -152,10 +155,21 @@ def _ensure_real_png(path: Path) -> None:
     print(f"     [foto_madre] re-encodada a PNG real: {path.name}")
 
 
-def _guardar_prompt_madre(dest: Path, prompt: str, modelo: str) -> None:
-    """F68: el prompt de la madre queda junto a ella (`<slug>.prompt.txt`), antes de pedirla."""
+def _guardar_prompt_madre(dest: Path, prompt: str, modelo: str, firma: str | None = None) -> None:
+    """F68: el prompt de la madre queda junto a ella (`<slug>.prompt.txt`), antes de pedirla. F78b: la variante lleva además su
+    `firma` (md5 de estado_visible + edad) en una línea propia; si cambia, la variante se rehace."""
     dest.parent.mkdir(parents=True, exist_ok=True)
-    dest.with_suffix(".prompt.txt").write_text(f"modelo: {modelo}\n\n{prompt}\n", encoding="utf-8")
+    cab = f"modelo: {modelo}\n" + (f"firma: {firma}\n" if firma else "")
+    dest.with_suffix(".prompt.txt").write_text(f"{cab}\n{prompt}\n", encoding="utf-8")
+
+
+def _firma_de(dest: Path) -> str | None:
+    """F78b: la `firma` guardada en el `.prompt.txt` de una variante (None si no hay archivo o no la tiene: variante vieja)."""
+    t = dest.with_suffix(".prompt.txt")
+    if not t.exists():
+        return None
+    m = re.search(r"^firma: (\w+)$", t.read_text(encoding="utf-8"), re.M)
+    return m.group(1) if m else None
 
 
 def _generate_madre_gpt(prompt: str, dest: Path) -> dict:
@@ -470,36 +484,90 @@ def rasgos_personas(entrada: list[dict], madre_dir: Path) -> tuple[dict[str, dic
     return nuevos, previos
 
 
-def _a_previas(path: Path) -> Path | None:
-    """F78a: mueve `path` (y su `.prompt.txt`) a `foto_madre/_previas_f78a/`; nada se borra (si el nombre ya está, sufijo _2, _3…)."""
+def _a_previas(path: Path, carpeta: str = PREVIAS_DIR) -> Path | None:
+    """F78a/F78b: mueve `path` y TODOS sus archivos hermanos (`<stem>_native.png`, `.prompt.txt`, `.llamada.json`) a
+    `<dir>/<carpeta>/`; nada se borra (si el nombre ya está, sufijo _2, _3…). Devuelve dónde quedó `path` (None si no existía)."""
     if not path.exists():
         return None
-    dest_dir = path.parent / PREVIAS_DIR
+    dest_dir = path.parent / carpeta
     dest_dir.mkdir(parents=True, exist_ok=True)
-    dest, k = dest_dir / path.name, 2
-    while dest.exists():
-        dest, k = dest_dir / f"{path.stem}_{k}{path.suffix}", k + 1
-    path.rename(dest)
-    pt = path.with_suffix(".prompt.txt")
-    if pt.exists():
-        dp, k = dest_dir / pt.name, 2
-        while dp.exists():
-            dp, k = dest_dir / f"{path.stem}_{k}.prompt.txt", k + 1
-        pt.rename(dp)
-    return dest
+    sufijos = (path.suffix, "_native.png", ".prompt.txt", ".llamada.json")
+    k = 1
+    while any((dest_dir / f"{path.stem}{'' if k == 1 else '_' + str(k)}{suf}").exists() for suf in sufijos):
+        k += 1
+    stem = path.stem if k == 1 else f"{path.stem}_{k}"
+    destino = dest_dir / f"{stem}{path.suffix}"
+    path.rename(destino)
+    for suf in sufijos[1:]:
+        x = path.parent / f"{path.stem}{suf}"
+        if x.exists():
+            x.rename(dest_dir / f"{stem}{suf}")
+    return destino
 
 
-def _prompt_variante(cv: dict) -> str:
-    """F78a (b): el texto del /edit de la variante (completo, del handoff): edad si hay, estado si hay, cintura para arriba con
-    cara y manos, ROPA_MADRE, ESTILO_C con `anio_estilo` (primer año del tramo; sin tramo, el año de la edad), NO_TEXT."""
+# F78b: el pedido de lo visible del estado, tal cual el handoff. Entrada = JSON con una fila por (persona, tramo) de variante.
+PROMPT_ESTADOS = """Cada fila es una persona real de un documental, con la condición que el material documenta para esos años. Para cada fila escribí
+en inglés, en una sola frase, SOLO lo que esa condición deja visible en su cuerpo, en una foto de cintura para arriba con la cara y
+las dos manos a la vista: piel, cara, manos, brazos, pelo, postura y contextura, en términos concretos que se puedan fotografiar.
+No pongas lugares, otras personas, objetos, ropa, acciones ni sentimientos.
+No agregues nada que la condición no diga o no implique.
+Si la condición no deja nada visible en el cuerpo, devolvé una cadena vacía."""
+
+
+def _llamar_estados(filas: list[dict]) -> dict[tuple[str, str], str]:
+    """F78b: UNA llamada (MODELO_CASILLEROS con su esfuerzo, como `_llamar_rasgos`) con todas las filas {name, tramo, condition}
+    → {(name, tramo): estado_visible}. Schema: lista de {name (enum), tramo (enum), estado_visible}. Solo cuentan los pares de la
+    entrada (un par cruzado no entra; el que falta vale "" en `estados_visibles`)."""
+    import claude_helpers  # noqa: PLC0415
+    from script_engine import guion_v4  # noqa: PLC0415
+    from script_engine.m03_visual import MODELO_CASILLEROS  # noqa: PLC0415
+    schema = {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
+        "name": {"type": "STRING", "enum": sorted({f["name"] for f in filas})},
+        "tramo": {"type": "STRING", "enum": sorted({f["tramo"] for f in filas})},
+        "estado_visible": {"type": "STRING"}}, "required": ["name", "tramo", "estado_visible"]}}
+    raw = claude_helpers.call_json(PROMPT_ESTADOS + "\n\n" + json.dumps(filas, ensure_ascii=False, indent=1),
+                                   model=MODELO_CASILLEROS, response_schema=schema,
+                                   effort=guion_v4.ESFUERZO[MODELO_CASILLEROS], description="foto madre estados")
+    salida = raw if isinstance(raw, list) else next((v for v in (raw or {}).values() if isinstance(v, list)), [])
+    pares = {(f["name"], f["tramo"]) for f in filas}
+    return {(str(f.get("name")), str(f.get("tramo"))): _clean(f.get("estado_visible")) for f in salida
+            if isinstance(f, dict) and (str(f.get("name")), str(f.get("tramo"))) in pares}
+
+
+def estados_visibles(filas: list[dict], madre_dir: Path) -> dict[tuple[str, str], str]:
+    """F78b: lo visible del estado por (persona, tramo) con cache `foto_madre/estados.json` (md5 de la entrada), aparte de
+    `rasgos.json`. Misma entrada → el cache, sin llamar. Un par sin respuesta → ""."""
+    cache = madre_dir / ESTADOS_JSON
+    md5_entrada = _md5(filas)
+    try:
+        previo = json.loads(cache.read_text(encoding="utf-8")) if cache.exists() else {}
+    except (OSError, ValueError):
+        previo = {}
+    if previo.get("md5_entrada") == md5_entrada:
+        return {(e["name"], e["tramo"]): e["estado_visible"] for e in previo.get("estados") or []}
+    resp = _llamar_estados(filas)
+    vis = {(f["name"], f["tramo"]): resp.get((f["name"], f["tramo"]), "") for f in filas}
+    madre_dir.mkdir(parents=True, exist_ok=True)
+    tmp = cache.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps({"md5_entrada": md5_entrada, "entrada": filas,
+                               "estados": [{"name": n, "tramo": t, "estado_visible": v} for (n, t), v in vis.items()]},
+                              ensure_ascii=False, indent=1), encoding="utf-8")
+    tmp.replace(cache)
+    return vis
+
+
+def _prompt_variante(cv: dict, estado_visible: str) -> str:
+    """F78b: el texto del /edit de la variante (completo, del handoff F78b): la edad EXACTA en dígitos si hay, el `estado_visible`
+    (lo que el estado deja ver en el cuerpo, de `estados_visibles`; no la `condition` cruda) si hay, cintura para arriba con cara y
+    manos, ROPA_MADRE, ESTILO_C con `anio_estilo` (primer año del tramo; sin tramo, el año de la foto), NO_TEXT."""
     from script_engine import m03_imagenes_v3 as v3img  # noqa: PLC0415
     partes = ["The same person as in the reference image: same face, same features, same identity."]
     if cv.get("edad") is not None:
-        partes.append(f"Now a {descriptor_edad(cv['edad'])} person.")
-    if cv.get("condition"):
-        partes.append(_clean(cv["condition"]) + ".")
-    partes.append("Show only what of this would be visible on the body; if nothing is visible, keep the person unchanged. "
-                  f"Waist-up portrait framed so that the face and both hands are visible, {ROPA_MADRE}, plain mid-grey "
+        partes.append(f"The person is now {cv['edad']} years old; show that age in the face, hair and body.")
+    ev = (estado_visible or "").strip().rstrip(".").strip()
+    if ev:
+        partes.append(ev + ".")
+    partes.append(f"Waist-up portrait framed so that the face and both hands are visible, {ROPA_MADRE}, plain mid-grey "
                   "background, soft even light.")
     partes.append(v3img.ESTILO_C.format(anio=cv["anio_estilo"]))
     partes.append(v3img.NO_TEXT)
@@ -508,9 +576,9 @@ def _prompt_variante(cv: dict) -> str:
 
 def _generate_variante(prompt: str, madre: Path, dest: Path) -> dict:
     """F78a (b): la variante = /edit de producción (`asset_manager._generar_nb2`, sin la frase de madres; su respaldo Seedream
-    vale igual) con la madre limpia de referencia. Registra el costo (lo hace `_generar_nb2`)."""
+    vale igual) con la madre limpia de referencia. Registra el costo (lo hace `_generar_nb2`). F78b: el `.prompt.txt` (con la
+    firma) lo escribe quien la pide, antes."""
     import asset_manager as am  # noqa: PLC0415
-    _guardar_prompt_madre(dest, prompt, f"{am.MOTOR_PRINCIPAL} /edit (frase_de_madres=False) · referencia {madre.name}")
     meta = am._generar_nb2(prompt, dest, None, [am._path_to_data_uri(madre)], frase_de_madres=False)
     _ensure_real_png(dest)
     return meta
@@ -521,11 +589,14 @@ def generate_fotos_madre_personas(topic: dict, video_id: str, visual: dict | Non
     `persona`, cualquier posición, en todos los caps incluidos los de clip) donde aporta madre por era. Lee `persona` de
     `_steps/<id>/03_visual.json` (o de `visual`). F78a (a): antes, UNA llamada con todas esas personas da los `rasgos` de cada
     una (cache `foto_madre/rasgos.json`); si los rasgos de una persona cambiaron (o su madre es de antes de los rasgos), su madre
-    y sus variantes se mueven a `foto_madre/_previas_f78a/` y se regeneran. Motor de la madre: Seedream del perfil por la cola;
+    y sus variantes se mueven a `foto_madre/<PREVIAS_DIR>/` y se regeneran. Motor de la madre: Seedream del perfil por la cola;
     si el motor activo no es seedream/nb2_lite → sin madre de persona y aviso; rechazo o error → foto_madre="" y aviso. Mismo
     skip (archivo existente) y adopción manual que objeto/lugar. Destino output/<vid>/foto_madre/<slug(name)>.png.
     F78a (b): después, por cada persona con madre, una VARIANTE por clave (`clave_de_foto`: tramo de estado + edad) de sus fotos
-    → `<slug>@<clave>.png` (/edit de la limpia); clave vacía = la madre limpia. Las existentes se reusan. Madres y variantes de
+    → `<slug>@<clave>.png` (/edit de la limpia); clave vacía = la madre limpia. F78b: el estado entra como `estado_visible` (UNA
+    llamada con los pares (persona, tramo), cache `estados.json`) y la edad exacta; una clave sin estado visible ni edad no tiene
+    variante (sus fotos van con la limpia; la vieja se mueve); una variante cuya firma (md5 de estado_visible + edad) cambió se
+    mueve a `<PREVIAS_DIR>` y se rehace; si la firma coincide se reusa. Madres y variantes de
     distintas personas se piden a la vez (tope FLUX_MAX_WORKERS). Muta el topic (`foto_madre`, `foto_madre_variantes`) y
     devuelve {nombre: {estado, fotos, prompt, dest, rasgos, variantes}}."""
     personas = [p for p in (topic.get("documented_people") or []) if isinstance(p, dict) and p.get("name")]
@@ -579,7 +650,8 @@ def generate_fotos_madre_personas(topic: dict, video_id: str, visual: dict | Non
             continue
         est["rasgos"] = r["rasgos"]
         if (previos.get(name) or {}).get("md5") != r["md5"]:    # rasgos nuevos o madre de antes de los rasgos → a _previas
-            movidos = [m for m in [_a_previas(dest)] + [_a_previas(v) for v in sorted(madre_dir.glob(f"{_slug(name)}@*.png"))] if m]
+            movidos = [m for m in [_a_previas(dest)] + [_a_previas(v) for v in sorted(madre_dir.glob(f"{_slug(name)}@*.png"))
+                                                          if not v.stem.endswith("_native")] if m]
             if movidos:
                 print(f"     [foto_madre] {name}: rasgos nuevos → {len(movidos)} archivo(s) a {PREVIAS_DIR}/")
             if movidos or p.get("foto_madre"):
@@ -621,8 +693,9 @@ def generate_fotos_madre_personas(topic: dict, video_id: str, visual: dict | Non
             for name, st in ex.map(hacer, trabajos):
                 estados[name].update(st)
 
-    # F78a (b): variantes por clave de las personas que tienen madre en disco.
-    pedidas: list[tuple[dict, dict, Path, Path, str]] = []
+    # F78a (b) / F78b: claves de las personas que tienen madre en disco; después, lo visible de cada estado (UNA llamada, una fila
+    # por par (persona, tramo) único; cache estados.json). Si la llamada falla, no se mueve ni se genera ninguna variante.
+    claves: list[tuple[dict, Path, dict[str, dict]]] = []
     for p, mias, _ in candidatas:
         madre = Path(p.get("foto_madre") or "")
         if not p.get("foto_madre") or not madre.exists():
@@ -633,24 +706,57 @@ def generate_fotos_madre_personas(topic: dict, video_id: str, visual: dict | Non
             if cv["clave"]:
                 por_clave.setdefault(cv["clave"], {**cv, "fotos": []})["fotos"].append(
                     f"ch{f['cap']:02d}_{f['kind']}_{f['idx']:02d}")
+        claves.append((p, madre, por_clave))
+    filas: list[dict] = []
+    for p, _, por_clave in claves:
+        for cv in por_clave.values():
+            fila = {"name": p["name"], "tramo": cv["tramo"], "condition": cv["condition"]}
+            if cv["tramo"] and fila not in filas:
+                filas.append(fila)
+    vis: dict[tuple[str, str], str] = {}
+    if filas:
+        try:
+            vis = estados_visibles(filas, madre_dir)
+        except Exception as e:  # noqa: BLE001 — la variante NUNCA bloquea el topic
+            error_handler.log_warning(PipelineStage.VIDEO, f"foto_madre estados no generados: {str(e)[:200]} → variantes sin tocar")
+            for p, _, _ in claves:
+                estados[p["name"]]["variantes"] = f"sin cambios: estados fallaron ({type(e).__name__})"
+            return estados
+
+    pedidas: list[tuple[dict, dict, Path, Path, str, str]] = []
+    for p, madre, por_clave in claves:
         lista: list[dict] = []
+        todas: list[dict] = []
         for clave, cv in por_clave.items():
             dest = madre_dir / f"{_slug(p['name'])}@{clave}.png"
-            fila = {"clave": clave, "tramo": cv["tramo"], "edad": cv["edad"], "path": str(dest.resolve()),
-                    "fotos": cv["fotos"]}
+            ev = vis.get((p["name"], cv["tramo"]), "") if cv["tramo"] else ""
+            firma = _md5({"estado_visible": ev, "edad": cv["edad"]})
+            fila = {"clave": clave, "tramo": cv["tramo"], "edad": cv["edad"], "estado_visible": ev,
+                    "path": str(dest.resolve()), "fotos": cv["fotos"]}
+            todas.append(fila)
+            if not ev and cv["edad"] is None:       # nada que cambiar sobre la limpia → sin variante (sus fotos van con la limpia)
+                if _a_previas(dest):
+                    print(f"     [foto_madre] {dest.name}: sin estado visible → a {PREVIAS_DIR}/")
+                fila["estado"] = "sin variante: sin estado visible"
+                continue
             lista.append(fila)
-            if not dest.exists():
-                if api.image_engine not in ("seedream", "nb2_lite"):
-                    fila["estado"] = f"sin variante: motor activo {api.image_engine}"
-                    continue
-                pedidas.append((p, fila, madre, dest, _prompt_variante(cv)))
-            else:
+            if dest.exists() and _firma_de(dest) != firma:   # cambió el estado o la edad (o es de antes de la firma)
+                _a_previas(dest)
+                print(f"     [foto_madre] {dest.name}: firma nueva → la vieja a {PREVIAS_DIR}/")
+            if dest.exists():
                 fila["estado"] = "skip (ya existe)"
+                continue
+            if api.image_engine not in ("seedream", "nb2_lite"):
+                fila["estado"] = f"sin variante: motor activo {api.image_engine}"
+                continue
+            pedidas.append((p, fila, madre, dest, _prompt_variante(cv, ev), firma))
         p["foto_madre_variantes"] = lista
-        estados[p["name"]]["variantes"] = lista
+        estados[p["name"]]["variantes"] = todas
 
     def hacer_var(t):
-        p, fila, madre, dest, prompt = t
+        p, fila, madre, dest, prompt, firma = t
+        import asset_manager as am  # noqa: PLC0415
+        _guardar_prompt_madre(dest, prompt, f"{am.MOTOR_PRINCIPAL} /edit (frase_de_madres=False) · referencia {madre.name}", firma)
         try:
             meta = _generate_variante(prompt, madre, dest)
             print(f"     [foto_madre] ✓ variante {dest.name}  ({len(fila['fotos'])} fotos, {meta.get('motor')})")
