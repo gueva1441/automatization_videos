@@ -1,0 +1,1653 @@
+{
+  "video_id": "c4934b7d-3f54-448f-ba5f-539dc744f0d8",
+  "papel_md5": "7d8a1aee240ef6c57775a239ea9bd265",
+  "generated_at": "2026-11-04T19:48:53.154075",
+  "prompt_protocol_version": "v2",
+  "image_engine": "fal.ai Flux 1.1 Pro",
+  "vision_guardrail": {
+    "enabled": false,
+    "model": "gemini-2.5-flash",
+    "max_attempts": 2
+  },
+  "flux_config": {
+    "standard_model": "fal-ai/flux-2-pro",
+    "ultra_model": "fal-ai/flux-2-pro",
+    "ultra_chapter_id": "ch01",
+    "resolution_standard": "2560x1440",
+    "resolution_ultra_aspect": "16:9",
+    "image_engine": "nb2_lite",
+    "safety_checker": true
+  },
+  "veo_config": {
+    "video_engines": [
+      "gemini_omni_flash",
+      "kling_4"
+    ],
+    "video_resolution": "1080p",
+    "poll_timeout_seconds": 600,
+    "max_attempts": 3,
+    "rate_limit_backoff_seconds": 20
+  },
+  "art_profiles_used": [],
+  "total_chapters": 7,
+  "chapters": [
+    {
+      "id": "ch01",
+      "engine": "veo",
+      "art_profile": "",
+      "model_used": "flux_ultra",
+      "clips": [
+        {
+          "index": 1,
+          "video_prompt": "A slow, somber documentary shot on grainy film, with muted colors and slight underexposure. The camera makes a slow push-in from the aisle, starting on a medium shot of the seated man and ending closer on his face and curled hands. First the blurred neighbors beside him shout and gesture toward the dock, then the man breathes slowly and lowers his gaze slightly. Hard cold daylight from high pavilion windows mixes with a flat fluorescent wash over the rows of public seats. Everyone stays in place, the man's face and body steady.",
+          "image_prompt": "Middle-aged Spanish man, fair olive skin, greying dark hair, thin wasted build, deformed curled hands, sclerodermic tight skin, worn mid-1980s quilted anorak. Sits motionless in a crowded public row while scarred victims beside him rise and shout toward the dock. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Converted Casa de Campo pavilion courtroom, Madrid, long rows of public seats, 1989. Hard cold daylight from high pavilion windows mixed with flat fluorescent wash. Medium shot, eye-level, slightly side-on from the aisle, 85mm lens, shallow depth of field, standing shouting neighbors soft and blurred. A grainy 35mm documentary photograph taken in 1989, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch01_veo\\ch01_clip_01.mp4",
+          "status": "skipped_exists",
+          "fallback_type": null
+        }
+      ],
+      "supplemental_images": [
+        {
+          "index": 1,
+          "prompt": "Court exhibit table holding unlabeled plastic oil jugs beside towering paper case files. Evidence jugs stand tagged and waiting before the empty tribunal bench, cloudy oil residue at their bases. Mass trial courtroom in the converted Casa de Campo pavilion, Madrid, 1989. Hard cold daylight from high pavilion windows mixed with flat fluorescent wash. Close shot, low angle at table height, bench looming behind, 50mm lens, shallow depth of field, bench and gooseneck microphones soft behind. A grainy 35mm documentary photograph taken in 1989, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "narration_anchor": "A esa gente le vendieron veneno de puerta en puerta, como si fuera aceite: mató a cientos, enfermó a miles, y durante años nadie, en ningún ministerio, fue responsable de nada.",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch01_flux\\ch01_supp_01_graded.png",
+          "status": "skipped_exists",
+          "art_profile": "",
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch01_flux\\ch01_supp_01.png",
+          "graded": true
+        },
+        {
+          "index": 2,
+          "prompt": "Hundreds of Spanish victims and relatives in mid-1980s anoraks and wool coats filling long rows, magistrates in black togas at a long tribunal bench. The trial is in session, the vast hall packed to its back walls. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Southern European Spanish features, fair to light olive skin, dark or greying hair, brown eyes. Huge converted Casa de Campo pavilion set up as a mass courtroom, Madrid, long tribunal benches, rows of seats, 1989. Hard cold daylight from high pavilion windows mixed with flat fluorescent wash. Wide shot, high angle from the back of the hall for scale, 24mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1989, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "narration_anchor": "Es una sala de juicio. Es el juicio del siglo.",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch01_flux\\ch01_supp_02_graded.png",
+          "status": "skipped_exists",
+          "art_profile": "",
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch01_flux\\ch01_supp_02.png",
+          "graded": true
+        },
+        {
+          "index": 3,
+          "prompt": "Spanish woman under forty, fair olive skin, thin wasted build, dark permed hair, seen from behind and side in a public row. Her pushed-up sweater sleeve and open collar expose hardened scarred skin on forearm and neck as she leans toward the dock. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Public seating rows of the Casa de Campo trial courtroom, Madrid, 1989. Hard cold daylight from high pavilion windows mixed with flat fluorescent wash. Close shot, eye-level from behind the shoulder, 85mm lens, shallow depth of field, courtroom blurred beyond. A grainy 35mm documentary photograph taken in 1989, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "narration_anchor": "Hay cicatrices a la vista en los brazos, en los cuellos.",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch01_flux\\ch01_supp_03_graded.png",
+          "status": "skipped_exists",
+          "art_profile": "",
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch01_flux\\ch01_supp_03.png",
+          "graded": true
+        },
+        {
+          "index": 4,
+          "prompt": "A crowd of Spanish victims in anoraks and wool coats, a gaunt older woman with a scarred neck and a heavy-set middle-aged man with a stiff deformed arm at the front. Rising from their seats at once, arms raised, mouths open, shouting toward the accused in the dock. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Packed public rows of the Casa de Campo trial courtroom, Madrid, a wooden barrier before the dock, 1989. Hard cold daylight from high pavilion windows mixed with flat fluorescent wash. Medium shot, low angle from beside the wooden barrier, 35mm lens, moderate depth of field, front figures sharp, crowd dissolving behind. A grainy 35mm documentary photograph taken in 1989, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "narration_anchor": "Y entonces los gritos: piden la muerte de los responsables.",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch01_flux\\ch01_supp_04_graded.png",
+          "status": "skipped_exists",
+          "art_profile": "",
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch01_flux\\ch01_supp_04.png",
+          "graded": true
+        },
+        {
+          "index": 5,
+          "prompt": "Middle-aged Spanish man, fair olive skin, greying dark hair, wasted upper body, deformed stiff hands, worn wool coat over thick sweater. Stands still in the aisle as the shouting crowd behind him rises. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Aisle of the Casa de Campo trial courtroom, Madrid, standing victims blurred behind, 1989. Hard cold daylight from high pavilion windows mixed with flat fluorescent wash. Medium shot, eye-level, 85mm lens, shallow depth of field, crowd soft behind. A grainy 35mm documentary photograph taken in 1989, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "narration_anchor": "El hombre de las manos deformadas es Arcadio Fernandez, afectado y director de la Asociación de Víctimas del Síndrome del aceite Tóxico.",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch01_flux\\ch01_supp_05_graded.png",
+          "status": "ok",
+          "art_profile": "",
+          "foto_madre_refs": [
+            "Arcadio Fernandez"
+          ],
+          "motor": "nb2_lite",
+          "respaldo_motivo": null,
+          "segundos": 16.7,
+          "usd": 0.042,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch01_flux\\ch01_supp_05.png",
+          "graded": true
+        },
+        {
+          "index": 6,
+          "prompt": "Middle-aged Spanish man, fair olive skin, greying hair, wasted upper body, deformed hands, plain thick sweater. Sits alone after the hearing, speaking quietly, slumped forward on a folding chair. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Cramped association office in Leganés, stacked dossiers, folding chairs, beige push-button telephone, 1989. Dim cold window light from a single narrow window, room in shadow. Medium shot, eye-level from the doorway, 50mm lens, moderate depth of field. A grainy 35mm documentary photograph taken in 1989, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "narration_anchor": "Más tarde, en voz baja, lo dirá así: «Aquellos fueron gritos de angustia e impotencia al ver cómo nos han manipulado.»",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch01_flux\\ch01_supp_06_graded.png",
+          "status": "skipped_exists",
+          "art_profile": "",
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch01_flux\\ch01_supp_06.png",
+          "graded": true
+        },
+        {
+          "index": 7,
+          "prompt": "Large converted exhibition pavilion at Casa de Campo used as the mass courtroom, Madrid. Victims in anoraks gather outside the entrance while news crews wait by parked cars. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Casa de Campo, Madrid, 1989, bare winter trees, wet asphalt, SEAT Ibiza Mk1 and Renault 9 parked. Overcast winter daylight, flat and cold. Wide shot, high angle for scale, 28mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1989, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "narration_anchor": "Madrid, mil novecientos ochenta y nueve.",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch01_flux\\ch01_supp_07_graded.png",
+          "status": "skipped_exists",
+          "art_profile": "",
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch01_flux\\ch01_supp_07.png",
+          "graded": true
+        },
+        {
+          "index": 8,
+          "prompt": "Itinerant oil vendor, Spanish man in plain work jacket and flared trousers, seen from behind at a flat door; a Spanish housewife in printed house dress and apron, permed dark hair, opening it. The vendor presses the doorbell and lifts a cheap jug of oil toward the opening door. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Stairwell landing of a working-class block of flats in Leganés, 1981, terrazzo floor, worn green paint. Cold overcast morning light from a stairwell window. Medium shot, eye-level from behind the vendor's shoulder, 50mm lens, shallow depth of field, the jug sharp. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "narration_anchor": "Ocho años antes de esos gritos, alguien tocó el timbre de dos mil casas de Leganés con una garrafa de aceite barato.",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch01_flux\\ch01_supp_08_graded.png",
+          "status": "skipped_exists",
+          "art_profile": "",
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch01_flux\\ch01_supp_08.png",
+          "graded": true
+        }
+      ],
+      "veo_position": "start"
+    },
+    {
+      "id": "ch02",
+      "engine": "flux",
+      "art_profile": "",
+      "subject_ref": null,
+      "profiles_used": [
+        ""
+      ],
+      "model_used": "flux_pro",
+      "images": [
+        {
+          "index": 1,
+          "prompt": "Rows of brick working-class apartment blocks in suburban Leganés, Madrid, with a few Spanish housewives in printed house dresses and cardigans walking with shopping bags. The neighborhood wakes into an ordinary spring morning, laundry hanging from balconies, a SEAT 127 parked by the curb. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Leganés, southern Madrid suburb, May 1981, plain brick housing blocks, dusty pavements, young plane trees, butane bottles on balconies. Soft hazy spring morning daylight. Extreme wide shot, high angle from a rooftop, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "establishing_shot",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3700876658,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch02_flux\\ch02_img_01_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch02_flux\\ch02_img_01.png",
+          "graded": true
+        },
+        {
+          "index": 2,
+          "prompt": "An itinerant Spanish oil vendor, around forty, stocky build, weathered face, wearing a work jacket, simple shirt and flared trousers. He carries unlabeled plastic jugs of oil from his parked Renault 4 van toward an apartment doorway. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Stairwell entrance of a Leganés working-class block, May 1981, tiled step, metal mailbox row, van at the curb behind. Soft hazy spring morning daylight. Medium shot, eye-level, 50mm lens, moderate depth of field. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch02_flux\\ch02_img_02_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch02_flux\\ch02_img_02.png",
+          "graded": true
+        },
+        {
+          "index": 3,
+          "prompt": "A small cluster of Spanish working-class housewives, thirties to fifties, permed hair, aprons over printed dresses, around the open rear doors of a DKW F1000 van. Coins change hands as jugs of cheap bulk oil are passed down from the van. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Narrow street between working-class blocks on the edge of Madrid, May 1981, cracked pavement, corner grocery shutter. Soft hazy spring morning daylight. Wide shot, eye-level, 35mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "establishing_shot",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3700876658,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch02_flux\\ch02_img_03_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch02_flux\\ch02_img_03.png",
+          "graded": true
+        },
+        {
+          "index": 4,
+          "prompt": "A Spanish housewife, late thirties, medium build, permed dark hair, cardigan over a printed house dress, seen mostly from behind at the stove. She tips the jug and oil pours into a black iron frying pan. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Small formica kitchen in a Leganés flat, 1981, tiled backsplash, butane bottle under the stove, kitchen table with oilcloth. Soft morning daylight through a small kitchen window. Medium shot, eye-level, 50mm lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3609549199,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch02_flux\\ch02_img_04_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch02_flux\\ch02_img_04.png",
+          "graded": true
+        },
+        {
+          "index": 5,
+          "prompt": "An unlabeled translucent plastic jug of cloudy amber oil on a formica kitchen table. The half-empty jug stands still beside the stove as the pan begins to smoke. Same small Leganés formica kitchen, 1981, oilcloth, bread loaf, butane stove. Soft morning daylight through a small kitchen window. Detail shot, low angle at table height, 85mm lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3609549199,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch02_flux\\ch02_img_05_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch02_flux\\ch02_img_05.png",
+          "graded": true
+        },
+        {
+          "index": 6,
+          "prompt": "A Spanish working-class family at a kitchen table: a middle-aged man in a wide-collar polyester shirt, his wife in an apron, and their young daughter in a knitted jumper. They share a midday meal of fried eggs and potatoes, bread passed across the table. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Cramped Leganés flat kitchen-dining corner, 1981, wood-cabinet television in the doorway, oilcloth table. Soft midday daylight through a small kitchen window. Medium shot, eye-level, 35mm lens, moderate depth of field. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Arcadio Fernandez"
+          ],
+          "persona": [
+            "Arcadio Fernandez"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch02_flux\\ch02_img_06_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch02_flux\\ch02_img_06.png",
+          "graded": true
+        },
+        {
+          "index": 7,
+          "prompt": "A middle-aged Spanish man, sturdy build, dark hair, wide-collar shirt, still healthy, seated at the family table. He pauses after the meal, sleeves rolled, resting his arms on the oilcloth as wife and daughter clear plates behind him. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Small Leganés kitchen, 1981, plates and pan on the counter, jug on the table. Soft afternoon daylight from a small window, long shadow across the table. Medium shot, eye-level, 85mm lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Arcadio Fernandez"
+          ],
+          "persona": [
+            "Arcadio Fernandez"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch02_flux\\ch02_img_07_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch02_flux\\ch02_img_07.png",
+          "graded": true
+        },
+        {
+          "index": 8,
+          "prompt": "An eight-year-old Spanish boy, slight build, short dark hair, knitted jumper, in another Madrid working-class flat. He bends forward on a chair, coughing into his sleeve, while his mother in a cardigan pauses in the doorway. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Modest Madrid flat living room, May 1981, wood-cabinet television, lace doily, unlabeled oil jug visible on the kitchen counter beyond. Soft gray window daylight. Medium shot, slightly high angle, 50mm lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [],
+          "persona": [
+            "Jaime Vaquero García"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch02_flux\\ch02_img_08_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch02_flux\\ch02_img_08.png",
+          "graded": true
+        }
+      ]
+    },
+    {
+      "id": "ch03",
+      "engine": "flux",
+      "art_profile": "",
+      "subject_ref": null,
+      "profiles_used": [
+        ""
+      ],
+      "model_used": "flux_pro",
+      "images": [
+        {
+          "index": 1,
+          "prompt": "An empty child-sized hospital bed in a 1981 Madrid pediatric ward, sheets pulled tight, a small pair of slippers beneath it. The bed stands vacant while ward life goes on around it; a nurse's shadow passes along the far tiled wall. Madrid hospital pediatric ward, 1981, tiled walls, terrazzo floor, glass partition to the corridor. Cold overhead fluorescent tubes, one flickering, long shadow under the bed. Medium shot, eye-level, slightly off-axis, 35mm lens, moderate depth of field, bed sharp, corridor soft. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3609549199,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_01_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_01.png",
+          "graded": true
+        },
+        {
+          "index": 2,
+          "prompt": "A Spanish working-class mother and father in their thirties, light olive skin, dark hair, lying in adjacent glass-walled hospital rooms in cotton gowns, faces flushed with rash. Both lie admitted at the same time, each turned toward the glass that separates them. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Glass-walled isolation rooms along a Madrid hospital corridor, 1981, tiled walls, terrazzo floor. Cold overhead fluorescent tubes, same ward light, reflections doubling on glass. Medium shot, eye-level from the corridor, 50mm lens, layered glass reflections, medium depth of field. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3609549199,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_02_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_02.png",
+          "graded": true
+        },
+        {
+          "index": 3,
+          "prompt": "Spanish doctors in long white coats, middle-aged, dark and greying hair, gathered around a bedside in a crowded ward. They study a chest X-ray clipped to a lightbox, searching for a virus or a bacterium. Southern European Spanish features, fair to light olive skin, dark hair, brown eyes. Crowded Madrid hospital ward, 1981, tiled walls, beds close together, X-ray lightbox on the wall. Cold overhead fluorescent with the lightbox as the brightest source. Medium shot, eye-level, slightly behind the doctors, 40mm lens, shallow depth of field on the film, figures soft at edges. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3609549199,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_03_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_03.png",
+          "graded": true
+        },
+        {
+          "index": 4,
+          "prompt": "A long Madrid hospital corridor lined with rooms holding whole Spanish working-class families, parents and children admitted together, a young mother in a printed house dress seated in a doorway holding a small boy in a knitted jumper. Families crowd into adjoining rooms one after another, extra beds pushed into the corridor. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Spanish children with fair to light olive skin, dark brown to black hair and brown eyes. Overflowing hospital corridor in Madrid, May 1981, terrazzo floor, tiled walls, glass room partitions. Cold overhead fluorescent tubes, uneven, darker toward the far end. Wide shot, eye-level, one-point perspective down the corridor, 28mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3609549199,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_04_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_04.png",
+          "graded": true
+        },
+        {
+          "index": 5,
+          "prompt": "A middle-aged Spanish doctor in a long white coat with a stethoscope, standing alone at a nurses' station at the end of a full ward. He pauses over a patient's admission form, hunting a contagion that is not there. Southern European Spanish features, fair to light olive skin, dark hair, brown eyes. Madrid hospital nurses' station, 1981, tiled walls, beige rotary telephone, beds receding behind. Cold overhead fluorescent with a single warm desk lamp. Medium shot, slightly high angle, 50mm lens, shallow depth of field, ward behind softened. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3609549199,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_05_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_05.png",
+          "graded": true
+        },
+        {
+          "index": 6,
+          "prompt": "Exterior of a large Madrid public hospital block at dusk, SEAT 131 estate ambulances with roof beacons queued at the emergency entrance. Ambulances arrive one after another from the provinces, beacons turning, stretchers being wheeled in. 1981 Madrid hospital forecourt, brutalist brick-and-concrete facade, SEAT and Renault cars parked nearby. Blue-hour dusk with sodium streetlamps and rotating beacons. Extreme wide shot, high angle from across the street, 35mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "establishing_shot",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3700876658,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_06_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_06.png",
+          "graded": true
+        },
+        {
+          "index": 7,
+          "prompt": "A women's hospital ward of Spanish women under forty, light olive skin, dark permed hair, in floral nightgowns and cardigans. Women sit and lie in close-packed beds, some massaging their calves, one bent forward on the edge of a mattress. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Madrid hospital women's ward, May 1981, tiled walls, high window, terrazzo floor. Pale overcast daylight from a single high window, ward corners in shadow. Wide shot, eye-level, off-balance framing, 35mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3609549199,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_07_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_07.png",
+          "graded": true
+        },
+        {
+          "index": 8,
+          "prompt": "A young adult Spanish woman, light olive skin, dark permed hair, slim, in a cardigan over a printed blouse, seated at an Olivetti Lettera 32 typewriter at a kitchen table. She leans over her civil-service exam notes at night, one arm braced against the table, unable to sleep through the cramps. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Small formica kitchen in a 1981 Spanish working-class flat, butane bottle by the stove, night window. Low-key night, a single bare bulb above the table. Medium shot, eye-level, 50mm lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Mercedes García"
+          ],
+          "persona": [
+            "Mercedes García"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_08_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_08.png",
+          "graded": true
+        },
+        {
+          "index": 9,
+          "prompt": "The same young adult Spanish woman at the Olivetti Lettera 32, seen in side profile, a half-typed sheet in the roller. Her arm rests forward with a finger set on a key that does not go down; the carriage stays still. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. The same night kitchen, formica table, window dark behind her, 1981. Low-key night, the same single bare bulb. Medium shot, eye-level side profile, 85mm lens, shallow depth of field, focus on the typewriter keys within the frame. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Mercedes García"
+          ],
+          "persona": [
+            "Mercedes García"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_09_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_09.png",
+          "graded": true
+        },
+        {
+          "index": 10,
+          "prompt": "An abandoned Olivetti Lettera 32 on a formica kitchen table at dawn, a wood-cabinet television glowing in the next room. The typewriter sits untouched while the television begins a news broadcast about the illness. Working-class Madrid flat, May 1981, kitchen opening onto a small living room. Cold pre-dawn window light mixed with the flicker of a CRT screen. Wide shot, low angle from table height, 28mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3609549199,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_10_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_10.png",
+          "graded": true
+        },
+        {
+          "index": 11,
+          "prompt": "A wood-paneled Madrid ministry press room packed with Spanish journalists in wide-collar shirts and jackets, a cluster of microphones on a heavy desk. The room fills and settles as a middle-aged Spanish minister in a dark three-piece suit takes his seat before the microphones. Southern European Spanish features, fair to light olive skin, dark or greying hair, brown eyes, mostly middle-aged men. Ministry press room, Madrid, 21 May 1981, wood paneling, heavy desk, flag stand. Hard tungsten television lights with sporadic press flash. Wide shot, eye-level from the back of the room, 35mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [
+            "Jesús Sancho Rof"
+          ],
+          "persona": [
+            "Jesús Sancho Rof"
+          ],
+          "seed_used": 3609549199,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_11_graded.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "google/nano-banana-2-lite/edit",
+            "ms": 17154,
+            "width": 1376,
+            "height": 768,
+            "seed": null,
+            "nsfw_flag": false,
+            "motor": "nb2_lite",
+            "respaldo_motivo": null,
+            "segundos": 17.2,
+            "usd": 0.042,
+            "n_referencias": 1
+          },
+          "motor": "nb2_lite",
+          "respaldo_motivo": null,
+          "segundos": 17.2,
+          "usd": 0.042,
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_11.png",
+          "graded": true
+        },
+        {
+          "index": 12,
+          "prompt": "Middle-aged Spanish minister in a dark three-piece suit, wide tie, large-framed glasses, side-parted hair, speaking behind the microphone cluster. He leans toward the microphones mid-sentence, one hand open in a reassuring gesture. Southern European Spanish features, fair to light olive skin, dark or greying hair, brown eyes, mostly middle-aged men. Same ministry press room, Madrid, May 1981, wood paneling behind. Same hard tungsten television lights, press flash glinting on his glasses. Medium shot, eye-level over the reporters' shoulders, 85mm lens, shallow depth of field, foreground heads soft. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Jesús Sancho Rof"
+          ],
+          "persona": [
+            "Jesús Sancho Rof"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_12_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_12.png",
+          "graded": true
+        },
+        {
+          "index": 13,
+          "prompt": "The same middle-aged Spanish minister, framed tighter at the desk edge with the microphones. He gestures at the edge of the table as if showing something tiny falling off it. Southern European Spanish features, fair to light olive skin, dark or greying hair, brown eyes, mostly middle-aged men. Ministry press room desk, Madrid, May 1981, dark paneling behind. Same hard tungsten television lights, deep shadows falling across the paneling. Close shot, slightly low angle, 85mm lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Jesús Sancho Rof"
+          ],
+          "persona": [
+            "Jesús Sancho Rof"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_13_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_13.png",
+          "graded": true
+        },
+        {
+          "index": 14,
+          "prompt": "Middle-aged Spanish doctor in a long white coat, greying dark hair, at Hospital del Rey in Madrid. He sets a patient's hospital meal tray beside his case notes, arguing the illness enters through the digestive tract. Southern European Spanish features, fair to light olive skin, dark hair, brown eyes. Cramped doctor's office at Hospital del Rey, 1981, tiled walls, glass cabinet of sample bottles, window over the courtyard. Overcast daylight from one window, desk lamp warm on the tray. Medium shot, eye-level, 50mm lens, moderate depth of field. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Antonio Muro Fernández Cavada"
+          ],
+          "persona": [
+            "Antonio Muro Fernández Cavada"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_14_graded.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "google/nano-banana-2-lite/edit",
+            "ms": 12568,
+            "width": 1376,
+            "height": 768,
+            "seed": null,
+            "nsfw_flag": false,
+            "motor": "nb2_lite",
+            "respaldo_motivo": null,
+            "segundos": 12.6,
+            "usd": 0.042,
+            "n_referencias": 1
+          },
+          "motor": "nb2_lite",
+          "respaldo_motivo": null,
+          "segundos": 12.6,
+          "usd": 0.042,
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_14.png",
+          "graded": true
+        },
+        {
+          "index": 15,
+          "prompt": "The same middle-aged Spanish doctor, white coat removed, in shirt sleeves and tie, in his emptied office. He leaves his post, hanging his white coat on the hook by the door, a cardboard box of papers under one arm. Southern European Spanish features, fair to light olive skin, dark hair, brown eyes. Hospital del Rey doctor's office, Madrid, 1981, bare desk, tiled walls. Low late-afternoon sun through a single window, long shadows across the floor. Medium shot, eye-level from the far side of the room, 35mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Antonio Muro Fernández Cavada"
+          ],
+          "persona": [
+            "Antonio Muro Fernández Cavada"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_15_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_15.png",
+          "graded": true
+        },
+        {
+          "index": 16,
+          "prompt": "A middle-aged Spanish working-class man, light olive skin, dark hair, wide-collar polyester shirt, with his wife in an apron and their young daughter in a knitted jumper, at a small kitchen table in Leganés. The family sits at supper as the cooking oil they bought from a door-to-door van waits on the counter, a radio playing the minister's words. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Small formica kitchen in a Leganés flat, 1981, butane bottle beside the stove, net curtains. Single bare bulb over the table, grey dusk through the net curtains. Medium shot, eye-level, off-balance framing with the oil jug in the foreground plane, 35mm lens, deep depth of field, jug and family both sharp. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Arcadio Fernandez"
+          ],
+          "persona": [
+            "Arcadio Fernandez"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_16_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch03_flux\\ch03_img_16.png",
+          "graded": true
+        }
+      ]
+    },
+    {
+      "id": "ch04",
+      "engine": "flux",
+      "art_profile": "",
+      "subject_ref": null,
+      "profiles_used": [
+        ""
+      ],
+      "model_used": "flux_pro",
+      "images": [
+        {
+          "index": 1,
+          "prompt": "A cast-iron frying pan of amber cooking oil on a gas stove in a working-class Madrid kitchen, with a Spanish family of mixed ages seated at a table beyond, softly out of focus. Oil shimmers and smokes faintly in the pan while the family waits for the meal to be served. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Cramped 1981 working-class apartment kitchen in southern Madrid, tiled backsplash, formica table, butane bottle under the counter. Warm late-afternoon window light mixed with the blue gas flame. Close shot, eye-level from the stovetop, shallow depth of field, 50mm, pan sharp and family soft. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3609549199,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_01_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_01.png",
+          "graded": true
+        },
+        {
+          "index": 2,
+          "prompt": "A glass laboratory test tube holding an amber oil sample, a Spanish lab analyst in his forties in a white coat soft behind it. The analyst raises the sample to the light as the analysis reveals aromatic amines. Southern European Spanish features, fair to light olive skin, dark hair, brown eyes. Early-1980s Madrid public health laboratory, steel benches, glass reagent bottles, analog instruments. Cool overhead fluorescent light with a single bright window behind the tube. Detail shot, eye-level, macro-style shallow depth of field, 100mm, analyst out of focus. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3609549199,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_02_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_02.png",
+          "graded": true
+        },
+        {
+          "index": 3,
+          "prompt": "Spanish health scientists in white coats, middle-aged men with large-framed glasses, gathered around a lab bench of oil flasks. They confirm the result: an industrial rapeseed oil denatured with aniline, the reports laid out between the flasks. Southern European Spanish features, fair to light olive skin, dark hair, brown eyes. Early-1980s Madrid public health laboratory, wooden cabinets, glassware, analog spectrometer. Cool overhead fluorescent light, flat and even. Medium shot, slightly high angle over the bench, deep depth of field, 35mm. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3609549199,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_03_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_03.png",
+          "graded": true
+        },
+        {
+          "index": 4,
+          "prompt": "An unlicensed industrial warehouse on the outskirts of Alcorcón, rows of metal drums stacked in its open loading bay. The warehouse stands shut and silent as the trail of samples leads to its door. Dusty industrial outskirts of Alcorcón, Madrid, 1981, brick and corrugated metal shed, dry wasteland and a distant tower-block skyline. The words \"INDUSTRIAL USE ONLY\" are written on the sides of the drums in clear crisp stenciled block lettering. Flat overcast daylight. Wide shot, low angle for scale, deep depth of field, 28mm. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "establishing_shot",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3700876658,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_04_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_04.png",
+          "graded": true
+        },
+        {
+          "index": 5,
+          "prompt": "A middle-aged Spanish working-class man with a red rash on his neck and thinning hair, his wife in a printed house dress and cardigan with rash on her forearms, their daughter leaning against her with her back to camera. The family sits together at the kitchen table with no remedy left, the emptied oil jug still on the counter. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Modest 1981 working-class apartment kitchen in southern Madrid, net curtains, formica table. Soft late-afternoon window light from one side. Medium shot, eye-level, 85mm lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Arcadio Fernandez"
+          ],
+          "persona": [
+            "Arcadio Fernandez"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_05_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_05.png",
+          "graded": true
+        },
+        {
+          "index": 6,
+          "prompt": "A thin fourteen-year-old Spanish girl in a knitted cardigan, rash on her neck, supported by her mother at the entrance of a large Madrid hospital. She walks slowly through the hospital entrance on the day of her admission. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Exterior of Hospital Clínico San Carlos, Madrid, 1981, monumental stone-and-brick facade, boxy early-1980s cars along the curb. Soft hazy morning daylight. Wide shot, low angle for scale, deep depth of field, 35mm. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "establishing_shot",
+          "foto_madre_refs": [
+            "Carmen Cortés"
+          ],
+          "persona": [
+            "Carmen Cortés"
+          ],
+          "seed_used": 3700876658,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_06_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_06.png",
+          "graded": true
+        },
+        {
+          "index": 7,
+          "prompt": "An early-1980s intensive care bay with an adult patient half hidden under an oxygen mask and sheets, a Spanish nurse in white uniform and cap at the bedside. The nurse adjusts the oxygen flow while the ward waits. Southern European Spanish features, fair to light olive skin, dark hair, brown eyes. Hospital Clínico San Carlos intensive care unit, 1981, pale green tiled walls, metal bed frames. Soft diffuse window daylight. Medium shot, eye-level, moderate depth of field, 50mm. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3609549199,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_07_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_07.png",
+          "graded": true
+        },
+        {
+          "index": 8,
+          "prompt": "A thin fourteen-year-old Spanish girl in a cotton hospital gown, rash on her arms, lying rigid in a hospital bed. She lies unable to move, her body held stiff by muscle pain. Spanish children with fair to light olive skin, dark brown to black hair and brown eyes. Ward of Hospital Clínico San Carlos, 1981, iron bed frame, cream walls. Soft diffuse window daylight. Medium shot, high angle looking down at the bed, shallow depth of field, 50mm. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Carmen Cortés"
+          ],
+          "persona": [
+            "Carmen Cortés"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_08_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_08.png",
+          "graded": true
+        },
+        {
+          "index": 9,
+          "prompt": "An emaciated fourteen-year-old Spanish girl, collarbones prominent, hair thinned, seated at the edge of a hospital bed. She sits after months on the ward, the hospital gown hanging loose from her shoulders. Spanish children with fair to light olive skin, dark brown to black hair and brown eyes. Ward of Hospital Clínico San Carlos, months into her stay, cream walls, iron bed, 1982. Soft diffuse window daylight. Medium shot, eye-level, 85mm lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1982, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Carmen Cortés"
+          ],
+          "persona": [
+            "Carmen Cortés"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_09_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_09.png",
+          "graded": true
+        },
+        {
+          "index": 10,
+          "prompt": "A long hospital ward at dawn with a stripped empty bed beside a thin fourteen-year-old Spanish girl sitting up, a nurse and a visiting mother in a cardigan in the doorway. The bed next to her has been emptied overnight while the adults in the doorway turn away and talk low. Spanish children with fair to light olive skin, dark brown to black hair and brown eyes. Southern European Spanish features, fair to light olive skin, dark hair, brown eyes. Ward of Hospital Clínico San Carlos, 1981, row of iron beds, tall windows. Soft cool dawn light through tall windows. Wide shot, eye-level down the length of the ward, deep depth of field, 28mm. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [
+            "Carmen Cortés"
+          ],
+          "persona": [
+            "Carmen Cortés"
+          ],
+          "seed_used": 3609549199,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_10_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_10.png",
+          "graded": true
+        },
+        {
+          "index": 11,
+          "prompt": "A thin fourteen-year-old Spanish girl in a hospital gown sitting up in bed, a Spanish doctor in a long white coat and her mother at the foot of the bed. The adults stand smiling stiffly at her, keeping the deaths from her, while she watches them. Spanish children with fair to light olive skin, dark brown to black hair and brown eyes. Southern European Spanish features, fair to light olive skin, dark hair, brown eyes. Ward of Hospital Clínico San Carlos, 1981, cream walls, iron bed frame. Soft diffuse window daylight. Medium shot, eye-level, 85mm lens, shallow depth of field, girl sharp, adults soft. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Carmen Cortés"
+          ],
+          "persona": [
+            "Carmen Cortés"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_11_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_11.png",
+          "graded": true
+        },
+        {
+          "index": 12,
+          "prompt": "A five-year-old Spanish boy in striped pajamas sitting in bed behind a glass partition, a crowded row of children's beds around him. He waits in the glass-walled room on the eve of his sixth birthday. Spanish children with fair to light olive skin, dark brown to black hair and brown eyes. Glass-walled children's room in Hospital Clínico San Carlos, 1981, iron cots, cream walls. Soft diffuse window daylight. Wide shot, eye-level through the glass, shallow depth of field, focus on the glass and cake, children soft beyond. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [
+            "Jesús Lozano"
+          ],
+          "persona": [
+            "Jesús Lozano"
+          ],
+          "seed_used": 3609549199,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_12_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_12.png",
+          "graded": true
+        }
+      ]
+    },
+    {
+      "id": "ch05",
+      "engine": "flux",
+      "art_profile": "",
+      "subject_ref": null,
+      "profiles_used": [
+        ""
+      ],
+      "model_used": "flux_pro",
+      "images": [
+        {
+          "index": 1,
+          "prompt": "A six-year-old Spanish boy, fair to light olive skin, short-cut dark brown hair thinning in patches, thin small build, in a simple white cotton hospital gown, a red blotchy rash on his neck and forearms, cheeks flushed with fever, eyes heavy and damp. He stands inside a glass-walled isolation room on his sixth birthday, pressed close to the pane, while behind him a ward of sick children cry without pause. Spanish children with fair to light olive skin, dark brown to black hair and brown eyes. 1981 Madrid hospital pediatric isolation room seen from outside through a large glass partition, white-tiled walls, terrazzo floor, rows of narrow iron hospital cots behind him, each holding a Spanish child in a gown or striped pajamas, curled under thin sheets with mouths open. Hard overhead fluorescent tube light, high contrast, flat cold glare on the tiles and harsh highlights on the glass. Close shot, eye-level at child height, shot from outside through the glass pane, 85mm lens, shallow depth of field, the boy sharp behind faint reflections on the glass, the rows of crying children's cots softly blurred behind him. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Jesús Lozano"
+          ],
+          "persona": [
+            "Jesús Lozano"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_01_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_01.png",
+          "graded": true
+        },
+        {
+          "index": 2,
+          "prompt": "Spanish children aged five to ten, light olive skin, dark short-cut hair, thin builds, in cotton hospital gowns and striped pajamas, curled under thin blankets. Lie and sit in a crowded row of narrow iron beds behind the glass wall, bodies curled, some turned toward the wall. Spanish children with fair to light olive skin, dark brown to black hair and brown eyes. 1981 Madrid hospital children's isolation room, glass partition, tiled walls, beds packed close together. Hard overhead fluorescent tubes, high contrast, same light as the isolation room. Wide shot, slightly high angle through the glass partition, 35mm lens, deep depth of field, glass reflections over the beds. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3609549199,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_02_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_02.png",
+          "graded": true
+        },
+        {
+          "index": 3,
+          "prompt": "A six-year-old Spanish boy with fair light-olive skin, dark close-cropped hair thinned in patches, slight build, in faded striped cotton pajamas, a faint red rash along his neck. Sits alone on the edge of a metal hospital cot pressed close to a large glass partition on his birthday while other children cry in beds behind him. Spanish children with fair to light olive skin, dark brown to black hair and brown eyes. 1981 Madrid hospital ward behind a glass-walled partition like a fishbowl, rows of children's cots blurred in the background, pale tiled walls. Hard high-contrast light from one high window cutting across the ward, cold fluorescent fill, deep shadows behind the glass. Close shot, eye-level from the visitor side, looking through the glass, 85mm lens, shallow depth of field, faint reflections and smudges on the glass pane, background cots soft. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Jesús Lozano"
+          ],
+          "persona": [
+            "Jesús Lozano"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_03_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_03.png",
+          "graded": true
+        },
+        {
+          "index": 4,
+          "prompt": "A middle-aged Spanish man, light olive skin, dark hair, stocky build, wide-collar polyester shirt; his middle-aged wife in a printed house dress in bed; a young daughter in a cardigan seated at the bed's foot. The man stands in the bedroom doorway as both wife and daughter lie and sit sick in the same small room. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Small 1981 Madrid suburban flat bedroom, floral wallpaper, narrow double bed. Hard afternoon light cut through slatted blinds, high contrast bars. Medium shot, eye-level from behind the man in the doorway, 35mm lens, moderate depth of field, doorframe framing. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Arcadio Fernandez"
+          ],
+          "persona": [
+            "Arcadio Fernandez"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_04_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_04.png",
+          "graded": true
+        },
+        {
+          "index": 5,
+          "prompt": "A middle-aged Spanish woman, fair-olive skin, thinning permed dark hair, slight build, damp printed nightdress, red blotchy rash on her arms, fever-flushed skin. Lies propped on pillows scratching her rash-covered forearm, sheets kicked back in fever. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. 1981 Madrid suburban flat bedroom, floral wallpaper, rumpled sheets. Hard afternoon light through slatted blinds, high contrast bars across the bed. Close shot, slightly high angle beside the bed, 85mm lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_05_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_05.png",
+          "graded": true
+        },
+        {
+          "index": 6,
+          "prompt": "A middle-aged Spanish woman, light olive skin, sparse dark hair, wasted build, thick glasses, deformed curled hands, wool cardigan over a house dress. Sits in a worn armchair as one arm jerks outward on its own, motion-blurred. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. 1985 modest Madrid suburban flat living room, brown furniture, net curtains. Hard cold winter window light from one side, deep shadow on the other. Medium shot, eye-level, 50mm lens, slow shutter blur on the moving arm, rest sharp. A grainy 35mm documentary photograph taken in 1985, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_06_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_06.png",
+          "graded": true
+        },
+        {
+          "index": 7,
+          "prompt": "A white cotton pillow with clumps of fallen dark hair, a middle-aged Spanish woman's figure out of focus behind it. Strands of hair lie loose on the pillow while her arms move restlessly in the blurred background. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. 1981 Madrid suburban flat bedroom, rumpled bed. Hard afternoon light through slatted blinds, same bars as the sickroom. Detail shot, low angle at pillow level, macro-close focus on pillow, very shallow depth of field, background blurred. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3609549199,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_07_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_07.png",
+          "graded": true
+        },
+        {
+          "index": 8,
+          "prompt": "A middle-aged Spanish woman, light olive skin, tight shiny hardened skin on her forearms and face, wasted build, legs covered by a blanket, plain knit cardigan. Sits motionless in a chrome folding wheelchair beside the window, unable to move her legs. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. 1985 small Madrid suburban flat, net curtains, narrow living room. Hard cold winter window light, high contrast, deep room shadow. Medium shot, eye-level from the room's corner, 50mm lens, moderate depth of field. A grainy 35mm documentary photograph taken in 1985, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_08_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_08.png",
+          "graded": true
+        },
+        {
+          "index": 9,
+          "prompt": "A middle-aged Spanish man, light olive skin, dark greying hair, deformed hands and stiff hunched upper body, mid-1980s wool jumper. Sits at a cluttered desk in the association office, shoulders hunched forward against the pain. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Narrow 1985 victims' association office in Leganés, folding chairs, shelves of paper archives. Single hard desk lamp, deep shadows, high contrast. Medium shot, eye-level, 50mm lens, shallow depth of field, archives soft behind. A grainy 35mm documentary photograph taken in 1985, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Arcadio Fernandez"
+          ],
+          "persona": [
+            "Arcadio Fernandez"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_09_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_09.png",
+          "graded": true
+        },
+        {
+          "index": 10,
+          "prompt": "A middle-aged Spanish woman, light olive skin, thin sparse dark hair, wasted shoulders, hardened skin on the nape, loose wool cardigan. Sits on the edge of her bed, body folded forward. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. 1985 small Madrid suburban bedroom, net curtains, bare wall. Hard cold single window light, high contrast silhouette edge. Close shot, eye-level from behind her shoulder, 85mm lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1985, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_10_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_10.png",
+          "graded": true
+        },
+        {
+          "index": 11,
+          "prompt": "Red-brown brick working-class apartment blocks of Leganés. Stand in rows under a low November sky, one small window lit on an upper floor. 1985 Leganés suburban housing estate, narrow street, parked SEAT 127 and Renault 5. Overcast late-afternoon November light, dim and flat. Wide shot, low angle from the street, 35mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1985, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "establishing_shot",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3700876658,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_11_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_11.png",
+          "graded": true
+        },
+        {
+          "index": 12,
+          "prompt": "A middle-aged Spanish working-class woman, fair light-olive skin, dark permed hair thinned and greying at the roots, wasted thin frame inside a thick mid-1980s knitted cardigan over a printed house dress, sallow yellowish skin of a chronic liver patient. Shuffling slowly from the bedroom into the small sitting room, feet dragging in worn slippers, one shoulder resting against the doorframe for support, cardigan sleeve pushed up. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Cramped 1985 working-class apartment in Leganés, two small rooms joined by a single doorway, unmade narrow bed behind her, sitting room with a worn floral sofa, lace doily on a sideboard, patterned wallpaper peeling at one seam. Hard single shaft of overcast daylight from a small high window, high contrast, deep shadow swallowing the bedroom behind her. Medium shot, eye-level from inside the sitting room, framing her in the doorway, 50mm lens, shallow depth of field, focus on her bowed figure and exposed forearm, sitting room foreground soft. A grainy 35mm documentary photograph taken in 1985, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Angela Menseger"
+          ],
+          "persona": [
+            "Angela Menseger"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_12_graded.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "google/nano-banana-2-lite/edit",
+            "ms": 10953,
+            "width": 1376,
+            "height": 768,
+            "seed": null,
+            "nsfw_flag": false,
+            "motor": "nb2_lite",
+            "respaldo_motivo": null,
+            "segundos": 11.0,
+            "usd": 0.042,
+            "n_referencias": 1
+          },
+          "motor": "nb2_lite",
+          "respaldo_motivo": null,
+          "segundos": 11.0,
+          "usd": 0.042,
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_12.png",
+          "graded": true
+        },
+        {
+          "index": 13,
+          "prompt": "A middle-aged Spanish woman, light olive skin, wasted build, cardigan sleeve rolled up, faded yellow-purple bruising along her inner forearm; a Spanish nurse in a white dress and cap. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Southern European Spanish features, fair to light olive skin, dark hair, brown eyes. 1985 Madrid hospital outpatient room, tiled walls, metal chair. Hard overhead fluorescent light, high contrast. Medium shot, eye-level, 50mm lens, shallow depth of field on the arm. A grainy 35mm documentary photograph taken in 1985, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Angela Menseger"
+          ],
+          "persona": [
+            "Angela Menseger"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_13_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_13.png",
+          "graded": true
+        },
+        {
+          "index": 14,
+          "prompt": "A middle-aged Spanish man, light olive skin, dark greying hair, heavy build, thick knit sweater. Sits motionless before a switched-off wood-cabinet television, his wife soft in the doorway behind. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. 1985 small Leganés apartment living room, brown sofa, patterned rug. Grey November daylight from a side window, dim interior. Medium shot, eye-level from the side, 50mm lens, shallow depth of field, doorway figure blurred. A grainy 35mm documentary photograph taken in 1985, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [
+            "Angela Menseger"
+          ],
+          "persona": [
+            "Angela Menseger"
+          ],
+          "seed_used": 3609549199,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_14_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_14.png",
+          "graded": true
+        },
+        {
+          "index": 15,
+          "prompt": "A small public clinic building, a few Spanish victims waiting outside in quilted anoraks and wool coats, some leaning on canes. Patients wait on the steps before a half-lowered metal roller shutter. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. 1985 Madrid suburban street, low concrete clinic building. Overcast November daylight, flat and grey. Wide shot, eye-level from across the street, 35mm lens, deep depth of field. A grainy 35mm documentary photograph taken in 1985, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "establishing_shot",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3700876658,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_15_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_15.png",
+          "graded": true
+        },
+        {
+          "index": 16,
+          "prompt": "A middle-aged Spanish woman, light olive skin, wasted build, yellowish skin, quilted housecoat. Sits by the window waiting, a folded newspaper about the trial lying face-down on her lap. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. 1985 small Leganés apartment, net curtains, brick blocks visible outside. Fading grey November dusk through the window, deepening shadows. Close shot, eye-level, 85mm lens, shallow depth of field. A grainy 35mm documentary photograph taken in 1985, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Angela Menseger"
+          ],
+          "persona": [
+            "Angela Menseger"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_16_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch05_flux\\ch05_img_16.png",
+          "graded": true
+        }
+      ]
+    },
+    {
+      "id": "ch06",
+      "engine": "flux",
+      "art_profile": "",
+      "subject_ref": null,
+      "profiles_used": [
+        ""
+      ],
+      "model_used": "flux_pro",
+      "images": [
+        {
+          "index": 1,
+          "prompt": "Hundreds of Spanish working-class victims, middle-aged men and women and young women, fair to light olive skin, dark hair, some leaning on canes, filling the frame. Gathering for their weekly vigil on the pavement before the Madrid law courts, packed shoulder to shoulder. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Wide pavement in front of a grey granite and concrete Madrid court building, 1985, SEAT 127 and Renault 5 cars parked along the kerb. Flat overcast November daylight. Extreme wide shot, high angle from across the street, deep depth of field, 35mm. A grainy 35mm documentary photograph taken in 1985, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "establishing_shot",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3700876658,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_01_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_01.png",
+          "graded": true
+        },
+        {
+          "index": 2,
+          "prompt": "A Spanish woman in her late thirties, light olive skin, thin wasted build, permed dark hair, sleeves pushed up, among a dense crowd of scarred victims. Standing in the crowd with sleeve rolled back, forearm and neck bare to the street, waiting for the trial of the accused businessmen. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Packed pavement before the Madrid law courts, 1985. Flat overcast November daylight. Medium shot, eye-level, shallow depth of field, 85mm, crowd softened behind. A grainy 35mm documentary photograph taken in 1985, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_02_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_02.png",
+          "graded": true
+        },
+        {
+          "index": 3,
+          "prompt": "An older Spanish woman in her fifties, light olive skin, stooped stocky build, quilted anorak and headscarf, amid the crowd of victims. Holding out a dented collection tin as victims drop in folded peseta notes and coins toward the private prosecution fund. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Edge of the weekly gathering on the pavement before the Madrid courts, 1985. Flat overcast November daylight. Medium shot, slightly high angle, shallow depth of field, 50mm. A grainy 35mm documentary photograph taken in 1985, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_03_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_03.png",
+          "graded": true
+        },
+        {
+          "index": 4,
+          "prompt": "The victims' private prosecution lawyers, middle-aged Spanish men, greying dark hair, black togas over dark suits. Climbing the court steps past the crowd, carrying thick case files to petition again for reopening the inquiry into health officials. Southern European Spanish features, fair to light olive skin, dark or greying hair, brown eyes. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Granite steps and entrance of the Madrid law courts, 1985. Flat overcast November daylight. Wide shot, low angle up the steps, deep depth of field, 28mm. A grainy 35mm documentary photograph taken in 1985, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_04_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_04.png",
+          "graded": true
+        },
+        {
+          "index": 5,
+          "prompt": "A middle-aged Spanish man, light olive skin, dark hair, hunched deformed upper body, thick sweater, the association director. Working wedged between towers of folders in a cramped association office, sorting victims' case files. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Narrow association office in Leganés, 1985: nicotine-yellow walls, formica desk, metal shelving sagging with files. Weak fluorescent tube overhead mixed with a single desk lamp. Wide shot, high angle from a corner of the ceiling, deep depth of field, 24mm. A grainy 35mm documentary photograph taken in 1985, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels. Hundreds of people fill the frame.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [
+            "Arcadio Fernandez"
+          ],
+          "persona": [
+            "Arcadio Fernandez"
+          ],
+          "seed_used": 3609549199,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_05_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_05.png",
+          "graded": true
+        },
+        {
+          "index": 6,
+          "prompt": "A middle-aged Spanish man, light olive skin, dark hair, hunched deformed shoulders, thick sweater, the association director. Speaking to an unseen interviewer, his warped hands resting on a stack of folders. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Cramped Leganés association office, 1985, beige rotary telephone and Olivetti typewriter on the desk. Grey window light from one side, deep shadow across the folders. Medium shot, eye-level, slightly off-balance framing, shallow depth of field, 50mm. A grainy 35mm documentary photograph taken in 1985, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels. Hundreds of people fill the frame.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Arcadio Fernandez"
+          ],
+          "persona": [
+            "Arcadio Fernandez"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_06_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_06.png",
+          "graded": true
+        },
+        {
+          "index": 7,
+          "prompt": "Hundreds of Spanish victims, men and women of varied age, fair to light olive skin, dark hair, anoraks and wool coats, some on crutches, filling the frame. Filing in a long slow line toward the doors of a Casa de Campo exhibition pavilion on the opening day of the trial. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Forecourt of a large modern exhibition pavilion in the Casa de Campo park, Madrid, 1987, bare trees around. Cold early-morning overcast daylight. Extreme wide shot, high angle, deep depth of field, 35mm. A grainy 35mm documentary photograph taken in 1987, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "establishing_shot",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3700876658,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_07_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_07.png",
+          "graded": true
+        },
+        {
+          "index": 8,
+          "prompt": "Rows of accused Spanish businessmen, middle-aged, greying dark hair, grey and brown suits, facing a raised bench of magistrates in black togas. Sitting in long ranks before the tribunal in an exhibition hall converted into a courtroom. Southern European Spanish features, fair to light olive skin, dark or greying hair, brown eyes, mostly middle-aged men. Southern European Spanish features, fair to light olive skin, dark or greying hair, brown eyes. Vast Casa de Campo pavilion converted to a courtroom, exposed steel roof trusses, temporary wooden bench and partitions, 1988. Flat institutional fluorescent light under a high roof. Wide shot, high angle from the rear gallery, deep depth of field, 24mm. A grainy 35mm documentary photograph taken in 1988, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3609549199,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_08_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_08.png",
+          "graded": true
+        },
+        {
+          "index": 9,
+          "prompt": "A Spanish defence lawyer in his fifties, greying hair, heavyset, black toga with white lace cuffs. Standing to argue that pesticide-sprayed tomatoes caused the poisoning, holding up an agricultural report toward the bench. Southern European Spanish features, fair to light olive skin, dark or greying hair, brown eyes. Converted Casa de Campo pavilion courtroom, 1988. Flat institutional fluorescent light. Medium shot, low angle from behind the defence table, shallow depth of field, 85mm, bench softened. A grainy 35mm documentary photograph taken in 1988, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_09_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_09.png",
+          "graded": true
+        },
+        {
+          "index": 10,
+          "prompt": "Spanish victims in the public seating, middle-aged men and women, light olive skin, scarred necks, anoraks and wool coats; distant magistrates in togas. Sitting through the hours-long reading of the verdict as it declares no one guilty of homicide. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Southern European Spanish features, fair to light olive skin, dark or greying hair, brown eyes. Public seating of the Casa de Campo pavilion courtroom, 1989, the bench far away under the steel roof. Fading evening light from high windows giving way to harsh fluorescent. Medium shot, eye-level from the aisle, shallow depth of field, 85mm. A grainy 35mm documentary photograph taken in 1989, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_10_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_10.png",
+          "graded": true
+        },
+        {
+          "index": 11,
+          "prompt": "Handcuffed middle-aged Spanish defendants in grey suits escorted by Policía Nacional officers in 1980s brown uniforms; other suited defendants beyond. The convicted being led away in handcuffs while the other defendants walk freely out through the open pavilion doors. Southern European Spanish features, fair to light olive skin, dark or greying hair, brown eyes, mostly middle-aged men. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Exit of the Casa de Campo pavilion courtroom at night, 1989. Harsh fluorescent interior against a black night doorway. Wide shot, eye-level from behind the victims' barrier, deep depth of field, 35mm. A grainy 35mm documentary photograph taken in 1989, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_11_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_11.png",
+          "graded": true
+        },
+        {
+          "index": 12,
+          "prompt": "Two typed lists of names lying side by side on a cluttered office desk. The association's long list running off the page beside the government's short list of recognised deaths. Desk in the cramped Leganés association office, 1989. The typed totals at the foot of each list reads \"62 — 6\" in clear crisp typewritten lettering. Single desk lamp at dusk, deep shadow at the edges. Detail shot, high angle overhead, shallow depth of field, macro. A grainy 35mm documentary photograph taken in 1989, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3609549199,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_12_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_12.png",
+          "graded": true
+        },
+        {
+          "index": 13,
+          "prompt": "A wood-cabinet CRT television on a metal shelf among folder stacks, showing a Spanish official in a dark double-breasted suit. The television broadcasting the government's statement on compensation into the empty association office. Cramped Leganés association office at dusk, 1989. Cold television glow as the only light against dusk window. Medium shot, eye-level, off-balance tilt, shallow depth of field, 50mm. A grainy 35mm documentary photograph taken in 1989, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "persona": [],
+          "seed_used": 3609549199,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_13_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_13.png",
+          "graded": true
+        },
+        {
+          "index": 14,
+          "prompt": "A middle-aged Spanish man, light olive skin, dark greying hair, deformed hands and hunched upper body, thick sweater, the association director. Adding figures on a desktop calculator with stiff fingers that cannot close. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Leganés association office at dusk, 1989, folder stacks rising behind him. Single desk lamp at dusk, hard shadow behind. Medium shot, eye-level, shallow depth of field, 85mm. A grainy 35mm documentary photograph taken in 1989, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Arcadio Fernandez"
+          ],
+          "persona": [
+            "Arcadio Fernandez"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_14_graded.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "google/nano-banana-2-lite/edit",
+            "ms": 10619,
+            "width": 1376,
+            "height": 768,
+            "seed": null,
+            "nsfw_flag": false,
+            "motor": "nb2_lite",
+            "respaldo_motivo": null,
+            "segundos": 10.6,
+            "usd": 0.042,
+            "n_referencias": 1
+          },
+          "motor": "nb2_lite",
+          "respaldo_motivo": null,
+          "segundos": 10.6,
+          "usd": 0.042,
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_14.png",
+          "graded": true
+        },
+        {
+          "index": 15,
+          "prompt": "A middle-aged Spanish man, light olive skin, hunched deformed shoulders, thick sweater, seen in side profile. Leaning back from the calculator, holding up the long paper tape of his compensation total. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Leganés association office after dark, 1989. Single desk lamp after dark, room behind in near-black. Close shot, slight low angle, shallow depth of field, 85mm. A grainy 35mm documentary photograph taken in 1989, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Arcadio Fernandez"
+          ],
+          "persona": [
+            "Arcadio Fernandez"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_15_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_15.png",
+          "graded": true
+        },
+        {
+          "index": 16,
+          "prompt": "A middle-aged Spanish man, light olive skin, hunched deformed upper body, thick sweater, the association director. Standing at the office window holding the government's short list, the long list pinned on the wall behind him. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Leganés association office at night, 1989, folder towers in the foreground, apartment blocks beyond the glass. Sodium streetlight through the window, room unlit. Wide shot, eye-level from behind the folder stacks, deep depth of field, 28mm, foreground stacks framing. A grainy 35mm documentary photograph taken in 1989, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [
+            "Arcadio Fernandez"
+          ],
+          "persona": [
+            "Arcadio Fernandez"
+          ],
+          "seed_used": 1603258343,
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_16_graded.png",
+          "status": "skipped_exists",
+          "validated": null,
+          "model_used": "flux_pro",
+          "sensible": false,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_16.png",
+          "graded": true
+        }
+      ]
+    },
+    {
+      "id": "ch07",
+      "engine": "veo",
+      "art_profile": "",
+      "model_used": "flux_pro",
+      "clips": [
+        {
+          "index": 1,
+          "video_prompt": "A slow, somber documentary shot on grainy 35mm film, muted colors and slight underexposure, seen from high on an upper balcony. The camera holds a locked-off wide shot with a subtle, slow downward drift, starting on the full street of ochre-brick blocks and ending slightly closer on the residents below. First the drying laundry on the metal balconies stirs gently in a light breeze, then the residents walk slowly along the pavement, one with an uneven, dragging step. Pale dawn light and long soft shadows stay steady over the quiet suburban street as the street lamps fade out. The residents keep to their paths, faces and bodies steady and natural.",
+          "image_prompt": "A quiet working-class street in Leganés lined with ochre-brick apartment blocks, a few Spanish residents in their forties to sixties, fair to light olive skin, dark greying hair, modest 1990s knitwear, walking slowly, one dragging a foot. Morning settles over the street where the families once bought the cheap oil; residents pass slowly, one with an uneven, dragging gait. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Leganés, southern Madrid suburb, 2000: six-storey brick blocks with metal balconies, drying laundry, rolling shutters half down, parked Opel Corsa B and SEAT Ibiza Mk2 hatchbacks. Pale dawn light, long soft shadows, street lamps just switching off. Wide shot, high angle from an upper balcony, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 2000, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_veo\\ch07_clip_01.mp4",
+          "status": "skipped_exists",
+          "fallback_type": null
+        }
+      ],
+      "supplemental_images": [
+        {
+          "index": 1,
+          "prompt": "Hundreds of Spanish victims, fair to light olive skin, dark hair, many visibly scarred with hardened skin and stiff hands, in quilted anoraks and wool coats, filling the frame; in front a stocky woman in her forties with a headscarf and a thin grey-haired man leaning on a cane. The crowd rises from the rows, arms raised and mouths open, shouting toward the tribunal bench as the verdict is read. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Converted pavilion at Casa de Campo, Madrid, 1989, used as a mass courtroom: long raised tribunal bench, rows of seats, gooseneck microphones, towering paper case files. Flat overhead fluorescent light mixed with grey daylight from high pavilion windows. Wide shot, elevated, from the back of the pavilion, deep depth of field, 28mm lens. A grainy 35mm documentary photograph taken in 1989, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "narration_anchor": "A la gente que gritaba en esa sala le habían vendido aceite industrial como aceite de cocina, un ministro les había hablado de un bichito, y ocho años después una sentencia no encontraba un solo homicida: de eso eran los gritos",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_01_graded.png",
+          "status": "skipped_exists",
+          "art_profile": "",
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_01.png",
+          "graded": true
+        },
+        {
+          "index": 2,
+          "prompt": "Spanish Supreme Court magistrates, middle-aged and older men, fair to light olive skin, greying hair, black togas with white lace cuffs, seated behind a high wooden bench. The presiding magistrate reads the ruling that raises the sentences while the others sit still over open files. Southern European Spanish features, fair to light olive skin, dark or greying hair, brown eyes. Wood-paneled Supreme Court chamber, Madrid, 1992, coffered ceiling, tall windows, sparse public benches. Diffuse daylight from tall high windows, brass desk lamps glowing. Wide shot, low angle from the public benches, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1992, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "narration_anchor": "En mil novecientos noventa y dos, el Tribunal Supremo subió las condenas.",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_02_graded.png",
+          "status": "skipped_exists",
+          "art_profile": "",
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_02.png",
+          "graded": true
+        },
+        {
+          "index": 3,
+          "prompt": "The oil importer, a middle-aged Spanish man, light olive skin, heavy build, greying hair, grey suit with narrow tie, beside his lawyer in a black toga. He stands as his twenty-year sentence is read, shoulders dropping, head lowered. Southern European Spanish features, fair to light olive skin, dark or greying hair, brown eyes, mostly middle-aged men. Southern European Spanish features, fair to light olive skin, dark or greying hair, brown eyes. Wood-paneled Supreme Court chamber, Madrid, 1992, defendants' bench before the raised tribunal. Diffuse daylight from tall high windows, same as the chamber. Medium shot, eye-level from behind the defendant, shallow depth of field, 50mm lens. A grainy 35mm documentary photograph taken in 1992, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "narration_anchor": "Veinte años para Juan Miguel Bengoechea, el que había importado el aceite.",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_03_graded.png",
+          "status": "skipped_exists",
+          "art_profile": "",
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_03.png",
+          "graded": true
+        },
+        {
+          "index": 4,
+          "prompt": "A middle-aged Spanish public official, fair skin, thinning dark hair, large-framed glasses, dark double-breasted suit, sitting alone at the far end of the defendants' bench. He sits apart at the very end of the row, upright, as the lightest sentence is read. Southern European Spanish features, fair to light olive skin, dark or greying hair, brown eyes, mostly middle-aged men. Wood-paneled Supreme Court chamber, Madrid, 1992, long empty defendants' bench stretching away. Diffuse daylight from tall high windows, same as the chamber. Wide shot, slightly high angle from the side gallery, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 1992, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "narration_anchor": "Y al pie de la lista, Manuel Hernández, el funcionario que había aprobado las anilinas: seis meses.",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_04_graded.png",
+          "status": "skipped_exists",
+          "art_profile": "",
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_04.png",
+          "graded": true
+        },
+        {
+          "index": 5,
+          "prompt": "The neoclassical stone Supreme Court building in Madrid, with a small group of Spanish survivors in their thirties to fifties, fair to light olive skin, dark hair, 1990s fleece jackets and knitwear, some with stiff gait, waiting on the steps. Survivors gather quietly at the foot of the steps on the day the State is ordered to pay all compensation. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes. Plaza before the Supreme Court palace, Madrid, 1997, stone facade, iron railings, bare plane trees. Cold clear morning light, long shadows across the stone. Extreme wide shot, low angle from across the plaza, deep depth of field, 24mm lens. A grainy 35mm documentary photograph taken in 1997, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "narration_anchor": "En mil novecientos noventa y siete, dieciséis años después de la garrafa, el Tribunal Supremo obligó al estado español a pagar la totalidad de las indemnizaciones a los supervivientes y a las familias de los muertos.",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_05_graded.png",
+          "status": "skipped_exists",
+          "art_profile": "",
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_05.png",
+          "graded": true
+        },
+        {
+          "index": 6,
+          "prompt": "A folded period newspaper lying on a small formica kitchen table in a modest Madrid suburban flat. The newspaper rests open beside a cooling coffee cup, morning light crossing it. Small formica kitchen in a Leganés flat, late 1990s, butane bottle under the counter, net curtain. The front page of the newspaper reads \"STATE MUST PAY\" in clear crisp bold newsprint serif headline lettering. Soft morning window light through net curtain. Close shot, high angle looking down onto the table, shallow depth of field, 50mm lens. A grainy 35mm documentary photograph taken in 1997, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio.",
+          "narration_anchor": "El estado pagaría el cien por ciento. Lo que cobró Carmen Cortés tenía un descuento.",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_06_graded.png",
+          "status": "skipped_exists",
+          "art_profile": "",
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_06.png",
+          "graded": true
+        },
+        {
+          "index": 7,
+          "prompt": "A Spanish woman in her early thirties, light olive skin, dark short practical hair, very thin frame, tight hardened skin on forearms, plain grey knit sweater. She sits at a modest table reading a bank statement showing the compensation, the paper held low. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes. Modest 1990s apartment living room, Leganés, 2000, cordless phone on a side table, lace doily, small window. Overcast daylight from a single small window. Medium shot, eye-level, shallow depth of field, 85mm lens. A grainy 35mm documentary photograph taken in 2000, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "narration_anchor": "Carmen cobró en el año dos mil: ciento cincuenta mil doscientos cincuenta euros, menos alrededor de un veinte por ciento por las ayudas que había recibido antes.",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_07_graded.png",
+          "status": "ok",
+          "art_profile": "",
+          "foto_madre_refs": [
+            "Carmen Cortés"
+          ],
+          "motor": "nb2_lite",
+          "respaldo_motivo": null,
+          "segundos": 10.8,
+          "usd": 0.042,
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_07.png",
+          "graded": true
+        },
+        {
+          "index": 8,
+          "prompt": "A Spanish nursing auxiliary in her mid-twenties, light olive skin, dark hair tied back, slight emaciated build, white tunic-and-trouser uniform. She lowers herself stiffly onto a bench in the staff room, one hand pressed to her lower back. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes. Hospital staff room, Madrid, 1992, tiled walls, terrazzo floor, metal lockers, single high window. Harsh daylight from one high window, rest of the room in soft shade. Medium shot, slightly high angle, shallow depth of field, 50mm lens. A grainy 35mm documentary photograph taken in 1992, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "narration_anchor": "Había trabajado de auxiliar de enfermería hasta que, en mil novecientos noventa y dos, una hernia discal se lo impidió.",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_08_graded.png",
+          "status": "skipped_exists",
+          "art_profile": "",
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_08.png",
+          "graded": true
+        },
+        {
+          "index": 9,
+          "prompt": "A Spanish woman in her early thirties, light olive skin, dark short hair, thin frame, hardened shiny skin on the backs of her hands, navy fleece jacket. She speaks seated among folding chairs in an association meeting room, leaning forward. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes. Survivors' association meeting room, 2000, stacked folding chairs, shelves of paper archives, beige desktop PC with CRT monitor. Overcast daylight from a side window, soft fluorescent fill. Medium shot, eye-level, shallow depth of field, 85mm lens. A grainy 35mm documentary photograph taken in 2000, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "narration_anchor": "«El estado no ha protegido a las víctimas y estamos sufriendo una segunda victimización», dice Carmen.",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_09_graded.png",
+          "status": "skipped_exists",
+          "art_profile": "",
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_09.png",
+          "graded": true
+        },
+        {
+          "index": 10,
+          "prompt": "A Spanish man in his mid-twenties, the child once held in the glass-walled ward, light olive skin, dark cropped hair, gaunt build, stiff hardened skin, plain dark knit sweater, a cane at his side. He sits alone on the edge of a narrow bed in a small rented room, the cane propped against his knee. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes. Small bare bedroom in a Leganés flat, 2000, single bed, bare wall, window onto brick blocks. Overcast daylight from a single window, soft falloff into shadow. Medium shot, eye-level, shallow depth of field, 85mm lens. A grainy 35mm documentary photograph taken in 2000, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "narration_anchor": "Jesús Lozano, el niño de la pecera, ya es un hombre. «No me planteo tener una familia, no me veo capacitado para mantenerla. Me veo totalmente decaído, inválido, perdido», dice Jesús.",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_10_graded.png",
+          "status": "skipped_exists",
+          "art_profile": "",
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_10.png",
+          "graded": true
+        },
+        {
+          "index": 11,
+          "prompt": "An empty 1990s toxicology laboratory with a gas chromatograph and its strip-chart recorder. The recorder pen has stopped mid-trace, paper curling off the drum, the instrument idle. Public health laboratory, Madrid, 2000, steel benches, glassware racks, beige desktop PC with CRT monitor. Cold fluorescent overhead light, deserted lab at dusk. Medium shot, eye-level across the bench, shallow depth of field, 50mm lens. A grainy 35mm documentary photograph taken in 2000, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "narration_anchor": "En el aceite se encontraron unos ésteres, los del PAP. Nadie ha podido decir si fueron esos ésteres los que enfermaron a esta gente o si solo marcan que el aceite era tóxico.",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_11_graded.png",
+          "status": "skipped_exists",
+          "art_profile": "",
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_11.png",
+          "graded": true
+        },
+        {
+          "index": 12,
+          "prompt": "The shuttered unlicensed warehouse in Alcorcón where the oil was traced. The closed building stands silent, rolling door down, weeds pushing through the concrete forecourt. Industrial edge of Alcorcón, Madrid, 2000, low brick and corrugated-metal warehouse, chain-link fence, empty lot. Flat overcast daylight. Wide shot, eye-level from across the empty lot, deep depth of field, 35mm lens. A grainy 35mm documentary photograph taken in 2000, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "narration_anchor": "Se sabe de dónde salió el veneno. No se sabe qué parte del veneno hizo el daño.",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_12_graded.png",
+          "status": "skipped_exists",
+          "art_profile": "",
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_12.png",
+          "graded": true
+        },
+        {
+          "index": 13,
+          "prompt": "A middle-aged Spanish man, light olive skin, greying dark hair, stooped heavy upper body, curled deformed fingers that no longer close, plain brown cardigan. He rests his hands on the desk among stacked folders, unable to close them. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Narrow cramped victims' association office in Leganés, stacked dossiers to the ceiling, window behind onto the brick street, 2000. Pale morning window light from behind, soft fill on the face. Medium shot, eye-level, shallow depth of field, 50mm lens. A grainy 35mm documentary photograph taken in 2000, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "narration_anchor": "En Leganés, la oficina sigue siendo estrecha. Arcadio Fernandez apoya sobre la mesa las manos que ya no se cierran.",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_13_graded.png",
+          "status": "skipped_exists",
+          "art_profile": "",
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_13.png",
+          "graded": true
+        },
+        {
+          "index": 14,
+          "prompt": "A middle-aged Spanish man, light olive skin, dark hair, stooped heavy upper body, stiff curled hands, brown 1980s wool jacket, seated before a television crew. He speaks to a shoulder-mounted news camera in the crowded office, leaning forward. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Cramped Leganés association office, 1989, towering paper case files, beige push-button telephone, electric typewriter. Warm tungsten camera light against grey window daylight. Wide shot, eye-level from the doorway, deep depth of field, 28mm lens. A grainy 35mm documentary photograph taken in 1989, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+          "narration_anchor": "En mil novecientos ochenta y nueve lo había dicho así: «Lo que no entendemos es cómo en un envenenamiento de esta magnitud ni siquiera un botones de ningún ministerio es responsable.",
+          "path": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_14_graded.png",
+          "status": "skipped_exists",
+          "art_profile": "",
+          "path_original": "c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_14.png",
+          "graded": true
+        }
+      ],
+      "veo_position": "end"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+[20:14:17] preflight: 94 fotos/clips esperados, faltan 0: []
+[20:14:17] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: c4934b7d-3f54-448f-ba5f-539dc744f0d8
+[20:14:17] variante vieja → C:\CLAUDE_PROJECTS\automatization_videos\output\c4934b7d-3f54-448f-ba5f-539dc744f0d8\foto_madre\_previas_f78b\angela_menseger@1981-1985.png
+[20:14:17] variante vieja → C:\CLAUDE_PROJECTS\automatization_videos\output\c4934b7d-3f54-448f-ba5f-539dc744f0d8\foto_madre\_previas_f78b\arcadio_fernandez@1981-1989.png
+[20:14:17] variante vieja → C:\CLAUDE_PROJECTS\automatization_videos\output\c4934b7d-3f54-448f-ba5f-539dc744f0d8\foto_madre\_previas_f78b\carmen_cort_s@1981-1982.png
+[20:14:17] variante vieja → C:\CLAUDE_PROJECTS\automatization_videos\output\c4934b7d-3f54-448f-ba5f-539dc744f0d8\foto_madre\_previas_f78b\carmen_cort_s@1981-1982_15.png
+[20:14:17] variante vieja → C:\CLAUDE_PROJECTS\automatization_videos\output\c4934b7d-3f54-448f-ba5f-539dc744f0d8\foto_madre\_previas_f78b\carmen_cort_s@1992-2000_25.png
+[20:14:17] variante vieja → C:\CLAUDE_PROJECTS\automatization_videos\output\c4934b7d-3f54-448f-ba5f-539dc744f0d8\foto_madre\_previas_f78b\carmen_cort_s@1992-2000_33.png
+[20:14:17] variante vieja → C:\CLAUDE_PROJECTS\automatization_videos\output\c4934b7d-3f54-448f-ba5f-539dc744f0d8\foto_madre\_previas_f78b\jes_s_lozano@1981-1981.png
+[20:14:17] variante vieja → C:\CLAUDE_PROJECTS\automatization_videos\output\c4934b7d-3f54-448f-ba5f-539dc744f0d8\foto_madre\_previas_f78b\mercedes_garc_a@1981-1981.png
+[20:14:51] WARNING  | viral_pipeline | [image_generator] ⚠ [carmen_cort_s@1981-1982.png] Nano Banana rechazó → Seedream 4.5: {"msg": "The content could not be processed because it contained material flagged by a content checker.", "type": "content_policy_violation", "categories": ["model_moderated"]}
+[20:14:51] WARNING  | viral_pipeline | [image_generator] ⚠ [carmen_cort_s@1981-1982_15.png] Nano Banana rechazó → Seedream 4.5: {"msg": "The content could not be processed because it contained material flagged by a content checker.", "type": "content_policy_violation", "categories": ["model_moderated"]}
+     [foto_madre] skip persona:Jesús Sancho Rof (ya existe)
+     [foto_madre] skip persona:Antonio Muro Fernández Cavada (ya existe)
+     [foto_madre] skip persona:Arcadio Fernandez (ya existe)
+     [foto_madre] skip persona:Angela Menseger (ya existe)
+     [foto_madre] skip persona:Jesús Lozano (ya existe)
+     [foto_madre] skip persona:Carmen Cortés (ya existe)
+     [foto_madre] skip persona:Mercedes García (ya existe)
+     [foto_madre] ✓ variante arcadio_fernandez@1981-1989.png  (15 fotos, nb2_lite)
+     [foto_madre] ✓ variante mercedes_garc_a@1981-1981.png  (2 fotos, nb2_lite)
+     [foto_madre] ✓ variante carmen_cort_s@1992-2000_25.png  (1 fotos, nb2_lite)
+     [foto_madre] ✓ variante carmen_cort_s@1992-2000_33.png  (2 fotos, nb2_lite)
+     [foto_madre] ✓ variante jes_s_lozano@1981-1981.png  (3 fotos, nb2_lite)
+     [foto_madre] ✓ variante angela_menseger@1981-1985.png  (4 fotos, nb2_lite)
+     [foto_madre] ✓ variante carmen_cort_s@1981-1982.png  (4 fotos, seedream45_respaldo)
+     [foto_madre] ✓ variante carmen_cort_s@1981-1982_15.png  (1 fotos, seedream45_respaldo)
+[20:15:32] estados y variantes: 75 s · rasgos.json intacto: True
+[20:15:32] m06 → C:\CLAUDE_PROJECTS\automatization_videos\data\scripts\c4934b7d-3f54-448f-ba5f-539dc744f0d8.json
+[20:15:32] a regenerar: ['ch01_supp_05', 'ch04_img_12', 'ch06_img_14', 'ch07_supp_07']
+[20:15:32] INFO     | viral_pipeline | [image_generator] 🏭 [c4934b7d-3f54-448f-ba5f-539dc744f0d8] Asset Manager (Flux+Veo) — 7 capítulos | Vision Guardrail ACTIVO | Flux Pro=fal-ai/flux-2-pro | Ultra=fal-ai/flux-2-pro
+[20:15:32] INFO     | viral_pipeline | [image_generator] ──── [ch01] engine=veo ────
+[20:15:32] INFO     | viral_pipeline | [video_generator] [ch01] Clip 1 ya existe — skip
+[20:15:32] INFO     | viral_pipeline | [image_generator] [ch01] supp 1 ya existe — skip
+[20:15:32] INFO     | viral_pipeline | [image_generator] [ch01] supp 3 ya existe — skip
+[20:15:32] INFO     | viral_pipeline | [image_generator] [ch01] supp 2 ya existe — skip
+[20:15:32] INFO     | viral_pipeline | [image_generator] [ch01] supp 4 ya existe — skip
+[20:15:32] INFO     | viral_pipeline | [image_generator] [ch01] supp 6 ya existe — skip
+[20:15:32] INFO     | viral_pipeline | [image_generator] [ch01] supp 8 ya existe — skip
+[20:15:32] INFO     | viral_pipeline | [image_generator] [ch01] supp 7 ya existe — skip
+[20:15:32] INFO     | viral_pipeline | [image_generator] Flux-ULTRA [validator OFF] → ch01_supp_05.png
+[20:15:49] INFO     | viral_pipeline | [image_generator] ──── [ch02] engine=flux ────
+[20:15:49] INFO     | viral_pipeline | [image_generator] [ch02] Flux-PRO []: 0 a generar, 8 skip
+[20:15:49] INFO     | viral_pipeline | [image_generator] ──── [ch03] engine=flux ────
+[20:15:49] INFO     | viral_pipeline | [image_generator] [ch03] Flux-PRO []: 0 a generar, 16 skip
+[20:15:49] INFO     | viral_pipeline | [image_generator] ──── [ch04] engine=flux ────
+[20:15:49] INFO     | viral_pipeline | [image_generator] [ch04] Flux-PRO []: 1 a generar, 11 skip
+[20:15:49] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=3609549199 → ch04_img_12.png
+[20:16:05] INFO     | viral_pipeline | [image_generator] ──── [ch05] engine=flux ────
+[20:16:05] INFO     | viral_pipeline | [image_generator] [ch05] Flux-PRO []: 0 a generar, 16 skip
+[20:16:05] INFO     | viral_pipeline | [image_generator] ──── [ch06] engine=flux ────
+[20:16:05] INFO     | viral_pipeline | [image_generator] [ch06] Flux-PRO []: 1 a generar, 15 skip
+[20:16:05] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch06_img_14.png
+[20:16:28] INFO     | viral_pipeline | [image_generator] ──── [ch07] engine=veo ────
+[20:16:28] INFO     | viral_pipeline | [video_generator] [ch07] Clip 1 ya existe — skip
+[20:16:28] INFO     | viral_pipeline | [image_generator] [ch07] supp 1 ya existe — skip
+[20:16:28] INFO     | viral_pipeline | [image_generator] [ch07] supp 2 ya existe — skip
+[20:16:28] INFO     | viral_pipeline | [image_generator] [ch07] supp 3 ya existe — skip
+[20:16:28] INFO     | viral_pipeline | [image_generator] [ch07] supp 4 ya existe — skip
+[20:16:28] INFO     | viral_pipeline | [image_generator] [ch07] supp 5 ya existe — skip
+[20:16:28] INFO     | viral_pipeline | [image_generator] [ch07] supp 6 ya existe — skip
+[20:16:28] INFO     | viral_pipeline | [image_generator] [ch07] supp 8 ya existe — skip
+[20:16:28] INFO     | viral_pipeline | [image_generator] [ch07] supp 9 ya existe — skip
+[20:16:28] INFO     | viral_pipeline | [image_generator] [ch07] supp 10 ya existe — skip
+[20:16:28] INFO     | viral_pipeline | [image_generator] [ch07] supp 11 ya existe — skip
+[20:16:28] INFO     | viral_pipeline | [image_generator] [ch07] supp 12 ya existe — skip
+[20:16:28] INFO     | viral_pipeline | [image_generator] [ch07] supp 13 ya existe — skip
+[20:16:28] INFO     | viral_pipeline | [image_generator] [ch07] supp 14 ya existe — skip
+[20:16:28] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] → ch07_supp_07.png
+[20:16:47] INFO     | viral_pipeline | [image_generator] [c4934b7d-3f54-448f-ba5f-539dc744f0d8] grade de post: 90 imagen(es) → *_graded.png
+[20:16:47] INFO     | viral_pipeline | [image_generator] ✓ ✅ [c4934b7d-3f54-448f-ba5f-539dc744f0d8] Manifest: 68 imgs Flux | Veo ok=0 | kenburns=0 | technical_fallback=0 | failed=0
+[20:16:47] 4 fotos: 75 s
+[20:16:47] INFO     | viral_pipeline | [cost_tracker] Video c4934b7d-3f54-448f-ba5f-539dc744f0d8 — Costo total: $0.5263
+[20:16:47] US$ 0.5263 · total 151 s
+EXIT 0
