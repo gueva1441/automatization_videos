@@ -1104,7 +1104,11 @@ def _madres_para_item(persona: list[str], foto_madre_refs: list[str], anio: Any,
     `personas_canon` = {nombre: {era, condition_by_period}} del contrato (m06); sin canon la persona aporta.
     F68: con `madres_solo_persona` en el perfil activo, `foto_madre_ref` no entra (foto sin persona = sin referencia).
     F71b: también cuentan las personas del registry que `prompt` nombra y no están en `persona` (después de ellas, mismo filtro de
-    era). Se deriva cada vez: `persona` no se toca."""
+    era). Se deriva cada vez: `persona` no se toca.
+    F78a: para una PERSONA la ref sigue siendo su nombre, pero el path es el de su variante (`personas_canon[nombre]["variantes"]`,
+    la de `clave` == `foto_madre.clave_de_foto(canon, anio)["clave"]`: tramo de estado que contiene el año, el más corto si se
+    pisan, + edad de ese año) si la clave no es vacía, la variante está declarada y su archivo existe; si no, la madre limpia del
+    registry. Objeto/lugar (`foto_madre_ref`) sin cambio."""
     registry = registry or {}
     personas_canon = personas_canon or {}
     out: list[tuple[str, str]] = []
@@ -1112,12 +1116,30 @@ def _madres_para_item(persona: list[str], foto_madre_refs: list[str], anio: Any,
     refs = [] if perfil is not None and perfil.render.madres_solo_persona else list(foto_madre_refs or [])
     personas = list(persona or [])
     personas += [n for n in _nombres_en_prompt(prompt, registry) if n not in personas]
-    candidatos = [p for p in personas if persona_aporta_madre(personas_canon.get(p), anio)] + refs
-    for ref in candidatos:
+    candidatos = [(p, True) for p in personas if persona_aporta_madre(personas_canon.get(p), anio)] + [(r, False) for r in refs]
+    for ref, es_persona in candidatos:
         p = registry.get(ref)
+        if p and es_persona:
+            p = _variante_de_persona(personas_canon.get(ref), anio) or p    # F78a: variante por tramo + edad, o la madre limpia
         if p and Path(p).exists() and ref not in [r for r, _ in out]:
             out.append((ref, p))
     return out[:2]
+
+
+def _variante_de_persona(canon_persona: dict[str, Any] | None, anio: Any) -> str | None:
+    """F78a: path de la variante de la madre de una persona para el año de la foto (clave de `foto_madre.clave_de_foto`, la regla
+    única); None si la clave es vacía (madre limpia), no hay variante con esa clave o su archivo no existe."""
+    variantes = canon_persona.get("variantes") if isinstance(canon_persona, dict) else None
+    if not variantes:
+        return None
+    import foto_madre  # noqa: PLC0415 — foto_madre importa asset_manager a nivel de módulo
+    clave = foto_madre.clave_de_foto(canon_persona, anio)["clave"]
+    if not clave:
+        return None
+    for v in variantes:
+        if isinstance(v, dict) and v.get("clave") == clave and v.get("path") and Path(v["path"]).exists():
+            return str(v["path"])
+    return None
 
 
 def _iter_image_items(
@@ -1210,9 +1232,12 @@ def _guardar_pedido(video_id: str, clave: str, ped: dict[str, Any]) -> None:
         p.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
-def _clave_lote(prompts: list[str], refs: list[str]) -> str:
-    """Clave de un lote en pedidos.json = md5 de (prompts + refs, en orden): si los ítems cambian, la clave cambia."""
-    return hashlib.md5(json.dumps([list(prompts), list(refs)], ensure_ascii=False).encode("utf-8")).hexdigest()
+def _clave_lote(prompts: list[str], refs: list[str], madre_paths: list[str]) -> str:
+    """Clave de un lote en pedidos.json = md5 de (prompts + refs + md5 del CONTENIDO de cada madre, en orden): si los ítems
+    cambian, la clave cambia. F78a: con la madre (o su variante) regenerada la clave cambia y no se reanuda un pedido viejo;
+    madre inexistente → ""."""
+    md5s = [hashlib.md5(Path(p).read_bytes()).hexdigest() if Path(p).is_file() else "" for p in madre_paths]
+    return hashlib.md5(json.dumps([list(prompts), list(refs), md5s], ensure_ascii=False).encode("utf-8")).hexdigest()
 
 
 def _prompt_secuencia(prompts: list[str]) -> str:
@@ -1242,7 +1267,7 @@ def _llamar_secuencia(video_id: str, prompts: list[str], refs: list[str], madre_
     profile = select_profile("seedream")
     model_id = profile.render.model_id.replace("text-to-image", "edit")
     prompt = _prompt_secuencia(prompts)
-    clave = _clave_lote(prompts, refs)
+    clave = _clave_lote(prompts, refs, madre_paths)   # F78a: + md5 de las madres
     ped = _leer_pedidos(video_id).get(clave) or {}
     t0 = time.time()
     if ped.get("request_id") and ped.get("status_url") and ped.get("response_url"):
@@ -1317,43 +1342,47 @@ def _pre_paso_secuencia(chapters: list[dict[str, Any]], video_id: str, registry:
                         personas_canon: dict[str, dict] | None) -> dict[tuple, dict[str, Any]]:
     """F60 B/C: corre UNA vez en process_script, antes del bucle de caps. Entran a secuencia los ítems sin archivo en
     disco con UNA sola persona que aporta madre (filtro por era) y la tiene en el registry, sin foto_madre_ref, sin cartel.
-    Agrupados por persona en orden de guion, lotes de FOTOS_POR_LLAMADA (cruzan caps); un lote de 1 foto va por el camino
-    de una foto. Lotes de distintas personas y de la misma corren a la vez (tope FLUX_MAX_WORKERS). Devuelve
-    {(cap_id, "img"|"supp", idx): {status: "ok_secuencia", persona, lote, path, foto_madre_refs}}; lo que la llamada no
-    devolvió o falló no figura → camino de una foto con las mismas madres."""
+    Agrupados por (persona, path de madre elegido) en orden de guion, lotes de FOTOS_POR_LLAMADA (cruzan caps); un lote de
+    1 foto va por el camino de una foto. Lotes de distintas personas y de la misma corren a la vez (tope FLUX_MAX_WORKERS).
+    F78a: el path elegido es el de `_madres_para_item([p], [], anio, …)` (variante por tramo + edad, o la madre limpia) y es
+    el que va a `_llamar_secuencia`; id de lote «persona#n» con la madre limpia, «persona@<stem de la variante>#n» con
+    variante. Devuelve {(cap_id, "img"|"supp", idx): {status: "ok_secuencia", persona, lote, path, foto_madre_refs}}; lo que
+    la llamada no devolvió o falló no figura → camino de una foto con las mismas madres."""
     registry = registry or {}
     personas_canon = personas_canon or {}
-    por_persona: dict[str, list[dict]] = {}
+    por_persona: dict[tuple[str, str], list[dict]] = {}
     for it in _items_para_secuencia(chapters, video_id):
         if it["path"].exists() or len(it["persona"]) != 1 or it["refs"] or it["cartel"] or not it["prompt"]:
             continue
         p = it["persona"][0]
-        if not _madres_para_item([p], [], it["anio"], registry, personas_canon):
+        madres = _madres_para_item([p], [], it["anio"], registry, personas_canon)
+        if not madres:
             continue
-        por_persona.setdefault(p, []).append(it)
-    lotes: list[tuple[str, str, list[dict]]] = []
-    for p, items in por_persona.items():
+        por_persona.setdefault((p, madres[0][1]), []).append(it)   # F78a: una persona con 2 variantes = 2 grupos
+    lotes: list[tuple[str, str, str, list[dict]]] = []
+    for (p, madre), items in por_persona.items():
+        base = p if madre == registry.get(p) else f"{p}@{Path(madre).stem}"
         for j in range(0, len(items), FOTOS_POR_LLAMADA):
             lote = items[j:j + FOTOS_POR_LLAMADA]
             if len(lote) >= 2:
-                lotes.append((p, f"{p}#{j // FOTOS_POR_LLAMADA + 1}", lote))
+                lotes.append((p, madre, f"{base}#{j // FOTOS_POR_LLAMADA + 1}", lote))
     resultados: dict[tuple, dict[str, Any]] = {}
     if not lotes:
         return resultados
     error_handler.log_info(PipelineStage.IMAGE, f"[secuencia] {len(lotes)} lote(s): "
-                           + ", ".join(f"{lid} ({len(l)} fotos)" for _, lid, l in lotes))
+                           + ", ".join(f"{lid} ({len(l)} fotos)" for _, _, lid, l in lotes))
 
     def correr(t):
-        p, lid, lote = t
+        p, madre, lid, lote = t
         t0 = time.time()
-        escritos = _llamar_secuencia(video_id, [it["prompt"] for it in lote], [p], [registry[p]],
+        escritos = _llamar_secuencia(video_id, [it["prompt"] for it in lote], [p], [madre],
                                      [it["path"] for it in lote])
         return escritos, round(time.time() - t0, 1)
 
     with ThreadPoolExecutor(max_workers=min(len(lotes), FLUX_MAX_WORKERS)) as ex:
         futs = {ex.submit(correr, t): t for t in lotes}
         for fut in as_completed(futs):
-            p, lid, lote = futs[fut]
+            p, _madre, lid, lote = futs[fut]
             try:
                 escritos, seg = fut.result()
             except Exception as e:  # noqa: BLE001 — el lote entero cae al camino de una foto

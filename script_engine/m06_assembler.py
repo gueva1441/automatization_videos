@@ -111,8 +111,15 @@ def assemble_final_script(topic_id: str) -> Path:
     for per in (topic.get("documented_people") or []):
         if isinstance(per, dict) and per.get("foto_madre") and per.get("name"):
             foto_madre_registry[per["name"]] = per["foto_madre"]
+            # F78a (adenda: opción a): las variantes de la madre por tramo de estado / edad van DENTRO de la persona (no en el
+            # registry: `_nombres_en_prompt` tomaría las claves como nombres) junto con `age_at_event`, que la clave necesita;
+            # fase2a, QA Studio y m09 ya pasan `foto_madre_personas` a `_madres_para_item`. Solo las que existen en disco.
+            variantes = [v for v in (per.get("foto_madre_variantes") or [])
+                         if isinstance(v, dict) and v.get("clave") and v.get("path") and Path(v["path"]).exists()]
             foto_madre_personas[per["name"]] = {"era": per.get("era") or "",
-                                                 "condition_by_period": per.get("condition_by_period") or []}
+                                                 "condition_by_period": per.get("condition_by_period") or [],
+                                                 "age_at_event": per.get("age_at_event"),
+                                                 "variantes": variantes}
 
     narration_by_cap = {c["chapter_number"]: c for c in narration.get("chapters", [])}
     visual_by_cap = {c["chapter_number"]: c for c in visual.get("chapters", [])}
@@ -166,7 +173,7 @@ def assemble_final_script(topic_id: str) -> Path:
         "video_title":               topic.get("video_title", ""),
         "chapters":                  chapters_final,
         "foto_madre_registry":       foto_madre_registry,
-        "foto_madre_personas":       foto_madre_personas,   # F60 B: {nombre: {era, condition_by_period}} de las personas con madre
+        "foto_madre_personas":       foto_madre_personas,   # F60 B / F78a: {nombre: {era, condition_by_period, age_at_event, variantes}}
         "humanizer_phrases":         narration.get("humanizer_phrases", []),
         # metadata trazable:
         "verified_facts":            topic.get("verified_facts", []),

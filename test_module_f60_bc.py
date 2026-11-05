@@ -32,6 +32,21 @@ def _motor_seedream(monkeypatch):
     monkeypatch.setattr(am.api, "image_engine", "seedream")
 
 
+RASGOS_FAKE = "oval face, short dark hair, clean-shaven, no glasses, medium build"
+
+
+@pytest.fixture(autouse=True)
+def _rasgos_y_variantes_fake(monkeypatch):
+    """F78a: la llamada de rasgos y el /edit de las variantes no salen a la red (se prueban en test_module_f78a)."""
+    monkeypatch.setattr(fm, "_llamar_rasgos", lambda entrada: {e["name"]: RASGOS_FAKE for e in entrada})
+
+    def var(prompt, madre, dest):
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_bytes(PNG)
+        return {"motor": "fake", "usd": 0}
+    monkeypatch.setattr(fm, "_generate_variante", var)
+
+
 def _dir(p: Path) -> Path:
     p.mkdir(parents=True, exist_ok=True)
     return p
@@ -359,7 +374,8 @@ def test_m06_registry_personas_image_f8_y_adaptador_fase2a(tmp_path, monkeypatch
     monkeypatch.setattr(m6, "SCRIPTS_DIR", tmp_path / "scripts")
     out = json.loads(m6.assemble_final_script("t").read_text(encoding="utf-8"))
     assert out["foto_madre_registry"] == {"pala": str(tmp_path / "pala.png"), "Daniel Écija": str(madre)}   # María sin madre no entra
-    assert out["foto_madre_personas"] == {"Daniel Écija": {"era": "1962-1963", "condition_by_period": DANIEL["condition_by_period"]}}
+    assert out["foto_madre_personas"] == {"Daniel Écija": {"era": "1962-1963", "condition_by_period": DANIEL["condition_by_period"],
+                                                           "age_at_event": None, "variantes": []}}   # F78a
     caps = {c["chapter_number"]: c for c in out["chapters"]}
     assert caps[1]["image_f8"] == f8 and "image_f8" not in caps[7] and "image_f8" not in caps[2]
     assert caps[1]["supplemental_image_prompts"][0]["persona"] == ["Daniel Écija"] and caps[2]["image_prompts"][0]["persona"] == ["Daniel Écija"]
@@ -380,7 +396,8 @@ VISUAL = {"chapters": [
         {"prompt": "a", "persona": ["Daniel Écija"], "anio": "1961", "people_group": ["spanish_migrant_families"]},
         {"prompt": "b", "persona": ["Daniel Écija"], "anio": "1991", "people_group": ["otro"]},        # fuera de era → no cuenta
         {"prompt": "c", "persona": ["Ramón de Juan"], "anio": "1962", "people_group": ["spanish_migrant_families"]}]}]}
-PROMPT_DANIEL = ("Head-and-shoulders portrait of a mid-20s Spanish man, wearing a plain, clean, light-coloured shirt. Southern "
+PROMPT_DANIEL = ("Head-and-shoulders portrait of a mid-20s Spanish man, oval face, short dark hair, clean-shaven, no glasses, "
+                 "medium build, wearing a plain, clean, light-coloured shirt. Southern "
                  "European features, with light olive to tanned skin. Neutral expression, facing the camera, plain mid-grey "
                  "background, soft even light. A grainy 35mm documentary photograph taken in 1962, with muted colors and "
                  "slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.")
@@ -393,13 +410,13 @@ def test_foto_madre_persona_prompt_byte_a_byte_y_grupo_mas_frecuente():
     assert [(f["cap"], f["kind"], f["idx"]) for f in mias] == [(1, "f8", 1), (1, "supp", 1), (2, "img", 1)]   # 1991 afuera
     grupos = {g["id"]: g for g in GRUPOS}
     assert fm._grupo_mas_frecuente(mias, grupos) == GRUPOS[0]["appearance"]        # 2 a 1
-    assert fm._prompt_persona(DANIEL, fm._grupo_mas_frecuente(mias, grupos)) == PROMPT_DANIEL
+    assert fm._prompt_persona(DANIEL, fm._grupo_mas_frecuente(mias, grupos), RASGOS_FAKE) == PROMPT_DANIEL
     assert "bandaged" not in PROMPT_DANIEL and "faceless" not in PROMPT_DANIEL      # condition_by_period y _STYLE no entran
     # empate → el grupo que aparece primero en orden de guion; sin era con 4 dígitos → sin año
     assert fm._grupo_mas_frecuente([{"people_group": ["otro"]}, {"people_group": ["spanish_migrant_families"]}], grupos) == "Other group."
-    sin = fm._prompt_persona({**DANIEL, "era": "1960s"}, "")
+    sin = fm._prompt_persona({**DANIEL, "era": "1960s"}, "", RASGOS_FAKE)
     assert "taken in 1960," in sin
-    sin = fm._prompt_persona({**DANIEL, "era": "antes"}, "")
+    sin = fm._prompt_persona({**DANIEL, "era": "antes"}, "", RASGOS_FAKE)
     assert "taken in" not in sin and "A grainy 35mm documentary photograph, with muted colors" in sin and ". Neutral expression" in sin
 
 

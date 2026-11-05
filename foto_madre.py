@@ -15,10 +15,12 @@ El style constante es el del canal (m03:149, byte-idéntico).
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+from typing import Any
 
 import requests
 
@@ -61,6 +63,68 @@ MADRE_IMAGE_MODEL = "openai/gpt-image-2"
 ROPA_MADRE = "wearing a plain, clean, light-coloured shirt"
 # F60 B: madre de persona solo si sale en ≥ 2 fotos dentro de su era (analista, handoff F60 base: con 1 foto no hay cara que mantener).
 MADRE_PERSONA_MIN_FOTOS = 2
+
+# F78a: descriptor de edad ≥ 20 = la tabla de researcher_steps/step_4e_visual_canon.py (REGLAS CRÍTICAS 1, «20-23 → early-20s»…),
+# copiada tal cual; 60+ = «elderly» (una de sus dos opciones, adenda F78a 19:36). (desde, hasta, descriptor); hasta None = sin tope.
+DESCRIPTOR_EDAD = (
+    (20, 23, "early-20s"), (24, 26, "mid-20s"), (27, 29, "late-20s"),
+    (30, 33, "early-30s"), (34, 36, "mid-30s"), (37, 39, "late-30s"),
+    (40, 43, "early-40s"), (44, 46, "mid-40s"), (47, 49, "late-40s"),
+    (50, 53, "early-50s"), (54, 56, "mid-50s"), (57, 59, "late-50s"),
+    (60, None, "elderly"),
+)
+# F78a: < 20 → «fifteen-year-old» (analista F78a: no hay num2words en el repo). Índice = edad − 1.
+EDAD_EN_PALABRAS = ("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve",
+                    "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen")
+# F78a: los rasgos inventados por persona (una llamada con todas) y la carpeta donde va lo viejo que se reemplaza.
+RASGOS_JSON = "rasgos.json"
+PREVIAS_DIR = "_previas_f78a"
+
+
+def descriptor_edad(n: Any) -> str | None:
+    """F78a: edad → descriptor (< 20: «fifteen-year-old»; ≥ 20: tabla DESCRIPTOR_EDAD). No número o < 1 → None."""
+    if isinstance(n, bool) or not isinstance(n, int) or n < 1:
+        return None
+    if n < 20:
+        return f"{EDAD_EN_PALABRAS[n - 1]}-year-old"
+    for desde, hasta, d in DESCRIPTOR_EDAD:
+        if n >= desde and (hasta is None or n <= hasta):
+            return d
+    return None
+
+
+def clave_de_foto(canon_persona: dict | None, anio: Any) -> dict:
+    """F78a (regla única de la variante, la usan foto_madre y asset_manager): para una persona con madre y el año de una foto →
+    {clave, tramo, condition, edad, anio_estilo}. tramo = el de `condition_by_period` que contiene el año (si se pisan, el más
+    corto; empate → el primero del canon); edad = `age_at_event` + (año − primer año de `era`), solo si `age_at_event` es número
+    y su descriptor difiere del de la madre. clave = «AAAA-AAAA» del tramo o «sin_estado», más «_<edad>» si hay edad; sin tramo
+    ni edad → clave "" (madre limpia). anio_estilo = primer año del tramo; sin tramo, el año de la foto."""
+    from script_engine.m03_visual import _tramo  # noqa: PLC0415 — el lector de tramos del canon (F50d)
+    vacio = {"clave": "", "tramo": None, "condition": None, "edad": None, "anio_estilo": None}
+    if not isinstance(canon_persona, dict):
+        return vacio
+    m = re.search(r"\d{4}", str(anio or ""))
+    if not m:
+        return vacio
+    y = int(m.group(0))
+    mejor = None
+    for c in canon_persona.get("condition_by_period") or []:
+        tr = _tramo(c.get("years")) if isinstance(c, dict) else None
+        if tr and tr[0] <= y <= tr[1] and (mejor is None or tr[1] - tr[0] < mejor[0][1] - mejor[0][0]):
+            mejor = (tr, _clean(c.get("condition")))
+    edad = None
+    a = canon_persona.get("age_at_event")
+    era = _tramo(canon_persona.get("era"))
+    if isinstance(a, int) and not isinstance(a, bool) and era:
+        e = a + (y - era[0])
+        if descriptor_edad(e) and descriptor_edad(e) != descriptor_edad(a):
+            edad = e
+    if mejor is None and edad is None:
+        return vacio
+    tramo = f"{mejor[0][0]}-{mejor[0][1]}" if mejor else None
+    clave = (tramo or "sin_estado") + (f"_{edad}" if edad is not None else "")
+    return {"clave": clave, "tramo": tramo, "condition": mejor[1] if mejor else None, "edad": edad,
+            "anio_estilo": mejor[0][0] if mejor else y}
 
 
 def _slug(nombre: str) -> str:
@@ -300,10 +364,11 @@ def _grupo_mas_frecuente(fotos: list[dict], grupos: dict[str, dict]) -> str:
     return str((grupos.get(mejor) or {}).get("appearance") or "").strip()
 
 
-def _prompt_persona(person: dict, appearance_grupo: str) -> str:
-    """F60 B.1 (handoff B+C, punto 2; en código, sin LLM): `appearance_canon` entero (desde A3 trae solo el aspecto fijo;
-    `condition_by_period` NO entra), ROPA_MADRE, el appearance del people_group, retrato neutro, ESTILO_C con el año de la
-    madre (primer número de 4 dígitos de `era`; sin número → sin año) y NO_TEXT. Sin `_STYLE` (lleva «faceless»)."""
+def _prompt_persona(person: dict, appearance_grupo: str, rasgos: str) -> str:
+    """F60 B.1 / F78a: `appearance_canon` entero (desde A3 trae solo el aspecto fijo; `condition_by_period` NO entra), los
+    `rasgos` inventados de la persona (F78a: una llamada con todas, `rasgos_personas`), ROPA_MADRE, el appearance del
+    people_group, retrato neutro, ESTILO_C con el año de la madre (primer número de 4 dígitos de `era`; sin número → sin año) y
+    NO_TEXT. Sin `_STYLE` (lleva «faceless»)."""
     from script_engine import m03_imagenes_v3 as v3img  # noqa: PLC0415
     canon = _clean(person.get("appearance_canon"))
     m = re.search(r"\d{4}", str(person.get("era") or ""))
@@ -311,8 +376,8 @@ def _prompt_persona(person: dict, appearance_grupo: str) -> str:
     grupo = appearance_grupo.strip()
     if grupo and not grupo.endswith("."):
         grupo += "."
-    return (f"Head-and-shoulders portrait of {canon}, {ROPA_MADRE}. {grupo + ' ' if grupo else ''}Neutral expression, "
-            f"facing the camera, plain mid-grey background, soft even light. {estilo} {v3img.NO_TEXT}")
+    return (f"Head-and-shoulders portrait of {canon}, {_clean(rasgos)}, {ROPA_MADRE}. {grupo + ' ' if grupo else ''}"
+            f"Neutral expression, facing the camera, plain mid-grey background, soft even light. {estilo} {v3img.NO_TEXT}")
 
 
 def _generate_madre_seedream(prompt: str, dest: Path) -> dict:
@@ -348,14 +413,121 @@ def _generate_madre_seedream(prompt: str, dest: Path) -> dict:
             "nsfw": data.get("has_nsfw_concepts"), "request_id": sub.get("request_id")}
 
 
+# F78a (a): el pedido de rasgos, tal cual el handoff. Entrada = JSON con las personas que van a tener madre.
+PROMPT_RASGOS = """Estas son personas reales de un documental. No tenemos fotos de ellas: el retrato de referencia de cada una se genera con IA, y
+el espectador tiene que poder reconocer en cada foto quién es quién. Tu trabajo es darle a cada persona un aspecto propio.
+
+Para cada persona escribí UNA frase en inglés con: forma de la cara, pelo (corte, color, canas), vello facial, si usa lentes y
+contextura. A los niños no les pongas vello facial ni lentes.
+
+Tiene que respetar, sin contradecirlos, su appearance_canon, el aspecto de su grupo y su sexo.
+No pongas edad, ropa, heridas, enfermedad, expresión, oficio ni el nombre: eso lo ponen otras partes.
+Dos personas del mismo sexo y de edad parecida no pueden compartir la misma combinación de pelo, vello facial y lentes."""
+
+
+def _md5(obj: Any) -> str:
+    return hashlib.md5(json.dumps(obj, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()
+
+
+def _llamar_rasgos(entrada: list[dict]) -> dict[str, str]:
+    """F78a (a): UNA llamada (MODELO_CASILLEROS con su esfuerzo de guion_v4, como los casilleros de m03; `call_json` registra el
+    costo) con todas las personas → {name: rasgos}. Schema: lista de {name (enum = los name de entrada), rasgos}."""
+    import claude_helpers  # noqa: PLC0415
+    from script_engine import guion_v4  # noqa: PLC0415
+    from script_engine.m03_visual import MODELO_CASILLEROS  # noqa: PLC0415
+    schema = {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
+        "name": {"type": "STRING", "enum": [e["name"] for e in entrada]}, "rasgos": {"type": "STRING"}},
+        "required": ["name", "rasgos"]}}
+    raw = claude_helpers.call_json(PROMPT_RASGOS + "\n\n" + json.dumps(entrada, ensure_ascii=False, indent=1),
+                                   model=MODELO_CASILLEROS, response_schema=schema,
+                                   effort=guion_v4.ESFUERZO[MODELO_CASILLEROS], description="foto madre rasgos")
+    filas = raw if isinstance(raw, list) else next((v for v in (raw or {}).values() if isinstance(v, list)), [])
+    return {str(f.get("name")): _clean(f.get("rasgos")) for f in filas
+            if isinstance(f, dict) and f.get("name") and _clean(f.get("rasgos"))}
+
+
+def rasgos_personas(entrada: list[dict], madre_dir: Path) -> tuple[dict[str, dict], dict[str, dict]]:
+    """F78a (a): rasgos por persona con cache `foto_madre/rasgos.json` (md5 de la entrada). Misma entrada → los del cache, sin
+    llamar. Devuelve (nuevos, previos): {name: {rasgos, md5}} de ahora y del cache anterior ({} si no había)."""
+    cache = madre_dir / RASGOS_JSON
+    previo: dict = {}
+    if cache.exists():
+        try:
+            previo = json.loads(cache.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            previo = {}
+    previos = previo.get("personas") or {}
+    md5_entrada = _md5(entrada)
+    if previo.get("md5_entrada") == md5_entrada and all(e["name"] in previos for e in entrada):
+        return previos, previos
+    rasgos = _llamar_rasgos(entrada)
+    nuevos = {n: {"rasgos": r, "md5": _md5(r)} for n, r in rasgos.items()}
+    madre_dir.mkdir(parents=True, exist_ok=True)
+    tmp = cache.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps({"md5_entrada": md5_entrada, "entrada": entrada, "personas": nuevos},
+                              ensure_ascii=False, indent=1), encoding="utf-8")
+    tmp.replace(cache)
+    return nuevos, previos
+
+
+def _a_previas(path: Path) -> Path | None:
+    """F78a: mueve `path` (y su `.prompt.txt`) a `foto_madre/_previas_f78a/`; nada se borra (si el nombre ya está, sufijo _2, _3…)."""
+    if not path.exists():
+        return None
+    dest_dir = path.parent / PREVIAS_DIR
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    dest, k = dest_dir / path.name, 2
+    while dest.exists():
+        dest, k = dest_dir / f"{path.stem}_{k}{path.suffix}", k + 1
+    path.rename(dest)
+    pt = path.with_suffix(".prompt.txt")
+    if pt.exists():
+        dp, k = dest_dir / pt.name, 2
+        while dp.exists():
+            dp, k = dest_dir / f"{path.stem}_{k}.prompt.txt", k + 1
+        pt.rename(dp)
+    return dest
+
+
+def _prompt_variante(cv: dict) -> str:
+    """F78a (b): el texto del /edit de la variante (completo, del handoff): edad si hay, estado si hay, cintura para arriba con
+    cara y manos, ROPA_MADRE, ESTILO_C con `anio_estilo` (primer año del tramo; sin tramo, el año de la edad), NO_TEXT."""
+    from script_engine import m03_imagenes_v3 as v3img  # noqa: PLC0415
+    partes = ["The same person as in the reference image: same face, same features, same identity."]
+    if cv.get("edad") is not None:
+        partes.append(f"Now a {descriptor_edad(cv['edad'])} person.")
+    if cv.get("condition"):
+        partes.append(_clean(cv["condition"]) + ".")
+    partes.append("Show only what of this would be visible on the body; if nothing is visible, keep the person unchanged. "
+                  f"Waist-up portrait framed so that the face and both hands are visible, {ROPA_MADRE}, plain mid-grey "
+                  "background, soft even light.")
+    partes.append(v3img.ESTILO_C.format(anio=cv["anio_estilo"]))
+    partes.append(v3img.NO_TEXT)
+    return " ".join(partes)
+
+
+def _generate_variante(prompt: str, madre: Path, dest: Path) -> dict:
+    """F78a (b): la variante = /edit de producción (`asset_manager._generar_nb2`, sin la frase de madres; su respaldo Seedream
+    vale igual) con la madre limpia de referencia. Registra el costo (lo hace `_generar_nb2`)."""
+    import asset_manager as am  # noqa: PLC0415
+    _guardar_prompt_madre(dest, prompt, f"{am.MOTOR_PRINCIPAL} /edit (frase_de_madres=False) · referencia {madre.name}")
+    meta = am._generar_nb2(prompt, dest, None, [am._path_to_data_uri(madre)], frase_de_madres=False)
+    _ensure_real_png(dest)
+    return meta
+
+
 def generate_fotos_madre_personas(topic: dict, video_id: str, visual: dict | None = None) -> dict:
-    """F60 B: madre por PERSONA del canon (`documented_people`) que sale en ≥ MADRE_PERSONA_MIN_FOTOS fotos (su nombre en
+    """F60 B / F78a: madre por PERSONA del canon (`documented_people`) que sale en ≥ MADRE_PERSONA_MIN_FOTOS fotos (su nombre en
     `persona`, cualquier posición, en todos los caps incluidos los de clip) donde aporta madre por era. Lee `persona` de
-    `_steps/<id>/03_visual.json` (o de `visual`). Motor: Seedream del perfil por la cola; si el motor activo no es seedream
-    → sin madre de persona y aviso (no cae a GPT); rechazo o error → foto_madre="" y aviso. Mismo skip (archivo existente)
-    y adopción manual que objeto/lugar. Destino output/<vid>/foto_madre/<slug(name)>.png; path absoluto en
-    documented_people[i]["foto_madre"]. Las madres de distintas personas se piden a la vez (tope FLUX_MAX_WORKERS).
-    Muta el topic y devuelve {nombre: {estado, fotos, prompt, dest}}."""
+    `_steps/<id>/03_visual.json` (o de `visual`). F78a (a): antes, UNA llamada con todas esas personas da los `rasgos` de cada
+    una (cache `foto_madre/rasgos.json`); si los rasgos de una persona cambiaron (o su madre es de antes de los rasgos), su madre
+    y sus variantes se mueven a `foto_madre/_previas_f78a/` y se regeneran. Motor de la madre: Seedream del perfil por la cola;
+    si el motor activo no es seedream/nb2_lite → sin madre de persona y aviso; rechazo o error → foto_madre="" y aviso. Mismo
+    skip (archivo existente) y adopción manual que objeto/lugar. Destino output/<vid>/foto_madre/<slug(name)>.png.
+    F78a (b): después, por cada persona con madre, una VARIANTE por clave (`clave_de_foto`: tramo de estado + edad) de sus fotos
+    → `<slug>@<clave>.png` (/edit de la limpia); clave vacía = la madre limpia. Las existentes se reusan. Madres y variantes de
+    distintas personas se piden a la vez (tope FLUX_MAX_WORKERS). Muta el topic (`foto_madre`, `foto_madre_variantes`) y
+    devuelve {nombre: {estado, fotos, prompt, dest, rasgos, variantes}}."""
     personas = [p for p in (topic.get("documented_people") or []) if isinstance(p, dict) and p.get("name")]
     if not personas:
         return {}
@@ -369,7 +541,7 @@ def generate_fotos_madre_personas(topic: dict, video_id: str, visual: dict | Non
     grupos = {g["id"]: g for g in (topic.get("people_groups") or []) if isinstance(g, dict) and g.get("id")}
     madre_dir = OUTPUT_DIR / video_id / "foto_madre"
     estados: dict[str, dict] = {}
-    trabajos: list[tuple[dict, Path, str, int]] = []
+    candidatas: list[tuple[dict, list[dict], str]] = []
     for p in personas:
         name = p["name"]
         mias = _fotos_con_madre_de(p, fotos)
@@ -381,8 +553,37 @@ def generate_fotos_madre_personas(topic: dict, video_id: str, visual: dict | Non
         if not _clean(p.get("appearance_canon")):
             est["estado"] = "sin madre: appearance_canon vacío"
             continue
+        candidatas.append((p, mias, _grupo_mas_frecuente(mias, grupos)))
+    if not candidatas:
+        return estados
+
+    # F78a (a): rasgos de todas a la vez (cache por md5 de la entrada); si fallan, no se mueve ni se genera nada.
+    entrada = [{"name": p["name"], "role": p.get("role") or "", "era": p.get("era") or "",
+                "appearance_canon": _clean(p.get("appearance_canon")), "grupo_appearance": g} for p, _, g in candidatas]
+    try:
+        rasgos, previos = rasgos_personas(entrada, madre_dir)
+    except Exception as e:  # noqa: BLE001 — la madre NUNCA bloquea el topic
+        error_handler.log_warning(PipelineStage.VIDEO, f"foto_madre rasgos no generados: {str(e)[:200]} → madres sin tocar")
+        for p, _, _ in candidatas:
+            estados[p["name"]]["estado"] = f"sin cambios: rasgos fallaron ({type(e).__name__})"
+        return estados
+
+    trabajos: list[tuple[dict, Path, str, int]] = []
+    for p, mias, grupo in candidatas:
+        name, est = p["name"], estados[p["name"]]
         dest = madre_dir / f"{_slug(name)}.png"
         est["dest"] = str(dest)
+        r = rasgos.get(name)
+        if not r:
+            est["estado"] = "sin madre: la llamada no devolvió rasgos"
+            continue
+        est["rasgos"] = r["rasgos"]
+        if (previos.get(name) or {}).get("md5") != r["md5"]:    # rasgos nuevos o madre de antes de los rasgos → a _previas
+            movidos = [m for m in [_a_previas(dest)] + [_a_previas(v) for v in sorted(madre_dir.glob(f"{_slug(name)}@*.png"))] if m]
+            if movidos:
+                print(f"     [foto_madre] {name}: rasgos nuevos → {len(movidos)} archivo(s) a {PREVIAS_DIR}/")
+            if movidos or p.get("foto_madre"):
+                p["foto_madre"], p["foto_madre_variantes"] = "", []
         existing = p.get("foto_madre")
         if existing and Path(existing).exists():
             est["estado"] = "skip (ya existe)"
@@ -399,7 +600,7 @@ def generate_fotos_madre_personas(topic: dict, video_id: str, visual: dict | Non
             error_handler.log_warning(PipelineStage.VIDEO,
                                       f"foto_madre persona {name}: motor activo {api.image_engine!r} ≠ seedream → sin madre de persona")
             continue
-        prompt = _prompt_persona(p, _grupo_mas_frecuente(mias, grupos))
+        prompt = _prompt_persona(p, grupo, r["rasgos"])
         est["prompt"] = prompt
         trabajos.append((p, dest, prompt, len(mias)))
 
@@ -419,6 +620,53 @@ def generate_fotos_madre_personas(topic: dict, video_id: str, visual: dict | Non
         with ThreadPoolExecutor(max_workers=min(len(trabajos), FLUX_MAX_WORKERS)) as ex:
             for name, st in ex.map(hacer, trabajos):
                 estados[name].update(st)
+
+    # F78a (b): variantes por clave de las personas que tienen madre en disco.
+    pedidas: list[tuple[dict, dict, Path, Path, str]] = []
+    for p, mias, _ in candidatas:
+        madre = Path(p.get("foto_madre") or "")
+        if not p.get("foto_madre") or not madre.exists():
+            continue
+        por_clave: dict[str, dict] = {}
+        for f in mias:
+            cv = clave_de_foto(p, f["anio"])
+            if cv["clave"]:
+                por_clave.setdefault(cv["clave"], {**cv, "fotos": []})["fotos"].append(
+                    f"ch{f['cap']:02d}_{f['kind']}_{f['idx']:02d}")
+        lista: list[dict] = []
+        for clave, cv in por_clave.items():
+            dest = madre_dir / f"{_slug(p['name'])}@{clave}.png"
+            fila = {"clave": clave, "tramo": cv["tramo"], "edad": cv["edad"], "path": str(dest.resolve()),
+                    "fotos": cv["fotos"]}
+            lista.append(fila)
+            if not dest.exists():
+                if api.image_engine not in ("seedream", "nb2_lite"):
+                    fila["estado"] = f"sin variante: motor activo {api.image_engine}"
+                    continue
+                pedidas.append((p, fila, madre, dest, _prompt_variante(cv)))
+            else:
+                fila["estado"] = "skip (ya existe)"
+        p["foto_madre_variantes"] = lista
+        estados[p["name"]]["variantes"] = lista
+
+    def hacer_var(t):
+        p, fila, madre, dest, prompt = t
+        try:
+            meta = _generate_variante(prompt, madre, dest)
+            print(f"     [foto_madre] ✓ variante {dest.name}  ({len(fila['fotos'])} fotos, {meta.get('motor')})")
+            return fila, {"estado": "ok", "motor": meta.get("motor"), "usd": meta.get("usd"), "prompt": prompt}
+        except Exception as e:  # noqa: BLE001 — sin variante, esas fotos van con la madre limpia
+            error_handler.log_warning(PipelineStage.VIDEO, f"foto_madre variante {dest.name} no generada: {str(e)[:150]}")
+            return fila, {"estado": f"error: {type(e).__name__}: {str(e)[:160]}", "prompt": prompt}
+
+    if pedidas:
+        with ThreadPoolExecutor(max_workers=min(len(pedidas), FLUX_MAX_WORKERS)) as ex:
+            for fila, st in ex.map(hacer_var, pedidas):
+                fila.update(st)
+    for p, _, _ in candidatas:   # en el topic solo quedan las variantes que existen (sin estado/prompt/usd)
+        if "foto_madre_variantes" in p:
+            p["foto_madre_variantes"] = [{k: v[k] for k in ("clave", "tramo", "edad", "path", "fotos")}
+                                         for v in p.get("foto_madre_variantes") or [] if Path(v["path"]).exists()]
     return estados
 
 
