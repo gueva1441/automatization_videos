@@ -1,0 +1,120 @@
+[09:28:23] a regenerar: 38 fotos (2 con clip)
+[09:28:23]   ch01_supp_05 · prompt nuevo (B)
+[09:28:23]   ch01_supp_06 · prompt nuevo (B); madre más nueva: arcadio_fernandez@1981-1989.png
+[09:28:23]   ch02_img_06 · madre más nueva: arcadio_fernandez@1981-1989.png
+[09:28:23]   ch02_img_07 · madre más nueva: arcadio_fernandez@1981-1989.png
+[09:28:23]   ch03_img_08 · prompt nuevo (B); madre más nueva: mercedes_garc_a@1981-1981.png
+[09:28:23]   ch03_img_09 · prompt nuevo (B); madre más nueva: mercedes_garc_a@1981-1981.png
+[09:28:23]   ch03_img_11 · prompt nuevo (B)
+[09:28:23]   ch03_img_12 · prompt nuevo (B); madre más nueva: jes_s_sancho_rof.png
+[09:28:23]   ch03_img_13 · prompt nuevo (B); madre más nueva: jes_s_sancho_rof.png
+[09:28:23]   ch03_img_14 · prompt nuevo (B)
+[09:28:23]   ch03_img_15 · madre más nueva: antonio_muro_fern_ndez_cavada.png
+[09:28:23]   ch03_img_16 · prompt nuevo (B); madre más nueva: arcadio_fernandez@1981-1989.png
+[09:28:23]   ch04_img_05 · prompt nuevo (B); madre más nueva: arcadio_fernandez@1981-1989.png
+[09:28:23]   ch04_img_06 · prompt nuevo (B); madre más nueva: carmen_cort_s@1981-1982.png
+[09:28:23]   ch04_img_08 · prompt nuevo (B); madre más nueva: carmen_cort_s@1981-1982.png
+[09:28:23]   ch04_img_09 · prompt nuevo (B); madre más nueva: carmen_cort_s@1981-1982.png
+[09:28:23]   ch04_img_10 · prompt nuevo (B); madre más nueva: carmen_cort_s@1981-1982.png
+[09:28:23]   ch04_img_11 · prompt nuevo (B); madre más nueva: carmen_cort_s@1981-1982.png
+[09:28:23]   ch04_img_12 · prompt nuevo (B)
+[09:28:23]   ch05_img_01 · prompt nuevo (B); madre más nueva: jes_s_lozano@1981-1981.png
+[09:28:23]   ch05_img_03 · prompt nuevo (B); madre más nueva: jes_s_lozano@1981-1981.png
+[09:28:23]   ch05_img_04 · prompt nuevo (B); madre más nueva: arcadio_fernandez@1981-1989.png
+[09:28:23]   ch05_img_09 · prompt nuevo (B); madre más nueva: arcadio_fernandez@1981-1989.png
+[09:28:23]   ch05_img_12 · prompt nuevo (B); madre más nueva: angela_menseger@1981-1985.png
+[09:28:23]   ch05_img_13 · prompt nuevo (B); madre más nueva: angela_menseger@1981-1985.png
+[09:28:23]   ch05_img_14 · prompt nuevo (B); madre más nueva: angela_menseger@1981-1985.png
+[09:28:23]   ch05_img_16 · prompt nuevo (B); madre más nueva: angela_menseger@1981-1985.png
+[09:28:23]   ch06_img_05 · prompt nuevo (B); madre más nueva: arcadio_fernandez@1981-1989.png
+[09:28:23]   ch06_img_06 · prompt nuevo (B); madre más nueva: arcadio_fernandez@1981-1989.png
+[09:28:23]   ch06_img_14 · prompt nuevo (B)
+[09:28:23]   ch06_img_15 · prompt nuevo (B); madre más nueva: arcadio_fernandez@1981-1989.png
+[09:28:23]   ch06_img_16 · prompt nuevo (B); madre más nueva: arcadio_fernandez@1981-1989.png
+[09:28:23]   ch07_supp_08 · madre más nueva: carmen_cort_s@1992-2000_25.png
+[09:28:23]   ch07_supp_09 · madre más nueva: carmen_cort_s@1992-2000_33.png
+[09:28:23]   ch07_supp_13 · prompt nuevo (B); madre más nueva: arcadio_fernandez.png
+[09:28:23]   ch07_supp_14 · prompt nuevo (B); madre más nueva: arcadio_fernandez@1981-1989.png
+[09:28:23]   ch01_img_01 · prompt nuevo (B); madre más nueva: arcadio_fernandez@1981-1989.png; clip del gancho/ch07 (F78a l.127)
+[09:28:23]   ch07_img_01 · clip del gancho/ch07 (F78a l.127)
+[09:28:23] faltan ahora: 40
+[09:28:23] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: c4934b7d-3f54-448f-ba5f-539dc744f0d8
+[09:28:23] INFO     | viral_pipeline | [image_generator] 🏭 [c4934b7d-3f54-448f-ba5f-539dc744f0d8] Asset Manager (Flux+Veo) — 7 capítulos | Vision Guardrail ACTIVO | Flux Pro=fal-ai/flux-2-pro | Ultra=fal-ai/flux-2-pro
+[09:28:23] INFO     | viral_pipeline | [image_generator] ──── [ch01] engine=veo ────
+[09:28:23] INFO     | viral_pipeline | [image_generator] [ch01] Imagen base clip 1 []...
+[09:28:23] INFO     | viral_pipeline | [image_generator] Flux-ULTRA [validator OFF] → ch01_img_01.png
+[09:29:08] INFO     | viral_pipeline | [video_generator] [ch01] clip 1 (foto final, ssim 0.657603)...
+[09:30:55] INFO     | viral_pipeline | [video_generator] [clip] ch01_clip_01.mp4: gemini_omni_flash · 8.00 s · US$ 1.2000
+[09:30:55] INFO     | viral_pipeline | [image_generator] [ch01] supp 1 ya existe — skip
+[09:30:55] INFO     | viral_pipeline | [image_generator] [ch01] supp 2 ya existe — skip
+[09:30:55] INFO     | viral_pipeline | [image_generator] [ch01] supp 3 ya existe — skip
+[09:30:55] INFO     | viral_pipeline | [image_generator] [ch01] supp 4 ya existe — skip
+[09:30:55] INFO     | viral_pipeline | [image_generator] [ch01] supp 7 ya existe — skip
+[09:30:55] INFO     | viral_pipeline | [image_generator] [ch01] supp 8 ya existe — skip
+[09:30:55] INFO     | viral_pipeline | [image_generator] Flux-ULTRA [validator OFF] → ch01_supp_05.png
+[09:30:55] INFO     | viral_pipeline | [image_generator] Flux-ULTRA [validator OFF] → ch01_supp_06.png
+[09:31:08] INFO     | viral_pipeline | [image_generator] ──── [ch02] engine=flux ────
+[09:31:08] INFO     | viral_pipeline | [image_generator] [ch02] Flux-PRO []: 2 a generar, 6 skip
+[09:31:08] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch02_img_06.png
+[09:31:08] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch02_img_07.png
+[09:31:21] INFO     | viral_pipeline | [image_generator] ──── [ch03] engine=flux ────
+[09:31:21] INFO     | viral_pipeline | [image_generator] [ch03] Flux-PRO []: 8 a generar, 8 skip
+[09:31:21] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch03_img_08.png
+[09:31:21] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch03_img_09.png
+[09:31:21] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch03_img_11.png
+[09:31:21] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch03_img_12.png
+[09:31:22] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch03_img_13.png
+[09:31:22] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch03_img_14.png
+[09:31:22] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch03_img_15.png
+[09:31:22] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch03_img_16.png
+[09:31:47] INFO     | viral_pipeline | [image_generator] ──── [ch04] engine=flux ────
+[09:31:48] INFO     | viral_pipeline | [image_generator] [ch04] Flux-PRO []: 7 a generar, 5 skip
+[09:31:48] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch04_img_05.png
+[09:31:48] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch04_img_06.png
+[09:31:48] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch04_img_08.png
+[09:31:48] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch04_img_09.png
+[09:31:48] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch04_img_10.png
+[09:31:48] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch04_img_11.png
+[09:31:48] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch04_img_12.png
+[09:32:09] WARNING  | viral_pipeline | [image_generator] ⚠ [ch04_img_12.png] Nano Banana rechazó → Seedream 4.5: {"msg": "The content could not be processed because it contained material flagged by a content checker.", "type": "content_policy_violation", "categories": ["model_moderated"]}
+[09:32:59] INFO     | viral_pipeline | [image_generator] ──── [ch05] engine=flux ────
+[09:32:59] INFO     | viral_pipeline | [image_generator] [ch05] Flux-PRO []: 8 a generar, 8 skip
+[09:32:59] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch05_img_01.png
+[09:32:59] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch05_img_03.png
+[09:33:00] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch05_img_04.png
+[09:33:00] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch05_img_09.png
+[09:33:00] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch05_img_12.png
+[09:33:00] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch05_img_13.png
+[09:33:00] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch05_img_14.png
+[09:33:00] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch05_img_16.png
+[09:33:24] INFO     | viral_pipeline | [image_generator] ──── [ch06] engine=flux ────
+[09:33:24] INFO     | viral_pipeline | [image_generator] [ch06] Flux-PRO []: 5 a generar, 11 skip
+[09:33:24] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch06_img_05.png
+[09:33:24] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch06_img_06.png
+[09:33:24] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch06_img_14.png
+[09:33:24] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch06_img_15.png
+[09:33:24] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1603258343 → ch06_img_16.png
+[09:33:46] INFO     | viral_pipeline | [image_generator] ──── [ch07] engine=veo ────
+[09:33:46] INFO     | viral_pipeline | [image_generator] [ch07] Imagen base clip 1 []...
+[09:33:46] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] → ch07_img_01.png
+[09:34:22] INFO     | viral_pipeline | [video_generator] [ch07] clip 1 (foto final, ssim 0.510214)...
+[09:36:22] INFO     | viral_pipeline | [video_generator] [clip] ch07_clip_01.mp4: gemini_omni_flash · 8.00 s · US$ 1.2000
+[09:36:22] INFO     | viral_pipeline | [image_generator] [ch07] supp 1 ya existe — skip
+[09:36:22] INFO     | viral_pipeline | [image_generator] [ch07] supp 2 ya existe — skip
+[09:36:22] INFO     | viral_pipeline | [image_generator] [ch07] supp 3 ya existe — skip
+[09:36:22] INFO     | viral_pipeline | [image_generator] [ch07] supp 4 ya existe — skip
+[09:36:22] INFO     | viral_pipeline | [image_generator] [ch07] supp 5 ya existe — skip
+[09:36:22] INFO     | viral_pipeline | [image_generator] [ch07] supp 6 ya existe — skip
+[09:36:22] INFO     | viral_pipeline | [image_generator] [ch07] supp 7 ya existe — skip
+[09:36:22] INFO     | viral_pipeline | [image_generator] [ch07] supp 10 ya existe — skip
+[09:36:22] INFO     | viral_pipeline | [image_generator] [ch07] supp 12 ya existe — skip
+[09:36:22] INFO     | viral_pipeline | [image_generator] [ch07] supp 11 ya existe — skip
+[09:36:22] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] → ch07_supp_09.png
+[09:36:22] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] → ch07_supp_08.png
+[09:36:22] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] → ch07_supp_13.png
+[09:36:22] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] → ch07_supp_14.png
+[09:37:05] INFO     | viral_pipeline | [image_generator] [c4934b7d-3f54-448f-ba5f-539dc744f0d8] grade de post: 90 imagen(es) → *_graded.png
+[09:37:05] INFO     | viral_pipeline | [image_generator] ✓ ✅ [c4934b7d-3f54-448f-ba5f-539dc744f0d8] Manifest: 68 imgs Flux | Veo ok=2 | kenburns=0 | technical_fallback=0 | failed=0
+[09:37:05] INFO     | viral_pipeline | [cost_tracker] Video c4934b7d-3f54-448f-ba5f-539dc744f0d8 — Costo total: $4.2623
+[09:37:05] US$ 4.2623 · 523 s · {'fal.ai Nano Banana 2 Lite (edit, estimado) · ?': 1.596, 'Anthropic claude-opus-5-5 · ?': 0.1842, 'fal google/gemini-omni-flash/v1.1/image-to-video · ?': 2.4, 'fal.ai Seedream 4.5 (edit) · ?': 0.04, 'fal.ai Nano Banana 2 Lite (t2i, estimado) · ?': 0.042}
+[09:37:05] faltan después: []

@@ -1,0 +1,49 @@
+[09:25:59] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: c4934b7d-3f54-448f-ba5f-539dc744f0d8
+[09:27:37] INFO     | viral_pipeline | [cost_tracker] Video c4934b7d-3f54-448f-ba5f-539dc744f0d8 — Costo total: $3.2859
+
+  Modo: 1 topic específico → c4934b7d-3f54-448f-ba5f-539dc744f0d8
+
+════════════════════════════════════════════════════════════
+  📜 Procesando topic c4934b7d-3f54-448f-ba5f-539dc744f0d8 desde aspecto
+════════════════════════════════════════════════════════════
+  [narración] narración aprobada por Omar (2026-11-04T18:11), md5 9ba66f87…
+  [papel] papel aprobado por Omar (2026-11-04), md5 7d8a1aee…
+  [paso0] Foto madre (sujeto + props anclados)...
+     [paso0] central_subject kind='other' → SIN madre/anclas de sujeto (por diseño)
+     [foto_madre] skip persona:Jesús Sancho Rof (ya existe)
+     [foto_madre] skip persona:Antonio Muro Fernández Cavada (ya existe)
+     [foto_madre] skip persona:Arcadio Fernandez (ya existe)
+     [foto_madre] skip persona:Angela Menseger (ya existe)
+     [foto_madre] skip persona:Jesús Lozano (ya existe)
+     [foto_madre] skip persona:Carmen Cortés (ya existe)
+     [foto_madre] skip persona:Mercedes García (ya existe)
+  [aspecto] Fotos con persona → texto con los rasgos de su madre...
+  [aspecto] rasgos: ok · fotos con persona: 41 {'rehacer': 38, 'sin_rasgos': 3}
+  [aspecto] ch02_img_06: el refill cambió la persona → queda la vieja (persona_distinta)
+  [aspecto] ch02_img_07: el refill cambió la persona → queda la vieja (persona_distinta)
+  [aspecto] ch03_img_15: el refill cambió la persona → queda la vieja (persona_distinta)
+  [aspecto] ch07_supp_07: el refill cambió la persona → queda la vieja (persona_distinta)
+  [aspecto] ch07_supp_08: el refill cambió la persona → queda la vieja (persona_distinta)
+  [aspecto] ch07_supp_09: el refill cambió la persona → queda la vieja (persona_distinta)
+  [aspecto] rehechas 32 · persona_distinta 6 · errores 0 · rasgos después: ok
+  [assemble] Ensamblando data/scripts/c4934b7d-3f54-448f-ba5f-539dc744f0d8.json...
+
+  ✅ Topic c4934b7d-3f54-448f-ba5f-539dc744f0d8 OK — pasos: ['aspecto', 'assemble']
+
+════════════════════════════════════════════════════════════
+  📊 RESUMEN FASE 1.5
+════════════════════════════════════════════════════════════
+  Total: 1  |  PASS: 1  |  PARADA: 0  |  FAIL: 0
+
+  ✅ c4934b7d-3f54-448f-ba5f-539dc744f0d8
+
+
+──────────────────────────────────────────────────
+  🧠 GEMINI (por tokens — thinking incluido)
+──────────────────────────────────────────────────
+    Anthropic claude-opus-5-5   40 calls  in  580,825  out   48,129  think        0  $3.2859
+  · por módulo:
+    m03:casilleros         38 calls  in  578,329  out   47,595  think        0  $3.2652  (0% think)
+    m03:motion              2 calls  in    2,496  out      534  think        0  $0.0207  (0% think)
+──────────────────────────────────────────────────
+    TOTAL Gemini: 40 calls · in 580,825 · out 48,129 · think 0 · $3.2859 USD
