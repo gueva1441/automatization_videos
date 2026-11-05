@@ -418,6 +418,17 @@ def _log_sin_period(topic: dict, anios, cap_number) -> str:
             + ("" if not sin else " → " + "; ".join(f"{y}: {' · '.join(t)}" for y, t in sorted(sin.items()))))
 
 
+def _rasgos_de_madres(topic: dict) -> dict[str, str]:
+    """F78c (adenda 2): {nombre: rasgos} de `foto_madre/rasgos.json` del video (carpeta = id del topic; en LONG es el video_id),
+    SOLO si su `md5_entrada` coincide con la entrada que arma `foto_madre.entrada_rasgos` desde el 03_visual.json del disco.
+    Nunca llama a rasgos. Si no hay o no coincide → {} y un WARN (la línea vieja `appearance_canon`)."""
+    import foto_madre  # noqa: PLC0415 — foto_madre importa asset_manager; perezoso para no cargarlo al importar m03
+    rasgos, motivo = foto_madre.rasgos_vigentes(topic)
+    if motivo != "ok" and topic.get("documented_people"):
+        print(f"  [03] WARN PERSONAS DOCUMENTADAS con appearance_canon: rasgos no vigentes ({motivo})")
+    return rasgos
+
+
 def _format_seedream_canon_block(topic: dict, anios=None) -> str:
     """Canon de 2 CAPAS para el user-prompt del skeleton (eslabón 3b cablea el 2).
 
@@ -427,6 +438,8 @@ def _format_seedream_canon_block(topic: dict, anios=None) -> str:
     visual_reference_availability ya NO se surfacea — meta-info de research inútil
     para pintar). NO modifica el bloque viejo; es una función aparte del path seedream.
     F50d B: `anios` = años de las fotos del cap (expediente); con `era.periods` imprime los tramos del cap.
+    F78c: en PERSONAS DOCUMENTADAS, una persona con rasgos vigentes (`_rasgos_de_madres`) lleva `appearance: <rasgos>` en lugar
+    de `appearance_canon` (no las dos); sin rasgos, la línea de siempre.
     """
     era = topic.get("era_visual_canon") or {}
     people = topic.get("documented_people") or []
@@ -460,13 +473,17 @@ def _format_seedream_canon_block(topic: dict, anios=None) -> str:
                      "y canonical_subject_description.")
 
     if people:
-        plines = ["PERSONAS DOCUMENTADAS (el nombre es solo para el casillero persona; en la prosa usar appearance_canon, NUNCA el nombre):"]
+        plines = ["PERSONAS DOCUMENTADAS (el nombre es solo para el casillero persona; en la prosa usar appearance (o appearance_canon si no hay), NUNCA el nombre):"]
+        rasgos = _rasgos_de_madres(topic)    # F78c: el aspecto de la foto madre (rasgos.json vigente), solo lectura
         for p in people:
             age = p.get("age_at_event")
             age_str = f"age {age}" if age is not None else "age unknown"
             # F60 A: el nombre va primero, como dato de ruteo para `persona`
             plines.append(f"  • {p.get('name','?')} | role: {p.get('role','?')} | {age_str} | era: {p.get('era','?')}")
-            plines.append(f"    appearance_canon: {p.get('appearance_canon','')}")
+            if rasgos.get(p.get("name")):                          # F78c: los rasgos de su madre REEMPLAZAN al canon genérico
+                plines.append(f"    appearance: {rasgos[p['name']]}")
+            else:
+                plines.append(f"    appearance_canon: {p.get('appearance_canon','')}")
             for c in p.get("condition_by_period") or []:          # F60 A3: el estado documentado, como dato
                 if isinstance(c, dict) and c.get("years") and c.get("condition"):
                     plines.append(f"    condition {c['years']}: {c['condition']}")

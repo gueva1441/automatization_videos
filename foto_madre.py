@@ -584,6 +584,66 @@ def _generate_variante(prompt: str, madre: Path, dest: Path) -> dict:
     return meta
 
 
+def _candidatas(topic: dict, visual: dict) -> tuple[list[tuple[dict, list[dict], str]], dict[str, dict]]:
+    """F78c (sale de `generate_fotos_madre_personas` tal cual): las personas que van a tener madre — sale en ≥
+    MADRE_PERSONA_MIN_FOTOS fotos de `visual` donde aporta por era y tiene `appearance_canon` — con sus fotos y el appearance
+    de su grupo más frecuente. Devuelve ([(persona, fotos, grupo)], {nombre: estado de las que no entran})."""
+    personas = [p for p in (topic.get("documented_people") or []) if isinstance(p, dict) and p.get("name")]
+    fotos = _fotos_del_guion(visual)
+    grupos = {g["id"]: g for g in (topic.get("people_groups") or []) if isinstance(g, dict) and g.get("id")}
+    estados: dict[str, dict] = {}
+    candidatas: list[tuple[dict, list[dict], str]] = []
+    for p in personas:
+        name = p["name"]
+        mias = _fotos_con_madre_de(p, fotos)
+        est = {"fotos": len(mias), "fotos_ids": [f"ch{f['cap']:02d}_{f['kind']}_{f['idx']:02d}" for f in mias]}
+        estados[name] = est
+        if len(mias) < MADRE_PERSONA_MIN_FOTOS:
+            est["estado"] = f"sin madre: {len(mias)} foto(s) con persona dentro de su era"
+            continue
+        if not _clean(p.get("appearance_canon")):
+            est["estado"] = "sin madre: appearance_canon vacío"
+            continue
+        candidatas.append((p, mias, _grupo_mas_frecuente(mias, grupos)))
+    return candidatas, estados
+
+
+def entrada_rasgos(topic: dict, visual: dict) -> list[dict]:
+    """F78c: la entrada EXACTA de la llamada de rasgos (la misma que arma `generate_fotos_madre_personas`): una fila por
+    persona con madre {name, role, era, appearance_canon, grupo_appearance}. La usan foto_madre y m03: mismo md5."""
+    candidatas, _ = _candidatas(topic, visual)
+    return [{"name": p["name"], "role": p.get("role") or "", "era": p.get("era") or "",
+             "appearance_canon": _clean(p.get("appearance_canon")), "grupo_appearance": g} for p, _, g in candidatas]
+
+
+def rasgos_vigentes(topic: dict, video_id: str | None = None) -> tuple[dict[str, str], str]:
+    """F78c (adenda 2): SOLO LECTURA, nunca llama. Los rasgos de `foto_madre/rasgos.json` del video si su `md5_entrada` coincide
+    con `entrada_rasgos(topic, 03_visual.json del disco)`. Carpeta: OUTPUT_DIR/<video_id>/foto_madre, con video_id = id del topic
+    si no se pasa (en LONG son el mismo, fase1_5 paso0). Devuelve ({nombre: rasgos}, "ok") o ({}, motivo)."""
+    tid = str(topic.get("id") or "")
+    vid = video_id or tid
+    if not tid or not vid:
+        return {}, "topic sin id"
+    vpath = STEPS_DIR / tid / "03_visual.json"
+    cache = OUTPUT_DIR / vid / "foto_madre" / RASGOS_JSON
+    if not vpath.exists():
+        return {}, f"sin {vpath.name}"
+    if not cache.exists():
+        return {}, f"sin {RASGOS_JSON}"
+    try:
+        visual = json.loads(vpath.read_text(encoding="utf-8"))
+        previo = json.loads(cache.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as e:
+        return {}, f"ilegible: {type(e).__name__}"
+    entrada = entrada_rasgos(topic, visual)
+    if not entrada:
+        return {}, "sin personas con madre"
+    if previo.get("md5_entrada") != _md5(entrada):
+        return {}, f"md5 de la entrada distinto al de {RASGOS_JSON}"
+    personas = previo.get("personas") or {}
+    return {n: str(v.get("rasgos") or "") for n, v in personas.items() if isinstance(v, dict) and v.get("rasgos")}, "ok"
+
+
 def generate_fotos_madre_personas(topic: dict, video_id: str, visual: dict | None = None) -> dict:
     """F60 B / F78a: madre por PERSONA del canon (`documented_people`) que sale en ≥ MADRE_PERSONA_MIN_FOTOS fotos (su nombre en
     `persona`, cualquier posición, en todos los caps incluidos los de clip) donde aporta madre por era. Lee `persona` de
@@ -608,29 +668,13 @@ def generate_fotos_madre_personas(topic: dict, video_id: str, visual: dict | Non
             print(f"     [foto_madre] sin {vpath} → sin madres de persona (correr m03 antes)")
             return {}
         visual = json.loads(vpath.read_text(encoding="utf-8"))
-    fotos = _fotos_del_guion(visual)
-    grupos = {g["id"]: g for g in (topic.get("people_groups") or []) if isinstance(g, dict) and g.get("id")}
     madre_dir = OUTPUT_DIR / video_id / "foto_madre"
-    estados: dict[str, dict] = {}
-    candidatas: list[tuple[dict, list[dict], str]] = []
-    for p in personas:
-        name = p["name"]
-        mias = _fotos_con_madre_de(p, fotos)
-        est = {"fotos": len(mias), "fotos_ids": [f"ch{f['cap']:02d}_{f['kind']}_{f['idx']:02d}" for f in mias]}
-        estados[name] = est
-        if len(mias) < MADRE_PERSONA_MIN_FOTOS:
-            est["estado"] = f"sin madre: {len(mias)} foto(s) con persona dentro de su era"
-            continue
-        if not _clean(p.get("appearance_canon")):
-            est["estado"] = "sin madre: appearance_canon vacío"
-            continue
-        candidatas.append((p, mias, _grupo_mas_frecuente(mias, grupos)))
+    candidatas, estados = _candidatas(topic, visual)   # F78c: la misma selección que usa `entrada_rasgos`
     if not candidatas:
         return estados
 
     # F78a (a): rasgos de todas a la vez (cache por md5 de la entrada); si fallan, no se mueve ni se genera nada.
-    entrada = [{"name": p["name"], "role": p.get("role") or "", "era": p.get("era") or "",
-                "appearance_canon": _clean(p.get("appearance_canon")), "grupo_appearance": g} for p, _, g in candidatas]
+    entrada = entrada_rasgos(topic, visual)   # F78c: la función pública que también usa m03 (mismo md5)
     try:
         rasgos, previos = rasgos_personas(entrada, madre_dir)
     except Exception as e:  # noqa: BLE001 — la madre NUNCA bloquea el topic
