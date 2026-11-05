@@ -163,7 +163,7 @@ face in a disaster scene is a CONTINUITY ERROR. Draw the specific marks from the
 beat's narrated conditions; never default to a presentable face."""
 
 DOCTRINE_PEOPLE = """PEOPLE:
-- DEMOGRAPHY IS MANDATORY: every human figure states ethnicity + approximate age + build, taken from demographics (and from a documented person's appearance_canon when it is one), matching what the beat narrates. State the ethnicity explicitly whenever the canon gives it — a vague collective descriptor for a crowd (e.g. "a diverse group") does not satisfy this.
+- DEMOGRAPHY IS MANDATORY: every human figure states ethnicity + approximate age + build, taken from demographics (and from a documented person's appearance (or appearance_canon if there is none) when it is one), matching what the beat narrates. State the ethnicity explicitly whenever the canon gives it — a vague collective descriptor for a crowd (e.g. "a diverse group") does not satisfy this.
 - GROUPS — compose first, then individuate: in a group shot most figures read by FORM, not face — shown from behind, in a wide plane within the architecture, by a detail of hands or feet, or as a rim-lit silhouette whose shape reads cleanly. A front-lit face sunk into flat black shadow is NOT a valid technique; it reads as a mistake. The 2-3 figures that DO show a face are each described distinctly and concretely (its own age, build, position and action) — never one collective description applied to N people.
 - ORDINARY PERIOD FACES: visible faces carry ordinary, period-worn features (weathered, lined, work-hardened, an incomplete set of teeth). Describe by appearance and era, never by a proper name, and never by reference to an actor, a celebrity or a film character."""
 
@@ -429,7 +429,7 @@ def _rasgos_de_madres(topic: dict) -> dict[str, str]:
     return rasgos
 
 
-def _format_seedream_canon_block(topic: dict, anios=None) -> str:
+def _format_seedream_canon_block(topic: dict, anios=None, rasgos: dict | None = None) -> str:
     """Canon de 2 CAPAS para el user-prompt del skeleton (eslabón 3b cablea el 2).
 
     Era espejo del builder viejo `_format_visual_canon_block` (borrado en F60 A, sin llamadores), extendido con la capa SOURCED del
@@ -439,7 +439,7 @@ def _format_seedream_canon_block(topic: dict, anios=None) -> str:
     para pintar). NO modifica el bloque viejo; es una función aparte del path seedream.
     F50d B: `anios` = años de las fotos del cap (expediente); con `era.periods` imprime los tramos del cap.
     F78c: en PERSONAS DOCUMENTADAS, una persona con rasgos vigentes (`_rasgos_de_madres`) lleva `appearance: <rasgos>` en lugar
-    de `appearance_canon` (no las dos); sin rasgos, la línea de siempre.
+    de `appearance_canon` (no las dos); sin rasgos, la línea de siempre. F78d: `rasgos` ya leídos (None → `_rasgos_de_madres`).
     """
     era = topic.get("era_visual_canon") or {}
     people = topic.get("documented_people") or []
@@ -474,7 +474,8 @@ def _format_seedream_canon_block(topic: dict, anios=None) -> str:
 
     if people:
         plines = ["PERSONAS DOCUMENTADAS (el nombre es solo para el casillero persona; en la prosa usar appearance (o appearance_canon si no hay), NUNCA el nombre):"]
-        rasgos = _rasgos_de_madres(topic)    # F78c: el aspecto de la foto madre (rasgos.json vigente), solo lectura
+        if rasgos is None:                   # F78c: el aspecto de la foto madre (rasgos.json vigente), solo lectura
+            rasgos = _rasgos_de_madres(topic)
         for p in people:
             age = p.get("age_at_event")
             age_str = f"age {age}" if age is not None else "age unknown"
@@ -563,7 +564,7 @@ Bias the shot_scale, lighting and mood of these images toward:
 
 
 def _build_seedream_prompt_step2(topic, cap_data, narration_text, anchors, extra_block: str = "",
-                                 anios=None, clip_apertura: bool = True) -> str:
+                                 anios=None, clip_apertura: bool = True, rasgos: dict | None = None) -> str:
     """User-prompt del skeleton seedream: canon 2-capas + facts + anchors → pedir
     N slot-sets (uno por fragmento). El LLM elige hard_fact_ids; NO escribe cifras.
     F58: con `clip_apertura=False` no entra el bloque OPENING MOTION CLIP aunque el cap sea el hook."""
@@ -573,7 +574,7 @@ def _build_seedream_prompt_step2(topic, cap_data, narration_text, anchors, extra
     n = len(anchors)
     anchor_list = "\n".join(f"  [{i + 1}] «{a}»" for i, a in enumerate(anchors))
     topic_block = _build_topic_block(topic)
-    canon_block = _format_seedream_canon_block(topic, anios)   # F50d B: años de las fotos del cap
+    canon_block = _format_seedream_canon_block(topic, anios, rasgos)   # F50d B: años de las fotos del cap
     arc_block = _visual_arc_block(cap_data.get("narrative_intent"))
     # HANDOFF_142b PALANCA B.1: en el HOOK, el item [1] es el beat del CLIP de apertura (lo PRIMERO
     # que ve el espectador). Regla dura: close/medium sobre el detalle, NUNCA establishing/aéreo/wide.
@@ -675,7 +676,10 @@ def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number, compo
     anios = [e.get("anio_ancla") or (e.get("respaldo") or ("",))[0] for e in exps]
     if not f8.get("refill"):
         print(f"  [03] {_log_sin_period(topic, anios, cap_number)}")     # F50f: medida, no freno
-    prompt = _build_seedream_prompt_step2(topic, cap_data, narration, anchors, extra, anios, clip_apertura=clip_apertura)
+    # F78d: los rasgos del bloque PERSONAS DOCUMENTADAS se leen una vez (o vienen en `_f8` del refill) y marcan `aspecto_fuente`
+    rasgos = f8["rasgos"] if "rasgos" in f8 else (_rasgos_de_madres(topic) if documented else {})
+    prompt = _build_seedream_prompt_step2(topic, cap_data, narration, anchors, extra, anios, clip_apertura=clip_apertura,
+                                          rasgos=rasgos)
 
     def _validator(parsed):
         items = parsed.get("image_prompts") if isinstance(parsed, dict) else None
@@ -715,6 +719,7 @@ def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number, compo
         anio, fuente = v3img.anio_final(e, it)        # solo lee `year`: el scrub (adentro de armar_item) no lo toca
         armar_item(it, anio, grupos, bool((by_n.get(it.get("beat")) or {}).get("escala")), f8.get("lang") or "en",
                    composicion=composicion, sin_cartel=sin_cartel, anio_fuente=fuente)
+        _marcar_aspecto(it, rasgos)
     slots_out["chapter_number"] = cap_number
     if not f8.get("refill"):
         _f8_fix_cap(topic, cap_data, narration, slots_out["image_prompts"], cap_number)
@@ -772,18 +777,47 @@ def _sacar_frases_con_texto(prose: str, intentional_text: str) -> tuple[str, lis
     return " ".join(quedan).strip(), fuera
 
 
-def _f8_refill(topic: dict, cap_data: dict, narration: str, item: dict, cap_number: int, note: str) -> dict:
+def _personas_de(it: dict) -> list[str]:
+    """F78d: `persona` del casillero → lista de nombres no vacíos (la regla de asset_manager `_norm_persona`)."""
+    from asset_manager import _norm_persona  # noqa: PLC0415 — perezoso, como foto_madre en `_rasgos_de_madres`
+    return _norm_persona(it.get("persona"))
+
+
+def _marcar_aspecto(it: dict, rasgos: dict) -> None:
+    """F78d: `aspecto_fuente` = «rasgos» si el bloque traía rasgos vigentes para TODAS las `persona` del ítem, si no «canon».
+    Ítem sin persona: sin la clave."""
+    ps = _personas_de(it)
+    if ps:
+        it["aspecto_fuente"] = "rasgos" if all(rasgos.get(p) for p in ps) else "canon"
+
+
+def _f8_refill(topic: dict, cap_data: dict, narration: str, item: dict, cap_number: int, note: str,
+               personas_fijas: list[str] | None = None) -> dict:
     """Rehace UNA imagen (casilleros con Opus + armado) con su mismo ancla y beat y una indicación (`note`). Sin
-    arreglos de cap. Si Opus se niega: CasillerosParada con la foto (sin volver a Pro)."""
+    arreglos de cap. Si Opus se niega: CasillerosParada con la foto (sin volver a Pro).
+    F78d `personas_fijas`: el bloque PERSONAS DOCUMENTADAS de ESTA llamada lleva solo esas personas (copia del topic con
+    `documented_people` filtrado; los rasgos se leen del topic entero, que es el que da el md5 de la entrada); si el casillero
+    `persona` nuevo no es ese mismo conjunto, se descarta lo nuevo y vuelve el ítem viejo con `_rasgos_refill: "persona_distinta"`
+    (sin reintentos)."""
     f8 = dict(topic["_f8"], refill=True, note=note,
               force_assign=[{"beat": item.get("beat"), "cerrada": item.get("cerrada", False)}])
+    base = topic
+    if personas_fijas is not None:
+        if "rasgos" not in f8:
+            f8["rasgos"] = _rasgos_de_madres(topic)
+        fijas = set(personas_fijas)
+        base = {**topic, "documented_people": [p for p in topic.get("documented_people") or []
+                                               if isinstance(p, dict) and p.get("name") in fijas]}
     try:
-        out = _render_prompts_seedream({**topic, "_f8": f8}, cap_data, narration,
+        out = _render_prompts_seedream({**base, "_f8": f8}, cap_data, narration,
                                        {"anchors": [{"anchor": item["narration_anchor"]}]}, cap_number)
     except CasillerosParada as e:
         raise CasillerosParada(f"{e} · re-hechura de la foto «{item['narration_anchor'][:60]}»") from e
     new = out["image_prompts"][0]
-    new["_f8_rehecha"] = note
+    if note or personas_fijas is None:                 # F78d: sin indicación (note="") no se deja la clave vacía
+        new["_f8_rehecha"] = note
+    if personas_fijas is not None and set(_personas_de(new)) != set(personas_fijas):
+        return {**item, "_rasgos_refill": "persona_distinta"}
     return new
 
 
@@ -1938,7 +1972,8 @@ def _seedream_video_prompt(image_prompt: str, voz_clip: str, label: str, max_att
 
 # F50 D: lo que el papel de fotos necesita de cada foto de un cap Veo (los caps flux guardan el ítem entero)
 CLAVES_F8_PAPEL = ("anio", "anio_fuente", "people_group", "persona", "shot_scale", "camera_angle", "lens_technique",
-                   "_f8_problemas", "_f8_slots_scrub", "_f8_texto_fuera", "_f8_rehecha")
+                   "_f8_problemas", "_f8_slots_scrub", "_f8_texto_fuera", "_f8_rehecha",
+                   "aspecto_fuente", "_rasgos_refill")                       # F78d: de dónde salió el aspecto de la persona
 
 
 def _render_prompts_seedream_veo(topic, cap_data, narration, plan, veo_position, cap_number, veo_zone_chars):
@@ -2041,6 +2076,26 @@ def _stitch_zone2_into_cap_flux(cap_out: dict) -> dict:
 #  FUNCIÓN PÚBLICA
 # ═══════════════════════════════════════════════════════════════
 
+def _con_f8(topic: dict, topic_id: str, narr_chapters: list[dict]) -> dict:
+    """El topic con `_f8` (beats, año, idioma, expediente, año previo por cap) si hay escaleta; si no, el mismo topic. Sale de
+    `assign_visual_prompts` tal cual (F78d: lo usa también `rehacer_aspecto_personas`)."""
+    f8_beats = v3img.load_beats(topic, STEPS_DIR)
+    if not f8_beats:
+        return topic
+    return {**topic, "_f8": {"beats": f8_beats, "year": v3img.topic_year(topic, f8_beats),
+                             "lang": v3img.place_language(topic),
+                             "fuentes": mexp.fuentes(topic_id, STEPS_DIR),          # F50 B: el expediente
+                             "anio_prev": {n: mexp.anio_previo(narr_chapters, n)
+                                           for n in range(1, EXPECTED_CHAPTER_COUNT + 1)}}}
+
+
+def _supp_de(it: dict) -> dict:
+    """Un ítem rehecho de cap con clip vuelve a la forma de `supplemental_image_prompts` (la de `assign_visual_prompts`)."""
+    return {"prompt": it["prompt"], "narration_anchor": it["narration_anchor"], "art_profile": "",
+            "raw_llm_prompt": it.get("raw_llm_prompt"),
+            **{k: it[k] for k in ("beat", "sensible", "motivos", *CLAVES_F8_PAPEL) if k in it}}
+
+
 def assign_visual_prompts(
     topic: dict,
     skeleton: dict,
@@ -2108,13 +2163,8 @@ def assign_visual_prompts(
     narr_by_n = {ch["chapter_number"]: ch for ch in narr_chapters}
 
     # F8 §1 B–F: con escaleta (guion v3) las imágenes siguen los beats; sin escaleta (v2), todo como antes
-    f8_beats = v3img.load_beats(topic, STEPS_DIR)
-    if f8_beats:
-        topic = {**topic, "_f8": {"beats": f8_beats, "year": v3img.topic_year(topic, f8_beats),
-                                  "lang": v3img.place_language(topic),
-                                  "fuentes": mexp.fuentes(topic_id, STEPS_DIR),          # F50 B: el expediente
-                                  "anio_prev": {n: mexp.anio_previo(narr_chapters, n)
-                                                for n in range(1, EXPECTED_CHAPTER_COUNT + 1)}}}
+    topic = _con_f8(topic, topic_id, narr_chapters)
+    f8_beats = (topic.get("_f8") or {}).get("beats")
 
     def _process_one_cap(cap_n: int) -> dict:
         sch = skel_by_n.get(cap_n) or {}
@@ -2274,11 +2324,7 @@ def assign_visual_prompts(
         for c in output_chapters:
             c.pop("_f8_items", None)
             if "supplemental_image_prompts" in c:         # caps Veo: los supplementals rehechos vuelven a su forma
-                c["supplemental_image_prompts"] = [
-                    {"prompt": it["prompt"], "narration_anchor": it["narration_anchor"], "art_profile": "",
-                     "raw_llm_prompt": it.get("raw_llm_prompt"),
-                     **{k: it[k] for k in ("beat", "sensible", "motivos", *CLAVES_F8_PAPEL) if k in it}}
-                    for it in by_cap[c["chapter_number"]][1:]]
+                c["supplemental_image_prompts"] = [_supp_de(it) for it in by_cap[c["chapter_number"]][1:]]
 
     # PR 1 chat 24: persistir solo el video_id como referencia. El sync_map
     # autoritativo vive en output/audio/<id>/sync_map.json — duplicarlo acá
@@ -2288,3 +2334,129 @@ def assign_visual_prompts(
 
     _persist(topic_id, output)
     return output
+
+
+# ═══════════════════════════════════════════════════════════════
+#  F78d — el aspecto de las personas con los rasgos de su madre, en producción
+# ═══════════════════════════════════════════════════════════════
+
+QA_BACKUPS_DIR = "_qa_backups"          # la carpeta donde QA Studio deja la copia de una foto que tocó (`_backup`)
+
+
+def _fotos_con_persona(visual: dict) -> list[dict]:
+    """Las fotos de 03_visual.json con `persona` no vacía, en orden de guion, con su nombre de asset: la foto de arranque del
+    clip (`chNN_img_01`, armada como QA Studio `_foto_de_clip`: image_f8 + image_prompt + ancla), las image_prompts de caps flux
+    (`chNN_img_NN`) y las supps de caps con clip (`chNN_supp_NN`). `lugar` ∈ clip | img | supp, `idx` = posición en su lista."""
+    out: list[dict] = []
+    for ch in sorted(visual.get("chapters") or [], key=lambda c: c.get("chapter_number") or 0):
+        n = ch.get("chapter_number")
+        if isinstance(ch.get("image_f8"), dict) and ch.get("image_prompt"):
+            it = {**ch["image_f8"], "prompt": ch["image_prompt"], "narration_anchor": ch.get("narration_anchor") or ""}
+            out.append({"foto": f"ch{n:02d}_img_01", "cap": n, "lugar": "clip", "idx": 0, "item": it})
+        for key, kind in (("image_prompts", "img"), ("supplemental_image_prompts", "supp")):
+            for i, it in enumerate(ch.get(key) or [], start=1):
+                if isinstance(it, dict):
+                    out.append({"foto": f"ch{n:02d}_{kind}_{i:02d}", "cap": n, "lugar": kind, "idx": i - 1, "item": it})
+    return [f for f in out if _personas_de(f["item"])]
+
+
+def fotos_aspecto(topic_id: str, visual: dict, rasgos: dict, video_id: str | None = None) -> list[dict]:
+    """F78d, SIN llamar: qué haría el paso con cada foto con persona. `accion`:
+    qa (copia en assets/_qa_backups: tocada a mano en QA Studio, adenda 1.1; no se toca) · persona_distinta (un refill anterior
+    cambió la persona: sin reintentos) · ya_rasgos (`aspecto_fuente` = rasgos) · sin_rasgos (alguna persona sin rasgos
+    vigentes) · rehacer. `nota` = la indicación previa de m03 (`_f8_rehecha`) que el refill vuelve a pasar (adenda 1.2)."""
+    qa = OUTPUT_DIR / (video_id or topic_id) / "assets" / QA_BACKUPS_DIR
+    filas = []
+    for f in _fotos_con_persona(visual):
+        it, ps = f["item"], _personas_de(f["item"])
+        if qa.is_dir() and any(qa.glob(f"{f['foto']}.png.*")):
+            acc = "qa"
+        elif it.get("_rasgos_refill") == "persona_distinta":
+            acc = "persona_distinta"
+        elif it.get("aspecto_fuente") == "rasgos":
+            acc = "ya_rasgos"
+        elif not all(rasgos.get(p) for p in ps):
+            acc = "sin_rasgos"
+        else:
+            acc = "rehacer"
+        filas.append({"foto": f["foto"], "cap": f["cap"], "lugar": f["lugar"], "idx": f["idx"], "persona": ps,
+                      "aspecto_fuente": it.get("aspecto_fuente"), "qa": acc == "qa", "nota": it.get("_f8_rehecha") or "",
+                      "accion": acc})
+    return filas
+
+
+def rehacer_aspecto_personas(topic: dict, skeleton: dict, narration: dict, video_id: str | None = None) -> dict:
+    """F78d (paso de fase1_5 después de la foto madre y antes de assemble): rehace con `_f8_refill(..., note=<indicación previa
+    o "">, personas_fijas=persona)` cada foto que `fotos_aspecto` marca «rehacer», en paralelo. La que vuelve con otra persona
+    queda vieja con `_rasgos_refill: "persona_distinta"`. Si se rehace la foto de arranque de un clip, su `video_prompt` se
+    regenera con `_seedream_video_prompt` (adenda 1.3). Idempotente: sin fotos para rehacer no llama ni escribe.
+    Devuelve {rasgos, filas, rehechas, persona_distinta, errores, movimiento, rasgos_despues}."""
+    import foto_madre  # noqa: PLC0415 — perezoso, como en `_rasgos_de_madres`
+    topic_id = topic.get("id") or topic.get("topic_id")
+    vpath = STEPS_DIR / topic_id / "03_visual.json"
+    visual = json.loads(vpath.read_text(encoding="utf-8"))
+    rasgos, motivo = foto_madre.rasgos_vigentes(topic, video_id)
+    filas = fotos_aspecto(topic_id, visual, rasgos, video_id)
+    res = {"rasgos": motivo, "filas": filas, "rehechas": [], "persona_distinta": [], "errores": [], "movimiento": []}
+    cuenta: dict[str, int] = {}
+    for f in filas:
+        cuenta[f["accion"]] = cuenta.get(f["accion"], 0) + 1
+    print(f"  [aspecto] rasgos: {motivo} · fotos con persona: {len(filas)} {cuenta}")
+    for f in filas:
+        if f["accion"] == "qa":
+            print(f"  [aspecto] {f['foto']}: tocada en QA Studio (copia en {QA_BACKUPS_DIR}) → no se toca")
+    hacer = [f for f in filas if f["accion"] == "rehacer"]
+    if not hacer:
+        return res
+    ctx = _con_f8({**topic, **_geo_era(topic_id, narration)}, topic_id, narration.get("chapters") or [])
+    if not ctx.get("_f8"):
+        raise VisualValidationError(f"{topic_id}: sin escaleta no hay casilleros que rehacer (F50)")
+    ctx = {**ctx, "_f8": {**ctx["_f8"], "rasgos": rasgos}}
+    sk = {c["chapter_number"]: c for c in skeleton.get("chapters") or []}
+    nr = {c["chapter_number"]: (c.get("narration") or "").strip() for c in narration.get("chapters") or []}
+    items = {f["foto"]: f["item"] for f in _fotos_con_persona(visual)}
+
+    def _uno(f):
+        try:
+            return f, _f8_refill(ctx, sk[f["cap"]], nr[f["cap"]], items[f["foto"]], f["cap"], f["nota"],
+                                 personas_fijas=f["persona"]), None
+        except CasillerosParada as e:
+            return f, None, str(e)
+
+    with ThreadPoolExecutor(max_workers=min(CAP_MAX_WORKERS, len(hacer))) as ex:
+        hechos = list(ex.map(_uno, hacer))
+    caps = {c["chapter_number"]: c for c in visual["chapters"]}
+    for f, new, err in hechos:
+        ch = caps[f["cap"]]
+        if err:
+            res["errores"].append({"foto": f["foto"], "error": err})
+            print(f"  [aspecto] {f['foto']}: ERROR {err[:200]} → queda la vieja")
+            continue
+        distinta = new.get("_rasgos_refill") == "persona_distinta"
+        if distinta:
+            res["persona_distinta"].append({"foto": f["foto"], "persona": f["persona"]})
+            print(f"  [aspecto] {f['foto']}: el refill cambió la persona → queda la vieja (persona_distinta)")
+        if f["lugar"] == "img":
+            ch["image_prompts"][f["idx"]] = new
+        elif f["lugar"] == "supp":
+            ch["supplemental_image_prompts"][f["idx"]] = new if distinta else _supp_de(new)
+        elif distinta:
+            ch["image_f8"]["_rasgos_refill"] = "persona_distinta"
+        else:                                          # la foto de arranque del clip: el cap con clip guarda esta forma
+            ch["image_prompt"] = new["prompt"]
+            ch["image_f8"] = {k: new[k] for k in ("beat", "motivos", "raw_llm_prompt", *CLAVES_F8_PAPEL) if k in new}
+            if "image_sensible" in ch:
+                ch["image_sensible"] = new.get("sensible", False)
+            ch["subject_ref"] = (new.get("subject_ref")
+                                 or ("detail" if ch.get("veo_position") == "start" else "establishing_shot"))
+            viejo = ch.get("video_prompt") or ""
+            ch["video_prompt"] = _seedream_video_prompt(new["prompt"], ch.get("voz_clip") or "",
+                                                        f"cap {f['cap']} (aspecto) video_prompt")
+            res["movimiento"].append({"foto": f["foto"], "viejo": viejo, "nuevo": ch["video_prompt"]})
+        if not distinta:
+            res["rehechas"].append({"foto": f["foto"], "persona": f["persona"], "nota": f["nota"]})
+    _persist(topic_id, visual)
+    res["rasgos_despues"] = foto_madre.rasgos_vigentes(topic, video_id)[1]
+    print(f"  [aspecto] rehechas {len(res['rehechas'])} · persona_distinta {len(res['persona_distinta'])} · "
+          f"errores {len(res['errores'])} · rasgos después: {res['rasgos_despues']}")
+    return res

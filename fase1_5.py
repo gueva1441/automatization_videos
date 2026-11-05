@@ -7,7 +7,7 @@ F41 (DECISIONES 2026-10-27 20:59): UNA sola cadena, la de F39 con guion v4, para
   m01b  guion v4 → reparación → partición (caps y títulos) → juez m05 → verificación de la narración (F66) → crítico (F67)
   PARADA de narración salvo `--aprobar-narracion` vigente
   papel (m01e, `--papel`, una vez sobre la narración aprobada) → PARADA del papel salvo `--aprobar-papel` vigente
-  normalizer_gate → audio → m07 → m03 → foto madre → assemble (data/scripts/<topic_id>.json, el contrato que lee
+  normalizer_gate → audio → m07 → m03 → foto madre → aspecto (F78d) → assemble (data/scripts/<topic_id>.json, el contrato que lee
   fase2a)
 Un topic sin evidence_pool v3 (`_research_v3`, el research v3) para antes de gastar, con su motivo. La cadena vieja
 (m01a_skeleton → m01b_narrator) y el guionista v3 (F10) se borraron.
@@ -69,7 +69,7 @@ from csv_exporter import parse_decisions_csv, OUTPUT_CSV, export_single_topic_cs
 # Módulos del motor de guion
 import audio_manager
 from script_engine import m02_5_normalizer_gate
-from script_engine.m03_visual import assign_visual_prompts
+from script_engine.m03_visual import assign_visual_prompts, rehacer_aspecto_personas
 # Chat 119: el juez (m05_judge + m06_classifier) fue DESCONECTADO del chain — assemble
 # directo tras m03. Los módulos siguen VIVOS en el repo; para re-enchufarlos: git revert
 # de este commit (o partir del tag juez-vivo). Ver m06_assembler.assemble_final_script.
@@ -81,12 +81,12 @@ from foto_madre import generate_foto_madre_for_topic
 from script_engine.topics_db import load_db, save_db
 
 
-VALID_FROM_STEPS = ("m01a", "m01b", "normalizer_gate", "audio", "m07", "m03")
+VALID_FROM_STEPS = ("m01a", "m01b", "normalizer_gate", "audio", "m07", "m03", "aspecto")   # F78d: aspecto
 STEPS_DIR: Path = DATA_DIR / "scripts" / "_steps"
 TOPICS_DB: Path = DATA_DIR / "topics_db.json"
 
 # Orden completo de la cadena (incluye assemble, que VALID_FROM_STEPS no lista).
-_PIPELINE_ORDER = ("m01a", "m01b", "normalizer_gate", "audio", "m07", "m03", "assemble")
+_PIPELINE_ORDER = ("m01a", "m01b", "normalizer_gate", "audio", "m07", "m03", "aspecto", "assemble")
 
 
 def _derive_failed_step(from_step: str, steps_completed) -> str | None:
@@ -742,7 +742,7 @@ def process_topic(
     """Corre LA cadena (F41: la única) para 1 topic, reanudando desde from_step: m01a (compuerta → ficha → escaleta)
     → m01b (guion v4 → partición → juez → verificación → crítico) → PARADA de narración salvo aprobada (F67; el papel corre con
     `--papel`) → PARADA del papel salvo aprobado → normalizer_gate → audio → m07 →
-    m03 → foto madre → assemble. Un topic sin evidence_pool v3 → PARADA antes de gastar, desde cualquier paso.
+    m03 → foto madre → aspecto (F78d: fotos con persona con los rasgos de su madre) → assemble. Un topic sin evidence_pool v3 → PARADA antes de gastar, desde cualquier paso.
 
     Chat 119: el juez (m05 + m06) fue DESCONECTADO — tras m03 se ensambla directo el
     JSON final con assemble_final_script. Los módulos del juez siguen vivos en el repo.
@@ -953,11 +953,21 @@ def process_topic(
                 save_db(db)
                 break
 
+        # F78d: las fotos con persona se rehacen con los rasgos de su madre (los rasgos ya existen: foto madre corrió arriba).
+        # `--only aspecto` corre este paso + assemble y corta.
+        if from_step in ("m01a", "m01b", "normalizer_gate", "audio", "m07", "m03", "aspecto"):
+            if narration is None:
+                skeleton = _load_skeleton(topic_id)
+                narration = _load_narration(topic_id)
+            print(f"  [aspecto] Fotos con persona → texto con los rasgos de su madre...")
+            _step_cost(topic_id, "aspecto", lambda: rehacer_aspecto_personas(topic, skeleton, narration, topic_id))
+            result["steps_completed"].append("aspecto")
+
         # assemble — ensambla data/scripts/<id>.json (contrato sagrado que lee fase2a)
         # DIRECTO tras m03. Chat 119: el juez (m05 voting + m06 clasificador/menú) fue
         # DESCONECTADO del chain. assemble_final_script recibe SOLO topic_id (ya desacoplado
         # del juez) y escribe el JSON final. Gate = MISMO alcance que tenía m06.
-        if from_step in ("m01a", "m01b", "normalizer_gate", "audio", "m07", "m03"):
+        if from_step in ("m01a", "m01b", "normalizer_gate", "audio", "m07", "m03", "aspecto"):
             print(f"  [assemble] Ensamblando data/scripts/{topic_id}.json...")
             final_path = str(assemble_final_script(topic_id))
             result["steps_completed"].append("assemble")

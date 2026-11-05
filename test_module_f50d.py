@@ -138,7 +138,7 @@ def test_f50d_b_sin_anios_en_el_cap_todos_los_periods():
 
 def test_f50d_b_anios_llegan_del_expediente_al_pedido(monkeypatch):
     vistos = {}
-    def falso(topic, anios=None):
+    def falso(topic, anios=None, rasgos=None):          # F78d: el bloque recibe también los rasgos ya leídos
         vistos["a"] = anios
         return "CANON"
     monkeypatch.setattr(m3, "_format_seedream_canon_block", falso)

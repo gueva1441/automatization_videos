@@ -847,6 +847,7 @@
     "fase2a.py",
     "foto_madre.py",
     "qa_studio_server.py",
+    "script_engine/m03_visual.py",
     "script_engine/m09_packaging.py"
    ],
    "tests": 16,
@@ -1579,7 +1580,7 @@
   "fase1_5.py": {
    "archivo": "fase1_5.py",
    "zona": "guion",
-   "sticker": "Es el director de la Fase 1: de un tema con el research hecho arma, en orden, la compuerta del pool, la ficha del caso, el canon visual desde la ficha (F50), la escaleta, el guion v4 con su reparación, la partición en 7 capítulos, el juez, la verificación y el crítico de la narración, y se detiene en la PARADA de narración hasta que Omar la aprueba (`--aprobar-narracion`, con md5, F67); después el papel una vez sobre esa narración (`--papel`) y la PARADA del papel hasta que Omar lo aprueba (`--aprobar-papel`, con md5). Ya aprobado, sigue con la normalización de la voz, la voz, la música, el canon visual si la ficha cambió, los prompts de imagen, la foto madre y el ensamblado del contrato data/scripts/<id>.json que lee la Fase 2. F66/F66b: después de la partición, la verificación de la narración (run_verificacion: el verificador por cap); lo que contradice el archivo queda como aviso y la cadena sigue, no se corrige solo. `--verificar-narracion` la corre sobre una narración ya escrita, sin llamar al guionista. F67b: el papel desfasado se re-escribe aunque esté aprobado; antes de la voz borra un normalizado de otra narración; `--criticar` = juez + crítico, sin verificador. F77: `--hasta-ficha` (con `--semilla` para un tema nuevo) corre research → compuerta del pool → ficha y para (estante); `_step_cost` relee el archivo de costos después del paso.",
+   "sticker": "Es el director de la Fase 1: de un tema con el research hecho arma, en orden, la compuerta del pool, la ficha del caso, el canon visual desde la ficha (F50), la escaleta, el guion v4 con su reparación, la partición en 7 capítulos, el juez, la verificación y el crítico de la narración, y se detiene en la PARADA de narración hasta que Omar la aprueba (`--aprobar-narracion`, con md5, F67); después el papel una vez sobre esa narración (`--papel`) y la PARADA del papel hasta que Omar lo aprueba (`--aprobar-papel`, con md5). Ya aprobado, sigue con la normalización de la voz, la voz, la música, el canon visual si la ficha cambió, los prompts de imagen, la foto madre y el ensamblado del contrato data/scripts/<id>.json que lee la Fase 2. F66/F66b: después de la partición, la verificación de la narración (run_verificacion: el verificador por cap); lo que contradice el archivo queda como aviso y la cadena sigue, no se corrige solo. `--verificar-narracion` la corre sobre una narración ya escrita, sin llamar al guionista. F67b: el papel desfasado se re-escribe aunque esté aprobado; antes de la voz borra un normalizado de otra narración; `--criticar` = juez + crítico, sin verificador. F77: `--hasta-ficha` (con `--semilla` para un tema nuevo) corre research → compuerta del pool → ficha y para (estante); `_step_cost` relee el archivo de costos después del paso. F78d: paso `aspecto` después de la foto madre y antes del ensamblado (m03_visual.rehacer_aspecto_personas: las fotos con persona se rehacen con los rasgos de su madre; idempotente); `--only aspecto` corre ese paso + el ensamblado.",
    "recibe": "data/topics_db.json (topic con evidence_pool v3), data/scripts/_steps/<id>/ (_perfil.json, escaleta_notas.md, ficha_caso.json, 01a_escaleta.json, 01e_pantalla.json), data/seeds_archive.json (título de la semilla), una semilla .json con --semilla, output/audio/<id>/sync_map.json al reanudar",
    "entrega": "data/scripts/_steps/<id>/ (01a_escaleta, 01b_guionista_v4, 01a_skeleton, 01b_narration, 01b_narracion_v3, 06_judge_narrative, 01e_pantalla.json/.md, 01_v3_costos.json con los pasos ficha, canon y m03, 05_visual_canon.json, aprobado con md5 dentro de 01e_pantalla.json); el canon visual con canon_ficha_md5 (md5 de ficha + pedido del canon + modelo + esfuerzo, F50f; Parada si el canon no sale o trae años de tramo ilegibles) en topics_db; audio y sync_map de la voz (output/audio/<id>/), music_map, prompts de imagen de m03, la foto madre en topics_db y data/scripts/<id>.json",
    "modelo": [
@@ -1651,7 +1652,7 @@
     "script_engine/m06_assembler.py",
     "script_engine/m09_packaging.py"
    ],
-   "tests": 22,
+   "tests": 23,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "351a3a7 2026-11-04 (F77)",
    "estado_a": "vivo",
@@ -1660,7 +1661,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "81ac3c83cf91404f70cbe04fec528166",
+   "md5": "431303af0055deff809856de1a1cecc6",
    "sticker_al_dia": true
   },
   "fase2a.py": {
@@ -1929,9 +1930,9 @@
     "fase2a.py",
     "script_engine/m03_visual.py"
    ],
-   "tests": 6,
+   "tests": 7,
    "nacio": "8361059 2026-07-02",
-   "ultimo": "72018f3 2026-11-04 (F78b)",
+   "ultimo": "4beca6b 2026-11-04 (F78c)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py:647 lo llama (paso0, tras m03, dentro del comando de voz) y fase2a.py:337 como reintento",
@@ -5095,7 +5096,7 @@
   "script_engine/m03_visual.py": {
    "archivo": "script_engine/m03_visual.py",
    "zona": "fase2a",
-   "sticker": "Escribe, para cada capítulo del documental, la descripción de cada imagen que después pinta el generador (Seedream). Le pasa al modelo el lugar principal del caso y el tramo de años que dice la narración (GEO y ERA). Elige qué frase de la narración ilustra cada imagen (Gemini Flash) y, desde F50, le pide a Claude Opus que llene la ficha de cada escena (casilleros) con un expediente por foto: año dicho, lugar, párrafo de la voz, escenas de la ficha, hechos, citas, personas y los grupos de gente del canon. Desde F50d, la época del canon (ropa, tecnología, vehículos, interiores) entra por tramo: los tramos que cruzan los años de las fotos del capítulo, o el más cercano si ninguno cruza (desde F50f deja una línea de log por capítulo con las fotos que no cruzan ningún tramo). El código arma la frase en un orden fijo y la revisa (desde F51c ya no borra nombres de personas; sin conteos ni izquierda/derecha, sin manos, sangre o texto suelto: si queda un problema, saca la frase). Rehace las fotos que no cumplen las reglas del capítulo y del video por el mismo camino. En los capítulos 1 y 7 además Opus redacta el movimiento del clip de video con el orden de la guía de Google; la parte de la voz que acompaña al clip de 8 s se corta, desde F51c, en el final de oración más cercano (sin oración, en el espacio más cercano; empate → la zona del clip más corta). Desde F57 guarda también la voz entera del clip (`voz_clip`: las palabras que la voz dice en los 8 s, cortadas por palabra con la ventana en caracteres que ya calculaba; sin LLM) y el movimiento del clip se escribe con esa voz, no solo con el ancla. Desde F58 el paso de casilleros acepta tres llaves con default idéntico a producción (sin el bloque del clip de apertura, sin cartel, con una oración de composición) para que m09 pida las fotos de las miniaturas por el mismo camino. Desde F59 el armado de cada ítem (limpieza de casilleros, cartel, armado C, revisión F8, prompt final, año, sensible y motivos) es una función aparte, `armar_item`, la misma que QA Studio usa para rehacer una foto desde sus casilleros editados. Desde F61 el system instruction ya no empuja al plano general (se quitó la regla R7 de shot_scale) ni rehace las fotos con persona en plano medio: el encuadre lo decide el bloque VISUAL ARC OF THIS CAP según el tipo de cap. Desde F68 acepta image_engine nb2_lite (mismo texto de foto). F78c: en PERSONAS DOCUMENTADAS, una persona con rasgos vigentes de su foto madre lleva `appearance: <rasgos>` en lugar de `appearance_canon` (`_rasgos_de_madres`, solo lectura; sin rasgos vigentes, la línea vieja y un WARN).",
+   "sticker": "Escribe, para cada capítulo del documental, la descripción de cada imagen que después pinta el generador (Seedream). Le pasa al modelo el lugar principal del caso y el tramo de años que dice la narración (GEO y ERA). Elige qué frase de la narración ilustra cada imagen (Gemini Flash) y, desde F50, le pide a Claude Opus que llene la ficha de cada escena (casilleros) con un expediente por foto: año dicho, lugar, párrafo de la voz, escenas de la ficha, hechos, citas, personas y los grupos de gente del canon. Desde F50d, la época del canon (ropa, tecnología, vehículos, interiores) entra por tramo: los tramos que cruzan los años de las fotos del capítulo, o el más cercano si ninguno cruza (desde F50f deja una línea de log por capítulo con las fotos que no cruzan ningún tramo). El código arma la frase en un orden fijo y la revisa (desde F51c ya no borra nombres de personas; sin conteos ni izquierda/derecha, sin manos, sangre o texto suelto: si queda un problema, saca la frase). Rehace las fotos que no cumplen las reglas del capítulo y del video por el mismo camino. En los capítulos 1 y 7 además Opus redacta el movimiento del clip de video con el orden de la guía de Google; la parte de la voz que acompaña al clip de 8 s se corta, desde F51c, en el final de oración más cercano (sin oración, en el espacio más cercano; empate → la zona del clip más corta). Desde F57 guarda también la voz entera del clip (`voz_clip`: las palabras que la voz dice en los 8 s, cortadas por palabra con la ventana en caracteres que ya calculaba; sin LLM) y el movimiento del clip se escribe con esa voz, no solo con el ancla. Desde F58 el paso de casilleros acepta tres llaves con default idéntico a producción (sin el bloque del clip de apertura, sin cartel, con una oración de composición) para que m09 pida las fotos de las miniaturas por el mismo camino. Desde F59 el armado de cada ítem (limpieza de casilleros, cartel, armado C, revisión F8, prompt final, año, sensible y motivos) es una función aparte, `armar_item`, la misma que QA Studio usa para rehacer una foto desde sus casilleros editados. Desde F61 el system instruction ya no empuja al plano general (se quitó la regla R7 de shot_scale) ni rehace las fotos con persona en plano medio: el encuadre lo decide el bloque VISUAL ARC OF THIS CAP según el tipo de cap. Desde F68 acepta image_engine nb2_lite (mismo texto de foto). F78c: en PERSONAS DOCUMENTADAS, una persona con rasgos vigentes de su foto madre lleva `appearance: <rasgos>` en lugar de `appearance_canon` (`_rasgos_de_madres`, solo lectura; sin rasgos vigentes, la línea vieja y un WARN). F78d: DOCTRINE_PEOPLE pide la demografía del `appearance` de la persona (o `appearance_canon` si no hay); cada ítem con persona guarda `aspecto_fuente` (rasgos si el bloque traía rasgos vigentes para todas sus personas, si no canon); `_f8_refill` acepta `personas_fijas` (el bloque PERSONAS DOCUMENTADAS de esa llamada lleva solo esas personas; si vuelve otra persona queda el ítem viejo con `_rasgos_refill: persona_distinta`); `rehacer_aspecto_personas` (paso `aspecto` de fase1_5) rehace en paralelo las fotos con persona que no tienen el aspecto de los rasgos, pasa la indicación previa (`_f8_rehecha`) como nota, salta las fotos con copia en output/<id>/assets/_qa_backups (tocadas en QA Studio) y, si rehace la foto de arranque de un clip, regenera su movimiento.",
    "recibe": "El tema ya armado (data/topics_db.json: canon visual con people_groups que arma fase1_5.asegurar_canon desde la ficha, personas y objetos documentados, evidence_pool), el perfil del research (data/scripts/_steps/<id>/_perfil.json: lugar_principal), el esqueleto y la narración (data/scripts/_steps/<id>/01a_*.json y 01b_*.json), la escaleta, la ficha y los párrafos v3 para el expediente (01a_escaleta.json, ficha_caso.json, 01b_narracion_v3.json), el mapa de sincronía del audio (output/audio/<id>/sync_map.json) y los tiempos por palabra (output/audio/<id>/chNN_timestamps.json).",
    "entrega": "data/scripts/_steps/<id>/03_visual.json (por capítulo: image_prompts con prompt final, casilleros crudos, año y de dónde salió, ancla de narración, rango emocional, foto_madre_ref, persona (F60 A: nombres del canon de quién sale, solo ruteo; nadie lo consume hasta la Etapa B), notas F8; en caps 1 y 7: image_prompt con su image_f8 (año, grupo, plano, notas F8), video_prompt y supplemental_image_prompts con las mismas claves); lo devuelve también como dict a fase1_5.py, que lo ensambla al contrato data/scripts/<id>.json. Sus constantes DOCTRINE_* las reutiliza m09_packaging.",
    "modelo": [
@@ -5141,9 +5142,9 @@
     "script_engine/m09_packaging.py",
     "script_engine/video_prompt.py"
    ],
-   "tests": 25,
+   "tests": 26,
    "nacio": "e33f84a 2026-05-28",
-   "ultimo": "82d0b38 2026-11-01 (F68)",
+   "ultimo": "4beca6b 2026-11-04 (F78c)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py:671 llama assign_visual_prompts dentro de process_topic (tramo audio -> m07 -> m03 que corre con --from normalizer_gate, el comando de la etapa voz en run_pipeline; también --only m03); script_engine/m09_packaging.py:40 importa DOCTRINE_* en tiempo de carga (fase3, etapa packaging).",
@@ -5158,7 +5159,7 @@
    "sin_llamador_a": [
     "_format_bullets"
    ],
-   "md5": "98b94c83ec46e0e2521d2130cf3e294e",
+   "md5": "de982428c708f494c0198d54f24f5ac5",
    "sticker_al_dia": true
   },
   "script_engine/m05_judge.py": {
