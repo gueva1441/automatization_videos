@@ -1,0 +1,324 @@
+{
+ "Jaime Vaquero García": {
+  "fotos": 1,
+  "fotos_ids": [
+   "ch02_img_08"
+  ],
+  "estado": "sin madre: 1 foto(s) con persona dentro de su era"
+ },
+ "Jesús Sancho Rof": {
+  "fotos": 3,
+  "fotos_ids": [
+   "ch03_img_11",
+   "ch03_img_12",
+   "ch03_img_13"
+  ],
+  "dest": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\jes_s_sancho_rof.png",
+  "rasgos": "Broad oval face with light olive skin and brown eyes, dark hair neatly combed back and greying at the temples, clean-shaven, thick dark-rimmed glasses, stocky build",
+  "prompt": "Head-and-shoulders portrait of a middle-aged Spanish man, Broad oval face with light olive skin and brown eyes, dark hair neatly combed back and greying at the temples, clean-shaven, thick dark-rimmed glasses, stocky build, wearing a plain, clean, light-coloured shirt. Southern European Spanish features, fair to light olive skin, dark or greying hair, brown eyes, mostly middle-aged men. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+  "estado": "ok",
+  "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+  "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\jes_s_sancho_rof.png",
+  "seed": 1183151247,
+  "nsfw": null,
+  "request_id": "01a1a92b-ba3c-7451-a2e4-ece23355ae11",
+  "variantes": []
+ },
+ "Antonio Muro Fernández Cavada": {
+  "fotos": 2,
+  "fotos_ids": [
+   "ch03_img_14",
+   "ch03_img_15"
+  ],
+  "dest": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\antonio_muro_fern_ndez_cavada.png",
+  "rasgos": "Long narrow face with fair skin and brown eyes, dark hair receding at the forehead and cut short, full dark moustache, no glasses, lean wiry build",
+  "prompt": "Head-and-shoulders portrait of a middle-aged Spanish man, Long narrow face with fair skin and brown eyes, dark hair receding at the forehead and cut short, full dark moustache, no glasses, lean wiry build, wearing a plain, clean, light-coloured shirt. Southern European Spanish features, fair to light olive skin, dark hair, brown eyes. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+  "estado": "ok",
+  "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+  "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\antonio_muro_fern_ndez_cavada.png",
+  "seed": 1318947566,
+  "nsfw": null,
+  "request_id": "01a1a92b-ba32-79d3-8f7a-067067073549",
+  "variantes": []
+ },
+ "Arcadio Fernandez": {
+  "fotos": 16,
+  "fotos_ids": [
+   "ch01_f8_01",
+   "ch01_supp_05",
+   "ch01_supp_06",
+   "ch02_img_06",
+   "ch02_img_07",
+   "ch03_img_16",
+   "ch04_img_05",
+   "ch05_img_04",
+   "ch05_img_09",
+   "ch06_img_05",
+   "ch06_img_06",
+   "ch06_img_14",
+   "ch06_img_15",
+   "ch06_img_16",
+   "ch07_supp_13",
+   "ch07_supp_14"
+  ],
+  "dest": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\arcadio_fernandez.png",
+  "rasgos": "Round full face with light olive skin and brown eyes, thick short curly black hair, short full black beard, no glasses, heavyset broad-shouldered build",
+  "prompt": "Head-and-shoulders portrait of a middle-aged Spanish man, Round full face with light olive skin and brown eyes, thick short curly black hair, short full black beard, no glasses, heavyset broad-shouldered build, wearing a plain, clean, light-coloured shirt. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+  "estado": "ok",
+  "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+  "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\arcadio_fernandez.png",
+  "seed": 1790885915,
+  "nsfw": null,
+  "request_id": "01a1a92b-ba38-77f1-a51f-7867cc22a56e",
+  "variantes": [
+   {
+    "clave": "1981-1989",
+    "tramo": "1981-1989",
+    "edad": null,
+    "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\arcadio_fernandez@1981-1989.png",
+    "fotos": [
+     "ch01_f8_01",
+     "ch01_supp_05",
+     "ch01_supp_06",
+     "ch02_img_06",
+     "ch02_img_07",
+     "ch03_img_16",
+     "ch04_img_05",
+     "ch05_img_04",
+     "ch05_img_09",
+     "ch06_img_05",
+     "ch06_img_06",
+     "ch06_img_14",
+     "ch06_img_15",
+     "ch06_img_16",
+     "ch07_supp_14"
+    ],
+    "estado": "ok",
+    "motor": "nb2_lite",
+    "usd": 0.042,
+    "prompt": "The same person as in the reference image: same face, same features, same identity. Deformed hands and upper body with disabling chronic pain. Show only what of this would be visible on the body; if nothing is visible, keep the person unchanged. Waist-up portrait framed so that the face and both hands are visible, wearing a plain, clean, light-coloured shirt, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels."
+   }
+  ]
+ },
+ "Angela Menseger": {
+  "fotos": 4,
+  "fotos_ids": [
+   "ch05_img_12",
+   "ch05_img_13",
+   "ch05_img_14",
+   "ch05_img_16"
+  ],
+  "dest": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\angela_menseger.png",
+  "rasgos": "Soft heart-shaped face with fair skin and brown eyes, shoulder-length wavy dark brown hair parted to the side, no glasses, medium sturdy build",
+  "prompt": "Head-and-shoulders portrait of a middle-aged Spanish woman, Soft heart-shaped face with fair skin and brown eyes, shoulder-length wavy dark brown hair parted to the side, no glasses, medium sturdy build, wearing a plain, clean, light-coloured shirt. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1985, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+  "estado": "ok",
+  "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+  "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\angela_menseger.png",
+  "seed": 677408501,
+  "nsfw": null,
+  "request_id": "01a1a92b-ba3b-75d3-8c57-fe17edfb9992",
+  "variantes": [
+   {
+    "clave": "1981-1985",
+    "tramo": "1981-1985",
+    "edad": null,
+    "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\angela_menseger@1981-1985.png",
+    "fotos": [
+     "ch05_img_12",
+     "ch05_img_13",
+     "ch05_img_14",
+     "ch05_img_16"
+    ],
+    "estado": "ok",
+    "motor": "nb2_lite",
+    "usd": 0.042,
+    "prompt": "The same person as in the reference image: same face, same features, same identity. Chronically ill after years of repeated hospitalizations, shuffling with dragging feet, veins exhausted by transfusions, and diagnosed with liver cancer. Show only what of this would be visible on the body; if nothing is visible, keep the person unchanged. Waist-up portrait framed so that the face and both hands are visible, wearing a plain, clean, light-coloured shirt, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels."
+   }
+  ]
+ },
+ "Javier Moscoso": {
+  "fotos": 0,
+  "fotos_ids": [],
+  "estado": "sin madre: 0 foto(s) con persona dentro de su era"
+ },
+ "Juan Miguel Bengoechea": {
+  "fotos": 1,
+  "fotos_ids": [
+   "ch07_supp_03"
+  ],
+  "estado": "sin madre: 1 foto(s) con persona dentro de su era"
+ },
+ "Ferrero": {
+  "fotos": 0,
+  "fotos_ids": [],
+  "estado": "sin madre: 0 foto(s) con persona dentro de su era"
+ },
+ "Enric Salomó": {
+  "fotos": 0,
+  "fotos_ids": [],
+  "estado": "sin madre: 0 foto(s) con persona dentro de su era"
+ },
+ "Ramón Alabart": {
+  "fotos": 0,
+  "fotos_ids": [],
+  "estado": "sin madre: 0 foto(s) con persona dentro de su era"
+ },
+ "Jorge Pich": {
+  "fotos": 0,
+  "fotos_ids": [],
+  "estado": "sin madre: 0 foto(s) con persona dentro de su era"
+ },
+ "Manuel Hernández": {
+  "fotos": 1,
+  "fotos_ids": [
+   "ch07_supp_04"
+  ],
+  "estado": "sin madre: 1 foto(s) con persona dentro de su era"
+ },
+ "Jesús Lozano": {
+  "fotos": 3,
+  "fotos_ids": [
+   "ch04_img_12",
+   "ch05_img_01",
+   "ch05_img_03"
+  ],
+  "dest": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\jes_s_lozano.png",
+  "rasgos": "Small round face with light olive skin and brown eyes, short straight black hair with a blunt fringe across the forehead, slight skinny build",
+  "prompt": "Head-and-shoulders portrait of a six-year-old Spanish boy, Small round face with light olive skin and brown eyes, short straight black hair with a blunt fringe across the forehead, slight skinny build, wearing a plain, clean, light-coloured shirt. Spanish children with fair to light olive skin, dark brown to black hair and brown eyes. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+  "estado": "ok",
+  "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+  "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\jes_s_lozano.png",
+  "seed": 353850848,
+  "nsfw": null,
+  "request_id": "01a1a92b-ba40-7113-95fc-4afa9a832497",
+  "variantes": [
+   {
+    "clave": "1981-1981",
+    "tramo": "1981-1981",
+    "edad": null,
+    "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\jes_s_lozano@1981-1981.png",
+    "fotos": [
+     "ch04_img_12",
+     "ch05_img_01",
+     "ch05_img_03"
+    ],
+    "estado": "ok",
+    "motor": "seedream45_respaldo",
+    "usd": 0.04,
+    "prompt": "The same person as in the reference image: same face, same features, same identity. Hospitalized in a glass-walled room with ten other children, all crying in pain from the unknown illness. Show only what of this would be visible on the body; if nothing is visible, keep the person unchanged. Waist-up portrait framed so that the face and both hands are visible, wearing a plain, clean, light-coloured shirt, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels."
+   }
+  ]
+ },
+ "Carmen Cortés": {
+  "fotos": 8,
+  "fotos_ids": [
+   "ch04_img_06",
+   "ch04_img_08",
+   "ch04_img_09",
+   "ch04_img_10",
+   "ch04_img_11",
+   "ch07_supp_07",
+   "ch07_supp_08",
+   "ch07_supp_09"
+  ],
+  "dest": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\carmen_cort_s.png",
+  "rasgos": "Oval face with fair skin and large brown eyes, long dark brown hair tied back in a single braid, slender build",
+  "prompt": "Head-and-shoulders portrait of a fourteen-year-old Spanish girl, Oval face with fair skin and large brown eyes, long dark brown hair tied back in a single braid, slender build, wearing a plain, clean, light-coloured shirt. Spanish children with fair to light olive skin, dark brown to black hair and brown eyes. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+  "estado": "ok",
+  "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+  "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\carmen_cort_s.png",
+  "seed": 866307743,
+  "nsfw": null,
+  "request_id": "01a1a92b-ba27-78c3-9767-02c01324e4b1",
+  "variantes": [
+   {
+    "clave": "1981-1982",
+    "tramo": "1981-1982",
+    "edad": null,
+    "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\carmen_cort_s@1981-1982.png",
+    "fotos": [
+     "ch04_img_06",
+     "ch04_img_08",
+     "ch04_img_10",
+     "ch04_img_11"
+    ],
+    "estado": "ok",
+    "motor": "seedream45_respaldo",
+    "usd": 0.04,
+    "prompt": "The same person as in the reference image: same face, same features, same identity. Hospitalized for ten months with organ and neuromuscular damage, losing more than twenty kilos and visibly emaciated. Show only what of this would be visible on the body; if nothing is visible, keep the person unchanged. Waist-up portrait framed so that the face and both hands are visible, wearing a plain, clean, light-coloured shirt, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels."
+   },
+   {
+    "clave": "1981-1982_15",
+    "tramo": "1981-1982",
+    "edad": 15,
+    "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\carmen_cort_s@1981-1982_15.png",
+    "fotos": [
+     "ch04_img_09"
+    ],
+    "estado": "ok",
+    "motor": "seedream45_respaldo",
+    "usd": 0.04,
+    "prompt": "The same person as in the reference image: same face, same features, same identity. Now a fifteen-year-old person. Hospitalized for ten months with organ and neuromuscular damage, losing more than twenty kilos and visibly emaciated. Show only what of this would be visible on the body; if nothing is visible, keep the person unchanged. Waist-up portrait framed so that the face and both hands are visible, wearing a plain, clean, light-coloured shirt, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels."
+   },
+   {
+    "clave": "1992-2000_33",
+    "tramo": "1992-2000",
+    "edad": 33,
+    "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\carmen_cort_s@1992-2000_33.png",
+    "fotos": [
+     "ch07_supp_07",
+     "ch07_supp_09"
+    ],
+    "estado": "ok",
+    "motor": "nb2_lite",
+    "usd": 0.042,
+    "prompt": "The same person as in the reference image: same face, same features, same identity. Now a early-30s person. Unable to work after a herniated disc, living on a disability pension. Show only what of this would be visible on the body; if nothing is visible, keep the person unchanged. Waist-up portrait framed so that the face and both hands are visible, wearing a plain, clean, light-coloured shirt, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1992, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels."
+   },
+   {
+    "clave": "1992-2000_25",
+    "tramo": "1992-2000",
+    "edad": 25,
+    "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\carmen_cort_s@1992-2000_25.png",
+    "fotos": [
+     "ch07_supp_08"
+    ],
+    "estado": "ok",
+    "motor": "nb2_lite",
+    "usd": 0.042,
+    "prompt": "The same person as in the reference image: same face, same features, same identity. Now a mid-20s person. Unable to work after a herniated disc, living on a disability pension. Show only what of this would be visible on the body; if nothing is visible, keep the person unchanged. Waist-up portrait framed so that the face and both hands are visible, wearing a plain, clean, light-coloured shirt, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1992, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels."
+   }
+  ]
+ },
+ "Mercedes García": {
+  "fotos": 2,
+  "fotos_ids": [
+   "ch03_img_08",
+   "ch03_img_09"
+  ],
+  "dest": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\mercedes_garc_a.png",
+  "rasgos": "Angular face with high cheekbones, light olive skin and brown eyes, long straight black hair worn loose past the shoulders, thin wire-rimmed glasses, slim build",
+  "prompt": "Head-and-shoulders portrait of a young adult Spanish woman, Angular face with high cheekbones, light olive skin and brown eyes, long straight black hair worn loose past the shoulders, thin wire-rimmed glasses, slim build, wearing a plain, clean, light-coloured shirt. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Neutral expression, facing the camera, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels.",
+  "estado": "ok",
+  "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+  "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\mercedes_garc_a.png",
+  "seed": 267364871,
+  "nsfw": null,
+  "request_id": "01a1a92b-ba42-7630-8ded-3db6a5b8ba39",
+  "variantes": [
+   {
+    "clave": "1981-1981",
+    "tramo": "1981-1981",
+    "edad": null,
+    "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\mercedes_garc_a@1981-1981.png",
+    "fotos": [
+     "ch03_img_08",
+     "ch03_img_09"
+    ],
+    "estado": "ok",
+    "motor": "nb2_lite",
+    "usd": 0.042,
+    "prompt": "The same person as in the reference image: same face, same features, same identity. Suffering cramps and insomnia, too weak to press a typewriter key. Show only what of this would be visible on the body; if nothing is visible, keep the person unchanged. Waist-up portrait framed so that the face and both hands are visible, wearing a plain, clean, light-coloured shirt, plain mid-grey background, soft even light. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. No readable text, no signage, no labels."
+   }
+  ]
+ }
+}
