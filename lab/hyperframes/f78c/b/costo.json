@@ -1,0 +1,80 @@
+{
+ "servicios": {
+  "Anthropic Opus 5.5 (casilleros, 5 fotos)": 0.4619,
+  "Nano Banana 2 Lite /edit (5 fotos, 0.042 estimado de config)": 0.21,
+  "Nano Banana 2 /edit completo (3 fotos, 0.08 lista de fal a 1K)": 0.24,
+  "total": 0.9119
+ },
+ "llamadas_opus": [
+  {
+   "timestamp": "2026-11-04T20:55:42.851767",
+   "stage": "script_generator",
+   "service": "Anthropic claude-opus-5-5",
+   "description": "m03:casilleros",
+   "units": 17699,
+   "unit_label": "tokens",
+   "cost_per_unit": 0.0,
+   "total_cost": 0.08942,
+   "tokens_in": 16535,
+   "tokens_out": 1164,
+   "tokens_thinking": 0,
+   "usage_ok": true
+  },
+  {
+   "timestamp": "2026-11-04T20:55:44.056778",
+   "stage": "script_generator",
+   "service": "Anthropic claude-opus-5-5",
+   "description": "m03:casilleros",
+   "units": 17711,
+   "unit_label": "tokens",
+   "cost_per_unit": 0.0,
+   "total_cost": 0.09214,
+   "tokens_in": 16380,
+   "tokens_out": 1331,
+   "tokens_thinking": 0,
+   "usage_ok": true
+  },
+  {
+   "timestamp": "2026-11-04T20:55:44.096526",
+   "stage": "script_generator",
+   "service": "Anthropic claude-opus-5-5",
+   "description": "m03:casilleros",
+   "units": 18028,
+   "unit_label": "tokens",
+   "cost_per_unit": 0.0,
+   "total_cost": 0.093712,
+   "tokens_in": 16678,
+   "tokens_out": 1350,
+   "tokens_thinking": 0,
+   "usage_ok": true
+  },
+  {
+   "timestamp": "2026-11-04T20:55:44.115934",
+   "stage": "script_generator",
+   "service": "Anthropic claude-opus-5-5",
+   "description": "m03:casilleros",
+   "units": 17908,
+   "unit_label": "tokens",
+   "cost_per_unit": 0.0,
+   "total_cost": 0.092624,
+   "tokens_in": 16596,
+   "tokens_out": 1312,
+   "tokens_thinking": 0,
+   "usage_ok": true
+  },
+  {
+   "timestamp": "2026-11-04T20:55:44.922203",
+   "stage": "script_generator",
+   "service": "Anthropic claude-opus-5-5",
+   "description": "m03:casilleros",
+   "units": 18301,
+   "unit_label": "tokens",
+   "cost_per_unit": 0.0,
+   "total_cost": 0.094036,
+   "tokens_in": 16999,
+   "tokens_out": 1302,
+   "tokens_thinking": 0,
+   "usage_ok": true
+  }
+ ]
+}

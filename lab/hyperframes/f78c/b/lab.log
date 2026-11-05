@@ -1,0 +1,17 @@
+[20:55:26] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: lab_f78c
+[20:55:44] ch01_img_01 → refs ['arcadio_fernandez@1981-1989.png']
+[20:55:44] ch01_supp_05 → refs ['arcadio_fernandez@1981-1989.png']
+[20:55:44] ch06_img_14 → refs ['arcadio_fernandez@1981-1989.png']
+[20:55:44] ch04_img_12 → refs ['carmen_cort_s@1981-1982.png', 'jes_s_lozano@1981-1981.png']
+[20:55:44] ch07_supp_07 → refs ['arcadio_fernandez.png']
+[20:56:08] ch01_img_01 V1 ok 
+[20:56:08] ch01_supp_05 V1 ok 
+[20:56:08] ch06_img_14 V1 ok 
+[20:56:08] ch04_img_12 V1 ok 
+[20:56:08] ch07_supp_07 V1 ok 
+[20:56:12] ch01_img_01 V2 ok 
+[20:56:12] ch01_supp_05 V2 ok 
+[20:56:12] ch06_img_14 V2 ok 
+[20:56:13] md5 producción: 422 archivos antes, 422 después, 0 distintos []
+[20:56:13] costo {'Anthropic Opus 5.5 (casilleros, 5 fotos)': 0.4619, 'Nano Banana 2 Lite /edit (5 fotos, 0.042 estimado de config)': 0.21, 'Nano Banana 2 /edit completo (3 fotos, 0.08 lista de fal a 1K)': 0.24, 'total': 0.9119}
+EXIT 0

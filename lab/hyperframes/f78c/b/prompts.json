@@ -1,0 +1,356 @@
+{
+ "ch01_img_01": {
+  "cap": 1,
+  "v0": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch01_veo\\ch01_img_01.png",
+  "prompt_viejo": "Middle-aged Spanish man, fair olive skin, greying dark hair, thin wasted build, deformed curled hands, sclerodermic tight skin, worn mid-1980s quilted anorak. Sits motionless in a crowded public row while scarred victims beside him rise and shout toward the dock. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Converted Casa de Campo pavilion courtroom, Madrid, long rows of public seats, 1989. Hard cold daylight from high pavilion windows mixed with flat fluorescent wash. Medium shot, eye-level, slightly side-on from the aisle, 85mm lens, shallow depth of field, standing shouting neighbors soft and blurred. A grainy 35mm documentary photograph taken in 1989, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+  "prompt_nuevo": "Heavyset broad-shouldered Spanish man around forty, round full face, light olive skin, thick short curly black hair, short full black beard, worn mid-1980s wool coat, deformed hands resting in his lap. Sits motionless on a courtroom bench while the scarred victims around him rise to their feet shouting toward the front of the hall. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Late-1980s Madrid mass-trial hall at the Casa de Campo venue, long rows of plain wooden benches packed with victims, the distant bench of black-robed magistrates out of focus. Hard cold overhead fluorescent light mixed with flat grey daylight from high windows, deep shadows under the benches. Medium shot, eye-level, frontal, 85mm lens, shallow depth of field; blurred standing figures behind him with raised arms, open mouths and visible scars on forearms and necks. A grainy 35mm documentary photograph taken in 1989, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+  "casilleros_viejos": {
+   "subject": "Middle-aged Spanish man, fair olive skin, greying dark hair, thin wasted build, deformed curled hands, sclerodermic tight skin, worn mid-1980s quilted anorak",
+   "action": "Sits motionless in a crowded public row while scarred victims beside him rise and shout toward the dock",
+   "gaze_interaction": "Head bowed, eyes on his own stiff hands resting in his lap, shoulders drawn up against the noise beside him",
+   "setting": "Converted Casa de Campo pavilion courtroom, Madrid, long rows of public seats",
+   "color_palette": "Cold desaturated blue-grey, muted beige anoraks, dull steel and pale wood",
+   "props_detail": "His deformed hands resting on the knees of high-waisted trousers, a folded association leaflet beneath them",
+   "shot_scale": "medium",
+   "camera_angle": "eye-level, slightly side-on from the aisle",
+   "lens_technique": "85mm lens, shallow depth of field, standing shouting neighbors soft and blurred",
+   "lighting": "Hard cold daylight from high pavilion windows mixed with flat fluorescent wash",
+   "mood": "A still seated figure inside a wall of standing bodies, cold light isolating his bent head and stiff hands",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F03"
+   ],
+   "people_group": [
+    "victim_protesters_and_association"
+   ],
+   "year": "1989"
+  },
+  "casilleros_nuevos": {
+   "subject": "Heavyset broad-shouldered Spanish man around forty, round full face, light olive skin, thick short curly black hair, short full black beard, worn mid-1980s wool coat, deformed hands resting in his lap",
+   "action": "sits motionless on a courtroom bench while the scarred victims around him rise to their feet shouting toward the front of the hall",
+   "gaze_interaction": "faces the camera, shoulders drawn up and head slightly bowed, eyes fixed ahead; he does not turn toward the standing crowd at his side",
+   "setting": "Late-1980s Madrid mass-trial hall at the Casa de Campo venue, long rows of plain wooden benches packed with victims, the distant bench of black-robed magistrates out of focus",
+   "color_palette": "cold desaturated blue-grey, slate and charcoal coats, pale institutional walls, muted olive skin tones",
+   "props_detail": "his stiffened, misshapen hands resting on his knees, seen mid-frame within the shot, against dark coat fabric",
+   "shot_scale": "medium",
+   "camera_angle": "eye-level, frontal",
+   "lens_technique": "85mm lens, shallow depth of field; blurred standing figures behind him with raised arms, open mouths and visible scars on forearms and necks",
+   "lighting": "hard cold overhead fluorescent light mixed with flat grey daylight from high windows, deep shadows under the benches",
+   "mood": "stillness of one slumped seated body against a blurred wall of risen, shouting figures; cold flat light, heavy air of a packed hall",
+   "style": "documentary photographic realism, dark-history, faceless channel look",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "people_group": [
+    "victim_protesters_and_association"
+   ],
+   "year": "1989"
+  },
+  "persona_vieja": [
+   "Arcadio Fernandez"
+  ],
+  "persona_nueva": [
+   "Arcadio Fernandez"
+  ],
+  "anio": "1989",
+  "referencias": [
+   {
+    "ref": "Arcadio Fernandez",
+    "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\arcadio_fernandez@1981-1989.png"
+   }
+  ]
+ },
+ "ch01_supp_05": {
+  "cap": 1,
+  "v0": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch01_flux\\ch01_supp_05.png",
+  "prompt_viejo": "Middle-aged Spanish man, fair olive skin, greying dark hair, wasted upper body, deformed stiff hands, worn wool coat over thick sweater. Stands still in the aisle as the shouting crowd behind him rises. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Aisle of the Casa de Campo trial courtroom, Madrid, standing victims blurred behind, 1989. Hard cold daylight from high pavilion windows mixed with flat fluorescent wash. Medium shot, eye-level, 85mm lens, shallow depth of field, crowd soft behind. A grainy 35mm documentary photograph taken in 1989, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+  "prompt_nuevo": "Heavyset broad-shouldered Spanish man of light olive skin, round full face, thick short curly black hair and short full black beard, in a mid-1980s wool coat over a thick sweater, a scarred chronic oil-poisoning survivor. Sits motionless on a crowded courtroom bench while the scarred victims around him rise shouting toward the accused. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Vast late-1980s Madrid mass-trial hall at the Casa de Campo venue, rows of wooden public benches packed with victims, a distant raised tribunal of black-robed magistrates out of focus. Hard cold overcast daylight from high courtroom windows, raking across the benches, deep grey shadows. Medium shot, eye-level, slightly side-on from the bench row, 85mm lens, shallow depth of field, shouting crowd softly blurred behind him. A grainy 35mm documentary photograph taken in 1989, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+  "casilleros_viejos": {
+   "subject": "Middle-aged Spanish man, fair olive skin, greying dark hair, wasted upper body, deformed stiff hands, worn wool coat over thick sweater",
+   "action": "Stands still in the aisle as the shouting crowd behind him rises",
+   "gaze_interaction": "Face to the front, deep-set tired eyes looking into the lens, head held level, hands hanging stiff at his sides",
+   "setting": "Aisle of the Casa de Campo trial courtroom, Madrid, standing victims blurred behind",
+   "color_palette": "Cold blue-grey, charcoal wool, muted beige",
+   "props_detail": "A thick association dossier clamped awkwardly under his arm",
+   "shot_scale": "medium",
+   "camera_angle": "eye-level",
+   "lens_technique": "85mm lens, shallow depth of field, crowd soft behind",
+   "lighting": "Hard cold daylight from high pavilion windows mixed with flat fluorescent wash",
+   "mood": "One still upright figure in cold light against a blurred, moving crowd",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "people_group": [
+    "victim_protesters_and_association"
+   ],
+   "year": "1989"
+  },
+  "casilleros_nuevos": {
+   "subject": "Heavyset broad-shouldered Spanish man of light olive skin, round full face, thick short curly black hair and short full black beard, in a mid-1980s wool coat over a thick sweater, a scarred chronic oil-poisoning survivor",
+   "action": "sits motionless on a crowded courtroom bench while the scarred victims around him rise shouting toward the accused",
+   "gaze_interaction": "eyes lowered toward the floor, head bowed, shoulders hunched forward; his stiff, misshapen hands rest in his lap at mid-frame, half in shadow",
+   "setting": "vast late-1980s Madrid mass-trial hall at the Casa de Campo venue, rows of wooden public benches packed with victims, a distant raised tribunal of black-robed magistrates out of focus",
+   "color_palette": "cold desaturated blue-grey, slate and charcoal coats, pale institutional walls, muted olive skin tones, no warm hues",
+   "props_detail": "his own rigid, deformed hands lying still in his lap amid the standing crowd, a single loaded human trace",
+   "shot_scale": "medium",
+   "camera_angle": "eye-level, slightly side-on from the bench row",
+   "lens_technique": "85mm lens, shallow depth of field, shouting crowd softly blurred behind him",
+   "lighting": "hard cold overcast daylight from high courtroom windows, raking across the benches, deep grey shadows",
+   "mood": "a still bowed figure inside a wall of raised arms and open mouths, scarred forearms and necks exposed in grey light, a man small and silent in a roaring hall",
+   "style": "documentary photographic realism, dark-history, faceless channel look",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "people_group": [
+    "victim_protesters_and_association"
+   ],
+   "year": "1989"
+  },
+  "persona_vieja": [
+   "Arcadio Fernandez"
+  ],
+  "persona_nueva": [
+   "Arcadio Fernandez"
+  ],
+  "anio": "1989",
+  "referencias": [
+   {
+    "ref": "Arcadio Fernandez",
+    "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\arcadio_fernandez@1981-1989.png"
+   }
+  ]
+ },
+ "ch06_img_14": {
+  "cap": 6,
+  "v0": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch06_flux\\ch06_img_14.png",
+  "prompt_viejo": "A middle-aged Spanish man, light olive skin, dark greying hair, deformed hands and hunched upper body, thick sweater, the association director. Adding figures on a desktop calculator with stiff fingers that cannot close. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Leganés association office at dusk, 1989, folder stacks rising behind him. Single desk lamp at dusk, hard shadow behind. Medium shot, eye-level, shallow depth of field, 85mm. A grainy 35mm documentary photograph taken in 1989, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+  "prompt_nuevo": "Arcadio, a heavyset broad-shouldered Spanish man in his forties with light olive skin, a round full face, thick short curly black hair and a short full black beard, wearing a thick grey wool sweater over a collared shirt; his hands and upper body are visibly deformed by chronic illness. He keys figures into a beige mechanical adding machine using stiff fingers that cannot close, while a curl of paper tape spools onto the desk. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Cramped victims' association office in Leganés, late 1980s: narrow room crowded with towering stacks of cardboard case folders, a dented grey steel filing cabinet, a cork board of pinned papers and a small window onto a brick apartment block. Low-key evening light from a single green-shaded desk lamp pooling on the papers, deep shadows climbing the folder stacks behind him. Medium shot, slightly low eye-level, tilted a few degrees off-balance, 50mm lens, moderate depth of field, folder stacks crowding the frame edges. A grainy 35mm documentary photograph taken in 1989, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+  "casilleros_viejos": {
+   "subject": "A middle-aged Spanish man, light olive skin, dark greying hair, deformed hands and hunched upper body, thick sweater, the association director",
+   "action": "Adding figures on a desktop calculator with stiff fingers that cannot close",
+   "gaze_interaction": "Face and eyes to the front, lifted from the calculator toward the lens, shoulders locked forward",
+   "setting": "Leganés association office at dusk, 1989, folder stacks rising behind him",
+   "color_palette": "Lamp amber, nicotine yellow, manila beige, grey sweater",
+   "props_detail": "A printing desktop calculator spilling a long curl of paper tape",
+   "shot_scale": "medium",
+   "camera_angle": "Eye-level",
+   "lens_technique": "Shallow depth of field, 85mm",
+   "lighting": "Single desk lamp at dusk, hard shadow behind",
+   "mood": "Hard lamplight on a stooped body; warped fingers pressing keys slowly, the paper tape lengthening",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "people_group": [
+    "victim_protesters_and_association"
+   ],
+   "year": "1989"
+  },
+  "casilleros_nuevos": {
+   "subject": "Arcadio, a heavyset broad-shouldered Spanish man in his forties with light olive skin, a round full face, thick short curly black hair and a short full black beard, wearing a thick grey wool sweater over a collared shirt; his hands and upper body are visibly deformed by chronic illness",
+   "action": "He keys figures into a beige mechanical adding machine using stiff fingers that cannot close, while a curl of paper tape spools onto the desk.",
+   "gaze_interaction": "Face turned toward the camera above the machine, brow heavy and eyes shadowed with fatigue, shoulders hunched forward, one rigid hand flat beside the keys",
+   "setting": "Cramped victims' association office in Leganés, late 1980s: narrow room crowded with towering stacks of cardboard case folders, a dented grey steel filing cabinet, a cork board of pinned papers and a small window onto a brick apartment block",
+   "color_palette": "Manila folder beige, nicotine-yellow walls, gunmetal grey steel, faded brown wood desk, cold blue dusk at the window",
+   "props_detail": "Two typed lists lying side by side under the adding machine, one long and densely filled, the other with only a few lines, its blank lower half glaring white",
+   "shot_scale": "medium",
+   "camera_angle": "slightly low eye-level, tilted a few degrees off-balance",
+   "lens_technique": "50mm lens, moderate depth of field, folder stacks crowding the frame edges",
+   "lighting": "low-key evening light from a single green-shaded desk lamp pooling on the papers, deep shadows climbing the folder stacks behind him",
+   "mood": "Heavy stillness: a lone hunched figure boxed in by paper walls, the lamp's small circle against encroaching dark, the long list and the short list lying in the same pool of light",
+   "style": "documentary photographic realism, dark-history, faceless documentary aesthetic",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "people_group": [
+    "victim_protesters_and_association"
+   ],
+   "year": "1989"
+  },
+  "persona_vieja": [
+   "Arcadio Fernandez"
+  ],
+  "persona_nueva": [
+   "Arcadio Fernandez"
+  ],
+  "anio": "1989",
+  "referencias": [
+   {
+    "ref": "Arcadio Fernandez",
+    "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\arcadio_fernandez@1981-1989.png"
+   }
+  ]
+ },
+ "ch04_img_12": {
+  "cap": 4,
+  "v0": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch04_flux\\ch04_img_12.png",
+  "prompt_viejo": "A five-year-old Spanish boy in striped pajamas sitting in bed behind a glass partition, a crowded row of children's beds around him. He waits in the glass-walled room on the eve of his sixth birthday. Spanish children with fair to light olive skin, dark brown to black hair and brown eyes. Glass-walled children's room in Hospital Clínico San Carlos, 1981, iron cots, cream walls. Soft diffuse window daylight. Wide shot, eye-level through the glass, shallow depth of field, focus on the glass and cake, children soft beyond. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+  "prompt_nuevo": "A slender, visibly emaciated fourteen-year-old Spanish girl with fair skin and long dark brown hair in a single braid, seen from behind, in a cotton hospital gown; beyond a glass partition, a slight skinny five-year-old Spanish boy with light olive skin and short black hair cut in a blunt fringe, in striped pajamas, sitting up on a narrow bed among other small Spanish children in cotton gowns. The girl leans weakly on her bed rail and looks across the corridor at the glass-walled children's room, where the small boy waits on his bed on the eve of his sixth birthday. Spanish children with fair to light olive skin, dark brown to black hair and brown eyes. Hospital Clínico San Carlos, Madrid, 1981: a pediatric ward of iron-framed beds behind a large glass partition with metal mullions, pale tiled walls, an empty neatly made bed beside the girl's. Soft overcast morning daylight from high ward windows, diffused through the glass partition, gentle and even. Medium shot, eye-level from behind the girl's shoulder, looking through the glass, 50mm lens, moderate depth of field, girl's silhouette sharp in the foreground, the children's room softly focused behind the glass with faint reflections. A grainy 35mm documentary photograph taken in 1981, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+  "casilleros_viejos": {
+   "subject": "A five-year-old Spanish boy in striped pajamas sitting in bed behind a glass partition, a crowded row of children's beds around him",
+   "action": "He waits in the glass-walled room on the eve of his sixth birthday",
+   "gaze_interaction": "The boy faces the glass, seen softly through it, small among the beds",
+   "setting": "Glass-walled children's room in Hospital Clínico San Carlos, 1981, iron cots, cream walls",
+   "color_palette": "Soft white, cream, pale blue, faint warm gold",
+   "props_detail": "A small homemade cake with a few unlit candles on a tray by the glass",
+   "shot_scale": "wide",
+   "camera_angle": "Eye-level through the glass",
+   "lens_technique": "Shallow depth of field, focus on the glass and cake, children soft beyond",
+   "lighting": "Soft diffuse window daylight",
+   "mood": "Soft light through glass, faint reflections over small figures in a quiet room",
+   "style": "Documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "people_group": [
+    "hospitalized_child_patients"
+   ],
+   "year": "1981"
+  },
+  "casilleros_nuevos": {
+   "subject": "A slender, visibly emaciated fourteen-year-old Spanish girl with fair skin and long dark brown hair in a single braid, seen from behind, in a cotton hospital gown; beyond a glass partition, a slight skinny five-year-old Spanish boy with light olive skin and short black hair cut in a blunt fringe, in striped pajamas, sitting up on a narrow bed among other small Spanish children in cotton gowns",
+   "action": "The girl leans weakly on her bed rail and looks across the corridor at the glass-walled children's room, where the small boy waits on his bed on the eve of his sixth birthday",
+   "gaze_interaction": "The girl's shoulders are drawn up and her thin arms rest on the rail as she faces the glass; the boy, soft in focus, sits small with knees pulled up, looking toward the glass and the corridor",
+   "setting": "Hospital Clínico San Carlos, Madrid, 1981: a pediatric ward of iron-framed beds behind a large glass partition with metal mullions, pale tiled walls, an empty neatly made bed beside the girl's",
+   "color_palette": "Hospital pale greens and off-whites, faded cream tiles, steel grey bed frames, washed-out blue striped pajamas, muted 1981 institutional tones",
+   "props_detail": "A small tin toy car resting on the inner sill of the glass partition beside the boy's bed",
+   "shot_scale": "medium",
+   "camera_angle": "Eye-level from behind the girl's shoulder, looking through the glass",
+   "lens_technique": "50mm lens, moderate depth of field, girl's silhouette sharp in the foreground, the children's room softly focused behind the glass with faint reflections",
+   "lighting": "Soft overcast morning daylight from high ward windows, diffused through the glass partition, gentle and even",
+   "mood": "Quiet, hushed stillness: a thin figure small against the iron bed, a neighbouring bed left empty and smoothed, pale light settling softly over the small children behind the glass",
+   "style": "Documentary photographic realism, dark-history, faceless, 1981 Spanish hospital period detail",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "people_group": [
+    "hospitalized_child_patients"
+   ],
+   "year": "1981"
+  },
+  "persona_vieja": [
+   "Jesús Lozano"
+  ],
+  "persona_nueva": [
+   "Carmen Cortés",
+   "Jesús Lozano"
+  ],
+  "anio": "1981",
+  "referencias": [
+   {
+    "ref": "Carmen Cortés",
+    "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\carmen_cort_s@1981-1982.png"
+   },
+   {
+    "ref": "Jesús Lozano",
+    "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\jes_s_lozano@1981-1981.png"
+   }
+  ]
+ },
+ "ch07_supp_07": {
+  "cap": 7,
+  "v0": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\assets\\ch07_flux\\ch07_supp_07.png",
+  "prompt_viejo": "A Spanish woman in her early thirties, light olive skin, dark short practical hair, very thin frame, tight hardened skin on forearms, plain grey knit sweater. She sits at a modest table reading a bank statement showing the compensation, the paper held low. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes. Modest 1990s apartment living room, Leganés, 2000, cordless phone on a side table, lace doily, small window. Overcast daylight from a single small window. Medium shot, eye-level, shallow depth of field, 85mm lens. A grainy 35mm documentary photograph taken in 2000, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+  "prompt_nuevo": "Spanish association director in his fifties, light olive skin, thick short curly black hair touched with grey, short full black beard, heavyset broad-shouldered build, in a plain dark 1990s knit sweater, upper body visibly stiffened by chronic illness. Sits motionless at a cramped desk, his deformed, stiffened hands resting open on a stack of case folders, unable to close. Southern European Spanish features, fair to light olive skin, dark brown to black hair, brown eyes, varied build. Narrow victims' association office in Leganés, 2000: wood-veneer desk, folding chairs, metal shelves crowded with paper archives and box files, a beige CRT desktop PC, a single window onto a working-class street of brick apartment blocks with parked rounded 1990s hatchbacks. Soft overcast late-afternoon daylight from the single window, dim interior falling into cool shadow along the archive shelves. Wide shot, slightly elevated eye-level from the office doorway, 35mm lens, deep depth of field holding both the seated figure and the street beyond the window. A grainy 35mm documentary photograph taken in 2000, with muted colors and slight underexposure, in a dark-history realist style. The image has a 16:9 aspect ratio. No readable text, no signage, no labels.",
+  "casilleros_viejos": {
+   "subject": "A Spanish woman in her early thirties, light olive skin, dark short practical hair, very thin frame, tight hardened skin on forearms, plain grey knit sweater",
+   "action": "She sits at a modest table reading a bank statement showing the compensation, the paper held low",
+   "gaze_interaction": "Seen in three-quarter profile, eyes lowered to the page, back slightly hunched",
+   "setting": "Modest 1990s apartment living room, Leganés, 2000, cordless phone on a side table, lace doily, small window",
+   "color_palette": "Beige walls, brown wood furniture, grey knit, pale cream paper",
+   "props_detail": "A bank passbook lying open on the table beside the statement",
+   "shot_scale": "medium",
+   "camera_angle": "eye-level",
+   "lens_technique": "shallow depth of field, 85mm lens",
+   "lighting": "overcast daylight from a single small window",
+   "mood": "Grey still room, a thin figure bent over paper, the rest of the space empty",
+   "style": "documentary photographic realism, dark-history, faceless",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [
+    "F07"
+   ],
+   "people_group": [
+    "survivor_activists_seguimos_viviendo"
+   ],
+   "year": "2000"
+  },
+  "casilleros_nuevos": {
+   "subject": "Spanish association director in his fifties, light olive skin, thick short curly black hair touched with grey, short full black beard, heavyset broad-shouldered build, in a plain dark 1990s knit sweater, upper body visibly stiffened by chronic illness",
+   "action": "sits motionless at a cramped desk, his deformed, stiffened hands resting open on a stack of case folders, unable to close",
+   "gaze_interaction": "body turned half toward the window, shoulders drawn forward and heavy, eyes on the street outside rather than the papers",
+   "setting": "narrow victims' association office in Leganés, 2000: wood-veneer desk, folding chairs, metal shelves crowded with paper archives and box files, a beige CRT desktop PC, a single window onto a working-class street of brick apartment blocks with parked rounded 1990s hatchbacks",
+   "color_palette": "muted beige, faded manila, worn brown wood veneer, dusty grey shelving, pale brick red and cool grey street tones through the glass",
+   "props_detail": "a tall, dog-eared stack of manila case folders bound with rubber bands beneath his resting hands",
+   "shot_scale": "wide",
+   "camera_angle": "slightly elevated eye-level from the office doorway",
+   "lens_technique": "35mm lens, deep depth of field holding both the seated figure and the street beyond the window",
+   "lighting": "soft overcast late-afternoon daylight from the single window, dim interior falling into cool shadow along the archive shelves",
+   "mood": "stillness in a cramped room, a heavy figure small among paper archives, grey quiet light, the empty street outside under a flat pale sky",
+   "style": "documentary photographic realism, dark-history, faceless documentary",
+   "text_in_image": {
+    "present": false,
+    "text": "",
+    "font": "",
+    "location": ""
+   },
+   "hard_fact_ids": [],
+   "people_group": [
+    "victim_protesters_and_association"
+   ],
+   "year": "2000"
+  },
+  "persona_vieja": [
+   "Carmen Cortés"
+  ],
+  "persona_nueva": [
+   "Arcadio Fernandez"
+  ],
+  "anio": "2000",
+  "referencias": [
+   {
+    "ref": "Arcadio Fernandez",
+    "path": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\c4934b7d-3f54-448f-ba5f-539dc744f0d8\\foto_madre\\arcadio_fernandez.png"
+   }
+  ]
+ }
+}
