@@ -39,7 +39,7 @@
     "por_que": "único llamador es fase2b.py:3393 dentro de `if paralelo`, y paralelo exige GFX_PARALELO > 1, constante en 1 (fase2b.py:2647, marcada DESCARTADO); inalcanzable con el código tal cual, solo test_module_f28c.py la ejerce forzando la constante a 2"
    }
   ],
-  "md5": "c84058aec93a16790f3a024beaa723c4",
+  "md5": "4f5dc546fe85f1e2577a1d59679aa73f",
   "_parte": "fase2b_gfx_a"
  },
  "gfx_config.py": {
@@ -73,7 +73,7 @@
     "por_que": "nadie la nombra ni en producción ni en tests"
    }
   ],
-  "md5": "23f1182e697ed6bd21335cb11420b57e",
+  "md5": "4050aa00affab89aafb418cb700a5cc6",
   "_parte": "fase2b_gfx_c"
  },
  "gfx_lab_server.py": {
@@ -195,7 +195,7 @@
   "estado": "solo herramienta manual",
   "estado_prueba": "mixer_server.py:609 __main__ (python mixer_server.py --topic); fase2b.py:3527 solo lo nombra en un mensaje al usuario; lo lanza una persona a mano, el form no. Su Popen a fase2b.py (mixer_server.py:363) corre solo con el botón Re-armar",
   "funciones_muertas": [],
-  "md5": "bfd1b46d6f4177daf2150df09992e94a",
+  "md5": "e21270a88bee042aeb241462e72dee16",
   "_parte": "fase2b_gfx_c"
  },
  "script_engine/aprobacion.py": {
@@ -262,7 +262,7 @@
   "estado": "vivo",
   "estado_prueba": "gfx_layer.py:763 estorba (juez del reparto, solo si gfx_rules.visual_critic, clave presente en misterio.json) y :425 contact_sheet",
   "funciones_muertas": [],
-  "md5": "b330e8dd013cea5bdb12e3ec562956de",
+  "md5": "2d8b137a610e6c577c52e3f6de239957",
   "_parte": "fase2b_gfx_d"
  },
  "script_engine/gfx_director.py": {
@@ -297,7 +297,7 @@
     "por_que": "nadie la nombra: ni producción ni tests ni strings; el chequeo «dos bloques al mismo tiempo» (línea 444 en adelante) calcula el solape directo y ya no la usa"
    }
   ],
-  "md5": "17f7c615f87fc0d3cd96979efdb9c652",
+  "md5": "2a54408d01f19b40fa82120affe9207f",
   "_parte": "fase2b_gfx_b"
  },
  "script_engine/gfx_intensity.py": {
@@ -332,7 +332,7 @@
   "estado": "vivo",
   "estado_prueba": "fase2b.py:1217 llama apply_gfx en _build_chapter_segment (render con --gfx --gfx-sparse, run_pipeline.py:246) y fase2b.py:3147 lo llama con plan_only=True en _solo_plan (fase2b --plan-only, run_pipeline.py:374)",
   "funciones_muertas": [],
-  "md5": "7994b713275c0bec3f9d49fcab10ff81",
+  "md5": "0e76c267922d20c157e14720db7e61a1",
   "_parte": "fase2b_gfx_b"
  },
  "script_engine/gfx_literal_lock.py": {
@@ -621,7 +621,7 @@
   "estado": "vivo",
   "estado_prueba": "gfx_layer.py:637-638 llama preparar_cap; fase2b.py:3160 importa voz_del_video en --plan-only",
   "funciones_muertas": [],
-  "md5": "e67eb91c26cf95e92471d11fcba9670a",
+  "md5": "e0b149cfd6f6d90b117cfbfc57aa0dc4",
   "_parte": "fase2b_gfx_d"
  },
  "script_engine/pantalla_filtros.py": {

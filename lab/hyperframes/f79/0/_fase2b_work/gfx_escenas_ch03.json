@@ -1,0 +1,137 @@
+{
+ "cap": "ch03",
+ "clip_dur": 172.667,
+ "time_offset": 3.0,
+ "pre_roll": 3.0,
+ "pausa": 1.0,
+ "escenas": [
+  {
+   "idx": 0,
+   "start": 0.0,
+   "end": 12.533,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 1,
+   "start": 12.533,
+   "end": 31.567,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 2,
+   "start": 31.567,
+   "end": 48.067,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 3,
+   "start": 48.067,
+   "end": 66.733,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 4,
+   "start": 66.733,
+   "end": 81.467,
+   "rank": "R2",
+   "quiet_side": "left",
+   "safe": true
+  },
+  {
+   "idx": 5,
+   "start": 81.467,
+   "end": 90.867,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 6,
+   "start": 90.867,
+   "end": 106.867,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 7,
+   "start": 106.867,
+   "end": 115.967,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 8,
+   "start": 115.967,
+   "end": 121.167,
+   "rank": "R2",
+   "quiet_side": "left",
+   "safe": true
+  },
+  {
+   "idx": 9,
+   "start": 121.167,
+   "end": 130.167,
+   "rank": "R3",
+   "quiet_side": "left",
+   "safe": true
+  },
+  {
+   "idx": 10,
+   "start": 130.167,
+   "end": 134.833,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 11,
+   "start": 134.833,
+   "end": 145.9,
+   "rank": "R2",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 12,
+   "start": 145.9,
+   "end": 148.333,
+   "rank": "R3",
+   "quiet_side": "left",
+   "safe": true
+  },
+  {
+   "idx": 13,
+   "start": 148.333,
+   "end": 156.233,
+   "rank": "R3",
+   "quiet_side": "left",
+   "safe": true
+  },
+  {
+   "idx": 14,
+   "start": 156.233,
+   "end": 165.467,
+   "rank": "R1",
+   "quiet_side": "left",
+   "safe": true
+  },
+  {
+   "idx": 15,
+   "start": 165.467,
+   "end": 172.667,
+   "rank": "R1",
+   "quiet_side": "right",
+   "safe": true
+  }
+ ]
+}

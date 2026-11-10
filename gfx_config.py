@@ -194,7 +194,6 @@ class GfxRules:
     title_scale: float = 0.7  # identidad F3
     title_dim: float = 0.4  # identidad F3
     forma_variante: str = ""                 # F31: variantes de forma a comparar (V1-V3, S1-S3[P], R1-R2); "" = como hoy
-    title_pre_roll: bool = True              # F30b B.3: con --gfx, el cap arranca con title_dur de title card sin voz
     # data_callout (D14) + tipografía (D13 / F2 §0b.8)
     callout_dur_min: float = 2.5  # identidad F3
     callout_dur_max: float = 6.0  # identidad F3

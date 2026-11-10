@@ -1,0 +1,121 @@
+{
+ "cap": "ch04",
+ "clip_dur": 99.7,
+ "time_offset": 3.0,
+ "pre_roll": 3.0,
+ "pausa": 1.0,
+ "escenas": [
+  {
+   "idx": 0,
+   "start": 0.0,
+   "end": 9.2,
+   "rank": "R3",
+   "quiet_side": "left",
+   "safe": false
+  },
+  {
+   "idx": 1,
+   "start": 9.2,
+   "end": 18.8,
+   "rank": "R2",
+   "quiet_side": "left",
+   "safe": false
+  },
+  {
+   "idx": 2,
+   "start": 18.8,
+   "end": 24.267,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": false
+  },
+  {
+   "idx": 3,
+   "start": 24.267,
+   "end": 31.667,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": false
+  },
+  {
+   "idx": 4,
+   "start": 31.667,
+   "end": 37.7,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": false
+  },
+  {
+   "idx": 5,
+   "start": 37.7,
+   "end": 50.8,
+   "rank": "R3",
+   "quiet_side": "left",
+   "safe": false
+  },
+  {
+   "idx": 6,
+   "start": 50.8,
+   "end": 55.333,
+   "rank": "R1",
+   "quiet_side": "left",
+   "safe": false
+  },
+  {
+   "idx": 7,
+   "start": 55.333,
+   "end": 61.933,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": false
+  },
+  {
+   "idx": 8,
+   "start": 61.933,
+   "end": 69.3,
+   "rank": "R2",
+   "quiet_side": "right",
+   "safe": false
+  },
+  {
+   "idx": 9,
+   "start": 69.3,
+   "end": 73.633,
+   "rank": "R2",
+   "quiet_side": "right",
+   "safe": false
+  },
+  {
+   "idx": 10,
+   "start": 73.633,
+   "end": 80.3,
+   "rank": "R3",
+   "quiet_side": "left",
+   "safe": false
+  },
+  {
+   "idx": 11,
+   "start": 80.3,
+   "end": 88.8,
+   "rank": "R3",
+   "quiet_side": "left",
+   "safe": false
+  },
+  {
+   "idx": 12,
+   "start": 88.8,
+   "end": 95.1,
+   "rank": "R3",
+   "quiet_side": "left",
+   "safe": false
+  },
+  {
+   "idx": 13,
+   "start": 95.1,
+   "end": 99.7,
+   "rank": "R1",
+   "quiet_side": "left",
+   "safe": false
+  }
+ ]
+}

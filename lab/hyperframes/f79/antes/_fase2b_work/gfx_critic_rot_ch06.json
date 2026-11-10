@@ -1,0 +1,34 @@
+{
+ "id:1ada1ac0e6172ad8db61": {
+  "estorba": false,
+  "motivo_3": "El bloque está en una zona vacía de la imagen y no tapa elementos importantes."
+ },
+ "id:c060a52f433f5245043b": {
+  "estorba": false,
+  "motivo_3": "El bloque se ubica en una zona del cielo y el paisaje distante, sin tapar el cartel ni elementos clave."
+ },
+ "id:66bb3f82edbabceb7b72": {
+  "estorba": true,
+  "motivo_3": "El sello 'ALARMA' tapa varios rostros de la pared, que son clave en la imagen."
+ },
+ "id:8a865d1712c276b913b7": {
+  "estorba": true,
+  "motivo_3": "El sello 'ALARMA' se ubica a media altura a la izquierda, cubriendo inevitablemente varios de los rostros de las víctimas en la pared."
+ },
+ "id:6c542c7e0451a4c5f21d": {
+  "estorba": true,
+  "motivo_3": "El sello 'ALARMA' tapa varias de las fotos de rostros en la pared, que son el elemento central de la imagen."
+ },
+ "id:db8c7d7d37925f81e251": {
+  "estorba": true,
+  "motivo_3": "El sello 'ALARMA' tapa varias de las fotos de rostros en la pared."
+ },
+ "id:c2c00040869194bcb201": {
+  "estorba": false,
+  "motivo_3": "El bloque se ubica a la derecha, donde no hay rostros principales ni texto relevante en la imagen."
+ },
+ "id:44bff5c149dd795b2ba6": {
+  "estorba": false,
+  "motivo_3": "El bloque no tapa rostros ni texto preexistente en la imagen, que es un paisaje general."
+ }
+}

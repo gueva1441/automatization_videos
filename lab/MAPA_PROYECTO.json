@@ -1654,7 +1654,7 @@
    ],
    "tests": 23,
    "nacio": "e33f84a 2026-05-28",
-   "ultimo": "351a3a7 2026-11-04 (F77)",
+   "ultimo": "7078adb 2026-11-05 (F78d)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "run_pipeline.py:301 lo lanza en guion (--batch), :325 en papel (--aprobar-papel) y :334 en voz (--from normalizer_gate --batch)",
@@ -1755,7 +1755,7 @@
     "qa_studio_server.py",
     "run_pipeline.py"
    ],
-   "tests": 27,
+   "tests": 24,
    "nacio": "e33f84a 2026-05-28",
    "ultimo": "351a3a7 2026-11-04 (F77)",
    "estado_a": "vivo",
@@ -1783,7 +1783,7 @@
     "_chars_to_syllables",
     "_build_ass_from_syllables"
    ],
-   "md5": "c84058aec93a16790f3a024beaa723c4",
+   "md5": "4f5dc546fe85f1e2577a1d59679aa73f",
    "sticker_al_dia": true
   },
   "fase3.py": {
@@ -2100,7 +2100,7 @@
     "GfxRules.css_grade_opacity",
     "clamp_box"
    ],
-   "md5": "23f1182e697ed6bd21335cb11420b57e",
+   "md5": "4050aa00affab89aafb418cb700a5cc6",
    "sticker_al_dia": true
   },
   "gfx_lab_server.py": {
@@ -2258,7 +2258,7 @@
     "Handler.do_GET",
     "Handler.do_POST"
    ],
-   "md5": "bfd1b46d6f4177daf2150df09992e94a",
+   "md5": "e21270a88bee042aeb241462e72dee16",
    "sticker_al_dia": true
   },
   "music_config.py": {
@@ -3678,7 +3678,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "b330e8dd013cea5bdb12e3ec562956de",
+   "md5": "2d8b137a610e6c577c52e3f6de239957",
    "sticker_al_dia": true
   },
   "script_engine/gfx_director.py": {
@@ -3755,7 +3755,7 @@
    "sin_llamador_a": [
     "_ocupa"
    ],
-   "md5": "17f7c615f87fc0d3cd96979efdb9c652",
+   "md5": "2a54408d01f19b40fa82120affe9207f",
    "sticker_al_dia": true
   },
   "script_engine/gfx_intensity.py": {
@@ -3833,7 +3833,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "7994b713275c0bec3f9d49fcab10ff81",
+   "md5": "0e76c267922d20c157e14720db7e61a1",
    "sticker_al_dia": true
   },
   "script_engine/gfx_literal_lock.py": {
@@ -5144,7 +5144,7 @@
    ],
    "tests": 26,
    "nacio": "e33f84a 2026-05-28",
-   "ultimo": "4beca6b 2026-11-04 (F78c)",
+   "ultimo": "7078adb 2026-11-05 (F78d)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase1_5.py:671 llama assign_visual_prompts dentro de process_topic (tramo audio -> m07 -> m03 que corre con --from normalizer_gate, el comando de la etapa voz en run_pipeline; también --only m03); script_engine/m09_packaging.py:40 importa DOCTRINE_* en tiempo de carga (fase3, etapa packaging).",
@@ -5828,7 +5828,7 @@
    "funciones_muertas": [],
    "imports_rotos": [],
    "sin_llamador_a": [],
-   "md5": "e67eb91c26cf95e92471d11fcba9670a",
+   "md5": "e0b149cfd6f6d90b117cfbfc57aa0dc4",
    "sticker_al_dia": true
   },
   "script_engine/pantalla_filtros.py": {
@@ -9343,7 +9343,6 @@
   {
    "test": "test_module_f32.py",
    "importa": [
-    "fase2b",
     "gfx_config",
     "gfx_guion",
     "gfx_peak",
@@ -9385,7 +9384,6 @@
   {
    "test": "test_module_f36.py",
    "importa": [
-    "fase2b",
     "clima",
     "gfx_critic",
     "pantalla_colocar",
@@ -9555,7 +9553,6 @@
   {
    "test": "test_module_f38e_d.py",
    "importa": [
-    "fase2b",
     "gfx_guion",
     "m01e_pantalla",
     "pantalla_verificador"

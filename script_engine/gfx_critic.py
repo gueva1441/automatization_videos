@@ -51,8 +51,8 @@ def frame_at(video: Path, t: float, dst: Path, width: int = 1280) -> Path:
 
 def clave_identidad(*partes: Any) -> str:
     """F30b §C: la clave del veredicto por lo que el bloque ES (texto, voz, versión), sin los bytes de los cuadros: el
-    pre-roll del title card corre el cap 3 s y vuelve a codificar el base, así que la misma foto con el mismo bloque
-    ya no da los mismos bytes. Un bloque igual con la misma voz reusa su veredicto (API 0, mismos bloques)."""
+    base se vuelve a codificar, así que la misma foto con el mismo bloque ya no da los mismos bytes. Un bloque igual
+    con la misma voz reusa su veredicto (API 0, mismos bloques)."""
     return "id:" + hashlib.sha1("|".join(str(p) for p in partes).encode("utf-8")).hexdigest()[:20]
 
 

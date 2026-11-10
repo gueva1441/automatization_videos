@@ -32,7 +32,7 @@ ORACIONES = [(0.2, "La presa se levantó en el valle."), (4.0, "Murieron cientos
              (17.5, "El juez dictó la sentencia en mil novecientos setenta y uno.")]
 
 
-def _cap(plan: dict, *, beats: list[dict] | None = None, first: bool = False, pre: float = 3.0) -> dict:
+def _cap(plan: dict, *, beats: list[dict] | None = None, first: bool = False, pre: float = 0.0) -> dict:
     raw = []
     for t0, txt in ORACIONES:
         raw += _w(txt, t0)
@@ -45,13 +45,13 @@ def _cap(plan: dict, *, beats: list[dict] | None = None, first: bool = False, pr
                {"idx": 4, "start": pre + 17.5, "end": pre + 30.0}]
     return {"cap": "ch03", "n": 3, "titulo": "La ola", "plan": plan, "rejected": [], "escenas": escenas, "beats": beats,
             "sents": sentences(words, pre), "raw": raw, "offset": 100.0, "seg_dur": pre + 30.0, "pre_pad": pre,
-            "pre_roll": pre, "primera_palabra": raw[0]["start"], "is_first": first, "audio": None, "pool_items": {},
+            "primera_palabra": raw[0]["start"], "is_first": first, "audio": None, "pool_items": {},
             "tts_text": "La presa se levantó en el valle. [long pause] Murieron casi dos mil personas aquella noche. "
                         "El agua subió por encima del dique. Nadie había leído el informe de Padua. El juez dictó la "
                         "sentencia en mil novecientos setenta y uno.", "a_pantalla": ["D1", "D9"]}
 
 
-def _plan_todo(pre: float = 3.0) -> dict:
+def _plan_todo(pre: float = 0.0) -> dict:
     return {
         "title_card": {"kicker": "CAPÍTULO 3", "title": "La ola"},
         "callouts": [{"text": "1.910 personas", "kicker": "Muertos", "ficha": True, "start": pre + 4.4, "duration": 2.5,
@@ -82,7 +82,7 @@ def _plan_todo(pre: float = 3.0) -> dict:
 
 
 def _guion(caps: list[dict]) -> dict:
-    return gg.armar(caps, title_dur=3.0, dip_frames=10, fps=30, intro=2.5, mezcla=None, voz_video=[], topic="fix")
+    return gg.armar(caps, title_dur=3.0, dip_frames=10, fps=30, mezcla=None, voz_video=[], topic="fix")
 
 
 # ═══════════════ A.1–A.2: un cap con todos los tipos ═══════════════
@@ -95,12 +95,12 @@ def test_guion_de_un_cap_con_todos_los_tipos():
               "sello", "reloj", "transición", "punch", "silencio de voz"):          # F72d: sin pregunta de cierre
         assert t in tipos, t
     f = next(e for e in ev if e["tipo"] == "ficha" and e["queda"])
-    assert f["t_mp4"] == 107.4 and f["beat"] == 1 and f["escena"] == 1 and f["lectura_min"] == round(21 / 15, 2)
+    assert f["t_mp4"] == 104.4 and f["beat"] == 1 and f["escena"] == 1 and f["lectura_min"] == round(21 / 15, 2)
     assert f["voz_ancla"].startswith("Murieron") and f["voz_prev"].startswith("La presa")
     corte = next(e for e in ev if not e["queda"] and e.get("pool_id") == "D9")
     assert "cortó rotulista (cantidad)" in corte["filtro"]
     md = gg.a_markdown(g)
-    assert "01:47.4 · ch03 · beat 1 (planteo) · ficha · «Muertos | 1.910 personas» · dura 2.5 s (lectura mínima 1.4 s)" in md
+    assert "01:44.4 · ch03 · beat 1 (planteo) · ficha · «Muertos | 1.910 personas» · dura 2.5 s (lectura mínima 1.4 s)" in md
     assert "✂ " in md and "### ✗ a_pantalla" in md and "- ✗ ch03 D9: cortó rotulista (cantidad): un texto por beat" in md
     pu = next(e for e in ev if e["tipo"] == "punch")
     assert pu["razon"] == "pico" and (pu["saliente"], pu["entrante"]) == (1, 2)
@@ -132,9 +132,9 @@ def test_silencio_contra_la_pausa_mas_larga_del_guion():
     pm = gg.pausa_max_guion(c["raw"], c["tts_text"])
     # la marca [long pause] cae después de «valle.» (fin 2.92, siguiente 4.0: 1.08 s) → esa es la pausa del guion
     assert pm == {"s": 1.08, "palabra": "valle.", "como": "marca de pausa del guion"}
-    sil = gg.silencios(c["raw"], pm["s"], 3.0)
-    # el único hueco mayor: «Padua.» (13.22) → «El» (17.5) = 4.28 s, en el tiempo del cap (pre-roll 3 s)
-    assert [(s["antes"], s["dur"], s["t"]) for s in sil] == [("Padua.", 4.28, 16.22)]
+    sil = gg.silencios(c["raw"], pm["s"], c["pre_pad"])
+    # el único hueco mayor: «Padua.» (13.22) → «El» (17.5) = 4.28 s, en el tiempo del cap (F79: la voz arranca en 0)
+    assert [(s["antes"], s["dur"], s["t"]) for s in sil] == [("Padua.", 4.28, 13.22)]
     assert gg.pausa_max_guion(c["raw"], c["tts_text"].replace("[long pause]", ""))["como"].startswith("entre oraciones")
 
 
@@ -158,6 +158,15 @@ def test_inicio_de_voz_v3b_con_rampa():
                          umbral_db=UMBRAL, fps=30)
     assert r["ok"] and r["rampa"] and r["medido"] == 2.62 and r["previo_db"] > UMBRAL
     assert gg.linea_inicio("ch01", r).startswith("✓ ch01")
+
+
+def test_inicio_de_voz_sin_intro_no_mide_antes_de_0():
+    """F79: sin intro, la voz de ch01 arranca a 0.12 s del mp4 (la mezcla es la voz misma, desde 0). La ventana de
+    búsqueda (esperado − primera − 0.5 s) y la de la rampa (esperado − 200 ms) caerían antes de 0: se recortan a 0 y el
+    corrimiento se cuenta desde 0, así que la voz da a tiempo (con el cálculo viejo daba −0.38 s, ✗ falso)."""
+    r = gg.inicio_de_voz(FIX / "ch01_voz_0a3s.wav", FIX / "ch01_voz_0a3s.wav", 0.12, 0.12, umbral_db=UMBRAL, fps=30)
+    assert r["medido"] == 0.12 and r["a_tiempo"]
+    assert r["t_18db"] is not None and r["t_18db"] >= 0.12 - 0.1
 
 
 def test_inicio_de_voz_corrido_falla_por_tiempo():
@@ -203,26 +212,6 @@ def _ent_b(oraciones: list[tuple[float, str]], items: list[dict], beats: list[di
 def _bl(si: int, tipo: str, texto: str, pid: str, et: str | None = None, wi: int = 0, rank: int = 1, **kw) -> dict:
     return {"sentence_idx": si, "word_idx": wi, "beat": 0, "rank": rank, "tipo": tipo, "etiqueta": et, "texto": texto,
             "pool_id": pid, "aporta": "algo concreto", **kw}
-
-
-def test_b1_ch01_sin_pre_roll_y_la_musica_arranca_con_el_title_card(tmp_path):
-    import subprocess
-    import numpy as np
-    import fase2b
-    from types import SimpleNamespace as NS
-    assert fase2b._pre_roll_de(NS(is_first=True), True) == 0.0
-    assert fase2b._pre_roll_de(NS(is_first=False), True) == 3.0 and fase2b._pre_roll_de(NS(is_first=False), False) == 0.0
-    assert fase2b._correr_tramos([{"nivel": "fondo", "t0": 0.0, "t1": 10.0}, {"nivel": "silencio", "t0": 4.0, "t1": 5.0}],
-                                 3.0) == [{"nivel": "fondo", "t0": 0.0, "t1": 13.0}, {"nivel": "silencio", "t0": 7.0, "t1": 8.0}]
-    fase2b.FFMPEG = fase2b.FFMPEG or "ffmpeg"
-    tone = tmp_path / "t.wav"
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", "sine=frequency=300:duration=10", str(tone)],
-                   check=True)
-    p = fase2b._build_music_piece_for_chapter(tone, 4.0, tmp_path / "p.wav", pre_sec=3.0)
-    r = subprocess.run(["ffmpeg", "-v", "error", "-i", str(p), "-f", "s16le", "-ac", "1", "-ar", "1000", "-"],
-                       capture_output=True, check=True)
-    x = np.abs(np.frombuffer(r.stdout, np.int16).astype(float))
-    assert abs(len(x) / 1000 - 7.0) < 0.02 and x[100:2900].mean() > 1000          # suena durante el title card
 
 
 def test_b8_ficha_un_escalon_mas_chica_con_placa(tmp_path):

@@ -1,0 +1,22 @@
+{
+ "id:882af4373a5ebc2a2ef2": {
+  "estorba": false,
+  "motivo_3": "El bloque se ubica en la esquina superior izquierda y no tapa rostros ni texto relevante en la imagen."
+ },
+ "id:a37fbd3f56db92424cac": {
+  "estorba": false,
+  "motivo_3": "El bloque está en una zona vacía de la imagen."
+ },
+ "id:763b294e6f9be2f2f767": {
+  "estorba": true,
+  "motivo_3": "El sello \"AVISO\" se superpone a parte del molino y a algunos trabajadores en el lado derecho de la imagen, elementos visuales relevantes para la narración."
+ },
+ "id:15101d0d03ecf31483eb": {
+  "estorba": true,
+  "motivo_3": "El sello 'AVISO' y el tinte de mood tapan parte del avión y de los trabajadores, elementos clave de la composición visual."
+ },
+ "id:d57dcdcc3efa90ec2092": {
+  "estorba": false,
+  "motivo_3": "El bloque se ubica a la derecha, a media altura, y no tapa ningún rostro principal ni texto existente en la imagen."
+ }
+}

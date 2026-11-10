@@ -4,7 +4,7 @@ script_engine/gfx_guion.py — F32 §A: el guion de pantalla. Todo lo que se va 
 `fase2b --plan-only` corre director, rotulista, reglas y crítico (sin navegador ni render) y este módulo lee lo que
 quedó en `_fase2b_work/` (plan resuelto, escenas, beats, crudas del rotulista) y escribe `output/<topic>/GUION_PANTALLA.md`
 y `GUION_PANTALLA.json` (la misma información; el json es lo que leen después la hoja de cuadros y los chequeos):
-    eventos    (§A.1) una línea por evento en el orden del mp4 final (intro y pre-roll ya sumados): title card, ficha,
+    eventos    (§A.1) una línea por evento en el orden del mp4 final (en el segundo del mp4): title card, ficha,
                recorte, cita, persona, lupa, sello, reloj, nivel de agua, contador, punch,
                transición, costura y silencio de voz; también lo que cada filtro cortó, con quién y por qué (✂).
     beats      (§A.2) por beat: función, ventana, escenas, propuestos (director / rotulista), cortados por regla,
@@ -120,8 +120,10 @@ def _cruce_db(a: Any, sr: int, umbral: float) -> int | None:
 
 def inicio_de_voz(mezcla: Path, voz: Path, esperado: float, primera: float, *, umbral_db: float, fps: int,
                   buscar_s: float = 0.5) -> dict[str, Any]:
-    """Inicio de la voz de un cap en la mezcla. `esperado` = segundo de la primera palabra en el mp4 (intro + offset del
-    cap + pre-roll + `primera`, el inicio de la primera palabra en su mp3).
+    """Inicio de la voz de un cap en la mezcla. `esperado` = segundo de la primera palabra en el mp4 (offset del cap +
+    pre-pad del hook + `primera`, el inicio de la primera palabra en su mp3). F79: el mp4 arranca con la voz del cap 1,
+    así que ninguna ventana empieza antes de 0 (se recortan a 0 y el corrimiento se cuenta desde donde de verdad
+    empieza la ventana leída).
     - medido: el corrimiento de la voz dentro de la mezcla (correlación con su mp3, ±`buscar_s`) + `primera`; ✓ si
       cae a ≤ 1 cuadro del esperado.
     - rampa: los 100 ms antes de que la mezcla llegue a −18 dB (RMS de 10 ms, paso de 1 ms) no son silencio: su
@@ -132,20 +134,22 @@ def inicio_de_voz(mezcla: Path, voz: Path, esperado: float, primera: float, *, u
     seg = 1.5                                        # lo que se correlaciona: la primera palabra y lo que sigue
     v = _pcm(voz, 0.0, primera + seg, sr).astype(np.float64)
     base = esperado - primera                        # dónde debería arrancar el mp3 dentro de la mezcla
-    m = _pcm(mezcla, base - buscar_s, primera + seg + 2 * buscar_s, sr).astype(np.float64)
+    m0 = max(0.0, base - buscar_s)                   # F79: la ventana no empieza antes de 0
+    m = _pcm(mezcla, m0, base + buscar_s + primera + seg - m0, sr).astype(np.float64)
     lag = None
     if len(v) and len(m) > len(v):
         n = 1 << int(math.ceil(math.log2(len(m) + len(v))))
         c = np.fft.irfft(np.fft.rfft(m, n) * np.conj(np.fft.rfft(v, n)), n)[: len(m) - len(v) + 1]
-        lag = base - buscar_s + int(np.argmax(c)) / sr
+        lag = m0 + int(np.argmax(c)) / sr
     medido = round(lag + primera, 3) if lag is not None else None
     sr2 = 48000
-    desde = esperado - 2 * RAMPA_S
-    a = _pcm(mezcla, desde, 2.0 + 2 * RAMPA_S, sr2)
-    k = _cruce_db(a[int(RAMPA_S * sr2):], sr2, PICO_DB)       # el pico se busca desde 100 ms antes del esperado
+    desde = max(0.0, esperado - 2 * RAMPA_S)         # F79: la ventana no empieza antes de 0
+    busca = int(round(max(0.0, esperado - RAMPA_S - desde) * sr2))
+    a = _pcm(mezcla, desde, esperado + 2.0 - desde, sr2)
+    k = _cruce_db(a[busca:], sr2, PICO_DB)                    # el pico se busca desde 100 ms antes del esperado
     t18 = previo = None
     if k is not None:
-        k += int(RAMPA_S * sr2)
+        k += busca
         t18 = round(desde + k / sr2, 3)
         pre = a[max(0, k - int(RAMPA_S * sr2)):k - int(VENTANA_S * sr2)].astype(np.float64)   # sin la ventana del salto
         previo = round(db_de(float(np.sqrt(np.mean(pre ** 2)))) if len(pre) else -120.0, 1)
@@ -217,7 +221,7 @@ def _lectura(tipo: str, etiqueta: str | None, texto: str, autor: str = "") -> fl
     return round((len(etiqueta or "") + len(texto or "") + (len(autor) if tipo == "cita" else 0)) / LECTURA_CPS, 2)
 
 
-def eventos_cap(c: dict[str, Any], *, title_dur: float, dip_frames: int, fps: int, intro: float) -> list[dict[str, Any]]:
+def eventos_cap(c: dict[str, Any], *, title_dur: float, dip_frames: int, fps: int) -> list[dict[str, Any]]:
     """Los eventos (y lo cortado) de un cap. `c` = lo que arma `cargar_cap`."""
     plan, escenas, beats, sents = c["plan"], c["escenas"], c["beats"], c["sents"]
     off = c["offset"]
@@ -247,22 +251,21 @@ def eventos_cap(c: dict[str, Any], *, title_dur: float, dip_frames: int, fps: in
         it = pool.get(pid) or {}
         return f"{pid} · {it.get('fuente')}" if it.get("fuente") else pid
 
-    # costura (negro → title → voz)
+    # costura (F79: negro → sube desde negro → voz, con el title card encima donde lo haya)
     v0 = c["primera_palabra"] + c["pre_pad"]
+    tc = plan.get("title_card")
+    encima = f", con el title card encima {title_dur:.1f} s desde 0.0 s" if tc else ""
     if c["is_first"]:
-        txt = (f"intro {intro:.1f} s (primer cuadro congelado, sin voz) → title card {title_dur:.1f} s desde 0.0 s → "
-               f"voz a {v0:.2f} s del cap (+{intro + v0:.2f} s del mp4)")
+        txt = f"el mp4 arranca con este cap → voz a {v0:.2f} s del cap{encima}"
     else:
         bh = c.get("black_hold_prev") or {}
-        sin_voz = f" sin voz (pre-roll {c['pre_roll']:.1f} s)" if c["pre_roll"] else ""
         txt = (f"negro {float(bh.get('duration') or 0):.1f} s (black hold de {c['prev']}) → corte → sube desde negro en "
-               f"{dip_frames} cuadros ({dip_frames / fps:.2f} s) sobre el title card → title card {title_dur:.1f} s"
-               f"{sin_voz} → voz a {v0:.2f} s del cap")
-    add(0.0, "costura", texto=txt, k=None, extra={"tramos": {"negro_s": float((c.get("black_hold_prev") or {}).get("duration") or 0),
-                                                         "sube_desde_negro_s": 0.0 if c["is_first"] else round(dip_frames / fps, 3),
-                                                         "title_card_s": title_dur, "voz_s": round(v0, 3),
-                                                         "intro_s": intro if c["is_first"] else 0.0}})
-    tc = plan.get("title_card")
+               f"{dip_frames} cuadros ({dip_frames / fps:.2f} s) → voz a {v0:.2f} s del cap{encima}")
+    tramos = {"negro_s": float((c.get("black_hold_prev") or {}).get("duration") or 0),
+              "sube_desde_negro_s": 0.0 if c["is_first"] else round(dip_frames / fps, 3), "voz_s": round(v0, 3)}
+    if tc:
+        tramos["title_card_s"] = title_dur
+    add(0.0, "costura", texto=txt, k=None, extra={"tramos": tramos})
     if tc:
         add(0.0, "title card", etiqueta=tc.get("kicker"), texto=tc.get("title", ""), dur=title_dur, k=None)
     for cb in plan.get("callouts") or []:
@@ -518,7 +521,7 @@ def chequeos(caps: list[dict[str, Any]], *, title_dur: float, fps: int, mezcla: 
         hasta_corte = abs(t1 - fin) <= 1.0 / fps + 1e-3
         voz_db = None
         if mezcla and mezcla.get("narracion"):
-            lv = niveles_db(Path(mezcla["narracion"]), a["offset"] - mezcla["intro"] + t0, t1 - t0)
+            lv = niveles_db(Path(mezcla["narracion"]), a["offset"] + t0, t1 - t0)
             voz_db = round(max(lv), 1) if lv else None
         callada = voz_db is None or voz_db < mezcla["umbral_db"]
         good = hasta_corte and callada
@@ -548,14 +551,14 @@ def chequeos(caps: list[dict[str, Any]], *, title_dur: float, fps: int, mezcla: 
             ok &= bool(hay)
             lineas.append(f"{'✓' if hay else '✗'} {c['cap']} beat {b['n']} (gancho): {'; '.join(hay) or 'vacío de todo'}")
     out.append({"nombre": "gancho no vacío", "ok": ok, "lineas": lineas or ["(sin beat gancho)"]})
-    # 10. F34 §A.7.2: la música de cada cap arranca con su title card (medido en la pista, ±1 cuadro)
+    # 10. F34 §A.7.2: la música de cada cap arranca en el 0,0 del cap (medido en la pista, ±1 cuadro)
     lineas, ok = [], True
     for r in (mezcla or {}).get("musica") or []:
         if r.get("ok") is None:
-            lineas.append(f"· {r['cap']}: title card {mmss(r['title_card_s'])} — {r.get('motivo')}")
+            lineas.append(f"· {r['cap']}: inicio del cap {mmss(r['inicio_cap_s'])} — {r.get('motivo')}")
             continue
         ok &= bool(r["ok"])
-        lineas.append(f"{'✓' if r['ok'] else '✗'} {r['cap']}: title card {r['title_card_s']:.3f} s · música medida "
+        lineas.append(f"{'✓' if r['ok'] else '✗'} {r['cap']}: inicio del cap {r['inicio_cap_s']:.3f} s · música medida "
                       f"{r['medido_s']:.3f} s · desvío {r['desvio_s']:+.3f} s ({r['desvio_cuadros']:+.2f} cuadros)")
     out.append({"nombre": "inicio de música por cap", "ok": ok and bool(lineas),
                 "lineas": lineas or ["(sin música o sin mezcla: no medido)"]})
@@ -613,10 +616,10 @@ def _norm_fecha(s: Any) -> str:
 
 # ═══════════════════════ armado y salida ═══════════════════════
 
-def armar(caps_in: list[dict[str, Any]], *, title_dur: float, dip_frames: int, fps: int, intro: float,
+def armar(caps_in: list[dict[str, Any]], *, title_dur: float, dip_frames: int, fps: int,
           mezcla: dict[str, Any] | None, voz_video: list[str], topic: str, extra: dict | None = None) -> dict[str, Any]:
     """El guion entero. `caps_in` en orden; cada uno con plan, escenas, beats, sents, raw, offset, seg_dur, pre_pad,
-    pre_roll, primera_palabra, tts_text, a_pantalla, pool_items, is_first, audio (mp3)."""
+    primera_palabra, tts_text, a_pantalla, pool_items, is_first, audio (mp3)."""
     caps = []
     prev = None
     for c in caps_in:
@@ -626,7 +629,7 @@ def armar(caps_in: list[dict[str, Any]], *, title_dur: float, dip_frames: int, f
         c["cortes"] = cortes_cap(c["plan"], c.get("rejected") or [], c["sents"])
         c["prev"] = prev["cap"] if prev else None
         c["black_hold_prev"] = (prev["plan"].get("black_hold") if prev else None)
-        c["eventos"] = eventos_cap(c, title_dur=title_dur, dip_frames=dip_frames, fps=fps, intro=intro)
+        c["eventos"] = eventos_cap(c, title_dur=title_dur, dip_frames=dip_frames, fps=fps)
         c["resumen"] = resumen_beats(c, c["eventos"])
         c["sin_texto"] = not any(e["queda"] and e["tipo"] in TEXTOS for e in c["eventos"])
         if mezcla and mezcla.get("mezcla") and c.get("audio"):
@@ -636,9 +639,9 @@ def armar(caps_in: list[dict[str, Any]], *, title_dur: float, dip_frames: int, f
         caps.append(c)
         prev = c
     ch = chequeos(caps, title_dur=title_dur, fps=fps, mezcla=mezcla, voz_video=voz_video)
-    keep = ("cap", "n", "titulo", "offset", "seg_dur", "pre_roll", "pre_pad", "primera_palabra", "pausa_max",
+    keep = ("cap", "n", "titulo", "offset", "seg_dur", "pre_pad", "primera_palabra", "pausa_max",
             "eventos", "resumen", "sin_texto", "inicio_voz", "a_pantalla")
-    return {"version": VERSION, "topic": topic, "generado": time.strftime("%Y-%m-%d %H:%M:%S"), "intro_s": intro,
+    return {"version": VERSION, "topic": topic, "generado": time.strftime("%Y-%m-%d %H:%M:%S"),
             "fps": fps, "title_dur": title_dur, "duracion_s": round(caps[-1]["offset"] + caps[-1]["seg_dur"], 3) if caps else 0,
             "mezcla": mezcla, "caps": [{k: c.get(k) for k in keep} for c in caps], "chequeos": ch, **(extra or {})}
 
@@ -672,14 +675,14 @@ def _linea(e: dict) -> str:
 def a_markdown(g: dict[str, Any]) -> str:
     L = [f"# Guion de pantalla — {g['topic']}", "",
          f"Generado {g['generado']} por `fase2b --plan-only` ({g['version']}). Duración del mp4: {mmss(g['duracion_s'])} "
-         f"({g['duracion_s']:.1f} s; intro {g['intro_s']:.1f} s, title card {g['title_dur']:.1f} s). Tiempos = segundo del mp4 "
+         f"({g['duracion_s']:.1f} s; title card {g['title_dur']:.1f} s encima de la voz). Tiempos = segundo del mp4 "
          f"final. `✂` = propuesto y cortado (quién y por qué).", ""]
     if g.get("mezcla") and g["mezcla"].get("mezcla"):
         L += [f"Mezcla de previsualización (voz + música + sfx, sin video): `{g['mezcla']['mezcla']}`.", ""]
     for c in g["caps"]:
         n_txt = sum(1 for e in c["eventos"] if e["queda"] and e["tipo"] in TEXTOS)
         L += [f"## {c['cap']} — {c.get('titulo') or ''} ({mmss(c['offset'])}–{mmss(c['offset'] + c['seg_dur'])})", "",
-              f"Segmento {c['seg_dur']:.2f} s · pre-roll {c['pre_roll']:.1f} s · primera palabra a {c['pre_pad'] + c['primera_palabra']:.2f} s "
+              f"Segmento {c['seg_dur']:.2f} s · primera palabra a {c['pre_pad'] + c['primera_palabra']:.2f} s "
               f"del cap · pausa más larga del guion {c['pausa_max']['s']:.2f} s ({c['pausa_max']['como']}"
               f"{', en «' + c['pausa_max']['palabra'] + '»' if c['pausa_max']['palabra'] else ''}) · textos en pantalla {n_txt}"
               + (" · **⚠ CAP SIN TEXTO**" if c["sin_texto"] else ""), ""]

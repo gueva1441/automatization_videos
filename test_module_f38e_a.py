@@ -245,8 +245,8 @@ def test_a3_lineas_de_costura_contra_el_guion(tmp_path, monkeypatch):
     work.mkdir()
     _plan_a_disco(work, PLAN_N)
     (work / "gfx_escenas_ch02.json").write_text(json.dumps({"cap": "ch02", "clip_dur": 3.0, "time_offset": 0.0,
-                                                              "pre_roll": 0.0, "pausa": 3.0, "escenas": []}), encoding="utf-8")
-    plan = SimpleNamespace(chapter_id="ch02", audio_duration=0.5, is_first=True)      # is_first: sin pre-roll
+                                                              "pausa": 3.0, "escenas": []}), encoding="utf-8")
+    plan = SimpleNamespace(chapter_id="ch02", audio_duration=0.5, is_first=True)
     con = _lavfi(tmp_path, "con.mp4", 2.0, 1.0)
     sin = _lavfi(tmp_path, "sin.mp4", 3.0, 0.0)
     # sin guion: la cuenta del guion sobre gfx_escenas

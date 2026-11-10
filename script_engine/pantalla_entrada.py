@@ -91,7 +91,7 @@ def _item(pid: str, pool: dict | None, escaleta: dict, beat: int | None, gancho:
 
 
 def preparar_cap(cap: int, cap_id: str, real: dict, ctx: dict[str, Any], words: list[dict], time_offset: float,
-                 pre_roll: float = 0.0, steps_dir: Path | None = None) -> tuple[dict[str, Any], dict[str, Any]]:
+                 steps_dir: Path | None = None) -> tuple[dict[str, Any], dict[str, Any]]:
     """F36 §C.4 (sin modelo): (entrada, papel del cap) desde `01e_pantalla.json` del topic de Fase 1. La entrada trae
     las oraciones de la voz con tiempos, los beats con sus ventanas, los ítems del pool que el papel usa en este cap
     (marcados si son del gancho), el pico, la voz del video y la de los caps anteriores. El papel
@@ -152,6 +152,6 @@ def preparar_cap(cap: int, cap_id: str, real: dict, ctx: dict[str, Any], words: 
     ent = {"cap": cap, "titulo": " · ".join(dict.fromkeys(b["funcion"] for b in beats)), "oraciones": sents,
            "beats": [{k: b[k] for k in ("n", "funcion", "t0", "t1", "cierre", "dato_central", "datos_apoyo")}
                      for b in beats],
-           "items": its, "ya_mostrado": [], "pico": pk, "voz_video": voz_video, "pre_roll": round(float(pre_roll), 3),
+           "items": its, "ya_mostrado": [], "pico": pk, "voz_video": voz_video,
            "voz_antes": voz_previa(ctx)}
     return ent, rot

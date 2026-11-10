@@ -257,8 +257,8 @@ def _build_mix_filter(mv: float, mvf: float, p: dict) -> str:
     """
     Espejo SIMPLIFICADO del filter_complex de fase2b._mix_music_into_video, PERO:
       - input 0 = voz del cap (chXX.mp3) en vez de [0:a] del MP4 con narración.
-      - SIN [0:v]/tpad ni adelay/padding inicial: acá es la voz suelta, no el video
-        con hook (INITIAL_SILENCE_SEC solo aplica al MP4 final). El ducking de las 3
+      - SIN [0:v]: acá es la voz suelta, no el video (F79: el MP4 final tampoco
+        lleva intro ni padding inicial). El ducking de las 3
         ramas (narr + ducked + floor, normalize=0) y los params del sidechain son
         idénticos. ⚠ DEUDA (handoff §6): este filtro es un espejo manual del pipeline;
         si se tocan params de mixing en fase2b, acá queda stale. Documentado.

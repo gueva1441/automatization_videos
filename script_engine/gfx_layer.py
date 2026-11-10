@@ -130,7 +130,7 @@ def _render(project: Path, out: Path, quality: str) -> None:
 # ═══════════════════════════════════════════════════════════════
 
 def build_scenes(chplan: Any, script_chapter: dict[str, Any], raw_words: list[dict],
-                 clip_duration: float, time_offset: float = 0.0, pre_roll: float = 0.0) -> list[GfxScene]:
+                 clip_duration: float, time_offset: float = 0.0) -> list[GfxScene]:
     """Cortes intra-cap desde compute_anchor_starts (importado). Un solo plano si algo no cuadra.
 
     El adelanto de ~45 ms del corte real vs anchor NO se corrige en F1 (anotado en DOC_MAESTRO §6).
@@ -152,7 +152,7 @@ def build_scenes(chplan: Any, script_chapter: dict[str, Any], raw_words: list[di
                 return single
             supp = [s + time_offset for s in supp]
             if chplan.veo_position == "start":
-                starts = [0.0, veo_dur + pre_roll] + supp[1:]          # F30b: el Veo arranca después del pre-roll
+                starts = [0.0, veo_dur] + supp[1:]
             else:
                 starts = [0.0] + supp[1:] + [clip_duration - veo_dur]
             # Veo: 1 plano R3 (sin emotional_rank en supplementals); supps R3
@@ -428,12 +428,12 @@ def _moods_activos() -> dict[str, dict]:
 
 
 def escenas_a_disco(work_dir: Path, cap: str, scenes: list[GfxScene], *, clip_dur: float, time_offset: float,
-                    pre_roll: float, pause: float) -> Path:
+                    pause: float) -> Path:
     """F32 §A: las escenas finales del cap y su duración (base + pausa de cierre) → gfx_escenas_<cap>.json (el guion de
     pantalla las lee: escena de cada evento, cortes, tiempo del cap en el mp4)."""
     f = Path(work_dir) / f"gfx_escenas_{cap}.json"
     f.write_text(json.dumps({"cap": cap, "clip_dur": round(float(clip_dur), 3), "time_offset": round(float(time_offset), 3),
-                             "pre_roll": round(float(pre_roll), 3), "pausa": round(float(pause), 3),
+                             "pausa": round(float(pause), 3),
                              "escenas": [{"idx": s.idx, "start": s.start, "end": s.end, "rank": s.rank,
                                           "quiet_side": s.quiet_side, "safe": bool(s.safe)} for s in scenes]},
                             ensure_ascii=False, indent=1), encoding="utf-8")
@@ -530,7 +530,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
               reuse: bool = False, time_offset: float = 0.0,
               gfx_plan_override: dict[str, Any] | None = None, debug: bool = False,
               sparse: bool = False, safe_scenes: dict[int, dict[str, Any]] | None = None,
-              plan_only: bool = False, pre_roll: float = 0.0, reencoded: bool = False) -> Path:
+              plan_only: bool = False, reencoded: bool = False) -> Path:
     """Aplica la capa gráfica al base_clip de un cap. Devuelve chXX_gfx.mp4 o base_clip (fallback).
 
     Args:
@@ -543,8 +543,6 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         time_offset: pre-pad del hook (ch01) — las palabras se corren igual que los subs.
         gfx_plan_override: plan RESUELTO fijo (paso 1 del handoff, sin LLM). None → director + lock.
         debug: overlay de depuración quemado (timecode, bloque activo, escena, rank). Solo con --gfx-debug.
-        pre_roll: F30b §B.3, los segundos de title card sin voz que fase2b le agregó adelante al base (ya incluidos
-            en time_offset): corren el corte del Veo de arranque y el pedido del rotulista los imprime sin ellos.
         plan_only: F5 §3 — director + candado + crítico + cues, SIN HyperFrames ni render (simulación). Devuelve
             base_clip; deja gfx_plan_<cap>.resolved.json, gfx_sfx y gfx_cues en work_dir. F32 §A: sin `hyperframes
             doctor` y sin re-codificar el base para la pausa de cierre (la duración se suma); `gfx_escenas_<cap>.json`
@@ -603,11 +601,11 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         rot = ent_rot = None
         if rot_on:                          # F36 §C.4: el texto viene del guion en papel (m01e_pantalla), sin modelo
             from script_engine import pantalla_entrada as pe, pantalla_colocar as pc, clima, voz_datos as vd
-            ent_rot, rot = pe.preparar_cap(ctx["chapter_number"], cap, real, ctx, words, time_offset, pre_roll=pre_roll)
+            ent_rot, rot = pe.preparar_cap(ctx["chapter_number"], cap, real, ctx, words, time_offset)
             log.append(f"  guion en papel: {rot.get('modelo') or rot.get('error')} · {len(rot['final']['bloques'])} "
                        f"ficha(s) · {len(rot['sellos'])} sello(s) · {len(rot['relojes'])} reloj(es) · oraciones sin "
                        f"alinear {[(a['papel'], a['parecido']) for a in rot['sin_alinear']]}")
-        scenes = build_scenes(plan, ctx["script_chapter"], raw_words, clip_dur, time_offset, pre_roll=pre_roll)
+        scenes = build_scenes(plan, ctx["script_chapter"], raw_words, clip_dur, time_offset)
         scenes = assign_quiet_sides(snap_cuts(scenes, project / "public" / "base.mp4", fps), project / "public" / "base.mp4")
         log.append(f"  escenas: {len(scenes)} ({', '.join(f'{s.start:.2f}{s.rank}' for s in scenes)})")
         # F2 §4: router anti-deformación → imágenes de riesgo alto (o caídas a Ken Burns) con movimiento seguro
@@ -761,7 +759,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         sfx = sfx_title_card(resolved, words, time_offset, sfx_for, log)
         (work_dir / f"gfx_sfx_{cap}.json").write_text(json.dumps(sfx, ensure_ascii=False, indent=1), encoding="utf-8")
         log.append(f"  sfx: {len(sfx)} eventos ({', '.join(e['block'] for e in sfx)})")
-        escenas_a_disco(work_dir, cap, scenes, clip_dur=clip_dur, time_offset=time_offset, pre_roll=pre_roll, pause=pause)
+        escenas_a_disco(work_dir, cap, scenes, clip_dur=clip_dur, time_offset=time_offset, pause=pause)
         _step("3-4 plan + lock", ts)
 
         if plan_only:                                          # F5 §3: simulación sin render

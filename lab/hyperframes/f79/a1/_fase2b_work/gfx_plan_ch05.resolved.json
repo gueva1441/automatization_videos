@@ -1,0 +1,519 @@
+{
+ "plan": {
+  "chapter_number": 5,
+  "title_card": {
+   "kicker": "CAPÍTULO 5",
+   "title": "Wittenoom por dentro"
+  },
+  "callouts": [
+   {
+    "text": "18,3 millones de dólares australianos a 200 afectados",
+    "kicker": "LO QUE PAGÓ CSR EN 1989",
+    "ficha": true,
+    "start": 38.98,
+    "kind": "fact",
+    "duration": 5.067,
+    "side": "left",
+    "fact_idx": null,
+    "pool_id": "D94",
+    "rotulista": true,
+    "beat": 9,
+    "sentence_idx": 6,
+    "word_idx": 4,
+    "aporta": "Pone en cifras la consecuencia del fallo: cuánto pagó la empresa y a cuántos afectados.",
+    "tipo_rotulista": "hecho",
+    "a_pantalla": false,
+    "por_que": "",
+    "t1": 44.047,
+    "lectura_s": 5.07,
+    "movido": null,
+    "movido_corte": null,
+    "forzado": null,
+    "papel": true,
+    "estilo": "normal",
+    "ancla_palabra": "palabra del papel",
+    "sin_alinear": null,
+    "intentos": [
+     {
+      "t0": 38.98,
+      "t1": 44.047,
+      "si": 6,
+      "como": "1 · palabra ancla"
+     },
+     {
+      "t0": 41.62,
+      "t1": 46.687,
+      "si": 6,
+      "como": "1 · palabra de más peso"
+     },
+     {
+      "t0": 36.6,
+      "t1": 41.667,
+      "si": 6,
+      "como": "1 · inicio de la oración"
+     },
+     {
+      "t0": 48.56,
+      "t1": 53.627,
+      "si": 7,
+      "como": "3 · oración siguiente [7]"
+     }
+    ],
+    "intentos_fallidos": [],
+    "juicio_verificador": {
+     "regla": [
+      "fecha_relato"
+     ],
+     "motivo": "La voz cuenta el fallo de 1988 pero no el pago de 18,3 millones a 200 afectados en 1989; suma un hecho nuevo.",
+     "tokens": {
+      "fecha_relato": [
+       "1989"
+      ]
+     }
+    },
+    "critico": {
+     "pregunta": "¿estorba?",
+     "estorba": false,
+     "motivo_3": "El bloque está en la esquina superior izquierda y no tapa rostros ni texto relevante en la imagen."
+    }
+   },
+   {
+    "text": "«una empresa que no tuvo reparos» — Daniel Écija (hijo)",
+    "kicker": "A QUIÉN CULPA",
+    "author": "Daniel Écija (hijo)",
+    "ficha": true,
+    "start": 108.88,
+    "kind": "quote",
+    "duration": 4.467,
+    "side": "left",
+    "fact_idx": null,
+    "pool_id": "Q35",
+    "rotulista": true,
+    "beat": 10,
+    "sentence_idx": 18,
+    "word_idx": 2,
+    "aporta": "Suma a quién responsabiliza el hijo, algo que la voz no dice.",
+    "tipo_rotulista": "cita",
+    "a_pantalla": false,
+    "por_que": "",
+    "t1": 113.347,
+    "lectura_s": 4.47,
+    "movido": null,
+    "movido_corte": null,
+    "forzado": null,
+    "papel": true,
+    "estilo": "cita",
+    "ancla_palabra": "palabra del papel",
+    "sin_alinear": null,
+    "intentos": [
+     {
+      "t0": 108.88,
+      "t1": 113.347,
+      "si": 18,
+      "como": "1 · palabra ancla"
+     },
+     {
+      "t0": 108.3,
+      "t1": 112.767,
+      "si": 18,
+      "como": "2 · inicio de la escena 14"
+     },
+     {
+      "t0": 115.5,
+      "t1": 119.967,
+      "si": 19,
+      "como": "3 · oración siguiente [19]"
+     }
+    ],
+    "intentos_fallidos": [
+     "1 · inicio de la oración (108.28 s): sin tiempo de lectura: 67 caracteres piden 4.5 s y hay 0.0 s hasta el corte de escena (108.3 s)"
+    ],
+    "critico": {
+     "pregunta": "¿estorba?",
+     "estorba": false,
+     "motivo_3": "El bloque se ubica en una esquina superior izquierda, sin tapar rostros ni elementos clave de la imagen."
+    }
+   }
+  ],
+  "archive_clippings": [],
+  "quote_card": null,
+  "punch_in": [],
+  "emphasis": [
+   {
+    "category": null,
+    "layer": null,
+    "icon_anim": "stamp",
+    "side": "right",
+    "stamp": true,
+    "weight": 0,
+    "word": "INMINENTE",
+    "start": 51.46,
+    "duration": 2.5,
+    "por_tema": true,
+    "clima": true,
+    "papel": true,
+    "tema": null,
+    "palabra_voz": null,
+    "sentence_idx": 8,
+    "intento": "1 · inicio de la oración · lado right"
+   }
+  ],
+  "gap_warnings": [],
+  "rotulista": {
+   "modelo": "papel m01e-7 (claude-opus-5-5)",
+   "faltan_a_pantalla": [],
+   "motivo_faltan": {},
+   "filas": [
+    {
+     "pool_id": "D94",
+     "tipo": "hecho",
+     "etiqueta": "LO QUE PAGÓ CSR EN 1989",
+     "texto": "18,3 millones de dólares australianos a 200 afectados",
+     "sentence_idx": 6,
+     "word_idx": 4,
+     "palabra": "juez",
+     "t0": 38.98,
+     "t1": 44.047,
+     "aporta": "Pone en cifras la consecuencia del fallo: cuánto pagó la empresa y a cuántos afectados.",
+     "beat": 9,
+     "a_pantalla": false,
+     "movido": null,
+     "accion": "colocado"
+    },
+    {
+     "pool_id": "Q35",
+     "tipo": "cita",
+     "etiqueta": "A QUIÉN CULPA",
+     "texto": "una empresa que no tuvo reparos",
+     "sentence_idx": 18,
+     "word_idx": 2,
+     "palabra": "cambió",
+     "t0": 108.88,
+     "t1": 113.347,
+     "aporta": "Suma a quién responsabiliza el hijo, algo que la voz no dice.",
+     "beat": 10,
+     "a_pantalla": false,
+     "movido": null,
+     "accion": "colocado",
+     "como": "ficha (cita)"
+    }
+   ],
+   "error": null,
+   "corte": [],
+   "escena": []
+  },
+  "fragmentos": [
+   {
+    "pool_id": "D94",
+    "tipo": "hecho",
+    "etiqueta": "LO QUE PAGÓ CSR EN 1989",
+    "texto": "18,3 millones de dólares australianos a 200 afectados",
+    "sentence_idx": 6,
+    "word_idx": 4,
+    "palabra": "juez",
+    "t0": 38.98,
+    "t1": 44.047,
+    "aporta": "Pone en cifras la consecuencia del fallo: cuánto pagó la empresa y a cuántos afectados.",
+    "beat": 9,
+    "a_pantalla": false,
+    "movido": null,
+    "accion": "colocado"
+   },
+   {
+    "pool_id": "Q35",
+    "tipo": "cita",
+    "etiqueta": "A QUIÉN CULPA",
+    "texto": "una empresa que no tuvo reparos",
+    "sentence_idx": 18,
+    "word_idx": 2,
+    "palabra": "cambió",
+    "t0": 108.88,
+    "t1": 113.347,
+    "aporta": "Suma a quién responsabiliza el hijo, algo que la voz no dice.",
+    "beat": 10,
+    "a_pantalla": false,
+    "movido": null,
+    "accion": "colocado",
+    "como": "ficha (cita)"
+   }
+  ],
+  "pico": {
+   "t": 95.48,
+   "block": null,
+   "word": null,
+   "sentence": "Nueve meses después del diagnóstico, Daniel Écija murió en Madrid, a miles de kilómetros de la pista roja, casi treinta años después de haberse ido de ella.",
+   "sentence_idx": 16,
+   "beat": 10,
+   "fuente": "escaleta.pico"
+  },
+  "time_ticker": null,
+  "papel": {
+   "relojes": [],
+   "sin_alinear": [],
+   "sin_colocar": [],
+   "error": null,
+   "reloj_voz": null
+  },
+  "identity": {
+   "movimientos": [
+    {
+     "scene": 0,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 1,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 2,
+     "forma": "quieta",
+     "motivo": "documento: tiene texto"
+    },
+    {
+     "scene": 3,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 4,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 5,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 6,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 7,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 8,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 9,
+     "forma": "acercar",
+     "motivo": "hay una persona"
+    },
+    {
+     "scene": 10,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 11,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 12,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 13,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 14,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 15,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    }
+   ],
+   "violaciones": []
+  },
+  "black_hold": {
+   "start": 127.833,
+   "duration": 1.0
+  },
+  "critico_rotulista": [
+   {
+    "t": 38.98,
+    "t_frame": 39.98,
+    "dur": 5.067,
+    "bloque": "ficha",
+    "texto": "18,3 millones de dólares australianos a 200 afectados",
+    "veredicto": "no estorba",
+    "motivo": "El bloque está en la esquina superior izquierda y no tapa rostros ni texto relevante en la imagen.",
+    "pasa": true,
+    "voz": "En 1978 el gobierno del Estado empezó a reducir Wittenoom y a alentar a la gente a irse, por el riesgo de fibras en el aire. Y en 1988 un juez determinó que la compañía había mostrado un desprecio continuo, consciente y contumaz por la seguridad y la salud de sus trabajadores. Veintidós años después del cierre.",
+    "mira": "foto sola",
+    "pregunta": "¿estorba?",
+    "pool_id": "D94",
+    "a_pantalla": false
+   },
+   {
+    "t": 108.88,
+    "t_frame": 109.88,
+    "dur": 4.467,
+    "bloque": "ficha",
+    "texto": "«una empresa que no tuvo reparos» — Daniel Écija (hijo)",
+    "veredicto": "no estorba",
+    "motivo": "El bloque se ubica en una esquina superior izquierda, sin tapar rostros ni elementos clave de la imagen.",
+    "pasa": true,
+    "voz": "Lo alcanzó. «Ese lugar cambió nuestras vidas para siempre», dice el hijo, el niño del bautizo. Fueron nueve meses.",
+    "mira": "foto sola",
+    "pregunta": "¿estorba?",
+    "pool_id": "Q35",
+    "a_pantalla": false
+   }
+  ],
+  "sellos_tema": [
+   {
+    "bloque": "emphasis",
+    "texto": "INMINENTE",
+    "t": 51.46,
+    "accion": "movido",
+    "regla": "colocar",
+    "papel": true,
+    "intentos": [
+     "1 · inicio de la oración (51.46 s) · lado left: estorba — El bloque tapa algunas de las fotografías enmarcadas en la pared izquierda, las cuales son mencionadas en la narración."
+    ],
+    "motivo": "sello del papel «INMINENTE»: 1 · inicio de la oración · lado right (51.46 s) · antes: 1 · inicio de la oración (51.46 s) · lado left: estorba — El bloque tapa algunas de las fotografías enmarcadas en la pared izquierda, las cuales son mencionadas en la narración."
+   },
+   {
+    "bloque": "emphasis",
+    "texto": "SILENCIO",
+    "t": null,
+    "accion": "fuera",
+    "regla": "colocar",
+    "quien": "colocar (intentos)",
+    "papel": true,
+    "intentos": [
+     "1 · inicio de la oración (106.40 s): cruza el corte de la escena 13 (108.30 s)",
+     "3 · oración siguiente [18] (108.28 s): cruza el corte de la escena 13 (108.30 s)",
+     "3 · oración siguiente [18], inicio de la escena 14 (108.30 s): se solapa con ficha"
+    ],
+    "motivo": "sello del papel «SILENCIO»: no entra en ningún intento: 1 · inicio de la oración (106.40 s): cruza el corte de la escena 13 (108.30 s) · 3 · oración siguiente [18] (108.28 s): cruza el corte de la escena 13 (108.30 s) · 3 · oración siguiente [18], inicio de la escena 14 (108.30 s): se solapa con ficha"
+   }
+  ],
+  "realizador": {
+   "filas": []
+  },
+  "critico": [
+   {
+    "t": 51.46,
+    "t_frame": 52.46,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "INMINENTE",
+    "veredicto": "no estorba",
+    "motivo": "El bloque se ubica a media altura a la derecha, sin tapar el rostro del personaje principal ni ningún texto presente en la imagen.",
+    "pasa": true,
+    "voz": "Veintidós años después del cierre. Para entonces, en Madrid, a Daniel le quedaban tres años. María guarda las fotografías en sepia: el baile, el barco, el pie vendado, el bautizo.",
+    "mira": "foto sola",
+    "pregunta": "¿estorba?"
+   }
+  ],
+  "transitions": {
+   "1": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R2"
+   },
+   "2": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "5": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R2"
+   },
+   "7": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "8": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "cambio de beat",
+    "rank": "R3"
+   },
+   "9": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R2"
+   },
+   "10": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "11": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "12": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "13": {
+    "kind": "zoom_punch",
+    "frames": 12,
+    "why": "pico",
+    "rank": "R1"
+   },
+   "14": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "15": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "cierre",
+    "rank": "R1"
+   }
+  }
+ },
+ "rejected": []
+}

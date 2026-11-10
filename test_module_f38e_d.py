@@ -1,10 +1,10 @@
 """
 test_module_f38e_d.py — F38e §D (HANDOFF_F38e_lo_que_rompe_cualquier_video): la fecha-hora del segundo 0 se BORRÓ del
 código (DECISIONES 2026-10-27 11:21; «borrar, no apagar», 16:38/18:17): sin flag, sin plantilla, sin chequeo, sin
-tests. El video arranca con la primera imagen (intro INITIAL_SILENCE_SEC con el primer cuadro congelado).
+tests. El video arranca con la primera imagen (F79: sin intro; el mp4 arranca con el cap 1 y su voz).
     (1) ningún .py de script_engine/ ni fase2b.py menciona la palabra (en ninguna caja);
     (2) gfx_guion con un plan sintético de ch01 (aunque traiga la clave vieja `tarjeta_inicial` de un plan resuelto
-        de antes) no emite el evento ni el chequeo, y la costura dice «primer cuadro congelado»;
+        de antes) no emite el evento ni el chequeo, y la costura dice que el mp4 arranca con el cap;
     (3) m01e_pantalla.armar / a_markdown no traen la clave, y `editar` RECHAZA una edición que no sea ficha ni sello
         (ValueError con el motivo): no se ignora en silencio.
 Sin API, sin data/: todo sintético.
@@ -59,19 +59,17 @@ def test_d1_la_palabra_no_esta_en_el_codigo():
 
 
 # (2)
-def test_d2_gfx_guion_sin_evento_ni_chequeo_y_la_intro_es_el_primer_cuadro():
-    import fase2b
-    intro = fase2b.INITIAL_SILENCE_SEC
+def test_d2_gfx_guion_sin_evento_ni_chequeo_y_el_mp4_arranca_con_el_cap():
     plan = _plan_todo()
     plan["tarjeta_inicial"] = {"texto": "9 OCT 1963 · 22:39", "fuente": "plan resuelto viejo"}   # clave vieja: se ignora
     cap = {**_cap(plan, first=True), "cap": "ch01", "n": 1}
-    g = gg.armar([cap], title_dur=3.0, dip_frames=10, fps=30, intro=intro, mezcla=None, voz_video=[], topic="fix")
+    g = gg.armar([cap], title_dur=3.0, dip_frames=10, fps=30, mezcla=None, voz_video=[], topic="fix")
     tipos = {e["tipo"] for e in g["caps"][0]["eventos"]}
     assert "tarjeta fecha-hora" not in tipos and "costura" in tipos and "title card" in tipos
     assert [c["nombre"] for c in g["chequeos"] if PALABRA in c["nombre"]] == []
     costura = next(e for e in g["caps"][0]["eventos"] if e["tipo"] == "costura")
-    assert costura["texto"].startswith(f"intro {intro:.1f} s (primer cuadro congelado, sin voz) → title card 3.0 s")
-    assert costura["tramos"]["intro_s"] == intro and g["intro_s"] == intro
+    assert costura["texto"].startswith("el mp4 arranca con este cap → voz a ")
+    assert "intro_s" not in costura["tramos"] and "intro_s" not in g
     assert PALABRA not in gg.a_markdown(g).lower()
     assert min(e["t_mp4"] for e in g["caps"][0]["eventos"]) >= cap["offset"]          # nada antes del cap
 

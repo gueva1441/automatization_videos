@@ -20,7 +20,7 @@ PYTHONIOENCODING=utf-8 python fase2b.py <topic> --plan-only
   silencios). Regenerar reescribe el guion **sin** aprobación.
 
 ## 2. Qué trae
-- **Una línea por evento**, en el segundo del mp4 final (intro de 2.5 s y pre-roll ya sumados):
+- **Una línea por evento**, en el segundo del mp4 final (F79: sin intro; cada cap arranca con su voz y el title card va encima):
   `mm:ss · chNN · beat n (función) · tipo · «etiqueta | texto» · dura X s (lectura mínima Y s) · escena k (de a) · voz −1 / ancla / +1 · aporta · fuente · filtro`.
   Tipos: costura, title card, ficha, persona, recorte, cita, lupa, sello, reloj, nivel de agua, contador, punch,
   pregunta de cierre, transición, silencio de voz. **`✂`** = propuesto y cortado: «cortó *quién* (*regla*): *motivo*»

@@ -108,49 +108,19 @@ def test_concat_segments_con_gfx_no_cae_al_xfade_de_arte():
     assert "if negro_frames:                                            # F30b §B.1" in src
 
 
-# ═══════════════ B.3: pre-roll del title card ═══════════════
+# ═══════════════ F40 §B: la chascada de comillas de los subtítulos ═══════════════
 
-def test_pre_roll_corre_los_subtitulos_y_la_chascada_saca_las_comillas(tmp_path):
-    # F40 §B: el long-form (único con pre-roll) quema subtítulos documentales; la chascada de comillas va siempre
+def test_la_chascada_saca_las_comillas_de_los_subtitulos(tmp_path):
+    # F40 §B: el long-form quema subtítulos documentales; la chascada de comillas va siempre (F79: sin pre-roll)
     import fase2b
     words = [{"word": "Dijo", "start": 1.0, "end": 1.3}, {"word": "«basta»", "start": 1.4, "end": 1.9},
              {"word": "y…", "start": 2.0, "end": 2.2}, {"word": "calló.", "start": 2.3, "end": 2.8}]
     a = fase2b._build_ass_documental(words=words, output_path=tmp_path / "a.ass", audio_duration=4.0,
                                      video_width=2560, video_height=1440)
-    b = fase2b._build_ass_documental(words=words, output_path=tmp_path / "b.ass", audio_duration=7.0,
-                                     video_width=2560, video_height=1440, pre_pad=3.0)
     la = [x for x in a.read_text(encoding="utf-8").splitlines() if x.startswith("Dialogue")]
-    lb = [x for x in b.read_text(encoding="utf-8").splitlines() if x.startswith("Dialogue")]
-    assert la[0].endswith("Dijo basta y calló.") and lb[0].endswith("Dijo basta y calló.")
-    assert "«" not in "".join(la + lb) and "»" not in "".join(la + lb) and "…" not in "".join(la + lb)
-    ta = [fase2b._format_ass_time(1.0), fase2b._format_ass_time(4.0)]
-    assert ta[0] in la[0] and ta[1] in lb[0]                                # mismos tiempos + title_dur
-
-
-def test_visual_con_pre_roll_agrega_title_dur_de_primer_cuadro(tmp_path):
-    import fase2b
-    fase2b.FFMPEG = fase2b.FFMPEG or "ffmpeg"
-    src = tmp_path / "v.mp4"
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", "testsrc=s=160x90:r=30:d=2", "-c:v",
-                    "libx264", "-preset", "ultrafast", "-pix_fmt", "yuv420p", str(src)], check=True)
-    out = fase2b._visual_con_pre_roll(src, 3.0, tmp_path / "p.mp4", 30)
-    n = int(subprocess.run(["ffprobe", "-v", "error", "-count_frames", "-select_streams", "v:0", "-show_entries",
-                            "stream=nb_read_frames", "-of", "csv=p=0", str(out)], capture_output=True, text=True).stdout)
-    assert n == 150
-
-
-def test_pieza_de_musica_cubre_el_pre_roll(tmp_path):
-    """F32 §B.1: la música del cap arranca con el title card (antes la pieza se corría con silencio adelante)."""
-    import fase2b
-    fase2b.FFMPEG = fase2b.FFMPEG or "ffmpeg"
-    tone = tmp_path / "t.wav"
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", "sine=frequency=300:duration=10", str(tone)],
-                   check=True)
-    p = fase2b._build_music_piece_for_chapter(tone, 4.0, tmp_path / "p.wav", pre_sec=3.0)
-    r = subprocess.run(["ffmpeg", "-v", "error", "-i", str(p), "-f", "s16le", "-ac", "1", "-ar", "1000", "-"],
-                       capture_output=True, check=True)
-    x = np.abs(np.frombuffer(r.stdout, np.int16).astype(float))
-    assert abs(len(x) / 1000 - 7.0) < 0.02 and x[100:2900].mean() > 1000 and x[3200:].mean() > 1000
+    assert la[0].endswith("Dijo basta y calló.")
+    assert "«" not in "".join(la) and "»" not in "".join(la) and "…" not in "".join(la)
+    assert fase2b._format_ass_time(1.0) in la[0]
 
 
 def test_critico_reusa_el_veredicto_por_identidad_del_bloque(tmp_path):

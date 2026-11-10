@@ -149,14 +149,3 @@ def test_b5_cota_715_no_contradice_niveles_de_otro_momento():
     assert pf.contradicciones("COTA AUTORIZADA 720 m", voz, cerca=voz[1:4])            # otra cota al lado: ✗
     assert pf.contradicciones("MUERTOS 2.000 personas", ["Murieron mil novecientas diez personas."],
                                cerca=[]) != []                               # los muertos, contra todo el video
-
-
-def test_b9_la_intro_de_la_musica_es_initial_silence():
-    """F38e §D: la fecha-hora del segundo 0 se borró (DECISIONES 2026-10-27 11:21); la intro vuelve a ser
-    INITIAL_SILENCE_SEC con el primer cuadro congelado, y la música se corre esa intro en el grafo."""
-    import fase2b
-    assert fase2b.INITIAL_SILENCE_SEC == 2.5
-    g, _ = fase2b._grafo_musica(Path("v.wav"), Path("m.wav"), {}, None, fase2b.INITIAL_SILENCE_SEC)
-    assert "adelay=2500|2500" in g
-
-

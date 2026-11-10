@@ -1,0 +1,496 @@
+{
+ "plan": {
+  "chapter_number": 4,
+  "title_card": {
+   "kicker": "CAPÍTULO 4",
+   "title": "El juego peligroso"
+  },
+  "callouts": [
+   {
+    "text": "«Nadie nos avisó de nada.» — Víctor Calvo",
+    "kicker": "LO QUE NADIE HIZO",
+    "author": "Víctor Calvo",
+    "ficha": true,
+    "start": 42.66,
+    "kind": "quote",
+    "duration": 3.867,
+    "side": "left",
+    "fact_idx": null,
+    "pool_id": "Q19",
+    "rotulista": true,
+    "beat": 7,
+    "sentence_idx": 8,
+    "word_idx": 8,
+    "aporta": "Cierra el recuerdo de Calvo con lo que la voz no dice: a los chicos nadie les advirtió del peligro.",
+    "tipo_rotulista": "cita",
+    "a_pantalla": false,
+    "por_que": "",
+    "t1": 46.527,
+    "lectura_s": 3.87,
+    "movido": null,
+    "movido_corte": "44.96 → 42.66 s (1 · inicio de la oración): 1 · palabra ancla (44.96 s): sin tiempo de lectura: 58 caracteres piden 3.9 s y hay 2.8 s hasta el corte de escena (47.8 s) · 1 · palabra de más peso (44.24 s): sin tiempo de lectura: 58 caracteres piden 3.9 s y hay 3.6 s hasta el corte de escena (47.8 s)",
+    "forzado": null,
+    "papel": true,
+    "estilo": "cita",
+    "ancla_palabra": "palabra del papel",
+    "sin_alinear": null,
+    "intentos": [
+     {
+      "t0": 42.66,
+      "t1": 46.527,
+      "si": 8,
+      "como": "1 · inicio de la oración"
+     },
+     {
+      "t0": 47.82,
+      "t1": 51.687,
+      "si": 9,
+      "como": "3 · oración siguiente [9]"
+     }
+    ],
+    "intentos_fallidos": [
+     "1 · palabra ancla (44.96 s): sin tiempo de lectura: 58 caracteres piden 3.9 s y hay 2.8 s hasta el corte de escena (47.8 s)",
+     "1 · palabra de más peso (44.24 s): sin tiempo de lectura: 58 caracteres piden 3.9 s y hay 3.6 s hasta el corte de escena (47.8 s)"
+    ],
+    "critico": {
+     "pregunta": "¿estorba?",
+     "estorba": false,
+     "motivo_3": "El bloque está en la esquina superior izquierda y no tapa ningún rostro ni elemento crucial de la imagen."
+    }
+   },
+   {
+    "text": "Productor de televisión en España",
+    "kicker": "ESE BEBÉ, HOY",
+    "ficha": true,
+    "start": 66.3,
+    "kind": "fact",
+    "duration": 3.067,
+    "side": "left",
+    "fact_idx": null,
+    "pool_id": "D102",
+    "rotulista": true,
+    "beat": 8,
+    "sentence_idx": 13,
+    "word_idx": 6,
+    "aporta": "Cuenta quién es hoy el bebé nacido en Wittenoom.",
+    "tipo_rotulista": "hecho",
+    "a_pantalla": false,
+    "por_que": "",
+    "t1": 69.367,
+    "lectura_s": 3.07,
+    "movido": null,
+    "movido_corte": "68.02 → 66.30 s (2 · inicio de la escena 9): 1 · palabra ancla (68.02 s): sin tiempo de lectura: 46 caracteres piden 3.1 s y hay 2.6 s hasta el corte de escena (70.6 s) · 1 · inicio de la oración (66.26 s): sin tiempo de lectura: 46 caracteres piden 3.1 s y hay 0.0 s hasta el corte de escena (66.3 s)",
+    "forzado": null,
+    "papel": true,
+    "estilo": "normal",
+    "ancla_palabra": "palabra del papel",
+    "sin_alinear": null,
+    "intentos": [
+     {
+      "t0": 66.3,
+      "t1": 69.367,
+      "si": 13,
+      "como": "2 · inicio de la escena 9"
+     },
+     {
+      "t0": 70.633,
+      "t1": 73.7,
+      "si": 14,
+      "como": "3 · oración siguiente [14], inicio de la escena 10"
+     }
+    ],
+    "intentos_fallidos": [
+     "1 · palabra ancla (68.02 s): sin tiempo de lectura: 46 caracteres piden 3.1 s y hay 2.6 s hasta el corte de escena (70.6 s)",
+     "1 · inicio de la oración (66.26 s): sin tiempo de lectura: 46 caracteres piden 3.1 s y hay 0.0 s hasta el corte de escena (66.3 s)",
+     "3 · oración siguiente [14] (70.58 s): sin tiempo de lectura: 46 caracteres piden 3.1 s y hay 0.1 s hasta el corte de escena (70.6 s)"
+    ],
+    "critico": {
+     "pregunta": "¿estorba?",
+     "estorba": false,
+     "motivo_3": "No tapa rostros ni texto relevante en la imagen."
+    }
+   }
+  ],
+  "archive_clippings": [],
+  "quote_card": null,
+  "punch_in": [],
+  "emphasis": [
+   {
+    "category": null,
+    "layer": null,
+    "icon_anim": "stamp",
+    "side": "left",
+    "stamp": true,
+    "weight": 0,
+    "word": "CALMA",
+    "start": 92.1,
+    "duration": 2.5,
+    "por_tema": true,
+    "clima": true,
+    "papel": true,
+    "tema": null,
+    "palabra_voz": null,
+    "sentence_idx": 18,
+    "intento": "2 · inicio de la escena 13"
+   }
+  ],
+  "gap_warnings": [],
+  "rotulista": {
+   "modelo": "papel m01e-7 (claude-opus-5-5)",
+   "faltan_a_pantalla": [],
+   "motivo_faltan": {},
+   "filas": [
+    {
+     "pool_id": "Q19",
+     "tipo": "cita",
+     "etiqueta": "LO QUE NADIE HIZO",
+     "texto": "Nadie nos avisó de nada.",
+     "sentence_idx": 8,
+     "word_idx": 8,
+     "palabra": "impregnaba",
+     "t0": 42.66,
+     "t1": 46.527,
+     "aporta": "Cierra el recuerdo de Calvo con lo que la voz no dice: a los chicos nadie les advirtió del peligro.",
+     "beat": 7,
+     "a_pantalla": false,
+     "movido": null,
+     "accion": "colocado",
+     "como": "ficha (cita)"
+    },
+    {
+     "pool_id": "D102",
+     "tipo": "hecho",
+     "etiqueta": "ESE BEBÉ, HOY",
+     "texto": "Productor de televisión en España",
+     "sentence_idx": 13,
+     "word_idx": 6,
+     "palabra": "Daniel,",
+     "t0": 66.3,
+     "t1": 69.367,
+     "aporta": "Cuenta quién es hoy el bebé nacido en Wittenoom.",
+     "beat": 8,
+     "a_pantalla": false,
+     "movido": null,
+     "accion": "colocado"
+    }
+   ],
+   "error": null,
+   "corte": [],
+   "escena": [
+    {
+     "bloque": "time_ticker",
+     "regla": "colocar",
+     "accion": "movido",
+     "t0": 77.3,
+     "motivo": "77.24 → 77.30 s (2 · inicio de la escena 11), dura 8.47 s (corta en 85.77 s) · antes: 1 · palabra ancla (77.24 s): quedaría menos de 2.0 s (corta en 77.27 s)",
+     "intentos": [
+      "1 · palabra ancla (77.24 s): quedaría menos de 2.0 s (corta en 77.27 s)"
+     ]
+    }
+   ]
+  },
+  "fragmentos": [
+   {
+    "pool_id": "Q19",
+    "tipo": "cita",
+    "etiqueta": "LO QUE NADIE HIZO",
+    "texto": "Nadie nos avisó de nada.",
+    "sentence_idx": 8,
+    "word_idx": 8,
+    "palabra": "impregnaba",
+    "t0": 42.66,
+    "t1": 46.527,
+    "aporta": "Cierra el recuerdo de Calvo con lo que la voz no dice: a los chicos nadie les advirtió del peligro.",
+    "beat": 7,
+    "a_pantalla": false,
+    "movido": null,
+    "accion": "colocado",
+    "como": "ficha (cita)"
+   },
+   {
+    "pool_id": "D102",
+    "tipo": "hecho",
+    "etiqueta": "ESE BEBÉ, HOY",
+    "texto": "Productor de televisión en España",
+    "sentence_idx": 13,
+    "word_idx": 6,
+    "palabra": "Daniel,",
+    "t0": 66.3,
+    "t1": 69.367,
+    "aporta": "Cuenta quién es hoy el bebé nacido en Wittenoom.",
+    "beat": 8,
+    "a_pantalla": false,
+    "movido": null,
+    "accion": "colocado"
+   }
+  ],
+  "pico": {
+   "t": 34.74,
+   "block": null,
+   "word": null,
+   "sentence": "«Nosotros jugábamos con él y lo íbamos deshilachando.",
+   "sentence_idx": 6,
+   "beat": 7,
+   "fuente": "escaleta (beat más intenso del cap)"
+  },
+  "time_ticker": {
+   "day": "7",
+   "month": "JUL",
+   "tail": "1963",
+   "times": [],
+   "advance": false,
+   "source_text": "El 7 de julio de 1963 bautizaron al niño; la familia conserva una fotografía de ese día.",
+   "pool_id": null,
+   "start": 77.3,
+   "duration": 8.467,
+   "changes": [],
+   "de_voz": true,
+   "sentence_idx": 15,
+   "side": "left",
+   "duracion_plena": 11.44,
+   "margen_corte": 0.033333
+  },
+  "papel": {
+   "relojes": [
+    {
+     "cap": "ch04",
+     "sentence_idx": 15,
+     "fecha": "7 JUL 1963",
+     "oracion": "El 7 de julio de 1963 bautizaron al niño; la familia conserva una fotografía de ese día.",
+     "sentence_idx_voz": 15
+    }
+   ],
+   "sin_alinear": [],
+   "sin_colocar": [],
+   "error": null,
+   "reloj_voz": {
+    "fecha": "7 JUL 1963",
+    "sentence_idx": 15
+   }
+  },
+  "identity": {
+   "movimientos": [
+    {
+     "scene": 0,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 1,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 2,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 3,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 4,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 5,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 6,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 7,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 8,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 9,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 10,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 11,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 12,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 13,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    }
+   ],
+   "violaciones": []
+  },
+  "black_hold": {
+   "start": 95.7,
+   "duration": 1.0
+  },
+  "critico_rotulista": [
+   {
+    "t": 42.66,
+    "t_frame": 43.66,
+    "dur": 3.867,
+    "bloque": "ficha",
+    "texto": "«Nadie nos avisó de nada.» — Víctor Calvo",
+    "veredicto": "no estorba",
+    "motivo": "El bloque está en la esquina superior izquierda y no tapa ningún rostro ni elemento crucial de la imagen.",
+    "pasa": true,
+    "voz": "Nos lo metíamos en la boca. Cuando lo tocábamos salía un polvillo que lo impregnaba todo», dice Calvo. Estaban rodeados de amianto azul y no les daba miedo.",
+    "mira": "foto sola",
+    "pregunta": "¿estorba?",
+    "pool_id": "Q19",
+    "a_pantalla": false
+   },
+   {
+    "t": 66.3,
+    "t_frame": 67.3,
+    "dur": 3.067,
+    "bloque": "ficha",
+    "texto": "Productor de televisión en España",
+    "veredicto": "no estorba",
+    "motivo": "No tapa rostros ni texto relevante en la imagen.",
+    "pasa": true,
+    "voz": "El bebé era muy grande y María venía debilitada por una infección renal. Nació un varón y le pusieron Daniel, como el padre. Tres meses antes, en marzo, Milagros Barroso había dado a luz en el mismo pueblo a John Patrick.",
+    "mira": "foto sola",
+    "pregunta": "¿estorba?",
+    "pool_id": "D102",
+    "a_pantalla": false
+   }
+  ],
+  "sellos_tema": [
+   {
+    "bloque": "emphasis",
+    "texto": "CALMA",
+    "t": 92.1,
+    "accion": "movido",
+    "regla": "colocar",
+    "papel": true,
+    "intentos": [
+     "1 · inicio de la oración (92.02 s): cruza el corte de la escena 12 (92.10 s)"
+    ],
+    "motivo": "sello del papel «CALMA»: 2 · inicio de la escena 13 (92.10 s) · antes: 1 · inicio de la oración (92.02 s): cruza el corte de la escena 12 (92.10 s)"
+   }
+  ],
+  "realizador": {
+   "filas": []
+  },
+  "critico": [
+   {
+    "t": 92.1,
+    "t_frame": 93.1,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "CALMA",
+    "veredicto": "no estorba",
+    "motivo": "No tapa ningún rostro ni texto visible en la imagen.",
+    "pasa": true,
+    "voz": "Habían estado unos diez meses. Creyeron que se llevaban de Wittenoom un hijo y nada más.",
+    "mira": "foto sola",
+    "pregunta": "¿estorba?"
+   }
+  ],
+  "transitions": {
+   "1": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R2"
+   },
+   "2": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "5": {
+    "kind": "zoom_punch",
+    "frames": 12,
+    "why": "pico",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R1"
+   },
+   "7": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "8": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "cambio de beat",
+    "rank": "R2"
+   },
+   "9": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R2"
+   },
+   "10": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "11": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "salto de tiempo",
+    "rank": "R3"
+   },
+   "12": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "13": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "cierre",
+    "rank": "R1"
+   }
+  }
+ },
+ "rejected": []
+}

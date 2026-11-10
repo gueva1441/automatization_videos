@@ -1,0 +1,269 @@
+{
+ "plan": {
+  "chapter_number": 1,
+  "title_card": {
+   "kicker": "CAPÍTULO 1",
+   "title": "La herida que no cerraba"
+  },
+  "callouts": [
+   {
+    "text": "Considerado el peor desastre industrial de Australia",
+    "kicker": "LO QUE PASÓ AQUÍ",
+    "ficha": true,
+    "start": 42.62,
+    "kind": "fact",
+    "duration": 4.533,
+    "side": "left",
+    "fact_idx": null,
+    "pool_id": "D108",
+    "rotulista": true,
+    "beat": 1,
+    "sentence_idx": 8,
+    "word_idx": 6,
+    "aporta": "Pone la escala del caso: ese pueblo borrado fue el peor desastre industrial del país, algo que la voz nunca dice.",
+    "tipo_rotulista": "hecho",
+    "a_pantalla": false,
+    "por_que": "",
+    "t1": 47.153,
+    "lectura_s": 4.53,
+    "movido": null,
+    "movido_corte": null,
+    "forzado": null,
+    "papel": true,
+    "estilo": "normal",
+    "ancla_palabra": "palabra del papel",
+    "sin_alinear": null,
+    "intentos": [
+     {
+      "t0": 42.62,
+      "t1": 47.153,
+      "si": 8,
+      "como": "1 · palabra ancla"
+     },
+     {
+      "t0": 41.533,
+      "t1": 46.066,
+      "si": 8,
+      "como": "2 · inicio de la escena 5"
+     }
+    ],
+    "intentos_fallidos": [
+     "1 · inicio de la oración (41.46 s): sin tiempo de lectura: 68 caracteres piden 4.5 s y hay 0.1 s hasta el corte de escena (41.5 s)",
+     "3 · oración siguiente [9] (45.68 s): sin tiempo de lectura: 68 caracteres piden 4.5 s y hay 4.1 s hasta el corte de escena (49.7 s)"
+    ],
+    "juicio_verificador": {
+     "regla": [
+      "no_dicho"
+     ],
+     "motivo": "La voz nunca califica a Wittenoom como el peor desastre industrial de Australia; 'Australia' coincide solo como nombre de lugar.",
+     "tokens": {
+      "no_dicho": [
+       "Australia"
+      ]
+     }
+    },
+    "critico": {
+     "pregunta": "¿estorba?",
+     "estorba": false,
+     "motivo_3": "No hay rostros ni texto relevante en la imagen que el bloque pueda tapar."
+    }
+   }
+  ],
+  "archive_clippings": [],
+  "quote_card": null,
+  "punch_in": [],
+  "emphasis": [
+   {
+    "category": null,
+    "layer": null,
+    "icon_anim": "stamp",
+    "side": "right",
+    "stamp": true,
+    "weight": 0,
+    "word": "AMENAZA",
+    "start": 57.44,
+    "duration": 2.5,
+    "por_tema": true,
+    "clima": true,
+    "papel": true,
+    "tema": null,
+    "palabra_voz": null,
+    "sentence_idx": 12,
+    "intento": "3 · oración siguiente [12] · lado right"
+   }
+  ],
+  "gap_warnings": [],
+  "rotulista": {
+   "modelo": "papel m01e-7 (claude-opus-5-5)",
+   "faltan_a_pantalla": [],
+   "motivo_faltan": {},
+   "filas": [
+    {
+     "pool_id": "D108",
+     "tipo": "hecho",
+     "etiqueta": "LO QUE PASÓ AQUÍ",
+     "texto": "Considerado el peor desastre industrial de Australia",
+     "sentence_idx": 8,
+     "word_idx": 6,
+     "palabra": "pueblo",
+     "t0": 42.62,
+     "t1": 47.153,
+     "aporta": "Pone la escala del caso: ese pueblo borrado fue el peor desastre industrial del país, algo que la voz nunca dice.",
+     "beat": 1,
+     "a_pantalla": false,
+     "movido": null,
+     "accion": "colocado"
+    }
+   ],
+   "error": null,
+   "corte": [],
+   "escena": []
+  },
+  "fragmentos": [
+   {
+    "pool_id": "D108",
+    "tipo": "hecho",
+    "etiqueta": "LO QUE PASÓ AQUÍ",
+    "texto": "Considerado el peor desastre industrial de Australia",
+    "sentence_idx": 8,
+    "word_idx": 6,
+    "palabra": "pueblo",
+    "t0": 42.62,
+    "t1": 47.153,
+    "aporta": "Pone la escala del caso: ese pueblo borrado fue el peor desastre industrial del país, algo que la voz nunca dice.",
+    "beat": 1,
+    "a_pantalla": false,
+    "movido": null,
+    "accion": "colocado"
+   }
+  ],
+  "pico": {
+   "t": 20.72,
+   "block": null,
+   "word": null,
+   "sentence": "La familia que la guarda cuenta que le cayó encima un trozo de amianto y que la herida no cerraba.",
+   "sentence_idx": 4,
+   "beat": 1,
+   "fuente": "escaleta (beat más intenso del cap)"
+  },
+  "time_ticker": null,
+  "papel": {
+   "relojes": [],
+   "sin_alinear": [],
+   "sin_colocar": [],
+   "error": null,
+   "reloj_voz": null
+  },
+  "identity": {
+   "movimientos": [],
+   "violaciones": []
+  },
+  "black_hold": {
+   "start": 65.8,
+   "duration": 1.0
+  },
+  "critico_rotulista": [
+   {
+    "t": 42.62,
+    "t_frame": 43.62,
+    "dur": 4.533,
+    "bloque": "ficha",
+    "texto": "Considerado el peor desastre industrial de Australia",
+    "veredicto": "no estorba",
+    "motivo": "No hay rostros ni texto relevante en la imagen que el bloque pueda tapar.",
+    "pasa": true,
+    "voz": "Wittenoom, Australia Occidental, 1963. Esa foto se tomó en un pueblo que hoy no figura en ningún mapa. Arrancaron las señales de la carretera y borraron el nombre.",
+    "mira": "foto sola",
+    "pregunta": "¿estorba?",
+    "pool_id": "D108",
+    "a_pantalla": false
+   }
+  ],
+  "sellos_tema": [
+   {
+    "bloque": "emphasis",
+    "texto": "AMENAZA",
+    "t": 57.44,
+    "accion": "movido",
+    "regla": "colocar",
+    "papel": true,
+    "intentos": [
+     "1 · inicio de la oración (55.76 s): cruza el corte de la escena 6 (55.87 s)",
+     "2 · inicio de la escena 7 (55.87 s) · lado left: estorba — El sello tapa los rostros y cuerpos de algunos hombres.",
+     "2 · inicio de la escena 7 (55.87 s) · lado right: estorba — El sello se superpone a los rostros o cuerpos de los hombres en primer plano.",
+     "3 · oración siguiente [12] (57.44 s) · lado left: estorba — El sello se ubica a media altura a la izquierda, probablemente cubriendo rostros o figuras importantes de los hombres que bajan del avión."
+    ],
+    "motivo": "sello del papel «AMENAZA»: 3 · oración siguiente [12] · lado right (57.44 s) · antes: 1 · inicio de la oración (55.76 s): cruza el corte de la escena 6 (55.87 s) · 2 · inicio de la escena 7 (55.87 s) · lado left: estorba — El sello tapa los rostros y cuerpos de algunos hombres. · 2 · inicio de la escena 7 (55.87 s) · lado right: estorba — El sello se superpone a los rostros o cuerpos de los hombres en primer plano. · 3 · oración siguiente [12] (57.44 s) · lado left: estorba — El sello se ubica a media altura a la izquierda, probablemente cubriendo rostros o figuras importantes de los hombres que bajan del avión."
+   }
+  ],
+  "realizador": {
+   "filas": []
+  },
+  "critico": [
+   {
+    "t": 57.44,
+    "t_frame": 58.44,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "AMENAZA",
+    "veredicto": "no estorba",
+    "motivo": "El sello cubre parte de la imagen, pero no un rostro o texto esencial.",
+    "pasa": true,
+    "voz": "Y no se queda quieto. Pero antes de que lo borraran, alguien tuvo que llevar a ese hombre hasta allí. Dos años antes de la foto, en Madrid, hubo un baile.",
+    "mira": "foto sola",
+    "pregunta": "¿estorba?"
+   }
+  ],
+  "transitions": {
+   "1": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "2": {
+    "kind": "zoom_punch",
+    "frames": 12,
+    "why": "pico",
+    "rank": "R3"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "5": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "7": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "8": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "cierre",
+    "rank": "R3"
+   }
+  }
+ },
+ "rejected": []
+}

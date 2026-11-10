@@ -1,0 +1,137 @@
+{
+ "cap": "ch06",
+ "clip_dur": 128.5,
+ "time_offset": 3.0,
+ "pre_roll": 3.0,
+ "pausa": 1.0,
+ "escenas": [
+  {
+   "idx": 0,
+   "start": 0.0,
+   "end": 8.667,
+   "rank": "R3",
+   "quiet_side": "left",
+   "safe": true
+  },
+  {
+   "idx": 1,
+   "start": 8.667,
+   "end": 14.933,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 2,
+   "start": 14.933,
+   "end": 24.533,
+   "rank": "R2",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 3,
+   "start": 24.533,
+   "end": 31.567,
+   "rank": "R1",
+   "quiet_side": "left",
+   "safe": true
+  },
+  {
+   "idx": 4,
+   "start": 31.567,
+   "end": 38.933,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 5,
+   "start": 38.933,
+   "end": 47.033,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 6,
+   "start": 47.033,
+   "end": 51.733,
+   "rank": "R3",
+   "quiet_side": "left",
+   "safe": true
+  },
+  {
+   "idx": 7,
+   "start": 51.733,
+   "end": 60.733,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 8,
+   "start": 60.733,
+   "end": 71.267,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 9,
+   "start": 71.267,
+   "end": 75.767,
+   "rank": "R3",
+   "quiet_side": "left",
+   "safe": true
+  },
+  {
+   "idx": 10,
+   "start": 75.767,
+   "end": 85.033,
+   "rank": "R2",
+   "quiet_side": "left",
+   "safe": true
+  },
+  {
+   "idx": 11,
+   "start": 85.033,
+   "end": 91.833,
+   "rank": "R3",
+   "quiet_side": "left",
+   "safe": true
+  },
+  {
+   "idx": 12,
+   "start": 91.833,
+   "end": 98.5,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 13,
+   "start": 98.5,
+   "end": 108.167,
+   "rank": "R1",
+   "quiet_side": "left",
+   "safe": true
+  },
+  {
+   "idx": 14,
+   "start": 108.167,
+   "end": 124.233,
+   "rank": "R2",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 15,
+   "start": 124.233,
+   "end": 128.5,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": true
+  }
+ ]
+}

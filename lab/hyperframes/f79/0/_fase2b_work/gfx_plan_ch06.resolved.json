@@ -1,0 +1,512 @@
+{
+ "plan": {
+  "chapter_number": 6,
+  "title_card": {
+   "kicker": "CAPÍTULO 6",
+   "title": "El polvo viaja"
+  },
+  "callouts": [
+   {
+    "text": "«solo fueron en una excursión del colegio» — John de Juan",
+    "kicker": "MUERTOS QUE NO VIVIERON ALLÍ",
+    "author": "John de Juan",
+    "ficha": true,
+    "start": 63.62,
+    "kind": "quote",
+    "duration": 5.667,
+    "side": "left",
+    "fact_idx": null,
+    "pool_id": "Q22",
+    "rotulista": true,
+    "beat": 11,
+    "sentence_idx": 13,
+    "word_idx": 19,
+    "aporta": "Muestra que también murieron personas que solo pasaron por Wittenoom en una excursión escolar.",
+    "tipo_rotulista": "cita",
+    "a_pantalla": false,
+    "por_que": "",
+    "t1": 69.287,
+    "lectura_s": 5.67,
+    "movido": null,
+    "movido_corte": "69.72 → 63.62 s (1 · inicio de la oración): 1 · palabra ancla (69.72 s): sin tiempo de lectura: 85 caracteres piden 5.7 s y hay 1.5 s hasta el corte de escena (71.3 s)",
+    "forzado": null,
+    "papel": true,
+    "estilo": "cita",
+    "ancla_palabra": "palabra del papel",
+    "sin_alinear": null,
+    "intentos": [
+     {
+      "t0": 63.62,
+      "t1": 69.287,
+      "si": 13,
+      "como": "1 · inicio de la oración"
+     }
+    ],
+    "intentos_fallidos": [
+     "1 · palabra ancla (69.72 s): sin tiempo de lectura: 85 caracteres piden 5.7 s y hay 1.5 s hasta el corte de escena (71.3 s)",
+     "3 · oración siguiente [14] (71.28 s): sin tiempo de lectura: 85 caracteres piden 5.7 s y hay 4.5 s hasta el corte de escena (75.8 s)"
+    ],
+    "critico": {
+     "pregunta": "¿estorba?",
+     "estorba": false,
+     "motivo_3": "El bloque está en una zona vacía de la imagen y no tapa elementos importantes."
+    }
+   },
+   {
+    "text": "El ministro Jon Ford",
+    "kicker": "QUIÉN LO ANUNCIÓ",
+    "ficha": true,
+    "start": 78.34,
+    "kind": "fact",
+    "duration": 2.5,
+    "side": "left",
+    "fact_idx": null,
+    "pool_id": "T80",
+    "rotulista": true,
+    "beat": 12,
+    "sentence_idx": 15,
+    "word_idx": 6,
+    "aporta": "Pone nombre y cargo a quien anunció la abolición del pueblo.",
+    "tipo_rotulista": "hecho",
+    "a_pantalla": false,
+    "por_que": "",
+    "t1": 80.84,
+    "lectura_s": 2.4,
+    "movido": null,
+    "movido_corte": null,
+    "forzado": null,
+    "papel": true,
+    "estilo": "normal",
+    "ancla_palabra": "palabra del papel",
+    "sin_alinear": null,
+    "intentos": [
+     {
+      "t0": 78.34,
+      "t1": 80.84,
+      "si": 15,
+      "como": "1 · palabra ancla"
+     },
+     {
+      "t0": 75.767,
+      "t1": 78.267,
+      "si": 15,
+      "como": "2 · inicio de la escena 10"
+     },
+     {
+      "t0": 80.32,
+      "t1": 82.82,
+      "si": 16,
+      "como": "3 · oración siguiente [16]"
+     }
+    ],
+    "intentos_fallidos": [
+     "1 · inicio de la oración (75.76 s): sin tiempo de lectura: 36 caracteres piden 2.4 s y hay 0.0 s hasta el corte de escena (75.8 s)"
+    ],
+    "critico": {
+     "pregunta": "¿estorba?",
+     "estorba": false,
+     "motivo_3": "El bloque se ubica en una zona del cielo y el paisaje distante, sin tapar el cartel ni elementos clave."
+    }
+   }
+  ],
+  "archive_clippings": [],
+  "quote_card": null,
+  "punch_in": [],
+  "emphasis": [
+   {
+    "category": null,
+    "layer": null,
+    "icon_anim": "stamp",
+    "side": "right",
+    "stamp": true,
+    "weight": 0,
+    "word": "ALARMA",
+    "start": 60.76,
+    "duration": 2.5,
+    "por_tema": true,
+    "clima": true,
+    "papel": true,
+    "tema": null,
+    "palabra_voz": null,
+    "sentence_idx": 12,
+    "intento": "3 · oración siguiente [12]"
+   },
+   {
+    "category": null,
+    "layer": null,
+    "icon_anim": "stamp",
+    "side": "right",
+    "stamp": true,
+    "weight": 0,
+    "word": "RABIA",
+    "start": 115.9,
+    "duration": 2.5,
+    "por_tema": true,
+    "clima": true,
+    "papel": true,
+    "tema": null,
+    "palabra_voz": null,
+    "sentence_idx": 22,
+    "intento": "1 · inicio de la oración"
+   }
+  ],
+  "gap_warnings": [],
+  "rotulista": {
+   "modelo": "papel m01e-7 (claude-opus-5-5)",
+   "faltan_a_pantalla": [],
+   "motivo_faltan": {},
+   "filas": [
+    {
+     "pool_id": "Q22",
+     "tipo": "cita",
+     "etiqueta": "MUERTOS QUE NO VIVIERON ALLÍ",
+     "texto": "solo fueron en una excursión del colegio",
+     "sentence_idx": 13,
+     "word_idx": 19,
+     "palabra": "enfermando.",
+     "t0": 63.62,
+     "t1": 69.287,
+     "aporta": "Muestra que también murieron personas que solo pasaron por Wittenoom en una excursión escolar.",
+     "beat": 11,
+     "a_pantalla": false,
+     "movido": null,
+     "accion": "colocado",
+     "como": "ficha (cita)"
+    },
+    {
+     "pool_id": "T80",
+     "tipo": "hecho",
+     "etiqueta": "QUIÉN LO ANUNCIÓ",
+     "texto": "El ministro Jon Ford",
+     "sentence_idx": 15,
+     "word_idx": 6,
+     "palabra": "abolido",
+     "t0": 78.34,
+     "t1": 80.84,
+     "aporta": "Pone nombre y cargo a quien anunció la abolición del pueblo.",
+     "beat": 12,
+     "a_pantalla": false,
+     "movido": null,
+     "accion": "colocado"
+    }
+   ],
+   "error": null,
+   "corte": [],
+   "escena": []
+  },
+  "fragmentos": [
+   {
+    "pool_id": "Q22",
+    "tipo": "cita",
+    "etiqueta": "MUERTOS QUE NO VIVIERON ALLÍ",
+    "texto": "solo fueron en una excursión del colegio",
+    "sentence_idx": 13,
+    "word_idx": 19,
+    "palabra": "enfermando.",
+    "t0": 63.62,
+    "t1": 69.287,
+    "aporta": "Muestra que también murieron personas que solo pasaron por Wittenoom en una excursión escolar.",
+    "beat": 11,
+    "a_pantalla": false,
+    "movido": null,
+    "accion": "colocado",
+    "como": "ficha (cita)"
+   },
+   {
+    "pool_id": "T80",
+    "tipo": "hecho",
+    "etiqueta": "QUIÉN LO ANUNCIÓ",
+    "texto": "El ministro Jon Ford",
+    "sentence_idx": 15,
+    "word_idx": 6,
+    "palabra": "abolido",
+    "t0": 78.34,
+    "t1": 80.84,
+    "aporta": "Pone nombre y cargo a quien anunció la abolición del pueblo.",
+    "beat": 12,
+    "a_pantalla": false,
+    "movido": null,
+    "accion": "colocado"
+   }
+  ],
+  "pico": {
+   "t": 75.76,
+   "block": null,
+   "word": null,
+   "sentence": "En junio de 2007, Wittenoom fue abolido oficialmente.",
+   "sentence_idx": 15,
+   "beat": 12,
+   "fuente": "escaleta (beat más intenso del cap)"
+  },
+  "time_ticker": null,
+  "papel": {
+   "relojes": [],
+   "sin_alinear": [],
+   "sin_colocar": [],
+   "error": null,
+   "reloj_voz": null
+  },
+  "identity": {
+   "movimientos": [
+    {
+     "scene": 0,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 1,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 2,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 3,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 4,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 5,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 6,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 7,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 8,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 9,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 10,
+     "forma": "quieta",
+     "motivo": "documento: tiene texto"
+    },
+    {
+     "scene": 11,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 12,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 13,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 14,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 15,
+     "forma": "alejar",
+     "motivo": "cierre del cap"
+    }
+   ],
+   "violaciones": []
+  },
+  "black_hold": {
+   "start": 127.5,
+   "duration": 1.0
+  },
+  "critico_rotulista": [
+   {
+    "t": 63.62,
+    "t_frame": 64.62,
+    "dur": 5.667,
+    "bloque": "ficha",
+    "texto": "«solo fueron en una excursión del colegio» — John de Juan",
+    "veredicto": "no estorba",
+    "motivo": "El bloque está en una zona vacía de la imagen y no tapa elementos importantes.",
+    "pasa": true,
+    "voz": "Daniel Écija es uno de ellos. Markey dice que hay hijos de funcionarios que trabajaban en el pueblo, como policías o maestros, que están ahora enfermando. El pueblo, mientras tanto, dejó de existir en los papeles.",
+    "mira": "foto sola",
+    "pregunta": "¿estorba?",
+    "pool_id": "Q22",
+    "a_pantalla": false
+   },
+   {
+    "t": 78.34,
+    "t_frame": 79.34,
+    "dur": 2.5,
+    "bloque": "ficha",
+    "texto": "El ministro Jon Ford",
+    "veredicto": "no estorba",
+    "motivo": "El bloque se ubica en una zona del cielo y el paisaje distante, sin tapar el cartel ni elementos clave.",
+    "pasa": true,
+    "voz": "El pueblo, mientras tanto, dejó de existir en los papeles. En junio de 2007, Wittenoom fue abolido oficialmente. Le quitaron el nombre de los mapas y arrancaron las señales de la carretera.",
+    "mira": "foto sola",
+    "pregunta": "¿estorba?",
+    "pool_id": "T80",
+    "a_pantalla": false
+   }
+  ],
+  "sellos_tema": [
+   {
+    "bloque": "emphasis",
+    "texto": "ALARMA",
+    "t": 60.76,
+    "accion": "movido",
+    "regla": "colocar",
+    "papel": true,
+    "intentos": [
+     "1 · palabra de más peso (53.66 s) · lado right: estorba — El sello 'ALARMA' tapa varios rostros de la pared, que son clave en la imagen.",
+     "1 · palabra de más peso (53.66 s) · lado left: estorba — El sello 'ALARMA' se ubica a media altura a la izquierda, cubriendo inevitablemente varios de los rostros de las víctimas en la pared.",
+     "1 · inicio de la oración (51.76 s) · lado right: estorba — El sello 'ALARMA' tapa varias de las fotos de rostros en la pared, que son el elemento central de la imagen.",
+     "1 · inicio de la oración (51.76 s) · lado left: estorba — El sello 'ALARMA' tapa varias de las fotos de rostros en la pared."
+    ],
+    "motivo": "sello del papel «ALARMA»: 3 · oración siguiente [12] (60.76 s) · antes: 1 · palabra de más peso (53.66 s) · lado right: estorba — El sello 'ALARMA' tapa varios rostros de la pared, que son clave en la imagen. · 1 · palabra de más peso (53.66 s) · lado left: estorba — El sello 'ALARMA' se ubica a media altura a la izquierda, cubriendo inevitablemente varios de los rostros de las víctimas en la pared. · 1 · inicio de la oración (51.76 s) · lado right: estorba — El sello 'ALARMA' tapa varias de las fotos de rostros en la pared, que son el elemento central de la imagen. · 1 · inicio de la oración (51.76 s) · lado left: estorba — El sello 'ALARMA' tapa varias de las fotos de rostros en la pared."
+   }
+  ],
+  "realizador": {
+   "filas": []
+  },
+  "critico": [
+   {
+    "t": 60.76,
+    "t_frame": 61.76,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "ALARMA",
+    "veredicto": "no estorba",
+    "motivo": "El bloque se ubica a la derecha, donde no hay rostros principales ni texto relevante en la imagen.",
+    "pasa": true,
+    "voz": "Dice que el gobierno dejó de contar los muertos en dos mil, que ahora se calcula que pueden ser más de cuatro mil, y que la cifra sigue subiendo. Daniel Écija es uno de ellos. Markey dice que hay hijos de funcionarios que trabajaban en el pueblo, como policías o maestros, que están ahora enfermando.",
+    "mira": "foto sola",
+    "pregunta": "¿estorba?"
+   },
+   {
+    "t": 115.9,
+    "t_frame": 116.9,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "RABIA",
+    "veredicto": "no estorba",
+    "motivo": "El bloque no tapa rostros ni texto preexistente en la imagen, que es un paisaje general.",
+    "pasa": true,
+    "voz": "No porque fuera técnicamente imposible. Porque salía caro. Cinco años después, se encontraron fibras en arroyos fuera de la zona marcada como contaminada.",
+    "mira": "foto sola",
+    "pregunta": "¿estorba?"
+   }
+  ],
+  "transitions": {
+   "1": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "2": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R2"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R1"
+   },
+   "4": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "5": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "7": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "8": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "9": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "10": {
+    "kind": "zoom_punch",
+    "frames": 12,
+    "why": "pico",
+    "rank": "R2"
+   },
+   "11": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "12": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "13": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R1"
+   },
+   "14": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R2"
+   },
+   "15": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "cierre",
+    "rank": "R3"
+   }
+  }
+ },
+ "rejected": []
+}

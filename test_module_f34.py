@@ -156,24 +156,23 @@ def _ruido(path: Path, seed: int, dur: float) -> Path:
 
 
 @pytest.mark.parametrize("alineada", [True, False])
-def test_a7_2_la_musica_de_cada_cap_arranca_con_su_title_card(tmp_path, monkeypatch, alineada):
+def test_a7_2_la_musica_de_cada_cap_arranca_en_el_0_del_cap(tmp_path, monkeypatch, alineada):
     import fase2b
     fase2b.FFMPEG = fase2b.FFMPEG or "ffmpeg"
     pistas = {c: _ruido(tmp_path / f"{c}.wav", k + 1, 60.0) for k, c in enumerate(("ch01", "ch02", "ch03"))}
     monkeypatch.setattr(fase2b, "_resolve_music_track_path", lambda info: Path(info["path"]))
     monkeypatch.setattr(fase2b, "_track_meta", lambda p: {})
     seg = {"ch01": 20.0, "ch02": 25.0, "ch03": 15.0}
-    pre = {"ch01": 0.0, "ch02": 3.0, "ch03": 3.0}
-    plans = [NS(chapter_id=c, audio_duration=seg[c] - pre[c], is_first=c == "ch01") for c in seg]
+    plans = [NS(chapter_id=c, audio_duration=seg[c], is_first=c == "ch01") for c in seg]
     pista = fase2b._build_continuous_music_track(
         plans=plans, music_map={c: {"path": str(p), "match_source": "test"} for c, p in pistas.items()},
-        work_dir=tmp_path, crossfade_sec=2.0, pre_sec=pre, segmentos=seg if alineada else None,
-        intro_sec=2.5 if alineada else 0.0, conservar_piezas=True, output_filename="m.wav")
-    med = fase2b._medir_inicio_musica(plans, pista, tmp_path, seg, 2.5, 2.0, 30)
+        work_dir=tmp_path, crossfade_sec=2.0, segmentos=seg if alineada else None,
+        conservar_piezas=True, output_filename="m.wav")
+    med = fase2b._medir_inicio_musica(plans, pista, tmp_path, seg, 2.0, 30)
     if alineada:
         assert all(r["ok"] for r in med), med
-    else:                                    # el camino de antes: adelantada intro + 2 s por cruce (F32: 4.6 / 14.8 s)
-        assert [round(r["desvio_s"], 1) for r in med] == [-2.5, -4.5, -6.5], med
+    else:                                    # el camino de antes: adelantada 2 s por cruce (F32: 4.6 / 14.8 s; F79: sin intro)
+        assert [round(r["desvio_s"], 1) for r in med] == [0.0, -2.0, -4.0], med
 
 
 # ═══════════════ crítico: forma, no contenido ═══════════════

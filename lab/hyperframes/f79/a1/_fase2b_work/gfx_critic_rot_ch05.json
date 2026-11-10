@@ -1,0 +1,34 @@
+{
+ "id:96115850a85a807e006c": {
+  "estorba": false,
+  "motivo_3": "El bloque se ubica en una esquina superior y no tapa rostros ni texto relevante de la imagen."
+ },
+ "id:005c4978b1d4efc667f7": {
+  "estorba": false,
+  "motivo_3": "El bloque está en una zona vacía de la imagen y no tapa rostros ni información relevante."
+ },
+ "id:51aa1c4919941edc2d10": {
+  "estorba": true,
+  "motivo_3": "El sello rojo con letras grandes a media altura a la izquierda taparía parte del rostro o cuerpo del protagonista, o elementos clave del fondo."
+ },
+ "id:c245de60ffa2d5d51195": {
+  "estorba": false,
+  "motivo_3": "El bloque se ubica a la derecha, sobre el paisaje exterior, sin tapar rostros ni elementos clave de la imagen."
+ },
+ "id:5cbdb4eeb360e04e0e68": {
+  "estorba": false,
+  "motivo_3": "El bloque está en la esquina superior izquierda y no tapa rostros ni texto relevante en la imagen."
+ },
+ "id:4775758168ca5cc2a2ce": {
+  "estorba": false,
+  "motivo_3": "El bloque se ubica en una esquina superior izquierda, sin tapar rostros ni elementos clave de la imagen."
+ },
+ "id:eec27ec237b42e0df493": {
+  "estorba": true,
+  "motivo_3": "El bloque tapa algunas de las fotografías enmarcadas en la pared izquierda, las cuales son mencionadas en la narración."
+ },
+ "id:edd2c684c2e968d17e41": {
+  "estorba": false,
+  "motivo_3": "El bloque se ubica a media altura a la derecha, sin tapar el rostro del personaje principal ni ningún texto presente en la imagen."
+ }
+}

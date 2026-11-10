@@ -148,10 +148,6 @@ MUSIC_INTERMEDIATE_SUFFIX: str = "_no_music"
 # WAV para no perder calidad en el sidechain.
 CONTINUOUS_MUSIC_FILENAME: str = "_music_continuous.wav"
 
-# Chat 32: padding de silencio al inicio del MP4 final (música respira sola,
-# arranca el hook con pausa estructural).
-INITIAL_SILENCE_SEC = 2.5
-
 
 # ═══════════════════════════════════════════════════════════════
 #  Helpers FFmpeg / paths
@@ -1144,29 +1140,6 @@ def _visual_base(plan: Any, work_dir: Path, video_width: int, video_height: int,
     return base_clip
 
 
-def _visual_con_pre_roll(base_clip: Path, pre_roll: float, out: Path, fps: int) -> Path:
-    """F30b §B.3: el visual base con `pre_roll` segundos adelante (su primer cuadro clonado: la imagen del title
-    card). Se reusa si ya está y es más nuevo que el base."""
-    assert FFMPEG is not None
-    if out.exists() and out.stat().st_mtime >= Path(base_clip).stat().st_mtime:
-        return out
-    r = _run_cmd([FFMPEG, "-v", "error", "-y", "-i", str(base_clip), "-vf",
-                  f"tpad=start_duration={pre_roll:.3f}:start_mode=clone", "-an", *_venc(), "-r", str(fps),
-                  "-pix_fmt", "yuv420p", str(out)], timeout=900)
-    if r.returncode != 0:
-        raise RuntimeError(f"pre-roll del visual falló: {r.stderr[-300:]}")
-    return out
-
-
-def _pre_roll_de(plan: Any, gfx_enabled: bool) -> float:
-    """F30b §B.3: los segundos de title card sin voz con que arranca el cap (solo con --gfx). F32 §B.1: ch01 no (ya
-    abre con la intro de INITIAL_SILENCE_SEC)."""
-    if not gfx_enabled or plan.is_first:
-        return 0.0
-    from gfx_config import gfx_rules as _gr_pre
-    return float(_gr_pre.title_dur) if _gr_pre.title_pre_roll else 0.0
-
-
 def _build_chapter_segment(
     plan: ChapterPlan, segment_path: Path, work_dir: Path,
     *, hook_text: str | None, no_subs: bool, video_width: int,
@@ -1197,10 +1170,9 @@ def _build_chapter_segment(
     assert FFMPEG is not None
     is_first = plan.is_first
     apply_hook = is_first and bool(hook_text)
-    # F30b §B.3: con --gfx el cap arranca con su title card sin voz durante title_dur (pre-roll): voz, subtítulos,
-    # sfx y plan gfx se corren title_dur completos; el visual base gana title_dur adelante (su primer cuadro).
-    pre_roll = _pre_roll_de(plan, gfx_enabled)
-    pre_pad = (HOOK_DURATION if apply_hook else 0.0) + pre_roll
+    # F79: la voz del cap arranca en su 0,0 (el title card, si lo hay, va encima de la voz); solo el hook de ch01 corre
+    # voz, subtítulos y plan gfx.
+    pre_pad = HOOK_DURATION if apply_hook else 0.0
 
     # ─── Visual base (clip MP4 sin audio) ───
     # F28 §C.2: con caps en paralelo, el visual base (DepthFlow, ya paralelo por dentro) va de a uno
@@ -1215,14 +1187,12 @@ def _build_chapter_segment(
     if gfx_enabled:
         from script_engine.gfx_layer import apply_gfx   # lazy: sin --gfx no se importa nada
         safe = _safe_scenes_for(plan, base_clip, safe_scenes)
-        if pre_roll > 0:
-            base_clip = _visual_con_pre_roll(base_clip, pre_roll, work_dir / f"{plan.chapter_id}_visual_preroll.mp4", fps)
         base_clip = apply_gfx(
             base_clip, plan, video_id, work_dir,
             width=video_width, height=video_height, fps=fps,
             quality=gfx_quality, reuse=reuse_visuals, time_offset=pre_pad,
             debug=gfx_debug, sparse=gfx_sparse,
-            safe_scenes=safe, pre_roll=pre_roll,
+            safe_scenes=safe,
         )
 
     clip_duration = _get_duration(base_clip)
@@ -1594,7 +1564,6 @@ def _build_music_piece_for_chapter(
     piece_volume: float = 1.0,
     loop_crossfade_sec: float | None = None,
     envolvente: list[dict[str, Any]] | None = None,
-    pre_sec: float = 0.0,
 ) -> Path:
     """
     Genera 1 piece WAV del largo exacto del cap.
@@ -1606,9 +1575,6 @@ def _build_music_piece_for_chapter(
     Si track_path is None → silencio puro del largo del cap.
     Si track_path existe → loop+trim del mp3 al largo del cap.
 
-    F32 §B.1 (`pre_sec`, con --gfx): la música del cap arranca con su title card: la pieza dura `pre_sec` más y la
-    envolvente de intensidad (en el tiempo de la voz) se corre `pre_sec` (antes la pieza se corría con silencio adelante).
-
     chat 39 (piece_volume): pre-atenúa la música del cap a su nivel por-intent
     ANTES de entrar al mix (volumen POR CAP horneado en la pieza). Default 1.0 =
     sin atenuar → ruta byte-idéntica a pre-chat39 (compat). No aplica a silencio.
@@ -1617,10 +1583,6 @@ def _build_music_piece_for_chapter(
     """
     assert FFMPEG is not None
     cmd: list[str]
-    if pre_sec > 0:                                           # F32 §B.1: la música suena durante el title card
-        cap_duration_sec += pre_sec
-        envolvente = _correr_tramos(envolvente, pre_sec)
-
     if track_path is None:
         # Silencio del largo del cap (piece_volume es moot: silencio × k = silencio)
         cmd = [
@@ -1681,15 +1643,6 @@ def _build_music_piece_for_chapter(
     return output_path
 
 
-def _correr_tramos(tramos: list[dict[str, Any]] | None, pre: float) -> list[dict[str, Any]] | None:
-    """F32 §B.1: la envolvente del cap con `pre` segundos de title card adelante: cada tramo se corre `pre`; el que
-    arranca en 0 (el fondo) sigue arrancando en 0 (cubre el title card)."""
-    if not tramos:
-        return tramos
-    return [{**t, "t0": 0.0 if float(t["t0"]) <= 0 else round(float(t["t0"]) + pre, 3),
-             "t1": round(float(t["t1"]) + pre, 3)} for t in tramos]
-
-
 def _build_continuous_music_track(
     plans: list[ChapterPlan],
     music_map: dict[str, dict[str, Any]],
@@ -1699,9 +1652,7 @@ def _build_continuous_music_track(
     output_filename: str | None = None,
     extra_sec: dict[str, float] | None = None,
     intensidad: dict[str, Any] | None = None,
-    pre_sec: dict[str, float] | None = None,
     segmentos: dict[str, float] | None = None,
-    intro_sec: float = 0.0,
     conservar_piezas: bool = False,
 ) -> Path:
     """
@@ -1730,8 +1681,7 @@ def _build_continuous_music_track(
             de cierre, solo con --gfx). None → largo = audio del cap (comportamiento previo).
         segmentos: F34 §A.7.2 (solo con --gfx) — {chapter_id: duración del segmento del cap en el mp4}. La pieza de
             cada cap dura su segmento (+ crossfade_sec si no es la última: el acrossfade se come ese tramo, así la
-            pieza siguiente arranca exacto en el corte, con su title card) en vez de audio + pausa; y la pista arranca
-            después de `intro_sec` de silencio (la intro del mp4). None → como antes (byte a byte).
+            pieza siguiente arranca exacto en el corte, en el 0,0 del cap) en vez de audio + pausa. None → como antes.
         conservar_piezas: F34 — no borra las piezas (la mezcla de previsualización mide con ellas dónde arranca cada
             una); quedan en work_dir/_music_piece_<cap>.wav.
 
@@ -1765,8 +1715,7 @@ def _build_continuous_music_track(
         piece_path = work_dir / f"_music_piece_{ch_id}.wav"
         if segmentos is not None:                                        # F34 §A.7.2: la pieza = su segmento
             ultimo = plan is plans[-1]
-            dur_pieza = (segmentos[ch_id] - (pre_sec or {}).get(ch_id, 0.0)
-                         + (0.0 if ultimo else crossfade_sec))
+            dur_pieza = segmentos[ch_id] + (0.0 if ultimo else crossfade_sec)
         else:
             dur_pieza = plan.audio_duration + (extra_sec or {}).get(ch_id, 0.0)
         _build_music_piece_for_chapter(
@@ -1776,7 +1725,6 @@ def _build_continuous_music_track(
             piece_volume=piece_volumes.get(ch_id, 1.0),  # chat 39: volumen por-cap
             loop_crossfade_sec=_track_meta(track_path).get("loop_crossfade_s"),   # F28 §B.1
             envolvente=(intensidad or {}).get(ch_id),                            # F28 §B.2
-            pre_sec=(pre_sec or {}).get(ch_id, 0.0),                             # F30b §B.3
         )
         piece_paths.append(piece_path)
 
@@ -1802,7 +1750,7 @@ def _build_continuous_music_track(
         if not conservar_piezas:
             for p in piece_paths:
                 p.unlink(missing_ok=True)
-        return _con_intro(output_path, intro_sec)
+        return output_path
 
     # Caso N > 1: filter_complex con acrossfade encadenado.
     # Sintaxis acrossfade: [a0][a1]acrossfade=d=2[a01]; [a01][a2]acrossfade=d=2[a02]; ...
@@ -1842,22 +1790,7 @@ def _build_continuous_music_track(
         for p in piece_paths:
             p.unlink(missing_ok=True)
 
-    return _con_intro(output_path, intro_sec)
-
-
-def _con_intro(wav: Path, intro_sec: float) -> Path:
-    """F34 §A.7.2: la pista de música arranca después de la intro del mp4 (silencio adelante); 0 → sin tocar."""
-    if intro_sec <= 0:
-        return wav
-    assert FFMPEG is not None
-    ms = int(round(intro_sec * 1000))
-    tmp = wav.with_name(wav.stem + "_intro.wav")
-    r = _run_cmd([FFMPEG, "-v", "error", "-y", "-i", str(wav), "-af", f"adelay={ms}|{ms}", "-c:a", "pcm_s16le",
-                  str(tmp)], timeout=300)
-    if r.returncode != 0:
-        raise RuntimeError(f"FFmpeg intro de la música falló: {r.stderr[-300:]}")
-    tmp.replace(wav)
-    return wav
+    return output_path
 
 
 def _resolve_music_volumes(
@@ -1952,7 +1885,6 @@ def _mix_music_into_video(
     sync_map: dict,
     output_path: Path,
     music_floor_path: Path | None = None,
-    intro_sec: float = INITIAL_SILENCE_SEC,
 ) -> Path:
     """
     Mezcla música con ducking sidechain sobre la narración del video.
@@ -1997,28 +1929,20 @@ def _mix_music_into_video(
     duck_attack_ms = float(mixing.get("duck_attack_ms", 80))
     duck_release_ms = float(mixing.get("duck_release_ms", 200))
 
-    pad_sec = intro_sec   # CHAT 32: la intro, primer cuadro congelado (INITIAL_SILENCE_SEC)
-    v_pad = f"[0:v]tpad=start_duration={pad_sec}:start_mode=clone[v_pad];"
-
     print(f"     mixing params: vol={music_volume}, floor={music_volume_floor}, "
           f"thr={duck_threshold}, ratio={duck_ratio}, "
-          f"atk={duck_attack_ms}ms, rel={duck_release_ms}ms, "
-          f"init_silence={pad_sec}s")
-
-    pad_ms = int(pad_sec * 1000)
+          f"atk={duck_attack_ms}ms, rel={duck_release_ms}ms")
 
     if music_floor_path is None:
-        # ─── RUTA CHAT 32 (volumen global) — INTACTA ───
-        # filter_complex breakdown (CHAT 32: rama-piso + padding inicial):
-        # [0:v] = video → tpad clone primer frame por pad_sec al inicio → [v_pad]
-        # [0:a] = audio narración → adelay pad_sec → asplit en 2 → [narr_main][narr_sc]
+        # ─── RUTA CHAT 32 (volumen global) ───
+        # filter_complex breakdown (CHAT 32: rama-piso; F79: sin intro, el video se copia):
+        # [0:a] = audio narración → asplit en 2 → [narr_main][narr_sc]
         # [1:a] = música → asplit en 2:
         #   rama-ducked:    volume(music_volume) → sidechaincompress vs [narr_sc] → [music_ducked]
         #   rama-floor:     volume(music_volume_floor) (SIN ducking) → [music_floor]
         # amix(narr_main, music_ducked, music_floor) → [mixed]
         filter_complex = (
-            f"{v_pad}"
-            f"[0:a]adelay={pad_ms}|{pad_ms},aresample=44100,asplit=2[narr_main][narr_sc];"
+            f"[0:a]aresample=44100,asplit=2[narr_main][narr_sc];"
             f"[1:a]aresample=44100,asplit=2[music_a][music_b];"
             f"[music_a]volume={music_volume}[music_lvl];"
             f"[music_lvl][narr_sc]sidechaincompress="
@@ -2036,10 +1960,9 @@ def _mix_music_into_video(
             "-i", str(video_path),
             "-i", str(music_path),
             "-filter_complex", filter_complex,
-            "-map", "[v_pad]",          # CHAT 32: usar el video padeado, no 0:v directo
+            "-map", "0:v",
             "-map", "[mixed]",
-            *_venc(),                   # CHAT 32: tpad re-encodea → ya no podemos copy
-            "-pix_fmt", "yuv420p",
+            "-c:v", "copy",             # F79: sin intro no hay tpad → el video se copia
             "-c:a", "aac",
             "-b:a", AAC_BITRATE,
             "-shortest",
@@ -2051,16 +1974,14 @@ def _mix_music_into_video(
         # (ver _build_music_piece_for_chapter piece_volume). Acá NO se aplica volume=
         # (sería doble atenuación). El sidechain (threshold/ratio/attack/release) es
         # BYTE-IDÉNTICO al chat 32 — solo cambia de dónde viene la música:
-        # [0:v] = video → tpad → [v_pad]
-        # [0:a] = narración → adelay → asplit → [narr_main][narr_sc]
+        # [0:a] = narración → asplit → [narr_main][narr_sc]
         # [1:a] = música ducked-source (vol por-cap horneado) → sidechaincompress vs [narr_sc]
         # [2:a] = música floor-source  (vol por-cap horneado) → directa (sin ducking)
         # amix(narr_main, music_ducked, music_floor) → [mixed]
         print(f"     CHAT 39: volumen POR CAP (música pre-atenuada en 2 WAVs, "
               f"sidechain intacto)")
         filter_complex = (
-            f"{v_pad}"
-            f"[0:a]adelay={pad_ms}|{pad_ms},aresample=44100,asplit=2[narr_main][narr_sc];"
+            f"[0:a]aresample=44100,asplit=2[narr_main][narr_sc];"
             f"[1:a]aresample=44100[music_ducked_src];"
             f"[music_ducked_src][narr_sc]sidechaincompress="
             f"threshold={duck_threshold}:"
@@ -2078,10 +1999,9 @@ def _mix_music_into_video(
             "-i", str(music_path),
             "-i", str(music_floor_path),
             "-filter_complex", filter_complex,
-            "-map", "[v_pad]",
+            "-map", "0:v",
             "-map", "[mixed]",
-            *_venc(),
-            "-pix_fmt", "yuv420p",
+            "-c:v", "copy",
             "-c:a", "aac",
             "-b:a", AAC_BITRATE,
             "-shortest",
@@ -2098,19 +2018,18 @@ def _mix_music_into_video(
     return output_path
 
 
-def _grafo_musica(audio_wav: Path, music_path: Path, mixing: dict, music_floor_path: Path | None,
-                  intro_sec: float = INITIAL_SILENCE_SEC) -> tuple[str, list[str]]:
+def _grafo_musica(audio_wav: Path, music_path: Path, mixing: dict,
+                  music_floor_path: Path | None) -> tuple[str, list[str]]:
     """F2b §4 (F32 §A.4: también la mezcla de previsualización): (grafo, entradas) de la mezcla de la narración con la
-    música — padding inicial + sidechain + piso; la salida es [mixed]."""
+    música — sidechain + piso; la salida es [mixed]."""
     music_volume = float(mixing.get("music_volume", 0.25))
     music_volume_floor = float(mixing.get("music_volume_floor", 0.0))
     duck_threshold = float(mixing.get("duck_threshold", 0.03))
     duck_ratio = float(mixing.get("duck_ratio", 8))
     duck_attack_ms = float(mixing.get("duck_attack_ms", 80))
     duck_release_ms = float(mixing.get("duck_release_ms", 200))
-    pad_ms = int(intro_sec * 1000)                     # la intro (INITIAL_SILENCE_SEC)
     if music_floor_path is None:
-        graph = (f"[0:a]adelay={pad_ms}|{pad_ms},aresample=44100,asplit=2[narr_main][narr_sc];"
+        graph = (f"[0:a]aresample=44100,asplit=2[narr_main][narr_sc];"
                  f"[1:a]aresample=44100,asplit=2[music_a][music_b];"
                  f"[music_a]volume={music_volume}[music_lvl];"
                  f"[music_lvl][narr_sc]sidechaincompress=threshold={duck_threshold}:ratio={duck_ratio}:"
@@ -2118,7 +2037,7 @@ def _grafo_musica(audio_wav: Path, music_path: Path, mixing: dict, music_floor_p
                  f"[music_b]volume={music_volume_floor}[music_floor];"
                  f"[narr_main][music_ducked][music_floor]amix=inputs=3:duration=longest:dropout_transition=0:normalize=0[mixed]")
         return graph, ["-i", str(audio_wav), "-i", str(music_path)]
-    graph = (f"[0:a]adelay={pad_ms}|{pad_ms},aresample=44100,asplit=2[narr_main][narr_sc];"
+    graph = (f"[0:a]aresample=44100,asplit=2[narr_main][narr_sc];"
              f"[1:a]aresample=44100[music_ducked_src];"
              f"[music_ducked_src][narr_sc]sidechaincompress=threshold={duck_threshold}:ratio={duck_ratio}:"
              f"attack={duck_attack_ms}:release={duck_release_ms}[music_ducked];"
@@ -2133,14 +2052,11 @@ def _mix_music_audio_only(
     sync_map: dict,
     output_path: Path,
     music_floor_path: Path | None = None,
-    intro_sec: float = INITIAL_SILENCE_SEC,
 ) -> Path:
-    """F2b §4: la misma mezcla que _mix_music_into_video (padding inicial + sidechain + piso), pero SIN
-    re-encodear el video: la música se mezcla como AUDIO solo y el video se remuxea con `-c:v copy`.
+    """F2b §4: la misma mezcla que _mix_music_into_video (sidechain + piso), pero SIN re-encodear el video: la música
+    se mezcla como AUDIO solo y el video se remuxea con `-c:v copy`.
 
     Insumos de concat_windowed en work_dir: `_concat_video.ts` (video) y `_concat_audio.wav` (narración+sfx).
-    El padding inicial (INITIAL_SILENCE_SEC, primer frame clonado = el tpad de antes) es un clip corto
-    codificado con los mismos parámetros que los segmentos y pegado adelante por copia.
     """
     assert FFMPEG is not None
     video_ts, audio_wav = work_dir / "_concat_video.ts", work_dir / "_concat_audio.wav"
@@ -2151,39 +2067,26 @@ def _mix_music_audio_only(
     duck_ratio = float(mixing.get("duck_ratio", 8))
     duck_attack_ms = float(mixing.get("duck_attack_ms", 80))
     duck_release_ms = float(mixing.get("duck_release_ms", 200))
-    pad_sec = intro_sec                                # F36 §B.9
-    fps = pipeline.fps
     print(f"     mixing params: vol={music_volume}, floor={music_volume_floor}, thr={duck_threshold}, "
-          f"ratio={duck_ratio}, atk={duck_attack_ms}ms, rel={duck_release_ms}ms, init_silence={pad_sec}s "
-          f"(F2b: audio solo + remux)")
+          f"ratio={duck_ratio}, atk={duck_attack_ms}ms, rel={duck_release_ms}ms (F2b: audio solo + remux)")
 
-    # 1. padding inicial: primer frame clonado pad_sec (mismo encoder que los segmentos → concat por copia válido)
-    pad_ts = work_dir / "_pad.ts"
-    n_pad = int(round(pad_sec * fps))
-    r = _run_cmd([FFMPEG, "-v", "error", "-y", "-i", str(video_ts), "-vf",
-                  f"trim=end_frame=1,setpts=PTS-STARTPTS,tpad=stop_mode=clone:stop={n_pad - 1}",
-                  "-frames:v", str(n_pad), *_venc(), "-pix_fmt", "yuv420p", "-r", str(fps), "-an",
-                  "-f", "mpegts", str(pad_ts)], timeout=300)
-    if r.returncode != 0:
-        raise RuntimeError(f"padding inicial falló: {r.stderr[-300:]}")
-
-    # 2. audio: el mismo grafo de antes sin la rama de video
-    graph, inputs = _grafo_musica(audio_wav, music_path, mixing, music_floor_path, intro_sec)
+    # 1. audio: el mismo grafo de la mezcla clásica sin la rama de video
+    graph, inputs = _grafo_musica(audio_wav, music_path, mixing, music_floor_path)
     mixed = work_dir / "_mixed_audio.m4a"
     r = _run_cmd([FFMPEG, "-v", "error", "-y", *inputs, "-filter_complex", graph, "-map", "[mixed]",
                   "-c:a", "aac", "-b:a", AAC_BITRATE, str(mixed)], timeout=900)
     if r.returncode != 0:
         raise RuntimeError(f"mezcla de audio falló: {r.stderr[-300:]}")
 
-    # 3. remux: [padding + video] por copia + audio mezclado; -shortest como antes (corta al video)
+    # 2. remux: video por copia + audio mezclado; -shortest como antes (corta al video)
     lst = work_dir / "_mux_list.txt"
-    lst.write_text(f"file '{pad_ts.resolve().as_posix()}'\nfile '{video_ts.resolve().as_posix()}'\n", encoding="utf-8")
+    lst.write_text(f"file '{video_ts.resolve().as_posix()}'\n", encoding="utf-8")
     r = _run_cmd([FFMPEG, "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", str(lst), "-i", str(mixed),
                   "-map", "0:v:0", "-map", "1:a:0", "-c", "copy", "-shortest", "-movflags", "+faststart",
                   str(output_path)], timeout=900)
     if r.returncode != 0:
         raise RuntimeError(f"remux final falló: {r.stderr[-300:]}")
-    for f in (pad_ts, mixed, lst):
+    for f in (mixed, lst):
         f.unlink(missing_ok=True)
     return output_path
 
@@ -2888,7 +2791,7 @@ def _segmento_de_cap(plan: Any, work_dir: Path, pre_pad: float) -> dict[str, flo
     clip = float(esc["clip_dur"])
     fps = pipeline.fps
     seg = math.ceil(round(max(plan.audio_duration + pre_pad, clip) * fps, 3) - 1e-3) / fps
-    return {"clip_dur": clip, "seg_dur": round(seg, 3), "pre_pad": pre_pad, "pre_roll": float(esc.get("pre_roll") or 0.0)}
+    return {"clip_dur": clip, "seg_dur": round(seg, 3), "pre_pad": pre_pad}
 
 
 def _medir_cierre(seg_path: Path, esperado_s: float, negro_s: float, fps: int) -> dict[str, Any]:
@@ -2945,7 +2848,7 @@ def _costura_medida(plan: Any, seg_path: Path, work_dir: Path, *, hook: str | No
     negro). El negro esperado es el `black_hold.duration` del plan resuelto (el `black_hold_sec` del perfil); sin
     negro en el plan no hay negro que medir (F72d: sin pregunta de cierre)."""
     cap = plan.chapter_id
-    pre_pad = (HOOK_DURATION if (plan.is_first and hook) else 0.0) + _pre_roll_de(plan, True)
+    pre_pad = HOOK_DURATION if (plan.is_first and hook) else 0.0
     fps = pipeline.fps
     esperado, fuente = None, ""
     g = work_dir.parent / "GUION_PANTALLA.json"
@@ -2985,11 +2888,10 @@ def _costura_medida(plan: Any, seg_path: Path, work_dir: Path, *, hook: str | No
 def _mezcla_preview(plans: list[Any], work_dir: Path, video_id: str, segs: dict[str, dict[str, float]],
                     sync_map: dict) -> dict[str, Any]:
     """F32 §A.4: voz + sfx por cap (el mismo grafo del segmento), unidos sin solapar (como el corte a negro con --gfx),
-    y la música con el mismo camino del render (pausas, intensidad, pre-roll, sidechain y piso) → mezcla_preview.wav.
-    Solo audio: segundos de ffmpeg. La intro es la del render (INITIAL_SILENCE_SEC)."""
+    y la música con el mismo camino del render (pausas, intensidad, sidechain y piso) → mezcla_preview.wav.
+    Solo audio: segundos de ffmpeg. El mp4 arranca con el cap 1 (F79: sin intro)."""
     assert FFMPEG is not None
     t0 = time.time()
-    intro = INITIAL_SILENCE_SEC
     partes: list[Path] = []
     for p in plans:
         sg = segs[p.chapter_id]
@@ -3032,28 +2934,22 @@ def _mezcla_preview(plans: list[Any], work_dir: Path, video_id: str, segs: dict[
     music_map = _load_music_map(video_id)
     musica: list[dict[str, Any]] = []
     if music_map is None:
-        r = _run_cmd([FFMPEG, "-v", "error", "-y", "-i", str(narr), "-af",
-                      f"adelay={int(intro * 1000)}|{int(intro * 1000)}", "-c:a", "pcm_s16le",
-                      str(mix)], timeout=300)
+        r = _run_cmd([FFMPEG, "-v", "error", "-y", "-i", str(narr), "-c:a", "pcm_s16le", str(mix)], timeout=300)
     else:
         ducked, floor = _resolve_music_volumes(plans, mixing, music_map)
         pauses = _gfx_pauses(plans, work_dir)
         intensidad = _mapa_intensidad(video_id, plans, pauses)
-        prerolls = {p.chapter_id: segs[p.chapter_id]["pre_roll"] for p in plans}
         seg_dur = {p.chapter_id: segs[p.chapter_id]["seg_dur"] for p in plans}       # F34 §A.7.2
         md = _build_continuous_music_track(plans=plans, music_map=music_map, work_dir=work_dir,
                                            crossfade_sec=MUSIC_CROSSFADE_SEC, piece_volumes=ducked,
                                            output_filename="_preview_music_ducked.wav", extra_sec=pauses,
-                                           intensidad=intensidad, pre_sec=prerolls, segmentos=seg_dur,
-                                           intro_sec=intro, conservar_piezas=True)
-        musica = _medir_inicio_musica(plans, md, work_dir, seg_dur, intro, MUSIC_CROSSFADE_SEC,
-                                      pipeline.fps)
+                                           intensidad=intensidad, segmentos=seg_dur, conservar_piezas=True)
+        musica = _medir_inicio_musica(plans, md, work_dir, seg_dur, MUSIC_CROSSFADE_SEC, pipeline.fps)
         mf = _build_continuous_music_track(plans=plans, music_map=music_map, work_dir=work_dir,
                                            crossfade_sec=MUSIC_CROSSFADE_SEC, piece_volumes=floor,
                                            output_filename="_preview_music_floor.wav", extra_sec=pauses,
-                                           intensidad=intensidad, pre_sec=prerolls, segmentos=seg_dur,
-                                           intro_sec=intro)
-        graph, inputs = _grafo_musica(narr, md, mixing, mf, intro)
+                                           intensidad=intensidad, segmentos=seg_dur)
+        graph, inputs = _grafo_musica(narr, md, mixing, mf)
         r = _run_cmd([FFMPEG, "-v", "error", "-y", *inputs, "-filter_complex", graph, "-map", "[mixed]",
                       "-c:a", "pcm_s16le", str(mix)], timeout=900)
         md.unlink(missing_ok=True)
@@ -3062,27 +2958,27 @@ def _mezcla_preview(plans: list[Any], work_dir: Path, video_id: str, segs: dict[
         raise RuntimeError(f"mezcla de previsualización: {r.stderr[-300:]}")
     import math
     thr = float(mixing.get("duck_threshold", 0.03))
-    return {"mezcla": str(mix), "narracion": str(narr), "intro": intro,
+    return {"mezcla": str(mix), "narracion": str(narr),
             "umbral_db": round(20 * math.log10(thr), 2), "umbral_de": f"duck_threshold {thr} del sync map",
             "segundos": round(time.time() - t0, 1), "duracion_s": round(_get_duration(mix), 3), "musica": musica}
 
 
-def _medir_inicio_musica(plans: list[Any], pista: Path, work_dir: Path, seg_dur: dict[str, float], intro: float,
+def _medir_inicio_musica(plans: list[Any], pista: Path, work_dir: Path, seg_dur: dict[str, float],
                          crossfade: float, fps: int) -> list[dict[str, Any]]:
     """F34 §A.7.2: dónde arranca de verdad la música de cada cap en la pista continua, medido (no calculado): el tramo
     más fuerte (VENTANA_S) de los primeros 20 s de la pieza del cap después de su crossfade de entrada
     (`_music_piece_<cap>.wav`) se busca en la pista por correlación cruzada normalizada, ±BUSCA_S alrededor de donde
-    debería estar; el inicio medido de la pieza se compara con el title card del cap (= intro + segmentos anteriores)
-    y vale si está a ±1 cuadro. Borra las piezas al terminar."""
+    debería estar; el inicio medido de la pieza se compara con el inicio del cap en el mp4 (= suma de los segmentos
+    anteriores; F79: sin intro) y vale si está a ±1 cuadro. Borra las piezas al terminar."""
     import numpy as np
     from script_engine.gfx_guion import _pcm
     sr = 11025                                        # derivado: 44.1 kHz / 4; resolución 0.09 ms, la medida pide ±1 cuadro
-    out, t_tc = [], intro
+    out, t_cap = [], 0.0
     VENTANA_S, BUSCA_S = 4.0, 20.0                    # derivado: ventana de la medida y margen (> 14.8 s medidos en F32)
     for i, p in enumerate(plans):
         cap = p.chapter_id
         pieza = work_dir / f"_music_piece_{cap}.wav"
-        fila: dict[str, Any] = {"cap": cap, "title_card_s": round(t_tc, 3)}
+        fila: dict[str, Any] = {"cap": cap, "inicio_cap_s": round(t_cap, 3)}
         try:
             entra = crossfade if i > 0 else 0.0
             pz = _pcm(pieza, 0.0, min(_get_duration(pieza), entra + BUSCA_S), sr)
@@ -3093,7 +2989,7 @@ def _medir_inicio_musica(plans: list[Any], pista: Path, work_dir: Path, seg_dur:
                 cands = range(int(entra * sr), len(pz) - n_w, sr // 2)       # derivado: probar cada medio segundo
                 a = max(cands, key=lambda k: float(np.sqrt(np.mean(pz[k:k + n_w] ** 2))))
                 w = pz[a:a + n_w]
-                ini = max(0.0, t_tc + a / sr - BUSCA_S)
+                ini = max(0.0, t_cap + a / sr - BUSCA_S)
                 tr = _pcm(pista, ini, 2 * BUSCA_S + VENTANA_S, sr)
                 n = len(tr) + len(w)
                 c = np.fft.irfft(np.fft.rfft(tr, n) * np.conj(np.fft.rfft(w, n)), n)[:len(tr) - len(w) + 1]
@@ -3101,13 +2997,13 @@ def _medir_inicio_musica(plans: list[Any], pista: Path, work_dir: Path, seg_dur:
                 norma = np.sqrt(np.maximum(cs[len(w):] - cs[:-len(w)], 0.0)) + 1e-9
                 lag = int(np.argmax(c / norma))
                 medido = ini + lag / sr - a / sr
-                d = medido - t_tc
+                d = medido - t_cap
                 fila.update({"medido_s": round(medido, 3), "desvio_s": round(d, 3),
                              "desvio_cuadros": round(d * fps, 2), "ok": abs(d) <= 1.0 / fps})
         except Exception as e:  # noqa: BLE001 — la medida no frena el guion
             fila.update({"medido_s": None, "ok": None, "motivo": f"{type(e).__name__}: {str(e)[:120]}"})
         out.append(fila)
-        t_tc += seg_dur[cap]
+        t_cap += seg_dur[cap]
         pieza.unlink(missing_ok=True)
     return out
 
@@ -3161,9 +3057,6 @@ def _solo_plan(plans: list[Any], video_id: str, work_dir: Path, *, hook: str | N
         if base is None:
             raise RuntimeError(f"{plan.chapter_id}: falta el visual base (el guion no cuece DepthFlow: correr el render "
                                f"una vez o fase2b sin --plan-only)")
-        pre_roll = _pre_roll_de(plan, True)
-        if pre_roll > 0:
-            base = _visual_con_pre_roll(base, pre_roll, work_dir / f"{plan.chapter_id}_visual_preroll.mp4", fps)
         _reencode(base, work_dir / f"gfx_{plan.chapter_id}" / "public" / "base.mp4", fps)
         return plan.chapter_id, base
 
@@ -3176,13 +3069,12 @@ def _solo_plan(plans: list[Any], video_id: str, work_dir: Path, *, hook: str | N
     segs: dict[str, dict[str, float]] = {}
     t = time.time()
     for plan in plans:
-        pre_roll = _pre_roll_de(plan, True)
-        pre_pad = (HOOK_DURATION if (plan.is_first and hook) else 0.0) + pre_roll
+        pre_pad = HOOK_DURATION if (plan.is_first and hook) else 0.0
         tc = time.time()
         apply_gfx(bases[plan.chapter_id], plan, video_id, work_dir, width=pipeline.video_width,
                   height=pipeline.video_height, fps=fps, time_offset=pre_pad,
                   safe_scenes=_safe_scenes_for(plan, _visual_base_existente(plan, work_dir), safe_by_cap.get(plan.chapter_id, {})),
-                  pre_roll=pre_roll, plan_only=True, reencoded=True)
+                  plan_only=True, reencoded=True)
         segs[plan.chapter_id] = _segmento_de_cap(plan, work_dir, pre_pad)
         print(f"     ✓ {plan.chapter_id} plan {time.time() - tc:.0f}s · segmento {segs[plan.chapter_id]['seg_dur']:.2f}s")
     tiempos["plan_en_fila"] = round(time.time() - t, 1)
@@ -3196,7 +3088,7 @@ def _solo_plan(plans: list[Any], video_id: str, work_dir: Path, *, hook: str | N
     from script_engine import evidence as _ev
     from gfx_config import gfx_rules as _gr
     sm = {c["id"]: c for c in sync_map.get("chapters", [])}
-    caps_in, off, voz_video = [], mezcla["intro"], []          # la intro (INITIAL_SILENCE_SEC)
+    caps_in, off, voz_video = [], 0.0, []                      # F79: el mp4 arranca con el cap 1
     for plan in plans:
         cap = plan.chapter_id
         res = json.loads((work_dir / f"gfx_plan_{cap}.resolved.json").read_text(encoding="utf-8"))
@@ -3217,7 +3109,7 @@ def _solo_plan(plans: list[Any], video_id: str, work_dir: Path, *, hook: str | N
         caps_in.append({"cap": cap, "n": n, "titulo": (res["plan"].get("title_card") or {}).get("title"),
                         "plan": res["plan"], "rejected": res.get("rejected") or [], "escenas": esc["escenas"],
                         "beats": beats, "sents": sentences(words, sg["pre_pad"]), "raw": raw, "offset": round(off, 3),
-                        "seg_dur": sg["seg_dur"], "pre_pad": sg["pre_pad"], "pre_roll": sg["pre_roll"],
+                        "seg_dur": sg["seg_dur"], "pre_pad": sg["pre_pad"],
                         "primera_palabra": float(raw[0]["start"]) if raw else 0.0,
                         "tts_text": (sm.get(cap) or {}).get("tts_text") or "", "is_first": plan.is_first,
                         "audio": str(plan.audio_path), "pool_items": _ev.items(ctx["pool"]) if ctx.get("pool") else {},
@@ -3231,7 +3123,7 @@ def _solo_plan(plans: list[Any], video_id: str, work_dir: Path, *, hook: str | N
             por[k] = por.get(k, 0.0) + float(e.total_cost)
         costos.update({f"{k}_usd": round(v, 4) for k, v in por.items()})
     g = gg.armar(caps_in, title_dur=float(_gr.title_dur), dip_frames=int(_gr.dip_frames), fps=fps,
-                 intro=mezcla["intro"], mezcla=mezcla, voz_video=voz_video, topic=video_id,
+                 mezcla=mezcla, voz_video=voz_video, topic=video_id,
                  extra={"costos": costos, "tiempos_s": {**tiempos, "total": round(time.time() - t_inicio, 1)}})
     g["papel_md5"] = papel_md5                                     # F67c: de qué papel aprobado sale este guion
     md, js = gg.escribir(g, OUTPUT_DIR / video_id)
@@ -3587,14 +3479,11 @@ def _assemble_one_video(
         if pauses:
             print(f"     pausas de cierre (gfx): {pauses}")
         intensidad = _mapa_intensidad(video_id, plans, pauses)            # F28 §B.2
-        from gfx_config import gfx_rules as _gr_pr                         # F30b §B.3: pre-roll del title card
-        prerolls = ({p.chapter_id: _pre_roll_de(p, True) for p in plans}
-                    if gfx and _gr_pr.title_pre_roll else None)
         seg_dur = None                                                     # F34 §A.7.2: música alineada (solo --gfx)
         if gfx:
             try:
-                seg_dur = {p.chapter_id: _segmento_de_cap(p, work_dir, (HOOK_DURATION if (p.is_first and hook) else 0.0)
-                                                          + _pre_roll_de(p, True))["seg_dur"] for p in plans}
+                seg_dur = {p.chapter_id: _segmento_de_cap(p, work_dir, HOOK_DURATION if (p.is_first and hook) else 0.0)
+                           ["seg_dur"] for p in plans}
             except (OSError, ValueError, KeyError) as e:
                 print(f"     ⚠ música alineada: sin escenas del gfx ({type(e).__name__}) → como antes")
                 seg_dur = None
@@ -3610,9 +3499,7 @@ def _assemble_one_video(
             output_filename="_music_continuous_ducked.wav",
             extra_sec=pauses,
             intensidad=intensidad,
-            pre_sec=prerolls,
             segmentos=seg_dur,
-            intro_sec=INITIAL_SILENCE_SEC if seg_dur else 0.0,
         )
         music_floor_path = _build_continuous_music_track(
             plans=plans,
@@ -3623,9 +3510,7 @@ def _assemble_one_video(
             output_filename="_music_continuous_floor.wav",
             extra_sec=pauses,
             intensidad=intensidad,
-            pre_sec=prerolls,
             segmentos=seg_dur,
-            intro_sec=INITIAL_SILENCE_SEC if seg_dur else 0.0,
         )
 
         # Mezclar con sidechain (paso B). Output: filename canónico final_path.
@@ -3636,8 +3521,7 @@ def _assemble_one_video(
         if windowed:   # F2b §4: audio solo + remux con -c:v copy (el video no se re-encodea)
             try:
                 _mix_music_audio_only(work_dir=work_dir, music_path=music_ducked_path, sync_map=sync_map,
-                                      output_path=final_path, music_floor_path=music_floor_path,
-                                      intro_sec=INITIAL_SILENCE_SEC)
+                                      output_path=final_path, music_floor_path=music_floor_path)
             except Exception as e:  # noqa: BLE001 — cae a la mezcla clásica (re-encode)
                 print(f"     ⚠ mezcla audio-solo falló ({type(e).__name__}: {str(e)[:200]}) → mezcla clásica")
                 windowed = False
@@ -3648,7 +3532,6 @@ def _assemble_one_video(
                 sync_map=sync_map,
                 output_path=final_path,
                 music_floor_path=music_floor_path,
-                intro_sec=INITIAL_SILENCE_SEC,
             )
         print(f"     ⏱ música: {time.time() - t_mix:.0f}s ({'audio solo + remux' if windowed else 're-encode'})")
 

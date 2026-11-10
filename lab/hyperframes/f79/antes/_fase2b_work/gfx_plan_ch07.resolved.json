@@ -1,0 +1,265 @@
+{
+ "plan": {
+  "chapter_number": 7,
+  "title_card": {
+   "kicker": "CAPÍTULO 7",
+   "title": "La herida ancestral"
+  },
+  "callouts": [
+   {
+    "text": "1.500 millones de dólares australianos",
+    "kicker": "LO QUE RECLAMAN",
+    "ficha": true,
+    "start": 34.88,
+    "kind": "fact",
+    "duration": 3.533,
+    "side": "left",
+    "fact_idx": null,
+    "pool_id": "D95",
+    "rotulista": true,
+    "beat": 13,
+    "sentence_idx": 5,
+    "word_idx": 13,
+    "aporta": "Pone cifra a la demanda Banjima, que la voz no da.",
+    "tipo_rotulista": "hecho",
+    "a_pantalla": false,
+    "por_que": "",
+    "t1": 38.413,
+    "lectura_s": 3.53,
+    "movido": null,
+    "movido_corte": "39.92 → 34.88 s (1 · inicio de la oración): 1 · palabra ancla (39.92 s): sin tiempo de lectura: 53 caracteres piden 3.5 s y hay 1.8 s hasta el corte de escena (41.7 s)",
+    "forzado": null,
+    "papel": true,
+    "estilo": "normal",
+    "ancla_palabra": "palabra del papel",
+    "sin_alinear": null,
+    "intentos": [
+     {
+      "t0": 34.88,
+      "t1": 38.413,
+      "si": 5,
+      "como": "1 · inicio de la oración"
+     },
+     {
+      "t0": 41.76,
+      "t1": 45.293,
+      "si": 6,
+      "como": "3 · oración siguiente [6]"
+     }
+    ],
+    "intentos_fallidos": [
+     "1 · palabra ancla (39.92 s): sin tiempo de lectura: 53 caracteres piden 3.5 s y hay 1.8 s hasta el corte de escena (41.7 s)"
+    ],
+    "critico": {
+     "pregunta": "¿estorba?",
+     "estorba": false,
+     "motivo_3": "El bloque está en una zona del encuadre sin elementos importantes."
+    }
+   }
+  ],
+  "archive_clippings": [],
+  "quote_card": null,
+  "punch_in": [],
+  "emphasis": [
+   {
+    "category": null,
+    "layer": null,
+    "icon_anim": "stamp",
+    "side": "right",
+    "stamp": true,
+    "weight": 0,
+    "word": "MEMORIA",
+    "start": 75.34,
+    "duration": 2.5,
+    "por_tema": true,
+    "clima": true,
+    "papel": true,
+    "tema": null,
+    "palabra_voz": null,
+    "sentence_idx": 11,
+    "intento": "1 · inicio de la oración"
+   }
+  ],
+  "gap_warnings": [],
+  "rotulista": {
+   "modelo": "papel m01e-7 (claude-opus-5-5)",
+   "faltan_a_pantalla": [],
+   "motivo_faltan": {},
+   "filas": [
+    {
+     "pool_id": "D95",
+     "tipo": "hecho",
+     "etiqueta": "LO QUE RECLAMAN",
+     "texto": "1.500 millones de dólares australianos",
+     "sentence_idx": 5,
+     "word_idx": 13,
+     "palabra": "Tribunal",
+     "t0": 34.88,
+     "t1": 38.413,
+     "aporta": "Pone cifra a la demanda Banjima, que la voz no da.",
+     "beat": 13,
+     "a_pantalla": false,
+     "movido": null,
+     "accion": "colocado"
+    }
+   ],
+   "error": null,
+   "corte": [],
+   "escena": []
+  },
+  "fragmentos": [
+   {
+    "pool_id": "D95",
+    "tipo": "hecho",
+    "etiqueta": "LO QUE RECLAMAN",
+    "texto": "1.500 millones de dólares australianos",
+    "sentence_idx": 5,
+    "word_idx": 13,
+    "palabra": "Tribunal",
+    "t0": 34.88,
+    "t1": 38.413,
+    "aporta": "Pone cifra a la demanda Banjima, que la voz no da.",
+    "beat": 13,
+    "a_pantalla": false,
+    "movido": null,
+    "accion": "colocado"
+   }
+  ],
+  "pico": {
+   "t": 34.88,
+   "block": null,
+   "word": null,
+   "sentence": "En 2026, el pueblo Banjima llevó al Estado de Australia Occidental ante el Tribunal Federal.",
+   "sentence_idx": 5,
+   "beat": 13,
+   "fuente": "escaleta (beat más intenso del cap)"
+  },
+  "time_ticker": null,
+  "papel": {
+   "relojes": [],
+   "sin_alinear": [],
+   "sin_colocar": [],
+   "error": null,
+   "reloj_voz": null
+  },
+  "identity": {
+   "movimientos": [],
+   "violaciones": []
+  },
+  "black_hold": {
+   "start": 92.367,
+   "duration": 1.0
+  },
+  "critico_rotulista": [
+   {
+    "t": 34.88,
+    "t_frame": 35.88,
+    "dur": 3.533,
+    "bloque": "ficha",
+    "texto": "1.500 millones de dólares australianos",
+    "veredicto": "no estorba",
+    "motivo": "El bloque está en una zona del encuadre sin elementos importantes.",
+    "pasa": true,
+    "voz": "Maitland Parker murió de mesotelioma en 2024. En 2026, el pueblo Banjima llevó al Estado de Australia Occidental ante el Tribunal Federal. Sus abogados sostienen que el Estado no ha gastado un dólar en remediar el sitio y que no se ha retirado una sola palada de asbesto de la tierra Banjima.",
+    "mira": "foto sola",
+    "pregunta": "¿estorba?",
+    "pool_id": "D95",
+    "a_pantalla": false
+   }
+  ],
+  "sellos_tema": [],
+  "realizador": {
+   "filas": []
+  },
+  "critico": [
+   {
+    "t": 75.34,
+    "t_frame": 76.34,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "MEMORIA",
+    "veredicto": "no estorba",
+    "motivo": "El bloque no tapa ningún rostro ni texto en la imagen.",
+    "pasa": true,
+    "voz": "Daniel Écija vivió diez meses en Wittenoom. María todavía guarda la foto: un hombre joven, el pie vendado, una herida que no cerraba. Lo que respiró allí, en diez meses, tardó casi treinta años en matarlo.",
+    "mira": "foto sola",
+    "pregunta": "¿estorba?"
+   }
+  ],
+  "transitions": {
+   "1": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "2": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "5": {
+    "kind": "zoom_punch",
+    "frames": 12,
+    "why": "pico",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "7": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "8": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "9": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "10": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "11": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "corte",
+    "rank": "R3"
+   },
+   "12": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "cierre",
+    "rank": "R3"
+   }
+  }
+ },
+ "rejected": []
+}

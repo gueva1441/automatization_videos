@@ -74,8 +74,8 @@ def test_misma_linea_de_tiempo_y_psnr(segs):
 
 
 def test_musica_audio_solo_mismo_largo_que_la_clasica(segs, monkeypatch):
-    """La mezcla audio-solo + remux da el mismo largo que la clásica (tpad + re-encode) ± 1 frame, con el video
-    por copia (padding + concat) y sin errores de decodificación."""
+    """La mezcla audio-solo + remux da el mismo largo que la clásica ± 1 frame, con el video por copia y sin errores
+    de decodificación. F79: sin intro, las dos dan el largo del video sin música."""
     import fase2b
     d, s = segs
     prof = ["SUBMARINE"] * 3
@@ -90,7 +90,7 @@ def test_musica_audio_solo_mismo_largo_que_la_clasica(segs, monkeypatch):
     old = fase2b._mix_music_into_video(video_path=nm, music_path=music, sync_map=sync, output_path=d / "mix_old.mp4",
                                        music_floor_path=music)
     assert abs(_frames(new) - _frames(old)) <= 1
-    assert _frames(new) == _frames(nm) + round(fase2b.INITIAL_SILENCE_SEC * FPS)
+    assert _frames(new) == _frames(nm) and _frames(old) == _frames(nm)
     dec = subprocess.run([FF, "-v", "error", "-i", str(new), "-f", "null", "-"], capture_output=True, text=True, timeout=120)
     assert dec.stderr.strip() == ""
 
