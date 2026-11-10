@@ -20,9 +20,10 @@ CAP = ("El agua subió. Los presos gritaban sin parar en la oscuridad del pabell
 #  §3.3 — etiquetas
 # ═══════════════════════════════════════════════════════════════
 
-def test_pausas_largas_despues_de_cita_y_al_cerrar():
+def test_pausa_larga_solo_al_cerrar_el_cap():
+    """F79: la oración con cita se graba como cualquier otra (sin `[long pause]` atrás); la pausa de cierre queda."""
     t, c = tt.tag_cap(CAP, intent="rising_tension", intensities=[3, 3, 3])
-    assert "renunciar», dijo. [long pause] Nadie" in t and t.rstrip().endswith("[long pause]")
+    assert "renunciar», dijo. Nadie" in t and t.rstrip().endswith("[long pause]") and c["[long pause]"] == 1
     assert "subía… [short pause] sin poder" in t
     assert tt.strip_tags(t) == tt.strip_tags(CAP) and c["[whispers]"] == 0 and c["[quietly]"] == 0
 

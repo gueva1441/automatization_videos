@@ -1757,7 +1757,7 @@
    ],
    "tests": 24,
    "nacio": "e33f84a 2026-05-28",
-   "ultimo": "9e5c4c9 2026-11-10 (F79)",
+   "ultimo": "c8b4bd5 2026-11-10 (F79)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "run_pipeline.py:365 (fondos), 374 (--plan-only), 402 (--aprobar-guion), 412 (--reuse-visuals --keep-segments --gfx --gfx-sparse) lo lanzan por subprocess; mixer_server.py:363 y qa_studio_server.py:638 también lo lanzan",
@@ -3826,7 +3826,7 @@
    ],
    "tests": 5,
    "nacio": "39e301f 2026-10-18",
-   "ultimo": "9e5c4c9 2026-11-10 (F79)",
+   "ultimo": "c8b4bd5 2026-11-10 (F79)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "fase2b.py:1217 llama apply_gfx en _build_chapter_segment (render con --gfx --gfx-sparse, run_pipeline.py:246) y fase2b.py:3147 lo llama con plan_only=True en _solo_plan (fase2b --plan-only, run_pipeline.py:374)",
@@ -6303,7 +6303,7 @@
    "sin_llamador_a": [
     "strip_tags"
    ],
-   "md5": "966b40c5ce32a83b702739540cd511db",
+   "md5": "98a6f9b0b50d1bd82921aa2a3f258ec4",
    "sticker_al_dia": true
   },
   "script_engine/video_length.py": {

@@ -137,3 +137,42 @@ El prompt del crítico (`gfx_critic.build_prompt_rot`) lleva descripción, voz, 
 | `duracion_s` | 777,766 | igual a A1 | 777,766 ✓ |
 | Bloques que se mueven a los 3 s liberados de ch01 | — | se listan | ninguno (los 12 eventos de ch01 conservan su `t`) |
 | Chequeos | 5 ✗ | — | los mismos 12 con el mismo resultado que A1 |
+
+## Etapa B — sin `[long pause]` tras cita
+
+**Código:**
+- En `script_engine/tts_tags.py` se borraron las 2 líneas de `tag_cap` que agregaban `[long pause]` tras la oración con «» o “”.
+- El docstring quedó así: «`[long pause]` al cerrar el cap».
+- Sin cambios: la fusión de pausas dobles (la línea que sigue al cierre), las demás etiquetas y la condición `"«" not in s` del golpe. Esa condición no es una pausa.
+
+**Test:** `test_module_f9.py::test_pausas_largas_despues_de_cita_y_al_cerrar` se **actualizó** a `test_pausa_larga_solo_al_cerrar_el_cap`.
+- Ahora afirma que `«…renunciar», dijo. Nadie` va sin pausa en medio, que el cap termina en `[long pause]` y que hay 1 sola.
+- Los otros tests de etiquetas (`test_module_f9`, `f10`, `f23`, `tests/test_m01f_compuerta.py`) no dependen de la pausa tras cita: 118 verdes.
+
+**Recalculo** (`lab/hyperframes/f79/b/recalcular.py`):
+- Usa la función de producción, `m01c_editor.narration_tts` → `tts_tags.caps_tts`.
+- Los insumos son los mismos de `m01d_particion.build_contract`: `01a_escaleta.json`, los párrafos de `01b_narracion_v3.json`, `m01b_guionista.caps_text` y `slowly_dev=False`.
+- No escribe en `data/`.
+- El «antes» se corrió con el código de A2, antes de borrar las 2 líneas, y dio 21 y 22, como esperaba el handoff.
+- Resultados en `b/antes_<topic>.json` y `b/despues_<topic>.json`. La tabla del «después» está en `b/tabla_despues.md`.
+
+| Topic | etiqueta | antes (por cap) | después (por cap) |
+|---|---|---|---|
+| Wittenoom `123bbb64…` | `[long pause]` | 21 (1, 3, 7, 2, 2, 4, 2) | **7 (1, 1, 1, 1, 1, 1, 1)** ✓ |
+| | `[short pause]` | 1 (0, 0, 0, 0, 1, 0, 0) | 1 (0, 0, 0, 0, 1, 0, 0) |
+| | `[quietly]` | 1 (1, 0, 0, 0, 0, 0, 0) | 1 (1, 0, 0, 0, 0, 0, 0) |
+| | `[whispers]` | 1 (0, 0, 0, 0, 1, 0, 0) | 1 (0, 0, 0, 0, 1, 0, 0) |
+| | `[slowly]` | 2 (1, 0, 0, 0, 1, 0, 0) | 2 (1, 0, 0, 0, 1, 0, 0) |
+| | oraciones con cita | 14 (0, 2, 6, 1, 1, 3, 1) | 14 |
+| Colza `c4934b7d…` | `[long pause]` | 22 (2, 1, 3, 2, 5, 5, 4) | **7 (1, 1, 1, 1, 1, 1, 1)** ✓ |
+| | `[short pause]` | 1 (0, 0, 0, 0, 1, 0, 0) | 1 (0, 0, 0, 0, 1, 0, 0) |
+| | `[quietly]` | 3 (0, 0, 0, 0, 1, 2, 0) | 3 (0, 0, 0, 0, 1, 2, 0) |
+| | `[whispers]` | 0 | 0 |
+| | `[slowly]` | 2 (1, 0, 0, 0, 1, 0, 0) | 2 (1, 0, 0, 0, 1, 0, 0) |
+| | oraciones con cita | 15 (1, 0, 2, 1, 4, 4, 3) | 15 |
+
+- Se comprobó cap por cap que, sin los `[long pause]`, el texto «antes» y el «después» son idénticos: solo se van las pausas tras cita.
+- md5 de los `01b_narration.json` guardados, igual antes y después:
+  - Wittenoom `56ea7e1a10b8bf22cb8dddfe6d22e74a`.
+  - Colza `4bd146be239424bd85b3c5f1e86148fe`.
+- Alcance: el cambio vale para los topics que se partan desde F79. Wittenoom y Colza conservan su `narration_tts` guardado y no hay migración.

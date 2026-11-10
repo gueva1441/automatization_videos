@@ -4,7 +4,7 @@ script_engine/tts_tags.py — F9 §3.3: etiquetas de ElevenLabs v4 desde el guio
 `narration` queda limpia (subtítulos, candado literal, m03, m05 y forced alignment la siguen leyendo); las etiquetas
 van a un campo nuevo `narration_tts` por cap, que solo lee audio_manager para el TTS.
 
-    [long pause]    después de cada cita (la oración con «…») y al cerrar el cap
+    [long pause]    al cerrar el cap (F79: ya no después de cada cita)
     [short pause]   antes del pico y después de cada «…» (puntos suspensivos)
     [quietly] / [whispers]   solo en la FRASE DE GOLPE (la última de un párrafo, ≤ 6 palabras, en un beat de intensidad
                     ≥ 4 o en el pico), máx. 2 por cap, nunca en caps `setup`; [whispers] solo en el golpe del pico
@@ -70,8 +70,6 @@ def tag_cap(text: str, *, intent: str | None, intensities: list[int] | None = No
             if k == len(ss) - 1 and k > 0 and hot and golpes_left and _words(s) <= GOLPE_MAX_WORDS and "«" not in s:
                 t = f"{WHISPER if i == pico_par else QUIET} {t}"
                 golpes_left -= 1
-            if "«" in s or "“" in s:
-                t = f"{t} {LONG}"
             new.append(t)
         body = " ".join(new)
         out_pars.append((" ".join(pre) + " " + body).strip() if pre else body)
