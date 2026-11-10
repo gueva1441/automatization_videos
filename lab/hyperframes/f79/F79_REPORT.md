@@ -111,3 +111,29 @@ El prompt del crítico (`gfx_critic.build_prompt_rot`) lleva descripción, voz, 
 4. **Música de ch03 y ch07:** siguen en ✗, que es el falso positivo conocido de F72b/F73 (la medida sobre una pieza que tiene adelante el silencio de una cita). Pero el desvío cambió y no es el corrimiento de tiempo: ch03 pasa de +6,900 a +8,903 s y ch07 de +15,809 a +13,003 s. Lectura no verificada: sin pre-roll, la voz arranca en el segundo 0 de la pista y no en el 3. Entonces la envolvente de intensidad (los silencios, en el tiempo de la voz) cae sobre otro tramo de la pista, y la ventana «más fuerte» de 4 s que busca la medida es otra. Clase **otra**. Se lista; no se corrige en esta tanda.
 
 `GUION_PANTALLA.md/.json` de Wittenoom quedaron sin aprobar, como en la Etapa 0.
+
+## Etapa A2 — el primer cap sin title card
+
+**Código:**
+- `script_engine/gfx_layer.py`: `plan_base(ctx, *, primero)`. El parámetro es obligatorio, sin valor por defecto. Con `primero` verdadero, el cap sale con `title_card: None`. `apply_gfx` le pasa `plan.is_first` (`ChapterPlan.is_first`, que ya existía). Caso límite: en un video de un solo cap, ese cap es el primero, así que no lleva title card.
+- `fase2b.py`: el `titulo` del cap en el guion sale de `ctx["skeleton"]["title"]`, no del title card del plan.
+- `sfx_title_card` no se tocó: sin title card no hay golpe.
+- En A1 ya quedó que `tramos` y el chequeo de música no nombran un title card que no existe.
+
+**Tests (A2):** nuevo `test_module_f79.py`, sumado a `suite_lista.txt`:
+- `test_a2_el_primer_cap_no_lleva_title_card`: `plan_base` con `primero` da `None`; sin `primero`, da el title card con kicker y título.
+- `test_a2_cap_sin_title_card_en_el_guion`: un cap sin title card no tiene el evento. Su costura no lo nombra y no lleva `title_card_s`. El encabezado `## ch01 — La herida que no cerraba (` no queda vacío.
+
+**Plan-only A2** (`lab/hyperframes/f79/a2/`, 209 s, exit 0, costos `{}`, 0 llamadas al crítico). La comparación completa está en `a2/comparacion_a1_a2.md`.
+
+| Qué | A1 | Esperado | A2 |
+|---|---|---|---|
+| ch01, evento `title card` | 0,0 s, 3,0 s | no está | no está ✓ (13 → 12 eventos; los otros 12, con el mismo `t` y `queda`) |
+| ch01, golpe del title card | 0,05 s | no está | `gfx_sfx_ch01.json` = `[]` ✓ |
+| ch01, `titulo` / encabezado | «La herida que no cerraba» | igual, ahora del skeleton | «La herida que no cerraba»; encabezado `## ch01 — La herida que no cerraba (00:00.0–01:06.8)` ✓ |
+| ch01, costura / `tramos` | «… con el title card encima 3.0 s desde 0.0 s» · `title_card_s` 3,0 | sin nombrar el title card | «el mp4 arranca con este cap → voz a 0.16 s del cap» · `{negro_s 0, sube_desde_negro_s 0, voz_s 0.16}` ✓ |
+| ch01, chequeo de música | «title card» (en A1 ya «inicio del cap») | no nombra el title card | «✓ ch01: inicio del cap 0.000 s · música medida 0.000 s» ✓ |
+| ch02–ch07 | — | idénticos a A1 | mismos eventos y mismos `t`; los 6 `gfx_plan_ch0{2..7}.resolved.json` iguales byte a byte a A1 ✓ |
+| `duracion_s` | 777,766 | igual a A1 | 777,766 ✓ |
+| Bloques que se mueven a los 3 s liberados de ch01 | — | se listan | ninguno (los 12 eventos de ch01 conservan su `t`) |
+| Chequeos | 5 ✗ | — | los mismos 12 con el mismo resultado que A1 |

@@ -451,15 +451,18 @@ def remapped_words(chplan: Any) -> tuple[list[dict], list[dict]]:
 #  Entry point
 # ═══════════════════════════════════════════════════════════════
 
-def plan_base(ctx: dict[str, Any]) -> dict[str, Any]:
+def plan_base(ctx: dict[str, Any], *, primero: bool) -> dict[str, Any]:
     """F37 §B.4: el plan de un cap antes del papel: el title card con el título de la partición (01a_skeleton; el
     candado literal lo mira contra `skeleton.title`) y los campos vacíos que llenan el papel, el reloj, la pregunta y el
-    crítico. Sin modelo (antes lo armaba el borrador de Gemini del director, que se borró)."""
+    crítico. Sin modelo (antes lo armaba el borrador de Gemini del director, que se borró). F79 A2: el primer cap del
+    video (`primero`, `ChapterPlan.is_first`) no lleva title card: lo primero que se ve es el gancho; un video de un
+    solo cap no lleva ninguno."""
     from gfx_config import max_per_cap
     n = int(ctx["chapter_number"])
     titulo = (ctx.get("skeleton") or {}).get("title")
+    con_tc = bool(titulo) and not primero and max_per_cap("title_card") > 0
     return {"chapter_number": n,
-            "title_card": {"kicker": f"CAPÍTULO {n}", "title": titulo} if titulo and max_per_cap("title_card") > 0 else None,
+            "title_card": {"kicker": f"CAPÍTULO {n}", "title": titulo} if con_tc else None,
             "callouts": [], "archive_clippings": [], "quote_card": None, "punch_in": [], "emphasis": [],
             "gap_warnings": []}
 
@@ -659,7 +662,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             log.append("  plan: override fijo (sin LLM)")
         else:
             from script_engine.gfx_literal_lock import lock
-            resolved = plan_base(ctx)                            # F37 §B.4: sin el borrador del director
+            resolved = plan_base(ctx, primero=bool(plan.is_first))   # F37 §B.4 · F79 A2: el primer cap sin title card
             if rot_on:                                               # F36 §C.4: el texto viene del guion en papel
                 from script_engine.gfx_pool import used_ids_before as _used
                 ent_rot["peso"] = pc.pesos(words, time_offset, ctx.get("moods") or _moods_activos())   # F37 §B.1

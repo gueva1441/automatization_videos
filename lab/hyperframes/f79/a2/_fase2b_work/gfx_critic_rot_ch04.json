@@ -1,0 +1,30 @@
+{
+ "id:6e7dc239dd8b73111464": {
+  "estorba": false,
+  "motivo_3": "El bloque no tapa rostros ni elementos clave de la imagen."
+ },
+ "id:1696430673f1aa4417bb": {
+  "estorba": false,
+  "motivo_3": "El bloque se ubica en la esquina superior izquierda, sin tapar rostros ni elementos clave de la imagen."
+ },
+ "id:186347dff98ed66f6cde": {
+  "estorba": true,
+  "motivo_3": "El sello tapa parte del rostro de la madre y al bebé."
+ },
+ "id:6694070840517579a773": {
+  "estorba": true,
+  "motivo_3": "El bloque tapa el rostro del hombre o la ventana, elementos clave de la composición."
+ },
+ "id:0e36bd92b1322ccff03d": {
+  "estorba": false,
+  "motivo_3": "El bloque está en la esquina superior izquierda y no tapa ningún rostro ni elemento crucial de la imagen."
+ },
+ "id:d01ae5e7471c2b901460": {
+  "estorba": false,
+  "motivo_3": "No tapa rostros ni texto relevante en la imagen."
+ },
+ "id:fe7e1e9331772f116af7": {
+  "estorba": false,
+  "motivo_3": "No tapa ningún rostro ni texto visible en la imagen."
+ }
+}

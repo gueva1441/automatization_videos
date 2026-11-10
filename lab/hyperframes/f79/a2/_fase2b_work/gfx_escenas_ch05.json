@@ -1,0 +1,136 @@
+{
+ "cap": "ch05",
+ "clip_dur": 128.833,
+ "time_offset": 0.0,
+ "pausa": 1.0,
+ "escenas": [
+  {
+   "idx": 0,
+   "start": 0.0,
+   "end": 3.9,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 1,
+   "start": 3.9,
+   "end": 12.067,
+   "rank": "R2",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 2,
+   "start": 12.067,
+   "end": 18.9,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 3,
+   "start": 18.9,
+   "end": 22.167,
+   "rank": "R3",
+   "quiet_side": "left",
+   "safe": true
+  },
+  {
+   "idx": 4,
+   "start": 22.167,
+   "end": 26.967,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 5,
+   "start": 26.967,
+   "end": 36.533,
+   "rank": "R3",
+   "quiet_side": "left",
+   "safe": true
+  },
+  {
+   "idx": 6,
+   "start": 36.533,
+   "end": 48.5,
+   "rank": "R2",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 7,
+   "start": 48.5,
+   "end": 56.433,
+   "rank": "R3",
+   "quiet_side": "left",
+   "safe": true
+  },
+  {
+   "idx": 8,
+   "start": 56.433,
+   "end": 65.4,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 9,
+   "start": 65.4,
+   "end": 74.2,
+   "rank": "R2",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 10,
+   "start": 74.2,
+   "end": 83.667,
+   "rank": "R3",
+   "quiet_side": "left",
+   "safe": true
+  },
+  {
+   "idx": 11,
+   "start": 83.667,
+   "end": 90.033,
+   "rank": "R3",
+   "quiet_side": "left",
+   "safe": true
+  },
+  {
+   "idx": 12,
+   "start": 90.033,
+   "end": 95.5,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 13,
+   "start": 95.5,
+   "end": 108.3,
+   "rank": "R1",
+   "quiet_side": "left",
+   "safe": true
+  },
+  {
+   "idx": 14,
+   "start": 108.3,
+   "end": 120.567,
+   "rank": "R3",
+   "quiet_side": "right",
+   "safe": true
+  },
+  {
+   "idx": 15,
+   "start": 120.567,
+   "end": 128.833,
+   "rank": "R1",
+   "quiet_side": "right",
+   "safe": true
+  }
+ ]
+}

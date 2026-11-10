@@ -39,7 +39,7 @@
     "por_que": "único llamador es fase2b.py:3393 dentro de `if paralelo`, y paralelo exige GFX_PARALELO > 1, constante en 1 (fase2b.py:2647, marcada DESCARTADO); inalcanzable con el código tal cual, solo test_module_f28c.py la ejerce forzando la constante a 2"
    }
   ],
-  "md5": "4f5dc546fe85f1e2577a1d59679aa73f",
+  "md5": "2bfe93049c34c5819bb0da807bff03a9",
   "_parte": "fase2b_gfx_a"
  },
  "gfx_config.py": {
@@ -332,7 +332,7 @@
   "estado": "vivo",
   "estado_prueba": "fase2b.py:1217 llama apply_gfx en _build_chapter_segment (render con --gfx --gfx-sparse, run_pipeline.py:246) y fase2b.py:3147 lo llama con plan_only=True en _solo_plan (fase2b --plan-only, run_pipeline.py:374)",
   "funciones_muertas": [],
-  "md5": "0e76c267922d20c157e14720db7e61a1",
+  "md5": "a4950d6212726647563c2d202043148a",
   "_parte": "fase2b_gfx_b"
  },
  "script_engine/gfx_literal_lock.py": {

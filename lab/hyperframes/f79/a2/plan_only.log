@@ -1,0 +1,72 @@
+[15:10:04] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: 123bbb64-9fca-4395-8bf4-57d60e219ef1
+[15:13:33] INFO     | viral_pipeline | [cost_tracker] Video 123bbb64-9fca-4395-8bf4-57d60e219ef1 — Costo total: $0.0000
+
+  🎬 Modo: SINGLE · 1 video(s) a procesar
+
+════════════════════════════════════════════════════════════
+  🎬 FASE 2B — 123bbb64-9fca-4395-8bf4-57d60e219ef1
+════════════════════════════════════════════════════════════
+  🪝 hook:     (ninguno)
+  📝 subs:     ON (documental)
+  🎨 gfx:      ON (HyperFrames, looks)
+  📊 capítulos: 7
+  ⏱  duración total estimada: 770.0s (12.8 min)
+
+  Plan por capítulo:
+    [ch01] engine=veo  | audio= 65.7s | 1 clip     | subs+ts
+    [ch02] engine=flux | audio= 98.7s | 15 img(s)  | subs+ts
+    [ch03] engine=flux | audio=168.6s | 16 img(s)  | subs+ts
+    [ch04] engine=flux | audio= 95.6s | 14 img(s)  | subs+ts
+    [ch05] engine=flux | audio=127.8s | 16 img(s)  | subs+ts
+    [ch06] engine=flux | audio=124.4s | 16 img(s)  | subs+ts
+    [ch07] engine=veo  | audio= 89.3s | 1 clip     | subs+ts
+
+  ♻  reuse-visuals: salteando flow_director (clips ya horneados)
+  🛡  safe-router: riesgo low=77 mid=0 high=0 → movimiento seguro en 0 imagen(es)
+  🎞  base -g30 de 7 caps en paralelo: 128s
+     ✓ ch01 plan 8s · segmento 66.80s
+     ✓ ch02 plan 13s · segmento 99.83s
+     ✓ ch03 plan 8s · segmento 169.70s
+     ✓ ch04 plan 8s · segmento 96.70s
+     ✓ ch05 plan 9s · segmento 128.83s
+     ✓ ch06 plan 9s · segmento 125.50s
+     ✓ ch07 plan 9s · segmento 90.40s
+     [ch01] reused → hook_f28_b.mp3 (loop a 65.7s)
+     [ch02] reused → setup_f28_b.mp3 (loop a 98.7s)
+     [ch03] reused → rising_tension_f28_a.mp3 (loop a 168.6s)
+     [ch04] reused → rising_tension_f28_a.mp3 (loop a 95.6s)
+     [ch05] reused → shock_f28_a.mp3 (loop a 127.8s)
+     [ch06] reused → consequences_f28_b.mp3 (loop a 124.4s)
+     [ch07] reused → outro_f28_b.mp3 (loop a 89.3s)
+     [ch01] reused → hook_f28_b.mp3 (loop a 65.7s)
+     [ch02] reused → setup_f28_b.mp3 (loop a 98.7s)
+     [ch03] reused → rising_tension_f28_a.mp3 (loop a 168.6s)
+     [ch04] reused → rising_tension_f28_a.mp3 (loop a 95.6s)
+     [ch05] reused → shock_f28_a.mp3 (loop a 127.8s)
+     [ch06] reused → consequences_f28_b.mp3 (loop a 124.4s)
+     [ch07] reused → outro_f28_b.mp3 (loop a 89.3s)
+  🔊 mezcla de previsualización: C:\CLAUDE_PROJECTS\automatization_videos\output\123bbb64-9fca-4395-8bf4-57d60e219ef1\_fase2b_work\mezcla_preview.wav (777.8s, 15s)
+
+  📝 guion de pantalla: C:\CLAUDE_PROJECTS\automatization_videos\output\123bbb64-9fca-4395-8bf4-57d60e219ef1\GUION_PANTALLA.md
+                       C:\CLAUDE_PROJECTS\automatization_videos\output\123bbb64-9fca-4395-8bf4-57d60e219ef1\GUION_PANTALLA.json
+     ✓ dos bloques al mismo tiempo
+     ✓ bloque que cruza un corte
+     ✗ texto sin lectura
+     ✓ cifra que contradice la voz
+     ✗ a_pantalla
+     ✓ costuras con cuadro no negro
+     ✓ inicio de voz por cap
+     ✓ gancho no vacío
+     ✗ inicio de música por cap
+     ✗ papel sin colocar
+     ✓ papel sin alinear
+     ✓ relojes del papel (informativo)
+  ⏱  --plan-only 209s · costos {}
+
+════════════════════════════════════════════════════════════
+  ✅ FASE 2B BATCH TERMINADA
+════════════════════════════════════════════════════════════
+  Procesados OK: 1/1
+════════════════════════════════════════════════════════════
+
+exit 0

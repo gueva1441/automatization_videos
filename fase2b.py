@@ -3106,7 +3106,7 @@ def _solo_plan(plans: list[Any], video_id: str, work_dir: Path, *, hook: str | N
             esc_full = json.loads(fe.read_text(encoding="utf-8")) if fe.exists() else {}
         n = int(ctx["chapter_number"])
         sg = segs[cap]
-        caps_in.append({"cap": cap, "n": n, "titulo": (res["plan"].get("title_card") or {}).get("title"),
+        caps_in.append({"cap": cap, "n": n, "titulo": (ctx.get("skeleton") or {}).get("title"),   # F79 A2: haya o no title card
                         "plan": res["plan"], "rejected": res.get("rejected") or [], "escenas": esc["escenas"],
                         "beats": beats, "sents": sentences(words, sg["pre_pad"]), "raw": raw, "offset": round(off, 3),
                         "seg_dur": sg["seg_dur"], "pre_pad": sg["pre_pad"],
