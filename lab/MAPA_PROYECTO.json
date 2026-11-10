@@ -6288,7 +6288,7 @@
    ],
    "tests": 3,
    "nacio": "3db3088 2026-10-22 (F9)",
-   "ultimo": "03370af 2026-10-24 (F23)",
+   "ultimo": "5f904ad 2026-11-10 (F79)",
    "estado_a": "vivo",
    "estado": "vivo",
    "estado_prueba": "script_engine/m01c_editor.py:128 llama caps_tts (desde m01d_particion.py:217 en guion) y audio_manager.py:619 llama transfer_tags (en voz)",
