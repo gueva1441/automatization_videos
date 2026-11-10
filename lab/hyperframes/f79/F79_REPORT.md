@@ -176,3 +176,89 @@ El prompt del crítico (`gfx_critic.build_prompt_rot`) lleva descripción, voz, 
   - Wittenoom `56ea7e1a10b8bf22cb8dddfe6d22e74a`.
   - Colza `4bd146be239424bd85b3c5f1e86148fe`.
 - Alcance: el cambio vale para los topics que se partan desde F79. Wittenoom y Colza conservan su `narration_tts` guardado y no hay migración.
+
+## Cierre
+
+**Commits** (rama `f11-guion-v4`, base `210873b`):
+
+| Commit | Contenido |
+|---|---|
+| `9e5c4c9` | A1 |
+| `c8b4bd5` | A2 |
+| `5f904ad` | B |
+| `16ae29a` | Arreglo del sticker de `tts_tags.py`. La reescritura de B le había cambiado la sangría a todo `guion.json`; ahora el cambio neto es 1 línea, el md5. |
+
+El commit de cierre, con DECISIONES, este reporte y ESTADO, va después del veredicto.
+
+**DECISIONES.md**
+- La línea «2026-11-09 22:17 · F79» queda marcada como **aplicada F79**, con los tres commits.
+- Se anotó «**anulada por F79**» solo en la cláusula que nombra §4:
+  - l.35: «ch01 sin pre-roll».
+  - l.76: «3 s sin voz» del componente 1.
+  - l.91: «entre caps negro → title card → voz».
+  - l.94: «Title card con aire = `title_dur` sin voz», la línea entera, porque es toda la cláusula.
+- También están en el diff las dos líneas que el analista dejó escritas sin commitear: 2026-11-07 y 2026-11-09 22:13.
+
+**Mapa:** `python lab/tools/mapa_modulos.py --check` da 163 archivos de producción y 0 fallas.
+- Se reescribieron los stickers (solo el md5) de `fase2b.py`, `gfx_config.py`, `mixer_server.py`, `script_engine/gfx_layer.py`, `gfx_guion.py`, `pantalla_entrada.py`, `gfx_critic.py` y `tts_tags.py`.
+- `.claude/skills/guion-de-pantalla/SKILL.md` no tiene sticker: no es archivo de producción del mapa.
+
+**Suite completa** (`suite_lista.txt`, que ahora incluye `test_module_f79.py`): **1585 verdes + las 3 heredadas**.
+- Las heredadas son `f51c::test_f51c_corte_veo_real_de_wittenoom[1-start-paredes de chapa.]`, `m03_merge_timing::test_c_guarda_de_minimo` y `::test_c_veo_path_y_veo_anchor_intacto`.
+- La cuenta cierra: antes 1586; se borraron 4 tests que estaban en la lista (f30b ×2, f32 b1, f36 b9) y entraron 3 (f32 inicio de voz sin intro, f79 ×2).
+- `test_module_audio_mixer_floor.py` no está en la lista; se corrió aparte y pasa.
+- Salida en `lab/hyperframes/f79/suite_final.txt`.
+
+**Costo de la tanda:** US$ 0,0035, todo Gemini: las 22 llamadas del crítico en el plan-only de A1. Etapa 0 y A2 salieron de caché. Sin ElevenLabs y sin render.
+
+**Producción escrita:** solo lo que reescribe `--plan-only` en sus 3 corridas.
+- `output/123bbb64…/GUION_PANTALLA.md/.json`, que queda **sin aprobar**.
+- `output/123bbb64…/_fase2b_work/`.
+- `data/cost_history.json`.
+- En `data/scripts/` no se escribió nada: los md5 de los `01b_narration.json` no cambiaron.
+
+**Abiertos** (listados, no parchados):
+1. Música de ch03 y ch07: siguen ✗ y el desvío cambió (+6,900 → +8,903 y +15,809 → +13,003 s). Detalle en A1, punto 4.
+2. Los `chXX_visual_preroll.mp4` viejos de Wittenoom (ch02–ch07) siguen en `_fase2b_work/`. Nadie los genera ni los usa como base, pero el glob de `_segment_hash` los suma a la huella mientras existan.
+3. AVISO (ch03) y CALMA (ch04) cambiaron por un veredicto nuevo del crítico, no por una regla. CALMA ahora entra.
+4. Golpe del title card: ch02 y ch03 corridos +110 ms, ch04 descartado («Daniel»), ch05–ch07 pegados al ataque. Lo decide Omar al oírlo (§9).
+5. La voz de cada cap entra a 0,08–0,10 s, dentro de la subida desde negro (§9).
+
+## Veredicto del revisor-handoff (íntegro)
+
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+Contrato: HANDOFF_F79.md, md5 253d4a7b8e6ebb3ae16a2fb1d5dbde09 (coincide). Revisé los 4 commits (210873b..HEAD), el diff sin commitear de DECISIONES y las salidas en lab/hyperframes/f79/.
+
+| # | Requisito | Estado | Evidencia |
+|---|---|---|---|
+| 1 | Intro y pre-roll borrados sin restos | OK | `git grep` de INITIAL_SILENCE_SEC, title_pre_roll, _pre_roll_de, _visual_con_pre_roll, _correr_tramos, _con_intro, pre_sec, intro_sec, pre_roll, intro_s: en producción 0 resultados. Solo quedan `test_module_f38e_d.py:72` (un `assert "intro_s" not in ...`, legítimo), docs de lab/mapa y el historial de ESTADO_SESION. No hay `=0.0`, `=False` ni flags. `title_pre_roll` desaparece de gfx_config.py (-1 línea). `fase2b.py` borra las funciones y las dos mezclas pasan a `-c:v copy`. |
+| 2 | `inicio_de_voz` arreglado, sin números nuevos, con test | OK | gfx_guion.py: `m0 = max(0.0, base - buscar_s)`, `lag = m0 + ...`, `desde = max(0.0, ...)` y `busca` derivado. Ningún literal nuevo. Test `test_module_f32.py::test_inicio_de_voz_sin_intro_no_mide_antes_de_0`. Pasa. |
+| 3a | Tabla A1 contra los archivos | OK | `a1/GUION_PANTALLA.json`: duracion_s 777,766. Offsets 0 / 66,8 / 166,633 / 336,333 / 433,033 / 561,866 / 687,366. Inicio de voz 0,16 / 66,88 / 166,713 / 336,413 / 433,133 / 561,966 / 687,466, todos a_tiempo=True. seg_dur ch02-ch07 = 99,833 / 169,7 / 96,7 / 128,833 / 125,5 / 90,4. Reloj ch02 en 6,48 s, dura 3,15 s. Crítico: 2+3+3+4+8+2 = 22 llamadas, con los veredictos AVISO y CALMA cambiados. Golpes: ch01 0,05; ch02 y ch03 0,16 (+110 ms); ch04 vacío; ch05-ch07 0,05. Todo coincide con el reporte. |
+| 3b | Tabla A2 | OK | `a2/GUION_PANTALLA.json`: ch01 pasa de 13 a 12 eventos, `gfx_sfx_ch01` = [], título "La herida que no cerraba", duracion_s 777,766 igual a A1, reloj igual, mismos offsets. |
+| 3c | Tabla B | OK | `b/tabla_despues.md`: `[long pause]` 7 por topic (1 por cap), otras etiquetas iguales antes y después. Antes 21/22 según el reporte. md5 de los `01b_narration.json` iguales y sin escribir en `data/scripts/`. |
+| 4 | Tests borrados o actualizados, justificados | OK | 4 borrados (mixer_floor constante, f30b ×2, f32 b1, f36 b9) y 9 actualizados; todos afirmaban lo viejo, y el reporte da el motivo de cada uno. Nuevo: `test_module_f79.py`. Corrí 14 archivos de test relacionados: 121 passed, 1 skipped. No toqué los 3 prohibidos. |
+| 5 | Ningún prompt tocado | OK | Los archivos de producción tocados son fase2b, gfx_config, gfx_layer, gfx_guion, pantalla_entrada, gfx_critic, tts_tags y mixer_server. Solo cambian firmas, docstrings, comentarios y texto de salida de GUION_PANTALLA. `gfx_config.py` solo pierde el campo. No hay prompts de modelo en el diff. El inventario de la Etapa 0 confirma que intro y pre-roll no entran a ningún prompt. |
+| 6 | DECISIONES | OK | "anulada por F79" en l.35, l.76, l.91 y l.94, solo en las cláusulas de §4. La línea 22:17 marcada "aplicada F79" con los commits. El diff incluye las 2 líneas del analista (2026-11-07 y 22:13), como se avisó. |
+| 7 | `mapa_modulos.py --check` | OK | Lo corrí: "163 archivos de producción · 0 fallas", rc=0. |
+| 8 | Sin render ni ElevenLabs; escritura solo vía plan-only | NO VERIFICABLE por completo | Costo declarado US$ 0,0035, todo Gemini. Los md5 de narración no cambian. No puedo probar que no hubo llamadas externas más allá de lo declarado. |
+| 9 | Nada oculto en 0 o False; ningún número nuevo | OK | Sin literales numéricos nuevos en el diff de producción. |
+
+Fuera de alcance: no hay archivos de producción fuera del contrato. Hay 4 archivos modificados sin commitear que no aparecen en el reporte: `diag_234_cap4.py`, `lab/hyperframes/f28/a/f28a.log`, `lab/hyperframes/f58/pedido_paquetes_wittenoom.txt` y `lab/hyperframes/f78d/a/lista_aspecto.md`. No están en ningún commit de F79. Probablemente los escribió la suite completa (tests viejos escriben en disco real, según la memoria), pero no lo pude confirmar. Conviene revertirlos o aclararlos antes del commit de cierre.
+
+Observaciones:
+1. Los 4 archivos de arriba están sin explicar en el reporte.
+2. `lab/mapa/hechos.json` y las notas `lab/mapa/notas_auditoria_*.md` todavía nombran `_pre_roll_de`, `INITIAL_SILENCE_SEC` y `title_pre_roll`. Es documentación de lab y el `--check` da 0, pero queda desactualizada.
+3. Las 3 fallas "heredadas" de `suite_final.txt` (f51c y 2 de m03_merge_timing) no las reproduje, porque corrí solo los tests relacionados con F79. Su origen en a6ff9a9 es afirmación del reporte.
+4. La música de ch03 y ch07 sigue en ✗ con otro desvío (+8,903 y +13,003 s). El reporte lo lista como "otra" y no lo parcha, como pide el contrato. La causa que da es una hipótesis no verificada.
+5. En A1 las dos mezclas (clásica y audio-solo) cambiaron a `-c:v copy` y sin tpad/adelay. Es consecuencia lógica de borrar la intro y tiene tests, pero sin render no se ejercitó de punta a punta.
+
+Riesgos que el contrato no cubre: los `chXX_visual_preroll.mp4` viejos siguen entrando al glob de `_segment_hash` y pueden invalidar segmentos reusados. El guion aprobado de Wittenoom ya no existe y es el único. La voz entra a 0,08–0,10 s, dentro de la subida desde negro.
+
+## Adenda de CC
+
+- **Los 4 archivos sin commitear** (obs. 1): ya estaban modificados en el `git status` del arranque, antes de F79. Son tres de la lista «nunca commitear» del brief (`diag_234_cap4.py`, `lab/hyperframes/f28/a/f28a.log`, `lab/hyperframes/f58/pedido_paquetes_wittenoom.txt`) y `lab/hyperframes/f78d/a/lista_aspecto.md`, que viene de F78d. No los toqué ni los revierto: no son de esta tanda.
+- **Restos en `lab/mapa/hechos.json` y `notas_auditoria_*.md`** (obs. 2): es documentación de lab, de auditorías pasadas. No la reescribo porque es un registro histórico; se lista.
+- **Las 3 heredadas** (obs. 3): son las mismas 3 que el brief declara (fallan desde `a6ff9a9`). Son los mismos nombres de test y los mismos archivos; F79 no toca `m03` ni el `sync_map` de Wittenoom.
+- **`-c:v copy` en las mezclas** (obs. 5): está cubierto por `test_module_concat_windowed.py::test_musica_audio_solo_mismo_largo_que_la_clasica`. Ese test corre ffmpeg de verdad, con las dos mezclas sobre segmentos lavfi: mismo largo, decodifica sin errores. Pero no se ejercitó en un render real de 7 caps. El primer render después de F79 conviene mirarlo con `ver-render` (inicio de voz, costuras).
+- **Punto 8 del revisor:** en las tres corridas, `--plan-only` registró solo Gemini (US$ 0,0035 en A1, `{}` en Etapa 0 y A2). No se ejecutó ningún comando de render ni de voz.
